@@ -599,11 +599,7 @@ struct Rva002E2D10Record
 	char bytes[216];
 };
 
-class UnitRevivalTracker
-{
-public:
-	void addRevivableUnit(const Rva002E2D10Record &item, Player *player);
-};
+#include "../../../Include/Common/UnitRevivalTracker.h"
 
 namespace _STL {
 template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
