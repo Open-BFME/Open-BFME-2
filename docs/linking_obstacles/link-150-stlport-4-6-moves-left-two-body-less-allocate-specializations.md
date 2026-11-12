@@ -89,3 +89,13 @@ consumers and remains INCONCLUSIVE on the older baseline and missing current
 verification and census confirmation remain open; carry this provider and
 consumer scope into the next scheduled census.
 [Native proof, object changes and audit boundary](../../reverse/attempt_support/word-vector-stlport46-20261030-codex3/readme.md).
+
+2026-11-12, timeline consolidation preparation: the existing integer
+allocator provider and its seed stay unchanged. Rva005BEA22Dtor now uses
+the same existing C++ game-free declaration as AptTimeLineStats instead of
+redeclaring CRT free under a temporary macro. Both native donor rows verify
+under both compiler profiles; normal build and strict preparation pass,
+and both own link previews retain 4,179 bytes. This prepares the approved
+TU merge without adding a pin or alias. The unrelated STLport4.6 and full
+consumer/census scopes above remain unchanged.
+[Native EH boundary and preparation](../../reverse/attempt_support/apt-timeline-merge-20261112.md).

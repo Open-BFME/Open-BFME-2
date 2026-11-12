@@ -3,13 +3,11 @@
 // Non-virtual dtor: under EH state 0 the object at +0 is deleted through its
 // slot-0 deleting dtor with flag 0 and the global ??3@YAXPAX@Z (a
 // global-scope delete) and cleared; then the buffer member at +4 runs its
-// inline dtor, which frees its block with the CRT free. Names address-derived.
+// inline dtor, which frees its block through the game allocator. Names address-derived.
 
-// Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
-#define _CRTIMP
-#include <stdlib.h>
-#undef _CRTIMP
+// Retail calls the game-memory wrapper at 0x00030830. Use the same
+// existing throwing C++ declaration as the approved timeline TU.
+void Rva00030830FreeAllocation(void *);
 
 class Rva005BEA22Owned
 {
@@ -23,7 +21,7 @@ public:
 	~Rva005BEA22Buffer()
 	{
 		if (m_data)
-			free(m_data);
+			Rva00030830FreeAllocation(m_data);
 	}
 
 	void *m_data; // +0x00
