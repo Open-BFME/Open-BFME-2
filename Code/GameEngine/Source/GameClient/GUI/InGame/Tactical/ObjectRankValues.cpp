@@ -31,14 +31,7 @@ struct ExperienceLevelIterator
 	ExperienceLevelNode *m_node;
 };
 
-struct ExperienceLevelHandle
-{
-	ExperienceLevelHandle() {}
-	ExperienceLevelHandle(const ExperienceLevelHandle &that) : m_list(that.m_list), m_iter(that.m_iter) {}
-
-	ExperienceLevelList *m_list;
-	ExperienceLevelIterator m_iter;
-};
+#include "../../../../../Include/Common/ExperienceLevelHandle.h"
 
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
