@@ -19,15 +19,7 @@ class WeaponBonus;
 struct Coord3D;
 #include "../../Include/Common/BfmeRangedWeaponTemplate.h"
 
-class Rva002C9B80Owner
-{
-public:
-	float rva002C9B80(void *, float);
-	void rva002C9A6F(void *a, int b, void *arr);
-private:
-	void *m_00; // +0x00
-	BfmeRangedWeaponTemplate *m_m04; // +0x04
-};
+#include "../../Include/GameLogic/Module/Rva002C9B80Owner.h"
 
 // 0x002C9A6F is rowed as Weapon::computeBonus (86B, WeaponComputeBonus.cpp;
 // BFME1 donor); same (Object*, int, WeaponBonus&) shape on the same

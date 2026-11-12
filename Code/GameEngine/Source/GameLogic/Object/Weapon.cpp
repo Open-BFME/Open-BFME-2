@@ -241,15 +241,7 @@ private:
 // The sibling's ledger row is Rva002C9B80Owner::rva002C9B80.
 class BfmeRangedWeaponTemplate;
 
-class Rva002C9B80Owner
-{
-public:
-	float rva002C9B80(void *, float);
-	void rva002C9A6F(void *a, int b, void *arr);
-private:
-	void *m_00; // +0x00
-	BfmeRangedWeaponTemplate *m_m04; // +0x04
-};
+#include "../../../Include/GameLogic/Module/Rva002C9B80Owner.h"
 
 #include "../../../Include/GameLogic/Module/Rva002C9BC3Owner.h"
 
