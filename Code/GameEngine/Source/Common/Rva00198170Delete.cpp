@@ -5,7 +5,7 @@
 // BfmeConv1393.cpp). Calls clear then deletes this if flag&1 and returns
 // this; callees rowed (clear and ??3 0x0002FD60). Honest address name for
 // BfmeThingVJS method taking UINT returning void*; no donor dtor proven.
-#include <new>
+#include "../../../Libraries/Source/WWVegas/WWLib/always.h"
 
 class BfmeThingVJS
 {
