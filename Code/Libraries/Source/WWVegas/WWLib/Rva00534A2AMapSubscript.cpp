@@ -3,8 +3,9 @@
 // owning tree value. Pair5346BC copies first4 then calls tree534581; default
 // construction33C432 and both teardown554FA are independently rowed.
 // These template declarations are callable ABI views of existing providers.
-// No mapped application type or pointer-value identity is inferred from the
-// int/void* spelling on the shared empty-map constructor or insertion wrapper.
+// No mapped application type is inferred from the int/void* spelling on the
+// shared empty-map constructor. The insertion chain is the Rva00534743Record
+// map's (tools/retail_identity.py MAP_UINT_RECORD_INSERT).
 // A direct default-map temporary preserves constructor EAX for pair creation;
 // forwarding through a storage constructor needlessly recomputes its address.
 #include "../../../../GameEngine/Include/Common/Rva00053DC5.h"
@@ -48,7 +49,8 @@ struct Rva005344C0 {
  Rva005344C0(const int *,const IntTree &);
 }; // implicit dtor (add 4, tail-call storage dtor) is the single definition of
    // ??1Rva005344C0@@QAE@XZ @0x005344C0 (8B); RvaTreeValueEraseFamily.cpp only declares it
-typedef _STL::map<unsigned int,void*,_STL::less<unsigned int>,_STL::allocator<_STL::pair<const unsigned int,void*> > > InsertMap;
+struct Rva00534743Record;
+typedef _STL::map<unsigned int,Rva00534743Record,_STL::less<unsigned int>,_STL::allocator<_STL::pair<const unsigned int,Rva00534743Record> > > InsertMap;
 namespace _STL {template<> InsertMap::iterator InsertMap::insert(InsertMap::iterator,const InsertMap::value_type&);}
 typedef _STL::_Rb_tree<unsigned int,_STL::pair<const unsigned int,void*>,_STL::_Select1st<_STL::pair<const unsigned int,void*> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<const unsigned int,void*> > > BoundTree;
 namespace _STL {template<> BoundTree::_Link_type BoundTree::_M_lower_bound(const unsigned int&) const;}

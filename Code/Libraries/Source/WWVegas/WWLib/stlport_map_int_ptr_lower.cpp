@@ -6,6 +6,9 @@
 
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <map>
+// The outer pathfinder map's value: retail's _M_create_node 0x00534743 allocates 0x20-byte nodes, a 16-byte
+// pair<const unsigned int, Rva00534743Record> (tools/retail_identity.py MAP_UINT_RECORD_INSERT).
+struct Rva00534743Record { int word0; int word1; int word2; };
 
 // Inline unsigned comparison belongs to the caller; the retail owner supplies
 // the external less<unsigned> body without a competing local COMDAT.
@@ -17,6 +20,8 @@ bool less<unsigned int>::operator()(const unsigned int& a, const unsigned int& b
 
 // bfme link decl-only begin
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<unsigned int const, void *>, _Nonconst_traits<pair<unsigned int const, void *> > >, bool> _Rb_tree<unsigned int, pair<unsigned int const, void *>, _Select1st<pair<unsigned int const, void *> >, less<unsigned int>, allocator<pair<unsigned int const, void *> > >::insert_unique(pair<unsigned int const, void *> const &); }
+namespace _STL { template <> _Rb_tree_iterator<pair<unsigned int const, Rva00534743Record>, _Nonconst_traits<pair<unsigned int const, Rva00534743Record> > > _Rb_tree<unsigned int, pair<unsigned int const, Rva00534743Record>, _Select1st<pair<unsigned int const, Rva00534743Record> >, less<unsigned int>, allocator<pair<unsigned int const, Rva00534743Record> > >::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *, pair<unsigned int const, Rva00534743Record> const &, _Rb_tree_node_base *); }
+namespace _STL { template <> pair<_Rb_tree_iterator<pair<unsigned int const, Rva00534743Record>, _Nonconst_traits<pair<unsigned int const, Rva00534743Record> > >, bool> _Rb_tree<unsigned int, pair<unsigned int const, Rva00534743Record>, _Select1st<pair<unsigned int const, Rva00534743Record> >, less<unsigned int>, allocator<pair<unsigned int const, Rva00534743Record> > >::insert_unique(pair<unsigned int const, Rva00534743Record> const &); }
 // bfme link decl-only end
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
@@ -86,7 +91,10 @@ TreeIntPtrLower::_M_copy(TreeIntPtrLower::_Link_type node, TreeIntPtrLower::_Lin
 template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_lower_bound(const unsigned &) const;
 template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_upper_bound(const unsigned &) const;
 template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_find<unsigned>(const unsigned &) const;
-template TreeIntPtrLower::iterator TreeIntPtrLower::insert_unique(TreeIntPtrLower::iterator, const TreeIntPtrLower::value_type &);
+// The hint insert_unique (0x005348E7) is the outer pathfinder map's, over Rva00534743Record.
+typedef _STL::pair<const unsigned, Rva00534743Record> PairRecordLower;
+typedef _STL::_Rb_tree<unsigned, PairRecordLower, _STL::_Select1st<PairRecordLower>, _STL::less<unsigned>, _STL::allocator<PairRecordLower> > TreeRecordLower;
+template TreeRecordLower::iterator TreeRecordLower::insert_unique(TreeRecordLower::iterator, const TreeRecordLower::value_type &);
 template TreeIntPtrLower::_Rb_tree(const TreeIntPtrLower &);
 template bool MapIntPtrLower::value_compare::operator()(const MapIntPtrLower::value_type &, const MapIntPtrLower::value_type &) const;
 
