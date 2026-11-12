@@ -11,8 +11,8 @@
 class Rva0056AC26Owner;
 #include "../../Include/Common/Rva0056AC26.h"
 
-extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056AC26@@@")[];
-extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056ACDF_B1@@@")[];
+extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0007DF07@@@")[];
+extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056AC26Base2@@@")[];
 
 class Rva0056ACDF
 {
@@ -25,6 +25,6 @@ Rva0056ACDF::Rva0056ACDF(void *arg1, int arg2, int arg3)
 	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)arg1);
 	*(int *)((char *)this + 0x14) = arg2;
 	*(int *)((char *)this + 0x18) = arg3;
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0056AC26@@@"));
-	*(unsigned int *)((char *)this + 8) = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0056ACDF_B1@@@"));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0007DF07@@@"));
+	*(unsigned int *)((char *)this + 8) = ((unsigned int)__identifier("??_7Rva0056ACDF@@6BRva0056AC26Base2@@@"));
 }
