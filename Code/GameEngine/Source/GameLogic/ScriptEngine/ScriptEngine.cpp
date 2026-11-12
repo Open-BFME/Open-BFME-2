@@ -42,8 +42,6 @@ private:
 #include "../../../Include/GameLogic/ScriptClass.h"
 class Player;
 #include "../../../Include/Common/TeamBFME2.h"
-// TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types
-// (Zero Hour's ScriptConditionsInterface::evaluateCondition).
 #include "../../../Include/GameLogic/ScriptConditions.h"
 extern ScriptConditions *TheScriptConditions;
 #include "../../../Include/GameLogic/ScriptCounter.h"
@@ -182,13 +180,7 @@ public:
  unsigned char m_24;
  SequentialScript *m_28;
 };
-// The engine is the canonical class (ZH ScriptEngine.cpp:143 defines
-// TheScriptEngine); the fade block, flag-key list and sequential-script
-// vector these bodies use are typed there.
 #include "../../../Include/GameLogic/ScriptEngine.h"
-// 0x00203693, the engine's current mode mask (2 or 1), is rowed as
-// Rva00203693Host::rva00203693; evaluateCondition calls it through a view of
-// the engine.
 #include "../../../Include/GameLogic/Rva00203693Host.h"
 // The script latches' out-of-line members: LatchRestore<Team *> ctor 0x00203CA8,
 // dtor 0x00203CC7 and scalar deleting dtor 0x00203D04 (vtable 0x00BE39EC);
@@ -329,13 +321,9 @@ static __forceinline void _Construct(Rva0020572FElement *destination,
 #define _STLP_NO_EXCEPTIONS 1
 #pragma comment(linker, "/alternatename:??1Rva00207E26Vector@@QAE@XZ=??1?$vector@URvaPair00207E26@@V?$allocator@URvaPair00207E26@@@_STL@@@_STL@@QAE@XZ")
 #define _STLP_NO_EXCEPTIONS 1
-
 extern int st_DebugDLL;
-
 extern unsigned char g_00DFE15C;
-
 unsigned char g_00DFE15D;
-
 	// retail RVA 0x009FE15D (.data, 3 bytes), defined here: nothing else owns it
 
 class Rva00203B08
@@ -348,9 +336,7 @@ public:
 private:
 	bool m_flag; // +0x1A4D9
 };
-
 extern GameLogic *TheGameLogic;
-
 class Rva002039B6Host
 {
 public:
@@ -360,7 +346,6 @@ private:
 	char m_pad[0x1A15C]; // +0x00..0x1A15C
 	int m_cachedFrame; // +0x1A15C
 };
-
 class Rva002039C5Host
 {
 public:
@@ -370,13 +355,11 @@ private:
 	char m_pad[0x1A160]; // +0x00..0x1A160
 	int m_cachedFrame; // +0x1A160
 };
-
 class Rva00203B2BHost
 {
 public:
 	void rva00203B2B();
 };
-
 //
 // 0x00205709 (38B): STLport's __uninitialized_copy loop over 0x8-byte records.
 // Each element goes through the placement copy at 0x0020596A, which the ledger owns
@@ -386,30 +369,21 @@ public:
 // pushed by the caller and never read.
 
 namespace _STL { struct __false_type; }
-
 struct Rva00205709Record
 {
 	unsigned char m_bytes[0x8];
 };
-
 void Rva0020596AConstruct(void *dest, const void *source);
-
 #include "../../../Include/Common/XferException.h"
-
 typedef _STL::list<int> ListInt;
-
 // Declare the rowed push_back so this TU calls it instead of emitting a
 // competing generic insert/_M_create_node copy (same as Rva002AC6B1 precedent).
 namespace _STL {
 template<> void list<BfmeSpecialPowerTimer8, allocator<BfmeSpecialPowerTimer8> >::push_back(const BfmeSpecialPowerTimer8 &);
 }
-
 typedef _STL::list<BfmeSpecialPowerTimer8> ListTimer;
-
 class Rva00203D86A;
-
 void Rva00203D86Chain(Rva00203D86A *a, void *b);
-
 class Rva00203E2CA
 {
 public:
@@ -423,18 +397,14 @@ public:
 	virtual void s28(); virtual void s29();
 	virtual Xfer *s30(void *p);
 };
-
 class Rva00203E2CB
 {
 public:
 	char m_pad[4]; // +0x00..0x04
 	ObjectID m_id; // +0x04
 };
-
 void Rva00203E2CXfer(Rva00203E2CA *a, Rva00203E2CB *b);
-
 Xfer *Rva00206B02Xfer(Xfer *xfer, ListTimer *list);
-
 namespace _STL
 {
 
@@ -461,7 +431,6 @@ template void __make_heap<int *,
     Rva00204BB8>(int *, int *, Rva00204BB8);
 
 }
-
 namespace _STL
 {
 
@@ -469,27 +438,18 @@ template <class RandomAccessIter, class Compare>
 void __make_heap(RandomAccessIter first, RandomAccessIter last, Compare comp);
 
 }
-
 typedef void (__cdecl *MakeHeap3)(int *, int *, Rva00204BB8);
-
 typedef void (__cdecl *MakeHeap5)(int *, int *, Rva00204BB8, int, int);
-
 // The element is BfmeStringRecord00204A30: _M_clear's destroy call (0x00207F7B) goes to the
 // rowed _Destroy<BfmeStringRecord00204A30 *> at 0x00206CBA
 // (stlport_vector_stringrecord_00204a30_allocate_copy.cpp), declared only here.
 struct BfmeStringRecord00204A30 { char m_pad[20]; BfmeStringRecord00204A30(const BfmeStringRecord00204A30 &); ~BfmeStringRecord00204A30(); };
-
 namespace _STL { template <> void _Destroy<BfmeStringRecord00204A30 *>(BfmeStringRecord00204A30 *, BfmeStringRecord00204A30 *); }
-
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::vector<BfmeStringRecord00204A30, _STL::allocator<BfmeStringRecord00204A30> >::_M_clear(void);
-
 extern Xfer *Rva001ECA2DXfer(Xfer *xfer, void *storage);
-
 template void _STL::sort_heap<int *, Rva00204BB8>(int *, int *, Rva00204BB8);
-
 BFME_DISP_BYTE_GETTER(Rva00203ACEByteField, 0x1A4D4)
-
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
@@ -500,11 +460,8 @@ namespace _STL {
   second.x=that.second.x; second.y=that.second.y; second.z=that.second.z;
  }
 }
-
 typedef _STL::pair<AsciiString,Coord3D> Rva002080DARecord;
-
 typedef _STL::list<Rva002080DARecord> ListAscii;
-
 // Retail keeps this _M_create_node out of line (0x00206AE0, 34B); insert 0x00207162 calls it.
 namespace _STL {
 template <>
@@ -515,13 +472,9 @@ inline __declspec(noinline) _List_node<Rva002080DARecord> *ListAscii::_M_create_
     return node;
 }
 }
-
 class Rva00203DA2A;
-
 void Rva00203DA2Chain(Rva00203DA2A *a, void *b);
-
 class File;
-
 namespace FXParticleSystem
 {
 
@@ -533,7 +486,6 @@ public:
 };
 
 }
-
 // Complete native accessor family 0x00204B6F..0x00204BB8: four RET4 bodies.
 // Each own instruction stream proves the receiver+38 pointer and 14h record
 // stride. Field0 is read as a dword; Field8 is addressed; pointer10 is
@@ -545,32 +497,26 @@ public:
 // BF1 34f59164 Common/Bfme/Rva0033B310Containers.cpp is the semantic donor.
 // Each target address owns its type until caller evidence unifies owners.
 struct Rva00204B6FIndex { int unknown0; int index; };
-
 struct Rva00204B6FRecord {
     int field0, field4, field8, fieldC;
     int *pointer10;
 };
-
 class Rva00204B6FOwner {
 public: int *elementField8(Rva00204B6FIndex *reference);
 private: char unknown[0x38]; Rva00204B6FRecord *items;
 };
-
 class Rva00204B83Owner {
 public: int elementField0(int index);
 private: char unknown[0x38]; Rva00204B6FRecord *items;
 };
-
 class Rva00204B93Owner {
 public: int *elementPointer10Plus4(int index);
 private: char unknown[0x38]; Rva00204B6FRecord *items;
 };
-
 class Rva00204BA7Owner {
 public: int *elementField8(int index);
 private: char unknown[0x38]; Rva00204B6FRecord *items;
 };
-
 // BFME1 575ba2b04743f190f069805fbdc59936123c45da, WWLib
 // Deque20ByteElement.cpp supplied the STLport copy_backward forwarding lead.
 // Native 0x00204B6A..0x00204B6F is exactly a tail jump to the independently
@@ -582,11 +528,8 @@ private: char unknown[0x38]; Rva00204B6FRecord *items;
 namespace _STL {
     void * __cdecl __copy_trivial_backward(const void *, const void *, void *);
 }
-
 struct Coord3D;
-
 class ParticleSystemTemplate;
-
 class ParticleSystem
 {
 public:
@@ -595,11 +538,8 @@ public:
 	unsigned char m_pad0AC[0x1A2 - 0xAC];
 	bool m_1A2;		// +0x1A2
 };
-
 ParticleSystem *Make001FCBD7();
-
 #include "../../../Include/Common/RvaSmartPtr12.h"
-
 class BfmeParticleSystemHandle
 {
 public:
@@ -608,15 +548,10 @@ public:
 	~BfmeParticleSystemHandle() { if (ptr) ((RvaSmartPtr12 *)this)->rva0004CBC0(); }
 	void *ptr; int prev, next;
 };
-
 class BFMERetailAsciiString;
-
 class Rva000427195;
-
 #include "../../../Include/GameClient/Rva000411084.h"
-
 #include "../../../Include/GameLogic/Rva000427195.h"
-
 class ParticleSystemManager
 {
 public:
@@ -626,20 +561,14 @@ public:
 	unsigned char m_pad[0x88];
 	Rva000427195 m_templateMap;	// +0x88
 };
-
 extern ParticleSystemManager *TheParticleSystemManager;
-
 struct Rva001F3899Arg
 {
 	float x, y, z;
 };
-
 #include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
-
 #include "../../../Include/GameLogic/TerrainLogic.h"
-
 extern TerrainLogic *TheTerrainLogic;
-
 class Rva0020453CHolderBase
 {
 public:
@@ -651,12 +580,10 @@ protected:
 	int m_systemID;		// +0x04
 	bool m_flag;		// +0x08
 };
-
 struct Rva00204C78 : Rva0020453CHolderBase
 {
 	void rva00204C78(const char *name);
 };
-
 struct Rva00206667Node
 {
 	char m_pad[8];
@@ -664,9 +591,7 @@ struct Rva00206667Node
 	Rva00206667Node *m_child; // +0x0C
 	StringBase<char> m_value; // +0x10
 };
-
 struct Rva00206667Head;
-
 class Rva00206667
 {
 public:
@@ -677,7 +602,6 @@ private:
 	Rva00206667Head *m_head; // +0x00
 	int m_count; // +0x04
 };
-
 struct Rva00206667Head
 {
 	char m_pad[4];
@@ -685,11 +609,9 @@ struct Rva00206667Head
 	Rva00206667Head *m_link8; // +0x08
 	Rva00206667Head *m_linkC; // +0x0C
 };
-
 // Native 0x002076E2..0x002076E7 passes the unchanged receiver to the
 // recovered tree clear at 0x00206F6B. Original outer identity is unknown.
 class Rva002076E2TreeClearForward { public: void cleanup(); };
-
 struct Rva00206706Head
 {
 	char m_pad[4];
@@ -697,14 +619,10 @@ struct Rva00206706Head
 	Rva00206706Head *m_link8; // +0x08
 	Rva00206706Head *m_linkC; // +0x0C
 };
-
 // Native207799..20779E forwards unchanged ECX to clear206FE6; outer identity unknown.
 class Rva00207799TreeClearForward { public: void cleanup(); };
-
 struct FieldParse;
-
 #include "../../../Include/Common/INI/INI.h"
-
 struct Rva003B39C7
 {
     int m00;
@@ -720,9 +638,7 @@ struct Rva003B39C7
     Rva003B39C7();
     ~Rva003B39C7();
 };
-
 extern const FieldParse g_00BE3908[];
-
 struct Arg205A2B
 {
     char _pad0[4];
@@ -732,7 +648,6 @@ struct Arg205A2B
     char _pad10[0x7c - 0x10];
     AsciiString m_7c;
 };
-
 class Rva00205A2B
 {
 public:
@@ -740,25 +655,16 @@ public:
 private:
 	char m_pool[0x257 * 0x80 + 0xa0]; // +0x00
 };
-
 class ScriptEngine;
-
 extern class ScriptEngine *TheScriptEngine;
-
 // Suppress this TU's non-retail copy of ??$__partial_sort@PAHHVRva00204BB8@@@_STL@@YAXPAH000VRva00204BB8@@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Rva00204BB8;
-
 namespace _STL { template <> void __partial_sort<int *,int,Rva00204BB8>(int *,int *,int *,int *,Rva00204BB8); }
-
 namespace _STL { template <> void __introsort_loop<int *,int,int,Rva00204BB8>(int *,int *,int *,int,Rva00204BB8); }
-
 #include "../../../Include/Common/File.h"
-
 #include "../../../Include/Common/FileSystem.h"
-
 extern FileSystem *TheFileSystem;
-
 // Hash-table nodes are {next+0 name+4 template+8}.
 struct TemplateNode
 {
@@ -766,21 +672,15 @@ struct TemplateNode
 	void *m_name;
 	long m_template;
 };
-
 class BfmeParticleSystemHandle;
-
 namespace _STL {
 template<> void _Construct<BfmeStringRecord00204A30, BfmeStringRecord00204A30>(BfmeStringRecord00204A30 *, const BfmeStringRecord00204A30 &);
 }
-
 template _STL::vector<BfmeStringRecord00204A30, _STL::allocator<BfmeStringRecord00204A30> >::vector(const _STL::vector<BfmeStringRecord00204A30, _STL::allocator<BfmeStringRecord00204A30> > &);
-
 #include "../../../Include/GameLogic/Rva00203B47Host.h"
-
 // ?st_DebugDLL@@3HA (data_ledger RVA 0x9FE158, null .data, unowned): debug
 // DLL handle, LoadLibrary'd on demand; defined here, nothing else defines it.
 int st_DebugDLL = 0;
-
 struct Rva00203E47IteratorView
 {
     void *current;
@@ -791,9 +691,7 @@ struct Rva00203E47IteratorView
     // type and owner remain address-derived; no original template name claimed.
     Rva00203E47IteratorView(void *p, Rva00203E47Next f) : current(p), next(f) {}
 };
-
 typedef char Rva00203E47SizeCheck[(sizeof(Rva00203E47IteratorView)==16)?1:-1];
-
 class Rva00203E47OwnerView
 {
     char unknown[0x334];
@@ -801,7 +699,6 @@ class Rva00203E47OwnerView
 public:
     Rva00203E47IteratorView iterate() const;
 };
-
 namespace _STL
 {
 
@@ -853,24 +750,16 @@ inline __declspec(noinline) void __introsort_loop<int *, int, int, Rva00204BB8>(
 template void __introsort_loop<int *, int, int, Rva00204BB8>(int *, int *, int *, int, Rva00204BB8);
 
 }
-
 struct NoCaseTreeValue4 { unsigned int m_value; NoCaseTreeValue4() : m_value(0) {} };
-
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> PairNocase4;
-
 typedef _STL::list<PairNocase4, _STL::allocator<PairNocase4> > ListNocase4;
-
 // Bind the out-of-line insert to the existing rowed NoCase list provider.
 namespace _STL {
 template<> ListNocase4::iterator ListNocase4::insert(ListNocase4::iterator, const PairNocase4 &);
 }
-
 class Rva00203E11A;
-
 class Rva00203E11B;
-
 void Rva00203E11Xfer(Rva00203E11A *a, Rva00203E11B *b);
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203D4EChain@@YAXPAVRva00203D4EA@@PAX@Z at retail 0x00203D4E (28B).
@@ -893,7 +782,6 @@ public:
 	virtual void s24(); virtual void s25(); virtual void s26();
 	virtual void s27(void *p);
 };
-
 class Rva00203D4EA
 {
 public:
@@ -906,7 +794,6 @@ public:
 	virtual void s24(); virtual void s25(); virtual void s26();
 	virtual Rva00203D4EMid *s27(void *p);
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203D6AChain@@YAXPAVRva00203D6AA@@PAX@Z at retail 0x00203D6A (28B).
@@ -931,7 +818,6 @@ public:
 	virtual void s28(); virtual void s29();
 	virtual void s30(void *p);
 };
-
 class Rva00203D6AA
 {
 public:
@@ -944,7 +830,6 @@ public:
 	virtual void s24(); virtual void s25(); virtual void s26();
 	virtual Rva00203D6AMid *s27(void *p);
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203D86Chain@@YAXPAVRva00203D86A@@PAX@Z at retail 0x00203D86 (28B).
@@ -966,7 +851,6 @@ public:
 	virtual void s28(); virtual void s29();
 	virtual void s30(void *p);
 };
-
 class Rva00203D86A
 {
 public:
@@ -980,7 +864,6 @@ public:
 	virtual void s28(); virtual void s29();
 	virtual Rva00203D86Mid *s30(void *p);
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203DA2Chain@@YAXPAVRva00203DA2A@@PAX@Z at retail 0x00203DA2 (28B).
@@ -1000,7 +883,6 @@ public:
 	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
 	virtual void s24(void *p);
 };
-
 class Rva00203DA2A
 {
 public:
@@ -1013,7 +895,6 @@ public:
 	virtual void s24(); virtual void s25(); virtual void s26();
 	virtual Rva00203DA2Mid *s27(void *p);
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?Rva00203DBEChain@@YAXPAVRva00203DBEA@@PAX@Z at retail 0x00203DBE (28B).
@@ -1033,7 +914,6 @@ public:
 	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
 	virtual void s24(void *p);
 };
-
 class Rva00203DBEA
 {
 public:
@@ -1047,9 +927,7 @@ public:
 	virtual void s28(); virtual void s29();
 	virtual Rva00203DBEMid *s30(void *p);
 };
-
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
-
 class Rva00203E11A
 {
 public:
@@ -1062,23 +940,18 @@ public:
 	virtual void s24(); virtual void s25(); virtual void s26();
 	virtual Xfer *s27(void *p);
 };
-
 class Rva00203E11B
 {
 public:
 	char m_pad[4]; // +0x00..0x04
 	ObjectID m_id; // +0x04
 };
-
 // Six more tiny ones (trimmed to the placed swap body; the other five are
 // declared-only here).
 
 class BfmeHolderBQ;
-
 extern BfmeHolderBQ *g_bfmeHolderBQ;
-
 void __stdcall bfmeSetOther(unsigned char value);
-
 class Gen_00339020
 {
 public:
@@ -1088,22 +961,18 @@ private:
 	int m_bfmeTag;						// +0x00
 	int m_bfmeValue;					// +0x04
 };
-
 class Gen_0037A810
 {
 public:
 	int bfmeFirstIsPositive(int value) const;
 	int bfmeSecondIsPositive(int value) const;
 };
-
 class Gen_0039B020
 {
 public:
 	unsigned char bfmeFlag(void) const;
 };
-
 void __cdecl bfmeCopyTable(void);
-
 //
 // DllHandle::LoadFailure, retail 0x00203EA8 (18 bytes).
 // The thrown object of DllHandle::DllHandle on LoadLibrary failure; throw
@@ -1116,13 +985,11 @@ void __cdecl bfmeCopyTable(void);
 // this frameless leaf.
 
 extern "C" const void *const vtbl_00BD3B54[];
-
 class __declspec(novtable) FunctorNotSet : public exception
 {
 public:
 	FunctorNotSet();
 };
-
 class DllHandle
 {
 public:
@@ -1132,7 +999,6 @@ public:
 		LoadFailure();
 	};
 };
-
 // A two-member swap through a helper.
 //
 // BFME1 byte-identical donor (reference/open-bfme-1
@@ -1149,60 +1015,46 @@ private:
 	int m_bfmeFirst;					// +0x04
 	int m_bfmeSecond;					// +0x08
 };
-
 extern const void *const g_00BE39F4[];
-
 // The bfmeStopCW row takes its name as this AsciiString view; the canonical
 // AsciiString local's inline ctor/dtor emit the StringBase and
 // releaseBuffer calls.
 class BFMERetailAsciiString : public AsciiString
 {
 };
-
 struct Rva00204C21 : Rva0020453CHolderBase
 {
 	void rva00204C21(const char *name);
 };
-
 class Rva00204D66 : public Rva003B39C7
 {
 public:
 	~Rva00204D66();
 };
-
 #include "../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Player
 {
 public:
 	char m_pad[0x50];
 	NameKeyType m_nameKey; // +0x50
 };
-
 #include "../../../Include/Common/PlayerList.h"
-
 extern PlayerList *ThePlayerList;
-
 class ScriptList
 {
 	char m_body[0x4C];
 };
-
 class SidesInfo
 {
 public:
 	char m_pad[8];
 	ScriptList m_scriptList; // +0x08
 };
-
 #include "../../../Include/Common/SidesList.h"
-
 // TheSidesList (VA 0x00E01D58, zero-filled .bss) is defined by SidesList.cpp, whose
 // object's .bss holds it before that unit's Drawable.h copy and player-name array.
 extern SidesList *TheSidesList;
-
 class ScriptActions
 {
 public:
@@ -1213,23 +1065,19 @@ public:
 	virtual void slot40(bool v);
 	virtual void slot44(const class AsciiString &name, bool flag);
 };
-
 extern ScriptActions *TheScriptActions;
-
 struct TreeHead
 {
 	void *m_00;
 	void *m_04;
 	void *m_first08;
 };
-
 struct TreeNode
 {
 	char m_pad[0x10];
 	void *m_10;
 	bool m_14;
 };
-
 class Rva0020530EHost
 {
 public:
@@ -1240,7 +1088,6 @@ private:
 	char m_pad190C8[0x1A4C9-0x190C8];
 	bool m_1A4C9;
 };
-
 struct Rva00204ABF
 {
     _STL::pair<AsciiString, AsciiString> m_pair;
@@ -1248,22 +1095,16 @@ struct Rva00204ABF
     Rva00204ABF(const _STL::pair<AsciiString, AsciiString> &p, const int &v);
     ~Rva00204ABF();
 };
-
 Rva00204ABF Rva002056A6Make(const _STL::pair<AsciiString, AsciiString> &p, const int &v);
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva0020572FElement * _STL::__uninitialized_fill_n<Rva0020572FElement *, unsigned int, Rva0020572FElement>(Rva0020572FElement *, unsigned int, Rva0020572FElement const &, _STL::__false_type const &);
-
 // bfme link decl-only begin
 namespace _STL { template <> void _Construct<BfmeStringRecord00204A30, BfmeStringRecord00204A30>(BfmeStringRecord00204A30 *, BfmeStringRecord00204A30 const &); }
-
 // bfme link decl-only end
 
 // Instantiate the recovered operation and its required template dependencies.
 template BfmeStringRecord00204A30 * _STL::__uninitialized_fill_n<BfmeStringRecord00204A30 *, unsigned int, BfmeStringRecord00204A30>(BfmeStringRecord00204A30 *, unsigned int, BfmeStringRecord00204A30 const &, _STL::__false_type const &);
-
 template void _STL::__push_heap<int *, int, int, Rva00204BB8>(int *, int, int, int, Rva00204BB8);
-
 struct Arg205A8D
 {
 public:
@@ -1274,7 +1115,6 @@ public:
 	char m_pad10[0x6C];
 	AsciiString m_helpText; // +0x7C
 };
-
 class Rva00205A8D
 {
 public:
@@ -1282,51 +1122,266 @@ public:
 private:
 	char m_pool[0xCA * 0x80 + 0x12C20]; // +0x00
 };
-
 class Rva00203DBEA;
-
 void Rva00203DBEChain(Rva00203DBEA *a, void *b);
-
 class Rva00690FF0Handle
 {
 public:
 	Rva00690FF0Handle();
 	void *m_ptr;
 };
-
 struct BfmeFloat4Record00469C61
 {
 	Rva00690FF0Handle m_head;
 	char m_pad[12];
 };
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _List_iterator<BfmeFloat4Record00469C61,_Nonconst_traits<BfmeFloat4Record00469C61> > list<BfmeFloat4Record00469C61,allocator<BfmeFloat4Record00469C61> >::insert(_List_iterator<BfmeFloat4Record00469C61,_Nonconst_traits<BfmeFloat4Record00469C61> >,BfmeFloat4Record00469C61 const &); }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void _Construct<BfmeFloat4Record00469C61,BfmeFloat4Record00469C61>(BfmeFloat4Record00469C61 *,BfmeFloat4Record00469C61 const &); }
-
 bool operator==(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
-
 bool operator<(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
-
 typedef _STL::list<BfmeFloat4Record00469C61> ListFloat4Record;
-
 // ?_M_create_node@?$list@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@IAEPAU?$_List_node@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
 void __cdecl Rva0020596AConstruct(void *dest, const void *source);
-
 template _STL::_List_node<_STL::pair<const AsciiString, NoCaseTreeValue4> > *_STL::list<_STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > >::_M_create_node(_STL::pair<const AsciiString, NoCaseTreeValue4> const &);
-
 Bool operator<(const AsciiString &left, const AsciiString &right);
-
 template void _STL::__adjust_heap<int *, int, int, Rva00204BB8>(int *, int, int, int, Rva00204BB8);
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-
 #include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/GameClient/Drawable.h"
+// platformsdk
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// Sides-list setter gate at retail 0x00203C21 (89B).
+// Decoded from retail bytes (all verified, no E8 calls):
+// - App module at [0xDFE158]; SetTheSidesList via kernel32!GetProcAddress
+//   import (IAT 0xBBA1F8, dllimport auto).
+// - Calls the proc with 11 pushed globals/zeros (caller cleans 0x2C).
+// Human-readable names; opaque free function (no this, no stack args).
+
+extern class AudioManager *TheAudio;
+extern class GameLogic *TheGameLogic;
+extern class NameKeyGenerator *TheNameKeyGenerator;
+extern class SidesList *TheSidesList;
+extern class View *TheTacticalView;
+extern class TerrainLogic *TheTerrainLogic;
+extern class ThingFactory *TheThingFactory;
+#define TheAppModule st_DebugDLL
+#define Rva00DFE78C (*(void **)&TheGameLogic)
+#define Rva00DFF000 (*(void **)&TheThingFactory)
+#define Rva00DFEC50 (*(void **)&TheTerrainLogic)
+#define Rva00DFEA3C (*(void **)&TheTacticalView)
+#define Rva00DF36A4 (*(void **)&TheNameKeyGenerator)
+#define Rva00DFE758 (*(void **)&TheWritableGlobalData)
+#define Rva00DFE6E8 (*(void **)&TheAudio)
+#define Rva00DFE16C (*(void **)&TheScriptEngine)
+#define Rva00E01D58 (*(void **)&TheSidesList)
+void rva00203C21()
+{
+	HMODULE app = reinterpret_cast<HMODULE>(TheAppModule);
+	if (!app)
+		return;
+
+	typedef void (__cdecl *SetSidesProc)(
+		void *a1, void *a2, void *a3, void *a4, void *a5, void *a6,
+		void *a7, void *a8, void *a9, void *a10, void *a11);
+	SetSidesProc proc = (SetSidesProc)GetProcAddress(app, "SetTheSidesList");
+	if (!proc)
+		return;
+
+	proc(Rva00E01D58, Rva00DFE16C, Rva00DFE6E8, Rva00DFE758, Rva00DF36A4, 0, 0,
+		Rva00DFEA3C, Rva00DFEC50, Rva00DFF000, Rva00DFE78C);
+}
+#include "../../../Include/Common/Rva002034E9Host.h"
+#include "../../../Include/Common/MessageStream.h"
+extern MessageStream *TheMessageStream;
+class Rva00E02D6C;
+extern Rva00E02D6C *TheCampaignManager;
+struct Rva00203BE9Mode
+{
+	char pad[0x2D];
+	unsigned char enabled;
+};
+class BfmeRoomZC
+{
+public:
+    AsciiString m_name;
+};
+class Rva002046C0Owner
+{
+public:
+	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
+};
+#include "../../../Include/GameLogic/BfmeOwnZC.h"
+struct Rva00204FBBGroup
+{
+    unsigned char pad00[0xC];
+    bool active;
+};
+struct Rva00204FBBScript
+{
+    unsigned char pad00[0x40];
+    bool active;
+};
+#include "../../../Include/Common/BfmeStringData.h"
+typedef int Int;
+enum KindOfType { KINDOF_FIRST = 0 };
+#include "../../../Include/Common/ThingTemplate.h"
+#include "../../../Include/Common/ThingFactory.h"
+extern ThingFactory *TheThingFactory;
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
+class Object
+{
+public:
+	const ThingTemplate *getTemplate() const { return m_template; }
+	Player *getControllingPlayer() const;
+	float rva002972B1(float radius);
+
+private:
+	char m_unknown0[4];
+	const ThingTemplate *m_template;	// +0x04
+};
+// WB ThreatFinderUpdate.cpp: the record getThreatForPlayer returns by value.
+struct ThreatInfo
+{
+	float m_threat;
+	unsigned char m_pad[0x40];
+};
+class ThreatFinder
+{
+public:
+	ThreatInfo getThreatForPlayer(Player *player, int threatType, Player *other);
+};
+class ThreatFinderManager;
+extern ThreatFinderManager *TheThreatFinderManager;
+// Its by-name lookup is the ICF-folded hash_map find at 0x0041F474, rowed as
+// ArmorStore::rva0041F474 (ArmorStoreFindByName.cpp): call it by that name.
+class ArmorTemplate;
+#include "../../../Include/GameLogic/ArmorStore.h"
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
+extern float g_parseDurationMsecScale;
+int GetGameClientRandomValue(int low, int high, char *file, int line);
+float GetGameLogicRandomValueReal(float low, float high, char *file, int line);
+float GetGameClientRandomValueReal(float low, float high, char *file, int line);
+// BaseType.h verbatim: C cast emits out-of-line _ftol plus qword shape;
+// retail holds inline fld/fistp so the helper is load-bearing.
+__forceinline long fast_float2long_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+// The read-only flag lookup setFlag reaches here is the ledger's matched
+// ?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z body at 0x0020881A (134
+// bytes), called by that row's name and signature so the unit links; the
+// pointer it returns is the flag. The donor reaches it through an ILT
+// thunk whose retail address does not resolve; the REL32 displacement read off
+// this body's call at 0x0020945A lands on 0x0020881A, so that is the callee
+// named here.
+class BFMEScriptEngineFlagLookup
+{
+public:
+	bool *findFlag(AsciiString name);
+};
+typedef bool *(BFMEScriptEngineFlagLookup::*FindFlagFunction)(AsciiString);
+class Rva00355950Arr;
+struct Rva003412E0Node;
+class ScriptList;
+class ScriptGroup
+{
+public:
+	Rva003412E0Node *getScript() const
+	{
+		return *(Rva003412E0Node **)((const char *)this + 8);
+	}
+	bool isActive() const { return *(const unsigned char *)((const char *)this + 0x0C) != 0; }
+	bool isSubroutine() const { return *(const unsigned char *)((const char *)this + 0x0D) != 0; }
+};
+// Scope latch: saves *a1 at +4, installs a2, restores on destruction.
+struct Rva002048A2
+{
+	virtual ~Rva002048A2();
+	AsciiString m_str;
+	AsciiString *m_alias;
+	Rva002048A2(AsciiString *a1, const AsciiString &a2);
+};
+AsciiString Rva0032B389Join(const AsciiString &left, const AsciiString &right);
+#define RVA0020C3BB_REPORT(NAME, HEADLINE) \
+	do { \
+		AppendDebugMessage(AsciiString(HEADLINE), false); \
+		AppendDebugMessage(Rva0032B389Join(canonical, NAME), false); \
+	} while (0)
+#define RVA0020C140_REPORT(HEADLINE) 	do { 		AppendDebugMessage(AsciiString(HEADLINE), false); 		AppendDebugMessage(Rva0032B389Join(canonical, scriptName), false); 	} while (0)
+struct Rva00355640Key
+{
+	int m_pad;
+	int m_index;
+};
+struct Rva003558C0Key
+{
+	int m_pad;
+	int m_index;
+	int m_value;
+};
+struct Rva00354400Elem
+{
+	char m_pad[0x0E];
+	short m_0e;
+	char m_tail[4];
+};
+struct Rva003558A0Elem
+{
+	char m_pad[0x10];
+	int m_10;
+};
+// Rows 0x003B483D (check) and 0x003B4826 are const Rva003B483DHolder members.
+class Rva003B483DHolder
+{
+public:
+	bool check(const void *key) const;
+	int rva003B4826(const void *key) const;
+};
+class Rva003558C0Arr
+{
+public:
+	bool matches(const Rva003558C0Key *key);
+
+	char m_pad[0x18];
+	Rva00354400Elem *m_items;
+};
+class Rva003558A0Arr
+{
+public:
+	int get(const Rva00355640Key *key);
+
+	char m_pad[0x18];
+	Rva003558A0Elem *m_items;
+};
+class Rva00355950Arr
+{
+public:
+	bool matches(const Rva003558C0Key *key);
+
+	char m_pad[0x38];
+	Rva00354400Elem *m_items;
+};
+class Rva00355930Arr
+{
+public:
+	int get(const Rva00355640Key *key);
+
+	char m_pad[0x38];
+	Rva003558A0Elem *m_items;
+};
+struct Rva003412E0Node
+{
+	Rva003412E0Node *next;
+	int index;
+};
 
 // Matched DIR32 references in the two ScriptEngine search rows place this
 // FieldParse table at VA 0x00BE3908 (.rdata). Four 16-byte entries plus the
@@ -1344,8 +1399,6 @@ extern const FieldParse g_00BE3908[] = {
 
 bool operator<(const _STL::pair<AsciiString, AsciiString> &a,
     const _STL::pair<AsciiString, AsciiString> &b);
-
-template struct _STL::less<_STL::pair<AsciiString, AsciiString> >;
 
 // Explicit specialization already rowed at 0x00206ABE in stlport_list_create_nodes2.cpp.
 // Declaring it suppresses implicit instantiation of the generic 94B _M_create_node here,
@@ -1371,10 +1424,6 @@ __declspec(noinline) ListNocase4::iterator ListNocase4::insert(ListNocase4::iter
 }
 }
 
-template ListNocase4::iterator ListNocase4::insert(ListNocase4::iterator, const PairNocase4 &);
-
-template void _STL::__pop_heap<int *, int, Rva00204BB8, int>(int *, int *, int *, int, Rva00204BB8, int *);
-
 bool operator<(const _STL::pair<AsciiString, AsciiString> &, const _STL::pair<AsciiString, AsciiString> &);
 
 typedef _STL::pair<AsciiString, AsciiString> TeamKey0020796D;
@@ -1384,8 +1433,6 @@ typedef _STL::pair<const TeamKey0020796D, int> TeamValue0020796D;
 struct TeamLess0019B850 : _STL::less<TeamKey0020796D> {};
 
 typedef _STL::_Rb_tree<TeamKey0020796D, TeamValue0020796D, _STL::_Select1st<TeamValue0020796D>, TeamLess0019B850, _STL::allocator<TeamValue0020796D> > TeamTree0020796D;
-
-template _STL::pair<TeamTree0020796D::iterator, bool> TeamTree0020796D::insert_unique(const TeamValue0020796D &);
 
 // bfme link decl-only begin
 namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> > * _Rb_tree<_STL::pair<AsciiString,AsciiString>,_STL::pair<_STL::pair<AsciiString,AsciiString> const,int>,_STL::_Select1st<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> >,TeamLess0019B850,_STL::allocator<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> > >::_M_create_node(_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> const &); }
@@ -1397,8 +1444,6 @@ public:
 	AsciiString text; // +0x00
 	int scalar; // +0x04
 };
-
-template _STL::vector<RvaPair00207E26>::~vector();
 
 Xfer *Rva002081C7XferList(Xfer *xfer, ListNocase4 *list);
 
@@ -1423,8 +1468,6 @@ inline __declspec(noinline) void __partial_sort<int *, int, Rva00204BB8>(int *fi
 template void __partial_sort<int *, int, Rva00204BB8>(int *, int *, int *, int *, Rva00204BB8);
 
 }
-
-template void _STL::partial_sort<int *, Rva00204BB8>(int *, int *, int *, Rva00204BB8);
 
 // Byte one-setters: eight-byte __thiscall members with one shape:
 //
@@ -1464,6 +1507,56 @@ public:
 	char m_lead[0x1A4D7];
 	unsigned char m_enabled;
 };
+
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so each node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007AD801 and 0x007AD816, nodes 0x00DB97D0 and 0x00DB97DC). They
+// close this unit's run (its Drawable.h copy 0x007AD7B0, then its other
+// statics), before its pool-init marker 0x007AD82B.
+typedef void (*INIBlockParse)( INI *ini );
+
+extern struct BlockParse *theBlockParseList;
+
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+extern ScriptEngine *TheScriptEngine;
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
+
+// TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types
+// (Zero Hour's ScriptConditionsInterface::evaluateCondition).
+
+// The engine is the canonical class (ZH ScriptEngine.cpp:143 defines
+// TheScriptEngine); the fade block, flag-key list and sequential-script
+// vector these bodies use are typed there.
+
+// 0x00203693, the engine's current mode mask (2 or 1), is rowed as
+// Rva00203693Host::rva00203693; evaluateCondition calls it through a view of
+// the engine.
+
+template struct _STL::less<_STL::pair<AsciiString, AsciiString> >;
+
+template ListNocase4::iterator ListNocase4::insert(ListNocase4::iterator, const PairNocase4 &);
+
+template void _STL::__pop_heap<int *, int, Rva00204BB8, int>(int *, int *, int *, int, Rva00204BB8, int *);
+
+template _STL::pair<TeamTree0020796D::iterator, bool> TeamTree0020796D::insert_unique(const TeamValue0020796D &);
+
+template _STL::vector<RvaPair00207E26>::~vector();
+
+template void _STL::partial_sort<int *, Rva00204BB8>(int *, int *, int *, Rva00204BB8);
 
 // Native 39B78D is ScoreKeeper::LoadPostProcess, owned by ScoreKeeperDtor.cpp.
 
@@ -3035,16 +3128,6 @@ void _writeOutINI()
 	newINI->close();
 }
 
-// tu-skeleton: 0x0020385F 192B ?setSway@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/Common/ScriptEngine_setSway.cpp (not merged yet)
-
-// tu-skeleton: 0x0020391F 7B ?get@Rva0020391FLeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00203926 27B ?getActionTemplate@ScriptEngine@@QAEPBVActionTemplate@@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetActionTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x00203941 30B ?getConditionTemplate@ScriptEngine@@QAEPBVConditionTemplate@@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_getConditionTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x002039D4 250B ?xfer@SequentialScript@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScriptXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
 
 void Rva000203AD5ByteOneSetter::enable()
@@ -3062,13 +3145,76 @@ void Rva00203BE1ByteOneSetter::enable()
 	m_enabled = 1;
 }
 
+// tu-skeleton: 0x0020385F 192B ?setSway@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/Common/ScriptEngine_setSway.cpp (not merged yet)
+
+// tu-skeleton: 0x0020391F 7B ?get@Rva0020391FLeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetActionTemplate.cpp
+
+//
+// ?getActionTemplate@ScriptEngine@@QAEPBVActionTemplate@@H@Z,
+// retail 0x00203926, 27 bytes. Dedicated TU.
+//
+// Table lookup for the action writer (0x3B3DFF calls it with TheScriptEngine
+// at 0xDFE16C and the action type): 0x257 entries of 128 bytes at this+0x20.
+// Out-of-range indexes clamp to entry 0 (retail xors to zero then shares the
+// shift-and-lea tail, so the caller-side null test is dead). Pure arithmetic
+// with no callees. Name and Int parameter follow the Zero Hour ScriptEngine.h
+// declaration; the table shape is retail-measured.
+
+// ?getActionTemplate@ScriptEngine@@QAEPBVActionTemplate@@H@Z
+const ActionTemplate *ScriptEngine::getActionTemplate(int actionType)
+{
+	int index = actionType;
+	if (index < 0 || index >= 0x257)
+		index = 0;
+	// The canonical header keeps both template tables opaque at +0x1C.
+	return reinterpret_cast<const ActionTemplate *>(m_opaque1C + 4 + index * 128);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_getConditionTemplate.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// ScriptEngine::getConditionTemplate, retail 0x00203941 (30 bytes).
+// Condition template table at +0x12BA0, 128 bytes per entry, 202 entries;
+// out-of-range ids fall back to entry 0.
+
+const ConditionTemplate *ScriptEngine::getConditionTemplate(int id)
+{
+	if (id < 0 || id >= 202)
+		id = 0;
+	return reinterpret_cast<const ConditionTemplate *>(m_opaque1C + (0x12BA0 - 0x1C) + id * 128);
+}
+
+// tu-skeleton: 0x002039D4 250B ?xfer@SequentialScript@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScriptXfer.cpp (not merged yet)
+
 // tu-skeleton: 0x00203BCD 13B ?set@Rva00203BCDDwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00203BDA 7B ?get@Rva00203BDAByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00203BE9 56B ?rva00203BE9@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setSides.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setSides.cpp
 
-// tu-skeleton: 0x00203C21 89B ?rva00203C21@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setSides.cpp (not merged yet)
+// ?Rva00203BE9@@YAXXZ @0x00203BE9 56B. Identity is address-derived: packet
+// proves the calls, globals, and MessageStream vtable slot; the caller boundary
+// is Ghidra's extra-function record. No donor identity is established.
+
+// The end-game message dispatch is a ScriptEngine method: update() calls it
+// with this in ECX (0x0020D109) when the end-game timer runs out, where Zero
+// Hour appends MSG_CLEAR_GAME_DATA inline. The body never reads this.
+
+void ScriptEngine::rva00203BE9()
+{
+	if (reinterpret_cast<Rva002034E9Host *>(TheGameLogic)->rva002034E9())
+	{
+		if (((Rva00203BE9Mode *)TheCampaignManager)->enabled)
+			TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x7D9));
+		else
+			TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x7ED));
+	}
+	else
+		TheMessageStream->appendMessage(GameMessage::MSG_CLEAR_GAME_DATA);
+}
 
 // tu-skeleton: 0x00203C93 21B ?advance@?$DLINK_ITERATOR@VTeam@@@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/TeamPrototypeTeamIterators.cpp (not merged yet)
 
@@ -3108,9 +3254,53 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x00204D87 221B ?initTemplateNameKeys@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_initTemplateNameKeys.cpp (not merged yet)
 
-// tu-skeleton: 0x00204FBB 196B ?enableScript@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEnableDisable.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEnableDisable.cpp
 
-// tu-skeleton: 0x0020507F 193B ?disableScript@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEnableDisable.cpp (not merged yet)
+// Donor semantic guide: ZH ScriptEngine.cpp enableScript/disableScript;
+// BFME1 donor revision f98983a7d. Target independently proves incoming
+// ScriptAction* (count+8 and first Parameter*+C), Parameter string+10,
+// group active+C, script active+40 and current Team+1A110. BFME2 adds
+// enableGenericScript(name, resolveName(name), enabled) to the ZH workflow.
+// Existing dispatcher pins name these methods at 204FBB/20507F. Lookup
+// receiver names BfmeOwnZC and Rva002046C0Owner remain inherited placeholders.
+
+void ScriptEngine::enableScript(ScriptAction *action)
+{
+    AsciiString name = action->getParameter(0)->getString();
+    // The by-value lookup argument's one AsciiString is built directly,
+    // with no independently live owning-room temporary in retail.
+    Rva00204FBBGroup *group = reinterpret_cast<Rva00204FBBGroup *>(
+        reinterpret_cast<BfmeOwnZC *>(this)->rva00204EBB(*(BfmeRoomZC *)&name, 0));
+    if (group)
+        group->active = true;
+    Rva00204FBBScript *script = reinterpret_cast<Rva00204FBBScript *>(
+        reinterpret_cast<BfmeOwnZC *>(this)->bfmeRunZC(*(BfmeRoomZC *)&name, 0));
+    if (script)
+        script->active = true;
+    if (m_callingTeam)
+    {
+        AsciiString resolved = reinterpret_cast<Rva002046C0Owner *>(this)->resolveName(name);
+        m_callingTeam->enableGenericScript(name, resolved, true);
+    }
+}
+
+void ScriptEngine::disableScript(ScriptAction *action)
+{
+    AsciiString name = action->getParameter(0)->getString();
+    Rva00204FBBScript *script = reinterpret_cast<Rva00204FBBScript *>(
+        reinterpret_cast<BfmeOwnZC *>(this)->bfmeRunZC(*(BfmeRoomZC *)&name, 0));
+    if (script)
+        script->active = false;
+    Rva00204FBBGroup *group = reinterpret_cast<Rva00204FBBGroup *>(
+        reinterpret_cast<BfmeOwnZC *>(this)->rva00204EBB(*(BfmeRoomZC *)&name, 0));
+    if (group)
+        group->active = false;
+    if (m_callingTeam)
+    {
+        AsciiString resolved = reinterpret_cast<Rva002046C0Owner *>(this)->resolveName(name);
+        m_callingTeam->enableGenericScript(name, resolved, false);
+    }
+}
 
 // tu-skeleton: 0x00205140 61B ?rva00205140@ScriptEngine@@QAEXPAVSequentialScript@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020517D.cpp (not merged yet)
 
@@ -3168,9 +3358,30 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x00205BEF 6B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x00205C93 84B ?getCurrentPlayer@ScriptEngine@@QAEPAVPlayer@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetCurrentPlayer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetCurrentPlayer.cpp
 
-// tu-skeleton: 0x00205CE7 118B ?rva00205CE7@ScriptEngine@@QAE?AVAsciiString@@V2@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205CE7.cpp (not merged yet)
+Player *ScriptEngine::getCurrentPlayer()
+{
+	if (m_currentPlayer == 0)
+		AppendDebugMessage("***Unexpected NULL player:***", false);
+	return m_currentPlayer;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205CE7.cpp
+
+// ?rva00205CE7@ScriptEngine@@QAE?AVAsciiString@@V2@@Z @0x00205CE7 118B
+// ScriptEngine path join: resolveName(param) plus '/' plus param via rowed
+// AsciiString plus-char and StringBase concat; by-value param and return.
+// Evidence: sits between ScriptEngine 0x00205C93 and 0x00205D5D, same this
+// used for pinned resolveName 0x002046C0, '/' 0x2f, callers 0x003C03C6 0x003C04C8.
+
+AsciiString ScriptEngine::rva00205CE7(AsciiString s)
+{
+	AsciiString tmp = ((Rva002046C0Owner *)this)->resolveName(s);
+	tmp += '/';
+	tmp += s;
+	return tmp;
+}
 
 // tu-skeleton: 0x00205D5D 128B ?findAttackInfo@ScriptEngine@@QAEPAVAttackPriorityInfo@@ABVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205D5D.cpp (not merged yet)
 
@@ -3178,9 +3389,44 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x00205EEC 561B ?setPriorityThing@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205D5D.cpp (not merged yet)
 
-// tu-skeleton: 0x0020611D 186B ?setPriorityKind@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp
 
-// tu-skeleton: 0x002061D7 126B ?setPriorityDefault@ScriptEngine@@QAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp (not merged yet)
+void ScriptEngine::setPriorityDefault(ScriptAction *action)
+{
+    AttackPriorityInfo *info = findAttackInfo(action->getParameter(0)->getString(), true);
+    if (info == 0)
+    {
+        AsciiString message("***Error allocating attack priority set - fix or raise limit. ***");
+        AppendDebugMessage(message, false);
+        return;
+    }
+    info->friend_setDefaultPriority(action->getParameter(1)->getInt());
+}
+
+// ZH ScriptEngine.cpp setPriorityKind and BFME 1 f98983a7d donor provide
+// the allocation/template loop. Target accesses and calls establish the
+// factory +C, template next +484, and the kind/setPriority helpers. Retail
+// reads the next-template link at +0x484 inline (the canonical header's m484,
+// read the same way in GameLogic.cpp), not through the 0x00406D4A accessor.
+void ScriptEngine::setPriorityKind(ScriptAction *action)
+{
+    AttackPriorityInfo *info = findAttackInfo(action->getParameter(0)->getString(), true);
+    if (info == 0)
+    {
+        AsciiString message("***Error allocating attack priority set - fix or raise limit. ***");
+        AppendDebugMessage(message, false);
+        return;
+    }
+    KindOfType kind = (KindOfType)action->getParameter(1)->getInt();
+    Int priority = action->getParameter(2)->getInt();
+    const ThingTemplate *thingTemplate;
+    for (thingTemplate = TheThingFactory->firstTemplate(); thingTemplate;
+         thingTemplate = (const ThingTemplate *)thingTemplate->m484)
+    {
+        if (thingTemplate->isKindOf(kind))
+            info->setPriority(thingTemplate, priority);
+    }
+}
 
 // tu-skeleton: 0x00206255 83B ?getObjectCount@ScriptEngine@@QBEHHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_getObjectCount.cpp (not merged yet)
 
@@ -3188,7 +3434,23 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x002064CB 5B ?rva002064CB@ScriptEngine@@QAEXPAVTeam@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020517D.cpp (not merged yet)
 
-// tu-skeleton: 0x002064D0 137B ?rva002064D0@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineToggleDebugFrame.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineToggleDebugFrame.cpp
+
+// Semantic donor: BFME 1 ScriptEngineDebugFrame.cpp at ba7ddda7e8,
+// address-named Rva0033E880. Target 0x002064D0..0x00206559 toggles the byte
+// at +0x1A4D9 and logs the two identical frame-stepping literals through
+// the already rowed ScriptEngine::AppendDebugMessage at 0x00205263.
+// Its original method name remains unknown.
+
+void ScriptEngine::rva002064D0()
+{
+    bool forcePause = ((Rva00203B08 *)this)->rva0020424FF();
+    m_1A4D9 = !m_1A4D9;
+    if (m_1A4D9)
+        AppendDebugMessage(AsciiString("Stepping logic frames."), forcePause);
+    else
+        AppendDebugMessage(AsciiString("Stepping client frames."), forcePause);
+}
 
 // tu-skeleton: 0x00206559 32B ?Rva00341350AdjustVariableForwarder@@YGXABVAsciiString@@HD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp (not merged yet)
 
@@ -3346,21 +3608,288 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x00208E99 200B ?rva00208E99@ScriptEngine@@QAEPAXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
-// tu-skeleton: 0x00208F61 162B ?evaluateCounter@ScriptEngine@@IAE_NPAVCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp
 
-// tu-skeleton: 0x00209003 321B ?setCounterToThreat@ScriptEngine@@IAEXPAVScriptAction@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetCounterToThreat.cpp (not merged yet)
+//
+// Bodies ported from Open-BFME-1's
+// GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus
+// /O1). Compiled that way each body below places uniquely on unclaimed
+// game.dat .text by masked whole-.text search, and ./build.sh reproduces it
+// byte for byte: ScriptEngine::evaluateCounter 0x00208F61 (162B). Callee
+// addresses are read off retail's call sites (reverse/symbols.csv). Only the
+// placed bodies are carried; the donor's other definitions are omitted.
+// ScriptEngine::evaluateCounter at RVA 0x003457F0.
+// The 193-byte instruction body and six-entry jump table at 0x003458B4
+// occupy 220 bytes, including a three-byte alignment instruction.
+// The condition dispatcher and upstream counter comparison switch identify it;
+// matched evaluateFlag/evaluateTimer witness the BFME named-counter lookup.
 
-// tu-skeleton: 0x00209144 436B ?setCounter@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setCounter.cpp (not merged yet)
+bool ScriptEngine::evaluateCounter(Condition *condition)
+{
+	ScriptCounter *counter = bfmeCounter(
+		condition->getParameter(0)->getString());
+	int value = condition->getParameter(2)->getInt();
+	switch (condition->getParameter(1)->getInt())
+	{
+	case Parameter::LESS_THAN:
+		return counter->m_value < value;
+	case Parameter::LESS_EQUAL:
+		return counter->m_value <= value;
+	case Parameter::EQUAL:
+		return counter->m_value == value;
+	case Parameter::GREATER_EQUAL:
+		return counter->m_value >= value;
+	case Parameter::GREATER:
+		return counter->m_value > value;
+	case Parameter::NOT_EQUAL:
+		return counter->m_value != value;
+	}
+	return false;
+}
 
-// tu-skeleton: 0x002092F8 69B ?addCounter@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp (not merged yet)
+void ScriptEngine::addCounter(ScriptAction *action)
+{
+	int value = action->getParameter(0)->getInt();
+	bfmeCounter(action->getParameter(1)->getString())->m_value += value;
+}
 
-// tu-skeleton: 0x0020933D 69B ?subCounter@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp (not merged yet)
+void ScriptEngine::subCounter(ScriptAction *action)
+{
+	int value = action->getParameter(0)->getInt();
+	bfmeCounter(action->getParameter(1)->getString())->m_value -= value;
+}
 
-// tu-skeleton: 0x00209405 129B ?setFlag@ScriptEngine@@IAEXPAVScriptAction@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFlag.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetCounterToThreat.cpp
 
-// tu-skeleton: 0x002094CB 255B ?setTimer@ScriptEngine@@IAEXPAVScriptAction@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetTimer.cpp (not merged yet)
+//
+// ScriptEngine::setCounterToThreat, retail 0x00209003 (321B; ret 8).
+//
+// Identity (target): WorldBuilder twin 0xB38250 carries the name
+// ScriptEngine::setCounterToThreat and ScriptEngine.cpp asserts at lines
+// 1976..2004; the dispatcher executeActions (0x0020C5C7) calls it for action
+// types 0x1B7 (false) and 0x1B8 (true). Callees from the WB twin's call list,
+// each read at the retail REL32: bfmeCounter 0x0020874B, getTeamNamed
+// 0x003584E9 and the unit lookup 0x00358752 on TheScriptEngine, the team and
+// object radius helpers 0x003A3736 / 0x002972B1, the threat-finder find
+// 0x0041F474 on TheThreatFinderManager and ThreatFinder::getThreatForPlayer 0x003ED0C4.
+// The template test is WB's BitFlags<KindOfType>::test, which retail inlines
+// to a byte test of bit 0xC3 in the template's kind-of bits at +0x108.
+// No Zero Hour donor: the action is BFME2's.
 
-// tu-skeleton: 0x00209639 169B ?adjustTimer@ScriptEngine@@IAEXPAVScriptAction@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAdjustTimer.cpp (not merged yet)
+// The by-value unit lookup 0x00358752 is rowed as
+// Rva00358752Opaque::lookupUnitByValue (ScriptEngineRva00358752.cpp).
+
+void ScriptEngine::setCounterToThreat(ScriptAction *pAction, bool useTeam)
+{
+	ScriptCounter *counter = bfmeCounter(pAction->getParameter(0)->m_string);
+	if (!counter)
+		return;
+	float value = 0;
+	float radius = pAction->getParameter(2)->m_real;
+	if (useTeam) {
+		Team *team = TheScriptEngine->getTeamNamed(pAction->getParameter(1)->m_string, false);
+		if (team)
+			value = team->rva003A3736(radius);
+	} else {
+		Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(pAction->getParameter(1)->m_string);
+		if (obj) {
+			if (((obj->getTemplate()->m_kindof[6] & (1U << 3)) != 0)) {
+				ThreatFinder *finder = (ThreatFinder *)((const ArmorStore *)TheThreatFinderManager)->rva0041F474(pAction->getParameter(1)->m_string);
+				if (finder) {
+					Player *player = obj->getControllingPlayer();
+					value = finder->getThreatForPlayer(player, 0, 0).m_threat;
+				}
+			} else {
+				value = obj->rva002972B1(radius);
+			}
+		}
+	}
+	counter->m_value = (int)value;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setCounter.cpp
+
+//
+// ?setCounter@ScriptEngine@@IAEXPAVScriptAction@@H_N1@Z, retail 0x00209144, 436 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+//
+// Evidence: unlock lane, prev evaluateCounter 0x00208F61 next addCounter
+// 0x002092F8 in ScriptEngineEvaluateCounter.cpp, caller 0x0020C5C7, callees
+// bfmeCounter pinned plus rva002086C5 row plus GetGameLogicRandomValueReal
+// GetGameClientRandomValueReal GetGameLogicRandomValue GetGameClientRandomValue
+// rows, globals g_parseDurationMsecScale and g_00BBE358, IAT ceil, file literal
+// ScriptEngine.cpp. Identity: ScriptEngine method (ecx is ScriptEngine*) with
+// 4 stack args (ret 0x10), honest address name.
+
+void ScriptEngine::setCounter(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat)
+{
+	ScriptCounter *counter = bfmeCounter(action->getParameter(0)->m_string);
+	if (!counter)
+		return;
+	if (copyFrom) {
+		const void *found = rva002086C5(action->getParameter(1)->m_string);
+		if (found) {
+			counter->m_value = *(int *)found;
+			return;
+			counter->m_isMillisecondTimer = false;
+		}
+	}
+	if (isFloat) {
+		float value;
+		if (randomKind != 0) {
+			const float lo = action->getParameter(1)->m_real;
+			const float hi = action->getParameter(2)->m_real;
+			if (randomKind == 1)
+				value = GetGameLogicRandomValueReal(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x804);
+			else
+				value = GetGameClientRandomValueReal(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x808);
+		} else {
+			value = action->getParameter(1)->m_real;
+		}
+		float prod = g_parseDurationMsecScale * value;
+		prod *= 1e+03f;
+		float tmp = (float)ceil(prod);
+		counter->m_value = fast_float2long_round(tmp);
+		counter->m_isMillisecondTimer = true;
+	} else {
+		int value;
+		if (0 != randomKind) {
+			unsigned int lo = action->getParameter(1)->m_int;
+			unsigned int hi = action->getParameter(2)->m_int;
+			if (randomKind == 1)
+				value = GetGameLogicRandomValue(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x81e);
+			else
+				value = GetGameClientRandomValue(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x822);
+		} else {
+			value = action->getParameter(1)->m_int;
+		}
+		counter->m_isMillisecondTimer = false;
+		counter->m_value = value;
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFlag.cpp
+
+//
+// ?setFlag@ScriptEngine@@IAEXPAVScriptAction@@_N@Z
+// retail 0x00209405, 129 bytes. Dedicated TU ported from the Open-BFME-1
+// donor
+// game/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineFlagsAndCounters.cpp
+// (reference/open-bfme-1). The donor body is byte-identical to retail once
+// relocations are masked (unique masked placement on unclaimed .text, donor
+// recompiled /Os). Only the placed body is defined here; the donor's other
+// definitions (addCounter and subCounter) are omitted.
+//
+// The three script-action entry points that write a named flag or counter:
+//
+//   0x00345CA0  addCounter  71 bytes
+//   0x00345D00  subCounter  71 bytes
+//   0x00345EB0  setFlag    165 bytes, either from a literal or from another flag
+//
+// The two counter halves are the same body with one operator changed, and
+// setFlag is their flag-side equivalent. All three take the name out of a
+// ScriptAction parameter and hand it to a by-value lookup.
+//
+// ScriptCounter carries the millisecond flag at +0x05 here even though none of
+// these three touches it: ScriptEngineTimers.cpp's setTimer writes it, and the
+// counter is one record whatever reads it. addCounter and subCounter had
+// stopped at the countdown flag because that is as far as their own bodies see.
+//
+// ScriptAction is the array-of-pointers spelling that setTimer and adjustTimer
+// pinned by reaching indices 1 and 2; these three use indices 0 and 1 and agree.
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
+
+void ScriptEngine::setFlag(ScriptAction *action, bool copyFromFlag)
+{
+	ScriptAction *sourceAction = action;
+	bool *flag = bfmeFlagForWrite(sourceAction->getParameter(0)->m_string);
+	bool value = false;
+	if (copyFromFlag)
+	{
+		bool *source = (bool *)rva0020881A(sourceAction->getParameter(1)->m_string);
+		if (source)
+			value = *source;
+	}
+	else
+	{
+		value = sourceAction->getParameter(1)->m_int != 0;
+	}
+	*flag = value;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetTimer.cpp
+
+//
+// ?setTimer@ScriptEngine@@IAEXPAVScriptAction@@_N1@Z @0x002094CB 255B
+// Evidence: unlock lane, prev evaluateTimer 0x00209486 next pauseTimer
+// 0x002095CA in ScriptEngine.cpp, caller 0x0020C76B, callee
+// ?bfmeCounter@ScriptEngine@@IAEPAUScriptCounter@@VAsciiString@@@Z pinned,
+// globals g_parseDurationMsecScale (?g_parseDurationMsecScale@@3MA) and
+// float g_00BBE358, IAT ceil, row GetGameLogicRandomValue, file literal
+// ScriptEngine.cpp. Identity: ScriptEngine::setTimer
+// (action, millisecondTimer, random) from class declaration in ScriptEngine.cpp.
+
+void ScriptEngine::setTimer(ScriptAction *action, bool millisecondTimer, bool random)
+{
+	ScriptCounter *counter = bfmeCounter(action->getParameter(0)->m_string);
+	int result;
+	if (millisecondTimer) {
+		float value = action->getParameter(1)->m_real;
+		if (random) {
+			float max = action->getParameter(2)->m_real;
+			value = (float)GetGameLogicRandomValue((int)value, (int)max, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x9c4);
+		}
+		float prod = g_parseDurationMsecScale * value;
+		prod *= 1e+03f;
+		float tmp = (float)ceil((double)prod);
+		result = fast_float2long_round(tmp);
+		counter->m_isMillisecondTimer = true;
+	} else {
+		int value = action->getParameter(1)->m_int;
+		if (random) {
+			int max = action->getParameter(2)->m_int;
+			value = GetGameLogicRandomValue(value, max, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\ScriptEngine.cpp", 0x9cc);
+		}
+		result = value;
+		counter->m_isMillisecondTimer = false;
+	}
+	counter->m_value = result;
+	counter->m_isCountdownTimer = true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAdjustTimer.cpp
+
+//
+// ?adjustTimer@ScriptEngine@@IAEXPAVScriptAction@@_N1@Z @0x00209639 169B
+// Evidence: unlock lane, prev ScriptEngine::restartTimer 0x002095FF in
+// ScriptEngine.cpp, caller 0x0020C5C7 (ScriptEngine timer dispatch), callee
+// ?bfmeCounter@ScriptEngine@@IAEPAUScriptCounter@@VAsciiString@@@Z pinned,
+// globals g_parseDurationMsecScale (?g_parseDurationMsecScale@@3MA) and
+// float literal 1000.0f (retail VA 0x00BBE358), IAT ceil. Identity: ScriptEngine::adjustTimer
+// (action, millisecondTimer, add) from class declaration in ScriptEngine.cpp.
+
+void ScriptEngine::adjustTimer(ScriptAction *action, bool millisecondTimer, bool add)
+{
+	ScriptCounter *counter = bfmeCounter(action->getParameter(1)->m_string);
+	if (millisecondTimer) {
+		float value = action->getParameter(0)->m_real;
+		if (!add)
+			value = -value;
+		float prod = g_parseDurationMsecScale * value;
+		prod *= 1e+03f;
+		float tmp = (float)ceil((double)prod);
+		counter->m_value += fast_float2long_round(tmp);
+	} else {
+		int value = action->getParameter(0)->m_int;
+		if (!add)
+			value = -value;
+		counter->m_value += value;
+	}
+}
 
 // tu-skeleton: 0x00209811 132B ?rva00209811@ScriptEngine@@QAEXABVAsciiString@@E@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
@@ -3376,7 +3905,154 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0020A073 349B ?executeSequentialScript@ScriptEngine@@QAEXPAVScript@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineExecuteSequentialScript.cpp (not merged yet)
 
-// tu-skeleton: 0x0020A1D0 87B ?rva0020A1D0@ScriptEngine@@QAE_NABVAsciiString@@PAVScript@@PAVTeam@@PAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp
+
+//
+// ?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z @0x0020C3BB 524B: the
+// script-call action; ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z
+// @0x0020C140 635B: its scoped sibling taking explicit scope name, script name
+// and calling team (below the first body). Takes the name from the action's first parameter, looks
+// it up as a script group and, failing that, as a single script, and runs a
+// subroutine under the "current scope" latch (ScriptEngine +0x1A10C); a
+// non-subroutine or missing name is reported through AppendDebugMessage.
+//
+// Donor (Open-BFME-1 ScriptEngineRva00343780.cpp, submodule 968ca36c): the
+// control flow and the three report calls transfer as written. BFME 1 reads
+// Script::isSubroutine at +0x17; BFME 2 reads +0x2A (target byte at 0x0020C418
+// region: cmp byte ptr [edi+0x2A]). Every callee is named from this image:
+// the by-value lookups are the 0x00204EBB / 0x00204F3B pair (resolve the name,
+// look it up in the script list, copy the resolved name out), the list lookup
+// is the thiscall twin at 0x00204E64, the scope latch is the Rva002048A2 class
+// (ctor 0x002048A2, dtor 0x002048EC) and the debug-line join is the rowed
+// Rva0032B389Join. BFME 1's own labels for these are not carried over.
+
+// The script-name lookups; both entries are rowed or pinned at their own
+// addresses (see BfmeOwnZC_rva00204F3B.cpp for the 0x00204F3B body).
+
+// ?rva0020A1D0@ScriptEngine@@QAE_NABVAsciiString@@PAVScript@@PAVTeam@@PAVPlayer@@@Z
+// @0x0020A1D0 87B: evaluateConditions (0x00209748) run under the current-scope
+// latch (+0x1A10C). TeamPrototype::evaluateProductionCondition (0x003A0E6E)
+// passes the scope string its script lookup returned, the script, no team and
+// the owning player.
+bool ScriptEngine::rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player)
+{
+	Rva002048A2 latch((AsciiString *)((char *)this + 0x1A10C), scope);
+	return evaluateConditions(pScript, thisTeam, player);
+}
+
+// ?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z
+void ScriptEngine::callSubroutine(ScriptAction *action)
+{
+	BfmeOwnZC *lookup = (BfmeOwnZC *)this;
+	AsciiString name = action->getParameter(0)->getString();
+	AsciiString canonical;
+	ScriptGroup *group = (ScriptGroup *)lookup->rva00204EBB(*(BfmeRoomZC *)&name, &canonical);
+	if (group)
+	{
+		if (group->isSubroutine())
+		{
+			if (group->isActive())
+			{
+				Rva00355950Arr *array = (Rva00355950Arr *)lookup->rva00204E64(canonical);
+				if (array)
+				{
+					Rva002048A2 restore((AsciiString *)((char *)this + 0x1A10C), canonical);
+					walkNamed(array, group->getScript(), false);
+				}
+			}
+		}
+		else
+		{
+			RVA0020C3BB_REPORT(name,
+				"***Attempting to call script that is not a subroutine:***");
+		}
+	}
+	else
+	{
+		Script *script = (Script *)lookup->bfmeRunZC(*(BfmeRoomZC *)&name, &canonical);
+		if (script)
+		{
+			if (script->isSubroutine())
+			{
+				Rva002048A2 restore((AsciiString *)((char *)this + 0x1A10C), canonical);
+				rva0020A586(script, &name);
+			}
+			else
+			{
+				RVA0020C3BB_REPORT(name,
+					"***Attempting to call script that is not a subroutine:***");
+			}
+		}
+		else
+		{
+			RVA0020C3BB_REPORT(name, "***Script not defined:***");
+		}
+	}
+}
+
+// ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z
+void ScriptEngine::rva0020C140(const AsciiString &scopeName, const AsciiString &scriptName, Team *pThisTeam)
+{
+	if (((const StringBase<char> &)scriptName).isEmpty())
+		return;
+	if (((const StringBase<char> &)scriptName).compare("<none>") == 0)
+		return;
+
+	BfmeOwnZC *lookup = (BfmeOwnZC *)this;
+	Player *savedPlayer = *(Player **)((char *)this + 0x1A130);
+	Team **callingTeam = (Team **)((char *)this + 0x1A110);
+	LatchRestore<Team*> callingTeamLatch(*callingTeam, pThisTeam);
+	Rva002048A2 scope((AsciiString *)((char *)this + 0x1A10C), scopeName);
+	Team *activeTeam = *callingTeam;
+	*(Team **)((char *)this + 0x1A118) = 0;
+	*(Player **)((char *)this + 0x1A130) = 0;
+	if (activeTeam)
+		*(Player **)((char *)this + 0x1A130) = activeTeam->getControllingPlayer();
+
+	AsciiString canonical;
+	ScriptGroup *group = (ScriptGroup *)lookup->rva00204EBB(*(BfmeRoomZC *)&scriptName, &canonical);
+	if (group)
+	{
+		if (group->isSubroutine())
+		{
+			if (group->isActive())
+			{
+				Rva00355950Arr *array = (Rva00355950Arr *)lookup->rva00204E64(canonical);
+				if (array)
+				{
+					Rva002048A2 restore((AsciiString *)((char *)this + 0x1A10C), canonical);
+					walkNamed(array, group->getScript(), false);
+				}
+			}
+		}
+		else
+		{
+			RVA0020C140_REPORT("***Attempting to call script that is not a subroutine:***");
+		}
+	}
+	else
+	{
+		Script *script = (Script *)lookup->bfmeRunZC(*(BfmeRoomZC *)&scriptName, &canonical);
+		if (script)
+		{
+			if (script->isSubroutine())
+			{
+				Rva002048A2 restore((AsciiString *)((char *)this + 0x1A10C), canonical);
+				rva0020A586(script, (void *)&scriptName);
+			}
+			else
+			{
+				RVA0020C140_REPORT("***Attempting to call script that is not a subroutine:***");
+			}
+		}
+		else
+		{
+			RVA0020C140_REPORT("***Script not defined:***");
+		}
+	}
+
+	*(Player **)((char *)this + 0x1A130) = savedPlayer;
+}
 
 // tu-skeleton: 0x0020A227 55B ?push_back@?$vector@URva0020A227Element@@V?$allocator@URva0020A227Element@@@_STL@@@_STL@@QAEXABURva0020A227Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
 
@@ -3396,19 +4072,82 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0020C0C7 28B ??_GScriptEngine@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0020C0E3 93B ?walkChild@ScriptEngine@@QAEXPAVRva003558C0Arr@@PAURva003412E0Node@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_walkChild.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_walkChild.cpp
 
-// tu-skeleton: 0x0020C140 635B ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
 
-// tu-skeleton: 0x0020C3BB 524B ?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
+void ScriptEngine::walkChild(Rva003558C0Arr *arr, Rva003412E0Node *node)
+{
+	Rva003412E0Node *cur = node;
+	if (!cur)
+		return;
+	do
+	{
+		if (((Rva003B483DHolder *)arr)->check((const Rva003558C0Key *)cur))
+		{
+			int obj = ((Rva003B483DHolder *)arr)->rva003B4826((const Rva00355640Key *)cur);
+			unsigned char *p = (unsigned char *)obj;
+			if (p[0x0C] && !p[0x0D])
+			{
+				walkNamed((Rva00355950Arr *)arr, *(Rva003412E0Node **)(p + 8), true);
+				walkChild(arr, *(Rva003412E0Node **)(p + 4));
+			}
+		}
+		cur = cur->next;
+	} while (cur);
+}
 
 // tu-skeleton: 0x0020C5C7 632B ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineExecuteActions.cpp (not merged yet)
 
 // tu-skeleton: 0x0020C83F 1379B ?evaluateAndProgressAllSequentialScripts@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateAndProgressAllSequentialScripts.cpp (not merged yet)
 
-// tu-skeleton: 0x0020CDA2 113B ?rva0020CDA2@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCheatKeyVictoryRva0020CDA2.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCheatKeyVictoryRva0020CDA2.cpp
 
-// tu-skeleton: 0x0020CE13 113B ?rva0020CE13@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCheatKeyDefeatRva0020CE13.cpp (not merged yet)
+//
+// ?rva0020CDA2@ScriptEngine@@QAEXXZ, retail 0x0020CDA2..0x0020CE13 (113B).
+//
+// Builds a fresh ScriptAction of type 3 (VICTORY in the Zero Hour action
+// enum) and runs it through ScriptEngine::executeActions with no script and
+// the name "Cheat Key Victory": the twin of the rowed "Cheat Key Defeat"
+// body 0x0020CE13 that follows it, byte for byte apart from the type and
+// the literal (.rdata 0x007E3EA4). No direct caller or address reference
+// exists in retail; the method name stays address-derived.
+
+void ScriptEngine::rva0020CDA2()
+{
+	ScriptAction *action = new ScriptAction(ScriptAction::VICTORY);
+	{
+		AsciiString name("Cheat Key Victory");
+		executeActions(action, 0, &name);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCheatKeyDefeatRva0020CE13.cpp
+
+//
+// ?rva0020CE13@ScriptEngine@@QAEXXZ, retail 0x0020CE13..0x0020CE84 (113B).
+//
+// Builds a fresh ScriptAction of type 4 (DEFEAT in the Zero Hour action
+// enum) and runs it through ScriptEngine::executeActions with no script and
+// the name "Cheat Key Defeat".
+//
+// Identity (target): the only reference to the literal "Cheat Key Defeat"
+// (.rdata 0x007E3EB8) is this body (reverse/data_xrefs.tsv). WorldBuilder twin
+// 0xB46380 (strings lead score 1.0) has the same shape: operator new(0x48)
+// 0x0002FDA0 then ScriptAction::ScriptAction(4) 0x003B5413 then the
+// AsciiString literal ctor 0x00037BA0 then ScriptEngine::executeActions
+// 0x0020C5C7 (this in ecx) then the AsciiString release 0x00036410. No direct
+// caller or address reference exists in retail; the method name stays
+// address-derived.
+
+void ScriptEngine::rva0020CE13()
+{
+	ScriptAction *action = new ScriptAction(ScriptAction::DEFEAT);
+	{
+		AsciiString name("Cheat Key Defeat");
+		executeActions(action, 0, &name);
+	}
+}
 
 // tu-skeleton: 0x0020D065 1004B ?update@ScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp (not merged yet)
 
@@ -3424,19 +4163,19 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0076C820 10B __ehhandler$??1SequentialScript@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScript.cpp (not merged yet)
 
+// tu-skeleton: 0x0076C82A 8B $L2702 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0076C832 10B __ehhandler$??1?$vector@UBfmeStringRecord00204A30@@V?$allocator@UBfmeStringRecord00204A30@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_00204a30_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0076C83C 14B uw_0076c83c -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00302081.cpp (not merged yet)
+
+// tu-skeleton: 0x0076C84A 10B __ehhandler$??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintPayload00207343@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintPayload00207343@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00302081.cpp (not merged yet)
+
 // tu-skeleton: 0x0076C854 10B uw_0076c854 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_init.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C85E 10B uw_0076c85e -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_init.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C868 10B __ehhandler$?init@ScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_init.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C872 8B Unwind@00b6c872 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205CE7.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C87A 8B Unwind@00b6c87a -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205CE7.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C882 25B $L1178 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205CE7.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C89B 10B __ehhandler$?rva00205CE7@ScriptEngine@@QAE?AVAsciiString@@V2@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205CE7.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C8A5 8B Unwind@00b6c8a5 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205D5D.cpp (not merged yet)
 
@@ -3464,12 +4203,6 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0076C907 10B __ehhandler$?checkConditionsForTeamNames@ScriptEngine@@QAEXPAVScript@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCheckConditionsForTeamNames.cpp (not merged yet)
 
-// tu-skeleton: 0x0076C911 8B Unwind@00b6c911 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineToggleDebugFrame.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C919 8B Unwind@00b6c919 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineToggleDebugFrame.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C921 10B __ehhandler$?rva002064D0@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineToggleDebugFrame.cpp (not merged yet)
-
 // tu-skeleton: 0x0076C940 8B $L19257 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDoXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C948 10B __ehhandler$?Rva0020700FXfer@@YAPAVXfer@@PAV1@PAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDoXfer.cpp (not merged yet)
@@ -3477,6 +4210,8 @@ void Rva00203BE1ByteOneSetter::enable()
 // tu-skeleton: 0x0076C952 8B Unwind@00b6c952 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNewMap.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C95A 10B __ehhandler$?newMap@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNewMap.cpp (not merged yet)
+
+// tu-skeleton: 0x0076C964 8B $L18282 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDoXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C988 8B Unwind@00b6c988 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_ctor.cpp (not merged yet)
 
@@ -3534,6 +4269,14 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0076CB5D 10B __ehhandler$??0ScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_ctor.cpp (not merged yet)
 
+// tu-skeleton: 0x0076CB67 8B $L9838 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CB6F 8B $L9839 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CB77 8B $L9840 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CB7F 10B __ehhandler$?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
 // tu-skeleton: 0x0076CB89 8B $L10033 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
 // tu-skeleton: 0x0076CB91 8B $L10034 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
@@ -3558,6 +4301,28 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0076CBE3 10B __ehhandler$?bfmeFlagForWrite@ScriptEngine@@IAEPA_NVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
+// tu-skeleton: 0x0076CBED 8B $L5803 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CBF5 8B $L5804 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CBFD 8B $L5780 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC05 10B __ehhandler$?rva00208968@ScriptEngine@@QAEXABVAsciiString@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC0F 8B $L5844 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC17 8B $L5845 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC1F 8B $L5846 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC27 8B $L5847 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC2F 8B $L5848 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC37 8B $L5824 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC3F 10B __ehhandler$?rva00208BCD@ScriptEngine@@QAEXABVAsciiString@@V2@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNamedBindings.cpp (not merged yet)
+
 // tu-skeleton: 0x0076CC49 8B $L10118 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
 // tu-skeleton: 0x0076CC51 8B $L10119 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
@@ -3571,6 +4336,18 @@ void Rva00203BE1ByteOneSetter::enable()
 // tu-skeleton: 0x0076CC71 8B $L10123 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
 // tu-skeleton: 0x0076CC79 10B __ehhandler$?rva00208DB8@ScriptEngine@@QAEPAXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC83 8B $L10158 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC8B 8B $L10159 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC93 8B $L10160 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CC9B 8B $L10177 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CCA3 8B $L10162 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
+
+// tu-skeleton: 0x0076CCAB 10B __ehhandler$?rva00208CF0@ScriptEngine@@QAEPAXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
 // tu-skeleton: 0x0076CCCF 8B Unwind@00b6cccf -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp (not merged yet)
 
@@ -3776,52 +4553,6 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0076D178 10B __ehhandler$?DoXfer@ScriptEngine@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDoXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0076D182 8B uw_0076d182 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D18A 8B $L1688 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D192 8B Unwind@00b6d192 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D19A 8B Unwind@00b6d19a -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1A2 8B Unwind@00b6d1a2 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1AA 8B Unwind@00b6d1aa -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1B2 8B Unwind@00b6d1b2 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1BA 8B Unwind@00b6d1ba -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1C2 8B Unwind@00b6d1c2 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1CA 8B Unwind@00b6d1ca -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1D2 8B Unwind@00b6d1d2 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1DA 10B __ehhandler$?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1E4 8B Unwind@00b6d1e4 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1EC 8B Unwind@00b6d1ec -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1F4 8B $L1578 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D1FC 8B Unwind@00b6d1fc -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D204 8B Unwind@00b6d204 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D20C 8B $L1582 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D214 8B Unwind@00b6d214 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D21C 8B Unwind@00b6d21c -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D224 8B Unwind@00b6d224 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D22C 8B Unwind@00b6d22c -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
-// tu-skeleton: 0x0076D234 10B __ehhandler$?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020C3BBCallScript.cpp (not merged yet)
-
 // tu-skeleton: 0x0076D23E 8B $L892 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineExecuteActions.cpp (not merged yet)
 
 // tu-skeleton: 0x0076D246 10B __ehhandler$?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineExecuteActions.cpp (not merged yet)
@@ -3850,26 +4581,6 @@ void Rva00203BE1ByteOneSetter::enable()
 
 // tu-skeleton: 0x0076D2D8 10B __ehhandler$?update@ScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp (not merged yet)
 
-// INI block registration (LINK-236). Each unit links its own 12-byte
-// BlockParse nodes onto theBlockParseList from a file-scope object whose
-// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
-// so each node's .text$yc initializer is only the 21-byte link (retail
-// .CRT$XCU 0x007AD801 and 0x007AD816, nodes 0x00DB97D0 and 0x00DB97DC). They
-// close this unit's run (its Drawable.h copy 0x007AD7B0, then its other
-// statics), before its pool-init marker 0x007AD82B.
-typedef void (*INIBlockParse)( INI *ini );
-extern struct BlockParse *theBlockParseList;
-struct BlockParse
-{
-	BlockParse *next;
-	const char *token;
-	INIBlockParse parse;
-
-	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
-	{
-		theBlockParseList = this;
-	}
-};
-
 BlockParse theScriptActionBlockParse( "ScriptAction", parseScriptAction );
+
 BlockParse theScriptConditionBlockParse( "ScriptCondition", parseScriptCondition );

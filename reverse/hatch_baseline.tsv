@@ -2411,9 +2411,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/WindModu
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/WindModuleConstructor.cpp	?refresh@Rva005FEAD0DefaultModule7@FXParticleSystem@@UAEXPAVBfmeFlagTarget@2@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/WindModuleConstructor.cpp	?update@Rva005FEAD0DefaultModule7@FXParticleSystem@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/ParticleSys.cpp	?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z	1
-alternatename	Code/GameEngine/Source/GameClient/System/ParticleSys.cpp	_vtbl_00BBB58C	1
-alternatename	Code/GameEngine/Source/GameClient/System/ParticleSys.cpp	_vtbl_00BE16C8	1
-alternatename	Code/GameEngine/Source/GameClient/System/ParticleSys.cpp	_vtbl_00BE16D8	1
 alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot00@Rva00203EFD@@UAEXPBDABVParticleSystemTemplate@FXParticleSystem@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot04@Rva00203EFD@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot08@Rva00203EFD@@UAEXXZ	1
@@ -2811,7 +2808,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatMain.c	_Rva008
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpCommon.c	_ghiSocketSelect	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/Rva0086B2D0Disconnected.c	_piChatDisconnectedA	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/Rva0086B360Dispatch.cpp	_piChatPrivateMessageA	1
-alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerMangle.c	_ntohl@4	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerOperations.c	_piAuthenticateCDKeyCallbackA	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerOperations.c	_piChangeNickCallbackA	1
 alternatename	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerOperations.c	_piOperationsReset	1
@@ -3700,8 +3696,8 @@ export_alias	reverse/export_aliases.csv	?$S184@?1??GetValue@?$DefaultModuleKey@$
 export_alias	reverse/export_aliases.csv	?$S188@?1??GetValue@?$DefaultModuleName@$06@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
-export_alias	reverse/export_aliases.csv	??0Matrix4D@@QAE@ABVCoord3D@@M@Z	1	allow=27f64c18e905395528ab274d39a7dc4c64b72873
-export_alias	reverse/export_aliases.csv	?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z	1	allow=27f64c18e905395528ab274d39a7dc4c64b72873
+export_alias	reverse/export_aliases.csv	??0Matrix4D@@QAE@ABVCoord3D@@M@Z	1
+export_alias	reverse/export_aliases.csv	?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z	1
 object_symbol	reverse/functions.csv	0x000240E0	1
 object_symbol	reverse/functions.csv	0x00024160	1
 object_symbol	reverse/functions.csv	0x00025090	1
@@ -4551,7 +4547,6 @@ pin	reverse/symbols.csv	0x0012A4D0	1
 pin	reverse/symbols.csv	0x0012B330	1
 pin	reverse/symbols.csv	0x0012C780	1
 pin	reverse/symbols.csv	0x0012F190	1
-pin	reverse/symbols.csv	0x0012FE00	1
 pin	reverse/symbols.csv	0x00130FB0	1
 pin	reverse/symbols.csv	0x00130FCE	1
 pin	reverse/symbols.csv	0x001310CF	1
@@ -5854,7 +5849,7 @@ pin	reverse/symbols.csv	0x002CBA59	1
 pin	reverse/symbols.csv	0x002CCFC7	2
 pin	reverse/symbols.csv	0x002CD169	1
 pin	reverse/symbols.csv	0x002CE1AC	1
-pin	reverse/symbols.csv	0x002CE7DC	1	allow=141b1eb22cbdb40fd1c19a515304f1c426edaaa3
+pin	reverse/symbols.csv	0x002CE7DC	1
 pin	reverse/symbols.csv	0x002CEA55	2
 pin	reverse/symbols.csv	0x002CF088	1
 pin	reverse/symbols.csv	0x002CF0F0	1
@@ -7927,7 +7922,6 @@ pin	reverse/symbols.csv	0x00534557	1
 pin	reverse/symbols.csv	0x00534581	1
 pin	reverse/symbols.csv	0x005346D9	1
 pin	reverse/symbols.csv	0x0053470B	1
-pin	reverse/symbols.csv	0x0053479F	1
 pin	reverse/symbols.csv	0x00534AAE	1
 pin	reverse/symbols.csv	0x00534E13	1
 pin	reverse/symbols.csv	0x00535776	2
@@ -8929,10 +8923,8 @@ pin	reverse/symbols.csv	0x0065477E	2
 pin	reverse/symbols.csv	0x0065478A	2
 pin	reverse/symbols.csv	0x00654796	1
 pin	reverse/symbols.csv	0x00654B20	2
-pin	reverse/symbols.csv	0x0065565E	2
 pin	reverse/symbols.csv	0x00655670	1
 pin	reverse/symbols.csv	0x00655682	1
-pin	reverse/symbols.csv	0x006556B8	1
 pin	reverse/symbols.csv	0x00655700	1
 pin	reverse/symbols.csv	0x00655770	4
 pin	reverse/symbols.csv	0x00655780	26
