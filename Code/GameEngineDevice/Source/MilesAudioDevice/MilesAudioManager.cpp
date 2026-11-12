@@ -5364,7 +5364,7 @@ protected:
 };
 struct Rva0060C3C3Stream;
 #include "../../../GameEngine/Include/Common/XferLoadClass.h"
-class Rva0060C45E { public: void clear(); };
+#include "../../../GameEngine/Include/Common/Rva0060C45E.h"
 #include "../../../GameEngine/Include/Common/File.h"
 #include "../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"

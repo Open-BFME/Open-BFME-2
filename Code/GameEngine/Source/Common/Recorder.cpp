@@ -156,7 +156,7 @@ struct Rva0060C3C3Stream;
 
 class Rva0060C5FA : public Xfer {public:Rva0060C5FA(void*,void*,void*);char tail[28]; public: virtual int BeginBlock(const char *name); virtual void EndBlock(); virtual void SkipBlock(const char *name); virtual Xfer &operator==(const char *const &value); protected: virtual void XferData(unsigned int type, void *data, unsigned int size);};
 
-class Rva0060C45E {public:void clear();};
+#include "../../Include/Common/Rva0060C45E.h"
 
 bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,bool) throw();
 

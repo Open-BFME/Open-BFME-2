@@ -1031,11 +1031,7 @@ private:
 };
 struct Rva0060C3C3Stream;
 #include "../../../../Include/Common/XferLoadClass.h"
-class Rva0060C45E
-{
-public:
-	void clear();
-};
+#include "../../../../Include/Common/Rva0060C45E.h"
 #include "../../../../Include/Common/File.h"
 File *createMemoryReadFile(char *data, Int size);
 

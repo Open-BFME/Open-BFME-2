@@ -85,11 +85,7 @@ protected:
 
 #include "../../Include/Common/XferLoadClass.h"
 
-class Rva0060C45E
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva0060C45E.h"
 
 #include "../../Include/Common/File.h"
 

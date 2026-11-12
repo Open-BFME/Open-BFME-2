@@ -89,7 +89,7 @@ protected:
 };
 struct Rva0060C3C3Stream;
 #include "../../../../Include/Common/XferLoadClass.h"
-class Rva0060C45E { public: void clear(); };
+#include "../../../../Include/Common/Rva0060C45E.h"
 class LoadFileView {
 public:
  virtual void v0(); virtual void v1(); virtual void close(); virtual void v3();
