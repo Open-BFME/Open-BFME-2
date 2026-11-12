@@ -9,14 +9,7 @@
 
 #include "../../Include/Common/Rva00468520Obj.h"
 
-class Rva00468520
-{
-	Rva00468520Obj *m_00;
-	int m_04;
-
-public:
-	Rva00468520 *set(const Rva00468520 *src);
-};
+#include "../../Include/Common/Rva00468520.h"
 
 void __cdecl Rva004F6B7BInit(Rva00468520 *dst, const Rva00468520 *src)
 {
