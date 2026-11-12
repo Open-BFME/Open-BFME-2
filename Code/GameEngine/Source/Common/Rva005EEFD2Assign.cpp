@@ -14,14 +14,7 @@ struct Rva005EEFD2Target
 	TargetRef00217D4C m_04;
 };
 
-class Rva005EEFD2
-{
-public:
-	Rva005EEFD2 &operator=(const Rva005EEFD2 &other);
-
-private:
-	Rva005EEFD2Target *m_ptr;
-};
+#include "../../Include/Common/Rva005EEFD2.h"
 
 Rva005EEFD2 &Rva005EEFD2::operator=(const Rva005EEFD2 &other)
 {
