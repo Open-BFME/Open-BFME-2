@@ -121,13 +121,7 @@ public:
 
 typedef Object BfmeDrop987;
 
-class BfmeC987
-{
-public:
-	void bfmeGo987C();
-	char m_bfmePad[0x24]; // +0x00
-	int m_bfmeId; // +0x24
-};
+#include "../../../../Include/GameLogic/Module/BfmeC987.h"
 
 class BfmeD987
 {

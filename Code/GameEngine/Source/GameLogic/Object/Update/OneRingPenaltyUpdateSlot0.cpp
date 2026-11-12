@@ -5,13 +5,7 @@
 // 0x00499C46 (pinned by address) on the primary this; the argument is
 // unused. Named by address.
 // The callee is the rowed BfmeC987::bfmeGo987C.
-class BfmeC987
-{
-public:
-	void bfmeGo987C();
-	char m_bfmePad[0x24]; // +0x00
-	int m_bfmeId; // +0x24
-};
+#include "../../../../Include/GameLogic/Module/BfmeC987.h"
 
 class ModuleData;
 class Object;
