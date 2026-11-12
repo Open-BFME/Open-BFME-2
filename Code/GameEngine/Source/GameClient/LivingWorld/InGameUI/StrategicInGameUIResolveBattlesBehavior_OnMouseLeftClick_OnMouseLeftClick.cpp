@@ -132,7 +132,7 @@ bool Rva005766B3::Visit(LivingWorldPendingBattle *battle) {
 }
 
 
-class Rva002C025AViewer { public: void *rva002C025A(void *, unsigned, bool); };
+#include "../../../../Include/GameClient/Rva002C025AViewer.h"
 class Rva00212728 { public: void *rva00212728(void *); };
 class Rva00DFE1C8Host;
 // g_00DFE1C8 is only an alias of the owned global TheLivingWorldManager (ledger names column); this unit reads the owner through its own view type.

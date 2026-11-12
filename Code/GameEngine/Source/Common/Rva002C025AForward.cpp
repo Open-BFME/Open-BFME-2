@@ -9,10 +9,7 @@
 // ?rva002C025A@Rva002C025AViewer@@QAEPAXPAXI_N@Z @0x002C025A 33B.
 struct Rva002C025APair { unsigned int m_00; unsigned char m_04; };
 #include "../../Include/Common/Rva005CBB0A.h"
-class Rva002C025AViewer {
-public:
- void *rva002C025A(void *, unsigned int, bool);
-};
+#include "../../Include/GameClient/Rva002C025AViewer.h"
 void *Rva002C025AViewer::rva002C025A(void *point, unsigned int mask, bool flag) {
  Rva002C025APair pair;
  pair.m_00=mask;

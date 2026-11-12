@@ -31,11 +31,7 @@
 // region (pointer or reference: the codegen is the same; WB's dispatcher
 // passes the argument record itself).
 
-class Rva002C025AViewer
-{
-public:
-	void *rva002C025A(void *point, unsigned kind, bool flag);	// 0x002C025A
-};
+#include "../../../../Include/GameClient/Rva002C025AViewer.h"
 
 class Rva00212728
 {
