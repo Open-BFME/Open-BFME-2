@@ -2621,3 +2621,16 @@ either table's slot binding.
 The [tree-buffer fold investigation](../../reverse/attempt_support/tree-buffer-table-class-fold-20261112.md)
 identifies the shared-header and member-lifetime prerequisite for
 `0x007CEEA4`.
+
+### Rva000906DE abstract table (2026-11-12)
+
+Retail's table at `0x007C7E94` starts with four `__purecall` entries and
+ends at the scalar deleting destructor at `0x000906DE`. The compiler
+now emits all five targets in that order. The real constructor emits
+the table, so the synthetic emission overload has been removed.
+
+The emitter and its qualified destructor caller in
+`Rva007B6880Thunks.cpp` verify 938 functions and 15 data rows. Their
+link preview preserves 9,750 bytes on index `80569f4278`. The caller
+emits no competing table. The next real link must confirm bridge
+retirement for this name.

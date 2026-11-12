@@ -147,18 +147,17 @@ class Rva000906DE
 {
 public:
 	Rva000906DE();
-	Rva000906DE(EmitVtableTag *);
+	// Retail table 0x007C7E94 has four __purecall slots before the destructor.
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 	virtual ~Rva000906DE();
 };
 
 // ??0Rva000906DE@@QAE@XZ @0x00090778 9B: the default constructor, storing the
 // class's own vtable and returning this.
 Rva000906DE::Rva000906DE()
-{
-}
-
-// ?<Rva000906DE::Rva000906DE> absent-from-retail
-Rva000906DE::Rva000906DE(EmitVtableTag *)
 {
 }
 
