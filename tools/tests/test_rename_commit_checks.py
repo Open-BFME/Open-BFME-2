@@ -14,6 +14,7 @@ what shows the checks see the private index and never the real one.
 test_hook_drift.. reads .githooks/pre-commit itself, so a hook change that
 this module's jobs do not follow fails here."""
 import hashlib
+import json
 import os
 import re
 import shlex
@@ -36,6 +37,23 @@ from rename import Refusal, VerifyFailed  # noqa: E402
 OLD = "?Rva00401000@Widget@@QAEHH@Z"
 NEW = "?countParts@Widget@@QAEHH@Z"
 UNIT = "Code/Game/Widget.cpp"
+
+
+@pytest.mark.parametrize("cancellable", [False, True])
+def test_windows_build_receives_large_scope_together(tmp_path, monkeypatch, cancellable):
+    sources = [f"Code/Game/Long directory/Unit {i} é.cpp" for i in range(1917)]
+    ctx = rename.Context(tmp_path)
+    script = ctx.path("tools/build.py")
+    script.parent.mkdir()
+    script.write_text(
+        "import pathlib, sys\n"
+        "assert sys.argv[1:] == ['--selectors-stdin']\n"
+        "pathlib.Path('received.json').write_bytes(sys.stdin.buffer.read())\n"
+        "print('Functions: OK 1/1')\n", encoding="utf-8")
+    monkeypatch.setattr(sys, "platform", "win32")
+    cancel = threading.Event() if cancellable else None
+    assert rename.build_verify(ctx, sources, cancel)
+    assert json.loads((tmp_path / "received.json").read_bytes()) == sources
 
 FUNCTIONS = f"""name,export_rva,target_rva,target_size,source,status,notes
 {OLD},,0x00401000,40,{UNIT},matched,address-derived

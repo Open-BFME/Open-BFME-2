@@ -5027,4 +5027,10 @@ def main(only=None, *, exact_sources=None):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    selectors = sys.argv[1:]
+    if selectors == ["--selectors-stdin"]:
+        selectors = json.load(sys.stdin.buffer)
+        if not isinstance(selectors, list) or not selectors or not all(
+                isinstance(item, str) and item for item in selectors):
+            raise SystemExit("expected a nonempty JSON array of build selectors on stdin")
+    main(selectors)

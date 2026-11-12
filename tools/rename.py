@@ -13819,13 +13819,20 @@ def build_verify(ctx, sources, cancel=None):
     """One ./build.sh over `sources`; True only on exit 0 with `Functions: OK`.
     `cancel`, a threading.Event, kills the build once set (False then)."""
     ctx._build_diagnostics = ""
-    command = ([sys.executable, str(ctx.path("tools/build.py"))] if sys.platform == "win32"
-               else [str(ctx.path("build.sh"))]) + list(sources)
+    payload = None
+    if sys.platform == "win32" and sources:
+        command = [sys.executable, str(ctx.path("tools/build.py")), "--selectors-stdin"]
+        payload = json.dumps(list(sources), ensure_ascii=True)
+    elif sys.platform == "win32":
+        command = [sys.executable, str(ctx.path("tools/build.py"))]
+    else:
+        command = [str(ctx.path("build.sh")), *sources]
     print(f"rename: verifying {len(sources)} source(s): ./build.sh {' '.join(sources)}", flush=True)
     if cancel is None:
-        result = subprocess.run(command, cwd=ctx.root, capture_output=True, text=True)
+        result = subprocess.run(command, cwd=ctx.root, input=payload, capture_output=True, text=True)
     else:
-        result = _run_cancellable(command, cancel, cwd=ctx.root)
+        result = _run_cancellable(command, cancel, cwd=ctx.root,
+                                  input=payload.encode("ascii") if payload is not None else None)
         if result is None:
             return False
     output = result.stdout + result.stderr
