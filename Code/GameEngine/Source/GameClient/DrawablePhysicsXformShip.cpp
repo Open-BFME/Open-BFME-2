@@ -107,11 +107,7 @@ enum KindOfType { KINDOF_FIRST };
 
 #include "../../Include/GameLogic/Module/Rva001E46E1.h"
 
-class Rva001E3F27FloatChaseField
-{
-public:
-	Real get() const;
-};
+#include "../../Include/GameLogic/Rva001E3F27FloatChaseField.h"
 
 #include "../../Include/GameLogic/LocomotorClass.h"
 

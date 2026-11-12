@@ -21,7 +21,7 @@
 typedef bool Bool;typedef int Int;
 struct Rva0028AC4EEntry;
 class Object {public:const Rva0028AC4EEntry *rva0028AC4E()const;};
-class Rva001E3F27FloatChaseField {public:float get()const;};
+#include "../../../Include/GameLogic/Rva001E3F27FloatChaseField.h"
 class Rva00373CAAFloatChaseField {public:float get()const;};
 #include "../../../Include/GameLogic/Module/Rva001E46E1.h"
 struct DirectionTemplateView {char pad00[0x40];float m_turnThresholdHS;char pad44[0x70-0x44];Int mode70;char pad74[0x84-0x74];float m_maxTurnWithoutReform;char pad88[0xD8-0x88];Int m_canMoveBackwards;};
