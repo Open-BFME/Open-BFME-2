@@ -57,16 +57,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
-class Rva004A6AB5Iface
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12();
-	virtual void s13(bool on);
-	int m_3E8;
-};
+#include "../../Include/Common/Rva004A6AB5Iface.h"
 
 struct Rva004A6AB5Pos
 {
