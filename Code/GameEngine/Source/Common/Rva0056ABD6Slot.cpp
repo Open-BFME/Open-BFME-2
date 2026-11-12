@@ -1,8 +1,9 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva0056ABD6@Rva0056ABD6@@QAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,
-// retail 0x0056ABD6 (80 bytes, RET 8): slot 4 of the Rva0056ACFF_B1 table
-// 0x0086D160, after the slot-1 forwarder 0x0056ABCB (Rva0056AC26Derived.cpp).
+// ?slot4@Rva0056ACFF@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z,
+// retail 0x0056ABD6 (80 bytes, RET 8): slot 4 of Rva0056ACFF's secondary
+// table 0x0086D160, after the slot-1 forwarder 0x0056ABCB
+// (Rva0056AC26Derived.cpp).
 // The receiver is unused. The living-world logic singleton must first accept
 // the army (rowed 0x002B4BC9); then its region manager (+0xB0) validates the
 // army's entry from its current region (pinned getter 0x00318C32) into the
@@ -34,13 +35,13 @@ struct Rva0056ABD6Logic
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva0056ABD6
+class Rva0056ACFF
 {
 public:
-	bool rva0056ABD6(LivingWorldArmy *army, Rva00318C32Ret *target);
+	virtual bool slot4(LivingWorldArmy *army, Rva00318C32Ret *target);
 };
 
-bool Rva0056ABD6::rva0056ABD6(LivingWorldArmy *army, Rva00318C32Ret *target)
+bool Rva0056ACFF::slot4(LivingWorldArmy *army, Rva00318C32Ret *target)
 {
 	if (!((Rva002B4BC9 *)TheLivingWorldLogic)->rva002B4BC9((Rva002B4BC9Arg *)army))
 		return false;
