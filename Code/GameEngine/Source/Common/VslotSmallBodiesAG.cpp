@@ -275,11 +275,7 @@ int rva0034373F(State *state, void *)
 
 #include "../../Include/GameLogic/Waypoint.h"
 extern Waypoint *g_waypointListHead;
-class Rva0027CE80
-{
-public:
-	void rva0027CE80();
-};
+#include "../../Include/Common/Rva0027CE80.h"
 void Rva0027CE80::rva0027CE80()
 {
 	while (g_waypointListHead)
