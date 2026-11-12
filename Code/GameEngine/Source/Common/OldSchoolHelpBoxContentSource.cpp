@@ -191,7 +191,7 @@ private:
 struct Rva004D9A35Fields { char pad[0x14]; unsigned int word14; Rva004D9A35Fields *clear(); };
 
 // ?clear@Rva002175C7Fields@@QAEPAU1@XZ
-struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields *clear(); };
+#include "../../Include/Common/Rva002175C7Fields.h"
 
 // Complete native 2C8E52..2C8E5A follows RET8 and precedes a new leaf.
 // It returns the old receiver word at +4 in EAX and clears that word to zero.
