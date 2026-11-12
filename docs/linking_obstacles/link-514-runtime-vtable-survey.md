@@ -3040,7 +3040,7 @@ both bridged ("Store StructureBody's real secondary tables instead of zero dummi
 walls above still stand for the class's own view. Remaining dummy-vptr ctors on the boot walk: LINK-627's
 2026-11-12 inventory.
 
-### Shared tiny bodies, empty overrides and collide defaults: 63 off the bridge (2026-11-12, seat halilkkaya-lk97)
+### Shared tiny bodies, empty overrides and collide defaults: 62 off the bridge (2026-11-12, seat halilkkaya-lk97)
 
 Base `decf61df826`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
 
@@ -3073,13 +3073,17 @@ Base `decf61df826`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; c
 - "Give the AIUpdate family's collide interface stand-ins CollideModule's five defaults" (Rva0026E836_M4,
   AIUpdateInterface24) and "Give three modules' collide interface views CollideModule's false defaults"
   (CritterEmitterUpdate, BezierProjectileBehavior, DeflectSpecialPower): cause 10. 11 tables.
-- "Give Rva005746AF's four unrecovered slots retail's shared tiny bodies" and "Give the SkirmishAIManager
-  placeholder's constructor view its empty init". 2 tables.
+- "Give the SkirmishAIManager placeholder's constructor view its empty init". 1 table.
+- Withheld at landing: the Rva005746AF commit (slots 2..5 of 0x00C6E3B0 as retail's `xor eax,eax; ret 4` 0x005DAA6C
+  and three `xor al,al; ret 4` 0x005CB9FF bodies, one argument each, in both emitters' private views) conflicted with
+  StarkillerHDX's "Register canonical Rva005746AF, adopt it in 8 units", which replaced those views with the
+  generated header. Lead: carry the four slot signatures and inline bodies into reverse/class_contracts/Rva005746AF.json
+  (header_adopt_lane.py), then row the twins (RenderObjClass::Remove_Sub_Object, ?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z).
 - "Give BezierProjectileBehavior its loadPostProcess base call (retail 0x00497805 fold)": half of cause 5; the
   table moves one slot toward retail.
 
 **Measure (base -> after, lk74_cmp).** Bridged 3,448 -> 3,385; bridged slots 51,335 -> 50,594; already correct
-2,110 -> 2,173; mismatching source slots 38,155 -> 37,946; 63 bridged -> correct, nothing newly bridged, no correct
+2,110 -> 2,173; mismatching source slots 38,155 -> 37,946; 63 bridged -> correct (62 as landed, without the withheld Rva005746AF table), nothing newly bridged, no correct
 table lost, refusals identical (36). Two still-bridged tables moved toward retail (BezierProjectileBehavior's primary,
 Icon's IconMouseObserver table), none away. Buckets a 47, b 466, c 733, d 430, e 1,709. link_check (census
 c31795c94c) over every changed unit, every other emitter of each changed table and every other view of each changed
