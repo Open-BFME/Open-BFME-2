@@ -39,11 +39,7 @@ extern unsigned char g_00E03745;
 
 // Retail 0x002EF3D9: forwards (object, object position, buffer) to
 // Pathfinder::_GetOverlapUnits.
-class Rva002EF3D9Host
-{
-public:
-	int rva002EF3D9(char *record, int arg);
-};
+#include "../../../Include/GameLogic/Rva002EF3D9Host.h"
 
 class AI
 {

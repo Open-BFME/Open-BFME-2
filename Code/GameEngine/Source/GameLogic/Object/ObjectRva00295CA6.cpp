@@ -41,11 +41,7 @@ struct Rva00295CA6ContainView
 	Bool m_busy;
 };
 
-class Rva002EF3D9Host
-{
-public:
-	Int rva002EF3D9(char *object, Int ids);
-};
+#include "../../../Include/GameLogic/Rva002EF3D9Host.h"
 
 #include "../../../Include/GameLogic/Rva002F2865Host.h"
 

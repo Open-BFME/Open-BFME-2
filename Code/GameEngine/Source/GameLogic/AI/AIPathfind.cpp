@@ -794,11 +794,7 @@ public:
 	void *rva002EF25B(const Rva002F0DD6Value &value);
 };
 struct Coord3D;
-class Rva002EF3D9Host
-{
-public:
-	int rva002EF3D9(char *record, int arg);
-};
+#include "../../../Include/GameLogic/Rva002EF3D9Host.h"
 #include "../../../Include/GameLogic/Rva002F2865Host.h"
 struct Rva002F0B8AElement { char bytes[1]; bool operator<(const Rva002F0B8AElement&)const; bool operator==(const Rva002F0B8AElement&)const; };
 typedef _STL::pair<const int, Rva002F0B8AElement> _Rva002F0B8APair;
