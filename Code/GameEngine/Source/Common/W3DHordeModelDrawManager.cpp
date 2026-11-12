@@ -200,14 +200,7 @@ template NarrowStr12 *_STL::copy<const NarrowStr12 *, NarrowStr12 *>(const Narro
 // _STL::sort instantiations call it). The donor's macro-generated q4Sort*
 // callers are omitted here; an explicit instantiation forces the same body.
 template int _STL::__lg<int>(int);
-class BfmeSubA
-{
-public:
-	BfmeSubA(const BfmeSubA &other);
-
-private:
-	void *m_item;
-};
+#include "../../Include/Common/BfmeSubA.h"
 class Rva00752630
 {
 	BfmeSubA m_00;

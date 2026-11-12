@@ -1,13 +1,6 @@
 // cl: /Ob0
 
-class BfmeSubA
-{
-public:
-	BfmeSubA(const BfmeSubA &other);
-
-private:
-	void *m_item;
-};
+#include "../../Include/Common/BfmeSubA.h"
 
 class Rva002DFC30
 {

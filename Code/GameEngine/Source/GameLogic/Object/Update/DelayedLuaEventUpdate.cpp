@@ -59,14 +59,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class BfmeSubA
-{
-public:
-	BfmeSubA(const BfmeSubA &other);
-
-private:
-	void *m_item;
-};
+#include "../../../../Include/Common/BfmeSubA.h"
 
 class Rva0028BC20
 {
