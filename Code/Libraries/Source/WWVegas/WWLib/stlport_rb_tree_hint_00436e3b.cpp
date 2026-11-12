@@ -108,11 +108,7 @@ class Rva0021DA13 : public Rva0021C459
 {
 };
 
-class Rva002DC267
-{
-public:
-    UnicodeString rva002DC267() const; // the save directory
-};
+#include "../../../../GameEngine/Include/Common/Rva002DC267.h"
 
 // The 81-byte file-list provider 0x006007DA ignores ECX and takes four stack
 // words; call it as GameState::iterateSaveFiles does, with the file system

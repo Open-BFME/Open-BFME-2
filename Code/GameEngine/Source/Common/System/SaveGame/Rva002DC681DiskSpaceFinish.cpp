@@ -34,12 +34,7 @@ typedef unsigned short WideChar;
 #include <windows.h>
 #include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;
-	bool rva002DC681() const;
-};
+#include "../../../../Include/Common/Rva002DC267.h"
 
 bool Rva002DC267::rva002DC681() const
 {

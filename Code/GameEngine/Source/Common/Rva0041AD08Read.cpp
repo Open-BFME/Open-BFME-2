@@ -345,7 +345,7 @@ union NativeSaveEnumerationCall {
  void (Rva006007DAFileSystem::*member)(const UnicodeString *,const UnicodeString *,Rva0021C459 *,bool);
 };
 typedef char SaveEnumerationPointerWidth[sizeof(NativeSaveEnumerationCall)==4 ? 1 : -1];
-class Rva002DC267 {public:UnicodeString rva002DC267()const;};
+#include "../../Include/Common/Rva002DC267.h"
 AsciiString *Rva00300678Get();
 class BFME2WideConcatPair {
 public:

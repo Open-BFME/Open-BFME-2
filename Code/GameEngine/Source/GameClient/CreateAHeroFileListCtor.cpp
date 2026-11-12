@@ -90,11 +90,7 @@ class GameState;
 extern GameState *TheGameState;
 
 // The game state's save directory (0x002DC267), rowed under its own spelling.
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;
-};
+#include "../../Include/Common/Rva002DC267.h"
 
 // The wide listing takes its strings by address; retail passes temporaries.
 static __forceinline const UnicodeString *byAddress(const UnicodeString &text)

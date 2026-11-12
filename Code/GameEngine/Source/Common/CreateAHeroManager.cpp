@@ -131,11 +131,7 @@ struct Rva0021DB35
 class GameState;
 extern GameState *TheGameState;
 // The game state's save directory (0x002DC267), rowed under its own spelling.
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;
-};
+#include "../../Include/Common/Rva002DC267.h"
 extern unsigned char g_rva005B5C02Flag;
 class CreateAHeroData;
 struct Rva0021F5F8Hero

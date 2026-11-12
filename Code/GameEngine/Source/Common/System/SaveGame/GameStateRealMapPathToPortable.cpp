@@ -14,11 +14,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;
-};
+#include "../../../../Include/Common/Rva002DC267.h"
 
 #include "../../../../Include/Common/Rva00300489.h"
 

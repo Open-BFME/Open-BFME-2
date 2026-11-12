@@ -23,7 +23,7 @@ Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, Int line);	// 0x
 
 class GameState;
 extern GameState *TheGameState;
-class Rva002DC267 { public: UnicodeString rva002DC267() const; };
+#include "../../../Include/Common/Rva002DC267.h"
 // The Win32 call cannot throw a C++ exception. State that explicitly under
 // /EHs, which preserves the native bool-tree teardown's exception states.
 extern "C" __declspec(dllimport) int __stdcall CreateDirectoryW(const unsigned short *, void *) throw();

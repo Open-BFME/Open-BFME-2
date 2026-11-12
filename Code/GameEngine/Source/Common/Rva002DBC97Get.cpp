@@ -179,11 +179,7 @@ struct Rva002DBD80Val : AsciiStringPlusText
 };
 Rva002DBD80Val Rva002DBD80Make(int x, const unsigned short *s);
 
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;
-};
+#include "../../Include/Common/Rva002DC267.h"
 #include "../../Include/Common/Rva002DC74A.h"
 
 // See the header comment: original name unknown.

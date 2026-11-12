@@ -29,11 +29,7 @@ typedef unsigned short WideChar;
 
 #define TheGlobalData TheWritableGlobalData
 
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;
-};
+#include "../../../../Include/Common/Rva002DC267.h"
 
 class Rva002DC7C1
 {

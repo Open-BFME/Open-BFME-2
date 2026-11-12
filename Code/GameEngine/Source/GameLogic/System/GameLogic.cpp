@@ -755,11 +755,7 @@ extern unsigned g_Va00E032E8;
 void __cdecl Rva004341D8(int button);
 void __cdecl Rva00435CCC(void);
 // TheGameState's rowed save-directory free-space check and save-exists test.
-class Rva002DC267
-{
-public:
-	bool rva002DC681(void) const;
-};
+#include "../../../Include/Common/Rva002DC267.h"
 class Rva002DCCFB
 {
 public:

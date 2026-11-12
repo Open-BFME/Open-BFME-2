@@ -78,11 +78,7 @@ union NativeSaveEnumerationCall {
 typedef char SaveEnumerationPointerWidth[sizeof(NativeSaveEnumerationCall)==4 ? 1 : -1];
 extern class FileSystem *TheFileSystem;
 
-class Rva002DC267
-{
-public:
-	UnicodeString rva002DC267() const;		// the save directory
-};
+#include "../../../../Include/Common/Rva002DC267.h"
 
 typedef void (*IterateSaveFileCallback)(UnicodeString filename, void *userData);
 

@@ -159,7 +159,7 @@ void __cdecl Rva00434EFA()
 // warns when the save directory lacks space (two-button message box, the member
 // callback 0x00434337 bound through the functor holder), else picks the next
 // screen state from the number of human slots of the multiplayer game.
-class Rva002DC267 { public: bool rva002DC681() const; };
+#include "../../../../../Include/Common/Rva002DC267.h"
 class GameState;
 extern GameState *TheGameState;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
