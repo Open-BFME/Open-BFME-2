@@ -1020,11 +1020,7 @@ private:
 // same +0x1A4/+0x1A5/+0x38/+0x158 family; first returns matrix-like block
 // (+0x158 versus +0x8) whose +0xC/+0x1C/+0x2C floats the caller copies.
 
-class Rva002722AA
-{
-public:
-	void *get() const;
-};
+#include "../../Include/GameClient/Rva002722AA.h"
 class Rva002722BD
 {
 public:

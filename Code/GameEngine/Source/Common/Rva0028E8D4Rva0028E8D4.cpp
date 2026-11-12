@@ -28,11 +28,7 @@ class Object{public:
  MotionCoord previous,planned;bool flag1A4,flag1A5,flag1A6;
  __forceinline unsigned lastFrame() const {return frame;}void rva0028E8FD(Coord3D*);
 };
-class Rva002722AA
-{
-public:
-	void *get() const;
-};
+#include "../../Include/GameClient/Rva002722AA.h"
 
 struct Rva0028E8D4Matrix
 {

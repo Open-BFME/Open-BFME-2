@@ -29,7 +29,7 @@ public:
 	void rva00271C8A(const int *,const int *);
 	int m_bits[19]; // +0x00
 };
-class Rva002722AA { public: void *get() const; };
+#include "../../Include/GameClient/Rva002722AA.h"
 class Rva002722BD { public: void *get() const; };
 #include "../../Include/GameLogic/Module/Rva0028E8D4.h"
 #include "../../Include/GameLogic/Module/Rva001E434A.h"
