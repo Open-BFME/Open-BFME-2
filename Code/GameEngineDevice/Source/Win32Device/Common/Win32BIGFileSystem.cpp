@@ -342,11 +342,13 @@ namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pa
 
 namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > *,unsigned int) const; }
 
-// The tree's copy path (base ctor, node creation, node allocate) is kept from
-// stlport_map_int_ptr_lower.cpp; this bfmealloc unit's own copies differ.
+// Use the tree copy and base constructor emitted by stlport_map_int_ptr_lower.cpp.
 namespace _STL { template <> _Rb_tree_base<_STL::pair<unsigned int const,void *>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::_Rb_tree_base(_STL::allocator<_STL::pair<unsigned int const,void *> > const &); }
 
-namespace _STL { template <> _Rb_tree_node<_STL::pair<unsigned int const,void *> > *_Rb_tree<unsigned int,_STL::pair<unsigned int const,void *>,_STL::_Select1st<_STL::pair<unsigned int const,void *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::_M_create_node(_STL::pair<unsigned int const,void *> const &); }
+// The verified copy at 0x00603B9C uses the 32-byte node clone at 0x00413E55.
+namespace _STL {
+template <> TreeIntPtr00603FD2::_Link_type TreeIntPtr00603FD2::_M_copy(_Link_type node, _Link_type parent);
+}
 
 namespace _STL { template <> _Rb_tree_node<_STL::pair<unsigned int const,void *> > *allocator<_Rb_tree_node<_STL::pair<unsigned int const,void *> > >::allocate(unsigned int, void const *) const; }
 

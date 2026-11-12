@@ -47,3 +47,14 @@ slots as `twin_target_slots`. Replayed on the P9 object snapshot: refusals
 800 -> 298, generated name copies 3,662 -> 4,254, twin slots 5,952; the
 SubsystemLegend copy has all 14 retail slots. Merging Rva0022E0E5Dtor.cpp into
 the SubsystemLegend TU remains the source fix.
+
+The real link at 6e1bad5179 reported an unresolved unsigned/pointer
+tree _M_create_node from Win32BIGFileSystem.cpp. Its object instantiated
+the generic _M_copy -> _M_clone_node -> _M_create_node chain. Retail's
+00603B9C calls 00413E55, which clones a 32-byte node. The existing
+specialization in stlport_map_int_ptr_lower.cpp implements those calls.
+Declaring that specialization at the consumer removes its local generic
+copy. The rebuilt consumer and current lower/insert providers have no
+COFF reference to the missing symbol. The consumer matched 38/38 rows;
+all three units retained 3,440 bytes in link_check. Awaiting the next
+real link for image-wide confirmation.
