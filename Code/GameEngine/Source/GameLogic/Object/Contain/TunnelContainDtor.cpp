@@ -16,7 +16,17 @@ class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); };
 #include "../../../../Include/Common/B4.h"
 #include "../../../../Include/Common/B5.h"
-class B6 { public: virtual void b6(); };
+class DamageInfo;
+enum BodyDamageType;
+// The +0x2C interface: retail's GarrisonContain-family table 0x00C463D8 keeps its two
+// empty one-argument defaults (ret 4) and GarrisonContain's slot-2 override.
+class B6
+{
+public:
+	virtual void b6(DamageInfo *) { }
+	virtual void d01(DamageInfo *) { }
+	virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) { }
+};
 #include "../../../../Include/Common/B7.h"
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
 
@@ -32,6 +42,7 @@ class GarrisonContain : public OpenContain
 {
 public:
 	virtual ~GarrisonContain();
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState); // the rowed 0x0047876A
 
 private:
 	unsigned char m_padFC424[0x424 - 0xFC];
