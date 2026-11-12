@@ -6,7 +6,7 @@
 // It can also change how later array constructions here compile; checked to
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 // Share the retail size context with the RefCountClass release declaration.
 #include "refcount.h"

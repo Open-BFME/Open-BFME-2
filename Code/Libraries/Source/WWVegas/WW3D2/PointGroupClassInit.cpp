@@ -18,7 +18,7 @@
 // and WWMath::Fast_Sin (WWMathO1Inlines.cpp; the scoped wwmath.h view compiles only it
 // for size), and the size-form Vector2 scalar product StreakRendererCtor.cpp emits.
 // The ??_H anchor is unemitted.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <math.h>
