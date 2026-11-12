@@ -443,9 +443,7 @@ typedef _STL::_Rb_tree<int, Rva005E4920Pair, _STL::_Select1st<Rva005E4920Pair>, 
 // @0x005EA5CE 21B takes an extra empty tag argument, so it re-pushes the
 // three and calls (the shape of STLport's __uninitialized_fill_n dispatch).
 float *Rva005EA1B1Fill(float *dest, int count, const int &value);
-struct Rva005EA5CETag
-{
-};
+#include "../../Include/Common/Rva005EA5CETag.h"
 float *Rva005EA966(float *dest, int count, const int &value);
 
 float *Rva005EA5CE(float *dest, int count, const int &value, const Rva005EA5CETag &);

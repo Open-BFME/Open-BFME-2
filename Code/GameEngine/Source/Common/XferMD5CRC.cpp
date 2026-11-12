@@ -914,9 +914,7 @@ private:
 // three and calls (the shape of STLport's __uninitialized_fill_n dispatch).
 float *Rva005EA1B1Fill(float *dest, int count, const int &value);
 
-struct Rva005EA5CETag
-{
-};
+#include "../../Include/Common/Rva005EA5CETag.h"
 
 float *Rva005EA966(float *dest, int count, const int &value);
 

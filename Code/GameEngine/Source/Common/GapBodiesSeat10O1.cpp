@@ -1228,9 +1228,7 @@ void Rva00628C69::rva00628C69()
 // @0x005EA5CE 21B takes an extra empty tag argument, so it re-pushes the
 // three and calls (the shape of STLport's __uninitialized_fill_n dispatch).
 float *Rva005EA1B1Fill(float *dest, int count, const int &value);
-struct Rva005EA5CETag
-{
-};
+#include "../../Include/Common/Rva005EA5CETag.h"
 float *Rva005EA966(float *dest, int count, const int &value)
 {
 	return Rva005EA1B1Fill(dest, count, value);
