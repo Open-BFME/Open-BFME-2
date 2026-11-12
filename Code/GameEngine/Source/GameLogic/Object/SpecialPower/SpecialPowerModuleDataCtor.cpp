@@ -24,7 +24,7 @@ void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
 void __identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ")();
 void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
 void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
-void __identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")();
+void __identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z")();
 void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
 void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
 }
@@ -43,7 +43,7 @@ extern const void *const g_00C4E318[31] = {
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 11 0x0047A699
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 12 0x0047A699
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 13 0x0047A699
-	(const void *)&__identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z"), // slot 14 0x000B69A1
+	(const void *)&__identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z"), // slot 14 0x000B69A1
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 15 0x0047A699
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 16 0x000D43D0
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 17 0x000D43D0

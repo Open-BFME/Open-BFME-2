@@ -601,7 +601,7 @@ extern "C" void __identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ")();
 
 extern "C" void __identifier("??1Coord2D@@QAE@XZ")();
 
-extern "C" void __identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")();
+extern "C" void __identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z")();
 
 extern "C" void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
 
@@ -628,7 +628,7 @@ extern "C" const void *const vtbl_00C5D468[] = {
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z"),
+	(const void *)&__identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z"),
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),

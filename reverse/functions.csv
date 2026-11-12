@@ -27003,7 +27003,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ??_GRva0057A4E7@@UAEPAXI@Z,,0x0057AAD5,28,Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp,matched,Native slot0 of C6F098; real virtual deleting destructor emitted by the matched constructor; replaces nonvirtual delete anchor without new coverage
 ?Rva004312E5Emit@@YAHPAXPAUICoord2D@@@Z,,0x004312E5,72,Code/GameEngine/Source/Common/Rva004312E5Message.cpp,matched,unlock lane screenToTerrain slot 0x168 MSG 0x444
 ??$__copy@PAURva00B6CF1@@PAU1@H@_STL@@YAPAURva00B6CF1@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x000B6894,47,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00b6cf1_destroy.cpp,matched,8B copy via rowed assign at B433E wrapper at B67BC same shape as 40D564
-?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z,,0x000B69A1,28,Code/GameEngine/Source/Common/Rva000B69A1.cpp,matched,slot 14 of many ModuleData vtables returns TheEmptyString via rowed copy 0x000365F0
+?slot14@ModuleData@@UBE?AVAsciiString@@H@Z,,0x000B69A1,28,Code/GameEngine/Source/Common/Rva000B69A1.cpp,matched,slot 14 of many ModuleData vtables returns TheEmptyString via rowed copy 0x000365F0
 ?loadPostProcess@BehaviorModule@@MAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleLoadPostProcess.cpp,matched,
 ?init@SmudgeManager@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/GameClient/SmudgeManagerInit.cpp,matched,
 ?rva0039B683@Rva0039B683@@QAEXM@Z,,0x0039B683,37,Code/GameEngine/Source/Common/Rva0039B683Add.cpp,matched,gated float accumulate at +0xF8 on TheGameLogic +0x98; delta-first add and real global fix the banked partial; call sites 0x002AA6BD 0x002AA736

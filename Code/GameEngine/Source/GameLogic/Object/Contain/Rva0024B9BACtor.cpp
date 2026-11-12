@@ -74,7 +74,7 @@ public:
 #pragma comment(linker, "/alternatename:?slot11@Rva0024B9BA@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?slot12@Rva0024B9BA@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?slot13@Rva0024B9BA@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?slot14@Rva0024B9BA@@UAEXXZ=?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")
+#pragma comment(linker, "/alternatename:?slot14@Rva0024B9BA@@UAEXXZ=?slot14@ModuleData@@UBE?AVAsciiString@@H@Z")
 #pragma comment(linker, "/alternatename:?slot15@Rva0024B9BA@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?slot16@Rva0024B9BA@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?slot17@Rva0024B9BA@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")

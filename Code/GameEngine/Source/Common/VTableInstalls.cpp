@@ -49,7 +49,7 @@ extern "C" void __identifier("??1Coord2D@@QAE@XZ")(void);
 extern "C" void __identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ")(void);
 extern "C" void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")(void);
 extern "C" void __identifier("?IsCRC@Xfer@@UBE_NXZ")(void);
-extern "C" void __identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")(void);
+extern "C" void __identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z")(void);
 extern "C" void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")(void);
 extern "C" void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")(void);
 extern "C" void __identifier("?onBuildComplete@ExperienceLevelCreate@@UAEXXZ")(void);
@@ -71,7 +71,7 @@ extern "C" const void *const vtbl_00C594E0[] =
 	reinterpret_cast<const void *>(__identifier("?IsCRC@Xfer@@UBE_NXZ")),
 	reinterpret_cast<const void *>(__identifier("?IsCRC@Xfer@@UBE_NXZ")),
 	reinterpret_cast<const void *>(__identifier("?IsCRC@Xfer@@UBE_NXZ")),
-	reinterpret_cast<const void *>(__identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")),
+	reinterpret_cast<const void *>(__identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z")),
 	reinterpret_cast<const void *>(__identifier("?IsCRC@Xfer@@UBE_NXZ")),
 	reinterpret_cast<const void *>(__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")),
 	reinterpret_cast<const void *>(__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")),

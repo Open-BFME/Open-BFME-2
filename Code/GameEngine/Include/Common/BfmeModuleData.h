@@ -52,7 +52,9 @@ public:
 	virtual bool slot11() const { return false; }
 	virtual bool slot12() const { return false; }
 	virtual bool slot13() const { return false; }
-	virtual AsciiString slot14(int) const { return AsciiString::TheEmptyString; }
+	// Out of line: its one body is the row at 0x000B69A1 (Rva000B69A1.cpp), so the
+	// slot 14 of every module-data table resolves to that row's own copy.
+	virtual AsciiString slot14(int) const;
 	virtual bool slot15() const { return false; }
 	virtual const void *slot16() const { return 0; }
 	virtual const void *slot17() const { return 0; }

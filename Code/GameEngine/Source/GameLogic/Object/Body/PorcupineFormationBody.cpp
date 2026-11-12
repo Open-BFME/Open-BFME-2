@@ -66,7 +66,7 @@ struct XferUnknown11;
 // target (tools/vftable_map.py); its installers store this table.
 extern "C" void __identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ")();
 extern "C" void __identifier("??1Coord2D@@QAE@XZ")();
-extern "C" void __identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")();
+extern "C" void __identifier("?slot14@ModuleData@@UBE?AVAsciiString@@H@Z")();
 extern "C" void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
 extern "C" void __identifier("??_GStructureBodyModuleData@@UAEPAXI@Z")();
 extern "C" void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
