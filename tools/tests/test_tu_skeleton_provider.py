@@ -268,6 +268,20 @@ def test_review_r2_a_relocation_operand_past_the_extent_counts(tmp_path):
     assert guard({}).judge({DONOR: old}, {TU: obj(tmp_path / "same.obj", b"\0\0\x01\0", 2)}, {TU: [DONOR]}, {}) == []
 
 
+def test_review_r3_an_absolute_relocation_is_ignored(tmp_path):
+    # IMAGE_REL_I386_ABSOLUTE has no operand and the linker ignores it: one inside _a's extent, or in padding a
+    # longer extent takes in, changes nothing
+    def obj(path, raw, relocs):
+        Path(path).write_bytes(coff([(".data", DATA, raw, relocs)],
+                                    [(".data", 0, 1, 3, None), ("_a", 0, 1, 2, None), ("_target", 0, 0, 2, None)]))
+        return Path(path)
+    plain = obj(tmp_path / "plain.obj", b"\x01\x02\x03\x04", [])
+    inside = obj(tmp_path / "inside.obj", b"\x01\x02\x03\x04", [(1, 2, 0x0)])
+    padded = obj(tmp_path / "padded.obj", b"\x01\x02\x03\x04\0\0\0\0", [(5, 2, 0x0)])
+    for old, new in ((plain, inside), (inside, plain), (plain, padded)):
+        assert guard({}).judge({DONOR: old}, {TU: new}, {TU: [DONOR]}, {}) == []
+
+
 def test_review_r2_an_unknown_relocation_type_is_not_judged(tmp_path):
     Path(tmp_path / "odd.obj").write_bytes(coff([(".data", DATA, b"\0" * 8, [(0, 2, 0x9)])],     # SEG12
                                                 [(".data", 0, 1, 3, None), ("_a", 0, 1, 2, None),

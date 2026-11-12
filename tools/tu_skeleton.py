@@ -2423,7 +2423,8 @@ def _extent_definitions(data, sections, symbols):
             if kind not in RELOCATION_WIDTH:
                 raise ValueError(f"relocation type {kind:#x} in {s['name']}'s section: its operand width is unknown")
             width = RELOCATION_WIDTH[kind]
-            if where < end and where + width > s["value"]:          # an operand that overlaps the extent
+            if width and where < end and where + width > s["value"]:   # an operand that overlaps the extent
+                # (ABSOLUTE has none: the linker ignores it)
                 referent = by_index.get(target, {"name": "?", "storage": 0})
                 label = LCe._normal(referent["name"]) if referent["storage"] in (LCe.EXTERNAL, LCe.WEAK_EXTERNAL) \
                     else "local"
