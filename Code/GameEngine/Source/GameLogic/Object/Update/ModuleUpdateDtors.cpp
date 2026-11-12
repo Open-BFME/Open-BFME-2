@@ -65,19 +65,6 @@ CurseSpecialPower::~CurseSpecialPower()
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class SupplyCenterDockUpdate : public Rva0044EF5E
-{
-public:
-	virtual ~SupplyCenterDockUpdate();
-};
-
-SupplyCenterDockUpdate::~SupplyCenterDockUpdate()
-{
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
-}
-
 class Rva00490D3F : public Rva0044EF5E
 {
 public:

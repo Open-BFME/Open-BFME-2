@@ -6164,3 +6164,5 @@ __ehhandler$?onEnter@Rva0036A3E9GuardInnerState@@UAE?AW4StateReturnType@@XZ,0x00
 ?DoXfer@Rva003A578A@@UAEXAAVXfer@@@Z,0x003A578A,"Renamed to ?DoXfer@Rva003AE07D@@UAEXAAVXfer@@@Z by tools/rename.py (to-class: retail vftable 0x00C1B568 slot 3)"
 ?name@Rva003A5784Named@@QBEPBDXZ,0x003A5784,"Renamed to ?GetSnapshotName@Rva003AE07D@@UBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C1B568 slot 2)"
 ??_GRva000F1B8FBase@@UAEPAXI@Z,0x000EF9D6,Superseded private base ICF alias after both Rva000F1B8F units adopt canonical HashableClass; real29B ??_GHashableClass@@UAEPAXI@Z owner retained and both emitted copies exact. Evidence reverse/attempt_support/hashable-entry-20261112.md
+??1SupplyCenterDockUpdate@@UAE@XZ,0x004CDC33,"Incorrect factory-order identity. The destructor installs VA 0x00C5FC28 also installed by EvacuateGarrisonSpecialPower's constructor at RVA 0x004CDBFC. Slot 4 calls its module-name getter at 0x004CDC53."
+??_GSupplyCenterDockUpdate@@UAEPAXI@Z,0x004CDC98,"Incorrect factory-order identity. Slot 0 of EvacuateGarrisonSpecialPower's table at VA 0x00C5FC28 calls its complete destructor at RVA 0x004CDC33 and conditionally frees the object."
