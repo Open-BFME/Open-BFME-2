@@ -476,11 +476,7 @@ static __forceinline bool contextKind(const Object*unitObject,int bit) { return 
 class Rva0055A88BDwordField { public: int get() const; };
 class Rva0006EE7A : public BitFlags<69> { public: Rva0006EE7A(int,int,int); };
 bool Rva0027DC65Check(float*);
-class Rva0031D5F8
-{
-public:
-	void* rva0031D5F8(const AsciiString*);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 #include "../../../Include/GameClient/CommandSet.h"
 #include "../../../Include/GameLogic/Module/Rva0026F0F0.h"
 class Rva0029DE76 { public: bool rva0029DE76(const Coord3D*); };

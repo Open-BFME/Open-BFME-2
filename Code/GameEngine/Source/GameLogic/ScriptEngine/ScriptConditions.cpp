@@ -420,11 +420,7 @@ enum SpecialPowerType { SPECIAL_INVALID = 0 };
 #include "../../../Include/Common/SpecialPower.h"
 class ThingTemplate;
 #include "../../../Include/GameClient/CommandButton.h"
-class Rva0031D5F8
-{
-public:
-    void *rva0031D5F8(const AsciiString *);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 class ControlBar : public Rva0031D5F8
 {
 public:

@@ -265,11 +265,7 @@ static inline const UpgradeTemplate *getNeededUpgrade(const CommandButton *butto
 #include "../../../Include/Common/Overridable.h"
 // ControlBar's command-set lookup by name (0x0031D5F8), rowed under its
 // address-named class.
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);		// 0x0031D5F8
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 class ControlBar
 {
 public:

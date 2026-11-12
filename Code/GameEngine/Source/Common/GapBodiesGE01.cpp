@@ -225,11 +225,7 @@ Rva00435CFE *Rva00435CFE::rva004360F6(int kind, unsigned short value, int data)
 // takes the other two.
 #include "../../Include/GameClient/CommandSet.h"
 
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);				// 0x0031D5F8
-};
+#include "../../Include/Common/Rva0031D5F8.h"
 class ControlBar;
 extern ControlBar *TheControlBar;
 

@@ -327,7 +327,7 @@ class Rva0037EDC6 { public: const Image *rva0037EDC6(int); };
 class Rva0033AC7F { public: bool rva0033ACC5(AsciiString&); };
 class Rva0035B750 { public: void rva0035B750(const ModuleData *); };
 class Rva0035B7D9 { public: void rva0035B7D9(Rva0035B7D9 *,bool); };
-class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
+#include "../../../../Include/Common/Rva0031D5F8.h"
 #include "../../../../Include/GameClient/Rva0053B914.h"
 class Rva0031B60DOut { public: int start,count; };
 class Rva0031B60DOwner { public: Rva0031B60DOut *rva0031B60D(Rva0031B60DOut *); };

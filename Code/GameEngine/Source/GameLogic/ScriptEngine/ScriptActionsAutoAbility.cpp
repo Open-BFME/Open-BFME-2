@@ -55,11 +55,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class CommandSet { public: const CommandButton *getCommandButton(int) const; };
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 #include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
 void ScriptActions::rva003C32CC(const AsciiString &teamName, const AsciiString &buttonName, bool flag)

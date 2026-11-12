@@ -50,11 +50,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 extern ControlBar *TheControlBar;
 
 // The rowed 0x0031D5F8 lookup on TheControlBar (BFME 1: findCommandSet).
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *name);
-};
+#include "../../../Include/Common/Rva0031D5F8.h"
 
 // The rowed 0x0049575A hunt-update call (BFME 1: setCommandButton).
 class Rva0049575A
