@@ -156,7 +156,7 @@ void Rva005CF6B5Owner::rva005CF6B5(int armyAddress)
 class Rva0023A128Link {public:Rva0023A128Link(){}~Rva0023A128Link(){}virtual void rva00239B94(int);virtual void v01(int);};
 class Rva005E8F50 {public:void rva005E8F6A();};
 class Rva005CEA51 {public:Rva005CEA51():pointer(0){}__declspec(noinline) ~Rva005CEA51();void rva005CEA51(Rva005E8F50*);void rva005CE7EA();Rva005E8F50*pointer;};
-class Rva005CEF2F:public Rva005CE8F5,public Rva0023A128Link {public:Rva005CEF2F(Rva005CF22CBig *b, int x);virtual ~Rva005CEF2F();int selection;Rva005CEA51 secondary;};
+class Rva005CEF2F:public Rva005CE8F5,public Rva0023A128Link {public:Rva005CEF2F(Rva005CF22CBig *b, int x);virtual ~Rva005CEF2F();virtual void slot1();int selection;Rva005CEA51 secondary;};
 typedef char Rva005CEF2FSize[(sizeof(Rva005CEF2F)==0x14)?1:-1];
 
 class Rva005CF703Owner

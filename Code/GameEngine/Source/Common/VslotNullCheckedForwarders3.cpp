@@ -19,7 +19,7 @@
 //   0x005CD9F2 +0x1C -> Rva005E58ED::rva005E58ED (0 arg)
 //   0x005CDD25 +0x24 -> Rva005E58ED::rva005E58ED (0 arg)
 //   0x005CE9F7 +0x10 -> Rva005E88DDNullTarget::rva005E88DD (0 arg; Rva005CEE9F::slot1)
-//   0x005CEA04 +0x10 -> Rva005E8F49Owner::rva005E8F49 (0 arg)
+//   0x005CEA04 +0x10 -> Rva005E8F49Owner::rva005E8F49 (0 arg; Rva005CEF2F::slot1)
 //   0x00068385 +0x3858 -> Rva000EE198Owner::rva000EE198 (0 arg)
 //   0x00068D43 +0x3850 -> Rva000EDB47NullTarget::rva000EDB47 (0 arg)
 //   0x0007E17B +0x100 -> WaterTracksRenderSystem::rva0010004D (1 arg)
@@ -199,16 +199,19 @@ public:
 	void rva005E8F49();
 };
 
-class Rva005CEA04NullForwarder
+// Slot 1 of Rva005CEF2F's primary vftable (retail 0x00C7523C, installed by
+// its constructor 0x005CF4A8, Rva005CF4A8SelectionCtor.cpp, and destructor
+// 0x005CEF2F, ThrowingNewHelpers.cpp): the secondary owned pointer at +0x10.
+class Rva005CEF2F
 {
 public:
-	void rva005CEA04();
+	virtual void slot1();
 private:
-	char m_lead[0x10];
+	char m_lead[0xC];
 	Rva005E8F49Owner *m_member;
 };
 
-void Rva005CEA04NullForwarder::rva005CEA04()
+void Rva005CEF2F::slot1()
 {
 	if (m_member)
 		m_member->rva005E8F49();
