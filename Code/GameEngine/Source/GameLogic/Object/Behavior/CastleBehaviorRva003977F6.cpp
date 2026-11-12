@@ -41,14 +41,7 @@ extern GameLogic *TheGameLogic;
 // ObjectTypes::isInSet(const ThingTemplate *) is rowed under its address name.
 #include "../../../../Include/GameLogic/Rva00376A62.h"
 
-class ObjectTypes
-{
-public:
-	Bool isInSet(const ThingTemplate *thingTemplate)
-	{
-		return ((Rva00376A62 *)this)->rva00376A84(thingTemplate);
-	}
-};
+#include "../../../../Include/GameLogic/ObjectTypesClass.h"
 
 class CastleBehavior
 {
@@ -67,30 +60,31 @@ private:
 
 Bool CastleBehavior::rva003977F6(ObjectTypes *types)
 {
+	Rva00376A62 *typeFilter = reinterpret_cast<Rva00376A62 *>(types);
 	for (_STL::set<ObjectID>::const_iterator it = m_8C.begin(); it._M_node != m_8C.end()._M_node; ++it) {
 		Object *obj = TheGameLogic->findObjectByID(*it);
-		if (obj && types->isInSet(obj->getTemplate()))
+		if (obj && typeFilter->rva00376A84(obj->getTemplate()))
 			return true;
 	}
 	UnsignedInt i;
 	for (i = 0; i < m_5C.size(); ++i) {
 		Object *obj = TheGameLogic->findObjectByID(m_5C[i]);
-		if (obj && types->isInSet(obj->getTemplate()))
+		if (obj && typeFilter->rva00376A84(obj->getTemplate()))
 			return true;
 	}
 	for (i = 0; i < m_68.size(); ++i) {
 		Object *obj = TheGameLogic->findObjectByID(m_68[i]);
-		if (obj && types->isInSet(obj->getTemplate()))
+		if (obj && typeFilter->rva00376A84(obj->getTemplate()))
 			return true;
 	}
 	{
 		Object *obj = TheGameLogic->findObjectByID(m_38);
-		if (obj && types->isInSet(obj->getTemplate()))
+		if (obj && typeFilter->rva00376A84(obj->getTemplate()))
 			return true;
 	}
 	for (i = 0; i < m_50.size(); ++i) {
 		Object *obj = TheGameLogic->findObjectByID(m_50[i]);
-		if (obj && types->isInSet(obj->getTemplate()))
+		if (obj && typeFilter->rva00376A84(obj->getTemplate()))
 			return true;
 	}
 	return false;
