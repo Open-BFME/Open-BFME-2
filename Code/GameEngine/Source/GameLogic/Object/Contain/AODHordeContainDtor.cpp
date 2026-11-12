@@ -23,7 +23,7 @@ struct Iface10 { virtual void f10(); unsigned char m_pad[12]; };
 struct Iface20 { virtual void f20(); };
 struct Iface24 { virtual void f24(); };
 #include "../../../../Include/Common/Iface28.h"
-struct Iface2C { virtual void f2C(); };
+#include "../../../../Include/Common/Iface2C.h"
 struct Iface30 { virtual void f30(); };
 struct Iface34 { virtual void f34(); unsigned char m_pad[0xFC - 0x38]; };
 struct IfaceFC { virtual void fFC(); unsigned char m_pad[0x11C - 0x100]; };
