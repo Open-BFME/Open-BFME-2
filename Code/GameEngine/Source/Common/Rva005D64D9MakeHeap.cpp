@@ -13,14 +13,7 @@ private:
     void *m_data;
 };
 
-struct Rva005D5A7EInner
-{
-    int m00;
-    StringBase<char> m_str;
-    int m08;
-    int m0C;
-    int m10;
-};
+#include "../../Include/Common/Rva005D5A7EInner.h"
 
 class Rva005D5A7E
 {

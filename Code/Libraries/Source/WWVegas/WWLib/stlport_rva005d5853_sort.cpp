@@ -24,14 +24,7 @@
 #include "string_base.h"
 #include <algorithm>
 
-struct Rva005D5A7EInner
-{
-	int m00;
-	StringBase<char> m_str;
-	int m08;
-	int m0C;
-	int m10;
-};
+#include "../../../../GameEngine/Include/Common/Rva005D5A7EInner.h"
 
 struct Rva005D5853
 {
