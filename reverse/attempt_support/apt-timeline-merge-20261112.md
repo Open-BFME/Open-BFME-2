@@ -57,3 +57,40 @@ sources from the four preceding published repairs still predict LINKS
 against it. This is an updated local prediction, not a new real link,
 census or game-run result. A subsequent pull to d59318e468d adds one
 source-path difference; no duplicate or provider-loss claim relies on it.
+
+## Applied merge and outgoing audit
+
+After preparation de522953d3, the supported planner was refreshed and the
+second dry run accepts the seed and donor. tu_skeleton --merge reuses that
+verified composition, deletes the donor and retains all 78 rows. The mixed
+GapBodiesSeat10O1.cpp fragment and the generated 0x007A0252 funclet stay in
+their existing owners; neither is hand-split or silently claimed.
+
+Normal post-merge build passes 78/78, four strings, one float and one import.
+The frozen-file check passes; strict reusable preparation passes. EH verify
+reports six EXACT records, zero missing or baselined failures. Own link_check
+reads LINKS: destination 4,101 -> 4,179 bytes; the donor's 78 bytes transfer,
+so combined coverage remains 4,179. Its unreferenced proxy-deallocator
+length diagnostic stays nonblocking. The MS-header owning scan is clean
+and refreshes the destination inventory without adding a queue row.
+
+One complete outgoing path audit covers d59318e468d..de522953d3 plus this
+staged absorption. All 81 COMDATs are unchanged: 79 from the seed and two
+from the prepared donor, with no added or removed provider. The original
+destructor symbol still serves AptTimeLine.cpp and FamilyDeletingDtors12.cpp.
+The two function rows and two tu_map rows change source columns only; TU
+assignments, confidence and evidence are unchanged. The map is not regenerated.
+The EH handler follows its parent destructor at 0x005BEA22.
+
+No old-donor code/data/gate/hatch debt or header/MS-header queue key needs
+transfer. The destination's existing BfmeStringRecord005DDD40, Player and
+ScoreKeeper header entries remain open and accurate. Active includes,
+tools, hooks, workflows, configurations and source registries need no
+additional path change. Intentional old-path mentions are the merged
+provenance comment, dated obstacle/attempt evidence, historical patches
+and coverage reports, and link_status.csv's last-census snapshot. They stay.
+
+This merge removes one source file. It makes no new byte-coverage, census,
+bridge-retirement or game-run claim. Current-input link preview handles the
+deleted donor; the index's unrelated one-path difference is not used as a
+provider-loss or duplicate finding.

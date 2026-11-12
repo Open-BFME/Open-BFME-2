@@ -99,3 +99,13 @@ and both own link previews retain 4,179 bytes. This prepares the approved
 TU merge without adding a pin or alias. The unrelated STLport4.6 and full
 consumer/census scopes above remain unchanged.
 [Native EH boundary and preparation](../../reverse/attempt_support/apt-timeline-merge-20261112.md).
+
+Timeline follow-through (2026-11-12): tu_skeleton absorbs the prepared
+Rva005BEA22Dtor.cpp into its approved AptTimeLineStats.cpp. All 78 rows and
+six EH records pass; all 81 input COMDATs are preserved unchanged. The
+combined link preview keeps 4,179 bytes, the donor's two ledger source
+fields and map bookkeeping follow the parent, and one source file is
+removed. The complete outgoing tooling/path audit needs no additional
+consumer edits; three existing seed header debts remain. No STLport4.6,
+census or game-run clearance is added.
+[Merge and audit scope](../../reverse/attempt_support/apt-timeline-merge-20261112.md#applied-merge-and-outgoing-audit).

@@ -189,8 +189,6 @@ public:
 };
 template<int N>class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
-// The full44B constructor only clears 28 bytes and sets one bit. Native
-// static initialization has no unwind state at this call: it cannot throw.
 #include "../../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../../Include/Common/Rva004EE35D.h"
 #include "../../../../../Include/Common/Rva004EE3AB.h"
@@ -295,6 +293,39 @@ private:
 	bool m_14;
 };
 
+class Rva005BEA22Owned
+{
+public:
+	virtual ~Rva005BEA22Owned();
+};
+
+class Rva005BEA22Buffer
+{
+public:
+	~Rva005BEA22Buffer()
+	{
+		if (m_data)
+			Rva00030830FreeAllocation(m_data);
+	}
+
+	void *m_data; // +0x00
+};
+
+class Rva005BEA22
+{
+public:
+	~Rva005BEA22();
+
+private:
+	Rva005BEA22Owned *m_owned; // +0x00
+	Rva005BEA22Buffer m_buffer; // +0x04
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp
+
+// The full44B constructor only clears 28 bytes and sets one bit. Native
+// static initialization has no unwind state at this call: it cannot throw.
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp
 
 // VC7.1 reverses the two overload slots: AsciiString fetch is38, char fetch3C.
@@ -364,8 +395,6 @@ void AptTimeLineStats::CollectPlayerData(int playerIndex,Player*player) {
  }
 }
 
-// tu-skeleton: 0x005BE344 5B ?Rva005BE344@@YAPAHPAHHPBH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005BEA06Ctor.cpp
 
 // Native2339F3 allocates and fills four-byte elements. This unsigned32 storage
@@ -377,8 +406,14 @@ Rva005BEA06::Rva005BEA06() : m_00(0), m_04(3), m_10(0), m_14(false)
 {
 }
 
-// tu-skeleton: 0x005BEA22 78B ??1Rva005BEA22@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005BEA22Dtor.cpp (not merged yet)
+// tu-skeleton: 0x005BE344 5B ?Rva005BE344@@YAPAHPAHHPBH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva005BEA22Dtor.cpp
+
+Rva005BEA22::~Rva005BEA22()
+{
+	::delete m_owned;
+	m_owned = 0;
+}
 
 // tu-skeleton: 0x007A0252 11B uw_007a0252 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x007A025D 10B __ehhandler$??1Rva005BEA22@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005BEA22Dtor.cpp (not merged yet)
