@@ -16,12 +16,7 @@ struct Rva005EB87AInner
 	int m_field08;
 };
 
-class Rva005EB87A
-{
-public:
-	Rva005EB87AInner *m_ptr;
-	bool rva005EB87A();
-};
+#include "../../Include/Common/Rva005EB87A.h"
 
 class Object;
 

@@ -5,11 +5,7 @@ struct Rva005EB87AInner {
     char m_pad[8];
     int m_field08;
 };
-class Rva005EB87A {
-public:
-    Rva005EB87AInner *m_ptr;
-    bool rva005EB87A();
-};
+#include "../../Include/Common/Rva005EB87A.h"
 bool Rva005EB87A::rva005EB87A()
 {
     int v = m_ptr->m_field08;
