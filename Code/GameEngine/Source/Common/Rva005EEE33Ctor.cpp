@@ -4,22 +4,7 @@
 // in Rva005EE30CChain.cpp). Calls base Rva0058AD7A ctor 0x0058AD4D with 1.
 // Base size 0x1C (see Rva0058AD7ACtor.cpp). No extra members.
 
-class Rva0058AD7A
-{
-public:
-	Rva0058AD7A(int x);
-	virtual ~Rva0058AD7A();
-
-private:
-	int m_04;
-	int m_08;
-	int m_0C;
-	float m_10;
-	float m_14;
-	unsigned char m_18;
-	unsigned char m_19;
-	unsigned char m_1A;
-};
+#include "../../Include/Common/Rva0058AD7A.h"
 
 class Rva005EEE33 : public Rva0058AD7A
 {

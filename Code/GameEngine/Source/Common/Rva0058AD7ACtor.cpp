@@ -5,22 +5,7 @@
 // Layout from retail immediates: m_04=int arg, m_08=uninit pad, m_0C=0,
 // m_10/m_14=0.0f floats, m_18/m_19/m_1A=0 bytes. Base size 0x1C.
 
-class Rva0058AD7A
-{
-public:
-	Rva0058AD7A(int x);
-	virtual ~Rva0058AD7A() {}
-
-private:
-	int m_04;
-	int m_08;
-	int m_0C;
-	float m_10;
-	float m_14;
-	unsigned char m_18;
-	unsigned char m_19;
-	unsigned char m_1A;
-};
+#include "../../Include/Common/Rva0058AD7A.h"
 
 Rva0058AD7A::Rva0058AD7A(int x)
 	: m_04(x)

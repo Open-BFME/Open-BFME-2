@@ -7,21 +7,7 @@
 #include <string.h>
 #pragma function(memset)
 
-class Rva0058AD7A
-{
-public:
-    Rva0058AD7A(int x);
-    virtual ~Rva0058AD7A();
-private:
-    int m_04;
-    int m_08;
-    int m_0C;
-    float m_10;
-    float m_14;
-    unsigned char m_18;
-    unsigned char m_19;
-    unsigned char m_1A;
-};
+#include "../../Include/Common/Rva0058AD7A.h"
 
 class Rva005EE30C : public Rva0058AD7A
 {
