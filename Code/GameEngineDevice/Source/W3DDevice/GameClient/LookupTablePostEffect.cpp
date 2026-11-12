@@ -25,22 +25,7 @@ private:
 class AsciiString;
 #include "ascii_string.h"
 
-// LookupTablePostEffect's base: retail vftable 0x00BCFB24 holds __purecall
-// in slots 0 and 2-4 and the deleting dtor 0x001164B6 in slot 1; ctor
-// 0x0011646E, empty virtual dtor 0x0011647B.
-class Rva001164B6
-{
-public:
-	Rva001164B6();
-	virtual AsciiString rva00111BE9() const = 0;
-	virtual ~Rva001164B6();
-	virtual void rva00111DB6() = 0;
-	virtual void rva00111D65() = 0;
-	virtual void doApply() = 0;
-
-private:
-	int m_04;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva001164B6.h"
 
 struct RefCounted
 {

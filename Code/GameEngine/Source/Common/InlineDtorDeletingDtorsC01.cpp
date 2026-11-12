@@ -261,17 +261,7 @@ Rva000EFA0E::~Rva000EFA0E()
 {
 }
 
-class Rva001164B6
-{
-public:
-	Rva001164B6(EmitVtableTag *);
-	virtual ~Rva001164B6();
-};
-
-// ?<Rva001164B6::Rva001164B6> absent-from-retail
-Rva001164B6::Rva001164B6(EmitVtableTag *)
-{
-}
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001164B6.h"
 
 // ??1Rva001164B6@@UAE@XZ @0x0011647B 7B: the empty dtor, restoring the vtable;
 // the deleting dtor still expands it inline.
