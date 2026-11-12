@@ -298,15 +298,7 @@ private:
 };
 #include "../../../../Include/Common/Rva00575CDFBase0.h"
 #include "../../../../Include/Common/Rva00575CDFIface.h"
-class Rva00575CDF : public Rva00575CDFBase0, public Rva00575CDFIface
-{
-public:
-	virtual void rva00575CDF(void *a, void *b);
-	virtual void rva00575D12(void *a, void *b);
-private:
-	char m_pad08[0x2C - 8];
-	Rva00575674 m_holder;									// +0x2C
-};
+#include "../../../../Include/Common/Rva00575CDF.h"
 // --- 0x004A6AB5 / 0x004A6ADB / 0x004A6B06: an AIUpdateInterface subclass's
 // privateIdle / privateDock / privateHarvest overrides. Each runs the rowed
 // base command; a player-sourced command also sets the +0x3E4 interface's
