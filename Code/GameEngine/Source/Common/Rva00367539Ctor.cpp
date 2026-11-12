@@ -10,8 +10,48 @@ class StateMachine;
 
 #include "../../Include/Common/StateMachine.h"
 
-// Rva00367539_vftable: matched references place it at VA 0xc17300 (retail .rdata value 7).
-extern "C" char Rva00367539_vftable = 7;
+// Rva00367539_vftable: retail table 0x00C17300 (17 State slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GAIGuardInnerState@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@State@@MAEXXZ")();
+void __identifier("?Rva00367564Get@@YAHXZ")();
+void __identifier("?xfer@Rva0055CA8A@@MAEXPAVXfer@@@Z")();
+void __identifier("?onEnter@GiantBirdNormalFlightState@@UAE?AW4StateReturnType@@XZ")();
+void __identifier("?onExit@GiantBirdNormalFlightState@@UAEXW4StateExitType@@@Z")();
+void __identifier("?update@GiantBirdNormalFlightState@@UAE?AW4StateReturnType@@XZ")();
+void __identifier("?_bfme_state_slot7@State@@EAEXXZ")();
+void __identifier("?isAttack@State@@UBE_NXZ")();
+void __identifier("?_bfme_state_slot9@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot10@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot11@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot12@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot13@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot14@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot15@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot16@State@@EAEXXZ")();
+extern const void *const Rva00367539_vftable[17] = {
+	(const void *)&__identifier("??_GAIGuardInnerState@@UAEPAXI@Z"), //  0 0x004D8507
+	(const void *)&__identifier("?loadPostProcess@State@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva00367564Get@@YAHXZ"), //  2 0x00367564
+	(const void *)&__identifier("?xfer@Rva0055CA8A@@MAEXPAVXfer@@@Z"), //  3 0x0055CA8A
+	(const void *)&__identifier("?onEnter@GiantBirdNormalFlightState@@UAE?AW4StateReturnType@@XZ"), //  4 0x00369064
+	(const void *)&__identifier("?onExit@GiantBirdNormalFlightState@@UAEXW4StateExitType@@@Z"), //  5 0x00369217
+	(const void *)&__identifier("?update@GiantBirdNormalFlightState@@UAE?AW4StateReturnType@@XZ"), //  6 0x0036914D
+	(const void *)&__identifier("?_bfme_state_slot7@State@@EAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?isAttack@State@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot9@State@@EBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot10@State@@EBE_NXZ"), // 10 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot11@State@@EBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot12@State@@EBE_NXZ"), // 12 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot13@State@@EBE_NXZ"), // 13 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot14@State@@EBE_NXZ"), // 14 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot15@State@@EBE_NXZ"), // 15 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot16@State@@EAEXXZ")  // 16 0x000B3FD0
+};
+}
 
 class __declspec(novtable) GiantBirdNormalFlightState : public State
 {
@@ -26,5 +66,5 @@ GiantBirdNormalFlightState::GiantBirdNormalFlightState(StateMachine *machine, bo
 {
 	m_20 = b1;
 	m_21 = b2;
-	*reinterpret_cast<char **>(this) = &Rva00367539_vftable;
+	*reinterpret_cast<const void *const **>(this) = Rva00367539_vftable;
 }

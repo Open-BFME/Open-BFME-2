@@ -149,8 +149,46 @@ public:
 };
 #include "../../Include/Common/StateConditionInfo.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
-// State_vftable: matched references place it at VA 0xc605d8 (retail .rdata value -3).
-extern "C" char State_vftable = -3;
+// State_vftable: retail table 0x00C605D8 (17 State slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GObjectModule@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@State@@MAEXXZ")();
+int __cdecl _purecall(void);
+void __identifier("?rva000D43D0@Rva00347E4CState@@QAEHXZ")();
+void __identifier("?slot0@Rva0086EE20@@UAEXH@Z")();
+void __identifier("?_bfme_state_slot7@State@@EAEXXZ")();
+void __identifier("?isAttack@State@@UBE_NXZ")();
+void __identifier("?_bfme_state_slot9@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot10@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot11@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot12@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot13@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot14@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot15@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot16@State@@EAEXXZ")();
+extern const void *const State_vftable[17] = {
+	(const void *)&__identifier("??_GObjectModule@@UAEPAXI@Z"), //  0 0x004A10FD
+	(const void *)&__identifier("?loadPostProcess@State@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&_purecall, //  2 0x0003B810
+	(const void *)&_purecall, //  3 0x0003B810
+	(const void *)&__identifier("?rva000D43D0@Rva00347E4CState@@QAEHXZ"), //  4 0x000D43D0
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  5 0x0047A69C
+	(const void *)&_purecall, //  6 0x0003B810
+	(const void *)&__identifier("?_bfme_state_slot7@State@@EAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?isAttack@State@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot9@State@@EBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot10@State@@EBE_NXZ"), // 10 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot11@State@@EBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot12@State@@EBE_NXZ"), // 12 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot13@State@@EBE_NXZ"), // 13 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot14@State@@EBE_NXZ"), // 14 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot15@State@@EBE_NXZ"), // 15 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot16@State@@EAEXXZ")  // 16 0x000B3FD0
+};
+}
 
 BFME_LITERAL_NAME_GETTER(Rva004D73F6Named, "SleepState")
 
@@ -158,17 +196,169 @@ BFME_LITERAL_NAME_GETTER(Rva004D73F0Named, "ContinueState")
 
 BFME_LITERAL_NAME_GETTER(Rva004D73EANamed, "FailureState")
 
-// Rva004D7476_vftable: matched references place it at VA 0xc60620 (retail .rdata value -3).
-extern "C" char Rva004D7476_vftable = -3;
+// Rva004D7476_vftable: retail table 0x00C60620 (17 State slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GObjectModule@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@State@@MAEXXZ")();
+void __identifier("?Rva004D73E4Get@@YAHXZ")();
+void __identifier("?slot0@Rva0086EE20@@UAEXH@Z")();
+void __identifier("?slot10@GroupOrder@@UAEHXZ")();
+void __identifier("?_bfme_state_slot7@State@@EAEXXZ")();
+void __identifier("?isAttack@State@@UBE_NXZ")();
+void __identifier("?_bfme_state_slot9@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot10@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot11@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot12@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot13@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot14@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot15@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot16@State@@EAEXXZ")();
+extern const void *const Rva004D7476_vftable[17] = {
+	(const void *)&__identifier("??_GObjectModule@@UAEPAXI@Z"), //  0 0x004A10FD
+	(const void *)&__identifier("?loadPostProcess@State@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva004D73E4Get@@YAHXZ"), //  2 0x004D73E4
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  3 0x0047A69C
+	(const void *)&__identifier("?slot10@GroupOrder@@UAEHXZ"), //  4 0x0036CC7A
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  5 0x0047A69C
+	(const void *)&__identifier("?slot10@GroupOrder@@UAEHXZ"), //  6 0x0036CC7A
+	(const void *)&__identifier("?_bfme_state_slot7@State@@EAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?isAttack@State@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot9@State@@EBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot10@State@@EBE_NXZ"), // 10 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot11@State@@EBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot12@State@@EBE_NXZ"), // 12 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot13@State@@EBE_NXZ"), // 13 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot14@State@@EBE_NXZ"), // 14 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot15@State@@EBE_NXZ"), // 15 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot16@State@@EAEXXZ")  // 16 0x000B3FD0
+};
+}
 
-// Rva004D7491_vftable: matched references place it at VA 0xc60668 (retail .rdata value -3).
-extern "C" char Rva004D7491_vftable = -3;
+// Rva004D7491_vftable: retail table 0x00C60668 (17 State slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GObjectModule@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@State@@MAEXXZ")();
+void __identifier("?name@Rva004D73EANamed@@QBEPBDXZ")();
+void __identifier("?slot0@Rva0086EE20@@UAEXH@Z")();
+void __identifier("?update@AIGoingIdleState@@QAEHXZ")();
+void __identifier("?_bfme_state_slot7@State@@EAEXXZ")();
+void __identifier("?isAttack@State@@UBE_NXZ")();
+void __identifier("?_bfme_state_slot9@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot10@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot11@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot12@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot13@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot14@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot15@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot16@State@@EAEXXZ")();
+extern const void *const Rva004D7491_vftable[17] = {
+	(const void *)&__identifier("??_GObjectModule@@UAEPAXI@Z"), //  0 0x004A10FD
+	(const void *)&__identifier("?loadPostProcess@State@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?name@Rva004D73EANamed@@QBEPBDXZ"), //  2 0x004D73EA
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  3 0x0047A69C
+	(const void *)&__identifier("?update@AIGoingIdleState@@QAEHXZ"), //  4 0x00488988
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  5 0x0047A69C
+	(const void *)&__identifier("?update@AIGoingIdleState@@QAEHXZ"), //  6 0x00488988
+	(const void *)&__identifier("?_bfme_state_slot7@State@@EAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?isAttack@State@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot9@State@@EBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot10@State@@EBE_NXZ"), // 10 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot11@State@@EBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot12@State@@EBE_NXZ"), // 12 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot13@State@@EBE_NXZ"), // 13 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot14@State@@EBE_NXZ"), // 14 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot15@State@@EBE_NXZ"), // 15 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot16@State@@EAEXXZ")  // 16 0x000B3FD0
+};
+}
 
-// Rva004D74AC_vftable: matched references place it at VA 0xc606b0 (retail .rdata value -3).
-extern "C" char Rva004D74AC_vftable = -3;
+// Rva004D74AC_vftable: retail table 0x00C606B0 (17 State slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GObjectModule@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@State@@MAEXXZ")();
+void __identifier("?name@Rva004D73F0Named@@QBEPBDXZ")();
+void __identifier("?slot0@Rva0086EE20@@UAEXH@Z")();
+void __identifier("?rva000D43D0@Rva00347E4CState@@QAEHXZ")();
+void __identifier("?_bfme_state_slot7@State@@EAEXXZ")();
+void __identifier("?isAttack@State@@UBE_NXZ")();
+void __identifier("?_bfme_state_slot9@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot10@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot11@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot12@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot13@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot14@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot15@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot16@State@@EAEXXZ")();
+extern const void *const Rva004D74AC_vftable[17] = {
+	(const void *)&__identifier("??_GObjectModule@@UAEPAXI@Z"), //  0 0x004A10FD
+	(const void *)&__identifier("?loadPostProcess@State@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?name@Rva004D73F0Named@@QBEPBDXZ"), //  2 0x004D73F0
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  3 0x0047A69C
+	(const void *)&__identifier("?rva000D43D0@Rva00347E4CState@@QAEHXZ"), //  4 0x000D43D0
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  5 0x0047A69C
+	(const void *)&__identifier("?rva000D43D0@Rva00347E4CState@@QAEHXZ"), //  6 0x000D43D0
+	(const void *)&__identifier("?_bfme_state_slot7@State@@EAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?isAttack@State@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot9@State@@EBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot10@State@@EBE_NXZ"), // 10 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot11@State@@EBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot12@State@@EBE_NXZ"), // 12 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot13@State@@EBE_NXZ"), // 13 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot14@State@@EBE_NXZ"), // 14 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot15@State@@EBE_NXZ"), // 15 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot16@State@@EAEXXZ")  // 16 0x000B3FD0
+};
+}
 
-// Rva004D74C7_vftable: matched references place it at VA 0xc606f8 (retail .rdata value -3).
-extern "C" char Rva004D74C7_vftable = -3;
+// Rva004D74C7_vftable: retail table 0x00C606F8 (17 State slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GObjectModule@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@State@@MAEXXZ")();
+void __identifier("?name@Rva004D73F6Named@@QBEPBDXZ")();
+void __identifier("?slot0@Rva0086EE20@@UAEXH@Z")();
+void __identifier("?Rva004A6563Get@@YAHXZ")();
+void __identifier("?_bfme_state_slot7@State@@EAEXXZ")();
+void __identifier("?isAttack@State@@UBE_NXZ")();
+void __identifier("?_bfme_state_slot9@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot10@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot11@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot12@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot13@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot14@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot15@State@@EBE_NXZ")();
+void __identifier("?_bfme_state_slot16@State@@EAEXXZ")();
+extern const void *const Rva004D74C7_vftable[17] = {
+	(const void *)&__identifier("??_GObjectModule@@UAEPAXI@Z"), //  0 0x004A10FD
+	(const void *)&__identifier("?loadPostProcess@State@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?name@Rva004D73F6Named@@QBEPBDXZ"), //  2 0x004D73F6
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  3 0x0047A69C
+	(const void *)&__identifier("?Rva004A6563Get@@YAHXZ"), //  4 0x004A6563
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  5 0x0047A69C
+	(const void *)&__identifier("?Rva004A6563Get@@YAHXZ"), //  6 0x004A6563
+	(const void *)&__identifier("?_bfme_state_slot7@State@@EAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?isAttack@State@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot9@State@@EBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot10@State@@EBE_NXZ"), // 10 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot11@State@@EBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot12@State@@EBE_NXZ"), // 12 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot13@State@@EBE_NXZ"), // 13 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot14@State@@EBE_NXZ"), // 14 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot15@State@@EBE_NXZ"), // 15 0x0047A699
+	(const void *)&__identifier("?_bfme_state_slot16@State@@EAEXXZ")  // 16 0x000B3FD0
+};
+}
 
 class __declspec(novtable) Rva004D7476 : public State
 {
@@ -515,7 +705,7 @@ State::State(StateMachine *machine, unsigned int hash)
 	m_successStateID = 999999;
 	m_failureStateID = 999999;
 	m_machine = machine;
-	*reinterpret_cast<char **>(this) = &State_vftable;
+	*reinterpret_cast<const void *const **>(this) = State_vftable;
 	m_tail1C = false;
 	m_transitionsFirst = 0;
 	m_transitionsLast = 0;
@@ -524,25 +714,25 @@ State::State(StateMachine *machine, unsigned int hash)
 // ??0Rva004D7476@@QAE@PAVStateMachine@@@Z
 Rva004D7476::Rva004D7476(StateMachine *machine) : State(machine, 0x8C36A3D4u)
 {
-	*reinterpret_cast<char **>(this) = &Rva004D7476_vftable;
+	*reinterpret_cast<const void *const **>(this) = Rva004D7476_vftable;
 }
 
 // ??0Rva004D7491@@QAE@PAVStateMachine@@@Z
 Rva004D7491::Rva004D7491(StateMachine *machine) : State(machine, 0xC17A0A70u)
 {
-	*reinterpret_cast<char **>(this) = &Rva004D7491_vftable;
+	*reinterpret_cast<const void *const **>(this) = Rva004D7491_vftable;
 }
 
 // ??0Rva004D74AC@@QAE@PAVStateMachine@@@Z
 Rva004D74AC::Rva004D74AC(StateMachine *machine) : State(machine, 0xDF4D3EB3u)
 {
-	*reinterpret_cast<char **>(this) = &Rva004D74AC_vftable;
+	*reinterpret_cast<const void *const **>(this) = Rva004D74AC_vftable;
 }
 
 // ??0Rva004D74C7@@QAE@PAVStateMachine@@@Z
 Rva004D74C7::Rva004D74C7(StateMachine *machine) : State(machine, 0xE529ED33u)
 {
-	*reinterpret_cast<char **>(this) = &Rva004D74C7_vftable;
+	*reinterpret_cast<const void *const **>(this) = Rva004D74C7_vftable;
 }
 
 // tu-skeleton: 0x004D7427 14B ?rva004D7427@StateMachine@@QAEXPBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
