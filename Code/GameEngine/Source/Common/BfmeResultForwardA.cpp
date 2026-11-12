@@ -1,12 +1,6 @@
 // cl: /Ob0
 
-struct BfmeResultA
-{
-	void *m_value;
-	BfmeResultA();
-	BfmeResultA(const BfmeResultA &that);
-	~BfmeResultA();
-};
+#include "../../Include/Common/BfmeResultA.h"
 
 class PartitionManagerImpl
 {

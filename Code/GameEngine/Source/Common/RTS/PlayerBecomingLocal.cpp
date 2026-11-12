@@ -40,14 +40,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/Common/BfmeMemberRV.h"
-struct BfmeResultA
-{
-public:
-	BfmeResultA();
-	BfmeResultA(const BfmeResultA&);
-	~BfmeResultA();
-	void *m_value; // +0x00
-};
+#include "../../../Include/Common/BfmeResultA.h"
 class BfmeResultForwardA {public:BfmeResultA bfmeForwardResultA();};
 extern PartitionManager *ThePartitionManager;
 #include "../../../Include/Common/Player.h"
