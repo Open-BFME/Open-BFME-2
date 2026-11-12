@@ -41,12 +41,7 @@ public:
 	void *rva00469294(int key);
 };
 
-class BfmeObject872Header
-{
-	char m_bytes[16];
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 struct HordeContainSlot
 {

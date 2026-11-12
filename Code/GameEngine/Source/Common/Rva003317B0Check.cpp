@@ -46,12 +46,7 @@ template <> void _Base_bitset<4>::_M_do_and(const _Base_bitset<4> &);
 
 // Exact declaration of the existing copy provider at 0x002CF108, whose
 // Object872.h view proves 16-byte fixed storage and nonthrowing copy.
-class BfmeObject872Header
-{
-    char bytes[16];
-public:
-    __declspec(nothrow) BfmeObject872Header(const BfmeObject872Header &);
-};
+#include "../../Include/Common/BfmeObject872Header.h"
 #include "../../Include/GameLogic/Module/Rva00331682Holder.h"
 bool Rva002634E0Equal(const void *a, const void *b);
 

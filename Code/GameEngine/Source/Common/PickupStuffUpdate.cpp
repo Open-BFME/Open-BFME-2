@@ -17,12 +17,7 @@ struct Rva00491FA6Mask
 	void set(int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
 	unsigned int m_bits[4];
 };
-class BfmeObject872Header
-{
-	char m_bytes[16];
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-};
+#include "../../Include/Common/BfmeObject872Header.h"
 // vftable 0x00C17968 (ctor 0x003685CF): two status masks.
 class Rva003685CF : public Rva000421C8
 {

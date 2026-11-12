@@ -31,12 +31,7 @@ class Object;
 #include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 
 // An ObjectStatusMaskType (16 bytes) as the status filter copies it.
-class BfmeObject872Header
-{
-	char m_bytes[16];
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 // vftable 0x00C071CC, allow 0x002616EB: two status masks.
 class Rva002FDF1C : public Rva000421C8

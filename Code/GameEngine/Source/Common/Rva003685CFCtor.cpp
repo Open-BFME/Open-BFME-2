@@ -5,12 +5,7 @@
 // Evidence: retail and [esi+4],0 plus lea +8/+0x18 plus vtable store plus two
 // calls; callers pass two header refs (e.g. 0x0045ABA5 lea+push pattern).
 // Owner unproven so honest address class name used.
-class BfmeObject872Header
-{
-	char m_bytes[16];
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-};
+#include "../../Include/Common/BfmeObject872Header.h"
 class Rva003685CF
 {
 public:

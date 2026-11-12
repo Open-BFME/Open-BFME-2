@@ -16,17 +16,7 @@ public:
 	bool accepts(Object *obj, Player *player);
 };
 
-class BfmeObject872Header
-{
-public:
-	BfmeObject872Header(const BfmeObject872Header &src);
-	// Class-scope placement form: no throw() spec, so no null test after it
-	// (retail has none), and no clash with <new> in a unit that includes it.
-	// The class-scope usual delete hides <new>'s placement delete, so the copy
-	// construction gets no unwind cleanup either (retail has no EH frame).
-	static void *operator new(unsigned int, void *place) { return place; }
-	static void operator delete(void *);
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 
 typedef void (__cdecl *ContainIterateFunc)(Object *, void *);

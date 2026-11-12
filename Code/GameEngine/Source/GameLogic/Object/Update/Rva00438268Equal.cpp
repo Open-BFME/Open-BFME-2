@@ -7,13 +7,7 @@
 // BfmeFixedStorage128 +0x1C (rowed equal 0x0037DC8A), ints +0x9C/+0xA0/+0xA4,
 // BfmeObject872Header +0xA8 (rowed equal 0x002634E0, self-compare in retail).
 // Caller 0x00439DB5. Finish from stash 0x00438268 score 0.93.
-class BfmeObject872Header
-{
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-private:
-	char m_pad[0x10];
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
 

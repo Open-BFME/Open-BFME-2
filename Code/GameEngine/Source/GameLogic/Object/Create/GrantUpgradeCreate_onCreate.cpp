@@ -40,12 +40,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "../../../../Include/Common/Player.h"
 
-class BfmeObject872Header
-{
-	char m_bytes[16];
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 class GrantUpgradeCreate : public CreateModule
 {

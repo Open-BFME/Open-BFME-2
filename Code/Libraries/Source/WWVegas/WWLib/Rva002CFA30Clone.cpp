@@ -7,10 +7,7 @@
 // node is an honest Rva struct (cf. Rva005E7198 precedent). The 16-byte
 // header is redeclared locally (same size as BfmeObject872Header) to avoid
 // pulling STL headers into this TU. Callers at 0x002CFC88 0x002CFCB8.
-struct BfmeObject872Header
-{
-	unsigned char m_bytes[16];
-};
+#include "../../../../GameEngine/Include/Common/BfmeObject872Header.h"
 
 struct Rva002CF120
 {

@@ -10,11 +10,7 @@
 // copy inline on the bfmeHas1026 path. Evidence: vtable slot plus rowed callee
 // plus caller shape. Honest address name: method identity unproven.
 
-class BfmeObject872Header
-{
-public:
-	__declspec(nothrow) BfmeObject872Header(const BfmeObject872Header &other);
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 struct Outer00462CE1 {
 	void *m_ptr00;

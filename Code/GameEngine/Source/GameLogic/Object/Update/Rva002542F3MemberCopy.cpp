@@ -5,13 +5,7 @@
 // (rowed copy 0x002CF108), float +0x14, int +0x18, BfmeFixedStorage128 +0x1C
 // (rowed copy 0x0004548B), ints +0x9C/+0xA0/+0xA4, BfmeObject872Header +0xA8.
 // Callers 0x004383BA and 0x00438559. No donor: honest class name from ctor TU.
-class BfmeObject872Header
-{
-public:
-	BfmeObject872Header(const BfmeObject872Header &other);
-private:
-	char m_pad[0x10];
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
 
