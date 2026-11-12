@@ -133,3 +133,11 @@ Measured, in order:
   0x007B7400 can be rowed as pointgr.cpp's `_$E` pair (an `object-symbol=_$E<n>` row is no hatch, hatch_counters
   rule 9) while the `??_G` copy stays out; then the merge, re-verifying the 12000-byte body, whose match depends on
   temp numbering (31 dead ints, `reverse/attempt_support/rva17a890-2026-10-20.md`), in the merged context.
+- **Merged-context probe (same base, scratch only).** pointgr.cpp's text with VertexLoc static and the 0x0017A890 body
+  inserted at its retail position (`flag01` spelled `BILLBOARD`, everything else the seed's d3d8 world), compiled with
+  pointgr.cpp's own command into a scratch object (not the build cache), gives an 11,820-byte body against retail's
+  12,000, with 10,942 differing bytes. The first difference is structural, not temp numbering: retail builds
+  `Vector3 scaled_offset[3]` through `??_H` with the out-of-line `??0Vector3@@QAE@XZ`, as the donor's own headers do,
+  while the seed's `vector3_len_link.h` shim (`WWINLINE Vector3(void) {}`, force-inlined) constructs nothing. So
+  the merge also needs one Vector3 view that keeps the seed's 64 rows and gives this body its out-of-line default
+  constructor; that is a prerequisite ahead of the temp-numbering re-check above.
