@@ -21,10 +21,11 @@ private:
 	int m_pad04;
 	int m_pad08;
 };
+// Retail's table 0x00C1C780: one __purecall slot, no destructor.
 class ModuleInfoSecondBase_3AE7B8
 {
 public:
-	virtual ~ModuleInfoSecondBase_3AE7B8();
+	virtual void slot00() = 0;
 };
 class ModuleInfoHeadBase_3AE7B8
 {
@@ -35,6 +36,8 @@ public:
 	{
 	}
 	virtual ~ModuleInfoHeadBase_3AE7B8();
+	// Retail 0x00C1B590: the destructor, then one __purecall.
+	virtual void slot01() = 0;
 	RvaSmartPtr12_3AE7B8 m_smart;
 	int m_int10;
 };
@@ -43,6 +46,9 @@ class Rva003AF50D : public ModuleInfoHeadBase_3AE7B8, public ModuleInfoSecondBas
 public:
 	Rva003AF50D(const Rva003AF50D &other);
 	virtual ~Rva003AF50D();
+	// Retail 0x00C1D420: the destructor, then three __purecall.
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
 };
 class Rva003A97E0 : public Rva003AF50D
 {
@@ -52,6 +58,14 @@ public:
 	{
 	}
 	virtual ~Rva003A97E0();
+	// Retail 0x00C1D520: the destructor, then ten __purecall.
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
 };
 namespace FXParticleSystem {
 class LightningDrawModuleInfo {
