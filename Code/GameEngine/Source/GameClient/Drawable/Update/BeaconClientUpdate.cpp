@@ -185,8 +185,37 @@ extern Radar *TheRadar;
 
 extern float g_secondsPerLogicFrame;
 
-// PointDefenseLaserUpdate_vftable: matched references place it at VA 0xc5eb30 (retail .rdata value -26).
-extern "C" char PointDefenseLaserUpdate_vftable = -26;
+// PointDefenseLaserUpdate_vftable: retail table 0x00C5EB30 (15 ClientUpdate slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GRva00362EE3@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@DrawModule@@MAEXXZ")();
+void __identifier("?Rva004C95C3Get@@YAHXZ")();
+void __identifier("?xfer@BeaconClientUpdate@@MAEXPAVXfer@@@Z")();
+void __identifier("?getModuleNameKey@BeaconClientUpdate@@UBE?AW4NameKeyType@@XZ")();
+void __identifier("?vslot51@DrawModule@@UAEPAXXZ")();
+void __identifier("?v17@DrawModule@@UAE_NXZ")();
+void __identifier("?clientUpdate@BeaconClientUpdate@@UAEXXZ")();
+extern const void *const PointDefenseLaserUpdate_vftable[15] = {
+	(const void *)&__identifier("??_GRva00362EE3@@UAEPAXI@Z"), //  0 0x003630E6
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva004C95C3Get@@YAHXZ"), //  2 0x004C95C3
+	(const void *)&__identifier("?xfer@BeaconClientUpdate@@MAEXPAVXfer@@@Z"), //  3 0x004C95C9
+	(const void *)&__identifier("?getModuleNameKey@BeaconClientUpdate@@UBE?AW4NameKeyType@@XZ"), //  4 0x004C9607
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  5 0x000B3FD0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  6 0x000B3FD0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  8 0x000B3FD0
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ"), //  9 0x000D43D0
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ"), // 10 0x000D43D0
+	(const void *)&__identifier("?v17@DrawModule@@UAE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?clientUpdate@BeaconClientUpdate@@UAEXXZ"), // 12 0x004C98AF
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ"), // 13 0x000D43D0
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ")  // 14 0x000D43D0
+};
+}
 
 void XferParticleSystemID(Xfer *xfer, int *value);
 
@@ -286,7 +315,7 @@ BeaconClientUpdate::BeaconClientUpdate(Thing *thing, const ModuleData *moduleDat
 	: Rva00362EC7(thing, moduleData)
 {
 	id = INVALID_PARTICLE_SYSTEM_ID;
-	*reinterpret_cast<char **>(this) = &PointDefenseLaserUpdate_vftable;
+	*reinterpret_cast<const void *const **>(this) = PointDefenseLaserUpdate_vftable;
 	lastRadarPulse = ((ClockView *)TheGameLogic)->frame;
 }
 

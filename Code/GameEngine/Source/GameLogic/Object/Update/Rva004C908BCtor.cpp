@@ -14,8 +14,38 @@
 class Thing;
 class ModuleData;
 
-// Rva004C908B_vftable: matched references place it at VA 0xc5ea8c (retail .rdata value -26).
-extern "C" char Rva004C908B_vftable = -26;
+// Rva004C908B_vftable: retail table 0x00C5EA8C (15 ClientUpdate slots). Own the complete
+// initialized table instead of a one-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a rowed body at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GRva00362EE3@@UAEPAXI@Z")();
+void __identifier("?loadPostProcess@SwayClientUpdate@@MAEXXZ")();
+void __identifier("?Rva004C90DAGet@@YAHXZ")();
+void __identifier("?xfer@SwayClientUpdate@@MAEXPAVXfer@@@Z")();
+void __identifier("?getModuleNameKey@SwayClientUpdate@@UBE?AW4NameKeyType@@XZ")();
+void __identifier("?loadPostProcess@DrawModule@@MAEXXZ")();
+void __identifier("?vslot51@DrawModule@@UAEPAXXZ")();
+void __identifier("?vslot12@BodyModule@@UAE_NXZ")();
+void __identifier("?clientUpdate@SwayClientUpdate@@UAEXXZ")();
+extern const void *const Rva004C908B_vftable[15] = {
+	(const void *)&__identifier("??_GRva00362EE3@@UAEPAXI@Z"), //  0 0x003630E6
+	(const void *)&__identifier("?loadPostProcess@SwayClientUpdate@@MAEXXZ"), //  1 0x004C9593
+	(const void *)&__identifier("?Rva004C90DAGet@@YAHXZ"), //  2 0x004C90DA
+	(const void *)&__identifier("?xfer@SwayClientUpdate@@MAEXPAVXfer@@@Z"), //  3 0x004C9505
+	(const void *)&__identifier("?getModuleNameKey@SwayClientUpdate@@UBE?AW4NameKeyType@@XZ"), //  4 0x004C90E0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  5 0x000B3FD0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  6 0x000B3FD0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?loadPostProcess@DrawModule@@MAEXXZ"), //  8 0x000B3FD0
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ"), //  9 0x000D43D0
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ"), // 10 0x000D43D0
+	(const void *)&__identifier("?vslot12@BodyModule@@UAE_NXZ"), // 11 0x0050B5C6
+	(const void *)&__identifier("?clientUpdate@SwayClientUpdate@@UAEXXZ"), // 12 0x004C923B
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ"), // 13 0x000D43D0
+	(const void *)&__identifier("?vslot51@DrawModule@@UAEPAXXZ")  // 14 0x000D43D0
+};
+}
 
 // Opaque intermediate; ctor resolves to the opaque row at 0x00362EC7.
 class Rva00362EC7
@@ -50,7 +80,7 @@ SwayClientUpdate::SwayClientUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva00362EC7(thing, moduleData)
 {
 	m_w20 = -1;
-	*reinterpret_cast<char **>(this) = &Rva004C908B_vftable;
+	*reinterpret_cast<const void *const **>(this) = Rva004C908B_vftable;
 	m_f0C = 0.0f;
 	m_f10 = 0.0f;
 	m_f14 = 0.0f;
