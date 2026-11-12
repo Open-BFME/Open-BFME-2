@@ -110,11 +110,7 @@ struct DelayedLuaEventList
 };
 
 class LuaScriptEngine;
-class BfmeObjectEventDispatch
-{
-public:
-	void rva003360D2(int eventType, void *obj, BfmeDelayedLuaEventList *list);
-};
+#include "../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 
 struct SearchArg0042638E;
 class EmotionSystem;

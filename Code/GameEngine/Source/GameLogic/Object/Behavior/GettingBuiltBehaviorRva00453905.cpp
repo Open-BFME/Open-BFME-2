@@ -80,9 +80,7 @@ struct DelayedLuaEventList {
     GettingBuiltEventParameter parameters[3];
 };
 struct BfmeDelayedLuaEventList;
-class BfmeObjectEventDispatch {
-public: void rva003360D2(int, void *, BfmeDelayedLuaEventList *);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 

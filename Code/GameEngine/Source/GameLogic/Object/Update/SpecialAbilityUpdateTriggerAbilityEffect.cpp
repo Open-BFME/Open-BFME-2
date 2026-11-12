@@ -474,10 +474,7 @@ extern Rva00421520 *TheLightPointSystem;
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 struct BfmeDelayedLuaEventList;
-class BfmeObjectEventDispatch {
-  public:
-    void rva003360D2(int, void *, BfmeDelayedLuaEventList *);
-};
+#include "../../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 struct EventParameterView {
     void *vtable;
     float real;
