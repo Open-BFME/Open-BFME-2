@@ -402,7 +402,7 @@ class Rva0004263F
 public:
 	void rva0004263F(float,float,float,float,Int);
 };
-class W3DDisplay {public:void rva0008EEF0(float,float,float,float,float,Int);};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 struct Rva0026003EState {
     char m_pad[0x24];
     float m_vals[15];

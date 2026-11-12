@@ -9,11 +9,7 @@
 class Image;
 class Display;
 extern Display *TheDisplay;
-class W3DDisplay
-{
-public:
-	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class Rva003602EF
 {
 public:

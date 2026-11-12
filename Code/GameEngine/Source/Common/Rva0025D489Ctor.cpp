@@ -31,30 +31,7 @@ extern "C" void _ReadWriteBarrier();
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 class Image;
-class W3DDisplay
-{
-public:
-	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
-	void rva0025D2F6();
-	virtual void unused00();
-	virtual void unused01();
-	virtual void unused02();
-	virtual void unused03();
-	virtual void unused04();
-	virtual void unused05();
-	virtual void unused06();
-	virtual void unused07();
-	virtual void unused08();
-	virtual void unused09();
-	virtual void unused10();
-	virtual void unused11();
-	virtual void unused12();
-	virtual void unused13();
-	virtual void unused14();
-	virtual void unused15();
-	virtual unsigned unused16();
-	virtual unsigned unused17();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class ListNode0025D9E3
 {

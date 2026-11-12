@@ -27,11 +27,7 @@ public:
 	virtual void slot23();
 };
 #include "../../Include/GameClient/Display.h"
-class W3DDisplay
-{
-public:
-	void rva0025D2F6();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 #include "../../Include/GameClient/ImageClass.h"
 #include "../../Include/GameClient/Image.h"
 class GameFont;

@@ -207,7 +207,7 @@ public:
  virtual const Vector2&scale()=0;
 };
 extern class BfmeAptWindowManager*g_bfmeAptWindowManager;
-class W3DDisplay {public:void rva0004D6B3(Image*,float,float,float,float,int,int);};
+#include "../../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 extern class Display*TheDisplay;
 class Render2DClass
 {

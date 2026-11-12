@@ -23,11 +23,7 @@ public:
 };
 
 
-class W3DDisplay
-{
-public:
-	void rva0025D2F6();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class ListNode0025D9E3
 {
