@@ -64,11 +64,7 @@ bool Rva003400F9::computePath()
 // 0x003412A5 (AI state tables): whether the owner's current weapon (pinned
 // Object::getCurrentWeapon) has a template whose rowed byte getter is set or
 // whose +0x78 is not negative.
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva002C9400ByteField.h"
 struct Rva003412A5Template : public Rva002C9400ByteField
 {
 	char m_pad00[0x78];

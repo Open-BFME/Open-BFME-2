@@ -166,11 +166,7 @@ public:
 	Object *m_containedBy; // +0x274
 };
 
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/Common/Rva002C9407ByteField.h"
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"

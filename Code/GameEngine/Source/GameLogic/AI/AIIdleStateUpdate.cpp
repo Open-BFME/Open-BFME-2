@@ -100,11 +100,7 @@ NameKeyType Rva0045EE2CGet();
 class Module;
 
 // Weapon template view: the rowed byte getter reads +0x125.
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 
 class Weapon
 {

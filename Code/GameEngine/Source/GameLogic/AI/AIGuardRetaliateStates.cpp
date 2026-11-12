@@ -269,7 +269,7 @@ private:
  unsigned char pad00[0x114]; unsigned int m_flags;
 };
 enum WeaponSlotType { WEAPON_PRIMARY = 0 };
-class Rva002C9400ByteField { public: unsigned char get() const; };
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 class Weapon { public: const Rva002C9400ByteField *getTemplate() const { return m_template; } private: unsigned char pad00[4]; const Rva002C9400ByteField *m_template; };
 #include "../../../Include/Common/TeamBFME2.h"
 class Object

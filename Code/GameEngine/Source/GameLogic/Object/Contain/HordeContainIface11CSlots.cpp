@@ -405,11 +405,7 @@ public:
 // owner Rva002C9B80Owner).
 class Object;
 // The Weapon +4 byte field (rowed getter 0x002C9400).
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../../Include/Common/Rva002C9400ByteField.h"
 class Weapon
 {
 public:

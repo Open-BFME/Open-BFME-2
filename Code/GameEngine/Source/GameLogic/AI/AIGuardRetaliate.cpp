@@ -21,11 +21,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 
 struct AIInner
 {

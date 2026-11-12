@@ -794,7 +794,7 @@ CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attack
 // Local slot metrics feed an inlined decision helper: this preserves native's
 // random/range/error reload order at the switch join without barriers or asm.
 // This is source decomposition, not a claim about the original helper name.
-class Rva002C9400ByteField { public: unsigned char get() const; };
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 float __cdecl GetGameLogicRandomValueReal(float, float, char *, int);
 // /Op is required only for this native body and its inline decision helper.
 // Scope it here: applying /Op to older rows changes their verified x87 calls.

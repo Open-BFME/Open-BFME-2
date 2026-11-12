@@ -219,11 +219,7 @@ public:
 
 // CanApproachToTarget's helpers. The rowed 0x002C9B80 range query returns a
 // float; its +0x04 member answers the rowed byte getter 0x002C9400.
-class Rva002C9400ByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 class Rva002C9B80Owner
 {
 public:

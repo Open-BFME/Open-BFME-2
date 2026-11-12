@@ -239,11 +239,7 @@ public:
 	bool rva002CB35C(int p1, void *p2, void *p3, void *p4, float p5, int p6);
 };
 
-class Rva002C9400ByteField
-{
-public:
-unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002C9400ByteField.h"
 class Rva002C9B80Owner
 {
 public:
