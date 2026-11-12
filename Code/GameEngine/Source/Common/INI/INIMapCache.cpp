@@ -19,7 +19,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 bool operator<(const AsciiString&,const AsciiString&);
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 
-struct PlayerPosition {unsigned char human,computer,loadAIScripts;int forceTeam;_STL::set<AsciiString> factions;};
+#include "../../../Include/Common/PlayerPosition.h"
 
 struct MapPlayers {PlayerPosition items[8];MapPlayers&operator=(const MapPlayers&);};
 

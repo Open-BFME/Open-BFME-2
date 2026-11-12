@@ -16,7 +16,7 @@ class WaypointMap:private LocomotorMapView {public:
  __declspec(dllimport) __forceinline WaypointMap():numStartSpots(0){}
  ~WaypointMap();int numStartSpots;
 };
-struct PlayerPosition {unsigned char human,computer,loadAIScripts;int forceTeam;_STL::set<AsciiString> factions;PlayerPosition();~PlayerPosition();};
+#include "../../Include/Common/PlayerPosition.h"
 struct MapPlayers {__declspec(noinline) MapPlayers();PlayerPosition items[8];};
 MapPlayers::MapPlayers(){}
 class MapMetaData {public:MapMetaData();~MapMetaData();

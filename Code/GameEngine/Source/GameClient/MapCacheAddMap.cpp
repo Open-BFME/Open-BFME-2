@@ -57,7 +57,7 @@ namespace _STL { template <> _List_iterator<Coord3D,_Nonconst_traits<Coord3D> > 
 struct Coord3D;
 namespace _STL { template <> void allocator<_List_node<Coord3D> >::deallocate(_List_node<Coord3D> *,unsigned int) const; }
 class WaypointMap : public _STL::map<AsciiString,Coord3D> {public: void update(); int numStartSpots;};
-struct PlayerPosition { unsigned char human,computer,loadAIScripts; int forceTeam; _STL::set<AsciiString> factions; };
+#include "../../Include/Common/PlayerPosition.h"
 struct MapPlayers { PlayerPosition items[8]; };
 #include "../../Include/GameClient/MapMetaData.h"
 // The canonical header keeps the STL members opaque; this TU's typed views.

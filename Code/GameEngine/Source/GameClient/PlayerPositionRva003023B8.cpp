@@ -40,15 +40,7 @@ template <> Lk6AsciiSetTree::iterator Lk6AsciiSetTree::insert_unique(Lk6AsciiSet
 template <> _Rb_tree_node<AsciiString> *Lk6AsciiSetTree::_M_create_node(const AsciiString&);
 }
 
-struct PlayerPosition
-{
-	unsigned char human;
-	unsigned char computer;
-	unsigned char loadAIScripts;
-	Int forceTeam;
-	_STL::set<AsciiString> factions;
-	void rva003023B8(const AsciiString &name);
-};
+#include "../../Include/Common/PlayerPosition.h"
 
 // ?rva003023B8@PlayerPosition@@QAEXABVAsciiString@@@Z
 void PlayerPosition::rva003023B8(const AsciiString &name)

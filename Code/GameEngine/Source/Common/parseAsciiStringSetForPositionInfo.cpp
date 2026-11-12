@@ -23,15 +23,7 @@ template <> struct less<AsciiString>
 };
 }
 
-struct PlayerPosition
-{
-	unsigned char human;
-	unsigned char computer;
-	unsigned char loadAIScripts;
-	int forceTeam;
-	_STL::set<AsciiString> factions;
-	void rva003023B8(const AsciiString &name);
-};
+#include "../../Include/Common/PlayerPosition.h"
 
 #include "../../Include/Common/INI/INI.h"
 

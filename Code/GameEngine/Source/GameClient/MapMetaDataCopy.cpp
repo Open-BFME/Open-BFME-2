@@ -41,7 +41,7 @@ typedef _STL::list<Coord3D> Coord3DList;
 class WaypointMap : public _STL::map<AsciiString,Coord3D> { int numStartSpots; public: WaypointMap(const WaypointMap &); };
 // The copy chain301EF6->301A3E->3012B0->2C552 proves a string-only20B node:
 // these faction names form a set, not a map with an unobserved mapped value.
-struct PlayerPosition { unsigned char human,computer,loadAIScripts; int forceTeam; _STL::set<AsciiString> factions; PlayerPosition(); ~PlayerPosition(); };
+#include "../../Include/Common/PlayerPosition.h"
 // Implicit copy emits the real EH array-copy helper: eight20B records.
 // Callback302CE2 copies three flags/team/map; callback22D920 destroys map+8.
 struct MapPlayers { PlayerPosition items[8]; };

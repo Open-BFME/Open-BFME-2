@@ -1,0 +1,143 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PlayerPosition",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 11,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x302805",
+      "0x302ce2"
+     ],
+     "value": {
+      "0x8": [
+       "?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL",
+       "?$map@EFU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEF@_STL@@@2@@_STL",
+       "?$set@HU?$less@H@_STL@@V?$Rva0054E8DCAllocator@H@@@_STL",
+       "?$set@PAURva004ABDDCEntry@@U?$less@PAURva004ABDDCEntry@@@_STL@@V?$allocator@PAURva004ABDDCEntry@@@3@@_STL",
+       "?$set@URva000D20A9Key@@U?$less@URva000D20A9Key@@@_STL@@V?$allocator@URva000D20A9Key@@@3@@_STL",
+       "?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL",
+       "Rva002EE9B7"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 1,
+   "20": 9
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "human",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "computer",
+   "name_by": "majority",
+   "offset": 1,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "loadAIScripts",
+   "name_by": "majority",
+   "offset": 2,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "forceTeam",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<AsciiString>*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<AsciiString>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<AsciiString>"
+    }
+   ],
+   "name": "factions",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> >",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -16,7 +16,7 @@
 #include "../../../Libraries/Include/Lib/Region3D.h"
 typedef _STL::list<Coord3D> Coord3DList;
 class WaypointMap : public _STL::map<AsciiString,Coord3D> { public: int numStartSpots; };
-struct PlayerPosition { bool human,computer,loadAIScripts; int forceTeam; _STL::set<AsciiString> factions; PlayerPosition(); ~PlayerPosition(); };
+#include "../../Include/Common/PlayerPosition.h"
 struct MapPlayers { PlayerPosition items[8]; };
 #include "../../Include/GameClient/MapMetaData.h"
 // The canonical header keeps the STL members opaque; this TU's typed views.
