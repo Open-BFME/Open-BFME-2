@@ -233,7 +233,7 @@ namespace _STL {
 template <> vector<BfmePod8> &vector<BfmePod8>::operator=(const vector &);
 }
 
-struct Rva0030B7C2Point { float x,y; };
+#include "../../Include/Common/Rva0030B7C2Point.h"
 
 struct Rva0030D111Point : Coord2D {
  Rva0030D111Point() {}

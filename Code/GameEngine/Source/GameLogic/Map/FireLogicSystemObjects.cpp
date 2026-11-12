@@ -591,7 +591,7 @@ void FireLogicSystem::ChangeBurnRateInArea(const Coord3D *pos, float radius, con
 	}
 }
 
-struct Rva0030B7C2Point { float x, y; };
+#include "../../../Include/Common/Rva0030B7C2Point.h"
 bool rva0030B7C2(const Rva0030B7C2Point *point, Rva0030B719Shape *shape);
 bool __cdecl rva00285B66(const void *point, const void *region)
 {

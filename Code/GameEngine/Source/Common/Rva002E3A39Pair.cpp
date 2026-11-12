@@ -7,7 +7,7 @@
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include <math.h>
 
-struct Rva0030B7C2Point { float x, y; };
+#include "../../Include/Common/Rva0030B7C2Point.h"
 class Rva0030B719Shape;
 bool rva0030B7C2(const Rva0030B7C2Point *, Rva0030B719Shape *);
 struct Rva002E3A8DPair { float x; unsigned yBits; };

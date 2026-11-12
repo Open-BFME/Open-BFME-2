@@ -236,7 +236,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-struct Rva0030B7C2Point { float x, y; };
+#include "../../../Include/Common/Rva0030B7C2Point.h"
 bool rva0030B7C2(const Rva0030B7C2Point *point, Rva0030B719Shape *shape);
 // m_cellsOnFire's in-order walk (STLport's shared increment, 0x00024250) and
 // the grid's burn query at a world point (0x00285860, rowed under its
