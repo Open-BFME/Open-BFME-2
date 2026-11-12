@@ -6,6 +6,7 @@
 
 class Rva0032A3A9Element {
 public:
+    char m_pad04[124];
     virtual ~Rva0032A3A9Element();
 };
 

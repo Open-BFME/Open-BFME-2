@@ -34,6 +34,18 @@
    "type": "void*",
    "views": 4,
    "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_pad04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 124,
+   "type": "char[124]",
+   "views": 4,
+   "witness": null
   }
  ],
  "key": "class",
