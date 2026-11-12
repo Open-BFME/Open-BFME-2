@@ -16,15 +16,7 @@ struct RGBAColorReal
     float alpha;
 };
 
-struct RGBAColorInt
-{
-    RGBAColorInt &operator=(const RGBAColorInt &that);
-
-    unsigned int red;
-    unsigned int green;
-    unsigned int blue;
-    unsigned int alpha;
-};
+#include "../../../../GameEngine/Include/Common/RGBAColorInt.h"
 
 inline int RGBColor::getAsInt() const throw()
 {

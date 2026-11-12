@@ -41,14 +41,7 @@ struct CursorInfo {
 	unsigned char m_pad[0x54];
 };
 
-struct RGBAColorInt
-{
-public:
-	unsigned int red; // +0x00
-	unsigned int green; // +0x04
-	unsigned int blue; // +0x08
-	unsigned int alpha; // +0x0C
-};
+#include "../../../Include/Common/RGBAColorInt.h"
 
 // ZH MouseIO, 0x3C bytes in BFME2; its empty constructor is the ICF-folded
 // `mov eax,ecx; ret` at 0x0047A6A9 that ??_H receives.

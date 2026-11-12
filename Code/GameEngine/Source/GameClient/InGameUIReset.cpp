@@ -75,7 +75,7 @@ void rva004E4317();
 void Rva004E84ABRun();	// BFME 1's ResetInGameChat
 void Rva00433C75( const AsciiString &text, bool clear );	// BFME 1's UpdateDiplomacyBriefingText
 
-struct RGBAColorInt { int v[4]; };
+#include "../../Include/Common/RGBAColorInt.h"
 
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;

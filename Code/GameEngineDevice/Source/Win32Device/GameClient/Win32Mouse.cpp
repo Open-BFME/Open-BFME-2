@@ -16,10 +16,7 @@ typedef float Real;
 #define MAX_2D_CURSOR_DIRECTIONS 8
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
-struct RGBAColorInt
-{
-	Int red, green, blue, alpha;
-};
+#include "../../../../GameEngine/Include/Common/RGBAColorInt.h"
 
 struct CursorInfo
 {

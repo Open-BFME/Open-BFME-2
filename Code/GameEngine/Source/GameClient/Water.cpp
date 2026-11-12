@@ -18,10 +18,7 @@ typedef int Int;
 
 typedef float Real;
 
-struct RGBAColorInt
-{
-	Int red, green, blue, alpha;
-};
+#include "../../Include/Common/RGBAColorInt.h"
 
 #include "../../Include/Common/INI/INI.h"
 

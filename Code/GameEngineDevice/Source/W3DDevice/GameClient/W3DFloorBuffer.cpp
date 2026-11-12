@@ -145,13 +145,7 @@ struct RGBAColorReal
 	float blue;
 	float alpha;
 };
-struct RGBAColorInt
-{
-	int red;
-	int green;
-	int blue;
-	int alpha;
-};
+#include "../../../../GameEngine/Include/Common/RGBAColorInt.h"
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
