@@ -75,7 +75,7 @@ extern GlobalData *TheWritableGlobalData;
 extern "C" double __cdecl fabs(double);
 struct PathfinderCostCellInfo { Int x,y; };
 struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent,state;unsigned short totalCost,costSoFar;char pad14[0x28-0x14];Int obstacleID;unsigned int flags; };
-struct In002E6BA1 { Int x,y; };
+#include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
 void Rva0052DBCDInit();

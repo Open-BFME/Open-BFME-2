@@ -156,10 +156,7 @@ public:
 	Int obstacleID; // +0x28
 	unsigned int flags; // +0x2C
 };
-struct In002E6BA1
-{
- Int x,y;
-};
+#include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
 void Rva0052DBCDInit();

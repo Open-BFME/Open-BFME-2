@@ -347,7 +347,7 @@ extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
-struct In002E6BA1 { int x,y; };
+#include "../../../Include/Common/In002E6BA1.h"
 #include "ICoord2D.h"
 class MixFileInfoBuffer;
 extern int TheMixFileInfoPool;

@@ -15,7 +15,7 @@ extern "C" { static float __cdecl floorf(float); }
 
 #include "Coord3D.h"
 
-struct In002E6BA1 { Int x,y; };
+#include "../../Include/Common/In002E6BA1.h"
 
 #include "ICoord2D.h"
 #include "IRegion2D.h"
