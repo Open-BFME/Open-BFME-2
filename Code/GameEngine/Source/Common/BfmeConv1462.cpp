@@ -101,9 +101,7 @@ inline _ForwardIter Rva000179B0UninitializedCopy(_InputIter __first, _InputIter 
 
 #pragma intrinsic(memcpy)
 
-struct BfmeRangeInputTag
-{
-};
+#include "../../Include/Common/BfmeRangeInputTag.h"
 
 struct BfmeRangeTag : public BfmeRangeInputTag
 {
