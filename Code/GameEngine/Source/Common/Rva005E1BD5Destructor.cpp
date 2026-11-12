@@ -4,7 +4,8 @@
 // owner10, army14, owned slot18 and counted help1C proven by neighbouring methods.
 #include "../../Include/Common/Rva0007DF07.h"
 class Rva0083702CObserver {public:
- virtual void observer0(int)=0;virtual void observer1(void*,void*){};virtual void observer2()=0;virtual void observer3()=0;virtual void observer4()=0;
+ // Retail table 0x00C3702C holds the shared `ret 4` body 0x0047A69C in slot 0.
+ virtual void observer0(int){}virtual void observer1(void*,void*){};virtual void observer2()=0;virtual void observer3()=0;virtual void observer4()=0;
  ~Rva0083702CObserver(){}
 };
 class Rva0086E330Callback {public:
