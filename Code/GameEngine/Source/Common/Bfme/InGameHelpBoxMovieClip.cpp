@@ -10,11 +10,7 @@ void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char 
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../../Include/Common/Rva002BED91.h"
 
 struct Rva00527890Inner
 {

@@ -59,7 +59,7 @@ bool Rva002B4C09::rva002B4C09()
 	return false;
 }
 
-class Rva002BED91 { public: void clear(); };  // rowed at 0x002BED91
+#include "../../Include/Common/Rva002BED91.h"
 class Rva002B5BBA { public: void rva002B5BBA(); };
 // Native 2B6875..2B68AA: complete 53B target gate and table tail dispatch.
 // The same-TU probe proves EDX survives; its true result returns immediately.

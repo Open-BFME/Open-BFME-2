@@ -114,7 +114,7 @@ StrategicHUD::CommandUIImpl::~CommandUIImpl()
 {
 }
 
-class Rva002BED91 { public: void clear(); };
+#include "../../Include/Common/Rva002BED91.h"
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };
 #include "../../Include/Common/Rva005C3E79.h"
 class Rva005D2664 { public:

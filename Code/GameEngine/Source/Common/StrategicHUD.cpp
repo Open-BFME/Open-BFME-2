@@ -1124,11 +1124,7 @@ UnicodeString FormatPowerPointsText(int points); // 0x00579A2F
 UnicodeString FormatBonusText(int bonus); // 0x00579900
 }
 
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 namespace StrategicHUD { bool __cdecl ParseRowNum(const char *s, int *out); }
 

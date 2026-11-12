@@ -709,11 +709,7 @@ void Rva005770CB::rva005770CB()
 // same +0x30/+0x34 layout). Clears the +0x30 hint through the rowed
 // ?clear@Rva002BED91@@QAEXXZ, then tail-jumps to the rowed
 // ?rva005D4F7D@Rva005D4F7D@@QAEXXZ of the +0x34 object when it exists.
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 class Rva005D4F7D
 {
 public:

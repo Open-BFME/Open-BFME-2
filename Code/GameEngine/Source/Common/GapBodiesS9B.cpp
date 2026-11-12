@@ -175,11 +175,7 @@ void Rva004F68A8::rva004F68A8(const TreeHintRef00217D4C &ref)
 
 // --- 0x004F68B0 (8B): clear the member at +0x20 through the rowed
 // Rva002BED91::clear 0x002BED91 (add ecx, 0x20; jmp).
-class Rva002BED91
-{
-public:
-	void clear();										// 0x002BED91
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 class Rva004F68B0
 {

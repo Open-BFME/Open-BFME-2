@@ -150,11 +150,7 @@ struct TreeHintRef00217D4C
 };
 
 // The rowed null-safe release of a page reference (0x002BED91).
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../../../../Include/Common/Rva002BED91.h"
 
 // SetTabsState's helpers: the page id string (0x005E2D26, WorldBuilder
 // PageSlotToID), the "<char><text>" node builder (0x002229E3) and the Apt

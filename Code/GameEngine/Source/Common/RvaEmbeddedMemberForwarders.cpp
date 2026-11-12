@@ -45,11 +45,7 @@ void Rva001F8950::rva001F8950()
 	m_member.rva001F5CF7();
 }
 
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 class Rva003F7D56
 {

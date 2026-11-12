@@ -58,7 +58,7 @@ Rva005C3A37Elem::~Rva005C3A37Elem() {}
 // count1C is decremented at least once then the selected12B element's
 // holders are cleared in reverse order. Positive remaining count repeats;
 // the owner0 virtual slot8 is called after disabling18. Argument is unread.
-struct Rva002BED91 { void clear(); };
+#include "../../Include/Common/Rva002BED91.h"
 void Rva005C3A37Elem::onClosed(int)
 {
  if(pending) {

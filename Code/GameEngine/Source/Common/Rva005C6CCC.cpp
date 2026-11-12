@@ -151,7 +151,7 @@ float TheRadialFlashEnd;
 static const float kFlashMaxScale = 1.1f;
 static const float kFlashStart = 0.0f;
 static const float kFlashDuration = 0.0f;
-struct Rva002BED91 { void set(TargetRef00217D4C *); };
+#include "../../Include/Common/Rva002BED91.h"
 // The existing clear/erase providers use the same native tree prefix.
 // Erase reads only the signed integer key prefix; its legacy set name is unproven.
 class SubTree005C6B83 { public: void clear(); };

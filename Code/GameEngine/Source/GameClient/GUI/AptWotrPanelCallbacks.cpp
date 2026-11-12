@@ -302,11 +302,7 @@ __forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 		ReleaseTreeHintRef00217D4C(m_ptr);
 }
 
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../../Include/Common/Rva002BED91.h"
 
 class Rva005D4FFC
 {

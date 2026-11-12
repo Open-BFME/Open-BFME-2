@@ -44,7 +44,7 @@ private:
 // assignment and clear. Factory type relationship remains neutral.
 class Rva005FEAAFHost {public:TreeHintRef00217D4C create(int,const AsciiString&);};
 namespace AptUtils {const char*SkipLevelN(const char*);int LevelIndexFromTarget(const char*);}
-class Rva002BED91 {public:void clear();};
+#include "../../../../../Include/Common/Rva002BED91.h"
 void StrategicHUD::PlayerPageFrame::OnPageLoaded(const char*path){
  switch(m_28){case 0: if(!m_holder2C.m_ptr&&m_holder18.m_ptr){
   { AsciiString suffix(AptUtils::SkipLevelN(path));Rva005FEAAFHost*factory=reinterpret_cast<Rva005FEAAFHost*>(m_holder18.m_ptr);m_holder2C=factory->create(AptUtils::LevelIndexFromTarget(path),suffix); }
