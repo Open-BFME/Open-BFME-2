@@ -305,11 +305,7 @@ enum
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class DamageInfo;
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 class AutoHealBehaviorModuleData
 {

@@ -28,13 +28,7 @@ class DieModuleInterface
 public:
 	virtual void dieAnchor();
 };
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage();
-	virtual void onHealing();
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 class SpawnExtraBase
 {
 public:

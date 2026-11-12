@@ -46,14 +46,7 @@ public:
 class DamageInfo;
 enum BodyDamageType { BODY_PRISTINE = 0 }; // name fixes the W4BodyDamageType vtable relocs; values in ZH GameLogic/Damage.h
 
-class DamageModuleInterface
-{
-public:
-	// ZH GameLogic/Module/DamageModule.h: three slots, not one.
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-	virtual void onHealing(DamageInfo *damageInfo) = 0;
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 

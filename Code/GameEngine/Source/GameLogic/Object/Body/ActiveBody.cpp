@@ -199,13 +199,7 @@ public:
 	Real m_actualDamageClipped;		// +0x74
 	unsigned char m_pad78[4];
 };
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo);
-	virtual void onHealing(DamageInfo *damageInfo);					// +0x04
-	virtual void onBodyDamageStateChange(DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);	// +0x08
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/Common/Geometry.h"
 // The Object's geometry (+0xA8) as the rowed BFME 1 donor helpers view it:

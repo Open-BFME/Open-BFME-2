@@ -77,13 +77,7 @@ class GameLogic;
 
 extern GameLogic *TheGameLogic;
 
-class DamageModuleInterface
-{
-public:
-    virtual void onDamage(DamageInfo *) = 0;
-    virtual void onHealing(DamageInfo *) = 0;
-    virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 class UpgradeMuxData
 {

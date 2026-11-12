@@ -37,13 +37,7 @@ public:
 class DamageInfo;
 enum BodyDamageType { BODY_PRISTINE = 0 };
 
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-	virtual void onHealing(DamageInfo *damageInfo) = 0;
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
