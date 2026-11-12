@@ -8,9 +8,7 @@ struct Rva00418BFBKey {
 };
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
-struct Rva00418BFBIter {
-	Rva00418BFBNode *node;
-};
+#include "../../Include/Common/Rva00418BFBIter.h"
 struct Rva00418BFBPair {
 	Rva00418BFBNode *first;
 	bool second;
