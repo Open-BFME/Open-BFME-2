@@ -242,7 +242,11 @@ public:
     {
         if (count<=0) {
             g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x98);
-            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+            if (g_bfmeAptBreakOnAssertAtDDC01C) {
+                _ReadWriteBarrier();
+                __debugbreak();
+                _ReadWriteBarrier();
+            }
         } else {
             items[count-1]->Release();
             --count;
