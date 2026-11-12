@@ -2842,3 +2842,88 @@ two pins, two export_alias allow stamps); those lines were restored, so the comm
 (retail_identity.py already names 0x000B69A1 by its new spelling; rename.py mentions only BfmeModuleDataSnapshotBase in a
 comment). The old `?rva000B69A1@Rva000B69A1@...` spelling remains in evidence files rename.py listed and left
 (five reverse/attempt_support files, 33 class_contracts JSON notes, name_tiers.csv).
+
+### Getter folds, interface overrides and ModuleData stand-ins: 76 off the bridge (2026-11-12, seat halilkkaya-lk94)
+
+Base `ed9d78f95f6`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Survey refresh (lk93's survey.py).** At the base: 3,606 bridged tables, buckets a 63, b 503, c 782, d 478, e 1,780;
+585 tables with exactly one non-pure wrong slot (W 221, D 173, N 108, U 49, d 34). After this pass: 3,530 tables,
+a 68, b 488, c 753, d 477, e 1,744; 532 one-slot tables (W 186, D 158, N 107, U 47, d 34). Two clusters were larger
+than lk93 counted: 32 one-slot BehaviorModuleInterface tables whose wrong slot is retail's getter fold 0x004543A9, and
+68 ModuleData-derived tables whose kept copy stops after slot 0 (36 with exactly ModuleData's default 30-slot tail).
+
+**Done (commits by subject).**
+- "Override the +0x20 interface getter in 28 module views (retail 0x004543A9 fold)": each emitting view declares the
+  slot (slotNN, getDie, getDamage, getUpgrade, getCollide) and defines it out of line as the null-preserving cast to
+  its +0x20 base; `add_match.py --icf-owner` rows it (owner `?get@Rva004543A9LeaNegSbbField@@UBEHXZ`, fold-proof
+  GettingBuiltBehavior.cpp). 16 views in Rva0024A797Grandchildren.cpp plus BloodthirstyUpdate, ClickReactionBehavior,
+  SiegeDockingBehavior, ShareExperienceBehavior, SpawnUnitBehavior, AutoPickUpUpdate, BattlePlanUpdate,
+  LargeGroupAudioUpdate, EmotionTrackerUpdate, RainOfFireUpdate, Rva0044EF5E, MissileLauncherBuildingUpdate's private
+  SpecialAbilityUpdate (declares the rowed slot25) and DockUpdate::slot22 (rowed only). 30 tables. Siblings that emit
+  the same table from their own view (SiegeDockingBehaviorDtor.cpp, EmotionTrackerUpdateDtor.cpp) declare it too.
+- "Row three ModuleData deleting destructors as their ICF twins at 0x004A10FD": `inline ModuleData::~ModuleData() {}`
+  (29 units already have it) makes the implicit ~X retail's 7-byte vptr store at 0x0049B47C. 3 tables.
+- "Declare five classes' rowed interface overrides in their emitting views": SpawnBehavior (three interface tables;
+  its views now include the registered DieModuleInterface.h), CaveContain B5, AIUpdateInterface's +0x20 table,
+  OathbreakersFadeAwayBehavior, ModelConditionAudioLoopClientBehavior Secondary10. 7 tables.
+- "Row ten slot-0 deleting destructors as ICF twins, declare five tables' __purecall slots" (lk93 lead 1) and "Row
+  four more slot-0 deleting destructors as their ICF twins": 7 tables (Rva003889DF, Rva0059667D, Gen007F4D00Listener,
+  Rva007F6D60ChildBase, Rva00672490View, StructureCollapseUpdateModuleData, Impl; ImplBase, newly bound to retail by
+  ??1Impl's vptr store, is measured correct instead of newly bridged).
+- "Derive 19 stand-in ModuleData views from the canonical ModuleData", "Derive five more ModuleData views from
+  ModuleData, constructor units included", "Give two stand-in ModuleData views their family's 31-slot base" and
+  "Derive SlavedUpdate and ModelConditionSoundSelector module data from ModuleData": the EmitVtableTag stand-ins
+  (FamilyDeletingDtors_muse-*.cpp, *ModuleDeletingDtors.cpp) and five base-less constructor-unit views take ModuleData
+  (Rva00253487Base.h for the upgrade-data shape, ActiveBodyModuleData's rowed slot07). 28 tables.
+- "Give WorkerAIUpdate's AI command view its aiDoCommand slot, drop the dead alias": as HordeWorkerAIUpdateDtor.cpp.
+  1 table, alternatename -1.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,606 -> 3,530; bridged slots 54,229 -> 51,778; already correct
+1,955 -> 2,032; mismatching source slots 39,252 -> 38,329; 76 bridged -> correct, nothing newly bridged, no correct
+table lost, refusals identical (35). Five still-bridged tables moved one slot toward retail (TooltipBase,
+LANAPIInterface, GameSpyBuddyMessageQueueInterface, Rva005D0D85Base, Rva005D12E3Base: slot 0 now rowed); two derived
+tables (Gen007F4D00's Listener table, Rva007F6D60Child) now carry inherited `__purecall` where the kept copy used to
+stop. link_check (census c31795c94c) over every changed unit and every other definer of each changed table and new
+name: all LINK; two units that did not link at HEAD stay so (OpenContainCtor.cpp, stale index after lk92;
+BuddyThread_Unresolved.cpp, an STLport deque body).
+
+**Refused / deferred (re_attempts.log).**
+- 0x004A10FD ModuleData twins (UnpauseSpecialPowerUpgrade, FXListDie, KeepObjectDie, LockWeaponCreate,
+  PhysicsBehavior module data): the implicit ~X jumps to an out-of-line base destructor (DestroyDieModuleData.h, a
+  private UpdateModuleData view, Rva00253487Base).
+- 17 slot-0 twins refused on the deleting destructor's own bytes (14 in RvaSmallVtableCtors.cpp, GapBodiesGE41,
+  W3DAptComponentColorPicker, Y2ScalarDeleters' Rva00666BA0View): ours inline the class destructor where retail calls
+  it, and some differ in the delete cleanup (unit flags). Pure slots deferred: TooltipBase (the unit news the derived
+  class), LANAPIInterface (needs LANAPI's 58 slot names), Rva005D0D85Base/Rva005D12E3Base
+  (OpaqueScalarDeletingDtorsB16.cpp and StrategicInGameUITacticalBattleResolverStateForward.cpp emit the derived
+  tables from one-slot views), GameSpyBuddyMessageQueueInterface (shared BuddyThread.h).
+- Nine more twins: five SpecialPowerModuleData classes (retail's ??1 is a bare jmp, ours stores the vptr first),
+  TunnelContainModuleData, TooltipUpgradeModuleData, Gdiplus Image/Bitmap.
+- DeflectSpecialPowerModuleData: DeflectSpecialPower.cpp derives it from an AIUpdateModuleData view while retail's
+  table is ModuleData's default tail. GarrisonContain, SiegeEngineContain, HordeSiegeEngineContain and
+  RiderChangeContain module data were tried and reverted: their constructor units emit the table from other views
+  (link_check refused all four).
+
+**Next leads.**
+1. FX getClass (25 one-slot tables: FXParticleSystemFactories.cpp 17, FXParticleSystem.cpp 6,
+   VectorDeletingDtorsV06.cpp 2): CategoryModuleInfo<N>'s slot 0 is retail's getClass (rowed in
+   NamedModuleClassInstances.cpp and FXParticleSystemModuleGetClass.cpp), but the units call it `v1`, the name
+   ConcreteModuleTemplate also uses to override the INFO bases' slot 1. Declare `getClass` (covariant on
+   CategoryModuleClass<CAT>) in CategoryModuleInfo and ConcreteModuleTemplate, and keep `v1` only where the INFO base
+   has it, or it becomes a new primary slot.
+2. The remaining ModuleData short tables: the contain family's constructor units (other OpenContainModuleData views,
+   TransportContain.cpp's private one), the five W3D draw module data (W3DModelDrawModuleData overrides at 14/18/22/30),
+   BaseUpgrade/CostModifierUpgrade (private Rva00253487Base view with an inline Snapshot teardown), RespawnBody
+   (ImmortalBody.cpp also emits it), TerrainResourceBehavior, Deflect.
+3. 15 FX tables keep `__purecall` where retail has 0x0055E636 (ModuleCtorChainsB.cpp, ParticleModuleInfoCopyCtors.cpp).
+4. Naming: BehaviorModule's slot 20 is getUpdateExitInterface (QueueProductionExitUpdate and
+   SpawnPointProductionExitUpdate keep slot20 because their getter is rowed under that name); Watchdog's
+   `?start@Watchdog@@UAEXXZ` (0x002256C0) is ThreadClass's slot-1 Execute override; TauntPointFilter's rowed `Allow`
+   versus PartitionFilter.h's `allow`; DeployStyleAIUpdate's `?rva0048E8F7@...@@QAE...` is aiDoCommand (respell);
+   TunnelContain's B5 slot needs the shared B5.h (and its alias) changed.
+5. WorkerAIUpdateDtor.cpp still aliases f2/f4/wt0..wt2 placeholders onto real slots; each is the same one-view fix.
+
+**Tooling compatibility audit** (`ed9d78f95f6..HEAD`): 64 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the touched files or
+classes.
