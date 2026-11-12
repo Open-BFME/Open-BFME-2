@@ -29,11 +29,7 @@ class GameFont;
 
 #include "../../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 
-class Rva003140C8DwordField
-{
-public:
-	Int get() const;
-};
+#include "../../../../../GameEngine/Include/Common/Rva003140C8DwordField.h"
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
