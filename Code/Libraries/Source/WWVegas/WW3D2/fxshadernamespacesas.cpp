@@ -339,16 +339,7 @@ enum ScienceType
 };
 
 // The 0x30-byte transform the skeleton's instancing vector holds.
-class Vector3
-{
-public:
-	__forceinline Vector3() {}
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 #include "../WWMath/Matrix3DData.h"
 // WWMath matrix3d.h's inline Get_Translation(Vector3 *), which the canonical header leaves to units.
