@@ -71,9 +71,9 @@ class WaterHandle;
 class TerrainLogicListenerRootA {
 public:
  virtual void vslot0(int);
- virtual void vslot1(int, WaterHandle *) = 0;
- virtual void vslot2(void *, void *) = 0;
- virtual void vslot3(void *, void *) = 0;
+ virtual void vslot1(int, WaterHandle *) {}
+ virtual void vslot2(void *, void *) {}
+ virtual void vslot3(void *, void *) {}
  ~TerrainLogicListenerRootA() {}
 };
 class TerrainLogicListenerA : public TerrainLogicListenerRootA {
@@ -87,9 +87,9 @@ public:
 class TerrainLogicListenerRootB {
 public:
  virtual void vslot0(int);
- virtual void vslot1(int, WaterHandle *) = 0;
- virtual void vslot2(void *, void *) = 0;
- virtual void vslot3(void *, void *) = 0;
+ virtual void vslot1(int, WaterHandle *) {}
+ virtual void vslot2(void *, void *) {}
+ virtual void vslot3(void *, void *) {}
  ~TerrainLogicListenerRootB() {}
 };
 class TerrainLogicListenerB : public TerrainLogicListenerRootB {
