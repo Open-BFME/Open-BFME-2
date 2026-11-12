@@ -2411,9 +2411,135 @@ def nested_includes(contract, header, slots=None):
     return lines + [""] if lines else []
 
 
+# ---------------------------------------------------------------- layout
+#
+# A contract decides each field's offset and the class's sizeof; declaring only the fields put them
+# end to end (Rva002E6DC4.h: sizeof 76, `void *m_48` at +0x0). layout_plan places every field at its
+# offset: a hole wider than the alignment the compiler would insert becomes a named `char` pad, a
+# hole at the end a tail pad. An alignment it cannot know (a member struct with no contract, an
+# array of class type) counts as 1, so it pads up to the offset itself. Whatever the model gets
+# wrong, size_assertions make the compiler prove: sizeof and every field's offset, as array bounds
+# that go negative (MSVC 7.1 has no static_assert), so a header that does not honour the contract
+# does not compile and the variant fails. What the model can see is refused up front
+# (layout_problems): a field overlapping the one before it, fields past sizeof, a primitive at an
+# offset its size does not divide (that needs #pragma pack), a sizeof the class's alignment does not
+# divide, a field with no kind, offset or size.
+
+ALIGNMENT = {"char": 1, "uchar": 1, "bool": 1, "int8": 1, "uint8": 1, "signed char": 1, "unsigned char": 1,
+             "short": 2, "ushort": 2, "wchar": 2, "wchar_t": 2, "unsigned short": 2,
+             "int": 4, "uint": 4, "long": 4, "ulong": 4, "float": 4, "unsigned int": 4, "unsigned long": 4,
+             "double": 8, "int64": 8, "uint64": 8, "__int64": 8}
+
+
+def contract_alignment(name, seen=()):
+    """The alignment of the class `name` from its contract (its widest field, base or vptr), or None."""
+    if name in seen:
+        return None
+    try:
+        contract = json.loads(class_contract.contract_path(name).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    found = [4] if any(f.get("kind") == "VPTR" for f in contract.get("fields", ())) or contract.get("vslots") else []
+    for base in contract.get("bases", ()):
+        found.append(contract_alignment(base_identity(base), seen + (name,)))
+    for field in contract.get("fields", ()):
+        found.append(field_alignment(field, seen + (name,)))
+    return None if None in found else max(found, default=1)
+
+
+def field_alignment(field, seen=()):
+    """The alignment the compiler gives the contract field, or None when it cannot be known here."""
+    kind, size = field.get("kind"), field.get("size")
+    if kind in ("i1", "i2", "i4", "f4", "P", "VPTR"):
+        return size if size in (1, 2, 4, 8) else None
+    if kind == "A":
+        element = re.sub(r"(?:\[\d+\])+$", "", field.get("type", "")).strip()
+        if element.endswith("*"):
+            return 4
+        return ALIGNMENT.get(element) or contract_alignment(element, seen)
+    if kind and kind.startswith("S:"):
+        return contract_alignment(kind[2:], seen)
+    return None
+
+
+def pad_name(offset, taken):
+    name = f"m_pad{offset:X}"
+    while name in taken:
+        name += "_"
+    return name
+
+
+def layout_plan(contract):
+    """([("field", field) | ("pad", name, size)] in declaration order, [problem]): the contract's
+    fields at their offsets with the pads between them and after the last (see above)."""
+    fields = [f for f in contract.get("fields", ()) if f.get("kind") != "VPTR"]
+    problems = [f"field {f.get('name')}: no {k} in the contract" for f in contract.get("fields", ())
+                for k in ("kind", "offset", "size") if f.get(k) is None]
+    if problems:
+        return [], problems
+    taken = {f["name"] for f in contract.get("fields", ())}
+    vptr = [f for f in contract.get("fields", ()) if f.get("kind") == "VPTR"]
+    if contract.get("bases") or any(f["offset"] for f in vptr):
+        cursor = min((f["offset"] for f in fields), default=None)   # where the bases end is not known here
+    else:
+        cursor = 4 if vptr else 0
+    plan = []
+    aligns = ([4] if vptr else []) + [contract_alignment(base_identity(b)) for b in contract.get("bases", ())]
+    for field in sorted(fields, key=lambda f: f["offset"]):
+        offset, size, align = field["offset"], field["size"], field_alignment(field)
+        aligns.append(align)
+        if field["kind"] in ("i2", "i4", "f4", "P") and offset % size:
+            problems.append(f"field {field['name']}: {field['kind']} at +{offset:#x}, which its size {size} does not "
+                            "divide (only #pragma pack places it there)")
+        if offset < cursor:
+            problems.append(f"field {field['name']}: at +{offset:#x}, inside what ends at +{cursor:#x}")
+            continue
+        natural = -(-cursor // align) * align if align else cursor
+        if offset > natural:
+            plan.append(("pad", pad_name(cursor, taken), offset - cursor))
+        plan.append(("field", field))
+        cursor = offset + size
+    size = contract["size"]
+    if cursor is None:
+        if contract.get("bases"):
+            return plan, problems          # nothing of its own to place; size_assertions check sizeof
+        cursor = 4 if vptr else 0
+    whole = max([a for a in aligns if a], default=1)
+    if cursor > size:
+        problems.append(f"the fields end at +{cursor:#x}, past sizeof {size:#x}")
+    elif None not in aligns and size % whole:
+        problems.append(f"sizeof {size:#x} is no multiple of the class's alignment {whole}")
+    elif size > max(-(-cursor // whole) * whole, 1) or (None in aligns and size > cursor):
+        plan.append(("pad", pad_name(cursor, taken), size - cursor))
+    return plan, problems
+
+
+def layout_problems(contract):
+    """Why the contract's layout cannot be declared (layout_plan), [] when it can."""
+    return layout_plan(contract)[1]
+
+
+def size_assertions(contract):
+    """Namespace-scope lines the compiler proves: sizeof and each field's offset (layout_plan)."""
+    name = contract["class"]
+    stem = re.sub(r"\W", "_", name)
+    lines = [f"typedef char canonical_{stem}_sizeof[sizeof({name}) == {contract['size']} ? 1 : -1];"]
+    for field in contract.get("fields", ()):
+        if field.get("kind") == "VPTR":
+            continue
+        where = f"(int)&reinterpret_cast<const volatile char &>((({name} *)0)->{field['name']})"
+        lines.append(f"typedef char canonical_{stem}_{field['name']}_at[{where} == {field['offset']} ? 1 : -1];")
+    return lines
+
+
 def generate(contract, variant, methods, header=None, slots=None, special=()):
     """The header text of `variant`. `special` (special_declarations) is declared in every
-    variant: a dropped special member is a link fault the byte gate cannot see."""
+    variant: a dropped special member is a link fault the byte gate cannot see. The fields sit at
+    the contract's offsets, holes padded, and the compiler checks it (layout_plan,
+    size_assertions); a layout the plan cannot declare raises ValueError (layout_problems)."""
+    plan, problems = layout_plan(contract)
+    if problems:
+        raise ValueError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))
     name, key = contract["class"], contract["key"]
     roles = {s["role"] for s in special}
     guard = re.sub(r"\W", "_", f"CANONICAL_{name}_H").upper()
@@ -2431,10 +2557,11 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     if key == "class":
         lines.append("public:")
     qualifiers = {s["field"]: s["qualifiers"] for s in special if s["role"] == "qualifier"}
-    for field in contract["fields"]:
-        if field["kind"] == "VPTR":
-            continue
-        lines.append(f"    {qualified_spelling(field, qualifiers.get(field['name'], ()))};")
+    for entry in plan:
+        if entry[0] == "pad":
+            lines.append(f"    char {entry[1]}[{entry[2]}];")
+        else:
+            lines.append(f"    {qualified_spelling(entry[1], qualifiers.get(entry[1]['name'], ()))};")
     if "ctor" in variant and "default" not in roles:
         lines.append(f"    {name}() {{}}")
     if "copy" in variant.split("+") and "copy" not in roles:
@@ -2465,7 +2592,7 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     for access in ("protected", "private"):
         held = member_lines(s for s in special if s["access"] == access)
         lines += [f"{access}:"] + held if held else []
-    lines += ["};", "", f"#endif // {guard}", ""]
+    lines += ["};", ""] + size_assertions(contract) + ["", f"#endif // {guard}", ""]
     return "\n".join(lines)
 
 
@@ -4562,6 +4689,10 @@ def run(args):
         if problems:
             print(f"  {len(problems)} special member(s) the views disagree on; refusing to generate: {problems}")
             return 2
+        problems = layout_problems(contract)
+        if problems:
+            print(f"  the contract's layout cannot be declared; refusing to generate: {problems}")
+            return 2
     variants =args.variants.split(",") if not fixed else ["registered"]
     results = tournament(name, contract, sources, header, variants, args.jobs, fixed_header=fixed)
     winner = max(variants, key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()), -variants.index(v)))
@@ -5107,8 +5238,8 @@ BULK_DONE = ("adopted", "queued")     # --resume skips these; "claimed", "waitin
 TRANSIENT_KINDS = ("claimed", "base-unheadered")   # blockers that clear on their own, not a settled decision
 # Kinds a seat can act on; the picker serves these. `claimed` is transient (the holder
 # is working on it) and `base-unheadered` is served through the base's own record.
-DECIDABLE = ("undecided", "slot-undeclarable", "special-undeclarable", "no-destination", "no-unit-adopts", "link-regression",
-             "commit-refused", "error")
+DECIDABLE = ("undecided", "slot-undeclarable", "special-undeclarable", "layout-undeclarable", "no-destination",
+             "no-unit-adopts", "link-regression", "commit-refused", "error")
 
 
 def plan_order(ranked, blockers, canon):
@@ -5300,6 +5431,12 @@ def bulk_prepare(name, ctx):
         return {"record": decision(name, "special-undeclarable", f"{len(problems)} special member(s) the views "
                                    "disagree on: " + "; ".join(problems[:3]),
                                    [{"attribute": "special", "why": p} for p in problems], **evidence),
+                "contract": contract}
+    problems = layout_problems(contract)
+    if problems:
+        return {"record": decision(name, "layout-undeclarable", "the contract's layout cannot be declared: "
+                                   + "; ".join(problems[:3]),
+                                   [{"attribute": "layout", "why": p} for p in problems], **evidence),
                 "contract": contract}
     if ctx["dry_run"]:
         return {"would": {"class": name, "header": header, "units": len(sources), "contract": contract_rel},

@@ -836,7 +836,8 @@ I6_VIEWS = {
                                  "const; bool operator==(const Rva002A9706Element&)const; };\n",
 }
 I6_CONTRACT = {"class": "Rva002A9706Element", "key": "struct", "key_by": "bytes", "size": 1, "size_by": "majority",
-               "bases": [], "vslots": {}, "queue": [], "fields": [{"kind": "i1", "type": "char[1]", "name": "bytes"}]}
+               "bases": [], "vslots": {}, "queue": [], "fields": [{"kind": "i1", "type": "char[1]", "name": "bytes",
+                                                                     "offset": 0, "size": 1}]}
 
 
 def test_i6_rva002a9706element_keeps_its_comparison_operators(monkeypatch):
@@ -886,7 +887,7 @@ private:
     assert {c["access"] for c in carried} == {"public"}
     # the generated header declares each carried member once, under the key it was carried by
     contract = {"class": "K", "key": "class", "key_by": "bytes", "size": 8, "size_by": "zh", "bases": [],
-                "fields": [{"kind": "i4", "type": "int", "name": "m_x"}]}
+                "fields": [{"kind": "i4", "type": "int", "name": "m_x", "offset": 0, "size": 4}]}
     for variant in ("data", "data+methods", "data+includes"):
         keys = [r["key"] for r in lane.declaration_records(lane.generate(contract, variant, {}, None, None, carried),
                                                            "K")]
@@ -1027,9 +1028,9 @@ def test_a_continued_define_and_an_interrupted_declaration_stay_directives():
 
 
 COUNT_CONTRACT = {"class": "CountBase", "key": "struct", "key_by": "bytes", "size": 12, "size_by": "zh", "bases": [],
-                  "fields": [{"kind": "i4", "type": "int", "name": "m_count"},
-                             {"kind": "P", "type": "char*", "name": "m_name"},
-                             {"kind": "P", "type": "char*", "name": "m_fixed"}]}
+                  "fields": [{"kind": "i4", "type": "int", "name": "m_count", "offset": 0, "size": 4},
+                             {"kind": "P", "type": "char*", "name": "m_name", "offset": 4, "size": 4},
+                             {"kind": "P", "type": "char*", "name": "m_fixed", "offset": 8, "size": 4}]}
 
 
 def counts(*views):
@@ -1256,7 +1257,7 @@ def test_a_qualified_unnamed_struct_member_is_one_field():
 
 def test_a_function_pointer_fields_qualifier_is_carried_or_held():
     contract = {"class": "C", "key": "struct", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
-                "fields": [{"kind": "P", "type": "void*", "name": "cb"}]}
+                "fields": [{"kind": "P", "type": "void*", "name": "cb", "offset": 0, "size": 4}]}
 
     def views(*texts):
         return {f"{i}.cpp": lane.field_records("struct C { %s };\n" % t, "C") for i, t in enumerate(texts)}
@@ -1300,7 +1301,7 @@ def test_special_members_keep_spelling_access_and_skip_what_another_part_declare
         ("ctor", "private", "Pod(int a, int b);"), ("ctor", "public", "explicit Pod(float r);"),
         ("default", "public", "Pod();"), ("dtor", "public", "~Pod() {}")]
     contract = {"class": "Pod", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
-                "fields": [{"kind": "f4", "type": "float", "name": "m_r"}]}
+                "fields": [{"kind": "f4", "type": "float", "name": "m_r", "offset": 0, "size": 4}]}
     methods = {"Pod&operator=(const Pod&)": "Pod& operator=(const Pod &that);"}
     text = lane.generate(contract, "data+ctor+copy+methods", methods, None, None, carried)
     body = text[text.index("class Pod"):text.index("};")]
@@ -1318,7 +1319,7 @@ def test_inline_special_members_the_views_agree_on_are_carried_in_every_variant(
     carried, problems = special("C", {"a.cpp": view, "b.cpp": view})
     assert problems == [] and [c["text"] for c in carried] == ["void release();", "~C() {\n        release();\n    }"]
     contract = {"class": "C", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
-                "fields": [{"kind": "i4", "type": "int", "name": "x"}]}
+                "fields": [{"kind": "i4", "type": "int", "name": "x", "offset": 0, "size": 4}]}
     for variant in ("data", "data+ctor", "data+methods", "data+includes"):
         assert "release();" in lane.generate(contract, variant, {}, None, None, carried)
     other = "class C {\npublic:\n    ~C() { x = 0; }\n    int x;\n};\n"
@@ -1392,7 +1393,7 @@ def test_defaulted_parameters_make_default_and_copy_constructors(monkeypatch):
     carried, problems = special("C", {"a.cpp": view}, {"??0C@@": []})
     assert problems == [] and sorted(c["role"] for c in carried) == ["copy", "default"]
     contract = {"class": "C", "key": "class", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
-                "fields": [{"kind": "i4", "type": "int", "name": "x"}]}
+                "fields": [{"kind": "i4", "type": "int", "name": "x", "offset": 0, "size": 4}]}
     body = lane.generate(contract, "data+ctor+copy", {}, None, None, carried)
     assert "C() {}" not in body and "C(const C &that);" not in body     # no ambiguous second default
 
@@ -1923,3 +1924,81 @@ def test_reference_headers_does_not_cache_an_empty_tree(tmp_path, monkeypatch):
     assert not (tmp_path / "reference_headers_pin.json").exists()
     assert lane.reference_headers()["bfme1"] == {"Object": "a.h"}
     assert lane.reference_headers()["bfme1"] == {"Object": "a.h"}       # now read from the cache
+
+
+# ---------------------------------------------------------------- layout: fields at their offsets
+# Rva002E6DC4.h (sweep-header gap scan, 2026-11-12): sizeof 76, but the generator declared only
+# `void *m_48`, at +0x0. Every field now sits at its contract offset, holes padded, and the compiler
+# checks sizeof and each offset (size_assertions).
+
+def layout_contract(size, *fields, key="struct", bases=(), name="Layout1Probe"):
+    kinds = {"i1": ("char", 1), "i2": ("short", 2), "i4": ("int", 4), "f4": ("float", 4), "P": ("void*", 4),
+             "VPTR": ("void*", 4)}
+    out = []
+    for kind, offset, field_name, *rest in fields:
+        type_name, width = kinds.get(kind, (rest[0] if rest else "Unknown", rest[1] if len(rest) > 1 else 4))
+        out.append({"kind": kind, "offset": offset, "name": field_name, "type": type_name,
+                    "size": rest[1] if len(rest) > 1 else width})
+    return {"class": name, "key": key, "key_by": "bytes", "size": size, "size_by": "zh", "bases": list(bases),
+            "fields": out}
+
+
+def body(contract, variant="data"):
+    text = lane.generate(contract, variant, {}, None)
+    return text[text.index("{") + 1:text.index("};")], text[text.index("};"):]
+
+
+def test_layout_a_hole_at_the_start_is_padded_up_to_the_first_field():
+    fields, after = body(layout_contract(76, ("P", 72, "m_48")))                     # Rva002E6DC4's shape
+    assert fields.split() == ["char", "m_pad0[72];", "void", "*m_48;"]
+    assert "sizeof(Layout1Probe) == 76 ? 1 : -1" in after
+    assert "(((Layout1Probe *)0)->m_48) == 72 ? 1 : -1" in after
+
+
+def test_layout_a_hole_in_the_middle_is_padded_and_an_alignment_gap_is_not():
+    fields, _ = body(layout_contract(0x18, ("i1", 0, "m_0"), ("i4", 4, "m_4"), ("i4", 0x14, "m_14")))
+    assert fields.split() == ["char", "m_0;", "int", "m_4;", "char", "m_pad8[12];", "int", "m_14;"]
+
+
+def test_layout_a_hole_at_the_end_is_a_tail_pad_and_alignment_padding_is_not():
+    fields, _ = body(layout_contract(0x10, ("i4", 0, "m_0")))
+    assert fields.split() == ["int", "m_0;", "char", "m_pad4[12];"]
+    fields, _ = body(layout_contract(8, ("i4", 0, "m_0"), ("i1", 4, "m_4")))         # the compiler rounds 5 to 8
+    assert fields.split() == ["int", "m_0;", "char", "m_4;"]
+
+
+def test_layout_a_vptr_and_a_class_key_keep_their_places():
+    contract = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "m_8"), key="class")
+    fields, after = body(contract)
+    assert fields.split() == ["public:", "char", "m_pad4[4];", "int", "m_8;"]
+    assert "__vfptr" not in after                                                   # no offset check on the vptr
+
+
+def test_layout_an_unknown_alignment_pads_up_to_the_offset_itself():
+    # a member struct with no contract: its alignment is unknown, so no gap is left to the compiler
+    fields, _ = body(layout_contract(12, ("S:NoContractProbe", 0, "m_s", "NoContractProbe", 6), ("i1", 8, "m_8")))
+    assert fields.split() == ["NoContractProbe", "m_s;", "char", "m_pad6[2];", "char", "m_8;", "char", "m_pad9[3];"]
+
+
+def test_layout_with_bases_pads_only_after_the_first_own_field():
+    fields, _ = body(layout_contract(0x20, ("i4", 0x10, "m_10"), ("i4", 0x18, "m_18"), bases=("BaseNoContractProbe",)))
+    assert fields.split() == ["int", "m_10;", "char", "m_pad14[4];", "int", "m_18;", "char", "m_pad1C[4];"]
+
+
+@pytest.mark.parametrize("contract,why", [
+    (layout_contract(4, ("i4", 0, "m_0"), ("i4", 4, "m_4")), "past sizeof"),            # size mismatch: too small
+    (layout_contract(6, ("i4", 0, "m_0")), "no multiple of the class's alignment 4"),    # the compiler makes it 8
+    (layout_contract(8, ("i4", 0, "m_0"), ("i2", 2, "m_2")), "inside what ends at +0x4"),  # overlap
+    (layout_contract(8, ("i4", 2, "m_2")), "only #pragma pack places it there"),          # misaligned
+    ({"class": "Layout1Probe", "key": "struct", "key_by": "bytes", "size": 4, "size_by": "zh", "bases": [],
+      "fields": [{"offset": 0, "name": "m_0", "type": "int", "size": 4}]}, "no kind"),
+])
+def test_layout_a_contract_it_cannot_honour_is_refused(contract, why):
+    problems = lane.layout_problems(contract)
+    assert any(why in p for p in problems), problems
+    with pytest.raises(ValueError, match="layout cannot be declared"):
+        lane.generate(contract, "data", {}, None)
+
+
+def test_layout_undeclarable_is_a_decision_the_lane_records():
+    assert "layout-undeclarable" in lane.DECIDABLE
