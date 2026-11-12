@@ -19,11 +19,7 @@ template <class T1, class T2> struct pair
 };
 }
 
-class Rva002230FF
-{
-public:
-	void *newNode(const void *obj);
-};
+#include "../../Include/GameClient/Rva002230FF.h"
 
 #include "../../Include/GameLogic/Rva000427195.h"
 

@@ -23,11 +23,7 @@ struct InsertRet002E01F7
 };
 #pragma pack(pop)
 
-class Rva002230FF
-{
-public:
-	void *newNode(const void *src);
-};
+#include "../../Include/GameClient/Rva002230FF.h"
 
 #include "../../Include/GameLogic/Rva000427195.h"
 

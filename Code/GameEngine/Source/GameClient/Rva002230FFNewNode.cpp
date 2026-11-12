@@ -25,11 +25,7 @@ struct Rva002230FFNode
 	_STL::pair<const AsciiString, NoCaseTreeValue4> _M_val;
 };
 
-class Rva002230FF
-{
-public:
-	void *newNode(const void *obj);
-};
+#include "../../Include/GameClient/Rva002230FF.h"
 
 void *Rva002230FF::newNode(const void *obj)
 {
