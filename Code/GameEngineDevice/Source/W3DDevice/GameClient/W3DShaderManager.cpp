@@ -356,7 +356,7 @@ typedef float Real;
 typedef bool Bool;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 #include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
 #define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8()))
 // The first fields of DX8Wrapper::render_state, which this unit's ShaderClass view can't take as the canonical struct.

@@ -8,12 +8,7 @@
 #include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 
 class IDirect3DTexture8;
-struct IDirect3DBaseTexture8
-{
-	virtual long __stdcall QueryInterface(const void *, void **) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 struct IDirect3DTexture8 : IDirect3DBaseTexture8
 {

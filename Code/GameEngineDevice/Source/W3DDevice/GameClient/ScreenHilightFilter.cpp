@@ -16,13 +16,7 @@ typedef bool Bool;
 #include <vector>
 #include <stdlib.h>
 struct IDirect3DSurface8;
-struct IDirect3DBaseTexture8
-{
-public:
-	virtual long __stdcall QueryInterface(const void *riid, void **ppv) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 // The device and textures keep their D3D8 type names (DX8Wrapper's static
 // decorations) but are Direct3D 9 objects: SetRenderState 57, SetTexture 65, SetSamplerState 69,
 // SetVertexDeclaration 87, SetVertexShader 92, SetPixelShader 107,

@@ -43,12 +43,7 @@ struct BfmeD3DSurfaceDesc
 	unsigned int Height;
 };
 
-struct IDirect3DBaseTexture8
-{
-	virtual long __stdcall QueryInterface(const void *riid, void **ppv) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 struct BfmeD3DSurface
 {

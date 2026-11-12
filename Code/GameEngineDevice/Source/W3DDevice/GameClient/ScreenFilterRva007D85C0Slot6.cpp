@@ -10,13 +10,7 @@
 
 #include <d3d9.h>
 
-struct IDirect3DBaseTexture8
-{
-public:
-	virtual long __stdcall QueryInterface(const void *riid, void **ppv) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 struct IDirect3DDevice8;
 

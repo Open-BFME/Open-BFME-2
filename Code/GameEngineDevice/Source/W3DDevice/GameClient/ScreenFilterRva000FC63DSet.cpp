@@ -95,7 +95,7 @@ struct BFME2TextureRef
 };
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 // The device and textures keep their D3D8 type names (DX8Wrapper's static
 // decorations) but are Direct3D 9 objects: SetRenderState 57, SetTexture 65,

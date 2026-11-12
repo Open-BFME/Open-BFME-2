@@ -32,7 +32,7 @@
 
 struct IDirect3DSurface8;
 struct IDirect3DTexture8;
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 // The device and textures keep their D3D8 type names (DX8Wrapper's static
 // decorations) but are Direct3D 9 objects: SetTexture 65, SetSamplerState 69, DrawPrimitiveUP 83, SetFVF 89,

@@ -36,7 +36,7 @@ typedef float Real;
 // constructor iterator at the same point in the frame.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 struct IDirect3DTexture8 : public IDirect3DBaseTexture8
 {

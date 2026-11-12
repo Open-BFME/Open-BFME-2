@@ -15,12 +15,7 @@
 // sibling call sites (Recreate plus the literal-init) prove the 7-arg
 // thiscall shape (ret 0x1C).
 
-struct IDirect3DBaseTexture8
-{
-	virtual long __stdcall QueryInterface(void *, void **) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 struct BfmeResetTextureBackend
 {

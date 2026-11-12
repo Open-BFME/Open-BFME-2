@@ -25,12 +25,7 @@ public:
 typedef DWORD D3DRENDERSTATETYPE;
 typedef DWORD D3DTEXTURESTAGESTATETYPE;
 
-struct IDirect3DBaseTexture8
-{
-	virtual HRESULT __stdcall QueryInterface(const void *riid, void **ppv) = 0;
-	virtual DWORD __stdcall AddRef(void) = 0;
-	virtual DWORD __stdcall Release(void) = 0;
-};
+#include "../../Include/Common/IDirect3DBaseTexture8.h"
 
 // Direct3D 9 slot order behind the dx8 names: SetTransform +0xB0,
 // SetRenderState +0xE4, SetTexture +0x104, SetTextureStageState +0x10C.

@@ -8,7 +8,7 @@
 // The D3D8 type names stay for decoration (Textures@DX8Wrapper, endRenderToTexture), but
 // the objects are Direct3D 9 ones: texture AddRef / Release are slots 1 / 2, and the
 // device's SetTexture is slot 65.
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
 struct IDirect3DDevice8;
 

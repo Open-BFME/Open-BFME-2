@@ -151,7 +151,7 @@ public:
 // DX8Wrapper's statics and W3DShaderManager::getRenderTexture) but are Direct3D 9
 // objects: texture AddRef / Release 1 / 2 and GetLevelDesc 17; device SetTexture
 // 65, SetTextureStageState 67 and SetSamplerState 69.
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 struct IDirect3DTexture8 : public IDirect3DBaseTexture8 {};
 struct IDirect3DDevice8;
 

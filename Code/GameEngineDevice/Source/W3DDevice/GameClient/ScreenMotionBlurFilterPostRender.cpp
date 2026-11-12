@@ -24,7 +24,7 @@
 #include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 #include <d3d9.h>
 
-struct IDirect3DBaseTexture8 {};
+#include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
 struct IDirect3DTexture8 : IDirect3DBaseTexture8
 {
