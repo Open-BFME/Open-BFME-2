@@ -395,15 +395,26 @@ def header_comment_splice(text):
 
 
 def include_guarded(code):
+    return include_guard(code) is not None
+
+
+def include_guard(code):
+    """The macro of the include guard wrapping all of `code` (masked), or None: `#ifndef X` or `#if
+    !defined(X)` / `#if !defined X` (the Platform SDK's Ole2.h), `#define X` next, the matching `#endif`
+    last, no `#else`/`#elif` at its level and nothing outside it."""
     directives = list(re.finditer(r'(?m)^[ \t]*#[ \t]*([A-Za-z_]\w*)\b([^\n]*)', code))
     if len(directives) < 3:
-        return False
+        return None
     first, define = directives[:2]
-    macro = first.group(2).strip()
-    if (first.group(1) != "ifndef" or not re.fullmatch(r"[A-Za-z_]\w*", macro)
+    if first.group(1) == "ifndef":
+        macro = first.group(2).strip()
+    else:
+        found = DEFINED_TERM.fullmatch(first.group(2)) if first.group(1) == "if" else None
+        macro = (found.group(2) or found.group(3)) if found and found.group(1) == "!" else ""
+    if (not re.fullmatch(r"[A-Za-z_]\w*", macro)
             or define.group(1) != "define" or define.group(2).strip() != macro
             or code[:first.start()].strip()):
-        return False
+        return None
     depth = 0
     for directive in directives:
         op = directive.group(1)
@@ -412,10 +423,10 @@ def include_guarded(code):
         elif op == "endif":
             depth -= 1
             if depth == 0:
-                return directive is directives[-1] and not code[directive.end():].strip()
+                return macro if directive is directives[-1] and not code[directive.end():].strip() else None
         elif depth == 1 and op in ("else", "elif"):
-            return False
-    return False
+            return None
+    return None
 
 
 # Platform macros the project's one target (x86 Win32, MSVC 7.1) never defines. A branch compiled only
@@ -499,8 +510,9 @@ def include_walk(source, text, include_roots=(), cache=None):
             return out, f"{path}: include cannot be read"
         out.append((str(path), body))
         code = masked(body)
-        if include_guarded(code):
-            guards[path] = re.search(r'(?m)^[ \t]*#[ \t]*ifndef[ \t]+([A-Za-z_]\w*)', code).group(1)
+        guard = include_guard(code)
+        if guard:
+            guards[path] = guard
         # A guard is a barrier only while its macro stays defined. Treat resets
         # anywhere in the closure conservatively, including spliced directives
         # and compiler macro-stack operations; do not evaluate conditions.

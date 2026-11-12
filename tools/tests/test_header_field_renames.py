@@ -599,6 +599,23 @@ def test_a_define_in_a_branch_never_compiled_does_not_count(tmp_path, monkeypatc
     assert "macname1.h" in lane.include_problem("u.cpp", '#include "Windows.h"\n#include "Ole2.h"\n')
 
 
+@pytest.mark.parametrize("guard,cycle", [
+    ("#ifndef {m}\n#define {m}\n", False),
+    ("#if !defined( {m} )\n#define {m}\n", False),               # the Platform SDK's Ole2.h
+    ("#if !defined {m}\n#define {m}\n", False),
+    ("#if !defined({m}) && FLAG\n#define {m}\n", True),          # not a guard
+    ("#if defined({m})\n#define {m}\n", True),
+])
+def test_an_include_guard_spelled_with_defined_is_a_barrier(tmp_path, monkeypatch, guard, cycle):
+    # Ole2.h guards itself with `#if !defined( _OLE2_H_ )`: unread, the SDK's mutual includes were a cycle
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text(guard.format(m="A_H") + '#include "b.h"\n#endif\n')
+    (tmp_path / "b.h").write_text(guard.format(m="B_H") + '#include "a.h"\n#endif\n')
+    problem = lane.include_problem("u.cpp", '#include "a.h"\n')
+    assert ("cycle" in problem) if cycle else problem is None, problem
+    assert lane.include_guard(lane.masked(guard.format(m="X") + "int x;\n#endif\n")) == (None if cycle else "X")
+
+
 def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     for i in range(4):
