@@ -22,7 +22,6 @@
 //   0x0030DE92  0x0030DBD5  0x00C08A2C#0
 //   0x0031EB7A  0x0031DCF0  0x00C0CC88#0
 //   0x00328CDC  0x00328CF8  0x00C0D8D8#0
-//   0x0032A0B2  0x0032989F  0x00C0D8FC#0
 //   0x00355BBE  0x00355BDA  0x00C14E14#0
 //   0x0035686D  0x003561BE  0x00C14EBC#0
 //   0x0035978C  0x00359290  0x00C15398#0
@@ -73,24 +72,6 @@ public:
 
 // ?<Rva00328CF8::Rva00328CF8> absent-from-retail
 Rva00328CF8::Rva00328CF8(EmitVtableTag *)
-{
-}
-
-class DataChunkInput;
-struct DataChunkInfo;
-
-class Rva0032989F
-{
-public:
-	Rva0032989F(EmitVtableTag *);
-public:
-	virtual ~Rva0032989F();
-	// Retail vftable 0x00C0D8FC slot 1 (0x00329906, defined in SidesListPlayerScriptsParse.cpp).
-	virtual bool rva00329906(DataChunkInput &file, DataChunkInfo *info);
-};
-
-// ?<Rva0032989F::Rva0032989F> absent-from-retail
-Rva0032989F::Rva0032989F(EmitVtableTag *)
 {
 }
 
