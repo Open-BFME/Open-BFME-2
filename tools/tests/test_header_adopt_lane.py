@@ -1969,8 +1969,9 @@ def test_layout_a_hole_at_the_end_is_a_tail_pad_and_alignment_padding_is_not():
 
 def test_layout_a_vptr_and_a_class_key_keep_their_places():
     contract = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "m_8"), key="class", vslots={"0": "~Layout1Probe"})
-    fields, after = body(contract)
-    assert fields.split() == ["public:", "char", "m_pad4[4];", "int", "m_8;"]
+    text = lane.generate(contract, "data", {}, None, (["virtual ~Layout1Probe();"], []))   # as the tournament passes them
+    fields, after = text[text.index("{") + 1:text.index("};")], text[text.index("};"):]
+    assert fields.split() == ["public:", "char", "m_pad4[4];", "int", "m_8;", "virtual", "~Layout1Probe();"]
     assert "__vfptr" not in after                                                   # no offset check on the vptr
 
 
@@ -1996,18 +1997,23 @@ def test_layout_with_bases_pads_only_after_the_first_own_field():
 def test_layout_a_contract_it_cannot_honour_is_refused(contract, why):
     problems = lane.layout_problems(contract)
     assert any(why in p for p in problems), problems
-    with pytest.raises(ValueError, match="layout cannot be declared"):
+    with pytest.raises(lane.LayoutError, match="layout cannot be declared"):
         lane.generate(contract, "data", {}, None)
 
 
 BASE4 = {"class": "LayoutBaseProbe", "key": "struct", "size": 4, "bases": [], "vslots": {},
          "fields": [{"kind": "i4", "offset": 0, "name": "b", "type": "int", "size": 4}]}
 EMPTY_BASE = {"class": "LayoutEmptyProbe", "key": "struct", "size": 1, "bases": [], "vslots": {}, "fields": []}
+EMPTY_CHAIN = {"class": "LayoutEmptyChainProbe", "key": "struct", "size": 1, "bases": ["LayoutEmptyProbe"],
+               "vslots": {}, "fields": []}
+POLY_BASE = {"class": "LayoutPolyProbe", "key": "struct", "size": 8, "bases": [], "vslots": {"0": "f"},
+             "fields": [{"kind": "VPTR", "offset": 0, "name": "__vfptr", "type": "void*", "size": 4},
+                        {"kind": "i4", "offset": 4, "name": "p", "type": "int", "size": 4}]}
 
 
 @pytest.fixture
 def base_contracts(monkeypatch):
-    known = {c["class"]: c for c in (BASE4, EMPTY_BASE)}
+    known = {c["class"]: c for c in (BASE4, EMPTY_BASE, EMPTY_CHAIN, POLY_BASE)}
     monkeypatch.setattr(lane, "read_contract", known.get)
 
 
@@ -2026,15 +2032,61 @@ def test_review_r1_a_derived_class_pads_from_its_bases_extent(base_contracts):
 @pytest.mark.parametrize("contract,why", [
     # review r1: a vptr at +4 with no base, no slots: padding stood in for it and every assertion passed
     (layout_contract(8, ("VPTR", 4, "__vfptr"), ("i4", 0, "x")), "with no base the compiler puts it at +0x0"),
-    (layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x")), "no virtual slot for the header to declare"),
     (layout_contract(12, ("VPTR", 4, "__vfptr"), ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}),
-     "past the base's extent"),
-    (layout_contract(12, ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}),
-     "a vptr its base has none of"),
+     "a base that has none"),
+    (layout_contract(12, ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}), "a base that has none"),
+    # review r2: a vptr at +0 over a base with none and no slot (the header would declare none) ...
+    (layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "x"), bases=("LayoutBaseProbe",)), "a base that has none"),
+    # ... and the polymorphic base's vptr moved to +4
+    (layout_contract(12, ("VPTR", 4, "__vfptr"), ("i4", 8, "x"), bases=("LayoutPolyProbe",)),
+     "the vptr it shares with its base is at +0x0"),
 ])
 def test_review_r1_a_vptr_the_header_cannot_place_is_refused(base_contracts, contract, why):
     problems = lane.layout_problems(contract)
     assert any(why in p for p in problems), problems
+
+
+def test_review_r2_a_vptr_over_a_base_with_no_contract_is_left_to_the_assertions(base_contracts):
+    # members start at the first own field (no pad can stand in for a vptr); sizeof and offsets judge the rest
+    contract = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "x"), bases=("LayoutUnknownBaseProbe",))
+    assert lane.layout_problems(contract) == []
+    fields, after = body(contract)
+    assert fields.split() == ["int", "x;"] and "== 8 ? 1 : -1" in after and "== 12 ? 1 : -1" in after
+
+
+def test_review_r2_a_shared_vptr_and_an_empty_base_chain_are_declarable(base_contracts):
+    fields, _ = body(layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "x"), bases=("LayoutPolyProbe",)))
+    assert fields.split() == ["int", "x;"]                                   # the base's vptr, shared at +0
+    fields, _ = body(layout_contract(4, ("i4", 0, "x"), bases=("LayoutEmptyChainProbe",)))   # E {}; B : E {}
+    assert fields.split() == ["int", "x;"]
+
+
+def test_review_r2_the_vptr_comes_from_the_variants_own_virtual():
+    # empty vslots: the data variant declares no virtual and fails; a methods variant with one declares it
+    contract = layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x"))
+    assert lane.layout_problems(contract) == []
+    with pytest.raises(lane.LayoutError, match="declares no virtual member for the contract's vptr"):
+        lane.generate(contract, "data", {}, None)
+    text = lane.generate(contract, "data+methods", {"f()": "virtual void f();"}, None)
+    assert "virtual void f();" in text and "    int x;" in text and "m_pad" not in text
+    special = [{"role": "dtor", "access": "public", "sig": "~", "text": "virtual ~Layout1Probe();"}]
+    assert "virtual ~Layout1Probe();" in lane.generate(contract, "data", {}, None, None, special)
+
+
+def test_review_r2_a_variant_that_cannot_declare_the_layout_fails_its_units(monkeypatch):
+    monkeypatch.setattr(lane, "view_methods", lambda *a, **k: {})
+    monkeypatch.setattr(lane, "special_members", lambda *a, **k: ([], []))
+    monkeypatch.setattr(lane, "try_units", lambda *a, **k: [(s, None, "", None) for s in ("a.cpp", "b.cpp")])
+    contract = dict(layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x")), vslots={})
+    header = "build/tests-layout-probe/L.h"                  # never written: the variant fails first
+    results = lane.tournament("Layout1Probe", contract, ["a.cpp", "b.cpp"], header, ["data"], 1)
+    assert set(results["data"]["verdicts"]) == {"a.cpp", "b.cpp"}
+    assert all(v.startswith("layout: ") and "declares no virtual" in v for v in results["data"]["verdicts"].values())
+    assert not (lane.ROOT / header).exists()
+    assert issubclass(lane.LayoutError, ValueError)
+    monkeypatch.setattr(lane, "generate", lambda *a, **k: (_ for _ in ()).throw(ValueError("not layout")))
+    with pytest.raises(ValueError, match="not layout"):           # any other error is not a variant's failure
+        lane.tournament("Layout1Probe", contract, ["a.cpp", "b.cpp"], header, ["data"], 1)
 
 
 def test_layout_undeclarable_is_a_decision_the_lane_records():

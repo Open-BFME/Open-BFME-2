@@ -2437,13 +2437,15 @@ def nested_includes(contract, header, slots=None):
 # wrong, size_assertions make the compiler prove: sizeof and every field's offset, as array bounds
 # that go negative (MSVC 7.1 has no static_assert), so a header that does not honour the contract
 # does not compile and the variant fails. A class's own members start after its vptr (at +0 when it
-# has no base) or after its one base's sizeof, from that base's contract (base_extent); with several
-# bases, or a base with no contract, at its first own field. What the model can see is refused up
-# front (layout_problems): a field overlapping the one before it or the base, fields past sizeof, a
-# primitive at an offset its size does not divide (that needs #pragma pack), a sizeof the class's
-# alignment does not divide, a field with no kind, offset or size, a vptr the header would not
-# declare (no virtual slot), one away from +0 with no base, one past the base's extent, or one the
-# class adds to a base that has none (the compiler puts it before the base).
+# has no base) or after its one base's sizeof, from that base's contract (base_extent; an empty base
+# chain takes no room); with several bases, or a base with no contract, at its first own field, so
+# no pad stands where a vptr belongs and the assertions judge it. A class's own vptr (no base) sits
+# at +0 and generate() requires a virtual of the variant to declare it (a variant without one
+# fails); with one known base, only that base's vptr, shared at +0. What the model can see is
+# refused up front (layout_problems): a field overlapping the one before it or the base, fields past
+# sizeof, a primitive at an offset its size does not divide (that needs #pragma pack), a sizeof the
+# class's alignment does not divide, a field with no kind, offset or size, a vptr away from +0 with
+# no base, and with one known base a vptr the class adds to a base that has none or one away from +0.
 
 ALIGNMENT = {"char": 1, "uchar": 1, "bool": 1, "int8": 1, "uint8": 1, "signed char": 1, "unsigned char": 1,
              "short": 2, "ushort": 2, "wchar": 2, "wchar_t": 2, "unsigned short": 2,
@@ -2481,9 +2483,27 @@ def base_extent(contract):
     other = read_contract(base_identity(bases[0]))
     if not other:
         return None
-    if not other.get("fields") and not other.get("bases") and not other.get("vslots"):
+    if is_empty(other):
         return 0                                    # an empty base takes no room in the class (sizeof 1 alone)
     return other.get("size")
+
+
+def is_empty(contract, seen=()):
+    """Whether the contract's class is empty: no field, no virtual slot, every base empty too (MSVC 7.1 lays an
+    empty base chain out in no room). False when a base's contract cannot be read or a base repeats."""
+    if contract.get("fields") or contract.get("vslots") or contract["class"] in seen:
+        return False
+    for base in contract.get("bases", ()):
+        other = read_contract(base_identity(base))
+        if other is None or not is_empty(other, seen + (contract["class"],)):
+            return False
+    return True
+
+
+def own_vptr(contract):
+    """Whether the class must declare a vptr of its own: no base, and a VPTR field or a virtual slot."""
+    return not contract.get("bases") and (bool(contract.get("vslots"))
+                                          or any(f.get("kind") == "VPTR" for f in contract.get("fields", ())))
 
 
 def contract_alignment(name, seen=()):
@@ -2516,6 +2536,11 @@ def field_alignment(field, seen=()):
     return None
 
 
+class LayoutError(ValueError):
+    """generate() cannot declare the contract's layout in this variant (layout_problems, or no virtual for
+    the contract's vptr)."""
+
+
 def pad_name(offset, taken):
     name = f"m_pad{offset:X}"
     while name in taken:
@@ -2533,27 +2558,33 @@ def layout_plan(contract):
         return [], problems
     taken = {f["name"] for f in contract.get("fields", ())}
     vptr = [f for f in contract.get("fields", ()) if f.get("kind") == "VPTR"]
-    declared = bool(contract.get("vslots"))            # the header declares virtuals only from the slots
+    declared = bool(contract.get("vslots"))
+    polymorphic = bool(vptr) or declared
     if not contract.get("bases"):
+        # the class's own vptr, at +0; generate() refuses a variant that declares no virtual for it
         problems += [f"vptr at +{f['offset']:#x}: with no base the compiler puts it at +0x0" for f in vptr
                      if f["offset"]]
-        if vptr and not declared:
-            problems.append("the contract has a vptr but no virtual slot for the header to declare")
-        cursor = 4 if vptr or declared else 0
+        cursor = 4 if polymorphic else 0
     else:
+        # with a base, only its one base's vptr, shared at +0 (one the class adds goes before the base, a
+        # second base's elsewhere: neither is laid out here)
+        bases = contract["bases"]
+        base = read_contract(base_identity(bases[0])) if len(bases) == 1 else None
+        inherited = has_vptr(base) if base is not None else None
+        if inherited is not None:          # one base whose layout is known
+            if polymorphic and not inherited:
+                problems.append("a vptr the class adds to a base that has none: the compiler puts it before the base")
+            problems += [f"vptr at +{f['offset']:#x}: the vptr it shares with its base is at +0x0" for f in vptr
+                         if f["offset"]]
+        # otherwise (several bases, a base with no contract) members start at the first own field, so no pad
+        # can stand in for a vptr: the offset and sizeof assertions judge it
         cursor = base_extent(contract)
-        if cursor is not None:
-            # the base's subobject starts the class; a vptr of the class's own would come before it
-            problems += [f"vptr at +{f['offset']:#x}, past the base's extent +{cursor:#x}" for f in vptr
-                         if f["offset"] >= cursor]
-            if declared and has_vptr(read_contract(base_identity(contract["bases"][0]))) is False:
-                problems.append("the class adds a vptr its base has none of: the compiler puts it before the base")
-        else:
+        if cursor is None:
             cursor = min((f["offset"] for f in fields), default=None)   # where several bases end is not known
     if problems:
         return [], problems
     plan = []
-    aligns = [4] if vptr or declared else []
+    aligns = [4] if polymorphic else []
     aligns += [contract_alignment(base_identity(b)) for b in contract.get("bases", ())]
     for field in sorted(fields, key=lambda f: f["offset"]):
         offset, size, align = field["offset"], field["size"], field_alignment(field)
@@ -2604,10 +2635,11 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     """The header text of `variant`. `special` (special_declarations) is declared in every
     variant: a dropped special member is a link fault the byte gate cannot see. The fields sit at
     the contract's offsets, holes padded, and the compiler checks it (layout_plan,
-    size_assertions); a layout the plan cannot declare raises ValueError (layout_problems)."""
+    size_assertions); a layout the plan cannot declare, or a vptr no virtual of the variant gives, raises
+    LayoutError."""
     plan, problems = layout_plan(contract)
     if problems:
-        raise ValueError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))
+        raise LayoutError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))
     name, key = contract["class"], contract["key"]
     roles = {s["role"] for s in special}
     guard = re.sub(r"\W", "_", f"CANONICAL_{name}_H").upper()
@@ -2621,6 +2653,7 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     # whose rows mangle a private view's other key fail with it.
     lines += nested_includes(contract, header, slots if "includes" in variant.split("+") else None)
     bases = ", ".join(f"public {b}" for b in contract["bases"])
+    head = len(lines)
     lines.append(f"{key} {name}" + (f" : {bases}" if bases else "") + " {")
     if key == "class":
         lines.append("public:")
@@ -2660,6 +2693,9 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     for access in ("protected", "private"):
         held = member_lines(s for s in special if s["access"] == access)
         lines += [f"{access}:"] + held if held else []
+    if own_vptr(contract) and not re.search(r"\bvirtual\b", "\n".join(lines[head:])):
+        # the contract's vptr comes only from a virtual this variant declares (slots, methods, special members)
+        raise LayoutError(f"{name}: variant {variant} declares no virtual member for the contract's vptr")
     lines += ["};", ""] + size_assertions(contract) + ["", f"#endif // {guard}", ""]
     return "\n".join(lines)
 
@@ -4245,9 +4281,15 @@ def tournament(name, contract, sources, header, variants, jobs, fixed_header=Fal
     try:
         for variant in variants:
             if not fixed_header:
+                try:
+                    text = generate(contract, variant, methods, header, slots, special)
+                except LayoutError as why:         # a variant that cannot declare the layout fails every unit
+                    results[variant] = {"verdicts": dict.fromkeys(sources, f"layout: {why}"), "texts": {},
+                                        "renames": {}, "dependencies": {}, "seconds": 0.0, "header": ""}
+                    print(f"  variant {variant:<14} 0/{len(sources)} pass  (layout: {why})", flush=True)
+                    continue
                 (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
-                (ROOT / header).write_text(generate(contract, variant, methods, header, slots, special),
-                                           encoding="utf-8", newline="\n")
+                (ROOT / header).write_text(text, encoding="utf-8", newline="\n")
             started = time.time()
             dependencies = {}
             got = try_units(sources, strip, header, contract["key"], jobs, dependency_plan=dependencies)
