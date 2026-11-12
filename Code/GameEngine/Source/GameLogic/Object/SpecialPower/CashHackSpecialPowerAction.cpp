@@ -12,7 +12,7 @@
 #include "Coord3D.h"
 enum ScienceType { SCIENCE_INVALID=-1 };
 class Rva0039B795 {};
-class Rva0039B7AD {};
+#include "../../../../Include/Common/Rva0039B7AD.h"
 class Rva003B0D7C { char pad[4];public:
  unsigned balance;
  unsigned int withdraw(unsigned,Rva0039B795*,bool);

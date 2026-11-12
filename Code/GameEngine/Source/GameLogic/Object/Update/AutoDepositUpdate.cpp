@@ -36,10 +36,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/MultiPlayMults.h"
 #include "../../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
-class Rva0039B7AD
-{
-	char m_pad[4];
-};
+#include "../../../../Include/Common/Rva0039B7AD.h"
 class Rva003B0D7C
 {
 public:

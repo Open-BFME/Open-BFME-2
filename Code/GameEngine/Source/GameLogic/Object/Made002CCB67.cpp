@@ -14,11 +14,7 @@ public:
 	void rva0039B795(int delta);
 };
 
-class Rva0039B7AD
-{
-public:
-	void rva0039B7AD(int delta);
-};
+#include "../../../Include/Common/Rva0039B7AD.h"
 
 class Rva003B0D7C
 {

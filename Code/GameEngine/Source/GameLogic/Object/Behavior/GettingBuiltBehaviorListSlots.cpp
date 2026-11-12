@@ -85,11 +85,7 @@ public:
 	void clear();
 };
 
-class Rva0039B7AD
-{
-private:
-	unsigned char m_pad[4];
-};
+#include "../../../../Include/Common/Rva0039B7AD.h"
 
 class Rva0039B795;
 class Rva003B0D7C

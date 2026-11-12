@@ -99,10 +99,7 @@ extern PlayerList *ThePlayerList;
 extern class GlobalData *TheWritableGlobalData;
 #include "../../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
-class Rva0039B7AD
-{
-	char m_pad[4];
-};
+#include "../../../../../Include/Common/Rva0039B7AD.h"
 class Rva003B0D7C
 {
 public:

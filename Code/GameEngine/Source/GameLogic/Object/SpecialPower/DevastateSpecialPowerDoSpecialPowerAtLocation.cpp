@@ -84,10 +84,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva0039B7AD
-{
-	char m_pad[4];
-};
+#include "../../../../Include/Common/Rva0039B7AD.h"
 
 class Rva003B0D7C
 {

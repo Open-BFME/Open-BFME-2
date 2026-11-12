@@ -112,11 +112,7 @@ public:
 
 struct G00E032F8Wrap { char m_pad00[4]; int m_val04; int m_val08; };
 
-class Rva0039B7AD
-{
-public:
-	void rva0039B7AD(int delta);
-};
+#include "../../../Include/Common/Rva0039B7AD.h"
 
 class Rva0039B795
 {
