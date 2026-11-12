@@ -42,7 +42,7 @@ class Rva002D36D8 { public: int rva002D36D8(); };
 #include "../../../../Include/Common/Rva000AD6F4.h"
 class Rva000B3FD0Nop { public: void noop(); };
 class BfmeMemberRV;
-class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };
+#include "../../../../Include/GameClient/BfmeThingRV.h"
 void *GadgetButtonGetData(GameWindow *);
 void Rva00328700(GameWindow *);
 struct ControlBarDrawableView { char unknown00[0xFC]; void *object; };

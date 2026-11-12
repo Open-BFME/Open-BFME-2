@@ -3597,7 +3597,7 @@ private:
 // living-world event (kind 1) compares its owner with the living-world local
 // player and its alliance test. The info reference (+0x08) is held counted.
 class BfmeMemberRV;
-class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(void); };
+#include "../../../GameEngine/Include/GameClient/BfmeThingRV.h"
 class Team;
 enum Relationship { REL_ENEMIES, REL_NEUTRAL, REL_ALLIES };
 class Player

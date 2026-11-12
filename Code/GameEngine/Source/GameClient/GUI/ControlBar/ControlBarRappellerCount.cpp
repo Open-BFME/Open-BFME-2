@@ -239,7 +239,7 @@ class Rva0028B7C1DwordField { public: Int get() const; };
 #include "../../../../Include/GameClient/Rva0035B164.h"
 #include "../../../../Include/Common/Rva0028F528.h"
 #include "../../../../Include/Common/Rva002A7DDE.h"
-class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };
+#include "../../../../Include/GameClient/BfmeThingRV.h"
 
 class BfmeFixedStorage0004543D {
 public:

@@ -59,7 +59,7 @@ class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 class PlayerList;extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/BfmeSelectionState.h"
 #include "../../../../Include/Common/BfmeMemberRV.h"
-class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
+#include "../../../../Include/GameClient/BfmeThingRV.h"
 struct PlayerTemplateView {char pad[0x151];bool playable;};
 struct MoneyView {void *vptr;unsigned value;};
 struct PlayerView {char pad[0x34];PlayerTemplateView *playerTemplate;char pad38[0x90-0x38];MoneyView money;};
