@@ -8,10 +8,7 @@
 
 #include "../../Apt/AptRefTarget.h"
 
-struct Rva004F9185Cmp
-{
-	bool operator()(TreeHintRef00217D4C a, TreeHintRef00217D4C b) const;
-};
+#include "Rva004F9185Cmp.h"
 
 namespace _STL
 {

@@ -13,7 +13,7 @@ struct Rva004F8C16Element { char bytes[4]; };
 // emitting new, non-retail copies of the buffer and merge helpers. These
 // views preserve the existing provider names, not an original element identity.
 struct TreeHintRef00217D4C;
-struct Rva004F9185Cmp {};
+#include "Rva004F9185Cmp.h"
 class AsciiString;
 class Rva004F60AA
 {

@@ -8,7 +8,7 @@
 // the same empty representation. Neither spelling asserts an original name.
 #include <functional>
 struct Rva004F8C16Element;
-struct Rva004F9185Cmp {};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva004F9185Cmp.h"
 namespace _STL {
 template<class Iterator,class Value,class Distance,class Compare>
 void __inplace_merge_aux(Iterator,Iterator,Iterator,Value *,Distance *,Compare);

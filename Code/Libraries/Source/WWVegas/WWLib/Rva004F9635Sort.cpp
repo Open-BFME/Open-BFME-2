@@ -9,9 +9,7 @@
 // defined here so the call binds to the rowed copy.
 struct TreeHintRef00217D4C;
 
-struct Rva004F9185Cmp
-{
-};
+#include "Rva004F9185Cmp.h"
 
 namespace _STL
 {

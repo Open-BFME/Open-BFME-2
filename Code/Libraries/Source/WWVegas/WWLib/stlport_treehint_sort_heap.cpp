@@ -8,10 +8,7 @@
 
 #include "../../Apt/AptRefTarget.h"
 
-struct Rva004F9185Cmp
-{
-	bool operator()(TreeHintRef00217D4C a, TreeHintRef00217D4C b) const;
-};
+#include "Rva004F9185Cmp.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void __pop_heap_aux<TreeHintRef00217D4C *,TreeHintRef00217D4C,Rva004F9185Cmp>(TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C *,Rva004F9185Cmp); }
 // Bind to the kept retail copy instead of emitting this unit's own.

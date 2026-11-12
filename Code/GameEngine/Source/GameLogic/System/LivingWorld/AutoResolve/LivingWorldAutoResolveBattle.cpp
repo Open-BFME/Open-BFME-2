@@ -235,7 +235,7 @@ struct Rva004F88BBIterator {
  __declspec(nothrow) Rva004F88BBIterator(const Rva004F88BBIterator &p):node(p.node){}
 };
 struct Rva004F8C16Element {char opaque[4];};
-struct Rva004F9185Cmp {};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/Rva004F9185Cmp.h"
 void rva004F904F(Rva004F8C16Element *,Rva004F8C16Element *,Rva004F8C16Element *,Rva004F9185Cmp);
 
 typedef _STL::pair<const int,Rva004FA168Storage> RoundMapPair;
