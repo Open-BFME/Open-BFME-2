@@ -116,12 +116,7 @@ public:
 	virtual void v02(Rva005C4212 *o);
 	virtual void v03(Rva005C4212 *o);
 };
-class Rva005C4212
-{
-public:
-	void rva005C4212(Rva005C4212Visitor *visitor);
-	void rva005C4221(Rva005C4212Visitor *visitor);
-};
+#include "../../../../Include/Common/Rva005C4212.h"
 // 0x005DAA9E and 0x005DAC6D: copy the three words at +0x30 (resp. +0x2C)
 // out, the first as a Real.
 struct Rva005DAA9ETriple

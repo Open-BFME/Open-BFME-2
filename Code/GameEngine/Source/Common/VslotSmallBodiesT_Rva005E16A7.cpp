@@ -40,12 +40,7 @@ public:
 	virtual void v02(Rva005C4212 *o);
 	virtual void v03(Rva005C4212 *o);
 };
-class Rva005C4212
-{
-public:
-	void rva005C4212(Rva005C4212Visitor *v);
-	void rva005C4221(Rva005C4212Visitor *v);
-};
+#include "../../Include/Common/Rva005C4212.h"
 
 
 
