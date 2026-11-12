@@ -96,11 +96,7 @@ private:
 	unsigned int m_frame;		// +0x18
 	int m_playerValue;		// +0x1C
 };
-class ObjectCreationList
-{
-public:
- void create(void *,void *,void *,int);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/Rva002AA22AByteField.h"

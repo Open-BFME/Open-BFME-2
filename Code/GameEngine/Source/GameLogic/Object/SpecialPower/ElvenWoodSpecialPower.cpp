@@ -458,11 +458,7 @@ public:
 	static void doFXPos( const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = 0, const float primarySpeed = 0.0f, const Coord3D *secondary = 0 );
 };
 
-class ObjectCreationList
-{
-public:
-	void create( void *primaryObj, void *primary, void *secondary, int createOwner );
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h"
 

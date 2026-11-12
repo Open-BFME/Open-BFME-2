@@ -3,11 +3,7 @@
 // ?Rva004A452BUpdate@@YAXPAX00@Z @0x004A452B 85B: free update over 5 groups calling ObjectCreationList 0x001F0410 and Rva001E11F8 0x001E11F8.
 // Evidence: rowed callees 0x001F0410 0x001E11F8 with same two args; neighbours Rva004A44B1 and StructureCollapseUpdate onDie share flags.
 
-class ObjectCreationList
-{
-public:
-	void rva001F0410(void *a, void *b);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 #include "../../../../Include/Common/Rva001E11F8.h"
 

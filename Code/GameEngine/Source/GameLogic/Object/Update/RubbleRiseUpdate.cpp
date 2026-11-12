@@ -47,11 +47,7 @@ class FXList
 public:
 	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx, Real primarySpeed, const Coord3D *secondary);
 };
-class ObjectCreationList
-{
-public:
-	void create(void *primary, void *secondary, void *tertiary, Int lifetimeFrames);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 template <class T> class PhaseList
 {
 public:

@@ -28,12 +28,7 @@ public:
 	virtual ~ObjectCreationNugget();
 };
 
-class ObjectCreationList
-{
-public:
-	void addObjectCreationNugget(ObjectCreationNugget *nugget);
-	bool rva001F0434(void*,void*);
-};
+#include "../../../Include/GameLogic/ObjectCreationListClass.h"
 
 // The nuggets declare no destructor of their own: retail's vtables 0x00BE09E8
 // and 0x00BE0A00 share the deleting destructor 0x001F03ED, which calls

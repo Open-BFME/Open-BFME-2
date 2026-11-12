@@ -78,7 +78,7 @@ class FXList {public:
  static void doFXObj(const FXList *,const Object *,const Object *);
 };
 
-class ObjectCreationList {public:void create(void *,void *,void *);};
+#include "../../../Include/GameLogic/ObjectCreationListClass.h"
 
 struct GrantLevelFXInfo {const FXList *fx;AsciiString bone;};
 

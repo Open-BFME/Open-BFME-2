@@ -9,11 +9,7 @@
 // Evidence: ret with no stack args; callee ObjectCreationList ctor 0x001F81BF rowed;
 // callers 0x001FA94B and 0x001FB93D and 0x001FBAD8 become ready; honest Rva name.
 // Rva001FA94B wraps Rva001FA584 at +4; chain lane after landing 0x001FA584.
-class ObjectCreationList
-{
-public:
-    ObjectCreationList();
-};
+#include "../../../Include/GameLogic/ObjectCreationListClass.h"
 
 class Rva001FA584
 {

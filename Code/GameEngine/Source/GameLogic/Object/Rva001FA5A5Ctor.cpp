@@ -5,11 +5,7 @@
 // 001FA5A5 at +4; 001FBA45 -> 001FA5A5 at +8; 001FBBE4 -> 001FBA45 at +4;
 // 001F9B52 -> rowed ObjectCreationList at +4. Original names unknown so
 // address-derived Rva names are used.
-class ObjectCreationList
-{
-public:
-    ObjectCreationList();
-};
+#include "../../../Include/GameLogic/ObjectCreationListClass.h"
 
 class Rva001F9060
 {

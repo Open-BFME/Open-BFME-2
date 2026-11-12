@@ -159,11 +159,7 @@ public:
 
 class Object;
 
-class ObjectCreationList
-{
-public:
-	void create(void *primary, void *secondary, void *tertiary, Int lifetimeFrames);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 template <class T> class PhaseList
 {
