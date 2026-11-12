@@ -2758,3 +2758,87 @@ removed, initializers and .bss unchanged).
 **Tooling compatibility audit** (`cc46b486242..HEAD`): 51 Code files modified, none added, moved or deleted; no
 class, function or row renamed (`rename.py check --range`: 0 renames, 0 problems); tools/, .githooks/ and .github/
 name none of the touched classes (`Base2` appears only in a synthetic test fixture of test_rename_collisions.py).
+
+### Slot-0 ICF twins, pure placeholders and ModuleData slot 14 (2026-11-12, seat halilkkaya-lk93)
+
+Base `c735099a9c8`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Survey (all 3,694 bridged tables, by the kinds of their wrong slots).** Slot kinds: P retail `__purecall`; M the
+kept copy stops before a retail body; D an unrowed deleting destructor where retail has another class's (ICF twin
+candidate); N an unrowed placeholder name; W a name rowed at another address; U other unrowed. Buckets:
+(a) pure-only 68; (b) D only, plus P/M, 502; (c) short only (M, maybe P) 782; (d) N only, plus P/M, 547; (e) mixed
+1,795. 67 kept copies are longer than retail. 647 tables have exactly one non-pure wrong slot: W 220, N 173, D 172,
+U 48, d 34. Largest sources: RvaSmallVtableCtors.cpp 118 (b 65, e 39, c 12, a 2), Rva0024A797Grandchildren.cpp 82
+(d 23, e 59), ParticleModuleInfoCopyCtors.cpp 72 (b 37, e 34), Rva0024A797Derived.cpp 72 (d 47, c 25),
+ModuleCtorChainsB.cpp 63 (e 60), FXParticleSystem.cpp 58 (b 45), FXParticleSystemFactories.cpp 49. Two single-cause
+clusters stood out: 100 tables whose only wrong slot is a deleting destructor (70 with our `??_GX` defined but
+unrowed, 26 a strongly defined `??_E` adjustor thunk, 4 rowed elsewhere), and 179 module-data tables whose slot 14
+is `?slot14@ModuleData@@UBE?AVAsciiString@@H@Z` (67 with no other wrong slot), retail's 0x000B69A1 rowed under the
+placeholder `Rva000B69A1`.
+
+**Done (commits by subject).**
+- "Declare the __purecall slots of four placeholder vftables, drop two dead hatches": Cb00359D42 (0x00C1C780),
+  Rva004E9FFD (0x00C62888), Rva0057BCD7 (0x00C6F248, nine slots), ClearanceTestingSlowDeathBehaviorIface5
+  (0x00BE2B78). The `/alternatename:?cb@Cb00359D42...=__purecall` and `?base0@Rva0057BCD7Base0...=__purecall` lines
+  were dead (the bridge reads the relocation, not the alias) and went with their register keys.
+- "Row fifteen slot-0 deleting destructors as their ICF twins" (lk68/lk91's recipe run over the whole cluster):
+  `add_match.py --icf-owner` for `??_GX` at the owner's address; where the twin calls the class's own out-of-line
+  destructor, `??1X` was rowed first as the twin of retail's callee. No source change. 15 tables: BfmeAudioEventPrefix136,
+  Rva002DA5D3, Rva002DA651, Rva002D3347, Rva00577FE2Base, LaserFXNugget, Rva005641BB, DamageModule (ObjectModule path),
+  Rva004885DE, Rva00808CB0LanGameEntry, DrawModule, three MultiListClass instantiations, SubsystemSlot<Rva0022C38BSubsystem>.
+- "Respell ?DoPlay@Rva0057C04F@@QAEXH@Z as virtual ..." and "Give Base00 and Rva0057C04F retail's slots, drop two
+  present-unmatched dummies": Base00 (0x00C6FFFC) is two `__purecall`; Rva0057C04F (0x00C6F2D4) overrides slot 0 with
+  the +0x18 flag getter, rowed as the ICF twin of 0x004C9990, and slot 1 with DoPlay.
+- "Move ?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z into ModuleData as ?slot14@ModuleData@@UBE?AVAsciiString@@H@Z
+  ...": `rename.py function --to-class ModuleData` admitted by retail_identity's MODULE_DATA_SLOT14 base entry (LINK-223's
+  missing identity), and BfmeModuleData.h now declares slot14 instead of defining it inline. The rename alone turned 151
+  bridged tables into refusals (target-not-winning-provider: 17 BfmeModuleData.h units emitted a COMDAT copy ahead of
+  the row's unit); with the header change the row's unit is the only definer and all 67 single-cause tables go correct.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,694 -> 3,606; bridged slots 56,436 -> 54,229; already correct 1,867
+-> 1,955; mismatching source slots 39,373 -> 39,252; 88 bridged -> correct, nothing newly bridged, no correct table
+lost, refusals identical (35). link_check (census c31795c94c): the pure-slot units and every object naming the
+changed tables, the 15 ICF rows' units and every other definer of the new names (34 of 34 LINK, 61,945 -> 62,768
+bytes), the Rva0057C04F family (7 of 7, 9,406 -> 9,410) and the slot-14 move (148 units: 145 LINK, 52,285 -> 52,337;
+EvacuateDamage.cpp, AutoDepositUpdateModuleDataCtor.cpp and StructureToppleUpdateModuleDataCtor.cpp did not link at
+the census either). A full incremental ./build.sh after the header edit: FULL GATE OK, 100,822/100,822 matched.
+
+**Hatches.** alternatename -2 (Cb00359D42::cb, Rva0057BCD7Base0::base0), present_unmatched -2 (Base00::dummy,
+Rva0057C04F::dummy). `hatch_counters.py --update` also offered to shrink other seats' keys (peerMangle.c `_ntohl@4`,
+two pins, two export_alias allow stamps); those lines were restored, so the commit holds only its own keys.
+
+**Refused / deferred (re_attempts.log, three rows).**
+- 36 slot-0 ICF twins: the twin calls the class's own out-of-line destructor, which compiles as `jmp` to the base
+  destructor (v3_rnd.cpp's four randomizers, NetFrameCommandMsg, Rva005C44A3) or another shape, while retail's twin
+  calls the base destructor directly. Prerequisite: an empty inline base destructor in the emitting view (several
+  are canonical headers: NetCommandMsg.h, v3_rnd.h).
+- 9 slot-0 ICF twins refused on the deleting destructor's own bytes (Rva0044BA33, Rva00217497, Rva000657D9,
+  Rva002293F9, Rva003E3C22, Rva007B12F0Base, Rva00661350, BFME2Encoding1/2MotionChannel).
+- Lead-2 placeholders a derived table still names: Rva000BFB76Interface (W3DScriptedModelDraw's correct table names
+  the base row), PropagandaTowerBehaviorIface, DelayedUpgradeUpdateInterface, ClickReactionBehaviorIface. Also
+  BfmeParserBindingBaseVE (DataChunkParser's canonical table) and the CaveContain/TunnelContain B5 path.
+
+**Next leads.**
+1. 35 more slot-0 ICF candidates whose tables also miss `__purecall` slots (16 in RvaSmallVtableCtors.cpp, the
+   BfmeDirtyBase family's second names Rva0065F130 etc.; GapBodiesGE31/41, TooltipBase, Rva005D0D85Base/Rva005D12E3Base,
+   LANAPIInterface, GameSpyBuddyMessageQueueInterface, Y2ScalarDeleters' views): row the twin, then declare the pure
+   slots (lk92's addp.py). RVAs were claimed and released untried.
+2. 26 tables whose slot 0 is a strongly defined `??_EX@@W..` adjustor thunk (FXParticleSystem's ConcreteModuleTemplate
+   family, AudioManager, W3DStatusCircle, Line3DClass, ProcessAnimateWindow's ??_E defined by
+   ProcessAnimateWindowSpiralCtor.cpp): find why the unit materializes the vector deleting destructor.
+3. 137 one-slot tables keep `__purecall` where retail has a body; 31 of them are the BehaviorModuleInterface getter
+   fold 0x004543A9 (`return object ? object+0x20 : 0`), e.g. BattlePlanUpdate/MissileLauncherBuildingUpdate slot 25,
+   SpawnUnitBehavior slot 11, AutoPickUpUpdate slot 27, RainOfFireUpdate slot 31: declare the class's slotNN override
+   as SpecialAbilityUpdate.h does for slot 25 and row the ICF twin.
+4. 71 tables need only rows of their own class declared or respelled virtual (`rename.py function --virtual`), e.g.
+   MemberBaseDtorsB01.cpp Rva005FB1AD (four QAE rows), Watchdog, Rva0053FADE, AISpecialPowerUpdate/ThreatFinderUpdate
+   slot 45 mapLoadPostProcess, SpawnBehavior (four tables), LivingWorldLogic OnRegionChangedOwnership (two tables).
+   The `?name@X@@QBEPBDXZ` GetSnapshotName slot-2 cases stay on lk77's rename.py tooling lead.
+5. Naming lead: TextureCategoryList and FVFCategoryList (0x001446F0/0x00144750 owners) fold with
+   MultiListClass<DX8TextureCategoryClass>/<DX8FVFCategoryContainer>; they are probably those template instantiations.
+
+**Tooling compatibility audit** (`c735099a9c8..HEAD`): 40 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 problems. tools/, .githooks/ and .github/ spell none of the renamed or touched names
+(retail_identity.py already names 0x000B69A1 by its new spelling; rename.py mentions only BfmeModuleDataSnapshotBase in a
+comment). The old `?rva000B69A1@Rva000B69A1@...` spelling remains in evidence files rename.py listed and left
+(five reverse/attempt_support files, 33 class_contracts JSON notes, name_tiers.csv).
