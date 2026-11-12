@@ -90,7 +90,7 @@ void ControlBar::rva00405D77()
 // ParasiticInGameCommandButton::Impl::DoOnRightClicked. Target118B proves
 // activation-bit1C and enable-byte10C in GadgetButtonGetData, with BFME2's
 // offsets taking precedence over WB's 20/110. Original method spelling unknown.
-class Rva00005C792CPtrChaseField { public:int get()const; };
+#include "../../../Include/GameClient/Rva00005C792CPtrChaseField.h"
 void *GadgetButtonGetData(GameWindow *);
 void PlaySound(const char *);
 struct Rva005C349DButtonData {

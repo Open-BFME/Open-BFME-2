@@ -61,11 +61,7 @@ public:
 	char **m_entries;
 };
 
-class Rva00005C792CPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/GameClient/Rva00005C792CPtrChaseField.h"
 
 struct Rva005D14C0MessageHost
 {

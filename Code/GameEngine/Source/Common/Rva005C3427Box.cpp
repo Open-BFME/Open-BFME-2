@@ -4,11 +4,7 @@
 // Gui_PalantirCommandButtonDisabledClick and return; else tailcall pinned
 // 0x5C33DD on this. All thiscall 0-arg (PlaySound cdecl 1-arg); switch as
 // cmp/je chain per retail.
-class Rva00005C792CPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/GameClient/Rva00005C792CPtrChaseField.h"
 
 void PlaySound(const char *label);
 
