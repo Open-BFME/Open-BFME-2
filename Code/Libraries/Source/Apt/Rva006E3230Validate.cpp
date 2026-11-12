@@ -18,11 +18,7 @@ struct Rva006E3230Action { char data[24]; };
 #include "AptValue.h"
 #include "AptCIHClass.h"
 #include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
-class Rva006DBB60ShrNAndField
-{
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
 struct Rva006E3230ActionFull {
     int eActionType;

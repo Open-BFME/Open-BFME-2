@@ -311,11 +311,7 @@ class Rva006F7E00
 public:
     void rva006F7E00(AptCIH *, int);
 };
-class Rva006DBB60ShrNAndField
-{
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 class AptNativeHashRoot
 {
 public:

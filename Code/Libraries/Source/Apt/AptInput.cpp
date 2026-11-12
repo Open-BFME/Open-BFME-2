@@ -78,7 +78,7 @@ class Rva006E0D40 {public:void rva006E0D40();};
 
 class Rva006F97B0 {public:void rva006F97B0();};
 
-class Rva006DBB60ShrNAndField {public:bool get() const;};
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 
 #include "AptActionQueueC.h"
 

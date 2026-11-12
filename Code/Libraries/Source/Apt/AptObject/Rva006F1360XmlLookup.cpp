@@ -103,10 +103,7 @@ public:
   static AptString *Create();
 };
 #include "../../../../GameEngine/Include/Common/AptInteger.h"
-class Rva006DBB60ShrNAndField {
-public:
-  bool get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 #include "../AptNativeHash.h"
 struct R4Word {
   const char *name;

@@ -15,11 +15,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 struct Rva006E3230Action { char data[24]; };
 #include "AptValue.h"
-class Rva006DBB60ShrNAndField
-{
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
 struct Rva006E3740Slot {
     int eActionType;

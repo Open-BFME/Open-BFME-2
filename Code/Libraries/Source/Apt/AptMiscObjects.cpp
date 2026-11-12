@@ -186,7 +186,7 @@ AptValue *aptMathTan(void *,int);
 
 #include "BfmeAptValue006DCD20.h"
 
-class Rva006DBB60ShrNAndField { public: bool get()const; };
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 
 class Rva008A4570Owner { public: bool nameEquals(const char *); };
 

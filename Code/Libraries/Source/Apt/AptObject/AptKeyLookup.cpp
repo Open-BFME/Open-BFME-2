@@ -8,7 +8,7 @@
 // are retained; the animation/listener prefix remains a scoped receiver view.
 #include "AptScriptFunction.h"
 #include "../BfmeAptValue006DCD20.h"
-class Rva006DBB60ShrNAndField { public: bool get()const; };
+#include "../../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 #include "../AptBasePtrStack.h"
 struct AptActionInterpreter { AptBasePtrStack stack; };
 extern AptActionInterpreter g_aptDateInterpreter;
