@@ -90,7 +90,7 @@ class Rva005F09DF { public: void rva005F09DF(bool); };
 const Image *__cdecl Rva005F01B8Get(int);
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 class Rva005E2896Vector { public: void reserve(unsigned int); };
-struct PageContext { void *region, *page, *owner; };
+#include "../../../../Include/Common/PageContext.h"
 // The .data word 0x00E066A4 (zero-initialised; only this ctor reads it).
 int g_rva00E066A4StructuresClipArg;
 namespace StrategicInGameUI {

@@ -9,7 +9,7 @@
 // spelling comes from the page's slot methods (RegionDetailsStructuresPage).
 #include "../../Include/Common/Rva0007DF07.h"
 class Rva005EEE5A:public Rva0007DF07 {public:Rva005EEE5A();bool active;};
-struct PageContext {void *region,*page,*owner;};
+#include "../../Include/Common/PageContext.h"
 namespace StrategicInGameUI {class RegionDetailsStructuresPage {public:class Impl;};}
 class StrategicInGameUI::RegionDetailsStructuresPage::Impl {public:Impl(void*,void*,void*,const PageContext&);private:char storage[0x30];};
 class Rva005E21EB:public Rva005EEE5A {public:Rva005E21EB(void*,void*,const PageContext&);virtual ~Rva005E21EB();virtual void rva005E25CD();private:StrategicInGameUI::RegionDetailsStructuresPage::Impl *impl;};

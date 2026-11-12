@@ -4,10 +4,7 @@
 // the body is the banked one up to statement/operand order and local types.
 // Complete native factory237 and WB15BF010/936; opaque arguments and
 // private virtual declarations are trial ABI views, not admitted contracts.
-struct PageContext {
- void *region; void *page; void *owner;
- PageContext(void *r,void *p,void *o):region(r),page(p),owner(o){}
-};
+#include "../../Include/Common/PageContext.h"
 class PageBase { public: virtual ~PageBase(); int refs; char state; char padding[3]; };
 class Rva005E1FBC : public PageBase {
 public:Rva005E1FBC(void *,void *,const PageContext &); virtual ~Rva005E1FBC();

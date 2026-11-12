@@ -14,7 +14,7 @@
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 namespace _STL { template<> vector<TreeHintRef00217D4C>::~vector(); }
-struct PageContext {void *region,*page,*owner;};
+#include "../../Include/Common/PageContext.h"
 class Rva005EFDDB {public:Rva005EFDDB(unsigned,const void*,int);virtual ~Rva005EFDDB();private:void *impl;};
 class Rva005E19CAInterface;
 namespace StrategicInGameUI {class RegionDetailsArmiesPage {public:class Impl;};}
