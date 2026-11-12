@@ -71,11 +71,7 @@ public:
 	Coord3D m_0C;		// +0x0C
 };
 
-class Rva004EBF4B
-{
-public:
-	Coord3D rva004EBF4B();
-};
+#include "../../../../../../Include/Common/Rva004EBF4B.h"
 
 struct Rva002A8AB1Record;
 

@@ -172,11 +172,7 @@ namespace _STL { template <> pair<_Rb_tree_iterator<AsciiString, _Nonconst_trait
 // bfme link decl-only end
 
 
-class Rva004EBF4B
-{
-public:
-	Coord3D rva004EBF4B();
-};
+#include "../../../../../../Include/Common/Rva004EBF4B.h"
 
 struct Rva005996FFArg;
 #include "../../../../../../../Libraries/Source/WWVegas/WWLib/Rva005996FF.h"

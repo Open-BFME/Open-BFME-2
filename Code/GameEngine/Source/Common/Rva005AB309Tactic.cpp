@@ -107,11 +107,7 @@ struct Rva003A2FD4Proto
 #include "../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class Rva004EBF4B
-{
-public:
-	Coord3D rva004EBF4B();
-};
+#include "../../Include/Common/Rva004EBF4B.h"
 
 #include "../../Include/Common/Rva002A8AB1Record.h"
 

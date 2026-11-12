@@ -60,11 +60,7 @@ struct Rva002A8AB1Record;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva004EBF4B
-{
-public:
-	Coord3D rva004EBF4B();
-};
+#include "../../../../Include/Common/Rva004EBF4B.h"
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 

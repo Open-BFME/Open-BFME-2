@@ -48,7 +48,7 @@ struct Rva002A8AB1Record;
 class Player;
 #include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
-class Rva004EBF4B{public:Coord3D rva004EBF4B();};
+#include "../../../../../../Include/Common/Rva004EBF4B.h"
 #include "../../../../../../Include/Common/Rva00295A0FCommands.h"
 struct RoamAI {char pad[0x20];Rva00295A0FCommands commands;};
 struct RoamObjectTemplate{char pad[0x120];unsigned int bits;};

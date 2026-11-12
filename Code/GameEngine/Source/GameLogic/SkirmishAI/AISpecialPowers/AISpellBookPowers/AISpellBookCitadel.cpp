@@ -28,7 +28,7 @@ struct CitadelPlayerData { char unknown0[8]; Rva0025BFF8 *objects8; };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva004EBF4B { public: Coord3D rva004EBF4B(); };
+#include "../../../../../Include/Common/Rva004EBF4B.h"
 
 #include "../../../../../Include/Common/Rva005EE816.h"
 

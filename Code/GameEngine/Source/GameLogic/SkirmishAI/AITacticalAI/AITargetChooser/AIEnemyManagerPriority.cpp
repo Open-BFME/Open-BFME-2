@@ -19,7 +19,7 @@ class Rva005A9562 { public: float rva005A92DE(void *); private: void *m_ptr; };
 struct Rva002A8AB1Record;
 #include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
-class Rva004EBF4B { public: Coord3D rva004EBF4B(); };
+#include "../../../../../Include/Common/Rva004EBF4B.h"
 Coord3D __cdecl Rva00506CF5(void *, Coord3D *);
 
 static __forceinline float positionDistance(Coord3D saved, const Coord3D &pos)
