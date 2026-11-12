@@ -107,15 +107,7 @@ public:
 	char m_pad[0x64]; // +0x00
 };
 
-class Rva002C5FE8
-{
-public:
-	void rva002C60A9(unsigned int);
-	void *rva002C5FE8(int key);
-	char m_lead[0x20]; // +0x00
-	void **m_begin; // +0x20
-	void **m_end; // +0x24
-};
+#include "../../../../Include/Common/Rva002C5FE8.h"
 
 class Rva00506A52 { public: void rva00506AFA(); };
 
