@@ -45,7 +45,7 @@ class GameTextInterface:public SlaughterAddSlots<17>{public:virtual const Unicod
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 struct BfmeDelayedLuaEventList;
-struct BfmeDispatchDelayedLuaEvent{void *m_vtable;float m_number;unsigned char m_boolean;unsigned m_objectID;AsciiString m_string;unsigned m_type;};
+#include "../../../../Include/GameLogic/BfmeDispatchDelayedLuaEvent.h"
 struct DelayedLuaEventList{DelayedLuaEventList();virtual ~DelayedLuaEventList();BfmeDispatchDelayedLuaEvent m_events[3];};
 #include "../../../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 class LuaScriptEngine;extern LuaScriptEngine *TheLuaScriptEngine;extern GameLogic *TheGameLogic;

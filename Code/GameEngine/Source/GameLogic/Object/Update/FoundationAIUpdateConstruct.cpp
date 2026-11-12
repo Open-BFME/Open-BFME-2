@@ -303,15 +303,7 @@ extern GameLogic *TheGameLogic;
 Real normalizeAngle(Real angle);
 
 // BFME 2's delayed Lua event list (rowed ctor 0x000B6D8B and dtor 0x000B6DD2).
-struct BfmeDispatchDelayedLuaEvent
-{
-	void *m_vtable;
-	Real m_number;
-	unsigned char m_boolean;
-	UnsignedInt m_objectID;
-	UnsignedInt m_string;
-	UnsignedInt m_type;
-};
+#include "../../../../Include/GameLogic/BfmeDispatchDelayedLuaEvent.h"
 
 struct DelayedLuaEventList
 {

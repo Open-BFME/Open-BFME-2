@@ -1121,16 +1121,7 @@ struct DelayedLuaEventList
 
 	BfmeDelayedLuaEvent m_events[3];
 };
-struct BfmeDispatchDelayedLuaEvent
-{
-	void *m_vtable;
-	float m_number;
-	unsigned char m_boolean;
-	unsigned char m_padding[3];
-	unsigned m_objectID;
-	AsciiString m_string;
-	unsigned m_type;
-};
+#include "../../../Include/GameLogic/BfmeDispatchDelayedLuaEvent.h"
 extern "C" void _ReadWriteBarrier( void );
 extern double g_bfmeSubB3;
 #include "../../../Include/GameLogic/WeaponTemplate.h"

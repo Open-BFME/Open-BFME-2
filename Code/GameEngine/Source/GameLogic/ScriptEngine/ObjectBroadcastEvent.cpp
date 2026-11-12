@@ -84,15 +84,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // One delayed Lua event argument (0x18 bytes): +0x0C an object ID (type 3),
 // +0x10 a string (type 4), +0x14 the type.
-struct BfmeDispatchDelayedLuaEvent
-{
-	void *m_vtable;
-	float m_number;
-	unsigned char m_boolean;
-	unsigned m_objectID;
-	AsciiString m_string;
-	unsigned m_type;
-};
+#include "../../../Include/GameLogic/BfmeDispatchDelayedLuaEvent.h"
 
 // DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
 // vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
