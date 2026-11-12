@@ -49,7 +49,7 @@ class TextureClass {public:void Release_Ref();};
 class BFME2ParticleTextureHandle {public:TextureClass *Ptr;~BFME2ParticleTextureHandle(){if(Ptr)Ptr->Release_Ref();}};
 #include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 #include "../../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
-struct CursorTextureSlot {W3DRadarResetSurface Get_Surface_Level();};
+#include "../../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 #include "../../../../Include/W3DDevice/GameClient/Rva001166E0.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"

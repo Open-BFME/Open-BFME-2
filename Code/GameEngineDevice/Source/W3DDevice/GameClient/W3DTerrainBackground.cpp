@@ -427,13 +427,7 @@ public:
 
 #include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
-class CursorTextureSlot
-{
-public:
-	W3DRadarResetSurface Get_Surface_Level(int level);
-	void FillLevelSurfaces(void);
-	void *Ptr; // +0x00
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 struct Rva00112153Elem
 {

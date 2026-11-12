@@ -446,7 +446,7 @@ class ShroudTexture { public: ShroudFilter *getFilter(); };
 
 #include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
-struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 #include "../../../Include/W3DDevice/GameClient/Rva001166E0.h"
 

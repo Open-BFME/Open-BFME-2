@@ -60,9 +60,7 @@ public:
     ~W3DRadarResetSurface();
     void clear(bool);
 };
-class CursorTextureSlot {
-public: W3DRadarResetSurface Get_Surface_Level();
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 struct RECT { long left,top,right,bottom; };
 extern "C" long __stdcall D3DXLoadSurfaceFromSurface(void *,void *,const RECT *,void *,void *,const RECT *,unsigned,unsigned);
 extern "C" long __stdcall D3DXFilterTexture(void *,void *,unsigned,unsigned);

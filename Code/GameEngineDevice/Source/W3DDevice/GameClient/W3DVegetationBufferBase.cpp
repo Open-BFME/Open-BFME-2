@@ -100,11 +100,7 @@ static const volatile float swayWrapPeriod=99.0f;
 //
 // ?rva000E6594@Rva000E6594@@QAEXXZ, retail 0x000E6594 8B.
 // Evidence: unlock lane; add ecx 0x38 plus jmp to rowed FillLevelSurfaces 0x00132989; callers at 0x0006B819 and 0x0006B829 in FUN_0046b804; tail forwarder per PartitionManagerShroudThunks precedent.
-struct CursorTextureSlot
-{
-	void *Ptr;
-	void FillLevelSurfaces();
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 class Rva000E6594
 {

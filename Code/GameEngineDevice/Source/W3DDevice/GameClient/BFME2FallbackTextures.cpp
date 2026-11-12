@@ -22,7 +22,7 @@ public:
  __forceinline void DrawPixel(unsigned x,unsigned y,unsigned color) { ((SurfaceClass *)this)->DrawPixel(x,y,color); }
  void *surface;
 };
-struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 struct IDirect3DBaseTexture8;
 class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const; };
 class Rva00131DFC { public: void rva00131DFC(void *,void *,void *,void *,int,int); };

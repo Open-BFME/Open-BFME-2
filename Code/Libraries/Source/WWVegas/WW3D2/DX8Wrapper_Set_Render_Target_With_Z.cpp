@@ -42,12 +42,7 @@ public:
 };
 
 // The texture's D3D texture pointer and its level-0 surface fetch.
-struct CursorTextureSlot
-{
-	void *Ptr;
-
-	W3DRadarResetSurface Get_Surface_Level(void);
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 class TextureClass : public CursorTextureSlot
 {

@@ -54,7 +54,7 @@ public:
  int MinFilter,MagFilter,MipFilter,UAddrMode,VAddrMode;
 };
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/ShroudTexture.h"
-class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); };
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 class FontTextureOwner : public RefCountPtr<TextureClass> {
 public:
  FontTextureOwner() {}

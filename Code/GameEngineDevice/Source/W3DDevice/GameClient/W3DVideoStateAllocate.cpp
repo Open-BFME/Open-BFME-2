@@ -3,11 +3,7 @@
 // 20B state and its six inputs. Native725BC..726B0 independently proves
 // the separate surface and texture allocation branches and all call ABIs.
 #include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
-class CursorTextureSlot {
-public:
- W3DRadarResetSurface Get_Surface_Level();
- void *texture;
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 #include "../../../Include/W3DDevice/GameClient/Rva00131DFC.h"
 class Rva00739C70 { public: void cleanup(); };
 #include "../../../../GameEngine/Include/Common/Rva000724AE.h"

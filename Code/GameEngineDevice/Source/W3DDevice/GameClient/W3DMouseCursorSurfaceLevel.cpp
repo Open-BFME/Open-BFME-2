@@ -30,14 +30,7 @@ public:
 // (0x00116990, SurfaceByteSize.cpp); the holder is passed as its this.
 #include "../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 
-struct CursorTextureSlot
-{
-	void *Ptr;
-
-	W3DRadarResetSurface Get_Surface_Level(void);
-	W3DRadarResetSurface Get_Surface_Level(int level);
-	void FillLevelSurfaces(void);
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@XZ
 W3DRadarResetSurface CursorTextureSlot::Get_Surface_Level(void)

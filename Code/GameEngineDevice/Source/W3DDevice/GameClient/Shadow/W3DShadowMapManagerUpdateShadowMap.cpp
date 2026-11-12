@@ -184,12 +184,7 @@ public:
 	IDirect3DSurface8 *m_surface;
 };
 
-struct CursorTextureSlot
-{
-	void *Ptr;
-
-	W3DRadarResetSurface Get_Surface_Level(void);
-};
+#include "../../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 class TextureBaseClass
 {

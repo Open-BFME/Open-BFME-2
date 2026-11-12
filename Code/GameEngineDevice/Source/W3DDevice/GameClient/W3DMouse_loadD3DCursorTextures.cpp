@@ -49,13 +49,7 @@ public:
 
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
-struct CursorTextureSlot
-{
-	TextureBaseClass *Ptr;
-
-	void operator=(const BFME2ParticleTextureHandle &rhs);
-	W3DRadarResetSurface Get_Surface_Level();
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 #include <stdio.h>
 #include <windows.h>

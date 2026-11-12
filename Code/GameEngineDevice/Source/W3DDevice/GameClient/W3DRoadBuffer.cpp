@@ -3213,7 +3213,7 @@ public:
 	void DrawPixel(unsigned int x, unsigned int y, unsigned int color)
 	{ reinterpret_cast<SurfaceClass *>(this)->DrawPixel(x, y, color); }
 };
-struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 // Retail 0x000D77AE: the Zero Hour body under the DX8 device lock, without
 // the test assets; BFME 2 then creates a 1x1 A8R8G8B8 texture in the +0x18
