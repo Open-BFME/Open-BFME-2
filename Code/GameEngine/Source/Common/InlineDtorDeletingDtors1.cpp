@@ -123,6 +123,20 @@ public:
 	Rva0054F434Base();
 	Rva0054F434Base(EmitVtableTag *);
 	virtual ~Rva0054F434Base() {}
+	// Retail table 0x00C6A894 has 13 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
 };
 
 // ??0Rva0054F434Base@@QAE@XZ @0x0054E7BA 9B: the default constructor, storing the
@@ -143,6 +157,18 @@ public:
 	Rva0054F922();
 	Rva0054F922(EmitVtableTag *);
 	virtual ~Rva0054F922() {}
+	// Retail table 0x00C6AB10 has 11 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
 };
 
 // ??0Rva0054F922@@QAE@XZ @0x0054F95C 9B: the default constructor, storing the
@@ -163,6 +189,19 @@ public:
 	Rva0055057D();
 	Rva0055057D(EmitVtableTag *);
 	virtual ~Rva0055057D() {}
+	// Retail table 0x00C6ABC0 has 12 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
 };
 
 // ??0Rva0055057D@@QAE@XZ @0x00550600 9B: the default constructor, storing the
@@ -225,6 +264,8 @@ class Rva005754FF
 public:
 	Rva005754FF(EmitVtableTag *);
 	virtual ~Rva005754FF() {}
+	// Retail table 0x00C6E60C has one __purecall entry after the destructor.
+	virtual void slot1() = 0;
 };
 
 // ?<Rva005754FF::Rva005754FF> absent-from-retail
@@ -294,6 +335,9 @@ public:
 	Rva005CF826();
 	Rva005CF826(EmitVtableTag *);
 	virtual ~Rva005CF826() {}
+	// Retail table 0x00C75278 has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 };
 
 // ??0Rva005CF826@@QAE@XZ @0x005CF816 9B: the default constructor, storing the
@@ -354,6 +398,16 @@ class Rva00602645
 public:
 	Rva00602645(EmitVtableTag *);
 	virtual ~Rva00602645() {}
+	// Retail table 0x00C7A84C has nine __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
 };
 
 // ?<Rva00602645::Rva00602645> absent-from-retail
@@ -368,6 +422,19 @@ public:
 	Rva00604A42();
 	Rva00604A42(EmitVtableTag *);
 	virtual ~Rva00604A42() {}
+	// Retail table 0x00C7A974 has 12 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
 };
 
 // ??0Rva00604A42@@QAE@XZ @0x006047EA 9B: the default constructor, storing the

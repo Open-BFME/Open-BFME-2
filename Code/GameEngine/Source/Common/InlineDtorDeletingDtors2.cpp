@@ -43,6 +43,9 @@ class Rva00661380
 public:
 	Rva00661380(EmitVtableTag *);
 	virtual ~Rva00661380();
+	// Retail table 0x00CE2C04 has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 };
 
 // ??1Rva00661380@@UAE@XZ @0x00661370 7B: the empty destructor, restoring the vtable
@@ -63,6 +66,9 @@ public:
 	Rva006613E0();
 	Rva006613E0(EmitVtableTag *);
 	virtual ~Rva006613E0();
+	// Retail table 0x00CE2BCC has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 };
 
 // ??1Rva006613E0@@UAE@XZ @0x00661360 7B: the empty destructor, restoring the vtable
@@ -89,6 +95,17 @@ public:
 	Rva00663530();
 	Rva00663530(EmitVtableTag *);
 	virtual ~Rva00663530();
+	// Retail table 0x00CE2DB4 has 10 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
 };
 
 // ??1Rva00663530@@UAE@XZ @0x00661D70 7B: the empty destructor, restoring the vtable
@@ -115,6 +132,42 @@ public:
 	Rva00663550();
 	Rva00663550(EmitVtableTag *);
 	virtual ~Rva00663550();
+	// Retail table 0x00CE2E10 has 35 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+	virtual void slot26() = 0;
+	virtual void slot27() = 0;
+	virtual void slot28() = 0;
+	virtual void slot29() = 0;
+	virtual void slot30() = 0;
+	virtual void slot31() = 0;
+	virtual void slot32() = 0;
+	virtual void slot33() = 0;
+	virtual void slot34() = 0;
+	virtual void slot35() = 0;
 };
 
 // ??1Rva00663550@@UAE@XZ @0x00661EA0 7B: the empty destructor, restoring the vtable
@@ -141,6 +194,9 @@ public:
 	Rva00665030();
 	Rva00665030(EmitVtableTag *);
 	virtual ~Rva00665030();
+	// Retail table 0x00CE30A8 has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 };
 
 // ??1Rva00665030@@UAE@XZ @0x00664DA0 7B: the empty destructor, restoring the vtable
@@ -202,6 +258,12 @@ public:
 	Rva00665C10();
 	Rva00665C10(EmitVtableTag *);
 	virtual ~Rva00665C10();
+	// Retail table 0x00CE31BC has five __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
 };
 
 // ??1Rva00665C10@@UAE@XZ @0x00665B60 7B: the empty destructor, restoring the vtable
@@ -228,6 +290,15 @@ public:
 	Rva00667260();
 	Rva00667260(EmitVtableTag *);
 	virtual ~Rva00667260();
+	// Retail table 0x00CE3410 has eight __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
 };
 
 // ??1Rva00667260@@UAE@XZ @0x00666EA0 7B: the empty destructor, restoring the vtable
@@ -306,6 +377,32 @@ public:
 	Rva0066D950();
 	Rva0066D950(EmitVtableTag *);
 	virtual ~Rva0066D950();
+	// Retail table 0x00CE3B38 has 25 __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
 };
 
 // ??0Rva0066D950@@QAE@XZ @0x0066D530 9B: the default constructor, storing the
@@ -332,6 +429,11 @@ public:
 	Rva00672490();
 	Rva00672490(EmitVtableTag *);
 	virtual ~Rva00672490();
+	// Retail table 0x00CE3F2C has four __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 // ??1Rva00672490@@UAE@XZ @0x00672330 7B: the empty destructor, restoring the vtable

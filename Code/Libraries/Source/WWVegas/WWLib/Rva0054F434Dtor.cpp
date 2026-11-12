@@ -55,6 +55,22 @@ class Rva0054F434Base
 {
 public:
 	virtual ~Rva0054F434Base();
+	// Retail table 0x00C6A894 has 13 __purecall entries after the destructor;
+	// the derived table 0x00C6AA10 overrides slot 6 with rva0054F3FD and slot 12
+	// with rva0054F3C7.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual _STL::list<AsciiString, _STL::allocator<AsciiString> > rva0054F3FD() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual AsciiString rva0054F3C7() = 0;
+	virtual void slot13() = 0;
 };
 
 // ??1Rva0054F434Base@@UAE@XZ present-unmatched
