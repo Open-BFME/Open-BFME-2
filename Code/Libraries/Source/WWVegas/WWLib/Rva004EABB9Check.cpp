@@ -5,11 +5,7 @@
 // ?rva004EABC7@Rva004EABB9@@QAEHXZ, retail 0x004EABC7, 35 bytes.
 // Returns 1 when dwords at +0x34 and +0x3C are both 4 and rowed predicate 0x004E9378 is true.
 
-class Rva004E9378
-{
-public:
-	bool rva004E9378();
-};
+#include "../../../../GameEngine/Include/Common/Rva004E9378.h"
 
 class Rva004EABB9
 {

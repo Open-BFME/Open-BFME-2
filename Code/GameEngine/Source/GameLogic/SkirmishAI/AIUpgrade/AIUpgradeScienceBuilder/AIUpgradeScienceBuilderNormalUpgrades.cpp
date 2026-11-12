@@ -12,7 +12,7 @@
 extern GameLogic *TheGameLogic;
 class Player { public: char pad00[0x94]; unsigned money; };
 #include "../../../Object/object.h"
-class Rva004E9378 { public: bool rva004E9378(); };
+#include "../../../../../Include/Common/Rva004E9378.h"
 class Rva005970ED {
  public: int rva0059710E(int);
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void build(Player *,int);

@@ -68,7 +68,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 class Player;class Object{public:char pad[0x74];ObjectID id;};
 extern GameLogic*TheGameLogic;
-class Rva004E9378{public:bool rva004E9378();};
+#include "../../../Include/Common/Rva004E9378.h"
 #include "../../../Include/GameLogic/Rva00506B1B.h"
 #include "../../../Include/GameLogic/Rva0055ADD8.h"
 #include "../../../Include/Common/AIBuildable.h"

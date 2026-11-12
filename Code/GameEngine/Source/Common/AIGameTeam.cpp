@@ -148,11 +148,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end() { return this->_M_finish; }
 }
 
-class Rva004E9378
-{
-public:
-	bool rva004E9378();
-};
+#include "../../Include/Common/Rva004E9378.h"
 
 class AIMoneyLender
 {

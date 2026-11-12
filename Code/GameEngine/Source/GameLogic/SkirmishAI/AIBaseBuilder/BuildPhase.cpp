@@ -16,7 +16,7 @@ struct Rva002A8AB1Record {char pad[0x16c];int phase;};
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
-class Rva004E9378 {public:bool rva004E9378();};
+#include "../../../../Include/Common/Rva004E9378.h"
 class Rva00573F03 {public:
  virtual void slot00();virtual void slot04();virtual float slot08();
  virtual void slot0c();virtual void slot10();virtual void slot14();

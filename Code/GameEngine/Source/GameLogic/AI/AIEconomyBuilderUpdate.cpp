@@ -16,7 +16,7 @@ class Rva002A9BF2;
 #include "../../../Include/GameLogic/AIDifficulty.h"
 int Rva0058AEB6Get();
 extern GameLogic *TheGameLogic;
-class Rva004E9378 { public: bool rva004E9378(); };
+#include "../../../Include/Common/Rva004E9378.h"
 class Rva00596F18 { public: void rva00596FF5(unsigned char); };
 #include "../../../Include/GameLogic/BridgeClass.h"
 class ModuleData;

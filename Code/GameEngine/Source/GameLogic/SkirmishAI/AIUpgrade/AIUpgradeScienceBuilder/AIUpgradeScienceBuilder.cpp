@@ -261,11 +261,7 @@ struct SciencePruneRecordObjectView
 	unsigned char m_438;
 };
 
-class Rva004E9378
-{
-public:
-	bool rva004E9378();
-};
+#include "../../../../../Include/Common/Rva004E9378.h"
 
 #include "../../../../../Include/Common/Rva00506FE9Hit.h"
 

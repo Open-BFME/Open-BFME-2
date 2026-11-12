@@ -226,7 +226,7 @@ public:
 #include "../../../../Include/Common/Rva00506FE9Hit.h"
 
 // Existing owned predicate4E9378 tests order state10 for 2 or 3.
-class Rva004E9378 { public: bool rva004E9378(); };
+#include "../../../../Include/Common/Rva004E9378.h"
 
 // Existing pin5975C0: complete native23B caller checks helper5973D8's bool,
 // then dispatches slot7(2); member receiver and no stack arguments are proved.

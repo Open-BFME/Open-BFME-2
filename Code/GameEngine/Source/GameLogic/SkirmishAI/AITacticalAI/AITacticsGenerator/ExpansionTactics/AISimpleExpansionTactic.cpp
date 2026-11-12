@@ -56,11 +56,7 @@ struct Rva002A8AB1Record
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // The build order's other address-named views (its base Rva0055B0CC).
-class Rva004E9378
-{
-public:
-	bool rva004E9378();
-};
+#include "../../../../../../Include/Common/Rva004E9378.h"
 
 #include "../../../../../../Include/Common/Rva00506FE9Hit.h"
 
