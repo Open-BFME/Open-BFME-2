@@ -31,6 +31,9 @@ class Rva0056B188 : public Rva0056AC26, public Rva0056B188Second
 public:
 	Rva0056B188(Rva0056AC26Owner *owner, int value, Rva0056B188Owner *parent);
 	virtual ~Rva0056B188();
+	// Rva0056AC26 slot 1 (retail table 0x00C6D3A8 / 0x00C6D40C slot 1): 0x00232E8F,
+	// `mov al,[ecx+20h]; ret`, the flag at +0x20 (a body retail folds).
+	virtual bool ac26Slot1();
 private:
 	int m_1C;
 	bool m_20;
@@ -44,4 +47,10 @@ Rva0056B188::Rva0056B188(Rva0056AC26Owner *owner, int value, Rva0056B188Owner *p
 	m_20 = false;
 	if (m_owner)
 		m_owner->m_list.append((Rva002BA8F1Listener *)static_cast<Rva0056B188Second *>(this));
+}
+
+// ?ac26Slot1@Rva0056B188@@UAE_NXZ: slot 1 of retail table 0x00C6D3A8 is 0x00232E8F.
+bool Rva0056B188::ac26Slot1()
+{
+	return m_20;
 }

@@ -18,6 +18,9 @@ public:
 class Rva0056B218 : public Rva0056AC26, public Rva0056B218B2 {
 public:
     virtual ~Rva0056B218();
+    // Rva0056AC26 slot 1 (retail table 0x00C6D3A8 / 0x00C6D40C slot 1): 0x00232E8F,
+    // `mov al,[ecx+20h]; ret`, the flag at +0x20 (a body retail folds).
+    virtual bool ac26Slot1();
 private:
     Parent0056B218 *m_parent18;
     Parent0056B218 *m_parent1C;

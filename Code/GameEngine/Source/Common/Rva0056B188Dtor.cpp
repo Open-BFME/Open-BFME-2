@@ -29,6 +29,9 @@ class Rva0056B188 : public Rva0056AC26, public Rva0056B188Second
 {
 public:
 	virtual ~Rva0056B188();
+	// Rva0056AC26 slot 1 (retail table 0x00C6D3A8 / 0x00C6D40C slot 1): 0x00232E8F,
+	// `mov al,[ecx+20h]; ret`, the flag at +0x20 (a body retail folds).
+	virtual bool ac26Slot1();
 };
 
 Rva0056B188::~Rva0056B188()

@@ -107,7 +107,7 @@ Int FiringTracker::getNumConsecutiveShotsAtVictim( const Object *victim ) const
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?FiringTracker::loadPostProcess present-unmatched
+// Retail primary vftable 0x00C61530 slot 1: this base call, ICF-folded into 0x00497805.
 void FiringTracker::loadPostProcess( void )
 {
 

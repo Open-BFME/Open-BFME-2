@@ -47,6 +47,12 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+protected:
+	// primary table 0x00C61530 slot 1: the UpdateModule base call (0x00497805 fold),
+	// defined in FiringTracker.cpp
+	virtual void loadPostProcess();
+	// primary table slot 12: 0x0044827C (`push 3; pop eax; ret`, a body retail folds)
+	virtual SleepyUpdatePhase getUpdatePhase() const;
 };
 
 inline FiringTracker::~FiringTracker()

@@ -82,6 +82,12 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+protected:
+	// primary table 0x00C61530 slot 1: the UpdateModule base call (0x00497805 fold),
+	// defined in FiringTracker.cpp
+	virtual void loadPostProcess();
+	// primary table slot 12: 0x0044827C (`push 3; pop eax; ret`, a body retail folds)
+	virtual SleepyUpdatePhase getUpdatePhase() const;
 };
 
 FiringTracker::FiringTracker(Thing *thing, const ModuleData *data) :
@@ -99,4 +105,11 @@ FiringTracker::FiringTracker(Thing *thing, const ModuleData *data) :
 	m_frameToStopLoopingSound = 0;
 	m_audioHandle = 1;
 	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
+}
+
+// ?getUpdatePhase@FiringTracker@@MBE?AW4SleepyUpdatePhase@@XZ: retail primary vftable
+// 0x00C61530 slot 12 is 0x0044827C (`push 3; pop eax; ret`).
+SleepyUpdatePhase FiringTracker::getUpdatePhase() const
+{
+	return (SleepyUpdatePhase)3;
 }
