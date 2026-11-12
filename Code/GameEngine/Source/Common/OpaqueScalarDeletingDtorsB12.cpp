@@ -232,12 +232,16 @@ Rva005685EE::Rva005685EE(EmitVtableTag *)
 {
 }
 
-// Rva0056AD19's two tables (data ledger): Rva0056AC26A at +0 (vptr plus one word) and
-// Rva0056AC26B at +0x8, whose slot 0 is a this-adjusting (sub ecx, 8)
+// Rva0056AD19's two tables (data ledger): Rva0007DF07 at +0 (vptr plus one word) and
+// Rva0056AC26Base2 at +0x8, whose slot 0 is a this-adjusting (sub ecx, 8)
 // deleting-destructor thunk -- target evidence for that base and offset.
-#include "../../Include/Common/Rva0056AC26A.h"
-#include "../../Include/Common/Rva0056AC26B.h"
-class Rva0056AD19 : public Rva0056AC26A, public Rva0056AC26B
+// These are the registered parents of Include/Common/Rva0056AC26.h, which
+// supplies the same eight-byte and four-byte base subobjects; their inline
+// special members define the base destructors here, so the block needs no
+// pins and the previously unresolved ??1Rva0056AC26A/B names are gone.
+#include "../../Include/Common/Rva0007DF07.h"
+#include "../../Include/Common/Rva0056AC26Base2.h"
+class Rva0056AD19 : public Rva0007DF07, public Rva0056AC26Base2
 {
 public:
 	Rva0056AD19(EmitVtableTag *);
