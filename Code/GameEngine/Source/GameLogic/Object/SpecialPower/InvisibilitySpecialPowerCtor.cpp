@@ -75,7 +75,7 @@ extern const void *const g_00C5C4B8[25] = {
 // by address and never called through these erased signatures.
 extern "C" {
 void __identifier("??_GRva004C70A8@@UAEPAXI@Z")();
-void __identifier("?j_004c8a2f@@YAXXZ")();
+void __identifier("?loadPostProcess@SpecialPowerModule@@MAEXXZ")();
 void __identifier("?Rva004C23CEGet@@YAHXZ")();
 void __identifier("?xfer@Rva004C8A95@@MAEXPAVXfer@@@Z")();
 void __identifier("?getModuleNameKey@InvisibilitySpecialPower@@UBE?AW4NameKeyType@@XZ")();
@@ -87,7 +87,7 @@ void __identifier("?ApplyPowerToObject@SpecialPowerModule@@UAEXPAVObject@@HPBV?$
 }
 extern const void *const g_00C5C51C[14] = {
 	(const void *)&__identifier("??_GRva004C70A8@@UAEPAXI@Z"), //  0 0x00254B56
-	(const void *)&__identifier("?j_004c8a2f@@YAXXZ"), //  1 0x004C8A2F
+	(const void *)&__identifier("?loadPostProcess@SpecialPowerModule@@MAEXXZ"), //  1 0x004C8A2F: jmp 0x00493B1E, named by its target
 	(const void *)&__identifier("?Rva004C23CEGet@@YAHXZ"), //  2 0x004C23CE
 	(const void *)&__identifier("?xfer@Rva004C8A95@@MAEXPAVXfer@@@Z"), //  3 0x004C8A95
 	(const void *)&__identifier("?getModuleNameKey@InvisibilitySpecialPower@@UBE?AW4NameKeyType@@XZ"), //  4 0x004C23D4

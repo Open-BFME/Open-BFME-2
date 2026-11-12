@@ -38,7 +38,7 @@ void __identifier("?doUnloadSound@OpenContain@@MAEXXZ")();
 void __identifier("?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z")();
 void __identifier("?rva0047E330@Rva0047E330@@QAEXXZ")();
 void __identifier("?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z")();
-void __identifier("?j_0047e335@@YAXXZ")();
+void __identifier("?rva0047B993@Rva0047B993Contain@@QAE_NPAVObject@@@Z")();
 void __identifier("?rva0047E32B@Rva0047E32B@@QAEXXZ")();
 void __identifier("?rva0046740C@TransportContain@@MAEXXZ")();
 void __identifier("?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ")();
@@ -73,7 +73,7 @@ static const void *const s_vtable[33] = {
 	(const void *)&__identifier("?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z"), // 24 0x00462E3A
 	(const void *)&__identifier("?rva0047E330@Rva0047E330@@QAEXXZ"), // 25 0x0047E330
 	(const void *)&__identifier("?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z"), // 26 0x00465972
-	(const void *)&__identifier("?j_0047e335@@YAXXZ"), // 27 0x0047E335
+	(const void *)&__identifier("?rva0047B993@Rva0047B993Contain@@QAE_NPAVObject@@@Z"), // 27 0x0047E335: jmp 0x0047B993, named by its target
 	(const void *)&__identifier("?rva0047E32B@Rva0047E32B@@QAEXXZ"), // 28 0x0047E32B
 	(const void *)&__identifier("?rva0046740C@TransportContain@@MAEXXZ"), // 29 0x0046740C
 	(const void *)&__identifier("?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ"), // 30 0x0046760D
@@ -279,7 +279,7 @@ extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface2C@@@")[]
 // by address and never called through these erased signatures.
 extern "C" {
 void __identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ")();
-void __identifier("?j_0047e33a@@YAXXZ")();
+void __identifier("?rva00466D93@Rva00466D93@@UAEHPBVThingTemplate@@PAVObject@@@Z")();
 void __identifier("?exitObjectViaDoor@SiegeEngineContain@@UAEXPAVObject@@W4ExitDoorType@@@Z")();
 void __identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z")();
 void __identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z")();
@@ -292,7 +292,7 @@ void __identifier("?slot02@OpenContain@@UAEXXZ")();
 }
 static const void *const s_secondary30[12] = {
 	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), //  0 0x0047A699
-	(const void *)&__identifier("?j_0047e33a@@YAXXZ"), //  1 0x0047E33A
+	(const void *)&__identifier("?rva00466D93@Rva00466D93@@UAEHPBVThingTemplate@@PAVObject@@@Z"), //  1 0x0047E33A: jmp 0x00466D93, named by its target
 	(const void *)&__identifier("?exitObjectViaDoor@SiegeEngineContain@@UAEXPAVObject@@W4ExitDoorType@@@Z"), //  2 0x0047C4F2
 	(const void *)&__identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z"), //  3 0x0050B238
 	(const void *)&__identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z"), //  4 0x0047A69C

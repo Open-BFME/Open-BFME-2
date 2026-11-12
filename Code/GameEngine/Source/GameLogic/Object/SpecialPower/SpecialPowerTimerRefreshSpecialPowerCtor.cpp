@@ -19,7 +19,7 @@
 // by address and never called through these erased signatures.
 extern "C" {
 void __identifier("??_GRva004C70A8@@UAEPAXI@Z")();
-void __identifier("?j_004c8a2f@@YAXXZ")();
+void __identifier("?loadPostProcess@SpecialPowerModule@@MAEXXZ")();
 void __identifier("?name@Rva00251C76Named@@QBEPBDXZ")();
 void __identifier("?rva004C38D0@Rva004C38D0@@QAEXPAVXfer@@@Z")();
 void __identifier("?getModuleNameKey@SpecialPowerTimerRefreshSpecialPower@@UBE?AW4NameKeyType@@XZ")();
@@ -31,7 +31,7 @@ void __identifier("?ApplyPowerToObject@SpecialPowerTimerRefreshSpecialPower@@UAE
 }
 extern const void *const g_00BEFDB4[14] = {
 	(const void *)&__identifier("??_GRva004C70A8@@UAEPAXI@Z"), //  0 0x00254B56
-	(const void *)&__identifier("?j_004c8a2f@@YAXXZ"), //  1 0x004C8A2F
+	(const void *)&__identifier("?loadPostProcess@SpecialPowerModule@@MAEXXZ"), //  1 0x004C8A2F: jmp 0x00493B1E, named by its target
 	(const void *)&__identifier("?name@Rva00251C76Named@@QBEPBDXZ"), //  2 0x00251C76
 	(const void *)&__identifier("?rva004C38D0@Rva004C38D0@@QAEXPAVXfer@@@Z"), //  3 0x004C38D0
 	(const void *)&__identifier("?getModuleNameKey@SpecialPowerTimerRefreshSpecialPower@@UBE?AW4NameKeyType@@XZ"), //  4 0x00251C31

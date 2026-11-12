@@ -240,7 +240,7 @@ void _ReadWriteBarrier(void);
 // by address and never called through these erased signatures.
 extern "C" {
 void __identifier("??_GCitadelSlaughterHordeContain@@UAEPAXI@Z")();
-void __identifier("?j_004812b4@@YAXXZ")();
+void __identifier("?rva00479D68@Rva00479D68@@QAEXXZ")();
 void __identifier("?Rva004805FAGet@@YAHXZ")();
 void __identifier("?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z")();
 void __identifier("?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ")();
@@ -271,7 +271,7 @@ void __identifier("?rva004807C7@CitadelSlaughterHordeContain@@UAE_NPAVObject@@@Z
 }
 static const void *const s_vtable[34] = {
 	(const void *)&__identifier("??_GCitadelSlaughterHordeContain@@UAEPAXI@Z"), //  0 0x004806FC
-	(const void *)&__identifier("?j_004812b4@@YAXXZ"), //  1 0x004812B4
+	(const void *)&__identifier("?rva00479D68@Rva00479D68@@QAEXXZ"), //  1 0x004812B4: jmp 0x00479D68, named by its target
 	(const void *)&__identifier("?Rva004805FAGet@@YAHXZ"), //  2 0x004805FA
 	(const void *)&__identifier("?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z"), //  3 0x0048030D
 	(const void *)&__identifier("?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ"), //  4 0x00480600
