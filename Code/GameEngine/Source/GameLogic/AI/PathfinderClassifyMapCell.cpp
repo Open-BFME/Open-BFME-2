@@ -77,7 +77,7 @@ enum PathfindLayerEnum {GROUND_LAYER=1};
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
-class PolygonTrigger {public: void getBounds(IRegion2D*); bool pointInTrigger(const ICoord3D&);};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 

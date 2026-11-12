@@ -6,12 +6,7 @@ extern GameLogic *TheGameLogic;
 typedef bool Bool;
 typedef int Int;
 #include "Code/Libraries/Include/Lib/ICoord3D.h"
-class PolygonTrigger 
-{
- public: Bool pointInTrigger(const ICoord3D &);
- 
-}
-;
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 struct WallCellInfo 
 {
  char prefix[0x28];

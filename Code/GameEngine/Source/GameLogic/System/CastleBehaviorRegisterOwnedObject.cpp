@@ -659,21 +659,7 @@ void CastleBehavior::initiateUnpack(bool instant,const ThingTemplate* type) {
 // The native release path calls slot0(flags0), then deletes its returned
 // allocation pointer; a null polygon still reaches operator delete(nullptr).
 // Constructor, indexed loader and registration calls have checked native pins.
-class Rva00330C50Interface {
-public:
- ~Rva00330C50Interface() {}
- virtual void slot0()=0; virtual void slot1()=0; virtual void slot2()=0;
- virtual void slot3()=0; virtual void slot4()=0; virtual void slot5()=0; virtual void slot6()=0;
-};
-class PolygonTrigger:public virtual Rva00330C50Interface {
-public:
- PolygonTrigger(int initialAllocation);
- static void addPolygonTrigger(PolygonTrigger*);
- virtual void* deleteInstance(int);
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6();
-private: char nativePrefix[0x54];
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 typedef char PolygonTriggerExtentCheck[sizeof(PolygonTrigger)==100?1:-1];
 
 // Native0039865E..003986EF,145B; WB00EB9380 unnamed CastleSystem helper.

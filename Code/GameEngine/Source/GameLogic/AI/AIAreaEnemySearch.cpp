@@ -117,11 +117,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 
-class PolygonTrigger
-{
-public:
-	void getBounds(IRegion2D *bounds);	// 0x002E3978
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 // The partition manager's region queries behind +0x10 (address-named rows).
 // 0x006253C0 is rowed as a void forwarder with int arguments, yet it hands
