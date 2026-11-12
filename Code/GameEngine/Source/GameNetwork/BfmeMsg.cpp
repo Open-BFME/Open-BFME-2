@@ -67,17 +67,7 @@ public:
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
-class Rva007E8760Addr
-{
-public:
-    void format(char *destination, unsigned destinationSize);
-    void parse(const char *addressText, int extra);
-
-private:
-    char m_pad[8];
-    unsigned m_addr;
-    int m_extra;
-};
+#include "../../Include/Common/Rva007E8760Addr.h"
 
 // ---- from Code/GameEngine/Source/GameNetwork/BfmeMsgCtor.cpp
 
@@ -120,7 +110,7 @@ void Rva007E8760Addr::format(char *destination, unsigned destinationSize)
             "false",
             "\\views\\feslbuild_main\\jabba\\fesl\\source\\address.cpp",
             49);
-    unsigned packedAddress = m_addr;
+    unsigned packedAddress = m_address;
     sprintf(destination, "%hu.%hu.%hu.%hu",
         (unsigned char)(packedAddress >> 24),
         (unsigned char)(packedAddress >> 16),
@@ -136,7 +126,7 @@ void Rva007E8760Addr::parse(const char *addressText, int extra)
     packedAddress = (packedAddress << 8) + (unsigned)secondOctet;
     packedAddress = (packedAddress << 8) + (unsigned)thirdOctet;
     packedAddress = (packedAddress << 8) + (unsigned)fourthOctet;
-    m_addr = packedAddress;
+    m_address = packedAddress;
     m_extra = extra;
 }
 

@@ -117,7 +117,7 @@ public:
     Rva007F6D60Member2C() { field08 = 0; field0C = 0; field04 = 0; }
     int field04, field08, field0C;
 };
-class Rva007E8760Addr { public: void parse(const char *, int); };
+#include "../../Include/Common/Rva007E8760Addr.h"
 #include "../../Include/Common/Rva00801570.h"
 
 struct Rva00802A90Elem

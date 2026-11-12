@@ -81,15 +81,7 @@ public:
 	int m_value;
 };
 
-class Rva007E8760Addr
-{
-public:
-	void parse( const char *text, int extra );
-
-	char m_pad[ 8 ];
-	unsigned m_address;
-	int m_extra;
-};
+#include "../../Include/Common/Rva007E8760Addr.h"
 
 class Rva006557F0Holder
 {

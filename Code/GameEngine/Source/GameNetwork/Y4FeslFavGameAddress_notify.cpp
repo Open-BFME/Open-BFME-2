@@ -28,11 +28,7 @@ public:
 
 #include "../../Include/GameNetwork/Gen_007e86c0.h"
 
-class Rva007E8760Addr
-{
-public:
-	void format( char *buffer, unsigned size );
-};
+#include "../../Include/Common/Rva007E8760Addr.h"
 
 struct Rva00809500Entry
 {

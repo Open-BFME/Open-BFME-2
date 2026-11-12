@@ -14,15 +14,7 @@ extern "C" int Rva0080F180( Rva0080F100Object *object,
 #include "../../../../GameEngine/Include/GameNetwork/Rva007EA650FieldAddress.h"
 #include "../../../../GameEngine/Include/GameNetwork/Rva007EB810Diag.h"
 Rva007EB810Diag *Rva007EB810Get();
-class Rva007E8760Addr
-{
-public:
-	void parse( const char *text, int extra );
-
-	char m_pad00[ 8 ];
-	unsigned int m_address;
-	int m_extra;
-};
+#include "../../../../GameEngine/Include/Common/Rva007E8760Addr.h"
 struct Rva00809050Input
 {
 	int m_field00;
