@@ -31,13 +31,7 @@ bool BFME_DX8_Thread_Assert();
 // Font record layout and integer vector type are carried from BFME1 source;
 // native width/extra and68/6C texture-offset clears independently support use.
 
-class BfmeSurfaceResource
-{
-public:
-	virtual void slot00();
-	virtual unsigned long __stdcall AddRef();
-	virtual unsigned long __stdcall Release();
-};
+#include "BfmeSurfaceResource.h"
 
 class W3DRadarResetSurface
 {

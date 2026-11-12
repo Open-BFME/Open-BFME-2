@@ -7,13 +7,7 @@
 // The rendering-family caller and the upstream Render2DSentenceClass
 // declaration establish the native Record_Sentence_Chunk identity.
 
-class BfmeSurfaceResource
-{
-public:
-	virtual void slot00();
-	virtual unsigned long __stdcall AddRef();
-	virtual unsigned long __stdcall Release();
-};
+#include "BfmeSurfaceResource.h"
 
 // This is the already-matched one-pointer surface wrapper.  Its destructor
 // is the existing 0x008FC5B0 body; the two virtual calls below deliberately

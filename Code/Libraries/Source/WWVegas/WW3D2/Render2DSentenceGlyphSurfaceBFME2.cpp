@@ -27,13 +27,7 @@ template <> void DynamicVectorClass<int>::Clear();
 // Retail's pending record installs the owned integer-vector table at
 // VA00BBB5AC; the donor pointer-vector instantiation names VA00BD6C24.
 
-class BfmeSurfaceResource
-{
-public:
-	virtual void slot00();
-	virtual unsigned long __stdcall AddRef();
-	virtual unsigned long __stdcall Release();
-};
+#include "BfmeSurfaceResource.h"
 
 class W3DRadarResetSurface
 {

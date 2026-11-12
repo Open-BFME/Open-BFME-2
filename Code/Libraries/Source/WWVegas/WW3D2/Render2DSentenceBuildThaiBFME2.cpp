@@ -64,13 +64,7 @@ bool BFME_DX8_Thread_Assert();
 #include "Rva00116680.h"
 #include "Member0C00739C70.h"
 
-class BfmeSurfaceResource
-{
-public:
-	virtual void slot00();
-	virtual unsigned long __stdcall AddRef();
-	virtual unsigned long __stdcall Release();
-};
+#include "BfmeSurfaceResource.h"
 
 class W3DRadarResetSurface
 {

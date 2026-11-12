@@ -41,13 +41,7 @@ template <> bool VectorClass<int>::operator==(VectorClass<int> const &) const;
 template <> void VectorClass<int>::Clear();
 typedef unsigned long uint32;
 
-class BfmeSurfaceResource
-{
-public:
-	virtual void slot00();
-	virtual unsigned long __stdcall AddRef();
-	virtual unsigned long __stdcall Release();
-};
+#include "BfmeSurfaceResource.h"
 
 class W3DRadarResetSurface
 {

@@ -47,13 +47,7 @@ template <> void DynamicVectorClass<int>::Clear();
 // PendingSurfaceStruct with the owned integer-vector table at VA00BBB5AC,
 // whereas the donor's pointer-vector table is VA00BD6C24 in BFME2.
 
-class BfmeSurfaceResource
-{
-public:
-	virtual void slot00();
-	virtual unsigned long __stdcall AddRef();
-	virtual unsigned long __stdcall Release();
-};
+#include "BfmeSurfaceResource.h"
 
 class W3DRadarResetSurface
 {
