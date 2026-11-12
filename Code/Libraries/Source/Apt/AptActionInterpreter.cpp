@@ -2041,7 +2041,11 @@ void AptActionInterpreter::_FunctionAptActionRandom(AptActionInterpreter *const 
 	if (!(pInterpreter->stack.count > 0)) {
 		g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 152);
 		// Retail places this breakpoint before setting up the shared Push call.
-		if (g_bfmeAptBreakOnAssertAtDDC01C) __asm { int 3 }
+		if (g_bfmeAptBreakOnAssertAtDDC01C) {
+			_ReadWriteBarrier();
+			__debugbreak();
+			_ReadWriteBarrier();
+		}
 	} else {
 		BfmeAptValue006DCD20 *pOldValue = (BfmeAptValue006DCD20 *)pInterpreter->stack.items[pInterpreter->stack.count - 1];
 		pOldValue->Release();
