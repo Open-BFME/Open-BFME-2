@@ -35,13 +35,7 @@ Rva0053FDE6::Rva0053FDE6() : m_00(2), m_04(0.0f), m_08(0.0f), m_0c(0.0f), m_10(0
 
 #include "../../Include/Common/DataChunk.h"
 // Shared 40-byte record layout from the verified outer-constructor owner.
-class Rva0054000B
-{
-public:
- Rva0054000B();
- int m_00;
- Rva0053FDE6 m_04;
-};
+#include "../../Include/Common/Rva0054000B.h"
 
 Rva0054000B::Rva0054000B() : m_00(0)
 {

@@ -39,13 +39,7 @@ public:
 	float m_20;
 };
 
-class Rva0054000B
-{
-public:
-	Rva0054000B(int v, const Rva0053FDE6 &o);
-	int m_00;
-	Rva0053FDE6 m_04;
-};
+#include "../../Include/Common/Rva0054000B.h"
 
 namespace _STL
 {

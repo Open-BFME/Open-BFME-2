@@ -30,15 +30,7 @@ public:
 // Outer ctor with int at +0 = 0 and inner Rva0053FDE6 at +4 via rowed ctor.
 // /Ob0 keeps the inner call from inlining so retail keeps lea ecx [edx+4] call.
 // Evidence: calls landed 0x0053FDE6; caller at 0x00540A54; unblocks 0x00540A26.
-class Rva0054000B
-{
-public:
-	Rva0054000B();
-	Rva0054000B(int v, const Rva0053FDE6 &o);
-	Rva0054000B(const Rva0054000B &o);
-	int m_00;
-	Rva0053FDE6 m_04;
-};
+#include "../../../../GameEngine/Include/Common/Rva0054000B.h"
 
 Rva0054000B::Rva0054000B(int v, const Rva0053FDE6 &o) : m_00(v), m_04(o)
 {

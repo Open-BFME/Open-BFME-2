@@ -32,13 +32,7 @@ public:
 	float m_20;
 };
 
-class Rva0054000B
-{
-public:
-	Rva0054000B &operator=(const Rva0054000B &o);
-	int m_00;
-	Rva0053FDE6 m_04;
-};
+#include "../../../../GameEngine/Include/Common/Rva0054000B.h"
 
 Rva0054000B &Rva0054000B::operator=(const Rva0054000B &o)
 {
