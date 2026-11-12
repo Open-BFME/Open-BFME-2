@@ -418,13 +418,68 @@ def include_guarded(code):
     return False
 
 
+# Platform macros the project's one target (x86 Win32, MSVC 7.1) never defines. A branch compiled only
+# with one of them is never compiled, so a quoted include it alone names cannot be missing from the
+# build: the Platform SDK's Ole2.h reaches `#include "macname1.h"` only under `#ifndef _MAC ... #else`.
+NEVER_DEFINED = frozenset({"_MAC", "_MPPC_", "_68K_", "_M_MPPC", "_M_M68K", "_WIN64", "_M_IA64", "_M_AMD64", "_M_X64"})
+DIRECTIVE_LINE = re.compile(r"(?m)^[ \t]*#[ \t]*(\w+)([^\n]*)")
+DEFINED_TERM = re.compile(r"\s*(!?)\s*defined\s*(?:\(\s*([A-Za-z_]\w*)\s*\)|\s([A-Za-z_]\w*))\s*")
+
+
+def branch_test(op, rest):
+    """("needs", macros): the branch is compiled when one of `macros` is defined; ("lacks", macros): when
+    none is; None for any other condition. Read: `#ifdef M`, `#ifndef M`, `#if defined(A) || defined(B)
+    ...` and `#if !defined(A) && !defined(B) ...` (`defined M` spelled either way)."""
+    if op in ("ifdef", "ifndef"):
+        found = re.fullmatch(r"\s*([A-Za-z_]\w*)\s*", rest)
+        return ("needs" if op == "ifdef" else "lacks", (found.group(1),)) if found else None
+    for joiner, negated, kind in (("||", "", "needs"), ("&&", "!", "lacks")):
+        terms = [DEFINED_TERM.fullmatch(term) for term in rest.split(joiner)]
+        if all(t and t.group(1) == negated for t in terms):
+            return kind, tuple(t.group(2) or t.group(3) for t in terms)
+    return None
+
+
+def never_compiled(code, at, raw):
+    """The NEVER_DEFINED macros an enclosing branch of offset `at` in `code` (`raw` masked, literals kept:
+    the same positions) needs one of, joined by `/`, or None. A branch is never compiled when it needs
+    one of a set of never-defined macros, or follows (`#else`, `#elif`) a branch that lacks all of them
+    and so is always taken. Any other condition, a directive continued onto the next line (seen in `raw`:
+    masked blanks the splice) or unbalanced nesting reads as unknown."""
+    frames = []                  # per open #if: ("needs"|"lacks"|"dead", macros), or None when unknown
+    for directive in DIRECTIVE_LINE.finditer(code, 0, at):
+        op, rest = directive.group(1), directive.group(2)
+        if op in ("if", "ifdef", "ifndef"):
+            continued = raw[directive.start():directive.end()].rstrip().endswith("\\")
+            frames.append(None if continued else branch_test(op, rest))
+        elif op in ("elif", "else", "endif"):
+            if not frames:
+                return None              # unbalanced: read nothing
+            if op == "endif":
+                frames.pop()
+                continue
+            state = frames[-1]
+            never = state is not None and set(state[1]) <= NEVER_DEFINED
+            if op == "elif":
+                frames[-1] = (("dead", state[1]) if never and state[0] in ("lacks", "dead") else None)
+            elif state is not None:
+                frames[-1] = {"needs": ("lacks", state[1]), "lacks": ("needs", state[1]), "dead": state}[state[0]]
+    for state in frames:
+        if state is not None and state[0] in ("needs", "dead") and set(state[1]) <= NEVER_DEFINED:
+            return "/".join(state[1])
+    return None
+
+
 def include_walk(source, text, include_roots=(), cache=None):
-    """Scan the complete quoted include closure once, refusing unorderable cycles."""
+    """Scan the complete quoted include closure once, refusing unorderable cycles and a quoted include
+    that resolves nowhere, unless only a branch never compiled names it (never_compiled) and nothing in
+    the closure defines that branch's macro."""
     start = (ROOT / source).resolve()
     cache = {} if cache is None else cache
     seen, active, out = set(), set(), []
     graph, guards, invalidated = {}, {}, set()
     unknown_macro_stack = False
+    skipped = []                         # (path, include, macro): never compiled (never_compiled)
     stack = [(start, text, False)]
     while stack:
         path, body, leaving = stack.pop()
@@ -468,7 +523,8 @@ def include_walk(source, text, include_roots=(), cache=None):
             line = body.count("\n", 0, position) + 1
             return out, f"{path}:{line}: trigraph or continued line comment in include input"
         children = []
-        for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', masked(body, keep_literals=True)):
+        scan = masked(body, keep_literals=True)
+        for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*([<"])([^>"\n]+)[>"]', scan):
             angle, name = m.group(1) == "<", m.group(2)
             candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]
             if os.name != "nt":
@@ -480,13 +536,24 @@ def include_walk(source, text, include_roots=(), cache=None):
                 children.extend(targets)
                 continue
             if not targets:
-                return out, f"{path}: unresolved include {name}"
+                macro = never_compiled(scan, m.start(), body)
+                if macro is None:
+                    return out, f"{path}: unresolved include {name}"
+                skipped.append((path, name, macro))
+                continue
             children.append(targets[0])
         graph[path] = children
         for target in reversed(children):
             if target not in cache:
                 cache[target] = read_path(target)
             stack.append((target, cache[target], False))
+    # ... unless something in the closure that can be compiled defines one of those macros after all
+    for path, name, macro in skipped:
+        define = re.compile(r"(?m)^[ \t]*#[ \t]*define[ \t]+(?:%s)\b" % "|".join(map(re.escape, macro.split("/"))))
+        for _, body in out:
+            scan = masked(body, keep_literals=True)
+            if any(never_compiled(scan, d.start(), body) is None for d in define.finditer(scan)):
+                return out, f"{path}: unresolved include {name} (under {macro}, which the include closure defines)"
     barriers = (set() if unknown_macro_stack else
                 {path for path, macro in guards.items() if macro not in invalidated})
     # Removing stable guard vertices must leave an acyclic graph. Checking only

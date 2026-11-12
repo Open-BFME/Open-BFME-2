@@ -541,6 +541,64 @@ def test_r4_include_scan_refuses_unresolved_and_angle_code(tmp_path, monkeypatch
     assert lane.include_problem("u.cpp", '#include "a.h"\n') is None
 
 
+OLE2_SHAPE = """#if !defined( _OLE2_H_ )
+#define _OLE2_H_
+#ifndef _MAC
+#include <pshpack8.h>
+#else //_MAC
+#ifdef _WIN32
+#include "macname1.h"
+#endif // _WIN32
+#endif //_MAC
+#endif
+"""
+
+
+def test_an_include_only_a_never_defined_platform_compiles_is_no_unresolved_include(tmp_path, monkeypatch):
+    # sweep-header's debug-stackwalk packet: the Platform SDK's Ole2.h reaches `#include "macname1.h"` only when
+    # _MAC is defined, which this x86 Win32 target never does; adopt refused DebugConstructor.cpp over it
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Ole2.h").write_text(OLE2_SHAPE)
+    assert lane.include_problem("u.cpp", '#include "Ole2.h"\n') is None
+    for text in ("#ifdef _MAC\n#include \"mac.h\"\n#endif\n",
+                 "#if defined(_WIN64)\n#include \"wide.h\"\n#endif\n",
+                 "#if !defined _MAC\n#else\n#include \"mac.h\"\n#endif\n",
+                 "#ifndef _MAC\n#elif X\n#include \"mac.h\"\n#endif\n"):
+        assert lane.include_problem("u.cpp", text) is None, text
+
+
+@pytest.mark.parametrize("text", [
+    '#include "missing.h"\n',                                          # no condition at all
+    '#ifndef _MAC\n#include "missing.h"\n#endif\n',                   # the branch that is compiled
+    '#ifdef _MAC\n#else\n#include "missing.h"\n#endif\n',
+    '#if defined(_MAC) && defined(X)\n#include "missing.h"\n#endif\n',  # a condition read as unknown
+    '#ifdef SOME_PROJECT_FLAG\n#include "missing.h"\n#endif\n',        # not a platform macro
+    '#if defined(_MAC) \\\n  || 1\n#include "missing.h"\n#endif\n',   # a continued directive
+    '#endif\n#ifdef _MAC\n#endif\n#include "missing.h"\n',           # unbalanced nesting
+    '#define _MAC 1\n#ifdef _MAC\n#include "missing.h"\n#endif\n',     # the closure defines the macro
+])
+def test_an_include_a_compiled_or_unknown_branch_names_stays_unresolved(tmp_path, monkeypatch, text):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    assert "unresolved include missing.h" in lane.include_problem("u.cpp", text)
+
+
+def test_a_platform_macro_another_header_defines_keeps_the_include_unresolved(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Ole2.h").write_text(OLE2_SHAPE)
+    (tmp_path / "plat.h").write_text("#define _MAC\n")
+    assert "macname1.h" in lane.include_problem("u.cpp", '#include "plat.h"\n#include "Ole2.h"\n')
+
+
+def test_a_define_in_a_branch_never_compiled_does_not_count(tmp_path, monkeypatch):
+    # the SDK's Windows.h: `#ifndef _MAC` / `#if defined(_68K_) || defined(_MPPC_)` / `#define _MAC`
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Ole2.h").write_text(OLE2_SHAPE)
+    (tmp_path / "Windows.h").write_text("#ifndef _MAC\n#if defined(_68K_) || defined(_MPPC_)\n#define _MAC\n#endif\n#endif\n")
+    assert lane.include_problem("u.cpp", '#include "Windows.h"\n#include "Ole2.h"\n') is None
+    (tmp_path / "Windows.h").write_text("#if defined(_68K_) || defined(PROJECT_FLAG)\n#define _MAC\n#endif\n")
+    assert "macname1.h" in lane.include_problem("u.cpp", '#include "Windows.h"\n#include "Ole2.h"\n')
+
+
 def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     for i in range(4):
