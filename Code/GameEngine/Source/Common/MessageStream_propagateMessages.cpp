@@ -23,12 +23,7 @@ enum GameMessageDisposition
 #include "../../Include/Common/MessageStream.h"
 #include "../../Include/Common/CommandList.h"
 
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *message) = 0;
-	virtual ~GameMessageTranslator(void) {}
-};
+#include "../../Include/Common/GameMessageTranslator.h"
 
 void MessageStream::propagateMessages(void)
 {

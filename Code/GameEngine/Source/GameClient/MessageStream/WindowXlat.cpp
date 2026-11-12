@@ -220,12 +220,7 @@ extern GlobalData *TheWritableGlobalData;
 extern unsigned int g_rva00E02FC0Bits;
 bool Rva00437EDCGet();
 
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg) = 0;
-	virtual ~GameMessageTranslator() {}
-};
+#include "../../../Include/Common/GameMessageTranslator.h"
 class WindowTranslator : public GameMessageTranslator
 {
 public:

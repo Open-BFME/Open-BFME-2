@@ -21,11 +21,7 @@ extern InGameUI *TheInGameUI;
 
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg) = 0;
-};
+#include "../../../Include/Common/GameMessageTranslator.h"
 
 class HintSpyTranslator : public GameMessageTranslator
 {

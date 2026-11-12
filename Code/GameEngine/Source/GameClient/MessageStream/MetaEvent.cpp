@@ -174,11 +174,7 @@ class LivingWorld;
 
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg) = 0;
-};
+#include "../../../Include/Common/GameMessageTranslator.h"
 
 class MetaEventTranslator : public GameMessageTranslator
 {

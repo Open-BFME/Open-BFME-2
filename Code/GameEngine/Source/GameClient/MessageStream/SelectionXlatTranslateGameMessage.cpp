@@ -111,11 +111,7 @@ private:
  GameMessageArgument *m_argList, *m_argTail;
 };
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
-class GameMessageTranslator {
-public:
- virtual GameMessageDisposition translateGameMessage(const GameMessage *) = 0;
- virtual ~GameMessageTranslator() {}
-};
+#include "../../../Include/Common/GameMessageTranslator.h"
 extern MessageStream *TheMessageStream;
 extern CommandList *TheCommandList;
 extern void buildRegion(const ICoord2D *, const ICoord2D *, IRegion2D *);

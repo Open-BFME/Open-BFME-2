@@ -61,12 +61,7 @@ static inline bool AnyMouseButtonsDown()
 	return false;
 }
 
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg) = 0;
-	virtual ~GameMessageTranslator() {}
-};
+#include "../../../Include/Common/GameMessageTranslator.h"
 
 class AptTranslator : public GameMessageTranslator
 {
