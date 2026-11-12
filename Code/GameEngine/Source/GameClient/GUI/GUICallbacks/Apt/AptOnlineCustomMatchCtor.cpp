@@ -49,14 +49,7 @@ public:
 	virtual ~Rva0056DC6B();
 };
 
-class Rva004444D2
-{
-public:
-	Rva004444D2();
-	virtual ~Rva004444D2();
-private:
-	unsigned char m_pad04[0x0C - 4];
-};
+#include "../../../../../Include/GameClient/Rva004444D2.h"
 
 // Native vftable 0x008711BC: slots 0 and 1 are the shared empty three-argument
 // body 0x000D1407 (ret 0Ch), slot 2 the deleting destructor 0x0059EB41.

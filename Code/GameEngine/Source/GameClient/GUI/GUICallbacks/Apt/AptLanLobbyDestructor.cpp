@@ -77,7 +77,7 @@ class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
 public: _bfme_AptGameWindow(void *context); virtual ~_bfme_AptGameWindow();
 private: AsciiString filename270; void *owner274; int tail278;
 };
-class Rva004444D2 { public: Rva004444D2(); virtual ~Rva004444D2(); private: char storage[8]; };
+#include "../../../../../Include/GameClient/Rva004444D2.h"
 class MpGameSetupOwner;
 class AptMpGameSetup { public: AptMpGameSetup(MpGameSetupOwner*,int); virtual ~AptMpGameSetup(); private: char storage[0x3E0-4]; };
 class LANPreferences { public: LANPreferences(int); virtual ~LANPreferences(); private: char storage[0x1C-4]; };

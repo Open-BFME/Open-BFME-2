@@ -16,14 +16,7 @@
 #include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
 class _bfme_AptGameWindow { public: virtual ~_bfme_AptGameWindow(); private: char storage[0x218-4]; };
 class AptSkirmishSecondaryView { public: virtual void marker()=0; private: char storage[0x64-4]; };
-class Rva004444D2
-{
-public:
-	Rva004444D2();
-	virtual ~Rva004444D2();
-private:
-	char storage[8]; // +0x04
-};
+#include "../../../../../Include/GameClient/Rva004444D2.h"
 #include "../../../../../Include/GameClient/AptMpGameSetup.h"
 class Rva005C1A36
 {

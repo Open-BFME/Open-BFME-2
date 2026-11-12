@@ -113,14 +113,7 @@ extern int g_00E04930;
  // the first skirmish screen
 
 // The game-setup owner interface (constructor 0x004444AE).
-class Rva004444D2
-{
-public:
-	Rva004444D2();
-	virtual ~Rva004444D2();
-private:
-	char storage[8]; // +0x04
-};
+#include "../../../../../Include/GameClient/Rva004444D2.h"
 
 class MpGameSetupOwner;
 
