@@ -18,7 +18,7 @@ class Thing;
 class ModuleData;
 
 extern "C" char __identifier("??_7SpecialPowerModule@@6BBehaviorModuleInterface@@@");
-extern "C" char __identifier("??_7Rva004C8A16@@6BRva004C8A16_B2@@@");
+extern "C" char __identifier("??_7Rva004C8A16@@6B@");
 
 // Minimal ABI view of SpecialPowerModule: only the ctor/dtor the derived
 // body binds (rowed 0x00493C5A / 0x00493DEF). Protected slots mirror the
@@ -47,7 +47,7 @@ HordeDispatchSpecialPower::HordeDispatchSpecialPower(Thing *thing, const ModuleD
 	: SpecialPowerModule(thing, moduleData)
 {
 	m_p0C = &__identifier("??_7SpecialPowerModule@@6BBehaviorModuleInterface@@@");
-	m_p10 = &__identifier("??_7Rva004C8A16@@6BRva004C8A16_B2@@@");
+	m_p10 = &__identifier("??_7Rva004C8A16@@6B@");
 }
 
 // ??1HordeDispatchSpecialPower@@ present-unmatched

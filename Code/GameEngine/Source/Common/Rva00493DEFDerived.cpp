@@ -1,26 +1,21 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
-// Opaque multiple-inheritance destructors tail-calling Rva00493DEF::~
-// Rva00493DEF at 0x00493DEF (pinned opaque MI base: SEH, three vptrs
-// including the shared 0xBEFCF8 secondary; identity unproven). Each class
-// below derives (in order) from the opaque base, a shared empty polymorphic
-// base, and its own empty polymorphic base, giving vptrs at +0x00/+0x0C/+0x10;
-// the empty bases have implicit trivial destructors, so the derived
-// destructor stores all three vptrs and tail-calls the base destructor. The
-// +0x0C secondary is shared across the family (0xBEFCF8). Owner identities
-// are unproven (opaque Rva names). One ledger row per destructor, landed one
-// commit at a time.
+// Opaque special-power destructors tail-call native 0x00493DEF and restore
+// tables at +0, +0x0C and +0x10. The canonical BehaviorModule supplies the
+// twelve-byte ObjectModule core and the four-byte +0x0C interface, including
+// its zero-return defaults. The +0x10 interface remains an incomplete view.
+// No complete SpecialPowerModule or derived-class identity is asserted here.
 
-class Rva00493DEF
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
+
+class Rva00493DEF : public BehaviorModule
 {
 public:
 	virtual ~Rva00493DEF();
 
-private:
-	char m_pad04[8];
 };
 
-#include "../../Include/Common/MiBase1.h"
+
 
 
 
@@ -30,7 +25,7 @@ public:
 	virtual void f2();
 };
 
-class Rva004C29BB : public Rva00493DEF, public MiBase1, public Rva004C29BB_B2
+class Rva004C29BB : public Rva00493DEF, public Rva004C29BB_B2
 {
 public:
 	virtual ~Rva004C29BB();
@@ -64,7 +59,7 @@ public:
 	virtual void f2();
 };
 
-class Rva004C67A0 : public Rva00493DEF, public MiBase1, public Rva004C67A0_B2
+class Rva004C67A0 : public Rva00493DEF, public Rva004C67A0_B2
 {
 public:
 	virtual ~Rva004C67A0();
@@ -94,7 +89,7 @@ public:
 	virtual void f2();
 };
 
-class Rva004C8A16 : public Rva00493DEF, public MiBase1, public Rva004C8A16_B2
+class Rva004C8A16 : public Rva00493DEF, public Rva004C8A16_B2
 {
 public:
 	virtual ~Rva004C8A16();

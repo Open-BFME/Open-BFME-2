@@ -3378,3 +3378,20 @@ slot 5's empty body at 0x000B3FD0 is claimed by anchorist-codex-local-bfme2;
 no override/alias for that held body is added. Complete it when available
 before adopting the full header in the other page views or closing the file.
 [Evidence and remaining file work](../../reverse/attempt_support/rva0050ea74-tables-20261112.md).
+
+### Three opaque special-power destructor views use concrete Behavior defaults (2026-11-12)
+
+At 93f9903fe4e, Rva00493DEFDerived.cpp replaces its twelve-byte padded base
+plus MiBase1 with canonical BehaviorModule inheritance. All six destructor
+rows and both affected constructor rows remain exact. StopSpecialPowerCtor
+and SupplyTruckAIUpdateCtor (HordeDispatch) bind the new emitted primary and
+tertiary table names at their same native addresses; all three own link
+previews read LINKS, 247 -> 247 bytes against 9ca25659d0. The three rebuilt
+188-byte Behavior tables have 44/47 native slot bodies correct; slots
+8/43/44 and the other primary/special-interface recoveries remain. All nine
+table repairs stay open; this is not a bridge-retirement or image result.
+MiBase1's obsolete header-queue entry is retained: accept still requires its
+old include, so the rejected retirement is recorded for tooling rather than
+adding an unused include. The initial abstract-interface trial (all pure
+calls, not retail's zero returns) was restored.
+[Target evidence, consumer proof and prerequisites](../../reverse/attempt_support/rva00493def-behavior-20261112.md).

@@ -17,8 +17,8 @@
 
 extern "C" const void *const __identifier("??_7SpecialPowerModule@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFCF8 (38 classes), by its data-ledger name
 
-extern "C" const void *const __identifier("??_7Rva004C67A0@@6BRva004C67A0_B2@@@")[];  // vftable 0x00C5DE08
-extern "C" const void *const __identifier("??_7Rva004C67A0@@6BRva00493DEF@@@")[];  // vftable 0x00C5DE6C
+extern "C" const void *const __identifier("??_7Rva004C67A0@@6B@")[];  // vftable 0x00C5DE08
+extern "C" const void *const __identifier("??_7Rva004C67A0@@6BObjectModule@@@")[];  // vftable 0x00C5DE6C
 
 class Thing;
 class ModuleData;
@@ -44,7 +44,7 @@ StopSpecialPower::StopSpecialPower(Thing *thing, const ModuleData *moduleData) :
 	SpecialPowerModule(thing, moduleData),
 	m_34(0)
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva004C67A0@@6BRva00493DEF@@@"));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva004C67A0@@6BObjectModule@@@"));
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7SpecialPowerModule@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004C67A0@@6BRva004C67A0_B2@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004C67A0@@6B@"));
 }
