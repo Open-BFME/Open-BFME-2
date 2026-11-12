@@ -54,12 +54,18 @@ namespace FXParticleSystem
 // The draw-template destructors inline both base vptr restores in retail.
 inline ModuleTemplate::~ModuleTemplate() {}
 
+template <int CATEGORY>
+class CategoryModuleClass;
+
 // Retail's nested category shape (LINK-584): one pure slot, protected non-virtual destructor.
+// The slot is getClass: every concrete wrapper's CategoryModuleInfo table holds its 5-byte
+// getClass forwarder there (0x003AD036 for DefaultModuleTag<1>, rowed with the forwarders),
+// and the overrider's covariant return needs no adjustment, so it adds no primary slot.
 template <int CATEGORY_ARG>
 class CategoryModuleInfo
 {
 public:
-    virtual void v1() = 0;
+    virtual const CategoryModuleClass<CATEGORY_ARG> &getClass() const = 0;
 
 protected:
     ~CategoryModuleInfo() {}
@@ -153,7 +159,15 @@ struct FXKeyframe
     unsigned int m_frame;
 };
 
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                         };
+#define FX_VTABLE_ONLY_INFO(NAME) \
+    class NAME : public ::Snapshot \
+    { \
+    public: \
+        virtual ~NAME(); \
+        virtual void LoadPostProcess(); \
+        virtual const char *GetSnapshotName(); \
+        virtual void DoXfer(::Xfer &); \
+    };
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
 class ButterflyDrawModuleInfo : public ::Snapshot
@@ -165,20 +179,24 @@ public:
     virtual void DoXfer(::Xfer &);
 };
 
-class RenderObjectDrawModuleInfo
+class RenderObjectDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~RenderObjectDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     unsigned int m_unknown04[15];
 };
 
-class GpuDrawModuleInfo
+class GpuDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~GpuDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     unsigned int m_unknown04[4];
 };
@@ -226,11 +244,13 @@ public:
     CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class TerrainCollisionModuleInfo
+class TerrainCollisionModuleInfo : public ::Snapshot
 {
 public:
     virtual ~TerrainCollisionModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     void *m_eventName;
     unsigned int m_eventTime[3];
@@ -257,11 +277,13 @@ public:
 // plus this info.
 typedef char DefaultCategory7ModuleInfo_size[(sizeof(DefaultCategory7ModuleInfo) == 72) ? 1 : -1];
 
-class DefaultUpdateModuleInfo
+class DefaultUpdateModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultUpdateModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -274,30 +296,36 @@ public:
     FXCoord3D m_unknown5C;
 };
 
-class DefaultAlphaModuleInfo
+class DefaultAlphaModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultAlphaModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXKeyframe m_keys[8];
 };
 
-class DefaultColorModuleInfo
+class DefaultColorModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultColorModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXKeyframe m_keys[8];
     FXCoord3D m_unknown84;
 };
 
-class LightningDrawModuleInfo
+class LightningDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~LightningDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -306,11 +334,13 @@ public:
     bool m_unknown2C;
 };
 
-class RenderObjectUpdateModuleInfo
+class RenderObjectUpdateModuleInfo : public ::Snapshot
 {
 public:
     virtual ~RenderObjectUpdateModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -414,76 +444,6 @@ template <int CATEGORY, const char *const &Key, const char *const &Name, class M
     class TEMPLATE, class DEFAULT>
 const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::NAME = Name;
 
-template <class TAG>
-class ConcreteModuleTemplate : public TAG::TemplateType
-{
-public:
-    ConcreteModuleTemplate();
-    __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that);
-
-    virtual void v1();
-    virtual typename TAG::TemplateType *clone() const;
-};
-
-template <class TAG>
-ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate()
-{
-}
-
-template <class TAG>
-ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that)
-    : TAG::TemplateType(that)
-{
-}
-
-template <class TAG>
-void ConcreteModuleTemplate<TAG>::v1()
-{
-}
-
-template <class TAG>
-typename TAG::TemplateType *ConcreteModuleTemplate<TAG>::clone() const
-{
-    return new ConcreteModuleTemplate<TAG>(*this);
-}
-
-// These clones bind to the byte-exact wrapper definitions in the module unit.
-extern const char *const CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY;
-extern const char *const CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME;
-class CylindricalEmissionVelocityModule;
-template <> CylindricalEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY, CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME, CylindricalEmissionVelocityModule, CylindricalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
-extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
-extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
-class HemisphericalEmissionVelocityModule;
-template <> HemisphericalEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME, HemisphericalEmissionVelocityModule, HemisphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
-extern const char *const OUTWARD_EMISSION_VELOCITY_MODULE_KEY;
-extern const char *const OUTWARD_EMISSION_VELOCITY_MODULE_NAME;
-class OutwardEmissionVelocityModule;
-template <> OutwardEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, OUTWARD_EMISSION_VELOCITY_MODULE_KEY, OUTWARD_EMISSION_VELOCITY_MODULE_NAME, OutwardEmissionVelocityModule, OutwardEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
-extern const char *const SPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
-extern const char *const SPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
-class SphericalEmissionVelocityModule;
-template <> SphericalEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, SPHERICAL_EMISSION_VELOCITY_MODULE_KEY, SPHERICAL_EMISSION_VELOCITY_MODULE_NAME, SphericalEmissionVelocityModule, SphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
-extern const char *const LIGHTNING_DRAW_MODULE_KEY;
-extern const char *const LIGHTNING_DRAW_MODULE_NAME;
-class LightningDrawModule;
-template <> LightningDrawModuleTemplate *ConcreteModuleTemplate<ModuleTag<6, LIGHTNING_DRAW_MODULE_KEY, LIGHTNING_DRAW_MODULE_NAME, LightningDrawModule, LightningDrawModuleTemplate, DefaultParticleModule<6> > >::clone() const;
-extern const char *const TERRAIN_FIRE_EMISSION_MODULE_KEY;
-extern const char *const TERRAIN_FIRE_EMISSION_MODULE_NAME;
-class TerrainFireEmissionModule;
-template <> TerrainFireEmissionModuleTemplate *ConcreteModuleTemplate<ModuleTag<5, TERRAIN_FIRE_EMISSION_MODULE_KEY, TERRAIN_FIRE_EMISSION_MODULE_NAME, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate, DefaultParticleModule<5> > >::clone() const;
-extern const char *const LIGHTNING_EMISSION_MODULE_KEY;
-extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
-class LightningEmissionModule;
-template <> LightningEmissionModuleTemplate *ConcreteModuleTemplate<ModuleTag<5, LIGHTNING_EMISSION_MODULE_KEY, LIGHTNING_EMISSION_MODULE_NAME, LightningEmissionModule, LightningEmissionModuleTemplate, DefaultParticleModule<5> > >::clone() const;
-extern const char *const RENDEROBJECT_UPDATE_MODULE_KEY;
-extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
-class RenderObjectUpdateModule;
-class RenderObjectParticleUpdateModule;
-template <> RenderObjectUpdateModuleTemplate *ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule > >::clone() const;
-
-template <> RenderObjectUpdateModuleTemplate *ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > >::clone() const;
-
 // The module class that builds them. createTemplate is one operator new for the
 // wrapper's size and a tail jump into its default constructor.
 template <class TAG>
@@ -500,6 +460,36 @@ private:
     // initializers and read them while still null.
     ConcreteModuleClass();
 };
+
+template <class TAG>
+class ConcreteModuleTemplate : public TAG::TemplateType
+{
+public:
+    ConcreteModuleTemplate();
+    __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that);
+
+    virtual const ConcreteModuleClass<TAG> &getClass() const;
+    virtual typename TAG::TemplateType *clone() const;
+};
+
+template <class TAG>
+ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate()
+{
+}
+
+template <class TAG>
+ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that)
+    : TAG::TemplateType(that)
+{
+}
+
+template <class TAG>
+typename TAG::TemplateType *ConcreteModuleTemplate<TAG>::clone() const
+{
+    return new ConcreteModuleTemplate<TAG>(*this);
+}
+
+
 
 template <class TAG>
 ConcreteModuleClass<TAG>::ConcreteModuleClass()
@@ -633,12 +623,35 @@ FX_WRAPPER_NOTHROW_CTOR(5, LINE_EMISSION_VOLUME, LineEmissionVolumeModule, LineE
 FX_WRAPPER_NOTHROW_CTOR(5, CYLINDER_EMISSION_VOLUME, CylinderEmissionVolumeModule,
     CylinderEmissionVolumeModuleTemplate)
 
+// The clone binds to the byte-exact wrapper definition in the module unit. It is declared
+// just before its wrapper's explicit instantiation: declaring it instantiates the wrapper
+// template, and with it (through getClass's covariant return) the wrapper class, so this keeps
+// the tags' KEY/NAME initializers in wrapper order.
+extern const char *const SPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const SPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
+class SphericalEmissionVelocityModule;
+template <> SphericalEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, SPHERICAL_EMISSION_VELOCITY_MODULE_KEY, SPHERICAL_EMISSION_VELOCITY_MODULE_NAME, SphericalEmissionVelocityModule, SphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
 FX_WRAPPER(4, SPHERICAL_EMISSION_VELOCITY, SphericalEmissionVelocityModule,
     SphericalEmissionVelocityModuleTemplate)
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
+class HemisphericalEmissionVelocityModule;
+template <> HemisphericalEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME, HemisphericalEmissionVelocityModule, HemisphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
 FX_WRAPPER(4, HEMISPHERICAL_EMISSION_VELOCITY, HemisphericalEmissionVelocityModule,
     HemisphericalEmissionVelocityModuleTemplate)
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME;
+class CylindricalEmissionVelocityModule;
+template <> CylindricalEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY, CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME, CylindricalEmissionVelocityModule, CylindricalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
 FX_WRAPPER(4, CYLINDRICAL_EMISSION_VELOCITY, CylindricalEmissionVelocityModule,
     CylindricalEmissionVelocityModuleTemplate)
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const OUTWARD_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const OUTWARD_EMISSION_VELOCITY_MODULE_NAME;
+class OutwardEmissionVelocityModule;
+template <> OutwardEmissionVelocityModuleTemplate *ConcreteModuleTemplate<ModuleTag<4, OUTWARD_EMISSION_VELOCITY_MODULE_KEY, OUTWARD_EMISSION_VELOCITY_MODULE_NAME, OutwardEmissionVelocityModule, OutwardEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::clone() const;
 FX_WRAPPER(4, OUTWARD_EMISSION_VELOCITY, OutwardEmissionVelocityModule,
     OutwardEmissionVelocityModuleTemplate)
 
@@ -775,9 +788,33 @@ FX_DEFAULT_WRAPPER(3)
 FX_DEFAULT_WRAPPER(6)
 FX_DEFAULT_WRAPPER(7)
 
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const LIGHTNING_DRAW_MODULE_KEY;
+extern const char *const LIGHTNING_DRAW_MODULE_NAME;
+class LightningDrawModule;
+template <> LightningDrawModuleTemplate *ConcreteModuleTemplate<ModuleTag<6, LIGHTNING_DRAW_MODULE_KEY, LIGHTNING_DRAW_MODULE_NAME, LightningDrawModule, LightningDrawModuleTemplate, DefaultParticleModule<6> > >::clone() const;
 FX_WRAPPER(6, LIGHTNING_DRAW, LightningDrawModule, LightningDrawModuleTemplate)
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const TERRAIN_FIRE_EMISSION_MODULE_KEY;
+extern const char *const TERRAIN_FIRE_EMISSION_MODULE_NAME;
+class TerrainFireEmissionModule;
+template <> TerrainFireEmissionModuleTemplate *ConcreteModuleTemplate<ModuleTag<5, TERRAIN_FIRE_EMISSION_MODULE_KEY, TERRAIN_FIRE_EMISSION_MODULE_NAME, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate, DefaultParticleModule<5> > >::clone() const;
 FX_WRAPPER(5, TERRAIN_FIRE_EMISSION, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate)
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const LIGHTNING_EMISSION_MODULE_KEY;
+extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
+class LightningEmissionModule;
+template <> LightningEmissionModuleTemplate *ConcreteModuleTemplate<ModuleTag<5, LIGHTNING_EMISSION_MODULE_KEY, LIGHTNING_EMISSION_MODULE_NAME, LightningEmissionModule, LightningEmissionModuleTemplate, DefaultParticleModule<5> > >::clone() const;
 FX_WRAPPER(5, LIGHTNING_EMISSION, LightningEmissionModule, LightningEmissionModuleTemplate)
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const RENDEROBJECT_UPDATE_MODULE_KEY;
+extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
+class RenderObjectUpdateModule;
+template <> RenderObjectUpdateModuleTemplate *ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > >::clone() const;
+// No retail wrapper has this tag (retail's update wrapper is the named one below), so no getClass
+// exists for it: its constructor stays with FXParticleSystemModules.cpp's copy, and this unit emits
+// no table for it.
+template <> ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > >::ConcreteModuleTemplate();
 FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate)
 
 // Five tags whose sixth argument is a plain class rather than a
@@ -785,37 +822,14 @@ FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateM
 // them; their clones carry an EH prologue and are a separate problem.
 #define FX_NAMED_WRAPPER(CATEGORY, KEY, MOD, TMPL, DFLT)                                               extern const char *const KEY##_MODULE_KEY;                                                         extern const char *const KEY##_MODULE_NAME;                                                                                                                                                           class MOD;                                                                                         class DFLT;                                                                                                                                                                                           typedef ConcreteModuleTemplate<                                                                        ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT> >                        MOD##NamedConcrete;                                                                                                                                                                               extern MOD##NamedConcrete g_##MOD##NamedConcrete;                                                                                                                                                               typedef ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT>                     MOD##NamedTag;                                                                                                                                                                                  extern MOD##NamedTag &(MOD##NamedTag::*g_##MOD##NamedTagAssign)(const MOD##NamedTag &);
 
+// Its clone binds to the module unit's definition, declared here as above.
+extern const char *const RENDEROBJECT_UPDATE_MODULE_KEY;
+extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
+class RenderObjectUpdateModule;
+class RenderObjectParticleUpdateModule;
+template <> RenderObjectUpdateModuleTemplate *ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule > >::clone() const;
 FX_NAMED_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule,
     RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule)
-FX_NAMED_WRAPPER(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
-// Construction binds to the module unit; destruction and cloning are defined here.
-extern const char *const TERRAIN_COLLISION_MODULE_KEY;
-extern const char *const TERRAIN_COLLISION_MODULE_NAME;
-class TerrainCollisionModule;
-class ParticleTerrainCollisionModule;
-typedef ModuleTag<8, TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME,
-    TerrainCollisionModule, TerrainCollisionModuleTemplate, ParticleTerrainCollisionModule>
-    TerrainCollisionModuleNamedTag;
-template <>
-class __declspec(novtable) ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>
-    : public TerrainCollisionModuleTemplate
-{
-public:
-    ConcreteModuleTemplate();
-    ConcreteModuleTemplate(const ConcreteModuleTemplate &that);
-    virtual ~ConcreteModuleTemplate();
-    virtual void v1();
-    virtual TerrainCollisionModuleTemplate *clone() const;
-};
-
-ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::~ConcreteModuleTemplate() {}
-
-TerrainCollisionModuleTemplate *ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::clone() const
-{
-    return new ConcreteModuleTemplate(*this);
-}
-FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionModuleTemplate,
-    ParticleTerrainCollisionModule)
 
 // LINK-DUP: RenderObjectUpdate NamedConcrete global is extern (owned elsewhere),
 // but this unit owns its ??_G (0x003AA1EA). Explicitly instantiate its wrapper
@@ -842,6 +856,41 @@ ButterflyDrawModuleConcrete g_ButterflyDrawModuleConcrete;
 ButterflyDrawModuleTag &(ButterflyDrawModuleTag::*g_ButterflyDrawModuleTagAssign)(
     const ButterflyDrawModuleTag &)
     = &ButterflyDrawModuleTag::operator=;
+
+// The event wrappers follow the draw wrappers: declaring one instantiates its wrapper
+// template and, through getClass, its wrapper class, so their tags' KEY/NAME initializers
+// keep their place after the draw tags'.
+FX_NAMED_WRAPPER(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
+// Construction binds to the module unit; destruction and cloning are defined here. The
+// specialization comes after the draw wrappers: its getClass instantiates the wrapper class,
+// so this keeps the tag's KEY/NAME initializers after theirs.
+extern const char *const TERRAIN_COLLISION_MODULE_KEY;
+extern const char *const TERRAIN_COLLISION_MODULE_NAME;
+class TerrainCollisionModule;
+class ParticleTerrainCollisionModule;
+typedef ModuleTag<8, TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME,
+    TerrainCollisionModule, TerrainCollisionModuleTemplate, ParticleTerrainCollisionModule>
+    TerrainCollisionModuleNamedTag;
+template <>
+class __declspec(novtable) ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>
+    : public TerrainCollisionModuleTemplate
+{
+public:
+    ConcreteModuleTemplate();
+    ConcreteModuleTemplate(const ConcreteModuleTemplate &that);
+    virtual ~ConcreteModuleTemplate();
+    virtual const ConcreteModuleClass<TerrainCollisionModuleNamedTag> &getClass() const;
+    virtual TerrainCollisionModuleTemplate *clone() const;
+};
+
+ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::~ConcreteModuleTemplate() {}
+
+TerrainCollisionModuleTemplate *ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::clone() const
+{
+    return new ConcreteModuleTemplate(*this);
+}
+FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionModuleTemplate,
+    ParticleTerrainCollisionModule)
 
 // The named-tag classes: same treatment, over the tags FX_NAMED_WRAPPER made.
 // Their createTemplate bodies carry the same EH prologue as the rest of this

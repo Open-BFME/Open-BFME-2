@@ -37,12 +37,16 @@ namespace FXParticleSystem
 
 
 
+template <int CATEGORY>
+class CategoryModuleClass;
+
 // Retail's nested category shape (LINK-584): one pure slot, protected non-virtual destructor.
+// The slot is getClass (FXParticleSystemFactories.cpp says why).
 template <int CATEGORY_ARG>
 class CategoryModuleInfo
 {
 public:
-    virtual void v1() = 0;
+    virtual const CategoryModuleClass<CATEGORY_ARG> &getClass() const = 0;
 
 protected:
     ~CategoryModuleInfo();
@@ -125,23 +129,35 @@ struct FXKeyframe
     unsigned int m_frame;
 };
 
-#define FX_VTABLE_ONLY_INFO(NAME)                                                                      class NAME                                                                                         {                                                                                                  public:                                                                                                virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                         };
+#define FX_VTABLE_ONLY_INFO(NAME) \
+    class NAME : public ::Snapshot \
+    { \
+    public: \
+        virtual ~NAME(); \
+        virtual void LoadPostProcess(); \
+        virtual const char *GetSnapshotName(); \
+        virtual void DoXfer(::Xfer &); \
+    };
 
 FX_VTABLE_ONLY_INFO(DefaultDrawModuleInfo)
-class RenderObjectDrawModuleInfo
+class RenderObjectDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~RenderObjectDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     unsigned int m_unknown04[15];
 };
 
-class GpuDrawModuleInfo
+class GpuDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~GpuDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     unsigned int m_unknown04[4];
 };
@@ -149,26 +165,29 @@ FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
 
 // The three draw modules whose template bodies live in FXParticleSystem.cpp:
 // this unit needs their infos only as complete types behind the class tags.
-class StreakDrawModuleInfo
+class StreakDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~StreakDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
     virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 };
-class QuadDrawModuleInfo
+class QuadDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~QuadDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
     virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 };
-class ButterflyDrawModuleInfo
+class ButterflyDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~ButterflyDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
     virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 };
 
 // The two category 8 templates put their info's vtable at 0x0C rather than
@@ -243,11 +262,13 @@ public:
     FXCoord3D m_unknown40;
 };
 
-class DefaultUpdateModuleInfo
+class DefaultUpdateModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultUpdateModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -260,30 +281,36 @@ public:
     FXCoord3D m_unknown5C;
 };
 
-class DefaultAlphaModuleInfo
+class DefaultAlphaModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultAlphaModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXKeyframe m_keys[8];
 };
 
-class DefaultColorModuleInfo
+class DefaultColorModuleInfo : public ::Snapshot
 {
 public:
     virtual ~DefaultColorModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXKeyframe m_keys[8];
     FXCoord3D m_unknown84;
 };
 
-class LightningDrawModuleInfo
+class LightningDrawModuleInfo : public ::Snapshot
 {
 public:
     virtual ~LightningDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -292,11 +319,13 @@ public:
     bool m_unknown2C;
 };
 
-class RenderObjectUpdateModuleInfo
+class RenderObjectUpdateModuleInfo : public ::Snapshot
 {
 public:
     virtual ~RenderObjectUpdateModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
+    virtual const char *GetSnapshotName();
+    virtual void DoXfer(::Xfer &);
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -494,13 +523,16 @@ template <int CATEGORY_ARG, const char *const &Key, const char *const &Name, cla
 const ModuleCategory ModuleTag<CATEGORY_ARG, Key, Name, MODULE, TEMPLATE, DEFAULT>::CATEGORY;
 
 template <class TAG>
+class ConcreteModuleClass;
+
+template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
 {
 public:
     ConcreteModuleTemplate();
     __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that);
 
-    virtual void v1();
+    virtual const ConcreteModuleClass<TAG> &getClass() const;
     virtual typename TAG::TemplateType *clone() const;
 };
 
@@ -512,11 +544,6 @@ ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate()
 template <class TAG>
 ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that)
     : TAG::TemplateType(that)
-{
-}
-
-template <class TAG>
-void ConcreteModuleTemplate<TAG>::v1()
 {
 }
 
@@ -538,6 +565,7 @@ public:
     // Retail's instance is a function-local static in getInstance
     // (NamedModuleClassInstances.cpp), whose atexit thunk calls this.
     ~ConcreteModuleClass();
+    static const ConcreteModuleClass<TAG> &getInstance();
 
 private:
     // Private: its callers are getInstance's, built lazily from staticInitModules.
@@ -822,7 +850,23 @@ class RenderObjectUpdateModule;
 
 template <> RenderObjectUpdateModuleTemplate *ConcreteModuleClass<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > >::createTemplate() const;
 
+// This DefaultParticleModule<2> spelling of the update tag is this unit's, not retail's: retail
+// folded its constructor into the named update wrapper's (0x003A8D15), so its tables are that
+// wrapper's and its getClass is the named getClass, a tail jump into the named class's
+// getInstance (0x003AD131). Defined after the named class's explicit instantiation below.
+template <> const ConcreteModuleClass<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > > &
+ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > >::getClass() const;
 FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate)
+
+// The draw wrappers' factory declarations come before the named wrappers: declaring a named
+// wrapper's member instantiates its template and, through getClass's covariant return, its
+// class, so these keep the draw tags' KEY/NAME initializers ahead of the named tags', as the
+// FX_FACTORY_ELSEWHERE note above requires.
+FX_FACTORY_ELSEWHERE(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6>)
+FX_FACTORY_ELSEWHERE(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6>)
+FX_FACTORY_ELSEWHERE(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6>)
+FX_FACTORY_ELSEWHERE(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6>)
+FX_FACTORY_ELSEWHERE(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6>)
 
 // Five tags whose sixth argument is a plain class rather than a
 // DefaultParticleModule instantiation. Only the constructors are claimed from
@@ -859,10 +903,8 @@ template <> __declspec(dllimport) __forceinline ConcreteModuleTemplate<TerrainCo
 FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionModuleTemplate,
     ParticleTerrainCollisionModule)
 
-FX_FACTORY_ELSEWHERE(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLONE_ELSEWHERE(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6>)
 FX_WRAPPER(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate)
-FX_FACTORY_ELSEWHERE(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLONE_ELSEWHERE(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6>)
 FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
 // Their clones are declared above, so the copy constructors (this unit's
@@ -883,11 +925,8 @@ template ConcreteModuleTemplate<GpuDrawModuleTag>::ConcreteModuleTemplate(
     template <> __declspec(noinline) ConcreteModuleTemplate<MOD##ClassTag>::~ConcreteModuleTemplate(); \
     template class ConcreteModuleClass<MOD##ClassTag>;
 
-FX_FACTORY_ELSEWHERE(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLASS_WRAPPER(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6>)
-FX_FACTORY_ELSEWHERE(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLASS_WRAPPER(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6>)
-FX_FACTORY_ELSEWHERE(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLASS_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate,
     DefaultParticleModule<6>)
 
@@ -900,6 +939,12 @@ FX_CLASS_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemp
 template <> RenderObjectUpdateModuleTemplate *
 ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>::createTemplate() const;
 template class ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>;
+template <> const ConcreteModuleClass<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > > &
+ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > >::getClass() const
+{
+    return reinterpret_cast<const ConcreteModuleClass<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, DefaultParticleModule<2> > > &>(
+        ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>::getInstance());
+}
 template <> LifeEventModuleTemplate *ConcreteModuleClass<LifeEventModuleNamedTag>::createTemplate() const;
 template class ConcreteModuleClass<LifeEventModuleNamedTag>;
 template ConcreteModuleTemplate<LifeEventModuleNamedTag>::ConcreteModuleTemplate(const ConcreteModuleTemplate<LifeEventModuleNamedTag> &that);

@@ -5,7 +5,8 @@
 // CategoryModuleTemplateBase<8> (ModuleTemplate, CategoryModuleInfo<8>) and the non-polymorphic
 // EventModuleInfo, so each wrapper's second table is its own one-slot
 // `6B?$CategoryModuleInfo@$07@1@@` table (retail 0x0081CA00 / 0x0081CAA0). CategoryModuleInfo's one
-// slot is pure and its destructor protected and non-virtual (exported ??1 IAE).
+// slot is pure (getClass, which each wrapper overrides; FXParticleSystemFactories.cpp says why) and
+// its destructor protected and non-virtual (exported ??1 IAE).
 // The Snapshot slot spellings FXParticleSystemModules.cpp and FXParticleSystemFactories.cpp use, so
 // LifeEventModuleInfo.h gives all three units one table (LoadPostProcess, GetSnapshotName, DoXfer).
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
@@ -17,13 +18,14 @@
 #include "../../Include/GameClient/EventModuleInfo.h"
 #include "../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem {
-template <int Category> class CategoryModuleInfo { public: virtual void v1() = 0; protected: ~CategoryModuleInfo(); };
+template <int Category> class CategoryModuleClass { protected: ~CategoryModuleClass(); };
+template <int Category> class CategoryModuleInfo { public: virtual const CategoryModuleClass<Category> &getClass() const = 0; protected: ~CategoryModuleInfo(); };
 #include "../../Include/Common/ModuleInfoClass.h"
 template <int Category> class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<Category> { public: virtual ~CategoryModuleTemplateBase(); };
 template <int Category> class CategoryModuleTemplate;
 template <> class CategoryModuleTemplate<8> : public CategoryModuleTemplateBase<8>, public EventModuleInfo { public: virtual ~CategoryModuleTemplate(); };
-class TerrainCollisionModuleInfo {
-public: virtual ~TerrainCollisionModuleInfo(); virtual void v1() = 0;
+class TerrainCollisionModuleInfo : public ::Snapshot {
+public: virtual ~TerrainCollisionModuleInfo(); virtual void LoadPostProcess(); virtual const char *GetSnapshotName(); virtual void DoXfer(::Xfer &);
 private: void *m_eventName; unsigned int m_eventTime[3]; bool m_flag; unsigned int m_cached;
 };
 class LifeEventModuleTemplate : public CategoryModuleTemplate<8>, public LifeEventModuleInfo { public: LifeEventModuleTemplate(); virtual ~LifeEventModuleTemplate(); };
@@ -37,12 +39,13 @@ extern const char *const LIFE_EVENT_MODULE_NAME;
 extern const char *const TERRAIN_COLLISION_MODULE_KEY;
 extern const char *const TERRAIN_COLLISION_MODULE_NAME;
 template <int Category, const char *const &Key, const char *const &Name, class Module, class Template, class Default>
-class ModuleTag { public: typedef Template TemplateType; };
+class ModuleTag { public: typedef Template TemplateType; typedef CategoryModuleClass<Category> ClassBase; };
+template <class Tag> class ConcreteModuleClass : public Tag::ClassBase {};
 template <class Tag> class ConcreteModuleTemplate : public Tag::TemplateType {
 public:
  ConcreteModuleTemplate() {}
  virtual ~ConcreteModuleTemplate();
- virtual void v1();
+ virtual const ConcreteModuleClass<Tag> &getClass() const;
  virtual typename Tag::TemplateType *clone() const;
 };
 typedef ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY, LIFE_EVENT_MODULE_NAME, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule> > LifeEventConcrete;

@@ -148,6 +148,9 @@ enum ModuleCategory
 //
 // Its destructor is protected and non-virtual (IAE, not MAE), so the vptr store
 // it makes is the one a derived destructor inherits rather than dispatches to.
+template <int CATEGORY>
+class CategoryModuleClass;
+
 template <int CATEGORY_ARG>
 class CategoryModuleInfo
 {
@@ -160,7 +163,9 @@ public:
     CategoryModuleInfo(const CategoryModuleInfo<CATEGORY_ARG> &that);
     CategoryModuleInfo<CATEGORY_ARG> &operator=(const CategoryModuleInfo<CATEGORY_ARG> &that);
 
-    virtual void v1() = 0;
+    // getClass: each concrete wrapper overrides it with its class's accessor
+    // (FXParticleSystemFactories.cpp says why); the module templates leave it pure.
+    virtual const CategoryModuleClass<CATEGORY_ARG> &getClass() const = 0;
 
 protected:
     ~CategoryModuleInfo();
@@ -1036,7 +1041,6 @@ class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
 {
 public:
     virtual ~OrthoEmissionVelocityInfo();
-    virtual void v1() = 0;
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -1312,26 +1316,28 @@ SphericalEmissionVelocityAssign g_sphericalEmissionVelocityAssign =
 class PointEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public EmissionVolumeInfo
 {
 public:
-    virtual void v1();
+    PointEmissionVolumeModuleTemplate();
 };
 
-PointEmissionVolumeModuleTemplate g_pointEmissionVolumeModuleTemplate;
+PointEmissionVolumeModuleTemplate::PointEmissionVolumeModuleTemplate()
+{
+}
 
 class SphereEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public SphereEmissionVolumeInfo
 {
 public:
-    virtual void v1();
+    SphereEmissionVolumeModuleTemplate();
 };
 
-SphereEmissionVolumeModuleTemplate g_sphereEmissionVolumeModuleTemplate;
+SphereEmissionVolumeModuleTemplate::SphereEmissionVolumeModuleTemplate()
+{
+}
 
 class BoxEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public BoxEmissionVolumeInfo
 {
 public:
     BoxEmissionVolumeModuleTemplate();
     BoxEmissionVolumeModuleTemplate(const BoxEmissionVolumeModuleTemplate &that);
-
-    virtual void v1();
 };
 
 // The copy constructor stays a declaration: the wrapper calls it out of line.
@@ -1340,15 +1346,12 @@ BoxEmissionVolumeModuleTemplate::BoxEmissionVolumeModuleTemplate()
 }
 
 
-BoxEmissionVolumeModuleTemplate g_boxEmissionVolumeModuleTemplate;
 
 class LineEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public LineEmissionVolumeInfo
 {
 public:
     LineEmissionVolumeModuleTemplate();
     LineEmissionVolumeModuleTemplate(const LineEmissionVolumeModuleTemplate &that);
-
-    virtual void v1();
 };
 
 // The copy constructor stays a declaration: the wrapper calls it out of line.
@@ -1357,15 +1360,12 @@ LineEmissionVolumeModuleTemplate::LineEmissionVolumeModuleTemplate()
 }
 
 
-LineEmissionVolumeModuleTemplate g_lineEmissionVolumeModuleTemplate;
 
 class CylinderEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public CylinderEmissionVolumeInfo
 {
 public:
     CylinderEmissionVolumeModuleTemplate();
     CylinderEmissionVolumeModuleTemplate(const CylinderEmissionVolumeModuleTemplate &that);
-
-    virtual void v1();
 };
 
 // The copy constructor stays a declaration: the wrapper calls it out of line.
@@ -1374,17 +1374,22 @@ CylinderEmissionVolumeModuleTemplate::CylinderEmissionVolumeModuleTemplate()
 }
 
 
-CylinderEmissionVolumeModuleTemplate g_cylinderEmissionVolumeModuleTemplate;
 
 class SphericalEmissionVelocityModuleTemplate : public CategoryModuleTemplateBase<4>, public SphericalEmissionVelocityInfo
 {
 public:
     // Default initialization is supplied by its byte-verified owner.
     SphericalEmissionVelocityModuleTemplate();
-    virtual void v1();
 };
 
-SphericalEmissionVelocityModuleTemplate g_sphericalEmissionVelocityModuleTemplate;
+// Retail's module templates are abstract (getClass stays pure), so this unit defines no
+// instance of them. The constructor here is its owner's, so nothing else emits this unit's
+// destructor rows (the template's and its info's): this anchor calls the destructor directly.
+// ?<bfmeDestroyAnchorSphericalEmissionVelocity> absent-from-retail
+void bfmeDestroyAnchorSphericalEmissionVelocity(SphericalEmissionVelocityModuleTemplate *moduleTemplate)
+{
+    moduleTemplate->SphericalEmissionVelocityModuleTemplate::~SphericalEmissionVelocityModuleTemplate();
+}
 
 typedef PointEmissionVolumeModuleTemplate &(PointEmissionVolumeModuleTemplate::*PointEmissionVolumeModuleTemplateAssign)(const PointEmissionVolumeModuleTemplate &);
 
@@ -1425,6 +1430,7 @@ class ModuleTag
 {
 public:
     typedef TEMPLATE TemplateType;
+    typedef CategoryModuleClass<CATEGORY> ClassBase;
 
     ModuleTag &operator=(const ModuleTag &)
     {
@@ -1481,6 +1487,13 @@ template class ModuleTag<5, POINT_EMISSION_VOLUME_MODULE_KEY,
     POINT_EMISSION_VOLUME_MODULE_NAME, PointEmissionVolumeModule,
     PointEmissionVolumeModuleTemplate, DefaultParticleModule<5> >;
 
+// The module class a wrapper registers into; only its base matters here, for getClass's
+// covariant return.
+template <class TAG>
+class ConcreteModuleClass : public TAG::ClassBase
+{
+};
+
 template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
 {
@@ -1488,7 +1501,7 @@ public:
     ConcreteModuleTemplate();
     __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that) throw();
 
-    virtual void v1();
+    virtual const ConcreteModuleClass<TAG> &getClass() const;
     virtual typename TAG::TemplateType *clone() const;
 };
 
@@ -1500,11 +1513,6 @@ ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate()
 template <class TAG>
 ConcreteModuleTemplate<TAG>::ConcreteModuleTemplate(const ConcreteModuleTemplate<TAG> &that) throw()
     : TAG::TemplateType(that)
-{
-}
-
-template <class TAG>
-void ConcreteModuleTemplate<TAG>::v1()
 {
 }
 
@@ -1782,6 +1790,7 @@ class DefaultModuleTag
 {
 public:
     typedef DefaultModuleTemplate<CATEGORY> TemplateType;
+    typedef CategoryModuleClass<CATEGORY> ClassBase;
 };
 
 typedef ConcreteModuleTemplate<DefaultModuleTag<1> > DefaultConcrete1;
@@ -1810,6 +1819,7 @@ class OrthoEmissionVelocityModuleTemplate;
 struct OrthoEmissionVelocityModuleTag
 {
     typedef OrthoEmissionVelocityModuleTemplate TemplateType;
+    typedef CategoryModuleClass<4> ClassBase;
 };
 
 class OrthoEmissionVelocityModuleTemplate : public CategoryModuleTemplateBase<4>, public OrthoEmissionVelocityInfo
