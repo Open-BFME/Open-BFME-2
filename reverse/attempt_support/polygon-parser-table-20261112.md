@@ -74,6 +74,36 @@ Neither a private alias nor a new pin is needed.
 Only a later real-link receipt can satisfy the picker's published-queue pass
 test. This lifetime prerequisite alone does not clear the bridge.
 
+## Constructor unwind recovered from its actual parent
+
+After the lifetime repair, `eh_verify.verified_funclet_locations` places
+compiler-local `$L3528` at `0x00778B18` in constructor
+`??0Rva002E3DE3@@QAE@HH@Z` (`0x002E3DE3`). Its exact FuncInfo graph at
+`0x00920C40` proves the parent, independently of adjacency or matching cleanup
+bytes. The complete eight-byte body and its destructor relocation verify
+without masking or unresolved names. The earlier attempt's callee wall is gone.
+
+`tu_skeleton.map_rows()` rebuilt the current map in memory and approved both
+the parent and this P-owned cleanup in PolygonTrigger.cpp; no map is committed.
+`add_match.py --replace-rva` replaces only generated `uw_00778b18` with this
+parent-local row. `Code/gen_small/uw_gen_011.cpp` remains untouched, including
+its orphaned harness; all 199 remaining rows there and all 30 destination rows
+pass normal `./build.sh`, with the data row and reference checks. The hatch
+owner reports no baseline change.
+
+Final strict preparation verifies 60/60 rows across PolygonTrigger.cpp and
+Rva000AEFAA.cpp. Their own previews both report LINKS: 1,027 and 1,347 bytes
+against index `aa7acf764d`. The 28-byte attribution increase is the admitted
+ICF wrapper, not new unique coverage. The index still warns of four unrelated
+source-path changes; this is not a current full census or a real-image result.
+
+The outgoing-path audit finds no physical source move or deletion: both source
+paths remain. The removed generated spelling has no active tooling consumer;
+remaining mentions of the generator path in the obstacle register and linking
+target history describe other residual bodies and are retained. Ledger
+repointing is confined to this approved parent-owned range. Generated cleanup
+retirement does not clear the separately blocked parser-table callback.
+
 ## Previous publication follow-up
 
 The immediately preceding FESL binding repair landed as `e18ea1c5251`. Its final

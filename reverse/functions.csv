@@ -15773,7 +15773,6 @@ uw_007782a6,,0x007782A6,11,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;obj
 uw_007783be,,0x007783BE,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L3699
 uw_0077848b,,0x0077848B,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L2595
 uw_00778685,,0x00778685,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L8178
-uw_00778b18,,0x00778B18,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L12395
 uw_00778d11,,0x00778D11,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L11732
 uw_00778edd,,0x00778EDD,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L9667
 uw_00778f52,,0x00778F52,14,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L11753
@@ -101112,3 +101111,4 @@ $L8072,,0x007A0252,11,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Apt
 ??1Rva002E3D7B@@UAE@XZ,,0x003B241A,18,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,matched,gen-alias;fold-proof=Code/GameEngine/Source/Common/Rva003B241AForwarder.cpp;Native constructor2E3D7B registration and constructor2E3DE3 unwind establish parser-binding lifetime. Whole18B cleanup and all table/unregister relocations equal existing owner. No new pin or original class-name claim.
 ??1Rva002E3DE3@@UAE@XZ,,0x003B241A,18,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,matched,gen-alias;fold-proof=Code/GameEngine/Source/Common/Rva003B241AForwarder.cpp;Native derived ctor2E3DE3 installs C04C04; its scalar deleting target41E6F3 calls cleanup3B241A. Empty derived lifetime folds to complete18B parser base teardown with all relocations exact. No new pin or separate retail range.
 ??_GRva002E3DE3@@UAEPAXI@Z,,0x0041E6F3,28,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,matched,fold-proof=Code/GameEngine/Source/Common/VslotSmallBodiesAS.cpp;Native C04C04 table installed by ctor2E3DE3 has this deleting wrapper in slot0. Complete28B and every destructor/delete relocation equal retail. Existing18B derived teardown is rowed at3B241A; no new pin.
+$L3528,,0x00778B18,8,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,matched,gen-funclet;parent=??0Rva002E3DE3@@QAE@HH@Z;Exact parent constructor EH graph binds compiler-local cleanup to native778B18 through FuncInfo920C40. Real18B base teardown now resolves every relocation. Replaces generated uw_00778b18 without editing its source; approved P TU follows this parent.

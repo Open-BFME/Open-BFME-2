@@ -1,5 +1,18 @@
 ### LINK-095: generated EH funclets whose parent TU emits an unpinned or wrong dtor callee
 
+**2026-11-12 PolygonTrigger constructor cleanup:** the recovered 18-byte
+parser-registration lifetime resolves the old `0x00778B18` callee wall.
+The EXACT parent `0x002E3DE3` and FuncInfo `0x00920C40` place `$L3528` at
+that eight-byte range; the current in-memory TU map approves its parent TU.
+`add_match.py` repoints the generated row into PolygonTrigger.cpp without
+editing the generated source. All 229 rows in the destination/residual
+generator pass; strict destination/constructor-provider verification passes
+60 rows. Both own previews report LINKS against `aa7acf764d`, with an older
+index warning retained. This clears only that generated cleanup's source
+and callee prerequisite; the parser table's separate callback move remains
+blocked by the naming tool's parameter-back-reference refusal.
+[Proof and banked callback handoff](../../reverse/attempt_support/polygon-parser-table-20261112.md).
+
 **2026-11-06 BoneFX constructor cleanup:** native UpdateModule's existing UAE
 destructor now resolves the old QAE-callee blocker. Retail FuncInfo93B80C and
 EXACT307B parent4878E6 place the whole8B cleanup78C1DD in its approved
