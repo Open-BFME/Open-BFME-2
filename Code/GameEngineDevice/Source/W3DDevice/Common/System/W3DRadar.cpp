@@ -82,15 +82,7 @@ public:
     virtual ~Rva00539926Base();
 };
 
-class RadarEventRef
-{
-public:
-	void release();
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-};
+#include "../../../../../GameEngine/Include/Common/RadarEventRef.h"
 
 struct Rva0004EFE9Reference
 {

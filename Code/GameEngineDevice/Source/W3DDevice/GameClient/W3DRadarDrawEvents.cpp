@@ -4,7 +4,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
-class RadarEventRef {public:void release();};
+#include "../../../../GameEngine/Include/Common/RadarEventRef.h"
 class RadarEventRefSlot {public:RadarEventRefSlot():ptr(0){}RadarEventRefSlot(const RadarEventRefSlot&s):ptr(s.ptr){}~RadarEventRefSlot(){if(ptr)ptr->release();}RadarEventRefSlot&operator=(const RadarEventRefSlot&);RadarEventRef*ptr;};
 #include "../../../../GameEngine/Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource*theRadarWindowOverrideSource;

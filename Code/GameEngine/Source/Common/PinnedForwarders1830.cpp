@@ -142,11 +142,7 @@ void Rva0023D607Holder::rva001ECEF6()
 		m_10->restartCurrentCampaignMission();
 }
 
-class RadarEventRef
-{
-public:
-	void release();
-};
+#include "../../Include/Common/RadarEventRef.h"
 
 class Rva0004E4BD
 {

@@ -324,15 +324,7 @@ public:
 	virtual int getFrame();
 };
 float BfmeRadarEventFadeFraction=0.5f;
-class RadarEventRef
-{
-public:
-	void release();
-	virtual void m_spare0();
-	virtual void m_deleter();
-private:
-	int m_refCount; // +0x04
-};
+#include "../../../Include/Common/RadarEventRef.h"
 extern GameLogic *TheGameLogic;
 //
 // ?rva002D7AE0@@YAXHHH@Z @0x002D7AE0 56B and ?rva002D7B18@@YAXHHH@Z

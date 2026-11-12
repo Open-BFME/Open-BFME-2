@@ -14,15 +14,7 @@
 // rowed RadarEventRef::release). The destructor unit spells the base by its
 // destructor; names are address-derived.
 
-class RadarEventRef
-{
-public:
-	void release();
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-};
+#include "../../Include/Common/RadarEventRef.h"
 
 class RadarEventRefSlot
 {
