@@ -12266,7 +12266,6 @@ present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	CrashDone@Debug@@U
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	ExecCommand@Debug@@EAEXPBD0@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	IsWindowed@Debug@@EAE_NXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	LogDone@Debug@@UAE_NXZ	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	PreStaticInit@Debug@@CAXXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	SetPrefixAndRadix@Debug@@UAEXPBDH@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	SkipNext@Debug@@SA_NXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	UpdateFrameStatus@Debug@@EAEXAAUFrameHashEntry@1@@Z	1

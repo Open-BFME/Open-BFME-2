@@ -63,17 +63,10 @@ extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char *out, const char 
 extern "C" bool __DebugIncludeInLink1;
 bool __DebugIncludeInLink1;
 
-// This part is a little tricky (and not portable to other compilers).
-// MSVC initializes all static C++ variables by calling a list of 
-// function pointers contained in data segments called .CRT$XCA to
-// .CRT$XCZ. We jam in our own two functions at the very beginning
-// and end of this list (B and Y respectively since the A and Z segments
-// contain list delimiters).
-#pragma data_seg(".CRT$XCB")
-void *Debug::PreStatic=&Debug::PreStaticInit;
-#pragma data_seg(".CRT$XCY")
-void *Debug::PostStatic=&Debug::PostStaticInit;
-#pragma data_seg()
+// Zero Hour hooked Debug::PreStaticInit into .CRT$XCB and Debug::PostStaticInit into .CRT$XCY here. BFME 2 has
+// neither: its own pre-static hook is the initializer at retail index 1 (rva0003A210, 0x0003A210:
+// InitializeCriticalSection, PreStaticInit() creating theDebug, atexit(StaticExit)) and its post-static hook is
+// the last one (rva0088C4E0PostStaticInitLookup, 0x0003B7F0). Both are rowed in their own units (LINK-633).
 
 // ??0LogDescription@Debug@@QAE@PBD0@Z defined in WWDebug/Debug_LogDescriptionCtor.cpp (its row's unit).
 
@@ -84,43 +77,6 @@ Debug Debug::Instance;
 unsigned Debug::curStackFrame;
 
 // ??0Debug@@AAE@XZ defined in WWDebug/DebugConstructor.cpp (its row's unit).
-
-// ?PreStaticInit@Debug@@CAXXZ present-unmatched
-void Debug::PreStaticInit(void)
-{
-  // do not change any member variables that have constructors
-  // because they are not constructed yet!
-
-  // make sure this function gets called on exit
-  // (we might still have to call it manually if there's
-  // an exception and we're not calling exit)
-  atexit(StaticExit);
-
-  // init vars
-  Instance.hrTranslators=NULL;
-  Instance.numHrTranslators=0;
-  Instance.firstIOFactory=NULL;
-  Instance.firstCmdGroup=NULL;
-  memset(Instance.frameHash,0,sizeof(Instance.frameHash));
-  Instance.nextUnusedFrameHash=NULL;
-  Instance.numAvailableFrameHash=0;
-  Instance.firstLogGroup=NULL;
-  memset(Instance.ioBuffer,0,sizeof(Instance.ioBuffer));
-  Instance.curType=DebugIOInterface::StringType::MAX;
-  *Instance.curSource=0;
-  Instance.disableAssertsEtc=0;
-  Instance.curFrameEntry=NULL;
-  Instance.firstPatternEntry=NULL;
-  Instance.lastPatternEntry=NULL;
-  *Instance.curCommandGroup=0;
-  Instance.alwaysFlush=false;
-  Instance.timeStamp=false;
-  Instance.m_radix=10;
-  Instance.m_fillChar=' ';
-  
-  /// install exception handler
-  SetUnhandledExceptionFilter(DebugExceptionhandler::ExceptionFilter);
-}
 
 // ?PostStaticInit@Debug@@CAXXZ defined in WWDebug/DebugPostStaticInit.cpp (its row's unit).
 
@@ -819,8 +775,7 @@ Debug& Debug::operator<<(HResult hres)
 // references are gone: Add/RemoveHResultTranslator, RemoveCommands, IsLogEnabled, AddIOFactory and AddCommands.
 // Retail's debug-library code (0x000382E0-0x0003FFFC) is rowed without gaps; none of these is among its rows.
 // Still here: AssertBegin and CrashBegin (this unit's only emitters of the RepeatChar constructor row 0x00038310,
-// which waits for TU evidence), SkipNext(void) (they call it), PreStaticInit(void) (the .CRT$XCB hook below, which
-// retail does not have) and the instance itself (LINK-633).
+// which waits for TU evidence), SkipNext(void) (they call it), and the instance itself (LINK-633).
 void Debug::Update(void)
 {
   // check all existing IO interfaces

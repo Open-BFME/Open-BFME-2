@@ -22,3 +22,14 @@ Zero Hour bodies in debug_debug.cpp can then go (the LINK-633 debug-port cleanup
 debug_except.obj's copy differs (its view of `RepeatChar`).
 Evidence: `~/bfme2-ops/swarm/sweeps/link-633-order/fix-c/` (`tu_evidence.txt`, `tu_map_0x38310.txt`).
 Clearance: pending.
+
+**2026-11-12 Zero Hour start-up hooks removed (swarm Link lane, LINK-633 debug-port cleanup, batch 2).**
+debug_debug.cpp no longer hooks Debug::PreStaticInit(void) into `.CRT$XCB` or Debug::PostStaticInit into
+`.CRT$XCY`; the Zero Hour PreStaticInit(void) body went with the first hook. BFME 2's own hooks are the
+initializers at retail index 1 (rva0003A210: InitializeCriticalSection, PreStaticInit() creating theDebug,
+atexit(StaticExit)) and at the last index (rva0088C4E0PostStaticInitLookup, 0x0003B7F0).
+- Before this, linked images ran both pre-static hooks: `Debug::StaticExit` was registered with atexit twice and
+  the unhandled-exception filter installed twice. *Inference, not tested:* a second StaticExit at exit is a
+  possible factor in exit and save-path faults.
+- What still holds this entry open is unchanged: AssertBegin, CrashBegin, SkipNext(void) and Debug::Instance stay
+  until 0x00038310 has TU evidence.
