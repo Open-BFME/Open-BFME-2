@@ -88,6 +88,8 @@ public:
 class TerrainLogicListenerA : public TerrainLogicListenerRootA {
 public:
  virtual void vslot1(int, WaterHandle *);
+ // Retail's slot 2 is the shared empty `ret 8` body 0x0050B238.
+ virtual void vslot2(void *, void *) {}
  virtual void vslot3(void *, void *);
  ~TerrainLogicListenerA();
 };
@@ -102,6 +104,8 @@ public:
 class TerrainLogicListenerB : public TerrainLogicListenerRootB {
 public:
  virtual void vslot1(int, WaterHandle *);
+ // Retail's slot 2 is the shared empty `ret 8` body 0x0050B238.
+ virtual void vslot2(void *, void *) {}
  virtual void vslot3(void *, void *);
  ~TerrainLogicListenerB();
 };
