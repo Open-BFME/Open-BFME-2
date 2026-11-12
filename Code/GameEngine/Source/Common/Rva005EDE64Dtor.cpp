@@ -32,7 +32,7 @@ class Rva00579E47 {
 public: Rva00579E47(const DelegateDesc&);
 protected: struct Ref {void*vt;int count;}; Ref*pointer;
 };
-class AptCommandMap {};
+#include "../../Include/Common/AptCommandMap.h"
 template<class T>class AptRef:public Rva00579E47 {
 public:
  AptRef(const RegionAwardBinding&regionAwardBinding):Rva00579E47(regionAwardBinding){}

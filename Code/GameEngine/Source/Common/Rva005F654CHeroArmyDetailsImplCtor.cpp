@@ -24,12 +24,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 #include "../../Include/Common/DelegateDesc.h"
 
-class AptCommandMap
-{
-public:
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../Include/Common/AptCommandMap.h"
 
 class Rva00579E47
 {

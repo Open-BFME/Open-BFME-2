@@ -33,12 +33,7 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 
 #include "../../Include/Common/DelegateDesc.h"
 
-class AptCommandMap
-{
-public:
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../Include/Common/AptCommandMap.h"
 
 // 0x00579E47 is rowed as the delegate-wrapper constructor ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z
 // (built in place as the by-value AddCommandMap argument); AptRef<T> builds through it.
