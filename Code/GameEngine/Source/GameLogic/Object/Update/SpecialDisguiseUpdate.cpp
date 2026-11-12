@@ -417,11 +417,7 @@ public:
 };
 // --- 0x004B5B82 (42B): from a +0x1C interface, when the +0x04 data's +0x129
 // flag is set run slots 10 and 9 (true) of the +0x10 base; then latch +0x20.
-struct Rva004B5B82Data
-{
-	char m_pad[0x129];
-	bool m_129;												// +0x129
-};
+#include "../../../../Include/Common/Rva004B5B82Data.h"
 #include "../../../../Include/Common/Rva004B5B82Base0.h"
 #include "../../../../Include/Common/Rva004B5B82Base10.h"
 #include "../../../../Include/Common/Rva004B5B82Iface.h"
