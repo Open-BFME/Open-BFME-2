@@ -247,6 +247,7 @@ public:
 	Rva0056AD19(EmitVtableTag *);
 public:
 	virtual ~Rva0056AD19();
+	virtual bool ac26Slot1();
 };
 
 // ?<Rva0056AD19::Rva0056AD19> absent-from-retail

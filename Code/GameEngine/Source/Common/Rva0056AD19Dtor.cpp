@@ -51,6 +51,8 @@ class Rva0056AD19 : public Rva0056AC26
 public:
 	Rva0056AD19(Rva0056AC26Owner *);
 	virtual ~Rva0056AD19();
+	// Retail table 0x0086D1EC slot 1 is the shared false body 0x0047A699.
+	virtual bool ac26Slot1();
 
 private:
 	Rva002BED91 m_14; // +0x14
@@ -59,6 +61,11 @@ private:
 Rva0056AD19::~Rva0056AD19()
 {
 	m_14.clear();
+}
+
+bool Rva0056AD19::ac26Slot1()
+{
+	return false;
 }
 
 
