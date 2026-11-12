@@ -57,13 +57,7 @@ class DamageInfo;
 enum BodyDamageType;
 // The +0x2C interface (GarrisonContain overrides slot 2 as onBodyDamageStateChange):
 // retail's table 0x00C58790 holds its three empty defaults (ret 4, ret 4, ret 0Ch).
-class B6
-{
-public:
-	virtual void b6(DamageInfo *) { }
-	virtual void d01(DamageInfo *) { }
-	virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) { }
-};
+#include "../../../../Include/Common/B6.h"
 #include "../../../../Include/Common/B7.h"
 #include "../../../../Include/Common/B8.h"
 

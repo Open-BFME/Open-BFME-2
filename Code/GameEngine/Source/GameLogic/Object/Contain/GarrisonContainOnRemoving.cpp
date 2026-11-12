@@ -266,13 +266,7 @@ enum BodyDamageType
     BODY_REALLYDAMAGED = 2,
     BODY_RUBBLE = 3
 };
-class B6
-{
-public:
-	virtual void b6();
-	virtual void d01() = 0;
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
-};
+#include "../../../../Include/Common/B6.h"
 #include "../../../../Include/Common/B7.h"
 #include "../../../../Include/Common/B8.h"
 

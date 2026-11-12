@@ -26,13 +26,7 @@ class DamageInfo;
 enum BodyDamageType;
 // The +0x2C interface: retail's GarrisonContain-family table 0x00C463D8 keeps its two
 // empty one-argument defaults (ret 4) and GarrisonContain's slot-2 override.
-class B6
-{
-public:
-	virtual void b6(DamageInfo *) { }
-	virtual void d01(DamageInfo *) { }
-	virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) { }
-};
+#include "../../../../Include/Common/B6.h"
 #include "../../../../Include/Common/B7.h"
 #include "../../../../Include/Common/B8.h"
 class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
