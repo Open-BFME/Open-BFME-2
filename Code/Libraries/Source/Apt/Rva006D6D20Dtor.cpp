@@ -6,10 +6,7 @@
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 #include "EAStringC.h"
-struct Rva006DE350
-{
-    virtual ~Rva006DE350();
-};
+#include "../../../GameEngine/Include/Common/Rva006DE350.h"
 struct Rva006D6D20 : public Rva006DE350
 {
     char m_pad[4];

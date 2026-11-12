@@ -12,11 +12,7 @@
 // ??_GRva006FB9B00 at 0x006FB980; the dtor stays empty so the local ??1 copy
 // remains 11B.
 
-class __declspec(novtable) Rva006DE350
-{
-public:
-	virtual ~Rva006DE350();
-};
+#include "../../Include/Common/Rva006DE350.h"
 
 #include "../../Include/Common/Rva006DB270.h"
 

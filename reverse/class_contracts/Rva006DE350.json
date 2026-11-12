@@ -1,0 +1,191 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva006DE350",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x6de350"
+     ],
+     "value": {
+      "0x0": "0x8eaed0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8eaed0"
+     ],
+     "value": {
+      "count": 15,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?AddRef@AptValue@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6dcac0"
+       },
+       {
+        "name": "?Release@AptValue@@UAEXXZ",
+        "slot": 1,
+        "target": "0x6dcb20"
+       },
+       {
+        "name": "?ForceDelete@AptValue@@UAEXXZ",
+        "slot": 2,
+        "target": "0x6cbcd0"
+       },
+       {
+        "name": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+        "slot": 3,
+        "target": "0x65ce90"
+       },
+       {
+        "name": "?Rva0073B660False@@YA_NPAXH@Z",
+        "slot": 4,
+        "target": "0x73b660"
+       },
+       {
+        "name": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+        "slot": 5,
+        "target": "0x65ce90"
+       },
+       {
+        "name": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+        "slot": 6,
+        "target": "0x180fd0"
+       },
+       {
+        "name": "?Read@DebugIOOds@@UAEHPADH@Z",
+        "slot": 7,
+        "target": "0x3fd80"
+       },
+       {
+        "name": "?Enum@IdList@ProfileFuncLevel@@QBE_NIAAVId@2@PAI@Z",
+        "slot": 8,
+        "target": "0x6c8770"
+       },
+       {
+        "name": "?rva006CBCF0@Rva006CBCF0@@QAEXXZ",
+        "slot": 9,
+        "target": "0x6cbcf0"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 10,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?rva006CBD00@Rva006CBD00@@QAEXXZ",
+        "slot": 11,
+        "target": "0x6cbd00"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??_GRva006DE350@@UAEPAXI@Z",
+        "slot": 14,
+        "target": "0x6de820"
+       }
+      ],
+      "table": "0x8eaed0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x8eaed0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?AddRef@AptValue@@UAEXXZ",
+     "1": "?Release@AptValue@@UAEXXZ",
+     "2": "?ForceDelete@AptValue@@UAEXXZ",
+     "3": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+     "4": "?Rva0073B660False@@YA_NPAXH@Z",
+     "5": "?Rva0065CE90@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z",
+     "6": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+     "7": "?Read@DebugIOOds@@UAEHPADH@Z",
+     "8": "?Enum@IdList@ProfileFuncLevel@@QBE_NIAAVId@2@PAI@Z",
+     "9": "?rva006CBCF0@Rva006CBCF0@@QAEXXZ",
+     "10": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "11": "?rva006CBD00@Rva006CBD00@@QAEXXZ",
+     "12": "__purecall",
+     "13": "__purecall",
+     "14": "??_GRva006DE350@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 10,
+   "8": 2
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 12,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptValue.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

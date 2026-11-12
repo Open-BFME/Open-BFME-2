@@ -49,11 +49,7 @@
 
 #include "../../Include/GameLogic/Module/DieModule.h"
 
-class Rva006DE350
-{
-public:
-	virtual ~Rva006DE350();
-};
+#include "../../Include/Common/Rva006DE350.h"
 
 class __declspec(novtable) BfmeAptValue006DCD20 : public Rva006DE350
 {
