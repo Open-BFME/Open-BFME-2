@@ -124,11 +124,7 @@ public:
 	Int get() const;
 };
 
-class Rva003140C8DwordField
-{
-public:
-	Int get() const;
-};
+#include "../../../../Include/Common/Rva003140C8DwordField.h"
 
 // Retail inlines both getters here as calls to their folded one-load bodies.
 static __forceinline GameWindow *listBoxChildOf(GameWindow *window) { return (GameWindow *)((Rva003140C8DwordField *)window)->get(); }
