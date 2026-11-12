@@ -2436,10 +2436,14 @@ def nested_includes(contract, header, slots=None):
 # array of class type) counts as 1, so it pads up to the offset itself. Whatever the model gets
 # wrong, size_assertions make the compiler prove: sizeof and every field's offset, as array bounds
 # that go negative (MSVC 7.1 has no static_assert), so a header that does not honour the contract
-# does not compile and the variant fails. What the model can see is refused up front
-# (layout_problems): a field overlapping the one before it, fields past sizeof, a primitive at an
-# offset its size does not divide (that needs #pragma pack), a sizeof the class's alignment does not
-# divide, a field with no kind, offset or size.
+# does not compile and the variant fails. A class's own members start after its vptr (at +0 when it
+# has no base) or after its one base's sizeof, from that base's contract (base_extent); with several
+# bases, or a base with no contract, at its first own field. What the model can see is refused up
+# front (layout_problems): a field overlapping the one before it or the base, fields past sizeof, a
+# primitive at an offset its size does not divide (that needs #pragma pack), a sizeof the class's
+# alignment does not divide, a field with no kind, offset or size, a vptr the header would not
+# declare (no virtual slot), one away from +0 with no base, one past the base's extent, or one the
+# class adds to a base that has none (the compiler puts it before the base).
 
 ALIGNMENT = {"char": 1, "uchar": 1, "bool": 1, "int8": 1, "uint8": 1, "signed char": 1, "unsigned char": 1,
              "short": 2, "ushort": 2, "wchar": 2, "wchar_t": 2, "unsigned short": 2,
@@ -2447,13 +2451,47 @@ ALIGNMENT = {"char": 1, "uchar": 1, "bool": 1, "int8": 1, "uint8": 1, "signed ch
              "double": 8, "int64": 8, "uint64": 8, "__int64": 8}
 
 
+def read_contract(name):
+    """The contract of the class `name`, or None."""
+    try:
+        return json.loads(class_contract.contract_path(name).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def has_vptr(contract, seen=()):
+    """Whether objects of the contract's class carry a vptr: its own (a VPTR field, a virtual slot) or a
+    base's (from the base's contract); None when a base's cannot be read."""
+    if any(f.get("kind") == "VPTR" for f in contract.get("fields", ())) or contract.get("vslots"):
+        return True
+    found = []
+    for base in contract.get("bases", ()):
+        other = read_contract(base_identity(base))
+        found.append(None if other is None or contract["class"] in seen else
+                     has_vptr(other, seen + (contract["class"],)))
+    return True if True in found else None if None in found else False
+
+
+def base_extent(contract):
+    """Where the class's own members may start, from its one base's contract: that base's sizeof (MSVC 7.1
+    never lays a member into a base's tail padding). None with several bases, or one with no contract."""
+    bases = contract.get("bases", ())
+    if len(bases) != 1:
+        return None
+    other = read_contract(base_identity(bases[0]))
+    if not other:
+        return None
+    if not other.get("fields") and not other.get("bases") and not other.get("vslots"):
+        return 0                                    # an empty base takes no room in the class (sizeof 1 alone)
+    return other.get("size")
+
+
 def contract_alignment(name, seen=()):
     """The alignment of the class `name` from its contract (its widest field, base or vptr), or None."""
     if name in seen:
         return None
-    try:
-        contract = json.loads(class_contract.contract_path(name).read_text(encoding="utf-8"))
-    except (OSError, ValueError):
+    contract = read_contract(name)
+    if contract is None:
         return None
     found = [4] if any(f.get("kind") == "VPTR" for f in contract.get("fields", ())) or contract.get("vslots") else []
     for base in contract.get("bases", ()):
@@ -2495,12 +2533,28 @@ def layout_plan(contract):
         return [], problems
     taken = {f["name"] for f in contract.get("fields", ())}
     vptr = [f for f in contract.get("fields", ()) if f.get("kind") == "VPTR"]
-    if contract.get("bases") or any(f["offset"] for f in vptr):
-        cursor = min((f["offset"] for f in fields), default=None)   # where the bases end is not known here
+    declared = bool(contract.get("vslots"))            # the header declares virtuals only from the slots
+    if not contract.get("bases"):
+        problems += [f"vptr at +{f['offset']:#x}: with no base the compiler puts it at +0x0" for f in vptr
+                     if f["offset"]]
+        if vptr and not declared:
+            problems.append("the contract has a vptr but no virtual slot for the header to declare")
+        cursor = 4 if vptr or declared else 0
     else:
-        cursor = 4 if vptr else 0
+        cursor = base_extent(contract)
+        if cursor is not None:
+            # the base's subobject starts the class; a vptr of the class's own would come before it
+            problems += [f"vptr at +{f['offset']:#x}, past the base's extent +{cursor:#x}" for f in vptr
+                         if f["offset"] >= cursor]
+            if declared and has_vptr(read_contract(base_identity(contract["bases"][0]))) is False:
+                problems.append("the class adds a vptr its base has none of: the compiler puts it before the base")
+        else:
+            cursor = min((f["offset"] for f in fields), default=None)   # where several bases end is not known
+    if problems:
+        return [], problems
     plan = []
-    aligns = ([4] if vptr else []) + [contract_alignment(base_identity(b)) for b in contract.get("bases", ())]
+    aligns = [4] if vptr or declared else []
+    aligns += [contract_alignment(base_identity(b)) for b in contract.get("bases", ())]
     for field in sorted(fields, key=lambda f: f["offset"]):
         offset, size, align = field["offset"], field["size"], field_alignment(field)
         aligns.append(align)
@@ -2516,10 +2570,8 @@ def layout_plan(contract):
         plan.append(("field", field))
         cursor = offset + size
     size = contract["size"]
-    if cursor is None:
-        if contract.get("bases"):
-            return plan, problems          # nothing of its own to place; size_assertions check sizeof
-        cursor = 4 if vptr else 0
+    if cursor is None:                     # several bases and no own field: size_assertions check sizeof
+        return plan, problems
     whole = max([a for a in aligns if a], default=1)
     if cursor > size:
         problems.append(f"the fields end at +{cursor:#x}, past sizeof {size:#x}")

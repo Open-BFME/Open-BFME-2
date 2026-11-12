@@ -1931,7 +1931,7 @@ def test_reference_headers_does_not_cache_an_empty_tree(tmp_path, monkeypatch):
 # `void *m_48`, at +0x0. Every field now sits at its contract offset, holes padded, and the compiler
 # checks sizeof and each offset (size_assertions).
 
-def layout_contract(size, *fields, key="struct", bases=(), name="Layout1Probe"):
+def layout_contract(size, *fields, key="struct", bases=(), name="Layout1Probe", vslots=None):
     kinds = {"i1": ("char", 1), "i2": ("short", 2), "i4": ("int", 4), "f4": ("float", 4), "P": ("void*", 4),
              "VPTR": ("void*", 4)}
     out = []
@@ -1940,7 +1940,7 @@ def layout_contract(size, *fields, key="struct", bases=(), name="Layout1Probe"):
         out.append({"kind": kind, "offset": offset, "name": field_name, "type": type_name,
                     "size": rest[1] if len(rest) > 1 else width})
     return {"class": name, "key": key, "key_by": "bytes", "size": size, "size_by": "zh", "bases": list(bases),
-            "fields": out}
+            "fields": out, "vslots": vslots or {}}
 
 
 def body(contract, variant="data"):
@@ -1968,7 +1968,7 @@ def test_layout_a_hole_at_the_end_is_a_tail_pad_and_alignment_padding_is_not():
 
 
 def test_layout_a_vptr_and_a_class_key_keep_their_places():
-    contract = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "m_8"), key="class")
+    contract = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "m_8"), key="class", vslots={"0": "~Layout1Probe"})
     fields, after = body(contract)
     assert fields.split() == ["public:", "char", "m_pad4[4];", "int", "m_8;"]
     assert "__vfptr" not in after                                                   # no offset check on the vptr
@@ -1998,6 +1998,43 @@ def test_layout_a_contract_it_cannot_honour_is_refused(contract, why):
     assert any(why in p for p in problems), problems
     with pytest.raises(ValueError, match="layout cannot be declared"):
         lane.generate(contract, "data", {}, None)
+
+
+BASE4 = {"class": "LayoutBaseProbe", "key": "struct", "size": 4, "bases": [], "vslots": {},
+         "fields": [{"kind": "i4", "offset": 0, "name": "b", "type": "int", "size": 4}]}
+EMPTY_BASE = {"class": "LayoutEmptyProbe", "key": "struct", "size": 1, "bases": [], "vslots": {}, "fields": []}
+
+
+@pytest.fixture
+def base_contracts(monkeypatch):
+    known = {c["class"]: c for c in (BASE4, EMPTY_BASE)}
+    monkeypatch.setattr(lane, "read_contract", known.get)
+
+
+def test_review_r1_a_derived_class_pads_from_its_bases_extent(base_contracts):
+    # struct Base { int b; }; Derived : Base, sizeof 12, x at +8: x needs four bytes of padding after the base
+    fields, _ = body(layout_contract(12, ("i4", 8, "x"), bases=("LayoutBaseProbe",)))
+    assert fields.split() == ["char", "m_pad4[4];", "int", "x;"]
+    fields, _ = body(layout_contract(8, bases=("LayoutBaseProbe",)))          # no own field: the tail pad still
+    assert fields.split() == ["char", "m_pad4[4];"]
+    fields, _ = body(layout_contract(4, ("i4", 0, "x"), bases=("LayoutEmptyProbe",)))   # an empty base takes no room
+    assert fields.split() == ["int", "x;"]
+    assert any("inside what ends at +0x4" in p for p in
+               lane.layout_problems(layout_contract(8, ("i4", 0, "x"), bases=("LayoutBaseProbe",))))
+
+
+@pytest.mark.parametrize("contract,why", [
+    # review r1: a vptr at +4 with no base, no slots: padding stood in for it and every assertion passed
+    (layout_contract(8, ("VPTR", 4, "__vfptr"), ("i4", 0, "x")), "with no base the compiler puts it at +0x0"),
+    (layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x")), "no virtual slot for the header to declare"),
+    (layout_contract(12, ("VPTR", 4, "__vfptr"), ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}),
+     "past the base's extent"),
+    (layout_contract(12, ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}),
+     "a vptr its base has none of"),
+])
+def test_review_r1_a_vptr_the_header_cannot_place_is_refused(base_contracts, contract, why):
+    problems = lane.layout_problems(contract)
+    assert any(why in p for p in problems), problems
 
 
 def test_layout_undeclarable_is_a_decision_the_lane_records():
