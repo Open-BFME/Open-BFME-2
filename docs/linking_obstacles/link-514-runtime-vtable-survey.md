@@ -2927,3 +2927,106 @@ BuddyThread_Unresolved.cpp, an STLport deque body).
 **Tooling compatibility audit** (`ed9d78f95f6..HEAD`): 64 files modified, none added, moved or deleted;
 `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the touched files or
 classes.
+
+### FX getClass, FX base pure slots and tiny-body ICF twins: 78 off the bridge (2026-11-12, seat halilkkaya-lk95)
+
+Base `9ace59152e2`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Survey refresh (lk93's survey.py).** At the base: 3,530 bridged tables, buckets a 68, b 488, c 753, d 477, e 1,744;
+532 tables with exactly one non-pure wrong slot (W 186, D 158, N 107, U 47, d 34), as lk94 left them. Grouped by the
+retail target of the one wrong slot, the clusters were: 32 FX tables whose slot is a wrapper's getClass (lk94 lead 1),
+23 tables where retail has `__purecall` and the kept copy a deleting destructor or a placeholder (17 of them the
+one-slot FX table 0x00C1C780), 15 FX tables at 0x0055E636 (lk94 lead 3), 10 at the empty body 0x000B3FD0, 9 FX
+`W7` deleting-destructor thunks (0x003A96BD/0x003A9655/0x003A9685), 7 at 0x0047A69C and 5 Snapshot-only FX info
+tables at 0x003A7ABD. After this pass: 3,452 tables,
+a 47, b 466, c 741, d 442, e 1,756; 495 one-slot tables (W 185, D 159, N 75, U 43, d 33).
+
+**Done (commits by subject).**
+- "Declare getClass in the FX category info and Snapshot slots in its info views" (lk94 lead 1): CategoryModuleInfo<N>'s one
+  slot is `getClass() const = 0`, overridden covariantly by ConcreteModuleTemplate<TAG> under the rowed name
+  (`UBEABV?$ConcreteModuleClass@...`); no primary slot is added. The placeholder info views (DefaultDraw/Update/Alpha/Color,
+  RenderObjectDraw, GpuDraw, LightningDraw, RenderObjectUpdate, TerrainCollision; Modules' Streak/Quad/Butterfly) derive
+  from ::Snapshot with their rowed LoadPostProcess/GetSnapshotName/DoXfer; the emission-volume module templates leave
+  getClass pure (retail 0x00C1C780), so FXParticleSystem.cpp's six placeholder template globals go. All four emitters
+  (FXParticleSystemFactories.cpp, FXParticleSystemModules.cpp, FXParticleSystem.cpp, VectorDeletingDtorsV06.cpp) change
+  together: the census keeps Modules' copy, the real link Factories'. Covariance instantiates the wrapper class where the
+  wrapper template is instantiated, which instantiates its tag's KEY/NAME initializers; Factories' clone specializations
+  move next to their wrappers (event wrappers after the draw wrappers) and Modules' draw factory declarations ahead of
+  the named wrappers, so both units' _$E sequences are unchanged by target (Modules' rowed _$E158/_$E160 untouched).
+  The DefaultParticleModule<2> update tag has no retail wrapper: Factories no longer builds it, and Modules (whose
+  numbered initializers depend on it) defines its getClass as a tail jump into the named update class's rowed
+  getInstance, the bytes of retail 0x003AD131. 35 tables.
+- "Row five FX info vector deleting destructors as their ICF twins at 0x003A7ABD": an absent-from-retail anchor in
+  FXParticleSystem.cpp array-news EmissionVelocityInfo and the DefaultDraw/Streak/Quad/Butterfly infos; each ??_E is
+  rowed as the twin of VectorDeletingDtorsV01.cpp's ??_ERva0049B47C. 5 tables.
+- "Adopt the canonical Rva003AEEB3 and DefaultModuleHeadBase in three FX base units": DefaultModuleBaseCopyCtors.cpp,
+  DefaultModuleHeadBase.cpp and ParticleModuleInfoCopyCtors.cpp include Rva003AEEB3.h / DefaultModuleHeadBase.h instead
+  of private copies; the DefaultModuleSecondBase/ThirdBase views and their two present-unmatched markers go
+  (present_unmatched 1,853 -> 1,851). 6 tables.
+- "Declare retail's pure slots in the 0x003AE7B8 and 0x003AE6A9 copy-constructor views": one pure slot and no destructor
+  for the second base; slot01..slot10 pure along the head chain (0x00C1B590, 0x00C1D420, 0x00C1D520). 5 tables.
+- "Give three FX category templates' second base retail's one pure slot" (LifeEvent, TerrainCollision,
+  RenderObjectDraw copy-constructor thunks). 3 tables.
+- "Declare UpdateModule's third interface slot in its two table emitters" (UpdateModuleCtor.cpp,
+  Rva0024A797DeletingDtor.cpp: rva0044DF8D(UpdateSleepTime), pure in the interface, UpdateModule's rowed override). 2 tables.
+- "Declare DataChunkParser's pure slot in the base-template parser unit". 1 table.
+- "Row six classes' empty slot 1 as ICF twins of 0x000B3FD0": Rva005E92F7RecordBase, Rva005F8CB0Base0, Rva005F830A,
+  Rva005D06CBB1, Rva005D073AFirstBase and Rva001517DE declare an empty slot01 after the destructor, rowed as twins of
+  ??1Region2D@@QAE@XZ; the constructor units emitting the same tables (Rva00151866Ctor.cpp, Rva005F830ACtor.cpp,
+  Rva005D0B5ECtor.cpp, Rva005D0BDDCtor.cpp) declare it too. 7 tables.
+- "Row three empty virtuals as ICF twins of 0x000B3FD0" (WaterTransparencySetting::slot1,
+  SpawnedModelConditionCreate::onCreate, Anim2DCollection::reset: rows only). 3 tables.
+- "Row five defined slot bodies as ICF twins of the shared tiny bodies retail holds" (Rva0078D310Host::vslot10 and
+  HordeContainInterface::slot136 at 0x0047A699, W3DBoatWakeModelDrawModuleData::slot20 at 0x0047A6A9,
+  LivingWorldObserver::onLivingWorldEvent at 0x001F01E8, WallHubBehaviorModuleData::slot06 at 0x0050B5C6: rows only).
+  5 tables.
+- "Give Rva0083702CObserver's slot 0 retail's shared `ret 4` body" (0x0047A69C). 1 table.
+- "Give the TerrainLogic listener views retail's empty slot 2" (`ret 8` 0x0050B238; TerrainLogicCtor.cpp,
+  W3DTerrainLogic.cpp and TerrainLogicDeleter.cpp). 4 tables.
+- "Give Rva005F5C77Base0's slot 1 retail's shared empty body". 1 table.
+
+The tiny-body pass is a reusable sweep: for a bridged table whose only wrong slot is unrowed (or pure) and whose retail
+target is a matched row of at most a few bytes (`ret`, `ret N`, `xor al,al; ret`), define the slot in the emitting view
+with the same signature and let `add_match.py --icf-owner` verify the twin; every other emitter of the table must
+declare it too or link_check refuses the comdat.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,530 -> 3,452; bridged slots 51,778 -> 51,395; already correct 2,032 ->
+2,110; mismatching source slots 38,329 -> 38,200; 74 bridged -> correct and 4 bridged names gone (the
+DefaultModuleSecondBase/ThirdBase spellings; their respelled tables are correct), nothing newly bridged, no correct
+table lost, refusals identical (35). 13 still-bridged tables moved toward retail, none away. Initializers: Factories'
+and Modules' `_$E` sequences unchanged by target; FXParticleSystem.cpp lost only the 12 initializers of its six
+placeholder module-template globals (unrowed), the rest keep their order. link_check (census c31795c94c) over every
+changed unit and every other definer of each changed table: all LINK, LINKED never lower (+1 to +10 bytes where a
+row was added). ThrowingNewHelpers.cpp does not link standalone at HEAD (`selected ?reset@Rva005CE236`), unrelated to
+this pass and untouched by it.
+
+**Hatches.** present_unmatched 1,853 -> 1,851 (DefaultModuleBaseCopyCtors.cpp's two keys, with the views they described).
+
+**Refused / deferred (re_attempts.log).**
+- 0x0055E636 / 0x0055DBD3 / 0x0055CAAC (lk94 lead 3, 23 tables): the FX module slice slot is a per-module override
+  retail ICF-merged; the rows are free `__stdcall` names, so both views (ModuleCtorChainsB.cpp, ParticleModuleInfoCopyCtors.cpp)
+  need one shared slice class and the rows respelled as its overrides.
+- The 9 W7 thunk tables (0x003A96BD/0x003A9655/0x003A9685): the thunk twins need their ??_E targets rowed, and no unit
+  emits those ??_E (no array new); prerequisite: anchors where the wrapper destructor stays out of line.
+- 0x00C1C780 views whose base destructor is rowed or referenced virtual (Rva002214A6, Rva005DCC4B, Rva004E5654Base,
+  Rva00574CC1Base14): respell the destructor non-virtual first. ParticleModuleTemplateClones.cpp (the derived wrapper
+  is new'd; its slot is a getClass), BfmeMakeBZA.cpp (the derived slot is ?run@Rva007F4440Runner), Rva005F3444Base
+  (IconSlot's slot-3 getter fold), SecondBase005D2111 (one placeholder name aliased to two retail bodies).
+- Withdrawn before commit: Rva005CE8F5's slot01 (also emitted by Rva005CF4A8SelectionCtor.cpp and ThrowingNewHelpers.cpp,
+  the latter edited by another seat today) and TerrainFXShaderParameterSourceNamespace::setRenderingMode (0x002E6A93's
+  only row is the gen-alias ?dup_002e6a93@@YAXXZ, GameSlot::setTeamNumber); both landed log rows voided.
+
+**Next leads.**
+1. More tiny-body twins: the last sweep listed 30 one-slot tables (18 distinct kept names); 5 landed, 6 were refused
+   because the kept name is only declared in its unit (define it, as Rva0083702CObserver), one waits on a gen-alias
+   owner, and the rest are ambiguous placeholders, vendored names (strstreambuf::setbuf, GDIFileStream::read) or
+   ModuleData::crc. Pure-kept tables with a tiny retail body remain too (Radar, MineshaftPortalNetworkManager and
+   DelayedExperienceLevelGrantSystem SubsystemInterface slot 1, DozerAIInterface slot 31, ExperienceLevelCreate slot 0,
+   Rva00210CC5, Rva0056AD19): declare the class's override with an empty body and twin it.
+2. The W7 thunk chains (9 tables) and the 0x00C1C780 virtual-destructor views above.
+3. lk94 leads 2, 4 and 5 stand (ModuleData short tables, BehaviorModule slot 20 naming, WorkerAIUpdateDtor.cpp aliases:
+   its remaining tables are multi-slot, so each alias fix moves a table without taking it off).
+
+**Tooling compatibility audit** (`9ace59152e2..HEAD`): 33 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the touched files or
+removed view classes (they mention only the FXParticleSystem namespace and one fixture row for W3DTerrainLogic).
