@@ -30,3 +30,16 @@ for identity review, with exact row names in the handoff.
 
 2026-11-05: adopted the existing Parameter header in five script units; four header-queue rows remain retired, with the living-world region row restored pending publisher link acceptance; 30/30 rows match, provider preservation checked, preview retains 23,753 bytes ([evidence](../../reverse/attempt_support/parameter-header-adoption-20261105-codex.md)). The remaining Parameter queue rows and broader declaration prerequisites stay open.
 2026-11-05 Parameter follow-up: six consumers, including the base-building actions and named-unit lookup, adopt ScriptParameter.h; all 12 rows pass, six header-queue rows retire and ordinary previews preserve 1,584 bytes. Provider-removal audit and remaining eight queued consumers: [evidence](../../reverse/attempt_support/parameter-header-cohort-20261105-codex3.md). Census confirmation remains pending.
+
+
+2026-11-12: ScriptActions.cpp adopted ObjectTypes, Player, CommandButton and
+Thing. The unit uses the shared player start index and base-building flag,
+the command options word, and Thing's template and cached position. All
+53 code rows match, including 19 renumbered unwind labels recovered through
+their parents. The scoped link prediction retains 5,489 bytes against
+c31795c94c. The View adoption remains open. In retail, slot 24 of View
+(0x007F6178) points to 0x0025EEF5 and slot 24 of W3DView (0x007C7568)
+points to 0x0008A2EF. The script passes zero in argument two; the rowed
+W3DView body takes a CameraGoalInfo pointer there, while the script's local
+declaration uses an integer frame count. Reconcile the target signature
+before sharing that declaration.

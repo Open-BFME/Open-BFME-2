@@ -7,7 +7,7 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
-#include "Common/Snapshot.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
@@ -61,27 +61,12 @@ public:
 
 struct PlayerTeamNode;
 
-class Player
+#include "../../../Include/Common/Player.h"
+
+static inline int getMpStartIndex(const Player *player)
 {
-public:
-	unsigned char m_pad00[0x54];
-	int m_playerIndex;
-	AsciiString m_side; // +0x58
-	int m_playerType;
-	unsigned char m_pad60[0x32C - 0x60];
-	PlayerTeamNode *m_playerTeamPrototypes;
-	unsigned char m_pad330[0x738 - 0x330];
-	class UnitRevivalTracker *getUnitRevivalTracker() { return (UnitRevivalTracker *)m_unitRevivalTracker; }
-	unsigned char m_unitRevivalTracker[4];
-	int rva002ABCF0(unsigned char flag, int *out);
-	unsigned char rva002AA00C(class ThingTemplate *tmpl, int arg);
-	bool rva00339() const { return ((const unsigned char *)this)[0x339] != 0; }
-	int getPlayerType() const { return m_playerType; }
-	void rva002ABA9B();
-	int getPlayerIndex() const { return m_playerIndex; }
-	int getMpStartIndex() const { return *(const int *)((const unsigned char *)this + 0x2E0); }
-	void setUnitsShouldIdleOrResume(bool idle);
-};
+	return player->m_mpStartIndex;
+}
 
 // 0x002ACEDF is rowed as Rva002ABFA0::rva002ACEDF (35B Player short-list
 // append from Rva002ABFA0Remove.cpp); this TU calls it through a TU-local
@@ -181,15 +166,7 @@ static __forceinline void copyCoord3D(Coord3D &to, const Coord3D *from)
 	to.z = from->z;
 }
 
-class Drawable;
-
-class Thing
-{
-public:
-	void setOrientation(float angle);
-	void setPosition(const Coord3D *pos);
-	Drawable *getDrawable() const;
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -200,12 +177,7 @@ public:
  bool affectedByUpgrade(const UpgradeTemplate *) const;
  bool hasUpgrade(const UpgradeTemplate *) const;
  void rva00293077(const void *);
- const ThingTemplate *getTemplate() const { return m_template; }
-	unsigned char m_pad00[0x04];
-	const class ThingTemplate *m_template;
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position;
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_objectID;
 	unsigned char m_pad78[0x88 - 0x78];
 	AsciiString m_name;
@@ -226,7 +198,6 @@ public:
 	void forceEmotion(int index, float value, int arg);
 	void setName(const AsciiString &name) { m_name = name; }
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-	const Coord3D *getPosition() const { return &m_position; }
 	__forceinline bool isKindOf(int t) const;
 	ScriptActionsContainView *getContain() const { return m_contain; }
 	void rva0028FC18();
@@ -697,7 +668,7 @@ void ScriptActions::doBuildBuildingOnFoundation(const AsciiString &buildingType,
 	if (!theUnit)
 		return;
 	Player *player = theUnit->getControllingPlayer();
-	if (!player || !player->rva00339())
+	if (!player || !player->m_canBuildBase)
 		return;
 	if (player != TheScriptEngine->getCurrentPlayer())
 		return;
@@ -746,7 +717,7 @@ void ScriptActions::doTeamMoveToSkirmishApproachPath(const AsciiString &teamName
 	Player *enemyPlayer = TheScriptEngine->getSkirmishEnemyPlayer();
 	if (!enemyPlayer)
 		return;
-	int mpNdx = enemyPlayer->getMpStartIndex() + 1;
+	int mpNdx = getMpStartIndex(enemyPlayer) + 1;
 	AsciiString pathLabel;
 	pathLabel.format("%s%d", waypointPathLabel.str(), mpNdx);
 	Waypoint *way = reinterpret_cast<ScriptActionsTerrainView *>(TheTerrainLogic)->getClosestWaypointOnPath(&pos, pathLabel);
@@ -1050,16 +1021,6 @@ public:
 	static NameKeyType rva0003955DA();	// 0x003955DA
 	Object *rva00397429(const AsciiString &name);	// 0x00397429
 };
-class ObjectTypes
-{
-public:
-	unsigned int getListSize() const { return m_end - m_begin; }
-	AsciiString getNthInList(unsigned int index) const;	// 0x002041AC
-private:
-	char m_pad00[8];
-	AsciiString *m_begin;	// +0x08
-	AsciiString *m_end;	// +0x0C
-};
 
 // Native003C739D..003C75C2 and WB1017470 put upgrade/name application after the search loop.
 void ScriptActions::rva003C739D(Parameter *castleName, Parameter *upgradeParm, Parameter *typeParm,
@@ -1253,14 +1214,12 @@ public:
 	int m_cmdSource;
 };
 
-class CommandButton
+#include "../../../Include/GameClient/CommandButton.h"
+
+static inline bool targetsPosition(const CommandButton *button)
 {
-public:
-	bool isReady(const Object *obj) const;	// 0x0035B069
-	bool rva003BDCCA() const { return (m_options >> 5) & 1; }
-	char m_pad00[0x1C];
-	unsigned int m_options;	// +0x1C
-};
+	return (button->getOptions() >> 5) & 1;
+}
 
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
@@ -1275,7 +1234,7 @@ extern TerrainLogic *TheTerrainLogic;
 #define REALLY_FAR (100000 * 10.0f)
 static __declspec(noinline) void rva003BE11C(Object *obj, const ThingTemplate *tmpl, const CommandButton *button)
 {
-	if (button->rva003BDCCA()) {
+	if (targetsPosition(button)) {
 		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
 			Rva00261750Filter(tmpl, true).link(&Rva002611BFFilter(obj)));
 		if (target)
