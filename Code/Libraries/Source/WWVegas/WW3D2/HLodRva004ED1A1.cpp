@@ -26,17 +26,7 @@ public:
 	int m_10; // +0x10
 };
 struct Coord3D;
-struct Rva00372571Params
-{
-	const Coord3D *m_pos;
-	bool m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	bool m_1C;
-};
+#include "../../../../GameEngine/Include/Common/Rva00372571Params.h"
 #include "../../../../GameEngine/Include/Common/Rva002A9BF2.h"
 #include "../../../../GameEngine/Include/GameLogic/AIGroup.h"
 #include "../../../../GameEngine/Include/GameLogic/AI.h"

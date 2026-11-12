@@ -28,17 +28,7 @@ class Object;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-struct Rva00372571Params
-{
-	const Coord3D *m_pos;
-	bool m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	bool m_1C;
-};
+#include "../../../Include/Common/Rva00372571Params.h"
 
 #include "../../../Include/GameLogic/AIGroup.h"
 #include "../../../Include/GameLogic/BfmeC986.h"
