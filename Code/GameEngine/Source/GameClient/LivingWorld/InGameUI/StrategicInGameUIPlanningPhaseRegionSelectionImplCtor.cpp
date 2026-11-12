@@ -53,11 +53,7 @@ public:
 
 RvaCloneResult<Rva005CEB57> Rva005CECC1Create(const Rva005CEB57::Payload *src);
 
-class Rva005CB84A
-{
-public:
-	void rva005CB84A(int value);
-};
+#include "../../../../Include/Common/Rva005CB84A.h"
 
 #include "../../../../Include/Common/Rva003EE91A.h"
 

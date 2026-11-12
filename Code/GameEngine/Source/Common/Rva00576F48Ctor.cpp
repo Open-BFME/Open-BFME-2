@@ -46,11 +46,7 @@ public:
 	int get() const;
 };
 
-class Rva005CB84A
-{
-public:
-	void rva005CB84A(int value);
-};
+#include "../../Include/Common/Rva005CB84A.h"
 
 #include "../../Include/Common/Rva00319B0AOwner.h"
 

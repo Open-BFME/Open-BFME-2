@@ -57,11 +57,7 @@ public:
 	void rva005CD010();
 };
 #include "../../../../Include/GameClient/Rva005CCEB6.h"
-class Rva005CB84A
-{
-public:
-	void rva005CB84A(int value);
-};
+#include "../../../../Include/Common/Rva005CB84A.h"
 
 class Rva00575723
 {

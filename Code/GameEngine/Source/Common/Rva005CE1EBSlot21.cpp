@@ -17,11 +17,7 @@ struct Rva005CE1EBSource : public Rva004E0625
 	int m_24;
 };
 
-class Rva005CB84A
-{
-public:
-	void rva005CB84A(int value);
-};
+#include "../../Include/Common/Rva005CB84A.h"
 
 #include "../../Include/Common/Rva005E88DDNullTarget.h"
 

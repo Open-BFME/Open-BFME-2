@@ -53,11 +53,7 @@ public:
 	void *rva002B256E();
 };
 
-class Rva005CB84A
-{
-public:
-	void rva005CB84A(int value);
-};
+#include "../../../Include/Common/Rva005CB84A.h"
 
 class Rva00574AACAddDwordField
 {
