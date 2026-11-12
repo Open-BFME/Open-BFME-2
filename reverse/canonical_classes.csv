@@ -1614,3 +1614,4 @@ BfmeFormattedText,Code/GameEngine/Include/Common/BfmeFormattedText.h,generated b
 Rva005ED28AAddDwordField,Code/GameEngine/Include/Common/Rva005ED28AAddDwordField.h,existing header; contract class_contracts/Rva005ED28AAddDwordField.json; 3/3 sampled units adopt
 Rva005C7792,Code/GameEngine/Include/Common/Rva005C7792.h,existing header; contract class_contracts/Rva005C7792.json; 3/3 sampled units adopt
 Rva005748AD,Code/GameEngine/Include/Common/Rva005748AD.h,existing header; contract class_contracts/Rva005748AD.json; 3/3 sampled units adopt
+Rva005D48DBElem,Code/GameEngine/Include/Common/Rva005D48DBElem.h,existing header; contract class_contracts/Rva005D48DBElem.json; 3/3 sampled units adopt

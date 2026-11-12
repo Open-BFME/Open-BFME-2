@@ -82,7 +82,7 @@ Rva005D4C61::~Rva005D4C61()
 
 Rva005D4C61::Rva005D4C61(int level,const AsciiString &name):m_14(new Rva005D4913(this,level,name)) {}
 class ScrollBarListenerSlots { public: virtual void slot00(); virtual void slot04(Rva005D4C61 *,float); };
-class Rva005D48DBElem { public: void Method(int,float); };
+#include "../../Include/Common/Rva005D48DBElem.h"
 typedef void (Rva005D48DBElem::*Rva005D48DBFn)(int,float);
 class Rva005D4C1FList { public: void forEach(Rva005D48DBFn,int,float); };
 void Rva005D4C61::setPosition(float position) {

@@ -6,11 +6,7 @@
 // Single-deref call [eax] so +0 is fn ptr not vtable. Follows Rva002B2FCBInvoke.cpp
 // precedent (member-fn-ptr at +0 with ecx = elem). Caller 0x005D4A66 passes array
 // element as stack arg which becomes new this.
-class Rva005D48DBElem
-{
-public:
-	void Method(int a, float b);
-};
+#include "../../Include/Common/Rva005D48DBElem.h"
 typedef void (Rva005D48DBElem::*Rva005D48DBFn)(int, float);
 class Rva005D48DB
 {

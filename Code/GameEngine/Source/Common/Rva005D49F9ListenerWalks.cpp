@@ -86,11 +86,7 @@ void Rva005D4C01List::apply(const Rva005D49F9Call &call)
 // ---- forEach 0x005D4C1F, walk 0x005D4A66: (int, float) slots.  The record is
 // the functor rowed at 0x005D48DB (Rva005D48DBForward.cpp), whose call is not
 // inlined, so the walk hands it each listener.
-class Rva005D48DBElem
-{
-public:
-	void Method(int a, float b);
-};
+#include "../../Include/Common/Rva005D48DBElem.h"
 
 typedef void (Rva005D48DBElem::*Rva005D48DBFn)(int, float);
 
