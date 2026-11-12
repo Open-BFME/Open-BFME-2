@@ -21,11 +21,7 @@ private:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 class SpecialPowerModule : public BehaviorModule,

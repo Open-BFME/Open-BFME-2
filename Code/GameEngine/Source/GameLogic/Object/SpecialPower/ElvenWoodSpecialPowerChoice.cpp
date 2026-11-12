@@ -18,24 +18,7 @@ class ElvenWoodSpecialPowerModuleData : public SpecialPowerModuleData {public:_S
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 struct Coord3D;
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void doSpecialPower(unsigned int options) = 0;
-	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
-	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions) = 0;
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterface,public ModuleInterface {public:SpecialPowerModule(Thing*,const ModuleData*);protected:virtual~SpecialPowerModule();};
 class ElvenWoodSpecialPower:public SpecialPowerModule {public:Object*addObject(const Coord3D*,const AsciiString*);void rva004C3C36(const Coord3D*);};
 extern int GetGameLogicRandomValue(int,int,char*,int);

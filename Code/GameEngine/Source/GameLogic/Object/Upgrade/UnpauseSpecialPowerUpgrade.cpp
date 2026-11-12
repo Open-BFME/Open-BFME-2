@@ -74,11 +74,7 @@ public:
 	unsigned char m_padTail[0x120 - 0x11D]; // +0x11D, retail never stores
 };
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/UnpauseSpecialPowerUpgrade.h"
 

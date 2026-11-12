@@ -33,11 +33,7 @@ public:
 	virtual void damageModuleInterfaceAnchor();
 };
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../Include/Common/ModuleInterface.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h
 class DamageModule : public BehaviorModule,

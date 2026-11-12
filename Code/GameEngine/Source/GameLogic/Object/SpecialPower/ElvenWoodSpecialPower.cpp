@@ -26,24 +26,7 @@ class Player;
 class Team;
 struct Coord3D;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void doSpecialPower(unsigned int options) = 0;
-	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
-	virtual void doSpecialPowerUsingWaypoints(void *target, float angle, int commandOptions) = 0;
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 class SpecialPowerModule : public BehaviorModule, public ModuleInterface
 {

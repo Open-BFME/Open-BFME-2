@@ -98,11 +98,7 @@ public:
 	float m_addXPScalar; // +0x118
 };
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/ExperienceScalarUpgrade.h"
 

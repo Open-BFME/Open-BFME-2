@@ -107,11 +107,7 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 // tu-skeleton: 0x004B67DC 32B ??1CastleUpgrade@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 

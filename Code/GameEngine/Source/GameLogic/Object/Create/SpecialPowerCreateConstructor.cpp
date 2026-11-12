@@ -7,11 +7,7 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CreateModule.h
 class CreateModule : public BehaviorModule, public ModuleInterface

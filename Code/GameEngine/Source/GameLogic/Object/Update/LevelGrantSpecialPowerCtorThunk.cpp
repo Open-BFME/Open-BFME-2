@@ -28,11 +28,7 @@ private:
 	unsigned char m_pad[12];
 };
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 class Rva0044EF5E : public BehaviorModule,
 	public SpecialPowerModuleInterface,

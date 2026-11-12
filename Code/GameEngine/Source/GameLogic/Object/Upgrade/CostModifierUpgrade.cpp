@@ -25,13 +25,7 @@ private:
 
 // UpgradeModule.h's UpgradeModuleInterface18: retail's table at this base is
 // 0x00C58790 (ret 4, ret 4, ret 0Ch), UpgradeModule's three empty overrides.
-class ModuleInterface
-{
-public:
-	virtual void vslot18_00(void *) = 0;
-	virtual void vslot18_01(void *) = 0;
-	virtual void vslot18_02(void *, void *, void *) = 0;
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 class UpgradeModule : public ObjectModule,
 	public BehaviorModuleInterface,

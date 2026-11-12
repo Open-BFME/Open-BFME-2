@@ -91,7 +91,7 @@ class ModuleData;
 
 class Thing;
 
-class ModuleInterface { public: virtual void moduleInterfaceAnchor(); };
+#include "../../../../../Include/Common/ModuleInterface.h"
 
 #include "../../../../../Include/Common/ObjectModule.h"
 

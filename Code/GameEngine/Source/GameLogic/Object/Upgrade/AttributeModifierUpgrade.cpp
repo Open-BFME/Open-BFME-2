@@ -46,11 +46,7 @@ protected:
 };
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
+#include "../../../../Include/Common/ModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/AttributeModifierUpgrade.h"
 
