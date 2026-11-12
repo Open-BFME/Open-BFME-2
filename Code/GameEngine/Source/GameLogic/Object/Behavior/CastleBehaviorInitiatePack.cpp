@@ -16,7 +16,7 @@ struct TemplateNameView {char prefix[0x64];AsciiString name;};
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5};
 struct NativeModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};
 class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()const;void rva0028AE6D();void setStatus(ObjectStatusTypes,bool);char prefix[4];TemplateNameView*tmplate;char pad08[0x6C];int id;char pad78[0x94];NativeModelFlags flags;};
-class Rva0039A270MoveOwner {public:void rva0039A270Move(Object*);};
+#include "../../../../Include/GameLogic/Module/Rva0039A270MoveOwner.h"
 class Rva00395CEB {public:void rva0039611E();char storage[8];};
 struct CastleData {char prefix[0x1C];float wait;};
 struct LogicLogView {char prefix[0x1B4];int enabled;};

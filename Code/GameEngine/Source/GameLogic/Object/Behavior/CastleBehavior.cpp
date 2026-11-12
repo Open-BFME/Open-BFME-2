@@ -344,11 +344,7 @@ class Object
     AIUpdateInterface *m_ai258;
     void *rva0029439D();
 };
-class Rva0039A270MoveOwner
-{
-  public:
-    void rva0039A270Move(Object *);
-};
+#include "../../../../Include/GameLogic/Module/Rva0039A270MoveOwner.h"
 // ?rva0039A270Move@Rva0039A270MoveOwner@@QAEXPAVObject@@@Z
 void Rva0039A270MoveOwner::rva0039A270Move(Object *src)
 {

@@ -17,7 +17,7 @@ class Team;class Player {public:char prefix[0x4C];AsciiString name;char pad50[0x
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5,STATUS83=83};
 struct NativeModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};
 class Object {public:Drawable*getDrawable()const;void rva0028BAC0();Player*getControllingPlayer()const;void rva0028AE6D();void setTeam(Team*);void rva0028DCC4();void rva0028D253();void rva0028DA28();void setStatus(ObjectStatusTypes,bool);char prefix[4];TemplateNameView*tmplate;char pad08[0x6C];int id;char pad78[0x94];NativeModelFlags flags;};
-class Rva0039A270MoveOwner {public:void rva0039A270Move(Object*);};
+#include "../../../../Include/GameLogic/Module/Rva0039A270MoveOwner.h"
 class Rva00395CEB {public:void rva0039611E();char storage[8];};
 struct CastleData {char prefix[0x1C];float wait,packedWait,transitionWait;};
 struct LogicLogView {char prefix[0x1B4];int enabled;};
