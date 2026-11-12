@@ -456,3 +456,41 @@ vptr store the walk reaches, in walk order.
   homogeneous recipe is attribution: give each copy to its including unit, where canonical Drawable.h emits it as
   that unit's `_$E<n>`; blocked on TU attribution. No initializer was changed.
 - Clearance: none claimed. The next real link should list 0x008EAED0 bridged and no `?f3@DBaseM3` blocker.
+
+**2026-11-12, seat halilkkaya-lk98 (base `c1298c99545`): zero vptr stores, 56 -> 33.**
+- Recipe used throughout (lk96's (b), Rva004DF324Dtor.cpp's `s_10` precedent): the unit keeps its identifier and
+  owns retail's complete initialized table; each slot names a matched `functions.csv` row at retail's slot target
+  that the census index defines (a strong definition in a linking unit, else a retail-verdict COMDAT; canonical
+  `State`/`DrawModule`/`UpgradeMux` slot names where they are rowed at that address, `__purecall` where retail has
+  it). Constructor bytes unchanged in every unit (object diff: only the table symbol, or one relocation's target name,
+  changed); no initializer added; offline `vtable_bridge.plan()` unchanged after each family (3453 bridged, 2109
+  correct, 35 refused; nothing newly bridged or refused).
+- One-byte `extern "C" char X_vftable` stand-ins that a data row verified as retail's first byte: the data row's size
+  becomes the table's (name unchanged), so the byte gate now proves every slot's relocation target equals retail's
+  pointer. `char g_X;` (.bss) stand-ins become `const void *const g_X[N]` (mangling `3DA` -> `3QBQBXB`); the
+  data_ledger.csv owned-global row is renamed to match in the same commit (`Verifier-Change`, name column only).
+- Repaired: "Give State and 19 State-derived ctors their retail tables, not one-byte stand-ins" (State 0x00C605D8,
+  Rva004D7B70, the six StateDerivedCtors_muse-a7a4.cpp tables, Rva0048896B, Rva0033FE65, Rva00342FCD, Rva00342619,
+  Rva003426AB, GiantBirdNormalFlightState/Rva00367539, Rva00367647, Rva003678F7, plus StateMachine.cpp's off-walk
+  Rva004D7476/7491/74AC/74C7: 20 tables, 17 slots, 18 data rows resized); "Give three client-update ctors their
+  15-slot retail tables, not one-byte stand-ins" (AnimatedParticleSysBone 0x00C5EA50, Sway 0x00C5EA8C, Beacon
+  0x00C5EB30); "Give W3DDefaultDraw and W3DTreeDraw their 62-slot retail draw tables" (0x00BC98B0, 0x00BCCCF8: every
+  default- and tree-drawn object); "Give the UpgradeModule and UpgradeMux base ctors their retail tables" (0x00C42768
+  12 slots, 0x00C5FF10 18 slots). link_check LINKS with LINKED bytes unchanged for every touched unit and the other
+  units naming ??0UpgradeMux.
+- Zero rows left on the walk, first store first (33 rows, 14 constructors): CastleMemberBehavior (#9756, 3 tables),
+  HealContain (#9965, 3), HordeTransportContain (#10019, 3 `char g_X` tables: the recipe above applies directly),
+  RiderChangeContain (#10049, 5), CitadelSlaughterHordeContain (#10061, 3), AnnounceBirthAndDeathBehavior (#10134, 4),
+  Rva0026E7EA (#10272, `Rva0026E7C8DataAnchor`, a byte data row), ToggleMountedSpecialAbilityUpdate (#10614; file
+  claimed by StarkillerHDX), DominateEnemySpecialPower and ActivateModuleSpecialPower (+0x20 `_s_dummy20`, #11097/
+  #11142), DelayedDeathBody (#11348, 3), InvisibilitySpecialPower (#11385, 2 `char g_X`), SpecialPowerTimerRefresh
+  (#11415, 1 `char g_X`), EvaAnnounceClientCreate (#11585, 2).
+- Not attempted this pass (no new verdicts): the `_s_vtable`/`_s_secondaryNN` module ctors are TU-local statics
+  whose tables are partly bound to compiled `??_7` names in the ledger (CastleMember 0x0081A160, HealContain
+  0x00843EC0, DelayedDeathBody 0x0085BB38); lk96's C2373 note stands for the units that also define the placeholder
+  class. HordeTransportContain, Invisibility and SpecialPowerTimerRefresh are the next cheapest (same `char g_X`
+  shape as the draw and upgrade repairs).
+- Tooling lead (not done; tools/ is out of this lane): the walker's `ZERO` class comes from the static lk49 list
+  (`zero-vtable-placeholders-20261107-lk49.tsv`), so repaired stores still print `ZERO` and new stand-ins print
+  `PLACEHOLDER`. Classifying by the stored symbol's object contents (no relocations and at most 4 bytes, or all
+  zero) gives the inventory above.
