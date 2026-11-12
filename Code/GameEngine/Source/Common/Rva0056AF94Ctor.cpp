@@ -13,7 +13,7 @@ class Rva0056ACFF : public Rva0056AC26
 public:
 	virtual ~Rva0056ACFF();
 	virtual bool ac26Slot1();
-	virtual bool b1Slot1(Rva002B4BC9Arg *arg);	// Base2-view slot 1, defined in Rva0056AC26Derived.cpp
+	virtual bool slot1(Rva002B4BC9Arg *arg);	// Base2-view slot 1, defined in Rva0056AC26Derived.cpp
 	virtual bool slot4(LivingWorldArmy *army, Rva00318C32Ret *target);
 	Rva0056ACFF(void *owner);
 };

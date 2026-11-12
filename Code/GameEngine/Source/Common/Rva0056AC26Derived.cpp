@@ -52,7 +52,7 @@ class Rva0056ACFF : public Rva0056AC26
 public:
 	virtual ~Rva0056ACFF();
 	virtual bool ac26Slot1();
-	virtual bool b1Slot1(Rva002B4BC9Arg *arg);	// Base2-view slot 1; contract spelling slot1 is a later names-lane item
+	virtual bool slot1(Rva002B4BC9Arg *arg);	// Base2-view slot 1
 	virtual bool slot4(LivingWorldArmy *army, Rva00318C32Ret *target);
 };
 
@@ -75,9 +75,10 @@ Rva0056AE4A::~Rva0056AE4A()
 // the living-world logic singleton (ecx = TheLivingWorldLogic, then a tail
 // jump): 0x0056ABC0 in the Rva0007DF07 table (0x0086D19C) to 0x002B32CE,
 // 0x0056ABCB in the Rva0056AC26Base2 table (0x0086D160) to 0x002B4BC9 with
-// its one argument. b1Slot1 keeps its landed placeholder spelling; the
-// contract spelling slot1 needs the names lane (rename.py refuses a
-// same-class move and no canonical basis reads the Base2 contract).
+// its one argument. The Base2-view member spells the contract's slot1:
+// spelled b1Slot1 the compiler saw no override of Base2::slot1 and appended
+// it as a new virtual at primary slot 5 (a 24-byte primary table against
+// retail's 20) while slot 1 of 0x0086D160 kept the Base2 fold.
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
@@ -98,7 +99,7 @@ bool Rva0056ACFF::ac26Slot1()
 	return ((Rva002B32CE *)TheLivingWorldLogic)->rva002B32CE();
 }
 
-bool Rva0056ACFF::b1Slot1(Rva002B4BC9Arg *arg)
+bool Rva0056ACFF::slot1(Rva002B4BC9Arg *arg)
 {
 	return ((Rva002B4BC9 *)TheLivingWorldLogic)->rva002B4BC9(arg);
 }
