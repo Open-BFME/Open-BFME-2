@@ -2,12 +2,7 @@
 // ?Rva0014F5ABFillN@@YAPAVRva0014F480@@PAV1@IABV1@ABUTag@@@Z retail 0x0014F5AB 40B, ?Rva0014F5E5FillN@@YAPAVRva0014F4A1@@PAV1@IABV1@ABUTag@@@Z retail 0x0014F5E5 40B, ?Rva0014F61FFillN@@YAPAVRva0014F4C2@@PAV1@IABV1@ABUTag@@@Z retail 0x0014F61F 40B: uninitialized_fill_n helpers calling derived copy ctors 0x0014F480 0x0014F4A1 0x0014F4C2 in a count loop (add 8, dec, jne) returning end pointer. Callers 0x0014F90D 0x0014F951 0x0014F9CC dispatch with tag and 0x00150282 0x00150337 0x001503EC insert_overflow paths. Placement new forces the copy call like FXParticleSystem precedent.
 #include <new.h>
 
-class Rva0014F401
-{
-public:
-	virtual void dummy();
-	Rva0014F401(const Rva0014F401 &other);
-};
+#include "../../Include/Common/Rva0014F401.h"
 
 class Rva0014F480 : public Rva0014F401
 {

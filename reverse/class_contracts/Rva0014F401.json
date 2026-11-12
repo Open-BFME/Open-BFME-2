@@ -1,0 +1,111 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0014F401",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x14f401"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x14f401"
+     ],
+     "value": {
+      "0x0": "0x7c6f2c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c6f2c"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva000E14BD@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1f45c3"
+       },
+       {
+        "name": "?ResolveBindings@FXShaderParameterSourceNamespace_Struct@@UAEXPBD0PAVFXShaderParameterBinder@@@Z",
+        "slot": 1,
+        "target": "0x153664"
+       }
+      ],
+      "table": "0x7c6f2c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7c6f2c": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva000E14BD@@UAEPAXI@Z",
+     "1": "?ResolveBindings@FXShaderParameterSourceNamespace_Struct@@UAEXPBD0PAVFXShaderParameterBinder@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 7
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
