@@ -1,6 +1,12 @@
 ### ObjectTypes remove donor merge held for the next census (2026-10-29)
 
-Status: reconcile landed; the merge itself is blocked on census measurement.
+Status: cleared. Commit `7a8a411f96` merged the remove donor into
+`ObjectTypes.cpp`. On 2026-11-12 the merged TU verified 14/14 rows with the
+shared ObjectTypes declaration. Against the census at `c31795c94c`,
+`link_check.py` reported LINKS, 576 -> 576 bytes for this TU.
+
+Original obstacle (2026-10-29)
+
 The ObjectTypes remove donor (`ObjectTypesRemoveObjectType.cpp`, rows
 0x003769C2 and 0x00376B1E) is reconciled to the merged `ObjectTypes.cpp` view
 (pushed `ea153f2145a`): it resolves `_STL` through the real STLport algobase
