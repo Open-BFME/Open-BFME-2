@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc
+// platformsdk
 // ?AppendDebugMessage@ScriptEngine@@QAEXABVAsciiString@@_N@Z @0x00205263 171B
 // Retail ScriptEngine debug-window append: disabled/DLL guards, AppendMessage
 // proc via GetProcAddress, frame from TheGameLogic+0x40 or TheRva00DFEF10+0xFC
@@ -8,6 +9,8 @@
 // Evidence: pinned name, callers at 0x00205CC3 0x00205F67 0x00206168,
 // rowed callees format 0x38150 concat 0x6987 releaseBuffer 0x36410 gate 0x1DCD1C.
 
+#include <windows.h>
+
 class Rva002BA8F1Logic;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -15,14 +18,9 @@ extern bool BFME2ScriptDebugLiteMode;
 
 typedef bool Bool;
 typedef int Int;
-typedef int HMODULE;
 // The existing ScriptEngine_appGate.cpp definition and this retail DLL load
 // both identify the same zero-filled global at VA 0x00DFE158.
 extern int st_DebugDLL;
-typedef int (__stdcall *FARPROC)();
-
-extern "C" __declspec(dllimport) FARPROC __stdcall GetProcAddress(
-	HMODULE module, const char *procName);
 
 #include "../../../Include/Common/BfmeStringData.h"
 
@@ -41,7 +39,7 @@ void ScriptEngine::AppendDebugMessage(const AsciiString &strToAdd, Bool forcePau
 {
 	if (ScriptDebugMessagesDisabled || !TheScriptDebugWindowDLL)
 		return;
-	FARPROC proc = GetProcAddress(TheScriptDebugWindowDLL, "AppendMessage");
+	FARPROC proc = GetProcAddress(reinterpret_cast<HMODULE>(TheScriptDebugWindowDLL), "AppendMessage");
 	if (!proc)
 		return;
 	AsciiString msg;
