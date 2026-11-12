@@ -400,11 +400,7 @@ class ThingTemplate {
     }
 };
 #include "../../../../Include/Common/Rva0044E633.h"
-class Rva002D9531
-{
-public:
-	void rva002D9531(int objectID);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 class Rva001E431E
 {
 public:

@@ -2,11 +2,7 @@
 // ?rva004AE5B8@ToggleDeploySpecialAbilityUpdate@@QAEXPAX@Z retail 0x004AE5B8 124B
 // Evidence: vslot 23 of vtable 0x00855370 for ToggleDeploySpecialAbilityUpdate; audio event via rowed BfmeAudioEventPrefix136 plus CondSetter plus TheAudio slot 0x64 plus DeployStyle helper; caller none
 #include "Common/BfmeAudioEventPrefix136.h"
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 #include "../../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"

@@ -278,7 +278,7 @@ class Xfer;
 #include "../../../../Include/Common/GameAudio.h"
 #include "../../../../Include/Common/MiscAudioClass.h"
 extern AudioManager *TheAudio;
-class Rva002D9531 {public:void rva002D9531(int);};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 // Primary virtual slot +0x40 at 0x0044FC52..0x0044FEB6 (612B); same
 // continuePreparation identity and first two cases as ZH SpecialAbilityUpdate.cpp.
 // Native capture FX adds the closest kind50 drawable flash within150 units.

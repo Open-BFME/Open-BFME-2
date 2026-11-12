@@ -2,11 +2,7 @@
 // ?rva004AE6D7@ToggleDeploySpecialAbilityUpdate@@QAEXPAX@Z retail 0x004AE6D7 183B
 // Evidence: vslot 24 of vtable 0x00855370 for ToggleDeploySpecialAbilityUpdate; audio event via rowed BfmeAudioEventPrefix136 plus CondSetter plus TheAudio slot 0x64 plus DeployStyle helper; caller none. Row ?rva0028B7C8@Object@@QBEHXZ declares int but retail tests al so TU declares bool per-code-use.
 #include "Common/BfmeAudioEventPrefix136.h"
-class Rva002D9531
-{
-public:
-	void rva002D9531(int v);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 #include "../../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"

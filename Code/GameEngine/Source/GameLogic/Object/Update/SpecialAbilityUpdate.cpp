@@ -117,11 +117,7 @@ public:
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 // The rowed setter that stamps an audio event with its owning object.
-class Rva002D9531
-{
-public:
-	void rva002D9531(int objectID);
-};
+#include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 // The rowed two-bit mask builder (0x001E4912) behind the pack conditions.
 class Rva001E4912
 {
