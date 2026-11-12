@@ -211,7 +211,7 @@ public:
 
 Rva0008A2A3Item *Rva0008A2A3Find(void *mapArg, unsigned int mask, bool all);
 
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+#include "../../../../GameEngine/Include/Common/TreeOpaqueMapped00372FF4.h"
 typedef _STL::multimap<float, TreeOpaqueMapped00372FF4> RenderObjHitMap;
 
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"

@@ -141,7 +141,7 @@ struct Element005C8E0A;
 
 extern AudioManager *TheAudio;
 
-struct TreeOpaqueMapped00372FF4{unsigned m_bits;};
+#include "../../Include/Common/TreeOpaqueMapped00372FF4.h"
 
 typedef _STL::pair<const float,TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 

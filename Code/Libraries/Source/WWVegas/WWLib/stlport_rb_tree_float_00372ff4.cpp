@@ -8,7 +8,7 @@
 // Landing unblocks 0x005AD1A7.
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <map>
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+#include "../../../../GameEngine/Include/Common/TreeOpaqueMapped00372FF4.h"
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372FF4>, _STL::less<float>, _STL::allocator<TreeValue00372FF4> > Tree00372FF4;
 // ?clear@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAEXXZ @ 0x00372F2D 41B.

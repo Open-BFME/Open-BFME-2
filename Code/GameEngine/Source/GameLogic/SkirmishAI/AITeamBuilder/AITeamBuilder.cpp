@@ -229,7 +229,7 @@ public:
 };
 class Rva0039D7C1ByteField { public: unsigned char get() const; };
 class Rva0039D7C8LeaGetter { public: void* get() const; };
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+#include "../../../../Include/Common/TreeOpaqueMapped00372FF4.h"
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> DistanceValue;
 typedef _STL::_Rb_tree<float, DistanceValue, _STL::_Select1st<DistanceValue>,
     _STL::less<float>, _STL::allocator<DistanceValue> > DistanceTree;

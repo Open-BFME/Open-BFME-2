@@ -30,7 +30,7 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+#include "../../../../Include/Common/TreeOpaqueMapped00372FF4.h"
 class MineshaftPortalNetworkManager;
 namespace _STL {
 typedef pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;

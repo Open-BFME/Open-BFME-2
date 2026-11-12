@@ -187,7 +187,7 @@ private:
 	MultiListNodeClass *CurNode;
 };
 
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+#include "../../../../GameEngine/Include/Common/TreeOpaqueMapped00372FF4.h"
 typedef _STL::multimap<float, TreeOpaqueMapped00372FF4> RenderObjHitMap;
 
 class Rva0006F318

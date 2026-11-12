@@ -8,7 +8,7 @@
 // Vtables 0x00C17E14/0x00C17E04 via gate, base reset to g_00BBB554.
 #include <map>
 
-struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
+#include "../../Include/Common/TreeOpaqueMapped00372FF4.h"
 typedef _STL::pair<const float, TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372FF4>, _STL::less<float>, _STL::allocator<TreeValue00372FF4> > Tree00372FF4;
 
