@@ -26,15 +26,7 @@ public:
 	void SetImage(const Image *image);
 };
 
-class Rva005E1158
-{
-public:
-	void rva005E1158(const Image *image);
-	virtual ~Rva005E1158();
-private:
-	int m_04;
-	StrategicHUD::CommandButtonMovieClip::Impl *m_ptr08;
-};
+#include "../../Include/Common/Rva005E1158.h"
 
 class Rva005E16B9
 {

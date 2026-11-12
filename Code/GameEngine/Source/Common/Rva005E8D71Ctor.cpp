@@ -15,15 +15,7 @@
 
 class Image;
 
-class Rva005E1158
-{
-public:
-	void rva005E1158(const Image *image);
-	virtual ~Rva005E1158();
-private:
-	int m_04; // +0x04
-	void *m_08; // +0x08
-};
+#include "../../Include/Common/Rva005E1158.h"
 
 class Rva005E12D1 : public Rva005E1158
 {
