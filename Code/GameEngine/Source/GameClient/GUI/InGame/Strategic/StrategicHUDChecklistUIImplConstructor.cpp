@@ -84,8 +84,8 @@ static __declspec(noinline) float ChecklistViewHeight(const AsciiString& path,in
 class __multiple_inheritance FunctorTarget;
 typedef void(FunctorTarget::*FunctorMethod)(void);
 struct FunctorBinding {FunctorBinding(FunctorMethod m,FunctorTarget*o):object(o),method(m){} FunctorTarget*object;unsigned word;FunctorMethod method;};
-class FunctorWrapperHead {public:void*vt;int refCount;};
-class Rva0057BC63FunctorHolder {public:Rva0057BC63FunctorHolder(const FunctorBinding&);Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder&o):ptr(o.ptr){if(ptr)++ptr->refCount;}FunctorWrapperHead*ptr;};
+#include "../../../../../Include/Common/FunctorWrapperHead.h"
+class Rva0057BC63FunctorHolder {public:Rva0057BC63FunctorHolder(const FunctorBinding&);Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder&o):ptr(o.ptr){if(ptr)++ptr->m_refCount;}FunctorWrapperHead*ptr;};
 __forceinline FunctorBinding MakeBinding(FunctorMethod m,FunctorTarget*functorTarget){return FunctorBinding(m,functorTarget);}
 template<class T> class AptRef:public Rva0057BC63FunctorHolder {public:AptRef(const FunctorBinding&b):Rva0057BC63FunctorHolder(b){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 class AptCommandMap;

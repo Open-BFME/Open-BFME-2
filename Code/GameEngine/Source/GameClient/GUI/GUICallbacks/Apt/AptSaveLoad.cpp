@@ -46,12 +46,7 @@ struct FunctorBinding
 	FunctorMethod m_method;
 };
 
-class FunctorWrapperHead
-{
-public:
-	void *m_vtbl;
-	int m_refCount; // +0x04
-};
+#include "../../../../../Include/Common/FunctorWrapperHead.h"
 
 class Rva0057BC63FunctorHolder
 {
