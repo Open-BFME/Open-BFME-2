@@ -298,10 +298,7 @@ namespace _STL { template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9E
 
 class Object;
 
-class Rva0046247DDescriptor {
-public:
-    Rva0036AE51ListView rva0046247D();
-};
+#include "../../../../Include/Common/Rva0046247DDescriptor.h"
 
 struct RiderChangeContainModuleDataView {
     char pad[0x98];

@@ -4740,7 +4740,7 @@ enum EvaEventID { EVA_EVENT_NONE = 0 };
 extern Eva *TheEva;
 class Rva00265254 { public: Rva00265254(unsigned, unsigned, unsigned, unsigned); int words[19]; };
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Rva0046247DDescriptor { public: Rva0036AE51ListView rva0046247D(); };
+#include "../../../../Include/Common/Rva0046247DDescriptor.h"
 
 // The WorldBuilder counterpart constructs three two-float values around Sub;
 // these local operations preserve its copy/destruction lifetimes without changing

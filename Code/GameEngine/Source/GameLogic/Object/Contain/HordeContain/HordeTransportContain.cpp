@@ -224,7 +224,7 @@ struct Rva0047778BObjectView {
 
 int GetGameLogicRandomValue(int,int,char *,int);
 
-class Rva0046247DDescriptor {public: Rva0036AE51ListView rva0046247D();};
+#include "../../../../../Include/Common/Rva0046247DDescriptor.h"
 
 // Byte one-setters: eight-byte __thiscall members with one shape:
 //

@@ -112,7 +112,7 @@ namespace _STL { template <> _Rb_tree<int, pair<const int, int>, _Select1st<pair
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 
 namespace _STL { template <> pair<_Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::iterator, bool> _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::insert_unique(const pair<const int, int> &); }
-class Rva0046247DDescriptor { public: Rva0036AE51ListView rva0046247D(); };
+#include "../../../../../Include/Common/Rva0046247DDescriptor.h"
 // Native 4746E5/474713: the returned conditional descriptor is a guarded
 // temporary - retail writes the constructed flag ([ebp-0x18] |= 1 before the
 // call, test/clear after the full condition); the view's empty destructor

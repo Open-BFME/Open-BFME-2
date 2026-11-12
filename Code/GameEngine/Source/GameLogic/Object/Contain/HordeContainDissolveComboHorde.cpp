@@ -70,11 +70,7 @@ public:
 extern Eva *TheEva;
 extern GameLogic *TheGameLogic;
 
-class Rva0046247DDescriptor
-{
-public:
-	Rva0036AE51ListView rva0046247D();
-};
+#include "../../../../Include/Common/Rva0046247DDescriptor.h"
 
 // Vtable padding: Pad<B, N> appends N pure virtual slots to B.
 template <class B, int N> class Rva0046AD8BPad : public Rva0046AD8BPad<B, N - 1>

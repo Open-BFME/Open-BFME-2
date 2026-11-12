@@ -126,11 +126,7 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 	return node->object;
 }
 
-class Rva0046247DDescriptor
-{
-public:
-	Rva0036AE51ListView rva0046247D();
-};
+#include "../../../../../Include/Common/Rva0046247DDescriptor.h"
 
 template <int N> class Rva005D7011HordeSlots : public Rva005D7011HordeSlots<N - 1>
 {

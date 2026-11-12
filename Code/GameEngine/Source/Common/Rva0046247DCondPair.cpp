@@ -34,10 +34,7 @@ void bfmeAnchorRva0046247D(Rva0046247D *p, Rva0046247DPair &out)
 // original class/method names and declaration syntax remain unknown.
 // This view is a complete byte-and-relocation twin of the existing out-copy
 // owner, retained for its existing consumers. Neither adds unique bytes.
-class Rva0046247DDescriptor {
-public:
-    Rva0036AE51ListView rva0046247D();
-};
+#include "../../Include/Common/Rva0046247DDescriptor.h"
 Rva0036AE51ListView Rva0046247DDescriptor::rva0046247D()
 {
     Rva0036AE51ListView result;
