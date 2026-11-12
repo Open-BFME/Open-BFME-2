@@ -104,7 +104,7 @@ private:
     virtual void Post_Render_Processing(RenderInfoClass &info) {}
 };
 
-struct Rva00141F90Bounds { float m_00,m_04,m_08,m_0C,m_10,m_14; };
+#include "Rva00141F90Bounds.h"
 struct BfmeSceneVectorElement;
 struct Gen_00943CF0_Node;
 struct Gen_uw_0002e866;

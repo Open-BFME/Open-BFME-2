@@ -49,15 +49,7 @@ typedef char Rva0006EFC8PoolSize24[(sizeof(Rva0006EFC8) == 0x18) ? 1 : -1];
 
 #include "Gen_00943CF0.h"
 
-struct Rva00141F90Bounds
-{
-	float m_00;
-	float m_04;
-	float m_08;
-	float m_0C;
-	float m_10;
-	float m_14;
-};
+#include "Rva00141F90Bounds.h"
 
 // Retail divisor VA 0xBBB8D8 is .rdata (RVA 0x7BB8D8, float=1, 1684 refs),
 // NOT .data: AudioManagerFocusVolume.cpp `float g_Va00BBB8D8 = 1.0f;`

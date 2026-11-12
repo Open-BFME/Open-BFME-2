@@ -45,15 +45,7 @@ struct BfmeSceneVectorElement
 	MultiListClass<RenderObjClass> m_objects;
 };
 
-struct Rva00141F90Bounds
-{
-	float m_00;
-	float m_04;
-	float m_08;
-	float m_0C;
-	float m_10;
-	float m_14;
-};
+#include "Rva00141F90Bounds.h"
 
 class BfmeSceneVector
 {
