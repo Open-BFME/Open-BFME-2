@@ -133,6 +133,10 @@ class TurretAINotifyBase
 public:
 	virtual void notifyFired() = 0;
 	virtual void notifyNewVictimChosen(Object *victim) = 0;
+	// Retail table 0x00C078DC: 3 __purecall entries follow.
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 class TurretAI : public Snapshot, public TurretAINotifyBase

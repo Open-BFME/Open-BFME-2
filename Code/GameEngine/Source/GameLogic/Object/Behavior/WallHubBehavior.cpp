@@ -154,6 +154,16 @@ public:
 	virtual void slot03() = 0;
 	virtual void slot04() = 0;
 	virtual void slot05() = 0;
+	// Retail table 0x00C633C0: nine __purecall entries follow.
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
 };
 
 class WallHubBehaviorModuleData;

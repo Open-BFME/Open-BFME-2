@@ -47,6 +47,19 @@ class SpawnBehaviorInterface
 {
 public:
 	virtual void spawnBehaviorAnchor() = 0;
+	// Retail table 0x00C42518: 12 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
 };
 
 class DieModuleInterface
