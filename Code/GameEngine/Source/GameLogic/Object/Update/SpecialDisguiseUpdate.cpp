@@ -314,10 +314,7 @@ private:
 // flagged at +0x3FC).
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 #include "../../../../Include/Common/Rva004A6AB5Iface.h"
-struct Rva004A6AB5Pos
-{
-	int x, y, z;
-};
+#include "../../../../Include/Common/Rva004A6AB5Pos.h"
 struct Rva004A6AB5ObjectView
 {
 	char m_pad[0x74];
