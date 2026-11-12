@@ -314,11 +314,7 @@ struct TerrainResourcePlayerData
 	TerrainResourceIntVector m_percents;			// +0x1CC
 	ObjectFilter *getFilter() { return &m_filter; }
 };
-class Rva003B0D7C
-{
-public:
-	void rva003B0D7C(Int amount, Rva0039B7AD *stats, Bool flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class Player
 {
 public:

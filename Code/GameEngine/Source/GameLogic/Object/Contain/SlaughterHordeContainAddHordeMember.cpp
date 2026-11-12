@@ -13,7 +13,7 @@ enum CommandSourceType{CMD_FROM_AI=2};enum ObjectStatusTypes{STATUS_NONE=0};
 enum DamageType{DAMAGE_NONE=0};enum DeathType{DEATH_NONE=0};
 class Object;class Team;class ThingTemplate;class Player;
 class Rva0039B7AD;
-class Rva003B0D7C{public:void rva003B0D7C(int,Rva0039B7AD*,bool);};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class ScoreKeeper{public:void addObjectLost(const Object*);};
 class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemplate(const ThingTemplate*,bool);
  char pad[0x90];Rva003B0D7C money;char pad91[0x280-0x91];int color;

@@ -41,11 +41,7 @@ class AsciiString;
 
 #include "../../../../Include/Common/Player.h"
 
-class Rva003B0D7C
-{
-public:
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 class MapHolder
 {

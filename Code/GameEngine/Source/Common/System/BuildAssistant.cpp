@@ -647,12 +647,7 @@ private:
 #include "../../../Include/GameLogic/Rva0037E6E8.h"
 #include "../../../Include/GameLogic/Module/Rva0037E421.h"
 class Rva0039B7AD;
-class Rva003B0D7C
-{
-public:
-	unsigned withdraw(unsigned amount, class Rva0039B795 *scoreKeeper, bool flag);
-	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag); // ZH's Money::deposit
-};
+#include "../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class Money : public Rva003B0D7C
 {
 public:

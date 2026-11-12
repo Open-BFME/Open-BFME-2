@@ -15,13 +15,7 @@ class Player;
 	// 0x00453124, rowed under this name
 class Rva0039B795;
 class Rva0039B7AD;
-class Rva003B0D7C
-{
-public:
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
-	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
-	char m_pad00[0x4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 struct Iface20Slots
 {
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();

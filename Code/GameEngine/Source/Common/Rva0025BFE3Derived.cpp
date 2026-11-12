@@ -56,12 +56,7 @@ private:
 
 class Rva0039B7AD;
 class Rva0039B795;
-class Rva003B0D7C
-{
-public:
-	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
-};
+#include "../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 // ??0AIEconomyStats@@QAE@H@Z, retail 0x00596366, 35 bytes. Derived ctor taking int:
 // calls base, clears +0x14 to 0 via and, sets +0x18 to -1 via or (/O1 idioms),

@@ -158,12 +158,7 @@ class Rva0039B7AD;
 
 class Rva0039B795;
 
-class Rva003B0D7C
-{
-public:
-    unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
-    void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
-};
+#include "../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 class PlayerFull
 {

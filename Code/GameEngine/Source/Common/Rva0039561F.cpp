@@ -11,11 +11,7 @@ class Player;
 #include "../../Include/Common/ThingTemplate.h"
 
 class Rva0039B795;
-class Rva003B0D7C
-{
-public:
-	unsigned int withdraw(unsigned int v, Rva0039B795 *r, bool b);
-};
+#include "../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 #include "../../Include/Common/Player.h"
 
