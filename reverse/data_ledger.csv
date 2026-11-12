@@ -8200,8 +8200,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0081B598,16,.rdata,vtable,??_7Rva005FEA50Base@FXParticleSystem@@6B@,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp,owned,,0,2
 0x0081B5A8,16,.rdata,vtable,??_7Rva005FEA50Base@FXParticleSystem@@6BDefaultModuleHeadBase@@@,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp,owned,,0,2
 0x0081B5B8,24,.rdata,string,??_C@_0BI@HIPOBND@DefaultModule?$DMCAT_WIND?$DO?$AA@,,literal,,0,1
-0x0081B5D0,1,.rdata,global,_Rva003AE03D_v0C,Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,provisional,??_7Rva003A59C3@@6B@;_Rva003AE03D_v0C,1,2
-0x0081B5E0,1,.rdata,global,_Rva003AE03D_v0,Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,provisional,??_7Rva003A59C3@@6BRva003A59C3B0A@@@;_Rva003AE03D_v0,1,2
+0x0081B5D0,16,.rdata,global,_Rva003AE03D_v0C,Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,provisional,??_7Rva003A59C3@@6B@;_Rva003AE03D_v0C,1,2
+0x0081B5E0,16,.rdata,global,_Rva003AE03D_v0,Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,provisional,??_7Rva003A59C3@@6BRva003A59C3B0A@@@;_Rva003AE03D_v0,1,2
 0x0081B5F0,32,.rdata,string,??_C@_0CA@IDLCBIPH@DefaultParticleModule?$DMCAT_WIND?$DO?$AA@,,literal,,0,1
 0x0081B610,48,.rdata,global,?ParticleShaderTypeNames@FXParticleSystem@@3QBQBDB,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,owned,,1,5
 0x0081B640,40,.rdata,global,?ParticleTypeNames@FXParticleSystem@@3QBQBDB,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,owned,,1,2
@@ -8456,7 +8456,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0081C8B8,20,.rdata,vtable,??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6BDefaultModuleHeadBase@@@,,literal,,0,2
 0x0081C8CC,16,.rdata,vtable,??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6B@,,literal,??_7CylindricalEmissionVelocityModule@FXParticleSystem@@6B@;??_7Rva003AC297Module@FXParticleSystem@@6B@,0,4
 0x0081C8DC,20,.rdata,vtable,??_7Rva003AC297Module@FXParticleSystem@@6BDefaultModuleHeadBase@@@,,literal,,0,2
-0x0081C8F0,16,.rdata,string,??_7Rva003AC8D7Object@@6BRva003AC8D7Slot2@@@,,literal,??_7Rva003AC8D7Object@@6BRva003AC8D7Slot2@@@;??_C@_03DEOAGKCL@HZz?$AA@,0,2
+0x0081C8F0,16,.rdata,vtable,??_7Rva003AC8D7Object@@6BRva003AC8D7Slot2@@@,,literal,??_7Rva003AC8D7Object@@6BRva003AC8D7Slot2@@@;_s_vtable0C@Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ADC4FCopy.cpp,1,2
 0x0081C900,4,.rdata,vtable,??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@,,literal,??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$00@1@@;??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@;??_7Rva003AC8D7Object@@6BRva003AC8D7Slot1@@@,0,6
 0x0081C904,24,.rdata,vtable,??_7Rva003AC8D7Object@@6BRva003AC8D7Slot0@@@,,literal,,0,2
 0x0081C91C,36,.rdata,string,??_C@_0CB@PMPHEPKL@DefaultParticleModule?$DMCAT_ALPHA?$DO@,,literal,,0,1
@@ -11428,7 +11428,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00836FB4,32,.rdata,string,??_C@_0BC@OIBIDGL@LivingWorldRegion?$AA@,,literal,,0,1
 0x00836FD4,48,.rdata,global,?g_Va00C36FD4@@3QBUFieldParse@@B,Code/GameEngine/Source/Common/INI/LivingWorldConnectionParserRva003F348F.cpp,owned,,1,1
 0x00837004,40,.rdata,string,??_C@_0CF@LKHNCPEA@APT?3LivingWorldRegionConqueredNo@,,literal,,0,1
-0x0083702C,4,.rdata,vtable,??_7Rva005E626DListener@@6B@,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,provisional,??_7LivingWorldBattleListener@@6B@;??_7Rva0056B218B2@@6B@;??_7Rva0056B2DDB2@@6B@;??_7Rva00575E4EBase2@@6B@;??_7Rva005E5FObserver@@6B@;??_7Rva005E626DListener@@6B@;??_7Rva0083702CObserver@@6B@;??_7SecondBase005D2111@@6B@,0,25
+0x0083702C,20,.rdata,vtable,??_7Rva005E626DListener@@6B@,Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp,provisional,??_7LivingWorldBattleListener@@6B@;??_7Rva0056B218B2@@6B@;??_7Rva0056B2DDB2@@6B@;??_7Rva00575E4EBase2@@6B@;??_7Rva005E5FObserver@@6B@;??_7Rva005E626DListener@@6B@;??_7Rva0083702CObserver@@6B@;??_7SecondBase005D2111@@6B@,0,25
 0x00837040,36,.rdata,string,??_C@_0CC@DALDHPPG@LivingWorldBattle?3?3ResolutionTyp@,,literal,,0,1
 0x00837064,8,.rdata,vtable,??_7Rva003F3FEC@@6B@,,literal,??_7Rva003F3FEC@@6B@;??_7Rva005FED52@@6B@,0,2
 0x0083706C,20,.rdata,string,??_C@_0BE@EILDHEHF@LivingWorldBattleID?$AA@,,literal,,0,1
