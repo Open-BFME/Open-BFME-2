@@ -5,11 +5,7 @@
 // Pointer scan at +0x20/+0x24 calling virtual slot 0 on arg with each
 // element breaking on false. Caller at 0x00576792.
 
-class Rva0020E7E8Callback
-{
-public:
-	virtual bool invoke(void *p) = 0;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0020E7E8Callback.h"
 
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 

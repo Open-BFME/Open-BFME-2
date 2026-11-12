@@ -82,7 +82,7 @@ public:
  virtual bool Visit(LivingWorldPendingBattle *) = 0;
  ~PendingBattleVisitor() {}
 };
-class Rva0020E7E8Callback { public: virtual bool invoke(void *) = 0; };
+#include "../../../../Include/GameClient/Rva0020E7E8Callback.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 namespace StrategicInGameUI {

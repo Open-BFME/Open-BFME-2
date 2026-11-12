@@ -90,7 +90,7 @@ public:
  virtual bool Visit(LivingWorldPendingBattle *) = 0;
  ~PendingBattleVisitor() {}
 };
-class Rva0020E7E8Callback { public: virtual bool invoke(void *) = 0; };
+#include "../../../../Include/GameClient/Rva0020E7E8Callback.h"
 class Rva005766B3 : public PendingBattleVisitor {
 public:
  Rva005766B3(int,int,int);
