@@ -356,11 +356,7 @@ public:
 	void initiateUnpack(bool flag, const ThingTemplate *tmpl);	// 0x00399C6C
 };
 
-struct Rva0039A245Data
-{
-	char m_pad[0x3E];
-	bool m_summoned;												// +0x3E
-};
+#include "../../../../Include/Common/Rva0039A245Data.h"
 
 class Rva0039A245Base0
 {
