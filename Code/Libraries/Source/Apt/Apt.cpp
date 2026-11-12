@@ -754,7 +754,11 @@ void Rva006CCD90CallFunction(const char *function,char *result,const char *targe
  va_end(list);
  for(int j=nArgs-1;j>=0;j--)
   g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20 *)args[j]);
- GAPCHECK(context,"pContext",0x53C);
+ if (!context) {
+  g_bfmeAptAssertAtE17734("pContext", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp", 0x53C);
+  if (g_bfmeAptBreakOnAssertAtDDC01C)
+   __debugbreak();
+ }
  EAStringC name(function);
  AptValue *value=g_aptDateInterpreter.getVariable(context,0,&name,1,1,0);
  void *saved=AptPushStaticData();
