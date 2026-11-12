@@ -11,13 +11,21 @@ inline void *operator new(unsigned int, void *p) { return p; }
 // Existing Apt pool provider; retail callers load this global at VA 0x00E176E8.
 extern Rva006DB270 *g_pChainBlockAllocator;
 
-// Rva006F8460's row (Rva006F8460Dtor.cpp) is the complete dtor retail calls:
+// Rva006F8460's row (AptDisplayList.cpp) is the complete dtor retail calls:
 // this class's implicit destructor has no vptr reset and inlines into the
 // deleting dtor as that call, so no destructor of its own is emitted.
+// Constructing the derived class also emits the base's vtable and its
+// ??_GRva006F8460 COMDAT, so the base carries the class's pool release as
+// AptDisplayList.cpp and Rva006F6A50Cluster.cpp declare it: retail 0x006F8490
+// frees through freeBlock, never the global operator delete.
 class Rva006F8460
 {
 public:
 	virtual ~Rva006F8460();
+	static void operator delete(void *p, unsigned int size)
+	{
+		g_pChainBlockAllocator->freeBlock(p, size);
+	}
 private:
 	char m_pad[0x18 - 4];
 };
