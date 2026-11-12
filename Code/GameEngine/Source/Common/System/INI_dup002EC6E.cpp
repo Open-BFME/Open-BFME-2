@@ -25,11 +25,10 @@ typedef const ConstCharPtr *ConstCharPtrArray;
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
-// Address anchor only: the throw site pushes this object's address as an
-// immediate (DIR32, copied from retail's int throwinfo at 0x8FE2C8). Content
-// is never compared; the real chain lives in the retail image.
-struct Dup002EC6EThrowInfoAnchor { int a; int b; int c; int d; };
-static const Dup002EC6EThrowInfoAnchor dup002EC6EThrowInfoAnchor = { 0, 0, 0, 0 };
+// The throw site pushes the address of retail's int ThrowInfo at 0x8FE2C8, the
+// compiler's own __TI1H, which the units that `throw` an int emit as a COMDAT.
+// Name it rather than a zero stand-in, so a throw finds the catchable type.
+extern "C" const struct _s__ThrowInfo __identifier("_TI1H");
 
 // ?dup_002EC6E@INI@@SAXPAV1@PAX1PBX@Z
 void INI::dup_002EC6E(INI *ini, void * /*instance*/, void *store, const void *userData)
@@ -40,7 +39,7 @@ void INI::dup_002EC6E(INI *ini, void * /*instance*/, void *store, const void *us
 		// the thrown int homes to its stack slot ([ebp+0x14]) instead of a
 		// fresh reserve (retail has no push-ecx).
 		userData = (const void *)1;
-		_CxxThrowException((void *)&userData, (const _s__ThrowInfo *)&dup002EC6EThrowInfoAnchor); __assume(0);
+		_CxxThrowException((void *)&userData, &__identifier("_TI1H")); __assume(0);
 	}
 	*(unsigned char *)store = (unsigned char)value;
 }

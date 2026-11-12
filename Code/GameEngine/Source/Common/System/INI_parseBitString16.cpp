@@ -18,11 +18,10 @@
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
-// Address anchor only: the throw site pushes this object's address as an
-// immediate (DIR32, copied from retail's int throwinfo at 0x8FE2C8). Content
-// is never compared; the real chain lives in the retail image.
-struct ParseBitString16ThrowInfoAnchor { int a; int b; int c; int d; };
-static const ParseBitString16ThrowInfoAnchor parseBitString16ThrowInfoAnchor = { 0, 0, 0, 0 };
+// The throw site pushes the address of retail's int ThrowInfo at 0x8FE2C8, the
+// compiler's own __TI1H, which the units that `throw` an int emit as a COMDAT.
+// Name it rather than a zero stand-in, so a throw finds the catchable type.
+extern "C" const struct _s__ThrowInfo __identifier("_TI1H");
 
 // ?parseBitString16@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseBitString16(INI *ini, void * /*instance*/, void *store, const void *userData)
@@ -31,7 +30,7 @@ void INI::parseBitString16(INI *ini, void * /*instance*/, void *store, const voi
 	INI::parseBitString32(ini, NULL, &tmp, userData);
 	if (tmp & 0xffff0000) {
 		tmp = 1;
-		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&parseBitString16ThrowInfoAnchor); __assume(0);
+		_CxxThrowException(&tmp, &__identifier("_TI1H")); __assume(0);
 	}
 	*(unsigned short *)store = (unsigned short)tmp;
 }
