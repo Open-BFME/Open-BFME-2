@@ -10,14 +10,7 @@ public:
 	virtual void rva005CC208_slot2();
 	virtual void rva005CC208();
 };
-class Rva005D19F8
-{
-public:
-	Rva005D19F8(int a, int b);
-	virtual ~Rva005D19F8();
-private:
-	void *m_04;
-};
+#include "../../Include/Common/Rva005D19F8.h"
 struct Rva005765D1Mid
 {
 	char m_pad[4];

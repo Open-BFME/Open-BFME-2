@@ -464,11 +464,7 @@ public:
 };
 
 
-class Rva005D19F8
-{
-public:
-	virtual ~Rva005D19F8();
-};
+#include "../../Include/Common/Rva005D19F8.h"
 
 class __declspec(novtable) Rva005765D1 : public Rva005D19F8
 {

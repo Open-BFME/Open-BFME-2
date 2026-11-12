@@ -59,16 +59,7 @@ struct Rva005D19F8Child
 	char m_data[0x1C];
 };
 
-class Rva005D19F8
-{
-public:
-	Rva005D19F8(int root, int source);
-	virtual ~Rva005D19F8();
-	virtual void bfmePureSlot1() = 0; // retail table slot 1 is __purecall
-	virtual void bfmePureSlot2() = 0; // retail table slot 2 is __purecall
-private:
-	Rva005D19F8Child *m_04;
-};
+#include "../../Include/Common/Rva005D19F8.h"
 
 Rva005D19F8::Rva005D19F8(int root, int source)
 {
