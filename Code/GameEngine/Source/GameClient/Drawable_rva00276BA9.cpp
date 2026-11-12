@@ -89,11 +89,7 @@ public:
 	bool rva0027000E();
 };
 
-class Rva00276470Drawable
-{
-public:
-	const Coord3D *rva00276470() const;
-};
+#include "../../Include/Common/Rva00276470Drawable.h"
 
 #include <new>
 

@@ -1645,7 +1645,7 @@ void GameClient::update()
 // Drawable helpers under the names their ledger rows carry. 0x00276470
 // lerps +0x418 toward +0x424 and returns +0x38 for a drawable without an
 // object.
-class Rva00276470Drawable { public: const Coord3D *rva00276470() const; };
+#include "../../Include/Common/Rva00276470Drawable.h"
 #include "../../Include/Common/Rva00270FEE.h"
 #include "../../Include/Common/Rva00270260.h"
 class Rva002707FA { public: void rva002707FA(unsigned char value); };

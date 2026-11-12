@@ -98,11 +98,7 @@ private:
 	unsigned char m_438; // +0x438
 };
 
-class Rva00276470Drawable
-{
-public:
-	const Coord3D *rva00276470() const;
-};
+#include "../../Include/Common/Rva00276470Drawable.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

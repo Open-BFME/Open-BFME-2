@@ -30,7 +30,7 @@ static __forceinline bool Rva0029FFFFIsPoint(const IRegion2D &region2D) { return
 struct Rva0087DC00Vec { int x,y,z; };
 #include "../../Include/GameClient/Rva0087DC00.h"
 #include "../../Include/Common/Rva00270FEE.h"
-class Rva00276470Drawable { public: const Coord3D* rva00276470() const; };
+#include "../../Include/Common/Rva00276470Drawable.h"
 template<int N> class BitFlags { public: bool test(const void*) const; };
 class Drawable {
 public:

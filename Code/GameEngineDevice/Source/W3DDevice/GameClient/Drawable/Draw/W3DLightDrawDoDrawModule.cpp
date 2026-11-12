@@ -28,11 +28,7 @@ typedef bool Bool;
 
 extern int BfmeLogicFramesPerSecond;
 
-class Rva00276470Drawable
-{
-public:
-	const Coord3D *rva00276470() const;
-};
+#include "../../../../../../GameEngine/Include/Common/Rva00276470Drawable.h"
 class Drawable;
 
 

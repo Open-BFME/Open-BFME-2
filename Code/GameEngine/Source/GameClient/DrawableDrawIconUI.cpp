@@ -73,11 +73,7 @@ private:
 
 #include "../../Include/GameClient/Rva002AA191.h"
 
-class Rva00276470Drawable
-{
-public:
-	const Coord3D *rva00276470() const;		// 0x00276470, the position
-};
+#include "../../Include/Common/Rva00276470Drawable.h"
 
 class View
 {
