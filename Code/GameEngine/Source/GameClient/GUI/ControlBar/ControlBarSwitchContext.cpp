@@ -37,7 +37,7 @@ extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 #include "../../../../Include/GameClient/Rva002D368E.h"
 // This existing folded setter copies Object+0x74 to receiver+0x58. Using its
 // owned binding does not identify the context overlay as PhysicsBehavior.
-class PhysicsBehavior { public: void setIgnoreCollisionsWith(const Object *); };
+#include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 struct BfmePod8 { int a[2]; };
 namespace _STL {
 template <> BfmePod8 *vector<BfmePod8, allocator<BfmePod8> >::erase(BfmePod8 *, BfmePod8 *);

@@ -53,11 +53,7 @@ class ModuleData;
 
 extern WeaponStore *TheWeaponStore;
 
-class PhysicsBehavior
-{
-public:
-	void rva003906BF();
-};
+#include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 

@@ -280,7 +280,7 @@ class AudioManager;extern AudioManager *TheAudio;
 static __forceinline float clampCollision(float low,float value,float high)
 {return value<low?low:(value>high?high:value);}
 #pragma function(sin,cos)
-class PhysicsBehavior {public:void rva00390629(bool);};
+#include "../../../Include/GameLogic/Module/PhysicsBehavior.h"
 class ObjectCollisionPhysics {
 public:
  void rva00390629(bool);

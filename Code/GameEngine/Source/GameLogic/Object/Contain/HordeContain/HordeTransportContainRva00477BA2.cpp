@@ -41,11 +41,7 @@ struct Rva00477BA2Vector {float x,y,z; Rva00477BA2Vector(float xx,float yy,float
 #include "../../../../Common/Thing/thing.h"
 enum DamageType{DAMAGE=8}; enum DeathType{DEATH=0};
 #include "../../../../../Include/Common/Rva003909FAObj.h"
-class PhysicsBehavior
-{
-public:
-	void rva00390629(bool);
-};
+#include "../../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 class Rva00477BA2Flags {public:unsigned int word[19];unsigned int test(unsigned int b)const{return word[b>>5]&(1U<<(b&31));}void set(unsigned int b){word[b>>5]|=1U<<(b&31);}};
 class Object: public Thing {public:
  int getMultiLogicalBonePosition(const char*,int,Coord3D*,Matrix3D*,bool,int)const;

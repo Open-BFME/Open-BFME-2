@@ -73,11 +73,7 @@ public:
 };
 struct Rva0028AC4EEntry;
 
-class PhysicsBehavior
-{
-public:
-	void rva00390629(bool flag);			// 0x00390629
-};
+#include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
 class Rva0047A895AI
 {

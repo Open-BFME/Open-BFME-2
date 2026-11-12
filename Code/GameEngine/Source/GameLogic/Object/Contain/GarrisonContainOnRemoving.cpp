@@ -100,11 +100,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class PhysicsBehavior
-{
-public:
-    void rva00390629(bool value);
-};
+#include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
 class Rva003909FAObj
 {

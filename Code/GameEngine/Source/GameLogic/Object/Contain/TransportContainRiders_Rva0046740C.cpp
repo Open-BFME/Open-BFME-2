@@ -172,11 +172,7 @@ enum ModelConditionFlagType
 	BFME_MODELCONDITION_7F = 0x7F
 };
 
-class PhysicsBehavior
-{
-public:
-	void rva00390629(Bool value); // Zero Hour's setAllowToFall
-};
+#include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
 // PhysicsBehavior 0x003909FA keeps its address-derived pin name.
 #include "../../../../Include/Common/Rva003909FAObj.h"

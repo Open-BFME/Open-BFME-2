@@ -1,0 +1,741 @@
+{
+ "bases": [
+  "UpdateModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "PhysicsBehavior",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "UpdateModule",
+    "CollideModuleInterface"
+   ]
+  },
+  "census": 26,
+  "inherited": {
+   "base_views": 8,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 5
+   },
+   "0x24": {
+    "4": 4
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x58": {
+    "4": 3
+   },
+   "0x5c": {
+    "1": 3
+   },
+   "0x5f": {
+    "1": 1
+   },
+   "0x74": {
+    "4": 1
+   },
+   "0x78": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3907a6"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x819f74",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3907a6"
+     ],
+     "value": 104
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3907a6"
+     ],
+     "value": {
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       1
+      ],
+      "0x5d": [
+       1
+      ],
+      "0x5e": [
+       1
+      ],
+      "0x5f": [
+       1
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3907a6"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ],
+      "0x20": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24e763"
+     ],
+     "value": 104
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x3907a6"
+     ],
+     "value": {
+      "0x10": [
+       "0x819f68"
+      ],
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3907a6"
+     ],
+     "value": {
+      "0x0": "0x819f74"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x819f74"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GPhysicsBehavior@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3909de"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?name@PhysicsBehavior@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x3908a1"
+       },
+       {
+        "name": "?xfer@PhysicsBehavior@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x390d50"
+       },
+       {
+        "name": "?rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x39085c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x819f74"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 14,
+  "retail_vtables": {
+   "0x819f74": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GPhysicsBehavior@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?name@PhysicsBehavior@@QBEPBDXZ",
+     "3": "?xfer@PhysicsBehavior@@MAEXPAVXfer@@@Z",
+     "4": "?rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 10,
+   "36": 1,
+   "88": 1,
+   "93": 2,
+   "95": 1,
+   "96": 3,
+   "104": 6,
+   "124": 2
+  },
+  "views": 26,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/PhysicsUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/PhysicsBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShockRva00296065.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 93,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 94,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 95,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "12": 1,
+    "13": 7
+   },
+   "class": "PhysicsBehavior"
+  }
+ ],
+ "size": 104,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -367,7 +367,7 @@ class PartTheHeavensUpdate { public: static Module *friend_newModuleInstance(Thi
 class PartTheHeavensUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class PassiveAreaEffectBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class PassiveAreaEffectBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class PhysicsBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/PhysicsBehavior.h"
 class PhysicsBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class PickupStuffUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class PickupStuffUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

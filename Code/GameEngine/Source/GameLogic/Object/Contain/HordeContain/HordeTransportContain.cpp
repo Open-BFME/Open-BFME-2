@@ -199,11 +199,7 @@ namespace _STL { template<> void vector<const ModuleData *>::push_back(const Mod
 // the three earlier bodies verify unchanged under them.
 #include "../../../../../Include/GameLogic/Module/Rva00463235.h"
 
-class PhysicsBehavior
-{
-public:
-	void rva00390629(bool);
-};
+#include "../../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
 class Rva003909FAObj
 {
