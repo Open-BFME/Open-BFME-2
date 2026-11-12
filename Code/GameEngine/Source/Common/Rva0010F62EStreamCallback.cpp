@@ -48,11 +48,7 @@ struct Rva0010F28DInner
     int m_userData20; // +0x20
 };
 
-struct Rva0010F28DGuard
-{
-    Rva00041004 *m_target; // +0
-    unsigned char m_locked; // +4
-};
+#include "../../Include/Common/Rva0010F28DGuard.h"
 
 #define RVA0010F28D_LOCK(g) \
     Rva00041004 *p; \
