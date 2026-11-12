@@ -12,6 +12,10 @@
 // mov ecx,[pool] + push 0xC + push this + call shape (SizedDeleteDestructors
 // precedent); the dtor stays empty so the local ??1 copy remains 11B.
 
+// Keep this TU's novtable code-generation property on a forward declaration
+// (GpuDrawModuleInfoDtor.cpp precedent): without it the unit emits its own
+// ??_7Rva006DE350/??_GRva006DE350 copies; the shared header supplies the class.
+class __declspec(novtable) Rva006DE350;
 #include "../../Include/Common/Rva006DE350.h"
 
 #include "../../Include/Common/Rva006DB270.h"
