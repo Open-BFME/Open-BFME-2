@@ -2124,11 +2124,14 @@ def test_review_r2_a_variant_that_cannot_declare_the_layout_fails_its_units(monk
         lane.tournament("Layout1Probe", contract, ["a.cpp", "b.cpp"], header, ["data"], 1)
 
 
-@pytest.mark.parametrize("size", [0, -4, None])
+@pytest.mark.parametrize("size", [0, -4, None, True, 4.0, "4"])
 def test_layout_a_sizeof_below_one_is_refused(size):
-    # 34 contracts said sizeof 0 (a tie, no field): `sizeof(C) == 0` can never hold
-    problems = lane.layout_problems(dict(layout_contract(1), size=size, size_by="tie"))
+    # 34 contracts said sizeof 0 (a tie, no field): `sizeof(C) == 0` can never hold; review: True is an int
+    contract = dict(layout_contract(1), size=size, size_by="tie")
+    problems = lane.layout_problems(contract)
     assert any("no class is smaller than 1 byte" in p for p in problems), problems
+    with pytest.raises(lane.LayoutError, match="no class is smaller than 1 byte"):
+        lane.generate(contract, "data", {}, None)
 
 
 def test_layout_an_empty_tag_class_is_declared_as_it_is():

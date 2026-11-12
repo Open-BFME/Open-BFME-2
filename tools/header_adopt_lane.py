@@ -2549,7 +2549,7 @@ def layout_plan(contract):
     problems = [f"field {f.get('name')}: no {k} in the contract" for f in contract.get("fields", ())
                 for k in ("kind", "offset", "size") if f.get(k) is None]
     size = contract.get("size")
-    if not isinstance(size, int) or size < 1:
+    if type(size) is not int or size < 1:     # bool is an int: `sizeof(C) == True` is no assertion
         # 34 contracts said sizeof 0 (a tie of the views, no field): the sizeof assertion could never hold
         problems.append(f"sizeof {size!r} ({contract.get('size_by')}): no class is smaller than 1 byte")
     if problems:
