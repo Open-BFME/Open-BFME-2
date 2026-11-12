@@ -1,12 +1,6 @@
 #include "../../Include/Common/BfmeVecFN.h"
 
-class BfmeBufFN
-{
-public:
-	void bfmeAppendFN(const char *s);
-
-	unsigned char m_bfmeHeadFN[8];
-};
+#include "../../Include/Common/BfmeBufFN.h"
 
 class BfmeOwnerFN
 {
