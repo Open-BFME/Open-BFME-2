@@ -62,7 +62,7 @@ template <> pair<HeroPayloadTree::iterator, bool> HeroPayloadTree::insert_unique
 typedef _STL::vector<bool> BitVector;
 typedef _STL::map<int,_STL::vector<unsigned int> > IntegerVectorMap;
 class RvaVecAscii { AsciiString *m_begin; AsciiString *m_end; AsciiString *m_capacity; public: ~RvaVecAscii(); };
-struct BfmeHeroElement005C39DE { AsciiString text; unsigned int word4, word8; BfmeHeroElement005C39DE(); ~BfmeHeroElement005C39DE(); BfmeHeroElement005C39DE &operator=(const BfmeHeroElement005C39DE &); };
+#include "../../../../Include/Common/BfmeHeroElement005C39DE.h"
 class CreateAHeroData;
 extern void __cdecl UnregisterCreateAHeroAtRva0021A624(CreateAHeroData *);
 class CreateAHeroData : public Snapshot {

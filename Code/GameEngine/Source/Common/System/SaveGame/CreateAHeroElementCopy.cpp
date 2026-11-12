@@ -4,7 +4,7 @@
 // zeros an AsciiString and two scalar words; assignment preserves string
 // ownership through StringBase::set at 0x366F0. Field meanings are unknown.
 #include "ascii_string.h"
-struct BfmeHeroElement005C39DE { AsciiString text; unsigned word4, word8; BfmeHeroElement005C39DE(); ~BfmeHeroElement005C39DE(); BfmeHeroElement005C39DE &operator=(const BfmeHeroElement005C39DE &); };
+#include "../../../../Include/Common/BfmeHeroElement005C39DE.h"
 // The genuine reset caller in CreateAHeroDataResetElements.cpp emits the
 // existing default constructor and folded member teardown naturally. Their
 // ledger rows live there; this unit owns only the assignment body.

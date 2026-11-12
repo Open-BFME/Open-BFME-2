@@ -42,13 +42,7 @@ struct BfmeE8
 	float y;
 };
 
-struct BfmeHeroElement005C39DE
-{
-	AsciiString text;
-	unsigned int word4, word8;
-	BfmeHeroElement005C39DE();								// 0x005C39DE
-	~BfmeHeroElement005C39DE();
-};
+#include "../../../../Include/Common/BfmeHeroElement005C39DE.h"
 
 class CreateAHeroData;
 void RegisterCreateAHeroAtRva0021D517(CreateAHeroData *);	// 0x0021D517

@@ -54,13 +54,7 @@ typedef _STL::map<int,_STL::vector<unsigned int> > IntegerVectorMap;
 
 // Recovered separately: default5C39DE/13 and assignment406E22/37.
 // The implicit destructor is the complete5-byte release tail at48BA39.
-struct BfmeHeroElement005C39DE {
-    AsciiString text;
-    unsigned int word4, word8;
-    BfmeHeroElement005C39DE();
-    ~BfmeHeroElement005C39DE();
-    BfmeHeroElement005C39DE &operator=(const BfmeHeroElement005C39DE &);
-};
+#include "../../../../Include/Common/BfmeHeroElement005C39DE.h"
 class CreateAHeroData;
 // Retail searches the pointer registry atVA DFE358 and appends if absent.
 void RegisterCreateAHeroAtRva0021D517(CreateAHeroData *);
