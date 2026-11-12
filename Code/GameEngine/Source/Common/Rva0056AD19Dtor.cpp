@@ -42,15 +42,7 @@ private:
 
 #include "../../Include/Common/Rva0056AC26A.h"
 
-class Rva0056AC26B
-{
-public:
-	virtual ~Rva0056AC26B();
-
-private:
-	int m_04;
-	int m_08;
-};
+#include "../../Include/Common/Rva0056AC26B.h"
 
 #include "../../Include/Common/Rva0056AC26.h"
 
