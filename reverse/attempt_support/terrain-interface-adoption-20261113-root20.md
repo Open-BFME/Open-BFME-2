@@ -56,3 +56,12 @@ from header_queue.tsv. All four scoped link previews remain LINKS and retain
 snapshot. The Dtor preview also reports its unreferenced RefCountPtr::Clear
 copy as a diagnostic. These are bounded preservation results, not a new
 census, real link, bridge count or runtime receipt.
+
+The commit hook passes 122/122 changed-source rows and all 17 EH graphs.
+It also reports two shadow binding findings in W3DFloorBuffer::addFloor for
+the existing list push_back/push_front providers at 0x0005548F/0x00392076.
+A pre-adoption/current scratch comparison verifies all 51 FloorBuffer rows
+and finds all 121 emitted COMDAT byte/relocation fingerprints unchanged,
+with no additions or removals. Thus this adoption does not change those
+bindings; their underlying identity debt is not cleared. The comparison is
+recorded in `terrain-interface-floor-identity-20261113-root20.json`.
