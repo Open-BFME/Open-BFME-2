@@ -8,15 +8,7 @@
 
 #include "../../Include/Common/AsciiStringRef.h"
 
-class Rva0059B3E9
-{
-public:
-	int rva0059B3E9(char *dst);
-private:
-	Rva000B3F84Pair m_first;
-	AsciiStringRef m_mid;
-	Rva000B3F84Pair m_last;
-};
+#include "../../Include/Common/Rva0059B3E9.h"
 
 int Rva0059B3E9::rva0059B3E9(char *dst)
 {

@@ -44,15 +44,7 @@ public:
 };
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-class Rva0059B3E9
-{
-public:
-	int rva0059B3E9(char *dst);
-private:
-	Rva000B3F84Pair m_first;
-	AsciiStringRef m_mid;
-	Rva000B3F84Pair m_last;
-};
+#include "../../Include/Common/Rva0059B3E9.h"
 class Rva005E36A0
 {
 public:
