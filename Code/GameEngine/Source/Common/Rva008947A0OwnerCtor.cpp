@@ -4,13 +4,7 @@
 // built through the EH vector constructor iterator.
 // Identity unrecovered; named from the address.
 
-class BfmeRefVGO
-{
-public:
-	~BfmeRefVGO();
-private:
-	unsigned *m_value;
-};
+#include "../../Include/Common/BfmeRefVGO.h"
 
 class Rva008947A0Elem : public BfmeRefVGO
 {

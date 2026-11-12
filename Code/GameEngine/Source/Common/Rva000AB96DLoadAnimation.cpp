@@ -38,13 +38,7 @@ public:
     void rva000AB956();
 };
 
-class BfmeRefVGO {
-public:
-    BfmeRefVGO(const BfmeRefVGO &);
-    ~BfmeRefVGO();
-private:
-    unsigned *value;
-};
+#include "../../Include/Common/BfmeRefVGO.h"
 void Rva00893030(BfmeRefVGO, void *, void *, void *);
 int g_aptConstResetState0 = 0;
 int g_aptConstResetState1 = 0;

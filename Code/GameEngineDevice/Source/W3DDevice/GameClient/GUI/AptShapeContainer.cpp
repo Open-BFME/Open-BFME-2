@@ -349,11 +349,7 @@ struct Gen_t_00786e70_p12cd
 // ModuleTagStringDtor call at 0x006CE82A; pin ??1Rva008A2BA0Handle@@QAE@XZ at
 // same address describes same tail-jump handle shape shared by 33 sites.
 
-class BfmeRefVGO
-{
-public:
-	~BfmeRefVGO();
-};
+#include "../../../../../GameEngine/Include/Common/BfmeRefVGO.h"
 
 class Rva004A9DF3Element : public BfmeRefVGO
 {
