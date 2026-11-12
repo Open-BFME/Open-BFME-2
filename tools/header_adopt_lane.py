@@ -52,6 +52,7 @@ import argparse
 import collections
 import concurrent.futures as cf
 import csv
+import functools
 import hashlib
 import io
 import json
@@ -403,7 +404,7 @@ def include_guard(code):
     splices removed, so `#if !defined(X)` continued onto a `|| 1` line is no guard), or None: `#ifndef X` or `#if
     !defined(X)` / `#if !defined X` (the Platform SDK's Ole2.h), `#define X` next, the matching `#endif`
     last, no `#else`/`#elif` at its level and nothing outside it."""
-    directives = list(re.finditer(r'(?m)^[ \t]*#[ \t]*([A-Za-z_]\w*)\b([^\n]*)', code))
+    directives = list(re.finditer(r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*([A-Za-z_]\w*)\b([^\n]*)', code))
     if len(directives) < 3:
         return None
     first, define = directives[:2]
@@ -434,7 +435,16 @@ def include_guard(code):
 # only with one of them is never compiled, so a quoted include it alone names cannot be missing from the
 # build: the Platform SDK's Ole2.h reaches `#include "macname1.h"` only under `#ifndef _MAC ... #else`.
 # include_walk takes back each one the unit's compiler flags (`/D`) or a reachable `#define` give.
-NEVER_DEFINED = frozenset({"_MAC", "_MPPC_", "_68K_", "_M_MPPC", "_M_M68K", "_WIN64", "_M_IA64", "_M_AMD64", "_M_X64"})
+NEVER_DEFINED = frozenset({"MAC", "_MAC", "_MPPC_", "_68K_", "_M_MPPC", "_M_M68K", "_WIN64", "_M_IA64", "_M_AMD64",
+                           "_M_X64"})
+# What MSVC 7.1 itself may define for an x86 unit (some only under a flag: /MT, /MD, /LD, /J, /GR, /EHsc,
+# /Zc:wchar_t, /clr, /Za, /RTC, /arch): never inferred absent from the closure's own definitions.
+COMPILER_PREDEFINED = frozenset({"_WIN32", "_M_IX86", "_M_IX86_FP", "_MSC_VER", "_MSC_FULL_VER", "_MSC_EXTENSIONS",
+                                 "_INTEGRAL_MAX_BITS", "__cplusplus", "_CPPRTTI", "_CPPUNWIND", "_CHAR_UNSIGNED",
+                                 "_NATIVE_WCHAR_T_DEFINED", "_WCHAR_T_DEFINED", "_MT", "_DLL", "_DEBUG", "_MANAGED",
+                                 "__STDC__", "__COUNTER__", "__FILE__", "__LINE__", "__DATE__", "__TIME__",
+                                 "__TIMESTAMP__", "__FUNCTION__", "__FUNCDNAME__", "__FUNCSIG__", "__BOOL_DEFINED",
+                                 "_ATL_VER", "_MFC_VER", "__MSVC_RUNTIME_CHECKS", "_WCHAR_T_DEFINED"})
 # a directive on a logical line (splices removed first: masked(SPLICE.sub("", text)), `#` or the digraph `%:`
 DIRECTIVE_LINE = re.compile(r"(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*(\w+)([^\n]*)")
 DEFINED_TERM = re.compile(r"\s*(!?)\s*defined\s*(?:\(\s*([A-Za-z_]\w*)\s*\)|\s([A-Za-z_]\w*))\s*")
@@ -459,19 +469,37 @@ def branch_test(op, rest):
     return None
 
 
-def never_compiled(code, at, never=NEVER_DEFINED):
-    """The macros of `never` an enclosing branch of offset `at` in `code` (logical lines, masked, literals
-    kept) needs one of, joined by `/`, or None. A branch is never compiled when it needs one of a set of
-    macros all in `never`, or follows (`#else`, `#elif`) a branch that lacks all of them and so is always
-    taken. Any other condition, or unbalanced nesting, reads as unknown."""
-    frames = []                  # per open #if: ("needs"|"lacks"|"dead", macros), or None when unknown
-    for directive in DIRECTIVE_LINE.finditer(code, 0, at):
+def frames_dead(frames, never):
+    """The macros of `never` an open branch of `frames` needs one of, joined by `/`, or None."""
+    for state in frames:
+        if state is None:
+            continue
+        if state[0] in ("needs", "dead") and set(state[1]) <= never:
+            return "/".join(state[1])
+        if state[0] == "needs_all" and set(state[1]) & never:
+            return "/".join(sorted(set(state[1]) & never))
+    return None
+
+
+def branch_walk(code, never=NEVER_DEFINED, at=None, record=()):
+    """([(directive, dead)], dead at `at`) in one pass over `code` (logical lines, masked, literals kept) to
+    `at` (default its end): for each directive whose name is in `record`, the macros of `never` an enclosing
+    branch needs (frames_dead), or None. A branch is never compiled when it needs one of a set of macros all in `never` (all of a
+    needs_all's: any one), or follows (`#else`, `#elif`) a branch that lacks all of them and so is always
+    taken. Any other condition, or unbalanced nesting from there on, reads as unknown."""
+    frames, out, broken = [], [], False   # per open #if: ("needs"|"needs_all"|"lacks"|"dead", macros), or None
+    for directive in DIRECTIVE_LINE.finditer(code, 0, len(code) if at is None else at):
         op, rest = directive.group(1), directive.group(2)
+        if op in record:
+            out.append((directive, None if broken else frames_dead(frames, never)))
+        if broken:
+            continue
         if op in ("if", "ifdef", "ifndef"):
             frames.append(branch_test(op, rest))
         elif op in ("elif", "else", "endif"):
             if not frames:
-                return None              # unbalanced: read nothing
+                broken = True            # unbalanced: read nothing more
+                continue
             if op == "endif":
                 frames.pop()
                 continue
@@ -483,14 +511,25 @@ def never_compiled(code, at, never=NEVER_DEFINED):
                 # the opposite of a needs_all (one of its macros undefined, or another term false) is unknown
                 frames[-1] = {"needs": ("lacks", state[1]), "lacks": ("needs", state[1]), "needs_all": None,
                               "dead": state}[state[0]]
-    for state in frames:
-        if state is None:
-            continue
-        if state[0] in ("needs", "dead") and set(state[1]) <= never:
-            return "/".join(state[1])
-        if state[0] == "needs_all" and set(state[1]) & never:
-            return "/".join(sorted(set(state[1]) & never))
-    return None
+    return out, None if broken else frames_dead(frames, never)
+
+
+def never_compiled(code, at, never=NEVER_DEFINED):
+    """The macros of `never` an enclosing branch of offset `at` in `code` (logical lines, masked, literals
+    kept) needs one of, joined by `/`, or None (branch_walk)."""
+    return branch_walk(code, never, at)[1]
+
+
+def closure_defines(logicals, never):
+    """{macro: compiled}: every macro the `logicals` (logical, masked texts) `#define`, and whether one of its
+    definitions sits in a branch that can be compiled with `never` absent (branch_walk, one pass each)."""
+    found = {}
+    for logical in logicals:
+        for directive, dead in branch_walk(logical, never, record=("define",))[0]:
+            name = re.match(r"\s*([A-Za-z_]\w*)", directive.group(2)) if directive.group(1) == "define" else None
+            if name:                                         # `#define _MAC`, `%:define _MAC(x) ...`
+                found[name.group(1)] = found.get(name.group(1), False) or dead is None
+    return found
 
 
 def compiler_defines(text):
@@ -507,17 +546,28 @@ def compiler_defines(text):
     return out
 
 
-def include_walk(source, text, include_roots=(), cache=None):
+# include_walk's per-file passes are pure and a header recurs across walks (a unit's, its canonical header's,
+# include_absent's): the Platform SDK's closure of Ole2.h costs ~25 s to mask and check once.
+masked_once = functools.lru_cache(maxsize=2048)(masked)
+comment_splice_once = functools.lru_cache(maxsize=2048)(header_comment_splice)
+
+
+def include_walk(source, text, include_roots=(), cache=None, never=None, absent=None):
     """Scan the complete quoted include closure once, refusing unorderable cycles and a quoted include
     that resolves nowhere, unless only a branch never compiled names it (never_compiled) and nothing in
-    the closure defines that branch's macro."""
+    the closure defines that branch's macro. `never`: the macros assumed absent to start with (default
+    NEVER_DEFINED; a canonical header is walked with its unit's, include_absent), less the `// cl:`
+    definitions of `text`. `absent`, a set, receives those still proven absent when the walk passes; an
+    angle include that resolves nowhere in a branch that can be compiled leaves none (it may define any)."""
     start = (ROOT / source).resolve()
     cache = {} if cache is None else cache
     seen, active, out = set(), set(), []
     graph, guards, invalidated = {}, {}, set()
     unknown_macro_stack = False
     skipped = []                         # (path, include, logical text, offset): never compiled (never_compiled)
-    never = NEVER_DEFINED - compiler_defines(text)
+    unread = []                          # (path, include, logical text, offset): an angle include found nowhere
+    logicals = {}                        # path: its logical, masked text (literals kept)
+    never = (NEVER_DEFINED if never is None else frozenset(never)) - compiler_defines(text)
     stack = [(start, text, False)]
     while stack:
         path, body, leaving = stack.pop()
@@ -536,18 +586,17 @@ def include_walk(source, text, include_roots=(), cache=None):
         if body is None:
             return out, f"{path}: include cannot be read"
         out.append((str(path), body))
-        code = masked(body)
-        guard = include_guard(masked(SPLICE.sub("", body)))      # logical lines: `#if !defined(X) \` + `|| 1`
-        if guard:
-            guards[path] = guard
         # A guard is a barrier only while its macro stays defined. Treat resets
         # anywhere in the closure conservatively, including spliced directives
         # and compiler macro-stack operations; do not evaluate conditions.
         phase_two = SPLICE.sub("", body)
-        spliced = masked(phase_two)
+        spliced = masked_once(phase_two)
+        guard = include_guard(spliced)          # logical lines: a continued `#if !defined(X)` is read whole
+        if guard:
+            guards[path] = guard
         invalidated.update(re.findall(
             r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*undef[ \t\f\v\r]+([A-Za-z_]\w*)', spliced))
-        literal_code = masked(phase_two, keep_literals=True)
+        literal_code = logicals[path] = masked_once(phase_two, keep_literals=True)
         for operation in re.finditer(r'\bpop_macro\b', spliced):
             arguments = re.match(r'\s*\(([^)]*)\)', literal_code[operation.end():])
             name = (re.fullmatch(r'\s*"([A-Za-z_]\w*)"\s*', arguments.group(1))
@@ -557,12 +606,12 @@ def include_walk(source, text, include_roots=(), cache=None):
             else:
                 unknown_macro_stack = True
         problem = re.search(r"\?\?[=/'()!<>-]", body)
-        position = problem.start() if problem else header_comment_splice(body)
+        position = problem.start() if problem else comment_splice_once(body)
         if position is not None:
             line = body.count("\n", 0, position) + 1
             return out, f"{path}:{line}: trigraph or continued line comment in include input"
         children = []
-        scan = masked(phase_two, keep_literals=True)      # logical lines: a continued directive is one
+        scan = literal_code                      # logical lines: a continued directive is one
         for m in re.finditer(r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*include[ \t]*([<"])([^>"\n]+)[>"]', scan):
             angle, name = m.group(1) == "<", m.group(2)
             candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]
@@ -572,6 +621,8 @@ def include_walk(source, text, include_roots=(), cache=None):
                               if (resolved := build._case_resolve(str(p))) is not None]
             targets = list(dict.fromkeys(p for p in candidates if p.is_file()))
             if angle:
+                if not targets:
+                    unread.append((path, name, scan, m.start()))
                 children.extend(targets)
                 continue
             if not targets:
@@ -587,23 +638,30 @@ def include_walk(source, text, include_roots=(), cache=None):
             stack.append((target, cache[target], False))
     # ... unless the closure can define one of those macros after all: every `#define` of one in a branch
     # compiled while the macros still assumed absent are, to a fixed point (a define can enable another)
-    if skipped:
-        defines = []
-        for _, body in out:
-            logical = masked(SPLICE.sub("", body), keep_literals=True)
-            for d in DIRECTIVE_LINE.finditer(logical):
-                name = re.match(r"\s*([A-Za-z_]\w*)", d.group(2)) if d.group(1) == "define" else None
-                if name and name.group(1) in never:            # `#define _MAC`, `%:define _MAC(x) ...`
-                    defines.append((logical, d.start(), name.group(1)))
-        changed = True
-        while changed:
-            changed = False
-            for logical, at, macro in defines:
-                if macro in never and never_compiled(logical, at, never) is None:
-                    never, changed = never - {macro}, True
-        for path, name, scan, at in skipped:
-            if never_compiled(scan, at, never) is None:
-                return out, f"{path}: unresolved include {name} (its branch's macro can be defined)"
+    logicals = list(logicals.values())
+    while True:
+        defined = {m for m, compiled in closure_defines(logicals, never).items() if compiled and m in never}
+        if not defined:
+            break
+        never -= defined
+    # ... or a header the walk cannot read in a branch that can be compiled: it may define any of them. A
+    # macro the closure defines only in branches never compiled, and the unit's flags do not, is absent too
+    # for this (Rpc.h's __RPC_MAC__, under `defined(MAC) || defined(_MAC)`, guards `#include <rpcerr.h>`)
+    derived, flagged = frozenset(), compiler_defines(text) | COMPILER_PREDEFINED
+    while unread:
+        found = closure_defines(logicals, never | derived)
+        more = {m for m, compiled in found.items() if not compiled and m not in flagged} - never - derived
+        if not more:
+            break
+        derived |= more
+    incomplete = [name for _, name, scan, at in unread if never_compiled(scan, at, never | derived) is None]
+    if incomplete:
+        never = frozenset()
+    for path, name, scan, at in skipped:
+        if never_compiled(scan, at, never) is None:
+            return out, (f"{path}: unresolved include {name} ("
+                         + (f"<{incomplete[0]}> resolves nowhere" if incomplete else "its branch's macro can be defined")
+                         + ")")
     barriers = (set() if unknown_macro_stack else
                 {path for path, macro in guards.items() if macro not in invalidated})
     # Removing stable guard vertices must leave an acyclic graph. Checking only
@@ -625,11 +683,21 @@ def include_walk(source, text, include_roots=(), cache=None):
             colors[node] = 1
             pending.append((node, True))
             pending.extend((child, False) for child in reversed(graph[node]))
+    if absent is not None:
+        absent.update(never)
     return out, None
 
 
-def include_problem(source, text, include_roots=(), cache=None):
-    return include_walk(source, text, include_roots, cache)[1]
+def include_problem(source, text, include_roots=(), cache=None, never=None):
+    return include_walk(source, text, include_roots, cache, never)[1]
+
+
+def include_absent(source, text, include_roots=(), cache=None):
+    """The NEVER_DEFINED macros `source`'s closure leaves proven absent (include_walk); none when the walk
+    refuses. A canonical header is judged with its unit's: the unit's flags and defines reach it."""
+    absent = set()
+    include_walk(source, text, include_roots, cache, absent=absent)
+    return frozenset(absent)
 
 
 def include_sources(source, text=None, include_roots=(), cache=None):
@@ -933,7 +1001,8 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             mappings[name] = mine
     if mappings:
         if header:
-            why = include_problem(header, read_source(header), include_roots=include_roots, cache=include_cache)
+            why = include_problem(header, read_source(header), include_roots=include_roots, cache=include_cache,
+                                  never=include_absent(source, text, include_roots, include_cache))
             if why:
                 return None, why
             family = {cls for name in mappings for cls in hierarchy(name, laid)}

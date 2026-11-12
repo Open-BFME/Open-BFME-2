@@ -559,6 +559,7 @@ def test_an_include_only_a_never_defined_platform_compiles_is_no_unresolved_incl
     # _MAC is defined, which this x86 Win32 target never does; adopt refused DebugConstructor.cpp over it
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "Ole2.h").write_text(OLE2_SHAPE)
+    (tmp_path / "pshpack8.h").write_text("")
     assert lane.include_problem("u.cpp", '#include "Ole2.h"\n') is None
     for text in ("#ifdef _MAC\n#include \"mac.h\"\n#endif\n",
                  "#if defined(_WIN64)\n#include \"wide.h\"\n#endif\n",
@@ -588,6 +589,7 @@ def test_an_include_a_compiled_or_unknown_branch_names_stays_unresolved(tmp_path
 def test_a_platform_macro_another_header_defines_keeps_the_include_unresolved(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "Ole2.h").write_text(OLE2_SHAPE)
+    (tmp_path / "pshpack8.h").write_text("")
     (tmp_path / "plat.h").write_text("#define _MAC\n")
     assert "macname1.h" in lane.include_problem("u.cpp", '#include "plat.h"\n#include "Ole2.h"\n')
 
@@ -596,6 +598,7 @@ def test_a_define_in_a_branch_never_compiled_does_not_count(tmp_path, monkeypatc
     # the SDK's Windows.h: `#ifndef _MAC` / `#if defined(_68K_) || defined(_MPPC_)` / `#define _MAC`
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "Ole2.h").write_text(OLE2_SHAPE)
+    (tmp_path / "pshpack8.h").write_text("")
     (tmp_path / "Windows.h").write_text("#ifndef _MAC\n#if defined(_68K_) || defined(_MPPC_)\n#define _MAC\n#endif\n#endif\n")
     assert lane.include_problem("u.cpp", '#include "Windows.h"\n#include "Ole2.h"\n') is None
     (tmp_path / "Windows.h").write_text("#if defined(_68K_) || defined(PROJECT_FLAG)\n#define _MAC\n#endif\n")
@@ -651,6 +654,49 @@ def test_review_r1_a_continued_guard_condition_is_no_barrier(tmp_path, monkeypat
     (tmp_path / "a.h").write_text('#if !defined(A_H) \\\n|| 1\n#define A_H\n#include "b.h"\n#endif\n')
     (tmp_path / "b.h").write_text('#if !defined(B_H) \\\n|| 1\n#define B_H\n#include "a.h"\n#endif\n')
     assert "cycle" in lane.include_problem("u.cpp", '#include "a.h"\n')
+
+
+def test_review_r2_the_canonical_header_is_judged_with_its_units_macros(tmp_path, monkeypatch):
+    # the header was walked alone: a unit's /D_MAC or #define _MAC never reached its Mac branch
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Object.h").write_text(HEADER + '#ifdef _MAC\n#include "missing.h"\n#endif\n')
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Object.h")
+    assert why is None and mapping                       # nothing defines _MAC: never compiled
+    for unit in ("// cl: /O2 /D_MAC\n" + UNIT, "#define _MAC\n" + UNIT):
+        mapping, why = lane.field_renames("u.cpp", unit, ["Object"], "Object.h", compiler(), header="Object.h")
+        assert mapping is None and "missing.h" in why, why
+    assert lane.include_absent("u.cpp", "// cl: /D_MAC\n") == lane.NEVER_DEFINED - {"_MAC"}
+    assert lane.include_absent("u.cpp", '#include "nowhere.h"\n') == frozenset()     # a refused walk proves none
+
+
+def test_review_r2_a_digraph_else_spoils_the_guard(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#ifndef A_H\n#define A_H\n#include "b.h"\n%:else\n#include "b.h"\n#endif\n')
+    (tmp_path / "b.h").write_text('#include "a.h"\n')
+    assert "cycle" in lane.include_problem("u.cpp", '#include "a.h"\n')
+
+
+RPC_SHAPE = ('#if defined(MAC) || defined(_MAC)\n#define __RPC_MAC__\n#endif\n'
+             '#ifdef __RPC_MAC__\n#include <rpcerr.h>\n#endif\n')
+
+
+@pytest.mark.parametrize("text,unresolved", [
+    # review r2: a header the walk cannot read may define _MAC
+    ('#include <outside.h>\n#ifdef _MAC\n#include "missing.h"\n#endif\n', "<outside.h> resolves nowhere"),
+    # ... unless only a branch never compiled names it, directly or through a macro defined only in one (Rpc.h)
+    ('#ifdef _MAC\n#include <macpub.h>\n#include "missing.h"\n#endif\n', None),
+    (RPC_SHAPE + '#ifdef _MAC\n#include "missing.h"\n#endif\n', None),
+    # the unit's flags define the derived macro, or it is one the compiler itself defines
+    ('// cl: /D__RPC_MAC__\n' + RPC_SHAPE + '#ifdef _MAC\n#include "missing.h"\n#endif\n', "<rpcerr.h> resolves nowhere"),
+    ('#ifdef _MAC\n#define _WIN32\n#endif\n#ifndef _WIN32\n#include <x.h>\n#endif\n'
+     '#ifdef _MAC\n#include "missing.h"\n#endif\n', "<x.h> resolves nowhere"),
+])
+def test_review_r2_an_angle_include_found_nowhere_leaves_the_closure_incomplete(tmp_path, monkeypatch, text,
+                                                                               unresolved):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    problem = lane.include_problem("u.cpp", text)
+    assert problem is None if unresolved is None else (unresolved in problem and "missing.h" in problem), problem
+    assert lane.include_problem("u.cpp", "#include <outside.h>\n") is None             # alone it proves nothing
 
 
 def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
