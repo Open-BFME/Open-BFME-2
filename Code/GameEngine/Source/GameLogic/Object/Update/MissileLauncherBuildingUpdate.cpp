@@ -86,13 +86,7 @@ class ModuleData;
 // Four-vptr module hierarchy (+0 +0x0C +0x10 +0x20), as in the matched
 // GiveOrRestoreUpgradeSpecialPowerDtor.cpp; the dtor's vptr restores are
 // compiler-generated, which puts them ahead of the EH state store.
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

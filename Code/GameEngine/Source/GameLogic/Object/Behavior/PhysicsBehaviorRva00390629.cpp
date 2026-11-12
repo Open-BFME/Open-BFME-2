@@ -59,13 +59,7 @@ public:
 };
 class Thing;
 class ModuleData;
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 class BehaviorModuleOther
 {
 public:

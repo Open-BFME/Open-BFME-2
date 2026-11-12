@@ -196,14 +196,7 @@ enum ScienceType
 };
 class Thing;
 class ModuleData;
-class BehaviorModuleBase
-{
-private:
-	virtual void unused();
-public:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 class BehaviorModuleOther
 {
 	virtual void unused();

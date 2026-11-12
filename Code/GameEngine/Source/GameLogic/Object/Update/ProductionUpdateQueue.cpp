@@ -451,13 +451,7 @@ public:
 	AsciiString m_economyKey; void *m_economySound;
 };
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 
 // BehaviorModuleInterface: the per-module interface queries; retail reads
 // getProductionUpdateInterface from slot 28 (+0x70).

@@ -124,14 +124,7 @@ private:
 	void *m_slot20;
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
-class BehaviorModuleBase
-{
-	virtual void unused();
-
-protected:
-	const ModuleData *m_moduleData;
-	int m_object;
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 class BehaviorModuleOther
 {
 	virtual void unused();

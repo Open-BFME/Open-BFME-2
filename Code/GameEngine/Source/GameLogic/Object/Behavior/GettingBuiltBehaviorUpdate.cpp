@@ -51,10 +51,7 @@ public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();
 };
 #include "../../../../Include/GameLogic/Module/BfmeThingE63.h"
 class ModuleData;
-class BehaviorModuleBase {
-public:virtual ~BehaviorModuleBase();
-protected:const ModuleData *m_moduleData;Object *m_object;
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 class BehaviorModuleOther {public:virtual void behaviorModuleOtherAnchor();};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
