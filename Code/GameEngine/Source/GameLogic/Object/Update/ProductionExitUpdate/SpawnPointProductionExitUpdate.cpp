@@ -112,6 +112,10 @@ public:
 
 	virtual NameKeyType getModuleNameKey() const;
 
+	// UpdateModuleInterface table 0x00C4B1E0 (+0x10) slot 0: retail 0x004A6563, the shared
+	// `mov eax,3FFFFFFFh; ret` body (the exit modules never need an update).
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
+
 	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject);
 	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor);
 

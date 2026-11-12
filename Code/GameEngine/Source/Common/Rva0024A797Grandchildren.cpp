@@ -38,6 +38,9 @@ private:
 	char m_pad08[12];
 };
 
+// The "sleep forever" result of UpdateModuleInterface::update (retail 0x004A6563 returns it).
+enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva00452D52_E1
@@ -50,6 +53,9 @@ class Rva00452D52 : public UpdateModule, public Rva00452D52_E1
 {
 public:
 	virtual ~Rva00452D52();
+	// UpdateModuleInterface table 0x00C4B1E0 (+0x10) slot 0: retail 0x004A6563, the shared
+	// `mov eax,3FFFFFFFh; ret` body (the exit modules never need an update).
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
 };
 
 Rva00452D52::~Rva00452D52()
@@ -205,6 +211,9 @@ class DefaultProductionExitUpdate : public UpdateModule, public Rva00487F3A_E1
 {
 public:
 	virtual ~DefaultProductionExitUpdate();
+	// UpdateModuleInterface table 0x00C4B1E0 (+0x10) slot 0: retail 0x004A6563, the shared
+	// `mov eax,3FFFFFFFh; ret` body (the exit modules never need an update).
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
 	// BehaviorModuleInterface table 0x00C4B1F0 (+0x0C) slot 20: retail 0x004543A9, the +0x0C
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot20();
@@ -412,6 +421,9 @@ class SupplyCenterProductionExitUpdate : public UpdateModule, public Rva004A653D
 {
 public:
 	virtual ~SupplyCenterProductionExitUpdate();
+	// UpdateModuleInterface table 0x00C4B1E0 (+0x10) slot 0: retail 0x004A6563, the shared
+	// `mov eax,3FFFFFFFh; ret` body (the exit modules never need an update).
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
 	// BehaviorModuleInterface table 0x00C4B1F0 (+0x0C) slot 20: retail 0x004543A9, the +0x0C
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot20();
