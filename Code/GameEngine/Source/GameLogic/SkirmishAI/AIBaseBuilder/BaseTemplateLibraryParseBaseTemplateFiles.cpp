@@ -86,6 +86,8 @@ class DataChunkParser
 public:
 	DataChunkParser(DataChunkInput *input, const AsciiString *name, const AsciiString *label);
 	virtual ~DataChunkParser() { m_registry->handle(m_token); }
+	// Retail 0x00BC9574: the deleting destructor, then one __purecall.
+	virtual void slot01() = 0;
 private:
 	Q1Forwardee0000871A *m_registry;	// +0x04
 	int m_token;						// +0x08
@@ -95,6 +97,7 @@ class Rva0041E6BE : public DataChunkParser
 {
 public:
 	Rva0041E6BE(int a, int b, DataChunkInput *input, const AsciiString *name, const AsciiString *label);
+	virtual void slot01();
 private:
 	int m_a;
 	int m_b;
