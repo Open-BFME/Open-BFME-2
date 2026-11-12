@@ -77,11 +77,7 @@ bool Rva002B6C9F::rva002B8019(int army, int entry, int target)
 // path on the fall-through (test al,al / jne trueret / xor al,al). Duplicating
 // the room call in both arms (rather than one shared local) is what makes
 // each arm push its own positive difference, as retail does.
-class Rva002B6D18
-{
-public:
-	bool rva002B6D18(int a1, int a2, int a3, int a4);
-};
+#include "../../Include/Common/Rva002B6D18.h"
 
 bool Rva002B6D18::rva002B6D18(int a1, int a2, int a3, int a4)
 {

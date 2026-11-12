@@ -3304,7 +3304,7 @@ static __declspec(noinline) Bool ExtractArmyDataFromSwapArmyMembersMessage(const
  return true;
 }
 
-class Rva002B6D18 {public:bool rva002B6D18(Int,Int,Int,Int);};
+#include "../../../../Include/Common/Rva002B6D18.h"
 struct Rva002B3E50Range;
 class Rva002B6D85 {public:void rva002B6D85(void *,Rva002B3E50Range *,void *,Rva002B3E50Range *);};
 void LivingWorldLogic::HandleSwapArmyMembersMessage(const GameMessage *msg){

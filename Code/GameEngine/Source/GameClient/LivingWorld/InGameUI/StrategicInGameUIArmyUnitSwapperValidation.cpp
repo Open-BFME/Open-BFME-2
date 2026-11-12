@@ -48,7 +48,7 @@ enum ScienceType { SCIENCE_NONE=0 };
 
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 #include "../../../../Include/GameClient/Rva002B6C9F.h"
-class Rva002B6D18 {public:bool rva002B6D18(int,int,int,int);};
+#include "../../../../Include/Common/Rva002B6D18.h"
 namespace StrategicInGameUI {
 static __declspec(noinline) bool CanSwapArmyMembers(Rva005FArmyView*source,const Rva005FSelectionView*first,Rva005FArmyView*target,const Rva005FSelectionView*second){
  if(first->members.empty() || second->members.empty())return false;
