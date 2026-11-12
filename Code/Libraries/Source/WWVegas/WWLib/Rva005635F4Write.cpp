@@ -16,10 +16,7 @@ public:
 };
 }
 
-struct Rva005635DEPayload
-{
-	long value;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva005635DEPayload.h"
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva001F6951Pad(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,

@@ -72,9 +72,7 @@ File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
 
 void Rva0055C9A0WriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);
-struct Rva005635DEPayload {
-	long value;
-};
+#include "../../../../Include/GameClient/Rva005635DEPayload.h"
 void Rva00563636Write(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,
 	unsigned int pad,

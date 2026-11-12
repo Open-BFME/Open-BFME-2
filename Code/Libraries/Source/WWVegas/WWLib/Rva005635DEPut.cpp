@@ -18,10 +18,7 @@ template <class C, class T, class N>
 basic_ostream<C, T> &_M_put_num(basic_ostream<C, T> &os, N value);
 }
 
-struct Rva005635DEPayload
-{
-	long value;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva005635DEPayload.h"
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva005635DEPut(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,
