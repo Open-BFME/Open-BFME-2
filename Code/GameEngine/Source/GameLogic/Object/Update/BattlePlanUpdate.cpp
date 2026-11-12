@@ -513,14 +513,7 @@ struct Rva0045F46AData
 	UpgradeMuxData m_upgradeMuxData; // +0x5C
 };
 
-class Rva00452460Iface
-{
-public:
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-	virtual void performUpgradeFX() = 0;
-	virtual bool requiresAllActivationUpgrades() const = 0;
-	virtual bool requiresAllConflictingUpgrades() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/Rva00452460Iface.h"
 
 // UpgradeModule (BehaviorModule at +0x00, UpgradeMux at +0x10): slots 11 and
 // 12 of ??_7UpgradeModule@@6BUpgradeMux@@@ (0x00842720), inherited unchanged

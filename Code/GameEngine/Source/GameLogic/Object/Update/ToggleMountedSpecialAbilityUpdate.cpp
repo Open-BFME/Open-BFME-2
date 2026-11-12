@@ -457,14 +457,7 @@ struct Rva0045F46AData
 	char m_pad00[0x5C];
 	UpgradeMuxData m_upgradeMuxData; // +0x5C
 };
-class Rva00452460Iface
-{
-public:
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-	virtual void performUpgradeFX() = 0;
-	virtual bool requiresAllActivationUpgrades() const = 0;
-	virtual bool requiresAllConflictingUpgrades() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/Rva00452460Iface.h"
 // 0x004839F9 (interface at +0x20): virtual slot 14 of the complete object
 // when the third argument is 2, else slot 15 when the second is 2.
 // 0x004ADBD7 (interface at +0x88): virtual slot 17 of the complete object

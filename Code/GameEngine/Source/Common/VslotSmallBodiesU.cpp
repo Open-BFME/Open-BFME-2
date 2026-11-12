@@ -88,14 +88,7 @@ struct Rva0045F46AData
 	char m_pad00[0x5C];
 	UpgradeMuxData m_upgradeMuxData; // +0x5C
 };
-class Rva00452460Iface
-{
-public:
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-	virtual void performUpgradeFX() = 0;
-	virtual bool requiresAllActivationUpgrades() const = 0;
-	virtual bool requiresAllConflictingUpgrades() const = 0;
-};
+#include "../../Include/GameLogic/Module/Rva00452460Iface.h"
 class Rva00452460 : public Rva00452EDDPrimary<0x20>, public Rva00452460Iface
 {
 public:
