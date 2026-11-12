@@ -4,8 +4,11 @@
 // The global head's original name and node payload are unknown. Retail
 // saves each first-word next pointer, frees the node through the matched
 // game allocator _free (0x00030830), then updates the global at VA E07C08.
-extern "C" void __cdecl free(void *);
-extern "C" int __cdecl atexit(void (__cdecl *callback)());
+// Retail calls free (the game allocator at 0x00030830) and atexit through
+// their direct-call thunks, not the IAT: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 struct RvaCleanupNode
 {
