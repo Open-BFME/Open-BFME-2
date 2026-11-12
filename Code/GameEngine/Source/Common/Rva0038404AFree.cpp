@@ -14,12 +14,7 @@ struct BuddyInfo
 	~BuddyInfo();
 };
 
-struct Rva00382B3F
-{
-	unsigned int m_00;
-	BuddyInfo m_04;
-	~Rva00382B3F();
-};
+#include "../../Include/Common/Rva00382B3F.h"
 
 struct Rva0038404ANode
 {
