@@ -193,7 +193,14 @@ public:
 	int state;
 };
 
-struct UpgradeTail { virtual void iface() {} };
+// UpgradeModule.h's UpgradeModuleInterface18: retail's table at this base is
+// 0x00C58790 (ret 4, ret 4, ret 0Ch), UpgradeModule's three empty overrides.
+struct UpgradeTail
+{
+	virtual void vslot18_00(void *) = 0;
+	virtual void vslot18_01(void *) = 0;
+	virtual void vslot18_02(void *, void *, void *) = 0;
+};
 
 class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux, public UpgradeTail
 {
@@ -201,6 +208,9 @@ public:
 	UpgradeModule(Thing *thing, const ModuleData *moduleData);
 	void rva004CE4A0();
 	void rva004CE4A8();
+	virtual void vslot18_00(void *) { }
+	virtual void vslot18_01(void *) { }
+	virtual void vslot18_02(void *, void *, void *) { }
 protected:
 	virtual ~UpgradeModule(); // retail ??1UpgradeModule@@MAE@XZ, 0x0046089D
 	virtual void xfer(Xfer *xfer);

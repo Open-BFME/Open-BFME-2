@@ -23,10 +23,14 @@ private:
 	unsigned int m_state;
 };
 
+// UpgradeModule.h's UpgradeModuleInterface18: retail's table at this base is
+// 0x00C58790 (ret 4, ret 4, ret 0Ch), UpgradeModule's three empty overrides.
 class ModuleInterface
 {
 public:
-	virtual void moduleInterfaceAnchor();
+	virtual void vslot18_00(void *) = 0;
+	virtual void vslot18_01(void *) = 0;
+	virtual void vslot18_02(void *, void *, void *) = 0;
 };
 
 class UpgradeModule : public ObjectModule,
@@ -36,6 +40,9 @@ class UpgradeModule : public ObjectModule,
 {
 public:
 	UpgradeModule( Thing *, const ModuleData * );
+	virtual void vslot18_00(void *) { }
+	virtual void vslot18_01(void *) { }
+	virtual void vslot18_02(void *, void *, void *) { }
 };
 
 // The base at +0x1C. Retail's constructor stores 0x00C4EF80 there, a table of
