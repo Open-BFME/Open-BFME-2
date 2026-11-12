@@ -104,11 +104,7 @@ protected:
 	Module *findModule(NameKeyType) const;	// 0x0028B6D6
 };
 
-struct BfmeWideHit
-{
-	Object *m_object;
-	float m_distance;
-};
+#include "../../../Include/Common/BfmeWideHit.h"
 
 struct BfmeWidePayload
 {

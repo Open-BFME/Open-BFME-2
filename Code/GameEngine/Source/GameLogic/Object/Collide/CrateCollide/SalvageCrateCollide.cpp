@@ -28,11 +28,7 @@ public:
 };
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 // The hit list's payload: 8-byte entries from +0x00 to +0x04.
-struct BfmeWideHit
-{
-	Object *m_obj;
-	int m_extra;
-};
+#include "../../../../../Include/Common/BfmeWideHit.h"
 struct BfmeWideList
 {
 	BfmeWideHit *m_begin;
