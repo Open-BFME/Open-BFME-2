@@ -22,11 +22,7 @@ struct LANMessage
 	char m_pad[0x1E];
 };
 
-struct SlotEntry
-{
-	BfmeNetAddress m_address;
-	char m_tail[0x1D0 - 8];
-};
+#include "../../Include/Common/SlotEntry.h"
 
 class LANGame
 {

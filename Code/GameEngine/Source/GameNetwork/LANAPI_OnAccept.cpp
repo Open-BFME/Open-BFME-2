@@ -33,11 +33,7 @@ public:
 	UnsignedByte m_flag8;
 };
 
-struct SlotEntry
-{
-	BfmeNetAddress m_address;
-	char m_tail[0x1C8];
-};
+#include "../../Include/Common/SlotEntry.h"
 
 class Rva00447773
 {

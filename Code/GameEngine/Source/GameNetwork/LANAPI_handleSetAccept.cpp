@@ -17,11 +17,7 @@ struct LANMessage
 	bool m_isAccepted;
 };
 
-struct SlotEntry
-{
-	BfmeNetAddress m_address;
-	char m_tail[0x1D0 - 8];
-};
+#include "../../Include/Common/SlotEntry.h"
 
 class LANGame
 {
