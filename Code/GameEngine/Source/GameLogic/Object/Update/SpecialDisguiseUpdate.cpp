@@ -357,12 +357,7 @@ class LivingWorldRegionManager;
 #include "../../../../Include/GameLogic/LivingWorldRegionCampaign.h"
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
 class LivingWorldLogic;
-struct Rva003B8DD7Holder
-{
-	int m_00;
-	int m_04;
-	LivingWorldRegionCampaign *m_campaign;					// +0x08
-};
+#include "../../../../Include/Common/Rva003B8DD7Holder.h"
 struct Rva003B8DD7LogicView
 {
 	char m_pad[0xB0];
