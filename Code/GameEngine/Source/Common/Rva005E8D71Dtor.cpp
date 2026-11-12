@@ -20,6 +20,8 @@ class Rva005E8D71 : public Rva0007DF07, public Rva005E12D1
 {
 public:
 	virtual ~Rva005E8D71();
+	virtual void rva005E8CF8();
+	virtual void *rva005E8DB5();
 };
 
 Rva005E8D71::~Rva005E8D71()

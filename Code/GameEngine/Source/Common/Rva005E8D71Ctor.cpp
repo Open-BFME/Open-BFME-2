@@ -44,12 +44,6 @@ private:
 	AsciiString m_8; // +0x08
 };
 
-class Rva005E8DB5
-{
-public:
-	void *rva005E8DB5();
-};
-
 struct Rva005E8DCFIn
 {
 	void *m_00;
@@ -61,6 +55,8 @@ class Rva005E8D71 : public Rva00567960BaseMid, public Rva005E12D1, public Rva005
 public:
 	Rva005E8D71(void *frame, Rva005E8DCFIn *in);
 	virtual ~Rva005E8D71();
+	virtual void rva005E8CF8();
+	virtual void *rva005E8DB5();
 };
 
 Rva005E8D71::Rva005E8D71(void *frame, Rva005E8DCFIn *in)
@@ -68,6 +64,6 @@ Rva005E8D71::Rva005E8D71(void *frame, Rva005E8DCFIn *in)
 	, Rva005E12D1(frame, AsciiString("button"), in->m_00)
 	, Rva005E8DCFIn(*in)
 {
-	const Image *image = ((Rva005E16B9 *)((Rva005E8DB5 *)this)->rva005E8DB5())->GetImage();
+	const Image *image = ((Rva005E16B9 *)Rva005E8D71::rva005E8DB5())->GetImage();
 	rva005E1158(image);
 }
