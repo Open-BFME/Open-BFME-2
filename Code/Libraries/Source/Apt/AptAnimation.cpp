@@ -169,7 +169,7 @@ typedef int (__cdecl *AptLoadIdFn)(void *,int);
 typedef int (__cdecl *AptLoadSoundFn)(void *,int,const char *);
 int Rva006CFDF0DecRef(int *);
 void bfmeDropVGO(void *);
-class Rva00894D80Accessor {public:static unsigned increment(unsigned *);};
+#include "../../../GameEngine/Include/Common/Rva00894D80Accessor.h"
 #include "EAStringC.h"
 class Rva006D07E0Key {
 public:
