@@ -18,7 +18,9 @@ class B1 { public: virtual void b1(); };
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); };
 class B4 { public: virtual void b4(); };
-class B5 { public: virtual void b5(); };
+class DamageInfo;
+// The DieModuleInterface position (+0x28): retail's table 0x00C43A6C holds CaveContain::onDie.
+class B5 { public: virtual void onDie(const DamageInfo *damageInfo) = 0; };
 class B6 { public: virtual void b6(); };
 class B7 { public: virtual void b7(); };
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
@@ -33,6 +35,8 @@ class CaveExtra { public: virtual void caveExtra(); };
 
 class CaveContain : public Rva00039D6AFlatBase, public CaveExtra
 {
+public:
+	virtual void onDie(const DamageInfo *damageInfo);	// the rowed 0x00466724
 protected:
 	virtual ~CaveContain();
 

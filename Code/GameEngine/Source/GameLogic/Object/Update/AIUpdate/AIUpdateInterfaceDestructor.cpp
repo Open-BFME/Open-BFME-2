@@ -16,10 +16,13 @@
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
+struct AICommandParms;
+
+// AICommandInterface at +0x20: retail's table 0x00C47B88 holds AIUpdateInterface::aiDoCommand.
 class AIUpdateInterfaceFourth
 {
 public:
-	virtual void u0() = 0;
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 };
 
 class AIUpdateInterfaceFifth
@@ -99,6 +102,8 @@ public:
 	virtual DisabledMaskType getDisabledTypesToProcess() const;
 	void destroyPath();
 	virtual bool chooseLocomotorSet(int wst);
+	// +0x20 interface slot 0 (retail 0x00C47B88): the rowed 0x002673F6.
+	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
 	virtual ~AIUpdateInterface();
 private:

@@ -50,10 +50,13 @@ public:
 	virtual void secondary0CAnchor() = 0;
 };
 
+class Rva000CF0D6;
+
+// Retail's +0x10 table 0x00C5F44C holds the class's rowed 0x004CC06C in slot 0.
 class Secondary10
 {
 public:
-	virtual void secondary10Anchor() = 0;
+	virtual void rva004CC06C(const Rva000CF0D6 *, int, int) = 0;
 };
 
 class Holder18
@@ -73,6 +76,7 @@ class ModelConditionAudioLoopClientBehavior : public Rva004CC0FEPrimary, public 
 {
 public:
 	virtual ~ModelConditionAudioLoopClientBehavior();
+	virtual void rva004CC06C(const Rva000CF0D6 *, int, int);
 
 private:
 	int m_14;

@@ -186,6 +186,8 @@ public:
 	virtual ~OathbreakersFadeAwayBehavior();
 	const char *name() const;
 	virtual NameKeyType getModuleNameKey() const;
+	// UpdateModuleInterface slot 0 (retail 0x00C59280): the rowed 0x004B8B41.
+	virtual UpdateSleepTime update();
 	void rva004B8B0F();
 
 protected:

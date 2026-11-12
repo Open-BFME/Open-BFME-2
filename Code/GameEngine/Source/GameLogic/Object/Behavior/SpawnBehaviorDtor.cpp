@@ -66,11 +66,7 @@ public:
 	virtual void slot12() = 0;
 };
 
-class DieModuleInterface
-{
-public:
-	virtual void dieAnchor() = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 // Three slots, as the other DamageModuleInterface views (BridgeTowerBehavior.cpp,
 // FireWeaponWhenDamagedBehaviorCtor.cpp, BoneFXDamage.cpp) lay out its vtable.
@@ -82,10 +78,13 @@ public:
 	virtual void damageSlot2() = 0;
 };
 
+typedef int (__cdecl *Rva0045FE4ACallback)(Object *obj, void *data);
+
+// Retail's interface table 0x00C42598 holds SpawnBehavior::rva0045FE4A in slot 0.
 class SpawnExtraBase
 {
 public:
-	virtual void spawnExtraAnchor() = 0;
+	virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data) = 0;
 };
 
 class UpgradeMux
@@ -120,6 +119,10 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	// The rowed overrides retail's interface tables hold in slot 0 (as SpawnBehaviorCtor.cpp).
+	virtual UpdateSleepTime update();
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data);
 };
 
 SpawnBehavior::~SpawnBehavior()
