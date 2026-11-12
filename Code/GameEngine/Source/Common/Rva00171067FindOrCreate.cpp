@@ -45,13 +45,7 @@ public:
 	TextureClass *m_object;
 };
 
-struct Rva00170999Data
-{
-	unsigned int w;
-	unsigned int x;
-	unsigned int y;
-	unsigned int z;
-};
+#include "../../Include/Common/Rva00170999Data.h"
 
 class Rva00170999
 {
