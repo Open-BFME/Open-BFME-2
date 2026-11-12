@@ -228,11 +228,7 @@ public:
 	Int mode;
 };
 
-class Rva0058C040
-{
-public:
-	void invoke(void);
-};
+#include "../../../../Include/GameClient/Rva0058C040.h"
 
 extern void j_00018f2f(void);
 extern void j_0003367c(void);
