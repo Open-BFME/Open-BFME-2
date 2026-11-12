@@ -42,7 +42,9 @@ class CameraClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
-struct CursorTextureSlot : public BfmeResetTextureRef
+// CursorTextureSlot is a class in retail (reverse/class_contracts/CursorTextureSlot.json, key by bytes),
+// so this view spells the class-key the definition of cursorTextures mangles with.
+class CursorTextureSlot : public BfmeResetTextureRef
 {
 };
 

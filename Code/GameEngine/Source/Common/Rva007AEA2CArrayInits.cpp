@@ -50,7 +50,9 @@ extern unsigned int g_chatHistoryVectors[6];
 // Retail startup constructs two 12-byte vectors in this zero-filled storage.
 #define g_00E022F8 ((_STL::vector<BfmeStringRecord005DDD40, _STL::allocator<BfmeStringRecord005DDD40> > *)g_chatHistoryVectors)
 
-struct CursorTextureSlot;
+// CursorTextureSlot is a class in retail (reverse/class_contracts/CursorTextureSlot.json, key by bytes),
+// so this view spells the class-key the definition of cursorTextures mangles with.
+class CursorTextureSlot;
 extern CursorTextureSlot cursorTextures[][21];
 
 extern void *g_shaderTextureSlots[8];	// VA 0x00DE1F8C (W3DShroudMaterialPass.cpp)
