@@ -43,7 +43,7 @@ private:
 	T *m_ptr;
 };
 
-class AptCommandMap : public AptRefCounted {};
+#include "../../../Include/Common/AptCommandMap.h"
 class AptOverButtonHandler : public AptRefCounted {};
 class AptCustomRender : public AptRefCounted {};
 class AptTimer : public AptRefCounted {};

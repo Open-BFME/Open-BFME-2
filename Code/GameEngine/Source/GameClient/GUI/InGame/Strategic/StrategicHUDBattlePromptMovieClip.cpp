@@ -256,12 +256,7 @@ public:
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class AptCommandMap
-{
-public:
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../../../../Include/Common/AptCommandMap.h"
 
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc &); void *ptr;};
 template <class T> class AptRef {

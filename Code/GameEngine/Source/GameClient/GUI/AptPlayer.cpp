@@ -101,7 +101,7 @@ private:
 };
 
 class AptRefCounted { public: void *m_vtbl; int m_refCount; };
-class AptCommandMap : public AptRefCounted {};
+#include "../../../Include/Common/AptCommandMap.h"
 class AptCustomRender : public AptRefCounted {};
 class AptTimer : public AptRefCounted {};
 class AptExternHandler : public AptRefCounted {};

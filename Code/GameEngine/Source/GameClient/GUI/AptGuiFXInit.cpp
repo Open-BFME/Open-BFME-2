@@ -42,7 +42,7 @@ extern void *TheRva00222A8BOwner;
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class AptRefCounted { public: void *m_vtbl; int m_refCount; };
-class AptCommandMap : public AptRefCounted {};
+#include "../../../Include/Common/AptCommandMap.h"
 class AptCustomRender : public AptRefCounted {};
 // The two callback-holder constructors (rows 0x0023E8D8 Rva0023E8D8Ctor.cpp
 // and 0x00380AB1 Rva00380AB1Ctor.cpp) are visible inline-never-inlined with
