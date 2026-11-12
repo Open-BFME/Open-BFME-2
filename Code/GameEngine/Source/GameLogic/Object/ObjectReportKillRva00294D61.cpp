@@ -17,13 +17,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class ScoreKeeper
-{
-public:
-	void addObjectBuilt(Object *obj, int flag);
-	void addObjectLost(const Object *victim);
-	void addObjectDestroyed(const Object *victim);
-};
+#include "../../../Include/Common/ScoreKeeperClass.h"
 
 enum Relationship { RELATIONSHIP_INVALID = 0, RELATIONSHIP_1 = 1, RELATIONSHIP_2 = 2 };
 

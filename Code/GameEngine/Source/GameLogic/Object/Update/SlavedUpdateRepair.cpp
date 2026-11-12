@@ -376,11 +376,7 @@ enum Relationship
 	ALLIES = 2
 };
 #include "../../../../Include/Common/TeamBFME2.h"
-class ScoreKeeper
-{
-public:
-	void addObjectLost(const Object *o);
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 // The player's score keeper sits at +0x3BC.
 class Player
 {

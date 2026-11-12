@@ -73,11 +73,7 @@ enum DeathType
 class GettingBuiltBehaviorInterface;
 class Object;
 
-class ScoreKeeper
-{
-public:
-	void addObjectBuilt(class Object *obj, int a2); // 0x0039CBCE
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 
 class Rva0023DAA5List
 {

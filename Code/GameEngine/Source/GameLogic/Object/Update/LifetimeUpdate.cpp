@@ -117,11 +117,7 @@ public:
 	bool m_enabled110;
 };
 
-class ScoreKeeper
-{
-public:
-	void addObjectBuilt(Object *obj, int amount);
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 
 class Player
 {

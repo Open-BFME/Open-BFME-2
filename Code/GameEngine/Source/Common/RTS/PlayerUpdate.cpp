@@ -226,11 +226,7 @@ public:
 #include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 
-class ScoreKeeper
-{
-public:
-	void updateFrame(Int frame);
-};
+#include "../../../Include/Common/ScoreKeeperClass.h"
 
 class Player;
 #include "../../../Include/Common/PlayerList.h"

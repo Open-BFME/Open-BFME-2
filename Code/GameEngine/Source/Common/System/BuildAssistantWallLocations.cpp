@@ -354,12 +354,7 @@ private:
 unsigned char m_pad0[4];
 UnsignedInt m_money;
 };
-class ScoreKeeper
-{
-public:
-	void addObjectLost(const Object *o);
-	char m_pad00[0x4];
-};
+#include "../../../Include/Common/ScoreKeeperClass.h"
 class Player
 {
 public:

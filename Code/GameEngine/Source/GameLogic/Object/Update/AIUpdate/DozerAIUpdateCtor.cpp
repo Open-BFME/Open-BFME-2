@@ -2583,7 +2583,7 @@ StateReturnType DozerActionDoActionState::update()
 // identical and createPhantomStructure stores the same phantom id.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-class ScoreKeeper { public: void addObjectBuilt(Object *, Int); };
+#include "../../../../../Include/Common/ScoreKeeperClass.h"
 #include "../../../../../Include/GameLogic/Module/Rva002ACECC.h"
 
 void DozerAIUpdate::destroyPhantomStructure()

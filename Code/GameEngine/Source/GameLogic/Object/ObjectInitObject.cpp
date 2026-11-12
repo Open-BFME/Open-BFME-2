@@ -84,13 +84,7 @@ __forceinline UnsignedInt spType(const SpecialPowerTemplate *power) { return pow
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class ScoreKeeper
-{
-public:
-	void addObjectBuilt(Object *obj, int flag);
-	void addObjectLost(const Object *victim);
-	void addObjectDestroyed(const Object *victim);
-};
+#include "../../../Include/Common/ScoreKeeperClass.h"
 
 class Player
 {

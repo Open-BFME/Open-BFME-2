@@ -22,12 +22,7 @@
 
 class Player;
 
-class ScoreKeeper
-{
-public:
-	void addObjectsLost(unsigned int key, int amount);
-	void addObjectsDestroyed(unsigned int key, Player *other, unsigned int amount);
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 
 class Player
 {

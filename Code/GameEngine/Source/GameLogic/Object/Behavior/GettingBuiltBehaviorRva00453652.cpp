@@ -97,11 +97,7 @@ public:
 };
 
 // The controlling player's +0x3BC list.
-class ScoreKeeper
-{
-public:
-	void addObjectBuilt(class Object *obj, int a2); // 0x0039CBCE
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 
 class Object
 {
