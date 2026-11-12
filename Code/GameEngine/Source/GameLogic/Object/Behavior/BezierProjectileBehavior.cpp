@@ -437,6 +437,7 @@ public:
 		return ((const Gen_001EFD20 *)this)->bfmeIsNew((const BfmeThingDI *)other);
 	}
 protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 	virtual void xfer(Xfer *xfer);
 private:
 	Bool calcFlightPath(Bool recalcNumSegments);	// 0x0045B5F4
@@ -1606,3 +1607,10 @@ BezierProjectileBehavior::BezierProjectileBehavior(Thing *thing, const ModuleDat
 // tu-skeleton: 0x0078A476 8B Unwind@00b8a476 -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A47E 10B __ehhandler$?calcFlightPath@BezierProjectileBehavior@@AAE_N_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
+
+// ?loadPostProcess@BezierProjectileBehavior@@MAEXXZ: retail primary vftable 0x00C41E04 slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void BezierProjectileBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
