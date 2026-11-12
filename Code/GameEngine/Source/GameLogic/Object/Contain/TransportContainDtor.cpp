@@ -46,7 +46,7 @@ protected:
 #include "../../../../Include/Common/B1.h"
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); virtual void onCapture(int a1, int a2) = 0; };
-class B4 { public: virtual void b4(); };
+#include "../../../../Include/Common/B4.h"
 class B5 { public: virtual void b5(); };
 class B6 { public: virtual void b6(); };
 class B7 { public: virtual void b7(); };

@@ -49,7 +49,7 @@ class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
 #include "../../../../Include/Common/B1.h"
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); };
-class B4 { public: virtual void b4(); };
+#include "../../../../Include/Common/B4.h"
 class B5 { public: virtual void b5(); };
 class B6 { public: virtual void b6(); };
 class B7 { public: virtual void b7(); };

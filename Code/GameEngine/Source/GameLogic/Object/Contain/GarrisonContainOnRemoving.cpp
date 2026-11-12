@@ -261,7 +261,7 @@ public:
     virtual void d70(); virtual void d71(); virtual void d72();
     virtual unsigned int getStealthUnitsContained() const;
 };
-class B4 { public: virtual void b4(); };
+#include "../../../../Include/Common/B4.h"
 class B5 { public: virtual void b5(); };
 enum BodyDamageType
 {
