@@ -81,19 +81,7 @@ public:
 	EnumeratedIP *getNext() const { return m_next; }
 };
 
-class IPEnumeration
-{
-public:
-	EnumeratedIP *getAddresses(void);
-private:
-	EnumeratedIP *m_IPlist;
-private:
-	bool m_isWinsockInitialized;
-public:
-	AsciiString getMachineName(void);
-public:
-	~IPEnumeration();
-};
+#include "../../Include/Common/IPEnumeration.h"
 
 // ---- from Code/GameEngine/Source/GameNetwork/IPEnumerationGetAddresses.cpp
 

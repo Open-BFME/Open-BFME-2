@@ -156,17 +156,7 @@ public:
 	void *m_next;
 	unsigned int m_ip; // +0x04
 };
-class IPEnumeration
-{
-public:
-	IPEnumeration();
-	~IPEnumeration();
-	EnumeratedIP *getAddresses();
-
-private:
-	void *m_addresses;
-	int m_isWinsockInitialized;
-};
+#include "../../../../../Include/Common/IPEnumeration.h"
 // The two GlobalData fields read here (TheWritableGlobalData, 0x00DFE758).
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

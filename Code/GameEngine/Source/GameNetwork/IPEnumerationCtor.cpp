@@ -6,15 +6,7 @@
 
 class EnumeratedIP;
 
-class IPEnumeration
-{
-public:
-    IPEnumeration();
-
-private:
-    EnumeratedIP *m_IPlist;
-    bool m_isWinsockInitialized;
-};
+#include "../../Include/Common/IPEnumeration.h"
 
 // ??0IPEnumeration@@QAE@XZ
 IPEnumeration::IPEnumeration(void)

@@ -42,17 +42,7 @@ public:
 	EnumeratedIP *m_next;
 };
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
-class IPEnumeration
-{
-public:
-	IPEnumeration();
-	~IPEnumeration();
-	EnumeratedIP *getAddresses();
-
-private:
-	EnumeratedIP *m_IPlist;
-	bool m_isWinsockInitialized;
-};
+#include "../../../../../Include/Common/IPEnumeration.h"
 #include "../../../../../Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 #include "../../../../../Include/GameClient/Display.h"

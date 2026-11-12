@@ -1,0 +1,85 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "IPEnumeration",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "1": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x318329"
+     ],
+     "value": {
+      "0x318329": [
+       "IPEnumeration",
+       "WeatherData"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "8": 8
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/IPEnumeration.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_IPlist",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "EnumeratedIP*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "m_isWinsockInitialized",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "1": 2
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "zh",
+ "vslots": {}
+}

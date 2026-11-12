@@ -258,16 +258,7 @@ public:
 // prev 0x0044D2F5 next 0x0044D50D.
 class EnumeratedIP;
 
-class IPEnumeration
-{
-public:
-	IPEnumeration();
-	~IPEnumeration();
-	AsciiString getMachineName(void);
-private:
-	EnumeratedIP *m_IPlist;
-	bool m_isWinsockInitialized;
-};
+#include "../../Include/Common/IPEnumeration.h"
 
 UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
 

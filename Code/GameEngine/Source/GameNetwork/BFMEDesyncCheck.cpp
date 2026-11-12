@@ -13,17 +13,7 @@ private:
     unsigned int m_crcBeforeClientUpdate;
 };
 // IPEnumeration's 8-byte object: the address list and the Winsock flag.
-class IPEnumeration
-{
-public:
-    IPEnumeration();
-    ~IPEnumeration();
-    AsciiString getMachineName(void);
-
-private:
-    void *m_IPlist;
-    bool m_isWinsockInitialized;
-};
+#include "../../Include/Common/IPEnumeration.h"
 // The in-game UI's message slot (+0x40).
 class DesyncInGameUI
 {

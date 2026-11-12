@@ -105,17 +105,7 @@ private:
 	UnsignedInt m_IP; // +0x04
 	EnumeratedIP *m_next; // +0x08
 };
-class IPEnumeration
-{
-public:
-	IPEnumeration();
-	~IPEnumeration();
-	EnumeratedIP *getAddresses(void);
-
-private:
-	EnumeratedIP *m_IPlist;
-	bool m_isWinsockInitialized;
-};
+#include "../../../../../Include/Common/IPEnumeration.h"
 extern class GlobalData *TheWritableGlobalData;
 namespace _STL
 {
