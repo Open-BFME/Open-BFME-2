@@ -40,7 +40,7 @@ static inline void MeshGeom_Transform_Vector(const Matrix3D &matrix3D, const Vec
 	out->Z = (matrix3D[2][0] * tmp.X + matrix3D[2][1] * tmp.Y + matrix3D[2][2] * tmp.Z + matrix3D[2][3]);
 }
 
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 /*

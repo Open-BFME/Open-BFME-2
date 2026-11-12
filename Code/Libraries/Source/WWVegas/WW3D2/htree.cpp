@@ -57,7 +57,7 @@
 // optimization state of the first function that needs it; retail links the
 // /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
 // lookuptable.cpp pattern) so this unit's copy is that body.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "quat.h"
 #include "matrix3d.h"

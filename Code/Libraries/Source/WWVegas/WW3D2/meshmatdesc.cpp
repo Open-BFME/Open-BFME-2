@@ -7,7 +7,7 @@
 // /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
 // lookuptable.cpp pattern). auto_inline(off) keeps the later /O2
 // ShareBufferClass<ShaderClass> ctor (0x0015CF30) calling it, not inlining it.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 #pragma auto_inline(off)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
