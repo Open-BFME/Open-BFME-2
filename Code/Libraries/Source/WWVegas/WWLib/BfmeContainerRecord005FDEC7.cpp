@@ -62,10 +62,7 @@ struct BfmeStringRecord00111ACF {
 };
 template void _STL::_Construct<BfmeStringRecord00111ACF, BfmeStringRecord00111ACF>(BfmeStringRecord00111ACF *, const BfmeStringRecord00111ACF &);
 // Complete retail record copy at0x005EC43C.
-struct BfmeStringRecord005EC43C {
-    UnicodeString text; unsigned int word0, word1, word2, word3, word4;
-    BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C &source);
-};
+#include "BfmeStringRecord005EC43C.h"
 template void _STL::_Construct<BfmeStringRecord005EC43C,BfmeStringRecord005EC43C>(BfmeStringRecord005EC43C*,const BfmeStringRecord005EC43C&);
 #include "../../../../GameEngine/Source/Common/BfmeStringRecord005F93E3.h"
 BfmeStringRecord005F93E3::BfmeStringRecord005F93E3(const BfmeStringRecord005F93E3 &source) : word0(source.word0), word1(source.word1), text(source.text) {}

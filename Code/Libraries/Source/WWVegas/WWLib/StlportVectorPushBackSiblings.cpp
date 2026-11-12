@@ -31,7 +31,7 @@ __declspec(dllimport) __forceinline ~BfmeRecord001ECAF9() { ((Rva001EC349 *)this
 // 36-byte element; layout as in StlportVectorGrowthFootprints.cpp.
 struct BfmeVectorRecord002AF478 { char m_pad[36]; public: BfmeVectorRecord002AF478(const BfmeVectorRecord002AF478 &); ~BfmeVectorRecord002AF478(); };
 // 24-byte element; layout owner StringRecordInlineCopyBFME2.cpp.
-struct BfmeStringRecord005EC43C { char m_pad[24]; public: BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C &); ~BfmeStringRecord005EC43C(); };
+#include "BfmeStringRecord005EC43C.h"
 // 12-byte element; layout as in StlportVectorGrowthFootprints.cpp.
 struct Rva004F6352 { char m_pad[12]; public: Rva004F6352(const Rva004F6352 &); ~Rva004F6352(); };
 

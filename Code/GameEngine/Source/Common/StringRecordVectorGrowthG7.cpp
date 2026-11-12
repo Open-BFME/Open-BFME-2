@@ -47,10 +47,7 @@ struct BfmeStringRecord0022074B {
     ~BfmeStringRecord0022074B();
 };
 #include "../../Include/Common/BfmeStringRecord005D511F.h"
-struct BfmeStringRecord005EC43C {
-    UnicodeString text; unsigned int word0, word1, word2, word3, word4;
-    BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C &o);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005EC43C.h"
 #include "BfmeStringRecord005F93E3.h"
 
 namespace _STL
