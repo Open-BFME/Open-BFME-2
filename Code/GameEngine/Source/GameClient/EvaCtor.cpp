@@ -53,6 +53,9 @@ namespace _STL { template <> allocator<void *>::~allocator(); }
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct upgradePair;
 namespace _STL { template <> void _List_base<upgradePair,allocator<upgradePair> >::clear(); }
+// Declaration-only as well: the list base constructor is the folded body at 0x002049AD
+// (ModuleFactory.cpp's row), so this TU must not emit its own copy of it (LINK-633).
+namespace _STL { template <> _List_base<upgradePair,allocator<upgradePair> >::_List_base(const allocator<upgradePair> &); }
 // Declaration-only: retail keeps one _STL::max<unsigned int> (17-byte jae
 // shape); this TU's flags would emit a private copy.
 namespace _STL {
@@ -60,6 +63,7 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 }
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 struct Rva001DDBC6Record
 {
@@ -74,10 +78,14 @@ struct Rva001DE80FElement
 	bool operator==(const Rva001DE80FElement &) const;
 };
 
+// Eva's queue element. Retail reads the node as {next, prev, id, position} (Eva::rva001DD3DD passes
+// node+0xC to lookAt) and allocates 0x18-byte nodes through 0x002049AD, so the element is 16 bytes.
+// Its original name is unknown: `upgradePair` only reaches that folded list body, which retail shares
+// with the 16-byte elements of AutoDepositUpdate's upgradePair and ScriptEngine's pair list.
 struct upgradePair
 {
-	int a;
-	int b;
+	int id;
+	Coord3D position;
 };
 
 struct NoCaseTreeValue4
