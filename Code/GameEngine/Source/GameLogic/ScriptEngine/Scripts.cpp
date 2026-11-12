@@ -981,12 +981,7 @@ typedef const ModuleData *Elem;
 // Evidence: 21B push-ecx/esi shape with base-ctor call 0x00605464, leaf with
 // one unclaimed caller; deque layout from StlportNestedWordDeque.
 
-struct BfmeWordValue4
-{
-	unsigned int bits;
-	BfmeWordValue4();
-	~BfmeWordValue4() {}
-};
+#include "../../../Include/Common/BfmeWordValue4.h"
 
 class Rva003B6831
 {

@@ -201,7 +201,7 @@ class FormationAssistant {public:
 
 struct FormationObjectView {char prefix[0x438];unsigned char flags;};
 
-struct BfmeWordValue4 { unsigned bits; BfmeWordValue4(); ~BfmeWordValue4() {} };
+#include "../../../../GameEngine/Include/Common/BfmeWordValue4.h"
 
 typedef _STL::deque<BfmeWordValue4,_STL::allocator<BfmeWordValue4> > InnerDeque;
 

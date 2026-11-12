@@ -69,12 +69,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 
-struct BfmeWordValue4
-{
-	unsigned int bits;
-	BfmeWordValue4();
-	~BfmeWordValue4() {}
-};
+#include "../../../../GameEngine/Include/Common/BfmeWordValue4.h"
 
 typedef _STL::deque<BfmeWordValue4, _STL::allocator<BfmeWordValue4> > ConstructInnerDeque;
 typedef _STL::deque<ConstructInnerDeque, _STL::allocator<ConstructInnerDeque> > ConstructOuterDeque;

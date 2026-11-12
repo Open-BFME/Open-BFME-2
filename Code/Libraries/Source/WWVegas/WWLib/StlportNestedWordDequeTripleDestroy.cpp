@@ -8,7 +8,7 @@
 // footprint alone does not. Original innermost four-byte type is unknown.
 // Both full33B body and complete36B iterator dependency verify strictly.
 #include <deque>
-struct BfmeWordValue4 { unsigned bits; BfmeWordValue4(); ~BfmeWordValue4() {} };
+#include "../../../../GameEngine/Include/Common/BfmeWordValue4.h"
 typedef _STL::deque<BfmeWordValue4,_STL::allocator<BfmeWordValue4> > InnerDeque;
 typedef _STL::deque<InnerDeque,_STL::allocator<InnerDeque> > OuterDeque;
 namespace _STL { template<> OuterDeque::~deque(); }

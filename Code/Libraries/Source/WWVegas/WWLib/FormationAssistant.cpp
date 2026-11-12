@@ -16,12 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #pragma comment(linker, "/alternatename:??0Rva00423A4A@@QAE@ABU0@@Z=??0Rva00423A4A@@QAE@PAURva00423A4A_Range@@@Z")
 
-struct BfmeWordValue4
-{
-    unsigned int bits;
-    BfmeWordValue4();
-    ~BfmeWordValue4() {}
-};
+#include "../../../../GameEngine/Include/Common/BfmeWordValue4.h"
 
 typedef _STL::deque<BfmeWordValue4, _STL::allocator<BfmeWordValue4> > InnerDeque;
 

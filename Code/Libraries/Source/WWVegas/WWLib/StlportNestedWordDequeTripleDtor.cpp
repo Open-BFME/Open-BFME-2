@@ -9,7 +9,7 @@
 // as the matched outer push-back sibling does (retail writes unwind state).
 // Storage base destructor and node cleanup independently verify all bytes.
 #include <deque>
-struct BfmeWordValue4 { unsigned bits; BfmeWordValue4(); ~BfmeWordValue4() {} };
+#include "../../../../GameEngine/Include/Common/BfmeWordValue4.h"
 typedef _STL::deque<BfmeWordValue4,_STL::allocator<BfmeWordValue4> > InnerDeque;
 typedef _STL::deque<InnerDeque,_STL::allocator<InnerDeque> > OuterDeque;
 namespace _STL { template<> OuterDeque::~deque(); }
