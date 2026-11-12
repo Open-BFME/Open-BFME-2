@@ -127,6 +127,10 @@ public:
 	Rva005FBBEE(unsigned level, const AsciiString &name);
 public:
 	virtual ~Rva005FBBEE();
+	// Retail table 0x00C79FF4: three __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 private:
 	Rva005FBC20 *m_impl;
 };

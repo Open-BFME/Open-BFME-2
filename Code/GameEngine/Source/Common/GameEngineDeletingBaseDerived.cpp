@@ -80,6 +80,15 @@ class Rva002E55D8 : public SubsystemInterface
 public:
 	Rva002E55D8();
 	virtual ~Rva002E55D8();
+	// Retail table 0x00C04E90: 8 __purecall entries follow SubsystemInterface's 14 slots.
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
 };
 
 // ??0Rva002E55D8@@QAE@XZ retail 0x002E55FF 18B: base ctor 0x001B4E63 then own
@@ -96,6 +105,11 @@ class Rva003BA6A9 : public SubsystemInterface
 {
 public:
 	virtual ~Rva003BA6A9();
+	// Retail table 0x00C1FD98: 4 __purecall entries follow SubsystemInterface's 14 slots.
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
 };
 
 Rva003BA6A9::~Rva003BA6A9()
@@ -107,6 +121,11 @@ class Rva003E3BD4 : public SubsystemInterface
 public:
 	Rva003E3BD4();
 	virtual ~Rva003E3BD4();
+	// Retail table 0x00C35AE0: 4 __purecall entries follow SubsystemInterface's 14 slots.
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
 };
 
 Rva003E3BD4::Rva003E3BD4()
@@ -177,6 +196,54 @@ class Rva0044954D : public SubsystemInterface
 public:
 	Rva0044954D();
 	virtual ~Rva0044954D();
+	// Retail table 0x00C3E588: 47 __purecall entries follow SubsystemInterface's 14 slots.
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+	virtual void slot26() = 0;
+	virtual void slot27() = 0;
+	virtual void slot28() = 0;
+	virtual void slot29() = 0;
+	virtual void slot30() = 0;
+	virtual void slot31() = 0;
+	virtual void slot32() = 0;
+	virtual void slot33() = 0;
+	virtual void slot34() = 0;
+	virtual void slot35() = 0;
+	virtual void slot36() = 0;
+	virtual void slot37() = 0;
+	virtual void slot38() = 0;
+	virtual void slot39() = 0;
+	virtual void slot40() = 0;
+	virtual void slot41() = 0;
+	virtual void slot42() = 0;
+	virtual void slot43() = 0;
+	virtual void slot44() = 0;
+	virtual void slot45() = 0;
+	virtual void slot46() = 0;
+	virtual void slot47() = 0;
+	virtual void slot48() = 0;
+	virtual void slot49() = 0;
+	virtual void slot50() = 0;
+	virtual void slot51() = 0;
+	virtual void slot52() = 0;
+	virtual void slot53() = 0;
+	virtual void slot54() = 0;
+	virtual void slot55() = 0;
+	virtual void slot56() = 0;
+	virtual void slot57() = 0;
+	virtual void slot58() = 0;
+	virtual void slot59() = 0;
+	virtual void slot60() = 0;
 };
 
 Rva0044954D::Rva0044954D()

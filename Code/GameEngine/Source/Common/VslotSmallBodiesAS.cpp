@@ -31,7 +31,8 @@ class Rva0005D10D6DwordImmSetter { public: void apply(); };
 // ~Rva0044BE85 is defined beside its twin ~Rva00517397 (Rva00517397Dtor.cpp).
 class Rva0044BE85 { public: ~Rva0044BE85(); };
 #include "../../Include/Common/Rva0007DF07.h"
-class Rva005FBBEE { public: virtual ~Rva005FBBEE(); };
+// Retail table 0x00C79FF4: three __purecall entries follow the destructor.
+class Rva005FBBEE { public: virtual ~Rva005FBBEE(); virtual void slot1() = 0; virtual void slot2() = 0; virtual void slot3() = 0; };
 struct EmitPlayerPanelTableTag;
 namespace StrategicInGameUI {
 class DynamicAutoResolveDialog { public: class Impl; };

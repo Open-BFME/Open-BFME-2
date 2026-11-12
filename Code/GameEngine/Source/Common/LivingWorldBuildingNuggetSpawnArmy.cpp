@@ -35,6 +35,9 @@ public:
 	Rva0052B668(const AsciiString &name);
 	// Empty: retail's 0x0052B588 only stores this class's vtable.
 	virtual ~Rva0052B668() {}
+	// Retail table 0x00C686BC holds __purecall at slot 1; each derived
+	// registration table overrides it (0x00C63398's is 0x004FAC99).
+	virtual void slot1() = 0;
 };
 
 class Rva004FA623 : public Rva0052B668

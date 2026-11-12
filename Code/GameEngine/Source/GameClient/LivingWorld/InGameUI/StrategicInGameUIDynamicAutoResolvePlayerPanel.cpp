@@ -52,7 +52,8 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 #include "../../../../Include/Common/Rva0007DF07.h"
-class Rva005FBBEE {public:Rva005FBBEE(unsigned,const AsciiString&);virtual ~Rva005FBBEE();private:void *impl;};
+// Retail table 0x00C79FF4: three __purecall entries follow the destructor.
+class Rva005FBBEE {public:Rva005FBBEE(unsigned,const AsciiString&);virtual ~Rva005FBBEE();virtual void slot1() = 0; virtual void slot2() = 0; virtual void slot3() = 0;private:void *impl;};
 class Rva005FBBFC {public:void setPlayerName(const UnicodeString&);};
 #include "../../../../Include/GameClient/Rva005FBB68.h"
 class Image;
