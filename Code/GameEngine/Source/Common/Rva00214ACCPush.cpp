@@ -10,10 +10,7 @@
 // the application type of this holder or its argument. Preserve the raw bits.
 class ModuleData;
 
-struct Rva004DFCB0Element
-{
-	unsigned word0;
-};
+#include "../../Include/Common/Rva004DFCB0Element.h"
 
 #include <vector>
 

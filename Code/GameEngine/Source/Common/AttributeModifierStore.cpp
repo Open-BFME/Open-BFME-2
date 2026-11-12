@@ -113,7 +113,7 @@ template <> inline vector<BfmeE16, allocator<BfmeE16> >::~vector() {}
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-struct Rva004DFCB0Element { unsigned word0; };
+#include "../../Include/Common/Rva004DFCB0Element.h"
 
 class Rva00214ACC
 {

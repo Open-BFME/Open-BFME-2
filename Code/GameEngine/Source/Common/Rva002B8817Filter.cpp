@@ -23,10 +23,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-struct Rva004DFCB0Element
-{
-	unsigned word0;
-};
+#include "../../Include/Common/Rva004DFCB0Element.h"
 
 #include "../../Include/GameLogic/RegionAwardDispute.h"
 
