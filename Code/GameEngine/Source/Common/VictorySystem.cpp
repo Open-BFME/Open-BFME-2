@@ -66,7 +66,7 @@ class ExperienceTracker;
 class Object { public: Player *getControllingPlayer() const; char pad0[4]; VictoryObjectTemplate *tmpl; char pad8[0x264-8]; ExperienceTracker *m_experienceTracker; char pad268[0x438-0x268]; unsigned char flags438; };
 extern GameLogic *TheGameLogic;
 struct VictoryDeathInfo { char pad[8]; ObjectID killer; };
-struct Vec3 { float x,y,z; };
+#include "../../Include/Common/Vec3.h"
 class Rva0056C4D3 { public: void rva0056C4D3(void*,float,int,int); };
 class Rva0056C0F0 { public: void rva0056C0F0(unsigned int,Vec3*); };
 struct Rva004051BCEntry

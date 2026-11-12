@@ -9,10 +9,7 @@
 // float pair, forward its address to virtual slot 7. Member thiscall with an unused receiver, established by native
 // processFrame 0x003F99DC setting ECX=this before both calls. The 12B Vec3 write
 // fills the whole sub-esp reserve; the float copies land on top of it.
-struct Vec3
-{
-	float x, y, z;
-};
+#include "../../Include/Common/Vec3.h"
 
 class Rva003FB793Inner
 {

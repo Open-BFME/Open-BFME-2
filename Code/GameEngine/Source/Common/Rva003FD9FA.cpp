@@ -17,7 +17,7 @@ private:
 	int m_id;
 };
 
-struct Vec3 { float x,y,z; };
+#include "../../Include/Common/Vec3.h"
 
 class Rva003FD9FA : public Rva003FC7FC
 {

@@ -64,7 +64,7 @@ void Rva003F934B::rva003F934B()
 	m_slot20 = 0;
 }
 
-struct Vec3{float x,y,z;};
+#include "../../Include/Common/Vec3.h"
 #include "../../Include/Common/Rva003F936EHost.h"
 class Rva003FB7C7{public:void rva003FB7C7();};
 // ?rva003F92DA@Rva003F92DA@@QAEXXZ

@@ -4,7 +4,7 @@
 // Evidence: packet disassembly.
 
 struct Vec2 { float x; float y; };
-struct Vec3 { float x; float y; float z; };
+#include "../../Include/Common/Vec3.h"
 
 class Rva0010274F
 {

@@ -42,7 +42,7 @@ struct XferUnknown11;
 
 extern TerrainLogic *TheTerrainLogic;
 
-struct Vec3 { float x; float y; float z; };
+#include "../../Include/Common/Vec3.h"
 
 class Rva0056C0F0
 {
