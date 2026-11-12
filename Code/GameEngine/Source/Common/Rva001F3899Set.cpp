@@ -3,11 +3,7 @@
 // Copies arg+0/+4/+8 to +0xc8/+0xd8/+0xe8 and clears byte at +0x1a0. Callers at
 // 0x000C70D8/0x000C7337/0x000C7CC3/0x001E225A among 24 sites. Honest Rva names;
 // /O1 for the frameless copy plus byte-clear idiom.
-struct Rva001F3899Arg {
-    int m_00;
-    int m_04;
-    int m_08;
-};
+#include "../../Include/GameLogic/Module/Rva001F3899Arg.h"
 class Rva001F3899Slot {
 public:
     void set(const Rva001F3899Arg &arg);

@@ -313,12 +313,7 @@ private:
 
 // The particle system's position copy (0x001F3899) and attachToDrawable
 // (0x001F3C20) are rowed under placeholder names.
-struct Rva001F3899Arg
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva0055A88BDwordField;
 #include "../../../../Include/GameLogic/Module/Rva001F3C20Slot.h"

@@ -118,12 +118,7 @@ public:
 // The particle system's setters, rowed under placeholder names: position copy
 // 0x001F3899, attached object ID (+0xB4, from the object's +0x74) 0x001F3C43
 // and the stopped byte (+0x1A3) 0x001F3852.
-struct Rva001F3899Arg
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 struct Rva001F3C43Arg;
 class Rva001F3C43Slot

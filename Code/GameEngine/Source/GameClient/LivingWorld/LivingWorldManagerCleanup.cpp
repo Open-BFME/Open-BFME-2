@@ -37,7 +37,7 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 // is appended to the independently rowed +2A8 vector. The final 2115EC callee
 // is a complete 726B RET0 same-receiver routine over +234/+240, inspected in
 // full; its original method name is not asserted.
-struct Rva001F3899Arg { int m_00, m_04, m_08; };
+#include "../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva001F384AByteZeroSetter { public: void disable(); };
 class ParticleSystem {

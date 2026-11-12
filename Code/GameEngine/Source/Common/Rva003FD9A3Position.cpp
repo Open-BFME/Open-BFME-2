@@ -12,7 +12,7 @@
 class ParticleSystem;
 ParticleSystem *__cdecl Make001FCBD7();
 
-struct Rva001F3899Arg { int a, b, c; };
+#include "../../Include/GameLogic/Module/Rva001F3899Arg.h"
 
 struct Rva003FD9A3Point
 {

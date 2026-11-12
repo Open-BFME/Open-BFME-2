@@ -531,12 +531,7 @@ public:
 	BodyModuleInterface *m_body;	// +0x254
 };
 extern GameLogic *TheGameLogic;
-struct Rva001F3899Arg
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 class Rva001F3899Slot
 {
 public:

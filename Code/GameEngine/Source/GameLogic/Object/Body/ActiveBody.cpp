@@ -101,12 +101,7 @@ void XferParticleSystemID(Xfer *xfer, Int *value);
 void XferObjectID(Xfer *xfer, ObjectID *value);
 // The particle system's setters, rowed under placeholder names: position copy
 // 0x001F3899 and attached object 0x001F3C43.
-struct Rva001F3899Arg
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 class Rva001F3899Slot
 {
 public:
