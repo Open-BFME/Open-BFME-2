@@ -50,7 +50,9 @@ class PartitionManagerImpl { public: PartitionManagerImpl(EmitVtableTag *); virt
 PartitionManagerImpl::PartitionManagerImpl(EmitVtableTag *) {}
 
 // ??_GRva00666BA0@@UAEPAXI@Z @0x661330
-class Rva00666BA0 { public: Rva00666BA0(EmitVtableTag *); virtual ~Rva00666BA0(); };
+// Retail table 0x00CE2BD8: the deleting destructor, then 3 __purecall entries.
+class Rva00666BA0 { public: Rva00666BA0(EmitVtableTag *); virtual ~Rva00666BA0();
+	virtual void slot1() = 0; virtual void slot2() = 0; virtual void slot3() = 0; };
 // ?<Rva00666BA0::Rva00666BA0> absent-from-retail
 Rva00666BA0::Rva00666BA0(EmitVtableTag *) {}
 

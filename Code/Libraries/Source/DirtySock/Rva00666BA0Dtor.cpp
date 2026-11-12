@@ -11,6 +11,10 @@ struct Rva00666BA0
 {
 	Rva00666BA0();
 	virtual ~Rva00666BA0();
+	// Retail table 0x00CE2BD8: the deleting destructor, then 3 __purecall entries.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 };
 
 // Retail's scalar deleting destructor (0x00661330) calls this body out of

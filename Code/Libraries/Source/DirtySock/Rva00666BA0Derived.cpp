@@ -11,6 +11,10 @@ class Rva00666BA0
 public:
 	Rva00666BA0();
 	virtual ~Rva00666BA0();
+	// Retail table 0x00CE2BD8: the deleting destructor, then 3 __purecall entries.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 };
 // ??0Rva00666BA0@@QAE@XZ @0x00661320 9B: the default constructor, storing the
 // class's own vtable (VA 0x00CE2BD8) and returning this.
@@ -23,6 +27,10 @@ class Rva00661350 : public Rva00666BA0
 public:
 	Rva00661350();
 	virtual ~Rva00661350();
+	// Retail table 0x00CE2BE8: the base's three __purecall entries, then three more.
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
 };
 // ??0Rva00661350@@QAE@XZ @0x006613A0 9B: the default constructor, storing the
 // class's own vtable (VA 0x00CE2BE8) and returning this.
