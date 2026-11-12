@@ -894,11 +894,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 // WWMath's Vector3 (its inline members, WWINLINE as __forceinline).
 class Vector3

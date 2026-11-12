@@ -104,11 +104,7 @@ enum KindOfType
 	KINDOF_HORDE = 109
 };
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 struct Vector3
 {

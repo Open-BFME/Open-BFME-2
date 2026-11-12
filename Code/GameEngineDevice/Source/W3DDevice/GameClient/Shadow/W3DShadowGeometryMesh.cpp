@@ -70,11 +70,7 @@ public:
 // Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
 static __forceinline Vector3 ShadowSubtract(const Vector3 &lhs, const Vector3 &rhs) { Vector3 result; result.X=lhs.X-rhs.X; result.Y=lhs.Y-rhs.Y; result.Z=lhs.Z-rhs.Z; return result; }
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float val);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 __forceinline void Vector3::Normalize(void)
 {

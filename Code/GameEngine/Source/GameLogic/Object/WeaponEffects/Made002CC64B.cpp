@@ -3,7 +3,7 @@
 #include "../../../Common/PartitionRangeQueryCallView.h"
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
-class WWMath{public:static float __fastcall Inv_Sqrt(float);};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 struct AttributeLocalVector{float X,Y,Z;AttributeLocalVector(){} AttributeLocalVector(float x,float y,float z):X(x),Y(y),Z(z){} AttributeLocalVector(const AttributeLocalVector&v):X(v.X),Y(v.Y),Z(v.Z){} float Length2()const{return X*X+Y*Y+Z*Z;} __forceinline void Normalize(){float len2=Length2();if(len2!=0.0f){float inv=WWMath::Inv_Sqrt(len2);X*=inv;Y*=inv;Z*=inv;}} static float Dot_Product(const AttributeLocalVector&a,const AttributeLocalVector&b){return a.X*b.X+a.Y*b.Y+a.Z*b.Z;}};
 #include "GameLogicObjectLookupView.h"
 #include <string.h>
