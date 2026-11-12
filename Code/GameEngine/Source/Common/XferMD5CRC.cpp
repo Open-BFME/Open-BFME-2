@@ -41,15 +41,7 @@ public:
 // recovered caller. Callees are the rowed bodies the retail jmp targets.
 
 // ?rva00531041@Rva00531041@@QAEXXZ @0x00531041 9B: clear +0x10 then +0x0C.
-class Rva00531041
-{
-public:
-	void rva00531041();
-private:
-	char m_pad[0xc];
-	int m_0c;
-	int m_10;
-};
+#include "../../Include/Common/Rva00531041.h"
 // ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
 #include "../../Include/Common/Rva0054C836.h"
 // ?rva005FC6EE@Rva005FC6EE@@QBE_NXZ @0x005FC6EE 9B: bit 0 of the byte at +0x34
