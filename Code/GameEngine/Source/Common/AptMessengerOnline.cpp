@@ -159,12 +159,7 @@ template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<int *, int
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class Rva005AEB2C
-{
-public:
-    Rva005AEB2C();
-    _STL::vector<BfmeE8> m_vec;
-};
+#include "../../Include/Common/Rva005AEB2C.h"
 
 struct Rva005AE7A5Class
 {

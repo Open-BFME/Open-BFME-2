@@ -46,12 +46,7 @@ struct BfmeE8
 	char pad[3];
 };
 
-class Rva005AEB2C
-{
-public:
-	Rva005AEB2C();
-	_STL::vector<BfmeE8> m_vec;
-};
+#include "../../../../../Include/Common/Rva005AEB2C.h"
 
 // The rowed lookup 0x005AE7A5 on the list's begin/end pair.
 struct Rva005AE7A5Class

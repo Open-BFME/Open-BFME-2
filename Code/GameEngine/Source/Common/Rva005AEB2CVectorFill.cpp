@@ -64,12 +64,7 @@ public:
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class Rva005AEB2C
-{
-public:
-	Rva005AEB2C();
-	_STL::vector<BfmeE8> m_vec;
-};
+#include "../../Include/Common/Rva005AEB2C.h"
 
 Rva005AEB2C::Rva005AEB2C()
 {
