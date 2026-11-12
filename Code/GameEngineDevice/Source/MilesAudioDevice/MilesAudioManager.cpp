@@ -210,7 +210,7 @@ struct AudioEventChannelVolume {
 // AudioEventInfo view: +0x44 is the priority the lowest-priority scan ranks by.
 // prep3DSample passes +0x94 as AIL_set_3D_sample_distances' max distance and
 // +0x98 (non-global sounds) as its min distance.
-struct RvaPair001D9F62 { AsciiString m_key; int m_value; ~RvaPair001D9F62(); };
+#include "../../../GameEngine/Include/Common/RvaPair001D9F62.h"
 struct AudioEventInfo {
     const _STL::vector<RvaPair001D9F62> &getSoundsVector(void) const;
     int getVolumeSlider(void);
