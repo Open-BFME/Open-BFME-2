@@ -21,18 +21,7 @@ public: Region2D rva0007E03A(); Rva0030B72CPoint getCenterPoint2D() const;
 };
 #include "../../Include/GameLogic/Rva0030B719Shape.h"
 
-class Rva00330C50Interface
-{
-public:
-	~Rva00330C50Interface() {}
-	virtual int slot0() const = 0;
-	virtual Rva0030B72CPoint slot1(int index) const = 0;
-	virtual int slot2() const = 0;
-	virtual Region2D slot3() = 0;
-	virtual float slot4() const = 0;
-	virtual float slot5() const = 0;
-	virtual Rva0030B72CPoint slot6() const = 0;
-};
+#include "../../Include/Common/Rva00330C50Interface.h"
 
 class Rva0030B9DD
 {

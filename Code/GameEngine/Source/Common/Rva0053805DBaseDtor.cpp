@@ -27,18 +27,7 @@ void __cdecl Rva00030830GameFree(void *);
 #include "../../Include/Common/Rva0030B72CPoint.h"
 
 // Native seven-slot polygon interface, as in Rva00330C50Ctor.cpp.
-class Rva00330C50Interface
-{
-public:
-	~Rva00330C50Interface() {}
-	virtual int slot0() const = 0;
-	virtual Rva0030B72CPoint slot1(int index) const = 0;
-	virtual int slot2() const = 0;
-	virtual Region2D slot3() = 0;
-	virtual float slot4() const = 0;
-	virtual float slot5() const = 0;
-	virtual Rva0030B72CPoint slot6() const = 0;
-};
+#include "../../Include/Common/Rva00330C50Interface.h"
 
 class Rva0053805DBase;
 
