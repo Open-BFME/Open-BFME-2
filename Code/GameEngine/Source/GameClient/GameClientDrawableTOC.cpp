@@ -1648,7 +1648,7 @@ void GameClient::update()
 #include "../../Include/Common/Rva00276470Drawable.h"
 #include "../../Include/Common/Rva00270FEE.h"
 #include "../../Include/Common/Rva00270260.h"
-class Rva002707FA { public: void rva002707FA(unsigned char value); };
+#include "../../Include/Common/Rva002707FA.h"
 
 // GameClient slot 26 (0x002391AA): BFME 2 has no ZH counterpart. Target
 // evidence: the only caller hands it the frustum of the camera it just

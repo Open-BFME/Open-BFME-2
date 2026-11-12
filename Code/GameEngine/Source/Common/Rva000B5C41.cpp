@@ -3,11 +3,7 @@
 extern const float BfmeZeroRange;
 extern float g_Va00BBB8D8;
 
-class Rva002707FA
-{
-public:
-	void rva002707FA(unsigned char value);
-};
+#include "../../Include/Common/Rva002707FA.h"
 
 class Helper000B5C41
 {

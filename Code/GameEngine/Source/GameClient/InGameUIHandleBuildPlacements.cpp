@@ -129,11 +129,7 @@ public:
     Rva0028F59A(int, int);
     unsigned int words[19];
 };
-class Rva002707FA
-{
-public:
-	void rva002707FA(unsigned char value);
-};
+#include "../../Include/Common/Rva002707FA.h"
 class Drawable : public Thing
 {
 public:

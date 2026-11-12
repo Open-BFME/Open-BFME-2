@@ -27,11 +27,7 @@ extern "C" void _ReadWriteBarrier();
 
 
 
-class Rva002707FA
-{
-public:
-	void rva002707FA(unsigned char value);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva002707FA.h"
 
 class Helper000B5C41
 {
