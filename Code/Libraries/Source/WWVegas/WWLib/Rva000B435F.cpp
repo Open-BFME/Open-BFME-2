@@ -18,13 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "ascii_string.h"
 
-struct Rva000B435F
-{
-	int m_a;
-	AsciiString m_s;
-	int m_b;
-	Rva000B435F &operator=(const Rva000B435F &o);
-};
+#include "Rva000B435F.h"
 
 Rva000B435F &Rva000B435F::operator=(const Rva000B435F &o)
 {

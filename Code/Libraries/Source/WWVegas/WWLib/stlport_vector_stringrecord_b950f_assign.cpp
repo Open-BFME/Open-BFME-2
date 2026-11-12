@@ -19,12 +19,7 @@ class Rva002DFC30
 public:
 	~Rva002DFC30();
 };
-struct Rva000B435F
-{
-	int m_a;
-	AsciiString m_s;
-	int m_b;
-};
+#include "Rva000B435F.h"
 namespace _STL
 {
 struct __false_type
