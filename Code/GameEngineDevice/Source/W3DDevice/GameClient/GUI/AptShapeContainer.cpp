@@ -440,11 +440,7 @@ private:
 // g_rva00785FD0Queue is only an alias of the owned global g_Va00DE6194 (ledger names column); this unit reads the owner through its own view type.
 extern unsigned int g_Va00DE6194;
 
-class Rva00786BD0Owner
-{
-public:
-	void *find(unsigned key);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00786BD0Owner.h"
 
 class Rva00784900TextSource
 {

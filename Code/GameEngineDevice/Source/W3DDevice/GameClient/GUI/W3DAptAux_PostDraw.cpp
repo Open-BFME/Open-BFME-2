@@ -223,11 +223,7 @@ extern Rva000A994CColors g_aptHostColorBlock0; // native DE6198..DE61A8
 extern Rva000A994CColors g_aptHostColorBlock1;void Rva000A994CSetColor(const float *value);
 
 
-class Rva00786BD0Owner
-{
-public:
- void *find(unsigned int key);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00786BD0Owner.h"
 void *Rva000AA8C3LoadRenderingUnit(Rva00786BD0Owner *owner, unsigned int key);
 
 
