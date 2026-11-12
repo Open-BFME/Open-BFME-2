@@ -25,11 +25,7 @@ enum ScienceType
     SCIENCE_INVALID = 0
 };
 
-struct BfmeStringRecord0021A940
-{
-    int m_a;
-    int m_b;
-};
+#include "../../../../Include/Common/BfmeStringRecord0021A940.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void _Rb_tree<BfmeStringRecord0021A940,BfmeStringRecord0021A940,_Identity<BfmeStringRecord0021A940>,less<BfmeStringRecord0021A940>,allocator<BfmeStringRecord0021A940> >::_M_erase(_Rb_tree_node<BfmeStringRecord0021A940> *); }
 // Bind to the kept retail copy instead of emitting this unit's own.

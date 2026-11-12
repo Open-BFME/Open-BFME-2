@@ -246,12 +246,7 @@ BfmeStringRecord00219B0B::~BfmeStringRecord00219B0B() {}
 template void _STL::_Construct<BfmeStringRecord00219B0B,BfmeStringRecord00219B0B>(BfmeStringRecord00219B0B*,const BfmeStringRecord00219B0B&);
 
 // Complete retail 2-arg ctor at0x0021A940.
-struct BfmeStringRecord0021A940 {
-    unsigned int word0; BfmeStringRecord00219B0B rec;
-    BfmeStringRecord0021A940(const unsigned int *p, const BfmeStringRecord00219B0B &source);
-    BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
-    ~BfmeStringRecord0021A940();
-};
+#include "../../Include/Common/BfmeStringRecord0021A940.h"
 BfmeStringRecord0021A940::BfmeStringRecord0021A940(const unsigned int *p, const BfmeStringRecord00219B0B &source) : word0(*p), rec(source) {}
 BfmeStringRecord0021A940::BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source) : word0(source.word0), rec(source.rec) {}
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

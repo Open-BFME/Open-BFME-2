@@ -4,9 +4,7 @@
 // Evidence: chain lane every callee rowed; same 115B shape as 0x001DDC52.
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <map>
-struct BfmeStringRecord0021A940 {
-	unsigned char m_data[20];
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord0021A940.h"
 bool operator<(const BfmeStringRecord0021A940 &a, const BfmeStringRecord0021A940 &b);
 typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > BfmeStringRecord0021A940SetTree;
 namespace _STL {

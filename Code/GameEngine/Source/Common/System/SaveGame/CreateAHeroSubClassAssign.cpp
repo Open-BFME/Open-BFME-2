@@ -41,7 +41,7 @@ struct Rva0021C33FElement
     int words[1];
     bool operator<(const Rva0021C33FElement &b) const { return words[0] < b.words[0]; }
 };
-struct BfmeStringRecord0021A940 { unsigned char m_data[20]; };
+#include "../../../../Include/Common/BfmeStringRecord0021A940.h"
 bool operator<(const BfmeStringRecord0021A940 &a, const BfmeStringRecord0021A940 &b);
 
 struct Rva0021E5B3Block { int words[27]; };

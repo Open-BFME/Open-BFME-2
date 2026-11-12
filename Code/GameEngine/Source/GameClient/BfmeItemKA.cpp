@@ -520,12 +520,7 @@ template BfmeStringRecord005ED5F3* _STL::__copy<BfmeStringRecord005ED5F3*, BfmeS
 #include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00219B0B.h"
 template void _STL::_Construct<BfmeStringRecord00219B0B,BfmeStringRecord00219B0B>(BfmeStringRecord00219B0B*,const BfmeStringRecord00219B0B&);
 // Complete retail 2-arg ctor at0x0021A940.
-struct BfmeStringRecord0021A940 {
-    unsigned int word0; BfmeStringRecord00219B0B rec;
-    BfmeStringRecord0021A940(const unsigned int *p, const BfmeStringRecord00219B0B &source);
-    BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
-    ~BfmeStringRecord0021A940();
-};
+#include "../../Include/Common/BfmeStringRecord0021A940.h"
 template void _STL::_Construct<BfmeStringRecord0021A940,BfmeStringRecord0021A940>(BfmeStringRecord0021A940*,const BfmeStringRecord0021A940&);
 // Target strings/xrefs at 0x007E5E28 and 0x007E5E60 name AwardSystemManager
 // validation; data xrefs identify its manager at 0x00A02F74. The exact method

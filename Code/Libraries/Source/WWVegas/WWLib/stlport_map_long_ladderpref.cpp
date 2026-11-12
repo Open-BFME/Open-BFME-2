@@ -53,13 +53,7 @@ template class _STL::map<long, LadderPref, _STL::less<long>, _STL::allocator<_ST
 // 0x0021DBBA, the member at +0x54 of the hero sub-class record (Rva0021E85ACopy.cpp).
 #include <set>
 #include "BfmeStringRecord00219B0B.h"
-struct BfmeStringRecord0021A940
-{
-	unsigned int word0;
-	BfmeStringRecord00219B0B rec;
-	BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
-	~BfmeStringRecord0021A940();
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord0021A940.h"
 typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > Rva0021E85ARecordTree;
 namespace _STL {
 template <> Rva0021E85ARecordTree::_Link_type Rva0021E85ARecordTree::_M_copy(Rva0021E85ARecordTree::_Link_type, Rva0021E85ARecordTree::_Link_type);

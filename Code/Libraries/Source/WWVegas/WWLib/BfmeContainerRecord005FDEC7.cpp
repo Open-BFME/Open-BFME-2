@@ -220,12 +220,7 @@ template BfmeStringRecord005ED5F3* _STL::__copy<BfmeStringRecord005ED5F3*, BfmeS
 template void _STL::_Construct<BfmeStringRecord00219B0B,BfmeStringRecord00219B0B>(BfmeStringRecord00219B0B*,const BfmeStringRecord00219B0B&);
 
 // Complete retail 2-arg ctor at0x0021A940.
-struct BfmeStringRecord0021A940 {
-    unsigned int word0; BfmeStringRecord00219B0B rec;
-    BfmeStringRecord0021A940(const unsigned int *p, const BfmeStringRecord00219B0B &source);
-    BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
-    ~BfmeStringRecord0021A940();
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord0021A940.h"
 
 template void _STL::_Construct<BfmeStringRecord0021A940,BfmeStringRecord0021A940>(BfmeStringRecord0021A940*,const BfmeStringRecord0021A940&);
 

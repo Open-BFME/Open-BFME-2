@@ -25,13 +25,7 @@ enum ScienceType
 // and the dtor at 0x0021E50F tears it down through 0x0021D61F.
 #include <set>
 #include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00219B0B.h"
-struct BfmeStringRecord0021A940
-{
-	unsigned int word0;
-	BfmeStringRecord00219B0B rec;
-	BfmeStringRecord0021A940(const BfmeStringRecord0021A940 &source);
-	~BfmeStringRecord0021A940();
-};
+#include "../../Include/Common/BfmeStringRecord0021A940.h"
 typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > Rva0021E85ARecordTree;
 namespace _STL {
 template <> Rva0021E85ARecordTree::_Rb_tree(const Rva0021E85ARecordTree &);
