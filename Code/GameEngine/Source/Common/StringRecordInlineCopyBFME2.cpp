@@ -87,12 +87,7 @@ inline QueuedDownload::QueuedDownload(const QueuedDownload &source) : server(sou
 template void _STL::_Construct<QueuedDownload,QueuedDownload>(QueuedDownload*,const QueuedDownload&);
 
 // Complete retail record copy at0x005D511F.
-struct BfmeStringRecord005D511F {
-    UnicodeString text0; unsigned int word0, word1; UnicodeString text1; unsigned int word2;
-    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &source);
-    BfmeStringRecord005D511F(const UnicodeString &t0, unsigned int w0, unsigned int w1, const UnicodeString &t1, unsigned int w2);
-    ~BfmeStringRecord005D511F();
-};
+#include "../../Include/Common/BfmeStringRecord005D511F.h"
 BfmeStringRecord005D511F::BfmeStringRecord005D511F(const BfmeStringRecord005D511F &source) : text0(source.text0), word0(source.word0), word1(source.word1), text1(source.text1), word2(source.word2) {}
 // ??0BfmeStringRecord005D511F@@QAE@ABVUnicodeString@@II0I@Z retail 0x005D516E 75B.
 // 5-arg ctor of the same 0x14 record: text0 via 0x37050 + word0/word1 + text1 via 0x37050 + word2.

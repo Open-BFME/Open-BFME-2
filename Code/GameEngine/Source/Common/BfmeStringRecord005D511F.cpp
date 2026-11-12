@@ -43,15 +43,7 @@ ForwardIter __uninitialized_fill_n(ForwardIter first, Size n, const T &x, const 
  
  
  
-struct BfmeStringRecord005D511F
-{
-public:
-	char _m[0x14];
-public:
-	BfmeStringRecord005D511F(const BfmeStringRecord005D511F &that);
-public:
-	~BfmeStringRecord005D511F();
-};
+#include "../../Include/Common/BfmeStringRecord005D511F.h"
 
 // tu-skeleton: 0x005D511F 79B ??0BfmeStringRecord005D511F@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
 

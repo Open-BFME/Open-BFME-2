@@ -264,12 +264,7 @@ template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B
 class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey; bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
 template void _STL::_Construct<QueuedDownload,QueuedDownload>(QueuedDownload*,const QueuedDownload&);
 // Complete retail record copy at0x005D511F.
-struct BfmeStringRecord005D511F {
-    UnicodeString text0; unsigned int word0, word1; UnicodeString text1; unsigned int word2;
-    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &source);
-    BfmeStringRecord005D511F(const UnicodeString &t0, unsigned int w0, unsigned int w1, const UnicodeString &t1, unsigned int w2);
-    ~BfmeStringRecord005D511F();
-};
+#include "../../Include/Common/BfmeStringRecord005D511F.h"
 template void _STL::_Construct<BfmeStringRecord005D511F,BfmeStringRecord005D511F>(BfmeStringRecord005D511F*,const BfmeStringRecord005D511F&);
 // ??$_Destroy@PAUBfmeStringRecord005D511F@@@_STL@@YAXPAUBfmeStringRecord005D511F@@0@Z retail 0x005D541B 25B.
 // Range destroy over 0x14-byte record via rowed dtor 0x005D51B9 in this TU. Callers 0x005D5434 and 0x005D5473.

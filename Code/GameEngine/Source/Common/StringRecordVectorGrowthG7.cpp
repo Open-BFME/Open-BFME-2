@@ -46,11 +46,7 @@ struct BfmeStringRecord0022074B {
     BfmeStringRecord0022074B(const BfmeStringRecord0022074B &o);
     ~BfmeStringRecord0022074B();
 };
-struct BfmeStringRecord005D511F {
-    UnicodeString text0; unsigned int word0, word1; UnicodeString text1; unsigned int word2;
-    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &o);
-    ~BfmeStringRecord005D511F();
-};
+#include "../../Include/Common/BfmeStringRecord005D511F.h"
 struct BfmeStringRecord005EC43C {
     UnicodeString text; unsigned int word0, word1, word2, word3, word4;
     BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C &o);

@@ -29,16 +29,7 @@ template<> __declspec(dllimport) __forceinline
 void _Construct<int, int>(int *p, const int &value) { new (p) int(value); }
 }
 #include "unicode_string.h"
-struct BfmeStringRecord005D511F {
-    UnicodeString text0;
-    unsigned int word0, word1;
-    UnicodeString text1;
-    unsigned int word2;
-    BfmeStringRecord005D511F(const BfmeStringRecord005D511F &);
-    BfmeStringRecord005D511F(const UnicodeString &, unsigned int,
-        unsigned int, const UnicodeString &, unsigned int);
-    ~BfmeStringRecord005D511F();
-};
+#include "../../../Include/Common/BfmeStringRecord005D511F.h"
 namespace _STL { template<> void vector<BfmeStringRecord005D511F>::push_back(const BfmeStringRecord005D511F &); }
 #include "../../../Include/GameClient/GameText.h"
 #include "../../../Include/GameNetwork/BfmeNetAddress.h"
