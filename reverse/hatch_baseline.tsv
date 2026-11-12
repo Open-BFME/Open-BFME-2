@@ -10498,9 +10498,6 @@ present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::
 present_unmatched	Code/GameEngine/Include/Common/Rva00041004Lock.h	Rva0040EDB::Rva0040EDB	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
-present_unmatched	Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp	loadIniFilesFromLegend@CreateAHeroManager	1
-present_unmatched	Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp	reset@CreateAHeroManager	1
-present_unmatched	Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp	update@CreateAHeroManager	1
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	Rva00524306::Rva00524306	1
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	text)	1

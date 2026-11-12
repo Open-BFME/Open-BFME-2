@@ -239,11 +239,8 @@ public:
 	// loadIniFilesFromLegend (0x0050B5C6), slots 9/10 reset and update the
 	// folded empty body 0x000B3FD0; Rva0021FFEEDtor.cpp holds the same view.
     CreateAHeroManager();
-	// ?loadIniFilesFromLegend@CreateAHeroManager present-unmatched
 	virtual Bool loadIniFilesFromLegend() { return true; }
-	// ?reset@CreateAHeroManager present-unmatched
     virtual void reset() {}
-	// ?update@CreateAHeroManager present-unmatched
     virtual void update() {}
 	virtual ~CreateAHeroManager();
 	virtual void init();
