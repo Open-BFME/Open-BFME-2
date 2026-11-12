@@ -183,3 +183,35 @@ four boot-order merges above were not retried. Rows in `reverse/re_attempts.log`
   `extern "C"` definer (MapUtil_unk_...cpp, 0x00302E87/0x00302F1B) are only proposed, by C, for
   PlayerPosition.cpp; MapCacheAddMap.cpp (a reader) is approved for MapUtil.cpp but would bring an `extern "C"`
   declaration of the name MapUtil.cpp keeps static.
+
+
+**2026-11-12 VertexLoc pass (seat halilkkaya-pg1, base `b8e28c36439`).** Nothing landed in `Code/`. Both routes
+are measured, and the merge blocker is narrower than the pass above reported. Handoff with the full table:
+`reverse/attempt_support/pointgr-vertexloc-merge-probe-20261112.md`. Rows are in `reverse/re_attempts.log`, on
+0x0017A890 and on `tu-merge:Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp`.
+- **Facts.** Retail has one datum, 0x00DF708C. 0x0017A890, the sizer 0x0017F150, 0x00179B50, 0x0017E920,
+  0x007ACF20 and 0x007B7400 all name it. We have two: pointgr.obj's external `?VertexLoc@@3V?$VectorClass@VVector3@@@@A`
+  (`_$E32` initializer, `_$E33` 10-byte atexit) and PointGroupClassRva0017A890.obj's static `_VertexLoc`
+  (`_$E6`/`_$E7`, which have no rows). The hand rows 0x007ACF20 and 0x007B7400 bind pointgr.obj's symbol but sit
+  in no `.CRT$XCU` table, so they never run.
+- **Route A refused (extern), for one reason.** The donor with an `extern` or non-static VertexLoc differs in
+  1,897 bytes from offset 0. Only internal linkage lets cl hoist `mov eax,[VertexLoc+4]` above
+  `sub esp,0xB8`. Taking the address elsewhere in the TU (`Resize`, `Length`) keeps the static body exact,
+  so no extern spelling can work.
+- **Route B blocked (merge), on the seed's own hatch, not the Vector3 shim.** The seed's
+  `vector3_len_link.h` constructor is the donor's `vector3.h` one. The merged body inlines `??_H` because
+  pointgr.cpp's `bfmeVciAnchor` (`#pragma optimize("gsy")`) synthesizes it in /O1 shape. The donor alone with
+  that anchor gives the same 11,772-byte miss; with the anchor but no pragma, it is exact. Removing the anchor
+  keeps `??_H` out of line in 0x0017A890 but breaks 0x00179B50, Render and RenderVolumeParticle, and loses
+  the hoist. Retail's `??_H` call counts (3 / 0 / 4 in 0x00179B50 / Render / 0x0017A890) come from neither
+  shape. A probe copy of pointgr.cpp also needs `/O2 /arch:SSE /G7` spelled in its `// cl:` line, because
+  flag_defaults applies them only to the ledger path. Without them the copy compiles x87 (9,136 bytes).
+- **Bridge measure.** No source or ledger row changed, so no table moved and no unit's link status changed.
+- **Cause ranking, unchanged in order.** sortingrenderer.cpp lists, then VertexLoc (now walled by the anchor
+  conflict), then W3DMouse `isThread`, then the shadow renderers.
+- **Next leads.** (1) A merged pointgr.cpp probe without the gsy anchor, in retail function order (Render and
+  RenderVolumeParticle after 0x0017A890), with the approved destructor 0x00178ED0 and `_Init` 0x0017E210 in the
+  same text. Look for 3 / 0 / 4 `??_H` calls with all 65 seed rows exact. (2) Then the canonical
+  `PointGroupClass.h` adoption. (3) Then VertexLoc static, with 0x007ACF20 and 0x007B7400 rowed as pointgr.obj's
+  `_$E` pair, the way the VertexDiffuse and VertexUV pairs already are. That needs the `VectorClass<Vector3>`
+  destructor inline-visible.
