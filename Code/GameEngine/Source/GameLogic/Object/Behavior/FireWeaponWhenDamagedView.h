@@ -95,6 +95,10 @@ public:
 	virtual ~FireWeaponWhenDamagedBehavior();
 	virtual UpdateSleepTime update();
 	virtual void onDamage(DamageInfo *damageInfo);
+	// DamageModuleInterface table 0x00C49588 slots 1/2: retail's shared empty `ret 4` (0x0047A69C)
+	// and `ret 0Ch` (0x000D1407) bodies.
+	virtual void onHealing(DamageInfo *damageInfo) { }
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) { }
 	virtual NameKeyType getModuleNameKey() const;
 
 private:

@@ -27,6 +27,9 @@ class Object;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
+// The "no sleep" result of UpdateModuleInterface::update (retail 0x000910FB returns it).
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class DelayedUpgradeUpdateInterface
@@ -87,6 +90,9 @@ public:
 	DelayedWeaponSetUpgradeUpdate(Thing *, const ModuleData *);
 	// Retail primary-vtable slot 4; the pool-key donor owns its body.
 	virtual NameKeyType getModuleNameKey() const;
+	// UpdateModuleInterface table 0x00C4B2EC (+0x10) slot 0: retail 0x000910FB, the shared
+	// `xor eax,eax; inc eax; ret` body.
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_NONE; }
 };
 
 BFME_LITERAL_NAME_GETTER(Rva00488288Named, "DelayedWeaponSetUpgradeUpdate")

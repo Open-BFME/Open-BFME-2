@@ -184,6 +184,8 @@ public:
 public:
 	void rva00420C8E(ExperienceLevelView *level, Object *obj, bool grant);
 public:
+	// SubsystemInterface table 0x00C3BDC4 slot 1: retail 0x000B3FD0, the shared empty `ret`.
+	virtual void init() {}
 	// retail vftable slot: the rowed override
 	virtual void reset();
 public:
