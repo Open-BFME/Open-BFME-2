@@ -29,11 +29,7 @@ public:
 	virtual void dieAnchor();
 };
 #include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
-class SpawnExtraBase
-{
-public:
-	virtual void extraAnchor();
-};
+#include "../../../../Include/Common/SpawnExtraBase.h"
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 class ThingTemplate;
 class SpawnBehavior : public UpdateModule,

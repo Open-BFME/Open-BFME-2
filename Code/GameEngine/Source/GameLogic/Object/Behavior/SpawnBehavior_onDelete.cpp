@@ -60,11 +60,7 @@ public:
 	virtual void damageAnchor();
 };
 
-class SpawnExtraBase
-{
-public:
-	virtual void extraAnchor();
-};
+#include "../../../../Include/Common/SpawnExtraBase.h"
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
