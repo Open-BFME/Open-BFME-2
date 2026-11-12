@@ -123,7 +123,7 @@ struct Rva001F38C1Arg { float v[12]; };
 class Rva0055A88BDwordField;
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3C20Slot.h"
-class Rva001F3899Slot : public Rva001F3C20Slot { public: void set(const Rva001F3899Arg &) throw(); };
+#include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3899Slot.h"
 #include "../../../../../../GameEngine/Include/GameClient/Rva001F38C1Slot.h"
 class Rva001F3852ByteOneSetter { public: void enable() throw(); };
 

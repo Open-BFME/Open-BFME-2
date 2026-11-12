@@ -44,7 +44,7 @@ enum ParticleSystemID
 
 struct Rva001F3899Arg { float x,y,z; };
 
-class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
+#include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 
 class ParticleSystem
 {

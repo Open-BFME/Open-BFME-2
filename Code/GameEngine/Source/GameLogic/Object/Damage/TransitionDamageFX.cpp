@@ -532,11 +532,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
-class Rva001F3899Slot
-{
-public:
-	void set(const Rva001F3899Arg &arg);
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 struct Rva001F3C43Arg;
 class Rva001F3C43Slot
 {
