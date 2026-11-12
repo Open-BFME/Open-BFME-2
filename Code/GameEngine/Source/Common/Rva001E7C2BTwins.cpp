@@ -9,12 +9,7 @@
 #include "../../Include/GameLogic/Module/Rva001E7053.h"
 #include "../../Include/GameLogic/Module/Rva001E8C1B.h"
 #include "../../Include/GameLogic/Module/Rva001E7C2B.h"
-class Rva001E9045
-{
-public:
-	void rva001e9045(unsigned int, unsigned int, float, float);
-	void rva001E9045(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
-};
+#include "../../Include/GameLogic/Module/Rva001E9045.h"
 
 // ?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z
 void Rva001E7C2B::rva001E7C2B(int movingObject, int goal, float onPath, float speed)

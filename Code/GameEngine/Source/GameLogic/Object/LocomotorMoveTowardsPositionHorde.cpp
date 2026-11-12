@@ -1142,12 +1142,7 @@ private:
 	unsigned flags; // +0x44
 };
 
-class Rva001E9045
-{
-public:
-	void rva001e9045(unsigned int, unsigned int, float, float);
-	void rva001E9045(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
-};
+#include "../../../Include/GameLogic/Module/Rva001E9045.h"
 
 #include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 
