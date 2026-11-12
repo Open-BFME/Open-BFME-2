@@ -68,15 +68,7 @@ extern InGameUI *TheInGameUI;
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class SlavedUpdateInterface
-{
-public:
-	virtual void slavedUpdateSlot00();
-	virtual void slavedUpdateSlot01();
-	virtual void slavedUpdateSlot02();
-	virtual void slavedUpdateSlot03();
-	virtual Bool isSelfTasking() const;
-};
+#include "../../../../Include/Common/SlavedUpdateInterface.h"
 
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"

@@ -123,12 +123,7 @@ extern PlayerList *ThePlayerList;
 
 #include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
-class SlavedUpdateInterface
-{
-public:
-	virtual ObjectID getSlaverID() const;
-	virtual void onEnslave(const Object *slaver);
-};
+#include "../../../../Include/Common/SlavedUpdateInterface.h"
 
 #include "../../../../Include/Common/ObjectModule.h"
 

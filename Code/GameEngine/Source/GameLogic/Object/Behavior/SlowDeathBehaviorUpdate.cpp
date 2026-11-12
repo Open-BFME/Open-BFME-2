@@ -435,13 +435,7 @@ public:
 	virtual Bool rva0050B5C6() const = 0;
 };
 
-class SlavedUpdateInterface
-{
-public:
-	virtual ObjectID getSlaverID() const = 0;
-	virtual void onEnslave(const Object *slaver) = 0;
-	virtual void onSlaverDie(const DamageInfo *info) = 0;
-};
+#include "../../../../Include/Common/SlavedUpdateInterface.h"
 class SlavedUpdate : public UpdateModule, public SlavedUpdateInterface
 {
 };

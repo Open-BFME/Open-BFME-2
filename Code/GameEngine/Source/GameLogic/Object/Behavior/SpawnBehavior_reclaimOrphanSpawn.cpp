@@ -38,12 +38,7 @@ enum ObjectID
 
 class Object;
 
-class SlavedUpdateInterface
-{
-public:
-	virtual ObjectID getSlaverID() const;
-	virtual void onEnslave(const Object *slaver);
-};
+#include "../../../../Include/Common/SlavedUpdateInterface.h"
 
 #include "../../../../Include/Common/ObjectModule.h"
 

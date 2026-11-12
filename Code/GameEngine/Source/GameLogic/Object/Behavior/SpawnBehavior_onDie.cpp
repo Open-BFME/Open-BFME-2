@@ -56,13 +56,7 @@ class DamageInfo;
 
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
-class SlavedUpdateInterface
-{
-public:
-	virtual void unused00();
-	virtual void unused01();
-	virtual void onSlaverDie(const DamageInfo *damageInfo);
-};
+#include "../../../../Include/Common/SlavedUpdateInterface.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
