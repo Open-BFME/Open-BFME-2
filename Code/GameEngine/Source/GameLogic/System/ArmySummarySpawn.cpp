@@ -65,7 +65,7 @@ struct Rva0040E534Input {ArmySummaryEntry*value;};
 class Rva0040D8D6List {public:~Rva0040D8D6List();void*begin,*end,*limit;unsigned index;};
 struct ArmySummaryEntryRef{Rva004F6093Holder holder;ArmySummaryEntryRef(){}ArmySummaryEntryRef(const Rva004F6093Holder&h):holder(h){}};
 class Rva0040CB3AIndexedField{public:int find(int)const;};
-class ObjectTypes{public:bool isInSet(const AsciiString&)const;char pad[8];_STL::vector<AsciiString>types;};
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 namespace _STL{template<>vector<ObjectID>::iterator vector<ObjectID>::erase(iterator);}
 class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:ArmySummaryEntryRef GetEntry(int);
@@ -92,7 +92,7 @@ __declspec(noinline) inline void ArmySummary::LoadArmyEntry(Rva0040E534Input*inp
 
 ObjectID ArmySummary::SpawnOneDelayedCarryoverUnit(ObjectTypes*filter)
 {
- if(filter->types.size()==0)return INVALID_OBJECT_ID;
+ if(filter->getListSize()==0)return INVALID_OBJECT_ID;
  const _STL::vector<ObjectID>::iterator last=pending.end();
  for(_STL::vector<ObjectID>::iterator i=pending.begin();i!=last;){
   ArmySummaryEntryRef value=GetEntry((int)*i);
