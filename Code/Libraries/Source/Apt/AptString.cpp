@@ -36,7 +36,7 @@ const char *rva006d4280(const char *text, int *codepoint);
 
 	// decodes one character
 
-class Rva006D2A60 { public: void *allocBlock(int size); void freeBlock(void *p, int size); };
+#include "Rva006D2A60.h"
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 

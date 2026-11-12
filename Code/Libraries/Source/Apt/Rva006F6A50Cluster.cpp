@@ -75,12 +75,7 @@ void __debugbreak();
 
 #include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
-class Rva006D2A60
-{
-public:
-	void *allocBlock(int size);
-	void freeBlock(void *block, int size);
-};
+#include "Rva006D2A60.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;   // VA 0x00E176E8
 extern Rva006D2A60 *g_pChainBlockAllocatorF4; // VA 0x00E176F4

@@ -21,7 +21,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
 #include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006DB270;extern Rva006DB270 *g_pChainBlockAllocator;
-class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+#include "Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 class AptValue;
 extern AptValue *gpUndefinedValue;

@@ -42,7 +42,7 @@ extern "C" void _ReadWriteBarrier(void);
 #define APT_CIH_H "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h"
 #define APT_CIH_CPP "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCIH.cpp"
 
-class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *, int); };
+#include "Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 __forceinline void *AptScriptFunctionByteCodeBlock::operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
 __forceinline void AptScriptFunctionByteCodeBlock::operator delete(void *p, unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p, n); }

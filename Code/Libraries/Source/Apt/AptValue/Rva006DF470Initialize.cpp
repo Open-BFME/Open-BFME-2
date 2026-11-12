@@ -17,12 +17,7 @@
 class AptValue{public:virtual void AddRef();virtual void Release();virtual void ForceDelete();virtual void *GetNativeHashVirtual(); unsigned mnLowBits:18;unsigned mnGCRootCount:7;unsigned mnType:7;};
 #include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../../GameEngine/Include/Common/Rva006DB270.h"
-class Rva006D2A60
-{
-public:
-	void *allocBlock(int);
-	void freeBlock(void*,int);
-};
+#include "../Rva006D2A60.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 #define POOL_E8 static void *operator new(unsigned n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);} static void operator delete(void*p,unsigned n){g_pChainBlockAllocator->freeBlock(p,n);}
