@@ -71,12 +71,7 @@ class DataChunkOutput;
 // 0x00541F02: hands this object to virtual slot 1 of the argument.
 class Rva00541F02;
 
-class Rva00541F02Visitor
-{
-public:
-	virtual void v00();
-	virtual void v01(Rva00541F02 *o);
-};
+#include "../../Include/Common/Rva00541F02Visitor.h"
 
 #include "../../Include/Common/Rva00541F02.h"
 
