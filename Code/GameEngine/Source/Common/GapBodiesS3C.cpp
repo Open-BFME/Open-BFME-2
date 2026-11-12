@@ -199,14 +199,7 @@ struct Rva003B8DD7LogicView
 
 #include "../../Include/Common/Rva003B8DD7Entry.h"
 
-class Rva003B8DD7
-{
-public:
-	virtual void rva003B8DD7();
-private:
-	int m_index;											// +0x04
-	Rva003B8DD7Entry **m_entries;							// +0x08
-};
+#include "../../Include/Common/Rva003B8DD7.h"
 
 void Rva003B8DD7::rva003B8DD7()
 {

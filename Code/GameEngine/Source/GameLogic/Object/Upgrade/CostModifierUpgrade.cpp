@@ -336,14 +336,7 @@ struct Rva003B8DD7LogicView
 
 #include "../../../../Include/Common/Rva003B8DD7Entry.h"
 
-class Rva003B8DD7
-{
-public:
-	virtual void rva003B8DD7();
-private:
-	int m_index;											// +0x04
-	Rva003B8DD7Entry **m_entries;							// +0x08
-};
+#include "../../../../Include/Common/Rva003B8DD7.h"
 
 // --- 0x0039A245 (43B): from a +0x30 interface, when the +0x04 data's +0x3E
 // flag is set and the rowed 0x00395F57 check allows it, start the rowed
