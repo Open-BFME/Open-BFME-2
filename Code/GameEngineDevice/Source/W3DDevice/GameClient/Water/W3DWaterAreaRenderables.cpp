@@ -42,7 +42,7 @@ class Rva00081BAFVector { public: void reserve(unsigned int n); };
 class Rva00081C17Vector { public: void reserve(unsigned int n); };
 
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *listener); };
+#include "../../../../../GameEngine/Include/Common/Rva005A0B4CList.h"
 
 class StandingWaveArea;
 class RiverArea;

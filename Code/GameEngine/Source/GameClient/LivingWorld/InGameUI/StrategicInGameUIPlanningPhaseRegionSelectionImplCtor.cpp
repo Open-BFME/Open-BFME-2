@@ -23,11 +23,7 @@
 
 struct Rva002BA8F1Listener;
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *listener);
-};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 

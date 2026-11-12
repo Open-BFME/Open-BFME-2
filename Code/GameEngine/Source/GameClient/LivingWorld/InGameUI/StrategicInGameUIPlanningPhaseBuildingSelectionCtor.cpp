@@ -50,7 +50,7 @@ public:
 class Rva004E05F0 { public: CreateAHeroData *rva004E05F0(); };
 #include "../../../../Include/Common/Rva004E0741.h"
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *listener); };
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 
 // UI getters on the owner passed as the third argument.
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"

@@ -16,7 +16,7 @@ class Image;
 class LivingWorldBuildPlot;
 struct Rva005F8F96 { Rva005F8F96() : pointer(0) {} ~Rva005F8F96(); void *pointer; };
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../Include/Common/Rva005A0B4CList.h"
 struct Rva005F0220In;
 const Image *__cdecl Rva005F0220Get(Rva005F0220In *);
 namespace StrategicInGameUI { const Image *__cdecl GetButtonImage(void *); }

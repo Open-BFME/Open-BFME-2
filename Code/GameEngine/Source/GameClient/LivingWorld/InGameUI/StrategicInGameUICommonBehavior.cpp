@@ -71,7 +71,7 @@ struct Rva00574CC1Handle
 class CreateAHeroData;
 class Rva00574A8A;
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *p); };
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 #include "../../../../Include/Common/Rva002B7250.h"
 struct Rva002BED91;
 class Rva0042D6FDPtrChaseField { public: int get() const; };

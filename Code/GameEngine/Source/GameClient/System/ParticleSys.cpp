@@ -1868,11 +1868,7 @@ private:
 };
 }
 
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *listener);
-};
+#include "../../../Include/Common/Rva005A0B4CList.h"
 
 struct Rva001FA8DDHolder
 {

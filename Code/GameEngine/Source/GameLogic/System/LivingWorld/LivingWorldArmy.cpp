@@ -266,7 +266,7 @@ class Object;
 #include "../../../../Include/Common/Rva00575674.h"
 
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 struct CtorArmyMinusOneWord { int word; __forceinline CtorArmyMinusOneWord(int v):word(v){_ReadWriteBarrier();} };

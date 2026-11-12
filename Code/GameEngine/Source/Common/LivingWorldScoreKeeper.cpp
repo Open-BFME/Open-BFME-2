@@ -19,7 +19,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma pop_macro("_CRTIMP")
 #include "../../Include/Common/LivingWorldScoreKeeper.h"
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
+#include "../../Include/Common/Rva005A0B4CList.h"
 class Rva002B7250;
 extern Rva002B7250 g_00E04424, g_registryAtE02E88, g_00E044F0;
 extern LivingWorldLogic *TheLivingWorldLogic;

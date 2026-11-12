@@ -16,7 +16,7 @@
 class Rva003F3F7CDwordImmSetter {public:void apply();};
 #include "../../../../Include/Common/Rva000AD6F4.h"
 struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 #include "../../../../Include/Common/Rva00319B0AOwner.h"
 class Rva00318C32Ret;
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
