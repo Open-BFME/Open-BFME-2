@@ -82,7 +82,7 @@ private:
 // The selection helper reset also calls by address.
 class Rva0029C138 { public: void rva0029C138(); };
 
-struct RGBAColorInt { int v[4]; };
+#include "../../Include/Common/RGBAColorInt.h"
 
 class Mouse
 {

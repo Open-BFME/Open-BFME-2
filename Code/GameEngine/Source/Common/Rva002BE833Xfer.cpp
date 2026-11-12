@@ -38,13 +38,7 @@ struct RGBAColorReal
     float blue;
     float alpha;
 };
-struct RGBAColorInt
-{
-    unsigned int red;
-    unsigned int green;
-    unsigned int blue;
-    unsigned int alpha;
-};
+#include "../../Include/Common/RGBAColorInt.h"
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/XferVersion.h"

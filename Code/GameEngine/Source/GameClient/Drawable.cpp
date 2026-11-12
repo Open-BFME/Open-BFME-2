@@ -288,13 +288,7 @@ struct RGBAColorReal
 	float blue;
 	float alpha;
 };
-struct RGBAColorInt
-{
-	int red;
-	int green;
-	int blue;
-	int alpha;
-};
+#include "../../Include/Common/RGBAColorInt.h"
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 #include "../../Include/Common/BfmeXfer.h"

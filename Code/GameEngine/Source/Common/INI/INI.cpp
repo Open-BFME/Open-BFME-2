@@ -328,13 +328,7 @@ vector<AsciiString, allocator<AsciiString> >::erase(iterator first, iterator las
 	return first;
 }
 }
-struct RGBAColorInt
-{
-	unsigned int red;
-	unsigned int green;
-	unsigned int blue;
-	unsigned int alpha;
-};
+#include "../../../Include/Common/RGBAColorInt.h"
 // BFME2's Color is a 32-bit ARGB pack (retail packs A<<24|R<<16|G<<8|B;
 // GameMakeColor(r, g, b, a) callers pass components in R,G,B,A order).
 typedef unsigned int Color;

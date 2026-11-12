@@ -26,13 +26,7 @@ struct RGBAColorReal
     float blue;
     float alpha;
 };
-struct RGBAColorInt
-{
-    unsigned int red;
-    unsigned int green;
-    unsigned int blue;
-    unsigned int alpha;
-};
+#include "../../../Include/Common/RGBAColorInt.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 class AsciiString;
 class UnicodeString;

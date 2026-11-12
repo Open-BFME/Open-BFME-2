@@ -239,10 +239,7 @@ inline Color GameMakeColor( unsigned char red, unsigned char green, unsigned cha
 	return ( alpha << 24 ) | ( red << 16 ) | ( green << 8 ) | blue;
 }
 
-struct RGBAColorInt
-{
-	int red, green, blue, alpha;
-};
+#include "../../Include/Common/RGBAColorInt.h"
 
 class InGameUI
 {
