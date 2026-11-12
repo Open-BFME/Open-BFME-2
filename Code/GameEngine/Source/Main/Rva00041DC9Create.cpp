@@ -3,11 +3,7 @@
 // Virtual slot 33 factory returning new Rva0004CA4C (0x3C) via new plus ctor
 // 0x0004CA3A. Evidence: chain lane calls just-landed ctor; vtable 0x007C2530
 // slot 33; unblocks none (leaf chain end); EH_prolog.
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
+#include "../../Include/Common/AsciiStringMember.h"
 
 class GameEngineDeletingBase
 {

@@ -37,10 +37,7 @@ void *&vector<void*>::operator[](size_t __n)
 { return *(begin() + __n); }
 }
 #include <new>
-class AsciiStringMember {
-public:
-	~AsciiStringMember();
-};
+#include "../../../Include/Common/AsciiStringMember.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 

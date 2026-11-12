@@ -21,11 +21,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
+#include "../../Include/Common/AsciiStringMember.h"
 
 class GameEngineDeletingBase
 {

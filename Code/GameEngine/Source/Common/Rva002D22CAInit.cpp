@@ -194,11 +194,7 @@ TableEntry g_009BCBDC[2] = {
 	{ 0, 0, 0 }
 };
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
+#include "../../Include/Common/AsciiStringMember.h"
 
 class GameEngineDeletingBase
 {

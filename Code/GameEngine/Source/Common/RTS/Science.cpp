@@ -129,10 +129,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
 #include "../../../Include/Common/Overridable.h"
-class AsciiStringMember {
-public:
-	~AsciiStringMember();
-};
+#include "../../../Include/Common/AsciiStringMember.h"
 class GameEngineDeletingBase {
 public:
 	virtual ~GameEngineDeletingBase();

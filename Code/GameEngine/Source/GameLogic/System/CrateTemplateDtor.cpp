@@ -31,11 +31,7 @@ template <> void _List_base<AsciiString, allocator<AsciiString> >::clear();
 
 // Fold-shared AsciiString member teardown (never defined; resolves through
 // the symbols.csv pin at 0x36410 like the Bucket/ FoldDeleters bodies).
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
+#include "../../../Include/Common/AsciiStringMember.h"
 
 // Opaque ModuleData base (never defined; base-dtor call resolves through
 // the symbols.csv pin at 0x1E3624). Retail base body keeps a conditional
