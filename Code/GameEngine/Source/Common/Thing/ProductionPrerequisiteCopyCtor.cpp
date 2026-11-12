@@ -18,14 +18,7 @@
 // 0x004F5097 -> 0x002CF99D -> 0x002CF5B1. Keep its type consistent with
 // ProductionPrerequisiteAssign.cpp and the corrected copy provider.
 #include "ascii_string.h"
-struct BfmeStringRecord002CF5B1
-{
-    unsigned int word0, word1;
-    AsciiString text;
-    BfmeStringRecord002CF5B1();
-    BfmeStringRecord002CF5B1(const BfmeStringRecord002CF5B1 &other)
-        : word0(other.word0), word1(other.word1), text(other.text) {}
-};
+#include "../../../Include/Common/BfmeStringRecord002CF5B1.h"
 // Bind to the exception-enabled retail copy provider.
 namespace _STL { template <> vector<BfmeStringRecord002CF5B1>::vector(const vector<BfmeStringRecord002CF5B1> &); }
 
