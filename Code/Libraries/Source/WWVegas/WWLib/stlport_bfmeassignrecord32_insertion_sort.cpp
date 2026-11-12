@@ -3,7 +3,7 @@
 // Forwards first last plus NULL type tag plus pred to rowed aux 0x00173841.
 // Evidence: chain from just-landed aux; frameless 4-push forwarder with push 0 dummy; caller at 0x001740CB.
 // Layout 32B proven by siblings; honest STL instantiation.
-struct Rva00087A93 { void *m_data; };
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
 struct BfmeAssignRecord32 {
 	Rva00087A93 s;
 	int x;

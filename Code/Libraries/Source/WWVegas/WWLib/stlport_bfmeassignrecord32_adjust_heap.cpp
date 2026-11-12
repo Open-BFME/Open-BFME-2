@@ -3,7 +3,7 @@
 // Retail sifts hole down via second-child walk with 0x20 stride then tail-calls push_heap 0x00173572; value by value needs EH dtor.
 // Evidence: chain from push_heap 0x00173572; callers at 0x00173A25 and 0x00173A9C; second-child compare via funcptr at +0x34.
 // Callees: assignment at 0x00173499 copy at 0x00173731 and dtor at 0x0017330A plus push_heap at 0x00173572; honest Rva free-function name.
-struct Rva00087A93 { void *m_data; };
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
 struct BfmeAssignRecord32 {
 	Rva00087A93 s;
 	int x;

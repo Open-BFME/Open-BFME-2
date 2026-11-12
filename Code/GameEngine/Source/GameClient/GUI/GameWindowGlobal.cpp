@@ -65,13 +65,7 @@ typedef bool Bool;
 // vtable 0x00BCBC40#7: 0x000B5FE6 on this when the field at +0x50 is set.
 // vtable 0x00BD3B1C#7: an empty body taking the reference-counted handle
 // Rva00087A93 by value (its destructor 0x0007B724 runs on return).
-class Rva00087A93
-{
-public:
-	~Rva00087A93();
-private:
-	void *m_data;
-};
+#include "../../../Include/Common/Rva00087A93.h"
 
 // vtable 0x00BC4738#24: an empty body taking an AsciiString by value.
 #include "../../../Include/GameClient/GameClientClass.h"

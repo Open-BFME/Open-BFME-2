@@ -3,7 +3,7 @@
 // Retail builds heap via adjust_heap 0x001738C3 walk from (len-2)/2 down with 0x20 stride; frameless no EH.
 // Evidence: chain from adjust_heap 0x001738C3; caller at 0x00173BE4; len from last-first stride.
 // Callees: copy at 0x00173731 and adjust_heap at 0x001738C3; honest Rva free-function name.
-struct Rva00087A93 { void *m_data; };
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
 struct BfmeAssignRecord32 {
 	Rva00087A93 s;
 	int x;

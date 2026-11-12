@@ -4,7 +4,7 @@
 /// Rowed linear insert 0x0017351C with pred at +0x14; dummy NULL at +0x10 via forwarder 0x001739CD.
 /// Evidence: chain from just-landed linear insert; callers at 0x001739DB; prev/next STL helpers.
 /// Layout 32B proven by rowed copy/dtor; honest STL instantiation (no guessed args).
-struct Rva00087A93 { void *m_data; };
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
 struct BfmeAssignRecord32 {
 	Rva00087A93 s;
 	int x;

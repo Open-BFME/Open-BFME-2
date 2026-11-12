@@ -17,7 +17,7 @@
 
 #include <algorithm>
 
-class Rva00087A93 { public: void *m_data; };
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
 
 struct BfmeAssignRecord32
 {

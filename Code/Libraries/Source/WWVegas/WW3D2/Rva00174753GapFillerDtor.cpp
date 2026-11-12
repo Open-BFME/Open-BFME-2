@@ -27,7 +27,7 @@ template<> inline void allocator<int>::deallocate(int *__p, size_type) const
 	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
 }
 }
-class Rva00087A93 { public: void *m_data; };
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
 struct BfmeAssignRecord32 {
  BfmeAssignRecord32(const BfmeAssignRecord32 &);
  BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &);

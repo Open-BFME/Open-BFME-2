@@ -69,13 +69,7 @@ void W3DScriptedModelDraw::rva000B7C18()
 
 // vtable 0x00BD3B1C#7: an empty body taking the reference-counted handle
 // Rva00087A93 by value (its destructor 0x0007B724 runs on return).
-class Rva00087A93
-{
-public:
-	~Rva00087A93();
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Rva00087A93.h"
 class Rva001524BE
 {
 public:
