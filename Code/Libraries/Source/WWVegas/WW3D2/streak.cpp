@@ -19,7 +19,7 @@ template <> bool SimpleDynVecClass<float>::Resize(int);
 // It can also change how later array constructions here compile; checked to
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 // Keep the real float cleanup and deleting wrappers in the existing size region.
 template <> inline SimpleVecClass<float>::~SimpleVecClass()
