@@ -20,7 +20,7 @@ class B3 { public: virtual void b3(); };
 #include "../../../../Include/Common/B4.h"
 class DamageInfo;
 // The DieModuleInterface position (+0x28): retail's table 0x00C43A6C holds CaveContain::onDie.
-class B5 { public: virtual void onDie(const DamageInfo *damageInfo) = 0; };
+#include "../../../../Include/Common/B5.h"
 class B6 { public: virtual void b6(); };
 class B7 { public: virtual void b7(); };
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };

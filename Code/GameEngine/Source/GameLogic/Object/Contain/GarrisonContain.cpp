@@ -327,7 +327,7 @@ struct Rva00477F06GarrisonPoint : public Coord3D
 };
 #include "../../../../Include/Common/B1.h"
 class B4 { public: virtual void b4(); };
-class B5 { public: virtual void b5(); };
+#include "../../../../Include/Common/B5.h"
 class B6
 {
 public:
