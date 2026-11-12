@@ -402,11 +402,7 @@ public:
 };
 // --- 0x004A9617 / 0x004A6A81 (53B / 52B): whether the level read through
 // +0xE0 / +0x04 (999999 when absent) is 2 or 4, or 2, 4 or 5.
-struct Rva004A9617Level
-{
-	int m_00;
-	unsigned int m_level;									// +0x04
-};
+#include "../../../../Include/Common/Rva004A9617Level.h"
 #include "../../../../Include/Common/Rva004A9617Holder.h"
 #include "../../../../Include/Common/Rva004A9617.h"
 class Rva004A6A81
