@@ -6152,3 +6152,4 @@ __ehhandler$?DoPlay@Rva0057C04F@@QAEXH@Z,0x0079C086,"Renamed to __ehhandler$?DoP
 ?rva005CE9F7@Rva005CE9F7NullForwarder@@QAEXXZ,0x005CE9F7,"Renamed to ?slot1@Rva005CEE9F@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C7522C slot 1)"
 ?rva005CEA04@Rva005CEA04NullForwarder@@QAEXXZ,0x005CEA04,"Renamed to ?slot1@Rva005CEF2F@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C7523C slot 1)"
 ?rva005F57D8@Rva005F57D8@@QAEXXZ,0x005F57D8,"Renamed to ?rva005F57D8@Rva005F5819@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C79570 slot 1)"
+?rva005F5B77@Rva005F5B77@@QAEXXZ,0x005F5B77,"Renamed to ?rva005F5B77@Rva005F5BF2@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C795B4 slot 1)"

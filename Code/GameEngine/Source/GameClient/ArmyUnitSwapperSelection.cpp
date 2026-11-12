@@ -176,7 +176,7 @@ bool StrategicInGameUI::CanCancelAnyUpgrades(LivingWorldArmy *army,Rva005F56B0Se
 }
 // Native 5F5A32..5F5A5A (40B), between CanCancelAnyUpgrades and
 // SendUpgradeMessages: the upgrade button's enable test that
-// Rva005F5B77::enabled inlines, as an out-of-line file-static (army in EAX,
+// Rva005F5BF2::enabled inlines, as an out-of-line file-static (army in EAX,
 // copied to EBX for CanUpgradeAny's private entry; int 0/1 result). No call
 // to it survives in the image; the anchor below only forces cl to emit it in
 // that convention. Identity unproven; address-derived names.
@@ -223,12 +223,14 @@ void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Sel
 // Copying the known-valid 0/1 byte representation preserves that word shape
 // without inactive-union reads. MSVC/x86 bool is one byte (also proved by
 // WB15DF4C0's byte argument load and target setter cached byte41).
-class Rva005F5B77 {
-public:void rva005F5B77();
- char prefix[0x20];LivingWorldArmy *army;Rva005F56B0Selection *selection;
+// Slot 1 of Rva005F5BF2's primary vftable (retail 0x00C795B4, installed by
+// its constructor 0x005F5C77 and destructor 0x005F5BF2).
+class Rva005F5BF2 {
+public:virtual void rva005F5B77();
+ char prefix[0x1C];LivingWorldArmy *army;Rva005F56B0Selection *selection;
  __forceinline int enabled(){LivingWorldArmy*livingWorldArmy=army;Rva005F56B0Selection*memberSelection=selection;return (StrategicInGameUI::CanCancelAnyUpgrades(livingWorldArmy,memberSelection)||StrategicInGameUI::CanUpgradeAny(livingWorldArmy,memberSelection))?1:0;}
 };
-void Rva005F5B77::rva005F5B77(){
+void Rva005F5BF2::rva005F5B77(){
  int word=enabled();bool flag;memcpy(&flag,&word,sizeof flag);
  reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(flag);
 }

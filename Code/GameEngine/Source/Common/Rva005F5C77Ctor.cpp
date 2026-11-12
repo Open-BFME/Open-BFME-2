@@ -91,6 +91,7 @@ class Rva005F5BF2 : public Rva00567960BaseMid, public Rva005E12D1, public Rva005
 public:
 	Rva005F5BF2(void *a1, Rva005F5C77In *a2);
 	virtual ~Rva005F5BF2();
+	virtual void rva005F5B77();
 private:
 	int m_20;
 	Rva005A0B4CList *m_24;

@@ -25,6 +25,7 @@ public:
 class Rva005F5BF2 : public Rva0007DF07, public Rva005E12D1, public Rva005E4AE2Listener {
 public:
     virtual ~Rva005F5BF2();
+    virtual void rva005F5B77();
     // Preserve the unread word at+20 outside the minimal interface.
     int m_c;
     Rva002B7250 *m_list;
@@ -57,7 +58,7 @@ Rva005F5819::~Rva005F5819()
 
 // tu-skeleton: 0x005F5A5A 181B ?SendUpgradeMessages@StrategicInGameUI@@YAXPAULivingWorldArmy@@PAURva005F56B0Selection@@@Z -- matched in Code/GameEngine/Source/GameClient/ArmyUnitSwapperSelection.cpp (not merged yet)
 
-// tu-skeleton: 0x005F5B77 55B ?rva005F5B77@Rva005F5B77@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/ArmyUnitSwapperSelection.cpp (not merged yet)
+// tu-skeleton: 0x005F5B77 55B ?rva005F5B77@Rva005F5BF2@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/ArmyUnitSwapperSelection.cpp (not merged yet)
 
 // tu-skeleton: 0x005F5BAE 68B ?rva005F5BAE@Rva005F5BAE@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/ArmyUnitSwapperSelection.cpp (not merged yet)
 
