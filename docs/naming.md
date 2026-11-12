@@ -1406,6 +1406,16 @@ two review rounds set where the evidence ends:
   members are the same map's rows elsewhere, over the value type the respelled copy builds. A pin's fact may
   also lie in the row at another of the family's pins (a call the pinned body makes). Only `unsigned int` is a
   key this route proves; the one entry is the pathfinder's map<unsigned int,int> copy (P139).
+  A map's insert helpers rowed on a builtin value where retail's value is a size-only stand-in struct are a
+  `StandInValueFamily`. Retail's node proves the value: the map's node creator, already rowed on the struct,
+  pushes the node's byte count to the allocation that follows it, and that count is the 16-byte node header plus
+  pair<const key, struct>, never plus pair<const key, builtin>. Every row reaches that creator by calls. Each
+  spelling swaps the builtin for the struct only where it is the value of pair<const key, .> or the mapped type
+  of map<key, ., ...>, compared on decoded trees. A pin of the old spelling on a member's address is that
+  member's second name and is retired. A caller outside the family keeps its name, is prepared, and must bind
+  the respelled row. The rows' wrong-binding and divergent-COMDAT keys are the defect itself: the plan carries
+  them, and they are retired in the next commit. Only `void*` over `unsigned int` is a value this route
+  replaces; the one entry is the pathfinder's outer map under Rva00534A2A::subscript (P143).
 - **code identity** (`--identity`): a placeholder-typed operator, special member
   or template member whose bytes match while its calls bind the wrong
   instantiation. A callee's class does not prove the caller's (`mov

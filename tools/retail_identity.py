@@ -38,7 +38,8 @@ IMAGE_BASE = 0x00400000
 # vftable: `site` is the word, `value` the VA it holds, `code` (table VA, index, slot count); build it with slot()),
 # word (one word of a vftable, its length not stated; build it with word()), copy (the instructions `code`, a load
 # and a store of one `value`-byte key), compare (the instructions `code`, a compare of the key with the field at
-# +`value` and the branch on it).
+# +`value` and the branch on it), alloc (the instruction `code`, a push of the byte count `value` an allocation
+# takes).
 Fact = collections.namedtuple("Fact", "kind site value code", defaults=(None,))
 # mov dword ptr [reg], imm32: the opcodes that write an object's first word, its vftable pointer
 VPTR_STORES = ("c700", "c701", "c702", "c703", "c706", "c707")
@@ -55,7 +56,7 @@ def expected(fact):
     if fact.kind in ("calls", "jumps"):
         opcode = b"\xe8" if fact.kind == "calls" else b"\xe9"
         return opcode + struct.pack("<i", fact.value - (fact.site + 5))
-    if fact.kind in ("stride", "offset", "copy", "compare"):
+    if fact.kind in ("stride", "offset", "copy", "compare", "alloc"):
         return bytes.fromhex(fact.code)
     if fact.kind in ("slot", "word"):
         return struct.pack("<I", fact.value)
@@ -196,7 +197,7 @@ def facts_problems(facts):
 
 
 def _value(fact):
-    return f"{fact.value}" if fact.kind in ("stride", "offset", "copy", "compare") else f"0x{fact.value:08X}"
+    return f"{fact.value}" if fact.kind in ("stride", "offset", "copy", "compare", "alloc") else f"0x{fact.value:08X}"
 
 
 def record(facts):
@@ -578,6 +579,161 @@ class StandInScalarKeyFamily:
     def facts(self):
         return ([f for _name, facts in [*self.rows.values(), *self.pins.values()] for f in facts]
                 + [fact for _at, fact in self.located()])
+
+    def evidence(self):
+        return record(self.rows[self.copy][1])
+
+
+# The builtin values a StandInValueFamily may replace, by mangling code: the decoded tree and the width in bytes. Only
+# void* (P143); another builtin is another reviewed entry.
+BUILTIN_VALUES = {"PAX": (("P", "PA", ("B", "X")), 4)}
+NODE_HEADER = 16                                       # _Rb_tree_node_base: color, parent, left, right
+
+
+def value_swap(tree, key, old, new):
+    """`tree` (a rename.type_tree) with the builtin value `old` (a decoded tree) read as the struct `new` where it is
+    the value of pair<const key, .> or the mapped type of map<key, ., ...>: the two places a map's helpers spell their
+    value. Any other `old` (a void* parameter, a pair over another key) stays. That is the whole respelling a
+    stand-in value allows."""
+    struct = ("C", "U", ("Q", (("N", new),)))
+    if isinstance(tree, tuple) and len(tree) == 3 and tree[:2] == ("T", "pair") and tree[2] == (("CV", "$$CB", key), old):
+        return ("T", "pair", (("CV", "$$CB", key), struct))
+    if isinstance(tree, tuple) and len(tree) == 3 and tree[:2] == ("T", "map") and tree[2][:2] == (key, old):
+        tree = ("T", "map", (key, struct) + tree[2][2:])
+    if isinstance(tree, tuple):
+        return tuple(value_swap(node, key, old, new) for node in tree)
+    return tree
+
+
+def node_alloc_problem(fact):
+    """Why `fact` is not one push of the immediate `value` (the byte count an allocation takes), or None."""
+    from capstone.x86 import X86_OP_IMM
+    try:
+        push, *rest = _whole(fact.code)
+    except ValueError as error:
+        return str(error)
+    if rest or push.mnemonic != "push" or len(push.operands) != 1 or push.operands[0].type != X86_OP_IMM:
+        return f"{fact.code} is not one push of an immediate"
+    if push.operands[0].imm != fact.value:
+        return f"{fact.code} pushes {push.operands[0].imm}, not {fact.value}"
+    return None
+
+
+class StandInValueFamily:
+    """A map's insert helpers rowed on a builtin value where retail's value is a size-only stand-in struct, the one
+    the map's own node creator is already rowed on (P143). No class proves the struct, so retail's node does:
+    - `node` (member rva, alloc fact): the creator pushes the node's byte count, and `node_call`, the call that
+      follows at once, takes it. The count is NODE_HEADER plus pair<const key, new> (the key's width, then
+      `value_size`), and it is not NODE_HEADER plus pair<const key, old>: retail allocates the new value, never the old.
+    - `members` {rva: name} are rows instantiated over pair<const key, new>; the node lies in one of them. Every row
+      reaches the node's member by calls: the rows' own facts and `member_path` ((member rva, calls fact) pairs).
+    - `retired` {rva: (old name, facts)} are pins of an old spelling on an address a member rows under exactly its
+      respelling: a second name there, so they go, never respelled.
+    - `callers` {rva: (name, facts)} are rows outside the family that call a family row; `caller_bindings`, like
+      `bindings`, are what each rebuilt caller must bind (the respelled row it calls).
+    `rows`, `spellings` and `bindings` are a StandInScalarKeyFamily's. Each spelling is value_swap of the old one,
+    compared on decoded trees. No pin is respelled in place and there are no duplicates."""
+
+    def __init__(self, old, new, key, value_size, copy, spellings, members, bindings, rows, retired, node, node_call,
+                 member_path, callers, caller_bindings):
+        import rename                                  # lazily: rename imports this module inside its functions too
+        if old not in BUILTIN_VALUES:
+            raise ValueError(f"{old!r} is no builtin value this route replaces")
+        if key not in SCALAR_KEYS:
+            raise ValueError(f"{key!r} is no builtin key this route reads")
+        old_tree, old_width = BUILTIN_VALUES[old]
+        key_tree, key_width = ("B", key), SCALAR_KEYS[key][0]
+        for label, value in (("members", members), ("bindings", bindings), ("rows", rows),
+                             ("member path", member_path)):
+            if not value:
+                raise ValueError(f"a stand-in value family still needs its {label}")
+        if copy not in rows:
+            raise ValueError(f"0x{copy:08X} is not a row of the family")
+        claimed = [*rows.values(), *retired.values()]
+        if set(spellings) != {old_name for old_name, _facts in claimed}:
+            raise ValueError("every spelling is a row's or retired pin's and every row and retired pin has one")
+
+        def tree(name):
+            try:
+                return rename.type_tree(name)
+            except rename.Unparsed as error:
+                raise ValueError(f"{name} cannot be decoded: {error}") from None
+        for old_name, _facts in claimed:
+            before, after = tree(old_name), tree(spellings[old_name])
+            if value_swap(before, key_tree, old_tree, new) != after or before == after:
+                raise ValueError(f"{old_name} must respell by the value swap alone ({old} to the struct {new})")
+        value_type = ("T", "pair", (("CV", "$$CB", key_tree), ("C", "U", ("Q", (("N", new),)))))
+        for at, name in members.items():
+            if value_type not in set(_subtrees(tree(name))):
+                raise ValueError(f"member 0x{at:08X} {name} is no instantiation over pair<const {key}, {new}>")
+        for at, (old_name, _facts) in retired.items():
+            if members.get(at) != spellings[old_name]:
+                raise ValueError(f"pin 0x{at:08X} is retired only onto the member that rows its respelling there")
+        if set(retired) & set(rows) or set(callers) & (set(rows) | set(members)):
+            raise ValueError("a row, a member, a retired pin and a caller are four different addresses")
+        node_at, alloc = node
+        if node_at not in members:
+            raise ValueError(f"the node's count at 0x{node_at:08X} is in no member")
+        if alloc.kind != "alloc":
+            raise ValueError("the node's count must be an alloc fact")
+        problem = node_alloc_problem(alloc)
+        if problem:
+            raise ValueError(f"the node's count: {problem}")
+        if node_call.kind != "calls" or node_call.site != alloc.site + len(expected(alloc)):
+            raise ValueError("the node's count must feed the call that follows it at once")
+        if value_size <= 0 or value_size % 4 or value_size == old_width:
+            raise ValueError(f"a value of {value_size} bytes is no dword-aligned struct retail can tell from {old}")
+        if alloc.value != NODE_HEADER + key_width + value_size:
+            raise ValueError(f"retail's node holds {alloc.value - NODE_HEADER} bytes of pair, not pair<const {key}, "
+                             f"{new}>'s {key_width + value_size}")
+        edges = {}
+        for at, (_old_name, facts) in rows.items():
+            edges.setdefault(at, set()).update(f.value for f in facts if f.kind == "calls")
+        for at, fact in member_path:
+            if at not in members or fact.kind != "calls":
+                raise ValueError("the member path is calls in members")
+            edges.setdefault(at, set()).add(fact.value)
+        for at, (old_name, _facts) in rows.items():
+            seen, frontier = {at}, [at]
+            while frontier:
+                for nxt in edges.get(frontier.pop(), ()):
+                    if nxt not in seen:
+                        seen.add(nxt)
+                        frontier.append(nxt)
+            if node_at not in seen:
+                raise ValueError(f"0x{at:08X} {old_name} reaches no node of the new value by calls")
+        named = dict(members)
+        named.update({at: spellings[name] for at, (name, _facts) in rows.items()})
+        for table, bound, label in ((rows, bindings, "row of the family"), (callers, caller_bindings, "caller")):
+            for at, offset, target in bound:
+                if at not in table:
+                    raise ValueError(f"binding 0x{at:08X} is no {label}")
+                fact = next((f for f in table[at][1] if f.kind == "calls" and f.site == at + offset - 1), None)
+                if fact is None:
+                    raise ValueError(f"0x{at:08X}+{offset} is not one of the {label}'s own calls")
+                if named.get(fact.value) != target or (table is callers and fact.value not in rows):
+                    raise ValueError(f"0x{at:08X}+{offset} calls 0x{fact.value:08X}, which is not {target}")
+            if set(table) - {at for at, _offset, _target in bound}:
+                raise ValueError(f"every {label} needs a binding: one with nothing to bind cannot show the value survived")
+        self.old, self.new, self.key, self.value_size, self.copy = old, new, key, value_size, copy
+        self.spellings, self.members, self.bindings, self.rows = spellings, dict(members), tuple(bindings), rows
+        self.retired, self.node, self.node_call, self.member_path = retired, node, node_call, tuple(member_path)
+        self.callers, self.caller_bindings = callers, tuple(caller_bindings)
+        self.value_type, self.pins, self.duplicates = value_type, {}, {}
+        # what a source spells when it names the old value: its pair's mangled text (the builtin alone is in every
+        # unit that takes a void*)
+        self.words = (f"$$CB{key}{old}",)
+
+    def respell(self, name):
+        return self.spellings.get(name, name)
+
+    def located(self):
+        """[(member rva, fact)] for every fact a member holds: the node's count, its call and the member path."""
+        return [self.node, (self.node[0], self.node_call), *self.member_path]
+
+    def facts(self):
+        return ([f for _name, facts in [*self.rows.values(), *self.retired.values(), *self.callers.values()]
+                 for f in facts] + [fact for _at, fact in self.located()])
 
     def evidence(self):
         return record(self.rows[self.copy][1])
@@ -998,8 +1154,82 @@ MAP_UINT_INT_COPY = StandInScalarKeyFamily(
     # cmp eax,[esi+10h]; jae: the key against the node's, unsigned
     key_compare=(0x00534A2A, C("compare", 0x00534A4D, 0x10, "3b46107348")),
     compare_path=((0x00534A2A, C("calls", 0x00534A40, 0x004FF3B6)), (0x00534A2A, C("calls", 0x00534A63, 0x005346BC))))
+_UR_INSERT = ("?insert@?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@"
+              "U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@2@U32@ABU?$pair@$$CBIPAX@2@@Z")
+_UR_UNIQUE_HINT = ("?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@"
+                   "V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAX@_STL@@"
+                   "U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@2@U32@ABU?$pair@$$CBIPAX@2@@Z")
+_UR_UNIQUE = ("?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@"
+              "V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAX@_STL@@"
+              "U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAX@2@@Z")
+_UR_M_INSERT_PAX = ("?_M_insert@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@"
+                    "V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAX@_STL@@"
+                    "U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIPAX@2@0@Z")
+_UR_SPELLINGS = {
+    # map<unsigned int, .>::insert(iterator, const value_type &), 0x00534A0D
+    _UR_INSERT:
+        "?insert@?$map@IURva00534743Record@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIURva00534743Record@@@_STL@@@3@@"
+        "_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBI"
+        "URva00534743Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBIURva00534743Record@@@2@@Z",
+    # _Rb_tree::insert_unique(iterator, const value_type &), 0x005348E7
+    _UR_UNIQUE_HINT:
+        "?insert_unique@?$_Rb_tree@IU?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva00534743"
+        "Record@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00534743Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_"
+        "tree_iterator@U?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva00534743Record@@"
+        "@_STL@@@2@@2@U32@ABU?$pair@$$CBIURva00534743Record@@@2@@Z",
+    # _Rb_tree::insert_unique(const value_type &), 0x00534827
+    _UR_UNIQUE:
+        "?insert_unique@?$_Rb_tree@IU?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva00534743"
+        "Record@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00534743Record@@@_STL@@@2@@_STL@@QAE?AU?$pair@"
+        "U?$_Rb_tree_iterator@U?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva00534743"
+        "Record@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIURva00534743Record@@@2@@Z",
+    # _Rb_tree::_M_insert, the pin on 0x0053479F: the member's own name there
+    _UR_M_INSERT_PAX:
+        "?_M_insert@?$_Rb_tree@IU?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva00534743Record"
+        "@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00534743Record@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_"
+        "iterator@U?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIURva00534743Record@@@_STL"
+        "@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIURva00534743Record@@@2@0@Z",
+}
+_UR_CREATE_NODE = ("?_M_create_node@?$_Rb_tree@IU?$pair@$$CBIURva00534743Record@@@_STL@@U?$_Select1st@U?$pair@$$CBIURva"
+                   "00534743Record@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIURva00534743Record@@@_STL@@@2@@_STL@@"
+                   "IAEPAU?$_Rb_tree_node@U?$pair@$$CBIURva00534743Record@@@_STL@@@2@ABU?$pair@$$CBIURva00534743Record"
+                   "@@@2@@Z")
+
+# The pathfinder's outer map under Rva00534A2A::subscript (P143). Its insert chain (the hint insert 0x00534A0D and the
+# two insert_unique 0x005348E7 and 0x00534827) was rowed on void*, so the link took another unit's void* _M_insert,
+# whose _M_create_node makes 0x18-byte nodes; retail's _M_insert 0x0053479F calls _M_create_node 0x00534743, which
+# allocates 0x20: the 16-byte header and pair<const unsigned int, Rva00534743Record> (the 12-byte inner map). Both are
+# already rowed on Rva00534743Record in StlSweepR3Rva00534743.cpp. A pin spelled _M_insert's void* name onto
+# 0x0053479F; it goes. subscript calls the hint insert.
+MAP_UINT_RECORD_INSERT = StandInValueFamily(
+    old="PAX", new="Rva00534743Record", key="I", value_size=12, copy=0x00534A0D, spellings=dict(_UR_SPELLINGS),
+    members={
+        0x0053479F: _UR_SPELLINGS[_UR_M_INSERT_PAX],
+        0x00534743: _UR_CREATE_NODE,
+    },
+    bindings=(
+        (0x00534A0D, 0x12, _UR_SPELLINGS[_UR_UNIQUE_HINT]),
+        (0x005348E7, 0x6B, _UR_SPELLINGS[_UR_M_INSERT_PAX]),
+        (0x005348E7, 0x114, _UR_SPELLINGS[_UR_UNIQUE]),
+        (0x00534827, 0x63, _UR_SPELLINGS[_UR_M_INSERT_PAX]),
+    ),
+    rows={
+        # the hint insert forwards to the tree's hint insert_unique
+        0x00534A0D: (_UR_INSERT, (C("calls", 0x00534A1E, 0x005348E7),)),
+        # which inserts at the hint through _M_insert, or falls back to the plain insert_unique
+        0x005348E7: (_UR_UNIQUE_HINT, (C("calls", 0x00534951, 0x0053479F), C("calls", 0x005349FA, 0x00534827))),
+        0x00534827: (_UR_UNIQUE, (C("calls", 0x00534889, 0x0053479F),)),
+    },
+    retired={0x0053479F: (_UR_M_INSERT_PAX, (C("calls", 0x00534951, 0x0053479F),))},
+    # push 20h: the node's byte count, taken by the allocation at once
+    node=(0x00534743, C("alloc", 0x00534746, 0x20, "6a20")),
+    node_call=C("calls", 0x00534748, 0x000307F0),
+    # _M_insert creates the node through the creator
+    member_path=((0x0053479F, C("calls", 0x005347C7, 0x00534743)),),
+    callers={0x00534A2A: ("?subscript@Rva00534A2A@@QAEAAUTreeStorage534@@ABI@Z", (C("calls", 0x00534A7B, 0x00534A0D),))},
+    caller_bindings=((0x00534A2A, 0x52, _UR_SPELLINGS[_UR_INSERT]),))
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR,
-            MAP_UINT_INT_COPY)
+            MAP_UINT_INT_COPY, MAP_UINT_RECORD_INSERT)
 
 # One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
 # treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at

@@ -292,6 +292,7 @@ DATA_ROWS = "reverse/data_rows.csv"
 DELETED = "reverse/deleted_rows.csv"
 NAME_BASIS = "reverse/name_basis.csv"
 CODE_IDENTITY_BASELINE = "reverse/code_identity_baseline.tsv"
+DUP_DEFS_BASELINE = "reverse/dup_defs_baseline.tsv"
 NAME_BINDINGS = "reverse/name_bindings.csv"
 NAME_BINDINGS_HEADER = "record,old,new,source,outer_sha256"
 EXPORTS = "reverse/exports.csv"
@@ -4831,6 +4832,60 @@ def scalar_key_problem(ctx, rows, family):
     return None
 
 
+def value_family_problem(ctx, rows, family):
+    """Why the ledger does not tie a StandInValueFamily to its value, or None. The struct is no registered class and
+    has no constructor or destructor row: a size-only stand-in, whose size the members' matched bytes hold to retail's
+    node. Each member is rowed (matched) at its address under exactly that name. Each row and caller is the one row of
+    its name at its address, with every fact inside it. The node's count, its call and the member path lie in the
+    member's own row. Each retired pin's facts lie in a family row or a caller. No respelling changes an operator or
+    identifier."""
+    import retail_identity
+    registered = {r.get("class") for r in ctx.dicts(CANONICAL_CLASSES)}
+    if family.new in registered:
+        return f"{family.new} is registered: a registered class is proved by its own rows, not by a node's size"
+    own = sorted(r["name"] for r in rows if r["name"].startswith((f"??0{family.new}@@", f"??1{family.new}@@")))
+    if own:
+        return f"{family.new} has a constructor or destructor row of its own ({own[0]}): it is no size-only stand-in"
+    matched_at = {}
+    for r in rows:
+        if r.get("status") == "matched" and _rva(r.get("target_rva")) is not None:
+            matched_at.setdefault(_rva(r.get("target_rva")), []).append(r)
+
+    def inside(fact, start, size):
+        return start <= fact.site and fact.site + len(retail_identity.expected(fact)) <= start + size
+
+    def own_row(at, name):
+        found = [r for r in matched_at.get(at, ()) if r["name"] == name]
+        return found[0] if len(found) == 1 else None
+
+    for at, name in sorted(family.members.items()):
+        if own_row(at, name) is None:
+            return f"{name} is not rowed at 0x{at:08X}: the value's own instantiation is what ties the proof to it"
+    extents = []
+    for label, table in (("row", family.rows), ("caller", family.callers)):
+        for at, (name, facts) in sorted(table.items()):
+            found = own_row(at, name)
+            if found is None:
+                return f"the {label} {name} is not the one matched row at 0x{at:08X}"
+            size = int(found["target_size"])
+            outside = [f for f in facts if not inside(f, at, size)]
+            if outside:
+                return f"0x{outside[0].site:08X} is outside {name}'s row"
+            extents.append((at, size))
+    for at, fact in family.located():
+        found = own_row(at, family.members[at])
+        if found is None or not inside(fact, at, int(found["target_size"])):
+            return f"0x{fact.site:08X} ({fact.kind}) is in no matched row at 0x{at:08X}"
+    for at, (old_name, facts) in sorted(family.retired.items()):
+        for fact in facts:
+            if not any(inside(fact, start, size) for start, size in extents):
+                return f"0x{fact.site:08X}, a fact of the retired pin {old_name}, is in no row or caller of the family"
+    for old_name, new_name in sorted(family.spellings.items()):
+        if identity_head(old_name) != identity_head(new_name):
+            return f"{new_name} changes the operator or identifier of {old_name}"
+    return None
+
+
 def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(),
                         forced_moves=(), evidence="", max_files=25):
     """--respell --identity --basis retail: the whole family tools/retail_identity.py spells out, from
@@ -4860,12 +4915,17 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     slot_kind = isinstance(family, retail_identity.SlotOperandFamily)
     stand_in = isinstance(family, retail_identity.StandInElementFamily)
     scalar_key = isinstance(family, retail_identity.StandInScalarKeyFamily)
+    value_kind = isinstance(family, retail_identity.StandInValueFamily)
     if slot_kind:
         problem = slot_operand_problem(rows, family)
         if problem:
             raise Refusal(problem)
     elif scalar_key:
         problem = scalar_key_problem(ctx, rows, family)
+        if problem:
+            raise Refusal(problem)
+    elif value_kind:
+        problem = value_family_problem(ctx, rows, family)
         if problem:
             raise Refusal(problem)
     elif stand_in:
@@ -4919,8 +4979,12 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(f"{old_name} is not the one row of that name at 0x{at:08X}")
         new_name = family.respell(old_name)
         function_identity_checks(ctx, at, old_name, old_name, found[0])
+        # the copy's wrong binding is what the respell fixes; a value family's rows all bind the old value's
+        # helpers, and the old spelling's divergent COMDAT goes with it: each key is retired in the next commit
+        frozen_ok = (frozenset({CODE_IDENTITY_BASELINE, DUP_DEFS_BASELINE}) if value_kind
+                     else frozenset({CODE_IDENTITY_BASELINE}) if at == family.copy else frozenset())
         function_collision_checks(ctx, at, old_name, new_name, old_name, new_name, respell=True,
-                                  frozen_ok=frozenset({CODE_IDENTITY_BASELINE}) if at == family.copy else frozenset())
+                                  frozen_ok=frozen_ok)
         entries.append(dict(rva=at, old=old_name, new=new_name, source=found[0]["source"], facts=facts))
     pins = {(p.get("name", ""), _rva(p.get("address"))) for p in ctx.pins()}
     names = {p.get("name", "") for p in ctx.pins()} | {r["name"] for r in rows}
@@ -5012,7 +5076,9 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         raw = b"".join(kept)
     if retired:
         drop = {(old_name, at) for at, (old_name, _facts) in retired.items()}
-        problems, _rebuilt = pin_consumers(ctx, sorted(name for name, _at in drop), [family.old],
+        # the words a source spells when it names the old type: a stand-in's own name, or a family's `words`
+        words = list(getattr(family, "words", (family.old,)))
+        problems, _rebuilt = pin_consumers(ctx, sorted(name for name, _at in drop), words,
                                            {e["source"] for e in entries} | set(prepared))
         if problems:
             raise Refusal(f"the old class's pin(s) cannot be retired: {problems[0]}"
@@ -5127,9 +5193,16 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         plan.identity.update(forced=forced, units_before=units_before)
     if slot_kind:
         plan.identity["operands"] = slot_operand_bindings(family, source_of[family.copy], primary["new"])
-    elif no_table or stand_in or scalar_key:
+    elif no_table or stand_in or scalar_key or value_kind:
         by_rva = {e["rva"]: e["new"] for e in entries}
         plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
+        # a caller keeps its name; its rebuilt call must bind the respelled row, so its unit is prepared and verified
+        for at, offset, target in getattr(family, "caller_bindings", ()):
+            name = family.callers[at][0]
+            source = next(r["source"] for r in rows if r["name"] == name and _rva(r.get("target_rva")) == at)
+            if source not in prepared:
+                raise Refusal(f"{source} calls the family at 0x{at:08X}: prepare it, its call names the old spelling")
+            plan.identity["bindings"].append((source, name, offset, target))
         plan.identity["retired"] = sorted((name, at, family.members[at]) for at, (name, _f) in retired.items())
         if stand_in:
             plan.identity["duplicates"] = sorted(retired_rows)
@@ -5146,7 +5219,16 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     plan.claims += sorted({at for _n, at, _s in retired_rows}) + [f"file:{s}" for s in emptied]
     done = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))} - done)
-    if any(CODE_IDENTITY_BASELINE in ctx.grep_files(e["old"], roots=FROZEN_KEYED) for e in entries):
+    if value_kind:
+        for e in entries:
+            held = ctx.grep_files(e["old"], roots=FROZEN_KEYED)
+            if CODE_IDENTITY_BASELINE in held:
+                plan.warnings.append(f"{CODE_IDENTITY_BASELINE} keys {e['old']}: python3 tools/repair_queue.py "
+                                     f"retire identity {e['source']} in the next commit")
+            if DUP_DEFS_BASELINE in held:
+                plan.warnings.append(f"{DUP_DEFS_BASELINE} keys {e['old']}: no object defines it after the "
+                                     "respell; delete its line in the next commit")
+    elif any(CODE_IDENTITY_BASELINE in ctx.grep_files(e["old"], roots=FROZEN_KEYED) for e in entries):
         plan.warnings.append(f"{CODE_IDENTITY_BASELINE} keys {primary['old']}: python3 tools/repair_queue.py retire "
                              f"identity {primary['source']} in the next commit (it refuses while HEAD holds the row)")
     return plan
