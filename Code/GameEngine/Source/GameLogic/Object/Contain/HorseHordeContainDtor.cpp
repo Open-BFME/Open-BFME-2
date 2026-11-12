@@ -12,7 +12,7 @@ class ModuleData;
 class Object;
 
 class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
-class B1 { public: virtual void b1(); };
+#include "../../../../Include/Common/B1.h"
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
 class B3 { public: virtual void b3(); };
 class B4 { public: virtual void b4(); };

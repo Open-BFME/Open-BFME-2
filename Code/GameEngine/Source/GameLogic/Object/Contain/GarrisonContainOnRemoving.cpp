@@ -230,7 +230,7 @@ public:
     int pad4;
     Object *m_object;
 };
-class B1 { public: virtual void b1(); };
+#include "../../../../Include/Common/B1.h"
 class B2 { public: virtual void b2(); private: unsigned char pad[12]; };
 class B3
 {
