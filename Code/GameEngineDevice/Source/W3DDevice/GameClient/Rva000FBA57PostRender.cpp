@@ -5,17 +5,7 @@
 // reset sequence. BFME2 supplies the viewport-size argument used for UV scale.
 #include "Lib/Coord2D.h"
 
-struct D3DXVECTOR4
-{
-	float x;
-	float y;
-	float z;
-	float w;
-
-	D3DXVECTOR4() {}
-	D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue)
-		: x(xValue), y(yValue), z(zValue), w(wValue) {}
-};
+#include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 
 class IDirect3DTexture8;
 struct IDirect3DBaseTexture8

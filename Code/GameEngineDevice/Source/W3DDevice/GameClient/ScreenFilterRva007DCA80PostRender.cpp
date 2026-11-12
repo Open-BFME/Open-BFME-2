@@ -26,17 +26,7 @@
 #include "Lib/Coord2D.h"
 #include <math.h>
 
-struct D3DXVECTOR4
-{
-	float x;
-	float y;
-	float z;
-	float w;
-
-	D3DXVECTOR4() {}
-	D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue)
-		: x(xValue), y(yValue), z(zValue), w(wValue) {}
-};
+#include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 
 #include <d3d9.h>
 

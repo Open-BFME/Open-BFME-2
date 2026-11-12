@@ -21,12 +21,7 @@
 // copy of the reciprocal by memory instead.
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
-struct D3DXVECTOR4
-{
-    float x, y, z, w;
-    D3DXVECTOR4() {}
-    D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue) : x(xValue), y(yValue), z(zValue), w(wValue) {}
-};
+#include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 #include <d3d9.h>
 
 struct IDirect3DBaseTexture8 {};

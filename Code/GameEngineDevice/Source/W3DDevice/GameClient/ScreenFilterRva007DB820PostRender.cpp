@@ -31,12 +31,7 @@ inline float __cdecl waveSin(float _X)
 typedef bool Bool;
 class DynamicIBAccessClass;
 class DynamicVBAccessClass;
-struct D3DXVECTOR4
-{
-	float x, y, z, w;
-	D3DXVECTOR4() {}
-	D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue) : x(xValue), y(yValue), z(zValue), w(wValue) {}
-};
+#include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

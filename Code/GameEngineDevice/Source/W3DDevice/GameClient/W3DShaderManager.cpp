@@ -355,16 +355,7 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-struct D3DXVECTOR4
-{
-	float x;
-	float y;
-	float z;
-	float w;
-	D3DXVECTOR4() {}
-	D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue)
-		: x(xValue), y(yValue), z(zValue), w(wValue) {}
-};
+#include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 struct IDirect3DBaseTexture8 {};
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
 #define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8()))
