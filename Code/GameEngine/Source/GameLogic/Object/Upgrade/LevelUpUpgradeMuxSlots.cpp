@@ -40,14 +40,7 @@ template <class T> inline const T &lowerOf(const T &lhs, const T &rhs)
 {
 	return (lhs < rhs) ? lhs : rhs;
 }
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
 class UpgradeModuleInterface
 {
 public:

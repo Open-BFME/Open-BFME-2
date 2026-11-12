@@ -38,14 +38,7 @@ private:
 	int m_cachedFrame; // +0x00
 };
 class ModuleData;
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
 class UpgradeModuleInterface
 {
 public:
