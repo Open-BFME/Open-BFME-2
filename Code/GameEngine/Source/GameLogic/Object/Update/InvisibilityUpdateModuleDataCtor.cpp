@@ -36,9 +36,7 @@ class Rva00360D26Member {
 public: Rva00360D26Member(); ~Rva00360D26Member();
 private: unsigned int index;
 };
-class Rva003623E5Filter {
-public: void applyFilter(BfmeFixedStorage0004543D);
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 class InvisibilityUpdateModuleData : public Snapshot {
 public:
  InvisibilityUpdateModuleData();

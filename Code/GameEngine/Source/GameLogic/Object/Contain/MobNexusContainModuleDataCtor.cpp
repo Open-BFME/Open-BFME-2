@@ -29,11 +29,7 @@ private:
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class Rva003623E5Filter
-{
-public:
-	void applyFilter(BfmeFixedStorage0004543D storage);
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 

@@ -18,11 +18,7 @@ class Xfer;
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 
-class Rva003623E5Filter
-{
-public:
-	~Rva003623E5Filter();
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 class __declspec(novtable) PillageModuleData : public Snapshot
 {

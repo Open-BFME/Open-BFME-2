@@ -55,16 +55,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-	~Rva003623E5Filter();
-	void applyFilter(BfmeFixedStorage0004543D storage);
-
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 class MultiIniFieldParse;
 #include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"

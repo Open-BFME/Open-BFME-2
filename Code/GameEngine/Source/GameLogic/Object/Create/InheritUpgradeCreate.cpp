@@ -45,11 +45,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class Rva003623E5Filter
-{
-public:
-	~Rva003623E5Filter();
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 class __declspec(novtable) InheritUpgradeCreateModuleData : public Snapshot
 {
 public:

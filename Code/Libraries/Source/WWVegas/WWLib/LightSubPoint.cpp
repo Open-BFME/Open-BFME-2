@@ -25,11 +25,7 @@ template <int NUMBITS> class BitFlags;
 
 extern BitFlags<116> KINDOFMASK_NONE;
 
-class Rva003623E5Filter
-{
-public:
-	void applyFilter(BfmeFixedStorage0004543D temp);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva003623E5Filter.h"
 
 class Rva003623E5Member : public Rva003623E5Filter
 {
