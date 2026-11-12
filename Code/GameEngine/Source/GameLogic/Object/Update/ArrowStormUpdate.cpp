@@ -125,11 +125,7 @@ public:
 	void push_back(const ObjectID &id);	// 0x002A1B6F
 };
 class Rva0029FB3BMember;
-class Rva002A1B6FNativeList
-{
-	friend class Rva0029FB3BMember;
-	Rva002A1316Iterator insert(Rva002A1316Iterator pos, void *const &value);	// 0x002A1316
-};
+#include "../../../../Include/Common/Rva002A1B6FNativeList.h"
 #include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
 __declspec(noinline) void *__stdcall Rva0029FB80Store(void **p)

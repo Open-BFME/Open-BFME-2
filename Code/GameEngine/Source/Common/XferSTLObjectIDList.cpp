@@ -46,11 +46,7 @@ public:
 	BridgeBehaviorObjectIDNode *m_node;
 };
 
-class Rva002A1B6FNativeList
-{
-public:
-	void append(void *const &value);
-};
+#include "../../Include/Common/Rva002A1B6FNativeList.h"
 
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see System/XferException.cpp).

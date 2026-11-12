@@ -591,11 +591,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 
 // LINK: 0x002A1B6F is rowed as Rva002A1B6FNativeList::append (Rva002A1316.cpp; pointer-sized element by reference).
-class Rva002A1B6FNativeList
-{
-public:
-	void append(void *const &value);
-};
+#include "../../../../Include/Common/Rva002A1B6FNativeList.h"
 
 class Rva001E4912
 {

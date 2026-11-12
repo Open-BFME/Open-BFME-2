@@ -1454,11 +1454,7 @@ _InputIter find(_InputIter __first, _InputIter __last, const _Tp &__val);
 // ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z at 0x002A1B6F
 // (Code/GameEngine/Source/Common/Rva002A1316.cpp).
 // ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z present-unmatched
-class Rva002A1B6FNativeList
-{
-public:
-	void append(void *const &value);
-};
+#include "../../../Include/Common/Rva002A1B6FNativeList.h"
 
 class Rva002AE3F4
 {

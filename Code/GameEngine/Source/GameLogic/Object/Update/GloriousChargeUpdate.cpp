@@ -121,7 +121,7 @@ struct Rva004AD613Iterator
 // Native2A1B6F and its whole insertion helper copy one opaque four-byte
 // element into a 12-byte list node; they never dereference the word as a
 // pointer. Reuse that existing owner for these ObjectID payloads.
-class Rva002A1B6FNativeList { public: void append(void *const &value); };
+#include "../../../../Include/Common/Rva002A1B6FNativeList.h"
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 static inline Rva004AD613Iterator affectedBegin(const Rva0029FB3BMember &list)
 {

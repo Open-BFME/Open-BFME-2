@@ -5,13 +5,7 @@ enum ObjectID
 	OBJECTID_INVALID = 0
 };
 
-class Rva002A1B6FNativeList
-{
-public:
-	void append(void *const &value);
-private:
-	void *head;
-};
+#include "../../Include/Common/Rva002A1B6FNativeList.h"
 
 struct Rva004DF4B5Arg
 {

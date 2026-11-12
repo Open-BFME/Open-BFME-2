@@ -104,11 +104,7 @@ public:
 
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva0029FB3BMember.h"
 
-class Rva002A1B6FNativeList
-{
-public:
-	void append(void *const &value);
-};
+#include "../../../../GameEngine/Include/Common/Rva002A1B6FNativeList.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva2225E0Filter.h"
 
