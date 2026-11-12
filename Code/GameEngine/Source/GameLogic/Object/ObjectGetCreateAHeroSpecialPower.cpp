@@ -90,11 +90,7 @@ public:
 	void *rva004B0333();
 };
 
-class Rva002A7DD0
-{
-public:
-	bool rva002A7DD0();
-};
+#include "../../../Include/Common/Rva002A7DD0.h"
 
 class Rva00373EC6
 {

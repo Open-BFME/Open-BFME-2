@@ -935,7 +935,7 @@ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
 virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
 virtual bool slot8();
 };
-class Rva002A7DD0 { public: bool rva002A7DD0(); };
+#include "../../../../Include/Common/Rva002A7DD0.h"
 struct Rva0053B1CFButtonWindow { char pad000[0xC4]; GameWindow *window; };
 CBCommandStatus ControlBar::rva0053B1CF(GameWindow *control, unsigned int gadgetMessage)
 {

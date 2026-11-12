@@ -42,11 +42,7 @@ enum Relationship
 
 // Rowed 0x002A7DD0 runs on ThePlayerList and returns its negated
 // local-player query as an int.
-class Rva002A7DD0
-{
-public:
-	bool rva002A7DD0();
-};
+#include "../../../Include/Common/Rva002A7DD0.h"
 
 // ThePlayerList: +0x10 is the local player.
 #include "../../../Include/Common/PlayerList.h"

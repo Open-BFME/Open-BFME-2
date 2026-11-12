@@ -96,7 +96,7 @@ public:
     virtual const Coord3D *getRallyPoint() const=0;
 };
 class ExitInterface;
-class Rva002A7DD0 { public: bool rva002A7DD0(); };
+#include "../../../../Include/Common/Rva002A7DD0.h"
 #include "../../../../Include/Common/BfmeMemberRV.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;

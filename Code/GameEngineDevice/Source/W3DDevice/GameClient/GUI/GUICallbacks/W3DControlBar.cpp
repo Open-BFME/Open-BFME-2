@@ -202,11 +202,7 @@ public:
 };
 
 
-class Rva002A7DD0
-{
-public:
-	Bool rva002A7DD0(void);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva002A7DD0.h"
 
 #define ICOORD2D_VIEW_DEFAULT_CTOR
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"

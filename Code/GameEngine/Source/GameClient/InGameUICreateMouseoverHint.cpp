@@ -191,7 +191,7 @@ class Player { public:
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList* ThePlayerList;
 
-class Rva002A7DD0 { public: bool rva002A7DD0(); };
+#include "../../Include/Common/Rva002A7DD0.h"
 
 #include "../../Include/GameLogic/Module/ContainModule.h"
 class Rva00373EC6 { public: unsigned char pad[0x38]; int playerIndex; const ThingTemplate* thingTemplate; };

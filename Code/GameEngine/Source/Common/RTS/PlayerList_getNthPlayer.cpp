@@ -386,14 +386,7 @@ public:
 	BfmeMemberRV *m_bfmeMine; // +0x10
 };
 
-class Rva002A7DD0
-{
-public:
-	bool rva002A7DD0();
-private:
-	char m_lead[0x10]; // +0x00
-	BfmeMemberRV *m_ptr10; // +0x10 +0x10
-};
+#include "../../../Include/Common/Rva002A7DD0.h"
 
 class Rva002A7E42
 {

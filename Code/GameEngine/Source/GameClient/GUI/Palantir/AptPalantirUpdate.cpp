@@ -716,11 +716,7 @@ extern GameLogic *TheGameLogic;
 
 class PlayerList;
 extern PlayerList *ThePlayerList;
-class Rva002A7DD0
-{
-public:
-	bool rva002A7DD0();
-};
+#include "../../../../Include/Common/Rva002A7DD0.h"
 struct AptPalantirFactionSource
 {
 	unsigned char m_pad000[0x18];
