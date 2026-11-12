@@ -8,11 +8,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva0020E89C
-{
-public:
-    UnicodeString rva0020E89C();
-};
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 
 namespace StrategicHUD
 {

@@ -35,7 +35,7 @@ private:
 	char m_opaque[12];
 };
 
-class Rva0020E89C {public:UnicodeString rva0020E89C();UnicodeString rva003F15D1();};
+#include "../../Include/GameClient/Rva0020E89C.h"
 RvaF6Ret Helper0056BCE5(int v)
 {
  Rva0020E89C *region=(Rva0020E89C*)v;

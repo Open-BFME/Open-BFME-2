@@ -286,7 +286,7 @@ void Rva004E141DParse(INI *ini,void *instance,void*,const void*) {
  ((Rva00566547Owner*)instance)->append((const Rva003A6F70&)record);
 }
 
-class Rva0020E89C { public:UnicodeString rva0020E89C(); };
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 class Rva00318C32Ret;
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 struct ArmyHelpBuildingView { unsigned char pad[0x24]; Rva0020E89C *region; };

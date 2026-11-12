@@ -1,0 +1,183 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0020E89C",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 21,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x38": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 8,
+   "24": 2,
+   "60": 1,
+   "80": 1,
+   "156": 1,
+   "168": 1,
+   "172": 1,
+   "304": 1,
+   "320": 3,
+   "420": 1,
+   "436": 1
+  },
+  "views": 21,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 140,
+   "type": "char[140]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 19
+ },
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020E89CFetch.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicPlayerObserverRva002BA3F2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicPlayerObserverRva002BA3F2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicPlayerObserverRva002BA3F2.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionDescription.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 171,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerValidateArmyRegionEntry.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIProcessRetreats.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 418,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 424,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 428,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 432,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 320,
+ "size_by": "majority",
+ "vslots": {}
+}

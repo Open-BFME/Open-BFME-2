@@ -31,7 +31,7 @@ void Rva00578513::show(Int a0)
 }
 class Image;
 class Rva003F038E { public: const Image *rva003F03B9(); };
-class Rva0020E89C { public: UnicodeString rva0020E89C(); };
+#include "../../Include/GameClient/Rva0020E89C.h"
 
 class RegionUI {
 public:

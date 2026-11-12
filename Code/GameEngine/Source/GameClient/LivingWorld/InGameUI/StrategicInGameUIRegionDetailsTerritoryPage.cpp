@@ -63,7 +63,7 @@ class Image;
 extern MapCache *TheMapCache;
 Image *getMapPreviewImage(AsciiString);
 #include "../../../../Include/GameClient/Image.h"
-class Rva0020E89C { public: UnicodeString rva0020E89C(); };
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 class Rva005F1B41 { public: void rva005F1B41(const Image *); };
 class Rva005F1CFEForwarder { public: void rva005F1CFE(const UnicodeString &); };
 class StrategicHUD::RegionDetailsTerritoryMovieClip::Impl {public:void SetTerritoryName(const UnicodeString &);void rva005F1999(int,int);};

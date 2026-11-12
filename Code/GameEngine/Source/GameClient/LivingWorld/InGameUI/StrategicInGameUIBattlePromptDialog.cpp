@@ -79,7 +79,7 @@ class Rva005FA874 { public: Rva005FA874(); ~Rva005FA874() { rva005FA874(); } voi
 
 class Rva005E9625;
 class Rva005E971F { public: void rva005E971F(Rva005E9625 *); };
-class Rva0020E89C { public: UnicodeString rva0020E89C(); };
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 struct LivingWorldBattleSide28 { char opaque[0x1C]; };
 class LivingWorldBattle {
 public:

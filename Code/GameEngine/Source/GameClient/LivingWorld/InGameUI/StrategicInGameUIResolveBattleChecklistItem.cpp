@@ -16,7 +16,7 @@
 class Rva005CCDDD {public:Rva005CCDDD();virtual ~Rva005CCDDD();virtual void slot04() = 0;virtual void clickSlot08();virtual void slot0C() = 0;virtual void slot10() = 0;virtual void slot14() = 0;virtual void slot18() = 0;int unknown4;void *payload;};
 class Rva005D1D38Second {public:virtual void observerSlot0(int) = 0;virtual void observerSlot1(void*,unsigned) = 0;~Rva005D1D38Second(){} };
 class Rva00318C32Ret;
-class Rva0020E89C {public:UnicodeString rva0020E89C();};
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 UnicodeString Rva005C95ECGet(Rva0020E89C*);
 namespace StrategicInGameUI {UnicodeString GetDisplayName(void*);}
 struct Rva002BA8F1Listener;
