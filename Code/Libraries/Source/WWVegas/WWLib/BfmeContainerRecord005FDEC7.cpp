@@ -83,10 +83,7 @@ template void _STL::_Construct<BfmeStringRecord005ED5F3,BfmeStringRecord005ED5F3
 typedef _STL::pair<const UnicodeString,bool> UnicodeFlagPair;
 template void _STL::_Construct<UnicodeFlagPair,UnicodeFlagPair>(UnicodeFlagPair*,const UnicodeFlagPair&);
 // Complete retail record copy at0x002B4DC1.
-struct BfmeStringRecord002B4DC1 {
-    UnicodeString text; unsigned int word0, word1;
-    BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC1 &source);
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord002B4DC1.h"
 template void _STL::_Construct<BfmeStringRecord002B4DC1,BfmeStringRecord002B4DC1>(BfmeStringRecord002B4DC1*,const BfmeStringRecord002B4DC1&);
 // Complete retail record copy at0x005DDD40.
 #include "BfmeStringRecord005DDD40.h"

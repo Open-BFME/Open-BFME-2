@@ -19,7 +19,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-struct BfmeStringRecord002B4DC1 { unsigned char m_data[12]; };
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord002B4DC1.h"
 
 bool operator==(const BfmeStringRecord002B4DC1 &a, const BfmeStringRecord002B4DC1 &b);
 bool operator<(const BfmeStringRecord002B4DC1 &a, const BfmeStringRecord002B4DC1 &b);

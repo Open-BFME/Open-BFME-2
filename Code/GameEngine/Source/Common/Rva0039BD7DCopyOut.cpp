@@ -6,13 +6,7 @@
 // callee takes dest in ecx per the rowed copy ctor, arg returned in eax.
 #include "unicode_string.h"
 
-struct BfmeStringRecord002B4DC1
-{
-	UnicodeString text;
-	unsigned int word0;
-	unsigned int word1;
-	BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC1 &o);
-};
+#include "../../Include/Common/BfmeStringRecord002B4DC1.h"
 
 class Rva0039BD7D
 {

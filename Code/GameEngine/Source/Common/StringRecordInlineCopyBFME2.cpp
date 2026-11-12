@@ -163,10 +163,7 @@ typedef _STL::pair<const UnicodeString,bool> UnicodeFlagPair;
 template void _STL::_Construct<UnicodeFlagPair,UnicodeFlagPair>(UnicodeFlagPair*,const UnicodeFlagPair&);
 
 // Complete retail record copy at0x002B4DC1.
-struct BfmeStringRecord002B4DC1 {
-    UnicodeString text; unsigned int word0, word1;
-    BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC1 &source);
-};
+#include "../../Include/Common/BfmeStringRecord002B4DC1.h"
 BfmeStringRecord002B4DC1::BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC1 &source) : text(source.text), word0(source.word0), word1(source.word1) {}
 template void _STL::_Construct<BfmeStringRecord002B4DC1,BfmeStringRecord002B4DC1>(BfmeStringRecord002B4DC1*,const BfmeStringRecord002B4DC1&);
 
