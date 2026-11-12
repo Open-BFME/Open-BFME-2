@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ScriptActions::doAttackMoveTeamTowardsNearest, retail 0x003C97D2, 495 bytes (called from the
 // action dispatcher 0x003CA4BE at 0x003CD33A). The team twin of
@@ -14,7 +15,7 @@
 // AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
 // filter (PartitionFilter::link 0x00625790), then each filter's members;
 // address-derived names after allow (slot 1), the ctors being inline.
-#include "ascii_string.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 class Object;
 class Player;
@@ -69,15 +70,6 @@ enum CommandSourceType
 
 #include "../Object/object.h"
 
-class ObjectTypes
-{
-public:
-	ObjectTypes();		// 0x003769F9
-	virtual ~ObjectTypes();
-	void addObjectType(const AsciiString &objectType);	// 0x00376B50
-private:
-	char m_pad04[0x14 - 0x04];
-};
 
 template<class OBJCLASS> class DLINK_ITERATOR
 {
