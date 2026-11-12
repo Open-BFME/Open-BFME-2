@@ -475,17 +475,7 @@ public:
 	int m_08;
 	int m_0C;
 };
-class Rva004B5B82Base10
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8();
-	virtual void s9(bool on);
-	virtual void s10();
-	int m_14;
-	int m_18;
-};
+#include "../../../../Include/Common/Rva004B5B82Base10.h"
 class Rva004B5B82Iface
 {
 public:
