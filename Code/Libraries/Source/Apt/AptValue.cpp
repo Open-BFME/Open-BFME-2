@@ -52,7 +52,7 @@ protected:
 	unsigned int m_flags; // +0x04
 };
 
-class Rva006DC9E0 { public: int rva006DC9E0(); };
+#include "Rva006DC9E0.h"
 
 class BfmeN1034;
 

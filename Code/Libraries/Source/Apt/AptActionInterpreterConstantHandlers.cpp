@@ -2648,7 +2648,7 @@ AptValue *callback006FEFF0(AptValue *,int nParams)
 // Native object flags: bits8/9 of +1C are mbHasClass/mbIsInMainInst; script
 // functions keep their owning CIH at +20; the prototype kept at E1807C is
 // compared before the this-stack lookup.
-class Rva006DC9E0 { public: int rva006DC9E0(); };
+#include "Rva006DC9E0.h"
 class BfmeAptObjectFlagsView : public AptValue {
     unsigned char mNativeHash[0x1C-8];
 public:

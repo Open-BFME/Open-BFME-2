@@ -28,11 +28,7 @@ struct VirtObj
 	virtual Mid *virt3();
 };
 
-class Rva006DC9E0
-{
-public:
-	int rva006DC9E0();
-};
+#include "../Rva006DC9E0.h"
 
 int Rva006DC9E0::rva006DC9E0()
 {
