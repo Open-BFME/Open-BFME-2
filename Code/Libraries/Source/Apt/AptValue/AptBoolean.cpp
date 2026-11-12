@@ -17,7 +17,7 @@ BFME_DISP8_BYTE_GETTER(Rva006D89D0ByteField, 0x08)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?matches@Rva0056AB88Fields@@QBE_NI@Z
-struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+#include "../../../../GameEngine/Include/Common/Rva0056AB88Fields.h"
 
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
