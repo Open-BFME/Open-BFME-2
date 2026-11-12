@@ -20,15 +20,7 @@ __forceinline void *heldFrame(const Rva000AD6F4 &holder) { return holder.m_ptr; 
 class Rva00528309 { public: void reset(); };
 class Object;
 #include "../../../../../Include/Common/Rva00575674.h"
-class Rva005C31FB {
-public:
- virtual ~Rva005C31FB();
- Rva005C31FB(int, const AsciiString &);
-private:
- int m_level;
- AsciiString m_name;
- bool m_flag0C;
-};
+#include "../../../../../Include/Common/Rva005C31FB.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct SideBarUpdaterRef {

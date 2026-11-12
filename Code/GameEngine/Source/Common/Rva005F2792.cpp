@@ -32,15 +32,7 @@ namespace AptUtils { const char *__cdecl SkipLevelN(const char *); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
 #include "../../Include/Common/Rva00575674.h"
-class Rva005C31FB {
-public:
-    virtual ~Rva005C31FB();
-    Rva005C31FB(int level, const AsciiString &name);
-private:
-    int m_level;
-    AsciiString m_name;
-    bool m_flag0C;
-};
+#include "../../Include/Common/Rva005C31FB.h"
 class Rva005F2792
 {
 public:

@@ -8,11 +8,7 @@
 // at 0x005E11EB 0x005E1252, neighbours 0x005E0D94 0x005E0EE1.
 #include "ascii_string.h"
 
-class Rva005C31FB
-{
-public:
-	void DeleteContentMovieClip();
-};
+#include "../../Include/Common/Rva005C31FB.h"
 
 class Rva005242D7
 {

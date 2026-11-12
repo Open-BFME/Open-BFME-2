@@ -9,11 +9,7 @@ class Rva00222A8BTarget;
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-class Rva005C31FB
-{
-public:
-	void DeleteContentMovieClip();
-};
+#include "../../Include/Common/Rva005C31FB.h"
 
 // Owner vtable installed by the factory at 0x005C802B. Callback bodies
 // 0x005C78D0 and 0x005C790D prove the seven-slot prefix used here.

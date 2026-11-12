@@ -3,16 +3,7 @@
 // Evidence: calls base 0x00528B06 (int AsciiString); stores +0x10 +0x14; vtable 0x008757E4; ret 0x10; callers 0x0052975A 0x005D2778
 #include "ascii_string.h"
 
-class Rva005C31FB
-{
-public:
-	virtual ~Rva005C31FB();
-	Rva005C31FB(int level, const AsciiString &name);
-private:
-	int m_level;
-	AsciiString m_name;
-	bool m_flag0C;
-};
+#include "../../Include/Common/Rva005C31FB.h"
 
 class Rva00528B06 : public Rva005C31FB
 {

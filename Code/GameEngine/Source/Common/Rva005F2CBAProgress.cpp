@@ -97,12 +97,7 @@ struct Rva005F2CBAScrollBarHolder
 // the rowed address-named body 0x005F2792 that removes the slot's
 // "_OnUnitIconSlotLoaded" command map (WorldBuilder
 // IconSlot::RemoveOnLoadedCommandMap).
-class Rva005C31FB
-{
-public:
-	Rva005C31FB(int level, const AsciiString &path);
-	unsigned char m_pad[0x10];
-};
+#include "../../Include/Common/Rva005C31FB.h"
 class Rva005F2792
 {
 public:

@@ -39,16 +39,7 @@ __forceinline const char *GetStr00529698(const AsciiString &asciiString)
 	return t ? t + 8 : "";
 }
 
-class Rva005C31FB
-{
-public:
-	virtual ~Rva005C31FB();
-	Rva005C31FB(int level, const AsciiString &name);
-private:
-	int m_level;
-	AsciiString m_name;
-	bool m_flag0C;
-};
+#include "../../Include/Common/Rva005C31FB.h"
 
 class Rva00528B06 : public Rva005C31FB
 {
