@@ -34,10 +34,13 @@ private:
 	char m_pad08[12];
 };
 
+struct AICommandParms;
+
+// The AI command interface: its only slot is aiDoCommand (as HordeWorkerAIUpdateDtor.cpp).
 class DBaseM3
 {
 public:
-	virtual void f3();
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 };
 
 class DBaseM4
@@ -113,6 +116,9 @@ private:
 
 class WorkerAIUpdate : public Rva0026E836, public Tail3e4, public Tail3e8, public Tail3ec
 {
+public:
+	// Retail's +0x20 table 0x00C54180 holds the rowed 0x004AB09D.
+	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
 	virtual ~WorkerAIUpdate();
 
@@ -148,7 +154,6 @@ WorkerAIUpdate::~WorkerAIUpdate()
 // reaches, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:??1Rva0026E836@@UAE@XZ=??1AIUpdateInterface@@MAE@XZ")
 #pragma comment(linker, "/alternatename:?f2@DBaseB2@@UAEXXZ=?update@WorkerAIUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f3@DBaseM3@@UAEXXZ=?aiDoCommand@WorkerAIUpdate@@UAEXPBUAICommandParms@@@Z")
 #pragma comment(linker, "/alternatename:?f4@DBaseM4@@UAEXXZ=?onCollide@AIUpdateInterface@@UAEXPAVObject@@PBUCoord3D@@1@Z")
 #pragma comment(linker, "/alternatename:?wt0@Tail3e4@@UAEXXZ=?onDelete@WorkerAIUpdate@@WDOE@AEXXZ")
 #pragma comment(linker, "/alternatename:?wt1@Tail3e8@@UAEXXZ=?get@Rva0023C513DwordField@@QBEHXZ")
