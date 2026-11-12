@@ -65,7 +65,7 @@ class ObjectCreationList {public:ObjectCreationList();__forceinline ~ObjectCreat
 class ModuleData;
 enum ObjectID {OBJECTID_INVALID=0};
 class Rva002A8F24:public SubsystemInterface,public Snapshot {
-public:Rva002A8F24();virtual ~Rva002A8F24();virtual void init();virtual void reset();virtual void update();virtual void loadPostProcess(){}virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
+public:Rva002A8F24();virtual ~Rva002A8F24();virtual void init(){}virtual void reset();virtual void update();virtual void loadPostProcess(){}virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
  Rva002A8D49 data10;
  _STL::map<int,void*> collectors908;
  _STL::vector<const ModuleData*>teams914;
