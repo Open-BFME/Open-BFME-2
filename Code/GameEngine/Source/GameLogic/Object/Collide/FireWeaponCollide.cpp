@@ -171,16 +171,7 @@ BFME_LITERAL_NAME_GETTER(Rva004BB6FCNamed, "FireWeaponCollide")
 
 // Retail's collide interface table 0x00C5A024: onCollide, then CollideModule.h's
 // five slots, which CollideModule answers with its false defaults.
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *location, const Coord3D *normal) = 0;
-	virtual bool wouldLikeToCollideWith(const Object *other) const = 0;
-	virtual bool slot02() const = 0;
-	virtual bool slot03() const = 0;
-	virtual bool slot04() const = 0;
-	virtual bool isSalvageCrateCollide() const = 0;
-};
+#include "../../../../Include/Common/CollideModuleInterface.h"
 
 class CollideModule : public BehaviorModule, public CollideModuleInterface
 {

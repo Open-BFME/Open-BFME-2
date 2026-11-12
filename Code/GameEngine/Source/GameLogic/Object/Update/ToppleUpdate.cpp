@@ -90,7 +90,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class CollideModuleInterface {public:virtual void onCollide(Object *,const Coord3D *,const Coord3D *)=0;};
+#include "../../../../Include/Common/CollideModuleInterface.h"
 
 class ToppleUpdate:public UpdateModule,public CollideModuleInterface {public:virtual NameKeyType getModuleNameKey()const;virtual UpdateSleepTime update();virtual void onCollide(Object *,const Coord3D *,const Coord3D *);void applyTopplingForce(const Coord3D *,float,unsigned);float velocity,acceleration;Coord3D direction;int state;float accumulation,angleDelta;int countDelta;bool bounceFX;unsigned options,stumpID;float state54;};
 

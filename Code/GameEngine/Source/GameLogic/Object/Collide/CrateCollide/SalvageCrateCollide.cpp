@@ -147,11 +147,7 @@ struct BfmeWideResult;
 // The collide interface at +0x10. Retail's SalvageCrateCollide table there
 // (0x00C5A9A8) has six slots; slot 0 is CrateCollide::onCollide 0x004BC56D.
 // Only that slot carries a name yet.
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
+#include "../../../../../Include/Common/CollideModuleInterface.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CollideModule.h
 class CollideModule : public BehaviorModule, public CollideModuleInterface

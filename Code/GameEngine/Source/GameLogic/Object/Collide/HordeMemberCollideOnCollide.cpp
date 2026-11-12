@@ -82,11 +82,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
+#include "../../../../Include/Common/CollideModuleInterface.h"
 
 class HordeMemberCollide : public BehaviorModule, public CollideModuleInterface
 {

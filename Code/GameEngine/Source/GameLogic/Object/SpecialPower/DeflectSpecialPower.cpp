@@ -85,18 +85,7 @@ private:
 // both rowed under Rva00589079. Deriving straight from Rva00589079 keeps an
 // implicit intermediate dtor COMDAT out of this unit.
 
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-	// Retail table 0x00C40818: 5 __purecall entries follow (CollideModule.h's
-	// collide interface order and spelling).
-	virtual bool wouldLikeToCollideWith(const Object *other) const = 0;
-	virtual bool slot02() const = 0;
-	virtual bool slot03() const = 0;
-	virtual bool slot04() const = 0;
-	virtual bool isSalvageCrateCollide() const = 0;
-};
+#include "../../../../Include/Common/CollideModuleInterface.h"
 class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
 {
 public:

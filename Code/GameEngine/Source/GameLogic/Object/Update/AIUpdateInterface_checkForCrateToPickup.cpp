@@ -14,12 +14,7 @@
 
 class Object;
 
-class CollideModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual bool wouldLikeToCollideWith(const Object *other);
-};
+#include "../../../../Include/Common/CollideModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 

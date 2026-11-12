@@ -43,11 +43,7 @@ enum SpecialPowerType
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
-};
+#include "../../../../Include/Common/CollideModuleInterface.h"
 
 
 class SiegeAIUpdate : public AIUpdateInterface
