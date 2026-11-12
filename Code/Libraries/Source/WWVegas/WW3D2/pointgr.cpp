@@ -1,16 +1,6 @@
-// cl: /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /DNDEBUG /MD /I. /Ireference/shims/banked_segline /Ireference/shims/bfmestages /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /DNDEBUG /MD /I. /Ireference/shims/banked_segline /Ireference/shims/bfmestages /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
 // TU Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
-// BFME renamed GeneralsMD Matrix4x4 -> Matrix4; neutralize the old name in this TU
-// so mapper.h (forward-decls class Matrix4x4) and camera.h agree. No matched
-// function mangles Matrix4x4 (verified), so this is a pure rename.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
@@ -51,9 +41,12 @@ void Rva00912CF0();
 
 class VertexMaterialClass;
 
+
 class RenderInfoClass;
 
+
 class TextureClass;
+
 
 
 /*
@@ -254,6 +247,7 @@ private:
 
 
 
+
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/pointgr.h
 class SegmentGroupClass : public PointGroupClass
 {
@@ -295,69 +289,47 @@ class CameraClass;
 #include "sharebuf.h"
 #include "vector3.h"
 #include "vector4.h"
-
 // bfme link decl-only begin
 template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
-
 template <> bool VectorClass<float>::operator==(VectorClass<float> const &) const;
-
 template <> bool VectorClass<Vector2>::operator==(VectorClass<Vector2> const &) const;
-
 template <> int VectorClass<float>::ID(float const &);
-
 // Declaring the dtor only stops cl synthesizing this unit's scalar deleting
 // destructor copy, which inlines Clear; retail's, 0x000F1CF7 (rowed in
 // vector_class_vector3_ctor.cpp), calls it. Clear stays inline for
 // Rva00912CF0, which retail expands it in.
 template <> VectorClass<Vector3>::~VectorClass();
-
 // bfme link decl-only end
 // The table's operator== and both IDs are retail's /O1 bodies 0x000F1C16,
 // 0x000F0DC5 and 0x000F0E20, emitted with the vtable by
 // vector_class_vector3_ctor.cpp.
 template <> int VectorClass<Vector3>::ID(Vector3 const *);
-
 template <> int VectorClass<Vector3>::ID(Vector3 const &);
-
 template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
-
 // Retail Vector2/Vector4 resize bodies belong to Vector2Resize.cpp.
 // Declare their specializations so this consumer references those owners.
 template <> bool VectorClass<Vector2>::Resize(int newsize, Vector2 const *array);
-
 template <> bool VectorClass<Vector4>::Resize(int newsize, Vector4 const *array);
-
 // Upgraded to DX8 2/2/01 HY
 
 // static data members
 Vector3 PointGroupClass::_TriVertexLocationOrientationTable[256][3];
-
 Vector3 PointGroupClass::_QuadVertexLocationOrientationTable[256][4];
-
 Vector2 *PointGroupClass::_TriVertexUVFrameTable[5] = { NULL, NULL, NULL, NULL, NULL};
-
 Vector2 *PointGroupClass::_QuadVertexUVFrameTable[5] = { NULL, NULL, NULL, NULL, NULL};
-
 VertexMaterialClass *PointGroupClass::PointMaterial=NULL;
-
 // Static arrays for intermediate calcs (never resized down, just up):
 VectorClass<Vector3>		PointGroupClass::compressed_loc;
-
 		// point locations 'compressed' by APT
 VectorClass<Vector4>		PointGroupClass::compressed_diffuse;
-
 	// point colors 'compressed' by APT
 VectorClass<float>			PointGroupClass::compressed_size;
-
 		// point sizes 'compressed' by APT
 VectorClass<unsigned char>	PointGroupClass::compressed_orient;
-
 	// point orientations 'compressed' by APT
 VectorClass<unsigned char>	PointGroupClass::compressed_frame;
-
 		// point frames 'compressed' by APT
 VectorClass<Vector3>		PointGroupClass::transformed_loc;
-
 		// transformed point locations
 
 // This array has vertex locations for screenspace mode - calculated to cover exactly 1x1 and 2x2 pixels.
@@ -370,26 +342,18 @@ Vector3 PointGroupClass::_ScreenspaceVertexLocationSizeTable[2][3] =
 	Vector3(2.7f, 2.0f, -1.0f), 
 	Vector3(-0.7f, 2.0f, -1.0f)
 };
-
 // useful for particles that aren't aligned with the screen.
 static Vector3 GroundMultiplierX(1.0f, 0.0f, 0.0f);
-
 static Vector3 GroundMultiplierY(0.0f, 1.0f, 0.0f);
-
 // Some internal variables
 VectorClass<Vector3>			VertexLoc;
-
 		// camera-space vertex locations
 VectorClass<Vector4>			VertexDiffuse;
-
 	// vertex diffuse/alpha colors
 static VectorClass<Vector2>			VertexUV;
-
 DX8IndexBufferClass			*Tris, *Quads;
-
 						// Index buffers.
 SortingIndexBufferClass		*SortingTris, *SortingQuads;
-
 /************************************************************************** 
  * PointGroupClass::Render -- draw point group.                           * 
  *                                                                        * 
@@ -404,11 +368,8 @@ SortingIndexBufferClass		*SortingTris, *SortingQuads;
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
 static SimpleVecClass<unsigned long> remap;
-
 extern "C" void _ReadWriteBarrier(void);
-
 extern unsigned char g_Va00DB5F7D;
-
 // BFME2's FVF record: the stride, location, first texture-coordinate and
 // diffuse offsets read here sit at +0x0C/+0x10/+0x24/+0x44 (retail 0x0017A2C5..
 // 0x0017A2CE; Line3DClassRender.cpp reads the same stride/location/diffuse).
@@ -427,7 +388,6 @@ public:
 	unsigned Get_Tex_Offset(unsigned) const { return tex0; }
 	unsigned Get_Diffuse_Offset() const { return diffuse; }
 };
-
 struct BfmeSortingVBAccess {
 	const PointGroupTargetFVF &FVFInfo;
 	unsigned Type;
@@ -454,13 +414,10 @@ struct BfmeSortingVBAccess {
 		VertexFormatXYZNDUV2 *Get_Formatted_Vertex_Array() { return Vertices; }
 	};
 };
-
 extern void BoxSetTexture(unsigned stage, TextureBaseClass *&texture);
-
 // Retail 0x0012FE00 takes an xyz center and four 32-bit ranges (the view
 // DX8DrawTrianglesDispatch.cpp pins).
 struct TargetCenter3 { float x, y, z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c){} };
-
 #include "BfmeSortingDispatchAt0012FE00.h"
 
 class Rva00914860Sizer
@@ -468,6 +425,41 @@ class Rva00914860Sizer
 public:
 	void updatePoolSizes(int active_points, int total_points, int *vnum);
 };
+
+// ?SetFlag@Rva00179100@@QAEX_N@Z, retail 0x00179100 (21 B).
+// Register/width-variant sibling of the rowed boolean flag setters
+// (ParticleEmitterDefClass::Set_Merge_Intersections 0x001B1640, the
+// SegLineRendererClass/StreakRendererClass copies at 0x0015DFF0 and
+// 0x00742F00). Same body: test the bool argument, set or clear one flag bit
+// and return. The differences are the byte (bool) test, flag bit 1 (value 2)
+// and the 0x30 Flags offset, so it is a distinct local order/operand form, not
+// a copy. The 0x30 offset is PointGroupClass::Flags as the rowed generic
+// Set_Flag at 0x00179060 proves (it computes 1<<flag into the same +0x30), so
+// the class is outlined here under an honest address-derived name rather than
+// claiming a method name no symbol proves. No callers; the no-name method is
+// reachable only through the class's own translation unit.
+
+class Rva00179100
+{
+public:
+	void SetFlag(bool onoff);
+private:
+	char m_pad[0x30];
+	unsigned int m_flags;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
+
+// BFME renamed GeneralsMD Matrix4x4 -> Matrix4; neutralize the old name in this TU
+// so mapper.h (forward-decls class Matrix4x4) and camera.h agree. No matched
+// function mangles Matrix4x4 (verified), so this is a pure rename.
+// The compiler-generated vector constructor iterator (??_H) takes the
+// optimization state of the first function that needs it. Retail links one
+// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
+// copy that same body, so it no longer loses to retail's at link time.
+// It can also change how later array constructions here compile; checked to
+// change nothing else in this unit, but if a function added later that builds
+// an array will not match, try it without this block.
 
 /*
 **	The following template function can be located here ONLY if all the instantiations are
@@ -1686,13 +1678,9 @@ void PointGroupClass::rva00916CD0(unsigned char *point_frame, int active_points,
 
 // VertexUV has one internal definition in this consolidated unit.
 
-// tu-skeleton: 0x00178ED0 194B ??1PointGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp (not merged yet)
 
-// tu-skeleton: 0x00178FB0 4B ?get@Rva00178FB0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00179030 4B ?get@Rva00179030ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00179050 4B ?get@Rva00179050ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassPrepareShader.cpp
 
@@ -1777,13 +1765,9 @@ void PointGroupClass::prepare_shader(void)
  *   VectorClass<T>::~VectorClass -- Default destructor for vector class.                      *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-// tu-skeleton: 0x001793A0 550B ?Resize@?$VectorClass@VVector4@@@@UAE_NHPBVVector4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
 
-// tu-skeleton: 0x0017989B 92B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x00179940 10B ??A?$SimpleDynVecClass@E@@QAEAAEH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
 
-// tu-skeleton: 0x0017A890 12000B ?rva009148C0@PointGroupClass@@QAEXPAVVector3@@PAMPAEH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDiffuseFill.cpp
 
@@ -1811,16 +1795,6 @@ void PointGroupClass::rva00912880(Vector4 *point_diffuse, int active_points) {
   }
 }
 
-// tu-skeleton: 0x0017E210 1798B ?Rva0017E210Init@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0017EC10 76B ??8?$VectorClass@M@@UBE_NABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/ode.cpp (not merged yet)
-
-// tu-skeleton: 0x0017EC60 70B ?ID@?$VectorClass@M@@UAEHABM@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/ode.cpp (not merged yet)
-
-// tu-skeleton: 0x0017ECE0 116B ??8?$VectorClass@VVector2@@@@UBE_NABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp (not merged yet)
-
-// tu-skeleton: 0x0017ED60 481B ?Resize@?$VectorClass@VVector2@@@@UAE_NHPBVVector2@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassUpdateArrays00917B10.cpp
 
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/PointGroupClassUpdateArrays00917B10.cpp at 5cae4bdf (BFME1 byte-identical donor, b1 0x00917B10); include paths repointed at the reference checkout.
@@ -1847,9 +1821,53 @@ void PointGroupClass::rva00917B10(Vector3 *point_loc, Vector4 *point_diffuse, fl
 	rva00912880(point_diffuse, active_points);
 }
 
+// tu-skeleton: 0x00178ED0 194B ??1PointGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00178FB0 4B ?get@Rva00178FB0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00179030 4B ?get@Rva00179030ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00179050 4B ?get@Rva00179050ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva00179100Siblings.cpp
+
+void Rva00179100::SetFlag(bool onoff)
+{
+	if (onoff)
+		m_flags |= 2;
+	else
+		m_flags &= ~2;
+}
+
+// tu-skeleton: 0x00179120 9B ?get@Rva00179120ShrAndField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001793A0 550B ?Resize@?$VectorClass@VVector4@@@@UAE_NHPBVVector4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0017989B 92B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00179940 10B ??A?$SimpleDynVecClass@E@@QAEAAEH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
+
+// tu-skeleton: 0x0017A890 12000B ?rva009148C0@PointGroupClass@@QAEXPAVVector3@@PAMPAEH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp (not merged yet)
+
+// tu-skeleton: 0x0017E210 1798B ?Rva0017E210Init@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0017EC10 76B ??8?$VectorClass@M@@UBE_NABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/ode.cpp (not merged yet)
+
+// tu-skeleton: 0x0017EC60 70B ?ID@?$VectorClass@M@@UAEHABM@Z -- matched in Code/Libraries/Source/WWVegas/WWMath/ode.cpp (not merged yet)
+
+// tu-skeleton: 0x0017ECE0 116B ??8?$VectorClass@VVector2@@@@UBE_NABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Equality.cpp (not merged yet)
+
+// tu-skeleton: 0x0017ED60 481B ?Resize@?$VectorClass@VVector2@@@@UAE_NHPBVVector2@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
+
 // tu-skeleton: 0x00767FF0 11B uw_00767ff0 -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x00767FFB 10B __ehhandler$??1PointGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00768040 11B $L3427 -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0076804B 17B $L3377 -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0076805C 10B __ehhandler$?Resize@?$VectorClass@VVector4@@@@UAE_NHPBVVector4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
 
 // tu-skeleton: 0x00768090 11B Unwind@00b68090 -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp (not merged yet)
 
