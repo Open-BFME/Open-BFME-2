@@ -126,11 +126,7 @@ WanderAIUpdate::~WanderAIUpdate()
 
 // The +0x3E4 interface's one slot reads a byte of the module data; its name
 // is not established, hence the address name.
-class Rva0047EB78_Interface3E4
-{
-public:
-	virtual unsigned char rva0047EC5F() const = 0;
-};
+#include "../../Include/Common/Rva0047EB78_Interface3E4.h"
 
 class AnimalAIUpdate : public AIUpdateInterface, public Rva0047EB78_Interface3E4
 {

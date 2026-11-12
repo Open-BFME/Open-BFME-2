@@ -2347,11 +2347,7 @@ BFME_DISP32_FIRST_WORDCHASE_ZERO_GETTER(Rva0023DB89WordChaseField, 0xF50)
 // that base's this, so the module data at +0x04 is read as [ecx-0x3E0]; the
 // slot returns its byte at +0x7C. The slot's name is not established, hence
 // the address name.
-class Rva0047EB78_Interface3E4
-{
-public:
-	virtual unsigned char rva0047EC5F() const = 0;
-};
+#include "../../../Include/Common/Rva0047EB78_Interface3E4.h"
 class AnimalAIUpdateHead
 {
 public:
