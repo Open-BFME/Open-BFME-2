@@ -1,10 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 // ??0Rva0055BCD2@@QAE@ABV0@@Z @0x003ADDCD 31B copy via rowed base 0x003ADDEC with vptrs g_00C1D164 and 0x00C1C780. Evidence: same vptrs as unsigned-int ctor row 0x0055BCD2; callees rowed; callers 0x003ADC7F 0x003ADD3C; same 31B shape as 0x003ADFDB.
-class Rva005EA430
-{
-public:
-	Rva005EA430(const Rva005EA430 &other);
-};
+#include "../../../../Include/GameClient/Rva005EA430.h"
 // The retail table at RVA 0x0081D164: 6 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {

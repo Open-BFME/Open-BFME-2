@@ -6,11 +6,7 @@
 // two vftables. All vftable dwords are DIR32 sites the gate takes from the
 // target; the call resolves through the ledger.
 
-class Rva005EA430
-{
-public:
-	Rva005EA430(const Rva005EA430 &other);
-};
+#include "../../../../Include/GameClient/Rva005EA430.h"
 
 extern "C" char __identifier("??_7Rva005EA430@@6BV3Vt01111D90@@@");
 extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");

@@ -5,11 +5,7 @@
 // Same 31B shape as sibling 0x003ADEBF (different +0 vptr). Callers include
 // 0x003AE1D7. Vtable dwords are DIR32 sites the gate takes from the target.
 
-class Rva005EA430
-{
-public:
-	Rva005EA430(const Rva005EA430 &other);
-};
+#include "../../Include/GameClient/Rva005EA430.h"
 
 // The retail table at RVA 0x0081D294: 11 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
