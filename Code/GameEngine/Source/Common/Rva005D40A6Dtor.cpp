@@ -31,7 +31,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 #include <stdlib.h>
 
-struct FloatPair { float x,y; };
+#include "../../Include/Common/FloatPair.h"
 class GameFont;
 #include "../../Include/GameClient/DisplayString.h"
 struct ChecklistFontDesc { AsciiString name; int size; bool bold; };

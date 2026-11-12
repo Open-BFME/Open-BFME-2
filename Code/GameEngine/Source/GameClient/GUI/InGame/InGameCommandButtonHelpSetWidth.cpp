@@ -22,11 +22,7 @@
 typedef int Int;
 typedef bool Bool;
 
-struct FloatPair
-{
-	float x;
-	float y;
-};
+#include "../../../../Include/Common/FloatPair.h"
 
 #include "../../../../Include/GameClient/DisplayString.h"
 

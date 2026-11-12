@@ -96,11 +96,7 @@ static inline void translateBounds(Vector3 &center, const Vector3 &position)
 	center.Z = position.Z + center.Z;
 }
 
-struct FloatPair
-{
-	float x;
-	float y;
-};
+#include "../../../../GameEngine/Include/Common/FloatPair.h"
 
 
 #include <string.h>

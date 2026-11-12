@@ -80,11 +80,7 @@ private:
     bool m_8C; bool m_8D; char pad8E[2]; int m_90;
 };
 
-struct FloatPair
-{
-	float x;
-	float y;
-};
+#include "../../../../Include/Common/FloatPair.h"
 
 UpdateSleepTime LargeGroupAudioUpdate::update()
 {

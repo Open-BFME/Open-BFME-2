@@ -12,11 +12,7 @@
 // floor call, which pops the argument before the fstp as retail does.
 #include <math.h>
 
-struct FloatPair
-{
-	float x;
-	float y;
-};
+#include "../../Include/Common/FloatPair.h"
 
 class RefItem
 {
