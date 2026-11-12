@@ -44,7 +44,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 // only read the function pointer, so the pointer temporary and the argument
 // save slot are shared by both registrations (frame 0x10); declared out of
 // line, cl keeps them apart (frame 0x14).
-struct Rva00080221RefImpl { virtual ~Rva00080221RefImpl() {} int m_ref; Rva00080221RefImpl() : m_ref(0) {} };
+#include "../../Include/Common/Rva00080221RefImpl.h"
 class Rva0023E8D8Impl : public Rva00080221RefImpl { public: void *m_func; Rva0023E8D8Impl(void *p) { m_func = *(void **)p; } };
 class Rva0023E8D8 { Rva0023E8D8Impl *m_ptr; public: __declspec(noinline) Rva0023E8D8(void *p) { Rva0023E8D8Impl *q = new Rva0023E8D8Impl(p); m_ptr = q; if (q) ++q->m_ref; } };
 struct Impl004106FA : Rva00080221RefImpl { int m_value; Impl004106FA(const int &value) : m_value(value) {} };

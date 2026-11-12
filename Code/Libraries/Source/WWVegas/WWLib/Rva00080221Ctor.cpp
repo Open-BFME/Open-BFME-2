@@ -16,12 +16,7 @@
 // so its vtable (VA 0x00BC6FF4 in retail) is emitted and resolved in this unit
 // rather than written as an address. The base ctor zeroes the count, then the
 // derived vtable store, then the value, as retail orders the stores.
-struct Rva00080221RefImpl
-{
-	virtual ~Rva00080221RefImpl() {}
-	int m_ref;
-	Rva00080221RefImpl() : m_ref(0) {}
-};
+#include "../../../../GameEngine/Include/Common/Rva00080221RefImpl.h"
 
 struct Rva007C6FF4Impl : Rva00080221RefImpl
 {

@@ -3,7 +3,7 @@
 #include <new.h>
 #include <new>
 
-struct Rva00080221RefImpl { virtual ~Rva00080221RefImpl() {} int m_ref; Rva00080221RefImpl() : m_ref(0) {} };
+#include "../../../../GameEngine/Include/Common/Rva00080221RefImpl.h"
 class Rva0023E8D8Impl : public Rva00080221RefImpl
 {
 public:

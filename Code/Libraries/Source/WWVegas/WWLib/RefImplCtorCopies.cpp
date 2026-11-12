@@ -12,12 +12,7 @@
 // and this unit emits the same copies as the /EHsc units.
 #include <new.h>
 
-struct Rva00080221RefImpl
-{
-	virtual ~Rva00080221RefImpl() {}
-	int m_ref;
-	Rva00080221RefImpl() : m_ref(0) {}
-};
+#include "../../../../GameEngine/Include/Common/Rva00080221RefImpl.h"
 
 // vftable 0x00BC6FF4: Rva007C6FF4Impl, out-of-line constructor copy at 0x0014F3CF (24B).
 struct Rva007C6FF4Impl : Rva00080221RefImpl

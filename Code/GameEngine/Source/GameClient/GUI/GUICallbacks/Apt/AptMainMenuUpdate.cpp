@@ -35,12 +35,7 @@ void Rva00437E84(int owner, const UnicodeString &title, const UnicodeString &mes
 // The callback wrapper (rowed ctor 0x00211E75, 53B, impl vtable VA 0xBE5128;
 // moved here from Rva00080221Ctor.cpp) and its forwarding by-value form.
 #include <new>
-struct Rva00080221RefImpl
-{
-	virtual ~Rva00080221RefImpl() {}
-	int m_ref;
-	Rva00080221RefImpl() : m_ref(0) {}
-};
+#include "../../../../../Include/Common/Rva00080221RefImpl.h"
 struct Impl00211E75 : Rva00080221RefImpl
 {
 	int m_value;
