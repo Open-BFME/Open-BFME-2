@@ -167,13 +167,7 @@ template class VectorClass<int>;
 // tailcalls surface destructor176CB0. The renderer pointer type is donor
 // provenance; the native four-byte vector operations are shared scalar ABI.
 class Render2DClass;
-class W3DRadarResetSurface
-{
-public:
-    ~W3DRadarResetSurface();
-protected:
-    void *surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 // A native layout view: the constructor proves the two counters following
 // the shared sixteen-byte vector base. It does not establish the donor's

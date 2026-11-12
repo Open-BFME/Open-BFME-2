@@ -22,13 +22,7 @@
 
 #include <new>
 
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-private:
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 // Rva00001E13Dtor.cpp's wrapper: int at +0, the member destructor at +4.
 class Rva00001E13
