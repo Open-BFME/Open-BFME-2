@@ -69,10 +69,51 @@ extern "C" const void *const __identifier("??_7Rva0055F9B4@@6BRva003AEEB3Slot18@
 extern "C" char __identifier("??_7Rva0055F98A@@6BDefaultModuleHeadBase@@@");
 extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot14@@@")[1];
 extern "C" const void *const __identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@")[1];
-// Rva003AEF9B_vsub: matched references place it at VA 0xc1d758 (retail .rdata value -114).
-extern "C" char Rva003AEF9B_vsub = -114;
-// Rva003AEF9B_v0b: matched references place it at VA 0xc1d728 (retail .rdata value -10).
-extern "C" char Rva003AEF9B_v0b = -10;
+// Rva003AEF9B_vsub: retail table 0x00C1D758 (4 slots). Own the complete initialized table
+// instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a matched row at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+void __identifier("?name@Rva003ABE7FNamed@@QBEPBDXZ")();
+void __identifier("?rva00562233@Rva00562233@@WBM@AEXPAVXfer@@@Z")();
+extern const void *const Rva003AEF9B_vsub[4] = {
+	(const void *)&__identifier("??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z"), //  0 0x003A588E
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?name@Rva003ABE7FNamed@@QBEPBDXZ"), //  2 0x003ABE7F
+	(const void *)&__identifier("?rva00562233@Rva00562233@@WBM@AEXPAVXfer@@@Z")  //  3 0x003ABE85
+};
+}
+// Rva003AEF9B_v0b: retail table 0x00C1D728 (12 slots). Own the complete initialized table
+// instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a matched row at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+int __cdecl _purecall(void);
+void __identifier("?rva00562233@Rva00562233@@UAEXPAVXfer@@@Z")();
+void __identifier("?get@Rva003EE704LeaField@@QBEPAXXZ")();
+void __identifier("?get@Rva0030BBA5LeaField@@QBEPAXXZ")();
+void __identifier("?get@Rva00308156LeaGetter@@QBEPAXXZ")();
+void __identifier("?get@Rva003ABE71LeaGetter@@QBEPAXXZ")();
+void __identifier("?get@Rva003ABE78LeaGetter@@QBEPAXXZ")();
+extern const void *const Rva003AEF9B_v0b[12] = {
+	(const void *)&__identifier("??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z"), //  0 0x003AEFF6
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&_purecall, //  2 0x0003B810
+	(const void *)&__identifier("?rva00562233@Rva00562233@@UAEXPAVXfer@@@Z"), //  3 0x00562233
+	(const void *)&__identifier("?get@Rva003EE704LeaField@@QBEPAXXZ"), //  4 0x003EE704
+	(const void *)&__identifier("?get@Rva0030BBA5LeaField@@QBEPAXXZ"), //  5 0x0030BBA5
+	(const void *)&__identifier("?get@Rva00308156LeaGetter@@QBEPAXXZ"), //  6 0x00308156
+	(const void *)&__identifier("?get@Rva003ABE71LeaGetter@@QBEPAXXZ"), //  7 0x003ABE71
+	(const void *)&__identifier("?get@Rva003ABE78LeaGetter@@QBEPAXXZ"), //  8 0x003ABE78
+	(const void *)&__identifier("?get@Rva00308156LeaGetter@@QBEPAXXZ"), //  9 0x00308156
+	(const void *)&__identifier("?get@Rva003ABE71LeaGetter@@QBEPAXXZ"), // 10 0x003ABE71
+	(const void *)&__identifier("?get@Rva003ABE78LeaGetter@@QBEPAXXZ")  // 11 0x003ABE78
+};
+}
 // Folded 0x0081C780 (one __purecall slot): distinct clean COMDATs keep +0x14/+0x18 stores separate without asserting class identity.
 extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[1];
 extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[1];
@@ -199,8 +240,8 @@ Rva003AEF9B::Rva003AEF9B(const Rva003AEF9B &that)
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva0055F98A@@6BRva003AEEB3Slot18@@@");
 	sub->RenderObjectUpdateModuleInfo::RenderObjectUpdateModuleInfo(
 		*(const FXParticleSystem::RenderObjectUpdateModuleInfo *)sub_src);
-	*(void **)sub = &Rva003AEF9B_vsub;
-	*(void **)this = &Rva003AEF9B_v0b;
+	*(void **)sub = (void *)Rva003AEF9B_vsub;
+	*(void **)this = (void *)Rva003AEF9B_v0b;
 	*(void **)((char *)this + 0x14) = (void *)__identifier("??_7Rva003F498ACallback@@6B@");
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
 }

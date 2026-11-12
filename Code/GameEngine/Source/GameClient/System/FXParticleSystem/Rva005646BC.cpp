@@ -47,11 +47,39 @@ public:
 	bool m_flagC;
 };
 
-// Rva003AE2CF_v0: matched references place it at VA 0xc1d3a0 (retail .rdata value 60).
-extern "C" char Rva003AE2CF_v0 = 60;
+// Rva003AE2CF_v0: retail table 0x00C1D3A0 (4 slots). Own the complete initialized table
+// instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a matched row at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GRva003AE358@@UAEPAXI@Z")();
+void __identifier("?rva00564743@Rva00564743@@QAEXXZ")();
+int __cdecl _purecall(void);
+void __identifier("?xfer@Rva003AE2A9@@MAEXPAVXfer@@@Z")();
+extern const void *const Rva003AE2CF_v0[4] = {
+	(const void *)&__identifier("??_GRva003AE358@@UAEPAXI@Z"), //  0 0x003AE33C
+	(const void *)&__identifier("?rva00564743@Rva00564743@@QAEXXZ"), //  1 0x00564743
+	(const void *)&_purecall, //  2 0x0003B810
+	(const void *)&__identifier("?xfer@Rva003AE2A9@@MAEXPAVXfer@@@Z")  //  3 0x0056454F
+};
+}
 extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
-// Rva003AE2CF_v10: matched references place it at VA 0xc1d390 (retail .rdata value -117).
-extern "C" char Rva003AE2CF_v10 = -117;
+// Rva003AE2CF_v10: retail table 0x00C1D390 (4 slots). Own the complete initialized table
+// instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a matched row at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_ERva003AE358@@WBA@AEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+void __identifier("?Rva003ACB61Get@@YAHXZ")();
+void __identifier("?xfer@Rva003AE2A9@@OBA@AEXPAVXfer@@@Z")();
+extern const void *const Rva003AE2CF_v10[4] = {
+	(const void *)&__identifier("??_ERva003AE358@@WBA@AEPAXI@Z"), //  0 0x003ACA8B
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva003ACB61Get@@YAHXZ"), //  2 0x003ACB61
+	(const void *)&__identifier("?xfer@Rva003AE2A9@@OBA@AEXPAVXfer@@@Z")  //  3 0x003ACB67
+};
+}
 // The copy constructor at 0x003AE315 emits this particle-info table.
 extern "C" const void *const __identifier("??_7Rva003AE315@@6B@")[];
 
@@ -79,9 +107,9 @@ private:
 Rva005646BC::Rva005646BC(unsigned int a, struct Src005646BC &src)
 	: Rva003ADEBF(a), Rva005646BCSub()
 {
-	*(void **)this = (void *)&Rva003AE2CF_v0;
+	*(void **)this = (void *)Rva003AE2CF_v0;
 	*(void **)((char *)this + 8) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
-	m_10 = (void *)&Rva003AE2CF_v10;
+	m_10 = (void *)Rva003AE2CF_v10;
 	float randomValue = src.m_info.m_08.getValue();
 	m_14 = randomValue;
 	m_18 = src.m_info.getEventFX();
