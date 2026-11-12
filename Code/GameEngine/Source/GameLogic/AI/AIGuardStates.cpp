@@ -497,6 +497,7 @@ class GiantBirdGuardAttackAggressorState : public State
 public:
 	GiantBirdGuardAttackAggressorState(StateMachine *machine);
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -779,6 +780,23 @@ StateReturnType AIGuardAttackAggressorState::update( void )
 	{
 		teamToGuard->rva0039E5B9(&m_exitConditions.m_center);
 	}
+
+	return m_attackState->update();
+}
+
+// Retail folds this override with AIGuardAttackAggressorState::update.
+StateReturnType GiantBirdGuardAttackAggressorState::update()
+{
+	if (!m_attackState)
+		return STATE_SUCCESS;
+
+	Rva00369FDFGuardMachine *guard = getGuardMachine();
+	Object *targetToGuard = guard->findTargetToGuardByID();
+	Team *teamToGuard = guard->findTeamToGuardByID();
+	if (targetToGuard)
+		m_exitConditions.m_center = *targetToGuard->getPosition();
+	else if (teamToGuard)
+		teamToGuard->rva0039E5B9(&m_exitConditions.m_center);
 
 	return m_attackState->update();
 }
