@@ -489,7 +489,7 @@ struct PlanningHeroDetailsInput : HeroDetailsInput {
     Rva005CDCEELink *planningOwner;
 };
 
-class Rva005E687F { public: unsigned char get() const; };
+#include "../../../Include/Common/Rva005E687F.h"
 
 class Rva005CDCEE : public Rva005E6F9D {
 public:

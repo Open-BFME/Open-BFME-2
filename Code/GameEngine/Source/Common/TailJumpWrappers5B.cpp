@@ -949,11 +949,7 @@ int LivingWorldRegion::rva003F0189(Rva002E2903Player *player) const
 
 #include "../../Include/Common/Rva005F6037ByteChaseField.h"
 
-class Rva005E687F
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva005E687F.h"
 
 unsigned char Rva005E687F::get() const
 {
