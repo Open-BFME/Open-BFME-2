@@ -297,12 +297,7 @@ private:
 	char m_pad[0x14];
 };
 #include "../../../../Include/Common/Rva00575CDFBase0.h"
-class Rva00575CDFIface
-{
-public:
-	virtual void rva00575CDF(void *a, void *b);
-	virtual void rva00575D12(void *a, void *b);
-};
+#include "../../../../Include/Common/Rva00575CDFIface.h"
 class Rva00575CDF : public Rva00575CDFBase0, public Rva00575CDFIface
 {
 public:
