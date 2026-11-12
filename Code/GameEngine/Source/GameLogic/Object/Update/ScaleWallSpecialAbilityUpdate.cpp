@@ -150,11 +150,7 @@ public:
 	void rva002D6AE2();
 };
 
-class W3DProjectedShadow
-{
-public:
-	void rva00108951();
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DProjectedShadowClass.h"
 
 #include "../../../../Include/GameNetwork/GameInfo.h"
 
