@@ -421,13 +421,17 @@ private:
 	void initW3DAssets( void );
 	void freeW3DAssets( void );
 	void initPolygonAssets( void );
-	void freePolygonAssets( void )
-	{
-		for (Int i=0; i<NUM_MOUSE_CURSORS; i++)
-			cursorImages[i]=NULL;
-	}
+	void freePolygonAssets( void );
 	void setCursorDirection( MouseCursor cursor );
 };
+
+// ?freePolygonAssets@W3DMouse@@AAEXXZ, retail 0x00098F43, 15 bytes: an
+// ordinary out-of-line member of retail's W3DMouse.cpp (Zero Hour's body).
+void W3DMouse::freePolygonAssets( void )
+{
+	for (Int i=0; i<NUM_MOUSE_CURSORS; i++)
+		cursorImages[i]=NULL;
+}
 
 class MutexClass
 {
