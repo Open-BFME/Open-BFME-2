@@ -596,14 +596,7 @@ private:
 // The AI's goal path (+0x30): position by index (0x00346FA5).
 #include "../../../Include/Common/Rva00346FA5.h"
 
-class Rva0034E3A5Helper
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03(); virtual void s04();
-	virtual void rva0034E3CESlot5();
-	virtual void s06(); virtual void s07();
-	virtual void rva0034E3D8Slot8(Int value);
-};
+#include "../../../Include/GameLogic/Rva0034E3A5Helper.h"
 
 // AIFollowPathAsTeamState, vtable 0x00C121E8.
 class AIFollowPathAsTeamState : public AIInternalMoveToState
