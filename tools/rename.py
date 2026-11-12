@@ -4060,12 +4060,15 @@ def rebuild_sources(ctx, sources):
 PIN_INCLUDE_LINE = r'^[ \t]*#[ \t]*include[ \t]*[<"](?:[^>"\r\n]*[/\\])?%s[>"]'
 
 
-def mentioning_sources(ctx, words):
-    """Tracked Code files that spell one of `words`, and every file that includes
-    one of those (by file name, case-insensitively, transitively)."""
+def mentioning_sources(ctx, words, groups=()):
+    """Tracked Code files that spell one of `words`, or each word of one of `groups`
+    (whole words), and every file that includes one of those (by file name,
+    case-insensitively, transitively)."""
     seen = set()
     for word in words:
         seen |= set(ctx.grep_files(word, roots=("Code",)))
+    for group in groups:
+        seen |= set.intersection(*(set(ctx.grep_files(term, word=True, roots=("Code",))) for term in group))
     frontier = set(seen)
     while frontier:
         names = sorted({Path(rel).name for rel in frontier})
@@ -4205,12 +4208,13 @@ def object_pin_references(objects, names):
     return problems
 
 
-def pin_consumers(ctx, names, words, rebuilt):
+def pin_consumers(ctx, names, words, rebuilt, groups=()):
     """(problems, count rebuilt) for retiring the pins `names` (placeholder types `words`): every
     rowed object outside `rebuilt` (the units the plan rebuilds) is read. A stale object whose source
-    or an included header spells a pin or a type is rebuilt through ./build.sh first."""
+    or an included header spells a pin or a type, or every term of one of `groups`, is rebuilt through
+    ./build.sh first."""
     objects = link_objects(ctx)
-    mentioned = mentioning_sources(ctx, sorted(set(names) | set(words)))
+    mentioned = mentioning_sources(ctx, sorted(set(names) | set(words)), groups=groups)
     stale = sorted(src for src in mentioned if objects.get(src) and src not in rebuilt
                    and not all(object_is_current(ctx, src, path) for path in objects[src]))
     if stale:
@@ -5076,10 +5080,11 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         raw = b"".join(kept)
     if retired:
         drop = {(old_name, at) for at, (old_name, _facts) in retired.items()}
-        # the words a source spells when it names the old type: a stand-in's own name, or a family's `words`
-        words = list(getattr(family, "words", (family.old,)))
-        problems, _rebuilt = pin_consumers(ctx, sorted(name for name, _at in drop), words,
-                                           {e["source"] for e in entries} | set(prepared))
+        # what a consumer's source spells: a stand-in's own name, or a value family's terms (its builtin, alone,
+        # is in every unit that takes one)
+        groups = getattr(family, "consumer_terms", ())
+        problems, _rebuilt = pin_consumers(ctx, sorted(name for name, _at in drop), [] if groups else [family.old],
+                                           {e["source"] for e in entries} | set(prepared), groups=groups)
         if problems:
             raise Refusal(f"the old class's pin(s) cannot be retired: {problems[0]}"
                           + (f" (and {len(problems) - 1} more)" if len(problems) > 1 else ""))
@@ -5227,7 +5232,8 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
                                      f"retire identity {e['source']} in the next commit")
             if DUP_DEFS_BASELINE in held:
                 plan.warnings.append(f"{DUP_DEFS_BASELINE} keys {e['old']}: no object defines it after the "
-                                     "respell; delete its line in the next commit")
+                                     "respell; python3 tools/dup_defs.py --write-baseline on a complete object "
+                                     "set retires it")
     elif any(CODE_IDENTITY_BASELINE in ctx.grep_files(e["old"], roots=FROZEN_KEYED) for e in entries):
         plan.warnings.append(f"{CODE_IDENTITY_BASELINE} keys {primary['old']}: python3 tools/repair_queue.py retire "
                              f"identity {primary['source']} in the next commit (it refuses while HEAD holds the row)")

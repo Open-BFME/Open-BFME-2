@@ -127,9 +127,12 @@ def plan(ctx, **overrides):
     return rename.plan_rename("function", ctx=ctx, **kwargs)
 
 
+PIN_CONSUMERS = rename.pin_consumers
+
+
 @pytest.fixture(autouse=True)
 def objects(monkeypatch):
-    monkeypatch.setattr(rename, "pin_consumers", lambda ctx, names, words, rebuilt: ([], 0))
+    monkeypatch.setattr(rename, "pin_consumers", lambda ctx, names, words, rebuilt, groups=(): ([], 0))
     monkeypatch.setattr(rename, "object_pin_references", lambda objects, names: [])
     monkeypatch.setattr(rename, "source_objects", lambda ctx, sources: {})
 
@@ -414,6 +417,78 @@ def test_a_key_in_any_other_register_still_refuses(tmp_path, image):
     ctx, _ = context(root)
     with pytest.raises(Refusal, match="is a key in reverse/gate_baseline.txt"):
         plan(ctx)
+
+
+# ------------------------------------------------------------------ the pin's consumers (review round 1)
+
+CONSUMER = "Code/Lib/Consumer.cpp"
+DECLARES = ("#include <map>\n"
+            "typedef std::_Rb_tree<unsigned int, std::pair<const unsigned int, void *>, Select, Less, Alloc> Tree;\n"
+            "template <> Tree::iterator Tree::_M_insert(Base *, Base *, const Tree::value_type &, Base *);\n")
+
+
+def consumers_tree(tmp_path, extra):
+    return seed(tmp_path, {**files(), **extra})
+
+
+def real_consumers(monkeypatch, stale, rebuilds):
+    """pin_consumers itself, over a fake link inventory: `stale` units' objects are not current until rebuilt, and
+    `rebuilds` says whether ./build.sh brings them current. Returns the units ./build.sh was asked to rebuild."""
+    asked, done = [], set()
+    monkeypatch.setattr(rename, "pin_consumers", PIN_CONSUMERS)
+    monkeypatch.setattr(rename, "link_objects", lambda ctx: {s: [f"/obj/{s}.obj"] for s in
+                                                            [*SOURCES.values(), CALLER_SOURCE, MEMBER_SOURCE, *stale]})
+    monkeypatch.setattr(rename, "object_is_current", lambda ctx, source, path: source not in stale or source in done)
+
+    def rebuild(ctx, sources):
+        asked.extend(sources)
+        if rebuilds:
+            done.update(sources)
+        return rebuilds
+    monkeypatch.setattr(rename, "rebuild_sources", rebuild)
+    return asked
+
+
+def test_the_family_names_its_consumers_by_source_terms():
+    assert F.consumer_terms == (("_M_insert", "void"),)
+
+
+def test_a_stale_consumer_declaring_the_pin_in_ordinary_cpp_is_rebuilt_first(tmp_path, image, monkeypatch):
+    """No mangled text: the declaration spells the identifier and the value's word, so its stale object is not read
+    as clean until ./build.sh brings it current."""
+    root = consumers_tree(tmp_path, {CONSUMER: DECLARES})
+    asked = real_consumers(monkeypatch, stale={CONSUMER}, rebuilds=False)
+    ctx, _ = context(root)
+    with pytest.raises(Refusal, match="could not rebuild the stale object.*/Consumer.cpp"):
+        plan(ctx)
+    assert asked == [CONSUMER]
+
+
+def test_a_rebuilt_consumer_is_then_read(tmp_path, image, monkeypatch):
+    root = consumers_tree(tmp_path, {CONSUMER: DECLARES})
+    asked = real_consumers(monkeypatch, stale={CONSUMER}, rebuilds=True)
+    ctx, _ = context(root)
+    plan(ctx)
+    assert asked == [CONSUMER]
+
+
+def test_a_consumer_declaring_through_a_header_is_found(tmp_path, image, monkeypatch):
+    """The typedef and the declaration live in a header; the unit only includes it."""
+    root = consumers_tree(tmp_path, {"Code/Lib/TreeDecl.h": DECLARES, CONSUMER: '#include "TreeDecl.h"\nint f();\n'})
+    asked = real_consumers(monkeypatch, stale={CONSUMER}, rebuilds=False)
+    ctx, _ = context(root)
+    with pytest.raises(Refusal, match="could not rebuild"):
+        plan(ctx)
+    assert asked == [CONSUMER]
+
+
+@pytest.mark.parametrize("text", ["void f(void *p);\n", "int g() { return _M_insert_count; }\n"])
+def test_a_unit_spelling_only_one_term_is_no_consumer(tmp_path, image, monkeypatch, text):
+    root = consumers_tree(tmp_path, {CONSUMER: text})
+    asked = real_consumers(monkeypatch, stale={CONSUMER}, rebuilds=False)
+    ctx, _ = context(root)
+    plan(ctx)
+    assert asked == []
 
 
 def test_a_unit_still_spelling_an_old_name_refuses(tree):

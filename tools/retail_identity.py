@@ -584,9 +584,9 @@ class StandInScalarKeyFamily:
         return record(self.rows[self.copy][1])
 
 
-# The builtin values a StandInValueFamily may replace, by mangling code: the decoded tree and the width in bytes. Only
-# void* (P143); another builtin is another reviewed entry.
-BUILTIN_VALUES = {"PAX": (("P", "PA", ("B", "X")), 4)}
+# The builtin values a StandInValueFamily may replace, by mangling code: the decoded tree, the width in bytes, and the
+# word C++ spells it with. Only void* (P143); another builtin is another reviewed entry.
+BUILTIN_VALUES = {"PAX": (("P", "PA", ("B", "X")), 4, "void")}
 NODE_HEADER = 16                                       # _Rb_tree_node_base: color, parent, left, right
 
 
@@ -641,7 +641,7 @@ class StandInValueFamily:
             raise ValueError(f"{old!r} is no builtin value this route replaces")
         if key not in SCALAR_KEYS:
             raise ValueError(f"{key!r} is no builtin key this route reads")
-        old_tree, old_width = BUILTIN_VALUES[old]
+        old_tree, old_width, old_word = BUILTIN_VALUES[old]
         key_tree, key_width = ("B", key), SCALAR_KEYS[key][0]
         for label, value in (("members", members), ("bindings", bindings), ("rows", rows),
                              ("member path", member_path)):
@@ -666,9 +666,14 @@ class StandInValueFamily:
         for at, name in members.items():
             if value_type not in set(_subtrees(tree(name))):
                 raise ValueError(f"member 0x{at:08X} {name} is no instantiation over pair<const {key}, {new}>")
+        terms = set()
         for at, (old_name, _facts) in retired.items():
             if members.get(at) != spellings[old_name]:
                 raise ValueError(f"pin 0x{at:08X} is retired only onto the member that rows its respelling there")
+            identifier = rename._identifier(old_name)
+            if not identifier:
+                raise ValueError(f"{old_name} has no identifier a consumer's source would spell")
+            terms.add((identifier, old_word))
         if set(retired) & set(rows) or set(callers) & (set(rows) | set(members)):
             raise ValueError("a row, a member, a retired pin and a caller are four different addresses")
         node_at, alloc = node
@@ -720,9 +725,12 @@ class StandInValueFamily:
         self.retired, self.node, self.node_call, self.member_path = retired, node, node_call, tuple(member_path)
         self.callers, self.caller_bindings = callers, tuple(caller_bindings)
         self.value_type, self.pins, self.duplicates = value_type, {}, {}
-        # what a source spells when it names the old value: its pair's mangled text (the builtin alone is in every
-        # unit that takes a void*)
-        self.words = (f"$$CB{key}{old}",)
+        # A unit can name a retired pin without defining it only by declaring it, and that declaration spells the
+        # pin's identifier and, in it or a header it includes, the old value's word. A unit that instantiates the
+        # old tree defines its own copy and leaves nothing unresolved. rename.py rebuilds every stale object of a
+        # unit spelling both terms, or of a unit including one, before reading it; the mangled text alone is no
+        # such term, since ordinary C++ never spells it.
+        self.consumer_terms = tuple(sorted(terms))
 
     def respell(self, name):
         return self.spellings.get(name, name)
