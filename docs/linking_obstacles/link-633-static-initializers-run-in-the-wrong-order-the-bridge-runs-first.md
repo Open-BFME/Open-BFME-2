@@ -222,3 +222,24 @@ Not affected: the census and LinkGuard keep modelling retail order, so until the
 merge's kept copies in path order as well (P142, tool lane 2). Evidence: `~/bfme2-ops/swarm/sweeps/link-633-order/`
 (`out/summary.json`, `moved.tsv`, `crt_*.tsv`, `defects_diff.txt`, `away_callees.txt`, `prestaticinit.txt`); the images
 are in the Link lane's `build/boat-run/link-20261112t020507/`. Clearance: pending.
+
+**2026-11-12 fixes for the trial's findings (swarm Link lane).**
+- Away 2 (EvaCtor): fixed in this push. EvaCtor.cpp declares the list base constructor without defining it, and Eva's
+  queue element takes retail's 16-byte shape {int id; Coord3D position}. Retail folds every 16-byte list base
+  constructor into 0x002049AD, and ScriptEngine's pair list and AutoDepositUpdate's upgradePair share it. Follow-up,
+  not done: ScriptEngine_ctor.cpp's 20-byte `int opaque[5]` view of the same element.
+- Away 1 (the pooled `list<Object*>`) is wider than a retype. Retail calls the pooled body 0x001EB984 from 16 sites; three
+  units reach it through the generic name (stlport_list_objectptr_insert.cpp at 0x0047031F through pin 953,
+  MoveToFormationGroupOrder.cpp at 0x00547CD2, and possibly HordeContainRva00475F61.cpp at 0x004761EF), and
+  HordeDispatchSpecialPower.cpp and stlport_list_objectptr_insert.cpp define the generic name with the pooled bytes. The
+  existing users of `Rva001EB984PoolAllocator` (about 17) each keep a private one-word `_List_base` view and cast to the
+  generic list for every operation. The fix is one canonical pool-list allocator on `g_freelistPool00DB8FEC`, adopted by
+  all of them; pin 953 retires at the end. Handed to the header lane as a class project.
+- The start-up crash: `theDebug` is created by initializer #1 (`rva0003A210`) in both orders, so it is never null. In
+  the retail-order boot it points at freed memory reused for the environment block. The extra initializer is Zero
+  Hour's static `Debug Debug::Instance` in debug_debug.cpp (index 1,630 in path order, 607 in retail order, before the
+  command group at 775), whose constructor reaches the debug allocator's GlobalFree. Retail BFME 2 constructs Debug
+  only from Debug::PreStaticInit (0x00038634), and none of its 1,166 initializers constructs one. Removing the instance
+  needs the 13 Zero Hour `present-unmatched` bodies that use it converted or retired first: the Link lane's debug-port
+  cleanup.
+- Retail order stays non-default until both are done and a re-trial passes the rule above.
