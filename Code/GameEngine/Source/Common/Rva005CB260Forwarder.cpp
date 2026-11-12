@@ -5,14 +5,7 @@
 // requires exactly QAEXXZ; twin pins at 0x005CB260; caller
 // RadarWindowOverrideSource::rva002D370A passes +0xC8 pointer as this.
 
-class Rva005CB260
-{
-public:
-	virtual void rva005CB260_slot0();
-	virtual void rva005CB260_slot1();
-	void rva005CB260();
-	void rva005CB260(int value);
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 void Rva005CB260::rva005CB260()
 {

@@ -3,11 +3,7 @@
 // Evidence: callers at 0x005749AF 0x00574A82 0x00574D2F 0x00574D4F; callees rowed get 0x0042D6B4 clear 0x002BED91 forwarder 0x005CB260 plus pin ?rva005CB265@Rva005CB265@@UAEHXZ at 0x005CB265.
 #include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 #include "../../Include/Common/Rva005CB265.h"
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 struct Rva002BED91
 {
 	void clear();

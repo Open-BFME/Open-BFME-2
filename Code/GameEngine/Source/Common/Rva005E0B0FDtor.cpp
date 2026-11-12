@@ -11,12 +11,7 @@
 #include <new.h>
 #include "unicode_string.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-	void rva005CB260(int);
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 #include "../../Include/Common/Rva005CB265.h"
 

@@ -8,11 +8,7 @@
 // 0x005E788E 0x005E7994 plus prev/next same flags.
 #include "../../../Include/Common/Rva005CB265.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../Include/Common/Rva005CB260.h"
 
 struct Rva005E73B2Outer
 {

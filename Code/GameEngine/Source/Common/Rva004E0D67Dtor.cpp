@@ -21,7 +21,7 @@
 
 void __cdecl Rva00030830GameFree(void *);
 
-class Rva005CB260 { public: void rva005CB260(); };
+#include "../../Include/Common/Rva005CB260.h"
 
 struct Rva004EFour
 {

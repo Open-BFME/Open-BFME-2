@@ -83,11 +83,7 @@ public:
 	virtual void rva001FF3A9();								// 0x001FF3A9
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();										// 0x005CB260
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 class Rva005CB26A
 {

@@ -49,13 +49,7 @@ struct Obj00525D9A
 	int m_74;
 };
 
-class Rva005CB260
-{
-public:
-	virtual void rva005CB260_slot0();
-	virtual void rva005CB260_slot1();
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 union Callback00525D9A
 {

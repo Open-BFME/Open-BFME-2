@@ -42,11 +42,7 @@ struct Rva0057473AOuter
 // it through 0x0007DEEF. Same unlock check as Rva005E73B2Check.cpp.
 #include "../../Include/Common/Rva005CB265.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 Rva005746AF::~Rva005746AF()
 {
