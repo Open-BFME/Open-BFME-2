@@ -114,11 +114,7 @@ struct G00E032F8Wrap { char m_pad00[4]; int m_val04; int m_val08; };
 
 #include "../../../Include/Common/Rva0039B7AD.h"
 
-class Rva0039B795
-{
-public:
-	void rva0039B795(int delta);
-};
+#include "../../../Include/GameLogic/Module/Rva0039B795.h"
 
 class Rva003B0D7C
 {

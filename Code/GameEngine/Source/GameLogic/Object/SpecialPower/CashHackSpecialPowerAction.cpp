@@ -11,7 +11,7 @@
 #include "unicode_string.h"
 #include "Coord3D.h"
 enum ScienceType { SCIENCE_INVALID=-1 };
-class Rva0039B795 {};
+#include "../../../../Include/GameLogic/Module/Rva0039B795.h"
 #include "../../../../Include/Common/Rva0039B7AD.h"
 class Rva003B0D7C { char pad[4];public:
  unsigned balance;

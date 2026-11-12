@@ -248,13 +248,7 @@ public:
 	Pathfinder *m_pf; // +0x10
 };
 extern AI *TheAI;
-class Rva0039B795
-{
-public:
-	void rva0039B795(int delta);
-	void rva0039B7CB(int delta);
-	void rva0039B7E3(int delta);
-};
+#include "../../../Include/GameLogic/Module/Rva0039B795.h"
 #include "../../../Include/Common/Rva0039B7AD.h"
 class Rva003B0D7C
 {

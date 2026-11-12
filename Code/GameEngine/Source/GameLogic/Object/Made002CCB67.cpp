@@ -8,11 +8,7 @@ class Player;
 
 extern GameLogic *TheGameLogic;
 
-class Rva0039B795
-{
-public:
-	void rva0039B795(int delta);
-};
+#include "../../../Include/GameLogic/Module/Rva0039B795.h"
 
 #include "../../../Include/Common/Rva0039B7AD.h"
 
