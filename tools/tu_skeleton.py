@@ -39,6 +39,14 @@ blocked. Splits judge the residual and destination together against the same
 census, preserving existing debt while refusing new failures in either file or
 outside consumers.
 
+Every merge, split and shatter also keeps its providers (ProviderGuard, P142):
+each definition the replaced objects made is still made, with equal bytes and
+relocations, by an object that continues it, and the copy the real link keeps
+of each COMDAT is the same under exit_link's --order retail and --order path.
+A refusal ("provider: ...", the report's `provider` names per donor) is header
+or reconciliation work, never a reason to merge differently. It needs the census
+index whether or not any file links.
+
 Applying a merge writes the TU file (`// cl:` line chosen from the donors' own
 flag sets by the same verification), repoints every ledger row of each absorbed
 donor at it, deletes the absorbed donors and stages the result. The commit hook
@@ -1904,6 +1912,8 @@ class SplitLinkGuard:
         self.guard = LinkGuard(tu, root=root)
         self.before, self.cache = None, {}
         self.judged = {}                  # merged text -> its object (unit keys read its symbol table)
+        self.provider, self.provider_found = None, []
+        self.provider_lines = {}          # provider_failures' refusal lines -> the findings behind them
 
     def load(self):
         return self.guard.load()
@@ -1969,6 +1979,28 @@ class SplitLinkGuard:
             return None
         except (OSError, ValueError, LCe.MissingObject) as error:
             return f"split linking evidence unavailable: {error}"
+
+    def provider_failures(self, after, continues, moved):
+        """ProviderGuard over the objects this split or shatter replaces (the baseline records) and `after`
+        {source: object}; `continues` and `moved` as ProviderGuard.judge takes them."""
+        if self.provider is None:
+            self.provider = ProviderGuard(root=self.root, rows=self.rows)
+        why = self.provider.load(self.guard.index)
+        if why:
+            return [f"provider guard: {why}"]
+        before = {f: (self.records.get(f) or {}).get("obj") for f in self.files}
+        try:
+            self.provider_found = self.provider.judge(before, after, continues, moved)
+        except ProviderUnknown as error:
+            return [f"provider guard: {error}"]
+        lines = provider_reasons(self.provider_found, limit=10)
+        if lines:
+            self.provider_lines[tuple(lines)] = self.provider_found
+        return lines
+
+    def provider_findings(self, lines):
+        """The findings behind refusal lines provider_failures returned, else []."""
+        return self.provider_lines.get(tuple(lines or ()), [])
 
     def view(self, records, rows, data):
         """Replace both affected objects and remap every index into true order."""
@@ -2250,6 +2282,11 @@ class SplitLinkGuard:
             added = sum(found.values(), collections.Counter()) - sum(self.debt.values(), collections.Counter())
             failures += [f"new {kind}: {item}" for kind, item in sorted(added, key=str)]
             failures += self.outside_failures(after, records)
+            if not failures:
+                failures = self.provider_failures(
+                    {self.source: records[self.source]["obj"], self.tu: records[self.tu]["obj"]},
+                    {self.source: [self.source], self.tu: [self.source, self.tu]},
+                    {(self.source, rva): self.tu for rva in self.carved})
             if self.input_state() != self.inputs:
                 failures.append("split compiler/ledger inputs changed during verification; retry")
             self.cache[key] = failures
@@ -2296,11 +2333,316 @@ class ShatterLinkGuard(SplitLinkGuard):
             added = sum(found.values(), collections.Counter()) - sum(self.debt.values(), collections.Counter())
             failures += [f"new {kind}: {item}" for kind, item in sorted(added, key=str)]
             failures += self.outside_failures(after, records)
+            if not failures:
+                failures = self.provider_failures(
+                    {u: r["obj"] for u, r in records.items()},
+                    {u: [self.source] + ([u] if u != self.source else []) for u in records},
+                    {(self.source, rva): tu for rva, tu in owner.items()})
             if self.input_state() != self.inputs:
                 failures.append("shatter compiler/ledger inputs changed during verification; retry")
             return failures
         except (OSError, ValueError, LCe.MissingObject) as error:
             return [f"shatter linking evidence unavailable: {error}"]
+
+
+# ---------------------------------------------------------------- provider guard
+# P142 (round 18, 2026-11-12): merge e3e2807bd83 absorbed FamilyDeletingDtors_Rva006F8460.cpp, whose copy of
+# ??_GRva006F8460 (the pool release) was the copy the real link kept. AptDisplayList.cpp, the merged unit,
+# defines the same bytes, but the real link orders its inputs by path (exit_link ORDER "path"):
+# Code/Libraries/Source/Apt/ comes after Code/GameEngine/Source/Common/Rva006F84C0DeletingDtor.cpp, whose
+# private view's copy calls the global delete, and that copy won the image. LinkGuard models census
+# (retail) order, where nothing changed. ProviderGuard judges, fail-closed, every symbol the objects a merge,
+# split or shatter replaces define:
+#   bytes             every definition a replaced object makes is still made by an object that continues
+#                     it, and each continuing object's definition of the name equals every replaced
+#                     definition it continues;
+#   members disagree  the replaced objects' own definitions of a name already differ, so no object can
+#                     continue all of them;
+#   retail order,     under each order exit_link can link in (--order retail, --order path), the copy the
+#   path order        link keeps of each such COMDAT is the same before and after. The path clause is its own
+#                     check (path_order_findings), to retire if the real link moves to --order retail.
+# Objects outside the change are the census index's evidence, as in LinkGuard: one the index does not hold
+# defines nothing here. A replaced object is what its file builds to today: the current build object, else a
+# compile at its own path and flags. A refusal is header or reconciliation work, reported per unit with its
+# names (provider_report).
+
+PROVIDER_CLAUSES = ("members disagree", "bytes", "retail order", "path order")
+ORDER_CLAUSES = ("retail order", "path order")
+
+
+class ProviderUnknown(Exception):
+    """An object the provider guard must read cannot be read or built: nothing is proven."""
+
+
+def _extent_definitions(data, sections, symbols):
+    """{name: key} of the external definitions outside a COMDAT: a code or data symbol's bytes from its value
+    to the next symbol of its section (trailing zero padding beyond its last relocation dropped) with the
+    relocations inside, named as the census digest names them; uninitialized data by kind alone."""
+    import struct
+    import link_census as LCe
+    by_index = {s["index"]: s for s in symbols}
+    starts = collections.defaultdict(set)
+    for s in symbols:
+        if s["section"] > 0:
+            starts[s["section"]].add(s["value"])
+    out = {}
+    for s in symbols:
+        number = s["section"]
+        if s["storage"] != LCe.EXTERNAL or number <= 0 or number > len(sections):
+            continue
+        size, pointer, relocs, nrelocs, flags = sections[number - 1]
+        if flags & LCe.COMDAT:
+            continue
+        code = bool(flags & 0x20)
+        if not pointer:
+            out[s["name"]] = ("bss", code)
+            continue
+        end = min((v for v in starts[number] if v > s["value"]), default=size)
+        found, last = [], s["value"]
+        for at in range(relocs, relocs + 10 * nrelocs, 10):
+            where, target, kind = struct.unpack_from("<IIH", data, at)
+            if s["value"] <= where < end:
+                referent = by_index.get(target, {"name": "?", "storage": 0})
+                label = LCe._normal(referent["name"]) if referent["storage"] in (LCe.EXTERNAL, LCe.WEAK_EXTERNAL) \
+                    else "local"
+                found.append((where - s["value"], kind, label))
+                last = max(last, where + 4)
+        body = data[pointer + s["value"]:pointer + end]
+        keep = max(last - s["value"], len(body.rstrip(b"\0")))
+        digest = hashlib.sha1(body[:keep] + repr(sorted(found)).encode("latin-1")).hexdigest()[:12]
+        out[s["name"]] = ("section", code, digest)
+    return out
+
+
+def provider_definitions(obj):
+    """{name: key} of every external definition the COFF object at `obj` makes, equal keys meaning one
+    definition: a COMDAT by ("comdat", selection, census digest: link_census._comdat_sections, the digest
+    the census index holds for every other object's copy), a COMMON by its size, an absolute by its value,
+    anything else by _extent_definitions. Weak externals and /alternatename routes define nothing here.
+    ProviderUnknown when the object cannot be read."""
+    import struct
+    import link_census as LCe
+    try:
+        data = Path(obj).read_bytes()
+        count = struct.unpack_from("<H", data, 2)[0]
+        optional = struct.unpack_from("<H", data, 16)[0]
+        sections = [struct.unpack_from("<III", data, 20 + optional + i * 40 + 16)
+                    + (struct.unpack_from("<H", data, 20 + optional + i * 40 + 32)[0],
+                       struct.unpack_from("<I", data, 20 + optional + i * 40 + 36)[0]) for i in range(count)]
+        symbols = LCe._coff_symbols(data)
+        selections = LCe._comdat_selections(data)
+        out = _extent_definitions(data, sections, symbols)
+        for symbol, _body, _relocs, digest, _size in LCe._comdat_sections(data):
+            out[symbol["name"]] = ("comdat", selections.get(symbol["section"]), digest)
+        for s in symbols:
+            if s["storage"] == LCe.EXTERNAL and s["section"] == 0 and s["value"]:
+                out[s["name"]] = ("common", s["value"])
+            elif s["storage"] == LCe.EXTERNAL and s["section"] == -1:
+                out[s["name"]] = ("absolute", s["value"])
+        return out
+    except (OSError, TypeError, ValueError, IndexError, KeyError, struct.error) as error:
+        raise ProviderUnknown(f"{Path(obj).name}: unreadable object ({error})") from error
+
+
+class ProviderGuard:
+    """See the block comment above. `orders(rows)` gives {clause: [object name, ...]} for each of
+    ORDER_CLAUSES (default: the real link's, link_orders); tests pass their own."""
+
+    def __init__(self, root=ROOT, index=None, rows=None, orders=None):
+        self.root, self.index, self.rows = Path(root), index, rows
+        self.orders = orders
+        self.originals, self.cache = {}, {}
+        self.before, self.before_paths = None, None
+        self._objects, self._resolved = {}, {}
+        self._initializers = self._places = self._data_objects = None
+
+    def load(self, index):
+        """The census index LinkGuard loaded: the reason the guard cannot judge, or None."""
+        self.index = index
+        if index is None:
+            return "no census index (python3 tools/link_check.py --fetch-index)"
+        if self.rows is None:
+            import link_census as LCe
+            self.rows = LCe.ledger()
+        return None
+
+    # -- the real link's two orders
+    def object_of(self, row):
+        """build.row_object, memoised per source (per member of a library)."""
+        import build
+        key = (row["source"], build.ledger_member(row) if row["source"].lower().endswith(build.LIB_SUFFIX) else None)
+        if key not in self._objects:
+            self._objects[key] = build.row_object(row)
+        return self._objects[key]
+
+    def resolved(self, path):
+        """Path.resolve, memoised: it costs most of an order's time (2026-11-12: 36 of 51 s)."""
+        if path not in self._resolved:
+            self._resolved[path] = path.resolve()
+        return self._resolved[path]
+
+    def after_paths(self, rows, moved):
+        """exit_link.expected_objects of `rows` (the ledger after `moved`) from the paths before: the
+        same objects less those of sources left with no row and no data row, plus those of the moved
+        rows' new sources, in path order."""
+        import build
+        import link_census as LCe
+        if self._data_objects is None:
+            self._data_objects = {self.resolved(build.obj_path(s)) for s in LCe.data_sources()}
+        sources = {r["source"] for r in rows}
+        gone = {self.resolved(build.obj_path(self.root / old)) for old, _ in moved if old not in sources}
+        gone -= self._data_objects
+        found = {self.resolved(p): p for p in self.before_paths if self.resolved(p) not in gone}
+        for new in set(moved.values()):
+            path = build.obj_path(self.root / new)
+            found.setdefault(self.resolved(path), path)
+        return sorted(found.values(), key=lambda path: path.as_posix())
+
+    def link_orders(self, rows, paths=None):
+        """{clause: [object name, ...]}: exit_link's inputs under --order retail and --order path for the
+        ledger `rows`. Path order is exit_link.expected_objects (`paths` when the caller has them);
+        retail order is exit_link.retail_object_order over the census places link_census.code_places
+        computes from these rows."""
+        if self.orders is not None:
+            return self.orders(rows)
+        import build
+        import exit_link
+        import image_report
+        import link_census as LCe
+        if paths is None:
+            unique = {}
+            for row in rows:
+                unique.setdefault(self.resolved(self.object_of(row)), row)
+            saved, exit_link.ORDER = exit_link.ORDER, "path"
+            try:
+                paths = exit_link.expected_objects(list(unique.values()))
+            finally:
+                exit_link.ORDER = saved
+            self.before_paths = paths
+        if self._initializers is None:
+            self._initializers = image_report.Retail(build.EXE.read_bytes()).initializers()
+        if self._places is None:
+            self._places = {}
+            for row in LCe.data_ledger():
+                obj, rva = LCe.data_object(row).resolve(), LCe.data_rva(row)
+                self._places[obj] = min(self._places.get(obj, (1, rva)), (1, rva))
+        places = dict(self._places)
+        places.update({self.resolved(obj): (0, rva) for obj, rva in LCe.code_places(rows, self.object_of).items()})
+        retail = exit_link.retail_object_order(rows, paths, self._initializers, places)
+        return {"retail order": [p.name for p in retail], "path order": [p.name for p in paths]}
+
+    # -- the replaced objects
+    def original(self, source):
+        """The object `source` builds to today (None: no such file, nothing replaced): its current build
+        object, else a compile at its own path and flags (Verifier), as SplitLinkGuard's baseline."""
+        if source not in self.originals:
+            import build
+            path = self.root / source
+            obj = None
+            if path.exists():
+                current = build.obj_path(path)
+                if current.exists() and build.compile_is_current(path, current):
+                    obj = current
+                else:
+                    v = Verifier(source)
+                    v.matched(path.read_text(encoding="utf-8-sig", errors="replace"),
+                              [r for r in self.rows if r["source"] == source])
+                    obj = getattr(v, "obj", None)
+                    if obj is None:
+                        raise ProviderUnknown(f"{source} does not compile at its own path: "
+                                              + " | ".join(v.errors)[:200])
+            self.originals[source] = obj
+        return self.originals[source]
+
+    # -- the judgement
+    def judge(self, before, after, continues, moved):
+        """[(clause, name, detail)] for replacing the objects `before` {source: object or None} by `after`
+        {source: object}; `continues` {after source: [before sources it continues]}; `moved`
+        {(source, target_rva): new source} the ledger rows the change repoints."""
+        import build
+        defs_before = {s: provider_definitions(o) for s, o in before.items() if o is not None}
+        defs_after = {s: provider_definitions(o) for s, o in after.items()}
+        found = []
+        for source, defs in sorted(defs_before.items()):
+            heirs = [a for a, olds in continues.items() if source in olds]
+            for name in sorted(defs):
+                if not any(name in defs_after[a] for a in heirs):
+                    found.append(("bytes", name, f"{source} defines it and no object continuing it does"))
+        for heir, olds in sorted(continues.items()):
+            for name, mine in sorted(defs_after[heir].items()):
+                theirs = {s: defs_before[s][name] for s in olds if name in defs_before.get(s, {})}
+                if len(set(theirs.values())) > 1:
+                    found.append(("members disagree", name, f"{', '.join(sorted(theirs))} define it differently; "
+                                                            f"{heir} keeps one"))
+                elif theirs and mine not in theirs.values():
+                    found.append(("bytes", name, f"{heir}'s definition differs from {', '.join(sorted(theirs))}'s"))
+        if self.before is None:
+            self.before = self.link_orders(self.rows)
+        key = tuple(sorted(moved.items()))
+        if key not in self.cache:
+            rows = [dict(r, source=moved[(r["source"], r["target_rva"])]) if (r["source"], r["target_rva"]) in moved
+                    else r for r in self.rows]
+            self.cache[key] = self.link_orders(rows, None if self.orders else self.after_paths(rows, moved))
+        names_of = lambda sources: {s: build.obj_path(self.root / s).name for s in sources}
+        objects = (names_of(defs_before), names_of(defs_after))
+        names = set().union(*defs_before.values(), *defs_after.values())
+        for clause in ORDER_CLAUSES:
+            check = self.path_order_findings if clause == "path order" else self.order_findings
+            found += check(clause, names, (defs_before, defs_after), objects, (self.before, self.cache[key]))
+        return found
+
+    def kept(self, name, ours, objects, order, replaced):
+        """(object, digest) of the copy of COMDAT `name` the link keeps in `order`, or None: the first definer
+        among `ours` {source: definitions} at their objects and the census copies of every other object;
+        "exclusive" when any definer is outside a COMDAT (no order decides it)."""
+        rank = {n: i for i, n in enumerate(order)}
+        copies = []
+        for source, defs in ours.items():
+            d = defs.get(name)
+            if d is not None:
+                if d[0] != "comdat" or d[1] == 1:       # outside a COMDAT, or NODUPLICATES: one definer
+                    return "exclusive"
+                copies.append((objects[source], d[2]))
+        census = self.index["objects"]
+        if any(census[p] not in replaced for p in self.index["strong"].get(name, ())):
+            return "exclusive"
+        copies += [(census[p], digest) for p, digest, _ in self.index["comdat"].get(name, ()) if census[p] not in replaced]
+        linked = [c for c in copies if c[0] in rank]
+        return min(linked, key=lambda c: rank[c[0]]) if linked else None
+
+    def order_findings(self, clause, names, defs, objects, orders):
+        """`clause` findings: a name whose kept copy (kept) changes from the order before to the order after.
+        A copy no linked object keeps any more is the bytes clause's (a definition no object continues)."""
+        replaced = set(objects[0].values()) | set(objects[1].values())
+        found = []
+        for name in sorted(names):
+            was = self.kept(name, defs[0], objects[0], orders[0][clause], replaced)
+            now = self.kept(name, defs[1], objects[1], orders[1][clause], replaced)
+            if was in (None, "exclusive") or now in (None, "exclusive") or now[1] == was[1]:
+                continue
+            found.append((clause, name, f"the link keeps {was[0]}'s copy {was[1]} today and {now[0]}'s {now[1]} "
+                                        "after"))
+        return found
+
+    def path_order_findings(self, clause, names, defs, objects, orders):
+        """The path-order clause on its own: exit_link's default --order path. Retire it (drop it from
+        ORDER_CLAUSES) when the real link moves to --order retail."""
+        return self.order_findings(clause, names, defs, objects, orders)
+
+
+def provider_report(findings):
+    """{clause: [names]} of provider findings, for a merge report and the adopt-and-merge queue."""
+    out = collections.defaultdict(list)
+    for clause, name, _ in findings:
+        if name not in out[clause]:
+            out[clause].append(name)
+    return {clause: out[clause] for clause in PROVIDER_CLAUSES if clause in out}
+
+
+def provider_reasons(findings, limit=3):
+    """Short refusal lines: `provider <clause>: <name> (<detail>)`."""
+    return [f"provider {clause}: {name} ({detail})" for clause, name, detail in findings[:limit]] + (
+        [f"provider: {len(findings) - limit} more"] if len(findings) > limit else [])
 
 
 def header_queue_rows(root=ROOT):
@@ -2408,6 +2750,14 @@ def reuse_merge_plan(tu, don, report, plan, dry_run):
     guard.load()
     linked = guard.linked(don)
     if (linked and guard.prepare(don)) or guard.judge(v.obj, acc, text):
+        return None
+    provider = ProviderGuard()
+    try:
+        if provider.load(getattr(guard, "index", None)) or provider.judge(
+                {f: provider.original(f) for f in acc}, {tu: v.obj}, {tu: list(acc)},
+                {(f, r["target_rva"]): tu for f in acc if f != tu for r in don[f]}):
+            return None             # the search reports the provider findings
+    except ProviderUnknown:
         return None
     texts = {f: relocate_includes((ROOT / f).read_text(encoding="utf-8-sig", errors="replace"),
                                  posixpath.dirname(f), posixpath.dirname(tu)) for f in acc}
@@ -2557,7 +2907,7 @@ def view_hint(report, tu, don):
 
 
 def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None, deletes_donor=False,
-           moved_rows=None):
+           moved_rows=None, provider=None):
     """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed:
     every accepted set is judged in it, under the same verifier, guard and applier.
     `deletes_donor`: `applier` deletes the accepted donors as a merge does (a prepared split's
@@ -2576,6 +2926,16 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         if why:
             report["blocked"] = f"link guard: {why}; census-linked: {', '.join(linked)}"
             return report
+    # A merge, and a split that absorbs its whole donor, replaces its files' objects by the merged one:
+    # ProviderGuard judges that here. A split's SplitLinkGuard and a shatter's run it over their objects.
+    if provider is None and guard is not None and not hasattr(type(guard), "provider_failures"):
+        provider = ProviderGuard()
+    if provider is not None:
+        why = provider.load(getattr(guard, "index", None))
+        if why:
+            report["blocked"] = f"provider guard: {why}"
+            return report
+    provider_found, provider_last = {}, {}
     texts = dict(texts or {})
     for f in don:
         if f not in texts:
@@ -2612,7 +2972,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                                               f"{len(lost)} row(s) its region default matches"
                                            for f, e in sorted(ov.items())})
                 return _merge(tu, sk, {f: r for f, r in don.items() if f not in ov}, report, dry_run,
-                              texts, applier, guard, fixed_text)
+                              texts, applier, guard, fixed_text, provider=provider)
         for f in [f for f in don if f not in ov and f != tu and base[f]]:
             lost = (rv.matched(texts[f], don[f]) or set()) - base[f]
             if lost:
@@ -2653,6 +3013,22 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
     link_why = {}
     failed_errors = []      # attempt()'s: the diagnostics of the compile that decided a "compile" result
 
+    def provider_why(files, obj):
+        """ProviderGuard's refusal lines for `files` merged into `obj` ([] when it finds nothing)."""
+        if provider is None:
+            return []
+        key = (tuple(files), str(obj))
+        if key not in provider_found:
+            try:
+                provider_found[key] = provider.judge(
+                    {f: provider.original(f) for f in files}, {tu: obj}, {tu: list(files)},
+                    {(f, r["target_rva"]): tu for f in files if f != tu for r in don[f]})
+            except ProviderUnknown as error:
+                provider_found[key] = [("bytes", "(not judged)", str(error))]
+        if provider_found[key]:
+            provider_last[tuple(files)] = provider_found[key]
+        return provider_reasons(provider_found[key])
+
     def attempt(files, flags):
         nonlocal failed_errors
         best = None
@@ -2667,6 +3043,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
             if not need <= got:
                 return "bytes"
             why = guard.judge(getattr(v, "obj", None), files, fixed_text) if guard else []
+            why = why or provider_why(files, getattr(v, "obj", None))
             if why:
                 link_why[tuple(files)] = why
                 return "link"
@@ -2683,6 +3060,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 drop |= again
             if got is not None and need <= got:
                 why = guard.judge(getattr(v, "obj", None), files, text) if guard else []
+                why = why or provider_why(files, getattr(v, "obj", None))
                 if not why:
                     return text
                 link_why[tuple(files)] = why
@@ -2694,7 +3072,14 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         return best
 
     def link_reason(files, f):
+        found = provider_last.get(tuple(files))
+        if found and link_why[tuple(files)] == provider_reasons(found):
+            report.setdefault("provider", {})[f] = provider_report(found)
+            return "provider: " + "; ".join(provider_reasons(found))[:300]
         if applier:
+            found = guard.provider_findings(link_why[tuple(files)]) if hasattr(guard, "provider_findings") else []
+            if found:
+                report.setdefault("provider", {})[f] = provider_report(found)
             return "link: split residual/destination would regress: " + "; ".join(link_why[tuple(files)][:3])[:300]
         linked = guard.linked(files)
         whose = (f"{f} links at the census" if f in linked
@@ -2847,7 +3232,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
     if ov and not set(acc) & set(ov):   # verified under flags no accepted donor carries: redo without them
         report["rejected"].update({f: "its flag override is not carried by the verified merge" for f in ov})
         return _merge(tu, sk, {f: r for f, r in don.items() if f not in ov}, report, dry_run, texts, applier, guard,
-                      fixed_text)
+                      fixed_text, provider=provider)
     text = attempt(acc, flags)
     if text in ("compile", "bytes", "link"):   # the accepted set no longer re-verifies (a flaky compile, an ICE):
         report["rejected"].update(rej)          # never write the failure token as the TU's text
@@ -5403,6 +5788,8 @@ def shatter(path, dry_run=False, claim=True):
     failures = guard.judge_records(records)
     if failures:
         report["blocked"] = "link: the shattered units would regress: " + "; ".join(failures[:3])[:300]
+        if guard.provider_findings(failures):
+            report["provider"] = {path: provider_report(guard.provider_findings(failures))}
         return report
     keys = carry_unit_keys(path, {u: r["obj"] for u, r in records.items()},
                            guard.records.get(path, {}).get("obj"), new_raws.get("reverse/data_rows.csv"))

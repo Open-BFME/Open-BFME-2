@@ -22,12 +22,32 @@ REAL_MAP_REGRESSIONS = T.map_regressions
 REAL_APPLY = T.apply
 
 
+class PassingProvider:
+    """ProviderGuard finding nothing: these tests drive merges and splits with fake link guards and
+    hand-built objects whose bytes stand for nothing a compiler made."""
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def load(self, index):
+        return None
+
+    def original(self, source):
+        return None
+
+    def judge(self, before, after, continues, moved):
+        return []
+
+
 def setUpModule():
     """A merge rebuilds the map in memory to judge its approvals (tu_map.build, about 40 s on the
-    real tree): stubbed to pass here; MergeMapRegressionTests drives the real one."""
-    patcher = patch.object(T, "map_regressions", return_value=None)
-    patcher.start()
-    unittest.addModuleCleanup(patcher.stop)
+    real tree): stubbed to pass here; MergeMapRegressionTests drives the real one. The provider guard
+    (the real link's kept copies and every replaced definition's bytes) likewise: its own tests and its
+    wiring into merges, saved plans and splits are test_tu_skeleton_provider.py."""
+    for patcher in (patch.object(T, "map_regressions", return_value=None),
+                    patch.object(T, "ProviderGuard", PassingProvider)):
+        patcher.start()
+        unittest.addModuleCleanup(patcher.stop)
 
 HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
