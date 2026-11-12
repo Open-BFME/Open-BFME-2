@@ -11,13 +11,16 @@
 // supersedes the ctor pin.
 #include "ascii_string.h"
 
-class SlavedUpdateModuleData
+// Retail's table holds ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../Include/Common/ModuleData.h"
+
+class SlavedUpdateModuleData : public ModuleData
 {
 public:
 	SlavedUpdateModuleData();
 	virtual ~SlavedUpdateModuleData();
 
-	int m_unused04;
+	// +0x04 is ModuleData's tag.
 	int m_leashRange;
 	int m_guardMaxRange;
 	int m_guardWanderRange;

@@ -60,14 +60,17 @@ class Thing;
 
 class ModuleData;
 
-class ModelConditionSoundSelectorClientBehaviorModuleData
+// Retail's table holds ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../Include/Common/ModuleData.h"
+
+class ModelConditionSoundSelectorClientBehaviorModuleData : public ModuleData
 {
 public:
 	ModelConditionSoundSelectorClientBehaviorModuleData();
 	virtual ~ModelConditionSoundSelectorClientBehaviorModuleData();
 
 private:
-	int m_unused04;
+	// +0x04 is ModuleData's tag.
 	_STL::vector<BfmeE16> m_vec08;
 };
 

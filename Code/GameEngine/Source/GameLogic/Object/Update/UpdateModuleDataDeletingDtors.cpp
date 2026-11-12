@@ -35,7 +35,7 @@ void DeployStyleAIUpdateModuleData_EmitVtable(DeployStyleAIUpdateModuleData *p) 
 
 // ??_GSlavedUpdateModuleData@@UAEPAXI@Z @0x00255FA5 28B: slot 0 of vtable 0x00BF34C0; calls ??1 at 0x00255FC1.
 // Owner evidence (audited 2026-09-26): retail registration SlavedUpdate -> data factory RVA 0x00255340 -> ctor RVA 0x002552D7; primary vptr store RVA 0x002552DE.
-class SlavedUpdateModuleData { public: SlavedUpdateModuleData(EmitVtableTag *); virtual ~SlavedUpdateModuleData(); };
+class SlavedUpdateModuleData : public ModuleData { public: SlavedUpdateModuleData(EmitVtableTag *); virtual ~SlavedUpdateModuleData(); };
 // ?<SlavedUpdateModuleData::SlavedUpdateModuleData> absent-from-retail
 SlavedUpdateModuleData::SlavedUpdateModuleData(EmitVtableTag *) {}
 
