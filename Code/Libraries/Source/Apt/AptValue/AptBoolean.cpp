@@ -10,7 +10,7 @@ BFME_DISP8_BYTE_GETTER(Rva006D89D0ByteField, 0x08)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?setBit2@Rva0030000CFields@@QAEXXZ
-struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
+#include "../../../../GameEngine/Include/Common/Rva0030000CFields.h"
 
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
