@@ -336,7 +336,16 @@ private:
 	unsigned int m_count24;
 	bool m_flag28;
 	bool m_flag29;
+public:
+	// BehaviorModuleInterface table 0x00C4EFB0 (+0x0C) slot 27: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot27();
 };
+
+void *AutoPickUpUpdate::slot27()
+{
+	return static_cast<AutoPickUpUpdateInterface *>(this);
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp
 

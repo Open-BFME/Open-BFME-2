@@ -99,7 +99,16 @@ public:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+public:
+	// BehaviorModuleInterface table 0x00C4D640 (+0x0C) slot 25: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot25();
 };
+
+void *BattlePlanUpdate::slot25()
+{
+	return static_cast<SecondBase004978A3 *>(this);
+}
 
 BattlePlanUpdate::~BattlePlanUpdate()
 {

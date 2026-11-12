@@ -64,7 +64,16 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+public:
+	// BehaviorModuleInterface table 0x00C54900 (+0x0C) slot 36: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot36();
 };
+
+void *LargeGroupAudioUpdate::slot36()
+{
+	return static_cast<LargeGroupAudioUpdate_B20 *>(this);
+}
 
 LargeGroupAudioUpdate::~LargeGroupAudioUpdate()
 {

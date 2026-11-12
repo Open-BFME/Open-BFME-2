@@ -130,7 +130,16 @@ public:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+public:
+	// BehaviorModuleInterface table 0x00C565C0 (+0x0C) slot 6: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot06();
 };
+
+void *EmotionTrackerUpdate::slot06()
+{
+	return static_cast<EmotionTrackerUpdateSecondaryBase *>(this);
+}
 
 EmotionTrackerUpdate::EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData),

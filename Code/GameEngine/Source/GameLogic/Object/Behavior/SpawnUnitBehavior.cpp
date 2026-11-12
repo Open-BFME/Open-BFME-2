@@ -111,7 +111,16 @@ public:
 protected:
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
+public:
+	// BehaviorModuleInterface table 0x00C59130 (+0x0C) slot 11: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot11();
 };
+
+void *SpawnUnitBehavior::slot11()
+{
+	return static_cast<SpawnUnitBehaviorIface3 *>(this);
+}
 
 const char *SpawnUnitBehavior::GetSnapshotName() const
 {

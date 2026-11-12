@@ -65,5 +65,9 @@ public:
     float darkness, scale, pending, ramp;
 public:
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// BehaviorModuleInterface table 0x00C54BB8 (+0x0C) slot 31: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot31();
 };
 #endif

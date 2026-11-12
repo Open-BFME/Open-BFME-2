@@ -73,6 +73,10 @@ private:
 	void stopDocking() throw();
 	SiegeDockingVec m_vector; // +0x24
 	bool m_enabled; // +0x30
+public:
+	// BehaviorModuleInterface table 0x00C41420 (+0x0C) slot 34: retail 0x004543A9, the +0x20
+	// interface null-checked; SiegeDockingBehavior.cpp defines it (the rowed fold).
+	virtual void *slot34();
 };
 
 SiegeDockingBehavior::~SiegeDockingBehavior()

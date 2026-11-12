@@ -6,6 +6,12 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "RainOfFireUpdateView.h"
+
+void *RainOfFireUpdate::slot31()
+{
+	return static_cast<Secondary20 *>(this);
+}
+
 //
 // ??0RainOfFireUpdateModuleData@@QAE@XZ, retail 0x004AC03D, 89 bytes.
 // Frameless SSE ctor: two global floats into +0x10/+0x14, vtable literal,

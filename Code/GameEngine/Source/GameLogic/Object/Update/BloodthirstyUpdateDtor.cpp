@@ -61,7 +61,16 @@ protected:
 	virtual const char *GetSnapshotName() const;
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+public:
+	// BehaviorModuleInterface table 0x00C3EFF8 (+0x0C) slot 37: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot37();
 };
+
+void *BloodthirstyUpdate::slot37()
+{
+	return static_cast<BloodthirstyUpdateIface *>(this);
+}
 
 // Primary slot 1, retail 0x00497805 (`jmp 0x0058B03E`): the UpdateModule base call that
 // every module-family override without work of its own shares (ICF).

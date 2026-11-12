@@ -118,6 +118,9 @@ public:
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
 		const Waypoint *way);
+	// BehaviorModuleInterface table 0x00C4D640 (+0x0C) slot 25: retail 0x004543A9, the
+	// +0x20 interface null-checked; SpecialAbilityUpdate.h defines it (the rowed fold).
+	virtual void *slot25();
 };
 // The spelling the derived ctors use for SpecialAbilityUpdate's ctor (row
 // 0x0044EF5E), as in WeaponFireSpecialAbilityUpdate.cpp.

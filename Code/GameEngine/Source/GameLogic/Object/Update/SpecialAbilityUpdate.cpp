@@ -732,7 +732,16 @@ private:
 	bool m_82;
 	bool m_83;
 	unsigned int m_84;
+public:
+	// BehaviorModuleInterface table 0x00C4D640 (+0x0C) slot 25: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot25();
 };
+
+void *Rva0044EF5E::slot25()
+{
+	return static_cast<Rva0044EF5EIface20 *>(this);
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp
 

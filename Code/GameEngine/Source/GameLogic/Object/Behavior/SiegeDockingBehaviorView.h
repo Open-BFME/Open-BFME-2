@@ -50,4 +50,8 @@ private:
 	void stopDocking() throw();
 	_STL::vector<int> m_vector; // +0x24
 	bool m_enabled; // +0x30
+public:
+	// BehaviorModuleInterface table 0x00C41420 (+0x0C) slot 34: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot34();
 };

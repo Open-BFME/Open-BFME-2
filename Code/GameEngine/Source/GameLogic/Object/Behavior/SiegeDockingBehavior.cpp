@@ -18,6 +18,12 @@ template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
 #include "SiegeDockingBehaviorView.h"
+
+void *SiegeDockingBehavior::slot34()
+{
+	return static_cast<SiegeDockingBehaviorSecondaryBase *>(this);
+}
+
 // Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
 // its own views, so it takes only the header's constant (LINK-236).
 #include "../../../../Include/GameClient/DrawableFramesPerFlash.h"

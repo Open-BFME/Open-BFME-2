@@ -82,10 +82,18 @@ class Rva00458402 : public UpdateModule, public Rva00458402_E1
 {
 public:
 	virtual ~Rva00458402();
+	// BehaviorModuleInterface table 0x00C40B98 (+0x0C) slot 14: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot14();
 };
 
 Rva00458402::~Rva00458402()
 {
+}
+
+void *Rva00458402::slot14()
+{
+	return static_cast<Rva00458402_E1 *>(this);
 }
 
 class Rva00459553_E1
@@ -98,10 +106,18 @@ class Rva00459553 : public UpdateModule, public Rva00459553_E1
 {
 public:
 	virtual ~Rva00459553();
+	// BehaviorModuleInterface table 0x00C411A0 (+0x0C) slot 33: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot33();
 };
 
 Rva00459553::~Rva00459553()
 {
+}
+
+void *Rva00459553::slot33()
+{
+	return static_cast<Rva00459553_E1 *>(this);
 }
 
 class Rva0047FE25_E1
@@ -114,10 +130,18 @@ class Rva0047FE25 : public UpdateModule, public Rva0047FE25_E1
 {
 public:
 	virtual ~Rva0047FE25();
+	// BehaviorModuleInterface table 0x00C485C0 (+0x0C) slot 41: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot41();
 };
 
 Rva0047FE25::~Rva0047FE25()
 {
+}
+
+void *Rva0047FE25::slot41()
+{
+	return static_cast<Rva0047FE25_E1 *>(this);
 }
 
 class Rva0048180C_E1
@@ -130,10 +154,18 @@ class Rva0048180C : public UpdateModule, public Rva0048180C_E1
 {
 public:
 	virtual ~Rva0048180C();
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C) slot 7: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual DieModuleInterface *getDie();
 };
 
 Rva0048180C::~Rva0048180C()
 {
+}
+
+DieModuleInterface *Rva0048180C::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<Rva0048180C_E1 *>(this));
 }
 
 class Rva004839D3_E1
@@ -146,6 +178,9 @@ class Rva004839D3 : public UpdateModule, public Rva004839D3_E1
 {
 public:
 	virtual ~Rva004839D3();
+	// BehaviorModuleInterface table 0x00C49800 (+0x0C) slot 4: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual DamageModuleInterface *getDamage();
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
@@ -153,6 +188,11 @@ protected:
 
 Rva004839D3::~Rva004839D3()
 {
+}
+
+DamageModuleInterface *Rva004839D3::getDamage()
+{
+	return reinterpret_cast<DamageModuleInterface *>(static_cast<Rva004839D3_E1 *>(this));
 }
 
 class Rva00487F3A_E1
@@ -165,10 +205,18 @@ class DefaultProductionExitUpdate : public UpdateModule, public Rva00487F3A_E1
 {
 public:
 	virtual ~DefaultProductionExitUpdate();
+	// BehaviorModuleInterface table 0x00C4B1F0 (+0x0C) slot 20: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot20();
 };
 
 DefaultProductionExitUpdate::~DefaultProductionExitUpdate()
 {
+}
+
+void *DefaultProductionExitUpdate::slot20()
+{
+	return static_cast<Rva00487F3A_E1 *>(this);
 }
 
 class Rva0048FFB4_E1
@@ -181,10 +229,18 @@ class Rva0048FFB4 : public UpdateModule, public Rva0048FFB4_E1
 {
 public:
 	virtual ~Rva0048FFB4();
+	// BehaviorModuleInterface table 0x00C4D068 (+0x0C) slot 29: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot29();
 };
 
 Rva0048FFB4::~Rva0048FFB4()
 {
+}
+
+void *Rva0048FFB4::slot29()
+{
+	return static_cast<Rva0048FFB4_E1 *>(this);
 }
 
 class Rva00499934_E1
@@ -197,10 +253,18 @@ class Rva00499934 : public UpdateModule, public Rva00499934_E1
 {
 public:
 	virtual ~Rva00499934();
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C) slot 7: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual DieModuleInterface *getDie();
 };
 
 Rva00499934::~Rva00499934()
 {
+}
+
+DieModuleInterface *Rva00499934::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<Rva00499934_E1 *>(this));
 }
 
 class Rva0049BFB7_E1
@@ -213,10 +277,18 @@ class Rva0049BFB7 : public UpdateModule, public Rva0049BFB7_E1
 {
 public:
 	virtual ~Rva0049BFB7();
+	// BehaviorModuleInterface table 0x00C49F78 (+0x0C) slot 10: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual UpgradeModuleInterface *getUpgrade();
 };
 
 Rva0049BFB7::~Rva0049BFB7()
 {
+}
+
+UpgradeModuleInterface *Rva0049BFB7::getUpgrade()
+{
+	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<Rva0049BFB7_E1 *>(this));
 }
 
 class Rva004A1855_E1
@@ -229,6 +301,9 @@ class Rva004A1855 : public UpdateModule, public Rva004A1855_E1
 {
 public:
 	virtual ~Rva004A1855();
+	// BehaviorModuleInterface table 0x00C51E60 (+0x0C) slot 26: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot26();
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
@@ -236,6 +311,11 @@ protected:
 
 Rva004A1855::~Rva004A1855()
 {
+}
+
+void *Rva004A1855::slot26()
+{
+	return static_cast<Rva004A1855_E1 *>(this);
 }
 
 class Rva004A4214_E1
@@ -248,10 +328,18 @@ class Rva004A4214 : public UpdateModule, public Rva004A4214_E1
 {
 public:
 	virtual ~Rva004A4214();
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C) slot 7: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual DieModuleInterface *getDie();
 };
 
 Rva004A4214::~Rva004A4214()
 {
+}
+
+DieModuleInterface *Rva004A4214::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<Rva004A4214_E1 *>(this));
 }
 
 class Rva004A4C19_E1
@@ -264,10 +352,18 @@ class Rva004A4C19 : public UpdateModule, public Rva004A4C19_E1
 {
 public:
 	virtual ~Rva004A4C19();
+	// BehaviorModuleInterface table 0x00C49188 (+0x0C) slot 7: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual DieModuleInterface *getDie();
 };
 
 Rva004A4C19::~Rva004A4C19()
 {
+}
+
+DieModuleInterface *Rva004A4C19::getDie()
+{
+	return reinterpret_cast<DieModuleInterface *>(static_cast<Rva004A4C19_E1 *>(this));
 }
 
 class DamageInfo;
@@ -316,10 +412,18 @@ class SupplyCenterProductionExitUpdate : public UpdateModule, public Rva004A653D
 {
 public:
 	virtual ~SupplyCenterProductionExitUpdate();
+	// BehaviorModuleInterface table 0x00C4B1F0 (+0x0C) slot 20: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot20();
 };
 
 SupplyCenterProductionExitUpdate::~SupplyCenterProductionExitUpdate()
 {
+}
+
+void *SupplyCenterProductionExitUpdate::slot20()
+{
+	return static_cast<Rva004A653D_E1 *>(this);
 }
 
 class Rva004A8091_E1
@@ -332,6 +436,9 @@ class Rva004A8091 : public UpdateModule, public Rva004A8091_E1
 {
 public:
 	virtual ~Rva004A8091();
+	// BehaviorModuleInterface table 0x00C5A260 (+0x0C) slot 1: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual CollideModuleInterface *getCollide();
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
@@ -339,6 +446,11 @@ protected:
 
 Rva004A8091::~Rva004A8091()
 {
+}
+
+CollideModuleInterface *Rva004A8091::getCollide()
+{
+	return reinterpret_cast<CollideModuleInterface *>(static_cast<Rva004A8091_E1 *>(this));
 }
 
 class Rva004B8732_E1
@@ -351,10 +463,18 @@ class Rva004B8732 : public UpdateModule, public Rva004B8732_E1
 {
 public:
 	virtual ~Rva004B8732();
+	// BehaviorModuleInterface table 0x00C59130 (+0x0C) slot 11: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot11();
 };
 
 Rva004B8732::~Rva004B8732()
 {
+}
+
+void *Rva004B8732::slot11()
+{
+	return static_cast<Rva004B8732_E1 *>(this);
 }
 
 class Rva0045D39E_E1
@@ -395,10 +515,18 @@ class Rva004AB246 : public UpdateModule, public Rva004AB246_E1, public Rva004AB2
 {
 public:
 	virtual ~Rva004AB246();
+	// BehaviorModuleInterface table 0x00C49800 (+0x0C) slot 4: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual DamageModuleInterface *getDamage();
 };
 
 Rva004AB246::~Rva004AB246()
 {
+}
+
+DamageModuleInterface *Rva004AB246::getDamage()
+{
+	return reinterpret_cast<DamageModuleInterface *>(static_cast<Rva004AB246_E1 *>(this));
 }
 
 class Rva0045232D_E1

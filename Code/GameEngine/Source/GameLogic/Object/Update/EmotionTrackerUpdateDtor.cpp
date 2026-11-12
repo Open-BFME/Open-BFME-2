@@ -87,6 +87,10 @@ public:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+public:
+	// BehaviorModuleInterface table 0x00C565C0 (+0x0C) slot 6: retail 0x004543A9, the +0x20
+	// interface null-checked; EmotionTrackerUpdateCtor.cpp defines it (the rowed fold).
+	virtual void *slot06();
 };
 
 // ??1EmotionTrackerUpdate@@UAE@XZ @0x004B1322

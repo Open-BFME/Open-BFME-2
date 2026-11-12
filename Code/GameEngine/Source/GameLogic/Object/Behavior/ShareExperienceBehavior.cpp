@@ -171,7 +171,16 @@ public:
 	virtual void rva00480093(float value);
 public:
 	float GetDropOffValue(Coord3D *a, Pos0047FFFE *recipient);
+public:
+	// BehaviorModuleInterface table 0x00C485C0 (+0x0C) slot 41: retail 0x004543A9, the +0x0C
+	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
+	virtual void *slot41();
 };
+
+void *ShareExperienceBehavior::slot41()
+{
+	return static_cast<ShareExperienceBehaviorInterface *>(this);
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 
