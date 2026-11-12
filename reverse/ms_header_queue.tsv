@@ -1,6 +1,5 @@
 file	class	worst	defs	same	source	unknown	unverified	mangle	abi	fwd	impl	collision	config	headers	platformsdk	md	owner	closure	note	names
 Code/Libraries/Source/Compression/ZLib/zconf.h	drop-in candidate	same	4	4	0	0	0	0	0	0	0	0	1	<windows.h>	yes	no	hand		prove with ./build.sh: byte gate is the authority	FAR:same,SEEK_SET:same,SEEK_CUR:same,SEEK_END:same
-Code/Libraries/Source/WWVegas/WWLib/mmsys.h	drop-in candidate	same	3	3	0	0	0	0	0	0	0	0	0	<windows.h>	yes	no	hand		prove with ./build.sh: byte gate is the authority	timeGetTime:same,timeBeginPeriod:same,timeEndPeriod:same
 Code/Libraries/Source/COM/ComSupp.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	6	0	0	<comdef.h>,<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	IID_ISupportErrorInfo:same
 Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	1	<excpt.h>,<typeinfo.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	type_info:same
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_alloc.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	1	<new>,<new.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	operator new:same
