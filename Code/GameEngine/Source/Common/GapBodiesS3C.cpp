@@ -273,12 +273,7 @@ struct Rva004A9617Level
 	unsigned int m_level;									// +0x04
 };
 
-struct Rva004A9617Holder
-{
-	int m_00;
-	Rva004A9617Level *m_level;								// +0x04
-	unsigned int level() const { return m_level ? m_level->m_level : 999999; }
-};
+#include "../../Include/Common/Rva004A9617Holder.h"
 
 class Rva004A9617
 {
