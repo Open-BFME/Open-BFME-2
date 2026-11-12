@@ -46,16 +46,18 @@ void Rva005CC342::rva005CC342()
 }
 
 #include "../../Include/Common/Rva005E1160Flag.h"
-class Rva005CC30B {
+// Slot 1 of Rva005CC37C's primary vftable (retail 0x00C74E38, installed by
+// its constructor 0x005CC3C0 and destructor 0x005CC37C).
+class Rva005CC37C {
 public:
-    void rva005CC30B();
-    char pad[0x1C];
+    virtual void rva005CC30B();
+    char pad[0x18];
     Iface005CC342 *m_iface1C;
     __forceinline bool check() { return m_iface1C->f0() && (m_iface1C->f5() || m_iface1C->f6()) ? '\1' : '\0'; }
 };
 // Native55B5CC30B..5CC342 forwards slot0 && (slot5 || slot6) verdict to
 // established receiver+8 setter. The receiver and interface identity unknown.
-void Rva005CC30B::rva005CC30B()
+void Rva005CC37C::rva005CC30B()
 {
     ((Rva005E1160Flag *)((char *)this + 8))->rva005E1160(check());
 }

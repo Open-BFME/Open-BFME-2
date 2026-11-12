@@ -60,6 +60,7 @@ class Rva005CC37C : public Rva00567960BaseMid, public Rva005E12D1
 public:
 	Rva005CC37C(void *a1, Rva005CC3C0In *a2);
 	virtual ~Rva005CC37C();
+	virtual void rva005CC30B();
 private:
 	int m_1C;
 };

@@ -250,6 +250,7 @@ public:
 	Rva005CC37C(EmitVtableTag *);
 public:
 	virtual ~Rva005CC37C();
+	virtual void rva005CC30B();
 };
 
 // ?<Rva005CC37C::Rva005CC37C> absent-from-retail

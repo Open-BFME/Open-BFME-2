@@ -22,6 +22,7 @@ class Rva005CC37C : public Rva005CC37CBase, public Rva005E12D1
 {
 public:
 	virtual ~Rva005CC37C();
+	virtual void rva005CC30B();
 };
 
 Rva005CC37C::~Rva005CC37C()
