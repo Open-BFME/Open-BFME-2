@@ -34,10 +34,14 @@ private:
 	char m_pad08[12];
 };
 
+struct AICommandParms;
+
+// The AI command interface: its only slot is aiDoCommand (as
+// HordeWorkerAIUpdateDtor.cpp and WorkerAIUpdateDtor.cpp).
 class DBaseM3
 {
 public:
-	virtual void f3();
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 };
 
 class DBaseM4
