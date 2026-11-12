@@ -15,11 +15,7 @@ private:
 	char m_pad[0x218 - 4];
 };
 
-class BfmeAptFunctorMarker
-{
-public:
-	virtual void marker() = 0;
-};
+#include "../../Include/GameClient/BfmeAptFunctorMarker.h"
 
 #include "../../Include/Common/GameAudio.h"
 

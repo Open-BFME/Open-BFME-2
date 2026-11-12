@@ -21,11 +21,7 @@ private:
 	BfmeAptScreenBaseLayout<> m_primaryStorage;
 };
 
-class BfmeAptFunctorMarker
-{
-public:
-	virtual void marker() = 0;
-};
+#include "../../../Include/GameClient/BfmeAptFunctorMarker.h"
 
 #include "../../../Include/GameClient/Shell.h"
 
