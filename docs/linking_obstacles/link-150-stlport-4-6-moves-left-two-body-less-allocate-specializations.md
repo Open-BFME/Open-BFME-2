@@ -109,3 +109,12 @@ removed. The complete outgoing tooling/path audit needs no additional
 consumer edits; three existing seed header debts remain. No STLport4.6,
 census or game-run clearance is added.
 [Merge and audit scope](../../reverse/attempt_support/apt-timeline-merge-20261112.md#applied-merge-and-outgoing-audit).
+
+Timeline cleanup preparation (2026-11-12): native parent 5BEA22's exact EH
+graph identifies its receiver+4 cleanup and the complete 14-byte buffer
+destructor at the existing 7FAB3 ICF owner. Ordinary add_match --icf-owner
+admits the already-emitted neutral buffer view without a pin or alias mask.
+All 79 rows and strict preparation pass; own link preview reads LINKS.
+The added shared-body row is zero unique bytes. The generated cleanup
+replacement, three existing header debts and wider census scope remain open.
+[Lifetime proof and audit boundary](../../reverse/attempt_support/apt-timeline-cleanup-20261112.md).
