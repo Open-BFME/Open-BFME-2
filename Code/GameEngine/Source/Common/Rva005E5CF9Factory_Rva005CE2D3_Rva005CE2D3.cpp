@@ -12,16 +12,7 @@
 // (inc [eax+4]) and hidden-pointer return (ret 8). Evidence: callee row
 // 0x005F589E, new row 0x0002FDA0, EH_prolog row 0x00629188, ret-8 + hidden
 // pointer shape matching RvaFamily1Clones clones, this+8 as second ctor arg.
-struct RvaF1Handle
-{
-	void *m_p;
-	__forceinline RvaF1Handle(void *p) : m_p(p)
-	{
-		if (p)
-			++((int *)p)[1];
-	}
-	~RvaF1Handle();
-};
+#include "../../Include/Common/RvaF1Handle.h"
 
 class Rva005F5819
 {
