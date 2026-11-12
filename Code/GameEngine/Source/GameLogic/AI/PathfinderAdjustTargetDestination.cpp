@@ -19,11 +19,7 @@ typedef bool Bool;
 
 class Object;
 
-class Rva002EBC34
-{
-public:
-	ICoord2D *rva002EBC34(ICoord2D *a1, void *a2, const Coord3D *a3);
-};
+#include "../../../Include/GameLogic/Rva002EBC34.h"
 
 class Rva002ED7B6
 {

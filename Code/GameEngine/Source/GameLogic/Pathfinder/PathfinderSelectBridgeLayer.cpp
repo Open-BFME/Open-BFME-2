@@ -100,11 +100,7 @@ __declspec(noinline) inline void Rva002E7964::rva002E7964(ICoord2D *out,unsigned
  if(tmp.x<extent.lo.x || tmp.y<extent.lo.y || tmp.x>extent.hi.x || tmp.y>extent.hi.y)tmp.x=-1;
  *(out?out:out)=tmp;
 }
-class Rva002EBC34
-{
-public:
-	ICoord2D *rva002EBC34(ICoord2D *a1, void *a2, const Coord3D *a3);
-};
+#include "../../../Include/GameLogic/Rva002EBC34.h"
 // Select-any copy of Rva002EBC34.cpp's row 0x002EBC34 (same body).
 __declspec(noinline) inline ICoord2D *Rva002EBC34::rva002EBC34(ICoord2D *a1, void *a2, const Coord3D *a3)
 {
