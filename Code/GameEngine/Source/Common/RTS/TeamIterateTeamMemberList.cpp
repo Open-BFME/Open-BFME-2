@@ -12,7 +12,7 @@
 
 class Object;
 
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
 // Introduces the vbptr at its own +0; lands at +0x68 inside Object.
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail

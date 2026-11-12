@@ -144,7 +144,7 @@ enum DamageType { DAMAGE_RVA003A1D1A = 8 };
 enum DeathType { DEATH_NORMAL = 0 };
 enum ObjectStatusTypes { OBJECT_STATUS_RVA0029A12B = 62 };
 
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
 {

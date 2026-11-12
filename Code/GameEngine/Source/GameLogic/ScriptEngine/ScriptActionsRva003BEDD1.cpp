@@ -5,7 +5,7 @@
 #include "ascii_string.h"
 class Team;
 class Object;
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
