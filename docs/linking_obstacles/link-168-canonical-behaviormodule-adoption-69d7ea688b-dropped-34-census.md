@@ -517,3 +517,5 @@ primary strong-definition refusal remain open under LINK-514.
 - Remaining: `BridgeTowerBehavior.cpp` (375 B, sole blocker `??_7BehaviorModule@@6BObjectModule@@@`)
   needs the same `BFME_BEHAVIORMODULE_LOADPOSTPROCESS` alignment once its held ICF twins
   (`0x000D1407`, `0x001DB0A8`) are available. Census confirmation: pending.
+
+2026-11-12 The adoption blocker DieModuleDerived.cpp is gone: the scaffolding file retired with its last fake-MI branch (Rva004C227A = HeroDie; ten of ten exited this lane), taking its local DieModule copy and MiBase1 include with it; reverse/header_queue.tsv removed its DieModule FAIL row with the source. The real die TUs include GameLogic/Module/DieModule.h directly.

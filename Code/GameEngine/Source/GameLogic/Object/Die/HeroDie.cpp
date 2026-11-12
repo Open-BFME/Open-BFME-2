@@ -49,25 +49,18 @@ protected:
 // 0x4C22C9, behavior instance factory rowed at 0x25185B news 0x34 with this
 // ctor as sole raw caller).
 //
-// Shape: frameless single-base ctor over the pinned DieModule base 0x45CEBD
-// with three explicit vtable stores at +0/+0xC/+0x10 via byte-wise pointer
-// casts (StopSpecialPower precedent: explicit stores, no virtuals declared
-// anywhere so no vtable is emitted here; all three immediates are
-// DIR32-masked in comparison). Zero new pins (base resolves via the
+// Shape: compiler-generated frameless ctor over the pinned DieModule base
+// 0x45CEBD: base call, then the three vptr stores the dtor's virtuals force
+// at +0/+0xC/+0x10 (tables 0x00C5C428/0x00C4A650/0x00C5C424, all emitted
+// below under their real names). Zero new pins (base resolves via the
 // existing DieModule pin).
-
-extern "C" const void *const __identifier("??_7CreateCrateDie@@6BBehaviorModuleInterface@@@")[];
-  // folded vftable 0x00C4A650 (21 classes), by its data-ledger name
-
-extern "C" const void *const __identifier("??_7Rva004C227A@@6BRva004C227A_B2@@@")[];
-  // vftable 0x00C5C424
-extern "C" const void *const __identifier("??_7Rva004C227A@@6BDieModule@@@")[];
 
 class HeroDie : public DieModule
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie(const DamageInfo *damageInfo);
+	virtual ~HeroDie();
 private:
 	static int rva004C2299(Object *obj, void *userData);
 public:
@@ -168,9 +161,16 @@ void _bfmeSpecialPowerCompletionDieModuleDataInlineAnchor(SpecialPowerCompletion
 HeroDie::HeroDie(Thing *thing, const ModuleData *moduleData) :
 	DieModule(thing, moduleData)
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva004C227A@@6BDieModule@@@"));
-	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7CreateCrateDie@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004C227A@@6BRva004C227A_B2@@@"));
 }
 
-// tu-skeleton: 0x004C234E 28B ??_GRva004C227A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+// ??1HeroDie@@UAE@XZ @0x004C227A
+// (25B): restores the ctor 0x004C2324 vptrs 0x00C5C428/+0, 0x00C4A650/+0xC and
+// 0x00C5C424/+0x10, then tail-jmps the protected DieModule dtor
+// ??1DieModule@@MAE@XZ (0x0045CE54). Slot 0 of the primary vftable 0x00C5C428
+// is the deleting dtor ??_GHeroDie@@UAEPAXI@Z (0x004C234E), which calls this
+// body plus operator delete 0x2FD60.
+HeroDie::~HeroDie()
+{
+}
+
+// tu-skeleton: 0x004C234E 28B ??_GHeroDie@@UAEPAXI@Z -- defined in this unit

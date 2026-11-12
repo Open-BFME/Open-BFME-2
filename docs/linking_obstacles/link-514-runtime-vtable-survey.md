@@ -2634,3 +2634,5 @@ The emitter and its qualified destructor caller in
 link preview preserves 9,750 bytes on index `80569f4278`. The caller
 emits no competing table. The next real link must confirm bridge
 retirement for this name.
+
+2026-11-12 Survey rows sourced from DieModuleDerived.cpp are historical: the scaffolding file retired (HeroDie, the last fake-MI branch; ten of ten). The surveyed kept-name slot-0 mappings (e.g. ??_EUpgradeDie@@UAEPAXI@Z -> 0x00486BE4) reached retail through the ??_E->??_G weak-alias bridge and are unchanged; the class TUs now emit the same 28B deleting dtors under real names, byte-proven against DieModuleDerived_pre.obj this session.

@@ -13630,8 +13630,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085C2D8,64,.rdata,global,?g_00C5C2D8@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp,owned,,1,1
 0x0085C318,176,.rdata,vtable,??_7PorcupineFormationBodyModule@@6B@,,literal,,0,2
 0x0085C3C8,92,.rdata,vtable,??_7PorcupineFormationBodyModule@@6BObjectModule@@@,,literal,,0,2
-0x0085C424,4,.rdata,vtable,??_7Rva004C227A@@6BRva004C227A_B2@@@,,literal,,0,2
-0x0085C428,64,.rdata,vtable,??_7Rva004C227A@@6BDieModule@@@,,literal,,0,2
+0x0085C424,4,.rdata,vtable,??_7HeroDie@@6B@,,literal,??_7HeroDie@@6B@;??_7Rva004C227A@@6BRva004C227A_B2@@@,0,2
+0x0085C428,64,.rdata,vtable,??_7HeroDie@@6BObjectModule@@@,,literal,??_7HeroDie@@6BObjectModule@@@;??_7Rva004C227A@@6BDieModule@@@,0,2
 0x0085C468,80,.rdata,global,?g_00C5C468@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp,owned,,1,1
 0x0085C4B8,100,.rdata,global,?g_00C5C4B8@@3DA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPowerCtor.cpp,owned,,1,1
 0x0085C51C,60,.rdata,global,?g_00C5C51C@@3DA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPowerCtor.cpp,owned,,1,1

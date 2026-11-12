@@ -6141,3 +6141,5 @@ __ehhandler$?rva00111DB6@Rva00111DB6@@QAEXXZ,0x00764A2D,"Renamed to __ehhandler$
 ??_GRva0048593D@@UAEPAXI@Z,0x00485AC0,"Retired: duplicate of ??_GCreateObjectDie@@MAEPAXI@Z (same 28B body, ICF fold; slot 0 of CreateObjectDie's vftable 0x0084A7E0 installed by ctor 0x00485A96)"
 ??1Rva00485983@@UAE@XZ,0x00485983,"Retired: duplicate of ??1CreateObjectDieIfEldestKindof@@MAE@XZ (same 25B body, ICF fold); the Rva0048593D helper family (Root/Mid/B2 shape classes and the Rva00485983 stand-in, whose dtor tail-called the fake base) left CreateObjectDie.cpp with its f1/f2 /alternatenames"
 ??_GRva00485983@@UAEPAXI@Z,0x00485B80,"Retired: duplicate of ??_GCreateObjectDieIfEldestKindof@@MAEPAXI@Z (same 28B body, ICF fold; slot 0 of CreateObjectDieIfEldestKindof's vftable 0x0084A8D4 installed by ctor 0x00485B4B)"
+??1Rva004C227A@@UAE@XZ,0x004C227A,"Renamed to ??1HeroDie@@UAE@XZ: slot 0 of HeroDie's vftable 0x0085C428 (ctor 0x004C2324) is the deleting dtor 0x004C234E that calls this body"
+??_GRva004C227A@@UAEPAXI@Z,0x004C234E,"Renamed to ??_GHeroDie@@UAEPAXI@Z: slot 0 of HeroDie's vftable 0x0085C428 installed by ctor 0x004C2324"
