@@ -150,12 +150,6 @@ class AttackExitConditionsInterface
 public:
 	virtual Bool shouldExit(const StateMachine *machine) const = 0;
 };
-class TunnelNetworkExitConditions : public AttackExitConditionsInterface
-{
-public:
-	UnsignedInt m_attackGiveUpFrame; // +0x04 (state +0x24)
-	virtual Bool shouldExit(const StateMachine *machine) const;
-};
 class AIAttackState : public State
 {
 public:
@@ -172,18 +166,7 @@ class AIEnterState : public State
 public:
 	virtual StateReturnType update();
 };
-class AITNGuardInnerState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-private:
-	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
-	TunnelNetworkExitConditions m_exitConditions; // +0x20
-	Bool m_scanForEnemy; // +0x28
-	AIAttackState *m_attackState; // +0x2C
-};
+#include "../../../Include/GameLogic/AITNGuard.h"
 class AITNGuardOuterState : public State
 {
 public:
@@ -225,8 +208,8 @@ void AITNGuardInnerState::onExit( StateExitType status )
 {
 	if (m_attackState)
 	{
-		m_attackState->onExit(status);
-		::delete m_attackState;
+		static_cast<AIAttackState *>(m_attackState)->onExit(status);
+		::delete static_cast<AIAttackState *>(m_attackState);
 		m_attackState = NULL;
 	}
 }
@@ -305,18 +288,18 @@ StateReturnType AITNGuardAttackAggressorState::update( void )
 StateReturnType AITNGuardInnerState::onEnter( void )
 {
 	GameLogic *logic = TheGameLogic;
-	Object* nemesis = logic->findObjectByID(static_cast<ObjectID>(getGuardMachine()->getNemesisID())) ;
+	Object* nemesis = logic->findObjectByID(static_cast<ObjectID>(static_cast<AITNGuardMachine *>(getMachine())->getNemesisID())) ;
 	if (nemesis == NULL) 
 	{
 		return STATE_SUCCESS;
 	}
 	m_exitConditions.m_attackGiveUpFrame = logic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
 
-	m_attackState = new AIAttackState(getMachine(), false, true, false, &m_exitConditions);
+	m_attackState = new AIAttackState(getMachine(), false, true, false, reinterpret_cast<AttackExitConditionsInterface *>(&m_exitConditions));
 
-	m_attackState->getMachine()->setGoalObject(nemesis);
+	static_cast<AIAttackState *>(m_attackState)->getMachine()->setGoalObject(nemesis);
 
-	StateReturnType returnVal = m_attackState->onEnter();
+	StateReturnType returnVal = static_cast<AIAttackState *>(m_attackState)->onEnter();
 	if (returnVal == STATE_CONTINUE) {
 		return STATE_CONTINUE;
 	}
@@ -341,7 +324,7 @@ StateReturnType AITNGuardOuterState::onEnter( void )
 	}
 
 	m_exitConditions.m_attackGiveUpFrame = logic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
-	m_attackState = new AIAttackState(getMachine(), false, true, false, &m_exitConditions);
+	m_attackState = new AIAttackState(getMachine(), false, true, false, reinterpret_cast<AttackExitConditionsInterface *>(&m_exitConditions));
 	m_attackState->getMachine()->setGoalObject(nemesis);
 
 	StateReturnType returnVal = m_attackState->onEnter();
@@ -358,7 +341,7 @@ Object *__fastcall TunnelNetworkScan(Object *owner);
 //--------------------------------------------------------------------------------------
 StateReturnType AITNGuardInnerState::update( void )
 {
-	AITNGuardMachine *machine = getGuardMachine();
+	AITNGuardMachine *machine = static_cast<AITNGuardMachine *>(getMachine());
 	Object* nemesis = TheGameLogic->findObjectByID(static_cast<ObjectID>(machine->getNemesisID())) ;
 	Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
 	TunnelTracker *tunnels = NULL;
@@ -373,7 +356,7 @@ StateReturnType AITNGuardInnerState::update( void )
 	{
 		if (teamVictim)
 		{
-			getGuardMachine()->setNemesisID(teamVictim->getID());
+			static_cast<AITNGuardMachine *>(getMachine())->setNemesisID(teamVictim->getID());
 			m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
 			return STATE_CONTINUE;
 		}
@@ -382,7 +365,7 @@ StateReturnType AITNGuardInnerState::update( void )
 		if (tunnels) {
 			nemesis = tunnels->getCurNemesis();
 			if (nemesis) {
-				getGuardMachine()->setNemesisID(nemesis->getID());
+				static_cast<AITNGuardMachine *>(getMachine())->setNemesisID(nemesis->getID());
 				m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
 				return STATE_CONTINUE;
 			}
@@ -392,22 +375,22 @@ StateReturnType AITNGuardInnerState::update( void )
 			m_scanForEnemy = false; // we just do 1 scan.
 			nemesis = TunnelNetworkScan(owner);
 			if (nemesis) {
-				m_attackState->onExit(EXIT_RESET);
-				m_attackState->getMachine()->setGoalObject(nemesis);
+				static_cast<AIAttackState *>(m_attackState)->onExit(EXIT_RESET);
+				static_cast<AIAttackState *>(m_attackState)->getMachine()->setGoalObject(nemesis);
 				if (tunnels) {
 					tunnels->updateNemesis(nemesis);
 				}
-				StateReturnType returnVal = m_attackState->onEnter();
+				StateReturnType returnVal = static_cast<AIAttackState *>(m_attackState)->onEnter();
 				return returnVal;
 			}
 		}
 	} else {
 		if (nemesis != teamVictim && teamVictim != NULL) {
 			tunnels->updateNemesis(nemesis);
-			getGuardMachine()->setNemesisID(teamVictim->getID());
+			static_cast<AITNGuardMachine *>(getMachine())->setNemesisID(teamVictim->getID());
 		}
 	}
-	return m_attackState->update();
+	return static_cast<AIAttackState *>(m_attackState)->update();
 }
 
 StateReturnType AITNGuardOuterState::update( void )
@@ -464,7 +447,7 @@ StateReturnType AITNGuardAttackAggressorState::onEnter( void )
 	if (tunnels) tunnels->updateNemesis(nemesis);
 
 	m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + TheAI->getAiData()->m_guardChaseUnitFrames;
-	m_attackState = new AIAttackState(getMachine(), true, true, false, &m_exitConditions);
+	m_attackState = new AIAttackState(getMachine(), true, true, false, reinterpret_cast<AttackExitConditionsInterface *>(&m_exitConditions));
 	m_attackState->getMachine()->setGoalObject(nemesis);
 
 	StateReturnType returnVal = m_attackState->onEnter();

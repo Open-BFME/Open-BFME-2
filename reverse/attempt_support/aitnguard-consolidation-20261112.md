@@ -139,3 +139,20 @@ both emitted copies have the same 5-byte COMDAT hash `341dc3ec187f`.
 It is a moved existing copy, not new helper behavior. The broader push audit
 remains INCONCLUSIVE, now naming Common/Rva004D759CDerived.cpp's missing
 current receipt; retain that provider in a future normal census scope.
+
+## InnerState uses its bounded header
+
+The next trial removes the private AITNGuardInnerState declaration and uses
+AITNGuard.h. Its existing opaque attack pointer is cast at the use sites;
+typed deletion still calls the same virtual destructor before global delete.
+The header's eight-byte exit-conditions record keeps its existing vptr and
+frame layout. Passing that record to the attack constructor uses an explicit
+interface-pointer cast; no vptr, provider, constructor or shared header changes.
+
+All 13 rows match in private and ordinary verification, and all 31 retained
+COMDATs remain identical. Only the superseded private getGuardMachine accessor
+disappears. Strict preparation and the owning InnerState adoption verdict pass,
+retiring one queue row. DamageInfo and TeamPrototype are the two remaining
+header entries for this source. The previous base-adoption push's broader
+audit was INCONCLUSIVE because its strict States receipt was absent after the
+final include edit; the present strict preparation supplies that receipt.
