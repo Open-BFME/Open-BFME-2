@@ -702,14 +702,7 @@ class Rva006E1260
  public:void call(void*);
 };
 
-class Rva006E9A40List
-{
-public:
-	void add(AptCIH*);
-	unsigned short count; // +0x00
-	unsigned short capacity; // +0x02
-	AptCIH **items; // +0x04
-};
+#include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 
 class Rva006E0DE0
 {

@@ -48,7 +48,7 @@ static __forceinline bool isButton(AptCIH *cih){
 }
 #include "Rva006EBFF0.h"
 #include "Rva006E1260.h"
-class Rva006E9A40List {public:void add(AptCIH*);};
+#include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 template<class T>class AptValueSet {public:unsigned short reserved,count;T *items;bool has(T)const;};
 #include "Rva006E34D0.h"
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;

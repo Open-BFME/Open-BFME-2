@@ -14,7 +14,7 @@ struct AptActionInterpreter { AptBasePtrStack stack; };
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 template<class T> class AptValueSet {public: bool has(T)const;};
-class Rva006E9A40List {public:void add(AptCIH *);};
+#include "../../../../GameEngine/Include/Common/Rva006E9A40List.h"
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);};
 class Rva006E34D0 {public:unsigned char unaccessed00[0x18];AptValueSet<AptValue *> listenerSet;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;

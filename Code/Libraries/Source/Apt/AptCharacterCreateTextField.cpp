@@ -50,14 +50,7 @@ class BfmeSubmitter1283
 public:
 	void *bfmeSubmit1283(AptCIH *a1, int a2, int a3, int a4, int a5, int a6, int a7, float *a8, int a9, int a10, int a11, int a12);
 };
-class Rva006E9A40List
-{
-public:
-	void add(AptCIH*);
-	unsigned short count; // +0x00
-	unsigned short capacity; // +0x02
-	AptCIH **items; // +0x04
-};
+#include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 class Rva006E34D0 {public:char prefix[0x20];Rva006E9A40List first,second;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern unsigned char g_00E1771C;
