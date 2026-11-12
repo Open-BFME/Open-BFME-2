@@ -40,19 +40,14 @@ struct FunctorBinding
     unsigned pad;
     FunctorMethod method;
 };
-class FunctorWrapperHead
-{
-public:
-    void *vt;
-    int count;
-};
+#include "../../../../../Include/Common/FunctorWrapperHead.h"
 class Rva0057BC63FunctorHolder
 {
 public:
     Rva0057BC63FunctorHolder(const FunctorBinding &);
     Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : ptr(other.ptr)
     {
-        if (ptr) ++ptr->count;
+        if (ptr) ++ptr->m_refCount;
     }
     FunctorWrapperHead *ptr;
 };

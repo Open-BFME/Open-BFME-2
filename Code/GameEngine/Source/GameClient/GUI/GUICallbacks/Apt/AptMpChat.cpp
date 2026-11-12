@@ -31,12 +31,7 @@ typedef void (FunctorTarget::*FunctorMethod)(void);
 // Evidence: unlock lane, vtable 0x0086F64C, base pin 0x002D2C34, +0x58 refcount inc, +0x5C -1, +0x60 arg2, +0x64 0, +0x68 0, conditional row 0x0057FD6E, caller 0x00441F6C.
 #include "../../../../../Include/GameClient/Rva0057FD6E.h"
 
-class FunctorWrapperHead
-{
-public:
-	void *m_vtbl;
-	int m_refCount; // +0x04
-};
+#include "../../../../../Include/Common/FunctorWrapperHead.h"
 
 class Rva0057BC63FunctorHolder
 {
