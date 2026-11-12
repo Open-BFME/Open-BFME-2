@@ -250,15 +250,7 @@ public:
 };
 struct Rva0026F4F4Element { unsigned words[1]; bool operator<(const Rva0026F4F4Element&)const; bool operator==(const Rva0026F4F4Element&)const; };
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
-struct BfmeAsciiScalarValue8
-{
-public:
-	BfmeAsciiScalarValue8();
-	BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &);
-	BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &);
-	AsciiString text; // +0x00
-	unsigned int value; // +0x04
-};
+#include "../../../../Include/Common/BfmeAsciiScalarValue8.h"
 namespace _STL { template <> vector<AsciiString> &vector<AsciiString >::operator=(const vector<AsciiString> &); }
 namespace _STL { template <> vector<Rva0026F4F4Element> &vector<Rva0026F4F4Element >::operator=(const vector<Rva0026F4F4Element> &); }
 namespace _STL { template <> vector<Rva0021C21BElement> &vector<Rva0021C21BElement >::operator=(const vector<Rva0021C21BElement> &); }

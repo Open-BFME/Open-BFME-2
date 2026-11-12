@@ -6,15 +6,7 @@
 // stlport_vector_scalar8_assign.cpp. Evidence: chain from 0x0031BA18.
 #include "ascii_string.h"
 
-struct BfmeAsciiScalarValue8
-{
-public:
-	BfmeAsciiScalarValue8();
-	BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &);
-	BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &);
-	AsciiString text; // +0x00
-	unsigned int value; // +0x04
-};
+#include "../../../../GameEngine/Include/Common/BfmeAsciiScalarValue8.h"
 
 #include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 

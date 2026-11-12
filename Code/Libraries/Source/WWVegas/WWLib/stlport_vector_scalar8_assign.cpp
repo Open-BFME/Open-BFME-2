@@ -1,15 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??4?$vector@UBfmeAsciiScalarValue8@@V?$allocator@UBfmeAsciiScalarValue8@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x0031DC3C 180B: vector BfmeAsciiScalarValue8 assign via allocate_and_copy 0x31BD77 plus Rva002390CB clear 0x31C81A plus copy 0x31BDA4 plus Rva Destroy 0x31BDEE plus Rva uninit_copy 0x3399AD; sar 3 stride 8; same 3-path shape as NoCase assign 0x317EBB.
 #include "ascii_string.h"
-struct BfmeAsciiScalarValue8
-{
-public:
-	BfmeAsciiScalarValue8();
-	BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &);
-	BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &);
-	AsciiString text; // +0x00
-	unsigned int value; // +0x04
-};
+#include "../../../../GameEngine/Include/Common/BfmeAsciiScalarValue8.h"
 #include "../../../../GameEngine/Include/Common/Rva002390CB.h"
 namespace _STL {
 template <class ForwardIter> void _Destroy(ForwardIter first, ForwardIter last);
