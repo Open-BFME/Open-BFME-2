@@ -62,7 +62,7 @@ bool Rva0044C277Wait();
 
 
 #include "../../Include/Common/PlayerTemplate.h"
-class PlayerTemplateStore {public:const PlayerTemplate *getNthPlayerTemplate(int) const;};
+#include "../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int,int,char *,int);
 

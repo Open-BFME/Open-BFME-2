@@ -28,7 +28,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 #include "../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../Include/Common/PlayerTemplate.h"
-class PlayerTemplateStore {public:const PlayerTemplate *getNthPlayerTemplate(int) const;};
+#include "../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int,int,char *,int);
 

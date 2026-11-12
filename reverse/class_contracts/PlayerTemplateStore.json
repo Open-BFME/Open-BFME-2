@@ -1,0 +1,400 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "PlayerTemplateStore",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "SubsystemInterface"
+   ]
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 5
+   },
+   "0xc": {
+    "4": 7
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x28": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1fdb55"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e1bb0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1fdb55"
+     ],
+     "value": 40
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1fdb55"
+     ],
+     "value": {
+      "0x24": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1fdb55"
+     ],
+     "value": {
+      "0x18": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1fdb55"
+     ],
+     "value": {
+      "0x0": "0x7e1bb0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e1bb0"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GPlayerTemplateStore@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1fdd61"
+       },
+       {
+        "name": "?init@PlayerTemplateStore@@UAEXXZ",
+        "slot": 1,
+        "target": "0x1ff223"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?attemptReload@PlayerTemplateStore@@UAE_NH@Z",
+        "slot": 4,
+        "target": "0x1fd57a"
+       },
+       {
+        "name": "?attemptRefresh@PlayerTemplateStore@@UAE_NXZ",
+        "slot": 5,
+        "target": "0x1fd5b2"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@PlayerTemplateStore@@UAEXXZ",
+        "slot": 9,
+        "target": "0x1fd4a2"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7e1bb0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x7e1bb0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GPlayerTemplateStore@@UAEPAXI@Z",
+     "1": "?init@PlayerTemplateStore@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?attemptReload@PlayerTemplateStore@@UAE_NH@Z",
+     "5": "?attemptRefresh@PlayerTemplateStore@@UAE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@PlayerTemplateStore@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 8,
+  "view_sizes": {
+   "1": 16,
+   "4": 1,
+   "20": 8,
+   "24": 2,
+   "36": 3,
+   "40": 2
+  },
+  "views": 32,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/PlayerTemplate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameModePreferences.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0027900BFinish.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp",
+    "Code/GameEngine/Source/GameNetwork/GUIUtil.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp",
+    "Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameModePreferences.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0027900BFinish.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp",
+    "Code/GameEngine/Source/GameNetwork/GUIUtil.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp",
+    "Code/GameEngine/Source/GameNetwork/GenerateGameOptionsString.cpp",
+    "Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameModePreferences.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameModePreferences.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameModePreferences.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameModePreferences.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['RifStore']": 1,
+    "['SubsystemInterface']": 1
+   },
+   "class": "PlayerTemplateStore",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "12:A": 1,
+    "24:A": 1,
+    "40:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "PlayerTemplateStore"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "20": "decided by zh",
+    "40": "retail allocates"
+   },
+   "class": "PlayerTemplateStore",
+   "why": "the decided size is below both the bytes retail's constructor writes and an allocation retail makes"
+  }
+ ],
+ "size": 20,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "attemptRefresh()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "attemptReload(int)"
+  }
+ }
+}

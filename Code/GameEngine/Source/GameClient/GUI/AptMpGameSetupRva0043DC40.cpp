@@ -193,14 +193,7 @@ struct Rva00219F8EMask
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 #include "../../../Include/Common/PlayerTemplate.h"
-class PlayerTemplateStore
-
-{
- public:
- const PlayerTemplate *getNthPlayerTemplate(int index) const;
- 
-}
-;
+#include "../../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 extern CreateAHeroManager *TheCreateAHeroManager;
 int Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);

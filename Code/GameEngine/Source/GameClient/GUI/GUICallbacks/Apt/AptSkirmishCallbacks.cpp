@@ -755,7 +755,8 @@ class SkirmishGameInfo : public GameInfo { public: SkirmishGameInfo(); char tail
 // GameInfo::isInGame, scenario setter and getter and GameSlot::getState that WB expands.
 struct SkirmishGameView { bool isInGame() const { return inGame; } void setScenario(long id) { scenario = id; } long getScenario() const { return scenario; } char pad[0x10];bool inGame;char pad11[0x38-0x11];unsigned word38,word3c;char pad40[0x58-0x40];long scenario;char pad5c[4];char rules[0x28]; };
 struct SkirmishSlotView { int getState() const { return state; } void *v;int state;int u8;int team;char pad[0x38-0x10];unsigned word38,word3c; };
-class PlayerTemplateStore {public:bool rva001FD367(int,int *) const;};extern PlayerTemplateStore *ThePlayerTemplateStore;
+#include "../../../../../Include/Common/PlayerTemplateStore.h"
+extern PlayerTemplateStore *ThePlayerTemplateStore;
 class SkirmishScenarioView {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void select(long);};
 #include "../../../../../Include/Common/MpGameRules.h"
 

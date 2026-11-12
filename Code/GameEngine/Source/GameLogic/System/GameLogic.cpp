@@ -2280,11 +2280,7 @@ struct Out00524477 { int m_0; AsciiString m_4; };
 int __cdecl Rva0023FC23(Out00524477 *out, int *a1, int a2);
 class CommandButton;
 namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &); }
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *getNthPlayerTemplate(Int index) const;
-};
+#include "../../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 unsigned char Rva000308D0GetByte();
 extern Bool TheXObjectCRC;

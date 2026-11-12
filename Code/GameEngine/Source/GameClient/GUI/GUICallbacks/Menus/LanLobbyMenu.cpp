@@ -46,16 +46,7 @@ struct Rva00A022F4
 };
 extern class MultiplayerSettings *TheMultiplayerSettings;
 #include "../../../../../Include/Common/PlayerTemplate.h"
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *getNthPlayerTemplate(int index) const;
-	char m_pad[0x0C];
-	PlayerTemplate *m_first;
-	PlayerTemplate *m_last;
-	PlayerTemplate *m_end;
-	_STL::map<int, int> m_map;
-};
+#include "../../../../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 #include "../../../../../Include/Common/GlobalData.h"
 

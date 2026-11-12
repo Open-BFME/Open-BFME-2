@@ -19,7 +19,7 @@ class RealTimeStatsPreferences:public ProfilePreferences {
 
 #include "../../Include/GameNetwork/GameInfo.h"
 class PlayerTemplate {public:const AsciiString&getSide()const{return side;} char prefix[24];AsciiString side;};
-class PlayerTemplateStore {public:const PlayerTemplate*getNthPlayerTemplate(int)const;};
+#include "../../Include/Common/PlayerTemplateStore.h"
 class VictoryConditionsInterface {public:
  virtual void v0();
  virtual void v1();

@@ -194,11 +194,7 @@ public:
 	AsciiString m_side;	// +0x44
 };
 
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *getNthPlayerTemplate(int which) const;
-};
+#include "../../../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
 class ThingTemplate;

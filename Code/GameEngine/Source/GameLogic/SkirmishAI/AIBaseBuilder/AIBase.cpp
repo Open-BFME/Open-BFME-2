@@ -127,11 +127,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/Common/PlayerTemplate.h"
 
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *getNthPlayerTemplate(int which) const;
-};
+#include "../../../../Include/Common/PlayerTemplateStore.h"
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 

@@ -244,11 +244,7 @@ struct Rva00219F8EMask
 
 #include "../../../Include/Common/PlayerTemplate.h"
 
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *getNthPlayerTemplate(int index) const;
-};
+#include "../../../Include/Common/PlayerTemplateStore.h"
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
