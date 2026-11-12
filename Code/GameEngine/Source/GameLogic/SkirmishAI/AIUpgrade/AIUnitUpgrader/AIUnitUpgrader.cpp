@@ -93,13 +93,16 @@ class Rva00599264 {
 public: void update();
 };
 
-class Gen_uwm_004ea016
+// The registrar base whose table retail installs at VA 0x00C62888: two pure
+// slots (__purecall) and the deleting destructor 0x004EA01D (??_GBaseA, rowed
+// in Rva00597693Ctor.cpp, which declares the same class).
+class BaseA
 {
 public:
-	Gen_uwm_004ea016() : m_04(4), m_08(1) {}
-	// Retail vtable 0x00862888 holds __purecall here.
-	virtual void slot00() = 0;
-	~Gen_uwm_004ea016() {}
+	BaseA() : m_04(4), m_08(1) {}
+	virtual void Register(Object *, void *) = 0;
+	virtual void UnRegister(Object *) = 0;
+	virtual ~BaseA() {}
 private:
 	int m_04;
 	int m_08;
@@ -147,7 +150,7 @@ template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
 
-class Rva005990DF : public Gen_uwm_004ea016, public Rva00506B1B
+class Rva005990DF : public BaseA, public Rva00506B1B
 {
 public:
 	Rva005990DF(int owner);
