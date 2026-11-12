@@ -243,11 +243,7 @@ private:
 	char m_pad04[8];
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../../../GameEngine/Include/Common/MiBase1.h"
 
 class W3DTankDraw_B2
 {
