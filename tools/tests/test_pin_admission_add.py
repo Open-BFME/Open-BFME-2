@@ -343,3 +343,93 @@ def test_a_retargeted_alias_is_judged_again(atree):
     problems = pin_admission.judge_aliases(aliases(atree), wrong)
     assert problems and "is not the owner" in problems[0]
     assert pin_admission.judge_aliases(aliases(atree), "export,target,notes\n") == []    # removal shrinks
+
+
+# ---------------------------------------------------------------- class-key twins (code exports)
+
+CTOR_V = "??0Matrix4D@@QAE@ABVCoord3D@@M@Z"
+CTOR_U = "??0Matrix4D@@QAE@ABUCoord3D@@M@Z"
+SET_V = "?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z"
+SET_U = "?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@M@Z"
+C2D_V = "??0Matrix4D@@QAE@ABVCoord2D@@M@Z"
+C2D_U = "??0Matrix4D@@QAE@ABUCoord2D@@M@Z"
+KEY_EXPORTS = ("ordinal,rva,target_rva,section,kind,name\n"
+               f"1,0x00004079,,.text,code,{CTOR_V}\n"
+               f"2,0x00004079,,.text,code,{SET_V}\n"
+               f"3,0x00005000,,.text,code,{C2D_V}\n"
+               f"4,0x00A03004,,.data,data,?k@@3VCoord3D@@A\n")
+KEY_LEDGER = ("name,export_rva,target_rva,target_size,source,status,notes\n"
+              f"{CTOR_U},0x00004079,0x00004079,357,Code/s.cpp,matched,\n"
+              f"{SET_U},,0x00004079,357,Code/s.cpp,matched,\n"
+              f"{C2D_U},,0x00005000,16,Code/s.cpp,matched,\n"
+              "?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@N@Z,,0x00004079,357,Code/s.cpp,matched,\n"   # key + M->N
+              "??0Matrix4D@@QAE@ABUCoord3D@@N@Z,,0x00004079,357,Code/s.cpp,matched,\n"        # M->N, V kept
+              "?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@@Z,,0x00006000,116,Code/s.cpp,matched,\n"
+              "?Twin@@YAXABUCoord3D@@@Z,,0x00007000,8,Code/s.cpp,matched,gen-dump\n"
+              "?Away@@YAXABUCoord3D@@@Z,,0x00007100,8,Code/s.cpp,unmatched,\n")
+
+
+@pytest.fixture
+def ktree(tree, monkeypatch):
+    (tree / "reverse/exports.csv").write_text(KEY_EXPORTS + "5,0x00007000,,.text,code,?Twin@@YAXABVCoord3D@@@Z\n"
+                                              "6,0x00007100,,.text,code,?Away@@YAXABVCoord3D@@@Z\n"
+                                              "7,0x00007200,,.text,code,?Gone@@YAXABVCoord3D@@@Z\n",
+                                              newline="\n")
+    (tree / "reverse/data_ledger.csv").write_text(
+        "address,size,section,kind,name,source,status,names,defs,refs\n"
+        "0x00A03004,12,.data,global,?k@@3UCoord3D@@A,Code/s.cpp,owned,,0,1\n", newline="\n")
+    (tree / "reverse/functions.csv").write_text(LEDGER + KEY_LEDGER.split("\n", 1)[1], newline="\n")
+    git(tree, "add", ".")
+    git(tree, "commit", "-qm", "class-key inputs")
+    monkeypatch.setattr(pin_admission, "retail_bytes", lambda rva, size: bytes(size))
+    monkeypatch.setattr(pin_admission, "retail_references", lambda rva: 0)
+    monkeypatch.setattr(pin_admission.build, "load_all_function_rows",
+                        lambda: list(__import__("csv").DictReader((LEDGER + KEY_LEDGER.split("\n", 1)[1]).splitlines())))
+    return tree
+
+
+def test_class_key_twins_are_written_admitted_and_pass_both_gates(ktree):
+    assert pin_admission.add_aliases([(CTOR_V, CTOR_U), (SET_V, SET_U)], "LINK-018 option B") == []
+    assert aliases(ktree) == ("export,target,notes\n"
+                              f"{CTOR_V},{CTOR_U},LINK-018 option B; class-key twin: Coord3D U->V\n"
+                              f"{SET_V},{SET_U},LINK-018 option B; class-key twin: Coord3D U->V\n")
+    assert staged(ktree) == []
+    assert pin_admission.judge_alias_range("HEAD", "") == []
+
+
+@pytest.mark.parametrize("export,target,why", [
+    (SET_V, CTOR_U, "only its class-key twin"),                                     # another name, same body
+    (CTOR_V, "??0Matrix4D@@QAE@ABUCoord3D@@N@Z", "only its class-key twin"),       # another difference, no key change
+    (SET_V, "?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@N@Z", "only its class-key twin"),   # the key and another change
+    (C2D_V, C2D_U, "only its class-key twin"),                                      # a key change on another class
+    (SET_V, "?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@@Z", "row at the export's retail address"),  # another body
+    (CTOR_V, "??0Matrix4D@@QAE@ABUCoord3D@@M@Zx", "row at the export's retail address"),     # no row at all
+    ("?Twin@@YAXABVCoord3D@@@Z", "?Twin@@YAXABUCoord3D@@@Z", "not a matched body"),          # a byte dump
+    ("?Away@@YAXABVCoord3D@@@Z", "?Away@@YAXABUCoord3D@@@Z", "not a matched body"),          # unmatched
+    ("?Gone@@YAXABVCoord3D@@@Z", "?Gone@@YAXABUCoord3D@@@Z", "row at the export's retail address"),
+    ("?k@@3VCoord3D@@A", "?k@@3UCoord3D@@A", "only a guard of the same local static"),       # data: no twins
+])
+def test_refused_class_key_aliases_write_nothing(ktree, export, target, why):
+    before = (ktree / "reverse/hatch_baseline.tsv").read_bytes()
+    problems = pin_admission.add_aliases([(export, target)])
+    assert problems and why in problems[0], problems
+    assert aliases(ktree) is None
+    assert (ktree / "reverse/hatch_baseline.tsv").read_bytes() == before
+
+
+def test_a_class_key_twin_needs_a_listed_class(ktree, monkeypatch):
+    monkeypatch.setattr(pin_admission, "CLASS_KEY_EXPORTS", {})
+    problems = pin_admission.add_aliases([(CTOR_V, CTOR_U)])
+    assert problems and "only its class-key twin" in problems[0]
+    monkeypatch.setattr(pin_admission, "CLASS_KEY_EXPORTS", {"Coord2D": "V"})
+    assert pin_admission.add_aliases([(CTOR_V, CTOR_U)])
+    assert pin_admission.add_aliases([(C2D_V, C2D_U)]) == []
+
+
+def test_the_gate_reads_the_twin_row_at_the_commit(ktree):
+    (ktree / "reverse/export_aliases.csv").write_text(f"export,target,notes\n{CTOR_V},{CTOR_U},typed\n",
+                                                      newline="\n")
+    (ktree / "reverse/functions.csv").write_text(LEDGER, newline="\n")    # the twin row is gone
+    git(ktree, "add", "reverse/export_aliases.csv", "reverse/functions.csv")
+    problems = pin_admission.judge_alias_range("HEAD", "")
+    assert problems and "row at the export's retail address" in problems[0]

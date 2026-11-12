@@ -75,7 +75,10 @@ export with another symbol; see "export aliases" below):
   * the two are one compiler guard (`?$S<n>@<tail>`, only the counter differs),
     or the export is one ZERO_WORD_EXPORTS lists with its reviewed non-use evidence,
     answered by a named word that is zero in retail (the admission's retail scan is
-    supporting evidence; the row's notes record it).
+    supporting evidence; the row's notes record it);
+  * for a code export instead: the target is a matched functions.csv row, with a source,
+    at the export's retail address, and its name is the export's with only the key of a
+    class CLASS_KEY_EXPORTS lists differing (U/V, the same name table).
 The gate reads every input at the commit it judges (the index, or --range's NEW),
 never the work tree. Write them with `--alias EXPORT TARGET`.
 
@@ -978,6 +981,8 @@ def add_pins(pins, notes="", reason=None):
 #     listed address. A scan cannot prove non-use (a computed pointer, an interior byte), so the
 #     list holds each case's reviewed evidence; the retail scan still runs at admission and its
 #     result goes in the row's notes. Any other export asking for a zero word is refused.
+# A code export instead needs its class-key twin: a matched functions.csv row, with a source, at the
+# export's retail address, whose name is the export's with only a CLASS_KEY_EXPORTS class's key changed.
 ALIASES = "reverse/export_aliases.csv"
 ALIAS_HEADER = "export,target,notes"
 EXPORTS = "reverse/exports.csv"
@@ -995,6 +1000,11 @@ ZERO_WORD_EXPORTS = {
     "?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA": 0x00A0609C,   # VA 0x00E0609C
     "?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA": 0x00A060A0,  # VA 0x00E060A0
 }
+# Reviewed classes retail keys differently from the tree, {qualified name: retail's key} (LINK-018 option B,
+# interim). Target fact: retail's exports spell Coord3D `V` (class) in every name. The tree's canonical
+# Lib/Coord3D.h still declares a struct (`U`) until `header_adopt_lane.py rekey --class Coord3D --key class`;
+# that flip names the exports itself and retires these aliases.
+CLASS_KEY_EXPORTS = {"Coord3D": "V"}
 
 
 @functools.lru_cache(maxsize=1)
@@ -1052,7 +1062,13 @@ def alias_state(spec=None, rows=None):
     named = {r["name"] for r in rows}
     named |= {r["name"] for r in csv_rows(text(PINS))}
     named |= {r["name"] for r in csv_rows(text(DATA_ROWS))}
-    return {"exports": exports, "owners": owners, "named": named}
+    rows_at = {}
+    for row in rows:
+        try:
+            rows_at.setdefault(int(row["target_rva"], 16), []).append(row)
+        except (KeyError, TypeError, ValueError):
+            continue
+    return {"exports": exports, "owners": owners, "named": named, "rows_at": rows_at}
 
 
 def unread_zero_word(rva, owner):
@@ -1062,6 +1078,37 @@ def unread_zero_word(rva, owner):
     if retail_references(rva):
         return None
     return f"retail-scan: no word names VA 0x{IMAGE_BASE + rva:08X} or its bytes; 4 zero bytes"
+
+
+def class_key_twin(export, target):
+    """The CLASS_KEY_EXPORTS class whose key alone respells TARGET to exactly EXPORT, else None.
+    header_adopt_lane.rekey_symbol parses the whole name and refuses a changed name table or
+    back-reference; every other character must already be equal."""
+    import header_adopt_lane
+    for name, key in sorted(CLASS_KEY_EXPORTS.items()):
+        try:
+            got = header_adopt_lane.rekey_symbol(target, "@".join(reversed(name.split("::"))),
+                                                 "U" if key == "V" else "V")
+        except ValueError:          # unsupported grammar or mixed keys: no twin
+            continue
+        if got != target and got == export:
+            return name
+    return None
+
+
+def code_alias_problems(export, target, rva, state):
+    """Why code EXPORT may not be answered by TARGET: only its class-key twin, the body
+    functions.csv records at the export's retail address."""
+    rows = [r for r in state["rows_at"].get(rva, ()) if r.get("name") == target]
+    if not rows:
+        return [f"{target} is not a {LEDGER} row at the export's retail address 0x{rva:08X}"]
+    if any(r.get("status") != "matched" or not r.get("source") or build.is_alias_row(r)
+           or build.is_scaffold_row(r) for r in rows):
+        return [f"{target} at 0x{rva:08X} is not a matched body with a source"]
+    if not class_key_twin(export, target):
+        return ["only its class-key twin may answer a code export: the same name with only the key "
+                "(U/V) of a class CLASS_KEY_EXPORTS lists changed"]
+    return []
 
 
 def alias_problems(export, target, state, aliased=()):
@@ -1079,6 +1126,8 @@ def alias_problems(export, target, state, aliased=()):
         rva = int(row.get("rva") or "", 16)
     except ValueError:
         return ["the export has no retail address"]
+    if row.get("kind") == "code":
+        return code_alias_problems(export, target, rva, state)
     owner = state["owners"].get(rva)
     if owner is None:
         return [f"no {DATA_LEDGER} row owns its retail address 0x{rva:08X}"]
@@ -1099,7 +1148,11 @@ def alias_problems(export, target, state, aliased=()):
 
 
 def alias_note(export, target, state):
-    """The evidence an admitted alias's row records: the retail scan for a zero word."""
+    """The evidence an admitted alias's row records: the retail scan for a zero word, the
+    class for a class-key twin."""
+    if state["exports"][export].get("kind") == "code":
+        name = class_key_twin(export, target)
+        return f"class-key twin: {name} {'U' if CLASS_KEY_EXPORTS[name] == 'V' else 'V'}->{CLASS_KEY_EXPORTS[name]}"
     if GUARD.fullmatch(target) and GUARD.fullmatch(target).group(1) == GUARD.fullmatch(export).group(1):
         return ""
     rva = int(state["exports"][export]["rva"], 16)
