@@ -9,7 +9,7 @@
 // It can also change how later array constructions here compile; checked to change nothing else in this unit, but if a function added later that builds
 #include "../../../../../../reference/shims/bfme_namekey_inline_link/namekey_inline_link.h"  // NAMEKEY inline-only link view
 // an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma comment(linker, "/alternatename:??1BehaviorModuleData@@QAE@XZ=??1BehaviorModuleData@@UAE@XZ")

@@ -10,7 +10,7 @@
 // Retail imports only _strcmpi (stub 0x00629A2A calls msvcr71's); BFME2's
 // stricmp spelling resolves there, not to the _stricmp alias.
 #define stricmp _strcmpi
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
