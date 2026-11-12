@@ -215,7 +215,7 @@ def data_obj(path, raw, value_b=4, bss=16):
 
 def test_provider_definitions_reads_what_the_link_compares(tmp_path):
     one = T.provider_definitions(data_obj(tmp_path / "1.obj", b"\0\0\0\0\x01\x02\0\0"))
-    assert one["_a"][:3] == ("section", False, 4) and one["_a"][4] == ((0, 6, "_target"),)
+    assert one["_a"][:3] == ("section", False, 4) and one["_a"][4] == ((0, 6, "_target", bytes(4)),)
     assert one["_z"] == ("bss", False, 16) and one["_c"] == ("common", 12)
     # alignment padding before another next definition: the longer extent continues the shorter
     two = T.provider_definitions(data_obj(tmp_path / "2.obj", b"\0\0\0\0\x01\x02\0\0\0\0\0\0"))
@@ -251,6 +251,29 @@ def test_review_r1_a_label_inside_a_function_bounds_nothing(tmp_path):
     assert not T.same_definition(one["_f"], two["_f"])
     found = guard({}).judge({DONOR: tmp_path / "1.obj"}, {TU: tmp_path / "2.obj"}, {TU: [DONOR]}, {})
     assert [(c, n) for c, n, _ in found] == [("bytes", "_f")]
+
+
+def test_review_r2_a_relocation_operand_past_the_extent_counts(tmp_path):
+    # _a at 0 with a DIR32 to _target at 0, _b at 2: the operand 00 00 01 00 runs into _b. Moving _b to 4
+    # (two zeros inserted) keeps both extents' own bytes but changes the addend to 0
+    def obj(path, raw, value_b):
+        Path(path).write_bytes(coff([(".data", DATA, raw, [(0, 3, 6)])],
+                                    [(".data", 0, 1, 3, None), ("_a", 0, 1, 2, None), ("_b", value_b, 1, 2, None),
+                                     ("_target", 0, 0, 2, None)]))
+        return Path(path)
+    old = obj(tmp_path / "old.obj", b"\0\0\x01\0", 2)
+    new = obj(tmp_path / "new.obj", b"\0\0\0\0\x01\0", 4)
+    found = guard({}).judge({DONOR: old}, {TU: new}, {TU: [DONOR]}, {})
+    assert {n for c, n, _ in found if c == "bytes"} == {"_a", "_b"}
+    assert guard({}).judge({DONOR: old}, {TU: obj(tmp_path / "same.obj", b"\0\0\x01\0", 2)}, {TU: [DONOR]}, {}) == []
+
+
+def test_review_r2_an_unknown_relocation_type_is_not_judged(tmp_path):
+    Path(tmp_path / "odd.obj").write_bytes(coff([(".data", DATA, b"\0" * 8, [(0, 2, 0x9)])],     # SEG12
+                                                [(".data", 0, 1, 3, None), ("_a", 0, 1, 2, None),
+                                                 ("_target", 0, 0, 2, None)]))
+    with pytest.raises(T.ProviderUnknown):
+        T.provider_definitions(tmp_path / "odd.obj")
 
 
 def test_review_r1_outside_copies_a_change_reorders_are_judged(objs, tmp_path):

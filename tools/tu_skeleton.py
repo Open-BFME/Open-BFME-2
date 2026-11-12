@@ -2375,11 +2375,17 @@ class ProviderUnknown(Exception):
     """An object the provider guard must read cannot be read or built: nothing is proven."""
 
 
+# i386 relocation types and their operand widths (IMAGE_REL_I386_*): ABSOLUTE, DIR16, REL16, DIR32, DIR32NB,
+# SECTION, SECREL, TOKEN, SECREL7, REL32. Any other type makes an extent unprovable (ProviderUnknown).
+RELOCATION_WIDTH = {0x0: 0, 0x1: 2, 0x2: 2, 0x6: 4, 0x7: 4, 0xA: 2, 0xB: 4, 0xC: 4, 0xD: 1, 0x14: 4}
+
+
 def _extent_definitions(data, sections, symbols):
     """{name: key} of the external definitions outside a COMDAT, by extent: from the symbol's value to the
     next definition of its section (in code, an external or a static function; in data, an external or a
     static: a label inside a function bounds nothing), else the section's end. Initialized: ("section",
-    in code, extent, its bytes, its relocations named as the census digest names them); uninitialized:
+    in code, extent, its bytes, every relocation whose operand overlaps it, named as the census digest names
+    them, with the whole operand even past the extent's end: its addend); uninitialized:
     ("bss", in code, extent). COFF records no symbol size, so an extent can hold the alignment padding
     before the next definition; same_definition reads it that way."""
     import struct
@@ -2414,11 +2420,15 @@ def _extent_definitions(data, sections, symbols):
         found = []
         for at in range(relocs, relocs + 10 * nrelocs, 10):
             where, target, kind = struct.unpack_from("<IIH", data, at)
-            if s["value"] <= where < end:
+            if kind not in RELOCATION_WIDTH:
+                raise ValueError(f"relocation type {kind:#x} in {s['name']}'s section: its operand width is unknown")
+            width = RELOCATION_WIDTH[kind]
+            if where < end and where + width > s["value"]:          # an operand that overlaps the extent
                 referent = by_index.get(target, {"name": "?", "storage": 0})
                 label = LCe._normal(referent["name"]) if referent["storage"] in (LCe.EXTERNAL, LCe.WEAK_EXTERNAL) \
                     else "local"
-                found.append((where - s["value"], kind, label))
+                # its whole operand (the addend), even where it runs past the extent's end
+                found.append((where - s["value"], kind, label, bytes(data[pointer + where:pointer + where + width])))
         out[s["name"]] = ("section", code, end - s["value"], bytes(data[pointer + s["value"]:pointer + end]),
                           tuple(sorted(found)))
     return out
