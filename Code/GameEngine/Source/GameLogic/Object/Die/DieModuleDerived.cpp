@@ -21,22 +21,6 @@ private:
 
 #include "../../../../Include/Common/MiBase1.h"
 
-class Rva0048593D_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0048593D : public DieModule, public MiBase1, public Rva0048593D_B2
-{
-public:
-	virtual ~Rva0048593D();
-};
-
-Rva0048593D::~Rva0048593D()
-{
-}
-
 class Rva004C227A_B2
 {
 public:
@@ -56,5 +40,4 @@ Rva004C227A::~Rva004C227A()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004C227A_B2@@UAEXXZ=?onDie@HeroDie@@UAEXPBVDamageInfo@@@Z")

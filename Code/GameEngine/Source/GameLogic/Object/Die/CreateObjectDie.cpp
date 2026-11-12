@@ -61,8 +61,6 @@ public:
 	void create(void *primary, void *secondary, void *extra);
 };
 
-#pragma comment(linker, "/alternatename:?f1@Rva0048593D_Mid@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z")
 #define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
 	class NAME \
 	{ \
@@ -144,51 +142,6 @@ private:
 // ?xfer@Rva00485BB8@@QAEXPAVXfer@@@Z, retail 0x00485BB8 28B: Version1 via rowed 0x000053EE then uint at +0x00 via Xfer slot 0x78.
 // Evidence: called with this+0x14 from 0x00485BD4 (version-gated) plus second caller 0x004B4B97; callee rowed 0x000053EE;
 // class unproven so honest Rva name.
-
-//
-// Opaque single-inheritance destructor tail-calling Rva0048593D::~
-// Rva0048593D at 0x0048593D (matched opaque MI base dtor in
-// DieModuleDerived.cpp: DieModule root plus shared and own empty bases,
-// vptrs +0x00/+0x0C/+0x10; only declared here so the tail-call resolves to
-// the ledger address instead of a same-TU definition). The class below
-// derives singly from the MI base (inheriting its three-vptr layout) and
-// overrides all three vptrs (0xC4A8D4/+0x0C 0xC4A818/+0x10 0xC4A810, DIR32
-// auto-patches) before tail-calling the base destructor. Owner identities
-// are unproven (opaque Rva names). One ledger row per destructor, landed one
-// commit at a time.
-
-class Rva0048593D_Root
-{
-public:
-	virtual ~Rva0048593D_Root();
-
-private:
-	char m_pad04[8];
-};
-
-class Rva0048593D_Mid
-{
-public:
-	virtual void f1();
-};
-
-class Rva0048593D_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0048593D : public Rva0048593D_Root, public Rva0048593D_Mid, public Rva0048593D_B2
-{
-public:
-	virtual ~Rva0048593D();
-};
-
-class Rva00485983 : public Rva0048593D
-{
-public:
-	virtual ~Rva00485983();
-};
 
 struct Rva00485C19Data
 {
@@ -395,12 +348,6 @@ StatusBitsEldestFrame *StatusBitsEldestFrame::cacheGameLogicFrame(void)
 	return this;
 }
 
-// ---- from Code/GameEngine/Source/Common/Rva0048593DDerived.cpp
-
-Rva00485983::~Rva00485983()
-{
-}
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofPoolKey.cpp
 
 // ?getModuleNameKey@CreateObjectDieIfEldestKindof@@UBE?AW4NameKeyType@@XZ
@@ -451,8 +398,9 @@ CreateObjectDie::CreateObjectDie( Thing *thing, const ModuleData* moduleData ) :
 }
 
 //-------------------------------------------------------------------------------------------------
-// Retail 0x0048593D (rowed as the opaque ??1Rva0048593D in DieModuleDerived.cpp):
-// the class's three tables, then a tail jump to ~DieModule 0x0045CE54.
+// Retail 0x0048593D (fold rows ??1CreateObjectDie@@MAE@XZ and
+// ??_GCreateObjectDie@@MAEPAXI@Z): the class's three tables, then a tail jump
+// to ~DieModule 0x0045CE54.
 CreateObjectDie::~CreateObjectDie( void )
 {
 }
@@ -522,9 +470,10 @@ CreateObjectDieIfEldestKindof::CreateObjectDieIfEldestKindof(Thing *thing, const
 }
 
 //-------------------------------------------------------------------------------------------------
-// Retail 0x00485983 (rowed as the opaque ??1Rva00485983 above): the class's three
-// tables, then a tail jump to ~CreateObjectDie 0x0048593D. A compiler-generated
-// destructor would store no tables, so this one is declared.
+// Retail 0x00485983 (fold rows ??1CreateObjectDieIfEldestKindof@@MAE@XZ and
+// ??_GCreateObjectDieIfEldestKindof@@MAEPAXI@Z): the class's three tables, then
+// a tail jump to ~CreateObjectDie 0x0048593D. A compiler-generated destructor
+// would store no tables, so this one is declared.
 CreateObjectDieIfEldestKindof::~CreateObjectDieIfEldestKindof()
 {
 }
@@ -681,7 +630,7 @@ void CreateObjectDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(BfmeCreateObjectDieFields, 0);
 }
 
-// tu-skeleton: 0x00485AC0 28B ??_GRva0048593D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+// tu-skeleton: 0x00485AC0 28B ??_GCreateObjectDie@@MAEPAXI@Z -- defined in this unit above (CreateObjectDie::~CreateObjectDie)
 
 // tu-skeleton: 0x00485B9C 28B ??0Rva00485B9C@@QAE@HABH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
 
