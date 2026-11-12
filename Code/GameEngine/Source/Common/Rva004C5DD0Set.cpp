@@ -4,14 +4,7 @@
 
 #include "../../Include/Common/Rva004C5DD0Pair.h"
 
-class Rva004C5DD0
-{
-	Rva004C5DD0Ref *m_00;
-	Rva004C5DD0Ref *m_04;
-
-public:
-	Rva004C5DD0(const Rva004C5DD0 &other);
-};
+#include "../../Include/Common/Rva004C5DD0.h"
 
 Rva004C5DD0::Rva004C5DD0(const Rva004C5DD0 &other)
 {

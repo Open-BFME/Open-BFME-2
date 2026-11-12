@@ -20,14 +20,7 @@ extern const void *const g_00C3EDFC[2] = {
 
 #include "../../Include/Common/Rva004C5DD0Pair.h"
 
-class Rva004C5DD0
-{
-	Rva004C5DD0Ref *m_00;
-	Rva004C5DD0Ref *m_04;
-
-public:
-	Rva004C5DD0(const Rva004C5DD0 &other);
-};
+#include "../../Include/Common/Rva004C5DD0.h"
 
 struct Rva004C5DD0Slot
 {
