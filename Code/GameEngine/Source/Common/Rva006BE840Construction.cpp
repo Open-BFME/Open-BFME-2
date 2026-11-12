@@ -26,9 +26,7 @@
 // nesting here is what the byte-verified body witnesses, not a free choice.
 
 
-struct BfmeFalseBE
-{
-};
+#include "../../Include/Common/BfmeFalseBE.h"
 
 struct BfmeTailBE
 {

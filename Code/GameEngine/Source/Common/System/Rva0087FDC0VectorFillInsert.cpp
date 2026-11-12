@@ -71,9 +71,7 @@ struct Rva0087FDC0Element : Rva006BF800RecordView
     }
 };
 
-struct BfmeFalseBE
-{
-};
+#include "../../../Include/Common/BfmeFalseBE.h"
 
 struct BfmeTailBE
 {

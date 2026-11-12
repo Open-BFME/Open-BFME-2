@@ -262,7 +262,7 @@ struct DimensionTriple { float height,major,minor;DimensionTriple(){double value
 struct GeometryAdditionalShape { int type;DimensionTriple dimensions;float x,y,z;AsciiString name;unsigned char active,flag21;GeometryAdditionalShape(int t):type(t),dimensions(),x(0),y(0),z(0),active(1),flag21(1){} };
 struct BfmeStringRecord00063BE4 {unsigned int words[7];AsciiString text;unsigned char tail0,tail1;BfmeStringRecord00063BE4(const BfmeStringRecord00063BE4 &);};
 struct BfmeElemBE { char data[36]; };
-struct BfmeFalseBE {};
+#include "../../../Include/Common/BfmeFalseBE.h"
 class BfmeVecBE { public:
  void overflow(BfmeElemBE *,const BfmeElemBE &,const BfmeFalseBE &,unsigned,bool);
  BfmeElemBE *start,*finish,*limit;

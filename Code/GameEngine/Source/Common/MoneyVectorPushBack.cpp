@@ -6,7 +6,7 @@
 #include <new>
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-struct BfmeFalseBE {};
+#include "../../Include/Common/BfmeFalseBE.h"
 
 struct BfmeStringRecord00063BE4
 {
