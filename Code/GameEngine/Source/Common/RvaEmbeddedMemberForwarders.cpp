@@ -80,11 +80,7 @@ void Rva0050EB02::rva0050EB02()
 	m_member.clear();
 }
 
-class Rva0043DB47DoubleSetter
-{
-public:
-	void enable();
-};
+#include "../../Include/GameClient/Rva0043DB47DoubleSetter.h"
 
 class Rva0059EB5E
 {

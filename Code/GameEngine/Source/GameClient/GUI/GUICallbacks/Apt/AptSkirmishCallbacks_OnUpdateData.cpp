@@ -232,7 +232,7 @@ void SelectRandomHero();
 
 
 
-class Rva0043DB47DoubleSetter {public:void enable();};
+#include "../../../../../Include/GameClient/Rva0043DB47DoubleSetter.h"
 class Rva005216A6 {public:bool rva005216A6();};
 class AptMpGameSetupUpdateView {public:virtual void slot0();virtual void slot1();};
 

@@ -4,15 +4,7 @@
 // Evidence: gated by byte 0x00A0335C and null-checked pointer 0x00A03354;
 // tail-jmps to rowed ?enable@Rva0043DB47DoubleSetter@@QAEXXZ @0x0043DB47
 // via outer+0x288; callers @0x004493C7 @0x00582265 and jmp @0x00248D98.
-class Rva0043DB47DoubleSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x2B9];
-	unsigned char m_a;
-	unsigned char m_b;
-};
+#include "../../Include/GameClient/Rva0043DB47DoubleSetter.h"
 
 struct Outer00446A77
 {

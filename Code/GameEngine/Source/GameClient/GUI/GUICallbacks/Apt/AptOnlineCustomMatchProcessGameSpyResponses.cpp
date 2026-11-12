@@ -517,11 +517,7 @@ struct AptOnlineCustomMatchOwner
 };
 
 // The +0x70 game setup panel and its rowed helpers.
-class Rva0043DB47DoubleSetter
-{
-public:
-	void enable();
-};
+#include "../../../../../Include/GameClient/Rva0043DB47DoubleSetter.h"
 
 class Rva0043DB5EByteOneSetter
 {
