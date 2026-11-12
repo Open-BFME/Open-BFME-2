@@ -186,11 +186,7 @@ public:
 	bool rva005CAE04(const AsciiString &clan, const AsciiString &member);
 };
 
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
+#include "../../../../../Include/Common/Rva0052493F.h"
 
 void _bfme_closeAptScreen(const AsciiString &name);
 

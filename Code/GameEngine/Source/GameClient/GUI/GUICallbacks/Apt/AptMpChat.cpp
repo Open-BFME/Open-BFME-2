@@ -11,11 +11,7 @@
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 #include <new>
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
+#include "../../../../../Include/Common/Rva0052493F.h"
 class Rva0057FECE_P64
 {
 public:

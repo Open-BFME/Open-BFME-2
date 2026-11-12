@@ -557,11 +557,7 @@ class AptCampaignMenu { public: static bool OpenScreen(); };
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 #include "../../../../../Include/GameClient/Rva002246B1.h"
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
+#include "../../../../../Include/Common/Rva0052493F.h"
 // 0x005BE264 ignores ECX, but this caller reaches it as a member of the
 // +0x280 object (it loads that pointer into ECX); thiscall pin spelling.
 class Rva005BE264Owner

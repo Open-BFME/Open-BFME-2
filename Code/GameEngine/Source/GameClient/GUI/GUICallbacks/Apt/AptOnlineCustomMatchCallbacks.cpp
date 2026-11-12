@@ -374,11 +374,7 @@ public:
 
 void _bfme_closeAptScreen(const AsciiString &name);
 
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
+#include "../../../../../Include/Common/Rva0052493F.h"
 
 // The screen's full object, as the placeholder row 0x0059F950 names it.
 #include "../../../../../Include/GameClient/Rva0059F950.h"
