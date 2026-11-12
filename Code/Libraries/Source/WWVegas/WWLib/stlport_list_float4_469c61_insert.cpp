@@ -20,7 +20,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-struct BfmeFloat4Record00469C61 { unsigned char m_data[16]; };
+#include "../../../../GameEngine/Include/GameLogic/BfmeFloat4Record00469C61.h"
 bool operator==(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
 bool operator<(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
 // Instantiate only the rowed members: the whole-class instantiation also emitted

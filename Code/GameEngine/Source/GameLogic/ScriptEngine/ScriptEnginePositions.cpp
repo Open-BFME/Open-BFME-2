@@ -24,7 +24,7 @@ struct ScriptPositionRecord {
  unsigned long key;
  Coord3D position;
 };
-struct BfmeFloat4Record00469C61 { unsigned char bytes[16]; };
+#include "../../../Include/GameLogic/BfmeFloat4Record00469C61.h"
 class Rva00357E14 { public: void rva00357E14(const BfmeFloat4Record00469C61 &); };
 typedef _STL::list<ScriptPositionRecord> ScriptPositionList;
 namespace _STL {

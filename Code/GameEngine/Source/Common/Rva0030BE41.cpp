@@ -7,7 +7,7 @@ struct BfmePod16
 	int a[4];
 };
 
-struct BfmeFloat4Record00469C61 { float x, y, z, w; };
+#include "../../Include/GameLogic/BfmeFloat4Record00469C61.h"
 class W3DAnimationInfo;
 
 class QuadStrip2D

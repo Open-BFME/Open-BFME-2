@@ -4,10 +4,7 @@
 // Evidence: rowed list<BfmeFloat4Record> insert 0x1DD86F, begin double-deref shape.
 #include <list>
 
-struct BfmeFloat4Record00469C61
-{
-	unsigned char m_data[16];
-};
+#include "../../../Include/GameLogic/BfmeFloat4Record00469C61.h"
 
 bool operator==(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
 bool operator<(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
