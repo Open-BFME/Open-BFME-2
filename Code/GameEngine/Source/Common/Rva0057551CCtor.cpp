@@ -19,7 +19,21 @@ private:
 	int m_10;
 };
 
-void *g_00C6E614[1] = { 0 };
+// Retail table 0x00C6E614 (12-byte row): [0x00575700, 0x00575DFE, 0]. Own the
+// complete initialized table instead of a zero-filled stand-in (the
+// Rva004DF324Dtor.cpp s_10 precedent): slot 0 is the rowed deleting destructor
+// reached only from this table, slot 1 the rowed 0x00575DFE body. Both are taken
+// by address and never called through these erased signatures; the class
+// identity is unknown.
+extern "C" {
+void __identifier("??_GRva0057571C@@QAEPAXI@Z")();
+void __identifier("?rva00575DFE@Rva00575DFE@@QAEXXZ")();
+}
+void *g_00C6E614[3] = {
+	(void *)&__identifier("??_GRva0057571C@@QAEPAXI@Z"),
+	(void *)&__identifier("?rva00575DFE@Rva00575DFE@@QAEXXZ"),
+	0
+};
 
 Rva0057551C::Rva0057551C(void *a, void *b, void *c)
 {
