@@ -31,6 +31,9 @@ public:
 		int alignment, int line, int startFrame, int endFrame);
 protected:
 	virtual ~SubtitleEntry();
+	// Retail table 0x00CE451C has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 private:
 	UnicodeString m_text;
 	unsigned int m_color;

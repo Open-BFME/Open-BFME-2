@@ -29,6 +29,9 @@ class Rva0057F2DE : public Rva005248D0
 public:
 	Rva0057F2DE(TargetRef00217D4C *ref);
 	virtual ~Rva0057F2DE();
+	// Retail table 0x00C6F584 has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 	UnicodeString rva0057F3A9();
 private:
 	GameSpyLoginPreferences m_gameSpy;

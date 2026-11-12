@@ -27,6 +27,9 @@ class Rva005CB8D4
 public:
 	Rva005CB8D4();
 	virtual ~Rva005CB8D4();
+	// Retail table 0x00C74DA8 has two __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 private:
 	Rva005CB4E6Elem *m_elem;
 };

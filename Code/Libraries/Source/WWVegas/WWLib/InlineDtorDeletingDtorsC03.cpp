@@ -71,6 +71,11 @@ public:
 	Rva00140C00();
 	Rva00140C00(EmitVtableTag *);
 	virtual ~Rva00140C00();
+	// Retail table 0x00BD3338 has four __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 // ??0Rva00140C00@@QAE@XZ @0x00140BF0 9B: the default constructor, storing the
@@ -128,6 +133,12 @@ public:
 	Rva00191120();
 	Rva00191120(EmitVtableTag *);
 	virtual ~Rva00191120() {}
+	// Retail table 0x00BD5E38 has five __purecall entries after the destructor.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
 };
 
 // ??0Rva00191120@@QAE@XZ @0x007230E0 9B: the default constructor, storing the
