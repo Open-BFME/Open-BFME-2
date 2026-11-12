@@ -3171,3 +3171,84 @@ marker added; no initializer added.
 **Tooling compatibility audit** (`257b90ffe74..HEAD`): 18 files modified, none added, moved or deleted;
 `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ spell none of the changed views,
 symbols or files.
+
+### Shared default bodies for pure and short slots: 16 off the bridge; three canonical-header causes wait on tooling (2026-11-12, seat halilkkaya-lk102)
+
+Base `c8b5c6685e4`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Refreshed ranking at the base (3,377 bridged; a table counts when every wrong slot is covered).** Pure-only 47;
+only the `ret 4` body 0x0047A69C 20 (mostly views with a virtual destructor where retail has none); cause 6 (one
+retail table 0x007EFCF8, slots 8/43/44) 18; FX CategoryModuleTemplate<N> 17; FX slice 0x0055E636 15; collide
+slots 12; UpdateModule interface slots 11 + 10; Snapshot stand-ins 10. The module name getters alone hold 31 tables
+(14 wrong only at slot 2, 17 only at slots 1-2 where slot 1 is the 0x00497805 loadPostProcess fold). 0x00497805 is
+wrong in 154 tables and never alone: of the 11 whose slot 2 is already right, each also needs a class-specific slot
+(placeholder ??_G, static getter, getUpdatePhase), so no table comes off from the loadPostProcess half by itself.
+
+**Cause 6 retail evidence (slot 43 is a float).** The two retail overrides of BehaviorModuleInterface slot 43 both
+load their argument with `fld dword [esp+4]` and forward it to a float slot 15: 0x00251C11 (SpecialPowerModule,
+startPowerRecharge of the +0x10 interface) and 0x00494AC6 (WeaponModeSpecialPowerUpdate, tables 0x0084E998 and
+0x0085D9C0, slot 15 of its +0x18 interface). The only caller, Object 0x0028B701 (the +0x244 module scan,
+`?rva0028B701@Object@@QAEXM@Z`), passes `fld [esp+8]` / `fstp [esp]` to `call [eax+0ACh]`. The other 37
+BehaviorModuleInterface tables hold the `ret 4` default. The 18 bridged names come from 12 units: ElvenWoodSpecialPower.cpp
+(7, StarkillerHDX today) and CombineHorde, Devastate, GrabPassenger, ManTheWalls, OCL, PlayerHeal, PlayerUpgrade,
+Repair, SplitHorde, UntamedAllegiance and SpecialPowerModuleCtor (+ SpecialPowerModuleDtor_Unresolved.cpp, the second
+SpecialPowerModule emitter).
+
+**Done (commits by subject).**
+- "Give the four production-exit modules retail's update() that sleeps forever": DefaultProductionExitUpdate,
+  SupplyCenterProductionExitUpdate, SpawnPointProductionExitUpdate and Rva00452D52 (0x00C4B1E0 slot 0 = 0x004A6563).
+  4 tables.
+- "Give three classes retail's shared default bodies for their pure interface slots": DelayedWeaponSetUpgradeUpdate
+  (update -> 0x000910FB), DelayedExperienceLevelGrantSystem (init -> 0x000B3FD0), FireWeaponWhenDamagedBehavior
+  (onHealing / onBodyDamageStateChange -> 0x0047A69C / 0x000D1407). 3 tables.
+- "Give FiringTracker and two Rva0056AC26 children retail's folded slot bodies": FiringTracker's loadPostProcess
+  (FiringTracker.cpp's existing body rowed; one present_unmatched hatch line retired) and getUpdatePhase (0x0044827C);
+  Rva0056B188 / Rva0056B218 ac26Slot1 (`return m_20`, 0x00232E8F). 3 tables.
+- "Give the Rva005CE8F5 observer base retail's empty slot 1 in all four views": Rva005CE8DC, Rva005CE8F5,
+  Rva005CEE07. 3 tables.
+- "Give three short tables retail's trailing empty slots in every emitter": Rva005C3F02, Rva005FA141,
+  StrategicHUD::RegionDetailsStructuresMovieClip. 3 tables.
+- "Record lk102's blocked LINK-514 verdicts": the three refusals below.
+Each body is an inline or unit-local override with retail's argument list, rowed by add_match --icf-owner as the
+twin of the address's named owner with `fold-proof=<owner's source>`; every emitter of each table changed together.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,377 -> 3,361; bridged slots 50,619 -> 50,547; already correct
+2,185 -> 2,201; mismatching source slots 37,955 -> 37,932; 16 bridged -> correct, nothing newly bridged, no correct
+table lost, refusals identical (35). link_check (census c31795c94c) over every changed unit, every other definer or
+referencer of each changed table and the owners' units: all LINK, LINKED never lower, except two verdicts that hold
+at HEAD without these changes: ThrowingNewHelpers.cpp and OwnedPointerResets.cpp (`?reset@Rva005CE236`,
+`?reset@Rva002D38AE`, `?reset@Rva002D390E`: the kept copy is not retail's; both units linked in the census, so this
+came after it and is not attributed here), and OpaqueScalarDeletingDtorsB18.cpp, which links once the other two
+emitters of `??_7Rva005FBBEE@@6B@` are rebuilt (stale census objects). No alias, pin or marker added; one
+present_unmatched line removed; no initializer added.
+
+**Refused / deferred (re_attempts.log).**
+- false-reject rename.py function, `?slot43@BehaviorModule@@UAEXH@Z` (0x0047A69C): the parameter-only respell to
+  `UAEXM@Z` that cause 6 needs is refused because the unchanged identifier slot43 is a placeholder
+  (check_new_identifier). Not attempted: inventing a slot name.
+- false-reject rename.py function, `?name@BezierProjectileBehavior@@QBEPBDXZ` (0x0045BFD3): no route respells a
+  module name getter to `?GetSnapshotName@<Class>@@MBEPBDXZ` (--to-class refuses a member of the class and, for
+  `?RvaNNNNNNNNGet@@YAHXZ`, a free function; --respell needs a vote). 31 tables.
+- Rva005746AF (and Iface2C): a generated header's contract cannot carry a retail-proven slot signature or inline
+  body once every unit has adopted it (header_adopt_lane declares slots only from private views). Rva005746AF 1
+  table, Iface2C 4.
+
+**Next leads.**
+1. Cause 6 after the rename route exists: BehaviorModule.h `slot43(float)` with the base twin row, then per emitter
+   `getSpecialPower() { return this; }` (0x002533D3), slot43 -> startPowerRecharge, slot44 -> primary slot 12
+   (`?rva00493805@SpecialPowerModule@@UAEXXZ`) and the --to-class moves of 0x00251C11 / 0x00251C24.
+2. One-slot stand-ins for DieModuleInterface: B5 / Iface28 (generated `b5()` / `f28()` headers plus private B5
+   views; retail slot 0 is OpenContain::onDie in 0x00C46F78, 7 tables) and Rva0045D39E_E1 (generated today;
+   SlowDeathBehavior::onDie in 0x00C42030, 5 tables) need the slot spelled `onDie(const DamageInfo *)` so the
+   rowed overrides land there; the generated ones hit the contract gap above.
+3. --to-class leads (placeholder-class bodies retail binds to derived slots): Rva005CEE9F / Rva005CEF2F slot 1
+   (0x005CE9F7, 0x005CEA04 null forwarders); the Rva00567960BaseMid family, whose base table 0x00C7A630 wants the empty
+   slot 1 and whose six derived tables hold class bodies there (0x005679A4, 0x005CC30B, 0x005E8CF8, 0x005F57D8,
+   0x005F5B77, 0x005F5E69).
+4. lk97/puretiny.py lists 83 pure-kept tables with tiny retail bodies at the end of this pass; most are Snapshot
+   name getters (lead 2 of the refusals) or class-own bodies under placeholders.
+
+**Tooling compatibility audit** (`c8b5c6685e4..HEAD`): 25 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ spell none of the changed files;
+the only class mentions are fixture rows in tools/tests/fixtures/structural_queue.csv (DefaultProductionExitUpdate,
+SupplyCenterProductionExitUpdate, SpawnPointProductionExitUpdate), file-level and unchanged.
