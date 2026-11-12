@@ -8,7 +8,7 @@
 // Retail idioms xor-first cmp jl and inc with jae match /O1 single-return shape.
 #include <vector>
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct Rva004266A1Rec { AsciiString text; unsigned char flag0; unsigned char flag1; unsigned char flag2; };
+#include "../../Include/Common/Rva004266A1Rec.h"
 struct Rva004266A1 { char pad[4]; _STL::vector<Rva004266A1Rec> vec; bool rva004266A1(int index); };
 bool Rva004266A1::rva004266A1(int index)
 {

@@ -39,12 +39,7 @@ Rva0051C0E7::~Rva0051C0E7()
 #include "../../../../GameEngine/Include/Common/Player.h"
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 
-struct Rva004266A1Rec {
-	AsciiString text;
-	unsigned char f0;
-	unsigned char f1;
-	unsigned char f2;
-};
+#include "../../../../GameEngine/Include/Common/Rva004266A1Rec.h"
 
 class Rva004266A1 {
 public:

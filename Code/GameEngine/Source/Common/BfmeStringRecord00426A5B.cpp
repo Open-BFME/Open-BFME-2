@@ -32,7 +32,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <map>
 
-struct Rva004266A1Rec { AsciiString text; unsigned char flag0; unsigned char flag1; unsigned char flag2; };
+#include "../../Include/Common/Rva004266A1Rec.h"
 
 struct Rva004266A1 {
 public:
