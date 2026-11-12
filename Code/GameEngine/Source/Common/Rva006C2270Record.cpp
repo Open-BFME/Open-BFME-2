@@ -9,7 +9,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(strlen)
 #include "../../Include/Common/Rva006C1F60.h"
 int rva006C4FA0Capture(void **,unsigned);
-struct Rva006C2270Slot {unsigned total,length,mode;};
+#include "../../Include/Common/Rva006C2270Slot.h"
 struct Rva006C2270Record {
  unsigned initial;Rva006C2270Slot slots[14];
  unsigned inlineTotal,externalTotal,requestedSize,arg2,arg3,arg4,word520,word524;

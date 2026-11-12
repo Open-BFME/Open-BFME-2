@@ -33,7 +33,7 @@
 #include <string.h>
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
 
-struct Rva006C2270Slot {unsigned total,length,mode;};
+#include "../../Include/Common/Rva006C2270Slot.h"
 struct Rva006C2270Record {
 	unsigned initial;Rva006C2270Slot slots[14];
 	unsigned inlineTotal,externalTotal,requestedSize,arg2,arg3,arg4,word520,word524;

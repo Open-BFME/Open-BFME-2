@@ -34,7 +34,7 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 
-struct Rva006C2270Slot {unsigned total,length,mode;};
+#include "../../Include/Common/Rva006C2270Slot.h"
 struct Rva006C2270Record {
 	unsigned initial;Rva006C2270Slot slots[14];
 	unsigned inlineTotal,externalTotal,requestedSize,arg2,arg3,arg4,word520,word524;
