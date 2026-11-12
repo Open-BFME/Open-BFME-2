@@ -87,3 +87,28 @@ The preceding FESL header push's broader audit was INCONCLUSIVE because
 Common/AIBaseBuilder.cpp lacks a current receipt. Carry that scope and these
 guard declarations into the next normal census; no game-running result is
 claimed by header adoption or a preview.
+
+## Xfer consolidated after machine adoption
+
+At base `1b96b70da24`, the refreshed guarded trial accepts the seed and
+AITNGuardXfer.cpp. The supported merge reuses that verified composition and
+moves all three Xfer rows (0x00545B95, 0x00545C1D and 0x00545EB2) into the
+approved AITNGuard.cpp. No compiler-generated row moves without its parent.
+The ordinary build verifies 23/23 function rows, the data row and its string
+reference; the unmatched-body check passes. The generated map's local source
+repointing is restored rather than committed. The hatch updater produces no
+net register change. This removes one source file and recovers no new bytes.
+Strict preparation verifies the entire four-source cohort (48/48 rows).
+Scoped previews retain all four units: 1,033, 1,383, 417 and 505 bytes, 3,338
+in total, equal to the preceding five-unit total. The preview's apparent
+176-byte increase in the destination is the absorbed donor, not a link gain.
+
+The single consumer audit covers this complete outgoing path change from
+`1b96b70da24`: no old-path dependency exists in tools, hooks, workflows,
+includes, executable configuration or source registries. The merge removes
+the three stale `not merged yet` comments. Its `from` comment preserves
+provenance; previous census rows, generated TU-map source columns and dated
+attempt inventories intentionally retain their historical paths. No active
+consumer requires a separate edit. The census index remains older than
+unrelated path changes, so its warnings and the earlier INCONCLUSIVE broader
+audit remain limitations, not a clean image or census result.

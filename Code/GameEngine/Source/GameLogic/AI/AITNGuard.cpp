@@ -6,8 +6,6 @@
 #include "AITNGuardObjectView.h"
 class Player;
 #include "../../../Include/GameLogic/Rva002611BFFilter.h"
-// vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
-// relationship flags and whether a hit allows.
 #include "../../../Include/GameLogic/Rva00260EB1Filter.h"
 // vftable 0x00BF91BC, allow 0x002611BF.
 // vftable 0x00BF91B0, allow 0x00260FD0: +0x08 the object, +0x0C the attack
@@ -227,9 +225,7 @@ private:
 	unsigned char m_pad00[0x08];
 	_STL::list<ObjectID> m_tunnelIDs; // +0x08
 };
-
 #include "../../../Include/Common/Player.h"
-
 extern GameLogic *TheGameLogic;
 struct TnLookupNode { TnLookupNode *next; ObjectID key; Object *object; };
 struct TnLookupBuckets {
@@ -412,14 +408,6 @@ typedef int Int;
 
 class LargeGroupAudioKeyMap;
 #include "../../../Include/GameLogic/Rva003ED658.h"
-// Native slot3497C2 forwards the StateReturnType result of the recovered
-// 433B internal update. Bind the call to its real provider instead of the
-// older unprovided void-return pin; this wrapper keeps its neutral spelling.
-// Native 00404B03..00404B6C: two owned pointers at +12C/+130,
-// an embedded 168-byte float-pair table at +78, and trailing state fields.
-// The rowed +404B6C forwarder proves the receiver ABI: VictorySystem::reset
-// and VictorySystem::newMap both call it on their own this. Method and field
-// names are unknown.
 #include "../../../Include/Common/CellGrid.h"
 #include "../../../Include/Common/Rva0056C3E5.h"
 #include "../../../Include/Common/Rva00404781.h"
@@ -442,6 +430,72 @@ typedef UnsignedInt StateID;
 #pragma comment(linker, "/alternatename:?slot01@State@@UAEXXZ=?rva005CB26A@Rva005CB26A@@QAEHXZ")
 #pragma comment(linker, "/alternatename:?slot02@State@@UAEXXZ=?Rva00545EACGet@@YAHXZ")
 #pragma comment(linker, "/alternatename:?slot03@State@@UAEXXZ=?Rva00306A9BDoXfer@@YGXPAVXfer@@@Z")
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// Snapshot xfer methods of Zero Hour AITNGuard.cpp (GeneralsMD tree vendored
+// under reference/open-bfme-1/inputs/reference) in BFME 2's Xfer spelling,
+// identified as slot 3 of the vftables whose slot-2 name getters return
+// AITNGuardInnerState, AITNGuardReturnState and AITNGuardMachine.
+// BFME 2 differences: the inner state xfers a Bool (+0x28); the return state
+// runs AIEnterState's xfer (0x00341930) and the light-CRC early-out before
+// its version; the machine runs the StateMachine base first, then the
+// light-CRC early-out and Version(1,2), with four version-2 raw bytes
+// (+0x4C) after ZH's nemesis and guard position.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../Include/Common/BfmeXfer.h"
+#include "../../../Include/Common/XferVersion.h"
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
+void XferObjectID( Xfer *xfer, ObjectID *id );
+// AIEnterState: its xfer 0x00341930 is rowed under the placeholder Rva00341930.
+class Rva00341930 : public State
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+};
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+class AITNGuardReturnState : public Rva00341930
+{
+protected:
+	virtual void xfer( Xfer *xfer );
+private:
+	char m_unrecovered20[ 0x54 - sizeof(State) ];
+	UnsignedInt m_nextReturnScanTime;																					///< 0x54
+};
 
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
 // 0x00E062D8; its one-time guard is VA 0x00E062DC. The named Impl constructor
@@ -492,15 +546,72 @@ private:
 
 // tu-skeleton: 0x00545B8F 6B ?name@AITNGuardMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x00545B95 34B ?xfer@AITNGuardInnerState@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp
+
+// ------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AITNGuardInnerState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	*xfer == m_scanForEnemy;
+}
+
+  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AITNGuardReturnState::xfer( Xfer *xfer )
+{
+	Rva00341930::xfer(xfer);
+	if( xfer->IsLightCRC() )
+		return;
+	xfer->Version1();
+	*xfer == m_nextReturnScanTime;
+}
+
+  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method */
+// ------------------------------------------------------------------------------------------------
+void AITNGuardMachine::xfer( Xfer *xfer )
+{
+	StateMachine::xfer(xfer);
+	if( xfer->IsLightCRC() )
+		return;
+	Xfer::Version version( 1, 2 );
+	*xfer == version;
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_nemesisToAttack) );
+	*xfer == asBase(m_positionToGuard);
+	if( version.m_minimum >= 2 )
+		xfer->XferRawBytes( &m_guardMode, 4 );
+}
+
+  // end xfer
 
 // tu-skeleton: 0x00545BB7 51B ?onExit@AITNGuardInnerState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
 
 // tu-skeleton: 0x00545BEA 51B ?onExit@AITNGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00545C1D 48B ?xfer@AITNGuardReturnState@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp (not merged yet)
-
 // tu-skeleton: 0x00545C4D 93B ?update@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
+
+// vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,
+// relationship flags and whether a hit allows.
+
+// Native slot3497C2 forwards the StateReturnType result of the recovered
+// 433B internal update. Bind the call to its real provider instead of the
+// older unprovided void-return pin; this wrapper keeps its neutral spelling.
+// Native 00404B03..00404B6C: two owned pointers at +12C/+130,
+// an embedded 168-byte float-pair table at +78, and trailing state fields.
+// The rowed +404B6C forwarder proves the receiver ABI: VictorySystem::reset
+// and VictorySystem::newMap both call it on their own this. Method and field
+// names are unknown.
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 
@@ -714,12 +825,6 @@ Bool rva00545F10(State *thisState, void * /*userData*/)
 	return false;
 }
 
-// tu-skeleton: 0x00545CAF 72B ?onEnter@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00545CF7 76B ?onExit@AITNGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00545D43 13B ??0Rva00545D43@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp
 
 AITNGuardInnerState::AITNGuardInnerState(StateMachine *machine)
@@ -761,10 +866,6 @@ Rva00545D7E::Rva00545D7E(StateMachine *machine)
 	m_28 = 0;
 }
 
-// tu-skeleton: 0x00545DAA 6B ?Rva00545DAAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00545DCC 6B ?Rva00545DCCGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp
 
 AITNGuardAttackAggressorState::AITNGuardAttackAggressorState(StateMachine *machine)
@@ -781,9 +882,17 @@ AITNGuardAttackAggressorState::AITNGuardAttackAggressorState(StateMachine *machi
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00545EAC 6B ?Rva00545EACGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x00545CAF 72B ?onEnter@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00545EB2 94B ?xfer@AITNGuardMachine@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp (not merged yet)
+// tu-skeleton: 0x00545CF7 76B ?onExit@AITNGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00545D43 13B ??0Rva00545D43@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00545DAA 6B ?Rva00545DAAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00545DCC 6B ?Rva00545DCCGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00545EAC 6B ?Rva00545EACGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x00545F80 129B ?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp (not merged yet)
 

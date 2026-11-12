@@ -262,6 +262,13 @@
   prerequisites. The fresh initial guarded dry run accepted no donor; no merge
   is claimed by this preparation.
   [Current evidence and provider boundary](../../reverse/attempt_support/aitnguard-consolidation-20261112.md).
+  2026-11-12 follow-up: after that machine adoption, the supported guarded
+  merge accepts AITNGuardXfer.cpp into AITNGuard.cpp. All three transfer rows
+  move to their approved TU; the merged unit verifies 23/23 function rows and
+  its data row, and the consumer audit finds no active old-path dependency.
+  One source file is removed, with no newly recovered bytes. States, ReturnState
+  and the constructor retain their separately recorded prerequisites; no
+  runtime or fresh census result follows from this merge.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the
