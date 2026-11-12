@@ -99,14 +99,7 @@ extern void BFME_DX8_Thread_Assert();
 // The returned wrapper owns one pointer, as in W3DGetBackBufferSurface.cpp
 // and W3DRadarResetSurface_destructor.cpp. It is not the engine SurfaceClass
 // object; keep its storage independent of that class's donor header layout.
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-
-private:
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 W3DRadarResetSurface getBackBufferSurface006e(int index);
 

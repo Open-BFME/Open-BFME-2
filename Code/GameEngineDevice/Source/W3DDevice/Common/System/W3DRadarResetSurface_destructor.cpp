@@ -8,14 +8,7 @@
 
 typedef void (__stdcall *SurfaceRelease)( void *surface );
 
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-
-private:
-	void *m_surface;
-};
+#include "../../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 // ??1W3DRadarResetSurface@@QAE@XZ
 W3DRadarResetSurface::~W3DRadarResetSurface()

@@ -572,13 +572,7 @@ private:
 	unsigned int a, b, c;
 };
 
-class W3DRadarResetSurface
-{
-public:
-	void rva000723AC();
-private:
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 class Rva000724AE
 {

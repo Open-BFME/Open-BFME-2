@@ -425,10 +425,7 @@ public:
 // address-derived name; each 4-byte slot is a CursorTextureSlot (the level
 // filler row proves the call shape).
 
-class W3DRadarResetSurface
-{
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 class CursorTextureSlot
 {

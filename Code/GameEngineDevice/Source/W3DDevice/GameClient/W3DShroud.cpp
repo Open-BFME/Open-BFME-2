@@ -92,7 +92,7 @@ public:
 	int v; // +0x10
 };
 class ShroudTexture { public: ShroudFilter *getFilter(); };
-class W3DRadarResetSurface {public: void *m_surface; ~W3DRadarResetSurface();};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
 #include "../../../Include/W3DDevice/GameClient/Rva001166E0.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"

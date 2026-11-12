@@ -2,13 +2,7 @@
 // BF1 f98983a7d W3DVideoBufferAllocateBfme.cpp identifies the embedded
 // 20B state and its six inputs. Native725BC..726B0 independently proves
 // the separate surface and texture allocation branches and all call ABIs.
-class W3DRadarResetSurface {
-public:
- W3DRadarResetSurface(unsigned,unsigned,unsigned,unsigned);
- ~W3DRadarResetSurface();
- W3DRadarResetSurface &operator=(const W3DRadarResetSurface &);
- void *surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 class CursorTextureSlot {
 public:
  W3DRadarResetSurface Get_Surface_Level();

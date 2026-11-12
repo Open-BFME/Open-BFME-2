@@ -367,14 +367,7 @@ struct BfmeRect
 
 class SurfaceResource;
 
-class W3DRadarResetSurface
-{
-public:
-	W3DRadarResetSurface(const W3DRadarResetSurface &other);
-	~W3DRadarResetSurface();
-private:
-	SurfaceResource *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 struct ImageSurfaceState
 {

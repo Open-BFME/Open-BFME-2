@@ -109,7 +109,7 @@ public:
 };
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
-class W3DRadarResetSurface { public: ~W3DRadarResetSurface(); void *m_surface; };
+#include "../../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); void *m_texture; };
 
 struct HorizontalLine { Int yPos; Int xStart; Int xEnd; };

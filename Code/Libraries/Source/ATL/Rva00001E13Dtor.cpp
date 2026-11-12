@@ -2,13 +2,7 @@
 // ??1Rva00001E13@@QAE@XZ 0x00001E13 8B
 // Evidence: leaf 8B add ecx,4 + jmp rowed ??1W3DRadarResetSurface@@QAE@XZ; wrapper with member at +4.
 
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();
-private:
-	void *m_surface;
-};
+#include "../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 class Rva00001E13
 {

@@ -29,14 +29,7 @@ bool BFME_DX8_Thread_Assert();
 
 #include "FontCharsClass.h"
 
-class W3DRadarResetSurface
-{
-public:
-	~W3DRadarResetSurface();				// retail 0x008FC5B0
-
-private:
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 class TextureClass
 {
