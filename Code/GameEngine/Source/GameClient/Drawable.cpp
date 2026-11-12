@@ -2190,12 +2190,7 @@ public:
 };
 #include "../../Include/Common/GameEngine.h"
 typedef unsigned int Color;
-struct Rva0087DC00Vec
-{
-	int x;
-	int y;
-	int z;
-};
+#include "../../Include/Common/Rva0087DC00Vec.h"
 #include "../../Include/GameClient/Rva0087DC00.h"
 struct Rva00270FEEInner;
 class BfmeFloatModule;

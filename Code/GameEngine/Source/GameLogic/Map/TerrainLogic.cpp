@@ -1895,7 +1895,7 @@ struct Rva0028458FObjectView
 
 struct TerrainTreeBounds {Coord3D lo,hi;};
 
-struct Rva0087DC00Vec {int x,y,z;};
+#include "../../../Include/Common/Rva0087DC00Vec.h"
 
 #include "../../../Include/GameClient/Rva0087DC00.h"
 

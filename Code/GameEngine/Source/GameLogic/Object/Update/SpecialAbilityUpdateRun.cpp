@@ -27,7 +27,8 @@ enum NameKeyType{NAMEKEY_INVALID=0};class ClientUpdateModule;
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 class Matrix3D;
-struct Rva0087DC00Vec{int x,y,z;};class Rva0087DC00{public:void get(Rva0087DC00Vec*);};
+#include "../../../../Include/Common/Rva0087DC00Vec.h"
+class Rva0087DC00{public:void get(Rva0087DC00Vec*);};
 class GeometryInfo {public:bool CollidesWith(const Coord3D&,float,const GeometryInfo&,const Coord3D&,float) const;};
 class Player;enum ModelConditionFlagType{MODELCONDITION_INVALID=-1};
 class Object {public:Player *getControllingPlayer() const;void setSpecialModelConditionState(ModelConditionFlagType,unsigned);

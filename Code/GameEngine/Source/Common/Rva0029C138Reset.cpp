@@ -27,7 +27,7 @@ static inline bool operator!=(const _List_iterator<T,L>& a,
 }
 // Views for the selection iterator 0x0029FFFF (WB 0x00DB6770, unnamed).
 static __forceinline bool Rva0029FFFFIsPoint(const IRegion2D &region2D) { return region2D.hi.y-region2D.lo.y==0 && region2D.hi.x-region2D.lo.x==0; }
-struct Rva0087DC00Vec { int x,y,z; };
+#include "../../Include/Common/Rva0087DC00Vec.h"
 #include "../../Include/GameClient/Rva0087DC00.h"
 #include "../../Include/Common/Rva00270FEE.h"
 #include "../../Include/Common/Rva00276470Drawable.h"

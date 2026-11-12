@@ -16,7 +16,8 @@
 // global owners and neutral bit-copy provider spelling retained; no new pins.
 // All receiver/layout views cover observed prefixes, not original full extents.
 #include "Lib/Coord3D.h"
-struct Rva0087DC00Vec{int x,y,z;};class Rva0087DC00{public:void get(Rva0087DC00Vec*);char pad[4];bool flag04;char pad5[0x18-5];Rva0087DC00Vec center;};
+#include "../../../Include/Common/Rva0087DC00Vec.h"
+class Rva0087DC00{public:void get(Rva0087DC00Vec*);char pad[4];bool flag04;char pad5[0x18-5];Rva0087DC00Vec center;};
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class View{public:virtual void slot00();

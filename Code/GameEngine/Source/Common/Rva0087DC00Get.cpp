@@ -1,11 +1,6 @@
 // cl: /Ob0
 
-struct Rva0087DC00Vec
-{
-	int x;
-	int y;
-	int z;
-};
+#include "../../Include/Common/Rva0087DC00Vec.h"
 
 class Rva0087DC00
 {
