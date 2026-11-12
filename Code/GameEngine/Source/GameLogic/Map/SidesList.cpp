@@ -698,12 +698,7 @@ public:
 	const void *m_arg;
 };
 
-class Rva0032A3A9Element
-{
-public:
-	virtual ~Rva0032A3A9Element();
-	char m_pad04[0x7C];
-};
+#include "../../../Include/GameLogic/Rva0032A3A9Element.h"
 
 namespace _STL {
 template <class _ForwardIterator>
