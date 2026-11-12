@@ -33,7 +33,11 @@
 #include "ascii_string.h"
 #include "Coord3D.h"
 #include <float.h>
-extern "C" int fprintf(void*,const char*,...);
+// The game's own fprintf (pinned _fprintf), not the CRT import: read
+// <stdio.h> without dllimport so the call goes straight to that thunk.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern "C" void *theLogicRandomLogFile;
 extern bool g_bfmeDockingTraceActive;
 struct GeometryContactRecord {Coord3D position; AsciiString label;};
@@ -171,7 +175,7 @@ struct ContactPoint:Coord3D { ContactPoint(const Coord3D&r) {x=r.x;y=r.y;z=r.z;}
 static inline void contactCopy(Coord3D &out,const Coord3D &in){out=in;}
 bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const char*label,int preference,int seed,bool ignoreCollision)const {
  if(g_bfmeDockingTraceActive&&caller&&theLogicRandomLogFile)
-  fprintf(theLogicRandomLogFile,"        GeometryInfo::getBestContactPoint, callerPos=%g,%g,%g, label=%s, pref=%d, seed=%d, skipCollideTest=%d, m_innermostContactPoint=%g,%g,%g",caller->x,caller->y,caller->z,label?label:"NONE",preference,seed,ignoreCollision?"TRUE":"FALSE",defaultPosition.x,defaultPosition.y,defaultPosition.z);
+  fprintf((FILE *)theLogicRandomLogFile,"        GeometryInfo::getBestContactPoint, callerPos=%g,%g,%g, label=%s, pref=%d, seed=%d, skipCollideTest=%d, m_innermostContactPoint=%g,%g,%g",caller->x,caller->y,caller->z,label?label:"NONE",preference,seed,ignoreCollision?"TRUE":"FALSE",defaultPosition.x,defaultPosition.y,defaultPosition.z);
  contactCopy(*out,defaultPosition);
  switch(preference){
  case 3:{
