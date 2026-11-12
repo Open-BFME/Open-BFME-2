@@ -1818,6 +1818,17 @@ class Rva003889DF
 public:
 	Rva003889DF();
 	virtual ~Rva003889DF() {}
+	// Retail table 0x00C1980C: 10 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
 };
 
 Rva003889DF::Rva003889DF()
@@ -2254,6 +2265,11 @@ class Rva0059667D
 public:
 	Rva0059667D();
 	virtual ~Rva0059667D() {}
+	// Retail table 0x00C70A5C: 4 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 Rva0059667D::Rva0059667D()

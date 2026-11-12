@@ -160,6 +160,9 @@ struct __declspec(novtable) Gen007F4D00Owner
 struct Gen007F4D00Listener
 {
 	virtual ~Gen007F4D00Listener() {}
+	// Retail table 0x00CE2BCC: 2 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
 };
 
 struct Gen007F4D00 : Gen007F4D00Owner, Gen007F4D00Listener
@@ -425,6 +428,11 @@ Rva00666E10::Rva00666E10() {}
 struct Rva00672490View
 {
 	virtual ~Rva00672490View() {}
+	// Retail table 0x00CE3F2C: 4 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 struct Rva00672460 : Rva00672490View

@@ -105,6 +105,17 @@ public:
 	// Inline: retail's child teardown (0x00661E10) and the base's deleting
 	// dtor (0x00663530) both end in this bare vptr store.
 	virtual ~Rva007F6D60ChildBase() {}
+	// Retail table 0x00CE2DB4: 10 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
 };
 
 class Rva007F6D60Child : public Rva007F6D60ChildBase
