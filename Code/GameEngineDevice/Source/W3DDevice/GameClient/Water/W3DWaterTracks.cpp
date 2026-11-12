@@ -14,7 +14,11 @@
 #include "matrix3d.h"
 #include <stdio.h>
 #include <string.h>
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
+// Retail calls the game's _mbscpy import thunk through REL32, so read
+// <mbstring.h> without dllimport.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 #include "../../../../../../reference/shims/wwmath/Vector2.h"
 #define WATER_VB_PAGES 1000
 typedef unsigned short UnsignedShort;
@@ -829,9 +833,9 @@ void Rva000FF50D::saveTracks()
 	AsciiString fileName = m_file;
 	char path[256];
 	const char *data = *(const char **)&fileName;
-	_mbscpy(path, data ? data + 8 : "");
+	_mbscpy((unsigned char *)path, (const unsigned char *)(data ? data + 8 : ""));
 	unsigned int len = strlen(path);
-	_mbscpy(path + len - 4, ".wak");
+	_mbscpy((unsigned char *)(path + len - 4), (const unsigned char *)".wak");
 	int trackCount = 0;
 	struct _iobuf *file = fopen(path, "wb");
 	if (file != 0)
