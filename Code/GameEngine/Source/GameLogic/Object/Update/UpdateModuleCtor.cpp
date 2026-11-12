@@ -21,6 +21,7 @@ class BehaviorModuleOther
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 template <int N> class BitFlags;
+enum UpdateSleepTime;
 
 // The interface table as the other UpdateModule views (first in link order:
 // DumbProjectileBehavior.cpp) spell it: update stays pure in UpdateModule and the
@@ -30,6 +31,8 @@ class UpdateModuleInterface
 public:
 	virtual void update() = 0;
 	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
+	// Retail 0x00BE2B78 has a third __purecall slot (UpdateModule.h's rva0044DF8D).
+	virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -45,6 +48,8 @@ public:
 	// rowed at 0x002533D3 (header-inline in UpdateModule.h; SupplyTruckAIUpdateCtor.cpp).
 	virtual UpdateModuleInterface *getUpdate();
 	virtual BitFlags<11> getDisabledTypesToProcess() const;
+	// Rowed at 0x0044DF8D (UpdateModuleSetWakeFrame.cpp).
+	virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
 };
 
 UpdateModule::UpdateModule(Thing *thing, const ModuleData *moduleData)
