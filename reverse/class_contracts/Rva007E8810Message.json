@@ -1,0 +1,307 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva007E8810Message",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 63,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 10
+   },
+   "0x14": {
+    "4": 5
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 9
+   },
+   "0x2c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 13,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 22,
+   "20": 1,
+   "32": 6,
+   "36": 2,
+   "40": 2,
+   "44": 2,
+   "48": 21,
+   "52": 7
+  },
+  "views": 63,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_head",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 28,
+   "type": "char[28]",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_category",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 34,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 145
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/FeslMessage_addInt64_rva007E8E90.cpp",
+    "Code/GameEngine/Source/GameNetwork/FeslMessage_getInt64_rva007E8930.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00661650AriesUdp.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F05A0BlobCursor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva0080AA80LanTheater.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslSimpleRequests.cpp",
+    "Code/Libraries/Source/Fesl/blobservice.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 19
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/FeslMessage_addInt64_rva007E8E90.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F05A0BlobCursor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslSimpleRequests.cpp",
+    "Code/Libraries/Source/Fesl/blobservice.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 16
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F05A0BlobCursor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp",
+    "Code/Libraries/Source/Fesl/blobservice.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F97B0Transactor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FC550Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FCDA0ReserveRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslFeedbackRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslAttributeRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslAttributeRequestPid.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslAttributeRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests2.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslGameListRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslPresenceRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslSimpleRequests.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 22
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/FeslMessage_addInt64_rva007E8E90.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F05A0BlobCursor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp",
+    "Code/Libraries/Source/Fesl/blobservice.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslBrowserRecords.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F05A0BlobCursor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FC550Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FCDA0ReserveRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslFeedbackRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslAttributeRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslAttributeRequestPid.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslAttributeRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests2.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests3.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslGameListRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslPresenceRequest.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y4FeslSimpleRequests.cpp",
+    "Code/Libraries/Source/Fesl/blobservice.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 26
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007F9FD0Accept.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva007FA4D0Request.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp",
+    "Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp",
+    "Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [],
+ "size": 48,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
