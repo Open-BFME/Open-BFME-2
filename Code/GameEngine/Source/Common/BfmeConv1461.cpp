@@ -109,9 +109,7 @@ struct BfmeRangeTag : public BfmeRangeInputTag
 {
 };
 
-struct BfmeRangeFalseType
-{
-};
+#include "../../Include/Common/BfmeRangeFalseType.h"
 
 template <class _RandomAccessIterator>
 inline int __distance(const _RandomAccessIterator &__first,
