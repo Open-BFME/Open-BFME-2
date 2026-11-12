@@ -11,10 +11,7 @@
 
 #include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 
 // Use the complete value-copy provider at retail 0x00466EA7.
 // A trivial local AsciiString view must not supply the selected pair copy.

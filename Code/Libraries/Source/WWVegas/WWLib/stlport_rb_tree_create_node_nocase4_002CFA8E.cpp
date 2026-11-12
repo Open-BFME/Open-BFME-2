@@ -21,10 +21,7 @@ public:
 
 #include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 
 // ?_M_create_node (NoCaseTree4, dup 0x002CF954)
 typedef _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::_Select1st<_STL::pair<const AsciiString, NoCaseTreeValue4> >, BfmeStringNoCaseLess, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > NoCaseTree4CF550;

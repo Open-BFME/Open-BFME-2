@@ -64,10 +64,7 @@ unsigned int vector<void *, allocator<void *> >::size() const
 
 }
 
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 
 struct Rva003D3F90Value
 {

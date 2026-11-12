@@ -367,7 +367,7 @@ class LibraryMapCache;
 
 // The case-insensitive set of library map names linkLibraryMaps has visited;
 // its _M_find 0x0002C751 and insert 0x0002CA26 are rowed in WWLib.
-struct BfmeStringNoCaseLess { bool operator()(const AsciiString &a, const AsciiString &b) const; };
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess> AsciiStringNoCaseSet;
 namespace _STL {
 template <> _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, BfmeStringNoCaseLess,

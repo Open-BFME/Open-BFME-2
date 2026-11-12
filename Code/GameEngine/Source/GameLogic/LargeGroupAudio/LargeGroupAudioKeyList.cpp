@@ -44,10 +44,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 
 struct Rva003D3F90Value
 {

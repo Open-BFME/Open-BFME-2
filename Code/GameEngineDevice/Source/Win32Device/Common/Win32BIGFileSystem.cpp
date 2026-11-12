@@ -19,11 +19,7 @@ struct BfmeCStringLess
 {
 	bool operator()(const char *a, const char *b) const;
 };
-struct BfmeStringNoCaseLess
-{
-public:
-	bool operator()(const AsciiString &a, const AsciiString &b) const;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 #pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)

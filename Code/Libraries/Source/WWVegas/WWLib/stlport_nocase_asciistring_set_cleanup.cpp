@@ -21,11 +21,7 @@
 
 bool operator<(const AsciiString &, const AsciiString &);
 
-struct BfmeStringNoCaseLess
-{
-public:
-	bool operator()(const AsciiString &a, const AsciiString &b) const;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > NoCaseSetTree;
 

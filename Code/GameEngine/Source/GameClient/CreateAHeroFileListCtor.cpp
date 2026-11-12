@@ -49,10 +49,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &a, const AsciiString &b) const;
-};
+#include "../../Include/Common/BfmeStringNoCaseLess.h"
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess> FilenameList;
 // Declaration-only: the set's tree teardown is the rowed 0x0002CC38 copy.
 namespace _STL {

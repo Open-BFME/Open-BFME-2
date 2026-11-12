@@ -23,7 +23,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 namespace _STL {template<class T,class L,class R>static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;}}
-struct BfmeStringNoCaseLess{bool operator()(const AsciiString&,const AsciiString&)const;};
+#include "../../Include/Common/BfmeStringNoCaseLess.h"
 typedef _STL::set<AsciiString,BfmeStringNoCaseLess> FilenameList;
 // The retail tree destructor (0x0002CC38) is rowed in
 // stlport_nocase_asciistring_set_cleanup.cpp, built /EHs; keep this unit's

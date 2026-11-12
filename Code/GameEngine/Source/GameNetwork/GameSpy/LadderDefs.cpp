@@ -75,10 +75,7 @@ extern GlobalData *TheWritableGlobalData;
 // close and read are slots 2 and 3; eof stays a plain member (0x006024AC).
 #include "../../../Include/Common/File.h"
 
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &a, const AsciiString &b) const;
-};
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess> FilenameList;
 

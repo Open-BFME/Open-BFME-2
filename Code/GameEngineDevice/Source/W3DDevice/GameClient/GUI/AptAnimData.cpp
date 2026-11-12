@@ -16,7 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <hash_map>
 #include <cstddef>
-struct BfmeStringNoCaseLess {bool operator()(const AsciiString&,const AsciiString&)const;};
+#include "../../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 typedef _STL::set<AsciiString,BfmeStringNoCaseLess,_STL::allocator<AsciiString> > FilenameList;
 // The retail tree destructor (0x0002CC38) is rowed in
 // stlport_nocase_asciistring_set_cleanup.cpp, built /EHs; keep this unit's

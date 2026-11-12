@@ -115,11 +115,7 @@ template <> __declspec(dllimport) __forceinline
 vector<void *>::const_reference vector<void *>::operator[](size_type __n) const
 { return *(begin() + __n); }
 }
-struct BfmeStringNoCaseLess
-{
-public:
-	bool operator()(const AsciiString &a, const AsciiString &b) const;
-};
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 struct Rva0002C9E7Value
 {
 	AsciiString m_text;

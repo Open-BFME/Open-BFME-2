@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "ascii_string.h"
 
-struct BfmeStringNoCaseLess { bool operator()(const AsciiString &, const AsciiString &) const; };
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess> FilenameList;
 
 // _Rb_tree::erase(iterator) is provided out of line (retail 0x00056BC3, the ICF

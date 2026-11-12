@@ -15,9 +15,7 @@ class AsciiString;
 
 namespace _STL { template <> _Rb_tree_node<AsciiString> * allocator<_Rb_tree_node<AsciiString> >::allocate(unsigned int,void const *) const; }
 
-struct BfmeStringNoCaseLess {
-  bool operator()(const AsciiString&, const AsciiString&) const;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 
 // set::insert calls the rowed insert_unique 0x0002C908; this unit's STLport
 // configuration would emit non-retail copies of it and its node helpers.

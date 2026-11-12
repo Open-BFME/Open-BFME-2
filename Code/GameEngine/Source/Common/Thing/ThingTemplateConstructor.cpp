@@ -41,7 +41,8 @@ struct BfmeFixedObject260 { unsigned int fixedStorage[65]; };
 struct BfmeObject872 { unsigned int fixedStorage[218]; };
 struct Rva0021C21BElement { unsigned int fixedStorage; };
 struct NoCaseTreeValue4 { char data[4]; };
-struct BfmeStringNoCaseLess {}; struct Rva002D07F4Element { short words[1]; };
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
+struct Rva002D07F4Element { short words[1]; };
 class LocomotorTemplate; enum LocomotorSetType { LOCOMOTORSET_NORMAL=0 };
 typedef _STL::vector<Rva002D0EDCElement,_STL::allocator<Rva002D0EDCElement> > VRva002D0EDCElement;
 struct BfmeStringRecord002CF4C6;

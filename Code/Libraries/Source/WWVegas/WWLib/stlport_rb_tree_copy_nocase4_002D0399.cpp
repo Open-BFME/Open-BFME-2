@@ -18,10 +18,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 // Bind to the kept retail copies instead of emitting this unit's own.
 namespace _STL { template <> _Rb_tree_iterator<pair<AsciiString const ,NoCaseTreeValue4>,_Nonconst_traits<pair<AsciiString const ,NoCaseTreeValue4> > > _Rb_tree<AsciiString,pair<AsciiString const ,NoCaseTreeValue4>,_Select1st<pair<AsciiString const ,NoCaseTreeValue4> >,BfmeStringNoCaseLess,allocator<pair<AsciiString const ,NoCaseTreeValue4> > >::_M_insert(_Rb_tree_node_base *,_Rb_tree_node_base *,pair<AsciiString const ,NoCaseTreeValue4> const &,_Rb_tree_node_base *); }
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<AsciiString const ,NoCaseTreeValue4>,_Nonconst_traits<pair<AsciiString const ,NoCaseTreeValue4> > >,bool> _Rb_tree<AsciiString,pair<AsciiString const ,NoCaseTreeValue4>,_Select1st<pair<AsciiString const ,NoCaseTreeValue4> >,BfmeStringNoCaseLess,allocator<pair<AsciiString const ,NoCaseTreeValue4> > >::insert_unique(pair<AsciiString const ,NoCaseTreeValue4> const &); }
