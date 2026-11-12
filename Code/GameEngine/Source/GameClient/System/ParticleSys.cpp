@@ -749,12 +749,7 @@ struct Rva001F45DFInner {
     char m_pad[0x7c];
     int m_value;
 };
-class Rva001F45DFSlot {
-public:
-    int get() const;
-    char m_lead[0x3c];
-    Rva001F45DFInner *m_ptr;
-};
+#include "../../../Include/Common/Rva001F45DFSlot.h"
 ParticleSystem *Make001FCBD7(void);
 class BfmeParticleSystemPtr
 {

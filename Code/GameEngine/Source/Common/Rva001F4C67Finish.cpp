@@ -11,7 +11,7 @@ extern "C" void _ReadWriteBarrier(void);
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 struct Rva001F45DFInner { char m_pad[0x7c]; int m_value; };
-class Rva001F45DFSlot { public: int get() const; char m_lead[0x3c]; Rva001F45DFInner *m_ptr; };
+#include "../../Include/Common/Rva001F45DFSlot.h"
 struct Node001F4882;
 class Rva001F4882 { public: void rva001F4882(Node001F4882 *n); };
 struct Node001F4882 : public Rva001F45DFSlot { char m_p[0x6c-0x40]; Node001F4882 *m_prev; Node001F4882 *m_next; char m_g; unsigned char m_f; };
