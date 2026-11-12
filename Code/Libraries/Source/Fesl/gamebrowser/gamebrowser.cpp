@@ -505,14 +505,7 @@ public:
 	BfmeStateESI *m_bfme2d8ESI;
 };
 
-class Rva007FBC30GameKey
-{
-public:
-	Rva007FBC30GameKey( Rva007E8810Message *msg );
-
-	int m_lid;
-	int m_gid;
-};
+#include "../../../../GameEngine/Include/Common/Rva007FBC30GameKey.h"
 
 struct BfmeEntryZI
 {

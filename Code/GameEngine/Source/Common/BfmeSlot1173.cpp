@@ -24,12 +24,7 @@
 // row. Likewise, the Player accessor name below is a neutral receiver view
 // of a message-field helper also used by the existing GameRecord view.
 
-class Rva007FBC30GameKey
-{
-public:
-	int m_lid;
-	int m_gid;
-};
+#include "../../Include/Common/Rva007FBC30GameKey.h"
 
 class Rva007F5010Player : public Rva007FBC30GameKey
 {

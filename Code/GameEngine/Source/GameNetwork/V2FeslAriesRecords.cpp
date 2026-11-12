@@ -132,13 +132,7 @@ Rva007F51D0Ticket::Rva007F51D0Ticket( Rva007E8810Message *msg )
 }
 
 // ------------------------------------- LID/GID base and the three rows on it
-class Rva007FBC30GameKey
-{
-public:
-	Rva007FBC30GameKey( Rva007E8810Message *msg );                    // 0x007FBC30
-	int m_lid;
-	int m_gid;
-};
+#include "../../Include/Common/Rva007FBC30GameKey.h"
 
 class Rva007F5010Player : public Rva007FBC30GameKey
 {
