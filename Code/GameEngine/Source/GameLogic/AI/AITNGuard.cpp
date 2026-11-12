@@ -4,6 +4,8 @@
 #include <list>
 #include <stddef.h>
 #include "AITNGuardObjectView.h"
+#include "../../../Include/Common/Rva00041A06.h"
+#include "../../../Include/GameLogic/PartitionFilter.h"
 class Player;
 #include "../../../Include/GameLogic/Rva002611BFFilter.h"
 #include "../../../Include/GameLogic/Rva00260EB1Filter.h"
@@ -171,11 +173,7 @@ class XferSave
 public:
 	virtual void endBlock();
 };
-class AIEnterState
-{
-public:
-	virtual void onExit(StateExitType a);
-};
+#include "AITNGuardEnterStateView.h"
 namespace StrategicHUD {
 #include "../../../Include/Common/SelectionDetailsUIImpl.h"
 }
@@ -272,11 +270,6 @@ int Rva000A8F58Get();
 int Rva000A8F5EGet();
 // 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
-class Rva00041A06 : public Rva001EDDBBForwarder
-{
-public:
-	void rva00041A06();
-};
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
 // slot 1, so this keeps an address-derived name).
@@ -451,18 +444,18 @@ void XferObjectID( Xfer *xfer, ObjectID *id );
 // AIEnterState: its xfer 0x00341930 is rowed under the placeholder Rva00341930.
 class Rva00341930 : public State
 {
+	friend class AITNGuardReturnState;
 protected:
 	virtual void xfer( Xfer *xfer );
 };
 // ------------------------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------------------------
-class AITNGuardReturnState : public Rva00341930
+class AITNGuardReturnState : public AIEnterState
 {
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered20[ 0x54 - sizeof(State) ];
 	UnsignedInt m_nextReturnScanTime;																					///< 0x54
 };
 
@@ -535,7 +528,8 @@ void AITNGuardInnerState::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 void AITNGuardReturnState::xfer( Xfer *xfer )
 {
-	Rva00341930::xfer(xfer);
+	// Keep the banked 0x00341930 provider name at this call boundary.
+	reinterpret_cast<Rva00341930 *>(this)->Rva00341930::xfer(xfer);
 	if( xfer->IsLightCRC() )
 		return;
 	xfer->Version1();

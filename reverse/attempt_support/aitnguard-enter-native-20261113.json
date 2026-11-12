@@ -1,0 +1,41 @@
+{
+  "constructor_rva": "0x00342EAC",
+  "constructor_bytes": "566848d62a82ff74240c8bf1e8bcc3ffff83664c0083665000c706902ec1008bc65ec20400",
+  "constructor_disassembly": [
+    "push esi",
+    "push 0x822ad648",
+    "push dword ptr [esp + 0xc]",
+    "mov esi, ecx",
+    "call 0x33f279",
+    "and dword ptr [esi + 0x4c], 0",
+    "and dword ptr [esi + 0x50], 0",
+    "mov dword ptr [esi], 0xc12e90",
+    "mov eax, esi",
+    "pop esi",
+    "ret 4"
+  ],
+  "table_va": "0x00C12E90",
+  "slots_va": [
+    "0x746cfb",
+    "0x4b3fd0",
+    "0x742ed1",
+    "0x741930",
+    "0x74fb77",
+    "0x7510a5",
+    "0x75455a",
+    "0x73f2d7",
+    "0x87a699",
+    "0x87a699",
+    "0x87a699",
+    "0x87a699",
+    "0x87a699",
+    "0x87a699",
+    "0x87a699",
+    "0x87a699",
+    "0x4b3fd0",
+    "0x7441f7"
+  ],
+  "name_getter_rva": "0x00342ED1",
+  "name_literal_va": "0xc12ed8",
+  "name_literal": "AIEnterState"
+}

@@ -137,11 +137,7 @@ protected:
 private:
 	unsigned char m_pad20[0x50 - 0x20]; // sizeof(AIAttackState) 0x50 (the operator new size)
 };
-class AIEnterState : public State
-{
-public:
-	virtual StateReturnType update();
-};
+#include "AITNGuardEnterStateView.h"
 #include "../../../Include/GameLogic/AITNGuard.h"
 class AITNGuardOuterState : public State
 {

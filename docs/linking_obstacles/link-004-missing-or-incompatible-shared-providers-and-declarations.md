@@ -283,6 +283,14 @@
   the real AIUpdateInterface/AIStateMachine, DamageInfo and TeamPrototype
   headers; 23 rows and 76 retained COMDATs stay exact and three more header
   entries retire. AIEnterState ancestry remains an independent prerequisite.
+  Native constructor/table checks then establish AIEnterState's 0x54 prefix
+  over the shared 0x4C AIInternalMoveToState base. A TU-scoped header shares
+  that view across the three guard consumers while preserving the existing
+  0x00341930 transfer provider. All 39 rows and 131 retained COMDATs remain
+  exact; own previews retain 2,921 bytes. Four further owning accept verdicts
+  clear the remaining seed and Return header entries. No further donor move
+  is claimed until the next guarded composition; Object and constructor
+  reconciliation remain separate.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the

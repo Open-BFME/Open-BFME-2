@@ -201,3 +201,38 @@ under the sandbox user and stopped at Git's repository-ownership check; the
 normal repository-owner command supplies the successful strict receipt.
 AIEnterState ancestry and the remaining donor reconciliation still need proof;
 these header adoptions do not establish a new accepted merge or a working image.
+
+## Native AIEnterState prefix shared by the three guard consumers
+
+After the seed preparation, the supported composition no longer reports the
+AIUpdateInterface base error. It still refuses States on AIEnterState ancestry,
+Return on ancestry/Object redefinition, and the constructor on its known
+mode/abstract-state prerequisites. No donor is moved by that trial.
+
+The native facts are preserved in `aitnguard-enter-native-20261113.json`:
+constructor 0x00342EAC calls 0x0033F279, clears +0x4C/+0x50 and installs
+VA 0x00C12E90. Getter 0x00342ED1 returns the literal AIEnterState at
+VA 0x00C12ED8. Its table slots 3..6 hold 0x00341930, 0x0034FB77,
+0x003510A5 and 0x0035455A. The existing matched onEnter/onExit owners establish
+the entry ObjectID and timeout names; the shared AIInternalMoveToState header
+establishes the 0x4C base extent. These are target facts, not donor layout.
+
+AITNGuardEnterStateView.h shares that 0x54-byte consumed prefix across the
+three guard units. It does not claim an original EA header path or transfer
+the constructor, destructor or snapshot identities. Return's timer stays at
++0x54 by removing the former compensating padding. Its transfer body still
+calls the existing 0x00341930 provider through an explicit receiver boundary;
+the old protected method's spelling and actual call remain unchanged. No new
+pin, alias, helper body or ledger row is introduced.
+
+Ordinary and strict builds pass all 39 rows, the data row and three string
+references. The final object comparison retains all 131 COMDATs identically,
+with none added, removed or changed. Three own link previews retain 2,921
+bytes; the old index's 176-byte difference is the already-landed Xfer move.
+Direct registered-header dependencies replace the seed's remaining private
+Rva00041A06 declaration (an initial include-only trial exposed the duplicate).
+Four owning accept verdicts retire the three remaining seed entries and
+Return's State entry. Seed, States and Return now have no header-queue rows;
+the constructor's separate State entry remains. A fresh guarded merge is
+still required. The prior push's broad audit remains INCONCLUSIVE for the
+missing current AIBaseBuilder.cpp receipt.

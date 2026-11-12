@@ -98,20 +98,15 @@ template <> class VSlots<0>
 {
 };
 typedef UnsignedInt StateID;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
-class AIEnterState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-};
+#include "AITNGuardEnterStateView.h"
 class AITNGuardReturnState : public AIEnterState
 {
 public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad20[0x54 - 0x20];
 	UnsignedInt m_nextReturnScanTime; // +0x54
 };
 
