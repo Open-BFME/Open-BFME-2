@@ -237,6 +237,13 @@ class Rva0061EEE0 : public SubsystemInterface
 public:
 	Rva0061EEE0();
 	virtual ~Rva0061EEE0();
+	// Retail table 0x0087C5C0: slots 1 and 9 are the shared RET 0x0069E440;
+	// slots 10 and 14 are the 8-byte tail jump 0x0061EF80 that updates the
+	// +0x0C object.
+	virtual void init();
+	virtual void reset();
+	virtual void update();
+	virtual void vslot14();
 
 private:
 	AssetManagerImpl *m_renderObject;
@@ -245,6 +252,24 @@ private:
 Rva0061EEE0::~Rva0061EEE0()
 {
 	delete m_renderObject;
+}
+
+void Rva0061EEE0::init()
+{
+}
+
+void Rva0061EEE0::reset()
+{
+}
+
+void Rva0061EEE0::update()
+{
+	((Rva00624130 *)m_renderObject)->rva00624130();
+}
+
+void Rva0061EEE0::vslot14()
+{
+	((Rva00624130 *)m_renderObject)->rva00624130();
 }
 
 // Clean BFME1 donor 9cbfb551fe20dae985f91f2319d8997287b6a705:
