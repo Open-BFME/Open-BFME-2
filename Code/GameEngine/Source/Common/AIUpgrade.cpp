@@ -40,11 +40,7 @@ public:
 // 0x00452E00 (interface at +0x20, beside GameClientRandomVariable's
 // getMinimumValue): copies the module data's +0x30 Real out and reports
 // whether it differs from the 54321.0 sentinel.
-struct Rva00452E00Data
-{
-	char m_pad00[0x30];
-	Real m_30;
-};
+#include "../../Include/Common/Rva00452E00Data.h"
 
 class Rva00452E00Primary
 {
