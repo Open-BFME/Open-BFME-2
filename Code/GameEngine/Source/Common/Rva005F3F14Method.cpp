@@ -4,11 +4,7 @@
 // no-arg int 0x005CB265 getters on +0x08 pointer compared against +0x10 int
 // then clears +0x15 byte; same shape as Rva005796B3Method.cpp; caller
 // 0x005F3F6B forwards +0x08 pointer as this.
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 #include "../../Include/Common/Rva005CB265.h"
 

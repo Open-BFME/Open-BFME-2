@@ -4,11 +4,7 @@
 // Evidence: chain lane; callee 0x005CB260 ?rva005CB260@Rva005CB260@@QAEXXZ rowed;
 // callers 0x005F96D4 loops load [edi]/[esi] as this with no args.
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 class Rva005F8F31
 {

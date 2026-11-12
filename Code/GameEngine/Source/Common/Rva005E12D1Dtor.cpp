@@ -13,11 +13,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
 #include "../../Include/Common/Rva005CB265.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 struct Rva005E12D1Ref
 {

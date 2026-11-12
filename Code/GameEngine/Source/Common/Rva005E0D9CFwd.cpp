@@ -5,11 +5,7 @@
 // Address-derived.
 #include "../../Include/Common/Rva005CB265.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 class Rva005E0D9C
 {

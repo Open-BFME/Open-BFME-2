@@ -5,11 +5,7 @@
 // Ret 4 ignores int. Address-derived; same getter/tail shape as 0x005E0D9C.
 #include "../../Include/Common/Rva005CB265.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 class Rva002BED91
 {

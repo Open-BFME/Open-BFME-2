@@ -5,11 +5,7 @@
 // Evidence: method twin pin 0x005CB260 via ecx-this call sites; count at +0x48;
 // array at +0x28 stride 0xC; head pointers at +0x20 and entry +0x0;
 // caller 0x005FFB81 8B jmp; free pin ?Rva005CB260@@YAXXZ shares address.
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 struct Rva005FFB32Elem
 {
