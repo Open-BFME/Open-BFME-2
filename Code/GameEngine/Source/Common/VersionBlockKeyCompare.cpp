@@ -13,8 +13,6 @@
 
 #include <string.h>
 
-int strcmp(const char *left, const char *right);
-
 struct VersionBlockEntry
 {
 	const char *m_key;
