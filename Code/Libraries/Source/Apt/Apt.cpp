@@ -628,7 +628,11 @@ void Rva006CD0B0ResetPoolCount() {
 // E176D0 pool's +30 child list through the rowed rva006F7AF0. Address name.
 class Rva006F7AC0List {public:bool rva006F7AC0();void rva006F7AF0(int);};
 void Rva006CD350ApplyChild(void *pMCInfo) {
- GAPCHECK(pMCInfo,"pMCInfo",0x7C0);
+ if (!pMCInfo) {
+  g_bfmeAptAssertAtE17734("pMCInfo", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp", 0x7C0);
+  if (g_bfmeAptBreakOnAssertAtDDC01C)
+   __debugbreak();
+ }
  ((Rva006F7AC0List *)g_bfmeAptPtrAtE176D0->nodes)->rva006F7AF0((int)pMCInfo);
 }
 
