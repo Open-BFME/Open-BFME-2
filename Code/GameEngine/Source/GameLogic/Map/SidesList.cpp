@@ -542,6 +542,9 @@ public:
 	{
 		m_owner->handle(m_id);
 	}
+	// Retail base vftable 0x00BC9574 slot 1 is __purecall: the chunk parser
+	// callback each derived binding overrides.
+	virtual bool rva00329906(DataChunkInput &file, DataChunkInfo *info) = 0;
 
 protected:
 	Q1Forwardee0000871A *m_owner; // +0x04
@@ -558,6 +561,8 @@ class Rva0032989F : public Rva0032989FBase
 {
 public:
 	virtual ~Rva0032989F();
+	// Retail vftable 0x00C0D8FC slot 1 (0x00329906, defined in SidesListPlayerScriptsParse.cpp).
+	virtual bool rva00329906(DataChunkInput &file, DataChunkInfo *info);
 
 private:
 	unsigned char m_pad0C[0x18 - 0x0C];

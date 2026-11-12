@@ -34,6 +34,8 @@ class Rva0043DABD : public Rva0057EE5C
 {
 public:
 	virtual ~Rva0043DABD() {}
+	// Retail vftable 0x00C3D954 slot 1 (0x0043FE01, defined in AptMpGameSetup.cpp).
+	virtual void rva0043FE01(int kind, bool reset);
 };
 
 class Rva0057F2DE

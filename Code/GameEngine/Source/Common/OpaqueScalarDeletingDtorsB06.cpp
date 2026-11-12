@@ -76,12 +76,17 @@ Rva00328CF8::Rva00328CF8(EmitVtableTag *)
 {
 }
 
+class DataChunkInput;
+struct DataChunkInfo;
+
 class Rva0032989F
 {
 public:
 	Rva0032989F(EmitVtableTag *);
 public:
 	virtual ~Rva0032989F();
+	// Retail vftable 0x00C0D8FC slot 1 (0x00329906, defined in SidesListPlayerScriptsParse.cpp).
+	virtual bool rva00329906(DataChunkInput &file, DataChunkInfo *info);
 };
 
 // ?<Rva0032989F::Rva0032989F> absent-from-retail

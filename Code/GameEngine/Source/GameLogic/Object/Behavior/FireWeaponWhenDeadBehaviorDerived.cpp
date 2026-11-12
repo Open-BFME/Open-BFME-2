@@ -248,6 +248,9 @@ class CommandPointsUpgrade : public UpgradeModule
 {
 public:
 	virtual ~CommandPointsUpgrade();
+protected:
+	virtual void upgradeRemovalImplementation();						// UpgradeMux slot 8 (0x004B86DA)
+	virtual void upgradeImplementation();							// UpgradeMux slot 10 (0x004B86AE)
 };
 
 CommandPointsUpgrade::~CommandPointsUpgrade()

@@ -19,6 +19,8 @@ class Rva0043DABD : public Rva0057EE5C
 public:
 	Rva0043DABD(TargetRef00217D4C *ref);
 	virtual ~Rva0043DABD();
+	// Retail vftable 0x00C3D954 slot 1 (0x0043FE01, defined in AptMpGameSetup.cpp).
+	virtual void rva0043FE01(int kind, bool reset);
 };
 
 Rva0043DABD::Rva0043DABD(TargetRef00217D4C *ref) : Rva0057EE5C(ref)
