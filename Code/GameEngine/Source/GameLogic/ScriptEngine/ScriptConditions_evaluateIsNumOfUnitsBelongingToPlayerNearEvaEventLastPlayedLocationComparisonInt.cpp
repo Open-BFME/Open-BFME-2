@@ -51,11 +51,7 @@ extern Eva *TheEva;
 
 #include "../../../Include/Common/BfmeWideHit.h"
 
-struct BfmeWidePayload
-{
-	BfmeWideHit *m_begin;
-	BfmeWideHit *m_end;
-};
+#include "../../../Include/Common/BfmeWidePayload.h"
 
 struct BfmeWideResult
 {
