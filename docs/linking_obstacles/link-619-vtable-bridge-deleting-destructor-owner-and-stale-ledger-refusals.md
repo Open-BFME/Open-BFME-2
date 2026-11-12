@@ -1009,6 +1009,18 @@ extents remain 24 bytes. A bounded `vtable_bridge.plan` replay with the same
 changes two ambiguous-table-name refusals into two already-correct names and
 three generated bridges. Full-image confirmation and bridge retirement remain open.
 
+2026-11-12, sentence-vector follow-up at bfadd71c4cc: withdraw the remaining
+false SentenceDataStruct deleting-destructor alias at 0x001A3B90 and its full
+vector instantiation. The native Resize scales four-byte elements; the donor
+record is 36 bytes. A member-only instantiation preserves its real 61-byte
+record assignment. All 105 remaining rows in agg_def, collect and
+render2dsentence pass normal verification; all three read LINKS against census
+9ca25659d0. The 71-byte ledger decrease retracts a duplicate identity; both
+valid pointer-vector owners retain the complete native address. No data-ledger
+splice is made. Published bridge retirement remains pending; the renderer
+0x007D3BC8 and PrototypeClass/BfmeMsg work below remain open.
+[Target evidence and verification](../../reverse/attempt_support/vector-table-identity-20261110.md).
+
 The separate agg_def queue entry at 0x008E0BC4 survives regeneration. Retail
 slot 0 is BfmeMsg's deleting destructor at 0x00655880. The 16-byte constructor
 at 0x00655770 installs that table but is rowed as PrototypeClass in part_ldr,

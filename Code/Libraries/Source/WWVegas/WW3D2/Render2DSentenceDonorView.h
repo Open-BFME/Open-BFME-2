@@ -229,6 +229,9 @@ private:
 	//	Private structures
 	//
 	// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
+	// Public to explicitly instantiate the matched record assignment without
+	// instantiating the donor vector lifetime and its unrelated vtable.
+	public:
 	struct SentenceDataStruct {
 		SurfaceClass *		Surface;
 		RectClass			ScreenRect;

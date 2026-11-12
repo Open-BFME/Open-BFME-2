@@ -3345,3 +3345,15 @@ eight units shifted, and the gates verified every funclet row through the parent
 or deleted; `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ spell none of the moved
 symbols or changed files except FireWeaponCollide fixture rows in tools/tests/fixtures (structural_queue.csv,
 dead_ends.csv), which are synthetic, file-level and unchanged.
+
+### Sentence-vector identity follow-up (2026-11-12)
+
+At bfadd71c4cc, retire render2dsentence.cpp's false SentenceDataStruct vector
+lifetime and 0x001A3B90 alias while preserving its native record assignment.
+All 105 remaining rows across agg_def, collect and render2dsentence verify;
+all three own link previews read LINKS against 9ca25659d0. Retail's complete
+71-byte body remains under the two pointer-vector owners. The served
+0x007D6C24 table still needs published real-link confirmation; no image or
+bridge-retirement claim is made. The separate 0x007D3BC8 renderer and
+0x008E0BC4 PrototypeClass/BfmeMsg entries remain open in LINK-619.
+[Evidence](../../reverse/attempt_support/vector-table-identity-20261110.md).

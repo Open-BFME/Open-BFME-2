@@ -626,7 +626,13 @@ template class DynamicVectorClass<Render2DSentenceClass::PendingSurfaceStruct>;
 template bool VectorClass<Render2DSentenceClass::RendererDataStruct>::operator==(const VectorClass<Render2DSentenceClass::RendererDataStruct> &) const;
 template int VectorClass<Render2DSentenceClass::RendererDataStruct>::ID(const Render2DSentenceClass::RendererDataStruct &);
 template int VectorClass<Render2DSentenceClass::RendererDataStruct>::ID(const Render2DSentenceClass::RendererDataStruct *);
-template class VectorClass<Render2DSentenceClass::SentenceDataStruct>;
+// SentenceDataStruct has a 36-byte record; do not instantiate its donor
+// vector destructor as the native four-byte-vector fold at 0x001A3B90.
+// Preserve the existing native record assignment through its original
+// vector assignment instantiation, without emitting the vector vtable.
+template VectorClass<Render2DSentenceClass::SentenceDataStruct> &
+VectorClass<Render2DSentenceClass::SentenceDataStruct>::operator=(
+    const VectorClass<Render2DSentenceClass::SentenceDataStruct> &);
 
 // Preserve the existing native renderer-vector rows after removing their
 // accidental implicit-record instantiation path. The vector constructor is not
