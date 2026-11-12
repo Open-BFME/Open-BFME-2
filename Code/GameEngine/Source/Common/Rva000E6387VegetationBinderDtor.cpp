@@ -168,14 +168,7 @@ public:
 	void AddBinding(TreeHintRef00217D4C callback, const char *handle);
 };
 
-struct Rva001530E9Path
-{
-	char m_name[0x40];
-	bool m_hasStar;
-	bool m_hasBracket;
-	int m_index;
-	const char *m_rest;
-};
+#include "../../Include/Common/Rva001530E9Path.h"
 
 void Rva000E6878IsAlphaBlendEnabled(ID3DXEffect *effect, D3DXHANDLE handle);
 void Rva000E68C5SwayOffsets(ID3DXEffect *effect, D3DXHANDLE handle);

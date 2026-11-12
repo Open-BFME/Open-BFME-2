@@ -337,14 +337,7 @@ void setMapHeightScale(ID3DXEffect *effect, D3DXHANDLE handle)
 // spelling as the SourceNamespace_Shroud sibling.
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 
-struct Rva001530E9Path
-{
-	char m_name[0x40];
-	bool m_hasStar;
-	bool m_hasBracket;
-	int m_index;
-	const char *m_rest;
-};
+#include "../../../../GameEngine/Include/Common/Rva001530E9Path.h"
 
 // Retail loads the msvcr71.dll _strcmpi import from IAT slot 0x00BBA518.
 #include <string.h>

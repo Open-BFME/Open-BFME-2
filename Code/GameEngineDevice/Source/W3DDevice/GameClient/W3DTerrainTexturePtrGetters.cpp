@@ -243,14 +243,7 @@ void Rva000E2B00CloudTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 // Identity is address-derived: no vtable slot evidence yet.
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
 
-struct Rva001530E9Path
-{
-	char m_name[0x40];
-	bool m_hasStar;
-	bool m_hasBracket;
-	int m_index;
-	const char *m_rest;
-};
+#include "../../../../GameEngine/Include/Common/Rva001530E9Path.h"
 
 class Rva00080221
 {
