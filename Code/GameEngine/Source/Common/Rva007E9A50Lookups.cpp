@@ -7,10 +7,7 @@
 // by the two absolute operands in that body's retail instructions.
 #include <string.h>
 #pragma intrinsic(strcmp)
-class Rva007E8810Message {
-public:
-    bool getString(const char *, char *, int);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 struct Rva007E9A50Entry {
     void *field00;
     const char *m_name;

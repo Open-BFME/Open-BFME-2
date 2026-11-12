@@ -16,7 +16,7 @@
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
-class Rva007E8810Message { public: void addInt64(const char*, __int64); };
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva007F3980Msg
 {

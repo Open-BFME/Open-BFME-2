@@ -146,7 +146,7 @@ public:
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 
 class Rva00550918 { public: Rva00550918() {} virtual void rva00550921(int,unsigned int,const int*); };
-class Rva007E8810Message { public: bool hasError(); int getError(); };
+#include "../../../../Include/GameNetwork/Rva007E8810Message.h"
 class BfmeMsgVJH { char opaque[0x30]; public:
  BfmeMsgVJH(char*,int); virtual ~BfmeMsgVJH();
  bool hasError() { return ((Rva007E8810Message*)this)->hasError(); }

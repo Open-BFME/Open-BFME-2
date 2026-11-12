@@ -8,11 +8,7 @@ public:
 	char m_pad[0x34];
 };
 
-class Rva007E8810Message
-{
-public:
-	void setError(int code) throw();
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/BfmeAsk992.h"
 

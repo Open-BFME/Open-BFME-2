@@ -7,11 +7,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	void addInt64(const char *key, FeslInt64 value);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 

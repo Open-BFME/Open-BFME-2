@@ -21,15 +21,7 @@ public:
 	int m_bfme1c;
 };
 
-class Rva007E8810Message
-{
-public:
-	void reset();
-	void addString(const char *key, const char *value);
-	void addInt64(const char *key, __int64 value);
-	void addInt(const char *key, int value);
-	void addBool(const char *key, bool value);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 extern void *g_bfmeAVIW;
 // g_bfmeAVIW: matched references place it at VA 0xe0a004 (zero-filled .bss).

@@ -7,15 +7,7 @@ public:
 	int m_bfme1c;
 };
 
-class Rva007E8810Message
-{
-public:
-	void reset();
-	void addString(const char *key, const char *value);
-	void addInt64(const char *key, __int64 value);
-	void addBool(const char *key, bool value);
-	void rva007E8EF0(const char *key, const char *value);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 extern void *g_bfmeFVIX;
 // g_bfmeFVIX: matched references place it at VA 0xe09ec8 (zero-filled .bss).

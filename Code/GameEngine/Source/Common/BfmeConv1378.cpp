@@ -15,14 +15,7 @@ public:
 	int m_bfme1c;
 };
 
-class Rva007E8810Message
-{
-public:
-	// Real FESL accessor spellings for the 0x655AA0 addString and 0x655B50
-	// reset bodies (also ICF aliases of the BFME1 donor names above).
-	void addString(const char *key, const char *value);
-	void reset();
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 extern void *g_bfmeVIT;
 // g_bfmeVIT: matched references place it at VA 0xe09f7c (zero-filled .bss).

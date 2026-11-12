@@ -12,11 +12,7 @@ typedef int Int;
 // slots at VA 0x00CE3170, 0x00CE3188 and 0x00CE36A4: the message's integer
 // for the key held at VA 0x00DD8280 (resp. 0x00DD8288 and 0x00DD8310),
 // default 0, through the rowed Rva007E8810Message::getInt.
-class Rva007E8810Message
-{
-public:
-	Int getInt(const char *key, Int defaultValue);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 const char *g_errorCodeKey = "errorCode";
 const char *g_decodedSizeKey = "decodedSize";
 // Native DD8310 already belongs to BfmeConv482.cpp.

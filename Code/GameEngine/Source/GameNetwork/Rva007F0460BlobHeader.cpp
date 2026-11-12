@@ -1,10 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
-class Rva007E8810Message
-{
-public:
-    __int64 getInt64(const char *name, __int64 missing);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 

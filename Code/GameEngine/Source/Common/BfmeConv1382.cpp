@@ -7,13 +7,7 @@ public:
 	int m_bfme1c;
 };
 
-class Rva007E8810Message
-{
-public:
-	void reset();
-	void addString(const char *key, const char *value);
-	void addInt(const char *key, int value);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva007F1800Search
 {
