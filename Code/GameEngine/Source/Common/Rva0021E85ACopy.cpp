@@ -24,13 +24,7 @@ enum ScienceType
 // Retail's member at +0x54 is a set of this record: 0x0021DBBA calls _M_copy 0x0021D7CF, whose nodes copy through 0x0021AAE1,
 // and the dtor at 0x0021E50F tears it down through 0x0021D61F.
 #include <set>
-struct BfmeStringRecord00219B0B
-{
-	unsigned int word0;
-	AsciiString text0, text1, text2;
-	BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
-	~BfmeStringRecord00219B0B();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00219B0B.h"
 struct BfmeStringRecord0021A940
 {
 	unsigned int word0;

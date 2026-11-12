@@ -35,16 +35,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 
 // The bling binder record: a group key and three upgrade names.
-struct BfmeStringRecord00219B0B
-{
-	BfmeStringRecord00219B0B(UnsignedInt w0, const AsciiString &t0, const AsciiString &t1, const AsciiString &t2);
-	~BfmeStringRecord00219B0B();
-
-	UnsignedInt word0;	// +0x00 group name key
-	AsciiString text0;	// +0x04 min value upgrade name
-	AsciiString text1;	// +0x08 max value upgrade name
-	AsciiString text2;	// +0x0C default value upgrade name
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00219B0B.h"
 
 class Rva0021DE75
 {

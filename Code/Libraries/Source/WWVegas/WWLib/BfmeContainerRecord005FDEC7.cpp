@@ -219,12 +219,7 @@ template BfmeStringRecord005ED5F3* _STL::__copy_backward_ptrs<BfmeStringRecord00
 template BfmeStringRecord005ED5F3* _STL::__copy<BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, int>(BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, const _STL::random_access_iterator_tag&, int*);
 
 // Complete retail record copy at0x00219B0B.
-struct BfmeStringRecord00219B0B {
-    unsigned int word0; AsciiString text0, text1, text2;
-    BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
-    BfmeStringRecord00219B0B(unsigned int w0, const AsciiString &t0, const AsciiString &t1, const AsciiString &t2);
-    ~BfmeStringRecord00219B0B();
-};
+#include "BfmeStringRecord00219B0B.h"
 
 template void _STL::_Construct<BfmeStringRecord00219B0B,BfmeStringRecord00219B0B>(BfmeStringRecord00219B0B*,const BfmeStringRecord00219B0B&);
 

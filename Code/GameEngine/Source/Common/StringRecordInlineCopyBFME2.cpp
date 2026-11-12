@@ -240,12 +240,7 @@ template BfmeStringRecord005ED5F3* _STL::__copy_backward_ptrs<BfmeStringRecord00
 template BfmeStringRecord005ED5F3* _STL::__copy<BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, int>(BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, BfmeStringRecord005ED5F3*, const _STL::random_access_iterator_tag&, int*);
 
 // Complete retail record copy at0x00219B0B.
-struct BfmeStringRecord00219B0B {
-    unsigned int word0; AsciiString text0, text1, text2;
-    BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
-    BfmeStringRecord00219B0B(unsigned int w0, const AsciiString &t0, const AsciiString &t1, const AsciiString &t2);
-    ~BfmeStringRecord00219B0B();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00219B0B.h"
 BfmeStringRecord00219B0B::BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source) : word0(source.word0), text0(source.text0), text1(source.text1), text2(source.text2) {}
 // ??0BfmeStringRecord00219B0B@@QAE@IABVAsciiString@@00@Z @0x00219ABB 80B
 // 4-arg ctor of the same 0x10 record: word0 + three AsciiString copies via 0x365F0.

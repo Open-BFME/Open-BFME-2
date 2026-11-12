@@ -52,13 +52,7 @@ template class _STL::map<long, LadderPref, _STL::less<long>, _STL::allocator<_ST
 
 // 0x0021DBBA, the member at +0x54 of the hero sub-class record (Rva0021E85ACopy.cpp).
 #include <set>
-struct BfmeStringRecord00219B0B
-{
-	unsigned int word0;
-	AsciiString text0, text1, text2;
-	BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &source);
-	~BfmeStringRecord00219B0B();
-};
+#include "BfmeStringRecord00219B0B.h"
 struct BfmeStringRecord0021A940
 {
 	unsigned int word0;
