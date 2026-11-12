@@ -32,20 +32,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 class Object;
-struct DamageInfoInput
-{
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID; // +0x08
-};
-struct DamageInfo
-{
-	DamageInfoInput in;
-	unsigned char m_pad0C[0x78 - 0x0C];
-	struct
-	{
-		Bool m_noEffect; // +0x78
-	} out;
-};
+#include "../../../Include/GameLogic/Damage.h"
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
@@ -63,27 +50,9 @@ public:
 	virtual ObjectID getClearableLastAttacker() const = 0;
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIUpdateInterface
-{
-public:
-	Object *getGoalObject() { return m_stateMachine->getGoalObject(); }
-private:
-	unsigned char m_pad00[0x30];
-	StateMachine *m_stateMachine; // +0x30
-};
-struct TeamTemplateInfo
-{
-	unsigned char m_pad00[0xEA];
-	Bool m_attackCommonTarget; // +0xEA (prototype +0x216)
-};
-class TeamPrototype
-{
-public:
-	const TeamTemplateInfo *getTemplateInfo(void) const { return &m_teamTemplate; }
-private:
-	unsigned char m_pad00[0x12C];
-	TeamTemplateInfo m_teamTemplate; // +0x12C (the TeamPrototype ctor at 0x3A3299 constructs it there)
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
+#include "../../../Include/Common/Team.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include <windows.h>
 #include <vector>
@@ -689,7 +658,7 @@ Bool AITNGuardMachine::lookForInnerTarget(void)
 
 	// Check if team auto targets same victim.
 	Object *teamVictim = NULL;
-	if (owner->getTeam()->getPrototype()->getTemplateInfo()->m_attackCommonTarget)
+	if (owner->getTeam()->getPrototype()->m_attackCommonTarget)
 	{
 		teamVictim = owner->getTeam()->getTeamTargetObject();
 		if (teamVictim)
@@ -715,7 +684,7 @@ Bool AITNGuardMachine::lookForInnerTarget(void)
 		if( currentTunnel ) {
 			// Check for attacking.
 			if (currentTunnel->m_ai) {
-				Object *victim = currentTunnel->m_ai->getGoalObject();
+				Object *victim = currentTunnel->m_ai->m_stateMachine->getGoalObject();
 				if (owner->getRelationship(victim) == ENEMIES) {
 					setNemesisID(victim->getID());
 					return true;
@@ -726,12 +695,12 @@ Bool AITNGuardMachine::lookForInnerTarget(void)
 			if (body) {
 				const DamageInfo *info = body->getLastDamageInfo();
 				if (info) {
-					if (info->out.m_noEffect) {
+					if (info->m_noEffect) {
 						continue;
 					}
 					if (body->getLastDamageTimestamp() + TheAI->getAiData()->m_guardEnemyScanRate > TheGameLogic->getFrame()) {
 						// winner.
-						ObjectID attackerID = info->in.m_sourceID;
+						ObjectID attackerID = info->m_sourceID;
 						Object *attacker = TheGameLogic->findObjectByID(attackerID);
 
 						if( attacker )

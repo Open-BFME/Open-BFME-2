@@ -180,3 +180,24 @@ TeamPrototype acceptance pass and retire the last header entry for States.
 All six original header entries for this file are now cleared through their
 owning acceptance tool. A fresh guarded TU composition is still required;
 header acceptance alone does not establish that the remaining donors merge.
+
+## Seed views reconciled after the next guarded trial
+
+On `c40bbd895ae`, the refreshed supported merge still accepts no additional
+donor. States and Return fail on undefined AIUpdateInterface and AIEnterState
+bases in the combined text; the constructor retains its mode/abstract-state
+and snapshot-identity prerequisites. No merge is applied. The attempt record
+uses the existing 395-byte lookForInnerTarget row as its file-scope anchor.
+
+The seed now includes the existing AIUpdateInterface, AIStateMachine,
+DamageInfo and TeamPrototype headers. The guard scan reaches getGoalObject
+through the actual +0x30 state-machine pointer. Damage fields use complete
+offsets +8/+0x78, and the prototype flag uses +0x216 directly. No shared header,
+row, callee or data binding changes. Both obsolete private accessor emissions
+disappear; all 23 rows and all 76 retained COMDATs remain identical.
+The ordinary build, strict preparation and all three owning adoption verdicts
+pass, retiring three more seed header entries. The initial strict command ran
+under the sandbox user and stopped at Git's repository-ownership check; the
+normal repository-owner command supplies the successful strict receipt.
+AIEnterState ancestry and the remaining donor reconciliation still need proof;
+these header adoptions do not establish a new accepted merge or a working image.

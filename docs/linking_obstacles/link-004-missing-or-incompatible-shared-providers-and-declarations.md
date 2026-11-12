@@ -278,6 +278,11 @@
   the constructor's snapshot identity gap and nominal ReturnState ancestry
   remain separate. Broader push audits remain INCONCLUSIVE for missing
   current provider/consumer receipts, most recently AIBaseBuilder.cpp.
+  The next guarded trial still accepts no additional donor: AIUpdateInterface
+  and AIEnterState bases are undefined in composition. The seed then adopts
+  the real AIUpdateInterface/AIStateMachine, DamageInfo and TeamPrototype
+  headers; 23 rows and 76 retained COMDATs stay exact and three more header
+  entries retire. AIEnterState ancestry remains an independent prerequisite.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the
