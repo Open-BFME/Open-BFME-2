@@ -1,0 +1,54 @@
+--- a/Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
++++ b/Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
+@@ -307,6 +307,7 @@
+ {
+ public:
+ 	Rva002E3DE3(int first, int second);
++	virtual bool rva002E41EC(void *file, void *info);
+ 	__declspec(noinline) virtual ~Rva002E3DE3() {}
+ private:
+ 	Rva002E36D5Node **m_head10;
+--- a/Code/GameEngine/Source/Common/GapBodiesS3H.cpp
++++ b/Code/GameEngine/Source/Common/GapBodiesS3H.cpp
+@@ -89,7 +89,7 @@
+ 
+ extern Rva002E373CHolder *g_Va00DBD0F4;
+ 
+-class Rva002E41EC;
++class Rva002E3DE3;
+ 
+ #include "../../Include/GameLogic/PolygonTrigger.h"
+ 
+@@ -102,15 +102,17 @@
+ 	bool parse(DataChunkInput &file, const DataChunkInfo *info);	// 0x002E40DB
+ };
+ 
+-class Rva002E41EC
++// Partial two-slot interface view; full state and lifetime live in PolygonTrigger.cpp.
++class Rva002E3DE3
+ {
+ public:
++	virtual ~Rva002E3DE3();
+ 	virtual bool rva002E41EC(void *file, void *b);
+ };
+ 
+-// The parse step is the rowed PolygonTriggerDataChunkParserBase::parse; this
+-// class's relation to it is not recovered, so it is reached through this.
+-bool Rva002E41EC::rva002E41EC(void *file, void *b)
++// Native derived table C04C04, installed by constructor2E3DE3, binds this
++// override in slot1. Its base parser step remains separately rowed at2E40DB.
++bool Rva002E3DE3::rva002E41EC(void *file, void *b)
+ {
+ 	if (!reinterpret_cast<PolygonTriggerDataChunkParserBase *>(this)->parse(
+ 			*static_cast<DataChunkInput *>(file), static_cast<const DataChunkInfo *>(b)))
+--- a/Code/GameEngine/Include/GameLogic/PolygonTrigger.h
++++ b/Code/GameEngine/Include/GameLogic/PolygonTrigger.h
+@@ -93,7 +93,7 @@
+  bool flag50;
+  int field54,field58;
+ private:
+- friend class Rva002E41EC;    // 0x002E41EC raises the counter past parsed ids
++ friend class Rva002E3DE3;    // 0x002E41EC raises the counter past parsed ids
+  friend void Rva00328A6B(int); // 0x00328A6B stores the counter
+  static int s_currentID;       // ?s_currentID@PolygonTrigger@@0HA, VA 0x00DBD0F0
+ };

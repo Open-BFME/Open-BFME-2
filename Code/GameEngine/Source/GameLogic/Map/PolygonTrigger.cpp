@@ -267,8 +267,9 @@ public:
 // U-twin: the base at 0x002E3D7B is the rowed TriggerAreas parser binding
 // ??0Rva002E3D7B@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z, defined
 // in Rva000AEFAA.cpp; the caller must call it by the ledger name, so the base
-// ctor and its dtor (whose call the ctor's unwind funclet emits) are declared
-// with the ledger signature. The derived dtor is left implicit.
+// ctor is declared with the ledger signature. The registration cleanup below
+// is the same whole 18-byte lifetime as the rowed parser-binding base.
+// Retail scalar deleting destructor 0x0041E6F3 calls that cleanup out of line.
 
 class AsciiString;
 
@@ -278,19 +279,35 @@ struct Rva002E36D5Node;
 
 void Rva002E373CClear();
 
+#include "../../../Include/GameLogic/Q1Forwardee0000871A.h"
+
+// Native parser-binding teardown restores this existing table before
+// unregistering token +8 through registry +4 (the rowed 0x003B241A body).
+namespace ParserBindingTable {
+ extern "C" const void *const __identifier("??_7BfmeParserBindingBaseVE@@6B@")[];
+}
+
 class Rva002E3D7B
 {
 public:
-	Rva002E3D7B(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
-	virtual ~Rva002E3D7B();
+ Rva002E3D7B(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+ virtual ~Rva002E3D7B()
+ {
+  int token = m_token;
+  *(const void **)this = ParserBindingTable::__identifier("??_7BfmeParserBindingBaseVE@@6B@");
+  m_registry->handle(token);
+ }
 private:
-	char m_pad04[0xC];
+ Q1Forwardee0000871A *m_registry;
+ int m_token;
+ void *m_owner;
 };
 
 class Rva002E3DE3 : public Rva002E3D7B
 {
 public:
 	Rva002E3DE3(int first, int second);
+	__declspec(noinline) virtual ~Rva002E3DE3() {}
 private:
 	Rva002E36D5Node **m_head10;
 };

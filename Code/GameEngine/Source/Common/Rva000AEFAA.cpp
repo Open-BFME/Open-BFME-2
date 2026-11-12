@@ -132,6 +132,8 @@ class Rva002E3D7B : public BfmeParserBindingBaseVE
 {
 public:
 	Rva002E3D7B(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);
+	// The complete registration cleanup is rowed in PolygonTrigger.cpp.
+	virtual ~Rva002E3D7B();
 private:
 	void *m_owner;
 };
