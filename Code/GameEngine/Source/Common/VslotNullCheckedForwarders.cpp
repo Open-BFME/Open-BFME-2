@@ -34,13 +34,7 @@ class Rva00149F20Holder { public: Int get() const; };			// 0x00149F20
 class Rva001EB3D1 { public: void rva001EB3D1(); };			// 0x001EB3D1
 #include "../../Include/Common/Rva002CA9CA.h"
 class Rva004CFC81 { public: unsigned int rva004CFC81() const; };	// 0x004CFC81
-class BFMEConnectionManager
-{
-public:
-	unsigned char rva004CEF58(Int firstValue);				// 0x004CEF58
-	int isPlayerSlotActive(int slot);				// 0x004CF0CD
-	void attachTransport(Transport *transport);			// 0x004CF113
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 
 // rowed as ?setColor@Shadow@@QAEXH@Z (Shadow_setOpacity.cpp)

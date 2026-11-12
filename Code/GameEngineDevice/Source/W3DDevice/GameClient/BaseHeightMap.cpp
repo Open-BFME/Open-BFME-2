@@ -548,13 +548,7 @@ public:
 			// 0x001EB3D1
 	// 0x002CAC6E
 	// 0x004CFC81
-class BFMEConnectionManager
-{
-public:
-	unsigned char rva004CEF58(Int firstValue);				// 0x004CEF58
-	int isPlayerSlotActive(int slot);				// 0x004CF0CD
-	void attachTransport(Transport *transport);			// 0x004CF113
-};
+#include "../../../../GameEngine/Include/GameNetwork/BFMEConnectionManager.h"
 
 // rowed as ?setColor@Shadow@@QAEXH@Z (Shadow_setOpacity.cpp)
 class Shadow

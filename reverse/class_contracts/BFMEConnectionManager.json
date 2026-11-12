@@ -1,0 +1,373 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BFMEConnectionManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 26,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 26,
+  "retail_vtables": {},
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 7,
+   "380": 1,
+   "73768": 1,
+   "73772": 1,
+   "73776": 2,
+   "73808": 1,
+   "73824": 2,
+   "73856": 1,
+   "73888": 1,
+   "74020": 4,
+   "74028": 1,
+   "74040": 1
+  },
+  "views": 23,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_vptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_relayCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_commandHistory.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 73764,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerAttachTransport.cpp",
+    "Code/GameEngine/Source/Common/NetworkInterfaceRouter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 73768,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerFrameCommands.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRouterPredicate.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_relayCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_sendGameSpyStatsAuthKey.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_commandHistory.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_requestFrameData.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 73772,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRouterPredicate.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_commandHistory.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73776,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerNextRouter.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 73820,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp",
+    "Code/GameEngine/Source/Common/NetworkInterfaceRouter.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73824,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 73856,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 73888,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 73920,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 73988,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerFrameCommands.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_relayCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_requestFrameData.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 74020,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74024,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74036,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 74020,
+ "size_by": "majority",
+ "vslots": {}
+}

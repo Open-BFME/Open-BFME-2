@@ -422,7 +422,7 @@ public: Rva004D59B8();
 private: unsigned m_disconnectFrame;
 };
 class Rva004D57AE { public: void setPlayerIndex(unsigned); };
-class BFMEConnectionManager { public: void sendDisconnectFrameCommand(); };
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 void BFMEConnectionManager::sendDisconnectFrameCommand() {
  unsigned frame=connectionField<unsigned>(TheGameLogic,0x40);
  Rva004D59B8* msg=::new Rva004D59B8;

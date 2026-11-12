@@ -165,12 +165,7 @@ public:
 	void update(ConnectionManager *conMgr);
 };
 
-class BFMEConnectionManager
-{
-public:
-	void sendFrameInfo(Bool flag);
-	void sendKeepAliveCommand();
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 struct ConnectionManagerAddress
 {

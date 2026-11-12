@@ -28,11 +28,7 @@ public:
 };
 
 // 0x004D0AA9 is rowed as BFMEConnectionManager::sendFrameInfo(bool).
-class BFMEConnectionManager
-{
-public:
-	void sendFrameInfo(bool flag);
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 // The 0x2000-byte per-slot records at ConnectionManager+0x24; the method the
 // slot query calls is the ICF-folded `xor eax,eax; ret` at 0x000D43D0.

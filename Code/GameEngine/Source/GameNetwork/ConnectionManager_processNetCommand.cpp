@@ -111,15 +111,7 @@ public:
 	void processDisconnectCommand(void *ref, ConnectionManager *conMgr);
 };
 
-class BFMEConnectionManager
-{
-public:
-	void processAck(NetCommandMsg *msg);
-	void processInformPlayerLeaveFrameCommand(void *msg);
-	void sendGameSpyStatsAuthKey(void *msg);
-	void processGameSpyStatsAuthKeyCommand(void *msg);
-	void processRequestFrameDataCommand(void *command);
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 

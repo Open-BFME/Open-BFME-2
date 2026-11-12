@@ -139,13 +139,7 @@ private:
 	UnsignedByte m_lastRelay;
 };
 
-class BFMEConnectionManager
-{
-public:
-	Bool isPlayerInGame(Int slot);
-	Bool isDuplicateCommand(NetCommandMsg *msg);
-	void relayCommand(void *ref);
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 

@@ -51,12 +51,7 @@ enum PlayerLeaveCode
 };
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
-class BFMEConnectionManager
-{
-public:
-	bool isPacketRouter();			// 0x004CF9CD
-	int isPlayerSlotActive(int playerID);	// 0x004CF0CD
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 class Rva004CF0FB
 {
 public:

@@ -56,11 +56,7 @@ private:
 	UnsignedInt m_playerID;
 };
 
-class BFMEConnectionManager
-{
-public:
-	void processGameSpyStatsAuthKeyCommand( void *command );
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 void BFMEConnectionManager::processGameSpyStatsAuthKeyCommand( void *command )
 {

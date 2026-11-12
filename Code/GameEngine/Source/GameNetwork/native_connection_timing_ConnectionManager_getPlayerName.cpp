@@ -413,77 +413,7 @@ private:
 	unsigned int m_bits[0x800];
 };
 
-class BFMEConnectionManager
-{
-public:
-	Bool isPlayerConnectedDefaultTimeout(int playerID);
-	Bool isPlayerConnectedForTimeout(int playerID, unsigned int timeout);
-	Bool hasPacketRouterFrameStall();
-	void processRequestFrameDataCommand(void *msg);
-	Bool areFrameCommandsComplete(unsigned int frame, Bool debugSpewage);
-	int getFrameHeadroom();
-	void processInformPlayerLeaveFrameCommand(void *msg);
-	void sendFrameInfo();
-	Bool processIncomingCommand(void *ref);
-	void init();
-	void broadcastRouterFallbackPlan();
-	Bool isPlayerInGame(int slot);
-	int isPlayerSlotActive(int slot);
-	void processRequestPlayerLeaveCommand(void *msg);
-	void relayCommand(void *ref);
-	void update();
-	void runRelayPass();
-	void destroy();
-	void processWrappedCommand(NetCommandRef *ref);
-	void sendFileChunk(AsciiString path, unsigned char playerMask, unsigned short commandID);
-	void buildPlayerStatusText(void *out);
-	void queueLocalCommand(void *msg); // legacy assembly identity; actual ABI is ackCommand below
-	void ackCommand(NetCommandRef *ref, NetPacketAddress *source);
-	void sendGameCommand(void *msg);
-	Bool isDuplicateCommand(NetCommandMsg *msg);
-	void sendPlayerLeaveCommands();
-	void sendFrameInfoToPlayer(int slot);
-	void sendChat(UnicodeString text, int playerMask);
-	void sendGameSpyStatsAuthKey(void *key);
-	void sendKeepAliveCommand();
-	void sendProgressCommand(int percent);
-	void sendDisconnectFrameCommand();
-	void sendDisconnectScreenOffCommand(int slot);
-	void sendRequestPlayerLeaveCommand();
-	void sendLoadCompleteCommand();
-	void attachPlayersFromGameInfo(void *gameInfo);
-	void resolvePlayerFromName(void *msg);
-	void processAck(NetCommandMsg *msg);
-	void processGameSpyStatsAuthKeyCommand(void *msg);
-	void processAckCommand(void *msg);
-	void beginPlayerLeave(void *msg);
-	void resendFrameRangeToPlayer(int playerID, unsigned int startFrame, unsigned int endFrame);
-
-private:
-	char m_unknown00[4];
-	Connection *m_connections[8];
-	BFMECommandIDHistory m_commandHistory[9];
-	BFMETransport *m_transport;
-	int m_localSlot;
-	int m_packetRouterSlot;
-	unsigned int m_packetRouterFallback[8];
-	char m_unknown12050[0xC];
-	unsigned int m_frameCeiling;
-	unsigned int m_playerLatestFrame[8];
-	int m_playerState[8];
-	unsigned int m_playerClientFrame[8];
-	char m_unknown120C0[0x20];
-	DisconnectManager *m_disconnectManager;
-	FrameDataManager *m_frameData[8];
-	NetCommandList *m_pendingCommands;
-	NetCommandList *m_pendingRelays;
-	NetCommandWrapperList *m_wrapperList;
-	unsigned int m_localLeaveStarted;
-	char m_unknown12114[4];
-	FileCommandMap m_fileCommandMap;
-	FileMaskMap m_fileRecipientMaskMap;
-	FileProgressMap m_fileProgressMap[8];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 // Retail's real DisconnectManager, for the one body here whose true mangled name
 // is known. Protected, to match the IAE in the decorated name.
