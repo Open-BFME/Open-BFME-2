@@ -128,13 +128,7 @@ public:
 
 #include "../../Include/Common/Rva004A9617.h"
 
-class Rva004A6A81
-{
-public:
-	virtual bool isCurrentlyFerryingSupplies();
-private:
-	Rva004A9617Holder *m_holder;							// +0x04
-};
+#include "../../Include/Common/Rva004A6A81.h"
 
 // --- 0x004B0303 (27B): from a +0x88 interface, the object's slot 17 when
 // its +0x04 data's +0xC8 flag is set.

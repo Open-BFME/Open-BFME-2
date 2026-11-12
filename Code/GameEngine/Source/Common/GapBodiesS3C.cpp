@@ -271,13 +271,7 @@ bool Rva004A9617::rva004A9617()
 	return false;
 }
 
-class Rva004A6A81
-{
-public:
-	virtual bool isCurrentlyFerryingSupplies();
-private:
-	Rva004A9617Holder *m_holder;							// +0x04
-};
+#include "../../Include/Common/Rva004A6A81.h"
 
 bool Rva004A6A81::isCurrentlyFerryingSupplies()
 {
