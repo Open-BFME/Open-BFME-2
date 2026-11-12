@@ -17,13 +17,7 @@ void __debugbreak();
 struct Rva006E3230Action { char data[24]; };
 #include "AptValue.h"
 #include "AptCIHClass.h"
-class Rva006DBB40ShrAndField
-{
-public:
-    // Rowed body returns 0/1; all three retail call sites here test al, so
-    // the true donor return type is bool (cf isUndefined). Twin pin below.
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 class Rva006DBB60ShrNAndField
 {
 public:

@@ -139,11 +139,7 @@ void Rva006F6AC0::rva006F6AC0(int nDepth, void **ppPrev, void **ppItem)
 // GC-mark walk over the m_next chain (next at +0x54, same as BfmeQueryNode1279):
 // get/setGCMark(true)/virtual 0x34 triple per node. Takes one ignored dword
 // (ret 4) like the AptNativeHashMark precedent.
-class Rva006DBB40ShrAndField
-{
-public:
-	bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 #include "AptValue.h"
 #include "AptCIHClass.h"
 #include "AptDisplayListState.h"

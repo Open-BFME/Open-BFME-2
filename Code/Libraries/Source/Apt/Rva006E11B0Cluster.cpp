@@ -19,11 +19,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "BfmeAptValue006DCD20.h"
 
-class Rva006DBB40ShrAndField
-{
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 
 #include "AptValue.h"
 

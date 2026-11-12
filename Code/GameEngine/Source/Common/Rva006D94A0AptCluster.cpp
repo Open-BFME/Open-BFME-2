@@ -37,11 +37,7 @@ public:
 // Value-object GC views shared with AptNativeHashMark.cpp: the shr-and-field
 // word at +4 and the 14-slot AptValue vtable whose slot 13 (0x34) is the mark
 // dispatch. Only the field word and the slot offset are used here.
-class Rva006DBB40ShrAndField
-{
-public:
-	bool get() const;
-};
+#include "../../Include/Common/Rva006DBB40ShrAndField.h"
 
 
 // The Rva006D6360 base forwarder 0x006DCC00 (slot 0x34 native-hash mark);

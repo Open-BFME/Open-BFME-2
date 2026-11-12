@@ -41,10 +41,7 @@ EAStringC *Rva0070B4F0GetString(int eSC);
 
 extern class Rva006DB270 *g_pChainBlockAllocator;
 
-class Rva006DBB40ShrAndField {
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 
 class AptValue {
 public:

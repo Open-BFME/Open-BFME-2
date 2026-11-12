@@ -20,10 +20,7 @@ void __debugbreak();
 
 #include "BfmeAptValue006DCD20.h"
 
-class Rva006DBB40ShrAndField {
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 
 #include "AptValueVector.h"
 

@@ -45,11 +45,7 @@ private:
 
 // The value-object GC views shared with Rva006D94A0AptCluster.cpp: the shr-and-field
 // flag word at +4, and the AptValue vtable whose slot 13 (0x34) is the mark dispatch.
-class Rva006DBB40ShrAndField
-{
-public:
-	bool get() const;
-};
+#include "../../Include/Common/Rva006DBB40ShrAndField.h"
 
 #include "../../../Libraries/Source/Apt/AptValue.h"
 

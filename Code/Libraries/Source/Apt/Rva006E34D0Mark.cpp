@@ -14,11 +14,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class Rva006DBB40ShrAndField
-{
-public:
-    bool get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 
 #include "AptValue.h"
 
