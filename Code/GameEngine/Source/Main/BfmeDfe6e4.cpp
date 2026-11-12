@@ -3,63 +3,26 @@
 #include <windows.h>
 #include <time.h>
 
-class WatchdogCriticalSection
-{
-public:
-	void enter()
-	{
-		EnterCriticalSection(&m_storage);
-	}
-
-	void leave()
-	{
-		LeaveCriticalSection(&m_storage);
-	}
-
-private:
-	CRITICAL_SECTION m_storage;
-};
-
 class ScopedWatchdogLock
 {
 public:
-	ScopedWatchdogLock(WatchdogCriticalSection &section) : m_section(section)
+	ScopedWatchdogLock(CRITICAL_SECTION &section) : m_section(section)
 	{
-		m_section.enter();
+		EnterCriticalSection(&m_section);
 	}
 
 	~ScopedWatchdogLock()
 	{
-		m_section.leave();
+		LeaveCriticalSection(&m_section);
 	}
 
 private:
-	WatchdogCriticalSection &m_section;
+	CRITICAL_SECTION &m_section;
 };
 
 typedef unsigned int UnsignedInt;
 
-class MutexClass
-{
-public:
-	~MutexClass();
-
-	class LockClass
-	{
-	public:
-		LockClass(MutexClass &mutex, int timeout);
-		~LockClass();
-		bool Failed() const { return m_failed; }
-
-	private:
-		MutexClass &m_mutex;
-		bool m_failed;
-	};
-
-private:
-	void *m_handle;
-	unsigned int m_locked;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/mutex.h"
 
 class Rva0009990D
 {
@@ -92,8 +55,8 @@ private:
 	long m_warningDelay;
 	long m_nextWarning;
 	int m_suppressionCount;
-	WatchdogCriticalSection m_criticalSection;
-	char m_mutexStorage[8];
+	CRITICAL_SECTION m_criticalSection;
+	MutexClass m_mutex;
 	Rva0009990D m_ownedLock;
 };
 
@@ -189,7 +152,7 @@ private:
 private:
 	volatile int m_refCount;
 private:
-	WatchdogCriticalSection m_cs;
+	CRITICAL_SECTION m_cs;
 public:
 	void _M_rva00625476();
 public:
@@ -221,12 +184,12 @@ void BfmeDfe6e4::rva00225492()
 // leave the class critical section at +0x70 through the IAT.
 void BfmeDfe6e4::rva00225460()
 {
-	m_cs.enter();
+	EnterCriticalSection(&m_cs);
 }
 
 void BfmeDfe6e4::unlock()
 {
-	m_cs.leave();
+	LeaveCriticalSection(&m_cs);
 }
 
 // ---- from Code/GameEngine/Source/Main/BfmeDfe6e4_M_rva00625476.cpp
@@ -254,7 +217,7 @@ void Watchdog::Thread_Function()
 {
 	for (;;)
 	{
-		MutexClass::LockClass lock(*(MutexClass *)&m_mutexStorage, 1000);
+		MutexClass::LockClass lock(m_mutex, 1000);
 		if (!lock.Failed())
 			break;
 
@@ -300,7 +263,7 @@ void Watchdog::stop(void)
 
 void Watchdog::start(void)
 {
-	MutexClass::LockClass *lock = new MutexClass::LockClass(*(MutexClass *)&m_mutexStorage, -1);
+	MutexClass::LockClass *lock = new MutexClass::LockClass(m_mutex, -1);
 	m_ownedLock.set(lock);
 	((ThreadClass *)this)->ThreadClass::Execute();
 }

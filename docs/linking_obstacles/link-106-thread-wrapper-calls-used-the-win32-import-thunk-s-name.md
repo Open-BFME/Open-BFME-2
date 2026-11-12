@@ -134,3 +134,8 @@ three rows verify. Paired with the current BfmeDX8ThreadLock.cpp provider,
 both preview LINKS (228 and 247 authored bytes). No source repair was needed;
 [scoped evidence](../../reverse/attempt_support/banner-poolkey-data-retirement-20261027-codexb4.md)
 confirms the existing repair for this caller. Census confirmation remains pending.
+
+The 2026-11-12 Watchdog synchronization-member reconciliation preserved the
+three affected units' 915 census-linked bytes. Their TU merge still depends
+on the Watchdog base override and the four-slot table at RVA 0x007E6FD8.
+[Constructor trial and remaining slot conflicts](../../reverse/attempt_support/watchdog-donor-cleanup-20261027.md#synchronization-members-and-tu-composition-2026-11-12).

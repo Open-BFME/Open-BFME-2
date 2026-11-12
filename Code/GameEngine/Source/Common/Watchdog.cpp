@@ -8,12 +8,6 @@ typedef unsigned long UnsignedInt;
 #undef far
 #include <time.h>
 
-class WatchdogCriticalSection
-{
-private:
-	char m_storage[0x18];
-};
-
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/thread.h
 // Destructor-only base view; the complete Watchdog primary table is declared
 // below from retail BE6FD8, independently of provisional base method names.
@@ -60,7 +54,7 @@ private:
 	UnsignedInt m_warningDelay;
 	UnsignedInt m_nextWarning;
 	int m_suppressionCount;
-	WatchdogCriticalSection m_criticalSection;
+	CRITICAL_SECTION m_criticalSection;
 	MutexClass m_mutex;
 	MutexClass::LockClass *m_ownedLock;
 };
@@ -86,7 +80,7 @@ Watchdog::Watchdog(int timeout, int warningInterval, int warningDelay) :
 	{
 		m_timeout = 1;
 	}
-	InitializeCriticalSection((CRITICAL_SECTION *)&m_criticalSection);
+	InitializeCriticalSection(&m_criticalSection);
 }
 
 // Counter suppression and heartbeat refresh (0x00225476, 0x00225492,

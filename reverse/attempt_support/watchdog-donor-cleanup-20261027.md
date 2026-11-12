@@ -96,3 +96,26 @@ secondary table at 0x00855348. Its proposed owner remains ModuleUpdateDtors.cpp'
 private dummy storage, already recorded as blocked in the attempt log. No
 declaration trial or identity substitution was attempted. All these triage
 scope claims were released before the Watchdog cleanup.
+
+### Synchronization members and TU composition, 2026-11-12
+
+At a7b64a57f7 the three Watchdog sources disagreed on the critical section
+and the mutex guard. The constructor and destructor pass this+0x70 to
+InitializeCriticalSection and DeleteCriticalSection; the working thread
+locks the same member. All three now use CRITICAL_SECTION directly.
+The seed and destructor use WWLib/mutex.h. The seed passes its mutex
+member at +0x88 directly to the guard.
+
+Including mutex.h in the constructor as well introduces a nontrivial mutex
+destructor and an extra EH state in the 0x00225616 body. The accepted
+constructor retains its existing mutex declaration. All 22 rows and 14
+named imports pass together; the three units preview LINKS at 915 bytes
+both before and after the change.
+
+The remaining tu_views conflict is Watchdog's base clause. The dry merge
+rejects the constructor because ThreadClass is absent from the seed's base
+list, and rejects the destructor on bytes. At RVA 0x007E6FD8 the bridge
+queue records a 20-byte emitted table for a 16-byte retail table. Slot 1
+selects ThreadClass::Execute instead of RVA 0x002256C0; slot 3 selects
+Watchdog::start instead of RVA 0x002255AD. Reconcile the base override
+and verify both installers before merging. No source paths moved.
