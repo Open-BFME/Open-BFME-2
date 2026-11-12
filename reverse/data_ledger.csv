@@ -2113,7 +2113,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007C97A0,8,.rdata,vtable,??_7W3DDebrisDraw@@6BDebrisDrawInterface@@@,,literal,,0,2
 0x007C97A8,248,.rdata,vtable,??_7W3DDebrisDraw@@6BDrawableModuleLayoutBase@@@,,literal,,0,2
 0x007C98A0,5,.rdata,global,?gCommandNameStop@@3QBDB,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButton_parseCommand_Thunk.cpp,provisional,??_C@_04MDHMLCKF@STOP?$AA@;?gCommandNameStop@@3QBDB,0,1
-0x007C98B0,348,.rdata,global,?g_00BC98B0@@3DA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDefaultDraw.cpp,owned,,1,1
+0x007C98B0,348,.rdata,global,?g_00BC98B0@@3QBQBXB,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDefaultDraw.cpp,owned,,1,1
 0x007C9A0C,8,.rdata,float,__real@40a00000,,literal,,0,4
 0x007C9A14,268,.rdata,string,??_C@_0BA@CBBONJDM@FELLOWSHIPBADGE?$AA@,,literal,,0,1
 0x007C9B20,15,.rdata,global,?g_animationModeOnceBackwards@@3QBDB,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp,owned,,0,0
@@ -2279,7 +2279,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CCB58,124,.rdata,vtable,??_7W3DTankDrawModuleData@@6B@,,literal,,0,2
 0x007CCBD4,20,.rdata,string,??_C@_0BE@MFFDDAIL@TrackDebrisDirtLeft?$AA@,,literal,,0,1
 0x007CCBE8,272,.rdata,vtable,??_7W3DTankDraw@@6BDrawModuleBase@@@,,literal,,0,2
-0x007CCCF8,248,.rdata,global,?g_00BCCCF8@@3DA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDraw.cpp,owned,,1,1
+0x007CCCF8,248,.rdata,global,?g_00BCCCF8@@3QBQBXB,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDraw.cpp,owned,,1,1
 0x007CCDF0,504,.rdata,vtable,??_7W3DTreeDrawModuleData@@6B@,,literal,,0,2
 0x007CCFE8,400,.rdata,global,?g_00BCCFE8@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDraw.cpp,owned,,1,1
 0x007CD178,248,.rdata,vtable,??_7W3DBuffDraw@@6B@,,literal,,0,1
