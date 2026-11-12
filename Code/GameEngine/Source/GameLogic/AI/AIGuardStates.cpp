@@ -497,6 +497,7 @@ class GiantBirdGuardAttackAggressorState : public State
 public:
 	GiantBirdGuardAttackAggressorState(StateMachine *machine);
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
 private:
@@ -830,6 +831,11 @@ void AIGuardInnerState::onExit(StateExitType status)
 }
 
 void GiantBirdGuardInnerState::onExit(StateExitType status)
+{
+	exitGuardAttack(getMachineOwner(), m_attackState, status);
+}
+
+void GiantBirdGuardAttackAggressorState::onExit(StateExitType status)
 {
 	exitGuardAttack(getMachineOwner(), m_attackState, status);
 }
