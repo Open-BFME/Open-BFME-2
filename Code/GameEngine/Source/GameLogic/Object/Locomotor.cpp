@@ -258,11 +258,7 @@ int g_Va00DFDC64;
 // owning class are unknown. Both callee entries are Ghidra boundaries and are
 // pinned by their exact REL32 calls below.
 
-class Rva001E7053
-{
-public:
-	void rva001e7053(unsigned int, unsigned int, float, float);
-};
+#include "../../../Include/GameLogic/Module/Rva001E7053.h"
 
 class Thing;
 

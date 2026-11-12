@@ -1153,11 +1153,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/Rva001E8C1B.h"
 
-class Rva001E7053
-{
-public:
-	void rva001e7053(unsigned int, unsigned int, float, float);
-};
+#include "../../../Include/GameLogic/Module/Rva001E7053.h"
 
 void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDistToGoal, Real desiredSpeed)
 {

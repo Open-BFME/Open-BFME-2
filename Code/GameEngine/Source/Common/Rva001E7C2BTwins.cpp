@@ -6,11 +6,7 @@
 // dword-pushed directly, so the first two params are int-sized and the last
 // two are float. Address-derived names; callee types unproven (pins).
 
-class Rva001E7053
-{
-public:
-	void rva001e7053(unsigned int, unsigned int, float, float);
-};
+#include "../../Include/GameLogic/Module/Rva001E7053.h"
 #include "../../Include/GameLogic/Module/Rva001E8C1B.h"
 #include "../../Include/GameLogic/Module/Rva001E7C2B.h"
 class Rva001E9045
