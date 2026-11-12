@@ -319,6 +319,10 @@ LITERAL = re.compile(
     r"|(?:u8|u|U|L)?'(?:\\.|[^'\\\n])*'?"
     r'|//[^\n]*|/\*.*?(?:\*/|\Z)', re.S)
 COMMENT = ("//", "/*")
+# The nine C++ trigraphs, replaced in translation phase 1 before anything else
+# is read. `??` before any other character is two question marks: an MSVC
+# mangled name (`??0`, `??1`, `??_G`, `??_7`) in a pragma holds no trigraph.
+TRIGRAPH = re.compile(r"\?\?[=/'()!<>-]")
 
 
 def collapsed(text):
@@ -359,7 +363,7 @@ def normalised_body(text):
     and the rest.
     """
     masked = LITERAL.sub(lambda m: re.sub(r"[^\n]", " ", m.group()), text)
-    if (re.search(r"\\\r?\n", text) or re.search(r"\?\?[=/'()!<>-]", text)
+    if (re.search(r"\\\r?\n", text) or TRIGRAPH.search(text)
             or re.search(r"(?:^|[\f\v])[ \t\f\v]*(?:#|%:)", masked, re.M)):
         return None
     return collapsed(text)
@@ -438,9 +442,11 @@ def scope_code(text):
     `{`/`;` can manufacture one, and a `%:` directive other than an include,
     #line, #error and anything unrecognised are not proven neutral. So does a
     #define or #undef of a keyword, which this scan relies on, a directive line
-    ending in a splice, and a block comment that starts in a directive and
-    runs past its line (translation phase 3 turns it into one space, so the
-    directive would continue on a line this scan reads as code).
+    ending in a splice or holding one of the nine trigraphs (TRIGRAPH; the
+    `??1` of a mangled name in a #pragma is none), and a block comment that
+    starts in a directive and runs past its line (translation phase 3 turns it
+    into one space, so the directive would continue on a line this scan reads
+    as code).
 
     The names a #define or #undef binds are returned so moved_bodies can refuse
     credit to a class whose head, body or enclosing path uses one: an
@@ -456,7 +462,7 @@ def scope_code(text):
         start, end = match.span('directive')
         directive = match.group('directive').rstrip()
         raw = text[start:end]
-        if (re.search(r'\\[ \t\f\v\r]*$', raw) or '??' in raw
+        if (re.search(r'\\[ \t\f\v\r]*$', raw) or TRIGRAPH.search(raw)
                 or any(start <= pos < end for pos in spanning)):
             return None
         define = NEUTRAL_DEFINE.fullmatch(directive)
@@ -557,7 +563,7 @@ def moved_bodies(text):
     unchanged; class_views' survey normalisation is not proof of a pure move.
     """
     if (re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
-            or re.search(r"\?\?[=/'()!<>-]", text)):
+            or TRIGRAPH.search(text)):
         return {}
     scanned = scope_code(text)
     if scanned is None:

@@ -577,6 +577,83 @@ def test_macro_use_refuses_only_the_class_that_uses_it():
     assert 'Y' not in found
 
 
+# A `??` that starts an MSVC mangled name is no trigraph (re_attempts.log: the
+# LivingWorldLogic.cpp merge carried BfmeFiveArgCtorWI.cpp's
+# `#pragma comment(linker, "/alternatename:??1...")` and lost all move credit).
+MANGLED = ['??1X@@QAE@XZ', '??0X@@QAE@XZ', '??_GX@@UAEPAXI@Z', '??_7X@@6B@']
+
+
+def mangled_pragma(name):
+    return '#pragma comment(linker, "/alternatename:%s=?real@@YAXXZ")\n' % name
+
+
+@pytest.mark.parametrize('name', MANGLED)
+def test_mangled_name_in_a_pragma_is_no_trigraph(name):
+    assert class_gate.scope_code(mangled_pragma(name) + X_BODY) is not None
+    assert class_gate.moved_bodies(mangled_pragma(name) + X_BODY) == class_gate.moved_bodies(X_BODY)
+    assert class_gate.moved_bodies(X_BODY + mangled_pragma(name))['X'] == class_gate.moved_bodies(X_BODY)['X']
+
+
+@pytest.mark.parametrize('name', MANGLED)
+@pytest.mark.parametrize('side', ['donor', 'destination', 'both'])
+def test_tu_merge_beside_a_mangled_name_pragma_credits_the_moved_body(repo, capsys, name, side):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    old = (mangled_pragma(name) if side in ('donor', 'both') else '') + X_BODY
+    new = (mangled_pragma(name) if side in ('destination', 'both') else '') + X_BODY
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 0
+    assert all('[shadow]' in line for line in err.splitlines())
+
+
+def test_tu_merge_beside_a_mangled_name_pragma_still_refuses_an_edited_body(repo, capsys):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, mangled_pragma(MANGLED[0]) + X_BODY + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + mangled_pragma(MANGLED[0]) + X_BODY.replace('int a;', 'int b;') + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+# Each of the nine real trigraphs, and a backslash splice, on a directive line
+# still voids the unit's move credit, wherever the line sits.
+TRIGRAPH_LINES = ['#pragma message("a??%sb")\n' % char for char in "=/'()!<>-"]
+SPLICE_LINES = [mangled_pragma(MANGLED[0]).replace('\n', ' \\\n'),
+                '#pragma message("a??1b") \\\n']
+
+
+def test_the_nine_trigraphs_are_exactly_the_refused_ones():
+    assert len(TRIGRAPH_LINES) == 9
+    for char in map(chr, range(32, 127)):
+        line = '#pragma message("a??%sb")\n' % char
+        assert (class_gate.scope_code(line + X_BODY) is None) == (char in "=/'()!<>-"), char
+
+
+@pytest.mark.parametrize('line', TRIGRAPH_LINES + SPLICE_LINES)
+def test_trigraph_or_splice_directive_gets_no_move_credit_at_unit_level(line):
+    assert class_gate.scope_code(line + X_BODY) is None
+    assert class_gate.scoped_move_spans(line + X_BODY) == []
+    assert class_gate.moved_bodies(line + X_BODY) == {}
+    assert class_gate.moved_bodies(X_BODY + line) == {}
+
+
+@pytest.mark.parametrize('line', TRIGRAPH_LINES + SPLICE_LINES)
+@pytest.mark.parametrize('side', ['donor', 'destination'])
+def test_trigraph_or_splice_directive_gets_no_move_credit(repo, capsys, line, side):
+    ambiguous = line + X_BODY
+    old, new = (ambiguous, X_BODY) if side == 'donor' else (X_BODY, ambiguous)
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
 def test_template_body_of_a_registered_class_is_never_credited(repo, capsys):
     # The donor's X is a template; a plain X in the merged unit is new.
     repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
