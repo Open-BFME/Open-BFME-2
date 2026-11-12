@@ -6,11 +6,7 @@ public:
 	BfmeThingDGD(void *a) throw();
 };
 
-class Gen007F0130
-{
-public:
-	static void *operator new(unsigned int size);
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 BfmeThingDGD *bfmeGoDGD(void *a)
 {

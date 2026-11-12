@@ -152,11 +152,7 @@ public:
 	DemanglerListener *m_0c; // +0x0C
 };
 
-class Gen007F0130
-{
-public:
-	static void *operator new( unsigned int size );
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 class BfmeThingDGD : public Rva0112B800Base, public Rva0112B7F8Base, public DemanglerListener
 {

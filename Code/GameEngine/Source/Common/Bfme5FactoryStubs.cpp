@@ -5,11 +5,7 @@
 // T1 body the sweep places. The redundant vtable stores survive via volatile
 // lvalues standing in for the constructor boundary.
 
-class Gen007F0130
-{
-public:
-	static void *operator new(unsigned int n);
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 extern "C" char __identifier("??_7Rva006613E0@@6B@")[];
 extern "C" char __identifier("??_7Gen007F4D00@@6BGen007F4D00Listener@@@")[];

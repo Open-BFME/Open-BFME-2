@@ -16,11 +16,7 @@ public:
 
 extern GenAlloc *Gen007EFFC0();
 
-class Gen007F0130
-{
-public:
-	static void *operator new(unsigned int size);
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 // ??2Gen007F0130@@SAPAXI@Z
 void *Gen007F0130::operator new(unsigned int size)

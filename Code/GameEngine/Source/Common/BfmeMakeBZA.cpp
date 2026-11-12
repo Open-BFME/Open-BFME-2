@@ -10,11 +10,7 @@
 // three vptrs (+0x00 primary, +0x04 folded secondary, +0x0C tertiary).
 #include <new>
 
-class Gen007F0130
-{
-public:
-	static void *operator new(unsigned int size);
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 class BfmeThingBZA;
 

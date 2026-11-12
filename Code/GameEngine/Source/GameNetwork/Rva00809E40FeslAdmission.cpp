@@ -161,11 +161,7 @@ public:
 Rva007EB810Diag *Rva007EB810Get();
 void *Rva007F93E0( void *message, void *route, void *owner );
 
-class Gen007F0130
-{
-public:
-	static void *operator new( unsigned int size );
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 void Rva00809E40Owner::rva00809E40( Rva007E8810Message *input )
 {
