@@ -45,11 +45,7 @@ struct Rva0043846DGlobalData
 	unsigned int phase;
 };
 
-class Rva0043846D
-{
-public:
-	void rva0043846D(Object *obj);
-};
+#include "../../../../Include/GameLogic/Module/Rva0043846D.h"
 
 void Rva0043846D::rva0043846D(Object *obj)
 {

@@ -14,7 +14,7 @@ extern GameLogic*TheGameLogic;
 class Rva00438389 {public:Rva00438389&rva00438389();};
 struct Rva004389DBInfo {unsigned detector;char pad[32];};
 struct Rva004393D6 {void**node;unsigned expiry,refresh,other;};
-class Rva0043846D {public:void rva0043846D(Object*);};
+#include "../../../../Include/GameLogic/Module/Rva0043846D.h"
 #include "../../../../Include/GameLogic/Rva00439E0C.h"
 bool Rva00439E0C::rva0043979D(Object*obj,Rva004393D6*record){
  Rva004389DBInfo info;((Rva00438389*)&info)->rva00438389();

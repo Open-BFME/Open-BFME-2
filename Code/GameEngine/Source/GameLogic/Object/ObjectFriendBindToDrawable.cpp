@@ -38,11 +38,7 @@ extern const ModelConditionFlagType TheWeaponSetTypeToModelConditionTypeMap[WEAP
 extern GlobalData *TheWritableGlobalData;
 
 // The manager at TheGameLogic +0x178; its 0x0043846D is rowed under this owner.
-class Rva0043846D
-{
-public:
-	void rva0043846D(Object *obj);
-};
+#include "../../../Include/GameLogic/Module/Rva0043846D.h"
 extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
