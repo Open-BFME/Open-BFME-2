@@ -90,6 +90,20 @@
   complete native secondary vtable and reconciled class identity before full
   data ownership can be claimed.
 
+- **FESL factory base-binding follow-up (2026-11-12, base `4671394f636`):**
+  `Rva00803890FeslDtor.cpp` now calls the existing seven-byte
+  `Rva00666BA0` destructor instead of its incorrect private base definition.
+  The owning tool retires one code-identity key; one unused pin and one
+  unmatched-body marker are removed. Both source rows pass normal and strict
+  verification, and scoped previews retain LINKS for 103 bytes against
+  `aa7acf764d` (four unrelated source-path changes make that index incomplete).
+  The secondary anchor declaration now agrees with its existing four-pointer
+  definition; the 2026-10-27 placeholder description above is historical.
+  The short primary table and full class reconciliation remain open; no table
+  repair or real-image clearance is claimed. Carry the changed callee into the
+  next normal census and image check.
+  [Evidence and remaining family prerequisites](../../reverse/attempt_support/fesl-base-identity-20261112.md).
+
 - **StatusBitsUpgrade / WeaponBonusUpgrade guard cleanup (2026-10-27):**
   [Exact parent EH ownership](../../reverse/attempt_support/upgrade-guard-rollbacks-20261027-codex.md)
   replaces the last two synthetic standalone clearers with their parents'

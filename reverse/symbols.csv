@@ -3238,7 +3238,6 @@ name,address,notes
 ??1Rva007E8810Message@@QAE@XZ,0x00655780
 ??1Rva00800780Addr@@QAE@XZ,0x00655780
 ??1Rva00801FB0Elem@@QAE@XZ,0x0066DF10,twin of rowed bfmeClearVHW clear for Rva00801FB0Elem deleting dtor call; vtable 0xCE3C20 same as ctor 0x66E270; ICF-folded clear-dtor body
-??1Rva00803890Base@@UAE@XZ,0x00666BA0
 ??1Rva00808CB0LanGameEntry@@UAE@XZ,0x00655780
 ??1WaterRenderObjClass@@UAE@XZ,0x0082140,SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x8230D; restores the vtables whose RenderObjClass table 0x7C7108 holds WaterRenderObjClass::Render
 ??1Rva0084CEF@@UAE@XZ,0x0084CEF,opaque and-dtor (19B: member call 0x483E87 + and [esi+8]/[esi+0x18]); called by scalar-deleting-dtor at 0x91AB2; identity unproven, address-derived name

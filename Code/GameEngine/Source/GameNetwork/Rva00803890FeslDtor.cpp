@@ -1,10 +1,12 @@
 // cl: /GX-
-// FESL browser factory dtor @ 0x803890 (96B). Twin of ctor shape at 0x803820:
+// Target FESL factory destructor 0x0066F8D0 (96B). BFME1 source lead:
+// destructor 0x00803890 and constructor 0x00803820. The base call uses
+// its existing rowed owner at 0x00666BA0.
 // derived dual-vptr, optional m_10/m_14 unlink when +9 set, scalar-delete m_18,
-// clear +0C/+10/+14, tail to base vptr restore (Gen_007fa650). Secondary vptr
+// clear +0C/+10/+14, tail to the verified base destructor. Secondary vptr
 // at +4 is an ordinary member so the primary vfptr stays compiler-owned.
 
-extern "C" int Rva00803890SecondaryFinalVTableAnchor;
+extern "C" const void *const Rva00803890SecondaryFinalVTableAnchor[4];
 
 class Gen_007f9590
 {
@@ -29,16 +31,15 @@ public:
 	virtual void *deleting( unsigned char flags );
 };
 
-class Rva00803890Base
+// Only the destructor is used through this existing four-byte base view.
+// Its complete rowed body lives in DirtySock/Rva00666BA0Dtor.cpp.
+class Rva00666BA0
 {
 public:
-	virtual ~Rva00803890Base();
+	virtual ~Rva00666BA0();
 };
 
-// ??1Rva00803890Base@@UAE@XZ present-unmatched
-__declspec(noinline) Rva00803890Base::~Rva00803890Base() {}
-
-class Rva00803890Owner : public Rva00803890Base
+class Rva00803890Owner : public Rva00666BA0
 {
 public:
 	virtual ~Rva00803890Owner();
