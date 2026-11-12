@@ -3115,3 +3115,59 @@ class: all LINK, LINKED never lower. No alias, pin or marker added; no initializ
 `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the changed views'
 classes or spellings (fixture mentions of PlayerAITypeSet, GameStateMap, GlobalLanguage, ExperienceLevelCreate and
 AssaultTransportAIUpdate are file-level and unchanged).
+
+### The +0x2C damage-shaped interface tables (0x00C58790, 0x00C463D8): 13 off the bridge (2026-11-12, seat halilkkaya-lk100)
+
+Base `257b90ffe74`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Refreshed ranking at the base (3,391 bridged).** lk97's list holds. Two clarifications: 0x00497805 (cause 5) is
+per class, not one shared declaration: it is every module's own `loadPostProcess` base-call override, ICF-folded, so
+each table needs its class's override (lk97's BezierProjectileBehavior recipe) and its class's name getter; the
+getters rowed `?name@<RealClass>@@QBEPBDXZ` cannot be respelled by any rename.py route today (`name` is a real
+identifier: `inferred` and `canonical` both refuse it, `--to-class` refuses a member of its own class). Cause 6's 18
+tables are one retail table, 0x007EFCF8, bound by 18 names; slot 43 is the blocker (below). New family found: the
+three-slot interface at OpenContain/UpgradeModule +0x2C, shaped like DamageModuleInterface (ret 4, ret 4, ret 0Ch):
+0x00C58790 (empty defaults) and 0x00C463D8 (GarrisonContain's onBodyDamageStateChange in slot 2), 18 tables, most
+spelled as one-slot stand-ins (B6, B2C, Iface2C, ModuleInterface, UpgradeTail).
+
+**Done (commits by subject).**
+- "Give four UpgradeModule views the three empty UpgradeModuleInterface18 overrides": CostModifierUpgrade,
+  DynamicPortalBehaviour, UpgradeModule (dtor unit) and GeometryUpgrade name the rowed `?vslot18_0N@UpgradeModule`
+  defaults; no new row. 4 tables.
+- "Give OpenContain's +0x2C interface stand-in B6 retail's three empty defaults": B6 in seven units (both emitters of
+  the HordeContain and TransportContain tables: differing COMDAT copies made HordeContainDtor.cpp and
+  TransportContainCtor.cpp stop linking until all emitters agreed); three ICF twin rows in TransportContainCtor.cpp.
+  CaveContain, HordeContain, HorseHordeContain, TransportContain, GarrisonContain: 5 tables.
+- "Give three GarrisonContain-derived views B6's defaults and GarrisonContain's slot-2 override": TunnelContain,
+  SlaughterHordeContain, ProductionQueueHordeContain. 3 tables.
+- "TunnelContainDtor.cpp: drop the dead /alternatename for ?b6@B6@@UAEXXZ": no object names the symbol after the
+  above; alternatename register 2,326 -> 2,325.
+- "Give TunnelContain's B2C stand-in the GarrisonContain family's +0x2C slots": 1 table, two twin rows.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,391 -> 3,378; bridged slots 50,662 -> 50,623; already correct
+2,171 -> 2,184; mismatching source slots 37,995 -> 37,957; 13 bridged -> correct, nothing newly bridged, no correct
+table lost, refusals identical (35). link_check (census c31795c94c) over every changed unit, every other emitter of
+each changed table (lk74_definers) and the owners of the twin rows: all LINK, LINKED never lower. No alias, pin or
+marker added; no initializer added.
+
+**Refused / deferred (re_attempts.log).**
+- Cause 6, `?rva00251C11@Rva00251C11@@QAEXM@Z` (0x00251C11): retail's slot-43 override reads a float
+  (`fld [esp+4]`) and forwards it to SpecialPowerModuleInterface::startPowerRecharge; canonical BehaviorModule.h
+  spells `slot43(int)`, and `--to-class` refuses the parameter change. Prerequisite: BehaviorModule.h's slot 43
+  respelled `Real` together with its base twin row `?slot43@BehaviorModule@@UAEXH@Z` (0x0047A69C); then move
+  0x00251C11 and 0x00251C24 (slot 44 calls primary slot 12, `rva00493805`) into SpecialPowerModule and declare an
+  inline getSpecialPower (`return this`, the 0x002533D3 fold) in the 12 emitting views.
+
+**Next leads.**
+1. Canonical Iface2C (`Code/GameEngine/Include/Common/Iface2C.h`, one slot): the same interface; AODHordeContain,
+   HordeSiegeEngineContain, SiegeEngineContain (0x00C58790) and HordeGarrisonContain (0x00C463D8) stay bridged until
+   its contract carries the three slots with B6's defaults (header_adopt_lane; full gate; 18 adopting units).
+2. HealContain.cpp's Rva00220240FlatDtorM5 (0x00C58790): same fix; that unit was another seat's today.
+3. A canonical B6: StarkillerHDX's lane is registering B1/B4/B5/B7 from majority views; B6's retail shape is now the
+   three-slot one in 10 units (four sources still declare the old one-slot `b6()` and emit no table).
+4. Tooling: a rename route for a retail-proven parameter type (cause 6) and for `?name@<RealClass>` getters to
+   `GetSnapshotName` (cause 5, 22 tables) would unlock the two largest shared causes.
+
+**Tooling compatibility audit** (`257b90ffe74..HEAD`): 18 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ spell none of the changed views,
+symbols or files.
