@@ -4,13 +4,7 @@
 // Same 47B shape as Rva005EF4C0Copy (forward *dest=*first ++first ++dest loop with sar 2 count)
 // plus two dummy trailing args (tag pointer plus zero) that ride dead above the frame;
 // caller 0x005E74A0 passes 5 args. Precedent: Rva0014FA90Copy 50B 5-arg forward copy.
-class Rva005E7198
-{
-public:
-	Rva005E7198 &operator=(const Rva005E7198 &other);
-private:
-	void *m_object;
-};
+#include "../../../Include/Common/Rva005E7198.h"
 Rva005E7198 *__cdecl Rva005E7285Copy(Rva005E7198 *sourceBegin, Rva005E7198 *sourceEnd, Rva005E7198 *destination, void *unusedTag, int unusedExtra)
 {
 	int elementCount = sourceEnd - sourceBegin;
