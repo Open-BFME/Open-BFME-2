@@ -157,12 +157,7 @@ namespace _STL
 }
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char *shader,
     const char *technique, const _STL::vector<Rva0007BB16Record> *parameters, int lod);
-class Rva00072A94
-{
-public:
-    Rva00072A94 &operator=(const Rva00072A94 &);
-    void *ptr;
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00072A94.h"
 enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
 struct IDirect3DDevice8;
 // Preserve DX8Wrapper's existing device spelling. Retail uses the D3D9

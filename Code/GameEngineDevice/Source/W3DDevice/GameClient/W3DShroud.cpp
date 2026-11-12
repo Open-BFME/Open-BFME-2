@@ -138,19 +138,7 @@ private:
 // through the rowed assignment ??4Rva00072A94 (0x00072A94); the argument's
 // destructor then drops the caller's reference under EH protection.
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class Rva00072A94
-{
-public:
-	Rva00072A94 &operator=(const Rva00072A94 &);
-	~Rva00072A94()
-	{
-		if (m_ptr)
-			m_ptr->Release_Ref();
-	}
-
-private:
-	RefCountClass *m_ptr;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00072A94.h"
 class Rva00072A51
 {
 public:

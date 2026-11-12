@@ -78,7 +78,7 @@ static int terrainShaderLevels[3]={0,1,2};
 template<class T>class RefCountPtr{public:RefCountPtr():m_ptr(0){}RefCountPtr(const RefCountPtr&o):m_ptr(o.m_ptr){if(m_ptr)m_ptr->Add_Ref();}~RefCountPtr(){if(m_ptr)m_ptr->Release_Ref();}T*m_ptr;};
 struct Rva0007BB16Record;namespace _STL{template<class T>class allocator;template<class T,class A>class vector;}
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char*,const char*,const _STL::vector<Rva0007BB16Record,_STL::allocator<Rva0007BB16Record> >*,int);
-class Rva00072A94{public:Rva00072A94&operator=(const Rva00072A94&);};
+#include "../../../Include/W3DDevice/GameClient/Rva00072A94.h"
 static __forceinline const int& smallerTerrainLevel(const int&a,const int&b){return b<a?b:a;}
 void Rva000E15D1::rva000E153A(){
  int requested=((TerrainLODState*)TheGameLODManager)->terrainLOD;

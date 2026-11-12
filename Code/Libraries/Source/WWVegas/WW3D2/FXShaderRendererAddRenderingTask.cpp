@@ -58,13 +58,7 @@ public:
 typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
 
 // The rowed holder assignment (0x00072A94) the record fill goes through.
-class Rva00072A94
-{
-public:
-	Rva00072A94 &operator=(const Rva00072A94 &other);
-private:
-	RefCountClass *m_ptr;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00072A94.h"
 inline __declspec(noinline) Rva00072A94 &Rva00072A94::operator=(const Rva00072A94 &other)
 {
 	if (this != &other) {

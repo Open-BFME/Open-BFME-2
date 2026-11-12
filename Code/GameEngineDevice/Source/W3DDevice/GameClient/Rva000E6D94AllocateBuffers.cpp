@@ -66,11 +66,7 @@ public:
 	~RefCountPtr() { if (m_ptr) m_ptr->Release_Ref(); }
 	T *m_ptr;
 };
-class Rva00072A94
-{
-public:
-	Rva00072A94 &operator=(const Rva00072A94 &);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00072A94.h"
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char *, const char *, const _STL::vector<Rva0007BB16Record> *, int);
 
 class Rva000EC9C6

@@ -10,13 +10,7 @@
 // OpaqueRefElement4::operator= at 0x239099 and Rva005EEFD2::operator= at
 // 0x5EEFD2 with inlined non-atomic counting.
 #include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class Rva00072A94
-{
-public:
-	Rva00072A94 &operator=(const Rva00072A94 &other);
-private:
-	RefCountClass *m_ptr;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00072A94.h"
 __declspec(noinline) inline Rva00072A94 &Rva00072A94::operator=(const Rva00072A94 &other)
 {
 	if (this != &other) {

@@ -28,11 +28,7 @@ public:
 	~RefCountPtr() { if (m_ptr) m_ptr->Release_Ref(); }
 	T *m_ptr;
 };
-class Rva00072A94
-{
-public:
-	Rva00072A94 &operator=(const Rva00072A94 &);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00072A94.h"
 
 struct BfmeAssignRecord36
 {
