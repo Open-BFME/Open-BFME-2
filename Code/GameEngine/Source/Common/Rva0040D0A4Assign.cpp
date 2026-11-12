@@ -10,15 +10,7 @@ public:
 	Rva002B2F97 &operator=(const Rva002B2F97 &other);
 };
 
-class Rva0040D0A4Entry
-{
-public:
-	Rva0040D0A4Entry &operator=(const Rva0040D0A4Entry &other);
-
-private:
-	int m_first;
-	Rva002B2F97 m_second;
-};
+#include "../../Include/Common/Rva0040D0A4Entry.h"
 
 Rva0040D0A4Entry &Rva0040D0A4Entry::operator=(const Rva0040D0A4Entry &other)
 {

@@ -1,0 +1,70 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0040D0A4Entry",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "8": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_first",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva002B2F97",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_second",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva002B2F97",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 7
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}
