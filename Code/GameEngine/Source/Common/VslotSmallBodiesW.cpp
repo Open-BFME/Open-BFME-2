@@ -7,8 +7,11 @@
 
 // The game's own fprintf (pinned _fprintf), not the CRT import.
 struct _iobuf;
-typedef struct _iobuf FILE;
-extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
+// The game's own fprintf (pinned _fprintf), not the CRT import: read
+// <stdio.h> without dllimport so the call goes straight to that thunk.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
