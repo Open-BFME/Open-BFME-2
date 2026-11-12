@@ -34,11 +34,7 @@
 // padding carries the size the delete call names, and the shared base is
 // named for its destructor.
 
-struct BfmeDirtyBase
-{
-	BfmeDirtyBase();
-	virtual ~BfmeDirtyBase();		// retail 0x007EB6C0
-};
+#include "../../../GameEngine/Include/Common/BfmeDirtyBase.h"
 
 // This constructor forces MSVC to emit the base's vtable and its generated
 // scalar deleting destructor; the retail scalar body at 0x007E9060 calls the

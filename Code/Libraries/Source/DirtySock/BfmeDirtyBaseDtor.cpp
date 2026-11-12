@@ -7,11 +7,7 @@
 // would inline the 7 bytes into every one of them. The 0x007EB6C0 address
 // that TU's header comment names disassembles to data, not code.
 
-struct BfmeDirtyBase
-{
-	BfmeDirtyBase();
-	virtual ~BfmeDirtyBase();
-};
+#include "../../../GameEngine/Include/Common/BfmeDirtyBase.h"
 
 __declspec(noinline) BfmeDirtyBase::~BfmeDirtyBase()
 {

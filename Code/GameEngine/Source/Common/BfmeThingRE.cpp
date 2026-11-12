@@ -597,11 +597,7 @@ private:
 // marked present-unmatched, never claimed. Owner identity is the rowed
 // ??1Rva006560E0 at 0x006560E0 in BfmeDirtyBaseDerived.cpp.
 
-struct BfmeDirtyBase
-{
-	BfmeDirtyBase();
-	virtual ~BfmeDirtyBase();
-};
+#include "../../Include/Common/BfmeDirtyBase.h"
 
 class Rva006560E0 : public BfmeDirtyBase
 {

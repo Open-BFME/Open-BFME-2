@@ -13,11 +13,7 @@
 // constructor itself is only marked present-unmatched, never claimed. Owner
 // identity is unproven (opaque Rva name).
 
-struct BfmeDirtyBase
-{
-	BfmeDirtyBase();
-	virtual ~BfmeDirtyBase();
-};
+#include "../../../GameEngine/Include/Common/BfmeDirtyBase.h"
 
 class Rva0065F140Derived : public BfmeDirtyBase
 {

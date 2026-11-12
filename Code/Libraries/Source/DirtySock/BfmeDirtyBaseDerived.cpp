@@ -11,11 +11,7 @@
 // the base destructor. Owner identities are unproven (opaque Rva names). One
 // ledger row per destructor, landed one commit at a time.
 
-struct BfmeDirtyBase
-{
-	BfmeDirtyBase();
-	virtual ~BfmeDirtyBase();
-};
+#include "../../../GameEngine/Include/Common/BfmeDirtyBase.h"
 
 class Rva006560E0 : public BfmeDirtyBase
 {
