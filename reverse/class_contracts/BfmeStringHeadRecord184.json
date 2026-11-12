@@ -1,0 +1,50 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeStringHeadRecord184",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "184": 6
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "body",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 184,
+   "type": "char[184]",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 17
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 184,
+ "size_by": "majority",
+ "vslots": {}
+}

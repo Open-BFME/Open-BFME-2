@@ -14,10 +14,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include <vector>
 #include "../../Include/GameClient/Rva0008990CArrayOwner.h"
 
-struct BfmeStringHeadRecord184
-{
-	char m_data[184];
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringHeadRecord184.h"
 
 class Rva008B77D : public Rva000851F3
 {

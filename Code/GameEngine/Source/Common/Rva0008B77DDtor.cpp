@@ -11,10 +11,7 @@
 #include <vector>
 #include "../../Include/GameClient/Rva0008990CArrayOwner.h"
 
-struct BfmeStringHeadRecord184
-{
-	char m_data[184];
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringHeadRecord184.h"
 
 // Out of line in retail (rowed 0x0008B64A, StlportVectorDtorFamily.cpp).
 template <>

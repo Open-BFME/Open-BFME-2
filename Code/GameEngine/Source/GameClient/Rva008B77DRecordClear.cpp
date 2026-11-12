@@ -6,10 +6,7 @@
 // The slot's name is not recovered.
 #include <vector>
 
-struct BfmeStringHeadRecord184
-{
-	char m_bytes[184];
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringHeadRecord184.h"
 
 namespace _STL {
 template <> BfmeStringHeadRecord184 *vector<BfmeStringHeadRecord184>::erase(BfmeStringHeadRecord184 *first, BfmeStringHeadRecord184 *last);
