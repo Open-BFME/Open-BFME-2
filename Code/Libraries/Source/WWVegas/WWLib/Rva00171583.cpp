@@ -14,11 +14,7 @@ bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b
 { return a < b; }
 }
 
-struct Vec2
-{
-    float x;
-    float y;
-};
+#include "../../../../GameEngine/Include/Common/Vec2.h"
 
 struct GlyphRect
 {

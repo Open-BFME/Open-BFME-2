@@ -884,7 +884,7 @@ struct DX8Guard
 	~DX8Guard() { BFME_DX8_Thread_Assert(); }
 };
 
-struct Vec2 { float x, y; };
+#include "../../../../GameEngine/Include/Common/Vec2.h"
 
 #include "../../../Include/W3DDevice/GameClient/CountedAsset.h"
 

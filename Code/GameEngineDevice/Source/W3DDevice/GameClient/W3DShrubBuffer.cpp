@@ -387,10 +387,7 @@ struct Rva000E7734Tree
 	Int m_nextInPartition;
 	char m_pad78[0xa0 - 0x78];
 };
-struct Vec2
-{
-	Real x, y;
-};
+#include "../../../../GameEngine/Include/Common/Vec2.h"
 class ProxyClass
 {
 public:

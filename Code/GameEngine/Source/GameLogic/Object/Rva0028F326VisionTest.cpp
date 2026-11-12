@@ -39,7 +39,7 @@ __declspec(noinline) inline float Coord3D::Normalize()
 }
 
 inline float Coord3D::operator*(const Coord3DBase &r) const { return (x*r.x)+(y*r.y)+(z*r.z); }
-struct Vec2 {float x,y;};
+#include "../../../Include/Common/Vec2.h"
 extern bool Rva004DF8D8Test(const Vec2*,const Vec2*,const Vec2*,float,float,float,float);
 extern float Cos(float),Sin(float);
 #include "../../Common/Thing/thing.h"

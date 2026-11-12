@@ -3,7 +3,7 @@
 // ??0Rva0010274F@@QAE@XZ @0x0010274F 347B: leaf zero-init ctor for 0xE0 struct.
 // Evidence: packet disassembly.
 
-struct Vec2 { float x; float y; };
+#include "../../Include/Common/Vec2.h"
 #include "../../Include/Common/Vec3.h"
 
 class Rva0010274F
