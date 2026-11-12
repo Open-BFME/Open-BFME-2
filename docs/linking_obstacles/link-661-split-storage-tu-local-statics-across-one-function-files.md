@@ -1,6 +1,6 @@
 ### LINK-661: split storage: one retail global kept as several storages, mostly TU-local statics split across one-function files
 Status: Open. One instance repaired (the language buffer, below); the rest need TU merges. Updated: 2026-11-12 (seat
-halilkkaya-lk103; consolidation dry runs by halilkkaya-cs96 at `4710051788e`, below); base `36e2968e498`, census
+halilkkaya-lk103; consolidation dry runs by halilkkaya-cs96 at `4710051788e` and halilkkaya-cs99 at `11483448e79`, below); base `36e2968e498`, census
 index `c31795c94c`.
 
 Evidence / affected units: the survey in LINK-627's 2026-11-12 lk103 section (walker plus a relocation resolver);
@@ -107,3 +107,29 @@ boot-order merge now waits on tooling or on a naming vote, not on source work th
 - **pointgr.cpp (VertexLoc).** False reject recorded in the tooling lane's form (T-only ICF template instances held
   against the seed). No ledger route exists: render2dsentence.cpp's object defines neither `VectorClass<float>::ID` nor
   `VectorClass<Vector2>::ID`.
+
+**2026-11-12 third consolidation pass (seat halilkkaya-cs99, base `11483448e79`).** The pointgr.cpp false reject is
+fixed by the tooling commit "tu_skeleton: let the seed keep a T-bracketed template instance its TU cannot hold"
+(`11483448e79`): the seed is no longer mixed. The merge of what the dry run accepts landed as "Merge 2 files into
+pointgr.cpp (65 rows, ...)": it absorbs `Rva00179100Siblings.cpp` (0x00179100) only, 65/65 exact, link_check LINKS
+12,013 -> 12,034 bytes. The VertexLoc split is **not** closed: `PointGroupClassRva0017A890.cpp` is still rejected.
+Measured, in order:
+- **Compile (persist.h C2146).** The donor includes `<d3dx9.h>`, `RenderStateStruct.h` and a private `DX8Wrapper`
+  (inline `Get_Transform(int, Matrix4 &)`); the seed is built against d3d8 (`banked_segline/dx8wrapper.h`,
+  `D3dx8math.h`). The two `PointGroupClass` views also differ: the donor includes canonical `PointGroupClass.h`
+  (`flag01`, `friend Rva007B73C0`), the seed keeps its own ZH-shaped class (`BILLBOARD`, `friend ::Rva00912CF0`,
+  `_Init`/`_Shutdown`, a `__declspec(noinline) inline` `rva00917920`). The dry run lists `adopt_first PointGroupClass`
+  for the seed; the header_queue row cannot be taken by the lane ("defined inside a preprocessor conditional").
+- **Linkage.** With `static VectorClass<Vector3> VertexLoc;` (and the forward `extern` dropped) the seed stays 64/64
+  exact, so the merged unit can make it file-static. That removes the external symbol the hand-written initializer
+  0x007ACF20 (`Rva007ABEF3ArgCtorInits.cpp`) and atexit 0x007B7400 (`Rva007B7280Siblings.cpp`) bind to. pointgr.obj's
+  own initializer for it (`_$E32`, 26 B) has retail's shape, but its atexit (`_$E33`) is a 10-byte
+  `mov ecx,VertexLoc; jmp ??1?$VectorClass@VVector3@@@@UAE@XZ` thunk, not 0x007B7400's 59-byte inlined destructor:
+  the seed's decl-only `template <> VectorClass<Vector3>::~VectorClass();` (kept so the unit emits no /O2 `??_G`)
+  stops the inline expansion. compressed_loc and transformed_loc have the same 10-byte atexits.
+- **Prerequisites, in order:** the seed adopts canonical `PointGroupClass.h` (additive declarations there:
+  `friend void Rva00912CF0();` and whatever else the seed's bodies need); the donor moves onto the seed's d3d8 /
+  banked dx8wrapper world and stays exact alone; the Vector3 destructor inlines in the atexits so 0x007ACF20 and
+  0x007B7400 can be rowed as pointgr.cpp's `_$E` pair (an `object-symbol=_$E<n>` row is no hatch, hatch_counters
+  rule 9) while the `??_G` copy stays out; then the merge, re-verifying the 12000-byte body, whose match depends on
+  temp numbering (31 dead ints, `reverse/attempt_support/rva17a890-2026-10-20.md`), in the merged context.
