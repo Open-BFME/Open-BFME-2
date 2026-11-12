@@ -17,7 +17,7 @@ namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 { return a < b ? b : a; }
 }
-struct BfmeScriptSlotAddress { unsigned int address; };
+#include "../../../Include/GameLogic/BfmeScriptSlotAddress.h"
 namespace _STL {
 template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {};
 }

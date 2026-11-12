@@ -32,7 +32,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // deque bodies whose ledger names use this aggregate (ctor 0x00605464,
 // push_back 0x00423BD8, back 0x003B5603, _M_pop_back_aux 0x003B3F2F, base dtor
 // 0x0054FAAC). STLport needs the POD traits stated explicitly.
-struct BfmeScriptSlotAddress { unsigned int address; };
+#include "../../../../GameEngine/Include/GameLogic/BfmeScriptSlotAddress.h"
 typedef char ScriptSlotAddressWidth[sizeof(BfmeScriptSlotAddress) == 4 ? 1 : -1];
 namespace _STL {
 template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {};

@@ -32,7 +32,7 @@ void *const &vector<void*>::operator[](size_t __n) const { return *(begin() + __
 }
 // Reuse the non-owning x86 address word and its verified deque providers from
 // BfmeOwnerZKRelink.cpp. Here each word holds a node address, not ownership.
-struct BfmeScriptSlotAddress { unsigned int address; };
+#include "../../../Include/GameLogic/BfmeScriptSlotAddress.h"
 namespace _STL {
 template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {};
 }

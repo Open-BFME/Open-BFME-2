@@ -8,7 +8,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 // Neutral storage for an x86 list-slot address, not the original element type.
 // This aggregate is POD; STLport needs user-type traits stated explicitly.
-struct BfmeScriptSlotAddress { unsigned int address; };
+#include "../../Include/GameLogic/BfmeScriptSlotAddress.h"
 typedef char ScriptSlotAddressWidth[sizeof(BfmeScriptSlotAddress) == 4 ? 1 : -1];
 namespace _STL {
 template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {};
