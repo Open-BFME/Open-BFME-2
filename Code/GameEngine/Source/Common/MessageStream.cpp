@@ -10,7 +10,7 @@
 // It can also change how later array constructions here compile; checked to
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../Include/Common/BfmeVciAnchorElem.h"
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include "Common/MessageStream.h"
 #include "Common/Player.h"

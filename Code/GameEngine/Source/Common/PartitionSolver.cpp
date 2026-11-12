@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 /*

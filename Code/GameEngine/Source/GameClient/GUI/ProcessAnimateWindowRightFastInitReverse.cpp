@@ -29,7 +29,7 @@
 
 #pragma optimize("y", on)
 // Emit the shared compiler iterator under this TU's existing retail context.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // Keep source headers untouched; the target copied Coord2D nontrivially.
