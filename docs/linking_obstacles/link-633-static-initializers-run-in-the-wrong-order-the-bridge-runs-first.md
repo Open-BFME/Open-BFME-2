@@ -1,5 +1,5 @@
 ### LINK-633: static initializers run in the wrong order: the bridge runs first, and object order is path order (P32)
-Status: Open. Updated: 2026-11-08; inspected revision: 8a30049c6a (swarm Link lane).
+Status: Open. Updated: 2026-11-12; inspected revision: 8a30049c6a (swarm Link lane).
 
 Evidence / affected units: P32. LivingWorldRegionEffects' field table gets empty names because
 `initializeRegionEffectFields` (0x007AF9D6, Rva003EE746ColorProvider.cpp) runs before the nine string
@@ -178,3 +178,47 @@ still one retail TU with the strings, the table and its compiler-emitted initial
 for these addresses, and the compiler keeps the entries' parse pointers static (3340a03cf5), so retail's source form is unknown.
 Follow-up: option (b) above, the bridge split by retail slot under `--order retail`, for any other entry of this shape.
 Verification on the first image after landing is owed: see P32's packet. Clearance: pending.
+
+**2026-11-12 order trial at `08725f0841` (swarm Link lane; coordinator-approved, P142).** Tool lane 2 traced P142 to the
+order: the real link and every test image (`real-link.yml --link`, `diagnostic-link.yml` and srv1's `local_link.py
+--diagnostic`) take the default, path order, while the census and `tu_skeleton`'s LinkGuard follow retail's address order.
+One boat sandbox compiled the tree once and linked it twice from the same objects and the same stub seed (the newest local
+image's): `--order path` as the control, then `--order retail`. The path image equals srv1's local image `cfe7fac489`
+except for timestamps, a per-compile anonymous-namespace hash and two 8-byte deleting-destructor thunks laid out in the
+other order. Neither difference comes from the order.
+
+| | path | retail |
+|---|---:|---:|
+| unresolved / duplicates | 0 / 0 | 0 / 0 |
+| vtable bridge: tables refused | 34 | 28 |
+| image_iso defects | 1,360 | 1,353 (7 vtable slots fixed, 0 new) |
+| rowed kept copies that differ from retail (`kept_copies`) | 245 | 7 |
+| `.CRT$XCU` entries / changing index / changing relative order | 1,633 | 1,633 / 1,161 / 877 |
+| boot (game queue, harness at master) | crash at 0x0263CA71 (retail 0x0070A8F1), the known r18 stop | crash in start-up: `_$E1+0x2c` calls 0x1000 |
+| skirmish | same stop as boot | same start-up crash |
+
+Names whose kept copy moves (15,508), by `image_iso`'s own judgement against retail's rows: 240 toward retail's copy,
+2 away, 3,936 match either way, 0 match in neither order, 11,330 have no code row. The 8 worse cases of 2026-11-08 are
+gone.
+
+**Retail order fails the pass rule, and it is not switched.**
+- Away 1, `_List_base<Object*, allocator<Object*>>::_List_base` (retail 0x004EC36C, row AIGroup.cpp). Retail order keeps
+  HordeDispatchSpecialPower.cpp's explicit specialization, which gives the generic name retail's pooled body at 0x001EB984
+  (`mov ecx, g_freelistPool00DB8FEC; call pop`). Retail names that body `_List_base<Object*,
+  Rva001EB984PoolAllocator<Object*>>` (rowed in WWLib). Pin line 953 of `reverse/symbols.csv` puts the generic name at
+  0x001EB984 as well, one name at two addresses (LINK-658's shape). Fix: the unit uses the pool-allocator list type, and
+  that pin retires. This is not a fold proof: the bodies differ.
+- Away 2, `_List_base<upgradePair, allocator<upgradePair>>::_List_base` (retail 0x002049AD). EvaCtor.cpp declares a
+  private 8-byte `struct upgradePair {int a; int b;}`, so its copy allocates a 0x10-byte node where retail's allocates 0x18
+  (a 16-byte element; ModuleFactory.cpp's copy is retail's). ScriptEngine_ctor.cpp has a third view, `int opaque[5]`. Fix:
+  one real 16-byte `upgradePair` for all three units. No rename and no fold proof applies.
+- Start-up crash, new under retail order. The initializer of `Rva007ACBC0Ww3dCmdGroup.obj` (moved from index 1,492 to 775)
+  calls virtual slot 0x84 on `theDebug` (DebugPreStaticInit.cpp), which is still null when it runs. No initializer reaches
+  `Debug::PreStaticInit` by direct calls within three levels in either image, so its creator is reached indirectly. Next:
+  trace the path image's boot to the write of `theDebug`, then compare that initializer's retail slot with the command
+  group's (slot 557's shape, P32). The 470 bridged initializers run first in both orders.
+
+Not affected: the census and LinkGuard keep modelling retail order, so until the switch `tu_skeleton` has to judge a
+merge's kept copies in path order as well (P142, tool lane 2). Evidence: `~/bfme2-ops/swarm/sweeps/link-633-order/`
+(`out/summary.json`, `moved.tsv`, `crt_*.tsv`, `defects_diff.txt`, `away_callees.txt`, `prestaticinit.txt`); the images
+are in the Link lane's `build/boat-run/link-20261112t020507/`. Clearance: pending.
