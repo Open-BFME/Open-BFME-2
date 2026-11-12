@@ -107,7 +107,7 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 extern GameLogic*TheGameLogic;
-class Rva0040D8D6List {public:~Rva0040D8D6List();void*begin,*end,*limit;unsigned index;};
+#include "../../../Include/GameLogic/Rva0040D8D6List.h"
 class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:void Load(bool,bool,int);
  void LoadArmyEntry(Rva0040E534Input*,int,LoadedObjectList*,int);

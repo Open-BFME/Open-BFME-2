@@ -28,7 +28,7 @@ public:
  __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
-class Rva0040D8D6List {public:~Rva0040D8D6List();void*begin,*end,*limit;unsigned index;};
+#include "../../../Include/GameLogic/Rva0040D8D6List.h"
 struct ArmySummaryEntryRef{Rva004F6093Holder holder;ArmySummaryEntryRef(){}ArmySummaryEntryRef(const Rva004F6093Holder&h):holder(h){}};
 #include "../../../Include/Common/Rva0040CB3AIndexedField.h"
 #include "../../../Include/GameLogic/ObjectTypesClass.h"
