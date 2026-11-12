@@ -7,7 +7,12 @@
 #include <mbstring.h>
 #include "../../../Include/GameClient/Rva005248D0.h"
 
-extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
+// _snprintf goes through the CRT import table (FF15): read <stdio.h> with
+// _CRTIMP redefined to dllimport for the include only.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#undef _CRTIMP
 
 // The list row built by 0x0050F85D, whose constructor binds
 // "_level<n>.<name>_color" to color as a member pointer.
