@@ -528,6 +528,7 @@ class GiantBirdGuardInnerState : public State
 {
 public:
 	GiantBirdGuardInnerState(StateMachine *machine);
+	virtual StateReturnType update();
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva00367F19ExitConditions m_exitConditions; // +0x20
