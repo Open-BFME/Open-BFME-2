@@ -262,11 +262,7 @@ struct Rva003B8BAAElem
 #define TheRva00DFEF10 (*(Rva00DFEF10Global **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
 typedef bool Bool;
 typedef unsigned char UnsignedByte;
-struct XferVersionFields
-{
-	UnsignedByte m_version;
-	UnsignedByte m_currentVersion;
-};
+#include "../../../../Include/Common/XferVersionFields.h"
 union XferVersion
 {
 	XferVersionFields m_fields;

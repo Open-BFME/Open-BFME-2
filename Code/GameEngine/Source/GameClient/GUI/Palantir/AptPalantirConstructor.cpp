@@ -217,11 +217,7 @@ private:
 };
 
 // The save-game stream (vslots as used by AptPalantir::xfer).
-struct XferVersionFields
-{
-	unsigned char m_version;
-	unsigned char m_currentVersion;
-};
+#include "../../../../Include/Common/XferVersionFields.h"
 
 union XferVersion
 {

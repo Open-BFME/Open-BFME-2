@@ -13,11 +13,7 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef unsigned char UnsignedByte;
 class AsciiString;
-struct XferVersionFields
-{
-	UnsignedByte m_version;
-	UnsignedByte m_currentVersion;
-};
+#include "../../../../Include/Common/XferVersionFields.h"
 
 union XferVersion
 {
