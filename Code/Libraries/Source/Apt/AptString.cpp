@@ -84,11 +84,7 @@ void __debugbreak();
 
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
-class Rva006DBDB0DwordOrSetter
-{
-public:
-    void apply();
-};
+#include "../../../GameEngine/Include/Common/Rva006DBDB0DwordOrSetter.h"
 
 #include "AptValueVector.h"
 

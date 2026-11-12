@@ -64,7 +64,7 @@ class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
 #include "Rva006CD650.h"
 #include "AptDisplayList.h"
 class Rva008981E0Value {public:int aptHasAll();};
-class Rva006DBDB0DwordOrSetter {public:void apply();};
+#include "../../../GameEngine/Include/Common/Rva006DBDB0DwordOrSetter.h"
 #include "AptValueVector.h"
 class CullableClass;
 class CullSystemClass {protected:CullableClass *Get_First_Collected_Object_Internal();friend class AptCIH;};

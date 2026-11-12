@@ -37,11 +37,7 @@ public:
 	virtual void ForceDelete();
 	unsigned int getRefCount() const;
 };
-class Rva006DBDB0DwordOrSetter
-{
-public:
-	void apply();
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBDB0DwordOrSetter.h"
 #include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 class BfmeAptValue006DCD20 : public AptValue
 {

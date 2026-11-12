@@ -48,11 +48,7 @@ public:
 	unsigned int getRefCount() const;
 };
 
-class Rva006DBDB0DwordOrSetter
-{
-public:
-	void apply();
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBDB0DwordOrSetter.h"
 
 #include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 
