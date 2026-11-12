@@ -568,3 +568,42 @@ vptr store the walk reaches, in walk order.
   word. If it adjusts `this` (`sub/add ecx, N` then `jmp`), the target is the wrong call; reach a definer the real link
   keeps instead (the compiler's own `[thunk]` COMDAT from a class view in a linking unit, or a rowed body). To scan
   a batch before pushing, grep its sources for `__identifier("?j_`.
+
+**2026-11-12, seat halilkkaya-lk101 (base `51601a39c91`): the FX zero rows, 29 -> 0; the walk has no vptr stand-in left.**
+- Walker at tier 5 plus lk98's zjoin and lk99's zext (definer lookup), fed an offline `vtable_bridge.plan()` (HEAD's
+  tool): 37 zero-kind rows and 6 one-byte rows through zext at the base. 19 + 6 were the FX rows lk99 left (counted
+  per store), 4 were "HZz" stores (below), 14 are retail strings. After this pass the walk shows only the 14 strings
+  (`"END"` and `"yes"` in INI, `"_up"` in eleven StrategicHUD setters, `"Lua"` in ldebug.c); retail's bytes there
+  are text, so they are walker false positives.
+- Repaired (constructor bytes identical in every unit, only a relocation target or a data symbol changed; no
+  initializer added; offline plan unchanged throughout: 3377 bridged, 2185 correct, 35 refused, 37955 mismatching
+  source slots; link_check LINKS with bytes unchanged for every touched unit and the units naming the changed symbols):
+  - "Give three FX module factories their retail tables, not zero-int stand-ins" (Rva003AC9AFCreate.cpp: the A24
+    and D03B stores name lk99's `Rva003AE0AF_v0/_v10` and `Rva003AE017_v0/_v0C`; `s_vt93E_00`/`_0C` became TU-local
+    .rdata tables, 6 and 4 slots).
+  - "Give ten FX module ctors their retail tables, not one-byte stand-ins" (13 one-byte `extern "C" char` tables in
+    ConcreteModuleTemplateCopyCtors.cpp, DefaultModuleTemplateCopyCtors.cpp, Rva005646BC.cpp,
+    DefaultModuleTemplate01InlineCopyCtors.cpp, Rva003AEADDCopyCtor.cpp; six data rows grow 1 -> 16/20/48 bytes).
+    Two +0x14 factory-interface tables are one slot: ModuleCtorChainsA stores `g_00C1C640 + 1` (0x00C1C644) as
+    another object's vptr, so 0x00C1C640 ends there.
+  - "Store the +0x0C FX tables, not the string "HZz", in four ctors" (Rva003ADC4F, BfmeDerivedZL, Rva003ADD0B,
+    Rva0055B52E). 0x00C1C8F0, 0x00C1C940 and 0x00C1D10C are 4-slot tables whose slot 0, the -0x0C deleting adjustor
+    0x003A5A48, reads `48 5A 7A 00`; the data ledger files them as the string "HZz", and the stores were written as
+    that literal. lk99's note listed "HZz" among the walker's string false positives; retail's bytes say otherwise.
+- Thunk rule: every slot was picked with a filter that refuses `?j_` rows and definers in the placement objects
+  (`uw_gen_NNN`, `gthunks_000_admitted`, `thunks_000_admitted`) and follows a plain `E9` once; no slot needed it.
+  `link_batch_audit.omitted_references` over all 22 outgoing objects: none; `git grep '__identifier("?j_'`: none.
+- Left, in boot order:
+  - ModuleTemplateCloneSlots.cpp's inline factory 0x003AC8D7 stores the compiled
+    `??_7Rva003AC8D7Object@@6BRva003AC8D7Slot2@@@` at +0x0C (one placeholder slot `s0`, retail 0x00C1C8F0 has four).
+    The bridge cannot see it: the committed data ledger files 0x0081C8F0 as a string (the "HZz" binding above), so
+    `table_rows` skips it. Fix: give that unit's +0x0C store the same owned table (it is a macro-built inline ctor in
+    `BfmeAccessorMacros.h`'s MODULE_TEMPLATE_CLONE_SLOT, a shared header), or regenerate the ledger once these
+    literals are gone so the bridge replaces it.
+  - `$S22`/`$S26` (LINK-584) and the DefaultModuleKey/Name guards: untouched, as ruled.
+- Tooling leads (tools/ not edited): the walker's string false positives (a stored literal of at most 4 bytes whose
+  bytes read as a .text word) should be told apart by retail's next word (text vs a .text pointer), which separates
+  "HZz" from "END"/"_up"; zext's `UNDEF` rows are `/alternatename` aliases to `??_7` names and should be resolved
+  through the alias before classifying.
+- Clearance: none claimed. The next real link should show these units' +0/+0x0C/+0x14 stores resolving to the owned
+  tables.

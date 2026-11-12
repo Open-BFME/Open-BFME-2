@@ -536,3 +536,33 @@ for the difference. Scoped builds verify 41 rows and the three EH-bearing units
 report 11 exact EH graphs.
 This accounts for both consumers in the c1dd79e380 report together with the
 FireWeaponWhenDead repair above. Whole-image verification remains outstanding.
+
+**2026-11-12, seat halilkkaya-lk101 (base `51601a39c91`): the data sweep, vptrs generalized to data the code reads.**
+- Method: every source-defined name the data ledger binds at a retail `.rdata`/`.data` address that matched code
+  reaches (`refs` > 0; the row's own source, `name@source` aliases and data_rows.csv owners), classified by the
+  unit's own object symbol against retail's bytes over the object's retail extent (to the next ledger address, capped
+  at 4 KiB): `short` (ours at most 4 bytes, retail extent at least 8, retail bytes past ours not all zero), `zero`
+  (ours all zero without relocations, retail's not) and `bare` (a non-relocated word equal to a functions.csv row
+  start). Each hit gets the first LINK-627 boot-walk order (tier 5) of a function referencing its address, and the
+  walk's references that land past our size inside the retail extent.
+- Counts by shape: short 161 (global 148, float 5, vtable 5, string 3), zero 3 (all rtti), bare 3. Almost all are
+  not stand-ins: `.bss` objects with no initialized bytes, `const char *const NAME = "..."` pointers whose retail
+  string follows them (the FXParticleSystem module names), CRT and STLport scalars followed by unrelated globals, and
+  constant tables whose values happen to equal row starts (`__Stl_twoexp`, LZHL `symbolTable0`). Only four hits have
+  boot-walk references past our size, and only the three `zero`/rtti rows are real: ThrowInfo stand-ins.
+- Repaired, the ThrowInfo family (a throw dispatches through the ThrowInfo's catchable-type array; a zero one crashes
+  instead of reaching retail's handler):
+  - "Throw the compiler's ThrowInfo, not a zero anchor, in three INI parsers" (parseBitString16, dup_002EC6E:
+    `__TI1H` at 0x008FE2C8; Rva003F1FD0_ParseGiveUpgrade: `__TI1?AW4ErrorCode@@` at 0x008FEEE4).
+  - "Throw XferException's ThrowInfo, not a zero int, in six save/load units" (`g_guardTargetTypeThrowInfo`, an
+    `int = 0` in Rva00470222Xfer.cpp, and its alias `g_rva008ffd18ThrowInfo` stood for `__TI1?AVXferException@@` at
+    0x008FFD18 in GameStateMap::DoXfer, the map embed/extract helpers, Player/PlayerList::DoXfer, HordeMeleeSwarm's
+    xfer and two vector xfers; the definition and one `/alternatename` hatch are gone). The sweep missed this one:
+    the ledger lists the name without a source, because the defining unit's name is not the address's canonical
+    name; a grep of `_CxxThrowException(` arguments found it.
+  Each throw site's bytes are identical; only its throw-info relocation names the compiler COMDAT (the
+  AIKindOfFromName.cpp precedent). `_CxxThrowException(` arguments across Code/ now all name a compiler ThrowInfo.
+- Left, not read one by one: the other short hits have no boot-walk reference past our size. Two `.data` pointers
+  are followed by long pointer runs in retail (`?g_bfmeSinkSTA@@3PAXA`, 964 bytes; `?xor@?1??obfuscate@@...` in
+  GameSpyLoginPreferences.cpp) and are the next to check against their users. The sweep script and its output are
+  in the seat's scratch, not committed; rerun it before relying on these counts.
