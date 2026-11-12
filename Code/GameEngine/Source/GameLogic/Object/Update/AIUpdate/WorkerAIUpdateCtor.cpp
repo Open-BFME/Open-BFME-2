@@ -319,6 +319,11 @@ class AIUpdateInterface24
 {
 public:
 	virtual void onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal) = 0;
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 };
 
 class Xfer;

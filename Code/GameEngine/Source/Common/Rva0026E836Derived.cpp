@@ -78,6 +78,11 @@ class Rva0026E836_M4
 {
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 };
 
 class AIUpdateInterface : public Rva0026E836_Root, public Rva0026E836_M1, public Rva0026E836_B2, public Rva0026E836_M3, public Rva0026E836_M4
