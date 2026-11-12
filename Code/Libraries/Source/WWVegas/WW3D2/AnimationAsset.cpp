@@ -71,11 +71,7 @@ public:
 #include "../WWLib/StringClassData.h"
 inline StringClass::~StringClass() { Free_String(); }
 
-class Rva0061ED80
-{
-public:
-	virtual ~Rva0061ED80();
-};
+#include "../../../../GameEngine/Include/Common/Rva0061ED80.h"
 
 class Rva0014CD63 : public Rva0061ED80
 {

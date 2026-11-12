@@ -16,11 +16,7 @@ public:
 
 #include "ascii_string.h"
 
-class Rva0061ED80
-{
-public:
-	virtual ~Rva0061ED80();
-};
+#include "../../Include/Common/Rva0061ED80.h"
 
 class Rva00151632 : public Rva0061ED80
 {
