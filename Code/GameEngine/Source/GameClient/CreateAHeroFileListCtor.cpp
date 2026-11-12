@@ -77,11 +77,7 @@ class Rva0021DA13 : public Rva0021C459
 
 #include "../../Include/Common/FileSystem.h"
 
-class Rva006007DAFileSystem
-{
-public:
-	void rva006007DA(const UnicodeString *directory, const UnicodeString *searchName, Rva0021C459 *filenameList, bool searchSubdirectories);	// 0x006007DA
-};
+#include "../../Include/Common/Rva006007DAFileSystem.h"
 // The listing is rowed as the free Rva006007DAOpen: the 81-byte provider ignores
 // ECX and takes four stack words, so call that owner with the receiver this
 // caller loads (the AptSaveLoadRva0043684C.cpp idiom).
