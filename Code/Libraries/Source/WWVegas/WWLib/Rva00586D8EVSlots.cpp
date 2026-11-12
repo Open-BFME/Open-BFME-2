@@ -30,13 +30,7 @@ struct ObjectArg
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class Rva005D6FCC
-{
-public:
-	Rva005D6FCC(void *held);
-	virtual ~Rva005D6FCC();
-	void *m_held;
-};
+#include "Rva005D6FCC.h"
 
 class HordeMeleeFormation : public Rva005D6FCC
 {

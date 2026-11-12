@@ -15,13 +15,7 @@ struct HeldBlock { char m_pad00[0x188]; HeldEntry* m_entries; };
 struct GameLogicFrame { char m_pad00[0x40]; unsigned int m_frame; };
 extern class GameLogic *TheGameLogic;
 
-class Rva005D6FCC
-{
-public:
-	Rva005D6FCC(void* held);
-	virtual ~Rva005D6FCC();
-	void* m_held;
-};
+#include "Rva005D6FCC.h"
 
 class HordeMeleeFormation : public Rva005D6FCC
 {

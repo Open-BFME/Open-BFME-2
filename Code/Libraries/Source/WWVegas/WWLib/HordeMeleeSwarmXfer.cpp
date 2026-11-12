@@ -63,12 +63,7 @@ struct Rva00584A7DEntry
 	UnsignedInt m_18;
 };
 
-class Rva005D6FCC
-{
-public:
-	virtual ~Rva005D6FCC();
-	void *m_held;
-};
+#include "Rva005D6FCC.h"
 
 class HordeMeleeSwarm : public Rva005D6FCC
 {

@@ -10,13 +10,7 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva005D6FCC
-{
-public:
-	Rva005D6FCC(void *held);
-	virtual ~Rva005D6FCC();
-	void *m_held;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva005D6FCC.h"
 
 class Rva005838B5 : public Rva005D6FCC
 {
