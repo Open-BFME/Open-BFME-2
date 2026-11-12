@@ -106,9 +106,12 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
+// Retail table 0x00C6FFFC: two __purecall entries; the derived table 0x00C6F2D4
+// overrides both (slot 0 the shared +0x18 byte getter 0x004C9990, slot 1 DoPlay).
 struct Base00
 {
-	virtual void dummy();
+	virtual unsigned char rva004C9990() const = 0;
+	virtual void DoPlay(int turn) = 0;
 	~Base00() {}
 };
 class Rva0057C04F : public Base00
@@ -116,7 +119,7 @@ class Rva0057C04F : public Base00
 public:
 	Rva0057C04F(int level, const AsciiString &name);
 	~Rva0057C04F();
-	virtual void dummy();
+	virtual unsigned char rva004C9990() const;
 	virtual void DoPlay(int turn);
 	void OnDone(const char *path);
 private:
@@ -144,14 +147,11 @@ Rva0057C04F::~Rva0057C04F()
 {
 }
 
-// ?dummy@Base00@@UAEXXZ present-unmatched
-void Base00::dummy()
+// ?rva004C9990@Rva0057C04F@@UBEEXZ: slot 0 of 0x00C6F2D4, retail's folded byte
+// getter at 0x004C9990 (mov al,[ecx+18h]; ret) reading the flag OnDone clears.
+unsigned char Rva0057C04F::rva004C9990() const
 {
-}
-
-// ?dummy@Rva0057C04F@@UAEXXZ present-unmatched
-void Rva0057C04F::dummy()
-{
+	return m_flag18;
 }
 
 void Rva0057C04F::DoPlay(int turn)
