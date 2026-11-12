@@ -8,14 +8,7 @@
 // so this TU emits no vtable.
 // Evidence: push esi push 2 mov esi,ecx call ??0Rva005CB22A@@QAE@PAX@Z,
 // mov [esi] vtable, mov eax esi; caller 0x0041E61E in 0x0041E561/329.
-class Rva005CB22A
-{
-public:
-	Rva005CB22A(void *held);
-	virtual ~Rva005CB22A();
-
-	void *m_held;
-};
+#include "../../Include/Common/Rva005CB22A.h"
 
 class Rva00572ED8 : public Rva005CB22A
 {

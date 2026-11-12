@@ -7,11 +7,7 @@
 // defined here so this TU emits no vtable.
 // Evidence: push esi push 1 mov esi,ecx call ??0Rva005CB22A@@QAE@PAX@Z,
 // mov [esi] vtable, mov eax esi.
-struct Rva005CB22A
-{
-	Rva005CB22A(void *held);
-	virtual ~Rva005CB22A();
-};
+#include "../../Include/Common/Rva005CB22A.h"
 struct AITargetHeuristicBaseDefense : Rva005CB22A
 {
 	AITargetHeuristicBaseDefense();

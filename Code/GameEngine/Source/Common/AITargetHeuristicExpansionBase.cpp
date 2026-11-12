@@ -100,12 +100,7 @@ class AITarget;
 
 class Player;
 
-struct Rva005CB22A
-{
-	Rva005CB22A(void *held);
-	virtual ~Rva005CB22A();
-	void *m_held;
-};
+#include "../../Include/Common/Rva005CB22A.h"
 
 struct AITargetHeuristicExpansionBase : Rva005CB22A
 {

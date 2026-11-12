@@ -47,13 +47,7 @@ public:
 
 #include "../../Include/GameLogic/AITarget.h"
 
-class Rva005CB22A
-{
-public:
-	Rva005CB22A(void *held);
-	virtual ~Rva005CB22A();
-	void *m_held;
-};
+#include "../../Include/Common/Rva005CB22A.h"
 
 class Rva00572DE8 : public Rva005CB22A
 {

@@ -125,11 +125,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 // What slot 1 hands the pick to: +0x2C the kind of pick.
 #include "../../../../../../Include/GameLogic/AITarget.h"
 
-struct Rva005CB22A
-{
-	Rva005CB22A(void *held);
-	virtual ~Rva005CB22A();
-};
+#include "../../../../../../Include/Common/Rva005CB22A.h"
 
 struct AITargetHeuristicBaseDefense : Rva005CB22A
 {
