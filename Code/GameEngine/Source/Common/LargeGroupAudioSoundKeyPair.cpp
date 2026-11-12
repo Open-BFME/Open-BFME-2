@@ -454,7 +454,7 @@ public:
 // Native transfer569BBC and WB unnamed twin1442480 establish version/Xfer
 // protocol. WB-named1442010 establishes xferGridCellVector identity.
 // ModuleData pointer vectors are opaque four-byte emitter views only.
-struct VersionPair { unsigned char minimum,current; };
+#include "../../Include/GameLogic/VersionPair.h"
 class Snapshot;
 class AsciiString;
 class UnicodeString;

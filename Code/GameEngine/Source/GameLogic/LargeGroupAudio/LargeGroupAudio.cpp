@@ -88,11 +88,7 @@ namespace _STL { template <> void allocator<const ModuleData *>::deallocate(cons
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
 #include "../../../Include/Common/ModuleData.h"
 // Retail keeps the minimum/current version bytes in xfer's dead argument slot.
-struct VersionPair
-{
-	VersionPair(unsigned char min, unsigned char cur) : minimum(min), current(cur) {}
-	unsigned char minimum, current;
-};
+#include "../../../Include/GameLogic/VersionPair.h"
 class Snapshot;
 class AsciiString;
 class UnicodeString;

@@ -51,10 +51,7 @@ int Rva0056A983Get();
 bool Rva00045473Equal(const void *a, const void *b);
 bool Rva002634E0Equal(const void *a, const void *b);
 // Retail keeps the minimum/current version bytes in xfer's dead argument slot.
-struct VersionPair
-{
-	unsigned char minimum, current;
-};
+#include "../../../Include/GameLogic/VersionPair.h"
 class Snapshot;
 class AsciiString;
 class UnicodeString;
