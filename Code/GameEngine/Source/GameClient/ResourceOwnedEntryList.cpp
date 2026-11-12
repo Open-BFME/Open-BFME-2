@@ -139,13 +139,7 @@ public:
 
 #include "../../Include/Common/Rva0039A245Data.h"
 
-class Rva0039A245Base0
-{
-public:
-	virtual void b0();
-	Rva0039A245Data *m_data;								// +0x04
-	char m_pad08[0x30 - 8];
-};
+#include "../../Include/Common/Rva0039A245Base0.h"
 
 // --- 0x004A9617 / 0x004A6A81 (53B / 52B): whether the level read through
 // +0xE0 / +0x04 (999999 when absent) is 2 or 4, or 2, 4 or 5.
