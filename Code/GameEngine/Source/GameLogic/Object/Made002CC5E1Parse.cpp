@@ -7,11 +7,7 @@
 // 0x0050893A but with adds factored into buildFieldParse.
 class DamageNugget;
 #include "../../../Include/Common/INI/FieldParse.h"
-class Rva005088CE
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../Include/GameLogic/Module/Rva005088CE.h"
 #include "../../../Include/Common/INI/INI.h"
 void __cdecl q4Notify002CC5E1(void *ini, DamageNugget *damageNugget, int store, int userData)
 {

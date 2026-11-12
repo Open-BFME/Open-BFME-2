@@ -13,11 +13,7 @@ class INI;
 extern const FieldParse FireLogicFieldTable[];
 
 
-class Rva005088CE
-{
-public:
-    static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../Include/GameLogic/Module/Rva005088CE.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

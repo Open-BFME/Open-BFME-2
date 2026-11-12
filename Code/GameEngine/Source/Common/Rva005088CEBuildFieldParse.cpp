@@ -16,11 +16,7 @@ int __cdecl Rva00507552Get();
 // The 0x00C64180 table INIThinFieldParsers2.cpp defines (data row).
 extern const FieldParse g_00C64180[];
 
-class Rva005088CE
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../Include/GameLogic/Module/Rva005088CE.h"
 
 void Rva005088CE::buildFieldParse(MultiIniFieldParse &parse)
 {
