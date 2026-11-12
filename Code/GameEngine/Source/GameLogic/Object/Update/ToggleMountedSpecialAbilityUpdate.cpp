@@ -383,7 +383,7 @@ class Rva00493BD4 { public: void rva00493BD4(Rva00493BD4 *); };
 #include "../../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 class ThingTemplate;
-class ScoreKeeper {public:void addObjectBuilt(Object*,int);};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 #include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/ThingFactory.h"
  extern ThingFactory *TheThingFactory;
