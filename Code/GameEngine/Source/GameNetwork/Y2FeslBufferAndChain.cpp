@@ -144,15 +144,7 @@ void Rva00800550Chain::popFront()
 }
 
 // ------------------------------------ the byte-equal three-field reset
-class Rva008003C0Owner
-{
-public:
-	void clear();               // 0x008003C0
-
-	void *m_block;
-	int   m_field4;
-	int   m_field8;
-};
+#include "../../Include/GameNetwork/Rva008003C0Owner.h"
 
 void Rva008003C0Owner::clear()
 {

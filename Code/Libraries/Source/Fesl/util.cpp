@@ -98,15 +98,7 @@ struct Rva00800550Node
 #include "../../../GameEngine/Include/GameNetwork/Rva00800550Chain.h"
 
 // ------------------------------------ the byte-equal three-field reset
-class Rva008003C0Owner
-{
-public:
-	void clear();               // 0x008003C0
-
-	void *m_block;
-	int   m_field4;
-	int   m_field8;
-};
+#include "../../../GameEngine/Include/GameNetwork/Rva008003C0Owner.h"
 
 // ------------------------------------------------ 0x008014F0, a lone thunk
 // It loads its `this` from [esp+4] rather than using ecx and returns `ret 4`,

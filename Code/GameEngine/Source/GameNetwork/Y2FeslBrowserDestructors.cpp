@@ -76,15 +76,7 @@ public:
 	int m_count;
 };
 
-class Rva008003C0Owner
-{
-public:
-	void clear();                       // 0x0066CA50
-
-	void *m_block;
-	int   m_field4;
-	int   m_field8;
-};
+#include "../../Include/GameNetwork/Rva008003C0Owner.h"
 
 // ------------------------------------------------ 0x00802EC0, two buffers
 class Rva00802EC0Base

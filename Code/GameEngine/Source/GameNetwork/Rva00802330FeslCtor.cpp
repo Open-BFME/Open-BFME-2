@@ -18,14 +18,7 @@ public:
     int m_field8;
 };
 
-class Rva008003C0Owner
-{
-public:
-    void clear();
-    void *m_block;
-    int m_field4;
-    int m_field8;
-};
+#include "../../Include/GameNetwork/Rva008003C0Owner.h"
 
 class Rva00802380Base
 {
