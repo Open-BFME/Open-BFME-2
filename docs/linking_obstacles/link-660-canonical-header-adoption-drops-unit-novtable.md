@@ -1,5 +1,5 @@
 ### LINK-660: canonical header adoption drops a unit's `__declspec(novtable)`, so the unit emits its own base table and deleting destructor
-Status: Open (one instance repaired). Updated: 2026-11-12; seat halilkkaya-lk96, base `af29ac558c5`.
+Status: Both reported instances repaired. The adoption-tooling follow-up remains open.
 
 **Problem.** Several units declared an abstract base privately as `class __declspec(novtable) X { virtual ~X(); }`
 so that they never emit `??_7X@@6B@` or `??_GX@@UAEPAXI@Z` (Rva006CBF40Siblings.cpp said so in a comment). The
@@ -22,9 +22,16 @@ deleting destructor that calls the out-of-line `~X`. Two failure shapes follow:
   OpaqueScalarDeletingDtorsB12.cpp constructs them (its `Rva0056AD19(EmitVtableTag *)` scaffold). It now emits
   both base tables, whose `??_G` call `??1Rva0056AC26A@@UAE@XZ` and `??1Rva0056AC26B@@UAE@XZ`, which nothing
   defines: the two unresolved symbols in the newest real link. link_check at `af29ac558c5`: B12 "does not link",
-  699 -> 0 B. **Open**: the file is claimed by nleigh. The same two-line fix applies (forward declarations
+  699 -> 0 B. The original proposal was to use forward declarations
   `class __declspec(novtable) Rva0056AC26A;` and `class __declspec(novtable) Rva0056AC26B;` ahead of the two
-  includes); LINK-627 also lists that scaffold's two derived tables as stale spellings no retail code installs.
+  includes. LINK-627 also lists that scaffold's two derived tables as stale spellings no retail code installs.
+
+  **Confirmed on 2026-11-12.** Commit `e5814cd4f8` gave Rva0056AD19 its registered parents,
+  Rva0007DF07 and Rva0056AC26Base2. The two missing destructor names in the
+  [previous link](https://github.com/Open-BFME/Open-BFME-2/actions/runs/43206482851) disappeared from
+  [the real link at 19a6c9c709](https://github.com/Open-BFME/Open-BFME-2/actions/runs/43215141083).
+  Its scoreboard reports 3 unresolved, 0 duplicates and no image. On checkout `c1298c9954`,
+  B12 byte-matched 31/31 rows and link_check reported LINKS, 699/699 bytes, against index `c31795c94c`.
 
 **Recipe.** Keep the unit's novtable property on a forward declaration ahead of the canonical include
 (GpuDrawModuleInfoDtor.cpp precedent). The header still supplies the class and its layout; class_gate accepts it.
