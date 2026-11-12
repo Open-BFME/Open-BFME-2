@@ -22,11 +22,7 @@ typedef bool Bool;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
-class Rva001EB769
-{
-public:
-	void rva001EB769() throw();
-};
+#include "../../../../Include/Common/Rva001EB769.h"
 extern GameLogic *TheGameLogic;
 
 template <class T> class Rva001EB984PoolAllocator

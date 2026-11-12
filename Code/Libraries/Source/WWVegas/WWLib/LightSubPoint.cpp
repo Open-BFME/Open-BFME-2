@@ -123,7 +123,7 @@ extern unsigned g_Va00E03174;
 
 class Rva000799D0 {public:void rva000799D0();};
 
-class Rva001EB769 {public:void rva001EB769() throw();};
+#include "../../../../GameEngine/Include/Common/Rva001EB769.h"
 
 struct FormationSlot16 {int candidate;Object*object;int width,height;};
 

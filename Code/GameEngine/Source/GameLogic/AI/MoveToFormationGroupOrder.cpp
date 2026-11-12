@@ -62,7 +62,7 @@ namespace _STL { template <> pair<ObjectID const ,Coord3D>::pair(pair<ObjectID c
 
 class Object{public:char pad[0x74];ObjectID id;};
 
-class Rva001EB769{public:void rva001EB769() throw();};
+#include "../../../Include/Common/Rva001EB769.h"
 
 namespace _STL{
 template<> inline _List_base<Object*,allocator<Object*> >::~_List_base(){((Rva001EB769*)this)->rva001EB769();}

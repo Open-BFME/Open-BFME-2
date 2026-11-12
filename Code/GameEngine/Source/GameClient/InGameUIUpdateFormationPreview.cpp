@@ -54,7 +54,7 @@ struct IdNode {IdNode *next,*prev;ObjectID id;};
 class Rva0029FB3BMember {public: IdNode *head; void *init(void *);};
 class PoolMember {public:void Rva00268902() throw();};
 class Rva001EB984Member {public:void *init(void *);};
-class Rva001EB769 {public:void rva001EB769() throw();};
+#include "../../Include/Common/Rva001EB769.h"
 class SelectedIDs:public Rva0029FB3BMember {
 public:
  SelectedIDs(const char &a){init((void*)&a);}

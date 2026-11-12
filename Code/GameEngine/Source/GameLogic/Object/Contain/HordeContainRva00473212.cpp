@@ -261,12 +261,7 @@ __declspec(noinline) inline void *Rva001EB984Member::init(void *context)
  m_head=node;
  return this;
 }
-class Rva001EB769 
-{
- public: void rva001EB769() throw();
- 
-}
-;
+#include "../../../../Include/Common/Rva001EB769.h"
 typedef _STL::list<Object*>::iterator ObjectIterator;
 // The native caller inlines the vendored erase body. Keep its allocator
 // operation and return iterator, with a TU-local inline specialization.

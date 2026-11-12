@@ -45,7 +45,7 @@ __declspec(noinline) inline void *Rva001EB984Member::init(void *context)
 	return this;
 }
 
-class Rva001EB769{public:void rva001EB769() throw();};
+#include "../../Include/Common/Rva001EB769.h"
 class Object;
 template<class T>class Rva001EB984PoolAllocator {};
 class Rva001EB940{public:

@@ -148,7 +148,7 @@ struct Gen_uw_0007fab3
 	void *m_capacity;
 };
 
-class Rva001EB769 { public: void rva001EB769() throw(); };
+#include "../../../Include/Common/Rva001EB769.h"
 struct Rva001EB940
 {
 	~Rva001EB940() { ((Rva001EB769 *)this)->rva001EB769(); }
