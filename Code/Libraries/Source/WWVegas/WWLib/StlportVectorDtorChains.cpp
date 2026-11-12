@@ -26,7 +26,7 @@ template _STL::vector<BfmeStringRecord00568CE0>::~vector();
 
 // _Destroy @0x297360 (no vector-dtor home: retail callers are manual destroys,
 // not a vector dtor, so the vector emission stays unclaimed)
-class Rva00297360Element { public: ~Rva00297360Element(); char m_pad[16]; };
+#include "Rva00297360Element.h"
 template _STL::vector<Rva00297360Element>::~vector();
 
 // _M_clear bodies (byte-identical explicit member instantiations calling

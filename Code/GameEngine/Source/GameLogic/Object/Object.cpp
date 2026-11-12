@@ -1059,16 +1059,7 @@ private:
 	unsigned m_bits[19];
 };
 
-class Rva00297360Element {
-public:
-  ~Rva00297360Element();
-  Rva00297360Element &operator=(const Rva00297360Element &other);
-private:
-  int m_00;
-  AsciiString m_04;
-  int m_08;
-  int m_0C;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva00297360Element.h"
 
 template Rva00297360Element *_STL::__copy<Rva00297360Element*, Rva00297360Element*, int>(Rva00297360Element*, Rva00297360Element*, Rva00297360Element*, const _STL::random_access_iterator_tag&, int*);
 

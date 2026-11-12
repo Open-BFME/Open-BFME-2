@@ -7,16 +7,7 @@
 // of stores. Application identity unknown, so an Rva owner name is used.
 #include "ascii_string.h"
 
-class Rva00297360Element {
-public:
-  ~Rva00297360Element();
-  Rva00297360Element &operator=(const Rva00297360Element &other);
-private:
-  int m_00;
-  AsciiString m_04;
-  int m_08;
-  int m_0C;
-};
+#include "Rva00297360Element.h"
 
 Rva00297360Element &Rva00297360Element::operator=(const Rva00297360Element &other)
 {

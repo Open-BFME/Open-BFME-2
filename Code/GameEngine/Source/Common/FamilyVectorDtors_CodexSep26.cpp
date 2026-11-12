@@ -9,7 +9,7 @@
 #pragma comment(linker, "/alternatename:??1Rva00297360Element@@QAE@XZ=??1CameraMarker@@QAE@XZ")
 
 // ??1?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAE@XZ @0x403960
-class Rva00297360Element { public: ~Rva00297360Element(); };
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva00297360Element.h"
 template _STL::vector<Rva00297360Element>::~vector();
 // bfme link decl-only begin
 namespace _STL { template <> void _Destroy<Rva00297360Element *>(Rva00297360Element *,Rva00297360Element *); }
