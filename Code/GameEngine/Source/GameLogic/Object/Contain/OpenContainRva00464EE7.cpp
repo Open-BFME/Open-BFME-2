@@ -69,11 +69,7 @@ public:
 	}
 };
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *, Player *);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct OpenContainModuleDataView
 {

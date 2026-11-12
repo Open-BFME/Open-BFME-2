@@ -262,11 +262,7 @@ public:
 // 0x004EF2FA (interface at +0x04): the pinned 0x004EEE38 of the complete
 // object with the first argument.
 // 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 #include "../../../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make001FCBD7(void);
 class Rva003AFF06SystemPtr

@@ -7,7 +7,7 @@
 #include "../../../../Include/GameClient/Drawable.h"
 class Player;
 class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()const;};
-class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 #include "GameLogicObjectLookupView.h"
 extern GameLogic*TheGameLogic;
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"

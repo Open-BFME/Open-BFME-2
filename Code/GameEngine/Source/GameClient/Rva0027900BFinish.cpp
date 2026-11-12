@@ -71,11 +71,7 @@ static bool rva0027900B(char *self)
 class Player;
 class Object;
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct GlobalDataVeterancyView
 {

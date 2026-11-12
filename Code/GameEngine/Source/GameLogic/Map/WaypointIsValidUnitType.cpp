@@ -74,11 +74,7 @@ extern GameLogic *TheGameLogic;
 // Pool-aware object filter member: ctor 0x003623E5, dtor 0x00360D26 and
 // accepts 0x00362437 (all rowed under placeholder names; accepts is the rowed
 // Rva2225E0Filter::accepts, which the old Rva003623E5Member::accepts pin duplicated).
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class Rva003623E5Member : public Rva2225E0Filter
 {
 public:

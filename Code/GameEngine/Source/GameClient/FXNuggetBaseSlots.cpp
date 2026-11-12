@@ -37,12 +37,7 @@ public:
 
 #include "../../Include/GameClient/Drawable.h"
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-	int m_index;
-};
+#include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

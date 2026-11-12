@@ -149,7 +149,7 @@ public:
  float amount;
  unsigned char tail24[0x7c-0x24];
 };
-class Rva2225E0Filter { public: bool accepts(Object *, Player *); };
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class FXList { public: static void doFXObj(const FXList *,const Object *,const Object *); };
 #include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 extern int BfmeLogicFramesPerSecond;

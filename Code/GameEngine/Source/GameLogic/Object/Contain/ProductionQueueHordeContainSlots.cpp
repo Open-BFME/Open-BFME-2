@@ -19,11 +19,7 @@ class BfmeTab1026
 
 class Object;
 class Player;
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct Rva0048130E
 {

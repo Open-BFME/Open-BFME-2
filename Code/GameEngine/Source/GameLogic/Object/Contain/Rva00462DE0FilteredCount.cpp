@@ -16,7 +16,7 @@ static inline bool operator!=(const _List_iterator<T,Left> &a,const _List_iterat
 
 class Player;
 class Object { public: Player *getControllingPlayer() const; };
-class Rva2225E0Filter { public: bool accepts(Object *,Player *); };
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 template<int N> class CountSlots : public CountSlots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class CountSlots<0> {};
 struct CountItems { void *control; _STL::list<Object *> *list; };

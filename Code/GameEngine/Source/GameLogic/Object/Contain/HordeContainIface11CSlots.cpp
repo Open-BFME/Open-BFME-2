@@ -166,11 +166,7 @@ float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 // Retail's random calls carry this source path literal.
 #define HORDECONTAIN_SOURCE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Contain\\HordeContain\\HordeContain.cpp"
 class Player;
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 // The record is the player's SkirmishAI; 0x002C6AA8 is its rowed onHordeCreated.
 #include "../../../../Include/Common/SkirmishAI.h"
 struct Rva002A8AB1Record : SkirmishAI
