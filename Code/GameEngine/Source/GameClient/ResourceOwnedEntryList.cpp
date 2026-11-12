@@ -29,11 +29,7 @@ private:
 	char m_pad[0x14];
 };
 
-class Rva00575CDFBase0
-{
-public:
-	virtual void b0();
-};
+#include "../../Include/Common/Rva00575CDFBase0.h"
 
 class Rva00575CDFIface
 {
