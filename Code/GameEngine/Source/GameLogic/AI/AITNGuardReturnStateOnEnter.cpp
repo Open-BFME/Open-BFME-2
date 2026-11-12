@@ -140,15 +140,7 @@ enum
 	AI_TN_GUARD_GET_CRATE = 5004
 };
 inline StateReturnType STATE_SLEEP(UnsignedInt frames) { return (StateReturnType)frames; }
-class AITNGuardMachine : public StateMachine
-{
-public:
-	Bool lookForInnerTarget(void);
-	ObjectID getNemesisID() const { return m_nemesisID; }
-private:
-	unsigned char m_pad3C[0x48 - 0x3C];
-	ObjectID m_nemesisID; // +0x48
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 class AITNGuardIdleState : public State
 {
 public:
@@ -182,7 +174,7 @@ StateReturnType AITNGuardIdleState::update( void )
 	if (getGuardMachine()->lookForInnerTarget())
 	{
 		AITNGuardMachine *machine = getGuardMachine();
-		Object *nemesis = TheGameLogic->findObjectByID(machine->getNemesisID());
+		Object *nemesis = TheGameLogic->findObjectByID(static_cast<ObjectID>(machine->getNemesisID()));
 		if (nemesis == NULL)
 			return STATE_SLEEP(0);
 		if (machine->getOwner()->getContainedBy()) {

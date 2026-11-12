@@ -252,6 +252,16 @@
   [trial evidence](../../reverse/attempt_support/aitnguard-partial-merge-20261104.md).
   The census-linked LinkGuard passed; no merge or census gain is claimed.
   2026-11-06: canonical Player adoption retires eleven guard/castle/portal header rows, including the three AITNGuard consumers; 118 functions remain exact, all-object provider checks pass and ordinary link predictions retain 19,060 bytes. Other merge prerequisites remain ([evidence](../../reverse/attempt_support/player-guard-header-adoption-20261106-codexb.md)).
+  2026-11-12: the seed, ReturnStateOnEnter and Xfer now use the registered
+  machine header, retiring three queue entries. The existing coordinate view
+  and explicit ID boundaries retain all helper calls. All 35 cohort rows pass
+  normal and strict checks; four own previews preserve 1,955 bytes. The
+  constructor's canonical trial lost 417 linking bytes on the existing
+  snapshot-getter identity gap (LINK-514 lk77), so it was restored before
+  publication. States/base views and nominal ReturnState ancestry remain
+  prerequisites. The fresh initial guarded dry run accepted no donor; no merge
+  is claimed by this preparation.
+  [Current evidence and provider boundary](../../reverse/attempt_support/aitnguard-consolidation-20261112.md).
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the

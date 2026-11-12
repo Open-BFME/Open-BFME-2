@@ -240,15 +240,7 @@ struct TnLookupBuckets {
 struct TnLookupMap { unsigned char hashEqual[4]; TnLookupBuckets buckets; };
 #include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
-class AITNGuardMachine : public StateMachine
-{
-public:
-	Bool lookForInnerTarget(void);
-	void setNemesisID(ObjectID id) { m_nemesisToAttack = id; }
-private:
-	unsigned char m_pad3C[0x48 - 0x3C];
-	ObjectID m_nemesisToAttack; // +0x48
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 // ??0Rva00545DB0@@QAE@PAVStateMachine@@@Z @ 0x00545DB0 28B
 // Derived ctor: base Rva00342EAC plus vtable 0x0086A1F0 and dword 0x54 zero.
 // Evidence: retail vtable store plus and [esi+0x54],0; callee row ??0Rva00342EAC@@QAE@PAVStateMachine@@@Z; caller 0x0054605A.

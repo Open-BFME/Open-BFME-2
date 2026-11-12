@@ -89,15 +89,7 @@ private:
 };
 
 // ------------------------------------------------------------------------------------------------
-class AITNGuardMachine : public StateMachine
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	Coord3DBase m_positionToGuard;																						///< 0x3C
-	ObjectID m_nemesisToAttack;																								///< 0x48
-	UnsignedInt m_bfmeRaw4C;																									///< 0x4C
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
@@ -130,8 +122,8 @@ void AITNGuardMachine::xfer( Xfer *xfer )
 		return;
 	Xfer::Version version( 1, 2 );
 	*xfer == version;
-	XferObjectID( xfer, &m_nemesisToAttack );
-	*xfer == m_positionToGuard;
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_nemesisToAttack) );
+	*xfer == asBase(m_positionToGuard);
 	if( version.m_minimum >= 2 )
-		xfer->XferRawBytes( &m_bfmeRaw4C, 4 );
+		xfer->XferRawBytes( &m_guardMode, 4 );
 }  // end xfer
