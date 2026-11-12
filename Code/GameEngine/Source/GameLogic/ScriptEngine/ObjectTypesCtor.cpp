@@ -3,7 +3,7 @@
 // ??0ObjectTypes@@QAE@XZ @0x003769F9 32B: ObjectTypes default ctor.
 // ??4ObjectTypes@@QAEAAV0@ABV0@@Z @0x00376A9C 39B: ObjectTypes copy-assign.
 // Evidence: stores vtable 0x00C18630 at +0 (vtable holds deleting dtor
-// 0x00376AC3 at slot 0, empty crc at slot 1, GetSnapshotName 0x00376A19
+// 0x00376AC3 at slot 0, empty loadPostProcess at slot 1, GetSnapshotName 0x00376A19
 // returning "ObjectTypes" at slot 2, xfer 0x00376B70 at slot 3, then the
 // "ObjectTypes" string); zeroes AsciiString m_listName at +4 via and [m],0;
 // constructs vector<AsciiString> m_objectTypes at +8 through the ICF-folded
@@ -16,7 +16,6 @@
 // this TU adds the proven STLport flags from Rva00330757Member for the same
 // Vector_base call shape.
 #include <vector>
-#include "Common/Snapshot.h"
 
 template <typename T> struct BfmeStringData;
 
@@ -33,20 +32,18 @@ template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, al
 }
 
 
-class ObjectTypes : public Snapshot
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
+
+// Retail table 0x00818630 slots 1 and 2 point to a single RET and the
+// literal-name getter immediately preceding the named constructor.
+void ObjectTypes::loadPostProcess()
 {
-public:
-	ObjectTypes();
- ObjectTypes(const AsciiString &);
-	ObjectTypes &operator=(const ObjectTypes &that);
-	virtual ~ObjectTypes();
-private:
-	AsciiString m_listName; // +4
-	_STL::vector<AsciiString> m_objectTypes; // +8
-protected:
-	// retail slot 3: the rowed ?xfer@ObjectTypes@@MAEXPAVXfer@@@Z
-	virtual void xfer(Xfer *xfer);
-};
+}
+
+const char *ObjectTypes::GetSnapshotName() const
+{
+    return "ObjectTypes";
+}
 
 ObjectTypes::ObjectTypes()
 	: m_listName()
