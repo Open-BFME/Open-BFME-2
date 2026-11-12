@@ -31,11 +31,7 @@ public:
 	BfmeStringRecord00239B46(const BfmeStringRecord00239B46 &other);
 };
 
-struct BfmeStringRecord005DDD40
-{
-public:
-	BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &other);
-};
+#include "BfmeStringRecord005DDD40.h"
 
 
 class Rva0052BEF0
