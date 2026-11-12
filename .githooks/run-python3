@@ -4,7 +4,16 @@
 # `python3` is the Microsoft Store shortcut (exit 9009), a bare
 # `python3 tools/merge_rows.py` fails and git leaves every union ledger of a
 # pull conflicted; `py -3` is the launcher python.org installs on Windows.
+# `git config bfme.python PATH` names the Python first (a venv with the tools'
+# modules, which the hooks' PATH may not have); one that does not run is an
+# error, never a reason to fall back to another Python.
 probe="import sys; sys.exit(sys.version_info[0] != 3)"
+named=$(git config --get bfme.python 2>/dev/null)
+if [ -n "$named" ]; then
+    "$named" -c "$probe" >/dev/null 2>&1 && exec "$named" "$@"
+    echo "run-python3: git config bfme.python is $named, which is no working Python 3; fix or unset it" >&2
+    exit 1
+fi
 python3 -c "$probe" >/dev/null 2>&1 && exec python3 "$@"
 py -3 -c "$probe" >/dev/null 2>&1 && exec py -3 "$@"
 echo "run-python3: no working Python 3 (neither python3 nor py -3) to run $1;" \

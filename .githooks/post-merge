@@ -2,13 +2,58 @@
 # After every merge/pull: validate the ledgers — the union merge driver
 # combines both sides' rows without conflict markers, so this is the moment
 # duplicates appear.
+#
+# The check runs under .githooks/run-python3, the merge driver's interpreter
+# (git config bfme.python, else python3, else py -3). A check that cannot run
+# is not a corrupt ledger: a module its tools import missing from that Python
+# (2026-11-11: retail_identity.py needs capstone, which only the venv had, and
+# every pull under the system Python told agents to run dedup_csv on a clean
+# ledger) or no Python at all says so, and says the ledger was not checked.
 set -uo pipefail
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
-if ! python3 tools/check_csv.py; then
-    cat >&2 <<'MSG'
+CANNOT_RUN=75
+# Run a check script; an import it cannot satisfy exits CANNOT_RUN naming the module.
+RUN_CHECK='
+import os, runpy, sys
+script = sys.argv[1]
+sys.argv = sys.argv[1:]
+sys.path.insert(0, os.path.dirname(os.path.abspath(script)))
+try:
+    runpy.run_path(script, run_name="__main__")
+except ImportError as why:
+    print(f"post-merge: {script} cannot run under {sys.executable}: cannot import {why.name or why}",
+          file=sys.stderr)
+    sys.exit(int(os.environ["CANNOT_RUN"]))
+'
+
+not_checked() {
+    cat >&2 <<MSG
+=============== THE LEDGER WAS NOT CHECKED ===============
+$1
+This says nothing about the ledger: do not run dedup_csv for it.
+Run tools/check_csv.py under a Python with the tools' modules (a venv with
+.github/nightly-constraints.txt's packages), or name that Python once per clone:
+  git config bfme.python /path/to/python3
+===========================================================
+MSG
+    exit 1
+}
+
+if ! sh .githooks/run-python3 -c "import sys" >/dev/null 2>&1; then
+    named=$(git config --get bfme.python)
+    why="neither python3 nor py -3 runs"
+    [ -z "$named" ] || why="git config bfme.python names $named, which does not run"
+    not_checked "post-merge: no working Python 3 for tools/check_csv.py: $why"
+fi
+
+CANNOT_RUN=$CANNOT_RUN sh .githooks/run-python3 -c "$RUN_CHECK" tools/check_csv.py
+status=$?
+[ "$status" -eq 0 ] && exit 0
+[ "$status" -eq "$CANNOT_RUN" ] && not_checked "post-merge: tools/check_csv.py could not run (the line above names the module)"
+cat >&2 <<'MSG'
 =============== MERGE LEFT THE LEDGER CORRUPT ===============
 Fix it NOW, before any other work:
   1. python3 tools/dedup_csv.py
@@ -17,5 +62,4 @@ Fix it NOW, before any other work:
   3. git add reverse/functions.csv reverse/symbols.csv && git commit
 =============================================================
 MSG
-    exit 1
-fi
+exit 1
