@@ -207,11 +207,7 @@ struct FXBoneInfo
 	const void *m_particleSystemTemplate;
 };
 
-struct RvaPair0032C0CA
-{
-	AsciiString m_key;
-	int m_value;
-};
+#include "../../Include/Common/RvaPair0032C0CA.h"
 
 void Rva0032C0CADestroyPairs(RvaPair0032C0CA *first, RvaPair0032C0CA *last);
 

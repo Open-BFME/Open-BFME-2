@@ -948,11 +948,7 @@ extern const StaticNameKey TheKey_teamOwner;
  // 0x009BD9FC
 extern const StaticNameKey TheKey_teamName;
 
-struct RvaPair0032C0CA
-{
-	AsciiString m_key;
-	int m_value;
-};
+#include "../../../Include/Common/RvaPair0032C0CA.h"
 
 //
 // ?forward@Rva0019C520Owner@@QAEHVAsciiString@@H@Z @0x0032D7DB 64B

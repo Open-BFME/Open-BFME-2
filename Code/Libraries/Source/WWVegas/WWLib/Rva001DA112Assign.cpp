@@ -10,7 +10,7 @@
 
 struct Rva001DAAF2Element {char bytes[8];Rva001DAAF2Element(const Rva001DAAF2Element&);~Rva001DAAF2Element();};
 struct FXBoneInfo {char bytes[8]; FXBoneInfo&operator=(const FXBoneInfo&);};
-struct RvaPair0032C0CA {char bytes[8];};
+#include "../../../../GameEngine/Include/Common/RvaPair0032C0CA.h"
 // _M_clear is retail's shared 8-byte clear worker 0x004C3D8B (ICF), rowed as
 // vector<BfmeStringRecord00426A5B>::_M_clear; StlportVectorInsertOverflowFamily.cpp
 // reaches it the same way.

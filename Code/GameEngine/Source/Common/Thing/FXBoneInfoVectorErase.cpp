@@ -41,11 +41,7 @@ public:
 	const void *m_template; // +0x04
 };
 
-struct RvaPair0032C0CA
-{
-	AsciiString m_key;
-	int m_value;
-};
+#include "../../../Include/Common/RvaPair0032C0CA.h"
 
 // Rowed worker at 254D65 uses an opaque eight-byte element view. The
 // caller preserves its native pointer/tag/null-distance argument ABI.
