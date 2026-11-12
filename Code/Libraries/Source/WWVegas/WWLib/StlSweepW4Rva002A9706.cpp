@@ -69,7 +69,7 @@ template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsign
 { return less<unsigned int>(); }
 }
 
-struct Rva002A9706Element { char bytes[1]; bool operator<(const Rva002A9706Element&)const; bool operator==(const Rva002A9706Element&)const; };
+#include "../../../../GameEngine/Include/GameLogic/Rva002A9706Element.h"
 namespace _STL {template<> struct hash<Rva002A9706Element> { unsigned operator()(const Rva002A9706Element&) const; };}
 // Instantiate only the rowed constructor: a whole-class instantiation also
 // emitted members needing the element's undefined operations.

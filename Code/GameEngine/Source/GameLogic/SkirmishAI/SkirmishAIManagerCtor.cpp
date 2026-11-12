@@ -58,7 +58,7 @@ typedef bool Bool;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 class Rva002A8D49 {public:Rva002A8D49();~Rva002A8D49();unsigned char data[0x8f8];};
-struct Rva002A9706Element {char bytes[1];bool operator<(const Rva002A9706Element&)const;bool operator==(const Rva002A9706Element&)const;};
+#include "../../../Include/GameLogic/Rva002A9706Element.h"
 namespace _STL {template<> struct hash<Rva002A9706Element>{unsigned operator()(const Rva002A9706Element&) const;};}
 class Rva004E9337 {public:void rva004E9337();};
 class ObjectCreationList {public:ObjectCreationList();__forceinline ~ObjectCreationList(){reinterpret_cast<Rva004E9337*>(this)->rva004E9337();}unsigned words[3];};
