@@ -102,11 +102,7 @@ public:
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
-class Rva006DB160
-{
-public:
-    void *allocBlock(int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 

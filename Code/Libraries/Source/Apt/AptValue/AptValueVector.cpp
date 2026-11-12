@@ -21,11 +21,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int blockSize);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 
 // Pool allocator instance at 0x00E176E8 (same global the string
 // Reserve path uses; DIR32 sites auto-patch from retail at verify).

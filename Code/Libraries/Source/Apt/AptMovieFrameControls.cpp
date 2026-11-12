@@ -84,7 +84,7 @@ void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {
 
 // Temporary controls: donor semantic guide; native preserves old always-true
 // (flags & 1 | 0x98) clause removed in later source. PDB node remains20B.
-class Rva006DB160 {public:void *allocBlock(int);};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct AptControlInfo {int unused; float *matrix; int *cxform; void *actions; float ratio; int flags;};

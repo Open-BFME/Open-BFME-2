@@ -4,7 +4,7 @@
 // element ctor13260 and dtorA9DF3 provide independently verified lifetimes.
 // Native advances the input pointer and deletes that advanced pointer; preserve
 // this target behaviour without assuming the original template was correct.
-class Rva006DB160 {public:void *allocBlock(int);};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 int Rva006CFDF0DecRef(int *);

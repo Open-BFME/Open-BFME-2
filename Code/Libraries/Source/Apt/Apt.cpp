@@ -1,6 +1,6 @@
 // cl: /O2 /MD /D_CRTIMP= /EHsc
 
-class Rva006DB160 {public:void *allocBlock(int);};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 #define POOL_ALLOC static void *operator new(unsigned n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);} static void operator delete(void*p,unsigned n){g_pChainBlockAllocator->freeBlock(p,n);}

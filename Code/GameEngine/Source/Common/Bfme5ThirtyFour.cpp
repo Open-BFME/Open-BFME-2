@@ -215,7 +215,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 // The independent EAStringC providers prove the 4-byte string ABI used
 // by the 6D0660 comparison: C-string ctor6D4C80 equal6D3090 dtor6D3010.
 #include "../../../Libraries/Source/Apt/EAStringC.h"
-class Rva006DB160 {public:void*allocBlock(int);};
+#include "../../Include/Common/Rva006DB160.h"
 void __cdecl Rva006D8680Free(void*,int);
 struct Rva006D0280 {
  ~Rva006D0280();

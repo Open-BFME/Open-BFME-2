@@ -6,7 +6,7 @@
 // Destroy(1) binds existing byte-verified scalar deleting destructor provider.
 class AptCIH;
 class AptNativeHash;
-class Rva006DB160 { public: void *allocBlock(int); };
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;
 class AptPseudoDisplayList {

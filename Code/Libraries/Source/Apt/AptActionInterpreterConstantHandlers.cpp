@@ -132,7 +132,7 @@ public:
 };
 
 class AptObject;
-class Rva006DB160 { public: void *allocBlock(int); };
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006FBDB0 : public EAStringC {

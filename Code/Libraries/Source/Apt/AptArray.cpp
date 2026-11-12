@@ -71,11 +71,7 @@ extern "C" int __cdecl rva006D9D70Comparator(const void *a, const void *b);
 // Evidence: 210B __thiscall ret 4; +0x20 ptr +0x24 count; pow2 loop dec/sar;
 // allocBlock pin 0x6DB160; asserts "_aArray != NULL" + Apt path + 0xE5;
 // freeBlock row 0x6DB270; callers 0x6D95E0 0x6D9780 0x6D9B50 0x6D9CE0 etc.
-class Rva006DB160
-{
-public:
-    void *allocBlock(int size);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *a, const char *b, int c);
