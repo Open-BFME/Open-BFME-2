@@ -12,12 +12,7 @@ struct Rva00418BFBKey {
 };
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
-struct Rva00418BFB {
-	Rva00418BFBNode *_head;
-	int _size;
-	Rva00418BFBComp _comp;
-	void *rva00418BFB(const void *key);
-};
+#include "../../Include/Common/Rva00418BFB.h"
 namespace _STL {
 struct _Rb_tree_node_base {
 	bool _M_color;

@@ -13,12 +13,7 @@ struct Rva00418BFBKey {
 // signed-pair less function at 0x00418BB7; its this pointer is unused.
 #pragma comment(linker, "/alternatename:??RRva00418BFBComp@@QBE_NPBX0@Z=?Rva00418BB7Less@@YG_NPBX0@Z")
 
-struct Rva00418BFB {
-	Rva00418BFBNode *_head;
-	int _size;
-	Rva00418BFBComp _comp;
-	void *rva00418BFB(const void *key);
-};
+#include "../../Include/Common/Rva00418BFB.h"
 void *Rva00418BFB::rva00418BFB(const void *key)
 {
 	Rva00418BFBNode *ans = _head;

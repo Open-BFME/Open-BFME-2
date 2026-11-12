@@ -1573,12 +1573,7 @@ struct Rva00418D28Iterator
 	void *m_node;
 };
 
-class Rva00418BFB
-{
-public:
-	void *rva00418BFB(const void *key);						// 0x00418BFB
-	Rva00418D28Iterator rva00418D28(const void *key);
-};
+#include "../../Include/Common/Rva00418BFB.h"
 
 Rva00418D28Iterator Rva00418BFB::rva00418D28(const void *key)
 {

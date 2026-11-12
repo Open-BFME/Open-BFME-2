@@ -33,12 +33,7 @@ struct Rva00418BFBKey {
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
 #include "../../Include/Common/Rva00418BFBIter.h"
-struct Rva00418BFB {
-	Rva00418BFBNode *_head;
-	int _size;
-	Rva00418BFBComp _comp;
-	Rva00418BFBIter rva00418C33(Rva00418BFBNode *x, Rva00418BFBNode *y, const Rva00418BFBKey &v, Rva00418BFBNode *w);
-};
+#include "../../Include/Common/Rva00418BFB.h"
 
 typedef _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > IntTree418C33;
 

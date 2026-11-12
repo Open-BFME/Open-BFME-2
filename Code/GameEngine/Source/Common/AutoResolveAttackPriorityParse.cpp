@@ -37,14 +37,7 @@ struct Rva00418BFBPair
 	bool second;
 	Rva00418BFBPair(Rva00418BFBNode *f, bool inserted) : first(f), second(inserted) {}
 };
-struct Rva00418BFB
-{
-	Rva00418BFBNode *_head;
-	int _size;
-	Rva00418BFBComp _comp;
-	Rva00418BFBIter rva00418C33(Rva00418BFBNode *x, Rva00418BFBNode *y, const Rva00418BFBKey &v, Rva00418BFBNode *w);
-	Rva00418BFBPair rva00418D3C(const Rva00418BFBKey &v);
-};
+#include "../../Include/Common/Rva00418BFB.h"
 struct Rva00418DE2
 {
 	Rva00418BFB m_tree;
