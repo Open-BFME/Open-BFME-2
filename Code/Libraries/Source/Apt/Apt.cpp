@@ -615,7 +615,11 @@ Rva006CD6C0SizedDeleting::~Rva006CD6C0SizedDeleting() {
 // bInitialized (Apt.cpp 0x65A, retail text) and, unless the E176D4 flag is set,
 // clears the +3C count of the E176D0 animation pool. Address name.
 void Rva006CD0B0ResetPoolCount() {
- GAPCHECK(g_bfmeAptInitAtE17700,"bInitialized",0x65A);
+ if (!g_bfmeAptInitAtE17700) {
+  g_bfmeAptAssertAtE17734("bInitialized", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp", 0x65A);
+  if (g_bfmeAptBreakOnAssertAtDDC01C)
+   __debugbreak();
+ }
  if(!g_bfmeAptFlagAtE176D4 && g_bfmeAptPtrAtE176D0)
   g_bfmeAptPtrAtE176D0->count=0;
 }
