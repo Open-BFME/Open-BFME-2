@@ -302,11 +302,7 @@ bool Rva004A6A81::isCurrentlyFerryingSupplies()
 
 // --- 0x004B0303 (27B): from a +0x88 interface, the object's slot 17 when
 // its +0x04 data's +0xC8 flag is set.
-struct Rva004B0303Data
-{
-	char m_pad[0xC8];
-	bool m_C8;												// +0xC8
-};
+#include "../../Include/Common/Rva004B0303Data.h"
 
 #include "../../Include/Common/Rva004B0303Base0.h"
 
