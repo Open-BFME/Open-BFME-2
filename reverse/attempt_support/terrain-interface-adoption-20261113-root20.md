@@ -80,3 +80,20 @@ The earlier publication's broader link audit was INCONCLUSIVE: after rebase,
 the outgoing FloorBuffer object lacked a current audit receipt. The scoped
 preservation results above do not replace that missing evidence or establish
 a new full link result.
+
+## Remaining callback-handle declarations
+
+The two remaining queue entries in Rva000E19A3Dtor.cpp are TargetRef00217D4C
+and TreeHintRef00217D4C. A single paired scratch preparation against the
+registered AptRefTarget.h replaces both private declarations. It fails to
+compile at eight AddBinding calls: a callback function pointer cannot convert
+to the canonical TreeHintRef00217D4C. The working private handle constructs its
+Rva00080221 base directly from the callback; the canonical handle supplies
+default, referent-pointer and copy construction, not that callback surface.
+
+No callback source or shared header is changed, and both queue entries remain.
+The next useful work is a byte-proven shared callback-construction protocol,
+including reference ownership and exception rollback, followed by verification
+of the shared header's dependents. The existing native allocation provider is
+already recovered; this is not a missing-function dependency. The current
+reproducer result is `terrain-interface-callback-20261113-root20.json`.

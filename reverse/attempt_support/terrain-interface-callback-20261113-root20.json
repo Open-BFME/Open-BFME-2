@@ -1,0 +1,21 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva000E19A3Dtor.cpp",
+  "classes": [
+    "TargetRef00217D4C",
+    "TreeHintRef00217D4C"
+  ],
+  "preparation": null,
+  "renames": [],
+  "rows": 31,
+  "exact": false,
+  "errors": [
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(300) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,D3DXHANDLE)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(302) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,D3DXHANDLE)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(314) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,D3DXHANDLE)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(316) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,D3DXHANDLE)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(350) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,const char *)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(351) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,const char *)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(353) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,const char *)' to 'TreeHintRef00217D4C'",
+    "Code\\GameEngine\\Source\\Common\\.Rva000E19A3Dtor.e681e01a6f76f0f1.tu_skeleton.cpp(354) : error C2664: 'FXShaderParameterBinder::AddBinding' : cannot convert parameter 1 from 'void (__cdecl *)(ID3DXEffect *,const char *)' to 'TreeHintRef00217D4C'"
+  ]
+}
