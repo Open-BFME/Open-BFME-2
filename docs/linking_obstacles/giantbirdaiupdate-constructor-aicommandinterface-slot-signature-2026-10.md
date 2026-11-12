@@ -22,3 +22,14 @@ and already link, so they were left alone.
 2026-11-05: seed/collision declarations now agree; 19/19 rows match and both units still predict LINKS (2,487 bytes unchanged). Next run the guarded composition: [evidence](../../reverse/attempt_support/giantbird-collision-prep-20261105-codex.md).
 
 2026-11-05: guarded merge absorbed the collision donor into the approved GiantBird TU, removing one source file with 19/19 rows preserved and unchanged combined 2,487-byte link prediction. Remaining donor prerequisites and path/register audit: [evidence](../../reverse/attempt_support/giantbird-collision-merge-20261105-codex.md).
+
+2026-11-12: the main caller adopts canonical Rva00368C7A declarations;
+the owning accept tool retires its one queue row. Normal build passes20/20
+and16 float references, and own preview preserves LINKS2503->2503 against
+the published b974574bd6 index. The two implementing TUs remain queued:
+their shared4C8 path member still has the distinct Rva00312C95 and
+Rva00375A73Context parameter identities in AerialPathfinder. The observed
+550-byte prefix does not prove complete class size, and the opaque header
+cannot yet replace those field views. Both deferrals and the native offset
+map are retained; broader GiantBird/census clearance remains pending.
+[Accepted caller and context prerequisites](../../reverse/attempt_support/rva00368c7a-header-20261112.md).

@@ -220,11 +220,7 @@ struct AICommandParms
 	void *m_coordsEnd; // +0x28
 	char m_tail[0xC0 - 0x2C];
 };
-class Rva00368C7A
-{
-public:
-	void rva003681F2(const Coord3D *pos, const unsigned char *mask, const Coord3D *pos2, bool flag);
-};
+#include "../../../../../Include/GameLogic/Module/Rva00368C7A.h"
 typedef UnsignedInt StateID;
 #include "../../../../../Include/Common/StateMachine.h"
 #include "../../../../../Include/Common/StateMachineClass.h"
