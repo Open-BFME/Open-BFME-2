@@ -6,12 +6,7 @@
 // slot.  The original semantic member name is not recoverable, so it remains
 // address-derived.
 
-class Rva007E8810Message
-{
-public:
-	void reset();
-	void setError(int code);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva007FA5E0Arg
 {

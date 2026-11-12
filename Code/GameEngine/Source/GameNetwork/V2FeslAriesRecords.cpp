@@ -61,13 +61,7 @@ extern const char * const g_Rva0130A774 = 0;
 // g_Rva0130A78C: VA 0x00E0A1A8.
 extern const char * const g_Rva0130A78C = 0;
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );                 // 0x007E8900
-	bool getString( const char *key, char *dest, int destSize );     // 0x007E8A80
-	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );   // 0x007E8930
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 // ------------------------------------------------------------ endpoint pair
 class Rva007F4130Endpoints

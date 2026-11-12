@@ -28,13 +28,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );                 // 0x007E8900
-	bool getString( const char *key, char *dest, int destSize );     // 0x007E8A80
-	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );   // 0x007E8930
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 // ------------------------------------------------------- LID/GID base record
 class Rva007FBC30GameKey

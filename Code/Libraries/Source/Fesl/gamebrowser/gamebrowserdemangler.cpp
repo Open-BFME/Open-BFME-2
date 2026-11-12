@@ -182,12 +182,7 @@ public:
 // jabba gamebrowserdemangler.cpp connect-reply @ 0x00800780 (174B).
 // Matches pending TID at +0xC8; pulls ADDR/PORT, parses dotted-quad, sink notify.
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );                 // 0x007E8900
-	bool getString( const char *key, char *dest, int destSize );     // 0x007E8A80
-};
+#include "../../../../GameEngine/Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva7F4CC0Child
 {

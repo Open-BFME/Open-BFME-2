@@ -7,12 +7,7 @@
 // existing 0x007F7C00 owner method.  The event and original method names are
 // unavailable, so the handler name remains address-derived.
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );
-	bool getString( const char *key, char *dest, int destSize );
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva007FBC30GameKey
 {

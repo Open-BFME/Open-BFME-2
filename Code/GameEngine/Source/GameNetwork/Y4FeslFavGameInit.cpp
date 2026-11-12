@@ -3,12 +3,7 @@
 // Retail 0x0080A940: fill a FESL game-browser record from a message -- TID,
 // FAV-GAME-UID, then two clock samples off Rva007E9B70Get vslot 2.
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );
-	bool getString( const char *key, char *dest, int destSize );
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva007E9B70Obj
 {

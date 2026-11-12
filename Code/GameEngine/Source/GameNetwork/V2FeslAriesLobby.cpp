@@ -6,13 +6,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );
-	bool getString( const char *key, char *dest, int destSize );
-	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 // -------------------------------------------------------------------- lobby
 class Rva007F4EF0Lobby

@@ -33,11 +33,7 @@ public:
 
 #include "../../Include/GameNetwork/BfmeThingUPB.h"
 
-class Rva007E8810Message
-{
-public:
-	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );   // 0x007E8930
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #define FESL_GET_INT(message, key, defaultValue) \
 	(int)((BfmeThingRF *)(message))->bfmeGoRF((void *)(key), (void *)(defaultValue))
