@@ -4,21 +4,9 @@
 
 #include "unicode_string.h"
 
-#include "../../../Include/GameClient/RegionAwardMovieClip.h"
+#include "../../../Include/GameClient/Rva005ED976.h"
 namespace StrategicHUD {
 }
-
-class Rva005ED976
-{
-public:
-	void SetUnitCount(int index, int value);
-	void selectPlayer(int row);
-	void setPlayerName(int index, const UnicodeString &name);
-
-private:
-	char m_pad00[4];
-	StrategicHUD::RegionAwardMovieClip::Impl *m_delegate;
-};
 
 class StrategicHUD::RegionAwardMovieClip::Impl
 {
@@ -30,15 +18,15 @@ public:
 
 void Rva005ED976::SetUnitCount(int index, int value)
 {
-	m_delegate->rva005ED76A(index, value);
+	m_impl->rva005ED76A(index, value);
 }
 
 void Rva005ED976::selectPlayer(int row)
 {
-	m_delegate->SelectPlayer(row);
+	m_impl->SelectPlayer(row);
 }
 
 void Rva005ED976::setPlayerName(int index, const UnicodeString &name)
 {
-	m_delegate->SetPlayerName(index, name);
+	m_impl->SetPlayerName(index, name);
 }

@@ -15,7 +15,9 @@
     "4": 6
    }
   },
-  "retail_layout": {},
+  "retail_layout": {
+   "implementation_pointer": "Six retail forwarding bodies load the RegionAwardMovieClip::Impl pointer at +4."
+  },
   "retail_member_rows": 6,
   "retail_vtables": {},
   "view_errors": 0,
@@ -27,22 +29,28 @@
   "witness_offsets": [],
   "zh": {}
  },
- "fields": [],
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_impl",
+   "name_by": "retail forwarding bodies",
+   "offset": 4,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "StrategicHUD::RegionAwardMovieClip::Impl*",
+   "views": 2,
+   "witness": null
+  }
+ ],
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
- "outliers": [
-  {
-   "offset": 4,
-   "sources": [
-    "Code/GameEngine/Source/Common/Rva005ED445Apt.cpp",
-    "Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp"
-   ],
-   "views": 2
-  }
- ],
+ "outliers": [],
  "queue": [],
- "size": 1,
- "size_by": "majority",
+ "size": 8,
+ "size_by": "retail delegate access at +4 and owner extent from derived constructor 0x005D1335",
  "vslots": {}
 }
