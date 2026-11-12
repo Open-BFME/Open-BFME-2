@@ -1101,10 +1101,7 @@ bool canPlayersTransferMoneyYet();
 
 int Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-struct AsciiStringPlusString : AsciiStringRef
-{
-	AsciiStringRef m_second;
-};
+#include "../../Include/Common/AsciiStringPlusString.h"
 
 struct AsciiStringPlusStringText : AsciiStringPlusString
 {

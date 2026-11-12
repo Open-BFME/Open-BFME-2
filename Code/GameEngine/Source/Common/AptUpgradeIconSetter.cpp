@@ -122,10 +122,7 @@ private:
 
 #include "../../Include/Common/AsciiStringRef.h"
 
-struct AsciiStringPlusString : AsciiStringRef
-{
-	AsciiStringRef m_second;
-};
+#include "../../Include/Common/AsciiStringPlusString.h"
 
 struct AsciiStringPlusStringText : AsciiStringPlusString
 {
