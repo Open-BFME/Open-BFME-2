@@ -1,16 +1,16 @@
-// cl: /Ireference/shims/sweep /O2 /G7 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /D_WIN32_WINNT=0x0500 /O2 /G7 /DNDEBUG /MD /EHsc /arch:SSE
 // stlport
+// platformsdk
 // FontCharsClass::Store_Thai_GDI_Glyph: rasterizes one Thai glyph index through the shared GDI DIB in
 // 64x64 tiles and box-filters it by Scale into 4-bit alpha (ZH Store_GDI_Char semantics, WB 0x9F1BD0
 // Thai twin shape, sibling loadCharBitmap 0x00156A60 statement shape). Tile, origin and cell
 // coordinates are POINT/SIZE pairs; the ABC widths widen the cell and give the left origin, and the
 // glyph map caches every record, including the empty 0xffff one.
+// Keep the opaque handle ABI shared with loadCharBitmap.
+#define NO_STRICT
 #include <windows.h>
 #include <map>
 #include <string.h>
-struct ABC { int abcA; unsigned int abcB; int abcC; };
-extern "C" __declspec(dllimport) int __stdcall GetTextExtentPointI(HDC,const unsigned short*,int,SIZE*);
-extern "C" __declspec(dllimport) int __stdcall GetCharABCWidthsI(HDC,unsigned int,unsigned int,const unsigned short*,ABC*);
 
 class FontCharsClassCharDataStruct
 {
