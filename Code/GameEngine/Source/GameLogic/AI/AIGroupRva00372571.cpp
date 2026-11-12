@@ -28,8 +28,10 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-#define TRUE true
-#define FALSE false
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 
 enum CommandSourceType
 {
@@ -53,7 +55,11 @@ enum IterOrderType
 // /EHs, not /EHsc: under /EHsc the extern "C" free is nothrow and cl drops the
 // EH state reset retail's aiMoveToPosition keeps before the parms teardown.
 // The C free keeps this copy identical to SlavedUpdateRepair's rowed one.
-extern "C" void free(void *block);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 enum AICommandType
 {
