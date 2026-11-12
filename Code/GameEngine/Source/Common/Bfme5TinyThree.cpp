@@ -2,14 +2,7 @@
 // count turned into a scaled double. (The third, bfmeSetSign 0x00039880, now
 // lives in its approved unit Code/Libraries/Source/debug/debug_cmd.cpp.)
 
-class BfmeThingBW
-{
-public:
-	char m_bfmeHead[0x48];					// +0x00
-	int m_bfmeReady;					// +0x48
-	char m_bfmeGap[0x18];					// +0x4C
-	int m_bfmeFlags;					// +0x64
-};
+#include "../../Include/GameNetwork/BfmeThingBW.h"
 
 // ?bfmeMask@@YAHPAVBfmeThingBW@@@Z
 int __cdecl bfmeMask(BfmeThingBW *thing)

@@ -52,14 +52,7 @@ typedef struct piConnection
 	void *hostServer;
 } piConnection;
 
-class BfmeThingBW
-{
-public:
-	char m_bfmeHead[0x48];
-	int m_bfmeReady;
-	char m_bfmeGap[0x18];
-	int m_bfmeFlags;
-};
+#include "../../../../Include/GameNetwork/BfmeThingBW.h"
 
 extern "C"
 {
