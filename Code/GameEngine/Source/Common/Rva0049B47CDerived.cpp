@@ -69,11 +69,7 @@ Rva00362EE3::~Rva00362EE3()
 {
 }
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../Include/Common/MiBase1.h"
 
 class Rva004607E1 : public Rva0049B47C, public MiBase1
 {

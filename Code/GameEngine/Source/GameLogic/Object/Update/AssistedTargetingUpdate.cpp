@@ -101,11 +101,7 @@ public:
     static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/Common/MiBase1.h"
 
 // StealthUpdate (retail module class, module_factory_registrations.csv): its
 // constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,

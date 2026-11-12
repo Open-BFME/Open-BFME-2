@@ -461,7 +461,7 @@ public:
 private:
 	char m_pad04[8];
 };
-class MiBase1 { public: virtual void f1(); };
+#include "../../Include/Common/MiBase1.h"
 class Rva0078B83_B2 { public: virtual void f2(); private: char m_pad04[0x2D4]; };
 class Rva0078B83 : public W3DScriptedModelDraw, public MiBase1, public Rva0078B83_B2
 {

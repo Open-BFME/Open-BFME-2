@@ -20,11 +20,7 @@ private:
 	char m_pad04[8];
 };
 
-class MiBase1
-{
-public:
-	virtual void f1();
-};
+#include "../../Include/Common/MiBase1.h"
 
 
 
