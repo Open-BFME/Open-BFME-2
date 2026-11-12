@@ -71,11 +71,7 @@ private:
 	unsigned char m_privateStatus;																						///< 0x438
 };
 
-class Rva004DF81B
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004DF81B.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Helper/ObjectDefectionHelper.cpp
 

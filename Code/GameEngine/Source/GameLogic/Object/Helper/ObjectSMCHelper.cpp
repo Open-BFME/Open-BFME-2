@@ -120,11 +120,7 @@ class Snapshot;
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 void XferModelConditionFlagType( Xfer *xfer, Int *value );
 #include "../../../Common/BfmeSpecialPowerTimer8.h"
-class Rva004DF81B
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004DF81B.h"
 
 
 class ObjectHelper : public UpdateModule

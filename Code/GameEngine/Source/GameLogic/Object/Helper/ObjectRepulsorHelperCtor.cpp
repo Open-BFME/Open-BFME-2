@@ -65,11 +65,7 @@ void ObjectRepulsorHelper::loadPostProcess()
 }
 
 // ObjectHelper's xfer, 0x004DF81B, is still rowed under its placeholder class.
-class Rva004DF81B
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004DF81B.h"
 
 // Slot 3 of 0x00BFBDF0: 0x004DF87C, version 1 then ObjectHelper's xfer; the
 // body ObjectRecoveryHelper and ObjectWeaponStatusHelper share.
