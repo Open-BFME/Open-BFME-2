@@ -11117,7 +11117,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp	Team
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp	TeamInQueue::disband	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp	TeamInQueue::disband	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	AIFollowWaypointPathExactState::~AIFollowWaypointPathExactState	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp	StateMachine::getCurrentStateID	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator<	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator==	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	length@Coord2D@@QBEMXZ	1

@@ -54,17 +54,8 @@ typedef bool Bool;
 typedef unsigned int UnsignedInt;
 #include <windows.h>
 #include "../../Common/GameLogicObjectLookupView.h"
-enum StateExitType
-{
-	EXIT_NORMAL = 0,
-	EXIT_RESET = 1
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
 class Object;
 class AIUpdateInterface;
 struct TeamTemplateInfo
@@ -140,30 +131,6 @@ enum
 	INVALID_STATE_ID = 999999
 };
 class State;
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual void slot13();
-	virtual void setGoalObject(const Object *obj);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	inline StateID getCurrentStateID() const;
-	// LINK: same-body spelling under a TU-unique template name (State is still incomplete here); identical inlined bytes.
-	template <class S> StateID bfme_getCurrentStateID_c52d1(S *) const
-	{
-		S *cur = (S *)m_currentState;
-		return cur ? cur->m_ID : (StateID)INVALID_STATE_ID;
-	}
-private:
-	State *m_currentState; // +0x04
-	unsigned char m_pad08[0x14 - 0x08];
-	Object *m_owner; // +0x14
-};
 class AttackStateMachine : public StateMachine
 {
 public:
@@ -172,52 +139,12 @@ public:
 		FIRE_WEAPON = 103
 	};
 };
-class AITNGuardMachine : public StateMachine
-{
-public:
-	void setNemesisID(ObjectID id) { m_nemesisToAttack = id; }
-	ObjectID getNemesisID() const { return m_nemesisToAttack; }
-	int getGuardMode() const { return m_guardMode; }
-private:
-	unsigned char m_pad18[0x48 - 0x18];
-	ObjectID m_nemesisToAttack; // +0x48
-	int m_guardMode; // +0x4C
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 enum
 {
 	GUARDMODE_NORMAL = 0,
 	GUARDMODE_GUARD_WITHOUT_PURSUIT = 1
 };
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	StateID getID() const { return m_ID; }
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-// StateMachine::getCurrentStateID reads m_ID directly (retail inlines the
-// one-instruction getID here); m_ID is public in this TU-local view.
-public:
-	StateID m_ID; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine; // +0x18
-};
-// ?StateMachine::getCurrentStateID present-unmatched
-// Retail carries the direct-load shape (mov [ecx+4] / test / mov [eax+4] /
-// mov 999999) once at 0x00260DDC; the getID call is inlined there, so this
-// TU spells the direct form.
-inline StateID StateMachine::getCurrentStateID() const
-{
-	return m_currentState ? m_currentState->m_ID : (StateID)INVALID_STATE_ID;
-}
 class AttackExitConditionsInterface
 {
 public:
@@ -233,8 +160,12 @@ class AIAttackState : public State
 {
 public:
 	AIAttackState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking, AttackExitConditionsInterface *attackParameters);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
 private:
-	unsigned char m_pad1C[0x50 - 0x1C]; // sizeof(AIAttackState) 0x50 (the operator new size)
+	unsigned char m_pad20[0x50 - 0x20]; // sizeof(AIAttackState) 0x50 (the operator new size)
 };
 class AIEnterState : public State
 {
@@ -249,7 +180,6 @@ public:
 	virtual StateReturnType update();
 private:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	TunnelNetworkExitConditions m_exitConditions; // +0x20
 	Bool m_scanForEnemy; // +0x28
 	AIAttackState *m_attackState; // +0x2C
@@ -262,7 +192,6 @@ public:
 	virtual StateReturnType update();
 private:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	TunnelNetworkExitConditions m_exitConditions; // +0x20
 	AIAttackState *m_attackState; // +0x28
 };
@@ -278,7 +207,6 @@ class AITNGuardIdleState : public State
 public:
 	virtual StateReturnType onEnter();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	UnsignedInt m_nextEnemyScanTime; // +0x20
 };
 class AITNGuardAttackAggressorState : public State
@@ -289,7 +217,6 @@ public:
 	virtual StateReturnType update();
 private:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	TunnelNetworkExitConditions m_exitConditions; // +0x20
 	AIAttackState *m_attackState; // +0x28
 };
@@ -362,9 +289,9 @@ void AITNGuardAttackAggressorState::onExit( StateExitType status )
 
 StateReturnType AITNGuardAttackAggressorState::update( void )
 {	
-	if (m_attackState->getMachine()->bfme_getCurrentStateID_c52d1((State *)0) == AttackStateMachine::FIRE_WEAPON) {
+	if (m_attackState->getMachine()->getCurrentStateID() == AttackStateMachine::FIRE_WEAPON) {
 		AITNGuardMachine *machine = getGuardMachine();
-		Object *nemesis = TheGameLogic->findObjectByID(machine->getNemesisID());
+		Object *nemesis = TheGameLogic->findObjectByID(static_cast<ObjectID>(machine->getNemesisID()));
 		Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
 		TunnelTracker *tunnels = NULL;
 		if (ownerPlayer) {
@@ -378,7 +305,7 @@ StateReturnType AITNGuardAttackAggressorState::update( void )
 StateReturnType AITNGuardInnerState::onEnter( void )
 {
 	GameLogic *logic = TheGameLogic;
-	Object* nemesis = logic->findObjectByID(getGuardMachine()->getNemesisID()) ;
+	Object* nemesis = logic->findObjectByID(static_cast<ObjectID>(getGuardMachine()->getNemesisID())) ;
 	if (nemesis == NULL) 
 	{
 		return STATE_SUCCESS;
@@ -407,7 +334,7 @@ StateReturnType AITNGuardOuterState::onEnter( void )
 	}
 
 	GameLogic *logic = TheGameLogic;
-	Object* nemesis = logic->findObjectByID(getGuardMachine()->getNemesisID()) ;
+	Object* nemesis = logic->findObjectByID(static_cast<ObjectID>(getGuardMachine()->getNemesisID())) ;
 	if (nemesis == NULL) 
 	{
 		return STATE_SUCCESS;
@@ -432,7 +359,7 @@ Object *__fastcall TunnelNetworkScan(Object *owner);
 StateReturnType AITNGuardInnerState::update( void )
 {
 	AITNGuardMachine *machine = getGuardMachine();
-	Object* nemesis = TheGameLogic->findObjectByID(machine->getNemesisID()) ;
+	Object* nemesis = TheGameLogic->findObjectByID(static_cast<ObjectID>(machine->getNemesisID())) ;
 	Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
 	TunnelTracker *tunnels = NULL;
 	if (ownerPlayer) {
@@ -490,7 +417,7 @@ StateReturnType AITNGuardOuterState::update( void )
 	if (goalObj) 
 	{
 	}	else {
-		Object* nemesis = TheGameLogic->findObjectByID(getGuardMachine()->getNemesisID()) ;
+		Object* nemesis = TheGameLogic->findObjectByID(static_cast<ObjectID>(getGuardMachine()->getNemesisID())) ;
 		if (nemesis) {
 			goalObj = nemesis;
 		}
@@ -523,7 +450,7 @@ StateReturnType AITNGuardAttackAggressorState::onEnter( void )
 	}
 
 	AITNGuardMachine *machine = getGuardMachine();
-	Object *nemesis = TheGameLogic->findObjectByID(machine->getNemesisID());
+	Object *nemesis = TheGameLogic->findObjectByID(static_cast<ObjectID>(machine->getNemesisID()));
 	if (nemesis == NULL) 
 	{
 		return STATE_SUCCESS;

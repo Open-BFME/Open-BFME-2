@@ -112,3 +112,30 @@ attempt inventories intentionally retain their historical paths. No active
 consumer requires a separate edit. The census index remains older than
 unrelated path changes, so its warnings and the earlier INCONCLUSIVE broader
 audit remain limitations, not a clean image or census result.
+
+## States: three canonical bases accepted
+
+After the Xfer move landed as `ec7da76cdc4`, AITNGuardStates.cpp now includes
+the existing State, StateMachine and AITNGuardMachine headers directly.
+The former 0x1C State prefix omitted the canonical trailing flag; removing
+four compensating four-byte pads and shortening AIAttackState's padding keeps
+all derived fields at their proven offsets. No shared header changes.
+
+Use StateMachine's existing getCurrentStateID rather than the private member
+template and present-unmatched duplicate. Explicit ObjectID conversions at
+the lookup boundary preserve the enum ABI while using the machine header's
+unsigned ID storage. AIAttackState declares its existing update and snapshot
+overrides so allocating the state remains valid with the abstract shared base.
+
+Private verification matches all 13 rows, retains 28 emitted COMDATs unchanged,
+and replaces four private accessor spellings with their canonical counterparts.
+The final ordinary build and all three header_adopt_lane accept verdicts pass;
+the owning tool retires three header-queue rows. The scoped link preview stays
+at 1,383 bytes. The obsolete marker is removed through hatch_counters.
+Remaining InnerState, DamageInfo and TeamPrototype adoption work is separate.
+
+The Xfer push's shadow asBase finding was checked against the former donor:
+both emitted copies have the same 5-byte COMDAT hash `341dc3ec187f`.
+It is a moved existing copy, not new helper behavior. The broader push audit
+remains INCONCLUSIVE, now naming Common/Rva004D759CDerived.cpp's missing
+current receipt; retain that provider in a future normal census scope.
