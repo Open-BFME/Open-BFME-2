@@ -327,13 +327,7 @@ public:
     char m_unknown[0x34];
 };
 
-class Gen_007e86c0
-{
-public:
-	void m();
-private:
-	unsigned char m_unmodelled[ 0x10 ]; // +0x00
-};
+#include "../../Include/GameNetwork/Gen_007e86c0.h"
 
 class Rva007F7360Sender
 {
