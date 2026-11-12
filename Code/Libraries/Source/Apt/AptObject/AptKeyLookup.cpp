@@ -22,7 +22,7 @@ class AptBoolean {public:static AptValue *Create(bool);};
 #include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Constructor storage view only; rowed native ctor initializes all36 bytes.
-class BfmeC1062 {public:virtual void bfmeSlot1062C_0();virtual void bfmeSlot1062C_1();};
+#include "../BfmeC1062.h"
 extern BfmeC1062 *g_bfmeC1062,*g_bfmeD1062;
 extern unsigned int Rva008A5250LastKey;
 // ?Rva008A5250KeyTable@@3QBHB @0x008EC538 (80B): 20-entry keycode map (first 20 dwords verified keycode-like; the name's digits are not its address).

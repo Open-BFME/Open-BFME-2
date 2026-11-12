@@ -220,7 +220,7 @@ private:
 	unsigned char storage[36]; // +0x00
 };
 
-class BfmeC1062 {public:virtual void bfmeSlot1062C_0();virtual void bfmeSlot1062C_1();};
+#include "BfmeC1062.h"
 
 extern BfmeC1062 *g_bfmeC1062,*g_bfmeD1062;
 

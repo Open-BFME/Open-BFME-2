@@ -33,7 +33,7 @@ public:
  static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}
 };
 
-class BfmeC1062 {public:virtual void bfmeSlot1062C_0();virtual void bfmeSlot1062C_1();};
+#include "../BfmeC1062.h"
 
 extern BfmeC1062 *g_bfmeC1062,*g_bfmeD1062;
 

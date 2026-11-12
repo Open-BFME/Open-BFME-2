@@ -29,12 +29,7 @@ void bfmeGo1062A(void)
 
 #endif
 
-class BfmeC1062
-{
-public:
-	virtual void bfmeSlot1062C_0(void);
-	virtual void bfmeSlot1062C_1(void);
-};
+#include "../../../Libraries/Source/Apt/BfmeC1062.h"
 
 extern BfmeC1062 *g_bfmeC1062;
 // g_bfmeC1062: matched references place it at VA 0xe1816c (zero-filled .bss).
