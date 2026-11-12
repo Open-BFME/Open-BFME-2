@@ -42,11 +42,7 @@ struct LivingWorldArmy;
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva002E112A
-{
-public:
-	bool rva002E112A(SpawnArmy *ctx);
-};
+#include "../../../../Include/GameLogic/Rva002E112A.h"
 
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 

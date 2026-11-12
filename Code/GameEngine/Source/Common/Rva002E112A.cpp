@@ -12,11 +12,7 @@
 
 #include "../../Include/Common/Rva002E0CD4.h"
 
-class Rva002E112A
-{
-public:
-	bool rva002E112A(SpawnArmy *arg);
-};
+#include "../../Include/GameLogic/Rva002E112A.h"
 
 bool Rva002E112A::rva002E112A(SpawnArmy *arg)
 {

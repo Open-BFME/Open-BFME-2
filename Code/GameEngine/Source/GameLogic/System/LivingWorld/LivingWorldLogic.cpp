@@ -84,7 +84,7 @@ struct LivingWorldArmy;
 struct LivingWorldRevivalUnitDataView;
 class SpawnArmy;
 class SpawnArmy;
-class Rva002E112A { public: Bool rva002E112A(SpawnArmy *); };
+#include "../../../../Include/GameLogic/Rva002E112A.h"
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class LivingWorldLogic;
 struct LivingWorldBuildingNuggetSpawnArmy;
