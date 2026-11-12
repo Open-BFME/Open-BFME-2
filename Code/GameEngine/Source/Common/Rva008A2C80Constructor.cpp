@@ -5,12 +5,7 @@
 // Argument and member are one-pointer owning handles: retail guards the
 // by-value argument before base construction and drops it on normal exit.
 // Names are address-derived ABI views, not asserted original game names.
-class Rva00894D90Accessor
-{
-public:
-	static unsigned int decrement(unsigned int *p);
-	static unsigned int decrement(int *p);
-};
+#include "../../Include/Common/Rva00894D90Accessor.h"
 #include "../../Include/Common/Rva00894D80Accessor.h"
 void bfmeDropVGO(void *p);
 struct Rva008A2BA0Payload

@@ -27,11 +27,7 @@
 
 #include "../../Include/Common/Rva00894D80Accessor.h"
 
-class Rva00894D90Accessor
-{
-public:
-	static unsigned int decrement(unsigned int *value);
-};
+#include "../../Include/Common/Rva00894D90Accessor.h"
 
 void bfmeDropVGO(void *value);
 

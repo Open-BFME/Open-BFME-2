@@ -5,12 +5,7 @@
 // pointer decremented via Rva00894D90Accessor::decrement and dropped via
 // bfmeDropVGO when the count reaches zero (instead of a two-vcall release).
 
-class Rva00894D90Accessor
-{
-public:
-	static unsigned int decrement(unsigned int *p);
-	static unsigned int decrement(int *p);
-};
+#include "../../Include/Common/Rva00894D90Accessor.h"
 
 void bfmeDropVGO(void *p);
 
