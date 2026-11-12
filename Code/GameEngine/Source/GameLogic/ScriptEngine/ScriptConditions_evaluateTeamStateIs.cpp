@@ -361,23 +361,14 @@ public:
 
 #include "../../../Include/Common/MemoryPoolObject.h"
 
-#include "Common/Snapshot.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 class Team;
 class Player;
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
-struct DamageInfoInput
-{
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID; // +0x08
-};
-
-struct DamageInfo
-{
-	DamageInfoInput in;
-};
+#include "../../../Include/GameLogic/Damage.h"
 
 class BodyModuleInterface
 {
@@ -394,46 +385,29 @@ public:
 
 enum KindOfType { KINDOF_INVALID = -1 };
 
-class ThingTemplate
+#include "../../../Include/Common/ThingTemplate.h"
+
+template <unsigned int bit>
+static inline bool hasKindOfBit(const ThingTemplate *thingTemplate)
 {
-public:
-	const AsciiString &getName() const { return m_name; }
-	int getCommandPoints() const { return m_commandPoints; }
-	// KindOf bit 0x6D (byte +0x115, bit 5), unnamed: the horde kinds whose
-	// health lives in the contain interface.
-	bool testKindOf6D() const { return (m_kindOf115 & 0x20) != 0; }
-	// KindOf bit 0x68 (byte +0x115, bit 0), unnamed: the kinds whose base
-	// state is read from the FoundationAIUpdate module.
-	bool testKindOf68() const { return (m_kindOf115 & 0x01) != 0; }
-	// KindOf bits 0x30 (byte +0x10E, bit 0) and 0x59 (byte +0x113, bit 1),
-	// unnamed: Zero Hour's area counts skip KindOf 88 and keep dead objects of
-	// KindOf 48 (BFME 1's ScriptConditionsRva0032A710.cpp).
-	bool testKindOf30() const { return (m_kindOf10E & 0x01) != 0; }
-	bool testKindOf59() const { return (m_kindOf113 & 0x02) != 0; }
-	bool isKindOf(KindOfType kind) const;
-	// The KindOf mask read in place as 32-bit words from +0x108.
-	template <unsigned int BIT> unsigned int testKindOfBit() const { return ((const unsigned int *)((const char *)this + 0x108))[BIT >> 5] & (1u << (BIT & 31)); }
-	// Retain the inlined query without an unused competing external copy.
-	__declspec(dllimport) __forceinline bool isKindOf(int kind) const { return (unsigned char)isKindOf((KindOfType)kind) != 0; }
-	float getRva51C() const { return m_51C; }
-	// KindOf bit 0x2F (byte +0x10D, bit 7), unnamed: skipped by the team
-	// health total alongside 0x59.
-	bool testKindOf2F() const { return (m_kindOf10D & 0x80) != 0; }
-private:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad68[0x10D - 0x68];
-	unsigned char m_kindOf10D; // +0x10D
-	unsigned char m_kindOf10E; // +0x10E
-	unsigned char m_pad10F[0x113 - 0x10F];
-	unsigned char m_kindOf113; // +0x113
-	unsigned char m_pad114[0x115 - 0x114];
-	unsigned char m_kindOf115; // +0x115
-	unsigned char m_pad116[0x51C - 0x116];
-	float m_51C; // +0x51C
-	unsigned char m_pad520[0x618 - 0x520];
-	int m_commandPoints; // +0x618
-};
+	return (reinterpret_cast<const unsigned char *>(thingTemplate->m_kindof)[bit / 8] & (1u << (bit % 8))) != 0;
+}
+
+static inline float getThreatLevel(const ThingTemplate *thingTemplate)
+{
+	return thingTemplate->m_threatLevel;
+}
+
+static inline int getCommandPoints(const ThingTemplate *thingTemplate)
+{
+	return thingTemplate->m_commandPoints;
+}
+
+template <unsigned int bit>
+static inline unsigned int testKindOfBit(const ThingTemplate *thingTemplate)
+{
+	return thingTemplate->m_kindof[bit / 32] & (1u << (bit % 32));
+}
 
 enum NameKeyType
 {
@@ -449,7 +423,6 @@ class Module;
 // 0x0045ED4B reads its current stance.
 #include "../../../Include/GameLogic/StancesBehavior.h"
 
-class ObjectTypes;
 
 // The module findModule returns for CastleBehavior's rowed name key
 // 0x003955DA; the rowed 0x003977F6 tests its members against a type set.
@@ -575,9 +548,9 @@ public:
 	float getRva280() const { return m_280; }
 	// The template's KindOf bit 0x68 read in place: a getTemplate()
 	// temporary swaps retail's ESI/EDI choice in evaluateCanBuildAtBase.
-	bool isKindOf68() const { return m_template->testKindOf68(); }
+	bool isKindOf68() const { return hasKindOfBit<0x68>(m_template); }
 	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
-	bool isKindOf59() const { return m_template->testKindOf59(); }
+	bool isKindOf59() const { return hasKindOfBit<0x59>(m_template); }
 	bool testStatus(ObjectStatusTypes bit) const;
 	float rva002972B1(float range);
 private:
@@ -621,25 +594,6 @@ extern InGameUI *TheInGameUI;
 // false), rowed at 0x00376A84 under its address name.
 #include "../../../Include/GameLogic/Rva00376A62.h"
 
-class ObjectTypes
-{
-public:
-	ObjectTypes();
-	virtual ~ObjectTypes();
-	bool isInSet(const AsciiString &name) const;
-	bool isInSet(const ThingTemplate *thing) const
-	{
-		return reinterpret_cast<Rva00376A62 *>(const_cast<ObjectTypes *>(this))->rva00376A84(thing);
-	}
-	bool canBuildAny(Player *player);
-	unsigned int getListSize() const { return m_objectTypes.size(); }
-	AsciiString getNthInList(unsigned int index) const;
-	int prepForPlayerCounting(_STL::vector<const ThingTemplate *> &templates, _STL::vector<int> &counts);
-private:
-	AsciiString m_listName; // +0x04
-	_STL::vector<AsciiString> m_objectTypes; // +0x08
-};
-
 class ObjectTypesTemp
 {
 public:
@@ -670,14 +624,7 @@ void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTyp
 
 // Player+0x60's command-point tracker; its "available" query 0x002A7548
 // returns the cap (0x002A7461) less the points in use (+0x08).
-class Rva002A7461
-{
-public:
-	int rva002A7548(int);
-private:
-	unsigned char m_pad00[0x08];
-	int m_used; // +0x08
-};
+#include "../../../Include/GameLogic/Rva002A7461.h"
 
 // Player+0x3BC; 0x0039C0F4 sums its per-type kill records whose name
 // matches (the rowed Rva0039C0F4Sum unit).
@@ -740,7 +687,7 @@ private:
 	int m_playerIndex; // +0x54
 	unsigned char m_pad58[0x60 - 0x58];
 	Rva002A7461 m_commandPoints; // +0x60
-	unsigned char m_pad6C[0x32C - 0x6C];
+	unsigned char m_padAfterCommandPoints[0x32C - 0x60 - sizeof(Rva002A7461)];
 	PlayerTeamList m_playerTeamPrototypes; // +0x32C
 	unsigned char m_pad330[0x3BC - 0x330];
 	Rva0039C0F4 m_kills; // +0x3BC
@@ -899,7 +846,7 @@ bool ScriptConditions::evaluateNamedAttackedByType(Parameter *pUnitParm, Paramet
 		return false;
 	}
 
-	ObjectID id = lastDamageInfo->in.m_sourceID;
+	ObjectID id = lastDamageInfo->m_sourceID;
 	Object *pAttacker = TheGameLogic->findObjectByID(id);
 	if (!pAttacker || !pAttacker->getTemplate()) {
 		return false;
@@ -931,7 +878,7 @@ bool ScriptConditions::evaluateTeamAttackedByType(Parameter *pTeamParm, Paramete
 			continue;
 		}
 
-		ObjectID id = lastDamageInfo->in.m_sourceID;
+		ObjectID id = lastDamageInfo->m_sourceID;
 		Object *pAttacker = TheGameLogic->findObjectByID(id);
 		if (!pAttacker || !pAttacker->getTemplate()) {
 			continue;
@@ -961,7 +908,7 @@ bool ScriptConditions::evaluateNamedAttackedByPlayer(Parameter *pUnitParm, Param
 		return false;
 	}
 
-	ObjectID id = lastDamageInfo->in.m_sourceID;
+	ObjectID id = lastDamageInfo->m_sourceID;
 	Object *pAttacker = TheGameLogic->findObjectByID(id);
 	if (!pAttacker) {
 		return false;
@@ -1122,7 +1069,7 @@ bool ScriptConditions::evaluateNamedDestroyedByType(Parameter *pUnitParm, Parame
 		return false;
 	}
 
-	ObjectID id = lastDamageInfo->in.m_sourceID;
+	ObjectID id = lastDamageInfo->m_sourceID;
 	Object *pAttacker = TheGameLogic->findObjectByID(id);
 	if (!pAttacker || !pAttacker->getTemplate()) {
 		return false;
@@ -1155,7 +1102,7 @@ bool ScriptConditions::evaluateHasCommandPointsToBuildUnit(Parameter *pPlayerPar
 	int available = player->getCommandPoints()->rva002A7548(1);
 	for (unsigned int i = 0; i < numTypes; ++i) {
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(types.m_types->getNthInList(i));
-		if (thingTemplate && available <= thingTemplate->getCommandPoints()) {
+		if (thingTemplate && available <= getCommandPoints(thingTemplate)) {
 			return true;
 		}
 	}
@@ -1449,7 +1396,7 @@ bool ScriptConditions::evaluateUnitHealth(Parameter *pUnitParm, Parameter *pComp
 	float curHealth = 0.0f;
 	float maxHealth = 1.0f;
 	int healthPercent = 0;
-	if (theObj->getTemplate()->testKindOf6D()) {
+	if (hasKindOfBit<0x6D>(theObj->getTemplate())) {
 		Rva0028C197Iface *horde = (Rva0028C197Iface *)theObj->rva0028C197();
 		if (horde) {
 			curHealth = (float)horde->rvaSlot188();
@@ -1676,13 +1623,13 @@ bool ScriptConditions::evaluatePlayerHasUnitTypeInArea(Condition *pCondition, Pa
 					Object *pObj = oiter.cur();
 					if (upgrade && !pObj->hasUpgrade(upgrade))
 						continue;
-					if (!types.m_types->isInSet(pObj->getTemplate()))
+					if (!reinterpret_cast<Rva00376A62 *>(types.m_types)->rva00376A84(pObj->getTemplate()))
 						continue;
-					if (pObj->getTemplate()->testKindOf59())
+					if (hasKindOfBit<0x59>(pObj->getTemplate()))
 						continue;
 					if (!pObj->isInside(pTrig))
 						continue;
-					if (pObj->isEffectivelyDead() && !pObj->getTemplate()->testKindOf30())
+					if (pObj->isEffectivelyDead() && !hasKindOfBit<0x30>(pObj->getTemplate()))
 						continue;
 					if (flag && pObj->getRva280() != -1.0f)
 						continue;
@@ -1717,11 +1664,11 @@ bool ScriptConditions::rva003E8D01(Parameter *pTeamParm, Parameter *pComparisonP
 		if (!iter.done()) {
 			for (; !iter.done(); iter.advance()) {
 				Object *pObj = iter.cur();
-				if (pObj->getTemplate()->testKindOf59())
+				if (hasKindOfBit<0x59>(pObj->getTemplate()))
 					continue;
-				if (pObj->getTemplate()->testKindOf2F())
+				if (hasKindOfBit<0x2F>(pObj->getTemplate()))
 					continue;
-				if (pObj->getTemplate()->testKindOf6D()) {
+				if (hasKindOfBit<0x6D>(pObj->getTemplate())) {
 					Rva0028C197Iface *horde = (Rva0028C197Iface *)pObj->rva0028C197();
 					if (horde) {
 						maxHealth += horde->rvaSlot17C();
@@ -1932,7 +1879,7 @@ bool ScriptConditions::rva003EA12A(Parameter *pUnitParm)
 				if (BfmeLogicFramesPerSecond * 5 + last >= frame) {
 					const DamageInfo *info = body->getLastDamageInfo();
 					if (info) {
-						Object *attacker = TheGameLogic->findObjectByID(info->in.m_sourceID);
+						Object *attacker = TheGameLogic->findObjectByID(info->m_sourceID);
 						if (attacker && !attacker->isEffectivelyDead()) {
 							Rva00260FD0Filter filter(unit, 2, 0);
 							if (!filter.allows(attacker))
@@ -1983,7 +1930,7 @@ bool ScriptConditions::rva003EA228(Parameter *pTeamParm, bool failingMemberWins)
 			const DamageInfo *info = body->getLastDamageInfo();
 			if (!info)
 				continue;
-			Object *attacker = TheGameLogic->findObjectByID(info->in.m_sourceID);
+			Object *attacker = TheGameLogic->findObjectByID(info->m_sourceID);
 			if (!attacker)
 				continue;
 			if (attacker->isEffectivelyDead())
@@ -2047,7 +1994,7 @@ bool ScriptConditions::evaluateSkirmishValueInArea(Condition *pCondition, Parame
 					if (pObj->isEffectivelyDead()) continue;
 					const ThingTemplate *tt = pObj->getTemplate();
 					if (!tt) continue;
-					total += tt->getRva51C();
+					total += getThreatLevel(tt);
 				}
 			}
 		}
@@ -2113,8 +2060,8 @@ bool ScriptConditions::evaluatePlayerHasUnitKindInArea(Condition *pCondition, Pa
 						continue;
 					_ReadWriteBarrier();
 					const ThingTemplate *thingTemplate = pObj->getTemplate();
-					if (thingTemplate->isKindOf(kind)) {
-						if (!thingTemplate->testKindOf59() && pObj->isInside(pTrig)) {
+					if (thingTemplate->isKindOf(static_cast<KindOfType>(kind))) {
+						if (!hasKindOfBit<0x59>(thingTemplate) && pObj->isInside(pTrig)) {
 							if (!pObj->isEffectivelyDead())
 								count++;
 						}
@@ -2176,12 +2123,12 @@ bool ScriptConditions::evaluateSkirmishPlayerHasUnitsInArea(Condition *pConditio
 				for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (pObj = iter2.cur()) != 0; iter2.advance())
 				{
 					_ReadWriteBarrier();
-					if (pObj->getTemplate()->testKindOfBit<89>() || pObj->getTemplate()->testKindOfBit<134>()
-						|| pObj->getTemplate()->testKindOfBit<152>() || pObj->getTemplate()->testKindOfBit<175>())
+					if (testKindOfBit<89>(pObj->getTemplate()) || testKindOfBit<134>(pObj->getTemplate())
+						|| testKindOfBit<152>(pObj->getTemplate()) || testKindOfBit<175>(pObj->getTemplate()))
 						continue;
 					if (!pObj->isInside(pTrig))
 						continue;
-					if (pObj->isEffectivelyDead() || pObj->getTemplate()->testKindOfBit<25>())
+					if (pObj->isEffectivelyDead() || testKindOfBit<25>(pObj->getTemplate()))
 						continue;
 					count++;
 				}
