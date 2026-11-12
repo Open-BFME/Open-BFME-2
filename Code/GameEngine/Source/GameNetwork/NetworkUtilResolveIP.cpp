@@ -1,4 +1,5 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// platformsdk
 // BFME1 donor: game/GameEngine/Source/GameNetwork/NetworkUtilResolveIP.cpp,
 // 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24; unchanged at verified 6583b3c1.
 // Target facts: complete 155B entry 0x00581339, four direct caller sites,
@@ -10,23 +11,7 @@
 // of donor naming. ResolveIP is donor spelling and an existing caller pin,
 // rather than a newly proven original target name. Keep an address-qualified
 // provider and a weak alias for existing callers. No class/header changes.
-struct hostent
-{
-	char *h_name;
-	char **h_aliases;
-	short h_addrtype;
-	short h_length;
-	char **h_addr_list;
-};
-
-struct in_addr
-{
-	unsigned long s_addr;
-};
-
-extern "C" __declspec(dllimport) unsigned long __stdcall inet_addr(const char *cp);
-extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long netlong);
-extern "C" __declspec(dllimport) struct hostent * __stdcall gethostbyname(const char *name);
+#include <winsock2.h>
 
 typedef unsigned int UnsignedInt;
 
