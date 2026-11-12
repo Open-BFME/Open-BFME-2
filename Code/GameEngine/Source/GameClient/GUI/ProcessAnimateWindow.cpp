@@ -336,9 +336,9 @@ void ProcessAnimateWindowSlideFromLeft::initReverseAnimateWindow( AnimateWindow 
 // ProcessAnimateWindowRightFastInitReverse.cpp.
 
 
-// ProcessAnimateWindowSlideFromLeft::updateAnimateWindow (0x005C53DD) is rowed in SlideLeftUpdate.cpp; a second definition here would not link.
+// ProcessAnimateWindowSlideFromLeft::updateAnimateWindow (0x005C53DD) is defined below, in the section merged from SlideLeftUpdate.cpp.
 
-// ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow (0x005C54BC) is rowed in SlideLeftUpdate.cpp; a second definition here would not link.
+// ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow (0x005C54BC) is defined below, in the section merged from SlideLeftUpdate.cpp.
 
 
 //-----------------------------------------------------------------------------
@@ -380,7 +380,7 @@ void ProcessAnimateWindowSlideFromTop::initReverseAnimateWindow( AnimateWindow *
 // ProcessAnimateWindowRightFastInitReverse.cpp.
 
 
-// ProcessAnimateWindowSlideFromTop::updateAnimateWindow (0x005C6106) is rowed in SlideTopUpdate.cpp; a second definition here would not link.
+// ProcessAnimateWindowSlideFromTop::updateAnimateWindow (0x005C6106) is defined below, in the section merged from SlideTopUpdate.cpp.
 
 // ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@ present-unmatched
 Bool ProcessAnimateWindowSlideFromTop::reverseAnimateWindow( AnimateWindow *animWin )
