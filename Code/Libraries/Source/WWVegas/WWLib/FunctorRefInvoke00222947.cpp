@@ -8,14 +8,7 @@
 // (push 0x10 push 0x0C push 0x08 call dword [eax+4] ret 0x0C). Callers at
 // 0x00223E40 0x00223F3F 0x00411FF6 pass dwords with holder at find result +8.
 // Class and method names address-derived; FunctorNotSet is the proven throw type.
-class FunctorNotSet
-{
-public:
-    FunctorNotSet();
-    virtual ~FunctorNotSet();
-private:
-    char m_pad[0x0C - 4];
-};
+#include "../../../../GameEngine/Include/Common/FunctorNotSet.h"
 class Rva00222947Op
 {
 public:

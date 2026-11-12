@@ -608,14 +608,7 @@ struct Rva0057CA78
 // one int arg to virtual slot 1 (call dword [eax+4] ret 4). Caller 0x223D83
 // ignores return (void); op layout ptr at +0 proven by mov ecx,[ecx].
 
-class FunctorNotSet
-{
-public:
-	FunctorNotSet();
-	virtual ~FunctorNotSet();
-private:
-	char m_pad[0x0C - 4];
-};
+#include "../../../../../Include/Common/FunctorNotSet.h"
 
 struct Res004FCA0C;
 

@@ -5,14 +5,7 @@
 // target it throws FunctorNotSet: the rowed ctor ??0FunctorNotSet@@QAE@XZ at
 // 0x002035E2, then _CxxThrowException with the shared 0x00D0B644 throw info.
 
-class FunctorNotSet
-{
-public:
-	FunctorNotSet();
-	virtual ~FunctorNotSet();
-private:
-	char m_pad[0x0C - 4];
-};
+#include "../../Include/Common/FunctorNotSet.h"
 
 class BfmeB1042N
 {

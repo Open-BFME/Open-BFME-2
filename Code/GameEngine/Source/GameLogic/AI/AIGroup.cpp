@@ -354,7 +354,7 @@ class AIGroup;
 class CommandButton;
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-class FunctorNotSet {public: FunctorNotSet(); virtual ~FunctorNotSet(); private: char pad[8];};
+#include "../../../Include/Common/FunctorNotSet.h"
 class Rva0036E474Op {public: virtual ~Rva0036E474Op(); virtual unsigned char invoke(Object*);};
 class Rva0036E474Ref {
 public:

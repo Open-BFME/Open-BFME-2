@@ -9,14 +9,7 @@
 // pointer through holder at find result +8. Class and method names
 // address-derived; FunctorNotSet is the proven throw type; op layout ptr at +0
 // proven by mov ecx [ecx].
-class FunctorNotSet
-{
-public:
-    FunctorNotSet();
-    virtual ~FunctorNotSet();
-private:
-    char m_pad[0x0C - 4];
-};
+#include "../../../../GameEngine/Include/Common/FunctorNotSet.h"
 class Rva002229B2Op
 {
 public:

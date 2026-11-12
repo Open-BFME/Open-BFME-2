@@ -985,11 +985,7 @@ void __cdecl bfmeCopyTable(void);
 // this frameless leaf.
 
 extern "C" const void *const vtbl_00BD3B54[];
-class __declspec(novtable) FunctorNotSet : public exception
-{
-public:
-	FunctorNotSet();
-};
+#include "../../../Include/Common/FunctorNotSet.h"
 class DllHandle
 {
 public:

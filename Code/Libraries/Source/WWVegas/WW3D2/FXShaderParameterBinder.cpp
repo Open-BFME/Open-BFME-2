@@ -118,14 +118,7 @@ public:
 // unproven); FunctorNotSet is the proven throw type; op layout (ptr at +0)
 // and slot-1 signature (int,int)->int evidenced by the two pushes and
 // call [eax+4].
-class FunctorNotSet
-{
-public:
-	FunctorNotSet();
-	virtual ~FunctorNotSet();
-private:
-	char m_pad[0x0C - 4];
-};
+#include "../../../../GameEngine/Include/Common/FunctorNotSet.h"
 
 class Rva001531F2Op
 {

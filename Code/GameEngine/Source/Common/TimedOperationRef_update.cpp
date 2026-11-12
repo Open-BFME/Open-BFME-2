@@ -25,16 +25,7 @@ public:
 // 0x002035E2 and destructor at 0x00203EBA (FunctorNotSetCtor.cpp), as the
 // FunctorRefInvoke* siblings throw it. The vtable and shared throw info patch
 // over as data references.
-class FunctorNotSet
-{
-public:
-	FunctorNotSet(void);
-
-	virtual ~FunctorNotSet(void);
-
-private:
-	char m_pad[0x0C - 4];
-};
+#include "../../Include/Common/FunctorNotSet.h"
 
 class TimedOperationRef
 {
