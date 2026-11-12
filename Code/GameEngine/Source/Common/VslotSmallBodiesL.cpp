@@ -70,11 +70,7 @@ bool Rva003F424F::invoke(int entry)
 // to a rowed method of the +0x134 (resp. +0x128) object when it is set.
 #include "../../Include/Common/Rva001E11F8.h"
 #include "../../Include/Common/Rva002CA9CA.h"
-class ObjectCreationList
-{
-public:
-	void rva001F0410(void *a, void *b);
-};
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
 class Rva00508F0C
 {
 public:

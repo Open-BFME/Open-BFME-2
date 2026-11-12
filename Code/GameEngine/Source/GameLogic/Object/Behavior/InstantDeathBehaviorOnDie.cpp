@@ -15,7 +15,7 @@ class DamageInfo;struct Coord3D;class WeaponTemplate;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object{public:char pad[0x38];char position[12];char pad44[0x30];ObjectID id;char pad78[0x1e0];AIUpdateInterface*ai;};
 class FXList{public:static void doFXObj(const FXList*,const Object*,const Object*);};
-class ObjectCreationList {public:void create(void*,void*,void*);};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore*TheWeaponStore;
 extern GameLogic*TheGameLogic;

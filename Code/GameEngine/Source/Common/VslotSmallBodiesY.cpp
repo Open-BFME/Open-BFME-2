@@ -82,12 +82,7 @@ bool RadialWindowController::ShouldButtonFlash(Int i)
 // 0x0050962B and 0x0050965A: the rowed ObjectCreationList entry points of
 // the +0x128 list for the object whose id the first argument holds at
 // +0x08, with the second argument.
-class ObjectCreationList
-{
-public:
-	void create(void *a, void *b, void *c);
-	void create(void *a, void *b, void *c, Int d);
-};
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
 struct Rva0050962BArg
 {
 	Int m_00;

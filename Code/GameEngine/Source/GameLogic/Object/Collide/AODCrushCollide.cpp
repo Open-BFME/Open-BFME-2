@@ -151,7 +151,7 @@ public:
 };
 class Rva2225E0Filter { public: bool accepts(Object *, Player *); };
 class FXList { public: static void doFXObj(const FXList *,const Object *,const Object *); };
-class ObjectCreationList { public: void create(void *,void *,void *); };
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 extern int BfmeLogicFramesPerSecond;
 class Rva0010CConditionBits
 {

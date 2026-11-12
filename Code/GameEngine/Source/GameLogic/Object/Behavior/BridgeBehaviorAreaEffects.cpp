@@ -76,12 +76,7 @@ public:
 		const Matrix3D *primaryMtx, Real primarySpeed, const Coord3D *secondary);
 };
 
-class ObjectCreationList
-{
-public:
-	void create(void *primaryObject, void *primary, void *secondary, int lifetimeFrames);
-	void create(void *primaryObject, void *secondaryObject, void *lifetimeFrames);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 struct TimeAndLocationInfo
 {

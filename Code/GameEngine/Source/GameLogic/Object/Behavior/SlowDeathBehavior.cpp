@@ -298,11 +298,7 @@ private:
 // 12-byte vector records), skipping null entries. Callees are rowed:
 // 0x001F0410, 0x001E11F8 and 0x002CAC6E. Binding host as a reference to the
 // parameter keeps [ebp+8] live, so the counter gets its own [ebp-4] slot.
-class ObjectCreationList
-{
-public:
-	void rva001F0410(void *a1, void *a2);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 #include "../../../../Include/Common/Rva001E11F8.h"
 

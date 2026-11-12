@@ -463,11 +463,7 @@ class Rva003605D5	// DamageFX throttle-time lookup (Zero Hour getDamageFXThrottl
 public:
 	Int rva003605D5(Int damageType, Int source);	// 0x003605D5
 };
-class ObjectCreationList
-{
-public:
-	void create(void *primary, void *secondary, void *lifetime);	// 0x001F08D3
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 struct DamageCreation
 {
 	ObjectCreationList *m_ocl;		// +0x00

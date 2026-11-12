@@ -3,12 +3,7 @@
 // member at +0 and returns this. Callees are matched rows; holder names are
 // opaque (address-named) since retail gives no caller-side identity.
 
-class ObjectCreationList
-{
-public:
-	ObjectCreationList();
-	char m_pad[0x10];
-};
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
 
 namespace D3DXTex
 {

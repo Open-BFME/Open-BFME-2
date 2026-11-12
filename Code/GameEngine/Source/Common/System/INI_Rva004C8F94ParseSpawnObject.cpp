@@ -14,9 +14,7 @@
 
 #include "../../../Include/Common/ModuleData.h"
 
-class ObjectCreationList
-{
-};
+#include "../../../Include/GameLogic/ObjectCreationListClass.h"
 
 #include "../../../Include/GameLogic/ObjectCreationListStore.h"
 

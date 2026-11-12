@@ -55,11 +55,7 @@ enum UpgradeType
 
 // Zero Hour ObjectCreationList's BFME2 surface: 0x001F08D3 takes the primary and
 // secondary objects and a null third argument.
-class ObjectCreationList
-{
-public:
-	void create(void *primary, void *secondary, void *extra);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 #define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
 	class NAME \

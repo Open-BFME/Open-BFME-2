@@ -7,11 +7,7 @@
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-class ObjectCreationList
-{
-public:
-	ObjectCreationList();
-};
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
 class Rva005ECA91
 {
 public:

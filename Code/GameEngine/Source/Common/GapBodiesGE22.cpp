@@ -449,11 +449,7 @@ bool Rva00481BFE(const void *key, const BitFlags<11> &flags)
 
 // --- 0x0048595C (25B, cdecl): run the object's +0x38 creation list, when it
 // has one, through the rowed 0x001F0410.
-class ObjectCreationList
-{
-public:
-	void rva001F0410(void *a, void *b);						// 0x001F0410
-};
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
 
 void Rva0048595C(Object *object, void *a, void *b)
 {
