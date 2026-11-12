@@ -297,12 +297,7 @@ struct Rva002ED236Pos {
 };
 int Rva002E6E8AGet(int layer);
 #include "ascii_string.h"
-struct ICoord2DBase
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/ICoord2DBase.h"
 class Rva002E6DC4;
 class Rva002E9D09
 {

@@ -315,12 +315,7 @@ Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
 };
 int Rva002E6E8AGet(int layer);
 #include "ascii_string.h"
-struct ICoord2DBase
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/ICoord2DBase.h"
 class Rva002E9D09
 {
 public:

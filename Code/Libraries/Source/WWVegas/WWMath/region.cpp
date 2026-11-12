@@ -22,11 +22,7 @@ struct IRegion3D
     int z_max;
 };
 
-struct ICoord2DBase
-{
-    int x;
-    int y;
-};
+#include "../../../../GameEngine/Include/Common/ICoord2DBase.h"
 
 #include "../../../Include/Lib/ICoord2D.h"
 

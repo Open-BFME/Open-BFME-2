@@ -3361,7 +3361,7 @@ void LivingWorldLogic::CheckTurnPhaseTransitions(){
 // the local result-vector size across notification calls. Both bodies verify.
 // Player key34/flag3C4/armies1B8 and record stride20 are native facts;
 // helper and record types remain structural views with address names.
-struct ICoord2DBase {int x,y;};
+#include "../../../../Include/Common/ICoord2DBase.h"
 struct Rva002B72C9 {int x,y;_STL::vector<unsigned> values;};
 void __cdecl Rva002BC830Append(_STL::vector<Rva002B72C9>&,unsigned,const ICoord2DBase&);
 // Existing constructor specialization initializes12B inner vector headers.

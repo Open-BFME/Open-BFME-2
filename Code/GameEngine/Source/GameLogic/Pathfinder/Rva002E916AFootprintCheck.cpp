@@ -14,12 +14,7 @@
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 // class-gate: allow ICoord2D TU-local view: the canonical header lacks the ICoord2DBase base and operator!=, and retail calls the rowed out-of-line ICoord2D::operator!= at 0x00004CC9.
-struct ICoord2DBase
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/ICoord2DBase.h"
 struct ICoord2D:public ICoord2DBase {bool operator!=(const ICoord2DBase&)const;};
 enum PathfindLayerEnum { LAYER_INVALID=0 };
 #include "../../../Include/GameLogic/PathfindCell.h"

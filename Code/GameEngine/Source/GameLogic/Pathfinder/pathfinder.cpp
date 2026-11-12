@@ -550,7 +550,7 @@ struct GeometryShape {
     __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
 };
 #include "../../../Include/Common/Geometry.h"
-struct ICoord2DBase { int x,y; };
+#include "../../../Include/Common/ICoord2DBase.h"
 #include "../../../Include/GameLogic/Rva002E9D09.h"
 class Rva002E7C99 {
 public:
