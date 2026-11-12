@@ -147,12 +147,7 @@ struct AptActionSetup
 	const char *name;
 	int action;
 };
-struct AptActionInterpreter
-{
-	void *PrepareForExecution(AptActionSetup *);
-	void CleanupAfterExecution(void *, AptActionSetup *);
-	void callFunction(AptValue *, AptValue *, int);
-};
+#include "../../../Libraries/Source/Apt/AptActionInterpreter.h"
 
 extern "C" int __cdecl rva006D9E40Comparator(const void *a, const void *b)
 {

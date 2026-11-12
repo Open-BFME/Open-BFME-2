@@ -329,11 +329,7 @@ public:
     virtual void *v03();
 };
 EAStringC *Rva0070B4F0GetString(int index);
-struct AptActionInterpreter
-{
-public:
-    bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int, int, int);
-};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 // Rowed at 0x006F85E0 (Rva006F6A50Cluster.cpp) under its real signature;
 // the submit forwards its raw words through unchanged.

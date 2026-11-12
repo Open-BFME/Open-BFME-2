@@ -309,7 +309,7 @@ class AptBoolean : public AptValue { public: bool GetBool() const; };
 #include "../AptFloat.h"
 class AptDate : public AptObject { public: void toString(EAStringC &); };
 class AptError : public AptObject { public: EAStringC msMessage; };
-struct AptActionInterpreter { static void getName(AptCIH *,EAStringC &); };
+#include "../AptActionInterpreter.h"
 EAStringC *Rva0070B4F0GetString(int);
 #include <stdio.h>
 #include <math.h>

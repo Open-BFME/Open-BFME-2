@@ -177,11 +177,7 @@ struct AptCIHProperties
 #include "AptCIHClass.h"
 #include "BfmeAptValue006DCD20.h"
 
-struct AptActionInterpreter
-{
-public:
-    AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int = 1, int = 1, int = 0);
-};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 
 class Rva006E15C0 : public AptCIH

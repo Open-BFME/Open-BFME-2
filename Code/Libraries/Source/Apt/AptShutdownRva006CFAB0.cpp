@@ -80,7 +80,7 @@ extern AptValueVector *g_aptOptionalValueVector;
 #include "EAStringC.h"
 extern void *g_eaStringAtE177D4Storage;
 void Rva006D37F0Clear();
-struct AptActionInterpreter {void rva006FEB50();};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 #include "AptBoolean.h"
 #include "../../../GameEngine/Include/Common/AptInteger.h"

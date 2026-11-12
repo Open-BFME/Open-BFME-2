@@ -53,7 +53,7 @@ template<class T>class AptValueSet {public:unsigned short reserved,count;T *item
 #include "Rva006E34D0.h"
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 static __forceinline void addSet(AptValueSet<AptValue*> *set,AptValue *v){((Rva006E9A40List*)set)->add((AptCIH*)v);}
-struct AptActionInterpreter {bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 struct R4Word {const char*name;int id;};
 const R4Word *Rva008ABF40(const char*,unsigned int);

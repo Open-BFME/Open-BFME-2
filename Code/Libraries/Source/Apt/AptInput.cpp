@@ -40,7 +40,7 @@ struct AptNativeHash;
 
 struct AptActionSetup {AptValue *context,*value;const char *name;int action;};
 
-struct AptActionInterpreter {public:void *PrepareForExecution(AptActionSetup*);void CleanupAfterExecution(void*,AptActionSetup*);void callFunction(AptValue*,AptValue*,int);};
+#include "AptActionInterpreter.h"
 
 extern AptActionInterpreter g_aptDateInterpreter;
 

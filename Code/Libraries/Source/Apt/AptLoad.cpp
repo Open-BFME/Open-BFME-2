@@ -230,10 +230,7 @@ __declspec(noinline) inline void Rva006D15B0Stack::rva006D15B0(int *const *handl
 }
 
 #include "AptValue.h"
-struct AptActionInterpreter
-{
-	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int = 1, int = 1, int = 0);
-};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 
 class AptLinker;

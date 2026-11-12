@@ -69,7 +69,7 @@ class Rva006DBDB0DwordOrSetter {public:void apply();};
 class CullableClass;
 class CullSystemClass {protected:CullableClass *Get_First_Collected_Object_Internal();friend class AptCIH;};
 #include "AptBasePtrStack.h"
-struct AptActionInterpreter {void callFunction(AptValue *,AptValue *,int);};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValueVector *g_releaseVectorAtE17710;
 extern AptValueVector *g_aptOptionalValueVector;

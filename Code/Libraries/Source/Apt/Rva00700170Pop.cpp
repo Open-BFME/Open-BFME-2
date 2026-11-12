@@ -42,11 +42,7 @@ public:
 	BfmeAptValue006DCD20 *checkedString(void);
 };
 class AptValue;
-class AptActionInterpreter
-{
-public:
-	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int, int, int);
-};
+#include "AptActionInterpreter.h"
 #include "AptBasePtrStack.h"
 void AptBasePtrStack::rva00700170(void *a1, void *a2)
 {
