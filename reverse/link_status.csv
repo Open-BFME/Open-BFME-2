@@ -3221,7 +3221,6 @@ Code/GameEngine/Source/Common/Rva0033FA79Do.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0033FC42Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0033FC42Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0033FCC8Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0033FD77Vslot.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0033FE65Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,yes,0,0,0,0,0
@@ -3238,8 +3237,6 @@ Code/GameEngine/Source/Common/Rva00340D70Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00340E5EFloat.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00340E97Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0034103BXfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0034117CXfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00341205Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003413B2Unlock.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0034149BDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003414F6Xfer.cpp,yes,0,0,0,0,0
@@ -3250,14 +3247,10 @@ Code/GameEngine/Source/Common/Rva003418EAMethod.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00341930Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00341E22Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00341E70Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00341E70VSlot.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00341F99Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00341F99Slot5.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00342157Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00342157Slot4.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00342228Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00342228Slot4.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00342228Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003424B1Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00342502Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0034252CXfer.cpp,yes,0,0,0,0,0
@@ -3275,11 +3268,7 @@ Code/GameEngine/Source/Common/Rva00342EACCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00342FCDCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00342FCDOnEnter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00343756Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00345CABDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00345F21Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003468F5RangeCheck.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00346BC0Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00346CDDCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0034C0D0Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0034C5E0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0034C5E0Dtor.cpp,yes,0,0,0,0,0
@@ -8801,7 +8790,6 @@ Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStatesXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdateInternal.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIAttackStateCreateAttackMachine.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackStateLoadPostProcess.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackStateOnEnter.cpp,yes,0,0,0,0,0
@@ -8926,7 +8914,6 @@ Code/GameEngine/Source/GameLogic/AI/AIStatesEvacuate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesEvacuate_Update.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesMeleeApproachGoal.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIStatesRva00347E4C.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesRva00347E4CHelper.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesRva003543BF.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesShipEvacuate.cpp,yes,0,0,0,0,0
@@ -9058,8 +9045,6 @@ Code/GameEngine/Source/GameLogic/AI/Rva00346B6DSetup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva00346C53Mask.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva0034BFFFGate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/Rva0035149F.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/Rva00351570.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/Rva003641F2Finish.cpp,yes,0,0,0,0,0
