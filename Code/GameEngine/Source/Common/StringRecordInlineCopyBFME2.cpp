@@ -228,11 +228,7 @@ public:
     ~Rva00468520();
     __declspec(nothrow) __forceinline Rva00468520(const Rva00468520 &other) { set(&other); }
 };
-struct BfmeStringRecord00222E08 {
-    AsciiString text;
-    Rva00468520 ref;
-    BfmeStringRecord00222E08(const BfmeStringRecord00222E08 &source);
-};
+#include "../../Include/GameClient/BfmeStringRecord00222E08.h"
 BfmeStringRecord00222E08::BfmeStringRecord00222E08(const BfmeStringRecord00222E08 &source) : text(source.text), ref(source.ref) {}
 template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08>(BfmeStringRecord00222E08*,const BfmeStringRecord00222E08&);
 
