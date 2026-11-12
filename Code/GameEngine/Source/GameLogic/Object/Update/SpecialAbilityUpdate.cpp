@@ -297,11 +297,7 @@ class SpecialDisguiseUpdate
 public:
 	void rva004B05F5(bool disguise);
 };
-struct Rva004CE41ECondition
-{
-	ModelConditionFlagType m_type; // +0x00
-	unsigned int m_frames; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/Rva004CE41ECondition.h"
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
 class SpecialAbilityUpdateModuleData

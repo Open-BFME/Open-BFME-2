@@ -54,11 +54,7 @@ private:
 	unsigned char m_pad000[0x10C];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
-struct Rva004CE41ECondition
-{
-	ModelConditionFlagType m_type; // +0x00
-	unsigned int m_frames; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/Rva004CE41ECondition.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class Rva00373EC6ModuleData

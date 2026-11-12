@@ -132,11 +132,7 @@ public:
 	unsigned char m_pad248[0x258 - 0x248];
 	AIUpdateInterface *m_ai; // +0x258
 };
-struct Rva004CE41ECondition
-{
-	ModelConditionFlagType m_type; // +0x00
-	unsigned int m_frames; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/Rva004CE41ECondition.h"
 class SpecialPowerTemplate;
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 class ModuleData;
