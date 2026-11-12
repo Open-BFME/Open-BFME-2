@@ -98,17 +98,7 @@ struct PeerRequest
 	unsigned char m_tail[0x1EC - 0x119];
 };
 
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void startThread() = 0;
-	virtual void endThread() = 0;
-	virtual int isThreadRunning() = 0;
-	virtual int isConnected() = 0;
-	virtual int isConnecting() = 0;
-	virtual void addRequest(const PeerRequest &request) = 0;
-};
+#include "../../../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 struct AptOnlineCustomMatchOwner

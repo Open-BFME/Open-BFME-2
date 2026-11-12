@@ -1,0 +1,195 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "GameSpyPeerMessageQueueInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 18,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x388845"
+     ],
+     "value": {
+      "0x0": "0x81980c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81980c"
+     ],
+     "value": {
+      "count": 11,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGameSpyPeerMessageQueueInterface@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x38884c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 10,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x81980c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x81980c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGameSpyPeerMessageQueueInterface@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "__purecall",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "4": 15
+  },
+  "views": 15,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/PeerThread.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 15,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "zh",
+   "member": "startThread()"
+  },
+  "2": {
+   "decided_by": "zh",
+   "member": "endThread()"
+  },
+  "3": {
+   "decided_by": "zh",
+   "member": "isThreadRunning()"
+  },
+  "4": {
+   "decided_by": "zh",
+   "member": "isConnected()"
+  },
+  "5": {
+   "decided_by": "zh",
+   "member": "isConnecting()"
+  },
+  "6": {
+   "decided_by": "zh",
+   "member": "addRequest(PeerRequest*)"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "v07()"
+  },
+  "8": {
+   "decided_by": "zh",
+   "member": "addResponse(PeerResponse*)"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "getResponse(PeerResponse*)"
+  }
+ }
+}

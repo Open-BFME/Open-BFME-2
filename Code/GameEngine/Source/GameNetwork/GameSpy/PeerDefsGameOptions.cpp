@@ -246,17 +246,7 @@ typedef _STL::map<Int, GameSpyStagingRoom *> StagingRoomMap;
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void s01(void);
-	virtual void endThread(void);
-	virtual void s03(void);
-	virtual void s04(void);
-	virtual void s05(void);
-	virtual void addRequest(const PeerRequest &req);
-};
+#include "../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 

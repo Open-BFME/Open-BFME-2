@@ -223,17 +223,7 @@ struct PeerRequest
 };
 
 // TheGameSpyPeerMessageQueue 0x00A02340: addRequest is virtual slot 6.
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void startThread() = 0;
-	virtual void endThread() = 0;
-	virtual int isThreadRunning() = 0;
-	virtual int isConnected() = 0;
-	virtual int isConnecting() = 0;
-	virtual void addRequest(const PeerRequest &request) = 0;
-};
+#include "../../../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
