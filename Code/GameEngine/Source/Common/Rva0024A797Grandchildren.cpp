@@ -483,11 +483,7 @@ public:
 	virtual void fe();
 };
 
-class Rva0045D39E_E2
-{
-public:
-	virtual void ff();
-};
+#include "../../Include/Common/Rva0045D39E_E2.h"
 
 class Rva0045D39E : public UpdateModule, public Rva0045D39E_E1, public Rva0045D39E_E2
 {
