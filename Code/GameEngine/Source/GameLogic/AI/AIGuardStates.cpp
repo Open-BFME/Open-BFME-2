@@ -484,6 +484,7 @@ class GiantBirdGuardOuterState : public State
 public:
 	GiantBirdGuardOuterState(StateMachine *machine);
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
 private:
@@ -802,7 +803,7 @@ StateReturnType GiantBirdGuardAttackAggressorState::update()
 	return m_attackState->update();
 }
 
-static __forceinline void exitGuardAttack(Object *owner, AIAttackState *&attackState, StateExitType status)
+static __forceinline void removeGuardAttack(AIAttackState *&attackState, StateExitType status)
 {
 	if (attackState)
 	{
@@ -810,7 +811,11 @@ static __forceinline void exitGuardAttack(Object *owner, AIAttackState *&attackS
 		::delete attackState;
 		attackState = NULL;
 	}
+}
 
+static __forceinline void exitGuardAttack(Object *owner, AIAttackState *&attackState, StateExitType status)
+{
+	removeGuardAttack(attackState, status);
 	if (owner->getTeam())
 	{
 		owner->getTeam()->setTeamTargetObject(NULL);
@@ -842,12 +847,12 @@ void GiantBirdGuardAttackAggressorState::onExit(StateExitType status)
 
 void AIGuardOuterState::onExit( StateExitType status )
 {
-	if (m_attackState)
-	{
-		m_attackState->onExit(status);
-		::delete m_attackState;
-		m_attackState = NULL;
-	}
+	removeGuardAttack(m_attackState, status);
+}
+
+void GiantBirdGuardOuterState::onExit(StateExitType status)
+{
+	removeGuardAttack(m_attackState, status);
 }
 
 /*static*/ Real AIGuardMachine::getStdGuardRange(const Object* obj)

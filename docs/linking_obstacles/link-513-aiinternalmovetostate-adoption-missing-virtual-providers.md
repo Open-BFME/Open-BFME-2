@@ -12,3 +12,11 @@ Census confirmation: none claimed.
 2026-11-09 (hdr-a, base 06c0b727c0): 17 more AI units adopted the canonical header, 39 queue rows with State and StateMachine, all link_check clean (18 of 18 units with MeshClassLifetime; LINKED 23,780 -> 23,780 on the rebased tree); a further 9 attack-state units (State/StateMachine only) 9 of 9, 3,059 -> 3,059. Those units' classes do not emit the table. Seven adoptions that do emit it byte-match or nearly so and still lose linking through the same two symbols: Rva00367518Ctor 33, AIAttackMoveStateMachine 654, AIGuardRetaliate 214, AIInternalMoveToStateOnExit_AIInternalMoveToState 94, AIStateRva0034005DCtor 1,131, AIStatesSmallUpdates 619, AIStates 4,714 bytes (AIStates also keeps one byte difference, AIAttackFireWeaponState::onEnter). Attempts reverted; verdicts in reverse/re_attempts.log.
 Next check: `tools/rename.py function --rva 0x0033F2D7 --to-class AIInternalMoveToState --new _bfme_state_slot7 --also 0x0033F2F7=GetSnapshotName --prepared ...` is the planned route (docs/naming.md); not yet run. On 2026-11-09 the claim on 0x0033F2F7 and SubsystemNameGetters2.cpp was refused because class:Drawable's scope covers that file. Consumers that spell the placeholders: AIDock, AITNGuard, Rva00346CDDCtor, Rva00544EB1Ctor, and the /alternatename line in the constructor unit.
 2026-11-09 (hdr-a, later): correction to the entry above: the 39 rows include MeshClassLifetime's one MeshModelClass row, so 38 are this class family's. Six more units adopted (AIStatesDerivedOnExit and its splits, AIInternalMoveToStateUpdate, AIStatesMoreExits), 18 rows, 6 of 6, 6,455 -> 6,455. AIGuardStates joins the units held back: adoption byte-matches, 4,315 -> 0 bytes on the same two symbols. The claim on 0x0033F2F7 was still refused at 09:06 UTC, same scope.
+
+2026-11-12: The three Giant Bird guard tables emitted by `AIGuardStates.cpp`
+now bind their retail entry, exit and update bodies in slots 4 through 6.
+The inner entry owns its 315-byte body and unwind graph. The exit and
+aggressor update folds match their existing bodies and relocation targets.
+The installer and update provider verify 54 code rows and six EH graphs,
+with 4,610 scoped linked bytes on index `9ca25659d0`. Completing the tables
+still requires the shared State layout and the remaining virtual providers.
