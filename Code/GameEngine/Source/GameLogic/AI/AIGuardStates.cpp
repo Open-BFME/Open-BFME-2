@@ -528,6 +528,7 @@ class GiantBirdGuardInnerState : public State
 {
 public:
 	GiantBirdGuardInnerState(StateMachine *machine);
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -799,41 +800,38 @@ StateReturnType AIGuardAttackAggressorState::update( void )
 	return m_attackState->update();
 }
 
-void AIGuardAttackAggressorState::onExit( StateExitType status )
+static __forceinline void exitGuardAttack(Object *owner, AIAttackState *&attackState, StateExitType status)
 {
-	Object *obj = getMachineOwner();
-	if (m_attackState)
+	if (attackState)
 	{
-		m_attackState->onExit(status);
-		::delete m_attackState;
-		m_attackState = NULL;
+		attackState->onExit(status);
+		::delete attackState;
+		attackState = NULL;
 	}
 
-	if (obj->getTeam())
+	if (owner->getTeam())
 	{
-		obj->getTeam()->setTeamTargetObject(NULL); // clear the target.
+		owner->getTeam()->setTeamTargetObject(NULL);
 	}
+}
+
+void AIGuardAttackAggressorState::onExit(StateExitType status)
+{
+	exitGuardAttack(getMachineOwner(), m_attackState, status);
 }
 
 // Retail C69780 slot 5 shares 542C87 with the attack-aggressor state.
 // The ZH inner-state exit drops its enter-state branch in BFME 2; the
 // remaining attack lifetime and team-target reset are identical.
-void AIGuardInnerState::onExit( StateExitType status )
+void AIGuardInnerState::onExit(StateExitType status)
 {
-	Object *obj = getMachineOwner();
-	if (m_attackState)
-	{
-		m_attackState->onExit(status);
-		::delete m_attackState;
-		m_attackState = NULL;
-	}
-
-	if (obj->getTeam())
-	{
-		obj->getTeam()->setTeamTargetObject(NULL); // clear the target.
-	}
+	exitGuardAttack(getMachineOwner(), m_attackState, status);
 }
 
+void GiantBirdGuardInnerState::onExit(StateExitType status)
+{
+	exitGuardAttack(getMachineOwner(), m_attackState, status);
+}
 
 void AIGuardOuterState::onExit( StateExitType status )
 {
