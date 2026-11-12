@@ -113,17 +113,7 @@ enum CommandSourceType
 	CMD_FROM_AI
 };
 
-struct Vector3
-{
-	Real X;
-	Real Y;
-	Real Z;
-
-	Vector3() {}
-	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Preserve this unit's alias-safe transform using canonical Matrix3D storage.
 struct DefaultExitTransform
