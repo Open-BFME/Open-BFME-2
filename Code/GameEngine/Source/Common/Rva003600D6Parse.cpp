@@ -63,11 +63,7 @@ public:
 
 typedef char Rva0035FF76SizeMatchesRetail[(sizeof(Rva0035FF76) == 0x40) ? 1 : -1];
 
-class Rva003600D6Holder
-{
-public:
-	void set(Rva0035FF76 *obj);
-};
+#include "../../Include/GameClient/Rva003600D6Holder.h"
 
 void __cdecl Rva003600D6Parse(INI *ini, Rva003600D6Holder *holder)
 {

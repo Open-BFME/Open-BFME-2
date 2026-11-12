@@ -88,11 +88,7 @@ extern const FieldParse CountUpTransitionFields[] = {
 };
 
 class Rva0035FF76;
-class Rva003600D6Holder
-{
-public:
-	void set(Rva0035FF76 *obj);
-};
+#include "../../../Include/GameClient/Rva003600D6Holder.h"
 
 // The existing opaque holder binding is a verified ten-byte ICF setter:
 // it stores its pointer argument at receiver+0x10 (0x005F69CE). It does

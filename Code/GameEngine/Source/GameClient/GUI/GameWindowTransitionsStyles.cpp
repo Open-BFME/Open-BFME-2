@@ -625,11 +625,7 @@ public:
 // field table at VA 0x00C166DC, defined in CountUpTransitionDestructorThunk.cpp.
 typedef char Rva0035FD0ARetailSize[(sizeof(Rva0035FD0A) == 0x38) ? 1 : -1];
 class Rva0035FF76;
-class Rva003600D6Holder
-{
-public:
-	void set(Rva0035FF76 *obj);
-};
+#include "../../../Include/GameClient/Rva003600D6Holder.h"
 // InGameUI::setScrollAmount: defined in InGameUIInputModes.cpp (its row's unit).
 
 // --- A one-shot flag: answers whether the global byte at VA 0x00DFF005
