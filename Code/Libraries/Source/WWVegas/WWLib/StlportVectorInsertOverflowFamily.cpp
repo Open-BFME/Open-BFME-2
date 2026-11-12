@@ -336,7 +336,7 @@ struct Rva004F89DB { void rva004F89DB(); };
 struct Rva00565A42 { void rva00565A42(); };
 struct Rva0056614DVec { void rva0056614D(); };
 struct Rva002B61DD { void rva002B61DD(); };
-struct BfmeStringRecord00426A5B { char m_pad[8]; };
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord00426A5B.h"
 class ScoredKillTracker;
 struct BfmeAssignRecord104;
 class CameraMarker;

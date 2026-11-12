@@ -195,11 +195,7 @@ namespace _STL {
 template <> RetailNoCaseVector &RetailNoCaseVector::operator=(const RetailNoCaseVector &);
 }
 
-struct BfmeStringRecord00426A5B
-{
-	AsciiString text;
-	unsigned char flag0, flag1, flag2;
-};
+#include "../../Include/Common/BfmeStringRecord00426A5B.h"
 
 struct FXBoneInfo
 {

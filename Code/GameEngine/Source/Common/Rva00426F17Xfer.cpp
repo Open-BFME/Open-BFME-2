@@ -23,12 +23,7 @@ struct XferVersion
 };
 #include "System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
-struct BfmeStringRecord00426A5B {
-	AsciiString text;
-	unsigned char flag0, flag1, flag2;
-	BfmeStringRecord00426A5B();
-	BfmeStringRecord00426A5B(const BfmeStringRecord00426A5B &o);
-};
+#include "../../Include/Common/BfmeStringRecord00426A5B.h"
 void * __cdecl Rva004266BCProcess(void *objRaw, void *rec);
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see System/XferException.cpp).

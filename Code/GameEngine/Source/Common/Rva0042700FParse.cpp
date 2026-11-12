@@ -16,14 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
-struct BfmeStringRecord00426A5B
-{
-	AsciiString text;
-	unsigned char flag0;
-	unsigned char flag1;
-	unsigned char flag2;
-	BfmeStringRecord00426A5B();
-};
+#include "../../Include/Common/BfmeStringRecord00426A5B.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> BfmeStringRecord00426A5B * vector<BfmeStringRecord00426A5B,allocator<BfmeStringRecord00426A5B> >::erase(BfmeStringRecord00426A5B *,BfmeStringRecord00426A5B *); }
 namespace _STL { template <> void _Destroy<BfmeStringRecord00426A5B *>(BfmeStringRecord00426A5B *, BfmeStringRecord00426A5B *); }

@@ -13,11 +13,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include "ascii_string.h"
-struct BfmeStringRecord00426A5B {
-    AsciiString text;
-    unsigned char flag0, flag1, flag2;
-    BfmeStringRecord00426A5B(const BfmeStringRecord00426A5B &o);
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord00426A5B.h"
 #include <memory>
 template void _STL::_Construct<BfmeStringRecord00426A5B,BfmeStringRecord00426A5B>(BfmeStringRecord00426A5B*,const BfmeStringRecord00426A5B&);
 namespace _STL {
