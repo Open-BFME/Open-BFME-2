@@ -60,10 +60,7 @@ public:
     unsigned char gap78[0x438];
     unsigned char excluded4b0;
 };
-struct Rva002A8AB1Record
-{
-    void rva002C6A3D(Object *);
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../Include/GameLogic/AIStatCollector.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
