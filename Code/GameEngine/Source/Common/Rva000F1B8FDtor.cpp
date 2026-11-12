@@ -1,18 +1,17 @@
 // cl: /MD /EHsc
 // ??1Rva000F1B8F@@UAE@XZ @0x000F1B8F 54B
-// Evidence: dtor lane calls rowed Free_String 0x00610A40 plus vptr stores; deleting dtor 0x000F1B73 rowed in OpaqueScalarDeletingDtorsB01; caller 0x000F1B76.
+// Native teardown frees the StringClass key at +8 above the shared eight-byte
+// HashableClass. This TU also owns deleting destructor 0x000F1B73; its table's
+// Get_Key slot points to the complete four-byte buffer getter at 0x0030F45F.
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 __forceinline StringClass::~StringClass() { Free_String(); }
-struct Rva000F1B8FBase {
-	virtual ~Rva000F1B8FBase() {}
-	// Retail table 0x00BCEF94: 1 __purecall entry follows.
-	virtual void slot1() = 0;
-};
-struct Rva000F1B8F : Rva000F1B8FBase {
-	int m_04;
+#include "../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"
+inline StringClass::operator const char *() const { return m_Buffer; }
+struct Rva000F1B8F : HashableClass {
 	StringClass m_08;
 	virtual ~Rva000F1B8F();
+	virtual const char *Get_Key() { return m_08; }
 };
 Rva000F1B8F::~Rva000F1B8F() {}
 

@@ -3425,3 +3425,15 @@ local planner changes one generated table to zero, with no refusals and
 one already-correct table. The published bridge queue stays unchanged until
 the next real link confirms it; no census or game-run clearance is claimed.
 [Native/library proof and measured scope](../../reverse/attempt_support/strstream-setbuf-20261112.md).
+
+**2026-11-12, Rva000F1B8F shared base and key: awaiting real-link confirmation.**
+Both constructor and destructor TUs adopt canonical HashableClass and supply
+the native table7CEFD4's Get_Key override at30F45F. Two private base views
+and their single superseded29-byte deleting-destructor alias retire; the
+real canonical owner and both exact copies retain that address's coverage.
+All five rows and strict preparation pass, and both own previews read LINKS.
+The three-object local planner changes the two-slot table from bridged to
+already correct without a refusal. The published queue remains intact;
+census/image confirmation and the separate hrawanim destructor-copy issue
+remain open.
+[Native hash-entry use and full retirement scope](../../reverse/attempt_support/hashable-entry-20261112.md).
