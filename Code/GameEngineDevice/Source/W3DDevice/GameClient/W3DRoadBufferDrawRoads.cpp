@@ -172,16 +172,7 @@ extern Rva000E19A3Interface *g_00DEBC60;
 struct BfmeTerrainRenderState { char m_pad[0x14]; Int m_mode; };
 class BaseHeightMapRenderObjClass;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-class BfmeTerrainRenderView
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17();
-	virtual BfmeTerrainRenderState *getRenderState();	// slot 18
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeTerrainRenderView.h"
 
 // RoadType's texture getters (0x000D6A3F / 0x000D6A57) and its buffer bind
 // (0x000D4435) as rowed.
