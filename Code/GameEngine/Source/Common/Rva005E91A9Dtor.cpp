@@ -10,14 +10,7 @@ private:
     char holderStorage[0x10];
 };
 #include "../../Include/Common/Rva005E1158.h"
-class Rva005E16B9
-{
-public:
-	const Image *GetImage();
-	char m_pad00[0x8];
-private:
-	AsciiString m_8; // +0x08
-};
+#include "../../Include/Common/Rva005E16B9.h"
 class Rva005E16DA;
 extern Rva005E16DA g_cancelArmyMoveButton;
 class Rva005E91A9Base

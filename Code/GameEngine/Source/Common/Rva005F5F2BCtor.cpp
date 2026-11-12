@@ -28,13 +28,7 @@ public:
 
 #include "../../Include/Common/Rva005E1158.h"
 
-class Rva005E16B9
-{
-	char m_pad[8];
-	AsciiString m_8;
-public:
-	const Image *GetImage();
-};
+#include "../../Include/Common/Rva005E16B9.h"
 
 // The listener base's vptr is 0x00C79544, the listener vtable Rva005E4AE2Ctor.cpp
 // names Rva005E4AE2Listener; Rva002BA8F1Listener's own vtable is 0x00C77F44

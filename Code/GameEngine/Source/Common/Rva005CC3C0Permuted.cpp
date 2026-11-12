@@ -13,13 +13,7 @@ class Image;
 
 #include "../../Include/Common/Rva005E1158.h"
 
-class Rva005E16B9
-{
-	char m_pad[8];
-	AsciiString m_8;
-public:
-	const Image *GetImage();
-};
+#include "../../Include/Common/Rva005E16B9.h"
 
 // First base as in the sibling ctor 0x005F5C77: vptr 0x00C7A630 over the
 // zeroed +4 word, unwound through the rowed 0x004E84A4.

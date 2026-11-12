@@ -27,14 +27,7 @@ private:
 	int m_10;
 };
 
-class Rva005E16B9
-{
-public:
-	const Image *GetImage();
-	char m_pad00[0x8];
-private:
-	AsciiString m_8; // +0x08
-};
+#include "../../Include/Common/Rva005E16B9.h"
 
 struct Rva005E8DCFIn
 {

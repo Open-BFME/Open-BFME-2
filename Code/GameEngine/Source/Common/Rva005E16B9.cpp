@@ -6,13 +6,7 @@
 
 #include "../../Include/GameClient/Image.h"
 
-class Rva005E16B9
-{
-	char m_pad[8];
-	AsciiString m_8;
-public:
-	const Image *GetImage();
-};
+#include "../../Include/Common/Rva005E16B9.h"
 
 const Image *Rva005E16B9::GetImage()
 {

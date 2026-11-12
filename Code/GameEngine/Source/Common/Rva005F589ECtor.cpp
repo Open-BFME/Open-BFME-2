@@ -20,13 +20,7 @@ public:
 
 #include "../../Include/Common/Rva005E1158.h"
 
-class Rva005E16B9
-{
-	char m_pad[8];
-	AsciiString m_8;
-public:
-	const Image *GetImage();
-};
+#include "../../Include/Common/Rva005E16B9.h"
 
 struct Rva002BA8F1Listener;
 #include "../../Include/Common/Rva005E4AE2Listener.h"
