@@ -290,11 +290,7 @@ template void _STL::_Construct<BfmeStringRecord005EC43C,BfmeStringRecord005EC43C
 #include "../Common/BfmeStringRecord005F93E3.h"
 template void _STL::_Construct<BfmeStringRecord005F93E3,BfmeStringRecord005F93E3>(BfmeStringRecord005F93E3*,const BfmeStringRecord005F93E3&);
 // Complete retail record copy at0x005ED5F3.
-struct BfmeStringRecord005ED5F3 {
-    UnicodeString text; unsigned int word0, word1, word2, word3;
-    BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &source);
-    BfmeStringRecord005ED5F3 &operator=(const BfmeStringRecord005ED5F3 &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005ED5F3.h"
 template void _STL::_Construct<BfmeStringRecord005ED5F3,BfmeStringRecord005ED5F3>(BfmeStringRecord005ED5F3*,const BfmeStringRecord005ED5F3&);
 // Upstream LanguageFilter.cpp identifies the former opaque record at0x387D03
 // as pair<const UnicodeString,bool>. Reuse that claim and keep only this

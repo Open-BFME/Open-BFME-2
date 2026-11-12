@@ -139,11 +139,7 @@ template void _STL::_Construct<BfmeStringRecord005EC43C,BfmeStringRecord005EC43C
 template void _STL::_Construct<BfmeStringRecord005F93E3,BfmeStringRecord005F93E3>(BfmeStringRecord005F93E3*,const BfmeStringRecord005F93E3&);
 
 // Complete retail record copy at0x005ED5F3.
-struct BfmeStringRecord005ED5F3 {
-    UnicodeString text; unsigned int word0, word1, word2, word3;
-    BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &source);
-    BfmeStringRecord005ED5F3 &operator=(const BfmeStringRecord005ED5F3 &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005ED5F3.h"
 BfmeStringRecord005ED5F3::BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &source) : text(source.text), word0(source.word0), word1(source.word1), word2(source.word2), word3(source.word3) {}
 inline BfmeStringRecord005ED5F3 &BfmeStringRecord005ED5F3::operator=(const BfmeStringRecord005ED5F3 &source)
 {
