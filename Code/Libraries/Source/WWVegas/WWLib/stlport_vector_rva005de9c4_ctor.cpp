@@ -9,17 +9,7 @@ class Rva005DE5B5;
 // The vector ctor is rowed at 0x005DE870; this TU only calls it.
 namespace _STL { template <> vector<Rva005DE5B5,allocator<Rva005DE5B5> >::vector(unsigned int); template <> _Vector_base<Rva005DE5B5,allocator<Rva005DE5B5> >::~_Vector_base(); template <> vector<Rva005DE5B5,allocator<Rva005DE5B5> >::~vector(); }
 
-class Rva005DE5B5
-{
-public:
-	Rva005DE5B5();
-	Rva005DE5B5(const Rva005DE5B5 &);
-	~Rva005DE5B5();
-	Rva005DE5B5 &operator=(const Rva005DE5B5 &);
-
-private:
-	char m_pad[0x18];
-};
+#include "Rva005DE5B5.h"
 
 class Rva005DE9E3
 {

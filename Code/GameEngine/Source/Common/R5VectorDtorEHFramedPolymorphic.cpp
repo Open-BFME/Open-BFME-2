@@ -45,16 +45,6 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 
 // The element is the 0x18-byte class the ledger rows as Rva005DE5B5; its dtor is not
 // virtual (it is called directly at 0x005DE8B7).
-class Rva005DE5B5
-{
-public:
-	Rva005DE5B5();
-	Rva005DE5B5(const Rva005DE5B5 &);
-	~Rva005DE5B5();
-	Rva005DE5B5 &operator=(const Rva005DE5B5 &);
-
-private:
-	char m_pad[0x18];
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva005DE5B5.h"
 
 template Rva005DE5B5 *_STL::uninitialized_fill_n<Rva005DE5B5 *, unsigned int, Rva005DE5B5>(Rva005DE5B5 *, unsigned int, const Rva005DE5B5 &);

@@ -15,17 +15,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 
 // The element is the 0x18-byte class the ledger rows as Rva005DE5B5 (ctor 0x005DE5EA,
 // dtor 0x005DE5B5, both called directly here: its dtor is not virtual).
-class Rva005DE5B5
-{
-public:
-	Rva005DE5B5();
-	Rva005DE5B5(const Rva005DE5B5 &);
-	~Rva005DE5B5();
-	Rva005DE5B5 &operator=(const Rva005DE5B5 &);
-
-private:
-	char m_pad[0x18];
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva005DE5B5.h"
 
 // The forwarder is rowed at 0x005DE833; this TU calls it and emits no copy.
 namespace _STL { template <> Rva005DE5B5 *uninitialized_fill_n<Rva005DE5B5 *, unsigned int, Rva005DE5B5>(Rva005DE5B5 *, unsigned int, const Rva005DE5B5 &); }
