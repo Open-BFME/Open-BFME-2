@@ -4,7 +4,7 @@
 // 0x00001423. This unemitted anchor makes this unit's copy that body. auto_inline(off)
 // keeps the iterator out of line: without it the /O2 Copy_Emitter_Property_Struct
 // <Vector3> inlines it and loses retail's call to ??_H.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma auto_inline(off)
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
