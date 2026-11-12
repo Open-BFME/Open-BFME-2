@@ -12,14 +12,7 @@
 class ThingTemplate;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-struct Rva005E4300Entry {
- int key;
- AsciiString name;
- float metric;
- int rank;
- char pad[0xb8-0x10];
- int group;
-};
+#include "../../../../Include/GameClient/Rva005E4300Entry.h"
 struct Rva005E3967Template {
  char pad[0x110]; unsigned int mask; char toArchetype[0x5C4-0x114];int archetype;char beforeCost[0x618-0x5C8];int cost;
 };

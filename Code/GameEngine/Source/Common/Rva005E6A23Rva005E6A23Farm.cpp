@@ -13,13 +13,7 @@
 class ThingTemplate;
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-struct Rva005E4300Entry {
- int key;
- AsciiString name;
- float metric;
- char pad[0xb8-0xc];
- int group;
-};
+#include "../../Include/GameClient/Rva005E4300Entry.h"
 struct Rva005E3967Template {
  char beforeDescription[0x40]; UnicodeString description; char toTitle[0x58-0x44]; UnicodeString title; char toMask[0x110-0x5C];unsigned int mask; char toArchetype[0x5C4-0x114];int archetype;__forceinline const UnicodeString&titleText()const{return title;} __forceinline const UnicodeString&descriptionText()const{return description;}
 };
