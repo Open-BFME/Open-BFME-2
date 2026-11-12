@@ -34,9 +34,8 @@
 // +0x5D -- deleting through TheTeamFactory's teamAboutToBeDeleted
 // (0x003A3048) and a global ::delete (flag-0 virtual destructor, then
 // ::operator delete), BFME 2's deleteInstance shape. Retail reuses ecx for the
-// second getControllingPlayer call, so it joins this file too; Team gains
-// its two polymorphic bases here (MemoryPoolObject, Snapshot), which
-// leaves every offset above unchanged.
+// second getControllingPlayer call. Snapshot is Team's primary base, so
+// deleting through it dispatches through the first table at offset zero.
 //
 // ?rva003A0CD1@TeamPrototype@@QAEXXZ, retail 0x003A0CD1 (57 bytes), called
 // out of line by ~TeamPrototype. Zero Hour's destructor tail (owner and factory
@@ -124,7 +123,7 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 }
 #include <hash_map>
 #include "ascii_string.h"
-#include "Common/Snapshot.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 #include "../GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 // Retail's Relationship _M_find (0x002888D4) inlines the const subscript;
@@ -205,15 +204,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_RVA003A135B = 0x44
 };
 
-class AIUpdateInterface
-{
-public:
-	Bool isRecruitable() const { return m_isRecruitable; }
-private:
-	unsigned char m_pad00[0x3BE];
-	Bool m_isRecruitable; // +0x3BE
-};
-
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
@@ -281,8 +272,6 @@ class TeamPrototype;
 class PlayerTemplate;
 #include "../../../Include/Common/Player.h"
 
-#include "../../../Include/Common/MemoryPoolObject.h"
-
 template <class OBJCLASS>
 class TeamInstanceIterator
 {
@@ -338,15 +327,6 @@ class BfmeTab1026 : public Rva2225E0Filter
 public:
 };
 
-class ObjectTypes
-{
-public:
-	unsigned int getListSize() const { return m_objectTypes.size(); }
-	AsciiString getNthInList(unsigned int index) const;
-private:
-	unsigned char m_pad00[0x08];
-	_STL::vector<AsciiString> m_objectTypes;
-};
 #include "../../../Include/GameLogic/Rva00376A62.h"
 
 struct TeamTemplateInfo
@@ -357,43 +337,12 @@ struct TeamTemplateInfo
 	int m_productionPriority; // +0xF0 (proto +0x21C)
 };
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	void updateState();
-	Object *getFirstItemIn_TeamMemberList() const { return m_dlinkhead_TeamMemberList; }
-	Bool isActive() const { return m_active; }
-	Player *getControllingPlayer() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList); }
-	void setTeamTargetObject(Object *obj);
-	bool rva0039DF87(BfmeTab1026 *tab);
-	int getTeamKey() const { return m_key34; }
-	Relationship getRelationship(const Team *that) const;
-	const TeamPrototype *getPrototype() const { return m_proto; }
-	Coord3D *rva0039DA2A(Coord3D *out) const;
-	Bool recruitUnit(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome);
-	Object *tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHome, Real maxDist, int a4, int a5, int a6);
-	int rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam);
-	Bool rva003A1542(const ThingTemplate *tTemplate, int minCount);
-	int rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, int maxCount, Real maxDist);
-	int rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int maxCount, Team *srcTeam);
+#include "../../../Include/Common/TeamBFME2.h"
 
-private:
-	unsigned char m_pad08[0x30 - 0x08];
-	TeamPrototype *m_proto; // +0x30
-	int m_key34; // +0x34
-	Object *m_dlinkhead_TeamMemberList; // +0x38
-	unsigned char m_pad3C[0x5D - 0x3C];
-	Bool m_active; // +0x5D
-	unsigned char m_pad5E[0x110 - 0x5E];
-	Bool m_isRecruitablitySet; // +0x110
-	Bool m_isRecruitable; // +0x111
-	unsigned char m_pad112[0x114 - 0x112];
-	unsigned int m_target; // +0x114
-	RetailPlayerRelationMap *m_teamRelations; // +0x118
-	RetailPlayerRelationMap *m_playerRelations; // +0x11C
-};
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
+{
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 
 #include "../../../Include/Common/TeamFactory.h"
 
@@ -401,14 +350,7 @@ extern TeamFactory *TheTeamFactory;
 
 enum { TEAM_SINGLETON = 0x01 };
 
-class Rva002C5FBA;
-struct Rva002A8AB1Record
-{
-public:
-	void rva004EC07D(TeamPrototype *proto);
-	char m_pad00[0x164];
-	Rva002C5FBA *target; // +0x164
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
@@ -500,29 +442,29 @@ void Team::setTeamTargetObject(Object *obj)
 {
 	if( obj == 0 )
 	{
-		m_target = 0;
+		m_commonAttackTarget = 0;
 		return;
 	}
 	if( getControllingPlayer()->m_playerType != 1 )
 		return;
 	if( ((Rva002A9BF2 *)getControllingPlayer())->rva002A9BF2() == 0 )
 		return;
-	m_target = obj->m_id;
+	m_commonAttackTarget = obj->m_id;
 }
 
 Relationship Team::getRelationship(const Team *that) const
 {
-	RetailPlayerRelationMap *teamMap = m_teamRelations;
+	RetailPlayerRelationMap *teamMap = reinterpret_cast<RetailPlayerRelationMap *>(m_teamRelations);
 	if (!teamMap->m_map.empty() && that != NULL)
 	{
-		PlayerRelationMapType::const_iterator it = teamMap->m_map.find(that->getTeamKey());
+		PlayerRelationMapType::const_iterator it = teamMap->m_map.find(that->getID());
 		if (it != teamMap->m_map.end())
 		{
 			return (*it).second;
 		}
 	}
 
-	RetailPlayerRelationMap *playerMap = m_playerRelations;
+	RetailPlayerRelationMap *playerMap = reinterpret_cast<RetailPlayerRelationMap *>(m_playerRelations);
 	if (!playerMap->m_map.empty() && that != NULL)
 	{
 		Player *thatPlayer = that->getControllingPlayer();
@@ -595,7 +537,7 @@ void TeamPrototype::updateState()
 
 				// So remove it
 				TheTeamFactory->teamAboutToBeDeleted(iter.cur());
-				::delete iter.cur();
+				::delete static_cast<Snapshot *>(iter.cur());
 
 				done = false;
 				break;
@@ -608,7 +550,7 @@ void TeamPrototype::teamAboutToBeDeleted(Team *team)
 {
 	for (TeamInstanceIterator<Team> iter = iterate_TeamInstanceList(); !iter.done(); iter.advance())
 	{
-		((Rva003A2897 *)iter.cur())->rva003A2897((NameKeyType)(team ? team->getTeamKey() : 0));
+		((Rva003A2897 *)iter.cur())->rva003A2897((NameKeyType)(team ? team->getID() : 0));
 	}
 }
 
@@ -737,7 +679,7 @@ Bool Team::recruitUnit(Object **recruit, Real *distSqr, Object *obj, const Thing
 	if (!teamIsRecruitable) {
 		return false;
 	}
-	if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->isRecruitable()) {
+	if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->m_field3BE) {
 		return false;
 	}
 	if (obj->isDisabledByType_HELD()) {
@@ -859,7 +801,7 @@ Bool Team::rva003A1542(const ThingTemplate *tTemplate, int minCount)
 		if (!teamIsRecruitable) {
 			continue;
 		}
-		if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->isRecruitable()) {
+		if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->m_field3BE) {
 			continue;
 		}
 		if (obj->isDisabledByType_HELD()) {
@@ -899,7 +841,7 @@ int Team::rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int m
 					match = true;
 				if (!match)
 					continue;
-				if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->isRecruitable())
+				if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->m_field3BE)
 					continue;
 				if (obj->isDisabledByType_HELD())
 					continue;
@@ -964,7 +906,7 @@ int Team::rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, 
 				teamIsRecruitable = team->m_isRecruitable;
 			if (!teamIsRecruitable)
 				continue;
-			if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->isRecruitable())
+			if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->m_field3BE)
 				continue;
 			if (obj->isDisabledByType_HELD())
 				continue;
