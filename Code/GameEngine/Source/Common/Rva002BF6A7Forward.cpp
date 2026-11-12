@@ -38,7 +38,7 @@ void Rva005F83A9::rva005F83A9()
 // Both physical results are unused here; no pointer-result fact is established.
 #include "RegionCenterPointDispatchView.h"
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002BF652{public:void rva002BF652(void*);};
+#include "../../Include/Common/Rva002BF652.h"
 
 // Native5CD284..5CD2A3 RET0, WB15C5010: empty folded hook, owned
 // 8B child-forwarder then region placement(value20->18, receiver10).

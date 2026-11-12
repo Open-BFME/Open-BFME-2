@@ -12,11 +12,7 @@ struct Rva002B2BECArg
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002BF652
-{
-public:
-	void rva002BF652(void *value);
-};
+#include "../../Include/Common/Rva002BF652.h"
 
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class Rva002D3627Host;

@@ -316,7 +316,7 @@ struct Rva002BF652LogicView{char pad[0xB0];Rva0020F27EHost*regions;};
 
 struct RegionView{char pad[0x12C];int id;};
 
-class Rva002BF652{public:void rva002BF652(void*);};
+#include "../../../Include/Common/Rva002BF652.h"
 
 // Native5CD284..5CD2A3 RET0, WB15C5010: empty folded hook, owned
 // 8B child-forwarder then region placement(value20->18, receiver10).
