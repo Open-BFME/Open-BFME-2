@@ -546,19 +546,18 @@ def compiler_defines(text):
     return out
 
 
-# include_walk's per-file passes are pure and a header recurs across walks (a unit's, its canonical header's,
-# include_absent's): the Platform SDK's closure of Ole2.h costs ~25 s to mask and check once.
+# include_walk's per-file passes are pure and a header recurs across walks (a unit's alone, and with its
+# canonical header): the Platform SDK's closure of Ole2.h costs ~25 s to mask and check once.
 masked_once = functools.lru_cache(maxsize=2048)(masked)
 comment_splice_once = functools.lru_cache(maxsize=2048)(header_comment_splice)
 
 
-def include_walk(source, text, include_roots=(), cache=None, never=None, absent=None):
+def include_walk(source, text, include_roots=(), cache=None):
     """Scan the complete quoted include closure once, refusing unorderable cycles and a quoted include
-    that resolves nowhere, unless only a branch never compiled names it (never_compiled) and nothing in
-    the closure defines that branch's macro. `never`: the macros assumed absent to start with (default
-    NEVER_DEFINED; a canonical header is walked with its unit's, include_absent), less the `// cl:`
-    definitions of `text`. `absent`, a set, receives those still proven absent when the walk passes; an
-    angle include that resolves nowhere in a branch that can be compiled leaves none (it may define any)."""
+    that resolves nowhere, unless only a branch never compiled names it (never_compiled) and nothing the
+    unit compiles defines that branch's macro: its `// cl:` definitions, a `#define` of the closure in a
+    branch that can be compiled, or a header the walk cannot read (an angle include that resolves nowhere
+    in such a branch, which may define any)."""
     start = (ROOT / source).resolve()
     cache = {} if cache is None else cache
     seen, active, out = set(), set(), []
@@ -567,7 +566,7 @@ def include_walk(source, text, include_roots=(), cache=None, never=None, absent=
     skipped = []                         # (path, include, logical text, offset): never compiled (never_compiled)
     unread = []                          # (path, include, logical text, offset): an angle include found nowhere
     logicals = {}                        # path: its logical, masked text (literals kept)
-    never = (NEVER_DEFINED if never is None else frozenset(never)) - compiler_defines(text)
+    never = NEVER_DEFINED - compiler_defines(text)
     stack = [(start, text, False)]
     while stack:
         path, body, leaving = stack.pop()
@@ -683,21 +682,11 @@ def include_walk(source, text, include_roots=(), cache=None, never=None, absent=
             colors[node] = 1
             pending.append((node, True))
             pending.extend((child, False) for child in reversed(graph[node]))
-    if absent is not None:
-        absent.update(never)
     return out, None
 
 
-def include_problem(source, text, include_roots=(), cache=None, never=None):
-    return include_walk(source, text, include_roots, cache, never)[1]
-
-
-def include_absent(source, text, include_roots=(), cache=None):
-    """The NEVER_DEFINED macros `source`'s closure leaves proven absent (include_walk); none when the walk
-    refuses. A canonical header is judged with its unit's: the unit's flags and defines reach it."""
-    absent = set()
-    include_walk(source, text, include_roots, cache, absent=absent)
-    return frozenset(absent)
+def include_problem(source, text, include_roots=(), cache=None):
+    return include_walk(source, text, include_roots, cache)[1]
 
 
 def include_sources(source, text=None, include_roots=(), cache=None):
@@ -1001,8 +990,10 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             mappings[name] = mine
     if mappings:
         if header:
-            why = include_problem(header, read_source(header), include_roots=include_roots, cache=include_cache,
-                                  never=include_absent(source, text, include_roots, include_cache))
+            # the header as the unit compiles it: inside the unit's closure, after its flags and every
+            # definition it makes (a header walked alone took a macro the unit defines for absent)
+            why = include_problem(source, f'{text}\n#include "{header}"\n', include_roots=include_roots,
+                                  cache=include_cache)
             if why:
                 return None, why
             family = {cls for name in mappings for cls in hierarchy(name, laid)}

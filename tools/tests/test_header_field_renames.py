@@ -665,8 +665,20 @@ def test_review_r2_the_canonical_header_is_judged_with_its_units_macros(tmp_path
     for unit in ("// cl: /O2 /D_MAC\n" + UNIT, "#define _MAC\n" + UNIT):
         mapping, why = lane.field_renames("u.cpp", unit, ["Object"], "Object.h", compiler(), header="Object.h")
         assert mapping is None and "missing.h" in why, why
-    assert lane.include_absent("u.cpp", "// cl: /D_MAC\n") == lane.NEVER_DEFINED - {"_MAC"}
-    assert lane.include_absent("u.cpp", '#include "nowhere.h"\n') == frozenset()     # a refused walk proves none
+
+
+@pytest.mark.parametrize("unit", ["// cl: /O2 /D__RPC_MAC__\n" + UNIT, "#define __RPC_MAC__\n" + UNIT])
+def test_review_r3_the_canonical_header_sees_every_macro_its_unit_defines(tmp_path, monkeypatch, unit):
+    # review r3: the header was given the unit's absent platform macros only; a unit defining __RPC_MAC__ left
+    # the header taking it for absent, dismissing the unread <outside.h> under it, and so _MAC for absent
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Object.h").write_text(HEADER + "#ifdef _MAC\n#define __RPC_MAC__\n#endif\n"
+                                       '#ifdef __RPC_MAC__\n#include <outside.h>\n#endif\n'
+                                       '#ifdef _MAC\n#include "missing.h"\n#endif\n')
+    mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Object.h")
+    assert why is None and mapping                       # nothing defines __RPC_MAC__ or _MAC: never compiled
+    mapping, why = lane.field_renames("u.cpp", unit, ["Object"], "Object.h", compiler(), header="Object.h")
+    assert mapping is None and "missing.h" in why and "<outside.h> resolves nowhere" in why, why
 
 
 def test_review_r2_a_digraph_else_spoils_the_guard(tmp_path, monkeypatch):
