@@ -35,6 +35,9 @@ extern LocalFileSystem *TheLocalFileSystem;
 extern ArchiveFileSystem *TheArchiveFileSystem;
 // TheLangDir (VA 0xe06948) is defined in FileSystemOpenFile.cpp.
 extern char TheLangDir[256];
+// The current language name (VA 0x00DD509C, initially "English"; Rva00600665Set
+// copies the configured language into it). Defined in FileSystemRva00600E3A.cpp.
+extern char g_00DD509C[];
 
 #include "../../../Include/Common/FileSystem.h"
 
@@ -63,7 +66,7 @@ bool FileSystem::doesFileExist(const char *filename) const
 				return true;
 		}
 
-		(*sprintfImp)(buf, "lang\\%s\\%s", "English", filename);
+		(*sprintfImp)(buf, "lang\\%s\\%s", g_00DD509C, filename);
 		return TheArchiveFileSystem->doesFileExist(buf) ? true : false;
 	}
 }

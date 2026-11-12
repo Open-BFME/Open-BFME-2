@@ -61,6 +61,9 @@ extern ArchiveFileSystem *TheArchiveFileSystem;
 // 0x100-byte gap before the next known global there.
 char TheLangDir[256];
 extern bool BFME2PreferLocalFiles;
+// The current language name (VA 0x00DD509C, initially "English"; Rva00600665Set
+// copies the configured language into it). Defined in FileSystemRva00600E3A.cpp.
+extern char g_00DD509C[];
 
 #include "../../../Include/Common/FileSystem.h"
 
@@ -92,7 +95,7 @@ File *FileSystem::openFile(const char *filename, int access, int unk)
 			if (file)
 				file->setName(filename);
 		}
-		(*sprintfImp)(buf, "lang\\%s\\%s", "English", filename);
+		(*sprintfImp)(buf, "lang\\%s\\%s", g_00DD509C, filename);
 		if (file)
 			goto done;
 		file = TheArchiveFileSystem->openFile(buf, access, unk);
