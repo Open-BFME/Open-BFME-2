@@ -26,6 +26,20 @@ public:
 	virtual ~Rva0065F140Derived()
 	{
 	}
+public:
+	// Retail table 0x00CE24A0: the deleting destructor, then 12 __purecall entries.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
 };
 
 // ??0Rva0065F140Derived@@QAE@XZ present-unmatched (emission only, unclaimed)

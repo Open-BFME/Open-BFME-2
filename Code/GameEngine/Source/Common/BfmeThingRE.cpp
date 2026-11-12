@@ -610,6 +610,29 @@ public:
 	virtual ~Rva006560E0()
 	{
 	}
+public:
+	// Retail table 0x00CE0FC8: the deleting destructor, then 21 __purecall entries.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
 };
 
 // tu-skeleton: 0x006560F0 36B ?bfmeGoRE@BfmeThingRE@@QAEDPAVBfmeOtherRE@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv908.cpp (not merged yet)

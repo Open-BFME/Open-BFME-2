@@ -115,6 +115,20 @@ public:
 	virtual ~Rva0065D1D0()
 	{
 	}
+public:
+	// Retail table 0x00CE1E30: the deleting destructor, then 12 __purecall entries.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
 };
 
 // EA FESL client SDK ("jabba") blob-service result record default constructor.

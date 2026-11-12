@@ -26,6 +26,12 @@ public:
 	virtual ~Rva0065E7D0()
 	{
 	}
+public:
+	// Retail table 0x00CE2368: the deleting destructor, then 4 __purecall entries.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 // ??0Rva0065E7D0@@QAE@XZ present-unmatched (emission only, unclaimed)
