@@ -111,10 +111,7 @@ TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
 
 #include "../../../Include/GameNetwork/PlayerInfo.h"
 
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../../Include/Common/AsciiComparator.h"
 
 typedef _STL::set<AsciiString> IgnoreList;
 typedef _STL::map<Int, AsciiString> SavedIgnoreMap;

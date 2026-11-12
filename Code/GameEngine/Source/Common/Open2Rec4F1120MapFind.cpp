@@ -17,10 +17,7 @@
 #include "ascii_string.h"
 
 
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../Include/Common/AsciiComparator.h"
 
 #include "../../Include/GameNetwork/PlayerInfo.h"
 

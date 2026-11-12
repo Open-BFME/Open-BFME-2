@@ -199,10 +199,7 @@ public:
 	Bool isIgnored(void);
 };
 
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../../Include/Common/AsciiComparator.h"
 
 typedef _STL::set<AsciiString> IgnoreList;
 typedef _STL::map<Int, AsciiString> SavedIgnoreMap;

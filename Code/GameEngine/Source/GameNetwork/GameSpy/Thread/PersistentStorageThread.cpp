@@ -2250,10 +2250,7 @@ public:
 	Int m_preorder;
 	~PlayerInfo();
 };
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../../../Include/Common/AsciiComparator.h"
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 
 // TheGameSpyInfo (vtable 0x00C1DD90, rowed in PeerDefs.cpp): the player-info

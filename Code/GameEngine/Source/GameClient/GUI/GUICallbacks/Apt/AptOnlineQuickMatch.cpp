@@ -69,7 +69,7 @@ class PeerResponse {public:
 class PSPlayerAllStats {public:int id;char rest[0x548-4];PSPlayerAllStats(int);PSPlayerAllStats(const PSPlayerAllStats &);~PSPlayerAllStats();void setID(int);};
 class GameWindow;
 #include "../../../../../Include/GameNetwork/PlayerInfo.h"
-struct AsciiComparator {bool operator()(AsciiString,AsciiString)const;};
+#include "../../../../../Include/Common/AsciiComparator.h"
 typedef _STL::map<AsciiString,PlayerInfo,AsciiComparator> PlayerInfoMap;
 #define V(n) virtual void slot##n();
 #include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"

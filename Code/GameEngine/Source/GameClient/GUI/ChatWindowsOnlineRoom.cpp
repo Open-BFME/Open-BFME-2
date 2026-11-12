@@ -114,10 +114,7 @@ template<> __declspec(dllimport) __forceinline void allocator<BfmeE12>::dealloca
 }
 // The header's slot 21 player map is keyed by AsciiString; the call
 // instantiates it, so its comparator must be complete here.
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../../Include/Common/AsciiComparator.h"
 #include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 class ChatWindowsOnlineRoom : public ChatWindowsOnline { public:
  virtual bool PopulatePlayerList();

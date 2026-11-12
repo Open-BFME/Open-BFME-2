@@ -22,10 +22,7 @@ public:
 private:
 	char m_data[0x30];
 };
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../../../GameEngine/Include/Common/AsciiComparator.h"
 typedef _STL::pair<const AsciiString, PlayerInfo> PlayerInfoMapValue;
 typedef _STL::_Rb_tree<AsciiString, PlayerInfoMapValue, _STL::_Select1st<PlayerInfoMapValue>, AsciiComparator, _STL::allocator<PlayerInfoMapValue> > PlayerInfoMapTree;
 template PlayerInfoMapTree::~_Rb_tree();

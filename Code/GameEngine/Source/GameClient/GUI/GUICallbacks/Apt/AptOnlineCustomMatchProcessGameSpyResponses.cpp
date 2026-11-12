@@ -332,10 +332,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 
 #include "../../../../../Include/GameNetwork/PlayerInfo.h"
 
-struct AsciiComparator
-{
-	bool operator()(AsciiString s1, AsciiString s2) const;
-};
+#include "../../../../../Include/Common/AsciiComparator.h"
 
 typedef std::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 

@@ -68,7 +68,7 @@ public:
     AsciiString m_name, m_locale, m_clan;
     int m_words[10];
 };
-struct AsciiComparator { bool operator()(AsciiString, AsciiString) const; };
+#include "../../../../../Include/Common/AsciiComparator.h"
 typedef std::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 
 enum SlotState { SLOT_OPEN, SLOT_CLOSED, SLOT_EASY_AI, SLOT_MED_AI, SLOT_BRUTAL_AI, SLOT_AI_5, SLOT_PLAYER };
