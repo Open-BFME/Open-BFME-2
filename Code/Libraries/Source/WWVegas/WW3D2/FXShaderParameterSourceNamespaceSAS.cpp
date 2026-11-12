@@ -77,10 +77,7 @@ public:
 	int index;
 };
 
-struct Tag
-{
-	char x;
-};
+#include "../../../../GameEngine/Include/Common/Tag.h"
 
 Rva0014F480 *__cdecl Rva0014F5ABFillN(Rva0014F480 *result, unsigned count, const Rva0014F480 &value, const Tag &tag);
 

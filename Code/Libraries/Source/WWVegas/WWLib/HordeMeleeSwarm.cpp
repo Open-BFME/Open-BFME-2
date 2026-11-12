@@ -194,10 +194,7 @@ class Rva002337F0
 	Rva002337F0Blk m;
 };
 
-struct Tag
-{
-	char x;
-};
+#include "../../../../GameEngine/Include/Common/Tag.h"
 
 struct Arg5
 {

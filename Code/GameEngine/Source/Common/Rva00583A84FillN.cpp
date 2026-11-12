@@ -25,10 +25,7 @@ public:
 
 void __cdecl Rva00583A72Set(Rva002337F0 *a, const Rva002337F0Blk *b);
 
-struct Tag
-{
-	char x;
-};
+#include "../../Include/Common/Tag.h"
 
 Rva002337F0 *__cdecl Rva00583A84FillN(Rva002337F0 *result, unsigned int count, const Rva002337F0Blk &value, const Tag &tag)
 {

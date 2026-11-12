@@ -33,10 +33,7 @@ public:
 	int m_04;
 };
 
-struct Tag
-{
-	char x;
-};
+#include "../../Include/Common/Tag.h"
 
 Rva0014F480 *__cdecl Rva0014F5ABFillN(Rva0014F480 *result, unsigned count, const Rva0014F480 &value, const Tag &tag)
 {

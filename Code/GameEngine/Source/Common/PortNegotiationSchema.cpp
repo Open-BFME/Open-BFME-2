@@ -145,10 +145,7 @@ public:
 };
 // ---- forEach 0x005DBE6A, walk 0x005DBDF7
 
-struct Tag
-{
-	char x;
-};
+#include "../../Include/Common/Tag.h"
 // Small GameEngine bodies from .text gaps no Ghidra function covers
 // (fifteenth batch; see GapBodiesGE01.cpp). Retail bytes establish every
 // shape; owning classes are not recovered, so each keeps an address-derived

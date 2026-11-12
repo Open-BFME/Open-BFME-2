@@ -26,10 +26,7 @@ public:
 
 void __cdecl Rva00583A72Set(Rva002337F0 *a, const Rva002337F0Blk *b);
 
-struct Tag
-{
-	char x;
-};
+#include "../../Include/Common/Tag.h"
 
 Rva002337F0 *__cdecl Rva00583B11Copy(Rva002337F0 *first, Rva002337F0 *last, Rva002337F0 *result, const Tag &tag)
 {
