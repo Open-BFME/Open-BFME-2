@@ -15,7 +15,7 @@ public:
 };
 #include "../AptBoolean.h"
 #include "../../../../GameEngine/Include/Common/AptInteger.h"
-class Rva00723490FloatField { public: float get() const; };
+#include "../Rva00723490FloatField.h"
 #include "../BfmeAptValue006DCD20.h"
 int Rva006CD220Get();
 #include <stdlib.h>

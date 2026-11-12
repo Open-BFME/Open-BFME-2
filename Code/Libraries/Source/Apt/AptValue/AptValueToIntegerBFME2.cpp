@@ -20,11 +20,7 @@ public:
     unsigned char get() const;
 };
 
-class Rva00723490FloatField
-{
-public:
-    float get() const;
-};
+#include "../Rva00723490FloatField.h"
 
 class Rva00144010Opaque
 {
