@@ -29,13 +29,7 @@ private:
 	int m_refCount;  // +0x4 past the vptr
 };
 
-class RadarEventRefSlot
-{
-public:
-	void clearRef();
-private:
-	RadarEventRef *m_ref;
-};
+#include "../../../Include/Common/RadarEventRefSlot.h"
 
 struct RadarEventBody
 {

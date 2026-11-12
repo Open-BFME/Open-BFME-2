@@ -187,12 +187,7 @@ public:
 	virtual void refresh();
 };
 class RadarEventRef;
-class RadarEventRefSlot
-{
-public:
-	void clearRef();
-	RadarEventRef *m_ref; // +0x00
-};
+#include "../../../Include/Common/RadarEventRefSlot.h"
 struct RGBAColorInt
 {
 	unsigned int red, green, blue, alpha;

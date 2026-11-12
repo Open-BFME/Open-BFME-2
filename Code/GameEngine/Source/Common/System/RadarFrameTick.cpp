@@ -88,12 +88,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/Common/RadarEventRef.h"
 
-class RadarEventRefSlot
-{
-public:
-	void clearRef();
-	RadarEventRef *m_ref;
-};
+#include "../../../Include/Common/RadarEventRefSlot.h"
 
 struct RadarBody
 {
