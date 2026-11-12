@@ -394,24 +394,6 @@ private:
 	UnsignedInt m_nextEnemyScanTime; // +0x20
 	Coord3D m_guardeePos; // +0x24
 };
-// Second-system inner state onEnter (dump range 16 head, 0x36A3E9/315): same
-// centre/area/radius/new-attack pattern as AIGuardInnerState::onEnter 0x54379B
-// on the second guard machine layout (target +0x3C, team +0x40, area +0x44,
-// pos +0x48, nemesis +0x68). Address-derived owner; retry from reference body.
-class Rva0036A3E9GuardInnerState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-private:
-	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
-	unsigned char m_pad1C[0x20 - 0x1C];
-	ExitConditions m_exitConditions; // +0x20
-	AIAttackState *m_attackState; // +0x3C
-	Bool m_bfmeRestart; // +0x40
-	unsigned char m_pad41[0x44 - 0x41];
-	UnsignedInt m_bfmeDeadline; // +0x44
-};
-
 Bool ExitConditions::shouldExit(const StateMachine *machine) const
 {
 	Object *goal = const_cast<StateMachine *>(machine)->getGoalObject();
@@ -522,15 +504,16 @@ private:
 	AIAttackState *m_attackState; // +0x3C
 	Bool m_bfmeRestart; // +0x40
 };
-// Vtable VA 0x00C17978, the class whose onEnter is rowed above as
-// Rva0036A3E9GuardInnerState::onEnter.
+// Vtable VA 0x00C17978 has onEnter at 0x0036A3E9 and update at 0x0036A524.
 class GiantBirdGuardInnerState : public State
 {
 public:
 	GiantBirdGuardInnerState(StateMachine *machine);
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
+	Rva00369FDFGuardMachine *getGuardMachine() { return static_cast<Rva00369FDFGuardMachine *>(getMachine()); }
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva00367F19ExitConditions m_exitConditions; // +0x20
 	AIAttackState *m_attackState; // +0x3C
@@ -975,7 +958,7 @@ StateReturnType Rva0036A979GuardIdleState::update( void )
 	}
 	return STATE_SLEEP(m_nextEnemyScanTime - now);
 }
-StateReturnType Rva0036A3E9GuardInnerState::onEnter(void)
+StateReturnType GiantBirdGuardInnerState::onEnter(void)
 {
 	Rva00369FDFGuardMachine *guard = getGuardMachine();
 	Object *targetToGuard = guard->findTargetToGuardByID();
@@ -995,7 +978,7 @@ StateReturnType Rva0036A3E9GuardInnerState::onEnter(void)
 	m_exitConditions.m_center = pos;
 	Real range = AIGuardMachine::getStdGuardRange(getMachineOwner());
 	m_exitConditions.m_radiusSqr = range * range;
-	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfOutsideRadius | ExitConditions::ATTACK_ExitIfNoUnitFound);
+	m_exitConditions.m_conditionsToConsider = (Rva00367F19ExitConditions::ATTACK_ExitIfOutsideRadius | Rva00367F19ExitConditions::ATTACK_ExitIfNoUnitFound);
 	const PolygonTrigger *area = getGuardMachine()->getAreaToGuard();
 	if (area)
 	{
