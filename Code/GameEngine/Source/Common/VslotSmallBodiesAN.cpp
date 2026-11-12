@@ -109,10 +109,24 @@ void Rva006E3490::rva006E3490()
 	m_24.clear(false);
 }
 
+// Slot 14 of Rva0056ACDF's secondary table 0x0086D110: the word the Base2
+// frame carries at +0x10 (the class's second own member, +0x18 in the
+// object), full-EAX word bits and RET4. Original owner and semantic type
+// unknown; address-named storage.
+#include "../../Include/Common/Rva0056AC26.h"
+
+class Rva0056ACDF : public Rva0056AC26
+{
+public:
+	virtual int slot14(int unused);
+private:
+	unsigned char m_pad14[4];	// +0x14
+	unsigned int m_18;	// +0x18
+};
+
+int Rva0056ACDF::slot14(int unused) { return m_18; }
+
 // Native installed-table word transfers. Address-token ABI views preserve
 // observed word bits and cleanup; original owner and semantic types are unknown.
-class Rva0056ACF1 {public: unsigned int rva0056ACF1(int unused); private: char prefix[0x10]; unsigned int word;};
-unsigned int Rva0056ACF1::rva0056ACF1(int unused) {return word;}
-
 class Rva005CC5D3 {public: void rva005CC5D3(unsigned int value); private: char prefix[0xC]; unsigned int *destination;};
 void Rva005CC5D3::rva005CC5D3(unsigned int value) {*destination=value;}
