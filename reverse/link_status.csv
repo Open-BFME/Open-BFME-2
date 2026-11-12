@@ -1459,7 +1459,7 @@ Code/GameEngine/Source/Common/OpenAudioFile_setFileReady.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Out.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Overridable.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OverridableDeleteOverrides.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/OwnedPointerResets.cpp,no,0,0,5,0,5
+Code/GameEngine/Source/Common/OwnedPointerResets.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OwnedPointerTransfer2B43E7.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OwnedRecordArray56Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/P8ZeroingCtors.cpp,yes,0,0,0,0,0
@@ -6839,7 +6839,7 @@ Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ThingTemplateShadowSelector_usePluralShadowName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ThingTemplate_getBuildable.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ThreatBreakdown_postInit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ThunkReachedDeletingDtors01.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/TimedOperationRef_update.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/TimedOperations_updateTimedOps.cpp,yes,0,0,0,0,0
@@ -7764,7 +7764,7 @@ Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadg
 Code/GameEngine/Source/GameClient/GUI/OnlineLoginIntegerRange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/OnlineLoginTextFilter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/OnlineQuickMatchWindowRef.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,no,0,0,0,0,2
+Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks_Rva00528AC3.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirRenderCallbacks.cpp,yes,0,0,0,0,0
@@ -7913,7 +7913,7 @@ Code/GameEngine/Source/GameClient/InGameUIFloatingAnimation.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIFormationFinalize.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIGetAllSelectedLocalDrawables.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIHeadingQuery.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIHeroEventFX_Rva002A123F.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp,yes,0,0,0,0,0
@@ -7922,7 +7922,7 @@ Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIObjectListSort.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIOrderDisplayMode.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/GameClient/InGameUIPlaceBuildAvailable.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIPlayCameoMovie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/InGameUIPostDraw.cpp,yes,0,0,0,0,0
@@ -8035,7 +8035,7 @@ Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanRetr
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanRetreatsCreateChecklistItems.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanRetreatsPhaseBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBehavior.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseRegionSelection.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseRegionSelectionImplCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlayerStatusDisplayer.cpp,yes,0,0,0,0,0
@@ -14009,7 +14009,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicGetLayerHeight.c
 Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicReset.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,no,1,0,0,0,0
+Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/Win32Device/GameClient/DirectInputKeyboardFormat.cpp,yes,0,0,0,0,0
