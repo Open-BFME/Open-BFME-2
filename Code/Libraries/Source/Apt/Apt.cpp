@@ -120,7 +120,7 @@ void Rva006CC380Initialize(unsigned valueSize,int valueCount,unsigned chainSize,
 // The complete355B caller stays declared until its separate ledger commit.
 extern int g_bfmeAptFlagAtE176D4,g_rva00891FA0Value,g_rva00891FA0Ready;
 extern AptActionInterpreter g_aptDateInterpreter;
-class Rva006DBB30SarDwordField {public:int get() const;};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "BfmeAptValue006DCD20.h"
 #include "Rva006CD650.h"
 struct TickMovie {char pad[0x24];unsigned interval;};

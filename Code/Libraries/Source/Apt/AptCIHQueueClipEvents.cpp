@@ -50,11 +50,7 @@ __forceinline void AptScriptFunctionByteCodeBlock::operator delete(void *p, unsi
 #include "EAStringC.h"
 EAStringC *Rva0070B4F0GetString(int id);
 
-class Rva006DBB30SarDwordField
-{
-public:
-    int get() const; // 0x006DBB30
-};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "BfmeAptValue006DCD20.h"
 
 struct AptClipActionRecord

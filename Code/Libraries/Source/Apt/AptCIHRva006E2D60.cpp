@@ -49,7 +49,7 @@ struct AptCharacterSpriteInstBase
 	int mode;
 };
 struct Rva006E1090Target { unsigned char prefix[0x1c]; AptDisplayList list; };
-class Rva006DBB30SarDwordField { public: int get() const; };
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 
 #include "AptCIHClass.h"
 

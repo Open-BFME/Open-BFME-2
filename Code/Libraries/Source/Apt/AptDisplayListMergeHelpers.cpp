@@ -6,7 +6,7 @@
 #include "EAStringC.h"
 class AptCIH;
 class AptValue;
-class Rva006DBB30SarDwordField {public:int get()const;};
+#include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class AptNativeHash {public:void Set(const EAStringC*const,AptValue*const);AptValue *Lookup(const EAStringC*const)const;void Unset(const EAStringC*const);};
 struct AptCharacter {int type;AptCharacter *parent;char animation[8];};
 struct AptCharacterInst {char pad[12];AptCharacter *character;int hash,unknown,frame;char rest[16];int dynamic;};

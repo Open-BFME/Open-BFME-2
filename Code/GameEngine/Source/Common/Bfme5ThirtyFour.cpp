@@ -637,11 +637,7 @@ public:
 class AptLinker;
 #include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
-class Rva006DBB30SarDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva006DBB30SarDwordField.h"
 
 #include "../../../Libraries/Source/Apt/AptAnimationPoolData.h"
 
