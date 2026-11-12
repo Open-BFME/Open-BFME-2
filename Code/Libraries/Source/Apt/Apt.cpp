@@ -656,10 +656,18 @@ class Rva8D0D80String;class Rva8D0D80Value;
 #include "Rva8D0D80Result.h"
 extern AptValue *g_shutdownAtE18360;
 void Rva006CD120AddGlobalExtension(Rva006CD120ExtObject *pExtObject) {
- GAPCHECK(pExtObject != 0,"pExtObject != NULL",0x685);
+ if (!pExtObject) {
+  g_bfmeAptAssertAtE17734("pExtObject != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp", 0x685);
+  if (g_bfmeAptBreakOnAssertAtDDC01C)
+   __debugbreak();
+ }
  EAStringC sObjName(pExtObject->name());
  pExtObject->registered();
- GAPCHECK(0 == ((Rva0070A5C0 *)g_shutdownAtE18360)->rva0070A5C0((int)&sObjName),"NULL == gpGlobalExtensionObject->Lookup(&sObjName)",0x68C);
+ if (((Rva0070A5C0 *)g_shutdownAtE18360)->rva0070A5C0((int)&sObjName) != 0) {
+  g_bfmeAptAssertAtE17734("NULL == gpGlobalExtensionObject->Lookup(&sObjName)", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp", 0x68C);
+  if (g_bfmeAptBreakOnAssertAtDDC01C)
+   __debugbreak();
+ }
  ((Rva8D0D80Result *)g_shutdownAtE18360)->rva006FBB90((Rva8D0D80String *)&sObjName,(Rva8D0D80Value *)pExtObject);
 }
 
