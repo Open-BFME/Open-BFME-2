@@ -17,7 +17,7 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "Coord3D.h"
 #include <math.h>
-class AudioEventRTS {public:bool isPositionalAudio() const;};
+#include "../../../GameEngine/Include/Common/AudioEventRTSClass.h"
 class Rva002DA0CF {public:double rva002DA0CF();};
 class Rva002D94E4 {public:float rva002D94E4() const;};
 class Rva002DA153 {public:float rva002DA153();};

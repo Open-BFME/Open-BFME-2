@@ -25,13 +25,7 @@ typedef float Real;
 
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
-class AudioEventRTS
-{
-public:
-	void rva002D9ADC();			// generateFilename
-	void generatePlayInfo();	// row 0x002DA8AF (AudioEventRTSClassification.cpp)
-	AsciiString getFilename();
-};
+#include "../../../GameEngine/Include/Common/AudioEventRTSClass.h"
 
 
 class CDDrive

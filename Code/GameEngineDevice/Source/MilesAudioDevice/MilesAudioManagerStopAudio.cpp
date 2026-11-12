@@ -54,11 +54,7 @@ enum PlayingStatus
 	PS_Paused
 };
 
-class AudioEventRTS
-{
-public:
-	unsigned int getSoundClass(void) const;
-};
+#include "../../../GameEngine/Include/Common/AudioEventRTSClass.h"
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 

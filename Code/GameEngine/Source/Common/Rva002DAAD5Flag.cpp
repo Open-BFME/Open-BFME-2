@@ -6,12 +6,7 @@
 // 0x002D9ADC on this, then restores +0x74. Honest address-derived names.
 
 // LINK: 0x2DA8AF / 0x2D9ADC are rowed as AudioEventRTS::generatePlayInfo / AudioEventRTS::rva002D9ADC.
-class AudioEventRTS
-{
-public:
-	void generatePlayInfo();
-	void rva002D9ADC();
-};
+#include "../../Include/Common/AudioEventRTSClass.h"
 
 class Rva002DAAD5Owner
 {

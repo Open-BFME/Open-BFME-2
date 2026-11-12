@@ -1,0 +1,354 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "AudioEventRTS",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 17,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x4c": {
+    "1": 1
+   },
+   "0x4d": {
+    "1": 2
+   },
+   "0x50": {
+    "1": 2
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 1
+   },
+   "0x64": {
+    "4": 1
+   },
+   "0x74": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 7
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 12,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 6,
+   "8": 1,
+   "12": 3,
+   "16": 1,
+   "112": 2,
+   "120": 2,
+   "136": 1
+  },
+  "views": 16,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AudioEventRTS.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 23,
+  "struct": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngine/Source/Common/Rva004A9E3ESound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/AudioFileCacheRequestEvent.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_isPlayingLowerPriority.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 75,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 77,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 78,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 79,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 81,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 82,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 83,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "112:A": 2,
+    "12:A": 1,
+    "4:P": 1,
+    "4:i4": 1,
+    "8:A": 2
+   },
+   "class": "AudioEventRTS"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

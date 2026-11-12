@@ -11,11 +11,7 @@
 // Original method name and const qualification remain unresolved.
 #include "../../Include/Common/BfmeAudioEventPrefix136.h"
 
-class AudioEventRTS
-{
-public:
-	bool isPositionalAudio() const;
-};
+#include "../../Include/Common/AudioEventRTSClass.h"
 
 #include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 

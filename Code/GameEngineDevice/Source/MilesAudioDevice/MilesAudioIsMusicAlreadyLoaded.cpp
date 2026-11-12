@@ -46,7 +46,7 @@ struct ScopedMusicRef {
 #include "../../../GameEngine/Include/GameClient/Rva000411084.h"
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 struct AudioEventNode { void *next; AsciiString key; const AudioEventInfo* info; };
-class AudioEventRTS { public: void rva002D9ADC(); AsciiString getFilename(); };
+#include "../../../GameEngine/Include/Common/AudioEventRTSClass.h"
 #include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem*TheFileSystem;
 class MilesAudioManager { public: virtual bool isMusicAlreadyLoaded()const; private: char prefix[0xb8]; mutable Rva000427195 table; };

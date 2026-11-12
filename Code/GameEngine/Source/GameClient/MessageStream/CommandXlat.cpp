@@ -46,7 +46,7 @@ union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel
 #include "../../../Include/Common/MessageStream.h"
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 enum CommandEvaluateType { DO_COMMAND, DO_HINT, DO_EVALUATE };
-class AudioEventRTS { public: AudioEventRTS(const AsciiString&,int); ~AudioEventRTS(); void* m_vftable; char opaque04[0x6c]; };
+#include "../../../Include/Common/AudioEventRTSClass.h"
 #include "../../../Include/Common/Overridable.h"
 #include "../../../Include/GameClient/CommandButton.h"
 #include "../../../Include/Common/SpecialPower.h"
