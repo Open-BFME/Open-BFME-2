@@ -70,11 +70,7 @@ class Rva0030ADE8Forwarder
 public:
 	void rva0030ADE8();
 };
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva005CB260.h"
 class W3DModelDraw
 {
 protected:

@@ -106,11 +106,7 @@ class VideoPlayer
 public:
 	virtual void Rva00689180();
 };
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../../GameEngine/Include/Common/Rva005CB260.h"
 #include "../../../../GameEngine/Include/Common/Rva00131CEAForwarder.h"
 class Rva002D35C7Forwarder
 {
