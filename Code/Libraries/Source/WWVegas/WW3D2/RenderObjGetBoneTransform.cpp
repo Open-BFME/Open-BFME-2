@@ -11,67 +11,7 @@
 #include "matrix3d.h"
 
 // Private slice of RenderObjClass: only the slots and fields this body touches.
-class RenderObjClass
-{
-public:
-	virtual void pad0() = 0;
-	virtual void pad1() = 0;
-	virtual void pad2() = 0;
-	virtual void pad3() = 0;
-	virtual void pad4() = 0;
-	virtual void pad5() = 0;
-	virtual void pad6() = 0;
-	virtual void pad7() = 0;
-	virtual void pad8() = 0;
-	virtual void pad9() = 0;
-	virtual void pad10() = 0;
-	virtual void pad11() = 0;
-	virtual void pad12() = 0;
-	virtual void pad13() = 0;
-	virtual void pad14() = 0;
-	virtual void pad15() = 0;
-	virtual void pad16() = 0;
-	virtual void pad17() = 0;
-	virtual void pad18() = 0;
-	virtual void pad19() = 0;
-	virtual void Validate_Transform(void) const;
-	virtual void pad21() = 0;
-	virtual void pad22() = 0;
-	virtual void pad23() = 0;
-	virtual void pad24() = 0;
-	virtual void pad25() = 0;
-	virtual void pad26() = 0;
-	virtual void pad27() = 0;
-	virtual void pad28() = 0;
-	virtual void pad29() = 0;
-	virtual void pad30() = 0;
-	virtual void pad31() = 0;
-	virtual void pad32() = 0;
-	virtual void pad33() = 0;
-	virtual void pad34() = 0;
-	virtual void pad35() = 0;
-	virtual void pad36() = 0;
-	virtual void pad37() = 0;
-	virtual void pad38() = 0;
-	virtual void pad39() = 0;
-	virtual void pad40() = 0;
-	virtual void pad41() = 0;
-	virtual void pad42() = 0;
-	virtual void pad43() = 0;
-	virtual void pad44() = 0;
-	virtual void pad45() = 0;
-	virtual void pad46() = 0;
-	virtual void pad47() = 0;
-	virtual void pad48() = 0;
-	virtual void pad49() = 0;
-	virtual void pad50() = 0;
-	virtual Matrix3D Get_Bone_Transform(const char *bonename);
-	virtual Matrix3D Get_Bone_Transform(int boneindex);
-
-private:
-	unsigned char m_pad04[0x18 - 4];
-	Matrix3D Transform;
-};
+#include "rendobj.h"
 
 Matrix3D RenderObjClass::Get_Bone_Transform(const char *bonename)
 {
