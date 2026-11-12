@@ -162,13 +162,7 @@ public:
 	virtual void send( BfmeMsgVJH *msg, void (__cdecl *cb)( void *, void * ), void *owner, int value ) throw();
 };
 
-class Rva007F6D60ZeroWord
-{
-public:
-	Rva007F6D60ZeroWord() : m_value( 0 ) {}
-
-	unsigned m_value;
-};
+#include "../../Include/GameNetwork/Rva007F6D60ZeroWord.h"
 
 class Rva007F6D60Member2C
 {

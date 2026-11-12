@@ -42,13 +42,7 @@ public:
 	int m_size;
 };
 
-class Rva007F6D60ZeroWord
-{
-public:
-	Rva007F6D60ZeroWord() : m_value( 0 ) {}
-
-	unsigned m_value;
-};
+#include "../../Include/GameNetwork/Rva007F6D60ZeroWord.h"
 
 class SnapshotDupReplica
 {
