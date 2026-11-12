@@ -397,14 +397,7 @@ struct Rva004B5B82Data
 	bool m_129;												// +0x129
 };
 
-class Rva004B5B82Base0
-{
-public:
-	virtual void b0();
-	Rva004B5B82Data *m_data;								// +0x04
-	int m_08;
-	int m_0C;
-};
+#include "../../../../Include/Common/Rva004B5B82Base0.h"
 
 #include "../../../../Include/Common/Rva004B5B82Base10.h"
 
