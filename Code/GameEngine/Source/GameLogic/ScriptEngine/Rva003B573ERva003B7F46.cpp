@@ -10,16 +10,7 @@
 
 // Same class and record model as ScriptListSubrecordRemove.cpp; target search
 // uses the supplied key, then transfers one linked node and removes its source.
-struct Rva003B675BRecord
-{
-	int m_previous;
-	int m_next;
-	AsciiString m_name;
-	unsigned char m_released;
-	unsigned char m_pad;
-	unsigned short m_references;
-	void *m_nodes;
-};
+#include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
 class BfmeNodeZ
 {

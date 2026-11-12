@@ -54,16 +54,7 @@ template<> _Deque_base<BfmeScriptSlotAddress, allocator<BfmeScriptSlotAddress> >
 // 0x003B573E, record shape from Rva003B675BRecord, subrecord layout of two
 // vectors plus two ints from ScriptListSubrecordCtor.
 
-struct Rva003B675BRecord
-{
-	int m_previous; // +0x00
-	int m_next; // +0x04
-	AsciiString m_name; // +0x08
-	unsigned char m_released; // +0x0C
-	unsigned char m_pad; // +0x0D
-	unsigned short m_references; // +0x0E
-	void *m_nodes; // +0x10
-};
+#include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
 #include <new>
 

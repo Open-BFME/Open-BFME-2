@@ -10,16 +10,7 @@
 // NULL else record m_nodes +4. Evidence: chain from just-landed 0x003B6633,
 // ScriptListCtor layout, caller 0x00204F3B null-checks the result.
 
-struct Rva003B675BRecord
-{
-	int m_previous; // +0x00
-	int m_next; // +0x04
-	AsciiString m_name; // +0x08
-	unsigned char m_released; // +0x0C
-	unsigned char m_pad; // +0x0D
-	unsigned short m_references; // +0x0E
-	void *m_nodes; // +0x10
-};
+#include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
 class Rva003B573E
 {
