@@ -77,11 +77,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Object;
 class Rva00576BDDDispute;
-class PendingBattleVisitor {
-public:
- virtual bool Visit(LivingWorldPendingBattle *) = 0;
- ~PendingBattleVisitor() {}
-};
+#include "../../../../Include/Common/PendingBattleVisitor.h"
 #include "../../../../Include/GameClient/Rva0020E7E8Callback.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

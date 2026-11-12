@@ -148,11 +148,7 @@ void StrategicInGameUI::ResolveBattlesBehavior::Impl::CreateResolveRegionOwnersh
         reinterpret_cast<Rva005768CBCall *>(this)->rva005768CB(*it);
 }
 
-class PendingBattleVisitor {
-public:
- virtual bool Visit(LivingWorldPendingBattle *) = 0;
- ~PendingBattleVisitor() {}
-};
+#include "../../../../Include/Common/PendingBattleVisitor.h"
 #include "../../../../Include/GameClient/Rva0020E7E8Callback.h"
 class Rva005766B3 : public PendingBattleVisitor {
 public:

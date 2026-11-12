@@ -67,7 +67,7 @@ Rva0056AC82::Rva0056AC82(Rva0056AC26Owner *owner,void *second,void *third):Rva00
 // TheLivingWorldLogic is independently named by the data ledger at9FEF10.
 
 class LivingWorldPendingBattle;
-class PendingBattleVisitor { public:virtual bool Visit(LivingWorldPendingBattle *)=0; ~PendingBattleVisitor() {} };
+#include "../../Include/Common/PendingBattleVisitor.h"
 #include "../../Include/Common/Rva003F409F.h"
 class Rva0056ACAEVisitor:public PendingBattleVisitor {
 public:
