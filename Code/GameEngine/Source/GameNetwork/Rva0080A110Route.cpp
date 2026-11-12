@@ -49,11 +49,7 @@ public:
 	BfmeThingHA *bfmeFind( const BfmeThingHA *key ) const;
 };
 
-class Rva008038F0Sender
-{
-public:
-	void send( BfmeC994 *message );
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 void sendFeslMessage( void *message, const char *route, void *owner );
 

@@ -20,11 +20,7 @@ public:
 	char m_tail[0x10];
 };
 
-class Rva008038F0Sender
-{
-public:
-	void send(BfmeC994 *message);
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 #include "../../Include/GameNetwork/BfmeSinkSKA.h"
 

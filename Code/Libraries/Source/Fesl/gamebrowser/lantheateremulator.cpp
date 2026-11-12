@@ -280,11 +280,7 @@ public:
 	char m_pad30;
 };
 
-class Rva008038F0Sender
-{
-public:
-	void send( BfmeC994 *message );
-};
+#include "../../../../GameEngine/Include/Common/Rva008038F0Sender.h"
 
 #include "../../../../GameEngine/Include/GameNetwork/Gen_007e86c0.h"
 

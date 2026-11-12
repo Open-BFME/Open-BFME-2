@@ -97,11 +97,7 @@ public:
 	Rva00802680Owner *findFree();
 };
 
-class Rva008038F0Sender
-{
-public:
-	void send( BfmeC994 *message );
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 class Rva00809E40Record;
 
