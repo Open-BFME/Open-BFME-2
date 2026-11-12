@@ -478,11 +478,7 @@ typedef _STL::_Rb_tree<unsigned int, TerrainWaypointPair, _STL::_Select1st<Terra
 // ?rva005CC208@Rva005CC208Select@@QAEXH@Z: the fold's one-int spelling.
 // StrategicHUD::BattlePromptMovieClip's tab selection pushes the page index
 // before calling 0x005CC208, which passes it on to slot 2 untouched.
-class Rva005CC208Select
-{
-public:
-	void rva005CC208(int index);
-};
+#include "../../../Include/GameClient/Rva005CC208Select.h"
 
 class Rva000D20D6
 {

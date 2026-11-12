@@ -54,11 +54,7 @@ public:
 	virtual void slot2(int index);
 };
 
-class Rva005CC208Select
-{
-public:
-	void rva005CC208(int index);
-};
+#include "../../Include/GameClient/Rva005CC208Select.h"
 
 void Rva005CC208Select::rva005CC208(int index)
 {

@@ -69,7 +69,7 @@ namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
 #include "../../../../../Include/Common/Rva00575674.h"
 class Rva005CB260Properties {public: void rva005CB260(int,unsigned int,unsigned int,const UnicodeString &);};
-class Rva005CC208Select {public: void rva005CC208(int);};
+#include "../../../../../Include/GameClient/Rva005CC208Select.h"
 // Tab page views (pages are Rva005FA0C9/Rva005FA0F7; +0x28 is the page state, 3 = settled).
 class Rva005F94C2 {public: void rva005F94C2(); void rva005F9567(); char m_pad[0x28]; int m_state;};
 class Rva005F8F31 {public: void rva005F8F31();};
