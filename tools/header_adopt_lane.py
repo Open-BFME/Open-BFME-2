@@ -2607,25 +2607,39 @@ def layout_problems(contract):
     return layout_plan(contract)[1]
 
 
-def size_assertions(contract):
+def assertion_prefix(name, text=""):
+    """The prefix of the names size_assertions declares for the class `name`: `canonical_<name>_<hash>`,
+    the hash of the class name lengthened while `text` (the header around them) already spells a name
+    with it, so neither the class, its members nor a base it names can collide with one (a member
+    `canonical_vprobe` would otherwise meet the probe's override, a base named like the probe its
+    redefinition). A base's own members are past reach of `text`; the hash keeps them apart."""
+    stem, digest = re.sub(r"\W", "_", name), hashlib.sha256(name.encode("utf-8")).hexdigest()
+    for width in range(8, len(digest) + 1, 4):
+        prefix = f"canonical_{stem}_{digest[:width]}"
+        if prefix not in text:
+            return prefix
+    raise LayoutError(f"{name}: no assertion name is free in its header")
+
+
+def size_assertions(contract, text=""):
     """Namespace-scope lines the compiler proves: sizeof, each field's offset (layout_plan) and, where the
     contracts say (has_vptr), whether the class is polymorphic: a probe deriving from it and adding one
     virtual has its size when it already has a vptr and is larger when it has none (no offset or sizeof
     can show a vptr that alignment padding hides). The probe declares no constructor, so no code or
-    vftable is ever emitted for it."""
+    vftable is ever emitted for it. Every name is assertion_prefix's, against `text`."""
     name = contract["class"]
-    stem = re.sub(r"\W", "_", name)
-    lines = [f"typedef char canonical_{stem}_sizeof[sizeof({name}) == {contract['size']} ? 1 : -1];"]
+    prefix = assertion_prefix(name, text)
+    lines = [f"typedef char {prefix}_sizeof[sizeof({name}) == {contract['size']} ? 1 : -1];"]
     expected = has_vptr(contract)
     if expected is not None:
-        lines += [f"struct canonical_{stem}_vprobe : {name} {{ virtual void canonical_vprobe(); }};",
-                  f"typedef char canonical_{stem}_vptr[(sizeof(canonical_{stem}_vprobe) == sizeof({name})) == "
+        lines += [f"struct {prefix}_vprobe : {name} {{ virtual void {prefix}_virtual(); }};",
+                  f"typedef char {prefix}_vptr[(sizeof({prefix}_vprobe) == sizeof({name})) == "
                   f"{int(expected)} ? 1 : -1];"]
     for field in contract.get("fields", ()):
         if field.get("kind") == "VPTR":
             continue
         where = f"(int)&reinterpret_cast<const volatile char &>((({name} *)0)->{field['name']})"
-        lines.append(f"typedef char canonical_{stem}_{field['name']}_at[{where} == {field['offset']} ? 1 : -1];")
+        lines.append(f"typedef char {prefix}_{field['name']}_at[{where} == {field['offset']} ? 1 : -1];")
     return lines
 
 
@@ -2689,7 +2703,8 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     for access in ("protected", "private"):
         held = member_lines(s for s in special if s["access"] == access)
         lines += [f"{access}:"] + held if held else []
-    lines += ["};", ""] + size_assertions(contract) + ["", f"#endif // {guard}", ""]
+    lines += ["};", ""]
+    lines += size_assertions(contract, "\n".join(lines)) + ["", f"#endif // {guard}", ""]
     return "\n".join(lines)
 
 

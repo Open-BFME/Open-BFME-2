@@ -2053,7 +2053,8 @@ def test_review_r2_a_vptr_over_a_base_with_no_contract_is_left_to_the_assertions
     fields, after = body(contract)
     assert fields.split() == ["int", "x;"] and "== 8 ? 1 : -1" in after and "== 12 ? 1 : -1" in after
     # review r3: the base `{ int a, b; }` keeps x at +8 and sizeof 12 without a vptr; the probe proves it
-    assert "sizeof(canonical_Layout1Probe_vprobe) == sizeof(Layout1Probe)) == 1 ? 1 : -1" in after
+    prefix = lane.assertion_prefix("Layout1Probe")
+    assert f"sizeof({prefix}_vprobe) == sizeof(Layout1Probe)) == 1 ? 1 : -1" in after
 
 
 def test_review_r2_a_shared_vptr_and_an_empty_base_chain_are_declarable(base_contracts):
@@ -2067,8 +2068,9 @@ def test_review_r3_the_compiler_proves_the_vptr(base_contracts):
     # review r3: a string literal "virtual" passed a text check, and alignment hid the missing vptr (VPTR +0,
     # double x[1] at +16, sizeof 24 either way). A probe deriving from the class with one virtual of its own is
     # its size only when the class already has a vptr; the assertion says which the contracts expect.
-    probe = "struct canonical_Layout1Probe_vprobe : Layout1Probe { virtual void canonical_vprobe(); };"
-    expect = "sizeof(canonical_Layout1Probe_vprobe) == sizeof(Layout1Probe)) == {} ? 1 : -1"
+    prefix = lane.assertion_prefix("Layout1Probe")
+    probe = f"struct {prefix}_vprobe : Layout1Probe {{ virtual void {prefix}_virtual(); }};"
+    expect = f"sizeof({prefix}_vprobe) == sizeof(Layout1Probe)) == {{}} ? 1 : -1"
     masked = layout_contract(24, ("VPTR", 0, "__vfptr"), ("A", 16, "x", "double[1]", 8))
     assert lane.layout_problems(masked) == []
     text = lane.generate(masked, "data+methods", {"f": 'void f(const char *s = "virtual");'}, None)
@@ -2078,6 +2080,23 @@ def test_review_r3_the_compiler_proves_the_vptr(base_contracts):
     assert expect.format(1) in lane.generate(shared, "data", {}, None)
     unknown = layout_contract(8, ("i4", 4, "x"), bases=("LayoutUnknownBaseProbe",))
     assert "vprobe" not in lane.generate(unknown, "data", {}, None)        # nothing the contracts say: no probe
+
+
+def test_review_r4_the_assertion_names_never_meet_the_classs_own(base_contracts):
+    # review r4: a member spelled like the probe's virtual met it as an incompatible override (C2555), and a
+    # base spelled like the probe was defined a second time
+    prefix = lane.assertion_prefix("Layout1Probe")
+    assert prefix.startswith("canonical_Layout1Probe_") and len(prefix) == len("canonical_Layout1Probe_") + 8
+    contract = layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x"), vslots={"0": "f"})
+    text = lane.generate(contract, "data", {}, None, ([f"virtual int {prefix}_virtual();"], []))
+    longer = lane.assertion_prefix("Layout1Probe", text[:text.index("};") + 2])
+    assert longer != prefix and longer.startswith(prefix)
+    assert f"virtual void {longer}_virtual();" in text and f"struct {longer}_vprobe : Layout1Probe" in text
+    assert text.count("_vprobe :") == 1
+    based = layout_contract(4, ("i4", 0, "x"), bases=(f"{prefix}_vprobe",))
+    text = lane.generate(based, "data", {}, None)
+    assert f"struct {prefix}_vprobe :" not in text and f"public {prefix}_vprobe" in text
+    assert f"typedef char {prefix}_sizeof" not in text                # every assertion name moved on
 
 
 def test_review_r3_members_start_after_the_vptr_padded_to_the_class_alignment():
