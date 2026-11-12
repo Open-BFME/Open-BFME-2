@@ -2,7 +2,10 @@
 // ??_GCivilianSpawnCollideModuleData@@UAEPAXI@Z @0x004BD70E
 struct EmitVtableTag;
 
-class CivilianSpawnCollideModuleData { public: CivilianSpawnCollideModuleData(EmitVtableTag *); virtual ~CivilianSpawnCollideModuleData(); };
+// Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../Include/Common/ModuleData.h"
+
+class CivilianSpawnCollideModuleData : public ModuleData { public: CivilianSpawnCollideModuleData(EmitVtableTag *); virtual ~CivilianSpawnCollideModuleData(); };
 // ?<CivilianSpawnCollideModuleData::CivilianSpawnCollideModuleData> absent-from-retail
 CivilianSpawnCollideModuleData::CivilianSpawnCollideModuleData(EmitVtableTag *) {}
 // ??_GRankInfo@@UAEPAXI@Z @0x0020021A

@@ -3,6 +3,9 @@
 // Deleting dtor slot 0 of vtable 0x0084DAD8; calls rowed ??1 at 0x004916AC then rowed operator delete at 0x0002FD60.
 struct EmitVtableTag;
 
+// Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../Include/Common/ModuleData.h"
+
 // Native ctor 0x491633 and dtor 0x4916AC establish bases at 0/C/10,
 // with the string at 0x20. Match their inheritance when emitting tables.
 class Thing;
@@ -39,6 +42,6 @@ private:
 MonitorConditionUpdate::MonitorConditionUpdate(EmitVtableTag *) : UpdateModule(0, 0) {}
 // ??_GDamageFieldUpdateModuleData@@UAEPAXI@Z @0x0049114E 28B
 // Deleting dtor slot 0 of vtable 0x0084D8E8; calls rowed ??1 at 0x0049116A then rowed operator delete at 0x0002FD60.
-class DamageFieldUpdateModuleData { public: DamageFieldUpdateModuleData(EmitVtableTag *); virtual ~DamageFieldUpdateModuleData(); };
+class DamageFieldUpdateModuleData : public ModuleData { public: DamageFieldUpdateModuleData(EmitVtableTag *); virtual ~DamageFieldUpdateModuleData(); };
 // ?<DamageFieldUpdateModuleData::DamageFieldUpdateModuleData> absent-from-retail
 DamageFieldUpdateModuleData::DamageFieldUpdateModuleData(EmitVtableTag *) {}

@@ -19,7 +19,7 @@ class AttributeModifierAuraUpdateModuleData : public ModuleData { public: Attrib
 // 0x004564E6 plus rowed delete at 0x0002FD60.
 
 // ??_GBuildingBehaviorModuleData@@UAEPAXI@Z @0x004564CA
-class BuildingBehaviorModuleData { public: BuildingBehaviorModuleData(EmitVtableTag *); virtual ~BuildingBehaviorModuleData(); };
+class BuildingBehaviorModuleData : public ModuleData { public: BuildingBehaviorModuleData(EmitVtableTag *); virtual ~BuildingBehaviorModuleData(); };
 
 // tu-skeleton: 0x004561A2 25B ??1BuildingBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 

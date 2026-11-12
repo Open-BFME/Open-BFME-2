@@ -3,7 +3,10 @@
 // Deleting dtor slot 0 of vtable 0x0085C828; calls rowed ??1 at 0x004C2C22 then rowed operator delete at 0x0002FD60.
 struct EmitVtableTag;
 
-class LevelGrantSpecialPowerModuleData { public: LevelGrantSpecialPowerModuleData(EmitVtableTag *); virtual ~LevelGrantSpecialPowerModuleData(); };
+// Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../Include/Common/ModuleData.h"
+
+class LevelGrantSpecialPowerModuleData : public ModuleData { public: LevelGrantSpecialPowerModuleData(EmitVtableTag *); virtual ~LevelGrantSpecialPowerModuleData(); };
 // ?<LevelGrantSpecialPowerModuleData::LevelGrantSpecialPowerModuleData> absent-from-retail
 LevelGrantSpecialPowerModuleData::LevelGrantSpecialPowerModuleData(EmitVtableTag *) {}
 // ??_GClearanceTestingSlowDeathBehaviorModuleData@@UAEPAXI@Z @0x00483EC5 28B

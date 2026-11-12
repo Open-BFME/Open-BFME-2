@@ -14,6 +14,9 @@
 
 struct EmitVtableTag;
 
+// Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../Include/Common/ModuleData.h"
+
 // InvisibilitySpecialPowerModuleData and TaintSpecialPowerModuleData below derive from
 // SpecialPowerModuleData, as their family units declare them (MobNexusContainModuleDataCtor.cpp,
 // ElvenWoodSpecialPower.cpp), so this unit's copies of their 31-slot vftables (retail 0x00C5C558,
@@ -23,7 +26,7 @@ struct EmitVtableTag;
 
 // ??_GWeaponFireSpecialAbilityUpdateModuleData@@UAEPAXI@Z @0x004927EA 28B: slot 0 of vtable 0x00C4E108; calls ??1 at 0x00492806.
 // Owner evidence (audited 2026-09-26): retail registration WeaponFireSpecialAbilityUpdate -> data factory RVA 0x0024DB56 -> ctor RVA 0x004926CA; primary vptr store RVA 0x004926D4.
-class WeaponFireSpecialAbilityUpdateModuleData { public: WeaponFireSpecialAbilityUpdateModuleData(EmitVtableTag *); virtual ~WeaponFireSpecialAbilityUpdateModuleData(); };
+class WeaponFireSpecialAbilityUpdateModuleData : public ModuleData { public: WeaponFireSpecialAbilityUpdateModuleData(EmitVtableTag *); virtual ~WeaponFireSpecialAbilityUpdateModuleData(); };
 // ?<WeaponFireSpecialAbilityUpdateModuleData::WeaponFireSpecialAbilityUpdateModuleData> absent-from-retail
 WeaponFireSpecialAbilityUpdateModuleData::WeaponFireSpecialAbilityUpdateModuleData(EmitVtableTag *) {}
 

@@ -55,7 +55,7 @@ void ArrowStormUpdateModuleData_EmitVtable(ArrowStormUpdateModuleData *p) { new 
 
 // ??_GAutoPickUpUpdateModuleData@@UAEPAXI@Z @0x00496460 28B: slot 0 of vtable 0x00C4F108; calls ??1 at 0x0049647C.
 // Owner evidence (audited 2026-09-26): retail registration AutoPickUpUpdate -> data factory RVA 0x0024E099 -> ctor RVA 0x00496308; primary vptr store RVA 0x00496321.
-class AutoPickUpUpdateModuleData { public: AutoPickUpUpdateModuleData(EmitVtableTag *); virtual ~AutoPickUpUpdateModuleData(); };
+class AutoPickUpUpdateModuleData : public ModuleData { public: AutoPickUpUpdateModuleData(EmitVtableTag *); virtual ~AutoPickUpUpdateModuleData(); };
 // ?<AutoPickUpUpdateModuleData::AutoPickUpUpdateModuleData> absent-from-retail
 AutoPickUpUpdateModuleData::AutoPickUpUpdateModuleData(EmitVtableTag *) {}
 
