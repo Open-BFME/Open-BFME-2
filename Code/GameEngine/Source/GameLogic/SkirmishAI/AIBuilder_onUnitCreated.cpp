@@ -56,13 +56,7 @@ public:
     unsigned int saved14;
     int limit18;
 };
-struct Rva002A8AB1Record
-{
-    unsigned char prefix00[0x160];
-    void *data160;
-    unsigned char gap164[8];
-    int difficulty16c;
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;

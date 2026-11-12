@@ -151,11 +151,7 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 	return node->object;
 }
 extern GameLogic *TheGameLogic;
-struct Rva002A8AB1Record
-{
-	void rva002C6A4E(Object *obj);
-	void rva002C6A3D(Object *obj);
-};
+#include "../../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 template <int N> class Rva00455B42Slots : public Rva00455B42Slots<N - 1>

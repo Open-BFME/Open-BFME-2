@@ -179,10 +179,7 @@ extern TeamFactory *TheTeamFactory;
 // Team::disband per WorldBuilder (rowed at 0x0039E9E0).
 #include "../../../../../Include/Common/TeamBFME2.h"
 
-struct Rva002A8AB1Record
-{
-	void rva004EC07D(TeamPrototype *proto);			// 0x004EC07D
-};
+#include "../../../../../Include/Common/Rva002A8AB1Record.h"
 
 class Rva002A8F24
 {

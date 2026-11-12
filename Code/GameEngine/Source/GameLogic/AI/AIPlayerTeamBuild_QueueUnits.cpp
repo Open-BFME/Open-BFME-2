@@ -414,10 +414,7 @@ extern BuildAssistant *TheBuildAssistant;
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-struct Rva002A8AB1Record
-{
-	void *rva004EC088(Int kind, void *list, const void *name);
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 

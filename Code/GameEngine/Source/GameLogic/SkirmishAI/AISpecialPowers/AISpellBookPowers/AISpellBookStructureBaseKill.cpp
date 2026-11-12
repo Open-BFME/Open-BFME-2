@@ -33,11 +33,7 @@ class Player;
 
 // 0x002A8AB1 by its row name (Rva002A8AB1.cpp): the AI record for a player.
 // Declared a struct to keep the pinned mangling (PAU, not PAV).
-struct Rva002A8AB1Record
-{
-public:
-	void *rva002C6ACB();
-};
+#include "../../../../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../../../../Include/GameLogic/Rva002A8F24.h"
 
