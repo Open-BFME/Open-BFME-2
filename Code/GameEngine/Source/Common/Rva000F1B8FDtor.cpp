@@ -6,6 +6,8 @@
 __forceinline StringClass::~StringClass() { Free_String(); }
 struct Rva000F1B8FBase {
 	virtual ~Rva000F1B8FBase() {}
+	// Retail table 0x00BCEF94: 1 __purecall entry follows.
+	virtual void slot1() = 0;
 };
 struct Rva000F1B8F : Rva000F1B8FBase {
 	int m_04;

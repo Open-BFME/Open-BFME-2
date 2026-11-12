@@ -5,6 +5,8 @@ struct Rva000F1B8FBase {
     int m_04;
     Rva000F1B8FBase() : m_04(0) {}
     virtual ~Rva000F1B8FBase() {}
+    // Retail table 0x00BCEF94: 1 __purecall entry follows.
+    virtual void slot1() = 0;
 };
 struct Rva000F1B8F : Rva000F1B8FBase {
     StringClass m_08;

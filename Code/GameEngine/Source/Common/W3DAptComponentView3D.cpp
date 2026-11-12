@@ -606,6 +606,10 @@ public:
 	virtual void crc(Xfer *xfer) = 0;
 	virtual void xfer(Xfer *xfer) = 0;
 	virtual void loadPostProcess() = 0;
+	// Slots 4 and 5 are __purecall in retail too; the derived table 0x00CF1600
+	// fills slot 4 with W3DAptComponentView3D::SetLight (0x00740169).
+	virtual void SetLight(int a, float b, float c, float d) = 0;
+	virtual void slot5() = 0;
 private:
 	AsciiString m_str08;
 };

@@ -188,6 +188,22 @@ class Rva006892F0 : public SubsystemInterface
 {
 public:
 	virtual ~Rva006892F0();
+	// Retail table 0x00CE48A0: 15 __purecall entries follow SubsystemInterface's 14 slots.
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+	virtual void slot26() = 0;
+	virtual void slot27() = 0;
+	virtual void slot28() = 0;
 };
 
 // 36-byte copy walk, retail 0x00161150, 45 bytes.
