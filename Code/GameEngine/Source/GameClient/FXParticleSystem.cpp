@@ -1862,6 +1862,19 @@ void bfmeVectorDeleteAnchorDefaultAndOrtho()
     new GpuDrawModuleConcrete[2];
 }
 
+// Retail's tables for these Snapshot-only infos (0x00BE1584, 0x00C1BAC0, 0x00C1BD10,
+// 0x00C1BD30, 0x00C1BD50) start with one vector deleting destructor, 0x003A7ABD (4-byte
+// element, destructor 0x0049B47C). Array-newing each info here emits its own copy of it.
+// ?<bfmeVectorDeleteAnchorSnapshotInfos> absent-from-retail
+void bfmeVectorDeleteAnchorSnapshotInfos()
+{
+    new EmissionVelocityInfo[2];
+    new DefaultDrawModuleInfo[2];
+    new StreakDrawModuleInfo[2];
+    new QuadDrawModuleInfo[2];
+    new ButterflyDrawModuleInfo[2];
+}
+
 // The concrete templates that carry a clone. ConcreteModuleTemplate overrides
 // virtuals of all three of its base's tables, so its constructors install three
 // vtables of their own after the base constructor runs, and clone is
