@@ -14,12 +14,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct BfmeContainerRecord005FDEC7
-{
-	unsigned int word0;
-	unsigned int word1;
-	UnicodeString text;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.h"
 
 namespace _STL { template<> void vector<BfmeContainerRecord005FDEC7>::reserve(unsigned int); }
 

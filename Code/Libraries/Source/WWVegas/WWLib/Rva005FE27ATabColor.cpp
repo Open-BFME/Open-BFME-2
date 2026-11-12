@@ -19,12 +19,7 @@ namespace StrategicHUD
 	void __cdecl SetPlayerNameString(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
 }
 
-struct BfmeContainerRecord005FDEC7
-{
-	unsigned int word0;
-	unsigned int word1;
-	UnicodeString text;
-};
+#include "BfmeContainerRecord005FDEC7.h"
 
 #include "../../../../GameEngine/Include/Common/Rva0052413E.h"
 

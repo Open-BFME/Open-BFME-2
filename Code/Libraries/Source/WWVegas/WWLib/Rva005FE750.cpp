@@ -8,12 +8,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct BfmeContainerRecord005FDEC7
-{
-	unsigned int word0;
-	unsigned int word1;
-	UnicodeString text;
-};
+#include "BfmeContainerRecord005FDEC7.h"
 
 // Declared-only explicit specialization: the member below calls the rowed
 // retail vector dtor 0x005FE4A3 (owned by

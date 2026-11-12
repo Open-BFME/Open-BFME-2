@@ -4,11 +4,7 @@
 // ??$__copy@PAUBfmeContainerRecord005FDEC7@@PAU1@@_STL@@YAPAUBfmeContainerRecord005FDEC7@@PAU1@00ABUrandom_access_iterator_tag@0@@Z @0x005FE209 29B: 4-arg __copy forwarder to rowed 5-arg worker 0x005FE0C3. Evidence: unlock lane 29B push-0 plus tag-local at ebp-1 into 5 pushes call add-esp-0x14; callee dup_005fe0c3 object-symbol is the true ContainerRecord 5-arg __copy; caller 0x005FE4E2 passes 4 args and callers use ContainerRecord helpers.
 #include "unicode_string.h"
 
-struct BfmeContainerRecord005FDEC7 {
-    unsigned int word0;
-    unsigned int word4;
-    UnicodeString text08;
-};
+#include "BfmeContainerRecord005FDEC7.h"
 
 namespace _STL {
 struct random_access_iterator_tag {};

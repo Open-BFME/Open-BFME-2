@@ -100,12 +100,7 @@ static __forceinline AsciiStringPlusString operator+(const AsciiString &left, co
 	return result;
 }
 
-struct BfmeContainerRecord005FDEC7
-{
-	unsigned int word0;
-	unsigned int word4;
-	UnicodeString text08;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.h"
 
 // The tab record vector (STLport vector of 12-byte records, rowed dtor
 // 0x005FE4A3): declared only, as in Rva005FE750.cpp, so the size constructor
