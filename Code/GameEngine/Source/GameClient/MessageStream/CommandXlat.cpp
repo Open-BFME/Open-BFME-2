@@ -762,7 +762,7 @@ extern Eva*TheEva;
 
 struct Bfme939Helper {public:int get()const;};
 
-class BfmeSelectionState {public:bool isSelectionLocked() const;};
+#include "../../../Include/Common/BfmeSelectionState.h"
 
 class Rva002D3861 {public:void rva002D3861();};
 

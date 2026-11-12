@@ -134,7 +134,7 @@ class CameraAnimationList;
 CameraAnimationList *TheCameraAnimationList = 0;
 
 class LivingWorldLogic;
-class BfmeSelectionState { public: Bool isSelectionLocked() const; };
+#include "../../../../GameEngine/Include/Common/BfmeSelectionState.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 class GameLogic;

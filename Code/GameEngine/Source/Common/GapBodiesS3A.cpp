@@ -219,11 +219,7 @@ void Rva0057439A::rva0057439A(Rva0057439AArg *arg)
 
 // --- 0x005743C0 (41B): TheLivingWorldLogic exists, passes the rowed
 // 0x0004253A flag-pair test and the rowed 0x002B5F8A check.
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;							// 0x0004253A
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 class Rva002B5F8A
 {

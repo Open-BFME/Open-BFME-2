@@ -57,7 +57,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 class PlayerList;extern PlayerList *ThePlayerList;
-class BfmeSelectionState {public:bool isSelectionLocked()const;};
+#include "../../../../Include/Common/BfmeSelectionState.h"
 #include "../../../../Include/Common/BfmeMemberRV.h"
 class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
 struct PlayerTemplateView {char pad[0x151];bool playable;};

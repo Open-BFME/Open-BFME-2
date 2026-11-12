@@ -3481,7 +3481,7 @@ struct DispatcherGameInfo {char pad00[0x80];int preference;};
 struct DispatcherGameLogic {char pad00[0x38];int frame;char pad3c[8];bool field44;char pad45[0x114-0x45];int field114;};
 extern MessageStream *TheMessageStream;
 struct DispatcherSlot {char pad00[0x34];AsciiString name;char pad38[0x4c-0x38];int id;};
-class BfmeSelectionState {public:bool isSelectionLocked()const;};
+#include "../../../../Include/Common/BfmeSelectionState.h"
 class Rva002B9349 {public:void rva002B9349(int,int);};
 class Rva002B9386 {public:void rva002B9386(ScienceType);};
 #include "../../../../Include/Common/Rva003F1093.h"
