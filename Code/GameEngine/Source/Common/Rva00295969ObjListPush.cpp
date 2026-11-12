@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfmealloc_alloconly /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-struct Rva00293486Record { unsigned char bytes[8]; bool operator==(const Rva00293486Record&) const; bool operator<(const Rva00293486Record&) const; };
+#include "../../Include/Common/Rva00293486Record.h"
 // The record's placement copy is retail 0x002927CB, rowed as the typed
 // ?Rva002927CBConstruct (an EH frame around the {int, AsciiString} copy ctor
 // 0x000CF475); _M_create_node 0x00293486 calls it. This TU's 8-byte

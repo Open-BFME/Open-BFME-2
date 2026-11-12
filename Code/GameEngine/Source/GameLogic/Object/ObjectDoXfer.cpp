@@ -234,7 +234,7 @@ struct TriggerInfo
 };
 
 struct CameraMarker;
-struct Rva00293486Record { unsigned char bytes[8]; bool operator==(const Rva00293486Record&) const; bool operator<(const Rva00293486Record&) const; };
+#include "../../../Include/Common/Rva00293486Record.h"
 
 struct BfmePod124
 {

@@ -12,7 +12,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-struct Rva00293486Record { unsigned char bytes[8]; bool operator==(const Rva00293486Record&) const; bool operator<(const Rva00293486Record&) const; };
+#include "../../../../GameEngine/Include/Common/Rva00293486Record.h"
 // The record's placement copy is retail 0x002927CB, rowed as the typed
 // ?Rva002927CBConstruct (an EH frame around the {int, AsciiString} copy ctor
 // 0x000CF475); _M_create_node 0x00293486 calls it. This TU's 8-byte
