@@ -4,10 +4,7 @@
 // Evidence: calls 0x00382444 AsciiUnicodePair copy ctor; caller 0x00385EA0 passes (tmp, eax, ebx).
 #include <new>
 
-struct AsciiUnicodePair
-{
-	AsciiUnicodePair(const AsciiUnicodePair& other);
-};
+#include "../../../../../Include/Common/AsciiUnicodePair.h"
 
 class Rva003829E5
 {

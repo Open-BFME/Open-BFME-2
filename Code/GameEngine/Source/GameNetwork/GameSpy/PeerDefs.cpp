@@ -109,18 +109,7 @@ class GameWindow;
 // Retail spells the 0x20-byte group-room record's out-of-line copy ctor
 // (0x00382444) and dtor (0x0038240F) as AsciiUnicodePair; ZH's
 // GameSpyGroupRoom fields plus BFME 2's trailing room type.
-struct AsciiUnicodePair
-{
-	AsciiString m_name;
-	UnicodeString m_translatedName;
-	Int m_groupID;
-	Int m_numWaiting;
-	Int m_maxWaiting;
-	Int m_numGames;
-	Int m_numPlaying;
-	Int m_roomType;
-	AsciiUnicodePair(const AsciiUnicodePair &other);
-};
+#include "../../../Include/Common/AsciiUnicodePair.h"
 
 class GameSpyGroupRoom : public AsciiUnicodePair
 {
