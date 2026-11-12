@@ -9,7 +9,13 @@
 class Rva0022CFE6 {
 public:
     AsciiString m_head;
+    char m_pad4[4];
     ~Rva0022CFE6();
 };
+
+typedef char canonical_Rva0022CFE6_81d8369a_sizeof[sizeof(Rva0022CFE6) == 8 ? 1 : -1];
+struct canonical_Rva0022CFE6_81d8369a_vprobe : Rva0022CFE6 { virtual void canonical_Rva0022CFE6_81d8369a_virtual(); };
+typedef char canonical_Rva0022CFE6_81d8369a_vptr[(sizeof(canonical_Rva0022CFE6_81d8369a_vprobe) == sizeof(Rva0022CFE6)) == 0 ? 1 : -1];
+typedef char canonical_Rva0022CFE6_81d8369a_m_head_at[(int)&reinterpret_cast<const volatile char &>(((Rva0022CFE6 *)0)->m_head) == 0 ? 1 : -1];
 
 #endif // CANONICAL_RVA0022CFE6_H

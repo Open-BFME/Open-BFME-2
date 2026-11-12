@@ -7,7 +7,13 @@
 class Rva003FAC3F {
 public:
     void *m_vptr;
+    char m_pad4[44];
     void rva003FAC3F();
 };
+
+typedef char canonical_Rva003FAC3F_839f616f_sizeof[sizeof(Rva003FAC3F) == 48 ? 1 : -1];
+struct canonical_Rva003FAC3F_839f616f_vprobe : Rva003FAC3F { virtual void canonical_Rva003FAC3F_839f616f_virtual(); };
+typedef char canonical_Rva003FAC3F_839f616f_vptr[(sizeof(canonical_Rva003FAC3F_839f616f_vprobe) == sizeof(Rva003FAC3F)) == 0 ? 1 : -1];
+typedef char canonical_Rva003FAC3F_839f616f_m_vptr_at[(int)&reinterpret_cast<const volatile char &>(((Rva003FAC3F *)0)->m_vptr) == 0 ? 1 : -1];
 
 #endif // CANONICAL_RVA003FAC3F_H

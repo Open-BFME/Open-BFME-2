@@ -14,4 +14,11 @@ public:
     Rva0022185A(const Rva0022185A &other);
 };
 
+typedef char canonical_Rva0022185A_0650eb87_sizeof[sizeof(Rva0022185A) == 12 ? 1 : -1];
+struct canonical_Rva0022185A_0650eb87_vprobe : Rva0022185A { virtual void canonical_Rva0022185A_0650eb87_virtual(); };
+typedef char canonical_Rva0022185A_0650eb87_vptr[(sizeof(canonical_Rva0022185A_0650eb87_vprobe) == sizeof(Rva0022185A)) == 0 ? 1 : -1];
+typedef char canonical_Rva0022185A_0650eb87_m_str_at[(int)&reinterpret_cast<const volatile char &>(((Rva0022185A *)0)->m_str) == 0 ? 1 : -1];
+typedef char canonical_Rva0022185A_0650eb87_m_04_at[(int)&reinterpret_cast<const volatile char &>(((Rva0022185A *)0)->m_04) == 4 ? 1 : -1];
+typedef char canonical_Rva0022185A_0650eb87_m_08_at[(int)&reinterpret_cast<const volatile char &>(((Rva0022185A *)0)->m_08) == 8 ? 1 : -1];
+
 #endif // CANONICAL_RVA0022185A_H

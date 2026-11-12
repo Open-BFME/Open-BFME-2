@@ -6,7 +6,12 @@
 
 class Rva0039B7AD {
 public:
+    char m_pad0[4];
     void rva0039B7AD(int delta);
 };
+
+typedef char canonical_Rva0039B7AD_49a639ca_sizeof[sizeof(Rva0039B7AD) == 4 ? 1 : -1];
+struct canonical_Rva0039B7AD_49a639ca_vprobe : Rva0039B7AD { virtual void canonical_Rva0039B7AD_49a639ca_virtual(); };
+typedef char canonical_Rva0039B7AD_49a639ca_vptr[(sizeof(canonical_Rva0039B7AD_49a639ca_vprobe) == sizeof(Rva0039B7AD)) == 0 ? 1 : -1];
 
 #endif // CANONICAL_RVA0039B7AD_H
