@@ -4,7 +4,7 @@
 // Category texture pointers begin at +0C; resources use a WORD refcount at +4.
 // Returning the owning reference reproduces all 35 bytes including RET8.
 // Release is observed in the caller at A1ED10; this getter contains no relocations.
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef {
  BFME2TextureResource* Ptr;
  __declspec(dllimport) __forceinline BFME2TextureRef(BFME2TextureResource* p):Ptr(p) { if(Ptr) ++Ptr->Refs; }

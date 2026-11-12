@@ -8,7 +8,7 @@
 // the offset is the whole difference. Identity of the owning type is unknown;
 // the name is address-derived while the shared BFME2 resource/ref spelling is
 // kept, as in the template.
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef {
  BFME2TextureResource* Ptr;
  __declspec(dllimport) __forceinline BFME2TextureRef(BFME2TextureResource* p):Ptr(p) { if(Ptr) ++Ptr->Refs; }

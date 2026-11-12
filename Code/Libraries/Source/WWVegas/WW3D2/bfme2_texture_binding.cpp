@@ -7,7 +7,7 @@
 // BFME 1 donor's BoxSetTexture(unsigned, TextureBaseClass *&), pinned to this
 // address: same cdecl stage plus by-reference handle. Bind that spelling here.
 #pragma comment(linker, "/alternatename:?BoxSetTexture@@YAXIAAPAVTextureBaseClass@@@Z=?BFME2Set_Texture@@YAXIABUBFME2TextureRef@@@Z")
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef {
  BFME2TextureResource* Ptr;
  BFME2TextureRef(BFME2TextureResource* p):Ptr(p) { if(Ptr) ++Ptr->Refs; }

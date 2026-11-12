@@ -91,7 +91,7 @@ template <> ShareBufferClass<unsigned int>::~ShareBufferClass();
 #pragma comment(linker, "/alternatename:?Peek_Texture@MeshModelClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HHH@Z=?bfmeGet@Rva006FD440@@QBE?AVBfmeHandleCX@@HHH@Z")
 
 class TextureClass { public: virtual void Delete_This(); unsigned short refs; void Release_Ref(); };
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef
 {
 	BFME2TextureResource *Ptr;

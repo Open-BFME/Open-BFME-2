@@ -46,7 +46,7 @@ public:
 	bool operator==(const BfmeHandleCX &other) const { return p == other.p; }
 };
 
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef {
  BFME2TextureResource* Ptr;
  BFME2TextureRef(BFME2TextureResource* p):Ptr(p) { if(Ptr) ++Ptr->Refs; }

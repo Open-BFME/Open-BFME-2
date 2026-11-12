@@ -91,7 +91,7 @@ extern W3DShadowManager *TheW3DShadowManager;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
-struct BFME2TextureResource { void Release_Ref(void); };
+#include "../../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef
 {
 	BFME2TextureResource *Ptr;

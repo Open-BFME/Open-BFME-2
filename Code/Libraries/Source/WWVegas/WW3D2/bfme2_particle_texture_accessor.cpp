@@ -4,7 +4,7 @@
 // Texture slot+24; one-pointer owning handle increments WORD refcount+4.
 // Contracts independently traced in particle copy constructor1AD1B0 and
 // setter1790A0; this view does not assert original C++ class spelling.
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef {
  BFME2TextureResource* Ptr;
  __declspec(dllimport) __forceinline BFME2TextureRef(BFME2TextureResource* p):Ptr(p) { if(Ptr) ++Ptr->Refs; }

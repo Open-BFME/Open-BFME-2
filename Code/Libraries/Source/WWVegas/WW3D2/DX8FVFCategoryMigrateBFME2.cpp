@@ -45,7 +45,7 @@ public:
 	~BfmeHandleCX() { if (p) p->Release_Ref(); }
 };
 
-struct BFME2TextureResource { unsigned Vtable; unsigned short Refs; void Release_Ref(); };
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 struct BFME2TextureRef {
 	BFME2TextureResource* Ptr;
 	BFME2TextureRef(BFME2TextureResource* q) : Ptr(q) { if (Ptr) ++Ptr->Refs; }
