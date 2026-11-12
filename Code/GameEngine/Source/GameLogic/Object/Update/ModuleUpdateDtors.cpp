@@ -7,8 +7,8 @@
 // destructor is only declared here (defined nowhere -- it resolves via the
 // pin), because a same-TU definition would capture the call locally instead
 // of at the ledger address. Vtable values and consts are DIR32 auto-patches.
-// Derived identities come from factory stub order (OCLUpdate,
-// SupplyCenterDockUpdate); the base identity is unproven (opaque Rva name).
+// EvacuateGarrisonSpecialPower is identified by its constructor (0x004CDBFC)
+// and pool-key getter in slot 4 of the table it installs at VA 0x00C5FC28.
 // CurseSpecialPower is named by its vtable 0x00C5F850: its ctor at 0x004CCD7F
 // installs it, slot 0 is the ??_G at 0x004CCE30 and slot 4 is
 // CurseSpecialPower's pool-key getter at 0x004CCDEB. One ledger row per destructor, landed one
@@ -59,6 +59,19 @@ public:
 };
 
 CurseSpecialPower::~CurseSpecialPower()
+{
+	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
+}
+
+class EvacuateGarrisonSpecialPower : public Rva0044EF5E
+{
+public:
+	virtual ~EvacuateGarrisonSpecialPower();
+};
+
+EvacuateGarrisonSpecialPower::~EvacuateGarrisonSpecialPower()
 {
 	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");

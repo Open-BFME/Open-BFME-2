@@ -52,7 +52,3 @@ EvacuateGarrisonSpecialPower::EvacuateGarrisonSpecialPower(Thing *thing, const M
 	m_p20 = &__identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-// ??1EvacuateGarrisonSpecialPower@@ present-unmatched
-EvacuateGarrisonSpecialPower::~EvacuateGarrisonSpecialPower()
-{
-}
