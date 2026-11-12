@@ -9,8 +9,8 @@ class Rva0050EA74Base
 {
 public:
 	Rva0050EA74Base() : m_04(0) {}
-	__forceinline ~Rva0050EA74Base() {}
-	virtual void keep() {}
+	// Retail base table 0x007C6F20 has only its deleting destructor.
+	__forceinline virtual ~Rva0050EA74Base() {}
 	int m_04;
 };
 

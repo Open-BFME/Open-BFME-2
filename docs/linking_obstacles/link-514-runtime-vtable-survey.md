@@ -3357,3 +3357,15 @@ all three own link previews read LINKS against 9ca25659d0. Retail's complete
 bridge-retirement claim is made. The separate 0x007D3BC8 renderer and
 0x008E0BC4 PrototypeClass/BfmeMsg entries remain open in LINK-619.
 [Evidence](../../reverse/attempt_support/vector-table-identity-20261110.md).
+
+### Rva0050EA74 empty-base slot (2026-11-12)
+
+At b5bb464feb, Rva0050EA74Ctor.cpp's dummy keep() is replaced by the
+virtual empty base destructor native table 0x007C6F20 requires. The emitted
+29-byte deleting destructor is an independently verified ICF twin of the
+existing Rva0007DF07 owner; all four original rows are unchanged. Five-row
+normal verification and a strict reusable compiler receipt pass; own link
+preview reads LINKS against 9ca25659d0. A bounded replay makes this base
+name already correct. Derived 0x0086551C still needs its two setters and
+three default slots; published confirmation for both tables is pending.
+[Evidence and remaining file work](../../reverse/attempt_support/rva0050ea74-tables-20261112.md).
