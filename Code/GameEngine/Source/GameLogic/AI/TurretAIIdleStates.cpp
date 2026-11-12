@@ -216,11 +216,7 @@ static inline Real getAttackRangeToPos(const Weapon *weapon, const Object *sourc
 	return ((Rva002C9BC3Owner *)weapon)->rva002C9BC3((void *)source, (void *)pos);
 }
 
-struct TBridgeAttackInfo
-{
-	Coord3D attackPoint1;
-	Coord3D attackPoint2;
-};
+#include "../../../Include/Common/TBridgeAttackInfo.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

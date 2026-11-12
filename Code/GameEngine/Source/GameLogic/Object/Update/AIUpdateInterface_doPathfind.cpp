@@ -135,7 +135,7 @@ class Path { public:
 #include "../../../../Include/GameLogic/TAiData.h"
 #include "../../../../Include/GameLogic/AI.h"
 
-struct TBridgeAttackInfo { Coord3D attackPoint1,attackPoint2; };
+#include "../../../../Include/Common/TBridgeAttackInfo.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 

@@ -128,7 +128,7 @@ struct AIData
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-struct TBridgeAttackInfo { Coord3D attackPoint1,attackPoint2; };
+#include "../../../../Include/Common/TBridgeAttackInfo.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 

@@ -1199,11 +1199,7 @@ public:
 #include "../../../Include/GameClient/Drawable.h"
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 
-struct TBridgeAttackInfo
-{
-	Coord3D attackPoint1;
-	Coord3D attackPoint2;
-};
+#include "../../../Include/Common/TBridgeAttackInfo.h"
 
 class Bridge
 {
