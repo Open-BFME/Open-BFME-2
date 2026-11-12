@@ -58,10 +58,7 @@ public:
 	AIUpdateInterface *m_ai;		// +0x258
 };
 
-struct Rva002A8AB1Record
-{
-	void *rva002C6ACB();
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../Include/Common/Rva005C4AD1LeaField.h"
 

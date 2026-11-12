@@ -88,11 +88,7 @@ public:
 	Coord3D rva004EBF4B();
 };
 
-struct Rva002A8AB1Record
-{
-	void rva002C717E(const AsciiString &key, int value);
-	int rva002C7196(const AsciiString &key);
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 struct Rva005AB125IDs
 {

@@ -62,10 +62,7 @@ struct Rva005A9CB3Record
 	bool m_18;		// +0x18
 };
 
-struct Rva002A8AB1Record
-{
-	void *rva002C6ACB();
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 class Rva0025BFF8
 {

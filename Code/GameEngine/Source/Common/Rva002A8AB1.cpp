@@ -10,10 +10,7 @@
 // retail's exact top-tested shape under /O1, where the plain for/break forms
 // rotate the test to the bottom.
 
-struct Rva002A8AB1Record
-{
-	char m_pad[0x160];
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../Include/Common/Rva004E9600.h"
 

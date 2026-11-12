@@ -62,11 +62,7 @@ struct Rva005AB309Thing
 	unsigned char m_120;
 };
 #include "../../Include/Common/TeamBFME2.h"
-struct Rva002A8AB1Record
-{
-	void rva002C717E(const AsciiString &key, int value);
-	int rva002C7196(const AsciiString &key);
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 struct Rva005AB309Holder
 {
 	char m_pad00[8];

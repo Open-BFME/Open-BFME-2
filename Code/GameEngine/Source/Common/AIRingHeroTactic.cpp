@@ -35,11 +35,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
-struct Rva002A8AB1Record
-{
-	void rva002C717E(const AsciiString &key, int value);
-	int rva002C7196(const AsciiString &key);
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 struct Rva005AC7E1IDs
 {
 	ObjectID *m_begin;

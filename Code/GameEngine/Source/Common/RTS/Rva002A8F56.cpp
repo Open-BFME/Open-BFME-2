@@ -40,11 +40,7 @@ public:
 	unsigned char m_4b0; // +0x4b0
 };
 
-struct Rva002A8AB1Record
-{
-public:
-	void rva002C6A4E(Object *obj);
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../../Include/GameLogic/AIStatCollector.h"
 

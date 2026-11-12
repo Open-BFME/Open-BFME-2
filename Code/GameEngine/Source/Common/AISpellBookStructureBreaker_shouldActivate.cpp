@@ -11,11 +11,7 @@ class Player;
 
 #include "../GameLogic/Object/object.h"
 
-struct Rva002A8AB1Record
-{
-public:
-	void *rva002C6ACB();
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

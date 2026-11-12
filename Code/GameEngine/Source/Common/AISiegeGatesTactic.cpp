@@ -38,10 +38,7 @@ struct Rva005A9ACDRecord
 	char m_point0C[0x0C];	// +0x0C
 };
 
-struct Rva002A8AB1Record
-{
-	void *rva002C6ACB();
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 
