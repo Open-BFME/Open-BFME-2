@@ -73,7 +73,7 @@ struct ContainIface30 { virtual void containIface30() = 0; };
 // table 0x00C48B28 holds OpenContain's four overrides (0x000B3FD0 x3, 0x0047A699).
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
-struct Rva00462D08Mapped { unsigned int m_bits; };
+#include "../../../../Include/GameLogic/Module/Rva00462D08Mapped.h"
 #include "../../../../Include/Common/Rva00462D35Mapped.h"
 typedef _STL::map<int, Rva00462D08Mapped> Rva00462D08Map;
 typedef _STL::map<int, Rva00462D35Mapped> Rva00462D35Map;

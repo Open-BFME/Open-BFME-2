@@ -7,10 +7,7 @@
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <map>
 
-struct Rva00462D08Mapped
-{
-	unsigned int m_bits;
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva00462D08Mapped.h"
 
 typedef _STL::pair<const int, Rva00462D08Mapped> Rva00462D08Pair;
 
