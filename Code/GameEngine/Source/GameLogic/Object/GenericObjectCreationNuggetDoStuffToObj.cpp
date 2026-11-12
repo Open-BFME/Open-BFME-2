@@ -270,11 +270,7 @@ struct ParticleSystemTemplateView
 };
 
 struct Rva001F3C43Arg;
-class Rva001F3C43Slot
-{
-public:
-	void set(const Rva001F3C43Arg *arg);
-};
+#include "../../../Include/Common/Rva001F3C43Slot.h"
 
 class ParticleSystem
 {

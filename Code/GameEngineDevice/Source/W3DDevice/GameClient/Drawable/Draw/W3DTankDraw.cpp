@@ -215,10 +215,7 @@ public:
 typedef bool Bool;
 #include "../../../../../../GameEngine/Source/Common/Thing/thing.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
-class Rva001F3C43Slot {
-public:
-    void set(const Rva001F3C43Arg *arg);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva001F3C43Slot.h"
 class ParticleSystem : public Rva001F3C43Slot {
 public:
     void destroy();

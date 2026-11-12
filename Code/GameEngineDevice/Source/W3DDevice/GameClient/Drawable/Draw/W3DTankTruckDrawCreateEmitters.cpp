@@ -18,10 +18,7 @@
 struct Rva001F3C43Arg;
 struct DrawableTruckView { char pad[0xfc]; Rva001F3C43Arg *object; };
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
-class Rva001F3C43Slot {
-public:
-    void set(const Rva001F3C43Arg *arg);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva001F3C43Slot.h"
 class ParticleSystem : public Rva001F3C43Slot {
 public:
     void destroy(); void rva001F45F4(bool);

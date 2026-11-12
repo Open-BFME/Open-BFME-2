@@ -78,7 +78,7 @@ float GetGameClientRandomValueReal(float, float, char *, int);
 struct Rva001F3899Arg; struct Rva001F38C1Arg; struct Rva001F3C43Arg;
 #include "../../Include/GameLogic/Module/Rva001F3899Slot.h"
 #include "../../Include/GameClient/Rva001F38C1Slot.h"
-class Rva001F3C43Slot { public: void set(const Rva001F3C43Arg *); };
+#include "../../Include/Common/Rva001F3C43Slot.h"
 class Rva001F3C60Slot { public: void set(const AsciiString &); };
 
 class ParticleSystem

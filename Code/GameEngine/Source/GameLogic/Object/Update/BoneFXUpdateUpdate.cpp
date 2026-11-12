@@ -122,11 +122,7 @@ public:
 #include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 struct Rva001F3C43Arg;
-class Rva001F3C43Slot
-{
-public:
-	void set(const Rva001F3C43Arg *arg);
-};
+#include "../../../../Include/Common/Rva001F3C43Slot.h"
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 
 class ParticleSystem

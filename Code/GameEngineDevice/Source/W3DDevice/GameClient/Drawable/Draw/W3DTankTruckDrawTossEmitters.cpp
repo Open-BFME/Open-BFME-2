@@ -14,10 +14,7 @@
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
-class Rva001F3C43Slot {
-public:
-    void set(const Rva001F3C43Arg *arg);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva001F3C43Slot.h"
 #include "../../../../../../GameEngine/Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make001FCBD7();
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.

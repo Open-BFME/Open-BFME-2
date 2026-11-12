@@ -256,7 +256,7 @@ class Rva0055A88BDwordField;
 
 struct Rva001F3C43Arg;
 
-class Rva001F3C43Slot{public:void set(const Rva001F3C43Arg*);};
+#include "../../../../Include/Common/Rva001F3C43Slot.h"
 
 #include "../../../../Include/GameLogic/Module/Rva002D9C2F.h"
 
