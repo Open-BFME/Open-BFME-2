@@ -49,7 +49,7 @@ public:
 
 #include "../WWMath/SphereClass.h"
 
-struct TargetCenter3 { float x, y, z; };
+#include "TargetCenter3.h"
 #include "BfmeSortingDispatchAt0012FE00.h"
 
 #include "SortingRendererClass.h"

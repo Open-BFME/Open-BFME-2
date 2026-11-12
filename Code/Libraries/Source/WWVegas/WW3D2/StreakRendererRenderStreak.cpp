@@ -768,7 +768,7 @@ class SphereClass;
 #endif
 #include "dx8wrapper.h"
 #include "sortingrenderer.h"
-struct TargetCenter3 { float x,y,z; };
+#include "TargetCenter3.h"
 #include "BfmeSortingDispatchAt0012FE00.h"
 struct BFME2TextureRef { TextureBaseClass *Ptr; operator bool() const { return Ptr != 0; } };
 void BFME2Set_Texture(unsigned stage,const BFME2TextureRef &texture);

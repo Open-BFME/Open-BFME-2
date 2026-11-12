@@ -417,7 +417,7 @@ struct BfmeSortingVBAccess {
 extern void BoxSetTexture(unsigned stage, TextureBaseClass *&texture);
 // Retail 0x0012FE00 takes an xyz center and four 32-bit ranges (the view
 // DX8DrawTrianglesDispatch.cpp pins).
-struct TargetCenter3 { float x, y, z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c){} };
+#include "TargetCenter3.h"
 #include "BfmeSortingDispatchAt0012FE00.h"
 
 class Rva00914860Sizer

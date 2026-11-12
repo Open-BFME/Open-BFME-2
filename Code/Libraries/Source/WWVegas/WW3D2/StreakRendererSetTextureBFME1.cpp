@@ -39,7 +39,7 @@
 #define BFME_SORTING_DWORD_DRAW
 #include "dx8wrapper.h"
 #include "sortingrenderer.h"
-struct TargetCenter3 { float x,y,z; };
+#include "TargetCenter3.h"
 #include "BfmeSortingDispatchAt0012FE00.h"
 #include "vp.h"
 #include "vector3i.h"

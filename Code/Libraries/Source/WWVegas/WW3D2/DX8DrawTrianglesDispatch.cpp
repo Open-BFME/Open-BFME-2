@@ -18,7 +18,7 @@
 */
 // BFME1 DX8Wrapper::Draw_Triangles donor, adapted to target 1205B0.
 // Buffer types 1/3 use sorting; other types draw indexed triangle lists.
-struct TargetCenter3 { float x, y, z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c){} };
+#include "TargetCenter3.h"
 // Address-derived local ABI name: retail 0x12FE00 consumes center xyz and four
 // DWORD ranges. The donor SphereClass spelling is not asserted for this target.
 #include "BfmeSortingDispatchAt0012FE00.h"
