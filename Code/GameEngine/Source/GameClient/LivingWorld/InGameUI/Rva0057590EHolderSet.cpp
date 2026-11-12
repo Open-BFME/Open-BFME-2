@@ -144,11 +144,7 @@ struct Rva005757F9Value
 	StringBase<char> m_name;				// +0x18
 };
 
-class Rva005ED28AAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva005ED28AAddDwordField.h"
 
 class Rva005CDDA4
 {

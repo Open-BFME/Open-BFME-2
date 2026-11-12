@@ -24,11 +24,7 @@ private:
 	unsigned int m_layout[3];
 };
 #include "../../Include/Common/Rva005CBB4A.h"
-class Rva005ED28AAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva005ED28AAddDwordField.h"
 struct Rva005757A5SlotView
 {
 	unsigned int m_00;

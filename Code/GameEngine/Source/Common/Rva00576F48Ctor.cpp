@@ -30,11 +30,7 @@ private:
 	unsigned char m_pad04[0x14 - 0x04];
 };
 
-class Rva005ED28AAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva005ED28AAddDwordField.h"
 
 class Rva00574AACAddDwordField
 {
