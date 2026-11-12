@@ -55,7 +55,7 @@ struct Rva002BA8F1Listener;
 // UI getters on the owner passed as the third argument.
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D6E6PtrChaseField.h"
-class Rva0042D69DPtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva0042D69DPtrChaseField.h"
 class Rva0042D6FDPtrChaseField { public: int get() const; };
 class Rva0042D703PtrChaseField { public: int get() const; };
 

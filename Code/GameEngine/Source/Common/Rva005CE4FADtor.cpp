@@ -20,7 +20,7 @@ struct Rva005CE4FATarget
 };
 class Rva0042D6FDPtrChaseField { public: int get() const; };
 class Rva0042D703PtrChaseField { public: int get() const; };
-class Rva0042D69DPtrChaseField { public: int get() const; };
+#include "../../Include/Common/Rva0042D69DPtrChaseField.h"
 class VirtObj005CE4FA
 {
 public:

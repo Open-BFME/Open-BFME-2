@@ -396,7 +396,7 @@ class AsciiString;
 #include "../../../Include/GameClient/ArmyDetailsMovieClip.h"
 struct Rva005E5FObserverOwner {char prefix[8];Rva002B7250 observers;};
 class Rva005E5FObserver {public:virtual void notify(void *);~Rva005E5FObserver() {}};
-class Rva0042D69DPtrChaseField {public:int get() const;};
+#include "../../../Include/Common/Rva0042D69DPtrChaseField.h"
 class Rva0042D6FDPtrChaseField {public:int get() const;};
 class Rva0042D703PtrChaseField {public:int get() const;};
 #include "../../../Include/Common/Rva00319B0AOwner.h"

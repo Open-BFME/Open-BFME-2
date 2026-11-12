@@ -56,7 +56,7 @@ struct Rva005D2355In;
 const Image *Rva005D2355Get(Rva005D2355In *);
 int GetMaxCommandPoints(void *);
 class Rva0042D703PtrChaseField { public: int get() const; };
-class Rva0042D69DPtrChaseField { public: int get() const; };
+#include "../../Include/Common/Rva0042D69DPtrChaseField.h"
 #include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 struct Rva005CF37DPortrait {
     virtual void slot0();

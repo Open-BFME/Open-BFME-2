@@ -34,7 +34,7 @@ class PanelWidget {public:virtual void s0();virtual void entry(int,const void*);
 class Rva0042D703PtrChaseField {public:int get()const;};
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 class Rva0042D6FDPtrChaseField {public:int get()const;};
-class Rva0042D69DPtrChaseField {public:int get()const;};
+#include "../../../../Include/Common/Rva0042D69DPtrChaseField.h"
 struct Rva005D2355In;class Image;
 namespace StrategicInGameUI {class PlanningPhaseArmySelection {public:class DetailsPanelFactoryFactory;}; const Image*GetSelectionPortrait(Rva005D2355In*);}
 class PanelFactoryResultView {public:~PanelFactoryResultView(){if(pointer)ReleaseTreeHintRef00217D4C(pointer);}private:TargetRef00217D4C*pointer;};
