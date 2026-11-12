@@ -79,12 +79,6 @@ class Thing;
 
 class ModuleData;
 
-static int s_vtable;
-
-static int s_secondary0C;
-
-static int s_secondary10;
-
 class RespawnBody
 {
 public:
@@ -164,13 +158,22 @@ public:
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/DelayedDeathBodyCtor.cpp
 
+// Retail stores 0x00C5BBE8 (+0), 0x00C5AD78 (+0x0C) and 0x00C5BB38 (+0x10), where
+// the data ledger binds this unit's own Rva004C1604 tables (the class whose
+// destructor 0x004C1604 is DelayedDeathBody's). They are the compiler's vftable
+// entities here, so each is redeclared with the compiler's own type; any other
+// type is C2373.
+extern "C" void (__cdecl *const __identifier("??_7Rva004C1604@@6BRva004C131B@@@")[1])(void);
+extern "C" void (__cdecl *const __identifier("??_7Rva004C1604@@6BMiBase1@@@")[1])(void);
+extern "C" void (__cdecl *const __identifier("??_7Rva004C1604@@6BRva004C1604_B2@@@")[1])(void);
+
 // ??0DelayedDeathBody@@QAE@PAVThing@@PBVModuleData@@@Z @0x004C15B9
 DelayedDeathBody::DelayedDeathBody(Thing *thing, const ModuleData *moduleData) :
 	RespawnBody(thing, moduleData)
 {
-	*(unsigned int *)this = (unsigned int)&s_vtable;
-	*(unsigned int *)((char *)this + 0xC) = (unsigned int)&s_secondary0C;
-	*(unsigned int *)((char *)this + 0x10) = (unsigned int)&s_secondary10;
+	*(unsigned int *)this = (unsigned int)__identifier("??_7Rva004C1604@@6BRva004C131B@@@");
+	*(unsigned int *)((char *)this + 0xC) = (unsigned int)__identifier("??_7Rva004C1604@@6BMiBase1@@@");
+	*(unsigned int *)((char *)this + 0x10) = (unsigned int)__identifier("??_7Rva004C1604@@6BRva004C1604_B2@@@");
 	m_b100 = 0;
 	m_b101 = 0;
 }

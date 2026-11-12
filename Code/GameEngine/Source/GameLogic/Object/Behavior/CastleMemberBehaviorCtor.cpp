@@ -18,9 +18,26 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 extern "C" const void *const __identifier("??_7Rva002B0F3CIface@@6B@")[];
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+// Retail stores 0x00C1A22C (+0) and 0x00C1A170 (+0x0C); the data ledger binds
+// CastleMemberBehavior.cpp's compiled tables there.
+extern "C" const void *const __identifier("??_7CastleMemberBehavior@@6BRva0049B47C@@@")[];
+extern "C" const void *const __identifier("??_7CastleMemberBehavior@@6BMiBase1@@@")[];
+// Retail table 0x00C1A160 (+0x10, 3 slots). The ledger binds
+// ??_7CastleMemberBehavior@@6B@ there, but this unit's own two-slot view of the
+// class owns that name (naming it emits a conflicting copy), so the unit owns
+// the complete initialized table (Rva004DF324Dtor.cpp s_10 precedent): each
+// slot names a matched row at retail's slot target, taken by address and never
+// called through these erased signatures.
+extern "C" {
+void __identifier("?rva0039922D@CastleBehavior@@QAEXPAURva00398E4AArg@@@Z")();
+void __identifier("?slot0@Rva0086EE20@@UAEXH@Z")();
+void __identifier("?onStateChanged@Rva00397BD9@@UAEXHHH@Z")();
+}
+static const void *const s_secondary10[3] = {
+	(const void *)&__identifier("?rva0039922D@CastleBehavior@@QAEXPAURva00398E4AArg@@@Z"), //  0 0x0039922D
+	(const void *)&__identifier("?slot0@Rva0086EE20@@UAEXH@Z"), //  1 0x0047A69C
+	(const void *)&__identifier("?onStateChanged@Rva00397BD9@@UAEXHHH@Z")  //  2 0x00397BD9
+};
 
 // Opaque BehaviorModule base; ctor resolves to its row. Its virtual
 // destructor gives the classes their real vptr at +0. CastleMemberBehavior is
@@ -69,9 +86,9 @@ CastleMemberBehavior::CastleMemberBehavior(Thing *thing, const ModuleData *modul
 	m_1C = 0;
 	m_24 = 0;
 	m_25 = 0;
-	*(const void **)this = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	*(const void **)this = __identifier("??_7CastleMemberBehavior@@6BRva0049B47C@@@");
+	m_p0C = __identifier("??_7CastleMemberBehavior@@6BMiBase1@@@");
+	m_p10 = s_secondary10;
 	m_20 = 1;
 }
 

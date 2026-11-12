@@ -508,8 +508,6 @@ extern "C"
 
 extern "C" char __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 
-static int s_vtable;
-
 extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 
 // The data ledger assigns these provisional table symbols to ModuleUpdateDtors.
@@ -771,6 +769,13 @@ void Rva004ADBD7::rva004ADBD7()
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp
 
+// Retail stores 0x00C551C0 at +0, where the data ledger binds ??_7Rva004AD9B0@@6B@
+// (ModuleUpdateDtors.cpp's table, bridged; its slot 0 is ??_GRva004AD9B0,
+// 0x004ADAFF). This unit's one-slot Rva004AD9B0 view makes that name the
+// compiler's vftable entity, so it is redeclared with the compiler's own type;
+// any other type is C2373.
+extern "C" void (__cdecl *const __identifier("??_7Rva004AD9B0@@6B@")[1])(void);
+
 // ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4ADAB5
 ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
@@ -778,7 +783,7 @@ ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thin
 	m_slotBase = &__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	_ReadWriteBarrier();
 	m_slotBase = &s_dummy5188;
-	*(const void **)this = &s_vtable;
+	*(const void **)this = __identifier("??_7Rva004AD9B0@@6B@");
 	*(const void **)((char *)this + 0x0C) = s_dummy62D8;
 	*(const void **)((char *)this + 0x10) = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	*(const void **)((char *)this + 0x20) = &s_dummy5198;

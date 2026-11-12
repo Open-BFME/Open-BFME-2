@@ -62,13 +62,7 @@ class Thing;
 
 class ModuleData;
 
-static int s_vtable;
-
 extern "C" const void *const __identifier("??_7GarrisonContain@@6BB1@@@")[];
-
-static int s_secondary10;
-
-static int s_secondary20;
 
 extern "C" const void *const __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@")[];
 
@@ -300,14 +294,23 @@ void HealContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HealContainCtor.cpp
 
+// Retail stores 0x00C43ED0 (+0), 0x00C43EC0 (+0x10) and 0x00C43D48 (+0x20), where
+// the data ledger binds this unit's own Rva00220240FlatDtor tables (the class
+// whose empty destructor 0x00466B45 is HealContain's). They are the compiler's
+// vftable entities here, so each is redeclared with the compiler's own type;
+// any other type is C2373.
+extern "C" void (__cdecl *const __identifier("??_7Rva00220240FlatDtor@@6BRva00039D6AFlatBase@@@")[1])(void);
+extern "C" void (__cdecl *const __identifier("??_7Rva00220240FlatDtor@@6BRva00220240FlatDtorM1@@@")[1])(void);
+extern "C" void (__cdecl *const __identifier("??_7Rva00220240FlatDtor@@6BRva00220240FlatDtorM2@@@")[1])(void);
+
 // ??0HealContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x466AEB
 HealContain::HealContain(Thing *thing, const ModuleData *moduleData)
 	: OpenContain(thing, moduleData)
 {
-	*reinterpret_cast<const void **>(this) = &s_vtable;
+	*reinterpret_cast<const void **>(this) = __identifier("??_7Rva00220240FlatDtor@@6BRva00039D6AFlatBase@@@");
 	m_p0C = __identifier("??_7GarrisonContain@@6BB1@@@");
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
+	m_p10 = __identifier("??_7Rva00220240FlatDtor@@6BRva00220240FlatDtorM1@@@");
+	m_p20 = __identifier("??_7Rva00220240FlatDtor@@6BRva00220240FlatDtorM2@@@");
 	m_p24 = __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@");
 	m_p28 = __identifier("??_7AODHordeContain@@6BIface28@@@");
 	m_p2C = __identifier("??_7AODHordeContain@@6BIface2C@@@");
