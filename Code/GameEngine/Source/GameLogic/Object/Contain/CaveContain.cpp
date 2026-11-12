@@ -710,13 +710,7 @@ private:
 
 // --- 0x00466457 / 0x0049A6C7 (16B each): from a +0x0C interface, the
 // object's +0xFC / +0x3E4 base (null-checked conversion).
-class Rva00466457Base0
-{
-public:
-	virtual void b0();
-	int m_04;
-	int m_08;
-};
+#include "../../../../Include/Common/Rva00466457Base0.h"
 
 class Rva00466457Base3
 {
