@@ -41,11 +41,7 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 #include "../../../Include/GameLogic/Module/Rva00271BCC.h"
-class Rva002039B6Host
-{
-public:
-	void rva002039B6();
-};
+#include "../../../Include/Common/Rva002039B6Host.h"
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class Object;

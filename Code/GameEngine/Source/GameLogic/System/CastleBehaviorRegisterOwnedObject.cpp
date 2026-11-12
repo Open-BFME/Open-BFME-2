@@ -230,7 +230,7 @@ bool CastleBehavior::checkForAutoPack() {
 // WB leaves the method unnamed, so retain an address-derived identity.
 class ScriptEngine;
 extern ScriptEngine* TheScriptEngine;
-class Rva002039B6Host { public: void rva002039B6(); };
+#include "../../../Include/Common/Rva002039B6Host.h"
 void CastleBehavior::rva00397B03(ObjectStatusTypes status,bool set) {
  Object* pending=TheGameLogic->findObjectByID(field<ObjectID>(this,0x38));
  if(pending) {

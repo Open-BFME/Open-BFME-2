@@ -42,11 +42,7 @@ class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 
 // notifyOfObjectCreationOrDestruction, under its rowed name.
-class Rva002039B6Host
-{
-public:
-	void rva002039B6();
-};
+#include "../../../Include/Common/Rva002039B6Host.h"
 
 struct Rva002A8AB1Record;
 #include "../../../Include/GameLogic/Rva002A8F24.h"

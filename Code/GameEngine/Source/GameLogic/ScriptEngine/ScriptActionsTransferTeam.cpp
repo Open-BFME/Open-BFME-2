@@ -50,7 +50,7 @@ inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList(
 extern ScriptEngine *TheScriptEngine;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class Rva002039B6Host { public: void rva002039B6(); };
+#include "../../../Include/Common/Rva002039B6Host.h"
 int __cdecl rva003BA83F(void *,int);
 void ScriptActions::doTransferTeamToPlayer(const AsciiString &teamName,const AsciiString &playerName) {
  Team *theTeam=TheScriptEngine->getTeamNamed(teamName,false);

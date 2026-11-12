@@ -37,11 +37,7 @@ struct Rva0028F59A
 };
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
-class Rva002039B6Host
-{
-public:
-	void rva002039B6();
-};
+#include "../../../Include/Common/Rva002039B6Host.h"
 #include "../../../Include/Common/ThingTemplate.h"
 enum ModelConditionFlagType
 {

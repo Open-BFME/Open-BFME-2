@@ -146,11 +146,7 @@ struct Rva00299CE4LogicFrames
 };
 extern GameLogic *TheGameLogic;
 
-class Rva002039B6Host
-{
-public:
-	void rva002039B6();
-};
+#include "../../../Include/Common/Rva002039B6Host.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 

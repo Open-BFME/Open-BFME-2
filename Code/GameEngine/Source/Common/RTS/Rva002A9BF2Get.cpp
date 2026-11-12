@@ -43,11 +43,7 @@ void Rva002A9BF2::rva002A9CCA(int val)
 }
 
 // ?onStructureConstructionComplete@Player@@QAEXPAVObject@@0_N@Z @0x002A9D02 135B: ZH Player::onStructureConstructionComplete step for step (notify the script engine of object creation, remove then re-add the structure in the pathfind map, friend_adjustPowerForPlayer(TRUE), forward builder and structure to the player AI at +0x2DC slot 8, flag the control bar dirty); isRebuild is unread. Formerly rowed as the address-named view below. Evidence: same 0x2DC as Rva002A9BF2 siblings; callees rowed 0x002039B6 0x002E718A 0x002E7178 0x0028D99A 0x0028BD17 0x0028DA67; globals TheScriptEngine TheAI g_bfmeWorldRV; callers 0x002411DF 0x00241E17 0x003954B9 0x0048AC99.
-class Rva002039B6Host
-{
-public:
-	void rva002039B6();
-};
+#include "../../../Include/Common/Rva002039B6Host.h"
 
 class Object;
 

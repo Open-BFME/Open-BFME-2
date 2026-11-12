@@ -137,11 +137,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class Rva002039B6Host
-{
-public:
-	void rva002039B6();
-};
+#include "../../../Include/Common/Rva002039B6Host.h"
 
 #include "../../../Include/GameLogic/EmotionSystem.h"
 extern EmotionSystem *TheEmotionSystem;
