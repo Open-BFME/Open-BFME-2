@@ -4614,11 +4614,7 @@ private:
 	GameMessage *m_firstMessage;                                         // +0x0C
 };
 
-class Rva00DFE1C8Host
-{
-public:
-	bool rva00210DC9(void);
-};
+#include "../../../Include/Common/Rva00DFE1C8Host.h"
 
 class Rva002431CB
 {
