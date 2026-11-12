@@ -54,11 +54,7 @@ struct AptTributePlayerList
 
 // The rowed 0x005748AD, the base window's input handler (VtableConstant
 // Predicates.cpp's view).
-class Rva005748AD
-{
-public:
-	int rva005748AD(int message, int key, int state);
-};
+#include "../../../../../Include/Common/Rva005748AD.h"
 
 // The rowed 0x0051274F base handler for vtable slot 2
 // (BfmeAptGameWindowMessages.cpp).

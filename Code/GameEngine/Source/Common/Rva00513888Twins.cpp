@@ -6,11 +6,7 @@
 // tail-jump the virtual at slot 5 (0x14) vs slot 6 (0x18) with the same
 // three args. Identities unproven.
 
-class Rva005748AD
-{
-public:
-	int rva005748AD(int a, int b, int c);
-};
+#include "../../Include/Common/Rva005748AD.h"
 
 class _bfme_AptGameWindow
 {

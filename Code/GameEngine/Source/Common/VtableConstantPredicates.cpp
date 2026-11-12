@@ -57,11 +57,7 @@ bool Rva005CB9FF::rva005CB9FF(int unusedArgument)
 
 // The two below return Int rather than Bool -- `xor eax,eax`, not `xor al,al`.
 
-class Rva005748AD
-{
-public:
-	int rva005748AD(int unusedArgument1, int unusedArgument2, int unusedArgument3);
-};
+#include "../../Include/Common/Rva005748AD.h"
 
 int Rva005748AD::rva005748AD(int unusedArgument1, int unusedArgument2, int unusedArgument3)
 {
