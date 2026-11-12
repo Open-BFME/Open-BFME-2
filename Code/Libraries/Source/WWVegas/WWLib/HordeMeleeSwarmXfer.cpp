@@ -80,7 +80,7 @@ private:
 extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText *result, int tag, const char *format, ...);
 void __stdcall _CxxThrowException(void *a, void *b);
 extern const char g_Rva0107301CEmptyString[];
-extern int g_guardTargetTypeThrowInfo;
+extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVXferException@@");
 
 void HordeMeleeSwarm::rva00584A9B(Xfer *xfer)
 {
@@ -97,7 +97,7 @@ void HordeMeleeSwarm::rva00584A9B(Xfer *xfer)
 		const char *s2 = actualBuffer ? actualBuffer + 8 : g_Rva0107301CEmptyString;
 		BfmeFormattedText tmp;
 		bfmeFormatText(&tmp, 4, "Xfer data saved by %s is now being loaded by %s", s2, s1);
-		_CxxThrowException(&tmp, &g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&tmp, (void *)&__identifier("_TI1?AVXferException@@"));
 	}
 	*xfer == m_flag;
 	Int count = (Int)m_vec.size();

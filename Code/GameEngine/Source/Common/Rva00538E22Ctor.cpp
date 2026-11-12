@@ -267,7 +267,7 @@ struct XferException
 	int tag;
 };
 extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
-extern int g_rva008ffd18ThrowInfo;
+extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVXferException@@");
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
 Xfer *Rva0031A160Xfer(Xfer *xfer, _STL::vector<BfmeVectorRecord00319C84> *records)
@@ -288,7 +288,7 @@ Xfer *Rva0031A160Xfer(Xfer *xfer, _STL::vector<BfmeVectorRecord00319C84> *record
 		if (span[0] != span[1]) {
 			XferException error;
 			bfmeFormatText(&error, 4, "Vector must be empty on load");
-			_CxxThrowException(&error, (const _s__ThrowInfo *)&g_rva008ffd18ThrowInfo); __assume(0);
+			_CxxThrowException(&error, &__identifier("_TI1?AVXferException@@")); __assume(0);
 		} else {
 			records->reserve(count);
 			Rva00318B5C value;

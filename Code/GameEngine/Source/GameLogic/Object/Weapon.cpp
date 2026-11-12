@@ -452,8 +452,6 @@ extern "C" BfmeWeaponFormattedText *__cdecl bfmeFormatText(
 extern void __declspec(noreturn) __stdcall _CxxThrowException(
 	void *object, void *throwInfo);
 
-extern int g_guardTargetTypeThrowInfo;
-
 class BfmeWeaponXferView
 {
 public:

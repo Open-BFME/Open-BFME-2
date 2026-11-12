@@ -39,7 +39,7 @@ struct RGBAColorInt;
 #include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
-extern int g_guardTargetTypeThrowInfo;
+extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVXferException@@");
 
 #include "../../Include/Common/BfmeFormattedText.h"
 
@@ -55,7 +55,7 @@ static void __cdecl embedPristineMap(AsciiString path, Xfer *xfer)
 	{
 		BfmeFormattedText exceptionText;
 		bfmeFormatText(&exceptionText, 5, (const char *)0);
-		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&exceptionText, &__identifier("_TI1?AVXferException@@"));
 		__assume(0);
 	}
 	unsigned int size = file->seek(0, File::END);
@@ -65,7 +65,7 @@ static void __cdecl embedPristineMap(AsciiString path, Xfer *xfer)
 	{
 		BfmeFormattedText exceptionText;
 		bfmeFormatText(&exceptionText, 5, (const char *)0);
-		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&exceptionText, &__identifier("_TI1?AVXferException@@"));
 		__assume(0);
 	}
 	int got = file->read(buf, size);
@@ -74,7 +74,7 @@ static void __cdecl embedPristineMap(AsciiString path, Xfer *xfer)
 		delete[] buf;
 		BfmeFormattedText exceptionText;
 		bfmeFormatText(&exceptionText, 5, (const char *)0);
-		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&exceptionText, &__identifier("_TI1?AVXferException@@"));
 		__assume(0);
 	}
 	file->close();
@@ -114,7 +114,7 @@ static void __cdecl embedInUseMap(AsciiString path, Xfer *xfer)
 	{
 		BfmeFormattedText exceptionText;
 		bfmeFormatText(&exceptionText, 5, (const char *)0);
-		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&exceptionText, &__identifier("_TI1?AVXferException@@"));
 		__assume(0);
 	}
 	unsigned int size = file->seek(0, File::END);
@@ -124,7 +124,7 @@ static void __cdecl embedInUseMap(AsciiString path, Xfer *xfer)
 	{
 		BfmeFormattedText exceptionText;
 		bfmeFormatText(&exceptionText, 5, (const char *)0);
-		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&exceptionText, &__identifier("_TI1?AVXferException@@"));
 		__assume(0);
 	}
 	int got = file->read(buf, size);
@@ -133,7 +133,7 @@ static void __cdecl embedInUseMap(AsciiString path, Xfer *xfer)
 		delete[] buf;
 		BfmeFormattedText exceptionText;
 		bfmeFormatText(&exceptionText, 5, (const char *)0);
-		_CxxThrowException(&exceptionText, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+		_CxxThrowException(&exceptionText, &__identifier("_TI1?AVXferException@@"));
 		__assume(0);
 	}
 	file->close();
@@ -160,17 +160,17 @@ static void __cdecl extractAndSaveMap(AsciiString path, Xfer *xfer)
  const char *name=t?t+8:"";
  File *file=TheFileSystem->openFile(name,0x4a,0);
  if(!file){BfmeFormattedText exceptionText;bfmeFormatText(&exceptionText,5,(const char*)0);
- _CxxThrowException(&exceptionText,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);}
+ _CxxThrowException(&exceptionText,&__identifier("_TI1?AVXferException@@"));__assume(0);}
  xfer->BeginBlock("EmbeddedMap");
  unsigned int size;
  *xfer == size;
  char *buf=new char[size];
  if(!buf){BfmeFormattedText exceptionText;bfmeFormatText(&exceptionText,5,(const char*)0);
- _CxxThrowException(&exceptionText,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);}
+ _CxxThrowException(&exceptionText,&__identifier("_TI1?AVXferException@@"));__assume(0);}
  xfer->XferRawBytes(buf,size);
  int got=file->write(buf,size);
  if(got!=size){delete[]buf;BfmeFormattedText exceptionText;bfmeFormatText(&exceptionText,5,(const char*)0);
- _CxxThrowException(&exceptionText,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);}
+ _CxxThrowException(&exceptionText,&__identifier("_TI1?AVXferException@@"));__assume(0);}
  file->close();xfer->EndBlock();delete[]buf;
 }
 // ?Rva0041AEF8Caller@@YAXVAsciiString@@PAVXfer@@@Z present-unmatched
@@ -251,7 +251,7 @@ void GameStateMap::DoXfer(Xfer*xfer) {
    saveGameInfo->saveGameMapName=TheGameState->portableMapPathToRealMapPath(exceptionText);
    if(!((Rva002DC7C1*)TheGameState)->rva002DC7C1(UnicodeString(saveGameInfo->saveGameMapName))) {
     BfmeFormattedText err;bfmeFormatText(&err,5,(const char*)0);
-    _CxxThrowException(&err,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);
+    _CxxThrowException(&err,&__identifier("_TI1?AVXferException@@"));__assume(0);
    }
    TheWritableGlobalData->m_mapName=saveGameInfo->saveGameMapName;
    *xfer == saveGameInfo->pristineMapName;

@@ -122,10 +122,6 @@ Xfer *Rva00470222Xfer(Xfer *xfer, IntIntMap *map)
 	return xfer;
 }
 
-// ?g_guardTargetTypeThrowInfo@@3HA: matched references place it at VA 0xcffd18; also referenced as ?g_rva008ffd18ThrowInfo@@3HA, ?g_rva005c5100ThrowInfo@@3HA.
-int g_guardTargetTypeThrowInfo = 0;
-#pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")
-
 // Units that declare _CxxThrowException(void *, void *) as a C++ overload
 // call ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
 // __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.

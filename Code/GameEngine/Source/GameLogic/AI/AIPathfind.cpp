@@ -558,7 +558,6 @@ public:
 #include "../../../Include/Common/XferException.h"
 extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-extern int g_guardTargetTypeThrowInfo;
 void *__cdecl Rva0002FFC0Alloc(int size, int context);
 void __cdecl Rva0002FFE0Free(void *block, int context);
 // Native initialized image at DBD4C8: 128 nodes; null block/free lists;

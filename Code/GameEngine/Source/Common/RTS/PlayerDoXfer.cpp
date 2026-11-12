@@ -140,11 +140,11 @@ class PlayerTrackerView { public: virtual void transfer(Xfer*); char body[0x14];
 #include "../../../Include/Common/BfmeFormattedText.h"
 extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText*,int,const char*,...);
 struct _s__ThrowInfo;
-extern int g_guardTargetTypeThrowInfo;
+extern "C" const _s__ThrowInfo __identifier("_TI1?AVXferException@@");
 extern "C" void __stdcall _CxxThrowException(void*,const _s__ThrowInfo*);
 static __forceinline void badPlayerTransfer() {
  BfmeFormattedText error; bfmeFormatText(&error,5,0);
- _CxxThrowException(&error,reinterpret_cast<const _s__ThrowInfo*>(&g_guardTargetTypeThrowInfo));
+ _CxxThrowException(&error,&__identifier("_TI1?AVXferException@@"));
  __assume(0);
 }
 class Rva001FDE3F;
