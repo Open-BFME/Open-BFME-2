@@ -167,3 +167,16 @@ strict preparation and the owning DamageInfo acceptance pass and retire one
 queue row. TeamPrototype is the only remaining header entry in this file.
 The InnerState push's wider audit remains INCONCLUSIVE for AIBaseBuilder.cpp's
 missing current receipt; no runtime or fresh whole-tree link result is claimed.
+
+## TeamPrototype completes this file's header queue
+
+Replace the private TeamTemplateInfo/prototype projection with Common/Team.h.
+The outer state's target test now reads the canonical m_attackCommonTarget at
+prototype +0x216 directly, removing the TU-specific template-info helper and
+the guessed +0x200 subobject boundary. This does not move or rename a row.
+All 13 bodies and 30 retained COMDATs match; only the superseded helper
+disappears. Ordinary verification, strict preparation and the owning
+TeamPrototype acceptance pass and retire the last header entry for States.
+All six original header entries for this file are now cleared through their
+owning acceptance tool. A fresh guarded TU composition is still required;
+header acceptance alone does not establish that the remaining donors merge.

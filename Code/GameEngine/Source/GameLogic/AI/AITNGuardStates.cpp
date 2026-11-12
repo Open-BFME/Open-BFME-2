@@ -27,9 +27,7 @@
 //    in a register across the nemesis lookup, so it is read once into a local.
 //  - AITNGuardOuterState::update, retail 0x00546577 (110 bytes): slot 6 of
 //    0x00C6A198; Zero Hour's body. The team's prototype is +0x30 and its
-//    template info's m_attackCommonTarget lands at prototype +0x216 (the split
-//    between prototype and embedded template info is not established; it is
-//    modelled as info at +0x200).
+//    m_attackCommonTarget is the shared prototype field at +0x216.
 //  - AITNGuardAttackAggressorState::onEnter, retail 0x0054675D (241 bytes):
 //    slot 4 of 0x00C6A298; Zero Hour's body (body module +0x254, vslot 15
 //    getLastDamageInfo, source id +8).
@@ -58,21 +56,7 @@ typedef unsigned int UnsignedInt;
 #include "../../../Include/Common/StateMachineClass.h"
 class Object;
 class AIUpdateInterface;
-struct TeamTemplateInfo
-{
-	unsigned char m_pad00[0x16];
-	Bool m_attackCommonTarget; // +0x16 (prototype +0x216)
-};
-class TeamPrototype
-{
-public:
-	const TeamTemplateInfo *getTemplateInfo(void) const { return &m_teamTemplate; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getTemplateInfo copy loses to the first-in-order copy. No flags touched.
-	const TeamTemplateInfo *bfme_getTemplateInfo_a8b17(void) const { return &m_teamTemplate; }
-private:
-	unsigned char m_pad00[0x200];
-	TeamTemplateInfo m_teamTemplate; // +0x200
-};
+#include "../../../Include/Common/Team.h"
 #include "../../../Include/Common/TeamBFME2.h"
 class TunnelTracker
 {
@@ -398,7 +382,7 @@ StateReturnType AITNGuardOuterState::update( void )
 		}
 		// Check if team auto targets same victim.
 		Object *teamVictim = NULL;
-		if (goalObj == NULL && owner->bfme_getTeam_30539()->getPrototype()->bfme_getTemplateInfo_a8b17()->m_attackCommonTarget) 
+		if (goalObj == NULL && owner->bfme_getTeam_30539()->getPrototype()->m_attackCommonTarget) 
 		{
 			teamVictim = owner->bfme_getTeam_30539()->getTeamTargetObject();
 			if (teamVictim) 

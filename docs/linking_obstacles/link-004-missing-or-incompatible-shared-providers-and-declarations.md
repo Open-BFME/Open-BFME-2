@@ -269,6 +269,15 @@
   One source file is removed, with no newly recovered bytes. States, ReturnState
   and the constructor retain their separately recorded prerequisites; no
   runtime or fresh census result follows from this merge.
+  2026-11-13: States now uses the canonical State, StateMachine, machine,
+  InnerState, DamageInfo and TeamPrototype headers. Six queue entries retire;
+  all 13 rows, retained COMDATs and three EH parents stay exact. Derived
+  padding keeps the native field offsets; damage and prototype accesses use
+  their complete canonical records. The own preview retains 1,383 bytes.
+  Refresh the guarded composition before claiming another donor accepted;
+  the constructor's snapshot identity gap and nominal ReturnState ancestry
+  remain separate. Broader push audits remain INCONCLUSIVE for missing
+  current provider/consumer receipts, most recently AIBaseBuilder.cpp.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the
