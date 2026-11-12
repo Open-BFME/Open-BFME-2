@@ -35,11 +35,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-class Rva002E1E6FListener
-{
-public:
-	virtual void notify(void *, int, int);
-};
+#include "../../Include/Common/Rva002E1E6FListener.h"
 
 class Rva002E1E6FList
 {

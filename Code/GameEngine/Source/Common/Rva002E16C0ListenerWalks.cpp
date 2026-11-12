@@ -85,11 +85,7 @@ void Rva002E1E51List::apply(const Rva002E16C0Call &call)
 }
 
 // ---- forEach 0x002E1E6F, walk 0x002E172D
-class Rva002E1E6FListener
-{
-public:
-	virtual void notify(void *, int, int);
-};
+#include "../../Include/Common/Rva002E1E6FListener.h"
 
 struct Rva002E172DCall
 {

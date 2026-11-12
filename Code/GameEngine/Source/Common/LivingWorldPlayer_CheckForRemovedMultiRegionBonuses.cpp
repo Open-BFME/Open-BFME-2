@@ -29,11 +29,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 static inline void StepMapIterator(_STL::map<int, int>::iterator &it)
 { it._M_node = _STL::_Rb_global_inst::_M_increment(it._M_node); }
 
-class Rva002E1E6FListener
-{
-public:
-	virtual void notify(void *, int, int);
-};
+#include "../../Include/Common/Rva002E1E6FListener.h"
 
 class Rva002E1E6FList
 {
