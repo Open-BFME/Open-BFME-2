@@ -30,6 +30,9 @@ class Rva0057605DBase
 public:
 	Rva0057605DBase(int a) : m_a4(a) {}
 	virtual ~Rva0057605DBase() {}
+	// Retail table 0x00C6E60C holds __purecall at slot 1; the derived table
+	// 0x00C6E6A0 holds 0x00575DE6 there.
+	virtual void rva00575DE6() = 0;
 private:
 	int m_a4;
 };

@@ -11,6 +11,9 @@ class ProgressIndicator
 {
 public:
 	virtual ~ProgressIndicator() throw();
+	// Retail table 0x00C14E4C holds __purecall at slot 1 (ProgressIndicator.cpp
+	// emits it); Rva00355CD8Dtor.cpp's derived class overrides it as slot1.
+	virtual void slot1(int value) = 0;
 	ProgressIndicator *m_next;
 };
 

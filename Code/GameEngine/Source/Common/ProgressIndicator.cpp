@@ -15,6 +15,9 @@ class ProgressIndicator
 public:
 	__declspec(noinline) ProgressIndicator(void);
 	virtual ~ProgressIndicator(void);				// slot +0x00
+	// Retail table 0x00C14E4C holds __purecall at slot 1; Rva00355CD8Dtor.cpp's
+	// derived class overrides it as slot1 (0x00355D16).
+	virtual void slot1(int value) = 0;			// slot +0x04
 
 	ProgressIndicator *m_bfmeNext;				// +0x04
 };

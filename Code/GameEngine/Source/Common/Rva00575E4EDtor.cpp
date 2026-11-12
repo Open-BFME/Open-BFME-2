@@ -19,6 +19,9 @@ class Rva00575E4EBase1 {
 public:
     Rva00575E4EBase1(int value) : m_x4(value) {}
     virtual ~Rva00575E4EBase1() {}
+    // Retail table 0x00C6E60C holds __purecall at slot 1; the derived table
+    // 0x00C6E688 overrides it with rva00575DDA.
+    virtual void rva00575DDA() = 0;
     int m_x4;
 };
 #include "../../Include/Common/LivingWorldBattleListener.h"

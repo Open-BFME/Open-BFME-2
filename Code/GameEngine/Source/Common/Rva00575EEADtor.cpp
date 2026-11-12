@@ -19,6 +19,9 @@ class Rva00575EEABase1 {
 public:
     Rva00575EEABase1(int value) : m_x4(value) {}
     virtual ~Rva00575EEABase1() {}
+    // Retail table 0x00C6E60C holds __purecall at slot 1; the derived table
+    // 0x00C6E6B0 overrides it with rva00575DF2.
+    virtual void rva00575DF2() = 0;
     int m_x4;
 };
 class LivingWorldLogic;
