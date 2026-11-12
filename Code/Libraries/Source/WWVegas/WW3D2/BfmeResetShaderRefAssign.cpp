@@ -5,23 +5,7 @@
 // see this body. Non-FXSH holders are cleared; FXSH or null go through
 // RefCountPtr assign. clear is the ICF twin already pinned on the texture ref.
 
-struct BfmeResetTagged
-{
-	virtual int pad00();
-	virtual int pad01();
-	virtual int pad02();
-	virtual int pad03();
-	virtual int pad04();
-	virtual int pad05();
-	virtual int pad06();
-	virtual int pad07();
-	virtual int pad08();
-	virtual int pad09();
-	virtual int pad10();
-	virtual int pad11();
-	virtual int pad12();
-	virtual unsigned GetClassId();
-};
+#include "BfmeResetTagged.h"
 
 class BfmeMapPictureTexture
 {

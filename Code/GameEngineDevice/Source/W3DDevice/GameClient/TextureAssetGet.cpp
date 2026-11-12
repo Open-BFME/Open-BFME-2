@@ -83,23 +83,7 @@ public:
 
 extern HierarchyPrototypeRef Rva0061F230_GetPrototype(const char *name);
 
-struct BfmeResetTagged
-{
-	virtual int pad00();
-	virtual int pad01();
-	virtual int pad02();
-	virtual int pad03();
-	virtual int pad04();
-	virtual int pad05();
-	virtual int pad06();
-	virtual int pad07();
-	virtual int pad08();
-	virtual int pad09();
-	virtual int pad10();
-	virtual int pad11();
-	virtual int pad12();
-	virtual unsigned GetClassId();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTagged.h"
 
 struct BfmeResetAnyRef
 {
