@@ -31,7 +31,7 @@ class ExperienceTracker;
 class Object;
 
 // BFME2 Object skeleton (reference/open-bfme-1/inputs/reference/shims/objectdlink/ObjectDlinkPmf.h).
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
 {

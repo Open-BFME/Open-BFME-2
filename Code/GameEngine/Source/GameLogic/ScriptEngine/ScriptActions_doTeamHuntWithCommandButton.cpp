@@ -69,7 +69,7 @@ class Module;
 
 class Object;
 
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+#include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
 {
