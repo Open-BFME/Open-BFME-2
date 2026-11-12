@@ -88,11 +88,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class BfmeThingCME
-{
-public:
-	int rva0027F108(void *pos, float radius, int flag, int mode);	// 0x0027F108 (rowed)
-};
+#include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 

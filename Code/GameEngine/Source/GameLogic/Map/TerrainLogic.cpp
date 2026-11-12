@@ -1057,11 +1057,7 @@ public:
 	BfmeFixedStorage0004543D m_24;
 };
 // 0x0027F1DD, rowed as BfmeThingCME::rva0027F1DD (Rva0027F1DDRetire.cpp).
-class BfmeThingCME
-{
-public:
-	void rva0027F1DD(Coord3D *position, float radius);
-};
+#include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 // BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f clean source lead:
 // game/GameEngine/Source/GameLogic/Map/TerrainArea001ACCC0.cpp,
 // clearOne001AC3D0. Target facts: RET 12; mode is the final word, kind bit

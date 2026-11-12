@@ -78,11 +78,7 @@ public:
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
 extern PartitionManager *ThePartitionManager;
-class BfmeThingCME
-{
-public:
-	int rva0027F108(void *pos, float radius, int flag, int unused);	// rowed 0x0027F108
-};
+#include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 template<int N>class BitFlags;

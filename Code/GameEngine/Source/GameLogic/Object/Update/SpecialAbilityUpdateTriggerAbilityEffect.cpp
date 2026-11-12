@@ -434,10 +434,7 @@ public:
 	BfmeFixedStorage0004543D m08; // +0x08
 	BfmeFixedStorage0004543D m24; // +0x24
 };
-class BfmeThingCME {
-  public:
-    int rva0027F108(void *, float, int, int);
-};
+#include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 extern PartitionManager *ThePartitionManager;
