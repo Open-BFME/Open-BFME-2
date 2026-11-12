@@ -234,13 +234,265 @@ void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 }
 
-static int s_vtable;
+// Retail table 0x00C48CC0 (34 slots), stored by the constructor below. Own the
+// complete initialized table instead of a zero-int stand-in (Rva004DF324Dtor.cpp
+// s_10 precedent): each slot names a matched row at retail's slot target, taken
+// by address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GCitadelSlaughterHordeContain@@UAEPAXI@Z")();
+void __identifier("?j_004812b4@@YAXXZ")();
+void __identifier("?Rva004805FAGet@@YAHXZ")();
+void __identifier("?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z")();
+void __identifier("?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ")();
+void __identifier("?onObjectCreated@GarrisonContain@@UAEXXZ")();
+void __identifier("?slot02@OpenContain@@UAEXXZ")();
+void __identifier("?onDelete@OpenContain@@UAEXXZ")();
+void __identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z")();
+void __identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ")();
+void __identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ")();
+void __identifier("?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z")();
+void __identifier("?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z")();
+void __identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")();
+void __identifier("?monitorConditionChanges@OpenContain@@MAEXXZ")();
+void __identifier("?redeployOccupants@GarrisonContain@@MAEXXZ")();
+void __identifier("?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z")();
+void __identifier("?rva00480281@SlaughterHordeContain@@UAE_NPAVObject@@@Z")();
+void __identifier("?doLoadSound@OpenContain@@MAEXXZ")();
+void __identifier("?doUnloadSound@OpenContain@@MAEXXZ")();
+void __identifier("?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z")();
+void __identifier("?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z")();
+void __identifier("?rva00479BC5@Rva00479BC5@@QAEHW4ObjectID@@@Z")();
+void __identifier("?rva00479FD4@Rva00479FD4Owner@@QAE_NPAVObject@@@Z")();
+void __identifier("?rva00479B7F@SlaughterHordeContain@@UAEXPAVObject@@@Z")();
+void __identifier("?AddHordeMember@SlaughterHordeContain@@QAEXPAVObject@@@Z")();
+void __identifier("?rva00479B0A@Rva00479B0A@@QAEXPAVObject@@@Z")();
+void __identifier("?rva00480E9A@CitadelSlaughterHordeContain@@UAEXPAVObject@@@Z")();
+void __identifier("?rva004807C7@CitadelSlaughterHordeContain@@UAE_NPAVObject@@@Z")();
+}
+static const void *const s_vtable[34] = {
+	(const void *)&__identifier("??_GCitadelSlaughterHordeContain@@UAEPAXI@Z"), //  0 0x004806FC
+	(const void *)&__identifier("?j_004812b4@@YAXXZ"), //  1 0x004812B4
+	(const void *)&__identifier("?Rva004805FAGet@@YAHXZ"), //  2 0x004805FA
+	(const void *)&__identifier("?xfer@CitadelSlaughterHordeContain@@MAEXPAVXfer@@@Z"), //  3 0x0048030D
+	(const void *)&__identifier("?getModuleNameKey@CitadelSlaughterHordeContain@@UBE?AW4NameKeyType@@XZ"), //  4 0x00480600
+	(const void *)&__identifier("?onObjectCreated@GarrisonContain@@UAEXXZ"), //  5 0x004787B0
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), //  6 0x000B3FD0
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), //  7 0x000B3FD0
+	(const void *)&__identifier("?onDelete@OpenContain@@UAEXXZ"), //  8 0x00464120
+	(const void *)&__identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z"), //  9 0x0050B238
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 10 0x000D43D0
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 11 0x000D43D0
+	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // 12 0x0022C4CB
+	(const void *)&__identifier("?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z"), // 13 0x00462F75
+	(const void *)&__identifier("?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z"), // 14 0x005CB9FA
+	(const void *)&__identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z"), // 15 0x0050B238
+	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // 16 0x005CB9FF
+	(const void *)&__identifier("?monitorConditionChanges@OpenContain@@MAEXXZ"), // 17 0x00462C72
+	(const void *)&__identifier("?redeployOccupants@GarrisonContain@@MAEXXZ"), // 18 0x00479395
+	(const void *)&__identifier("?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z"), // 19 0x00464EE7
+	(const void *)&__identifier("?rva00480281@SlaughterHordeContain@@UAE_NPAVObject@@@Z"), // 20 0x00480281
+	(const void *)&__identifier("?doLoadSound@OpenContain@@MAEXXZ"), // 21 0x0046279C
+	(const void *)&__identifier("?doUnloadSound@OpenContain@@MAEXXZ"), // 22 0x0046282B
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), // 23 0x000B3FD0
+	(const void *)&__identifier("?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z"), // 24 0x00462E3A
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), // 25 0x000B3FD0
+	(const void *)&__identifier("?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z"), // 26 0x00465972
+	(const void *)&__identifier("?rva00479BC5@Rva00479BC5@@QAEHW4ObjectID@@@Z"), // 27 0x00479BC5
+	(const void *)&__identifier("?rva00479FD4@Rva00479FD4Owner@@QAE_NPAVObject@@@Z"), // 28 0x00479FD4
+	(const void *)&__identifier("?rva00479B7F@SlaughterHordeContain@@UAEXPAVObject@@@Z"), // 29 0x00480584
+	(const void *)&__identifier("?AddHordeMember@SlaughterHordeContain@@QAEXPAVObject@@@Z"), // 30 0x004808E8
+	(const void *)&__identifier("?rva00479B0A@Rva00479B0A@@QAEXPAVObject@@@Z"), // 31 0x00479B0A
+	(const void *)&__identifier("?rva00480E9A@CitadelSlaughterHordeContain@@UAEXPAVObject@@@Z"), // 32 0x00480E9A
+	(const void *)&__identifier("?rva004807C7@CitadelSlaughterHordeContain@@UAE_NPAVObject@@@Z")  // 33 0x004807C7
+};
 
 extern "C" char __identifier("??_7GarrisonContain@@6BB1@@@");
 
-static int s_secondary10;
+// Retail table 0x00C48CB0 (3 slots), stored by the constructor below. Own the
+// complete initialized table instead of a zero-int stand-in (Rva004DF324Dtor.cpp
+// s_10 precedent): each slot names a matched row at retail's slot target, taken
+// by address and never called through these erased signatures.
+extern "C" {
+void __identifier("?update@CitadelSlaughterHordeContain@@UAE?AW4UpdateSleepTime@@XZ")();
+void __identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ")();
+void __identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")();
+}
+static const void *const s_secondary10[3] = {
+	(const void *)&__identifier("?update@CitadelSlaughterHordeContain@@UAE?AW4UpdateSleepTime@@XZ"), //  0 0x00480FE2
+	(const void *)&__identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ"), //  1 0x00253376
+	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")  //  2 0x0044DF8D
+};
 
-static int s_secondary20;
+// Retail table 0x00C48B38 (94 slots), stored by the constructor below. Own the
+// complete initialized table instead of a zero-int stand-in (Rva004DF324Dtor.cpp
+// s_10 precedent): each slot names a matched row at retail's slot target, taken
+// by address and never called through these erased signatures.
+extern "C" {
+void __identifier("?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")();
+void __identifier("?get@Rva004647CDLeaField@@QBEPAXXZ")();
+void __identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ")();
+void __identifier("?containReactToTransformChange@OpenContain@@UAEXXZ")();
+void __identifier("?slot08@OpenContainModuleData@@UBE_NXZ")();
+void __identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ")();
+void __identifier("?get@Rva0047840CByteChase32Field@@QBEEXZ")();
+void __identifier("?get@Rva0046294EByteChaseField@@QBEEXZ")();
+void __identifier("?slot02@OpenContain@@UAEXXZ")();
+void __identifier("?rva004639D5@Rva004639D5@@UAEHH@Z")();
+void __identifier("?rva00464FC7@SlaughterHordeContain@@UAE_NPAXH@Z")();
+void __identifier("?rva0046322C@Rva0046322C@@QAEHXZ")();
+void __identifier("?rva004780E7@SlaughterHordeContain@@UAEPAVPlayer@@PBV2@@Z")();
+void __identifier("?recalcApparentControllingPlayer@GarrisonContain@@UAEXXZ")();
+void __identifier("?setOriginalTeam@Rva004783F4@@UAEXPAVTeam@@@Z")();
+void __identifier("?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z")();
+void __identifier("?rva00464D02@SlaughterHordeContain@@UAEXPAVObject@@@Z")();
+void __identifier("?rva0050B238@Rva005E62F1@@WCA@AEXPAXI@Z")();
+void __identifier("?rva00462504@SlaughterHordeContain@@UAEXXZ")();
+void __identifier("?rva00479C0C@HordeGarrisonContain@@UAEXPAVObject@@PAXPAUDamageInfoInput00462516@@@Z")();
+void __identifier("?rva0050B238@HordeGarrisonContain@@UAEXPAVObject@@_N@Z")();
+void __identifier("?get@Rva00462745PtrChaseField@@QBEHXZ")();
+void __identifier("?Rva004647F0Adjust@@YIPAXPAX@Z")();
+void __identifier("?rva00465011@HordeGarrisonContain@@UAEXPAVObject@@@Z")();
+void __identifier("?rva00465078@OpenContainActionIface@@UAEXW4CommandSourceType@@@Z")();
+void __identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z")();
+void __identifier("?rva00463138@OpenContainActionIface@@UAEXXZ")();
+void __identifier("?isValidContainerFor@CitadelSlaughterHordeContain@@UAE_NPAVObject@@_N1@Z")();
+void __identifier("?addToContain@SlaughterHordeContain@@UAEXPAVObject@@@Z")();
+void __identifier("?addToContainList@OpenContain@@UAEXPAVObject@@@Z")();
+void __identifier("?rva00479DCD@Rva00479DCD@@QAEXPAVObject@@H@Z")();
+void __identifier("?rva00478231@Rva00478231@@QAEX_N@Z")();
+void __identifier("?rva0046274C@SlaughterHordeContain@@UAEXPAXH0@Z")();
+void __identifier("?rva00462CE1@SlaughterHordeContain@@UAEPAVBfmeObject872Header@@PAV2@H@Z")();
+void __identifier("?rva00462B93@SlaughterHordeContain@@UAE_NPBVRva00462B93Arg@@@Z")();
+void __identifier("?rva00462BFF@OpenContainActionIface@@UBEDPBVObject@@0@Z")();
+void __identifier("?Rva004647D1Get@@YAMXZ")();
+void __identifier("?rva004628AB@OpenContainActionIface@@UAE_NHH@Z")();
+void __identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")();
+void __identifier("?rva004631FA@SlaughterHordeContain@@UAE_NH@Z")();
+void __identifier("?rva004632E0@HordeGarrisonContain@@UAEXPAVObject@@@Z")();
+void __identifier("?set@Rva00464810ByteSlot@@QAEXE@Z")();
+void __identifier("?rva00462735@Rva00462735@@QAEXXZ")();
+void __identifier("?get@Rva00462CD3Sub@@QBE_NXZ")();
+void __identifier("?onContaining@TransportContain@@UAEXPAVObject@@_N@Z")();
+void __identifier("?rva004631C9@SlaughterHordeContain@@UAEXXZ")();
+void __identifier("?rva004635EC@SlaughterHordeContain@@UAEXP6AXPAVObject@@PAX@Z1H@Z")();
+void __identifier("?rva00462DE0@Rva00462DE0@@QAEHPAVRva2225E0Filter@@@Z")();
+void __identifier("?rva004647D8@Rva004647D8@@QAEPAXPAX@Z")();
+void __identifier("?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ")();
+void __identifier("?get@Rva005C4AFDDwordField@@QBEHXZ")();
+void __identifier("?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAUCoord3D@@PBU2@@Z")();
+void __identifier("?attemptBestFirePointPosition@GarrisonContain@@UAE_NPAVObject@@PAVWeapon@@PBUCoord3D@@@Z")();
+void __identifier("?attemptBestFirePointPosition@GarrisonContain@@UAE_NPAVObject@@PAVWeapon@@0@Z")();
+void __identifier("?rva00463291@OpenContainActionIface@@UAEPAVObject@@PAVRva2225E0Filter@@@Z")();
+void __identifier("?get@Rva003F3FCEDwordField@@QBEHXZ")();
+void __identifier("?rva004642D3@SlaughterHordeContain@@UAEXXZ")();
+void __identifier("?set@Rva004647FDByteSlot@@QAEXE@Z")();
+void __identifier("?rva00481279@Rva00481279@@QAE_NHHHHHH@Z")();
+void __identifier("?get@Rva00464825DwordField@@QBEHXZ")();
+void __identifier("?rva004626CA@HordeGarrisonContain@@UAEPBUCoord3D@@XZ")();
+void __identifier("?rva004626AF@HordeGarrisonContain@@UAEPBUCoord3D@@XZ")();
+void __identifier("?rva00464829@HordeGarrisonContain@@UAEPBUCoord3D@@XZ")();
+void __identifier("?rva0046480A@Rva0046480A@@QAEHH@Z")();
+void __identifier("?rva004625BB@SlaughterHordeContain@@UAE_NPAXH@Z")();
+void __identifier("?rva004625F0@SlaughterHordeContain@@UAEXPAX@Z")();
+void __identifier("?rva00462955@OpenContainActionIface@@UAE_NPAVObject@@H@Z")();
+void __identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z")();
+}
+static const void *const s_secondary20[94] = {
+	(const void *)&__identifier("?rva0046261B@SlaughterHordeContain@@UAEX_N@Z"), //  0 0x0046261B
+	(const void *)&__identifier("?get@Rva004647CDLeaField@@QBEPAXXZ"), //  1 0x004647CD
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), //  2 0x000D43D0
+	(const void *)&__identifier("?containReactToTransformChange@OpenContain@@UAEXXZ"), //  3 0x004624E3
+	(const void *)&__identifier("?slot08@OpenContainModuleData@@UBE_NXZ"), //  4 0x0050B5C6
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), //  5 0x0047A699
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), //  6 0x0047A699
+	(const void *)&__identifier("?get@Rva0047840CByteChase32Field@@QBEEXZ"), //  7 0x0047840C
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), //  8 0x0047A699
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), //  9 0x0047A699
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 10 0x000D43D0
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), // 11 0x0047A699
+	(const void *)&__identifier("?slot08@OpenContainModuleData@@UBE_NXZ"), // 12 0x0050B5C6
+	(const void *)&__identifier("?slot08@OpenContainModuleData@@UBE_NXZ"), // 13 0x0050B5C6
+	(const void *)&__identifier("?get@Rva0046294EByteChaseField@@QBEEXZ"), // 14 0x0046294E
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), // 15 0x000B3FD0
+	(const void *)&__identifier("?rva004639D5@Rva004639D5@@UAEHH@Z"), // 16 0x004639D5
+	(const void *)&__identifier("?rva00464FC7@SlaughterHordeContain@@UAE_NPAXH@Z"), // 17 0x00464FC7
+	(const void *)&__identifier("?rva0046322C@Rva0046322C@@QAEHXZ"), // 18 0x0046322C
+	(const void *)&__identifier("?rva004780E7@SlaughterHordeContain@@UAEPAVPlayer@@PBV2@@Z"), // 19 0x004780E7
+	(const void *)&__identifier("?recalcApparentControllingPlayer@GarrisonContain@@UAEXXZ"), // 20 0x00479432
+	(const void *)&__identifier("?setOriginalTeam@Rva004783F4@@UAEXPAVTeam@@@Z"), // 21 0x004783DC
+	(const void *)&__identifier("?onContaining@GarrisonContain@@UAEXPAVObject@@_N@Z"), // 22 0x00478C2C
+	(const void *)&__identifier("?rva00464D02@SlaughterHordeContain@@UAEXPAVObject@@@Z"), // 23 0x004806D3
+	(const void *)&__identifier("?rva0050B238@Rva005E62F1@@WCA@AEXPAXI@Z"), // 24 0x0046481D
+	(const void *)&__identifier("?rva00462504@SlaughterHordeContain@@UAEXXZ"), // 25 0x00462504
+	(const void *)&__identifier("?rva00479C0C@HordeGarrisonContain@@UAEXPAVObject@@PAXPAUDamageInfoInput00462516@@@Z"), // 26 0x00479C0C
+	(const void *)&__identifier("?rva0050B238@HordeGarrisonContain@@UAEXPAVObject@@_N@Z"), // 27 0x00479C2A
+	(const void *)&__identifier("?get@Rva00462745PtrChaseField@@QBEHXZ"), // 28 0x00462745
+	(const void *)&__identifier("?Rva004647F0Adjust@@YIPAXPAX@Z"), // 29 0x004647F0
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 30 0x000D43D0
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 31 0x000D43D0
+	(const void *)&__identifier("?rva00465011@HordeGarrisonContain@@UAEXPAVObject@@@Z"), // 32 0x00479BF3
+	(const void *)&__identifier("?rva00465078@OpenContainActionIface@@UAEXW4CommandSourceType@@@Z"), // 33 0x00465078
+	(const void *)&__identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z"), // 34 0x0047A69C
+	(const void *)&__identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z"), // 35 0x0047A69C
+	(const void *)&__identifier("?rva00463138@OpenContainActionIface@@UAEXXZ"), // 36 0x00463138
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), // 37 0x000B3FD0
+	(const void *)&__identifier("?isValidContainerFor@CitadelSlaughterHordeContain@@UAE_NPAVObject@@_N1@Z"), // 38 0x0048071D
+	(const void *)&__identifier("?addToContain@SlaughterHordeContain@@UAEXPAVObject@@@Z"), // 39 0x00480471
+	(const void *)&__identifier("?addToContainList@OpenContain@@UAEXPAVObject@@@Z"), // 40 0x004638F1
+	(const void *)&__identifier("?rva00479DCD@Rva00479DCD@@QAEXPAVObject@@H@Z"), // 41 0x00479DCD
+	(const void *)&__identifier("?rva00478231@Rva00478231@@QAEX_N@Z"), // 42 0x00478231
+	(const void *)&__identifier("?rva0046274C@SlaughterHordeContain@@UAEXPAXH0@Z"), // 43 0x0046274C
+	(const void *)&__identifier("?rva00462CE1@SlaughterHordeContain@@UAEPAVBfmeObject872Header@@PAV2@H@Z"), // 44 0x00462CE1
+	(const void *)&__identifier("?slot08@OpenContainModuleData@@UBE_NXZ"), // 45 0x0050B5C6
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), // 46 0x0047A699
+	(const void *)&__identifier("?rva00462B93@SlaughterHordeContain@@UAE_NPBVRva00462B93Arg@@@Z"), // 47 0x00462B93
+	(const void *)&__identifier("?rva00462BFF@OpenContainActionIface@@UBEDPBVObject@@0@Z"), // 48 0x00462BFF
+	(const void *)&__identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z"), // 49 0x0047A69C
+	(const void *)&__identifier("?slot08@OpenContainModuleData@@UBE_NXZ"), // 50 0x0050B5C6
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 51 0x000D43D0
+	(const void *)&__identifier("?slot08@OpenContainModuleData@@UBE_NXZ"), // 52 0x0050B5C6
+	(const void *)&__identifier("?Rva004647D1Get@@YAMXZ"), // 53 0x004647D1
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), // 54 0x0047A699
+	(const void *)&__identifier("?rva004628AB@OpenContainActionIface@@UAE_NHH@Z"), // 55 0x004628AB
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 56 0x000D43D0
+	(const void *)&__identifier("?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z"), // 57 0x005CB9FF
+	(const void *)&__identifier("?rva004631FA@SlaughterHordeContain@@UAE_NH@Z"), // 58 0x004631FA
+	(const void *)&__identifier("?onDamage@OpenContain@@UAEXPAVDamageInfo@@@Z"), // 59 0x0047A69C
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), // 60 0x000B3FD0
+	(const void *)&__identifier("?rva004632E0@HordeGarrisonContain@@UAEXPAVObject@@@Z"), // 61 0x00479BDD
+	(const void *)&__identifier("?slot02@OpenContain@@UAEXXZ"), // 62 0x000B3FD0
+	(const void *)&__identifier("?set@Rva00464810ByteSlot@@QAEXE@Z"), // 63 0x00464810
+	(const void *)&__identifier("?rva00462735@Rva00462735@@QAEXXZ"), // 64 0x00462735
+	(const void *)&__identifier("?get@Rva00462CD3Sub@@QBE_NXZ"), // 65 0x00462CD3
+	(const void *)&__identifier("?onContaining@TransportContain@@UAEXPAVObject@@_N@Z"), // 66 0x00463191
+	(const void *)&__identifier("?rva004631C9@SlaughterHordeContain@@UAEXXZ"), // 67 0x004631C9
+	(const void *)&__identifier("?rva004635EC@SlaughterHordeContain@@UAEXP6AXPAVObject@@PAX@Z1H@Z"), // 68 0x004635EC
+	(const void *)&__identifier("?rva00462DE0@Rva00462DE0@@QAEHPAVRva2225E0Filter@@@Z"), // 69 0x00462DE0
+	(const void *)&__identifier("?rva004647D8@Rva004647D8@@QAEPAXPAX@Z"), // 70 0x004647D8
+	(const void *)&__identifier("?rva004624EB@Rva004624EB@@UAE?AURva00462465@@XZ"), // 71 0x004624EB
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 72 0x000D43D0
+	(const void *)&__identifier("?get@Rva005C4AFDDwordField@@QBEHXZ"), // 73 0x005C4AFD
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 74 0x000D43D0
+	(const void *)&__identifier("?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ"), // 75 0x000D43D0
+	(const void *)&__identifier("?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAUCoord3D@@PBU2@@Z"), // 76 0x00478547
+	(const void *)&__identifier("?attemptBestFirePointPosition@GarrisonContain@@UAE_NPAVObject@@PAVWeapon@@PBUCoord3D@@@Z"), // 77 0x004788CE
+	(const void *)&__identifier("?attemptBestFirePointPosition@GarrisonContain@@UAE_NPAVObject@@PAVWeapon@@0@Z"), // 78 0x00478850
+	(const void *)&__identifier("?rva00463291@OpenContainActionIface@@UAEPAVObject@@PAVRva2225E0Filter@@@Z"), // 79 0x00463291
+	(const void *)&__identifier("?shouldDoOnBuildComplete@OpenContain@@UBE_NXZ"), // 80 0x0047A699
+	(const void *)&__identifier("?get@Rva003F3FCEDwordField@@QBEHXZ"), // 81 0x003F3FCE
+	(const void *)&__identifier("?rva004642D3@SlaughterHordeContain@@UAEXXZ"), // 82 0x004642D3
+	(const void *)&__identifier("?set@Rva004647FDByteSlot@@QAEXE@Z"), // 83 0x004647FD
+	(const void *)&__identifier("?rva00481279@Rva00481279@@QAE_NHHHHHH@Z"), // 84 0x00481279
+	(const void *)&__identifier("?get@Rva00464825DwordField@@QBEHXZ"), // 85 0x00464825
+	(const void *)&__identifier("?rva004626CA@HordeGarrisonContain@@UAEPBUCoord3D@@XZ"), // 86 0x00479F29
+	(const void *)&__identifier("?rva004626AF@HordeGarrisonContain@@UAEPBUCoord3D@@XZ"), // 87 0x00479F62
+	(const void *)&__identifier("?rva00464829@HordeGarrisonContain@@UAEPBUCoord3D@@XZ"), // 88 0x00479F9B
+	(const void *)&__identifier("?rva0046480A@Rva0046480A@@QAEHH@Z"), // 89 0x0046480A
+	(const void *)&__identifier("?rva004625BB@SlaughterHordeContain@@UAE_NPAXH@Z"), // 90 0x004625BB
+	(const void *)&__identifier("?rva004625F0@SlaughterHordeContain@@UAEXPAX@Z"), // 91 0x004625F0
+	(const void *)&__identifier("?rva00462955@OpenContainActionIface@@UAE_NPAVObject@@H@Z"), // 92 0x00462955
+	(const void *)&__identifier("?rva005F267E@Rva0086EE20@@UAEXHM@Z")  // 93 0x0050B238
+};
 
 extern "C" char __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@");
 
