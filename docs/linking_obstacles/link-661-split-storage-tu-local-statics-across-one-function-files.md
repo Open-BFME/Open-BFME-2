@@ -1,6 +1,7 @@
 ### LINK-661: split storage: one retail global kept as several storages, mostly TU-local statics split across one-function files
 Status: Open. One instance repaired (the language buffer, below); the rest need TU merges. Updated: 2026-11-12 (seat
-halilkkaya-lk103); base `36e2968e498`, census index `c31795c94c`.
+halilkkaya-lk103; consolidation dry runs by halilkkaya-cs96 at `4710051788e`, below); base `36e2968e498`, census
+index `c31795c94c`.
 
 Evidence / affected units: the survey in LINK-627's 2026-11-12 lk103 section (walker plus a relocation resolver);
 `?Get_Sorting_Struct@@YAPAVSortingNodeStruct@@XZ` 0x0012FD80 in `reverse/re_attempts.log`.
@@ -54,3 +55,26 @@ are on the boot walk at tier 0. Bytes unchanged; one relocation per row now name
 
 **Next.** Do the merges above in boot order: sortingrenderer.cpp needs TU approval of 0x0012FD80/0x0012FE00 first,
 pointgr.cpp needs the VertexLoc users. Re-run the survey (scripts in the LINK-627 section) after each merge.
+
+**2026-11-12 consolidation pass (seat halilkkaya-cs96, base `4710051788e`).** No merge landed; each boot-order merge
+is walled by a tool refusal or a missing approval, measured with the supported dry runs (rows in
+`reverse/re_attempts.log` under `tu-merge:<path>`):
+- **pointgr.cpp (VertexLoc).** The seed's two "foreign" rows are ICF identities, not code to split: 0x00154BE0
+  `VectorClass<float>::ID` and 0x00154E60 `VectorClass<Vector2>::ID` (24-byte folds of about 30 rows; pointgr.cpp's
+  row comes first at each address). The map approves both for render2dsentence.cpp by T alone. `emission_held` keeps
+  an implicit template instance in the seed only when its TU rests on C, so the merge reports the seed mixed;
+  `--split` finds no spelled definition and `--emit-move` takes no template instances. Prerequisite: tooling
+  (hold T-only template instances like C-only ones, the LINK-629 argument), then the DX8Wrapper, PointGroupClass and
+  BfmeVciAnchorElem views, then VertexLoc file-static together with its initializer 0x007ACF20 and atexit 0x007B7400.
+- **sortingrenderer.cpp (lists).** The missing approval comes from naming, not layout. In memory, `tu_map.build`
+  with only 0x0012FE00 renamed to `?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@IIII@Z` approves
+  0x0012FE00 (Z) and 0x0012FD80 (T, 0x0012F190..0x0012FE00) for sortingrenderer.cpp. The SortingNodeStruct dtor and
+  `??_G` stay proposed. Prerequisites: prove the parameter type, then run `rename.py function --respell` over the 11
+  units that spell `BfmeSortingDispatchAt0012FE00`, then split Get_Sorting_Struct out of SortingNodeStructDtor.cpp.
+- **W3DMouse.cpp (isThread).** `--split W3DMouseInitW3DAssets.cpp --for W3DMouse.cpp` carves all four isThread users
+  and the datum. It refuses because the residual keeps the unused `extern unsigned int g_Va009E5DF8;`
+  (`prune_unused_externs` is off when `extern_macro_tokens` cannot resolve `<d3d9.h>`), so the address_global total
+  rises from 5 to 6. Past that, the static and the extern "C" isThread meet in one unit, so the split needs a
+  `--prepared` W3DMouse.cpp. Prerequisite: name g_Va009E5DF8 or teach the extern pruning to accept system includes.
+- **statistics.cpp (texture counters).** The splits are refused for data-identity debt that is this duplicate
+  definition, and the residual loses `Find_Record_Texture`. Needs a `--prepared` split.
