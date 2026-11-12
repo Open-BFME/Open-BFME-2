@@ -6,7 +6,7 @@ struct EmitVtableTag;
 // Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
 #include "../../Include/Common/ModuleData.h"
 
-class DominateEnemySpecialPowerModuleData { public: DominateEnemySpecialPowerModuleData(EmitVtableTag *); virtual ~DominateEnemySpecialPowerModuleData(); };
+class DominateEnemySpecialPowerModuleData : public ModuleData { public: DominateEnemySpecialPowerModuleData(EmitVtableTag *); virtual ~DominateEnemySpecialPowerModuleData(); };
 // ?<DominateEnemySpecialPowerModuleData::DominateEnemySpecialPowerModuleData> absent-from-retail
 DominateEnemySpecialPowerModuleData::DominateEnemySpecialPowerModuleData(EmitVtableTag *) {}
 

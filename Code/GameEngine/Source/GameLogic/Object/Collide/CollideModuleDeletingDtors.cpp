@@ -14,8 +14,11 @@
 
 struct EmitVtableTag;
 
+// Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../Include/Common/ModuleData.h"
+
 // ??_GSalvageCrateCollideModuleData@@UAEPAXI@Z @0x002563D3 28B: slot 0 of vtable 0x00BF3A40; calls ??1 at 0x002563EF.
 // Owner evidence (audited 2026-09-26): retail registration SalvageCrateCollide -> data factory RVA 0x00255BD2 -> ctor RVA 0x00255B7E; primary vptr store RVA 0x00255BA3.
-class SalvageCrateCollideModuleData { public: SalvageCrateCollideModuleData(EmitVtableTag *); virtual ~SalvageCrateCollideModuleData(); };
+class SalvageCrateCollideModuleData : public ModuleData { public: SalvageCrateCollideModuleData(EmitVtableTag *); virtual ~SalvageCrateCollideModuleData(); };
 // ?<SalvageCrateCollideModuleData::SalvageCrateCollideModuleData> absent-from-retail
 SalvageCrateCollideModuleData::SalvageCrateCollideModuleData(EmitVtableTag *) {}

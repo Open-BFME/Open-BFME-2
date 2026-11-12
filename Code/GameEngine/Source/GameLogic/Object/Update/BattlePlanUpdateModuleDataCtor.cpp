@@ -44,14 +44,17 @@ public:
 	unsigned char m_data[0x1C];
 };
 
-class BattlePlanUpdateModuleData
+// Retail's table 0x00C4FB00 holds ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../Include/Common/ModuleData.h"
+
+class BattlePlanUpdateModuleData : public ModuleData
 {
 public:
 	BattlePlanUpdateModuleData();
 	virtual ~BattlePlanUpdateModuleData();
 
 private:
-	unsigned int m_unused04;						// +0x04 retail never stores
+	// +0x04 is ModuleData's tag, which this constructor never stores.
 	const void *m_specialPowerTemplate;				// +0x08
 	unsigned int m_bombardmentPlanAnimationFrames;	// +0x0C
 	unsigned int m_holdTheLinePlanAnimationFrames;	// +0x10

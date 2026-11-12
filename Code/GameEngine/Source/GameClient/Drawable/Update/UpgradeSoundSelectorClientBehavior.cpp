@@ -56,15 +56,17 @@ struct Rva004CB51CEntry
 // The +0x08 vector holds the 0x384-byte entries; its element type stays the
 // BfmeE16 placeholder the matched ctor's vector base 0x00211E58 is rowed with.
 class INI;
-class UpgradeSoundSelectorClientBehaviorModuleData
+// Retail's table holds ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../Include/Common/ModuleData.h"
+
+class UpgradeSoundSelectorClientBehaviorModuleData : public ModuleData
 {
 public:
 	UpgradeSoundSelectorClientBehaviorModuleData();
 	static void parseVoicePriority(INI*,void*,void*,const void*);
 	static void parseSoundUpgrade(INI *, void *, void *, const void *);
 	virtual ~UpgradeSoundSelectorClientBehaviorModuleData();
-	char m_pad04[0x4];
-	_STL::vector<BfmeE16> m_vec08; // +0x08
+	_STL::vector<BfmeE16> m_vec08; // +0x08 (+0x04 is ModuleData's tag)
 };
 #include "../../../../Include/GameClient/Drawable.h"
 #include <string.h>

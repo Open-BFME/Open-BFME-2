@@ -4,6 +4,9 @@
 // Evidence: chain lane after landing 0x00497DD6; retail push esi call ??1 test flag delete ret 4.
 struct EmitVtableTag;
 
-class BattlePlanUpdateModuleData { public: BattlePlanUpdateModuleData(EmitVtableTag *); virtual ~BattlePlanUpdateModuleData(); };
+// Retail's tables hold ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../Include/Common/ModuleData.h"
+
+class BattlePlanUpdateModuleData : public ModuleData { public: BattlePlanUpdateModuleData(EmitVtableTag *); virtual ~BattlePlanUpdateModuleData(); };
 // ?<BattlePlanUpdateModuleData::BattlePlanUpdateModuleData> absent-from-retail
 BattlePlanUpdateModuleData::BattlePlanUpdateModuleData(EmitVtableTag *) {}

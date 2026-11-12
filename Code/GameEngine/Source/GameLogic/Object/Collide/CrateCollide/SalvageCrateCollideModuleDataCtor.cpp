@@ -14,14 +14,17 @@
 // BFME1 CrateCollide files plus the Zero Hour CrateCollide header (BFME2
 // appends its own float/int tail past the 0x5C base).
 
-class __declspec(novtable) CrateCollideModuleData
+// Retail's table 0x00BF3A40 holds ModuleData's 30 inherited slots after the deleting destructor.
+#include "../../../../../Include/Common/ModuleData.h"
+
+class __declspec(novtable) CrateCollideModuleData : public ModuleData
 {
 public:
 	CrateCollideModuleData();
 	virtual ~CrateCollideModuleData();
 
 private:
-	unsigned char m_opaque[0x5C - 4];
+	unsigned char m_opaque[0x5C - 8];
 };
 
 class SalvageCrateCollideModuleData : public CrateCollideModuleData

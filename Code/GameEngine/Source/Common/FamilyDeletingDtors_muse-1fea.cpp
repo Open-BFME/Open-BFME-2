@@ -11,6 +11,6 @@ class LevelGrantSpecialPowerModuleData : public ModuleData { public: LevelGrantS
 LevelGrantSpecialPowerModuleData::LevelGrantSpecialPowerModuleData(EmitVtableTag *) {}
 // ??_GClearanceTestingSlowDeathBehaviorModuleData@@UAEPAXI@Z @0x00483EC5 28B
 // Deleting dtor slot 0 of vtable 0x00849E98; calls rowed ??1 at 0x00483EE1 then rowed operator delete at 0x0002FD60.
-class ClearanceTestingSlowDeathBehaviorModuleData { public: ClearanceTestingSlowDeathBehaviorModuleData(EmitVtableTag *); virtual ~ClearanceTestingSlowDeathBehaviorModuleData(); };
+class ClearanceTestingSlowDeathBehaviorModuleData : public ModuleData { public: ClearanceTestingSlowDeathBehaviorModuleData(EmitVtableTag *); virtual ~ClearanceTestingSlowDeathBehaviorModuleData(); };
 // ?<ClearanceTestingSlowDeathBehaviorModuleData::ClearanceTestingSlowDeathBehaviorModuleData> absent-from-retail
 ClearanceTestingSlowDeathBehaviorModuleData::ClearanceTestingSlowDeathBehaviorModuleData(EmitVtableTag *) {}
