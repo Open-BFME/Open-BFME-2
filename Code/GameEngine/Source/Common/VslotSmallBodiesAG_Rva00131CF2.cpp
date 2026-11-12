@@ -80,23 +80,24 @@ Int Rva0057B97C::rva0057B97C()
 	return 0;
 }
 
-// 0x0023DAF7: the rowed 0x0023C7F5 with both arguments on the +0x08
-// member.
+// 0x0023DAF7: slot 1 of Rva0023DAE8's table (retail VA 0x00BEDAA0, slot 0 the
+// shared deleting destructor 0x005FAA31): the rowed 0x0023C7F5 with both
+// arguments on the +0x08 member.
 class Rva0023C7F5
 {
 public:
 	Int rva0023C7F5(Real a, Int b);
 };
-class Rva0023DAF7
+#include "../../Include/Common/Rva0007DF07.h"
+class Rva0023DAE8 : public Rva0007DF07
 {
 public:
-	void rva0023DAF7(Real a, Int b);
+	virtual ~Rva0023DAE8();
+	virtual void rva0023DAF7(Real a, Int b);
 private:
-	Int m_00;
-	Int m_04;
 	Rva0023C7F5 m_08;
 };
-void Rva0023DAF7::rva0023DAF7(Real a, Int b)
+void Rva0023DAE8::rva0023DAF7(Real a, Int b)
 {
 	m_08.rva0023C7F5(a, b);
 }

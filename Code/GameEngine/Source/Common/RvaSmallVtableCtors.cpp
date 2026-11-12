@@ -491,6 +491,7 @@ class Rva0023DAE8 : public Rva0007DF07
 public:
 	Rva0023DAE8(int unused);
 	virtual ~Rva0023DAE8();
+	virtual void rva0023DAF7(float a, int b);	// slot 1, 0x0023DAF7
 };
 
 Rva0023DAE8::Rva0023DAE8(int)

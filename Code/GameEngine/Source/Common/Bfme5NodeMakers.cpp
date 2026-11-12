@@ -8,8 +8,9 @@ namespace _STL {
 }
 
 // The refcounted node the holder allocates is Rva0023DAE8 (RvaSmallVtableCtors.cpp):
-// its table 0x007EDAA0 (slot 0 the shared scalar deleting destructor 0x005FAA31)
-// is the vptr retail stores here, after the inlined base clears the count at +4.
+// its table 0x007EDAA0 (slot 0 the shared scalar deleting destructor 0x005FAA31,
+// slot 1 0x0023DAF7) is the vptr retail stores here, after the inlined base
+// clears the count at +4.
 // The holder inlines the constructor that unit rows out of line at 0x0023DAE8, so
 // this view expands it in place and never emits it.
 #include "../../Include/Common/Rva0007DF07.h"
@@ -19,6 +20,7 @@ class Rva0023DAE8 : public Rva0007DF07
 public:
 	__declspec(dllimport) __forceinline Rva0023DAE8(int) {}
 	virtual ~Rva0023DAE8();
+	virtual void rva0023DAF7(float a, int b);	// 0x0023DAF7
 
 	int m_08;		// the holder allocates 12 bytes
 };
