@@ -4,7 +4,7 @@
 // The compiler-generated vector constructor iterator (??_H) takes the optimization
 // state of the first function that needs it; retail links one copy, the /O1 body at
 // 0x00001423. This unemitted anchor makes this unit's copy that body.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Retail's RefCountClass scalar deleting dtor (0x00072899) is the size form;
