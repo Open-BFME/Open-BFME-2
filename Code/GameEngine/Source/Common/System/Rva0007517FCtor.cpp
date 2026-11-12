@@ -19,11 +19,7 @@
 // spelling/layout is retained as a representation lead; this repair makes
 // no further claim about the element's original identity. All112 owner bytes
 // and its complete native EH graph remain exact.
-class Rva00074626
-{
-public:
-    virtual ~Rva00074626();
-};
+#include "../../../Include/Common/Rva00074626.h"
 class Rva0030B0E3 : public Rva00074626
 {
 public:

@@ -19,12 +19,7 @@
 
 struct EmitVtableTag;
 
-class Rva00074626
-{
-public:
-	Rva00074626();
-	virtual ~Rva00074626() {}
-};
+#include "../../../Include/Common/Rva00074626.h"
 // ??0Rva00074626@@QAE@XZ @0x0030B04C 9B: the default constructor, storing the
 // class's own vtable (VA 0x00BC65A8) and returning this.
 __declspec(noinline) inline Rva00074626::Rva00074626()

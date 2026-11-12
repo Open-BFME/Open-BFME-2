@@ -9,11 +9,7 @@
 // first-pointer-free body 0x0007FAB3, and the vptr falls back to the base
 // table 0x00BC65A8 (deleting destructor plus three pure slots). Owner
 // identity and field roles are not established; names stay address-derived.
-class Rva00074626
-{
-public:
-	virtual ~Rva00074626() {}
-};
+#include "../../Include/Common/Rva00074626.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
