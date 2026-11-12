@@ -118,3 +118,10 @@ All 79 rows and strict preparation pass; own link preview reads LINKS.
 The added shared-body row is zero unique bytes. The generated cleanup
 replacement, three existing header debts and wider census scope remain open.
 [Lifetime proof and audit boundary](../../reverse/attempt_support/apt-timeline-cleanup-20261112.md).
+
+The follow-through replaces generated unwind row7A0252 with the exact
+parent's emitted local in the approved timeline TU. Normal build passes
+80/80 rows; the generated source remains unchanged with its other202 rows.
+One generated owner is retired (946 remain), with no unique-byte or
+source-file gain. The combined outgoing path audit needs no tooling edits.
+Existing header debts and full consumer/census confirmation remain open.

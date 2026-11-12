@@ -416,4 +416,4 @@ Rva005BEA22::~Rva005BEA22()
 	m_owned = 0;
 }
 
-// tu-skeleton: 0x007A0252 11B uw_007a0252 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+// Cleanup 0x007A0252 is emitted by the matched Rva005BEA22 destructor above.

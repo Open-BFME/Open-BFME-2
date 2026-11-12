@@ -35,9 +35,28 @@ and complete bytes equal to retail. The cleanup's 11 bytes are
 to the now-verified buffer destructor. Relocations after byte eleven belong
 to the following EH handler, not this cleanup.
 
-The generated cleanup row still needs its own normal admission and final
-verification. Code/gen_small/uw_gen_010.cpp remains untouched. The three
-existing destination header debts and the wider LINK-150 census scope remain
-open. The previous merge's outgoing audit was INCONCLUSIVE on two consumer
-receipts (first FamilyDeletingDtors12.cpp); this package does not claim that
-gap is closed.
+Ordinary add_match --replace-rva replaces the generated cleanup row with
+the parent's emitted local in the already-approved timeline TU. Normal
+./build.sh passes all 80 destination rows and the same literal/import checks.
+Code/gen_small/uw_gen_010.cpp remains untouched, with 202 other rows still
+owned there. This removes one generated owner; 946 generated unwind rows
+remain in the current ledger. It removes no source file and claims no new
+unique retail bytes.
+
+Final strict preparation passes; own link_check still reads LINKS with
+4,193 bytes. Normal verification also passes all 202 surviving rows in the
+unchanged generated source. Read-only final parent/callee/cleanup proofs
+remain unmasked and exact after the source comment update.
+
+The outgoing path audit covers the callee admission and cleanup repoint
+together. No physical source is moved or deleted. The generator and exit
+link's family patterns still apply to the surviving generated source, and
+its other provenance comments and historical references remain accurate.
+The new source is tracked; the current TU map already approves this cleanup
+for the exact-parent timeline TU. No active include, hook, workflow or build
+consumer needs changing. The generated body is left orphaned as required.
+
+The three existing destination header debts and the wider LINK-150 census
+scope remain open. The previous merge's outgoing audit was INCONCLUSIVE
+on two consumer receipts (first FamilyDeletingDtors12.cpp); this package
+does not claim that gap is closed.
