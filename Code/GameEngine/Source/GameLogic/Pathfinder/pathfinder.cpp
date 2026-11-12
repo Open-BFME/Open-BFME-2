@@ -611,7 +611,7 @@ public:
 private:
     Pathfinder *pf;
 };
-class Rva002F336AOwner { public: Bool rva002F336A(Int,Int); };
+#include "../../../Include/GameLogic/Rva002F336AOwner.h"
 struct PathfinderOpenQueue {PathfindCell **first,**last;Bool empty()const{return first==last;}PathfindCell *front()const{return *first;}};
 struct ICoord2D;
 struct Rva002E7261Info;

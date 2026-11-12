@@ -477,21 +477,7 @@ struct PathfinderLogFile;
 extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-class Rva002F336AOwner
-{
-public:
-	bool rva002F336A(int,int);
-private:
-	Pathfinder *pf; // +0x00
-	void *object; // +0x04
-	unsigned char mode; // +0x08
-	char m_pad09[0x3];
-	void *radius; // +0x0C
-	Coord3D *out; // +0x10
-	void *target; // +0x14
-	void *targetPosition; // +0x18
-	Rva002CB35CObj *weapon; // +0x1C
-};
+#include "../../../Include/GameLogic/Rva002F336AOwner.h"
 struct PathfinderOpenQueue
 {
  PathfindCell **first,**last;

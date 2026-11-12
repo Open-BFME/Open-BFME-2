@@ -920,21 +920,7 @@ namespace _STL { template <> _STL::_Rb_tree_iterator<_STL::pair<int const,Rva002
 template _STL::_Rb_tree_iterator<_STL::pair<int const, Rva002F3093Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva002F3093Record> > > _STL::map<int, Rva002F3093Record, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva002F3093Record> > >::insert(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva002F3093Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva002F3093Record> > >, _STL::pair<int const, Rva002F3093Record> const &);
 class Rva002CB35CObj;
 #include "../../../Include/GameLogic/AIPathfind.h"
-class Rva002F336AOwner
-{
-public:
-	bool rva002F336A(int,int);
-private:
-	Pathfinder *pf; // +0x00
-	void *object; // +0x04
-	unsigned char mode; // +0x08
-	char m_pad09[0x3];
-	void *radius; // +0x0C
-	Coord3D *out; // +0x10
-	void *target; // +0x14
-	void *targetPosition; // +0x18
-	Rva002CB35CObj *weapon; // +0x1C
-};
+#include "../../../Include/GameLogic/Rva002F336AOwner.h"
 struct Rva002F3759Compare { bool operator()(unsigned int a,unsigned int b)const{return a<b;} };
 // Instantiate the recovered member; retain only its required template dependencies.
 template unsigned int & _STL::map<unsigned int, unsigned int, Rva002F3759Compare, _STL::allocator<_STL::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const &);

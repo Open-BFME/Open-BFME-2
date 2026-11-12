@@ -396,21 +396,7 @@ struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};
 class Rva002872BA;extern Rva002872BA *TheTriggerManager;
 Int isGroundOrBridgeLayer(Int);
-class Rva002F336AOwner
-{
-public:
-	bool rva002F336A(int,int);
-private:
-	Pathfinder *pf; // +0x00
-	void *object; // +0x04
-	unsigned char mode; // +0x08
-	char m_pad09[0x3];
-	void *radius; // +0x0C
-	Coord3D *out; // +0x10
-	void *target; // +0x14
-	void *targetPosition; // +0x18
-	Rva002CB35CObj *weapon; // +0x1C
-};
+#include "../../../Include/GameLogic/Rva002F336AOwner.h"
 class Pathfinder
 {
 friend struct Rva002F5925Info;
