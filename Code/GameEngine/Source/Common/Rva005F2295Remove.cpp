@@ -29,11 +29,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class Rva005F224EListener
-{
-public:
-	virtual void notify(void *, int);
-};
+#include "../../Include/Common/Rva005F224EListener.h"
 
 class Rva005F224EList
 {

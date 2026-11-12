@@ -49,11 +49,7 @@ template <> _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> >::iter
 _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> >::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *, const int &, _Rb_tree_node_base *);
 }
 
-class Rva005F224EListener
-{
-public:
-	virtual void notify(void *, int);
-};
+#include "../../Include/Common/Rva005F224EListener.h"
 
 class Rva005F224EList
 {

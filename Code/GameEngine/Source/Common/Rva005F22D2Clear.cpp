@@ -11,11 +11,7 @@ namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<int c
 namespace _STL { template <> void _Rb_tree<int,_STL::pair<int const,void *>,_STL::_Select1st<_STL::pair<int const,void *> >,_STL::less<int>,_STL::allocator<_STL::pair<int const,void *> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const,void *>,_STL::_Nonconst_traits<_STL::pair<int const,void *> > >); }
 // bfme link decl-only end
 
-class Rva005F224EListener
-{
-public:
-	virtual void notify(void *, int);
-};
+#include "../../Include/Common/Rva005F224EListener.h"
 
 class Rva005F224EList
 {
