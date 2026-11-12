@@ -331,13 +331,7 @@ private:
 };
 // 0x001F01E8 / 0x0025EF07 / 0x0025EF01: empty bodies taking four, six and
 // seven arguments.
-class Rva001F01E8
-{
-public:
-	void rva001F01E8(int a, int b, int c, int d);
-	void rva0025EF07(int a, int b, int c, int d, int e, int f);
-	void rva0025EF01(int a, int b, int c, int d, int e, int f, int g);
-};
+#include "../../../../GameEngine/Include/Common/Rva001F01E8.h"
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
 #include "../../../../GameEngine/Include/GameLogic/PartitionFilter.h"

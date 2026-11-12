@@ -852,13 +852,7 @@ extern GlobalData *TheWritableGlobalData;
 // 0x00251C08: whether the word at +0xC is positive.
 // 0x001F01E8 / 0x0025EF07 / 0x0025EF01: empty bodies taking four, six and
 // seven arguments.
-class Rva001F01E8
-{
-public:
-	void rva001F01E8(int a, int b, int c, int d);
-	void rva0025EF07(int a, int b, int c, int d, int e, int f);
-	void rva0025EF01(int a, int b, int c, int d, int e, int f, int g);
-};
+#include "../../../Include/Common/Rva001F01E8.h"
 
 // 0x00260E1E: one shifted left by the +0x54 word of the object at +8.
 // 0x0026118B: whether the +0x258 word of the argument is set.

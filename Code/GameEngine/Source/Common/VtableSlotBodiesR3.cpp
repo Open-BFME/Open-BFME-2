@@ -488,13 +488,7 @@ bool Rva00251C08::rva00251C08()
 
 // 0x001F01E8 / 0x0025EF07 / 0x0025EF01: empty bodies taking four, six and
 // seven arguments.
-class Rva001F01E8
-{
-public:
-	void rva001F01E8(int a, int b, int c, int d);
-	void rva0025EF07(int a, int b, int c, int d, int e, int f);
-	void rva0025EF01(int a, int b, int c, int d, int e, int f, int g);
-};
+#include "../../Include/Common/Rva001F01E8.h"
 
 void Rva001F01E8::rva0025EF07(int, int, int, int, int, int)
 {
