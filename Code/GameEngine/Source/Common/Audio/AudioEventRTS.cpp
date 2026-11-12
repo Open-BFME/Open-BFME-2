@@ -134,25 +134,7 @@ unsigned int __cdecl Rva00318D4E(unsigned int);
 
 unsigned int __cdecl Rva0052B225(unsigned int);
 
-class GameClient {public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual void slot6();
- virtual void slot7();
- virtual void slot8();
- virtual void slot9();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual Drawable *findDrawableByID(int);
-};
+#include "../../../Include/GameClient/GameClientClass.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -1551,7 +1533,7 @@ const char *Rva002D9AC3::rva002D9AC3()
 
 bool Rva002DA318::rva002DA318() {
  switch(m_tag38) {
- case 1: return ((GameClient *)TheGameClient)->findDrawableByID(m_id34) == 0;
+ case 1: return TheGameClient->findDrawableByID(static_cast<DrawableID>(m_id34)) == 0;
  case 2: return TheGameLogic->findObjectByID((ObjectID)m_id34) == 0;
  case 3: return ((Rva002D3627Host *)TheLivingWorld) && ((LivingWorld *)((Rva002D3627Host *)TheLivingWorld))->FindClickableObject((void*)m_id34) ? 0 : 1;
  case 4: return TheLivingWorldLogic && ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B488E(m_id34) ? 0 : 1;
@@ -1973,7 +1955,7 @@ float Rva002DA153::rva002DA153()
 BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &positionValid) {
  switch(m_int38) {
  case 1: {
-  Drawable *ownerDrawable=TheGameClient->findDrawableByID(m_int34);
+  Drawable *ownerDrawable=TheGameClient->findDrawableByID(static_cast<DrawableID>(m_int34));
   if(ownerDrawable) {m_b48=1;m_position=*(const BfmeEventPositionView*)ownerDrawable->getPosition();}
   break;
  }

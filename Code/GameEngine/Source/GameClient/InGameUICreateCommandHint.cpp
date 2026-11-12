@@ -89,26 +89,7 @@ class CreateAHeroData;
 extern AiOrdersManager *TheAiOrdersManager;
 class CommandButton {public:char pad14[0x14];int command;char pad18[4];unsigned options;char pad20[0x24];void *special;char pad48[4];int radius;AsciiString cursor,invalid;char pad58[0x28];int weapon;bool isContextCommand() const;};
 bool CanSelectDrawable(const Drawable *,bool);
-class GameClient {public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual Drawable *findDrawableByID(unsigned);
-
-};
+#include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 class GameWindow {public:
  virtual void slot00();
@@ -208,7 +189,7 @@ class InGameUI {public:
  virtual void slot79();
  virtual void radiusCursor(int,void *,int,bool);
  virtual void clearRadius();
-char pad4[0x234];CommandButton *pending;char pad23c[0x5c0];int mouseMode;char pad800[4];unsigned mousedOver;
+char pad4[0x234];CommandButton *pending;char pad23c[0x5c0];int mouseMode;char pad800[4];DrawableID mousedOver;
 };
 
 #define CURSOR(n) ((Rva0029B313 *)this)->rva0029B313(n)

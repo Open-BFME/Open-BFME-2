@@ -32,19 +32,7 @@ public:
 	char m_unmodelled_000[0xfc]; // +0x00
 	Rva00603BB0ObjectView *m_object; // +0xFC
 };
-class GameClient {
-public:
-    virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-    virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-    virtual void slot08(); virtual void slot09(); virtual void slot10();
-    virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();
- virtual Drawable *findDrawableByID(unsigned);
-    virtual void slot17(); virtual void slot18(); virtual void slot19();
- virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
- virtual void slot24();virtual void slot25();virtual void slot26();virtual void slot27();virtual void slot28();
-    virtual void destroyDrawable(Drawable *);
-    virtual void slot30(); virtual unsigned getFrame();
-};
+#include "../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 struct Rva001F3899Arg { float x,y,z; };
@@ -113,7 +101,7 @@ public:
     float m_currentWidthScalar;
     unsigned m_decayStartFrame, m_decayFinishFrame;
     unsigned m_rva00603BB0ExpiryFrame;
-    unsigned m_parentID, m_targetID;
+    DrawableID m_parentID, m_targetID;
 };
 
 static void InitLaserMatrix3D(Matrix3D &matrix3D, bool init)

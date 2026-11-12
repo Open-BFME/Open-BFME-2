@@ -51,42 +51,7 @@ enum CellShroudStatus
 };
 
 
-class GameClient
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual Drawable *findDrawableByID(Int id);	// +0x40
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual void slot23();
-	virtual void slot24();
-	virtual void slot25();
-	virtual void slot26();
-	virtual void slot27();
-	virtual void slot28();
-	virtual void slot29();
-	virtual void slot30();
-	virtual UnsignedInt getFrame();	// +0x7C
-};
+#include "../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 extern GameLogic *TheGameLogic;
 
@@ -167,7 +132,7 @@ private:
 	void *m_head, *m_tail, *m_drawer;	// +0x9C
 	ParticleSystemID m_systemID;		// +0xA8
 	Real m_updateTime;			// +0xAC
-	Int m_attachedToDrawableID;		// +0xB0
+	DrawableID m_attachedToDrawableID;		// +0xB0
 	ObjectID m_attachedToObjectID;		// +0xB4
 	AsciiString m_attachedBoneName;		// +0xB8
 	Matrix3D m_localTransform;		// +0xBC
@@ -268,7 +233,7 @@ Bool ParticleSystem::update(Int localPlayerIndex)
 			else
 			{
 				// Drawable has been destroyed - lose our attachment to it
-				m_attachedToDrawableID = 0;
+				m_attachedToDrawableID = static_cast<DrawableID>(0);
 
 				// destroy ourselves
 				destroy();
