@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z @ 0x003E8E23 459B
 // PLAYER_HAS_OBJECT_OF_VETERANCY (condition 146; dispatcher 0x007EC1D5 pushes
@@ -92,7 +93,7 @@ public:
 
 #include "../../../Include/Common/MemoryPoolObject.h"
 
-#include "Common/Snapshot.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
@@ -110,33 +111,19 @@ inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
 }
 
-class TeamPrototype
+#include "../../../Include/Common/Team.h"
+
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
-public:
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
-	{
-		return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
-	}
-private:
-	unsigned char m_pad[0x334];
-	Team *m_dlinkhead_TeamInstanceList; // +0x334
-};
+	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class Player
-{
-public:
-	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
-private:
-	char m_pad[0x32C];
-	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-
-class ObjectTypes;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -144,19 +131,6 @@ extern ScriptEngine *TheScriptEngine;
 #include "../../../Include/GameLogic/ScriptConditions.h"
 
 #include "../../../Include/GameLogic/Rva00376A62.h"
-
-class ObjectTypes
-{
-public:
-	ObjectTypes();
-	virtual ~ObjectTypes();
-	Bool isInSet(const ThingTemplate *thingTemplate) const
-	{
-		return ((Rva00376A62 *)this)->rva00376A84(thingTemplate);
-	}
-private:
-	unsigned char m_padTypesState[0x14 - 4]; // 0x14-byte object (ctor 0x003769F9)
-};
 
 class ObjectTypesTemp
 {
@@ -186,8 +160,8 @@ Bool ScriptConditions::rva003E8E23(Parameter *playerParm, Parameter *typeParm, P
 		Script_objectTypesFromParam(typeParm, typesTemp.m_types);
 	else
 		thingTemplate = TheThingFactory->findTemplate(typeParm->getString());
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -201,7 +175,7 @@ Bool ScriptConditions::rva003E8E23(Parameter *playerParm, Parameter *typeParm, P
 					continue;
 				if (types)
 				{
-					if (!typesTemp.m_types->isInSet(obj->getTemplate()))
+					if (!reinterpret_cast<Rva00376A62 *>(typesTemp.m_types)->rva00376A84(obj->getTemplate()))
 						continue;
 				}
 				else
