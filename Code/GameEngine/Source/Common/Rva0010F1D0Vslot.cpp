@@ -18,12 +18,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_user_data(HSTREAM
 
 #include "../../Include/Common/Rva0036CA00Str.h"
 
-struct CountBase
-{
-	volatile int m_count;
-	__forceinline CountBase() : m_count(0) {}
-	virtual void dummy();
-};
+#include "../../Include/Common/CountBase.h"
 
 class Rva001164D3 : public CountBase
 {

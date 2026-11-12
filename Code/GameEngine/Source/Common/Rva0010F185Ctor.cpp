@@ -5,11 +5,7 @@
 // Callees rowed 0x001164D3 0x000365F0. Caller 0x0010F9B4.
 #include "ascii_string.h"
 #include "../../Include/Common/Rva0036CA00Str.h"
-struct CountBase {
-    volatile int m_count;
-    __forceinline CountBase() : m_count(0) {}
-    virtual void dummy() = 0;
-};
+#include "../../Include/Common/CountBase.h"
 class Rva001164D3 : public CountBase {
 public:
     Rva001164D3(const Rva0036CA00Str &s);

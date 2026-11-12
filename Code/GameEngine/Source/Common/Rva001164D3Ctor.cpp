@@ -5,11 +5,7 @@
 // copy-constructed. The +4 field belongs to a polymorphic base whose inlined
 // ctor is scheduled after the member-address lea; the vfptr store follows it.
 #include "../../Include/Common/Rva0036CA00Str.h"
-struct CountBase {
-    volatile int m_count;
-    __forceinline CountBase() : m_count(0) {}
-    virtual void dummy() = 0;
-};
+#include "../../Include/Common/CountBase.h"
 class Rva001164D3 : public CountBase {
 public:
     Rva001164D3(const Rva0036CA00Str &s);

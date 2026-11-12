@@ -2,11 +2,7 @@
 // ??0Rva0010EF14@@QAE@ABVRva0036CA00Str@@MM@Z @0x0010EF14 46B. Derived ctor passes const Rva0036CA00Str& to rowed base 0x001164D3 then stores floats at +0xC and +0x10 then vtable 0x00BCFA84.
 // Evidence: retail push esi push [esp+8] mov esi ecx call base movss floats mov [esi] vtable ret 0xC; siblings 0x0010EEF1 0x0010EF61 same base and shape; caller 0x0010FDAC.
 #include "../../Include/Common/Rva0036CA00Str.h"
-struct CountBase {
-    volatile int m_count;
-    __forceinline CountBase() : m_count(0) {}
-    virtual void dummy() = 0;
-};
+#include "../../Include/Common/CountBase.h"
 class Rva001164D3 : public CountBase {
 public:
     Rva001164D3(const Rva0036CA00Str &s);
