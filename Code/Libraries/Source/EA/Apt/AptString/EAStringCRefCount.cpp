@@ -26,11 +26,7 @@ unsigned short __cdecl hashLower(const char *text);
 
 class Rva006DB270; extern Rva006DB270 *g_pChainBlockAllocator;
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int blockSize);
-};
+#include "../../../../../GameEngine/Include/Common/Rva006DB160.h"
 
 // Same pool instance, allocation side (companion pin to the freeBlock
 // pin above). Matched DIR32 sites place this pointer at VA 0x00E176E8; its
