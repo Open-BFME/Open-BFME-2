@@ -83,7 +83,7 @@ class B3 { public: virtual void b3(); };
 class B4 { public: virtual void b4(); };
 #include "../../../../Include/Common/B5.h"
 class B6 { public: virtual void b6(); };
-class B7 { public: virtual void b7(); };
+#include "../../../../Include/Common/B7.h"
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
 
 class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8

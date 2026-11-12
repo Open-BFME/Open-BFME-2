@@ -335,7 +335,7 @@ public:
 	virtual void d01() = 0;
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 };
-class B7 { public: virtual void b7(); };
+#include "../../../../Include/Common/B7.h"
 class B8
 {
 public:
