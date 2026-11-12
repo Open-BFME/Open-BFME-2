@@ -78,13 +78,7 @@ public:
 
 #include "../../../../Include/Common/B7.h"
 
-class B8
-{
-public:
-	virtual void b8();
-private:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/Common/B8.h"
 
 class GarrisonContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
 {

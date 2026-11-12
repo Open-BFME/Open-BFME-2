@@ -274,12 +274,7 @@ public:
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 };
 #include "../../../../Include/Common/B7.h"
-class B8
-{
-public:
-	virtual void b8();
-	char m_pad04[0xC4];
-};
+#include "../../../../Include/Common/B8.h"
 
 class OpenContain : public B0, public B1, public B2, public B3, public B4,
     public B5, public B6, public B7, public B8
