@@ -177,14 +177,7 @@ public:
 
 // Terrain-side interface at +4 (base vtable 0x00C4EF80, four __purecall
 // slots); the singleton g_00DEBC60 points at this subobject.
-class Rva000E19A3Interface
-{
-public:
-	virtual void setRenderingMode(int mode) = 0;
-	virtual void setBaseTexture(RefCountPtr<TextureClass> texture) = 0;
-	virtual void setNormalTexture(RefCountPtr<TextureClass> texture) = 0;
-	virtual void clearTextures() = 0;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000E19A3Interface.h"
 
 // g_00DEBC60: matched references place it at VA 0xdebc60 (zero-filled .bss).
 Rva000E19A3Interface *g_00DEBC60;

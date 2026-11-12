@@ -1146,3 +1146,17 @@ at RVA 0x009DE024 is `?ApplicationHWnd@@3PAXA`. Using the same SDK mode in
 the consumer preserves both matched functions and both named imports. At census
 60189f9ced the unit's link preview changes from unresolved (0 bytes) to linking
 (171 bytes). Confirmation on the next full image link is pending.
+
+### Terrain shader interface consumers (2026-11-13)
+
+Rva000E19A3Dtor.cpp, FlatHeightMap.cpp and W3DFloorBuffer.cpp replace their
+private Rva000E19A3Interface definitions with the registered four-slot header.
+The owning acceptance tool retires exactly those three queue entries. Normal
+and strict verification pass 125/125 function rows and both data rows across
+the full four-source cohort; scoped previews retain 10,813 bytes against
+`aa7acf764d`, whose source-path-staleness warning remains applicable.
+Rva000E44BETerrainDraw.cpp keeps its original wrapper and private view: the
+canonical-argument trial retains the parent's 169-byte length and all calls
+but swaps the first copy's ECX/ESP materialization and saved-ESP store, also
+failing its restore funclet. No near match is landed and that queue entry
+remains. [Exact residual, rejected variants and retained trial](../../reverse/attempt_support/terrain-interface-adoption-20261113-root20.md).
