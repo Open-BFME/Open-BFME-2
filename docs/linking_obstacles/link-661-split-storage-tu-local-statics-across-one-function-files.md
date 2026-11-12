@@ -78,3 +78,32 @@ is walled by a tool refusal or a missing approval, measured with the supported d
   `--prepared` W3DMouse.cpp. Prerequisite: name g_Va009E5DF8 or teach the extern pruning to accept system includes.
 - **statistics.cpp (texture counters).** The splits are refused for data-identity debt that is this duplicate
   definition, and the residual loses `Find_Record_Texture`. Needs a `--prepared` split.
+
+**2026-11-12 second consolidation pass (seat halilkkaya-cs97, base `4b82f841b5a`).** Still no merge; every
+boot-order merge now waits on tooling or on a naming vote, not on source work this lane can do (rows in
+`reverse/re_attempts.log` under `tu-merge:<path>`; the two tool refusals are recorded as `false-reject`):
+- **W3DMouse.cpp (isThread).** Two prerequisites landed in W3DMouseInitW3DAssets.cpp (each 16/16 exact, link_check
+  LINKS 3,416 B): the `g_Va009E5DF8` extern now sits at block scope in setRedrawMode, its one user, so the carve takes
+  all five occurrences and no hatch total grows (`hatches_move True`); and freePolygonAssets (0x00098F43) is an
+  ordinary out-of-line member, as in Zero Hour's W3DMouse.cpp, so the carve finds it. The split dry run now carves
+  0x00099B6F, 0x00099DCC, 0x0009A04A, 0x000992B0, 0x00098F43 and the isThread datum and refuses none, but blocks on
+  `residual_loses` 0x0006331F, 0x0007B261, 0x000852F7, 0x00085317: header-inline COMDATs (Rva0013101E ctor,
+  CameraClass::Set_Projection_Type, Vector3::Find_X_At_Z/Find_Y_At_Z) only the carved bodies emit, approved for no unit
+  or for the provisional, N-hinted `W3DDevice/GameClient/Vector3.cpp`. `--shatter` refuses earlier, on eight
+  header_queue rows keyed to the donor. Next: tooling (riders for inline COMDATs only carved bodies emit), then a
+  `--prepared` W3DMouse.cpp that reconciles the donor's private views with the seed's Zero Hour headers and keeps one
+  static isThread.
+- **sortingrenderer.cpp (lists).** The 0x0012FE00 rename has no canonical basis (zh_sweep places ZH's sphere overload
+  nowhere; its `GGGG` spelling is not this `IIII` body), so it is an inferred respell needing two workers' votes, which
+  this seat could not supply. The four callers that build the first argument build 12 bytes with no radius store, so
+  BFME 2's parameter is likely centre-only (`const Vector3 &`), not Zero Hour's `SphereClass`; the alias pin
+  `?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z` at 0x0012FE00 must be settled in the same
+  respell. Evidence split into target facts, donor facts and inferences:
+  `reverse/attempt_support/sortingrenderer-0012fe00-signature-20261112.md`.
+- **statistics.cpp (texture counters).** False reject: `--split` refuses Record_Texture and Record_Texture_End for
+  data-identity debt keyed to their files, but that debt is the duplicate definition only the carve removes (the
+  extern route fails, four recorded attempts). `--merge` reports both donors mixed only for their homeless `_$E`
+  initializer/atexit rows, which docs/consolidation.md says go with their parent object.
+- **pointgr.cpp (VertexLoc).** False reject recorded in the tooling lane's form (T-only ICF template instances held
+  against the seed). No ledger route exists: render2dsentence.cpp's object defines neither `VectorClass<float>::ID` nor
+  `VectorClass<Vector2>::ID`.
