@@ -123,17 +123,7 @@ int Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 class GameWindow;
 void MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallback)());
 
-struct SYSTEMTIME
-{
-	unsigned short wYear;
-	unsigned short wMonth;
-	unsigned short wDayOfWeek;
-	unsigned short wDay;
-	unsigned short wHour;
-	unsigned short wMinute;
-	unsigned short wSecond;
-	unsigned short wMilliseconds;
-};
+#include "../../../../../Include/Common/SYSTEMTIME.h"
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *st);
 
 // 0x002DBFAD formats the date, 0x002DC081 the time (Rva002DC081Format.cpp).

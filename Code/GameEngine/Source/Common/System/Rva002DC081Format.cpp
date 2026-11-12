@@ -8,17 +8,7 @@ typedef unsigned int DWORD;
 typedef unsigned short WORD;
 #define NULL 0
 
-struct SYSTEMTIME
-{
-	WORD wYear;
-	WORD wMonth;
-	WORD wDayOfWeek;
-	WORD wDay;
-	WORD wHour;
-	WORD wMinute;
-	WORD wSecond;
-	WORD wMilliseconds;
-};
+#include "../../../Include/Common/SYSTEMTIME.h"
 
 struct OSVERSIONINFOA
 {

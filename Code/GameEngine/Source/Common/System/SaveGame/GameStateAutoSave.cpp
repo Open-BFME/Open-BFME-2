@@ -54,11 +54,7 @@ inline int GameMakeColor(unsigned char red, unsigned char green, unsigned char b
 	return ((unsigned int)alpha << 24) | ((unsigned int)red << 16) | ((unsigned int)green << 8) | blue;
 }
 
-struct SYSTEMTIME
-{
-	unsigned short wYear, wMonth, wDayOfWeek, wDay;
-	unsigned short wHour, wMinute, wSecond, wMilliseconds;
-};
+#include "../../../../Include/Common/SYSTEMTIME.h"
 UnicodeString Rva002DBFAD(SYSTEMTIME date);	// date text (GetDateFormat)
 UnicodeString Rva002DC081(SYSTEMTIME time, int flags);	// time text (GetTimeFormat)
 

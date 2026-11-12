@@ -36,17 +36,7 @@ typedef float Real;
 #include "unicode_string.h"
 #define LINE_LEN 2048
 typedef unsigned short WideChar;
-struct SYSTEMTIME
-{
-	unsigned short wYear;
-	unsigned short wMonth;
-	unsigned short wDayOfWeek;
-	unsigned short wDay;
-	unsigned short wHour;
-	unsigned short wMinute;
-	unsigned short wSecond;
-	unsigned short wMilliseconds;
-};
+#include "../../Include/Common/SYSTEMTIME.h"
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *st);
 UnicodeString Rva002DBFAD(SYSTEMTIME st);
 // TheGameText (VA 0xdff0bc).

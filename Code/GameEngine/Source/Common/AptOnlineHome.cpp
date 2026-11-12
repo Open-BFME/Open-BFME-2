@@ -56,17 +56,7 @@ FactionStatBlock g_Va00E06524;
 // ??1AptOnlineHome), callees rowed, globals g_009C0758/g_009C075C in use.
 typedef unsigned short WORD;
 
-struct SYSTEMTIME
-{
-	WORD wYear;
-	WORD wMonth;
-	WORD wDayOfWeek;
-	WORD wDay;
-	WORD wHour;
-	WORD wMinute;
-	WORD wSecond;
-	WORD wMilliseconds;
-};
+#include "../../Include/Common/SYSTEMTIME.h"
 
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *st);
 

@@ -43,10 +43,7 @@ void GadgetListBoxSetSelected(GameWindow *listbox, int row);
 UnicodeString Rva0037BA48Get();
 UnicodeString Rva0037B9D4Get();
 
-struct SYSTEMTIME
-{
-	unsigned short m_fields[8];
-};
+#include "../../../../../Include/Common/SYSTEMTIME.h"
 UnicodeString Rva002DBFAD(SYSTEMTIME time);
 UnicodeString Rva002DC081(SYSTEMTIME time, int flags);
 

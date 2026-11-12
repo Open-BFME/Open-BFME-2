@@ -1,0 +1,133 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "SYSTEMTIME",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "16": 7
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i2",
+   "name": "wYear",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wMonth",
+   "name_by": "majority",
+   "offset": 2,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wDayOfWeek",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wDay",
+   "name_by": "majority",
+   "offset": 6,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wHour",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wMinute",
+   "name_by": "majority",
+   "offset": 10,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wSecond",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "wMilliseconds",
+   "name_by": "majority",
+   "offset": 14,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 3
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {}
+}
