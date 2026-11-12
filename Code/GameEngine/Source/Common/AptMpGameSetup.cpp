@@ -48,9 +48,7 @@ class Rva0057FE6B {public:Rva0057FE6B(TargetRef00217D4C*,int,bool);virtual ~Rva0
 
 class GameWindow;
 
-class MpGameSetupComboRef {
-public:MpGameSetupComboRef();~MpGameSetupComboRef();GameWindow* window;
-};
+#include "../../Include/Common/MpGameSetupComboRef.h"
 
 // The callback row at 0x0043E6C9 takes the map-selection argument.
 struct Rva0043E6C9Arg;

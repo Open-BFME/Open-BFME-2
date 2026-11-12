@@ -129,16 +129,7 @@ extern Keyboard *TheKeyboard;
 
 // The one-pointer combo wrapper of MpGameSetupSlots.cpp; its 0x00323736 is
 // the drop-down toggle (BFME1 Rva004B5C90::invoke), pinned there by address.
-class MpGameSetupComboRef
-{
-public:
-	MpGameSetupComboRef();
-	MpGameSetupComboRef(const MpGameSetupComboRef &other);
-	~MpGameSetupComboRef();
-	void rva00323736(bool flag);
-
-	GameWindow *m_window;
-};
+#include "../../../../Include/Common/MpGameSetupComboRef.h"
 
 // The lobby panel constructor 0x00441ECE builds its +0x2F4 color combo array
 // through this null-pointer default constructor; retail folds the complete

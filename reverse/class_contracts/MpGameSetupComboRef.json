@@ -1,0 +1,91 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MpGameSetupComboRef",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x27ea56",
+      "0x326be6"
+     ],
+     "value": {
+      "0x27ea56": [
+       "?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL",
+       "?$_STLP_alloc_proxy@PAU?$_List_node@URva004E7E3AEntry@@@_STL@@U12@V?$allocator@U?$_List_node@URva004E7E3AEntry@@@_STL@@@2@@_STL",
+       "?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL",
+       "?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL",
+       "MpGameSetupComboRef",
+       "PooledString"
+      ],
+      "0x326be6": [
+       "?$RefCountPtr@VTextureClass@@",
+       "?$StringBase@D",
+       "?$StringBase@G",
+       "AsciiString",
+       "AudioFileContainer",
+       "BfmeStringTailRecord156",
+       "D3DXTex::CLockVolume",
+       "MpGameSetupComboRef",
+       "Rva00336BE4Key",
+       "Rva00690FF0Handle",
+       "ScriptPositionRecord",
+       "UnicodeString",
+       "W3DScriptedModelDrawEntry1C"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "4": 8
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_window",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {}
+}
