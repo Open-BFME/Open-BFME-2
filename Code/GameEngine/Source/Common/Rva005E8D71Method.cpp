@@ -10,7 +10,7 @@
 #include "../../Include/Common/Rva002B254F.h"
 #include "../../Include/Common/Rva002B256E.h"
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
-class Rva005E1160Flag { public: void rva005E1160(bool); };
+#include "../../Include/Common/Rva005E1160Flag.h"
 class Rva005E8CF8QueryInterface { public:
  virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04();virtual void s05();virtual void s06();virtual void s07();virtual bool s08(unsigned);
 };
