@@ -22,3 +22,13 @@ private padding. All 22 rows and all 28 COMDAT fingerprints remain exact;
 the owning acceptance tool retires one header entry. Rva007F76F0Vector's
 rowed accessor declaration remains the other adoption prerequisite in this
 file; the shared header must retain it. [Evidence](../../reverse/attempt_support/fesl-key-vector-header-20261112.md).
+
+The same pass completes that vector adoption: the existing 22-byte accessor
+is declared by the canonical header and remains inline in its owning source.
+All 29 rows in five consumers pass normal and strict checks, with all 28
+BfmeThingZI COMDATs unchanged. Both vector queue entries retire through the
+owning tool, including the already-adopted BfmeSlot1173 entry. The three
+header entries across those two sources are now drained. Five own previews
+retain LINKS for 2,349 bytes against `aa7acf764d`; the older-index warning
+and normal-census confirmation remain. The eight-byte contract is unchanged;
+this is declaration/source cleanup, not full FESL class or merge clearance.

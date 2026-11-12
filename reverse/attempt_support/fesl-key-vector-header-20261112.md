@@ -31,8 +31,29 @@ BFME I source lead, not the BFME II target address.
 Private preparation adds the existing accessor declaration to the shared
 header and retains an inline definition in the owning source, viewing the
 void pointer as the existing eight-byte slot type. All 22 rows and all 28
-COMDAT fingerprints remain unchanged in that trial. This preparation is not
-yet normal acceptance or a claimed layout change.
+COMDAT fingerprints remain unchanged in that trial.
+
+Completed adoption retains the accessor's original inline linkage and row
+in BfmeThingZI.cpp, declares it in the shared header, and forward-declares
+its existing return type. The layout contract and its eight-byte void-pointer/
+count representation are unchanged. The method views the existing pointer as
+the existing slot type; no private copy of the registered vector remains.
+The two calls in the key-index helper retain their original expression.
+
+Normal `./build.sh` passes all 29 rows across all five direct consumers:
+BfmeSlot1173, BfmeThingZI, FeslHost_get_rva00801900,
+FeslHost_get_rva00802470 and Rva00802240FeslLookup. BfmeThingZI's final object
+still has all 28 original COMDAT fingerprints, with no addition or removal.
+Both frozen-file checks pass. The owning acceptance tool passes both queued
+vector units and retires exactly two rows; BfmeSlot1173 already used the
+header, so its queue entry was stale. Together with the cleanup receiver,
+this drains all three header entries in these two source files.
+
+Strict preparation also verifies all five consumers. Their own previews
+preserve LINKS for 523, 1,664, 59, 59 and 44 authored bytes (2,349 total)
+against index `aa7acf764d` of 2026-11-12 19:19. Its four-unrelated-path-change
+warning remains; these are scoped previews, not a new census or image result.
+There are no new pins, aliases, ledger rows, source moves or layout decisions.
 
 ## Publication follow-up
 

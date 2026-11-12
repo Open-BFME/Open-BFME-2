@@ -285,21 +285,17 @@ struct Rva007F76F0Slot
 	int m_tag;
 };
 
-struct Rva007F76F0Vector
-{
-	Rva007F76F0Slot *m_begin;
-	int m_count;
+#include "../../Include/Common/Rva007F76F0Vector.h"
 
-	Rva007F76F0Slot *operator[]( int index )
-	{
-		Rva007F76F0Slot *slot;
-		if( index >= m_count )
-			slot = 0;
-		else
-			slot = &m_begin[index];
-		return slot;
-	}
-};
+inline Rva007F76F0Slot *Rva007F76F0Vector::operator[](int index)
+{
+ Rva007F76F0Slot *slot;
+ if (index >= m_count)
+  slot = 0;
+ else
+  slot = &static_cast<Rva007F76F0Slot *>(m_begin)[index];
+ return slot;
+}
 
 class Rva00802240Host
 {
@@ -632,7 +628,8 @@ public:
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007F76F0FeslKeyIndex.cpp
 
-// Retail RVA 0x007F76F0 (105 bytes): FESL host key-index helper.
+// Target RVA 0x00663DE0 (105 bytes): FESL host key-index helper.
+// BFME I source lead: 0x007F76F0; original target spelling is unknown.
 //
 // The six matched callers load the owning host into ECX, then pass the
 // vector and key.  The vector is a pair {begin,count}; each element is an
