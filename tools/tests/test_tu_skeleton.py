@@ -1130,6 +1130,126 @@ class EmissionHeldTests(unittest.TestCase):
             self.assertEqual(tu_rows, [rows[1]])
 
 
+class SeedEmittedInstanceTests(unittest.TestCase):
+    """LINK-661: pointgr.cpp holds VectorClass<float>::ID (0x00154BE0) and VectorClass<Vector2>::ID
+    (0x00154E60), implicit instantiations its object emits, which the map approves for
+    render2dsentence.cpp by the T bracket alone; render2dsentence.cpp's object defines neither.
+    The seed keeps them (seed_emitted_instance); a genuinely mixed seed is still refused."""
+    TU = DonorTests.TU
+    OTHER = "Code/R.cpp"
+    ID = "?ID@?$VectorClass@M@@UAEHPBM@Z"
+    T_BRACKET = ("Code/R.cpp", "approved", "T=0x00001100..0x00001300@0x00001100,0x00001300", "T")
+    # pointgr.cpp's decl-only block: bodiless explicit specializations of sibling instances
+    POINTGR = ("template <> int VectorClass<float>::ID(float const &);\n"
+               "template <> int VectorClass<Vector3>::ID(Vector3 const *);\n"
+               "template <> bool VectorClass<Vector2>::Resize(int newsize, Vector2 const *array);\n"
+               "void t() { }\n")
+
+    def run_donors(self, name=ID, placed=T_BRACKET, text=POINTGR, seed_obj="seed.obj", other_obj="other.obj",
+                   seed_defines=None, other_defines=(), selection_problem=None, holder=None, extra=None):
+        """donors() over the seed Code/T.cpp (`text`) holding ?t and `name` (0x1200, map row `placed`),
+        a donor A.cpp, and R.cpp's own row at 0x1100; objects stand in by name. `extra` (row name,
+        map `by`) adds Code/O.cpp holding that row at 0x1250, which the map gives R.cpp, and whose
+        object defines `name` (ode.cpp's VectorClass<float>::Clear in render2dsentence.cpp's bracket)."""
+        holder = holder or self.TU
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp"),
+                  ("?r@@YAXXZ", 0x1100, self.OTHER), (name, 0x1200, holder)]
+        if holder != self.TU:
+            ledger.append(("?b@@YAXXZ", 0x1020, holder))
+        objs = {self.TU: seed_obj, self.OTHER: other_obj, "Code/O.cpp": "o.obj"}
+        comdat = {seed_obj: {name} if seed_defines is None else set(seed_defines)}
+        defined = {seed_obj: comdat[seed_obj], other_obj: set(other_defines), "o.obj": {name}}
+        placed_more = {}
+        if extra:
+            ledger.append((extra[0], 0x1250, "Code/O.cpp"))
+            placed_more[0x1250] = ("Code/R.cpp", "approved", self.T_BRACKET[2] if extra[1] == "T" else "S=Code/R.cpp",
+                                   extra[1])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "Code").mkdir()
+            (root / self.TU).write_text(text)
+            (root / self.OTHER).write_text("void r() { }\n")
+            with patch.object(T, "ROOT", root), \
+                    patch.object(T, "current_object", side_effect=lambda f: objs.get(f)), \
+                    patch.object(T, "comdat_symbols", side_effect=lambda o: comdat.get(o, set())), \
+                    patch.object(T, "defined_symbols", side_effect=lambda o: defined.get(o, set())), \
+                    patch.object(T, "deleting_copy_problem", side_effect=lambda o, n: selection_problem):
+                return DonorTests.donors(self, ledger, {0x1000: self.TU, 0x1010: self.TU, 0x1020: self.TU,
+                                                        0x1100: self.OTHER, 0x1200: placed, **placed_more})
+
+    def test_the_pointgr_shape_is_not_mixed(self):
+        don, mixed, _ = self.run_donors()
+        self.assertEqual(mixed, {})
+        self.assertEqual(sorted(don), ["Code/A.cpp", self.TU])
+        self.assertEqual(len(don[self.TU]), 2)               # kept in the seed, moved nowhere
+        # what refused it before: the sibling declarations spell the class's members
+        row = {"name": self.ID, "target_rva": "0x00001200"}
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / "T.cpp").write_text(self.POINTGR)
+            with patch.object(T, "ROOT", Path(tmp)), patch.dict(T._CACHE, {}, clear=True):
+                self.assertTrue(T.spells_definition("T.cpp", row))
+                self.assertFalse(T.spells_definition("T.cpp", row, bodies_only=True))
+
+    def test_a_real_function_of_another_tu_still_makes_the_seed_mixed(self):
+        _, mixed, _ = self.run_donors(name="?o@@YAXXZ", seed_defines=["?o@@YAXXZ"])
+        self.assertEqual(mixed, {self.TU: 1})
+
+    def test_an_instance_the_other_tus_object_defines_still_makes_the_seed_mixed(self):
+        _, mixed, _ = self.run_donors(other_defines=[self.ID])
+        self.assertEqual(mixed, {self.TU: 1})
+
+    def test_a_link_order_instance_of_the_other_tu_is_not_its_code(self):
+        # ode.cpp emits VectorClass<float>::ID too, but its only row in the bracket is another
+        # T-placed instance: no code of render2dsentence.cpp. A real function there does count.
+        _, mixed, _ = self.run_donors(extra=("?Clear@?$VectorClass@M@@UAEXXZ", "T"))
+        self.assertEqual(mixed, {})
+        _, mixed, _ = self.run_donors(extra=("?o@@YAXXZ", "T"))
+        self.assertEqual(mixed, {self.TU: 1})
+        _, mixed, _ = self.run_donors(extra=("?Clear@?$VectorClass@M@@UAEXXZ", "S"))
+        self.assertEqual(mixed, {self.TU: 1})
+
+    def test_every_other_condition_is_still_required(self):
+        cases = {
+            "placed by a token naming the TU": dict(placed=("Code/R.cpp", "approved", "Z=Code/R.cpp", "Z")),
+            "a naming token beside the bracket": dict(placed=self.T_BRACKET[:2] + (
+                self.T_BRACKET[2] + " S=Code/R.cpp", "T")),
+            "placed by a naming hint": dict(placed=("Code/R.cpp", "approved", "N=Code/R.cpp", "N")),
+            "the seed's object is stale or missing": dict(seed_obj=None),
+            "the seed's object does not emit it": dict(seed_defines=[]),
+            "a hand-written copy (not selected ANY)": dict(selection_problem="selects its COMDAT NODUPLICATES"),
+            "the other TU's object is stale or missing": dict(other_obj=None),
+            "a specialization with a body": dict(text=self.POINTGR + "template <> int VectorClass<float>::ID(float const *p) { return 0; }\n"),
+            "an explicit member instantiation": dict(text=self.POINTGR + "template int VectorClass<float>::ID(float const *);\n"),
+            "an explicit class instantiation": dict(text=self.POINTGR + "template class VectorClass<float>;\n"),
+            "the class template's body": dict(text="template <class T> class VectorClass { int ID(T const *) { return 0; } };\n"),
+        }
+        for why, kw in cases.items():
+            with self.subTest(why):
+                _, mixed, _ = self.run_donors(**kw)
+                self.assertEqual(mixed, {self.TU: 1})
+
+    def test_a_donor_never_keeps_one(self):
+        don, mixed, _ = self.run_donors(holder="Code/B.cpp")
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertNotIn("Code/B.cpp", don)
+
+    def test_bodies_only_leaves_every_other_spelling_unchanged(self):
+        row = {"name": self.ID, "target_rva": "0x00001200"}
+        cases = [("template <> int VectorClass<float>::ID(float const &);\n", True, False),
+                 ("template <> int VectorClass<float>::ID(float const *p) { return 0; }\n", True, True),
+                 ("int VectorClass<float>::ID(float const *p) const\n{\n return 0;\n}\n", True, True),
+                 ("template int VectorClass<float>::ID(float const *);\n", True, True),
+                 ("template class VectorClass<float>;\n", True, True),
+                 ("struct VectorClass { };\n", True, True),
+                 ("void f(VectorClass<float> &v) { v.ID(0); }\n", False, False)]
+        with tempfile.TemporaryDirectory() as tmp:
+            for i, (text, default, bodies) in enumerate(cases):
+                (Path(tmp) / f"c{i}.cpp").write_text(text)
+                with patch.object(T, "ROOT", Path(tmp)), patch.dict(T._CACHE, {}, clear=True):
+                    self.assertEqual(T.spells_definition(f"c{i}.cpp", row), default, text)
+                    self.assertEqual(T.spells_definition(f"c{i}.cpp", row, bodies_only=True), bodies, text)
+
+
 class EmitMoveTests(unittest.TestCase):
     """--emit-move: a deleting-destructor row (`??_G`/`??_E`, by its decorated name) moves from a
     mixed file to its approved TU only when the TU's own code emits it byte-exact (P16)."""

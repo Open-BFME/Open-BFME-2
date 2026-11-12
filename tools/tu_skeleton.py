@@ -607,8 +607,12 @@ def donors(tu, sk):
         # So does a row the map only proposes for another TU (not approved): the seed keeps it in
         # place, unmoved and re-verified, exactly like a row the map places nowhere. A donor's
         # never: absorbing the donor would move the row.
+        # So does an implicit instantiation the map places by the T bracket alone, when the seed's
+        # object emits it and no object of the TU the bracket names defines it (seed_emitted_instance,
+        # LINK-661): it cannot move there. Only the seed's: a donor's never.
         held = ({id(r) for r in own if assigned.get(int(r["target_rva"], 16)) not in (tu.lower(), None)
-                 and not fold_alias(r) and (emission_held(r) or int(r["target_rva"], 16) in proposed)}
+                 and not fold_alias(r) and (emission_held(r) or int(r["target_rva"], 16) in proposed
+                                            or seed_emitted_instance(r))}
                 if f.lower() == tu.lower() else set())
         mine = {id(r): None if id(r) in held else assigned.get(int(r["target_rva"], 16)) for r in own}
         home = {r["name"]: mine[id(r)] for r in own}
@@ -723,6 +727,89 @@ def emission_held(r):
     return not spells_definition(r["source"], r)
 
 
+def seed_emitted_instance(r):
+    """May the TU file keep ledger row `r` (one of its own rows the map approves for another
+    TU) as an implicit template instantiation that TU cannot hold (LINK-661)?
+
+    pointgr.cpp holds VectorClass<float>::ID (0x00154BE0) and VectorClass<Vector2>::ID
+    (0x00154E60); the map approves both for render2dsentence.cpp by the T bracket
+    0x00154890..0x00154EC0 alone, and render2dsentence.cpp's object defines neither. The
+    mixed-seed check exists so that a merge never swallows another TU's row; a COMDAT that
+    TU's code does not emit is no row of it (the row could not move there and still match),
+    and the T bracket, like emission_held's C, is a fact about retail's link order. The
+    seed keeps such a row as it keeps an unplaced one: moved nowhere, re-verified. True only
+    when every one of these holds:
+      - `r` has a TEMPLATE_INSTANCE name;
+      - its map row names a TU, is placed by T, and carries no F/Z/S/L/W token naming a TU;
+      - its own file spells no definition of it (spells_definition with bodies_only: an
+        explicit specialization with a body, an explicit instantiation or the class template's
+        body has a home; a bodiless `template <>` declaration of a sibling instance does not);
+      - the current build object of `r`'s file (the seed) defines `r`'s symbol in a code
+        COMDAT selected ANY, as the compiler emits an implicit instantiation (under /Gy a
+        plain hand-written function is selected NODUPLICATES; deleting_copy_problem);
+      - the current build objects of the files holding that TU's code (tu_code_files: its own
+        file, and every other file with a ledger row at an address the map gives that TU,
+        less ICF aliases and other link_order_instance rows) exist, at least one, and none
+        of them defines `r`'s symbol at all.
+    A missing or stale object (build.compile_is_current) is no proof: the row stays foreign.
+    A donor's row is never judged here (donors()): absorbing the donor would move it."""
+    if "map_by_rva" not in _CACHE:
+        _CACHE["map_by_rva"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
+    m = _CACHE["map_by_rva"].get(int(r["target_rva"], 16))
+    if not m or not m["tu"] or m.get("by") != "T" or not link_order_instance(r, m):
+        return False
+    if spells_definition(r["source"], r, bodies_only=True):
+        return False
+    seed_obj = current_object(r["source"])
+    if seed_obj is None or r["name"] not in comdat_symbols(seed_obj) or deleting_copy_problem(seed_obj, r["name"]):
+        return False
+    files = sorted(tu_code_files(m["tu"]) - {r["source"]})
+    return bool(files) and all((o := current_object(f)) is not None and r["name"] not in defined_symbols(o)
+                               for f in files)
+
+
+def current_object(source):
+    """`source`'s build/match object when build.compile_is_current proves it is today's, else None."""
+    cache = _CACHE.setdefault("current_object", {})
+    if source not in cache:
+        import build
+        path, obj = ROOT / source, None
+        if path.is_file():
+            out = build.obj_path(path)
+            obj = out if out.exists() and build.compile_is_current(path, out) else None
+        cache[source] = obj
+    return cache[source]
+
+
+def link_order_instance(r, m):
+    """Is ledger row `r` an implicit-instantiation candidate its map row `m` places by retail
+    link order alone: a TEMPLATE_INSTANCE name, placed by C or T, with no F/Z/S/L/W token?"""
+    if not TEMPLATE_INSTANCE.match(r["name"]) or m.get("by") not in ("C", "T"):
+        return False
+    return not any(k in tu_map.TU_EVIDENCE and eq
+                   for k, eq, _ in (t.partition("=") for t in (m.get("evidence") or "").split()))
+
+
+def tu_code_files(tu):
+    """The files that hold TU `tu`'s code today: its own file when the tree has one, and every
+    file holding a ledger row at an address the map gives `tu`, except an ICF alias (fold_alias)
+    and a link_order_instance (ode.cpp's VectorClass<float>::Clear, 0x00154A30, which the T
+    bracket also gives render2dsentence.cpp: an instance placed by link order, not the TU's code)."""
+    if "tu_code_files" not in _CACHE:                    # indexed once: --queue asks for many TUs
+        at = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code") and m["tu"]}
+        index = collections.defaultdict(set)
+        for r in ledger_rows():
+            m = at.get(int(r["target_rva"], 16)) if r["target_rva"] else None
+            if m and not fold_alias(r) and not link_order_instance(r, m):
+                index[m["tu"].lower()].add(r["source"])
+        _CACHE["tu_code_files"] = index
+    files = set(_CACHE["tu_code_files"].get(tu.lower(), ()))
+    own = tu_path(tu)
+    if (ROOT / own).is_file():
+        files.add(own)
+    return files
+
+
 def vtable_rider(r):
     """May ledger row `r` ride with carved bodies to whatever object emits its class's vtable
     (P16: `??_G` 0x001E10CE with the ctor 0x001E0AEF)? The static half: a deleting destructor
@@ -802,7 +889,7 @@ def instance_owner(name):
     return None
 
 
-def spells_definition(path, r):
+def spells_definition(path, r, bodies_only=False):
     """Does a definition (or a macro invocation naming its class) in `path` spell row `r`'s
     name (identify())? So does, for its class template (instance_owner): a body of the class
     itself (`struct hash<NameKeyType> {`, a file-local template, an operator written inside
@@ -810,7 +897,10 @@ def spells_definition(path, r):
     `Box<int>::operator()(`, an explicit specialization or an explicit member instantiation)
     or an explicit instantiation of the class (`template class Box<int>;`); for a function
     template, any `f<...>(` after `template`. True when the file cannot be read or the row's
-    owner cannot be derived: no proof of absence."""
+    owner cannot be derived: no proof of absence. `bodies_only` (seed_emitted_instance) counts
+    a qualified member only with a body (`Box<int>::clear() {`): a declaration (`template <>
+    int Box<int>::ID(int const &);`, which pointgr.cpp spells for sibling instances) defines
+    nothing; every other test is unchanged."""
     texts = _CACHE.setdefault("spell_texts", {})
     if path not in texts:
         try:
@@ -831,10 +921,16 @@ def spells_definition(path, r):
     if cls is None:
         return bool(re.search(r"\btemplate\b[^;{}]*\b" + re.escape(meth) + r"\s*<[^;{}]*>\s*\(", code))
     member = r"operator\b" if meth == "operator" else re.escape(meth) + r"\s*\("
+    qualified = r"\b" + re.escape(cls) + r"\s*<[^;{}]*>\s*::\s*" + member
+    if bodies_only:     # a body, or an explicit member instantiation (`template` not followed by `<`)
+        spelled = (re.search(qualified + r"[^;{}]*\{", code)
+                   or re.search(r"\btemplate\b(?!\s*<)[^;{}]*" + qualified, code))
+    else:
+        spelled = re.search(qualified, code)
     return bool(
         re.search(r"\b(?:class|struct|union)\s+" + re.escape(cls) + r"\b[^;{}]*\{", code)
         or re.search(r"\btemplate\s+(?:class|struct|union)\s+(?:[A-Za-z_]\w*\s*::\s*)*" + re.escape(cls) + r"\s*<", code)
-        or re.search(r"\b" + re.escape(cls) + r"\s*<[^;{}]*>\s*::\s*" + member, code))
+        or spelled)
 
 
 def names_other_tu(r, unplaced, tu):
