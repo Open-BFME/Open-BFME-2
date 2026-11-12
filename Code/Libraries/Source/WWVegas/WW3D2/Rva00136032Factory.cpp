@@ -120,7 +120,7 @@ Rva00180BE0 Rva00180C11_MakeOwner(const char *name)
 // AsResetRef is an inline ABI view of that proven single pointer; it adds
 // no ownership operation. The result's null branch writes its pointer0.
 struct BfmeResetTagged;
-struct BfmeResetAnyRef { BfmeResetTagged *pointer; };
+#include "BfmeResetAnyRef.h"
 // Use the established holder release spelling from dx8wrapper.cpp.
 // Its nullable destructor must be the same byte-and-relocation copy.
 #include "BfmeResetResource.h"

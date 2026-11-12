@@ -85,10 +85,7 @@ extern HierarchyPrototypeRef Rva0061F230_GetPrototype(const char *name);
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTagged.h"
 
-struct BfmeResetAnyRef
-{
-	BfmeResetTagged *pointer;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetAnyRef.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 

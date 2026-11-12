@@ -15,10 +15,7 @@ public:
 	BfmeMapPictureTexture &operator=(const BfmeMapPictureTexture &);
 };
 
-struct BfmeResetAnyRef
-{
-	BfmeResetTagged *pointer;
-};
+#include "BfmeResetAnyRef.h"
 
 #include "BfmeResetTextureRef.h"
 

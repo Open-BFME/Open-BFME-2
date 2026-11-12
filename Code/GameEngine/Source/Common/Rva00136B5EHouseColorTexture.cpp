@@ -13,7 +13,7 @@
 #include "BFME2ParticleTextureHandles.h"
 template<class T> inline RefCountPtr<T>::~RefCountPtr(){if(Ptr)Ptr->Release_Ref();}
 struct BfmeResetTagged;
-struct BfmeResetAnyRef{BfmeResetTagged*pointer;};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetAnyRef.h"
 inline unsigned BfmeTexIdOf(TextureClass*texture){return *(unsigned*)((char*)texture+8);}
 class Rva00131DCBTextureRef:public RefCountPtr<TextureClass>{public:Rva00131DCBTextureRef(const BfmeResetAnyRef&);__forceinline ~Rva00131DCBTextureRef() {}
  unsigned getID() const {return Ptr?BfmeTexIdOf(Ptr):~0u;}};
