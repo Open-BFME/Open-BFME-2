@@ -128,12 +128,7 @@ class ElevatedAreaPolygon
  
 }
 ;
-class Rva002E3E2AObject 
-{
- public: virtual ~Rva002E3E2AObject();
- 
-}
-;
+#include "../../Include/GameLogic/Rva002E3E2AObject.h"
 class Rva002E3E2AOut 
 {
  public:

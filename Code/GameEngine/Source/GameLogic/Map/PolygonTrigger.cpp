@@ -126,7 +126,7 @@ int PolygonTrigger::s_currentID = 1;
 // WB59F8B0 constructs a local owner then moves it to the return value. The
 // temporary's virtual deleting destructor uses slot0 with delete flag1.
 // Pointee purpose remains opaque; the parser identifies its PolygonTrigger use.
-class Rva002E3E2AObject { public: virtual ~Rva002E3E2AObject(); };
+#include "../../../Include/GameLogic/Rva002E3E2AObject.h"
 
 class Rva002E3E2AOut
 {

@@ -84,7 +84,7 @@ public:
  bool flag50;
  int field54,field58;
 };
-class Rva002E3E2AObject { public: virtual ~Rva002E3E2AObject(); };
+#include "../../../Include/GameLogic/Rva002E3E2AObject.h"
 class Rva002E3E2AOut {
 public:
  explicit Rva002E3E2AOut(Rva002E3E2AObject *p):pointer(p){}
