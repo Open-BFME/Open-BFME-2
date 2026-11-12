@@ -450,7 +450,7 @@ def real_consumers(monkeypatch, stale, rebuilds):
 
 
 def test_the_family_names_its_consumers_by_source_terms():
-    assert F.consumer_terms == (("_M_insert", "void"),)
+    assert F.consumer_terms == (("_M_insert",),)
 
 
 def test_a_stale_consumer_declaring_the_pin_in_ordinary_cpp_is_rebuilt_first(tmp_path, image, monkeypatch):
@@ -482,8 +482,23 @@ def test_a_consumer_declaring_through_a_header_is_found(tmp_path, image, monkeyp
     assert asked == [CONSUMER]
 
 
+def test_a_consumer_whose_declaration_takes_its_types_from_another_header_is_found(tmp_path, image, monkeypatch):
+    """Review round 2: the typedef (and its void) in one header, the declaration in another, the unit including
+    only the second. No file spells both words, so the identifier alone must find it."""
+    root = consumers_tree(tmp_path, {
+        "Code/Lib/Types.h": "typedef std::_Rb_tree<unsigned int, std::pair<const unsigned int, void *>, S, L, A> Tree;\n",
+        "Code/Lib/TreeDecl.h": '#include "Types.h"\ntemplate <> Tree::iterator Tree::_M_insert(Base *, Base *, '
+                               'const Tree::value_type &, Base *);\n',
+        CONSUMER: '#include "TreeDecl.h"\nint f();\n'})
+    asked = real_consumers(monkeypatch, stale={CONSUMER}, rebuilds=False)
+    ctx, _ = context(root)
+    with pytest.raises(Refusal, match="could not rebuild"):
+        plan(ctx)
+    assert asked == [CONSUMER]
+
+
 @pytest.mark.parametrize("text", ["void f(void *p);\n", "int g() { return _M_insert_count; }\n"])
-def test_a_unit_spelling_only_one_term_is_no_consumer(tmp_path, image, monkeypatch, text):
+def test_a_unit_not_spelling_the_identifier_is_no_consumer(tmp_path, image, monkeypatch, text):
     root = consumers_tree(tmp_path, {CONSUMER: text})
     asked = real_consumers(monkeypatch, stale={CONSUMER}, rebuilds=False)
     ctx, _ = context(root)

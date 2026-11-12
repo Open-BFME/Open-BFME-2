@@ -584,9 +584,9 @@ class StandInScalarKeyFamily:
         return record(self.rows[self.copy][1])
 
 
-# The builtin values a StandInValueFamily may replace, by mangling code: the decoded tree, the width in bytes, and the
-# word C++ spells it with. Only void* (P143); another builtin is another reviewed entry.
-BUILTIN_VALUES = {"PAX": (("P", "PA", ("B", "X")), 4, "void")}
+# The builtin values a StandInValueFamily may replace, by mangling code: the decoded tree and the width in bytes. Only
+# void* (P143); another builtin is another reviewed entry.
+BUILTIN_VALUES = {"PAX": (("P", "PA", ("B", "X")), 4)}
 NODE_HEADER = 16                                       # _Rb_tree_node_base: color, parent, left, right
 
 
@@ -641,7 +641,7 @@ class StandInValueFamily:
             raise ValueError(f"{old!r} is no builtin value this route replaces")
         if key not in SCALAR_KEYS:
             raise ValueError(f"{key!r} is no builtin key this route reads")
-        old_tree, old_width, old_word = BUILTIN_VALUES[old]
+        old_tree, old_width = BUILTIN_VALUES[old]
         key_tree, key_width = ("B", key), SCALAR_KEYS[key][0]
         for label, value in (("members", members), ("bindings", bindings), ("rows", rows),
                              ("member path", member_path)):
@@ -673,7 +673,7 @@ class StandInValueFamily:
             identifier = rename._identifier(old_name)
             if not identifier:
                 raise ValueError(f"{old_name} has no identifier a consumer's source would spell")
-            terms.add((identifier, old_word))
+            terms.add((identifier,))
         if set(retired) & set(rows) or set(callers) & (set(rows) | set(members)):
             raise ValueError("a row, a member, a retired pin and a caller are four different addresses")
         node_at, alloc = node
@@ -726,10 +726,10 @@ class StandInValueFamily:
         self.callers, self.caller_bindings = callers, tuple(caller_bindings)
         self.value_type, self.pins, self.duplicates = value_type, {}, {}
         # A unit can name a retired pin without defining it only by declaring it, and that declaration spells the
-        # pin's identifier and, in it or a header it includes, the old value's word. A unit that instantiates the
-        # old tree defines its own copy and leaves nothing unresolved. rename.py rebuilds every stale object of a
-        # unit spelling both terms, or of a unit including one, before reading it; the mangled text alone is no
-        # such term, since ordinary C++ never spells it.
+        # pin's identifier, in the unit or in a header it includes (its types may come from other headers). A unit
+        # that instantiates the old tree defines its own copy and leaves nothing unresolved. rename.py rebuilds
+        # every stale object of a unit spelling the identifier, or including such a file transitively, before
+        # reading it; the mangled text is no such term, since ordinary C++ never spells it.
         self.consumer_terms = tuple(sorted(terms))
 
     def respell(self, name):
