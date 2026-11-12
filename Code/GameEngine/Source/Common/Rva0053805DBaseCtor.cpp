@@ -18,11 +18,7 @@
 extern const float g_00C691E8 = 0.06000000238418579f;
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
-struct Rva0030B72CPoint {
- Rva0030B72CPoint() {}
- __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &p):x(p.x),y(p.y) {}
- float x,y;
-};
+#include "../../Include/Common/Rva0030B72CPoint.h"
 
 // Native seven-slot polygon interface, as in Rva00330C50Ctor.cpp.
 class Rva00330C50Interface

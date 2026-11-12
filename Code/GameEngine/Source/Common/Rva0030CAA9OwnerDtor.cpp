@@ -17,11 +17,7 @@
 void __cdecl Rva00030830GameFree(void *);
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
-struct Rva0030B72CPoint {
-	Rva0030B72CPoint() {}
-	__forceinline Rva0030B72CPoint(const Rva0030B72CPoint &p):x(p.x),y(p.y) {}
-	float x,y;
-};
+#include "../../Include/Common/Rva0030B72CPoint.h"
 
 // Native seven-slot polygon interface, as in Rva00330C50Ctor.cpp.
 class Rva00330C50Interface {
