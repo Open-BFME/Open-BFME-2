@@ -31,19 +31,7 @@ public:
 
 // Head base: vptr 0x00C1B590, smart member at +0x04, int at +0x10.
 // Explicit forceinline copy (see header note).
-class DefaultModuleHeadBase
-{
-public:
-	__forceinline DefaultModuleHeadBase(const DefaultModuleHeadBase &other)
-		: m_smart(other.m_smart)
-		, m_int10(other.m_int10)
-	{
-	}
-	virtual ~DefaultModuleHeadBase();
-
-	RvaSmartPtr12 m_smart; // +0x04
-	int m_int10; // +0x10
-};
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 

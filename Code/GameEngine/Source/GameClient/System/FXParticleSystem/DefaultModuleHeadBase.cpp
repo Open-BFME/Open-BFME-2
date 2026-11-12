@@ -19,21 +19,14 @@ inline RvaSmartPtr12::~RvaSmartPtr12() throw()
 		rva0004CBC0();
 }
 
-class DefaultModuleHeadBase
-{
-public:
-	DefaultModuleHeadBase(const RvaSmartPtr12 &smart, int i);
-	virtual ~DefaultModuleHeadBase();
-private:
-	RvaSmartPtr12 m_smart;
-	int m_int10;
-};
+// The canonical class: table 0x00C1B590 is this destructor's ??_G and one __purecall.
+#include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 // ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleHeadBaseDtor.cpp
 
 DefaultModuleHeadBase::DefaultModuleHeadBase(const RvaSmartPtr12 &smart, int i)
-	: m_smart(smart)
-	, m_int10(i)
+	: field04(smart)
+	, field10(i)
 {
 }
 

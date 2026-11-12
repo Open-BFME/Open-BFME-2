@@ -13,52 +13,9 @@
 // own vtable 0x00C1D5FC plus second/third 0x00C1C780 via rowed Head 0x003A57C5;
 // callers at 0x003A5861 0x0055B5CA 0x0055BF2C 0x0055F995 0x005641C6.
 
-#include "../../../../Include/Common/RvaSmartPtr12.h"
-
-// Shared second base at +0x14: vptr 0x00C1C780.
-class DefaultModuleSecondBase
-{
-public:
-// ??1DefaultModuleSecondBase@@UAE@XZ present-unmatched
-	virtual ~DefaultModuleSecondBase() {}
-};
-
-// Extra third base at +0x18: vptr 0x00C1C780 (ICF-folded with the second).
-class DefaultModuleThirdBase
-{
-public:
-// ??1DefaultModuleThirdBase@@UAE@XZ present-unmatched
-	virtual ~DefaultModuleThirdBase() {}
-};
-
-// Head base: vptr 0x00C1B590, smart member at +0x04, int at +0x10.
-// Explicit forceinline copy so the size optimizer still absorbs it.
-class DefaultModuleHeadBase
-{
-public:
-	__forceinline DefaultModuleHeadBase(const DefaultModuleHeadBase &other)
-		: m_smart(other.m_smart)
-		, m_int10(other.m_int10)
-	{
-	}
-	DefaultModuleHeadBase(const RvaSmartPtr12 &smart, int i);
-	virtual ~DefaultModuleHeadBase();
-
-	RvaSmartPtr12 m_smart; // +0x04
-	int m_int10; // +0x10
-};
-
-// Retail 0x003AEEB3, 73 bytes: the shared base copy constructor.
-// noinline: the template copies below call it; inlining would absorb the
-// straight-line body into each caller.
-class Rva003AEEB3 : public DefaultModuleHeadBase, public DefaultModuleSecondBase,
-	public DefaultModuleThirdBase
-{
-public:
-	__declspec(noinline) Rva003AEEB3(const Rva003AEEB3 &other);
-	__declspec(noinline) Rva003AEEB3(const RvaSmartPtr12 &smart, int i);
-	virtual ~Rva003AEEB3();
-};
+// The class is the canonical Rva003AEEB3 (DefaultModuleHeadBase plus the two one-slot
+// secondary bases at +0x14 and +0x18, both table 0x00C1C780: one __purecall, no destructor).
+#include "../../../../Include/GameClient/Rva003AEEB3.h"
 
 Rva003AEEB3::Rva003AEEB3(const Rva003AEEB3 &other)
 	: DefaultModuleHeadBase(other)
