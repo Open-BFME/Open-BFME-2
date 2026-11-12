@@ -27,7 +27,7 @@ class Rva0056ACC5 : public Rva0056AC26
 public:
 	virtual ~Rva0056ACC5();
 	virtual bool ac26Slot1();
-	virtual void rva0056AB35(int id);
+	virtual void vslot02(int id);	// overrides Rva0056AC26::vslot02 (retail primary slot 2: 0x0056AB35)
 	virtual bool slot12(int);
 };
 

@@ -136,9 +136,22 @@ void Rva0030000CFields::setBit2() { flags44 |= 4; }
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
-// ?matches@Rva0056AB88Fields@@QBE_NI@Z
-struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
-bool Rva0056AB88Fields::matches(unsigned int value) const { return wordC==value; }
+// ?slot12@Rva0056ACC5@@UAE_NH@Z, retail 0x0056AB88 (15B): slot 12 of
+// Rva0056ACC5's secondary table 0x0086D0C0. Direct Base2-frame function:
+// mov ecx,[ecx+0xC] / xor eax,eax / cmp ecx,[esp+4] / sete al / ret 4 —
+// the first own member at +0x14 in the object compared against the
+// argument. No caller exists outside the vtable slot.
+#include "../../Include/Common/Rva0056AC26.h"
+
+class Rva0056ACC5 : public Rva0056AC26
+{
+public:
+	virtual bool slot12(int value);
+private:
+	unsigned int m_14;	// +0x14
+};
+
+bool Rva0056ACC5::slot12(int value) { return m_14 == (unsigned int)value; }
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
