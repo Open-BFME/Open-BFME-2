@@ -3262,6 +3262,17 @@ The AptLanLobby callback table at RVA 0083E020 remains bridged. A compiler
 probe reproduces all 23 slot positions. The approved move of its slot 20
 factory hits a [split refusal on two pairs of folded destructors](../../reverse/attempt_support/apt-lobby-slot20-split.md).
 
+Wind category constructor 001F448D now constructs the two-interface base
+and WindModuleInfo at +8. For RVAs 007BB58C, 007E16C8 and 007E16D8 both
+ParticleSys.cpp and FXParticleSystem.cpp emit tables of 4, 16 and 16 bytes
+with identical slot relocations. The middle table has three pure slots
+after its deleting destructor. In the default wind implementation
+(0081BFB8) slot 2 calls createModule, RVA 003AD97F. The constructor no
+longer refers to the three address-named externals. Two-unit verification
+matched 529 functions and 14 EH graphs; link preview kept 10,937 bytes.
+Check the next real-link queue for bridge retirement and the selected
+deleting destructors against retail before closing these three entries.
+
 ### Placeholder slot bodies moved into their tables' classes, collide defaults and the OwnedPointerResets regression: 17 off the bridge (2026-11-12, seat halilkkaya-lk104)
 
 Base `d3809cf5c05`. Measured with lk74_snap/lk74_cmp and HEAD's `vtable_bridge.py`; census index `c31795c94c`.

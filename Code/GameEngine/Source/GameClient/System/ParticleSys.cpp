@@ -499,45 +499,20 @@ public:
     AsciiString m_value;
 };
 #include "../../../Include/GameClient/WindModuleInfo.h"
+#include "../../../Include/GameClient/FXModuleTemplateBase.h"
+
 namespace FXParticleSystem {
-extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];
-extern "C" const void *const __identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@")[];
-extern "C" const void *const __identifier("??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@")[];
-extern "C" const void *const vtbl_00BBB58C[];
-extern "C" const void *const vtbl_00BE16C8[];
-extern "C" const void *const vtbl_00BE16D8[];
-#pragma comment(linker, "/alternatename:_vtbl_00BBB58C=??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6BModuleTemplate@1@@")
-#pragma comment(linker, "/alternatename:_vtbl_00BE16C8=??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6BModuleTemplate@1@@")
-#pragma comment(linker, "/alternatename:_vtbl_00BE16D8=??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6B@")
-template<int N> class __declspec(novtable) CategoryModuleTemplateBase {
+template <>
+class CategoryModuleTemplateBase<7> : public ModuleTemplate, public CategoryModuleInfo<7>
+{
 public:
-    CategoryModuleTemplateBase() {
-        *(void *volatile *)&v4=(void*)__identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
-        *(void **)this=(void*)vtbl_00BBB58C;
-        v4=(void*)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
-    }
-    // LINK: the default ctor's COMDAT loses to the kept copy; the derived ctor calls a
-    // TU-unique no-init ctor with the identical stores instead. No flags touched.
-    struct BfmeNoInitWind {};
-    CategoryModuleTemplateBase(BfmeNoInitWind) {
-        *(void *volatile *)&v4=(void*)__identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
-        *(void **)this=(void*)vtbl_00BBB58C;
-        v4=(void*)__identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@");
-    }
     virtual ~CategoryModuleTemplateBase();
-    void *v4;
 };
-template<int N> class __declspec(novtable) CategoryModuleTemplate : public CategoryModuleTemplateBase<N> {
-    WindModuleInfo wind;
-public:
-    CategoryModuleTemplate();
-};
-template<int N> CategoryModuleTemplate<N>::CategoryModuleTemplate() : CategoryModuleTemplateBase<N>(typename CategoryModuleTemplateBase<N>::BfmeNoInitWind()) {
-    *(void **)&wind=(void*)vtbl_00BE16D8;
-    *(void **)this=(void*)vtbl_00BE16C8;
-    v4=(void*)__identifier("??_7?$CategoryModuleTemplate@$06@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
+
 }
-template CategoryModuleTemplate<7>::CategoryModuleTemplate();
+#include "../../../Include/GameClient/WindCategoryModuleTemplate.h"
+namespace FXParticleSystem {
+CategoryModuleTemplate<7>::CategoryModuleTemplate() {}
 }
 //
 // ?rva001FA529@Rva001FA529@@QAEXPAX0@Z @0x001FA529, 36B.
@@ -1876,12 +1851,6 @@ struct Rva001FA8DDHolder
 // Retail installs the established template tables at +0/+4/+8 and unwinds
 // the dual-interface base if WindModuleInfo construction throws.
 //
-// Keep this constructor in an EH-enabled unit: the main template unit uses
-// /GX-. These opaque views retain the known 8-byte base and 0x48-byte wind
-// subobject, while novtable leaves table ownership in the existing units.
-// The three secondary tables fold to the same retail address but remain
-// separate symbols, as they are during normal C++ construction.
-
 // ?Rva001F458BWrite@@YAAAVFile@@AAV1@ABURva001F458BText@@@Z @0x001F458B 29B.
 // File::write at vtable +0x10 with (start and finish-start) from ostringstream text.
 // Donor BFME1 fx_particle_system_bulk.cpp writeStreamText via FileWriteShim.

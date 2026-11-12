@@ -948,8 +948,14 @@ struct CategoryInfo<7>
 // any earlier instantiates CategoryInfo<7> from the primary template.
 template CategoryModuleTemplateBase<7>::CategoryModuleTemplateBase();
 
-// The wind constructor needs EH cleanup; its definition is compiled separately.
-template <> CategoryModuleTemplate<7>::CategoryModuleTemplate();
+}
+#include "../../Include/GameClient/WindCategoryModuleTemplate.h"
+namespace FXParticleSystem {
+
+CategoryModuleTemplate<7>::CategoryModuleTemplate(const CategoryModuleTemplate &that)
+    : CategoryModuleTemplateBase<7>(that), WindModuleInfo(that)
+{
+}
 
 // Its generated assignment rides here for the same reason: it assigns the
 // base, then the wind info at offset 8.
@@ -958,7 +964,6 @@ typedef CategoryModuleTemplate<7> &(CategoryModuleTemplate<7>::*CategoryModuleTe
 
 CategoryModuleTemplateAssign7 g_categoryModuleTemplateAssign7 = &CategoryModuleTemplate<7>::operator=;
 
-template CategoryModuleTemplate<7>::CategoryModuleTemplate(const CategoryModuleTemplate<7> &);
 
 // Three more info classes read straight off their generated assignments: a
 // movsd run is a three-float group, a lone dword move is a loose float, and a
