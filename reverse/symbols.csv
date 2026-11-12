@@ -3762,7 +3762,6 @@ name,address,notes
 ?Init@Rva000BB3D7Part@@QAEXXZ,0x00007850,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x000BB3D7 targets this 101B Ghidra body; identity unproven
 ?Init@Rva004FFE72Part@@QAEXXZ,0x0033C432,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x004FFE72 targets this 25B Ghidra body; identity unproven
 ?InitRandom@@YAXXZ,0x0023424C,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
-?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z,0x0012FE00,Sphere overload tail-called by the no-sphere Insert_Triangles (0x0011C6B0), as in the reference
 ?IsAnimationInst@AptCIH@@QBE_N_N@Z,0x006CBEE0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
 ?IsCharacterInst@AptCIH@@QBE_NXZ,0x006E0200,alias rowed isCharacterInst predicate; CallFrame native REL32 and checked accessor assertion; alternatename provider
 ?IsLevelInst@AptCIH@@QBE_NXZ,0x006E03A0,alias of rowed type19 predicate; native Play Stop REL32 and donor IsLevelInst; alternatename bound to provider
