@@ -26,10 +26,7 @@ namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::si
 
 struct Rva00051B89Keyed;
 
-struct Rva00051B89Hash
-{
-	size_t operator()(Rva00051B89Keyed *const &key) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva00051B89Hash.h"
 
 typedef std::hashtable<
 	Rva00051B89Keyed *,

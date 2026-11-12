@@ -37,10 +37,7 @@ template <> void **vector<void*>::end();
 
 struct Rva00051B89Keyed;
 
-struct Rva00051B89Hash
-{
-	size_t operator()(Rva00051B89Keyed *const &key) const;
-};
+#include "../../Include/Common/Rva00051B89Hash.h"
 
 typedef std::hashtable<
 	Rva00051B89Keyed *,

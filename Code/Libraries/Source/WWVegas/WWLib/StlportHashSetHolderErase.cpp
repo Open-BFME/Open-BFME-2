@@ -8,7 +8,7 @@
 #include <hash_set>
 
 struct Rva00051107AudioRequest;
-struct Rva00051B89Hash { unsigned int operator()(Rva00051107AudioRequest *) const; };
+#include "../../../../GameEngine/Include/Common/Rva00051B89Hash.h"
 struct Rva00050E1CEqualTo { bool operator()(Rva00051107AudioRequest *, Rva00051107AudioRequest *) const; };
 
 typedef _STL::hashtable<Rva00051107AudioRequest *, Rva00051107AudioRequest *, Rva00051B89Hash,

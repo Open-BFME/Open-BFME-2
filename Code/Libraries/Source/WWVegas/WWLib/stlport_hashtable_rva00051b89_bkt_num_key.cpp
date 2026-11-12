@@ -14,9 +14,7 @@ unsigned __stdcall Rva00051B89Mod(void *p, unsigned div);
 
 struct Rva00051B89Keyed;
 
-struct Rva00051B89Hash
-{
-};
+#include "../../../../GameEngine/Include/Common/Rva00051B89Hash.h"
 
 namespace _STL
 {
