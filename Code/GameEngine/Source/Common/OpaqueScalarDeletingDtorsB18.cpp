@@ -91,6 +91,9 @@ public:
 	Rva005FA141(EmitVtableTag *);
 public:
 	virtual ~Rva005FA141();
+	// Retail table 0x00C79D78 slots 1/2: the shared empty `ret` (0x000B3FD0).
+	virtual void slot1() {}
+	virtual void slot2() {}
 };
 
 // ?<Rva005FA141::Rva005FA141> absent-from-retail

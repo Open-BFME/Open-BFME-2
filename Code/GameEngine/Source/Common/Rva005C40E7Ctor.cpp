@@ -16,6 +16,9 @@ class Rva005C3F02
 {
 public:
 	virtual ~Rva005C3F02();
+	// Retail table 0x00C744AC slots 1/2: the shared empty `ret` (0x000B3FD0).
+	virtual void slot1() {}
+	virtual void slot2() {}
 	Rva005C3F02(void *a1, void *a2);
 	void rva005C3E81();
 

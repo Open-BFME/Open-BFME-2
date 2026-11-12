@@ -169,6 +169,11 @@ class RegionDetailsStructuresMovieClip
 public:
  RegionDetailsStructuresMovieClip(EmitVtableTag *);
  virtual ~RegionDetailsStructuresMovieClip();
+ // Retail table 0x00C78EFC slots 1-4: the shared empty `ret` (0x000B3FD0).
+ virtual void slot1() {}
+ virtual void slot2() {}
+ virtual void slot3() {}
+ virtual void slot4() {}
 };
 }
 
