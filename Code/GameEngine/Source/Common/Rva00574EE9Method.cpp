@@ -31,11 +31,7 @@ public:
 	void *rva002B256E();
 };
 
-class Rva0042D6FDPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0042D6FDPtrChaseField.h"
 
 #include "../../Include/Common/Rva0042D69DPtrChaseField.h"
 

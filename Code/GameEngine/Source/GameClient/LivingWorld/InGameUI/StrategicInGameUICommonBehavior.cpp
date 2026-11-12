@@ -74,7 +74,7 @@ struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva005A0B4CList.h"
 #include "../../../../Include/Common/Rva002B7250.h"
 struct Rva002BED91;
-class Rva0042D6FDPtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva0042D6FDPtrChaseField.h"
 // An owner whose observer list sits at +4.
 struct Rva00574CC1OwnerBase { virtual void vslot0(); };
 struct Rva00574CC1Owner : public Rva00574CC1OwnerBase, public Rva002B7250 {};

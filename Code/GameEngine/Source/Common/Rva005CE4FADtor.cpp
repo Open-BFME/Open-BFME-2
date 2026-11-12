@@ -18,7 +18,7 @@ struct Rva005CE4FATarget
 	char m_pad[8];
 	Rva002B7250 m_holder;
 };
-class Rva0042D6FDPtrChaseField { public: int get() const; };
+#include "../../Include/Common/Rva0042D6FDPtrChaseField.h"
 class Rva0042D703PtrChaseField { public: int get() const; };
 #include "../../Include/Common/Rva0042D69DPtrChaseField.h"
 class VirtObj005CE4FA

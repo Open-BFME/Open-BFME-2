@@ -30,7 +30,7 @@ class Object;
 #include "../../../../Include/GameClient/Rva0042D6BAPtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 class Rva0042D703PtrChaseField {public: int get() const;};
-class Rva0042D6FDPtrChaseField {public: int get() const;};
+#include "../../../../Include/Common/Rva0042D6FDPtrChaseField.h"
 
 class StrategicInGameUI::BattleResolver::Impl
 {

@@ -12,10 +12,7 @@ struct Parent005CEFD3 {
     char pad[4];
     Rva002B7250 holder;
 };
-class Rva0042D6FDPtrChaseField {
-public:
-    int get() const;
-};
+#include "../../Include/Common/Rva0042D6FDPtrChaseField.h"
 class VirtObj005CEFD3 {
 public:
     virtual void f0();

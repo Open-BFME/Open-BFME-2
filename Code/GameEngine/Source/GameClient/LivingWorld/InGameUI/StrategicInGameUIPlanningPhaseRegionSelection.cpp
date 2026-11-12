@@ -6,11 +6,7 @@
 // ret 0xC): unless the new owner (third argument) is already +0x0C, the
 // object read through +0x10 (rowed getter 0x0042D6FD) gets its vslot 4.
 // Argument and member types are viewed by offset.
-class Rva0042D6FDPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva0042D6FDPtrChaseField.h"
 
 struct Rva005CE9CAListener
 {

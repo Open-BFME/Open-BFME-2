@@ -393,7 +393,7 @@ class AsciiString;
 struct Rva005E5FObserverOwner {char prefix[8];Rva002B7250 observers;};
 class Rva005E5FObserver {public:virtual void notify(void *);~Rva005E5FObserver() {}};
 #include "../../../Include/Common/Rva0042D69DPtrChaseField.h"
-class Rva0042D6FDPtrChaseField {public:int get() const;};
+#include "../../../Include/Common/Rva0042D6FDPtrChaseField.h"
 class Rva0042D703PtrChaseField {public:int get() const;};
 #include "../../../Include/Common/Rva00319B0AOwner.h"
 class Rva005E5FButtons {public:virtual void s0();virtual void s1();virtual void erase(int);};

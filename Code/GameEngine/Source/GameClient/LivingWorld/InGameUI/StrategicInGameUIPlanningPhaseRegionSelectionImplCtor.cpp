@@ -27,11 +27,7 @@ struct Rva002BA8F1Listener;
 
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 
-class Rva0042D6FDPtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva0042D6FDPtrChaseField.h"
 
 class Rva005CE912
 {
