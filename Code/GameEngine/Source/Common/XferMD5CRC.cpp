@@ -1003,13 +1003,7 @@ private:
 	_STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > m_map;
 };
 
-class Rva0052B488
-{
-public:
-	int rva0052B488(const char *name);
-private:
-	XferSave m_xfer;
-};
+#include "../../Include/Common/Rva0052B488.h"
 
 // ?Rva005676FB@@YAPAXPAVGameWindow@@@Z @0x005676FB 5B: cdecl forward to the
 // rowed GadgetButtonGetData 0x00327D56.

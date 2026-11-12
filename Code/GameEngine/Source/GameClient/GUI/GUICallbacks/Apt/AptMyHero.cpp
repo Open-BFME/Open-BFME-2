@@ -1180,13 +1180,7 @@ public:
 	int rva0060D435(const char *name);
 };
 
-class Rva0052B488
-{
-public:
-	int rva0052B488(const char *name);
-private:
-	XferSave m_xfer;
-};
+#include "../../../../../Include/Common/Rva0052B488.h"
 
 // ?Rva005676FB@@YAPAXPAVGameWindow@@@Z @0x005676FB 5B: cdecl forward to the
 // rowed GadgetButtonGetData 0x00327D56.
