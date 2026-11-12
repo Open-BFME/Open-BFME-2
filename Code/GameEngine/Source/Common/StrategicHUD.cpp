@@ -511,11 +511,7 @@ public:
 // Callers pass 0 (e.g. 0x0042DBFC). Callees 0x005CB265 no-arg int pinned
 // 0x005CB260 rowed slot1 0x001FF3A9 one-arg int* pinned. Evidence: retail
 // bytes unlock lane and 4 callers.
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 #include "../../Include/Common/Rva005CB265.h"
 class Rva005796B3
 {

@@ -105,7 +105,7 @@ class Rva0057417E;
 class Rva0042C1DF {public:void clear();};
 class Rva0042C1BC {public:void reset(Rva0057417E*);};
 
-class Rva005CB260 {public:void rva005CB260();};
+#include "../../../../Include/Common/Rva005CB260.h"
 
 struct Rva0042C1F9Helper {virtual void *virt0(int);};
 struct Holder0042C1F9 {

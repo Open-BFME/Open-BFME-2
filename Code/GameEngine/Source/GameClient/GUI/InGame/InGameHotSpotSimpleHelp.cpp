@@ -32,11 +32,7 @@ public:
 	void rva001FF3A9(const TreeHintRef00217D4C &hint);
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260(int observer);
-};
+#include "../../../../Include/Common/Rva005CB260.h"
 
 class Rva005CC208
 {

@@ -40,11 +40,7 @@ public:
 	unsigned char m_flags;
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../Include/Common/Rva005CB260.h"
 
 struct TreeHintRef00217D4C;
 

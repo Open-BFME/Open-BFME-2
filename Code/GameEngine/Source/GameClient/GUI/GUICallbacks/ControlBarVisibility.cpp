@@ -81,11 +81,7 @@ class Rva0031AFDE { public: Int rva0031AFDE(); };
 
 #include "../../../../Include/GameClient/BannerUI.h"
 
-class Rva005CB260
-{
-public:
-	void rva005CB260(int observer);
-};
+#include "../../../../Include/Common/Rva005CB260.h"
 
 #include "../../../../Include/GameClient/InGameUI.h"
 

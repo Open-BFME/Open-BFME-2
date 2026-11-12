@@ -302,11 +302,7 @@ private:
 // Evidence: packet disasm; pins at 0x005E6A9D; rows 0x005CB265 0x005CB260
 // 0x002BED91 0x005E3B25; precedent Rva005E21EB::rva005E25CD.
 #include "../../../Include/Common/Rva005CB265.h"
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../Include/Common/Rva005CB260.h"
 struct Rva002BED91
 {
 	int m_ptr;

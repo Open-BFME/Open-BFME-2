@@ -74,11 +74,7 @@ public:
 	void rva0030ADE8();
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 #include "../../Include/Common/Rva00131CEAForwarder.h"
 
