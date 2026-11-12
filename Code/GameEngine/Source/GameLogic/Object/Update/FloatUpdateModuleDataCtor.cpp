@@ -12,6 +12,10 @@
 
 #include "../../../../Include/Common/ModuleData.h"
 
+// Retail inlines the empty base destructor, so the implicit ~X is the 7-byte
+// vptr store at 0x0049B47C that the deleting destructor 0x004A10FD calls.
+inline ModuleData::~ModuleData() {}
+
 class FloatUpdateModuleData : public ModuleData
 {
 public:

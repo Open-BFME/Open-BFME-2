@@ -9,6 +9,10 @@
 // INVALID_ID ors and the zeroed tail; ModuleData's tag key at +4 is left alone.
 #include "../../../../Include/Common/ModuleData.h"
 
+// Retail inlines the empty base destructor, so the implicit ~X is the 7-byte
+// vptr store at 0x0049B47C that the deleting destructor 0x004A10FD calls.
+inline ModuleData::~ModuleData() {}
+
 class EvaAnnounceClientCreateModuleData : public ModuleData
 {
 public:
