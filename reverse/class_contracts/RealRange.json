@@ -1,0 +1,132 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "RealRange",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x3f3a",
+      "0x47a6a9"
+     ],
+     "value": {
+      "0x3f3a": [
+       "Coord2D",
+       "RealRange"
+      ],
+      "0x47a6a9": [
+       "BfmeRadarMapPoint",
+       "BfmeRadarWorldPoint",
+       "Coord2D",
+       "Coord3D",
+       "FloorMatrixRow",
+       "ICoord2D",
+       "ICoord3D",
+       "IRegion3D",
+       "IntRange",
+       "LineSegment2D",
+       "Matrix4D",
+       "RGBColor",
+       "RealRange",
+       "Region2D",
+       "Region3D",
+       "Rva000840F1Point",
+       "Rva00085815Element",
+       "Rva0009A710LightPosition",
+       "Rva000E3BFEArrayMember",
+       "Rva0010811EVertex",
+       "Rva001741EBRow16",
+       "Rva001E3E43Element",
+       "Rva00248558Scope",
+       "Rva0027C36ATwelve",
+       "Rva003901DAPoint",
+       "Rva00477F06GarrisonPoint",
+       "Rva0047A6A9Row16",
+       "Rva004B9C4DPoint",
+       "Rva004FB3F2State120",
+       "Rva004FB3F2State8C",
+       "Rva005390AEPoint",
+       "Rva00561C34Point",
+       "Rva00587500Block",
+       "StandingWaterPCARecord",
+       "TCBSpline3DClass::TCBClass",
+       "Vector2",
+       "Vector4"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "8": 13
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "lo",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "hi",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 13,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "exports",
+ "ledger_keys": {
+  "struct": 3
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "zh",
+ "vslots": {}
+}

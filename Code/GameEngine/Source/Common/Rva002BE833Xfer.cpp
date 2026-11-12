@@ -25,11 +25,7 @@ struct IRegion3D
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/Region2D.h"
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
-struct RealRange
-{
-    float lo;
-    float hi;
-};
+#include "../../Include/Common/RealRange.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 struct RGBAColorReal
 {
