@@ -34,10 +34,7 @@ private:
 	int m_94; // +0x94
 	bool m_98; // +0x98
 };
-struct Rva0029FB3BAlloc
-{
-	Rva0029FB3BAlloc() {}
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BAlloc.h"
 
 // ??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x004909D7
 ArrowStormUpdate::ArrowStormUpdate(Thing *thing, const ModuleData *moduleData) :

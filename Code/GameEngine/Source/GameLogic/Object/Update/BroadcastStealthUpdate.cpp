@@ -100,10 +100,7 @@ extern GameLogic *TheGameLogic;
 typedef unsigned int UnsignedInt;
 // Four-byte STLport list storage: construction and teardown use the existing
 // out-of-line member providers at 0x0029FB3B and 0x00268902.
-struct Rva0029FB3BAlloc
-{
-	Rva0029FB3BAlloc() {}
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BAlloc.h"
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 struct BridgeBehaviorObjectIDNode
 {

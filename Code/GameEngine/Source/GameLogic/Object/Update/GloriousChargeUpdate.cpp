@@ -480,10 +480,7 @@ GloriousChargeUpdate::~GloriousChargeUpdate()
 
 // The canonical member overload takes this empty allocator-reference
 // temporary; its user constructor avoids adding a zero store.
-struct Rva0029FB3BAlloc
-{
-    Rva0029FB3BAlloc() {}
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BAlloc.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateBehaviorCtor.cpp
 

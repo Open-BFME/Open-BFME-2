@@ -268,10 +268,7 @@ private:
 	float m_98; // +0x98
 };
 
-struct Rva0029FB3BAlloc
-{
-	Rva0029FB3BAlloc() {}
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BAlloc.h"
 
 // tu-skeleton: 0x004ACD73 27B ?buildFieldParse@RousingSpeechUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
