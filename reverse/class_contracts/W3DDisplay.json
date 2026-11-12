@@ -1,0 +1,2302 @@
+{
+ "bases": [
+  "Display"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "W3DDisplay",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "Display"
+   ]
+  },
+  "census": 93,
+  "inherited": {
+   "base_views": 7,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 12
+   },
+   "0x110": {
+    "4": 4
+   },
+   "0x120": {
+    "4": 2
+   },
+   "0x168": {
+    "4": 3
+   },
+   "0x180": {
+    "4": 1
+   },
+   "0x184": {
+    "4": 3
+   },
+   "0x188": {
+    "4": 3
+   },
+   "0x18c": {
+    "4": 1
+   },
+   "0x2a4": {
+    "4": 1
+   },
+   "0x2a8": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0xc8": {
+    "4": 1
+   },
+   "0xcc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x49dea"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Display",
+       "offset": 0,
+       "own_vftable": "0x7c3c80",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49dea"
+     ],
+     "value": 640
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49dea"
+     ],
+     "value": {
+      "0x144": [
+       1
+      ],
+      "0x148": [
+       4
+      ],
+      "0x158": [
+       4
+      ],
+      "0x168": [
+       4
+      ],
+      "0x16c": [
+       4
+      ],
+      "0x170": [
+       4
+      ],
+      "0x174": [
+       4
+      ],
+      "0x178": [
+       4
+      ],
+      "0x17c": [
+       1
+      ],
+      "0x180": [
+       4
+      ],
+      "0x184": [
+       4
+      ],
+      "0x188": [
+       4
+      ],
+      "0x1cc": [
+       4
+      ],
+      "0x278": [
+       4
+      ],
+      "0x27c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x49dea"
+     ],
+     "value": {
+      "0x280": [
+       "?rva00045984@Rva00043511@@QAEPAV1@XZ"
+      ],
+      "0x2a4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x4c481"
+     ],
+     "value": 688
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x49dea"
+     ],
+     "value": {
+      "0x0": "0x7c3c80"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c3c80"
+     ],
+     "value": {
+      "count": 101,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GW3DDisplay@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4aa0c"
+       },
+       {
+        "name": "?init@W3DDisplay@@UAEXXZ",
+        "slot": 1,
+        "target": "0x46a50"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@W3DDisplay@@UAEXXZ",
+        "slot": 9,
+        "target": "0x43418"
+       },
+       {
+        "name": "?method@Rva0004378D@@QAEXXZ",
+        "slot": 10,
+        "target": "0x4378d"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?draw@W3DDisplay@@UAEXXZ",
+        "slot": 12,
+        "target": "0x4bef2"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?setHeight@W3DDisplay@@UAEXI@Z",
+        "slot": 14,
+        "target": "0x43340"
+       },
+       {
+        "name": "?setWidth@W3DDisplay@@UAEXI@Z",
+        "slot": 15,
+        "target": "0x433ac"
+       },
+       {
+        "name": "?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ",
+        "slot": 16,
+        "target": "0x1db0a8"
+       },
+       {
+        "name": "?get@Rva001DB09DDwordField@@QBEHXZ",
+        "slot": 17,
+        "target": "0x1db09d"
+       },
+       {
+        "name": "?set@Rva002B22A5DwordSlot@@QAEXH@Z",
+        "slot": 18,
+        "target": "0x2b22a5"
+       },
+       {
+        "name": "?get@Rva0057E556DwordField@@QBEHXZ",
+        "slot": 19,
+        "target": "0x57e556"
+       },
+       {
+        "name": "?set@Rva00049F2BByteSlot@@QAEXE@Z",
+        "slot": 20,
+        "target": "0x49f2b"
+       },
+       {
+        "name": "?get@Rva004C9990ByteField@@QBEEXZ",
+        "slot": 21,
+        "target": "0x4c9990"
+       },
+       {
+        "name": "?setDisplayMode@W3DDisplay@@UAE_NIII_N@Z",
+        "slot": 22,
+        "target": "0x43240"
+       },
+       {
+        "name": "?Rva0045878Count@@YAHXZ",
+        "slot": 23,
+        "target": "0x45878"
+       },
+       {
+        "name": "?Rva00458E2Get@@YGXHPAH00@Z",
+        "slot": 24,
+        "target": "0x458e2"
+       },
+       {
+        "name": "?rva00043073@Rva00043073@@QAEXMMM_N@Z",
+        "slot": 25,
+        "target": "0x43073"
+       },
+       {
+        "name": "?testMinSpecRequirements@Display@@UAE_NPA_N00PAW4StaticGameLODLevel@@PAM@Z",
+        "slot": 26,
+        "target": "0x49f35"
+       },
+       {
+        "name": "?rva000466FA@W3DDisplay@@QAE_NXZ",
+        "slot": 27,
+        "target": "0x466fa"
+       },
+       {
+        "name": "?rva00047F79@Rva006EE520@@QAE_NPAVSubTitleManager@@MMHHHH@Z",
+        "slot": 28,
+        "target": "0x47f79"
+       },
+       {
+        "name": "?update@Rva006EE520@@QAEXH@Z",
+        "slot": 29,
+        "target": "0x4802c"
+       },
+       {
+        "name": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 30,
+        "target": "0x49f0f"
+       },
+       {
+        "name": "?rva00046734@W3DDisplay@@QAEXXZ",
+        "slot": 31,
+        "target": "0x46734"
+       },
+       {
+        "name": "?rva00046791@W3DDisplay@@QAEXXZ",
+        "slot": 32,
+        "target": "0x46791"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 33,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva000481AA@W3DDisplay@@UAE?AVAsciiString@@ABV2@@Z",
+        "slot": 34,
+        "target": "0x481aa"
+       },
+       {
+        "name": "?rva0025C134@Display@@UAEXPAVView@@@Z",
+        "slot": 35,
+        "target": "0x25c134"
+       },
+       {
+        "name": "?getData@NetWrapperCommandMsg@@QAEPAEXZ",
+        "slot": 36,
+        "target": "0x30f2c7"
+       },
+       {
+        "name": "?rva00049F4F@W3DDisplay@@QAEHPAVRva00049F4FObject@@@Z",
+        "slot": 37,
+        "target": "0x49f4f"
+       },
+       {
+        "name": "?rva0025C14D@Display@@UAEXXZ",
+        "slot": 38,
+        "target": "0x25c14d"
+       },
+       {
+        "name": "?rva0025C18B@Display@@UAEXPAURva0025C18BCoord@@0@Z",
+        "slot": 39,
+        "target": "0x25c18b"
+       },
+       {
+        "name": "?rva0025C238@Display@@UAEXXZ",
+        "slot": 40,
+        "target": "0x25c238"
+       },
+       {
+        "name": "?createVideoBuffer@W3DDisplay@@UAEPAVVideoBuffer@@_N@Z",
+        "slot": 41,
+        "target": "0x44d7f"
+       },
+       {
+        "name": "?rva00044FB9@Rva00044FB9@@QAEXPBURva00SlotQuad@@@Z",
+        "slot": 42,
+        "target": "0x44fb9"
+       },
+       {
+        "name": "?get@Rva00049F80ByteField@@QBEEXZ",
+        "slot": 43,
+        "target": "0x49f80"
+       },
+       {
+        "name": "?set@Rva00049F87ByteSlot@@QAEXE@Z",
+        "slot": 44,
+        "target": "0x49f87"
+       },
+       {
+        "name": "?rva0004474C@Rva0004443E@@QAEXH@Z",
+        "slot": 45,
+        "target": "0x4474c"
+       },
+       {
+        "name": "?rva00044688@Rva0004443E@@QAEXPBURva000443BAVec@@@Z",
+        "slot": 46,
+        "target": "0x44688"
+       },
+       {
+        "name": "?createLightPulse@W3DDisplay@@QAEXPBUCoord3D@@PBURGBColor@@MMII@Z",
+        "slot": 47,
+        "target": "0x4423c"
+       },
+       {
+        "name": "?rva0004443E@Rva0004443E@@QAEXM@Z",
+        "slot": 48,
+        "target": "0x4443e"
+       },
+       {
+        "name": "?rva0004450E@Rva0004443E@@QAEXHURva000443BAVec@@@Z",
+        "slot": 49,
+        "target": "0x4450e"
+       },
+       {
+        "name": "?rva00044545@Rva0004443E@@QAEXHURva000443BAVec@@@Z",
+        "slot": 50,
+        "target": "0x44545"
+       },
+       {
+        "name": "?rva0004481A@Rva004488C@@QAEXMMMM@Z",
+        "slot": 51,
+        "target": "0x4481a"
+       },
+       {
+        "name": "?f@Rva004488C@@QAEXM@Z",
+        "slot": 52,
+        "target": "0x4488c"
+       },
+       {
+        "name": "?rva000448B9@Rva000448B9Forwarder@@QAEXXZ",
+        "slot": 53,
+        "target": "0x448b9"
+       },
+       {
+        "name": "?drawLine@W3DDisplay@@UAEXMMMMMKK@Z",
+        "slot": 54,
+        "target": "0x44928"
+       },
+       {
+        "name": "?rva000448CF@Rva000448CF@@QAEXMMMMMK@Z",
+        "slot": 55,
+        "target": "0x448cf"
+       },
+       {
+        "name": "?drawOpenRect@W3DDisplay@@UAEXMMMMMI@Z",
+        "slot": 56,
+        "target": "0x44a1a"
+       },
+       {
+        "name": "?rva00044C9A@Rva00044C9A@@UAEXMMMMK@Z",
+        "slot": 57,
+        "target": "0x44c9a"
+       },
+       {
+        "name": "?rva00045990@W3DDisplay@@UAEXMMMMI@Z",
+        "slot": 58,
+        "target": "0x45990"
+       },
+       {
+        "name": "?drawRectClock@W3DDisplay@@UAEXMMMMMI@Z",
+        "slot": 59,
+        "target": "0x45b45"
+       },
+       {
+        "name": "?drawRemainingRectClock@W3DDisplay@@UAEXMMMMMI@Z",
+        "slot": 60,
+        "target": "0x463b5"
+       },
+       {
+        "name": "?Rva000471AD@W3DDisplay@@UAEXPBVImage@@MMMMMK@Z",
+        "slot": 61,
+        "target": "0x471ad"
+       },
+       {
+        "name": "?Rva0004776F@W3DDisplay@@UAEXPBVImage@@MMMMKH@Z",
+        "slot": 62,
+        "target": "0x4776f"
+       },
+       {
+        "name": "?queueImage@W3DDisplay@@QAEXPAVRva000465CEBuffer@@MMMMH@Z",
+        "slot": 63,
+        "target": "0x465ce"
+       },
+       {
+        "name": "?rva000448C4@Rva000448C4Forwarder@@QAEXXZ",
+        "slot": 64,
+        "target": "0x448c4"
+       },
+       {
+        "name": "?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z",
+        "slot": 65,
+        "target": "0x44e77"
+       },
+       {
+        "name": "?rva0025C97E@Display@@UAE_NVAsciiString@@HHH@Z",
+        "slot": 66,
+        "target": "0x25c97e"
+       },
+       {
+        "name": "?rva0025D6F5@W3DDisplay@@QAE_NVAsciiString@@_NH@Z",
+        "slot": 67,
+        "target": "0x25d6f5"
+       },
+       {
+        "name": "?rva0025D19E@Display@@QAEXXZ",
+        "slot": 68,
+        "target": "0x25d19e"
+       },
+       {
+        "name": "?get@Rva0052D843CmpBoolField@@QBE_NXZ",
+        "slot": 69,
+        "target": "0x52d843"
+       },
+       {
+        "name": "?get@Rva00049F27ByteField@@QBEEXZ",
+        "slot": 70,
+        "target": "0x49f27"
+       },
+       {
+        "name": "?get@Rva00094AD8ByteField@@QBEEXZ",
+        "slot": 71,
+        "target": "0x94ad8"
+       },
+       {
+        "name": "?rva0025DA8D@Display@@UAE_NVAsciiString@@H@Z",
+        "slot": 72,
+        "target": "0x25da8d"
+       },
+       {
+        "name": "?rva0025CF2A@Display@@UAEIH@Z",
+        "slot": 73,
+        "target": "0x25cf2a"
+       },
+       {
+        "name": "?setDebugDisplayCallback@Display@@UAEXP6AXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z1@Z",
+        "slot": 74,
+        "target": "0x25c6bd"
+       },
+       {
+        "name": "?getNumChunks@NetWrapperCommandMsg@@QAEIXZ",
+        "slot": 75,
+        "target": "0x3f3fe8"
+       },
+       {
+        "name": "?rva00044FF2@W3DDisplay@@QAEXHHH@Z",
+        "slot": 76,
+        "target": "0x44ff2"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 77,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00044FD5@W3DDisplay@@QAEX_N@Z",
+        "slot": 78,
+        "target": "0x44fd5"
+       },
+       {
+        "name": "?rva000450A3@W3DDisplay@@QAEXHHH@Z",
+        "slot": 79,
+        "target": "0x450a3"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 80,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00045086@W3DDisplay@@QAEX_N@Z",
+        "slot": 81,
+        "target": "0x45086"
+       },
+       {
+        "name": "?rva000450CE@W3DDisplay@@QAEXHH@Z",
+        "slot": 82,
+        "target": "0x450ce"
+       },
+       {
+        "name": "?takeScreenShot@W3DDisplay@@QAEXPBD@Z",
+        "slot": 83,
+        "target": "0x49b3a"
+       },
+       {
+        "name": "?Rva0004538C@@YG_NHI@Z",
+        "slot": 84,
+        "target": "0x4538c"
+       },
+       {
+        "name": "?f@Rva0044325@@QAEXXZ",
+        "slot": 85,
+        "target": "0x44325"
+       },
+       {
+        "name": "?rva00044360@Rva0044325@@QAEX_N@Z",
+        "slot": 86,
+        "target": "0x44360"
+       },
+       {
+        "name": "?rva000441F7@Rva0044325@@QAE_NXZ",
+        "slot": 87,
+        "target": "0x441f7"
+       },
+       {
+        "name": "?get@Rva00044235ByteField@@QBEEXZ",
+        "slot": 88,
+        "target": "0x44235"
+       },
+       {
+        "name": "?rva00049F94@Display@@QAEXVAsciiString@@@Z",
+        "slot": 89,
+        "target": "0x49f94"
+       },
+       {
+        "name": "?set@Rva00049F66DwordSlot@@QAEXH@Z",
+        "slot": 90,
+        "target": "0x49f66"
+       },
+       {
+        "name": "?set@Rva00049F73DwordSlot@@QAEXH@Z",
+        "slot": 91,
+        "target": "0x49f73"
+       },
+       {
+        "name": "?get@Rva0055F4B5FloatField@@QBEMXZ",
+        "slot": 92,
+        "target": "0x55f4b5"
+       },
+       {
+        "name": "?rva00043F94@Rva00043F94@@QAEHXZ",
+        "slot": 93,
+        "target": "0x43f94"
+       },
+       {
+        "name": "?Rva006E9160Init@@YGXPAUGen_006e9160_Triple@@@Z",
+        "slot": 94,
+        "target": "0x43f99"
+       },
+       {
+        "name": "?get@Rva005BF273DwordField@@QBEHXZ",
+        "slot": 95,
+        "target": "0x5bf273"
+       },
+       {
+        "name": "?bfmeGoQC@@YGXPAX@Z",
+        "slot": 96,
+        "target": "0x453d6"
+       },
+       {
+        "name": "?rva0025C0FF@Rva0025C0FF@@QAEXXZ",
+        "slot": 97,
+        "target": "0x25c0ff"
+       },
+       {
+        "name": "?rva000453AC@W3DDisplay@@QAEXXZ",
+        "slot": 98,
+        "target": "0x453ac"
+       },
+       {
+        "name": "?rva00047D04@W3DDisplay@@QAEXH@Z",
+        "slot": 99,
+        "target": "0x47d04"
+       },
+       {
+        "name": "?rva000466B9@W3DDisplay@@QAEXXZ",
+        "slot": 100,
+        "target": "0x466b9"
+       }
+      ],
+      "table": "0x7c3c80"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 35,
+  "retail_vtables": {
+   "0x7c3c80": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GW3DDisplay@@UAEPAXI@Z",
+     "1": "?init@W3DDisplay@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@W3DDisplay@@UAEXXZ",
+     "10": "?method@Rva0004378D@@QAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "?draw@W3DDisplay@@UAEXXZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?setHeight@W3DDisplay@@UAEXI@Z",
+     "15": "?setWidth@W3DDisplay@@UAEXI@Z",
+     "16": "?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ",
+     "17": "?get@Rva001DB09DDwordField@@QBEHXZ",
+     "18": "?set@Rva002B22A5DwordSlot@@QAEXH@Z",
+     "19": "?get@Rva0057E556DwordField@@QBEHXZ",
+     "20": "?set@Rva00049F2BByteSlot@@QAEXE@Z",
+     "21": "?get@Rva004C9990ByteField@@QBEEXZ",
+     "22": "?setDisplayMode@W3DDisplay@@UAE_NIII_N@Z",
+     "23": "?Rva0045878Count@@YAHXZ",
+     "24": "?Rva00458E2Get@@YGXHPAH00@Z",
+     "25": "?rva00043073@Rva00043073@@QAEXMMM_N@Z",
+     "26": "?testMinSpecRequirements@Display@@UAE_NPA_N00PAW4StaticGameLODLevel@@PAM@Z",
+     "27": "?rva000466FA@W3DDisplay@@QAE_NXZ",
+     "28": "?rva00047F79@Rva006EE520@@QAE_NPAVSubTitleManager@@MMHHHH@Z",
+     "29": "?update@Rva006EE520@@QAEXH@Z",
+     "30": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+     "31": "?rva00046734@W3DDisplay@@QAEXXZ",
+     "32": "?rva00046791@W3DDisplay@@QAEXXZ",
+     "33": "??1Region2D@@QAE@XZ",
+     "34": "?rva000481AA@W3DDisplay@@UAE?AVAsciiString@@ABV2@@Z",
+     "35": "?rva0025C134@Display@@UAEXPAVView@@@Z",
+     "36": "?getData@NetWrapperCommandMsg@@QAEPAEXZ",
+     "37": "?rva00049F4F@W3DDisplay@@QAEHPAVRva00049F4FObject@@@Z",
+     "38": "?rva0025C14D@Display@@UAEXXZ",
+     "39": "?rva0025C18B@Display@@UAEXPAURva0025C18BCoord@@0@Z",
+     "40": "?rva0025C238@Display@@UAEXXZ",
+     "41": "?createVideoBuffer@W3DDisplay@@UAEPAVVideoBuffer@@_N@Z",
+     "42": "?rva00044FB9@Rva00044FB9@@QAEXPBURva00SlotQuad@@@Z",
+     "43": "?get@Rva00049F80ByteField@@QBEEXZ",
+     "44": "?set@Rva00049F87ByteSlot@@QAEXE@Z",
+     "45": "?rva0004474C@Rva0004443E@@QAEXH@Z",
+     "46": "?rva00044688@Rva0004443E@@QAEXPBURva000443BAVec@@@Z",
+     "47": "?createLightPulse@W3DDisplay@@QAEXPBUCoord3D@@PBURGBColor@@MMII@Z",
+     "48": "?rva0004443E@Rva0004443E@@QAEXM@Z",
+     "49": "?rva0004450E@Rva0004443E@@QAEXHURva000443BAVec@@@Z",
+     "50": "?rva00044545@Rva0004443E@@QAEXHURva000443BAVec@@@Z",
+     "51": "?rva0004481A@Rva004488C@@QAEXMMMM@Z",
+     "52": "?f@Rva004488C@@QAEXM@Z",
+     "53": "?rva000448B9@Rva000448B9Forwarder@@QAEXXZ",
+     "54": "?drawLine@W3DDisplay@@UAEXMMMMMKK@Z",
+     "55": "?rva000448CF@Rva000448CF@@QAEXMMMMMK@Z",
+     "56": "?drawOpenRect@W3DDisplay@@UAEXMMMMMI@Z",
+     "57": "?rva00044C9A@Rva00044C9A@@UAEXMMMMK@Z",
+     "58": "?rva00045990@W3DDisplay@@UAEXMMMMI@Z",
+     "59": "?drawRectClock@W3DDisplay@@UAEXMMMMMI@Z",
+     "60": "?drawRemainingRectClock@W3DDisplay@@UAEXMMMMMI@Z",
+     "61": "?Rva000471AD@W3DDisplay@@UAEXPBVImage@@MMMMMK@Z",
+     "62": "?Rva0004776F@W3DDisplay@@UAEXPBVImage@@MMMMKH@Z",
+     "63": "?queueImage@W3DDisplay@@QAEXPAVRva000465CEBuffer@@MMMMH@Z",
+     "64": "?rva000448C4@Rva000448C4Forwarder@@QAEXXZ",
+     "65": "?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z",
+     "66": "?rva0025C97E@Display@@UAE_NVAsciiString@@HHH@Z",
+     "67": "?rva0025D6F5@W3DDisplay@@QAE_NVAsciiString@@_NH@Z",
+     "68": "?rva0025D19E@Display@@QAEXXZ",
+     "69": "?get@Rva0052D843CmpBoolField@@QBE_NXZ",
+     "70": "?get@Rva00049F27ByteField@@QBEEXZ",
+     "71": "?get@Rva00094AD8ByteField@@QBEEXZ",
+     "72": "?rva0025DA8D@Display@@UAE_NVAsciiString@@H@Z",
+     "73": "?rva0025CF2A@Display@@UAEIH@Z",
+     "74": "?setDebugDisplayCallback@Display@@UAEXP6AXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z1@Z",
+     "75": "?getNumChunks@NetWrapperCommandMsg@@QAEIXZ",
+     "76": "?rva00044FF2@W3DDisplay@@QAEXHHH@Z",
+     "77": "??1Region2D@@QAE@XZ",
+     "78": "?rva00044FD5@W3DDisplay@@QAEX_N@Z",
+     "79": "?rva000450A3@W3DDisplay@@QAEXHHH@Z",
+     "80": "??1Region2D@@QAE@XZ",
+     "81": "?rva00045086@W3DDisplay@@QAEX_N@Z",
+     "82": "?rva000450CE@W3DDisplay@@QAEXHH@Z",
+     "83": "?takeScreenShot@W3DDisplay@@QAEXPBD@Z",
+     "84": "?Rva0004538C@@YG_NHI@Z",
+     "85": "?f@Rva0044325@@QAEXXZ",
+     "86": "?rva00044360@Rva0044325@@QAEX_N@Z",
+     "87": "?rva000441F7@Rva0044325@@QAE_NXZ",
+     "88": "?get@Rva00044235ByteField@@QBEEXZ",
+     "89": "?rva00049F94@Display@@QAEXVAsciiString@@@Z",
+     "90": "?set@Rva00049F66DwordSlot@@QAEXH@Z",
+     "91": "?set@Rva00049F73DwordSlot@@QAEXH@Z",
+     "92": "?get@Rva0055F4B5FloatField@@QBEMXZ",
+     "93": "?rva00043F94@Rva00043F94@@QAEHXZ",
+     "94": "?Rva006E9160Init@@YGXPAUGen_006e9160_Triple@@@Z",
+     "95": "?get@Rva005BF273DwordField@@QBEHXZ",
+     "96": "?bfmeGoQC@@YGXPAX@Z",
+     "97": "?rva0025C0FF@Rva0025C0FF@@QAEXXZ",
+     "98": "?rva000453AC@W3DDisplay@@QAEXXZ",
+     "99": "?rva00047D04@W3DDisplay@@QAEXH@Z",
+     "100": "?rva000466B9@W3DDisplay@@QAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 31,
+  "view_sizes": {
+   "1": 30,
+   "4": 3,
+   "56": 1,
+   "208": 1,
+   "268": 1,
+   "272": 1,
+   "280": 2,
+   "316": 1,
+   "324": 1,
+   "364": 2,
+   "384": 4,
+   "388": 1,
+   "460": 1,
+   "464": 2,
+   "564": 2,
+   "632": 2,
+   "636": 1,
+   "640": 1,
+   "680": 1,
+   "684": 2,
+   "688": 2
+  },
+  "views": 62,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplay.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 12
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 24,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDebugPlaceholders.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDebugPlaceholders.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDebugPlaceholders.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MovieBlockingPlayback.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 93,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MovieBlockingPlayback.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D2F6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D2F6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D2F6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D2F6.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MovieBlockingPlayback.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 277,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D205.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 321,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawOpenRect.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawRectClock.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawOpenRect.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawOpenRect.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawOpenRect.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawOpenRect.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawOpenRect.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000448CF.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayAverageFPS.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 396,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004387E.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay_drawAnimStats.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 460,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawSkirmishAIStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 464,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay_drawAnimStats.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 277]]": 1,
+    "[[0, 320]]": 1,
+    "[[0, 322]]": 4,
+    "[[0, 48]]": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot101",
+   "candidates": {
+    "drawLine(float,float,float,float,float,ulong)": 1
+   },
+   "class": "W3DDisplay",
+   "why": "beyond the retail vftable's 101 slots"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "a22()": 1,
+    "slot10()": 3,
+    "unused10()": 3,
+    "v10()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "a23()": 1,
+    "slot11()": 3,
+    "unused11()": 3,
+    "v11()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "a31()": 1,
+    "slot13()": 3,
+    "unused13()": 3,
+    "v13()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "a32()": 1,
+    "setWidth(uint)": 1,
+    "slot14()": 3,
+    "unused14()": 3
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "a33()": 1,
+    "setHeight(uint)": 1,
+    "slot15()": 3,
+    "unused15()": 3
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "getWidth()": 2,
+    "slot16()": 3,
+    "unused16()": 3
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "getHeight()": 2,
+    "slot17()": 3,
+    "unused17()": 3
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot58",
+   "candidates": {
+    "f0()": 1,
+    "rva00045990(float,float,float,float,uint)": 1,
+    "slot58()": 1,
+    "unused58()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot59",
+   "candidates": {
+    "drawRectClock(float,float,float,float,float,uint)": 1,
+    "f1()": 1,
+    "slot59()": 1,
+    "unused59()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot60",
+   "candidates": {
+    "drawRemainingRectClock(float,float,float,float,float,uint)": 1,
+    "f2()": 1,
+    "slot60()": 1,
+    "unused60()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot61",
+   "candidates": {
+    "f3()": 1,
+    "slot61()": 1,
+    "unused61()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot62",
+   "candidates": {
+    "drawImageCore(Image*,float,float,float,float,int,int)": 1,
+    "g0()": 1,
+    "slot62()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot63",
+   "candidates": {
+    "g1()": 1,
+    "slot63()": 1,
+    "unused63()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot64",
+   "candidates": {
+    "endImageDraw()": 1,
+    "g2()": 1,
+    "slot64()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot65",
+   "candidates": {
+    "slot104(int)": 1,
+    "slot65()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot66",
+   "candidates": {
+    "slot66()": 1,
+    "startMovie(AsciiString,int,int,int)": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot67",
+   "candidates": {
+    "gap67()": 1,
+    "slot67()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot68",
+   "candidates": {
+    "close()": 1,
+    "slot68()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot69",
+   "candidates": {
+    "gap69()": 1,
+    "slot69()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot70",
+   "candidates": {
+    "gap70()": 1,
+    "slot70()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot71",
+   "candidates": {
+    "gap71()": 1,
+    "slot71()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot72",
+   "candidates": {
+    "gap72()": 1,
+    "slot72()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot73",
+   "candidates": {
+    "gap73()": 1,
+    "slot73()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot74",
+   "candidates": {
+    "gap74()": 1,
+    "slot74()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot75",
+   "candidates": {
+    "gap75()": 1,
+    "slot75()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot76",
+   "candidates": {
+    "gap76()": 1,
+    "slot76()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot77",
+   "candidates": {
+    "gap77()": 1,
+    "slot77()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot78",
+   "candidates": {
+    "gap78()": 1,
+    "slot78()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot79",
+   "candidates": {
+    "gap79()": 1,
+    "slot79()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot80",
+   "candidates": {
+    "gap80()": 1,
+    "slot80()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot81",
+   "candidates": {
+    "gap81()": 1,
+    "slot81()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot82",
+   "candidates": {
+    "gap82()": 1,
+    "slot82()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot83",
+   "candidates": {
+    "gap83()": 1,
+    "takeScreenShot(char*)": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot84",
+   "candidates": {
+    "gap84()": 1,
+    "gatherDebugStats()": 1
+   },
+   "class": "W3DDisplay"
+  },
+  {
+   "attribute": "slot85",
+   "candidates": {
+    "gap85()": 1,
+    "gatherNetworkStats()": 1
+   },
+   "class": "W3DDisplay"
+  }
+ ],
+ "size": 688,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "unused01()"
+  },
+  "100": {
+   "decided_by": "bytes",
+   "member": "drawLine(float,float,float,float,float,ulong,ulong)"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "unused12()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "unused02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "slot25()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "slot26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "slot27()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "slot29()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "unused03()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "slot31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "slot33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "slot35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "slot36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "unused04()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "slot42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "slot43()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "slot44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "slot45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "slot48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "slot49()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "unused05()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "51": {
+   "decided_by": "majority",
+   "member": "slot51()"
+  },
+  "52": {
+   "decided_by": "majority",
+   "member": "slot52()"
+  },
+  "53": {
+   "decided_by": "majority",
+   "member": "slot53()"
+  },
+  "54": {
+   "decided_by": "majority",
+   "member": "slot54()"
+  },
+  "55": {
+   "decided_by": "majority",
+   "member": "slot55()"
+  },
+  "56": {
+   "decided_by": "majority",
+   "member": "slot56()"
+  },
+  "57": {
+   "decided_by": "majority",
+   "member": "slot57()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "unused06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "unused07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "unused08()"
+  },
+  "86": {
+   "decided_by": "bytes",
+   "member": "gap86()"
+  },
+  "87": {
+   "decided_by": "bytes",
+   "member": "gap87()"
+  },
+  "88": {
+   "decided_by": "bytes",
+   "member": "gap88()"
+  },
+  "89": {
+   "decided_by": "bytes",
+   "member": "gap89()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "unused09()"
+  },
+  "90": {
+   "decided_by": "bytes",
+   "member": "gap90()"
+  },
+  "91": {
+   "decided_by": "bytes",
+   "member": "gap91()"
+  },
+  "92": {
+   "decided_by": "bytes",
+   "member": "gap92()"
+  },
+  "93": {
+   "decided_by": "bytes",
+   "member": "gap93()"
+  },
+  "94": {
+   "decided_by": "bytes",
+   "member": "gap94()"
+  },
+  "95": {
+   "decided_by": "bytes",
+   "member": "gap95()"
+  },
+  "96": {
+   "decided_by": "bytes",
+   "member": "gap96()"
+  },
+  "97": {
+   "decided_by": "bytes",
+   "member": "gap97()"
+  },
+  "98": {
+   "decided_by": "bytes",
+   "member": "gap98()"
+  },
+  "99": {
+   "decided_by": "bytes",
+   "member": "render(bool)"
+  }
+ }
+}
