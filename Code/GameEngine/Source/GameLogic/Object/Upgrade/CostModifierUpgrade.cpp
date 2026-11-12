@@ -394,14 +394,7 @@ struct Rva004A9617Holder
 	unsigned int level() const { return m_level ? m_level->m_level : 999999; }
 };
 
-class Rva004A9617
-{
-public:
-	virtual bool rva004A9617();
-private:
-	char m_pad04[0xE0 - 4];
-	Rva004A9617Holder *m_holder;							// +0xE0
-};
+#include "../../../../Include/Common/Rva004A9617.h"
 
 class Rva004A6A81
 {
