@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
-// ?rva00111DB6@Rva00111DB6@@QAEXXZ
+// ?rva00111DB6@LookupTablePostEffect@@UAEXXZ
 // Retail 0x00111DB6..0x00111F02 (332 bytes).
 // Rebuilds the post-FX lookup-table shader held at +8: under the DX8 device
 // lock it walks the 0x1C-byte entries of the list at +4 of the singleton
@@ -87,17 +87,9 @@ public:
 class Rva001021F7;
 Rva001021F7 *Rva00102215Get();
 
-class Rva00111DB6
-{
-public:
-	void rva00111DB6();
-private:
-	void *m_00;
-	void *m_04;
-	RefCountPtr<FXShaderSetup> m_lookupShader; // +0x08
-};
+#include "../../../Include/W3DDevice/GameClient/LookupTablePostEffect.h"
 
-void Rva00111DB6::rva00111DB6()
+void LookupTablePostEffect::rva00111DB6()
 {
 	BFMEDX8DeviceLock lock;
 	Rva00082EB8 parameters;
@@ -118,6 +110,6 @@ void Rva00111DB6::rva00111DB6()
 			parameters.rva00082EB8(*(const Rva00082EB8Rec *)&parameter);
 		}
 	}
-	*(Rva00072A94 *)&m_lookupShader = (const Rva00072A94 &)
+	*(Rva00072A94 *)&m_08 = (const Rva00072A94 &)
 		Rva00152C47_CreateFXShaderSetup("PostFX_LookupTable.fx", "Default", &parameters, 4);
 }

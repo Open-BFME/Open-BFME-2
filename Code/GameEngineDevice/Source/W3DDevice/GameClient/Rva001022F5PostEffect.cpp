@@ -13,11 +13,7 @@ public:
 	void rva00116482();
 };
 
-class LookupTablePostEffect
-{
-public:
-	char m_pad[12];
-};
+class LookupTablePostEffect;
 
 class Rva001022F5
 {

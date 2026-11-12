@@ -23,13 +23,7 @@ extern const AsciiString g_00DEC3B8;
 const AsciiString g_00DEC3B8("LookupTablePostEffect");
 #pragma inline_depth()
 
-class LookupTablePostEffect
-{
-public:
-    LookupTablePostEffect();
-private:
-    char m_pad[12];
-};
+#include "../../../Include/W3DDevice/GameClient/LookupTablePostEffect.h"
 
 #include <new>
 

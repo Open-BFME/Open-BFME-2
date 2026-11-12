@@ -51,6 +51,15 @@ With the factory included, all four retain 1,658 linked bytes on index
 `80569f4278`. Bridge retirement awaits a real-link receipt. The derived
 table at `0x007CFAC8` still needs its slot 2 provider.
 
+**2026-11-12 post-effect slot 2.** The shader setup body at `0x00111DB6`
+now belongs to `LookupTablePostEffect`, as shown by retail table
+`0x007CFAC8`. The factory and method share the derived declaration. The
+emitted table has all five retail targets, including its deleting destructor
+at `0x00111D9A`. The base and derived tables each have one emitter across
+the six checked sources. These sources verify 78 code rows, three data rows
+and four EH graphs, and retain 2,042 linked bytes on index `80569f4278`.
+Real-link confirmation is pending.
+
 Status: Blocked on shared ModuleData interface and slot-owner reconciliation. Updated: 2026-10-27; inspected revision: 97c23353111e60304b56434c02d20bee3465d83f.
 Evidence / affected units: W3DPropDrawModuleDataCtor.cpp emits a four-slot Snapshot table while W3DPropDraw.cpp emits a nine-slot Zero Hour ModuleData table. The constructor's sole ordinary-preview blocker is `??_7W3DPropDrawModuleData@@6B@`. Retail at RVA 0x007CD420 has 31 function pointers; the next word at 0x007CD49C begins the DistanceFog string, so the data ledger's 136-byte span includes that following literal. Native slot 14 reaches 0x000CED14, already rowed under W3DTreeDrawModuleData; slot 19 reaches the return-this body at 0x0047A6A9. The existing Common/BfmeModuleData.h models 31 generic slots, while the update_modules_bfme2/Common/Module.h view used by the destructor still models the short interface.
 Completed: inspected both emitted tables, native slots, existing row owners and the shared headers. Both constructor-unit rows are exact. Current paired preview retains the constructor L1 and the destructor unit's independent ModuleData/DrawModule blockers. No source trial or shared-header edit is retained.
