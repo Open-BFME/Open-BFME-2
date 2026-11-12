@@ -3379,6 +3379,24 @@ no override/alias for that held body is added. Complete it when available
 before adopting the full header in the other page views or closing the file.
 [Evidence and remaining file work](../../reverse/attempt_support/rva0050ea74-tables-20261112.md).
 
+### 2026-11-12 — wind-info table 0x0081B568
+
+The default and copy constructors at 0x003A5773 and 0x003AE07D install
+this table. The shared Rva003AE07D declaration now emits all 16 bytes.
+In a four-object replay, vtable_bridge matches all four source slots:
+the weak deleting destructor resolves to the scalar body at 0x004A10FD,
+LoadPostProcess returns at 0x000B3FD0, the getter at 0x003A5784 returns
+"ParticleWindModuleInfo", and DoXfer at 0x003A578A transfers the float at +4.
+The deleting body calls the seven-byte Snapshot reset at 0x0049B47C and
+operator delete. Scoped link preview preserved all 504 bytes in three units.
+
+The other provider Rva003A59C3B3 still has four mismatches. Sharing an
+inline default constructor preserved the parent constructor's 127 bytes
+and exact EH graph in a probe, but moved the standalone 17-byte body out
+of its ledger object. Keep that provider open pending a verified arrangement
+that preserves row ownership. Whole-image selection and bridge count await
+the real link.
+
 ### Three opaque special-power destructor views use concrete Behavior defaults (2026-11-12)
 
 At 93f9903fe4e, Rva00493DEFDerived.cpp replaces its twelve-byte padded base

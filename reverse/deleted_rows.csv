@@ -6161,3 +6161,5 @@ __ehhandler$?DoPlay@Rva0057C04F@@QAEXH@Z,0x0079C086,"Renamed to __ehhandler$?DoP
 __ehhandler$?onEnter@Rva0036A3E9GuardInnerState@@UAE?AW4StateReturnType@@XZ,0x0077E520,"Renamed to __ehhandler$?onEnter@GiantBirdGuardInnerState@@UAE?AW4StateReturnType@@XZ by tools/rename.py (to-class: retail vftable 0x00C17978 slot 4)"
 ?enable@Rva0050E7BBOneSetter@@QAEXXZ,0x0050E7BB,"Renamed to ?show@Rva0050EA74@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C6551C slot 1)"
 ?disable@Rva0050E7C0ZeroSetter@@QAEXXZ,0x0050E7C0,"Renamed to ?hide@Rva0050EA74@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C6551C slot 2)"
+?DoXfer@Rva003A578A@@UAEXAAVXfer@@@Z,0x003A578A,"Renamed to ?DoXfer@Rva003AE07D@@UAEXAAVXfer@@@Z by tools/rename.py (to-class: retail vftable 0x00C1B568 slot 3)"
+?name@Rva003A5784Named@@QBEPBDXZ,0x003A5784,"Renamed to ?GetSnapshotName@Rva003AE07D@@UBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C1B568 slot 2)"

@@ -1,3 +1,4 @@
+#include "../../Include/Common/Rva003AE07D.h"
 #include "../GameClient/BuffManager.h"
 // Subsystem literal name getters, fourth unit: six-byte const members with one
 // shape (mov eax,<offset string literal> / ret). Split to keep concurrent
@@ -70,7 +71,10 @@ BFME_LITERAL_NAME_GETTER(AttributeModifierPoolUpdate, "AttributeModifierPoolUpda
 BFME_LITERAL_NAME_GETTER(Rva005C43C9Named, "LivingWorldBuildingNuggetIncreaseCommandPoints")
 BFME_LITERAL_NAME_GETTER(Rva00351753Named, "AIStateMachine")
 BFME_LITERAL_NAME_GETTER(Rva0037BB4DNamed, "GameInfo")
-BFME_LITERAL_NAME_GETTER(Rva003A5784Named, "ParticleWindModuleInfo")
+const char *Rva003AE07D::GetSnapshotName() const
+{
+    return "ParticleWindModuleInfo";
+}
 BFME_LITERAL_NAME_GETTER(Rva003ABE7FNamed, "RenderObjectUpdateModule")
 class CreateAHeroData
 {
