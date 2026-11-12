@@ -12268,9 +12268,6 @@ present_unmatched	Code/Libraries/Source/assetmanager/Rva00622290CollectKeys.cpp	
 present_unmatched	Code/Libraries/Source/debug/Rva00889300DebugForwarders.cpp	Rva00889300DebugForward3@@YAXHHH@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_cmd.cpp	Delete@DebugCmdInterfaceDebug@@UAEXXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	1Debug@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	AddCommands@Debug@@SA_NPBDPAVDebugCmdInterface@@@Z	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	AddHResultTranslator@Debug@@SAXIP6A_NAAV1@JPAX@Z1@Z	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	AddIOFactory@Debug@@SA_NPBD0P6APAVDebugIOInterface@@XZ@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	AddPatternEntry@Debug@@EAEXI_NPBD@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	AssertBegin@Debug@@SAAAV1@PBDH0@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	AssertDone@Debug@@UAE_NXZ	1
@@ -12278,12 +12275,9 @@ present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	CheckDone@Debug@@U
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	CrashBegin@Debug@@SAAAV1@PBDH@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	CrashDone@Debug@@UAE_N_N@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	ExecCommand@Debug@@EAEXPBD0@Z	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	IsLogEnabled@Debug@@SA_NPBD@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	IsWindowed@Debug@@EAE_NXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	LogDone@Debug@@UAE_NXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	PreStaticInit@Debug@@CAXXZ	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	RemoveCommands@Debug@@SAXPAVDebugCmdInterface@@@Z	1
-present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	RemoveHResultTranslator@Debug@@SAXP6A_NAAV1@JPAX@Z1@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	SetPrefixAndRadix@Debug@@UAEXPBDH@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	SkipNext@Debug@@SA_NXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	UpdateFrameStatus@Debug@@EAEXAAUFrameHashEntry@1@@Z	1
