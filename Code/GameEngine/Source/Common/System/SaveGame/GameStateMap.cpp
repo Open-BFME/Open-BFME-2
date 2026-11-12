@@ -24,6 +24,9 @@ class Rva0041B790 : public SubsystemInterface, public Snapshot
 {
 public:
     virtual ~Rva0041B790();
+    virtual void init() {}
+    virtual void reset() {}
+    virtual void update() {}
     // Target call at 0x0041B7B5: ECX=this, no arguments, callee RET.
     // Its original name and purpose remain unresolved.
     /* the rowed GameStateMap::clearScratchPadMaps */ __declspec(dllimport) __forceinline void rva0041B603() { ((GameStateMap *)this)->clearScratchPadMaps(); }

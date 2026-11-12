@@ -13,6 +13,9 @@ class Rva00221027 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00221027();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 };
 
 Rva00221027::~Rva00221027()
@@ -169,6 +172,9 @@ class ActionManager : public SubsystemInterface
 public:
 	ActionManager();
 	virtual ~ActionManager();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 };
 
 // ??0Rva0041B8C7@@QAE@XZ retail 0x0041B8B5 18B: base ctor 0x001B4E63 then own

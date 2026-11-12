@@ -47,6 +47,7 @@ class Radar : public Snapshot, public SubsystemInterface
 public:
 	Radar();
 	virtual ~Radar();
+	virtual void init() {}
 	__declspec(noinline) void rva002D7BD3();
 protected:
 	void clearAllEvents();

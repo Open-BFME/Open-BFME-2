@@ -95,6 +95,9 @@ public:
 	Rva0041B790(EmitVtableTag *);
 public:
 	virtual ~Rva0041B790();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 };
 
 // ?<Rva0041B790::Rva0041B790> absent-from-retail
@@ -128,6 +131,9 @@ public:
 	Rva0041F94A(EmitVtableTag *);
 public:
 	virtual ~Rva0041F94A();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 };
 
 // ?<Rva0041F94A::Rva0041F94A> absent-from-retail

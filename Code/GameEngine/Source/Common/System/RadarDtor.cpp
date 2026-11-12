@@ -42,6 +42,7 @@ protected:
 	void deleteListResources();
 public:
 	virtual ~Radar();
+	virtual void init() {}
 private:
 	char m_pad10[0x2C - 0x10];
 public:

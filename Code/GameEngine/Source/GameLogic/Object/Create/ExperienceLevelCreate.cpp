@@ -73,6 +73,7 @@ class ExperienceLevelCreate : public CreateModule
 public:
 	virtual NameKeyType getModuleNameKey() const;
 public:
+	virtual void onCreate() {}
 	virtual void onBuildComplete();
 public:
 	void rva004B9201();

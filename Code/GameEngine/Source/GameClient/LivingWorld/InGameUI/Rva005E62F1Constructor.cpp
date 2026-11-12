@@ -28,7 +28,7 @@ class Rva005773DB {public:Rva005773DB(const int*);__forceinline ~Rva005773DB(){i
 #include "../../../../Include/GameClient/Rva005F23B2.h"
 class Rva005F2381 {public:Rva005F2381();~Rva005F2381(){reinterpret_cast<Rva005F23B2*>(this)->~Rva005F23B2();}private:char storage[28];};
 struct Owned {void*p;Owned():p(0){}~Owned(){reinterpret_cast<Rva000AD6F4*>(this)->clear();}};
-class __declspec(novtable) Rva005E62F1ListenerBase {public:__forceinline Rva005E62F1ListenerBase(){} __forceinline ~Rva005E62F1ListenerBase(){reinterpret_cast<Rva003F3F7CDwordImmSetter*>(this)->apply();}virtual int rva005E57A2(void*)=0;virtual void rva0050B238(void*,unsigned)=0;virtual void third()=0;virtual void fourth()=0;virtual void fifth()=0;};
+class __declspec(novtable) Rva005E62F1ListenerBase {public:__forceinline Rva005E62F1ListenerBase(){} __forceinline ~Rva005E62F1ListenerBase(){reinterpret_cast<Rva003F3F7CDwordImmSetter*>(this)->apply();}virtual int rva005E57A2(void*)=0;virtual void rva0050B238(void*,unsigned)=0;virtual void third(int)=0;virtual void fourth(int)=0;virtual void fifth(int)=0;};
 class Widget {public:virtual void s0();virtual void image(const void*);virtual void s2();virtual void range(int,int);virtual void s4();virtual void s5();virtual void ref(const Rva005773DB&);virtual void s7();virtual void refresh();};
 class PanelWidget {public:virtual void s0();virtual void entry(int,const void*);virtual void s2();virtual void factory(const void*);};
 class Rva0042D703PtrChaseField {public:int get()const;};
@@ -51,7 +51,7 @@ struct Context{int info,owner;void*record;bool enabled;};
 #include "../../../../Include/GameClient/Rva005E57A2Callback.h"
 class Rva005E62F1:public Rva005E62F1ListenerBase {
 public:Rva005E62F1(void*,int,int,void*,Rva005CB84A*,void*,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*);~Rva005E62F1();
-virtual int rva005E57A2(void*);virtual void rva0050B238(void*,unsigned);virtual void third()=0;virtual void fourth()=0;virtual void fifth()=0;
+virtual int rva005E57A2(void*);virtual void rva0050B238(void*,unsigned);virtual void third(int){}virtual void fourth(int){}virtual void fifth(int){}
 private:void*a4;int a8,aC;void*a10;Rva005CB84A*a14;void*a18;Rva005F2381 record;Ref ref38;bool flag;Owned owned;
 };
 Rva005E62F1::Rva005E62F1(void*callback,int p8,int pC,void*ui,Rva005CB84A*p14,void*army,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*factory):a4(callback),a8(p8),aC(pC),a10(ui),a14(p14),a18(army),flag(false) {

@@ -113,6 +113,9 @@ class Rva0041F94A : public SubsystemInterface
 {
 public:
     virtual ~Rva0041F94A();
+    virtual void init() {}
+    virtual void reset() {}
+    virtual void update() {}
 private:
     Rva0041F4A7 m_table;
 };

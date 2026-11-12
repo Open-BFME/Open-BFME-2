@@ -17,6 +17,9 @@ class PlayerAITypeSet : public SubsystemInterface
 {
 public:
 	PlayerAITypeSet();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 private:
 	_STL::vector<BfmeVectorRecord0002154F3> m_types;
 };

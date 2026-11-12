@@ -28,6 +28,7 @@ class MineshaftPortalNetworkManager : public SubsystemInterface, public Snapshot
 {
 public:
 	virtual ~MineshaftPortalNetworkManager();
+	virtual void init() {}
 	virtual void reset();
 private:
 	Tree00372FF4 m_map;

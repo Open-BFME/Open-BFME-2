@@ -58,6 +58,9 @@ class Rva00427311 : public SubsystemInterface
 public:
 	Rva00427311();
 	virtual ~Rva00427311();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 private:
 	Rva004271D9 m_playingVideos;
 };

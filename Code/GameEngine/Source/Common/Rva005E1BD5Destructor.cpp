@@ -9,7 +9,7 @@ class Rva0083702CObserver {public:
  ~Rva0083702CObserver(){}
 };
 class Rva0086E330Callback {public:
- virtual void callback0(int)=0;virtual void callback1(int)=0;virtual void callback2(int)=0;virtual void callback3(int)=0;virtual void callback4(int)=0;
+ virtual void callback0(int){}virtual void callback1(int){}virtual void callback2(int){}virtual void callback3(int){}virtual void callback4(int){}
  ~Rva0086E330Callback(){}
 };
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"

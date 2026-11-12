@@ -61,6 +61,8 @@ public:
 	GlobalLanguage();
 	virtual ~GlobalLanguage();
 	virtual void init();
+	virtual void reset() {}
+	virtual void update() {}
 	int adjustFontSize(int theFontSize);
 	void onGameEngineExit();
 	static void parseFontDesc(class INI *ini, void *instance, void *store, const void *userData);
