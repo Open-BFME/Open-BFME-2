@@ -89,12 +89,13 @@ class CollideModuleInterface
 {
 public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-	// Retail table 0x00C40818: 5 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void slot5() = 0;
+	// Retail table 0x00C40818: 5 __purecall entries follow (CollideModule.h's
+	// collide interface order and spelling).
+	virtual bool wouldLikeToCollideWith(const Object *other) const = 0;
+	virtual bool slot02() const = 0;
+	virtual bool slot03() const = 0;
+	virtual bool slot04() const = 0;
+	virtual bool isSalvageCrateCollide() const = 0;
 };
 class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
 {
@@ -106,6 +107,12 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+	// Retail 0x00C5D974 slots 1..5: CollideModule's false defaults (0x005CB9FF, 0x0047A699).
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 
 protected:
 	virtual void xfer(Xfer *xfer);

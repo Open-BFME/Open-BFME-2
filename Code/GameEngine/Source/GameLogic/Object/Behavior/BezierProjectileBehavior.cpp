@@ -380,11 +380,12 @@ class BezierProjectileBehaviorSecondaryBase1
 public:
 	virtual void rva0045B4C0(Object *victim, int a2, int a3) = 0;
 	virtual bool rva0045BF06(Object *victim) = 0;
-	// Retail table 0x00C40818: 4 __purecall entries follow.
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void slot5() = 0;
+	// Retail table 0x00C40818: 4 __purecall entries follow (CollideModule.h's
+	// collide interface slots 2..5).
+	virtual bool slot02() const = 0;
+	virtual bool slot03() const = 0;
+	virtual bool slot04() const = 0;
+	virtual bool isSalvageCrateCollide() const = 0;
 };
 
 #include "../../../../Include/Common/PoolMember.h"
@@ -418,6 +419,11 @@ public:
 	virtual void projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos);
 	virtual bool rva0045CD6E(Object *victim);
 	virtual bool rva0045BF06(Object *victim);
+	// Retail 0x00C41DC8 slots 2..5: CollideModule's false defaults (0x0047A699).
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 	virtual void rva0045B4C0(Object *victim, int a2, int a3);
 	virtual void rva0045B4E2(int unused);
 	void rva0045B9FB(Object *other);
