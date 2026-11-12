@@ -131,7 +131,7 @@ private:
     int m_count04;
 };
 int Rva0037DE70::rva0037DE70(int) { ++m_count04; return 1; }
-class Rva0037E07C { public: int rva0037E07C(); };
+#include "../../../Include/GameClient/Rva0037E07C.h"
 int Rva0037E07C::rva0037E07C() {
     Rva0037DE70 visitor;
     ((Rva0037DCA5 *)this)->rva0037DF8D((Rva002206F9Sink *)&visitor);
