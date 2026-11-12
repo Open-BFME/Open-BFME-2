@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // Disp8 byte flag setters: five-byte __thiscall members with one shape:
 //
 //     mov byte ptr [ecx+<DISP>],<IMM8> / ret
@@ -10,8 +11,10 @@
 // are spelled as a lead array because their types are not witnessed here,
 // only their total size. Identity is not recovered: every name is derived
 // from its address.
-// No // cl: line (defaults match the frameless five-byte shape).
+// Region codegen defaults retain the frameless five-byte shape; the include
+// path supplies AsciiString for the recovered page declaration.
 #include "../../Include/Common/BfmeAccessorMacros.h"
+#include "../../Include/Common/Rva0050EA74.h"
 
 
 
@@ -44,8 +47,6 @@ BFME_DISP8_BYTE_ZERO_SETTER(Rva00050D01ZeroSetter, 0x53)
 BFME_DISP8_BYTE_TWO_SETTER(Rva0026FC9ETwoSetter, 0x38)
 BFME_DISP8_BYTE_ONE_SETTER(Rva004D9362OneSetter, 0x20)
 BFME_DISP8_BYTE_ONE_SETTER(Rva004F5FA7OneSetter, 0x18)
-BFME_DISP8_BYTE_ONE_SETTER(Rva0050E7BBOneSetter, 0x10)
-BFME_DISP8_BYTE_ZERO_SETTER(Rva0050E7C0ZeroSetter, 0x10)
 BFME_DISP8_BYTE_ZERO_SETTER(Rva0056B119ZeroSetter, 0x1C)
 BFME_DISP8_BYTE_ONE_SETTER(Rva005C399EOneSetter, 0x45)
 BFME_DISP8_BYTE_ZERO_SETTER(Rva006005D0ZeroSetter, 0x0C)
@@ -55,3 +56,13 @@ BFME_DISP8_BYTE_ONE_SETTER(Rva006005CBOneSetter, 0x0C)
 // BF1 9cbfb551fe Common/Rva004021B0PositiveGetter.cpp is the clean semantic donor.
 // Target 53110B..531113 RET0 followsRET4; signed dword0 greaterthan0 returnedAL
 // Original owner/purpose is unproven; retain an independent address-owned type.
+
+void Rva0050EA74::show()
+{
+    m_10 = 1;
+}
+
+void Rva0050EA74::hide()
+{
+    m_10 = 0;
+}

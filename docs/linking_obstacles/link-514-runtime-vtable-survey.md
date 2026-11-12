@@ -3368,4 +3368,13 @@ normal verification and a strict reusable compiler receipt pass; own link
 preview reads LINKS against 9ca25659d0. A bounded replay makes this base
 name already correct. Derived 0x0086551C still needs its two setters and
 three default slots; published confirmation for both tables is pending.
+The follow-up moves the unique show/hide setters into this class through
+rename.py while preserving their source paths, shares the declaration and
+recovers the two native zero-return defaults. Edited sources pass 43/43
+rows with strict receipts, the rename closure passes 4,573 bodies across
+155 sources, and both own link previews pass. Bounded table replay:
+2 generated -> 1, zero refusals; derived mismatches 6 -> 1. Remaining:
+slot 5's empty body at 0x000B3FD0 is claimed by anchorist-codex-local-bfme2;
+no override/alias for that held body is added. Complete it when available
+before adopting the full header in the other page views or closing the file.
 [Evidence and remaining file work](../../reverse/attempt_support/rva0050ea74-tables-20261112.md).

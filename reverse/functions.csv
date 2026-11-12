@@ -9268,10 +9268,10 @@ _io_close,,0x0074A320,227,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,BFME1
 ?enable@Rva004D9362OneSetter@@QAEXXZ,,0x004D9362,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 ?enable@Rva004F5FA7OneSetter@@QAEXXZ,,0x004F5FA7,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 _setloc,,0x0074B0F0,104,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,BFME1 byte-identical donor; b1 0x00993F90
-?enable@Rva0050E7BBOneSetter@@QAEXXZ,,0x0050E7BB,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
+?show@Rva0050EA74@@UAEXXZ,,0x0050E7BB,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte one-setter
 _lua_iolibopen,,0x0074B5D0,28,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,BFME1 byte-identical donor; b1 0x00994470
 ?get@Rva00094A94FloatField@@QBEMXZ,,0x00094A94,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
-?disable@Rva0050E7C0ZeroSetter@@QAEXXZ,,0x0050E7C0,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
+?hide@Rva0050EA74@@UAEXXZ,,0x0050E7C0,5,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp,matched,Disp8 byte zero-setter
 ?enable@Rva00531113OneSetter@@QAEXXZ,,0x00531113,5,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,matched,Disp8 byte one-setter
 ?disable@Rva00531118ZeroSetter@@QAEXXZ,,0x00531118,5,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,matched,Disp8 byte zero-setter
 ?get@Rva00094A98FloatField@@QBEMXZ,,0x00094A98,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
@@ -101098,3 +101098,5 @@ _ntohs@4,,0x006556B8,6,Code/Libraries/Source/Win32/Wsock32ImportThunks.cpp,match
 ?onExit@GiantBirdGuardAttackAggressorState@@UAEXW4StateExitType@@@Z,,0x00542C87,76,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp,matched,gen-alias;fold-proof=Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp; Retail 0x00C177C0 slot 5 targets the same 76-byte teardown as 0x00C69890 slot 5. The Giant Bird override uses the verified shared C++ teardown.
 ?onExit@GiantBirdGuardOuterState@@UAEXW4StateExitType@@@Z,,0x00542CD3,51,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp,matched,gen-alias;fold-proof=Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp; Retail 0x00C176A8 slot 5 and 0x00C697D8 slot 5 both target 0x00542CD3. Both overrides use the same C++ attack-state removal and emit the exact 51-byte body.
 ??_GRva0050EA74Base@@UAEPAXI@Z,,0x0007E5EE,29,Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp,matched,ICF twin at 0x0007E5EE; scalar deleting destructor in native base table 0x007C6F20; restores the empty base vptr and conditionally deletes this; whole29B and all relocation targets equal retail;fold-proof=Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
+?v03@Rva0050EA74@@UAEHHHH@Z,,0x005748AD,5,Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp,matched,ICF twin at 0x005748AD; native table 0x0086551C slot3 returns zero and pops three dwords; complete5B matches retail; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
+?v04@Rva0050EA74@@UAEHHHH@Z,,0x005748AD,5,Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp,matched,ICF twin at 0x005748AD; native table 0x0086551C slot4 shares the complete zero-return three-dword-pop body with slot3; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
