@@ -3261,3 +3261,76 @@ constructor identity for the five-slot case.
 The AptLanLobby callback table at RVA 0083E020 remains bridged. A compiler
 probe reproduces all 23 slot positions. The approved move of its slot 20
 factory hits a [split refusal on two pairs of folded destructors](../../reverse/attempt_support/apt-lobby-slot20-split.md).
+
+### Placeholder slot bodies moved into their tables' classes, collide defaults and the OwnedPointerResets regression: 17 off the bridge (2026-11-12, seat halilkkaya-lk104)
+
+Base `d3809cf5c05`. Measured with lk74_snap/lk74_cmp and HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Regression first (LINK-662).** OwnedPointerResets.cpp's owning-pointer resets and clears call their 5-byte pointee
+destructors out of line in retail. Five canonical-header adoptions (Rva00527FA2, Rva005D32D4 and Rva0052710C before the
+census; Rva004E668E and Rva005E893E after it) replaced the unit's `__declspec(noinline)` views with plain `~X();`, so cl
+inlined them and nine rows called the clear helper instead. The byte gate passed them because the two targets are one
+`jmp` apart. ThrowingNewHelpers.cpp (1,388 B) stopped linking on `?reset@Rva005CE236`; OwnedPointerResets.cpp (1,927 B)
+and AptPalantirCallbacks.cpp (1,639 B) were already at 0 in the census. "Keep OwnedPointerResets.cpp's six pointee
+destructors out of line under their canonical headers" puts noinline on the unit's own definitions: 9 -> 0 REL32
+targets differ from retail, and the 13 units that define, include or call these classes all LINK.
+
+**Refreshed ranking at the end (3,344 bridged; a table counts when every wrong slot is covered).** UpdateModule interface
+slots (0x004A2D67 / 0x00253376 + 0x0044DF8D) 24; only `ret 4` (0x0047A69C) 20; collide defaults 14 (12 are OpenContain's
+interface table 0x00C46064 under the generated B4/Iface24 views, plus AODCrushCollide, which another seat holds, and
+Rva005746AF); Rva005E12D1/Rva005E129B button bases 10; only 0x000B3FD0 8; pure-kept with tiny retail bodies 83
+(lk97/puretiny.py, mostly FX slices and Snapshot name getters).
+
+**Done (commits by subject).**
+- "Keep OwnedPointerResets.cpp's six pointee destructors out of line under their canonical headers": LINK-662, above.
+- "Move ?rva005CE9F7@Rva005CE9F7NullForwarder@@QAEXXZ into Rva005CEE9F as ?slot1@Rva005CEE9F@@UAEXXZ (retail vftable
+  0x00C7522C slot 1)" and the matching 0x005CEA04 move into Rva005CEF2F (0x00C7523C slot 1): lk102's lead 3. 2 tables.
+- The Rva00567960BaseMid family: "Move ?rva005F57D8@Rva005F57D8@@QAEXXZ into Rva005F5819 ...", "... ?rva005F5B77 ...
+  into Rva005F5BF2 ...", "... ?rva005F5E69 ... into Rva005F5EA6 ...", "... ?rva005CC30B ... into Rva005CC37C ..." and
+  "Move ?rva005E8DB5@Rva005E8DB5@@QAEPAXXZ into Rva005E8D71 ... (retail vftable 0x00C77F88 slot 2)". Each derived
+  view declares the slot after its destructor (the generated BaseMid header declares only the destructor), every
+  emitter changes together (both names bound at each address), and the body is defined under the class with the
+  vptr in place of 4 pad bytes. 10 tables.
+- "Give FireWeaponCollide's and DozerAIUpdate's collide interface views CollideModule's five defaults": lk97's collide
+  lead 3 with the CollideModule.h spellings; the bodies were already rowed as twins, so no row is added. 4 tables:
+  FireWeaponCollide, CollideModule, CollideModuleInterface, DozerAIUpdate's AIUpdateInterface24.
+- "Give PlanningPhaseBuildingSelection's primary table retail's ninth slot, the shared false default": slot8 rowed as
+  the 0x005CB9FF twin. 1 table.
+- "Record lk104's blocked LINK-514 verdicts": the four deferrals below.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,361 -> 3,344; bridged slots 50,547 -> 50,488; already correct
+2,201 -> 2,218; mismatching source slots 37,932 -> 37,895; 17 bridged -> correct, nothing newly bridged, no correct
+table lost, refusals identical (35). link_check (census c31795c94c) over the 50 units that changed, emit a changed
+table, define or call a moved body, or include a LINK-662 class: 50 of 50 LINK, LINKED 42,400 -> 46,110 B, and no unit
+is lower. No alias, pin, marker or hatch was added or removed. No initializer was added. The EH `$L`/`$T` labels of
+eight units shifted, and the gates verified every funclet row through the parent EH data.
+
+**Refused / deferred (re_attempts.log).**
+- 0x005679A4 `StanceButton::DoUpdate`: slot 1 of Rva00567960's BaseMid table, but the row already carries the real
+  class while both emitters spell Rva00567960; `--to-class` takes placeholder rows only. Prerequisite: fold
+  Rva00567960 into StanceButton. 2 tables.
+- 0x00518892 and the three sibling thunks: retail's BfmeAptFunctorMarker slot 0 is each class's this-adjusting
+  deleting-destructor thunk, but the generated header declares `marker() = 0`. This is the contract gap lk102 named.
+  4 tables.
+- 0x005E1193 `OnRollOver`: the Rva005E12D1 button-base family needs six base slots (1..4 = 0x005E0D94, 5 =
+  OnRollOver, 6 = 0x005E0D9C) and a per-class click override at slot 1. Slot 5 is rowed under
+  StrategicHUD::CommandButtonMovieClipWithHelp while about 20 views spell Rva005E12D1, so the class identity comes
+  first. 10 tables.
+- 0x005CE7BF: the Rva005E67FE family (base 0x00C77E28, Rva005CE804/874 0x00C75184) needs eight default slots in the
+  base, but PlanningPhaseBuildingSelection's slot 7 override is rowed `int(int)` over the base's `bool(int)` default.
+  It needs a return respell, for which the rename tool has no route (as with lk102's slot43). 3 tables.
+
+**Next leads.**
+1. The UpdateModule interface family (24): Rva0026E836Derived.cpp alone holds six `_B2` tables (AIUpdate family);
+   slot 1 is `?getDisabledTypesToProcess@AIUpdateInterface@@` (0x004A2D67, rowed). Slot 2
+   `?rva0044DF8D@UpdateModule@@` needs a view that derives from the canonical UpdateModule instead of the
+   Rva0026E836_B2 stand-in.
+2. Tooling: header_adopt_lane could refuse an adoption that changes a matched row's REL32 target (LINK-662), and the
+   byte gate could report a REL32 target one `jmp` away from retail's.
+3. The four deferrals above, in table order: the E12D1 class identity (10), BfmeAptFunctorMarker's contract (4),
+   the Rva005E67FE return respell (3) and the StanceButton fold (2).
+
+**Tooling compatibility audit** (`d3809cf5c05..HEAD`): 24 files modified and 1 added (the LINK-662 entry), none moved
+or deleted; `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ spell none of the moved
+symbols or changed files except FireWeaponCollide fixture rows in tools/tests/fixtures (structural_queue.csv,
+dead_ends.csv), which are synthetic, file-level and unchanged.
