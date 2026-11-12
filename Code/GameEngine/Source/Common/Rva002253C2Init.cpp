@@ -8,9 +8,17 @@
 // " -poolbigblocks" " -bigmemorysentinals", IAT GetCommandLineA _strlwr
 // strstr, rowed callees 0x000308B0 0x00030890 0x000308E0. Honest
 // address-derived name. No STL.
-extern "C" __declspec(dllimport) char *__stdcall GetCommandLineA();
-extern "C" __declspec(dllimport) char *__cdecl _strlwr(char *str);
-extern "C" __declspec(dllimport) char *__cdecl strstr(const char *s1, const char *s2);
+// All three go through their import slots (IAT): read the real headers with
+// _CRTIMP redefined to dllimport for the includes only.
+// platformsdk
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <windows.h>
+#include <string.h>
+#include <mbstring.h>
+#undef _CRTIMP
+#undef near
+#undef far
 
 void Rva000308B0Clear();
 void setClearAllocations();
