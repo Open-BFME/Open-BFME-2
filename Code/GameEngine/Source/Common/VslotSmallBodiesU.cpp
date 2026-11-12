@@ -30,13 +30,7 @@ protected:
 // registry at VA 0x00DFF000 finds for the module data's name at +0x14, +0x18
 // resp. +0x1C, NULL without module data.
 class ThingTemplate;
-struct Rva00452EDDData
-{
-	char m_pad00[0x14];
-	void *m_14; // AsciiString
-	void *m_18; // AsciiString
-	void *m_1C; // AsciiString
-};
+#include "../../Include/GameLogic/Module/Rva00452EDDData.h"
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's
 // slots): whether the module data's +0x38 equals the argument.
 struct Rva0044F09FData
