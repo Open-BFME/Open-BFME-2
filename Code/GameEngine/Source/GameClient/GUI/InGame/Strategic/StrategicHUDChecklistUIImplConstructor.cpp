@@ -93,7 +93,19 @@ class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void
 class ChecklistItemRef;
 // Base1 and Base2 are interfaces: retail's base table 0x00C6EE28 is all __purecall.
 class Base1 {public:virtual ChecklistItemRef DoCreateNewItem()=0;~Base1(){}};
-class Base2 {public:virtual void b2()=0;~Base2(){}};
+class Base2
+{
+public:
+	virtual void b2() = 0;
+	// Retail table 0x00C6EE28: six __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	~Base2() {}
+};
 // Base3's table is native C6EE20, the scroll listener whose two empty callbacks are rowed in
 // Rva005F2CBAProgress.cpp; novtable so only Base3 (its pinned dtor at 0x0057A235) stores a vptr.
 class __declspec(novtable) Rva0086EE20 {public:virtual void slot0(int);virtual void rva005F267E(int,float);};

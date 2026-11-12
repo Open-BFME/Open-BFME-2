@@ -5,6 +5,17 @@ class Rva005F6941
 {
 public:
 	virtual unsigned char rva004C9990() const;	// retail slot 0; the destructor is not virtual
+	// Slots 1-9 as Rva005F6941Dtor.cpp declares them: its base table 0x00BFBCBC is
+	// __purecall throughout, so both units emit the same table.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
 	~Rva005F6941();
 	Rva005F6941();
 private:

@@ -18,6 +18,16 @@ class Rva005F6941Base
 {
 public:
 	virtual unsigned char rva004C9990() const = 0;	// an abstract interface: retail 0x00BFBCBC is all __purecall
+	// Retail table 0x00BFBCBC: 9 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
 	~Rva005F6941Base() {}
 };
 

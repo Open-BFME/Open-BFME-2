@@ -23,6 +23,16 @@ class Rva005F69F5Base
 public:
 	~Rva005F69F5Base() {}
 	virtual void vslot00() = 0;
+	// Retail table 0x00BFBCBC: 9 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
 };
 
 class Rva005F69F5 : public Rva005F69F5Base

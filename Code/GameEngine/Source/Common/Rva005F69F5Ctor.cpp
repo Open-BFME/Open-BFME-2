@@ -9,6 +9,17 @@ public:
 	~Rva005F69F5();
 	Rva005F69F5();
 	virtual void vslot10() = 0;
+	// Slots 1-9 as Rva005F69F5Dtor.cpp declares them: its base table 0x00BFBCBC is
+	// __purecall throughout, so both units emit the same table.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
 private:
 	void *m04;
 	int m08;

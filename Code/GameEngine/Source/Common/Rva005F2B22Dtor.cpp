@@ -24,6 +24,10 @@ class Rva005F2B22Base
 public:
 	~Rva005F2B22Base() {}
 	virtual void Rva005F2B22Slot0() = 0;
+	// Retail table 0x00C4EF80: 3 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 };
 
 class Rva005F2B22 : public Rva005F2B22Base

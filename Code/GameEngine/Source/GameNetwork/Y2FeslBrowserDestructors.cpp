@@ -84,6 +84,10 @@ class Rva00802EC0Base
 public:
 	Rva00802EC0Base();
 	virtual ~Rva00802EC0Base();
+	// Retail table 0x00CE3E20: 3 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 
 	int m_field4;
 	int m_field8;
@@ -125,6 +129,22 @@ class Rva00802CA0Base
 public:
 	Rva00802CA0Base();
 	virtual ~Rva00802CA0Base();
+	// Retail table 0x00CE3D50: 15 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
 
 	int m_field4;
 	int m_field8;
