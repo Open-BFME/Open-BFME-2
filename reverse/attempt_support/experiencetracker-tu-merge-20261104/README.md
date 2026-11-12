@@ -33,3 +33,21 @@ Remaining chain (target facts from the existing row comments, not re-derived):
    `/alternatename` to it), so Rva0039ADF3's base can only become
    ExperienceTracker after the split-identity dtor 0x0039AD56/0x0039AF5A is
    renamed to ExperienceTracker's (LINK-009 route), which also needs step 1.
+
+### AutoResolve constructor and shared slot, 2026-11-12
+
+At 65ea6d8edc the AutoResolve constructor (RVA 0x005DB08F) can include
+ExperienceTracker.h, use m_10 for experience and override vslot04 with its
+canonical spelling. All three constructor-unit rows match. The adoption
+gate refuses it because link_check drops from 113 to 0 linked bytes on
+the single unresolved symbol `?loadPostProcess@ExperienceTracker@@MAEXXZ`.
+Restoring the original source returns 3/3 matched and 113/113 linked bytes.
+
+The five retail pointers at RVA 0x008766A4 resolve to RVAs 0x005DB1E8,
+0x0039AC9C, 0x005DAFFE, 0x005DB074 and 0x005DB145. A dry run of
+`rename.py function --rva 0x0039AC9C --to-class ExperienceTracker --new
+'?loadPostProcess@ExperienceTracker@@MAEXXZ' --dry-run` refuses the move.
+The same body fills slot 1 of VA 0x00C1AD34, registered to Rva0039ADF3.
+Step 2 above therefore depends on reconciling the derived table's class
+relationship in the identity evidence; a rename alone cannot land it.
+The constructor, slot provider and header queue remain unchanged.
