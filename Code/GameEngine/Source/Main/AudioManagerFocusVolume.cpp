@@ -28,11 +28,7 @@ extern GameWindowTransitionsHandler *TheTransitionHandler;
 // stores 00 00 80 3F (1.0f) there.
 float g_Va00BBB8D8 = 1.0f;
 
-class GameWindowTransitionsHandler
-{
-public:
-	void rva001DC57C(_STL::list<int> *dest);
-};
+#include "../../Include/GameClient/GameWindowTransitionsHandler.h"
 
 class FocusVolume
 {
