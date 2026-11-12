@@ -458,8 +458,6 @@ public:
 	void set( void *p );
 	void clear( void );
 };
-extern unsigned int g_Va009E5DF8;
-
 extern "C" CriticalSectionClass mutex;
 extern "C" MutexClass threadMutex;
 extern "C" MouseThreadClass thread;
@@ -627,6 +625,8 @@ void W3DMouse::setCursor( MouseCursor cursor )
 
 void W3DMouse::setRedrawMode(RedrawMode mode)
 {
+	// The thread-lock holder (retail 0x009E5DF8); only this body uses it.
+	extern unsigned int g_Va009E5DF8;
 	MouseCursor cursor = getMouseCursor();
 
 	//Turn off the previous cursor mode
