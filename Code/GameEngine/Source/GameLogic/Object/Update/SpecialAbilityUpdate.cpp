@@ -686,6 +686,15 @@ class Rva0044EF5EIface20
 public:
 	Rva0044EF5EIface20() {}
 	virtual void rva0044EF5ESlot20() = 0;
+	// Retail table 0x00C6F248: 8 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
 };
 
 class Rva0044EF5E : public UpdateModule, public Rva0044EF5EIface20

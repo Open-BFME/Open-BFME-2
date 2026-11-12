@@ -61,6 +61,12 @@ class AIUpdateInterfaceFifth
 {
 public:
 	virtual void v0() = 0;
+	// Retail table 0x00C40818: 5 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
 };
 
 class AIUpdateModuleDataView

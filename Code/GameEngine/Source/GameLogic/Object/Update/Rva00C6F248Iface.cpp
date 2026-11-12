@@ -14,6 +14,15 @@ class Rva00C6F248Iface
 public:
 	Rva00C6F248Iface();
 	virtual void m_iface() = 0;
+	// Retail table 0x00C6F248: 8 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
 };
 
 // ??0Rva00C6F248Iface@@QAE@XZ @0x4A184C

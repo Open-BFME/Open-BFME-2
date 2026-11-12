@@ -26,6 +26,15 @@ class SpecialPowerInterface
 {
 public:
 	virtual void specialPowerAnchor() = 0;
+	// Retail table 0x00C6F248: 8 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
 };
 
 enum UpdateSleepTime

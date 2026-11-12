@@ -111,7 +111,16 @@ template <int NUMBITS> class BitFlags;
 
 
 struct ContainIface20 { virtual void containIface20() = 0; };
-struct ContainIface24 { virtual void containIface24() = 0; };
+struct ContainIface24
+{
+	virtual void containIface24() = 0;
+	// Retail table 0x00C40818: five __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+};
 // The +0x28 base is the die interface: getDie (slot 7, 0x004523A9) returns it and retail
 // table 0x00C46F78 holds one slot, OpenContain::onDie 0x004641B1.
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
