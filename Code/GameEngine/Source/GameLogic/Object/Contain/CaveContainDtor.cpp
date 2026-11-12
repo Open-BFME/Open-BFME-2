@@ -21,7 +21,16 @@ class B3 { public: virtual void b3(); };
 class DamageInfo;
 // The DieModuleInterface position (+0x28): retail's table 0x00C43A6C holds CaveContain::onDie.
 #include "../../../../Include/Common/B5.h"
-class B6 { public: virtual void b6(); };
+enum BodyDamageType;
+// The +0x2C interface (GarrisonContain overrides slot 2 as onBodyDamageStateChange):
+// retail's table 0x00C58790 holds its three empty defaults (ret 4, ret 4, ret 0Ch).
+class B6
+{
+public:
+	virtual void b6(DamageInfo *) { }
+	virtual void d01(DamageInfo *) { }
+	virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) { }
+};
 #include "../../../../Include/Common/B7.h"
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
 

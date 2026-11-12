@@ -328,12 +328,14 @@ struct Rva00477F06GarrisonPoint : public Coord3D
 #include "../../../../Include/Common/B1.h"
 class B4 { public: virtual void b4(); };
 #include "../../../../Include/Common/B5.h"
+// The +0x2C interface: retail's GarrisonContain table 0x00C463D8 keeps its two
+// empty one-argument defaults (ret 4) and overrides slot 2.
 class B6
 {
 public:
-	virtual void b6();
-	virtual void d01() = 0;
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+	virtual void b6(DamageInfo *) { }
+	virtual void d01(DamageInfo *) { }
+	virtual void onBodyDamageStateChange(const DamageInfo *, BodyDamageType, BodyDamageType) { }
 };
 #include "../../../../Include/Common/B7.h"
 class B8
