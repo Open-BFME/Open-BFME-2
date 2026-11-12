@@ -15,13 +15,20 @@
 // 0x002934E7 is Object::initObject (WorldBuilder lead), the last call.
 #include "ascii_string.h"
 
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 
 struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// The game's own fprintf (pinned _fprintf), not the CRT import: read
+// <stdio.h> without dllimport so the call goes straight to that thunk.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern "C" void *theLogicRandomLogFile;
 extern unsigned char isLoadingMap;
 
@@ -154,7 +161,7 @@ Object *ThingFactory::newObject(const ThingTemplate *thingTemplate, Team *team, 
 		Sleep(0);
 
 	if (theLogicRandomLogFile)
-		fprintf((FprintfTarget *)theLogicRandomLogFile, "newObj %s id %i", thingTemplate->getName().str(), obj->getID());
+		fprintf((FILE *)theLogicRandomLogFile, "newObj %s id %i", thingTemplate->getName().str(), obj->getID());
 
 	return obj;
 }
