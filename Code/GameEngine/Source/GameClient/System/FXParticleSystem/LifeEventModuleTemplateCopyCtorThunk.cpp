@@ -16,10 +16,11 @@ public:
     virtual ~LifeEventCategoryBaseA();
 };
 
+// Retail's CategoryModuleInfo<8> (table 0x00C1C780): one __purecall slot, no destructor.
 class LifeEventCategoryBaseB
 {
 public:
-    virtual ~LifeEventCategoryBaseB();
+    virtual void slot00() = 0;
 };
 
 class LifeEventCategoryBase

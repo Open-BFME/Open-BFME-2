@@ -11,10 +11,11 @@ public:
     virtual ~TerrainCollisionCategoryBaseA();
 };
 
+// Retail's CategoryModuleInfo<8> (table 0x00C1C780): one __purecall slot, no destructor.
 class TerrainCollisionCategoryBaseB
 {
 public:
-    virtual ~TerrainCollisionCategoryBaseB();
+    virtual void slot00() = 0;
 };
 
 class TerrainCollisionCategoryBase

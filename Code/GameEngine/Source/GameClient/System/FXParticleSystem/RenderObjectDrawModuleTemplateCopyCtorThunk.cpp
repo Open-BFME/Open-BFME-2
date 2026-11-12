@@ -10,10 +10,11 @@ public:
 	virtual ~RenderObjectDrawCategoryBaseA() {}
 };
 
+// Retail's CategoryModuleInfo<6> (table 0x00C1C780): one __purecall slot, no destructor.
 class __declspec(novtable) RenderObjectDrawCategoryBaseB
 {
 public:
-	virtual ~RenderObjectDrawCategoryBaseB() {}
+	virtual void slot00() = 0;
 };
 
 namespace FXParticleSystem
