@@ -28,7 +28,7 @@ class LivingWorldLogic
 public:
 	unsigned char m_pad00[0x1C];
 	Rva002B7250 m_list1C;
-	unsigned char m_pad1D[0x4C - 0x1D];
+	unsigned char m_pad2C[0x4C - 0x2C];
 	Rva002B7250 m_list4C;
 };
 

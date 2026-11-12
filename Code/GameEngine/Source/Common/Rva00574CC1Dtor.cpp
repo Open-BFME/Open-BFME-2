@@ -74,7 +74,7 @@ public:
 	virtual ~Rva005C9B76();
 	Rva002B7250 m_list;			// +0x04
 private:
-	unsigned char m_pad05[0x20 - 5];
+	unsigned char m_pad14[0x20 - 0x14];
 };
 
 class Rva005CB8D4

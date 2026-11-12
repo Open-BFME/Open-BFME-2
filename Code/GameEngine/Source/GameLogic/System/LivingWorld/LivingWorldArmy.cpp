@@ -227,7 +227,7 @@ template<> vector<BfmeVectorRecord00319C84>::~vector();
 
 
 class Rva00318BEB { public: void rva00318BEB(); };
-struct ArmyDestructorLogicView { unsigned char pad00[0x1C]; Rva002B7250 registry1C; unsigned char pad20[0xB0-0x20]; Rva00319D01RegionHolder *regionsB0; };
+struct ArmyDestructorLogicView { unsigned char pad00[0x1C]; Rva002B7250 registry1C; unsigned char pad2C[0xB0-0x2C]; Rva00319D01RegionHolder *regionsB0; };
 
 class Rva00318C32Ret;
 struct TWheelInfo;

@@ -56,8 +56,6 @@ class Rva005A0B4CList : public Rva002B7250
 {
 public:
 	void append(Rva002BA8F1Listener *p);
-private:
-	char m_pad[12];
 };
 // The holder global g_00DFEF18 (Rva002D3627Check.cpp's view).
 class Rva002D3627Host
@@ -65,7 +63,7 @@ class Rva002D3627Host
 public:
 	char pad[4];
 	Rva005A0B4CList list; // +0x04
-	char pad10[0x18 - 0x10];
+	char pad14[0x18 - 0x14];
 	unsigned char m_18;
 	unsigned char m_19;
 };

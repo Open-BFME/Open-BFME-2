@@ -398,14 +398,7 @@ extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *sou
 
 class LivingWorldLogic;
 #include "../../Include/GameLogic/CreateAHeroData.h"
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *v);
-private:
-	// Retail's constructor (0x003818F4, base 0x00330757) writes to +0xC.
-	char m_retailExtent[16];
-};
+#include "../../Include/Common/Rva002B7250.h"
 class Rva002BA8F1Logic;
 Rva002B7250 g_00E04424;
 extern Rva002B7250 g_registryAtE02E88;

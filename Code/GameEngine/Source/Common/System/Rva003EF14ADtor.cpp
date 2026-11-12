@@ -9,13 +9,7 @@
 #include "ascii_string.h"
 
 class CreateAHeroData;
-class Rva002B7250 {
-public:
-    void rva002B7250(CreateAHeroData *);
-private:
-	// Retail's constructor (0x003818F4, base 0x00330757) writes to +0xC.
-	char m_retailExtent[16];
-};
+#include "../../../Include/Common/Rva002B7250.h"
 // g_registryAtE02E88: matched references place it at VA 0xe02e88 (zero-filled; a plain-data view).
 Rva002B7250 g_registryAtE02E88;
 // The base is the canonical LivingWorldRegionObserver: its four-slot table
