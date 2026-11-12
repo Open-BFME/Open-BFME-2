@@ -2002,3 +2002,25 @@ def test_layout_a_contract_it_cannot_honour_is_refused(contract, why):
 
 def test_layout_undeclarable_is_a_decision_the_lane_records():
     assert "layout-undeclarable" in lane.DECIDABLE
+
+
+# ---------------------------------------------------------------- split_declarators after a pointer to function
+# sweep-header's packets/toollane2-split-declarators.md (GPT Sol, review-header-i6 round 5): the
+# shared specifiers ran through the return type's `*` or `&`, so later declarators took it.
+
+@pytest.mark.parametrize("declaration,shared,declarators", [
+    ("int *(*f)(), g;", "int", [" *(*f)()", " g;"]),
+    ("int &(*r)(), x;", "int", [" &(*r)()", " x;"]),
+    ("const char *(*get)(int), *n;", "const char", [" *(*get)(int)", " *n;"]),
+    ("char *const (*f)(), g;", "char", [" *const (*f)()", " g;"]),
+    ("int (*f)(), g;", "int ", ["(*f)()", " g;"]),
+])
+def test_split_declarators_leaves_a_returned_pointer_to_its_declarator(declaration, shared, declarators):
+    assert lane.split_declarators(declaration) == (shared, declarators)
+
+
+def test_a_returned_pointers_cv_is_no_later_declarators():
+    records = lane.field_records("struct C { char *const (*f)(), g; int *(*h)(), k; };\n", "C")
+    by_name = {r["name"]: r for r in records}
+    assert not by_name["g"]["qualifiers"] and not by_name["k"]["qualifiers"]   # not const@1 from f's return
+    assert by_name["k"]["shape"] == by_name["g"]["shape"]

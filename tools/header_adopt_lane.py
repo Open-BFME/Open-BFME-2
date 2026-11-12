@@ -1763,11 +1763,18 @@ DECLARATOR_START = re.compile(r"\(|(?:[A-Za-z_]\w*\s*::\s*)*[*&]")
 FIELD_NAME = re.compile(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?::\s*[^:;,]+)?\s*;?\s*$")
 
 
+# a declarator that opens with a pointer to function's returned `*`/`&` (and cv): ` *const (*f)()`
+RETURNED_PREFIX = re.compile(r"(\s*(?:[*&](?:\s*(?:const|volatile)\b)*\s*)+)(?=\()")
+
+
 def field_declarator(specifiers, declarator):
     """(name, qualifiers, shape) of one data member declarator under its shared `specifiers`;
     name None when it cannot be read. `qualifiers`: `mutable`, `const@k`/`volatile@k` (k the
     `*`/`&` before it: `char *const p` -> const@1), `const@ret`/`volatile@ret` for a function
     pointer's return type. `shape`: the declarator's pointers and bounds, names gone."""
+    returned = RETURNED_PREFIX.match(declarator)
+    if returned:            # ` *(*get)(int)` (split_declarators): the return type's `*`/`&` and cv are its own
+        specifiers, declarator = specifiers + returned.group(1), declarator[returned.end(1):]
     words = re.findall(r"[A-Za-z_]\w*", masked(specifiers))
     qualifiers = {"mutable"} if "mutable" in words else set()
     if declarator.lstrip().startswith("("):
@@ -1824,14 +1831,23 @@ def data_member_fields(member, short):
     return out
 
 
+# the trailing `*`/`&` (with cv) of a pointer to function's return type: `const char *`, `char *const `
+RETURN_POINTER = re.compile(r"(?:\s*[*&](?:\s*(?:const|volatile)\b)*)+\s*$")
+
+
 def split_declarators(head):
     """(shared specifiers, [declarator]) of one declaration without a body: `float x, *y` ->
-    (`float `, [`x`, ` *y`]); `const char *(*get)(int)` -> (`const char *`, [`(*get)(int)`])."""
+    (`float `, [`x`, ` *y`]); `const char *(*get)(int), *n` -> (`const char`, [` *(*get)(int)`, ` *n`]):
+    the `*` or `&` of a pointer to function's return type, and its cv, are its own declarator's,
+    never the shared specifiers (n is `const char *`, not `const char **`)."""
     pieces = split_top_commas(head.strip())
     pointer = pointer_declarator(pieces[0])
     found = DECLARATOR_START.search(top_level(pieces[0]))
     if pointer and pointer["name"]:              # `const char *(*get)(int)`: the declarator is the `(`
         cut = len(pointer["base"])
+        returned = RETURN_POINTER.search(pointer["base"])
+        if returned:                             # ... after the return type's own `*`/`&` and cv
+            cut = returned.start()
     elif found:
         cut = found.start()
     else:
