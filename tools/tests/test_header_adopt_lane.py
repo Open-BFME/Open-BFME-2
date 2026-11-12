@@ -2124,6 +2124,24 @@ def test_review_r2_a_variant_that_cannot_declare_the_layout_fails_its_units(monk
         lane.tournament("Layout1Probe", contract, ["a.cpp", "b.cpp"], header, ["data"], 1)
 
 
+@pytest.mark.parametrize("size", [0, -4, None])
+def test_layout_a_sizeof_below_one_is_refused(size):
+    # 34 contracts said sizeof 0 (a tie, no field): `sizeof(C) == 0` can never hold
+    problems = lane.layout_problems(dict(layout_contract(1), size=size, size_by="tie"))
+    assert any("no class is smaller than 1 byte" in p for p in problems), problems
+
+
+def test_layout_an_empty_tag_class_is_declared_as_it_is():
+    # crash triage: most under-sized classes were empty tags, sizeof 1: no pad, no refusal, sizeof and no vptr proven
+    contract = layout_contract(1)
+    assert lane.layout_plan(contract) == ([], [])
+    fields, after = body(contract)
+    prefix = lane.assertion_prefix("Layout1Probe")
+    assert fields.split() == [] and "m_pad" not in after
+    assert f"sizeof(Layout1Probe) == 1 ? 1 : -1" in after
+    assert f"sizeof({prefix}_vprobe) == sizeof(Layout1Probe)) == 0 ? 1 : -1" in after
+
+
 def test_layout_undeclarable_is_a_decision_the_lane_records():
     assert "layout-undeclarable" in lane.DECIDABLE
 
