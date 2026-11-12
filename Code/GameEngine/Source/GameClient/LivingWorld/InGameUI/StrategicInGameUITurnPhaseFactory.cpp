@@ -91,7 +91,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Include/Common/BfmeSelectionState.h"
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva002B2405 {public:int rva002B2405();};
+#include "../../../../Include/Common/Rva002B2405.h"
 struct WorldView {char pad[0x98];Rva002B2405 *localPlayer;char pad9C[0xF4-0x9C];int phase;char padF8[0x168-0xF8];bool closing;};
 class Rva0042D6C0PtrChaseField {public:int get()const;};
 #include "../../../../Include/Common/Rva0042D71A.h"

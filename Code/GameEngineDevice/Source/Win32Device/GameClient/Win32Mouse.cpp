@@ -161,15 +161,7 @@ BFME_DISP_DWORD_SETTER(Rva000419CFDwordSlot, 0x12DC)
 // ?rva002B2405@Rva002B2405@@QAEHXZ @ 0x002B2405, 20 B. The packet's
 // callers do not prove a target class name; the adjacent setter identifies
 // the field at 0x2C4, and retail reads another dword at 0x44.
-class Rva002B2405
-{
-public:
-	int rva002B2405();
-	char m_lead[0x44];
-	int m_field44;
-	char m_padding[0x2C4 - 0x48];
-	int m_field2C4;
-};
+#include "../../../../GameEngine/Include/Common/Rva002B2405.h"
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

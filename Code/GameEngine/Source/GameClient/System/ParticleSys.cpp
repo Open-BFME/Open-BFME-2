@@ -1608,15 +1608,7 @@ BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
 // ?rva002B2405@Rva002B2405@@QAEHXZ @ 0x002B2405, 20 B. The packet's
 // callers do not prove a target class name; the adjacent setter identifies
 // the field at 0x2C4, and retail reads another dword at 0x44.
-class Rva002B2405
-{
-public:
-	int rva002B2405();
-	char m_lead[0x44];
-	int m_field44;
-	char m_padding[0x2C4 - 0x48];
-	int m_field2C4;
-};
+#include "../../../Include/Common/Rva002B2405.h"
 
 BFME_DISP_DWORD_SETTER(Rva001F3D21DwordSlot, 0x19C)
 
