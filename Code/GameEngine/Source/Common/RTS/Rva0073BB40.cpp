@@ -14,16 +14,7 @@ class ShroudManagerCell;
 
 #include "../../../Include/Common/ShroudManagerCell.h"
 
-class Rva0073BAA0Base
-{
-public:
-	Rva0073BAA0Base(Gen_008F7CD0 *grid, unsigned int mask);
-	virtual char testFunc(int x, int y);
-	char rva0073BB40(int minX, int maxX, int cellY);
-private:
-	Gen_008F7CD0 *m_grid;
-	unsigned int m_mask;
-};
+#include "../../../Include/Common/Rva0073BAA0Base.h"
 
 char Rva0073BAA0Base::rva0073BB40(int minX, int maxX, int cellY)
 {

@@ -10,15 +10,7 @@ class BfmeCellFD;
 class ShroudManagerImpl;
 class ShroudManagerCell;
 
-class Rva0073BAA0Base
-{
-public:
-	virtual char testFunc(int x, int y);
-	char rva0073BAA0(int x1, int x2, int y);
-private:
-	Gen_008F7CD0 *m_grid;
-	unsigned int m_mask;
-};
+#include "../../../Include/Common/Rva0073BAA0Base.h"
 
 class Rva0073BAA0 : public Rva0073BAA0Base { int extra; };
 

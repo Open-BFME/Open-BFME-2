@@ -1,0 +1,162 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0073BAA0Base",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x73b470"
+     ],
+     "value": 12
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x73b470"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x73b470"
+     ],
+     "value": {
+      "0x0": "0x8f139c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8f139c"
+     ],
+     "value": {
+      "count": 1,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?testFunc@Rva0073BAA0Base@@UAEDHH@Z",
+        "slot": 0,
+        "target": "0x188170"
+       }
+      ],
+      "table": "0x8f139c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x8f139c": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?testFunc@Rva0073BAA0Base@@UAEDHH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 10
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_grid",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "Gen_008F7CD0*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mask",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "testFunc(int,int)"
+  }
+ }
+}
