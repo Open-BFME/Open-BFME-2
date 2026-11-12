@@ -3437,3 +3437,23 @@ already correct without a refusal. The published queue remains intact;
 census/image confirmation and the separate hrawanim destructor-copy issue
 remain open.
 [Native hash-entry use and full retirement scope](../../reverse/attempt_support/hashable-entry-20261112.md).
+
+The ProfileCmdInterface table at 0x008E7CB0 still lacks its deleting
+destructor slot. The constructor and destructor fold dry runs refuse for
+different table-ownership reasons. See the [profile command table
+handoff](../../reverse/attempt_support/profile-command-table-008e7cb0.md).
+
+At 0x0087598C five of eleven retail entries already target named HUD methods.
+The recorded virtual destructors have no slot in that table. See the
+[installer and method ownership checks](../../reverse/attempt_support/selection-ui-table-0087598c.md).
+
+At 0x0085FC28, EvacuateGarrisonSpecialPower's slot zero calls 0x004CDC98.
+Its call to 0x004CDC33 restores this table and the three secondary tables
+before jumping to the base destructor. Both rows were previously claimed
+as SupplyCenterDockUpdate. The corrected bodies match 28 and 32 bytes in
+ModuleUpdateDtors.cpp. The constructor's local empty destructor is removed.
+The two-unit preview preserves 909 linked bytes. The complete primary table
+still needs 23 slots. Seventeen target the same bodies as the base, and
+slots 0, 1, 2, 3, 4 and 19 differ. In particular, slot 2 at 0x004CDC2D
+is still rowed as a free integer-returning function. Full-image retirement
+requires a new published queue measurement.
