@@ -41,10 +41,7 @@ public:
     bool Is_Initialized() const { if(object) return reinterpret_cast<TextureInitializationView *>(object)->Is_Initialized(); return false; }
 };
 struct Rva00170999Data { unsigned left,top,right,bottom; };
-class Rva00170BFF {
-public:
-    Rva00170999Data *rva00171128(const AssetReference &);
-};
+#include "../../../../GameEngine/Include/Common/Rva00170BFF.h"
 class Rva001333C6 { public: void f(); };
 struct IDirect3DBaseTexture8;
 class TextureBaseClass {

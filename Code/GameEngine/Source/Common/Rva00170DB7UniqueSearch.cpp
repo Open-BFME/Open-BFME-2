@@ -47,21 +47,12 @@ struct Rva00170DB7Out
 		: node(iter.node), inserted(flag) {}
 };
 
-class Rva00170BFF
-{
-	Rva00170EFENode *_00Head;
-	int _04Flag;
-public:
-	Rva00170EFEIter rva00170BFF(Rva00170EFENode *x,
-		Rva00170EFENode *y, const Rva00170999 &value,
-		Rva00170EFENode *w);
-	Rva00170DB7Out rva00170DB7(const Rva00170999 &value);
-};
+#include "../../Include/Common/Rva00170BFF.h"
 
 Rva00170DB7Out Rva00170BFF::rva00170DB7(const Rva00170999 &value)
 {
-	Rva00170EFENode *y = _00Head;
-	Rva00170EFENode *x = _00Head->_parent;
+	Rva00170EFENode *y = m_00Head;
+	Rva00170EFENode *x = m_00Head->_parent;
 	bool comp = true;
 	while (x != 0) {
 		y = x;
@@ -72,7 +63,7 @@ Rva00170DB7Out Rva00170BFF::rva00170DB7(const Rva00170999 &value)
 	}
 	Rva00170EFEIter j;
 	j.node = y;
-	if (comp && y == _00Head->_left)
+	if (comp && y == m_00Head->_left)
 		return Rva00170DB7Out(rva00170BFF(y, y, value, 0), true);
 	if (comp)
 		--j;

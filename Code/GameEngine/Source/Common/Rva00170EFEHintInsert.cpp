@@ -34,18 +34,7 @@ struct Rva00170DB7Out
 	bool inserted;
 };
 
-class Rva00170BFF
-{
-	Rva00170EFENode *m_00Head;
-	unsigned int m_04Flag;
-public:
-	Rva00170EFEIter rva00170BFF(Rva00170EFENode *x,
-		Rva00170EFENode *y, const Rva00170999 &value,
-		Rva00170EFENode *w);
-	Rva00170DB7Out rva00170DB7(const Rva00170999 &value);
-	Rva00170EFEIter rva00170EFE(Rva00170EFEIter position,
-		const Rva00170999 &value);
-};
+#include "../../Include/Common/Rva00170BFF.h"
 
 typedef Rva00170DB7Out (Rva00170BFF::*Rva00170EFEFindFn)(
 	const Rva00170999 &);

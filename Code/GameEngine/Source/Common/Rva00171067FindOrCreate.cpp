@@ -84,13 +84,7 @@ struct Rva00170DB7Out
 		: node(iter.node), inserted(flag) {}
 };
 
-class Rva00170BFF
-{
-public:
-	Rva00170EFENode *m_00Head;
-	unsigned int m_04Flag;
-	Rva00170DB7Out rva00170DB7(const Rva00170999 &value);
-};
+#include "../../Include/Common/Rva00170BFF.h"
 
 __forceinline void rva00171067Insert(Rva00170BFF &tree, const Rva00170999 &temporary)
 {

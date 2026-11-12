@@ -19,16 +19,7 @@ struct Rva00170EFEIter
 	Rva00170EFEIter(const Rva00170EFEIter &other) : node(other.node) {}
 };
 
-class Rva00170BFF
-{
-	Rva00170EFENode *m_00Head;
-	unsigned int m_04Flag;
-public:
-	Rva00170EFEIter rva00170EFE(Rva00170EFEIter position,
-		const Rva00170999 &value);
-	Rva00170EFEIter rva0017110B(Rva00170EFEIter position,
-		const Rva00170999 &value);
-};
+#include "../../Include/Common/Rva00170BFF.h"
 
 Rva00170EFEIter Rva00170BFF::rva0017110B(Rva00170EFEIter position,
 	const Rva00170999 &value)
