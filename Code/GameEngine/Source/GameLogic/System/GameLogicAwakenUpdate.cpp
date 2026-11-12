@@ -40,11 +40,7 @@ public:
 	void rva0023C420();
 };
 
-class Rva001EB130Holder
-{
-public:
-	void rva001EB130();
-};
+#include "../../../Include/Common/Rva001EB130Holder.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

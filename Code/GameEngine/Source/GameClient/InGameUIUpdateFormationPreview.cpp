@@ -63,12 +63,7 @@ public:
 namespace _STL {
 template<> list<Object*>::iterator list<Object*>::insert(list<Object*>::iterator,Object *const&);
 }
-class Rva001EB130Holder
-{
-public:
-	void rva001EB130();
-	void *head; // +0x00
-};
+#include "../../Include/Common/Rva001EB130Holder.h"
 class ObjectList:public Rva001EB130Holder {
 public:
  ObjectList(const char &a){reinterpret_cast<Rva001EB984Member*>(this)->init((void*)&a);}

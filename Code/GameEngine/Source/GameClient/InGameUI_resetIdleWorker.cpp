@@ -5,12 +5,7 @@
 class GameWindow;
 void GadgetButtonSetText(GameWindow *g, UnicodeString text);
 
-class Rva001EB130Holder
-{
-public:
-	void rva001EB130();
-	void *head; // +0x00
-};
+#include "../../Include/Common/Rva001EB130Holder.h"
 
 class InGameUI
 {
