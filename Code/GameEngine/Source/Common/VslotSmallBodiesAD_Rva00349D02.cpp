@@ -211,14 +211,7 @@ private:
 	ParticleSystem *m_target;
 };
 
-class Rva003AFF06
-{
-public:
-	virtual void rva003AFF06(void *context, void *b);
-
-private:
-	Rva003AFF06SystemPtr m_system;				///< +0x4
-};
+#include "../../Include/Common/Rva003AFF06.h"
 
 // ?rva003AFF06@Rva003AFF06@@UAEXPAX0@Z @0x003AFF06 (28B)
 void Rva003AFF06::rva003AFF06(void *context, void *b)
