@@ -3252,3 +3252,8 @@ present_unmatched line removed; no initializer added.
 `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ spell none of the changed files;
 the only class mentions are fixture rows in tools/tests/fixtures/structural_queue.csv (DefaultProductionExitUpdate,
 SupplyCenterProductionExitUpdate, SpawnPointProductionExitUpdate), file-level and unchanged.
+
+Q3 factory family (2026-11-12): eight primary bridges remain open.
+The [factory and destructor table pairs](../../reverse/attempt_support/q3-factory-vtables-20261112.md)
+identify distinct destructor-installed tables for all eight and the competing
+constructor identity for the five-slot case.
