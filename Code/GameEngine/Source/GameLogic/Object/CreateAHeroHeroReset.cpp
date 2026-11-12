@@ -11,7 +11,7 @@
 #include <vector>
 
 struct Rva0021A917Element { short words[1]; };
-struct TreeHintPayload001F8ACB { unsigned int value; };
+#include "../../../Include/Common/TreeHintPayload001F8ACB.h"
 typedef _STL::map<Rva0021A917Element, int> ResetWordMap;
 typedef _STL::map<AsciiString, TreeHintPayload001F8ACB> ResetStringMap;
 typedef _STL::map<int, _STL::vector<unsigned int> > ResetBlingMap;

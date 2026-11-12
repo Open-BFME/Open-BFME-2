@@ -23,10 +23,7 @@ public:
 
 #include "ascii_string.h"
 
-struct TreeHintPayload001F8ACB
-{
-	unsigned char m_body[4];
-};
+#include "../../Include/Common/TreeHintPayload001F8ACB.h"
 
 typedef _STL::pair<const AsciiString, TreeHintPayload001F8ACB> NewNodePair;
 

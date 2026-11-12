@@ -28,10 +28,7 @@ template <> struct less<AsciiString>
 };
 }
 
-struct TreeHintPayload001F8ACB
-{
-	unsigned int value;
-};
+#include "../../../../Include/Common/TreeHintPayload001F8ACB.h"
 
 typedef _STL::map<AsciiString, TreeHintPayload001F8ACB> StringPayloadMap;
 

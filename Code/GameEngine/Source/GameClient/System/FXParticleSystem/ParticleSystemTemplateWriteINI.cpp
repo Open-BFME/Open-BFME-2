@@ -76,7 +76,7 @@ NarrowString Rva001F9524Concat(const NarrowString&,const char*);
 struct S001F87D5 { int type; float x,y; };
 struct S001F3744 { int type; float x,y; };
 #include "../../../../Include/Common/Vec001F8810.h"
-struct TreeHintPayload001F8ACB { unsigned long value; };
+#include "../../../../Include/Common/TreeHintPayload001F8ACB.h"
 bool Rva001F3744IsZero(const S001F3744*);
 void Rva001F82ABWrite(Stream&,unsigned,const char*,const char**);
 void Rva001F89C3Write(Stream&,unsigned,const char*,const bool*);

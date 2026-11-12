@@ -43,7 +43,7 @@ _Rb_tree<int, pair<int const, int>, _Select1st<pair<int const, int> >,
 }
 // bfme link decl-only end
 typedef _STL::map<int,int> IntegerMap;
-struct TreeHintPayload001F8ACB { unsigned int value; };
+#include "../../../../Include/Common/TreeHintPayload001F8ACB.h"
 bool operator<(const AsciiString &, const AsciiString &);
 typedef _STL::map<AsciiString,TreeHintPayload001F8ACB> StringPayloadMap;
 namespace _STL {

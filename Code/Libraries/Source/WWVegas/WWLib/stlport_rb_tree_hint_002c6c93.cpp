@@ -28,7 +28,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 }
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
-struct TreeHintPayload001F8ACB { char m_body[4]; };
+#include "../../../../GameEngine/Include/Common/TreeHintPayload001F8ACB.h"
 typedef _STL::pair<const AsciiString, TreeHintPayload001F8ACB> TreeHintPair001F8ACB;
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair001F8ACB, _STL::_Select1st<TreeHintPair001F8ACB>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair001F8ACB> > TreeHint001F8ACB;
 // The copy constructor row calls the tree-base constructor out of line. This

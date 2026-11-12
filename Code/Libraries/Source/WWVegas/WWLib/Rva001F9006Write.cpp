@@ -11,10 +11,7 @@ template <class C, class T> class basic_ostream
 };
 }
 
-struct TreeHintPayload001F8ACB
-{
-	unsigned long value;
-};
+#include "../../../../GameEngine/Include/Common/TreeHintPayload001F8ACB.h"
 
 void Rva001F8BA1Write(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,

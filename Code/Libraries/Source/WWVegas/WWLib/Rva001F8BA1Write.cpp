@@ -15,10 +15,7 @@ public:
 };
 }
 
-struct TreeHintPayload001F8ACB
-{
-	unsigned long value;
-};
+#include "../../../../GameEngine/Include/Common/TreeHintPayload001F8ACB.h"
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva001F6951Pad(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,

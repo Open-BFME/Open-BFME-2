@@ -33,7 +33,7 @@ namespace _STL { template <> _Bvector_base<allocator<bool> >::_Bvector_base(cons
 namespace _STL { template <> vector<bool>::~vector(); }
 class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-struct TreeHintPayload001F8ACB { unsigned int value; };
+#include "../../../../Include/Common/TreeHintPayload001F8ACB.h"
 bool operator<(const AsciiString &, const AsciiString &);
 namespace _STL { template <> pair<const AsciiString, TreeHintPayload001F8ACB>::~pair(); }
 // Scalar-vector copy is supplied by the complete retail 0x002CFAB9 provider.

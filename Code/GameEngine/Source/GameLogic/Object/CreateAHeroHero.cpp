@@ -356,10 +356,7 @@ public:
 };
 
 // The award-count map's mapped word (rowed operator[] 0x002C6F8C spelling).
-struct TreeHintPayload001F8ACB
-{
-	unsigned long value;
-};
+#include "../../../Include/Common/TreeHintPayload001F8ACB.h"
 namespace _STL {
 template <> TreeHintPayload001F8ACB &map<AsciiString, TreeHintPayload001F8ACB, less<AsciiString>,
 	allocator<pair<const AsciiString, TreeHintPayload001F8ACB> > >::operator[](const AsciiString &key);
