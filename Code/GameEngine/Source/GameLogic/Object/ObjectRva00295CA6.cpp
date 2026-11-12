@@ -47,11 +47,7 @@ public:
 	Int rva002EF3D9(char *object, Int ids);
 };
 
-class Rva002F2865Host
-{
-public:
-	Int rva002F2865(char *object, Int ids);
-};
+#include "../../../Include/GameLogic/Rva002F2865Host.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

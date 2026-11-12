@@ -1068,11 +1068,7 @@ public:
 Bool rva003460DB(Object *obj);
 
 // The pathfinder's nearby-object ID query (0x002F2865), rowed under this name.
-class Rva002F2865Host
-{
-public:
-	Int rva002F2865(char *obj, int ids);
-};
+#include "../../../Include/GameLogic/Rva002F2865Host.h"
 
 // The chain append PartitionFilter::And (0x00625790).
 class PartitionFilter

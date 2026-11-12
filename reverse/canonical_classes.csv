@@ -1638,3 +1638,4 @@ Rva001DBB87ZeroSetter,Code/GameEngine/Include/GameLogic/Rva001DBB87ZeroSetter.h,
 Rva0037E07C,Code/GameEngine/Include/GameClient/Rva0037E07C.h,existing header; contract class_contracts/Rva0037E07C.json; 3/3 sampled units adopt
 Rva002230FF,Code/GameEngine/Include/GameClient/Rva002230FF.h,existing header; contract class_contracts/Rva002230FF.json; 3/3 sampled units adopt
 Rva002EBC34,Code/GameEngine/Include/GameLogic/Rva002EBC34.h,existing header; contract class_contracts/Rva002EBC34.json; 3/3 sampled units adopt
+Rva002F2865Host,Code/GameEngine/Include/GameLogic/Rva002F2865Host.h,existing header; contract class_contracts/Rva002F2865Host.json; 3/3 sampled units adopt

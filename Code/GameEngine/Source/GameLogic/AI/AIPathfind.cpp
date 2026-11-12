@@ -799,11 +799,7 @@ class Rva002EF3D9Host
 public:
 	int rva002EF3D9(char *record, int arg);
 };
-class Rva002F2865Host
-{
-public:
-	int rva002F2865(char *record, int arg);
-};
+#include "../../../Include/GameLogic/Rva002F2865Host.h"
 struct Rva002F0B8AElement { char bytes[1]; bool operator<(const Rva002F0B8AElement&)const; bool operator==(const Rva002F0B8AElement&)const; };
 typedef _STL::pair<const int, Rva002F0B8AElement> _Rva002F0B8APair;
 typedef _STL::allocator<_Rva002F0B8APair> _Rva002F0B8AAlloc;
