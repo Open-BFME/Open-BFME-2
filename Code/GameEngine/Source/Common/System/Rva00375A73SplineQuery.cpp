@@ -5,7 +5,7 @@
 // float input at +18 and queries TheSplineService before copying +48 XYZ.
 // The named global's decorated type is read from the verified GameEngine
 // init relocation at +4502. Its 00311974 member is RET 12 with AL result.
-struct Rva00375A73Coord { float x, y, z; };
+#include "../../../Include/Common/Rva00375A73Coord.h"
 struct SplineState;
 class Rva00375A73Context
 {

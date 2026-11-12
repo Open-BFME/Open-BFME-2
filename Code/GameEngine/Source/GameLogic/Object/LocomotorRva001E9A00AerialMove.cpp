@@ -58,7 +58,7 @@ static inline void matrixSetTranslation(Matrix3D &m, const Vector3 &t)
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-struct Rva00375A73Coord { float x, y, z; };
+#include "../../../Include/Common/Rva00375A73Coord.h"
 class Rva00375A73Context
 {
 public:

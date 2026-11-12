@@ -25,7 +25,7 @@ struct Rva00368C7AObject
 };
 #include "../../../../Common/Thing/thing.h"
 class Object;
-struct Rva00375A73Coord { float x, y, z; };
+#include "../../../../../Include/Common/Rva00375A73Coord.h"
 class Rva00375A73Context
 {
 public:
