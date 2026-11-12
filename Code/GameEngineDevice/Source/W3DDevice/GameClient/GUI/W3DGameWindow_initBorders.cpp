@@ -19,12 +19,7 @@ class Image;
 // The target uses the existing W3DDisplay image wrapper at 4D6B3. The
 // reference Display virtual-slot view is unnecessary for this caller.
 class Display;
-class W3DDisplay
-{
-public:
-    void rva0004D6B3(Image *image, Real startX, Real startY,
-        Real endX, Real endY, Color color = -1, Int mode = 2);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 extern Display *TheDisplay;
 //
 // The Zero Hour destructor body is empty; everything retail emits is the

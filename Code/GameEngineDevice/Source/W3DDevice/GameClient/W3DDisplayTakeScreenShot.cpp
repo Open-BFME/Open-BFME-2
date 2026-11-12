@@ -14,14 +14,7 @@
 
 extern void *ApplicationHWnd;
 
-class W3DDisplay {
-public:
-    void takeScreenShot(const char *filename);
-private:
-    void rva00045213(char *image, unsigned int rowBytes);
-    void rva00047BC0(char *image, unsigned int width, unsigned int height,
-        const char *filename);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 void W3DDisplay::takeScreenShot(const char *filename)
 {

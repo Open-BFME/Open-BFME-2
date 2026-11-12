@@ -44,7 +44,7 @@ extern "C" const void *const __identifier("??_7Rva0045EF90Base@@6B@")[];
 #include "../../../../../GameEngine/Include/GameClient/Rva005248D0.h"
 class Display;
 extern Display *TheDisplay;
-class W3DDisplay {public:void rva0004D6B3(Image*,float,float,float,float,int,int);};
+#include "../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class TextureClass {public:void Release_Ref();};
 class BFME2ParticleTextureHandle {public:TextureClass *Ptr;~BFME2ParticleTextureHandle(){if(Ptr)Ptr->Release_Ref();}};
 #include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"

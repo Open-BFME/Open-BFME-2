@@ -104,11 +104,7 @@ static __declspec(noinline) void CreateBMPFile(const char *file, char *image, in
 	LocalFree(pbmi);
 }
 
-class W3DDisplay
-{
-private:
-	void rva00047BC0(char *image, unsigned int width, unsigned int height, const char *filename);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 void W3DDisplay::rva00047BC0(char *image, unsigned int width, unsigned int height, const char *filename)
 {

@@ -208,7 +208,7 @@ virtual void slot164();
 virtual void screenToTerrain(const ICoord2D*,Coord3D*,bool);
 };
 class Display; extern Display *TheDisplay;
-class W3DDisplay { public: void rva0004D664(float,float,float,float,float,int); };
+#include "../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 static __forceinline void drawEditorLine(float x1,float y1,float x2,float y2,float width,unsigned long color) {
  reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D664(x1,y1,x2,y2,width,(int)color);
 }
