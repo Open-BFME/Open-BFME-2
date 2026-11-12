@@ -228,17 +228,166 @@ public:
 	void run();
 };
 
-BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007F2F50CleanupDeleting, Rva007EB6C0Cleanup )
+// BFME_VPTR_CLEANUP_DELETING_DTOR spelled out: retail table 0x00CE2730 holds the
+// deleting destructor and then 5 __purecall entries.
+class Rva007F2F50CleanupDeleting
+{
+public:
+	virtual ~Rva007F2F50CleanupDeleting();
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+};
+// Retail keeps no standalone destructor: the deleting destructor inlines it.
+// ??1Rva007F2F50CleanupDeleting@@UAE@XZ absent-from-retail
+Rva007F2F50CleanupDeleting::~Rva007F2F50CleanupDeleting()
+{
+	( (Rva007EB6C0Cleanup *)this )->run();
+}
 
-BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007F37F0CleanupDeleting, Rva007EB6C0Cleanup )
+// BFME_VPTR_CLEANUP_DELETING_DTOR spelled out: retail table 0x00CE2870 holds the
+// deleting destructor and then 12 __purecall entries.
+class Rva007F37F0CleanupDeleting
+{
+public:
+	virtual ~Rva007F37F0CleanupDeleting();
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+};
+// Retail keeps no standalone destructor: the deleting destructor inlines it.
+// ??1Rva007F37F0CleanupDeleting@@UAE@XZ absent-from-retail
+Rva007F37F0CleanupDeleting::~Rva007F37F0CleanupDeleting()
+{
+	( (Rva007EB6C0Cleanup *)this )->run();
+}
 
-BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007F41E0CleanupDeleting, Rva007EB6C0Cleanup )
+// BFME_VPTR_CLEANUP_DELETING_DTOR spelled out: retail table 0x00CE2A6C holds the
+// deleting destructor and then 5 __purecall entries.
+class Rva007F41E0CleanupDeleting
+{
+public:
+	virtual ~Rva007F41E0CleanupDeleting();
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+};
+// Retail keeps no standalone destructor: the deleting destructor inlines it.
+// ??1Rva007F41E0CleanupDeleting@@UAE@XZ absent-from-retail
+Rva007F41E0CleanupDeleting::~Rva007F41E0CleanupDeleting()
+{
+	( (Rva007EB6C0Cleanup *)this )->run();
+}
 
-BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007F4900CleanupDeleting, Rva007FA650Cleanup )
+// BFME_VPTR_CLEANUP_DELETING_DTOR spelled out: retail table 0x00CE2BE8 holds the
+// deleting destructor and then 6 __purecall entries.
+class Rva007F4900CleanupDeleting
+{
+public:
+	virtual ~Rva007F4900CleanupDeleting();
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+};
+// Retail keeps no standalone destructor: the deleting destructor inlines it.
+// ??1Rva007F4900CleanupDeleting@@UAE@XZ absent-from-retail
+Rva007F4900CleanupDeleting::~Rva007F4900CleanupDeleting()
+{
+	( (Rva007FA650Cleanup *)this )->run();
+}
 
-BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007FADF0CleanupDeleting, Rva007EB6C0Cleanup )
+// BFME_VPTR_CLEANUP_DELETING_DTOR spelled out: retail table 0x00CE34D0 holds the
+// deleting destructor and then 25 __purecall entries.
+class Rva007FADF0CleanupDeleting
+{
+public:
+	virtual ~Rva007FADF0CleanupDeleting();
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+};
+// Retail keeps no standalone destructor: the deleting destructor inlines it.
+// ??1Rva007FADF0CleanupDeleting@@UAE@XZ absent-from-retail
+Rva007FADF0CleanupDeleting::~Rva007FADF0CleanupDeleting()
+{
+	( (Rva007EB6C0Cleanup *)this )->run();
+}
 
-BFME_VPTR_CLEANUP_DELETING_DTOR( Rva007FC120CleanupDeleting, Rva007EB6C0Cleanup )
+// BFME_VPTR_CLEANUP_DELETING_DTOR spelled out: retail table 0x00CE36D8 holds the
+// deleting destructor and then 24 __purecall entries.
+class Rva007FC120CleanupDeleting
+{
+public:
+	virtual ~Rva007FC120CleanupDeleting();
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
+	virtual void slot6() = 0;
+	virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual void slot9() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+};
+// Retail keeps no standalone destructor: the deleting destructor inlines it.
+// ??1Rva007FC120CleanupDeleting@@UAE@XZ absent-from-retail
+Rva007FC120CleanupDeleting::~Rva007FC120CleanupDeleting()
+{
+	( (Rva007EB6C0Cleanup *)this )->run();
+}
 
 BFME_VPTR_CLEANUP_DELETING_DTOR( Rva009EEA70CleanupDeleting, Rva009EDD30Cleanup )
 
