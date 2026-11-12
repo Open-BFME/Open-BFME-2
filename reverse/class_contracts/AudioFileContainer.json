@@ -1,0 +1,78 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AudioFileContainer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x326be6"
+     ],
+     "value": {
+      "0x326be6": [
+       "?$RefCountPtr@VTextureClass@@",
+       "?$StringBase@D",
+       "?$StringBase@G",
+       "AsciiString",
+       "AudioFileContainer",
+       "BfmeStringTailRecord156",
+       "D3DXTex::CLockVolume",
+       "MpGameSetupComboRef",
+       "Rva00336BE4Key",
+       "Rva00690FF0Handle",
+       "ScriptPositionRecord",
+       "UnicodeString",
+       "W3DScriptedModelDrawEntry1C"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 8
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_target",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Gen0002857E*",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {}
+}

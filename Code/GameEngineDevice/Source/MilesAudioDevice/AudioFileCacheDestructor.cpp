@@ -57,7 +57,7 @@ class Rva000A7CEE:public Rva000A79CE {public:~Rva000A7CEE(){}};
 typedef char AudioHashLifetimeSize[sizeof(Rva000A7CE9)==0x14?1:-1];
 typedef char AudioTreeLifetimeSize[sizeof(Rva000A7CEE)==0x0c?1:-1];
 class Gen0002857E;
-class AudioFileContainer {Gen0002857E *target;public:~AudioFileContainer();};
+#include "../../../GameEngine/Include/Common/AudioFileContainer.h"
 class Rva000A8A6C {public:void rva000A8A6C();};
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class AudioFileCache:public Rva000A7CE9 {

@@ -24,15 +24,7 @@ public:
 // next to its one caller and folds the other two with identical bodies. The
 // empty constructor is out of line in MilesAudioManager.cpp, so the empty
 // returns below call it as retail does (0x00326BE6).
-class AudioFileContainer
-{
-public:
-	AudioFileContainer();
-	AudioFileContainer(Gen0002857E *target);
-	~AudioFileContainer();
-
-	Gen0002857E *m_target;
-};
+#include "../../Include/Common/AudioFileContainer.h"
 
 class Rva00690FF0Handle
 {

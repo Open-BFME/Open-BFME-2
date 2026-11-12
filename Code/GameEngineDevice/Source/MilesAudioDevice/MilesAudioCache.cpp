@@ -47,7 +47,7 @@ public:
 };
 class Rva0010ED3D {public: void rva0010ED3D(int);};
 class Rva00691110Handle {public: Rva00691110Handle(const Rva00691110Handle &); private: void *target;};
-class AudioFileContainer {public: AudioFileContainer(Gen0002857E *); private: Gen0002857E *m_target;};
+#include "../../../GameEngine/Include/Common/AudioFileContainer.h"
 class Rva00690FF0Handle {
 public:
  // Built through the AudioFileContainer pointer ctor 0x000A8A1F, as retail calls it. A template

@@ -78,12 +78,7 @@ public:
 	char pad40[0x14];
 };
 class Rva0010ECB5 { public: bool rva0010ECB5(); };
-class AudioFileContainer
-{
-public:
-	AudioFileContainer(); AudioFileContainer(Gen0002857E *); ~AudioFileContainer();
-private: Gen0002857E *m_target;
-};
+#include "../../../GameEngine/Include/Common/AudioFileContainer.h"
 class Rva00691040Handle
 {
 public: Rva00691040Handle &operator=(const Rva00691040Handle &);

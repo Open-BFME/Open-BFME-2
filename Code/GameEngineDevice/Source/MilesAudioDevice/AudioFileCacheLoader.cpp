@@ -54,11 +54,7 @@ public:
 };
 struct Rva000A7E9EInput;
 class Gen0002857E;
-class AudioFileContainer {
-public:
- AudioFileContainer(); AudioFileContainer(Gen0002857E *); ~AudioFileContainer();
-private: Gen0002857E *m_target;
-};
+#include "../../../GameEngine/Include/Common/AudioFileContainer.h"
 class Rva00691040Handle {
 public: Rva00691040Handle &operator=(const Rva00691040Handle &);
 private: Gen0002857E *m_target;
