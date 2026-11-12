@@ -1808,7 +1808,7 @@ struct AssetLoadMode
 void bfmeMergeReceiverKeys(int value);
 
 class BfmeRetBWF;
-class Rva0030D631 { public: BfmeRetBWF *rva0030D631(); };
+#include "../../../Include/Common/Rva0030D631.h"
 
 class MapObject
 {

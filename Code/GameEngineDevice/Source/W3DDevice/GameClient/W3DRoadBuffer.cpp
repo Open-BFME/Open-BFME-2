@@ -1579,7 +1579,7 @@ void W3DRoadBuffer::addMapObject(RoadSegment *pRoad, Bool updateTheCounts)
 // at retail [0x00E00940]. The Zero Hour MapObject header here has the older
 // layout, so addMapObjects walks the list through this view.
 #include "../../../../GameEngine/Include/Common/BfmeRetBWF.h"
-struct Rva0030D631 { BfmeRetBWF *rva0030D631(); };
+#include "../../../../GameEngine/Include/Common/Rva0030D631.h"
 class BfmeRoadMapObjectView
 {
 public:

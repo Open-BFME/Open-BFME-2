@@ -202,7 +202,7 @@ struct BfmeSubGE;
 // MapObject resolves the final template override at 0x0030D833; the
 // location getter at 0x0030D631 retains its address-derived spelling.
 class BfmeRetBWF;
-class Rva0030D631 { public: BfmeRetBWF *rva0030D631(); };
+#include "../../../Include/Common/Rva0030D631.h"
 
 class MapObject
 {

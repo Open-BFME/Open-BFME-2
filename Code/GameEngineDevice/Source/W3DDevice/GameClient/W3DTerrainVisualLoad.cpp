@@ -319,11 +319,7 @@ class StaticNameKey
 extern const StaticNameKey TheKey_lightHeightAboveTerrain, TheKey_lightAmbientColor, TheKey_lightDiffuseColor,
     TheKey_lightInnerRadius, TheKey_lightOuterRadius, TheKey_objectRadius, TheKey_scorchType;
 #include "../../../../GameEngine/Include/Common/BfmeRetBWF.h"
-class Rva0030D631
-{
-  public:
-    BfmeRetBWF *rva0030D631();
-};
+#include "../../../../GameEngine/Include/Common/Rva0030D631.h"
 struct TerrainMapObject
 {
     void *unused;

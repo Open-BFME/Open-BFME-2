@@ -927,11 +927,7 @@ extern const StaticNameKey TheKey_waypointTypeOption;
 #include "../../../Include/Common/Dict.h"
 // The rowed MapObject accessors, each named for its address.
 class BfmeRetBWF;
-class Rva0030D631
-{
-public:
-	BfmeRetBWF *rva0030D631();
-};
+#include "../../../Include/Common/Rva0030D631.h"
 class Rva0030D4F2
 {
 public:

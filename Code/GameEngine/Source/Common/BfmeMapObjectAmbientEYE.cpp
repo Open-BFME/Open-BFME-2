@@ -85,11 +85,7 @@ public:
 #include "../../../GameEngineDevice/Include/Rva001D98BD.h"
 
 class BfmeRetBWF;
-class Rva0030D631
-{
-public:
-	BfmeRetBWF *rva0030D631();
-};
+#include "../../Include/Common/Rva0030D631.h"
 #include "../../Include/Common/Rva0030D606.h"
 
 void TranslateAudioProperties(Dict *props, Drawable *draw, ThingTemplate *tmpl, bool *soundOff,

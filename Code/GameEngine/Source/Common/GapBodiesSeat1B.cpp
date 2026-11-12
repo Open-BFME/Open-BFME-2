@@ -807,7 +807,7 @@ int Rva0030C025::rva0030C025(int, int index) const
 float normalizeAngle(float angle);							// 0x00238954
 
 class BfmeRetBWF;
-class Rva0030D631 { public: BfmeRetBWF *rva0030D631(); };	// 0x0030D631
+#include "../../Include/Common/Rva0030D631.h"
 class Rva0030D606 { public: void rva0030D606(); };			// 0x0030D606
 // TheAudio (VA 0x00DFE6E8) viewed only through its slot 53 (+0xD4), which
 // takes the sound handle and the position the 0x0030D631 member returns.

@@ -145,7 +145,7 @@ public:
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 class Rva0030D4F2 {public:int rva0030D4F2();int rva0030D50C();};
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0030D808.h"
-class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
+#include "../../../../Include/Common/Rva0030D631.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 // The 0x4C-byte wall: built here and by the library Xfer's throwaway wall,

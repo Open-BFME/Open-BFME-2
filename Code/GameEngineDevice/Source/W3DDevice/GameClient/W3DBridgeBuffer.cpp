@@ -187,11 +187,7 @@ public:
 	TextureClass *m_ptr; // +0x00
 };
 #include "../../../../GameEngine/Include/Common/BfmeRetBWF.h"
-class Rva0030D631
-{
-public:
-	BfmeRetBWF *rva0030D631();
-};
+#include "../../../../GameEngine/Include/Common/Rva0030D631.h"
 enum
 {
 	FLAG_BRIDGE_POINT1 = 0x010,
