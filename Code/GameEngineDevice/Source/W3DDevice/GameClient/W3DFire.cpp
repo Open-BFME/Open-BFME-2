@@ -72,7 +72,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 
 extern GameLODManager *TheGameLODManager;
 
-class Rva001F384AByteZeroSetter { public: void disable(); };
+#include "../../../Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 
 // Native 98894..98A53 RET0, same receiver. GameClientRandomValueReal's file
 // argument is retail's W3DFire.cpp path (lines 162/166/167), so this unit is

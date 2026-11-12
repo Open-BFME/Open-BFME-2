@@ -10,7 +10,7 @@
 // late EBX push and avoid an extra final EH-state reset. No new pins/aliases.
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
-class Rva001F384AByteZeroSetter { public: void disable(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 class Rva003FDA90SmartField;
 class RvaSmartPtr12 { public:
  RvaSmartPtr12(const RvaSmartPtr12 &);

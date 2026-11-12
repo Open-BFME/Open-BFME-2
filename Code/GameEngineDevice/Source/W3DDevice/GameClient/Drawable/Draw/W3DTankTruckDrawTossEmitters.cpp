@@ -11,10 +11,7 @@
 // ?enableEmitters@W3DTankTruckDraw@@IAEX_N@Z, retail 0x000CB826, 165 bytes: donor enableEmitters(Bool)
 // createEmitters + m_effectsInitialized=+0x2e8 + start/stop via rowed byte setters 0x1F384A(start=0)/0x1F3852(stop=1)
 // at ParticleSystem+0x1a3; power only stops when !enable. Callers 0xCC798/0xCDE2D.
-class Rva001F384AByteZeroSetter {
-public:
-    void disable();
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
 class Rva001F3C43Slot {

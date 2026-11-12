@@ -2713,14 +2713,7 @@ public:
 	char m_lead[0x141];
 	unsigned char m_enabled;
 };
-class Rva001F384AByteZeroSetter
-{
-public:
-	void disable();
-
-	char m_lead[0x1A3];
-	unsigned char m_enabled;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 class Rva0038896BByteOneSetter
 {
 public:

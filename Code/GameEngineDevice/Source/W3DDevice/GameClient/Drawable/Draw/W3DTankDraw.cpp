@@ -193,10 +193,7 @@ class Rva00270260 {
 public:
 	bool rva00270260();
 };
-class Rva001F384AByteZeroSetter {
-public:
-	void disable();
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 // ?rva000CE0EA@W3DTankDraw@@QAEXXZ @0x000CE0EA 63B: enable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-one enable 0x1F3852; W3DTankDraw layout from ctor 0xCEA6C; volatile loads preserve Make chases like truck toss 0xCB5C3; unblocks 0xCE147
 class Rva001F3852ByteOneSetter
 {

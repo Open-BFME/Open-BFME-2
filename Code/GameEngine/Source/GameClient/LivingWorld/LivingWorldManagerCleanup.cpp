@@ -39,7 +39,7 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 // full; its original method name is not asserted.
 #include "../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
-class Rva001F384AByteZeroSetter { public: void disable(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 class ParticleSystem {
 public:
     void rva001F465E(void *);

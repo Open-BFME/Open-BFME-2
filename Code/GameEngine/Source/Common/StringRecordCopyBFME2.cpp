@@ -389,7 +389,7 @@ class Rva000B75FF;
 #include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
-class Rva001F384AByteZeroSetter {public:void disable();};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 class Rva001F3C13ByteSlot {public:void set(unsigned char);};
 struct Rva001F38C1Arg {int words[12];};
 #include "../../Include/GameClient/Rva001F38C1Slot.h"
