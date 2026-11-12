@@ -512,11 +512,7 @@ class Rva0039B795 : public Rva0039BAD2
 };
 
 // The player's money (+0x90).
-class Rva003B0D7C
-{
-public:
-	UnsignedInt withdraw(UnsignedInt amount, Rva0039B795 *stats, Bool flag);
-};
+#include "../../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 #include "../../../../../Include/Common/ResourceGatheringManagerClass.h"
 

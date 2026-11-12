@@ -37,12 +37,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 #include "../../../../Include/Common/Rva0039B7AD.h"
-class Rva003B0D7C
-{
-public:
-	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag); // 0x003B0D7C
-	char m_pad[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class Player
 {
 public:

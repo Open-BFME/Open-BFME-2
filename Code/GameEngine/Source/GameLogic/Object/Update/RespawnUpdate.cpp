@@ -246,11 +246,7 @@ class CreateAHeroData;
 class Thing;
 class ModuleData;
 class Rva0039B7AD;
-class Rva003B0D7C
-{
-public:
-	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 #include "../../../../Include/Common/Player.h"
 // ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z @0x004AF00B (139B): slot 3 xfer via
 // Version(1,1) slot 0x28 then base UpdateModule 0x0044DF9F plus helpers

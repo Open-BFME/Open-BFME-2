@@ -353,16 +353,7 @@ class Rva0039B7AD;
 
 class Rva0039B795;
 
-class Rva003B0D7C
-{
-public:
-	unsigned int countMoney() const { return *reinterpret_cast<const unsigned int *>(m_unknown00+4); }
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *tracker, bool flag); // withdraw
-	void rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag); // deposit
-
-private:
-	char m_unknown00[0xC];
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 #include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 

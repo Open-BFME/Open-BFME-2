@@ -102,11 +102,7 @@ class Rva0039B795;
 struct Rva0039BAD2Input;
 #include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 #include "../../../../Include/GameLogic/Module/Rva0039B795.h"
-class Rva003B0D7C
-{
-public:
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *stats, bool flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class Player
 {
 public:

@@ -70,10 +70,7 @@ class Rva002A9EFB {
     void rva002A9EFB(int);
 };
 class Rva0039B7AD;
-class Rva003B0D7C {
-  public:
-    void rva003B0D7C(int, Rva0039B7AD *, bool);
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class ScoreKeeper {
   public:
     void addObjectBuilt(Object *, int);

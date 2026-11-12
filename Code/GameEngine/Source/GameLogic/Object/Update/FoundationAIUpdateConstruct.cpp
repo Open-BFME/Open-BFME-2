@@ -236,11 +236,7 @@ class Rva0039B795 : public Rva0039BAD2
 {
 };
 
-class Rva003B0D7C
-{
-public:
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *stats, bool flag);
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 class Player
 {
