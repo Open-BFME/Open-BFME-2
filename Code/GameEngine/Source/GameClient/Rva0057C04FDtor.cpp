@@ -5,7 +5,7 @@
 // Evidence: reverse member destruction order (+0xC then +8) with EH states 1 then 0 proves dtor;
 // callees Rva dtor and StringBase releaseBuffer are rowed; unblocks 3 callees; neighbours share FX shard.
 //
-// ?DoPlay@Rva0057C04F@@QAEXH@Z @0x0057C094 190B: vslot 1 of vtable 0x0086F2D4 TurnNumber setter.
+// ?DoPlay@Rva0057C04F@@UAEXH@Z @0x0057C094 190B: vslot 1 of vtable 0x0086F2D4 TurnNumber setter.
 // Formats APT:_level%u.%s_TurnNumber from +4 level and +8 prefix str then Unicode int format then bfmeSetText false
 // then AptCall Go then flag at +0x18. Evidence: same literals and globals as free Rva0057A51CSet plus Go plus slot 1.
 #include "ascii_string.h"
@@ -117,7 +117,7 @@ public:
 	Rva0057C04F(int level, const AsciiString &name);
 	~Rva0057C04F();
 	virtual void dummy();
-	void DoPlay(int turn);
+	virtual void DoPlay(int turn);
 	void OnDone(const char *path);
 private:
 	int m_level04;
