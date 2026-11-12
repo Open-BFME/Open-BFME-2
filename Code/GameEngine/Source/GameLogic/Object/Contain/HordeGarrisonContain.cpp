@@ -140,7 +140,7 @@ struct Iface20
 
 struct Iface24 { virtual void f24(); };
 
-struct Iface28 { virtual void f28(); };
+#include "../../../../Include/Common/Iface28.h"
 
 struct Iface2C { virtual void f2C(); };
 
