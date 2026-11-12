@@ -74,11 +74,7 @@ struct Rva00111DB6Entry
 	AsciiString m_text;    // +0x18
 };
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva005C4AD1LeaField.h"
 
 class Rva001021F7;
 Rva001021F7 *Rva00102215Get();

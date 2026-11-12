@@ -220,7 +220,7 @@ bool AITeamBuilder::rva0059A01C(Object* obj,const AITeamRequirementView* req,con
 reject:
  return false;
 }
-class Rva005C4AD1LeaField { public: void* get() const; };
+#include "../../../../Include/Common/Rva005C4AD1LeaField.h"
 class Rva0039EA9C {
 public:
  Rva0039EA9C(); ~Rva0039EA9C();

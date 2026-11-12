@@ -42,7 +42,7 @@ namespace _STL {
  template<class K,class V,class H,class E,class A>class hash_map {public:unsigned int bucket_count()const;};
 }
 typedef _STL::hash_map<int,int,_STL::hash<int>,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,int> > > IntMap;
-class Rva005C4AD1LeaField{public:void *get()const;};
+#include "../../../../../../Include/Common/Rva005C4AD1LeaField.h"
 struct RoamOwnerStats{char pad[8];Rva005C4AD1LeaField *all;IntMap *targets;};
 struct Rva002A8AB1Record;
 class Player;

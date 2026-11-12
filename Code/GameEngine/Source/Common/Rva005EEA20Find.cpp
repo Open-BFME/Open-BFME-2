@@ -23,11 +23,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 // TheSkirmishAIManager: matched references place it at VA 0xdfeef8 (zero-filled .bss).
 Rva002A8F24 * TheSkirmishAIManager;
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 
 #include "../../Include/Common/Player.h"
 

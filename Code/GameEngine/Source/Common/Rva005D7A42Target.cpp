@@ -13,7 +13,7 @@ class Object {public:Player *getControllingPlayer()const;char pad[0x254];Rva005D
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
-class Rva005C4AD1LeaField {public:void *get()const;};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 struct Rva005D7A42Store {char pad[8];Rva005C4AD1LeaField*owner;};
 struct Rva005D7A42IDs {ObjectID*begin;ObjectID*end;ObjectID*limit;};
 #include "../../Include/Common/Rva005EE816.h"

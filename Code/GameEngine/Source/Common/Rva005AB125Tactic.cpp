@@ -96,11 +96,7 @@ struct Rva005AB125IDs
 	ObjectID *m_end;
 };
 
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../Include/Common/Rva005C4AD1LeaField.h"
 
 class Player;
 
