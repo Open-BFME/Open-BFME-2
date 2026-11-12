@@ -207,11 +207,7 @@ public:
 
 BFME_LITERAL_NAME_GETTER(Rva0048599CNamed, "CreateObjectDieIfEldestKindof")
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct EldestKindofRecord
 {

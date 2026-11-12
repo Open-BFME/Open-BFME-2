@@ -10,11 +10,7 @@ class BfmeObject872Header;
 
 #include "../object.h"
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 #include "../../../../Include/Common/BfmeObject872Header.h"
 

@@ -51,7 +51,7 @@ protected:
     friend class RespawnBody;
 };
 
-struct Rva2225E0Filter { void *storage; bool accepts(Object *, Player *); };
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct Rva004C1395Data {
     unsigned char before64[0x64];

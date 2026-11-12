@@ -14,9 +14,7 @@ public:
     Player *getControllingPlayer() const;
 };
 #include "../../../Include/GameLogic/ObjectFilter.h"
-struct Rva2225E0Filter {
-    bool accepts(Object *, Player *);
-};
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 bool Rva2225E0Filter::accepts(Object *obj, Player *context)
 {

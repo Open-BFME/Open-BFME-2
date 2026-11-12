@@ -127,11 +127,7 @@ class Player;
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 // 0x00362437, the object filter's acceptance test.
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);	// 0x00362437
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class Object
 {
 public:

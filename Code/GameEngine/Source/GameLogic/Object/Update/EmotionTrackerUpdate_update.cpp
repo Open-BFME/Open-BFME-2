@@ -61,12 +61,7 @@ public:
     bool isEmotionTarget() const { return flag454; }
 };
 #include "../../../../Include/GameLogic/Module/Rva0028F326Owner.h"
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *, Player *);
-	void *value; // +0x00
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 struct EmotionUpdateData {
     char pad0[8]; float range; int interval;
     char pad10[4]; Rva2225E0Filter filter14,filter18,filter1c;

@@ -124,11 +124,7 @@ public:
 	ModelConditionFlags m_modelConditionFlags;			///< +0x10C
 };
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;

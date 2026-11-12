@@ -36,11 +36,7 @@ extern "C" const void *const __identifier("??_7CivilianSpawnCollideModuleData@@6
 class Player;
 #include "../object.h"
 // The table probe is the rowed Rva2225E0Filter::accepts.
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class BfmeTab1026
 {
 public:

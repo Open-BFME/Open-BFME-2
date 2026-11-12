@@ -44,12 +44,7 @@ public:
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *, Player *);
-	void *value; // +0x00
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct EmotionEntry
 {
