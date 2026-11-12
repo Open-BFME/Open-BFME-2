@@ -5,7 +5,7 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../Include/Common/Rva002390CB.h"
 #include "../../Include/Common/Rva002390CBInlines.h"
-struct BfmeStringRecord002CF550 { AsciiString text; Rva002390CB ref; ~BfmeStringRecord002CF550(); };
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 inline BfmeStringRecord002CF550::~BfmeStringRecord002CF550() {}
 
 typedef char RecordExtent[sizeof(BfmeStringRecord002CF550) == 12 ? 1 : -1];

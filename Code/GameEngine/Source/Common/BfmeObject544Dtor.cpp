@@ -8,12 +8,7 @@
 
 #include "../../Include/Common/Rva002390CB.h"
 
-struct BfmeStringRecord002CF550
-{
-    ~BfmeStringRecord002CF550();
-    AsciiString text;
-    Rva002390CB ref;
-};
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 bool operator<(const BfmeStringRecord002CF550 &, const BfmeStringRecord002CF550 &);
 // Native state0 uses the complete16B stride8/count56 array helper254B72
 // at owner+4C. Group its lifetime without changing the byte layout.

@@ -61,7 +61,7 @@ typedef _STL::vector<BfmeFixedObject260,_STL::allocator<BfmeFixedObject260> > VB
 typedef _STL::vector<AsciiString,_STL::allocator<AsciiString> > VAsciiString;
 class OpaqueRefCounted;
 
-struct BfmeStringRecord002CF550 { AsciiString text; Rva002390CB ref; ~BfmeStringRecord002CF550(); };
+#include "../../../Include/Common/BfmeStringRecord002CF550.h"
 typedef _STL::_Rb_tree<BfmeStringRecord002CF550,BfmeStringRecord002CF550,_STL::_Identity<BfmeStringRecord002CF550>,_STL::less<BfmeStringRecord002CF550>,_STL::allocator<BfmeStringRecord002CF550> > SoundRecordTree;
 typedef _STL::_Rb_tree<AsciiString,_STL::pair<const AsciiString,NoCaseTreeValue4> ,_STL::_Select1st<_STL::pair<const AsciiString,NoCaseTreeValue4> >,BfmeStringNoCaseLess,_STL::allocator<_STL::pair<const AsciiString,NoCaseTreeValue4> > > NoCaseTree;
 typedef _STL::_Rb_tree<LocomotorSetType,_STL::pair<const LocomotorSetType,_STL::vector<const LocomotorTemplate*,_STL::allocator<const LocomotorTemplate*> > > ,_STL::_Select1st<_STL::pair<const LocomotorSetType,_STL::vector<const LocomotorTemplate*,_STL::allocator<const LocomotorTemplate*> > > >,_STL::less<LocomotorSetType>,_STL::allocator<_STL::pair<const LocomotorSetType,_STL::vector<const LocomotorTemplate*,_STL::allocator<const LocomotorTemplate*> > > > > LocomotorTree;

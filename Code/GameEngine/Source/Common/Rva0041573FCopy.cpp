@@ -25,11 +25,7 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 }
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../Include/Common/Rva002390CB.h"
-struct BfmeStringRecord002CF550 {
-	~BfmeStringRecord002CF550();
-	AsciiString text;
-	Rva002390CB ref;
-};
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 bool operator<(const BfmeStringRecord002CF550 &l, const BfmeStringRecord002CF550 &r);
 namespace _STL { template <> struct less<BfmeStringRecord002CF550> { bool operator()(const BfmeStringRecord002CF550 &l, const BfmeStringRecord002CF550 &r) const; }; }
 typedef _STL::_Rb_tree<BfmeStringRecord002CF550, BfmeStringRecord002CF550, _STL::_Identity<BfmeStringRecord002CF550>, _STL::less<BfmeStringRecord002CF550>, _STL::allocator<BfmeStringRecord002CF550> > Tree900;

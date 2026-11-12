@@ -1,0 +1,106 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeStringRecord002CF550",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 11,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2cf550"
+     ],
+     "value": {
+      "0x0": [
+       "?$StringBase@D"
+      ],
+      "0x4": [
+       "Rva002390CB"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 11
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "text",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva002390CB",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_00",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "P",
+     "name": "m_item",
+     "offset": 4,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "ref",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 8,
+   "type": "Rva002390CB",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 78
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}

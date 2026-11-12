@@ -343,11 +343,7 @@ public:
 template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08>(BfmeStringRecord00222E08*,const BfmeStringRecord00222E08&);
 #include "../../Include/Common/Rva0036CA00Str.h"
 #include "../../Include/Common/Rva002390CB.h"
-struct BfmeStringRecord002CF550 {
-    AsciiString text;
-    Rva002390CB ref;
-    BfmeStringRecord002CF550(const BfmeStringRecord002CF550 &source);
-};
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 template void _STL::_Construct<BfmeStringRecord002CF550,BfmeStringRecord002CF550>(BfmeStringRecord002CF550*,const BfmeStringRecord002CF550&);
 // ??4BfmeStringRecord002602A6@@QAEAAU0@ABU0@@Z retail 0x002602A6 27B.
 // Same 8-byte layout as 005DDD40 (UnicodeString text + word) without self-check.

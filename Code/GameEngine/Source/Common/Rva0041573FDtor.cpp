@@ -13,12 +13,7 @@
 
 #include "../../Include/Common/Rva002390CB.h"
 
-struct BfmeStringRecord002CF550
-{
-	~BfmeStringRecord002CF550();
-	AsciiString text;
-	Rva002390CB ref;
-};
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 
 bool operator<(const BfmeStringRecord002CF550 &l, const BfmeStringRecord002CF550 &r);
 

@@ -230,11 +230,7 @@ template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08
 
 #include "../../Include/Common/Rva0036CA00Str.h"
 #include "../../Include/Common/Rva002390CB.h"
-struct BfmeStringRecord002CF550 {
-    AsciiString text;
-    Rva002390CB ref;
-    BfmeStringRecord002CF550(const BfmeStringRecord002CF550 &source);
-};
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 inline BfmeStringRecord002CF550::BfmeStringRecord002CF550(const BfmeStringRecord002CF550 &source) : text(source.text), ref(source.ref) {}
 template void _STL::_Construct<BfmeStringRecord002CF550,BfmeStringRecord002CF550>(BfmeStringRecord002CF550*,const BfmeStringRecord002CF550&);
 

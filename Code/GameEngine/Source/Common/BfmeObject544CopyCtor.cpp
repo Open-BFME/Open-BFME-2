@@ -16,10 +16,7 @@ private:
 	char m_pad[0x1C0];
 };
 
-struct BfmeStringRecord002CF550
-{
-	char m_pad[12];
-};
+#include "../../Include/Common/BfmeStringRecord002CF550.h"
 
 typedef _STL::_Rb_tree<BfmeStringRecord002CF550, BfmeStringRecord002CF550,
 	_STL::_Identity<BfmeStringRecord002CF550>, _STL::less<BfmeStringRecord002CF550>,
