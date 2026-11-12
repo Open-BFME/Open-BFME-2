@@ -11,11 +11,7 @@ struct Rva0080F100Object
 };
 extern "C" int Rva0080F180( Rva0080F100Object *object,
 	const char *key, char *output, int outputSize );
-class Rva007EA650FieldAddress
-{
-public:
-	char *get();
-};
+#include "../../../../GameEngine/Include/GameNetwork/Rva007EA650FieldAddress.h"
 #include "../../../../GameEngine/Include/GameNetwork/Rva007EB810Diag.h"
 Rva007EB810Diag *Rva007EB810Get();
 class Rva007E8760Addr

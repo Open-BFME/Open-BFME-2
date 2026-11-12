@@ -44,11 +44,7 @@ public:
 	void *getAt80();
 };
 
-class Rva007EA650FieldAddress
-{
-public:
-	char *get();
-};
+#include "../../Include/GameNetwork/Rva007EA650FieldAddress.h"
 
 class Rva007EAC30Owner;
 class Rva007F9B80Service;

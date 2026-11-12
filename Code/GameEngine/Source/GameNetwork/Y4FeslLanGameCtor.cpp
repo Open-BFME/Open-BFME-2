@@ -80,11 +80,7 @@ public:
 
 Rva007EB810Diag *Rva007EB810Get();
 
-class Rva007EA650FieldAddress
-{
-public:
-	char *get();
-};
+#include "../../Include/GameNetwork/Rva007EA650FieldAddress.h"
 
 struct Rva00808CB0Browser
 {
