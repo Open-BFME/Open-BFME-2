@@ -33,7 +33,7 @@ public:
  Rva0036CA00Str ref; int weight;
  BfmeStringTailRecord156(const Rva0036CA00Str &r,int w): ref(r),weight(w) {}
 };
-struct RvaPair001D9F62 { AsciiString m_key; int m_value; ~RvaPair001D9F62(); };
+#include "../../../Include/Common/RvaPair001D9F62.h"
 namespace _STL {
  template<> vector<RvaPair001D9F62>::~vector();
  template<> void vector<BfmeStringTailRecord156>::reserve(unsigned int);

@@ -83,7 +83,7 @@ static __forceinline void _Construct(Rva001D9B62Element *destination,
     Rva001D9B0FConstruct(destination, &value);
 }
 }
-struct RvaPair001D9F62 { AsciiString m_key; int m_value; ~RvaPair001D9F62(); };
+#include "../../../Include/Common/RvaPair001D9F62.h"
 class BfmeStringTailRecord156;
 enum AudioType
 {

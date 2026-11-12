@@ -6,15 +6,7 @@
 // member at +8. Evidence: retail bytes and callers.
 #include "ascii_string.h"
 
-class Rva0022185A
-{
-public:
-	Rva0022185A(const Rva0022185A &other);
-private:
-	AsciiString m_str;
-	int m_04;
-	unsigned char m_08;
-};
+#include "../../Include/Common/Rva0022185A.h"
 
 class Rva00221A58
 {

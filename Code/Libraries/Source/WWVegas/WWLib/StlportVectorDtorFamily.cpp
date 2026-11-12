@@ -124,7 +124,7 @@ template _STL::vector<RvaPair0039973B>::~vector();
 // via 0x30830; landing unblocks 0x001DA2D5 and 0x001DAD68. Sits between TailRecord
 // reserve 0x001D9E29 and overflow 0x001D9FAC; 8-byte stride plus key dtor are all
 // this body observes so the honest RvaPair address name stands in.
-struct RvaPair001D9F62 { AsciiString m_key; int m_value; public: ~RvaPair001D9F62(); };
+#include "../../../../GameEngine/Include/Common/RvaPair001D9F62.h"
 template _STL::vector<RvaPair001D9F62>::~vector();
 
 // ??1?$vector@UBfmeStringHeadRecord184@@V?$allocator@UBfmeStringHeadRecord184@@@_STL@@@_STL@@QAE@XZ @0x0008B64A 63B.
