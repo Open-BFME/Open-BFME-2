@@ -21,6 +21,11 @@ class NotifyWeaponFiredInterface
 {
 public:
 	virtual void notifyFired() = 0;
+	// Retail table 0x00C078DC: 4 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
 };
 
 // Coord3D: shared header/view; no private copy.

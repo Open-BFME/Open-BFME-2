@@ -141,6 +141,10 @@ class Rva004A3A09Iface
 {
 public:
 	virtual bool rva004A3A09() = 0;
+	// Retail table 0x00C4EF80: 3 __purecall entries follow.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
 };
 
 class Rva004A3A20Interface {

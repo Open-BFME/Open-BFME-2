@@ -380,6 +380,11 @@ class BezierProjectileBehaviorSecondaryBase1
 public:
 	virtual void rva0045B4C0(Object *victim, int a2, int a3) = 0;
 	virtual bool rva0045BF06(Object *victim) = 0;
+	// Retail table 0x00C40818: 4 __purecall entries follow.
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void slot5() = 0;
 };
 
 #include "../../../../Include/Common/PoolMember.h"
