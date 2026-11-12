@@ -2636,3 +2636,64 @@ emits no competing table. The next real link must confirm bridge
 retirement for this name.
 
 2026-11-12 Survey rows sourced from DieModuleDerived.cpp are historical: the scaffolding file retired (HeroDie, the last fake-MI branch; ten of ten). The surveyed kept-name slot-0 mappings (e.g. ??_EUpgradeDie@@UAEPAXI@Z -> 0x00486BE4) reached retail through the ??_E->??_G weak-alias bridge and are unchanged; the class TUs now emit the same 28B deleting dtors under real names, byte-proven against DieModuleDerived_pre.obj this session.
+
+### Abstract placeholder tables: 42 off the bridge by declaring retail's slots (2026-11-12, seat halilkkaya-lk91)
+
+Base `03f9e287ede`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Survey.** The named grab-bags are expensive: AIStateRva0034005DCtor.cpp (23) needs the State base view and
+placeholder renames, Rva005EE30CDerived.cpp (19) and FamilyTailDtors1DBAC3.cpp (13) need ICF twins of other
+classes' bodies, and the Derived destructor grab-bags (Rva0024A797, Rva004DF7C2, Rva0058A0F4, Rva004BB68E) need
+lk82-84's split per class. A global scan found 117 bridged tables whose every wrong or missing slot is
+`__purecall` in retail (abstract bases whose views declare only the destructor). That recipe was taken.
+
+**Done (commits by subject).**
+- "Declare the retail slots of four short kept vftables in their emitters": `Rva0032989F` (0x00C0D8FC) and its
+  base view (0x00BC9574), `Rva0043DABD` (0x00C3D954), `CommandPointsUpgrade`'s UpgradeMux table (0x00C59060):
+  each view declares the class's existing virtual rows.
+- "Declare the __purecall slots of sixteen abstract placeholder vftables" (InlineDtorDeletingDtors1/2.cpp; the
+  second emitter Rva0054F434Dtor.cpp names its base slots 6 and 12 after its derived overrides, retail's
+  positions).
+- "Spell out six cleanup-deleting classes with their retail __purecall slots" (BfmeResourceEnumerator.cpp; the
+  macro is unchanged, its standalone destructors carry absent-from-retail).
+- "Declare the __purecall slots of ten BfmeDirtyBase-derived vftables" and "... of Rva00666BA0 and
+  Rva00661350" (every emitting unit changed together).
+- "Row six BfmeDirtyBase-derived deleting destructors as their ICF twins" (lk68's slot-0 recipe,
+  `add_match.py --icf-owner`, fold-proof to the owner's unit).
+- "Declare the __purecall slots of five more abstract vftables" (Rva00140C00, Rva00191120, Rva005CB8D4,
+  SubtitleEntry, Rva0057F2DE).
+
+**Measure (base -> after).** Bridged 3,776 -> 3,734; already correct 1,785 -> 1,827; mismatching source slots
+40,186 -> 39,787; 42 bridged -> correct, nothing newly bridged, no correct table lost, refusals identical
+(35). link_check over every changed unit and every object that names a changed table: all LINK with bytes
+unchanged, except SidesList.cpp, which does not link at the base either; BfmeDirtyBaseDerived.cpp 99 -> 315.
+Run link_check over both emitters of a table together: a stale index copy of the other one fakes a
+"differs from the first copy" refusal.
+
+**Refused / deferred (re_attempts.log).**
+- `??_GRva00661350` (0x006613B0): the slot-0 twin is refused on bytes; Rva00666BA0Derived.cpp calls the
+  destructor out of line where retail inlines it (needs a /EHs-c- unit).
+- `??_7BfmeDirtyBase@@6B@` (0x00CE0FB8): Y2ScalarDeleters.cpp, the second emitter, instantiates the class.
+- `?name@ArmorUpgrade` (0x004B341D): rename.py still refuses the GetSnapshotName respell (lk77's tooling lead).
+  The same wall holds slot 2 of four more Upgrade tables, ObjectSMCHelper, TurretAI and MilesAudioManager.
+
+**Next leads.**
+1. About 70 pure-only tables are left. Most have a derived class in the same unit, whose table changes when
+   the base gains slots: ProgressIndicator (Rva00355D66), Rva000F1B8FBase, Rva0057605DBase, Rva00575E4EBase1
+   and Rva00575EEABase1 (both derived tables are correct today), AptDisplayStringBase, Rva00802CA0Base,
+   Rva00802EC0Base, Rva007401F6 (W3DAptComponentView3D), DataChunkParser (Rva0041E6BE). Give each base's
+   pure slots the names its derived views already override, at retail's positions, as for Rva0054F434Base.
+   Several emitters name Rva002BED74, Rva0052B668, Rva006609D0Base and Rva005FBBEE.
+2. Interface tables that are `__purecall` from slot 0 (0x00C4EF80, 0x00C40818, 0x00C1C780, 0x00BE2B78 and
+   others, shared by many interface views) need views without a virtual destructor. Check the deletes first.
+3. CommandPointsUpgrade's primary table (0x00C590A8) needs four slot fixes:
+   - a loadPostProcess ICF row at 0x00497805 (fold-proof BattlePlanUpdate.cpp);
+   - an xfer ICF row at 0x004B8710 (fold-proof ArmorUpgradeXfer.cpp);
+   - the GetSnapshotName to-class move from `Rva004B85F4Named`;
+   - a declared getModuleNameKey.
+4. The Rampage/Enraged pin retirement pays at most two tables. lk56 measured the canonical view at 8/13 slots
+   (loadPostProcess, GetSnapshotName and xfer still to row), so it is a whole-class job, not a pin deletion.
+
+**Tooling compatibility audit** (`03f9e287ede..HEAD`): 24 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the touched
+classes or the BFME_VPTR_CLEANUP_DELETING_DTOR macro (still used for Rva009EEA70CleanupDeleting).
