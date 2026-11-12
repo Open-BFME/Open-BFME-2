@@ -96,9 +96,9 @@ boot-order merge now waits on tooling or on a naming vote, not on source work th
 - **sortingrenderer.cpp (lists).** The 0x0012FE00 rename has no canonical basis (zh_sweep places ZH's sphere overload
   nowhere; its `GGGG` spelling is not this `IIII` body), so it is an inferred respell needing two workers' votes, which
   this seat could not supply. The four callers that build the first argument build 12 bytes with no radius store, so
-  BFME 2's parameter is likely centre-only (`const Vector3 &`), not Zero Hour's `SphereClass`; the alias pin
-  `?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z` at 0x0012FE00 must be settled in the same
-  respell. Evidence split into target facts, donor facts and inferences:
+  BFME 2's parameter is likely centre-only (`const Vector3 &`), not Zero Hour's `SphereClass`. The stale alias pin
+  `?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z` at 0x0012FE00, which made `--respell` refuse,
+  named nothing any object used and is retired. Evidence split into target facts, donor facts and inferences:
   `reverse/attempt_support/sortingrenderer-0012fe00-signature-20261112.md`.
 - **statistics.cpp (texture counters).** False reject: `--split` refuses Record_Texture and Record_Texture_End for
   data-identity debt keyed to their files, but that debt is the duplicate definition only the carve removes (the

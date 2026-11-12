@@ -62,12 +62,13 @@ Current row: `?Insert@BfmeSortingDispatchAt0012FE00@@SAXABUTargetCenter3@@IIII@Z
    `--prepared` texts for all eleven units (docs/naming.md, "Prepared
    ordinary-function respells"). This seat cast none: AGENTS.md rules out the
    external reviewer the submission would dispatch, and one vote approves nothing.
-2. `reverse/symbols.csv:3765` pins the ZH spelling
+2. Done in this pass: `reverse/symbols.csv` pinned the ZH spelling
    `?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z` at
-   0x0012FE00 (`pin_consistency.py --symbol`: consistent, owned by the placeholder
-   row). `rename.py function --respell` refuses while an alias pin shares the
-   address, so the rename must settle this pin (its consumers bind the GGGG
-   spelling) in the same plan.
+   0x0012FE00, and `rename.py function --respell` refuses while an alias pin
+   shares the address. No source or object named it (the commit hook's
+   name_dependents: 0 referencing units of 17,756), so the pin was retired in
+   its own commit ("Retire the stale Zero Hour Insert_Triangles pin at
+   0x0012FE00").
 3. Then `tu_skeleton.py --split SortingNodeStructDtor.cpp --for sortingrenderer.cpp`
    (Get_Sorting_Struct out; the SortingNodeStruct dtor 0x0012FCA0 and `??_G`
    0x001303F0 stay proposed for SortingNodeStruct.cpp by their class-name hint)
