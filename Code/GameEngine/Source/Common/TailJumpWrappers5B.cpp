@@ -61,11 +61,7 @@ BfmeAptValue006DCD20::~BfmeAptValue006DCD20()
 {
 }
 
-class Rva005746AF
-{
-public:
-	virtual ~Rva005746AF();
-};
+#include "../../Include/Common/Rva005746AF.h"
 
 class __declspec(novtable) Rva005747DA : public Rva005746AF
 {

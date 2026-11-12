@@ -16,14 +16,7 @@ struct Rva00574C1BOwner
 	Rva002B7250 m_list; // +0x04
 };
 
-class Rva005746AF
-{
-public:
-	virtual ~Rva005746AF();
-
-private:
-	unsigned char m_pad04[0x10 - 4];
-};
+#include "../../Include/Common/Rva005746AF.h"
 
 class Rva00575125Second
 {

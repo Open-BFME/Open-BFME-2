@@ -35,34 +35,21 @@ struct Rva0057473AOuter
 	void *m_field20;
 };
 
-class Rva005746AF
-{
-public:
-	virtual ~Rva005746AF();
-	virtual void rva0057473A();
-	virtual void m_slot2();
-	virtual void m_slot3();
-	virtual void m_slot4();
-	virtual void m_slot5();
-	virtual TreeHintRef00217D4C GetHint();
-	int m_04;
-	unsigned long m_08;
-	TreeHintRef00217D4C m_hint;
-};
+#include "../../Include/Common/Rva005746AF.h"
 
 void Rva005746AF::rva0057473A()
 {
-	if (m_hint.m_ptr != 0)
+	if (m_0C.m_ptr != 0)
 		return;
 	if (timeGetTime() - m_08 < 1000)
 		return;
-	m_hint = GetHint();
-	if (m_hint.m_ptr == 0)
+	m_0C = GetHint();
+	if (m_0C.m_ptr == 0)
 		return;
 	int q = ((Rva0042D6B4PtrChaseField *)((Rva0057473AOuter *)m_04)->m_field20)->get();
 	if (!q)
 		return;
-	((Rva001FF3A9 *)q)->Rva001FF3A9::rva001FF3A9(m_hint);
+	((Rva001FF3A9 *)q)->Rva001FF3A9::rva001FF3A9(m_0C);
 }
 
 // ??1Rva005746AF@@UAE@XZ retail 0x005746D2 104B

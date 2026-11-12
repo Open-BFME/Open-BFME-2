@@ -4,16 +4,7 @@
 // to base, stores second int arg at +0x10 and overwrites vtable with 0x0086E3CC.
 // Evidence: call to rowed 0x005746AF, vtable store at [this], ret 8 two args,
 // sole caller at 0x0057488B; neighbours share /O1. Honest Rva name.
-class Rva005746AF
-{
-public:
-	Rva005746AF(int arg);
-	virtual ~Rva005746AF();
-private:
-	int m_04;
-	unsigned long m_08;
-	int m_0C;
-};
+#include "../../Include/Common/Rva005746AF.h"
 
 class Rva005747DA : public Rva005746AF
 {

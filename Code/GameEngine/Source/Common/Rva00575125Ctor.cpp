@@ -4,16 +4,7 @@
 // Evidence: calls rowed base 0x005746AF with first int arg; stores vtables 0x00C6E360 then 0x00C6E4C4 and 0x00C6E4C0; second arg stored at +0x14; rowed append 0x005A0B4C with this=second arg+4 and arg=sub at +0x10; ret 8 two args; unblocks 0x005751ED; caller 0x00575237.
 // Honest Rva name. Links via rowed base and append; vtables DIR32 patched by gate.
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
-class Rva005746AF
-{
-public:
-	Rva005746AF(int arg);
-	virtual ~Rva005746AF();
-private:
-	int m_04;
-	unsigned long m_08;
-	TreeHintRef00217D4C m_0C;
-};
+#include "../../Include/Common/Rva005746AF.h"
 
 struct Rva002BA8F1Listener
 {

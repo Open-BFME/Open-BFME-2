@@ -7,16 +7,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class CreateAHeroData;
 #include "../../Include/Common/Rva002B7250.h"
-class Rva005746AF
-{
-public:
-	Rva005746AF(int arg);
-	virtual ~Rva005746AF();
-private:
-	int m_04;
-	unsigned long m_08;
-	TreeHintRef00217D4C m_0C;
-};
+#include "../../Include/Common/Rva005746AF.h"
 class Rva00575125Second
 {
 public:
