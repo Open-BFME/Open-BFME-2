@@ -16,7 +16,9 @@ class ModuleData;
 
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
-static int s_dummy20;
+// +0x20: retail stores 0x00C552A4, SpecialAbilityUpdate's SpecialPowerUpdateInterface
+// table (ICF-shared); the ledger binds this compiled name there.
+extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[];
 
 // Opaque 0x88-byte UpdateModule-derived intermediate; ctor resolves to the
 // opaque pin at 0x0044EF5E. Protected slots mirror the retail stores.
@@ -47,7 +49,7 @@ CurseSpecialPower::CurseSpecialPower(Thing *thing, const ModuleData *moduleData)
 {
 	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = &s_dummy20;
+	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 // CurseSpecialPower::~CurseSpecialPower: defined in ModuleUpdateDtors.cpp (its row's unit).
