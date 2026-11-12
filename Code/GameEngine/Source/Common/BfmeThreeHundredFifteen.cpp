@@ -6,11 +6,7 @@ class Object;
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeAskRJ@BfmeAskerRJ@@QAE_NPAX0@Z pin names the same body.
 class Player;
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 // Partition filter vftable 0x00BCECF0 slot 1, built inline by RespawnUpdate
 // 0x004AF1CE and 10 more matched users under this address-derived name.

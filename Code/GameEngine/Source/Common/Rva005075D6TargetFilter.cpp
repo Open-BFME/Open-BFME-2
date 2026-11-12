@@ -5,7 +5,7 @@
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 #include "../../Include/Common/ThingTemplate.h"
 class Player;
-struct Rva2225E0Filter { bool accepts(Object *, Player *); };
+#include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 #include "../../Include/GameLogic/ObjectFilter.h"
 //
 // ?rva00507558@Rva00507823@@QAEEPBX@Z retail 0x00507558 126B

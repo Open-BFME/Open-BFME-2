@@ -92,7 +92,7 @@ extern PlayerList*ThePlayerList;
 
 class Object {public:Player*getControllingPlayer()const;};
 
-class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 // ---- from Code/GameEngine/Source/Common/RTS/ScoredKillTracker.cpp
 

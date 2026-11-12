@@ -124,10 +124,7 @@ class BfmeTab1026;
 
 class Player;
 
-struct Rva2225E0Filter
-{
-  bool accepts(Object *, Player *);
-};
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 struct Rva004F5436Node {
 	Rva004F5436Node *m_next;

@@ -41,10 +41,7 @@ struct Rva00422377Out
 struct Rva00422377In;
 void Rva00422377Get(Rva00422377Out *out, Rva00422377In *obj);
 
-struct Rva2225E0Filter
-{
-	Bool accepts(Object *obj, Player *context);
-};
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 // One template candidate: its filter at +0.
 struct FormationCandidate

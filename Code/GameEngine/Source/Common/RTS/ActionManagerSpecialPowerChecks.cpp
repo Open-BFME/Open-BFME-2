@@ -445,7 +445,7 @@ public:
  BfmeFixedStorage0004543D m08, m24;
 };
 #include "../../../Include/GameLogic/ObjectFilter.h"
-struct Rva2225E0Filter { bool accepts(Object *, Player *); };
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class CapturePowerView {
 public:
  virtual void slot00() = 0;

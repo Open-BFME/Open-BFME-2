@@ -127,7 +127,7 @@ class Object {public:void*vtable;const ThingTemplate*m_template;char pad08[0x38-
  const ThingTemplate*getTemplate()const{return m_template;}
  const Coord3D*getPosition()const{return &position;}
 };
-class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class GlobalData {public:char pad[0x1168];Rva2225E0Filter filter;};extern GlobalData*TheWritableGlobalData;
 extern GameLogic*TheGameLogic;
 // BFME1 ScoreKeeperCounters addObjectBuilt(Object*,Int) supplies the

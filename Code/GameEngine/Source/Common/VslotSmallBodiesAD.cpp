@@ -232,10 +232,7 @@ bool Rva005092D4::rva005092D4(const void *arg, Object *target)
 }
 
 class Player;
-struct Rva2225E0Filter
-{
-	bool accepts(Object *, Player *);
-};
+#include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 class Rva0050B92D : public Rva00507823
 {
