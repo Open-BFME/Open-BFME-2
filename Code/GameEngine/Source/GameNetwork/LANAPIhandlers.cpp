@@ -419,11 +419,7 @@ TreeHintOpaque0043671B *Rva004360B3( AsciiString key );
 
 // setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
 // calls it on the current game directly.
-class Rva00248D35
-{
-public:
-	void rva00248D35( Int index, Int value );
-};
+#include "../../Include/GameNetwork/Rva00248D35.h"
 
 // BFME 1's writeLANGameInfo: serializes the game into a message's options.
 void GameInfoToByteBuffer( LANGameInfo *game, char *buffer, Int size );

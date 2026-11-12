@@ -291,11 +291,7 @@ public:
 };
 // setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
 // calls it on the current game directly, not through an inline wrapper.
-class Rva00248D35
-{
-public:
-	void rva00248D35( Int index, Int value );
-};
+#include "../../Include/GameNetwork/Rva00248D35.h"
 class LANGameInfo : public Rva004482FB
 {
 public:

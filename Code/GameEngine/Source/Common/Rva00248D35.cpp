@@ -7,11 +7,7 @@
 
 #include "../../Include/GameNetwork/GameInfo.h"
 
-class Rva00248D35
-{
-public:
-	void rva00248D35(int index, int value);
-};
+#include "../../Include/GameNetwork/Rva00248D35.h"
 
 void Rva00248D35::rva00248D35(int index, int value)
 {
