@@ -405,7 +405,7 @@ public:
 	char m_pad0[0xFC]; Object *m_object;
 	char m_pad100[0x258 - 0x100]; unsigned int m_conditionBits[20];
 };
-class Rva0055A88BDwordField { public: int get() const; };
+#include "../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva00046827.h"
 class UpgradeTemplateView { public: char m_pad[8]; AsciiString m_name; char m_padC[0x38 - 0xC]; unsigned int m_bit; };
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva0026F0F0.h"

@@ -342,11 +342,7 @@ struct W3DTerrainVisualBibView
 // pinned 11B stub 0x00068436 on the +0x14 member. Honest address-derived
 // names; boundary verified (push esi at 0x91DC4, pop esi + ret 4 at end).
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 
 class Rva00068436
 {

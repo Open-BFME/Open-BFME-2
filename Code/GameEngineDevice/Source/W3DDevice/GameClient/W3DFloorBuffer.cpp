@@ -639,11 +639,7 @@ private:
 // Caller 0x0006B7E5 unclaimed; unblocks 0x0006B7BF.
 template <typename T> class StringBase;
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 
 class Rva000E5EC1
 {

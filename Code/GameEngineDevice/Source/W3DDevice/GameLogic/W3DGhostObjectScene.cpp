@@ -369,11 +369,7 @@ RenderObjClass *Rva00137364CreateRenderObj( const char *name, float scale, const
 #include "../../../../GameEngine/Include/Common/Rva00270260.h"
 
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 
 class Drawable
 {
