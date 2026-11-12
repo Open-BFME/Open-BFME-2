@@ -12,7 +12,7 @@
 
 class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
 #include "../../../../Include/Common/B1.h"
-class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
+#include "../../../../Include/GameLogic/Module/B2.h"
 class B3 { public: virtual void b3(); };
 #include "../../../../Include/Common/B4.h"
 #include "../../../../Include/Common/B5.h"

@@ -78,7 +78,7 @@ inline void zeroCoord(Coord3D &c)
 
 class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
 class B1 { public: virtual void b1(); };
-class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
+#include "../../../../Include/GameLogic/Module/B2.h"
 class B3 { public: virtual void b3(); };
 class B4 { public: virtual void b4(); };
 #include "../../../../Include/Common/B5.h"

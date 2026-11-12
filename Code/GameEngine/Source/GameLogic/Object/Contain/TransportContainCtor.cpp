@@ -49,7 +49,7 @@ protected:
 	Object *m_object; // +0x08
 };
 #include "../../../../Include/Common/B1.h"
-class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
+#include "../../../../Include/GameLogic/Module/B2.h"
 class B3 { public: virtual void b3(); virtual void onCapture(int a1, int a2) = 0; };
 #include "../../../../Include/Common/B4.h"
 class B5 { public: virtual void b5(); };

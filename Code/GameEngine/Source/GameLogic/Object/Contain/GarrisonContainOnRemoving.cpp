@@ -227,7 +227,7 @@ public:
     Object *m_object;
 };
 #include "../../../../Include/Common/B1.h"
-class B2 { public: virtual void b2(); private: unsigned char pad[12]; };
+#include "../../../../Include/GameLogic/Module/B2.h"
 class B3
 {
 public:

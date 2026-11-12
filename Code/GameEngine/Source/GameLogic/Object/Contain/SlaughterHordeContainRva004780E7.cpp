@@ -50,13 +50,7 @@ protected:
 
 #include "../../../../Include/Common/B1.h"
 
-class B2
-{
-public:
-	virtual void b2();
-private:
-	unsigned char m_pad[12];
-};
+#include "../../../../Include/GameLogic/Module/B2.h"
 
 #define GSLOT08(a,b,c,d,e,f,g,h) virtual void a() = 0; virtual void b() = 0; virtual void c() = 0; virtual void d() = 0; virtual void e() = 0; virtual void f() = 0; virtual void g() = 0; virtual void h() = 0;
 #define GSLOT16(a) GSLOT08(a##0,a##1,a##2,a##3,a##4,a##5,a##6,a##7) GSLOT08(a##8,a##9,a##A,a##B,a##C,a##D,a##E,a##F)
