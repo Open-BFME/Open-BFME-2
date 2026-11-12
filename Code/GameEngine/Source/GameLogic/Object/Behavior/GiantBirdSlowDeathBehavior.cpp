@@ -152,11 +152,7 @@ private:
 	char m_pad08[12];
 };
 
-class Rva0045D39E_E1
-{
-public:
-	virtual void fe();
-};
+#include "../../../../Include/Common/Rva0045D39E_E1.h"
 
 #include "../../../../Include/Common/Rva0045D39E_E2.h"
 

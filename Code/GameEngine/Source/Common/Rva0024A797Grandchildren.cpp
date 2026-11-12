@@ -477,11 +477,7 @@ void *Rva004B8732::slot11()
 	return static_cast<Rva004B8732_E1 *>(this);
 }
 
-class Rva0045D39E_E1
-{
-public:
-	virtual void fe();
-};
+#include "../../Include/Common/Rva0045D39E_E1.h"
 
 #include "../../Include/Common/Rva0045D39E_E2.h"
 
