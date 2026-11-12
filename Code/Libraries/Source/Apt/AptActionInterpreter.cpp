@@ -1526,7 +1526,8 @@ void AptActionInterpreter::_FunctionAptActionTry(AptActionInterpreter *const apt
     if (nPostStackSize>nPreStackSize) aptActionInterpreter->stack.rva006E3AA0(nPostStackSize-nPreStackSize);
     if((unsigned int)aptActionInterpreter->stack.GetSize()!=nPreStackSize) {
         g_bfmeAptAssertAtE17734("(uint32_t)pInterpreter->stack.GetSize() == nPreStackSize","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",0x2599);
-        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        if (g_bfmeAptBreakOnAssertAtDDC01C)
+            __debugbreak();
     }
 }
 
