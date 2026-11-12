@@ -3039,3 +3039,75 @@ both bridged ("Store StructureBody's real secondary tables instead of zero dummi
 19/19 StructureBody units LINKS unchanged; bridge plan unchanged. This fixes the run-time vptrs only; the ActiveBody.h
 walls above still stand for the class's own view. Remaining dummy-vptr ctors on the boot walk: LINK-627's
 2026-11-12 inventory.
+
+### Shared tiny bodies, empty overrides and collide defaults: 63 off the bridge (2026-11-12, seat halilkkaya-lk97)
+
+Base `decf61df826`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Shared-cause ranking (all 3,448 bridged tables at the base; a table counts when every wrong slot is covered).**
+1. Unrowed tiny bodies: every wrong slot names a symbol with no ledger row whose retail target is a matched body of at
+   most 8 bytes: 121 tables (90 with names consistent across tables; 26 already compiled byte-equal, rows only).
+2. Pure-only (bucket a): 47. 3. Only 0x000B3FD0 (subsystem init/reset/update): 40. 4. Only `ret 4` 0x0047A69C: 26.
+5. Module Snapshot pair (slot 1 = the 0x00497805 base-call fold, slot 2 = the class's name getter rowed under
+   `?name@X` / `?RvaNNNNNNNNGet` placeholders): 22 exactly; 0x00497805 is a wrong slot in 155 tables.
+6. SpecialPowerModule's BehaviorModuleInterface slots 8/43/44 (0x002533D3, 0x00251C11, 0x00251C24, the last two rowed
+   as Rva placeholders in VslotSmallBodiesAG.cpp): 18 (6 in a unit another seat holds).
+7. FX CategoryModuleTemplate<N> ModuleTemplate tables (??_E 0x00001EAE + 3 pure, FXParticleSystem.cpp): 17.
+8. RenderObjClass Set_Animation (0x000D1407) + `ret 4`: 17. 9. FX slice slot 0x0055E636: 15.
+10. Collide interface slots 1..5 (0x005CB9FF + 0x0047A699) in one-slot collide sub-tables: 14.
+11. UpdateModule interface slots 0x0044DF8D + 0x004A2D67: 11 (+10 with 0x00253376). 12. StateMachine
+    GetSnapshotName + xfer: 15. 13. Snapshot stand-ins (own ??_E, retail ??_ESnapshot + 3 pure): 10.
+14. AIInternalMoveToState slot 7 (0x0033F2D7): wrong in 30, never alone. 15. MiBase1::f1 (0x000D43D0): 58, all multi-slot.
+
+**Done (commits by subject).**
+- "Row 83 compiled tiny virtuals as ICF twins: 26 vftables off the runtime bridge" and "Row 13 more compiled small
+  virtuals as ICF twins: five vftables off the runtime bridge": cause 1 as a sweep (lk97/tiny.py, prefilter.py):
+  rows only, add_match --icf-owner per slot; targets referenced by fewer than four retail words were left for a
+  rename (they are the class's own body under a placeholder). 31 tables; present_unmatched 1,851 -> 1,848.
+- "Give twelve classes retail's empty overrides for their __purecall slots" (ActionManager, GameStateMap's and
+  Rva0041F94A's subsystem tables in both emitters, PlayerAITypeSet, Rva00221027, Rva00427311, GlobalLanguage, Radar,
+  MineshaftPortalNetworkManager, ExperienceLevelCreate::onCreate, Rva0086E330Callback, Rva005E62F1 with retail's
+  argument count). 12 tables.
+- "Give four listener and observer bases retail's empty virtual bodies" (TerrainLogicListenerRootA/B,
+  IconMouseObserver, LivingWorldBuildPlotObserver, Rva005D0643Base8). 7 tables.
+- "Give the AIUpdate family's collide interface stand-ins CollideModule's five defaults" (Rva0026E836_M4,
+  AIUpdateInterface24) and "Give three modules' collide interface views CollideModule's false defaults"
+  (CritterEmitterUpdate, BezierProjectileBehavior, DeflectSpecialPower): cause 10. 11 tables.
+- "Give Rva005746AF's four unrecovered slots retail's shared tiny bodies" and "Give the SkirmishAIManager
+  placeholder's constructor view its empty init". 2 tables.
+- "Give BezierProjectileBehavior its loadPostProcess base call (retail 0x00497805 fold)": half of cause 5; the
+  table moves one slot toward retail.
+
+**Measure (base -> after, lk74_cmp).** Bridged 3,448 -> 3,385; bridged slots 51,335 -> 50,594; already correct
+2,110 -> 2,173; mismatching source slots 38,155 -> 37,946; 63 bridged -> correct, nothing newly bridged, no correct
+table lost, refusals identical (36). Two still-bridged tables moved toward retail (BezierProjectileBehavior's primary,
+Icon's IconMouseObserver table), none away. Buckets a 47, b 466, c 733, d 430, e 1,709. link_check (census
+c31795c94c) over every changed unit, every other emitter of each changed table and every other view of each changed
+class: all LINK, LINKED never lower. No alias, pin or marker added; no initializer added.
+
+**Refused / deferred (re_attempts.log).**
+- Cause 5's name getters rowed as `?name@<RealClass>@@QBEPBDXZ` (BezierProjectileBehavior 0x0045BFD3 and most of the
+  22): `rename.py function --to-class` refuses a row already in its class; the getter needs the prepared `--respell`
+  route (name lane) to `?GetSnapshotName@X@@MBEPBDXZ`. Placeholder-class getters (`?name@RvaNNNNNNNNNamed`) take lk76's
+  --to-class recipe; free `?RvaNNNNNNNNGet@@YAHXZ` rows were not tried.
+- Rva005CF27ABase / Rva00875284Base argument counts (withdrawn before commit): the derived views' argless overrides
+  resolve through `/alternatename` lines; respelling them left the new names unresolved (3 units stopped linking).
+- BaseHeightMapRenderObjClass's name getter 0x0006D054: BaseHeightMap.h defines it inline while the row sits under
+  a placeholder in SubsystemNameGetters.cpp; needs a TU-approved row move first.
+- The five all-pure BehaviorModuleInterface tables (CallHelpOnDamage, HitReactionBehavior, RebuildHoleExposeDie,
+  CostModifierUpgrade, UpgradeBehaviorBaseView): adopting the canonical DamageModule/BehaviorModule changes
+  `struct DamageInfo` to `class DamageInfo` in rowed spellings.
+
+**Next leads.**
+1. Cause 5 through the respell route (22 tables, two slots each; the loadPostProcess half is the lk75/lk77 recipe).
+2. Cause 6: one SpecialPowerModule override set across ~12 units (rename the two VslotSmallBodiesAG.cpp rows into
+   the class); ElvenWoodSpecialPower.cpp is another seat's today.
+3. More collide defaults: FireWeaponCollide.cpp's private CollideModuleInterface/CollideModule views, AODCrushCollide
+   and DozerAIUpdate's AIUpdateInterface24 (both held by another seat today), GarrisonContain's B6.
+4. The pure-kept tables with a tiny shared retail body that remain (lk97/puretiny.py lists them; 0x00210CC5 waits on
+   LivingWorldManager.h's BFME_LIVINGWORLDMANAGER_CTOR_PURE, LINK-073).
+
+**Tooling compatibility audit** (`decf61df826..HEAD`): 32 files modified, none added, moved or deleted;
+`rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the changed views'
+classes or spellings (fixture mentions of PlayerAITypeSet, GameStateMap, GlobalLanguage, ExperienceLevelCreate and
+AssaultTransportAIUpdate are file-level and unchanged).
