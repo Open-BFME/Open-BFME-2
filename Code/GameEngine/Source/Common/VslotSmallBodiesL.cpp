@@ -46,12 +46,7 @@ struct Rva003F55B6Arg
 	char m_pad00[0x08];
 	Rva002B7250 m_08;
 };
-class Rva003F498ACallback
-{
-public:
-	virtual bool invoke(int) = 0;
-	~Rva003F498ACallback() {}
-};
+#include "../../Include/Common/Rva003F498ACallback.h"
 class Rva003F424F : public Rva003F498ACallback
 {
 public:

@@ -75,12 +75,7 @@ private:
 };
 }
 
-class Rva003F498ACallback
-{
-public:
-	virtual bool invoke(int) = 0;
-	~Rva003F498ACallback() {}
-};
+#include "../../../../Include/Common/Rva003F498ACallback.h"
 
 class LivingWorldBattle;
 

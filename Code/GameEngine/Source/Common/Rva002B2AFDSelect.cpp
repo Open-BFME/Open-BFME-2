@@ -38,7 +38,7 @@ int Rva002B2AFD::rva002B2AFD()
 // Original visitor identity and the meaning of its state remain open.
 #include "../../Include/GameLogic/LivingWorldBattle.h"
 #include "../../Include/GameLogic/ArmySummary.h"
-class Rva003F498ACallback { public: virtual bool invoke(int)=0; ~Rva003F498ACallback() {} };
+#include "../../Include/Common/Rva003F498ACallback.h"
 // ??0Rva002B31DB@@QAE@XZ, retail 0x002B31D2 (9B): this class's implicit
 // default constructor, emitted out of line here as in retail (the uncalled
 // copy right before invoke; it only installs vtable 0x007FE090).
