@@ -17,6 +17,8 @@ class Rva005F830A
 public:
 	Rva005F830A(void *a1, void *a2, void *a3, void *a4);
 	virtual ~Rva005F830A();
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 private:
 	Rva005F830AHeap *m_04;
 };

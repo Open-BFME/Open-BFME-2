@@ -39,6 +39,8 @@ class Rva005D06CBB1
 public:
 	Rva005D06CBB1(void *owner) : m_04(owner) {}
 	virtual ~Rva005D06CBB1() {}
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 private:
 	void *m_04;
 };

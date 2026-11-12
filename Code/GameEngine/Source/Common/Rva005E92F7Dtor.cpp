@@ -44,6 +44,8 @@ class Rva005E92F7RecordBase : public Rva005E92F7Base
 {
 public:
 	virtual ~Rva005E92F7RecordBase() {}
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 };
 
 struct Rva005E92F7Record

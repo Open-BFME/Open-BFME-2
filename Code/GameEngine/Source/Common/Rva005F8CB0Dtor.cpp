@@ -44,6 +44,8 @@ class Rva005F8CB0Base0 : public Rva005F8CB0Root
 public:
 	Rva005F8CB0Base0() : m_04(0) {}
 	virtual ~Rva005F8CB0Base0() {}
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 	int m_04;
 };
 

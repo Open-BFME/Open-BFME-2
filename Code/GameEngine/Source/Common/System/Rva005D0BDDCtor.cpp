@@ -28,6 +28,8 @@ class Rva005D073AFirstBase
 public:
 	Rva005D073AFirstBase(void *owner) : m_04(owner) {}
 	virtual ~Rva005D073AFirstBase() {}
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 private:
 	void *m_04;
 };

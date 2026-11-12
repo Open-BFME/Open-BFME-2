@@ -36,6 +36,8 @@ class Rva001517DE
 {
 public:
 	virtual ~Rva001517DE();
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 private:
 	void *m_comPtr; // +4
 	Rva00153D16 *m_holder; // +8

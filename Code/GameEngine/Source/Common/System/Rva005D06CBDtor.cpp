@@ -20,6 +20,8 @@ class Rva005D06CBB1
 {
 public:
 	virtual ~Rva005D06CBB1() {}
+	// Retail's table holds the shared empty body 0x000B3FD0 in slot 1.
+	virtual void slot01() {}
 private:
 	int m_04;
 };
