@@ -53,10 +53,7 @@ public:
     bool isUndefined() const { return ((const BfmeAptValue006DCD20 *)this)->isUndefined(); }
     int type() const { HCHECK(this, 0xd8, "this"); return ((const Rva006DBB30SarDwordField *)this)->get(); }
 };
-class Rva006CD650 {
-public:
-    void *rva006CD650();
-};
+#include "Rva006CD650.h"
 #include "../../../GameEngine/Include/Common/AptActionSetup.h"
 class AptBasePtrStack {
 public:
