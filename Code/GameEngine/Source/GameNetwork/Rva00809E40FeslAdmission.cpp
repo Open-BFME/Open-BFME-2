@@ -109,14 +109,7 @@ public:
 	Rva00809E40Record **m_players;
 };
 
-class SnapshotDupReplica
-{
-public:
-	SnapshotDupReplica();
-	virtual void crc();
-	virtual void xfer();
-	virtual void loadPostProcess();
-};
+#include "../../Include/Common/SnapshotDupReplica.h"
 
 class Energy : public SnapshotDupReplica
 {

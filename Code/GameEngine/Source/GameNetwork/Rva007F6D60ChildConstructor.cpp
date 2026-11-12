@@ -55,12 +55,7 @@ protected:
 	int m_state; // +0x04
 };
 
-class SnapshotDupReplica
-{
-public:
-	SnapshotDupReplica();
-	virtual void handle();
-};
+#include "../../Include/Common/SnapshotDupReplica.h"
 
 class Rva007F6D60Member2C : public SnapshotDupReplica
 {

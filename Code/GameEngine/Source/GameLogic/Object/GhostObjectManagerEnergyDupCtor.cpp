@@ -16,14 +16,7 @@ typedef int Bool;
 // ledger carries as ??0Snapshot@@QAE@XZ. SnapshotDupReplica is the
 // TU-local spelling functions.csv already records as that body's object
 // symbol.
-class SnapshotDupReplica
-{
-public:
-	SnapshotDupReplica();
-	virtual void crc() {}
-	virtual void xfer() {}
-	virtual void loadPostProcess() {}
-};
+#include "../../../Include/Common/SnapshotDupReplica.h"
 
 class GhostObjectManagerEnergyDup : public SnapshotDupReplica
 {
