@@ -98,11 +98,7 @@ public:
 	void rva004CDA35();
 };
 
-class Rva0044E633
-{
-public:
-	void *rva0044E633();
-};
+#include "../../../../Include/Common/Rva0044E633.h"
 
 // The +0x60 object filter is read through the final override (Zero Hour SpecialPower.h getFO() idiom).
 #include "../../../../Include/Common/Overridable.h"

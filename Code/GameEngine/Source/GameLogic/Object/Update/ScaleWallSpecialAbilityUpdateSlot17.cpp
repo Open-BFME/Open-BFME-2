@@ -12,11 +12,7 @@
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class Rva0044E633
-{
-public:
-	void *rva0044E633();
-};
+#include "../../../../Include/Common/Rva0044E633.h"
 
 class ScaleWallSpecialAbilityUpdate : public SpecialAbilityUpdate
 {

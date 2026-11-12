@@ -402,10 +402,7 @@ class ThingTemplate {
         return (((const unsigned char *)kind)[bit >> 3] & (1 << (bit & 7))) != 0;
     }
 };
-class Rva0044E633 {
-  public:
-    void *rva0044E633();
-};
+#include "../../../../Include/Common/Rva0044E633.h"
 class Rva002D9531
 {
 public:

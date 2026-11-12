@@ -152,11 +152,7 @@ struct Rva002A8AB1Record;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva0044E633
-{
-public:
-	void *rva0044E633();
-};
+#include "../../../../Include/Common/Rva0044E633.h"
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 #include "../../../../Include/Common/Overridable.h"

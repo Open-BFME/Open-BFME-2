@@ -402,11 +402,7 @@ public:
 extern int g_00E033D0;
 // The rowed special-power-module lookup (0x0044E633), taking the update as
 // this.
-class Rva0044E633
-{
-public:
-	void *rva0044E633();
-};
+#include "../../../../Include/Common/Rva0044E633.h"
 // SpecialAbilityUpdate::rva00450AE9, retail 0x00450AE9 (689 bytes): the
 // approach step. A target that has not moved 5 units in two seconds of
 // approach frames exits the ability; otherwise it moves the AI to the target

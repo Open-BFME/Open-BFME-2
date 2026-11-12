@@ -299,11 +299,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class Rva0044E633
-{
-public:
-	void *rva0044E633();
-};
+#include "../../../../Include/Common/Rva0044E633.h"
 
 #include "../../../../Include/GameLogic/Module/Rva001E702E.h"
 

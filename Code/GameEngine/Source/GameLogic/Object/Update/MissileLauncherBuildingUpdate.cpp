@@ -83,7 +83,7 @@ public:
 	virtual ~StoreObjectsSpecialPowerModuleData();
 	float m_C8;	// +0xC8 the radius
 };
-class Rva0044E633 {public:void*rva0044E633();};
+#include "../../../../Include/Common/Rva0044E633.h"
 	// 0x0044E633
 
 class Thing;
