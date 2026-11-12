@@ -6,15 +6,7 @@
 // neighbour 0x00574192 throttles on [esi] timestamp and [esi+4] flag with STRATEGICHUD WaitMessage.
 
 #include <windows.h>
-class Rva0057416B
-{
-public:
-	Rva0057416B();
-
-private:
-	unsigned long m_time;
-	bool m_flag;
-};
+#include "../../Include/Common/Rva0057416B.h"
 
 Rva0057416B::Rva0057416B()
 {

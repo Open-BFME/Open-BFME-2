@@ -2,14 +2,7 @@
 // ??0Rva005E9FC1@@QAE@PAX@Z retail 0x005E9FC1 58 bytes.
 // Ctor stores vtable 0x00878114 at +0, arg at +4, constructs Rva0057416B member at +8.
 // Evidence: lea ecx [esi+8] call 0x0057416B rowed ??0Rva0057416B@@QAE@XZ; caller 0x005EA15B passes caller this.
-class Rva0057416B
-{
-public:
-	Rva0057416B();
-private:
-	unsigned long m_time;
-	bool m_flag;
-};
+#include "../../Include/Common/Rva0057416B.h"
 
 // Polymorphic base (vptr at +0, as in Rva005E9FC1Dtor.cpp): retail's unwind
 // funclet passes the unadjusted this to the base dtor at 0x005EA2AB. novtable
