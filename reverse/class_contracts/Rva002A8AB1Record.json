@@ -1,0 +1,313 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002A8AB1Record",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 74,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x140": {
+    "4": 2
+   },
+   "0x15c": {
+    "4": 1
+   },
+   "0x168": {
+    "1": 2
+   },
+   "0x17c": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 8,
+  "retail_vtables": {},
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 24,
+   "56": 2,
+   "145": 1,
+   "352": 1,
+   "356": 4,
+   "360": 8,
+   "361": 1,
+   "368": 25,
+   "372": 1,
+   "380": 2,
+   "392": 2
+  },
+  "views": 71,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 352,
+   "type": "uchar[352]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AIBaseBuilder",
+   "name": "m_baseBuilder",
+   "name_by": "tie",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 52,
+   "type": "AIBaseBuilder",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AITeamBuilder",
+   "name": "m_member",
+   "name_by": "majority",
+   "offset": 144,
+   "retail_widths": {},
+   "size": 1,
+   "type": "AITeamBuilder",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_cc",
+   "name_by": "majority",
+   "offset": 204,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_d0",
+   "name_by": "majority",
+   "offset": 208,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:Rva005AD9E6",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_head",
+     "offset": 0,
+     "size": 4,
+     "type": "Rva005AD9E6Node*"
+    }
+   ],
+   "name": "m_140",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva005AD9E6",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<enum ObjectID,_STL::allocator<enum ObjectID> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_List_node<enum ObjectID>*"
+    }
+   ],
+   "name": "m_144",
+   "name_by": "majority",
+   "offset": 324,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<enum ObjectID,_STL::allocator<enum ObjectID> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_15c",
+   "name_by": "majority",
+   "offset": 348,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_160",
+   "name_by": "majority",
+   "offset": 352,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva002A8AB1Target*",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "target",
+   "name_by": "majority",
+   "offset": 356,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva002C5FBA*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_168",
+   "name_by": "majority",
+   "offset": 360,
+   "retail_widths": {
+    "1": 2
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_16C",
+   "name_by": "majority",
+   "offset": 364,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 26,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 3
+ },
+ "outliers": [
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002A8AE4.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002C717EMethod.cpp",
+    "Code/GameEngine/Source/Common/Rva002C7196Method.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002C717EMethod.cpp",
+    "Code/GameEngine/Source/Common/Rva002C7196Method.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002C717EMethod.cpp",
+    "Code/GameEngine/Source/Common/Rva002C7196Method.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "m_baseBuilder": 1,
+    "m_layout": 1
+   },
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0x90",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0xcc",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0xd0",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0x140",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0x144",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  },
+  {
+   "attribute": "straddle@0x15c",
+   "candidates": {},
+   "class": "Rva002A8AB1Record"
+  }
+ ],
+ "size": 368,
+ "size_by": "majority",
+ "vslots": {}
+}
