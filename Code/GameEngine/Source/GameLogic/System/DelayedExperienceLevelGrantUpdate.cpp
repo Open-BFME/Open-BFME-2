@@ -53,7 +53,7 @@ struct XferUnknown11;
 struct BfmePod12 { ObjectID object; const Overridable *level; bool grant; };
 template<> void _STL::list<BfmePod12>::push_back(const BfmePod12 &);
 template<> void _STL::_List_base<int,_STL::allocator<int> >::clear();
-class GameEngineDeletingBase { public: virtual ~GameEngineDeletingBase(); private: char unknown04[8]; };
+#include "../../../Include/Common/GameEngineDeletingBase.h"
 enum ObjectStatusTypes { OBJECT_STATUS_58 = 0x58 };
 #include "../Object/object.h"
 class DelayedExperienceLevelGrantSystem : public GameEngineDeletingBase, public Snapshot {

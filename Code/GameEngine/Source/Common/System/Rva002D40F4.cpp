@@ -13,13 +13,7 @@
 // fills its own ranges. Flags follow System /O1 neighbours but use /Os to
 // keep retail's late reloads of [this+0x10] and /arch:SSE for movss/xorps.
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[8];
-};
+#include "../../../Include/Common/GameEngineDeletingBase.h"
 
 #include "Common/Snapshot.h"
 #include "ascii_string.h"

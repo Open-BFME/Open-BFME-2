@@ -48,14 +48,7 @@ struct CursorTextureSlot
 	void *Ptr;
 };
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-
-private:
-	char m_pad04[8];
-};
+#include "../../../../GameEngine/Include/Common/GameEngineDeletingBase.h"
 
 class Rva002D3573 : public GameEngineDeletingBase, public Snapshot
 {

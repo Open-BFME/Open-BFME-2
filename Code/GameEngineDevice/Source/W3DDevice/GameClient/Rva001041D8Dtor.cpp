@@ -101,14 +101,7 @@ public:
 	virtual void Remove_Render_Object(Rva001041D8RenderObj *obj); // slot 3
 };
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-
-private:
-	char m_pad04[8];
-};
+#include "../../../../GameEngine/Include/Common/GameEngineDeletingBase.h"
 
 class Rva002D3573 : public GameEngineDeletingBase, public Snapshot
 {

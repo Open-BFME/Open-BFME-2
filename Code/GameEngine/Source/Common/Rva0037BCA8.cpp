@@ -14,13 +14,7 @@ public:
 	char m_pad[0xE3C - 4];
 };
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../Include/Common/GameEngineDeletingBase.h"
 
 class Rva0037BBED : public GameEngineDeletingBase
 {

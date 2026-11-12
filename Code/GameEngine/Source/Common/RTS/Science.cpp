@@ -130,13 +130,7 @@ void **vector<void *>::end() { return this->_M_finish; }
 }
 #include "../../../Include/Common/Overridable.h"
 #include "../../../Include/Common/AsciiStringMember.h"
-class GameEngineDeletingBase {
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[4];
-	AsciiStringMember m_member08;
-};
+#include "../../../Include/Common/GameEngineDeletingBase.h"
 class Rva003B1546 : public GameEngineDeletingBase {
 public:
 	virtual ~Rva003B1546();

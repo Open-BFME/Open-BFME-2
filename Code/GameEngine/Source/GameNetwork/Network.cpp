@@ -561,13 +561,7 @@ public:
 
 class AsciiString;
 
-class GameEngineDeletingBase
-{
-public:
-    virtual ~GameEngineDeletingBase();
-private:
-    char m_pad04[8];
-};
+#include "../../Include/Common/GameEngineDeletingBase.h"
 
 class UnicodeString;
 

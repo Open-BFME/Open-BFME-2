@@ -54,7 +54,7 @@ struct BfmePod12 { ObjectID object; const Overridable *level; bool grant; };
 template<> void _STL::list<BfmePod12>::push_back(const BfmePod12 &);
 template<> void _STL::_List_base<int,_STL::allocator<int> >::clear();
 struct GrantLevelNameView { unsigned char unknown[0x10]; AsciiString name; };
-class GameEngineDeletingBase { public: virtual ~GameEngineDeletingBase(); private: char unknown04[8]; };
+#include "../../../Include/Common/GameEngineDeletingBase.h"
 class DelayedExperienceLevelGrantSystem : public GameEngineDeletingBase, public Snapshot {
 public:
     virtual void xfer(Xfer *);

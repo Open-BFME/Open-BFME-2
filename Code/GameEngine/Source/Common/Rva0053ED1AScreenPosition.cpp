@@ -71,13 +71,7 @@ public:
 	virtual int worldToScreenTriReturn(const Coord3D *world, ICoord2D *screen);
 };
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[8];
-};
+#include "../../Include/Common/GameEngineDeletingBase.h"
 
 class Rva005C6D4D
 {

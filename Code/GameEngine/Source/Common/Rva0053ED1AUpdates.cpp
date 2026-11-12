@@ -18,13 +18,7 @@
 // reached by casting the 12-byte WindowList storage. Names generated
 // except rowed callees; the secondary base's real type is not established.
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[8];
-};
+#include "../../Include/Common/GameEngineDeletingBase.h"
 
 class Rva005C6D4D
 {
