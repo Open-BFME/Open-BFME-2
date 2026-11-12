@@ -87,12 +87,7 @@ class Rva00225A98DwordField
 public:
 	int get() const;
 };
-class Rva0042D703PtrChaseField
-{
-public:
-	int get() const;
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva0042D703PtrChaseField.h"
 int Rva0042D703PtrChaseField::get() const
 {
 	const Rva00225A98DwordField *q = *(const Rva00225A98DwordField *const *)((const char *)m_ptr + 0x24);

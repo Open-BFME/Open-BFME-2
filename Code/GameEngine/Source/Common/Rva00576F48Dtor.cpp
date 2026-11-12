@@ -26,11 +26,7 @@ public:
 
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
-class Rva0042D703PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0042D703PtrChaseField.h"
 
 #include "../../Include/Common/Rva00319B0AOwner.h"
 

@@ -31,7 +31,7 @@ struct Owned {void*p;Owned():p(0){}~Owned(){reinterpret_cast<Rva000AD6F4*>(this)
 class __declspec(novtable) Rva005E62F1ListenerBase {public:__forceinline Rva005E62F1ListenerBase(){} __forceinline ~Rva005E62F1ListenerBase(){reinterpret_cast<Rva003F3F7CDwordImmSetter*>(this)->apply();}virtual int rva005E57A2(void*)=0;virtual void rva0050B238(void*,unsigned)=0;virtual void third(int)=0;virtual void fourth(int)=0;virtual void fifth(int)=0;};
 class Widget {public:virtual void s0();virtual void image(const void*);virtual void s2();virtual void range(int,int);virtual void s4();virtual void s5();virtual void ref(const Rva005773DB&);virtual void s7();virtual void refresh();};
 class PanelWidget {public:virtual void s0();virtual void entry(int,const void*);virtual void s2();virtual void factory(const void*);};
-class Rva0042D703PtrChaseField {public:int get()const;};
+#include "../../../../Include/Common/Rva0042D703PtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D6B4PtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D6FDPtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D69DPtrChaseField.h"

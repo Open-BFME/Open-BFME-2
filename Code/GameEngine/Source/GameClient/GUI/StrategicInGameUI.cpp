@@ -394,7 +394,7 @@ struct Rva005E5FObserverOwner {char prefix[8];Rva002B7250 observers;};
 class Rva005E5FObserver {public:virtual void notify(void *);~Rva005E5FObserver() {}};
 #include "../../../Include/Common/Rva0042D69DPtrChaseField.h"
 #include "../../../Include/Common/Rva0042D6FDPtrChaseField.h"
-class Rva0042D703PtrChaseField {public:int get() const;};
+#include "../../../Include/Common/Rva0042D703PtrChaseField.h"
 #include "../../../Include/Common/Rva00319B0AOwner.h"
 class Rva005E5FButtons {public:virtual void s0();virtual void s1();virtual void erase(int);};
 class Rva005E5FPanel {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void close();};

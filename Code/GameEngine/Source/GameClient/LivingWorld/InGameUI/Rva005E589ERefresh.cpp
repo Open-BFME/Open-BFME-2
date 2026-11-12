@@ -26,11 +26,7 @@ public:
 	virtual void setCommandPoints(int current, int maximum);	// slot 3
 };
 
-class Rva0042D703PtrChaseField
-{
-public:
-	int get() const;	// 0x0042D703
-};
+#include "../../../../Include/Common/Rva0042D703PtrChaseField.h"
 
 class Rva005E589EForwarder
 {

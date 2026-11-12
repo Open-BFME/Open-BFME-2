@@ -57,7 +57,7 @@ struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva0042D6E6PtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D69DPtrChaseField.h"
 #include "../../../../Include/Common/Rva0042D6FDPtrChaseField.h"
-class Rva0042D703PtrChaseField { public: int get() const; };
+#include "../../../../Include/Common/Rva0042D703PtrChaseField.h"
 
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
