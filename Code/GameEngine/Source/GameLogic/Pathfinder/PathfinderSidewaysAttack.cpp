@@ -270,7 +270,11 @@ Coord3D point;
 struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;
 };
 struct PathfinderLogFile;
-extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
+// The game's own fprintf (pinned _fprintf), not the CRT import: read
+// <stdio.h> without dllimport so the call goes straight to that thunk.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
