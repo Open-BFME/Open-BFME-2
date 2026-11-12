@@ -1333,11 +1333,7 @@ public:
 // 0x00DA60E8). Callers at 0x002ACF91 0x002AE59B 0x002B10A6 0x004F35C5
 // 0x004F3676. Pool shared with rowed Rva002AC04EAlloc 0x002AC04E.
 
-class FreelistProxyHead
-{
-public:
-	void setup(const void *alloc, void *head);
-};
+#include "../../../Include/Common/FreelistProxyHead.h"
 
 class Rva002AC026Member
 {

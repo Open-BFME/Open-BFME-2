@@ -31,7 +31,7 @@ public:
  __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
-class FreelistProxyHead {public:void setup(const void*,void*);};
+#include "../../../Include/Common/FreelistProxyHead.h"
 #include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 // The visible constructor preserves the native unused-policy argument

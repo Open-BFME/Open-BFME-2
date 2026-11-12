@@ -265,11 +265,7 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/FormationAssistant.h"
 
-class FreelistProxyHead
-{
-public:
-	void setup(const void *alloc, void *data);
-};
+#include "../../../Include/Common/FreelistProxyHead.h"
 #include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 

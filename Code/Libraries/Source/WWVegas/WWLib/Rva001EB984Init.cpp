@@ -11,11 +11,7 @@
 // 0x001EC779 0x0024723F plus list<Object*> copy ctor; pool shared with
 // rowed create_node 0x001EB9AC.
 
-class FreelistProxyHead
-{
-public:
-	void setup(const void *alloc, void *head);
-};
+#include "../../../../GameEngine/Include/Common/FreelistProxyHead.h"
 
 #include "../../../../GameEngine/Include/Common/FreelistPool.h"
 

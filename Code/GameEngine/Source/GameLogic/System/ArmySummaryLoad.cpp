@@ -33,7 +33,7 @@ template<> vector<Rva0040CB11Entry>::vector(const vector<Rva0040CB11Entry>&);
 template<class I,class C>void sort(I,I,C);
 template<class T,class A>class list;
 }
-class FreelistProxyHead {public:void setup(const void*,void*);};
+#include "../../../Include/Common/FreelistProxyHead.h"
 #include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 // The visible constructor preserves the native unused-allocator argument

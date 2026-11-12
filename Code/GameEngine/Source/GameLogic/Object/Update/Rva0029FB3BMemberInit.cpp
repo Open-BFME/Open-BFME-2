@@ -9,11 +9,7 @@
 // callers). The pool container itself is unidentified so the member
 // keeps its honest Rva address name.
 
-class FreelistProxyHead
-{
-public:
-	void setup(const void *alloc, void *head);
-};
+#include "../../../../Include/Common/FreelistProxyHead.h"
 
 #include "../../../../Include/Common/FreelistPool.h"
 

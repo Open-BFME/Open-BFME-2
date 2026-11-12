@@ -56,7 +56,7 @@ enum ObjectID {INVALID_OBJECT_ID=0};
 // 0x00DA60E8). Its out-of-line members are retail bodies the ledger already
 // names: the allocator-taking base constructor 0x0029FB3B, the destructor
 // 0x00268902 and the four-byte element insert 0x002A1316.
-class FreelistProxyHead {public:void setup(const void *alloc,void *head);};
+#include "../../Include/Common/FreelistProxyHead.h"
 #include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
 class PoolMember {public:void Rva00268902() throw();};

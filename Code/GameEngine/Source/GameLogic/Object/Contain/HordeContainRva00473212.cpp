@@ -225,12 +225,7 @@ struct ModuleData
  
 }
 ;
-class FreelistProxyHead 
-{
- public: void setup(const void *,void *);
- 
-}
-;
+#include "../../../../Include/Common/FreelistProxyHead.h"
 #include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {

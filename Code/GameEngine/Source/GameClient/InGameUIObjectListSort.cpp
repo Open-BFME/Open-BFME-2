@@ -18,11 +18,7 @@ template <class T, class Traits>
 static inline bool operator!=(const _List_iterator<T, Traits>& a,const _List_iterator<T, Traits>& b){return a._M_node!=b._M_node;}
 }
 
-class FreelistProxyHead
-{
-public:
-	void setup(const void *alloc, void *head);
-};
+#include "../../Include/Common/FreelistProxyHead.h"
 
 #include "../../Include/Common/FreelistPool.h"
 
