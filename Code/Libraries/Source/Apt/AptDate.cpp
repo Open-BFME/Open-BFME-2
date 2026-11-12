@@ -85,7 +85,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
 class Rva006D6500 {unsigned char storage[36];public:Rva006D6500(int);static void *operator new(unsigned int n){return g_pChainBlockAllocatorF4->allocBlock(n);}static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}};
 
-struct R4Word {const char *name;int value;};
+#include "../../../GameEngine/Include/Common/R4Word.h"
 
 const R4Word *Rva008B60B0(const char *,unsigned int);
 

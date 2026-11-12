@@ -10,11 +10,7 @@
 
 #include <string.h>
 
-struct R4Word
-{
-	const char *name;
-	int value;
-};
+#include "../../Include/Common/R4Word.h"
 
 #define R4_GPERF_OVERFLOW( NAME, HASHFN, WORDLIST, LOOKUP, MINLEN, MAXLEN, MAXHASH, OVERN ) \
 	int HASHFN( const unsigned char *text, int length );                      \

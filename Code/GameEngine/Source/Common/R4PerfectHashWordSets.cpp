@@ -41,7 +41,7 @@
 
 #include <string.h>
 
-struct R4Word { const char *name; int value; };
+#include "../../Include/Common/R4Word.h"
 
 #define R4_GPERF( NAME, HASHFN, WORDLIST, MINLEN, MAXLEN, MAXHASH )           \
 	int HASHFN( const char *str, unsigned int len );                          \

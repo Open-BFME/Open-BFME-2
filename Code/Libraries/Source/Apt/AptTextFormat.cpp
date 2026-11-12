@@ -90,10 +90,7 @@ struct Rva008A4570Owner {
   void *data;
   bool nameEquals(const char *);
 };
-struct R4Word {
-  const char *name;
-  int value;
-};
+#include "../../../GameEngine/Include/Common/R4Word.h"
 const R4Word *Rva008D4F80(const char *, unsigned int);
 void Rva006CC110Log(int, const char *, ...);
 extern void(__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);

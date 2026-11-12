@@ -161,7 +161,7 @@ class AptString {public:
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 
-struct R4Word {const char*name;int value;};
+#include "../../../GameEngine/Include/Common/R4Word.h"
 
 const R4Word*Rva008A9710(const char*,unsigned int);
 

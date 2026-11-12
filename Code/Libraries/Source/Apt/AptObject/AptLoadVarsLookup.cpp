@@ -51,7 +51,7 @@ private:
 };
 class Rva008B2BD0Item {public:virtual void unused0();virtual void release();};
 extern Rva008B2BD0Item *g_rva008B2BD0_0,*g_rva008B2BD0_1,*g_rva008B2BD0_2,*g_rva008B2BD0_3,*g_rva008B2BD0_4,*g_rva008B2BD0_5;
-struct R4Word {const char *name;int value;};
+#include "../../../../GameEngine/Include/Common/R4Word.h"
 const R4Word *Rva008A44A0(const char *,unsigned int);
 void Rva006CC110Log(int,const char *,...);
 AptValue *rva006e9730(AptValue *);

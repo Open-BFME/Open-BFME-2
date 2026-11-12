@@ -98,7 +98,7 @@ public: AptNativeFunction(AptNativeCallback);
  static void *operator new(unsigned int n){return g_pChainBlockAllocatorF4->allocBlock(n);}
  static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}
 };
-struct R4Word {const char *name;int value;};
+#include "../../../../GameEngine/Include/Common/R4Word.h"
 const R4Word *Rva008B5610(const char *,unsigned int);
 AptValue *callback006F3580(AptValue *,int);
 AptValue *callback006F3670(AptValue *,int);

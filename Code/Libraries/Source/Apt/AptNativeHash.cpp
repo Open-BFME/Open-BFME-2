@@ -143,10 +143,7 @@ private:
 
 #include "BfmeAptValue006DCD20.h"
 
-struct R4Word {
-    const char *name;
-    int value;
-};
+#include "../../../GameEngine/Include/Common/R4Word.h"
 
 const R4Word *__cdecl Rva008D48F0(const char *str, unsigned int len);
 

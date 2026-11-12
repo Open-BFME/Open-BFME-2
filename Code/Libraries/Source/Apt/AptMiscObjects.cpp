@@ -106,7 +106,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
 class Rva008A4630Item {public:virtual void unused0();virtual void release();};
 
-struct R4Word {const char *name;int value;};
+#include "../../../GameEngine/Include/Common/R4Word.h"
 
 const R4Word *Rva008A3DC0(const char *,unsigned int);
 

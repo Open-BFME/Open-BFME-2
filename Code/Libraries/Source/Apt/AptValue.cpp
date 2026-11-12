@@ -11,7 +11,7 @@
 #include "../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 #pragma intrinsic(__debugbreak)
 
-struct R4Word { const char *name; int value; };
+#include "../../../GameEngine/Include/Common/R4Word.h"
 
 const R4Word *Rva00897FD0(const char *,unsigned int);
 

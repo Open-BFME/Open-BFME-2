@@ -1,11 +1,7 @@
 // cl: /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 #include <string.h>
 
-struct R4Word
-{
-	const char *name;
-	int value;
-};
+#include "../../../../GameEngine/Include/Common/R4Word.h"
 
 int bfmeSkipVE(const unsigned char *text, int length);
 
