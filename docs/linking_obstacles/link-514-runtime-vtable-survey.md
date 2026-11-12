@@ -2596,3 +2596,18 @@ The second table at VA 0x00C6D200 starts with the adjustor at 0x0056AE26.
 The class fold verifies 19/19 functions and both data rows across the three
 affected units. The same 19-unit preview retains 3,845 bytes at 60189f9ced.
 Both tables still use the explicit arrays in Rva0056ADF1Ctor.cpp.
+
+### Rva0007DFF2 and Rva00215E42 abstract base tables (2026-11-12)
+
+The real-link queue at `12b12c9ec3` records one-slot copies of both tables
+from `InlineDtorDeletingDtorsC01.cpp`. Retail's tables at `0x007C6F24`
+and `0x007E5838` contain two and six slots respectively. The source now
+declares the pure virtuals in order. Both current COFF tables match every
+retail slot after resolving their deleting-destructor weak externals.
+
+The emitter and `BannerUI.cpp` verify 140 functions, five data rows and
+21 exception graphs. Both retain their combined 5,839 linked bytes in the
+preview on index `80569f4278`. The next real link must confirm the two
+table names no longer need bridges. The derived table at `0x00838B8C`
+still needs its slot 5 override, and the other folded table names have
+their own emitters.

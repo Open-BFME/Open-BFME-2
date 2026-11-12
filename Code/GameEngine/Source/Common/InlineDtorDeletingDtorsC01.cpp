@@ -135,6 +135,7 @@ class Rva0007DFF2
 public:
 	Rva0007DFF2(EmitVtableTag *);
 	virtual ~Rva0007DFF2() {}
+	virtual void slot1() = 0; // 0x007C6F24: __purecall
 };
 
 // ?<Rva0007DFF2::Rva0007DFF2> absent-from-retail
@@ -330,6 +331,12 @@ public:
 	Rva00215E42();
 	Rva00215E42(const Rva00215E42 &);
 	virtual ~Rva00215E42();
+	// Retail table 0x007E5838 has five __purecall entries after slot 0.
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual int slot5() = 0;
 };
 // ??0Rva00215E42@@QAE@XZ @0x0029A287 9B: the default constructor, storing the
 // class's own vtable (VA 0x00BE5838) and returning this.
