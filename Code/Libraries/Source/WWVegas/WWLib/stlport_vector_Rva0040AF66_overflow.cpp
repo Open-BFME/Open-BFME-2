@@ -32,23 +32,7 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 
 #include "../../../../GameEngine/Include/Common/BfmeFixedStorage0004543D.h"
 
-class Rva0040AF66
-{
-public:
-	Rva0040AF66(const Rva0040AF66 &other);
-	Rva0040AF66 &operator=(const Rva0040AF66 &other);
-	int m_00;
-private:
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_10;
-	BfmeFixedStorage0004543D m_1C;
-	BfmeFixedStorage0004543D m_38;
-	AsciiString m_54;
-	AsciiString m_58;
-	int m_5C;
-	int m_60;
-	unsigned char m_64;
-};
+#include "../../../../GameEngine/Include/Common/Rva0040AF66.h"
 
 namespace _STL
 {

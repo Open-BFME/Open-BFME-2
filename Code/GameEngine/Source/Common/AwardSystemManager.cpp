@@ -97,23 +97,7 @@ enum ScienceType
 #include "../../Include/Common/BfmeFixedStorage0004543D.h"
 // The 0x68-byte award statistic: the copy constructor 0x0040AF66 builds
 // every member; the lookup 0x0040AAF8 reads the name key in the first word.
-class Rva0040AF66
-{
-public:
-	Rva0040AF66(const Rva0040AF66 &other);
-	Rva0040AF66 &operator=(const Rva0040AF66 &other);
-	int m_00;
-private:
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_04;
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_10;
-	BfmeFixedStorage0004543D m_1C;
-	BfmeFixedStorage0004543D m_38;
-	AsciiString m_54;
-	AsciiString m_58;
-	int m_5C;
-	int m_60;
-	unsigned char m_64;
-};
+#include "../../Include/Common/Rva0040AF66.h"
 // The range destroy is retail's rowed _Destroy<Rva0040AFF3*> (0x0040B547,
 // stlport_destroy_range_0040B547.cpp); forward to it as the vector units do.
 struct Rva0040AFF3;

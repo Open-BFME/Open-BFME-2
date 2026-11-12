@@ -1,0 +1,273 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0040AF66",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x40af66"
+     ],
+     "value": {
+      "0x10": [
+       "?$vector@W4Rva002B7DE6ArmyID@@V?$allocator@W4Rva002B7DE6ArmyID@@@_STL@@@_STL",
+       "?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL"
+      ],
+      "0x1c": [
+       "BfmeFixedStorage0004543D"
+      ],
+      "0x38": [
+       "BfmeFixedStorage0004543D"
+      ],
+      "0x4": [
+       "?$vector@W4Rva002B7DE6ArmyID@@V?$allocator@W4Rva002B7DE6ArmyID@@@_STL@@@_STL",
+       "?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL"
+      ],
+      "0x54": [
+       "?$StringBase@D"
+      ],
+      "0x58": [
+       "?$StringBase@D"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "104": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "enum*"
+    }
+   ],
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "enum*"
+    }
+   ],
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<enum ScienceType,_STL::allocator<enum ScienceType> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BfmeFixedStorage0004543D",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_bytes",
+     "offset": 0,
+     "size": 28,
+     "type": "uint[28]"
+    }
+   ],
+   "name": "m_1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 28,
+   "type": "BfmeFixedStorage0004543D",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BfmeFixedStorage0004543D",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_bytes",
+     "offset": 0,
+     "size": 28,
+     "type": "uint[28]"
+    }
+   ],
+   "name": "m_38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 28,
+   "type": "BfmeFixedStorage0004543D",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_54",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_58",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_5C",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_60",
+   "name_by": "majority",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_64",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 15
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 104,
+ "size_by": "majority",
+ "vslots": {}
+}
