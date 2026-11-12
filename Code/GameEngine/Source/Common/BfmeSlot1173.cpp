@@ -95,11 +95,7 @@ public:
 	char **m_keys;
 };
 
-class BfmeVecFN
-{
-public:
-	unsigned char m_bfmeHeadFN[4];
-};
+#include "../../Include/Common/BfmeVecFN.h"
 
 class BfmeBufFN
 {

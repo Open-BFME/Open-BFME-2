@@ -6,11 +6,7 @@ public:
 	int bfmeFindFN(BfmeVecFN *v, const char *name);
 };
 
-class BfmeVecFN
-{
-public:
-	int m_bfmeDummyZL;
-};
+#include "../../Include/Common/BfmeVecFN.h"
 
 class BfmeTableZL
 {
