@@ -7,7 +7,7 @@
 struct AptActionSetup {
     AptValue *context;
     AptValue *value;
-    char *name;
+    const char *name;
     int action;
 };
 

@@ -29,6 +29,10 @@
  "ledger_keys": {
   "class": 1
  },
+ "native_special_members": {
+  "destructor": "~Rva00527CCE();",
+  "reason": "Repair batch R2 (P140, sweep-header 2026-11-12): destructor declared as the generator on master (a95adb3b27f..e8e32b4ef50) carries them, because its view (FamilyDeletingDtors9.cpp) declares the out-of-line destructor its deleting destructor calls (pinned ~Rva00527CCE, 0x00527CCE); the header declared none (left out of R1: the class claim was held elsewhere)."
+ },
  "outliers": [],
  "queue": [],
  "size": 1,

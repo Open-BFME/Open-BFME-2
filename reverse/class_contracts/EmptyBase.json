@@ -26,6 +26,13 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_special_members": {
+  "constructors": [
+   "EmptyBase() {}"
+  ],
+  "destructor": "~EmptyBase();",
+  "reason": "Repair batch R2 (P140, sweep-header 2026-11-12): constructors, destructor declared as the generator on master (a95adb3b27f..e8e32b4ef50) carries them, because its views (Rva0037DF2CCopy.cpp, Rva003967A5Notify.cpp) declare `EmptyBase() {}` and an out-of-line `~EmptyBase();` (Rva003FD789Xfer.cpp defines it); without them adoption fails (header_queue FAIL rows, C2600 in Rva003FD789Xfer.cpp)."
+ },
  "outliers": [],
  "queue": [],
  "size": 1,

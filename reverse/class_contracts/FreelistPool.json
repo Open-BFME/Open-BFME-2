@@ -70,7 +70,11 @@
   "constructors": [
    "FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);"
   ],
-  "reason": "The views of FreelistPool declare these special members (constructors), which tool lane 2's fixed generator (69350ebbc2..74fba365ae, impact-r5.tsv) carries into a generated header; the header registered before that fix declared none of them. Without the declaration an includer that needs the member emits an implicit one beside the matched out-of-line row, or compiles a different body (P137's family). Declared here as the views declare them, at the generator's placement (repair batch R1, sweep-header 2026-11-11)."
+  "friends": [
+   "friend struct Rva007AB800PoolInits;",
+   "friend struct Rva007AD348PoolInits;"
+  ],
+  "reason": "The views of FreelistPool declare these special members (constructors), which tool lane 2's fixed generator (69350ebbc2..74fba365ae, impact-r5.tsv) carries into a generated header; the header registered before that fix declared none of them. Without the declaration an includer that needs the member emits an implicit one beside the matched out-of-line row, or compiles a different body (P137's family). Declared here as the views declare them, at the generator's placement (repair batch R1, sweep-header 2026-11-11). Repair batch R2 (P140, sweep-header 2026-11-12): friends declared as the generator on master (a95adb3b27f..e8e32b4ef50) carries them, because the views in Rva007AB800PoolInits.cpp and Rva007AD348PoolInits.cpp befriend their static-initializer structs; the header declared neither."
  },
  "outliers": [
   {

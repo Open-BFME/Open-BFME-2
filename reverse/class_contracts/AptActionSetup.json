@@ -77,6 +77,14 @@
  "ledger_keys": {
   "struct": 4
  },
+ "native_special_members": {
+  "qualifiers": {
+   "name": [
+    "const@0"
+   ]
+  },
+  "reason": "Repair batch R2 (P140, sweep-header 2026-11-12): qualifiers declared as the generator on master (a95adb3b27f..e8e32b4ef50) carries them, because its two views (AptAnimation.cpp, AptCIHQueueClipEvents.cpp at 4ec905d521) declare `const char *name`; the header registered by I2 (9475db827f) dropped the const."
+ },
  "outliers": [],
  "queue": [],
  "size": 16,

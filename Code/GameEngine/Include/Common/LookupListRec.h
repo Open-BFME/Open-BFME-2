@@ -5,7 +5,7 @@
 #define CANONICAL_LOOKUPLISTREC_H
 
 struct LookupListRec {
-    char *name;
+    const char *name;
     int value;
 };
 

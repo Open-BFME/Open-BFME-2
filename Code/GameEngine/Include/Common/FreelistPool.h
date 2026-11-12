@@ -11,6 +11,8 @@ public:
     void *(__cdecl *m_alloc)(int, int);
     void (__cdecl *m_free)(void *, int);
     FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);
+    friend struct Rva007AB800PoolInits;
+    friend struct Rva007AD348PoolInits;
     bool grow( int arena, int size );
     bool init(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6);
 };

@@ -6,6 +6,7 @@
 
 class Rva00527CCE {
 public:
+    ~Rva00527CCE();
 };
 
 #endif // CANONICAL_RVA00527CCE_H

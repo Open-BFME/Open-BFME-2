@@ -6,6 +6,8 @@
 
 class EmptyBase {
 public:
+    EmptyBase() {}
+    ~EmptyBase();
 };
 
 #endif // CANONICAL_EMPTYBASE_H

@@ -55,6 +55,14 @@
  "ledger_keys": {
   "struct": 1
  },
+ "native_special_members": {
+  "qualifiers": {
+   "name": [
+    "const@0"
+   ]
+  },
+  "reason": "Repair batch R2 (P140, sweep-header 2026-11-12): qualifiers declared as the generator on master (a95adb3b27f..e8e32b4ef50) carries them, because its seven views (at 67a7b8568d) declare `const char *name`; the header registered by I4 (6f6644a501) dropped the const."
+ },
  "outliers": [],
  "queue": [],
  "size": 8,

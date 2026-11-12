@@ -5,8 +5,8 @@
 #define CANONICAL_RVA00421263VEC_H
 
 struct Rva00421263Vec {
-    ModuleData **m_begin;
-    ModuleData **m_end;
+    const ModuleData **m_begin;
+    const ModuleData **m_end;
 };
 
 #endif // CANONICAL_RVA00421263VEC_H
