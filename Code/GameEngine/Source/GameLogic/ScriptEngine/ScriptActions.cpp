@@ -327,7 +327,7 @@ void ScriptActions::doIdleAllPlayerUnits(const AsciiString &playerName)
 	if (!mask) {
 		for (int i = 0; i < ThePlayerList->getPlayerCount(); ++i) {
 			Player *player = ThePlayerList->getNthPlayer(i);
-			if (player->getPlayerType() == PLAYER_HUMAN)
+			if (player->m_playerType == PLAYER_HUMAN)
 				player->setUnitsShouldIdleOrResume(true);
 		}
 	} else {
@@ -345,7 +345,7 @@ void ScriptActions::doResumeSupplyTruckingForIdleUnits(const AsciiString &player
 	if (!mask) {
 		for (int i = 0; i < ThePlayerList->getPlayerCount(); ++i) {
 			Player *player = ThePlayerList->getNthPlayer(i);
-			if (player->getPlayerType() == PLAYER_HUMAN)
+			if (player->m_playerType == PLAYER_HUMAN)
 				player->setUnitsShouldIdleOrResume(false);
 		}
 	} else {
