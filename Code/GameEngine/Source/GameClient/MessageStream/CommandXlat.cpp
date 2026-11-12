@@ -878,7 +878,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 // 28B, the native body InGameUISelectDrawable.cpp and its siblings specialize).
 // Without this, the explicit instantiation emits a 29B bfmealloc-allocator copy
 // that is first in link order and wins over every consumer's retail-shaped one.
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 
 namespace _STL
 {

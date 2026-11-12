@@ -57,14 +57,7 @@ enum ObjectID {INVALID_OBJECT_ID=0};
 // names: the allocator-taking base constructor 0x0029FB3B, the destructor
 // 0x00268902 and the four-byte element insert 0x002A1316.
 class FreelistProxyHead {public:void setup(const void *alloc,void *head);};
-class FreelistPool
-{
-public:
-	void *pop();
-	int m_00; // +0x00
-	void *m_04; // +0x04
-	void *m_head; // +0x08
-};
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
 class PoolMember {public:void Rva00268902() throw();};
 struct Rva0029FB3BAlloc {Rva0029FB3BAlloc(){} Rva0029FB3BAlloc(const Rva0029FB3BAlloc &){} ~Rva0029FB3BAlloc(){}};

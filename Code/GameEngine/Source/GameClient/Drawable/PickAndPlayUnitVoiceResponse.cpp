@@ -57,7 +57,7 @@ namespace rts {
 template <class T> struct hash {};
 }
 
-class FreelistPool { public: void *pop(); };
+#include "../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <class T> struct hash {};

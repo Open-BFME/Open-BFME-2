@@ -9,14 +9,7 @@
 // them, and the destructor (0x00239AF4) is defined once elsewhere, so this
 // unit emits no stock allocator copy of them for the link to reject.
 class Drawable;
-class FreelistPool
-{
-public:
-	void *pop();
-	int m_00; // +0x00
-	void *m_04; // +0x04
-	void *m_head; // +0x08
-};
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <> __declspec(noinline)
