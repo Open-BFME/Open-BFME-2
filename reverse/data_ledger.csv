@@ -12493,7 +12493,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008426AC,60,.rdata,vtable,??_7SpawnBehavior@@6BObjectModule@@@,,literal,,0,2
 0x008426E8,56,.rdata,vtable,??_7WargBehavior@@6BObjectModule@@@,,literal,,0,1
 0x00842720,72,.rdata,vtable,??_7UpgradeModule@@6BUpgradeMux@@@,,literal,,0,2
-0x00842768,48,.rdata,global,?g_00C42768@@3DA,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp,owned,,1,1
+0x00842768,48,.rdata,global,?g_00C42768@@3QBQBXB,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleCtor.cpp,owned,,1,1
 0x00842798,16,.rdata,string,??_C@_0O@NPFHKFHD@UpgradeModule?$AA@,,literal,,0,1
 0x008427A8,16,.rdata,vtable,??_7DynamicPortalBehaviour@@6BDynamicPortalExtraB@@@,,literal,,0,2
 0x008427B8,8,.rdata,vtable,??_7DynamicPortalBehaviour@@6BDynamicPortalExtraA@@@,,literal,,0,2
@@ -13816,7 +13816,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085FDC0,92,.rdata,vtable,??_7UnleashSpecialPower@@6B@,,literal,,0,2
 0x0085FE1C,132,.rdata,vtable,??_7Rva004CE267@@6B@,,literal,,0,1
 0x0085FEA0,112,.rdata,global,?g_00C5FEA0@@3QBUFieldParse@@B,Code/GameEngine/Source/Common/INI/INIThinFieldParsers2.cpp,owned,,1,1
-0x0085FF10,144,.rdata,global,?g_00C5FF10@@3DA,Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxCtor.cpp,owned,,1,1
+0x0085FF10,144,.rdata,global,?g_00C5FF10@@3QBQBXB,Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxCtor.cpp,owned,,1,1
 0x0085FFA0,112,.rdata,global,?g_00C5FFA0@@3QBUFieldParse@@B,Code/GameEngine/Source/Common/INI/INIThinFieldParsers2.cpp,provisional,?dataFieldParse@?1??getFieldParse@DieMuxData@@SAPBUFieldParse@@XZ@4QBU3@B@Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp;?g_00C5FFA0@@3QBUFieldParse@@B,2,2
 0x00860010,80,.rdata,global,?BfmeProbableCrushingScanFields@@3QBUFieldParse@@B,Code/GameEngine/Source/Common/Thing/Rva00253D37Factory.cpp,owned,,1,2
 0x008600A0,16,.rdata,vtable,??_7Rva0026156C@@6B@,,literal,,0,2
