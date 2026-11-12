@@ -17,6 +17,7 @@ public:
 class Rva005F5EA6 : public Rva0007DF07, public Rva005E12D1, public Rva005E4AE2Listener {
 public:
     virtual ~Rva005F5EA6();
+    virtual void rva005F5E69();
     // Preserve the unread word at+20 outside the minimal interface.
     int m_c;
     Rva002B7250 *m_list;

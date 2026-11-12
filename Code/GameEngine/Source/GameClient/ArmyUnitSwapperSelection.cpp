@@ -135,8 +135,10 @@ static void DisbandArmyMembers(LivingWorldArmy *army,Rva005F56B0Selection *selec
  }
 }
 }
-class Rva005F5E69 {public:void rva005F5E69(); char prefix[0x20];LivingWorldArmy *army;Rva005F56B0Selection *selection;};
-void Rva005F5E69::rva005F5E69(){reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(StrategicInGameUI::ShouldEnableButton(selection,army));}
+// Slot 1 of Rva005F5EA6's primary vftable (retail 0x00C795F0, installed by
+// its constructor 0x005F5F2B and destructor 0x005F5EA6).
+class Rva005F5EA6 {public:virtual void rva005F5E69(); char prefix[0x1C];LivingWorldArmy *army;Rva005F56B0Selection *selection;};
+void Rva005F5EA6::rva005F5E69(){reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(StrategicInGameUI::ShouldEnableButton(selection,army));}
 class Rva005F5E83 {public:void rva005F5E83();char prefix[0x18];LivingWorldArmy *army;Rva005F56B0Selection *selection;};
 void Rva005F5E83::rva005F5E83(){if(StrategicInGameUI::ShouldEnableButton(selection,army))StrategicInGameUI::DisbandArmyMembers(army,selection);}
 
