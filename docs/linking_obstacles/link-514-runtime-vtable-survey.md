@@ -2697,3 +2697,64 @@ Run link_check over both emitters of a table together: a stale index copy of the
 **Tooling compatibility audit** (`03f9e287ede..HEAD`): 24 files modified, none added, moved or deleted;
 `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the touched
 classes or the BFME_VPTR_CLEANUP_DELETING_DTOR macro (still used for Rva009EEA70CleanupDeleting).
+
+### Pure-only tables, second pass: 40 off the bridge (2026-11-12, seat halilkkaya-lk92)
+
+Base `cc46b486242`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py`; census index `c31795c94c`.
+
+**Survey.** lk91's scan (bridged tables whose every wrong or missing slot is `__purecall` in retail) gave 108 tables
+at the base: 37 whose kept copy is merely short (slot 0 right, the view stops early), 14 with a destructor at a
+retail `__purecall` slot 0, 14 with a non-pure placeholder there (several bound by `/alternatename` hatches to
+`__purecall` or to a real body), 23 in FXParticleSystem units and a few in canonical-class copies. The short ones
+were taken: every emitter of a table, and every emitter of a derived table that changes with it, found from the
+objects (not from the views) and changed together.
+
+**Done (commits by subject).**
+- "Declare the __purecall slot 1 of ProgressIndicator and three listener bases": ProgressIndicator,
+  Rva00575E4EBase1, Rva00575EEABase1, Rva0057605DBase; the pure slot is named after the derived override, so the
+  correct derived tables 0x00C6E688/0x00C6E6B0 stay correct.
+- "Declare the __purecall slots of six abstract interface vftables", "... of seven more interface vftables",
+  "... of seven long interface vftables": twenty interface tables at 0x00C4EF80, 0x00C078DC, 0x00C40818,
+  0x00C6F248, 0x00C42518, 0x00C40020, 0x00C430E8 (ContainIface20, 94 slots), 0x00C513F0, 0x00C52EE8, 0x00C633C0.
+- "Declare the __purecall slots of six abstract base vftables": Rva005F6941Base, Rva005F69F5Base, Rva005F2B22Base,
+  Base2, Rva00802CA0Base, Rva00802EC0Base (the two constructor units declare the same slots on their base-less
+  views so the derived copies stay identical).
+- "Declare the __purecall slots of four subsystems and two registration bases": four SubsystemInterface subclasses
+  in GameEngineDeletingBaseDerived.cpp (slot14.. after SubsystemInterface's 14), Rva0052B668 (three emitters),
+  Rva005FBBEE (three emitters, plus PlayerPanelMovieClip's second emitter).
+- "Declare the __purecall slots of four more abstract vftables": Rva000F1B8FBase, Rva005890A6, Rva006892F0
+  (VideoPlayer.cpp), Rva007401F6 (its slot 4 declared as SetLight, the derived override retail holds there).
+
+**Measure (base -> after).** Bridged 3,734 -> 3,694; bridged slots 56,965 -> 56,436; already correct 1,827 ->
+1,867; mismatching source slots 39,787 -> 39,373; 40 bridged -> correct, nothing newly bridged, no correct table
+lost, refusals identical (35). link_check over every changed unit and every object that references a changed
+table: all LINK, bytes unchanged. Each commit's objects differ only in `??_7` COMDATs (no symbol added or
+removed, initializers and .bss unchanged).
+
+**Refused / deferred (re_attempts.log, two rows).**
+- A derived class is instantiated, so the base cannot take its pure slots alone (C2259): Rva006609D0Base
+  (PingThread.cpp news Rva0055011A), Rva0041FE0E (VictoryConditions), Rva005F3444Base (IconSlot, slot 3 an ICF
+  getter), Rva002BED74 (stack objects in Rva005CBB0AWrap.cpp). Prerequisite: the derived class's own overrides.
+- A derived virtual destructor would move: Base1 (ChecklistUIImpl appends its destructor to the Base1 path;
+  retail's 0x00C6F118 has none).
+
+**Next leads.**
+1. 17 short tables remain: the deferrals above; BfmeCtor001B3A20.cpp's five (one shared with
+   ObjectConstructor.cpp, which also holds Rva00BFC290Base); SiegeDockingBehaviorSecondaryBase (a private header,
+   SiegeDockingBehaviorView.h, so the full gate); UpdateModuleInterface, DataChunkParser and AptDisplayStringBase
+   (canonical classes or nleigh's InlineDtorDeletingDtorsC01.cpp); `_vtbl_00C40818` (no emitter); BfmeDirtyBase
+   (lk91's deferral).
+2. The 14 tables with a non-pure slot 0: make the placeholder pure where nothing else binds it and drop the dead
+   hatch with it (Cb00359D42's `/alternatename:...=__purecall`, Base00's present-unmatched `dummy`,
+   Rva004E9FFD's and FireWeaponCollide's inline empty bodies). PropagandaTowerBehaviorIface and
+   DelayedUpgradeUpdateInterface alias their slot to a real body that the derived table uses: those need the
+   derived override declared first.
+3. The 14 tables with a destructor at a retail `__purecall` slot 0 (lead 2 of lk91): retail's derived destructors
+   are then non-virtual (Rva00527827's 0x00C68088 has no destructor slot), so each fix renames the derived
+   `??1`/`??_G` rows; not attempted.
+4. 23 FXParticleSystem tables (CategoryModuleInfo/ModuleInfoSecondBase interfaces, all one-slot `__purecall`):
+   claim each unit and check its last 24 h of commits first.
+
+**Tooling compatibility audit** (`cc46b486242..HEAD`): 51 Code files modified, none added, moved or deleted; no
+class, function or row renamed (`rename.py check --range`: 0 renames, 0 problems); tools/, .githooks/ and .github/
+name none of the touched classes (`Base2` appears only in a synthetic test fixture of test_rename_collisions.py).
