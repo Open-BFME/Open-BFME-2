@@ -49,7 +49,7 @@ class Player {public:char opaque[0x50];NameKeyType nameKey;};
 extern PlayerList*ThePlayerList;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
-struct Rva002048A2 {virtual~Rva002048A2();AsciiString old;AsciiString*target;Rva002048A2(AsciiString*,const AsciiString&);};
+#include "../../../Include/GameLogic/Rva002048A2.h"
 struct ScriptNodePayload {char prefix[4];char scriptStorage[1];__forceinline Script*script(){return reinterpret_cast<Script*>(scriptStorage);}};
 struct ScriptEntry {int next;int word4;AsciiString name;int wordC;ScriptNodePayload*payload;};
 class ScriptList {public:char prefix[0x38];ScriptEntry*entries;char opaque3C[0xC];int first;};

@@ -1306,13 +1306,7 @@ public:
 };
 
 // Scope latch: saves *a1 at +4, installs a2, restores on destruction.
-struct Rva002048A2
-{
-	virtual ~Rva002048A2();
-	AsciiString m_str;
-	AsciiString *m_alias;
-	Rva002048A2(AsciiString *a1, const AsciiString &a2);
-};
+#include "../../../Include/GameLogic/Rva002048A2.h"
 
 AsciiString Rva0032B389Join(const AsciiString &left, const AsciiString &right);
 

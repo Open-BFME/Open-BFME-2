@@ -189,16 +189,7 @@ private:
 
 // The scope latch on m_currentScope: restores the saved string when it goes
 // out of scope (Rva002048A2Ctor.cpp).
-class Rva002048A2
-{
-public:
-	Rva002048A2(AsciiString *dest, const AsciiString &src);	// 0x002048A2
-	virtual ~Rva002048A2();					// 0x002048EC
-
-private:
-	AsciiString m_valueToRestore;
-	AsciiString *m_whereToStore;
-};
+#include "../../../Include/GameLogic/Rva002048A2.h"
 
 // The slow-script name list at 0x00DFE174; this TU only clears it, through
 // the out-of-line erase at 0x0002CCFC (VectorAsciiStringErase.cpp).

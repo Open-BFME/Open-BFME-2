@@ -20,13 +20,7 @@ private:
 
 #include "../../../Include/GameLogic/BfmeOwnZC.h"
 
-struct Rva002048A2
-{
-	virtual ~Rva002048A2();
-	AsciiString m_str;
-	AsciiString *m_alias;
-	Rva002048A2( AsciiString *a1, const AsciiString &a2 );
-};
+#include "../../../Include/GameLogic/Rva002048A2.h"
 
 class Rva003573C4Owner : public BfmeOwnZC
 {
