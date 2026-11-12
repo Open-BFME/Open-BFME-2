@@ -414,11 +414,7 @@ UnsignedInt RadarEndpointColor = 0;
 // Self-check plus inc new ref plus release old ref plus copy plus return *this.
 // Evidence: inc 0x005D1A79 Rva005D1A79DwordCounter disp8+0x04 over RadarEventRef
 // m_refCount; release 0x002D335B RadarEventRef; callers 0x0004E66D 0x0004EFC2.
-class Rva005D1A79DwordCounter
-{
-public:
-	void inc();
-};
+#include "../../../../../GameEngine/Include/Common/Rva005D1A79DwordCounter.h"
 
 class RadarEventRefSlot
 {
