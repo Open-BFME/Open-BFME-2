@@ -377,12 +377,7 @@ struct Rva003B8DD7LogicView
 	char m_pad[0xB0];
 	Rva003B8DD7Holder *m_holder;							// +0xB0
 };
-class Rva003B8DD7Entry
-{
-public:
-	virtual void s0();
-	virtual void s1();
-};
+#include "../../../../Include/Common/Rva003B8DD7Entry.h"
 class Rva003B8DD7
 {
 public:
