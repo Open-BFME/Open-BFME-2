@@ -3,6 +3,7 @@
  "bases_by": "majority",
  "class": "Rva002E6DC4",
  "evidence": {
+  "leading_storage": "RVA 0x002E6DCC saves this in EBX; 0x002E6E0F compares ESI with [EBX+0x48]. The prefix represents storage only; its original members are unknown.",
   "bases_overruled": null,
   "census": 16,
   "inherited": {
@@ -24,6 +25,18 @@
   "zh": {}
  },
  "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_pad00",
+   "name_by": "offset",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 72,
+   "type": "char[72]",
+   "views": 0,
+   "witness": null
+  },
   {
    "decided_by": "bytes",
    "kind": "P",

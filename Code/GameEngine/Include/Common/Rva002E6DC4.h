@@ -6,6 +6,7 @@
 
 class Rva002E6DC4 {
 public:
+    char m_pad00[72];
     void *m_48;
     bool rva002E6DC4(void *a_raw, void *b_raw);
 };

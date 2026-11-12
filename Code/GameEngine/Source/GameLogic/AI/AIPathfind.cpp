@@ -963,14 +963,7 @@ struct TCheckMovementInfo {
  ICoord2D cell; PathfindLayerEnum layer;
  char rest[0x30-0xc]; bool pinched; char pad31[3]; int blocked;
 };
-class Rva002E6DC4
-{
-public:
-	bool rva002E6DC4(void *a_raw, void *b_raw);
-	char m_pad00[0x48];
-private:
-	void *m_48; // +0x48
-};
+#include "../../../Include/Common/Rva002E6DC4.h"
 bool Rva001E3679(int);
 #include "../../../Include/GameLogic/Rva002E6AF3.h"
 #include "../../../Include/GameLogic/Rva002E6B06.h"
