@@ -3,15 +3,7 @@
 // Evidence: hardcoded "BattleResolver" AsciiString temp passed to base pinned at 0x00221635, then two 1000 stores and vtable store; caller at 0x007B4A1F.
 #include "ascii_string.h"
 
-class Rva00221635
-{
-public:
-	virtual void f0();
-	virtual ~Rva00221635() {}
-	Rva00221635(const AsciiString &s);
-private:
-	int m_x;
-};
+#include "../../../Include/Common/Rva00221635.h"
 
 class Rva005D00A6 : public Rva00221635
 {

@@ -19,14 +19,7 @@
 // six zeroes stay one member subobject so they land as a unit after it.
 #include "ascii_string.h"
 
-class Rva00221635
-{
-public:
-	Rva00221635(int arg);
-	~Rva00221635();
-	virtual void _pure() = 0;
-	int m_4;
-};
+#include "../../Include/Common/Rva00221635.h"
 
 struct Rva005CB35AM8
 {

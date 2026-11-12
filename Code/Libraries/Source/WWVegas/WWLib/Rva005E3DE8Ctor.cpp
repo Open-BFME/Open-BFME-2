@@ -8,10 +8,7 @@ public:
 private:
 	char m_bytes[8]; // +0x00
 };
-class __declspec(novtable) Rva00221635 {
-public: Rva00221635(int arg); ~Rva00221635() { ((Rva0022167C *)this)->Rva0022167C::~Rva0022167C(); } virtual void pure() = 0;
-private: void *ptr;
-};
+#include "../../../../GameEngine/Include/Common/Rva00221635.h"
 class Rva005E3DE8 : public Rva00221635 {
 public: Rva005E3DE8(); virtual void pure();
 private: AsciiString name;

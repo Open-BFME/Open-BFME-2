@@ -48,13 +48,7 @@
 // the comparison -- that store is a DIR32 relocation and the gate copies those
 // bytes out of retail -- so the table is declared, never defined, here.
 
-class Rva00221635
-{
-public:
-	Rva00221635(int arg);
-	virtual void Rva00221635_pure() = 0; // vptr at +0
-	int m_4;                             // +0x04
-};
+#include "../../Include/Common/Rva00221635.h"
 
 struct Rva005E16DAVec
 {

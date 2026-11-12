@@ -26,13 +26,7 @@ extern "C" { unsigned int __identifier("?g_Va00E062FC@@3IA")[4]; }
 // Retail's object extends 16 bytes; the mangled name stays the one its other users declare.
 extern "C" { unsigned int __identifier("?g_Va00E0630C@@3IA")[4]; }
 
-class Rva00221635
-{
-public:
-	Rva00221635( const AsciiString &name );
-	virtual void Rva00221635_pure() = 0; // vptr at +0
-	int m_4;                             // +0x04
-};
+#include "../../Include/Common/Rva00221635.h"
 
 class Rva007B401CButton : public Rva00221635
 {

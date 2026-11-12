@@ -6,14 +6,7 @@
 // 0x00036410 plus pin base 0x00221635 plus literals; vtable from mov [esi];
 // next dtor Rva005E7529 flags; +8/+0xC as separate subobjects to keep mov then and.
 #include "ascii_string.h"
-class Rva00221635
-{
-public:
-	Rva00221635(int arg);
-	~Rva00221635();
-	virtual void _pure() = 0;
-	int m_4;
-};
+#include "../../../Include/Common/Rva00221635.h"
 extern const void *const g_00C77EF4[];
 struct Rva005E74CFM8
 {
