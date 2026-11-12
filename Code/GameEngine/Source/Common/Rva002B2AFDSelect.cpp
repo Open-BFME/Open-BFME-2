@@ -7,11 +7,7 @@
 // mov eax,[TheWritableGlobalData]; mov eax,[eax+0xe84]; ret.
 // Caller at 0x0038030D takes min with another int. Honest address name.
 #include "../../Include/Common/BfmeSelectionState.h"
-class Rva002034E9Host
-{
-public:
-	bool rva002034E9();
-};
+#include "../../Include/Common/Rva002034E9Host.h"
 #include "GameLogicObjectLookupView.h"
 
 // The canonical GameLogic header pads over the fields read here; they

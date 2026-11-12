@@ -27,7 +27,7 @@ template <class T> class allocator;
 template <class T, class A> class vector;
 }
 
-class Rva002034E9Host { public: bool rva002034E9(); };
+#include "../../../Include/Common/Rva002034E9Host.h"
 
 struct Rva0040F87EGameLogic { char pad00[0x98]; bool m_98; };
 

@@ -53,11 +53,7 @@ void rva00203C21()
 // ?Rva00203BE9@@YAXXZ @0x00203BE9 56B. Identity is address-derived: packet
 // proves the calls, globals, and MessageStream vtable slot; the caller boundary
 // is Ghidra's extra-function record. No donor identity is established.
-class Rva002034E9Host
-{
-public:
-	bool rva002034E9();
-};
+#include "../../../Include/Common/Rva002034E9Host.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

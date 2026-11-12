@@ -133,11 +133,7 @@ extern GameLogic *TheGameLogic;
 // instead of the unrowed GameLogic spelling (U on 4 units).
 #include "../../../Include/Common/BfmeGlob939D.h"
 
-class Rva002034E9Host
-{
-public:
-	Bool rva002034E9();
-};
+#include "../../../Include/Common/Rva002034E9Host.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

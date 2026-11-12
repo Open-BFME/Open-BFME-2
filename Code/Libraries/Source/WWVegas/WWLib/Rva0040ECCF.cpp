@@ -296,7 +296,7 @@ extern GameLogic *TheGameLogic;
 extern PlayerList *ThePlayerList;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva002034E9Host { public: bool rva002034E9(); };
+#include "../../../../GameEngine/Include/Common/Rva002034E9Host.h"
 class Rva003F468D;
 #include "../../../../GameEngine/Include/GameLogic/Rva0020E6B7RegionManager.h"
 struct Rva0040F19DLivingWorldLogic { char pad00[0xb0]; Rva0020E6B7RegionManager *m_regions; };

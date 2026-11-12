@@ -12,11 +12,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include <math.h>
 
-class Rva002034E9Host
-{
-public:
-	bool rva002034E9();
-};
+#include "../../../Include/Common/Rva002034E9Host.h"
 extern class GameLogic *TheGameLogic;
 
 class Rva002E2903Player;

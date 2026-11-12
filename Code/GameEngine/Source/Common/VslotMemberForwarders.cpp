@@ -19,7 +19,7 @@ class DataChunkInput; struct DataChunkInfo;
 class TextureFilterClass { public: void Apply(unsigned int); };
 namespace _STL { template <class T> class allocator; template <class T, class A> class _List_base { public: void clear(); }; }
 struct BfmeVectorRecord001B4A39;
-class Rva002034E9Host { public: bool rva002034E9(); };
+#include "../../Include/Common/Rva002034E9Host.h"
 class Rva0020F58E { public: int length() const; };
 class Rva00210E7C { public: void rva00210E9D(); };
 #include "../../Include/Common/AsciiStringPlusString.h"

@@ -40,7 +40,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002034E9Host { public: bool rva002034E9(); };
+#include "../../../../Include/Common/Rva002034E9Host.h"
 class Rva002B31F2 {
 public:
  void rva002B31F2(_STL::vector<unsigned int> *out);
