@@ -28,7 +28,20 @@ static int s_vtable;
 
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
 
-static int s_secondary10;
+// Retail table 0x00C40D9C (+0x10, UpdateModuleInterface, 3 slots). Own the complete
+// initialized table instead of a zero-int stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): the rowed slot bodies by address, never called through these
+// erased signatures.
+extern "C" {
+void __identifier("?update@RampageBehavior@@UAE?AW4UpdateSleepTime@@XZ")();
+void __identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ")();
+void __identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")();
+static const void *const s_secondary10[3] = {
+	(const void *)&__identifier("?update@RampageBehavior@@UAE?AW4UpdateSleepTime@@XZ"),
+	(const void *)&__identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ"),
+	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")
+};
+}
 
 // Opaque UpdateModule base; ctor resolves to its row. The declared-only
 // virtual dtor drives the single EH state with zero emitted code. Protected
@@ -131,7 +144,7 @@ RampageBehavior::RampageBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
 	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = &s_secondary10;
+	m_p10 = s_secondary10;
 	m_24 = 0;
 	m_28 = 0;
 	m_20 = 99999.0f;
@@ -143,7 +156,7 @@ RampageBehavior::RampageBehavior(Thing *thing, const ModuleData *moduleData)
 RampageBehavior::~RampageBehavior()
 {
 	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = &s_secondary10;
+	m_p10 = s_secondary10;
 }
 
 // tu-skeleton: 0x00458AC7 6B ?name@RampageBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)

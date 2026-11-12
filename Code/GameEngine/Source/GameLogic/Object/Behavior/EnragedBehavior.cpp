@@ -69,7 +69,20 @@ static int s_vtable;
 
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
 
-static int s_secondary10;
+// Retail table 0x00C40FB0 (+0x10, UpdateModuleInterface, 3 slots). Own the complete
+// initialized table instead of a zero-int stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): the rowed slot bodies by address, never called through these
+// erased signatures.
+extern "C" {
+void __identifier("?rva00459109@Rva00459109@@QAEHXZ")();
+void __identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ")();
+void __identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")();
+static const void *const s_secondary10[3] = {
+	(const void *)&__identifier("?rva00459109@Rva00459109@@QAEHXZ"),
+	(const void *)&__identifier("?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ"),
+	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")
+};
+}
 
 // Opaque UpdateModule base; ctor resolves to its row. The declared-only
 // virtual dtor drives the single EH state with zero emitted code. Protected
@@ -129,7 +142,7 @@ EnragedBehavior::EnragedBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
 	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = &s_secondary10;
+	m_p10 = s_secondary10;
 	m_20 = 0.0f;
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
