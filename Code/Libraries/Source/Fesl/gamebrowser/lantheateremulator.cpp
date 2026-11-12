@@ -375,12 +375,7 @@ public:
 	BfmeSub1045 **m_array; // +0x08
 };
 
-class BfmeSinkSKA
-{
-public:
-	void bfmeSendSKA(int tag, int a, int v);
-	void sendCreateGameRequest( int transactionId, int gameId, int maxPlayers, const char *userGameId );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeSinkSKA.h"
 
 class BfmeThingSKA
 {

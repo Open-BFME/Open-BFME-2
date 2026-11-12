@@ -26,13 +26,7 @@ public:
 	void send(BfmeC994 *message);
 };
 
-class BfmeSinkSKA
-{
-public:
-	void bfmeSendSKA(int category, int transactionId, int depth);
-	void sendCreateGameRequest(int transactionId, int gameId,
-		int maxPlayers, const char *userGameId);
-};
+#include "../../Include/GameNetwork/BfmeSinkSKA.h"
 
 // ---- from Code/GameEngine/Source/GameNetwork/FeslTidMessageSender.cpp
 

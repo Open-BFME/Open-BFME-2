@@ -39,11 +39,7 @@ public:
 	Rva00809500Sink *m_sinks[ 16 ];
 };
 
-class BfmeSinkSKA
-{
-public:
-	void bfmeSendSKA( int category, int transactionId, int depth );
-};
+#include "../../Include/GameNetwork/BfmeSinkSKA.h"
 
 void *Rva007F93E0( void *a, void *b, void *c );
 
