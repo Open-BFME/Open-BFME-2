@@ -3417,11 +3417,7 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 // handler's slot 10, reverses the named group (0x001DC345) and runs slot
 // 10 again; in game modes 2 and 3 (+0x110) it shows the engine cursor and
 // answers 3. The answer codes and the unused arguments are not identified.
-class Rva001DBB87ZeroSetter
-{
-public:
-	void disable(void);
-};
+#include "../../../Include/GameLogic/Rva001DBB87ZeroSetter.h"
 
 class Rva001DBAA4
 {

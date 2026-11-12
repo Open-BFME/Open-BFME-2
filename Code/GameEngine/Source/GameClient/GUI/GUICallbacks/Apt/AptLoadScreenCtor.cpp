@@ -145,11 +145,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class Rva001DBB87ZeroSetter
-{
-public:
-	void disable();						// 0x001DBB87
-};
+#include "../../../../../Include/GameLogic/Rva001DBB87ZeroSetter.h"
 
 class AptLoadScreen : public Rva00355D66
 {

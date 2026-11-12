@@ -20,11 +20,7 @@ class RecorderClass; extern RecorderClass *TheRecorder;
 #include "../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class Rva001DBB87ZeroSetter
-{
-public:
-	void disable();
-};
+#include "../../../Include/GameLogic/Rva001DBB87ZeroSetter.h"
 
 // Spelled as the data ledger primary ?g_00DFEF18@@3PAVRva002D3627Host@@A (Rva002D3627Check.cpp).
 class Rva002D3627Host
