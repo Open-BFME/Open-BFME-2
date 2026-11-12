@@ -79,11 +79,22 @@ int __stdcall bfmeColor(const BfmeThingCZ *thing, int unused, bool bright)
 }
 
 // Slots 2-6 and 8-18 are retail VA 0x0043B810, the rowed _purecall. Slots 0, 1 and 7
-// belong to other placeholder classes (LINK-617).
+// are rowed under other placeholder classes (LINK-617); they were retail's addresses
+// as bare integers, so a relinked image pointed them at stale code. Each now names
+// the matched row at retail's slot target, taken by address and never called
+// through these erased signatures.
 extern "C" int __cdecl _purecall(void);
 #define BFME_PURECALL ((int)&_purecall)
+extern "C" {
+void __identifier("?bfmeDelVIH@BfmeThingVIH@@QAEPAXI@Z")();
+void __identifier("?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ")();
+void __identifier("?rva0068A130@Rva0068A130@@QAEXXZ")();
+}
 int g_bfmeVtableCZ[30] = {
-	11051360, 11682992, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, 11051312,
+	(int)&__identifier("?bfmeDelVIH@BfmeThingVIH@@QAEPAXI@Z"),  // 0x0068A160
+	(int)&__identifier("?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ"),  // 0x007244B0
+	BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL,
+	(int)&__identifier("?rva0068A130@Rva0068A130@@QAEXXZ"),  // 0x0068A130
 	BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, BFME_PURECALL,
 	BFME_PURECALL, BFME_PURECALL, BFME_PURECALL, 1348887890, 7037793, 1663070030, 1919970671, 1769173861,
 	28271, 1699897188, 1667321958, 107, 1867407204, 25966
