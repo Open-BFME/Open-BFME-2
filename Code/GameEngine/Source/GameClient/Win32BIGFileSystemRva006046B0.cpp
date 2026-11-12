@@ -34,11 +34,7 @@ struct BigArchiveMemberInfo
  unsigned int size;
 };
 
-struct Rva006038D4Less
-{
-public:
-	bool operator()(const char *, const char *) const;
-};
+#include "../../Include/Common/Rva006038D4Less.h"
 typedef _STL::map<const char *, BigArchiveMemberInfo, Rva006038D4Less> BigMemberMap;
 typedef _STL::map<const char *, BigMemberMap, Rva006038D4Less> BigFolderMap;
 #include "../../Include/Common/Rva006054AF.h"

@@ -124,11 +124,7 @@ class Rva00604374
 public:
 	void *rva00604374(const Rva0060426C &src);
 };
-struct Rva006038D4Less
-{
-public:
-	bool operator()(const char *, const char *) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006038D4Less.h"
 struct Rva006044A0Node {
 	unsigned color;
 	Rva006044A0Node *parent;

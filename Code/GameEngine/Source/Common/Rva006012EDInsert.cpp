@@ -7,10 +7,7 @@ struct Rva00600F9CElement
 {
 	Rva00600F9CElement(const Rva00600F9CElement &that);
 };
-struct Rva006038D4Less
-{
-	bool operator()(const char *a, const char *b) const;
-};
+#include "../../Include/Common/Rva006038D4Less.h"
 bool __stdcall Rva0006038D4CStrLess(const char *a, const char *b);
 struct Rva0060126DNode
 {

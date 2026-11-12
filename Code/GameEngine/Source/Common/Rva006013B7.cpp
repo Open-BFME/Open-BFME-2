@@ -6,10 +6,7 @@ struct Rva00600F9CElement
 {
 	Rva00600F9CElement(const Rva00600F9CElement &that);
 };
-struct Rva006038D4Less
-{
-	bool operator()(const char *a, const char *b) const;
-};
+#include "../../Include/Common/Rva006038D4Less.h"
 struct Rva00600991;
 namespace _STL {
 struct _Rb_tree_node_base {};

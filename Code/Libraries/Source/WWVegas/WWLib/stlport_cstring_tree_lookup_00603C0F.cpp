@@ -24,10 +24,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 #include "../../../../GameEngine/Include/Common/Rva00603A00Mapped.h"
 
-struct Rva006038D4Less
-{
-	bool operator()(const char *a, const char *b) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006038D4Less.h"
 
 typedef _STL::pair<const char* const, Rva00603A00Mapped> Rva00603C0FInnerPair;
 typedef _STL::map<const char*, Rva00603A00Mapped, Rva006038D4Less> Rva00603C0FInnerMap;
