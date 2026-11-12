@@ -543,11 +543,7 @@ class AudioManager;
 extern AudioManager *TheAudio;
 class SpecialPowerStore;
 extern SpecialPowerStore *TheSpecialPowerStore;
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 class Player;
 class UpgradeTemplate;
 class ContainModuleInterface;

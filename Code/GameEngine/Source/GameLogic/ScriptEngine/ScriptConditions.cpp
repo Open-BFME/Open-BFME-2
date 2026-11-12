@@ -132,12 +132,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 class SpecialPowerTemplate;
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name); // 0x0029B6EB
-	Bool canUseSpecialPower(Object *obj, const SpecialPowerTemplate *power);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI };
 #include "../../../Include/GameLogic/ActionManager.h"

@@ -156,12 +156,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class SpecialPowerStore
-{
-public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name); // 0x0029B6EB
-	Bool canUseSpecialPower(Object *obj, const SpecialPowerTemplate *power);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
 extern Int BfmeLogicFramesPerSecond;
 

@@ -74,11 +74,7 @@ public:
 	}
 };
 
-class SpecialPowerStore
-{
-public:
-	Bool canUseSpecialPower(Object *obj, const SpecialPowerTemplate *specialPowerTemplate);
-};
+#include "../../../Include/Common/SpecialPowerStore.h"
 
 // ?rva002A9ED9@Player@@QAE_NPBVSpecialPowerTemplate@@@Z
 Bool Player::rva002A9ED9(const SpecialPowerTemplate *power)
