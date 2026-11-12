@@ -232,7 +232,11 @@ public:
     {
         if (count<n) {
             g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping more elements than the stack contains. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xAA);
-            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+            if (g_bfmeAptBreakOnAssertAtDDC01C) {
+                _ReadWriteBarrier();
+                __debugbreak();
+                _ReadWriteBarrier();
+            }
         } else {
             for (int i=1;i<=n;++i) items[count-i]->Release();
             count-=n;
