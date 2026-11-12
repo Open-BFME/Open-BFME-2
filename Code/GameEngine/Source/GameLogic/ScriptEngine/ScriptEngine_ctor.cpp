@@ -60,7 +60,7 @@ public:
 	AsciiString text; // +0x00
 	int scalar; // +0x04
 };
-struct BfmeStringRecord00204A30 {int word0;AsciiString text0;int word1;AsciiString text1;int word2;~BfmeStringRecord00204A30();};
+#include "../../../Include/Common/BfmeStringRecord00204A30.h"
 struct Rva00390729Element {int opaque[3];};
 struct SnapshotBlock {char opaque[12];};
 struct upgradePair {int opaque[5];};

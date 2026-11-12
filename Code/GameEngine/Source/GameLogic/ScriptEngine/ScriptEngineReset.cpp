@@ -60,16 +60,7 @@ struct FXBoneInfo
 	const void *m_template;
 };
 
-struct BfmeStringRecord00204A30
-{
-	~BfmeStringRecord00204A30();
-
-	unsigned int word0;
-	AsciiString text0;
-	unsigned int word1;
-	AsciiString text1;
-	unsigned int word2;
-};
+#include "../../../Include/Common/BfmeStringRecord00204A30.h"
 
 // This TU only calls the range erases owned by FXBoneInfoVectorErase.cpp and
 // BfmeStringRecordErase00207F40.cpp; declaration-only views keep STLport

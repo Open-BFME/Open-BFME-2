@@ -11,14 +11,7 @@
 
 unsigned long Rva003ECA13Get(const AsciiString &s);
 
-struct BfmeStringRecord00204A30
-{
-    unsigned int word0;
-    AsciiString text0;
-    unsigned int word1;
-    AsciiString text1;
-    unsigned int word2;
-};
+#include "../../../Include/Common/BfmeStringRecord00204A30.h"
 
 #include <vector>
 

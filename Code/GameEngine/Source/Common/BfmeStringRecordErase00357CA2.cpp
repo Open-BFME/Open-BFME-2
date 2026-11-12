@@ -6,16 +6,7 @@
 // shape-identical to rowed ModuleInfo Nugget single erase 0x0033C3BC (55B ret 4); caller is 0x00357D7D.
 #include "ascii_string.h"
 
-struct BfmeStringRecord00204A30
-{
-	~BfmeStringRecord00204A30();
-
-	unsigned int word0;
-	AsciiString text0;
-	unsigned int word1;
-	AsciiString text1;
-	unsigned int word2;
-};
+#include "../../Include/Common/BfmeStringRecord00204A30.h"
 
 namespace _STL
 {

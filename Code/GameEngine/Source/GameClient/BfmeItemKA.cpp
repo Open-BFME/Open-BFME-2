@@ -232,11 +232,7 @@ struct BfmeStringRecord00054F57 {
 };
 template void _STL::_Construct<BfmeStringRecord00054F57,BfmeStringRecord00054F57>(BfmeStringRecord00054F57*,const BfmeStringRecord00054F57&);
 // Complete retail record copy at0x00204A30.
-struct BfmeStringRecord00204A30 {
-    unsigned int word0; AsciiString text0; unsigned int word1; AsciiString text1; unsigned int word2;
-    BfmeStringRecord00204A30(const BfmeStringRecord00204A30 &source);
-    BfmeStringRecord00204A30 &operator=(const BfmeStringRecord00204A30 &source);
-};
+#include "../../Include/Common/BfmeStringRecord00204A30.h"
 template void _STL::_Construct<BfmeStringRecord00204A30,BfmeStringRecord00204A30>(BfmeStringRecord00204A30*,const BfmeStringRecord00204A30&);
 // Complete retail record copy at0x002199C8.
 struct BfmeStringRecord002199C8 {

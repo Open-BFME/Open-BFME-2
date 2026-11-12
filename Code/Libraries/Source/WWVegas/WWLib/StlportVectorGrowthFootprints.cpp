@@ -112,7 +112,7 @@ struct BfmePod248 { char m_pad[248]; public: BfmePod248(const BfmePod248 &); ~Bf
 struct BfmePod252 { char m_pad[252]; public: BfmePod252(const BfmePod252 &); // Destruction is the rowed ??1Rva000C2980, reached by a qualified call.
 __declspec(dllimport) __forceinline ~BfmePod252() { ((Rva000C2980 *)this)->Rva000C2980::~Rva000C2980(); } };
 // 20-byte element; layout owner stlport_vector_stringrecord_00204a30_allocate_copy.cpp.
-struct BfmeStringRecord00204A30 { char m_pad[20]; public: BfmeStringRecord00204A30(const BfmeStringRecord00204A30 &); ~BfmeStringRecord00204A30(); };
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord00204A30.h"
 // 20-byte element; layout owner stlport_vector_stringrecord_2cf4c6_allocate_copy.cpp.
 struct BfmeStringRecord002CF4C6 { char m_pad[20]; public: BfmeStringRecord002CF4C6(const BfmeStringRecord002CF4C6 &); ~BfmeStringRecord002CF4C6(); };
 // 20-byte element; layout owner stlport_vector_stringrecord_3b3f78_allocate_copy.cpp.

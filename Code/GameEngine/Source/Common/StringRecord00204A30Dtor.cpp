@@ -6,8 +6,5 @@
 // Same EH scope 0x00B6C7A3 as the copy ctor. Caller 0x00206CBA is the
 // 0x14-stride array destroy loop.
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeStringRecord00204A30 {
-    unsigned int word0; AsciiString text0; unsigned int word1; AsciiString text1; unsigned int word2;
-    ~BfmeStringRecord00204A30();
-};
+#include "../../Include/Common/BfmeStringRecord00204A30.h"
 BfmeStringRecord00204A30::~BfmeStringRecord00204A30() {}
