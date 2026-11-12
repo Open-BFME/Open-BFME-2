@@ -280,7 +280,15 @@ class DamageInfo;
 class DieMuxData { public: bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const; };
 struct TunnelContainModuleDataView { char pad[8]; DieMuxData m_dieMuxData; char pad09[0x98 - 0x09]; bool m_healTunnelSystem; char pad99[0xD4 - 0x99]; float m_framesForFullHeal; };
 struct B28 { virtual void onDie(const DamageInfo *damageInfo); };
-struct B2C { virtual void f2C() = 0; };
+enum BodyDamageType;
+// The +0x2C interface: retail's GarrisonContain-family table 0x00C463D8 keeps its two
+// empty one-argument defaults (ret 4); GarrisonContain overrides slot 2.
+struct B2C
+{
+	virtual void f2C(DamageInfo *) { }
+	virtual void d01(DamageInfo *) { }
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
+};
 struct B30 { virtual void f30() = 0; };
 class ContainIface34
 {
@@ -368,6 +376,7 @@ public:
 	virtual ~GarrisonContain();
 	virtual void onRemoving(Object *object);
 	virtual UpdateSleepTime update();
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState); // the rowed 0x0047876A
 };
 class HordeGarrisonContain : public GarrisonContain
 {
