@@ -303,15 +303,7 @@ struct BfmeGaussianSettings
 	float m_18;
 	float m_1C;
 };
-struct BfmeGaussianParams
-{
-	int m_mode;
-	int m_taps;
-	float m_10;
-	float m_14;
-	float m_18;
-	float m_1C;
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeGaussianParams.h"
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 // ?g_bfmeDirtyCU@@3_NA at 0x009FF48C: owned by

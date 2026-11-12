@@ -57,15 +57,7 @@ struct BfmeGaussianSettings
 };
 int Rva00309E4BGet();
 
-struct BfmeGaussianParams
-{
-	int m_mode;
-	int m_taps;
-	float m_10;
-	float m_14;
-	float m_18;
-	float m_1C;
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeGaussianParams.h"
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 

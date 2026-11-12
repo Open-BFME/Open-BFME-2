@@ -90,15 +90,7 @@ struct BfmeGaussianSettings
 };
 int Rva00309E4BGet();
 
-struct BfmeGaussianParams
-{
-	int m_mode;
-	int m_taps;
-	float m_10;
-	float m_14;
-	float m_18;
-	float m_1C;
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeGaussianParams.h"
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (CreateTexture, slot 23); the render targets are IDirect3DTexture9 objects
