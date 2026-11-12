@@ -1102,11 +1102,7 @@ class Rva00286772Manager;
 
  extern class Rva002872BA *TheTriggerManager;
 
-class Rva002104B6
-{
-public:
-    void *rva002104B6(void *p);
-};
+#include "../../../Include/Common/Rva002104B6.h"
 
 struct LivingWorldRva
 {

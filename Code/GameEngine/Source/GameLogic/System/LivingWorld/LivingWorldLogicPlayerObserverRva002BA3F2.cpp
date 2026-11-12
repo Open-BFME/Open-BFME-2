@@ -105,11 +105,7 @@ public:
 
 #include "../../../../Include/GameLogic/Rva002E071E.h"
 
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *key);
-};
+#include "../../../../Include/Common/Rva002104B6.h"
 
 // The region (+0x3C word, +0x48 map position) and army views of slot 1;
 // both names come from rowed UnicodeString getters.

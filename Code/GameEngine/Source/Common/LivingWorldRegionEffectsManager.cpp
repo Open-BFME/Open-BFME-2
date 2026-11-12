@@ -116,11 +116,7 @@ public:
 	char m_pad[0x2C];
 };
 
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *p);
-};
+#include "../../Include/Common/Rva002104B6.h"
 
 class Rva002BA8F1Logic
 {

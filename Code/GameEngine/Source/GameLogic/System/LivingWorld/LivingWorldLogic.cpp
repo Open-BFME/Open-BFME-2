@@ -1703,11 +1703,7 @@ struct Rva002B7582CampaignManager
 	Int m_campaignIndex;					// +0x10
 	_STL::vector<Rva002B7582Campaign *> m_campaigns;	// +0x14
 };
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *name);				// 0x002104B6
-};
+#include "../../../../Include/Common/Rva002104B6.h"
 
 // LivingWorldLogic::AwardOwnershipSetsToPlayers, retail 0x002B7582 (269
 // bytes; WB name, asserts player and baseRegion lines 1893..1896). Every

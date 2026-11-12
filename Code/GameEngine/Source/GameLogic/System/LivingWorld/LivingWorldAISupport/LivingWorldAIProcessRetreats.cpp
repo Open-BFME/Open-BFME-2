@@ -44,7 +44,7 @@ class Rva00318C32Ret {public:char m_pad[0x1a8];_STL::vector<RetreatEntry> entrie
 #include "../../../../../Include/GameLogic/Rva00318C79Owner.h"
 class Rva0020E89C {public:char m_pad[0x13c];int m_13c;};
 #include "../../../../../Include/GameLogic/Rva0020EAF6View.h"
-class Rva002104B6 {public:void *rva002104B6(void*);};
+#include "../../../../../Include/Common/Rva002104B6.h"
 #include "../../../../../Include/GameLogic/Rva002E071E.h"
 #include "../../../../../Include/Common/Rva002B2702.h"
 class LivingWorldLogicView {public:char m_pad[0xb0];Rva0020EAF6View *m_manager;};

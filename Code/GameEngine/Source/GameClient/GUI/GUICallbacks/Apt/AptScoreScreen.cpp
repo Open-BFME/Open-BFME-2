@@ -78,11 +78,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 // TheLivingWorldLogic (VA 0x00DFEF10, the ledger's g_009FEF10); its
 // unrowed 0x002B3740 returns a byte of its current entry, pinned by
 // address.
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *name);
-};
+#include "../../../../../Include/Common/Rva002104B6.h"
 
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 

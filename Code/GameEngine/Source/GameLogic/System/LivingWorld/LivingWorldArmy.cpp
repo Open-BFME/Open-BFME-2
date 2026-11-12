@@ -280,7 +280,7 @@ struct Rva00318E8COut {float f;int i;};
 class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
 struct Rva003F0F13Elem {float x,y;};
 
-class Rva002104B6 {public:void*rva002104B6(void*);};
+#include "../../../../Include/Common/Rva002104B6.h"
 #include "../../../../Include/GameLogic/Rva00319AA0.h"
 class Rva00318F64 {public:void rva00318F64();};
 

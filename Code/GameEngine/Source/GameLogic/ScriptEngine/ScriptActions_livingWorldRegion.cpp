@@ -83,11 +83,7 @@ class Rva0020E89C;
 struct Rva002B488EResult;
 class Rva0040D701ArmySummary;
 
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *name);
-};
+#include "../../../Include/Common/Rva002104B6.h"
 
 class Rva0020FD42
 {

@@ -483,11 +483,7 @@ void Rva001DCDAF::rva001DD7C1(Arg001DCDAF *info, const Vec001DCDAF *position)
 // The living-world region manager's lookups (TheLivingWorldLogic +0xB0):
 // 0x002104B6 finds a region by name, 0x0020EA58 its centre point; the region
 // keeps its owner at +0x13C.
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *name);
-};
+#include "../../Include/Common/Rva002104B6.h"
 class Rva0020E89C;
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
 struct EvaRegionView
