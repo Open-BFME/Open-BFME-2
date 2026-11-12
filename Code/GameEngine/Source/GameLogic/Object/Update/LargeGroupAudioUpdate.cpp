@@ -154,7 +154,7 @@ BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva004ABAC4AddDwordField, 0x20, 0x08)
 // unresolved. Unsigned storage preserves the native32-bit wrap semantics.
 
 // ?get@Rva005F83EDFields@@QBEIXZ
-struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
+#include "../../../../Include/GameLogic/Module/Rva005F83EDFields.h"
 
 extern GameLogic *TheGameLogic;
 
