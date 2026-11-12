@@ -169,10 +169,17 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 BFME_LITERAL_NAME_GETTER(Rva004BB6FCNamed, "FireWeaponCollide")
 
+// Retail's collide interface table 0x00C5A024: onCollide, then CollideModule.h's
+// five slots, which CollideModule answers with its false defaults.
 class CollideModuleInterface
 {
 public:
-	virtual void onCollide(Object *other, const Coord3D *location, const Coord3D *normal) {}
+	virtual void onCollide(Object *other, const Coord3D *location, const Coord3D *normal) = 0;
+	virtual bool wouldLikeToCollideWith(const Object *other) const = 0;
+	virtual bool slot02() const = 0;
+	virtual bool slot03() const = 0;
+	virtual bool slot04() const = 0;
+	virtual bool isSalvageCrateCollide() const = 0;
 };
 
 class CollideModule : public BehaviorModule, public CollideModuleInterface
@@ -183,6 +190,12 @@ public:
 	// BehaviorModuleInterface slot 1 (retail VA 0x00C5A040): CollideModule's override,
 	// rowed at 0x002533D3 (header-inline in CollideModule.h; SquishCollideCtor.cpp).
 	virtual CollideModuleInterface *getCollide();
+
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 };
 
 class FireWeaponCollide : public CollideModule

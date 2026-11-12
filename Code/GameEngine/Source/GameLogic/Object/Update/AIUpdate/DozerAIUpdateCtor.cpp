@@ -403,6 +403,13 @@ class AIUpdateInterface24
 {
 public:
 	virtual void onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal) = 0;
+	// Retail 0x00C52F88 slots 1..5: CollideModule's false defaults (rowed in
+	// WorkerAIUpdateCtor.cpp as this view's ICF twins).
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 };
 
 // ZH's build sub-tasks; BFME 2 turns to face the site (2) before building.
