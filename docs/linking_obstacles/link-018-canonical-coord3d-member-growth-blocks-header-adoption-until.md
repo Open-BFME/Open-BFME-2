@@ -319,3 +319,20 @@ Then verify the typed helper bindings, submit the prepared sources through
 the identity transaction and run the affected-unit link audit. The scoped
 source build with the old ledger still fails on the new names. No retail
 export or production source changed in this attempt.
+
+**2026-11-11 option B is the interim route (swarm Link lane; owner-approved).** The two `Matrix4D` exports are answered by
+counted export aliases until the class-key flip. Option A (the flip, parked in the lane's handoff) retires both.
+- `tools/pin_admission.py --alias` gains one narrow rule, for code exports only. The target must be a matched
+  `functions.csv` row, with a source, at the export's retail address. Its name must be the export's with only the key of a
+  class `CLASS_KEY_EXPORTS` lists changed, checked by `header_adopt_lane.rekey_symbol`. That list holds Coord3D only.
+- Snapshot.cpp now also defines `?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@M@Z`, written out as the constructor's body plus
+  `return *this`. Its row is the constructor's `--icf-owner` twin at 0x00004079, 357 bytes, 23/23. The 2026-11-10 shared
+  force-inlined helper also matched, but it left an unclaimed out-of-line `setAxisAngle` COMDAT.
+- Aliases: `??0Matrix4D@@QAE@ABVCoord3D@@M@Z` -> `??0Matrix4D@@QAE@ABUCoord3D@@M@Z` (ordinal 285) and
+  `?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z` -> `?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@M@Z` (ordinal 1391). The /DEF changes
+  in those two lines only. link_check (index 20:56 at `80569f4278`): Snapshot.cpp LINKS, 1,120 -> 1,120 bytes.
+- Predicted, with LINK-584 step 3 and before `$S22`/`$S26`: 4 -> 2 unresolved.
+- **For the flip:** respelling both rows to `V` makes the ledger name the exports itself, and the aliases would then point at
+  names nothing defines. The flip's commit must delete both alias lines and their `export_alias` register lines, and
+  remove Coord3D from `CLASS_KEY_EXPORTS`.
+- Evidence: `~/bfme2-ops/swarm/sweeps/link-018/option-b/`.
