@@ -79,13 +79,7 @@ class RGBAColorInt;
 // blocked behind the same thing and lands with it.
 
 template bool _STL::vector<bool, _STL::allocator<bool> >::empty() const;
-class BfmePeer
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void *bfmeValue();
-};
+#include "../../../Include/Common/BfmePeer.h"
 class BfmeHost
 {
 public:

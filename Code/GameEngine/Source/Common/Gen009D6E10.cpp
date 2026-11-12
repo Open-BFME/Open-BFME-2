@@ -1,13 +1,7 @@
 // cl: /DNDEBUG /MD
 // Clean C++ conversion of the peer attach/finalize helper at retail RVA 0x009D6E10.
 
-class BfmePeer
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void *bfmeValue();
-};
+#include "../../Include/Common/BfmePeer.h"
 
 class Gen009D6E10
 {
