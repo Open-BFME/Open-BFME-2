@@ -3625,11 +3625,7 @@ public:
 };
 #undef RVA00517EA2_INFO_SLOT
 
-class Rva00517EA2
-{
-public:
-	void rva00517EA2();
-};
+#include "../../../../Include/GameNetwork/Rva00517EA2.h"
 
 void Rva00517EA2::rva00517EA2()
 {

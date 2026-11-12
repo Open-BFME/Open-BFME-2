@@ -267,11 +267,7 @@ struct AptOnlineSubScreen
 };
 extern int g_Va00E06544;
 extern int g_Va00E06548;
-class Rva00517EA2
-{
-public:
-	void rva00517EA2();
-};
+#include "../../../../../Include/GameNetwork/Rva00517EA2.h"
 class AptOnline
 {
 public:

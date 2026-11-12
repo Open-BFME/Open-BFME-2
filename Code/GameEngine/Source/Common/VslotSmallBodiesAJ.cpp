@@ -1152,11 +1152,7 @@ void Rva005B7FFA::rva005B7FFA()
 
 
 
-class Rva00517EA2
-{
-public:
-	void rva00517EA2();
-};
+#include "../../Include/GameNetwork/Rva00517EA2.h"
 class Rva005B800A
 {
 public:
