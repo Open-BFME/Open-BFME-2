@@ -204,18 +204,7 @@ static __forceinline bool namesDiffer(const StringBase<char> &a, const StringBas
 
 #include "../../../../GameEngine/Include/Common/Rva000B4AB5.h"
 
-struct BfmeNarrowRecord00079C23
-{
-	BfmeNarrowRecord00079C23();
-	BfmeNarrowRecord00079C23(const BfmeNarrowRecord00079C23 &o);
-	~BfmeNarrowRecord00079C23();
-	BfmeNarrowRecord00079C23 &operator=(const BfmeNarrowRecord00079C23 &o);
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text0;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text1;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text2;
-	UnsignedInt word0;
-	UnsignedInt word1;
-};
+#include "../../../../GameEngine/Include/Common/BfmeNarrowRecord00079C23.h"
 
 
 #define V1(p) virtual void p();

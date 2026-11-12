@@ -36,17 +36,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 
-struct BfmeNarrowRecord00079C23
-{
-	BfmeNarrowRecord00079C23();
-	~BfmeNarrowRecord00079C23();
-	BfmeNarrowRecord00079C23 &operator=(const BfmeNarrowRecord00079C23 &o);
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text0;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text1;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text2;
-	unsigned int word0;
-	unsigned int word1;
-};
+#include "../../../Include/Common/BfmeNarrowRecord00079C23.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

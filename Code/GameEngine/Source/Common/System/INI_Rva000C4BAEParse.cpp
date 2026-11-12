@@ -46,16 +46,7 @@ typedef const ConstCharPtr *ConstCharPtrArray;
 
 #include "../../../Include/Common/INI/INI.h"
 
-struct BfmeNarrowRecord00079C23
-{
-	BfmeNarrowRecord00079C23();
-	~BfmeNarrowRecord00079C23();
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text0;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text1;
-	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > text2;
-	unsigned int word0;
-	unsigned int word1;
-};
+#include "../../../Include/Common/BfmeNarrowRecord00079C23.h"
 
 extern char *TimeOfDayNames[];
 
