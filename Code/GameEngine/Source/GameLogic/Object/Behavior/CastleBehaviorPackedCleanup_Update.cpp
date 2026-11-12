@@ -45,7 +45,7 @@ extern AI*TheAI;
 #include <string.h>
 #pragma function(memset)
 extern int BfmeLogicFramesPerSecond;
-class Rva00399959 {public:void unpack(bool);};
+#include "../../../../Include/GameLogic/Rva00399959.h"
 class Rva003979FB {public:void rva003979FB(const int*,const int*);};
 struct CastleConditions {unsigned words[19];void clear(){memset(words,0,sizeof(words));}void set(int n){words[n>>5]|=1U<<(n&31);}};
 // Target constructor3983D4 and native secondary vtable slot0 establish the

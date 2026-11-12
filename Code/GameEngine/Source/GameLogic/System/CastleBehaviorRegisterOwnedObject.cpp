@@ -353,7 +353,7 @@ class ThingTemplate;
 extern ThingFactory* TheThingFactory;
 // Existing verified 8B ASCII-plus-word record view. The source pair's scalar
 // identity is unresolved; only the measured layout and copy ABI are used here.
-class Rva00399959 { public: void unpack(bool); };
+#include "../../../Include/GameLogic/Rva00399959.h"
 class CastleConditionBits {
  unsigned words[20];
 public:
