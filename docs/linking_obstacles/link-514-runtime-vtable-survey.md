@@ -2611,3 +2611,13 @@ preview on index `80569f4278`. The next real link must confirm the two
 table names no longer need bridges. The derived table at `0x00838B8C`
 still needs its slot 5 override, and the other folded table names have
 their own emitters.
+
+The derived slot 5 at `0x00406B39` is also inherited or shared by the
+table at `0x00838BA4`. Both pointers reach the same local-static storage
+and guard at VA `0x00E02F64` and `0x00E02F68`. The to-class dry run
+refused a single-class move. Prove the shared provider before changing
+either table's slot binding.
+
+The [tree-buffer fold investigation](../../reverse/attempt_support/tree-buffer-table-class-fold-20261112.md)
+identifies the shared-header and member-lifetime prerequisite for
+`0x007CEEA4`.

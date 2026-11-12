@@ -111,3 +111,12 @@ slot ordering. In particular, check ACC5 primary slot 2 against 0x0056AB35
 before landing canonical inheritance in the shared destructor unit.
 Restoring production inputs returns 8/8 and 2286/2286 bytes; the five source
 units edited by the experiment then verify all 51 code rows and both data rows.
+
+### Base lifetime prerequisite, 2026-11-12
+
+The shared secondary header now contains both typed signatures.
+The live constructor still emits the private primary base
+`Rva0056AC26Base1` and its two matched lifetime bodies. The class-fold
+dry run into `Rva0007DF07` rejects the shared table at VA `0x00BC6F20`
+because 22 other class names also bind it. That fold needs evidence
+beyond the shared table. No production source changed in this attempt.
