@@ -44,14 +44,7 @@ void Rva004E4E05::rva004E4E2A(float value)
 // --- 0x0030F642 (55B): unlink a node (+0x04 previous, +0x08 next) from the
 // list with tail +0x0C and head +0x10, clearing its +0x0C; 0x0030F679 (30B):
 // whether a node from the tail back carries the id (+0x10).
-struct Rva0030F642Node
-{
-	int m_00;
-	Rva0030F642Node *m_prev;								// +0x04
-	Rva0030F642Node *m_next;								// +0x08
-	int m_0C;
-	int m_id;												// +0x10
-};
+#include "../../Include/Common/Rva0030F642Node.h"
 
 class Rva0030F642
 {
