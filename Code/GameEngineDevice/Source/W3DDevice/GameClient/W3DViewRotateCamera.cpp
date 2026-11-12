@@ -37,15 +37,7 @@
 extern Int TheW3DFrameLengthInMsec;
 
 // BFME's ParabolicEase setter also takes the duration it normalizes against.
-class ParabolicEase
-{
-public:
-	void rva0030E51F(Real easeInTime, Real easeOutTime, Real duration);	// setEaseTimes, rowed in ParabolicEase.cpp
-	Real operator()(Real param) const;
-private:
-	Real m_in;
-	Real m_out;
-};
+#include "../../../../GameEngine/Include/Common/ParabolicEase.h"
 
 class W3DView
 {

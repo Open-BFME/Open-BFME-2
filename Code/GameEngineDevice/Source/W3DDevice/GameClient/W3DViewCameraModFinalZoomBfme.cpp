@@ -164,7 +164,7 @@ virtual void slot29();
 virtual void slot30();
 virtual unsigned slot31();
 };
-class ParabolicEase {public:void rva0030E51F(float,float,float);};
+#include "../../../../GameEngine/Include/Common/ParabolicEase.h"
 
 // lookAt support views (WW3D2 camera, ray test and vector math as ZH defines them).
 #include "../../../../../reference/shims/wwmath/Vector2.h"

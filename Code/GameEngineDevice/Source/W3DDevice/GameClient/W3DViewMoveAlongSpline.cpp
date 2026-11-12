@@ -18,14 +18,7 @@ struct ViewBounds {Coord2D lo,hi;};
 struct SplinePoint:public Coord3D {__forceinline SplinePoint(float a,float b,float c){x=a;y=b;z=c;}};
 #include <vector>
 __forceinline void expand(float &lo,float &hi,float x){if(x<lo)lo=x;else if(x>hi)hi=x;}
-class ParabolicEase
-{
-public:
-	void rva0030E51F(float easeIn, float easeOut, float total);
-	float operator()(float)const;
-	float in; // +0x00
-	float out; // +0x04
-};
+#include "../../../../GameEngine/Include/Common/ParabolicEase.h"
 struct SplineRecord {float duration;float steps[10];Coord3D samples[10];Coord3D point;unsigned tail[2];};
 struct SplineState {
  void *vptr;int total,elapsed,wait;ParabolicEase ease;

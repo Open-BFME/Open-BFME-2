@@ -14,14 +14,7 @@ typedef float Real;
 
 extern Int TheW3DFrameLengthInMsec;
 
-class ParabolicEase
-{
-public:
-	void rva0030E51F(float easeIn, float easeOut, float total);
-	float operator()(float)const;
-	float in; // +0x00
-	float out; // +0x04
-};
+#include "../../../../GameEngine/Include/Common/ParabolicEase.h"
 class Rva00086E24
 {
 public:
