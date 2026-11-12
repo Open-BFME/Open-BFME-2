@@ -494,3 +494,59 @@ vptr store the walk reaches, in walk order.
   (`zero-vtable-placeholders-20261107-lk49.tsv`), so repaired stores still print `ZERO` and new stand-ins print
   `PLACEHOLDER`. Classifying by the stored symbol's object contents (no relocations and at most 4 bytes, or all
   zero) gives the inventory above.
+
+**2026-11-12, seat halilkkaya-lk99 (base `9687ee6b74c`): zero vptr stores, 33 -> 0 outside the FX particle units.**
+- Repaired, all 33 module-factory rows lk98 left (walker re-run after each family; constructor bytes unchanged in every
+  unit, only the vptr relocation's target or the stand-in's contents changed; no symbol or initializer added; offline
+  `vtable_bridge.plan()` unchanged throughout: 3453 bridged, 2109 correct, 35 refused, 38200 mismatching source
+  slots; link_check LINKS with bytes unchanged for every touched unit, the units naming its ctor and the named tables'
+  definers):
+  - "Give HordeTransportContain, Invisibility and TimerRefresh ctors their retail tables" (six `char g_X` stand-ins,
+    lk98's recipe; six data_ledger.csv names `@@3DA` -> `@@3QBQBXB`).
+  - "Give four module ctors their retail tables, not zero-int stand-ins" (RiderChangeContain 5, CitadelSlaughterHorde 3,
+    AnnounceBirthAndDeath 4, EvaAnnounceClientCreate 2: the TU-local `static int s_X` becomes a `.rdata` table under the
+    same `_s_X` name, lk96's Rampage recipe).
+  - "Store SpecialAbilityUpdate's interface table at +0x20 in two more ctors" (DominateEnemySpecialPower,
+    ActivateModuleSpecialPower).
+  - "Store the real tables in four ctors whose units own the placeholder class" (HealContain, DelayedDeathBody,
+    ToggleMounted, CastleMemberBehavior: lk96's C2373 blocker; the two blocked re_attempts rows are retracted).
+  - "Give Rva0026E7EA's ctor its retail table, not a one-byte anchor" (data row 1 -> 16 bytes, renamed `@@3QBQBXB`).
+- The C2373 lever (reusable): in a unit that defines a polymorphic class, `??_7Class@@6B...@` is the compiler's own
+  vftable entity, typed `void (__cdecl *const [N])(void)` with N the slot count of that unit's view. Declaring it as
+  `const void *const []` is C2373 and as `char` C2040, but
+  `extern "C" void (__cdecl *const __identifier("??_7...")[N])(void);` (placed after the class; the compiler's error
+  names N) is accepted as the same entity and the store relocates to it. Check the object diff: for HealContain,
+  DelayedDeathBody, ToggleMounted and the canonical SpecialAbilityUpdate.h nothing is added, but naming
+  CastleMemberBehaviorCtor.cpp's own novtable view's table made the unit emit a conflicting 2-slot
+  `??_7CastleMemberBehavior@@6B@` plus `??_G`/`??1` COMDATs, so that one store keeps an owned 3-slot `s_secondary10`
+  table instead. The same lever is a lead for the other recorded C2373 blockers (`_g_payloadCloneTable0`, LINK-617's
+  0x00879EA8 arrays; ArmySummary's header adoption; the C2373 TU-merge dry runs for LargeGroupAudioUpdate,
+  ChatWindowsInGame, SupplyCenterProductionExitUpdate and LivingWorldScoreKeeper).
+- One tier deeper (walker `--max-tier 3` and `5`; lk98's zjoin plus a definer lookup for its `external` kind):
+  "Give three FX module copy ctors their retail tables, not one-byte stand-ins" (Common/ copy ctors Rva003AE017,
+  Rva003AE03D, Rva003AE0D5; LifeEventModuleConstructor.cpp names the same C symbols and now gets the full tables too)
+  and "Give the life-event module copy ctor its retail tables, not one-byte stand-ins" (Rva003AE0AF). Eight data rows
+  grow 1 -> 16 bytes, so the byte gate proves every slot's relocation.
+- Ledger-wide sweeps (not walk-bound): every ledger-named source-owned symbol at a vtable-like retail address (first
+  two words in .text) with no relocations and at most 4 bytes, and every non-relocated word in any built object's data
+  symbol equal to a functions.csv row start. They found two LINK-617 address-placeholder tables, both repaired: "Give
+  the FESL diag vftable its six retail slots, not a bare retail address" (`g_bfmeVftTDA`, 0x00CE157C) and "Relocate
+  g_bfmeVtableCZ's three bare retail slot addresses" (0x00CE4A10). The rest are strings and constant tables.
+- Zero rows left, all in GameClient/System/FXParticleSystem/ units (another lane; not touched), walk order at tier 5:
+  ConcreteModuleTemplateCopyCtors.cpp (Rva003AEF6E 0x00C1CF38/0x00C1C640/0x00C1CF28, Rva003AEB9C 0x00C1CE64,
+  Rva003AEC5E 0x00C1CE98), DefaultModuleTemplateCopyCtors.cpp (Rva003AEF9B 0x00C1D758/0x00C1D728, one-byte, stored by
+  two ctors), Rva003AC9AFCreate.cpp (`_s_vtA24_00/_10` 0x00C1CA04/0x00C1C9F0, `_s_vt93E_00/_0C` 0x00C1C954/0x00C1C940,
+  `_s_vtD03B_00/_0C` 0x00C1CED8/0x00C1CEC8), Rva005646BC.cpp (Rva003AE2CF 0x00C1D3A0/0x00C1D390, one-byte, also stored
+  by ??0Rva003AE2CF), DefaultModuleTemplate01InlineCopyCtors.cpp (Rva003AEA42 0x00C1D5D4/0x00C1D5C4, one-byte, two
+  ctors), Rva003AEADDCopyCtor.cpp (0x00C1CDF0/0x00C1C538). Cheapest: `_s_vtA24_*` and `_s_vtD03B_*` stand for the very
+  addresses whose complete tables the extern "C" `Rva003AE0AF_v0/_v10` and `Rva003AE017_v0/_v0C` now own; name those.
+  The rest take the same recipe (owned table, data row grown to the table's size).
+- Measurement pitfall: link_check of DominateEnemySpecialPower.cpp alone reports "does not link" (816 -> 0) on
+  `??_7DominateEnemySpecialPowerModuleData@@6B@`: the census's stale copy of FamilyDeletingDtors_muse-95ab.cpp (both
+  changed after census `c31795c94c` by "Derive five more ModuleData views from ModuleData, constructor units
+  included"). Checked together they LINK (816 + 56 B).
+- Tooling leads (tools/ not edited): zjoin's `external` kind should classify the defining object's copy (it hid the
+  four FX one-byte stand-ins defined in another unit), and stored string literals of at most 4 bytes (`"END"`,
+  `"_up"`, `"HZz"`, `"yes"`, `"Lua"`) are walker false positives (their bytes read as .text words).
+- Clearance: none claimed. The next real link should show these units' tables relocated, and image_iso should drop
+  0x00CE157C and 0x00CE4A10 from `unrelocated_retail_address`.

@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Partly repaired (7 of 12 sources fixed in source; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-10; inspected revision: 5c069f65d8f (image 0a36813ed0, image_iso 35c0259989, census 51f6d2483f); repairs on 31e5d302162, 10748c0b80c and da227633903.
+Status: Repaired in source (all 12 arrays relocate every slot as of 2026-11-12, last section; class identity and TU evidence for the CZ and FESL classes stay open; header lane); clearance pending. Updated: 2026-11-12; inspected revision: 5c069f65d8f (image 0a36813ed0, image_iso 35c0259989, census 51f6d2483f); repairs on 31e5d302162, 10748c0b80c and da227633903.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -268,6 +268,20 @@ bytes, census `51f6d2483f`), and zero references to `?vftable_0112B89C@@3HA` or 
 11 removed placeholders in all 32 compiled `.obj` files. Pass test: next real link
 and `image_iso` drop 0x0081C780 (`strong-definition` + 11 `bridged` alias rows)
 and remove 0x00C1C780 from `defects.tsv`; clearance pending until observed there.
+
+2026-11-12, seat halilkkaya-lk99 (base `9687ee6b74c`): the last two open arrays relocated in source.
+- `g_bfmeVftTDA` (0x00CE157C, Rva007EBAA0Create.cpp) held one word, slot 0 as a bare integer, and no slots 1-5.
+  "Give the FESL diag vftable its six retail slots, not a bare retail address": the unit owns all six retail slots by
+  relocation (each a matched row the census index defines); the type `void *[]` keeps the mangling, so its four
+  storing units are unchanged. 1/1 rows exact, link_check 4/4 LINKS (210 B).
+- `g_bfmeVtableCZ` (0x00CE4A10, Bfme5ThirtyTwo.cpp): "Relocate g_bfmeVtableCZ's three bare retail slot addresses":
+  slots 0, 1 and 7 are now `(int)&__identifier(...)` of the rows the table above names, like the existing `_purecall`
+  slots; the 120-byte data row stays byte-verified (19 relocation targets equal to retail), no initializer added,
+  link_check 3/3 LINKS (234 B). The CZ class identity questions above are unchanged.
+- Rva007EB310Destroy.cpp, ServiceHubImpl.cpp and ServiceHubImpl_ctor.cpp in the table above already store compiler
+  tables by name (`??_7Rva007EB2C0Object@@6B@`, `??_7ServiceHubImpl@@6B@`, `??_7Rva00657670@@6B@`,
+  `??_7BfmeMsgVJH@@6B@`) on this base. A sweep of every built object's data symbols for a non-relocated word equal to
+  a functions.csv row start found nothing else but strings and the constant tables listed under "Not pointers".
 
 Not pointers (left as they are):
 - Huff.cpp `LZHLEncoderStat::symbolTable0`: henc.tbl packed {nBits, code} shorts (0x00B70008,
