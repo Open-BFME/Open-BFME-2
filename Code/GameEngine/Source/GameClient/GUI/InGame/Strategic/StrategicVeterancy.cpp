@@ -22,7 +22,8 @@
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);private:void *ptr;};
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-class AptCommandMap {}; class AptExternHandler {};
+#include "../../../../../Include/Common/AptCommandMap.h"
+class AptExternHandler {};
 template<class T> class AptRef {
 public:
  AptRef(const DelegateDesc*delegateDesc){((Rva00579E47*)this)->Rva00579E47::Rva00579E47(*delegateDesc);}

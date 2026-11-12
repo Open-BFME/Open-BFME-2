@@ -53,12 +53,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEE
 
 #include "../../../../../Include/Common/DelegateDesc.h"
 
-class AptCommandMap
-{
-public:
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../../../../Include/Common/AptCommandMap.h"
 
 // Build the same four-byte owning delegate through its rowed constructor.
 class Rva00579E47

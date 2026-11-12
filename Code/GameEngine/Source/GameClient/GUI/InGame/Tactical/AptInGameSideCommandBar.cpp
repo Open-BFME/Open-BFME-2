@@ -56,7 +56,7 @@ public:
 private:
  void *m_ptr;
 };
-class AptCommandMap { public: void *m_vtbl; int m_refCount; };
+#include "../../../../../Include/Common/AptCommandMap.h"
 template<class T> class AptRef {
 public:
  AptRef(const SideBarDelegateDesc *desc) { ((Rva00579E47 *)this)->Rva00579E47::Rva00579E47(*(const DelegateDesc *)desc); }

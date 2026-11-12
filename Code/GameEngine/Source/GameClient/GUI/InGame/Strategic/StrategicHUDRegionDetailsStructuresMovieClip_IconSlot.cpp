@@ -67,12 +67,7 @@ class AptCommandMap;
 
 #include "../../../../../Include/Common/DelegateDesc.h"
 
-class AptCommandMap
-{
-public:
-	void *m_vtbl;
-	int m_refCount;
-};
+#include "../../../../../Include/Common/AptCommandMap.h"
 
 class Rva00579E47 {
 public:
