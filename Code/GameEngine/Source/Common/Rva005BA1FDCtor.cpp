@@ -4,11 +4,7 @@
 // three polymorphic tables, publishes this to the 0xE06544 global when clear,
 // and returns this. Both constructors bind the verified destructor emitters'
 // compiler tables; complete class identities and table slots remain unrecovered.
-class AptOnlineCustomMatch
-{
-public:
-	AptOnlineCustomMatch(int x, int y);
-};
+#include "../../Include/GameClient/AptOnlineCustomMatch.h"
 
 
 // Retail table at VA 0x00C73D34: Rva005BA23A's compiler table (Rva005BA2CBDtor.cpp emits it).

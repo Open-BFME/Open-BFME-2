@@ -516,7 +516,7 @@ void Rva00521B48::rva00521B48(int, int)
 	((AptSkirmish *)((char *)this - 0x27C))->InitCreateAHeroOnStartGame();
 }
 
-class AptOnlineCustomMatch { public: void UpdatePings(); };
+#include "../../Include/GameClient/AptOnlineCustomMatch.h"
 class Rva0059EF57 { public: void rva0059EF57(int, int, int); };
 void Rva0059EF57::rva0059EF57(int, int, int)
 {

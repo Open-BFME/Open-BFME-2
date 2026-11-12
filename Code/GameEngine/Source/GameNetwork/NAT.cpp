@@ -138,11 +138,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // --- 0x0059F9D7 (18B) / 0x0059F9E9 (18B), cdecl: open the custom-match
 // connection screen of the 0x00E063EC instance (rowed 0x0059F37C with true,
 // false).
-class AptOnlineCustomMatch
-{
-public:
-	void OpenConnectionScreen(bool show);					// 0x0059F37C
-};
+#include "../../Include/GameClient/AptOnlineCustomMatch.h"
 
 extern int g_currentAptOnlineCustomMatch;
 

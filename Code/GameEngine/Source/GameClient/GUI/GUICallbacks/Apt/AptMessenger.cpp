@@ -62,7 +62,7 @@ struct Rva005AE7C6Info {
 // (0x0059FB4F) and the helper the rowed cdecl Rva0041647ASend (0x0041647A),
 // whose 24-byte Rva004160BEInfo record has this local's layout.
 class Rva0059EF62;
-class AptOnlineCustomMatch {public: bool FillBuddyInviteGameInfo(Rva0059EF62 *info);};
+#include "../../../../../Include/GameClient/AptOnlineCustomMatch.h"
 extern int g_currentAptOnlineCustomMatch;
 struct Rva004160BEInfo;
 void Rva0041647ASend(const Rva004160BEInfo *info);

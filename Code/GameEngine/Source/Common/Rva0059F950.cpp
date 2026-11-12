@@ -83,11 +83,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 // name (AptOnlineCustomMatch.cpp line 1890). State 8 only clears +0x333;
 // otherwise it saves the slot preferences (0x0059F950 on the same this),
 // leaves the GameSpy room, notifies the +0x70 member and resets the state.
-class AptOnlineCustomMatch
-{
-public:
-	void OnBttnCancel(int unused);
-};
+#include "../../Include/GameClient/AptOnlineCustomMatch.h"
 
 void AptOnlineCustomMatch::OnBttnCancel(int)
 {

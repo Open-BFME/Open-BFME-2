@@ -31,11 +31,7 @@ enum GameSpyColors { GSCOLOR_DEFAULT = 0 };
 extern Color GameSpyColor[];
 extern int isThreadHosting;
 
-class AptOnlineCustomMatch
-{
-public:
-	bool handleSlashCommands(UnicodeString uText);
-};
+#include "../../../../../Include/GameClient/AptOnlineCustomMatch.h"
 
 // Retail inlines AsciiString::getCharAt(0) here (the shared header calls it
 // out of line); it reads the string data header

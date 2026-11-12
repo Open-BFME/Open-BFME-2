@@ -1,0 +1,879 @@
+{
+ "bases": [
+  "Rva0056DC6B",
+  "Rva004444D2",
+  "Rva0059EB41"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptOnlineCustomMatch",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 27,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 3
+   },
+   "0x320": {
+    "4": 1
+   },
+   "0x333": {
+    "1": 1
+   },
+   "0x450": {
+    "4": 4
+   },
+   "0x488": {
+    "4": 10
+   },
+   "0x48c": {
+    "4": 5
+   },
+   "0x498": {
+    "4": 1
+   },
+   "0x49c": {
+    "4": 2
+   },
+   "0x4a0": {
+    "1": 4
+   },
+   "0x4ac": {
+    "4": 2
+   },
+   "0x4c1": {
+    "1": 2
+   },
+   "0x4d8": {
+    "4": 2
+   },
+   "0x58": {
+    "4": 3
+   },
+   "0xec": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5a5bc7"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0056DC4C",
+       "offset": 0,
+       "own_vftable": "0x871414",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva004444D2",
+       "offset": 96,
+       "own_vftable": "0x8713b8",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva0059EB66",
+       "offset": 108,
+       "own_vftable": "0x8713ac",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5a5bc7"
+     ],
+     "value": 1248
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5a5bc7"
+     ],
+     "value": {
+      "0x488": [
+       4
+      ],
+      "0x48c": [
+       4
+      ],
+      "0x490": [
+       4
+      ],
+      "0x498": [
+       4
+      ],
+      "0x49c": [
+       4
+      ],
+      "0x4a0": [
+       1
+      ],
+      "0x4a4": [
+       4
+      ],
+      "0x4a8": [
+       4
+      ],
+      "0x4ac": [
+       4
+      ],
+      "0x4b0": [
+       4
+      ],
+      "0x4b4": [
+       1
+      ],
+      "0x4b8": [
+       4
+      ],
+      "0x4bc": [
+       4
+      ],
+      "0x4c0": [
+       1
+      ],
+      "0x4c1": [
+       1
+      ],
+      "0x4c2": [
+       1
+      ],
+      "0x4c4": [
+       4
+      ],
+      "0x4c8": [
+       4
+      ],
+      "0x4cc": [
+       4
+      ],
+      "0x4d4": [
+       4
+      ],
+      "0x4d8": [
+       1
+      ],
+      "0x4dc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5a5bc7"
+     ],
+     "value": {
+      "0x4": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ],
+      "0x450": [
+       "??0GameSorter@@QAE@PAVRva005248D0@@@Z"
+      ],
+      "0x46c": [
+       "??0Rva0054F508@@QAE@H@Z"
+      ],
+      "0x4d0": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0x70": [
+       "??0AptMpGameSetup@@QAE@PAVMpGameSetupOwner@@H@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5a5bc7"
+     ],
+     "value": {
+      "0x0": "0x871414",
+      "0x60": "0x8713b8",
+      "0x6c": "0x8713ac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x871414"
+     ],
+     "value": {
+      "count": 11,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva005A0009@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5a0b62"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?InitGadgets@AptOnlineCustomMatch@@UAEXXZ",
+        "slot": 2,
+        "target": "0x59efa0"
+       },
+       {
+        "name": "?Update@AptOnlineCustomMatch@@UAEXXZ",
+        "slot": 3,
+        "target": "0x5a61c6"
+       },
+       {
+        "name": "?rva005A6582@AptOnlineCustomMatch@@UAEHHHEH@Z",
+        "slot": 4,
+        "target": "0x5a6582"
+       },
+       {
+        "name": "?GameWindowSystem@AptOnlineCustomMatch@@UAEHPAVGameWindow@@III@Z",
+        "slot": 5,
+        "target": "0x5a52fe"
+       },
+       {
+        "name": "?ProcessGameSpyResponses@AptOnlineCustomMatch@@QAEXXZ",
+        "slot": 6,
+        "target": "0x5a2db7"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 7,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0059EF49@AptOnlineCustomMatch@@UAE_NXZ",
+        "slot": 8,
+        "target": "0x59ef49"
+       },
+       {
+        "name": "?rva005A6697@AptOnlineCustomMatch@@UAE_NXZ",
+        "slot": 9,
+        "target": "0x5a6697"
+       },
+       {
+        "name": "__purecall",
+        "slot": 10,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x871414"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 34,
+  "retail_vtables": {
+   "0x8713ac": {
+    "offset": 108,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8713b8": {
+    "offset": 96,
+    "slots": {},
+    "stores": 1
+   },
+   "0x871414": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva005A0009@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?InitGadgets@AptOnlineCustomMatch@@UAEXXZ",
+     "3": "?Update@AptOnlineCustomMatch@@UAEXXZ",
+     "4": "?rva005A6582@AptOnlineCustomMatch@@UAEHHHEH@Z",
+     "5": "?GameWindowSystem@AptOnlineCustomMatch@@UAEHPAVGameWindow@@III@Z",
+     "6": "?ProcessGameSpyResponses@AptOnlineCustomMatch@@QAEXXZ",
+     "7": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "8": "?rva0059EF49@AptOnlineCustomMatch@@UAE_NXZ",
+     "9": "?rva005A6697@AptOnlineCustomMatch@@UAE_NXZ",
+     "10": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 6,
+   "1040": 1,
+   "1172": 1,
+   "1184": 2,
+   "1188": 3,
+   "1200": 1,
+   "1220": 3,
+   "1236": 1,
+   "1240": 2,
+   "1244": 1,
+   "1248": 4
+  },
+  "views": 25,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 13,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0059ECD2.cpp",
+    "Code/GameEngine/Source/Common/Rva0059EE96Finish.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchAcceptJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 800,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 804,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 809,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 810,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1036,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_MpOwnerSelectStrategicScenario.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005A0D61Box.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 1132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 1160,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0059ECD2.cpp",
+    "Code/GameEngine/Source/Common/Rva005A5BAFCheck.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchAcceptJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 1164,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_InitGadgets.cpp",
+    "Code/GameEngine/Source/Common/Rva005A5BAFCheck.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 1168,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_InitGadgets.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 1172,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_InitGadgets.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1176,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_InitGadgets.cpp",
+    "Code/GameEngine/Source/Common/Rva0059ECD2.cpp",
+    "Code/GameEngine/Source/Common/Rva005A083CListNotify.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchAcceptJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 1180,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptOnlineCustomMatch_InitGadgets.cpp",
+    "Code/GameEngine/Source/Common/Rva0059ECD2.cpp",
+    "Code/GameEngine/Source/Common/Rva005A083CListNotify.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchAcceptJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 1184,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0059ECD2.cpp",
+    "Code/GameEngine/Source/Common/Rva005A5BAFCheck.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchAcceptJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 1188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1192,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1196,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005A0D61Box.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1200,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1204,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1208,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1216,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchLeaveRoom.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1217,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0059EE96Finish.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1218,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1220,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1224,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1228,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1232,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1240,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1244,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x6c",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "AptOnlineCustomMatch"
+  }
+ ],
+ "size": 1248,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "v01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "v10()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "v03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "v04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "v05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "v06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "v07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "v08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "v09()"
+  }
+ }
+}
