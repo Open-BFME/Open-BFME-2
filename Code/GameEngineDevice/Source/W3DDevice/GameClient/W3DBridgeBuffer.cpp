@@ -214,11 +214,7 @@ private:
 	int m_flags; // +0x20
 	char m_properties[4]; // +0x24
 };
-class BfmeMapObjectListHolder
-{
-public:
-	MapObject *m_bfmeHead;
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 // TheTerrainRenderObject's height query, slot +0x244.
@@ -719,7 +715,7 @@ void W3DBridgeBuffer::loadBridges(W3DTerrainLogic *pTerrainLogic, bool saveGame)
 	MapObject *pMapObj;
 	MapObject *pMapObj2;
 	BfmeTerrainHeightQuery *terrain;
-	for (pMapObj = BfmeTheMapObjectListHolder->m_bfmeHead; pMapObj; pMapObj = pMapObj->getNext()) {
+	for (pMapObj = BfmeTheMapObjectListHolder->m_head; pMapObj; pMapObj = pMapObj->getNext()) {
 		if (pMapObj->getFlag(FLAG_BRIDGE_POINT1)) {
 			pMapObj2 = pMapObj->getNext();
 			if (pMapObj2 == NULL)

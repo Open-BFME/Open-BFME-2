@@ -943,11 +943,7 @@ public:
 	AsciiString rva0030D748();
 };
 class MapObject;
-class BfmeMapObjectListHolder
-{
-public:
-	MapObject *m_head;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 class MapObject
 {

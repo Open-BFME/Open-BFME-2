@@ -8,11 +8,7 @@
 // direct caller found.
 class MapObject;
 
-class BfmeMapObjectListHolder
-{
-public:
-	MapObject *m_head;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 

@@ -103,11 +103,7 @@ private:
 	Int m_runtimeFlags;
 };
 
-class BfmeMapObjectListHolder
-{
-public:
-	MapObject *m_head;
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
 

@@ -141,7 +141,7 @@ public:
     unsigned int flags;
     bool isWall() const { return (flags & 0x20) != 0; }
 };
-class BfmeMapObjectListHolder {public: MapObject *m_head;};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 class Rva0030D4F2 {public:int rva0030D4F2();int rva0030D50C();};
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0030D808.h"

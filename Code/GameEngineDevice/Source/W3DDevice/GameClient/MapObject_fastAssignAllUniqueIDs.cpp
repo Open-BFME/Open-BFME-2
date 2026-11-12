@@ -77,11 +77,7 @@ class ThingTemplate : public ThingTemplateHead, public ThingTemplateName
 
 class MapObject;
 
-class BfmeMapObjectListHolder
-{
-public:
-	MapObject *m_head;
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
 

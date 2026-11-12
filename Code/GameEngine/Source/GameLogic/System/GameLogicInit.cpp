@@ -1832,11 +1832,7 @@ private:
 	Dict m_properties;
 };
 
-class BfmeMapObjectListHolder
-{
-public:
-	MapObject *m_head;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 
 // The map-object list head all readers share (other TUs spell the class
 // BfmeMapObjectListHolder with m_head at the same +0x00); defined once here,
