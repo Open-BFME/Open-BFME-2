@@ -66,10 +66,7 @@ BfmeStringRecord00219A68::BfmeStringRecord00219A68(unsigned int w0, const AsciiS
 template void _STL::_Construct<BfmeStringRecord00219A68,BfmeStringRecord00219A68>(BfmeStringRecord00219A68*,const BfmeStringRecord00219A68&);
 
 // Complete retail record copy at0x0022074B.
-struct BfmeStringRecord0022074B {
-    AsciiString text0, text1; unsigned int word;
-    BfmeStringRecord0022074B(const BfmeStringRecord0022074B &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord0022074B.h"
 BfmeStringRecord0022074B::BfmeStringRecord0022074B(const BfmeStringRecord0022074B &source) : text0(source.text0), text1(source.text1), word(source.word) {}
 template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B>(BfmeStringRecord0022074B*,const BfmeStringRecord0022074B&);
 

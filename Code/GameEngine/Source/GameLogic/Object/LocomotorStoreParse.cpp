@@ -20,13 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-struct BfmeStringRecord0022074B
-{
-	AsciiString text0;
-	AsciiString text1;
-	unsigned int word;
-	BfmeStringRecord0022074B(const BfmeStringRecord0022074B &other);
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord0022074B.h"
 
 class LocomotorStore
 {

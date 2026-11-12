@@ -249,10 +249,7 @@ struct BfmeStringRecord00219A68 {
 };
 template void _STL::_Construct<BfmeStringRecord00219A68,BfmeStringRecord00219A68>(BfmeStringRecord00219A68*,const BfmeStringRecord00219A68&);
 // Complete retail record copy at0x0022074B.
-struct BfmeStringRecord0022074B {
-    AsciiString text0, text1; unsigned int word;
-    BfmeStringRecord0022074B(const BfmeStringRecord0022074B &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord0022074B.h"
 template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B>(BfmeStringRecord0022074B*,const BfmeStringRecord0022074B&);
 // Native5BC576 copies six AsciiString fields and the resume byte at24.
 // WB MainMenuUtils and ZH DownloadManager.h establish QueuedDownload identity.
