@@ -7,13 +7,7 @@
 // matching Rva0002C9C2 in RegistryAsciiPath.cpp.
 class AsciiString;
 
-class Rva000B980E
-{
-public:
-	void rva000B980E(char *dst, int off, int size);
-private:
-	AsciiString *m_str;
-};
+#include "../../Include/Common/Rva000B980E.h"
 
 class Rva000BBD66 : public Rva000B980E
 {

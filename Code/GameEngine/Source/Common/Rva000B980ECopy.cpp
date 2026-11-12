@@ -9,13 +9,7 @@
 
 #include "ascii_string.h"
 
-class Rva000B980E
-{
-public:
-	void rva000B980E(char *dst, int off, int size);
-private:
-	AsciiString *m_str;
-};
+#include "../../Include/Common/Rva000B980E.h"
 
 void Rva000B980E::rva000B980E(char *dst, int off, int size)
 {

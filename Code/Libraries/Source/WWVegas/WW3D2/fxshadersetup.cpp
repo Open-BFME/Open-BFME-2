@@ -348,11 +348,7 @@ struct Rva000B6AA9Rec
 };
 Rva000B6AA9Rec *__cdecl Rva000B6AA9Build(Rva000B6AA9Rec *dest, void **srcpp, int val);
 int Rva00151ECDLen(const char *src);
-class Rva000B980E
-{
-public:
-	void rva000B980E(char *dest, int start, int len);
-};
+#include "../../../../GameEngine/Include/Common/Rva000B980E.h"
 #include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
 #include "../../../../GameEngine/Include/Common/AsciiStringRef.h"
 #include "../../../../GameEngine/Include/Common/AsciiStringPlusText.h"
