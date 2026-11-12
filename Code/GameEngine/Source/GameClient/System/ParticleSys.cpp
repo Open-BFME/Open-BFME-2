@@ -550,11 +550,7 @@ public:
 struct Rva001F4206Helper {
     virtual void *func(int x);
 };
-class Rva001F4206 {
-public:
-    Rva001F4206Helper *m_ptr;
-    __declspec(noinline) void rva001F4206();
-};
+#include "../../../Include/Common/Rva001F4206.h"
 // Native0x001F45EF..0x001F45F4: tail JMP to sole owned cleanup0x001F4206.
 // No receiver adjustment no stack arguments RET0. Original wrapper name
 // enclosing class and lifetime role unknown; existing receiver view reused.

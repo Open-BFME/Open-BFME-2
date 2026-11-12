@@ -1,12 +1,14 @@
-// Rva001F4206: canonical declarations for the members 3 units call through private views of it;
-// each call resolves to the unit's ledger row or pin, and no unit reads its layout, which stays opaque.
+// The cleanup at RVA 0x001F4206 reads the helper pointer at offset zero.
 #ifndef CANONICAL_RVA001F4206_H
 #define CANONICAL_RVA001F4206_H
+
+struct Rva001F4206Helper;
 
 class Rva001F4206
 {
 public:
-	void rva001F4206();
+	Rva001F4206Helper *m_ptr;
+	__declspec(noinline) void rva001F4206();
 };
 
 #endif // CANONICAL_RVA001F4206_H
