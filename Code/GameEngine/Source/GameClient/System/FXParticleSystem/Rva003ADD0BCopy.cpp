@@ -32,10 +32,28 @@ class Rva003ADD0B : public Rva003ADD31
 public:
 	Rva003ADD0B(const Rva003ADD0B &other);
 };
+// Retail table 0x00C1C940 (4 slots), the +0x0C secondary vftable this constructor
+// stores. Its first word, the -0x0C deleting adjustor 0x003A5A48, reads as the
+// bytes of "HZz", so the string literal stood in for it. Own the complete
+// initialized table (Rva004DF324Dtor.cpp s_10 precedent): each slot names a
+// matched row at retail's slot target, taken by address and never called
+// through these erased signatures.
+extern "C" {
+void __identifier("??_ERva003ADFB2@@WM@AEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+void __identifier("?Rva003AC9A1Get@@YAHXZ")();
+void __identifier("?rva0055BB5C@Rva0055BB5C@@WM@AEXPAVXfer@@@Z")();
+}
+static const void *const s_vtable0C[4] = {
+	(const void *)&__identifier("??_ERva003ADFB2@@WM@AEPAXI@Z"), //  0 0x003A5A48
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva003AC9A1Get@@YAHXZ"), //  2 0x003AC9A1
+	(const void *)&__identifier("?rva0055BB5C@Rva0055BB5C@@WM@AEXPAVXfer@@@Z")  //  3 0x003AC9A7
+};
 Rva003ADD0B::Rva003ADD0B(const Rva003ADD0B &other)
 	: Rva003ADD31(other)
 {
 	*(const void **)this = g_00C1C954;
 	*(const void **)((char *)this + 8) = __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$0A@@1@@");
-	*(const char **)((char *)this + 12) = "HZz";
+	*(const void **)((char *)this + 12) = s_vtable0C;
 }

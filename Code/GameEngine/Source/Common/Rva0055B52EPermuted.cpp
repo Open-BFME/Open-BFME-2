@@ -80,10 +80,28 @@ private:
 	unsigned int m_index;
 };
 
+// Retail table 0x00C1D10C (4 slots), the +0x0C secondary vftable this constructor
+// stores. Its first word, the -0x0C deleting adjustor 0x003A5A48, reads as the
+// bytes of "HZz", so the string literal stood in for it. Own the complete
+// initialized table (Rva004DF324Dtor.cpp s_10 precedent): each slot names a
+// matched row at retail's slot target, taken by address and never called
+// through these erased signatures.
+extern "C" {
+void __identifier("??_ERva003ADFB2@@WM@AEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+void __identifier("?Rva003AC930Get@@YAHXZ")();
+void __identifier("?xfer@Rva0055B3D9@@WM@AEXPAVXfer@@@Z")();
+}
+static const void *const s_vtable0C[4] = {
+	(const void *)&__identifier("??_ERva003ADFB2@@WM@AEPAXI@Z"), //  0 0x003A5A48
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva003AC930Get@@YAHXZ"), //  2 0x003AC930
+	(const void *)&__identifier("?xfer@Rva0055B3D9@@WM@AEXPAVXfer@@@Z")  //  3 0x003AC936
+};
 Rva0055B52E::Rva0055B52E(unsigned int a, const Rva0055B52ESrc *src)
 	: Rva0055BCD2(a)
 {
-	*(const void **)&m_member = (const void *)"HZz";
+	*(const void **)&m_member = s_vtable0C;
 	*(const void **)this = g_00C1D11C;
 	*(void **)((char *)this + 8) = (void *)&__identifier("??_7Rva003F498ACallback@@6B@");
 	unsigned int *zDst = &m_member.m_keys[0].m_frame;
