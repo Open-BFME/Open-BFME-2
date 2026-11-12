@@ -467,11 +467,7 @@ public:
 	int m_0C;
 };
 #include "../../../../Include/Common/Rva004B5B82Base10.h"
-class Rva004B5B82Iface
-{
-public:
-	virtual void rva004B5B82();
-};
+#include "../../../../Include/Common/Rva004B5B82Iface.h"
 class Rva004B5B82 : public Rva004B5B82Base0, public Rva004B5B82Base10, public Rva004B5B82Iface
 {
 public:
