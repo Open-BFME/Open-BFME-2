@@ -73,6 +73,7 @@ public:
 	virtual bool slot5(int);
 	virtual bool slot6(int);
 	virtual int rva005CE7BF(int);
+	virtual bool slot8(int);	// retail 0x00875158 slot 8: the shared false default 0x005CB9FF
 	virtual void event1_1(int);
 	virtual void NotifyBuildingAboutToBeDestroyedByUI(int);
 private:

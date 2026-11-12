@@ -156,6 +156,7 @@ public:
 	virtual bool slot5(int);
 	virtual bool slot6(int);
 	virtual int rva005CE7BF(int);
+	virtual bool slot8(int);	// retail 0x00875158 slot 8: the shared false default 0x005CB9FF
 	virtual void event1_1(int);
 	virtual void NotifyBuildingAboutToBeDestroyedByUI(int);
 
@@ -629,3 +630,4 @@ int StrategicInGameUI::PlanningPhaseBuildingSelection::slot2(void *) { return 0;
 int StrategicInGameUI::PlanningPhaseBuildingSelection::slot3(const void *, int) { return -1; }
 bool StrategicInGameUI::PlanningPhaseBuildingSelection::slot5(int) { return false; }
 bool StrategicInGameUI::PlanningPhaseBuildingSelection::slot6(int) { return false; }
+bool StrategicInGameUI::PlanningPhaseBuildingSelection::slot8(int) { return false; }
