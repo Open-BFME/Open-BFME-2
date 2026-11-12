@@ -10,11 +10,7 @@ char Rva0134D4B8FormatBuffer[2048];
 #include <stdio.h>
 #include <new>
 
-struct BfmeFormattedText
-{
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/BfmeFormattedText.h"
 
 extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText *result, int tag, const char *format, ...)
 {

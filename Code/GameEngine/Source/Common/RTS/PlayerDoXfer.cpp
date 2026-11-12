@@ -137,7 +137,7 @@ struct PlayerTransferRecord:public Rva002AF55A {
  ~PlayerTransferRecord(){reinterpret_cast<Rva002AF6C5Element*>(this)->~Rva002AF6C5Element();}
 };
 class PlayerTrackerView { public: virtual void transfer(Xfer*); char body[0x14]; };
-struct BfmeFormattedText { char *text; int tag; };
+#include "../../../Include/Common/BfmeFormattedText.h"
 extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText*,int,const char*,...);
 struct _s__ThrowInfo;
 extern int g_guardTargetTypeThrowInfo;

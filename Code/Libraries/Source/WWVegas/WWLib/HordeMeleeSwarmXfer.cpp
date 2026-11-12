@@ -80,11 +80,7 @@ private:
 	bool m_flag;
 };
 
-struct BfmeFormattedText
-{
-	char *text;
-	int tag;
-};
+#include "../../../../GameEngine/Include/Common/BfmeFormattedText.h"
 
 extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText *result, int tag, const char *format, ...);
 void __stdcall _CxxThrowException(void *a, void *b);

@@ -51,11 +51,7 @@ private:
 	Player *m_players[1];
 };
 
-struct BfmeFormattedText
-{
-	char *m_text;
-	int m_tag;
-};
+#include "../../../Include/Common/BfmeFormattedText.h"
 
 union PlayerListXferLocal
 {

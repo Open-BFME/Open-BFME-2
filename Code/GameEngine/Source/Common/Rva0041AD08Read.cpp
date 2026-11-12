@@ -41,11 +41,7 @@ struct RGBAColorInt;
 extern FileSystem *TheFileSystem;
 extern int g_guardTargetTypeThrowInfo;
 
-struct BfmeFormattedText
-{
-	char *text;
-	int tag;
-};
+#include "../../Include/Common/BfmeFormattedText.h"
 
 extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText *result, int tag, const char *format, ...);
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
