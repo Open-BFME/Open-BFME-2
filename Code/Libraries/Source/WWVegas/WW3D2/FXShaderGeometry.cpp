@@ -186,7 +186,7 @@ private:
 };
 class Rva0007B9EE {public:AssetReference rva0007B9EE();void *Get_Technique() {return m_technique;}char m_pad00[0x20];void *m_technique;};
 #include "../WWMath/Vector3Data.h"
-struct TriIndex {unsigned short I,J,K;};
+#include "../../../../GameEngine/Include/Common/TriIndex.h"
 template<class T> class ShareBufferClass {public:ShareBufferClass(int count,const char *msg,int alignment=0);T *Get_Array() {return Array;}char m_pad00[0xC];T *Array;};
 class MeshMatDescClass {
 public:

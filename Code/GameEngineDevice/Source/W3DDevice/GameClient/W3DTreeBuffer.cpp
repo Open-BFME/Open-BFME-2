@@ -542,10 +542,7 @@ struct VertexFormatXYZNDUV1
 	float u2, v2;
 };
 
-struct TriIndex
-{
-	unsigned short I, J, K;
-};
+#include "../../../../GameEngine/Include/Common/TriIndex.h"
 
 template <class T>
 class ShareBufferClass : public RefCountClass

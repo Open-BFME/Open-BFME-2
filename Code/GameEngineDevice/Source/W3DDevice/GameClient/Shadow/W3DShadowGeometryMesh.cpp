@@ -127,10 +127,7 @@ protected:
 };
 extern DynamicVectorClass<TCBSpline3DClass::TCBClass> g_00DEBE24;
 
-struct TriIndex
-{
-	UnsignedShort I, J, K;
-};
+#include "../../../../../GameEngine/Include/Common/TriIndex.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 

@@ -314,12 +314,7 @@ private:
 	Rva000D3A17SetSlot m_sets[10]; // +0x94
 };
 
-struct TriIndex
-{
-	unsigned short I;
-	unsigned short J;
-	unsigned short K;
-};
+#include "../../../../GameEngine/Include/Common/TriIndex.h"
 
 struct VertexFormatXYZDUV1
 {

@@ -60,7 +60,7 @@ struct De5d2Mid
 	char _pad1[4];
 	De5d2Inner *m_inner;
 };
-struct TriIndex { unsigned short I, J, K; };
+#include "../../../../GameEngine/Include/Common/TriIndex.h"
 // ?rva000DF745@W3DBridgeBuffer@@QAEXHH@Z @0x000DF745 49B.
 // Calls rowed 0x000DD878 with the first arg, then 0x000DF52C with the
 // second when byte +0xD7B6 is set or dword +0xC is zero. Clears +0xD7B5.

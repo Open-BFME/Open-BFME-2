@@ -20,7 +20,7 @@
 
 #include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
-struct TriIndex { unsigned short I, J, K; };
+#include "../../../../GameEngine/Include/Common/TriIndex.h"
 
 extern void BFME_DX8_Thread_Lock(void);
 extern bool BFME_DX8_Thread_Assert(void);
