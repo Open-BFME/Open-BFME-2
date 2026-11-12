@@ -216,11 +216,7 @@ private:
 // The native Apt screen base handler is rowed at 0x0051274F.
 // This call-only view preserves the complete-this pointer; its full layout
 // remains in BfmeAptGameWindowMessages.cpp, alongside the native vftable evidence.
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The rowed 0x005AFD43 keeps a tab's chat entry window and its text.
 #include "../../../../../Include/GameClient/Rva005AFD43.h"

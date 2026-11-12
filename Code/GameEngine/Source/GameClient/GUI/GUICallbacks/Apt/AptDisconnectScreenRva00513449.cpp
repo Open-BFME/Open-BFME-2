@@ -7,11 +7,7 @@
 class GameWindow;
 class UnicodeString;
 
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class AptDisconnectScreen
 {

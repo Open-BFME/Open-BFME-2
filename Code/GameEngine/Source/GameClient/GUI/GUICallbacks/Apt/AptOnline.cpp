@@ -136,11 +136,7 @@ private:
 // ?rva00516FE5@Rva00516FE5@@QAEHHII@Z at 0x00516FE5 size 66
 // Evidence: vtable slot 2 neighbours GameWindow draw; calls pinned base _bfme_AptGameWindow 0x0051274F then child virtual +0x14 over +0x280 array.
 
-class _bfme_AptGameWindow
-{
-public:
-    int rva0051274F(int a, unsigned b, unsigned c);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 class Rva00516FE5;
 class Rva00516FE5Child
 {

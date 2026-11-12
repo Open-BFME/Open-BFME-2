@@ -6,11 +6,7 @@
 // true/false tails. Retail 0x004E8D3E..0x004E8D84. Pins are honest
 // address-derived candidates (0x4E8820 is an in-range target).
 
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int a, unsigned int b, unsigned int c);
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // LINK: 0x004E8820 is rowed as AptInGameChat::Send(char const *) (same one-word ABI); the old int-flag call stays through a member-pointer cast.
 class AptInGameChat
