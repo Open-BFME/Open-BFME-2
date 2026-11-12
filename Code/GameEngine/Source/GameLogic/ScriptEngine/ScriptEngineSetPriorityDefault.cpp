@@ -20,15 +20,7 @@ typedef int Int;
 
 enum KindOfType { KINDOF_FIRST = 0 };
 
-class ThingTemplate
-{
-public:
-    Bool isKindOf(KindOfType kind) const;
-    const ThingTemplate *friend_getNextTemplate() const { return m_nextTemplate; }
-private:
-    char m_unknown[0x484];
-    const ThingTemplate *m_nextTemplate;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
@@ -51,7 +43,9 @@ void ScriptEngine::setPriorityDefault(ScriptAction *action)
 
 // ZH ScriptEngine.cpp setPriorityKind and BFME 1 f98983a7d donor provide
 // the allocation/template loop. Target accesses and calls establish the
-// factory +C, template next +484, and the kind/setPriority helpers.
+// factory +C, template next +484, and the kind/setPriority helpers. Retail
+// reads the next-template link at +0x484 inline (the canonical header's m484,
+// read the same way in GameLogic.cpp), not through the 0x00406D4A accessor.
 void ScriptEngine::setPriorityKind(ScriptAction *action)
 {
     AttackPriorityInfo *info = findAttackInfo(action->getParameter(0)->getString(), true);
@@ -65,7 +59,7 @@ void ScriptEngine::setPriorityKind(ScriptAction *action)
     Int priority = action->getParameter(2)->getInt();
     const ThingTemplate *thingTemplate;
     for (thingTemplate = TheThingFactory->firstTemplate(); thingTemplate;
-         thingTemplate = thingTemplate->friend_getNextTemplate())
+         thingTemplate = (const ThingTemplate *)thingTemplate->m484)
     {
         if (thingTemplate->isKindOf(kind))
             info->setPriority(thingTemplate, priority);
