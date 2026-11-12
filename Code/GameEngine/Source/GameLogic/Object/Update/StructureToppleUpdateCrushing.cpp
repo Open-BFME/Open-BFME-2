@@ -78,6 +78,7 @@
 //   all-players mask 0xFFFFF.
 
 #include "../../../../../../reference/shims/bfme_matrix3d_copy_link/matrix3d_copy_link.h"
+#include "../../../Common/Thing/thing.h"
 #include "ascii_string.h"
 
 typedef bool Bool;

@@ -10,6 +10,7 @@
 // WB 0x010E39D0 and 0x010E8210 corroborate their control flow; original names remain
 // inferred from the donor, so the target rows retain address-derived spellings.
 #include "ascii_string.h"
+#include "../../../Common/Thing/thing.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"

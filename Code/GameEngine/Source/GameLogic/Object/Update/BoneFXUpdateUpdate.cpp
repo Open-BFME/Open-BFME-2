@@ -22,6 +22,7 @@
 // the damage type is at +0x10 of the info. BFME 2's createParticleSystem
 // returns the 12-byte particle-system handle (see SlavedUpdateRepair.cpp).
 #include <vector>
+#include "../../../Common/Thing/thing.h"
 #include "Lib/Coord3D.h"
 // bfme link decl-only begin
 namespace _STL { template <> void * __node_alloc<1,0>::allocate(unsigned int); }
