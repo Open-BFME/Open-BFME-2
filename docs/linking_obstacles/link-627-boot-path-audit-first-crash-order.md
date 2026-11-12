@@ -390,3 +390,54 @@ producer/EH prerequisites remain, with no boot or image clearance claimed.
   `FloatUpdate*` units + `Module.cpp` + `ModuleFactory.cpp` link; only held
   `W3DPropDraw.cpp` stays 0/157 B). Census and next real-link bridge queue
   confirmation pending.
+
+**2026-11-12, seat halilkkaya-lk96 (base `af29ac558c5`): refresh on today's tree.**
+[Inventory](../../reverse/attempt_support/boot-path-refresh-20261112-lk96.tsv): one row per refused table or zero
+vptr store the walk reaches, in walk order.
+- Method: the walker above, fed an offline `vtable_bridge.plan()` over the exit link's own inputs (HEAD's tool, no
+  link) in place of a real-link artifact; the image-report column is empty. The offline plan lacks the real link's
+  mid-function bound, so `??_7AptSpellStore@@6BGameWindow@@@` (0x0083D7F8, word 14 = 0x00736464 inside a function)
+  shows as unrowed-target offline only; the real link bridges it at 14 slots.
+- Bridge at the base: 3,526 tables bridged, 2,032 already correct, 36 refused. The real link at `4412687ff5`
+  refused 34. Besides AptSpellStore, the difference was a regression since that link: the four AptValue names at
+  0x008EAED0 (15 slots, the menu UI's value table) were refused as target-not-winning-provider, so the image would
+  keep AptValue.cpp's one-slot copy. Repaired here (LINK-660, "Keep novtable on Rva006DE350 in six units so
+  AptValue's tables bridge again"): refused 36 -> 35, the four names bridged again, nothing else changed.
+- The 34 published refusals are not crash causes. For 31 the kept copy names retail's slot targets (kept_mismatch
+  0): the strong-definition arrays are arrays of relocated symbols (LINK-654 noted this for the registration
+  tables), and the target-not-winning-provider copies differ from the owner only in codegen. The other three differ
+  only by unrowed template instantiations (`money_get` slot 0, `VectorClass<Vector3>` slots 1/3/4/5,
+  `VectorClass<StringClass>` slot 5). They are bridge debt for the pass test, not runtime defects.
+- Refused tables the walk reaches, first store first: `Bucket` (#24, NameKeyGenerator::nameToKey), `basic_ios`
+  (#24, tier 2), the module-factory tables (#95: TerrainResourceBehavior [FX/lk95 lane], StrafeArea,
+  LargeGroupAudio, NotifyTargetsOfImminentProbableCrushing and its Horde twin, Attach, FadeAndDieOrnament,
+  W3DHordeModelDraw), the FX particle tables (#123, another lane), `VectorClass<StringClass>` (#195),
+  `VectorClass<Vector3>` (#223), the Rva0056AC26 registry family 0x0086D160/19C/200/23C (#243), Rva005D3C2B,
+  Rva005E3AE1 and `VectorClass<int>` (#246). Not reached: `money_get`, the Rva003AE03D/Rva003A59C3 FX tables,
+  Rva0056B63E, the four registration tables, Rva0056DC4C, `type_info`, `_com_error`.
+- The real runtime defects on the walk are 59 zero vptr stores the bridge cannot see (inventory kind `zero`): the
+  UpgradeModule/UpgradeMux base ctors (#77, overwritten by every derived ctor), then the module factory's leaf ctors
+  (CastleMemberBehavior, Rampage/Enraged +0x10, HealContain, HordeTransportContain, RiderChangeContain,
+  CitadelSlaughterHordeContain, AnnounceBirthAndDeathBehavior, Rva00490D3F/ToggleHidden +0x20, ToggleMounted,
+  DelayedDeathBody, InvisibilitySpecialPower, SpecialPowerTimerRefresh, EvaAnnounceClientCreate, W3DDefaultDraw,
+  W3DTreeDraw), the one-byte `char` "vftables" of State-derived ctors (StateDerivedCtors_muse-a7a4.cpp's six, State
+  itself, StateDerivedCtorRva004D7B70.cpp, the GiantBird states; retail tables have 17 slots) and Rva0057551C's
+  zeroed `g_00C6E614` (#246, tier 2; retail [0x00575700, 0x00575DFE]).
+- Repaired: StructureBody (#95, the body of every structure). Its ctor stored two zero ints at +0x0C/+0x10; it now
+  stores the tables StructureBody.cpp emits for its placeholder class, as its +0 store already did ("Store
+  StructureBody's real secondary tables instead of zero dummies"; LINK-514 recipe; bytes, bridge plan and 19/19
+  link verdicts unchanged).
+- Also repaired, from the newest real link's blockers: `?f3@DBaseM3@@UAEXXZ` ("Declare DeployStyleAIUpdate's AI
+  command slot so ?f3@DBaseM3 stops dangling"). The other new blocker, `??1Rva0056AC26A/B@@UAE@XZ` in
+  OpaqueScalarDeletingDtorsB12.cpp, is held by nleigh; its cause and two-line fix are in LINK-660.
+- Next: the dummy stores whose ctor unit also defines the placeholder class (HealContain/Rva00220240FlatDtor,
+  DelayedDeathBody/Rva004C1604, ToggleMounted/Rva004AD9B0, CastleMemberBehavior) fail C2373 on the extern
+  `__identifier` recipe and need the ctor written against that class view; the stores whose address has no
+  compiled `??_7` (State-derived chars, RiderChange, CitadelSlaughter, AnnounceBirthAndDeath, EvaAnnounce,
+  Invisibility) need class views first.
+- Initializer bridge (offline `image_report.bridge_entries`): 470 entries, all reachable; 462 are address-named
+  functions in about 25 "Inits" grab-bag units. The largest family, 165 in Rva007AB7F0HalfRateInits.cpp, are
+  per-TU copies of Drawable.h's DRAWABLE_FRAMES_PER_FLASH whose statics nothing reads (runtime-neutral). Their
+  homogeneous recipe is attribution: give each copy to its including unit, where canonical Drawable.h emits it as
+  that unit's `_$E<n>`; blocked on TU attribution. No initializer was changed.
+- Clearance: none claimed. The next real link should list 0x008EAED0 bridged and no `?f3@DBaseM3` blocker.

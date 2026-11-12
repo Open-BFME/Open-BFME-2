@@ -3030,3 +3030,12 @@ this pass and untouched by it.
 **Tooling compatibility audit** (`9ace59152e2..HEAD`): 33 files modified, none added, moved or deleted;
 `rename.py check --range`: 0 renames, 0 problems; tools/, .githooks/ and .github/ name none of the touched files or
 removed view classes (they mention only the FXParticleSystem namespace and one fixture row for W3DTerrainLogic).
+
+**2026-11-12, seat halilkkaya-lk96: StructureBody's dummy vptrs.** The ctor (0x004C0951) already stored
+`??_7Rva004C0988@@6BRva004BF951@@@` at +0; its +0x0C/+0x10 stores were TU-local zero ints. They now name the two
+tables the same definer (StructureBody.cpp) emits for placeholder Rva004C0988, mapped by retail's immediates:
+0x00C5AD78 `??_7Rva004C0988@@6BMiBase1@@@` (47 slots) and 0x00C5B5B0 `??_7Rva004C0988@@6BRva004C0988_B2@@@` (43),
+both bridged ("Store StructureBody's real secondary tables instead of zero dummies"). Bytes exact; scoped DIR32 OK;
+19/19 StructureBody units LINKS unchanged; bridge plan unchanged. This fixes the run-time vptrs only; the ActiveBody.h
+walls above still stand for the class's own view. Remaining dummy-vptr ctors on the boot walk: LINK-627's
+2026-11-12 inventory.
