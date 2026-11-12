@@ -798,11 +798,7 @@ extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../Common/Thing/thing.h"
 class ThingTemplate;
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva0055A88BDwordField.h"
 class RallyGameClientDispatchView
 {
 public:

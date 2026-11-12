@@ -480,11 +480,7 @@ private:
 // Identity: callees rowed ?rva000B49F9 (unsigned char) and
 // ?get@Rva0055A88BDwordField (int); TheGameLODManager extern in use;
 // three stack args (ret 0xC) with two int outs; honest-address class.
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 class Rva000B49F9
 {
 public:

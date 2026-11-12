@@ -259,11 +259,7 @@ Int Rva002AAD89::rva002AAD89()
 // REF slots 0x007C7BBC 0x007FD544 neighbours rva0029C096/get: search the
 // circular list at +0x20 for a node whose dword field matches the arg.
 // ?rva0029C0A9@Rva0029C0A9@@QAE_NH@Z
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 struct Rva0029C0A9Node
 {
 	Rva0029C0A9Node *m_next;

@@ -4,11 +4,7 @@
 #include "ascii_string.h"
 #include "../../Include/GameClient/GameClientClass.h"
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 
 class View
 {

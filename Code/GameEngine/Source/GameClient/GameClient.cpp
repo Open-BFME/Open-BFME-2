@@ -59,11 +59,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameClient/GameClient.h"
 
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
 #include "Common/ActionManager.h"

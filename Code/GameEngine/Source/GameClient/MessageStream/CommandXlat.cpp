@@ -473,7 +473,7 @@ struct ContextPower { char pad[0x14];int id;int word18;int type; };
 struct ContextObject { char pad0[0x250];void* container;int word254;void* ai;char pad25c[0xa8];Team* team;Team*getTeam() const {return team;} char pad308[0x131];bool masked; };
 static __forceinline ContextObject* contextObject(Object*unitObject) { return (ContextObject*)unitObject; }
 static __forceinline bool contextKind(const Object*unitObject,int bit) { return (((const unsigned char*)unitObject->m_template)[0x108+(bit>>3)]&(1<<(bit&7)))!=0; }
-class Rva0055A88BDwordField { public: int get() const; };
+#include "../../../Include/Common/Rva0055A88BDwordField.h"
 class Rva0006EE7A : public BitFlags<69> { public: Rva0006EE7A(int,int,int); };
 bool Rva0027DC65Check(float*);
 #include "../../../Include/Common/Rva0031D5F8.h"

@@ -16,10 +16,7 @@
 // return and AsciiString assignment spelling were inferred incorrectly. Callers at 0x000C7427/0x000CE8A2,
 // 0x000CB5E2/0x000CB61E/0x000CB65A, 0x001E227F. Honest Rva names; /O1 for the
 // and [m],0 plus add+ jmp idioms.
-class Rva0055A88BDwordField {
-public:
-    int get() const;
-};
+#include "../../../Include/Common/Rva0055A88BDwordField.h"
 struct Rva001F3C43Arg {
     char m_pad[0x74];
     int m_value;

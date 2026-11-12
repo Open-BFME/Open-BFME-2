@@ -10,11 +10,7 @@ static __forceinline const float &matrixComponent(const Matrix3D &matrix,int row
 
 #include "ascii_string.h"
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 
 class Rva000E459F
 {

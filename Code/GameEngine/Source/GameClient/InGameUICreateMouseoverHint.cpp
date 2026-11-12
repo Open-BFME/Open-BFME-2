@@ -169,11 +169,7 @@ class ThingTemplate { public:
 #include "../../Include/GameClient/Drawable.h"
 
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 class Player { public:
  Relationship getRelationship(const Team*) const;
  bool isPlayerActive() const;

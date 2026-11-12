@@ -1,11 +1,7 @@
 // cl: /MD
 // ?rva00239FA0@Rva00239FA0@@QAEXPBVRva0055A88BDwordField@@@Z @0x00239FA0 44B: nullable store via dword-field get plus findSlot at this+0x18. Evidence: callers at 0x0027108B callees get 0x0055A88B findSlot 0x0041F4E5 same shape as 0x00239C38.
 class Object;
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0055A88BDwordField.h"
 #include "../../Include/Common/ObjectLookupMap.h"
 class Rva00239FA0
 {

@@ -127,11 +127,7 @@ extern void buildRegion(const ICoord2D *, const ICoord2D *, IRegion2D *);
 #include "Common/Thing.h"
 #include "Common/GameType.h"
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../Include/Common/Rva0055A88BDwordField.h"
 
 #ifndef _DRAWABLE_H_
 #define _DRAWABLE_H_
