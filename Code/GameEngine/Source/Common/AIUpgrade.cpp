@@ -42,14 +42,7 @@ public:
 // whether it differs from the 54321.0 sentinel.
 #include "../../Include/Common/Rva00452E00Data.h"
 
-class Rva00452E00Primary
-{
-public:
-	virtual void primarySlot();
-protected:
-	const Rva00452E00Data *m_moduleData; // +0x04
-	char m_pad08[0x18];
-};
+#include "../../Include/Common/Rva00452E00Primary.h"
 
 class Rva0055B0CC
 {

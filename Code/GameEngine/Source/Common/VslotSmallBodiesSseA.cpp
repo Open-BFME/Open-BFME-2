@@ -66,14 +66,7 @@ bool UnitHealthCollector::visit(const void *unit)
 // getMinimumValue): copies the module data's +0x30 Real out and reports
 // whether it differs from the 54321.0 sentinel.
 #include "../../Include/Common/Rva00452E00Data.h"
-class Rva00452E00Primary
-{
-public:
-	virtual void primarySlot();
-protected:
-	const Rva00452E00Data *m_moduleData; // +0x04
-	char m_pad08[0x18];
-};
+#include "../../Include/Common/Rva00452E00Primary.h"
 // 0x005D9D81: whether the two arguments' +0x38/+0x3C positions are more than
 // 100 apart (squared distance against 10000).
 struct Rva005D9D81Pos
