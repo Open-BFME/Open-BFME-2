@@ -55,7 +55,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector
 class GameFont;
 class ModuleData;
 
-struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned word; };
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 
 // Keep the registry and record cleanup bound to their existing providers.
 namespace _STL {

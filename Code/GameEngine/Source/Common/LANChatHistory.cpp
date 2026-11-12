@@ -14,7 +14,7 @@
 #undef __forceinline
 #include <vector>
 class GameWindow;
-struct BfmeStringRecord005DDD40 {UnicodeString text;unsigned word;BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40&);};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 extern unsigned int g_chatHistoryVectors[6];
 // Retail startup constructs two 12-byte vectors in this zero-filled storage.
 #define g_00E022F8 ((_STL::vector<BfmeStringRecord005DDD40, _STL::allocator<BfmeStringRecord005DDD40> > *)g_chatHistoryVectors)

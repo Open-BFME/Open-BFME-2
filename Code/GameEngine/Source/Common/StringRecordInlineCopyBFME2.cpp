@@ -175,11 +175,7 @@ BfmeStringRecord002B4DC1::BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC
 template void _STL::_Construct<BfmeStringRecord002B4DC1,BfmeStringRecord002B4DC1>(BfmeStringRecord002B4DC1*,const BfmeStringRecord002B4DC1&);
 
 // Complete retail record copy at0x005DDD40.
-struct BfmeStringRecord005DDD40 {
-    UnicodeString text; unsigned int word;
-    BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &source);
-    BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 inline BfmeStringRecord005DDD40::BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &source) : text(source.text), word(source.word) {}
 // ??4BfmeStringRecord005DDD40@@QAEAAU0@ABU0@@Z retail 0x005DD6B6 31B.
 // Same layout as the 0x005DDD40 copy above (UnicodeString text + word).

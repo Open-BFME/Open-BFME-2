@@ -32,7 +32,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 // Retail's element is BfmeStringRecord005DDD40 (a UnicodeString and a word): 0x005DE4BA's calls reach the copy 0x005DDD40
 // and the destroy 0x00381AC7.
-struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &); BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &); };
+#include "BfmeStringRecord005DDD40.h"
 struct Rva005DE4BAElement { BfmeStringRecord005DDD40 value; bool operator==(const Rva005DE4BAElement&) const; };
 
 // Instantiate the recovered operation and its required template dependencies.

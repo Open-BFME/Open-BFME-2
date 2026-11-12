@@ -9,10 +9,7 @@
 
 namespace _STL { struct __false_type; }
 
-struct BfmeStringRecord005DDD40
-{
-	unsigned char m_bytes[0x8];
-};
+#include "BfmeStringRecord005DDD40.h"
 
 void Rva003814A6Construct(BfmeStringRecord005DDD40 *dest, const BfmeStringRecord005DDD40 &source);
 

@@ -181,7 +181,7 @@ GameStats::Persistent::Persistent(int numCells)
 // Retail excludes row32 from aggregation. The vector view is also required
 // for its native addressing shape; known range-sum definitions before this
 // caller preserve the target x87 stack across calls.
-struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; };
+#include "../../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned int);};
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned int);};

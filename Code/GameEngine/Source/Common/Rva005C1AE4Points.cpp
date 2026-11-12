@@ -137,7 +137,7 @@ UnicodeString Rva005C1B2D(const AsciiString &faction){
 // guide the37-row/six-faction persistent-table builder. Its original receiver
 // class is unknown; do not infer it from the adjacent Rva005C1A36 methods.
 // Slot 1 of Rva005C1980's vtable 0x008743D0; native LEA EDI,[ECX+8] proves prefs+8.
-struct BfmeStringRecord005DDD40{UnicodeString text;unsigned int word;};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned int);};
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned int);};

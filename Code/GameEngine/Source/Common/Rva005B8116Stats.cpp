@@ -47,7 +47,7 @@ static __forceinline float rva005B80F2Inline(int side, float def, Rva005B8053 *s
 	return *(float *)((char *)node + 0x14);
 }
 
-struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; };
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 class Rva005DD822 : public BfmeStringRecord005DDD40 { public: Rva005DD822(unsigned int); };
 class Rva005DD8E0 : public BfmeStringRecord005DDD40 { public: Rva005DD8E0(float, float); };
 #include "../../Include/Common/Rva005DDE01.h"

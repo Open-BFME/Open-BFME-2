@@ -221,7 +221,7 @@ struct BfmeStringTailRecord156 { char m_pad[156]; public: BfmeStringTailRecord15
 // Placement-copy owners of the elements below: each push_back growth path
 // reaches the retail row through the inline forwarder.
 class Rva003AD160;
-struct BfmeStringRecord005DDD40 { char m_pad[8]; };
+#include "BfmeStringRecord005DDD40.h"
 struct BfmeE8;
 enum ScienceType { SCIENCE_INVALID = -1 };
 class Rva004F6093Holder;
