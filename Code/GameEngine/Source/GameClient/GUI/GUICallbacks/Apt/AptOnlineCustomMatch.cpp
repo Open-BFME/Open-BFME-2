@@ -96,7 +96,7 @@ extern Mouse *TheMouse;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 extern int g_currentAptOnlineCustomMatch;
-class Rva003FF1C2 { public: bool rva003FF1C2() const; };
+#include "../../../../../Include/Common/Rva003FF1C2.h"
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *, int, int, int &, int &);
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceData *, unsigned int mouse)

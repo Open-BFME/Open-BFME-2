@@ -143,11 +143,7 @@ extern ImageCollection *TheMappedImageCollection;
 
 // The game's 16-byte digest test (Rva003FF1C2.cpp, rowed under its address
 // name, as MpGameSetupSlots.cpp calls it).
-class Rva003FF1C2
-{
-public:
-	bool rva003FF1C2() const;
-};
+#include "../../Include/Common/Rva003FF1C2.h"
 
 int __cdecl Rva00559EDCCompare(int *a, int *b);
 

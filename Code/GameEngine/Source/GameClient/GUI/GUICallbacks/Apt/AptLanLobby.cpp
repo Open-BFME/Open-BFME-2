@@ -375,11 +375,7 @@ int GadgetListBoxGetEntryBasedOnXY(GameWindow *listbox, int x, int y, int &row, 
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 class AsciiString;
 // GameInfo's 16-byte nonzero test (rowed under its address name).
-class Rva003FF1C2
-{
-public:
-	bool rva003FF1C2() const;
-};
+#include "../../../../../Include/Common/Rva003FF1C2.h"
 struct RGBColor;
 #include "../../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;

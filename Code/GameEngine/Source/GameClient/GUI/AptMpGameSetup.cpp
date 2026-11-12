@@ -484,11 +484,7 @@ public:
 
 // The game's digest test (Rva003FF1C2.cpp, rowed under its address name):
 // whether any of the 16 bytes at +0xCC is set.
-class Rva003FF1C2
-{
-public:
-	bool rva003FF1C2() const;
-};
+#include "../../../Include/Common/Rva003FF1C2.h"
 
 // The owner's lazily created holders (Rva0043F103Holder.cpp); 0x0043FA68
 // stores the game at +0x08 of holder 1, the Rva0043DA65 layout.
