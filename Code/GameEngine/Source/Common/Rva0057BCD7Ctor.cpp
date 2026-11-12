@@ -13,7 +13,16 @@
 class __declspec(novtable) Rva0057BCD7Base0
 {
 public:
-	virtual void base0();
+	// Retail table 0x00C6F248: nine __purecall entries, so every slot is pure.
+	virtual void base0() = 0;
+	virtual void base1() = 0;
+	virtual void base2() = 0;
+	virtual void base3() = 0;
+	virtual void base4() = 0;
+	virtual void base5() = 0;
+	virtual void base6() = 0;
+	virtual void base7() = 0;
+	virtual void base8() = 0;
 };
 
 class Rva0057BCD7 : public Rva0057BCD7Base0, public Rva00330757Member
@@ -27,8 +36,3 @@ public:
 Rva0057BCD7::Rva0057BCD7()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?base0@Rva0057BCD7Base0@@UAEXXZ=__purecall")

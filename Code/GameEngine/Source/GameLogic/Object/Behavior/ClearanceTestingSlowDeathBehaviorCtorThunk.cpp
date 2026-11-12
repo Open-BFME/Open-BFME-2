@@ -38,7 +38,10 @@ private:
 class ClearanceTestingSlowDeathBehaviorIface5
 {
 public:
-	virtual void clearanceTestingSlowDeathBehaviorIface5Anchor();
+	// Retail table 0x00BE2B78: three __purecall entries.
+	virtual void clearanceTestingSlowDeathBehaviorIface5Anchor() = 0;
+	virtual void clearanceTestingSlowDeathBehaviorIface5Slot1() = 0;
+	virtual void clearanceTestingSlowDeathBehaviorIface5Slot2() = 0;
 };
 
 // The base is SlowDeathBehavior: the derived ctor 0x00483D39 calls the rowed

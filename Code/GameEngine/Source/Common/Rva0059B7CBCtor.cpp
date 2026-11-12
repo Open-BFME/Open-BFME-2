@@ -77,7 +77,8 @@ class Rva004E9FFD
 {
 public:
 	Rva004E9FFD(unsigned int field04, unsigned int field08);
-	virtual void slot00() {}
+	// Retail table 0x00C62888 holds one __purecall entry.
+	virtual void slot00() = 0;
 private:
 	unsigned int m_field04;
 	unsigned int m_field08;

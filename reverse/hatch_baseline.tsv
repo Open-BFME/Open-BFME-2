@@ -2016,7 +2016,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00576FD3Permuted.cpp	?observerSlo
 alternatename	Code/GameEngine/Source/Common/Rva00576FD3Permuted.cpp	?observerSlot4@SecondBase005D2111@@UAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??0Rva005796FC@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??1Rva005796FC@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0057BCD7Ctor.cpp	?base0@Rva0057BCD7Base0@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f2@Rva00481F82_S2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00481F82_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00482E96_S3@@UAEXXZ	1
@@ -2394,7 +2393,6 @@ alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?clear@
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp	?rvaSlot0@Rva0042FCE6Base@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp	?cb@Cb00359D42@@UAEXHMD@Z	1
 alternatename	Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp	?cb@Rva004E7E3AClaimantCallback@@UAEXHMD@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00222A8BAptCallLevel.cpp	?invoke@Rva00222A8BTarget@@QAEXPAXPBDH10000@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00222B19AptCallLevel.cpp	?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z	1
