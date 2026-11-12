@@ -14,11 +14,7 @@ class Parameter;
 class Drawable;
 #include "../../Common/Thing/thing.h"
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva0055A88BDwordField.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

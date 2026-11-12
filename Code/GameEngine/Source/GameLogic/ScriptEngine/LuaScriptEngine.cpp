@@ -33,11 +33,7 @@ public:
 extern GameLogic *TheGameLogic;
 enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../Include/Common/Rva0055A88BDwordField.h"
 
 class Drawable
 {

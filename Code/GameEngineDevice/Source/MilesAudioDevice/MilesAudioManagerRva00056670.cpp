@@ -12,11 +12,7 @@ class Drawable;
 
 #include "../../../GameEngine/Source/GameLogic/Object/object.h"
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 
 extern GameLogic *TheGameLogic;
 

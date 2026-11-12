@@ -55,11 +55,7 @@ struct FloorDrawModuleDataView
 	bool m_flag1C;
 	bool m_flag1D;
 };
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 class BaseHeightMapRenderObjClass
 {
 private:

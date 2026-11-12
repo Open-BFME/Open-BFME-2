@@ -41,11 +41,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 
 class Object {public:int getID()const{return id;}char pad[0x74];int id;};
 
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva0055A88BDwordField.h"
 
 class Rva002716Holder
 {

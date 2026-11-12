@@ -430,11 +430,7 @@ void ScriptActions::Rva003BAE04()
 
 class Drawable;
 #include "../../Common/Thing/thing.h"
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../Include/Common/Rva0055A88BDwordField.h"
 // ZH doCameraTetherNamed supplies the lock/snap/tether workflow. Native
 // 0x003BAA46 adds Drawable-ID slot103 before snap and uses slots97/98/100/99;
 // dispatcher0x003CAD35 and RET12 prove Parameter*, bool, float free ABI.

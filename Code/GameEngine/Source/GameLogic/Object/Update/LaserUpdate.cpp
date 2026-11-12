@@ -232,11 +232,7 @@ enum DrawableID
 
 // Drawable::getID is ICF-folded onto the matched dword getter row at 0x0055A88B
 // (DispDwordFieldGetters.cpp); called here by that row name.
-class Rva0055A88BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva0055A88BDwordField.h"
 
 class LaserUpdateModuleData;
 
