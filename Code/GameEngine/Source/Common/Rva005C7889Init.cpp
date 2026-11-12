@@ -7,12 +7,7 @@
 // Retail .CRT$XCU 0x007B4922 is this unit's Drawable.h copy (static 0x00E065E0).
 #include "../../Include/GameClient/Drawable.h"
 
-class Rva005C7792
-{
-public:
-	Rva005C7792();
-	~Rva005C7792();
-};
+#include "../../Include/Common/Rva005C7792.h"
 
 void __cdecl Rva005C7889Init(void)
 {

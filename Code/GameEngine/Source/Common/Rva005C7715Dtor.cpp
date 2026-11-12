@@ -20,12 +20,7 @@ extern ShareBufferClass<Vector4> *g_00E065CC;
 extern ShareBufferClass<float> *g_00E065D0;
 extern ShareBufferClass<unsigned char> *g_00E065D4;
 
-class Rva005C7792
-{
-public:
-	Rva005C7792();
-	~Rva005C7792();
-};
+#include "../../Include/Common/Rva005C7792.h"
 
 Rva005C7792::~Rva005C7792()
 {
