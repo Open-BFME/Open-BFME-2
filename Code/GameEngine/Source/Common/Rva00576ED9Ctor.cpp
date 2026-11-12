@@ -5,13 +5,7 @@
 // +8 holder correspond to the rowed Rva00576B5E destructor. The nested type
 // name is the retained rowed destructor spelling. The subordinate whole
 // constructor is now recovered in Rva00576C4BDtor.cpp; its opaque pin is gone.
-class Rva00575383
-{
-public:
-	Rva00575383(void *held);
-	virtual ~Rva00575383() {}
-	void *m_field04;
-};
+#include "../../Include/Common/Rva00575383.h"
 class Rva00576B5E;
 namespace StrategicInGameUI { class ResolveBattlesBehavior { public: class Impl; }; }
 class StrategicInGameUI::ResolveBattlesBehavior::Impl

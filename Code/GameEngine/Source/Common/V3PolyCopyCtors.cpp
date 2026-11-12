@@ -266,14 +266,7 @@ Rva0039B893 &Rva0039B893::operator=(const Rva0039B893 &other)
 // ------------------------- vptr + held pointer (retail 0x00575383)
 // B2 body-address name: same holder shape as 0x005CB22A with a different
 // vtable so a different class. Three retail E8 callers.
-class Rva00575383
-{
-public:
-	Rva00575383(void *held);
-	virtual ~Rva00575383() {}
-
-	void *m_field04;
-};
+#include "../../Include/Common/Rva00575383.h"
 
 Rva00575383::Rva00575383(void *held)
 {

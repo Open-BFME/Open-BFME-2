@@ -10,11 +10,7 @@
 // through the +0x0C object's +0x04 field (two rowed pointer-chase getters)
 // has its slot 2 run.
 
-class Rva00575383
-{
-public:
-	void rva0057539C();
-};
+#include "../../Include/Common/Rva00575383.h"
 
 #include "../../Include/GameClient/Rva005CCEB6.h"
 

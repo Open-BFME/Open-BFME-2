@@ -4,13 +4,7 @@
 // allocates 0x3C bytes and calls 0x005776A7 with (this,arg1). The vtable and
 // +8 holder correspond to the rowed Rva005772BF destructor. The nested type
 // name is address-derived; its layout and argument meanings remain unresolved.
-class Rva00575383
-{
-public:
-	Rva00575383(void *held);
-	virtual ~Rva00575383() {}
-	void *m_field04;
-};
+#include "../../Include/Common/Rva00575383.h"
 class Rva005772BF;
 class Rva005770F7
 {

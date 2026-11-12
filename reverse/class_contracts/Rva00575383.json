@@ -1,0 +1,155 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00575383",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x575383"
+     ],
+     "value": 8
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x575383"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x575383"
+     ],
+     "value": {
+      "0x0": "0x86e5b4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86e5b4"
+     ],
+     "value": {
+      "count": 4,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00575383@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5753b4"
+       },
+       {
+        "name": "?rva0057539C@Rva00575383@@QAEXXZ",
+        "slot": 1,
+        "target": "0x57539c"
+       },
+       {
+        "name": "?rva005753A4@Rva00577302@@QAEXH@Z",
+        "slot": 2,
+        "target": "0x5753a4"
+       },
+       {
+        "name": "?rva005753AC@Rva005753AC@@QAEHPBXH@Z",
+        "slot": 3,
+        "target": "0x5753ac"
+       }
+      ],
+      "table": "0x86e5b4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x86e5b4": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00575383@@UAEPAXI@Z",
+     "1": "?rva0057539C@Rva00575383@@QAEXXZ",
+     "2": "?rva005753A4@Rva00577302@@QAEXH@Z",
+     "3": "?rva005753AC@Rva005753AC@@QAEHPBXH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "4": 1,
+   "8": 6
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_field04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
