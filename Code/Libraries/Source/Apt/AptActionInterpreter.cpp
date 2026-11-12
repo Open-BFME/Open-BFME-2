@@ -102,6 +102,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
+extern "C" void _ReadWriteBarrier(void);
 
 
 #include "EAStringC.h"
@@ -253,7 +254,11 @@ public:
     {
         if (count<=0) {
             g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xBF);
-            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+            if (g_bfmeAptBreakOnAssertAtDDC01C) {
+                _ReadWriteBarrier();
+                __debugbreak();
+                _ReadWriteBarrier();
+            }
         } else --count;
     }
     AptValue *At(int nPos)
@@ -530,8 +535,6 @@ extern "C" void Rva006FD040(void *first, void *last, void *comp)
 int rva00629B6E(int c);
 
 unsigned long rva006291C0(const char *text, void *end, int base);
-
-extern "C" void _ReadWriteBarrier(void);
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 
