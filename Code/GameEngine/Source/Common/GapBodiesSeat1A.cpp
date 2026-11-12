@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 // stlport46
 // Small GameEngine bodies from .text gaps no ledger row covered (each begins
 // after its neighbour's padding or return and ends in its own ret). Retail
@@ -7,7 +8,7 @@
 // touches. Callees are the ledger's existing rows under their current
 // spellings.
 #include "GameLogicObjectLookupView.h"
-#include "ascii_string.h"
+#include "../../Include/GameLogic/ObjectTypesClass.h"
 #include "unicode_string.h"
 #include "RTS/XYDistanceCallView.h"
 
@@ -618,11 +619,6 @@ int Rva00260F3B::rva00260F3B(const Rva00260F3BOther *other)
 // that template's +0x64 name.
 #include "../../Include/Common/ThingTemplate.h"
 
-class ObjectTypes
-{
-public:
-	bool isInSet(const AsciiString &name) const;			// 0x00376A62
-};
 
 struct Rva00261750Template
 {
@@ -1362,16 +1358,7 @@ class ModuleData;
 class TextureClass;
 namespace _STL
 {
-	template <class T> class allocator;
-	template <class T, class A> class vector
-	{
-	public:
-		void reserve(unsigned int n);
-	private:
-		T *m_start;
-		T *m_finish;
-		T *m_end;
-	};
+	template <> void vector<const ModuleData *>::reserve(unsigned int);
 	template <int N> struct _Base_bitset
 	{
 		void _M_do_or(const _Base_bitset &other);

@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep /D_STLP_USE_STATIC_LIB
+// stlport
 // Split from GapBodiesSeat1A.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 // Small GameEngine bodies from .text gaps no ledger row covered (each begins
@@ -8,7 +9,7 @@
 // touches. Callees are the ledger's existing rows under their current
 // spellings.
 #include "GameLogicObjectLookupView.h"
-#include "ascii_string.h"
+#include "../../Include/GameLogic/ObjectTypesClass.h"
 #include "unicode_string.h"
 #include "RTS/XYDistanceCallView.h"
 
@@ -191,11 +192,6 @@ public:
 // that template's +0x64 name.
 #include "../../Include/Common/ThingTemplate.h"
 
-class ObjectTypes
-{
-public:
-	bool isInSet(const AsciiString &name) const;			// 0x00376A62
-};
 
 // --- 0x002619AE (19B): the argument's rowed BitFlags<69>::test of this
 // +0x108.
@@ -416,16 +412,7 @@ class ModuleData;
 class TextureClass;
 namespace _STL
 {
-	template <class T> class allocator;
-	template <class T, class A> class vector
-	{
-	public:
-		void reserve(unsigned int n);
-	private:
-		T *m_start;
-		T *m_finish;
-		T *m_end;
-	};
+
 	template <int N> struct _Base_bitset
 	{
 		void _M_do_or(const _Base_bitset &other);
