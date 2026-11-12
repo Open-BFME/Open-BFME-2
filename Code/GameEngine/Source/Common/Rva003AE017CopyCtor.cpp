@@ -11,12 +11,40 @@ public:
 	Rva003AE03D(const Rva003AE03D &other);
 };
 
-// Rva003AE017_v0: matched references place it at VA 0xc1ced8 (retail .rdata value 112).
-extern "C" char Rva003AE017_v0 = 112;
+// Rva003AE017_v0: retail table 0x00C1CED8 (4 slots). Own the complete initialized table
+// instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a matched row at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_GRva003ADFB2@@UAEPAXI@Z")();
+void __identifier("?update@Rva003A59C3@@UAEXXZ")();
+void __identifier("?clone@Rva003AE017@@QBEPAV1@XZ")();
+void __identifier("?DoXfer@Rva003A57A9@@UAEXAAVXfer@@@Z")();
+extern const void *const Rva003AE017_v0[4] = {
+	(const void *)&__identifier("??_GRva003ADFB2@@UAEPAXI@Z"), //  0 0x003AE270
+	(const void *)&__identifier("?update@Rva003A59C3@@UAEXXZ"), //  1 0x003A5A58
+	(const void *)&__identifier("?clone@Rva003AE017@@QBEPAV1@XZ"), //  2 0x003ADFFA
+	(const void *)&__identifier("?DoXfer@Rva003A57A9@@UAEXAAVXfer@@@Z")  //  3 0x003A57A9
+};
+}
 // The compiler table the data ledger binds at this address:
 extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
-// Rva003AE017_v0C: matched references place it at VA 0xc1cec8 (retail .rdata value 72).
-extern "C" char Rva003AE017_v0C = 72;
+// Rva003AE017_v0C: retail table 0x00C1CEC8 (4 slots). Own the complete initialized table
+// instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
+// precedent): each slot names a matched row at retail's slot target, taken by
+// address and never called through these erased signatures.
+extern "C" {
+void __identifier("??_ERva003ADFB2@@WM@AEPAXI@Z")();
+void __identifier("??1Elem4@@QAE@XZ")();
+void __identifier("?Rva003A5A42Get@@YAHXZ")();
+void __identifier("?DoXfer@Rva003A57A9@@WM@AEXAAVXfer@@@Z")();
+extern const void *const Rva003AE017_v0C[4] = {
+	(const void *)&__identifier("??_ERva003ADFB2@@WM@AEPAXI@Z"), //  0 0x003A5A48
+	(const void *)&__identifier("??1Elem4@@QAE@XZ"), //  1 0x000B3FD0
+	(const void *)&__identifier("?Rva003A5A42Get@@YAHXZ"), //  2 0x003A5A42
+	(const void *)&__identifier("?DoXfer@Rva003A57A9@@WM@AEXAAVXfer@@@Z")  //  3 0x003A5A50
+};
+}
 
 // The class the constructor 0x003A59C3 builds (tables 0x00C1B5E0, 0x00C1C780,
 // 0x00C1B5D0). This class's primary table 0x00C1CED8 is that class's with
@@ -41,7 +69,7 @@ Rva003AE017::Rva003AE017(const Rva003AE017 &that)
 {
 	const void *src = &that;
 	((Rva003AE03D *)this)->Rva003AE03D::Rva003AE03D(*(const Rva003AE03D *)src);
-	*(void **)this = &Rva003AE017_v0;
+	*(void **)this = (void *)Rva003AE017_v0;
 	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
-	*(void **)((char *)this + 0x0C) = &Rva003AE017_v0C;
+	*(void **)((char *)this + 0x0C) = (void *)Rva003AE017_v0C;
 }
