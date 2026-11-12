@@ -63,13 +63,7 @@ public:
 	void *m_drawable08;
 };
 
-class Rva00432F23Node
-{
-public:
-	char m_pad00[0x14];
-	Rva00432F23Node *m_next; // +0x14
-	Rva00432F23Node *m_prev; // +0x18
-};
+#include "../../Include/Common/Rva00432F23Node.h"
 
 #include "../../Include/Common/AnimationSoundModuleManager.h"
 

@@ -430,13 +430,7 @@ public:
 // 0x004C9F45; slot 4 -> 0x004C9EF3 uses class-name string
 // "AnimationSoundClientBehavior". Shape follows CastleMemberBehaviorDtor.
 
-class Rva00432F23Node
-{
-public:
-	char m_pad00[0x14];
-	Rva00432F23Node *m_next; // +0x14
-	Rva00432F23Node *m_prev; // +0x18
-};
+#include "../../../../Include/Common/Rva00432F23Node.h"
 
 // TheAnimationSoundModuleManager: VA 0xe032d0 (zero-filled .bss).
 AnimationSoundModuleManager * TheAnimationSoundModuleManager;
