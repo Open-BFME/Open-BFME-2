@@ -3257,3 +3257,7 @@ Q3 factory family (2026-11-12): eight primary bridges remain open.
 The [factory and destructor table pairs](../../reverse/attempt_support/q3-factory-vtables-20261112.md)
 identify distinct destructor-installed tables for all eight and the competing
 constructor identity for the five-slot case.
+
+The AptLanLobby callback table at RVA 0083E020 remains bridged. A compiler
+probe reproduces all 23 slot positions. The approved move of its slot 20
+factory hits a [split refusal on two pairs of folded destructors](../../reverse/attempt_support/apt-lobby-slot20-split.md).
