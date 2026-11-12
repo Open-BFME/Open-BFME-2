@@ -3581,7 +3581,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_treekey00242F5
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_sort_e16_helpers.cpp	??RRva005B26CECmp@@QBE_NPBX0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_sort_s4sortelem8.cpp	?bfmeSortBVJX@@YAXPAUBfmeElemVJX@@0UBfmeCmpVJX@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_sort_s4sortelem8_desc.cpp	?bfmeSortAVJX@@YAXPAUBfmeElemVJX@@0UBfmeCmpVJX@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_strstreambuf_dtor.cpp	?setbuf@strstreambuf@_STL@@MAEPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@PADH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy_rva0054000b.cpp	??0?$_Vector_base@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@QAE@IABV?$allocator@VRva0054000B@@@1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp	??0Gen_dtor_007f6d20@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp	?m@Gen_00800280@@QAEPAXXZ	1

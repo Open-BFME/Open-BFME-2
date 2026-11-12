@@ -28,8 +28,3 @@ strstreambuf::~strstreambuf()
 }
 
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?setbuf@strstreambuf@_STL@@MAEPAV?$basic_streambuf@DV?$char_traits@D@_STL@@@2@PADH@Z=?setbuf@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAEPAV12@PAGH@Z")

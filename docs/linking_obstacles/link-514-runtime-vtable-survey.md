@@ -3395,3 +3395,15 @@ old include, so the rejected retirement is recorded for tooling rather than
 adding an unused include. The initial abstract-interface trial (all pure
 calls, not retail's zero returns) was restored.
 [Target evidence, consumer proof and prerequisites](../../reverse/attempt_support/rva00493def-behavior-20261112.md).
+
+**2026-11-12, strstreambuf slot1: repair prepared, awaiting real-link confirmation.**
+The table87A878's sole mismatch is the declared but undefined setbuf override.
+The ordinary STLport4.6 definition returns this and exactly matches its
+native five-byte slot13570. It is admitted as an ICF twin beside the
+105-byte constructor; the destructor TU's obsolete alternate to the wide
+base default is removed, retiring one hatch. All six rows and strict
+preparation pass; both own link previews read LINKS. The eight-object
+local planner changes one generated table to zero, with no refusals and
+one already-correct table. The published bridge queue stays unchanged until
+the next real link confirms it; no census or game-run clearance is claimed.
+[Native/library proof and measured scope](../../reverse/attempt_support/strstream-setbuf-20261112.md).

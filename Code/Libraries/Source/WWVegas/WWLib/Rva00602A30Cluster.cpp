@@ -1,5 +1,6 @@
 // cl: /GR- /GX- /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport46
+// STLport 4.6 src/strstream.cpp; the target slot independently proves setbuf.
 //
 // ??0strstreambuf@_STL@@QAE@PADH0@Z, retail 0x00602A30 (105 B).
 // strstreambuf(char* __get, streamsize __n, char* __put): zero the allocator
@@ -13,6 +14,12 @@
 #include <strstream>
 
 namespace _STL {
+
+basic_streambuf<char, char_traits<char> >*
+strstreambuf::setbuf(char*, streamsize)
+{
+	return this;
+}
 
 strstreambuf::strstreambuf(char *__get, streamsize __n, char *__put)
 {
