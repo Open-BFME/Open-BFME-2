@@ -18,11 +18,7 @@
 class GameState;
 extern GameState *TheGameState;
 
-class Rva002DCCFB
-{
-public:
-	bool rva002DCCFB(UnicodeString filename);
-};
+#include "../../../../../Include/Common/Rva002DCCFB.h"
 
 #include "ascii_string.h"
 

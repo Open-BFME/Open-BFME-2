@@ -256,11 +256,7 @@ UnicodeString Rva0037BA48Get();
 
 UnicodeString Rva0037B9D4Get();
 
-class Rva002DCCFB
-{
-public:
-	bool rva002DCCFB(UnicodeString filename);
-};
+#include "../../../../../Include/Common/Rva002DCCFB.h"
 
 #include "../../../../../Include/Common/BFME2FileSystemFacade.h"
 

@@ -364,7 +364,7 @@ void ji_00629176();
 
 typedef unsigned char *(__cdecl *Rva00629176CopyABI)(unsigned char *, const unsigned char *);
 
-class Rva002DCCFB { public: bool rva002DCCFB(UnicodeString filename); };
+#include "../../../../../Include/Common/Rva002DCCFB.h"
 
 class Rva0051569FMainMenuFields {
 public:

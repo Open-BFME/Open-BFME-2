@@ -756,11 +756,7 @@ void __cdecl Rva004341D8(int button);
 void __cdecl Rva00435CCC(void);
 // TheGameState's rowed save-directory free-space check and save-exists test.
 #include "../../../Include/Common/Rva002DC267.h"
-class Rva002DCCFB
-{
-public:
-	bool rva002DCCFB(UnicodeString name);
-};
+#include "../../../Include/Common/Rva002DCCFB.h"
 // The refcounted prompt callback (0x0023E8D8 builds it from a pointer to
 // the function pointer) and the two prompt forwarders.
 struct TargetRef00217D4C;

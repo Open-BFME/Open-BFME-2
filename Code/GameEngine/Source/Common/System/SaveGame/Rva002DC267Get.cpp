@@ -55,11 +55,7 @@ public:
 
 extern ArchiveFileSystem *TheArchiveFileSystem;
 
-class Rva002DCCFB
-{
-public:
-	bool rva002DCCFB(UnicodeString filename);
-};
+#include "../../../../Include/Common/Rva002DCCFB.h"
 
 UnicodeString Rva002DC267::rva002DC267() const
 {

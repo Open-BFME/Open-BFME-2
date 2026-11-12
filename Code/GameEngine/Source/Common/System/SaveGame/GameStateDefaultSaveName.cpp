@@ -26,11 +26,7 @@ struct Rva002DBD80Val : AsciiStringPlusText
 };
 Rva002DBD80Val Rva002DBD80Make(int x, const unsigned short *s);
 
-class Rva002DCCFB
-{
-public:
-	bool rva002DCCFB(UnicodeString filename);
-};
+#include "../../../../Include/Common/Rva002DCCFB.h"
 
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

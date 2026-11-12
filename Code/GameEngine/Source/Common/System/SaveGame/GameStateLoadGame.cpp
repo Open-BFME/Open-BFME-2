@@ -54,7 +54,7 @@ public:
  ~Rva0023D46F() { if(counter) counter->_M_rva00625699(); }
 };
 class Rva00248558Scope { public: Rva00248558Scope(); ~Rva00248558Scope(); };
-class Rva002DCCFB { public: bool rva002DCCFB(UnicodeString); };
+#include "../../../../Include/Common/Rva002DCCFB.h"
 #include "../../../../Include/Common/Rva002DC74A.h"
 #include "../../../../Include/Common/GameStateMapClass.h"
 extern void *TheGameStateMap;
