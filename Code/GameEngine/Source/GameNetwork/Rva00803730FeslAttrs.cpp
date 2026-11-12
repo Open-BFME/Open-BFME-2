@@ -64,14 +64,7 @@ public:
 	static void *operator new( unsigned int size );
 };
 
-class Rva007E86B0Base : public Gen007F0130
-{
-public:
-	Rva007E86B0Base();
-	virtual ~Rva007E86B0Base();
-
-	int m_field04;
-};
+#include "../../Include/Common/Rva007E86B0Base.h"
 
 class BfmeC994 : public Rva007E86B0Base
 {

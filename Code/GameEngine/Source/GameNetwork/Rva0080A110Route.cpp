@@ -6,14 +6,7 @@
 extern "C" void _ReadWriteBarrier( void );
 #pragma intrinsic( _ReadWriteBarrier )
 
-class Rva007E86B0Base
-{
-public:
-	Rva007E86B0Base();
-	virtual ~Rva007E86B0Base();
-
-	int m_field04;
-};
+#include "../../Include/Common/Rva007E86B0Base.h"
 
 class BfmeC994 : public Rva007E86B0Base
 {

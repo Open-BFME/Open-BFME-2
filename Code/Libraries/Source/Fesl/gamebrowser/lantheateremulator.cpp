@@ -49,14 +49,7 @@ public:
 	char m_pad5C[0x110];
 	int m_tid; // +0x16C
 };
-class Rva007E86B0Base
-{
-public:
-	Rva007E86B0Base();
-	virtual ~Rva007E86B0Base();
-
-	int m_field04;
-};
+#include "../../../../GameEngine/Include/Common/Rva007E86B0Base.h"
 class Rva00808CB0LanGameEntry : public Rva007E86B0Base
 {
 public:

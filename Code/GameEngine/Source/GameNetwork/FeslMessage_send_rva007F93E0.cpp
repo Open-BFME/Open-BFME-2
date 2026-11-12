@@ -8,14 +8,7 @@ typedef unsigned char Byte;
 // VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
 extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
 
-class Rva007E86B0Base
-{
-public:
-	Rva007E86B0Base();
-	virtual ~Rva007E86B0Base();
-
-	int m_field04;
-};
+#include "../../Include/Common/Rva007E86B0Base.h"
 
 struct Rva007F93E0Prefix
 {

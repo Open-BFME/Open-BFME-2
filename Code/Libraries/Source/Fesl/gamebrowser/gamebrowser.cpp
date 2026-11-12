@@ -1372,13 +1372,7 @@ public:
     int rva00800a40(void *record, unsigned char flag, int extra);
 };
 
-class Rva007E86B0Base
-{
-public:
-    Rva007E86B0Base();
-    virtual ~Rva007E86B0Base();
-    int m_field04;
-};
+#include "../../../../GameEngine/Include/Common/Rva007E86B0Base.h"
 
 class Rva00808CB0LanGameEntry : public Rva007E86B0Base
 {
