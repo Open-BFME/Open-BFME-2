@@ -748,11 +748,7 @@ public:
 	bool m_byte114;                                                     // +0x114
 };
 
-class W3DDisplay : public Display
-{
-public:
-	void rva0025D2F6();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class LanguageFilter : public SubsystemInterface { public: virtual ~LanguageFilter(); };
 class VideoPlayerInterface : public SubsystemInterface { public: virtual ~VideoPlayerInterface(); };
 

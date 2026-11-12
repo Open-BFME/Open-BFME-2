@@ -120,12 +120,7 @@ extern Display *TheDisplay;
 
 #include "../../../Include/GameClient/Rva0004263F.h"
 
-class W3DDisplay
-{
-public:
-	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
-	void rva0008EEF0(float x0, float y0, float x1, float y1, float w, int color);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 static __forceinline void drawFillRect(Int x, Int y, Int width, Int height, Color color)
 {

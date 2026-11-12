@@ -73,7 +73,7 @@ static __forceinline bool hasText(const UnicodeString &unicodeString)
 class Image;
 class Display;
 extern Display *TheDisplay;
-class W3DDisplay {public:void rva0004D6B3(Image*,float,float,float,float,Int,Int);};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 // WB144C000 DrawIcon, native56C716: static helper's last references are
 // internally passed in ECX(maximum)/EAX(icon); image and by-value pair are stack.
 static void DrawIcon(Image *image,FloatPair position,const FloatPair &maximum,const FloatPair &icon) {

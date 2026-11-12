@@ -109,14 +109,7 @@ public:
 
 // Non-virtual float-coordinate members of the display, rowed under their
 // address names (W3DDisplayDrawImageMode.cpp and Rva000A4826Call.cpp).
-class W3DDisplay
-{
-public:
-	void rva0004D6B3( Image *image, Real startX, Real startY, Real endX, Real endY,
-		Int color, Int mode );
-	void rva0008EEF0( Real startX, Real startY, Real width, Real height,
-		Real lineWidth, Int color );
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/Rva000A4826.h"
 

@@ -5631,11 +5631,7 @@ void GameLogic::rva0024004D(bool loadingSaveGame)
 // (deleteLoadScreen is 0x0023C7D2 here) guide purpose only.
 #include "../../../Include/GameClient/Rva001DBB82OneSetter.h"
 
-class W3DDisplay
-{
-public:
-	void rva0025D2F6(void);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class Rva00222A8BTarget
 {

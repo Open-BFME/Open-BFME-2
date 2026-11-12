@@ -225,14 +225,7 @@ public:
 
 #include "../../../../../../GameEngine/Include/GameClient/ControlBar.h"
 
-class W3DDisplay
-{
-public:
-	void rva0004D664(Real startX, Real startY, Real endX, Real endY,
-		Real lineWidth, Color lineColor);   // ZH Display::drawLine
-	void rva0004D6B3(Image *image, Real startX, Real startY, Real endX, Real endY,
-		Color color = 0xFFFFFFFF, Int mode = 2);   // ZH Display::drawImage (DRAW_IMAGE_ALPHA)
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 #include "../../../../../../GameEngine/Include/GameClient/Rva0004263F.h"
 

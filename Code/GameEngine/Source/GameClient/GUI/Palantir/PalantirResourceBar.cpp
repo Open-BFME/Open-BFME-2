@@ -11,7 +11,7 @@
 class Image;
 class Display;
 extern Display *TheDisplay;
-class W3DDisplay { public: void rva0004D6B3(Image *,float,float,float,float,int,int); };
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../Include/Common/Rva00222A8BTarget.h"

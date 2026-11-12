@@ -728,11 +728,7 @@ void Anim2D::clearStatus( UnsignedByte statusBits )
 // ?getCurrentFrameHeight@Anim2D@@QBEIXZ
 // Readable body in Code/GameEngine/Source/GameClient/System/Anim2DCurrentFrameHeight.cpp.
 
-class W3DDisplay
-{
-public:
-	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Drawing an Anim2D using a forced width and height */

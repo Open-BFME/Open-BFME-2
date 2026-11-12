@@ -829,7 +829,7 @@ virtual void slot43();
 virtual void resetClip(void*);
 };
 
-class W3DDisplay{public:void rva0004D664(float,float,float,float,float,int);void rva0004D6B3(Image*,float,float,float,float,int,int);};
+#include "../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class Rva0004263F{public:void rva0004263F(float,float,float,float,int);};
 

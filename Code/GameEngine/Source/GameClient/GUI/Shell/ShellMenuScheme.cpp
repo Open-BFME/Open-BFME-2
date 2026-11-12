@@ -39,12 +39,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class W3DDisplay
-{
-public:
-    void rva0004D6B3(Image *, float, float, float, float, int = -1, int = 2);
-    void rva0004D664(float, float, float, float, float, int);
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class Rva002004FD
 {
