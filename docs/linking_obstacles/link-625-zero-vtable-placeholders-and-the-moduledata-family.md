@@ -566,3 +566,12 @@ FireWeaponWhenDead repair above. Whole-image verification remains outstanding.
   are followed by long pointer runs in retail (`?g_bfmeSinkSTA@@3PAXA`, 964 bytes; `?xor@?1??obfuscate@@...` in
   GameSpyLoginPreferences.cpp) and are the next to check against their users. The sweep script and its output are
   in the seat's scratch, not committed; rerun it before relying on these counts.
+
+**2026-11-12, seat halilkkaya-lk103 (base `36e2968e498`): the two pointer runs checked; the data sweep extended.**
+- `?g_bfmeSinkSTA@@3PAXA` (0x009A71AC) and `?xor@?1??obfuscate@@...` (0x009D3F24) are benign. Our word 0 equals
+  retail's pointer, no matched row references any word past it (the ledger extent is the gap to the next referenced
+  address), and their only users (bfmeGoSTA, obfuscate) are off the LINK-627 walk.
+- The sweep's question, generalized from "our symbol is short or zero" to "our symbol is another storage", is
+  LINK-661 (split storage). One repair there: FileSystem's lang lookups read the language buffer, not a literal.
+- Tree-wide, no matched instruction writes a retail-`.data` address that our build defines in a read-only section
+  (222 such definitions; every access is a read).

@@ -607,3 +607,54 @@ vptr store the walk reaches, in walk order.
   through the alias before classifying.
 - Clearance: none claimed. The next real link should show these units' +0/+0x0C/+0x14 stores resolving to the owned
   tables.
+
+**2026-11-12, seat halilkkaya-lk103 (base `36e2968e498`): beyond vptrs; stale ledger rows and split storage.**
+- Survey (walker at `--max-tier 5`, 44,609 functions, plus a relocation resolver that binds each relocation of a
+  walked row the way the real link does: local definition, kept strong/COMDAT definer, else the live
+  `/alternatename` target):
+  1. lk101's leftovers: the ModuleTemplateCloneSlots +0x0C store was real (below). `g_bfmeSinkSTA` (0x009A71AC)
+     and obfuscate's `xor` (0x009D3F24) are benign. Word 0 equals retail's pointer, no matched row references the
+     words after it, and neither user is on the walk.
+  2. Split storage (one retail `.data`/`.bss` global, several storages): 84 addresses on the walk, 17 true splits.
+     The rest are dead thunk/initializer copies (32), array-end displacements (31) and constant literals (4). New
+     entry LINK-661 has the families. Real ones in boot order: the SortingRenderer lists (tier 0, a per-frame node
+     leak); PointGroup `VertexLoc` (tier 0; PointGroupClass::Render calls 0x0017A890, which writes through its own
+     never-resized static, so the first point-group fill writes through a null vector); W3DMouse `isThread`; the
+     volumetric and projected shadow statics; the language buffer.
+  3. Stand-in callees: 3,154 relocations through live aliases land on retail's callee. 10 land elsewhere, all on
+     behaviour-identical bodies: 5 byte twins, and 5 `?j_00015d7a` tree destructors that differ only in EH table and
+     in an equivalent `_M_erase`. 130 code relocations resolve to another row than retail's target; each is an ILT
+     forward or an equivalent duplicate. 261 distinct unrowed callees: 256 are byte-identical to retail at the call
+     target, 5 differ only in codegen (inlined vs called helpers, same semantics). No defects.
+  4. Short/zero `.data` (lk101's dsweep): the walk reaches 3 references past our size, none real
+     (`g_00DBD33C[10..11]` read-only constants, BigObfSlot `.bss` zero in retail too). Tree-wide, no matched
+     instruction writes a retail-`.data` address that our build defines read-only (222 such definitions, all read).
+- Repaired:
+  - "data_ledger: four stale rows that hid boot-path vtables from the bridge" (`Verifier-Change`; rows verbatim from
+    `tools/data_ledger.py --out` by exact address; proof in
+    `reverse/attempt_support/ledger-row-refresh-20261112-lk103/`). 0x0081C8F0 was still `kind=string` after the "HZz"
+    repair, so ModuleTemplateCloneSlots' one-slot `??_7Rva003AC8D7Object@@6BRva003AC8D7Slot2@@@` (factory 0x003AC8D7)
+    was not bridged. It is now bridged at 4 slots, which closes lk101's first leftover without touching
+    `BfmeAccessorMacros.h`. 0x0081B5D0/E0 were 1 byte, so `??0Rva003A59C3`'s two tables were refused
+    `unbounded-retail-row`; now bridged. 0x0083702C was 4 bytes, so eight listener/observer names (LivingWorldLogic's
+    listener ctors at tier 1 under GEinit#243, the StrategicInGameUI observers) were bridged or judged correct at
+    1 of 5 slots, one with `__purecall` in slots 2..4. Offline plan: bridged 3377 -> 3382, refused 35 -> 33, correct
+    2185 -> 2183 (the two 1-slot "correct" names), nothing else changed. A full ledger regeneration gives the same plan.
+  - "Read the language buffer, not the literal "English", in FileSystem's lang lookups": openFile/doesFileExist
+    (tier 0) pushed their own "English" where retail pushes 0x00DD509C, which GameEngine::init sets through
+    Rva00600665Set. Bytes identical; one relocation per row now names `?g_00DD509C@@3PADA`.
+- Blocked (re_log row on 0x0012FD80): the SortingRenderer split cannot be fixed with externs. Making the lists
+  external breaks five rows' codegen. The fix is the sortingrenderer.cpp merge (LINK-661). VertexLoc likewise
+  needs pointgr.cpp merged with 0x0017A890's unit. Dry run: pointgr.cpp itself holds 2 rows of another TU (split it
+  first), then adopt canonical DX8Wrapper/PointGroupClass. That is the most likely crash among the splits.
+- Left, in boot order: the LINK-661 merges (sortingrenderer, pointgr, W3DMouse, W3DProjectedShadow,
+  W3DVolumetricShadow); `$S22`/`$S26` (LINK-584) untouched.
+- Measurement note: link_check of ThrowingNewHelpers.cpp, OwnedPointerResets.cpp and
+  StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp reports "does not link" (`?reset@Rva005CE236` selection)
+  with the committed ledger as well. That comes from post-census sibling changes ("Register canonical Rva005E893E,
+  adopt it in 3 units"), not this pass.
+- Tooling leads (tools/ not edited): `vtable_bridge.table_rows` trusts the committed ledger's kind and size, and the
+  committed rows drift as stand-ins are repaired. A `data_ledger.py --check`-style diff limited to vtable-like
+  addresses (kind or size changed) would surface these rows after each repair. The walker should take the relocation
+  resolver above as a mode, so split storage and alias targets are reported beside the vptr stores.
+- Clearance: none claimed. The next real link should bridge 0x00C1C8F0, 0x00C1B5D0/E0 and five slots at 0x00C3702C.
