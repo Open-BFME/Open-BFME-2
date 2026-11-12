@@ -90,8 +90,10 @@ static void CancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
  }
 }
 }
-class Rva005F57D8 {public: void rva005F57D8(); char prefix[0x20]; LivingWorldArmy *army; Rva005F56B0Selection *selection;};
-void Rva005F57D8::rva005F57D8(){reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(StrategicInGameUI::CanCancelMove(selection,army));}
+// Slot 1 of Rva005F5819's primary vftable (retail 0x00C79570, installed by
+// its constructor 0x005F589E and destructor 0x005F5819).
+class Rva005F5819 {public: virtual void rva005F57D8(); char prefix[0x1C]; LivingWorldArmy *army; Rva005F56B0Selection *selection;};
+void Rva005F5819::rva005F57D8(){reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(StrategicInGameUI::CanCancelMove(selection,army));}
 class Rva005F57F2 {public: void rva005F57F2(); char prefix[0x18]; LivingWorldArmy *army; Rva005F56B0Selection *selection;};
 void Rva005F57F2::rva005F57F2(){reinterpret_cast<Rva005E0D94*>(this)->rva005E0D94();if(StrategicInGameUI::CanCancelMove(selection,army))StrategicInGameUI::CancelMove(selection,army);}
 
