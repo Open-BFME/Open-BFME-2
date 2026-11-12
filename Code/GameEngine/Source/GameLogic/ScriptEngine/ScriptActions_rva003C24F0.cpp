@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva003C24F0@ScriptActions@@QAEPAVObject@@PBUCoord3D@@PAVObjectTypes@@PAVPlayer@@_N@Z, retail
 // 0x003C24F0 (370 bytes, EH, RET 16): BFME 2's ScriptActions::findClosestObject
 // (Open-BFME-1 ScriptActions_findClosestObject.cpp, 0x002F5D50, is the donor;
@@ -8,7 +9,7 @@
 // hit to the position wins by squared distance. Called by the nearest-object
 // team actions (0x003C2662 0x003C276A 0x003C33C9 0x003C42B9 0x003C449C ...).
 // Honest address name: the WorldBuilder name is not proven.
-#include "ascii_string.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 class Object;
 class Player;
@@ -69,16 +70,6 @@ struct Rva003C24F0Delta
 
 #include "../Object/object.h"
 
-class ObjectTypes
-{
-public:
-	int getListSize() const { return m_end - m_begin; }
-	AsciiString getNthInList(unsigned int index) const;	// 0x002041AC
-private:
-	char m_pad00[8];
-	AsciiString *m_begin;	// +0x08
-	AsciiString *m_end;	// +0x0C
-};
 
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;

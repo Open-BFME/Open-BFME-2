@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?findAttackInfo@ScriptEngine@@QAEPAVAttackPriorityInfo@@ABVAsciiString@@_N@Z, retail 0x00205D5D, 128 bytes.
 // ScriptEngine attack-priority-set table: 256 entries of 0x10 at 0x19100 with
@@ -9,7 +10,7 @@
 // AppendDebugMessage (same this) and names the "***Error allocating attack
 // priority set" limit; callees are rowed StringBase::compare and pinned
 // AsciiString::operator=.
-#include "ascii_string.h"
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 #include "../../../Include/GameLogic/AttackPriorityInfo.h"
 class ThingTemplate;
 #include "../../../Include/Common/ThingFactory.h"
@@ -56,19 +57,6 @@ void _bfme_debugRecordCallsite(int kind);
 
 #include "../../../Include/GameLogic/ScriptAction.h"
 
-class ObjectTypes
-{
-public:
-	AsciiString getNthInList(unsigned int index) const;	// 0x002041AC
-	unsigned int getListSize(void) const { return m_end - m_begin; }
-
-private:
-	void *m_vptr;
-	AsciiString m_listName;
-	AsciiString *m_begin;
-	AsciiString *m_end;
-	AsciiString *m_capacity;
-};
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
