@@ -10,15 +10,7 @@
 
 #include "ascii_string.h"
 
-class Rva0021915B
-{
-public:
-	Rva0021915B &operator=(const Rva0021915B &other);
-
-private:
-	AsciiString m_str;
-	unsigned char m_byte;
-};
+#include "../../Include/Common/Rva0021915B.h"
 
 Rva0021915B *__cdecl Rva002195B7CopyBackward(Rva0021915B *first, Rva0021915B *last, Rva0021915B *dest, void *tag, int extra)
 {

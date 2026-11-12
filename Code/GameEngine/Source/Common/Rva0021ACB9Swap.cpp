@@ -14,10 +14,7 @@ template <class T1, class T2> struct pair {
 };
 }
 typedef _STL::pair<const AsciiString, char> Pair0021ACB9;
-class Rva0021915B {
-public:
-    Rva0021915B &operator=(const Rva0021915B &other);
-};
+#include "../../Include/Common/Rva0021915B.h"
 
 void __cdecl Rva0021ACB9Swap(Rva0021915B *lhs, Rva0021915B *rhs)
 {

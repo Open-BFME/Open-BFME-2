@@ -17,15 +17,7 @@
 #include "ascii_string.h"
 #include <algorithm>
 
-class Rva0021915B
-{
-public:
-	Rva0021915B &operator=(const Rva0021915B &other);
-	friend struct Rva0021B753;
-private:
-	AsciiString m_str;
-	bool m_byte;
-};
+#include "../../../../GameEngine/Include/Common/Rva0021915B.h"
 
 struct Rva0021B753
 {

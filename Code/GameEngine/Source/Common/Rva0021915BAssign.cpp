@@ -22,16 +22,7 @@
 #include "ascii_string.h"
 
 
-class Rva0021915B
-{
-public:
-	Rva0021915B &operator=(const Rva0021915B &other);
-	friend struct Rva0021B753;
-
-private:
-	AsciiString m_str;
-	bool m_byte;
-};
+#include "../../Include/Common/Rva0021915B.h"
 
 Rva0021915B &Rva0021915B::operator=(const Rva0021915B &other)
 {
