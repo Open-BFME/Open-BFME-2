@@ -9,11 +9,13 @@
 // 0x004E668E destructor is defined below from its own boundary; other names
 // remain address-derived. Owner and pointee type identities are not recovered.
 //
-// Five of the pointee destructors defined at the end of this unit
-// (0x004E668E, 0x0052710C, 0x00527FA2, 0x005D4FFC, 0x005E893E) are
-// declared noinline: retail's resets call them out of line, as they would
+// Six of the pointee destructors defined in this unit (0x004E668E,
+// 0x0052710C, 0x00527FA2, 0x005D32D4, 0x005D4FFC, 0x005E893E) are
+// noinline: retail's resets and clears call them out of line, as they would
 // from another unit, while cl would otherwise expand them here and call
-// the clear helper each one forwards to.
+// the clear helper each one forwards to. Five of them come from canonical
+// headers that declare a plain destructor, so this unit puts noinline on
+// their definitions instead.
 //
 //   reset       pointee dtor  callers
 //   0x000AF146  0x000AD71D    2
@@ -146,7 +148,7 @@ struct Rva004E63E2
 	void rva004E63E2();
 };
 
-Rva004E668E::~Rva004E668E()
+__declspec(noinline) Rva004E668E::~Rva004E668E()
 {
 	((Rva004E63E2 *)this)->rva004E63E2();
 }
@@ -1640,7 +1642,7 @@ void Rva00526F80::rva00526F80()
 	((Rva00526F2C *)this)->clear();
 }
 
-Rva00527FA2::~Rva00527FA2()
+__declspec(noinline) Rva00527FA2::~Rva00527FA2()
 {
 	((Rva00527F88 *)this)->clear();
 }
@@ -1661,7 +1663,7 @@ Rva005D4FFC::~Rva005D4FFC()
 	((Rva005D4FA0 *)this)->clear();
 }
 
-Rva0052710C::~Rva0052710C()
+__declspec(noinline) Rva0052710C::~Rva0052710C()
 {
 	((Rva00526F12 *)this)->clear();
 }
@@ -1677,12 +1679,12 @@ void Rva0052AC0A::rva0052AC0A()
 	((Rva0052A76C *)this)->clear();
 }
 
-Rva005D32D4::~Rva005D32D4()
+__declspec(noinline) Rva005D32D4::~Rva005D32D4()
 {
 	((Rva005D32AA *)this)->clear();
 }
 
-Rva005E893E::~Rva005E893E()
+__declspec(noinline) Rva005E893E::~Rva005E893E()
 {
 	((Rva005E88EE *)this)->clear();
 }
