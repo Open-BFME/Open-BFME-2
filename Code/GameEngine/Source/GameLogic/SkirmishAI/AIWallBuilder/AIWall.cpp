@@ -41,11 +41,7 @@ class Cleanup4EB5E9 { public: virtual void *releaseStorage(unsigned flags) = 0; 
 class AsciiString;
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
-struct WallVersion
-{
-    WallVersion(unsigned char min, unsigned char cur) : minimum(min), current(cur) {}
-    unsigned char minimum, current;
-};
+#include "../../../../Include/Common/WallVersion.h"
 class Snapshot;
 class UnicodeString;
 class PooledString;
