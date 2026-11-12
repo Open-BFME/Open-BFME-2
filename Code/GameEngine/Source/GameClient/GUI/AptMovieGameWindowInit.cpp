@@ -12,7 +12,7 @@
 #include "ascii_string.h"
 class GameWindow;
 void _CallOnLastFrame(GameWindow*);
-struct FunctorWrapperHead{void*vtable;unsigned refs;};
+#include "../../../Include/Common/FunctorWrapperHead.h"
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva0023E8D8 {public:Rva0023E8D8():m_ptr(0){}Rva0023E8D8(void*);FunctorWrapperHead*m_ptr;};
 class AptCommandMap;template<class T>class AptRef;

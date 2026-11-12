@@ -12,16 +12,16 @@
 // and load-screen singleton; no donor global address is carried here.
 #include "ascii_string.h"
 typedef void (__cdecl *AptCallback)();
-struct FunctorWrapperHead {void*vtable;unsigned refs;};
+#include "../../../Include/Common/FunctorWrapperHead.h"
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva00380AB1 {public:Rva00380AB1(void*);FunctorWrapperHead*m_ptr;};
 class Rva0023E8D8 {public:Rva0023E8D8(void*);FunctorWrapperHead*m_ptr;};
 class Rva004106FA {public:Rva004106FA(const int*);FunctorWrapperHead*m_ptr;};
 class AptCustomRender;class AptCommandMap;class AptScreenInitGadgets;
 template<class T>class AptRef;
-template<>class AptRef<AptCustomRender>:public Rva00380AB1 {public:AptRef(AptCallback f):Rva00380AB1(&f){}AptRef(const AptRef&that):Rva00380AB1(that){if(m_ptr)++m_ptr->refs;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
-template<>class AptRef<AptCommandMap>:public Rva0023E8D8 {public:AptRef(AptCallback f):Rva0023E8D8(&f){}AptRef(const AptRef&that):Rva0023E8D8(that){if(m_ptr)++m_ptr->refs;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
-template<>class AptRef<AptScreenInitGadgets>:public Rva004106FA {public:AptRef(AptCallback f):Rva004106FA(reinterpret_cast<const int*>(&f)){}AptRef(const AptRef&that):Rva004106FA(that){if(m_ptr)++m_ptr->refs;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
+template<>class AptRef<AptCustomRender>:public Rva00380AB1 {public:AptRef(AptCallback f):Rva00380AB1(&f){}AptRef(const AptRef&that):Rva00380AB1(that){if(m_ptr)++m_ptr->m_refCount;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
+template<>class AptRef<AptCommandMap>:public Rva0023E8D8 {public:AptRef(AptCallback f):Rva0023E8D8(&f){}AptRef(const AptRef&that):Rva0023E8D8(that){if(m_ptr)++m_ptr->m_refCount;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
+template<>class AptRef<AptScreenInitGadgets>:public Rva004106FA {public:AptRef(AptCallback f):Rva004106FA(reinterpret_cast<const int*>(&f)){}AptRef(const AptRef&that):Rva004106FA(that){if(m_ptr)++m_ptr->m_refCount;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
 #include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);
