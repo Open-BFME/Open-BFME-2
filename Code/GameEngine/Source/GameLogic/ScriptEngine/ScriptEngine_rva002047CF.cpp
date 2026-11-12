@@ -7,18 +7,11 @@ extern int st_DebugDLL;
 extern unsigned char g_00DFE15D;
 void Rva002040E7GetFrameNumber();
 
-class ScriptEngine
-{
-public:
-	void rva002047CF();
-private:
-	unsigned char m_padToDebugFlag[0x1A4D9];
-	bool m_useLogicDebugFrame;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva002047CF()
 {
-	if (!m_useLogicDebugFrame)
+	if (!m_1A4D9)
 		return;
 	Rva002040E7GetFrameNumber();
 	if (st_DebugDLL)

@@ -11,7 +11,7 @@
 //   (BFME1 re-reads TheScriptDebugWindowDLL after its inputs call too).
 // - Null module stores latch true (BFME1 trailing assignment); null proc
 //   returns leaving the latch alone (BFME1 inner return).
-// Human-readable names; TU-local ScriptEngine view (flag offset only).
+// Human-readable names; canonical ScriptEngine.h (the flag is its m_1A4D9).
 
 #include <windows.h>
 extern int st_DebugDLL;
@@ -24,18 +24,11 @@ void rva00204094();
 #define TheScriptDebugWindowDLL st_DebugDLL
 #define ClientCanAppContinue g_00DFE15C
 
-class ScriptEngine
-{
-public:
-	void _bfme_updateClientDebugFrame();
-private:
-	unsigned char m_padToDebugFlag[0x1A4D9];
-	bool m_useLogicDebugFrame;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::_bfme_updateClientDebugFrame()
 {
-	if (m_useLogicDebugFrame)
+	if (m_1A4D9)
 		return;
 
 	rva00204094();
