@@ -29,7 +29,7 @@ int Rva000A8F5EGet();
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);
 #include "../../../../../GameEngine/Include/GameClient/FunctorBinding.h"
-struct FunctorWrapperHead {void*vtable;int count;};
+#include "../../../../../GameEngine/Include/Common/FunctorWrapperHead.h"
 class Rva0057BC63FunctorHolder {public:Rva0057BC63FunctorHolder(const FunctorBinding&);FunctorWrapperHead*m_ptr;};
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
