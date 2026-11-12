@@ -25,7 +25,7 @@ namespace _STL { template <> void _Construct<Rva00064640Record,Rva00064640Record
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Rva00064640Record;
 namespace _STL { template <> _Rb_tree_node<Rva00064640Record> * _Rb_tree<Rva00064640Record,Rva00064640Record,_Identity<Rva00064640Record>,less<Rva00064640Record>,allocator<Rva00064640Record> >::_M_create_node(Rva00064640Record const &); }
-class Rva00064640Record { public: unsigned char m_data[28]; };
+#include "../../../../GameEngine/Include/Common/Rva00064640Record.h"
 
 typedef _STL::_Rb_tree<int, _STL::pair<const int, AsciiString>, _STL::_Select1st<_STL::pair<const int, AsciiString> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, AsciiString> > > HAsciiStringMapTree;
 typedef _STL::_Rb_tree<Rva00064640Record, Rva00064640Record, _STL::_Identity<Rva00064640Record>, _STL::less<Rva00064640Record>, _STL::allocator<Rva00064640Record> > VRva00064640RecordSetTree;

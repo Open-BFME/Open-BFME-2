@@ -5,18 +5,7 @@
 // Keep the shared allocator helper declared-only; its verified owner supplies
 // the out-of-line copy. Record-node erasure already emits retail direct free.
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
-class Rva00064640Record
-{
-public:
-	bool operator<(const Rva00064640Record &other) const { return m_18 < other.m_18; }
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	float m_10;
-	float m_14;
-	unsigned int m_18;
-};
+#include "../../Include/Common/Rva00064640Record.h"
 // Retail erases this trivial payload through free, without a size argument.
 // This TU-scoped allocator specialization preserves that established path.
 namespace _STL {

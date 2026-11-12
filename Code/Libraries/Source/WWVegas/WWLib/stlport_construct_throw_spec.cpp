@@ -32,11 +32,7 @@ public:
 	Gen_005e9a20(const Gen_005e9a20 &other);
 };
 
-class Rva00064640Record
-{
-public:
-	Rva00064640Record(const Rva00064640Record &other);
-};
+#include "../../../../GameEngine/Include/Common/Rva00064640Record.h"
 
 class Rva003AD160
 {

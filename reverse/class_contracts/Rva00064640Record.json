@@ -1,0 +1,126 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00064640Record",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "28": 7
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 61
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {}
+}

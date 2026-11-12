@@ -1,19 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc
 // Retail 0x00064640 is a seven-dword thiscall copy body. The record owner remains address-derived.
 
-class Rva00064640Record
-{
-public:
-	Rva00064640Record( const Rva00064640Record &other );
-
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	float m_10;
-	float m_14;
-	unsigned int m_18;
-};
+#include "../../Include/Common/Rva00064640Record.h"
 
 // ??0Rva00064640Record@@QAE@ABV0@@Z
 Rva00064640Record::Rva00064640Record( const Rva00064640Record &other )
