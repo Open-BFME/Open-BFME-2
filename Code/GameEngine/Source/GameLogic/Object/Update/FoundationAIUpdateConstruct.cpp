@@ -225,11 +225,7 @@ public:
 	Int m_value45C; // +0x45C
 };
 
-class Rva0028CBFD
-{
-public:
-	void rva0028CBFD();
-};
+#include "../../../../Include/Common/Rva0028CBFD.h"
 
 class Rva0039B795;
 struct Rva0039BAD2Input;

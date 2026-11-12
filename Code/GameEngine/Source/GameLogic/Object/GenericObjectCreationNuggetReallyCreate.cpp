@@ -175,11 +175,7 @@ public:
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 
-class Rva0028CBFD
-{
-public:
-	void rva0028CBFD();
-};
+#include "../../../Include/Common/Rva0028CBFD.h"
 
 class Object : public Thing
 {

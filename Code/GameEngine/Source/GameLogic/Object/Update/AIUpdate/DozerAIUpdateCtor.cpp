@@ -2258,11 +2258,7 @@ private:
 	unsigned int m_words[19];
 };
 
-class Rva0028CBFD
-{
-public:
-	void rva0028CBFD();
-};
+#include "../../../../../Include/Common/Rva0028CBFD.h"
 
 // LOGICFRAMES_PER_SECOND.
 extern int BfmeLogicFramesPerSecond;

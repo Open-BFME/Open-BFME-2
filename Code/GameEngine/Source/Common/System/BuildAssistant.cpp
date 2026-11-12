@@ -1273,11 +1273,7 @@ bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type me
 	PickAndPlayInfo *info);
 // The rowed member every newly made object ends with (ZH's
 // handlePartitionCellMaintenance).
-class Rva0028CBFD
-{
-public:
-	void rva0028CBFD();
-};
+#include "../../../Include/Common/Rva0028CBFD.h"
 //-------------------------------------------------------------------------------------------------
 /** Update phase for the build assistant.  BFME2 sells at once: the refund, scaled by the
   * body's fraction, floats up from the structure as cash text, and the structure is killed

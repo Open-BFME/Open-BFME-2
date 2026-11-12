@@ -36,7 +36,7 @@ public:
  Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID flag);
 };
 extern ThingFactory *TheThingFactory;
-class Rva0028CBFD { public: void rva0028CBFD(); };
+#include "../../../Include/Common/Rva0028CBFD.h"
 class Object { public: char pad[0x74]; ObjectID id; ObjectID getID() const { return id; } };
 class PlayerTemplate {
 public: char pad[0x18C]; AsciiString *heroBegin; AsciiString *heroEnd; char pad194[0x1B4-0x194]; AsciiString name1B4; AsciiString name1B8;

@@ -5233,11 +5233,7 @@ template<> inline void vector<BfmeE8>::_M_insert_overflow(
 }
 class GameClient { public: void rva0023B383(Dict *, ThingTemplate *, const Coord3D *); };
 extern "C" int (__cdecl * const _imp__strncmp)(const char *s1, const char *s2, unsigned int count);
-class Rva0028CBFD
-{
-public:
-	void rva0028CBFD(void);
-};
+#include "../../../Include/Common/Rva0028CBFD.h"
 #include "../../../Include/Common/Rva0033A68A.h"
 static __forceinline const ThingTemplate *finalOverride(const ThingTemplate *tt)
 {

@@ -584,7 +584,7 @@ extern ScriptEngine *TheScriptEngine;
 class Rva002390CB { public: int opaque00; OpaqueRefElement4 ref; };
 #include "../../../../Include/GameClient/Drawable.h"
 class Rva002707FA { public: void rva002707FA(unsigned char); };
-class Rva0028CBFD { public: void rva0028CBFD(); };
+#include "../../../../Include/Common/Rva0028CBFD.h"
 #include "../../../../Include/GameLogic/Module/SlaveWatcherBehavior.h"
 struct CreateMask { unsigned int bits[4]; CreateMask() { memset(bits,0,sizeof(bits)); } };
 struct ProductionPlayerListView { char pad[0x10]; Player *localPlayer; };

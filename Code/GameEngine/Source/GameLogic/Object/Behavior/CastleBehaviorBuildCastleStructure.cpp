@@ -36,7 +36,7 @@ class Object { public: CastleBodyView* body() const { return *(CastleBodyView*co
  void setStatus(ObjectStatusTypes,bool);
  ExitInterface* getObjectExitInterface() const;
 };
-class Rva0028CBFD { public: void rva0028CBFD(); };
+#include "../../../../Include/Common/Rva0028CBFD.h"
 // Retail builds it through the rowed initializer Rva00263895Member
 // (Rva00263895Init.cpp); the inline forwarder binds the call there.
 class Rva00263895Member

@@ -26,7 +26,7 @@ struct CarryoverGameLogicView { char unknown00[0x98]; bool enable; bool get() co
 struct CarryoverPlayerView { char unknown00[0x2EC]; Team *team; Team *getTeam() const { return team; } };
 class Rva002206F9Sink;
 #include "../../../Include/Common/Rva0037DCA5.h"
-class Rva0028CBFD { public: void rva0028CBFD(); };
+#include "../../../Include/Common/Rva0028CBFD.h"
 class Rva003BD306Target {
 public:
     char unknown00[0x10]; float experience;

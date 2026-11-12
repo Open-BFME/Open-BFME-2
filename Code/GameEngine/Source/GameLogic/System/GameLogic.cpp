@@ -232,11 +232,7 @@ public: Module *lookupModule(NameKeyType key) const {return findModule(key);}
 	char m_pad90[0x244 - 0x90];
 	BehaviorModule **m_behaviors; // +0x244
 };
-class Rva0028CBFD
-{
-public:
-	void rva0028CBFD();
-};
+#include "../../../Include/Common/Rva0028CBFD.h"
 class BFMEPathfinderMapShim
 {
 public:
