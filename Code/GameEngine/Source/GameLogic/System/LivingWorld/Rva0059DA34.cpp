@@ -54,10 +54,7 @@ struct Rva004FF5B7Node
 	char m_value[1];
 };
 
-struct Rva004FF5B7Iter
-{
-	Rva004FF5B7Node *m_ptr;
-};
+#include "../../../../Include/GameLogic/Rva004FF5B7Iter.h"
 
 class Rva004FF5B7
 {

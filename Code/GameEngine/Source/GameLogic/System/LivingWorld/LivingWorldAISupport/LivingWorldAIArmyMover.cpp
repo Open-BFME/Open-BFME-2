@@ -66,7 +66,7 @@ class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 #include "../../../../../Include/GameLogic/Rva002E071E.h"
 struct ArmyMoverRegionInfo {int id,owner,m_08,m_0c;_STL::vector<int>m_10,m_1c,m_28,m_34,m_40;IntMap armies;};
 struct Rva004FF5B7Node:public _STL::_Rb_tree_node_base {int key;ArmyMoverRegionInfo region;};
-struct Rva004FF5B7Iter {Rva004FF5B7Node*m_ptr;};
+#include "../../../../../Include/GameLogic/Rva004FF5B7Iter.h"
 class Rva004FF5B7 {public:__forceinline ArmyMoverRegionInfo*get(int id){return &GetRegionInfo(id).m_ptr->region;}Rva004FF5B7Iter GetRegionInfo(int);};
 struct ArmyMoverDistanceLookup { IntMap::iterator find(int id){return ((IntMap*)this)->find(id);} };
 extern unsigned g_Va00E04544;
