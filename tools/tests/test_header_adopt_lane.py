@@ -2031,7 +2031,7 @@ def test_review_r1_a_derived_class_pads_from_its_bases_extent(base_contracts):
 
 @pytest.mark.parametrize("contract,why", [
     # review r1: a vptr at +4 with no base, no slots: padding stood in for it and every assertion passed
-    (layout_contract(8, ("VPTR", 4, "__vfptr"), ("i4", 0, "x")), "with no base the compiler puts it at +0x0"),
+    (layout_contract(8, ("VPTR", 4, "__vfptr"), ("i4", 0, "x")), "only a vptr at +0x0 is proven"),
     (layout_contract(12, ("VPTR", 4, "__vfptr"), ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}),
      "a base that has none"),
     (layout_contract(12, ("i4", 8, "x"), bases=("LayoutBaseProbe",), vslots={"0": "f"}), "a base that has none"),
@@ -2039,7 +2039,7 @@ def test_review_r1_a_derived_class_pads_from_its_bases_extent(base_contracts):
     (layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "x"), bases=("LayoutBaseProbe",)), "a base that has none"),
     # ... and the polymorphic base's vptr moved to +4
     (layout_contract(12, ("VPTR", 4, "__vfptr"), ("i4", 8, "x"), bases=("LayoutPolyProbe",)),
-     "the vptr it shares with its base is at +0x0"),
+     "only a vptr at +0x0 is proven"),
 ])
 def test_review_r1_a_vptr_the_header_cannot_place_is_refused(base_contracts, contract, why):
     problems = lane.layout_problems(contract)
@@ -2052,6 +2052,8 @@ def test_review_r2_a_vptr_over_a_base_with_no_contract_is_left_to_the_assertions
     assert lane.layout_problems(contract) == []
     fields, after = body(contract)
     assert fields.split() == ["int", "x;"] and "== 8 ? 1 : -1" in after and "== 12 ? 1 : -1" in after
+    # review r3: the base `{ int a, b; }` keeps x at +8 and sizeof 12 without a vptr; the probe proves it
+    assert "sizeof(canonical_Layout1Probe_vprobe) == sizeof(Layout1Probe)) == 1 ? 1 : -1" in after
 
 
 def test_review_r2_a_shared_vptr_and_an_empty_base_chain_are_declarable(base_contracts):
@@ -2061,27 +2063,41 @@ def test_review_r2_a_shared_vptr_and_an_empty_base_chain_are_declarable(base_con
     assert fields.split() == ["int", "x;"]
 
 
-def test_review_r2_the_vptr_comes_from_the_variants_own_virtual():
-    # empty vslots: the data variant declares no virtual and fails; a methods variant with one declares it
-    contract = layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x"))
-    assert lane.layout_problems(contract) == []
-    with pytest.raises(lane.LayoutError, match="declares no virtual member for the contract's vptr"):
-        lane.generate(contract, "data", {}, None)
-    text = lane.generate(contract, "data+methods", {"f()": "virtual void f();"}, None)
-    assert "virtual void f();" in text and "    int x;" in text and "m_pad" not in text
-    special = [{"role": "dtor", "access": "public", "sig": "~", "text": "virtual ~Layout1Probe();"}]
-    assert "virtual ~Layout1Probe();" in lane.generate(contract, "data", {}, None, None, special)
+def test_review_r3_the_compiler_proves_the_vptr(base_contracts):
+    # review r3: a string literal "virtual" passed a text check, and alignment hid the missing vptr (VPTR +0,
+    # double x[1] at +16, sizeof 24 either way). A probe deriving from the class with one virtual of its own is
+    # its size only when the class already has a vptr; the assertion says which the contracts expect.
+    probe = "struct canonical_Layout1Probe_vprobe : Layout1Probe { virtual void canonical_vprobe(); };"
+    expect = "sizeof(canonical_Layout1Probe_vprobe) == sizeof(Layout1Probe)) == {} ? 1 : -1"
+    masked = layout_contract(24, ("VPTR", 0, "__vfptr"), ("A", 16, "x", "double[1]", 8))
+    assert lane.layout_problems(masked) == []
+    text = lane.generate(masked, "data+methods", {"f": 'void f(const char *s = "virtual");'}, None)
+    assert probe in text and expect.format(1) in text                      # this header fails to compile
+    assert expect.format(0) in lane.generate(layout_contract(8, ("i4", 0, "a"), ("i4", 4, "b")), "data", {}, None)
+    shared = layout_contract(12, ("i4", 8, "x"), bases=("LayoutPolyProbe",))  # the base's vptr: polymorphic too
+    assert expect.format(1) in lane.generate(shared, "data", {}, None)
+    unknown = layout_contract(8, ("i4", 4, "x"), bases=("LayoutUnknownBaseProbe",))
+    assert "vprobe" not in lane.generate(unknown, "data", {}, None)        # nothing the contracts say: no probe
+
+
+def test_review_r3_members_start_after_the_vptr_padded_to_the_class_alignment():
+    # MSVC 7.1 (measured on srv1): `virtual f(); char c; double d;` puts c at +8, d at +16, sizeof 24
+    contract = layout_contract(24, ("VPTR", 0, "__vfptr"), ("i1", 8, "c"), ("A", 16, "d", "double[1]", 8),
+                               vslots={"0": "f"})
+    fields, _ = body(contract)
+    assert fields.split() == ["char", "c;", "double", "d[1];"]
 
 
 def test_review_r2_a_variant_that_cannot_declare_the_layout_fails_its_units(monkeypatch):
     monkeypatch.setattr(lane, "view_methods", lambda *a, **k: {})
     monkeypatch.setattr(lane, "special_members", lambda *a, **k: ([], []))
     monkeypatch.setattr(lane, "try_units", lambda *a, **k: [(s, None, "", None) for s in ("a.cpp", "b.cpp")])
-    contract = dict(layout_contract(8, ("VPTR", 0, "__vfptr"), ("i4", 4, "x")), vslots={})
+    contract = layout_contract(8, ("i4", 0, "a"), ("i4", 2, "b"))           # overlapping: layout_problems
     header = "build/tests-layout-probe/L.h"                  # never written: the variant fails first
     results = lane.tournament("Layout1Probe", contract, ["a.cpp", "b.cpp"], header, ["data"], 1)
     assert set(results["data"]["verdicts"]) == {"a.cpp", "b.cpp"}
-    assert all(v.startswith("layout: ") and "declares no virtual" in v for v in results["data"]["verdicts"].values())
+    assert all(v.startswith("layout: ") and "layout cannot be declared" in v
+               for v in results["data"]["verdicts"].values())
     assert not (lane.ROOT / header).exists()
     assert issubclass(lane.LayoutError, ValueError)
     monkeypatch.setattr(lane, "generate", lambda *a, **k: (_ for _ in ()).throw(ValueError("not layout")))

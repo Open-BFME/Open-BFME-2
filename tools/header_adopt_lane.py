@@ -2438,14 +2438,15 @@ def nested_includes(contract, header, slots=None):
 # that go negative (MSVC 7.1 has no static_assert), so a header that does not honour the contract
 # does not compile and the variant fails. A class's own members start after its vptr (at +0 when it
 # has no base) or after its one base's sizeof, from that base's contract (base_extent; an empty base
-# chain takes no room); with several bases, or a base with no contract, at its first own field, so
-# no pad stands where a vptr belongs and the assertions judge it. A class's own vptr (no base) sits
-# at +0 and generate() requires a virtual of the variant to declare it (a variant without one
-# fails); with one known base, only that base's vptr, shared at +0. What the model can see is
-# refused up front (layout_problems): a field overlapping the one before it or the base, fields past
-# sizeof, a primitive at an offset its size does not divide (that needs #pragma pack), a sizeof the
-# class's alignment does not divide, a field with no kind, offset or size, a vptr away from +0 with
-# no base, and with one known base a vptr the class adds to a base that has none or one away from +0.
+# chain takes no room); with several bases, or a base with no contract, at its first own field. A
+# class's own vptr (no base) is padded to the class's alignment (members at +8 with a double). No
+# offset or sizeof can show a vptr that alignment padding hides, so where the contracts say whether
+# the class is polymorphic (has_vptr) a probe proves it: a class deriving from it with one virtual of
+# its own has its size exactly when it already has a vptr. MSVC 7.1 puts a polymorphic class's vptr at
+# +0. What the model can see is refused up front (layout_problems): a field overlapping the one before
+# it or the base, fields past sizeof, a primitive at an offset its size does not divide (that needs
+# #pragma pack), a sizeof the class's alignment does not divide, a field with no kind, offset or
+# size, a vptr away from +0 (not proven), and a vptr the class adds to a known base with none.
 
 ALIGNMENT = {"char": 1, "uchar": 1, "bool": 1, "int8": 1, "uint8": 1, "signed char": 1, "unsigned char": 1,
              "short": 2, "ushort": 2, "wchar": 2, "wchar_t": 2, "unsigned short": 2,
@@ -2500,12 +2501,6 @@ def is_empty(contract, seen=()):
     return True
 
 
-def own_vptr(contract):
-    """Whether the class must declare a vptr of its own: no base, and a VPTR field or a virtual slot."""
-    return not contract.get("bases") and (bool(contract.get("vslots"))
-                                          or any(f.get("kind") == "VPTR" for f in contract.get("fields", ())))
-
-
 def contract_alignment(name, seen=()):
     """The alignment of the class `name` from its contract (its widest field, base or vptr), or None."""
     if name in seen:
@@ -2537,8 +2532,7 @@ def field_alignment(field, seen=()):
 
 
 class LayoutError(ValueError):
-    """generate() cannot declare the contract's layout in this variant (layout_problems, or no virtual for
-    the contract's vptr)."""
+    """generate() cannot declare the contract's layout (layout_problems)."""
 
 
 def pad_name(offset, taken):
@@ -2560,24 +2554,19 @@ def layout_plan(contract):
     vptr = [f for f in contract.get("fields", ()) if f.get("kind") == "VPTR"]
     declared = bool(contract.get("vslots"))
     polymorphic = bool(vptr) or declared
+    # MSVC 7.1 puts a polymorphic class's vptr at +0 (its own, or its first polymorphic base's); the
+    # probe in size_assertions proves the class is polymorphic, so a vptr anywhere else is not proven
+    problems += [f"vptr at +{f['offset']:#x}: only a vptr at +0x0 is proven" for f in vptr if f["offset"]]
     if not contract.get("bases"):
-        # the class's own vptr, at +0; generate() refuses a variant that declares no virtual for it
-        problems += [f"vptr at +{f['offset']:#x}: with no base the compiler puts it at +0x0" for f in vptr
-                     if f["offset"]]
-        cursor = 4 if polymorphic else 0
+        # MSVC 7.1 pads its own vptr to the class's alignment: with a double, members start at +8
+        widest = max([a for a in map(field_alignment, fields) if a], default=1)
+        cursor = max(4, widest) if polymorphic else 0
     else:
-        # with a base, only its one base's vptr, shared at +0 (one the class adds goes before the base, a
-        # second base's elsewhere: neither is laid out here)
         bases = contract["bases"]
         base = read_contract(base_identity(bases[0])) if len(bases) == 1 else None
-        inherited = has_vptr(base) if base is not None else None
-        if inherited is not None:          # one base whose layout is known
-            if polymorphic and not inherited:
-                problems.append("a vptr the class adds to a base that has none: the compiler puts it before the base")
-            problems += [f"vptr at +{f['offset']:#x}: the vptr it shares with its base is at +0x0" for f in vptr
-                         if f["offset"]]
-        # otherwise (several bases, a base with no contract) members start at the first own field, so no pad
-        # can stand in for a vptr: the offset and sizeof assertions judge it
+        if polymorphic and base is not None and has_vptr(base) is False:
+            # the class's own vptr goes before its base: members do not start at the base's extent
+            problems.append("a vptr the class adds to a base that has none: the compiler puts it before the base")
         cursor = base_extent(contract)
         if cursor is None:
             cursor = min((f["offset"] for f in fields), default=None)   # where several bases end is not known
@@ -2619,10 +2608,19 @@ def layout_problems(contract):
 
 
 def size_assertions(contract):
-    """Namespace-scope lines the compiler proves: sizeof and each field's offset (layout_plan)."""
+    """Namespace-scope lines the compiler proves: sizeof, each field's offset (layout_plan) and, where the
+    contracts say (has_vptr), whether the class is polymorphic: a probe deriving from it and adding one
+    virtual has its size when it already has a vptr and is larger when it has none (no offset or sizeof
+    can show a vptr that alignment padding hides). The probe declares no constructor, so no code or
+    vftable is ever emitted for it."""
     name = contract["class"]
     stem = re.sub(r"\W", "_", name)
     lines = [f"typedef char canonical_{stem}_sizeof[sizeof({name}) == {contract['size']} ? 1 : -1];"]
+    expected = has_vptr(contract)
+    if expected is not None:
+        lines += [f"struct canonical_{stem}_vprobe : {name} {{ virtual void canonical_vprobe(); }};",
+                  f"typedef char canonical_{stem}_vptr[(sizeof(canonical_{stem}_vprobe) == sizeof({name})) == "
+                  f"{int(expected)} ? 1 : -1];"]
     for field in contract.get("fields", ()):
         if field.get("kind") == "VPTR":
             continue
@@ -2635,8 +2633,7 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     """The header text of `variant`. `special` (special_declarations) is declared in every
     variant: a dropped special member is a link fault the byte gate cannot see. The fields sit at
     the contract's offsets, holes padded, and the compiler checks it (layout_plan,
-    size_assertions); a layout the plan cannot declare, or a vptr no virtual of the variant gives, raises
-    LayoutError."""
+    size_assertions); a layout the plan cannot declare raises LayoutError."""
     plan, problems = layout_plan(contract)
     if problems:
         raise LayoutError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))
@@ -2653,7 +2650,6 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     # whose rows mangle a private view's other key fail with it.
     lines += nested_includes(contract, header, slots if "includes" in variant.split("+") else None)
     bases = ", ".join(f"public {b}" for b in contract["bases"])
-    head = len(lines)
     lines.append(f"{key} {name}" + (f" : {bases}" if bases else "") + " {")
     if key == "class":
         lines.append("public:")
@@ -2693,9 +2689,6 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
     for access in ("protected", "private"):
         held = member_lines(s for s in special if s["access"] == access)
         lines += [f"{access}:"] + held if held else []
-    if own_vptr(contract) and not re.search(r"\bvirtual\b", "\n".join(lines[head:])):
-        # the contract's vptr comes only from a virtual this variant declares (slots, methods, special members)
-        raise LayoutError(f"{name}: variant {variant} declares no virtual member for the contract's vptr")
     lines += ["};", ""] + size_assertions(contract) + ["", f"#endif // {guard}", ""]
     return "\n".join(lines)
 
