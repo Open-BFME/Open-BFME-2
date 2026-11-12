@@ -102,7 +102,7 @@ public:
 extern NameKeyGenerator* TheNameKeyGenerator;
 
 extern GameLogic* TheGameLogic;
-class Rva2225E0Filter { public: bool accepts(Object*,Player*); };
+#include "../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class Rva00395F0B { public: void rva00395F0B(Object*); };
 class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rva0045527A(ObjectID); friend class CastleBehavior;
  friend class Rva00399959; char native04[0x2c]; };

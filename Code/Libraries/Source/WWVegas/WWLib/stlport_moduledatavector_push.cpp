@@ -67,11 +67,7 @@ public:
 
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva2225E0Filter.h"
 class BfmeTab1026 : public Rva2225E0Filter
 {
 public:

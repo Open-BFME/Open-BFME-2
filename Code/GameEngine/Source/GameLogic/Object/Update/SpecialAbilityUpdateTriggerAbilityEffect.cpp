@@ -89,10 +89,7 @@ class Player {
     char pad2f0[0x3bc - 0x2f0];
     ScoreKeeper score;
 };
-class Rva2225E0Filter {
-  public:
-    bool accepts(Object *, Player *);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"

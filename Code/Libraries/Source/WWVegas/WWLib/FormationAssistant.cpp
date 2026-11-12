@@ -115,11 +115,7 @@ public:
 	void append(void *const &value);
 };
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva2225E0Filter.h"
 
 class FormationAssistant
 {

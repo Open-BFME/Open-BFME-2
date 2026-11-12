@@ -39,10 +39,7 @@ enum ObjectStatusTypes
 extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/GameLogic/ObjectFilter.h"
-struct Rva2225E0Filter
-{
-	bool accepts(Object *obj, Player *context);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 #include "../../../../Include/Common/Player.h"
 class DamageInfo
 {

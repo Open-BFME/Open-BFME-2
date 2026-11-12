@@ -7,10 +7,7 @@
 class Object;
 class Player;
 
-struct Rva2225E0Filter
-{
-	bool accepts(Object *, Player *);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva2225E0Filter.h"
 
 class Rva00421A57
 {
