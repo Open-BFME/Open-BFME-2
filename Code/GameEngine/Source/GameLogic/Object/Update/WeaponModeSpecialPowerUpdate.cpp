@@ -188,11 +188,7 @@ struct Coord3D;
 
 // --- 0x00210F27 (22B): run the +0x25C effects manager's rowed 0x003EF008 and
 // 0x003EF2FF passes.
-class Rva003EF008
-{
-public:
-	void rva003EF008();										// 0x003EF008
-};
+#include "../../../../Include/Common/Rva003EF008.h"
 
 #include "../../../../Include/Common/LivingWorldRegionEffectsManager.h"
 
