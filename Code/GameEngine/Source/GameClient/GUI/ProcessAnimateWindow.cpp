@@ -6,7 +6,6 @@
 // (0x0002FBC0/0x0002FBB0). Exported, they would be the first in retail-truth-5 link order.
 static float __cdecl cos(float);
 static float __cdecl sin(float);
-// Retain the POD coordinate operations while using the canonical class key.
 #define Coord2D ZHTrivialCoord2D
 #include "Lib/BaseType.h"
 #undef Coord2D
@@ -34,7 +33,6 @@ static float __cdecl sin(float);
 	{ \
 		return m_value; \
 	}
-
 // BFME1 donor definitions below remain candidate source only;
 // markers are bookkeeping and do not establish BFME2 byte identity.
 // Ported verbatim from the Generals Zero Hour reference
@@ -51,7 +49,6 @@ static float __cdecl sin(float);
 // Request its out-of-line copy from the canonical header. Without emission
 // the empty constructor is inlined away in every derived constructor.
 class __declspec(dllexport) ProcessAnimateWindow;
-
 // TU-local display slot view: getWidth at vtable slot 0x40 (16 virtuals,
 // all declared-only so no vtable is emitted here).
 class BFMEDisplayWidthSlot
@@ -75,28 +72,39 @@ public:
 	virtual void _slot015();
 	virtual unsigned getWidth();
 };
-
 BFME_DISP8_BYTE_GETTER(Rva005C4FEBByteField, 0x41)
+#include "../../../Include/Common/Rva0030000CFields.h"
+#include "../../../Include/Common/Rva0056AB88Fields.h"
+#include "../../../Include/Common/Rva002259F3.h"
+#define Coord2D ZHTrivialCoord2D
+#undef Coord2D
+#define inline static inline
+#undef inline
+#define Coord2D ZHTrivialCoord2D
+#undef Coord2D
+#define inline static inline
+#undef inline
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
+
+// Retain the POD coordinate operations while using the canonical class key.
 
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?setBit2@Rva0030000CFields@@QAEXXZ
-#include "../../../Include/Common/Rva0030000CFields.h"
 
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?matches@Rva0056AB88Fields@@QBE_NI@Z
-#include "../../../Include/Common/Rva0056AB88Fields.h"
 
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
-#include "../../../Include/Common/Rva002259F3.h"
 
 // 0x005C4F88 29B ??_GProcessAnimateWindow@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
@@ -1073,9 +1081,112 @@ Bool ProcessAnimateWindowSlideFromRight::updateAnimateWindow( AnimateWindow *ani
 
 // tu-skeleton: 0x005C530D 208B ?initAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
 
-// tu-skeleton: 0x005C53DD 223B ?updateAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp
 
-// tu-skeleton: 0x005C54BC 233B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideLeftUpdate.cpp (not merged yet)
+// Retain the POD coordinate operations while using the canonical class key.
+
+// Retail 0x005C53DD (223 B, ret 4): SlideFromLeft update. The matched constructor at
+// 0x005C52CE installs vptr 0x00C7486C, whose slots 3 and 4 are this update and the reverse
+// below. The class name is carried from the BFME1 donor; the slots are retail evidence.
+// ?updateAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z @0x005C53DD
+Bool ProcessAnimateWindowSlideFromLeft::updateAnimateWindow( AnimateWindow *animWin )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return TRUE;
+	}
+	if(animWin->isFinished())
+		return TRUE;
+	if(timeGetTime() < animWin->getStartTime())
+		return FALSE;
+	GameWindow *win = animWin->getGameWindow();
+	if(!win)
+	{
+		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
+		return TRUE;
+	}
+
+	ICoord2D curPos = animWin->getCurPos();
+	Int endX;
+	{
+		// The end position's lifetime closes before getVel fills the same stack home.
+		ICoord2D endPos = animWin->getEndPos();
+		endX = endPos.x;
+	}
+	{
+		Coord2D vel = animWin->getVel();
+		curPos.x += (Int)vel.x;
+
+		if(curPos.x > endX)
+		{
+			curPos.x = endX;
+			animWin->setFinished( TRUE );
+			return TRUE;
+		}
+		win->winSetPosition(curPos.x, curPos.y);
+		animWin->setCurPos(curPos);
+
+		// Retail keeps the velocity in its stack home across both adjustments.
+		Real &velX = vel.x;
+		if( endX - curPos.x <= m_slowDownThreshold )
+			*(volatile Real *)&velX = m_slowDownRatio * velX;
+		if( 1.0f > velX )
+			*(volatile Real *)&velX = 1.0f;
+		Coord2D slowedVel;
+		slowedVel.x = velX;
+		slowedVel.y = vel.y;
+		animWin->setVel(slowedVel);
+	}
+	return FALSE;
+}
+
+// Retail 0x005C54BC (233 B, ret 4): SlideFromLeft reverse, directly after the update above.
+// ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z @0x005C54BC
+Bool ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow( AnimateWindow *animWin )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return TRUE;
+	}
+	if(animWin->isFinished())
+		return TRUE;
+	if(timeGetTime() < animWin->getStartTime())
+		return FALSE;
+	GameWindow *win = animWin->getGameWindow();
+	if(!win)
+	{
+		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
+		return TRUE;
+	}
+	ICoord2D curPos = animWin->getCurPos();
+	ICoord2D startPos = animWin->getStartPos();
+	Coord2D vel = animWin->getVel();
+	curPos.x += (Int)vel.x;
+	if(curPos.x < startPos.x)
+	{
+		animWin->setFinished( TRUE );
+		if(curPos.x) { win->winSetPosition(startPos.x, curPos.y); } else { win->winSetPosition(startPos.x, curPos.y); }
+		return TRUE;
+	}
+	win->winSetPosition(curPos.x, curPos.y);
+	animWin->setCurPos(curPos);
+
+	ICoord2D endPos = animWin->getEndPos();
+	Real slowedX;
+	if( endPos.x - curPos.x <= m_slowDownThreshold )
+		slowedX = (curPos.x ? (vel.x * m_speedUpRatio) : (vel.x * m_speedUpRatio));
+	else
+		slowedX = -m_maxVel.x;
+	if( slowedX < -m_maxVel.x)
+		slowedX = -m_maxVel.x;
+	Coord2D slowedVel;
+	slowedVel.x = slowedX;
+	slowedVel.y = vel.y;
+	animWin->setVel(slowedVel);
+	return FALSE;
+}
 
 // tu-skeleton: 0x005C55E4 208B ?initAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
 
@@ -1095,9 +1206,114 @@ Bool ProcessAnimateWindowSlideFromRight::updateAnimateWindow( AnimateWindow *ani
 
 // tu-skeleton: 0x005C602A 220B ?initAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAEXPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
 
-// tu-skeleton: 0x005C6106 232B ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp
 
-// tu-skeleton: 0x005C61EE 234B ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAE_NPAVAnimateWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/SlideTopUpdate.cpp (not merged yet)
+// Retain the POD coordinate operations while using the canonical class key.
+
+// Retail 0x005C6106 (232 B, ret 4): SlideFromTop update. The matched constructor at
+// 0x005C55A5 installs vptr 0x00C74884, whose slot 3 is this method. The class name is carried
+// from the BFME1 donor; the slot is retail evidence.
+// ?updateAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z @0x005C6106
+Bool ProcessAnimateWindowSlideFromTop::updateAnimateWindow( AnimateWindow *animWin )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return TRUE;
+	}
+	if(animWin->isFinished())
+		return TRUE;
+	if(timeGetTime() < animWin->getStartTime())
+		return FALSE;
+	GameWindow *win = animWin->getGameWindow();
+	if(!win)
+	{
+		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
+		return TRUE;
+	}
+
+	ICoord2D curPos = animWin->getCurPos();
+	Int endY;
+	{
+		// The end position's lifetime closes before getVel fills the same stack home.
+		ICoord2D endPos = animWin->getEndPos();
+		endY = endPos.y;
+	}
+	{
+		Coord2D vel = animWin->getVel();
+		curPos.y += (Int)vel.y;
+
+		if(curPos.y > endY)
+		{
+			curPos.y = endY;
+			win->winSetPosition(curPos.x, curPos.y);
+			animWin->setFinished( TRUE );
+			return TRUE;
+		}
+		win->winSetPosition(curPos.x, curPos.y);
+		animWin->setCurPos(curPos);
+
+		// Retail keeps the velocity in its stack home across both adjustments.
+		Real &velY = vel.y;
+		if( endY - curPos.y <= m_slowDownThreshold )
+			*(volatile Real *)&velY = m_slowDownRatio * velY;
+		if( 1.0f > velY )
+			*(volatile Real *)&velY = 1.0f;
+		Coord2D slowedVel;
+		slowedVel.x = vel.x;
+		slowedVel.y = velY;
+		animWin->setVel(slowedVel);
+	}
+	return FALSE;
+}
+
+// Retail 0x005C61EE (234 B, ret 4): SlideFromTopFast reverse, directly after the SlideFromTop
+// update. The two equal-arm spellings below reproduce retail's register schedule.
+// ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@UAE_NPAVAnimateWindow@@@Z @0x005C61EE
+Bool ProcessAnimateWindowSlideFromTopFast::reverseAnimateWindow( AnimateWindow *animWin )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return TRUE;
+	}
+	if(animWin->isFinished())
+		return TRUE;
+	if(timeGetTime() < animWin->getStartTime())
+		return FALSE;
+	GameWindow *win = animWin->getGameWindow();
+	if(!win)
+	{
+		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
+		return TRUE;
+	}
+	ICoord2D curPos = animWin->getCurPos();
+	ICoord2D startPos = animWin->getStartPos();
+	Coord2D vel = animWin->getVel();
+	curPos.y += (Int)vel.y;
+	if(curPos.y < startPos.y)
+	{
+		animWin->setFinished( TRUE );
+		if(curPos.y) { win->winSetPosition(curPos.x, startPos.y); } else { win->winSetPosition(curPos.x, startPos.y); }
+		return TRUE;
+	}
+	win->winSetPosition(curPos.x, curPos.y);
+	animWin->setCurPos(curPos);
+
+	ICoord2D endPos = animWin->getEndPos();
+	Real slowedY;
+	if( endPos.y - curPos.y <= m_slowDownThreshold )
+		slowedY = (curPos.y ? (vel.y * m_speedUpRatio) : (vel.y * m_speedUpRatio));
+	else
+		slowedY = -m_maxVel.y;
+	if( slowedY < -m_maxVel.y)
+		slowedY = -m_maxVel.y;
+	Coord2D slowedVel;
+	slowedVel.x = vel.x;
+	slowedVel.y = slowedY;
+	animWin->setVel(slowedVel);
+	return FALSE;
+}
 
 // tu-skeleton: 0x005C631E 175B ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@UAEXPAVAnimateWindow@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp (not merged yet)
 
