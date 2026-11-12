@@ -324,6 +324,8 @@ class Rva005CE8F5
 public:
 	Rva005CE8F5(EmitVtableTag *);
 	virtual ~Rva005CE8F5() {}
+	// Retail table 0x00C751A8 slot 1: the shared empty `ret` (0x000B3FD0).
+	virtual void slot1() {}
 };
 
 // ?<Rva005CE8F5::Rva005CE8F5> absent-from-retail

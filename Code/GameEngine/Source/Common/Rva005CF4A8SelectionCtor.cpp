@@ -79,6 +79,8 @@ class Rva005CE8F5 {
 public:
     Rva005CE8F5(Rva005CF22CBig *b) : m_owner(b) {}
     virtual ~Rva005CE8F5() {}
+    // Retail table 0x00C751A8 slot 1: the shared empty `ret` (0x000B3FD0).
+    virtual void slot1() {}
     Rva005CF22CBig *m_owner;
 };
 // Existing one-vptr observer-base view: its emitted vtable is retail C3702C.

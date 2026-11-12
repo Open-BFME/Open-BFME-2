@@ -1287,6 +1287,8 @@ class Rva005CE8DC
 public:
 	Rva005CE8DC(void *payload);
 	virtual ~Rva005CE8DC() {}
+	// Retail table 0x00C751A8 slot 1: the shared empty `ret` (0x000B3FD0).
+	virtual void slot1() {}
 private:
 	void *m_04;
 };
