@@ -192,7 +192,7 @@ class Rva005E8CB0 {public:Rva005E8CB0(void*,int,void*,const Rva005E8C54Source*);
 #include "../../Include/Common/Rva005E893E.h"
 class Rva005CE236 {public:Rva005CE236():m_p(0){}__declspec(noinline) ~Rva005CE236();void reset(Rva005E893E*);Rva005E893E*m_p;};
 class Rva005CF07EListener {public:Rva005CF07EListener(){}virtual ~Rva005CF07EListener(){};};
-class Rva005CEE9F : public Rva005CE8F5,public Rva005CF07EListener {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();private:void *m_region;Rva005CE236 m_build;};
+class Rva005CEE9F : public Rva005CE8F5,public Rva005CF07EListener {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();virtual void slot1();private:void *m_region;Rva005CE236 m_build;};
 class S3RegionPanel {public:virtual void slot0();virtual void setImage(const Image*);virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void setCallback(const Rva005CE4B2&);virtual void slot7();virtual void show();virtual void slot9();virtual void hide();};
 class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,const Rva005CE2A1&);virtual void deleteButton(int);};
 // Native374B5CF07E..5CF1F4 and WB15C2BB0 unnamed strategic region UI

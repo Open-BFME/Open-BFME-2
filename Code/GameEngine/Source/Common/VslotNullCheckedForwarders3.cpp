@@ -18,7 +18,7 @@
 //   0x00068395 +0x3860 -> W3DFloorBuffer::rva000E6005 (5 arg)
 //   0x005CD9F2 +0x1C -> Rva005E58ED::rva005E58ED (0 arg)
 //   0x005CDD25 +0x24 -> Rva005E58ED::rva005E58ED (0 arg)
-//   0x005CE9F7 +0x10 -> Rva005E88DDNullTarget::rva005E88DD (0 arg)
+//   0x005CE9F7 +0x10 -> Rva005E88DDNullTarget::rva005E88DD (0 arg; Rva005CEE9F::slot1)
 //   0x005CEA04 +0x10 -> Rva005E8F49Owner::rva005E8F49 (0 arg)
 //   0x00068385 +0x3858 -> Rva000EE198Owner::rva000EE198 (0 arg)
 //   0x00068D43 +0x3850 -> Rva000EDB47NullTarget::rva000EDB47 (0 arg)
@@ -175,16 +175,19 @@ void Rva005CDD25NullForwarder::rva005CDD25()
 
 #include "../../Include/Common/Rva005E88DDNullTarget.h"
 
-class Rva005CE9F7NullForwarder
+// Slot 1 of Rva005CEE9F's primary vftable (retail 0x00C7522C, installed by
+// its constructor 0x005CF07E and destructor 0x005CEE9F, ThrowingNewHelpers.cpp):
+// the owned build helper at +0x10.
+class Rva005CEE9F
 {
 public:
-	void rva005CE9F7();
+	virtual void slot1();
 private:
-	char m_lead[0x10];
+	char m_lead[0xC];
 	Rva005E88DDNullTarget *m_member;
 };
 
-void Rva005CE9F7NullForwarder::rva005CE9F7()
+void Rva005CEE9F::slot1()
 {
 	if (m_member)
 		m_member->rva005E88DD();
