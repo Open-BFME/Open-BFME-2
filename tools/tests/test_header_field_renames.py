@@ -563,7 +563,9 @@ def test_an_include_only_a_never_defined_platform_compiles_is_no_unresolved_incl
     for text in ("#ifdef _MAC\n#include \"mac.h\"\n#endif\n",
                  "#if defined(_WIN64)\n#include \"wide.h\"\n#endif\n",
                  "#if !defined _MAC\n#else\n#include \"mac.h\"\n#endif\n",
-                 "#ifndef _MAC\n#elif X\n#include \"mac.h\"\n#endif\n"):
+                 "#ifndef _MAC\n#elif X\n#include \"mac.h\"\n#endif\n",
+                 "#if defined(_MAC) && defined(X)\n#include \"mac.h\"\n#endif\n",          # needs _MAC too
+                 "#if !defined(_X86_) && defined(_M_M68K)\n#include \"m68k.h\"\n#endif\n"):  # Windows.h's shape
         assert lane.include_problem("u.cpp", text) is None, text
 
 
@@ -571,7 +573,8 @@ def test_an_include_only_a_never_defined_platform_compiles_is_no_unresolved_incl
     '#include "missing.h"\n',                                          # no condition at all
     '#ifndef _MAC\n#include "missing.h"\n#endif\n',                   # the branch that is compiled
     '#ifdef _MAC\n#else\n#include "missing.h"\n#endif\n',
-    '#if defined(_MAC) && defined(X)\n#include "missing.h"\n#endif\n',  # a condition read as unknown
+    '#if defined(_MAC) || X\n#include "missing.h"\n#endif\n',          # a condition read as unknown
+    '#if !defined(_MAC) && defined(X)\n#else\n#include "missing.h"\n#endif\n',  # the opposite of a conjunction
     '#ifdef SOME_PROJECT_FLAG\n#include "missing.h"\n#endif\n',        # not a platform macro
     '#if defined(_MAC) \\\n  || 1\n#include "missing.h"\n#endif\n',   # a continued directive
     '#endif\n#ifdef _MAC\n#endif\n#include "missing.h"\n',           # unbalanced nesting
@@ -614,6 +617,40 @@ def test_an_include_guard_spelled_with_defined_is_a_barrier(tmp_path, monkeypatc
     problem = lane.include_problem("u.cpp", '#include "a.h"\n')
     assert ("cycle" in problem) if cycle else problem is None, problem
     assert lane.include_guard(lane.masked(guard.format(m="X") + "int x;\n#endif\n")) == (None if cycle else "X")
+
+
+@pytest.mark.parametrize("text", [
+    # review r1 (2): a define a never-defined macro enables can define another
+    "#define _68K_\n#ifdef _68K_\n#define _MAC\n#endif\n#ifdef _MAC\n#include \"missing.h\"\n#endif\n",
+    # review r1 (3): the digraph and a spliced directive name
+    "%:define _MAC\n#ifdef _MAC\n#include \"missing.h\"\n#endif\n",
+    "#def\\\nine _MAC\n#ifdef _MAC\n#include \"missing.h\"\n#endif\n",
+    "#define _MAC(x) x\n#ifdef _MAC\n#include \"missing.h\"\n#endif\n",
+    # review r1 (4): the unit's compiler flags define it
+    "// cl: /O2 /D_MAC\n#ifdef _MAC\n#include \"missing.h\"\n#endif\n",
+    "// cl: /D _MAC=1\n#ifdef _MAC\n#include \"missing.h\"\n#endif\n",
+    "// cl: -D_WIN64\n#if defined(_WIN64)\n#include \"missing.h\"\n#endif\n",
+    # a missing include spelled with the digraph is still read
+    "%:include \"missing.h\"\n",
+])
+def test_review_r1_a_macro_the_closure_or_the_compiler_can_define_keeps_the_include(tmp_path, monkeypatch, text):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    assert "missing.h" in lane.include_problem("u.cpp", text)
+
+
+def test_review_r1_a_define_under_a_dead_branch_still_does_not_count(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    text = ("// cl: /O2 /DPROJECT\n#ifdef _68K_\n#define _MAC\n#endif\n"
+            "#ifdef _MAC\n#include \"missing.h\"\n#endif\n")
+    assert lane.include_problem("u.cpp", text) is None
+
+
+def test_review_r1_a_continued_guard_condition_is_no_barrier(tmp_path, monkeypatch):
+    # `#if !defined(A_H) \` + `|| 1` stays true after `#define A_H`: no guard, so the mutual include is a cycle
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#if !defined(A_H) \\\n|| 1\n#define A_H\n#include "b.h"\n#endif\n')
+    (tmp_path / "b.h").write_text('#if !defined(B_H) \\\n|| 1\n#define B_H\n#include "a.h"\n#endif\n')
+    assert "cycle" in lane.include_problem("u.cpp", '#include "a.h"\n')
 
 
 def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
