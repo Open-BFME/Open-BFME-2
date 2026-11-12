@@ -17,10 +17,7 @@
 #include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
 struct Rva001F3C43Arg;
 struct DrawableTruckView { char pad[0xfc]; Rva001F3C43Arg *object; };
-struct Rva001F3C43Arg {
-    char m_pad[0x74];
-    int m_value;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
 class Rva001F3C43Slot {
 public:
     void set(const Rva001F3C43Arg *arg);

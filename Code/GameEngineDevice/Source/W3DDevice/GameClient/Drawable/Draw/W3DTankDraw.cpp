@@ -217,10 +217,7 @@ public:
 
 typedef bool Bool;
 #include "../../../../../../GameEngine/Source/Common/Thing/thing.h"
-struct Rva001F3C43Arg {
-    char m_pad[0x74];
-    int m_value;
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
 class Rva001F3C43Slot {
 public:
     void set(const Rva001F3C43Arg *arg);
