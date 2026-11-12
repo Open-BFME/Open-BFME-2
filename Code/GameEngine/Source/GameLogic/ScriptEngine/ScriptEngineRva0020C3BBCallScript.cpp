@@ -59,21 +59,9 @@ public:
 	AsciiString m_name; // +0x00
 };
 
-// Base of the script-name lookups; both entries are rowed or pinned at their
-// own addresses (see BfmeOwnZC_rva00204F3B.cpp for the 0x00204F3B body).
-class Rva002046C0Owner
-{
-public:
-	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
-};
-
-class BfmeOwnZC : public Rva002046C0Owner
-{
-public:
-	void *rva00204EBB(BfmeRoomZC name, void *extra);
-	void *bfmeRunZC(BfmeRoomZC name, void *extra);
-	ScriptList *rva00204E64(const AsciiString &name);
-};
+// The script-name lookups; both entries are rowed or pinned at their own
+// addresses (see BfmeOwnZC_rva00204F3B.cpp for the 0x00204F3B body).
+#include "../../../Include/GameLogic/BfmeOwnZC.h"
 
 AsciiString Rva0032B389Join(const AsciiString &left, const AsciiString &right);
 

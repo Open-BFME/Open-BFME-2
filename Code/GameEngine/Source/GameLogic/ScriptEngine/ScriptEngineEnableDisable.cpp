@@ -20,14 +20,7 @@ class Rva002046C0Owner
 public:
 	AsciiString resolveName(const AsciiString &name); // 0x002046C0 (rowed)
 };
-class ScriptList;
-class BfmeOwnZC : public Rva002046C0Owner
-{
-public:
-	void *rva00204EBB(BfmeRoomZC name, void *extra);
-	void *bfmeRunZC(BfmeRoomZC name, void *extra);
-	ScriptList *rva00204E64(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/BfmeOwnZC.h"
 struct Rva00204FBBGroup
 {
     unsigned char pad00[0xC];
