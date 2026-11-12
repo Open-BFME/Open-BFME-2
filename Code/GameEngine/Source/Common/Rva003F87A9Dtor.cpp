@@ -16,9 +16,7 @@
 
 class FileClass;
 
-struct Rva0059E2DCBox
-{
-};
+#include "../../Include/Common/Rva0059E2DCBox.h"
 
 bool __cdecl rva0059E2DC(FileClass **first, FileClass **last, Rva0059E2DCBox box);
 

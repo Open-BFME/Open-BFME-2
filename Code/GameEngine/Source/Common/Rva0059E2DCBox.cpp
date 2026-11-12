@@ -13,11 +13,7 @@ public:
 	virtual void Return_File(FileClass *file);
 };
 
-struct Rva0059E2DCBox
-{
-	bool flag;
-	char pad[3];
-};
+#include "../../Include/Common/Rva0059E2DCBox.h"
 
 bool __cdecl rva0059E2DC(FileClass **first, FileClass **last, Rva0059E2DCBox box)
 {

@@ -39,9 +39,7 @@ void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int* p, size_t n)
 class FileClass;
 
 // The one-byte delete functor for_each receives by value.
-struct Rva0059E2DCBox
-{
-};
+#include "../../../../Include/Common/Rva0059E2DCBox.h"
 
 bool __cdecl rva0059E2DC(FileClass **first, FileClass **last, Rva0059E2DCBox box);
 
