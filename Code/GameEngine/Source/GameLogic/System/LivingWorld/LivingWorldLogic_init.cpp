@@ -39,7 +39,7 @@ class Rva002B5522 { public: void rva002B5522(); };
 #include "../../../../Include/Common/Rva002B6900.h"
 #include "../../../../Include/Common/Rva002B296F.h"
 class Rva002B9099 { public: void clear(); };
-class Rva002BED91 { public: void clear(); };
+#include "../../../../Include/Common/Rva002BED91.h"
 
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;

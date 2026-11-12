@@ -86,7 +86,7 @@ struct TreeHintRef00217D4C {
  ~TreeHintRef00217D4C() { if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
  TargetRef00217D4C *m_ptr;
 };
-class Rva002BED91 { public: void set(TargetRef00217D4C *); };
+#include "../../../../Include/Common/Rva002BED91.h"
 #include "../../../../Include/GameClient/Rva005FC9F0.h"
 #include "../../../../Include/GameClient/Rva0037E07C.h"
 struct StrategicButtonImageView; struct Rva005F01D6In;

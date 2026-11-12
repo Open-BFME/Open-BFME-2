@@ -225,7 +225,7 @@ class Rva00056F61;
 
 struct TargetRef00217D4C;
 
-class Rva002BED91 {public:void set(TargetRef00217D4C*);};
+#include "../../../Include/Common/Rva002BED91.h"
 
 struct TreeHintRef002BF0D6
 {

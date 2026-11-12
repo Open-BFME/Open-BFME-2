@@ -100,7 +100,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva002BED91 { public: void clear(); };
+#include "../../../../../Include/Common/Rva002BED91.h"
 // The rank / timer panel (0x18 bytes) the interface keeps at +0x38; its
 // hide (0x00528B98), rank (0x00529130) and progress (0x00529A7B) setters are
 // rowed under these address-derived spellings.

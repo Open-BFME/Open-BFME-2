@@ -176,7 +176,7 @@ public:
 };
 struct BfmePod52 {int a[13];};
 struct Rva004F6057 {TargetRef00217D4C *m_ptr;Rva004F6057 &operator=(const Rva004F6057 &);};
-class Rva002BED91 {public:void set(TargetRef00217D4C*);};
+#include "../../../../../Include/Common/Rva002BED91.h"
 struct Rva004F6986 {Rva004F6057 first,second;Rva004F6986(){first.m_ptr=0;second.m_ptr=0;} ~Rva004F6986();};
 
 class ModuleData;

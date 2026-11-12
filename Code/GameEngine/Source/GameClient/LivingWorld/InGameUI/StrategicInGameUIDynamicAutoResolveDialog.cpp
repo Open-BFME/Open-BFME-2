@@ -33,7 +33,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 }
 class AsciiString;
 struct TargetRef00217D4C;
-struct Rva002BED91 { void set(TargetRef00217D4C *); void clear(); };
+#include "../../../../Include/Common/Rva002BED91.h"
 class Rva005EB0CBState {public:
     virtual void rvaSlot0();
     virtual void rvaSlot1();

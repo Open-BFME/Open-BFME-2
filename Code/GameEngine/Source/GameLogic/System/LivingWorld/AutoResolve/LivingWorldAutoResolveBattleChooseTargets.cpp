@@ -176,11 +176,7 @@ public:
 
 #include "../../../../../Include/GameLogic/Rva0033A674.h"
 
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../../../../Include/Common/Rva002BED91.h"
 
 class AptCommandMap;
 template <class T> class AptRef

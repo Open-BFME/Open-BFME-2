@@ -1,11 +1,7 @@
 // cl: /MD
 // ?rva003F7F30@Rva003F7F30@@QAEXXZ, retail 0x003F7F30 (27B).
 // Evidence: unlock lane; caller 0x003F8090; callee ?clear@Rva002BED91@@QAEXXZ rowed; offsets 0xc=1 0x18=0 0x14 holder with clear at +0x1c.
-class Rva002BED91
-{
-public:
-	void clear();
-};
+#include "../../../../GameEngine/Include/Common/Rva002BED91.h"
 
 struct Rva003F7F30Inner
 {
