@@ -550,3 +550,21 @@ vptr store the walk reaches, in walk order.
   `"_up"`, `"HZz"`, `"yes"`, `"Lua"`) are walker false positives (their bytes read as .text words).
 - Clearance: none claimed. The next real link should show these units' tables relocated, and image_iso should drop
   0x00CE157C and 0x00CE4A10 from `unrelocated_retail_address`.
+- Correction (2026-11-12, seat halilkkaya-lk99, continued): the pre-push link batch audit refused this batch with
+  five OMITTED references. Five slots in the owned tables above named `gen-thunk` rows: CitadelSlaughterHordeContain
+  0x00C48CC0[1] `?j_004812b4@@YAXXZ`, RiderChangeContain 0x00C47A00[27] `?j_0047e335@@YAXXZ` and 0x00C47848[1]
+  `?j_0047e33a@@YAXXZ`, Invisibility 0x00C5C51C[1] and TimerRefresh 0x00BEFDB4[1] `?j_004c8a2f@@YAXXZ`. "Name the
+  jump targets, not omitted ILT thunks, in five retail table slots" repaired them: each thunk is a plain `jmp rel32`
+  with no `this` adjustment, so each slot now names the matched row it jumps to (0x00479D68, 0x0047B993, 0x00466D93,
+  0x00493B1E). No table went back to a stand-in; constructor bytes, symbols and initializers are unchanged, the
+  offline bridge plan is unchanged and the units and their consumers still LINK.
+- Rule for thunk slots (reusable): a retail table word is often an incremental-link thunk address, and a slot naming
+  the thunk's `?j_XXXXXXXX@@YAXXZ` row names a definition only `Code/gen_small/gthunks_000_admitted.cpp` or
+  `thunks_000_admitted.cpp` provides. Those two TUs and the 15 `uw_gen_NNN.cpp` funclet TUs are the placement-only
+  objects `tools/exit_link.py` leaves out of the real link, so a kept object naming one makes the real link fail, and
+  `link_batch_audit.py` refuses the push (`OMITTED ... defined in a placement object`). Before naming a slot, follow a
+  retail word that lands on `E9` in .text. If the thunk is a plain jump, name the row at its target:
+  `data_rows._relocation_problem` follows one jump, so the data byte gate accepts the target's name for the thunk's
+  word. If it adjusts `this` (`sub/add ecx, N` then `jmp`), the target is the wrong call; reach a definer the real link
+  keeps instead (the compiler's own `[thunk]` COMDAT from a class view in a linking unit, or a rowed body). To scan
+  a batch before pushing, grep its sources for `__identifier("?j_`.
