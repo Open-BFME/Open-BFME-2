@@ -6,7 +6,7 @@
 // and copy/uninitialized-copy growing branch, then finish=start+source_count.
 // Element is an opaque stride-only view; native destruction uses virtual slot0.
 // No POD semantics, string offset, or application element name is asserted.
-struct RvaCopyIteratorTag {};
+#include "RvaCopyIteratorTag.h"
 struct RvaVector104Tag : RvaCopyIteratorTag {};
 struct RvaVector104Element { unsigned char opaque[104]; };
 extern "C" void *Rva003B8B44CopyDispatch(void *, void *, void *, const RvaCopyIteratorTag &);

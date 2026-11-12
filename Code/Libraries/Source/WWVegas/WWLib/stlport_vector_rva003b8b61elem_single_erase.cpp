@@ -11,7 +11,7 @@ struct Rva003B8B61Elem {
 	unsigned char m_pad[0x68 - 4];
 };
 
-struct RvaCopyIteratorTag {};
+#include "RvaCopyIteratorTag.h"
 struct RvaVector104Tag : RvaCopyIteratorTag {};
 
 extern "C" void *Rva003B8B44CopyDispatch(void *first, void *last, void *result, const RvaCopyIteratorTag &tag);

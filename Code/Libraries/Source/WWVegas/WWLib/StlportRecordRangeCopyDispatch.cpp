@@ -6,7 +6,7 @@
 // fourth argument is the tag address pushed by erase at 00312C44.
 // Record identity is unknown; the worker independently proves stride 184.
 // No application class or complete element layout is claimed here.
-struct RvaCopyIteratorTag {};
+#include "RvaCopyIteratorTag.h"
 extern "C" void *__identifier("??$__copy@PAUBfmeStringHeadRecord184@@PAU1@H@_STL@@YAPAUBfmeStringHeadRecord184@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z")(void *first, void *last, void *result,
     const RvaCopyIteratorTag &tag, int *distance);
 
