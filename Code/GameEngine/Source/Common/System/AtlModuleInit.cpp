@@ -5,14 +5,15 @@
 // 0x007B5542 (22B): constructs ATL::CImage::s_initGDIPlus and registers rva007B9AEA via atexit.
 // 0x007B9AEA (22B): atexit callback: calls ReleaseGDIPlus() then DeleteCriticalSection(&m_sect).
 
-extern "C" int __cdecl atexit(void (__cdecl *callback)());
-
-struct CRITICAL_SECTION
-{
-	void *d[6];
-};
-
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(CRITICAL_SECTION *cs);
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
+// atexit goes straight to the CRT thunk (REL32), not the IAT: read
+// <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 void rva007B9AEA();
 void rva007B5542();
