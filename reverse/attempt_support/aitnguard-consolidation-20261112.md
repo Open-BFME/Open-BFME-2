@@ -156,3 +156,14 @@ retiring one queue row. DamageInfo and TeamPrototype are the two remaining
 header entries for this source. The previous base-adoption push's broader
 audit was INCONCLUSIVE because its strict States receipt was absent after the
 final include edit; the present strict preparation supplies that receipt.
+
+## DamageInfo uses the complete canonical record
+
+Replace the private twelve-byte prefix and its invented nested input record
+with Damage.h. Both attack-aggressor reads now select the canonical m_sourceID
+at complete-object +8 directly. No body-module signature or callee changes.
+All 13 rows and 31 retained COMDATs remain identical; ordinary verification,
+strict preparation and the owning DamageInfo acceptance pass and retire one
+queue row. TeamPrototype is the only remaining header entry in this file.
+The InnerState push's wider audit remains INCONCLUSIVE for AIBaseBuilder.cpp's
+missing current receipt; no runtime or fresh whole-tree link result is claimed.

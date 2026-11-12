@@ -81,15 +81,7 @@ public:
 	void updateNemesis(const Object *target);
 };
 #include "../../../Include/Common/Player.h"
-struct DamageInfoInput
-{
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID; // +0x08
-};
-struct DamageInfo
-{
-	DamageInfoInput in;
-};
+#include "../../../Include/GameLogic/Damage.h"
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
@@ -426,8 +418,8 @@ StateReturnType AITNGuardAttackAggressorState::onEnter( void )
 	Object *obj = getMachineOwner();
 	ObjectID nemID = INVALID_OBJECT_ID;
 
-	if (obj->getBodyModule() && obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID) {
-		nemID = obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID;
+	if (obj->getBodyModule() && obj->getBodyModule()->getLastDamageInfo()->m_sourceID) {
+		nemID = obj->getBodyModule()->getLastDamageInfo()->m_sourceID;
 		getGuardMachine()->setNemesisID(nemID);	 
 
 	}
