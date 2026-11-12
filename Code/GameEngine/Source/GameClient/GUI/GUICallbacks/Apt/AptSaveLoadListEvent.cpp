@@ -3,11 +3,7 @@
 // the message with 0x4014 list selection, 0x4015 double click, 0x4031 text-entry commit, 0x4032 text change).
 // Partial reconstruction of the AptSaveLoad event handler at 0x00435BB3.
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int message, unsigned int source, unsigned int value);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 void GadgetListBoxSetSelected(GameWindow *window, int index);
 class AptSaveLoad
 {

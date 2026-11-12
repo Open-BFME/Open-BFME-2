@@ -91,14 +91,7 @@ struct AptScorePersistentUnit
 }
 ;
 // The Apt screen base's rowed window message handler 0x0051274F.
-class _bfme_AptGameWindow
-
-{
- public:
- int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
- 
-}
-;
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 // TheLivingWorldLogic (VA 0x00DFEF10); its
 // unrowed 0x002B3740 returns a byte of its current entry, pinned by
 // address.

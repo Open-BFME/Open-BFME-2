@@ -144,11 +144,7 @@ protected:
 };
 #include "../../../../../../GameEngine/Include/GameLogic/Rva00493009.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/Rva00507823.h"
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int a, unsigned int b, unsigned int c);
-};
+#include "../../../../../../GameEngine/Include/GameClient/_bfme_AptGameWindow.h"
 #include "../../../../../../GameEngine/Include/Common/MovieWindowPlayback.h"
 class XferSave
 {

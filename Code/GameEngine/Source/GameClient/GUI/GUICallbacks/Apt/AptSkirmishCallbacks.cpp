@@ -87,11 +87,7 @@ class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 
 // Target Apt screen base handler; the existing matched implementation is
 // _bfme_AptGameWindow::rva0051274F.
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int message, unsigned int data1, unsigned int data2);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class AptSkirmish
 {

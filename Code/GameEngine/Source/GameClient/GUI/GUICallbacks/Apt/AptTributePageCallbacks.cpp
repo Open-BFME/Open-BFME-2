@@ -58,11 +58,7 @@ struct AptTributePlayerList
 
 // The rowed 0x0051274F base handler for vtable slot 2
 // (BfmeAptGameWindowMessages.cpp).
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int message, unsigned int key, unsigned int state);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The page map's mapped value: stlport_rb_tree_hint_005109b7.cpp's
 // reference-counted pointer, whose pointee has a virtual destroy slot and a

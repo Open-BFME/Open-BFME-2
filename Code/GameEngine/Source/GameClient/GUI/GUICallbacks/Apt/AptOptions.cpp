@@ -142,11 +142,7 @@ class GameWindow;
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selectedIndex);
 void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
 bool GadgetCheckBoxIsChecked(GameWindow *checkBox);
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int message, unsigned int data1, unsigned int data2);
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../../../Include/GameClient/Drawable.h"
 //
