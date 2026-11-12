@@ -235,7 +235,7 @@ Rva005685EE::Rva005685EE(EmitVtableTag *)
 // Rva0056AD19's two tables (data ledger): Rva0056AC26A at +0 (vptr plus one word) and
 // Rva0056AC26B at +0x8, whose slot 0 is a this-adjusting (sub ecx, 8)
 // deleting-destructor thunk -- target evidence for that base and offset.
-class __declspec(novtable) Rva0056AC26A { public: virtual ~Rva0056AC26A(); private: char m_unmodelled04[4]; };
+#include "../../Include/Common/Rva0056AC26A.h"
 class __declspec(novtable) Rva0056AC26B { public: virtual ~Rva0056AC26B(); };
 class Rva0056AD19 : public Rva0056AC26A, public Rva0056AC26B
 {

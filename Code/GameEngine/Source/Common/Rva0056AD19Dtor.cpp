@@ -40,14 +40,7 @@ private:
 	TargetRef00217D4C *m_ref;
 };
 
-class Rva0056AC26A
-{
-public:
-	virtual ~Rva0056AC26A();
-
-private:
-	int m_04;
-};
+#include "../../Include/Common/Rva0056AC26A.h"
 
 class Rva0056AC26B
 {

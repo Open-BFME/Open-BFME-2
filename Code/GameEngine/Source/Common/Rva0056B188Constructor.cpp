@@ -18,13 +18,7 @@ struct Rva0056B188Owner
 	Rva005A0B4CList m_list; // +0x04
 };
 
-class Rva0056AC26A
-{
-public:
-	virtual ~Rva0056AC26A();
-private:
-	int m_04;
-};
+#include "../../Include/Common/Rva0056AC26A.h"
 
 class Rva0056AC26B
 {
