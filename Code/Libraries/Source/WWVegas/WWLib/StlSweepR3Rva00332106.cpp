@@ -31,7 +31,7 @@ struct Rva00332106PointerTarget;
 // sentinel node from the freelist pool at VA 0x00DA60E8 through rowed
 // FreelistPool::pop 0x002393E2, not STLport's node allocator (the same pool
 // stlport_pod_list_bodies.cpp's erase returns nodes to).
-class FreelistPool { public: void *pop(); int m_00; void *m_04; void *m_head; };
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
 namespace _STL {
 template <> inline _List_base<Rva00332106PointerTarget *, allocator<Rva00332106PointerTarget *> >::_List_base(const allocator<Rva00332106PointerTarget *> &a)

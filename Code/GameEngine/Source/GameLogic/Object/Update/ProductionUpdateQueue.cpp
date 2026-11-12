@@ -91,7 +91,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // update's stack frame, while these provider definitions preserve its bytes.
 // Same providers as stlport_list_drawable_base_ctor.cpp and
 // AIUpdateInterface_voiceResponses_Rva0026B25A.cpp (0x00239BB0/0x00239BD8).
-class FreelistPool { public: void *pop(); };
+#include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <> __declspec(noinline)

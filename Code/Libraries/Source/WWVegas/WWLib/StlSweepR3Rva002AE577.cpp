@@ -27,7 +27,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 
 struct Rva002AE577PointerTarget;
-class FreelistPool { public: void *pop(); };
+#include "../../../../GameEngine/Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool009BBD2C;
 namespace _STL {
 // Native copy construction uses the pooled sentinel initializer 2AC026.
