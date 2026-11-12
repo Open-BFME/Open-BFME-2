@@ -19,7 +19,7 @@
 // It can also change how later array constructions here compile; checked to
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define Matrix4x4 Matrix4

@@ -36,7 +36,7 @@
 // optimization state of the first function that needs it. Retail links one
 // copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
 // copy that same body (carried from DX8GenerateTextureCategoriesBFME2.cpp).
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // multilist.h's inline members are retail's size-optimised bodies: compile

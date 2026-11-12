@@ -14,7 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "always.h"
