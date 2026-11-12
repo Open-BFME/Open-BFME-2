@@ -2359,7 +2359,8 @@ class ShatterLinkGuard(SplitLinkGuard):
 #   members disagree  the replaced objects' own definitions of a name already differ, so no object can
 #                     continue all of them;
 #   retail order,     under each order exit_link can link in (--order retail, --order path), the copy the
-#   path order        link keeps of each such COMDAT is the same before and after. The path clause is its own
+#   path order        link keeps of each such COMDAT, and of each COMDAT an outside object the change moves
+#                     among the others holds, is the same before and after. The path clause is its own
 #                     check (path_order_findings), to retire if the real link moves to --order retail.
 # Objects outside the change are the census index's evidence, as in LinkGuard: one the index does not hold
 # defines nothing here. A replaced object is what its file builds to today: the current build object, else a
@@ -2375,15 +2376,27 @@ class ProviderUnknown(Exception):
 
 
 def _extent_definitions(data, sections, symbols):
-    """{name: key} of the external definitions outside a COMDAT: a code or data symbol's bytes from its value
-    to the next symbol of its section (trailing zero padding beyond its last relocation dropped) with the
-    relocations inside, named as the census digest names them; uninitialized data by kind alone."""
+    """{name: key} of the external definitions outside a COMDAT, by extent: from the symbol's value to the
+    next definition of its section (in code, an external or a static function; in data, an external or a
+    static: a label inside a function bounds nothing), else the section's end. Initialized: ("section",
+    in code, extent, its bytes, its relocations named as the census digest names them); uninitialized:
+    ("bss", in code, extent). COFF records no symbol size, so an extent can hold the alignment padding
+    before the next definition; same_definition reads it that way."""
     import struct
     import link_census as LCe
+    table = struct.unpack_from("<I", data, 8)[0]
     by_index = {s["index"]: s for s in symbols}
+
+    def bounds(s, code):
+        if s["storage"] == LCe.EXTERNAL:
+            return True
+        if s["storage"] != LCe.STATIC:
+            return False                                          # a label, a file record, ...
+        kind = struct.unpack_from("<H", data, table + 18 * s["index"] + 14)[0]
+        return (kind & 0x30) == 0x20 if code else True            # IMAGE_SYM_DTYPE_FUNCTION in code
     starts = collections.defaultdict(set)
     for s in symbols:
-        if s["section"] > 0:
+        if 0 < s["section"] <= len(sections) and bounds(s, bool(sections[s["section"] - 1][4] & 0x20)):
             starts[s["section"]].add(s["value"])
     out = {}
     for s in symbols:
@@ -2394,11 +2407,11 @@ def _extent_definitions(data, sections, symbols):
         if flags & LCe.COMDAT:
             continue
         code = bool(flags & 0x20)
-        if not pointer:
-            out[s["name"]] = ("bss", code)
-            continue
         end = min((v for v in starts[number] if v > s["value"]), default=size)
-        found, last = [], s["value"]
+        if not pointer:
+            out[s["name"]] = ("bss", code, end - s["value"])
+            continue
+        found = []
         for at in range(relocs, relocs + 10 * nrelocs, 10):
             where, target, kind = struct.unpack_from("<IIH", data, at)
             if s["value"] <= where < end:
@@ -2406,12 +2419,23 @@ def _extent_definitions(data, sections, symbols):
                 label = LCe._normal(referent["name"]) if referent["storage"] in (LCe.EXTERNAL, LCe.WEAK_EXTERNAL) \
                     else "local"
                 found.append((where - s["value"], kind, label))
-                last = max(last, where + 4)
-        body = data[pointer + s["value"]:pointer + end]
-        keep = max(last - s["value"], len(body.rstrip(b"\0")))
-        digest = hashlib.sha1(body[:keep] + repr(sorted(found)).encode("latin-1")).hexdigest()[:12]
-        out[s["name"]] = ("section", code, digest)
+        out[s["name"]] = ("section", code, end - s["value"], bytes(data[pointer + s["value"]:pointer + end]),
+                          tuple(sorted(found)))
     return out
+
+
+def same_definition(old, new):
+    """Whether `new` continues the definition `old`: equal keys, or for an extent (_extent_definitions) one at
+    least as long whose bytes and relocations over `old`'s extent are `old`'s and whose surplus is zero bytes
+    with no relocation: the alignment padding a different next definition leaves, never a smaller
+    allocation or a changed byte."""
+    if old[0] != new[0] or old[0] not in ("section", "bss"):
+        return old == new
+    if old[1] != new[1] or new[2] < old[2]:
+        return False
+    if old[0] == "bss":
+        return True
+    return new[3][:old[2]] == old[3] and not any(new[3][old[2]:]) and new[4] == old[4]
 
 
 def provider_definitions(obj):
@@ -2454,7 +2478,7 @@ class ProviderGuard:
         self.originals, self.cache = {}, {}
         self.before, self.before_paths = None, None
         self._objects, self._resolved = {}, {}
-        self._initializers = self._places = self._data_objects = None
+        self._initializers = self._places = self._data_objects = self._held = None
 
     def load(self, index):
         """The census index LinkGuard loaded: the reason the guard cannot judge, or None."""
@@ -2574,7 +2598,7 @@ class ProviderGuard:
                 if len(set(theirs.values())) > 1:
                     found.append(("members disagree", name, f"{', '.join(sorted(theirs))} define it differently; "
                                                             f"{heir} keeps one"))
-                elif theirs and mine not in theirs.values():
+                elif theirs and not all(same_definition(old, mine) for old in theirs.values()):
                     found.append(("bytes", name, f"{heir}'s definition differs from {', '.join(sorted(theirs))}'s"))
         if self.before is None:
             self.before = self.link_orders(self.rows)
@@ -2591,11 +2615,20 @@ class ProviderGuard:
             found += check(clause, names, (defs_before, defs_after), objects, (self.before, self.cache[key]))
         return found
 
-    def kept(self, name, ours, objects, order, replaced):
-        """(object, digest) of the copy of COMDAT `name` the link keeps in `order`, or None: the first definer
-        among `ours` {source: definitions} at their objects and the census copies of every other object;
-        "exclusive" when any definer is outside a COMDAT (no order decides it)."""
-        rank = {n: i for i, n in enumerate(order)}
+    def names_held(self, obj):
+        """The COMDAT names the census index records the object named `obj` holding a copy of."""
+        if self._held is None:
+            self._held = collections.defaultdict(set)
+            census = self.index["objects"]
+            for name, copies in self.index["comdat"].items():
+                for p, _, _ in copies:
+                    self._held[census[p]].add(name)
+        return self._held.get(obj, set())
+
+    def kept(self, name, ours, objects, rank, replaced):
+        """(object, digest) of the copy of COMDAT `name` the link keeps in the order `rank` {object: place},
+        or None: the first definer among `ours` {source: definitions} at their objects and the census copies
+        of every other object; "exclusive" when any definer is outside a COMDAT (no order decides it)."""
         copies = []
         for source, defs in ours.items():
             d = defs.get(name)
@@ -2612,12 +2645,21 @@ class ProviderGuard:
 
     def order_findings(self, clause, names, defs, objects, orders):
         """`clause` findings: a name whose kept copy (kept) changes from the order before to the order after.
-        A copy no linked object keeps any more is the bytes clause's (a definition no object continues)."""
+        Besides `names` (the replaced and replacing objects' own), every name an outside object holds whose
+        place among the other outside objects moves (retail order's initializer slots can reorder them when
+        a merged object takes a slot): of two outside objects that swap, at least one moves. A copy no
+        linked object keeps any more is the bytes clause's (a definition no object continues)."""
         replaced = set(objects[0].values()) | set(objects[1].values())
+        before = {n: i for i, n in enumerate(orders[0][clause])}
+        after = {n: i for i, n in enumerate(orders[1][clause])}
+        outside = [n for n in orders[0][clause] if n not in replaced and n in after]
+        was_at = {n: i for i, n in enumerate(outside)}
+        moved = [n for i, n in enumerate(sorted(outside, key=after.__getitem__)) if was_at[n] != i]
+        names = set(names).union(*(self.names_held(n) for n in moved))
         found = []
         for name in sorted(names):
-            was = self.kept(name, defs[0], objects[0], orders[0][clause], replaced)
-            now = self.kept(name, defs[1], objects[1], orders[1][clause], replaced)
+            was = self.kept(name, defs[0], objects[0], before, replaced)
+            now = self.kept(name, defs[1], objects[1], after, replaced)
             if was in (None, "exclusive") or now in (None, "exclusive") or now[1] == was[1]:
                 continue
             found.append((clause, name, f"the link keeps {was[0]}'s copy {was[1]} today and {now[0]}'s {now[1]} "

@@ -34,16 +34,17 @@ CHANGED = b"\x90" + b"\xc3" * 7                                                #
 
 def coff(sections, symbols):
     """A COFF object: `sections` [(name, flags, raw or None (uninitialized, its size), [(offset, symbol, type)])],
-    `symbols` [(name, value, section, storage, aux bytes or None)]."""
+    `symbols` [(name, value, section, storage, aux bytes or None[, COFF type])]."""
     at = 20 + 40 * len(sections)
     table = sum(18 * (2 if s[4] else 1) for s in symbols)
     strs, records = b"", b""
-    for name, value, section, storage, aux in symbols:
+    for name, value, section, storage, aux, *kind in symbols:
         spelled = name.encode()
         if len(spelled) > 8:
             spelled = struct.pack("<II", 0, 4 + len(strs))
             strs += name.encode() + b"\0"
-        records += struct.pack("<8sIhHBB", spelled, value, section, 0, storage, 1 if aux else 0) + (aux or b"")
+        records += struct.pack("<8sIhHBB", spelled, value, section, kind[0] if kind else 0, storage,
+                               1 if aux else 0) + (aux or b"")
     tail = struct.pack("<I", 4 + len(strs)) + strs
     offset = at + table + len(tail)
     headers, raws = b"", b""
@@ -202,22 +203,77 @@ def test_a_split_judges_both_objects_that_continue_the_file(tmp_path):
     assert [(c, n) for c, n, _ in found] == [("bytes", "?carved@@YAXXZ")]
 
 
-def test_object_definitions_reads_what_the_link_compares(tmp_path):
-    # a static label's per-unit name does not count; bytes, relocations and the selection do
-    def data_obj(path, raw, value_b=4):
-        Path(path).write_bytes(coff([(".data", DATA, raw, [(0, 4, 6)]), (".bss", BSS, 16, [])],
-                                    [(".data", 0, 1, 3, None), ("_a", 0, 1, 2, None),
-                                     ("_b", value_b, 1, 2, None), ("_z", 0, 2, 2, None),
-                                     ("_target", 0, 0, 2, None), ("_c", 12, 0, 2, None)]))
-        return Path(path)
+def data_obj(path, raw, value_b=4, bss=16):
+    """`_a` at 0 (a DIR32 to `_target`), `_b` at `value_b` in .data holding `raw`; `_z` alone in a .bss of `bss`
+    bytes; `_c` COMMON 12."""
+    Path(path).write_bytes(coff([(".data", DATA, raw, [(0, 4, 6)]), (".bss", BSS, bss, [])],
+                                [(".data", 0, 1, 3, None), ("_a", 0, 1, 2, None),
+                                 ("_b", value_b, 1, 2, None), ("_z", 0, 2, 2, None),
+                                 ("_target", 0, 0, 2, None), ("_c", 12, 0, 2, None)]))
+    return Path(path)
+
+
+def test_provider_definitions_reads_what_the_link_compares(tmp_path):
     one = T.provider_definitions(data_obj(tmp_path / "1.obj", b"\0\0\0\0\x01\x02\0\0"))
-    assert one["_a"][0] == "section" and one["_z"] == ("bss", False) and one["_c"] == ("common", 12)
+    assert one["_a"][:3] == ("section", False, 4) and one["_a"][4] == ((0, 6, "_target"),)
+    assert one["_z"] == ("bss", False, 16) and one["_c"] == ("common", 12)
+    # alignment padding before another next definition: the longer extent continues the shorter
     two = T.provider_definitions(data_obj(tmp_path / "2.obj", b"\0\0\0\0\x01\x02\0\0\0\0\0\0"))
-    assert two["_a"] == one["_a"] and two["_b"] == one["_b"]       # trailing padding is no part of it
+    assert T.same_definition(one["_b"], two["_b"]) and not T.same_definition(two["_b"], one["_b"])
     three = T.provider_definitions(data_obj(tmp_path / "3.obj", b"\0\0\0\0\x01\x03\0\0"))
-    assert three["_b"] != one["_b"] and three["_a"] == one["_a"]
+    assert not T.same_definition(one["_b"], three["_b"]) and T.same_definition(one["_a"], three["_a"])
+    four = T.provider_definitions(data_obj(tmp_path / "4.obj", b"\0\0\0\0\x01\x02\0\0\x07\0\0\0"))
+    assert not T.same_definition(one["_b"], four["_b"])            # a surplus byte is no padding
     with pytest.raises(T.ProviderUnknown):
         T.provider_definitions(tmp_path / "missing.obj")
+
+
+def test_review_r1_a_smaller_uninitialized_allocation_is_refused(tmp_path):
+    # a sole 16-byte .bss global replaced by one of 4 bytes: callers would run past it
+    g = guard({})
+    big = data_obj(tmp_path / "big.obj", b"\0" * 8, bss=16)
+    small = data_obj(tmp_path / "small.obj", b"\0" * 8, bss=4)
+    found = g.judge({DONOR: big}, {TU: small}, {TU: [DONOR]}, {})
+    assert ("bytes", "_z") in [(c, n) for c, n, _ in found]
+    assert g.judge({DONOR: small}, {TU: big}, {TU: [DONOR]}, {}) == []          # larger: padding at most
+
+
+def test_review_r1_a_label_inside_a_function_bounds_nothing(tmp_path):
+    # external _f at 0 and a label $L1 at 1 (storage 6), then a static function _g at 3: _f's extent is 0..3
+    def code_obj(path, raw):
+        Path(path).write_bytes(coff([(".text", CODE, raw, [])],
+                                    [(".text", 0, 1, 3, None), ("_f", 0, 1, 2, None, 0x20), ("$L1", 1, 1, 6, None),
+                                     ("_g", 3, 1, 3, None, 0x20)]))
+        return Path(path)
+    one = T.provider_definitions(code_obj(tmp_path / "1.obj", b"\x90\xc3\xcc\xc3"))
+    assert one["_f"][2] == 3
+    two = T.provider_definitions(code_obj(tmp_path / "2.obj", b"\x90\xcc\xcc\xc3"))   # changed after the label
+    assert not T.same_definition(one["_f"], two["_f"])
+    found = guard({}).judge({DONOR: tmp_path / "1.obj"}, {TU: tmp_path / "2.obj"}, {TU: [DONOR]}, {})
+    assert [(c, n) for c, n, _ in found] == [("bytes", "_f")]
+
+
+def test_review_r1_outside_copies_a_change_reorders_are_judged(objs, tmp_path):
+    # the merge defines nothing named ?shared, but retail order's initializer slots move outside object A
+    # ahead of B; their copies of ?shared differ, so the copy the link keeps changes
+    donor, merged, tu, other = objs
+    a = comdat_object(tmp_path / "a.obj", [("?shared@@YAXXZ", b"\xc3" * 4, COMDAT_ANY)])
+    b = comdat_object(tmp_path / "b.obj", [("?shared@@YAXXZ", b"\x90\xc3" * 2, COMDAT_ANY)])
+    A, B = objname("Code/A.cpp"), objname("Code/B.cpp")
+    def orders(rows):
+        moved = not any(r["source"] == DONOR for r in rows)
+        names = [objname(TU), objname(DONOR), objname(OTHER)]
+        retail = [objname(DONOR), objname(TU), B, A] if not moved else [objname(TU), A, B]
+        return {"path order": names + [A, B] if not moved else [objname(TU), objname(OTHER), A, B],
+                "retail order": retail}
+    index = {"objects": [objname(s) for s in (TU, DONOR, OTHER)] + [A, B], "strong": {},
+             "comdat": {DTOR: [(1, digest(donor, DTOR), "retail")],
+                        "?shared@@YAXXZ": [(3, digest(a, "?shared@@YAXXZ"), None),
+                                           (4, digest(b, "?shared@@YAXXZ"), None)]}}
+    g = T.ProviderGuard(rows=ROWS, orders=orders)
+    g.load(index)
+    found = merge_judge(g, donor, merged, tu)
+    assert [(c, n) for c, n, _ in found] == [("retail order", "?shared@@YAXXZ")]
 
 
 def test_the_real_link_orders_are_exit_links(monkeypatch):
