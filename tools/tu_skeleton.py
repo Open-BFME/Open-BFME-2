@@ -2462,6 +2462,17 @@ class ShatterLinkGuard(SplitLinkGuard):
 # defines nothing here. A replaced object is what its file builds to today: the current build object, else a
 # compile at its own path and flags. A refusal is header or reconciliation work, reported per unit with its
 # names (provider_report).
+# Unreferenced COMDATs (LINK-661, 2026-11-13): the pointgr.cpp merge was refused for the inline
+# ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z, whose copies differ among its 11
+# emitters and which no relocation of any object names. A name nothing references is code nothing runs or
+# reads: whichever copy the link keeps, no linked code changes. Such a name is not judged for members
+# disagree, retail order or path order when (1) the index has a reference graph, (2) no relocation outside
+# .debug$*, LNK_INFO and LNK_REMOVE sections of any object in the link population names it (referenced():
+# the census objects' graph, which also counts ledger owners and retail-addressed names, plus /alternatename
+# and weak-external targets, and the replaced, replacing and unindexed objects read here), (3) every
+# definition of it in the change is a discardable COMDAT copy (not NODUPLICATES) and (4) for members
+# disagree, the continuing object keeps one of its members' copies. The bytes clause is unchanged, and every
+# other name is judged exactly as before.
 
 PROVIDER_CLAUSES = ("members disagree", "bytes", "retail order", "path order")
 ORDER_CLAUSES = ("retail order", "path order")
@@ -2586,10 +2597,11 @@ class ProviderGuard:
         self.before, self.before_paths = None, None
         self._objects, self._resolved = {}, {}
         self._initializers = self._places = self._data_objects = self._held = None
+        self._census_names = None
 
     def load(self, index):
         """The census index LinkGuard loaded: the reason the guard cannot judge, or None."""
-        self.index = index
+        self.index, self._census_names = index, None
         if index is None:
             return "no census index (python3 tools/link_check.py --fetch-index)"
         if self.rows is None:
@@ -2685,6 +2697,46 @@ class ProviderGuard:
             self.originals[source] = obj
         return self.originals[source]
 
+    # -- the names the link population references
+    def referenced(self, objects):
+        """Every name a relocation of the link population names outside its .debug$*, LNK_INFO and
+        LNK_REMOVE sections, or None when that cannot be proven (every name then counts as referenced).
+        The census objects' names come from the index's reference graph: every name its walk reached (the
+        roots, ledger owners and retail-addressed names, closed over weak externals and /alternatename)
+        and every name a discardable COMDAT copy's section references (link_census.object_references),
+        plus every /alternatename target the index records. `objects` (the replaced and replacing
+        objects) and each object of the path-order link the index does not hold are read here: their
+        relocations, /alternatename targets and weak-external defaults. None when the index has no
+        reference graph or one of those objects is unreadable or has no known path."""
+        import struct
+        import link_census as LCe
+        import link_check as LC
+        graph = self.index.get("references") if isinstance(self.index, dict) else None
+        if not isinstance(graph, dict) or graph.get("schema") != LC.REFERENCES_SCHEMA:
+            return None
+        if self._census_names is None:
+            names = set(graph["referenced"]).union(*graph["edges"].values())
+            names.update(target for entries in self.index.get("alternates", {}).values() for _, target in entries)
+            self._census_names = names
+        held = {name for name in self.index["objects"] if LC.in_census(self.index, name)}
+        paths = {path.name: path for path in self.before_paths or ()}
+        mine = {Path(obj).name for obj in objects}
+        unheld = [n for n in (self.before or {}).get("path order", ()) if n not in held and n not in mine]
+        if any(n not in paths for n in unheld):
+            return None
+        found = set(self._census_names)
+        try:
+            for obj in [Path(o) for o in objects] + [paths[n] for n in unheld]:
+                data = obj.read_bytes()
+                roots, edges = LCe.object_references(obj, data)
+                found |= roots
+                found.update(*edges.values())
+                found.update(LCe._alternate_names(data).values())
+                found.update(default for _, default in LCe._weak_externals(data))
+        except (OSError, LCe.MissingObject, ValueError, IndexError, struct.error):
+            return None
+        return found
+
     # -- the judgement
     def judge(self, before, after, continues, moved):
         """[(clause, name, detail)] for replacing the objects `before` {source: object or None} by `after`
@@ -2693,6 +2745,9 @@ class ProviderGuard:
         import build
         defs_before = {s: provider_definitions(o) for s, o in before.items() if o is not None}
         defs_after = {s: provider_definitions(o) for s, o in after.items()}
+        if self.before is None:
+            self.before = self.link_orders(self.rows)
+        referenced = self.referenced([o for o in (*before.values(), *after.values()) if o is not None])
         found = []
         for source, defs in sorted(defs_before.items()):
             heirs = [a for a, olds in continues.items() if source in olds]
@@ -2703,12 +2758,12 @@ class ProviderGuard:
             for name, mine in sorted(defs_after[heir].items()):
                 theirs = {s: defs_before[s][name] for s in olds if name in defs_before.get(s, {})}
                 if len(set(theirs.values())) > 1:
-                    found.append(("members disagree", name, f"{', '.join(sorted(theirs))} define it differently; "
-                                                            f"{heir} keeps one"))
+                    if not (unreferenced_comdat(name, referenced, [mine, *theirs.values()])
+                            and mine in theirs.values()):
+                        found.append(("members disagree", name, f"{', '.join(sorted(theirs))} define it "
+                                                                f"differently; {heir} keeps one"))
                 elif theirs and not all(same_definition(old, mine) for old in theirs.values()):
                     found.append(("bytes", name, f"{heir}'s definition differs from {', '.join(sorted(theirs))}'s"))
-        if self.before is None:
-            self.before = self.link_orders(self.rows)
         key = tuple(sorted(moved.items()))
         if key not in self.cache:
             rows = [dict(r, source=moved[(r["source"], r["target_rva"])]) if (r["source"], r["target_rva"]) in moved
@@ -2719,7 +2774,8 @@ class ProviderGuard:
         names = set().union(*defs_before.values(), *defs_after.values())
         for clause in ORDER_CLAUSES:
             check = self.path_order_findings if clause == "path order" else self.order_findings
-            found += check(clause, names, (defs_before, defs_after), objects, (self.before, self.cache[key]))
+            found += check(clause, names, (defs_before, defs_after), objects, (self.before, self.cache[key]),
+                           referenced)
         return found
 
     def names_held(self, obj):
@@ -2750,12 +2806,14 @@ class ProviderGuard:
         linked = [c for c in copies if c[0] in rank]
         return min(linked, key=lambda c: rank[c[0]]) if linked else None
 
-    def order_findings(self, clause, names, defs, objects, orders):
+    def order_findings(self, clause, names, defs, objects, orders, referenced=None):
         """`clause` findings: a name whose kept copy (kept) changes from the order before to the order after.
         Besides `names` (the replaced and replacing objects' own), every name an outside object holds whose
         place among the other outside objects moves (retail order's initializer slots can reorder them when
         a merged object takes a slot): of two outside objects that swap, at least one moves. A copy no
-        linked object keeps any more is the bytes clause's (a definition no object continues)."""
+        linked object keeps any more is the bytes clause's (a definition no object continues). A COMDAT
+        outside `referenced` (ProviderGuard.referenced; None: every name) is not judged: no linked code runs
+        the copy kept."""
         replaced = set(objects[0].values()) | set(objects[1].values())
         before = {n: i for i, n in enumerate(orders[0][clause])}
         after = {n: i for i, n in enumerate(orders[1][clause])}
@@ -2769,14 +2827,23 @@ class ProviderGuard:
             now = self.kept(name, defs[1], objects[1], after, replaced)
             if was in (None, "exclusive") or now in (None, "exclusive") or now[1] == was[1]:
                 continue
+            if referenced is not None and name not in referenced:      # kept() proved every copy a COMDAT
+                continue
             found.append((clause, name, f"the link keeps {was[0]}'s copy {was[1]} today and {now[0]}'s {now[1]} "
                                         "after"))
         return found
 
-    def path_order_findings(self, clause, names, defs, objects, orders):
+    def path_order_findings(self, clause, names, defs, objects, orders, referenced=None):
         """The path-order clause on its own: exit_link's default --order path. Retire it (drop it from
         ORDER_CLAUSES) when the real link moves to --order retail."""
-        return self.order_findings(clause, names, defs, objects, orders)
+        return self.order_findings(clause, names, defs, objects, orders, referenced)
+
+
+def unreferenced_comdat(name, referenced, definitions):
+    """Whether `name` is a COMDAT nothing references: `referenced` (ProviderGuard.referenced) is proven and
+    lacks it, and every one of `definitions` (provider_definitions keys) is a discardable COMDAT copy."""
+    return (referenced is not None and name not in referenced
+            and all(d[0] == "comdat" and d[1] != 1 for d in definitions))
 
 
 def provider_report(findings):

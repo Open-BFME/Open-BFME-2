@@ -178,6 +178,72 @@ def test_members_that_define_a_name_differently_are_refused(objs, tmp_path):
     assert ("members disagree", DTOR) in [(c, n) for c, n, _ in found]
 
 
+# LINK-661 (2026-11-13): the pointgr.cpp merge. The donor PointGroupClassRva0017A890.cpp and the seed define the
+# inline ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z differently, the donor's copy
+# is the one path order keeps today and another unit's after the merge, and no relocation of any object names
+# it: whichever copy the link keeps, no code runs it.
+INLINE = "?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z"
+SEED, BODY = ("?seed@@YAXXZ", b"\xc3" * 8, COMDAT_NODUP), ("?body@@YAXXZ", b"\xcc" * 8, COMDAT_NODUP)
+
+
+def pointgr(tmp_path, caller=False, debug=False, merged_copy=GLOBAL):
+    """(donor, merged, tu, other) objects of the pointgr shape. `caller`: the seed and the merged object hold a
+    non-COMDAT section calling INLINE; `debug`: only a .debug$S record names it (as /Zi's do)."""
+    extra = []
+    if caller:
+        extra.append(((".text", CODE, b"\xe8\0\0\0\0\xc3", [(1, 2, 20)]), []))          # REL32 to symbol 2
+    if debug:
+        extra.append(((".debug$S", 0x42100040, b"\0" * 8, [(0, 2, 0xB)]), []))         # SECREL to symbol 2
+    sections = [s for s, _ in extra]
+    donor = comdat_object(tmp_path / "donor.obj", [(INLINE, POOL, COMDAT_ANY), BODY])
+    tu = comdat_object(tmp_path / "tu.obj", [(INLINE, GLOBAL, COMDAT_ANY), SEED], sections)
+    merged = comdat_object(tmp_path / "merged.obj", [(INLINE, merged_copy, COMDAT_ANY), SEED, BODY], sections)
+    other = comdat_object(tmp_path / "other.obj", [(INLINE, CHANGED, COMDAT_ANY)])
+    return donor, merged, tu, other
+
+
+def pointgr_guard(donor, tu, other, edges=None, orders=fake_orders):
+    import link_check as LC
+    index = {"objects": [objname(s) for s in (TU, DONOR, OTHER)], "strong": {}, "alternates": {},
+             "comdat": {INLINE: [(0, digest(tu, INLINE), None), (1, digest(donor, INLINE), None),
+                                 (2, digest(other, INLINE), None)]},
+             "references": {"schema": LC.REFERENCES_SCHEMA, "edges": dict(edges or {}),
+                            "referenced": {"_callee"}}}
+    g = T.ProviderGuard(rows=ROWS, orders=orders)
+    assert g.load(index) is None
+    return g
+
+
+def test_link661_an_unreferenced_inline_copy_is_not_judged_for_members_or_order(tmp_path):
+    donor, merged, tu, other = pointgr(tmp_path)
+    assert merge_judge(pointgr_guard(donor, tu, other), donor, merged, tu) == []
+    g = pointgr_guard(donor, tu, other)
+    del g.index["references"]                                             # an index with no reference graph
+    found = merge_judge(g, donor, merged, tu)
+    assert [(c, n) for c, n, _ in found] == [("members disagree", INLINE), ("path order", INLINE)]
+    donor, merged, tu, other = pointgr(tmp_path, debug=True)              # only a .debug$S record names it
+    assert merge_judge(pointgr_guard(donor, tu, other), donor, merged, tu) == []
+
+
+def test_link661_one_relocation_naming_the_copy_keeps_it_judged(tmp_path):
+    expected = [("members disagree", INLINE), ("path order", INLINE)]
+    donor, merged, tu, other = pointgr(tmp_path, caller=True)             # the seed calls it
+    assert [(c, n) for c, n, _ in merge_judge(pointgr_guard(donor, tu, other), donor, merged, tu)] == expected
+    donor, merged, tu, other = pointgr(tmp_path)                          # an outside COMDAT's section calls it
+    g = pointgr_guard(donor, tu, other, edges={"?outside@@YAXXZ": frozenset({INLINE})})
+    assert [(c, n) for c, n, _ in merge_judge(g, donor, merged, tu)] == expected
+    # an object of the link the index does not hold, with no path to read: nothing is proven unreferenced
+    unindexed = lambda rows: {k: v + ["^zz_unindexed.obj"] for k, v in fake_orders(rows).items()}
+    g = pointgr_guard(donor, tu, other, orders=unindexed)
+    assert [(c, n) for c, n, _ in merge_judge(g, donor, merged, tu)] == expected
+
+
+def test_link661_the_merged_object_must_keep_one_members_copy(tmp_path):
+    donor, merged, tu, other = pointgr(tmp_path, merged_copy=CHANGED[::-1])   # neither the donor's nor the seed's
+    found = merge_judge(pointgr_guard(donor, tu, other), donor, merged, tu)
+    assert ("members disagree", INLINE) in [(c, n) for c, n, _ in found]
+
+
 def test_a_split_judges_both_objects_that_continue_the_file(tmp_path):
     # the residual keeps the inline copy, the destination takes the carved function and its own copy
     original = comdat_object(tmp_path / "orig.obj", [(DTOR, POOL, COMDAT_ANY), ("?carved@@YAXXZ", b"\xc3" * 8,
