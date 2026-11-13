@@ -83,10 +83,7 @@ class Team;
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class BfmeWordEL
-{
-	void *m_data;
-};
+#include "../../../Include/Common/BfmeWordEL.h"
 
 struct BfmePairEL : _STL::pair<const AsciiString, AsciiString> {};
 BfmePairEL __cdecl Rva00194810(const BfmeWordEL &name);

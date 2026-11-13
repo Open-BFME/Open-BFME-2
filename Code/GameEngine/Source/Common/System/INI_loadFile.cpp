@@ -201,10 +201,7 @@ typedef char MacroPairSizeCheck[sizeof(MacroPair) == 8 ? 1 : -1];
 // The lifted return record is two StringBase-sized words. Its mangling is
 // retained as BfmePairEL; the pair base supplies the target-proven copy/dtor
 // behavior at 0x2C574/0x2C0C0 without assigning that donor spelling to data.
-class BfmeWordEL
-{
-	void *m_stringStorage;
-};
+#include "../../../Include/Common/BfmeWordEL.h"
 struct BfmePairEL;
 BfmePairEL __cdecl bfmeMakePairEL(const BfmeWordEL &first, const BfmeWordEL &second);
 

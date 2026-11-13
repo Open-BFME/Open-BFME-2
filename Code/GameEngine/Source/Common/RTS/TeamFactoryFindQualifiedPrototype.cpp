@@ -9,10 +9,7 @@
 // rowed two-name findTeamPrototype. Evidence: callees all rowed, caller 0x003E941A.
 #include "ascii_string.h"
 
-class BfmeWordEL
-{
-	void *m_data;
-};
+#include "../../../Include/Common/BfmeWordEL.h"
 
 namespace _STL
 {
