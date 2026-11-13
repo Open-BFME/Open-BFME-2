@@ -605,7 +605,7 @@ public:
 	virtual void onOwnerChanged(void *region, Int oldOwner, Int newOwner);	// +0x04
 };
 class Rva003F1A03 { public: void rva003F1A03(void (Rva003F119CListener::*notify)(void *, Int, Int), void *region, Int oldOwner, Int newOwner); };
-class Rva003F1AFF { public: void rva003F1AFF(Int owner); };
+#include "../../../../Include/Common/Rva003F1AFF.h"
 class Rva004FC176 { public: void rva004FC176(Int owner); };
 
 // Retail 0x003F2A8C, 127 bytes (RET 4; callers RemovePlayer, spawnBuilding,

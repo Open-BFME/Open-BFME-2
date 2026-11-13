@@ -28,7 +28,7 @@ class Rva003F3F27Sub1A8
 {
 };
 class Rva003F20B0 { public: void rva003F20B0(); };
-class Rva003F1AFF { public: void rva003F1AFF(int n); };
+#include "../../Include/Common/Rva003F1AFF.h"
 #include "../../../Libraries/Source/WWVegas/WWLib/Rva003EFDF5Host.h"
 
 // 0x003F2106 is rowed as Rva003F2106::rva003F2106 (Rva002B7B71DeleteAll.cpp).
