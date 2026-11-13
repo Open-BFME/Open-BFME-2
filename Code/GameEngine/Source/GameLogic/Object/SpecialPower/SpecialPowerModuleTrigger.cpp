@@ -157,16 +157,7 @@ extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"
 #include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
-class Rva002614ECFilter : public Rva000421C8
-{
-public:
-	Rva002614ECFilter(const void *what, Player *player, bool match)
-		: m_what(what), m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	const void *m_what;
-	Player *m_player;
-	bool m_match;
-};
+#include "../../../../Include/GameLogic/Rva002614ECFilter.h"
 
 class Rva0028C197Members
 {

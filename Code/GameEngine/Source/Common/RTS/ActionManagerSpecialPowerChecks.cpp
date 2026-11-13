@@ -45,16 +45,7 @@ class Player;
 
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
 // player, +0x10 whether a hit allows.
-class Rva002614ECFilter : public Rva000421C8
-{
-public:
-	Rva002614ECFilter(const void *what, Player *player, bool match)
-		: m_what(what), m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	const void *m_what;
-	Player *m_player;
-	bool m_match;
-};
+#include "../../../Include/GameLogic/Rva002614ECFilter.h"
 
 // Both retail filter tables (VA BFAD10 and BCECF0) have 76CC7A in slot 2.
 // The four-byte body returns -1. Define the all-players mask directly; its
