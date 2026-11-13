@@ -42,7 +42,7 @@ protected:
 };
 }
 
-struct ConnectionVec { void Rva00565A24_ScrapStorage(); };
+#include "../../../../GameEngine/Include/Common/ConnectionVec.h"
 Rva003F2A11 *Rva003F325ACopy(Rva003F2A11 *, Rva003F2A11 *, Rva003F2A11 *);
 LivingWorldRegionConnection *Rva003F29D2_CopyRange(LivingWorldRegionConnection *, LivingWorldRegionConnection *, LivingWorldRegionConnection *);
 void Rva003F0CA1_DestroyRange(LivingWorldRegionConnection *, LivingWorldRegionConnection *);

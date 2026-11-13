@@ -38,14 +38,7 @@ private:
 	unsigned char m_pad04[0x14];
 };
 
-struct ConnectionVec
-{
-	void Rva00565A24_ScrapStorage();
-
-	LivingWorldRegionConnection *m_start;
-	LivingWorldRegionConnection *m_finish;
-	LivingWorldRegionConnection *m_end_of_storage;
-};
+#include "../../../Include/Common/ConnectionVec.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

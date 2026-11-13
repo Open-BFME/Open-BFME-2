@@ -10,13 +10,7 @@ class Rva003F2A11;
 Rva003F2A11 *Rva003F325ACopy(Rva003F2A11 *, Rva003F2A11 *, Rva003F2A11 *);
 typedef Rva003F2A11 *(__cdecl *Rva003F325A4Fn)(Rva003F2A11 *, Rva003F2A11 *, Rva003F2A11 *, void *);
 void Rva003F0CA1_DestroyRange(LivingWorldRegionConnection *, LivingWorldRegionConnection *);
-struct ConnectionVec
-{
-	LivingWorldRegionConnection *rva003F35B0(LivingWorldRegionConnection *a, LivingWorldRegionConnection *b);
-	LivingWorldRegionConnection *m_start;
-	LivingWorldRegionConnection *m_finish;
-	LivingWorldRegionConnection *m_end;
-};
+#include "../../../../Include/Common/ConnectionVec.h"
 LivingWorldRegionConnection *ConnectionVec::rva003F35B0(LivingWorldRegionConnection *livingWorldRegionConnection, LivingWorldRegionConnection *b)
 {
 	Rva003F2A11 *mid = ((Rva003F325A4Fn)&Rva003F325ACopy)((Rva003F2A11 *)(void *)b, (Rva003F2A11 *)(void *)m_finish, (Rva003F2A11 *)(void *)livingWorldRegionConnection, (char *)&livingWorldRegionConnection + 3);

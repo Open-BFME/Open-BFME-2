@@ -324,7 +324,7 @@ template <> __declspec(dllimport) __forceinline void _Construct<BfmeStringTailRe
 // (ICF): the growth path calls that row through an inline forwarder, so this
 // unit emits no unrowed _M_clear copy (and no element destructor reference).
 struct Rva0046800B { void rva0046800B(); };
-struct ConnectionVec { void Rva00565A24_ScrapStorage(); };
+#include "../../../../GameEngine/Include/Common/ConnectionVec.h"
 class Rva001DEF6B { public: ~Rva001DEF6B(); };
 class Rva00308C13 { public: ~Rva00308C13(); };
 #include "Rva00399800.h"

@@ -356,14 +356,7 @@ Elem003B2540 *LivingWorldRegion::rva003F3708(int key)
 
 // ?clear@ConnectionVec@@QAEXXZ @0x003F3739 11B
 class LivingWorldRegionConnection;
-struct ConnectionVec
-{
-	LivingWorldRegionConnection *m_start;
-	LivingWorldRegionConnection *m_finish;
-	LivingWorldRegionConnection *m_end;
-	LivingWorldRegionConnection *rva003F35B0(LivingWorldRegionConnection *a, LivingWorldRegionConnection *b);
-	void clear();
-};
+#include "../../Include/Common/ConnectionVec.h"
 
 void ConnectionVec::clear()
 {
