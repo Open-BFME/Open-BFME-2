@@ -289,7 +289,7 @@ extern CameraShakeSystemClass CameraShakerSystem;
 #include "Code/GameEngine/Include/GameClient/Display.h"
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
-class Rva00358752Opaque {public:Object *lookupUnitByValue(AsciiString);};
+#include "../../../../GameEngine/Include/GameLogic/Rva00358752Opaque.h"
 #include "../../../../GameEngine/Include/Common/Rva002B224BDwordField.h"
 class Drawable;
 class Thing {public:Drawable *getDrawable() const;};

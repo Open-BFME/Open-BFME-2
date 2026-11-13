@@ -197,11 +197,7 @@ extern ThingFactory *TheThingFactory;
 
 extern GameLogic *TheGameLogic;
 
-class Rva00358752Opaque
-{
-public:
-	Object *lookupUnitByValue(AsciiString name);
-};
+#include "../../../Include/GameLogic/Rva00358752Opaque.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
