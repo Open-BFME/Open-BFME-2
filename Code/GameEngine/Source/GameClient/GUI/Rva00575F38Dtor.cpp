@@ -55,11 +55,7 @@ public:
 
 #include "../../../Include/Common/Rva005CB84A.h"
 
-class Rva00574AACAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva00574AACAddDwordField.h"
 
 struct Rva00575F38Owner
 {

@@ -1257,11 +1257,7 @@ int Rva00527D7E::rva0056DC7E() const
 // +4 member of the record at +0x18 / +0x10 / +0x0C.
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
 
-class Rva00574AACAddDwordField
-{
-public:
-	int get() const;										// 0x00574AAC
-};
+#include "../../Include/Common/Rva00574AACAddDwordField.h"
 
 class Rva00574AA5AddDwordField
 {

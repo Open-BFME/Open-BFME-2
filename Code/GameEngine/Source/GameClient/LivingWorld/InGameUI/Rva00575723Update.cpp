@@ -15,11 +15,7 @@
 // finally tail-calls the checklist's rowed 0x005CCEB6. WorldBuilder twin
 // 0x014D34F0 is unnamed. Names are address-derived.
 
-class Rva00574AACAddDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva00574AACAddDwordField.h"
 
 class Rva00575383
 {
