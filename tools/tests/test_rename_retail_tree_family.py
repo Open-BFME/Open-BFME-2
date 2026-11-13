@@ -222,6 +222,9 @@ def test_the_swap_is_a_decoded_one():
     "?f@@YAXPAI@Z",                                                  # a pointer to a non-const unsigned
     "?f@@YAXPBI@Z",                                                  # a const unsigned* nobody named (review 1)
     "??0?$vector@PBIV?$allocator@PBI@_STL@@@_STL@@QAE@XZ",           # vector<const unsigned *> (review 1)
+    "?f@@YAXABU?$pair@$$CBIPAX@Unrelated@@@Z",                       # another namespace's pair (review 2)
+    "?f@@YAXABU?$pair@$$CBIPAX@_STL@@@Z",                            # the old pair alone, in no tree
+    "??0?$vector@U?$pair@$$CBIPAX@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@XZ",  # a vector of it
     "??0?$map@IHU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIH@_STL@@@2@@_STL@@QAE@XZ",   # a map over another value
     "??0?$_Rb_tree@IU?$pair@$$CBIH@_STL@@U?$_Select1st@U?$pair@$$CBIH@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIH"
     "@_STL@@@2@@_STL@@QAE@ABV01@@Z",                                 # a tree over another value
@@ -239,6 +242,8 @@ def test_a_key_parameter_is_retyped_only_where_named():
     assert swap("?f@@YAXIPBI@Z", (0,)) == rename.type_tree("?f@@YAXIPBI@Z")   # a by-value key at that position
 
 
+UNRELATED_OLD = OLD_COPY[:-len("@Z")] + "ABU?$pair@$$CBIPAX@Unrelated@@@Z"         # review 2's counterexample
+UNRELATED_NEW = NEW_COPY[:-len("@Z")] + "ABU?$pair@QBDUBigArchiveMemberInfo@@@Unrelated@@@Z"
 EXTRA_OLD = OLD_COPY[:-len("@Z")] + "PBI@Z"                         # the copy with an unrelated const unsigned *
 EXTRA_NEW = NEW_COPY[:-len("@Z")] + "PBQBD@Z"
 
@@ -329,6 +334,9 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("an unrelated const unsigned * retyped too",
      lambda k: (k["rows"].update({COPY: (EXTRA_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
                 k["spellings"].update({EXTRA_OLD: EXTRA_NEW})), "tree swap alone"),
+    ("another namespace's pair retyped too (review 2)",
+     lambda k: (k["rows"].update({COPY: (UNRELATED_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
+                k["spellings"].update({UNRELATED_OLD: UNRELATED_NEW})), "tree swap alone"),
     ("key parameters on no row", lambda k: k["key_params"].update({0x00001000: (0,)}), "name no row"),
     ("key parameters with no index", lambda k: k["key_params"].update({0x00603FD2: ()}), "name no row"),
     ("a key parameter that is the tree", lambda k: k["key_params"].update({0x00603FD2: (1,)}),
@@ -626,3 +634,11 @@ def test_a_new_wrong_binding_is_undone(tree):
                  cls=next(iter(allowed_symbols.WRONG)))
     found = undone(ctx, plan(ctx), state, refs=after_refs() + [wrong])
     assert any("gains a wrong binding" in p for p in found), found
+
+
+def test_the_review_2_counterexample_decodes_and_differs():
+    """The constructor case above is only a test if both names decode and the unrelated pair is really retyped in
+    the new one: the refusal must come from the swap, not from a name that does not parse."""
+    before, after = rename.type_tree(UNRELATED_OLD), rename.type_tree(UNRELATED_NEW)
+    assert swap(UNRELATED_OLD) != after and swap(UNRELATED_OLD) != before
+    assert swap(UNRELATED_OLD) == rename.type_tree(NEW_COPY[:-len("@Z")] + "ABU?$pair@$$CBIPAX@Unrelated@@@Z")

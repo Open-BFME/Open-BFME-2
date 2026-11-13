@@ -759,32 +759,32 @@ def _struct(name):
 
 def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_params=()):
     """`tree` (a rename.type_tree) with a builtin-keyed tree read as one with the new key, comparator and value, all
-    together. Three shapes change, and only whole: pair<const old_key, old_value> becomes pair<new const key, new
-    value>; an _Rb_tree whose key, pair and comparator are old_key, that pair and less<old_key> takes the new key and
-    comparator; a map over <old_key, old_value, less<old_key>, ...> takes the new key, value and comparator. And the
-    function parameters at `key_params` (indices into the name's own parameter list), each a pointer or reference to
-    const old_key, point or refer to the new const key: how a row passes the pair's first, named per row by the
-    family. Nothing else changes: a key passed by value, a const old_key pointer at any other position or inside a
-    template, the builtins in any other template, a pair or tree over another key or value."""
+    together. Only whole instantiations of the vendored STLport's tree change, each a template named directly in
+    namespace _STL over exactly the old types (TREE_SHAPES): _Rb_tree<old_key, pair, _Select1st<pair>,
+    less<old_key>, allocator<pair>>, map<old_key, old_value, less<old_key>, allocator<pair>>,
+    _Rb_tree_base<pair, allocator<pair>>, _Rb_tree_node<pair>, allocator<pair> and _Select1st<pair>, where pair is
+    _STL::pair<const old_key, old_value>; each becomes the same template over the new key, comparator and value.
+    And the function parameters at `key_params` (indices into the name's own parameter list), each a pointer or
+    reference to const old_key, point or refer to the new const key: how a row passes the pair's first, named per
+    row by the family. Nothing else changes, arguments included: any other template (another namespace's or class's
+    template of the same name, an _STL template over other types, or one that merely contains the old pair, such as
+    vector<pair<...>>), a key passed by value, a const old_key pointer at any other position."""
     key_arg, const_key, _width = TREE_KEYS[new_key]
     key = ("B", old_key)
-    value = BUILTIN_VALUES[old_value][0]
-    less = ("C", "U", ("Q", (("T", "less", (key,)), ("N", "_STL"))))
-    old_pair = ("T", "pair", (("CV", "$$CB", key), value))
-    pair_class = ("C", "U", ("Q", (old_pair, ("N", "_STL"))))
-    new_pair = ("T", "pair", (const_key, _struct(new_value)))
+    swaps = _tree_shapes(key, BUILTIN_VALUES[old_value][0], key_arg, const_key, _struct(new_value),
+                         _struct(new_compare))
+    stl = ("N", "_STL")
 
     def walk(node):
         if not isinstance(node, tuple):
             return node
-        if node == old_pair:
-            return new_pair
         if len(node) == 3 and node[0] == "T":
-            args = node[2]
-            if node[1] == "_Rb_tree" and len(args) == 5 and (args[0], args[1], args[3]) == (key, pair_class, less):
-                return ("T", "_Rb_tree", (key_arg, walk(args[1]), walk(args[2]), _struct(new_compare), walk(args[4])))
-            if node[1] == "map" and len(args) == 4 and args[:3] == (key, value, less):
-                return ("T", "map", (key_arg, _struct(new_value), _struct(new_compare), walk(args[3])))
+            return node                                # a template outside a qualified _STL shape: untouched
+        if len(node) == 2 and node[0] == "Q" and isinstance(node[1], tuple):
+            # a qualified name, innermost part first: a template followed only by _STL is _STL's own
+            parts = node[1]
+            return ("Q", tuple(swaps.get(part, part) if parts[i + 1:] == (stl,) else walk(part)
+                               for i, part in enumerate(parts)))
         return tuple(walk(child) for child in node)
 
     out = walk(tree)
@@ -799,6 +799,28 @@ def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_par
                 and params[index + 1][2] == key:
             params[index + 1] = ("P", params[index + 1][1], const_key)
     return _with_params(out, tuple(params))
+
+
+TREE_SHAPES = ("_Rb_tree", "map", "_Rb_tree_base", "_Rb_tree_node", "allocator", "_Select1st")
+
+
+def _tree_shapes(key, value, key_arg, const_key, new_value, new_compare):
+    """{old template node: new template node} for TREE_SHAPES, each over exactly the old or the new types."""
+    stl = ("N", "_STL")
+
+    def cls(kind, node):
+        return ("C", kind, ("Q", (node, stl)))
+
+    def shapes(k, v, pair_first, compare):
+        pair = cls("U", ("T", "pair", (pair_first, v)))
+        alloc = cls("V", ("T", "allocator", (pair,)))
+        select = cls("U", ("T", "_Select1st", (pair,)))
+        return (("T", "_Rb_tree", (k, pair, select, compare, alloc)), ("T", "map", (k, v, compare, alloc)),
+                ("T", "_Rb_tree_base", (pair, alloc)), ("T", "_Rb_tree_node", (pair,)), alloc[2][1][0],
+                select[2][1][0])
+    old = shapes(key, value, ("CV", "$$CB", key), cls("U", ("T", "less", (key,))))
+    new = shapes(key_arg, new_value, const_key, new_compare)
+    return dict(zip(old, new))
 
 
 def _params(tree):
@@ -863,11 +885,12 @@ class RetypedTreeFamily:
         key_arg, const_key, key_width = TREE_KEYS[new_key]
         old_tree, old_width = BUILTIN_VALUES[old_value]
         old_key_tree = ("B", old_key)
-        old_pair = ("T", "pair", (("CV", "$$CB", old_key_tree), old_tree))
+        old_pair = ("Q", (("T", "pair", (("CV", "$$CB", old_key_tree), old_tree)), ("N", "_STL")))   # _STL's pair
         old_less = ("C", "U", ("Q", (("T", "less", (old_key_tree,)), ("N", "_STL"))))
-        new_pair = ("T", "pair", (const_key, _struct(new_value)))
+        new_pair_t = ("T", "pair", (const_key, _struct(new_value)))
+        new_pair = ("Q", (new_pair_t, ("N", "_STL")))
         new_map = ("T", "map", (key_arg, _struct(new_value), _struct(new_compare), ("C", "V", ("Q", (
-            ("T", "allocator", (("C", "U", ("Q", (new_pair, ("N", "_STL")))),)), ("N", "_STL"))))))
+            ("T", "allocator", (("C", "U", new_pair),)), ("N", "_STL"))))))
 
         def tree(name):
             try:
@@ -937,7 +960,7 @@ class RetypedTreeFamily:
             raise ValueError("the witness must call a row of the family")
         if caller_at in rows or caller_at in callers:
             raise ValueError("the witness is a row outside the family and its rebuilt callers")
-        if new_map not in set(_subtrees(tree(pin_name))):
+        if ("Q", (new_map, ("N", "_STL"))) not in set(_subtrees(tree(pin_name))):
             raise ValueError(f"the witness pin {pin_name} spells no map<{new_key}, {new_value}, {new_compare}>")
         named = dict(members)
         named.update({at: spellings[name] for at, (name, _facts) in rows.items()})
