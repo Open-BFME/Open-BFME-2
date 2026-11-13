@@ -1,0 +1,23 @@
+{
+  "trial": "Shared piSettingData; /Ow; magic/version accesses through unsigned-char output view; original memcpy",
+  "normal_build": "18/19; only piBytesToPing fails",
+  "decoder": {
+    "candidate_hex": "8a104088118a1088510133d28a7001404066895102660fb6106609510233d28a7001404066895104660fb6106609510433d28a7001404066895106660fb610660951068a114080fa91753e807901017538668b49026683f901722e6683f90377288b088b5004890e8b48088956048b500c894e088b481089560c8b5014894e10895614b801000000c333c0c3",
+    "native_hex": "8a1088118a50014088510133d28a7001404066895102660fb6106609510233d28a7001404066895104660fb6106609510433d28a7001404066895106660fb610660951068a114080fa91753e807901017538668b49026683f901722e6683f90377288b08890e8b50048956048b4808894e088b500c89560c8b4810894e108b5014895614b801000000c333c0c3",
+    "first_difference": 2,
+    "unresolved": [],
+    "masked": false
+  },
+  "Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c": {
+    "restored_sha256": "231865ef12721b5e6784e04554386c45a7ca2dd426d0109dbebf61d5ac29272c",
+    "candidate_sha256": "214f2220d523d3dad6086783b8dee94c20002095eac6dbd616c33bc15c1a82ba"
+  },
+  "Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerPing.c": {
+    "restored_sha256": "ef8e6a1f0a38b37ac88ae432d00b20a5ec79a932a42bcf964564e2cc5feb21fa",
+    "candidate_sha256": "8cb52de7140162f86c333e944d2a060397b7fbf85bdeaf7c83a69061420cd8d8"
+  },
+  "source_restored": true,
+  "final_build": "19/19;2namedimports; no string/floatrefs",
+  "fresh_structural_tu_evidence": "no records for pingerMain.c; committed relevant rows remain unapproved",
+  "no_debt_retirement": true
+}

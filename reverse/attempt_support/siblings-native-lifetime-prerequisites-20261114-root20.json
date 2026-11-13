@@ -1,0 +1,53 @@
+{
+  "base_commit": "2790e7aea0ae6991e16f3a4a7f4635c91074cf41",
+  "source": "Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp",
+  "source_sha256": "74675c6060fbbac0040cd6cd45d46f6e55ab4a8d4b2a617f43b80d1784e2547d",
+  "object_sha256": "b2ec5833358504523e2483d9735d4d92f5c594b46b3bf2cf151883e680185b0d",
+  "source_unchanged": true,
+  "normal_build_rows": 13,
+  "native_tables": {
+    "0x7be7ec": [
+      "0x382f0",
+      "0x3b810",
+      "0x3b810"
+    ],
+    "0x7cfbf0": [
+      "0x118640",
+      "0x117dc0",
+      "0x117f10"
+    ],
+    "0x8e7cb0": [
+      "0x118640",
+      "0x6c68c0",
+      "0x69e440"
+    ],
+    "0x7d3338": [
+      "0x140c00",
+      "0x3b810",
+      "0x3b810",
+      "0x3b810",
+      "0x3b810"
+    ],
+    "0x7d33bc": [
+      "0x141c10",
+      "0x140e70",
+      "0x140e80",
+      "0x140e90",
+      "0x141590"
+    ]
+  },
+  "native_bodies": {
+    "0x141bf0": "8bc18b4c2404c700bc33bd008948048b4908894808c20400",
+    "0x141cd0": "566a0c8bf1e8c6e0eeff83c40485c074148d4e5c",
+    "0x141c30": "c7013833bd00c3",
+    "0x141c10": "568bf1e818000000f644240801740956e83be1eeff83c4048bc65ec20400",
+    "0x6c5930": "c701ece7bb00c3",
+    "0x118640": "568bf1e8e8d25a00f644240801740956e80b77f1ff83c4048bc65ec20400",
+    "0x382f0": "f644240401568bf1c706ece7bb00740956e85a7affff83c4048bc65ec20400"
+  },
+  "limits": [
+    "No source trial or provider change",
+    "No queue or ledger retirement",
+    "No direct link or game run"
+  ]
+}

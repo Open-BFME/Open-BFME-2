@@ -37,3 +37,12 @@ as ambiguous-table-name: no object binding remained, but the committed
 `reverse/data_ledger.csv` row 0x007D3B98 still listed the ModelNodeClass table as an
 alias. A local `tools/data_ledger.py --out` run drops that alias (refs 6 -> 5); only
 that row was applied. Clearance: pending the next real link's vtable_bridge_queue.
+
+2026-11-14 current-input follow-up (root20): all13 remaining rows pass. The two
+served bridged tables need coupled base/derived lifetime work. Native Debug base
+7BE7EC has three entries, while its ledger extent is4B; scalar118640 is shared
+by WW3D/Profile derived tables, distinct from base382F0. Scene derived141BF0
+allocates12B and installs7D33BC, but its novtable source misbinds that table as
+SceneIterator. Registered shared base/derived views and owning ledger/fold proof
+remain prerequisites; no source/queue/ledger change.
+[Exact native contracts and supported next steps](../../reverse/attempt_support/siblings-native-lifetime-prerequisites-20261114-root20.md).
