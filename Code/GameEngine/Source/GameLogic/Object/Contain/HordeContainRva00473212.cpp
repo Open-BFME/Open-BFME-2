@@ -241,13 +241,7 @@ _List_node<Object *> *list<Object *, allocator<Object *> >::_M_create_node(Objec
 }
 }
 
-class Rva001EB984Member 
-{
- public: void *m_head;
- void *init(void *);
- 
-}
-;
+#include "../../../../Include/Common/Rva001EB984Member.h"
 // Byte copy of the rowed 0x001EB984 init, visible so cl sees that the
 // allocator temporary's address is not kept.
 __declspec(noinline) inline void *Rva001EB984Member::init(void *context)

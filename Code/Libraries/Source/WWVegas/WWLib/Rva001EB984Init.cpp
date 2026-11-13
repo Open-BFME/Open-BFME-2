@@ -15,12 +15,7 @@
 
 #include "../../../../GameEngine/Include/Common/FreelistPool.h"
 
-class Rva001EB984Member
-{
-public:
-	void *m_head;
-	void *init(void *context);
-};
+#include "../../../../GameEngine/Include/Common/Rva001EB984Member.h"
 
 // Distinct from the behavior pool at VA 0x00DA60E8.
 extern FreelistPool g_freelistPool00DB8FEC;

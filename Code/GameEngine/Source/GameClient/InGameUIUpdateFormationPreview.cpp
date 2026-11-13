@@ -53,7 +53,7 @@ extern int BfmeClientFramesPerSecond;
 struct IdNode {IdNode *next,*prev;ObjectID id;};
 class Rva0029FB3BMember {public: IdNode *head; void *init(void *);};
 class PoolMember {public:void Rva00268902() throw();};
-class Rva001EB984Member {public:void *init(void *);};
+#include "../../Include/Common/Rva001EB984Member.h"
 #include "../../Include/Common/Rva001EB769.h"
 class SelectedIDs:public Rva0029FB3BMember {
 public:
