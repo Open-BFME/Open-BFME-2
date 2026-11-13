@@ -35,7 +35,7 @@ class RenderInfoClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva000E04CE {public:void rva000E04CE(SegmentedLineClass*);};
 #include "../../../../GameEngine/Include/Common/Rva000E007DPair.h"
-struct NativeNode {NativeNode*next;Rva000E007DPair key;};
+#include "../../../../GameEngine/Include/Common/NativeNode.h"
 class Rva000E01B0 {public:NativeNode*rva000E01B0(const Rva000E007DPair*);};
 class Rva000E0536 {public:void rva000E055A(void*,unsigned);};
 namespace _STL {
