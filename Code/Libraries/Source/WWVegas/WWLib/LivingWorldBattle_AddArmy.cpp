@@ -53,7 +53,7 @@ struct Rva003F6DF9Payload {char pad8[8];Rva005A0B4CList listeners;char pad14[0x6
 struct Rva003F6D35Inner {
  unsigned word;_STL::vector<const ModuleData*> payloads;_STL::vector<BfmePod104> data;unsigned tail[5];
 };
-class Rva003F6D35Owner { public: Rva003F6D35Inner *findOrCreateRva003F6D35(void *); };
+#include "../../../../GameEngine/Include/GameLogic/Rva003F6D35Owner.h"
 void LivingWorldBattle::AddArmy(int input,void *payload){
  Rva003F6D35Inner *inner=((Rva003F6D35Owner *)this)->findOrCreateRva003F6D35((void *)input);
  Rva003F6DF9Data *data=((Rva003F6DF9Payload *)payload)->data;

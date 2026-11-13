@@ -64,11 +64,7 @@ struct LivingWorldBattleCoord
 
 struct Rva003F6D35Inner;
 
-class Rva003F6D35Owner
-{
-public:
-	Rva003F6D35Inner *findOrCreateRva003F6D35(void *player);
-};
+#include "../../../../Include/GameLogic/Rva003F6D35Owner.h"
 
 class Rva003F43D3
 {
