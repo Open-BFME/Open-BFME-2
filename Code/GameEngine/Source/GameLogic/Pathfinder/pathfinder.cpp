@@ -392,8 +392,9 @@ public:
 	Coord3D m_goal;							// +0x28
 };
 
-// The rowed cell-centre helper 0x002EBC59 (returns its out Coord3D) and the
-// pinned 0x002CB35C range probe (WorldBuilder: Weapon::isWithinAttackRange).
+// The rowed cell-centre helper 0x002EBC59 (returns its out Coord3D). The
+// weapon CheckForTarget receives is typed by the canonical Rva002CB35CObj
+// view; its range probe is Weapon::isWithinAttackRange 0x002CB35C itself.
 void *rva002EBC59(void *out, void *obj, Int a2, Int a3, Int a4);
 #include "../../../Include/Common/Rva002CB35CObj.h"
 
@@ -402,11 +403,6 @@ void *rva002EBC59(void *out, void *obj, Int a2, Int a3, Int a4);
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 // Weapon::isWithinAttackRange 0x002CB35C (WorldBuilder name).
 #include "../../../Include/GameLogic/Weapon.h"
-// ?PathfinderWeaponRangeAdapter absent-from-retail
-__forceinline Bool Rva002CB35CObj::rva002CB35C(Int a1, void *pos, void *a3, void *a4, float range, Int a6)
-{
-	return ((Weapon *)this)->isWithinAttackRange((Object *)a1, (const Coord3D *)pos, (Object *)a3, (const Coord3D *)a4, range, a6 != 0);
-}
 class Rva002C9B80Owner
 {
 public:
@@ -1116,7 +1112,7 @@ Bool Pathfinder::CheckForTarget(void *obj, void *a2, void *a3,
 	{
 		Coord3D cell;
 		Coord3D pos = *(Coord3D *)rva002EBC59(&cell, obj, (Int)a2, (Int)a3, 1);
-		if (weapon->rva002CB35C((Int)obj, &pos, a5, a6, 10.0f, 1))
+		if (((Weapon *)weapon)->isWithinAttackRange((Object *)obj, &pos, (Object *)a5, (const Coord3D *)a6, 10.0f, true))
 		{
 			*out = pos;
 			return true;
