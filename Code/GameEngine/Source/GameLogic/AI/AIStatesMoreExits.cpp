@@ -47,7 +47,10 @@ typedef bool Bool;
 typedef float Real;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
-#define NULL 0
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 #define ATTACK_RETRY_COUNT 5
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
@@ -83,7 +86,11 @@ struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game's _fprintf thunk through REL32, so read <stdio.h>
+// without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
@@ -200,7 +207,7 @@ StateReturnType AIMoveAndDeleteState::onEnter()
 	{
 		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log)
-			fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 50");
+			fprintf((FILE *)log, "CritterDesync: setAdjustDestination(FALSE) 50");
 	}
 	m_adjustDestinations = false;
 	getMachine()->m_locked = true;
@@ -316,7 +323,7 @@ StateReturnType AIMoveToPositionAndDieState::onEnter()
 	{
 		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log)
-			fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 60");
+			fprintf((FILE *)log, "CritterDesync: setAdjustDestination(FALSE) 60");
 	}
 	m_adjustDestinations = false;
 	getMachine()->m_locked = true;
