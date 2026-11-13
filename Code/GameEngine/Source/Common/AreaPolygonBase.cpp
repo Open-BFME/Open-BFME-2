@@ -82,15 +82,7 @@ private:
 	Rva0030B2B6Elem *m_end;
 };
 
-class Rva0030B2FE
-{
-public:
-	void rva0030B2FE(DataChunkOutput *out);
-private:
-	Rva0030B2B6 m_00;
-	char m_pad08[0x20];
-	int m_28;
-};
+#include "../../Include/Common/Rva0030B2FE.h"
 
 struct BfmeE12 { float x, y, z; };
 
