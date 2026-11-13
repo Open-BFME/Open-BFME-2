@@ -12,7 +12,7 @@
 #include "GameLogicObjectLookupView.h"
 #include "../../../Include/Common/StateMachine.h"
 class Rva0027D3CB { public: bool rva0027D3CB(int); };
-class Rva0027D378 { public: int rva0027D378(void *,int); };
+#include "../../../Include/GameLogic/Rva0027D378.h"
 #include "../../../Include/GameLogic/Module/BfmeThingCME.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;

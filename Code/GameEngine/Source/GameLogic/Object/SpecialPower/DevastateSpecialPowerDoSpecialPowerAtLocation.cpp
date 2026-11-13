@@ -58,11 +58,7 @@ public:
 // units; declare those identities so the references resolve at link time.
 // Rva0027D378Finish.cpp owns ?rva0027D378@Rva0027D378@@QAEHPAXH@Z,
 // BfmeConv624.cpp owns ?rva0027F108@BfmeThingCME@@QAEHPAXMHH@Z.
-class Rva0027D378
-{
-public:
-	int rva0027D378( void *thing, int limit );
-};
+#include "../../../../Include/GameLogic/Rva0027D378.h"
 
 #include "../../../../Include/GameLogic/Module/BfmeThingCME.h"
 
