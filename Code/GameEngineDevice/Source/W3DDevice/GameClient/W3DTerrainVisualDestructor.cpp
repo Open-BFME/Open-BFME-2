@@ -69,11 +69,7 @@ public:
 	~Rva00084CEF();
 };
 
-class Rva009A500
-{
-public:
-	virtual ~Rva009A500();
-};
+#include "../../../../GameEngine/Include/Common/Rva009A500.h"
 
 // The shadow manager's destructor 0x0009A500 is rowed virtual as
 // Rva009A500; the delete below calls it directly.

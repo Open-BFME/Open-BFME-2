@@ -294,12 +294,7 @@ void Rva00FF4D6_Anchor(WaterTracksRenderSystem *object)
 
 // ??_GRva008291D@@UAEPAXI@Z is emitted (retail-identical) and rowed in Rva00082EF5Ctor.cpp.
 
-class Rva009A500
-{
-public:
-	Rva009A500(EmitVtableTag *);
-	virtual ~Rva009A500();
-};
+#include "../../Include/Common/Rva009A500.h"
 
 // The tag constructor (no retail counterpart) makes this TU emit the vtable
 // and with it the scalar deleting destructor; the destructor is only declared here.
