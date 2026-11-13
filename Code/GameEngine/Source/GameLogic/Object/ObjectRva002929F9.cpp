@@ -66,11 +66,7 @@ extern int BfmeLogicFramesPerSecond;
 
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
-class Rva002627E8
-{
-public:
-	float rva002627E8() const;
-};
+#include "../../../Include/GameLogic/Rva002627E8.h"
 
 struct Rva0028AC4EQ;
 struct Rva0028AC4EEntry

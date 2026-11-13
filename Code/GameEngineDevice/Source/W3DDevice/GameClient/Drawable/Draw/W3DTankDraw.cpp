@@ -395,11 +395,7 @@ class ScriptEngine;
 
 extern ScriptEngine *TheScriptEngine;
 
-class Rva002627E8
-{
-public:
-	Real rva002627E8() const;
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Rva002627E8.h"
 
 struct TurnStateView
 {
