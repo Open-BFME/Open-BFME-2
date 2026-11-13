@@ -176,18 +176,7 @@ struct V49Holder
 	virtual void f49();
 };
 
-class Rva00294759
-{
-public:
-	void rva00294759(int param);
-	void rva002947A8();
-	char m_pad00[0x264];
-private:
-	ExperienceTracker *m_exp; // +0x264
-	char m_pad268[0x22C];
-	AsciiString m_494; // +0x494
-	int m_498; // +0x498
-};
+#include "../../../Include/Common/Rva00294759.h"
 
 void Rva00294759::rva00294759(int param)
 {

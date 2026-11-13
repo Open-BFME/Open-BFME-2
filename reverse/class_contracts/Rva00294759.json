@@ -1,0 +1,95 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00294759",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x264": {
+    "4": 1
+   },
+   "0x494": {
+    "4": 1
+   },
+   "0x498": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "1180": 2
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_exp",
+   "name_by": "majority",
+   "offset": 612,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "ExperienceTracker*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_494",
+   "name_by": "majority",
+   "offset": 1172,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_498",
+   "name_by": "majority",
+   "offset": 1176,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1180,
+ "size_by": "majority",
+ "vslots": {}
+}
