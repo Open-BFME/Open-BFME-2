@@ -411,7 +411,7 @@ class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/PointGroupClass.h"
-class Rva00739730 { public: void rva00739730(int playerIndex, int callback); };
+#include "../../../Include/Common/Rva00739730.h"
 class Rva006C0800 { public: void rva006C0800(PointGroupClass::PointModeEnum callback); };
 void rva002D7AE0(int a, int b, int c);
 void rva002D7B18(int a, int b, int c);

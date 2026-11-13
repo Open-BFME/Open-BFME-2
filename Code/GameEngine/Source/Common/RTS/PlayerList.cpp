@@ -10,11 +10,7 @@
 #define MAX_PLAYER_COUNT 20
 class PlayerTemplate;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/PointGroupClass.h"
-class Rva00739730
-{
-public:
-	void rva00739730(int playerIndex, int callback);
-};
+#include "../../../Include/Common/Rva00739730.h"
 class Rva006C0800
 {
 public:
