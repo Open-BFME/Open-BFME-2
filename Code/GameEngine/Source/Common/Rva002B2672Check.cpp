@@ -11,11 +11,7 @@ class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 #include "../../Include/Common/LivingWorldCampaignManager.h"
 
-struct Arg54
-{
-	char m_pad[0x54];
-	int m_val54;
-};
+#include "../../Include/Common/Arg54.h"
 
 class LookupVirt2C
 {
