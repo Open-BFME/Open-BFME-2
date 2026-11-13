@@ -2739,6 +2739,7 @@ alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.c
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot2@XferSave@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot3@XferSave@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot4@XferSave@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp	??$_Construct@URva0052D801Record@@U1@@_STL@@YAXPAURva0052D801Record@@ABU1@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	??0Rva003623E5Filter@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00ABUrandom_access_iterator_tag@_STL@@PAH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?construct@Rva003623E5Member@@QAEXXZ	1
@@ -3441,7 +3442,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D0B9A.cpp	?_M_
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003F421D.cpp	??4Rva003F421DElement@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004390F7.cpp	?insert@?$list@URva004390F7Element@@V?$allocator@URva004390F7Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva004390F7Element@@U?$_Nonconst_traits@URva004390F7Element@@@_STL@@@2@U32@ABURva004390F7Element@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva005FE0A6.cpp	??4Rva005FE0A6Element@@QAEAAU0@ABU0@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp	??$_Construct@URva0052D801Record@@U1@@_STL@@YAXPAURva0052D801Record@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp	??0BfmePod104@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp	??0BfmePod340@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp	??0Rva001DF3F1Element@@QAE@ABU0@@Z	1
@@ -9725,6 +9725,8 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	"",on	
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"y",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/CDownloadCtorEmit.cpp	"gsy",on	1
@@ -10213,8 +10215,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva003F6B24.cpp	"",
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva003F6B24.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva004C7878.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva004C7878.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAsciiScalarOverflow.cpp	"",on	1

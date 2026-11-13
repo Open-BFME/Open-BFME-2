@@ -44417,16 +44417,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052D3F1,38,code,,,-,,Code/GameEngine/Source/Common/Rva0052D3F1UninitializedCopy.cpp
 0x0052D417,96,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorCopyCtorFamily.cpp
 0x0052D477,43,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E32F2,Code/GameEngine/Source/Common/Rva004E32F2Ctor.cpp
-0x0052D4A2,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva004e32f2.cpp
+0x0052D4A2,45,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052D4CF,38,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva004E32F2UninitCopy.cpp
 0x0052D4F5,96,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva004e32f2_allocate_copy.cpp
 0x0052D555,333,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,proposed,K,K=Rva0056616B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052D6A2,28,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,proposed,K,K=Rva0056616B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignAct.cpp
-0x0052D6BE,45,code,,,-,,Code/GameEngine/Source/Common/System/Rva0052D6BE.cpp
-0x0052D6EB,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0052D742.cpp
-0x0052D71A,40,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0052D742.cpp
-0x0052D742,191,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0052D742.cpp
-0x0052D801,58,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp
+0x0052D6BE,45,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+0x0052D6EB,47,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+0x0052D71A,40,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+0x0052D742,191,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
+0x0052D801,58,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
 0x0052D83B,8,code,,,-,,Code/GameEngine/Source/Common/Rva0052D83B.cpp
 0x0052D843,9,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 0x0052D84C,464,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp N=Code/GameEngine/Source/GameLogic/Pathfinder/PathfindCell.cpp W=Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder_cell.cpp,Code/GameEngine/Source/GameLogic/Pathfinder/PathfindCellDoXfer.cpp

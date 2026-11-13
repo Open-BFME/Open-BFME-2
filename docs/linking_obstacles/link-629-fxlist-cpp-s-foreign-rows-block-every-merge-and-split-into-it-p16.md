@@ -317,3 +317,26 @@ Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on
   minimal B. An index without those keys, as at 13abde3b7f, is that commit's own census. Read them before calling a
   blocker current.
 
+
+
+## 2026-11-13: four whole-file donors consolidated (merge-climb)
+
+At base `6ff50096d2567ff6920fb42de7460ea6fc93e2b7`, the official `tu_skeleton.py --merge` absorbs
+StlVectorRva0052D801.cpp, stlport_construct_rva004e32f2.cpp,
+Common/System/Rva0052D6BE.cpp and VectorOverflowRva0052D742.cpp into
+LivingWorldCampaign.cpp. Normal verification retains109/109 matched rows,
+2 data rows and the funclet/fold checks, with zero row identities lost.
+The source/fold-proof path columns are the only core-ledger changes.
+One existing code-identity `wrong` binding key follows its donor; it is
+not retired or repaired by this merge. The alternate-name and optimize
+hatches transfer through the owning tool, with no growth.
+
+The published index was fetched in the exact worktree before both runs:
+dry SHA256 `6bffb3bc7ea243d80e6be15324ab01a4e52e7cf111d855d3264d8e7d08392383`;
+apply SHA256 `d7a9adb382a893217ddb9c7f0e3392c813c8a3440ec28e27d9d7af8b228cd812`.
+ProviderGuard and LinkGuard admit this composition; the post-merge
+link_check preview is LINKS (4472->5012 own-unit bytes, census
+`bc1ac42b01`). This is partial source
+consolidation, not new FXList recovery, whole-image linking or runtime proof.
+Earlier P16 evidence and remaining class/identity prerequisites retain
+their recorded scopes.
