@@ -144,12 +144,7 @@ struct RetHolder
 };
 
 class Rva00495840;
-class CommandButtonHuntUpdate
-{
-	friend class Rva00495840;
-protected:
-	Object *scanClosestTarget();
-};
+#include "../../Include/Common/CommandButtonHuntUpdate.h"
 
 class Rva00495840
 {

@@ -130,7 +130,7 @@ class CloudBreakSpecialPower { public: static Module *friend_newModuleInstance(T
 class CloudBreakSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CombineHordeSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CombineHordeSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class CommandButtonHuntUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/Common/CommandButtonHuntUpdate.h"
 class CommandButtonHuntUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CommandPointsUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CommandPointsUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
