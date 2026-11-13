@@ -36,13 +36,7 @@ typedef int Int;
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 
-struct FloatRect0073CE30
-{
-	float x1;
-	float y1;
-	float x2;
-	float y2;
-};
+#include "../../../Include/Common/FloatRect0073CE30.h"
 
 // PolygonTrigger's shape member at +0x08; its region getter is the rowed
 // Rva0030B719Shape::rva0030B6E3 0x0030B6E3.

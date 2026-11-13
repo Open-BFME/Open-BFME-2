@@ -3,13 +3,7 @@
 // Evidence: calls rowed StringBase copy 0x000365F0 via by-value AsciiString temp plus rowed getQualifiedTriggerAreaByName 0x0035768D plus pinned PolygonTrigger rect 0x002E3954 plus rowed player-mask 0x00357475 plus rowed shroud siblings 0x00739AF0 0x00739CA0; globals TheScriptEngine TheShroudManager; ret 8 two AsciiStrings.
 #include "ascii_string.h"
 
-struct FloatRect0073CE30
-{
-	float m_left;
-	float m_top;
-	float m_right;
-	float m_bottom;
-};
+#include "../../../Include/Common/FloatRect0073CE30.h"
 
 #include "../../../Include/GameLogic/PolygonTrigger.h"
 

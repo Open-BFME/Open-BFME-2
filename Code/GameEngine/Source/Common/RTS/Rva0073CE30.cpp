@@ -38,13 +38,7 @@ private:
 	int m_extra;
 };
 
-struct FloatRect0073CE30
-{
-	float x1;
-	float y1;
-	float x2;
-	float y2;
-};
+#include "../../../Include/Common/FloatRect0073CE30.h"
 
 char __cdecl Rva0073C7C0Fill(int x1, int x2, int y1, int y2, Rva0073BB40 updater);
 

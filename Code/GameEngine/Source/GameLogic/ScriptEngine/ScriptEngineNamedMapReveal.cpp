@@ -30,13 +30,7 @@ struct Pair00739BE0
 	float y;
 };
 
-struct FloatRect0073CE30
-{
-	float x1;
-	float y1;
-	float x2;
-	float y2;
-};
+#include "../../../Include/Common/FloatRect0073CE30.h"
 
 class Waypoint
 {
