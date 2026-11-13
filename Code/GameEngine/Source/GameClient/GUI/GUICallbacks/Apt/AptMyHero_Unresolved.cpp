@@ -60,14 +60,7 @@ public:
 };
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
-struct Rva005B0473View
-{
-public:
-	char opaque[0x60]; // +0x00
-	float field60; // +0x60
-	int field64; // +0x64
-	int field68; // +0x68
-};
+#include "../../../../../Include/GameClient/Rva005B0473View.h"
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
 class Rva002195E6;

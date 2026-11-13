@@ -25,14 +25,7 @@ public:
 };
 class Object;
 #include "../../../../../Include/Common/Rva004076EE.h"
-struct Rva005B0473View
-{
-public:
-	char opaque[0x60]; // +0x00
-	float field60; // +0x60
-	int field64; // +0x64
-	int field68; // +0x68
-};
+#include "../../../../../Include/GameClient/Rva005B0473View.h"
 #include "../../../../Common/Thing/thing.h"
 static inline float getCameraPositionX(const Thing *thing) { return thing->m_cachedPos.x; }
 class Rva002195E6;
