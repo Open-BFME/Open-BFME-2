@@ -675,12 +675,17 @@ int Rva458FFCGet(void)
 	return (int)"EnragedBehavior";
 }
 
-// ?Rva4599DFGet@@YAHXZ @ 0x4599df (6B): returns 0x00bf5bf4.
+// ?GetSnapshotName@SiegeDockingBehavior@@MBEPBDXZ @ 0x4599df (6B): returns 0x00bf5bf4.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva4599DFGet(void)
+class SiegeDockingBehavior
 {
-	return (int)"SiegeDockingBehavior";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *SiegeDockingBehavior::GetSnapshotName() const
+{
+	return "SiegeDockingBehavior";
 }
 
 // ?Rva45CEEEGet@@YAHXZ @ 0x45ceee (6B): returns 0x00c41ea8.

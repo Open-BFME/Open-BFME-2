@@ -54,4 +54,6 @@ public:
 	// BehaviorModuleInterface table 0x00C41420 (+0x0C) slot 34: retail 0x004543A9, the +0x0C
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot34();
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004599DF
 };

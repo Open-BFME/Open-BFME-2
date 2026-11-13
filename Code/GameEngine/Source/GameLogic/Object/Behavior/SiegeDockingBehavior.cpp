@@ -166,7 +166,7 @@ void SiegeDockingBehavior::stopDocking() throw()
 	entries->erase(entries->begin(), entries->end());
 }
 
-// tu-skeleton: 0x004599DF 6B ?Rva4599DFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x004599DF 6B ?GetSnapshotName@SiegeDockingBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x00459A2A 318B ?rva00459A2A@SiegeDockingBehavior@@UAE_NW4ObjectID@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorReserve.cpp (not merged yet)
 

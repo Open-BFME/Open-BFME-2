@@ -10752,7 +10752,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva4583A9Get@@YAHXZ,,0x004583A9,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5c90; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva458759Get@@YAHXZ,,0x00458759,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5c7c; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva458FFCGet@@YAHXZ,,0x00458FFC,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5c5c; prev C2-08-00 with 1 vtable ref and no callers; opaque name
-?Rva4599DFGet@@YAHXZ,,0x004599DF,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5bf4; prev C2-08-00 with 1 vtable ref and no callers; opaque name
+?GetSnapshotName@SiegeDockingBehavior@@MBEPBDXZ,,0x004599DF,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5bf4; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva45CEEEGet@@YAHXZ,,0x0045CEEE,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret c41ea8; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva45E9F4Get@@YAHXZ,,0x0045E9F4,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5b4c; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?Rva00460827Get@@YAHXZ,,0x00460827,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret bf5ac4; prev C2-08-00 with 1 vtable ref and no callers; opaque name
