@@ -44,11 +44,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_ms_position(void 
 
 #include "../../Include/Common/Rva0010F26E.h"
 
-struct Rva0010F28DMid
-{
-    char pad[0x38];
-    Rva00041004 lock; // +0x38
-};
+#include "../../Include/Common/Rva0010F28DMid.h"
 
 struct Rva0010F28DInner
 {

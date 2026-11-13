@@ -33,11 +33,7 @@ void __stdcall rva0010EE29(void *stream);
 
 #include "../../Include/Common/Rva0010F26E.h"
 
-struct Rva0010F28DMid
-{
-    char pad[0x38];
-    Rva00041004 lock; // +0x38
-};
+#include "../../Include/Common/Rva0010F28DMid.h"
 
 struct Rva0010F28DInner
 {
