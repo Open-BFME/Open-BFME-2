@@ -236,11 +236,7 @@ protected:
 
 #include "../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
-class MovieWindowPlayback
-{
-public:
-	void clear();
-};
+#include "../../../../Include/Common/MovieWindowPlayback.h"
 
 class XferSave
 {
