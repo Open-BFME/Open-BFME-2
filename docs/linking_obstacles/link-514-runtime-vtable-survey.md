@@ -3487,3 +3487,11 @@ empty healing callback. Neither an out-of-line base lifecycle call nor a
 cross-TU duplicate row is a valid substitute. Sources unchanged;115/115 rows
 and1data pass over the claimed producer and pulled Object area. [Native table
 inventory and exact prerequisites](../../reverse/attempt_support/castlemember-native-interfaces-20261113-root20.md).
+
+**Rva002215F4 callback-table review (2026-11-13, root20, dbe2a87683):**
+native81C780=[purecall],7E6BA4=[5D124D], next7E6BA8 separately owned.
+Ordinary12/12 rows349B pass; no edit. The previous nonvirtual-destructor
+prerequisite cannot use current rename: generic special-member/signature
+routes refuse U-to-Q and --virtual is one-way. Preserve deleting-helper2215FF
+emission and resolve the callback's unrelated folded owners before recovery.
+[Current evidence](../../reverse/attempt_support/callback-vtable-kind-20261113-root20.md).

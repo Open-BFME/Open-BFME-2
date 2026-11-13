@@ -1,0 +1,32 @@
+{
+ "source": "Code/GameEngine/Source/Common/Rva002214A6Dtor.cpp",
+ "sha256": "61ec8ddaac7d39c80048fd595294fa18f4c1b9f4711e186cb5597cb16bcd2f09",
+ "baseline_rows": 12,
+ "baseline_bytes": 349,
+ "native_tables": {
+  "0x0081C780": [
+   "0x0003B810"
+  ],
+  "0x007E6BA4": [
+   "0x005D124D"
+  ],
+  "0x007E6BA8": [
+   "0x0022168A",
+   "0x0003B810"
+  ]
+ },
+ "tool_refusals": {
+  "??1Rva002214A6@@UAE@XZ": {
+   "generic_member_selector": "??1Rva002214A6@@UAE@XZ is a special member, operator or template function; its identifier is not a plain name (rename its class instead)",
+   "signature_only_change": "??1Rva002214A6@@QAE@XZ changes more than a parameter's or the return type's qualifiers: the identifier, class, access, `this` cv or calling convention differs from ??1Rva002214A6@@UAE@XZ (a naming claim, not a signature-only respell)"
+  },
+  "??1Rva002215F4@@UAE@XZ": {
+   "generic_member_selector": "??1Rva002215F4@@UAE@XZ is a special member, operator or template function; its identifier is not a plain name (rename its class instead)",
+   "signature_only_change": "??1Rva002215F4@@QAE@XZ changes more than a parameter's or the return type's qualifiers: the identifier, class, access, `this` cv or calling convention differs from ??1Rva002215F4@@UAE@XZ (a naming claim, not a signature-only respell)"
+  },
+  "??_GRva002215F4@@UAEPAXI@Z": {
+   "generic_member_selector": "??_GRva002215F4@@UAEPAXI@Z is a special member, operator or template function; its identifier is not a plain name (rename its class instead)",
+   "signature_only_change": "??_GRva002215F4@@QAEPAXI@Z changes more than a parameter's or the return type's qualifiers: the identifier, class, access, `this` cv or calling convention differs from ??_GRva002215F4@@UAEPAXI@Z (a naming claim, not a signature-only respell)"
+  }
+ }
+}
