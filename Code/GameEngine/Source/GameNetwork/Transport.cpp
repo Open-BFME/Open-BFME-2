@@ -33,11 +33,7 @@ struct sockaddr_in
 // ABI-only declaration of the existing receiver provider at 0x005952C4.
 // No receiver fields, size or original class identity are inferred here.
 // Existing address-owned send provider; only its witnessed ABI is used.
-class Rva00594C12
-{
-public:
-    int Write(const char *, int, unsigned long, unsigned short);
-};
+#include "../../Include/GameNetwork/Rva00594C12.h"
 class Rva00594DC0
 {
 public:

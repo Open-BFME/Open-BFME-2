@@ -217,11 +217,7 @@ public:
 	Bool thunk();
 };
 
-class Rva00594C12
-{
-public:
-	int Write(const char *buf, int len, unsigned long addr, unsigned short port);
-};
+#include "../../Include/GameNetwork/Rva00594C12.h"
 
 struct Rva0059517FPacket
 {
