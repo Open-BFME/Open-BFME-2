@@ -2,11 +2,7 @@
 // ?rva005CC342@Rva005CC342@@QAEXXZ retail 0x005CC342 58B
 // Dispatch via iface at +0x14: slot0 gate then slot5 chooses tail slot8 else slot6 gate to tail slot7.
 // Evidence: rowed callee 0x005E0D94 on same this plus virtual slots 0 5 6 7 8.
-class Rva005E0D94
-{
-public:
-	void rva005E0D94();
-};
+#include "../../Include/Common/Rva005E0D94.h"
 
 class Iface005CC342
 {
