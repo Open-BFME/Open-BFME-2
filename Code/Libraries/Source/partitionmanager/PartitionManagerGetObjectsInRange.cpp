@@ -44,16 +44,7 @@ public:
 	float m_bfmeInvER; // +0x118 +0x118
 	unsigned int m_bfmeCountER; // +0x11C +0x11C
 };
-class BfmeHostES
-{
-public:
-	unsigned int bfmeIndexES(float v);
-	unsigned char m_bfmeLeadES[4]; // +0x00
-	float m_bfmeBaseES; // +0x04
-	unsigned char m_bfmeHeadES[0x110]; // +0x08
-	float m_bfmeInvES; // +0x118 +0x118
-	unsigned int m_bfmeCountES; // +0x11C +0x11C
-};
+#include "BfmeHostES.h"
 class BfmeThingVJX { public: void Sort(int); };
 typedef float (__cdecl *Rva009F4130Distance)(void *,void *,float);
 // The target's mutable five-entry callback table at VA DD7EC0. These

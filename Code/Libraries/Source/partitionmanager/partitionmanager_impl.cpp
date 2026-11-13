@@ -250,11 +250,7 @@ public:
 	unsigned int bfmeIndexER(float value);
 };
 
-class BfmeHostES
-{
-public:
-	unsigned int bfmeIndexES(float value);
-};
+#include "BfmeHostES.h"
 
 class Rva009F2AB0Mask
 {

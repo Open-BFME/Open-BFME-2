@@ -265,16 +265,7 @@ public:
 	float m_bfmeInvER; // +0x118 +0x118
 	unsigned int m_bfmeCountER; // +0x11C +0x11C
 };
-class BfmeHostES
-{
-public:
-	unsigned int bfmeIndexES(float v);
-	unsigned char m_bfmeLeadES[4]; // +0x00
-	float m_bfmeBaseES; // +0x04
-	unsigned char m_bfmeHeadES[0x110]; // +0x08
-	float m_bfmeInvES; // +0x118 +0x118
-	unsigned int m_bfmeCountES; // +0x11C +0x11C
-};
+#include "BfmeHostES.h"
 // Open-BFME5 conversions - BfmeThing912C list walk.
 // Near-miss donor from Open-BFME-1 BfmeConv912.cpp (InsertAllObjects @0x009F4F80):
 // retail member m_bfmeHead is at +0x114 (not +0xE4).
