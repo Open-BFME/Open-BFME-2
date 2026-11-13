@@ -52,7 +52,7 @@ public:
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-class Rva000728E2 { public: void rva000728E2(); };
+#include "../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 #include "../../../Include/W3DDevice/GameClient/Rva007397D0.h"
 class ShroudManager;
 // TheShroudManager is only an alias of the owned global TheShroudManager (ledger names column); this unit reads the owner through its own view type.

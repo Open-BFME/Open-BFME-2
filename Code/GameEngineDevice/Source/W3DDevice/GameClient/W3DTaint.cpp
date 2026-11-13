@@ -394,7 +394,7 @@ public:
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-class Rva000728E2 { public: void rva000728E2(); };
+#include "../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
 class Rva006C0820 { public: void rva006C0820(); };
