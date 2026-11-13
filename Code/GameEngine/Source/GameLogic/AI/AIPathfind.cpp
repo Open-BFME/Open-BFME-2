@@ -940,7 +940,7 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
-struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+#include "../../../Include/Common/Rva002D2CDCFields.h"
 #include "../../../Include/GameLogic/AI.h"
 #include "Lib/ICoord2D.h"
 struct TCheckMovementInfo {

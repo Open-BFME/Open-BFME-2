@@ -528,7 +528,7 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0000048E82FPtrChaseField, 0x04, 0x68)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
-struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+#include "../../../../../Include/Common/Rva002D2CDCFields.h"
 
 // Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
 // Rva00537850IndirectGet.cpp suggests the first operation; list iterator
