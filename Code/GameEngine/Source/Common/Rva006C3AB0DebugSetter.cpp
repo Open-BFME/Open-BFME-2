@@ -69,11 +69,7 @@ inline __declspec(noinline) bool Rva006C1850::rva006C1850(unsigned key, void **o
 	return false;
 }
 
-class Rva006C1A50Owner
-{
-public:
-	void rva006C1A50(int block);
-};
+#include "../../Include/Common/Rva006C1A50Owner.h"
 
 #include "../../Include/Common/Rva006C39F0Owner.h"
 

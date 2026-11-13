@@ -58,11 +58,7 @@ private:
 	unsigned int m_bucketCount;
 };
 
-class Rva006C1A50Owner
-{
-public:
-	void rva006C1A50(int record);
-};
+#include "../../Include/Common/Rva006C1A50Owner.h"
 
 class Rva006C39F0Owner
 {
