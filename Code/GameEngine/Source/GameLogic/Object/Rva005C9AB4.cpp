@@ -24,11 +24,7 @@ public:
 	void rva005CB260();
 };
 
-class Rva005C98C0
-{
-public:
-	void *rva005C98C0(int id);
-};
+#include "../../../Include/GameLogic/Module/Rva005C98C0.h"
 
 class Rva005C9B76
 {

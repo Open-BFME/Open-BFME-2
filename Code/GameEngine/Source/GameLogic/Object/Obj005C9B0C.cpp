@@ -5,11 +5,7 @@
 // Evidence: layout from Rva005C9B76Ctor +0x4 list +0x14 arg +0x18 flag +0x1C int; rowed forEach 0x005C9A64 and forwarder 0x005CB260; caller 0x00575038.
 
 
-class Rva005C98C0
-{
-public:
-	void *rva005C98C0(int id);
-};
+#include "../../../Include/GameLogic/Module/Rva005C98C0.h"
 
 
 class Rva005C9A89Listener
