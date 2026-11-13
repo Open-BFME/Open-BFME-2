@@ -69,11 +69,7 @@ void Rva001F645C::rva001F645C(void *a, void *slotProvider)
 {
 	m_00 = ((Rva001F5DD4Slot *)slotProvider)->get(a);
 }
-class Rva001F5DE8Slot
-{
-public:
-	void *get(void *a);
-};
+#include "../../../Include/Common/Rva001F5DE8Slot.h"
 class Rva001F6472
 {
 public:

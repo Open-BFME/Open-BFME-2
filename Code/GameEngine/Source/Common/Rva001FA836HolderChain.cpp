@@ -20,11 +20,7 @@ class Rva001F5DFCSlot
 public:
 	void *get(void *a);
 };
-class Rva001F5DE8Slot
-{
-public:
-	void *get(void *a);
-};
+#include "../../Include/Common/Rva001F5DE8Slot.h"
 class Rva001FA54D
 {
 public:
