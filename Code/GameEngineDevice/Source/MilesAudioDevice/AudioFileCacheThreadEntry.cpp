@@ -77,7 +77,7 @@ public:
 	int priority3C;
 	char pad40[0x14];
 };
-class Rva0010ECB5 { public: bool rva0010ECB5(); };
+#include "../../../GameEngine/Include/Common/Rva0010ECB5.h"
 #include "../../../GameEngine/Include/Common/AudioFileContainer.h"
 #include "../../../GameEngine/Include/Common/Rva00691040Handle.h"
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"

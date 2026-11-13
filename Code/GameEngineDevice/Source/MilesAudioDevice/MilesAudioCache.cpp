@@ -25,7 +25,7 @@ _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, al
 #include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
-class Rva0010ECB5 {public: bool rva0010ECB5();};
+#include "../../../GameEngine/Include/Common/Rva0010ECB5.h"
 class OpenAudioFile {
 public:
  AsciiString m_name;
