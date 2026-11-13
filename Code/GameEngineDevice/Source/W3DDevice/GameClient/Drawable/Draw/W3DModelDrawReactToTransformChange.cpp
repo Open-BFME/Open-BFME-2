@@ -39,11 +39,7 @@ extern InGameUI *TheInGameUI;
 
 struct MaskCirclePoint;
 
-class Rva000ADA1AMask
-{
-public:
-	void rva000ADF90(const MaskCirclePoint *, float, unsigned char);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva000ADA1AMask.h"
 
 class BaseHeightMapRenderObjClass
 {

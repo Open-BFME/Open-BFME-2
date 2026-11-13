@@ -466,12 +466,7 @@ class TerrainTracksRenderObjClassSystem;
 extern TerrainTracksRenderObjClassSystem*TheTerrainTracksRenderObjClassSystem;
 #define g_TerrainTracks (TheTerrainTracksRenderObjClassSystem)
 struct MaskCirclePoint;
-class Rva000ADA1AMask 
-{
- public:void rva000ADF90(const MaskCirclePoint*,float,unsigned char);
- 
-}
-;
+#include "../../../../../Include/W3DDevice/GameClient/Rva000ADA1AMask.h"
 class GameClientNative 
 {
  public:char pad[0x37C0];
