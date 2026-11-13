@@ -12,21 +12,7 @@ public:
 	void rva005DE96B();
 };
 
-struct Rva005B8EBB
-{
-	char pad[0x58];
-	void *m_58;
-	char pad2[0x60 - 0x58 - 4];
-	char m_60[0x8C - 0x60];
-	int m_8C;
-
-	void rva00517F31();
-	void rva005B8D1C();
-	void rva005B89A1();
-	void rva005B8A40();
-
-	void Run();
-};
+#include "../../Include/Common/Rva005B8EBB.h"
 
 void Rva005B8EBB::Run()
 {

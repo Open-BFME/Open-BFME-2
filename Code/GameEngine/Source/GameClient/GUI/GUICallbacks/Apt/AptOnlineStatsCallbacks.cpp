@@ -8,11 +8,7 @@
 #include <string.h>
 
 // 0x005B8EBB (73 bytes; shows the selected tab) is rowed as Rva005B8EBB::Run.
-class Rva005B8EBB
-{
-public:
-	void Run();
-};
+#include "../../../../../Include/Common/Rva005B8EBB.h"
 
 namespace AptOnline
 {

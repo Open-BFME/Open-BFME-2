@@ -230,9 +230,7 @@ public:
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 struct Gen_uw_00385371;
 void Rva00556FB8(const Gen_uw_00385371 &);
-class Rva005B8EBB {
-public: void rva00517F31();
-};
+#include "../../../../../Include/Common/Rva005B8EBB.h"
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);

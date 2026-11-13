@@ -138,23 +138,7 @@ void Rva005B8116::rva005B8116(Rva005B8116Stats *stats, int *total)
 // Native 005B87ED..005B899F RET8; WB1582F60 has the same six-side 37-row
 // extension builder. Tree offsets/payloads here are target observations.
 class Rva005DDED5 : public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned);};
-struct Rva005B8EBB
-{
-	char pad[0x58];
-	void *m_58;
-	char pad2[0x60 - 0x58 - 4];
-	char m_60[0x8C - 0x60];
-	int m_8C;
-
-	void rva00517F31();
-	void rva005B8D1C();
-	void rva005B89A1();
-	void rva005B8A40();
-	void rva005DD48C();
-
-	void rva005B87ED(void *, unsigned *);
-	void Run();
-};
+#include "../../Include/Common/Rva005B8EBB.h"
 
 
 static __forceinline int extraInt(unsigned char key,Rva005B8053*self){void*node=self->rva005B8053(&key);if(node==*(void**)self)return 0;return *(int*)((char*)node+0x14);}
