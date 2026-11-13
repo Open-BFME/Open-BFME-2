@@ -36,3 +36,16 @@ derive from a module base the same way: FXListDieConstructor.cpp's `??_7FXListDi
 
 **2026-11-13, later.** The tool fix was not attempted: `file:tools/header_adopt_lane.py` is claimed by
 `ancalgonn-swarm-toollane2` (claims.py dry-run: held).
+
+**2026-11-13, P147-style regeneration tried (seat halilkkaya-rg1, no file changed).** I claimed the class, the header
+and the contract, then called `header_adopt_lane.generate()` as `5d9351a4ce4` did: variant `data+methods`,
+own slot `virtual ~MonitorConditionUpdate();`, overrides `update` and `xfer`, and the specials read from the
+committed header. The specials pass only with `known` naming EmitVtableTag, Thing, ModuleData, Module and Xfer; with
+the default they are refused as "names a type ... the header does not declare". Even then, the output is the
+committed header without its five forward declarations (`struct EmitVtableTag;`, `class Module;`, `class
+ModuleData;`, `class Thing;`, `class Xfer;`). No code in master's `tools/` writes such a block. So the committed
+header did not come from master's `generate()`, and P147's test (the same call reproduces the committed header byte
+for byte, and the fix changes one line) cannot be met. The contract has no field for overrides: the generator takes
+them from the views. Regenerating would drop the forward declarations; adding them back would be a hand edit. Both
+are left to the header lane's owner, together with the `base_slot_signatures` fix.
+

@@ -28,3 +28,24 @@ OpaqueScalarDeletingDtorsB06.cpp, Rva003561BEDtor.cpp). Rename the slot rows to 
 classes (`rename.py --to-class`), and declare the overrides, so that every copy is retail's 6-slot table. A
 one-unit patch that makes the copies agree again, by flattening LoadScreen.cpp's view off ProgressIndicator or by
 adding a pure slot 1 to the three flattened views, only trades one short copy for another. That was not done.
+
+**2026-11-13, reconciliation assessed (seat halilkkaya-rg1, no file changed).** All four files, the classes and
+`tools/rename.py` were unclaimed. The reconciliation was still not done, for three reasons:
+- Without renames it cannot verify. Rva0035615D overrides retail slots 2, 3 and 5 with bodies rowed under other
+  names (`rva00356889`, `rva00355E85`, `rva00355E4C`) than Rva003560ED's slots 2 and 3 (`rva00356724`,
+  `rva00355DDD`). In C++ an override needs the same name, and flattening Rva0035615D off Rva003560ED would change
+  its constructor.
+- With renames, the canonical headers disagree on slot 1. ProgressIndicator.h spells it `slot1(int)`, and
+  Rva00355D66.h (flattened, no ProgressIndicator base, although retail's 0x00355D66 constructor calls the
+  ProgressIndicator constructor 0x00355C60) spells it `vslot01(int)`. Retail slot 1 of 0x00814E5C is 0x00355FF9,
+  rowed as `?update@LoadScreen@@UAEXH@Z`. Choosing the family's slot names is a class-design decision.
+- Retail slot 5 of 0x00814E5C and 0x00814EA4 is 0x0050B5C6, a shared three-byte `return true` (rowed as
+  `?rva0050B5C6@Rva0050B5C6@@QAE_NXZ`, with several aliases). A `vslot05@Rva00355D66` that resolves there needs a
+  pin or fold-proof admission, which a regression repair may not add by hand.
+
+`??_7Rva00355D66@@6B@` is also a 2-slot short copy in every unit that emits it (ProgressIndicator.cpp,
+Rva00355D66Dtor.cpp). The whole family relies on short copies and the image bridge. Next step: the class owners
+choose the slot spellings for ProgressIndicator -> Rva00355D66 -> Rva003560ED -> Rva0035615D (one hierarchy, as
+retail's constructors show). Then rename the seven slot rows through `rename.py --to-class`, admit 0x0050B5C6
+for slot 5 through `pin_admission.py`, and adopt the headers in the four emitters.
+
