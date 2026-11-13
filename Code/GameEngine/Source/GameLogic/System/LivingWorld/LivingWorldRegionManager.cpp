@@ -457,11 +457,7 @@ struct RegionLogicObserverPrefix
 	unsigned char m_pad00[0x1C];
 	Rva002B7250 m_observers;
 };
-class Rva0020F685
-{
-public:
-	void rva0020F685();
-};
+#include "../../../../Include/Common/Rva0020F685.h"
 LivingWorldRegionManager::~LivingWorldRegionManager()
 {
 	for (unsigned int i = 0; i < m_campaigns.size(); ++i)

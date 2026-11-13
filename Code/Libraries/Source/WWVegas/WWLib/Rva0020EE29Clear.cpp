@@ -165,11 +165,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 // the zero register doubles as the loop counter; reload-each-iteration count
 // loop over [esi+0x2c] like rva0020EE29 above. Argument meanings are unproven
 // (passed opaquely to the entry method).
-class Rva0020F685
-{
-public:
-	void rva0020F685();
-};
+#include "../../../../GameEngine/Include/Common/Rva0020F685.h"
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
