@@ -16,7 +16,7 @@ class INI;
 void Rva00418F7DParse(INI*,void*,void*,const void*);
 static const FieldParse combatChainFields[]={ {"Target",Rva00418F7DParse,0,0},{0,0,0,0} };
 #include "../../../../../Include/Common/INI/INI.h"
-class Rva0022D05F {public:~Rva0022D05F();};
+#include "../../../../../Include/Common/Rva0022D05F.h"
 class Rva004190DA {
 public:Rva004190DA(const AsciiString&,const Rva004190DA*);
  __forceinline ~Rva004190DA(){reinterpret_cast<Rva0022D05F*>(this)->~Rva0022D05F();}
