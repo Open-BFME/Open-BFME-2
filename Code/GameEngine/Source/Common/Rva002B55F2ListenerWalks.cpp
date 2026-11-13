@@ -40,11 +40,7 @@ public:
 };
 
 // ---- forEach 0x002B6151, walk 0x002B55F2
-class Rva002B6151Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../Include/Common/Rva002B6151Listener.h"
 
 struct Rva002B55F2Call
 {

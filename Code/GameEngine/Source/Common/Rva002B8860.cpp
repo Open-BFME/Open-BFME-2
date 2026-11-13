@@ -33,11 +33,7 @@ struct Rva002BED91
 	void clear();
 };
 
-class Rva002B6151Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../Include/Common/Rva002B6151Listener.h"
 class Rva002B6151List
 {
 public:

@@ -2380,7 +2380,7 @@ public:
     virtual void slot48(); virtual void slot4C(Bool, Bool);
 };
 void HideControlBar(Bool);
-class Rva002B6151Listener { public: virtual void notify(void *); };
+#include "../../../../Include/Common/Rva002B6151Listener.h"
 class Rva002B6151List
 {
 public:
