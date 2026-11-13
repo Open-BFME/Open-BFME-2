@@ -146,12 +146,7 @@ RvaF1Handle Rva005CEB03::rva005CEB03(unsigned int argument)
 // stlport
 #include "BattlePromptArmyPanelView.h"
 typedef char FactoryPanelSizeProof[(sizeof(Rva005FF13A) == 0x28) ? 1 : -1];
-struct Rva005FB243
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005FB243(int first, int second);
-};
+#include "../../Include/Common/Rva005FB243.h"
 
 RvaF1Handle Rva005FB243::rva005FB243(int first, int second)
 {

@@ -83,12 +83,7 @@ class Rva005A0B4CList;
 // stlport
 #include "BattlePromptArmyPanelView.h"
 typedef char FactoryPanelSizeProof[(sizeof(Rva005FF13A) == 0x28) ? 1 : -1];
-struct Rva005FB243
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva005FB243(int first, int second);
-};
+#include "../../Include/Common/Rva005FB243.h"
 
 
 // ?rva00574AD9@Rva00574AD9@@QAE?AURvaF1Handle@@PAX@Z, retail 0x00574AD9 (84B): sibling of rva005CEA92 above with a
