@@ -358,11 +358,7 @@ void *Rva00381D1A::rva0038888E(int *size)
 }
 
 // --- 0x003821D7 (11B): assigns the +0x90 member (rowed operator=).
-class Rva00235A37
-{
-public:
-	Rva00235A37 &operator=(const Rva00235A37 &other);		// 0x00235A37
-};
+#include "../../Include/Common/Rva00235A37.h"
 
 class Rva003821D7
 {

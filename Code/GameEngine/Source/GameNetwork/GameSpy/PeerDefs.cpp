@@ -1363,7 +1363,7 @@ typedef char PeerDefsGameSpyInfoSize[(sizeof(GameSpyInfo)==0x1640)?1:-1];
 class Rva00381CED { public: void rva00381CED(void*); };
 class Rva00382234 { public: void rva00382234(AsciiString); };
 #include "../../../Include/GameClient/Rva003821E2.h"
-class Rva00235A37 { public: Rva00235A37& operator=(const Rva00235A37&); };
+#include "../../../Include/Common/Rva00235A37.h"
 #include "../../../Include/GameNetwork/Rva0022C4DF.h"
 AsciiString GameInfoToAsciiString(const GameInfo*,Bool);
 Bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,Bool);

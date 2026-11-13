@@ -7,25 +7,7 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 
-class Rva00235A37
-{
-public:
-	Rva00235A37 &operator=(const Rva00235A37 &other);
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	AsciiString m_10;
-	AsciiString m_14;
-	AsciiString m_18;
-	AsciiString m_1C;
-	AsciiString m_20;
-	AsciiString m_24;
-	AsciiString m_28;
-	unsigned char m_2C;
-	char m_pad2D[3];
-};
+#include "../../Include/Common/Rva00235A37.h"
 
 class Rva00381F04
 {
