@@ -655,11 +655,7 @@ public:
 	Rva00808920LanGame *m_game;
 };
 
-class BfmeThingUPB
-{
-public:
-	char bfmeGoUPB( void *one, char *out, void *two );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeThingUPB.h"
 
 struct FeslState;
 
