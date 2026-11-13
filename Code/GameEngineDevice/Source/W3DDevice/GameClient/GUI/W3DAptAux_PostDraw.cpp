@@ -260,7 +260,7 @@ unsigned long Rva000A90B0(unsigned long color);
 // convention cl 7.1 picks for a file-static noinline function (the point-first
 // parameter order is the one that yields retail's operand order). No retail
 // call reaches this copy, so a source-only caller emits it. Names are neutral.
-struct Rva000A9192Matrix { float a, b, c, d, tx, ty; };
+#include "../../../../Include/W3DDevice/GameClient/Rva000A9192Matrix.h"
 struct Rva000A9192Point { float x, y; };
 static __declspec(noinline) void Rva000A9192TransformPoint(const Rva000A9192Point *p, const Rva000A9192Matrix *m, Rva000A9192Point *out)
 {
