@@ -20,12 +20,7 @@ public:
 	static void _Rebalance(_Rb_tree_node_base *x, _Rb_tree_node_base *&root);
 };
 }
-struct Rva0039834C {
-	RvaNode0039834C *m_root;
-	unsigned m_count;
-	void *rva00397CC9(const Rva0039627D &src);
-	void rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *childCandidate, RvaNode0039834C *parentNode, const Rva0039627D *valueToInsert, RvaNode0039834C *rightHint);
-};
+#include "../../../Include/Common/Rva0039834C.h"
 void Rva0039834C::rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *childCandidate, RvaNode0039834C *parentNode, const Rva0039627D *valueToInsert, RvaNode0039834C *rightHint)
 {
 	RvaNode0039834C *node;

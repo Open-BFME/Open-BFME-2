@@ -23,10 +23,7 @@ void *__stdcall Rva00397CC9Alloc(const Rva0039627D &src)
 	return p;
 }
 
-struct Rva0039834C
-{
-	void *rva00397CC9(const Rva0039627D &src);
-};
+#include "../../../../Include/Common/Rva0039834C.h"
 
 // Retail tree insertion calls this member with the tree in ECX; the body does
 // not inspect that receiver and folds with the free allocation helper above.

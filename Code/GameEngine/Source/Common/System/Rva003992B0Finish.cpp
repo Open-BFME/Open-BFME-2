@@ -50,13 +50,7 @@ struct Rva0039834CIter {
 	RvaNode0039834C *m_node;
 	Rva0039834CIter(RvaNode0039834C *node) : m_node(node) {}
 };
-struct Rva0039834C {
-	RvaNode0039834C *m_root;
-	unsigned m_count;
-	void rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *a, RvaNode0039834C *b, const Rva0039627D *v, RvaNode0039834C *c);
-	RvaInsertOut *rva003992B0(RvaInsertOut *out, const Rva0039627D *entry);
-	RvaInsertOut *rva003997B9(RvaInsertOut *out, const Rva0039627D *valueToInsert);
-};
+#include "../../../Include/Common/Rva0039834C.h"
 typedef Rva0039834CIter (Rva0039834C::*Rva0039834CIterFn)(RvaNode0039834C *, RvaNode0039834C *, const Rva0039627D *, RvaNode0039834C *);
 
 RvaInsertOut *Rva0039834C::rva003992B0(RvaInsertOut *out, const Rva0039627D *entry)

@@ -65,11 +65,7 @@ struct RvaInsertOut
 	void *m_node;
 };
 
-class Rva0039834C
-{
-public:
-	RvaInsertOut *rva003992B0(RvaInsertOut *out, const Rva0039627D *value);
-};
+#include "../../../../Include/Common/Rva0039834C.h"
 
 class Rva0039981EMap
 {
