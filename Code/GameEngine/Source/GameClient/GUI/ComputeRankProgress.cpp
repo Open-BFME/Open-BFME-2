@@ -17,7 +17,7 @@ struct Rva005E3967Template {
  __forceinline const UnicodeString &titleText()const{return title;}
  __forceinline const UnicodeString &descriptionText()const{return description;}
 };
-class Rva0040CB3AIndexedField { public: int get(int) const; };
+#include "../../../Include/Common/Rva0040CB3AIndexedField.h"
 #include "../../../Include/Common/Rva005E4300Context.h"
 namespace StrategicInGameUI {
 static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300Entry *entry)

@@ -970,11 +970,7 @@ void LivingWorldLogic::CalcAttackingDirection(const _STL::vector<Int> &path, Coo
 
 // The army summary's keyed value getter (0x0040CBB8, rowed under the
 // placeholder Rva0040CB3AIndexedField): the entry for an id, NULL when absent.
-class Rva0040CB3AIndexedField
-{
-public:
-	Int get(Int index) const;				// 0x0040CBB8
-};
+#include "../../../../Include/Common/Rva0040CB3AIndexedField.h"
 
 // TheLivingWorldLogic (0x00DFEF10): its rowed int-returning check 0x002B254F,
 // tested as a byte by every caller.

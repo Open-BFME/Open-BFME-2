@@ -64,7 +64,7 @@ typedef _STL::list<Object*,Rva001EB984PoolAllocator<Object*> > LoadedObjectList;
 struct Rva0040E534Input {ArmySummaryEntry*value;};
 #include "../../../Include/GameLogic/Rva0040D8D6List.h"
 struct ArmySummaryEntryRef{Rva004F6093Holder holder;ArmySummaryEntryRef(){}ArmySummaryEntryRef(const Rva004F6093Holder&h):holder(h){}};
-class Rva0040CB3AIndexedField{public:int find(int)const;};
+#include "../../../Include/Common/Rva0040CB3AIndexedField.h"
 #include "../../../Include/GameLogic/ObjectTypesClass.h"
 namespace _STL{template<>vector<ObjectID>::iterator vector<ObjectID>::erase(iterator);}
 class ArmySummary : public Snapshot, public Rva0040D8D6List {
