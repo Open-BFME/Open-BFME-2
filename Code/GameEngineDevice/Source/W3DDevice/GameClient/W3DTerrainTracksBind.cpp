@@ -208,25 +208,7 @@ void Rva00084C05System::setDetail() {
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 // Existing providers moved from TerrainTrackEdgeInfoO1.cpp so the caller
 // sees their verified register usage. Their native names and bodies remain.
-class Rva00083CB2
-{
-public:
-	void rva00083CB2();
-	friend class Rva00083CD7Owner;
-	friend class Rva00083CE9Host;
-private:
-	char _pad00[0x30];
-	int m_30;
-	int m_34;
-	int m_38;
-	char _pad3C[0x1308 - 0x3C];
-	int m_1308;
-	int m_130C;
-	unsigned char m_1310;
-	unsigned char m_1311;
-	char _pad1312[0x131D - 0x1312];
-	unsigned char m_131D;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00083CB2.h"
 // ?rva00083CB2@Rva00083CB2@@QAEXXZ retail 0x00083CB2 37B reset of scattered
 // fields to 0 with +0x131D set to 1. Evidence: unlock lane; callers at
 // 0x00083D4C 0x000840B1 0x00084213 unblock 0x00083CE9 0x00084206.

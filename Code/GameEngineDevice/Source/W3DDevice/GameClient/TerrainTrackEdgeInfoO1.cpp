@@ -37,25 +37,7 @@ void BfmeTrackEdgeInfoAnchor::anchor(edgeInfo *e)
 	e->edgeInfo::edgeInfo();
 }
 #pragma inline_depth()
-class Rva00083CB2
-{
-public:
-	void rva00083CB2();
-	friend class Rva00083CD7Owner;
-	friend class Rva00083CE9Host;
-private:
-	char _pad00[0x30];
-	int m_30;
-	int m_34;
-	int m_38;
-	char _pad3C[0x1308 - 0x3C];
-	int m_1308;
-	int m_130C;
-	unsigned char m_1310;
-	unsigned char m_1311;
-	char _pad1312[0x131D - 0x1312];
-	unsigned char m_131D;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00083CB2.h"
 // Reset provider (00083CB2) lives in W3DTerrainTracksBind.cpp.
 struct Rva00083CE9Node : public Rva00083CB2
 {

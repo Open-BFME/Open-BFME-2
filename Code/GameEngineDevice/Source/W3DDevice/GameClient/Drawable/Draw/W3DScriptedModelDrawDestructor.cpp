@@ -455,15 +455,7 @@ class W3DScriptedModelDraw : public DrawModule, public Rva000B34D8, public Rva00
  
 }
 ;
-class Rva00083CB2 
-{
- public:char pad[0x38];
- int m_38;
- char pad2[0x1311-0x3C];
- char m_1311;
- 
-}
-;
+#include "../../../../../Include/W3DDevice/GameClient/Rva00083CB2.h"
 class Rva00083CD7Owner 
 {
  public:void rva00083CD7(Rva00083CB2*);

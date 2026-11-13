@@ -8,7 +8,7 @@
 #include "refcount.h"
 
 class TextureClass { public: void Release_Ref(); };
-class Rva00083CB2 { public: void rva00083CB2(); };
+#include "../../../Include/W3DDevice/GameClient/Rva00083CB2.h"
 
 // A partial receiver view: only the proven base and texture field are named.
 class Rva0084096 : public RefCountClass
