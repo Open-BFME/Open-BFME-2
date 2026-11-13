@@ -47,7 +47,7 @@ extern ImageCollection*TheMappedImageCollection;
 extern int AptLobbyRandomColorTint;
 class Rva003236E8 {public:int rva003236E8();};
 #include "../../../Include/Common/Rva00323619.h"
-class Rva003235B8 {public:int rva003235B8(const Image*,int,int,int);};
+#include "../../../Include/GameClient/Rva003235B8.h"
 class Rva003236A0 {public:void rva003236A0(int,int);};
 class BfmeThing925D {public:void bfmeGo925D(void*);};
 void*GadgetListBoxGetItemData(GameWindow*,int,int);

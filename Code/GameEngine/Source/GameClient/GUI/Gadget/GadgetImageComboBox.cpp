@@ -212,13 +212,7 @@ Int GadgetListBoxAddEntryImage(GameWindow *listbox, const Image *image,
 // One-pointer views of the combo window for its list operations. 0x003235B8
 // (BFME1 Rva004B5AA0::m) adds an image entry, growing the list when full; the
 // others are rowed by address elsewhere.
-class Rva003235B8
-{
-public:
-	Int rva003235B8(const Image *image, Int height, Int width, Int color);
-
-	GameWindow *m_window;
-};
+#include "../../../../Include/GameClient/Rva003235B8.h"
 
 inline __declspec(noinline) Int Rva003235B8::rva003235B8(const Image *image, Int height, Int width, Int color)
 {
