@@ -128,12 +128,7 @@ struct StringInfo
 	UnicodeString text;
 };
 
-struct StringLookUp
-{
-public:
-	AsciiString *label; // +0x00
-	void *info; // +0x04
-};
+#include "../../Include/GameClient/StringLookUp.h"
 
 struct Rva002E5678Cmp
 {

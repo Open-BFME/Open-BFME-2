@@ -6,11 +6,7 @@
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
 #include "ascii_string.h"
 
-struct StringLookUp
-{
-	AsciiString *label;
-	void *info;
-};
+#include "../../Include/GameClient/StringLookUp.h"
 
 bool __stdcall compareStringLookUpLess(const void *left, const void *right)
 {

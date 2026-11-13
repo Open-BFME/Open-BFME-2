@@ -6,11 +6,7 @@
 #include <string.h>
 #include "ascii_string.h"
 
-struct StringLookUp
-{
-	AsciiString *label;
-	void *info;
-};
+#include "../../../../GameEngine/Include/GameClient/StringLookUp.h"
 
 struct Rva002E5678Cmp
 {
