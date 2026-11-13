@@ -901,12 +901,17 @@ const char *FlammableUpdate::GetSnapshotName() const
 	return "FlammableUpdate";
 }
 
-// ?Rva0048E0F4Get@@YAHXZ @ 0x0048e0f4 (6B): returns 0x00bf5484.
+// ?GetSnapshotName@FloodUpdate@@MBEPBDXZ @ 0x0048e0f4 (6B): returns 0x00bf5484.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva0048E0F4Get(void)
+class FloodUpdate
 {
-	return (int)"FloodUpdate";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *FloodUpdate::GetSnapshotName() const
+{
+	return "FloodUpdate";
 }
 
 // ?Rva0049053EGet@@YAHXZ @ 0x0049053e (6B): returns 0x00bf5464.

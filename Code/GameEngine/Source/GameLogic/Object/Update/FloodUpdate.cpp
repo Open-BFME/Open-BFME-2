@@ -278,6 +278,8 @@ private:
 	Bool m_membersCreated; // +0x24
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0048E0F4
 };
 
 namespace _STL {
@@ -554,7 +556,7 @@ FloodUpdate::~FloodUpdate()
 	m_records.clear();
 }
 
-// tu-skeleton: 0x0048E0F4 6B ?Rva0048E0F4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x0048E0F4 6B ?GetSnapshotName@FloodUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x0048E15B 17B ?buildFieldParse@FloodUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
