@@ -30,7 +30,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class RTS2DScene:public SceneClass{};class RTS3DInterfaceScene:public SceneClass{};
 class LightClass {public:virtual void destroy();int refs;void Release_Ref(){if(--refs==0)destroy();}};
-class Rva0025C0FF {public:void rva0025C0FF();};
+#include "../../../../GameEngine/Include/Common/Rva0025C0FF.h"
 class Display {public:virtual ~Display();char unknown04[0x28];DebugDisplayInterface *debugDisplay;char unknown30[0x114];};
 struct DisplayAllocation {void *data;~DisplayAllocation(){if(data)free(data);}};
 class W3DDisplay:public Display {public:virtual ~W3DDisplay();

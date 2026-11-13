@@ -16,11 +16,7 @@ template <> StringBase<char>::~StringBase();
 // Inline destruction uses the owned releaseBuffer worker directly.
 
 
-class Rva0025C0FF
-{
-public:
-	void rva0025C0FF();
-};
+#include "../../Include/Common/Rva0025C0FF.h"
 
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
