@@ -120,3 +120,17 @@ The live constructor still emits the private primary base
 dry run into `Rva0007DF07` rejects the shared table at VA `0x00BC6F20`
 because 22 other class names also bind it. That fold needs evidence
 beyond the shared table. No production source changed in this attempt.
+
+### Shared constructor header trial at 860ce62b30
+
+Using Rva0056AC26.h in AC26Constructor and initializing its declared
+m_0C and m_10 preserves 28 of 30 rows, including the unwind call at
+0x0079A3CF. That call reaches the shared complete destructor at 0x004E84A4.
+The two missing rows are the former private complete and deleting destructors.
+
+The ACC5 primary table in this trial has six entries. At offset 8 its
+relocation names the base vslot02 (0x0047A69C), while the derived
+rva0056AB35 lands at offset 20. Retail has the 83-byte derived method
+at offset 8. The ordinary rename dry run refuses vslot02 as a weak name.
+Recover the identity of this override and its base slot together before
+retiring either old lifetime row. Restoring the source verifies 30/30.

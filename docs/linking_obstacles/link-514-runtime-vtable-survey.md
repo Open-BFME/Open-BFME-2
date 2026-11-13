@@ -2574,6 +2574,11 @@ to two shared base table definitions. Restoring production inputs returns
 all 2,286 bytes. The reproducer and affected table names are in
 `reverse/attempt_support/registry-acff-slot-contract.md`.
 
+Adopting the canonical AC26 header in AC26Constructor on 860ce62b30 places
+the ACC5 override 0x0056AB35 at offset 20 instead of the retail offset 8.
+The trial object names the inherited default at offset 8. The constructor
+unwind calls the shared destructor and cannot disambiguate the base.
+
 The shared Rva0056AC26Base2 slot 4 now declares the army and destination
 region pointers used by the override at 0x0056ABD6 and corroborated by
 the B2DD pair comparison at 0x0056AB09. Its folded five-byte default row
