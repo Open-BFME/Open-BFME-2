@@ -36,13 +36,8 @@ public:
 Rva0039B893 *__cdecl Rva0039BA22UninitCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const _STL::__false_type &);
 Rva0039B893 *__cdecl Rva0039B8D8FillN(Rva0039B893 *first, unsigned int n, const Rva0039B893 &value, const _STL::__false_type &);
 
-class Rva00565A42
-{
-public:
-	void rva00565A42();
-	Rva0039B893 *m_00;
-	Rva0039B893 *m_04;
-};
+struct Rva0052BF9BElem;
+#include "../../Include/Common/Rva00565A42.h"
 
 class Rva0039C1C3
 {

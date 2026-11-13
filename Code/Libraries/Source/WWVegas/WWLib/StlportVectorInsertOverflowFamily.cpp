@@ -333,7 +333,8 @@ struct Rva005F120F { void rva005F120F(); };
 struct Rva0032E7E2 { void rva0032E7E2(); };
 struct Rva00414148 { void rva00414148(); };
 struct Rva004F89DB { void rva004F89DB(); };
-struct Rva00565A42 { void rva00565A42(); };
+struct Rva0052BF9BElem;
+#include "../../../../GameEngine/Include/Common/Rva00565A42.h"
 struct Rva0056614DVec { void rva0056614D(); };
 struct Rva002B61DD { void rva002B61DD(); };
 #include "../../../../GameEngine/Include/Common/BfmeStringRecord00426A5B.h"

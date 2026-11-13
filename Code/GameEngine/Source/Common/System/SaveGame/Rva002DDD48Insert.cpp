@@ -43,13 +43,8 @@ public:
 
 typedef char SaveMapPreviewSizeCheck[sizeof(SaveMapPreview) == 0x14 ? 1 : -1];
 
-class Rva00565A42
-{
-public:
-	void rva00565A42();
-	SaveMapPreview *m_00;
-	SaveMapPreview *m_04;
-};
+struct Rva0052BF9BElem;
+#include "../../../../Include/Common/Rva00565A42.h"
 
 class Rva002DDD48
 {
