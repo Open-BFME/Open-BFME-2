@@ -20,7 +20,7 @@ class Rva009EF0D0Element;
 // Native refresh6227E0 compares the pair key with CMP/JAE (622A32/37), places
 // the element pointer in pair+4 (622A28/2C), and reads it back for eviction.
 // These are target ABI facts; the original mapped record name is unknown.
-struct Rva00620A00Record { Rva009EF0D0Element *m_entry; };
+#include "../../assetmanager/Rva00620A00Record.h"
 // The owned cleanup below instantiates the tree destructor. Retail evidence
 // does not require the rest of map's methods in this unit.
 

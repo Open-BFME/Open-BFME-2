@@ -12,7 +12,7 @@
 #include <map>
 
 class Rva009EF0D0Element;
-struct Rva00620A00Record { Rva009EF0D0Element *m_entry; };
+#include "Rva00620A00Record.h"
 typedef _STL::pair<const unsigned int, Rva00620A00Record> RefreshPair;
 typedef _STL::_Rb_tree<unsigned int, RefreshPair,
     _STL::_Select1st<RefreshPair>, _STL::less<unsigned int>,

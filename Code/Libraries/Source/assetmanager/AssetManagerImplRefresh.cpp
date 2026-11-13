@@ -137,10 +137,7 @@ public:
 	unsigned int m_field10;
 };
 
-struct Rva00620A00Record
-{
-	Rva009EF0D0Element *m_entry;
-};
+#include "Rva00620A00Record.h"
 
 typedef _STL::multimap<unsigned int, Rva00620A00Record> Q1ReceiverPending;
 namespace _STL {
