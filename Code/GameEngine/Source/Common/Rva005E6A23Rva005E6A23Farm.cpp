@@ -18,10 +18,7 @@ struct Rva005E3967Template {
  char beforeDescription[0x40]; UnicodeString description; char toTitle[0x58-0x44]; UnicodeString title; char toMask[0x110-0x5C];unsigned int mask; char toArchetype[0x5C4-0x114];int archetype;__forceinline const UnicodeString&titleText()const{return title;} __forceinline const UnicodeString&descriptionText()const{return description;}
 };
 #include "../../Include/Common/Rva0040CB3AIndexedField.h"
-struct Rva005E4300Context {
- char pad0[0x18]; AsciiString selectedName;
- char pad1[0x78-0x1c]; Rva0040CB3AIndexedField *index;
-};
+#include "../../Include/Common/Rva005E4300Context.h"
 namespace StrategicInGameUI {
 static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300Entry *entry)
 {
