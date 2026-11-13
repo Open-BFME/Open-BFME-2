@@ -56,14 +56,7 @@ public:
 	char m_pad[ 128 - 4 ];
 };
 
-class Rva00802A10
-{
-public:
-	void clear();                       // 0x00802A10
-
-	Rva00802A10Elem *m_array;
-	int m_count;
-};
+#include "../../Include/GameNetwork/Rva00802A10.h"
 
 class Gen_dtor_007f6d20;
 

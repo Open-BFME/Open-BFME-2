@@ -35,14 +35,7 @@ public:
 	char m_pad[ 128 - 4 ];
 };
 
-class Rva00802A10
-{
-public:
-	void clear();
-
-	Rva00802A10Elem *m_array;
-	int m_count;
-};
+#include "../../Include/GameNetwork/Rva00802A10.h"
 
 // ------------------------------------------------------------------ rows
 class Rva00802290Owner
