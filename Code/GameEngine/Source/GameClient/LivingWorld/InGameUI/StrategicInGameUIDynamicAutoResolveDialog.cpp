@@ -178,11 +178,7 @@ struct Rva005EAEAFBattlePlayers
 
 // The +0x20 object of a unit entry: +0x08 is the unit's icon slot whose
 // rowed 0x005FB846 is called once its hit animation finishes it.
-class Rva005FB846
-{
-public:
-	void showEliminated();
-};
+#include "../../../../Include/GameClient/Rva005FB846.h"
 
 struct Rva005EAEAFIcon
 {

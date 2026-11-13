@@ -38,11 +38,7 @@ struct Rva005EAEAFMaps
 	Rva005EAEAFMap *begin;
 };
 
-class Rva005FB846
-{
-public:
-	void showEliminated();
-};
+#include "../../../Include/GameClient/Rva005FB846.h"
 
 struct Rva005EAEAFElem
 {
