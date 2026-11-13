@@ -398,11 +398,7 @@ public:
 
 // The +0x60 member's next selectable slot from a start (rowed 0x0057CA78
 // under its address class).
-class Rva0057CA78
-{
-public:
-	int GetNextSelectablePlayer(int start);
-};
+#include "../../../Include/Common/Rva0057CA78.h"
 
 // The panel's team, handicap and start position handlers, rowed under
 // their own address classes (Rva0043DFE0.cpp, Rva0043E0C5.cpp).

@@ -55,11 +55,7 @@ public:
 
 // The object at +0x60; its rowed 0x0057CA78 answers a slot index (or a
 // negative value) for an argument.
-class Rva0057CA78
-{
-public:
-	int GetNextSelectablePlayer(int value);
-};
+#include "../../Include/Common/Rva0057CA78.h"
 
 // What the callback 0x0043E6C9 is handed: the value at +0x12C is matched
 // against the slots' +0x10 tags.
