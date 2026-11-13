@@ -10,12 +10,7 @@
 
 struct LookAtRegion {Coord2D lo,hi;};
 
-struct Rva001EDD80Pair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../Include/Common/Rva001EDD80Pair.h"
 
 class GameMessage;
 

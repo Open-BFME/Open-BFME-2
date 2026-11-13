@@ -17,11 +17,7 @@
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
-struct Rva001EDD80Pair
-{
-	int x;
-	int y;
-};
+#include "../../../Include/Common/Rva001EDD80Pair.h"
 
 enum ObjectID
 {

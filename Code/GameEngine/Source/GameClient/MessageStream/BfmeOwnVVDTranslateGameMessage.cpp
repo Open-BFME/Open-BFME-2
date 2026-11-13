@@ -99,12 +99,7 @@ struct MouseIO
 // the record view above.
 #include "../../../Include/GameClient/Mouse.h"
 
-struct Rva001EDD80Pair
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/Rva001EDD80Pair.h"
 
 #include "../../../Include/Common/GlobalData.h"
 

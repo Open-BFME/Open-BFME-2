@@ -441,11 +441,7 @@ enum
 	MSG_RAW_MOUSE_WHEEL
 };
 
-struct Rva001EDD80Pair
-{
-	int x;
-	int y;
-};
+#include "../../../Include/Common/Rva001EDD80Pair.h"
 
 class View;
 
