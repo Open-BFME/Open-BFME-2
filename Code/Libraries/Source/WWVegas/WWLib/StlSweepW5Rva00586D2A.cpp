@@ -26,12 +26,7 @@ template <> deque<BfmeE12> &deque<BfmeE12>::operator=(const deque<BfmeE12> &);
 template <> BfmeE12CopyIterator copy_backward<BfmeE12CopyIterator, BfmeE12CopyIterator>(
     BfmeE12CopyIterator, BfmeE12CopyIterator, BfmeE12CopyIterator);
 }
-struct Ints12
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "Ints12.h"
 struct Rva00586D2AView
 {
 	int m_00;

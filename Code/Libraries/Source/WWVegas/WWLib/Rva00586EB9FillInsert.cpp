@@ -49,12 +49,7 @@ private:
 
 Rva00585B16 *Rva00585D06Fill(Rva00585B16 *first, unsigned int n, const Rva00585B16 &x);
 
-struct Ints12
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "Ints12.h"
 
 struct BfmeAssignRecord84
 {

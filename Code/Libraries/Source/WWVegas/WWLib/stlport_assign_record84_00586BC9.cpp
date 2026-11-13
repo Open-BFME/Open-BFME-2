@@ -31,12 +31,7 @@ template <> BfmeE12CopyIterator copy_backward<BfmeE12CopyIterator, BfmeE12CopyIt
     BfmeE12CopyIterator, BfmeE12CopyIterator, BfmeE12CopyIterator);
 }
 
-struct Ints12
-{
-	int m_00;
-	int m_04;
-	int m_08;
-};
+#include "Ints12.h"
 
 struct BfmeAssignRecord84
 {
