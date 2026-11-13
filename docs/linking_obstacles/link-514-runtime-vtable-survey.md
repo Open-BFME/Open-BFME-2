@@ -3594,3 +3594,14 @@ base/sibling tables and weak sets unchanged;52/52rows and3/3LINKS852->852B.
 Baseadoption is separately blocked by the conditional-include proof; both
 private data views remain. Await authoritative bridge retirement, no queue
 hand-edit. [Complete dispatch proof](../../reverse/attempt_support/ai-upgrade-native-dispatch-20261113-root20.md).
+
+**Citadel slaughter-horde module data (2026-11-13, root20):**
+The rowed Slaughter data constructor establishes the canonical HordeGarrison
+base (sizeD4), followed by its own24B (sizeEC); Citadel adds36B (size110).
+Restore that inherited interface in the primary Citadel TU, loading it before
+Drawable's distinct Snapshot view. The emitted848E40 table grows4->124B;
+all31slots match native, whose slots1..30 equal HordeGarrison's7F4328 table.
+Other571COMDAT fingerprints stay unchanged; all28new inherited inline helpers
+match their rowed retail bytes.18/18rows,3EXACT EH, scopedLINK682->682B.
+Await authoritative bridge retirement; no ledger or queue deletion.
+[Native layout and slot proof](../../reverse/attempt_support/citadel-moduledata-native-table-20261113-root20.md).

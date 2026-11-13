@@ -1,0 +1,449 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContain.cpp",
+  "parent": "d9e54c33b22",
+  "source_sha256": "92df4d7c130c397f2609a45edb3047115384cf078f92dcbc3b7e25f1664e3ad5",
+  "table": {
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^contain_^citadel^slaughter^horde^contain.obj",
+    "extent": 124,
+    "offset": 0,
+    "comdat": true,
+    "selection": 2,
+    "executable": false,
+    "archive": false,
+    "other_publics": [],
+    "pointers": {
+      "0": [
+        "??_ECitadelSlaughterHordeContainModuleData@@UAEPAXI@Z",
+        6,
+        0
+      ],
+      "4": [
+        "?loadPostProcess@ModuleData@@UAEXXZ",
+        6,
+        0
+      ],
+      "8": [
+        "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        6,
+        0
+      ],
+      "12": [
+        "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+        6,
+        0
+      ],
+      "16": [
+        "?isAiModuleData@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "20": [
+        "?slot05@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "24": [
+        "?slot06@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "28": [
+        "?slot07@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "32": [
+        "?slot08@OpenContainModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "36": [
+        "?slot09@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "40": [
+        "?slot10@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "44": [
+        "?slot11@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "48": [
+        "?slot12@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "52": [
+        "?slot13@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "56": [
+        "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+        6,
+        0
+      ],
+      "60": [
+        "?slot15@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ],
+      "64": [
+        "?slot16@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "68": [
+        "?slot17@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "72": [
+        "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+        6,
+        0
+      ],
+      "76": [
+        "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+        6,
+        0
+      ],
+      "80": [
+        "?slot20@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "84": [
+        "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+        6,
+        0
+      ],
+      "88": [
+        "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+        6,
+        0
+      ],
+      "92": [
+        "?slot23@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "96": [
+        "?slot24@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "100": [
+        "?slot25@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "104": [
+        "?slot26@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "108": [
+        "?slot27@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "112": [
+        "?slot28@ModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "116": [
+        "?slot29@HordeGarrisonContainModuleData@@UBEPBXXZ",
+        6,
+        0
+      ],
+      "120": [
+        "?slot30@ModuleData@@UBE_NXZ",
+        6,
+        0
+      ]
+    },
+    "weak": {
+      "0": [
+        "??_GCitadelSlaughterHordeContainModuleData@@UAEPAXI@Z",
+        2
+      ]
+    }
+  },
+  "native_slots": [
+    "0x4811ca",
+    "0xb3fd0",
+    "0x65212",
+    "0x47a69c",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x50b5c6",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0x47a699",
+    "0xb69a1",
+    "0x47a699",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0xd43d0",
+    "0x47a6a9",
+    "0x50b5c6"
+  ],
+  "mismatches": [],
+  "old_comdats": 572,
+  "new_comdats": 600,
+  "changed": [
+    "??_7CitadelSlaughterHordeContainModuleData@@6B@"
+  ],
+  "added": [
+    "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+    "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+    "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+    "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+    "?isAiModuleData@ModuleData@@UBE_NXZ",
+    "?loadPostProcess@ModuleData@@UAEXXZ",
+    "?slot05@ModuleData@@UBE_NXZ",
+    "?slot06@ModuleData@@UBE_NXZ",
+    "?slot07@ModuleData@@UBE_NXZ",
+    "?slot08@OpenContainModuleData@@UBE_NXZ",
+    "?slot09@ModuleData@@UBE_NXZ",
+    "?slot10@ModuleData@@UBE_NXZ",
+    "?slot11@ModuleData@@UBE_NXZ",
+    "?slot12@ModuleData@@UBE_NXZ",
+    "?slot13@ModuleData@@UBE_NXZ",
+    "?slot15@ModuleData@@UBE_NXZ",
+    "?slot16@ModuleData@@UBEPBXXZ",
+    "?slot17@ModuleData@@UBEPBXXZ",
+    "?slot20@ModuleData@@UBEPBXXZ",
+    "?slot23@ModuleData@@UBEPBXXZ",
+    "?slot24@ModuleData@@UBEPBXXZ",
+    "?slot25@ModuleData@@UBEPBXXZ",
+    "?slot26@ModuleData@@UBEPBXXZ",
+    "?slot27@ModuleData@@UBEPBXXZ",
+    "?slot28@ModuleData@@UBEPBXXZ",
+    "?slot29@HordeGarrisonContainModuleData@@UBEPBXXZ",
+    "?slot30@ModuleData@@UBE_NXZ",
+    "?xfer@ModuleData@@UAEXPAVXfer@@@Z"
+  ],
+  "removed": [],
+  "unchanged": 571,
+  "new_inherited_bodies_native_exact": [
+    {
+      "name": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?isAiModuleData@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?loadPostProcess@ModuleData@@UAEXXZ",
+      "rva": "0x000B3FD0",
+      "size": 1,
+      "bytes": "c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot05@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot06@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot07@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot08@OpenContainModuleData@@UBE_NXZ",
+      "rva": "0x0050B5C6",
+      "size": 3,
+      "bytes": "b001c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainModuleDataCtor.cpp"
+    },
+    {
+      "name": "?slot09@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot10@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot11@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot12@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot13@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot15@ModuleData@@UBE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "bytes": "32c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot16@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot17@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot20@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot23@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot24@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot25@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot26@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot27@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot28@ModuleData@@UBEPBXXZ",
+      "rva": "0x000D43D0",
+      "size": 3,
+      "bytes": "33c0c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?slot29@HordeGarrisonContainModuleData@@UBEPBXXZ",
+      "rva": "0x0047A6A9",
+      "size": 3,
+      "bytes": "8bc1c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainModuleDataCtor.cpp"
+    },
+    {
+      "name": "?slot30@ModuleData@@UBE_NXZ",
+      "rva": "0x0050B5C6",
+      "size": 3,
+      "bytes": "b001c3",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    },
+    {
+      "name": "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+      "rva": "0x0047A69C",
+      "size": 3,
+      "bytes": "c20400",
+      "provider": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp"
+    }
+  ],
+  "strict_current_provider_receipt": "one explicit source passed; census/index/status unchanged; no LINK closure claim",
+  "queued_header_pairs": []
+}

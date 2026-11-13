@@ -38,6 +38,9 @@ template<class T,class Traits> static inline bool operator!=(const _List_iterato
 { return a._M_node!=b._M_node; }
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
 }
+// Establish ModuleData's live Snapshot interface before Drawable selects its
+// distinct capitalized view. The rowed Slaughter data ctor calls this base.
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 class DamageInfo;
 #include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 class Object;
@@ -146,13 +149,15 @@ extern const FieldParse s_citadelSlaughterFieldTable[];
  
  
  
-class SlaughterHordeContainModuleData
+// The native Slaughter ctor calls HordeGarrison's ctor (0x0047A251), then
+// initializes its own +0xD4..+0xEB storage. Its factory allocates 0xEC bytes.
+class SlaughterHordeContainModuleData : public HordeGarrisonContainModuleData
 {
 public:
 	SlaughterHordeContainModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 	virtual ~SlaughterHordeContainModuleData();
-	char m_pad04[0xE8];
+	char m_padD4[0xEC - 0xD4];
 };
 
 class CitadelSlaughterHordeContainModuleData : public SlaughterHordeContainModuleData
