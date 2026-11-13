@@ -3,32 +3,12 @@
 #ifndef BFME2_SPLINE_SERVICE_H
 #define BFME2_SPLINE_SERVICE_H
 
-#include "ascii_string.h"
-
-class SubsystemInterface
-{
-public:
-    SubsystemInterface();
-    virtual ~SubsystemInterface();
-    virtual void init() = 0;
-    virtual bool loadIniFilesFromLegend();
-    virtual void postProcessLoad() {}
-    virtual bool vslot04(int) { return false; }
-    virtual bool vslot05() { return false; }
-    virtual int vslot06() { return 0; }
-    virtual void vslot07(int) {}
-    virtual void vslot08() {}
-    virtual void reset() = 0;
-    virtual void update() = 0;
-    virtual bool vslot11(int) { return false; }
-    virtual void vslot12() {}
-    virtual void vslot13(int) {}
-
-    SubsystemInterface(const SubsystemInterface &that);
-    void setName(AsciiString name);
-    bool m_flag;
-    AsciiString m_name;
-};
+// SubsystemInterface is the canonical class (reverse/canonical_classes.csv). This shim's users need its
+// virtual slots, which the canonical header declares under BFME_SUBSYSTEM_SLOTS.
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../Code/Libraries/Source/subsystem/SubsystemInterface.h"
 
 class Rva0022B3F6Subsystem : public SubsystemInterface
 {
