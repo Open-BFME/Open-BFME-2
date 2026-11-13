@@ -8,11 +8,7 @@
 // unblocks 0x004634BA; prev 0x00462D62 in StringContainerRecordCopyBFME2.
 #include <stddef.h>
 
-class Rva0046267A
-{
-public:
-	Rva0046267A(const Rva0046267A &that);
-};
+#include "../../../../Include/GameLogic/Module/Rva0046267A.h"
 
 namespace _STL
 {

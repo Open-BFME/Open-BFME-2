@@ -5,11 +5,7 @@
 // then rowed _Construct<Rva0046267A> 0x462D83 at +0x10; returns node.
 // Evidence: sole callees 0x307F0 plus 0x462D83 both rowed; callers at 0x4637DF
 // plus 0x4637F8 in 0x4637B7; size 0x60 equals base 0x10 plus 0x50 Rva0046267A.
-class Rva0046267A
-{
-public:
-	Rva0046267A(const Rva0046267A &other);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva0046267A.h"
 
 struct Rva004634BANode
 {
