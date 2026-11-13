@@ -20,16 +20,20 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector
 
 
 
-struct Rva00057FC1Record { Rva00057FC1Record(); Rva00057FC1Record(const Rva00057FC1Record&); ~Rva00057FC1Record(); Rva00057FC1Record&operator=(const Rva00057FC1Record&); char bytes[1]; bool operator==(const Rva00057FC1Record&) const; bool operator<(const Rva00057FC1Record&) const; };
-namespace _STL {template<> void _Construct<Rva00057FC1Record,Rva00057FC1Record>(Rva00057FC1Record*,const Rva00057FC1Record&); template<>struct hash<Rva00057FC1Record> { unsigned int operator()(const Rva00057FC1Record&) const; };}
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+// rts::hash and rts::equal_to: the registered view (reverse/canonical_classes.csv).
+#include "../../../../GameEngine/Source/GameLogic/AI/RtsHashView.h"
+// MilesAudioManager's file-text map (m_fileText at +0x9E8), declared as MilesAudioManager.cpp declares it.
+typedef _STL::hash_map<AsciiString, UnicodeString,
+	rts::hash<AsciiString>, rts::equal_to<AsciiString> > MilesFileTextMap;
+typedef _STL::hashtable<_STL::pair<AsciiString const, UnicodeString>, AsciiString, rts::hash<AsciiString>,
+	_STL::_Select1st<_STL::pair<AsciiString const, UnicodeString> >, rts::equal_to<AsciiString>,
+	_STL::allocator<_STL::pair<AsciiString const, UnicodeString> > > MilesFileTextTable;
+// Its clear is retail 0x00057FC1, rowed in MilesAudioManager.cpp where m_fileText.clear() and the map's
+// destructor instantiate it; declared only here.
+namespace _STL { template<> void MilesFileTextTable::clear(); }
 
-
-// Instantiate the recovered member; retain only its required template dependencies.
-template void _STL::hashtable<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record>, Rva00057FC1Record, _STL::hash<Rva00057FC1Record>, _STL::_Select1st<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> >, _STL::equal_to<Rva00057FC1Record>, _STL::allocator<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> > >::clear(void);
-
-// 0x00058A81 (5B), unreferenced in retail: the out-of-line hash_map::clear
-// over the same table, a tail jump into the hashtable clear above.
-template void _STL::hash_map<Rva00057FC1Record, Rva00057FC1Record>::clear(void);
-
-// The Record destructor is the pinned name for the 0x00056EB1 body that hashtable::clear calls per node.
-#pragma comment(linker, "/alternatename:??1Rva00057FC1Record@@QAE@XZ=?Rva00056EB1Free@@YGXPAX@Z")
+// 0x00058A81 (5B), unreferenced in retail: the out-of-line hash_map::clear of the same map, a tail jump into the
+// hashtable clear 0x00057FC1.
+template void MilesFileTextMap::clear(void);

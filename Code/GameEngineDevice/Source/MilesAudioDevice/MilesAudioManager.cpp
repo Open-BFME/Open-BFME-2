@@ -2142,12 +2142,6 @@ void MilesAudioManager::removeAllAudioRequests(unsigned int viewMask)
 }
 // The CRT clock, imported (this unit builds with /D_CRTIMP=).
 extern "C" __declspec(dllimport) __int64 __cdecl _time64(__int64 *timer);
-// The file-text map's clear: the rowed hashtable clear at 0x00057FC1, under
-// the address-derived element spelling its unit (StlSweepR3Rva00057FC1.cpp) uses.
-struct Rva00057FC1Record { Rva00057FC1Record(); Rva00057FC1Record(const Rva00057FC1Record&); ~Rva00057FC1Record(); Rva00057FC1Record&operator=(const Rva00057FC1Record&); char bytes[1]; bool operator==(const Rva00057FC1Record&) const; bool operator<(const Rva00057FC1Record&) const; };
-namespace _STL { template<> struct hash<Rva00057FC1Record> { unsigned int operator()(const Rva00057FC1Record&) const; }; }
-typedef _STL::hashtable<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record>, Rva00057FC1Record, _STL::hash<Rva00057FC1Record>, _STL::_Select1st<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> >, _STL::equal_to<Rva00057FC1Record>, _STL::allocator<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> > > Rva00057FC1Table;
-namespace _STL { template<> void Rva00057FC1Table::clear(); }
 // Retail 0x00061C87, vftable 0x007C55B0 slot 14: resets the view types in
 // viewMask under the manager mutex -- their queued events (0x60123) and
 // requests (0x56FD9), and for the main view the trigger areas -- then each
@@ -2178,7 +2172,7 @@ void MilesAudioManager::rva00061C87(unsigned int viewMask)
     }
     m_at690 &= ~viewMask;
     m_at698 &= ~viewMask;
-    reinterpret_cast<Rva00057FC1Table *>(&m_fileText)->clear();
+    m_fileText.clear();
     m_pendingFileText.clear();
     m_unknownFileNames.clear();
     m_unknownFileNames.reserve(m_audioSettings->m_sampleCount3D + m_audioSettings->m_at64);
@@ -7806,7 +7800,8 @@ template _STL::deque<Rva00056DEBElement>::~deque();
 
 // tu-skeleton: 0x00057F2A 151B ?insert_unique@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@_N@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp (not merged yet)
 
-// tu-skeleton: 0x00057FC1 73B ?clear@?$hashtable@U?$pair@$$CBURva00057FC1Record@@U1@@_STL@@URva00057FC1Record@@U?$hash@URva00057FC1Record@@@2@U?$_Select1st@U?$pair@$$CBURva00057FC1Record@@U1@@_STL@@@2@U?$equal_to@URva00057FC1Record@@@2@V?$allocator@U?$pair@$$CBURva00057FC1Record@@U1@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00057FC1.cpp (not merged yet)
+// 0x00057FC1 73B: hashtable<pair<const AsciiString, UnicodeString>, ...>::clear, m_fileText's clear;
+// rowed here as this unit's own instantiation (rva00061C87 and the map's destructor emit it).
 
 // tu-skeleton: 0x0005800A 132B ?rva0005800A@Rva0005800A@@QAEXABVRva0036CA00Str@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp (not merged yet)
 

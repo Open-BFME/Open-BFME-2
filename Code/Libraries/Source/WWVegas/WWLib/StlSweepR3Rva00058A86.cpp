@@ -59,20 +59,30 @@ template <> void **vector<void*>::end();
 
 struct Rva00058A86Record {char bytes[1];bool operator<(const Rva00058A86Record&)const;bool operator==(const Rva00058A86Record&)const;};
 namespace _STL {template<>struct hash<Rva00058A86Record> {unsigned int operator()(const Rva00058A86Record&)const;};}
-// Retail 0x00058A86 calls 0x00057FC1, the rowed clear of the pair-keyed
-// hashtable over Rva00057FC1Record (StlSweepR3Rva00057FC1.cpp). Instantiating
+// Retail 0x00058A86 calls 0x00057FC1, the clear of MilesAudioManager's file-text map
+// (hash_map<AsciiString, UnicodeString>), rowed in MilesAudioManager.cpp. Instantiating
 // the whole set over this unit's own record left its operator== and hash
 // unresolved and emitted a non-retail clear, so only the destructor is defined
-// here and it calls that rowed clear by its own type.
-struct Rva00057FC1Record { Rva00057FC1Record(); Rva00057FC1Record(const Rva00057FC1Record&); ~Rva00057FC1Record(); Rva00057FC1Record&operator=(const Rva00057FC1Record&); char bytes[1]; bool operator==(const Rva00057FC1Record&) const; bool operator<(const Rva00057FC1Record&) const; };
-namespace _STL {template<>struct hash<Rva00057FC1Record> { unsigned int operator()(const Rva00057FC1Record&) const; };}
-typedef _STL::hashtable<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record>, Rva00057FC1Record, _STL::hash<Rva00057FC1Record>, _STL::_Select1st<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> >, _STL::equal_to<Rva00057FC1Record>, _STL::allocator<_STL::pair<Rva00057FC1Record const, Rva00057FC1Record> > > Rva00057FC1Table;
+// here and it calls that rowed clear by the map's own type.
+#include <hash_map>
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+// rts::hash and rts::equal_to: the registered view (reverse/canonical_classes.csv).
+#include "../../../../GameEngine/Source/GameLogic/AI/RtsHashView.h"
+// MilesAudioManager's file-text map (m_fileText at +0x9E8), declared as MilesAudioManager.cpp declares it.
+typedef _STL::hash_map<AsciiString, UnicodeString,
+	rts::hash<AsciiString>, rts::equal_to<AsciiString> > MilesFileTextMap;
+typedef _STL::hashtable<_STL::pair<AsciiString const, UnicodeString>, AsciiString, rts::hash<AsciiString>,
+	_STL::_Select1st<_STL::pair<AsciiString const, UnicodeString> >, rts::equal_to<AsciiString>,
+	_STL::allocator<_STL::pair<AsciiString const, UnicodeString> > > MilesFileTextTable;
+// Its clear is retail 0x00057FC1, rowed in MilesAudioManager.cpp where m_fileText.clear() and the map's
+// destructor instantiate it; declared only here.
+namespace _STL { template<> void MilesFileTextTable::clear(); }
 namespace _STL {
-template <> void Rva00057FC1Table::clear();
 typedef hashtable<Rva00058A86Record,Rva00058A86Record,hash<Rva00058A86Record>,_Identity<Rva00058A86Record>,equal_to<Rva00058A86Record>,allocator<Rva00058A86Record> > Rva00058A86Table;
 template <> Rva00058A86Table::~hashtable()
 {
-    reinterpret_cast<Rva00057FC1Table *>(this)->clear();
+    reinterpret_cast<MilesFileTextTable *>(this)->clear();
 }
 template Rva00058A86Table::~hashtable();
 }
