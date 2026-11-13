@@ -105,15 +105,7 @@ private:
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class Rva00270260
-{
-public:
-	bool rva00270260();
-	char m_pad00[0x43D];
-private:
-	bool m_43d; // +0x43D
-	bool m_43e; // +0x43E
-};
+#include "../../Include/Common/Rva00270260.h"
 
 struct Rva002706A8Holder;
 class Rva002706A8

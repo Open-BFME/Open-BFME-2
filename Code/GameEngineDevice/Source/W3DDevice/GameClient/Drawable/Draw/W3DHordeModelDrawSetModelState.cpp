@@ -73,14 +73,7 @@ struct Rva000C3886Range {int *begin,*end;};
 struct Rva000C3886Obj;
 #include "../../../../../Include/W3DDevice/GameClient/Rva000C3886.h"
 class W3DModelDraw {public:void rva000B7C24();};
-class Rva00270260
-{
-public:
-	bool rva00270260();
-	char m_pad00[0x440];
-	unsigned char m_440; // +0x440
-	unsigned char m_441; // +0x441
-};
+#include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
 class HAnimClass {public:virtual void deleteThis();int refs;void ReleaseRef(){if(--refs==0)deleteThis();}};
 #include "../../../../../Include/W3DDevice/GameClient/AnimationAsset.h"
 class RenderObjClass;
