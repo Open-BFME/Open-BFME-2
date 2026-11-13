@@ -56,7 +56,7 @@ extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXPartic
 #include <string.h>
 #include "ascii_string.h"
 #include "Coord3D.h"
-struct Rva0087E650Bounds { Coord3D lo,hi; };
+#include "../../../../Include/Common/Rva0087E650Bounds.h"
 #include "../../../../Include/Common/Geometry.h"
 struct FakePortalOwnerView {
  char pad[0x38];Coord3D position;float angle;char pad48[0x74-0x48];unsigned id;

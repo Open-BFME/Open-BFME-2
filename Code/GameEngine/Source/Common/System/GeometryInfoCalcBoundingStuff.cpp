@@ -72,10 +72,7 @@ struct GeometryShape
 typedef char GeometryShape_size_check[sizeof(GeometryShape) == 0x24 ? 1 : -1];
 
 // Six-float bounds the 0x0087E650 helper fills: minimum x/y/z then maximum x/y/z.
-struct Rva0087E650Bounds
-{
-	Coord3D lo, hi;
-};
+#include "../../../Include/Common/Rva0087E650Bounds.h"
 typedef char GeometryBounds_size_check[sizeof(Rva0087E650Bounds) == 24 ? 1 : -1];
 
 template <class T>

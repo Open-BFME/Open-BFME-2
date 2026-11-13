@@ -549,7 +549,7 @@ class TerrainLogic;
 
 // createWaypoint's geometry bounds: the rowed GeometryInfo helper 0x006BDEE0
 // fills two corners; the first positive x extent wins.
-struct Rva0087E650Bounds { Coord3D lo, hi; };
+#include "../../../../Include/Common/Rva0087E650Bounds.h"
 
 class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds *bounds); };
 
