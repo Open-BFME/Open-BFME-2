@@ -580,7 +580,7 @@ class VeterancyCrateCollide { public: static Module *friend_newModuleInstance(Th
 class VeterancyCrateCollideModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class W3DDebrisDraw { public: static ModuleData *friend_newModuleData(INI *); };
 class WallHubBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class WallHubBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/WallHubBehaviorModuleData.h"
 #include "../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 class WanderAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class WanderAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

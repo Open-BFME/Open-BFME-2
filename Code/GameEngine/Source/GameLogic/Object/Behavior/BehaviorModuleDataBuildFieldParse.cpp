@@ -70,13 +70,7 @@ public:
     static const FieldParse m_fieldParse[];
 };
 
-class WallHubBehaviorModuleData
-{
-public:
-    static void buildFieldParse(MultiIniFieldParse &parse);
-    static const FieldParse m_fieldParse[];
-    static const char *m_optionNames[];
-};
+#include "../../../../Include/GameLogic/Module/WallHubBehaviorModuleData.h"
 
 class BridgeBehaviorModuleData
 {

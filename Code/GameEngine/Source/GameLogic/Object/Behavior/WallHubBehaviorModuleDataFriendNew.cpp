@@ -22,17 +22,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class WallHubBehaviorModuleData
-{
-public:
-	WallHubBehaviorModuleData();
-	virtual ~WallHubBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x3C - 4];
-};
+#include "../../../../Include/GameLogic/Module/WallHubBehaviorModuleData.h"
 
 // ?friend_newModuleData@WallHubBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *WallHubBehaviorModuleData::friend_newModuleData(INI *ini)
