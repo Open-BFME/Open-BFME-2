@@ -38,11 +38,7 @@ public:
 };
 
 // ---- forEach 0x002BF33D, walk 0x002BF10F
-class Rva002BF33DListener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../Include/Common/Rva002BF33DListener.h"
 
 struct Rva002BF10FCall
 {

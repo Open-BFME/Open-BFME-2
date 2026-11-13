@@ -25,12 +25,7 @@
 #define LW391_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define LW391_SLOTS16(p) LW391_SLOTS4(p##0) LW391_SLOTS4(p##1) LW391_SLOTS4(p##2) LW391_SLOTS4(p##3)
 
-class Rva002BF33DListener
-{
-public:
-	virtual void notify(void *);
-	virtual void notifyStateChanged(void *);
-};
+#include "../../../Include/Common/Rva002BF33DListener.h"
 
 class Rva002BF33DList
 {

@@ -13,7 +13,7 @@
 #include <vector>
 #include "Common/Snapshot.h"
 void Rva00030830GameFree(void*);
-class Rva002BF33DListener {public:virtual void notify(void*);};
+#include "../../../Include/Common/Rva002BF33DListener.h"
 class Rva002BF33DList {
 public:
  Rva002BF33DListener **first,**last,**capacity;unsigned index;
