@@ -26,11 +26,7 @@ struct Rva003FD584GlobalData
 
 #include "../../Include/Common/Rva002BE7DBValue.h"
 
-class Rva002BE7DB
-{
-public:
-	Rva002BE7DBValue &rva002BE7DB(Rva002BE7DBValue &out) const;
-};
+#include "../../Include/Common/Rva002BE7DB.h"
 
 class Rva00064390
 {

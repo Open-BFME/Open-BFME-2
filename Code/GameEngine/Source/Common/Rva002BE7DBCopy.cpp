@@ -9,14 +9,7 @@
 
 #include "../../Include/Common/Rva002BE7DBValue.h"
 
-class Rva002BE7DB
-{
-public:
-    float m_x;
-    float m_y;
-    float m_z;
-    Rva002BE7DBValue &rva002BE7DB(Rva002BE7DBValue &out) const;
-};
+#include "../../Include/Common/Rva002BE7DB.h"
 
 Rva002BE7DBValue &Rva002BE7DB::rva002BE7DB(Rva002BE7DBValue &out) const
 {
