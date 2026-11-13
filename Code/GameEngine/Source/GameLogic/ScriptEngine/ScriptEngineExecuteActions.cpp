@@ -22,11 +22,7 @@
 // Rva003B2832::rva003B2832 (this-call, int result); called through views of
 // the engine and the action, as ScriptEngineEvaluateAndProgressAllSequentialScripts.cpp does.
 #include "../../../Include/GameLogic/Rva00203693Host.h"
-class Rva003B2832
-{
-public:
-	int rva003B2832();
-};
+#include "../../../Include/GameLogic/Rva003B2832.h"
 
 #include "../../../Include/GameLogic/ScriptAction.h"
 

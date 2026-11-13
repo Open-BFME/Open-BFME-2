@@ -44,11 +44,7 @@ class SequentialScript;
 // Rva00203693Host::rva00203693 and Rva003B2832::rva003B2832 (same this-call int-returning ABI), called through views of the same objects.
 class SequentialScript;
 #include "../../../Include/GameLogic/Rva00203693Host.h"
-class Rva003B2832
-{
-public:
-	int rva003B2832();
-};
+#include "../../../Include/GameLogic/Rva003B2832.h"
 
 // Declared ahead of the other classes: declared last, cl 13.10 evaluates the
 // mode-mask test's engine operand before the action's, retail's reverse.
