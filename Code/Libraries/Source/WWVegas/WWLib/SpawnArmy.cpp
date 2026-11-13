@@ -209,11 +209,7 @@ class BfmeY1038
 public:
 	int bfmeVal1038();
 };
-class Rva0040CB2CIndexedField
-{
-public:
-	int get(int index) const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0040CB2CIndexedField.h"
 #include "../../../../GameEngine/Include/Common/Rva0037DCA5.h"
 struct Rva004E23E2Pair
 {

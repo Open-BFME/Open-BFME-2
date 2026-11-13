@@ -1335,11 +1335,7 @@ public:
 	virtual Bool canBuild(LivingWorldBuildingNuggetSpawnArmy *nugget, Int token);	// +0x24
 };
 #include "../../../../Include/GameNetwork/GameInfo.h"
-class Rva0040CB2CIndexedField
-{
-public:
-	Int get(Int index) const;					// 0x0040CB2C
-};
+#include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct Rva002B3325Summary
 {
 	struct Entry { Int id; ArmySummaryEntry *entry; };
