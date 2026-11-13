@@ -1,11 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // ?rva003EDC31@Rva0020DXXXElem@@QAEXXZ @0x003EDC31 101B: refresh cached rect from TerrainLogic::getMaximumPathfindExtent (slot 0x30) then walk pointer array with pinned 0x569AA8.
 // Evidence: caller Rva0020D7F9Family.cpp; TheTerrainLogic rowed; pinned rva00569AA8; sibling ScriptGlueRva003EDC16 walk; movss needs arch SSE.
-class Rva00569AA8
-{
-public:
-	void rva00569AA8();
-};
+#include "../../../Include/GameLogic/Rva00569AA8.h"
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"

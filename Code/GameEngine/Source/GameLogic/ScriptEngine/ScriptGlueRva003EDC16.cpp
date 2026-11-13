@@ -3,11 +3,7 @@
 // ?rva003EDC16@Rva003EDC16@@QAEXXZ @0x003EDC16 27B (dump range 18).
 // Pointer-array walk: calls the pinned 0x00569AA8 member on each element
 // of the [this+0x1C, this+0x20) pointer array.
-class Rva00569AA8
-{
-public:
-	void rva00569AA8();
-};
+#include "../../../Include/GameLogic/Rva00569AA8.h"
 
 class Rva003EDC16
 {
