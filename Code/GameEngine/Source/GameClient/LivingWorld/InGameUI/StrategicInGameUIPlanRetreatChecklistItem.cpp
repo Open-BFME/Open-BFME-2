@@ -28,7 +28,7 @@ struct Rva002BA8F1Listener;
 #include "../../../../Include/GameClient/Rva005CCB73.h"
 #include "../../../../Include/Common/Rva005CCB7B.h"
 #include "../../../../Include/Common/Rva005CCB83.h"
-class Rva005CCB90 {public:void rva005CCB90(const void*);};
+#include "../../../../Include/Common/Rva005CCB90.h"
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 class Vector3;
 #include "../../../../Include/Common/Rva002BF4F3.h"
