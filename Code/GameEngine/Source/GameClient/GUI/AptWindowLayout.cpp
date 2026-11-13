@@ -67,7 +67,11 @@ private:
  bool m_initialized;
 };
 
-#include "../../../Include/Common/BfmeQuickMatchScreenBase.h"
+class BfmeQuickMatchScreenBase
+{
+public:
+	virtual void rva00538ADC();
+};
 
 struct Rva0040FB4AScreen
 {
