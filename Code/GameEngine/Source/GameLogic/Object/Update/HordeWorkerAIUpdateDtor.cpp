@@ -15,14 +15,7 @@ extern const void *const g_00C50868[];
 class Thing;
 class ModuleData;
 
-class DBaseRoot
-{
-public:
-	virtual ~DBaseRoot();
-
-private:
-	char m_pad04[8];
-};
+#include "../../../../Include/GameLogic/DBaseRoot.h"
 
 class DBaseM1
 {
