@@ -18,12 +18,7 @@ struct Rva00574C1BOwner
 
 #include "../../Include/Common/Rva005746AF.h"
 
-class Rva00575125Second
-{
-public:
-	virtual void slot0(int);
-	~Rva00575125Second();
-};
+#include "../../Include/Common/Rva00575125Second.h"
 inline Rva00575125Second::~Rva00575125Second() {}
 class Rva00574C1B : public Rva005746AF, public Rva00575125Second
 {

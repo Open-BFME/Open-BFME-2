@@ -31,12 +31,7 @@ public:
 private:
 	void *m_14;
 };
-class Rva00575125Second
-{
-public:
-	virtual void slot0(int);
-	~Rva00575125Second();
-};
+#include "../../Include/Common/Rva00575125Second.h"
 class Rva00575125 : public Rva005746AF, public Rva00575125Second
 {
 public:

@@ -11,12 +11,7 @@ struct Rva002BA8F1Listener
 // The +0x10 base is the one Rva00575125 has: the ctor installs its one-slot
 // table 0x0086E360 (a RET 4 callback) and retail's unwind funclet 0x0079B108
 // destroys it through 0x00574293, rowed as ??1Rva00575125Second (nonvirtual).
-class Rva00575125Second
-{
-public:
-	virtual void slot0(int);
-	~Rva00575125Second();
-};
+#include "../../Include/Common/Rva00575125Second.h"
 class Rva005750CF : public Rva005746AF, public Rva00575125Second
 {
 public:

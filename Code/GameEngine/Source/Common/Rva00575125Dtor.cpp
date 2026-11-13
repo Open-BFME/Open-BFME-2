@@ -8,12 +8,7 @@
 class CreateAHeroData;
 #include "../../Include/Common/Rva002B7250.h"
 #include "../../Include/Common/Rva005746AF.h"
-class Rva00575125Second
-{
-public:
-	virtual void slot0(int);
-	~Rva00575125Second();
-};
+#include "../../Include/Common/Rva00575125Second.h"
 inline Rva00575125Second::~Rva00575125Second() {}
 class Rva00575125 : public Rva005746AF, public Rva00575125Second
 {
