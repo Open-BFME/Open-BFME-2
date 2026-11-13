@@ -432,12 +432,7 @@ private:
 	unsigned int m_opaquePrefix;
 	_STL::vector<Object *> m_objects;
 };
-class Rva0025C061
-{
-public:
-	bool rva00596472(void *holder);
-	bool rva005960C1(void *holder);
-};
+#include "../../../../Include/Common/Rva0025C061.h"
 class AIUnitStats
 {
 public:

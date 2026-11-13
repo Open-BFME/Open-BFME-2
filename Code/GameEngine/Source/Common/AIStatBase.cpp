@@ -136,14 +136,7 @@ struct BfmeIdVectorView
 	ObjectID *m_finish;
 	ObjectID *m_end;
 };
-class Rva0025C061
-{
-public:
-	void addObject(void *holder);
-private:
-	int m_unk0;
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_sciences;
-};
+#include "../../Include/Common/Rva0025C061.h"
 struct Rva003ECB52Arg;
 class AIStatBase {public:bool removeObject(void*);};
 class AIUnitStats : public Rva0025C061

@@ -29,14 +29,7 @@ public:
 
 }
 
-class Rva0025C061
-{
-public:
-	void addObject(void *holder);
-private:
-	int m_unk0;
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_sciences;
-};
+#include "../../Include/Common/Rva0025C061.h"
 
 void Rva0025C061::addObject(void *holder)
 {

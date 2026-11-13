@@ -115,16 +115,7 @@ public:
 
 }
 
-class Rva0025C061
-{
-public:
-	void addObject(void *holder);
-	bool rva00596472(void *holder);
-	bool rva005960C1(void *holder);
-private:
-	int m_unk0;
-	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_sciences;
-};
+#include "../../Include/Common/Rva0025C061.h"
 
 bool Rva0025C061::rva00596472(void *holder)
 {
