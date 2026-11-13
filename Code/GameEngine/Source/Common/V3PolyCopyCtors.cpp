@@ -326,11 +326,7 @@ Rva005E67FE::~Rva005E67FE() {}
 // this converts from a larger source whose only observed member is the int
 // at +0x74. The source layout is inferred from that one load. Retail caller
 // 0x005AD6CA passes the source pointer by value then installs its own vptr.
-struct Rva005DCC4BSource
-{
-	char m_bytes00[0x74];
-	Int m_field74;
-};
+#include "../../Include/Common/Rva005DCC4BSource.h"
 
 class Rva005DCC4B
 {

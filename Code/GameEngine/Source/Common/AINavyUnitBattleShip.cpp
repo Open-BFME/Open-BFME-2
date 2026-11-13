@@ -9,11 +9,7 @@
 // into vector<ModuleData*>.
 
 typedef int Int;
-struct Rva005DCC4BSource
-{
-	char m_bytes00[0x74];
-	Int m_field74;
-};
+#include "../../Include/Common/Rva005DCC4BSource.h"
 #include "GameLogicObjectLookupView.h"
 #include <vector>
 

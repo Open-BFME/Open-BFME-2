@@ -56,11 +56,7 @@ struct Rva00506A0COther
 	int m_74;
 };
 
-struct Rva005DCC4BSource
-{
-	char m_bytes00[0x74];
-	int m_field74;
-};
+#include "../../Include/Common/Rva005DCC4BSource.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 
