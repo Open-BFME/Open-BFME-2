@@ -116,13 +116,7 @@ class Rva005E8F50;
 struct Rva005E8FECOwner;
 struct Rva005E8FECSource;
 class Rva005E90EC {public:Rva005E90EC(void*,int,void*,Rva005E8FECOwner*,Rva005E8FECSource*);void *pointer;};
-class Rva005CEA51 {public:
- Rva005CEA51():pointer(0){}
- ~Rva005CEA51();
- void rva005CEA51(Rva005E8F50*);
- void rva005CE7EA();
- Rva005E8F50 *pointer;
-};
+#include "../../Include/Common/Rva005CEA51.h"
 // The Link constructor is rowed in Rva0023A128Ctor.cpp (0x00238DDB); inlined here, so no copy.
 class Rva0023A128Link {public:__declspec(dllimport) __forceinline Rva0023A128Link(){}~Rva0023A128Link(){}virtual void rva00239B94(int);virtual void v01(int);};
 class Rva005CEF2F: public Rva005CE8F5,public Rva0023A128Link {

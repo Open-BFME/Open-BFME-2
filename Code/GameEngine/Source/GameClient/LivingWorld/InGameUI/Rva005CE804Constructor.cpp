@@ -21,7 +21,7 @@ class Rva005CE804Observer { public: virtual ~Rva005CE804Observer() {} virtual vo
 // Use the complete owning destructor provided by ThrowingNewHelpers.cpp.
 // Its 26-byte retail body at5CE7EA matches this member's target unwind call.
 class Rva005E8F50;
-class Rva005CEA51 {public:Rva005CEA51():pointer(0){}__declspec(noinline) ~Rva005CEA51();void rva005CEA51(Rva005E8F50*);void rva005CE7EA();Rva005E8F50*pointer;};
+#include "../../../../Include/Common/Rva005CEA51.h"
 typedef char Rva005CEA51SizeCheck[(sizeof(Rva005CEA51)==4)?1:-1];
 struct FwdArg { char pad[0x1c]; int id; };
 // The inline dtor compiles to the 76 bytes of the rowed ??1Rva005CE874 at
