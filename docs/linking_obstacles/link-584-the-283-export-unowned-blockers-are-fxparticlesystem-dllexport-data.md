@@ -1,6 +1,6 @@
 ### LINK-584: the 283 "(export unowned)" real-link blockers are FXParticleSystem dllexport data
 
-Status: Open. Updated: 2026-11-06; inspected revision: `2ca142bab23`; real links `4f0e20847d`
+Status: Open. Updated: 2026-11-13; inspected revision: `2ca142bab23`; real links `4f0e20847d`
 (run 42093361060) and `17904ed53a` (both 283).
 
 **What the label means.** `exit_link.py` puts every retail export (`reverse/exports.csv`, 1,964)
@@ -637,3 +637,35 @@ and destructor policies remain at their original sites. The category base's
 complete common runtime return interface and the two DefaultModule guard exports
 remain separate. No bridge retirement is claimed before the next authoritative
 receipt. [Full source/slot proof and failed trials](../../reverse/attempt_support/fx-event-primary-interface-20261113-root20.md).
+
+**2026-11-13 `$S22`/`$S26`: named zero words plus counted export aliases (waste lane; owner-approved, reverses the 2026-11-12 ruling).**
+The owner approved option 1's planned last step on 2026-11-13 through the swarm coordinator, reversing the ruling above
+that kept the two guards open for the FX TU recovery. They are now counted debt that a source recovery of the two retail
+FX TUs retires, like the other twelve.
+
+*Target facts* (unchanged, re-checked by the admission's retail scan): each export is a 4-byte zero word in `.data`'s
+zero tail at 0x00A0609C (`$S22`, `DefaultModuleKey<6>::GetValue`) and 0x00A060A0 (`$S26`, `DefaultModuleName<6>::GetValue`);
+no word in the image names either VA (0x00E0609C, 0x00E060A0) or an interior byte. Both are listed in
+`tools/pin_admission.py` `ZERO_WORD_EXPORTS`.
+
+*Owner, an inference, not proof:* `Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp` owns the word just before them
+(0x00A06098, `g_00E06098`), and its matched constructor 0x0055C8BC calls the category-6 `getInstance`. No retail code
+names either word, so no code row can prove the owner.
+
+*What landed:*
+- `name_lane.py register-data` for both addresses (type `UnsignedInt`, users and evidence the owner file), two independent
+  blind votes (worker identities `fx-blind-claude1`, `fx-blind-claude2`; the registrant cannot vote). The spellings
+  differed and the first voter accepted the second's with `name_lane.py resolve`: `g_defaultModuleKey6GetValueStaticGuard`
+  (0x00A0609C) and `g_defaultModuleName6GetValueStaticGuard` (0x00A060A0).
+- The owner file declares `typedef unsigned int UnsignedInt;` (the admission takes only `<type> <name> = { 0 };`) and
+  defines both words as zero `UnsignedInt`; its 8 rows stay exact and its object keeps `g_00E06098`, the Key word and the
+  Name word at +0/+4/+8 of one `.bss`, retail's order.
+- `data_rows.py --admit-agreed` admitted both (zero-filled, 4 bytes each, no hatch); the data ledger rows read owned,
+  size 4.
+- `pin_admission.py --alias` admitted `$S22` -> `?g_defaultModuleKey6GetValueStaticGuard@@3IA` and `$S26` ->
+  `?g_defaultModuleName6GetValueStaticGuard@@3IA`: `export_alias` 14 -> 16, within the freeze.
+
+link_check (index 2026-11-13 16:28 at `b5e6664017`): Rva0055C8BCCtor.cpp LINKS, LINKED 189 -> 189 bytes.
+
+Predicted: the last two FX names leave the real link's unresolved list. Pass test: the next real link has 0 unresolved
+once P154's revert is also on master. Not yet measured.

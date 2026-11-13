@@ -3691,7 +3691,9 @@ export_alias	reverse/export_aliases.csv	?$S170@?1??GetValue@?$DefaultModuleKey@$
 export_alias	reverse/export_aliases.csv	?$S174@?1??GetValue@?$DefaultModuleName@$01@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S184@?1??GetValue@?$DefaultModuleKey@$06@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S188@?1??GetValue@?$DefaultModuleName@$06@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1	allow=0b7e349ec4c8fdd80ada1c371f60fd7b036e4bd4
 export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1	allow=0b7e349ec4c8fdd80ada1c371f60fd7b036e4bd4
 export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	??0Matrix4D@@QAE@ABVCoord3D@@M@Z	1
 export_alias	reverse/export_aliases.csv	?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z	1

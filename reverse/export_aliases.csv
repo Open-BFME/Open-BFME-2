@@ -13,3 +13,5 @@ export,target,notes
 ?$S188@?1??GetValue@?$DefaultModuleName@$06@FXParticleSystem@@CAPBDXZ@4IA,?$S23@?1??GetValue@?$DefaultModuleName@$06@FXParticleSystem@@CAPBDXZ@4IA,LINK-584 owner option 1; step 3 of 3 under the hatch freeze
 ??0Matrix4D@@QAE@ABVCoord3D@@M@Z,??0Matrix4D@@QAE@ABUCoord3D@@M@Z,LINK-018 option B; interim until the Coord3D class-key flip; class-key twin: Coord3D U->V
 ?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z,?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@M@Z,LINK-018 option B; interim until the Coord3D class-key flip; class-key twin: Coord3D U->V
+?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA,?g_defaultModuleKey6GetValueStaticGuard@@3IA,LINK-584 option 1; named zero word; owner-approved 2026-11-13; retail-scan: no word names VA 0x00E0609C or its bytes; 4 zero bytes
+?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA,?g_defaultModuleName6GetValueStaticGuard@@3IA,LINK-584 option 1; named zero word; owner-approved 2026-11-13; retail-scan: no word names VA 0x00E060A0 or its bytes; 4 zero bytes

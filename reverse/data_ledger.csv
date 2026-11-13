@@ -33396,6 +33396,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A06090,4,.data,global,_s_rva007B3E4A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A06094,4,.data,global,_s_rva007B3E74,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A06098,4,.data,global,?g_00E06098@@3PAVPointGroupClass@@A,Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp,owned,,1,10
+0x00A0609C,4,.data,global,?g_defaultModuleKey6GetValueStaticGuard@@3IA,Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp,owned,,0,0
+0x00A060A0,4,.data,global,?g_defaultModuleName6GetValueStaticGuard@@3IA,Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp,owned,,0,0
 0x00A060A4,20,.data,global,?g_Va00E060A4@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,1
 0x00A060B8,360,.data,global,?g_Va00E060B8@@3PAIA,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,provisional,?g_Va00E060B8@@3PAIA;?s_points@?4??getPosition@LightningEmissionModule@FXParticleSystem@@UAE?AUCoord3D@@MMHH@Z@4PAU4@A@Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningEmissionModuleGetPosition.cpp,2,6
 0x00A06220,4,.data,global,?$S2@?4??getPosition@LightningEmissionModule@FXParticleSystem@@UAE?AUCoord3D@@MMHH@Z@4IA,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningEmissionModuleGetPosition.cpp,owned,,1,2

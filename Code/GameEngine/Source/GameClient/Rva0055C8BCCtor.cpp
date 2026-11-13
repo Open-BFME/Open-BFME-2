@@ -27,6 +27,13 @@ typedef char CheckPointGroupSize[(sizeof(PointGroupClass) == 0x5c) ? 1 : -1];
 extern PointGroupClass *g_00E06098;
 // g_00E06098: matched references place it at VA 0xe06098 (zero-filled .bss).
 PointGroupClass * g_00E06098;
+// Retail exports the zero words after it, 0x00A0609C and 0x00A060A0, as the guards $S22/$S26 of
+// DefaultModuleKey<6>::GetValue and DefaultModuleName<6>::GetValue (FXParticleSystem). No literal
+// references to either were found; the recovered category-6 accessors use $S24/$S28 (LINK-584). Owning them here is an
+// inference, not proof: this unit owns the word before them and its constructor calls the
+// category-6 getInstance. The two named words carry the guard exports as counted aliases.
+UnsignedInt g_defaultModuleKey6GetValueStaticGuard = { 0 };
+UnsignedInt g_defaultModuleName6GetValueStaticGuard = { 0 };
 struct Rva0055C8BC
 {
     Rva0055C8BC();
