@@ -379,11 +379,7 @@ int Rva005EE9E5(const Rva005EE9E5Record *x, const Rva005EE9E5Record *y)
 
 // --- 0x00260F50 (39B): the +0x08 filter accepts the object (rowed
 // 0x004D6BCD) and its +0x438 bit 0 is set.
-class Rva004D6BCD
-{
-public:
-	bool rva004D6BCD(const Object *obj) const;				// 0x004D6BCD
-};
+#include "../../Include/Common/Rva004D6BCD.h"
 
 struct Rva00260F50Object
 {
