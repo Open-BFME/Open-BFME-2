@@ -305,11 +305,7 @@ void Rva0020DAE0(void *p);
 // --- 0x00285A0A (12B, cdecl): the argument's slot 11 with 0.
 // --- 0x00285A16, 0x0028878C (16B each): the rowed comparisons of the first
 // argument with the second; the receiver is unused.
-class Rva00285672
-{
-public:
-	bool rva00285672(const Rva00285672 &other) const;		// 0x00285672
-};
+#include "../../Include/Common/Rva00285672.h"
 
 class ExperienceLevel
 {

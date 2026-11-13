@@ -91,14 +91,7 @@ namespace _STL {
 	
 	
 }
-class Rva00285672
-{
-public:
-	bool rva00285672(const Rva00285672 &) const;
-	char m_lead[8]; // +0x00
-	int m_first; // +0x08
-	int m_second; // +0x0C
-};
+#include "../../../Include/Common/Rva00285672.h"
 #include <algorithm>
 void __cdecl Rva00030830GameFree(void *p);
 #ifndef _STLP_USE_STATIC_LIB
