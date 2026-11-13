@@ -9,15 +9,7 @@
 class GameWindow;
 void *GadgetButtonGetData(GameWindow *button);
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
-struct Rva002BED91
-
-{
- TargetRef00217D4C *m_ptr;
- void clear();
- void set(TargetRef00217D4C *p);
- 
-}
-;
+#include "../../../../../Include/Common/Rva002BED91.h"
 class Rva005C3549 : public TargetRef00217D4C
 
 {

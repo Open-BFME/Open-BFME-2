@@ -399,7 +399,7 @@ public:
 private: Impl *m_impl;
 };
 struct TargetRef00217D4C;
-class Rva002BED91 { public: TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
+#include "../../../../Include/Common/Rva002BED91.h"
 struct TreeHintRef00217D4C;
 class Rva001FF3A9 { public: void rva001FF3A9(const TreeHintRef00217D4C &); };
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::rva005E789A()
