@@ -498,7 +498,7 @@ private:
 
 // tu-skeleton: 0x00545B84 11B ??1AITNGuardMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x00545B8F 6B ?name@AITNGuardMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x00545B8F 6B ?GetSnapshotName@AITNGuardMachine@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp
 

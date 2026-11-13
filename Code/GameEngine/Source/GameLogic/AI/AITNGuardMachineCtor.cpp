@@ -70,6 +70,8 @@ public:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00545B8F
 };
 // condition 0x00545F10 (retail .rdata table entry)
 Bool rva00545F10(State *thisState, void *userData);

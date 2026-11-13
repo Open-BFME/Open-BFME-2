@@ -201,6 +201,8 @@ public:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00545B8F
 };
 
 AITNGuardMachine::~AITNGuardMachine()
