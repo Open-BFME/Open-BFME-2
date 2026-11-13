@@ -93,7 +93,7 @@ public:
  Rva0020E89C *region; // +0x24
 };
 class Rva005F9775 { public: void rva005F9775(const UnicodeString &); };
-class Rva005F93CB { public: void rva005F93CB(bool); };
+#include "../../../../Include/GameClient/Rva005F93CB.h"
 class Rva005F93D3 { public: void rva005F93D3(bool); };
 #include "../../../../Include/GameClient/Rva005F93DB.h"
 class StrategicInGameUI::BattlePromptDialog::Impl {

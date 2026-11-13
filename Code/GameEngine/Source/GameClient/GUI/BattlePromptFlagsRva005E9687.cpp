@@ -9,11 +9,7 @@
 
 #include "../../../Include/GameLogic/LivingWorldBattle.h"
 
-class Rva005F93CB
-{
-public:
-    void rva005F93CB(bool enabled);
-};
+#include "../../../Include/GameClient/Rva005F93CB.h"
 class Rva005F93D3
 {
 public:
