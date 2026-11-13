@@ -111,15 +111,7 @@ class ContainView {public:
 #undef OBJECT_CONTAIN_V
 class Rva00373EC6 { public: char m_pad00[0x38]; int playerIndex; int active; };
 
-class ObjectThingBase
-{
-public:
-	virtual ~ObjectThingBase();
-
-protected:
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x64 - 0x08];
-};
+#include "../../../Include/GameLogic/Module/ObjectThingBase.h"
 
 // Compatibility surface of Object's native table at +0x64 (VA 00BFC2D8).
 // This is not the complete original base: +0x68 is a vbptr, reserved separately.
