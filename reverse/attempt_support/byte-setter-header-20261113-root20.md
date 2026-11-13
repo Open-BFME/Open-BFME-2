@@ -24,7 +24,8 @@ data row; LINK closure was not checked by that preparation. This removes one
 duplicate class definition. Coverage bytes remain constant; whole-image and
 runtime status require their own receipts.
 
-Other queued provider setters have distinct contract prerequisites: native
-one-byte fields at1A3/310/2BE/2B8 were discarded as outliers before the contract
-tool considered retail access. Their sources are unchanged pending a separate,
-reproducible correction. Size votes are not native sizeof proof.
+Fresh discovery subsequently recovers the other four queued providers' byte
+fields without a tool change. Their frozen evidence had become stale as
+consumers adopted headers. Their complete dependent scopes share a held
+GameLogic.cpp consumer, so no header or source was changed for those classes.
+See byte-setter-contracts-20261113-root20.md and its companion JSON.

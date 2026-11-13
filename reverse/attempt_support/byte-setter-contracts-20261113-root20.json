@@ -1,0 +1,376 @@
+{
+ "Rva001F384AByteZeroSetter": {
+  "dependent_sources": [
+   "Code/GameEngine/Source/Common/DispByteOneSetters.cpp",
+   "Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp",
+   "Code/GameEngine/Source/Common/System/SmartPtrRvoGetter.cpp",
+   "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp",
+   "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+   "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawDoDrawModule.cpp",
+   "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticles.cpp",
+   "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp",
+   "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDrawTossEmitters.cpp",
+   "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFire.cpp"
+  ],
+  "fresh": {
+   "bases": [],
+   "bases_by": "majority",
+   "class": "Rva001F384AByteZeroSetter",
+   "evidence": {
+    "bases_overruled": null,
+    "census": 1,
+    "inherited": {
+     "base_views": 0,
+     "inherited_slots": 0,
+     "inherited_spans": []
+    },
+    "retail_access": {
+     "0x1a3": {
+      "1": 1
+     }
+    },
+    "retail_layout": {},
+    "retail_member_rows": 1,
+    "retail_vtables": {},
+    "view_errors": 0,
+    "view_sizes": {
+     "420": 1
+    },
+    "views": 1,
+    "witness_offsets": [],
+    "zh": {}
+   },
+   "fields": [
+    {
+     "decided_by": "bytes",
+     "kind": "A",
+     "name": "m_lead",
+     "name_by": "majority",
+     "offset": 0,
+     "retail_widths": {},
+     "size": 419,
+     "type": "char[419]",
+     "views": 1,
+     "witness": null
+    },
+    {
+     "decided_by": "bytes",
+     "kind": "i1",
+     "name": "m_enabled",
+     "name_by": "majority",
+     "offset": 419,
+     "retail_widths": {
+      "1": 1
+     },
+     "size": 1,
+     "type": "uchar",
+     "views": 1,
+     "witness": null
+    }
+   ],
+   "key": "class",
+   "key_by": "majority",
+   "ledger_keys": {},
+   "outliers": [],
+   "queue": [],
+   "size": 420,
+   "size_by": "majority",
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+   ],
+   "vslots": {}
+  },
+  "frozen_outliers": [
+   {
+    "offset": 419,
+    "sources": [
+     "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+    ],
+    "views": 1
+   }
+  ],
+  "frozen_view_sizes": {
+   "1": 8,
+   "420": 1
+  }
+ },
+ "Rva00222479ByteOneSetter": {
+  "dependent_sources": [
+   "Code/GameEngine/Source/Common/DispByteOneSetters.cpp",
+   "Code/GameEngine/Source/Common/Rva00433D27Enable.cpp",
+   "Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp",
+   "Code/GameEngine/Source/Common/Rva0051280EEnable.cpp",
+   "Code/GameEngine/Source/Common/Rva00513866Notify.cpp",
+   "Code/GameEngine/Source/Common/Rva00516E92Enable.cpp",
+   "Code/GameEngine/Source/Common/Rva00518262Enable.cpp",
+   "Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp",
+   "Code/GameEngine/Source/Common/Rva0051BF47.cpp",
+   "Code/GameEngine/Source/Common/Rva005210ECEnable.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp"
+  ],
+  "fresh": {
+   "bases": [],
+   "bases_by": "majority",
+   "class": "Rva00222479ByteOneSetter",
+   "evidence": {
+    "bases_overruled": null,
+    "census": 3,
+    "inherited": {
+     "base_views": 0,
+     "inherited_slots": 0,
+     "inherited_spans": []
+    },
+    "retail_access": {
+     "0x310": {
+      "1": 1
+     }
+    },
+    "retail_layout": {},
+    "retail_member_rows": 1,
+    "retail_vtables": {},
+    "view_errors": 1,
+    "view_sizes": {
+     "1": 1,
+     "785": 1
+    },
+    "views": 2,
+    "witness_offsets": [],
+    "zh": {}
+   },
+   "fields": [
+    {
+     "decided_by": "bytes",
+     "kind": "A",
+     "name": "m_lead",
+     "name_by": "majority",
+     "offset": 0,
+     "retail_widths": {},
+     "size": 784,
+     "type": "char[784]",
+     "views": 1,
+     "witness": null
+    },
+    {
+     "decided_by": "bytes",
+     "kind": "i1",
+     "name": "m_enabled",
+     "name_by": "majority",
+     "offset": 784,
+     "retail_widths": {
+      "1": 1
+     },
+     "size": 1,
+     "type": "uchar",
+     "views": 1,
+     "witness": null
+    }
+   ],
+   "key": "class",
+   "key_by": "majority",
+   "ledger_keys": {},
+   "outliers": [],
+   "queue": [],
+   "size": 785,
+   "size_by": "majority",
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteOneSetters.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp"
+   ],
+   "vslots": {}
+  },
+  "frozen_outliers": [
+   {
+    "offset": 784,
+    "sources": [
+     "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+    ],
+    "views": 1
+   }
+  ],
+  "frozen_view_sizes": {
+   "1": 13,
+   "785": 1
+  }
+ },
+ "Rva0043DB56ByteOneSetter": {
+  "dependent_sources": [
+   "Code/GameEngine/Source/Common/DispByteOneSetters.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/Rva0056D983Ensure.cpp",
+   "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+  ],
+  "fresh": {
+   "bases": [],
+   "bases_by": "majority",
+   "class": "Rva0043DB56ByteOneSetter",
+   "evidence": {
+    "bases_overruled": null,
+    "census": 1,
+    "inherited": {
+     "base_views": 0,
+     "inherited_slots": 0,
+     "inherited_spans": []
+    },
+    "retail_access": {
+     "0x2be": {
+      "1": 1
+     }
+    },
+    "retail_layout": {},
+    "retail_member_rows": 1,
+    "retail_vtables": {},
+    "view_errors": 0,
+    "view_sizes": {
+     "703": 1
+    },
+    "views": 1,
+    "witness_offsets": [],
+    "zh": {}
+   },
+   "fields": [
+    {
+     "decided_by": "bytes",
+     "kind": "A",
+     "name": "m_lead",
+     "name_by": "majority",
+     "offset": 0,
+     "retail_widths": {},
+     "size": 702,
+     "type": "char[702]",
+     "views": 1,
+     "witness": null
+    },
+    {
+     "decided_by": "bytes",
+     "kind": "i1",
+     "name": "m_enabled",
+     "name_by": "majority",
+     "offset": 702,
+     "retail_widths": {
+      "1": 1
+     },
+     "size": 1,
+     "type": "uchar",
+     "views": 1,
+     "witness": null
+    }
+   ],
+   "key": "class",
+   "key_by": "majority",
+   "ledger_keys": {},
+   "outliers": [],
+   "queue": [],
+   "size": 703,
+   "size_by": "majority",
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+   ],
+   "vslots": {}
+  },
+  "frozen_outliers": [
+   {
+    "offset": 702,
+    "sources": [
+     "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+    ],
+    "views": 1
+   }
+  ],
+  "frozen_view_sizes": {
+   "1": 2,
+   "703": 1
+  }
+ },
+ "Rva0043DB66ByteOneSetter": {
+  "dependent_sources": [
+   "Code/GameEngine/Source/Common/DispByteOneSetters.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp",
+   "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp",
+   "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+  ],
+  "fresh": {
+   "bases": [],
+   "bases_by": "majority",
+   "class": "Rva0043DB66ByteOneSetter",
+   "evidence": {
+    "bases_overruled": null,
+    "census": 1,
+    "inherited": {
+     "base_views": 0,
+     "inherited_slots": 0,
+     "inherited_spans": []
+    },
+    "retail_access": {
+     "0x2b8": {
+      "1": 1
+     }
+    },
+    "retail_layout": {},
+    "retail_member_rows": 1,
+    "retail_vtables": {},
+    "view_errors": 0,
+    "view_sizes": {
+     "697": 1
+    },
+    "views": 1,
+    "witness_offsets": [],
+    "zh": {}
+   },
+   "fields": [
+    {
+     "decided_by": "bytes",
+     "kind": "A",
+     "name": "m_lead",
+     "name_by": "majority",
+     "offset": 0,
+     "retail_widths": {},
+     "size": 696,
+     "type": "char[696]",
+     "views": 1,
+     "witness": null
+    },
+    {
+     "decided_by": "bytes",
+     "kind": "i1",
+     "name": "m_enabled",
+     "name_by": "majority",
+     "offset": 696,
+     "retail_widths": {
+      "1": 1
+     },
+     "size": 1,
+     "type": "uchar",
+     "views": 1,
+     "witness": null
+    }
+   ],
+   "key": "class",
+   "key_by": "majority",
+   "ledger_keys": {},
+   "outliers": [],
+   "queue": [],
+   "size": 697,
+   "size_by": "majority",
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+   ],
+   "vslots": {}
+  },
+  "frozen_outliers": [
+   {
+    "offset": 696,
+    "sources": [
+     "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+    ],
+    "views": 1
+   }
+  ],
+  "frozen_view_sizes": {
+   "1": 2,
+   "697": 1
+  }
+ }
+}

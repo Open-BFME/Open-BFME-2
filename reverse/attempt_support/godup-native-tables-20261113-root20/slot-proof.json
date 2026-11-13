@@ -1,0 +1,238 @@
+{
+ "source": "Code/GameEngine/Source/Common/GODupBase.cpp",
+ "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\08705280185fdab2.obj",
+ "code": {
+  "?xfer@GODupBase@@MAEXPAVXfer@@@Z": {
+   "rva": "0x00341E2D",
+   "size": 27,
+   "exact": true
+  },
+  "?init@GODupBase@@UAEXXZ": {
+   "rva": "0x000B3FD0",
+   "size": 1,
+   "exact": true
+  },
+  "?reset@GODupBase@@UAEXXZ": {
+   "rva": "0x000B3FD0",
+   "size": 1,
+   "exact": true
+  },
+  "?update@GODupBase@@UAEXXZ": {
+   "rva": "0x000B3FD0",
+   "size": 1,
+   "exact": true
+  },
+  "?loadPostProcess@GODupBase@@MAEXXZ": {
+   "rva": "0x000B3FD0",
+   "size": 1,
+   "exact": true
+  }
+ },
+ "tables": {
+  "??_7Snapshot@@6B@": {
+   "rva": "0x007BB554",
+   "bytes": 16,
+   "native_targets": [
+    "0x00001750",
+    "0x0003B810",
+    "0x0003B810",
+    "0x0003B810"
+   ],
+   "unadmitted_mismatches": [],
+   "mismatches_after_proven_hypotheses": [],
+   "pointers": {
+    "0": [
+     "??_ESnapshot@@UAEPAXI@Z",
+     6,
+     0
+    ],
+    "4": [
+     "__purecall",
+     6,
+     0
+    ],
+    "8": [
+     "__purecall",
+     6,
+     0
+    ],
+    "12": [
+     "__purecall",
+     6,
+     0
+    ]
+   }
+  },
+  "??_7GODupBase@@6BSnapshot@@@": {
+   "rva": "0x00807D2C",
+   "bytes": 16,
+   "native_targets": [
+    "0x0030680E",
+    "0x000B3FD0",
+    "0x003067C4",
+    "0x00341E2D"
+   ],
+   "unadmitted_mismatches": [
+    {
+     "slot": 1,
+     "name": "?loadPostProcess@GODupBase@@MAEXXZ",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 737232
+    },
+    {
+     "slot": 3,
+     "name": "?xfer@GODupBase@@MAEXPAVXfer@@@Z",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 3415597
+    }
+   ],
+   "mismatches_after_proven_hypotheses": [],
+   "pointers": {
+    "0": [
+     "??_EGODupBase@@UAEPAXI@Z",
+     6,
+     0
+    ],
+    "4": [
+     "?loadPostProcess@GODupBase@@MAEXXZ",
+     6,
+     0
+    ],
+    "8": [
+     "?GetSnapshotName@GODupBase@@MBEPBDXZ",
+     6,
+     0
+    ],
+    "12": [
+     "?xfer@GODupBase@@MAEXPAVXfer@@@Z",
+     6,
+     0
+    ]
+   }
+  },
+  "??_7GODupBase@@6BSubsystemInterface@@@": {
+   "rva": "0x00807D3C",
+   "bytes": 56,
+   "native_targets": [
+    "0x003067CA",
+    "0x000B3FD0",
+    "0x001B5384",
+    "0x000B3FD0",
+    "0x005CB9FF",
+    "0x0047A699",
+    "0x000D43D0",
+    "0x0047A69C",
+    "0x000B3FD0",
+    "0x000B3FD0",
+    "0x000B3FD0",
+    "0x005CB9FF",
+    "0x000B3FD0",
+    "0x0047A69C"
+   ],
+   "unadmitted_mismatches": [
+    {
+     "slot": 1,
+     "name": "?init@GODupBase@@UAEXXZ",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 737232
+    },
+    {
+     "slot": 9,
+     "name": "?reset@GODupBase@@UAEXXZ",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 737232
+    },
+    {
+     "slot": 10,
+     "name": "?update@GODupBase@@UAEXXZ",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 737232
+    }
+   ],
+   "mismatches_after_proven_hypotheses": [],
+   "pointers": {
+    "0": [
+     "??_EGODupBase@@W3AEPAXI@Z",
+     6,
+     0
+    ],
+    "4": [
+     "?init@GODupBase@@UAEXXZ",
+     6,
+     0
+    ],
+    "8": [
+     "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     6,
+     0
+    ],
+    "12": [
+     "?postProcessLoad@SubsystemInterface@@UAEXXZ",
+     6,
+     0
+    ],
+    "16": [
+     "?vslot04@SubsystemInterface@@UAE_NH@Z",
+     6,
+     0
+    ],
+    "20": [
+     "?vslot05@SubsystemInterface@@UAE_NXZ",
+     6,
+     0
+    ],
+    "24": [
+     "?vslot06@SubsystemInterface@@UAEHXZ",
+     6,
+     0
+    ],
+    "28": [
+     "?vslot07@SubsystemInterface@@UAEXH@Z",
+     6,
+     0
+    ],
+    "32": [
+     "?vslot08@SubsystemInterface@@UAEXXZ",
+     6,
+     0
+    ],
+    "36": [
+     "?reset@GODupBase@@UAEXXZ",
+     6,
+     0
+    ],
+    "40": [
+     "?update@GODupBase@@UAEXXZ",
+     6,
+     0
+    ],
+    "44": [
+     "?vslot11@SubsystemInterface@@UAE_NH@Z",
+     6,
+     0
+    ],
+    "48": [
+     "?vslot12@SubsystemInterface@@UAEXXZ",
+     6,
+     0
+    ],
+    "52": [
+     "?vslot13@SubsystemInterface@@UAEXH@Z",
+     6,
+     0
+    ]
+   }
+  }
+ },
+ "limitation": "Hypothesis-level table proof only. Five code bindings remain unadmitted; no bridge or ownership clearance."
+}

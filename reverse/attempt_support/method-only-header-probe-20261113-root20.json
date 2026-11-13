@@ -1,0 +1,24 @@
+{
+ "class": "Rva001F3852ByteOneSetter",
+ "source": "Code/GameEngine/Source/Common/DispByteOneSetters.cpp",
+ "header": "Code/GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h",
+ "header_sha256": "429d612c6aa098bd63f58ea5a4e358d3b486eef7d176e0c1139cbbad61b9e5d7",
+ "compiler_record": {
+  "fwd": false,
+  "key": "class",
+  "size": 1,
+  "bases": [],
+  "fields": [],
+  "statics": [],
+  "methods": [
+   "enable"
+  ],
+  "virtual": [],
+  "vslots": {},
+  "vfptr": false
+ },
+ "original_refusal": "field renames: the probe laid out no field of Rva001F3852ByteOneSetter",
+ "candidate_native_rows": 49,
+ "candidate_proof": "build/root-byte-setter-candidate-proof.json",
+ "source_state": "Restored before separate tooling change; source recovery follows normal owning-tool verification."
+}

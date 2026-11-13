@@ -3477,3 +3477,13 @@ still needs 23 slots. Seventeen target the same bodies as the base, and
 slots 0, 1, 2, 3, 4 and 19 differ. In particular, slot 2 at 0x004CDC2D
 is still rowed as a free integer-returning function. Full-image retirement
 requires a new published queue measurement.
+
+2026-11-13 CastleMember native interface audit (root20, base3a7e946d6af):
+its12/47/3-slot tables identify the DamageModuleInterface contract. Native
+getDamage is the+0C slot4 conversion; getUpdate remains null. Recovery needs
+the canonical Dict callback at BehaviorModuleInterface slot45, the getter and
+two callback signature/owner corrections, and supported admission for the
+empty healing callback. Neither an out-of-line base lifecycle call nor a
+cross-TU duplicate row is a valid substitute. Sources unchanged;115/115 rows
+and1data pass over the claimed producer and pulled Object area. [Native table
+inventory and exact prerequisites](../../reverse/attempt_support/castlemember-native-interfaces-20261113-root20.md).

@@ -345,3 +345,14 @@ census/image rather than reporting full link/bridge clearance.
 - Scoped verification: `check_csv.py` OK, `find_declared_unmatched.py --fail` OK across the 4 touched files, `build.py` `308/308` matched (`2/2` data rows) + `eh_verify.py` `8/8` EXACT EH across the 4 touched files, `data_rows.py --verify` `2/2` + `pin_consistency.py --check` (`0 baselined, 0 new, 0 stale`) + `link_check.py` `7/7` cleanly (`9,287 -> 9,291` B at census `a946a2c6d1`), and bounded `vtable_bridge.plan()` over the 9 cohort objects reports `already_correct=3, tables=0, refused_tables=0`. Full-image bridge retirement awaits next real link; placeholder class names remain open for future naming.
 
 2026-11-12 DieModuleDerived scaffolding retired (HeroDie, the last of the ten fake-MI branches): the file deleted with zero retail rows (own bytes 53 -> 0), so every vtable_bridge_queue row sourced from DieModuleDerived.cpp is a historical record of a retired source, and the die-family fake names in fold row 0x0084A650 stay as historical fold literals. The kept-name/placeholder-fold mechanism itself stays open for other families.
+
+2026-11-13 GODupBase owning-view attempt (root20, base09fc55ea680): the native
+four-slot Snapshot primary and fourteen-slot subsystem secondary were recovered
+in a scratch candidate. All six original rows/178B and the 27B folded transfer
+remain exact; every slot agrees with retail after five explicitly unadmitted
+helper bindings. Normal getter to-class application passed 64,790/64,790 rows
+across6,312 sources but refused the unrowed GODupBase::xfer and restored all
+files. The append tool's ICF option does not override tu_ownership A1's cross-TU
+second-row rule. No hand pin, gen-alias, source-only workaround or bridge
+clearance is claimed. Original6/6 is restored. [Exact evidence and admission
+prerequisite](../../reverse/attempt_support/godup-native-tables-20261113-root20.md).
