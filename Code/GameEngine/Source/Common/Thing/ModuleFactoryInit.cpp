@@ -278,7 +278,7 @@ class HeightDieUpdateModuleData { public: static ModuleData *friend_newModuleDat
 class HeroDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HeroModeSpecialAbilityUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HeroModeSpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-#include "../../../Include/GameLogic/Module/HighlanderBodyClass.h"
+class HighlanderBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HijackerUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HijackerUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class HitReactionBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

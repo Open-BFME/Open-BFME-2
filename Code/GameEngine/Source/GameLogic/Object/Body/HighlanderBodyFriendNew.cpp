@@ -10,7 +10,15 @@ class Thing;
 class ModuleData;
 class Module;
 
-#include "../../../../Include/GameLogic/Module/HighlanderBodyClass.h"
+class HighlanderBody
+{
+public:
+	HighlanderBody(Thing *thing, const ModuleData *moduleData);
+	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
+
+private:
+	char m_pad[0x100];
+};
 
 // ?friend_newModuleInstance@HighlanderBody@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *HighlanderBody::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
