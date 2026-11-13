@@ -70,11 +70,7 @@ private:
 	char m_data[0x20]; // +0x00
 };
 
-class Rva003079ED
-{
-public:
-	void rva003079ED();					// 0x003079ED, close
-};
+#include "../../../Include/Common/Rva003079ED.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Dict;

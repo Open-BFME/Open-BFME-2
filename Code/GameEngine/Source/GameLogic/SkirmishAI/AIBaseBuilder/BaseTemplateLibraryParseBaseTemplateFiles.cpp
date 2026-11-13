@@ -69,11 +69,7 @@ private:
 	char m_data[0x20];
 };
 
-class Rva003079ED
-{
-public:
-	void rva003079ED();					// 0x003079ED, close
-};
+#include "../../../../Include/Common/Rva003079ED.h"
 
 struct DataChunkInfo;
 
