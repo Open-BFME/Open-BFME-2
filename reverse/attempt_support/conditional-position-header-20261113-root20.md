@@ -32,6 +32,10 @@ pointer casts/calls. No allocation, embedding, by-value instance or
 ObjectRva00291A8C companion contain unused declarations. SpecialPower's
 caller casts an existing `BfmeAudioEventPrefix136`; Miles casts a lookup
 result. The eight already-adopted consumers also use pointer calls.
+A separate method-only private declaration remains in
+`GameLogic/System/LogicDispatch/owner_context.inc`, used by
+`GameLogicDispatch.cpp`. It is outside this five-entry queue/cohort and
+does not currently include the shared header.
 
 ## Change and remaining identity work
 
@@ -71,3 +75,7 @@ change makes no claim that the complete AudioEventRTS class is recovered.
   This is a scoped prediction against that index, not a fresh census.
 
 No whole-game link or runtime result is inferred from these checks.
+
+The commit hook additionally passes83/83 exact EH graphs. Its shadow data
+check reports two wrong-name findings in MilesAudioManager at retail
+addresses0x009E1E68/0x009E1E70; the adoption does not clear those findings.

@@ -730,7 +730,18 @@
   subsequent source-path changes; no fresh census or runtime result is
   claimed. The opaque-view majority contract is not complete-size evidence;
   the header explicitly remains a consumed prefix. The AudioEventRTS
-  identity/pin prerequisites above remain open.
+  pins above remain registered; complete class identity is not recovered.
+- **Conditional-value shared prefix (2026-11-13, after `21842c90743`):**
+  [the sibling setter/header proof](../../reverse/attempt_support/conditional-value-header-20261113-root20.md)
+  drains the provider's second queued class, `Rva002D9531`. Its header
+  carries only the native consumed prefix (value+0x34, selector+0x38),
+  with the complete object extent unasserted. The provider and36 existing
+  dependents pass616/616 rows and four data rows, normal and strict;
+  all3353 COMDAT byte/relocation fingerprints are unchanged. The owning
+  acceptance test retires all seven queued entries. Thirty-seven previews
+  against the same older index retain72692 bytes; no fresh census gain or
+  runtime result is claimed. Separate method-only private views for both
+  setters remain in LogicDispatch/owner_context.inc outside these queues.
 - **GameWindow table prerequisite (2026-10-25, inspected `a0af8f5cb1`):**
   retail's table at RVA `0x0080BBCC` has 11 slots and ends at `0x0080BBF8`,
   the separately identified `Rva0031455E` table. `GameWindow.cpp` declares

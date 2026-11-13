@@ -1,0 +1,7 @@
+{
+ "baseline": "Compiled current worktree originals immediately before Rva002D9531 adoption",
+ "comdats": 3353,
+ "comparison": "link_census.comdat_bodies: section contents plus relocation identity",
+ "differences": {},
+ "sources": 37
+}
