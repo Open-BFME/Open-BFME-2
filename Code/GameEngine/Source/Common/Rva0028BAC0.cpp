@@ -6,11 +6,7 @@ public:
 	void rva00625330(void *p);
 };
 class Rva009A36F0Param;
-class Rva00758240
-{
-public:
-	void rva00758240(Rva009A36F0Param *p);
-};
+#include "../../Include/Common/Rva00758240.h"
 struct Rva00287C21Other
 {
 	unsigned char m_pad[0x49C];

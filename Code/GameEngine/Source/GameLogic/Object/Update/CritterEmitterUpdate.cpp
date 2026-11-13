@@ -174,11 +174,7 @@ public:
 
 class Rva009A36F0Param;
 
-class Rva00758240
-{
-public:
-	void rva00758240(Rva009A36F0Param *param);
-};
+#include "../../../../Include/Common/Rva00758240.h"
 
 // The data-ledger owner supplies the retail collision-manager slot.
 class CollisionManager;
