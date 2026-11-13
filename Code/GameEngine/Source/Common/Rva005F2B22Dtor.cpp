@@ -10,11 +10,7 @@
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva005F2792
-{
-public:
-	void RemoveOnLoadedCommandMap();
-};
+#include "../../Include/Common/Rva005F2792.h"
 
 #include "../../Include/Common/Rva000AD6F4.h"
 

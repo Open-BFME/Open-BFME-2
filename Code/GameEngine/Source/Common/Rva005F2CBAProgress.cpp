@@ -98,12 +98,7 @@ struct Rva005F2CBAScrollBarHolder
 // "_OnUnitIconSlotLoaded" command map (WorldBuilder
 // IconSlot::RemoveOnLoadedCommandMap).
 #include "../../Include/Common/Rva005C31FB.h"
-class Rva005F2792
-{
-public:
-	void RemoveOnLoadedCommandMap();
- void rva005F27F8(const char*);
-};
+#include "../../Include/Common/Rva005F2792.h"
 
 // The Apt command-map registration (AptCallbackAdders.cpp's view): a
 // counted reference built from an (object, method) delegate by the rowed
