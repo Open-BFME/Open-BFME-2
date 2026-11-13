@@ -34,7 +34,7 @@ template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B
 // Native5BC576 copies six AsciiString fields and the resume byte at24.
 // WB MainMenuUtils and ZH DownloadManager.h establish QueuedDownload identity.
 // Rename the existing owner rather than adding another name at its address.
-class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey; bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
+#include "../../../../GameEngine/Include/Common/QueuedDownload.h"
 template void _STL::_Construct<QueuedDownload,QueuedDownload>(QueuedDownload*,const QueuedDownload&);
 // Complete retail record copy at0x005D511F.
 #include "../../../../GameEngine/Include/Common/BfmeStringRecord005D511F.h"

@@ -1,0 +1,209 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "QueuedDownload",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5bc576"
+     ],
+     "value": {
+      "0x0": [
+       "?$StringBase@D"
+      ],
+      "0x10": [
+       "?$StringBase@D"
+      ],
+      "0x14": [
+       "?$StringBase@D"
+      ],
+      "0x4": [
+       "?$StringBase@D"
+      ],
+      "0x8": [
+       "?$StringBase@D"
+      ],
+      "0xc": [
+       "?$StringBase@D"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "28": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/DownloadManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "server",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "userName",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "password",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "file",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "localFile",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "regKey",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "tryResume",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 30
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 28,
+ "size_by": "zh",
+ "vslots": {}
+}

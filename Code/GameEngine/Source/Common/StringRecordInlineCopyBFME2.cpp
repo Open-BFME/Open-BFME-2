@@ -73,7 +73,7 @@ template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B
 // Native5BC576 copies six AsciiString fields and the resume byte at24.
 // WB MainMenuUtils and ZH DownloadManager.h establish QueuedDownload identity.
 // Rename the existing owner rather than adding another name at its address.
-class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey; bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
+#include "../../Include/Common/QueuedDownload.h"
 // Select-any like the DownloadManager.cpp copy (this retail body comes first in
 // link order, so it is the copy the link keeps).
 inline QueuedDownload::QueuedDownload(const QueuedDownload &source) : server(source.server), userName(source.userName), password(source.password), file(source.file), localFile(source.localFile), regKey(source.regKey), tryResume(source.tryResume) {}
