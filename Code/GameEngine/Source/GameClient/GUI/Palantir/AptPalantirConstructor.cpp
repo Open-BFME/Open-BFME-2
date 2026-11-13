@@ -543,11 +543,7 @@ private:
 	bool m_150;
 };
 
-class Rva002D317C
-{
-public:
-	void rva002D317C(const float *, const float *, int, int);
-};
+#include "../../../../Include/GameClient/Rva002D317C.h"
 
 void __stdcall bfmeApplyYU(int);
 void __stdcall rva0058C100ObserveNext(void *);
