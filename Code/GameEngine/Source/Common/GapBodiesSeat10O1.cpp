@@ -607,12 +607,7 @@ Rva005538BAIterator Rva005538BA::rva005538BA(const void *key)
 // ?rva00601457@Rva00601457@@QAE?AURva006013B7Pair@@ABURva00600F9CElement@@@Z
 // @0x00601457 20B: forward to the rowed 0x006013B7.
 struct Rva00600F9CElement;
-struct Rva006013B7Pair
-{
-	Rva006013B7Pair(const Rva006013B7Pair &other);
-	void *m_first;
-	bool m_second;
-};
+#include "../../Include/Common/Rva006013B7Pair.h"
 #include "../../Include/Common/Rva0060126D.h"
 class Rva00601457
 {
