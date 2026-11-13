@@ -277,8 +277,8 @@ AptPlayerStatus::AptPlayerStatus(EmitVtableTag *) : _bfme_AptGameWindow(0)
 class BaseA
 {
 public:
-	virtual void a0(void *, void *) = 0;
-	virtual void a1(void *) = 0;
+	virtual void Register(Object *, void *) = 0;
+	virtual void UnRegister(Object *) = 0;
 	virtual ~BaseA() {}
 private:
 	int m_04;
