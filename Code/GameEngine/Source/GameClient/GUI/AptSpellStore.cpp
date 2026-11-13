@@ -112,11 +112,7 @@ extern ControlBar *TheControlBar;
 // (Rva002239B2.cpp) and text setter.
 #include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &name, const Image *image);
-};
+#include "../../../Include/GameClient/Rva002239B2.h"
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // AptQuitMenuCallbacks.cpp): a binding of an object and an eight-byte
 // multiple-inheritance member pointer, and the refcounted holder rowed

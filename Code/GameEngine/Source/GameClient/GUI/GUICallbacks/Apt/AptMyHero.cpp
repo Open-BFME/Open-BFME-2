@@ -28,7 +28,7 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0043DB23(Rva00222A8BTarget *,void *,const char *);
 #include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
-class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
+#include "../../../../../Include/GameClient/Rva002239B2.h"
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
 class CreateAHeroData {
