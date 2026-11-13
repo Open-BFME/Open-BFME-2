@@ -52,14 +52,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 #include "Common/Snapshot.h"
 struct ParticleVec {float x,y,z;void zero(){z=y=x=0.0f;}};
 #include "../../../Include/GameClient/GameClientRandomVariable.h"
-struct ParticleRegion
-{
-public:
-	float x1; // +0x00
-	float y1; // +0x04
-	float x2; // +0x08
-	float y2; // +0x0C
-};
+#include "../../../Include/GameClient/ParticleRegion.h"
 struct Rva0047A6A9Row16 {__declspec(noinline) Rva0047A6A9Row16();float x,y,z,w;void Set(float a,float b,float c,float d){x=a;y=b;z=c;w=d;}};
 
 struct ParticleMatrix {__forceinline ParticleMatrix() {} Rva0047A6A9Row16 r[3];void Make_Identity(){

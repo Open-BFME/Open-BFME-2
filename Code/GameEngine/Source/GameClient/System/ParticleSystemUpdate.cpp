@@ -94,14 +94,7 @@ private:
 
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
 #include "../../../Include/GameClient/GameClientRandomVariable.h"
-struct ParticleRegion
-{
-public:
-	float x1; // +0x00
-	float y1; // +0x04
-	float x2; // +0x08
-	float y2; // +0x0C
-};
+#include "../../../Include/GameClient/ParticleRegion.h"
 struct ParticleSystemHandleView { void *ptr; Int prev, next; };
 
 // The constructor's (ParticleSystemConstructor.cpp) layout and virtual slots; +0x7C is Zero Hour's m_priority.

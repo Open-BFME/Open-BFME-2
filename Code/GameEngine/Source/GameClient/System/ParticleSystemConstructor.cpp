@@ -55,14 +55,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 #include "Common/Snapshot.h"
 struct ParticleVec {float x,y,z;void zero(){z=y=x=0.0f;}};
 class GameClientRandomVariable {public: float getValue()const;int type;float low,high;};
-struct ParticleRegion
-{
-public:
-	float x1; // +0x00
-	float y1; // +0x04
-	float x2; // +0x08
-	float y2; // +0x0C
-};
+#include "../../../Include/GameClient/ParticleRegion.h"
 struct Rva0047A6A9Row16 {__declspec(noinline) Rva0047A6A9Row16();float x,y,z,w;void Set(float a,float b,float c,float d){x=a;y=b;z=c;w=d;}};
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
