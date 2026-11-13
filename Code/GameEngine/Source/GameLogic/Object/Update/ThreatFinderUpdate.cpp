@@ -165,6 +165,8 @@ private:
     Rva003ECD60Object *m_heap;
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x003ECCD0
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 struct Rva003ECD1BVector
@@ -557,3 +559,10 @@ void ThreatFinderUpdate::xfer(Xfer *xfer)
 // tu-skeleton: 0x00783670 8B Unwind@00b83670 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00783678 10B __ehhandler$??1ThreatFinderUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp (not merged yet)
+
+// ?loadPostProcess@ThreatFinderUpdate@@MAEXXZ: retail primary vftable 0x00C360CC slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void ThreatFinderUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}

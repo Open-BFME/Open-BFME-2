@@ -3563,6 +3563,7 @@ Base: 3,324 bridged, 31 refused, 2,225 already correct.
 - "Give FloodUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C4C948 off the bridge (3,312 -> 3,311; refusals identical; 2,237 -> 2,238 correct). link_check: FloodUpdate.cpp 1,587 -> 1,592 B, ConstIntGetters4.cpp 1,483 -> 1,483 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
 - "Give BroadcastStealthUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C52364 off the bridge (3,311 -> 3,310; refusals identical; 2,238 -> 2,239 correct). link_check: BroadcastStealthUpdate.cpp 1,002 -> 1,007 B, ConstIntGetters4.cpp 1,483 -> 1,483 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
 - "Give DestroyEnvironmentUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C54D64 off the bridge (3,310 -> 3,309; refusals identical; 2,239 -> 2,240 correct). link_check: DestroyEnvironmentUpdate.cpp 353 -> 358 B, ConstIntGetters4.cpp 1,483 -> 1,483 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
+- "Give ThreatFinderUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C360CC off the bridge (3,309 -> 3,308; refusals identical; 2,240 -> 2,241 correct). link_check: ThreatFinderUpdate.cpp 1,167 -> 1,172 B, ConstIntGetters4.cpp 1,483 -> 1,483 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
 
 **Recipe and limits.** Prepare the getter unit (`BFME_LITERAL_NAME_GETTER(C, ...)` ->
 `BFME_SNAPSHOT_NAME_GETTER(C, ...)`) and every installer unit whose view compiles C's table (a protected
