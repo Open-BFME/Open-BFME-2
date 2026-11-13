@@ -1109,11 +1109,7 @@ struct Rva002784AFMid
 	unsigned char m_pad[0x254];
 	Rva002784AFVirt *m_254obj;
 };
-class Rva00278440Host
-{
-public:
-	void rva00278440(int v);
-};
+#include "../../Include/GameClient/Rva00278440Host.h"
 class Rva002784AFHost : public Rva00278440Host
 {
 public:
