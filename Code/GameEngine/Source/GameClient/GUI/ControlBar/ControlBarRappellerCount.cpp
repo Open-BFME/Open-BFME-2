@@ -215,7 +215,7 @@ public:
 class Rva0044E642AddImm32Field { public: Int get() const; };
 
 class Rva0039567CCmpBoolField { public: Bool get() const; };
-class Rva00395F57 { public: Bool canUnpack(Bool b); };
+#include "../../../../Include/GameLogic/Rva00395F57.h"
 #include "../../../../Include/GameClient/Rva00397F45.h"
 #include "../../../../Include/GameLogic/Module/Rva0039718B.h"
 class Rva00395686 { public: Bool rva00395686(Player *player, ThingTemplate *tt); };

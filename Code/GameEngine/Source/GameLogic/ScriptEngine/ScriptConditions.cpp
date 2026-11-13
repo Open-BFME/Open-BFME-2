@@ -606,11 +606,7 @@ public:
 extern ScienceStore *TheScienceStore;
 class CommandButton;
 class CommandSet;
-class Rva00395F57
-{
- public:
- bool canUnpack(bool);
-};
+#include "../../../Include/GameLogic/Rva00395F57.h"
 class Rva00397F45 : public Rva00395F57
 {
  public:

@@ -452,7 +452,7 @@ class Rva0039567CCmpBoolField { public: bool get() const; };
 
 #include "../../../Include/GameLogic/Module/Rva0039718B.h"
 
-class Rva00395F57 { public: bool canUnpack(bool flag); };
+#include "../../../Include/GameLogic/Rva00395F57.h"
 
 class Rva00395686 { public: bool rva00395686(Player *player, ThingTemplate *tt); };
 
