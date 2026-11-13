@@ -48,7 +48,7 @@ struct Rva002BA8F1Listener;
 #include "../../Include/Common/Rva005A0B4CList.h"
 
 class Rva005FFED5 { public: void rva005FFED5(int value); };
-class Rva005FFEDD { public: void rva005FFEDD(const TreeHintRef00217D4C &prompt); };
+#include "../../Include/Common/Rva005FFEDD.h"
 class Rva005FFEE5 { public: int rva005FFEE5(const TreeHintRef00217D4C &prompt); };
 class Rva00600052VisibilityForward { public: void forward(int index, bool visible); };
 class Rva0060005A { public: void SetSwapButtonState(int index, bool enabled); };

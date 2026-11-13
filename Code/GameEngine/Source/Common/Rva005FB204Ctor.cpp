@@ -53,7 +53,7 @@ public:
 #include "../../Include/GameLogic/Rva003F4DCA.h"
 
 class Rva005FFED5 { public: void rva005FFED5(int value); };
-class Rva005FFEDD { public: void rva005FFEDD(const TreeHintRef00217D4C &prompt); };
+#include "../../Include/Common/Rva005FFEDD.h"
 class Rva005FFEE5 { public: int rva005FFEE5(const TreeHintRef00217D4C &prompt); };
 
 class Rva006003FC
