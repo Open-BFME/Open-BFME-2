@@ -444,10 +444,7 @@ public:
   virtual AptNativeHash *slot3();
 };
 
-class Rva0070A5C0 {
-public:
-  BfmeN1034 *rva0070A5C0(int);
-};
+#include "Rva0070A5C0.h"
 
 // AptValue::getVtblIndex (donor identity, pinned at 0x006DBB30) is rowed as
 // Rva006DBB30SarDwordField::get; the loops below call it by the ledger's name.

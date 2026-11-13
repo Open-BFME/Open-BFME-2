@@ -114,11 +114,7 @@ class Rva8D0D80String;
 class Rva8D0D80Value;
 #include "../Rva8D0D80Result.h"
 class BfmeN1034;
-class Rva0070A5C0
-{
-public:
-    BfmeN1034 *rva0070A5C0(int name); // object Lookup
-};
+#include "../Rva0070A5C0.h"
 EAStringC *Rva0070B4F0GetString(int id);
 
 extern AptValue *gpGlobalGlobalObject;
