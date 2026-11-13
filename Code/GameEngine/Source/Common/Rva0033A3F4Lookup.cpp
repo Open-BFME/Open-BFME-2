@@ -5,8 +5,10 @@
 #include "ascii_string.h"
 
 
-// g_rva0033A3F4Table: the retail string table at VA 0xdbe9b0.
-const char *g_rva0033A3F4Table[7] = {
+// g_rva0033A3F4Table: the retail string table at VA 0xdbe9b0, NULL-terminated (32 bytes): retail's 0xdbe9cc
+// after the seven names is 0. This lookup's not-found value 7 indexes it (GetRankIcon formats it as
+// "(null)"), and findNameIndex (GapBodiesGE09.cpp) walks to it.
+const char *g_rva0033A3F4Table[8] = {
 	"Men",
 	"Elves",
 	"Dwarves",
@@ -14,6 +16,7 @@ const char *g_rva0033A3F4Table[7] = {
 	"Mordor",
 	"Wild",
 	"Neutral",
+	0,
 };
 
 int Rva0033A3F4Lookup(const AsciiString &name)
