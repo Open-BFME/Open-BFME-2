@@ -9,6 +9,22 @@
 // The outer pathfinder map's value: retail's _M_create_node 0x00534743 allocates 0x20-byte nodes, a 16-byte
 // pair<const unsigned int, Rva00534743Record> (tools/retail_identity.py MAP_UINT_RECORD_INSERT).
 struct Rva00534743Record { int word0; int word1; int word2; };
+// A BIG archive folder's member map (P144, tools/retail_identity.py BIG_MEMBER_MAP_COPY): retail's tree base
+// constructor 0x0030087C allocates the 0x20-byte header of a 16-byte pair<const char *const, BigArchiveMemberInfo>,
+// and Win32BIGFileSystem::rva006045A2 reaches this tree's copy through the map's make_pair (0x00604251).
+class File;
+struct BigArchiveMemberInfo { File *file; unsigned int offset; unsigned int size; };
+#include "../../../../GameEngine/Include/Common/Rva006038D4Less.h"
+typedef _STL::map<const char *, BigArchiveMemberInfo, Rva006038D4Less> BigMemberMap;
+typedef BigMemberMap::value_type BigMemberValue;
+typedef _STL::_Rb_tree<const char *, BigMemberValue, _STL::_Select1st<BigMemberValue>, Rva006038D4Less,
+    _STL::allocator<BigMemberValue> > BigMemberTree;
+typedef _STL::_Rb_tree_base<BigMemberValue, _STL::allocator<BigMemberValue> > BigMemberTreeBase;
+// The base's constructor, destructor and allocator copy are retail's shared folds (0x0030087C, 0x0007FAB3,
+// 0x0021983A); this unit's malloc configuration would emit other bodies, so it only declares them.
+namespace _STL { template <> BigMemberTreeBase::_Rb_tree_base(const allocator<BigMemberValue> &); }
+namespace _STL { template <> BigMemberTreeBase::~_Rb_tree_base(); }
+namespace _STL { template <> allocator<BigMemberValue> BigMemberTreeBase::get_allocator() const; }
 
 // Inline unsigned comparison belongs to the caller; the retail owner supplies
 // the external less<unsigned> body without a competing local COMDAT.
@@ -58,9 +74,9 @@ struct ModuleCloneAccess : ModuleCloneTree
     using ModuleCloneTree::_M_clone_node;
 };
 namespace _STL {
-// ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z
-template <> inline TreeIntPtrLower::_Link_type
-TreeIntPtrLower::_M_copy(TreeIntPtrLower::_Link_type node, TreeIntPtrLower::_Link_type parent)
+// ?_M_copy@?$_Rb_tree@PBDU?$pair@QBDUBigArchiveMemberInfo@@@_STL@@U?$_Select1st@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@URva006038D4Less@@V?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@PAU32@0@Z
+template <> inline BigMemberTree::_Link_type
+BigMemberTree::_M_copy(BigMemberTree::_Link_type node, BigMemberTree::_Link_type parent)
 {
     _Link_type top = (_Link_type)((ModuleCloneAccess *)this)->_M_clone_node(
         (ModuleCloneTree::_Link_type)node);
@@ -95,6 +111,12 @@ template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_find<unsigned>(const un
 typedef _STL::pair<const unsigned, Rva00534743Record> PairRecordLower;
 typedef _STL::_Rb_tree<unsigned, PairRecordLower, _STL::_Select1st<PairRecordLower>, _STL::less<unsigned>, _STL::allocator<PairRecordLower> > TreeRecordLower;
 template TreeRecordLower::iterator TreeRecordLower::insert_unique(TreeRecordLower::iterator, const TreeRecordLower::value_type &);
-template TreeIntPtrLower::_Rb_tree(const TreeIntPtrLower &);
+template BigMemberTree::_Rb_tree(const BigMemberTree &);
+// The pointer-pair copy instantiated these before it was respelled, and they stay: this unit rows the base's
+// destructor (the fold at 0x0007FAB3), and is the one definer of the node allocator that ScoreKeeper's base
+// constructor (Rva0039CAE1Allocator) calls.
+template _STL::_Rb_tree_base<PairIntPtrLower, _STL::allocator<PairIntPtrLower> >::~_Rb_tree_base();
+template _STL::_Rb_tree_node<PairIntPtrLower> *
+_STL::allocator<_STL::_Rb_tree_node<PairIntPtrLower> >::allocate(size_t, const void *) const;
 template bool MapIntPtrLower::value_compare::operator()(const MapIntPtrLower::value_type &, const MapIntPtrLower::value_type &) const;
 

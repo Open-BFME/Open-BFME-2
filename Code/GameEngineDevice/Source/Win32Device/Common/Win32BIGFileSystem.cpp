@@ -270,14 +270,6 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-class Rva0060426C
-{
-public:
-	unsigned int m_first;
-	_STL::map<unsigned int, void *> m_map;
-	Rva0060426C(const Rva0060426C &other);
-};
-
 struct BigArchiveMemberInfo
 {
 	File *file;
@@ -286,6 +278,19 @@ struct BigArchiveMemberInfo
 };
 
 typedef _STL::pair<const char *const, BigArchiveMemberInfo> BigArchiveMemberValue;
+
+// A folder's member map (P144, tools/retail_identity.py BIG_MEMBER_MAP_COPY): retail's tree base constructor
+// 0x0030087C allocates the 0x20-byte header of this 16-byte value, and Win32BIGFileSystem::rva006045A2 binds the
+// map's make_pair at 0x00604251.
+typedef _STL::map<const char *, BigArchiveMemberInfo, Rva006038D4Less> BigMemberMap;
+
+class Rva0060426C
+{
+public:
+	unsigned int m_first;
+	BigMemberMap m_map;
+	Rva0060426C(const Rva0060426C &other);
+};
 
 void __cdecl ji_00629176();
 
@@ -312,38 +317,29 @@ public:
 	bool rva00603CA3(const char *a, Out603CA3 *out);
 };
 
-typedef _STL::pair<const unsigned, void *> PairIntPtr00603FD2;
+typedef BigMemberMap::value_type BigMemberValue;
 
-typedef _STL::_Rb_tree<unsigned, PairIntPtr00603FD2, _STL::_Select1st<PairIntPtr00603FD2>, _STL::less<unsigned>, _STL::allocator<PairIntPtr00603FD2> > TreeIntPtr00603FD2;
+typedef _STL::_Rb_tree<const char *, BigMemberValue, _STL::_Select1st<BigMemberValue>, Rva006038D4Less, _STL::allocator<BigMemberValue> > BigMemberTree;
+
+typedef _STL::_Rb_tree_base<BigMemberValue, _STL::allocator<BigMemberValue> > BigMemberTreeBase;
 
 // bfme link decl-only begin
-namespace _STL { template <> _Rb_tree<unsigned int,_STL::pair<unsigned int const,void *>,_STL::_Select1st<_STL::pair<unsigned int const,void *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::~_Rb_tree(); }
+namespace _STL { template <> BigMemberTree::~_Rb_tree(); }
 
-namespace _STL { template <> _Rb_tree_base<_STL::pair<unsigned int const,void *>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::~_Rb_tree_base(); }
-
-namespace _STL { template <> void _Rb_tree<unsigned int,_STL::pair<unsigned int const,void *>,_STL::_Select1st<_STL::pair<unsigned int const,void *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::_M_erase(_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > *); }
-
-namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > *,_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > *,unsigned int); }
-
-namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > *,unsigned int) const; }
-
-// Use the tree copy and base constructor emitted by stlport_map_int_ptr_lower.cpp.
-namespace _STL { template <> _Rb_tree_base<_STL::pair<unsigned int const,void *>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::_Rb_tree_base(_STL::allocator<_STL::pair<unsigned int const,void *> > const &); }
+namespace _STL { template <> void BigMemberTree::_M_erase(_Rb_tree_node<BigMemberValue> *); }
 
 // The verified copy at 0x00603B9C uses the 32-byte node clone at 0x00413E55.
 namespace _STL {
-template <> TreeIntPtr00603FD2::_Link_type TreeIntPtr00603FD2::_M_copy(_Link_type node, _Link_type parent);
+template <> BigMemberTree::_Link_type BigMemberTree::_M_copy(_Link_type node, _Link_type parent);
 }
-
-namespace _STL { template <> _Rb_tree_node<_STL::pair<unsigned int const,void *> > *allocator<_Rb_tree_node<_STL::pair<unsigned int const,void *> > >::allocate(unsigned int, void const *) const; }
 
 class Rva00603FD2
 {
 public:
-	Rva00603FD2(unsigned const *a, TreeIntPtr00603FD2 const &b);
+	Rva00603FD2(const char *const *a, BigMemberTree const &b);
 private:
-	unsigned m_00;
-	TreeIntPtr00603FD2 m_04;
+	const char *m_00;
+	BigMemberTree m_04;
 };
 
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
@@ -821,7 +817,7 @@ File *Rva00603C0F::rva00603D02(const char *filename, int access, const Rva00603D
 
 // ---- from Code/GameEngine/Source/Common/Rva00604289Construct.cpp
 
-// ??0Rva0060426C@@QAE@ABV0@@Z @0x0060426C 29B: copy ctor copies dword +0 then map<unsigned void*> at +4 via rowed Rb_tree copy 0x00603EEB. Evidence: callers 0x00604289 0x006045A2; callee rowed.
+// ??0Rva0060426C@@QAE@ABV0@@Z @0x0060426C 29B: copy ctor copies dword +0 then the member map at +4 via rowed Rb_tree copy 0x00603EEB. Evidence: callers 0x00604289 0x006045A2; callee rowed.
 
 Rva0060426C::Rva0060426C(const Rva0060426C &other) : m_first(other.m_first), m_map(other.m_map)
 {
@@ -835,9 +831,9 @@ void Rva00604289Construct(Rva0060426C *dest, const Rva0060426C &src)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00603FD2Ctor.cpp
 
-// ??0Rva00603FD2@@QAE@PBIABV?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@@Z @0x00603FD2 29B: copy int from ptr plus tree copy at plus4. Evidence: caller 0x00604251 passes ptr plus tree; callee rowed Rb_tree copy 0x00603EEB; ret 8 two args.
+// Rva00603FD2's constructor @0x00603FD2 29B: copy the folder name from ptr plus the member tree copy at plus4. Evidence: caller 0x00604251 passes ptr plus tree; callee rowed Rb_tree copy 0x00603EEB; ret 8 two args.
 
-Rva00603FD2::Rva00603FD2(unsigned const *a, TreeIntPtr00603FD2 const &b) : m_00(*a), m_04(b)
+Rva00603FD2::Rva00603FD2(const char *const *a, BigMemberTree const &b) : m_00(*a), m_04(b)
 {
 }
 
@@ -852,7 +848,14 @@ Rva00603FD2::Rva00603FD2(unsigned const *a, TreeIntPtr00603FD2 const &b) : m_00(
 // stlport_sort_rva0040cb11entry.cpp provider. No new type name or callee pin.
 // Constructor definitions remain with their independently verified home units.
 
-Rva00603FD2 Rva00604251(const unsigned&key,const TreeIntPtr00603FD2&value) {return Rva00603FD2(&key,value);}
+Rva00603FD2 Rva00604251(const char *const&key,const BigMemberTree&value) {return Rva00603FD2(&key,value);}
+
+// The member tree's base: its constructor, destructor and allocator copy are retail's shared folds (0x0030087C,
+// 0x0007FAB3, 0x0021983A; the constructor's node proxy 0x0014F3C4). This unit's allocator configuration emits
+// retail's bodies for them, so it defines them and their pins name it as the fold proof; the tree's copy, in
+// stlport_map_int_ptr_lower.cpp, only declares them.
+template BigMemberTreeBase::_Rb_tree_base(const _STL::allocator<BigMemberValue> &);
+template BigMemberTreeBase::~_Rb_tree_base();
 
 // ---- from Code/GameEngine/Source/GameClient/Rva006042B6.cpp
 
@@ -895,13 +898,13 @@ bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int e
 
 // tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+// tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@PBDU?$pair@QBDUBigArchiveMemberInfo@@@_STL@@U?$_Select1st@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@URva006038D4Less@@V?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
 
 // tu-skeleton: 0x00603C0F 67B ?rva00603C0F@Rva00603C0F@@QAEPBXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_lookup_00603C0F.cpp (not merged yet)
 
 // tu-skeleton: 0x00603C57 8B ??1Rva00603C57@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00603EEB 165B ??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+// tu-skeleton: 0x00603EEB 165B ??0?$_Rb_tree@PBDU?$pair@QBDUBigArchiveMemberInfo@@@_STL@@U?$_Select1st@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@URva006038D4Less@@V?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
 
 // tu-skeleton: 0x00603F90 28B ??_GRva00603C57@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors12.cpp (not merged yet)
 
@@ -998,7 +1001,7 @@ void Win32BIGFileSystem::getFileListInDirectory(const AsciiString &currentDirect
 
 // tu-skeleton: 0x007A6B22 8B $L5374 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
 
-// tu-skeleton: 0x007A6B2A 10B __ehhandler$??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+// tu-skeleton: 0x007A6B2A 10B __ehhandler$??0?$_Rb_tree@PBDU?$pair@QBDUBigArchiveMemberInfo@@@_STL@@U?$_Select1st@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@URva006038D4Less@@V?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6B80 8B uw_007a6b80 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
