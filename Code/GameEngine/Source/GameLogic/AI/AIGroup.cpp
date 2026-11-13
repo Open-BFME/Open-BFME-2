@@ -908,15 +908,7 @@ struct ListNode
 	char m_pad4[4]; // +0x04
 	class Object *m_obj; // +0x08
 };
-class Rva0036E346
-{
-public:
-	int rva0036E346();
-
-private:
-	char m_pad0[4]; // +0x00
-	ListNode *m_head; // +0x04
-};
+#include "../../../Include/GameLogic/Rva0036E346.h"
 class Rva0036E1F7Result
 {
 public:

@@ -74,15 +74,7 @@ struct ListNode
 	Object *m_obj;
 };
 
-class Rva0036E346
-{
-public:
-	int rva0036E346();
-
-public:
-	char m_pad0[4];
-	ListNode *m_head;
-};
+#include "../../../Include/GameLogic/Rva0036E346.h"
 
 class Rva0036E346;
 
