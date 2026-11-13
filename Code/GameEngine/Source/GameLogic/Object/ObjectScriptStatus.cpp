@@ -131,12 +131,7 @@ public:
 };
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
-struct ObjectCrushLevelsView {
- char unknown00[0x5f9];
- char crusher,crushable,alternateCrusher,alternateCrushable;
- char unknown5fd;
- bool gate5fe;
-};
+#include "../../../Include/GameLogic/Module/ObjectCrushLevelsView.h"
 
 #include "Common/BfmeAudioEventPrefix136.h"
 #include <string.h>
