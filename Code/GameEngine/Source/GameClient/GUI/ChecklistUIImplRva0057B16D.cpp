@@ -18,11 +18,7 @@ public:
 	void rva005D4BAE(float v);
 };
 
-class Rva005D4BC1
-{
-public:
-	void rva005D4BC1(float v);
-};
+#include "../../../Include/Common/Rva005D4BC1.h"
 
 #include "../../../Include/GameClient/Rva005D49CD.h"
 
