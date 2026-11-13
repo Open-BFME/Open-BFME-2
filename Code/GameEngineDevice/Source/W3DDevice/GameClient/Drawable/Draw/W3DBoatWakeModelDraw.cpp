@@ -43,7 +43,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct Rva0028AC4EEntry;
 
-class Rva0008BB38FloatField { public: Real get() const; };
+#include "../../../../../../GameEngine/Include/GameLogic/Rva0008BB38FloatField.h"
 
 #include "../../../../../../GameEngine/Include/GameLogic/LocomotorClass.h"
 
