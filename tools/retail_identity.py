@@ -762,32 +762,52 @@ def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_par
     together. Only whole instantiations of the vendored STLport's tree change, each a template named directly in
     namespace _STL over exactly the old types (TREE_SHAPES): _Rb_tree<old_key, pair, _Select1st<pair>,
     less<old_key>, allocator<pair>>, map<old_key, old_value, less<old_key>, allocator<pair>>,
-    _Rb_tree_base<pair, allocator<pair>>, _Rb_tree_node<pair>, allocator<pair> and _Select1st<pair>, where pair is
-    _STL::pair<const old_key, old_value>; each becomes the same template over the new key, comparator and value.
+    _Rb_tree_base<pair, allocator<pair>>, _Rb_tree_node<pair> and allocator<pair>, where pair is
+    _STL::pair<const old_key, old_value>; each becomes the same template over the new key, comparator and value
+    (_Select1st<pair>, the pair itself and less<old_key> change only inside the _Rb_tree that holds them).
     And the function parameters at `key_params` (indices into the name's own parameter list), each a pointer or
     reference to const old_key, point or refer to the new const key: how a row passes the pair's first, named per
-    row by the family. Nothing else changes, arguments included: any other template (another namespace's or class's
-    template of the same name, an _STL template over other types, or one that merely contains the old pair, such as
-    vector<pair<...>>), a key passed by value, a const old_key pointer at any other position."""
+    row by the family. A shape changes in two places only: as a type, a class reference of its reviewed kind
+    (TYPE_KINDS: class or struct, never a union or enum spelling of the same name) whose qualified name is exactly
+    the template in _STL; and as the name's own scope (SCOPE_SHAPES: a member of the tree, map or base), likewise
+    exactly the template in _STL. Nothing else changes, arguments included: any other class reference or qualified
+    name (another namespace's or class's template of the same name, a class nested in a shape, an _STL template over
+    other types, or one that merely contains the old pair, such as vector<pair<...>>), a key passed by value, a
+    const old_key pointer at any other position."""
     key_arg, const_key, _width = TREE_KEYS[new_key]
     key = ("B", old_key)
     swaps = _tree_shapes(key, BUILTIN_VALUES[old_value][0], key_arg, const_key, _struct(new_value),
                          _struct(new_compare))
     stl = ("N", "_STL")
 
+    def shape(parts, allowed):
+        """The swapped (template, _STL) of a qualified name that is exactly one shape in _STL, or None."""
+        if len(parts) == 2 and parts[1] == stl and parts[0] in swaps and allowed(parts[0][1]):
+            return (swaps[parts[0]], stl)
+        return None
+
     def walk(node):
         if not isinstance(node, tuple):
             return node
-        if len(node) == 3 and node[0] == "T":
-            return node                                # a template outside a qualified _STL shape: untouched
-        if len(node) == 2 and node[0] == "Q" and isinstance(node[1], tuple):
-            # a qualified name, innermost part first: a template followed only by _STL is _STL's own
-            parts = node[1]
-            return ("Q", tuple(swaps.get(part, part) if parts[i + 1:] == (stl,) else walk(part)
-                               for i, part in enumerate(parts)))
+        if len(node) == 3 and node[0] == "C" and isinstance(node[2], tuple) and node[2][:1] == ("Q",):
+            got = shape(node[2][1], lambda name: TYPE_KINDS.get(name) == node[1])
+            return node if got is None else ("C", node[1], ("Q", got))   # any other class reference: whole
+        if node[:1] in (("T",), ("Q",)):
+            return node                                # a template or qualified name outside both places: whole
         return tuple(walk(child) for child in node)
 
-    out = walk(tree)
+    if not (isinstance(tree, tuple) and len(tree) >= 4 and tree[0] == "SYM"):
+        return walk(tree)
+    scope = tree[2]
+    if isinstance(scope, tuple) and scope[:1] == ("Q",):
+        # a special member's qualified name is its class alone (??0, ??1); a named member's starts with its own name
+        parts = scope[1]
+        got = shape(parts, lambda name: name in SCOPE_SHAPES)
+        if got is None and len(parts) == 3 and isinstance(parts[0], tuple) and parts[0][:1] == ("N",):
+            inner = shape(parts[1:], lambda name: name in SCOPE_SHAPES)
+            got = None if inner is None else (parts[0],) + inner
+        scope = scope if got is None else ("Q", got)
+    out = tree[:2] + (scope,) + tuple(walk(part) for part in tree[3:])
     if not key_params:
         return out
     params = _params(out)
@@ -801,7 +821,11 @@ def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_par
     return _with_params(out, tuple(params))
 
 
-TREE_SHAPES = ("_Rb_tree", "map", "_Rb_tree_base", "_Rb_tree_node", "allocator", "_Select1st")
+TREE_SHAPES = ("_Rb_tree", "map", "_Rb_tree_base", "_Rb_tree_node", "allocator")
+# The class-key each shape is spelled with as a type in the reviewed names (V class, U struct); _Rb_tree_base is
+# only ever a scope there. Each kind and scope here is one the reviewed spellings use. And the shapes whose members a family row or pin may be.
+TYPE_KINDS = {"_Rb_tree": "V", "map": "V", "_Rb_tree_node": "U", "allocator": "V"}
+SCOPE_SHAPES = frozenset(("_Rb_tree", "map", "_Rb_tree_base"))
 
 
 def _tree_shapes(key, value, key_arg, const_key, new_value, new_compare):
@@ -816,8 +840,7 @@ def _tree_shapes(key, value, key_arg, const_key, new_value, new_compare):
         alloc = cls("V", ("T", "allocator", (pair,)))
         select = cls("U", ("T", "_Select1st", (pair,)))
         return (("T", "_Rb_tree", (k, pair, select, compare, alloc)), ("T", "map", (k, v, compare, alloc)),
-                ("T", "_Rb_tree_base", (pair, alloc)), ("T", "_Rb_tree_node", (pair,)), alloc[2][1][0],
-                select[2][1][0])
+                ("T", "_Rb_tree_base", (pair, alloc)), ("T", "_Rb_tree_node", (pair,)), alloc[2][1][0])
     old = shapes(key, value, ("CV", "$$CB", key), cls("U", ("T", "less", (key,))))
     new = shapes(key_arg, new_value, const_key, new_compare)
     return dict(zip(old, new))

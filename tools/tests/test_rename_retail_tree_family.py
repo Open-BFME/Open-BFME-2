@@ -223,6 +223,10 @@ def test_the_swap_is_a_decoded_one():
     "?f@@YAXPBI@Z",                                                  # a const unsigned* nobody named (review 1)
     "??0?$vector@PBIV?$allocator@PBI@_STL@@@_STL@@QAE@XZ",           # vector<const unsigned *> (review 1)
     "?f@@YAXABU?$pair@$$CBIPAX@Unrelated@@@Z",                       # another namespace's pair (review 2)
+    "?f@@YAXT?$allocator@U?$pair@$$CBIPAX@_STL@@@_STL@@@Z",                                         # a union spelling of the allocator (review 3)
+    "?f@@YAXW4?$allocator@U?$pair@$$CBIPAX@_STL@@@_STL@@@Z",                                        # an enum spelling of it (review 3)
+    "?f@@YAXABU?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@@Z",   # map as a struct
+    "??0?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@_STL@@QAE@XZ",       # a member of a shape that is no scope
     "?f@@YAXABU?$pair@$$CBIPAX@_STL@@@Z",                            # the old pair alone, in no tree
     "??0?$vector@U?$pair@$$CBIPAX@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@XZ",  # a vector of it
     "??0?$map@IHU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIH@_STL@@@2@@_STL@@QAE@XZ",   # a map over another value
@@ -242,6 +246,8 @@ def test_a_key_parameter_is_retyped_only_where_named():
     assert swap("?f@@YAXIPBI@Z", (0,)) == rename.type_tree("?f@@YAXIPBI@Z")   # a by-value key at that position
 
 
+UNION_OLD = OLD_COPY[:-len("@Z")] + "T?$allocator@U?$pair@$$CBIPAX@_STL@@@_STL@@@Z"                     # review 3's counterexample
+UNION_NEW = NEW_COPY[:-len("@Z")] + "T?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@_STL@@@Z"
 UNRELATED_OLD = OLD_COPY[:-len("@Z")] + "ABU?$pair@$$CBIPAX@Unrelated@@@Z"         # review 2's counterexample
 UNRELATED_NEW = NEW_COPY[:-len("@Z")] + "ABU?$pair@QBDUBigArchiveMemberInfo@@@Unrelated@@@Z"
 EXTRA_OLD = OLD_COPY[:-len("@Z")] + "PBI@Z"                         # the copy with an unrelated const unsigned *
@@ -337,6 +343,9 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("another namespace's pair retyped too (review 2)",
      lambda k: (k["rows"].update({COPY: (UNRELATED_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
                 k["spellings"].update({UNRELATED_OLD: UNRELATED_NEW})), "tree swap alone"),
+    ("a union spelling of the allocator retyped too (review 3)",
+     lambda k: (k["rows"].update({COPY: (UNION_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
+                k["spellings"].update({UNION_OLD: UNION_NEW})), "tree swap alone"),
     ("key parameters on no row", lambda k: k["key_params"].update({0x00001000: (0,)}), "name no row"),
     ("key parameters with no index", lambda k: k["key_params"].update({0x00603FD2: ()}), "name no row"),
     ("a key parameter that is the tree", lambda k: k["key_params"].update({0x00603FD2: (1,)}),
@@ -642,3 +651,32 @@ def test_the_review_2_counterexample_decodes_and_differs():
     before, after = rename.type_tree(UNRELATED_OLD), rename.type_tree(UNRELATED_NEW)
     assert swap(UNRELATED_OLD) != after and swap(UNRELATED_OLD) != before
     assert swap(UNRELATED_OLD) == rename.type_tree(NEW_COPY[:-len("@Z")] + "ABU?$pair@$$CBIPAX@Unrelated@@@Z")
+
+
+def test_the_review_3_counterexample_decodes_and_differs():
+    """As for review 2's: the union parameter decodes, and the swap leaves it alone, so the refusal is the swap's."""
+    assert swap(UNION_OLD) != rename.type_tree(UNION_NEW)
+    assert swap(UNION_OLD) == rename.type_tree(NEW_COPY[:-len("@Z")] + "T?$allocator@U?$pair@$$CBIPAX@_STL@@@_STL@@@Z")
+
+
+def test_each_shape_kind_and_scope_is_what_the_spellings_use():
+    """The reviewed kinds and scopes are exactly those the six spellings need: drop one and a spelling fails."""
+    assert set(R.TYPE_KINDS) | set(R.SCOPE_SHAPES) == set(R.TREE_SHAPES)
+    for name, kind in R.TYPE_KINDS.items():
+        other = {"V": "U", "U": "V"}[kind]
+        trial = {**R.TYPE_KINDS, name: other}
+        old = R.TYPE_KINDS
+        R.TYPE_KINDS = trial
+        try:
+            changed = [o for o, n in F.spellings.items() if swap(o, PARAMS.get(o, ())) != rename.type_tree(n)]
+        finally:
+            R.TYPE_KINDS = old
+        assert changed, f"{name}'s kind is used by no spelling"
+    for name in R.SCOPE_SHAPES:
+        old = R.SCOPE_SHAPES
+        R.SCOPE_SHAPES = old - {name}
+        try:
+            changed = [o for o, n in F.spellings.items() if swap(o, PARAMS.get(o, ())) != rename.type_tree(n)]
+        finally:
+            R.SCOPE_SHAPES = old
+        assert changed, f"{name} is the scope of no spelling"
