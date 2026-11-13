@@ -378,7 +378,7 @@ bool BFME_DX8_Thread_Assert();
 #include "../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
-class Rva006C0820 { public: void rva006C0820(); };
+#include "../../../../GameEngine/Include/Common/Rva006C0820.h"
 #include <math.h>
 __forceinline float taintCeil(float value) { return float(ceil(double(value))); }
 #include <string.h>

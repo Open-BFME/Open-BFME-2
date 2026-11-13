@@ -2878,11 +2878,7 @@ private:
 
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva007397D0.h"
 
-class Rva006C0820
-{
-public:
-	void rva006C0820(void);
-};
+#include "../../../Include/Common/Rva006C0820.h"
 
 #include "../../../Include/GameLogic/Rva0023C641.h"
 
