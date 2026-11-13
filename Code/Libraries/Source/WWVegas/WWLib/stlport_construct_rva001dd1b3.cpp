@@ -5,9 +5,7 @@
 // Same 18B frameless shape as rowed _Construct 0x001DD2DC.
 #include <stddef.h>
 
-struct Rva001DD1B3 {
-    Rva001DD1B3(const Rva001DD1B3 &that);
-};
+#include "../../../../GameEngine/Include/Common/Rva001DD1B3.h"
 
 namespace _STL {
 

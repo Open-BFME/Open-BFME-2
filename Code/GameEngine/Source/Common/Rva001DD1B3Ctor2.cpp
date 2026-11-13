@@ -3,11 +3,7 @@
 // Two-arg ctor of 36-byte record: int head plus Rva001DD063 tail at +4.
 // Evidence: chain lane every callee rowed; retail copies [eax] then calls rowed 0x001DD063 with this+4 and returns this; caller 0x001DE3A5.
 #include "../../Include/Common/Rva001DD063.h"
-struct Rva001DD1B3 {
-    int f00;
-    Rva001DD063 f04;
-    Rva001DD1B3(const int &key, const Rva001DD063 &tail);
-};
+#include "../../Include/Common/Rva001DD1B3.h"
 __declspec(noinline) inline Rva001DD1B3::Rva001DD1B3(const int &key, const Rva001DD063 &tail)
     : f00(key), f04(tail)
 {

@@ -12,7 +12,7 @@ public:
 };
 }
 
-struct Rva001DD1B3 { public: unsigned char m_data[36]; };
+#include "../../../../GameEngine/Include/Common/Rva001DD1B3.h"
 typedef _STL::_Rb_tree<Rva001DD1B3, Rva001DD1B3, _STL::_Identity<Rva001DD1B3>, _STL::less<Rva001DD1B3>, _STL::allocator<Rva001DD1B3> > URva001DD1B3SetTree;
 namespace _STL {
 template <> void _Construct<Rva001DD1B3>(Rva001DD1B3 *, const Rva001DD1B3 &);
