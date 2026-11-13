@@ -3531,6 +3531,12 @@ Base: 3,324 bridged, 31 refused, 2,225 already correct.
   slot 2 of 0x00C4DDA8 right (mismatching source slots 37,536 -> 37,535), still bridged at slot 1 alone (the
   0x00497805 loadPostProcess fold); bridged, refused and correct unchanged. ModuleNameGetters3.cpp 605 B and
   PickupStuffUpdate.cpp 831 B LINK before and after.
+- "Give PickupStuffUpdate its loadPostProcess base call (retail 0x00497805 fold)": the lk97 recipe (inline-free
+  override calling UpdateModule::loadPostProcess, rowed by add_match --icf-owner as the twin of
+  ?loadPostProcess@Rva00497805@@MAEXXZ, fold-proof=BattlePlanUpdate.cpp). 0x00C4DDA8 off the bridge (3,323 ->
+  3,322; refusals identical; 2,226 -> 2,227 correct). link_check PickupStuffUpdate.cpp 831 -> 836 B,
+  ModuleNameGetters3.cpp 605 B, BattlePlanUpdate.cpp 2,621 B, all LINK (checked together: the census index
+  predates the getter move, so alone the unit reads ModuleNameGetters3's old object).
 
 **Recipe and limits.** Prepare the getter unit (`BFME_LITERAL_NAME_GETTER(C, ...)` ->
 `BFME_SNAPSHOT_NAME_GETTER(C, ...)`) and every installer unit whose view compiles C's table (a protected

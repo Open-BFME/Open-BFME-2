@@ -307,6 +307,7 @@ public:
 	void updateInactive();
 
 protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 	virtual void xfer(Xfer *xfer);
 
 private:
@@ -417,6 +418,13 @@ void PickupStuffUpdate::xfer(Xfer *xfer)
 	*xfer == version;
 	*xfer == m_20;
 	*xfer == m_lastScanFrame;
+}
+
+// ?loadPostProcess@PickupStuffUpdate@@MAEXXZ: retail primary vftable 0x00C4DDA8 slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void PickupStuffUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdate_moveToStuff.cpp
