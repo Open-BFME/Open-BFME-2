@@ -39,6 +39,8 @@ protected:
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
 	virtual void upgradeImplementation();									// UpgradeMux slot 10
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004B3EC0
 };
 
 #endif // __BFME2_LOCOMOTORSETUPGRADE_H_

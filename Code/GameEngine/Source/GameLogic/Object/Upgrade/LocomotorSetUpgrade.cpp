@@ -87,7 +87,7 @@ public:
 
 // tu-skeleton: 0x004B3EA0 32B ??1LocomotorSetUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleTailDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3EC0 6B ?name@LocomotorSetUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x004B3EC0 6B ?GetSnapshotName@LocomotorSetUpgrade@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp
 
