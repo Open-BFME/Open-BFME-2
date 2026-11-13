@@ -528,8 +528,8 @@ void AssetManagerImpl::LoadAsset(Rva009EF0D0Element *asset)
 		{
 			const char *name = asset->slot00();
 			if (name && name[0] != '#' &&
-				strnicmp(name, "apt_", 4) != 0 &&
-				strnicmp(name, "sfe_", 4) != 0 &&
+				_strnicmp(name, "apt_", 4) != 0 &&
+				_strnicmp(name, "sfe_", 4) != 0 &&
 				bfmeRva000387C0())
 			{
 				_bfme_debugRecordCallsite(1);

@@ -322,7 +322,7 @@ void piConnectConnectCallback(void *chat, int success,
 
 		connection->lastChatPing = current_time();
 		nick = chatGetNickA(chat);
-		if (strcmpi(connection->nick, nick) != 0)
+		if (_strcmpi(connection->nick, nick) != 0)
 			strcpy(connection->nick, nick);
 	}
 	else
