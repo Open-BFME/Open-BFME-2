@@ -75,25 +75,7 @@ template <> class VSlots<0>
 {
 };
 #include "../../../Include/GameLogic/Module/BodyModule.h"
-class Object
-{
-public:
-	AIUpdateInterface *getAI() { return m_ai; }
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-	ObjectID getID() const { return m_id; }
-	Team *getTeam() { return m_team; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getTeam copy loses to the first-in-order copy. No flags touched.
-	Team *bfme_getTeam_30539() { return m_team; }
-	Player *getControllingPlayer() const;
-private:
-	unsigned char m_pad00[0x74];
-	ObjectID m_id; // +0x74
-	unsigned char m_pad78[0x254 - 0x78];
-	BodyModuleInterface *m_body; // +0x254
-	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x304 - 0x25C];
-	Team *m_team; // +0x304
-};
+#include "AITNGuardObjectView.h"
 #include "../../../Include/GameLogic/TAiData.h"
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AITNGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AITNGuard.cpp"
@@ -208,8 +190,8 @@ void AITNGuardOuterState::onExit( StateExitType status )
 StateReturnType AITNGuardReturnState::update( void )
 {
 	Player *ownerPlayer = getMachineOwner()->getControllingPlayer();
-	if (getMachineOwner()->bfme_getTeam_30539()) {
-		Object *teamVictim = getMachineOwner()->bfme_getTeam_30539()->getTeamTargetObject();
+	if (getMachineOwner()->getTeam()) {
+		Object *teamVictim = getMachineOwner()->getTeam()->getTeamTargetObject();
 		if (teamVictim)	{
 			getGuardMachine()->setNemesisID(teamVictim->getID());
 			return STATE_FAILURE; // Fail to return goes to inner attack state.
@@ -245,9 +227,9 @@ void AITNGuardAttackAggressorState::onExit( StateExitType status )
 		m_attackState = NULL;
 	}
 
-	if (obj->bfme_getTeam_30539())
+	if (obj->getTeam())
 	{
-		obj->bfme_getTeam_30539()->setTeamTargetObject(NULL); // clear the target.
+		obj->getTeam()->setTeamTargetObject(NULL); // clear the target.
 	}
 }
 
@@ -332,7 +314,7 @@ StateReturnType AITNGuardInnerState::update( void )
 
 	Object* owner = getMachineOwner();
 	// killed him.
-	Object *teamVictim = owner->bfme_getTeam_30539()->getTeamTargetObject();
+	Object *teamVictim = owner->getTeam()->getTeamTargetObject();
 	if (nemesis == NULL)
 	{
 		if (teamVictim)
@@ -387,9 +369,9 @@ StateReturnType AITNGuardOuterState::update( void )
 		}
 		// Check if team auto targets same victim.
 		Object *teamVictim = NULL;
-		if (goalObj == NULL && owner->bfme_getTeam_30539()->getPrototype()->m_attackCommonTarget) 
+		if (goalObj == NULL && owner->getTeam()->getPrototype()->m_attackCommonTarget) 
 		{
-			teamVictim = owner->bfme_getTeam_30539()->getTeamTargetObject();
+			teamVictim = owner->getTeam()->getTeamTargetObject();
 			if (teamVictim) 
 			{	
 				goalObj = teamVictim;	
@@ -447,6 +429,6 @@ StateReturnType AITNGuardIdleState::onEnter( void )
 	UnsignedInt now = TheGameLogic->getFrame();
 	m_nextEnemyScanTime = now + GetGameLogicRandomValue(0, TheAI->getAiData()->m_guardEnemyScanRate, AITNGUARD_FILE, 586);
 
-	getMachineOwner()->getAI()->friend_setGoalObject(NULL); // friend_setGoalObject(NULL)
+	getMachineOwner()->m_ai->friend_setGoalObject(NULL); // friend_setGoalObject(NULL)
 	return STATE_CONTINUE;
 }

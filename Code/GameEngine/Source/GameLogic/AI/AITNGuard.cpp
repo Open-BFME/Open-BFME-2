@@ -35,22 +35,7 @@ typedef bool Bool;
 typedef unsigned int UnsignedInt;
 class Object;
 #include "../../../Include/GameLogic/Damage.h"
-template <int N> class VSlots : public VSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class VSlots<0>
-{
-};
-class BodyModuleInterface : public VSlots<15>
-{
-public:
-	virtual const DamageInfo *getLastDamageInfo() const = 0;
-	virtual UnsignedInt getLastDamageTimestamp() const = 0;
-	virtual void slot17() = 0;
-	virtual ObjectID getClearableLastAttacker() const = 0;
-};
+#include "../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/AIStateMachineClass.h"
@@ -751,7 +736,7 @@ Object *__fastcall TunnelNetworkScan(Object *owner)
 // the one AITNGuardMachineCtor.cpp references.
 //
 // Target evidence: owner = state +0x18 machine +0x14 owner; body module at
-// owner +0x254 and its vslot 18 (+0x48) is getClearableLastAttacker; the
+// owner +0x254 and its vslot 18 (+0x48) supplies the attacker ID; the
 // rowed GameLogic::findObjectByID 0x00049DC5 on TheGameLogic; the rowed
 // Object::getRelationship 0x0028D156 (ENEMIES = 0); the target's private
 // status byte +0x438 bit 0 (isEffectivelyDead); the rowed
@@ -770,7 +755,7 @@ Bool rva00545F10(State *thisState, void * /*userData*/)
 		return false;
 	}
 
-	ObjectID attacker = bmi->getClearableLastAttacker();
+	ObjectID attacker = bmi->rva004BF897();
 	if (attacker == INVALID_OBJECT_ID) {
 		return false;
 	}

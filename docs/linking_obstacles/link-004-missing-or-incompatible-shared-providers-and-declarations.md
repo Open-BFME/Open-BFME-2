@@ -296,6 +296,12 @@
   no donor, now narrowing States to BodyModuleInterface and its Object team
   helper, while Return retains Object/list conflicts. TunnelTracker's +8
   list-type disagreement remains excluded from the mechanical union.
+  The seed then adopts the registered BodyModuleInterface, preserving native
+  slot 18 under its existing neutral name, and States uses the existing shared
+  Object prefix. All 36 affected rows remain exact; retained COMDATs are
+  identical and own previews retain 2,416 bytes. The private team/AI helpers
+  disappear and the new const team getter equals the existing seed copy.
+  No further donor acceptance is claimed before another guarded trial.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the

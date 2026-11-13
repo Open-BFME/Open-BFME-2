@@ -252,3 +252,21 @@ view and its list type. The constructor retains its known prerequisites.
 TunnelTracker's ObjectIDList versus STL list storage at +8 is excluded from
 the mechanical union; the planner reports that disagreement as CONFLICT.
 No unsupported field or base guess, alias or row move is introduced.
+
+## Body-module interface and Object prefix unified
+
+The seed replaces its private BodyModuleInterface/VSlots declarations with
+the existing registered 43-slot interface. The callback still calls native
+slot 18 at +0x48, using that header's neutral rva004BF897 spelling and ObjectID
+return type rather than the old private getter declaration. All 23 seed rows
+and 76 emitted COMDATs remain identical; owning header acceptance passes.
+
+States now includes the already-used AITNGuardObjectView.h. Team accesses use
+its const getter and the AI access uses the existing +0x258 pointer directly.
+All 13 States rows and 28 retained COMDATs remain identical. The private team
+and AI helper emissions disappear; the added const team getter is identical
+to the seed's existing copy. Normal/strict verification passes all 36 rows,
+the data row and two string references, and own previews retain 2,416 bytes.
+No row, alias, pin, shared-header edit or new helper implementation is added.
+These changes remove two private class declarations and the unused virtual-slot
+template; another guarded merge is required before claiming a donor accepted.
