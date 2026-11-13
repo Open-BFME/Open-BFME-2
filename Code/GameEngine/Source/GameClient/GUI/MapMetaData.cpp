@@ -33,17 +33,8 @@ bool GetRegistryUseLocalUserMaps();
 
 extern GlobalData *TheWritableGlobalData;
 
-class Rva00300489
-{
-public:
-	virtual AsciiString getMapDir() const;
-};
+#include "../../../Include/Common/Rva00300D7A.h"
 
-class Rva00300D7A : public Rva00300489
-{
-public:
-	AsciiString rva00300D7A();
-};
 
 #include "../../../Include/GameClient/MapCache.h"
 

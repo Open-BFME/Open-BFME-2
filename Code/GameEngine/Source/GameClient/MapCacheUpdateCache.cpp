@@ -3,7 +3,7 @@
 class FileSystem;
 extern FileSystem *TheFileSystem;
 #include "../../Include/GameClient/Rva003006C4.h"
-class Rva00300D7A {public:AsciiString rva00300D7A();};
+#include "../../Include/Common/Rva00300D7A.h"
 void setFPMode();
 #include "../../Include/GameClient/MapCache.h"
 // BF1 MapCache.cpp supplies the update sequence; the native caller at

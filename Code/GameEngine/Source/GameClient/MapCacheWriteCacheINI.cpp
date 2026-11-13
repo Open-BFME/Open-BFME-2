@@ -32,8 +32,7 @@ extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;
 #include "../../Include/GameClient/Rva003006C4.h"
-class Rva00300489 { public: virtual AsciiString getMapDir() const; };
-class Rva00300D7A : public Rva00300489 { public: AsciiString rva00300D7A(); };
+#include "../../Include/Common/Rva00300D7A.h"
 AsciiString AsciiStringToQuotedPrintable(AsciiString);
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString);
 #include "../../Include/GameClient/MapCache.h"

@@ -18,11 +18,7 @@
 
 #include "../../../../Include/Common/Rva00300489.h"
 
-class Rva00300D7A : public Rva00300489
-{
-public:
-	AsciiString rva00300D7A();
-};
+#include "../../../../Include/Common/Rva00300D7A.h"
 
 class MapCache;
 extern MapCache *TheMapCache;
