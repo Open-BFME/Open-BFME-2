@@ -5,16 +5,7 @@
 // pin callee ModelConditionFlags 0x000B3EB3, callers 0x00078C33 0x000BF27B,
 // LINK BONUS via 0x00078C10 (1175B file). Layout from immediates.
 #include "../../Include/GameClient/ModelConditionFlags.h"
-class Rva000B49F9
-{
-public:
-	unsigned char rva000B49F9();
-private:
-	char m_pad00[0x5C];
-	unsigned int m_5C;
-	char m_pad60[0x64 - 0x60];
-	unsigned char m_64;
-};
+#include "../../Include/Common/Rva000B49F9.h"
 unsigned char Rva000B49F9::rva000B49F9()
 {
 	if (!((ModelConditionFlags *)((char *)this + 4))->rva000B3EB3())

@@ -857,7 +857,7 @@ class Rva000B4926 {public:const AsciiString&rva000B4926()const;};
 class HTreeClass;
 class Rva000BE027Anim {public:HTreeClass*rva000BE027(const AsciiString&,const AsciiString&,bool,int);};
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B9A0E.h"
-class Rva000B49F9 {public:unsigned char rva000B49F9();};
+#include "../../../../../../GameEngine/Include/Common/Rva000B49F9.h"
 class AnimConditionInfo {public:int rva000B495B();int pickRandomAnimation(int,int);};
 float GetGameClientRandomValueReal(float,float,char*,int);
 struct AdjustAnimation {char names[12];AsciiString name,previousName;char pad14[4];float duration;int mode;float blend,minSpeed,maxSpeed;unsigned char flag;bool weaponTiming;char pad2e[0x40-0x2e];};

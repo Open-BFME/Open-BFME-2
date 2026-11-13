@@ -474,11 +474,7 @@ private:
 // ?get@Rva0055A88BDwordField (int); TheGameLODManager extern in use;
 // three stack args (ret 0xC) with two int outs; honest-address class.
 #include "../../Include/Common/Rva0055A88BDwordField.h"
-class Rva000B49F9
-{
-public:
-	unsigned char rva000B49F9();
-};
+#include "../../Include/Common/Rva000B49F9.h"
 #include "../../Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 class Rva00078C10
