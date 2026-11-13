@@ -41,13 +41,7 @@ class GameWindow;
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 class Rva002C027B { public: void *rva002C027B(); };
 #include "../../../Include/GameClient/Rva003140AB.h"
-class ModalWindow
-{
-public:
-	void *m_vtable; // +0x00
-	GameWindow *window; // +0x04
-	ModalWindow *next; // +0x08
-};
+#include "../../../Include/GameClient/ModalWindow.h"
 class Display;
 class BfmeMouseDisplayView { public:
  virtual void slot00();

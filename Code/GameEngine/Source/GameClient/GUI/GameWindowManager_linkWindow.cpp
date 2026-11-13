@@ -8,13 +8,7 @@
 // modal window, else push front), unlinkWindow and unlinkChildWindow bodies;
 // the modal entry is ZH's ModalWindow {vtable, window, next}.
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-class ModalWindow
-{
-public:
-	void *m_vtable; // +0x00
-	GameWindow *window; // +0x04
-	ModalWindow *next; // +0x08
-};
+#include "../../../Include/GameClient/ModalWindow.h"
 #include "../../../Include/GameClient/GameWindowManager.h"
 void GameWindowManager::linkWindow(GameWindow *win)
 {

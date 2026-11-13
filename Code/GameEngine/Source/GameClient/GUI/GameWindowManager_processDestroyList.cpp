@@ -4,13 +4,7 @@
 // Identity: ZH/BFME1 GameWindowManager::processDestroyList (release captor,
 // focus and modal head, clear mouse region and grab, GWM_DESTROY, delete).
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-class ModalWindow
-{
-public:
-	void *m_vtable; // +0x00
-	GameWindow *window; // +0x04
-	ModalWindow *next; // +0x08
-};
+#include "../../../Include/GameClient/ModalWindow.h"
 #include "../../../Include/GameClient/GameWindowManager.h"
 #include <new>
 void GameWindowManager::processDestroyList()
