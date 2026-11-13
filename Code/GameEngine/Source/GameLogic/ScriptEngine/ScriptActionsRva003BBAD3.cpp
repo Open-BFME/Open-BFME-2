@@ -12,11 +12,7 @@ extern Mouse *TheMouse;
 extern class MessageStream *TheMessageStream;
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
-class Rva00405AA7
-{
-public:
-	void rva00405AA7();
-};
+#include "../../../Include/Common/Rva00405AA7.h"
 class BfmeOwnVVD;
 class LookAtTranslator; extern LookAtTranslator *TheLookAtTranslator;
 #include "../../../Include/Common/Rva005B5440.h"

@@ -76,11 +76,7 @@ void Rva005C3453::rva005C3453()
 // The native 405D77 wrapper tail-jumps to the already verified 34-byte
 // cleanup at 405AA7 with the same receiver. Supply that provider rather
 // than leaving the notification bound only through a pin.
-class Rva00405AA7
-{
-public:
-    void rva00405AA7();
-};
+#include "../../../Include/Common/Rva00405AA7.h"
 void ControlBar::rva00405D77()
 {
     reinterpret_cast<Rva00405AA7 *>(this)->rva00405AA7();
