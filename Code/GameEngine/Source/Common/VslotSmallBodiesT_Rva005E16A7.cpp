@@ -32,14 +32,7 @@ struct Coord3D;
 // 0x005C4212 and 0x005C4221: hand this object to virtual slot 3 (resp. 2)
 // of the argument.
 class Rva005C4212;
-class Rva005C4212Visitor
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02(Rva005C4212 *o);
-	virtual void v03(Rva005C4212 *o);
-};
+#include "../../Include/Common/Rva005C4212Visitor.h"
 #include "../../Include/Common/Rva005C4212.h"
 
 
