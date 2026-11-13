@@ -185,6 +185,8 @@ public:
 	// BehaviorModuleInterface table 0x00C49F78 (+0x0C): the receiver converted to the
 	// class's own interface, the null-preserving casts retail folds across the module family.
 	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004A34C0
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 typedef bool Bool;
@@ -231,7 +233,7 @@ BroadcastStealthUpdate::BroadcastStealthUpdate(Thing *thing, const ModuleData *m
 		setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
 }
 
-// tu-skeleton: 0x004A34C0 6B ?Rva004A34C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x004A34C0 6B ?GetSnapshotName@BroadcastStealthUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp
 

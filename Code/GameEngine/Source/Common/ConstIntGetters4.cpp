@@ -1042,12 +1042,17 @@ int Rva004A13E0Get(void)
 	return (int)"MonsterDockUpdate";
 }
 
-// ?Rva004A34C0Get@@YAHXZ @ 0x004a34c0 (6B): returns 0x00bf568c.
+// ?GetSnapshotName@BroadcastStealthUpdate@@MBEPBDXZ @ 0x004a34c0 (6B): returns 0x00bf568c.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva004A34C0Get(void)
+class BroadcastStealthUpdate
 {
-	return (int)"BroadcastStealthUpdate";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *BroadcastStealthUpdate::GetSnapshotName() const
+{
+	return "BroadcastStealthUpdate";
 }
 
 // ?Rva004A3871Get@@YAHXZ @ 0x004a3871 (6B): returns 0x00bf5668.
