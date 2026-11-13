@@ -85,7 +85,7 @@ struct RegistryWorldView {char prefix[0xB0];LivingWorldRegionManager *regions;};
 class Rva0056ACC5:public Rva0056AC26 {
 public:virtual ~Rva0056ACC5();
  virtual bool ac26Slot1();
- virtual void rva0056AB35(int id);
+ virtual void vslot02(int id);	// the AC26 vslot02 override; body rowed in Rva0056AB35Method.cpp at 0x0056AB35
  Rva0056ACC5(Rva0056AC26Owner *,LivingWorldPendingBattle *);
  LivingWorldPendingBattle *selected14;bool flag18;
 };
