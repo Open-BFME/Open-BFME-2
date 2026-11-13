@@ -1,0 +1,292 @@
+{
+  "head": "e00363180fb426f0fb0d38a03c3d9c97ef3308c1",
+  "source_sha256": "b9d8364ac931ce1d0dac85258478d8a2fd9fd15f54bff4051e10e34a9f13ee5a",
+  "header_sha256": "9bade0ad2db1bb484a04fe900c8500500b05aa3e30c287adfeeb8149372d2078",
+  "compiler_sha256": "2ecf86a3edfd3deae498e08298e210e984537ce9e11759930561e43f40bd2515",
+  "command": [
+    "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O1",
+    "-arch:SSE",
+    "-G7",
+    "-DNDEBUG",
+    "-DWIN32",
+    "-MD",
+    "-D_CRTIMP=",
+    "-D_STLP_USE_STATIC_LIB",
+    "-ICode/Libraries/Include",
+    "-Ireference/shims/bfmealloc",
+    "-Fobuild/r24/unused.obj",
+    "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp"
+  ],
+  "signature": {
+    "command": [
+      "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+      "-nologo",
+      "-c",
+      "-O2",
+      "-GR-",
+      "-EHsc-",
+      "-O1",
+      "-arch:SSE",
+      "-G7",
+      "-DNDEBUG",
+      "-DWIN32",
+      "-MD",
+      "-D_CRTIMP=",
+      "-D_STLP_USE_STATIC_LIB",
+      "-ICode/Libraries/Include",
+      "-Ireference/shims/bfmealloc",
+      "-Fobuild/r24/unused.obj",
+      "Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp"
+    ],
+    "fingerprint": "776f8b10411edf25fc8475592ebab4a1",
+    "implicit_flags": [
+      "",
+      ""
+    ]
+  },
+  "include_roots": [
+    "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\vendor\\stlport",
+    "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include",
+    "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\Code\\Libraries\\Include",
+    "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\reference\\shims\\bfmealloc"
+  ],
+  "walks": [
+    {
+      "diagnostic_extra_absent": [],
+      "scanned_files": 92,
+      "refusal": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\vendor\\stlport\\pthread.h: unresolved include /usr/include/pthread.h"
+    },
+    {
+      "diagnostic_extra_absent": [
+        "__HP_aCC",
+        "__SUNPRO_CC"
+      ],
+      "scanned_files": 266,
+      "refusal": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\vendor\\stlport\\pthread.h: unresolved include /usr/include/pthread.h (<afx.h> resolves nowhere)"
+    }
+  ],
+  "native_actual": {
+    "returncode": 0,
+    "markers": [
+      "R24_BEFORE__MSC_VER PRESENT",
+      "R24_BEFORE___SUNPRO_CC ABSENT",
+      "R24_BEFORE___HP_aCC ABSENT",
+      "R24_BEFORE___MWERKS__ ABSENT",
+      "R24_BEFORE___ICL ABSENT",
+      "R24_BEFORE___COMO__ ABSENT",
+      "R24_BEFORE__STLP_MSVC ABSENT",
+      "R24_BEFORE__STLP_PTHREADS ABSENT",
+      "R24_BEFORE__STLP_WIN32 ABSENT",
+      "R24_AFTER__MSC_VER PRESENT",
+      "R24_AFTER___SUNPRO_CC ABSENT",
+      "R24_AFTER___HP_aCC ABSENT",
+      "R24_AFTER___MWERKS__ ABSENT",
+      "R24_AFTER___ICL ABSENT",
+      "R24_AFTER___COMO__ ABSENT",
+      "R24_AFTER__STLP_MSVC PRESENT",
+      "R24_AFTER__STLP_PTHREADS ABSENT",
+      "R24_AFTER__STLP_WIN32 PRESENT"
+    ],
+    "files": {
+      "Code\\GameEngine\\Include\\Common\\MessageStream.h": "ea015a073dcf7a46255f36f34fe05201dc0e12c0d99a13e5b103877805a51bbe",
+      "Code\\GameEngine\\Include\\Common\\NameKeyGenerator.h": "35af721e246d3fa91f35c620f51aa7b0cca4cc4e83e79b20d790916e593ada47",
+      "Code\\GameEngine\\Include\\GameLogic\\ActionManager.h": "8c17a33f3ef164f8ff66c7a919e25da92a090d062b0aa535d7485a8239bb13be",
+      "Code\\GameEngine\\Source\\Common\\GameLogicObjectLookupView.h": "69fe10826dec12666177600993bb9675081064bc4b2524d163afb55d650c351b",
+      "Code\\GameEngine\\Source\\Common\\RTS\\ResourceGatheringManager_findBestSupplyWarehouse.cpp": "b9d8364ac931ce1d0dac85258478d8a2fd9fd15f54bff4051e10e34a9f13ee5a",
+      "Code\\Libraries\\Include\\Lib\\Coord3D.h": "d39b6ea5454d773349692f12e1b6a2eb00ef978793f967397f3e47dab8de4602",
+      "Code\\Libraries\\Source\\subsystem\\SubsystemInterface.h": "03fdd4c783b4c2f7ee192b40e94238b8b6d0cc6d4b73c1f1f22bd26ec69c47f2",
+      "build\\r24\\actual.cpp": "e29e915295a8dcd20e82ae072db971f1ab60ea848485ffbe0b21f80da2fbac96",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\climits": "ccd3e243fd3d9b28d7ef487c6c203ff39e7fbc039eadd28384f7ae8f8e133a0e",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstddef": "f83f50123dd77e05f5b112abcf7f47b2a9e7076727955f91db471ae273e67430",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstdio": "0ce255cdf0ff57258ea2ecc8b203658f9945f17eedd9c6366bc5caa227c8df96",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstdlib": "e7c431e5c256b9458bb31bce7e770d99481b23ff22f609b4b6a91c50f183ec24",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstring": "363e4858a9b1d3fd3ef07d300f7b384615b8af48c0d1e9e4c294ea86a1d7d620",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\eh.h": "6ee4653126d60011021b2c57abe3e01b3030c3103248346da5299ecdf8e9d932",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\exception": "994d4a23a837d92100205d89ac38c13c317cfb1851c2ae1fdc4d80b0e052c40c",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\float.h": "5b6fc758e006653443d8372e45f530072183e145d4031787b2e43cba6ff1d84f",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\limits.h": "d3ad33ce7c8eb1c3f7c5f151339efdcd44ae1d76506a314f0b91daf26c004522",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\new": "bd97c3f682c039eb7ee00c9acfc2d4cf44c55671b373fba777af7652faf15fd9",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stddef.h": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stdio.h": "96f0b2c746b580b6a5d9a13f9a221275d210de79ef832e2265e0ed70b0c914e1",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stdlib.h": "64ff5e0893b39638f7f8e510b7992f8f9c9bb09c046c9747072c44b3348cf946",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\string.h": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\use_ansi.h": "56ba75ecabe4ff0af0ab227d88ce407c31e0f0c8d05c1e42423186da04069fdc",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\xstddef": "e3b1fa3dcb3281ee2f22f79150303d943362263ea0b95874cd313b2798112a27",
+      "reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\yvals.h": "b9340f3de0fd2f1c0e0b81b99e9f42252a0ec5652267536e9c62b0b4f1bf8980",
+      "reference\\shims\\bfme2_ascii\\ascii_string.h": "47d6f3c9a787d89c0b734356c22e365b47575a5766126504c5cc1a90cfbdcd24",
+      "reference\\shims\\bfme2_ascii\\string_base.h": "90fc082abfd264be1eea8316990c589be68ba42793edceb310c5b42b7ffc2dfe",
+      "reference\\shims\\bfmealloc\\stl\\_algobase.h": "9e1a2172ee941b568b26728d00998b5c53c44f3121523174cfcdb590d50c1966",
+      "reference\\shims\\bfmealloc\\stl\\_alloc.h": "ca68eb1e65e5135e0fbaeb911e54f8f3bd063d177bad1f8be4f3f22bc3755a1b",
+      "vendor\\stlport\\climits": "c8d9733952dbf91d2bbbb67697c7dbe2227e10e361fc9045814158519ac218a6",
+      "vendor\\stlport\\config\\_epilog.h": "67f9b63d0883bc7f1f4316108b88b3d86f37fd6ba016b6132bad529a32db772e",
+      "vendor\\stlport\\config\\_msvc_warnings_off.h": "695fb8d4008cde144d14f7dc3aebc8e31d27df99bbcbe8c5d5d7d461c8c0f274",
+      "vendor\\stlport\\config\\_prolog.h": "1151d0631348675e36c0adca86e9dbbcc2d79db019226f40caff2252ebb95ecc",
+      "vendor\\stlport\\config\\stl_confix.h": "0ae8eb1ac3fba9f27b274a6a9e7ed153c99754ffade71b134891c9a2a5f0b048",
+      "vendor\\stlport\\config\\stl_msvc.h": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90",
+      "vendor\\stlport\\config\\stl_select_lib.h": "e9d243d7f42b921599b65f92102c0561e6d4d3b96489277ef825abe151e3bfe3",
+      "vendor\\stlport\\config\\stlcomp.h": "ee6ab101eaf8b4e859612359d74299505d196cf1e1e54d03e7de54eab325ff58",
+      "vendor\\stlport\\config\\vc_select_lib.h": "73506bd979c03ef1d370ca719455a7f73680480088d49ff9a8fbcc9ee030f2f8",
+      "vendor\\stlport\\cstddef": "798d58aa1d369789689f19fe3e4976ec66ed3a15e32aaf9bd931ac6a67627cb2",
+      "vendor\\stlport\\cstdio": "22f5614606509d59dfc16b686e4d8bcc31b3c8436dad8db90d9d00849cbf83c2",
+      "vendor\\stlport\\cstdlib": "0185f277af520d975bbffc37bee0d741e269af7c2a90816776259820ed94d8fa",
+      "vendor\\stlport\\cstring": "4152f75af2829dec2c32e62da7aacbea2b4bea8bdfc252597810b7996c73a43d",
+      "vendor\\stlport\\exception": "24239681af3a75a9f1c25c3231643ce4e903d661726329c0f901359fe4f0bbca",
+      "vendor\\stlport\\list": "d5e9b90b7c0df63bac4675be24768312547180226d2d6df450dfd76e4d6a0d76",
+      "vendor\\stlport\\new": "70484966eaa0644a8936eaa6a6b21c47fbc721161ca3b4425f21b3857734fa29",
+      "vendor\\stlport\\stddef.h": "6d2c4a058d70bf424018e568feea0a006b3b2730a5f18cc10c9a82dc66bdc7bc",
+      "vendor\\stlport\\stdio.h": "45ad2d01f74b7c336e64bbda881bfe073f6c339af9a76585690655c713a3ade3",
+      "vendor\\stlport\\stdlib.h": "f1ef61508ef27bc170e615b39318e2bb688d75a2525e265264e3c6279eca9ed2",
+      "vendor\\stlport\\stl\\_algobase.c": "b23e8258a33985b1427e57226b17737cc3c8b72129c6e237ffb848d28a64604b",
+      "vendor\\stlport\\stl\\_config.h": "05d1cad97eccb486874525dd01356674949cf26336ca01528d626bd53da1e911",
+      "vendor\\stlport\\stl\\_config_compat.h": "7f44612f97d5e27edd54f8f70987590d9e45be2f102567e7902ca233a5b5f405",
+      "vendor\\stlport\\stl\\_config_compat_post.h": "bc54db4e95cef8bf8ba80b053bce3cabbd261dfc82882fd8bdd2a6e39197de4d",
+      "vendor\\stlport\\stl\\_construct.h": "c58c7b11f363ef6bf94d52b4a404a20c0f3bc2640f39c7733f3186c871db7679",
+      "vendor\\stlport\\stl\\_epilog.h": "ed297b864038d25758715d5b5a53b782194618893b311004d79bad14b82bcb04",
+      "vendor\\stlport\\stl\\_function_base.h": "459a911033725fb0f7b2737c6ae00fb82f9810d4cb301d54fc120e46b5424003",
+      "vendor\\stlport\\stl\\_iterator.h": "5c32732d8177aa76a4b3310912391062a7f6f81c91f5c8b4bc4e5c5c04626b2f",
+      "vendor\\stlport\\stl\\_iterator_base.h": "d61032f9f00ca07b29617bda5bc541311f412a29f4b6f188cc74be8c5e972ede",
+      "vendor\\stlport\\stl\\_list.c": "43210fee6f1db33e44a3f336a6c649c9f1881d9b1f225653473247da07e400df",
+      "vendor\\stlport\\stl\\_list.h": "7d474d212f2af9ff52b782b1b609c8d9ac8f5290feac97a29959b305e3964353",
+      "vendor\\stlport\\stl\\_pair.h": "4f9809a8e71134ff159b0da69d502d67b3f55f698589f468bad060b4f19f3a8e",
+      "vendor\\stlport\\stl\\_prolog.h": "8abf1ddcb3a23632972ab4de4d044ff1accb341d75d3b434547f59161c14b94c",
+      "vendor\\stlport\\stl\\_site_config.h": "ff1c5db9f71ee1230eea43510e26f765af9637fc4cbf0cb71de039aa7a24a6e4",
+      "vendor\\stlport\\stl\\_threads.c": "bf4ee55d1a690992b697e980cb136c97d1b0417c25c2a72da2472139ac4b192c",
+      "vendor\\stlport\\stl\\_threads.h": "c2af83c7807ec31f7a2389ef948b46dbccb506ed580483d56c2d5814341530f3",
+      "vendor\\stlport\\stl\\type_traits.h": "033aba0d783060cd9c3b7d3dded980ef6a397501846786a0f0d109880de2f40e",
+      "vendor\\stlport\\stl_user_config.h": "bcf037b9c3ca8544ae958f7245d277168ba34727d45c44a8fee938143fe4fcf1",
+      "vendor\\stlport\\string.h": "649fed9b37a214007f952cdca0d7f2f245ff8a58a646ae37b429f3ca6a617e5a",
+      "vendor\\stlport\\using\\cstring": "bedaa9a2b060b05f202dad660e584b43171735e2e492d606599b8fd72b746a65"
+    },
+    "stdout_sha256": "01f141f5e7d57466c11854b8eae65522d2f24cbcfe2a55ca3e2392307b3c8087",
+    "stderr_sha256": "aa4e7ae3e45e171750d1f4e60eb541dc66e72fe4f4583765eff37a9340c2d2b1"
+  },
+  "native_counterexamples": {
+    "definition_after_edge": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\definition_after_edge.cpp": "3787983dec7e992d59c899d4e5436748764ed1e7c87fe33be4c875242f52a631"
+      },
+      "stdout_sha256": "435254aea6a50eb777d7c7b58bdcd808fafd2304470fb1d27d67a709aaf6f1c9",
+      "stderr_sha256": "e9082c9ce74dee6ea2aa744635431f75f827a74c52b14feffcc4a014c3ba0f0f"
+    },
+    "undef_and_redefine": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\undef_and_redefine.cpp": "0b1e3669a9dd840b15f76a78720f680ecdae8872d274be352a2a86faabc4ae30"
+      },
+      "stdout_sha256": "f69c1bd7492673feddb191b106dd88f53776af0b6e6539d22ea1856ff7f37f62",
+      "stderr_sha256": "48c3b41cf15b2fc9cb0891f4c6de961a3b28d800704824154d15544cc50bfe3d"
+    },
+    "macro_stack": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\macro_stack.cpp": "e5c70defe6089c2a3b9c06947ee61502a2a871e079d4a3dc44b889b9b03710d4"
+      },
+      "stdout_sha256": "65910463837ee2f08db4e5dabfdadf3ac5af5c8565b6771da6a578a7bae4f4ba",
+      "stderr_sha256": "a6a3d02e25c977cfcd9e387fcc8c4939f4ae4f854884dbe5b26126d3a71cef6c"
+    },
+    "unread_mutation": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\mutator.h": "bc1d7f0dfbbe94d977de0b927a3027766f52e45b8efe39a7598ca9b32fe06a67",
+        "build\\r24\\unread_mutation.cpp": "188149551e033a0d44d06775dcfbb19b45d4816a4019a8b81c091389359fb0fc"
+      },
+      "stdout_sha256": "90e8f6077d1198371f5e98722a17d369ee3fd128ef51b4494965c1bb0c80fb4e",
+      "stderr_sha256": "aa1496216a28663b279f1a8ad4ab42697edcd0fb93edeaee4dae32b15a39d7fd"
+    },
+    "flag_define": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\flag_define.cpp": "79842a7e0ba66857cc3e4d950a700f5dcb0017d8d540d6ac0606ebdaeb0469ef"
+      },
+      "stdout_sha256": "3562304566ba3b5a50214fc6824f044549e159e545adf350f7b04d467fbe0123",
+      "stderr_sha256": "88cdb3ed09ba200f38cc59cf8531e352b2a0fbad9c77f97ecb67d3c8b9fa68ba"
+    },
+    "flag_undef": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG ABSENT"
+      ],
+      "files": {
+        "build\\r24\\flag_undef.cpp": "7afdf507d8d2892b5603b30770f0448c9c3a8efc258134bf7556206cc7f89f4f"
+      },
+      "stdout_sha256": "60cce50f9ee7a9a686306d6e6b6d5045c859410eea44c61887567fe5a6aef775",
+      "stderr_sha256": "0bfda5c4e78724de2f9ba9483b805b18cb61897586f778066ad983edca2fb879"
+    },
+    "macro_include": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\macro_include.cpp": "5bf9ef28984647ff8c5428b3a966bf425e7b77a1c6a73fe72a5a330a8ba96556",
+        "build\\r24\\mutator.h": "bc1d7f0dfbbe94d977de0b927a3027766f52e45b8efe39a7598ca9b32fe06a67"
+      },
+      "stdout_sha256": "5a17242a75b5ce71a4fe0fbf79a58979bea3b7e25e5006f71cb5eed68cfa006d",
+      "stderr_sha256": "433a4c614da310f46bf47105190216beb98b8384048bea3b2d6de1a06f5e3e25"
+    }
+  },
+  "same_header_mutation": {
+    "before": {
+      "returncode": 0,
+      "markers": [
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\identity.cpp": "c06c24f1621fa89cb794c7b6431f13a78cef8a4078e06289b8d49852e3e031ed",
+        "build\\r24\\mutator.h": "992822b0ab79a563b920c14cbb8ce501b656c105593c1d944ac2e76c4736aa97"
+      },
+      "stdout_sha256": "805697029cabe442718450b083056d781cd9095e94a282751b6a67c86e8d84cc",
+      "stderr_sha256": "8db9005c7746b50651e35c5470169ed7f9424fcac2b8ee25bfe6cc41daa5c897"
+    },
+    "after": {
+      "returncode": 0,
+      "markers": [
+        "R24_EDGE LIVE",
+        "R24_FINAL_CONFIG PRESENT"
+      ],
+      "files": {
+        "build\\r24\\identity.cpp": "c06c24f1621fa89cb794c7b6431f13a78cef8a4078e06289b8d49852e3e031ed",
+        "build\\r24\\mutator.h": "bc1d7f0dfbbe94d977de0b927a3027766f52e45b8efe39a7598ca9b32fe06a67"
+      },
+      "stdout_sha256": "d06c927b2a6e5678104e79facafec50f5882c570077eb36fdd87a30afe0063c5",
+      "stderr_sha256": "8db9005c7746b50651e35c5470169ed7f9424fcac2b8ee25bfe6cc41daa5c897"
+    }
+  },
+  "structural_negative_cases": {
+    "late_definition": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\build\\r24\\negative.cpp: unresolved include missing-r24.h",
+    "reset": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\build\\r24\\negative.cpp: unresolved include missing-r24.h",
+    "stack": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\build\\r24\\negative.cpp: unresolved include missing-r24.h",
+    "unread": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\build\\r24\\negative.cpp: unresolved include missing-r24.h (<unread-r24.h> resolves nowhere)",
+    "flag": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\build\\r24\\negative.cpp: unresolved include missing-r24.h",
+    "native_macro_undef": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-6f940d81-ce1ebf5bb7aa4941\\build\\r24\\negative.cpp: unresolved include missing-r24.h"
+  }
+}

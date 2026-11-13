@@ -1,0 +1,128 @@
+"""Read-only source diagnosis. Writes only this worktree's build/r24 artifacts."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'tools'))
+import build
+import census_receipts
+import header_adopt_lane as lane
+
+HERE = ROOT / 'build/r24'
+SOURCE = 'Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp'
+source = ROOT / SOURCE
+original = source.read_bytes()
+command, env = build.compiler_command(source, HERE / 'unused.obj')
+roots = [Path(p) for p in env['INCLUDE'].split(os.pathsep)]
+for i, flag in enumerate(command):
+    if flag.startswith(('/I', '-I')) and len(flag) > 2:
+        roots.append(ROOT / flag[2:])
+    elif flag in ('/I', '-I'):
+        roots.append(ROOT / command[i + 1])
+
+result = {'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+          'source_sha256': hashlib.sha256(original).hexdigest(),
+          'header_sha256': hashlib.sha256((ROOT / 'Code/GameEngine/Include/Common/ResourceGatheringManagerClass.h').read_bytes()).hexdigest(),
+          'compiler_sha256': hashlib.sha256(Path(command[0]).read_bytes()).hexdigest(),
+          'command': command, 'signature': census_receipts.signature(command, env),
+          'include_roots': [str(p) for p in roots]}
+
+old_never = lane.NEVER_DEFINED
+try:
+    result['walks'] = []
+    for extra in (set(), {'__SUNPRO_CC', '__HP_aCC'}):
+        lane.NEVER_DEFINED = old_never | extra
+        walked, why = lane.include_walk(SOURCE, original.decode('latin-1'), roots)
+        result['walks'].append({'diagnostic_extra_absent': sorted(extra),
+                                'scanned_files': len(walked), 'refusal': why})
+finally:
+    lane.NEVER_DEFINED = old_never
+
+names = ('_MSC_VER', '__SUNPRO_CC', '__HP_aCC', '__MWERKS__', '__ICL', '__COMO__',
+         '_STLP_MSVC', '_STLP_PTHREADS', '_STLP_WIN32')
+def markers(stage):
+    return ''.join(f'#ifdef {n}\nR24_{stage}_{n} PRESENT\n#else\nR24_{stage}_{n} ABSENT\n#endif\n'
+                   for n in names)
+
+def preprocess(label, text, extra=()):
+    scratch = HERE / (label + '.cpp')
+    scratch.write_text(text, encoding='latin-1', newline='')
+    cmd = [c for c in command[:-1] if not c.startswith(('-Fo', '/Fo')) and c not in ('-c', '/c')]
+    cmd += ['-E', '-showIncludes', *extra, scratch.relative_to(ROOT).as_posix()]
+    p = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, timeout=60)
+    (HERE / (label + '.stdout.txt')).write_bytes(p.stdout)
+    (HERE / (label + '.stderr.txt')).write_bytes(p.stderr)
+    opened = census_receipts.opened_paths(scratch, p.stdout + b'\n' + p.stderr)
+    return {'returncode': p.returncode,
+            'markers': [line.strip() for line in p.stdout.decode('latin-1').splitlines()
+                        if line.strip().startswith('R24_')],
+            'files': {str(Path(f).relative_to(ROOT)): hashlib.sha256(Path(f).read_bytes()).hexdigest()
+                      for f in sorted(opened)},
+            'stdout_sha256': hashlib.sha256(p.stdout).hexdigest(),
+            'stderr_sha256': hashlib.sha256(p.stderr).hexdigest()}
+
+result['native_actual'] = preprocess('actual', markers('BEFORE') +
+    '#include "' + source.as_posix() + '"\n' + markers('AFTER'))
+
+cases = {
+    'definition_after_edge': '#ifndef CONFIG\nR24_EDGE LIVE\n#endif\n#define CONFIG\n',
+    'undef_and_redefine': '#define CONFIG\n#undef CONFIG\n#ifndef CONFIG\nR24_EDGE LIVE\n#endif\n#define CONFIG\n',
+    'macro_stack': '#define CONFIG\n#pragma push_macro("CONFIG")\n#undef CONFIG\n#ifndef CONFIG\nR24_EDGE LIVE\n#endif\n#pragma pop_macro("CONFIG")\n',
+    'unread_mutation': '#define CONFIG\n#include "mutator.h"\n#ifndef CONFIG\nR24_EDGE LIVE\n#endif\n#define CONFIG\n',
+    'flag_define': '#ifdef CONFIG\nR24_EDGE LIVE\n#endif\n',
+    'flag_undef': '#ifndef _MSC_VER\nR24_EDGE LIVE\n#endif\n',
+    'macro_include': '#define CONFIG\n#define HEADER "mutator.h"\n#include HEADER\n#ifndef CONFIG\nR24_EDGE LIVE\n#endif\n#define CONFIG\n',
+}
+(HERE / 'mutator.h').write_text('#undef CONFIG\n', encoding='latin-1')
+result['native_counterexamples'] = {}
+for label, text in cases.items():
+    extra = ('-DCONFIG=1',) if label == 'flag_define' else ('-U_MSC_VER',) if label == 'flag_undef' else ()
+    result['native_counterexamples'][label] = preprocess(label, text +
+        '#ifdef CONFIG\nR24_FINAL_CONFIG PRESENT\n#else\nR24_FINAL_CONFIG ABSENT\n#endif\n', extra)
+for fact in result['native_counterexamples'].values():
+    assert fact['returncode'] == 0 and 'R24_EDGE LIVE' in fact['markers'], fact
+assert result['native_actual']['returncode'] == 0
+assert 'R24_BEFORE__STLP_MSVC ABSENT' in result['native_actual']['markers']
+assert 'R24_AFTER__STLP_MSVC PRESENT' in result['native_actual']['markers']
+
+# Same source, compiler command, include identity and final macro state. Only
+# the included header's bytes change; an earlier branch changes with them.
+identity_text = ('#define CONFIG\n#include "mutator.h"\n#ifndef CONFIG\nR24_EDGE LIVE\n'
+                 '#endif\n#define CONFIG\nR24_FINAL_CONFIG PRESENT\n')
+mutator = HERE / 'mutator.h'
+mutator.write_text('#define CONFIG\n', encoding='latin-1')
+before = preprocess('identity', identity_text)
+mutator.write_text('#undef CONFIG\n', encoding='latin-1')
+after = preprocess('identity', identity_text)
+assert before['returncode'] == after['returncode'] == 0
+assert 'R24_EDGE LIVE' not in before['markers'] and 'R24_EDGE LIVE' in after['markers']
+mutator_key = str(Path('build/r24/mutator.h'))
+assert before['files'][mutator_key] != after['files'][mutator_key]
+result['same_header_mutation'] = {'before': before, 'after': after}
+
+# Existing fail-closed behavior stays intact in synthetic closures. These
+# are diagnostic regression cases, not a new proof provider or an override.
+result['structural_negative_cases'] = {}
+negative_cases = {
+    'late_definition': '#ifndef CONFIG\n#include "missing-r24.h"\n#endif\n#define CONFIG\n',
+    'reset': '#define CONFIG\n#undef CONFIG\n#ifndef CONFIG\n#include "missing-r24.h"\n#endif\n#define CONFIG\n',
+    'stack': '#define CONFIG\n#pragma push_macro("CONFIG")\n#undef CONFIG\n#ifndef CONFIG\n#include "missing-r24.h"\n#endif\n#pragma pop_macro("CONFIG")\n',
+    'unread': '#include <unread-r24.h>\n#ifdef _MAC\n#include "missing-r24.h"\n#endif\n',
+    'flag': '// cl: /D_MAC\n#ifdef _MAC\n#include "missing-r24.h"\n#endif\n',
+    'native_macro_undef': '// cl: /U_MSC_VER\n#ifndef _MSC_VER\n#include "missing-r24.h"\n#endif\n',
+}
+for label, text in negative_cases.items():
+    why = lane.include_problem('build/r24/negative.cpp', text)
+    assert why and 'missing-r24.h' in why, (label, why)
+    result['structural_negative_cases'][label] = why
+assert source.read_bytes() == original
+(HERE / 'diagnosis.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
+print(json.dumps({k: v for k,v in result.items() if k in ('walks',)}))
+print('native actual:', result['native_actual']['returncode'], result['native_actual']['markers'])
+for label, fact in result['native_counterexamples'].items():
+    print(label, fact['returncode'], fact['markers'])
