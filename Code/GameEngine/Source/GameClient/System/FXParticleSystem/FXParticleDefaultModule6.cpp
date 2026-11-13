@@ -89,15 +89,7 @@ namespace FXParticleSystem { template<int CATEGORY> class DefaultModule; }
 #include "../../../../Include/GameClient/Rva001F4DF9.h"
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
 
-struct StreakParticle
-{
-	char m_pad00[0x1c];
-	Vector3 m_pos; // +0x1C
-	char m_pad28[0x3c];
-	StreakParticle *m_next; // +0x64
-	char m_pad68[0x20];
-	UnsignedInt m_id; // +0x88
-};
+#include "../../../../Include/GameClient/StreakParticle.h"
 
 class StreakParticleStorage
 {
