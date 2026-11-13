@@ -20,7 +20,7 @@ class Object;class ThingTemplate;class Image;
 const Image *getButtonImage(ThingTemplate *,Object *);
 #include "../../../../../Include/Common/ThingTemplate.h"
 class Object {public:void *vptr;ThingTemplate *templ;char pad08[0x74-8];int id;};
-struct HeroButtonInfo {int id,unknown,flash;};
+#include "../../../../../Include/Common/HeroButtonInfo.h"
 struct BuilderButtonInfo {int id;bool used;char pad[3];float value;};
 typedef _STL::list<HeroButtonInfo> HeroInfoList;
 typedef _STL::list<BuilderButtonInfo> BuilderInfoList;

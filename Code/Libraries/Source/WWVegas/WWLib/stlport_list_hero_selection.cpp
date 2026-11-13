@@ -5,7 +5,7 @@
 // Builder12B id/used/float comes from matched append525D9A.
 // Each complete32B emission is a relocation twin of list<int> at438539.
 #include <list>
-struct HeroButtonInfo {int id,unknown,flash;};
+#include "../../../../GameEngine/Include/Common/HeroButtonInfo.h"
 struct BuilderButtonInfo {int id;bool used;char pad[3];float value;};
 template _STL::list<HeroButtonInfo>::iterator _STL::list<HeroButtonInfo>::erase(_STL::list<HeroButtonInfo>::iterator);
 template _STL::list<BuilderButtonInfo>::iterator _STL::list<BuilderButtonInfo>::erase(_STL::list<BuilderButtonInfo>::iterator);
