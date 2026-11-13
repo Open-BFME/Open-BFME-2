@@ -26,7 +26,7 @@
 // setter, a dup_ body): forward through imported inlines so each deleting dtor
 // calls the rowed symbol directly and no stray dtor copy is emitted.
 class BfmeParserBindingBaseVE { public: virtual ~BfmeParserBindingBaseVE(); };
-class Rva0005D10D6DwordImmSetter { public: void apply(); };
+#include "../../Include/Common/Rva0005D10D6DwordImmSetter.h"
 
 // ~Rva0044BE85 is defined beside its twin ~Rva00517397 (Rva00517397Dtor.cpp).
 class Rva0044BE85 { public: ~Rva0044BE85(); };

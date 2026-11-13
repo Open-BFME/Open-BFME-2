@@ -21,7 +21,7 @@ class Object;
 #include "../../../../Include/Common/Rva000AD6F4.h"
 class Rva005D10B0State {public:virtual void slot0();virtual void slot1();};
 struct Rva005D10B0Owner{Rva005D10B0State*state;};
-class Rva0005D10D6DwordImmSetter{public:void apply();};
+#include "../../../../Include/Common/Rva0005D10D6DwordImmSetter.h"
 // The 7-byte destructor body at 0x005D10D6 (rowed as the imm-setter apply) only
 // restores the base vftable; inline it as VslotSmallBodiesAS.cpp does, so this
 // unit's deleting dtor calls the rowed body and no unrowed ??1 is referenced.

@@ -659,13 +659,7 @@ Rva005D3882AbstractBase *Rva005D3882AbstractBase::rva005D3882()
 	return this;
 }
 
-class Rva0005D10D6DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
+#include "../../Include/Common/Rva0005D10D6DwordImmSetter.h"
 
 void Rva0005D10D6DwordImmSetter::apply()
 {
