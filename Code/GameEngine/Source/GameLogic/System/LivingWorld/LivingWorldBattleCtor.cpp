@@ -66,11 +66,7 @@ struct Rva003F6D35Inner;
 
 #include "../../../../Include/GameLogic/Rva003F6D35Owner.h"
 
-class Rva003F43D3
-{
-public:
-	void rva003F43D3();
-};
+#include "../../../../Include/Common/Rva003F43D3.h"
 
 class LivingWorldBattle : public Snapshot, public Rva00330757Member, public LivingWorldBattleListener
 {

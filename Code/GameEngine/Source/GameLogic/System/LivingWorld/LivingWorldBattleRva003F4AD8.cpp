@@ -45,7 +45,7 @@ struct Rva003F498AOuter {
     _STL::vector<int> values;
     void rva003F4398();
 };
-class Rva003F43D3 { public: void rva003F43D3(); };
+#include "../../../../Include/Common/Rva003F43D3.h"
 class LivingWorldBattle {
     char prefix[0x18];
     _STL::vector<Rva003F498AOuter> sides;
