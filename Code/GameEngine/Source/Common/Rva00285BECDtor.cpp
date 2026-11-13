@@ -7,11 +7,7 @@
 // restore BBB554 (second base at +4, the Snapshot vtable) and BFB698 (+0).
 // Names address-derived.
 
-class Rva0028572AHost
-{
-public:
-	void rva0028572A();
-};
+#include "../../Include/Common/Rva0028572AHost.h"
 
 #include "../../Include/Common/Rva00285708Host.h"
 

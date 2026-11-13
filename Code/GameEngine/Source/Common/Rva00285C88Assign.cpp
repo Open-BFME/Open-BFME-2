@@ -11,11 +11,7 @@
 #define ICOORD2D_VIEW_MATH_METHODS
 #include "../../../Libraries/Include/Lib/ICoord2DBase.h"
 
-class Rva0028572AHost
-{
-public:
-	void rva0028572A();
-};
+#include "../../Include/Common/Rva0028572AHost.h"
 
 #include "../../Include/Common/Rva00285708Host.h"
 
