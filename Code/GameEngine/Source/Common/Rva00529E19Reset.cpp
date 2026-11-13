@@ -19,11 +19,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../GameLogic/Object/object.h"
 
-class Rva00528F30Target
-{
-public:
-	void reset();
-};
+#include "../../Include/Common/Rva00528F30Target.h"
 class Rva0052936C
 {
 public:

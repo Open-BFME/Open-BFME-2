@@ -200,7 +200,7 @@ class Rva0052936C {public:
  Rva0052936C(void*,int);~Rva0052936C();void OnButtonFrameLoaded(const char*);void OnButtonFrameUnloaded(const char*);void OnSubMenuUnloaded(const char*);void OnToggleFlashUnloaded(const char*);
  void*owner;int frame;AptCommandMapAdder maps;AptOverButtonHandlerAdder over;bool flag2c,flag2d;void*current;AsciiString label;PalantirRankInterface rank;PalantirCostInterface cost;int value60;PalantirButtonSlot slots[6];
 };
-class Rva00528F30Target {public:void reset();};
+#include "../../../../../Include/Common/Rva00528F30Target.h"
 Rva0052936C::Rva0052936C(void*p,int f):owner(p),frame(f),flag2c(false),flag2d(false),current(0),rank((void*)f),cost((void*)f),value60(0) {
  over.AddOverButtonHandlerDelegate(frame,AsciiString("CommandUI/PortraitBackground"),DelegateDesc((Rva00529F3D*)this,&Rva00529F3D::rva00529F3D));
  AddCommandMapDelegate(maps, AsciiString("PalantirCommandUI::OnButtonFrameLoaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameLoaded));
