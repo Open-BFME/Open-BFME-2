@@ -75,18 +75,7 @@ struct BfmeStringRecord00415F34 { unsigned char m_data[24]; };
 typedef _STL::list<BfmeStringRecord00415F34> BuddyMessageList;
 template <> void _STL::list<BfmeStringRecord00415F34, _STL::allocator<BfmeStringRecord00415F34> >::push_back(const BfmeStringRecord00415F34 &x);
 
-class BuddyMessage
-{
-public:
-	~BuddyMessage();
-
-	time_t m_timestamp; // +0x00
-	Int m_senderID; // +0x04
-	AsciiString m_senderNick; // +0x08
-	Int m_recipientID; // +0x0C
-	AsciiString m_recipientNick; // +0x10
-	UnicodeString m_message; // +0x14
-};
+#include "../../../Include/Common/BuddyMessage.h"
 
 typedef _STL::map<Int, Int> BuddyInfoMap;
 

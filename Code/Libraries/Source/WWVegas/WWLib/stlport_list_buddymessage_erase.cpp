@@ -4,13 +4,7 @@
 #include <stdlib.h>
 #include <list>
 
-class BuddyMessage
-{
-public:
-    ~BuddyMessage();
-private:
-    unsigned char m_storage[24];
-};
+#include "../../../../GameEngine/Include/Common/BuddyMessage.h"
 
 struct BfmeStringRecord00415F34
 {

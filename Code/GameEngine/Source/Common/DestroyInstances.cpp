@@ -105,11 +105,7 @@ class BfmeNodeValueEBD
 public:
 	~BfmeNodeValueEBD();
 };
-class BuddyMessage
-{
-public:
-	~BuddyMessage();
-};
+#include "../../Include/Common/BuddyMessage.h"
 #include "../../Include/Common/Rva0041579E.h"
 struct Rva0073EEE0ListValue
 {
