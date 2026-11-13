@@ -31,28 +31,7 @@
 inline StringClass::operator const char *() const { return m_Buffer; }
 #include <stdio.h>
 
-class Rva0013A820
-{
-public:
-	AsciiString m_00;
-	AsciiString m_04;
-	AsciiString m_08;
-	AsciiString m_0C;
-	AsciiString m_10;
-	int m_14;
-	int m_18;
-	AsciiString m_1C;
-	AsciiString m_20;
-	int m_24;
-	AsciiString m_28;
-	int m_2C;
-	int m_30;
-	int m_34;
-	int m_38;
-	AsciiString m_3C;
-	int m_40;
-	AsciiString m_44;
-};
+#include "../../Include/Common/Rva0013A820.h"
 
 #include "../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/vector.h"
 // Existing providers retain the allocating and out-of-line operations.

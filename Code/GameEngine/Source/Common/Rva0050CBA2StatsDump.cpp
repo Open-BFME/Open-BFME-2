@@ -25,30 +25,7 @@
 #pragma pop_macro("_CRTIMP")
 
 
-class Rva0013A820
-{
-public:
-	AsciiString m_00;
-	AsciiString m_04;
-	AsciiString m_08;
-	AsciiString m_0C;
-	AsciiString m_10;
-	int m_14;
-	int m_18;
-	AsciiString m_1C;
-	AsciiString m_20;
-	int m_24;
-	AsciiString m_28;
-	int m_2C;
-	int m_30;
-	int m_34;
-	int m_38;
-	AsciiString m_3C;
-	int m_40;
-	AsciiString m_44;
-
-	void reset();
-};
+#include "../../Include/Common/Rva0013A820.h"
 
 class INIStatsRecord : public Rva0013A820
 {
