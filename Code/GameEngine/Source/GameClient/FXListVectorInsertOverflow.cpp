@@ -34,14 +34,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
-class EnableRegionRecord
-{
-	char _m[4];
-
-public:
-	EnableRegionRecord(const EnableRegionRecord &that);
-	virtual ~EnableRegionRecord();
-};
+#include "../../Include/Common/EnableRegionRecord.h"
 
 namespace _STL
 {

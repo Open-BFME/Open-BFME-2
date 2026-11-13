@@ -190,11 +190,7 @@ struct W3DStreakWeatherVec
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../../../../GameEngine/Include/Common/SidesList.h"
 
-class EnableRegionRecord
-{
-public:
-	EnableRegionRecord(const EnableRegionRecord &other);
-};
+#include "../../../../../../GameEngine/Include/Common/EnableRegionRecord.h"
 
 class Rva0052BEF0
 {

@@ -19,11 +19,7 @@
 
 #include "../../../../GameEngine/Include/Common/Geometry.h"
 
-class EnableRegionRecord
-{
-public:
-	EnableRegionRecord(const EnableRegionRecord &other);
-};
+#include "../../../../GameEngine/Include/Common/EnableRegionRecord.h"
 
 struct BfmeStringRecord00239B46
 {
