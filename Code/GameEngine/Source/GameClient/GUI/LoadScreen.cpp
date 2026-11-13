@@ -48,12 +48,7 @@ class GameSlot;
 // base dtor; deleting dtor at 0x00355FDD calls here; EH prolog with scope
 // 0x00B7D529 shared with sibling 0x00355CD8.
 
-class ProgressIndicator
-{
-public:
-	virtual ~ProgressIndicator() throw();
-	ProgressIndicator *m_next; // +0x04
-};
+#include "../../../Include/Common/ProgressIndicator.h"
 class Rva00355D66 : public ProgressIndicator
 {
 public:

@@ -10,17 +10,7 @@
 // game.dat keeps the list head at 0x00E01E1C (BFME1: 0x012F3350), read from the
 // two DIR32 slots of the retail body.
 
-class ProgressIndicator
-{
-public:
-	__declspec(noinline) ProgressIndicator(void);
-	virtual ~ProgressIndicator(void);				// slot +0x00
-	// Retail table 0x00C14E4C holds __purecall at slot 1; Rva00355CD8Dtor.cpp's
-	// derived class overrides it as slot1 (0x00355D16).
-	virtual void slot1(int value) = 0;			// slot +0x04
-
-	ProgressIndicator *m_bfmeNext;				// +0x04
-};
+#include "../../Include/Common/ProgressIndicator.h"
 
 // Descriptive name: retail's original global name is unknown. The constructor
 // links this node at the head; the destructor removes it when it is the head.
@@ -178,7 +168,7 @@ struct IDirect3DSurface8;
 
 ProgressIndicator::ProgressIndicator(void)
 {
-	m_bfmeNext = BfmeProgressIndicatorHead;
+	m_next = BfmeProgressIndicatorHead;
 	BfmeProgressIndicatorHead = this;
 }
 
@@ -186,7 +176,7 @@ ProgressIndicator::ProgressIndicator(void)
 ProgressIndicator::~ProgressIndicator(void)
 {
 	if (BfmeProgressIndicatorHead == this)
-		BfmeProgressIndicatorHead = m_bfmeNext;
+		BfmeProgressIndicatorHead = m_next;
 }
 
 Rva00355D66::Rva00355D66() : m_win(0), m_flag(true)

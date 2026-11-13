@@ -3,14 +3,7 @@
 // conditional virtual slot1 on base+4 (Gen m_next) with arg +0xC, then base
 // ??1ProgressIndicator@@UAE@XZ. Evidence: deleting dtor at 0x00355FC1 calls here,
 // shared EH scope 0x00B7D529 with sibling 0x00355D66, same flags.
-class ProgressIndicator
-{
-public:
-	ProgressIndicator();
-	virtual ~ProgressIndicator() throw();
-	virtual void slot1(int x);
-	ProgressIndicator *m_next; // +4
-};
+#include "../../Include/Common/ProgressIndicator.h"
 
 class Rva00355CD8 : public ProgressIndicator
 {

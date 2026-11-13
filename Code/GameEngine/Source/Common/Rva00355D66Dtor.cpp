@@ -7,15 +7,7 @@
 // base dtor; deleting dtor at 0x00355FDD calls here; EH prolog with scope
 // 0x00B7D529 shared with sibling 0x00355CD8.
 
-class ProgressIndicator
-{
-public:
-	virtual ~ProgressIndicator() throw();
-	// Retail table 0x00C14E4C holds __purecall at slot 1 (ProgressIndicator.cpp
-	// emits it); Rva00355CD8Dtor.cpp's derived class overrides it as slot1.
-	virtual void slot1(int value) = 0;
-	ProgressIndicator *m_next;
-};
+#include "../../Include/Common/ProgressIndicator.h"
 
 class GameWindow;
 
