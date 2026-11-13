@@ -10141,8 +10141,7 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_read_user_d
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_save_blur_time_keyframes.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_save_frame_keyframes.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_save_rotation_keyframes.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"s",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pot.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/render2d.cpp	"",on	1

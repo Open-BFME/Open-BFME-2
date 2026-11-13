@@ -90,6 +90,7 @@ public:
 
 private:
     friend void Rva007B73C0();
+    friend void Rva00912CF0();
 
     static Vector3 _TriVertexLocationOrientationTable[256][3];
     static Vector3 _QuadVertexLocationOrientationTable[256][4];

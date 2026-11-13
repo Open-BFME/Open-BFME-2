@@ -718,6 +718,13 @@ protected:
 	static float							ZNear;
 	static float							ZFar;
 	static Matrix4x4						ProjectionMatrix;
+// BFME2_DX8WRAPPER_TRANSFORMS selects BFME 2's Get_Transform and Set_Transform(Matrix4) bodies
+// (retail out-of-line copies 0x000768FE and 0x000A68A7): PROJECTION reads/writes
+// DeviceProjectionMatrix, Get_Transform's default is Make_Identity, Set_Transform clears the
+// identity bit before setting the changed bit. Without it the Zero Hour bodies stay.
+#ifdef BFME2_DX8WRAPPER_TRANSFORMS
+	static Matrix4x4						DeviceProjectionMatrix;
+#endif
 
 	friend void DX8_Assert();
 	friend class WW3D;
@@ -1256,6 +1263,32 @@ WWINLINE
 #endif
 void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4x4& m)
 {
+#ifdef BFME2_DX8WRAPPER_TRANSFORMS
+	switch ((int)transform) {
+	case D3DTS_WORLD:
+		render_state.world=m.Transpose();
+		render_state_changed&=~(unsigned)WORLD_IDENTITY;
+		render_state_changed|=(unsigned)WORLD_CHANGED;
+		break;
+	case D3DTS_VIEW:
+		render_state.view=m.Transpose();
+		render_state_changed&=~(unsigned)VIEW_IDENTITY;
+		render_state_changed|=(unsigned)VIEW_CHANGED;
+		break;
+	case D3DTS_PROJECTION:
+		ProjectionMatrix=m.Transpose();
+		DeviceProjectionMatrix=ProjectionMatrix;
+		ZFar=0.0f;
+		ZNear=0.0f;
+		DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&DeviceProjectionMatrix));
+		break;
+	default:
+		DX8_RECORD_MATRIX_CHANGE();
+		Matrix4x4 m2=m.Transpose();
+		DX8CALL(SetTransform(transform,(D3DMATRIX*)&m2));
+		break;
+	}
+#else
 	switch ((int)transform) {
 	case D3DTS_WORLD:
 		render_state.world=m.Transpose();
@@ -1281,6 +1314,7 @@ void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4x4& 
 		DX8CALL(SetTransform(transform,(D3DMATRIX*)&m2));
 		break;
 	}
+#endif
 }
 
 WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m)
@@ -1331,6 +1365,24 @@ WWINLINE bool DX8Wrapper::Is_View_Identity()
 
 WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4x4& m)
 {
+#ifdef BFME2_DX8WRAPPER_TRANSFORMS
+	switch ((int)transform) {
+	case D3DTS_WORLD:
+		if (render_state_changed&WORLD_IDENTITY) m.Make_Identity();
+		else m=render_state.world.Transpose();
+		break;
+	case D3DTS_VIEW:
+		if (render_state_changed&VIEW_IDENTITY) m.Make_Identity();
+		else m=render_state.view.Transpose();
+		break;
+	case D3DTS_PROJECTION:
+		m=DeviceProjectionMatrix.Transpose();
+		break;
+	default:
+		m.Make_Identity();
+		break;
+	}
+#else
 	D3DMATRIX mat;
 
 	switch ((int)transform) {
@@ -1348,6 +1400,7 @@ WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4
 		m=m.Transpose();
 		break;
 	}
+#endif
 }
 
 WWINLINE const D3DLIGHT8& DX8Wrapper::Peek_Light(unsigned index)
