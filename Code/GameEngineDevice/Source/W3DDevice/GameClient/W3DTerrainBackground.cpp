@@ -247,11 +247,7 @@ private:
 
 #include "../../../Include/W3DDevice/GameClient/Rva0006653B.h"
 
-class Rva0006AB49BitPlane
-{
-public:
-    bool test(int x, int y) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva0006AB49BitPlane.h"
 
 class Rva000ABD19
 {
