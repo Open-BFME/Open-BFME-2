@@ -64,11 +64,7 @@ public:
 private:
 	unsigned char m_storage[0x5C];
 };
-class Rva00066A9ASub
-{
-public:
-	void tailB();
-};
+#include "../../../../GameEngine/Include/Common/Rva00066A9ASub.h"
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct Rva00DFE758Holder

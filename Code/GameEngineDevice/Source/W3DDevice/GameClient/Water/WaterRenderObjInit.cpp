@@ -33,7 +33,7 @@ public: virtual void Set_Sort_Level(int);
 class WaterInitRenderView : public WaterInitSlots<WaterInitSort,9> {
 public: virtual void Set_Force_Visible(int);
 };
-class Rva00066A9ASub { public: void headB(); };
+#include "../../../../../GameEngine/Include/Common/Rva00066A9ASub.h"
 class WaterTracksRenderSystem {
 public:
  WaterTracksRenderSystem();

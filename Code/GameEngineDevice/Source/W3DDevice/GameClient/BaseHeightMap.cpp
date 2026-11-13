@@ -642,11 +642,7 @@ private:
 
 extern void *W3DGCData00DE2000;
 
-class Rva00066A9ASub
-{
-public:
-	void headB();
-};
+#include "../../../../GameEngine/Include/Common/Rva00066A9ASub.h"
 
 // The two tail callees are rowed as Rva000E6FC8's rva000EA1F3 (0x000EA1F3) and rva000E6FC8 (0x000E6FC8).
 #include "../../../../GameEngine/Include/Common/Rva000E6FC8.h"
