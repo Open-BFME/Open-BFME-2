@@ -1,6 +1,8 @@
-# real link at 674b5d2232fae7d325ee360e7780714aa6cae58c: tools/exit_link.py --blockers
+# real link at 9c8be4d702f2d28a8bfa298b8e9b6276581ccf9f: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	2	?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA
+Code/GameEngine/Source/Common/Rva0033F33DCtor.cpp	2	?GetSnapshotName@AIBackAwayAndCowerState@@UBEPBDXZ
+Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp	2	?GetSnapshotName@AIBackAwayAndCowerState@@UBEPBDXZ
 Code/GameEngine/Source/Common/Rva0056AC26Derived.cpp	1	?ac26Slot1@Rva0056AE4A@@UAE_NXZ
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	1	?extraAnchor@SpawnExtraBase@@UAEXXZ
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp	1	?extraAnchor@SpawnExtraBase@@UAEXXZ
