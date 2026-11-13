@@ -655,10 +655,7 @@ Rva00238C34::operator AsciiString()
 // additional lengths at +0x18 and +0x10 respectively. The caller returns
 // through StringBase<char>'s copy constructor and direct releaseBuffer.
 // Address-derived receiver names retain the unknown template identity.
-class Rva000B65FD {
-public:
-	int rva000B65FD();
-};
+#include "../../../Include/Common/Rva000B65FD.h"
 struct Rva000BD268 {
 	int write(char *dst);
 };

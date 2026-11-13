@@ -5,7 +5,7 @@
 // the compiler retain this in volatile EDX because it knows that callee.
 // The pointer views expose only the consumed prefix and are never allocated;
 // original receiver and operation spelling remain unknown.
-class Rva000B65FD {public:int rva000B65FD();};
+#include "../../../GameEngine/Include/Common/Rva000B65FD.h"
 class Rva000B9567 {
 public:
     char unknown00[0x18]; int extra;
