@@ -415,11 +415,7 @@ public:
 };
 
 
-class Rva003F409F
-{
-public:
-	void rva003F409F(bool val);
-};
+#include "../../Include/Common/Rva003F409F.h"
 struct Rva003F82F4Sub04
 {
 	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
