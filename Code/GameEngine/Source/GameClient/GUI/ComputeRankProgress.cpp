@@ -96,15 +96,7 @@ class CreateAHeroData;
 #include "../../../Include/Common/Rva005CB265.h"
 
 // Base vtable C79544: the listener callbacks rowed in StrategicUiArmyHandler.cpp.
-class Rva005FPrimaryCallbacks {public:
-
- virtual void primary0(void*,void*){}
-
- virtual void primary1(void*){}
-
- virtual void primary2(void*,void*){}
- __forceinline ~Rva005FPrimaryCallbacks(){}
-};
+#include "../../../Include/GameClient/Rva005FPrimaryCallbacks.h"
 
 class Rva005E6D0D : public Rva005FPrimaryCallbacks
 {

@@ -1,0 +1,117 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005FPrimaryCallbacks",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x5e3947"
+     ],
+     "value": {
+      "0x0": "0x879544"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x879544"
+     ],
+     "value": {
+      "count": 3,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 0,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 1,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 2,
+        "target": "0x50b238"
+       }
+      ],
+      "table": "0x879544"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x879544": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "1": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "2": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "primary0(void*,void*)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "primary1(void*)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "primary2(void*,void*)"
+  }
+ }
+}

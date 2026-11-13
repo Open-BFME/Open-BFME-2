@@ -35,15 +35,7 @@ struct Rva005E6D0DRef
 
 // Base vtable C79544 holds the three RET8/RET4/RET8 listener callbacks rowed
 // in StrategicUiArmyHandler.cpp; same definition, so the COMDATs agree.
-class Rva005FPrimaryCallbacks {public:
-
- virtual void primary0(void*,void*){}
-
- virtual void primary1(void*){}
-
- virtual void primary2(void*,void*){}
- __forceinline ~Rva005FPrimaryCallbacks(){}
-};
+#include "../../Include/GameClient/Rva005FPrimaryCallbacks.h"
 
 class Rva005E6D0D : public Rva005FPrimaryCallbacks
 {

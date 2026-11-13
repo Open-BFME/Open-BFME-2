@@ -11,15 +11,7 @@
 // unknown. Inline getObserved preserves native EAX load then LEA ECX+4.
 // Native detach2B7250 and selection cleanup5F23B2 have existing owners.
 // Constructor523F is banked separately; no nonmatching definition here.
-class Rva005FPrimaryCallbacks {public:
-
- virtual void primary0(void*,void*){}
-
- virtual void primary1(void*){}
-
- virtual void primary2(void*,void*){}
- __forceinline ~Rva005FPrimaryCallbacks(){}
-};
+#include "../../../Include/GameClient/Rva005FPrimaryCallbacks.h"
 class Rva005FSecondaryCallbacks {public:
 
  virtual void secondary0(void*,void*){}
