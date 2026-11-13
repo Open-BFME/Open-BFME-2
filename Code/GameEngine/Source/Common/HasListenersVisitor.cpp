@@ -5,11 +5,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 // Slot 0 is the base visit (bound by Rva005CD813Visit.cpp to retail's row), not
 // pure, as the other Visitor005CCCD0 views declare it: one table copy.
-struct Visitor005CCCD0
-{
-	virtual bool visit(TargetRef00217D4C *p);
-	virtual ~Visitor005CCCD0() {}
-};
+#include "../../Include/Common/Visitor005CCCD0.h"
 #include "../../Include/Common/Rva005CCD36.h"
 class HasListenersVisitor : public Visitor005CCCD0
 {

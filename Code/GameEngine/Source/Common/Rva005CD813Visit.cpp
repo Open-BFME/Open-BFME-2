@@ -3,11 +3,7 @@
 // ?Rva005CD813Visit@@YAXPAX@Z retail 0x005CD813 46B visit list via stack Visitor.
 // Evidence: callee 0x005CCD36 rowed Rva005CCD36::rva005CCD36(Visitor*); temp vtable data 0x00875008; caller 0x005CD8A5 pushes one ptr cdecl void.
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
-struct Visitor005CCCD0
-{
-	virtual bool visit(TargetRef00217D4C *p);
-	virtual ~Visitor005CCCD0() {}
-};
+#include "../../Include/Common/Visitor005CCCD0.h"
 #include "../../Include/Common/Rva005CCD36.h"
 class Rva005CD813Visitor : public Visitor005CCCD0
 {

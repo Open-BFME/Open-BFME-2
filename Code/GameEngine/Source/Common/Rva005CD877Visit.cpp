@@ -3,11 +3,7 @@
 // ?Rva005CD877Visit@@YAXPAX@Z retail 0x005CD877 46B visit list via stack Visitor.
 // Evidence: callee 0x005CCD36 rowed visit caller 0x005CD8A5 pushes one ptr cdecl void sibling of 0x005CD813 vtable 0x00875010.
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
-struct Visitor005CCCD0
-{
-	virtual bool visit(TargetRef00217D4C *p);
-	virtual ~Visitor005CCCD0() {}
-};
+#include "../../Include/Common/Visitor005CCCD0.h"
 #include "../../Include/Common/Rva005CCD36.h"
 class Rva005CD877Visitor : public Visitor005CCCD0
 {

@@ -3,7 +3,7 @@
 // Iterates list<Rva005F8F96> at +8, calls visitor vtable slot 0 with node data m_00; stops on false.
 // Evidence: neighbour List_base clear proves node layout (next at +0, data at +8); caller 0x005CCD36 forwards [ecx+4].
 #include "../../Apt/AptRefTarget.h"
-struct Visitor005CCCD0 { virtual bool visit(TargetRef00217D4C *p); };
+#include "../../../../GameEngine/Include/Common/Visitor005CCCD0.h"
 struct ListNode005CCCD0 {
     ListNode005CCCD0 *m_next;
     ListNode005CCCD0 *m_prev;
