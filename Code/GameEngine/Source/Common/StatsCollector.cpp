@@ -67,17 +67,8 @@ extern Display *TheDisplay;
 class Object;
 class Player;
 
-// Money at +0x90 here (count at +0x94); BFME1 donor has it at +0x48.
-class Money
-{
-public:
-	UnsignedInt countMoney() const { return m_money; }
-
-private:
-	void *m_vtable;                   // +0x90
-	UnsignedInt m_money;              // +0x94
-	Int m_playerIndex;                // +0x98
-};
+// Money at +0x90 here (canonical Rva003B0D7C, 12 bytes; count at +0x94).
+#include "../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 // ScoreKeeper totals mostly read inline; the two faction-slot sums stay
 // out of line (retail calls 0x0039B769 and 0x0039B73F), matching the Zero
@@ -117,7 +108,7 @@ class Player
 public:
 	bool isLocalPlayer() const;
 	Int getPlayerIndex() const { return m_playerIndex; }
-	__declspec(dllimport) __forceinline Money *getMoney() { return &m_money; }
+	__declspec(dllimport) __forceinline Rva003B0D7C *getMoney() { return &m_money; }
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
 	__forceinline const char *getSideText() const { const char *text = *(const char *const *)(const void *)&m_side; return text ? text + 8 : ""; }
 
@@ -130,7 +121,7 @@ public:
 	AsciiString m_side;                 // +0x58
 private:
 	unsigned char m_pad5C[ 0x90 - 0x5C ];
-	Money m_money;                      // +0x90
+	Rva003B0D7C m_money;                      // +0x90
 	unsigned char m_pad9C[ 0x3BC - 0x9C ];
 	ScoreKeeper m_scoreKeeper;          // +0x3BC
 };

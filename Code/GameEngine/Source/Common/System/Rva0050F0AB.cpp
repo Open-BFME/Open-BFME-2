@@ -41,24 +41,16 @@ void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
 #include <stdlib.h>
 
-// The money a player holds sits at Player+0x90; like Zero Hour's Money it
-// starts with a vtable, and countMoney() reads the amount at +4.
-class Money
-{
-public:
-	virtual ~Money();
-	unsigned int countMoney() const { return m_money; }
-private:
-	unsigned int m_money;
-};
+// The money a player holds sits at Player+0x90 (canonical Rva003B0D7C, 12 bytes).
+#include "../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 class Player
 {
 public:
-	Money *getMoney() { return &m_money; }
+	Rva003B0D7C *getMoney() { return &m_money; }
 private:
 	char m_pad00[0x90];
-	Money m_money;
+	Rva003B0D7C m_money;
 };
 
 // TheSkirmishAIManager's per-player statistics: 0x002A8F24 returns the
@@ -148,7 +140,7 @@ void Rva0050F0AB::rva0050F290()
 void Rva0050F0AB::rva0050F306()
 {
 	int money = slot01();
-	Money *pMoney = m_64->getMoney();
+	Rva003B0D7C *pMoney = m_64->getMoney();
 	if (pMoney)
 		money += pMoney->countMoney();
 	if (TheSkirmishAIManager->rva002A8AB1(m_64))

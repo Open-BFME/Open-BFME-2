@@ -346,16 +346,11 @@ Int m_45C;
 class Rva0039B7AD;
 class Rva0039B795;
 #include "../../../Include/GameLogic/Module/Rva003B0D7C.h"
-class Money : public Rva003B0D7C
-{
-public:
-UnsignedInt countMoney() const { return m_val04; } // the canonical base's +4 word
-};
 #include "../../../Include/Common/ScoreKeeperClass.h"
 class Player
 {
 public:
-__declspec(dllimport)__forceinline Money*getMoney(){return&m_money;}
+__declspec(dllimport)__forceinline Rva003B0D7C*getMoney(){return&m_money;}
 void countObjectsByThingTemplate(Int numTmplates,const ThingTemplate*const*things,Bool ignoreDead,Int*counts,Bool ignoreUnderConstruction)const;
 Int iterateObjects(Int(*func)(Object*,void*),void*userData)const;
 Team*getDefaultTeam()const{return m_defaultTeam;}
@@ -374,7 +369,7 @@ Int m_playerIndex;
 unsigned char m_pad058[0x60 - 0x58];
 Rva002A7461 m_rva060;
 unsigned char m_pad061[0x90 - 0x61];
-Money m_money;
+Rva003B0D7C m_money;
 unsigned char m_pad098[0x280 - 0x9C];
 Color m_color;
 unsigned char m_pad284[0x2EC - 0x284];

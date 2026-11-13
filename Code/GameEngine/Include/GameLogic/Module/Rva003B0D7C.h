@@ -21,6 +21,8 @@ class Rva003B0D7C : public Snapshot
 public:
 	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
 	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
+	// Inline-only accessor (no row): the amount at +4, spelled as the private views spelled it.
+	unsigned int countMoney() const { return m_val04; }
 	virtual ~Rva003B0D7C() {}
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
 	virtual void LoadPostProcess();

@@ -63,21 +63,6 @@ public:
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Money.h
-struct Money
-{
-	unsigned char m_beforeValue[4];
-	Int m_money;
-};
-
-// Money is inline at Player+0x48; the other two sub-objects are reached at
-// their own offsets through their own retail bodies, so they stay opaque here.
-struct BfmePlayerMoney
-{
-	unsigned char m_beforeMoney[0x48];
-	Money m_money;
-};
-
 class PlayerCommandPoints
 {
 };

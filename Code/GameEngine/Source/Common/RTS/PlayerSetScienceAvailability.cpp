@@ -39,13 +39,9 @@ public:
 };
 }
 
-class Money
-{
-public:
-	virtual ~Money();
-	virtual void v1();
-	virtual void withdraw(int amount);
-};
+// Player+8 is Player's base Rva00380200 (constructor 0x002B0F3C installs 0x00BFDF18 there); slot 2 of that
+// table is the void(int) the purchase calls with the negated cost.
+#include "../Rva00380200.h"
 
 #include "../../../Include/Common/ScienceStore.h"
 
@@ -59,8 +55,8 @@ public:
 private:
 	bool addScience(ScienceType science);
 	char m_pad00[8];
-	Money m_money08;
-	char m_pad0C[0x2E4];
+	Rva00380200 m_sub08;
+	char m_pad34[0x2F0 - 0x34];
 	_STL::vector<ScienceType> m_sciences;
 	_STL::vector<ScienceType> m_sciencesDisabled;
 	_STL::vector<ScienceType> m_sciencesHidden;
@@ -104,7 +100,7 @@ void Player::setScienceAvailability(ScienceType science, ScienceAvailabilityType
 
 // Retail 0x002AD883 70B: Player grant-and-charge between grantScience 0x2AD85E and setScienceAvailability 0x2AD8C9.
 // Evidence: isScienceGrantable row 0x001FF432, addScience pin 0x002AD661, getSciencePurchaseCost row 0x001FF3DC,
-// TheScienceStore ?TheScienceStore, Money withdraw slot 2 at +8 with neg cost, caller 0x001EC70A.
+// TheScienceStore ?TheScienceStore, Rva00380200 slot 2 (rslot02) at +8 with neg cost, caller 0x001EC70A.
 bool Player::forcePurchaseScience(ScienceType science)
 {
 	if (TheScienceStore->isScienceGrantable(science))
@@ -112,8 +108,8 @@ bool Player::forcePurchaseScience(ScienceType science)
 		if (addScience(science))
 		{
 			int cost = TheScienceStore->getSciencePurchaseCost(science);
-			Money &money = m_money08;
-			money.withdraw(-cost);
+			Rva00380200 &sub08 = m_sub08;
+			sub08.rslot02(-cost);
 			return true;
 		}
 	}
