@@ -21,7 +21,7 @@ typedef int Int;
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 // LINK: the clamp binds the rowed owner at 0x0028A8B5 (Rva0028A8B5::rva0028A8B5, Rva0028A8B5Clamp.cpp).
-class Rva0028A8B5 { public: void rva0028A8B5(Real *value) const; };
+#include "../../../Include/Common/Rva0028A8B5.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
