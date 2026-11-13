@@ -11,15 +11,7 @@ public:
 	unsigned char getPercentage();
 };
 
-class Rva004D38D8
-{
-public:
-	bool rva004D38D8(float ratio);
-	char m_pad00[0x260];
-private:
-	int m_260; // +0x260
-	int m_264; // +0x264
-};
+#include "../../Include/GameNetwork/Rva004D38D8.h"
 
 class GameLogic;
 extern GameLogic *TheGameLogic;
