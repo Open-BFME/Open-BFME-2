@@ -55,7 +55,7 @@ class Object {public:char pad0[4];const ThingTemplate*tmplate;char pad8[0x38-8];
 #include "../../../Include/Common/Rva002AAE81.h"
 class BuildListInfo {public:BuildListInfo();void*vt;AsciiString building,tmplate;Coord3D position;char pad18[8];float angle;char pad24[4];int rebuilds;BuildListInfo*next;char pad30[0x47-0x30];bool priority;unsigned id;char pad4C[0x80-0x4C];};
 class Player; class PlayerTemplate;
-struct Rva002ADF9C{void rva002ADF9C(const Player*,Object*);};
+#include "../../../Include/Common/Rva002ADF9C.h"
 class PolymorphicOwner {public: virtual ~PolymorphicOwner();};
 class UpgradeView:public PolymorphicOwner {public:char gap4[8];UpgradeView*next;};
 class PlayerRelationMap:public PolymorphicOwner {char opaque[20];public:PlayerRelationMap();};
