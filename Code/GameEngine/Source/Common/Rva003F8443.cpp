@@ -12,11 +12,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 struct Rva002E1948Entry;
 
-class Rva002B48E1
-{
-public:
-	Rva002E1948Entry *rva002B48E1(const AsciiString &name);
-};
+#include "../../Include/Common/Rva002B48E1.h"
 
 class LivingWorldTutorial
 {
