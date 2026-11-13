@@ -11,14 +11,7 @@ public:
 };
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
-class Rva00432AEB
-{
-public:
-	int rva00432AEB(int v);
-private:
-	char m_pad[0x1F0];
-	int m_1F0;
-};
+#include "../../Include/GameClient/Rva00432AEB.h"
 int Rva00432AEB::rva00432AEB(int v)
 {
 	int *slot = (int *)((char *)this + 0x1F0);
