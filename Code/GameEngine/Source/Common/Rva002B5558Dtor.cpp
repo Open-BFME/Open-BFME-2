@@ -16,13 +16,7 @@
 
 #include "../../Include/Common/Node002B43BA.h"
 
-struct Head002B5558
-{
-	int m_pad0;
-	Node002B43BA *m_node4;
-	Head002B5558 *m_next8;
-	Head002B5558 *m_prevC;
-};
+#include "../../Include/Common/Head002B5558.h"
 
 struct Rva002B5558HeadHandle
 {

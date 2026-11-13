@@ -16,13 +16,7 @@ class Rva002B43BA
 public:
 	void rva002B43BA(Node002B43BA *head);
 };
-struct Head002B5558
-{
-	int m_pad0;
-	Node002B43BA *m_node4;
-	Head002B5558 *m_next8;
-	Head002B5558 *m_prevC;
-};
+#include "../../Include/Common/Head002B5558.h"
 class Rva002B5558
 {
 	Head002B5558 *m_head0;

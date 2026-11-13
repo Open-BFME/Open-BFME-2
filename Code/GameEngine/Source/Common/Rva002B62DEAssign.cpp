@@ -21,13 +21,7 @@ _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<cons
 
 #include "../../Include/Common/Node002B43BA.h"
 
-struct Head002B5558
-{
-	int m_pad0;
-	Node002B43BA *m_node4;
-	Head002B5558 *m_next8;
-	Head002B5558 *m_prevC;
-};
+#include "../../Include/Common/Head002B5558.h"
 
 typedef _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > MapIntIntTree002B62DE;
 
