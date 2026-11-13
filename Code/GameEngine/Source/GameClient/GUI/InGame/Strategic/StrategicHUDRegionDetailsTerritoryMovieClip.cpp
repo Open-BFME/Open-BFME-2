@@ -127,10 +127,7 @@ inline __declspec(noinline) AsciiStringPlusStringText operator+(const AsciiStrin
 #include "../../../../../Include/GameClient/Rva002226E5TextPlusString.h"
 Rva002226E5TextPlusString __cdecl operator+(const char *left, const AsciiString &right); // 0x002226E5
 
-struct AptTextPlusStringPlusString : Rva002226E5TextPlusString
-{
-	AsciiStringRef m_third;
-};
+#include "../../../../../Include/Common/AptTextPlusStringPlusString.h"
 
 // The materializer 0x005F1D47 is rowed as the conversion of Rva005F1D06
 // (System/Rva00513E03Length.cpp): the text node inherits it from that view.

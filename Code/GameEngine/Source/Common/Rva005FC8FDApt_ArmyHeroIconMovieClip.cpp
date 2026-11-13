@@ -115,10 +115,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 #include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 Rva002226E5TextPlusString __cdecl operator+(const char *left, const AsciiString &right); // 0x002226E5
 
-struct AptTextPlusStringPlusString : Rva002226E5TextPlusString
-{
-	AsciiStringRef m_third;
-};
+#include "../../Include/Common/AptTextPlusStringPlusString.h"
 
 // Native four-part node: 8B text pair, two string references, 8B text pair;
 // its materializer 0x005F1D47 is rowed as Rva005F1D06's conversion (as in

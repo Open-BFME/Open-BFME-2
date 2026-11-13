@@ -325,10 +325,7 @@ void Rva0086EE20::rva005F267E(int,float) {}
 #include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 Rva002226E5TextPlusString __cdecl operator+(const char *left, const AsciiString &right); // 0x002226E5
 
-struct AptTextPlusStringPlusString : Rva002226E5TextPlusString
-{
-	AsciiStringRef m_third;
-};
+#include "../../Include/Common/AptTextPlusStringPlusString.h"
 
 // LINK: the materializer is rowed as Rva005F1D06's conversion operator, so the
 // four-part node takes it from that base.
