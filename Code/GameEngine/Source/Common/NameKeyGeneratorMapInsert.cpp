@@ -33,10 +33,7 @@ struct NameKeyBucketTable
 	NameKeyBucket *&at(unsigned n) { return *(start + n); }
 };
 
-struct NameKeyHashInt
-{
-	unsigned operator()(int x) const { return (unsigned)x; }
-};
+#include "../../Include/Common/NameKeyHashInt.h"
 
 #include "../../Include/Common/BucketAlloc.h"
 

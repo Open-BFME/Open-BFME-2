@@ -221,10 +221,7 @@ struct NameKeyBucketTable
 	unsigned size() const { return (unsigned)(finish - start); }
 	NameKeyBucket *&at(unsigned n) { return *(start + n); }
 };
-struct NameKeyHashInt
-{
-	unsigned operator()(int x) const { return (unsigned)x; }
-};
+#include "../../../Include/Common/NameKeyHashInt.h"
 struct NameKeyEqualInt
 {
 	bool operator()(int a, int b) const { return a == b; }
