@@ -10,10 +10,7 @@
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <map>
 
-struct Rva0016CB50Mapped
-{
-	unsigned int m_bits;
-};
+#include "Rva0016CB50Mapped.h"
 
 typedef _STL::pair<const int, Rva0016CB50Mapped> Rva0016CB50Pair;
 
