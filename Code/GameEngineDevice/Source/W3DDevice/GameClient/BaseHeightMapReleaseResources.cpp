@@ -87,11 +87,7 @@ public:
 
 #include "../../../Include/W3DDevice/GameClient/Rva000731AE.h"
 
-class Rva00073C7A
-{
-public:
-	void rva00073C7A();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00073C7A.h"
 
 #include "../../../Include/W3DDevice/GameClient/Rva000728E2.h"
 

@@ -1,0 +1,94 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00073C7A",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 2
+   },
+   "0x35": {
+    "1": 1
+   },
+   "0x38": {
+    "4": 2
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x44": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "80": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 53,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
