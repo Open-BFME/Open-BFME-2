@@ -66,7 +66,7 @@ public:
  virtual ~Rva003ADFDBPrimary(){}
 private:unsigned argument4;
 };
-class __declspec(novtable) Iface00C1C780 {public:virtual void slot00()=0;};
+#include "../../../../Include/Common/Iface00C1C780.h"
 class __declspec(novtable) Rva003ADFDB:public Rva003ADFDBPrimary,public Iface00C1C780 {public:Rva003ADFDB(unsigned);virtual ~Rva003ADFDB();};
 // Target C1D294 and C1D2C0 both select 3AE16E; it calls native24 at3A583E.
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

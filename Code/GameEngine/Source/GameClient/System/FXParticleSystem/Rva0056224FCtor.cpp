@@ -36,7 +36,7 @@ class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class __declspec(novtable) Rva003ADFDBPrimary {public:virtual ~Rva003ADFDBPrimary();private:unsigned argument4;};
-class __declspec(novtable) Iface00C1C780 {public:virtual void slot00()=0;};
+#include "../../../../Include/Common/Iface00C1C780.h"
 class __declspec(novtable) Rva003ADFDB:public Rva003ADFDBPrimary,public Iface00C1C780 {public:Rva003ADFDB(unsigned);virtual ~Rva003ADFDB();};
 
 // The +0xC base's empty destructor is the folded Snapshot teardown at
