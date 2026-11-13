@@ -17,11 +17,7 @@ public:
 	void rva0028572A();
 };
 
-class Rva00285708Host
-{
-public:
-	void rva00285708();
-};
+#include "../../Include/Common/Rva00285708Host.h"
 
 class Rva00285C88
 {
