@@ -88,11 +88,7 @@ public:
 	bool rva002B32CE();
 };
 
-class Rva002B4BC9
-{
-public:
-	bool rva002B4BC9(Rva002B4BC9Arg *arg);
-};
+#include "../../Include/Common/Rva002B4BC9.h"
 
 bool Rva0056ACFF::ac26Slot1()
 {

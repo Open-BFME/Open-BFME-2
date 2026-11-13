@@ -2752,7 +2752,7 @@ void LivingWorldLogic::rva002B5AF7(){
 // the turn phase is read once (EBX) across the isEmpty call.
 class Rva00318D05 {public:bool rva00318D05(int value);};
 struct Rva002B4BC9Arg;
-class Rva002B4BC9 {public:bool rva002B4BC9(Rva002B4BC9Arg *arg);};
+#include "../../../../Include/Common/Rva002B4BC9.h"
 class LWEntryAcceptDispatch {public:virtual void f00();virtual Bool accepts(Parent00575E4E *entry);};
 Bool LivingWorldLogic::rva002B5A5F(Parent00575E4E *entry)
 {
