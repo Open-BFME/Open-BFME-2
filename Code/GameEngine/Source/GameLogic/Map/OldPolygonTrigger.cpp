@@ -213,12 +213,7 @@ void __cdecl rva0032927A(Rva003294B3Obj *record, int areaSet)
 
 // The river area as Rva0030C1FCOwnerCtor.cpp lays it out: the reference
 // count of the primary root at +4, the shared virtual base at +0x90.
-class VBase00C6EE28
-{
-public:
-	virtual void s0() = 0;
-	~VBase00C6EE28();
-};
+#include "../../../Include/Common/VBase00C6EE28.h"
 
 class Rva0030C1FCRoot
 {

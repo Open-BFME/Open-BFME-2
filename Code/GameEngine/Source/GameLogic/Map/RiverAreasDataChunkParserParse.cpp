@@ -44,12 +44,7 @@ typedef float Real;
 // the verified game allocator wrapper owns retail's free at 0x00030830.
 void __cdecl Rva00030830GameFree(void *);
 
-class VBase00C6EE28
-{
-public:
-	virtual void s0() = 0;
-	~VBase00C6EE28();
-};
+#include "../../../Include/Common/VBase00C6EE28.h"
 
 // The river area as Rva0030C1FCOwnerCtor.cpp lays it out: the reference
 // count of the primary root at +4, the shared virtual base at +0x90.

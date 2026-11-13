@@ -27,12 +27,7 @@ public:
 #include "../../../Include/GameLogic/Rva005CB283.h"
 #include "../../../Include/GameLogic/WaterArea.h"
 // The wave area as Rva0030CAA9OwnerCtor.cpp lays it out.
-class VBase00C6EE28
-{
-public:
-	virtual void s0() = 0;
-	~VBase00C6EE28();
-};
+#include "../../../Include/Common/VBase00C6EE28.h"
 #include "../../../Include/Common/Rva0007DF07.h"
 #pragma comment(linker, "/alternatename:?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z=?rva005CB283@Rva005CB283@@QAEXXZ")
 
