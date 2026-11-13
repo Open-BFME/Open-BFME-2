@@ -31,7 +31,7 @@ public:
 // The map is viewed through the rowed int-key instantiations: the record map whose insert is
 // 0x00470205 and the int/int tree whose _M_lower_bound 0x00382A92 every int-key tree shares.
 // The mapped value is retail's 16-byte Rva00469155: node 0x0046AC30 allocates 0x24 bytes and 0x00469D33 copies 16 after the key.
-struct Rva00470205Record { char bytes[16]; };
+#include "../../../../Include/GameLogic/Module/Rva00470205Record.h"
 typedef _STL::map<int, Rva00470205Record, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00470205Record> > > Rva00470205Map;
 typedef _STL::map<int, int> HordeIntMap;
 typedef _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > HordeIntTree;
