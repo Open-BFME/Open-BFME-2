@@ -125,11 +125,7 @@ class Object
  ObjectID m_containerID;
 // +0x78
 };
-class Rva00239380Holder
-{
- public:
- void rva00239380();
-};
+#include "../../Include/Common/Rva00239380Holder.h"
 struct Rva0030F14CSelectInfo
 {
  _STL::list<Drawable *> *m_list;

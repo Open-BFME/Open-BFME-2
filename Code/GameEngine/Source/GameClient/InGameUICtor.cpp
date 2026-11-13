@@ -132,7 +132,7 @@ template<> __declspec(noinline) _List_base<Drawable*,allocator<Drawable*> >::_Li
 // Retail 239AF4 clears through 239380 and returns its sentinel to the
 // existing Drawable node freelist at DBA5E8; only this element type differs
 // from generic STLport deallocation. Whole29B and all owner relocations exact.
-class Rva00239380Holder { public: void rva00239380(); };
+#include "../../Include/Common/Rva00239380Holder.h"
 // The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
 class FreelistPool;
 extern FreelistPool g_freelistPool00DBA5E0;
