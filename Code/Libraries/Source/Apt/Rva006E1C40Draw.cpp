@@ -17,11 +17,7 @@ public:
 	void bfmeApplyXS(void *p, void *q);
 };
 #include "AptDisplayList.h"
-class Rva006EBD30
-{
-public:
-	void bounds(AptRenderingContext *ctx, void *a, void *b);
-};
+#include "Rva006EBD30.h"
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 class Rva006E1C40Holder
 {

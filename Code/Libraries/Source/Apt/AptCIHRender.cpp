@@ -54,11 +54,7 @@ class Rva0070E440
 public:
     void rva0070E440(Rva0070E440Box *out); // 0x0070E440
 };
-class Rva006EBD30
-{
-public:
-    void render(AptRenderingContext *ctx, void *arg, void *matrix); // 0x006EBD30
-};
+#include "Rva006EBD30.h"
 #include "AptAnimationPoolData.h"
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
