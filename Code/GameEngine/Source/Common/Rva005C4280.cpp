@@ -1,14 +1,7 @@
 // cl: /EHsc /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 
-struct Helper005C4D4B {
-	void *m_00;
-	AsciiString m_str;
-	int m_08;
-	int m_0c;
-	Helper005C4D4B(void *);
-	~Helper005C4D4B() {}
-};
+#include "../../Include/Common/Helper005C4D4B.h"
 
 struct SubAC005C4B56 {
 	char pad[0x60];

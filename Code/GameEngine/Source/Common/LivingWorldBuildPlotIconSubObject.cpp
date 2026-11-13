@@ -6,14 +6,7 @@
 // then rva005C4B96(v17). Caller 0x0059E10F unclaimed. No donor name proven.
 #include "ascii_string.h"
 
-struct Helper005C4D4B {
-	void *m_00;
-	AsciiString m_str;
-	int m_08;
-	int m_0c;
-	Helper005C4D4B(void *);
-	~Helper005C4D4B() {}
-};
+#include "../../Include/Common/Helper005C4D4B.h"
 
 struct SubAC005DB271 {
 	char pad[0x58];
