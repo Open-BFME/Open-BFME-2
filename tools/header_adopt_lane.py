@@ -226,24 +226,44 @@ def template_class(header, name):
 SPECIALIZATION_HEAD = r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+%s\s*<"
 
 
+def spliced(text):
+    """(`text` with every line splice removed, as translation phase 2 does, [the source offset of each
+    character kept]): a directive or a name continued with a backslash is read whole."""
+    joined, keep, i, n = [], [], 0, len(text)
+    while i < n:
+        if text[i] == "\\" and text.startswith("\n", i + 1):
+            i += 2
+            continue
+        if text[i] == "\\" and text.startswith("\r\n", i + 1):
+            i += 3
+            continue
+        joined.append(text[i])
+        keep.append(i)
+        i += 1
+    return "".join(joined), keep
+
+
 def specialization_spans(text, name):
     """[(start, end)] of the explicit specializations of the global class template `name` that
     have a body (`template <> class name<11> {...};`), each with its closing `;` and newline.
-    Comments and literals (raw strings too) are blanked first (masked). One inside a named
-    namespace specializes another class (`Other::name`) and is not counted; one inside
-    `extern "C++" {` is global. The answer is unknown (None) when one lies inside any other
-    braces (a class, a function, `extern "C"`), when a brace before it sits in a conditional
-    region (#if ... #endif: which braces compile is not known here), or when one does not close."""
-    code, out = masked(text), []
+    The text is read as the compiler reads it: line splices removed first (spliced), then
+    comments and literals (raw strings too) blanked (masked); the spans are source offsets.
+    One inside a named namespace specializes another class (`Other::name`) and is not counted;
+    one inside `extern "C++" {` is global. The answer is unknown (None) when one lies inside any
+    other braces (a class, a function, `extern "C"`), when a brace before it or in its body is on
+    a directive line or in a conditional region (#if ... #endif: which braces compile is not known
+    here), or when one does not close."""
+    joined, keep = spliced(text)
+    code, out = masked(joined), []
     namespaces = {m.end() - 1 for m in class_layouts.NAMESPACE.finditer(code)}
-    linkage = {m.end() - 1 for m in re.finditer(r'\bextern\s+"C\+\+"\s*\{', masked(text, keep_literals=True))}
-    conditional, depth = set(), 0          # the offsets of braces inside a conditional region
+    linkage = {m.end() - 1 for m in re.finditer(r'\bextern\s+"C\+\+"\s*\{', masked(joined, keep_literals=True))}
+    conditional, depth = set(), 0          # braces on a directive line or inside a conditional region
     for line in re.finditer(r"[^\n]*\n?", code):
-        directive = re.match(r"[ \t]*#[ \t]*(if|ifdef|ifndef|elif|else|endif)\b", line.group())
+        directive = re.match(r"[ \t]*#[ \t]*(\w*)", line.group())
         if directive:
             depth += {"if": 1, "ifdef": 1, "ifndef": 1, "endif": -1}.get(directive.group(1), 0)
             depth = max(depth, 0)
-        elif depth:
+        if directive or depth:
             conditional.update(line.start() + k for k, char in enumerate(line.group()) if char in "{}")
     braces = list(re.finditer(r"[{}]", code))
     enclosing, seen = [], 0                # one scan of the braces, advanced to each specialization
@@ -276,6 +296,8 @@ def specialization_spans(text, name):
             return None
         j, depth = brace, 0
         while j < len(code):
+            if code[j] in "{}" and j in conditional:
+                return None                           # its own end depends on a brace that may not compile
             depth += code[j] == "{"
             depth -= code[j] == "}"
             j += 1
@@ -284,7 +306,8 @@ def specialization_spans(text, name):
         tail = re.match(r"[ \t\r\n\v\f]*;[ \t]*\r?\n?", code[j:])
         if depth or not tail:
             return None
-        out.append((found.start(), j + tail.end()))
+        stop = j + tail.end()
+        out.append((keep[found.start()], keep[stop - 1] + 1 if stop else 0))
     return out
 
 

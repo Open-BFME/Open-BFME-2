@@ -899,6 +899,28 @@ def test_extern_cpp_is_global_scope_and_extern_c_is_not_read():
     assert lane.specialization_spans(unit.replace('"C++"', '"C"'), "BitFlags") is None
 
 
+@pytest.mark.parametrize("opener", ["#\\\nif 0\n", "#i\\\nf 0\n", "#if 0\n#define CONTINUED 1 \\\n#endif\n"])
+def test_a_continued_directive_is_read_as_one_line(opener):
+    # review r3: `#\` + newline + `if 0` was no directive, so the disabled namespace opener hid a global copy
+    hidden = '#include "B.h"\n' + opener + "namespace Hidden {\n#endif\ntemplate <> class BitFlags<11> { int own; };\n"
+    assert lane.specialization_spans(hidden, "BitFlags") is None
+    assert lane.private_body(hidden, "BitFlags", template=True)
+
+
+def test_a_name_continued_with_a_backslash_is_still_a_specialization():
+    unit = "template <> class Bit\\\nFlags<11> { int own; };\nint after;\n"
+    spans = lane.specialization_spans(unit, "BitFlags")
+    assert spans == [(0, unit.index("int after"))]
+    assert lane.swap(unit, ["BitFlags"], "B.h") == '#include "B.h"\nint after;\n'
+
+
+def test_a_conditional_brace_in_a_specializations_body_makes_its_end_unknown():
+    # review r3: the disabled `};` ended the body early and the swap left `int own; };` behind
+    unit = "template <> class BitFlags<11> {\n#if 0\n};\n#endif\nint own;\n};\n"
+    assert lane.specialization_spans(unit, "BitFlags") is None
+    assert lane.swap("template <int N> class BitFlags { int x; };\n" + unit, ["BitFlags"], "B.h") is None
+
+
 def test_dependency_views_go_with_the_class():
     out = lane.swap(UNIT, ["AsciiString", "StringBase"], "ascii_string.h")
     assert "StringBase" not in out.split("void use")[0].split('#include "ascii_string.h"')[1]
