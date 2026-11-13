@@ -1360,7 +1360,7 @@ typedef char PeerDefsGameSpyInfoSize[(sizeof(GameSpyInfo)==0x1640)?1:-1];
 // Observed slot-name field at+30; other GameSlot fields remain opaque here.
 #include "../../../Include/GameNetwork/GameInfo.h"
 #include "../../../Include/GameNetwork/Rva00381D02.h"
-class Rva00381CED { public: void rva00381CED(void*); };
+#include "../../../Include/GameClient/Rva00381CED.h"
 class Rva00382234 { public: void rva00382234(AsciiString); };
 #include "../../../Include/GameClient/Rva003821E2.h"
 #include "../../../Include/Common/Rva00235A37.h"

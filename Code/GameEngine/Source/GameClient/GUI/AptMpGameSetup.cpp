@@ -342,11 +342,7 @@ void Rva00446A67Set(unsigned char value);
 #include "../../../Include/Common/MpGameSetupRules.h"
 
 // The game's rules setter (rowed under its address name).
-class Rva00381CED
-{
-public:
-	void rva00381CED(void *rules);
-};
+#include "../../../Include/GameClient/Rva00381CED.h"
 
 #include "../../../Include/GameClient/GameText.h"
 
