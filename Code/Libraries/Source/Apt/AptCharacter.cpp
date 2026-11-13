@@ -436,13 +436,7 @@ extern AptValue *gpGlobalGlobalObject;
 
 EAStringC *Rva0070B4F0GetString(int);
 
-class BfmeN1034 {
-public:
-  virtual void slot0();
-  virtual void slot1();
-  virtual void slot2();
-  virtual AptNativeHash *slot3();
-};
+#include "BfmeN1034.h"
 
 #include "Rva0070A5C0.h"
 

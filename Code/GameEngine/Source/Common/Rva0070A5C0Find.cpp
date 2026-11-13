@@ -4,11 +4,7 @@
 // Evidence: add ecx 8 plus jmp; 21 callers pass one pointer/int arg and consume pointer return via vtable slot 0xC;
 // same tail pattern as Rva8D0D80Result::rva006FBB90 over m_table at +8 (BfmeConv1034 proves BfmeTab1034::bfmeFind1034F signature).
 
-class BfmeN1034
-{
-public:
-    int bfmeVal1034();
-};
+#include "../../../Libraries/Source/Apt/BfmeN1034.h"
 
 // The table lookup is the rowed Rva0070B380::lookup.
 class EAStringC;

@@ -65,11 +65,7 @@ public:
  void rva0070E900(void *pBase,void *pConstantFile,void *pCount);
 };
 
-class BfmeN1034
-{
-public:
-	int bfmeVal1034(void);
-};
+#include "BfmeN1034.h"
 
 // The table lookup is the rowed Rva0070B380::lookup.
 class EAStringC;
