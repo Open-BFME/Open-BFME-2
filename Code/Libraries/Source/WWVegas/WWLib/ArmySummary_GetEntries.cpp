@@ -54,7 +54,7 @@ template <> void vector<Rva0040DC56Element, allocator<Rva0040DC56Element> >::res
 
 // Holder copies retain the reference at +0xB0; assignment uses its native owner.
 #include "../../Apt/AptRefTarget.h"
-struct Rva002B2F97Target { char m_pad[0xAC]; TargetRef00217D4C m_ac; };
+#include "../../../../GameEngine/Include/Common/Rva002B2F97Target.h"
 class Rva002B2F97
 {
 public:

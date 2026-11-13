@@ -13,11 +13,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Rva002B2F97Target
-{
-	char m_pad[0xAC];
-	TargetRef00217D4C m_ac;
-};
+#include "../../Include/Common/Rva002B2F97Target.h"
 
 class Rva002B2F97
 {
