@@ -187,7 +187,7 @@ template void _STL::_Construct<BfmeStringRecord00448113,BfmeStringRecord00448113
 
 
 
-struct Rva00468520Obj { int m_00; int m_04; };
+#include "../../Include/Common/Rva00468520Obj.h"
 class Rva00468520 {
     Rva00468520Obj *m_00; int m_04;
 public:
