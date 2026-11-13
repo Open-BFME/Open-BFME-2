@@ -1210,30 +1210,7 @@ extern "C" int lua_isnumber(lua_State *state, int index);
 extern "C" int lua_isstring(lua_State *state, int index);
 unsigned Rva00990030Lookup(Rva00990030Range*,int);
 unsigned Rva00990210Lookup(Rva00990210Range*,int);
-class ObjectStatusMask
-{
-	unsigned int m_bits[2];
-};
-class Parameter
-{
-public:
-	void friend_setInt(int value) { m_int = value; }
-	void friend_setReal(float value) { m_real = value; }
- void setWord24(unsigned value) { *(unsigned*)((char*)this+0x24)=value; }
-
-private:
-	int m_paramType;
-	bool m_initialized;
-	int m_int;
-	float m_real;
-
-public:
-	AsciiString m_string;
-
-private:
-	Coord3D m_coord;
-	ObjectStatusMask m_objectStatus;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 #include "../../../Include/GameLogic/ScriptAction.h"
 #include "../../../Include/GameLogic/ScriptCondition.h"
 class ConditionTemplate
@@ -3728,7 +3705,7 @@ int ExecuteAction(lua_State *state)
         }
         else if (lua_type(state,i+2)==4 && Rva00990030Lookup((Rva00990030Range*)state,i+2))
         {
-            parameter->setWord24(Rva00990030Lookup((Rva00990030Range*)state,i+2));
+			parameter->m_objectID = Rva00990030Lookup((Rva00990030Range *)state, i + 2);
         }
 		else
 		{
