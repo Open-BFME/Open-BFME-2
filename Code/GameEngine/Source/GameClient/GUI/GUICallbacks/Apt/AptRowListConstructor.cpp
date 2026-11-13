@@ -169,10 +169,7 @@ private:
 
 #include "../../../../../Include/Common/AsciiStringRef.h"
 
-struct AsciiStringRefWithChar : AsciiStringRef
-{
-	char m_char;
-};
+#include "../../../../../Include/Common/AsciiStringRefWithChar.h"
 
 struct AsciiStringCharPlusText : AsciiStringRefWithChar
 {

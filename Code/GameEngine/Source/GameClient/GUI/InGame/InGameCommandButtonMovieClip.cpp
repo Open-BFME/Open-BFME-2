@@ -41,7 +41,7 @@ class AptTimerAdder {public:__declspec(dllimport) __forceinline AptTimerAdder(){
 #include "../../../../Include/Common/AptMovieClipFrame.h"
 
 namespace AptUtils {AsciiString DotPath2SlashPath(const char*);}
-struct AsciiStringRefWithChar:AsciiStringRef {int write(char *);operator AsciiString();char m_char;};
+#include "../../../../Include/Common/AsciiStringRefWithChar.h"
 inline AsciiStringRefWithChar operator+(const AsciiString&a,char c){AsciiStringRefWithChar r;r.m_string=&a;r.m_char=c;return r;}
 #include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager*g_bfmeAptWindowManager;

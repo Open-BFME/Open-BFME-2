@@ -5,10 +5,7 @@
 
 #include "../../../Include/Common/AsciiStringRef.h"
 
-struct AsciiStringRefWithChar : AsciiStringRef
-{
-	char m_char;
-};
+#include "../../../Include/Common/AsciiStringRefWithChar.h"
 
 // "string + char + string"
 struct Rva0002C9C2

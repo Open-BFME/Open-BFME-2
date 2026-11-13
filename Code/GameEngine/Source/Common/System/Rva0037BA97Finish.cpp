@@ -41,10 +41,7 @@ void bfmeEmitRva0037BA97Init(const Pair8 *src, int c)
 
 class AsciiString;
 #include "../../../Include/Common/AsciiStringRef.h"
-struct AsciiStringRefWithChar : AsciiStringRef
-{
-	char m_char;
-};
+#include "../../../Include/Common/AsciiStringRefWithChar.h"
 // Aggregate like Triple12 above (no user constructor), so the operator
 // below builds it with plain stores and no EH registration.
 struct Rva0002C9C2

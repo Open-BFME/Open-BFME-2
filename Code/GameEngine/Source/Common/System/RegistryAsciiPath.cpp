@@ -54,13 +54,7 @@ class UnicodeString;
 #include "../../../Include/Common/AsciiStringRef.h"
 
 // An AsciiString operand followed by one char.
-struct AsciiStringRefWithChar : AsciiStringRef
-{
-	int write(char *dst);
-	operator AsciiString();
-
-	char m_char;
-};
+#include "../../../Include/Common/AsciiStringRefWithChar.h"
 
 // "string + text"
 class Rva002DCD9A

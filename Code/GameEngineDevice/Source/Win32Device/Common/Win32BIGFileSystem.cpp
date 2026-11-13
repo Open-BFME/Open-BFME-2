@@ -194,10 +194,7 @@ bool Rva006053D7(const char *str, const char *pattern);
 	// 0x006053D7, wildcard match
 AsciiString makeAsciiString(const char *text);
 #include "../../../../GameEngine/Include/Common/AsciiStringRef.h"
-struct AsciiStringRefWithChar : AsciiStringRef
-{
-	char m_char;
-};
+#include "../../../../GameEngine/Include/Common/AsciiStringRefWithChar.h"
 #include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringCharPlusText : AsciiStringRefWithChar
 {
