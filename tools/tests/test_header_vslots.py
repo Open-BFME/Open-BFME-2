@@ -501,3 +501,82 @@ def test_census_strength_needs_a_fresh_owner(census_repo, monkeypatch):
     assert lane.census_strength(DTOR_ROW, "Code/a.cpp") == "strong"
     monkeypatch.setattr(lane, "census_fresh", lambda idx, source: False)
     assert lane.census_strength(DTOR_ROW, "Code/a.cpp") is None
+
+
+# ---- P148: a slot is spelled by the views that emit the vtable
+
+SPAWN = {
+    # be11f799eb8's views, read at its parent: the two units that construct and destroy emit the vtable
+    "SpawnBehaviorCtor.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual int rva0045FE4A(Rva0045FE4ACallback func, "
+                             "void *data) = 0;\n};\n",
+    "SpawnBehaviorDtor.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual int rva0045FE4A(Rva0045FE4ACallback func, "
+                             "void *data) = 0;\n};\n",
+    "SpawnBehaviorXfer.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual void spawnExtraAnchor();\n};\n",
+    "SpawnBehavior_onBodyDamageStateChange.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual void extraAnchor();\n};\n",
+    "SpawnBehavior_onDelete.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual void extraAnchor();\n};\n",
+    "SpawnBehavior_rva00460175.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual void extraAnchor();\n};\n",
+    "SpawnBehavior_shouldTryToSpawn.cpp": "class SpawnExtraBase\n{\npublic:\n\tvirtual void spawnExtraAnchor();\n};\n",
+}
+SPAWN_VTABLE = "??_7SpawnExtraBase@@6B@"
+PURE = "virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data) = 0;"
+
+
+def spawn_slots(member, facts=None, owners=None):
+    c = contract({0: member}, bases=(), inherited=0)
+    c["class"] = "SpawnExtraBase"
+    return lane.slot_declarations(c, sorted(SPAWN), read=SPAWN.__getitem__, known={}, owners=owners or {},
+                                  facts=facts or (lambda source: None))
+
+
+def emitting(source):
+    return (set(), {SPAWN_VTABLE} if source in ("SpawnBehaviorCtor.cpp", "SpawnBehaviorDtor.cpp") else set())
+
+
+def test_p148_a_placeholder_majority_never_replaces_the_emitting_views_pure_slot():
+    # be11f799eb8: the contract took slot 0 as extraAnchor() by majority (three views that do not emit the
+    # vtable) and the header declared `virtual void extraAnchor();` over the emitting views' pure slot
+    own, _, problems = spawn_slots("extraAnchor()")
+    assert own == [] and "views disagree on its signature" in problems[0]
+    own, _, problems = spawn_slots("extraAnchor()", facts=emitting)
+    assert own == [] and "no vtable-emitting view spells it" in problems[0]
+
+
+def test_the_emitting_views_spelling_outranks_the_others():
+    own, _, problems = spawn_slots("rva0045FE4A(Rva0045FE4ACallback,void*)", facts=emitting)
+    assert problems == [] and own == [PURE]
+    # without evidence of who emits it, the same views disagree and the class holds
+    own, _, problems = spawn_slots("rva0045FE4A(Rva0045FE4ACallback,void*)")
+    assert own == [] and "views disagree on its signature" in problems[0]
+
+
+def test_an_unknown_view_still_counts_beside_an_emitting_one():
+    # only a view whose current object lacks the vtable is outranked
+    def partly(source):
+        return emitting(source) if source != "SpawnBehaviorXfer.cpp" else None
+    own, _, problems = spawn_slots("rva0045FE4A(Rva0045FE4ACallback,void*)", facts=partly)
+    assert own == [] and "views disagree on its signature" in problems[0]
+
+
+def test_views_that_agree_on_names_but_not_on_parameters_hold():
+    views = {"a.cpp": "class K\n{\npublic:\n\tvirtual void f(int a);\n};\n",
+             "b.cpp": "class K\n{\npublic:\n\tvirtual void f(float a);\n};\n"}
+    c = contract({0: "f(int)"}, bases=(), inherited=0)
+    c["class"] = "K"
+    own, _, problems = lane.slot_declarations(c, sorted(views), read=views.__getitem__, known={}, owners={},
+                                              facts=lambda source: None)
+    assert own == [] and "views disagree on its signature" in problems[0]
+
+
+def test_a_non_pure_slot_no_row_defines_never_replaces_a_pure_one():
+    views = {"emit.cpp": "class K\n{\npublic:\n\tvirtual void f();\n};\n",
+             "other.cpp": "class K\n{\npublic:\n\tvirtual void f() = 0;\n};\n"}
+    c = contract({0: "f()"}, bases=(), inherited=0)
+    c["class"] = "K"
+    facts = {"emit.cpp": (set(), {"??_7K@@6B@"}), "other.cpp": (set(), set())}
+    own, _, problems = lane.slot_declarations(c, sorted(views), read=views.__getitem__, known={}, owners={},
+                                              facts=facts.get)
+    assert own == [] and "no matched row defines the non-pure declaration" in problems[0]
+    owners = {"?f@K@@": [("?f@K@@UAEXXZ", "emit.cpp")]}
+    own, _, problems = lane.slot_declarations(c, sorted(views), read=views.__getitem__, known={}, owners=owners,
+                                              facts=facts.get)
+    assert problems == [] and own == ["virtual void f();"]

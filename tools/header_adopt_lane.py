@@ -2847,7 +2847,34 @@ def rename_destructor(text, short):
     return re.sub(r"~\s*[A-Za-z_]\w*", "~" + short, text, count=1)
 
 
-def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None):
+def view_slots(found, inherited=()):
+    """A view's own slots in order, from virtual_members' `found`: [(signature, declaration)], where the
+    signature is (name, parameter types) and the destructor's is ("~", ()). A virtual a base declares
+    (`inherited`, base_slot_names) overrides a slot and introduces none; an overload group takes its
+    slots at its first declaration in reverse declaration order (class_layouts, "THE TRAP")."""
+    groups = collections.OrderedDict()
+    for member_name, _, text in found:
+        if member_name in inherited:
+            continue
+        groups.setdefault(member_name, []).append(text)
+    out = []
+    for member_name, texts in groups.items():
+        for text in reversed(texts):
+            out.append(((member_name, () if member_name == "~" else tuple(param_types(text.split("{")[0]))),
+                        text))
+    return out
+
+
+def emits_vtable(name, source, facts=None):
+    """Whether `source`'s unit emits `name`'s vtable: True or False from its object current here (it
+    defines `??_7Scope@@6B@` or not), None when there is none."""
+    held = (facts or local_facts)(source)
+    if held is None:
+        return None
+    return f"??_7{'@'.join(reversed(name.split('::')))}@@6B@" in held[1]
+
+
+def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None, facts=None):
     """([own slot declaration, emit order], [override declaration], [problem]) for the contract's vslots.
 
     Own slots are the ones the contract decided (a derived contract holds only
@@ -2864,7 +2891,15 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     that declare it so spell it. When the views split between an inline body
     and none and no such row exists, or the owner cannot be established, the
     slot is a problem (the rule special_declarations applies to the other
-    members)."""
+    members).
+
+    P148: a slot is spelled by the views whose units emit the vtable
+    (emits_vtable; `facts`: local_facts' shape) when any provably does, the
+    others then only where they cannot be shown not to; the views so counted
+    must agree on the slot's signature (view_slots: name and parameter
+    types, by position) and with the contract's member, or the class is held;
+    and a non-pure declaration no matched row defines never replaces a pure
+    one another view spells."""
     name = contract["class"]
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
@@ -2879,6 +2914,13 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         views[source] = virtual_members(text, name)
         if has_base_clause(text, name):
             derived.add(source)
+    # A view with the base clause introduces its slots after the inherited ones and overrides the base's;
+    # a view without it (a copy of the base's slots into the class) spells every slot from 0.
+    inherited = base_slot_names(contract, known) if contract.get("bases") else set()
+    positions = {source: view_slots(found, inherited if source in derived else ()) for source, found in views.items()}
+    emitting = {source: emits_vtable(name, source, facts) for source in views} if slots else {}
+    counted = ([s for s in views if emitting[s] is not False] if any(v is True for v in emitting.values())
+               else list(views))
     if slots:
         start = (contract.get("evidence", {}).get("inherited", {}).get("inherited_slots", 0)
                  if contract.get("bases") else 0)
@@ -2888,7 +2930,23 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     decided = {}
     for slot, member in sorted(slots.items()):
         want = slot_key(member)
-        spellings = collections.Counter(text for found in views.values() for text in matching(found, want, member))
+        spellings = collections.Counter(text for s in counted for text in matching(views[s], want, member))
+        if not spellings:
+            problems.append(f"slot{slot} {member}: no " + ("vtable-emitting " if len(counted) < len(views) else "")
+                            + "view spells it")
+            continue
+        first = {s: (start if s in derived else 0) for s in counted}
+        at = {s: positions[s][slot - first[s]] for s in counted if 0 <= slot - first[s] < len(positions[s])}
+        signatures = {signature for signature, _ in at.values()}
+        if len(signatures) > 1:
+            problems.append(f"slot{slot} {member}: views disagree on its signature: "
+                            + "; ".join(sorted({text.split("{")[0].strip().rstrip(";") for _, text in at.values()})[:4]))
+            continue
+        if signatures and next(iter(signatures))[0] != want[0] or \
+                signatures and want[0] != "~" and len(next(iter(signatures))[1]) != want[1]:
+            problems.append(f"slot{slot} {member}: the contract's member is not the views' "
+                            f"{next(iter(at.values()))[1].split('{')[0].strip()}")
+            continue
         text = pick_declaration(spellings)
         if text is None:
             problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings
@@ -2910,6 +2968,18 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             elif bare:
                 problems.append(f"slot{slot} {member}: an inline body in one view, none in another, "
                                 "and no matched row defines it out of line")
+                continue
+        if not declaration_key(text)[1] and "{" not in text and want[0] != "~":
+            purely = [t for found in views.values() for t in matching(found, want, member)
+                      if declaration_key(t)[1] and declaration_key(t)[0] == declaration_key(text)[0]]
+            try:
+                defined = rows_of(name, text, owners) if purely else True
+            except OwnerUnknown as why:
+                problems.append(f"slot{slot} {member}: {why}")
+                continue
+            if purely and not defined:
+                problems.append(f"slot{slot} {member}: pure in a view, and no matched row defines the "
+                                "non-pure declaration that would replace it")
                 continue
         decided[slot] =(want[0], rename_destructor(text, short) if want[0] == "~" else text)
     # MSVC lays an overload group out at its first declaration in REVERSE
