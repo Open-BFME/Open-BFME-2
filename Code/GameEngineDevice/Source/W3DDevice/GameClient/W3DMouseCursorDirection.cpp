@@ -30,11 +30,7 @@ static __forceinline void copyScroll(Coord2D &out,const Coord2D &in) {
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-struct CursorInfo
-{
-	char m_pad[0x50];
-	Int numDirections;
-};
+#include "../../../../GameEngine/Include/Common/CursorInfo.h"
 
 class Mouse
 {

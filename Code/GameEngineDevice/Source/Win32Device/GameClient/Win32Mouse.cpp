@@ -18,23 +18,7 @@ typedef float Real;
 
 #include "../../../../GameEngine/Include/Common/RGBAColorInt.h"
 
-struct CursorInfo
-{
-	AsciiString cursorName;
-	AsciiString cursorText;
-	RGBAColorInt cursorTextColor;
-	RGBAColorInt cursorTextDropColor;
-	AsciiString textureName;
-	AsciiString imageName;
-	AsciiString W3DModelName;
-	AsciiString W3DAnimName;
-	Real W3DScale;
-	Bool loop;
-	ICoord2D hotSpotPosition;
-	Int numFrames;
-	Real fps;
-	Int numDirections;
-};
+#include "../../../../GameEngine/Include/Common/CursorInfo.h"
 
 enum MouseButtonState
 {

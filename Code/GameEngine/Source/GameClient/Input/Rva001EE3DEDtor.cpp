@@ -35,11 +35,7 @@ public:
 
 extern class DisplayStringManager *TheDisplayStringManager;
 
-struct CursorInfo {
-	CursorInfo();
-	~CursorInfo();
-	unsigned char m_pad[0x54];
-};
+#include "../../../Include/Common/CursorInfo.h"
 
 #include "../../../Include/Common/RGBAColorInt.h"
 

@@ -272,18 +272,7 @@ private:
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-struct CursorInfo
-{
-	char m_pad00[0x30];
-	AsciiString W3DModelName;
-	AsciiString W3DAnimName;
-	Real W3DScale;
-	Bool loop;
-	ICoord2D hotSpotPosition;
-	Int numFrames;
-	Real fps;
-	Int numDirections;
-};
+#include "../../../../GameEngine/Include/Common/CursorInfo.h"
 
 enum MouseCursor
 {

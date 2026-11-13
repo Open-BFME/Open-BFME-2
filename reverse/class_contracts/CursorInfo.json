@@ -1,0 +1,339 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "CursorInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "84": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Mouse.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "cursorName",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "cursorText",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RGBAColorInt",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "alpha",
+     "offset": 12,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "cursorTextColor",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 16,
+   "type": "RGBAColorInt",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RGBAColorInt",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "alpha",
+     "offset": 12,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "cursorTextDropColor",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 16,
+   "type": "RGBAColorInt",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "textureName",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "imageName",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "W3DModelName",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "W3DAnimName",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "W3DScale",
+   "name_by": "zh",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "loop",
+   "name_by": "zh",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:ICoord2D",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "hotSpotPosition",
+   "name_by": "zh",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 8,
+   "type": "ICoord2D",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "numFrames",
+   "name_by": "zh",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "fps",
+   "name_by": "zh",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "numDirections",
+   "name_by": "zh",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 84,
+ "size_by": "zh",
+ "vslots": {}
+}
