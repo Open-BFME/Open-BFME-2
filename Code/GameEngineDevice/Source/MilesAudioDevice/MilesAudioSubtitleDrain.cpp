@@ -43,7 +43,7 @@ class GlobalData;extern GlobalData *TheWritableGlobalData;
 struct SubtitleGlobalView {char at00[0x9A2];bool m_at9A2;};
 
 #include "../../../GameEngine/Include/Common/Rva000543F5Record.h"
-struct BfmeStringRecord00054F57 {void *m_a;void *m_b;};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00054F57.h"
 class Rva00054AFA {
 public:Rva00054AFA(const AsciiString &,const UnicodeString &);
  // ?Rva00054AFA::~Rva00054AFA present-unmatched

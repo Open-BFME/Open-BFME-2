@@ -6,11 +6,7 @@
 // and rowed _Construct 0x000558EE. Caller at 0x00058D90 links the node.
 // Same shape as the rowed-adjacent 0x00056E53 new-node; stdcall per ret-4.
 #include <memory>
-struct BfmeStringRecord00054F57
-{
-	void *m_a;
-	void *m_b;
-};
+#include "BfmeStringRecord00054F57.h"
 // BFME replaces STLport allocation with a static byte allocator (RVA 0x307F0).
 namespace _STL {
 template <> class allocator<char> {

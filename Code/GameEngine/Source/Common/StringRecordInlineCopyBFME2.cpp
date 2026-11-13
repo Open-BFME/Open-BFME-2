@@ -10,10 +10,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 // Complete retail record copy at0x00054F57.
-struct BfmeStringRecord00054F57 {
-    AsciiString ansi; UnicodeString wide;
-    BfmeStringRecord00054F57(const BfmeStringRecord00054F57 &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00054F57.h"
 BfmeStringRecord00054F57::BfmeStringRecord00054F57(const BfmeStringRecord00054F57 &source) : ansi(source.ansi), wide(source.wide) {}
 template void _STL::_Construct<BfmeStringRecord00054F57,BfmeStringRecord00054F57>(BfmeStringRecord00054F57*,const BfmeStringRecord00054F57&);
 

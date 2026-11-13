@@ -5402,7 +5402,7 @@ static __forceinline void releaseUnicodeStringStorage(void *storage)
 	_STL::free(storage);
 }
 #define _STLP_NO_EXCEPTIONS 1
-struct BfmeStringRecord00054F57 { void *m_a; void *m_b; };
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00054F57.h"
 struct HashNode00056E8C { HashNode00056E8C *m_next; BfmeStringRecord00054F57 m_val; };
 struct Pair00058D4A { HashNode00056E8C *m_node; void *m_table; bool m_new; };
 

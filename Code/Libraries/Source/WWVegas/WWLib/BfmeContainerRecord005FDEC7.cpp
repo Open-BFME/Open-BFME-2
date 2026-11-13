@@ -6,10 +6,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 // Complete retail record copy at0x00054F57.
-struct BfmeStringRecord00054F57 {
-    AsciiString ansi; UnicodeString wide;
-    BfmeStringRecord00054F57(const BfmeStringRecord00054F57 &source);
-};
+#include "BfmeStringRecord00054F57.h"
 template void _STL::_Construct<BfmeStringRecord00054F57,BfmeStringRecord00054F57>(BfmeStringRecord00054F57*,const BfmeStringRecord00054F57&);
 // Complete retail record copy at0x00204A30.
 #include "../../../../GameEngine/Include/Common/BfmeStringRecord00204A30.h"

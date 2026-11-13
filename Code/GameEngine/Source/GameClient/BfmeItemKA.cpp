@@ -226,10 +226,7 @@ GameSubTitle::GameSubTitle(GameFont *font,
 #pragma comment(linker, "/alternatename:??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z=?Rva00260647Copy@@YAPAUBfmeStringRecord002602A6@@PAU1@00@Z")
 #include <memory>
 // Complete retail record copy at0x00054F57.
-struct BfmeStringRecord00054F57 {
-    AsciiString ansi; UnicodeString wide;
-    BfmeStringRecord00054F57(const BfmeStringRecord00054F57 &source);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00054F57.h"
 template void _STL::_Construct<BfmeStringRecord00054F57,BfmeStringRecord00054F57>(BfmeStringRecord00054F57*,const BfmeStringRecord00054F57&);
 // Complete retail record copy at0x00204A30.
 #include "../../Include/Common/BfmeStringRecord00204A30.h"
