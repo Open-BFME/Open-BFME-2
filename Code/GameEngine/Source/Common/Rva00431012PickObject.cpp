@@ -10,11 +10,7 @@
 class Player;
 class Object;
 
-class Rva0035AFE4
-{
-public:
-	bool rva0035B010(Player *p, Object *o);
-};
+#include "../../Include/Common/Rva0035AFE4.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

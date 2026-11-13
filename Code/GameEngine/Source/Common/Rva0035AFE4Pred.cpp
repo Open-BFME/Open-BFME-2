@@ -6,15 +6,7 @@
 // getRelationship result) and 0x0035B05C, ecx-first thiscall with ret 4,
 // sibling CommandButton::isContextCommand (0x0035B140, bit 9 of m_1c).
 
-class Rva0035AFE4
-{
-public:
-	bool rva0035AFE4(int which);
-
-private:
-	char m_pad[0x1c];
-	unsigned int m_1c;
-};
+#include "../../Include/Common/Rva0035AFE4.h"
 
 bool Rva0035AFE4::rva0035AFE4(int which)
 {

@@ -21,16 +21,7 @@ class Object;
 
 #include "../GameLogic/Object/object.h"
 
-class Rva0035AFE4
-{
-public:
-	bool rva0035AFE4(int which);
-	bool rva0035B010(Player *player, Object *obj);
-
-private:
-	char m_pad[0x1c];
-	unsigned int m_1c;
-};
+#include "../../Include/Common/Rva0035AFE4.h"
 
 bool Rva0035AFE4::rva0035B010(Player *player, Object *obj)
 {
