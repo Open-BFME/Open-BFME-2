@@ -131,11 +131,7 @@ struct FieldParse;
 extern const int g_emptyFieldParseTable[4];
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/Rva005890EDBase.h"
 
 template <int N> class Rva004C55B2Slots : public Rva004C55B2Slots<N - 1>
 {

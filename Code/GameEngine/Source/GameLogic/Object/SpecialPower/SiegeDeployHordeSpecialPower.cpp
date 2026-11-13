@@ -53,11 +53,7 @@ extern const FieldParse g_00C5DD44[] = {
 };
 
 
-class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/Rva005890EDBase.h"
 
 //
 // ??0SiegeDeployHordeSpecialPowerModuleData@@QAE@XZ, retail 0x004C64D3

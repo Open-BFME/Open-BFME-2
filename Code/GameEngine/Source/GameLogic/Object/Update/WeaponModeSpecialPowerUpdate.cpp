@@ -44,11 +44,7 @@ class Object;
 class MultiIniFieldParse;
 #include "../../../../Include/Common/INI/FieldParse.h"
 extern const FieldParse s_weaponModeFieldTable[];
-class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/Rva005890EDBase.h"
 typedef bool Bool;
 enum UpdateSleepTime
 {

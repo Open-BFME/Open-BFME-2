@@ -365,11 +365,7 @@ extern const FieldParse g_00C5DBD8[] = {
 	{ "ExtraWallDistance", &INI::parseReal, 0, 0x2C },
 	{ 0, 0, 0, 0 }
 };
-class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/Rva005890EDBase.h"
 class __declspec(novtable) SiegeDeploySpecialPowerModuleData : public AIUpdateModuleData
 {
 public:

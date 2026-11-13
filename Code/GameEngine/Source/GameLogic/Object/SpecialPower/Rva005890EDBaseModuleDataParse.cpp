@@ -29,11 +29,7 @@ extern const FieldParse g_00C701E0[] = {
 };
 
 
-class Rva005890EDBase
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/Rva005890EDBase.h"
 
 // ?buildFieldParse@Rva005890EDBase@@SAXAAVMultiIniFieldParse@@@Z @0x005890ED
 void Rva005890EDBase::buildFieldParse(MultiIniFieldParse &parse)
