@@ -683,5 +683,158 @@ class ClassScope(unittest.TestCase):
         self.assertIn("Bar", rep["classes"])
 
 
+class AnonymousUnions(unittest.TestCase):
+    """Header name proof may read union alternatives; merging may never flatten them."""
+
+    UNION = "union { Foo *m_next; bool m_value; };"
+    FIELDS = [[8, "m_next", "Foo*", 4], [8, "m_value", "bool", 1]]
+
+    def source(self, union=None, suffix=""):
+        return "class Foo\n{\npublic:\n" + (union or self.UNION) + "\n};\n" + suffix
+
+    def layout(self, fields=None, **changes):
+        return {"fwd": False, "size": 12, "bases": [], "vfptr": False,
+                "fields": self.FIELDS if fields is None else fields, **changes}
+
+    def view(self, union=None, fields=None, **changes):
+        layout = self.layout(fields, **changes)
+        return V.View("u.cpp", self.source(union), "Foo", layout, {"Foo": layout})
+
+    def field_names(self, source=None, canonical=None, old=None, new=None, old_extra=None, new_extra=None):
+        lane = V.hal
+        source = source or self.source(suffix="int f(Foo *p) { return p->m_value; }\n")
+        canonical = canonical or "class Foo\n{\npublic:\nunion { bool field08; Foo *field08_next; };\n};\n"
+        old = self.layout() if old is None else old
+        new = self.layout([[8, "field08", "bool", 1], [8, "field08_next", "Foo*", 4]]) if new is None else new
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "Foo.h").write_text(canonical, encoding="latin-1", newline="")
+            with unittest.mock.patch.object(lane, "ROOT", root):
+                return lane.field_renames("u.cpp", source, ["Foo"], "Foo.h",
+                                          lambda _source, text: ({"Foo": old, **(old_extra or {})} if text is None
+                                                                 else {"Foo": new, **(new_extra or {})}),
+                                          header="Foo.h")
+
+    def test_apt_union_uses_both_compiler_spans_through_the_header_proof(self):
+        self.assertEqual(self.field_names(), ({"Foo": {"m_next": "field08_next", "m_value": "field08"}}, None))
+        view = self.view()
+        self.assertEqual(V.field_table(view), {"m_next": (8, 4, "Foo*"), "m_value": (8, 1, "bool")})
+        first, second = view.members
+        self.assertIs(first.anonymous_union, second.anonymous_union)
+        self.assertEqual(first.anonymous_union["text"], self.UNION)
+        self.assertEqual(first.anonymous_union["names"], ("m_next", "m_value"))
+
+    def test_incomplete_or_inconsistent_compiler_evidence_refuses_before_mapping(self):
+        bad = [self.layout(self.FIELDS[:1]),
+               self.layout(self.FIELDS + [self.FIELDS[0]]),
+               self.layout([[4, "m_next", "Foo*", 4], self.FIELDS[1]]),
+               self.layout([[8, "m_next", "k1234", 4], self.FIELDS[1]]),
+               self.layout([[8, "m_next", "Foo*", 0], self.FIELDS[1]]),
+               self.layout([[8, "m_next", "Foo*", 8], self.FIELDS[1]]),
+               self.layout([[8, "m_next", "Foo*", 4], [8, "m_value", "bool", 4]]),
+               self.layout(size=9), self.layout(unparsed=True),
+               self.layout([["8", "m_next", "Foo*", 4], self.FIELDS[1]]),
+               self.layout([[8, "m_next", "Foo*", 4], [8, "m_value"]])]
+        for layout in bad:
+            with self.subTest(layout=layout):
+                mapping, why = self.field_names(old=layout)
+                self.assertIsNone(mapping)
+                self.assertIn("anonymous union", why)
+        with self.assertRaisesRegex(V.Refused, "complete CodeView"):
+            self.view(fwd=True)
+
+    def test_unsupported_union_forms_stay_refused(self):
+        forms = ["union { struct { int x; }; bool value; };", "union { bool value; } named;",
+                 "union { int &ref; bool value; };", "union { unsigned value:1; };",
+                 "union { bool value = false; };", "union { void f(); };",
+                 "union { static int value; };", "union { public: int value; };",
+                 "union {\n#define FIELD value\nint FIELD;\n};", "union { int a[2]; };",
+                 "union { int a,b; };", "union { Thing value; };", "union { int (*fn)(); };",
+                 "union { int value; int value; };", "union {};", "union { int value };"]
+        for form in forms:
+            with self.subTest(form=form), self.assertRaises(V.Refused):
+                self.view(form)
+        for kind in ("struct", "class"):
+            with self.subTest(kind=kind), self.assertRaisesRegex(V.Refused, "anonymous aggregate"):
+                self.view("%s { int value; };" % kind)
+
+    def test_structural_reconciliation_and_direct_render_refuse_every_union_shape(self):
+        shapes = [(self.UNION, self.FIELDS),
+                  ("union { int a; unsigned int b; };", [[0, "a", "int", 4], [0, "b", "uint", 4]]),
+                  ("union { int m_pad00; unsigned int m_unused; };",
+                   [[0, "m_pad00", "int", 4], [0, "m_unused", "uint", 4]]),
+                  ("union { int only; };", [[0, "only", "int", 4]])]
+        for source, fields in shapes:
+            view = self.view(source, fields)
+            with self.subTest(source=source):
+                self.assertTrue(all(not V.is_pad(m, view) for m in view.members))
+                with self.assertRaisesRegex(V.Refused, "structural reconciliation"):
+                    V.reconcile("Foo", [view], "u.cpp")
+                plan = V.Plan("Foo")
+                plan.fields = [(field[0], field[3], m, "u.cpp") for field, m in zip(fields, view.members)]
+                with self.assertRaisesRegex(V.Refused, "sequential fields"):
+                    V.render(plan)
+
+    def test_an_inert_union_refuses_the_plan_before_any_write_or_build(self):
+        for union in (self.UNION, "struct { union { int a; float b; }; };",
+                      "struct Nested { struct { union { int a; float b; }; }; };",
+                      "#if 1\nunion { int a; float b; };\n#endif",
+                      "const struct { union { int a; float b; }; } field;",
+                      "union __declspec(align(4)) { int a; float b; };",
+                      "void f() { union { int a; float b; }; }"):
+            with self.subTest(union=union):
+                files = {"Seed.cpp": "class Foo\n{ public: int value; };\n", "Donor.cpp": self.source(union)}
+                layouts = {"Seed.cpp": {"Foo": self.layout([[0, "value", "int", 4]])}, "Donor.cpp": {}}
+                fx = Fixture(files)
+                self.addCleanup(fx.close)
+                fx.tool._layouts = lambda path: layouts[path]
+                with unittest.mock.patch.object(fx.tool, "write", side_effect=AssertionError("wrote source")), \
+                        self.assertRaisesRegex(V.Refused, "structural reconciliation"):
+                    fx.tool.plan("Foo", list(files), files, "Seed.cpp")
+                self.assertEqual(fx.builds, [])
+                self.assertEqual({name: fx.text(name) for name in files}, files)
+
+    def test_function_local_union_is_not_a_class_field(self):
+        source = "class Foo\n{ public: void f() { union { int x; float y; }; } };\n"
+        view = V.View("u.cpp", source, "Foo", self.layout([]), {})
+        self.assertFalse(view.has_anonymous_union)
+
+    def test_equal_width_alternatives_are_not_guessed(self):
+        source = self.source("union { Foo *a; Foo *b; };")
+        old = self.layout([[8, "a", "Foo*", 4], [8, "b", "Foo*", 4]])
+        canonical = "class Foo\n{ public: union { Foo *x; Foo *y; }; };\n"
+        new = self.layout([[8, "x", "Foo*", 4], [8, "y", "Foo*", 4]])
+        mapping, why = self.field_names(source, canonical, old, new)
+        self.assertIsNone(mapping)
+        self.assertIn("could be any", why)
+
+    def test_macros_unrelated_compiler_fields_and_hiding_stay_refused(self):
+        for token in ("m_value", "field08"):
+            with self.subTest(token=token):
+                mapping, why = self.field_names(self.source() + "#define " + token + " other\n")
+                self.assertIsNone(mapping)
+                self.assertTrue(why)
+        mapping, why = self.field_names(self.source() + "class Other\n{ public: bool m_value; };\n",
+                                        old_extra={"Other": self.layout([[0, "m_value", "bool", 1]])})
+        self.assertIsNone(mapping)
+        self.assertIn("also a member of Other", why)
+        canonical = ("class Parent\n{ public: static int field08; };\n"
+                     "class Foo : public Parent\n{ public: union { bool field08; Foo *field08_next; }; };\n")
+        new = self.layout([[8, "field08", "bool", 1], [8, "field08_next", "Foo*", 4]], bases=[["Parent", 0]])
+        mapping, why = self.field_names(canonical=canonical, new=new,
+                                        new_extra={"Parent": self.layout([], statics=["field08"])})
+        self.assertIsNone(mapping)
+        self.assertIn("static member of Parent", why)
+
+    def test_field_proof_does_not_bypass_scoped_use_proof(self):
+        source = self.source(suffix="int f() { return get()->m_value; }\n")
+        mapping, why = self.field_names(source)
+        self.assertIsNone(why)
+        swapped = V.hal.swap(source, ["Foo"], "Foo.h")
+        out, why = V.hal.scoped_rename(swapped, mapping)
+        self.assertIsNone(out)
+        self.assertIn("not proven", why)
+
+
 if __name__ == "__main__":
     unittest.main()

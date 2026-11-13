@@ -329,6 +329,8 @@ def member(p, access, cls, typedefs):
     s = ws(p)
     if re.match(r"^template\b", s):
         raise Refused(f"member template: {s[:60]}")
+    if re.match(r"^union\s*\{", s):
+        return union_members(p, access, cls, typedefs)
     if re.match(r"^(union|struct|class)\s*\{", s):
         raise Refused(f"anonymous aggregate member: {s[:60]}")
     nested = re.match(r"^(typedef|friend|using)\b", s) or (
@@ -370,6 +372,104 @@ def member(p, access, cls, typedefs):
         out.append(Member(kind, access, f"{'static ' if static else ''}{base} {d};", name=name, base=base,
                           decl=d, key=(kind, name)))
     return out if len(out) > 1 else out[0]
+
+
+# Anonymous unions are readable for header field-name proof only. Their leaves
+# share storage; none may become an ordinary field in a reconciled class block.
+UNION_SCALARS = {"bool": 1, "char": 1, "signed char": 1, "unsigned char": 1,
+                 "short": 2, "unsigned short": 2, "int": 4, "unsigned int": 4,
+                 "long": 4, "unsigned long": 4, "float": 4, "double": 8,
+                 "__int8": 1, "unsigned __int8": 1, "__int16": 2, "unsigned __int16": 2,
+                 "__int32": 4, "unsigned __int32": 4, "__int64": 8, "unsigned __int64": 8}
+
+
+def union_members(p, access, cls, typedefs):
+    """Logical scalar/pointer leaves, retaining one shared, unrenderable group."""
+    match = re.fullmatch(r"union\s*\{([^{}]*)\}\s*;", p, re.S)
+    if not match or re.search(r"[()\[\]&=,#<>]|(?<!:):(?!:)", match.group(1)):
+        raise Refused(f"unsupported anonymous union: {ws(p)[:60]}")
+    parts = match.group(1).split(";")
+    if parts[-1].strip() or not all(part.strip() for part in parts[:-1]):
+        raise Refused(f"unsupported anonymous union: {ws(p)[:60]}")
+    leaves = []
+    for part in parts[:-1]:
+        leaf = member(part.strip() + ";", access, cls, typedefs)
+        if isinstance(leaf, list) or leaf.kind != "data" \
+                or not re.fullmatch(r"\**\s*" + re.escape(leaf.name), leaf.decl):
+            raise Refused(f"unsupported anonymous union member: {ws(part)[:60]}")
+        base = type_norm(leaf.base, typedefs)
+        bare = re.sub(r"\b(const|volatile)\b", "", base).strip()
+        pointer = "*" in leaf.decl
+        # No by-value user types, arrays, references, declarator macros or
+        # unmodelled keywords. CodeView must independently confirm the width.
+        if (pointer and not (bare in UNION_SCALARS or bare == "void" or
+                             re.fullmatch(r"[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*", bare))) \
+                or (not pointer and bare not in UNION_SCALARS) \
+                or set(IDENT.findall(bare)) & {"static", "mutable", "typedef", "friend", "using"}:
+            raise Refused(f"unsupported anonymous union type: {ws(part)[:60]}")
+        leaf.union_width = 4 if pointer else UNION_SCALARS[bare]
+        leaves.append(leaf)
+    if not leaves or len({m.name for m in leaves}) != len(leaves):
+        raise Refused("anonymous union needs distinct named members")
+    group = {"text": p, "names": tuple(m.name for m in leaves)}
+    for leaf in leaves:
+        leaf.anonymous_union = group
+    return leaves
+
+
+def validate_unions(view):
+    """A union is field-name evidence only with complete compiler-owned spans."""
+    lay = view.layout
+    if lay.get("fwd") is not False or "unparsed" in lay or type(lay.get("size")) is not int \
+            or lay["size"] <= 0 or not isinstance(lay.get("fields"), list):
+        raise Refused(f"{view.path}: anonymous union needs a complete CodeView layout")
+    table = collections.defaultdict(list)
+    for field in lay["fields"]:
+        if not isinstance(field, (list, tuple)) or len(field) != 4 \
+                or type(field[0]) is not int or type(field[3]) is not int \
+                or not isinstance(field[1], str) or not isinstance(field[2], str):
+            raise Refused(f"{view.path}: anonymous union has malformed CodeView fields")
+        table[field[1]].append(field)
+    names = [m.name for m in view.members if m.kind == "data"]
+    if len(set(names)) != len(names) or set(names) != set(table) or any(len(fs) != 1 for fs in table.values()):
+        raise Refused(f"{view.path}: anonymous union source fields differ from complete CodeView fields")
+    widths = dict(class_layouts.PRIM.values())
+    offsets = {}
+    for leaf in view.members:
+        group = getattr(leaf, "anonymous_union", None)
+        if group is None:
+            continue
+        off, _name, cv, size = table[leaf.name][0]
+        width = 4 if cv.endswith("*") else widths.get(cv, 0)
+        if width <= 0 or size != width or size != leaf.union_width or off < 0 or off + size > lay["size"] \
+                or ("*" in leaf.decl) != cv.endswith("*"):
+            raise Refused(f"{view.path}: anonymous union member {leaf.name} has an unproved CodeView span")
+        if offsets.setdefault(id(group), off) != off:
+            raise Refused(f"{view.path}: anonymous union members have different CodeView offsets")
+
+
+def refuse_union_reconciliation(views):
+    for view in views:
+        if view.has_anonymous_union:
+            raise Refused(f"{view.path}: anonymous union field names are readable, but structural reconciliation is unsupported")
+
+
+def has_storage_union(body, cls, typedefs):
+    """Unions in class storage, excluding only parsed complete function bodies.
+
+    Inert views have no member/layout evidence. Conservatively retain their
+    nested/conditional aggregate storage too. An unknown brace head is not
+    evidence of a function body and must never allow a union to be erased.
+    """
+    union = re.compile(r"\bunion\b[^;{}]*\{", re.S)
+    if not union.search(body):
+        return False
+    try:
+        parsed = members(body, cls, typedefs)
+    except Refused:
+        return True
+    return any(hasattr(m, "anonymous_union") or
+               (union.search(m.text) and (m.kind != "fn" or m.body is None)) for m in parsed)
 
 
 def function(p, cls, typedefs):
@@ -446,8 +546,17 @@ class View:
             raise Refused(f"{path}: unreadable class head `{self.head[:60]}`")
         self.key, self.declspec, self.bases = hm.group(1), ws(hm.group(2) or ""), ws(hm.group(3) or "")
         self.typedefs = file_typedefs(text)
+        body = msrc[open_ + 1:close]
+        # Inert views still receive the replacement block. Never erase their
+        # unions merely because this TU did not emit a CodeView record.
+        # Without layout evidence, even a function-like macro could expand to
+        # storage. Inert donors containing `union` therefore fail closed.
+        self.has_anonymous_union = (bool(re.search(r"\bunion\b", body)) if inert else
+                                    has_storage_union(body, cls, self.typedefs))
         self.members = [] if inert else members(src[open_ + 1:close], cls, self.typedefs,
                                                 text[span[0]:span[1]][open_ + 1:close])
+        if self.has_anonymous_union and not inert:
+            validate_unions(self)
         default = "public" if self.key == "struct" else "private"
         cv_virtual = set(layout.get("virtual", []))
         for m in self.members:
@@ -503,7 +612,8 @@ def ledger_member_attrs(cls, name, rows):
 
 # ---------------------------------------------------------------- reconcile
 def is_pad(m, view):
-    return m.kind == "data" and bool(PAD.match(m.name)) and not view.pad_used.get(m.name)
+    return m.kind == "data" and not hasattr(m, "anonymous_union") \
+        and bool(PAD.match(m.name)) and not view.pad_used.get(m.name)
 
 
 def field_table(view):
@@ -598,6 +708,7 @@ class Plan:
 
 def reconcile(cls, views, seed, ledger=()):
     """A Plan whose block every view becomes, or Refused with the evidence."""
+    refuse_union_reconciliation(views)
     plan = Plan(cls)
     order = sorted(views, key=lambda v: (v.path != seed, views.index(v)))
     first = order[0]
@@ -816,6 +927,9 @@ def defines_out_of_line(view, cls, name):
 
 def render(plan):
     """The shared block: one text every file of the class carries verbatim."""
+    refuse_union_reconciliation(getattr(plan, "views", ()))
+    if any(hasattr(m, "anonymous_union") for _, _, m, _ in plan.fields):
+        raise Refused("anonymous union members cannot be rendered as sequential fields")
     lines, state = [plan.head, "{"], [None]
 
     def put(acc, text):
@@ -1206,6 +1320,7 @@ class Tool:
                 inert.append(View(f, texts[f], cls, {}, self.layouts(f), inert=True))
             else:
                 views.append(View(f, texts[f], cls, lay, self.layouts(f)))
+        refuse_union_reconciliation(views + inert)
         if not views:
             raise Refused(f"no file's CodeView lays {cls} out (nothing uses it)")
         plan = reconcile(cls, views, seed, self.ledger)
