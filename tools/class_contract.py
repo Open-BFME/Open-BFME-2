@@ -97,12 +97,13 @@ def ledger_rows():
         return [r for r in csv.DictReader(handle) if r["status"] == "matched"]
 
 
-def census(name, rows=None):
-    """Ledger sources (authored) that declare their own body for `name`."""
+def census(name, rows=None, templates=False):
+    """Ledger sources (authored) that declare their own body for `name`; with `templates`, a
+    class template's own body or an explicit specialization of it counts (class_inventory)."""
     import class_inventory
     sources = sorted({r["source"] for r in (rows or ledger_rows())
                       if r["source"].lower().endswith((".cpp", ".c")) and not r["source"].startswith(GENERATED)})
-    return sorted(class_inventory.inventory(sources, ROOT, {name}).get(name, {}))
+    return sorted(class_inventory.inventory(sources, ROOT, {name}, templates=templates).get(name, {}))
 
 
 def views(name, sources, jobs=8):

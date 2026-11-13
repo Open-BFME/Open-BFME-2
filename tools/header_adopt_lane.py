@@ -213,6 +213,72 @@ def body_span(text, name):
     return None
 
 
+def template_class(header, name):
+    """Whether `header` defines `name` as a class template (`template <...> class name {`)."""
+    try:
+        text = (ROOT / header).read_text(encoding="latin-1")
+    except OSError:
+        return False
+    return any(found.group("name") == name and found.group("template")
+               for found in class_layouts.HEAD.finditer(masked(text)))
+
+
+SPECIALIZATION_HEAD = r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+%s\s*<"
+
+
+def specialization_spans(text, name):
+    """[(start, end)] of the explicit specializations of class template `name` that have a body
+    (`template <> class name<11> {...};`), each with its closing `;` and newline; None when one
+    does not close."""
+    code, out = masked(text), []
+    for found in re.finditer(SPECIALIZATION_HEAD % re.escape(name), code, re.M):
+        i, depth = found.end(), 1
+        while i < len(code) and depth:
+            depth += code[i] == "<"
+            depth -= code[i] == ">"
+            i += 1
+        brace, semi = code.find("{", i), code.find(";", i)
+        if depth or brace == -1:
+            return None
+        if semi != -1 and semi < brace:
+            continue                                  # `template <> class name<11>;`: a declaration
+        j, depth = brace, 0
+        while j < len(code):
+            depth += code[j] == "{"
+            depth -= code[j] == "}"
+            j += 1
+            if not depth:
+                break
+        tail = re.match(r"[ \t\r\n\v\f]*;[ \t]*\r?\n?", code[j:])
+        if depth or not tail:
+            return None
+        out.append((found.start(), j + tail.end()))
+    return out
+
+
+def template_copy(text, name):
+    """Whether the unit's own `name` is a class template: a `template <...>` body, or an explicit
+    specialization with a body."""
+    return any(found.group("name") == name and found.group("template")
+               for found in class_layouts.HEAD.finditer(masked(text))) or bool(specialization_spans(text, name))
+
+
+def census_of(name, header, *rows):
+    """class_contract.census for `name`, called as for any class; a class template's census
+    (template_class) counts its template bodies and explicit specializations too."""
+    if template_class(header, name):
+        return class_contract.census(name, *rows, templates=True)
+    return class_contract.census(name, *rows)
+
+
+def private_body(text, name, template=False):
+    """Whether `text` declares its own namespace-scope body of `name`; for a class template
+    (`template`), its template body or an explicit specialization counts too."""
+    if name in (n for n, _s, _e, _k in class_layouts.class_body_spans(text, include_templates=template)):
+        return True
+    return bool(template and specialization_spans(text, name))
+
+
 def swap(text, names, include):
     """Text with every view of `names` removed and `include` where the first stood."""
     swapped = swap_at(text, names, include)
@@ -220,14 +286,31 @@ def swap(text, names, include):
 
 
 def swap_at(text, names, include):
-    """(swap's text, the offset just past the inserted #include line), or None."""
-    spans = []
+    """(swap's text, the offset just past the inserted #include line), or None.
+
+    A class template's copy goes whole: its body, its members defined out of class
+    (class_layouts.template_member_definitions) and the unit's explicit specializations, which
+    the header's one template instantiates instead (the byte gate proves each unit). A unit
+    that names a member out of class (`name<...>::`) the reader cannot read whole is left as it
+    is (None)."""
+    original, spans = text, []
     for name in names:
         span = body_span(text, name)
         while span:
             spans.append(span[:2])
             text = text[:span[0]] + "\0" * (span[1] - span[0]) + text[span[1]:]
             span = body_span(text, name)
+        if template_copy(original, name):
+            # The member reader fails closed on any directive but #include and #pragma; a unit that never
+            # spells `name<...>::` has no member defined out of class for it to find.
+            names_members = re.search(r"\b%s\s*<[^;{}]*>\s*::" % re.escape(name), masked(original))
+            members = class_layouts.template_member_definitions(original, name) if names_members else []
+            specializations = specialization_spans(original, name)
+            if members is None or specializations is None:
+                return None
+            for start, end in members + specializations:
+                spans.append((start, end))
+                text = text[:start] + "\0" * (end - start) + text[end:]
     if not spans:
         return None
     first = min(s for s, _ in spans)
@@ -5816,7 +5899,8 @@ def misclassified(name, source, queued=None, layouts=None):
     renamed since can pass) and its compiled types hold no global `name`, not even a
     forward reference (it never uses the class). Any missing evidence is a no."""
     old = (queued or queued_text)(name, source)
-    if old is None or name in class_layouts.class_bodies(old):
+    header = registered().get(name)
+    if old is None or private_body(old, name, bool(header) and template_class(header, name)):
         return False
     try:
         found = (layouts or class_layouts.compile_layouts)(source)
@@ -5834,7 +5918,7 @@ def adoption_problems(name, source, header=None, gate=None):
     if not header or not (ROOT / header).exists():
         return [f"{name}'s canonical header {header or '(unregistered)'} does not exist"]
     problems = []
-    if name in class_layouts.class_bodies((ROOT / source).read_text(encoding="latin-1")):
+    if private_body((ROOT / source).read_text(encoding="latin-1"), name, template_class(header, name)):
         problems.append("still declares a private body")
     companions = HEADER_COMPANIONS.get((name, header), ())
     if not (includes_header(source, header) or
@@ -6119,7 +6203,7 @@ def run(args):
     if not header:
         raise SystemExit(f"{name}: no header given or registered")
     fixed = not args.generate
-    sources = class_contract.census(name)
+    sources = census_of(name, header)
     if args.sample and len(sources) > args.sample:
         sources = sorted(random.Random(args.seed).sample(sources, args.sample))
     print(f"{name}: {len(sources)} units, header {header} ({'registered' if fixed else 'generated'})", flush=True)
@@ -6849,7 +6933,7 @@ def bulk_prepare(name, ctx):
     if busy_files([header], busy):       # the tournament writes the header before claim_rewrites runs
         return {"record": decision(name, "claimed", f"its header {header} is held by another seat",
                                    holder="another seat", **donors)}
-    sources = class_contract.census(name, ctx["rows"])
+    sources = census_of(name, header, ctx["rows"])
     if ctx["sample"] and len(sources) > ctx["sample"]:
         sources = sorted(random.Random(ctx["seed"]).sample(sources, ctx["sample"]))
     if not sources:

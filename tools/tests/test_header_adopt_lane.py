@@ -807,6 +807,48 @@ def test_swap_still_requires_a_standalone_complete_class_definition(tail):
     assert lane.swap(text, ["Pair"], "Pair.h") is None
 
 
+TEMPLATE_HEADER = ("template <int NUMBITS> class BitFlags\n{\npublic:\n    bool test(int i) const;\n"
+                   "    unsigned m_bits[(NUMBITS + 31) / 32];\n};\n")
+TEMPLATE_UNIT = ('#include "Lib.h"\n' + TEMPLATE_HEADER +
+                 "template <int NUMBITS> bool BitFlags<NUMBITS>::test(int i) const "
+                 "{ return (m_bits[i >> 5] >> (i & 31)) & 1; }\n"
+                 "template <> class BitFlags<11> { public: bool any() const; unsigned m_bits[1]; };\n"
+                 "bool use(const BitFlags<218> &f) { return f.test(3); }\n")
+SPECIALIZED_UNIT = ("template <int N> class BitFlags;\n"
+                    "template <> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };\n"
+                    "bool use(BitFlags<218> *f);\n")
+
+
+def test_a_class_template_copy_goes_whole_with_its_members_and_specializations():
+    # BitFlags: the shared header's one template instantiates every N, so a unit's template body, the
+    # members it defines out of class and its explicit specializations all give way to the header
+    out = lane.swap(TEMPLATE_UNIT, ["BitFlags"], "Common/BitFlagsTemplate.h")
+    assert "class BitFlags" not in out and "BitFlags<NUMBITS>::test" not in out and "BitFlags<11>" not in out
+    assert out.index('#include "Common/BitFlagsTemplate.h"') < out.index("bool use")
+    out = lane.swap(SPECIALIZED_UNIT, ["BitFlags"], "B.h")       # a specialization only: the forward stays
+    assert out == 'template <int N> class BitFlags;\n#include "B.h"\nbool use(BitFlags<218> *f);\n'
+    # a directive the member reader refuses leaves a unit that defines a member out of class as it is,
+    # and does not stop one that defines none
+    assert lane.swap("#define W 32\n" + TEMPLATE_UNIT, ["BitFlags"], "B.h") is None
+    assert lane.swap("#define W 32\n" + SPECIALIZED_UNIT, ["BitFlags"], "B.h") is not None
+
+
+def test_accept_sees_a_class_template_copy_left_behind(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code/B.h").write_text(TEMPLATE_HEADER)
+    (tmp_path / "Code/P.h").write_text("class Plain { int x; };\n")
+    assert lane.template_class("Code/B.h", "BitFlags") and not lane.template_class("Code/P.h", "Plain")
+    for text in (TEMPLATE_UNIT, SPECIALIZED_UNIT):
+        (tmp_path / "Code/U.cpp").write_text('#include "B.h"\n' + text)
+        problems = lane.adoption_problems("BitFlags", "Code/U.cpp", header="Code/B.h", gate=lambda source: None)
+        assert "still declares a private body" in problems
+        assert not lane.private_body(text, "BitFlags")                    # what the check missed before
+    (tmp_path / "Code/U.cpp").write_text('#include "B.h"\nbool use(BitFlags<218> *f);\n')
+    problems = lane.adoption_problems("BitFlags", "Code/U.cpp", header="Code/B.h", gate=lambda source: None)
+    assert "still declares a private body" not in problems
+
+
 def test_dependency_views_go_with_the_class():
     out = lane.swap(UNIT, ["AsciiString", "StringBase"], "ascii_string.h")
     assert "StringBase" not in out.split("void use")[0].split('#include "ascii_string.h"')[1]

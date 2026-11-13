@@ -88,3 +88,19 @@ def test_parser_version_change_invalidates_saved_entries(tmp_path, monkeypatch):
     code.write_text("v2")
     memo = picker_cache.FileMemo("parser-version-test", [code])
     assert memo.get("same-content", lambda: 2) == 2
+
+
+def test_a_class_template_copy_counts_only_when_asked(tmp_path, monkeypatch):
+    # BitFlags: a registered class template's private copies are its template bodies and explicit
+    # specializations, which the plain inventory (namespace-scope class bodies) never sees
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
+    for memo in ("HEADS", "VIEWS", "TEMPLATE_VIEWS"):
+        monkeypatch.setattr(inventory, memo, picker_cache.FileMemo("test-" + memo.lower(), inventory.CODE))
+    (tmp_path / "t.cpp").write_text("template <int N> class BitFlags { unsigned m_bits[(N + 31) / 32]; };\n")
+    (tmp_path / "s.cpp").write_text("template <int N> class BitFlags;\n"
+                                    "template <> class BitFlags<11> { unsigned m_bits[1]; };\n")
+    (tmp_path / "u.cpp").write_text("template <int N> class BitFlags;\nvoid f(BitFlags<11> *);\n")
+    sources = ["t.cpp", "s.cpp", "u.cpp"]
+    assert inventory.inventory(sources, tmp_path, {"BitFlags"}) == {}
+    found = inventory.inventory(sources, tmp_path, {"BitFlags"}, templates=True)
+    assert set(found["BitFlags"]) == {"t.cpp", "s.cpp"}

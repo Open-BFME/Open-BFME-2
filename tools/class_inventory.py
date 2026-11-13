@@ -20,23 +20,35 @@ COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.S)
 CODE = [__file__, class_layouts.__file__]
 HEADS = picker_cache.FileMemo("class-inventory-heads", CODE)
 VIEWS = picker_cache.FileMemo("class-inventory-views", CODE)
+TEMPLATE_VIEWS = picker_cache.FileMemo("class-inventory-template-views", CODE)
+# An explicit specialization with a body: `template <> class BitFlags<11> {` (class_layouts.HEAD cannot read
+# the argument list, so a unit holding only a specialization has no head there).
+SPECIALIZATION = re.compile(r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+(?P<name>[A-Za-z_]\w*)\s*<[^;{]*\{", re.M)
 
 
-def parse(text):
-    """Same namespace-scope bodies and normalized digests as class_views.survey."""
+def parse(text, templates=False):
+    """Same namespace-scope bodies and normalized digests as class_views.survey. With
+    `templates`, a class template's own body and its explicit specializations count too
+    (a registered class template's private copies)."""
     out = {}
-    for name, start, end, _ in class_layouts.class_body_spans(text):
+    for name, start, end, _ in class_layouts.class_body_spans(text, include_templates=templates):
         body = " ".join(COMMENT.sub("", text[start:end]).split())
         out.setdefault(name, hashlib.sha1(body.encode("latin-1")).hexdigest()[:10])
+    if templates:
+        code = COMMENT.sub(lambda m: " " * len(m.group()), text)
+        for found in SPECIALIZATION.finditer(code):
+            line = " ".join(code[found.start():found.end()].split())
+            out.setdefault(found.group("name"), hashlib.sha1(line.encode("latin-1")).hexdigest()[:10])
     return out
 
 
-def inventory(sources, root=ROOT, wanted=None):
+def inventory(sources, root=ROOT, wanted=None, templates=False):
     """{class: {source: declaration digest}}, optionally restricted to wanted names.
 
     Cache keys use contents, not paths or timestamps. The cheap head scan can have
     false positives (comments, locals, templates), but only the full scope parser
     admits a body. Missing files are omitted just as by the uncached survey.
+    `templates` admits class template bodies and explicit specializations too (parse).
     """
     wanted = None if wanted is None else set(wanted)
     out = collections.defaultdict(dict)
@@ -53,11 +65,12 @@ def inventory(sources, root=ROOT, wanted=None):
         if needle is not None and needle not in text:
             continue
         key = picker_cache.text_key(text)
-        if wanted is not None:
+        if wanted is not None and not templates:
             heads = HEADS.get(key, lambda: sorted({m.group("name") for m in class_layouts.HEAD.finditer(text)}))
             if wanted.isdisjoint(heads):
                 continue
-        declarations = VIEWS.get(key, lambda: parse(text))
+        declarations = (TEMPLATE_VIEWS.get(key, lambda: parse(text, templates=True)) if templates
+                        else VIEWS.get(key, lambda: parse(text)))
         if wanted is None:
             HEADS.get(key, lambda: sorted(declarations))
         for name, digest in declarations.items():
@@ -69,3 +82,4 @@ def inventory(sources, root=ROOT, wanted=None):
 def save():
     HEADS.save()
     VIEWS.save()
+    TEMPLATE_VIEWS.save()
