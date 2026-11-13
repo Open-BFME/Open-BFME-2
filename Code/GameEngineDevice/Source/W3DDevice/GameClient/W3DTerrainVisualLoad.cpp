@@ -37,13 +37,7 @@
 #include "Lib/RGBColor.h"
 #include "ascii_string.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-class ChunkInputStream
-{
-  public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void seek(int);
-};
+#include "../../../../GameEngine/Include/Common/ChunkInputStreamClass.h"
 class WorldHeightMap
 {
   public:
@@ -392,7 +386,7 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
             old->Delete_This();
         m_logicHeightMap = 0;
     }
-    stream->seek(0);
+    stream->absoluteSeek(0);
     m_logicHeightMap = new WorldHeightMap(stream);
     if (m_waterRenderObject)
         m_waterRenderObject->rva00083A7A(standing, rivers, waves);

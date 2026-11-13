@@ -1,0 +1,29 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp",
+  "source_sha256": "f022b347b8bec5a7269109460a79cb8725b655738213516e6f9ef101cf9e34a3",
+  "object_sha256": "c51dfacf63504714215440e26cfd15fe9a8f49e0f8f8789618c09dd7fc928dfe",
+  "header_sha256": "820efa86d2e111e40db3a5515f16c7aff7179f8e8c930e63da054c8b5b30c900",
+  "whole_file_rows": 6,
+  "comdats_unchanged": 13,
+  "added": [],
+  "removed": [],
+  "eh": [
+    {
+      "name": "?load@W3DTerrainVisual@@UAE_NABVAsciiString@@PAVChunkInputStream@@PAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    }
+  ],
+  "new_tables": false,
+  "scope": "Terrain consumer only; three Rva00240000 consumers unavailable under foreign footprint claim; no provider or header edit",
+  "owning_adopt": "PASS",
+  "owning_accept": "PASS;retired1header_queue row",
+  "unavailable_sources": [
+    "Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/SidesListParseCastleTemplateMaps.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp"
+  ],
+  "reason": "Rva00240000 class-scope claim refused due foreign footprint; no edits/trials for those three sources"
+}

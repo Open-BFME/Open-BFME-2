@@ -1261,3 +1261,14 @@ Boolean slot-9 diagnostic is exact, but slot 15 is 21B versus native 19B with th
 existing byte-returning nested-machine query. Query type/ownership proof and an
 owning admission route remain prerequisites. Both queue entries remain.
 [Native bindings and precise remaining contract](../../reverse/attempt_support/aiattack-native-slot-contracts-20261113-root20.md).
+
+
+### ChunkInputStream terrain consumer (2026-11-14, root20)
+
+W3DTerrainVisualLoad.cpp adopts the canonical four-slot interface and calls
+absoluteSeek(0) at native slot2. All6 functions, the full load EH graph and
+all13 external COMDATs are unchanged; owning acceptance retires one header row.
+Three stack-stream consumers remain unchanged because the Rva00240000 scope
+cannot be claimed. Their32B native extent requires a4B base plus1C tail and
+concrete override declarations; that preparation remains uncompiled here.
+[Verification and remaining native-layout prerequisite](../../reverse/attempt_support/chunk-stream-consumer-adoption-20261114-root20.md).
