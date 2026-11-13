@@ -113,11 +113,7 @@ typedef int Int;
 // BFME2's proven 12-byte map stride and target-specific field groups.
 // The ZH/BFME1 PSPlayerStats reset is a semantic lead; this target's precise
 // base record name and map key/value identities remain unproved.
-class Rva0038201D {
-    unsigned m_words[3];
-public:
-    void rva003828B6();
-};
+#include "../../../../Include/Common/Rva0038201D.h"
 class Rva0038204A {
     unsigned m_words[3];
 public:
@@ -179,7 +175,7 @@ public:
 class Rva00553E47StatsCore;
 static void debugDumpStatsCore(const Rva00553E47StatsCore &);
 #include "../../../../Include/GameNetwork/Rva00553E47StatsCore.h"
-typedef char StatsMapStrideCheck[sizeof(Rva0038201D) == 12 ? 1 : -1];
+typedef char StatsMapStrideCheck[sizeof(_STL::map<unsigned char, short>) == 12 ? 1 : -1];
 typedef char StatsCoreSizeCheck[sizeof(Rva00553E47StatsCore) == 0x154 ? 1 : -1];
 void Rva00553E47StatsCore::reset() {
     m_id = 0;
