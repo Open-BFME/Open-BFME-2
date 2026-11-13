@@ -22,13 +22,7 @@ private:
 };
 
 // The hero's class and subclass indices (WB asserts name the argument hero).
-class CreateAHeroHero
-{
-public:
-    char m_00[0x0C];
-    UnsignedInt m_classIndex;       // +0x0C
-    UnsignedInt m_subClassIndex;    // +0x10
-};
+#include "../../Include/Common/CreateAHeroHero.h"
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 
