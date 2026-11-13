@@ -36,7 +36,7 @@ AsciiStringPlusText operator+(const AsciiString&,const char*);
 struct Rva001408C0Target;
 class AssetList{public:AssetList&operator<<(const AssetList&);AssetList&operator<<(const AsciiString&);bool empty()const{return prototypes.empty();}private:_STL::set<Rva001408C0Target*>prototypes;int pad;bool changed;};
 struct AssetList00208F90{};
-class ModelSMConditionInfo{public:void GetAssetList(AssetList00208F90*,int,int,bool);};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/ModelSMConditionInfo.h"
 class Rva0006C995{public:Rva0006C995*rva0006C995(Rva001408C0Target*);};
 class Rva000BC874{public:void rva000BC874(AssetList*,int,const AsciiString&);};
 class ParticleSystemTemplate;

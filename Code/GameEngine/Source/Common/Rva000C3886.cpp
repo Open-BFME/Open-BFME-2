@@ -14,7 +14,7 @@ struct Rva000C3886Range
 class Rva000C3886;
 class AsciiString;
 class Rva000BBDDF;
-class ModelSMConditionInfo { public: void validateTurretInfo(const Rva000BBDDF *info); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/ModelSMConditionInfo.h"
 class Rva000C2AA4 { public: void rva000C2AA4(const AsciiString &name); };
 
 struct Rva000C3886Obj
