@@ -152,11 +152,7 @@ public:
 	unsigned char get() const;
 };
 
-class Rva004D5767WordField
-{
-public:
-	unsigned short get() const;
-};
+#include "../../Include/GameNetwork/Rva004D5767WordField.h"
 
 struct Rva0058BD4FPkt
 {

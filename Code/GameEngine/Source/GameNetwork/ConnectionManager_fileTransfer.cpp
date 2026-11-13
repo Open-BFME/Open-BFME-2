@@ -98,11 +98,7 @@ private:
 };
 
 // Ledger names of the folded accessors.
-class Rva004D5767WordField
-{
-public:
-	UnsignedShort get() const;		// word at +0x1C
-};
+#include "../../Include/GameNetwork/Rva004D5767WordField.h"
 
 class Rva004D59ACWordSlot
 {

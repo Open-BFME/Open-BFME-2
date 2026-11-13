@@ -685,13 +685,7 @@ class NetProgressCommandMsg : public NetCommandMsg
 public:
 	unsigned char getPercentage();
 };
-class Rva004D5767WordField
-{
-public:
-	unsigned short get() const;
-	char m_lead[0x1c];
-	unsigned short m_value;
-};
+#include "../../Include/GameNetwork/Rva004D5767WordField.h"
 class NetCommandRef
 {
 public:
