@@ -24,16 +24,7 @@
 
 
 
-class BfmeThingTemplateShadowSelector
-{
-public:
-	bool usePluralShadowName() const;
-
-private:
-	char m_pad[0x2c];
-	const char *m_begin;
-	const char *m_end;
-};
+#include "../../../Include/Common/BfmeThingTemplateShadowSelector.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
