@@ -70,17 +70,7 @@ public:
 	T *Referent;
 };
 
-class __declspec(novtable) RefCountClass
-{
-public:
-	__declspec(dllimport) __forceinline RefCountClass() : NumRefs(1) {}
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-
-protected:
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 namespace FXShader {
 class __declspec(novtable) RenderingMethod : public RefCountClass

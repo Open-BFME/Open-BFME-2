@@ -7,16 +7,7 @@ struct EmitVtableTag;
 
 // The index-buffer tables inherit Delete_This in slot zero; retail puts their
 // deleting destructors in slot one (0x00BD2EF4 and 0x00BD2EFC).
-class __declspec(novtable) RefCountClass
-{
-public:
-	__declspec(dllimport) __forceinline RefCountClass() : NumRefs(1) {}
-	virtual void Delete_This();
-protected:
-	virtual ~RefCountClass();
-private:
-	int NumRefs;
-};
+#include "RefCountData.h"
 
 // ??_GTextureStatisticsStruct@@QAEPAXI@Z @0x118f30
 class TextureStatisticsStruct { public: ~TextureStatisticsStruct(); };
