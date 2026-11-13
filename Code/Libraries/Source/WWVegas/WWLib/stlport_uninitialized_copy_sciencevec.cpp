@@ -12,7 +12,7 @@
 // cl: /EHs /MD /DNDEBUG
 // Reference algorithm: STLport 4.5.3 _vector.c _M_fill_insert.
 enum ScienceType { SCIENCE_INVALID = -1 };
-struct Rva0033A23AElement { char words[12]; };
+#include "../../../../GameEngine/Include/Common/Rva0033A23AElement.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

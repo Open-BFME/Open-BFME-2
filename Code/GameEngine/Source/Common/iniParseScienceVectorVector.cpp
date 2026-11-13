@@ -31,7 +31,7 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 }
 
 enum ScienceType { SCIENCE_INVALID = -1 };
-struct Rva0033A23AElement { char words[12]; };
+#include "../../Include/Common/Rva0033A23AElement.h"
 struct DynamicPortalLink;
 
 #include "../../Include/Common/Rva00339E80.h"
