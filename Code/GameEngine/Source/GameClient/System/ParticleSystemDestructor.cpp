@@ -84,7 +84,7 @@ public:
 };
 }
 class ParticleSystem *Make001FCBD7();
-class Rva001F5496 {public:void rva001F5496(const RvaSmartPtr12&);};
+#include "../../../Include/Common/Rva001F5496.h"
 class Rva001F5467 {public:void rva001F5467(const RvaSmartPtr12&);};
 class GameClient;
 extern GameClient *TheGameClient;

@@ -97,7 +97,7 @@ public:
 };
 }
 class ParticleSystem *Make001FCBD7();
-class Rva001F5496 {public:void rva001F5496(const RvaSmartPtr12&);};
+#include "../../../Include/Common/Rva001F5496.h"
 class Rva001F5467 {public:void rva001F5467(const RvaSmartPtr12&);};
 class Rva001FC451 {public:void rva001FC451(void*,void*);};
 class Rva001F88B4 {public:void rva001F88B4(const RvaSmartPtr12&);};
