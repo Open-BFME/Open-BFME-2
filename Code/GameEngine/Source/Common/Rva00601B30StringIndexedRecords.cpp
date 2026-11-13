@@ -17,7 +17,7 @@
 #include "ascii_string.h"
 // ?operator== present-unmatched
 inline bool operator==(const AsciiString& a,const char* b){return reinterpret_cast<const StringBase<char>*>(&a)->compare(b)==0;}
-struct Rva00601A3AElement {unsigned int word0,word4;int stringIndex;};
+#include "../../Include/Common/Rva00601A3AElement.h"
 void Rva00030830FreeAllocation(void*);
 namespace _STL {
 template<> vector<AsciiString>::~vector();

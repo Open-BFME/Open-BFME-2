@@ -15,7 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-struct Rva00601A3AElement {unsigned char unknown[12];};
+#include "../../../../GameEngine/Include/Common/Rva00601A3AElement.h"
 // Retail's element construction calls the rowed copy helper 0x0060173A: forward to it.
 class Coord3D;
 struct Coord3DBase;

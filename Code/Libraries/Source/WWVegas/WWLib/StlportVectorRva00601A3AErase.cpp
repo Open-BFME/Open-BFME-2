@@ -6,7 +6,7 @@
 // view retains native cdecl ABI without asserting its provider's Coord3D
 // payload label. The record name comes from rowed push_back601A3A's stride.
 #include <iterator>
-struct Rva00601A3AElement {unsigned char unknown[12];};
+#include "../../../../GameEngine/Include/Common/Rva00601A3AElement.h"
 Rva00601A3AElement *__cdecl Rva00601797Copy5(const Rva00601A3AElement*,const Rva00601A3AElement*,Rva00601A3AElement*,const _STL::random_access_iterator_tag&,int*);
 Rva00601A3AElement *__cdecl Rva0060186FCopy4(const Rva00601A3AElement* first,const Rva00601A3AElement* last,Rva00601A3AElement* result,const void*) {
  _STL::random_access_iterator_tag tag;
