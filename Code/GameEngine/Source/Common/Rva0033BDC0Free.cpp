@@ -9,12 +9,7 @@
 // 0x00030830 when non-null. Same EH prolog/statesshape as the rowed 63B
 // 0x0033C3F3 (same handler 0xB7C604) under /EHs; the 7B delta is the wrapper
 // call sequence. Caller at 0x0033DE2C in 0x0033DDA1 unblocks 0x0033DDA1.
-struct Rva002CF807
-{
-	void *m_header;
-	int m_size;
-	void rva002CF807();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva002CF807.h"
 
 struct Rva0033BDC0Begin
 {

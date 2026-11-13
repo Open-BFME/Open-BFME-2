@@ -13,12 +13,7 @@ struct Rva002CFD96Node
 	Rva002CFD96Node *m_right;
 	unsigned char m_value[20];
 };
-struct Rva002CF807
-{
-	void *m_header;
-	int m_size;
-	void rva002CF807();
-};
+#include "Rva002CF807.h"
 struct Rva002CFD96
 {
 	Rva002CFD96Node *rva002CFD96(Rva002CFD96Node *x, Rva002CFD96Node *p);
