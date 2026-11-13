@@ -204,11 +204,7 @@ struct Rva009F4130Point
     float x, y;
 };
 struct Rva009F39F0Payload;
-struct Rva009F39F0Result
-{
-	Rva009F39F0Payload *m_value;
-	void append(int first, int second);
-};
+#include "../../../GameEngine/Include/Common/Rva009F39F0Result.h"
 class Rva009F4130Item
 {
 public:

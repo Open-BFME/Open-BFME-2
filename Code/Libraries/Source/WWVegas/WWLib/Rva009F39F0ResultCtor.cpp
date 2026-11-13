@@ -18,12 +18,7 @@ struct Rva009F39F0Payload
     }
 };
 
-struct Rva009F39F0Result
-{
-    Rva009F39F0Payload *m_value;
-
-    Rva009F39F0Result();
-};
+#include "../../../../GameEngine/Include/Common/Rva009F39F0Result.h"
 
 __declspec(noinline) Rva009F39F0Result::Rva009F39F0Result()
 {

@@ -24,12 +24,7 @@ struct Rva009F39F0Payload
 	int m_refCount;
 };
 
-struct Rva009F39F0Result
-{
-	Rva009F39F0Payload *m_value;
-
-	void append(int first, int second);
-};
+#include "../../../../GameEngine/Include/Common/Rva009F39F0Result.h"
 
 __declspec(noinline) void Rva009F39F0Result::append(int first, int second)
 {

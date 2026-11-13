@@ -44,13 +44,7 @@ struct Rva009F39F0Payload
 	int m_refCount;
 };
 
-struct Rva009F39F0Result
-{
-	Rva009F39F0Payload *m_value;
-
-	Rva009F39F0Result();
-	void append(int first, int second);
-};
+#include "../../Include/Common/Rva009F39F0Result.h"
 
 typedef Rva009F39F0Payload BfmeResultPayload;
 
