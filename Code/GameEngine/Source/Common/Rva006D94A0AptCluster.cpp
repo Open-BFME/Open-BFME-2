@@ -28,11 +28,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 #include "../../Include/Common/AptInteger.h"
 
 // The growth helper 0x006D9500 is rowed as Rva006D9500::rva006D9500.
-class Rva006D9500
-{
-public:
-	void rva006D9500(int nCapacity);
-};
+#include "../../Include/Common/Rva006D9500.h"
 
 // Value-object GC views shared with AptNativeHashMark.cpp: the shr-and-field
 // word at +4 and the 14-slot AptValue vtable whose slot 13 (0x34) is the mark

@@ -75,15 +75,7 @@ extern "C" int __cdecl rva006D9D70Comparator(const void *a, const void *b);
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *a, const char *b, int c);
-class Rva006D9500
-{
-public:
-	void rva006D9500(int requested);
-	char m_pad00[0x20];
-private:
-	void *m_array20; // +0x20
-	int m_count24; // +0x24
-};
+#include "../../../GameEngine/Include/Common/Rva006D9500.h"
 // ?rva008B8F80AtoiOrZero@@YAHPBD@Z
 // Static ESI-arg helper: true when atoi(text) is nonzero, or when atoi
 // returns 0 and the first character is '0'.

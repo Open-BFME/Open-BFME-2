@@ -6,15 +6,7 @@
 // cl: /O2 /MD
 #include <string.h>
 class BfmeAptValue006DCD20 { public: void SetAt(int, BfmeAptValue006DCD20 *); };
-class Rva006D9500
-{
-public:
-	void rva006D9500(int requested);
-	char m_pad00[0x20];
-private:
-	void *m_array20; // +0x20
-	int m_count24; // +0x24
-};
+#include "../../../../GameEngine/Include/Common/Rva006D9500.h"
 // AptValue's AddRef/Release come first in these vtables, as in the five units
 // (Rva006D6360Ctor.cpp, ...) that emit the same ??_7Rva006D6470Owner@@6B@.
 class AptValue { public: virtual void AddRef(); virtual void Release(); };
