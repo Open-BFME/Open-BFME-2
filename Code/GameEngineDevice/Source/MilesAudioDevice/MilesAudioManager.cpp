@@ -5326,7 +5326,7 @@ BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *owner);
 #include "../../../GameEngine/Include/GameNetwork/BfmeThingEC.h"
 // XferSave (ctor 0x0060D1F7, dtor 0x0060D0B3, open 0x0060D10A); its close
 // 0x0060C8CD is rowed under an address-derived owner.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../../GameEngine/Include/Common/Gen009D6DD0.h"
 class XferSave : public Xfer {
 public:
     XferSave();

@@ -4609,7 +4609,7 @@ class Rva00238FF3Arg;
 #include "../../../Include/GameClient/Rva00238E1B.h"
 
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../../Include/Common/Gen009D6DD0.h"
 
 class XferSave
 {

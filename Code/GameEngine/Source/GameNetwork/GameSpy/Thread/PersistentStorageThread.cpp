@@ -914,7 +914,7 @@ void getPreorderCallback(int localid, int profileid, persisttype_t type, int ind
 // 0x0060C8CD and virtual destructor 0x0060D0B3; 0x40 bytes on the frame.
 class Xfer;
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void Close(); };
+#include "../../../../Include/Common/Gen009D6DD0.h"
 
 class XferSave : public XferStub
 {

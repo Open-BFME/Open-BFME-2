@@ -58,7 +58,7 @@ private:
     unsigned char opaque04[0x40-4];
 };
 typedef char WriterSizeCheck[sizeof(XferSave)==0x40?1:-1];
-class Gen009D6DD0 { public: void Close(); };
+#include "../../../Include/Common/Gen009D6DD0.h"
 class Rva00406EBF { public: void rva00406EBF(Xfer *); };
 
 
