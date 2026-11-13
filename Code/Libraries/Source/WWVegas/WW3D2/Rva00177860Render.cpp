@@ -195,7 +195,7 @@ static __forceinline void FillPointUVs(float *output,int stride,float first,floa
 // Native177F82..178E47: four vertex buffers at0/4/8/C; count10,texture14,
 // shader18,color1C and alpha28. This is distinct from PointGroupClass.
 // BF1 f989 and rowed3377B PointGroup submission provide the shared pipeline.
-class Rva0007671F {public:Rva0007671F();private:Vector4 rows[4];};
+#include "../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 class RenderInfoClass;
 class Rva00177860 {public:void Render(RenderInfoClass&);
  ShareBufferClass<Vector3> *locations;

@@ -43,7 +43,7 @@ __forceinline Vector4 operator * (const Matrix4 & a, const Vector4 & v) {
 		a[3][0] * v[0] + a[3][1] * v[1] + a[3][2] * v[2] + a[3][3] * v[3]
 	);
 }
-class Rva0007671F:public Matrix4 {public:Rva0007671F();};
+#include "../../../../Include/GameClient/Rva0007671F.h"
 struct D3DXMATRIX {float m[4][4];};
 extern "C" D3DXMATRIX*__stdcall D3DXMatrixRotationZ(D3DXMATRIX*,float);
 extern "C" D3DXMATRIX*__stdcall D3DXMatrixRotationX(D3DXMATRIX*,float);

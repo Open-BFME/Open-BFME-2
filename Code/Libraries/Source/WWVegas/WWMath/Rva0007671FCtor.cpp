@@ -12,13 +12,7 @@
 // chains, so the rows are WWMath Vector4s (Zero Hour vector4.h: four floats,
 // empty inline ctor).
 #include "Vector4Data.h"
-class Rva0007671F
-{
-public:
-	Rva0007671F();
-private:
-	Vector4 m_arr[4];
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 Rva0007671F::Rva0007671F()
 {
 }

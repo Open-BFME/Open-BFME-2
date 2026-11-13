@@ -28,11 +28,7 @@
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 
 // The 0x40-byte matrix the setters build (rowed ctor 0x0007671F).
-class Rva0007671F : public Matrix4
-{
-public:
-	Rva0007671F();
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 
 
 struct D3DXMATRIX;

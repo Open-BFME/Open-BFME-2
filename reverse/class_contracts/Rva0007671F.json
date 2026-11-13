@@ -1,0 +1,47 @@
+{
+ "bases": [
+  "Matrix4"
+ ],
+ "bases_by": "majority",
+ "class": "Rva0007671F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 7,
+   "inherited_slots": 0,
+   "inherited_spans": [
+    [
+     0,
+     64
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "64": 13
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 64,
+ "size_by": "majority",
+ "vslots": {}
+}

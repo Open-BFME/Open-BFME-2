@@ -50,7 +50,7 @@ extern float g_Va00DEBE08;
 extern FrustumClass shadowCameraFrustum;
 #define	SHADOW_EXTRUSION_BUFFER	0.1f
 // Stand-ins for retail's folded/opaque callees (rowed under honest address names).
-class Rva0007671F { public: Rva0007671F(); private: char m_bytes[0x40]; };
+#include "../../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 class Rva000F26DC { public: void rva000F074E(int, int); };
 struct SHADOW_STATIC_VOLUME_VERTEX	//vertex structure passed to D3D
 {

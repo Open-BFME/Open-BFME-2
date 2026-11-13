@@ -25,21 +25,9 @@ static __forceinline void matrixScale(Matrix3D &m, const Vector3 &scale)
 	m[0][2] *= scale.Z; m[1][2] *= scale.Z; m[2][2] *= scale.Z;
 }
 
-class Matrix4
-{
-public:
-	static void Multiply(const Matrix3D &a, const Matrix4 &b, Matrix4 *res);
-
-protected:
-	Vector4 Row[4];
-};
+#include "../../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 
 // The 0x40-byte matrix (rowed ctor 0x0007671F).
-class Rva0007671F : public Matrix4
-{
-public:
-	Rva0007671F();
-};
 
 // The texture handle and its counted pointer (fxshadernamespacesas.cpp).
 class TextureBaseClass

@@ -127,59 +127,9 @@ public:
 static __forceinline float &vector4Component(Vector4 &row, int i) { return (&row.X)[i]; }
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}
 
-class Matrix4
-{
-public:
-	__declspec(dllimport) __forceinline Matrix4() {}
-	__declspec(dllimport) __forceinline Matrix4(const Matrix4 &m)
-	{
-		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); copyVector4(Row[3], m.Row[3]);
-	}
-	__forceinline explicit Matrix4(bool identity)
-	{
-		if (identity)
-			Make_Identity();
-	}
-	__forceinline Matrix4(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
-	{
-		Init(vector4, r1, r2, r3);
-	}
-	__forceinline void Init(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
-	{
-		copyVector4(Row[0], vector4); copyVector4(Row[1], r1); copyVector4(Row[2], r2); copyVector4(Row[3], r3);
-	}
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-		Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	__forceinline Matrix4 Transpose() const
-	{
-		return Matrix4(
-			SasVectorRow(Row[0].X, Row[1].X, Row[2].X, Row[3].X),
-			SasVectorRow(Row[0].Y, Row[1].Y, Row[2].Y, Row[3].Y),
-			SasVectorRow(Row[0].Z, Row[1].Z, Row[2].Z, Row[3].Z),
-			SasVectorRow(Row[0].W, Row[1].W, Row[2].W, Row[3].W));
-	}
-	__forceinline Matrix4 &operator=(const Matrix4 &m)
-	{
-		copyVector4(Row[0], m.Row[0]); copyVector4(Row[1], m.Row[1]); copyVector4(Row[2], m.Row[2]); copyVector4(Row[3], m.Row[3]);
-		return *this;
-	}
-	static void Multiply(const Matrix4 &a, const Matrix4 &b, Matrix4 *res);
-
-protected:
-	Vector4 Row[4];
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 
 // The 0x40-byte matrix the setters build (rowed ctor 0x0007671F).
-class Rva0007671F : public Matrix4
-{
-public:
-	Rva0007671F();
-};
 
 class LightEnvironmentClass;
 
