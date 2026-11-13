@@ -69,7 +69,7 @@ class Rva005E6D0D {
 public: Rva005E6D0D(void *,HeroDetailsInput *);
 private: char storage[0x20];
 };
-class Rva005E68C0 { public: void rva005E68C0(); };
+#include "../../Include/Common/Rva005E68C0.h"
 class Rva005E6D90
 {
     friend class Rva005E6F9D;
