@@ -797,6 +797,13 @@ The same body rowed as a free placeholder, `int RvaNNNNNNNNGet(void)`
 way and only as `?GetSnapshotName@C@@MBEPBDXZ`, with the same proof; any other
 free function is still refused as not a method.
 
+A class declared only in a unit's view header (RainOfFireUpdateView.h) takes
+its declaration there: `--to-class` may prepare a Code `.h` that is no class's
+registered header in `reverse/canonical_classes.csv`, and every ledger source
+including it is rebuilt. A canonical header is refused (its class contract
+and `header_adopt_lane.py` change it), and every other route still prepares
+`.cpp` sources only.
+
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
 C, a caller that names the old member, a view declaring the override); the
 files must be clean, tracked ledger sources. The tool respells rows, funclet

@@ -1560,3 +1560,65 @@ def test_a_free_getter_with_a_readable_name_is_still_refused(tree, monkeypatch):
     retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
     with pytest.raises(Refusal, match="not a method"):
         getter_plan(free_getter_tree(tree, old="?widgetNameGet@@YAHXZ"))
+
+
+# --------------------------------------- a class move prepares a unit's view header (lk106)
+#
+# Some classes are declared only in a unit's view header (RainOfFireUpdateView.h): the override's declaration
+# goes there. A --to-class move may prepare such a `.h` when it registers no canonical class; every ledger source
+# that includes it is rebuilt. A canonical header, or a header outside --to-class, is still refused.
+
+VIEW = "Code/Game/WidgetView.h"
+VIEW_TEXT = SNAPSHOT_WIDGET.split("Widget::Widget() {}")[0]
+VIEW_WIDGET_CPP = '#include "WidgetView.h"\nWidget::Widget() {}\nvoid Widget::loadPostProcess() {}\n'
+
+
+def view_tree(tree, canonical=False):
+    getter_tree(tree)
+    view = VIEW_TEXT.replace("    virtual const char *GetSnapshotName() const;\n};", "};", 1)
+    (tree / VIEW).write_bytes(view.encode())
+    (tree / "Code/Game/Widget.cpp").write_bytes(VIEW_WIDGET_CPP.encode())
+    if canonical:
+        (tree / "reverse/canonical_classes.csv").write_bytes(
+            f"class,header,notes\nWidget,{VIEW},registered view\n".encode())
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "view header")
+    return tree
+
+
+def view_plan(root, **overrides):
+    prepared = {"Code/Game/Names.cpp": NAMES_PREPARED.encode(), VIEW: VIEW_TEXT.encode()}
+    return getter_plan(root, prepared=prepared, **overrides)
+
+
+def test_a_class_move_prepares_a_view_header_and_rebuilds_its_includers(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    p = view_plan(view_tree(tree))
+    assert p.new == GETTER_NEW and p.to_class["slot"] == 2
+    assert VIEW in p.after and b"GetSnapshotName" in p.after[VIEW]
+    assert "Code/Game/Widget.cpp" in p.verify and "Code/Game/Names.cpp" in p.verify
+    assert VIEW not in p.verify
+    assert f"file:{VIEW}" in p.claims
+
+
+def test_a_class_move_never_prepares_a_canonical_header(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    with pytest.raises(Refusal, match="is the registered header of Widget"):
+        view_plan(view_tree(tree, canonical=True))
+
+
+def test_a_view_header_is_prepared_by_a_class_move_only(tree):
+    ctx = ctx_of(view_tree(tree))
+    plan = rename.Plan("function", GETTER_OLD, GETTER_NEW, "inferred", "", "Code/Game/Names.cpp", GETTER_RVA)
+    with pytest.raises(Refusal, match="must be an existing Code C[+][+] source"):
+        rename._batch_source_edits(ctx, plan, {VIEW: VIEW_TEXT.encode()})
+    assert rename._batch_source_edits(ctx, plan, {VIEW: VIEW_TEXT.encode()}, view_headers=True)
+    assert VIEW not in plan.verify
+
+
+def test_a_prepared_view_header_must_be_clean(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    root = view_tree(tree)
+    (root / VIEW).write_bytes(b"// an unstaged edit\n" + (root / VIEW).read_bytes())
+    with pytest.raises(Refusal, match="requires clean source paths"):
+        view_plan(root)

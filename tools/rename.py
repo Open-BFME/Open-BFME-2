@@ -7237,7 +7237,7 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     plan.evidence = "; ".join(f"{m['name']} -> {m['new_name']}: {m['proof']}" + "".join(
         f"; return type: {d}" for d in m["declared"]) for m in moves) + \
         (f"; {plan.evidence}" if plan.evidence else "")
-    _batch_source_edits(ctx, plan, prepared)
+    _batch_source_edits(ctx, plan, prepared, view_headers=True)
 
     # Ledgers: the rows, their funclet rows and notes tokens, pins, audited owners.
     pairs = [(m["name"], m["new_name"]) for m in moves]
@@ -7337,6 +7337,8 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
         if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
             headers.append(rel)
+    # a prepared view header has no rows: every ledger source including it is rebuilt
+    headers += [rel for rel in sorted(edited) if rel.endswith(".h") and rel not in headers]
     if len(rewritten) > max_files:
         raise Refusal(f"{len(rewritten)} files to rewrite (over --max-files {max_files})")
     verify = ({rel for rel in rewritten if rel in ctx.ledger_sources()} | {m["row"]["source"] for m in moves}
@@ -15104,12 +15106,16 @@ class RunBatchResult:
     apply_verify_seconds: float = 0.0
 
 
-def _batch_source_edits(ctx, plan, edits):
+def _batch_source_edits(ctx, plan, edits, *, view_headers=False):
     """Journal owned C++ preparations before name planning, without writing.
 
     This does not admit new sources or ledger edits. Every prepared source has
     matched rows, is claimed with the union and goes through its normal gates.
-    At most ctx.max_prepared sources (PREPARED_DEFAULT unless --max-prepared
+    With `view_headers` (function --to-class alone) a prepared source may also
+    be a Code `.h` that is no class's registered header in
+    reverse/canonical_classes.csv (a unit's view header, such as
+    RainOfFireUpdateView.h): it has no rows of its own, so the caller rebuilds
+    every ledger source that includes it. At most ctx.max_prepared sources (PREPARED_DEFAULT unless --max-prepared
     raises it): a respell whose callers cannot be split across commits (a unit
     left behind calls a symbol no row names) stays one transaction, with the
     same per-unit byte gate, rollback and object checks however many it holds.
@@ -15126,11 +15132,20 @@ def _batch_source_edits(ctx, plan, edits):
     if any(not isinstance(rel, str) or not isinstance(data, bytes) for rel, data in edits.items()):
         raise Refusal("source_edits needs repository-relative string paths and bytes")
     paths = sorted(edits)
+    registered = {}
+    if view_headers:
+        for row in ctx.dicts(CANONICAL_CLASSES):
+            if row.get("header"):
+                registered.setdefault(row["header"], row.get("class", ""))
     for rel in paths:
         parsed = PurePosixPath(rel)
-        if (not rel.startswith("Code/") or not rel.endswith(".cpp") or ".." in parsed.parts
+        header = view_headers and rel.endswith(".h")
+        if (not rel.startswith("Code/") or not (rel.endswith(".cpp") or header) or ".." in parsed.parts
                 or parsed.as_posix() != rel or "\\" in rel):
             raise Refusal(f"source preparation must be an existing Code C++ source: {rel}")
+        if header and rel in registered:
+            raise Refusal(f"{rel} is the registered header of {registered[rel]} ({CANONICAL_CLASSES}): a class "
+                          "move prepares a unit's view header, never a canonical one")
         path = ctx.path(rel)
         if (path.is_symlink() or not path.is_file()
                 or not path.resolve().is_relative_to((ctx.root / "Code").resolve())):
@@ -15138,7 +15153,7 @@ def _batch_source_edits(ctx, plan, edits):
         if is_generated(rel):
             raise Refusal(f"generated source {rel} cannot be prepared by a rename")
         refuse_vendored(ctx, [rel], "preparing a rename source")
-        if rel not in ctx.ledger_sources():
+        if not header and rel not in ctx.ledger_sources():
             raise Refusal(f"source preparation has no matched rows to verify: {rel}")
     tracked = set(ctx.git("ls-files", "--", *paths).splitlines())
     if set(paths) - tracked:
@@ -15153,7 +15168,7 @@ def _batch_source_edits(ctx, plan, edits):
         plan.edit(ctx, rel, edits[rel])
         plan.source_counts[rel] = {"prepared": 1}
         plan.claims.append("file:" + rel)
-    plan.verify = sorted(set(plan.verify) | set(paths))
+    plan.verify = sorted(set(plan.verify) | {rel for rel in paths if not rel.endswith(".h")})
     return True
 
 
