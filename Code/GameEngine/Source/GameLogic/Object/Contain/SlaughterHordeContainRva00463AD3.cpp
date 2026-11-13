@@ -126,11 +126,7 @@ public:
 	void rva00463AD3(int value);
 };
 
-class Rva00294D61
-{
-public:
-	void report(Object*,int);
-};
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 
 struct Rva00463AD3Data
 {

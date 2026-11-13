@@ -109,7 +109,7 @@ private:
 };
 // The pinned owner names of 0x003909FA and 0x00294D61.
 #include "../../../../../Include/Common/Rva003909FAObj.h"
-class Rva00294D61 { public: void report(Object *victim, Int flag); };
+#include "../../../../../Include/GameLogic/Module/Rva00294D61.h"
 class ModelConditionFlags
 {
 public:

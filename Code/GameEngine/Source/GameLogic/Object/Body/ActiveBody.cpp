@@ -468,7 +468,7 @@ private:
 // Its original type and field semantics remain unknown.
 struct BfmeBodyDataPair8 { float value; unsigned word; BfmeBodyDataPair8() {} __forceinline BfmeBodyDataPair8(const BfmeBodyDataPair8 &that): value(that.value), word(that.word) {} };
 class Rva003427DD { public: Rva003427DD &operator=(const Rva003427DD &other); };
-class Rva00294D61 { public: void report(Object *victim, Int flag); };
+#include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 class Rva0028B749Host { public: void rva0028B749(Int victim, Real ratio); };
 class Rva002AA201IndexedByteField { public: void set(int index); };
 // The damage-delay call lands on the shared empty RET 4 at 0x0047A69C; it
