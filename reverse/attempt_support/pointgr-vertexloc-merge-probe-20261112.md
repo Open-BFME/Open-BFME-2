@@ -86,3 +86,37 @@ anchor, in retail order.
    already are). The atexit is 59 bytes only if the `VectorClass<Vector3>` destructor is inline-visible in
    pointgr.cpp, so the decl-only destructor goes. The /O2 `??_G` copy that then appears is already emitted
    today by `Rva007B7280Siblings.obj`; check which copy the link keeps.
+
+## 2026-11-13 (seat halilkkaya-vl1, base `01da21cb5ba`): the merged context reproduces retail
+
+Scratch probes, compiled with pointgr.cpp's own command into `build/vl1` (source operand swapped, its directory first
+on the include path; never `build/match`), scored per row with relocations masked. Every variant has VertexLoc static
+and the 0x0017A890 body inserted before `Rva00912CF0`.
+
+| variant (merged pointgr.cpp + 0x0017A890 body, VertexLoc static) | ??_H 179B50/Render/17A890/RVP | 0x0017A890 | seed rows |
+|---|---|---|---|
+| m1: seed as is (gsy anchor) | 3/0/0/0 | 11,820 B, 10,115 differ | 57/57 exact |
+| m2: anchor removed | 6/1/5/1 | 12,232 B | 179B50, Render, RVP off |
+| m3a: no anchor + BFME 1 matrix4.h (WWINLINE rows ctor/Transpose) | 3/0/4/0 | 11,984 B (c0 L/R order, c7) | 57/57 |
+| m4: m3a + BFME 2 Get_Transform (0x000768FE shape) | 3/0/4/0 | EXACT | 179B50 18 B, Render 256 B, RVP 283 B off |
+| m5: m4 + unused D3DMATRIX local | 3/0/4/0 | EXACT | same as m4 |
+| m6b: GT without PROJECTION case | 2/0/4/0 | 3,838 differ | 179B50/Render/RVP off |
+| m6c: ZH GT + PROJECTION case | 3/0/4/0 | 9,829 differ | 179B50 exact; Render/RVP off |
+| r1: m4 + Zero Hour Render loop | 3/0/4/0 | EXACT | 179B50 18 B, RVP off |
+| r2a: r1 + Zero Hour RVP transform | 3/0/4/0 | EXACT | 179B50 18 B off |
+| s1-s4, t1-t3 (0x00179B50 decl/order variants) | 3/0/4/0 | EXACT | 179B50 18 B (or worse) |
+| z4-z8 (4+ dead ints in 0x00179B50, diagnostic only) | 3/0/4/0 | EXACT | 179B50 4 B |
+| u1: r2a + BFME 2 Set_Transform (0x000A68A7 shape) | 3/0/4/0 | EXACT | ALL exact (58/58) |
+| x1: u1 with rows_link shim but WWINLINE rows ctor/Transpose | 3/0/4/0 | EXACT | all exact |
+| x2/x3: dllimport rows ctor/Transpose (either header) | 6/1/5/1 | 12,224 B | 4 off |
+
+Mechanism (micro tests, `build/vl1/micro`): `??_H` is inlined per call site by size. An /O2 copy (50 bytes) stays a
+call in a large caller, the gsy copy (34 bytes) is inlined everywhere and the empty-constructor loop disappears. An
+inline body declared `__declspec(dllimport)` is not optimized on its own first, so a `Row[4]` construction inside it
+keeps its `??_H` call wherever it is inlined: that, not the anchor, is why the seed needed the gsy copy.
+
+Landed from u1 (each its own verified commit): `7deb4f012f1` (pointgr.cpp: no anchor, BFME 1 matrix4.h,
+`BFME2_DX8WRAPPER_TRANSFORMS`, canonical PointGroupClass.h, Zero Hour loops), `9818f4ef4c1` (donor on that header
+world), `27e9b262733` (VertexLoc static, `_$E32`/`_$E33` rowed at 0x007ACF20/0x007B7400), `b5ef33d8ac9` (donor's
+destructor visible). The merge dry run then byte-accepts the donor and refuses it in the provider guard (LINK-661,
+2026-11-13 section).

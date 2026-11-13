@@ -238,3 +238,42 @@ are measured, and the merge blocker is narrower than the pass above reported. Ha
 - Consequence for the order of work: of the splits in the table above, this is the one whose first use faults (the
   SortingRenderer lists only leak), so its merge ranks first. The repair is still the pointgr.cpp merge with
   VertexLoc file-static (pg1's next leads above); no extern spelling can reproduce the body.
+
+**2026-11-13 VertexLoc pass (seat halilkkaya-vl1, base `01da21cb5ba`).** The merged-context probe that pg1 asked for
+(pointgr.cpp's text, no gsy anchor, VertexLoc static, the 0x0017A890 body; scratch objects under `build/vl1`, never
+`build/match`) now compiles every seed row and the 12,000-byte body exact with retail's `??_H` pattern 3 / 0 / 4 / 0
+(0x00179B50 / Render / 0x0017A890 / RenderVolumeParticle). What it took, target facts first:
+- **`??_H` is inlined by size, per caller.** Micro tests: an /O2 `??_H` (50 bytes) stays a call in a large function,
+  the 34-byte gsy copy is inlined everywhere; empty-constructor loops vanish once inlined. Retail's pattern (calls in the
+  big 0x0017A890 and for 0x00179B50's named matrices, elided in Render) is the /O2 `??_H` with no anchor.
+- **The rows_link matrix4 shim was the wall, not the anchor.** It declares the rows constructor and `Transpose`
+  `__declspec(dllimport) __forceinline`; an imported inline body is not optimized on its own first, so its `Row[4]`
+  construction keeps a `??_H` call wherever it is inlined (6 / 1 / 5 / 1). BFME 1's own matrix4.h (`WWINLINE`) elides
+  them. Same shim with only those two declarations `WWINLINE`: exact too.
+- **BFME 2's DX8Wrapper transform accessors.** Retail's out-of-line `Get_Transform` 0x000768FE is WORLD / VIEW /
+  PROJECTION (DeviceProjectionMatrix) / default `Make_Identity`, and `Set_Transform(Matrix4)` 0x000A68A7 stores
+  ProjectionMatrix and DeviceProjectionMatrix in PROJECTION and clears the identity bit before setting the changed bit.
+  With Zero Hour's `Get_Transform` the body was 11,984 bytes (case 0 operand order, case 7); with BFME 2's it is exact.
+  The inlined bodies' temporaries steer register choices in every caller: Render and RenderVolumeParticle then match
+  only in Zero Hour's own spelling (`Vector4 result = view * loc` in the loop, `.X/.Y/.Z` stores), and 0x00179B50 only
+  with BFME 2's `Set_Transform` too (18 bytes off without it). Probe table: `reverse/attempt_support/pointgr-vertexloc-merge-probe-20261112.md` (2026-11-13 section).
+- **Landed as separate commits:** pointgr.cpp on BFME 1 matrix4.h, `BFME2_DX8WRAPPER_TRANSFORMS` in the banked shim,
+  canonical PointGroupClass.h (header_queue row accepted) and no anchor (65/65); the donor on pointgr.cpp's header world
+  without its private DX8Wrapper (1/1); VertexLoc file-static in pointgr.cpp with 0x007ACF20 / 0x007B7400 rowed as its
+  `_$E32` / `_$E33` (the hand stand-ins retracted, tombstoned; 26 + 59 bytes moved to their owner in link_check).
+- **The merge is still walled, by the provider guard, not by bytes.** With the donor's destructor visible too
+  (`b5ef33d8ac9`) and the local index brought to HEAD (`link_check.py --update-index`; the census still held the
+  stand-ins' references to the old external VertexLoc), `tu_skeleton.py --merge pointgr.cpp --dry-run` composes and
+  byte-accepts PointGroupClassRva0017A890.cpp in pointgr.cpp, then refuses it: ProviderGuard "members disagree" and
+  "path order" on the unreferenced inline COMDAT `?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z`.
+  Since the donor moved onto the banked shim (`90d495de95` on master) it emits that COMDAT (digest 6d4f27785efc, the
+  /O2 BFME 2 body) and, first in path order, is the copy a path-order /OPT:NOREF link keeps; before, and again after a
+  merge, Render2DClassRender's c4c6893c5c81 is. Census (retail) order is unchanged (fxshadernamespacesas,
+  Render2DClassRender, the donor and pointgr.cpp all LINK). A `__declspec(dllimport)` Get_Transform emits no COMDAT but
+  keeps the Transpose temporaries' `??_H` calls (6 / 1 / 5 / 1), so no source spelling avoids the copy.
+- **Next.** A provider-guard rule that accepts a path-order change of an inline COMDAT's kept copy when the merge only
+  returns it to the copy kept before the donor's own previous commit, or a guard that judges the kept copy against the
+  retail owner row; `tools/tu_skeleton.py` was held by another seat (ancalgonn-swarm-toollane2) during this pass. Then
+  the merge itself: one `_VertexLoc`, named by 0x0017A890, the sizer 0x0017F150, 0x00179B50, 0x0017E920 and the `_$E`
+  pair. Until then the split remains (pointgr.obj's static and the donor's static), but no object names the external
+  symbol any more and both copies are constructed by their own registered `_$E` pairs.
