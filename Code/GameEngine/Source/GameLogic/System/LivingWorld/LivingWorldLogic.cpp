@@ -1850,12 +1850,7 @@ void LivingWorldLogic::spawnBuilding(const Rva002B99F8Request *request)
 }
 
 // The region under a world position, 0x0020FAEA, rowed as Rva0020EE29::rva0020FAEA.
-class Rva0020EE29
-{
-public:
-	void *rva0020FAEA(float *pos, void *hint);
-	void rva0020F483();
-};
+#include "../../../../Include/GameLogic/Rva0020EE29.h"
 
 // LivingWorldLogic::AdjustArmyMoveTargetPos, retail 0x002B2858 (89 bytes;
 // WB name, logs when the point lies outside the target region): a position
