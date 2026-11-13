@@ -202,11 +202,7 @@ void Rva000A91FDSetExtern(const char *name, int value);
 
 // The Apt string-release callback observes only a virtual destructor.
 // Its concrete string type and original declaration remain unknown.
-class Rva000A923EString
-{
-public:
- virtual ~Rva000A923EString();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva000A923EString.h"
 void Rva000A923EReleaseString(Rva000A923EString *value, unsigned int flags);
 
 
