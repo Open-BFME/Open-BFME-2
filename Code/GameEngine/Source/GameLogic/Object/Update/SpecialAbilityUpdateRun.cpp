@@ -228,7 +228,7 @@ void SpecialAbilityUpdate::rva0044F6D0()
 
 class Rva0028F59A {public:Rva0028F59A(int,int);unsigned m_bits[19];};
 class Rva001E42F2 {public:void rva001E42F2(const int*);};
-class Rva001E431E {public:void rva001E431E(const int*);};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 // Existing signed frame-rate global; data ledger RVA 0x00A033D0 and
 // Rva007ABC6FFrameRateInits.cpp establish the binding and declaration.
 extern int g_00E033D0;

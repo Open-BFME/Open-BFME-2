@@ -417,11 +417,7 @@ struct SaCoordCopy : Coord3D
 // the eight-bit clear mask, target-capture handling and expanded stealth call.
 // The native finish callback is virtual slot 19; use its call-site ABI view.
 class Rva00265254 {public:Rva00265254(unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned);unsigned bits[19];};
-class Rva001E431E
-{
-public:
-	void rva001E431E(const int*);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 class StealthUpdate {public:void markAsDetected(unsigned,int,Object*,bool);};
 #include "../../../../Include/GameLogic/Rva00439E0C.h"
 struct SpecialGameLogicView {char opaque[0x178];Rva00439E0C *invisibility;};

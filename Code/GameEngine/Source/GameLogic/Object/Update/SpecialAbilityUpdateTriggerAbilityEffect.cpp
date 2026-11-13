@@ -398,11 +398,7 @@ class ThingTemplate {
 };
 #include "../../../../Include/Common/Rva0044E633.h"
 #include "../../../../Include/GameLogic/Module/Rva002D9531.h"
-class Rva001E431E
-{
-public:
-	void rva001E431E(const int*);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E431E.h"
 class Rva0028F59A {
   public:
     Rva0028F59A(int, int);
