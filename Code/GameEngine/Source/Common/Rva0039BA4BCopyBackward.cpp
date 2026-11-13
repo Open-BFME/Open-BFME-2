@@ -20,10 +20,7 @@ public:
 	Short m_field10;
 };
 
-struct RandomAccessTag
-{
-	char _x;
-};
+#include "../../Include/Common/RandomAccessTag.h"
 
 Rva0039B893 *__cdecl Rva0039B92DCopyBackward(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result, const RandomAccessTag &tag, int *dist);
 
