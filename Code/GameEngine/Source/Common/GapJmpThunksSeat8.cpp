@@ -76,11 +76,7 @@ public:
 	~Rva00204136();
 };
 
-class Rva00206593
-{
-public:
-	void rva00206EC7();
-};
+#include "../../Include/GameLogic/Rva00206593.h"
 
 class Rva0021030E
 {

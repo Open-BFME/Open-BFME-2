@@ -250,14 +250,7 @@ Xfer *Rva00208081Xfer(Xfer *xfer, void *lists);
 Xfer *Rva002080DAXferList(Xfer *xfer, ListAsciiStringCoord3D *list);
 Xfer *Rva00209A09Xfer(Xfer *xfer, ListAsciiStringValue *lists);
 
-class Rva00206593
-{
-public:
-	void rva00206EC7();
-	int header; // +0x00
-	int count; // +0x04
-	int compare; // +0x08
-};
+#include "../../../Include/GameLogic/Rva00206593.h"
 class Rva002065C8
 {
 public:

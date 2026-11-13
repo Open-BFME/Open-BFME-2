@@ -12,14 +12,7 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 enum ScienceType { SCIENCE_UNKNOWN=0 };
 class Script;
 class Rva0023DAA5List {public:void clear();void*head;};
-class Rva00206593
-{
-public:
-	void rva00206EC7();
-	int header; // +0x00
-	int count; // +0x04
-	int compare; // +0x08
-};
+#include "../../../Include/GameLogic/Rva00206593.h"
 class Rva002065C8
 {
 public:
