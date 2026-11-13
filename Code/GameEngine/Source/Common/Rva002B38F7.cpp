@@ -89,11 +89,7 @@ extern Mouse *TheMouse;
 
 #include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
-class Rva003EF041
-{
-public:
-	void rva003EF041();
-};
+#include "../../Include/Common/Rva003EF041.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 // 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).

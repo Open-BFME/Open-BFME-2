@@ -104,11 +104,7 @@ public:
 	void rva003EE900(int a);
 };
 
-class Rva003EF041
-{
-public:
-	void rva003EF041();
-};
+#include "../../Include/Common/Rva003EF041.h"
 
 class Rva002E2903Player
 {
