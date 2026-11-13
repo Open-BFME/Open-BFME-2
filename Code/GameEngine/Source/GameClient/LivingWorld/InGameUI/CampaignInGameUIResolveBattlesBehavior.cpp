@@ -33,11 +33,7 @@
 
 #include "../../../../Include/GameClient/Rva002C025AViewer.h"
 
-class Rva00212728
-{
-public:
-	void *rva00212728(void *key);		// 0x00212728, index or -1
-};
+#include "../../../../Include/GameClient/Rva00212728.h"
 
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
