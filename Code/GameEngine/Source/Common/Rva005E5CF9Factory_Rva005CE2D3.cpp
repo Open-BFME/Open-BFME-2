@@ -19,12 +19,7 @@ public:
 	Rva005F5819(int a1, void *a2);
 };
 
-struct Rva005E5CF9In
-{
-	void *m_00;
-	int m_04;
-	void *m_08;
-};
+#include "../../Include/Common/Rva005E5CF9In.h"
 
 struct Rva005E5CF9
 {
