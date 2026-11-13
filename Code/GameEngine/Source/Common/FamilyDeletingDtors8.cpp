@@ -65,5 +65,5 @@ void famgenDelete(Rva005F18C1 *objectToDelete) { delete objectToDelete; }
 void famgenDelete(Rva005FEBC8 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005FB615@@QAEPAXI@Z @0x005FB856 28B: calls rowed ~Rva005FB615 0x005FB615
-class Rva005FB615 { public: ~Rva005FB615(); };
+#include "../../Include/Common/Rva005FB615.h"
 void famgenDelete(Rva005FB615 *objectToDelete) { delete objectToDelete; }
