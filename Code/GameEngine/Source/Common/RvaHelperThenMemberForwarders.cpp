@@ -33,11 +33,7 @@ void Rva005E2226::rva005E2226()
     ((Rva00420B2AZeroSetter *)this)->disable();
     m_0C->rva005E2180();
 }
-class Rva005F1B51
-{
-public:
-    void rva005F1B51();
-};
+#include "../../Include/Common/Rva005F1B51.h"
 class Rva005E35C9
 {
 public:

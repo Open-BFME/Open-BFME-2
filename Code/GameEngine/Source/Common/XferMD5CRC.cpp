@@ -438,11 +438,7 @@ private:
 // ?rva005E358A@Rva005E358A@@QAEXXZ @0x005E358A 5B and
 // ?rva005EB8D1@Rva005EB8D1@@QAEXXZ @0x005EB8D1 5B: tail jumps to the rowed
 // 0x005F1B51 / 0x0022999F on the member at +0.
-class Rva005F1B51
-{
-public:
-	void rva005F1B51();
-};
+#include "../../Include/Common/Rva005F1B51.h"
 #include "../../Include/Common/Rva00226883.h"
 class Rva005E358A
 {
