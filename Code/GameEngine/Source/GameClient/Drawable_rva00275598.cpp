@@ -153,11 +153,7 @@ private:
  float m_40;
 };
 
-class Rva0027000E
-{
-public:
-	bool rva0027000E();
-};
+#include "../../Include/GameClient/Rva0027000E.h"
 
 class Rva0027070CGlobal
 { public:

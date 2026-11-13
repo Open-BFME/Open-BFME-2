@@ -83,11 +83,7 @@ public:
 	int get() const;	// rowed ?get@Rva0026FFF7@@QBEHXZ
 };
 
-class Rva0027000E
-{
-public:
-	bool rva0027000E();
-};
+#include "../../Include/GameClient/Rva0027000E.h"
 
 #include "../../Include/Common/Rva00276470Drawable.h"
 
