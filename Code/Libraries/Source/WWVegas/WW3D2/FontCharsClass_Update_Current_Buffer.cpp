@@ -10,11 +10,7 @@
 
 typedef unsigned short uint16;
 
-class FontCharsBuffer
-{
-public:
-	uint16 *Buffer;
-};
+#include "FontCharsBuffer.h"
 
 class BfmeFontCharsBuffer
 {

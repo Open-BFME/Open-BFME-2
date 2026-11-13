@@ -37,7 +37,7 @@ public:
  FontGlyphDCSelection(HDC dc_,HFONT font):dc(dc_),old(::SelectObject(dc_,font)) {}
  ~FontGlyphDCSelection() { ::SelectObject(dc,old); }
 };
-class FontCharsBuffer { public: unsigned short *Buffer; };
+#include "FontCharsBuffer.h"
 template<class T> class DynamicVectorClass
 {
 public:
