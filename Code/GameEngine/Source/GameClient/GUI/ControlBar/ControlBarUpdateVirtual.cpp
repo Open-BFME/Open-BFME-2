@@ -37,7 +37,7 @@ public:
 	GameWindow *m_window; // +0x298
 };
 class Rva0031FA8E { public: void rva0031FA8E(); };
-class Rva002D36D8 { public: int rva002D36D8(); };
+#include "../../../../Include/Common/Rva002D36D8.h"
 #include <vector>
 #include "../../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../Include/Common/Rva000B3FD0Nop.h"

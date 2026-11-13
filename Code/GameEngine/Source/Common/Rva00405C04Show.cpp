@@ -52,11 +52,7 @@ extern DisconnectMenu *TheDisconnectMenu;
 struct TreeHintRef00217D4C;
 #include "../../Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-class Rva002D36D8
-{
-public:
-	int rva002D36D8();
-};
+#include "../../Include/Common/Rva002D36D8.h"
 
 static bool s_hintPending;
 
