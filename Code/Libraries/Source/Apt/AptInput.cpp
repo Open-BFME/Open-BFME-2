@@ -74,7 +74,7 @@ AptInputEventName g_00DDC8EC[6] = {
 
 extern Rva006E0AC0Entry g_00DDC2E8[];
 
-class Rva006E0D40 {public:void rva006E0D40();};
+#include "Rva006E0D40.h"
 
 class Rva006F97B0 {public:void rva006F97B0();};
 

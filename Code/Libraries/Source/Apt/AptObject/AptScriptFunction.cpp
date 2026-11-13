@@ -92,11 +92,7 @@ public:
 	virtual void release();
 };
 
-class Rva006E0D40
-{
-public:
-	void rva006E0D40();
-};
+#include "../Rva006E0D40.h"
 
 class Rva00709B80 : public Rva006D6470Owner
 {
