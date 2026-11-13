@@ -235,15 +235,7 @@ public:
 	int rva004EE33B();										// 0x004EE33B
 };
 
-class Rva004EE4C3
-{
-public:
-	int rva004EE4C3();										// 0x004EE4C3
-	int rva005BE1FB();
-private:
-	char m_pad[0xB0];
-	int m_B0;
-};
+#include "../../Include/Common/Rva004EE4C3.h"
 
 // --- 0x005EA266 (41B): in both 0x0C-byte vectors at +0x1C of the +0x04
 // object, every 0x24-byte element copies +0x0C into +0x08.

@@ -195,7 +195,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../../Include/Common/Rva004EE3F9.h"
 #include "../../../../../Include/Common/Rva004EE447.h"
 class Rva004EE485 {public:int rva005BE20B();};
-class Rva004EE4C3 {public:int rva004EE4C3();};
+#include "../../../../../Include/Common/Rva004EE4C3.h"
 // WB155C340 is an unnamed31B count helper whose body is expanded in retail
 // before the deaths call. Keep its integer result until the float arguments
 // are prepared; a compound caller expression chooses different evaluation.

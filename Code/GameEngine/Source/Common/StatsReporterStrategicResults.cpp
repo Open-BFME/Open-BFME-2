@@ -30,7 +30,7 @@ template<int N>class BitFlags {unsigned words[7];};
 #include "../../Include/Common/Rva004EE3F9.h"
 #include "../../Include/Common/Rva004EE447.h"
 class Rva004EE485 {public:int rva004EE485();};
-class Rva004EE4C3 {public:int rva004EE4C3();};
+#include "../../Include/Common/Rva004EE4C3.h"
 class LivingWorldScoreKeeper {
  public:unsigned int rva004EE037();int rva004EE016();
  int counterECValue()const{return counterEC;}
