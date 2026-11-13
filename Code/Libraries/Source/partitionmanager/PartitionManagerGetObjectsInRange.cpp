@@ -34,7 +34,7 @@ struct Rva009F39F0Result {
 struct Rva009F4130Range { float x0,y0,z0,x1,y1; };
 struct Rva009F4130NodeList { int count; void *head; };
 class BfmeThingEQ;
-class Rva009F2AB0Mask { public: int getMask(); };
+#include "../../../GameEngine/Include/Common/Rva009F2AB0Mask.h"
 class BfmeHostER
 {
 public:

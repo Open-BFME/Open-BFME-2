@@ -252,11 +252,7 @@ public:
 
 #include "BfmeHostES.h"
 
-class Rva009F2AB0Mask
-{
-public:
-	int getMask(void);
-};
+#include "../../../GameEngine/Include/Common/Rva009F2AB0Mask.h"
 
 class Object;
 
