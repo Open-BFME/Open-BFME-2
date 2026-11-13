@@ -3754,3 +3754,31 @@ Base: 3,278 bridged, 31 refused, 2,268 already correct, 37,359 mismatching sourc
   OCLSpecialPower.cpp 1,734, PlayerHealSpecialPower.cpp 837, SplitHordeSpecialPower.cpp 307, VslotSmallBodiesAG.cpp
   337 B LINK before and after (census-only reads `?slot44@SpecialPowerModule@@UAEXXZ` as unresolved: the census
   index 16b6c8496e predates lk107's move).
+
+**Refused / left (re_attempts.log, 2026-11-14; the seat stopped on the owner's strategy change).**
+- DynamicPortalBehaviour (0x00460BCD): lk107's baseline is right; the kept ??_7DynamicPortalBehaviour@@6BObjectModule@@@
+  (DynamicPortalBehaviour.cpp) differs from 0x00C428C4 only at slot 2, and rename.py --to-class plans the move. Two
+  blockers: class_gate refuses the ConstIntGetters4.cpp stub (the class is registered; its hand-written canonical
+  header does not declare the override), and carving the row into its approved TU (tu_map: DynamicPortalBehaviour.cpp)
+  is refused by `tu_skeleton --split` (plain carve: the composed text loses UpgradeModule; `--prepared`: the split
+  link guard, "moved selected COMDAT ??_C@_0BH@NFNAOKEA@DynamicPortalBehaviour?$AA@ lacks matching private/weak-free
+  context"). Next: declare `protected: virtual const char *GetSnapshotName() const;` in
+  Code/GameEngine/Include/GameLogic/Module/DynamicPortalBehaviour.h (its own commit, includers rebuilt), then the
+  to-class move with ConstIntGetters4.cpp including that header.
+- DeflectSpecialPower slot 43 (0x00494AC6): the word also sits at slot 43 of 0x00C4E998, the base table shared by
+  Rva00589079 / WeaponModeSpecialPowerUpdateBase (one class, two spellings) and four more class names: it is the
+  base's override. That table also differs at slots 8 (0x003730FC) and 25 (0x004543A9, both ICF bodies), and
+  DeflectSpecialPower's 0x00C5D9C0 at slot 1 (getCollide 0x004C54B1). Order: one spelling for the base, its slot 8/25
+  ICF-twin overrides, the slot-43 to-class move into the base, then DeflectSpecialPower's getCollide.
+- Not started (no record): CommandButtonHuntUpdate 0x0049533E and AttributeModifierAuraUpdate 0x0049B5D6 (both
+  kept primaries wrong at slot 1, the 0x00497805 fold, and slot 2; next: CommandButtonHuntUpdate.cpp's private
+  view declares the override so header_adopt_lane's regeneration emits it, then the getter unit includes the
+  regenerated header);
+  ObjectHelper 0x0028C933 (Object.cpp, the constructor unit that compiles the kept table, was claimed by
+  StarkillerHDX); Weapon 0x002CC2F6 (Weapon.h already declares GetSnapshotName and loadPostProcess; the getter
+  unit can include the canonical header; slot 1 needs ?loadPostProcess@Weapon@@MAEXXZ rowed as the 0x000B3FD0
+  ICF twin); Rva00493DEFDerived.cpp's three 0x00BEFCF8 copies (a class fold of Rva00493DEF into SpecialPowerModule
+  first); BridgeTowerBehavior, HealCrateCollide, BodyModule.
+
+**Measure (base -> after, lk74_cmp, local objects).** Bridged 3,278 -> 3,275; refused 31 -> 31 (identical);
+correct 2,268 -> 2,271; mismatching source slots 37,359 -> 37,350.
