@@ -66,7 +66,7 @@ template void SelectionIDTable::_M_initialize_buckets(unsigned int);
 // table through the same folded resize at 0x0053F1EC; the layout equals int/bool, so this
 // unit's flags emit retail's body for it too.
 // The mapped value of retail's hash_map<int, AsciiString> (row 0x00523DB7 builds this pair), so a node copy-constructs the string.
-struct Rva002A9029Element { AsciiString value; };
+#include "../../../Include/Common/Rva002A9029Element.h"
 template unsigned int _STL::hashtable<_STL::pair<const int,Rva002A9029Element>,int,_STL::hash<int>,
     _STL::_Select1st<_STL::pair<const int,Rva002A9029Element> >,_STL::equal_to<int>,
     _STL::allocator<_STL::pair<const int,Rva002A9029Element> > >::_M_next_size(unsigned int) const;

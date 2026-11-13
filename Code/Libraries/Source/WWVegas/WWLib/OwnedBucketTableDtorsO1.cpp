@@ -209,7 +209,7 @@ namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
 struct Rva00148B27Element { char bytes[1]; };
 // The mapped value of retail's hash_map<int, AsciiString> (row 0x00523DB7 builds this pair), so a node copy-constructs the string.
-struct Rva002A9029Element { AsciiString value; };
+#include "../../../../GameEngine/Include/Common/Rva002A9029Element.h"
 typedef _STL::pair<const int, Rva00148B27Element> StringMapFindValue;
 typedef _STL::hashtable<StringMapFindValue, int, _STL::hash<int>,
     _STL::_Select1st<StringMapFindValue>, _STL::equal_to<int>,

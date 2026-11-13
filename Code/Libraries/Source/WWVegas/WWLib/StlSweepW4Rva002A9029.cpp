@@ -31,7 +31,7 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 }
 
 // The mapped value of retail's hash_map<int, AsciiString> (row 0x00523DB7 builds this pair), so a node copy-constructs the string.
-struct Rva002A9029Element { AsciiString value; bool operator<(const Rva002A9029Element&)const; bool operator==(const Rva002A9029Element&)const; };
+#include "../../../../GameEngine/Include/Common/Rva002A9029Element.h"
 namespace _STL {template<> struct hash<Rva002A9029Element> { unsigned operator()(const Rva002A9029Element&) const; };}
 // resize is retail's shared 0x0053F1EC body (pinned); declare it so this TU binds that copy.
 namespace _STL { template <> void hashtable<pair<int const, Rva002A9029Element>, int, hash<int>, _Select1st<pair<int const, Rva002A9029Element> >, equal_to<int>, allocator<pair<int const, Rva002A9029Element> > >::resize(unsigned int); }
