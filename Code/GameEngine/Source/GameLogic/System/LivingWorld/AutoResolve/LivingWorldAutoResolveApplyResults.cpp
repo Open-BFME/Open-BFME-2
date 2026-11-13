@@ -36,7 +36,7 @@ class Rva002E2903Player;
 struct Rva002B488EResult {char unknown00[0x54];int player54; __forceinline int GetPlayer() const{return player54;}};
 struct Rva002B2579Result;
 #include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class Rva002B25BFOwner {public:bool rva002B25BF(int);};
+#include "../../../../../Include/Common/Rva002B25BFOwner.h"
 #include "../../../../../Include/GameLogic/LivingWorldBuilding.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

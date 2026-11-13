@@ -126,11 +126,7 @@ enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../Include/GameClient/InGameUI.h"
 
 class LivingWorldLogic;
-class Rva002B25BFOwner
-{
-public:
-	bool rva002B25BF(int id);
-};
+#include "../../../Include/Common/Rva002B25BFOwner.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 extern Radar *TheRadar;
