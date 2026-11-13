@@ -27,11 +27,7 @@ typedef void (*INIFieldParseProc)(class INI *ini, void *instance, void *store, c
 
 // The forwarder class the ledger rows at RVA 0x003FB5F2 (BitFlags-style parse
 // driver over the rowed single-token worker 0x003FB3B8).
-class Rva003FB508
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva003FB508.h"
 
 #include "../../Common/debug.h"
 extern Debug *theDebug;

@@ -18,12 +18,7 @@ public:
 
 #include "../../../Include/Common/Rva0033AFBB.h"
 
-class Rva003FB508
-{
-public:
-	void rva003FB508(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva003FB508.h"
 
 #include "../../../Include/Common/Rva00417DFB.h"
 
