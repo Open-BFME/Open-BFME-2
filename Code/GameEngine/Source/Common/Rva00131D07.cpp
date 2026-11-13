@@ -11,11 +11,7 @@ public:
 	char m_pad[0x10 - 4];
 };
 
-class Rva00131BE5M14
-{
-public:
-	virtual void v00();
-};
+#include "../../Include/Common/Rva00131BE5M14.h"
 
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 __forceinline StringClass::~StringClass() { Free_String(); }

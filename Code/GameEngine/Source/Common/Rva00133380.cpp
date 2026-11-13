@@ -6,12 +6,7 @@
 // and m_14 offset as the dtor; rowed operator delete 0x0002FD60; virtual slot1
 // v04(0) on M14; caller 0x001333AA (28B) and unblocked 0x001333AA; prev/next
 // share // cl: /O1 /MD.
-class Rva00131BE5M14
-{
-public:
-	virtual void v00();
-	virtual void *v04(int);
-};
+#include "../../Include/Common/Rva00131BE5M14.h"
 
 class Rva0013331A
 {

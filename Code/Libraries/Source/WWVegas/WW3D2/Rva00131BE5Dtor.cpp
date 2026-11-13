@@ -15,12 +15,7 @@ class Rva00131BE5;
 #include "../WWLib/StringClassData.h"
 __forceinline StringClass::~StringClass(void) { Free_String(); }
 
-class Rva00131BE5M14
-{
-public:
-    virtual void v00();
-    virtual void *v04(int);
-};
+#include "../../../../GameEngine/Include/Common/Rva00131BE5M14.h"
 
 #include <new>
 
