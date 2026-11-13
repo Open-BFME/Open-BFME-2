@@ -22,16 +22,7 @@ public:
     virtual void invoke(int first, int second);
 };
 
-class Rva007E3410Object
-{
-public:
-    void invokeForMode(void);
-
-private:
-    char m_pad0[4];
-    Rva007E3410Target *m_target;
-    int m_mode;
-};
+#include "../../Include/Common/Rva007E3410Object.h"
 
 class BfmeDev996
 {

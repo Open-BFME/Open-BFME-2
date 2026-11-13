@@ -214,16 +214,7 @@ public:
     virtual void invoke(int first, int second);
 };
 
-class Rva007E3410Object
-{
-public:
-    void invokeForMode(void);
-
-private:
-    char m_pad0[4];
-    Rva007E3410Target *m_target;
-    int m_mode;
-};
+#include "../../Include/Common/Rva007E3410Object.h"
 
 // Whole one-body BFME1 Rva00971BA0GuardedHelper.cpp at revision
 // 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24 supplies this control-flow
