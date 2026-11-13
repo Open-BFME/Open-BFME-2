@@ -94,7 +94,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
 class Rva006D6500 {unsigned char storage[36];public:Rva006D6500(int);static void *operator new(unsigned int n){return g_pChainBlockAllocatorF4->allocBlock(n);}static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}};
 
-class BfmeS1082 {public:virtual void bfmeSlot1082S_0();virtual void bfmeSlot1082S_1();};
+#include "../../../GameEngine/Include/Common/BfmeS1082.h"
 
 extern BfmeS1082 *g_bfmeS1082_0,*g_bfmeS1082_1,*g_bfmeS1082_2,*g_bfmeS1082_3;
 

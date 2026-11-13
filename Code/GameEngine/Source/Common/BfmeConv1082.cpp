@@ -10,12 +10,7 @@
 // (4-byte stride) in both images, in the same order, so B is the lower
 // retail body (0x006F1DF0) and C the higher (0x006F25E0).
 
-class BfmeS1082
-{
-public:
-	virtual void bfmeSlot1082S_0(void);
-	virtual void bfmeSlot1082S_1(void);
-};
+#include "../../Include/Common/BfmeS1082.h"
 
 // g_bfmeS1082_0: matched references place it at VA 0xe1821c (retail .data initial value 0).
 BfmeS1082 * g_bfmeS1082_0 = 0;
