@@ -566,11 +566,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
-struct Rva00462D35Mapped
-{
-	Rva00462D35Mapped() : m_bits(0) {}
-	unsigned int m_bits;
-};
+#include "../../../../Include/Common/Rva00462D35Mapped.h"
 // Retail erases from the +0x170 ID set through 0x0046EDEF, the STLport
 // erase(const key &) body ICF shares with the int map: it calls map<int, int>'s
 // equal_range (0x002F1C89) and the erase-range body 0x0046A967 (rowed as
