@@ -411,7 +411,7 @@ extern AI *TheAI;
 
 // The pathfinder rebuild walk, rowed as Rva004618D4Caller::rva002E7023
 // (0x002E7023), called as a thiscall on the AI's pathfinder pointer.
-class Rva004618D4Caller { public: void rva002E7023(); };
+#include "../../../../Include/Common/Rva004618D4Caller.h"
 
 struct Rva004618D4AI
 {
