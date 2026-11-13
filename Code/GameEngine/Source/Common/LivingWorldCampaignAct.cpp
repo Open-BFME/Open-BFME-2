@@ -336,11 +336,7 @@ public:
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002B2702
-{
-public:
-    void rva002B2702(void *owner, void *region, int extra);
-};
+#include "../../Include/Common/Rva002B2702.h"
 
 struct Rva00565085LogicView
 {
