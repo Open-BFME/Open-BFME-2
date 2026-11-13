@@ -22,14 +22,7 @@ template <class InputIter, class OutputIter>
 OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &);
 }
 
-class Rva00335C88
-{
-public:
-	void *rva00335C88(void *,void *);
-	char m_pad00[0x4];
-private:
-	BfmeStringRecord00063BE4 *m_04; // +0x04
-};
+#include "../../Include/Common/Rva00335C88.h"
 
 // Retail passes the tag at &a + 3; a __false_type() temporary lands in b's
 // slot (&b + 3) under every flag set tried, so the address stays explicit.

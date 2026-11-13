@@ -389,14 +389,7 @@ template<> Rva003371B1 *vector<Rva003371B1>::erase(Rva003371B1 *,Rva003371B1 *);
 template<> BfmeOpaqueRecord156 *vector<BfmeOpaqueRecord156>::erase(BfmeOpaqueRecord156 *,BfmeOpaqueRecord156 *);
 }
 struct BfmeStringRecord00063BE4;
-class Rva00335C88
-{
-public:
-	void *rva00335C88(void *,void *);
-	char m_pad00[0x4];
-private:
-	BfmeStringRecord00063BE4 *m_04; // +0x04
-};
+#include "../../../Include/Common/Rva00335C88.h"
 struct Rva00337RangeView { void *start,*finish,*limit; };
 class BfmeLexEAN;
 class XmlNameSlotList;
