@@ -11,11 +11,7 @@
 #include <memory>
 #include <new>
 
-class Rva00051C6C
-{
-public:
-	Rva00051C6C(const Rva00051C6C &other);
-};
+#include "Rva00051C6C.h"
 
 class Rva0014F480
 {

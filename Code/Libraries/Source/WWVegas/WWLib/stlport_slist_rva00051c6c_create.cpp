@@ -4,11 +4,7 @@
 // slist node create: allocate 12 via rowed byte allocator plus zero next plus rowed _Construct.
 // Evidence: unlock lane plus callees 0x000307F0 plus 0x00053FA4 plus caller 0x000556E7 plus size 12 with data at +4 matching Rva00051C6C 8B layout.
 #include <memory>
-class Rva00051C6C
-{
-public:
-	Rva00051C6C(const Rva00051C6C &other);
-};
+#include "Rva00051C6C.h"
 namespace _STL {
 // The Rva00051C6C copy-construct body is owned by
 // StlportConstructCopySiblings.cpp (explicit throw() specialization);
