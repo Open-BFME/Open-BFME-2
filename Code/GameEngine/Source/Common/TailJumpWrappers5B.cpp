@@ -949,11 +949,7 @@ void Rva005F604C::run()
 	((Rva005F327ARun *)this)->run();
 }
 
-class Gen_009EBB60Target
-{
-public:
-	int bfmeForward();
-};
+#include "../../Include/Common/Gen_009EBB60Target.h"
 
 class Rva00620DA0
 {

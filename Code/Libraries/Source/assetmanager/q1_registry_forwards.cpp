@@ -93,10 +93,7 @@ void Rva0061F050(int value)
 }
 
 // Declaration-only ABI views of the existing provider classes.
-class Gen_009EBB60Target {
-public:
-    int bfmeForward();
-};
+#include "../../../GameEngine/Include/Common/Gen_009EBB60Target.h"
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h"
 
 // Native null path returns 100; the live path tail-calls the rowed
