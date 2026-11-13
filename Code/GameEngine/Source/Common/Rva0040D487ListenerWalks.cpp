@@ -85,11 +85,7 @@ void Rva0040D8B8List::apply(const Rva0040D487Call &call)
 }
 
 // ---- forEach 0x0040D8D6, walk 0x0040D4F4
-class Rva0040D8D6Listener
-{
-public:
-	virtual void notify(void *, int);
-};
+#include "../../Include/Common/Rva0040D8D6Listener.h"
 
 struct Rva0040D4F4Call
 {

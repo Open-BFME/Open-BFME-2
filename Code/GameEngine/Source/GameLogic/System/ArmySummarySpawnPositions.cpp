@@ -29,11 +29,7 @@ struct Rva004F69C3 { int key; Rva004F69C3Target* value; ~Rva004F69C3(); };
 namespace _STL { template<> vector<Rva004F69C3>::iterator vector<Rva004F69C3>::erase(iterator); }
 // The existing 40E0EB provider destroys this same eight-byte entry range.
 class Rva0040E0EB : public _STL::vector<Rva004F69C3> { public: ~Rva0040E0EB(); };
-class Rva0040D8D6Listener {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void removed(void*,int); virtual void removing(void*,int);
-};
+#include "../../../Include/Common/Rva0040D8D6Listener.h"
 class Rva0040D8D6List {
 public: void forEach(void(Rva0040D8D6Listener::*)(void*,int),void*,int);
 public: ~Rva0040D8D6List() { if(begin) free(begin); }

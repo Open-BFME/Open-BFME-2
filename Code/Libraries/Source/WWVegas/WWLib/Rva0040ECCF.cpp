@@ -122,15 +122,7 @@ template <> void vector<Rva0040CB11Entry, allocator<Rva0040CB11Entry> >::push_ba
 template <> void vector<Rva0040CB11Entry, allocator<Rva0040CB11Entry> >::reserve(size_t);
 }
 
-class Rva0040D8D6Listener
-{
-public:
-	virtual void notify0(void *arg, int value);
-	virtual void dummy();
-	virtual void notify2(void *arg, int value);
-	virtual void notify3(void *arg, int value);
-	virtual void notify4(void *arg, int value);
-};
+#include "../../../../GameEngine/Include/Common/Rva0040D8D6Listener.h"
 
 class Rva0040D8D6List
 {

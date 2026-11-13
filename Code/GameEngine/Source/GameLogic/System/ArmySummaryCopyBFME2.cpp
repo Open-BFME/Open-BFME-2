@@ -107,15 +107,7 @@ public:
 	~Rva0040E0EB();
 };
 
-class Rva0040D8D6Listener
-{
-public:
-	virtual void notify0(void *arg, int value);
-	virtual void dummy();
-	virtual void notify2(void *arg, int value);
-	virtual void notify3(void *arg, int value);
-	virtual void notify4(void *arg, int value);
-};
+#include "../../../Include/Common/Rva0040D8D6Listener.h"
 
 class Rva0040D8D6List
 {
