@@ -9,7 +9,7 @@
 class INI;
 #include "../../../../../Include/Common/INI/FieldParse.h"
 // LINK: 0x00417EF9 is rowed as the static ?parseFromINI@Rva00417DFB (INIParseFromINIForwarders.cpp).
-struct Rva00417DFB { static void parseFromINI(INI*,void*,void*,const void*); };
+#include "../../../../../Include/Common/Rva00417DFB.h"
 void Rva00417FF0Parse(INI*,void*,void*,const void*);
 
 #include "../../../../../Include/Common/INI/INI.h"

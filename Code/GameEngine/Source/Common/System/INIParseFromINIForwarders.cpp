@@ -25,12 +25,7 @@ public:
 	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
 };
 
-class Rva00417DFB
-{
-public:
-	void rva00417DFB(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva00417DFB.h"
 
 // @0x0021C3E7 16B
 void Rva0021B7B6::parseFromINI(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
