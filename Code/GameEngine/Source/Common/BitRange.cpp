@@ -69,11 +69,7 @@ public:
 
 typedef _STL::vector<Rva0026F4F4Element, _STL::allocator<Rva0026F4F4Element> > Rva0026F4F4Vector;
 
-class LargeGroupAudioKeyMap
-{
-public:
-	LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &other);
-};
+#include "../../Include/Common/LargeGroupAudioKeyMap.h"
 
 // 0x003ED498 is rowed as the free Rva003ED498Count walker.
 void __cdecl Rva003ED498Count(void const *arg);

@@ -790,7 +790,7 @@ struct Rva0056A378Source {
  union { const LargeGroupAudioSoundKeyPair *source; int count; struct { char pad[3]; bool ok; } result; };
 };
 
-class LargeGroupAudioKeyMap {public: LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &);};
+#include "../../Include/Common/LargeGroupAudioKeyMap.h"
 
 #include "../../Include/Common/OpaqueRefElement4.h"
 

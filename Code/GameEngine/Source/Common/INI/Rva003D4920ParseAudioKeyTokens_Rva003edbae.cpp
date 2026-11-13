@@ -7,11 +7,7 @@
 
 #include "../../../Include/Common/INI/INI.h"
 
-class LargeGroupAudioKeyMap
-{
-public:
-	void bfmeAddKey( const AsciiString &name );
-};
+#include "../../../Include/Common/LargeGroupAudioKeyMap.h"
 
 class Rva003D4920
 {

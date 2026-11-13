@@ -199,11 +199,7 @@ struct Rva003ED861
 {
 	void method();
 };
-class LargeGroupAudioKeyMap
-{
-public:
-	void bfmeAddKey(const AsciiString &name);
-};
+#include "../../Include/Common/LargeGroupAudioKeyMap.h"
 
 struct Rva003EDAEBVersionSlot
 {
