@@ -47,11 +47,7 @@ public:
 	unsigned int size() const { return m_size; }
 	char m_pad08[4];
 };
-struct FireCellCentre
-{
-	int x;
-	int y;
-};
+#include "../../../Include/GameLogic/FireCellCentre.h"
 class PolygonTrigger;
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"

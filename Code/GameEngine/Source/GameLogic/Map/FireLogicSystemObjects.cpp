@@ -183,11 +183,7 @@ struct FireCoord3D : public Coord3D
 #include "../../../../Libraries/Include/Lib/Region2D.h"
 #include "../../../Include/GameLogic/Rva0030B719Shape.h"
 bool __cdecl rva00285B66(const void *point, const void *region);
-struct FireCellCentre
-{
-	Int x;
-	Int y;
-};
+#include "../../../Include/GameLogic/FireCellCentre.h"
 class PolygonTrigger;
 
 // The subsystem base (ctor 0x001B4E63, dtor 0x001B4E74) and Snapshot at
