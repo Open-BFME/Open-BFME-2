@@ -707,7 +707,7 @@ public:
 	int m_pad08;
 	BridgeInfoView10C841 m_info;		// +0x0C
 };
-class Rva00281BF7 { public: int rva00281BF7(); };
+#include "../../../../../GameEngine/Include/GameLogic/Rva00281BF7.h"
 #include "../../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 class Rva000FE9E3PointBounds { public: Rva000FE9E3PointBounds *rva000FE9E3(Vector3 *points, int count); float m_box[6]; };
 class AABoxClass { public: WWINLINE AABoxClass(const Vector3 &center, const Vector3 &extent) : Center(center), Extent(extent) {} Vector3 Center; Vector3 Extent; };

@@ -285,11 +285,7 @@ typedef Rva0027C36A BridgeInfo;
 // 0x00281BF7: the bridge object's drawable (Zero Hour's tail of
 // Bridge::pickBridge, split out); the row keeps its address-derived name and
 // int return.
-class Rva00281BF7
-{
-public:
-	Int rva00281BF7();
-};
+#include "../../../Include/GameLogic/Rva00281BF7.h"
 
 // 0x002ED236 takes the position by value as a 12-byte type with a
 // non-trivial destructor: its caller copies the three words into the
