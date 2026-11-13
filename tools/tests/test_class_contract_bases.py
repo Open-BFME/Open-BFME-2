@@ -8,6 +8,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import class_contract as contract  # noqa: E402
 import header_adopt_lane as lane  # noqa: E402
 
+
+@pytest.fixture(autouse=True)
+def no_builds(monkeypatch):
+    """No test compiles anything: the generator's owner and emission builds (build_units) are recorded only."""
+    built = []
+    monkeypatch.setattr(lane, "build_units", lambda sources: built.extend(sources))
+    return built
+
 # Base: a vfptr, two introducing slots and one field (sizeof 8).
 BASE = {"fwd": False, "key": "class", "size": 8, "bases": [], "vfptr": True,
         "fields": [[4, "m_moduleData", "ModuleData*", 4]],

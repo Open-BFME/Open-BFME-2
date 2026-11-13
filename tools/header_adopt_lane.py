@@ -2234,30 +2234,40 @@ BUILTIN_CODES = {"void": "X", "signed char": "C", "char": "D", "unsigned char": 
                  "signed": "H", "unsigned int": "I", "unsigned": "I", "long": "J", "long int": "J",
                  "unsigned long": "K", "unsigned long int": "K", "float": "M", "double": "N",
                  "long double": "O", "bool": "_N", "__int64": "_J", "unsigned __int64": "_K", "wchar_t": "_W"}
+CV_CODES = {frozenset(): "A", frozenset({"const"}): "B", frozenset({"volatile"}): "C",
+            frozenset({"const", "volatile"}): "D"}
+
+
+def split_head(member):
+    """(name as spelled, [parameter text], this-qualifiers) of a member declaration with its attributes
+    (`__declspec(...)`, inline, virtual, calling conventions) skipped; ValueError when it cannot read it
+    (a parameter with parentheses: a function pointer or a call in a default argument)."""
+    head = re.sub(r"\s+", " ", ATTRIBUTES.sub(" ", declaration_head(member))).strip()
+    found = DECLARATOR.search(head)
+    if not found or re.search(r"\boperator\b", head[:found.start("name")]):
+        raise ValueError(head)
+    params = [p.strip() for p in found.group("params").split(",")] if found.group("params").strip() else []
+    if params == ["void"]:
+        params = []
+    return re.sub(r"\s+", "", found.group("name")), params, frozenset(found.group("cv").split())
 
 
 def declarator(name, member):
     """(prefix, [parameter text], this-qualifiers) of `name`'s `member` (a declaration's text): the mangled
     prefix every row of its name starts with (`??1Scope@@` for the destructor, `??RScope@@` for operator(),
-    `?get@Scope@@` for a method), its parameters and its `const`/`volatile`. Attributes such as
-    `__declspec(...)` are skipped. OwnerUnknown for a declaration it cannot read or a name it cannot
-    mangle (a conversion operator, an unknown operator)."""
+    `?get@Scope@@` for a method), its parameters and its `const`/`volatile`. OwnerUnknown for a declaration
+    it cannot read or a name it cannot mangle (a conversion operator, an unknown operator)."""
     scope = "@".join(reversed(name.split("::")))
-    head = re.sub(r"\s+", " ", ATTRIBUTES.sub(" ", declaration_head(member))).strip()
-    found = DECLARATOR.search(head)
-    if not found or re.search(r"\boperator\b", head[:found.start("name")]):
-        raise OwnerUnknown(f"{name}: cannot read the declaration {head}")
-    spelled = re.sub(r"\s+", "", found.group("name"))
-    params = [p.strip() for p in found.group("params").split(",")] if found.group("params").strip() else []
-    if params == ["void"]:
-        params = []
-    cv = frozenset(found.group("cv").split())
+    try:
+        spelled, params, cv = split_head(member)
+    except ValueError as why:
+        raise OwnerUnknown(f"{name}: cannot read the declaration {why}") from None
     if spelled.startswith("~"):
         return f"??1{scope}@@", params, cv
     if spelled.startswith("operator"):
         code = OPERATOR_CODES.get(spelled[len("operator"):])
         if code is None:
-            raise OwnerUnknown(f"{name}: cannot name the rows of {head}")
+            raise OwnerUnknown(f"{name}: cannot name the rows of {spelled}")
         return f"??{code}{scope}@@", params, cv
     return f"?{spelled}@{scope}@@", params, cv
 
@@ -2267,11 +2277,12 @@ def member_prefix(name, member):
     return declarator(name, member)[0]
 
 
-def param_pattern(text):
-    """A regex for one declared parameter's mangled type: a builtin exactly, a named type as a class,
-    struct, union or enum of that (qualified) name, `*`/`&` with their pointee's constness and the
-    pointer's own. None for a parameter it cannot read (a default argument, a template, an array, a
-    function pointer, volatile, a type of several words it does not know)."""
+def decl_param(text):
+    """One declared parameter as (pointer levels outermost first, each its MSVC code with the pointee's
+    constness; base), the base ("builtin", code) for a keyword type or ("name", components innermost
+    first) for a named one (a class, struct, union, enum or typedef: which is not known here). None when
+    it cannot read it (a default argument, a template, an array, a function pointer, volatile, a type of
+    several words it does not know)."""
     t = re.sub(r"\s+", " ", text).strip()
     if re.search(r"[=<(\[]|\.\.\.|\bvolatile\b", t):
         return None
@@ -2289,28 +2300,65 @@ def param_pattern(text):
             words.append(token)
     if " ".join(words) not in BUILTIN_CODES:
         if len(words) > 1 and " ".join(words[:-1]) in BUILTIN_CODES:
-            words = words[:-1]                          # a builtin and the parameter's name
+            words = words[:-1]                          # a keyword type and the parameter's name
         elif len(words) == 2:
             words = words[:1]                           # a named type and the parameter's name
     spelled = " ".join(words)
     if spelled in BUILTIN_CODES:
-        pattern = re.escape(BUILTIN_CODES[spelled])
+        base = ("builtin", BUILTIN_CODES[spelled])
     elif len(words) == 1 and re.fullmatch(r"[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*", words[0]):
-        pattern = r"(?:[TUV]|W4)" + re.escape("@".join(reversed(words[0].split("::"))) + "@@")
+        base = ("name", tuple(reversed(words[0].split("::"))))
     else:
         return None
-    const = base_const
+    codes, const = [], base_const
     for kind, own_const in pointers:
-        code = (("Q" if own_const else "P") if kind == "*" else "A") + ("B" if const else "A")
-        pattern = re.escape(code) + pattern
+        codes.append((("Q" if own_const else "P") if kind == "*" else "A") + ("B" if const else "A"))
         const = own_const
-    return pattern
+    return tuple(reversed(codes)), base
+
+
+def row_param(text, names):
+    """One mangled parameter type in decl_param's shape, each name back-reference spelled from the row's
+    name table `names`; None when it is not of that grammar (a template, a function pointer, a member
+    pointer) or a reference cannot be resolved. The whole text must be read."""
+    i, codes = 0, []
+    while i + 1 < len(text) and text[i] in "PQRSAB" and text[i + 1] in "ABCD":
+        codes.append(text[i:i + 2])
+        i += 2
+    rest = text[i:]
+    if rest in BUILTIN_CODES.values():
+        return tuple(codes), ("builtin", rest)
+    if rest[:1] in ("T", "U", "V"):
+        i = 1
+    elif rest[:2] == "W4":
+        i = 2
+    else:
+        return None
+    components = []
+    while i < len(rest):
+        char = rest[i]
+        if char == "@":
+            return (tuple(codes), ("name", tuple(components))) if i == len(rest) - 1 and components else None
+        if char.isdigit():
+            index = int(char)
+            if index >= len(names) or not isinstance(names[index], str):
+                return None
+            components.append(names[index])
+            i += 1
+        elif char == "?":
+            return None
+        else:
+            stop = rest.find("@", i)
+            if stop < 0:
+                return None
+            components.append(rest[i:stop])
+            i = stop + 1
+    return None
 
 
 def mangled_parts(row, prefix):
-    """(this-qualifier letter, [each parameter's mangled type, name back-references spelled out]) of a
-    member function row, or None when it cannot be read (not a member function, variadic, a template or
-    a back-reference it cannot resolve)."""
+    """(this-qualifier letter, [each parameter's mangled text], the row's name table) of a member function
+    row, or None when it cannot be read (not a member function, variadic, outside the parser's grammar)."""
     import sig_check
     import wb_gold
     rest = row[len(prefix):]
@@ -2354,48 +2402,86 @@ def mangled_parts(row, prefix):
                 return None                               # variadic
     except (wb_gold.DemangleError, IndexError):
         return None
-    names = [value for _, value in parser.names]
-
-    def spell(match):
-        index = int(match.group(1))
-        if index >= len(names) or not isinstance(names[index], str):
-            raise LookupError(index)
-        return names[index] + "@"
-    try:
-        # a name component that is a digit is a back-reference to the parser's name table
-        params = [re.sub(r"(?:(?<=[TUV])|(?<=W4)|(?<=@))(\d)", spell, text) for text in params]
-    except LookupError:
-        return None
-    if any("?" in text for text in params):
-        return None                                       # a template argument
-    return cv, params
+    return cv, params, [value for _, value in parser.names]
 
 
-CV_CODES = {frozenset(): "A", frozenset({"const"}): "B", frozenset({"volatile"}): "C",
-            frozenset({"const", "volatile"}): "D"}
+def named_alike(mine, theirs, scopes):
+    """Whether a declared name (components innermost first) is the row's: the same components, the row's
+    remaining ones the declaring class's own scopes, from itself outward (`Mode` in K is `K::Mode`)."""
+    if theirs[:len(mine)] != mine:
+        return False
+    rest = theirs[len(mine):]
+    return any(rest == scopes[j:] for j in range(len(scopes) + 1))
+
+
+def compare_row(params, cv, letter, mangled, scopes):
+    """'match', 'mismatch' or 'unknown': whether a row (this-qualifier `letter`, parameters in row_param's
+    shape) is the declaration (parameters in decl_param's shape, this-qualifiers `cv`). The count and the
+    this-qualifiers, and a keyword type, can prove a mismatch; a named type cannot (it may be a typedef or
+    a nested name), so it only matches or leaves the row unknown."""
+    if len(params) != len(mangled) or CV_CODES.get(cv) != letter:
+        return "mismatch"
+    verdict = "match"
+    for mine, theirs in zip(params, mangled):
+        if mine is None or theirs is None:
+            verdict = "unknown"
+            continue
+        (my_codes, my_base), (their_codes, their_base) = mine, theirs
+        if my_base[0] == "builtin":
+            if (my_codes, my_base) != (their_codes, their_base):
+                return "mismatch"
+            continue
+        if my_codes == their_codes and their_base[0] == "name" and named_alike(my_base[1], their_base[1], scopes):
+            continue
+        verdict = "unknown"
+    return verdict
 
 
 def rows_of(name, member, owners=None):
     """The matched rows (name, source) that are `name`'s `member` itself: its name, and for a function other
-    than the destructor its parameter types and this-qualifiers, mangled (another overload's rows are not
-    its own). OwnerUnknown when a row of its name or the declaration cannot be read."""
+    than the destructor its parameter types and this-qualifiers (compare_row); another overload's rows are
+    not its own. OwnerUnknown when a row of its name may be it but cannot be shown to be or not to be."""
     prefix, params, cv = declarator(name, member)
     rows = (_matched_owners() if owners is None else owners).get(prefix, ())
     if prefix.startswith("??1"):
         return list(rows)
-    patterns = [param_pattern(p) for p in params]
-    if any(p is None for p in patterns):
-        raise OwnerUnknown(f"{name}: cannot read the parameters of {declaration_head(member)}")
-    own = []
+    parsed = [decl_param(p) for p in params]
+    scopes = tuple(reversed(name.split("::")))
+    matched, unknown = [], []
     for row, source in rows:
         parts = mangled_parts(row, prefix)
         if parts is None:
-            raise OwnerUnknown(f"{row}: cannot read its signature")
-        letter, mangled = parts
-        if letter == CV_CODES.get(cv) and len(mangled) == len(patterns) and \
-                all(re.fullmatch(p, m) for p, m in zip(patterns, mangled)):
-            own.append((row, source))
-    return own
+            unknown.append(row)
+            continue
+        letter, texts, names = parts
+        verdict = compare_row(parsed, cv, letter, [row_param(t, names) for t in texts], scopes)
+        if verdict == "match":
+            matched.append((row, source))
+        elif verdict == "unknown":
+            unknown.append(row)
+    if matched:
+        return matched                     # one entity has one mangled name: the others are other overloads
+    if unknown:
+        raise OwnerUnknown(f"{name}: cannot tell whether {unknown[0]} is {declaration_head(member)}")
+    return []
+
+
+def decl_signature(member):
+    """A virtual declaration's (name, parameters, this-qualifiers) for comparing views and a base: each
+    parameter in decl_param's shape with any default argument dropped, else its spelling; the destructor
+    ("~", (), frozenset()). None when the declaration cannot be read."""
+    try:
+        spelled, params, cv = split_head(member)
+    except ValueError:
+        return None
+    if spelled.startswith("~"):
+        return "~", (), frozenset()
+    shapes = []
+    for param in params:
+        param = re.sub(r"\s*=.*$", "", param)
+        found = decl_param(param)
+        shapes.append(found if found is not None else ("text", re.sub(r"\s+", "", param)))
+    return spelled, tuple(shapes), cv
 
 
 def exclusive_definitions(data):
@@ -2427,8 +2513,42 @@ def local_facts(source):
         if not build.compile_is_current((ROOT / source).resolve(), obj):
             return None
         return exclusive_definitions(obj.read_bytes())
-    except (OSError, ValueError, IndexError):
+    except Exception:                   # unreadable or malformed (a truncated COFF): no evidence
         return None
+
+
+_built = set()
+
+
+def build_units(sources):
+    """Compile `sources` through the ordinary build, as the gate does (tools/build.py, or build.sh in a
+    BFME 1 checkout): the normal object cache with its compile receipts, at most once each per process.
+    Only the objects matter here (local_facts reads them once current); their rows' verdicts are the
+    gate's business, so a failing build is not an error, and a unit whose object is still not current
+    stays unknown."""
+    todo = [source for source in dict.fromkeys(sources) if source not in _built]
+    if not todo:
+        return
+    _built.update(todo)
+    if BFME2:
+        env = dict(os.environ, MSYS_NO_PATHCONV="1")
+        chunks, chunk, size = [], [], 0
+        for source in todo:
+            if chunk and size + len(source) + 3 > 6000:
+                chunks.append(chunk)
+                chunk, size = [], 0
+            chunk.append(source)
+            size += len(source) + 3
+        chunks.append(chunk)
+        for chunk in chunks:
+            subprocess.run([sys.executable, "tools/build.py", *chunk], cwd=ROOT, capture_output=True, text=True,
+                           errors="replace", env=env)
+        return
+    import bash_path
+    env = {k: v for k, v in bash_path.env().items() if k != "MSYS_NO_PATHCONV"}
+    for source in todo:
+        subprocess.run([bash_path.bash(), str(ROOT / "build.sh"), source], cwd=ROOT, capture_output=True,
+                       text=True, errors="replace", env=env)
 
 
 @functools.lru_cache(maxsize=2)
@@ -2510,16 +2630,21 @@ def census_strength(row, source):
     return None
 
 
-def owner_strength(name, member, owners=None, facts=None, census=None):
+def owner_strength(name, member, owners=None, facts=None, census=None, build=None):
     """None when no matched row names `name`'s `member`; 'strong' when its owner defines it exclusively
     (a header body beside that is a duplicate definition: P147), 'inline' when only as a discardable copy.
     The rows are the member's own (rows_of: another overload's are not). Read from the owner's object
     current here (`facts`: local_facts), else from the census index while its object is still current
-    (`census`: census_strength). OwnerUnknown when neither shows the row's definition, a row or the
-    declaration cannot be read, or the rows disagree: it is never assumed either way."""
+    (`census`: census_strength); an owner neither shows is compiled first (`build`: build_units) and its
+    object read. OwnerUnknown when none of them shows the row's definition, a row or the declaration
+    cannot be read, or the rows disagree: it is never assumed either way."""
     facts = facts or local_facts
     census = census or census_strength
+    build = build or build_units
     rows = rows_of(name, member, owners)
+    unknown = [source for row, source in rows if facts(source) is None and census(row, source) is None]
+    if unknown:
+        build(unknown)
     found = set()
     for row, source in rows:
         held = facts(source)
@@ -2843,26 +2968,51 @@ def base_slot_names(contract, known=None):
     return names
 
 
+def base_slot_signatures(contract, known=None):
+    """The virtual signatures (decl_signature) the contract's registered base headers declare, and `~` when
+    one declares a virtual destructor; a virtual it cannot read is kept by name as ("?", name), and a
+    view's virtual of that name counts as its override."""
+    known = registered() if known is None else known
+    found = set()
+    for base in contract.get("bases", []):
+        path = known.get(base_identity(base))
+        if not path or not (ROOT / path).exists():
+            continue
+        text = masked((ROOT / path).read_text(encoding="latin-1"))
+        for hit in re.finditer(r"\bvirtual\b[^;{}]*", text):
+            signature = decl_signature(hit.group(0) + ";")
+            if signature is None:
+                named = re.search(r"(~?[A-Za-z_]\w*)\s*\(", hit.group(0))
+                if named:
+                    found.add(("?", "~" if named.group(1).startswith("~") else named.group(1)))
+            elif signature[0] == "~":
+                found.add("~")
+            else:
+                found.add(signature)
+    return found
+
+
 def rename_destructor(text, short):
     return re.sub(r"~\s*[A-Za-z_]\w*", "~" + short, text, count=1)
 
 
 def view_slots(found, inherited=()):
-    """A view's own slots in order, from virtual_members' `found`: [(signature, declaration)], where the
-    signature is (name, parameter types) and the destructor's is ("~", ()). A virtual a base declares
-    (`inherited`, base_slot_names) overrides a slot and introduces none; an overload group takes its
-    slots at its first declaration in reverse declaration order (class_layouts, "THE TRAP")."""
+    """A view's own slots in order, from virtual_members' `found`: [(signature, declaration)], the
+    signature decl_signature's (types with their pointee and member cv), or the declaration's spelling
+    when it cannot be read. A virtual whose signature a base declares (`inherited`,
+    base_slot_signatures; the destructor by `~`, an unreadable base virtual by name) overrides a slot
+    and introduces none; an overload group takes its slots at its first declaration in reverse
+    declaration order (class_layouts, "THE TRAP")."""
+    unreadable = {entry[1] for entry in inherited if isinstance(entry, tuple) and entry[0] == "?"}
     groups = collections.OrderedDict()
     for member_name, _, text in found:
-        if member_name in inherited:
+        signature = decl_signature(text)
+        if signature is None:
+            signature = ("?", re.sub(r"\s+", " ", text.split("{")[0]).strip())
+        if (member_name == "~" and "~" in inherited) or signature in inherited or member_name in unreadable:
             continue
-        groups.setdefault(member_name, []).append(text)
-    out = []
-    for member_name, texts in groups.items():
-        for text in reversed(texts):
-            out.append(((member_name, () if member_name == "~" else tuple(param_types(text.split("{")[0]))),
-                        text))
-    return out
+        groups.setdefault(member_name, []).append((signature, text))
+    return [entry for entries in groups.values() for entry in reversed(entries)]
 
 
 def emits_vtable(name, source, facts=None):
@@ -2874,7 +3024,7 @@ def emits_vtable(name, source, facts=None):
     return f"??_7{'@'.join(reversed(name.split('::')))}@@6B@" in held[1]
 
 
-def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None, facts=None):
+def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None, facts=None, build=None):
     """([own slot declaration, emit order], [override declaration], [problem]) for the contract's vslots.
 
     Own slots are the ones the contract decided (a derived contract holds only
@@ -2895,7 +3045,9 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
 
     P148: a slot is spelled by the views whose units emit the vtable
     (emits_vtable; `facts`: local_facts' shape) when any provably does, the
-    others then only where they cannot be shown not to; the views so counted
+    others then only where they cannot be shown not to (when the views
+    disagree on a slot, the views of unknown emission are compiled first:
+    `build`, build_units); the views so counted
     must agree on the slot's signature (view_slots: name and parameter
     types, by position) and with the contract's member, or the class is held;
     and a non-pure declaration no matched row defines never replaces a pure
@@ -2916,9 +3068,17 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             derived.add(source)
     # A view with the base clause introduces its slots after the inherited ones and overrides the base's;
     # a view without it (a copy of the base's slots into the class) spells every slot from 0.
-    inherited = base_slot_names(contract, known) if contract.get("bases") else set()
+    inherited = base_slot_signatures(contract, known) if contract.get("bases") else set()
     positions = {source: view_slots(found, inherited if source in derived else ()) for source, found in views.items()}
     emitting = {source: emits_vtable(name, source, facts) for source in views} if slots else {}
+    if slots and None in emitting.values():
+        base = min(min(slots), (contract.get("evidence", {}).get("inherited", {}).get("inherited_slots", 0)
+                                if contract.get("bases") else 0))
+        split = any(len({positions[s][k - (base if s in derived else 0)][0] for s in views
+                         if 0 <= k - (base if s in derived else 0) < len(positions[s])}) > 1 for k in slots)
+        if split:
+            (build or build_units)([s for s, known_emission in emitting.items() if known_emission is None])
+            emitting = {source: emits_vtable(name, source, facts) for source in views}
     counted = ([s for s in views if emitting[s] is not False] if any(v is True for v in emitting.values())
                else list(views))
     if slots:
@@ -2942,11 +3102,15 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             problems.append(f"slot{slot} {member}: views disagree on its signature: "
                             + "; ".join(sorted({text.split("{")[0].strip().rstrip(";") for _, text in at.values()})[:4]))
             continue
-        if signatures and next(iter(signatures))[0] != want[0] or \
-                signatures and want[0] != "~" and len(next(iter(signatures))[1]) != want[1]:
-            problems.append(f"slot{slot} {member}: the contract's member is not the views' "
-                            f"{next(iter(at.values()))[1].split('{')[0].strip()}")
+        if not at:
+            problems.append(f"slot{slot} {member}: no view declares a virtual at this slot")
             continue
+        signature, spelled = next(iter(at.values()))
+        if signature[0] != want[0] or want[0] != "~" and param_types(spelled.split("{")[0]) != param_types(member):
+            problems.append(f"slot{slot} {member}: the contract's member is not the views' "
+                            f"{spelled.split('{')[0].strip()}")
+            continue
+        spellings = collections.Counter(text for _, text in at.values())
         text = pick_declaration(spellings)
         if text is None:
             problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings
@@ -2958,7 +3122,7 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         if "{" in text:
             bare = [t for t in spellings if "{" not in t and declaration_key(t)[0] == declaration_key(text)[0]]
             try:
-                strength = owner_strength(name, text, owners)
+                strength = owner_strength(name, text, owners, facts=facts, build=build)
             except OwnerUnknown as why:
                 problems.append(f"slot{slot} {member}: {why}")
                 continue
@@ -2970,8 +3134,9 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                                 "and no matched row defines it out of line")
                 continue
         if not declaration_key(text)[1] and "{" not in text and want[0] != "~":
-            purely = [t for found in views.values() for t in matching(found, want, member)
-                      if declaration_key(t)[1] and declaration_key(t)[0] == declaration_key(text)[0]]
+            here = [positions[s][slot - (start if s in derived else 0)][1] for s in views
+                    if 0 <= slot - (start if s in derived else 0) < len(positions[s])]
+            purely = [t for t in here if declaration_key(t)[1] and declaration_key(t)[0] == declaration_key(text)[0]]
             try:
                 defined = rows_of(name, text, owners) if purely else True
             except OwnerUnknown as why:

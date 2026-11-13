@@ -11,6 +11,14 @@ import class_contract  # noqa: E402
 import header_adopt_lane as lane  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def no_builds(monkeypatch):
+    """No test compiles anything: the generator's owner and emission builds (build_units) are recorded only."""
+    built = []
+    monkeypatch.setattr(lane, "build_units", lambda sources: built.extend(sources))
+    return built
+
+
 def contract(name, queue=()):
     return {"class": name, "key": "class", "key_by": "bytes", "size": 4, "size_by": "majority", "bases": [],
             "fields": [], "vslots": {}, "queue": list(queue), "evidence": {}}

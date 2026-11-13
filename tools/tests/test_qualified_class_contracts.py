@@ -12,6 +12,14 @@ import class_layouts
 import class_views
 import header_adopt_lane as lane
 
+
+@pytest.fixture(autouse=True)
+def no_builds(monkeypatch):
+    """No test compiles anything: the generator's owner and emission builds (build_units) are recorded only."""
+    built = []
+    monkeypatch.setattr(lane, "build_units", lambda sources: built.extend(sources))
+    return built
+
 NAME = "StrategicHUD::BattlePromptArmyPanelMovieClip::Impl"
 VIEW = f"""class StrategicHUD::BattlePromptArmyPanelMovieClip::Impl : public Base {{
 public:

@@ -8,6 +8,14 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import header_adopt_lane as lane  # noqa: E402
 
+
+@pytest.fixture(autouse=True)
+def no_builds(monkeypatch):
+    """No test compiles anything: the generator's owner and emission builds (build_units) are recorded only."""
+    built = []
+    monkeypatch.setattr(lane, "build_units", lambda sources: built.extend(sources))
+    return built
+
 BASE_HEADER = """class Base {
 public:
     virtual ~Base() {}
@@ -149,7 +157,9 @@ def test_rva00589079_e1_views_keep_the_pure_specifier(monkeypatch):
 
 
 @pytest.mark.parametrize("vslots,queue,expected", [
-    ({2: "onCapture(Player*,Player*)", 4: "getKey()"}, [], ["slot3 undecided"]),
+    # the view's getKey is its slot 3 (its second introduction), so slot 4 has no view declaration either
+    ({2: "onCapture(Player*,Player*)", 4: "getKey()"}, [],
+     ["slot3 undecided", "slot4 getKey(): no view declares a virtual at this slot"]),
     ({2: "onCapture(Player*,Player*)"}, [{"attribute": "slot3", "candidates": {}}], ["slot3 undecided"]),
     ({2: "onCapture(Player*,Player*)", 3: "missing()"}, [], ["slot3 missing(): no view spells it"]),
 ])
@@ -229,7 +239,7 @@ OWNED_GET = {"?get@Owned@@": [(GET_ROW, "Base.cpp")]}
 def objects(monkeypatch, local=None, census=None):
     """The owner's current object here: {source: (exclusive, defined)} (absent: none current);
     the census index: {(row, source): 'strong' | 'inline'} (absent: it does not show the row)."""
-    local, census = local or {}, census or {}
+    local, census = {} if local is None else local, {} if census is None else census
     monkeypatch.setattr(lane, "local_facts", lambda source: local.get(source))
     monkeypatch.setattr(lane, "census_strength", lambda row, source: census.get((row, source)))
 
@@ -580,3 +590,111 @@ def test_a_non_pure_slot_no_row_defines_never_replaces_a_pure_one():
     own, _, problems = lane.slot_declarations(c, sorted(views), read=views.__getitem__, known={}, owners=owners,
                                               facts=facts.get)
     assert problems == [] and own == ["virtual void f();"]
+
+
+# ---- review r3: mangled names, typed signatures, overrides by signature, malformed objects
+
+REAL_BUILD_UNITS = lane.build_units            # bound at import, before no_builds replaces it per test
+
+
+@pytest.mark.parametrize("member", ["virtual void f(A::K *k) {}", "virtual void f(K *k) {}"])
+def test_consecutive_name_back_references_are_spelled_out(member):
+    # `?f@K@A@@UAEXPAV12@@Z`: the parameter's two components are both back-references
+    row = ("?f@K@A@@UAEXPAV12@@Z", "Base.cpp")
+    assert lane.rows_of("A::K", member, {"?f@K@A@@": [row]}) == [row]
+
+
+def test_a_type_it_cannot_identify_is_unknown_and_a_nested_name_matches():
+    with pytest.raises(lane.OwnerUnknown, match="cannot tell"):         # `uint` may be unsigned int
+        lane.rows_of("K", "virtual void f(uint x) {}", {"?f@K@@": [("?f@K@@UAEXI@Z", "Base.cpp")]})
+    nested = ("?f@K@@UAEXW4Mode@K@@@Z", "Base.cpp")
+    assert lane.rows_of("K", "virtual void f(Mode m) {}", {"?f@K@@": [nested]}) == [nested]
+    # a keyword type does prove another overload
+    assert lane.rows_of("K", "virtual void f(int x) {}", {"?f@K@@": [("?f@K@@UAEXM@Z", "Base.cpp")]}) == []
+
+
+def k_slots(views, vslots, bases=(), known=None, **kwargs):
+    c = contract(vslots, bases=bases, inherited=len(bases))
+    c["class"] = "K"
+    texts = {f"v{i}.cpp": v for i, v in enumerate(views)}
+    return lane.slot_declarations(c, sorted(texts), read=texts.__getitem__, known=known or {}, owners={},
+                                  facts=kwargs.pop("facts", lambda source: None), **kwargs)
+
+
+@pytest.mark.parametrize("one,other", [("virtual void f(int *p);", "virtual void f(const int *p);"),
+                                       ("virtual void f();", "virtual void f() const;")])
+def test_views_disagreeing_on_a_qualifier_hold(one, other):
+    view = "class K\n{\npublic:\n\t%s\n};\n"
+    own, _, problems = k_slots([view % one, view % one, view % other], {0: "f(int*)" if "int" in one else "f()"})
+    assert own == [] and "views disagree on its signature" in problems[0]
+
+
+def test_the_contract_is_checked_against_each_positions_types():
+    # MSVC lays f(int), f(float) out as [f(float), f(int)]; a contract with them the other way round is wrong
+    view = "class K\n{\npublic:\n\tvirtual void f(int a);\n\tvirtual void f(float a);\n};\n"
+    own, _, problems = k_slots([view], {0: "f(int)", 1: "f(float)"})
+    assert own == [] and "the contract's member is not the views'" in problems[0]
+    own, _, problems = k_slots([view], {0: "f(float)", 1: "f(int)"})
+    assert problems == [] and own == ["virtual void f(int a);", "virtual void f(float a);"]
+
+
+def test_a_new_overload_of_a_base_name_is_an_introduction(tmp_path, monkeypatch):
+    # base f(int); the derived class introduces f(float) and g(): neither overrides
+    (tmp_path / "B5.h").write_text("class B5\n{\npublic:\n    virtual void f(int a);\n};\n", encoding="utf-8")
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    view = "class K : public B5\n{\npublic:\n\tvirtual void f(int a);\n\tvirtual void f(float a);\n\tvirtual void g();\n};\n"
+    own, _, problems = k_slots([view], {1: "f(float)", 2: "g()"}, bases=("B5",), known={"B5": "B5.h"})
+    assert problems == [] and own == ["virtual void f(float a);", "virtual void g();"]
+
+
+def test_a_malformed_object_is_no_evidence(tmp_path, monkeypatch):
+    import build
+    (tmp_path / "x.obj").write_bytes(b"\x4c\x01\x09")                   # a truncated COFF header
+    monkeypatch.setattr(build, "obj_path", lambda source: tmp_path / "x.obj")
+    monkeypatch.setattr(build, "compile_is_current", lambda source, obj: True)
+    assert lane.local_facts("x.cpp") is None
+    assert lane.emits_vtable("K", "x.cpp") is None
+
+
+# ---- option A: build a missing owner or emitting unit first
+
+def test_an_owner_without_evidence_is_built_then_judged(monkeypatch):
+    local = {}
+    objects(monkeypatch, local=local)
+    built = []
+    monkeypatch.setattr(lane, "build_units",
+                        lambda sources: (built.extend(sources), local.update({s: STRONG["Base.cpp"] for s in sources})))
+    views = [owned_view("virtual ~Owned() {}")] + [owned_view("virtual ~Owned();")] * 5
+    own, _, problems = owned_slots(views)
+    assert problems == [] and own == ["virtual ~Owned();"] and built == ["Base.cpp"]
+
+
+def test_disagreeing_views_of_unknown_emission_are_built_then_ranked():
+    built, known = [], {}
+
+    def build(sources):
+        built.extend(sources)
+        known.update({s: emitting(s) for s in sources})
+    own, _, problems = spawn_slots("rva0045FE4A(Rva0045FE4ACallback,void*)", facts=known.get)
+    assert own == [] and "views disagree" in problems[0]                # without a build: held
+    c = contract({0: "rva0045FE4A(Rva0045FE4ACallback,void*)"}, bases=(), inherited=0)
+    c["class"] = "SpawnExtraBase"
+    own, _, problems = lane.slot_declarations(c, sorted(SPAWN), read=SPAWN.__getitem__, known={}, owners={},
+                                              facts=known.get, build=build)
+    assert problems == [] and own == [PURE] and sorted(built) == sorted(SPAWN)
+
+
+def test_agreeing_views_build_nothing(no_builds):
+    view = "class K\n{\npublic:\n\tvirtual void f();\n};\n"
+    own, _, problems = k_slots([view] * 3, {0: "f()"})
+    assert problems == [] and own == ["virtual void f();"] and no_builds == []
+
+
+def test_build_units_runs_the_ordinary_build_once_per_unit(monkeypatch):
+    calls = []
+    monkeypatch.setattr(lane, "BFME2", True)
+    monkeypatch.setattr(lane, "_built", set())
+    monkeypatch.setattr(lane.subprocess, "run", lambda argv, **kw: calls.append(argv))
+    REAL_BUILD_UNITS(["Code/a.cpp", "Code/b.cpp", "Code/a.cpp"])
+    REAL_BUILD_UNITS(["Code/a.cpp"])
+    assert len(calls) == 1 and calls[0][1:] == ["tools/build.py", "Code/a.cpp", "Code/b.cpp"]

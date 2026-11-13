@@ -11,6 +11,14 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import header_adopt_lane as lane  # noqa: E402
 
+
+@pytest.fixture(autouse=True)
+def no_builds(monkeypatch):
+    """No test compiles anything: the generator's owner and emission builds (build_units) are recorded only."""
+    built = []
+    monkeypatch.setattr(lane, "build_units", lambda sources: built.extend(sources))
+    return built
+
 UNIT = """// cl: /O2
 typedef float Real;
 // struct Coord3D { int fake; };
