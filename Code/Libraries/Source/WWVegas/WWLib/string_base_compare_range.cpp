@@ -22,10 +22,7 @@
 // one-byte trait object the callers zero with a lea/stosb pair. Neither narrow
 // worker reads that object - only the wide pair takes its address - so it stays
 // an opaque byte here.
-struct CharCompare
-{
-    char m_unused;
-};
+#include "../../../../GameEngine/Include/Common/CharCompare.h"
 
 inline __declspec(noinline) int compareRange(const char *a, int alen, const char *b, int blen, CharCompare tag)
 {

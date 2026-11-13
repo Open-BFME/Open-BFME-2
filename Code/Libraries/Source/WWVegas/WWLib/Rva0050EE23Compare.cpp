@@ -6,10 +6,7 @@
 // the empty-string literal plus caller 0x0050F210; /O1 frameless.
 #include <string.h>
 
-struct CharCompare
-{
-	char m_unused;
-};
+#include "../../../../GameEngine/Include/Common/CharCompare.h"
 
 int __cdecl compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCompare tag);
 

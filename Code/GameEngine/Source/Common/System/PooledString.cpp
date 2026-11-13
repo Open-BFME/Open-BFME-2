@@ -14,10 +14,7 @@ class AsciiString;
 
 // The same one-byte trait object and shared workers string_base.cpp uses; the
 // pooled comparisons hand them the pooled text and its strlen.
-struct CharCompare
-{
-    char m_unused;
-};
+#include "../../../Include/Common/CharCompare.h"
 
 int compareRange(const char *a, int alen, const char *b, int blen, CharCompare tag);
 int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCompare tag);

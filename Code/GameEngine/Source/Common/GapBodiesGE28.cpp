@@ -38,10 +38,7 @@ int isNotEqual(const void *a, const void *b)
 
 // --- 0x0050F702 (20B, cdecl): forward the string and comparator to the
 // object's rowed 0x0050F1F0.
-struct CharCompare
-{
-	int m_mode;
-};
+#include "../../Include/Common/CharCompare.h"
 
 class Rva0050EE23
 {
