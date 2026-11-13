@@ -804,7 +804,7 @@ def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_par
         # named member (no operator: tree[1] is empty) starts with its own name, which a special member never does:
         # there a leading name is a class nested in the shape, which stays whole
         parts = scope[1]
-        got = shape(parts, lambda name: name in SCOPE_SHAPES)
+        got = shape(parts, lambda name: name in SCOPE_SHAPES) if tree[1] in SCOPE_OPERATORS else None
         if got is None and tree[1] == "" and len(parts) == 3 and isinstance(parts[0], tuple) \
                 and parts[0][:1] == ("N",):
             inner = shape(parts[1:], lambda name: name in SCOPE_SHAPES)
@@ -829,6 +829,9 @@ TREE_SHAPES = ("_Rb_tree", "map", "_Rb_tree_base", "_Rb_tree_node", "allocator")
 # only ever a scope there. Each kind and scope here is one the reviewed spellings use. And the shapes whose members a family row or pin may be.
 TYPE_KINDS = {"_Rb_tree": "V", "map": "V", "_Rb_tree_node": "U", "allocator": "V"}
 SCOPE_SHAPES = frozenset(("_Rb_tree", "map", "_Rb_tree_base"))
+# The operators whose whole qualified name is their class: the constructor and destructor the reviewed names use. A
+# name without one is a named member (its own name, then the class) or a free function, never the class alone.
+SCOPE_OPERATORS = frozenset(("??0", "??1"))
 
 
 def _tree_shapes(key, value, key_arg, const_key, new_value, new_compare):

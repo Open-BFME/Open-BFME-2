@@ -250,6 +250,9 @@ def test_a_key_parameter_is_retyped_only_where_named():
 NESTED_OLD = "??0Nested@" + OLD_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "QAE@XZ"
 NESTED_NEW = "??0Nested@" + NEW_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "QAE@XZ"
 NESTED_DTOR = "??1Nested@" + OLD_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "QAE@XZ"
+# review 5's counterexample: a free function template named like the tree, _STL::_Rb_tree<...>()
+FREE_OLD = "?" + OLD_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "YAXXZ"
+FREE_NEW = "?" + NEW_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "YAXXZ"
 UNION_OLD = OLD_COPY[:-len("@Z")] + "T?$allocator@U?$pair@$$CBIPAX@_STL@@@_STL@@@Z"                     # review 3's counterexample
 UNION_NEW = NEW_COPY[:-len("@Z")] + "T?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@_STL@@@Z"
 UNRELATED_OLD = OLD_COPY[:-len("@Z")] + "ABU?$pair@$$CBIPAX@Unrelated@@@Z"         # review 2's counterexample
@@ -353,6 +356,9 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("a nested class's constructor in the tree retyped (review 4)",
      lambda k: (k["rows"].update({COPY: (NESTED_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
                 k["spellings"].update({NESTED_OLD: NESTED_NEW})), "tree swap alone"),
+    ("a free function template named like the tree retyped (review 5)",
+     lambda k: (k["rows"].update({COPY: (FREE_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
+                k["spellings"].update({FREE_OLD: FREE_NEW})), "tree swap alone"),
     ("key parameters on no row", lambda k: k["key_params"].update({0x00001000: (0,)}), "name no row"),
     ("key parameters with no index", lambda k: k["key_params"].update({0x00603FD2: ()}), "name no row"),
     ("a key parameter that is the tree", lambda k: k["key_params"].update({0x00603FD2: (1,)}),
@@ -697,3 +703,12 @@ def test_a_nested_class_member_of_the_tree_stays_whole(name):
     assert before[1] in ("??0", "??1") and before[2][1][0] == ("N", "Nested")
     assert swap(name) == before
     assert swap(NESTED_OLD) != rename.type_tree(NESTED_NEW)
+
+
+def test_a_free_function_template_named_like_the_tree_stays_whole():
+    """Review 5: a name with no operator whose qualified name is the shape alone is a free function template, not a
+    member of the tree: only ??0 and ??1 take the shape alone as their scope."""
+    before = rename.type_tree(FREE_OLD)
+    assert before[1] == "" and before[2][1][0][:2] == ("T", "_Rb_tree")
+    assert swap(FREE_OLD) == before and swap(FREE_OLD) != rename.type_tree(FREE_NEW)
+    assert R.SCOPE_OPERATORS == frozenset(("??0", "??1"))
