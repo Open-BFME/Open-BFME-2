@@ -31,13 +31,7 @@ template <> struct less<AsciiString>
 
 #include "../../Include/Common/Rva004E35AF.h"
 
-class Rva004E35FF
-{
-public:
-	void rva004E35FF(const AsciiString &key, Int a, Int b);
-private:
-	_STL::map<AsciiString, AsciiString> m_map;
-};
+#include "../../Include/Common/Rva004E35FF.h"
 
 // Matched DIR32 witness places this one-pointer AsciiString at VA 0x00E02E84
 // in the zero-filled .data tail; the shared BFME2 header establishes its

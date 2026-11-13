@@ -33,13 +33,7 @@ template <> struct less<AsciiString>
 
 #include "../../Include/Common/Rva004E35AF.h"
 
-class Rva004E35FF
-{
-public:
-	void rva004E35FF(const AsciiString &key, Int a, Int b);
-private:
-	_STL::map<AsciiString, AsciiString> m_map;
-};
+#include "../../Include/Common/Rva004E35FF.h"
 
 // These six target objects occupy the zero-filled .data tail. Their matched
 // DIR32 references establish each VA, and each retail dynamic initializer
