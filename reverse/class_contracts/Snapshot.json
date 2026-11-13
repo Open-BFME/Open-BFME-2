@@ -2,9 +2,19 @@
  "bases": [],
  "class": "Snapshot",
  "evidence": {
-  "note": "minimal contract written by hand: class_contract.decide crashes on Snapshot views without a size record (KeyError 'size' at class_contract.py:303); the lane only reads key/queue in fixed-header mode"
+  "note": "minimal contract written by hand: class_contract.decide crashes on Snapshot views without a size record (KeyError 'size' at class_contract.py:303); the lane only reads key/queue in fixed-header mode",
+  "vptr": "polymorphic: retail vtable 0x00BBB554 (deleting destructor, then crc, xfer and loadPostProcess as pure slots; canonical_classes.csv), the shim header's virtual destructor and pure virtuals, and the compiled type record of every unit that includes it (vfptr, sizeof 4)"
  },
- "fields": [],
+ "fields": [
+  {
+   "decided_by": "retail",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "offset": 0,
+   "size": 4,
+   "type": "void*"
+  }
+ ],
  "key": "class",
  "key_by": "registered shim header reference/shims/moduledata/Common/Snapshot.h",
  "queue": [],

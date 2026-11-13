@@ -2251,6 +2251,26 @@ def test_review_r1_a_vptr_the_header_cannot_place_is_refused(base_contracts, con
     assert any(why in p for p in problems), problems
 
 
+def test_a_class_on_a_vptr_only_base_lays_out_from_the_bases_vptr(monkeypatch):
+    # Money (Rva003B0D7C): Snapshot is a 4-byte base whose only member is its vptr. Its hand-written contract
+    # recorded no vptr, so layout_plan read Money's vptr as one the class adds before a base with none.
+    snapshot = {"class": "LayoutSnapshotProbe", "key": "class", "size": 4, "bases": [], "vslots": {},
+                "fields": [{"kind": "VPTR", "offset": 0, "name": "__vfptr", "type": "void*", "size": 4}]}
+    monkeypatch.setattr(lane, "read_contract", {"LayoutSnapshotProbe": snapshot}.get)
+    money = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 4, "m_money"), ("i4", 8, "m_playerIndex"),
+                            bases=("LayoutSnapshotProbe",))
+    assert lane.layout_problems(money) == []
+    fields, _ = body(money)
+    assert fields.split() == ["int", "m_money;", "int", "m_playerIndex;"]
+    snapshot["fields"] = []                                    # the contract as it was: no vptr recorded
+    assert any("a base that has none" in p for p in lane.layout_problems(money))
+
+
+def test_the_registered_snapshot_contract_records_its_vptr():
+    contract = json.loads((lane.ROOT / "reverse/class_contracts/Snapshot.json").read_text(encoding="utf-8"))
+    assert lane.has_vptr(contract) is True and contract["size"] == 4
+
+
 def test_review_r2_a_vptr_over_a_base_with_no_contract_is_left_to_the_assertions(base_contracts):
     # members start at the first own field (no pad can stand in for a vptr); sizeof and offsets judge the rest
     contract = layout_contract(12, ("VPTR", 0, "__vfptr"), ("i4", 8, "x"), bases=("LayoutUnknownBaseProbe",))
