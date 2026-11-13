@@ -305,15 +305,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "BfmeAptValue006DCD20.h"
 
-struct BfmeQueryNode1279
-{
-	void *m_bfme00;
-	void *m_bfme04;
-	void *m_nameHandle;
-	char m_pad0C[0x54 - 0x0C];
-	BfmeQueryNode1279 *m_next;
-	int m_key;
-};
+#include "BfmeQueryNode1279.h"
 
 class BfmeQuery1279
 {

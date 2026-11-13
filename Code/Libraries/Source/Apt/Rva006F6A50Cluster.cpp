@@ -616,15 +616,7 @@ void BfmeQuery1279::rva006F7030(int key, AptCIH *pNewItem, AptCIH *pPrev,
 // cleanup Rva006F12F0Free for this60B new expression. Its inline COMDAT
 // is identical to the provider
 // retained in AptMovieFrameControls.cpp for the other matched consumer.
-struct BfmeQueryNode1279
-{
-	void *m_bfme00;
-	void *m_bfme04;
-	void *m_nameHandle;
-	char m_pad0C[0x54 - 0x0C];
-	BfmeQueryNode1279 *m_next;
-	int m_key;
-};
+#include "BfmeQueryNode1279.h"
 
 inline __declspec(noinline) void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem)
 {

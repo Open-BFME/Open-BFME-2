@@ -24,15 +24,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "BfmeAptValue006DCD20.h"
 #include "EAStringC.h"
-struct BfmeQueryNode1279
-{
-	void *m_bfme00;
-	void *m_bfme04;
-	void *m_nameHandle;
-	char m_pad0C[0x54 - 0x0C];
-	BfmeQueryNode1279 *m_next;
-	int m_key;
-};
+#include "BfmeQueryNode1279.h"
 // BfmeNestedBE link pair, retail-proven by the unlink asserts below
 // (pItem/pPrev/pNext). BFME1's BfmeNestedBE carries the same links as
 // m_bfme50/m_bfme54 plus a virtual; this TU-local model keeps the plain
