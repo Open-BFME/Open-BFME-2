@@ -194,7 +194,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 #include "AptRenderingContext.h"
 
-class BfmeThingDXH {public:void bfmeGoDXH(void*);};
+#include "BfmeThingDXH.h"
 
 class BfmeThingXS {public:void bfmeApplyXS(void*,void*);};
 

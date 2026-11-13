@@ -439,11 +439,7 @@ void AptDisplayList::rva006F7AB0(int, void *item)
 struct BfmeS1209;
 #include "BfmeA1209.h"
 
-class BfmeThingDXH
-{
-public:
-	void bfmeGoDXH(void *value);
-};
+#include "BfmeThingDXH.h"
 
 #include "Rva006E1260.h"
 
