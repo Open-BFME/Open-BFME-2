@@ -67,7 +67,7 @@ class PayloadContainView;
 
 // Retail's TransportExtra vftable (0x00C1C780) holds __purecall in slot 0;
 // TransportContain's (0x00C47834) holds createPayloadMember (0x00466FE0).
-class TransportExtra { public: virtual Object *createPayloadMember(const ThingTemplate *what, PayloadContainView *contain, Object *parent, const char *name, int index) = 0; };
+#include "../../../../Include/Common/TransportExtra.h"
 
 class TransportContain : public OpenContain, public TransportExtra
 {

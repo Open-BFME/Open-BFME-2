@@ -69,11 +69,7 @@ class ThingTemplate;
 class PayloadContainView;
 struct Coord3D;
 
-class TransportExtra
-{
-public:
-	virtual Object *createPayloadMember(const ThingTemplate *, PayloadContainView *, Object *, const char *, int) = 0;
-};
+#include "../../../../Include/Common/TransportExtra.h"
 
 class TransportContain : public OpenContain, public TransportExtra
 {
