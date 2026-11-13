@@ -11,7 +11,7 @@ inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot:
 #include <math.h>
 extern float g_parseDurationMsecScale;
 struct Rva001408C0Target;
-struct Rva00E03CE0 { void Rva004ABEAE(Rva001408C0Target *); };
+#include "../../../../GameEngine/Include/Common/Rva00E03CE0.h"
 // Existing data-ledger owner; use typed views of the one registry datum.
 #include "../../../../GameEngine/Include/Common/ModuleKeyRegistryStorage.h"
 class Rva003ED94FDtor {

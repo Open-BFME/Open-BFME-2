@@ -25,10 +25,7 @@ struct __declspec(novtable) Rva001408C0Target : public ModuleData
 	int m_04;
 };
 
-struct Rva00E03CE0
-{
-	void Rva004ABEAE(Rva001408C0Target *key);
-};
+#include "../../Include/Common/Rva00E03CE0.h"
 
 // Existing data-ledger owner; use typed views of the one registry datum.
 #include "../../Include/Common/ModuleKeyRegistryStorage.h"
