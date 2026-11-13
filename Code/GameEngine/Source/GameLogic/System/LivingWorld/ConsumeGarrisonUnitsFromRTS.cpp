@@ -23,7 +23,7 @@ struct HeroEntryKey {char opaque[4];};
 class AttackOrdersMember;
 class Rva00318FC6;
 class Rva00319028;
-class Rva00319924 {public:int count(const AsciiString&);};
+#include "../../../../Include/Common/Rva00319924.h"
 class Rva0031979COwner {public:void rva0031979C(int);};
 #include "../../../../Include/GameClient/Rva00318FBE.h"
 #include "../../../../Include/GameLogic/LivingWorldArmy.h"

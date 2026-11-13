@@ -290,7 +290,7 @@ struct CtorArmyScalar {float x;__forceinline CtorArmyScalar(float v):x(v){} };
 class Rva00220808; class Rva0040CFC7;
 UnicodeString GetArmySummaryName(Rva00220808*);
 UnicodeString GetArmySummaryDescription(Rva0040CFC7*,int);
-class Rva00319924 {public:void clearFlags();};
+#include "../../../../Include/Common/Rva00319924.h"
 #include "../../../../Include/Common/Rva003FE05E.h"
 class Rva005392C2 {public:void rva005392C2();};
 
