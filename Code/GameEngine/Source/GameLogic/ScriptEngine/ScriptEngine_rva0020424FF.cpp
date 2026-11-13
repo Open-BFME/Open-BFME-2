@@ -1,13 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-class Rva00203B08
-{
-	char m_pad[0x1A4D9];
-	bool m_flag;
-public:
-	bool rva00203B08();
-	bool rva00203AE5();
-	bool rva0020424FF();
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203B08.h"
 
 bool Rva00203B08::rva0020424FF()
 {
