@@ -42,14 +42,9 @@ extern "C" const void *const vtbl_00C75B5C[6] = {
 	(const void *)&__identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z"), // slot 5 0x005D5F86
 };
 
-class EmptyBase005AFE86
-{
-public:
-	EmptyBase005AFE86() {}
-	~EmptyBase005AFE86();
-};
-
-class Rva005AFE3F : public EmptyBase005AFE86
+// A data-only view of the base (constructor 0x005AFE86; see Rva005AFE86Ctor.cpp
+// for the class): the constructors below store their tables by hand.
+class Rva005AFE3F
 {
 public:
 	Rva005AFE3F(void *p);
