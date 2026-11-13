@@ -70,7 +70,7 @@ AptInputEventName g_00DDC8EC[6] = {
  { 0x80, 0x6A }, { 0x40, 0x69 }, { 0x10, 0x6C }, { 0x20, 0x6E }, { 0x8, 0x6D }, { 0x80000, 0x6F },
 };
 
-struct Rva006E0AC0Entry {int m_mask;int m_str;};
+#include "Rva006E0AC0Entry.h"
 
 extern Rva006E0AC0Entry g_00DDC2E8[];
 

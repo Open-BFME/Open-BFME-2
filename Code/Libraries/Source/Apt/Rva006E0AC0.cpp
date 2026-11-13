@@ -4,11 +4,7 @@
 #include "AptNativeHash.h"
 class EAStringC;
 EAStringC *Rva0070B4F0GetString(int v);
-struct Rva006E0AC0Entry
-{
-	int m_mask;
-	int m_str;
-};
+#include "Rva006E0AC0Entry.h"
 // The clip-event table at 0x009DC2E8 (136 B, .data): seventeen
 // {event mask, string-pool index} pairs, values read from the image. This
 // loop, AptInput.cpp and AptCIHQueueClipEvents.cpp walk it.

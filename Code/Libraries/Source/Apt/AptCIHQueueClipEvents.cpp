@@ -101,11 +101,7 @@ public:
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern int g_00E17704;
 
-struct Rva006E0AC0Entry
-{
-    int m_mask;
-    int m_str;
-};
+#include "Rva006E0AC0Entry.h"
 extern Rva006E0AC0Entry g_00DDC2E8[];
 
 template<class T> class AptValuePtrStack
