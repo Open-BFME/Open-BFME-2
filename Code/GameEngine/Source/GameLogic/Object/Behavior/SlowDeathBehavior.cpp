@@ -226,12 +226,7 @@ public:
 	unsigned int m_words[19];
 };
 
-class Rva000B937E
-{
-public:
-	void rva000B937E(INI *ini, void *description);
-	unsigned int m_words[19];
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B937E.h"
 
 // Retail's FuncInfo nests two further states inside the description string's
 // with no code and no cleanup action: as in beginSlowDeath 0x0045DE65 they are

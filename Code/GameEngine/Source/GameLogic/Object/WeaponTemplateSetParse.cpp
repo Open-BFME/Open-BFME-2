@@ -35,12 +35,7 @@ public:
 };
 
 // ModelConditionFlags-sized (0x4C) self-parse, unrowed body at 0x000B937E.
-class Rva000B937E
-{
-public:
-	void rva000B937E(INI *ini, void *extra);
-	UnsignedInt m_bits[19];
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B937E.h"
 
 // The matched attack/selection bodies use these same 28-byte KindOf and
 // 76-byte model-condition masks at +0x44/+0xEC and +0x194. The parser's
