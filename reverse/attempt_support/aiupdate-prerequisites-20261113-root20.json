@@ -1,0 +1,20 @@
+{
+ "original_rows": 172,
+ "original_matched": 172,
+ "candidate_matched": 170,
+ "changed": [
+  "?loadPostProcess@Rva00242D1DLoadView@@MAEXXZ",
+  "?registerObject@GameLogic@@QAEXPAVObject@@@Z"
+ ],
+ "added": [
+  "??_9@$BDA@AE",
+  "?phaseMember@GameLogicUpdatePhaseAccess@@SAP8UpdateModule@@BE?AW4SleepyUpdatePhase@@XZXZ"
+ ],
+ "removed": [
+  "?friend_getNextCallFrame@UpdateModule@@QBEIXZ",
+  "?friend_setIndexInLogic@UpdateModule@@QAEXH@Z",
+  "?friend_setIndexInLogic@UpdateModule@@QAEXHH@Z",
+  "?friend_setNextCallFrame@UpdateModule@@QAEXI@Z"
+ ],
+ "verdict": "Rejected and original restored: two phase-dispatch bodies lose exactness and a new virtual-call thunk is emitted"
+}
