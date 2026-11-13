@@ -94,7 +94,7 @@ public:
 	virtual void *slot40() = 0;			// 40
 	virtual void *slot41() = 0;			// 41
 	virtual void *slot42() = 0;			// 42
-	virtual void slot43(int) = 0;			// 43
+	virtual void slot43(float) = 0;			// 43
 	virtual void slot44() = 0;			// 44
 	virtual void slot45(int) = 0;			// 45
 	virtual void slot46(int) = 0;			// 46
@@ -197,7 +197,7 @@ public:
 	virtual void *slot40() { return 0; }
 	virtual void *slot41() { return 0; }
 	virtual void *slot42() { return 0; }
-	virtual void slot43(int) { }
+	virtual void slot43(float) { }
 	virtual void slot44() { }
 	virtual void slot45(int) { }
 	virtual void slot46(int) { }

@@ -3693,3 +3693,12 @@ Base: 3,295 bridged, 31 refused, 2,253 already correct, 37,456 mismatching sourc
   header_adopt_lane-generated one) and its `reference/shims` copies; each may change only the respelled
   identifier's parameter lists; a copy left unprepared refuses; every includer is rebuilt and none may still
   name the old spelling. Clears the cause-6 prerequisite (BehaviorModule.h: 1,981 includers).
+
+**Done (commits by subject).**
+- "Respell ?slot43@BehaviorModule@@UAEXH@Z as ?slot43@BehaviorModule@@UAEXM@Z (signature only: a placeholder's
+  scalar parameter type)": BehaviorModule.h and both shim copies (pure declaration and `{ }` default) take the
+  float; 1,981 includers rebuilt (888 compiled, 1,093 deps-current), 18,983/18,983 rows exact, no rebuilt object
+  names `UAEXH`. Bridge plan unchanged (3,295 bridged, 31 refused identical, 2,253 correct, 37,456 mismatching
+  slots): the prerequisite of SpecialPowerModule's slot 43 override. link_check SupplyTruckAIUpdateCtor.cpp
+  1,224 B, SpecialPowerModuleCtor.cpp 340 B, BoneFXUpdate.cpp 2,654 B, FlammableUpdate.cpp 1,494 B,
+  ObjectRva0028B265.cpp 243 B LINK before and after.
