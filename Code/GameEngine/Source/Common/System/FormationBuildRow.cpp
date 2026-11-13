@@ -173,12 +173,7 @@ public:
 }
 };
 
-struct ObjectListNode
-{
-	ObjectListNode *m_next;
-	ObjectListNode *m_prev;
-	Object *m_data;
-};
+#include "../../../Include/Common/ObjectListNode.h"
 
 class FormationObjectList
 {

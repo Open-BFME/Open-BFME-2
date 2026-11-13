@@ -355,12 +355,7 @@ Bool Coord3DInsideRect2D(const Coord3D *inputPoint, const Coord2D *tl, const Coo
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 extern int BfmeLogicFramesPerSecond;
 
-struct ObjectListNode
-{
-	ObjectListNode *m_next;
-	ObjectListNode *m_prev;
-	Object *m_data;
-};
+#include "../../../Include/Common/ObjectListNode.h"
 
 // The member list walk as STLport's list<Object *>::iterator spells it.
 struct ObjectListIterator

@@ -26,12 +26,7 @@ extern ControlBar *TheControlBar;
 
 #include "../Object/object.h"
 
-struct ObjectListNode
-{
-	ObjectListNode *m_next;
-	ObjectListNode *m_prev;
-	Object *m_data;
-};
+#include "../../../Include/Common/ObjectListNode.h"
 
 enum
 {
