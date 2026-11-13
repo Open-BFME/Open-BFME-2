@@ -7,7 +7,13 @@
 #include "Code/GameEngine/Source/Common/RTS/XYDistanceCallView.h"
 #include "ascii_string.h"
 #include <stddef.h>
-extern "C" void __cdecl free(void *p);
+// Retail calls free directly (the game allocator at 0x00030830) and
+// fprintf through the game's _fprintf thunk, not the IAT: read the real
+// headers without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#include <stdio.h>
+#undef _CRTIMP
 typedef int Int;
 typedef float Real;
 enum AICommandType
@@ -86,7 +92,7 @@ extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 extern bool g_bfmeCritterDesyncLog;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// fprintf comes from the scoped <stdio.h> above (no dllimport, REL32 thunk).
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 float Sin(float radians);
 float Cos(float radians);
@@ -327,7 +333,7 @@ static __forceinline unsigned char &returning(UpdateModuleInterface *self)
 static __forceinline void animalLog(const char *text)
 {
 	if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-		fprintf(theLogicRandomLogFile, text);
+		fprintf((FILE *)theLogicRandomLogFile, text);
 }
 
 UpdateSleepTime AnimalAIUpdate::update()
@@ -346,7 +352,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 	{
 		*originalPosition(self) = *animalPosition(animal);
 		if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-			fprintf(theLogicRandomLogFile,
+			fprintf((FILE *)theLogicRandomLogFile,
 				"CritterDesync:  m_processedOne false - setting m_originalPos to %g,%g,%g",
 				originalPosition(self)->x, originalPosition(self)->y,
 				originalPosition(self)->z);
@@ -356,7 +362,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 	if (!((AnimalAIUpdateDestinationLayer*)((char*)self-0x10))->isReachableLayer(animalPosition(animal)))
 	{
 		if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-			fprintf(theLogicRandomLogFile,
+			fprintf((FILE *)theLogicRandomLogFile,
 				"CritterDesync:  animal %s is in a bad area, return to origin %g,%g,%g.",
 				animalDebugName(animal), originalPosition(self)->x, originalPosition(self)->y,
 				originalPosition(self)->z);
@@ -370,7 +376,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 	if (returning(self))
 	{
 		if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-			fprintf(theLogicRandomLogFile,
+			fprintf((FILE *)theLogicRandomLogFile,
 				"CritterDesync:  m_returning is true - animal %s is checking if we are near origin %g,%g,%g to stop.",
 				animalDebugName(animal), originalPosition(self)->x, originalPosition(self)->y,
 				originalPosition(self)->z);
@@ -380,7 +386,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 		if(delta.GetLengthEstimate2D() < 5.0f)
 		{
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s is finished returning to origin.",
 					animalDebugName(animal));
 			returning(self) = 0;
@@ -388,7 +394,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 		else
 		{
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s is NOT finished returning to origin.",
 					animalDebugName(animal));
 			return UPDATE_SLEEP_NONE;
@@ -398,7 +404,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 	if (data->m_updateTimer > 0 && TheGameLogic->getFrame() % data->m_updateTimer == 0)
 	{
 		if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-			fprintf(theLogicRandomLogFile,
+			fprintf((FILE *)theLogicRandomLogFile,
 				"CritterDesync:  animal %s is doing periodic search for enemies.",
 				animalDebugName(animal));
 		Object *enemy = ThePartitionManager->getClosestObject(animalPosition(animal),
@@ -411,13 +417,13 @@ UpdateSleepTime AnimalAIUpdate::update()
             if(same)
 			{
 				if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-					fprintf(theLogicRandomLogFile,
+					fprintf((FILE *)theLogicRandomLogFile,
 						"CritterDesync:  animal %s(%d) sees SAME enemy %s(%d) to be scared of.",
 						animalDebugName(animal), animalID(animal), animalDebugName(enemy), enemyID);
 				}
             else {
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s(%d) found NEW enemy %s(%d) to be scared of RUNAWAYPANIC.",
 					animalDebugName(animal), animalID(animal), animalDebugName(enemy), enemyID);
 			animal->m_fleeDistance = (float)data->m_fleeDistance;
@@ -425,7 +431,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 			scaringObjectID(self) = animalID(enemy);
             }
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s(%d) blah-1",
 					animalDebugName(animal), animalID(animal));
 			return UPDATE_SLEEP_NONE;
@@ -436,7 +442,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 		if (stateID != 0)
 		{
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s(%d) is not idle, sleep.",
 					animalDebugName(animal), animalID(animal));
 			return UPDATE_SLEEP_NONE;
@@ -446,7 +452,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 			< data->m_wanderPercentage)
 		{
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s(%d) dice roll suceeded for wanderpercentage",
 					animalDebugName(animal), animalID(animal));
 Coord3D destination;
@@ -456,13 +462,13 @@ Coord3D destination;
 			if (emitter)
 			{
 				if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-					fprintf(theLogicRandomLogFile,
+					fprintf((FILE *)theLogicRandomLogFile,
 						"CritterDesync:  animal %s(%d) EMITTER CASE",
 						animalDebugName(animal), animalID(animal));
 				if (((Rva000CBA20 *)animal)->distSq((const Rva000CBA20Point *)animalPosition(emitter)) > (float)(data->m_maxWanderRadius * data->m_maxWanderRadius))
 				{
 					if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-						fprintf(theLogicRandomLogFile,
+						fprintf((FILE *)theLogicRandomLogFile,
 							"CritterDesync:  animal %s(%d) moving to emitter at %g,%g,%g",
 							animalDebugName(animal), animalID(animal),
 							animalPosition(emitter)->x, animalPosition(emitter)->y,
@@ -472,7 +478,7 @@ Coord3D destination;
 				else
 				{
 					if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-						fprintf(theLogicRandomLogFile,
+						fprintf((FILE *)theLogicRandomLogFile,
 							"CritterDesync:  animal %s(%d) wander to random location",
 							animalDebugName(animal), animalID(animal));
 					animal->getUnitDirectionVector2D();
@@ -486,7 +492,7 @@ Coord3D destination;
 					if (((AnimalAIUpdateDestinationLayer *)((char *)self - 0x10))->isReachableLayer(&destination))
 					{
 						if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-							fprintf(theLogicRandomLogFile,
+							fprintf((FILE *)theLogicRandomLogFile,
 								"CritterDesync:  animal %s(%d) wandering to dest %g,%g,%g",
 								animalDebugName(animal), animalID(animal),
 								destination.x, destination.y, destination.z);
@@ -495,7 +501,7 @@ Coord3D destination;
 					else
 					{
 						if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-							fprintf(theLogicRandomLogFile,
+							fprintf((FILE *)theLogicRandomLogFile,
 								"CritterDesync:  animal %s(%d) CANNOT wander to dest %g,%g,%g",
 								animalDebugName(animal), animalID(animal),
 								destination.x, destination.y, destination.z);
@@ -505,7 +511,7 @@ Coord3D destination;
 			else
 			{
 				if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-					fprintf(theLogicRandomLogFile,
+					fprintf((FILE *)theLogicRandomLogFile,
 						"CritterDesync:  animal %s(%d) NO EMITTER CASE",
 						animalDebugName(animal), animalID(animal));
 				float dist;
@@ -517,7 +523,7 @@ Coord3D destination;
 				if (dist > (float)data->m_maxWanderRadius)
 				{
 					if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-						fprintf(theLogicRandomLogFile,
+						fprintf((FILE *)theLogicRandomLogFile,
 							"CritterDesync:  animal %s(%d) returning to m_originalPos %g,%g,%g",
 							animalDebugName(animal), animalID(animal),
 							originalPosition(self)->x, originalPosition(self)->y,
@@ -527,7 +533,7 @@ Coord3D destination;
 				else
 				{
 					if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-						fprintf(theLogicRandomLogFile,
+						fprintf((FILE *)theLogicRandomLogFile,
 							"CritterDesync:  animal %s(%d) wandering to random spot",
 							animalDebugName(animal), animalID(animal));
 					animal->getUnitDirectionVector2D();
@@ -541,7 +547,7 @@ Coord3D destination;
 					if (((AnimalAIUpdateDestinationLayer *)((char *)self - 0x10))->isReachableLayer(&destination))
 					{
 						if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-							fprintf(theLogicRandomLogFile,
+							fprintf((FILE *)theLogicRandomLogFile,
 								"CritterDesync:  animal %s(%d) wandering to %g,%g,%g",
 								animalDebugName(animal), animalID(animal),
 								destination.x, destination.y, destination.z);
@@ -550,7 +556,7 @@ Coord3D destination;
 					else
 					{
 						if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-							fprintf(theLogicRandomLogFile,
+							fprintf((FILE *)theLogicRandomLogFile,
 								"CritterDesync:  animal %s(%d) CANNOT wander to %g,%g,%g",
 								animalDebugName(animal), animalID(animal),
 								destination.x, destination.y, destination.z);
@@ -561,7 +567,7 @@ Coord3D destination;
 		else
 		{
 			if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"CritterDesync:  animal %s(%d) dice roll failed.",
 					animalDebugName(animal), animalID(animal));
 		}
@@ -572,7 +578,7 @@ Coord3D destination;
 			(void)scratchRef;
 		}
 	if (g_bfmeCritterDesyncLog && theLogicRandomLogFile)
-		fprintf(theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"CritterDesync:  animal %s(%d) finished update.", animalDebugName(animal), animalID(animal));
 
 	return UPDATE_SLEEP_NONE;
