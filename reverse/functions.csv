@@ -101112,3 +101112,5 @@ Unwind@00b74522,,0x00774522,13,Code/GameEngine/Source/GameLogic/Object/Object.cp
 ??_GRva005AFE3F@@UAEPAXI@Z,,0x005AFEDB,28,Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp,matched,compiler-emitted scalar deleting destructor of Rva005AFE3F; slot 2 of retail vftable 0x00C728B8 stored by ??1Rva005AFE3F 0x005AFE3F; calls 0x005AFE3F then operator delete; replaces the retracted stand-in ??_GRva005AFEDBRecord
 ?vslot05@Rva005AFE3F@@UAEXABVAsciiString@@@Z,,0x0047A69C,3,Code/GameEngine/Source/Common/Rva005AFE86Ctor.cpp,matched,header-inline default slot 5 of retail vftable 0x00C728B8 (ret 4)
 ??1Rva005AFE3FBase@@QAE@XZ,,0x0057C03B,7,Code/GameEngine/Source/Common/Rva005AFE86Ctor.cpp,matched,inline listener-base destructor the constructor 0x005AFE86's unwind reaches at 0x0057C03B; restores table 0x00C6FFFC
+?vslot06@Rva005D50C4@@UAE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,header-inline slot 6 of retail vftable 0x00C75AE0 (xor al al; ret)
+?vslot06@Rva005D50E3@@UAE_NXZ,,0x0050B5C6,3,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,header-inline slot 6 of retail vftable 0x00C75AFC (mov al 1; ret)

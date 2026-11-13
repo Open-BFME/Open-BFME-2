@@ -96,10 +96,15 @@ Rva005AF9EF::Rva005AF9EF() : Rva005AFE3F((void *)1)
 {
 }
 
+// Retail table 0x00C75AE0: slot 6 returns false. Slot 3 is 0x005D56D0, rowed as
+// ?rva005D56D0@ChatWindowsLan@@QAE_NXZ; the override is not declared here until
+// that row carries this class's name (a naming-lane move), so the compiled
+// table still holds __purecall there.
 class Rva005D50C4 : public Rva005D50D8
 {
 public:
 	Rva005D50C4();
+	virtual bool vslot06() { return false; }
 };
 
 Rva005D50C4::Rva005D50C4() : Rva005D50D8(1)
@@ -108,10 +113,15 @@ Rva005D50C4::Rva005D50C4() : Rva005D50D8(1)
 
 // ??0Rva005D50E3@@QAE@XZ retail 0x005D50E3 20B
 // Evidence: leaf lane; base Rva005D50D8(0) pin plus vtable 0x00875AFC; caller 0x005AE368; sibling Rva005D50C4 same TU same flags.
+// Retail table 0x00C75AFC: slot 6 returns true. Slot 3 is 0x005D574C, rowed as
+// ?rva005D574C@ChatWindowsLan@@QAE_NXZ; the override is not declared here until
+// that row carries this class's name (a naming-lane move), so the compiled
+// table still holds __purecall there.
 class Rva005D50E3 : public Rva005D50D8
 {
 public:
 	Rva005D50E3();
+	virtual bool vslot06() { return true; }
 };
 
 Rva005D50E3::Rva005D50E3() : Rva005D50D8(0)
