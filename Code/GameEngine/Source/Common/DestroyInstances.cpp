@@ -179,10 +179,7 @@ struct Rva004FFE39
 };
 #include "../../Include/Common/Rva004FFE89.h"
 #include "../../Include/Common/Rva0050174A.h"
-struct Rva005017AC
-{
-	~Rva005017AC();
-};
+#include "../../Include/Common/Rva005017AC.h"
 class Rva00495C43PoolRecord
 {
 public:

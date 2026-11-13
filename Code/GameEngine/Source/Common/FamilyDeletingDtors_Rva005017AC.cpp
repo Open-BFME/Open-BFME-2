@@ -3,5 +3,5 @@
 // Chain lane: calls 0x005017AC just landed; non-virtual public QAE shape like ??_GRva004FFE89 precedent.
 // Retail bytes: push esi mov esi ecx call ??1 test [esp+8] 1 je push esi call delete pop ecx mov eax esi pop esi ret 4.
 
-class Rva005017AC { public: ~Rva005017AC(); };
+#include "../../Include/Common/Rva005017AC.h"
 void famgenDelete(Rva005017AC *p) { delete p; }
