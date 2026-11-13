@@ -13,6 +13,8 @@ public:
 
 	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
 	virtual ~SpecialPowerModule();
+public:
+	virtual SpecialPowerModuleInterface *getSpecialPower();	// BehaviorModuleInterface slot 8: retail 0x002533D3, the +0x10 interface
 };
 enum NameKeyType
 {

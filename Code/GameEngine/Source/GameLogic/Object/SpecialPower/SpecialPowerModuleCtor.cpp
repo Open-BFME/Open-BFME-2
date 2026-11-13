@@ -119,6 +119,10 @@ protected:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@SpecialPowerModule@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// BehaviorModuleInterface slot 8, retail 0x002533D3 (the +0x10 interface): inline as in the units that adopt
+	// reference/shims/bfme2_specialpower_layout's SpecialPowerModule.h, so every copy is the same COMDAT
+	virtual SpecialPowerModuleInterface *getSpecialPower() { return this; }
 };
 
 SpecialPowerModule::SpecialPowerModule(Thing *thing, const ModuleData *moduleData)

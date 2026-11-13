@@ -41,6 +41,8 @@ public:
 	virtual void pauseCountdown(bool pause);	// 0x00492FC2
 protected:
 	unsigned char m_pad14[0x34 - 0x14];
+public:
+	virtual SpecialPowerModuleInterface *getSpecialPower();	// BehaviorModuleInterface slot 8: retail 0x002533D3, the +0x10 interface
 };
 enum NameKeyType
 {

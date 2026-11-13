@@ -3702,3 +3702,10 @@ Base: 3,295 bridged, 31 refused, 2,253 already correct, 37,456 mismatching sourc
   slots): the prerequisite of SpecialPowerModule's slot 43 override. link_check SupplyTruckAIUpdateCtor.cpp
   1,224 B, SpecialPowerModuleCtor.cpp 340 B, BoneFXUpdate.cpp 2,654 B, FlammableUpdate.cpp 1,494 B,
   ObjectRva0028B265.cpp 243 B LINK before and after.
+- "Give SpecialPowerModule its getSpecialPower override (retail 0x002533D3 fold)": SpecialPowerModuleCtor.cpp's
+  view defines `getSpecialPower() { return this; }` inline (the COMDAT CashHackSpecialPower.cpp and
+  DefectorSpecialPower.cpp already emit through reference/shims/bfme2_specialpower_layout's SpecialPowerModule.h;
+  an out-of-line definition made link_check report it duplicate), eight more views declare it; add_match rows
+  the ICF twin (fold-proof=CreateObjectDie.cpp). Slot 8 right in 15 tables (mismatching slots 37,456 -> 37,441);
+  bridged 3,295 -> 3,295 (slots 43/44 remain), refused identical, correct 2,253. link_check: SpecialPowerModuleCtor.cpp
+  340 -> 353 B, the eight view units, CashHackSpecialPower.cpp 488 B and DefectorSpecialPower.cpp 145 B LINK.
