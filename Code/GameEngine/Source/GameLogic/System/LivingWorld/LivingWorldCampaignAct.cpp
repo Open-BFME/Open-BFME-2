@@ -159,7 +159,7 @@ class SpawnArmy:public Snapshot { public:
 struct Rva004FAFF2 { Rva004FAFF2 &rva004FAFF2(const Rva004FAFF2&); };
 struct Rva00318E8COut {float f;int i;};
 class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
-class Rva002E18C3Lookup {public:AsciiString *find(const AsciiString&);};
+#include "../../../../Include/Common/Rva002E18C3Lookup.h"
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 class Rva002E2903Player {public:char pad[0x40];AsciiString *template40;};
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"

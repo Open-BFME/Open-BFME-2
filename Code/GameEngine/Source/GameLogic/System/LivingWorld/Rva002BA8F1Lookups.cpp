@@ -17,10 +17,7 @@ struct Rva002BA8F1Input {
     char at00[8]; AsciiString at08, at0C, at10;
     int at14, at18; char at1C[8]; bool at24;
 };
-class Rva002E18C3Lookup {
-public: AsciiString *find(const AsciiString &);
-private: char at00[0xc]; _STL::vector<AsciiString *> entries;
-};
+#include "../../../../Include/Common/Rva002E18C3Lookup.h"
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore, *TheLivingWorldAITemplateStore;
 extern class RankInfoStore *TheRankInfoStore;
 class GameLogic;

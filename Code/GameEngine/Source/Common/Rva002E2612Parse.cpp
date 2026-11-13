@@ -10,11 +10,7 @@
 
 class ModuleData;
 
-class Rva002E18C3Lookup
-{
-public:
-	AsciiString *find(const AsciiString &name);
-};
+#include "../../Include/Common/Rva002E18C3Lookup.h"
 
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 

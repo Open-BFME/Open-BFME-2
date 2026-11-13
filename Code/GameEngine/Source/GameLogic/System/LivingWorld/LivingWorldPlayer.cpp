@@ -266,11 +266,7 @@ extern const struct FieldParse g_00C049D8[] =
 	{ 0, 0, 0, 0 }
 };
 
-class Rva002E18C3Lookup
-{
-public:
-	AsciiString *find(const AsciiString &name);
-};
+#include "../../../../Include/Common/Rva002E18C3Lookup.h"
 
 extern class Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 
