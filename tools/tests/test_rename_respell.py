@@ -353,3 +353,87 @@ def test_a_signature_only_respell_is_recorded_as_inference(tree):
 def test_a_signature_only_respell_still_needs_prepared_sources(tree):
     with pytest.raises(Refusal, match="needs --prepared"):
         sig_plan(sig_tree(tree), prepared=None)
+
+
+# ------------------------- a placeholder's scalar parameter (identifier unchanged, lk106)
+#
+# BehaviorModuleInterface slot 43 was rowed `?slot43@BehaviorModule@@UAEXH@Z`, its int parameter guessed
+# with the placeholder identifier; retail's overrides load the argument with `fld dword [esp+4]`. The
+# respell keeps the identifier, so the placeholder check (a naming check) does not apply, and only a
+# top-level 4-byte scalar parameter of a placeholder may change type.
+
+SLOT_OLD = "?slot43@Module@@UAEXH@Z"          # virtual void Module::slot43(int)
+SLOT_NEW = "?slot43@Module@@UAEXM@Z"          # virtual void Module::slot43(float)
+SLOT_RVA = 0x00405000
+SLOT_REASON = "signature-only: both retail overrides load the argument with fld dword [esp+4]"
+MODULE = f"""// cl: /O1
+// {SLOT_OLD}
+class Module {{ public: virtual void slot43(int); }};
+void Module::slot43(int) {{ }}
+"""
+MODULE_FLOAT = MODULE.replace("(int)", "(float)").replace(SLOT_OLD, SLOT_NEW)
+
+
+def slot_tree(tree):
+    functions = (tree / "reverse/functions.csv").read_bytes().decode()
+    (tree / "reverse/functions.csv").write_bytes(
+        (functions + f"{SLOT_OLD},,0x00405000,3,Code/Game/Module.cpp,matched,ret 4 default\n").encode())
+    (tree / "Code/Game/Module.cpp").write_bytes(MODULE.encode())
+    _git(tree, "add", "-A")
+    return tree
+
+
+def slot_plan(root, new=SLOT_NEW, **overrides):
+    kwargs = dict(rva=SLOT_RVA, new=new, respell=True, basis="inferred", evidence=SLOT_REASON,
+                  prepared={"Code/Game/Module.cpp": MODULE_FLOAT.replace(SLOT_NEW, new).encode()})
+    kwargs.update(overrides)
+    return rename.plan_rename("function", ctx=rename.Context(root, object_scan=False), **kwargs)
+
+
+def test_a_placeholders_scalar_parameter_respell_keeps_its_identifier(tree):
+    got = slot_plan(slot_tree(tree))
+    assert got.new == SLOT_NEW and (SLOT_OLD, SLOT_NEW, SLOT_RVA) in got.renamed_rows
+    assert got.basis == "inferred" and got.evidence.startswith("signature-only:")
+    assert "Code/Game/Module.cpp" in got.verify
+    assert got.subject() == f"Respell {SLOT_OLD} as {SLOT_NEW} (signature only: a placeholder's scalar parameter type)"
+
+
+@pytest.mark.parametrize("old,new", [
+    ("?slot43@BehaviorModule@@UAEXH@Z", "?slot43@BehaviorModule@@UAEXM@Z"),                   # int -> float
+    ("?slot43@BehaviorModule@@UAEXM@Z", "?slot43@BehaviorModule@@UAEXI@Z"),                   # float -> unsigned
+    ("?slot45@Module@@UAEXPAVObject@@HH@Z", "?slot45@Module@@UAEXPAVObject@@HM@Z"),             # after a class
+    ("?slot45@Module@@QAE_NHPBD@Z", "?slot45@Module@@QAE_NMPBD@Z"),                             # non-virtual too
+])
+def test_signature_only_change_accepts_a_placeholders_scalar_parameter(old, new):
+    assert rename.signature_only_change(old, new) == {"scalar"}
+
+
+@pytest.mark.parametrize("old,new,why", [
+    ("?accepts@Filter@@QAEXH@Z", "?accepts@Filter@@QAEXM@Z", "nor a 4-byte scalar parameter"),   # readable name
+    ("?slot43@BehaviorModule@@UAEHH@Z", "?slot43@BehaviorModule@@UAEMH@Z", "neither a"),         # return type
+    ("?slot43@BehaviorModule@@UAEXPAH@Z", "?slot43@BehaviorModule@@UAEXPAM@Z", "neither a"),     # a pointee
+    ("?slot43@BehaviorModule@@UAEXH@Z", "?slot43@BehaviorModule@@UAEXN@Z", "neither a"),         # double: wider
+    ("?slot43@BehaviorModule@@UAEXF@Z", "?slot43@BehaviorModule@@UAEXH@Z", "neither a"),         # short: narrower
+    ("?slot43@BehaviorModule@@UAEXD@Z", "?slot43@BehaviorModule@@UAEXC@Z", "neither a"),         # char kinds
+    ("?slot43@BehaviorModule@@UAEXH@Z", "?slot43@BehaviorModule@@UAEX_N@Z", "adds or removes"),  # bool
+    ("?slot43@BehaviorModule@@UAEXH@Z", "?slot43@BehaviorModule@@QAEXM@Z", "changes more than"),  # virtual-ness
+])
+def test_signature_only_change_still_refuses_other_type_changes(old, new, why):
+    with pytest.raises(Refusal, match=why):
+        rename.signature_only_change(old, new)
+
+
+def test_a_respell_that_changes_a_placeholders_identifier_is_still_refused(tree):
+    with pytest.raises(Refusal, match="is itself a placeholder or weak name"):
+        slot_plan(slot_tree(tree), new="?slot44@Module@@UAEXM@Z")
+
+
+def test_a_placeholders_identifier_only_respell_is_still_refused(tree):
+    # the same spelling: nothing changes, and a respell is never an identifier-only rewrite
+    with pytest.raises(Refusal):
+        slot_plan(slot_tree(tree), new=SLOT_OLD)
+
+
+def test_a_placeholders_scalar_respell_still_needs_its_labelled_reason(tree):
+    with pytest.raises(Refusal, match="needs --evidence 'signature-only: <reason>'"):
+        slot_plan(slot_tree(tree), evidence="agree:nl-respell0001")

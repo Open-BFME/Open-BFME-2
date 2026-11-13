@@ -423,12 +423,47 @@ def is_placeholder(name, kind="function"):
 SIGNATURE_ONLY = "signature-only:"
 
 
+# A placeholder's whole signature was guessed with its identifier (`slot43(int)` for a slot nobody
+# had read), so its signature-only respell may also give a parameter retail's own type, but only a
+# top-level parameter whose builtin scalar code is one of these 4-byte types and becomes another of
+# them: the stack layout, the `ret N` and every argument after it stay the same, and a single-letter
+# builtin never enters the argument back-reference table, so no other type code renumbers. A return
+# type, a pointee, a narrower or wider type and a readable identifier's parameter are still refused.
+WORD_SCALARS = frozenset("HIJKM")    # int, unsigned int, long, unsigned long, float
+
+
+def scalar_parameter_positions(symbol):
+    """Indices of the top-level parameters of member function `symbol` that are one builtin scalar
+    code each (`H` in `?f@C@@UAEXH@Z`), never a return type or a type inside another. Raises Unparsed
+    outside the parser's subset."""
+    try:
+        at = member_function_header(symbol)[0]
+    except Refusal as error:
+        raise Unparsed(str(error)) from None
+    out = _Out()
+    i = at + 3                     # access code, `this` cv, calling convention
+    try:
+        i = i + 1 if symbol[i] == "@" else _parse_type(symbol, i, out)
+        found = set()
+        if symbol[i] != "X":
+            while symbol[i] not in "@Z":
+                start = i
+                i = _parse_type(symbol, i, out)
+                if i == start + 1 and symbol[start] in "CDEFGHIJKMNO":
+                    found.add(start)
+    except (IndexError, ValueError) as error:
+        raise Unparsed(f"{symbol}: {error}") from None
+    return found
+
+
 def signature_only_change(old, new):
     """Refuse unless `new` is `old` with only parameter or return-type cv-qualifiers or
     pointer-ness changed: the same identifier, class, access, `this` cv and calling convention
     (byte-identical through the member header), every name fragment byte-identical, and each
     differing character a pointer/reference code or its pointee's cv letter at a type position the
-    parser reads in both names."""
+    parser reads in both names -- or, for a placeholder identifier, a top-level parameter's 4-byte
+    scalar code swapped for another (WORD_SCALARS). Returns the set of kinds changed: `qualifier`,
+    `scalar`."""
     at_old = member_function_header(old)[0]
     at_new = member_function_header(new)[0]
     head = at_old + 3              # access code, `this` cv, calling convention
@@ -444,14 +479,24 @@ def signature_only_change(old, new):
     try:
         quals_old, names_old = qualifier_positions(old)
         quals_new, names_new = qualifier_positions(new)
+        scalars = (scalar_parameter_positions(old) & scalar_parameter_positions(new)
+                   if is_placeholder(old, "function") else set())
     except Unparsed as error:
         raise Refusal(f"cannot read the type positions of the respell ({error})") from None
     if names_old != names_new or any(old[a:b] != new[a:b] for a, b in names_old):
         raise Refusal(f"{new} changes a name against {old} (a class, scope or template name), not a qualifier")
+    kinds = set()
     for i in (i for i, (a, b) in enumerate(zip(old, new)) if a != b):
-        if i < head or i not in quals_old or i not in quals_new:
+        if i >= head and i in quals_old and i in quals_new:
+            kinds.add("qualifier")
+        elif i >= head and i in scalars and old[i] in WORD_SCALARS and new[i] in WORD_SCALARS:
+            kinds.add("scalar")
+        else:
             raise Refusal(f"{new} differs from {old} at '{old[i]}' -> '{new[i]}' (index {i}), which is neither a "
-                          "pointer/reference code nor the cv of what one points to")
+                          "pointer/reference code nor the cv of what one points to"
+                          + (" nor a 4-byte scalar parameter (int, unsigned, long, unsigned long, float) of a "
+                             "placeholder" if old[i] in WORD_SCALARS or new[i] in WORD_SCALARS else ""))
+    return kinds
 
 
 # A virtual's `this` cv is part of what it overrides: `bool Cull_Sphere(const
@@ -1179,15 +1224,17 @@ class ClassToken:
             raise Refusal(f"cannot tokenize a mangled name spelling {self.word}: {error}") from None
 
 
-def check_new_identifier(new, kind, basis=None):
+def check_new_identifier(new, kind, basis=None, *, unchanged=False):
     """A new name is an identifier, not a keyword, and not a placeholder --
     except under basis `restored`, which puts back the exact placeholder a
-    recorded inferred rename replaced (check_restore proves it is that one)."""
+    recorded inferred rename replaced (check_restore proves it is that one),
+    and when `unchanged`: a signature-only respell keeps the identifier it
+    found, so it names nothing and a placeholder stays the placeholder it was."""
     if not IDENT.fullmatch(new or ""):
         raise Refusal(f"new name {new!r} is not a C++ identifier")
     if new in name_metric.KEYWORDS:
         raise Refusal(f"new name {new!r} is a keyword")
-    if basis != RESTORED and is_placeholder(new, kind):
+    if basis != RESTORED and not unchanged and is_placeholder(new, kind):
         raise Refusal(f"new name {new} is itself a placeholder or weak name")
 
 
@@ -1502,6 +1549,8 @@ class Plan:
             slots = sorted(self.this_cv["slots"])
             return (f"Respell `this` cv of {len(slots)} {self.this_cv['cls']} virtuals (retail vftable "
                     f"0x{self.this_cv['table'] + IMAGE_BASE:08X} slots {', '.join(map(str, slots))})")
+        if getattr(self, "signature_only", False) and getattr(self, "signature_scalar", False):
+            return f"Respell {self.old} as {self.new} (signature only: a placeholder's scalar parameter type)"
         if getattr(self, "signature_only", False):
             return f"Respell {self.old} as {self.new} (signature only: qualifiers or pointer-ness)"
         if self.kind == "carry":
@@ -3269,7 +3318,8 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         new_word = new
         if respell:
             raise Refusal("--respell needs --new as the row's whole mangled name, not an identifier")
-    check_new_identifier(new_word, "function", basis)
+    # a respell that keeps the identifier makes no naming claim (signature_only below)
+    check_new_identifier(new_word, "function", basis, unchanged=bool(respell and literal and new_word == old_word))
     if respell:
         if not literal:
             raise Refusal(f"{new} is the identifier-only rewrite of {old_name}; "
@@ -3282,12 +3332,13 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     new_name = literal or rename_function_symbol(old_name, new_word)
 
     signature_only = respell and new_word == old_word
-    this_cv, siblings = None, []
+    this_cv, siblings, signature_kinds = None, [], set()
     function_identity_checks(ctx, rva, old_name, old_word, owner)
     if signature_only:
         # The same function, the same identifier: no naming claim. Only a parameter's or the return
-        # type's cv-qualifier or pointer-ness changes, the prepared units are rebuilt byte-exact, and
-        # the record is labelled inference with its reason.
+        # type's cv-qualifier or pointer-ness changes (or a placeholder's 4-byte scalar parameter,
+        # WORD_SCALARS), the prepared units are rebuilt byte-exact, and the record is labelled
+        # inference with its reason.
         if this_cv_change(old_name, new_name):
             # only `this`'s cv: proved by the base virtual the row overrides at its retail slot
             this_cv = this_cv_proof(ctx, rva, old_name, new_name, owner["source"], prepared)
@@ -3295,7 +3346,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                 # siblings: the same proof each, every slot judged after one build
                 siblings = this_cv_siblings(ctx, rva, this_cv, also, prepared)
         else:
-            signature_only_change(old_name, new_name)
+            signature_kinds = signature_only_change(old_name, new_name)
         which = check_signature_basis(basis, evidence)
     else:
         which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
@@ -3311,6 +3362,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     plan = Plan("function", old_name, new_name, basis, evidence.strip(), owner["source"], rva,
                 old_word=old_word, new_word=new_word)
     plan.signature_only = signature_only
+    plan.signature_scalar = "scalar" in signature_kinds
     if signature_only and this_cv:
         plan.evidence = "; ".join([plan.evidence, this_cv[0]] + [f"0x{b['rva']:08X}: {b['evidence']}"
                                                                   for b in siblings])

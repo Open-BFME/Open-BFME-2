@@ -1355,6 +1355,14 @@ submission without registering its operation or writing votes.
 every unit that names it. Two of its routes replace a guess with evidence, and
 two review rounds set where the evidence ends:
 
+- **signature only** (`--basis inferred --evidence 'signature-only: <reason>'`, no
+  vote): the identifier stays, so the respell makes no naming claim and a
+  placeholder identifier is not refused as one. Only a parameter's or the return
+  type's cv-qualifier or pointer-ness may change, or a placeholder's top-level
+  4-byte scalar parameter (int, unsigned int, long, unsigned long, float) may take
+  another of those types (`?slot43@BehaviorModule@@UAEXH@Z` to `UAEXM@Z`: its
+  signature was guessed with its name); a return type, a pointee or a wider or
+  narrower type is refused. Every unit naming the row is prepared and rebuilt.
 - **`this` cv** (`--basis inferred --evidence 'signature-only: ...'`, no vote): a
   virtual rowed with the wrong `this` cv (`UAE` for `UBE`) when retail proves
   the cv. The row fills exactly one slot of a table its class's own ctor or dtor
