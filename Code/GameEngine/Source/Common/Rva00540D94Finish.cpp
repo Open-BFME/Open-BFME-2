@@ -21,24 +21,16 @@ struct Rva00540E9DSrc
 	int c;
 };
 
-class Rva00540D94
-{
-public:
-	Rva00540D94(const Rva00540E9DSrc &src, float f1, float f2, int v);
-	int m_00;
-	Rva00540E9DSrc m_04;
-	float m_10;
-	float m_14;
-};
+#include "../../Include/Common/Rva00540D94.h"
 
 Rva00540D94::Rva00540D94(const Rva00540E9DSrc &src, float f1, float f2, int v)
 {
-	m_00 = v;
-	int *dst = &m_04.a;
+	mode = v;
+	int *dst = &position.a;
 	const int *s = &src.a;
 	dst[0] = s[0];
 	dst[1] = s[1];
 	dst[2] = s[2];
-	m_10 = f1;
-	m_14 = f2;
+	scalar10 = f1;
+	scalar14 = f2;
 }

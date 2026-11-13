@@ -62,14 +62,7 @@ struct Rva00540E9DSrc
 
 // Retail calls the copy ctor out of line and treats it as opaque (it loads
 // values.begin() before the 0x00540FDB call in 0x00541FCC), so no body here.
-class Rva00540D94
-{
-public:
-	Rva00540D94(const Rva00540D94 &other) throw();
-	int mode;
-	Rva00540E9DSrc position;
-	float scalar10, scalar14;
-};
+#include "../../Include/Common/Rva00540D94.h"
 
 class Rva00540FDB
 {

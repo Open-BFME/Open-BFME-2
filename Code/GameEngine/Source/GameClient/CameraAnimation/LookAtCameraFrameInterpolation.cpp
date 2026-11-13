@@ -5,13 +5,7 @@
 // in native order. The existing providers retain their established ABI views;
 // source frame and helper names are unknown. No reference donor was available.
 struct Rva00540E9DSrc { int a,b,c; };
-class Rva00540D94 {
-public:
-    Rva00540D94(const Rva00540E9DSrc &,float,float,int);
-    int mode;
-    Rva00540E9DSrc position;
-    float scalar10,scalar14;
-};
+#include "../../../Include/Common/Rva00540D94.h"
 class CameraAnimationFrameData {
 public:
     float doInterpolate(float,float *,int,float *,int,float *,int,float *,int);
