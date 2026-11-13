@@ -122,12 +122,7 @@ class DataChunkInput;
 struct DataChunkInfo;
 enum { SUPPLY_TECH_SIZE = 15 };
 typedef std::list<ICoord2D> ICoord2DList;
-class TechAndSupplyImages
-{
-public:
-	ICoord2DList m_techPosList;
-	ICoord2DList m_supplyPosList;
-};
+#include "../../Include/GameClient/TechAndSupplyImages.h"
 struct WinTimeStamp
 {
 	UnsignedInt m_lowTimeStamp;

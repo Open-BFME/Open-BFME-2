@@ -55,12 +55,7 @@ extern MapCache *TheMapCache;
 
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"
 typedef _STL::list<ICoord2D> ICoord2DList;
-class TechAndSupplyImages
-{
-public:
-	ICoord2DList m_techPosList;
-	ICoord2DList m_supplyPosList;
-};
+#include "../../../../../Include/GameClient/TechAndSupplyImages.h"
 extern TechAndSupplyImages TheSupplyAndTechImageLocations;
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

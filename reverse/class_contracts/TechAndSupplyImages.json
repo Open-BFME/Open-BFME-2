@@ -1,0 +1,118 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "TechAndSupplyImages",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3015e7"
+     ],
+     "value": {
+      "0x0": [
+       "?$_List_base@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL",
+       "?$_List_base@UAIGroupDistanceEntry@@V?$allocator@UAIGroupDistanceEntry@@@_STL@@@_STL",
+       "?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL",
+       "?$_List_base@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL",
+       "?$_List_base@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL",
+       "?$_List_base@UGameStatePostRecord@@V?$allocator@UGameStatePostRecord@@@_STL@@@_STL",
+       "?$_List_base@UReadyTimer@@V?$allocator@UReadyTimer@@@_STL@@@_STL",
+       "?$_List_base@URva0035C9A6Entry@@V?$allocator@URva0035C9A6Entry@@@_STL@@@_STL",
+       "?$_List_base@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL",
+       "?$_List_base@USnapshotBlock@GameState@@V?$allocator@USnapshotBlock@GameState@@@_STL@@@_STL"
+      ],
+      "0x4": [
+       "?$_List_base@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL",
+       "?$_List_base@UAIGroupDistanceEntry@@V?$allocator@UAIGroupDistanceEntry@@@_STL@@@_STL",
+       "?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL",
+       "?$_List_base@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL",
+       "?$_List_base@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL",
+       "?$_List_base@UGameStatePostRecord@@V?$allocator@UGameStatePostRecord@@@_STL@@@_STL",
+       "?$_List_base@UReadyTimer@@V?$allocator@UReadyTimer@@@_STL@@@_STL",
+       "?$_List_base@URva0035C9A6Entry@@V?$allocator@URva0035C9A6Entry@@@_STL@@@_STL",
+       "?$_List_base@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL",
+       "?$_List_base@USnapshotBlock@GameState@@V?$allocator@USnapshotBlock@GameState@@@_STL@@@_STL"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 1,
+   "8": 2
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/MapUtil.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<ICoord2D,_STL::allocator<ICoord2D> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_List_node<ICoord2D>*"
+    }
+   ],
+   "name": "m_techPosList",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<ICoord2D,_STL::allocator<ICoord2D> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<ICoord2D,_STL::allocator<ICoord2D> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_List_node<ICoord2D>*"
+    }
+   ],
+   "name": "m_supplyPosList",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<ICoord2D,_STL::allocator<ICoord2D> >",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "zh",
+ "vslots": {}
+}

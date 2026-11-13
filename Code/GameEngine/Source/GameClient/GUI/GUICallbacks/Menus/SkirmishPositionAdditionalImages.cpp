@@ -41,12 +41,7 @@ list<ICoord2D, allocator<ICoord2D> >::_M_create_node(const ICoord2D &value)
 typedef std::list<ICoord2D> ICoord2DList;
 typedef std::list<Coord3D> Coord3DList;
 
-class TechAndSupplyImages
-{
-public:
-	ICoord2DList m_techPosList;
-	ICoord2DList m_supplyPosList;
-};
+#include "../../../../../Include/GameClient/TechAndSupplyImages.h"
 
 extern TechAndSupplyImages TheSupplyAndTechImageLocations;
 
