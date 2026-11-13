@@ -592,11 +592,7 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
 int rva006ED490(Rva006ED490X *x, Rva006ED490Obj *obj, char flag);
 
-class BfmeSubmitter1283
-{
-public:
-	void *bfmeSubmit1283(AptCIH *a1, int a2, int a3, int a4, int a5, int a6, int a7, float *a8, int a9, int a10, int a11, int a12);
-};
+#include "BfmeSubmitter1283.h"
 
 struct Rva006ED580Inst { char m_pad[0x24]; BfmeSubmitter1283 m_displayList; };
 

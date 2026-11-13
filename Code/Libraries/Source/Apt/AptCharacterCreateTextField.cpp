@@ -45,11 +45,7 @@ struct TextInstance {char prefix[0x24];int field24;char pad28[8];int color30,col
 static __forceinline Instance *characterInst(const AptCIH *cih) {CHECK(cih->IsCharacterInst(),"isCharacterInst()",0xa5);return (Instance*)cih->field4C;}
 static __forceinline Instance *spriteBase(const AptCIH *cih) {CHECK(cih,"this",0xe2);CHECK(!((AptValue*)cih)->isUndefined() && (((Rva006DBB30SarDwordField*)cih)->get()==13 || ((Rva006DBB30SarDwordField*)cih)->get()==18),"isSpriteInstBase()",0x7d);return (Instance*)cih->field4C;}
 static __forceinline bool textValid(const AptCIH *cih) {CHECK(cih,"this",0xc4);return ((Rva006DBB30SarDwordField*)cih)->get()==15 && !((AptValue*)cih)->isUndefined();}
-class BfmeSubmitter1283
-{
-public:
-	void *bfmeSubmit1283(AptCIH *a1, int a2, int a3, int a4, int a5, int a6, int a7, float *a8, int a9, int a10, int a11, int a12);
-};
+#include "BfmeSubmitter1283.h"
 #include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 class Rva006E34D0 {public:char prefix[0x20];Rva006E9A40List first,second;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
