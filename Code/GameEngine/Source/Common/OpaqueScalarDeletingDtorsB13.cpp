@@ -329,15 +329,7 @@ Rva00582FC1::Rva00582FC1(EmitVtableTag *)
 }
 
 class Object;
-class BaseA
-{
-public:
-    virtual void Register(Object *, void *) = 0;
-    virtual void UnRegister(Object *) = 0;
-    virtual ~BaseA() {}
-    int m_04;
-    int m_08;
-};
+#include "../../Include/Common/BaseA.h"
 
 class Rva00506B1B
 {

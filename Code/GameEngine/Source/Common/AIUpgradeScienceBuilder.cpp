@@ -7,16 +7,7 @@
 enum ObjectID { INVALID_ID = 0 };
 
 class Object;
-class BaseA
-{
-public:
-	__forceinline BaseA(unsigned a, unsigned b) : m_04(a), m_08(b) {}
-	virtual void Register(Object *, void *) = 0;
-	virtual void UnRegister(Object *) = 0;
-	virtual ~BaseA() {}
-	int m_04; // +0x04
-	int m_08; // +0x08
-};
+#include "../../Include/Common/BaseA.h"
 
 class Rva00506B1B
 {

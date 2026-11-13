@@ -145,17 +145,7 @@ public:
 	_STL::vector<void *, _STL::allocator<void *> > m_vec24;
 };
 
-class BaseA
-{
-public:
-	__forceinline BaseA(unsigned a, unsigned b) : m_04(a), m_08(b) {}
-	virtual void Register(Object *, void *) = 0;
-	virtual void UnRegister(Object *) = 0;
-	virtual ~BaseA() {}
-private:
-	int m_04;
-	int m_08;
-};
+#include "../../../../Include/Common/BaseA.h"
 
 class Rva00506B1B
 {

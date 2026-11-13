@@ -96,17 +96,7 @@ public: void update();
 // The registrar base whose table retail installs at VA 0x00C62888: two pure
 // slots (__purecall) and the deleting destructor 0x004EA01D (??_GBaseA, rowed
 // in Rva00597693Ctor.cpp, which declares the same class).
-class BaseA
-{
-public:
-	__forceinline BaseA(unsigned a, unsigned b) : m_04(a), m_08(b) {}
-	virtual void Register(Object *, void *) = 0;
-	virtual void UnRegister(Object *) = 0;
-	virtual ~BaseA() {}
-private:
-	int m_04;
-	int m_08;
-};
+#include "../../../../../Include/Common/BaseA.h"
 
 // The base is Rva00506B1B (ctor 0x00506B1B, vtable 0x00863F9C); its
 // destructor is the 7-byte vptr store at 0x00506B28.

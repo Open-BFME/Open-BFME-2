@@ -274,16 +274,7 @@ AptPlayerStatus::AptPlayerStatus(EmitVtableTag *) : _bfme_AptGameWindow(0)
 
 // Rva004EA3B8's two tables (data ledger): BaseA at +0 and Rva00506B1B at +0xC, whose
 // slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor thunk.
-class BaseA
-{
-public:
-	virtual void Register(Object *, void *) = 0;
-	virtual void UnRegister(Object *) = 0;
-	virtual ~BaseA() {}
-private:
-	int m_04;
-	int m_08;
-};
+#include "../../Include/Common/BaseA.h"
 // Rva00506B1B's ctor is rowed at 0x00506B1B; declared so no implicit copy is emitted.
 // Its retail table 0x00C62894 has three slots (dtor thunk, an unrecovered slot,
 // the rowed 0x004EA33A), as Rva004EA3B8Dtor.cpp declares them.
