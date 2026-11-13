@@ -17,17 +17,7 @@ namespace _STL {
 	_ForwardIter uninitialized_fill_n(_ForwardIter first, _Size n, const _Tp &x);
 }
 
-class Rva004F60AA
-{
-public:
-	void rva004F60AA();
- ~Rva004F60AA();
-	Rva004F60AA *rva004F77AD(char *first, char *last);
-private:
-	int m_00;
-	int m_04;
-	void *m_08;
-};
+#include "../../Include/Common/Rva004F60AA.h"
 
 Rva004F60AA *Rva004F60AA::rva004F77AD(char *first, char *last)
 {

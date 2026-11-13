@@ -3,15 +3,7 @@
 // Evidence: and [esi+8] 0 plus cmp 0x1fffffff plus shl 2 malloc IAT plus cdq-sub-sar halve plus caller 0x004F77BE; neighbours 0x004F6093 0x004F612A.
 
 #include <stdlib.h>
-class Rva004F60AA
-{
-public:
-	void rva004F60AA();
-private:
-	int m_00;
-	int m_04;
-	void *m_08;
-};
+#include "../../Include/Common/Rva004F60AA.h"
 
 void Rva004F60AA::rva004F60AA()
 {

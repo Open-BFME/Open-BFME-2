@@ -15,16 +15,7 @@ struct Rva004F8C16Element { char bytes[4]; };
 struct TreeHintRef00217D4C;
 #include "Rva004F9185Cmp.h"
 class AsciiString;
-class Rva004F60AA
-{
-public:
- __declspec(dllimport) __forceinline Rva004F60AA(char *first, char *last) { rva004F77AD(first,last); }
- ~Rva004F60AA();
- Rva004F60AA *rva004F77AD(char *,char *);
- int m_00;
- int m_04;
- void *m_08;
-};
+#include "../../../../GameEngine/Include/Common/Rva004F60AA.h"
 
 namespace _STL {
 template <> void __merge_without_buffer<TreeHintRef00217D4C *,int,Rva004F9185Cmp>(
