@@ -2431,7 +2431,7 @@ struct Rva0059EB6FModeHolder
 	Int m_mode;
 };
 extern int g_Va00E0333C;
-class Rva005537BA { public: unsigned short rva005537BA(); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005537BA.h"
 class Rva005537EB { public: unsigned short rva005537EB(); };
 class Rva00553D26 { public: unsigned char rva00553D26(); };
 // Descriptive names: retail E02548/E0254C start at zero. Type-4 responses
