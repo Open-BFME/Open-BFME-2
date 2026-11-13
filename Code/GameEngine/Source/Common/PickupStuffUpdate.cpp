@@ -317,6 +317,8 @@ private:
 
 	bool m_20;			// +0x20
 	unsigned int m_lastScanFrame;	// +0x24
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00491DEC
 };
 
 enum UpdateSleepTime
@@ -339,7 +341,7 @@ PickupStuffUpdate::~PickupStuffUpdate()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00491DEC 6B ?name@PickupStuffUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x00491DEC 6B ?GetSnapshotName@PickupStuffUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/PickupStuffUpdate.cpp
 

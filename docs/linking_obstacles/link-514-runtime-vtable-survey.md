@@ -3527,6 +3527,10 @@ Base: 3,324 bridged, 31 refused, 2,225 already correct.
   ?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ": 0x00C41E04 off the bridge (3,324 -> 3,323; refusals
   identical; 2,225 -> 2,226 correct). link_check: ModuleNameGetters.cpp 288 B and BezierProjectileBehavior.cpp
   5,754 B LINK before and after.
+- "Move ?name@PickupStuffUpdate@@QBEPBDXZ into PickupStuffUpdate as ?GetSnapshotName@PickupStuffUpdate@@MBEPBDXZ":
+  slot 2 of 0x00C4DDA8 right (mismatching source slots 37,536 -> 37,535), still bridged at slot 1 alone (the
+  0x00497805 loadPostProcess fold); bridged, refused and correct unchanged. ModuleNameGetters3.cpp 605 B and
+  PickupStuffUpdate.cpp 831 B LINK before and after.
 
 **Recipe and limits.** Prepare the getter unit (`BFME_LITERAL_NAME_GETTER(C, ...)` ->
 `BFME_SNAPSHOT_NAME_GETTER(C, ...)`) and every installer unit whose view compiles C's table (a protected
