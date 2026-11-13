@@ -6,19 +6,7 @@
 // unblocks 0x004D9A44 0x004D971D; callers 0x004D9732 0x004D9A57.
 #include "../../Include/Common/Rva002390CB.h"
 
-class Rva004D964E
-{
-public:
-	Rva004D964E(const Rva004D964E &other);
-private:
-	Rva002390CB m_00;
-	Rva002390CB m_08;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	unsigned char m_20;
-};
+#include "../../Include/Common/Rva004D964E.h"
 
 Rva004D964E::Rva004D964E(const Rva004D964E &other) : m_00(other.m_00), m_08(other.m_08)
 {

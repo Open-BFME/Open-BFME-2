@@ -7,19 +7,7 @@
 
 #include "../../Include/Common/Rva002390CB.h"
 
-class Rva004D964E
-{
-public:
-	__declspec(nothrow) Rva004D964E(const Rva004D964E &other);
-private:
-	Rva002390CB m_00;
-	Rva002390CB m_08;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	unsigned char m_20;
-};
+#include "../../Include/Common/Rva004D964E.h"
 
 class Rva004D971D
 {
