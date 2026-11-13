@@ -142,15 +142,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 // ZH's RegroupingState (rowed ctor 0x004A6956).
-class Rva004A6956 : public State
-{
-public:
-	Rva004A6956(StateMachine *machine);
-	virtual StateReturnType update();
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../../Include/GameLogic/Module/Rva004A6956.h"
 // ZH's DockingState (rowed ctor 0x004A6979).
 class Rva004A6979 : public State
 {

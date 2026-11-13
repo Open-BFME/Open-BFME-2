@@ -354,16 +354,7 @@ class Rva004D759C : public StateMachine
 // ZH's SupplyTruckIdleState (rowed ctor 0x004A6C13).
 // ZH's SupplyTruckWantsToPickUpOrDeliverBoxesState (rowed ctor 0x004A6933).
 // ZH's RegroupingState (rowed ctor 0x004A6956).
-class Rva004A6956 : public State
-
-{
- public:
- Rva004A6956(StateMachine *machine);
- virtual StateReturnType onEnter();
-// slot 4
- 
-}
-;
+#include "../../../../../Include/GameLogic/Module/Rva004A6956.h"
 // ZH's DockingState (rowed ctor 0x004A6979).
 class Rva004A6979 : public State
 

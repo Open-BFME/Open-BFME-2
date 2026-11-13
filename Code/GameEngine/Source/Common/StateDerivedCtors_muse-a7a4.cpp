@@ -281,12 +281,7 @@ public:
 	virtual ~Rva004A6C13();
 };
 
-class __declspec(novtable) Rva004A6956 : public State
-{
-public:
-	Rva004A6956(StateMachine *machine);
-	virtual ~Rva004A6956();
-};
+#include "../../Include/GameLogic/Module/Rva004A6956.h"
 
 class __declspec(novtable) Rva004A6979 : public State
 {
