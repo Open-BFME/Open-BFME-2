@@ -33,12 +33,7 @@ void Rva006C1F60::rva006C39E0()
 	rva006C33D0(0, 0);
 }
 
-struct Rva006C17B0Node
-{
-	unsigned int m_key;
-	void *m_value;
-	Rva006C17B0Node *m_next;
-};
+#include "../../Include/Common/Rva006C17B0Node.h"
 
 class Rva006C17B0
 {

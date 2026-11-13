@@ -1,10 +1,5 @@
 // ?rva006C17B0@Rva006C17B0@@QAEX_N0@Z @0x006C17B0 144B - array-of-chains clear with two conditional callbacks; evidence callers 0x006C21B4 0x006C3929 0x006C3CF9 set ecx plus two 0/1 pushes; ret 8 two args whose low bytes are tested; unlocks 0x006C21B0 0x006C3CC0 0x006C38D0
-struct Rva006C17B0Node
-{
-	void *m_pad0;
-	void *m_data;
-	Rva006C17B0Node *m_next;
-};
+#include "../../Include/Common/Rva006C17B0Node.h"
 
 class Rva006C17B0
 {
