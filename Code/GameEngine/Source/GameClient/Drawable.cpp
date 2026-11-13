@@ -1529,14 +1529,7 @@ private:
 typedef unsigned int AudioHandle;
 #include "../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
-class Rva002714CA
-{
-public:
-	void rva002714CA();
-private:
-	unsigned char m_pre[0x148]; // +0x00
-	unsigned int m_handle; // +0x148
-};
+#include "../../Include/GameClient/Rva002714CA.h"
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 class Rva002717BCModule {

@@ -285,14 +285,7 @@ protected:
 	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
 };
 
-class Rva002714CA
-{
-public:
-	void rva002714CA();
-private:
-	unsigned char m_pre[0x148]; // +0x00
-	unsigned int m_handle; // +0x148
-};
+#include "../../Include/GameClient/Rva002714CA.h"
 
 #include "../../Include/GameClient/Rva00279354Host.h"
 

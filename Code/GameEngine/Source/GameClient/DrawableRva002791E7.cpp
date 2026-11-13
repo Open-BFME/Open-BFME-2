@@ -26,14 +26,7 @@ public:
 bool __cdecl Rva00275D9FGet(const Rva00263546 *flags);
 bool __cdecl Rva00045473Equal(const void *left, const void *right);
 
-class Rva002714CA
-{
-public:
-	void rva002714CA();
-private:
-	unsigned char m_pre[0x148]; // +0x00
-	unsigned int m_handle; // +0x148
-};
+#include "../../Include/GameClient/Rva002714CA.h"
 
 class ObjectDrawInterface
 {
