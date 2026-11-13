@@ -6,13 +6,7 @@
 // swaps; the three byte fields and six mask bits are all directly observable.
 #include <algorithm>
 
-struct Rva00450B90Item
-{
-	char m_beforeFlags[0x24];
-	bool m_flag24;
-	bool m_flag25;
-	bool m_flag26;
-};
+#include "../../Include/Common/Rva00450B90Item.h"
 
 #include "../../Include/Common/Rva00450B90Predicate.h"
 

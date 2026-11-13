@@ -468,13 +468,7 @@ extern "C" void __cdecl free(void *);
 // the loop body holds *m in a named local, which reproduces retail's iterator
 // register roles (EDI first-arg / ESI iterator) exactly.
 struct Rva0030145CCmp {bool operator()(MapMetaData *,MapMetaData *)const;};
-struct Rva00450B90Item
-{
-	char m_beforeFlags[0x24];
-	bool m_flag24;
-	bool m_flag25;
-	bool m_flag26;
-};
+#include "../../../../../Include/Common/Rva00450B90Item.h"
 class Rva00450B90Predicate
 {
 public:

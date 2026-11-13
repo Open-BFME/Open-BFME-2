@@ -7,13 +7,7 @@
 // unblocks 0x005BBDAC.
 #include <algorithm>
 
-struct Rva00450B90Item
-{
-	char m_beforeFlags[0x24];
-	bool m_flag24;
-	bool m_flag25;
-	bool m_flag26;
-};
+#include "../../../../GameEngine/Include/Common/Rva00450B90Item.h"
 
 #include "../../../../GameEngine/Include/Common/Rva00450B90Predicate.h"
 
