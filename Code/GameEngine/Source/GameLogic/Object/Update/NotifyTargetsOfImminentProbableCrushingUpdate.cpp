@@ -29,7 +29,7 @@ struct NotifyCoord:Coord3D{
 #include <math.h>
 struct Rva0087E650Bounds{NotifyCoord lo,hi;};
 #include "../../../../Include/Common/Geometry.h"
-class Rva0087E370{public:void method(const Coord3D&,float,Region2D&)const;};
+#include "../../../../Include/Common/Rva0087E370.h"
 #include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 struct Rva0028AC4EEntry;
 class Rva0028FC7F{public:void rva0028FC7F(const void*);};

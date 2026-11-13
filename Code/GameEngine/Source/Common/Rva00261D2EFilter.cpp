@@ -26,7 +26,7 @@ public:
 class Rva0033B3D7Data { public: char data00[0x2C]; Real radius; };
 #include "RTS/XYDistanceCallView.h"
 #include "Region2D.h"
-class Rva0087E370 { public: void method(const Coord3D&,Real,Region2D&) const; };
+#include "../../Include/Common/Rva0087E370.h"
 template<int N> class FilterSlots : public FilterSlots<N-1> {
 public: virtual void unused(char(*)[N]);
 };

@@ -20,7 +20,7 @@ extern "C" void _ReadWriteBarrier();
 struct EmptyFootPoint:Coord3D{EmptyFootPoint(){}EmptyFootPoint(const EmptyFootPoint&r){x=r.x;y=r.y;z=r.z;}};
 typedef float Real; typedef int Int;typedef bool Bool;
 #include "Region2D.h"
-class Rva0087E370{public:void method(const Coord3D&,float,Region2D&)const;};
+#include "../../Include/Common/Rva0087E370.h"
 void Rva00030830FreeAllocation(void*);
 namespace _STL {
 

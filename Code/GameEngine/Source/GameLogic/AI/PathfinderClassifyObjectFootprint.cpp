@@ -26,7 +26,7 @@ struct BfmeVecVNB{float x,y,z; BfmeVecVNB(const float *v):x(v[0]),y(v[1]),z(v[2]
 class BfmeXformVNB{public:void bfmeApplyVNB(BfmeVecVNB*,float);};
 struct BfmeShapeE15 {int type;int field4;float major,minor,offsetX,offsetY,offsetZ;bool flag1C;char pad1D[3];bool enabled;char pad21[3];};
 class BfmeObjE15{public:BfmeShapeE15 *getGeometryShape(int);};
-class Rva0087E370{public:void method(const Coord3D&,float,Region2D&)const;};
+#include "../../../Include/Common/Rva0087E370.h"
 struct FootprintTemplate {char pad[0x108];union {unsigned kinds[6];struct {unsigned kind0;unsigned pad1:28;unsigned isWall:1;unsigned isDefense:1;unsigned pad2:2;unsigned rest[4];};};unsigned words120;char pad124[0x4a0-0x124];float fenceWidth;__forceinline unsigned kind(int b)const{return kinds[b/32]&(1u<<(b%32));}};
 enum ObjectStatusTypes{Status77=77,Status88=88};
 enum KindOfType{KINDOF_5E=0x5E};
