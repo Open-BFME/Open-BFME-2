@@ -67,12 +67,7 @@ struct Rva0041534BNode
 	OpaqueRefCounted *m_info;
 };
 class Rva00056F61;
-struct Rva0041534BIter
-{
-	Rva0041534BNode *m_node;
-	Rva00056F61 *m_table;
-	Rva0041534BIter(Rva0041534BNode *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
-};
+#include "../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {
 public:
@@ -102,9 +97,9 @@ Rva00051ADA MilesAudioManager::findAudioEventInfo(const AsciiString &name) const
 	Rva0041534BIter it = found;
 	if (it.m_node == 0)
 		return Rva00051ADA();
-	if (it.m_node->m_info->rva00050EFA())
+	if (((Rva0041534BNode *)it.m_node)->m_info->rva00050EFA())
 	{
-		AudioEventInfoRef ref((const AudioEventInfo *)it.m_node->m_info);
+		AudioEventInfoRef ref((const AudioEventInfo *)((Rva0041534BNode *)it.m_node)->m_info);
 		((OpaqueRefCounted *)ref.m_info)->Release_Ref();
 		return Rva00051ADA(ref);
 	}

@@ -1,0 +1,64 @@
+{
+  "base": "bc1ac42b01da9a31afdc404e82145829434020be",
+  "header": "Code/GameEngine/Include/GameClient/Rva0041534BIter.h",
+  "header_sha256": "79cded1d48cc4d64342ba2a2c27a359741bc833fa7fda4f9026799508d62bfdd",
+  "consumers": {
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemManagerRva001FCF11.cpp": {
+      "before": 15,
+      "after": 15,
+      "changed": [],
+      "added": [
+        "??0Rva0041534BIter@@QAE@PAX0@Z"
+      ],
+      "removed": [
+        "??0Rva0041534BIter@@QAE@PAURva0041534BNode@@PAVRva00056F61@@@Z"
+      ],
+      "shared_constructor_identical": true,
+      "constructor_bytes": 18,
+      "source_sha256": "1c55adeb54552fa343f932020ca44f36925cfe2c481e4738e4f1eb934c120e3a"
+    },
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioCache.cpp": {
+      "before": 45,
+      "after": 45,
+      "changed": [],
+      "added": [
+        "??0Rva0041534BIter@@QAE@PAX0@Z"
+      ],
+      "removed": [
+        "??0Rva0041534BIter@@QAE@PAUAudioCacheFileNode@@PAVRva00056F61@@@Z"
+      ],
+      "shared_constructor_identical": true,
+      "constructor_bytes": 18,
+      "source_sha256": "26df5c31d2376764fda132a026b8475385c62ace10765ebdb4fc08e7310cad7c"
+    },
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp": {
+      "before": 10,
+      "after": 10,
+      "changed": [],
+      "added": [
+        "??0Rva0041534BIter@@QAE@PAX0@Z"
+      ],
+      "removed": [
+        "??0Rva0041534BIter@@QAE@PAURva0041534BNode@@PAVRva00056F61@@@Z"
+      ],
+      "shared_constructor_identical": true,
+      "constructor_bytes": 18,
+      "source_sha256": "95feb320e41cc3b9f09c6336b203e6a57c1f6e17541f4683c56f3e388cce539f"
+    }
+  },
+  "verification": {
+    "code_rows": 22,
+    "empty_string_refs": 1,
+    "named_imports": 3,
+    "accepted_sources": 3,
+    "retired_header_queue_rows": 3,
+    "external_comdats": 70,
+    "same_named_comdats": 67,
+    "identical_constructor_respellings": 3,
+    "links": 3,
+    "linked_bytes_before": 1441,
+    "linked_bytes_after": 1441,
+    "preview_index": "0e4b2640a1"
+  },
+  "scope": "Shared iterator adoption only; no source move, pin, alias, bridge or runtime retirement"
+}

@@ -62,12 +62,7 @@ private: void *target;
 };
 struct AudioCacheFileNode { AudioCacheFileNode *m_next; AsciiString m_name; Gen0002857E *m_file; };
 class Rva00056F61;
-struct Rva0041534BIter {
- AudioCacheFileNode *m_node;
- Rva00056F61 *m_table;
- Rva0041534BIter(AudioCacheFileNode *audioCacheFileNode,Rva00056F61 *t) : m_node(audioCacheFileNode), m_table(t) {}
- Rva0041534BIter() {}
-};
+#include "../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
 // Find returning an iterator over the AsciiString-keyed bucket table owned
 // by Rva00056F61 (rowed find 0x00056F61): this plus key in, hidden-pointer
 // out {node table}, ret 8. Other callers at 0x00223D02 (add ecx 0x48) and
@@ -128,7 +123,7 @@ Rva00690FF0Handle AudioFileCache::requestFile(const AsciiString &filename,int pr
  if (((const StringBase<char> *)&filename)->isEmpty()) return m_emptyFile;
  Rva0041534BIter it; it = ((AudioFileCacheMap *)this)->find(filename);
  if (it.m_node) {
-  Gen0002857E *file = it.m_node->m_file;
+  Gen0002857E *file = ((AudioCacheFileNode *)it.m_node)->m_file;
   if (file->m_count == 0) eraseFromUnusedList(*(const Rva000A7E9EInput *)file);
   if (!file->m_ready.check(0) && file->m_priority < priority) {
    AudioFileCacheList &list = m_lists[file->m_priority];

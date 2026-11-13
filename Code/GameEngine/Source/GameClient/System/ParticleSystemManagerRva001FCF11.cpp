@@ -42,12 +42,7 @@ struct Rva0041534BNode
 	FXParticleSystem::ParticleSystemTemplate *m_value;
 };
 class Rva00056F61;
-struct Rva0041534BIter
-{
-	Rva0041534BNode *m_node;
-	Rva00056F61 *m_table;
-	Rva0041534BIter(Rva0041534BNode *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {
 public:
@@ -91,8 +86,8 @@ void ParticleSystemManager::rva001FCF11(const AsciiString &name, FXParticleSyste
 	Rva0041534BIter it = m_templateMap.rva0041534B(&name);
 	if (it.m_node != 0)
 	{
-		it.m_node->m_value->~ParticleSystemTemplate();
-		FXParticleSystem::ParticleSystemTemplate *slot = it.m_node->m_value;
+		((Rva0041534BNode *)it.m_node)->m_value->~ParticleSystemTemplate();
+		FXParticleSystem::ParticleSystemTemplate *slot = ((Rva0041534BNode *)it.m_node)->m_value;
 		new (slot) FXParticleSystem::ParticleSystemTemplate(*system);
 		::delete system;
 		return;
