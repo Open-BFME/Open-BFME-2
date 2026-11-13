@@ -1,0 +1,172 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0057C04F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "1": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x57c152"
+     ],
+     "value": 25
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x57c152"
+     ],
+     "value": {
+      "0x18": [
+       1
+      ],
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x57c152"
+     ],
+     "value": {
+      "0x8": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0xc": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x57c152"
+     ],
+     "value": {
+      "0x0": "0x86f2d4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86f2d4"
+     ],
+     "value": {
+      "count": 2,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?get@Rva004C9990ByteField@@QBEEXZ",
+        "slot": 0,
+        "target": "0x4c9990"
+       },
+       {
+        "name": "?DoPlay@Rva0057C04F@@UAEXH@Z",
+        "slot": 1,
+        "target": "0x57c094"
+       }
+      ],
+      "table": "0x86f2d4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x86f2d4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?get@Rva004C9990ByteField@@QBEEXZ",
+     "1": "?DoPlay@Rva0057C04F@@UAEXH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "28": 2
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {}
+}

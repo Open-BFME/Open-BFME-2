@@ -141,15 +141,7 @@ public:
 private:
 	unsigned char m_pad[0x8];
 };
-class Rva0057C04F
-{
-public:
-	Rva0057C04F(int level, const AsciiString &name);
-	~Rva0057C04F(); // 0x0057C152
-
-private:
-	unsigned char m_pad[0x1C];
-};
+#include "../../Include/Common/Rva0057C04F.h"
 // The help box is handed to the Palantir and the stats display, under the
 // names those methods are rowed with.
 namespace StrategicHUD
