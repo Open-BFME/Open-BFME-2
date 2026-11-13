@@ -447,31 +447,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 #include "../../../Include/Common/Module.h"
 class ScriptConditions;
-class Parameter
-{
-public:
-	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
-private:
-	friend class ScriptConditions; // Native conditions read the +0x08 word inline.
-public:
-	float getReal() const { return m_real; }
-	const AsciiString &getString() const { return m_string; }
-	void setCachedFrame(int value) { m_cachedFrame = value; }
-	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
-	int bfme_getInt_58502() const { return m_int; }
-	int bfme_int_ena() const { return m_int; }
-	int bfme_int_exa() const { return m_int; }
-	int bfme_int_hos() const { return m_int; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getInt copy loses to the first-in-order copy. No flags touched.
-	int bfme_getInt_f996b() const { return m_int; }
-	char m_pad00[0x8];
-	int m_int; // +0x08
-	float m_real; // +0x0C
-	AsciiString m_string; // +0x10
-	unsigned char m_afterString[8]; // +0x14
-	unsigned int m_objectId; // +0x1C
-	int m_cachedFrame; // +0x20
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 class Rva002A9ED2DwordField
 {
 public:
@@ -1409,7 +1385,7 @@ Bool ScriptConditions::evaluateSkirmishCanFireSpecialPowerOnTeam(Parameter *pSki
 	const SpecialPowerTemplate *power = TheSpecialPowerStore->findSpecialPowerTemplate(pSpecialPowerParm->getString());
 	if (power == 0)
 	{
-		pSpecialPowerParm->setCachedFrame(-1);
+		pSpecialPowerParm->m_cachedPlayerMask = -1;
 		return false;
 	}
 	Team *team = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
@@ -1532,8 +1508,8 @@ Bool ScriptConditions::evaluateTeamCountCompare(
     Team *team = TheScriptEngine->getTeamNamed(
         teamParm->getString(), false);
     if (team) {
-        int kind = kindParm->bfme_getInt_58502();
-        if (countParm->bfme_getInt_58502() < team->rva0039DC05(kind, false, true)) {
+        int kind = kindParm->getInt();
+        if (countParm->getInt() < team->rva0039DC05(kind, false, true)) {
             return true;
         }
         return false;
@@ -1672,7 +1648,7 @@ bool ScriptConditions::evaluateTeamEnteredAreaEntirely(Parameter *teamParm, Para
         return false;
     PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
     if (trigger)
-        return team->didAllEnter(trigger, (unsigned int)typeParm->bfme_int_ena());
+        return team->didAllEnter(trigger, (unsigned int)typeParm->getInt());
     return false;
 }
 
@@ -1715,7 +1691,7 @@ bool ScriptConditions::evaluateTeamExitedAreaEntirely(Parameter *teamParm, Param
     PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
     if (!trigger)
         return false;
-    return team->didAllExit(trigger, (unsigned int)typeParm->bfme_int_exa());
+    return team->didAllExit(trigger, (unsigned int)typeParm->getInt());
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamExitedAreaPartially.cpp
@@ -1757,7 +1733,7 @@ bool ScriptConditions::evaluateTeamHasObjectStatus(Parameter *teamParm, Paramete
         Object *obj = iter.cur();
         if (!obj)
             return false;
-        bool has = obj->testStatus((ObjectStatusTypes)statusParm->bfme_int_hos());
+        bool has = obj->testStatus((ObjectStatusTypes)statusParm->getInt());
         if (entireTeam && !has)
             return false;
         else if (!entireTeam && has)
