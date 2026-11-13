@@ -45,7 +45,7 @@ void famgenDelete(Rva005C8FBD *m_objectToDelete) { delete m_objectToDelete; }
 void famgenDelete(Rva005E3585 *m_objectToDelete) { delete m_objectToDelete; }
 
 // ??_GRva005F1295@@QAEPAXI@Z @0x005F12FE 28B: calls ~Rva005F1295 0x005F1295
-class Rva005F1295 { public: ~Rva005F1295(); };
+#include "../../Include/Common/Rva005F1295.h"
 void famgenDelete(Rva005F1295 *m_objectToDelete) { delete m_objectToDelete; }
 
 // ??_GRva005F2B22@@QAEPAXI@Z @0x005F2F64 28B: calls ~Rva005F2B22 0x005F2B22
