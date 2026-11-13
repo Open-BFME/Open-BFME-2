@@ -19,12 +19,7 @@ class Rva002B5558;
 template <>
 _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > >::_Link_type _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::pair<const int, int> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > >::_M_copy(_Link_type, _Link_type);
 
-struct Node002B43BA
-{
-	char m_pad[8];
-	Node002B43BA *m_next8;
-	Node002B43BA *m_childC;
-};
+#include "../../Include/Common/Node002B43BA.h"
 
 struct Head002B5558
 {

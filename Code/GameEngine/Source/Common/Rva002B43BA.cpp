@@ -10,11 +10,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct Node002B43BA {
-    char m_pad[8];
-    Node002B43BA *m_next8;
-    Node002B43BA *m_childC;
-};
+#include "../../Include/Common/Node002B43BA.h"
 class Rva002B43BA {
 public:
     void rva002B43BA(Node002B43BA *head);
