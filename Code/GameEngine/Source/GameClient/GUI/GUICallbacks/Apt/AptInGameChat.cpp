@@ -220,11 +220,7 @@ extern GameInfo *TheGameInfo;
 extern GlobalData *TheWritableGlobalData;
 // What TheWindowManager's slot 32 makes of an Apt file (as in
 // Rva00511730Save.cpp); slot 0 is run on it with 0.
-class Rva005116C2Screen
-{
-public:
-	virtual void v00(int value) = 0;
-};
+#include "../../../../../Include/GameClient/Rva005116C2Screen.h"
 class GameWindowManager
 {
 public:

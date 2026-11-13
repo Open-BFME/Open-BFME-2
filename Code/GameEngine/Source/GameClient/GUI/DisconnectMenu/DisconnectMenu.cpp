@@ -239,11 +239,7 @@ extern Rva00512C88ObjA *g_disconnectMenuLayout;
 
 extern InGameUI *TheInGameUI;
 
-class Rva005116C2Screen
-{
-public:
-	virtual void v00(int value) = 0;
-};
+#include "../../../../Include/GameClient/Rva005116C2Screen.h"
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 
