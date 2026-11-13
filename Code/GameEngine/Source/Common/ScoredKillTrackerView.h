@@ -5,14 +5,14 @@
 // The scalar at0C remains unnamed. Position construction is a12B member
 // wrapper around canonical Coord3D: native initializes it after the count.
 #include <list>
+// Defined only when this view reads Snapshot first, and left defined: a later Snapshot subclass in
+// the unit (Player.h's embedded Money) must spell the slots Snapshot was read with.
 #if !defined(__SNAPSHOT_H_)
 #ifndef BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT 1
-#define BFME_SCORED_KILL_RESTORE_NAME_SLOT
 #endif
 #ifndef BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS 1
-#define BFME_SCORED_KILL_RESTORE_CAPITALIZED_SLOTS
 #endif
 #endif
 #include "Common/Snapshot.h"
@@ -83,12 +83,4 @@ private:
  ScoredKillTrackerPosition m_position;
 };
 typedef char ScoredKillTrackerSizeIs44[sizeof(ScoredKillTracker)==44?1:-1];
-#ifdef BFME_SCORED_KILL_RESTORE_NAME_SLOT
-#undef BFME_SCORED_KILL_RESTORE_NAME_SLOT
-#undef BFME_SNAPSHOT_NAME_SLOT
-#endif
-#ifdef BFME_SCORED_KILL_RESTORE_CAPITALIZED_SLOTS
-#undef BFME_SCORED_KILL_RESTORE_CAPITALIZED_SLOTS
-#undef BFME_SNAPSHOT_CAPITALIZED_SLOTS
-#endif
 #endif
