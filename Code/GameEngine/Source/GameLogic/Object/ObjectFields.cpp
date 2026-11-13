@@ -12,11 +12,7 @@ class PartitionData;
 
 /// Declared with no data members: makeDirty only calls through the pointer,
 // never touches its fields, so the layout doesn't need repeating here.
-class PartitionDirtyListOwner
-{
-public:
-	void prependDirtyModule(PartitionData *node);
-};
+#include "../../../Include/GameLogic/Module/PartitionDirtyListOwner.h"
 
 /// PartitionData stand-in: BFME makeDirty() takes no argument.
 #include "../../../Include/GameLogic/PartitionData.h"

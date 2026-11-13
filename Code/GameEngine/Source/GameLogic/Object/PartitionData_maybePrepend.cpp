@@ -2,11 +2,7 @@
 
 class PartitionData;
 
-class PartitionDirtyListOwner
-{
-public:
-	void prependDirtyModule(PartitionData *node);
-};
+#include "../../../Include/GameLogic/Module/PartitionDirtyListOwner.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
 #include "../../../Include/GameLogic/PartitionData.h"
