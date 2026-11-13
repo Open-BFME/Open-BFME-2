@@ -1,0 +1,36 @@
+symbol	table	emitted_slot	native_slot	native_base_table_va	retail_target_rva	retail_leaf_table_va	retail_leaf_target_rva	exact_name_rows	native_target_row_count	example_rows
+?loadPostProcess@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6BObjectModule@@@	1	1	0x00C5B038	0x004BF40F	0x00C5B440	0x004C202F	0	1	?rva004BF40F@Rva004BF40F@@QAEXXZ
+?GetSnapshotName@ActiveBody@@UBEPBDXZ	??_7HighlanderBody@@6BObjectModule@@@	13	2	0x00C5B038	0x004BF88D	0x00C5B440	0x004C07AB	0	1	?name@ActiveBody@@QBEPBDXZ
+?vslot14@ActiveBody@@UAEHXZ	??_7HighlanderBody@@6BObjectModule@@@	15	14	0x00C5B038	0x004BF8AC	0x00C5B440	0x004BF8AC	0	1	?rva004BF8AC@Rva004BF8AC@@QAEHXZ
+?getClearableLastAttacker@ActiveBody@@UBE?AW4ObjectID@@XZ	??_7HighlanderBody@@6BObjectModule@@@	16	15	0x00C5B038	0x004BF8DF	0x00C5B440	0x004BF8DF	0	1	?rva004BF8DF@Rva004BF8DF@@QBEHXZ
+?clearLastAttacker@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6BObjectModule@@@	17	16	0x00C5B038	0x004BF8ED	0x00C5B440	0x004BF8ED	0	1	?enable@Rva004BF8EDByteOneSetter@@QAEXXZ
+?vslot17@ActiveBody@@UBEXXZ	??_7HighlanderBody@@6BObjectModule@@@	18	17	0x00C5B038	0x004BE1AE	0x00C5B440	0x004BE1AE	0	1	?validateArmorAndDamageFX@ActiveBody@@QBEXXZ
+?deleteAllParticleSystems@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6BObjectModule@@@	21	20	0x00C5B038	0x004BE3EF	0x00C5B440	0x004BE3EF	0	1	?stopClientParticleSystems@W3DModelDraw@@IAEXXZ
+?vslot21@ActiveBody@@UAEX_N@Z	??_7HighlanderBody@@6BObjectModule@@@	22	21	0x00C5B038	0x004BE8BD	0x00C5B440	0x004BE8BD	0	1	?setCorrectDamageState@ActiveBody@@QAEX_N@Z
+?rva004BDB25@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6B@	3	3	0x00C5B5B0	0x004BDB25	0x00C5B390	0x004BDB25	0	1	?invoke@Rva0020DFC0Object@@QAEXXZ
+?getHealthRatio@ActiveBody@@UBEMXZ	??_7HighlanderBody@@6B@	5	5	0x00C5B5B0	0x004BDC25	0x00C5B390	0x004BDC25	0	1	?positiveRatio@Rva0020E150Value@@QBEMXZ
+?getMaxHealth@ActiveBody@@UBEMXZ	??_7HighlanderBody@@6B@	6	6	0x00C5B5B0	0x005D870D	0x00C5B390	0x005D870D	0	1	?get@Rva005D870DFloatField@@QBEMXZ
+?rva00094A94@ActiveBody@@UBEMXZ	??_7HighlanderBody@@6B@	7	7	0x00C5B5B0	0x00094A94	0x00C5B390	0x00094A94	0	1	?get@Rva00094A94FloatField@@QBEMXZ
+?getDamageState@ActiveBody@@UBE?AW4BodyDamageType@@XZ	??_7HighlanderBody@@6B@	8	8	0x00C5B5B0	0x0030D377	0x00C5B390	0x0030D377	0	3	?getDataLength@NetWrapperCommandMsg@@QAEIXZ; ?rva0030D377@InProgressIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@UBEHXZ; ?slot06@IconSlot@Impl@RegionDetailsStructuresMovieClip@StrategicHUD@@UBEPBVImage@@XZ
+?updateBodyParticleSystems@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6B@	10	10	0x00C5B5B0	0x004BDCE2	0x00C5B390	0x004BDCE2	0	1	?updateBodyParticleSystems@Rva0020FE20ActiveBodyInterface@@UAEXXZ
+?getLastDamageInfo@ActiveBody@@UBEPBVDamageInfo@@XZ	??_7HighlanderBody@@6B@	15	15	0x00C5B5B0	0x00314046	0x00C5B390	0x00314046	0	2	?get@Rva00314046LeaField@@QBEPAXXZ; ?winGetInstanceData@GameWindow@@QAEPAVWinInstanceData@@XZ
+?getLastDamageTimestamp@ActiveBody@@UBEIXZ	??_7HighlanderBody@@6B@	16	16	0x00C5B5B0	0x0023CAD2	0x00C5B390	0x0023CAD2	0	1	?getFirstObject@GameLogic@@QAEPAVObject@@XZ
+?getLastHealingTimestamp@ActiveBody@@UBEIXZ	??_7HighlanderBody@@6B@	17	17	0x00C5B5B0	0x005BE1A7	0x00C5B390	0x005BE1A7	0	1	?get@Rva005BE1A7DwordField@@QBEHXZ
+?rva0052BAAB@ActiveBody@@UBEEXZ	??_7HighlanderBody@@6B@	19	19	0x00C5B5B0	0x0052BAAB	0x00C5B390	0x0052BAAB	0	1	?get@Rva0052BAABByteField@@QBEEXZ
+?rva004BDB37@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6B@	23	23	0x00C5B5B0	0x004BDB37	0x00C5B390	0x004BDB37	0	1	?rva004BDB37@Rva004BDB37@@QAEXXZ
+?rva004BF8BE@ActiveBody@@UAEXE@Z	??_7HighlanderBody@@6B@	24	24	0x00C5B5B0	0x004BF8BE	0x00C5B390	0x004BF8BE	0	1	?set@Rva004BF8BEByteSlot@@QAEXE@Z
+?rva004BF8CB@ActiveBody@@UAEXE@Z	??_7HighlanderBody@@6B@	25	25	0x00C5B5B0	0x004BF8CB	0x00C5B390	0x004BF8CB	0	1	?set@Rva004BF8CBByteSlot@@QAEXE@Z
+?applyDamageScalar@ActiveBody@@UAEXM@Z	??_7HighlanderBody@@6B@	26	26	0x00C5B5B0	0x004BD77C	0x00C5B390	0x004BD77C	0	1	?multiply@Rva004BD77CFloatField@@QAEXM@Z
+?getDamageScalar@ActiveBody@@UBEMXZ	??_7HighlanderBody@@6B@	27	27	0x00C5B5B0	0x00452D82	0x00C5B390	0x00452D82	0	1	?getMinimumValue@GameClientRandomVariable@@QBEMXZ
+?Rva004BE67E@ActiveBody@@UBE?AVAsciiString@@XZ	??_7HighlanderBody@@6B@	28	28	0x00C5B5B0	0x004BE67E	0x00C5B390	0x004BE67E	0	1	?Rva004BE67E@DetachableRiderBody@@UBE?AVAsciiString@@XZ
+?rva004BDC48@ActiveBody@@UBEHXZ	??_7HighlanderBody@@6B@	29	29	0x00C5B5B0	0x004BDC48	0x00C5B390	0x004BDC48	0	1	?get@Rva004BDC48PtrChaseField@@QBEHXZ
+?rva004BDC4F@ActiveBody@@UBEMXZ	??_7HighlanderBody@@6B@	30	30	0x00C5B5B0	0x004BDC4F	0x00C5B390	0x004BDC4F	0	1	?get@Rva004BDC4FFloatChaseField@@QBEMXZ
+?rva004BF8D8@ActiveBody@@UBEEXZ	??_7HighlanderBody@@6B@	34	34	0x00C5B5B0	0x004BF8D8	0x00C5B390	0x004BF8D8	0	1	?get@Rva004BF8D8ByteField@@QBEEXZ
+?rva004BDC41@ActiveBody@@UBEMXZ	??_7HighlanderBody@@6B@	35	35	0x00C5B5B0	0x004BDC41	0x00C5B390	0x004BDC41	0	1	?get@Rva004BDC41FloatChaseField@@QBEMXZ
+?rvaSlot36@ActiveBody@@UAEXXZ	??_7HighlanderBody@@6B@	36	36	0x00C5B5B0	0x004BDC03	0x00C5B390	0x004BDC03	0	1	?forwardAndFinish@Rva0020E100Owner@@QAEXXZ
+?rva004C15F7@ActiveBody@@UAEXE@Z	??_7HighlanderBody@@6B@	37	37	0x00C5B5B0	0x0047A69C	0x00C5B390	0x0047A69C	0	137	?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z; ?addSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z; ?OnInitialized@AptLanLobby@@QAEXPBD@Z; ?OnInitialized@AptOnline@@QAEXPBD@Z
+?rva004C2127@ActiveBody@@UAE_NPAVObject@@@Z	??_7HighlanderBody@@6B@	38	38	0x00C5B5B0	0x005CB9FA	0x00C5B390	0x005CB9FA	0	3	?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z; ?slot05@ChangeStanceGroupOrder@@UAE_NW4ObjectID@@@Z; ?slot112@HordeContainInterface@@UAE_NM@Z
+?rvaSlot39@ActiveBody@@UAEXW4BodyDamageType@@@Z	??_7HighlanderBody@@6B@	39	39	0x00C5B5B0	0x0047A69C	0x00C5B390	0x0047A69C	0	137	?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z; ?addSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z; ?OnInitialized@AptLanLobby@@QAEXPBD@Z; ?OnInitialized@AptOnline@@QAEXPBD@Z
+?rvaSlot40@ActiveBody@@UAEXM_N@Z	??_7HighlanderBody@@6B@	40	40	0x00C5B5B0	0x0050B238	0x00C5B390	0x0050B238	0	67	?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z; ?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z; ?primary0@Rva005FPrimaryCallbacks@@UAEXPAX0@Z; ?primary2@Rva005FPrimaryCallbacks@@UAEXPAX0@Z
+?getIface@ActiveBody@@UAEPAVBodyModule@@XZ	??_7HighlanderBody@@6B@	41	41	0x00C5B5B0	0x004BF893	0x00C5B390	0x004BF893	0	1	?get@Rva004BF893LeaField@@QBEPAXXZ
+?rva00101CBE@ActiveBody@@UAEXM@Z	??_7HighlanderBody@@6B@	42	42	0x00C5B5B0	0x00101CBE	0x00C5B390	0x00101CBE	0	1	?set@Rva00101CBEFloatField@@QAEXM@Z

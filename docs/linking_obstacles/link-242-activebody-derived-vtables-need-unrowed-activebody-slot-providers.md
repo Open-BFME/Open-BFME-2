@@ -63,3 +63,20 @@ bytes already pass for all three donors).
 - For the adoption lane until the slots move: a unit that defines a constructor or destructor of an
   ActiveBody subclass must not take ActiveBody.h, directly or through a subclass header. Run
   `link_check.py` on the adopting units; the byte gate passes either way.
+
+
+2026-11-13 isolated r22 revalidation (bc02ffea95e): unchanged adoption and
+unchanged rollback prerequisite; no source trial repeated. Fresh source claims
+are held by `ancalgonn-swarm-sweep-header`. The current three-file cohort builds
+319/319; old-index preview still diagnoses the 35 names (index 3d7c5d8f25,
+2026-11-13 00:44; three source-path changes make this diagnostic, not current
+whole-ledger clearance). Read-only inverse analysis still returns ActiveBody
+from class_gate.introduced. A 35-name emitted/native slot inventory also shows
+GetSnapshotName added at primary slot 13 rather than native slot 2 because
+Module.h completes Snapshot before BehaviorModule.h can select the name slot;
+providing the names alone cannot establish the native table. Native base and
+leaf slot targets differ in slots 1/2. Exact names, ownership, slot order and
+leaf overrides all need evidence before provider adoption. See the appended
+[r22 handoff](../../reverse/attempt_support/highlanderbody-adoption-revert-class-gate-20261113.md)
+and [slot inventory](../../reverse/attempt_support/highlanderbody-provider-slots-20261113-r22.tsv).
+Status remains Blocked; no census, real-link or runtime clearance.
