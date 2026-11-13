@@ -49,11 +49,7 @@ public:
 	char m_138[4];			// +0x138
 	int m_duration;			// +0x13C
 };
-class Rva00439CF7
-{
-public:
-	void rva00439CF7(Object *obj, int value, const void *what);	// 0x00439CF7
-};
+#include "../../../../Include/GameLogic/Module/Rva00439CF7.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;

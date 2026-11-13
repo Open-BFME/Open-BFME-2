@@ -196,7 +196,7 @@ public:
 
 #include "../../../../Include/GameLogic/Rva002614ECFilter.h"
 
-class Rva00439CF7 { public: void rva00439CF7(Object*,int,const void*); };
+#include "../../../../Include/GameLogic/Module/Rva00439CF7.h"
 
 extern GameLogic *TheGameLogic;
 
