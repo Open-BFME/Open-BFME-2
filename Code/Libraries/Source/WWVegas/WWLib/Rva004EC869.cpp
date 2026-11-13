@@ -68,13 +68,7 @@ struct Rva005996FFArg
 
 #include "../../../../GameEngine/Include/GameLogic/AIDozerManager.h"
 
-class Rva004E9378
-{
-	char m_pad[0x10];
-	int m_state;
-public:
-	bool rva004E9378();
-};
+#include "../../../../GameEngine/Include/Common/Rva004E9378.h"
 
 #include "../../../../GameEngine/Include/Common/ModuleData.h"
 
