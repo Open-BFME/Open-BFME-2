@@ -10,11 +10,7 @@
 // The 77B constructor at 0x005FA7EB is rowed in Rva005F9364Region.cpp.
 class AsciiString;
 struct Rva005F91F3Src;
-class Rva005F9877
-{
-public:
-	~Rva005F9877();
-};
+#include "../../Include/Common/Rva005F9877.h"
 
 class Rva005FA146
 {
