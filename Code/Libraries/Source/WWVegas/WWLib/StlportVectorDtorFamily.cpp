@@ -20,7 +20,7 @@
 template _STL::vector<QuantityModifier>::~vector();
 
 // ??1?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@QAE@XZ @0xc6878 (_Destroy at 0xc37cd)
-struct BfmeVectorRecord000BDF17 { public: ~BfmeVectorRecord000BDF17(); };
+#include "../../../../GameEngine/Include/Common/BfmeVectorRecord000BDF17.h"
 template _STL::vector<BfmeVectorRecord000BDF17>::~vector();
 
 // ??1?$vector@UBfmeObject476@@V?$allocator@UBfmeObject476@@@_STL@@@_STL@@QAE@XZ @0x1fd882 (_Destroy at 0x1fd6a4)

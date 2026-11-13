@@ -36,10 +36,7 @@ template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, al
 }
 
 // Complete retail record copy at 0x000BDF17.
-struct BfmeVectorRecord000BDF17 {
-    _STL::vector<AsciiString> names; AsciiString text0, text1; unsigned int word14, word18, word1C, word20, word24, word28; unsigned char flag2C, flag2D; unsigned int word30, word34, word38; unsigned char flag3C;
-    BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF17 &other);
-};
+#include "../../Include/Common/BfmeVectorRecord000BDF17.h"
 BfmeVectorRecord000BDF17::BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF17 &other) : names(other.names), text0(other.text0), text1(other.text1), word14(other.word14), word18(other.word18), word1C(other.word1C), word20(other.word20), word24(other.word24), word28(other.word28), flag2C(other.flag2C), flag2D(other.flag2D), word30(other.word30), word34(other.word34), word38(other.word38), flag3C(other.flag3C) {}
 template void _STL::_Construct<BfmeVectorRecord000BDF17,BfmeVectorRecord000BDF17>(BfmeVectorRecord000BDF17*,const BfmeVectorRecord000BDF17&);
 

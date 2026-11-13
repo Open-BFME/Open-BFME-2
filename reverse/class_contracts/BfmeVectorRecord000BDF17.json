@@ -1,0 +1,335 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeVectorRecord000BDF17",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xbde85",
+      "0xbdf17"
+     ],
+     "value": {
+      "0x0": [
+       "?$_Vector_base@FV?$allocator@F@_STL@@@_STL",
+       "?$_Vector_base@HV?$allocator@H@_STL@@@_STL",
+       "?$_Vector_base@IV?$allocator@I@_STL@@@_STL",
+       "?$_Vector_base@PAURva002E18C3Side@@V?$allocator@PAURva002E18C3Side@@@_STL@@@_STL",
+       "?$_Vector_base@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL",
+       "?$_Vector_base@PAVMeshClass@@V?$allocator@PAVMeshClass@@@_STL@@@_STL",
+       "?$_Vector_base@PAVRva000AADC1Entry@@V?$allocator@PAVRva000AADC1Entry@@@_STL@@@_STL",
+       "?$_Vector_base@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL",
+       "?$_Vector_base@PBVWeaponTemplate@@V?$allocator@PBVWeaponTemplate@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeContainerRecord002CF46E@@V?$allocator@UBfmeContainerRecord002CF46E@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeFixedObject260@@V?$allocator@UBfmeFixedObject260@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeFixedObject60@@V?$allocator@UBfmeFixedObject60@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeObject872@@V?$allocator@UBfmeObject872@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeSaveVectorEntry@@V?$allocator@UBfmeSaveVectorEntry@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeStringRecord002CF4C6@@V?$allocator@UBfmeStringRecord002CF4C6@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeStringRecord00568CE0@@V?$allocator@UBfmeStringRecord00568CE0@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeStringTailRecord144@@V?$allocator@UBfmeStringTailRecord144@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL",
+       "?$_Vector_base@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL",
+       "?$_Vector_base@UPlayerData@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@V?$allocator@UPlayerData@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@@_STL@@@_STL",
+       "?$_Vector_base@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL",
+       "?$_Vector_base@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL",
+       "?$_Vector_base@URva002BBB96Element@@V?$allocator@URva002BBB96Element@@@_STL@@@_STL",
+       "?$_Vector_base@URva002D0EDCElement@@V?$allocator@URva002D0EDCElement@@@_STL@@@_STL",
+       "?$_Vector_base@URva00390729Element@@V?$allocator@URva00390729Element@@@_STL@@@_STL",
+       "?$_Vector_base@URva00395D77@@V?$allocator@URva00395D77@@@_STL@@@_STL",
+       "?$_Vector_base@URva003B02F4Entry@@V?$allocator@URva003B02F4Entry@@@_STL@@@_STL",
+       "?$_Vector_base@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL",
+       "?$_Vector_base@URva004F69C3@@V?$allocator@URva004F69C3@@@_STL@@@_STL",
+       "?$_Vector_base@URva004F77E0Element@@V?$allocator@URva004F77E0Element@@@_STL@@@_STL",
+       "?$_Vector_base@URva00541021@@V?$allocator@URva00541021@@@_STL@@@_STL",
+       "?$_Vector_base@URva005E2B0EElement@@V?$allocator@URva005E2B0EElement@@@_STL@@@_STL",
+       "?$_Vector_base@URva005E71C6Ref@@V?$allocator@URva005E71C6Ref@@@_STL@@@_STL",
+       "?$_Vector_base@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL",
+       "?$_Vector_base@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL",
+       "?$_Vector_base@URvaPair0039973B@@V?$allocator@URvaPair0039973B@@@_STL@@@_STL",
+       "?$_Vector_base@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL",
+       "?$_Vector_base@VAssetReference@@V?$allocator@VAssetReference@@@_STL@@@_STL",
+       "?$_Vector_base@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL",
+       "?$_Vector_base@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL",
+       "?$_Vector_base@VRva004ECDC8@@V?$allocator@VRva004ECDC8@@@_STL@@@_STL",
+       "?$_Vector_base@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL",
+       "?$_Vector_base@VRva0054103E@@V?$allocator@VRva0054103E@@@_STL@@@_STL",
+       "?$_Vector_base@VRva00568A20@@V?$allocator@VRva00568A20@@@_STL@@@_STL",
+       "?$_Vector_base@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL",
+       "?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL"
+      ],
+      "0x10": [
+       "?$StringBase@D"
+      ],
+      "0xc": [
+       "?$StringBase@D"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "64": 7
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "names",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "text0",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "text1",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag2D",
+   "name_by": "majority",
+   "offset": 45,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word34",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag3C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 36
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 64,
+ "size_by": "majority",
+ "vslots": {}
+}
