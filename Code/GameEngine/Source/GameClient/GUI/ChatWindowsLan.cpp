@@ -94,7 +94,7 @@ class ModuleData;
 template<> void _STL::vector<const ModuleData *>::push_back(const ModuleData *const &);
 template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {public:template<class U> struct rebind {typedef Rva002444BEAllocator<U> other;};};
 typedef _STL::vector<int,Rva002444BEAllocator<int> > SelectionIDs;
-class ChatWindowsInGame {public:int rva005AFDC5(int,const UnicodeString &,const UnicodeString &,int);};
+#include "../../../Include/Common/ChatWindowsInGame.h"
 #include "../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 #include "../../../Include/Common/Rva00072FE6.h"
