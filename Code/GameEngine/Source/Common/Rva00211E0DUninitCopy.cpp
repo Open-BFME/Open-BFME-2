@@ -5,13 +5,7 @@
 // Dedicated TU so the Construct definition cannot inline. Callers at
 // 0x00213E79/0x00213EC4. Owner unknown so honest address-derived names.
 #include "../../Include/Common/RvaSmartPtr12.h"
-class Rva002111C8
-{
-	RvaSmartPtr12 m_00;
-	int m_0c;
-public:
-	Rva002111C8 &operator=(const Rva002111C8 &o);
-};
+#include "../../Include/Common/Rva002111C8.h"
 void __cdecl Rva00211DFBConstruct(Rva002111C8 *d, const Rva002111C8 *s);
 
 Rva002111C8 *__cdecl Rva00211E0DGet(Rva002111C8 *first, Rva002111C8 *last, Rva002111C8 *result)

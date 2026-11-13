@@ -8,15 +8,7 @@
 // +0x0C per the retail offsets.
 #include "../../Include/Common/RvaSmartPtr12.h"
 
-class Rva002111C8
-{
-public:
-	Rva002111C8(const Rva002111C8 &other);
-	Rva002111C8 &operator=(const Rva002111C8 &other);
-private:
-	RvaSmartPtr12 m_00;
-	int m_0c;
-};
+#include "../../Include/Common/Rva002111C8.h"
 
 Rva002111C8::Rva002111C8(const Rva002111C8 &other)
 	: m_00(other.m_00), m_0c(other.m_0c)
