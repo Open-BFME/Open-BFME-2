@@ -31,12 +31,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/INI/INI.h"
 
-struct S12
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../../Include/Common/S12.h"
 
 // 0x0030AFFB (81B): "Fire" (registration VA 0x00DBD9AC). Saved settings at
 // 0x00DFF4B8, working settings at 0x00DFF4F8 (the copy Rva00985E4 slot 14 at

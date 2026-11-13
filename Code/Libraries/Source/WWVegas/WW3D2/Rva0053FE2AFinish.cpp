@@ -11,12 +11,7 @@
 // The three dword stores go through int* locals rather than member syntax:
 // that is what pushes the /O1 save-register pair (push esi / mov esi,[esp+0xc])
 // past the first store, where retail schedules it.
-struct S12
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../../../GameEngine/Include/Common/S12.h"
 struct S16
 {
 	int a;

@@ -6,12 +6,7 @@
 // AsciiString operator= pin-only, movsd string moves, movss needs SSE).
 #include "ascii_string.h"
 
-struct S12
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../Include/Common/S12.h"
 
 // The Fire settings this manager copies from (TheFireSettings, 0x00DFF4F8,
 // defined in Rva007B6880Thunks.cpp). Members follow the retail field table
