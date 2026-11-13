@@ -127,11 +127,7 @@ struct LivingWorldRevivalUnitDataView {
 
 class Rva002E0D93;
 
-class Rva002E204D
-{
-public:
-	Rva002E0D93 *rva002E204D(Rva002E0D93 *);
-};
+#include "../../../../Include/Common/Rva002E204D.h"
 
 // The rowed predicate ?rva00318F42@Rva00318F42 at 0x00318F42. Native and WB
 // identify the receiver as an element of m_armyVec; its original method is

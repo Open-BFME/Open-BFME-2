@@ -7,15 +7,7 @@ public:
 };
 Rva002E0D93 *Rva002E1E9ACopy(Rva002E0D93 *src, Rva002E0D93 *srcEnd, Rva002E0D93 *dst, char *tmp);
 #include "../../Include/Common/Rva001EB63C.h"
-class Rva002E204D
-{
-public:
-	Rva002E0D93 *rva002E204D(Rva002E0D93 *pos);
-private:
-	Rva002E0D93 *m_start00;
-	Rva002E0D93 *m_finish04;
-	Rva002E0D93 *m_end08;
-};
+#include "../../Include/Common/Rva002E204D.h"
 Rva002E0D93 *Rva002E204D::rva002E204D(Rva002E0D93 *pos)
 {
 	Rva002E0D93 *finish = m_finish04;

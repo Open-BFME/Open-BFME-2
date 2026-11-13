@@ -284,14 +284,7 @@ public:
 	AsciiString m_strD4;
 };
 
-class Rva002E204D
-{
-public:
-	Rva002E0D93 *rva002E204D(Rva002E0D93 *pos);
-	Rva002E0D93 *m_start00;
-	Rva002E0D93 *m_finish04;
-	Rva002E0D93 *m_end08;
-};
+#include "../../../Include/Common/Rva002E204D.h"
 
 // The real STLport vector replaces the private three-pointer view; erase stays
 // a declaration bound to the rowed 0x002E2690 provider, which clear() calls
