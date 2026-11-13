@@ -28917,8 +28917,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009B6498,16,.data,global,?compressed_orient@PointGroupClass@@0V?$VectorClass@E@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,11
 0x009B64A8,16,.data,global,?compressed_frame@PointGroupClass@@0V?$VectorClass@E@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,11
 0x009B64B8,72,.data,global,?_ScreenspaceVertexLocationSizeTable@PointGroupClass@@0PAY02VVector3@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,27
-0x009B6500,12,.data,global,_GroundMultiplierX,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp,owned,,1,4
-0x009B650C,12,.data,global,_GroundMultiplierY,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp,owned,,1,5
+0x009B6500,12,.data,global,_GroundMultiplierX,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,4
+0x009B650C,12,.data,global,_GroundMultiplierY,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,5
 0x009B6518,160,.data,global,_s_matrixSemantics,Code/Libraries/Source/WWVegas/WW3D2/FXShaderStandardSemantics.cpp,owned,,1,2
 0x009B65B8,320,.data,global,_s_matrixAddresses,Code/Libraries/Source/WWVegas/WW3D2/FXShaderStandardSemantics.cpp,owned,,1,1
 0x009B66F8,96,.data,global,_s_matrixSuffixes,Code/Libraries/Source/WWVegas/WW3D2/FXShaderStandardSemantics.cpp,owned,,1,2
@@ -30781,7 +30781,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009F7060,20,.data,global,?_TriVertexUVFrameTable@PointGroupClass@@0PAPAVVector2@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,4
 0x009F7074,20,.data,global,?_QuadVertexUVFrameTable@PointGroupClass@@0PAPAVVector2@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,4
 0x009F7088,4,.data,global,?PointMaterial@PointGroupClass@@0PAVVertexMaterialClass@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,4
-0x009F708C,16,.data,global,?VertexLoc@@3V?$VectorClass@VVector3@@@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,provisional,?VertexLoc@@3V?$VectorClass@VVector3@@@@A;_VertexLoc@Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp,2,19
+0x009F708C,16,.data,global,?VertexLoc@@3V?$VectorClass@VVector3@@@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,provisional,?VertexLoc@@3V?$VectorClass@VVector3@@@@A;_VertexLoc@Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,2,19
 0x009F709C,20,.data,global,?transformed_loc@PointGroupClass@@0V?$VectorClass@VVector3@@@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,18
 0x009F70B0,9216,.data,global,?_TriVertexLocationOrientationTable@PointGroupClass@@0PAY02VVector3@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,146
 0x009F94B0,16,.data,global,?compressed_diffuse@PointGroupClass@@0V?$VectorClass@VVector4@@@@A,Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp,owned,,1,12

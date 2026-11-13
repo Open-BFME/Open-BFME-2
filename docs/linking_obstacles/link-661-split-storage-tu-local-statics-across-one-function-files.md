@@ -1,5 +1,6 @@
 ### LINK-661: split storage: one retail global kept as several storages, mostly TU-local statics split across one-function files
-Status: Open. One instance repaired (the language buffer, below); the rest need TU merges. Updated: 2026-11-12 (seat
+Status: Open. Two instances repaired (the language buffer, below, and VertexLoc by the pointgr.cpp merge, 2026-11-13
+seat halilkkaya-tl3 section at the end); the rest need TU merges. Updated: 2026-11-12 (seat
 halilkkaya-lk103; consolidation dry runs by halilkkaya-cs96 at `4710051788e` and halilkkaya-cs99 at `11483448e79`, below); base `36e2968e498`, census
 index `c31795c94c`.
 
@@ -31,7 +32,7 @@ functions), 84 addresses have more than one identity:
 | storage (retail VA) | copies | effect | prerequisite |
 |---|---|---|---|
 | `sorted_list` 0x00DB6200, `clean_list` 0x00DB620C | statics in sortingrenderer.cpp and SortingRendererBFME1.cpp, plus SortingNodeStructDtor.cpp's `.bss` view of `clean_list`+4 | Get_Sorting_Struct (0x0012FD80) never reuses the nodes Flush_Sorting_Pool returns, so every sorted batch allocates a new 0x2A8-byte node (a per-frame leak; Deinit frees its own empty lists). Tier 0 | merge into sortingrenderer.cpp. The map approves Flush/Flush_Sorting_Pool/Deinit there; 0x0012FD80 and Insert 0x0012FE00 are only proposed for SortingNodeStruct.cpp, and these shared statics are evidence for sortingrenderer.cpp |
-| `VertexLoc` 0x00DF708C | pointgr.cpp's global and PointGroupClassRva0017A890.cpp's static | Update_Location_Array (0x0017A890) writes through `&VertexLoc[0]` of its own static, which is never resized (null), while pointgr.cpp resizes and reads its own copy. The first point-group fill writes through a null vector. Tier 0 | the unit's own comment: retail codegen needs internal linkage, so merge into pointgr.cpp (both rows approved there) with VertexLoc static, along with its initializer (Rva007ABEF3ArgCtorInits.cpp) and atexit (Rva007B7280Siblings.cpp) users |
+| `VertexLoc` 0x00DF708C (**repaired 2026-11-13**: one static in pointgr.cpp, tl3 section) | pointgr.cpp's global and PointGroupClassRva0017A890.cpp's static | Update_Location_Array (0x0017A890) writes through `&VertexLoc[0]` of its own static, which is never resized (null), while pointgr.cpp resizes and reads its own copy. The first point-group fill writes through a null vector. Tier 0 | the unit's own comment: retail codegen needs internal linkage, so merge into pointgr.cpp (both rows approved there) with VertexLoc static, along with its initializer (Rva007ABEF3ArgCtorInits.cpp) and atexit (Rva007B7280Siblings.cpp) users |
 | W3DMouse `isThread` 0x00DE4B30 | W3DMouse.cpp static; W3DMouseInitW3DAssets.cpp `extern "C"` definition | the init path's thread flag and the draw path's disagree. Tier 2 | merge into W3DMouse.cpp (approved). Dry run: W3DMouseInitW3DAssets.cpp is mixed (4 rows elsewhere); MouseThreadClass and W3DMouse views to reconcile first |
 | `lastActiveVertexBuffer` 0x00DEBCF4 | external in W3DVolumetricShadowRenderShadows.cpp; statics in W3DVolumetricShadowRenderMeshVolume.cpp and ...RenderDynamicMeshVolume.cpp | RenderShadows' per-frame reset does not reach the mesh renderers' caches, so a stale buffer pointer can skip SetStreamSource. Tier 3 | W3DVolumetricShadow.cpp (proposed only) |
 | `drawEdgeX/Y`, `drawStartX/Y` 0x00DEC2DC..E8 | statics in W3DProjectedShadowRenderShadows.cpp and W3DProjectedShadowDecalHelpers.cpp (W3DProjectedShadow.cpp has a third, unused set) | the decal helpers never see the extents RenderShadows computes. Tier 3 | merge into W3DProjectedShadow.cpp (approved). Dry run: 17 classes to reconcile, 7 mixed donors |
@@ -288,3 +289,34 @@ are measured, and the merge blocker is narrower than the pass above reported. Ha
   the merge itself: one `_VertexLoc`, named by 0x0017A890, the sizer 0x0017F150, 0x00179B50, 0x0017E920 and the `_$E`
   pair. Until then the split remains (pointgr.obj's static and the donor's static), but no object names the external
   symbol any more and both copies are constructed by their own registered `_$E` pairs.
+
+**2026-11-13, seat halilkkaya-tl3 (base `3a7e946d6af`, index brought to HEAD with `link_check.py --update-index`):
+the VertexLoc split is repaired.** Two commits:
+- **Tool.** The provider guard's refusal was the false reject recorded above. `tu_skeleton: the provider guard no
+  longer judges a COMDAT nothing references` (landed as `3e7ea070ff`): a name no relocation of the link population
+  names outside its debug sections (the census reference graph, its COMDAT edges and /alternatename targets, plus
+  the replaced, replacing and unindexed objects read directly), all of whose definitions are discardable COMDAT
+  copies, is not judged for members disagree (when the merged copy is one member's) or the order clauses; every
+  referenced name is judged as before. Regression tests in `tools/tests/test_tu_skeleton_provider.py`.
+- **Merge.** `tu_skeleton.py --merge Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp` absorbed
+  PointGroupClassRva0017A890.cpp (rows 67 in the plan; `./build.sh` pointgr.cpp 68/68 exact). The other donors stay
+  rejected for bytes as before (PointGroupClassDestructor.cpp, Vector2Resize.cpp, Vector2Equality.cpp). The merged
+  object keeps pointgr.cpp's own copy of the unreferenced `Get_Transform` (`d0fe1357e6f5`); path order now keeps
+  Render2DClassRender's `c4c6893c5c81`, as before `90d495de95`, and nothing calls it.
+- **One definer (target fact: one datum, VA 0x00DF708C).** Before: two `_VertexLoc` statics, pointgr.obj's (named by
+  0x00179B50, 0x0017E920, the sizer 0x0017F150 and the `_$E32`/`_$E33` pair 0x007ACF20/0x007B7400) and
+  PointGroupClassRva0017A890.obj's (named by 0x0017A890 and its own `_$E8`/`_$E9`). After, over the 17,731 objects
+  of exit_link's path order: exactly one `_VertexLoc` (pointgr.obj, static), named by 0x0017A890
+  (`?rva009148C0@PointGroupClass@@...`), 0x00179B50, 0x0017E920, the sizer 0x0017F150 (both of its names) and
+  `_$E32`/`_$E33`; the donor's leftover object in `build/match` is no link input. lk103's split-storage scan
+  (rscan + split2 over the 82 rows at 0x00179xxx-0x0017Fxxx, 0x007ACF20, 0x007B7400) listed `SPLIT 0x009F7090`
+  before and lists no split after: every reference to 0x009F708C/90/94 resolves to that one static.
+- **Link preview.** `link_check.py`: before, pointgr.cpp LINKS 12,119 B and the donor LINKS 11,964 B; after, pointgr.cpp
+  LINKS 24,083 B; Rva007ABEF3ArgCtorInits.cpp (422 B) and Rva007B7280Siblings.cpp (333 B) LINK unchanged. No other
+  ledger object names the moved symbols.
+- **Left for their owners.** `reverse/data_ledger.csv`'s 0x009F708C row still names the external
+  `?VertexLoc@@3V?$VectorClass@VVector3@@@@A` (no object has defined it since `27e9b262733`), so data_check (shadow)
+  reports `wrong-name _VertexLoc` for pointgr.cpp, as it did before the merge; the ledger is tool-written
+  (`tools/data_ledger.py`), refreshed by the measurement cycle. The header_queue DX8Wrapper row moved with the donor
+  to pointgr.cpp (the banked DX8Wrapper view).
+- **Next.** The table's other splits, in order: sortingrenderer.cpp lists, then W3DMouse `isThread`.
