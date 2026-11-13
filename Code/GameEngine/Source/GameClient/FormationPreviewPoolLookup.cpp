@@ -44,7 +44,7 @@ class InGameUI::FormationPreviewDecal {
 public: FormationPreviewDecal(const Source0029E159&);
 private: int m_handle;
 };
-struct Rva002A147EElement { void *drawable,*decal; bool assigned; };
+#include "../../Include/Common/Rva002A147EElement.h"
 typedef _STL::pair<const unsigned,Rva002A147EElement> PreviewPair;
 typedef _STL::pair<const unsigned,void*> LowerPair;
 typedef _STL::_Rb_tree<unsigned,LowerPair,_STL::_Select1st<LowerPair>,_STL::less<unsigned>,_STL::allocator<LowerPair> > PreviewLowerTree;

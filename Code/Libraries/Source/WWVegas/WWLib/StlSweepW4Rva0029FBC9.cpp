@@ -11,7 +11,7 @@ struct Rva0029FBC9Element { char bytes[12]; Rva0029FBC9Element();Rva0029FBC9Elem
 // Native creator 0029E11A allocates 32 bytes: 16 node-link bytes and
 // a four-byte key plus 12-byte value. Its copy call reaches 0041360E,
 // also rowed by the existing formation-preview pair specialization.
-struct Rva002A147EElement { void *drawable; void *decal; bool assigned; };
+#include "../../../../GameEngine/Include/Common/Rva002A147EElement.h"
 typedef _STL::pair<const unsigned,Rva002A147EElement> PreviewValue;
 typedef _STL::_Rb_tree<unsigned,PreviewValue,_STL::_Select1st<PreviewValue>,_STL::less<unsigned>,_STL::allocator<PreviewValue> > PreviewTree;
 typedef _STL::pair<void*const,Rva0029FBC9Element> OpaqueValue;
