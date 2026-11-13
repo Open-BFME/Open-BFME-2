@@ -185,16 +185,7 @@ class W3DShadowTexture
 #include "../../../../../GameEngine/Include/Common/Rva0010BC90ShadowManager.h"
 
 
-class Rva0010BB11ShadowFactory
-{
-public:
-	W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);
-	char m_pad00[0x10];
-private:
-	W3DProjectedShadow *m_freeList; // +0x10
-	char m_pad14[0x23C];
-	int m_counted; // +0x250
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva0010BB11ShadowFactory.h"
 
 struct Rva0010C065Info;
 class W3DProjectedShadowManager
