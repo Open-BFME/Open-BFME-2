@@ -489,7 +489,7 @@ class ScriptEngine;
 class PlayerList;
 enum ObjectShroudStatus { SHROUD_STATUS_A = 0 };
 #include "../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
-class Rva00203B08 { public: bool rva0020424FF(); };
+#include "../../../Include/W3DDevice/GameClient/Rva00203B08.h"
 class Rva00739800 { public: ObjectShroudStatus rva00739800(int, const Coord3D *) const; };
 #include "../../../../GameEngine/Include/Common/Rva000EC9C6.h"
 struct Rva000E89BDPlayer { unsigned char pad[0x54]; int index; };

@@ -338,11 +338,7 @@ public:
 	}
 };
 
-class Rva00203B08
-{
-public:
-	bool rva00203AE5(void);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva00203B08.h"
 
 #include "../../../Include/Common/Overridable.h"
 

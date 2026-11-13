@@ -391,11 +391,7 @@ struct ParticleSystemView
 
 extern View *TheTacticalView;
 
-class Rva00203B08
-{
-public:
-	bool rva0020424FF();
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva00203B08.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/Rva00203ACEByteField.h"
 
