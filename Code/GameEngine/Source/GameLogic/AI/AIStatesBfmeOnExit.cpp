@@ -218,14 +218,18 @@ struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game's _fprintf thunk through REL32, so read <stdio.h>
+// without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
 		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
-			fprintf(log, text);
+			fprintf((FILE *)log, text);
 	}
 }
 
