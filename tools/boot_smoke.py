@@ -47,7 +47,9 @@ the focus (`focus_lie` in the outcome counts hits and rewrites). --defocus N
 minimises the window N s after launch to prove it.
 
 The owner's profile: the game writes options, saves and replays under
-SHGetSpecialFolderPathW(CSIDL_APPDATA) + "My Battle for Middle-earth II Files".
+SHGetSpecialFolderPathW(CSIDL_APPDATA) + the install's user-data leaf: the
+registry's UserDataLeafName, else GAME_DIR/gi.dat's (an installed 1.06 game's
+gi.dat says "My Battle for Middle-earth(tm) II Files"), read before each run.
 Every run points that import at a stub answering --appdata (default
 GAME_DIR/../appdata; its profile is seeded with a fixed Options.ini) at
 game.dat's loader breakpoint, before any game code runs. There is no opt-out:
@@ -390,6 +392,7 @@ def xp_version_lie(k, hproc, base, exe):
 # CSIDL_APPDATA call site, 0x237C33). Every run redirects that call to a
 # sandbox profile (the appdata lie) and refuses to start if it cannot; the real
 # profile is snapshotted around the run as a second line of defence.
+# PROFILE_LEAF is a default; each run first sets its install's own (use_game_profile_leaf).
 PROFILE_LEAF = "My Battle for Middle-earth II Files"
 CSIDL_APPDATA, CSIDL_MYPICTURES = 0x1A, 0x27
 # Without Options.ini the game benchmarks the CPU on its first start
@@ -419,6 +422,62 @@ def real_appdata():
 
 def real_profile():
     return real_appdata() / PROFILE_LEAF
+
+
+def read_gi_dat(game_dir):
+    """GAME_DIR/gi.dat's entries ({key in lower case: value}) as the game's LoadRegistryValues reads them: "GI  ",
+    a little-endian entry count, then NUL-terminated key and value pairs; keys ignore case, a later key wins
+    (docs/doxygen/api/w2_registry_settings.dox). A missing, foreign or short file raises RedirectError."""
+    path = Path(game_dir) / "gi.dat"
+    try:
+        data = path.read_bytes()
+    except OSError as e:
+        raise RedirectError(f"cannot read {path}: {e}") from e
+    if len(data) < 8 or data[:4] != b"GI  ":
+        raise RedirectError(f"{path} is not a gi.dat")
+    count, parts, entries = struct.unpack_from("<i", data, 4)[0], data[8:].split(b"\0"), {}
+    if count > 0 and len(parts) < 2 * count + 1:
+        raise RedirectError(f"{path} ends inside its {count} entries")
+    for i in range(max(count, 0)):
+        entries[parts[2 * i].decode("latin-1").lower()] = parts[2 * i + 1].decode("latin-1")
+    return entries
+
+
+def registry_string(path, name):
+    """The string value `name` under HKEY_LOCAL_MACHINE\\path, else HKEY_CURRENT_USER\\path (the order of the
+    game's GetStringFromRegistry), in the 32-bit view the game reads; None when neither holds it."""
+    import winreg
+    for root in (winreg.HKEY_LOCAL_MACHINE, winreg.HKEY_CURRENT_USER):
+        try:
+            with winreg.OpenKey(root, path, 0, winreg.KEY_READ | winreg.KEY_WOW64_32KEY) as key:
+                value, kind = winreg.QueryValueEx(key, name)
+        except OSError:
+            continue
+        if kind in (winreg.REG_SZ, winreg.REG_EXPAND_SZ):
+            return value
+    return None
+
+
+def user_data_leaf(game_dir, registry=None):
+    """The folder name the game appends to CSIDL_APPDATA (getUserDataLeafName, retail 0x00234BEC): the registry's
+    UserDataLeafName under gi.dat's GameRegPath when it holds one, else gi.dat's UserDataLeafName. An empty
+    registry value (the game then takes GameData.ini's) or no leaf at all raises RedirectError."""
+    gi, registry = read_gi_dat(game_dir), registry or registry_string
+    leaf = registry(gi["gameregpath"], "UserDataLeafName") if gi.get("gameregpath") else None
+    if leaf == "":
+        raise RedirectError("the registry's UserDataLeafName is empty: the game would take GameData.ini's")
+    leaf = leaf if leaf is not None else gi.get("userdataleafname")
+    if not leaf:
+        raise RedirectError(f"neither the registry nor {Path(game_dir) / 'gi.dat'} names a UserDataLeafName")
+    return leaf
+
+
+def use_game_profile_leaf(game_dir):
+    """Set PROFILE_LEAF to the leaf this install's game uses (user_data_leaf), before any profile path is built:
+    the sandbox profile, its seeded options and saves, and the owner's profile the guard watches."""
+    global PROFILE_LEAF
+    PROFILE_LEAF = user_data_leaf(game_dir)
+    return PROFILE_LEAF
 
 
 def _norm(p):
@@ -1897,6 +1956,7 @@ def main(argv=None):
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
     try:
         check_sandbox_appdata(a.appdata)
+        use_game_profile_leaf(a.game_dir)
     except RedirectError as e:
         raise SystemExit(f"boot_smoke: {e}")
     ctypes.WinDLL("user32").SetProcessDPIAware()      # window and screen coordinates in physical pixels

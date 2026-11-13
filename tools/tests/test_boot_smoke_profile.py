@@ -12,6 +12,7 @@ import tempfile
 import time
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -265,6 +266,71 @@ class RefusesBeforeLaunch(unittest.TestCase):
         self.assertIn("real AppData", str(e.exception))
         with self.assertRaises(bs.RedirectError):
             game_smoke.Game(Path("Z:/nope"), "-win", bs.real_appdata())
+
+
+def gi_dat(entries, count=None):
+    """gi.dat bytes: "GI  ", the entry count, then NUL-terminated key/value pairs."""
+    body = b"".join(k.encode() + b"\0" + v.encode() + b"\0" for k, v in entries)
+    return b"GI  " + struct.pack("<i", len(entries) if count is None else count) + body
+
+
+class UserDataLeaf(unittest.TestCase):
+    """The profile leaf is the install's own: the registry's UserDataLeafName under gi.dat's GameRegPath, else
+    gi.dat's (getUserDataLeafName, retail 0x00234BEC). A fixed leaf missed every save a (tm) install writes."""
+    REG = r"SOFTWARE\Electronic Arts\Electronic Arts\The Battle for Middle-earth II"
+    TM = "My Battle for Middle-earth(tm) II Files"
+
+    def game(self, d, entries, count=None):
+        Path(d, "gi.dat").write_bytes(gi_dat(entries, count))
+        return Path(d)
+
+    def test_gi_dat_keys_ignore_case_and_a_later_key_wins(self):
+        with tempfile.TemporaryDirectory() as d:
+            g = self.game(d, [("GameRegPath", self.REG), ("userdataleafname", "First"), ("UserDataLeafName", self.TM)])
+            self.assertEqual(bs.read_gi_dat(g), {"gameregpath": self.REG, "userdataleafname": self.TM})
+
+    def test_a_missing_foreign_or_short_gi_dat_is_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises(bs.RedirectError):
+                bs.read_gi_dat(d)
+            Path(d, "gi.dat").write_bytes(b"XX  " + gi_dat([("A", "B")])[4:])
+            with self.assertRaises(bs.RedirectError):
+                bs.read_gi_dat(d)
+            self.game(d, [("A", "B")], count=3)
+            with self.assertRaises(bs.RedirectError):
+                bs.read_gi_dat(d)
+
+    def test_the_registry_value_wins_over_gi_dat(self):
+        asked = []
+        with tempfile.TemporaryDirectory() as d:
+            g = self.game(d, [("GameRegPath", self.REG), ("UserDataLeafName", "From gi.dat")])
+            leaf = bs.user_data_leaf(g, registry=lambda path, name: asked.append((path, name)) or self.TM)
+        self.assertEqual((leaf, asked), (self.TM, [(self.REG, "UserDataLeafName")]))
+
+    def test_gi_dat_names_the_leaf_when_the_registry_does_not(self):
+        with tempfile.TemporaryDirectory() as d:
+            g = self.game(d, [("GameRegPath", self.REG), ("UserDataLeafName", self.TM)])
+            self.assertEqual(bs.user_data_leaf(g, registry=lambda path, name: None), self.TM)
+
+    def test_an_empty_registry_value_or_no_leaf_is_refused(self):     # the game would take GameData.ini's
+        with tempfile.TemporaryDirectory() as d:
+            g = self.game(d, [("GameRegPath", self.REG), ("UserDataLeafName", self.TM)])
+            with self.assertRaises(bs.RedirectError):
+                bs.user_data_leaf(g, registry=lambda path, name: "")
+            g = self.game(d, [("GameRegPath", self.REG)])
+            with self.assertRaises(bs.RedirectError):
+                bs.user_data_leaf(g, registry=lambda path, name: None)
+
+    def test_the_sandbox_profile_takes_the_install_leaf(self):
+        old = bs.PROFILE_LEAF
+        try:
+            with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as root:
+                g = self.game(d, [("GameRegPath", self.REG), ("UserDataLeafName", "From gi.dat")])
+                with mock.patch.object(bs, "registry_string", lambda path, name: self.TM):
+                    self.assertEqual(bs.use_game_profile_leaf(g), self.TM)
+                self.assertEqual(bs.prepare_sandbox_profile(root, real=r"C:\nowhere"), Path(root) / self.TM)
+        finally:
+            bs.PROFILE_LEAF = old
 
 
 if __name__ == "__main__":

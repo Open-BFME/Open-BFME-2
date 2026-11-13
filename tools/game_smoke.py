@@ -63,8 +63,9 @@ references inside such bodies. Anything unplaceable refuses the run (`image-refu
 A stray int3 (a stub) is a fault, and crashes are named as in boot_smoke.
 
 User data: the game keeps options, saves and replays under
-SHGetSpecialFolderPathW(CSIDL_APPDATA) + "My Battle for Middle-earth II Files"
-(one call site, retail 0x237C33). The appdata lie points that IAT slot at a
+SHGetSpecialFolderPathW(CSIDL_APPDATA) + the install's user-data leaf (one call
+site, retail 0x237C33; boot_smoke.user_data_leaf reads it from the registry or
+GAME_DIR/gi.dat, and saves are looked for under it). The appdata lie points that IAT slot at a
 stub returning --appdata (default SANDBOX/../appdata), so nothing reaches the
 owner's profile. The sandbox profile is seeded with a fixed Options.ini
 (without one the game runs a first-start CPU benchmark that faults under
@@ -2251,6 +2252,7 @@ def main(argv=None):
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
     try:
         boot_smoke.check_sandbox_appdata(a.appdata)
+        boot_smoke.use_game_profile_leaf(a.game_dir)     # before any save is looked for (saves_state)
     except boot_smoke.RedirectError as e:
         raise SystemExit(f"game_smoke: {e}")
     ctypes.WinDLL("user32").SetProcessDPIAware()
