@@ -14,7 +14,7 @@
 #include "GameLogicObjectLookupView.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
-struct TemplateNameView {char prefix[0x64];AsciiString name;};
+#include "../../../../Include/Common/TemplateNameView.h"
 class Team;class Player {public:char prefix[0x4C];AsciiString name;char pad50[0x29C];Team*defaultTeam;};
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5,STATUS83=83};
 struct NativeModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};

@@ -11,7 +11,7 @@
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 #include "../../../../Include/GameClient/Drawable.h"
-struct TemplateNameView {char prefix[0x64];AsciiString name;};
+#include "../../../../Include/Common/TemplateNameView.h"
 #include "../../../../Include/Common/Player.h"
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5};
 struct NativeModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};
