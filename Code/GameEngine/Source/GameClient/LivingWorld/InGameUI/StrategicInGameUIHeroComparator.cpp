@@ -193,7 +193,7 @@ bool Rva005D57EB::rva005D57EB(const UnicodeString &msg, GameWindow *window) {
 
 
 
-// ?rva005D50AD@Rva005D50AD@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z @0x005D50AD 23B.
+// ?vslot04@Rva005D50D8@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z @0x005D50AD 23B.
 // Same skeleton as 0x005D57EB above: forwards (m_04, msg, window) to the rowed
 // cdecl LAN chat submit 0x0038169D and returns its bool. Retail pushes three
 // arguments although the callee reads only two, so the call goes through the
@@ -205,15 +205,52 @@ struct Rva005D50ADInner {
   return ((Rva005D50ADSend)&Rva0038169D)((int)this, msg, window);
  }
 };
-class Rva005D50AD {
+struct Rva005AFD89Param;
+class AsciiString;
+class UnicodeString;
+class GameWindow;
+
+// Retail table 0x00C6FFFC: two __purecall slots.
+class Rva005AFE3FBase
+{
 public:
- bool rva005D50AD(const UnicodeString &msg, GameWindow *window);
-private:
- int m_00;
- Rva005D50ADInner *m_04;
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
 };
-bool Rva005D50AD::rva005D50AD(const UnicodeString &msg, GameWindow *window) {
- return m_04->send(msg, window);
+
+// Retail table 0x00C728B8 (six slots); see Rva005AFE86Ctor.cpp.
+class Rva005AFE3F : public Rva005AFE3FBase
+{
+public:
+	Rva005AFE3F(void *p);
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
+	virtual ~Rva005AFE3F();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
+	void *m_04;
+	int m_08;
+	GameWindow *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
+};
+
+// Retail table 0x00C75AC4 (seven slots): slot 4 is 0x005D50AD, slot 6 pure.
+class Rva005D50D8 : public Rva005AFE3F
+{
+public:
+	virtual ~Rva005D50D8();
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
+	virtual bool vslot06() = 0;
+};
+bool Rva005D50D8::vslot04(const UnicodeString &msg, GameWindow *window) {
+ return ((Rva005D50ADInner *)m_04)->send(msg, window);
 }
 
 // Native5E4116..5E4157 (banked, not here: this/header register swap) sums the
