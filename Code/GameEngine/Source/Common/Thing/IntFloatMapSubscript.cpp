@@ -56,12 +56,7 @@ namespace _STL {
 template <> void _Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::erase(_Rb_tree<int, pair<int const, Rva00358FEERecord>, _Select1st<pair<int const, Rva00358FEERecord> >, less<int>, allocator<pair<int const, Rva00358FEERecord> > >::iterator);
 }
 
-struct Rva003591F4Arg
-{
-	Rva003591F4Arg(const Rva003591F4Arg &other) : m_id(other.m_id), m_flag(other.m_flag) {}
-	int m_id;
-	bool m_flag;
-};
+#include "../../../Include/Common/Rva003591F4Arg.h"
 
 #include "../../../Include/Common/Rva00E01E28Owner.h"
 

@@ -5,12 +5,7 @@
 // Evidence: pin ??1Rva0052634F@@QAE@XZ; callers 0x005264C0 (deleting dtor) and 0x00526F1E (clear); vtable 0x00867F0C at +0 reset to base 0x00867E3C; EH prolog via 0x00629188; conditional Rva003591F4Arg records at +0x1C8/+0x1D0 with flags +0x1D8/+0x1D9 via pinned 0x003591F4 on g_00E01E28 (same pattern as rowed 0x00525783 in AptStateCalls.cpp); unregister via rowed 0x002B7250 on +0x10; member dtors rowed 0x005242D7 (+0x38) 0x00524436 (+0x20) 0x0052413E (+0x14); AsciiString releaseBuffer at +0x0C.
 #include "ascii_string.h"
 
-struct Rva003591F4Arg
-{
-    Rva003591F4Arg(const Rva003591F4Arg &other) : m_id(other.m_id), m_flag(other.m_flag) {}
-    int m_id;
-    bool m_flag;
-};
+#include "../../Include/Common/Rva003591F4Arg.h"
 
 #include "../../Include/Common/Rva00E01E28Owner.h"
 class HotKeyManager;

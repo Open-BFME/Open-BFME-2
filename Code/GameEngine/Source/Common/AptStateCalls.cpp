@@ -188,12 +188,7 @@ AsciiString Rva00577A0E::rva00577A0E() const
 // first handed by value to 0x003591F4 (pinned) on the global at VA 0x00E01E28,
 // if that global exists, and its flag at +0x1D8 is cleared.
 // Then SetSelectAllHeroesButtonState "_unused" goes through the wrapper.
-struct Rva003591F4Arg
-{
-	Rva003591F4Arg(const Rva003591F4Arg &other) : m_id(other.m_id), m_flag(other.m_flag) {}
-	int m_id;
-	bool m_flag;
-};
+#include "../../Include/Common/Rva003591F4Arg.h"
 
 #include "../../Include/Common/Rva00E01E28Owner.h"
 
