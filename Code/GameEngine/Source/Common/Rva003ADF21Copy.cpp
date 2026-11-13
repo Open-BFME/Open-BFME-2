@@ -1,12 +1,7 @@
 // cl: /EHs-c-
 // ??0Rva003ADF21@@QAE@ABV0@@Z @0x003ADF21 64B MI copy via rowed base 0x003ADFDB plus rowed member 0x003ADF61 with derived vptrs. Evidence: callees rowed; caller 0x003ADF02; same 64B shape as 0x003ADE58.
 #include "../../Include/Common/V3Vt01111D90.h"
-class V3Second08
-{
-public:
-	virtual void s0() = 0;
-	virtual ~V3Second08() {}
-};
+#include "../../Include/Common/V3Second08.h"
 class Rva003ADFDB : public V3Vt01111D90, public V3Second08
 {
 public:
