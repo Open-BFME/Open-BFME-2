@@ -2166,12 +2166,7 @@ private:
 
 // A scope object whose out-of-line constructor and destructor are the shared
 // empty bodies 0x0047A6A9 / 0x000B3FD0.
-class Rva00248558Scope
-{
-public:
-	Rva00248558Scope(void);
-	~Rva00248558Scope(void);
-};
+#include "../../../Include/Common/Rva00248558Scope.h"
 
 class Rva0023D6D5
 {

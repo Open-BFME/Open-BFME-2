@@ -1,0 +1,87 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00248558Scope",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x47a6a9"
+     ],
+     "value": {
+      "0x47a6a9": [
+       "BfmeRadarMapPoint",
+       "BfmeRadarWorldPoint",
+       "Coord2D",
+       "Coord3D",
+       "FloorMatrixRow",
+       "ICoord2D",
+       "ICoord3D",
+       "IRegion3D",
+       "IntRange",
+       "LineSegment2D",
+       "Matrix4D",
+       "RGBColor",
+       "RealRange",
+       "Region2D",
+       "Region3D",
+       "Rva000840F1Point",
+       "Rva00085815Element",
+       "Rva0009A710LightPosition",
+       "Rva000E3BFEArrayMember",
+       "Rva0010811EVertex",
+       "Rva001741EBRow16",
+       "Rva001E3E43Element",
+       "Rva00248558Scope",
+       "Rva0027C36ATwelve",
+       "Rva003901DAPoint",
+       "Rva00477F06GarrisonPoint",
+       "Rva0047A6A9Row16",
+       "Rva004B9C4DPoint",
+       "Rva004FB3F2State120",
+       "Rva004FB3F2State8C",
+       "Rva005390AEPoint",
+       "Rva00561C34Point",
+       "Rva00587500Block",
+       "StandingWaterPCARecord",
+       "TCBSpline3DClass::TCBClass",
+       "Vector2",
+       "Vector4"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

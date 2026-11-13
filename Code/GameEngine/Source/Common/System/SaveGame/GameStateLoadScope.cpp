@@ -7,12 +7,7 @@
 // bodies and relocations equal the existing region/coordinate ICF owners.
 // Keep them separate from the callers: exposing their empty definitions
 // there removes a cleanup state that the native callers retain.
-class Rva00248558Scope
-{
-public:
-    Rva00248558Scope();
-    ~Rva00248558Scope();
-};
+#include "../../../../Include/Common/Rva00248558Scope.h"
 
 Rva00248558Scope::Rva00248558Scope()
 {

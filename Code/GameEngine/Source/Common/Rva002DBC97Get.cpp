@@ -157,12 +157,7 @@ public:
 private:
 	BfmeDfe6e4 *m_counter;
 };
-class Rva00248558Scope
-{
-public:
-	Rva00248558Scope(void);
-	~Rva00248558Scope(void);
-};
+#include "../../Include/Common/Rva00248558Scope.h"
 extern BfmeDfe6e4 *theBfmeDfe6e4;
 
 // 12-byte concat proxy returned by 0x002DBD80 (rowed in Rva002DBD80Make.cpp)

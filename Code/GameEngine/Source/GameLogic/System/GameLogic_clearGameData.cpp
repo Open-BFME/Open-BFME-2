@@ -13,9 +13,7 @@ public:
     ~Rva0023D46F() { if (counter) counter->_M_rva00625699(); }
 private: BfmeDfe6e4 *counter;
 };
-class Rva00248558Scope {
-public: Rva00248558Scope(); ~Rva00248558Scope();
-};
+#include "../../../Include/Common/Rva00248558Scope.h"
 extern BfmeDfe6e4 *theBfmeDfe6e4;
 #define VS(n) virtual void slot##n();
 class AudioManager {
