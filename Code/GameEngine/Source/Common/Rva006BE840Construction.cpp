@@ -44,14 +44,7 @@ struct BfmeGroup10BE
 	char m_21;
 };
 
-struct BfmeElemBE
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	BfmeGroup10BE m_10;
-};
+#include "../../Include/Common/BfmeElemBE.h"
 
 // Export forces this inline worker to emit a foldable COMDAT. The insertion
 // unit emits the same verified worker; an exclusive definition conflicts.

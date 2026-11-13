@@ -21,11 +21,7 @@
 #include "../../Include/Common/BfmeFalseBE.h"
 struct BfmeStringRecord00063BE4 { int words[7]; AsciiString text; unsigned char tail[2]; BfmeStringRecord00063BE4(const BfmeStringRecord00063BE4 &); };
 struct BfmeGroup10BE { int m_10, m_14, m_18; AsciiString m_1C; char m_20, m_21; };
-struct BfmeElemBE {
-    int m_00, m_04, m_08, m_0C;
-    BfmeGroup10BE m_10;
-
-};
+#include "../../Include/Common/BfmeElemBE.h"
 BfmeElemBE *bfmeCopyBE(const BfmeElemBE *, const BfmeElemBE *, BfmeElemBE *, const BfmeFalseBE &);
 BfmeElemBE *bfmeFillBE(BfmeElemBE *, unsigned, const BfmeElemBE &, const BfmeFalseBE &);
 class BfmeVecBE {

@@ -89,14 +89,7 @@ struct BfmeGroup10BE
 	char m_21;
 };
 
-struct BfmeElemBE
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	BfmeGroup10BE m_10;
-};
+#include "../../../Include/Common/BfmeElemBE.h"
 
 // ?bfmeFillBE present-unmatched
 __declspec(noinline) inline BfmeElemBE *bfmeFillBE(BfmeElemBE *first, unsigned count,
