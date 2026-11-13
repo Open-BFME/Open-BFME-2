@@ -23,14 +23,7 @@ class Rva002BA8F1Logic;
 
 // One-pointer layout view. The +8 cleanup call at 0x005EC4AF is represented as
 // its destructor; the target class relationship remains unproven.
-class Rva005D1129Pointer
-{
-public:
-	~Rva005D1129Pointer();
-
-private:
-	Object *m_ptr;
-};
+#include "../../Include/Common/Rva005D1129Pointer.h"
 
 class Rva005D10F9;
 

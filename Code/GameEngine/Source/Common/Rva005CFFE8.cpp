@@ -18,11 +18,7 @@ class Object;
 
 #include "../../Include/Common/Rva00575674.h"
 
-class Rva005D1129Pointer
-{
-public:
-	~Rva005D1129Pointer();
-};
+#include "../../Include/Common/Rva005D1129Pointer.h"
 
 class Rva005CFFE8Prev
 {
