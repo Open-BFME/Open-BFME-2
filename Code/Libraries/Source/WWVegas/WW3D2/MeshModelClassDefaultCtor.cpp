@@ -40,11 +40,7 @@
 // The derived list owns the native vptr; its base's emitted table and deleting
 // destructor belong to the retail provider, not this local layout view.
 
-class Rva00144690 : public GenericMultiListClass
-{
-public:
-	virtual ~Rva00144690();
-};
+#include "../../../../GameEngine/Include/Common/Rva00144690.h"
 // The proven DX8PolygonRendererList vtable slot 0 is rowed at 0x00144690.
 typedef Rva00144690 DX8PolygonRendererList;
 

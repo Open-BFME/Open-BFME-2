@@ -62,12 +62,7 @@ class DX8FVFCategoryContainer;
 
 // Member +1C installs table BD34E0 and unwinds to 144690; use that
 // existing opaque provider without asserting the list's original type name.
-class Rva00144690 : public GenericMultiListClass
-{
-public:
-	Rva00144690() {}
-	virtual ~Rva00144690();
-};
+#include "../../../../GameEngine/Include/Common/Rva00144690.h"
 
 class DX8TextureCategoryClass : public MultiListObjectClass
 {
