@@ -103,13 +103,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 // orders the global load after the argument pushes).
 static inline Rva0020EEF4Outer *livingWorldRegionManager() { return (Rva0020EEF4Outer *)TheLivingWorldLogic->fieldB0; }
 
-struct Rva0059D90CSource
-{
-	int m_00;
-	char m_pad04[0x30];
-	_STL::vector<int> m_ids34; // +0x34
-	_STL::vector<int> m_ids40; // +0x40
-};
+#include "../../../../Include/GameLogic/Rva0059D90CSource.h"
 
 #include "../../../../Include/GameLogic/Rva003B8E89.h"
 class Rva00E02D6C;
