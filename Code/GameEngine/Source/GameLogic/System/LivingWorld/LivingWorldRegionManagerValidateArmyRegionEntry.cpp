@@ -17,16 +17,7 @@ struct Out0020E493 : public Coord2D
 {
 };
 
-class Rva0020E89C
-{
-public:
-	unsigned char m_pad00[0xab];
-	bool m_hasUiPopupPoint;				// +0xAB
-
-	// Stores the reinforcement settings (+0x158 name, +0x14C..+0x154,
-	// flags +0x1A0/+0x1A1); unrowed and unnamed in WB.
-	void rva003F1AB9(const AsciiString &name, Int a, Int b, Int c, Bool d, Bool e);	// 0x003F1AB9
-};
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 
 class Rva0020E493
 {
