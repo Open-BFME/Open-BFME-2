@@ -27,11 +27,7 @@ class INI;
 #include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 // The template-name setter's address-derived row.
-class Rva002AAE81
-{
-public:
-	void rva002AAE81(AsciiString name);
-};
+#include "../../../Include/Common/Rva002AAE81.h"
 
 class AISideBuildList
 {

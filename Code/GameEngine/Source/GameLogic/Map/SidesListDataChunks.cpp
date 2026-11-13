@@ -253,7 +253,7 @@ struct BfmeE8 { float x; float y; };
 // first and last sit beside BuildListInfo's ctor and dtor; +0x08 is folded
 // with another class's setter at 0x002AAE81.
 class Rva0032A438 { public: void rva0032A438(AsciiString s); };
-class Rva002AAE81 { public: void rva002AAE81(AsciiString s); };
+#include "../../../Include/Common/Rva002AAE81.h"
 class Rva0032A46C { public: void rva0032A46C(AsciiString s); };
 
 // The by-value getter of the AsciiString at +0x04, folded with other classes'
