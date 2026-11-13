@@ -457,12 +457,7 @@ InputChunk::InputChunk(EmitVtableTag *)
 {
 }
 
-class Rva0037F57E
-{
-public:
-	Rva0037F57E();
-	virtual ~Rva0037F57E();
-};
+#include "../../Include/Common/Rva0037F57E.h"
 
 // ??0Rva0037F57E@@QAE@XZ @0x0037F4C0 9B: the empty ctor, installing the
 // one-slot vtable 0x00818DFC (slot 0 the deleting dtor below) and returning this.

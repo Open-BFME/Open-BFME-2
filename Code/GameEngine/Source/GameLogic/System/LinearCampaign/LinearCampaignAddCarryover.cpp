@@ -179,12 +179,7 @@ private:
 	Slot0Receiver *m_ptr; // +0x04
 };
 
-class Rva0037F57E
-{
-public:
-	Rva0037F57E();
-	virtual ~Rva0037F57E();
-};
+#include "../../../../Include/Common/Rva0037F57E.h"
 struct Rva0037FE3DList;
 class ArmyPlacer { public: void rva0037FE3D(const Rva0037FE3DList &list, int value); };
 
