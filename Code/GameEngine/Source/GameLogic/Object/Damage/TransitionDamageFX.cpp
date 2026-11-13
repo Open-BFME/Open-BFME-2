@@ -236,16 +236,7 @@ namespace _STL {
 template<> vector<AsciiString>::vector(const vector<AsciiString> &);
 }
 class ObjectCreationList;
-class Rva004BA1D0
-{
-public:
-	Rva004BA1D0(const Rva004BA1D0 &other);
-	int m_objectID; // +0x00
-	_STL::vector<AsciiString> m_subObjects; // +0x04
-	const ObjectCreationList *m_ocl; // +0x10
-	Coord3D m_neighborOffset; // +0x14
-	Coord3D m_oclOffset; // +0x20
-};
+#include "../../../../Include/GameLogic/Module/Rva004BA1D0.h"
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {

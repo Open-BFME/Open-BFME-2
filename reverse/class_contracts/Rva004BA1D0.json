@@ -1,0 +1,184 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004BA1D0",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4ba1d0"
+     ],
+     "value": {
+      "0x4": [
+       "?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "44": 3
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_objectID",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_subObjects",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_ocl",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ObjectCreationList*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_neighborOffset",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_oclOffset",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 14
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 44,
+ "size_by": "majority",
+ "vslots": {}
+}

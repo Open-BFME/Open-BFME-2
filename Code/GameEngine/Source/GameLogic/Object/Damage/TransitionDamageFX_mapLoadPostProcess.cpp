@@ -29,16 +29,7 @@ class Rva004BA1D0;
 namespace _STL {template <> void vector<Rva004BA1D0, allocator<Rva004BA1D0> >::push_back(const Rva004BA1D0 &);}
 #include "../../../Common/Thing/thing.h"
 class Object:public Thing {public:unsigned getID()const{return *(const unsigned*)((const char*)this+0x74);}};
-class Rva004BA1D0
-{
-public:
-	Rva004BA1D0(const Rva004BA1D0 &other);
-	int m_objectID; // +0x00
-	_STL::vector<AsciiString> m_subObjects; // +0x04
-	const ObjectCreationList *m_ocl; // +0x10
-	Coord3D m_neighborOffset; // +0x14
-	Coord3D m_oclOffset; // +0x20
-};
+#include "../../../../Include/GameLogic/Module/Rva004BA1D0.h"
 struct TransitionDamageFXModuleDataView {char pad00[0x1034];_STL::vector<Rva004BA1D0,_STL::allocator<Rva004BA1D0> >neighbors;};
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../Include/GameLogic/PartitionFilter.h"
