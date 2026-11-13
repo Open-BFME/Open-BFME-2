@@ -83,11 +83,7 @@ class GarrisonContain : public OpenContain
 {
 };
 
-class Rva0047A040Base9E0
-{
-public:
-	char _00[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 
 class HordeGarrisonContain : public GarrisonContain, public Rva0047A040Base9E0
 {
