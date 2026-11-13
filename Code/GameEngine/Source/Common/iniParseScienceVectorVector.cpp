@@ -34,11 +34,7 @@ enum ScienceType { SCIENCE_INVALID = -1 };
 struct Rva0033A23AElement { char words[12]; };
 struct DynamicPortalLink;
 
-class Rva00339E80
-{
-public:
-	DynamicPortalLink *rva00339E80(DynamicPortalLink *, DynamicPortalLink *);
-};
+#include "../../Include/Common/Rva00339E80.h"
 
 typedef _STL::vector<ScienceType, _STL::allocator<ScienceType> > SciVec;
 typedef _STL::vector<Rva0033A23AElement, _STL::allocator<Rva0033A23AElement> > Rva0033A23AVector;

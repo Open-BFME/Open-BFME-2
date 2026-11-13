@@ -14,14 +14,7 @@ namespace _STL
 template <class T> void _Destroy(T first, T last);
 }
 void *__cdecl Rva001FFC38Copy(void *a, void *b, void *c, void *d);
-class Rva00339E80
-{
-public:
-	DynamicPortalLink *rva00339E80(DynamicPortalLink *a, DynamicPortalLink *b);
-private:
-	char m_pad04[4];
-	DynamicPortalLink *m_finish;
-};
+#include "../../../../Include/Common/Rva00339E80.h"
 DynamicPortalLink *Rva00339E80::rva00339E80(DynamicPortalLink *dynamicPortalLink, DynamicPortalLink *b)
 {
 	DynamicPortalLink *mid = (DynamicPortalLink *)Rva001FFC38Copy((void *)b, (void *)m_finish, (void *)dynamicPortalLink, (void *)((char *)&dynamicPortalLink + 3));

@@ -1419,15 +1419,7 @@ void Rva00335C88::rva003360F6()
 }
 
 struct DynamicPortalLink;
-class Rva00339E80
-{
-public:
-	DynamicPortalLink *rva00339E80(DynamicPortalLink *first, DynamicPortalLink *last);	// 0x00339E80
-	void rva00339F65();
-private:
-	DynamicPortalLink *m_start;
-	DynamicPortalLink *m_finish;
-};
+#include "../../Include/Common/Rva00339E80.h"
 
 void Rva00339E80::rva00339F65()
 {

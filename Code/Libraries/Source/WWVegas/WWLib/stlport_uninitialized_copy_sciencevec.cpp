@@ -82,10 +82,7 @@ template SciVec *_STL::__uninitialized_copy(SciVec *,SciVec *,SciVec *,const _ST
 // Retail resize passes its 12B value by value (RET16) and destroys it at exit.
 // Existing erase provider has the established owned-pointer + two-word ABI.
 struct DynamicPortalLink;
-class Rva00339E80 {
-public:
- DynamicPortalLink *rva00339E80(DynamicPortalLink*,DynamicPortalLink*);
-};
+#include "../../../../GameEngine/Include/Common/Rva00339E80.h"
 namespace _STL {
 template <class T,class A>
 void vector<T,A>::resize(unsigned int n,T value) {
