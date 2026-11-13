@@ -191,13 +191,7 @@ void Rva003EEA63::rva003EEA63(Int regionAddress, Int b)
 // ?rva003EEBC4@Rva003EEBC4@@QAEXHH@Z retail 0x003EEBC4 43B. Chain lane: calls
 // rowed 0x004E3629 with string g_Rva00E02E68 then this session's 0x003EEA63,
 // stores first arg at this+0x14; callers at 0x003EEE85/0x003EEF2E.
-class Rva004E3629
-{
-public:
-	void rva004E3629(const AsciiString &key, Int a);
-private:
-	_STL::map<AsciiString, AsciiString> m_map;
-};
+#include "../../Include/Common/Rva004E3629.h"
 class Rva003EEBC4
 {
 public:

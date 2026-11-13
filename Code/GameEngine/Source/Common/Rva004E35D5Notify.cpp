@@ -50,13 +50,7 @@ public:
 
 #include "../../Include/Common/Rva004E35FF.h"
 
-class Rva004E3629
-{
-public:
-	void rva004E3629(const AsciiString &key, Int a);
-private:
-	_STL::map<AsciiString, AsciiString> m_map;
-};
+#include "../../Include/Common/Rva004E3629.h"
 
 void Rva004E35AF::rva004E35AF(const AsciiString &key, Int a)
 {
