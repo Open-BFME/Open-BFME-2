@@ -1,0 +1,213 @@
+{
+ "bases": [
+  "DamageModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "BoneFXDamage",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "DamageModule"
+   ]
+  },
+  "census": 6,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 12,
+   "inherited_spans": [
+    [
+     0,
+     20
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4b979c"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "DamageModule",
+       "offset": 0,
+       "own_vftable": "0x8598b4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b979c"
+     ],
+     "value": 4
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x250d3e"
+     ],
+     "value": 20
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4b979c"
+     ],
+     "value": {
+      "0x10": [
+       "0x8597e8"
+      ],
+      "0xc": [
+       "0x8597f8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4b979c"
+     ],
+     "value": {
+      "0x0": "0x8598b4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8598b4"
+     ],
+     "value": {
+      "count": 12,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBoneFXDamage@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4b97c6"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?GetSnapshotName@BoneFXDamage@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x4b96fe"
+       },
+       {
+        "name": "?xfer@Rva0045CE8C@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x45ce8c"
+       },
+       {
+        "name": "?rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4b9757"
+       },
+       {
+        "name": "?onObjectCreated@BoneFXDamage@@MAEXXZ",
+        "slot": 5,
+        "target": "0x4b97e2"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       }
+      ],
+      "table": "0x8598b4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x8598b4": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBoneFXDamage@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?GetSnapshotName@BoneFXDamage@@MBEPBDXZ",
+     "3": "?xfer@Rva0045CE8C@@QAEXPAVXfer@@@Z",
+     "4": "?rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ",
+     "5": "?onObjectCreated@BoneFXDamage@@MAEXXZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 1,
+   "4": 1,
+   "20": 3
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BoneFXDamage.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 20,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

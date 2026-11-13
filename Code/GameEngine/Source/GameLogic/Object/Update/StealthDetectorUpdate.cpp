@@ -126,11 +126,7 @@ class DozerActionState
 public:
 	virtual const char *GetSnapshotName() const;
 };
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../../Include/GameLogic/Module/BoneFXDamageClass.h"
 // ?rva004A2D49@Rva004A2D49@@QAEX_N@Z @0x004A2D49 30B
 // Banked attempt reverse/attempts/0x004a2d49.cpp, re-verified exact against the current ledger
 // (its callees have since been rowed or pinned); landed unchanged by the

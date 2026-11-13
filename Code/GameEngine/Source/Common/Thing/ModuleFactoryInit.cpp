@@ -91,7 +91,7 @@ class BeaconClientUpdateModuleData { public: static ModuleData *friend_newModule
 class BezierProjectileBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
 class BloodthirstyUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BloodthirstyUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class BoneFXDamage { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/BoneFXDamageClass.h"
 #include "../../../Include/GameLogic/Module/BoneFXUpdateClass.h"
 class BoneFXUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BoredUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

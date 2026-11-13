@@ -27,11 +27,7 @@ public:
 	virtual void f2();
 };
 
-class BoneFXDamage : public Rva004B96CC, public MiBase1, public Rva004B96E5_B2
-{
-public:
-	virtual ~BoneFXDamage();
-};
+#include "../../Include/GameLogic/Module/BoneFXDamageClass.h"
 
 BoneFXDamage::~BoneFXDamage()
 {
