@@ -125,7 +125,7 @@ class CivilianSpawnUpdateModuleData { public: static ModuleData *friend_newModul
 class ClearanceTestingSlowDeathBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ClearanceTestingSlowDeathBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ClickReactionBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class ClickReactionBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/ClickReactionBehaviorModuleData.h"
 class CloudBreakSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CloudBreakSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CombineHordeSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

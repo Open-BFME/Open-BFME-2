@@ -19,17 +19,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class ClickReactionBehaviorModuleData
-{
-public:
-	ClickReactionBehaviorModuleData();
-	virtual ~ClickReactionBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x20 - 4];
-};
+#include "../../../../Include/GameLogic/Module/ClickReactionBehaviorModuleData.h"
 
 // ?friend_newModuleData@ClickReactionBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *ClickReactionBehaviorModuleData::friend_newModuleData(INI *ini)

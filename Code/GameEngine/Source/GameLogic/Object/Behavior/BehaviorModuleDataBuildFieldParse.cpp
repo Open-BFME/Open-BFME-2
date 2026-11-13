@@ -88,12 +88,7 @@ public:
     static const FieldParse m_fieldParse[];
 };
 
-class ClickReactionBehaviorModuleData
-{
-public:
-    static void buildFieldParse(MultiIniFieldParse &parse);
-    static const FieldParse m_fieldParse[];
-};
+#include "../../../../Include/GameLogic/Module/ClickReactionBehaviorModuleData.h"
 
 class CastleMemberBehaviorModuleData
 {
