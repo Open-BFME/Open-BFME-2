@@ -20,14 +20,7 @@ void Rva00528BDD::rva00528BDD()
 	m_flag04 = false;
 }
 
-class Rva00528B98
-{
-public:
-	void rva00528B98();
-private:
-	void *m_owner;
-	bool m_flag04;
-};
+#include "../../Include/Common/Rva00528B98.h"
 
 void Rva00528B98::rva00528B98()
 {

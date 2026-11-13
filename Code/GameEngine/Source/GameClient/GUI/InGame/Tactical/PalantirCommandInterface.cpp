@@ -186,7 +186,7 @@ class AptOverButtonHandlerAdder:public PalantirOverStorage {public:
  __forceinline void AddOverButtonHandlerDelegate(const int&level,const AsciiString&name,DelegateDesc desc){AddOverButtonHandler(level,name,&desc);}
 };
 class Rva00528B72 {public:Rva00528B72*rva00528B72(void*) throw();char data[24];};
-class Rva00528B98 {public:void rva00528B98();};
+#include "../../../../../Include/Common/Rva00528B98.h"
 struct PalantirRankInterface {Rva00528B72 state;
 // ?PalantirRankInterface::PalantirRankInterface present-unmatched
 __forceinline PalantirRankInterface(void*p) throw(){state.rva00528B72(p);}

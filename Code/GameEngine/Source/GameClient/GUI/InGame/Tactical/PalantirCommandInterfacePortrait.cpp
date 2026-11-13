@@ -104,7 +104,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 // The rank / timer panel (0x18 bytes) the interface keeps at +0x38; its
 // hide (0x00528B98), rank (0x00529130) and progress (0x00529A7B) setters are
 // rowed under these address-derived spellings.
-class Rva00528B98 { public: void rva00528B98(); };
+#include "../../../../../Include/Common/Rva00528B98.h"
 class Rva00529130 { public: void rva00529130(int rank); };
 class Rva00529A7B { public: void rva00529A7B(float progress); };
 class Rva00529B6E
