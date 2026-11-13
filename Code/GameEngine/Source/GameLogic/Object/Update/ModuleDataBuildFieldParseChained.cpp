@@ -106,11 +106,7 @@ void iniParseObjectFilter(INI *, void *, void *, const void *);
 void rva004649A1(INI *, void *, void *, const void *);
 void rva004B5293(INI *, void *, void *, const void *);
 
-class Rva0049B8A0
-{
-public:
-	static void parseFromINI(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/GameLogic/Module/Rva0049B8A0.h"
 
 // Retail VA 0x00DC8F08: ordered names consumed by the table parsers below.
 // Complete null-terminated array; global spelling is descriptive.

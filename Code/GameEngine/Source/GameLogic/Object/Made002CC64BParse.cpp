@@ -28,11 +28,7 @@ void q4Notify002CC64B(void *ini, Made002CC64B *nugget, int c, int d)
 // Retail C64300..C64370 owns six fields and the full null row. The parser
 // callback/offset pairs establish this table independently of donor layouts.
 // Its DamageFXType names are a separate native array at DD0B58..DD0BD4.
-class Rva0049B8A0
-{
-public:
-    static void parseFromINI(INI *, void *, void *, const void *);
-};
+#include "../../../Include/GameLogic/Module/Rva0049B8A0.h"
 const char *AttributeModifierDamageFXTypeNames[] =
 {
     "SWORD_SLASH",
