@@ -104,22 +104,7 @@ typedef void (__cdecl *BFMEPathDebugLogFunction)( void *, const char *, ... );
 // randomise flag.
 // BFME reaches setGoalObject through the state machine's vtable at +0x38; the
 // reference StateMachine declares it as an ordinary member.
-class BFMEGoalObjectMachine
-{
-public:
-	virtual void slot00() = 0;	virtual void slot04() = 0;
-	virtual void slot08() = 0;	virtual void slot0C() = 0;
-	virtual void slot10() = 0;	virtual void clear() = 0;		///< vtable +0x14
-	virtual void slot18() = 0;	virtual void slot1C() = 0;
-	virtual void setState( StateID state ) = 0;			///< vtable +0x20
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;	virtual void slot2C() = 0;
-	virtual void slot30() = 0;	virtual void slot34() = 0;
-	virtual void setGoalObject( const Object *object ) = 0;	///< vtable +0x38
-
-	char m_unreconstructed_004[0x40 - 4];
-	Bool m_locked;						///< retail this+0x40
-};
+#include "../../../../Include/Common/BFMEGoalObjectMachine.h"
 
 struct BFMEAIUpdateFields
 {
