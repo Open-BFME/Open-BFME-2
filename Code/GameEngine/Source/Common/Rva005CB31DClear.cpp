@@ -12,15 +12,7 @@ public:
 
 #include <new>
 
-class Rva005CB31D
-{
-public:
-	~Rva005CB31D();
-	void rva005CB337(Rva005E0B0F *p);
-
-private:
-	Rva005E0B0F *m_ptr;
-};
+#include "../../Include/Common/Rva005CB31D.h"
 
 Rva005CB31D::~Rva005CB31D()
 {

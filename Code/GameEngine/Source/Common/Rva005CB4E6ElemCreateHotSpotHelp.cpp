@@ -32,14 +32,7 @@ private:
 };
 
 // The owner of the three help objects (+0x10/+0x14/+0x18).
-class Rva005CB31D
-{
-public:
-	void rva005CB337(Rva005E0B0F *p);
-
-private:
-	Rva005E0B0F *m_ptr;
-};
+#include "../../Include/Common/Rva005CB31D.h"
 
 // The hot-spot source at +0x08: slots 7, 8 and 9 name its three hot spots.
 class Rva005CB52BHotSpots
