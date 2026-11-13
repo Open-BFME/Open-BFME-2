@@ -216,7 +216,7 @@ inline const int &(min)(const int &__a, const int &__b)
 // from the map node on both arms of Update's id select.
 template<class T> static __forceinline T BlingOperand(const T &v) { return *(const volatile T *)&v; }
 #include "../../../Include/GameLogic/Rva0021937DTarget.h"
-class Rva00406E7D { public: int rva00406E7D(); };
+#include "../../../Include/Common/Rva00406E7D.h"
 #include "../../../Include/GameLogic/Module/Rva00406E8F.h"
 struct BfmePod40;
 #include "../../../Include/GameClient/Rva0040AAD5.h"
