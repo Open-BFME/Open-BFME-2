@@ -24,11 +24,7 @@
 #include "../../../Include/Common/Overridable.h"
 #include "../../../Include/Common/SpecialPower.h"
 
-class Rva004B555F
-{
-public:
-	const AsciiString &rva004B555F();
-};
+#include "../../../Include/GameLogic/Module/Rva004B555F.h"
 
 class Rva004B554FHolder
 {

@@ -24,11 +24,7 @@ enum ScienceType
 	SCIENCE_INVALID = -1
 };
 
-class Rva004B555F
-{
-public:
-	const AsciiString &rva004B555F();
-};
+#include "../../../../Include/GameLogic/Module/Rva004B555F.h"
 
 struct Rva004B555FHolder
 {
