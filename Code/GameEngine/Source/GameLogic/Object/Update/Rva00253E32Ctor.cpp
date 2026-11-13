@@ -16,16 +16,7 @@
 // subobject needs unwinding. No base ctor call appears in retail, so the base
 // ctor is inlined-empty here.
 
-class Rva004CE6BA
-{
-public:
-	Rva004CE6BA();
-
-	int m_00;
-	int m_04;
-	float m_08;
-	float m_0C;
-};
+#include "../../../../Include/Common/Rva004CE6BA.h"
 
 class Rva00253E32Base
 {

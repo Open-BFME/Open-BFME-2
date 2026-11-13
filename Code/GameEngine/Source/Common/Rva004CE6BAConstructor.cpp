@@ -4,15 +4,7 @@
 // global at 0x009BA4E4 and two -1.0f floats. Owner address-derived.
 extern int BfmeLogicFramesPerSecond;
 
-class Rva004CE6BA
-{
-public:
-	Rva004CE6BA();
-	int m_00;
-	int m_04;
-	float m_08;
-	float m_0C;
-};
+#include "../../Include/Common/Rva004CE6BA.h"
 
 Rva004CE6BA::Rva004CE6BA() :
 	m_00(BfmeLogicFramesPerSecond * 2), m_04(BfmeLogicFramesPerSecond * 2), m_08(-1.0f), m_0C(-1.0f)

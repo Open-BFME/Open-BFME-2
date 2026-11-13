@@ -42,17 +42,7 @@ extern const FieldParse BfmeProbableCrushingScanFields[] =
 	{ 0, 0, 0, 0 }
 };
 
-class Rva004CE6BA
-{
-public:
-	Rva004CE6BA();
-	static const FieldParse *getFieldParse();
-
-	int m_timeBetweenUpdatesMS;
-	int m_scanAheadTimeMS;
-	float m_scanHeight;
-	float m_scanWidth;
-};
+#include "../../../Include/Common/Rva004CE6BA.h"
 
 class Rva00253E32Base
 {
