@@ -2,13 +2,7 @@
 // ?rva0073CE30@Gen_008F7CD0@@QAEXPAUFloatRect0073CE30@@HI@Z 96B @0x0073CE30: rect wrapper building derived updater (base vtable 0x008F139C then derived 0x008F13A4) with grid=this mask&0xFFFFF extra then 4 ftol2 y2 y1 x2 x1 then rowed Fill. Layout base 12 plus derived +0xC. Evidence: dual vtable stores plus rowed Fill at 0x0073C7C0 plus ftol2 calls plus caller at 0x00739D78.
 class BfmeCellFD;
 
-class Gen_008F7CD0
-{
-public:
-	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
-	void rva0073CE30(struct FloatRect0073CE30 *rect, int extra, unsigned int mask);
-	void rva0073CC60(struct FloatRect0073CE30 *rect, int extra, unsigned int mask);
-};
+#include "../../../Include/Common/Gen_008F7CD0.h"
 
 class Rva0073BAA0Base
 {
