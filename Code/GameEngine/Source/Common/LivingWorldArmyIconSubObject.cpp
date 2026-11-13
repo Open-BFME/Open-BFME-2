@@ -27,13 +27,7 @@ struct SubAC0056B89F
 // The constructor spelling below is the rowed provider
 // ??0Rva005C4B56@@QAE@ABUHelper005C4D4B@@_NPBH@Z
 // (LivingWorldIconSubObjectCtor.cpp).
-class Rva003FCE38
-{
-public:
-	virtual ~Rva003FCE38();
-protected:
-	AsciiString m_str;
-};
+#include "../../Include/Common/Rva003FCE38.h"
 
 class Rva005C4B1B : public Rva003FCE38
 {

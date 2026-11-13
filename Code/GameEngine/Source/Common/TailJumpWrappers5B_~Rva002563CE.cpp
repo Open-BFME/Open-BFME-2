@@ -370,11 +370,7 @@ public:
 };
 
 
-class Rva003FCE38
-{
-public:
-	virtual ~Rva003FCE38();
-};
+#include "../../Include/Common/Rva003FCE38.h"
 
 class __declspec(novtable) Rva003FDC41 : public Rva003FCE38
 {

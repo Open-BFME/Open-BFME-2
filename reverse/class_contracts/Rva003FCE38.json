@@ -1,0 +1,227 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003FCE38",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x3fce38"
+     ],
+     "value": {
+      "0x0": "0x837c30"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x837c30"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva003FCE38@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3fd173"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 1,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 2,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva003FB7DB@Rva003FDCEB@@QAEXXZ",
+        "slot": 3,
+        "target": "0x3fb7db"
+       },
+       {
+        "name": "?rva003FBB99@Rva003FBA58@@QAEXXZ",
+        "slot": 4,
+        "target": "0x3fbb99"
+       },
+       {
+        "name": "?rva003FBD9F@Rva003FD14DBase@@QAEXXZ",
+        "slot": 5,
+        "target": "0x3fbd9f"
+       },
+       {
+        "name": "?rva003FCA58@Rva003FD14DBase@@QAEXXZ",
+        "slot": 6,
+        "target": "0x3fca58"
+       },
+       {
+        "name": "?rva003FB6C5@Rva003FD14DBase@@QAEXABVVector3@@@Z",
+        "slot": 7,
+        "target": "0x3fb6c5"
+       },
+       {
+        "name": "?setHouseColor@LivingWorldVisual@@UAEXABH@Z",
+        "slot": 8,
+        "target": "0x3fb602"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 9,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva003FBA58@Rva003FBA58@@QAEXXZ",
+        "slot": 10,
+        "target": "0x3fba58"
+       },
+       {
+        "name": "?rva003FBAE4@Rva003FBA58@@QAEX_N@Z",
+        "slot": 11,
+        "target": "0x3fbae4"
+       },
+       {
+        "name": "?rva003FCCC9@LivingWorldVisual@@QAEX_N@Z",
+        "slot": 12,
+        "target": "0x3fccc9"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 13,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x837c30"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x837c30": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva003FCE38@@UAEPAXI@Z",
+     "1": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "2": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "3": "?rva003FB7DB@Rva003FDCEB@@QAEXXZ",
+     "4": "?rva003FBB99@Rva003FBA58@@QAEXXZ",
+     "5": "?rva003FBD9F@Rva003FD14DBase@@QAEXXZ",
+     "6": "?rva003FCA58@Rva003FD14DBase@@QAEXXZ",
+     "7": "?rva003FB6C5@Rva003FD14DBase@@QAEXABVVector3@@@Z",
+     "8": "?setHouseColor@LivingWorldVisual@@UAEXABH@Z",
+     "9": "??1Region2D@@QAE@XZ",
+     "10": "?rva003FBA58@Rva003FBA58@@QAEXXZ",
+     "11": "?rva003FBAE4@Rva003FBA58@@QAEX_N@Z",
+     "12": "?rva003FCCC9@LivingWorldVisual@@QAEX_N@Z",
+     "13": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "4": 2,
+   "8": 3,
+   "40": 1
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_str",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

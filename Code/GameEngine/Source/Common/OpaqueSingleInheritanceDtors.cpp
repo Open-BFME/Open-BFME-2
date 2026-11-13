@@ -232,11 +232,7 @@ Rva003B0401::~Rva003B0401()
 {
 }
 
-class Rva003FCE38
-{
-public:
-	virtual ~Rva003FCE38();
-};
+#include "../../Include/Common/Rva003FCE38.h"
 
 class Rva005C4B1B : public Rva003FCE38
 {

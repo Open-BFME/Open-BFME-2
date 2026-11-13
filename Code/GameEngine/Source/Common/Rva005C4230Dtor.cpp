@@ -12,13 +12,7 @@ class Rva002D3627Host;
 
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class Rva003FCE38
-{
-public:
-	virtual ~Rva003FCE38();
-protected:
-	AsciiString m_str;
-};
+#include "../../Include/Common/Rva003FCE38.h"
 
 class Rva005C4B1B : public Rva003FCE38
 {
