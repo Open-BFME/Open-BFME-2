@@ -13,15 +13,7 @@ private:
 	char unknown00[0x50];
 };
 
-class Rva005EBC74
-{
-public:
-	Rva005EBC74();
-	~Rva005EBC74();
-	void clear();
-private:
-	Rva005EB8D6 *m_ptr;
-};
+#include "../../Include/Common/Rva005EBC74.h"
 
 Rva005EBC74::Rva005EBC74() : m_ptr(new Rva005EB8D6(this))
 {

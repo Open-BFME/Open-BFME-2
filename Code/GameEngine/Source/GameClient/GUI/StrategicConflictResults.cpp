@@ -79,13 +79,7 @@ public:
     int level;
     int state;
 };
-class Rva005EBC74
-{
-public:
-    bool rva005EC017(void *battle);
-private:
-    Rva005EB8D6 *m_impl;
-};
+#include "../../../Include/Common/Rva005EBC74.h"
 
 bool Rva005EBC74::rva005EC017(void *battle)
 {
@@ -93,18 +87,18 @@ bool Rva005EBC74::rva005EC017(void *battle)
         return false;
     if ((unsigned char)((Rva002B254F *)TheLivingWorldLogic)->rva002B254F())
         return false;
-    if (!m_impl->SetCurrentBattle(battle))
+    if (!m_ptr->SetCurrentBattle(battle))
         return false;
-    switch (m_impl->state) {
+    switch (m_ptr->state) {
     case 0:
-        ((AptPlayer *)g_bfmeAptWindowManager)->ShowLevel(m_impl->level);
-        m_impl->state = 1;
+        ((AptPlayer *)g_bfmeAptWindowManager)->ShowLevel(m_ptr->level);
+        m_ptr->state = 1;
         break;
     case 3:
     case 4:
         Rva00516F21Invoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,
-            (void *)m_impl->level, "SetState", "_fadeIn");
-        m_impl->state = 2;
+            (void *)m_ptr->level, "SetState", "_fadeIn");
+        m_ptr->state = 2;
         break;
     }
     return true;

@@ -941,12 +941,7 @@ public:
 	~Rva005EB8D6();
 };
 
-class Rva005EBC74
-{
-public:
-	Rva005EB8D6 *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva005EBC74.h"
 
 void Rva005EBC74::clear()
 {
