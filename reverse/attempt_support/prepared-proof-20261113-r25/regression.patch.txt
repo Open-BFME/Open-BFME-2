@@ -1,0 +1,246 @@
+--- /dev/null
++++ b/tools/tests/test_name_lane_respell_staging.py
+@@ -0,0 +1,243 @@
++"""UNAPPLIED regression/contract investigation; no real votes or game edits.
++
++Run from this checkout with pytest. Positive acceptance cases intentionally fail
++until a verifiable prepared-transaction contract exists. Test workers are synthetic
++fixture seats using normal next/submit, not replacement production voters.
++"""
++import csv
++import hashlib
++import io
++import json
++import subprocess
++import sys
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[2]
++sys.path.insert(0, str(ROOT / "tools/tests"))
++from test_name_lane_respell_batch import (  # noqa: E402,F401
++    AFTER, BEFORE, KEYS, NEW, SOURCES, apply, lane, name_lane, rename, submit,
++    table, tree, unchanged,
++)
++import class_gate  # noqa: E402
++import class_views  # noqa: E402
++import name_agreement  # noqa: E402
++import pytest  # noqa: E402
++
++
++TRACKED = (*SOURCES, "reverse/functions.csv", rename.NAME_BASIS, rename.DELETED,
++           name_lane.VOTES, name_lane.VOTE_SOURCES, name_lane.AGREED)
++
++
++def git(root, *args):
++    return subprocess.run(["git", "-C", str(root), *args], check=True,
++                          capture_output=True).stdout
++
++
++def sha(data):
++    return hashlib.sha256(data).hexdigest()
++
++
++def rewrite_table(root, rel, mutate):
++    rows = table(root, rel)
++    columns = list(rows[0])
++    mutate(rows)
++    out = io.StringIO()
++    writer = csv.DictWriter(out, columns, lineterminator="\n")
++    writer.writeheader()
++    writer.writerows(rows)
++    (root / rel).write_bytes(out.getvalue().encode())
++
++
++def fresh_landing(tree, monkeypatch):
++    root, _manifest = tree
++    monkeypatch.setattr(class_gate, "ROOT", root)
++    monkeypatch.setattr(class_views, "CANONICAL", root / "reverse/canonical_classes.csv")
++    base = git(root, "rev-parse", "HEAD").decode().strip()
++    assert not git(root, "ls-tree", "-r", "--name-only", base, "--", name_lane.VOTE_SOURCES)
++    calls = []
++
++    def verify(_ctx, sources):
++        calls.append(set(sources))
++        assert set(sources) == set(SOURCES)
++        assert all((root / source).read_bytes() == AFTER.encode() for source in SOURCES)
++        assert [row["name"] for row in table(root, "reverse/functions.csv")] == list(NEW)
++        return True
++
++    assert submit(tree, "fresh-one", monkeypatch, bind=True, verify=verify) == 0
++    unchanged(root)
++    assert submit(tree, "fresh-two", monkeypatch, verify=verify) == 0
++    assert calls == [set(SOURCES)]
++    assert git(root, "rev-parse", "HEAD").decode().strip() == base  # no records-first commit
++    votes, fingerprints = table(root, name_lane.VOTES), table(root, name_lane.VOTE_SOURCES)
++    assert len(votes) == len(fingerprints) == 4
++    assert len({row["worker"] for row in votes}) == 2
++    assert {row["source_sha"] for row in fingerprints} == {sha(BEFORE.encode())}
++    assert all(row["status"] == "landed" for row in lane(root).state().values())
++    assert {tuple(v[c] for c in ("key", "hash", "worker", "session")) for v in votes} == {
++        tuple(v[c] for c in ("key", "hash", "worker", "session")) for v in fingerprints}
++    assert not list((root / rename.JOURNAL_DIR).glob("*.json"))
++    git(root, "add", "--", *TRACKED)
++    return root, base
++
++
++@pytest.mark.parametrize("mode", ["staged", "range", "whole-history"])
++def test_accept_fresh_votes_and_normal_prepared_application_in_one_commit(tree, monkeypatch, mode):
++    root, base = fresh_landing(tree, monkeypatch)
++    if mode == "staged":
++        assert class_gate.main(["--staged"]) == 0
++    else:
++        git(root, "commit", "-qm", "fixture: fresh votes and prepared sources together")
++        assert class_gate.main(["--vote-sources-range", base if mode == "range" else "", "HEAD"]) == 0
++
++
++def test_original_fingerprint_history_reader_needs_the_same_contract(tree, monkeypatch):
++    root, _base = fresh_landing(tree, monkeypatch)
++    git(root, "commit", "-qm", "fixture: fresh votes and prepared sources together")
++    row = table(root, name_lane.VOTE_SOURCES)[0]
++    rename.fingerprint_bound(rename.RevisionContext(root, "HEAD"), row, row["key"].split("|")[0])
++
++
++@pytest.mark.parametrize("damage", [
++    "unrelated-body", "forged-landed", "wrong-key", "wrong-worker", "wrong-approval",
++    "forged-transaction", "invalid-carry",
++])
++def test_damaged_prepared_landing_remains_refused_at_both_boundaries(tree, monkeypatch, damage):
++    root, base = fresh_landing(tree, monkeypatch)
++    if damage == "unrelated-body":
++        (root / SOURCES[0]).write_bytes(AFTER.replace("{}", "{ throw 7; }").encode())
++    elif damage == "forged-landed":
++        rewrite_table(root, name_lane.AGREED,
++                      lambda rows: [row.update(id="nl-forged") for row in rows if row["status"] == "landed"])
++    elif damage == "wrong-key":
++        rewrite_table(root, name_lane.VOTE_SOURCES,
++                      lambda rows: rows[0].update(key=KEYS[0].replace("00401000", "00409999")))
++    elif damage == "wrong-worker":
++        rewrite_table(root, name_lane.VOTE_SOURCES,
++                      lambda rows: rows[0].update(worker="w-000000000000"))
++    elif damage == "wrong-approval":
++        rewrite_table(root, name_lane.AGREED, lambda rows: [row.update(new="OtherName") for row in rows])
++    elif damage == "forged-transaction":
++        # A registry digest is self-consistency, not an authenticated receipt.
++        path = name_lane.respell_registry_path(lane(root))
++        registry = json.loads(path.read_text())
++        batch = next(iter(registry["batches"].values()))
++        batch["prepared"][SOURCES[0]]["sha"] = "f" * 64
++        registry["batches"] = {sha(json.dumps(batch, sort_keys=True).encode()): batch}
++        path.write_text(json.dumps(registry))
++    else:
++        with (root / name_lane.VOTE_SOURCES).open("a", newline="\n") as out:
++            row = table(root, name_lane.VOTE_SOURCES)[0]
++            row.update(session="carried:" + "f" * 64 + ":bad", source_sha=sha(AFTER.encode()))
++            csv.DictWriter(out, name_lane.VOTE_SOURCE_COLUMNS, lineterminator="\n").writerow(row)
++    git(root, "add", "--", *TRACKED)
++    assert class_gate.main(["--staged"]) == 1
++    git(root, "commit", "-qm", "fixture: damage retained in same fresh-vote landing")
++    assert class_gate.main(["--vote-sources-range", base, "HEAD"]) == 1
++
++
++def test_votes_are_valid_when_prepared_group_has_not_been_applied(tree, monkeypatch):
++    root, _manifest = tree
++    monkeypatch.setattr(class_gate, "ROOT", root)
++    assert submit(tree, "fresh-one", monkeypatch, bind=True) == 0
++    original = name_lane.cmd_apply
++    with monkeypatch.context() as patch:
++        def limited(current, args, **kw):
++            args.limit = 1  # the two-key group must remain indivisible
++            return original(current, args, **kw)
++        patch.setattr(name_lane, "cmd_apply", limited)
++        assert submit(tree, "fresh-two", monkeypatch) == 0
++    unchanged(root)
++    git(root, "add", "--", name_lane.VOTES, name_lane.VOTE_SOURCES, name_lane.AGREED)
++    assert class_gate.vote_sources_problems() == []
++
++
++def test_stale_source_is_not_applied(tree, monkeypatch):
++    root, _manifest = tree
++    assert submit(tree, "fresh-one", monkeypatch, bind=True) == 0
++    (root / SOURCES[0]).write_bytes((BEFORE + "// changed since review\n").encode())
++    assert submit(tree, "fresh-two", monkeypatch) == 0
++    assert [row["name"] for row in table(root, "reverse/functions.csv")] != list(NEW)
++    assert not table(root, rename.NAME_BASIS)
++
++
++def test_rewritten_original_fingerprint_is_still_append_only(tree, monkeypatch):
++    root, base = fresh_landing(tree, monkeypatch)
++    git(root, "commit", "-qm", "fixture: initial fresh-vote landing")
++    rewrite_table(root, name_lane.VOTE_SOURCES, lambda rows: rows[0].update(source_sha="f" * 64))
++    git(root, "add", "--", name_lane.VOTE_SOURCES)
++    assert "append-only" in class_gate.vote_sources_problems()[0]
++    git(root, "commit", "-qm", "fixture: rewrite original")
++    assert any("append-only" in problem for problem in class_gate.vote_sources_range_problems(base, "HEAD"))
++
++
++def unsafe_parent_and_landed_candidate(root):
++    """COUNTEREXAMPLE ONLY. Never install this proposed shortcut in a gate.
++
++    Even checking real distinct-worker approval, exact parent fingerprints and
++    final function identities fails to prove the prepared source transition.
++    """
++    fingerprints = table(root, name_lane.VOTE_SOURCES)
++    votes, agreements = table(root, name_lane.VOTES), table(root, name_lane.AGREED)
++    ledger = table(root, "reverse/functions.csv")
++    for key, new in zip(KEYS, NEW):
++        landed = [row for row in agreements if row["key"] == key and row["status"] == "landed"]
++        if len(landed) != 1 or name_agreement.verify(votes, agreements, key, landed[0]["new"]):
++            return False
++        if not any(row["name"] == new and row["source"] == key.split("|")[0] for row in ledger):
++            return False
++    return all(row["source_sha"] == sha(git(root, "show", "HEAD:" + row["key"].split("|")[0]))
++               for row in fingerprints)
++
++
++@pytest.mark.parametrize("damage", ["unrelated-body", "forged-transaction"])
++def test_parent_source_and_genuine_landed_approval_do_not_prove_a_transition(tree, monkeypatch, damage):
++    root, _base = fresh_landing(tree, monkeypatch)
++    assert unsafe_parent_and_landed_candidate(root)
++    if damage == "unrelated-body":
++        (root / SOURCES[0]).write_bytes(AFTER.replace("{}", "{ throw 7; }").encode())
++    else:
++        name_lane.respell_registry_path(lane(root)).unlink()
++    # Demonstrates that this seemingly narrow fix violates the requested negative controls.
++    assert unsafe_parent_and_landed_candidate(root)
++    assert class_gate.vote_sources_problems()  # the existing gate still refuses
++
++
++def unsafe_registry_and_landed_candidate(root):
++    """COUNTEREXAMPLE ONLY: strengthen the shortcut with all local hash bindings."""
++    if not unsafe_parent_and_landed_candidate(root):
++        return False
++    registry = json.loads(name_lane.respell_registry_path(lane(root)).read_text())
++    for ident, batch in registry["batches"].items():
++        if ident != sha(json.dumps(batch, sort_keys=True).encode()):
++            return False
++        if batch["manifest_sha"] != sha(Path(batch["manifest"]).read_bytes()):
++            return False
++        for source, item in batch["prepared"].items():
++            if (item["source_sha"] != sha(git(root, "show", "HEAD:" + source)) or
++                    item["sha"] != sha(Path(item["path"]).read_bytes()) or
++                    item["sha"] != sha((root / source).read_bytes())):
++                return False
++    return True
++
++
++def test_even_recomputed_manifest_and_all_source_hashes_are_not_a_verification_receipt(tree, monkeypatch):
++    root, _base = fresh_landing(tree, monkeypatch)
++    assert unsafe_registry_and_landed_candidate(root)
++    path = name_lane.respell_registry_path(lane(root))
++    registry = json.loads(path.read_text())
++    batch = next(iter(registry["batches"].values()))
++    unrelated = AFTER.replace("{}", "{ throw 7; }").encode()
++    (root / SOURCES[0]).write_bytes(unrelated)
++    Path(batch["prepared"][SOURCES[0]]["path"]).write_bytes(unrelated)
++    batch["prepared"][SOURCES[0]]["sha"] = sha(unrelated)
++    manifest = Path(batch["manifest"])
++    # Preserve requests and paths; only whitespace is needed to produce a new
++    # manifest digest. All changed digests are locally recomputable by the writer.
++    manifest.write_bytes(manifest.read_bytes() + b"\n")
++    batch["manifest_sha"] = sha(manifest.read_bytes())
++    registry["batches"] = {sha(json.dumps(batch, sort_keys=True).encode()): batch}
++    path.write_text(json.dumps(registry))
++    # Normal registry parsing now succeeds and the forged inputs are self-consistent.
++    name_lane.respell_bindings(lane(root))
++    assert unsafe_registry_and_landed_candidate(root)
++    assert class_gate.vote_sources_problems()

@@ -1,0 +1,313 @@
+{
+  "base": "a518c2c963fd4c5fa7d15e196f5a29cf5eac16a3",
+  "implementation": "none; checks remain closed",
+  "contract": [
+    {
+      "name": "test_accept_fresh_votes_and_normal_prepared_application_in_one_commit[staged]",
+      "result": "failed"
+    },
+    {
+      "name": "test_accept_fresh_votes_and_normal_prepared_application_in_one_commit[range]",
+      "result": "failed"
+    },
+    {
+      "name": "test_accept_fresh_votes_and_normal_prepared_application_in_one_commit[whole-history]",
+      "result": "failed"
+    },
+    {
+      "name": "test_original_fingerprint_history_reader_needs_the_same_contract",
+      "result": "failed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[unrelated-body]",
+      "result": "passed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[forged-landed]",
+      "result": "passed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[wrong-key]",
+      "result": "passed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[wrong-worker]",
+      "result": "passed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[wrong-approval]",
+      "result": "passed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[forged-transaction]",
+      "result": "passed"
+    },
+    {
+      "name": "test_damaged_prepared_landing_remains_refused_at_both_boundaries[invalid-carry]",
+      "result": "passed"
+    },
+    {
+      "name": "test_votes_are_valid_when_prepared_group_has_not_been_applied",
+      "result": "passed"
+    },
+    {
+      "name": "test_stale_source_is_not_applied",
+      "result": "passed"
+    },
+    {
+      "name": "test_rewritten_original_fingerprint_is_still_append_only",
+      "result": "passed"
+    },
+    {
+      "name": "test_parent_source_and_genuine_landed_approval_do_not_prove_a_transition[unrelated-body]",
+      "result": "passed"
+    },
+    {
+      "name": "test_parent_source_and_genuine_landed_approval_do_not_prove_a_transition[forged-transaction]",
+      "result": "passed"
+    },
+    {
+      "name": "test_even_recomputed_manifest_and_all_source_hashes_are_not_a_verification_receipt",
+      "result": "passed"
+    }
+  ],
+  "contract_summary": "4 failed, 13 passed",
+  "related": {
+    "summary": "901 passed, 34 failed, 2 skipped in 800.23s",
+    "suites": {
+      "tools.tests.test_name_lane_respell_batch": {
+        "passed": 17
+      },
+      "tools.tests.test_vote_sources_push": {
+        "failed": 4,
+        "passed": 11
+      },
+      "tools.tests.test_class_gate": {
+        "passed": 255
+      },
+      "tools.tests.test_name_lane": {
+        "passed": 402,
+        "failed": 2
+      },
+      "tools.tests.test_rename_respell": {
+        "passed": 53
+      },
+      "tools.tests.test_git_trust": {
+        "passed": 70,
+        "failed": 28,
+        "skipped": 1
+      },
+      "tools.tests.test_gate_exploits": {
+        "passed": 93,
+        "skipped": 1
+      }
+    },
+    "failures": [
+      {
+        "suite": "tools.tests.test_vote_sources_push",
+        "name": "test_a_fingerprint_added_then_rewritten_is_refused[True]",
+        "message": "AssertionError: assert 'append-only' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-BFME-2\\\\t3-3d261ad...\\"
+      },
+      {
+        "suite": "tools.tests.test_vote_sources_push",
+        "name": "test_a_fingerprint_added_then_rewritten_is_refused[False]",
+        "message": "AssertionError: assert 'append-only' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-BFME-2\\\\t3-3d261ad...\\"
+      },
+      {
+        "suite": "tools.tests.test_vote_sources_push",
+        "name": "test_bound_appends_pass_with_no_known_base",
+        "message": "AssertionError: ('Z\\x00u\\x00g\\x00r\\x00i\\x00f\\x00f\\x00 \\x00v\\x00e\\x00r\\x00w\\x00e\\x00i\\x00g\\x00e\\x00r\\x00t\\x00 \\x00\n  \\x00\n  \\x00F\\x00e\\x0...0t\\x00a\\x00n\\x00c\\x00e\\x00/\\x00E\\x00_\\x00"
+      },
+      {
+        "suite": "tools.tests.test_vote_sources_push",
+        "name": "test_a_local_branch_named_origin_master_is_no_base",
+        "message": "AssertionError: ('Z\\x00u\\x00g\\x00r\\x00i\\x00f\\x00f\\x00 \\x00v\\x00e\\x00r\\x00w\\x00e\\x00i\\x00g\\x00e\\x00r\\x00t\\x00 \\x00\n  \\x00\n  \\x00F\\x00e\\x0...0t\\x00a\\x00n\\x00c\\x00e\\x00/\\x00E\\x00_\\x00"
+      },
+      {
+        "suite": "tools.tests.test_name_lane",
+        "name": "test_unrowed_resolution_accepts_only_added_definition_and_preserves_ordinary_rename",
+        "message": "rename.Refusal: unrowed admission allows added definitions only; resolved lines changed or removed"
+      },
+      {
+        "suite": "tools.tests.test_name_lane",
+        "name": "test_six_resolved_definitions_admit_sequentially_and_verify_peer_sizes",
+        "message": "AssertionError: Regex pattern did not match.\n  Expected regex: 'size 56 unproven'\n  Actual message: 'unrowed admission allows added definitions only; resolved lines changed or remo"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[shallow-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[shallow-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[grafts-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[grafts-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[replace-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[replace-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_GRAFT_FILE-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_GRAFT_FILE-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_REPLACE_REF_BASE-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_REPLACE_REF_BASE-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_DIR-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_DIR-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_WORK_TREE-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_WORK_TREE-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_COMMON_DIR-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_COMMON_DIR-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_INDEX_FILE-pre-commit]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_hooks_refuse_before_any_check[GIT_INDEX_FILE-pre-push]",
+        "message": "AssertionError: assert 'local git state rewrites history' in ''\n +  where '' = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', 'C:\\\\Users\\\\clemens\\\\.t3\\\\worktrees\\\\Open-B"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_a_case_twin_repository_is_another_repository[pre-commit]",
+        "message": "AssertionError: ('Z\\x00u\\x00g\\x00r\\x00i\\x00f\\x00f\\x00 \\x00v\\x00e\\x00r\\x00w\\x00e\\x00i\\x00g\\x00e\\x00r\\x00t\\x00 \\x00\n  \\x00\n  \\x00F\\x00e\\x0...0t\\x00a\\x00n\\x00c\\x00e\\x00/\\x00E\\x00_\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_a_case_twin_repository_is_another_repository[pre-push]",
+        "message": "AssertionError: ('Z\\x00u\\x00g\\x00r\\x00i\\x00f\\x00f\\x00 \\x00v\\x00e\\x00r\\x00w\\x00e\\x00i\\x00g\\x00e\\x00r\\x00t\\x00 \\x00\n  \\x00\n  \\x00F\\x00e\\x0...0t\\x00a\\x00n\\x00c\\x00e\\x00/\\x00E\\x00_\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_a_harmless_case_difference_still_passes[pre-commit]",
+        "message": "AssertionError: \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', '-c', '#!/usr/bin/env bash\\n# Commit gate: static ledger int...\\x00n\\x00c\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_a_harmless_case_difference_still_passes[pre-push]",
+        "message": "AssertionError: \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', '-c', '#!/usr/bin/env bash\\n# Push gate: static ledger integ...\\x00n\\x00c\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_a_drive_letter_in_either_case_is_one_path[pre-commit]",
+        "message": "AssertionError: \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', '-c', '#!/usr/bin/env bash\\n# Commit gate: static ledger int...\\x00n\\x00c\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_a_drive_letter_in_either_case_is_one_path[pre-push]",
+        "message": "AssertionError: \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', '-c', '#!/usr/bin/env bash\\n# Push gate: static ledger integ...\\x00n\\x00c\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_the_exported_index_keeps_its_real_spelling[pre-commit]",
+        "message": "AssertionError: \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', '-c', '#!/usr/bin/env bash\\n# Commit gate: static ledger int...\\x00n\\x00c\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_the_exported_index_keeps_its_real_spelling[pre-push]",
+        "message": "AssertionError: \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['C:\\\\WINDOWS\\\\system32\\\\bash.EXE', '-c', '#!/usr/bin/env bash\\n# Push gate: static ledger integ...\\x00n\\x00c\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_variables_naming_a_donor_refuse_a_hook_started_here[pre-commit]",
+        "message": "AssertionError: ('Z\\x00u\\x00g\\x00r\\x00i\\x00f\\x00f\\x00 \\x00v\\x00e\\x00r\\x00w\\x00e\\x00i\\x00g\\x00e\\x00r\\x00t\\x00 \\x00\n  \\x00\n  \\x00F\\x00e\\x0...0t\\x00a\\x00n\\x00c\\x00e\\x00/\\x00E\\x00_\\x00"
+      },
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_both_variables_naming_a_donor_refuse_a_hook_started_here[pre-push]",
+        "message": "AssertionError: ('Z\\x00u\\x00g\\x00r\\x00i\\x00f\\x00f\\x00 \\x00v\\x00e\\x00r\\x00w\\x00e\\x00i\\x00g\\x00e\\x00r\\x00t\\x00 \\x00\n  \\x00\n  \\x00F\\x00e\\x0...0t\\x00a\\x00n\\x00c\\x00e\\x00/\\x00E\\x00_\\x00"
+      }
+    ],
+    "skips": [
+      {
+        "suite": "tools.tests.test_git_trust",
+        "name": "test_the_hooks_compare_one_spelling_of_a_path",
+        "reason": "the real cygpath and realpath run in the real-commit test there"
+      },
+      {
+        "suite": "tools.tests.test_gate_exploits",
+        "name": "test_audit_red_team_escapes[NOTSET]",
+        "reason": "got empty parameter set for (fixture)"
+      }
+    ],
+    "diagnosis": "32 Windows system32 WSL bash launch failures; 2 previously documented unrelated CRLF-sensitive unrowed-data baseline failures"
+  },
+  "claims_owner": "codex-01a1071d-prepared-proof-r25",
+  "native_rerun": {
+    "summary": "113 passed, 1 skipped, 0 failed in 112.22s",
+    "suites": [
+      "test_vote_sources_push.py",
+      "test_git_trust.py"
+    ],
+    "process_only_PATH_prefix": [
+      "C:/Users/clemens/scoop/apps/git/current/cmd",
+      "build/r25-prepared-proof/venv/Scripts"
+    ],
+    "GIT_CEILING_DIRECTORIES": "C:\\Users\\clemens\\.t3\\worktrees\\Open-BFME-2\\t3-3d261ad7-5b6ceff36cd7f08b"
+  },
+  "check_csv": "OK: 101125 functions, 9276 symbols, 2363 data rows",
+  "worktree_prepare": "OK",
+  "gate_changes": false,
+  "production_changes": false,
+  "publication": "records only; final landed SHA and released claims reported in final handoff",
+  "artifact_sha256": {
+    "contract.py.txt": "a108a964604bdd9752c54a56b17b74e6b33f9a35816afba745e6d7deae8d6f46",
+    "regression.patch.txt": "c244e1a69fa80936a4364d13a8cfa9916fd4a53172f89d67d4e2fd0af0b573e4"
+  }
+}
