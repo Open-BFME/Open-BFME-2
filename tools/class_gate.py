@@ -496,14 +496,42 @@ def _balanced(body):
     return not stack
 
 
+LOCAL_PREFIX = re.compile(r'(?:(?:case\b[^;{}]*?|default\s*):(?!:)\s*)*')
+LABELS = re.compile(r'^(?:(?:case\b[^;{}]*?|default\s*|[A-Za-z_]\w*\s*):(?!:)\s*)*')
+FLOW = {'break', 'continue', 'return', 'throw', 'else', 'do', 'try'}
+
+
+def bare_name(statement):
+    """A statement that is one name after its labels (`SHIFT;`, `{ SHIFT }`):
+    only a macro can make that more than an expression with no effect."""
+    rest = LABELS.sub('', statement)
+    return re.fullmatch(r'[A-Za-z_]\w*', rest) is not None and rest not in FLOW
+
+
+def function_head(prefix):
+    """True when the text before a `{` reads as a function definition's head: a
+    return type (or a qualified name: a constructor or destructor), a name, a
+    parameter list, then at most const, an exception specification and a
+    constructor's initializers. `OPEN {` or `OPEN() {` is not one."""
+    text = re.sub(r'__declspec\s*\([^()]*\)', ' ', prefix).strip()
+    found = re.fullmatch(r'(?P<pre>[\w:<>,*&\s~]*?)\s*'
+                         r'(?P<name>~?[A-Za-z_]\w*(?:\s*::\s*~?[A-Za-z_]\w*)*)\s*\([^;{}]*\)\s*'
+                         r'(?:const\s*)?(?:throw\s*\([^;{}]*\)\s*)?(?::[^;{}]*)?', text)
+    return bool(found) and (bool(found.group('pre').strip()) or '::' in found.group('name'))
+
+
 def scoped_move_spans(text):
     """(name, start, end, enclosing path), or [] if scope proof is ambiguous.
 
-    Unknown brace scopes cannot enclose a credited class: a class inside one (a
+    Unknown brace scopes cannot enclose a credited class. A class inside one (a
     function body's local struct) gets no span, and neither does anything nested
-    in it, but the unit's other spans stand; braces are balanced lexically, so it
-    proves nothing about them either way. A bare macro before a scope head is not
-    evidence of global/namespace/class scope.
+    in it; the unit's other spans stand only while that outermost unknown scope
+    is a function proven neutral: its head reads as a function's (function_head),
+    no statement in it is a bare name (`SHIFT;`) and no scope in it opens on one
+    (`OPEN {`), and the local class has no prefix but labels. A macro there could
+    close the function and open a namespace, so anything less voids the unit, as
+    any local class did before. A bare macro before a scope head is not evidence
+    of global/namespace/class scope.
     Includes, pragmas, #undef and scope-neutral object-like #defines are
     accepted (scope_code); other directives can manufacture or condition scope
     and are refused. Check the whole unit's balance, not only a class's prefix.
@@ -518,12 +546,20 @@ def scoped_move_spans(text):
                if code[m.start():m.start() + 6] == 'extern'}
     stack, spans, boundary = [], [], 0
     unproven = [False]  # One persistent flag for each enclosing lexical level.
+    body = None         # The outermost unknown scope: its depth, proof, local class.
     for token in re.finditer(r'[{};]', code):
         pos, char = token.start(), token.group()
+        statement = code[boundary:pos].strip()
+        if body is not None and char != '{' and bare_name(statement):
+            body['proven'] = False
         if char == '{':
             head, namespace = heads.get(pos), namespaces.get(pos)
             local = any(frame[0] is None or frame[3] for frame in stack)
-            if (head or namespace) and not local:
+            if (head or namespace) and local:
+                body['local'] = True
+                if any(unproven) or not LOCAL_PREFIX.fullmatch(code[boundary:(head or namespace).start()].strip()):
+                    return []
+            elif head or namespace:
                 start = (head or namespace).start()
                 prefix = code[boundary:start].strip()
                 if (any(unproven) or any(frame[0] is None for frame in stack)
@@ -536,6 +572,10 @@ def scoped_move_spans(text):
                 path = tuple(head.group('name').split('::'))
             else:
                 path = () if pos in linkage else None
+            if path is None and body is None:
+                body = {'depth': len(stack), 'proven': function_head(statement), 'local': False}
+            elif path is None and bare_name(statement):
+                body['proven'] = False
             scope = tuple(part for frame in stack for part in (frame[0] or ()))
             stack.append((path, head, scope, local))
             unproven.append(False)
@@ -544,13 +584,17 @@ def scoped_move_spans(text):
                 return []
             _, head, scope, local = stack.pop()
             unproven.pop()
+            if body is not None and len(stack) == body['depth']:
+                if body['local'] and not body['proven']:
+                    return []
+                body = None
             # A template body is never credited, but it does not void the
             # unit's other spans: a TU merge that also composes a template
             # (an STLport specialization, a local container) still moves its
             # ordinary class bodies verbatim.
             if head and not head.group('template') and not local:
                 spans.append((head.group('name'), head.start(), pos + 1, scope))
-        elif all(frame[0] is not None for frame in stack):
+        elif body is None and all(frame[0] is not None for frame in stack):
             # A semicolon ends text, not the uncertainty of a macro expansion.
             if not proven_scope_statement(code[boundary:pos]):
                 unproven[-1] = True

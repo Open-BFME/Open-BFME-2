@@ -481,6 +481,32 @@ def test_a_function_local_class_leaves_the_units_other_spans(where):
     assert [span[0] for span in class_gate.scoped_move_spans(nested)] == ['X']
 
 
+@pytest.mark.parametrize('unit', [
+    # review: scope.h's `#define OPEN namespace Hidden { void f()` / `#define CLOSE }`
+    '#include "scope.h"\nOPEN { struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nOPEN() { struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    # review: `#define SHIFT } namespace Hidden { void g() {`, before or after the local class
+    '#include "scope.h"\nvoid f() { SHIFT; struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nvoid f() { struct Local {}; SHIFT; }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nvoid f() { done: SHIFT; struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nvoid f() { if (1) { SHIFT } struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nvoid f() { OPEN { } struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nvoid f() { SHIFT struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+])
+def test_a_local_class_in_a_scope_a_macro_may_move_voids_the_unit(unit):
+    assert class_gate.scoped_move_spans(unit) == []
+    assert class_gate.moved_bodies(unit) == {}
+
+
+@pytest.mark.parametrize('body', [
+    'int Unit::run(int a) const { switch (a) { case 1: { struct L { int v; }; break; } default: break; } return 0; }\n',
+    'static __declspec(noinline) void f(void *self) { struct L { int v; }; L l; l.v = 0; (void)self; }\n',
+    'Unit::Unit() : m_a(0) { struct L { int v; }; for (int i = 0; i < 2; ++i) continue; }\n',
+])
+def test_a_local_class_in_a_proven_function_leaves_the_units_spans(body):
+    assert class_gate.moved_bodies(body + X_BODY) == class_gate.moved_bodies(X_BODY)
+
+
 def test_a_move_beside_a_function_local_class_is_credited(repo, capsys):
     repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
     repo.write(OLD, X_BODY + BODY)
