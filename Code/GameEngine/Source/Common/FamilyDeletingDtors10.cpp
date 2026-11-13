@@ -22,7 +22,7 @@ namespace StrategicInGameUI { class TacticalBattleResolver { public: class Impl 
 void famgenDelete(StrategicInGameUI::TacticalBattleResolver::Impl *impl) { delete impl; }
 
 // ??_GRva005E1D07@@QAEPAXI@Z @0x005E1D41 28B: calls pinned ~Rva005E1D07 0x005E1D07
-class Rva005E1D07 { public: ~Rva005E1D07(); };
+#include "../../Include/Common/Rva005E1D07.h"
 void famgenDelete(Rva005E1D07 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005E4925@@QAEPAXI@Z @0x005E49C4 28B: calls pinned ~Rva005E4925 0x005E4925
