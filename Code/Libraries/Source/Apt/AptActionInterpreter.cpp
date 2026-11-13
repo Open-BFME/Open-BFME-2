@@ -759,10 +759,8 @@ public:
 void rva006ff980(AptValue *value, EAStringC &sBuf, int arg);
 
 class BfmeAptValue006DCD20;
+class Rva8D0D80Result;
 
-// Keep the already rowed neutral150B frame-publisher provider spelling.
-// Its canonical class reconciliation is separate from this register repair.
-class Rva8D0D80Result { public: void rva006FBED0(); };
 
 typedef char RegisterStackSize[sizeof(AptBasePtrStack)==12 ? 1 : -1];
 
@@ -1492,6 +1490,8 @@ void rva006ffce0(AptValue *value, EAStringC &sBuf)
 }
 
 // ---- from Code/Libraries/Source/Apt/AptActionInterpreterRegisterHandlers.cpp
+
+#include "Rva8D0D80Result.h"
 
 // Native opcode-table entries7049B0/86 and706070/453 retain their PDB
 // private static signatures and whole extents. Body provenance is the existing
