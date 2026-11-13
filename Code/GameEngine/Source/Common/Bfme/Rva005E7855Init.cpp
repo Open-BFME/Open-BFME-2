@@ -19,11 +19,7 @@ public:
 	virtual void slot9(int);
 };
 
-class Rva005E73B2
-{
-public:
-	void rva005E73B2();
-};
+#include "../../../Include/Common/Rva005E73B2.h"
 
 class Rva005E7855
 {

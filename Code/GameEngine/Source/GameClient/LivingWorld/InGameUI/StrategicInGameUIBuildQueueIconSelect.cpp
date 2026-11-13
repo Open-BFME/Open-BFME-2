@@ -36,11 +36,7 @@ public:
 #include "../../../../Include/GameClient/Rva005E73E4.h"
 
 // The icon's help hide check (rowed address-named, 0x005E73B2).
-class Rva005E73B2
-{
-public:
-	void rva005E73B2();
-};
+#include "../../../../Include/Common/Rva005E73B2.h"
 
 // The icon's +0x1C counted handle uses the rowed destructor at 0x005F8F96.
 class Rva005F8F96
