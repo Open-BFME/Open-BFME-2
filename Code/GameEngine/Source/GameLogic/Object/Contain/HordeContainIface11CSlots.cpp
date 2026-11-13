@@ -4624,11 +4624,7 @@ public:
 	Rva00468E98Point(const Rva00468E98Point &other);
 	~Rva00468E98Point();
 };
-class Rva00468E98
-{
-public:
-	Rva00468E98Point rotate(Rva00468E98Point);
-};
+#include "../../../../Include/Common/Rva00468E98.h"
 union NativeRotateCall {
 	Rva00468E98Point (Rva00468E98::*target)(Rva00468E98Point);
 	AODOffset2D *(AODHordeContain::*member)(AODOffset2D *out, AODOffset2D offset);

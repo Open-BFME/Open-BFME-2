@@ -44,7 +44,7 @@ template <> void vector<Rva0047B35EElement>::reserve(unsigned int);
 // The newly recovered owners preserve this receiver and stack-argument ABI.
 class Rva00474431 { public: void rva00474519(int); };
 
-class Rva00468E98 { public: Rva00468E98Point rotate(Rva00468E98Point); };
+#include "../../../../../Include/Common/Rva00468E98.h"
 
 struct Float3
 {

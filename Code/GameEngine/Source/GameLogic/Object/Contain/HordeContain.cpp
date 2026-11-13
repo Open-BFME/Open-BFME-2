@@ -828,7 +828,7 @@ struct Rva00472620Offset
     int unknown18;
 };
 
-class Rva00468E98 {public:Rva00468E98Point rotate(Rva00468E98Point);};
+#include "../../../../Include/Common/Rva00468E98.h"
 
 class Rva00472620
 {

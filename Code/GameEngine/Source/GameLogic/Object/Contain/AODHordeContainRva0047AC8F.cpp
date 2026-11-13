@@ -46,10 +46,7 @@ class Rva00468E98Point
  }
 };
 
-class Rva00468E98
-{
- public: Rva00468E98Point rotate(Rva00468E98Point);
-};
+#include "../../../../Include/Common/Rva00468E98.h"
 
 enum KindOfType { KINDOF_INVALID = -1, KINDOF_RVA_0 = 0 };
 
