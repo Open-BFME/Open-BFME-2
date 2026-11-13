@@ -213,7 +213,7 @@ extern TerrainRoadCollection *TheTerrainRoads;
 
 // Identical-code-folded AsciiString getters at the retail addresses the
 // bridge's damage-state texture and model reads call.
-class Rva000DE59C { public: AsciiString rva000DE59C(); };
+#include "../../../Include/W3DDevice/GameClient/Rva000DE59C.h"
 class Rva000DE5B7 { public: AsciiString rva000DE5B7(); };
 #include "../../../../GameEngine/Include/GameLogic/Rva0027F5A6.h"
 #include "../../../../GameEngine/Include/GameNetwork/GameInfo.h"

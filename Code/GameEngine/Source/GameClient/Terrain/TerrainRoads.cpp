@@ -226,7 +226,7 @@ class TerrainRoadType;
 
 #include "../../../Include/GameNetwork/GameInfo.h"
 
-class Rva000DE59C { public: AsciiString rva000DE59C(); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000DE59C.h"
 
 #include "../../../Include/GameLogic/Module/Rva004DC8E7AsciiField.h"
 
