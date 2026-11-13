@@ -749,11 +749,7 @@ struct HordeContainModuleDataFields
 	float m_270; // +0x270
 };
 // Rowed helpers for slot 99 (0x004708BC), under the owner names their rows carry.
-class Rva00469B73
-{
-public:
-	void rva00469B73(void *obj);	// 0x00469B73
-};
+#include "../../../../Include/GameLogic/Module/Rva00469B73.h"
 class Rva0028D891Owner
 {
 public:

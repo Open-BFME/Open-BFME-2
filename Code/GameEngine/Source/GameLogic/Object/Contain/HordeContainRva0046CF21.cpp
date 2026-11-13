@@ -161,11 +161,7 @@ union NativeBannerUpdateCall {
 };
 typedef char BannerUpdatePointerWidth[sizeof(NativeBannerUpdateCall)==4 ? 1 : -1];
 
-class Rva00469B73
-{
-public:
-	void rva00469B73(void *obj);
-};
+#include "../../../../Include/GameLogic/Module/Rva00469B73.h"
 
 extern ThingFactory *TheThingFactory;
 extern TeamFactory *TheTeamFactory;
