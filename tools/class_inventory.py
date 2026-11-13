@@ -20,10 +20,12 @@ COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.S)
 CODE = [__file__, class_layouts.__file__]
 HEADS = picker_cache.FileMemo("class-inventory-heads", CODE)
 VIEWS = picker_cache.FileMemo("class-inventory-views", CODE)
-TEMPLATE_VIEWS = picker_cache.FileMemo("class-inventory-template-views", CODE)
-# An explicit specialization with a body: `template <> class BitFlags<11> {` (class_layouts.HEAD cannot read
-# the argument list, so a unit holding only a specialization has no head there).
-SPECIALIZATION = re.compile(r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+(?P<name>[A-Za-z_]\w*)\s*<[^;{]*\{", re.M)
+# A class template's explicit specializations are read with header_adopt_lane's scanner (specialization_spans):
+# class_layouts.HEAD cannot read `template <> class BitFlags<11> {`, and the scanner blanks literals (raw strings
+# too) and knows which scope a specialization belongs to.
+TEMPLATE_VIEWS = picker_cache.FileMemo("class-inventory-template-views",
+                                       CODE + [str(Path(__file__).with_name("header_adopt_lane.py"))])
+SPECIALIZATION = re.compile(r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+(?P<name>[A-Za-z_]\w*)\s*<", re.M)
 
 
 def parse(text, templates=False):
@@ -35,10 +37,13 @@ def parse(text, templates=False):
         body = " ".join(COMMENT.sub("", text[start:end]).split())
         out.setdefault(name, hashlib.sha1(body.encode("latin-1")).hexdigest()[:10])
     if templates:
-        code = COMMENT.sub(lambda m: " " * len(m.group()), text)
-        for found in SPECIALIZATION.finditer(code):
-            line = " ".join(code[found.start():found.end()].split())
-            out.setdefault(found.group("name"), hashlib.sha1(line.encode("latin-1")).hexdigest()[:10])
+        import header_adopt_lane    # its scanner, not a copy of it; imported here, where no cycle forms
+        code = header_adopt_lane.masked(text)
+        for name in sorted({found.group("name") for found in SPECIALIZATION.finditer(code)}):
+            spans = header_adopt_lane.specialization_spans(text, name)
+            if spans is None or spans:           # an unreadable one counts: the swap decides it
+                body = " ".join(" ".join(code[a:b].split()) for a, b in spans or ()) or "unread"
+                out.setdefault(name, hashlib.sha1(body.encode("latin-1")).hexdigest()[:10])
     return out
 
 

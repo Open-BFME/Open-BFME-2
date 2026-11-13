@@ -227,21 +227,38 @@ SPECIALIZATION_HEAD = r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+%s\s*<"
 
 
 def specialization_spans(text, name):
-    """[(start, end)] of the explicit specializations of class template `name` that have a body
-    (`template <> class name<11> {...};`), each with its closing `;` and newline; None when one
-    does not close."""
+    """[(start, end)] of the explicit specializations of the global class template `name` that
+    have a body (`template <> class name<11> {...};`), each with its closing `;` and newline.
+    Comments and literals (raw strings too) are blanked first (masked). One inside a named
+    namespace specializes another class (`Other::name`) and is not counted; one inside any other
+    braces (a class, a function), or one that does not close, makes the answer unknown: None."""
     code, out = masked(text), []
+    namespaces = {m.end() - 1 for m in class_layouts.NAMESPACE.finditer(code)}
+    linkage = {m.end() - 1 for m in class_layouts.LINKAGE.finditer(code)}
     for found in re.finditer(SPECIALIZATION_HEAD % re.escape(name), code, re.M):
+        enclosing = []
+        for brace in re.finditer(r"[{}]", code[:found.start()]):
+            if brace.group() == "{":
+                enclosing.append("namespace" if brace.start() in namespaces else
+                                 "linkage" if brace.start() in linkage else "other")
+            elif enclosing:
+                enclosing.pop()
+        if "other" in enclosing:
+            return None
+        if "namespace" in enclosing:
+            continue                                  # another namespace's class of that name
         i, depth = found.end(), 1
         while i < len(code) and depth:
             depth += code[i] == "<"
             depth -= code[i] == ">"
             i += 1
         brace, semi = code.find("{", i), code.find(";", i)
-        if depth or brace == -1:
+        if depth:
             return None
-        if semi != -1 and semi < brace:
+        if semi != -1 and (brace == -1 or semi < brace):
             continue                                  # `template <> class name<11>;`: a declaration
+        if brace == -1:
+            return None
         j, depth = brace, 0
         while j < len(code):
             depth += code[j] == "{"
@@ -259,8 +276,10 @@ def specialization_spans(text, name):
 def template_copy(text, name):
     """Whether the unit's own `name` is a class template: a `template <...>` body, or an explicit
     specialization with a body."""
+    specializations = specialization_spans(text, name)
     return any(found.group("name") == name and found.group("template")
-               for found in class_layouts.HEAD.finditer(masked(text))) or bool(specialization_spans(text, name))
+               for found in class_layouts.HEAD.finditer(masked(text))) or specializations is None \
+        or bool(specializations)
 
 
 def census_of(name, header, *rows):
@@ -273,10 +292,14 @@ def census_of(name, header, *rows):
 
 def private_body(text, name, template=False):
     """Whether `text` declares its own namespace-scope body of `name`; for a class template
-    (`template`), its template body or an explicit specialization counts too."""
+    (`template`), its template body or an explicit specialization counts too, and so does text
+    whose specializations cannot be read (specialization_spans gives None)."""
     if name in (n for n, _s, _e, _k in class_layouts.class_body_spans(text, include_templates=template)):
         return True
-    return bool(template and specialization_spans(text, name))
+    if not template:
+        return False
+    specializations = specialization_spans(text, name)
+    return specializations is None or bool(specializations)
 
 
 def swap(text, names, include):

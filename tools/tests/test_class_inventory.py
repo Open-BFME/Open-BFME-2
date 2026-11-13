@@ -104,3 +104,14 @@ def test_a_class_template_copy_counts_only_when_asked(tmp_path, monkeypatch):
     assert inventory.inventory(sources, tmp_path, {"BitFlags"}) == {}
     found = inventory.inventory(sources, tmp_path, {"BitFlags"}, templates=True)
     assert set(found["BitFlags"]) == {"t.cpp", "s.cpp"}
+
+
+def test_a_specialization_inside_a_literal_is_no_copy(tmp_path, monkeypatch):
+    # review r1: the specialization scan read a raw string's text as code
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
+    for memo in ("HEADS", "VIEWS", "TEMPLATE_VIEWS"):
+        monkeypatch.setattr(inventory, memo, picker_cache.FileMemo("test-" + memo.lower(), inventory.CODE))
+    (tmp_path / "r.cpp").write_text('const char *s = R"(\ntemplate <> class BitFlags<11> { int own; };\n)";\n')
+    (tmp_path / "n.cpp").write_text("namespace Other {\ntemplate <int N> class BitFlags;\n"
+                                    "template <> class BitFlags<11> { int own; };\n}\n")
+    assert inventory.inventory(["r.cpp", "n.cpp"], tmp_path, {"BitFlags"}, templates=True) == {}

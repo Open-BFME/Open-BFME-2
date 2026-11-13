@@ -849,6 +849,33 @@ def test_accept_sees_a_class_template_copy_left_behind(tmp_path, monkeypatch):
     assert "still declares a private body" not in problems
 
 
+def test_a_specialization_in_another_scope_is_not_the_templates():
+    # review r1: Other::BitFlags<11> specializes another class; it was stripped, and failed accept
+    unit = ("template <int N> class BitFlags { int x; };\nnamespace Other {\ntemplate <int N> class BitFlags;\n"
+            "template <> class BitFlags<11> { int own; };\n}\n")
+    out = lane.swap(unit, ["BitFlags"], "B.h")
+    assert "template <> class BitFlags<11> { int own; };" in out and "int x;" not in out
+    adopted = '#include "B.h"\nnamespace Other {\ntemplate <int N> class BitFlags;\n' \
+              "template <> class BitFlags<11> { int own; };\n}\n"
+    assert not lane.private_body(adopted, "BitFlags", template=True)
+    # inside a class or a function a specialization's scope is not read: unknown, so never adopted silently
+    nested = "struct Holder {\ntemplate <> class BitFlags<11> { int own; };\n};\n"
+    assert lane.specialization_spans(nested, "BitFlags") is None
+    assert lane.private_body(nested, "BitFlags", template=True)
+    assert lane.swap("template <int N> class BitFlags { int x; };\n" + nested, ["BitFlags"], "B.h") is None
+
+
+def test_a_trailing_specialization_declaration_hides_no_body():
+    # review r1: a final `template <> class BitFlags<12>;` made the scan unreadable, so accept passed a copy
+    unit = '#include "B.h"\ntemplate <> class BitFlags<11> { int private_copy; };\ntemplate <> class BitFlags<12>;\n'
+    spans = lane.specialization_spans(unit, "BitFlags")
+    assert len(spans) == 1 and unit[spans[0][0]:spans[0][1]] == "template <> class BitFlags<11> { int private_copy; };\n"
+    assert lane.private_body(unit, "BitFlags", template=True)
+    out = lane.swap("template <int N> class BitFlags { int x; };\ntemplate <> class BitFlags<12>;\n",
+                    ["BitFlags"], "B.h")
+    assert out == '#include "B.h"\ntemplate <> class BitFlags<12>;\n'
+
+
 def test_dependency_views_go_with_the_class():
     out = lane.swap(UNIT, ["AsciiString", "StringBase"], "ascii_string.h")
     assert "StringBase" not in out.split("void use")[0].split('#include "ascii_string.h"')[1]
