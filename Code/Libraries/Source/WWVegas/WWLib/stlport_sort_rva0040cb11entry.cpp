@@ -46,13 +46,7 @@
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Rva0040F454Target
-{
-	char m_pad00[8];
-	float m_value; // +0x08
-	char m_pad0C[0xAC - 0xC];
-	TargetRef00217D4C m_ac; // +0xAC
-};
+#include "Rva0040F454Target.h"
 
 class Rva004F6093Holder
 {

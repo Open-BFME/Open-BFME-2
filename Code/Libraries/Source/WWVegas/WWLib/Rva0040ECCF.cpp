@@ -33,16 +33,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Rva0040F454Target
-{
-	char m_pad00[8];
-	float m_value;
-	char m_pad0C[0x90 - 0xC];
-	int m_90;
-	int m_94;
-	char m_pad98[0xAC - 0x98];
-	TargetRef00217D4C m_ac;
-};
+#include "Rva0040F454Target.h"
 
 class Rva004F6093Holder
 {

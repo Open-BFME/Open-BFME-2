@@ -43,11 +43,7 @@ namespace _STL { template <> vector<ObjectID>::vector(const vector<ObjectID> &);
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Rva0040F454Target
-{
-	char m_pad00[0xAC];
-	TargetRef00217D4C m_ac;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0040F454Target.h"
 
 class ArmySummaryEntry : public Rva0040F454Target
 {
