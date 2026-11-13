@@ -4,11 +4,7 @@
 #include <vector>
 #include "ascii_string.h"
 
-struct PlayerAITypeEntry
-{
-	AsciiString name;
-	char unknown[12];
-};
+#include "../../Include/Common/PlayerAITypeEntry.h"
 
 class Rva0042526Member
 {

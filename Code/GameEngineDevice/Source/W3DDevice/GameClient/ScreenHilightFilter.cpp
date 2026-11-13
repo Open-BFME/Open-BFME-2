@@ -326,10 +326,7 @@ private:
 
 extern "C" const void *const vtbl_00BCF2F8[];
 
-struct PlayerAITypeEntry
-{
-	char m_pad[16];
-};
+#include "../../../../GameEngine/Include/Common/PlayerAITypeEntry.h"
 
 typedef _STL::_Vector_base<PlayerAITypeEntry, _STL::allocator<PlayerAITypeEntry> > PlayerAITypeVecBase;
 

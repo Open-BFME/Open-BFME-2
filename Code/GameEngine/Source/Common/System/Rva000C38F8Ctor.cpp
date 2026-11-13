@@ -18,11 +18,7 @@ private:
 	unsigned char m_pad[0x4C];
 };
 
-struct PlayerAITypeEntry
-{
-	AsciiString name;
-	char unknown[12];
-};
+#include "../../../Include/Common/PlayerAITypeEntry.h"
 
 // Native C1C20/BD28D independently establish memberC4 vector cleanup:
 // 24-byte element stride and the existing B9AC2 destructor. Other vector

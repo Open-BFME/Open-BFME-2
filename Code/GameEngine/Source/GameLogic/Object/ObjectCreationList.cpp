@@ -491,11 +491,7 @@ extern "C" int (__cdecl *_imp___strcmpi)(const char *, const char *);
 // reached by the retail ObjectCreationList INI dispatch at 0x007AD4CC.
 // The owned constructor at 0x001F073A initializes 20 bytes: vector at +0,
 // override flag at +0x0C and AsciiString at +0x10. Keep its existing name.
-struct PlayerAITypeEntry
-{
-	AsciiString name;
-	char unknown[12];
-};
+#include "../../../Include/Common/PlayerAITypeEntry.h"
 
 struct Rva001F073ACtor
 {

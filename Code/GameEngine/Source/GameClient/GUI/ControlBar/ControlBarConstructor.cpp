@@ -103,11 +103,7 @@ template <> void ControlBarTable::_M_initialize_buckets(size_t);
 template <> void ControlBarTable::clear();
 }
 
-struct PlayerAITypeEntry
-{
-	AsciiString m_name;
-	char m_unknown[12];
-};
+#include "../../../../Include/Common/PlayerAITypeEntry.h"
 
 typedef bool Bool;
 #define BFME_SUBSYSTEM_SLOTS

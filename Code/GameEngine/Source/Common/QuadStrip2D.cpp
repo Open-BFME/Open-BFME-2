@@ -97,10 +97,7 @@ struct Rva005386B7
 	float m_1c;
 	unsigned char m_20;
 };
-struct PlayerAITypeEntry
-{
-	char m_data[16];
-};
+#include "../../Include/Common/PlayerAITypeEntry.h"
 class Rva005388AB
 {
 public:
