@@ -235,11 +235,7 @@ void LivingWorldAutoResolveBattle::rva004F6187()
 	} while (n != 0);
 }
 
-class Rva0059ADB9
-{
-public:
-	bool rva0059ADB9();
-};
+#include "../../Include/Common/Rva0059ADB9.h"
 
 // ?determineWinner@LivingWorldAutoResolveBattle@@QAEXXZ @0x004F61B1 110B.
 // Target evidence: the two begin/end pairs at +0x0C/+0x10 and +0x18/+0x1C

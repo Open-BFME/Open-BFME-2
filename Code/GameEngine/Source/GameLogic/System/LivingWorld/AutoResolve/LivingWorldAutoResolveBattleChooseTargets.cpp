@@ -187,11 +187,7 @@ public:
 
 #include "../../../../../Include/Common/Rva0059AE94.h"
 
-class Rva0059ADB9
-{
-public:
-	bool rva0059ADB9();
-};
+#include "../../../../../Include/Common/Rva0059ADB9.h"
 
 struct AutoResolveThing
 {
