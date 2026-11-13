@@ -25,14 +25,7 @@
 
 #include "../../../../../Include/GameClient/Rva005248D0.h"
 
-class Rva0056DC6B : public Rva005248D0
-{
-public:
-	virtual ~Rva0056DC6B();
-
-private:
-	char m_pad58[0x60 - 0x58];
-};
+#include "../../../../../Include/Common/Rva0056DC6B.h"
 
 inline Rva0056DC6B::~Rva0056DC6B()
 {

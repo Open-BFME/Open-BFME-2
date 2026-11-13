@@ -6,11 +6,7 @@
 // funclets; prev ConstIntGetters TU flags.
 #include "../../Include/GameClient/Rva005248D0.h"
 
-class Rva0056DC6B : public Rva005248D0
-{
-public:
-	virtual ~Rva0056DC6B();
-};
+#include "../../Include/Common/Rva0056DC6B.h"
 
 // Select-any like the identical copies other TUs emit (a strong definition here
 // would be a duplicate at link time); the anchor keeps the noinline body emitted.

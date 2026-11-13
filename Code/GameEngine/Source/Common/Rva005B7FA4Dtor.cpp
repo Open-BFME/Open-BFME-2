@@ -3,13 +3,7 @@
 // MI dtor with first base Rva0056DC6B at +0 size 0x60 inline emitting 0x0086DB78 then base Rva005248D0 plus second base AptStats at +0x60 plus singleton clear.
 // Evidence: retail sets [esi] 0x00873964 and [esi+0x60] 0x00873950 then cmp g_00E06478 with esi then calls 0x005DD1EA then sets [esi] 0x0086DB78 then calls 0x005248D0; middle Rva0056DC6B precedent AptOnlineHome and Rva0056DC6B row; caller 0x005B8035 deleting dtor; bases rowed.
 #include "../../Include/GameClient/Rva005248D0.h"
-class Rva0056DC6B : public Rva005248D0
-{
-public:
-    virtual ~Rva0056DC6B();
-private:
-    char m_pad58[0x60 - 0x58];
-};
+#include "../../Include/Common/Rva0056DC6B.h"
 inline Rva0056DC6B::~Rva0056DC6B()
 {
 }
