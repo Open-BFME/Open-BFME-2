@@ -3634,3 +3634,32 @@ unchanged, as do weak, initializer, guard and defined-symbol graphs.
 own complete pure interface/common runtime return base remains separate debt.
 Await authoritative bridge retirement; no queue or data-ledger deletion.
 [Native proof and compiler/lifetime boundaries](../../reverse/attempt_support/fx-event-primary-interface-20261113-root20.md).
+
+Later route commits: `f5a0c1a4a3e` (a free placeholder getter `?RvaNNNNNNNNGet@@YAHXZ` from ConstIntGetters4.cpp
+moves into C the same way: the getter unit's `int RvaNNNNNNNNGet(void)` becomes a stub class's override),
+`65a12540a8c` and `6bac590ee0f` (a class declared only in a unit's view header, never a canonical one: prepare the
+header; its includers are rebuilt and judged after the build). Do not prepare a flat constructor unit (no virtuals,
+tables stored through `__identifier` externs, e.g. DynamicPortalBehaviourCtor.cpp, AttributeModifierAuraUpdateCtor.cpp):
+a declared override gives its class a vfptr and moves every member by 4; the slot check passes over a unit that
+only references the table. A class registered in `reverse/canonical_classes.csv` cannot take a getter-unit stub
+(class_gate): its canonical header must declare the override first.
+
+**Measure (base -> after, lk74_cmp, local objects).** Bridged 3,324 -> 3,302; refused 31 -> 31 (identical
+reasons); already correct 2,225 -> 2,247; mismatching source slots 37,537 -> 37,505. 22 tables off, nothing newly
+bridged, no correct table lost; every touched unit LINK (link_check, census index 16b6c8496e), bytes unchanged
+except the fold units (+5 B each).
+
+**Refused / left (re_attempts.log, 2026-11-13).**
+- Cause 6, `?slot43@BehaviorModule@@UAEXH@Z`: the respell itself is admitted now, but slot43 lives only in the
+  registered hand-written BehaviorModule.h and three shim copies; needs a respell route for a registered
+  hand-written header (about 350 includers), then SpecialPowerModule's slot 8/43/44 overrides in 12 units.
+- CommandButtonHuntUpdate (0x0049533E) and AttributeModifierAuraUpdate (0x0049B5D6): registered canonical classes;
+  CommandButtonHuntUpdate.h is generated (contract vslots hold only slot 0), so the override goes through the
+  contract and header_adopt_lane, then the getter is defined through the canonical header.
+- DynamicPortalBehaviour (0x00460BCD): DynamicPortalBehaviour.cpp compiles no copy of the primary table 0x00C428C4
+  that matches retail; its view needs fixing first. ObjectHelper (0x0028C933): Rva0024A797Derived.cpp's stand-in
+  view puts the override in slot 1.
+- MilesAudioManager (0x000518B2): MilesAudioManager.cpp held by another seat.
+- Not tried: the `Named` placeholder-class getters (lk76's cross-class recipe), Weapon (0x002CC2F6, compiled slot 2
+  already Weapon::GetSnapshotName with slot 1 wrong), BridgeTowerBehavior, HealCrateCollide, BodyModule,
+  DeflectSpecialPower (slot 1 is 0x00483CEF or 0x0058B03E, not the 0x00497805 fold).
