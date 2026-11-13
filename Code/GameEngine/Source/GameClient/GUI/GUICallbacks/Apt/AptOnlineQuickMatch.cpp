@@ -467,7 +467,7 @@ extern "C" void __cdecl free(void *);
 // supply the partition predicate and comparator the native call site uses;
 // the loop body holds *m in a named local, which reproduces retail's iterator
 // register roles (EDI first-arg / ESI iterator) exactly.
-struct Rva0030145CCmp {bool operator()(MapMetaData *,MapMetaData *)const;};
+#include "../../../../../Include/GameClient/Rva0030145CCmp.h"
 #include "../../../../../Include/Common/Rva00450B90Item.h"
 class Rva00450B90Predicate
 {

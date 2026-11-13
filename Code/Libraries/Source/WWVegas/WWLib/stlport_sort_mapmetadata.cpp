@@ -23,10 +23,7 @@
 
 #include "../../../../GameEngine/Include/GameClient/MapMetaData.h"
 
-struct Rva0030145CCmp
-{
-	bool operator()(MapMetaData *a, MapMetaData *b) const;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0030145CCmp.h"
 
 struct Rva003014D6Cmp
 {

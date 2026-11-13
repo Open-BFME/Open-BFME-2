@@ -85,10 +85,7 @@ void rva00302459(unsigned int flags, _STL::vector<MapMetaData *> *out)
 	}
 }
 
-struct Rva0030145CCmp
-{
-	bool operator()(MapMetaData *, MapMetaData *) const;
-};
+#include "../../Include/GameClient/Rva0030145CCmp.h"
 
 AsciiString getDefaultMap(bool isMultiplayer)
 {
