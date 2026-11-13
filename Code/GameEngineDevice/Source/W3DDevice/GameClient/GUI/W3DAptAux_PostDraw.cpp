@@ -222,12 +222,7 @@ void *Rva000AA8C3LoadRenderingUnit(Rva00786BD0Owner *owner, unsigned int key);
 extern unsigned char g_aptHostStateStorage[32];
 // Pair comparison follows the Vector2i operation visible in WB 8A6D50.
 // Keep a local neutral type: its use here proves two integers, not a class name.
-struct AptSizePair {
- int x,y;
- __forceinline bool operator!=(const AptSizePair &b) const {
-  return !(x==b.x && y==b.y);
- }
-};
+#include "../../../../Include/W3DDevice/GameClient/AptSizePair.h"
 extern AptSizePair g_aptLastStageSize,g_aptLastDeviceSize; // DE61B8 and DE61C0, zero-filled
 extern AptRenderTransform g_aptTransformBeforeLinearScale; // DE6130, before the linear scale
 void Rva006CD6F0Get(void **,void **);
