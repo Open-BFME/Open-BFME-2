@@ -145,7 +145,7 @@ struct Rva0045A6D3Arg;
 #include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
 class Rva005C7C75 {public:void rva005C7C75(int);};
-class Rva005C7C5D {public:void rva005C7C5D(bool);void rva005C7C65(bool);};
+#include "../../../Include/Common/Rva005C7C5D.h"
 class Rva005C7C6D {public:void rva005C7C6D(int);};
 class BfmeKeyLC;int bfmeGo924B(BfmeKeyLC *);
 class BfmeObjEHA;void *bfmeGoEHAb(BfmeObjEHA *);

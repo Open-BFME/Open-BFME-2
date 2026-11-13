@@ -117,7 +117,7 @@ TreeHintRef00217D4C Rva00567960::rva0056786B() {
 #include "../../../../../Include/Common/Rva000B3FD0Nop.h"
 class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
 class Rva005C7C75 {public:void rva005C7C75(int);};
-class Rva005C7C5D {public:void rva005C7C65(bool);};
+#include "../../../../../Include/Common/Rva005C7C5D.h"
 // Existing provider retains its original opaque 32-bit return; native passes
 // that word as the Image pointer, without creating a second callee name.
 class Rva0035B1C3 {public:int rva0035B1C3(int);};
