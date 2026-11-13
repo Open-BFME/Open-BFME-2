@@ -497,13 +497,7 @@ public:
 private:
 	char m_pad[0x3C];
 };
-class NetKeepAliveCommandMsg
-{
-public:
-	NetKeepAliveCommandMsg();
-private:
-	char m_pad[0x1C];
-};
+#include "../../Include/GameNetwork/NetKeepAliveCommandMsg.h"
 class NetDisconnectKeepAliveCommandMsg
 {
 public:

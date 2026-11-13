@@ -1,0 +1,73 @@
+{
+ "bases": [
+  "NetCommandMsg"
+ ],
+ "bases_by": "zh",
+ "class": "NetKeepAliveCommandMsg",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 4,
+   "inherited_spans": [
+    [
+     0,
+     28
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x1c": 1
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d57c7"
+     ],
+     "value": {
+      "0x0": [
+       "NetCommandMsg"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "28": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 28,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

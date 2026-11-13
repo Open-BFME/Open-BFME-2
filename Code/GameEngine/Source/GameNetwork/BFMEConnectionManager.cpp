@@ -43,11 +43,7 @@ inline void NetCommandMsg::setID(unsigned short id)
 {
 	m_id = id;
 }
-class NetKeepAliveCommandMsg : public NetCommandMsg
-{
-public:
-	NetKeepAliveCommandMsg();
-};
+#include "../../Include/GameNetwork/NetKeepAliveCommandMsg.h"
 #include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 class BFMENetRouterFallbackCommandMsg : public NetCommandMsg
 {
