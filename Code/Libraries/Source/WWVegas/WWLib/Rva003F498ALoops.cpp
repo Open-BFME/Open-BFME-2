@@ -68,10 +68,7 @@ public:
 };
 
 struct Rva003F4CC0Inner;
-class Rva003F4CC0 {
-public:
-    Rva003F4CC0Inner *rva003F4CC0(int id);
-};
+#include "Rva003F4CC0.h"
 
 #include "Rva003F44A9.h"
 

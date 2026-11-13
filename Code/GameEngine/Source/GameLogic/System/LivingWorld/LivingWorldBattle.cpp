@@ -340,7 +340,7 @@ void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &comp
 // The auto-resolve constructor calls its existing owned PlayerStorage name;
 // the reference below is a view of the same three-pointer vector header.
 struct Rva003F4CC0Inner;
-class Rva003F4CC0 {public:Rva003F4CC0Inner *rva003F4CC0(int);};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003F4CC0.h"
 class Rva003F5DBD {public:void rva003F5E3F(void *,void *);};
 struct Rva002BBB96Element {char opaque00[0x18];float strength18;char opaque1C[0x30-0x1C];int player30;};
 namespace _STL {
