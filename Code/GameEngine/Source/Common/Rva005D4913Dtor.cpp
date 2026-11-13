@@ -43,7 +43,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left,con
 class __single_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(const char *);
 #include "../../Include/Common/DelegateDesc.h"
-struct FunctorHeader { void *vptr; int refs; };
+#include "../../Include/Common/FunctorHeader.h"
 class Rva00579E47 { public:
     Rva00579E47(const DelegateDesc &);
     Rva00579E47(const Rva00579E47 &other):ptr(other.ptr) { if(ptr) ++ptr->refs; }
