@@ -479,7 +479,7 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 
 // tu-skeleton: 0x00542C19 11B ??1AIGuardMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x00542C24 6B ?name@AIGuardMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x00542C24 6B ?GetSnapshotName@AIGuardMachine@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // tu-skeleton: 0x00542C2A 14B ?getStdGuardRange@AIGuardMachine@@SAMPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
