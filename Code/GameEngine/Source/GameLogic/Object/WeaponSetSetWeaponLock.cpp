@@ -280,7 +280,7 @@ template<int N> class BitFlags;
 template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
 class WeaponTemplateSet;
 #include "../../../Include/Common/ThingTemplate.h"
-class Rva0028B7AELeaGetter { public: void *get() const; };
+#include "../../../Include/Common/Rva0028B7AELeaGetter.h"
 class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
 struct Rva002C943BSrc;
 class Rva002C943B { public: void copyFrom(const Rva002C943BSrc *); };
