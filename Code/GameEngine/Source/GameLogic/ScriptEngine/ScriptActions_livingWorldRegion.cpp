@@ -420,7 +420,7 @@ void __cdecl ShowControlBar(bool);
 void __cdecl Rva004E400DEnable();
 
 class Rva003BD598 { public: void rva003BD598(); };
-class Rva003BE5C9 { public: void rva003BE5C9(); void rva003C3B4A(); };
+#include "../../../Include/GameLogic/Rva003BE5C9.h"
 class Rva003BE6CB { public: void rva003BE6CB(); };
 class Rva003BE7ED { public: void rva003BE7ED(); };
 #include "../../../Include/Common/Rva003BBAD3.h"

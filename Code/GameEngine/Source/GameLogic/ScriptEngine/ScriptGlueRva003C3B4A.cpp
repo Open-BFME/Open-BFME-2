@@ -7,12 +7,7 @@
 // forwarder 0x001EC981 when the manager global is set, applies
 // the rowed 0x002036B4 setter, and tail-jumps the pinned 0x0021A54A
 // member on the hero-manager global.
-class Rva003BE5C9
-{
-public:
-	void rva003BE5C9();
-	void rva003C3B4A();
-};
+#include "../../../Include/GameLogic/Rva003BE5C9.h"
 
 class LinearCampaignManager
 {
