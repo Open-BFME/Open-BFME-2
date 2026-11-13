@@ -338,6 +338,8 @@ public:
 	virtual void *slot27();
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00495C68
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 void *AutoPickUpUpdate::slot27()
@@ -763,3 +765,10 @@ template void _STL::vector<AutoPickUpEatObjectEntry>::push_back(
 // tu-skeleton: 0x0078D0B6 11B Unwind@00b8d0b6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D0C1 10B __ehhandler$??1AutoPickUpUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdateModuleDataDtor.cpp (not merged yet)
+
+// ?loadPostProcess@AutoPickUpUpdate@@MAEXXZ: retail primary vftable 0x00C4F06C slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void AutoPickUpUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
