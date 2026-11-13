@@ -32,11 +32,39 @@ Rva00210EF1::Rva00210EF1(const AsciiString &name) : Rva003FAFB9(name)
 
 
 // The rowed chain constructor 0x005AFE86 (Rva005AFE86Ctor.cpp).
-class Rva005AFE86
+struct Rva005AFD89Param;
+class UnicodeString;
+class GameWindow;
+
+// Retail table 0x00C6FFFC: two __purecall slots.
+class Rva005AFE3FBase
+{
+public:
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
+};
+
+// Retail table 0x00C728B8 (six slots); see Rva005AFE86Ctor.cpp.
+class Rva005AFE86 : public Rva005AFE3FBase
 {
 public:
 	Rva005AFE86(void *p);
-	virtual void f0() = 0;
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
+	virtual ~Rva005AFE86();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
+	void *m_04;
+	int m_08;
+	GameWindow *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
 };
 
 // ??0Rva005D5095Base@@QAE@H@Z retail 0x005D5095 24B (the pinned base of the
@@ -46,7 +74,6 @@ class Rva005D5095Base : public Rva005AFE86
 {
 public:
 	Rva005D5095Base(int a);
-	virtual void f0() = 0;
 };
 
 Rva005D5095Base::Rva005D5095Base(int a) : Rva005AFE86((void *)a)
@@ -60,7 +87,6 @@ class Rva005AF9EF : public Rva005AFE86
 {
 public:
 	Rva005AF9EF();
-	virtual void f0() = 0;
 };
 
 Rva005AF9EF::Rva005AF9EF() : Rva005AFE86((void *)1)

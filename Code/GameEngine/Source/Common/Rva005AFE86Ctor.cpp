@@ -3,12 +3,11 @@
 // Chain ctor: stores vtable 0x00C728B8, arg at +4, zeroes +8..+20,
 // then appends this to global list via Get 0x00381452 (returns 0x00E02310)
 // and append 0x005A0B4C. Base 0x005AFE86 calls derived 0x005D57D3.
-// EH_prolog with state 0 via empty unwindable base. Evidence: callers
+// EH state 0 covers the listener base, whose destructor the unwind reaches at
+// 0x0057C03B (it restores table 0x00C6FFFC at +0). Evidence: callers
 // 0x005AF9F4 0x005D509C 0x005D57DA, callees rowed, vtable store.
 
 int Rva00381452Get(void);
-
-extern "C" const void *const __identifier("??_7Rva005AFE3F@@6B@")[];
 
 struct Rva002BA8F1Listener
 {
@@ -17,35 +16,40 @@ struct Rva002BA8F1Listener
 
 #include "../../Include/Common/Rva005A0B4CList.h"
 
-// Retail's ctor unwind destroys this base through 0x0057C03B, the rowed
-// protected ~CategoryModuleClass<0> (restore table 0x00C6FFFC at +0).
-class EmptyBase005AFE86;
-namespace FXParticleSystem {
-template <int N> class CategoryModuleClass
-{
-protected:
-	~CategoryModuleClass();
-	friend class ::EmptyBase005AFE86;
-};
-}
-typedef FXParticleSystem::CategoryModuleClass<0> Rva0057C03BBase;
+struct Rva005AFD89Param;
+class AsciiString;
+class UnicodeString;
+class GameWindow;
 
-class EmptyBase005AFE86
+// Retail table 0x00C6FFFC: two __purecall slots. The destructor is not in the
+// table; it only restores it.
+class Rva005AFE3FBase
 {
 public:
-	EmptyBase005AFE86() {}
-	~EmptyBase005AFE86() { ((Rva0057C03BBase *)this)->Rva0057C03BBase::~Rva0057C03BBase(); }
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
 };
 
-class Rva005AFE86 : public EmptyBase005AFE86
+// Retail table 0x00C728B8, six slots: 0x005AFD89, 0x005AFCEC, the deleting
+// destructor 0x005AFEDB, two __purecall slots and the shared `ret 4` 0x0047A69C.
+// Slot 3 is the PopulatePlayerList the derived tables fill; slots 4 and 5 keep
+// slot names (the derived rows at them take a string reference and a window,
+// and a string reference).
+class Rva005AFE86 : public Rva005AFE3FBase
 {
 public:
 	Rva005AFE86(void *p);
-private:
-	const void *m_vtable;
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
+	virtual ~Rva005AFE86();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
 	void *m_04;
 	int m_08;
-	int m_0C;
+	GameWindow *m_0C;
 	int m_10;
 	int m_14;
 	int m_18;
@@ -54,9 +58,7 @@ private:
 };
 
 Rva005AFE86::Rva005AFE86(void *p)
-	: EmptyBase005AFE86()
-	, m_vtable(__identifier("??_7Rva005AFE3F@@6B@"))
-	, m_04(p)
+	: m_04(p)
 {
 	m_08 = 0;
 	m_0C = 0;

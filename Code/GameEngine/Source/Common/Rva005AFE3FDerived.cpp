@@ -8,10 +8,40 @@
 // instead of at the ledger address. Owner identities are unproven (opaque
 // Rva names). One ledger row per destructor, landed one commit at a time.
 
-class Rva005AFE3F
+struct Rva005AFD89Param;
+class AsciiString;
+class UnicodeString;
+class GameWindow;
+
+// Retail table 0x00C6FFFC: two __purecall slots.
+class Rva005AFE3FBase
 {
 public:
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
+};
+
+// Retail table 0x00C728B8 (six slots); see Rva005AFE86Ctor.cpp.
+class Rva005AFE3F : public Rva005AFE3FBase
+{
+public:
+	Rva005AFE3F(void *p);
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
 	virtual ~Rva005AFE3F();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
+	void *m_04;
+	int m_08;
+	GameWindow *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
 };
 
 class Rva005AFA03 : public Rva005AFE3F

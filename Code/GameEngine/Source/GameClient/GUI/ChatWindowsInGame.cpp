@@ -242,14 +242,39 @@ struct Rva005AFD89Param
 	int color;
 };
 
-class Rva005AFE86
+// Retail table 0x00C6FFFC: two __purecall slots. The destructor is not in the
+// table; it only restores it.
+class Rva005AFE3FBase
 {
 public:
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
+};
+
+// Retail table 0x00C728B8, six slots: 0x005AFD89, 0x005AFCEC, the deleting
+// destructor 0x005AFEDB, two __purecall slots and the shared `ret 4` 0x0047A69C.
+// Slot 3 is the PopulatePlayerList the derived tables fill; slots 4 and 5 keep
+// slot names. The constructor 0x005AFE86 is rowed under this name.
+class Rva005AFE86 : public Rva005AFE3FBase
+{
+public:
+	Rva005AFE86(void *p);
 	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
-private:
+	virtual void rva005AFCEC(int id);
+	virtual ~Rva005AFE86();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
 	void *m_04;
 	int m_08;
 	GameWindow *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
 };
 
 // ??1Rva005AFE3F@@UAE@XZ retail 0x005AFE3F 71B
@@ -265,24 +290,26 @@ int Rva00381452Get();
 
 #include "../../../Include/Common/Rva002B7250.h"
 
-class Rva005AFE3FBase
-{
-public:
-	virtual ~Rva005AFE3FBase() {}
-
-private:
-	int m_04;
-};
-
+// The same class under the name its destructor rows carry.
 class Rva005AFE3F : public Rva005AFE3FBase
 {
 public:
+	Rva005AFE3F(void *p);
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
 	virtual ~Rva005AFE3F();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
 
-private:
+	void *m_04;
 	int m_08;
-	int m_0C;
+	GameWindow *m_0C;
 	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
 };
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp
