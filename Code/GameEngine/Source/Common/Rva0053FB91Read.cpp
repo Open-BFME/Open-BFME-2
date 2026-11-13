@@ -12,12 +12,7 @@
 
 #include "../../Include/Common/DataChunkInfo.h"
 
-class Rva005C702D
-{
-public:
-	bool rva005C702D(DataChunkInput *file, DataChunkInfo *info);
-	int m_key;
-};
+#include "../../Include/Common/Rva005C702D.h"
 
 class Rva0053FB91
 {

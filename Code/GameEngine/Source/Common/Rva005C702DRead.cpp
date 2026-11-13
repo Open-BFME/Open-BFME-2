@@ -21,12 +21,7 @@ struct KeyCode
 // Defined once, in Rva005C706AWrite.cpp (the writer); retail has one table.
 extern "C" const KeyCode c_table[3];
 
-class Rva005C702D
-{
-public:
-	bool rva005C702D(DataChunkInput *file, DataChunkInfo *info);
-	int m_key;
-};
+#include "../../Include/Common/Rva005C702D.h"
 
 bool Rva005C702D::rva005C702D(DataChunkInput *file, DataChunkInfo *info)
 {
