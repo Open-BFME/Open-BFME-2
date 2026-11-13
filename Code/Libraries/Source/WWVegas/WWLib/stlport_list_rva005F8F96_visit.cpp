@@ -10,13 +10,7 @@ struct ListNode005CCCD0 {
     TargetRef00217D4C *m_data00;
     int m_data04;
 };
-class Rva005CCCD0 {
-public:
-    int m_00;
-    int m_04;
-    ListNode005CCCD0 *m_08;
-    void rva005CCCD0(Visitor005CCCD0 *v);
-};
+#include "Rva005CCCD0.h"
 void Rva005CCCD0::rva005CCCD0(Visitor005CCCD0 *v)
 {
     ListNode005CCCD0 *sentinel = m_08;
