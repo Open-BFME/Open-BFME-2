@@ -941,10 +941,7 @@ public:
 private:
     OpaqueRefCounted *m_ptr;
 };
-class Rva002D9508 {
-public:
-    void rva002D9508(const void *value);
-};
+#include "../../../GameEngine/Include/GameLogic/Module/Rva002D9508.h"
 class Rva002D9576 {
 public:
     int rva002D9576(void);

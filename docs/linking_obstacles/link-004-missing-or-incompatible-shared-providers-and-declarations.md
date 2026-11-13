@@ -718,6 +718,19 @@
     destructor folds with the list base). Retype them so they call those
     callees by their own names, then drop both pins. Re-run the 17-unit
     trial before the canonical rename.
+- **Conditional-position shared prefix (2026-11-13, base `9ad29a51f6f`):**
+  [the native setter/header proof](../../reverse/attempt_support/conditional-position-header-20261113-root20.md)
+  gives the existing `Rva002D9508` header the provider's evidenced partial
+  prefix: selector+0x38, twelve copied bytes+0x3C and flag+0x48. Five private
+  views, including the provider, now use it; the owning acceptance test
+  retires all five remaining queue entries. The cohort and eight existing
+  dependents pass509/509 rows and two data rows, normal and strict, with
+  all1883 COMDAT byte/relocation fingerprints unchanged. Thirteen previews
+  against index `aa7acf764d` retain54755 bytes. That index warns of seven
+  subsequent source-path changes; no fresh census or runtime result is
+  claimed. The opaque-view majority contract is not complete-size evidence;
+  the header explicitly remains a consumed prefix. The AudioEventRTS
+  identity/pin prerequisites above remain open.
 - **GameWindow table prerequisite (2026-10-25, inspected `a0af8f5cb1`):**
   retail's table at RVA `0x0080BBCC` has 11 slots and ends at `0x0080BBF8`,
   the separately identified `Rva0031455E` table. `GameWindow.cpp` declares

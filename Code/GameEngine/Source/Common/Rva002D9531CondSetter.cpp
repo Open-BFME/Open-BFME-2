@@ -18,20 +18,8 @@ void Rva002D9531::rva002D9531(int value)
 	}
 }
 
-struct Rva002D9508Twelve
-{
-	int v0, v1, v2;
-};
+#include "../../Include/GameLogic/Module/Rva002D9508.h"
 
-class Rva002D9508
-{
-public:
-	void rva002D9508(const void *src);
-	char m_pad[0x38];
-	int m_state;
-	Rva002D9508Twelve m_data;
-	unsigned char m_flag;
-};
 
 void Rva002D9508::rva002D9508(const void *src)
 {

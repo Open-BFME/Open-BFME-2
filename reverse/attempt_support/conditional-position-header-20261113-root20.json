@@ -1,0 +1,7 @@
+{
+ "baseline": "Current worktree compiled original sources immediately before adoption",
+ "comdats": 1883,
+ "comparison": "link_census.comdat_bodies: section contents plus relocation identity",
+ "differences": {},
+ "sources": 13
+}
