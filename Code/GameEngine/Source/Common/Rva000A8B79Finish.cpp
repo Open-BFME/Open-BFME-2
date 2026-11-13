@@ -26,11 +26,7 @@ public:
     int m_field1C;
 };
 
-struct TwoBytes
-{
-    unsigned char a;
-    unsigned char b;
-};
+#include "../../Include/Common/TwoBytes.h"
 
 class Rva000A8C2BObj
 {

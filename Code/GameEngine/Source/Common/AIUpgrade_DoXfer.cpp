@@ -61,11 +61,7 @@ public:
 	const CommandButton *m_commandButton; // +0x30
 };
 
-struct TwoBytes
-{
-	bool a;
-	bool b;
-};
+#include "../../Include/Common/TwoBytes.h"
 
 void AIUpgrade::DoXfer(Xfer *xfer, void *p)
 {

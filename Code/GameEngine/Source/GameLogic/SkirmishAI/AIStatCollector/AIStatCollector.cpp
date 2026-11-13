@@ -295,11 +295,7 @@ public:
 	virtual void v09(void *);
 	virtual void v10(void *);
 };
-struct TwoBytes
-{
-	unsigned char a;
-	unsigned char b;
-};
+#include "../../../../Include/Common/TwoBytes.h"
 class Rva004DFA0E
 {
 public:

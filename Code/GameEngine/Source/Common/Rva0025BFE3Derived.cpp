@@ -129,11 +129,7 @@ public:
 	virtual void v30(void *);
 	virtual void v31(void *);
 };
-struct TwoBytes
-{
-	unsigned char a;
-	unsigned char b;
-};
+#include "../../Include/Common/TwoBytes.h"
 
 void AIEconomyStats::rva0059640C(void *holder)
 {

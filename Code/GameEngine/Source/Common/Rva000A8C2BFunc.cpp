@@ -1,11 +1,7 @@
 // cl: /MD
 // The stream-holder member transfers the saved position through the serializer.
 // Its receiver is unused; the packet contains three consecutive DWORDs.
-struct TwoBytes
-{
-	unsigned char a;
-	unsigned char b;
-};
+#include "../../Include/Common/TwoBytes.h"
 
 class Rva000A8C2BObj
 {
