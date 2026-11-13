@@ -4585,7 +4585,7 @@ Code/GameEngine/Source/Common/Rva0056AA54Probe.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056AB35Method.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056AB97Flag.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056ABD6Slot.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056AC26Derived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056AC26Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056AD19Dtor.cpp,yes,0,0,0,0,0
@@ -7259,7 +7259,7 @@ Code/GameEngine/Source/GameClient/GUI/BfmeAptWindowManagerInit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/BfmeAptWindowManagerSetText.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/BfmeMapPictureTextureCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseConstructor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseDefaultCtor.cpp,no,1,0,1,0,0
+Code/GameEngine/Source/GameClient/GUI/BfmeQuickMatchScreenBaseDefaultCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/BfmeSelectionTranslator_setDragSelecting.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ChatSystemInGameSendChat.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp,yes,0,0,0,0,0
@@ -11834,7 +11834,7 @@ Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderUpdateLayer.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E7BF0Probe.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E916AFootprintCheck.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp,no,0,0,1,0,1
+Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder_path.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Pathfinder/rva002EDFF9Rva002EDFF9Farm.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp,yes,0,0,0,0,0
