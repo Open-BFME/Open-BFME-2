@@ -6,12 +6,7 @@
 // base copy Rva00567860 (0x00567860), installs vtable 0x00C6CED8 and copies the
 // fields at +4/+8. Caller 0x00567FDD (new then copy). Names are address-derived.
 
-class Rva00567860
-{
-public:
-	Rva00567860(const Rva00567860 &that);
-	virtual void slot00() = 0;
-};
+#include "../../Include/Common/Rva00567860.h"
 
 class Rva00567847 : public Rva00567860
 {
