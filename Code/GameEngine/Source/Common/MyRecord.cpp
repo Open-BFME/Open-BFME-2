@@ -9,14 +9,7 @@
 // arms EH state 0, then calls 0x0033A865 with same this; LINK BONUS 61B via
 // Rva0033E102Rebuild caller 0x0033E136; layout {4,string,4} matches
 // BfmeContainerRecord002CF46E and Rva0033E102Rebuild MyRecord.
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	BitFlags();
-private:
-	unsigned int m_words[1];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 class Rva0033A865
 {
