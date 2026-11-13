@@ -146,7 +146,7 @@ extern LanguageFilter *TheLanguageFilter;
 // Shared StringBase header ABI is refs32/length16/capacity16. A direct
 // boolean header test preserves the native word compare without integer
 // length materialization (same view used by InGameCommandButtonHelpSetWidth).
-struct UnicodeStringHeaderView { int refs; unsigned short length; };
+#include "../../../Include/GameClient/UnicodeStringHeaderView.h"
 
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *,int,int,int &,int &);
 

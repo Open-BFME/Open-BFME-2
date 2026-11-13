@@ -32,11 +32,7 @@ extern GameTextInterface *TheGameText;
 struct IntPair;
 
 // The header's inline length test, read as a 16-bit compare.
-struct UnicodeStringHeaderView
-{
-	int ref_count;
-	unsigned short length;
-};
+#include "../../../../Include/GameClient/UnicodeStringHeaderView.h"
 static __forceinline bool hasText(const UnicodeString &unicodeString)
 {
 	const UnicodeStringHeaderView *header = *(const UnicodeStringHeaderView *const *)&unicodeString;
