@@ -255,14 +255,7 @@ struct Rva006E1F00Character
 
 #include "BfmeSubmitter1283.h"
 
-class AptDisplayList
-{
-public:
-    void clear(bool deep);
-    void rva006F79B0(void *p, void *q);
-    void rva006F7A30();
-    void *state;
-};
+#include "AptDisplayList.h"
 
 	// 0x006F80C0
 struct Rva006E1F00Instance

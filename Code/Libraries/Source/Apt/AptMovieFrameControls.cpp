@@ -45,9 +45,7 @@ struct AptControl {int type; union {struct {int sprite,stream;} init; AptControl
 struct AptFrame {int count; AptControl **controls;};
 #include "EAStringC.h"
 #include "AptDisplayListState.h"
-class AptDisplayList {public:AptDisplayListState *state; AptCIH *placeObject(AptControlPlaceObject2 *,AptCIH *); void removeObject(int *);
- AptCIH *placeObjectNCXForm(AptCIH *,int,AptCharacter *,EAStringC *,AptCIH *,int,int,const unsigned int *,const float *,void *,float);
-};
+#include "AptDisplayList.h"
 class AptPseudoDisplayList;
 
 void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {

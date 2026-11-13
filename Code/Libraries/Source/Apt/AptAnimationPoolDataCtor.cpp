@@ -19,7 +19,7 @@ class Rva006E4F10 {unsigned short count,capacity;void**array;
 public:Rva006E4F10(int n){capacity=(unsigned short)n;array=(void**)((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(capacity*4);count=0;memset(array,0,capacity*4);}
  ~Rva006E4F10();
 };
-class AptDisplayList{void*state;public:AptDisplayList();~AptDisplayList();};
+#include "AptDisplayList.h"
 class AptActionQueueC{void *pool;char data[16];public:AptActionQueueC(int);~AptActionQueueC(){void*p=pool;Rva006CD460Free(p);}static void*operator new(unsigned size){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(size);}static void operator delete(void*p,unsigned size){Rva006D8680Free(p,size);}};
 class AptIntervalTimer{char data[32];public:AptIntervalTimer();~AptIntervalTimer();static void*operator new[](unsigned size){return Rva006CD440Alloc(size);}static void operator delete(void*p,unsigned size){g_pChainBlockAllocator->freeBlock(p,size);}static void operator delete[](void*p){Rva006CD460Free(p);}};
 struct Rva00222343 {int fields[14];bool flag38,flag39;};

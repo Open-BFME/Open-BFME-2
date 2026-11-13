@@ -17,7 +17,7 @@ public:
  AptPseudoDisplayList *Destroy(int);
  void *head; AptCIH *parent;
 };
-class AptDisplayList { public: void *state; void mergeState(AptPseudoDisplayList *,AptNativeHash *,bool); };
+#include "AptDisplayList.h"
 class AptMovie { public: int nFrames; void doFrameControls(AptDisplayList *,AptCIH *,int); void DoTemporaryFrameControls(AptPseudoDisplayList *,int); void queueFrameActions(AptCIH *,int); };
 struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
 struct AptCharacterSpriteInstBase { unsigned char prefix[12]; AptCharacter *character; AptNativeHash *nativeHash; int unknown14; int mnFrame; int flags; void *actions; AptDisplayList display; int mnGotoAnded; };

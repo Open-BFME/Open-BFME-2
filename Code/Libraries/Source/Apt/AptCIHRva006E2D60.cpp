@@ -23,7 +23,7 @@ void __debugbreak();
 
 class AptCIH;
 class AptNativeHash;
-class AptDisplayList { public: void *state; void rva006F7A30(); };
+#include "AptDisplayList.h"
 class AptMovie
 {
 public:
