@@ -94,7 +94,7 @@ typedef _STL::list<int> RiderWordList;
 
 namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
 
-class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
+#include "../../../../../Include/GameLogic/Module/Rva0046247D.h"
 
 class RemovalNotice {public:
 PURE_SLOT(00) PURE_SLOT(01) PURE_SLOT(02) PURE_SLOT(03) PURE_SLOT(04) PURE_SLOT(05) PURE_SLOT(06) PURE_SLOT(07) PURE_SLOT(08) PURE_SLOT(09)
