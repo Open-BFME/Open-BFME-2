@@ -343,14 +343,7 @@ void Rva00446A67Set(unsigned char value);
 
 // The 0x28-byte game rules block at +0x15C (inside the +0xD0 member, whose
 // 0x0057F002 hands +0x8C to 0x00559FAC); 0x00381CED copies it into the game.
-struct MpGameSetupRules
-{
-	int m_00; // +0x00 (the panel's +0x15C)
-	int m_04; // +0x04 (the panel's +0x160)
-	int m_08;
-	int m_commandPointFactor; // +0x0C (the panel's +0x168)
-	unsigned char m_pad10[0x28 - 0x10];
-};
+#include "../../../Include/Common/MpGameSetupRules.h"
 
 // The game's rules setter (rowed under its address name).
 class Rva00381CED
