@@ -90,6 +90,7 @@ class Rva005AFA03 : public Rva005AFE3F
 {
 public:
 	Rva005AFA03();
+	virtual ~Rva005AFA03();
 };
 
 Rva005AFA03::Rva005AFA03() : Rva005AFE3F((void *)1)
