@@ -1,0 +1,133 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00548984",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "24": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 24,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "slot6(void*)"
+  }
+ }
+}

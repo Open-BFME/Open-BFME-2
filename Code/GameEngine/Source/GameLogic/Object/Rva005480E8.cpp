@@ -13,11 +13,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0,
 };
 
-class Rva00548984
-{
-public:
-	void rva00548984(void *first, int third);
-};
+#include "../../../Include/GameLogic/Rva00548984.h"
 
 #include "../../../Include/GameLogic/Armor.h"
 

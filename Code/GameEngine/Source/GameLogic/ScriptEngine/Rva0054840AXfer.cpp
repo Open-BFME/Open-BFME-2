@@ -274,7 +274,7 @@ void Rva0054840A::rva00548527()
     m_08 = 0;
 }
 
-class Rva00548984 { public: void rva00548984(void *, int); };
+#include "../../../Include/GameLogic/Rva00548984.h"
 // WB ObjectOrderQueue::process, ObjectOrderQueue.cpp assertions266/275.
 // Native0x00548632..0x00548700 and the existing queue fields establish
 // completion vcall+0x14 and patrol resubmission through the recovered
