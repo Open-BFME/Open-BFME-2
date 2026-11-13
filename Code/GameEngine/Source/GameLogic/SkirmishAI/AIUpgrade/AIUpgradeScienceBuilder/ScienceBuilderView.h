@@ -18,15 +18,7 @@ enum ScienceType
 	SCIENCE_DUMMY = 0
 };
 
-class BaseA
-{
-public:
-	virtual void Register(Object *, void *) = 0;
-	virtual void UnRegister(Object *) = 0;
-	virtual ~BaseA();
-	int m_04;
-	int m_08;
-};
+#include "../../../../../Include/Common/BaseA.h"
 
 class Rva00506B1B
 {
