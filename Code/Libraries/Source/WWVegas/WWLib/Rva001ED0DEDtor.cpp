@@ -21,19 +21,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 
 #include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
-class Rva001EC349
-{
-public:
-	~Rva001EC349();
-private:
-	AsciiString m_00; // +0x00
-	AsciiString m_04; // +0x04
-	AsciiString m_08; // +0x08
-	AsciiString m_0C; // +0x0C
-	OpaqueRefElement4 m_10; // +0x10
-	int m_14; // +0x14
-	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_18; // +0x18
-};
+#include "../../../../GameEngine/Include/Common/Rva001EC349.h"
 
 class Rva001ED0DE
 {

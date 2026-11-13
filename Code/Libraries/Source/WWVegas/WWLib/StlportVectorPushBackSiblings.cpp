@@ -25,7 +25,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 
 // 36-byte element; layout owner StringContainerRecordCopyBFME2.cpp.
-class Rva001EC349 { public: ~Rva001EC349(); };
+#include "../../../../GameEngine/Include/Common/Rva001EC349.h"
 struct BfmeRecord001ECAF9 { char m_pad[36]; public: BfmeRecord001ECAF9(const BfmeRecord001ECAF9 &); // Destruction is the rowed ??1Rva001EC349, reached by a qualified call.
 __declspec(dllimport) __forceinline ~BfmeRecord001ECAF9() { ((Rva001EC349 *)this)->Rva001EC349::~Rva001EC349(); } };
 // 36-byte element; layout as in StlportVectorGrowthFootprints.cpp.
