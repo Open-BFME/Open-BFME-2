@@ -240,7 +240,7 @@ class ModuleData;
 class Rva00580B40 { public: void rva00580B40(const ModuleData *); };
 class LANGameInfo;
 class Rva0058113D { public: LANGameInfo *rva0058113D(unsigned int); };
-class Rva0043DB66ByteOneSetter { public: void enable(); };
+#include "../../../../../Include/Common/Rva0043DB66ByteOneSetter.h"
 #include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 class Rva00222A8BTarget;

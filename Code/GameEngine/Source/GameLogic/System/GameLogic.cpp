@@ -2455,14 +2455,7 @@ public:
 	char m_lead[0x2BB];
 	unsigned char m_enabled;
 };
-class Rva0043DB66ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x2B8];
-	unsigned char m_enabled;
-};
+#include "../../../Include/Common/Rva0043DB66ByteOneSetter.h"
 class Rva0047709EByteOneSetter
 {
 public:

@@ -118,11 +118,7 @@ class Rva00580B40
 public:
 	void rva00580B40(const ModuleData *entry);
 };
-class Rva0043DB66ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../../../Include/Common/Rva0043DB66ByteOneSetter.h"
 #include "../../../../../Include/GameClient/BfmeAptGameWindow.h"
 #include "../../../../../Include/GameNetwork/Rva00580172.h"
 class Rva00222A8BTarget;
