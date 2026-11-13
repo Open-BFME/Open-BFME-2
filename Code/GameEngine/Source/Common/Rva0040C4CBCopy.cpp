@@ -3,11 +3,7 @@
 // 0x0037DE0E plus int param +0xA8 and this +0xC0 to dest +0xAC, return 1/0.
 // Evidence: chain of 0x0037DE0E row, ret 8, caller 0x0040D7A8 passes stack
 // struct plus dword at +0x1C, neighbours Rva0040C351Ctor and ConstIntGetters4.
-class Rva0037DE0E
-{
-public:
-	unsigned char rva0037DE0E(void *dest);
-};
+#include "../../Include/Common/Rva0037DE0E.h"
 class Rva0040C4CB
 {
 public:

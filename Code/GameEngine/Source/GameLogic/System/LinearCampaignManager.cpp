@@ -563,11 +563,7 @@ class Slot0Receiver;
 
 #include "../../../Include/GameLogic/Rva001EBCD8.h"
 
-class Rva0037DE0E
-{
-public:
-	unsigned char rva0037DE0E(void *dest);
-};
+#include "../../../Include/Common/Rva0037DE0E.h"
 
 #include "../../../Include/GameLogic/UnitRevivalEntry.h"
 

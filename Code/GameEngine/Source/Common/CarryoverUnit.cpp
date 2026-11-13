@@ -102,18 +102,7 @@ public:
 	Rva001EAFC1 &operator=(const Rva001EAFC1 &other);
 };
 
-class Rva0037DE0E
-{
-	char m_pad00[4];
-	AsciiString m_s04;
-	int m_08;
-	int m_0C;
-	char m_block10[128];
-	char m_pad90[4];
-	Rva001EAFC1 m_94;
-public:
-	unsigned char rva0037DE0E(void *dest);
-};
+#include "../../Include/Common/Rva0037DE0E.h"
 
 // tu-skeleton: 0x0037DC84 6B ?name@CarryoverUnit@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
