@@ -212,7 +212,7 @@ template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00559076Mapped>, _ST
 //   0x00501130    0x00501374  0x005010A8  0x00501086
 //   0x00502FAE    0x00503554  0x00502F26  0x00502EA4
 
-struct Rva002F1DA1Mapped { int a; };
+#include "Rva002F1DA1Mapped.h"
 struct Rva00501E3FElement { int a; };
 struct Rva00501656 { unsigned char m_data[0x58]; ~Rva00501656(); };
 // bfme link decl-only Rva00501656

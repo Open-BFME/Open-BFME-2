@@ -6543,7 +6543,7 @@ struct Rva002F307AElement {
 bool operator<(const Rva002F307AElement &, const Rva002F307AElement &);
 struct Rva002F0BB5Element { char bytes[1]; bool operator<(const Rva002F0BB5Element &) const; bool operator==(const Rva002F0BB5Element &) const; };
 struct Rva002F0B8AElement { char bytes[1]; bool operator<(const Rva002F0B8AElement &) const; bool operator==(const Rva002F0B8AElement &) const; };
-struct Rva002F1DA1Mapped { int a; };
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva002F1DA1Mapped.h"
 struct Rva002F3759Compare { bool operator()(unsigned int a, unsigned int b) const { return a < b; } };
 struct BfmeWordValue4
 {

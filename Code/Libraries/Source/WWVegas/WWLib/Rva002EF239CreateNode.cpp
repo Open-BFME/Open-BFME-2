@@ -10,7 +10,7 @@
 #include "../../../../GameEngine/Include/Common/Rva002EB448.h"
 #include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
 extern Rva002E8548 g_IntKeyedTreeNodePool;
-struct Rva002F1DA1Mapped { int a; };
+#include "Rva002F1DA1Mapped.h"
 typedef _STL::pair<const int,Rva002F1DA1Mapped> Value2EF239;
 typedef _STL::pair<const int,int> Copy2EF239;
 namespace _STL {
