@@ -37,11 +37,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class EmotionTrackerUpdateSecondaryBase
-{
-public:
-	virtual void rva004B15E6() = 0;
-};
+#include "../../../../Include/GameLogic/Module/EmotionTrackerUpdateSecondaryBase.h"
 
 #include "../../../../Include/GameLogic/Rva002EE9B7.h"
 

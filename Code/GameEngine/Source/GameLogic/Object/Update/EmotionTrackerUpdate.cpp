@@ -275,11 +275,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class EmotionTrackerUpdateSecondaryBase
-{
-public:
-    virtual void rva004B15E6() = 0;
-};
+#include "../../../../Include/GameLogic/Module/EmotionTrackerUpdateSecondaryBase.h"
 
 // The ObjectID set at +0xA4; its ctor is the 25-byte STLport set ctor
 // 0x000D3A71, its dtor the one the rowed dtor runs.
