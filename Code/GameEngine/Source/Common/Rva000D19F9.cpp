@@ -4,12 +4,7 @@
 
 struct Coord3D;
 
-struct RGBColor00271779
-{
-	float m_r;
-	float m_g;
-	float m_b;
-};
+#include "../../Include/Common/RGBColor00271779.h"
 
 #include "../../Include/GameClient/Rva00271779.h"
 

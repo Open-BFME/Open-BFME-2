@@ -8,7 +8,7 @@
 // opaque, and the virtual's original identity is not asserted.
 // ZH ContainModule.h supplies contained-object list semantics; this debug
 // helper itself was not found in the ZH Pathfinder donor.
-struct RGBColor00271779 { float red,green,blue; };
+#include "../../../Include/Common/RGBColor00271779.h"
 #include "../../../Include/GameClient/Rva00271779.h"
 #include "../../../Include/GameClient/Drawable.h"
 class Object;

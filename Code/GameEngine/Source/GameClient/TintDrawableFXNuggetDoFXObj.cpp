@@ -4,11 +4,7 @@
 // Evidence: chain lane; calls 0x00271779 which this session landed; vtable slot 2 of 0x007DD8E0 TintDrawableFXNugget; BFME1 donor TintDrawableFXNugget_doFXObj_Thunk.cpp doFXObj with getDrawable plus status 0x20 plus applyTint RGB times freq amp; retail status at +0x118; caller none.
 typedef float Real;
 typedef unsigned int UnsignedInt;
-struct RGBColor00271779 {
-	Real red;
-	Real green;
-	Real blue;
-};
+#include "../../Include/Common/RGBColor00271779.h"
 
 #include "../../Include/GameClient/Rva00271779.h"
 
