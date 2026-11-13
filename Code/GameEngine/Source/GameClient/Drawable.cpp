@@ -1382,11 +1382,7 @@ private:
 	BfmeFloatModule **m_14c; // +0x14C
 };
 class Rva0055A88BDwordField;
-class Rva00239C38
-{
-public:
-	void rva00239C38(const Rva0055A88BDwordField *arg);
-};
+#include "../../Include/GameClient/Rva00239C38.h"
 class Rva00239FA0
 {
 public:

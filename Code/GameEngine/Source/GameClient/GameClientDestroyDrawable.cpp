@@ -59,11 +59,7 @@ extern InGameUI *TheInGameUI;
 // (Rva00239C38Erase.cpp): call it by that name, not by GameClient.cpp's
 // Zero Hour removeDrawableFromLookupTable body, which is not retail's.
 class Rva0055A88BDwordField;
-class Rva00239C38
-{
-public:
-	void rva00239C38(const Rva0055A88BDwordField *arg);
-};
+#include "../../Include/GameClient/Rva00239C38.h"
 
 class GameClient
 {
