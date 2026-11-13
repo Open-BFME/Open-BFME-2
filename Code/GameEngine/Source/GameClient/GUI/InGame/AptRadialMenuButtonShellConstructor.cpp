@@ -125,11 +125,7 @@ public:
 	};
 };
 
-class Rva00577A0E
-{
-public:
-	AsciiString rva00577A0E() const;
-};
+#include "../../../../Include/GameClient/Rva00577A0E.h"
 
 // The reference-counted Apt object base (count at +0x04).
 class Rva00577FE2Base

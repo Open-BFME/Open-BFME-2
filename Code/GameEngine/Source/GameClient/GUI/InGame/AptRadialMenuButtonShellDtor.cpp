@@ -64,11 +64,7 @@ public:
 	};
 };
 
-class Rva00577A0E
-{
-public:
-	AsciiString rva00577A0E() const;
-};
+#include "../../../../Include/GameClient/Rva00577A0E.h"
 
 class Rva00577FE2Base
 {
