@@ -29,7 +29,7 @@ struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00217D4C;
 class AptMovieClipFrame;
-class Rva005F3F9A { public: void rva005F3F9A(); };
+#include "../../../../Include/Common/Rva005F3F9A.h"
 class Rva005F3F14 { public: void rva005F3F14(); };
 class Rva005F4179 {
 public:

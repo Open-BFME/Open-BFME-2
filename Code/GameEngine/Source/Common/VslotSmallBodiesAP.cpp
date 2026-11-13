@@ -454,11 +454,7 @@ void Rva005CF8DB::rva005CF8DB()
 	m_08.rva00574192();
 }
 
-class Rva005F3F9A
-{
-public:
-	void rva005F3F9A();
-};
+#include "../../Include/Common/Rva005F3F9A.h"
 class Rva005F3FF4
 {
 public:
