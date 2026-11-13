@@ -56,11 +56,7 @@ struct Rva004FF5B7Node
 
 #include "../../../../Include/GameLogic/Rva004FF5B7Iter.h"
 
-class Rva004FF5B7
-{
-public:
-	Rva004FF5B7Iter GetRegionInfo(int key);
-};
+#include "../../../../Include/Common/Rva004FF5B7.h"
 
 struct RegionInfo
 {
