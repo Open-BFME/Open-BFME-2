@@ -134,11 +134,7 @@ void Rva005402DCList::apply(const Rva005401E3Call &call)
 }
 
 // ---- forEach 0x005414E5, walk 0x00541340
-class Rva005414E5Listener
-{
-public:
-	virtual void notify(void *, int);
-};
+#include "../../Include/Common/Rva005414E5Listener.h"
 
 struct Rva00541340Call
 {

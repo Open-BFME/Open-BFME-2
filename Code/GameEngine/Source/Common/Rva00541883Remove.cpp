@@ -39,19 +39,7 @@ namespace _STL
 	};
 }
 
-class Rva005414E5Listener
-{
-public:
-	virtual void notify00(void *, int);
-	virtual void notify04(void *, int);
-	virtual void notify08(void *, int);
-	virtual void notify0C(void *, int);
-	virtual void notify10(void *, int);
-	virtual void notify14(void *, int);
-	virtual void notify18(void *, int);
-	virtual void notify1C(void *, int);
-	virtual void notify20(void *, int);
-};
+#include "../../Include/Common/Rva005414E5Listener.h"
 
 class Rva005414E5List
 {
