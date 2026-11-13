@@ -183,6 +183,8 @@ private:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0045A3C8
 };
 
 
@@ -341,7 +343,7 @@ void AutoAbilityBehavior::rva0045A413()
 	m_str20.set("");
 }
 
-// tu-skeleton: 0x0045A3C8 6B ?name@AutoAbilityBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x0045A3C8 6B ?GetSnapshotName@AutoAbilityBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorPoolKey.cpp
 
