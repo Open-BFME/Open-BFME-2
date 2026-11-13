@@ -6204,3 +6204,4 @@ __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"R
 ?addExtents@Rva00104DE6@@QAEXHHHH@Z,0x00104E68,"Renamed to ?addExtents@Rva00104DB0@@UAEXHHHH@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 2)"
 ?bfmeGo1042E@BfmeC1042@@QAEXPAUBfmeR1042@@@Z,0x00105CC7,"Renamed to ?bfmeGo1042E@Rva00104DB0@@UAEXPAUBfmeR1042@@@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 3)"
 ?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,0x00104DE6,"Renamed to ?setFont@Rva00104DB0@@UAEXPBURva00104DE6Font@@@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 4)"
+?name@BezierProjectileBehavior@@QBEPBDXZ,0x0045BFD3,"Renamed to ?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C41E04 slot 2)"

@@ -447,6 +447,8 @@ private:
 	ObjectIDList m_list7C;		// +0x7C
 	Bool m_hasDetonated;		// +0x80
 	Real m_heightScale;		// +0x84
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0045BFD3
 };
 
 extern int g_Va00DFEFD8;
@@ -1527,7 +1529,7 @@ BezierProjectileBehavior::~BezierProjectileBehavior()
 {
 }
 
-// tu-skeleton: 0x0045BFD3 6B ?name@BezierProjectileBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x0045BFD3 6B ?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorCtor.cpp
 

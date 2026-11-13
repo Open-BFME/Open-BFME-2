@@ -3503,3 +3503,34 @@ native slots with provisional33FC04 getter/33FB0B transfer bindings. Getter
 --to-class refuses the already-named owner; transfer ICF admission is refused
 by tu_ownership A1. No production change or bridge retirement.
 [Candidate and exact prerequisites](../../reverse\attempt_support\attack-position-native-vtable-20261113-root20.md).
+
+### Module name getters moved to their Snapshot override; slot43's respell needs a header route (2026-11-13, seat halilkkaya-lk106)
+
+Base `5f3deb924b5`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py` (local objects, no link).
+Base: 3,324 bridged, 31 refused, 2,225 already correct.
+
+**Tooling (both false rejects lk97/lk102 recorded).**
+- `4d67bacc1ab` rename.py: a signature-only `--respell` keeps a placeholder identifier (no placeholder check on
+  the unchanged identifier) and may retype a placeholder's top-level 4-byte scalar parameter (int, unsigned,
+  long, unsigned long, float). Cause 6 (`?slot43@BehaviorModule@@UAEXH@Z` -> `UAEXM@Z`) is still blocked:
+  slot43 is declared only in the canonical `Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h` (hand
+  written, not generated) and in three shim copies (`reference/shims/bfme2_bonefxupdate`,
+  `bfme2_flammableupdate`, `zh_outofline`), while `--prepared` takes Code `.cpp` sources only. Prerequisite: a
+  respell route that prepares a registered canonical header (and its shim copies) and verifies its includers.
+- `742789a3c34` rename.py `--to-class`: the one same-class move, `?name@C@@QBEPBDXZ` to
+  `?GetSnapshotName@C@@MBEPBDXZ`, proved by slot 2 of C's own retail table, an installer view deriving C from
+  Snapshot and the rebuilt table naming the override in slot 2. 25 bridged tables were wrong only at slot 2 (or
+  slots 1-2) with a `?name@<RealClass>@@QBEPBDXZ` getter at the base.
+
+**Done (commits by subject).**
+- "Move ?name@BezierProjectileBehavior@@QBEPBDXZ into BezierProjectileBehavior as
+  ?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ": 0x00C41E04 off the bridge (3,324 -> 3,323; refusals
+  identical; 2,225 -> 2,226 correct). link_check: ModuleNameGetters.cpp 288 B and BezierProjectileBehavior.cpp
+  5,754 B LINK before and after.
+
+**Recipe and limits.** Prepare the getter unit (`BFME_LITERAL_NAME_GETTER(C, ...)` ->
+`BFME_SNAPSHOT_NAME_GETTER(C, ...)`) and every installer unit whose view compiles C's table (a protected
+`virtual const char *GetSnapshotName() const;` in C's body), then `rename.py function --rva R --to-class C --new
+'?GetSnapshotName@C@@MBEPBDXZ' --prepared ...`. One move per commit: a second move with the first unstaged is
+refused by name_dependents. A refused apply restores the files but leaves its verify objects in `build/match`:
+rebuild those units before measuring.
