@@ -267,11 +267,7 @@ UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
 // _STL::map::find is not throw(), so the lookup goes through the
 // layout-compatible SkirmishFindMap shim whose find is declared throw().
 // Its call is already pinned to the shared _M_find worker at 0x001F8437.
-struct SkirmishFindNode
-{
-	unsigned char m_pad[0x14];
-	AsciiString m_value;
-};
+#include "../../Include/Common/SkirmishFindNode.h"
 
 class SkirmishFindMap
 {
