@@ -163,6 +163,8 @@ private:
 	bool m_f75;			// +0x75
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004A8D93
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
@@ -308,4 +310,11 @@ UpdateSleepTime DelayedLuaEventUpdate::update()
 	}
 	TheGameLogic->destroyObject(m_object);
 	return UPDATE_SLEEP_NONE;
+}
+
+// ?loadPostProcess@DelayedLuaEventUpdate@@MAEXXZ: retail primary vftable 0x00C53A5C slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void DelayedLuaEventUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
 }
