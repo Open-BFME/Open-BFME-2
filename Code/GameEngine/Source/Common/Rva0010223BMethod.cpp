@@ -24,13 +24,7 @@ public:
 	void rva00102026();
 };
 
-class Rva00102087
-{
-public:
-	EvaMessageInfo *rva00102087(EvaMessageInfo *a, EvaMessageInfo *b);
-	EvaMessageInfo *m_00;
-	EvaMessageInfo *m_04;
-};
+#include "../../Include/Common/Rva00102087.h"
 
 class Rva0010223B
 {

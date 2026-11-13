@@ -34,14 +34,7 @@ struct EvaMessageInfo
 	EvaMessageInfo &operator=(const EvaMessageInfo &);
 };
 
-class Rva00102087
-{
-public:
-	EvaMessageInfo *rva00102087(EvaMessageInfo *a, EvaMessageInfo *b);
-private:
-	void *m_00;
-	EvaMessageInfo *m_04;
-};
+#include "../../Include/Common/Rva00102087.h"
 
 EvaMessageInfo *Rva00102087::rva00102087(EvaMessageInfo *evaMessageInfo, EvaMessageInfo *b)
 {
