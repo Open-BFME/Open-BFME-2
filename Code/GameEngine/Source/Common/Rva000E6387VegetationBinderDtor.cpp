@@ -175,12 +175,7 @@ void Rva000E68C5SwayOffsets(ID3DXEffect *effect, D3DXHANDLE handle);
 void Rva000E69E6BaseTexture(ID3DXEffect *effect, D3DXHANDLE handle);
 
 // FX parameter binder base: vtable 0x00BC6F24 = { deleting dtor, __purecall }.
-class Base
-{
-public:
-	virtual ~Base() {}
-	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
-};
+#include "../../Include/Common/Base.h"
 
 class VegetationFXShaderParameterSourceNamespace : public Base
 {

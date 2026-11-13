@@ -337,12 +337,7 @@ public:
 #include "../../Include/Common/Rva001530E9Path.h"
 
 // FX parameter binder base: vtable 0x00BC6F24 = { deleting dtor, __purecall }.
-class Base
-{
-public:
-	virtual ~Base() {}
-	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
-};
+#include "../../Include/Common/Base.h"
 
 // Default binder (0x00153664).
 class FXShaderParameterSourceNamespace_Struct : public Base

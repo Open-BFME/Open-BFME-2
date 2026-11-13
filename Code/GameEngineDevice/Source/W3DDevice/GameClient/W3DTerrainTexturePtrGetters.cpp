@@ -264,12 +264,7 @@ public:
 	void AddBinding(TreeHintRef00217D4C callback, const char *handle);
 };
 
-class Base
-{
-public:
-	virtual ~Base() {}
-	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
-};
+#include "../../../../GameEngine/Include/Common/Base.h"
 
 class FXShaderParameterSourceNamespace_Struct : public Base
 {
