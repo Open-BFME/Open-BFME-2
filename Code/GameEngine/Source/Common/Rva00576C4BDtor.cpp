@@ -27,11 +27,7 @@ public:
 	Rva002B7250 m_holder;
 };
 
-class Rva00328A83PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva00328A83PtrChaseField.h"
 #include "../../Include/Common/Rva0042D6AEPtrChaseField.h"
 class VirtObj00576C4B
 {
