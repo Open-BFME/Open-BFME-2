@@ -1,0 +1,106 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0030BBC8",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "96": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0030BBC8Set.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 96,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "v0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "v4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "v5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "v6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "v7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "v8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "notify()"
+  }
+ }
+}
