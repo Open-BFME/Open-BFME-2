@@ -6,7 +6,7 @@
 #include "ascii_string.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class AptRefCounted {public:void *m_vtbl;int m_refCount;};
+#include "../../../Include/Common/AptRefCounted.h"
 class AptOverButtonHandler : public AptRefCounted {};
 template<class T> class AptRef {
 public:

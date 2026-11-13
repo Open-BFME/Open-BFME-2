@@ -100,7 +100,7 @@ private:
 	AptFocusTarget **m_endOfStorage;
 };
 
-class AptRefCounted { public: void *m_vtbl; int m_refCount; };
+#include "../../../Include/Common/AptRefCounted.h"
 #include "../../../Include/Common/AptCommandMap.h"
 class AptCustomRender : public AptRefCounted {};
 class AptTimer : public AptRefCounted {};

@@ -18,12 +18,7 @@ typedef int Int;
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);	// 0x0007DEEF
 
-class AptRefCounted
-{
-public:
-	void *m_vtbl;
-	Int m_refCount;				// +0x04
-};
+#include "../../../Include/Common/AptRefCounted.h"
 
 template <class T> class AptRef
 {
