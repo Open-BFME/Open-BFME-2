@@ -19,11 +19,7 @@ enum UpdateSleepTime
     UPDATE_SLEEP_DUMMY
 };
 
-class PB_Iface1
-{
-public:
-    virtual void slot();
-};
+#include "../../../../Include/Common/PB_Iface1.h"
 
 class PB_Iface2
 {

@@ -13,7 +13,7 @@ enum UpdateSleepTime
     UPDATE_SLEEP_NONE = 1
 };
 
-class PB_Iface1 { public: virtual void slot(); };
+#include "../../../../Include/Common/PB_Iface1.h"
 class PB_Iface2 { public: virtual void slot(); };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h

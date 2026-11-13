@@ -70,7 +70,7 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class PB_Iface1 { public: virtual void slot(); };
+#include "../../../../Include/Common/PB_Iface1.h"
 
 class EvacuateDamageInterface { public: virtual void slot() = 0; };
 
