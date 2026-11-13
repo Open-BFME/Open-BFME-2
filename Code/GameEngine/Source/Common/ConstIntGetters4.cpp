@@ -601,12 +601,17 @@ int Rva0038374DGet(void)
 	return (int)"GameSpyStagingRoom";
 }
 
-// ?Rva003ECCD0Get@@YAHXZ @ 0x003eccd0 (6B): returns 0x00BF4E94.
+// ?GetSnapshotName@ThreatFinderUpdate@@MBEPBDXZ @ 0x003eccd0 (6B): returns 0x00BF4E94.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva003ECCD0Get(void)
+class ThreatFinderUpdate
 {
-	return (int)"ThreatFinderUpdate";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *ThreatFinderUpdate::GetSnapshotName() const
+{
+	return "ThreatFinderUpdate";
 }
 
 // ?Rva003EFD37Get@@YAHXZ @ 0x003efd37 (6B): returns 0x00C36BA8.

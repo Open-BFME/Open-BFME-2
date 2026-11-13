@@ -163,6 +163,8 @@ protected:
 
 private:
     Rva003ECD60Object *m_heap;
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x003ECCD0
 };
 
 struct Rva003ECD1BVector
@@ -540,7 +542,7 @@ void ThreatFinderUpdate::xfer(Xfer *xfer)
 		m_heap->xfer(xfer);
 }
 
-// tu-skeleton: 0x003ECCD0 6B ?Rva003ECCD0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x003ECCD0 6B ?GetSnapshotName@ThreatFinderUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x003ECE33 162B ?mapLoadPostProcess@ThreatFinderUpdate@@UAEXPBVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateMapLoadPostProcess.cpp (not merged yet)
 

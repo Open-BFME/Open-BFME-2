@@ -6220,3 +6220,4 @@ __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgra
 ?name@AttributeModifierPoolUpdate@@QBEPBDXZ,0x00403A5B,"Renamed to ?GetSnapshotName@AttributeModifierPoolUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C3856C slot 2)"
 ?Rva0033F565Get@@YAHXZ,0x0033F565,"Renamed to ?GetSnapshotName@AIDockState@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C11368 slot 2)"
 ?Rva004B7084Get@@YAHXZ,0x004B7084,"Renamed to ?GetSnapshotName@ReplaceSelfUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C58B10 slot 2)"
+?Rva003ECCD0Get@@YAHXZ,0x003ECCD0,"Renamed to ?GetSnapshotName@ThreatFinderUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C360CC slot 2)"
