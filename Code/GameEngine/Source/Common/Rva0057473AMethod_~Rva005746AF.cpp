@@ -17,12 +17,7 @@ __forceinline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 }
 
 
-class Rva0042D6B4PtrChaseField
-{
-public:
-	int get() const;
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 
 struct Rva0057473AOuter
 {
