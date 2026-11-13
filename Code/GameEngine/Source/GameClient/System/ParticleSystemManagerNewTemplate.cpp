@@ -45,16 +45,7 @@ template <class _T1, class _T2>
 pair<_T1, _T2> make_pair(const _T1 &a, const _T2 &b);
 }
 
-struct InsertRet001F8F2A
-{
-public:
-	InsertRet001F8F2A(void *node, void *owner, unsigned char found)
-	: m_node(node), m_owner(owner), m_found(found) {}
-	void *m_node; // +0x00
-	void *m_owner; // +0x04
-	unsigned char m_found; // +0x08
-	char m_pad09[0x3];
-};
+#include "../../../Include/GameClient/InsertRet001F8F2A.h"
 
 class Rva000411084;
 struct VideoPair;

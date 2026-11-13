@@ -53,12 +53,7 @@ public:
 	}
 };
 
-struct InsertRet001F8F2A
-{
-	void *m_node;
-	void *m_owner;
-	unsigned char m_found;
-};
+#include "../../../Include/GameClient/InsertRet001F8F2A.h"
 
 typedef _STL::pair<const AsciiString, FXParticleSystem::ParticleSystemTemplate *> TemplateMapEntry;
 
