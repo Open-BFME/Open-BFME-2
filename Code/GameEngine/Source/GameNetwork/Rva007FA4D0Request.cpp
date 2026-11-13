@@ -28,17 +28,7 @@ public:
 	char m_pad31[3];
 };
 
-class Rva007FA5E0Arg
-{
-public:
-	bool valid();
-
-	char m_pad00[0x20];
-	void *m_20;
-	char m_pad24[4];
-	void *m_28;
-	void *m_2C;
-};
+#include "../../Include/GameNetwork/Rva007FA5E0Arg.h"
 
 class Rva007FA5E0Id
 {

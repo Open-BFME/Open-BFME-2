@@ -3,16 +3,7 @@
 // or an id mismatch at +0x6A8 (-105), then drives vslot 0/5 on +0x24 and
 // dispatch(arg, "->R").
 
-class Rva007FA5E0Arg
-{
-public:
-	char m_pad[0x20];
-	void *m_20;
-	char m_gap24[4];
-	void *m_28;
-	void *m_2C;
-	bool valid();
-};
+#include "../../Include/GameNetwork/Rva007FA5E0Arg.h"
 
 class Rva007FA5E0Id
 {
