@@ -13,13 +13,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
 #include "../../../../../Include/GameNetwork/Rva00407E28.h"
-class CreateAHeroHero
-{
-public:
-	void ConstructHeroBlingList();
-	const class CommandButton *GetButtonForLevel(int);
-	void rva005B0357(int, char *, int);
-};
+#include "../../../../../Include/Common/CreateAHeroHero.h"
 // A bling binder (20 bytes): its name key, the game-text label, and the
 // slot and category it fills.
 struct BlingBinder {int key;AsciiString label;int pad08;unsigned int slot;int category;};

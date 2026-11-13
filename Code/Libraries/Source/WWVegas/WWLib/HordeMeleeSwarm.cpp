@@ -78,11 +78,7 @@ bool Rva0038190FSendChat(const UnicodeString &text, const _STL::vector<int, Rva0
 // 0x005B023A: sets +0x150 and runs CreateAHeroHero::Update(0) (0x004083FF,
 // CreateAHeroHero.cpp) on itself; the WorldBuilder twin 0x0156DEC0 calls
 // CreateAHeroHero::Update with this.
-class CreateAHeroHero
-{
-public:
-	bool Update(Int flags);
-};
+#include "../../../../GameEngine/Include/Common/CreateAHeroHero.h"
 // 0x005C392A (one table, two tail jumps): the verified Impl::Update at 0x005C36F3 of the
 // +0x08 object.
 // 0x0051483C (table VA 0x00C65F3C): false after the rowed 0x002233A6(1) on

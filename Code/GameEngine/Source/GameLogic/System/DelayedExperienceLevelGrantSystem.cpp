@@ -147,11 +147,7 @@ public:
 
 class CreateAHeroData;
 
-class CreateAHeroHero
-{
-public:
-	bool UpdateCommandSet(UnsignedInt commandSet);			// 0x00407705
-};
+#include "../../../Include/Common/CreateAHeroHero.h"
 
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 
