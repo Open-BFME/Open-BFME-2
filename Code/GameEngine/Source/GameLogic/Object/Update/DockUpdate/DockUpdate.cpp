@@ -267,11 +267,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class SupplyWarehouseDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../../Include/GameLogic/Module/SupplyWarehouseDockUpdateModuleData.h"
 
 class DelayedDeathBodyModuleData
 {

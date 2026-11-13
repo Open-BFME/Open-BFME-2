@@ -237,11 +237,7 @@ void Rva0049B51EParse(INI *, void *, void *, const void *);
 
 #include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 
-class SupplyWarehouseDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SupplyWarehouseDockUpdateModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 
