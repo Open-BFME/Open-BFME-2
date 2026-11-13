@@ -8,15 +8,7 @@
 
 bool __fastcall Rva007FF3F0IsLeapYear(int year);
 
-struct Rva007FF700Date
-{
-	int m_month; /* +0x00 */
-	int m_day; /* +0x04 */
-	int m_year; /* +0x08 */
-
-	Rva007FF700Date();
-	int setDay(int day);
-};
+#include "../../../GameEngine/Include/Common/Rva007FF700Date.h"
 
 bool __fastcall Rva007FF3F0IsLeapYear(int year)
 {

@@ -9,14 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Rva007FF700Date
-{
-	int m_month;
-	int m_day;
-	int m_year;
-	int setDay(int day);
-	int parse(const char *text);
-};
+#include "../../../GameEngine/Include/Common/Rva007FF700Date.h"
 
 int Rva007FF700Date::parse(const char *text)
 {

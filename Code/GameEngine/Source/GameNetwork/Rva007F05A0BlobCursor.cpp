@@ -37,15 +37,7 @@ private:
 
 #include "../../Include/GameNetwork/BfmeThingUPB.h"
 
-struct Rva007FF700Date
-{
-public:
-	int parse( const char *text );
-	Rva007FF700Date();
-	int m_month; // +0x00
-	int m_day; // +0x04
-	int m_year; // +0x08
-};
+#include "../../Include/Common/Rva007FF700Date.h"
 
 class Rva007F0CB0BlobRecord
 {

@@ -17,18 +17,7 @@
  * ecx and nothing on the stack is __fastcall. */
 bool __fastcall Rva007FF3F0IsLeapYear( int year );
 
-struct Rva007FF700Date
-{
-	int m_month;    /* +0x00 */
-	int m_day;      /* +0x04 */
-	int m_year;     /* +0x08 */
-
-	Rva007FF700Date();
-	int setDay( int day );
-	int setMonth( int month );
-	int setYear( int year );
-	int setDate( int month, int day, int year );
-};
+#include "../../Include/Common/Rva007FF700Date.h"
 
 /* The ordinary rule, and the bytes show all three tests: divisible by four,
  * except centuries, except every fourth century.  The first test compiles to
