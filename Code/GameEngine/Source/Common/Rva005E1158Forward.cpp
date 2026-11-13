@@ -32,12 +32,7 @@ void Rva005E1158::rva005E1158(const Image *image)
 // Leaf float forwarder to rowed Rva005E1008::rva005E1008 via +8, same shape
 // as the 8B pointer forwarder above. Pin names a stdcall free function but the
 // body reads ecx as this and rets 4 for one float, so honest method name.
-class Rva005E1008
-{
-public:
-	void showTimerOverlay(float v);
-	void hideTimerOverlay();
-};
+#include "../../Include/Common/Rva005E1008.h"
 
 class Rva005E1178
 {

@@ -45,7 +45,7 @@ class Rva003F287F; class Rva004E0632;
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../Include/GameLogic/Rva00318F42.h"
-class Rva005E1008 {public: void rva005E0E99(bool);};
+#include "../../Include/Common/Rva005E1008.h"
 class Rva005E1160Flag {public: __declspec(noinline) void rva005E1160(bool); char prefix[8]; Rva005E1008 *inner;};
 void Rva005E1160Flag::rva005E1160(bool enabled){inner->rva005E0E99(enabled);}
 class Rva005E0D94 {public: void rva005E0D94();};
