@@ -74,6 +74,9 @@ class Rva005D5095Base : public Rva005AFE3F
 {
 public:
 	Rva005D5095Base(int a);
+	virtual ~Rva005D5095Base();
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
+	virtual bool vslot06() = 0;
 };
 
 Rva005D5095Base::Rva005D5095Base(int a) : Rva005AFE3F((void *)a)

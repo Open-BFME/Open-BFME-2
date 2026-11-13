@@ -54,10 +54,13 @@ Rva005AFA03::~Rva005AFA03()
 {
 }
 
+// Retail table 0x00C75AC4 (seven slots): slot 4 is 0x005D50AD, slot 6 pure.
 class Rva005D50D8 : public Rva005AFE3F
 {
 public:
 	virtual ~Rva005D50D8();
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
+	virtual bool vslot06() = 0;
 };
 
 Rva005D50D8::~Rva005D50D8()
