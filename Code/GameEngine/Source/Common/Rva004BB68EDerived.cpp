@@ -57,11 +57,7 @@ class Object;
 struct Coord3D;
 
 // The collide interface (+0x10): its only slot is onCollide.
-class Rva004BC4FC_B2
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
+#include "../../Include/Common/Rva004BC4FC_B2.h"
 
 class CrateCollide : public Rva004BB68E, public MiBase1, public Rva004BC4FC_B2
 {

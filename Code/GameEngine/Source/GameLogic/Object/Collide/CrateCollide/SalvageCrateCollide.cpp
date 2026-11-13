@@ -243,11 +243,7 @@ public:
 class Object;
 
 // The collide interface (+0x10): its only slot is onCollide.
-class Rva004BC4FC_B2
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
+#include "../../../../../Include/Common/Rva004BC4FC_B2.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp
 
