@@ -654,11 +654,7 @@ struct Rva007F6A10Owner { char m_pad[0x58]; Rva007F6A10Slot m_slots[4]; Rva007F6
 
 #include "../../../../GameEngine/Include/Common/Rva007F6C60.h"
 
-class Rva007F77B0Block : public Rva007F6BA0
-{
-public:
-	void allocate( int count );                                       // 0x007F77B0
-};
+#include "../../../../GameEngine/Include/GameNetwork/Rva007F77B0Block.h"
 
 #include "../../../../GameEngine/Include/GameNetwork/Rva007F7810Block.h"
 

@@ -171,11 +171,7 @@ void Rva007F78E0Block::allocate( int count )
 
 // -------------------------------------- allocate-and-construct over the two
 //                                        already-named polymorphic arrays
-class Rva007F77B0Block : public Rva007F6BA0
-{
-public:
-	void allocate( int count );
-};
+#include "../../Include/GameNetwork/Rva007F77B0Block.h"
 
 void Rva007F77B0Block::allocate( int count )
 {

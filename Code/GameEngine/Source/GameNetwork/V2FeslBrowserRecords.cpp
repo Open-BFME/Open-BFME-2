@@ -67,11 +67,7 @@ public:
 
 #include "../../Include/Common/Rva007F6C60.h"
 
-class Rva007F77B0Block : public Rva007F6BA0
-{
-public:
-	void allocate( int count );                                       // 0x007F77B0
-};
+#include "../../Include/GameNetwork/Rva007F77B0Block.h"
 
 #include "../../Include/GameNetwork/Rva007F7810Block.h"
 
