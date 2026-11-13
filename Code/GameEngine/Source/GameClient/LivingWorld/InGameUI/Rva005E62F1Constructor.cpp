@@ -20,7 +20,7 @@ struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva00319B0AOwner.h"
 class Rva00318C32Ret;
 #include "../../../../Include/GameLogic/Rva00318C79Owner.h"
-class Rva00318FBE {public:int rva00318FBE();};
+#include "../../../../Include/GameClient/Rva00318FBE.h"
 class Rva005CB84A {public:void rva005CB84A(int);};
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 struct Ref {void*pointer;Ref():pointer(0){} ~Ref(){reinterpret_cast<Rva000AD6F4*>(this)->clear();}};
