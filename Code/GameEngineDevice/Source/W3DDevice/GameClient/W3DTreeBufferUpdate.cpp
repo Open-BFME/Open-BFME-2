@@ -85,11 +85,7 @@ public:
 	// evidence). The call below binds the rowed name (identical ABI).
 };
 
-class Rva000E6406SwayView
-{
-public:
-	void rva000E6406(const BreezeInfo &info);	// 0x000E6406
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000E6406SwayView.h"
 
 class Rva000EB08C
 {

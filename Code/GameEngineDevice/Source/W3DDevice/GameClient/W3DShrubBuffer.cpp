@@ -523,11 +523,7 @@ struct Rva000E89BDTree
 	unsigned char pad88[0x9c - 0x88];
 	int shroudState;
 };
-class Rva000E6406SwayView
-{
-public:
-	void rva000E6406(const BreezeInfo &info);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000E6406SwayView.h"
 class FXList
 {
 public:
