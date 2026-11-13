@@ -22,11 +22,7 @@ struct XferVersion
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
 
-class Rva004CE6E4
-{
-public:
-	void rva004CE6E4(Xfer *xfer);
-};
+#include "../../../Include/Common/Rva004CE6E4.h"
 
 typedef _STL::vector<ScienceType> ScienceTypeVector;
 

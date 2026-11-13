@@ -13,10 +13,7 @@ public:
 class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class Rva004CE6E4 {
-public:
-    void rva004CE6E4(Xfer *xfer);
-};
+#include "../../../../Include/Common/Rva004CE6E4.h"
 class NotifyTargetsOfImminentProbableCrushingUpdate : public UpdateModule {
 public:
 protected:

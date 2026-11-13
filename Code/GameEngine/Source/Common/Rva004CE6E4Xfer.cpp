@@ -11,10 +11,7 @@ public:
     unsigned char m_current;
     unsigned char m_minimum;
 };
-class Rva004CE6E4 {
-public:
-    void rva004CE6E4(Xfer *xfer);
-};
+#include "../../Include/Common/Rva004CE6E4.h"
 void Rva004CE6E4::rva004CE6E4(Xfer *xfer)
 {
     Xfer::Version version;

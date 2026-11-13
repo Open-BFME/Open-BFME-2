@@ -13,10 +13,7 @@ public:
     unsigned char m_current;
     unsigned char m_minimum;
 };
-class Rva004CE6E4 {
-public:
-    void rva004CE6E4(Xfer *xfer);
-};
+#include "../../Include/Common/Rva004CE6E4.h"
 class Rva005C4469 {
 public:
     void rva005C4469(Xfer *xfer);
