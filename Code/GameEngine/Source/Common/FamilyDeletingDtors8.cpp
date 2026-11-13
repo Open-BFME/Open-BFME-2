@@ -33,7 +33,7 @@ void famgenDelete(AIBase *aIBase) { delete aIBase; }
 void famgenDelete(Rva0052A470 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva0054C941@@QAEPAXI@Z @0x0054CBFF 28B: calls rowed ~Rva0054C941 0x0054C941
-class Rva0054C941 { public: ~Rva0054C941(); };
+#include "../../Include/Common/Rva0054C941.h"
 void famgenDelete(Rva0054C941 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva00177860@@QAEPAXI@Z @0x00560191 28B: calls rowed ~Rva00177860 0x00177860

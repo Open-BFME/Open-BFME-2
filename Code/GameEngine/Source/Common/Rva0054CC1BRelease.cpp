@@ -4,11 +4,7 @@
 // Releasing wrapper for ??1Rva0054C941: takes pointer at +0, nulls it with
 // and [ecx] 0, destroys via rowed dtor then rowed operator delete.
 // Chain from 0x0054C941, unblocks 0x0054D2CF, LINK BONUS via.
-class Rva0054C941
-{
-public:
-	~Rva0054C941();
-};
+#include "../../Include/Common/Rva0054C941.h"
 #include <new>
 class Rva0054CC1B
 {
