@@ -156,11 +156,7 @@ public:
 	~Rva001EB940();
 };
 #include "../../Include/Common/Rva004F7DD4.h"
-class Rva005C8FBD
-{
-public:
-	~Rva005C8FBD();
-};
+#include "../../Include/Common/Rva005C8FBD.h"
 class BfmeVectorRecord002AF478
 {
 public:
