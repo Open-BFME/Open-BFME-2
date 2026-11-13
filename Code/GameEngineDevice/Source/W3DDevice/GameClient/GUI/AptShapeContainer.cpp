@@ -122,7 +122,7 @@ namespace _STL {class ios_base {protected:void _M_clear_nothrow(int);friend clas
 
 class ShroudFilter {public:int words[5]; void setMode(int mode){reinterpret_cast<_STL::ios_base*>(this)->_M_clear_nothrow(mode);}};
 
-class ShroudTexture {public:ShroudFilter *getFilter();};
+#include "../../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 
 class AssetReference
 {

@@ -460,11 +460,7 @@ public:
 	int m_vAddressMode;
 };
 
-class ShroudTexture
-{
-public:
-	ShroudFilter *getFilter(void);
-};
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 
 class IndexBufferClass;
 

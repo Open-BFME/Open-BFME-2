@@ -85,7 +85,7 @@ public:
 	int u; // +0x0C
 	int v; // +0x10
 };
-class ShroudTexture { public: ShroudFilter *getFilter(); };
+#include "../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 #include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 #include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 #include "../../../Include/W3DDevice/GameClient/Rva001166E0.h"
