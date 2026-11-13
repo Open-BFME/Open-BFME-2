@@ -188,7 +188,7 @@ struct Rva005F13E6Element { char m_pad[4]; public: Rva005F13E6Element(const Rva0
 // 4-byte element; push_back 0x005FA197.
 struct Rva005FA197Element { char m_pad[4]; public: Rva005FA197Element(const Rva005FA197Element &); ~Rva005FA197Element(); };
 // 4-byte element; push_back 0x005FA1CE.
-struct Rva005FA1CEElement { char m_pad[4]; public: Rva005FA1CEElement(const Rva005FA1CEElement &); ~Rva005FA1CEElement(); };
+#include "../../../../GameEngine/Include/Common/Rva005FA1CEElement.h"
 
 // Element views of push_back rows outside StlportVectorPushBackFamily.cpp
 // (and of 0x005E825C, landed there with this body); each push_back is the

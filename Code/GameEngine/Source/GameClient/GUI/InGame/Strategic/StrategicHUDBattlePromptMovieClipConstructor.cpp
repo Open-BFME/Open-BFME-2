@@ -80,7 +80,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 class Rva005FA0C9;
 struct Rva005FA197Element {Rva005FA0C9*ptr;Rva005FA197Element(const Rva005FA197Element&);~Rva005FA197Element();};
 class Rva005FA0F7;
-struct Rva005FA1CEElement {Rva005FA0F7*ptr;Rva005FA1CEElement(const Rva005FA1CEElement&);~Rva005FA1CEElement();};
+#include "../../../../../Include/Common/Rva005FA1CEElement.h"
 void Rva00030830FreeAllocation(void*);
 namespace _STL {
 // The handle vectors free through the rowed game-memory free wrapper, as in

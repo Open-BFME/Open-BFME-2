@@ -22,7 +22,7 @@ struct Rva005F91F3 {unsigned int word0,word1;UnicodeString text;Rva005F91F3(cons
 class Rva005FA0C9;
 struct Rva005FA197Element {Rva005FA0C9 *ptr;Rva005FA197Element(Rva005FA0C9 *);Rva005FA197Element(const Rva005FA197Element &);~Rva005FA197Element();};
 class Rva005FA0F7;
-struct Rva005FA1CEElement {Rva005FA0F7 *ptr;Rva005FA1CEElement(Rva005FA0F7 *);Rva005FA1CEElement(const Rva005FA1CEElement &);~Rva005FA1CEElement();};
+#include "../../../../../Include/Common/Rva005FA1CEElement.h"
 namespace _STL {
 }
 // Range cleanup: retail's 24B _Destroy forwarder 0x005F97BC into the 27B

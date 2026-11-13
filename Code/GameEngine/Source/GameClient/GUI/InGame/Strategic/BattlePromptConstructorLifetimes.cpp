@@ -9,7 +9,7 @@
 class Rva005FA0C9;
 struct Rva005FA197Element {Rva005FA0C9*ptr;Rva005FA197Element(const Rva005FA197Element&);~Rva005FA197Element();};
 class Rva005FA0F7;
-struct Rva005FA1CEElement {Rva005FA0F7*ptr;Rva005FA1CEElement(const Rva005FA1CEElement&);~Rva005FA1CEElement();};
+#include "../../../../../Include/Common/Rva005FA1CEElement.h"
 struct TreeHintRef00217D4C;
 void Rva00030830FreeAllocation(void*);
 namespace _STL {
