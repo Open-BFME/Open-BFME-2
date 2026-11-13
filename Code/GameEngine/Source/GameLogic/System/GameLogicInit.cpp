@@ -406,11 +406,7 @@ private:
 	int m_body[13];
 };
 
-class Rva0035A2DC
-{
-public:
-	void rva0035A2DC(Region3D *extent, float cellSize);
-};
+#include "../../../Include/GameLogic/Rva0035A2DC.h"
 
 class Rva00359E13
 {

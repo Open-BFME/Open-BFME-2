@@ -50,11 +50,7 @@ class TerrainLogic;
 // float (here [0xDFE758]+0xD4; the 0x2440xx/0x246Exx init paths pass +0xD8).
 // Large SEH body (region math, cell-grid new[]); identity unproven, so both
 // the class and the method keep the address token.
-class Rva0035A2DC
-{
-public:
-	void rva0035A2DC(Region3D *region, Real value);
-};
+#include "../../../Include/GameLogic/Rva0035A2DC.h"
 
 // Global object at 0xDFE758 (floats at +0xD4/+0xD8, dword consumer at +0xBD0
 // in the 0x2440xx init path); identity unproven, opaque holder.
