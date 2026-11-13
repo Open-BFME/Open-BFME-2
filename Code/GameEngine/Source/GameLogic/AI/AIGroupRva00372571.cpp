@@ -344,11 +344,7 @@ struct Rva00372571Params
 
 struct Rva0036D7A6Outer;
 
-class BfmeC986
-{
-public:
-	char privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int a, int ignore, int b);
-};
+#include "../../../Include/GameLogic/BfmeC986.h"
 
 void ScaleRect2D(Coord2D *tl, Coord2D *br, Real scaleFactor);
 Bool Coord3DInsideRect2D(const Coord3D *inputPoint, const Coord2D *tl, const Coord2D *br);
