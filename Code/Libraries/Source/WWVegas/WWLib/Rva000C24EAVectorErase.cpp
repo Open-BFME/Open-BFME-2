@@ -9,7 +9,7 @@
 // folded address does not establish a Locomotor payload for this record.
 #include <vector>
 #include <string>
-struct DwordTriple {int a,b,c;};
+#include "DwordTriple.h"
 class Rva000C24EA {
 public:
  Rva000C24EA &operator=(const Rva000C24EA&);

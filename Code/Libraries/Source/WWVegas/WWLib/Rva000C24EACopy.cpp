@@ -5,12 +5,7 @@
 #include <vector>
 #include <string>
 
-struct DwordTriple
-{
-	int a;
-	int b;
-	int c;
-};
+#include "DwordTriple.h"
 
 class Rva000C24EA
 {

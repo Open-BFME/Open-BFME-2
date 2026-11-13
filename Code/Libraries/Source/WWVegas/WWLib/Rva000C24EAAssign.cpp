@@ -33,12 +33,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 
-struct DwordTriple
-{
-	int a;
-	int b;
-	int c;
-};
+#include "DwordTriple.h"
 
 class Rva000C24EA
 {
