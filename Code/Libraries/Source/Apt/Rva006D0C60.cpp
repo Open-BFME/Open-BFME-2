@@ -7,7 +7,7 @@
 // A named counted pointer for decrement, followed by a fresh pointer for
 // deletion, plus getTable accessor restores the native register schedule.
 #include "EAStringC.h"
-struct Rva006D0660Record {const char *text;char pad[12];};
+#include "../../../GameEngine/Include/Common/Rva006D0660Record.h"
 struct Rva006D0660Table {char pad[0x28];int count28;Rva006D0660Record *records2c;};
 class Rva006D0280 {public:int m_useCount;int unknown4;EAStringC name8;int typeC;int unknown10;Rva006D0660Table *table14;int unknown18;~Rva006D0280();};
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"

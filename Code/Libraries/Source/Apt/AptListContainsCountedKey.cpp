@@ -45,7 +45,7 @@ public:
 // counted owner key. The provider is at14; its string table is28/2c
 // with10-byte stride (hex). All offsets are target facts; purpose and
 // original owner/table names are unknown.
-struct Rva006D0660Record { const char *text; char unknown4[12]; };
+#include "../../../GameEngine/Include/Common/Rva006D0660Record.h"
 struct Rva006D0660Table {
  char unknown0[0x28];
  int count28;
