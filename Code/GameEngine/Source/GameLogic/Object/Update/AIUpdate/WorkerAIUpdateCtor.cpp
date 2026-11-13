@@ -431,11 +431,7 @@ static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl
 
 class Drawable;
 
-class Rva002716Holder
-{
-public:
-	void Rva0027164EBroadcast(Int maxBoxes, Int boxes); // 0x0027164E, Drawable supply status
-};
+#include "../../../../../Include/GameClient/Rva002716Holder.h"
 
 #include "../../../../Common/Thing/thing.h"
 

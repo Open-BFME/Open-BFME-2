@@ -43,13 +43,7 @@ class Object {public:int getID()const{return id;}char pad[0x74];int id;};
 
 #include "../../../../Include/Common/Rva0055A88BDwordField.h"
 
-class Rva002716Holder
-{
-public:
-	void Rva0027167FBroadcast(int id);
-	void Rva002716D3Broadcast(int id);
-	
-};
+#include "../../../../Include/GameClient/Rva002716Holder.h"
 
 // The hinted insertion 0x00464984 (rowed in Rva00464984.cpp). Its value temporary is built by
 // the rowed pair<int, AsciiString> constructor 0x00523DB7 and torn down by 0x0029D7C2

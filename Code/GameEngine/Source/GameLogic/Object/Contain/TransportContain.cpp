@@ -610,12 +610,7 @@ public:
 	bool testStatus(ObjectStatusTypes status) const;
 };
 
-class Rva002716Holder 
-{
- public: void Rva002716D3Broadcast(int);
- 
-}
-;
+#include "../../../../Include/GameClient/Rva002716Holder.h"
 
 #include "../../../../Include/Common/Rva0055A88BDwordField.h"
 
