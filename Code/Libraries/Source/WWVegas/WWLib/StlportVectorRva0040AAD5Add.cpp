@@ -28,15 +28,7 @@ struct Rva0040C0C7Element
 	int m_00;
 	int m_pad[9];
 };
-class Rva0040AAD5
-{
-public:
-	BfmePod40 *rva0040AAD5(int key);
-	bool rva0040C0FE(const Rva0040C0C7Element &elem);
-private:
-	int m_pad00[3];
-	_STL::vector<Rva0040C0C7Element> m_vec0C;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0040AAD5.h"
 bool Rva0040AAD5::rva0040C0FE(const Rva0040C0C7Element &elem)
 {
 	if (rva0040AAD5(elem.m_00) == 0)
