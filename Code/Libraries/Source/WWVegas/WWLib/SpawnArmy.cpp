@@ -352,11 +352,7 @@ struct Rva004E1AD5Item
 	virtual void f(int);
 	char m_pad[0x58 - 4];
 };
-struct AsciiRange002ADD75
-{
-	StringBase<char> *m_begin;
-	StringBase<char> *m_end;
-};
+#include "../../../../GameEngine/Include/Common/AsciiRange002ADD75.h"
 int __cdecl Rva002ADD75Equal(const AsciiRange002ADD75 *lhs, const AsciiRange002ADD75 *rhs);
 struct Rva004E2CF7Data
 {

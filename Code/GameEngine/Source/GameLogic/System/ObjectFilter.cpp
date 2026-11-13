@@ -31,10 +31,7 @@ namespace _STL
 	template <class _Tp, class _Alloc>
 	bool operator==(const vector<_Tp, _Alloc> &, const vector<_Tp, _Alloc> &);
 }
-struct AsciiRange002ADD75
-{
-	char m_data[12];
-};
+#include "../../../Include/Common/AsciiRange002ADD75.h"
 int Rva00360C1FEqual(const void *a, const void *b);
 int Rva002ADD75Equal(const AsciiRange002ADD75 *a, const AsciiRange002ADD75 *b);
 #include <iterator>

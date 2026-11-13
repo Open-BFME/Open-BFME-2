@@ -11,11 +11,7 @@ struct Rva002AAC9ERange
 	float const *m_end;
 };
 
-struct AsciiRange002ADD75
-{
-	StringBase<char> *m_begin;
-	StringBase<char> *m_end;
-};
+#include "../../../Include/Common/AsciiRange002ADD75.h"
 
 int __cdecl Rva002AAC9EEqual(Rva002AAC9ERange const *a, Rva002AAC9ERange const *b);
 int __cdecl Rva002ADD75Equal(AsciiRange002ADD75 const *a, AsciiRange002ADD75 const *b);
