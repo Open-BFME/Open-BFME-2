@@ -147,11 +147,7 @@ public:
 	virtual ObjectDrawInterface *getObjectDrawInterface() = 0;
 };
 
-class Rva002B224BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva002B224BDwordField.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> _Vector_base<Rva00B6CF1,_STL::allocator<Rva00B6CF1> >::~_Vector_base(); }

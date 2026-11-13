@@ -301,11 +301,7 @@ class Rva0021BFD8 { public: Bool rva0021BFD8(const StringBase<char> &name); };
 class Rva00406D67 { public: Rva00406D67 *rva00406D67(unsigned red, unsigned green, unsigned blue); unsigned data[4]; };
 #include "../../../Include/GameClient/Drawable.h"
 // The drawable's null-terminated draw-module array (rowed get 0x002B224B).
-class Rva002B224BDwordField
-{
-public:
-	int get() const;
-};
+#include "../../../Include/Common/Rva002B224BDwordField.h"
 // Draw-module and draw-interface views: only the virtual slots the two
 // animation helpers call are named.
 class CreateAHeroAnimInterface

@@ -100,7 +100,7 @@ protected:
 // Target ctor and named pool key independently identify LaserUpdate; native
 // draw module query is slot +0xBC (BFME1 +0xB0), drawable at +8 and scale +3C.
 // Reuse the existing owner of the folded drawable+14C pointer getter.
-class Rva002B224BDwordField { public: int get() const; };
+#include "../../../../Include/Common/Rva002B224BDwordField.h"
 
 #include "../../../../Include/Common/LaserDrawInterface.h"
 

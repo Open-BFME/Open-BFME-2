@@ -237,7 +237,7 @@ class Drawable { public:
  char unknown00[0xFC]; ObjectPositionView *parent; char unknown100[0x34A]; bool enabled;
 };
 
-class Rva002B224BDwordField { public: int get() const; };
+#include "../../../../Include/Common/Rva002B224BDwordField.h"
 
 class Rva0049B47C
 {
