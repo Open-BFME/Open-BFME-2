@@ -49,3 +49,17 @@ Census confirmation: not claimed.
 Next check once the three providers exist: `tu_skeleton.py --merge
 Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp --dry-run` (compile and
 bytes already pass for all three donors).
+
+2026-11-13 (revision 196c1cae97), real-link regression from adopting ActiveBody.h in an installer:
+
+- 922e561591 registered a canonical HighlanderBody (`HighlanderBodyClass.h`, over ActiveBody.h) and
+  adopted it in HighlanderBody.cpp, which defines the constructor and so emits the class's tables.
+  The real link measured at 10efe4859e lists that unit with 35 missing names
+  (`reverse/exit_link_blockers.tsv`; the two measures before list only the 2 unowned exports), and
+  `link_check.py` on it gives LINKED 241 -> 0 with the same 35.
+- An exact revert builds 319/319 over the three units and links 3 of 3 (241 -> 241), but
+  `class_gate.py --staged` refuses it as a new private `ActiveBody` copy. Not landed; steps and
+  measurements in `reverse/attempt_support/highlanderbody-adoption-revert-class-gate-20261113.md`.
+- For the adoption lane until the slots move: a unit that defines a constructor or destructor of an
+  ActiveBody subclass must not take ActiveBody.h, directly or through a subclass header. Run
+  `link_check.py` on the adopting units; the byte gate passes either way.
