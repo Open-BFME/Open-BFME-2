@@ -155,7 +155,7 @@ namespace _STL { template <> void ** vector<void *, allocator<void *> >::erase(v
 // bfme link decl-only end
 class AIWallBuilder {public: void DoXfer(Xfer*);};
 class Rva00598DA2 {public: void rva00598DA2(Xfer*);};
-class Rva0059761B {public: void rva0059761B(void*);};
+#include "../../../Include/GameLogic/Module/Rva0059761B.h"
 class Player
 {
 public:

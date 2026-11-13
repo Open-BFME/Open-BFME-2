@@ -41,7 +41,7 @@ struct XferUnknown11;
 
 
 #include "Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
-class Rva0059761B {public: void rva0059761B(void*);};
+#include "../../../Include/GameLogic/Module/Rva0059761B.h"
 class Player
 {
 public:
