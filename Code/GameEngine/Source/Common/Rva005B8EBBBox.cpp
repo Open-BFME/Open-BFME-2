@@ -6,11 +6,7 @@
 // +0x60 sub-object. Targets from retail REL32; names unknown.
 // Native+60 subobject is AptStats; call its sole recovered refresh owner.
 class AptStats {public:void rva005DD48C();};
-class Rva005DE96B
-{
-public:
-	void rva005DE96B();
-};
+#include "../../Include/Common/Rva005DE96B.h"
 
 #include "../../Include/Common/Rva005B8EBB.h"
 

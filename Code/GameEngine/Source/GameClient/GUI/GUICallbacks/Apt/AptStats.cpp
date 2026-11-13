@@ -251,7 +251,7 @@ AptStats::~AptStats() {}
 // refreshes the inherited table (rowed 0x005DE96B). WB 0x015D8D90 is
 // labelled by the same string; the method's own name is not established.
 void _bfme_closeAptScreen(const AsciiString &name);
-class Rva005DE96B {public:void rva005DE96B();};
+#include "../../../../../Include/Common/Rva005DE96B.h"
 void AptStats::InitGadgets() {
  _bfme_closeAptScreen(AsciiString("AptStats::InitGadgets"));
  std::vector<unsigned int> widths;
