@@ -811,7 +811,7 @@ virtual void resetClip(void*);
 
 #include "../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
-class Rva0004263F{public:void rva0004263F(float,float,float,float,int);};
+#include "../../../../../GameEngine/Include/GameClient/Rva0004263F.h"
 
 int Rva0004D76EBlend(int,int);
 

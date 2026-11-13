@@ -362,11 +362,7 @@ private:
 // the outline geometry is spelled inline in the calls.
 class Display;
 extern Display *TheDisplay;
-class Rva0004263F
-{
-public:
-	void rva0004263F(float,float,float,float,Int);
-};
+#include "../../Include/GameClient/Rva0004263F.h"
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 struct Rva0026003EState {
     char m_pad[0x24];
