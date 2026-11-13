@@ -437,13 +437,7 @@ public:
 	};
 };
 
-class MouseThreadClass : public ThreadClass
-{
-public:
-	MouseThreadClass();
-	void Thread_Function();
-	virtual ~MouseThreadClass();
-};
+#include "../../../Include/W3DDevice/GameClient/MouseThreadClass.h"
 
 class Rva0009990D
 {

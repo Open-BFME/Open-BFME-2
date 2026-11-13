@@ -68,13 +68,7 @@ struct IDirect3DDevice8;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
-class MouseThreadClass : public ThreadClass
-{
-public:
-	MouseThreadClass();
-	void Thread_Function();
-	virtual ~MouseThreadClass();
-};
+#include "../../../Include/W3DDevice/GameClient/MouseThreadClass.h"
 extern "C" MouseThreadClass thread;
 
 class Rva0009990D

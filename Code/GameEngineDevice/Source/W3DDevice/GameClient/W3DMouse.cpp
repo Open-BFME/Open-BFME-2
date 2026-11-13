@@ -118,17 +118,7 @@ public:
 	virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
 	virtual void draw();
 };
-class MouseThreadClass : public ThreadClass
-{
-
-public:
-	MouseThreadClass();
-
-	void Thread_Function();
-
-public:
-	virtual ~MouseThreadClass();	// rowed elsewhere; declared so this unit binds to it
-};
+#include "../../../Include/W3DDevice/GameClient/MouseThreadClass.h"
 extern "C" { MouseThreadClass thread; }
 // ??0W3DMouse@@ present-unmatched
 // ??1W3DMouse@@ present-unmatched
