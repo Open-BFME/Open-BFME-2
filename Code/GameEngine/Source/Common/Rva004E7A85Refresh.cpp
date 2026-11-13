@@ -43,11 +43,7 @@ class Cb00359D42;
 
 #include "../../Include/GameClient/ResourceEntryCollector.h"
 
-class Rva004E54B8
-{
-public:
-	void rva004E54B8();
-};
+#include "../../Include/Common/Rva004E54B8.h"
 
 class Rva004E7A85
 {

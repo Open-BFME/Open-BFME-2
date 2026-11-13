@@ -164,11 +164,7 @@ public:
 };
 extern PlayerList* ThePlayerList;
 #include "../../Include/GameClient/ResourceEntryCollector.h"
-class Rva004E54B8
-{
-public:
-    void rva004E54B8();
-};
+#include "../../Include/Common/Rva004E54B8.h"
 struct BfmeUiResourceEntryState
 {
     unsigned unknown00;
