@@ -26,15 +26,7 @@ struct TexturePtr
 // spelling (clear 0x008FC7D0, methodA 0x008FC710, methodB 0x008FC660); it is a
 // second view of the very same bytes W3DRadarResetSurface owns, used only so the
 // emitted call names keep their existing pins.
-class Member0C00739C70
-{
-public:
-	VirtualReleaser00739E00 *m_obj;
-
-	void clear();
-	TextureBaseClass *methodA( int arg, int a, int b, int c, int d );
-	TextureBaseClass *methodB( int arg, int a );
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 
 // Retail's destructor for this sub-object lives at 0x008FC5B0 and is defined as
 // W3DRadarResetSurface::~W3DRadarResetSurface, so the member that owns it is
