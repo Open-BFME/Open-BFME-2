@@ -932,18 +932,7 @@ BFME_DISP8_BYTE_GETTER(Rva0057A3D3ByteField, 0x48)
 // Address-derived class; the stored byte's meaning is unproven.
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
 // +0x44 (must be set), +0xA8 and +0x9D (must be clear).
-class Rva002259F3
-{
-public:
-	int rva002259F3() const;
-private:
-	char m_pad00[0x44];
-	unsigned char m_44;
-	char m_pad45[0x9D - 0x45];
-	unsigned char m_9d;
-	char m_pad9E[0xA8 - 0x9E];
-	unsigned char m_a8;
-};
+#include "../../Include/Common/Rva002259F3.h"
 // slot at VA 0x00C5CC3C: with an argument, hands its +0x38 block and the
 // second argument to this object's vslot 12.
 // slots at VA 0x00BC662C and 0x00C0883C: stores both arguments at +0x04 and
