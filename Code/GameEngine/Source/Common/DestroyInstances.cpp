@@ -77,11 +77,7 @@ struct Rva00600BBE
 public:
 	~Rva00600BBE();
 };
-class Rva00603C57
-{
-public:
-	~Rva00603C57();
-};
+#include "../../Include/Common/Rva00603C57.h"
 
 #include "../../Include/GameLogic/LocomotorStore.h"
 #include "../../Include/Common/Rva00229487.h"
