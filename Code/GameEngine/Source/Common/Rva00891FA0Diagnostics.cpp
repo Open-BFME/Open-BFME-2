@@ -2,11 +2,7 @@
 
 #include <stdio.h>
 
-struct Rva00891FA0Record
-{
-    int value;
-    int kind;
-};
+#include "../../Include/Common/Rva00891FA0Record.h"
 
 extern int g_rva00891FA0Ready;
 // g_rva00891FA0Ready: matched references place it at VA 0xe17708 (zero-filled .bss).

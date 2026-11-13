@@ -257,7 +257,7 @@ void Rva006E6E20Collect();
 #define tickAssert(good,test,file,line) do {if(!(good)){g_bfmeAptAssertAtE17734(test,file,line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}} while(0)
 #include <string.h>
 #include <stdio.h>
-struct Rva00891FA0Record {int value,kind;};
+#include "../../../GameEngine/Include/Common/Rva00891FA0Record.h"
 extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *,int);
 extern "C" void (__cdecl *Rva00891FA0SendText)(const char *);
 void Rva006CC110Log(int,const char *,...);
