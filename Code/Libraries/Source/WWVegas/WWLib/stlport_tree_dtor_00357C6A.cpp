@@ -13,14 +13,6 @@ namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 
 typedef _STL::pair<const unsigned, void *> Rva00357C6APair;
 
-// Only the map-emitting helper below constructs a tree; this unit's malloc
-// wiring made its tree-base constructor (and the node allocate it calls)
-// differ from the copy stlport_map_int_ptr_lower.cpp emits first in link
-// order. Declare the constructor only, so the helper binds to that copy.
-namespace _STL {
-template <> _Rb_tree_base< ::Rva00357C6APair, allocator< ::Rva00357C6APair> >::_Rb_tree_base(const allocator< ::Rva00357C6APair> &);
-}
-
 // Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
 namespace _STL {
 template <> __forceinline void allocator<_Rb_tree_node< ::Rva00357C6APair > >::deallocate(_Rb_tree_node< ::Rva00357C6APair > *p, size_t) const { if (p != 0) free(p); }
@@ -34,7 +26,8 @@ template Rva00357C6ATree::~_Rb_tree();
 // the map's implicit destructor, out of line only where an unwind funclet needs
 // it: `jmp` to the tree destructor above. Retail's funclets (uw_gen_010) and
 // two matched dtors call it there. The function below exists only to make this
-// unit emit that COMDAT, as an unwind action does.
+// unit emit that COMDAT and the scalar deleting destructor 0x00357E30 that calls
+// it; it constructs no map, so the unit needs no tree constructor.
 typedef _STL::map<unsigned, void *> Rva00357CD9Map;
 // ?Rva00357CD9EmitMapDtor absent-from-retail
 void Rva00357CD9EmitMapDtor(Rva00357CD9Map *owned)
@@ -42,6 +35,4 @@ void Rva00357CD9EmitMapDtor(Rva00357CD9Map *owned)
 	// Retail 0x00357E30 deletes the map through its out-of-line destructor
 	// at 0x00357CD9, rather than calling the tree destructor directly.
 	delete owned;
-	Rva00357CD9Map local;
-	throw 0;
 }
