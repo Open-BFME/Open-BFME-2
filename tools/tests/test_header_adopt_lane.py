@@ -712,8 +712,8 @@ def test_queued_text_reads_the_commit_that_queued_the_row(tmp_path, monkeypatch)
         subprocess.run(["git", *args], cwd=tmp_path, capture_output=True, check=True)
 
     def commit(source, rows):
-        (tmp_path / "unit.cpp").write_text(source)
-        (tmp_path / "reverse/header_queue.tsv").write_text("class\tsource\tnote\n" + rows)
+        (tmp_path / "unit.cpp").write_text(source, newline="\n")
+        (tmp_path / "reverse/header_queue.tsv").write_text("class\tsource\tnote\n" + rows, newline="\n")
         git("add", "-A")
         git("commit", "-q", "-m", "step")
 

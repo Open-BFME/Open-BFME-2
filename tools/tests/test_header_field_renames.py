@@ -691,7 +691,7 @@ def test_review_r4_the_canonical_header_is_its_own_seed(tmp_path, monkeypatch):
     (tmp_path / "sub/Code/Obj/Object.h").write_text(HEADER)
     assert "missing.h" in lane.include_problem("sub/u.cpp", UNIT, seeds=("Code/Obj/Object.h",))
     mapping, why = lane.field_renames("sub/u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Code/Obj/Object.h")
-    assert mapping is None and "Code/Obj/Object.h" in why and "missing.h" in why, why
+    assert mapping is None and "Code/Obj/Object.h" in why.replace("\\", "/") and "missing.h" in why, why
     mapping, why = lane.field_renames("u.cpp", UNIT + "/*", ["Object"], "Object.h", compiler(),
                                       header="Code/Obj/Object.h")
     assert mapping is None and "missing.h" in why, why
@@ -908,3 +908,172 @@ def test_r5_angle_macro_shadow_all_candidates(tmp_path, monkeypatch):
     headers = lane.include_sources("u.cpp", unit, [a, b])
     assert len(headers) == 2
     assert "#define o" in lane.macro_shadow(headers, RENAMES, unit)
+
+
+OPAQUE_UNIT = """class Setter
+{
+public:
+    char m_lead[419];
+    unsigned char m_enabled;
+    void enable();
+};
+void Setter::enable()
+{
+    reinterpret_cast<unsigned char *>(this)[419] = 1;
+}
+"""
+OPAQUE_HEADER = "class Setter { public: void enable(); };\n"
+
+
+def opaque_layouts():
+    private = layout([(0, "m_lead", "char[419]", 419),
+                      (419, "m_enabled", "unsigned char", 1)], size=420)
+    canonical = dict(layout([], size=1), methods=["enable"])
+    return {"Setter": private}, {"Setter": canonical}
+
+
+@pytest.fixture
+def opaque_tree(tmp_path, monkeypatch):
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code/u.cpp").write_text(OPAQUE_UNIT)
+    (tmp_path / "Code/Setter.h").write_text(OPAQUE_HEADER)
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    unit, header = opaque_layouts()
+    monkeypatch.setattr(lane, "compile_text", compiler(unit, header))
+    return tmp_path, unit, header
+
+
+def test_method_only_header_needs_no_field_mapping(opaque_tree):
+    _root, unit, header = opaque_tree
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert (mapping, why) == ({}, None)
+
+
+@pytest.mark.parametrize("pragma", ["", "#pragma once\n"])
+@pytest.mark.parametrize("opening", ["#ifndef SETTER_H", "#if !defined(SETTER_H)", "#if !defined SETTER_H"])
+def test_method_only_header_with_a_complete_include_guard(opaque_tree, pragma, opening):
+    root, unit, header = opaque_tree
+    (root / "Code/Setter.h").write_text(
+        "// Registered method-only view.\n" + pragma + opening + "\n#define SETTER_H\n" + OPAQUE_HEADER + "#endif\n")
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert (mapping, why) == ({}, None)
+
+
+@pytest.mark.parametrize("body", [
+    "#ifdef FEATURE\n" + OPAQUE_HEADER + "#endif\n",
+    "#ifndef SETTER_H\n" + OPAQUE_HEADER + "#endif\n",  # no matching define
+    "#ifndef SETTER_H\n#define SETTER_H\n" + OPAQUE_HEADER + "#else\nint unrelated;\n#endif\n",
+    "#ifndef SETTER_H\n#define SETTER_H\n#ifdef FEATURE\n" + OPAQUE_HEADER + "#endif\n#endif\n",
+    "%:ifdef FEATURE\n" + OPAQUE_HEADER + "%:endif\n",
+])
+def test_method_only_header_does_not_elide_other_conditionals(opaque_tree, body):
+    root, unit, header = opaque_tree
+    (root / "Code/Setter.h").write_text(body)
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "laid out no field" in why
+
+
+@pytest.mark.parametrize("bad", [
+    None, {}, {"fwd": True}, {"unparsed": "conflicting complete records"},
+    {"unparsed": 0}, {"unparsed": ""}, {"unparsed": None},
+    {"fields": None}, {"bases": None}, {"statics": ["value"]},
+    {"bases": [["Base", 0]]}, {"vfptr": True}, {"virtual": ["enable"]},
+    {"vslots": {"0": "enable"}}, {"size": 4}, {"size": True}, {"methods": []},
+])
+def test_method_only_mapping_requires_a_complete_matching_probe(opaque_tree, bad):
+    _root, unit, header = opaque_tree
+    if bad is None:
+        header = {}
+    elif bad == {}:
+        header = {"Setter": {}}
+    else:
+        header = {"Setter": dict(header["Setter"], **bad)}
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "laid out no field" in why
+
+
+@pytest.mark.parametrize("body", [
+    "char value; void enable();",            # a lost char field can also report size one
+    "static int value; void enable();",
+    "void enable() {}",                     # an opaque declaration must not synthesize a body
+    "static void enable();",
+    "virtual void enable();",
+    "UNKNOWN_MEMBER; void enable();",
+])
+def test_method_only_mapping_also_requires_the_header_source(opaque_tree, body):
+    root, unit, header = opaque_tree
+    (root / "Code/Setter.h").write_text("class Setter { public: " + body + " };\n")
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "laid out no field" in why
+
+
+def test_method_only_mapping_requires_a_readable_selected_definition(opaque_tree):
+    root, unit, header = opaque_tree
+    (root / "Code/Setter.h").write_text("class Setter;\n")
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "laid out no field" in why
+
+
+@pytest.mark.parametrize("base", ["Base", "public Base", "virtual Base"])
+def test_method_only_mapping_refuses_a_lost_base_record(opaque_tree, base):
+    root, unit, header = opaque_tree
+    (root / "Code/Setter.h").write_text(
+        "class Base { char value; };\nclass Setter : " + base + " { public: void enable(); };\n")
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "laid out no field" in why
+
+
+@pytest.mark.parametrize("attribute", ["novtable", "dllexport"])
+def test_method_only_mapping_refuses_unrepresented_class_attributes(opaque_tree, attribute):
+    root, unit, header = opaque_tree
+    (root / "Code/Setter.h").write_text(
+        "class __declspec(" + attribute + ") Setter { public: void enable(); };\n")
+    mapping, why = lane.field_renames("Code/u.cpp", OPAQUE_UNIT, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "laid out no field" in why
+
+
+def test_method_only_mapping_does_not_skip_other_stripped_classes(opaque_tree):
+    root, unit, header = opaque_tree
+    text = OPAQUE_UNIT + UNIT.replace("int m_flags;", "short m_flags;")
+    unit = dict(unit, Object=layout([(0, "m_flags", "short", 2), (8, "m_speed", "float", 4)]))
+    header = dict(header, **HEADER_LAYOUTS)
+    (root / "Code/Setter.h").write_text(OPAQUE_HEADER + HEADER)
+    mapping, why = lane.field_renames("Code/u.cpp", text, ["Setter", "Object"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and "m_flags (+0x0, 2 bytes) has no canonical field" in why
+
+
+@pytest.mark.parametrize("macro", ["m_enabled", "Setter"])
+def test_method_only_mapping_keeps_macro_shadow_checks(opaque_tree, macro):
+    _root, unit, header = opaque_tree
+    text = f"#define {macro} hidden\n" + OPAQUE_UNIT
+    mapping, why = lane.field_renames("Code/u.cpp", text, ["Setter"], "Setter.h",
+                                     compiler(unit, header), header="Code/Setter.h")
+    assert mapping is None and f"#define {macro}" in why
+
+
+def test_method_only_preparation_still_runs_the_full_source_gate_and_restores(opaque_tree, monkeypatch):
+    root, _unit, _header = opaque_tree
+    original = OPAQUE_UNIT.replace("reinterpret_cast<unsigned char *>(this)[419]", "m_enabled")
+    (root / "Code/u.cpp").write_text(original)
+    seen = []
+
+    def gate(source):
+        candidate = (root / source).read_text()
+        seen.append(candidate)
+        assert '#include "Setter.h"' in candidate and "class Setter" not in candidate
+        assert "m_enabled = 1;" in candidate
+        return "error C2039: m_enabled is not a member of Setter"
+
+    monkeypatch.setattr(lane, "gate_one", gate)
+    _source, why, _text, _renames = lane.try_unit("Code/u.cpp", ["Setter"], "Code/Setter.h", "class")
+    assert seen and "C2039" in why
+    assert (root / "Code/u.cpp").read_text() == original

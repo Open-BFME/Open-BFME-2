@@ -880,6 +880,49 @@ def macro_shadow(sources, mappings, text):
     return None
 
 
+def method_only_header(name, laid, canonical):
+    """A complete method-only declaration, proven by both the header and its probe.
+
+    An empty field list alone could be a missing or partially decoded record.
+    This narrow case needs no field-name mapping; the swapped unit still has
+    to compile and reproduce its native bodies in try_units.
+    """
+    record = laid.get(name)
+    if not isinstance(record, dict) or record.get("fwd") is not False or "unparsed" in record \
+            or type(record.get("size")) is not int or record["size"] != 1 \
+            or record.get("fields") != [] or record.get("bases") != [] or record.get("statics") != [] \
+            or record.get("vfptr") is not False or record.get("virtual") != [] or record.get("vslots") != {}:
+        return False
+    definitions = [(path, text) for path, text in canonical
+                   for found, _start, _end, _key in class_layouts.class_body_spans(text, include_templates=True)
+                   if found == name]
+    if len(definitions) != 1:
+        return False
+    path, text = definitions[0]
+    if SPLICE.search(text) or re.search(r"\?\?[=/'()!<>-]", text):
+        return False
+    code = re.sub(r"(?m)^[ \t]*#[ \t]*pragma[ \t]+once\b[^\n]*",
+                  lambda m: " " * len(m.group()), masked(text))
+    directives = list(DIRECTIVE_LINE.finditer(code))
+    guard = directives[:2] + directives[-1:] if include_guarded(code) else []
+    conditional = {"if", "ifdef", "ifndef", "else", "elif", "endif"}
+    if any(d.group(1) in conditional and d not in guard for d in directives):
+        return False
+    # View rejects conditional definitions. Elide only a proven whole-file
+    # guard in this parsing copy; the real header and probe stay unchanged.
+    for directive in reversed(guard):
+        text = text[:directive.start()] + " " * (directive.end() - directive.start()) + text[directive.end():]
+    import tu_views
+    try:
+        view = tu_views.View(path, text, name, record, laid)
+    except tu_views.Refused:
+        return False
+    return bool(view.members) and not view.bases and not view.declspec and record.get("key") == view.key \
+        and all(m.kind == "fn" and not m.static and not m.virtual and m.body is None for m in view.members) \
+        and isinstance(record.get("methods"), list) \
+        and set(record["methods"]) == {m.name for m in view.members}
+
+
 def field_renames(source, text, strip, include, compile=None, header=None):
     """({class: {private field: canonical field}}, None) for the unit's views of the
     `strip` classes, or (None, why) when a private field has no canonical field of its
@@ -890,7 +933,9 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     rename is unsafe in the unit (tu_views.rename_problem), or the unit or an include shadows
     the class's name or defines a macro the rename depends on. A pointer-sized field at an
     offset the canonical class fills with a vftable pointer (vptr_offsets) is not one of those:
-    it has no canonical field by construction and needs no counterpart. `compile(source, text)` gives
+    it has no canonical field by construction and needs no counterpart. A method-only header,
+    proven by both its declarations and a complete probe, needs no mapping; full-source
+    compilation and byte verification still judge its uses. `compile(source, text)` gives
     {class: layout} (text None: the unit as it stands); `header` is the canonical header,
     whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
     import tu_views
@@ -950,11 +995,20 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         laid = compile(source, probe_text(text, strip, include))
     except RuntimeError as exc:
         return None, f"the header's layout: {exc}"
-    mappings = {}
+    mappings, field_checks = {}, {}
     for view, own in views:
         name = view.cls
+        record = laid.get(name)
+        if not isinstance(record, dict) or record.get("fwd") is not False or "unparsed" in record \
+                or not isinstance(record.get("fields"), list) or not isinstance(record.get("bases"), list):
+            return None, f"{include}: the probe laid out no field of {name}"
         fields = flat_fields(name, laid)
         if not fields:
+            if method_only_header(name, laid, canonical):
+                # No replacement names exist. Keep the class/include/macro
+                # checks, and let the full source gate reject residual uses.
+                field_checks[name] = {old: old for old in own}
+                continue
             return None, f"{include}: the probe laid out no field of {name}"
         declared = collections.defaultdict(set)         # canonical field -> classes declaring it
         for found in fields.values():
@@ -996,15 +1050,16 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             return None, why
         if mine:
             mappings[name] = mine
-    if mappings:
+            field_checks[name] = mine
+    if field_checks:
         if header:
             # the header as the unit compiles it: in the unit's closure, with its flags and every definition
             # it makes (a header walked alone took a macro the unit defines for absent), as a seed of its own
             why = include_problem(source, text, include_roots=include_roots, cache=include_cache, seeds=(header,))
             if why:
                 return None, why
-            family = {cls for name in mappings for cls in hierarchy(name, laid)}
-            rename_names = {token for mapping in mappings.values() for pair in mapping.items() for token in pair}
+            family = {cls for name in field_checks for cls in hierarchy(name, laid)}
+            rename_names = {token for mapping in field_checks.values() for pair in mapping.items() for token in pair}
             why = conditional_hierarchy(canonical, family, rename_names)
             if why:
                 return None, why
@@ -1012,11 +1067,11 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         if why:
             return None, why
         sources = [(source, text)] + include_sources(source, text, include_roots, include_cache) + canonical
-        for name in mappings:
+        for name in field_checks:
             why = name_shadow(sources, name)
             if why:
                 return None, why
-        why = macro_shadow(sources, mappings, text)
+        why = macro_shadow(sources, field_checks, text)
         if why:
             return None, why
     return mappings, None
