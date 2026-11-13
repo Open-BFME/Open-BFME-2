@@ -9,10 +9,7 @@
 class Rva0053F8E5DwordCounter;
 #include "../../Include/Common/Rva0053FA0A.h"
 
-struct Rva0053FC99Src
-{
-	Rva0053F8E5DwordCounter *m_ptr;
-};
+#include "../../Include/Common/Rva0053FC99Src.h"
 
 class Rva0053FC81
 {

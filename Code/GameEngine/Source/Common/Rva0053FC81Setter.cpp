@@ -32,10 +32,7 @@ Rva0053FC81 *Rva0053FC81::rva0053FC81(Rva0053F8E5DwordCounter *p)
 // Ref-store from wrapper at this+0x0 via rowed inc 0x0053F8E5: load src+0,
 // store, inc ref on non-null and return this. Callers 0x00540A88 0x005421AA.
 // Sibling of 0x0053FC81 in the same /O1 TU. Honest address name.
-struct Rva0053FC99Src
-{
-	Rva0053F8E5DwordCounter *m_ptr;
-};
+#include "../../Include/Common/Rva0053FC99Src.h"
 
 class Rva0053FC99
 {
