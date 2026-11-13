@@ -34,8 +34,7 @@ void Rva000EAF80::rva000EAF80()
 	m_44545 = true;
 }
 
-// slots 3 and 5 of the vtable at VA 0x00BCF7FC (slot 0 is the rowed
-// ??_GRva00104DB0Base): the first adds the extents of the rectangle given by
+// slots 2 and 4 of Rva00104DB0's vtable at VA 0x00BCF800: the first adds the extents of the rectangle given by
 // its four arguments to +0xC8/+0xCC, the second sets the embedded +0x04
 // sentence's font from the argument's +0x14 (rowed
 // Render2DSentenceClass::Set_Font); both raise the +0xD5/+0xD4 dirty bytes.
@@ -46,13 +45,33 @@ struct Rva00104DE6Font
 	char m_pad00[0x14];
 	FontCharsClass *m_font;
 };
-class Rva00104DE6
+class GameWindow;
+struct Rva0010500FDrawData;
+struct BfmeR1042;
+// Retail table 0x00BCF7E8: five __purecall slots, then the deleting destructor.
+class Rva00104DB0Base
 {
 public:
-	void addExtents(Int left, Int top, Int right, Int bottom);
-	void setFont(const Rva00104DE6Font *font);
+	Rva00104DB0Base() {}
+	virtual void drawBorder(GameWindow *window) = 0;
+	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data) = 0;
+	virtual void addExtents(int left, int top, int right, int bottom) = 0;
+	virtual void bfmeGo1042E(BfmeR1042 *rec) = 0;
+	virtual void setFont(const Rva00104DE6Font *font) = 0;
+	virtual ~Rva00104DB0Base() {}
+};
+// Retail table 0x00BCF800 (six slots); see Rva00104DB0Dtor.cpp.
+class Rva00104DB0 : public Rva00104DB0Base
+{
+public:
+	Rva00104DB0();
+	virtual void drawBorder(GameWindow *window);
+	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data);
+	virtual void addExtents(int left, int top, int right, int bottom);
+	virtual void bfmeGo1042E(BfmeR1042 *rec);
+	virtual void setFont(const Rva00104DE6Font *font);
+	virtual ~Rva00104DB0();
 private:
-	char m_pad00[0x04];
 	Render2DSentenceClass m_sentence;
 	Int m_width;
 	Int m_CC;
@@ -60,13 +79,13 @@ private:
 	Bool m_fontDirty;
 	Bool m_extentsDirty;
 };
-void Rva00104DE6::addExtents(Int left, Int top, Int right, Int bottom)
+void Rva00104DB0::addExtents(Int left, Int top, Int right, Int bottom)
 {
 	m_extentsDirty = true;
 	m_width += right - left;
 	m_CC += bottom - top;
 }
-void Rva00104DE6::setFont(const Rva00104DE6Font *font)
+void Rva00104DB0::setFont(const Rva00104DE6Font *font)
 {
 	m_sentence.Set_Font(font->m_font);
 	m_fontDirty = true;

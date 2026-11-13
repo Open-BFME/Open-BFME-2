@@ -93,7 +93,7 @@ struct Rva00104DE6Font;
 class Rva00104DB0Base
 {
 public:
-	Rva00104DB0Base() {}
+	Rva00104DB0Base();   // rowed at 0x00104DA7 (Rva00104DB0Dtor.cpp)
 	virtual void drawBorder(GameWindow *window) = 0;
 	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data) = 0;
 	virtual void addExtents(int left, int top, int right, int bottom) = 0;

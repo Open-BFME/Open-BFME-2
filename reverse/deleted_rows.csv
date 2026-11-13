@@ -6201,3 +6201,6 @@ __ehhandler$??0Rva005AFE86@@QAE@PAX@Z,0x0079EDBA,"Renamed to __ehhandler$??0Rva0
 ?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x005D5F86,"Renamed to ?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z by tools/rename.py (to-class: retail vftable 0x00C75B2C slot 5)"
 __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"Renamed to __ehhandler$?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z by tools/rename.py (to-class: retail vftable 0x00C75B2C slot 5)"
 ??0Rva005AF9EF@@QAE@XZ,0x005AF9EF,"Renamed to ??0Rva005AFA03@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C7287C)"
+?addExtents@Rva00104DE6@@QAEXHHHH@Z,0x00104E68,"Renamed to ?addExtents@Rva00104DB0@@UAEXHHHH@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 2)"
+?bfmeGo1042E@BfmeC1042@@QAEXPAUBfmeR1042@@@Z,0x00105CC7,"Renamed to ?bfmeGo1042E@Rva00104DB0@@UAEXPAUBfmeR1042@@@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 3)"
+?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,0x00104DE6,"Renamed to ?setFont@Rva00104DB0@@UAEXPBURva00104DE6Font@@@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 4)"

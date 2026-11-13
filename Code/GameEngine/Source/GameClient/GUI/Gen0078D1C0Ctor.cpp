@@ -10,24 +10,27 @@ struct Rva0010500FDrawData;
 struct BfmeR1042;
 struct Rva00104DE6Font;
 
-// Retail table 0x00BCF7E8: five __purecall slots, then the deleting destructor.
-class Rva00104DB0Base
+// The base (retail table 0x00BCF7E8: five __purecall slots, then the deleting
+// destructor) under this unit's stand-in name. Retail inlines its constructor
+// into 0x00104EBF and keeps an out-of-line copy at 0x00104DA7, which is rowed
+// in Rva00104DB0Dtor.cpp as ??0Rva00104DB0Base; the compiler emits this unit's
+// copy too, so spelling the base Rva00104DB0Base here defines that symbol twice.
+class Gen0078D1C0Base
 {
 public:
-	Rva00104DB0Base() {}
 	virtual void drawBorder(GameWindow *window) = 0;
 	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data) = 0;
 	virtual void addExtents(int left, int top, int right, int bottom) = 0;
 	virtual void bfmeGo1042E(BfmeR1042 *rec) = 0;
 	virtual void setFont(const Rva00104DE6Font *font) = 0;
-	virtual ~Rva00104DB0Base() {}
+	virtual ~Gen0078D1C0Base() {}
 };
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 // Retail table 0x00BCF800 (six slots): 0x00105AF3, 0x0010500F, 0x00104E68,
 // 0x00105CC7, 0x00104DE6 and the deleting destructor 0x00104F16.
-class Rva00104DB0 : public Rva00104DB0Base
+class Rva00104DB0 : public Gen0078D1C0Base
 {
 public:
 	Rva00104DB0();
