@@ -453,10 +453,7 @@ template <> vector<unsigned int> &map<int, vector<unsigned int> >::operator[](co
 
 // Native substring builder and conversion use the same12-byte view ABI.
 #include "../../../Include/Common/Rva000B6AF5Rec.h"
-struct Rva000B6AA9Rec {
-    operator AsciiString();
-    AsciiString *m_string; int m_start; int m_len;
-};
+#include "../../../Include/Common/Rva000B6AA9Rec.h"
 Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *, void **, int);
 
 // Retail expands its nullable character accessor. The shared string header

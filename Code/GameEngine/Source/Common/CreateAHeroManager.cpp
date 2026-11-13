@@ -9,14 +9,7 @@
 typedef bool Bool;
 #include "subsystem_interface.h"
 #include "string_base.h"
-struct Rva000B6AA9Rec
-{
-	operator AsciiString();
-
-	AsciiString *m_string;
-	int m_start;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B6AA9Rec.h"
 struct Rva000B6AF5Rec : public Rva000B6AA9Rec
 {
 };

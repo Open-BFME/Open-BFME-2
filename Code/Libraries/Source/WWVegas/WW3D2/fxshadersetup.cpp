@@ -338,14 +338,7 @@ class Rva0015145C : public Rva0015148D
 
 // A substring view {string, start, length}: built by 0x000B6AA9, copied
 // out by 0x000B980E.
-struct Rva000B6AA9Rec
-{
-	operator AsciiString();
-
-	AsciiString *m_string;
-	int m_start;
-	int m_len;
-};
+#include "../../../../GameEngine/Include/Common/Rva000B6AA9Rec.h"
 Rva000B6AA9Rec *__cdecl Rva000B6AA9Build(Rva000B6AA9Rec *dest, void **srcpp, int val);
 int Rva00151ECDLen(const char *src);
 #include "../../../../GameEngine/Include/Common/Rva000B980E.h"
