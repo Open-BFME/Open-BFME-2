@@ -780,6 +780,18 @@ installer's compiled copy is exactly one slot long too and that slot names the
 moved symbol; a longer copy, another name in the slot, or a longer retail table
 with its other slots unresolved still refuses.
 
+One move stays within its class: a module's name getter rowed as the class's
+own non-virtual `?name@C@@QBEPBDXZ` (the getter units' 6-byte `mov eax,"C";
+ret` stubs) to the protected Snapshot override `?GetSnapshotName@C@@MBEPBDXZ`,
+passed whole as `--new`. Retail must hold it in slot 2 (Snapshot's
+GetSnapshotName) of a table C's own special members install, an installer
+unit's view (read from the tree, not a prepared declaration) must derive C from
+Snapshot, and the rebuilt table must name the override in slot 2. Any other
+identifier, access or signature within the class is still refused:
+
+    python3 tools/rename.py function --rva 0x0045BFD3 --to-class BezierProjectileBehavior \
+        --new '?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ' --prepared ... --dry-run
+
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
 C, a caller that names the old member, a view declaring the override); the
 files must be clean, tracked ledger sources. The tool respells rows, funclet

@@ -7044,6 +7044,44 @@ def to_class_static_problems(ctx, check):
     return problems
 
 
+# A module's Snapshot name getter rowed as its own class's non-virtual `name()`
+# (`?name@C@@QBEPBDXZ`, the 6-byte `mov eax,"C"; ret` the getter units define
+# through a stub class) is moved within its own class, the one same-class move
+# this mode admits: to the protected override `?GetSnapshotName@C@@MBEPBDXZ`,
+# never another identifier, access or signature. Retail proves it the way a
+# class move is proved: the address sits in exactly one slot of a table C's own
+# constructor or destructor installs (to_class_evidence), and that slot is 2,
+# GetSnapshotName's in the canonical Snapshot base (vtable 0x00BBB554: the
+# deleting destructor, loadPostProcess, GetSnapshotName, xfer; the FX infos'
+# exported GetSnapshotName fill slot 2). An installer unit's own view of C
+# derives from Snapshot, read from the tree, never from a prepared declaration,
+# and after ./build.sh the installers' table must name the override in slot 2
+# (to_class_slot_problems), so a new virtual of C's own cannot pass for it.
+SNAPSHOT_NAME_SLOT = 2
+
+
+def snapshot_name_getter(name, cls, new):
+    """True when moving `name` within `cls` is the name getter's respell to its Snapshot override."""
+    return name == f"?name@{cls}@@QBEPBDXZ" and new == f"?GetSnapshotName@{cls}@@MBEPBDXZ"
+
+
+def snapshot_name_getter_proof(ctx, name, cls, table, slot, installers, found, proof):
+    """to_class_evidence's proof for a name getter moved within its class, or Refusal: its own
+    table's slot 2, installed by special members whose units' views derive `cls` from Snapshot."""
+    where = f"retail table 0x{table + IMAGE_BASE:08X}"
+    if found.get("bases"):
+        raise Refusal(f"{name}: a base-slot entry proves no slot of {cls}'s own table")
+    if slot != SNAPSHOT_NAME_SLOT:
+        raise Refusal(f"{name} sits in slot {slot} of {cls}'s {where}, not slot {SNAPSHOT_NAME_SLOT} "
+                      "(Snapshot::GetSnapshotName's): only that slot makes it the class's GetSnapshotName")
+    sources = sorted({r["source"] for r in installers})
+    derived = [rel for rel in sources if "Snapshot" in class_chain(class_base_map(ctx, rel), cls)[0]]
+    if not derived:
+        raise Refusal(f"no installer unit's view of {cls} derives from Snapshot ({', '.join(sources)}): slot "
+                      f"{SNAPSHOT_NAME_SLOT} of its {where} is GetSnapshotName's only through that base")
+    return f"{proof}; slot {SNAPSHOT_NAME_SLOT} is Snapshot::GetSnapshotName's ({derived[0]}'s view)"
+
+
 def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
     """Every check of one --to-class move of the row at `rva` into `cls` as
     `new` (see the section comment), up to its retail slot; a dict of what
@@ -7063,9 +7101,10 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
     row = owners[0]
     name = row["name"]
     at, old_cls, _scopes, _role = member_function_header(name)
-    if old_cls == cls:
+    getter = old_cls == cls and snapshot_name_getter(name, cls, new)
+    if old_cls == cls and not getter:
         raise Refusal(f"{name} is already a member of {cls}")
-    if not is_placeholder(old_cls, "class"):
+    if not getter and not is_placeholder(old_cls, "class"):
         raise Refusal(f"{name}'s class {old_cls} is a readable name: --to-class moves only a placeholder class's "
                       "member (choosing between two readable classes is a naming decision)")
     return_enum = None
@@ -7110,6 +7149,8 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                                                                reviewed=retail_identity.shared_slot_of(rva, cls, new_name),
                                                                base=retail_identity.base_slot_of(rva, cls, new_name),
                                                                found=found)
+    if getter:
+        proof = snapshot_name_getter_proof(ctx, name, cls, table, slot, installers, found, proof)
     declared = []
     if return_enum is not None:
         # read from the installers: their view of cls compiles the table

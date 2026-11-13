@@ -1369,3 +1369,121 @@ def test_the_real_base_entry_is_well_stated():
     for table, (_cls, facts) in entry.tables.items():
         assert facts[0] == retail_identity.word(table, 14, 0x000B69A1)
         assert facts[-2].code == "68" and facts[-1].kind == "calls" and facts[-1].value == 0x002573EE
+
+
+# ------------------------------------------- a module's name getter moved within its class (lk106)
+#
+# Getter units define each module's 6-byte `mov eax,"C"; ret` through a stub class, rowed as the class's own
+# non-virtual `?name@C@@QBEPBDXZ`. Retail binds it to slot 2 of C's own table: Snapshot::GetSnapshotName's.
+# The one same-class move: to `?GetSnapshotName@C@@MBEPBDXZ`, proved by C's own table's slot 2, the
+# installers' views deriving C from Snapshot and the rebuilt table naming the override there.
+
+GETTER_OLD = "?name@Widget@@QBEPBDXZ"
+GETTER_NEW = "?GetSnapshotName@Widget@@MBEPBDXZ"
+GETTER_RVA = 0x00406000
+NAMES = f"""// cl: /O2
+// {GETTER_OLD}
+class Widget {{ public: const char *name() const; }};
+const char *Widget::name() const {{ return "Widget"; }}
+"""
+NAMES_PREPARED = f"""// cl: /O2
+// {GETTER_NEW}
+class Widget {{ protected: virtual const char *GetSnapshotName() const; }};
+const char *Widget::GetSnapshotName() const {{ return "Widget"; }}
+"""
+SNAPSHOT_WIDGET = """class Snapshot {
+public:
+    virtual ~Snapshot();
+protected:
+    virtual void loadPostProcess() = 0;
+    virtual const char *GetSnapshotName() const = 0;
+};
+class Widget : public Snapshot {
+public:
+    Widget();
+    virtual ~Widget();
+protected:
+    virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
+};
+Widget::Widget() {}
+void Widget::loadPostProcess() {}
+"""
+GETTER_TABLES = {TABLE: ([0x00403040, 0x00404000, GETTER_RVA], {CTOR_STORE: 0})}
+GETTER_COMPILED = {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, STOP, GETTER_NEW]}}
+
+
+def getter_tree(tree, widget=SNAPSHOT_WIDGET):
+    functions = (tree / "reverse/functions.csv").read_bytes().decode()
+    (tree / "reverse/functions.csv").write_bytes(
+        (functions + f"{GETTER_OLD},,0x00406000,6,Code/Game/Names.cpp,matched,literal name getter\n").encode())
+    (tree / "Code/Game/Names.cpp").write_bytes(NAMES.encode())
+    (tree / "Code/Game/Widget.cpp").write_bytes(widget.encode())
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "getter")
+    return tree
+
+
+def getter_plan(root, new=GETTER_NEW, **overrides):
+    kwargs = dict(rva=GETTER_RVA, to_class="Widget", new=new,
+                  prepared={"Code/Game/Names.cpp": NAMES_PREPARED.encode()})
+    kwargs.update(overrides)
+    return rename.plan_rename("function", ctx=ctx_of(root), **kwargs)
+
+
+@pytest.mark.parametrize("name,cls,new,expected", [
+    (GETTER_OLD, "Widget", GETTER_NEW, True),
+    (GETTER_OLD, "Widget", "GetSnapshotName", False),                          # the whole spelling, always
+    (GETTER_OLD, "Widget", "?GetSnapshotName@Widget@@UBEPBDXZ", False),        # public: not the override
+    (GETTER_OLD, "Widget", "?getName@Widget@@MBEPBDXZ", False),                # another identifier
+    ("?name@Widget@@QAEPBDXZ", "Widget", "?GetSnapshotName@Widget@@MAEPBDXZ", False),   # not const
+    ("?label@Widget@@QBEPBDXZ", "Widget", GETTER_NEW, False),                  # not the name getter
+    (GETTER_OLD, "Gadget", "?GetSnapshotName@Gadget@@MBEPBDXZ", False),        # another class
+])
+def test_snapshot_name_getter_shape(name, cls, new, expected):
+    assert rename.snapshot_name_getter(name, cls, new) is expected
+
+
+def test_a_name_getter_moves_within_its_class_to_the_snapshot_override(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    p = getter_plan(getter_tree(tree))
+    assert p.new == GETTER_NEW and p.basis == "to-class"
+    assert p.to_class["slot"] == 2 and p.to_class["sources"] == ["Code/Game/Widget.cpp"]
+    assert "slot 2 is Snapshot::GetSnapshotName's" in p.evidence
+    assert (GETTER_OLD, GETTER_NEW, GETTER_RVA) in p.renamed_rows
+    assert p.subject() == f"Move {GETTER_OLD} into Widget as {GETTER_NEW} (retail vftable 0x00C00000 slot 2)"
+
+
+@pytest.mark.parametrize("new", ["?GetSnapshotName@Widget@@UBEPBDXZ", "?getName@Widget@@MBEPBDXZ"])
+def test_any_other_move_within_the_class_is_still_refused(tree, monkeypatch, new):
+    retail(monkeypatch, GETTER_TABLES, compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, STOP, new]}})
+    with pytest.raises(Refusal, match="is already a member of Widget"):
+        getter_plan(getter_tree(tree), new=new)
+
+
+def test_a_name_getter_outside_slot_2_is_refused(tree, monkeypatch):
+    # retail holds the getter in slot 1 of the class's own table: not GetSnapshotName's slot
+    retail(monkeypatch, {TABLE: ([0x00403040, GETTER_RVA, 0x00404000], {CTOR_STORE: 0})},
+           compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, GETTER_NEW, STOP]}})
+    with pytest.raises(Refusal, match="sits in slot 1 of Widget's retail table 0x00C00000, not slot 2"):
+        getter_plan(getter_tree(tree))
+
+
+def test_a_name_getter_in_no_retail_slot_is_refused(tree, monkeypatch):
+    retail(monkeypatch, GOOD, compiled=GETTER_COMPILED)
+    with pytest.raises(Refusal, match="no retail vftable slot holds 0x00406000"):
+        getter_plan(getter_tree(tree))
+
+
+def test_a_name_getter_whose_class_view_has_no_snapshot_base_is_refused(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    with pytest.raises(Refusal, match="no installer unit.s view of Widget derives from Snapshot"):
+        getter_plan(getter_tree(tree, widget=SNAPSHOT_WIDGET.replace(" : public Snapshot", "")))
+
+
+def test_a_name_getter_the_rebuilt_table_does_not_name_is_refused(tree, monkeypatch):
+    # the installer still inherits the base's getter in slot 2
+    retail(monkeypatch, GETTER_TABLES, compiled={"Code/Game/Widget.cpp": {
+        "??_7Widget@@6B@": [GDTOR, STOP, "?GetSnapshotName@UpdateModule@@MBEPBDXZ"]}})
+    with pytest.raises(Refusal, match="slot 2 names"):
+        getter_plan(getter_tree(tree))
