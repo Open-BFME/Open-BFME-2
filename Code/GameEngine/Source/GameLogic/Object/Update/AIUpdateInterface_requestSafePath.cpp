@@ -23,7 +23,11 @@ typedef bool Bool;
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// Retail calls the game's _fprintf thunk (0x002CEC42) through REL32, so
+// read <stdio.h> without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -74,11 +78,11 @@ void AIUpdateInterface::requestSafePath(ObjectID repulsor)
 	m_field3B1 = true;
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 		{
 			fprintf(log, "CritterDesync: requestSafePath 'I don't believe this line accomplishes anything' ");
-			void *log2 = theLogicRandomLogFile;
+			FILE *log2 = (FILE *)theLogicRandomLogFile;
 			if (log2 != 0)
 				fprintf(log2, "-- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 					m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,
