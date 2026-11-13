@@ -290,11 +290,7 @@ class W3DDisplay
   public:
     static RTS3DScene *m_3DScene;
 };
-class Rva0006ED29
-{
-  public:
-    void rva0006ED29(void *);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 class Dict
 {
   public:
