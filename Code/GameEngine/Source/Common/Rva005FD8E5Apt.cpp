@@ -44,12 +44,7 @@ void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetCommandPoints(int index, i
 	entry->m_maxCommandPoints = maxCommandPoints;
 }
 
-struct Rva005FD956
-{
-	char m_pad0[4];
-	StrategicHUD::ArmyUnitSwapperMovieClip::Impl *m_p4;
-	void setCommandPoints(int index, int commandPoints, int maxCommandPoints);
-};
+#include "../../Include/Common/Rva005FD956.h"
 
 void Rva005FD956::setCommandPoints(int index, int commandPoints, int maxCommandPoints)
 {

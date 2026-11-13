@@ -34,12 +34,7 @@ void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetArmyName(int index,const U
 // The forwarding owner retains the established FD956 address-derived view.
 // WB1641D30 accesses its Impl binding; native FDA0D is the full8B this+4
 // dereference and direct tail call to the verified67B region-name setter.
-struct Rva005FD956 {
- char m_pad0[4];StrategicHUD::ArmyUnitSwapperMovieClip::Impl *m_p4;
- void setCommandPoints(int,int,int);
- void rva005FDA0D(int,const UnicodeString&);
- void rva005FDA15(int,const UnicodeString&);
-};
+#include "../../../../../Include/Common/Rva005FD956.h"
 void Rva005FD956::rva005FDA0D(int index,const UnicodeString& text)
 {m_p4->SetRegionName(index,text);}
 

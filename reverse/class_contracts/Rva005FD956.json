@@ -1,0 +1,54 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005FD956",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "8": 3
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_p4",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "StrategicHUD::ArmyUnitSwapperMovieClip::Impl*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}
