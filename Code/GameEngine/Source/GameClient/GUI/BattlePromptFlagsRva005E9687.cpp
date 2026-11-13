@@ -19,11 +19,7 @@ class Rva005F93D3
 public:
     void rva005F93D3(bool enabled);
 };
-class Rva005F93DB
-{
-public:
-    void rva005F93DB(bool enabled);
-};
+#include "../../../Include/GameClient/Rva005F93DB.h"
 class Rva005E9601
 {
 public:

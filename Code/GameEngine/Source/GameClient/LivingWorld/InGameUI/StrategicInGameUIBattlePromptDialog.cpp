@@ -95,7 +95,7 @@ public:
 class Rva005F9775 { public: void rva005F9775(const UnicodeString &); };
 class Rva005F93CB { public: void rva005F93CB(bool); };
 class Rva005F93D3 { public: void rva005F93D3(bool); };
-class Rva005F93DB { public: void rva005F93DB(bool); };
+#include "../../../../Include/GameClient/Rva005F93DB.h"
 class StrategicInGameUI::BattlePromptDialog::Impl {
 public:
  void OnClipLoaded(int,const AsciiString &);
