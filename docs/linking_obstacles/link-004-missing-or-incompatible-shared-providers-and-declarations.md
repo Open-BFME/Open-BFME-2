@@ -1237,3 +1237,12 @@ field rewriting or whole-storage/lifetime proof. RenderObjClass additionally
 passes only22/24 in a parsing diagnostic; its native Get_User_Data call is
 inlined away and cleanup76408F fails. No failed candidate or header edit.
 [Remaining prerequisites](../../reverse/attempt_support/water-shared-views-prerequisites-20261113-root20.md).
+
+**CommandTranslator cohort (2026-11-13, root20, 616ae61b38e):**
+Native30-byte polymorphic translator still exceeds its frozen fieldless header
+(GameMessageTranslator inheritance, lifetime, nested enum, missing command API).
+Whole147-row cohort passes. Canonical Unicode integration permits GameInfo and
+RecorderClass views to share headers; the other failed trials remain restored.
+MiscAudio typed-receiver preparation loses native push0 staging (7/9 rows).
+Eight hook shadow identity keys are unchanged in saved pre-change objects;
+no baseline changed. [Complete prerequisites](../../reverse/attempt_support/command-translator-prerequisites-20261113-root20.md).

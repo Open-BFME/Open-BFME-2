@@ -3495,3 +3495,11 @@ prerequisite cannot use current rename: generic special-member/signature
 routes refuse U-to-Q and --virtual is one-way. Preserve deleting-helper2215FF
 emission and resolve the callback's unrelated folded owners before recovery.
 [Current evidence](../../reverse/attempt_support/callback-vtable-kind-20261113-root20.md).
+
+**AttackPositionHordeStateMachine review (2026-11-13, root20, 5f3deb924b5):**
+Native811CF0 has16slots; current slots2/3 inherit the wrong base providers.
+An unlanded candidate passes41/41rows and both64-byte tables match all16
+native slots with provisional33FC04 getter/33FB0B transfer bindings. Getter
+--to-class refuses the already-named owner; transfer ICF admission is refused
+by tu_ownership A1. No production change or bridge retirement.
+[Candidate and exact prerequisites](../../reverse\attempt_support\attack-position-native-vtable-20261113-root20.md).

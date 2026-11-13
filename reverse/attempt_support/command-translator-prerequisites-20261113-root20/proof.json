@@ -1,0 +1,1103 @@
+{
+  "remaining_queue": [
+    {
+      "class": "AnimationSoundModuleManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/Common/AnimationSoundModuleManager.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1262) : error C2039: 'init' : is not a member of 'AnimationSoundModuleManager'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class AnimationSoundModuleManager Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "AudioManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/Common/GameAudio.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(2105) : error C2039: 'addAudioEventInfo' : is not a member of 'AudioManager'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class AudioManager Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "BfmeAptWindowManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/Libraries/Source/Apt/BfmeAptWindowManager.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1305) : error C2039: 'vf14' : is not a member of 'BfmeAptWindowManager'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class BfmeAptWindowManager Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "CommandTranslator",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "retail_rvas": "0x00428DEA 0x00428EEB 0x004292F6 0x004293EE",
+      "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+      "failure": "field renames: ../../Include/GameClient/CommandTranslator.h: the probe laid out no field of CommandTranslator",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class CommandTranslator Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+    },
+    {
+      "class": "CommandTranslator",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(360) : error C2039: 'CommandEvaluateType' : is not a member of 'CommandTranslator'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class CommandTranslator Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "CommandTranslator",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429007 0x00429093 0x00429112 0x00429191",
+      "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+      "failure": "field renames: ../../../Include/GameClient/CommandTranslator.h: the probe laid out no field of CommandTranslator",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class CommandTranslator Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "Display",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/Display.h",
+      "failure": "field renames: vendor\\stlport\\stl\\_prolog.h: include cycle cannot be ordered",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Display Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "failure": "field renames: Drawable::m_vtbl (+0x0, 4 bytes) has no canonical field of that offset and size",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Drawable Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429112",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "failure": "field renames: a occurs in a comma declaration or expression",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Drawable Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429007",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "failure": "field renames: a occurs in a comma declaration or expression",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Drawable Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429093",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "failure": "field renames: a occurs in a comma declaration or expression",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Drawable Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429191 0x00429198 0x004291C8 0x004296C2",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\MessageStream\\CommandXlat.cpp(91) : error C2039: 'isKindOf' : is not a member of 'Thing'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Drawable Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "DrawableList",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "retail_rvas": "0x00428DEA 0x00428EEB 0x004292F6 0x004293EE",
+      "header": "Code/GameEngine/Include/GameClient/DrawableList.h",
+      "failure": "field renames: the header's layout: Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp: compile failed: C2039; C2504; C2143",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class DrawableList Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+    },
+    {
+      "class": "FreelistPool",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429007 0x00429093 0x00429112 0x00429191",
+      "header": "Code/GameEngine/Include/Common/FreelistPool.h",
+      "failure": "adopted by the tail pilot with another class's header that is not in this batch: Rva0055A88BDwordField,Rva0026F0F0",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class FreelistPool Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "FrustumClass",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/Common/FrustumClass.h",
+      "failure": "field renames: FrustumClass::CameraTransform (+0x0) is uchar[48]; the canonical FrustumClass::CameraTransform is Matrix3D",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class FrustumClass Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "GameClient",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/GameClientClass.h",
+      "failure": "field renames: GameClient::m_drawableHash (+0x18) is _STL::hash_map<enum DrawableID,Drawable *,rts::hash<enum DrawableID>,rts::equal_to<enum DrawableID>,_STL::a",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class GameClient Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "GameWindowTransitionsHandler",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/GameWindowTransitionsHandler.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(2003) : error C2039: 'rva001DC5EC' : is not a member of 'GameWindowTransitionsHandler'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class GameWindowTransitionsHandler Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "GlobalData",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/Common/GlobalData.h",
+      "failure": "field renames: GlobalData::m_initialFile (+0xABC, 4 bytes) has no canonical field of that offset and size",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class GlobalData Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "InGameUI",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "retail_rvas": "0x00428DEA 0x00428EEB 0x004292F6 0x004293EE",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "failure": "field renames: TheInGameUI occurs in a comma declaration or expression",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class InGameUI Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+    },
+    {
+      "class": "InGameUI",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429112",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "failure": "Code\\GameEngine\\Source\\Common\\CommandTranslator_createDockMessage.cpp(106) : error C2039: 'slot73' : is not a member of 'InGameUI'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class InGameUI Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "InGameUI",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429007",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "failure": "Code\\GameEngine\\Source\\Common\\CommandTranslator_createEnterMessage.cpp(106) : error C2039: 'slot73' : is not a member of 'InGameUI'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class InGameUI Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "InGameUI",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429093",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "failure": "Code\\GameEngine\\Source\\Common\\CommandTranslator_createEvacuateMessage.cpp(106) : error C2039: 'slot73' : is not a member of 'InGameUI'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class InGameUI Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "InGameUI",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429191 0x00429198 0x004291C8 0x004296C2",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "failure": "field renames: InGameUI::m_forceAttackMode (+0x12B1, 1 bytes) has no canonical field of that offset and size",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class InGameUI Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "LanguageFilter",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/LanguageFilterClass.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1407) : error C2039: 'init' : is not a member of 'LanguageFilter'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class LanguageFilter Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "MiscAudio",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "retail_rvas": "0x00428DEA 0x00428EEB 0x004292F6 0x004293EE",
+      "header": "Code/GameEngine/Include/Common/MiscAudioClass.h",
+      "failure": "field renames: Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp: special is also a member of CommandButton; a token rename would reach it",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class MiscAudio Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+    },
+    {
+      "class": "Mouse",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/Mouse.h",
+      "failure": "FAIL ?init@GameClient@@UAEXXZ (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Mouse Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "ParticleSystemManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/ParticleSys.h",
+      "failure": "field renames: ParticleSystemManager::m_localPlayerIndex (+0x64, 4 bytes) has no canonical field of that offset and size",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class ParticleSystemManager Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "PlayerTemplate",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429191 0x00429198 0x004291C8 0x004296C2",
+      "header": "Code/GameEngine/Include/Common/PlayerTemplate.h",
+      "failure": "field renames: PlayerTemplate::m_beaconTemplate (+0xE4, 4 bytes) has no canonical field of that offset and size",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class PlayerTemplate Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "Rva002390CB",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/Common/Rva002390CB.h",
+      "failure": "field renames: Rva002390CB::m_info (+0x4) is OpaqueRefElement4; the canonical Rva002390CB::m_04 is Rva0036CA00Str",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Rva002390CB Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "Shell",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/GameClient/Shell.h",
+      "failure": "field renames: TheShell occurs in a comma declaration or expression",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Shell Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "SphereClass",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/Libraries/Source/WWVegas/WWMath/SphereClass.h",
+      "failure": "FAIL ?In_Front@PlaneClass@@QBE_NABVSphereClass@@@Z (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class SphereClass Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "StatsCollector",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "retail_rvas": "0x00428DEA 0x00428EEB 0x004292F6 0x004293EE",
+      "header": "Code/GameEngine/Include/Common/StatsCollector.h",
+      "failure": "field renames: StatsCollector::m_moveCount (+0x10, 4 bytes) has no canonical field of that offset and size",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class StatsCollector Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+    },
+    {
+      "class": "Thing",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "retail_rvas": "0x00429191 0x00429198 0x004291C8 0x004296C2",
+      "header": "Code/GameEngine/Source/Common/Thing/thing.h",
+      "failure": "Code\\GameEngine\\Source\\GameClient\\MessageStream\\CommandXlat.cpp(91) : error C2039: 'isKindOf' : is not a member of 'Thing'",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Thing Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    },
+    {
+      "class": "UserPreferences",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/GameEngine/Include/Common/UserPreferences.h",
+      "failure": "FAIL ?rva0023BDD7@@YAHPAX_N@Z (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class UserPreferences Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    },
+    {
+      "class": "Vector3",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "retail_rvas": "0x0004C755 0x0004C75A 0x0006A52F 0x0007FAB3",
+      "header": "Code/Libraries/Source/WWVegas/WWMath/Vector3Data.h",
+      "failure": "FAIL ?In_Front@PlaneClass@@QBE_NABVSphereClass@@@Z (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)",
+      "retry_budget": "3",
+      "acceptance": "python3 tools/header_adopt_lane.py accept --class Vector3 Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    }
+  ],
+  "preflights": [
+    {
+      "name": "AnimationSoundModuleManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/Common/AnimationSoundModuleManager.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "AudioManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/Common/GameAudio.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "BfmeAptWindowManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/Libraries/Source/Apt/BfmeAptWindowManager.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "BfmeSelectionState",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/Common/BfmeSelectionState.h",
+      "why": "no private view found",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "CommandTranslator",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "CommandTranslator",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "CommandTranslator",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+      "why": "field renames: C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\reference\\open-bfme-1\\game\\Libraries\\Source\\WWVegas\\WWLib\\thread.h: unresolved include osdep.h",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Display",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/Display.h",
+      "why": "field renames: Display::m_base04 (+0x4, 8 bytes) has no canonical field of that offset and size",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "why": "field renames: Drawable::m_shroudClearFrame (+0x138, 4 bytes) has no canonical field of that offset and size",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Drawable",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/GameClient/Drawable.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "DrawableList",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "header": "Code/GameEngine/Include/GameClient/DrawableList.h",
+      "why": "field renames: the header's layout: Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp: compile failed: C2039: 'list' : is not a member of '_STL'; C2504: 'list' : base class undefined; C2143: syntax error : missing ',' before '<'",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "FreelistPool",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/Common/FreelistPool.h",
+      "why": "no private view found",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "FrustumClass",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/Common/FrustumClass.h",
+      "why": "field renames: FrustumClass::CameraTransform (+0x0) is uchar[48]; the canonical FrustumClass::CameraTransform is Matrix3D",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "GameClient",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/GameClientClass.h",
+      "why": "field renames: GameClient::m_drawableHash (+0x18) is _STL::hash_map<enum DrawableID,Drawable *,rts::hash<enum DrawableID>,rts::equal_to<enum DrawableID>,_STL::allocator<_STL::pair<enum DrawableID const ,Drawable *> > >; the canonical GameClient::m_opaque18 is uchar[20]",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "GameInfo",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/GameNetwork/GameInfo.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "GameWindowTransitionsHandler",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/GameWindowTransitionsHandler.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "GlobalData",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/Common/GlobalData.h",
+      "why": "field renames: C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\vendor\\stlport\\pthread.h: unresolved include /usr/include/pthread.h",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "InGameUI",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "why": "field renames: TheInGameUI occurs in a comma declaration or expression",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "InGameUI",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/GameClient/InGameUI.h",
+      "why": "field renames: InGameUI::m_waypointMode (+0x12B0, 1 bytes) has no canonical field of that offset and size",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "LanguageFilter",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/LanguageFilterClass.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "MiscAudio",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "header": "Code/GameEngine/Include/Common/MiscAudioClass.h",
+      "why": "field renames: special at line 375 is not proven a member of MiscAudio; refusing rather than guessing",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Mouse",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/Mouse.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "ParticleSystemManager",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/ParticleSys.h",
+      "why": "field renames: ParticleSystemManager::m_localPlayerIndex (+0x64, 4 bytes) has no canonical field of that offset and size",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "PlayerTemplate",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/Common/PlayerTemplate.h",
+      "why": "field renames: PlayerTemplate::m_beaconTemplate (+0xE4, 4 bytes) has no canonical field of that offset and size",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "RecorderClass",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/Common/RecorderClass.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "Rva002390CB",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/Common/Rva002390CB.h",
+      "why": "field renames: Rva002390CB::m_info (+0x4) is OpaqueRefElement4; the canonical Rva002390CB::m_04 is Rva0036CA00Str",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Rva0031D5F8",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Include/Common/Rva0031D5F8.h",
+      "why": "no private view found",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Shell",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/GameClient/Shell.h",
+      "why": "field renames: C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\vendor\\stlport\\pthread.h: unresolved include /usr/include/pthread.h",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "SphereClass",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/Libraries/Source/WWVegas/WWMath/SphereClass.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "StatsCollector",
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "header": "Code/GameEngine/Include/Common/StatsCollector.h",
+      "why": "field renames: StatsCollector::m_moveCount (+0x10, 4 bytes) has no canonical field of that offset and size",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "SubsystemInterface",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/Libraries/Source/subsystem/SubsystemInterface.h",
+      "why": "no private view found",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Thing",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "header": "Code/GameEngine/Source/Common/Thing/thing.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    },
+    {
+      "name": "UserPreferences",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/GameEngine/Include/Common/UserPreferences.h",
+      "why": "no private view found",
+      "prepared": false,
+      "renames": []
+    },
+    {
+      "name": "Vector3",
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "header": "Code/Libraries/Source/WWVegas/WWMath/Vector3Data.h",
+      "why": null,
+      "prepared": true,
+      "renames": []
+    }
+  ],
+  "ordinary_attempts": {
+    "held": {
+      "Drawable": [
+        "file/1d348c28457083bf",
+        "file/34700e2b0c9ece62",
+        "file/3c2c0af91eb5198f",
+        "file/6b18ab90b2a77bbf",
+        "file/f83fa2e2e9e1a902"
+      ],
+      "FreelistPool": [
+        "file/bf47685ab811d961"
+      ]
+    },
+    "allowed": [
+      "AnimationSoundModuleManager",
+      "AudioManager",
+      "BfmeAptWindowManager",
+      "BfmeSelectionState",
+      "CommandTranslator",
+      "GameInfo",
+      "GameWindowTransitionsHandler",
+      "LanguageFilter",
+      "Mouse",
+      "RecorderClass",
+      "Rva0031D5F8",
+      "SphereClass",
+      "SubsystemInterface",
+      "Thing",
+      "UserPreferences",
+      "Vector3"
+    ],
+    "trials": [
+      {
+        "name": "AnimationSoundModuleManager",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/Common/AnimationSoundModuleManager.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1258) : error C2039: 'init' : is not a member of 'AnimationSoundModuleManager'\n"
+      },
+      {
+        "name": "AudioManager",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/Common/GameAudio.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1931) : error C2039: 'addAudioEventInfo' : is not a member of 'AudioManager'\n"
+      },
+      {
+        "name": "BfmeAptWindowManager",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/Libraries/Source/Apt/BfmeAptWindowManager.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1143) : error C2039: 'vf14' : is not a member of 'BfmeAptWindowManager'\n"
+      },
+      {
+        "name": "CommandTranslator",
+        "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+        "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp: Code\\GameEngine\\Source\\Common\\Rva00428EEBIssueFireWeapon.cpp(112) : error C2039: 'rva00428EEB' : is not a member of 'CommandTranslator'\n"
+      },
+      {
+        "name": "CommandTranslator",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/GameClient/CommandTranslator.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(360) : error C2039: 'CommandEvaluateType' : is not a member of 'CommandTranslator'\n"
+      },
+      {
+        "name": "GameInfo",
+        "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+        "header": "Code/GameEngine/Include/GameNetwork/GameInfo.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\Code\\GameEngine\\Include\\GameNetwork\\../../../../reference\\shims\\bfme2_ascii\\unicode_string.h(27) : error C2011: 'UnicodeString' : 'class' t\n"
+      },
+      {
+        "name": "GameWindowTransitionsHandler",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/GameClient/GameWindowTransitionsHandler.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1995) : error C2039: 'rva001DC5EC' : is not a member of 'GameWindowTransitionsHandler'\n"
+      },
+      {
+        "name": "LanguageFilter",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/GameClient/LanguageFilterClass.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: Code\\GameEngine\\Source\\GameClient\\GameClientDrawableTOC.cpp(1399) : error C2039: 'init' : is not a member of 'LanguageFilter'\n"
+      },
+      {
+        "name": "Mouse",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/GameClient/Mouse.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: FAIL ?init@GameClient@@UAEXXZ (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)\n"
+      },
+      {
+        "name": "RecorderClass",
+        "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+        "header": "Code/GameEngine/Include/Common/RecorderClass.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\Code\\GameEngine\\Include\\Common\\../../../../reference\\shims\\bfme2_ascii\\unicode_string.h(27) : error C2011: 'UnicodeString' : 'class' type r\n"
+      },
+      {
+        "name": "SphereClass",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/Libraries/Source/WWVegas/WWMath/SphereClass.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: FAIL ?In_Front@PlaneClass@@QBE_NABVSphereClass@@@Z (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)\n"
+      },
+      {
+        "name": "Thing",
+        "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+        "header": "Code/GameEngine/Source/Common/Thing/thing.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp: Code\\GameEngine\\Source\\GameClient\\MessageStream\\CommandXlat.cpp(85) : error C2039: 'isKindOf' : is not a member of 'Thing'\n"
+      },
+      {
+        "name": "Vector3",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/Libraries/Source/WWVegas/WWMath/Vector3Data.h",
+        "failed": 1,
+        "log": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: FAIL ?In_Front@PlaneClass@@QBE_NABVSphereClass@@@Z (Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp)\n"
+      }
+    ],
+    "stale_candidates": [
+      {
+        "name": "BfmeSelectionState",
+        "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+        "header": "Code/GameEngine/Include/Common/BfmeSelectionState.h",
+        "why": "no private view found",
+        "prepared": false,
+        "renames": []
+      },
+      {
+        "name": "FreelistPool",
+        "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+        "header": "Code/GameEngine/Include/Common/FreelistPool.h",
+        "why": "no private view found",
+        "prepared": false,
+        "renames": []
+      },
+      {
+        "name": "Rva0031D5F8",
+        "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+        "header": "Code/GameEngine/Include/Common/Rva0031D5F8.h",
+        "why": "no private view found",
+        "prepared": false,
+        "renames": []
+      },
+      {
+        "name": "SubsystemInterface",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/Libraries/Source/subsystem/SubsystemInterface.h",
+        "why": "no private view found",
+        "prepared": false,
+        "renames": []
+      },
+      {
+        "name": "UserPreferences",
+        "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+        "header": "Code/GameEngine/Include/Common/UserPreferences.h",
+        "why": "no private view found",
+        "prepared": false,
+        "renames": []
+      }
+    ]
+  },
+  "misc_audio_trial": {
+    "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+    "rows": 9,
+    "matched": [
+      "0x00428DEA",
+      "0x00428EEB",
+      "0x004292F6",
+      "0x004293EE",
+      "0x00429771",
+      "0x004297F0",
+      "0x00787535"
+    ],
+    "missed": [
+      "?issueSpecialPowerCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@PAVObject@@@Z",
+      "$L2010"
+    ],
+    "errors": [],
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\9000d8f5b088690b.obj"
+  },
+  "shadow_findings": {
+    "binding_rows": [
+      {
+        "row": "??0GameClient@@QAE@XZ",
+        "rva": "0x0023BC36",
+        "before": {
+          "digest": "66dc731b5fba",
+          "external_refs": [
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              22,
+              20,
+              "??0SubsystemInterface@@QAE@XZ"
+            ],
+            [
+              34,
+              6,
+              "??_7Snapshot@@6B@"
+            ],
+            [
+              47,
+              6,
+              "??_7GameClient@@6BSubsystemInterface@@@"
+            ],
+            [
+              54,
+              6,
+              "??_7GameClient@@6BSnapshot@@@"
+            ],
+            [
+              65,
+              20,
+              "??0?$hash_map@W4DrawableID@@PAVDrawable@@U?$hash@W4DrawableID@@@rts@@U?$equal_to@W4DrawableID@@@4@V?$allocator@U?$pair@$$CBW4DrawableID@@PAVDrawable@@@_STL@@@_STL@@@_STL@@QAE@XZ"
+            ],
+            [
+              76,
+              6,
+              "??_C@_00CNPNBAHC@?$AA@"
+            ],
+            [
+              110,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ],
+            [
+              201,
+              20,
+              "??0?$_List_base@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z"
+            ],
+            [
+              216,
+              20,
+              "??0?$_Vector_base@PAVRva00362862Item@@V?$allocator@PAVRva00362862Item@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVRva00362862Item@@@1@@Z"
+            ],
+            [
+              235,
+              20,
+              "??0?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAE@ABV?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@Z"
+            ],
+            [
+              240,
+              6,
+              "??1Rva00239AF4@@QAE@XZ"
+            ],
+            [
+              245,
+              6,
+              "??_FRva00239AF4@@QAEXXZ"
+            ],
+            [
+              265,
+              20,
+              "??_L@YGXPAXIHP6EX0@Z1@Z"
+            ],
+            [
+              280,
+              20,
+              "??0?$_Vector_base@JV?$allocator@J@_STL@@@_STL@@QAE@ABV?$allocator@J@1@@Z"
+            ],
+            [
+              295,
+              20,
+              "??0?$_Vector_base@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAE@ABV?$allocator@UOpaqueRefElement4@@@1@@Z"
+            ],
+            [
+              333,
+              20,
+              "?clear@?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAEXXZ"
+            ],
+            [
+              340,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              359,
+              20,
+              "??0DrawGroupInfo@@QAE@XZ"
+            ],
+            [
+              372,
+              6,
+              "?TheDrawGroupInfo@@3PAUDrawGroupInfo@@A"
+            ],
+            [
+              383,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "after": {
+          "digest": "66dc731b5fba",
+          "external_refs": [
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              22,
+              20,
+              "??0SubsystemInterface@@QAE@XZ"
+            ],
+            [
+              34,
+              6,
+              "??_7Snapshot@@6B@"
+            ],
+            [
+              47,
+              6,
+              "??_7GameClient@@6BSubsystemInterface@@@"
+            ],
+            [
+              54,
+              6,
+              "??_7GameClient@@6BSnapshot@@@"
+            ],
+            [
+              65,
+              20,
+              "??0?$hash_map@W4DrawableID@@PAVDrawable@@U?$hash@W4DrawableID@@@rts@@U?$equal_to@W4DrawableID@@@4@V?$allocator@U?$pair@$$CBW4DrawableID@@PAVDrawable@@@_STL@@@_STL@@@_STL@@QAE@XZ"
+            ],
+            [
+              76,
+              6,
+              "??_C@_00CNPNBAHC@?$AA@"
+            ],
+            [
+              110,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ],
+            [
+              201,
+              20,
+              "??0?$_List_base@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z"
+            ],
+            [
+              216,
+              20,
+              "??0?$_Vector_base@PAVRva00362862Item@@V?$allocator@PAVRva00362862Item@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVRva00362862Item@@@1@@Z"
+            ],
+            [
+              235,
+              20,
+              "??0?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAE@ABV?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@Z"
+            ],
+            [
+              240,
+              6,
+              "??1Rva00239AF4@@QAE@XZ"
+            ],
+            [
+              245,
+              6,
+              "??_FRva00239AF4@@QAEXXZ"
+            ],
+            [
+              265,
+              20,
+              "??_L@YGXPAXIHP6EX0@Z1@Z"
+            ],
+            [
+              280,
+              20,
+              "??0?$_Vector_base@JV?$allocator@J@_STL@@@_STL@@QAE@ABV?$allocator@J@1@@Z"
+            ],
+            [
+              295,
+              20,
+              "??0?$_Vector_base@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAE@ABV?$allocator@UOpaqueRefElement4@@@1@@Z"
+            ],
+            [
+              333,
+              20,
+              "?clear@?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAEXXZ"
+            ],
+            [
+              340,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              359,
+              20,
+              "??0DrawGroupInfo@@QAE@XZ"
+            ],
+            [
+              372,
+              6,
+              "?TheDrawGroupInfo@@3PAUDrawGroupInfo@@A"
+            ],
+            [
+              383,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "unchanged": true
+      },
+      {
+        "row": "$L13380",
+        "rva": "0x00770CE6",
+        "before": {
+          "digest": "56324b3a741f",
+          "external_refs": [
+            [
+              7,
+              20,
+              "??1?$hash_map@W4DrawableID@@PAVDrawable@@U?$hash@W4DrawableID@@@rts@@U?$equal_to@W4DrawableID@@@4@V?$allocator@U?$pair@$$CBW4DrawableID@@PAVDrawable@@@_STL@@@_STL@@@_STL@@QAE@XZ"
+            ]
+          ]
+        },
+        "after": {
+          "digest": "56324b3a741f",
+          "external_refs": [
+            [
+              7,
+              20,
+              "??1?$hash_map@W4DrawableID@@PAVDrawable@@U?$hash@W4DrawableID@@@rts@@U?$equal_to@W4DrawableID@@@4@V?$allocator@U?$pair@$$CBW4DrawableID@@PAVDrawable@@@_STL@@@_STL@@@_STL@@QAE@XZ"
+            ]
+          ]
+        },
+        "unchanged": true
+      },
+      {
+        "row": "$L13914",
+        "rva": "0x00770E1B",
+        "before": {
+          "digest": "56324b3a741f",
+          "external_refs": [
+            [
+              7,
+              20,
+              "??1?$hash_map@W4DrawableID@@PAVDrawable@@U?$hash@W4DrawableID@@@rts@@U?$equal_to@W4DrawableID@@@4@V?$allocator@U?$pair@$$CBW4DrawableID@@PAVDrawable@@@_STL@@@_STL@@@_STL@@QAE@XZ"
+            ]
+          ]
+        },
+        "after": {
+          "digest": "56324b3a741f",
+          "external_refs": [
+            [
+              7,
+              20,
+              "??1?$hash_map@W4DrawableID@@PAVDrawable@@U?$hash@W4DrawableID@@@rts@@U?$equal_to@W4DrawableID@@@4@V?$allocator@U?$pair@$$CBW4DrawableID@@PAVDrawable@@@_STL@@@_STL@@@_STL@@QAE@XZ"
+            ]
+          ]
+        },
+        "unchanged": true
+      }
+    ],
+    "divergent_definitions": [
+      {
+        "name": "??R?$less@I@_STL@@QBE_NABI0@Z",
+        "fingerprint": [
+          "c6e6af9f9b1c",
+          19
+        ],
+        "unchanged": true
+      },
+      {
+        "name": "?allocate@?$allocator@PAX@_STL@@QBEPAPAXIPBX@Z",
+        "fingerprint": [
+          "20334d51b054",
+          28
+        ],
+        "unchanged": true
+      },
+      {
+        "name": "?deallocate@?$allocator@UOpaqueRefElement4@@@_STL@@QBEXPAUOpaqueRefElement4@@I@Z",
+        "fingerprint": [
+          "083eb30a50cf",
+          20
+        ],
+        "unchanged": true
+      },
+      {
+        "name": "?getNextDrawable@Drawable@@QBEPAV1@XZ",
+        "fingerprint": [
+          "fc85d9099760",
+          7
+        ],
+        "unchanged": true
+      },
+      {
+        "name": "?testDrawableStatus@Drawable@@QBE_NW4DrawableStatus@@@Z",
+        "fingerprint": [
+          "41f89fdd49fa",
+          19
+        ],
+        "unchanged": true
+      }
+    ],
+    "finding_count": 8,
+    "verdict": "All eight reported shadow keys have unchanged incoming bodies/references or COMDAT fingerprints in saved pre-change objects; no baseline edited"
+  },
+  "user_preferences_refusal": "  FAIL Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp: does not #include Code/GameEngine/Include/Common/UserPreferences.h\n"
+}

@@ -1,0 +1,320 @@
+{
+  "diagnostic_only": true,
+  "source_head": {
+    "Code/GameEngine/Source/Common/AttackPositionHordeStateMachine.cpp": "e85470481a3152bad0202e29ff2b40904031142dd8015a7b1bc30f80e19f61d7",
+    "Code/GameEngine/Source/GameLogic/AI/AttackPositionHordeStateMachine.cpp": "2d25c551e9bad9bc9d144f0f7582f2557ce0cb215c9da6ee9c93ebeea4c5b859",
+    "Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp": "eb3bad871327d40aa47ed8eca60d385f18e2e7fa8a65ccee88665c818c9c0c48"
+  },
+  "trials": [
+    {
+      "source": "Code/GameEngine/Source/Common/AttackPositionHordeStateMachine.cpp",
+      "candidate": "build\\root-attack-position-AttackPositionHordeStateMachine.cpp.txt",
+      "expected_rows": 3,
+      "matched": [
+        "0x0033FB0B",
+        "0x0033FBB7",
+        "0x00343BAD"
+      ],
+      "missed": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\cef387297f410689.obj"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/AttackPositionHordeStateMachine.cpp",
+      "candidate": "build\\root-attack-position-AttackPositionHordeStateMachine-ctor.cpp.txt",
+      "expected_rows": 3,
+      "matched": [
+        "0x00343A86",
+        "0x0077CD4D",
+        "0x0077CD7D"
+      ],
+      "missed": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\54eee6ec8496ad05.obj"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp",
+      "candidate": "build\\root-attack-position-SubsystemNameGetters4.cpp.txt",
+      "expected_rows": 35,
+      "matched": [
+        "0x00271892",
+        "0x0033F517",
+        "0x0033FB6D",
+        "0x0033FC04",
+        "0x00340C27",
+        "0x00340D6A",
+        "0x00345CFA",
+        "0x00345F70",
+        "0x0034B172",
+        "0x00351753",
+        "0x00354EF6",
+        "0x0035701F",
+        "0x00367929",
+        "0x0036B8E0",
+        "0x0036E55E",
+        "0x00373411",
+        "0x00373D0F",
+        "0x00376A19",
+        "0x0037BB4D",
+        "0x003908A1",
+        "0x0039143F",
+        "0x003957C0",
+        "0x003A25AB",
+        "0x003A5784",
+        "0x003ABE7F",
+        "0x003B03ED",
+        "0x003B40FA",
+        "0x003B9124",
+        "0x003F3418",
+        "0x003F6A8B",
+        "0x003F9CCC",
+        "0x003FD374",
+        "0x00403A5B",
+        "0x00409353",
+        "0x005C43C9"
+      ],
+      "missed": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\a59e999d352d3e5b.obj"
+    }
+  ],
+  "compiler_weak_defaults": {
+    "??_EAttackPositionHordeStateMachine@@UAEPAXI@Z": [
+      "??_GAttackPositionHordeStateMachine@@UAEPAXI@Z",
+      2
+    ]
+  },
+  "provisional_new_bindings": {
+    "?GetSnapshotName@AttackPositionHordeStateMachine@@MBEPBDXZ": "0x0033FC04",
+    "?xfer@AttackPositionHordeStateMachine@@MAEXPAVXfer@@@Z": "0x0033FB0B"
+  },
+  "retail_slots": [
+    "0x00343BAD",
+    "0x000B3FD0",
+    "0x0033FC04",
+    "0x0033FB0B",
+    "0x004D7321",
+    "0x004D72C5",
+    "0x004D7A75",
+    "0x004D770F",
+    "0x004D7ACD",
+    "0x000D43D0",
+    "0x000D43D0",
+    "0x002621B8",
+    "0x004D7309",
+    "0x004D7395",
+    "0x004D750F",
+    "0x004D73A4"
+  ],
+  "candidate_tables": [
+    {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\cef387297f410689.obj",
+      "extent": 64,
+      "offset": 0,
+      "comdat": true,
+      "selection": 2,
+      "executable": false,
+      "archive": false,
+      "other_publics": [],
+      "pointers": {
+        "0": [
+          "??_EAttackPositionHordeStateMachine@@UAEPAXI@Z",
+          6,
+          0
+        ],
+        "4": [
+          "?loadPostProcess@StateMachine@@MAEXXZ",
+          6,
+          0
+        ],
+        "8": [
+          "?GetSnapshotName@AttackPositionHordeStateMachine@@MBEPBDXZ",
+          6,
+          0
+        ],
+        "12": [
+          "?xfer@AttackPositionHordeStateMachine@@MAEXPAVXfer@@@Z",
+          6,
+          0
+        ],
+        "16": [
+          "?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ",
+          6,
+          0
+        ],
+        "20": [
+          "?clear@StateMachine@@UAEXXZ",
+          6,
+          0
+        ],
+        "24": [
+          "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+          6,
+          0
+        ],
+        "28": [
+          "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+          6,
+          0
+        ],
+        "32": [
+          "?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z",
+          6,
+          0
+        ],
+        "36": [
+          "?slot09@StateMachine@@UAEHXZ",
+          6,
+          0
+        ],
+        "40": [
+          "?slot10@StateMachine@@UAEHXZ",
+          6,
+          0
+        ],
+        "44": [
+          "?isInAttackState@StateMachine@@UBE_NXZ",
+          6,
+          0
+        ],
+        "48": [
+          "?isInBusyState@StateMachine@@UBE_NXZ",
+          6,
+          0
+        ],
+        "52": [
+          "?rva004D7395@StateMachine@@UAEXXZ",
+          6,
+          0
+        ],
+        "56": [
+          "?setGoalObject@StateMachine@@UAEXPBVObject@@@Z",
+          6,
+          0
+        ],
+        "60": [
+          "?halt@StateMachine@@UAEXXZ",
+          6,
+          0
+        ]
+      },
+      "weak": {
+        "0": [
+          "??_GAttackPositionHordeStateMachine@@UAEPAXI@Z",
+          2
+        ]
+      },
+      "mismatches": [],
+      "all_16_slots_match": true
+    },
+    {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\54eee6ec8496ad05.obj",
+      "extent": 64,
+      "offset": 0,
+      "comdat": true,
+      "selection": 2,
+      "executable": false,
+      "archive": false,
+      "other_publics": [],
+      "pointers": {
+        "0": [
+          "??_EAttackPositionHordeStateMachine@@UAEPAXI@Z",
+          6,
+          0
+        ],
+        "4": [
+          "?loadPostProcess@StateMachine@@MAEXXZ",
+          6,
+          0
+        ],
+        "8": [
+          "?GetSnapshotName@AttackPositionHordeStateMachine@@MBEPBDXZ",
+          6,
+          0
+        ],
+        "12": [
+          "?xfer@AttackPositionHordeStateMachine@@MAEXPAVXfer@@@Z",
+          6,
+          0
+        ],
+        "16": [
+          "?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ",
+          6,
+          0
+        ],
+        "20": [
+          "?clear@StateMachine@@UAEXXZ",
+          6,
+          0
+        ],
+        "24": [
+          "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+          6,
+          0
+        ],
+        "28": [
+          "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+          6,
+          0
+        ],
+        "32": [
+          "?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z",
+          6,
+          0
+        ],
+        "36": [
+          "?slot09@StateMachine@@UAEHXZ",
+          6,
+          0
+        ],
+        "40": [
+          "?slot10@StateMachine@@UAEHXZ",
+          6,
+          0
+        ],
+        "44": [
+          "?isInAttackState@StateMachine@@UBE_NXZ",
+          6,
+          0
+        ],
+        "48": [
+          "?isInBusyState@StateMachine@@UBE_NXZ",
+          6,
+          0
+        ],
+        "52": [
+          "?rva004D7395@StateMachine@@UAEXXZ",
+          6,
+          0
+        ],
+        "56": [
+          "?setGoalObject@StateMachine@@UAEXPBVObject@@@Z",
+          6,
+          0
+        ],
+        "60": [
+          "?halt@StateMachine@@UAEXXZ",
+          6,
+          0
+        ]
+      },
+      "weak": {
+        "0": [
+          "??_GAttackPositionHordeStateMachine@@UAEPAXI@Z",
+          2
+        ]
+      },
+      "mismatches": [],
+      "all_16_slots_match": true
+    }
+  ],
+  "production_source_unchanged": true,
+  "inspected_commit": "5f3deb924b583020b167b9854c54a5c3b2adbbe4",
+  "admission_refusal": [
+    [
+      "A1",
+      "0x0033FB0B ?xfer@AttackPositionHordeStateMachine@@MAEXPAVXfer@@@Z: second row in Code/GameEngine/Source/Common/AttackPositionHordeStateMachine.cpp; owned by Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp"
+    ]
+  ],
+  "getter_refusal": "python3 : rename: refused: ?name@AttackPositionHordeStateMachine@@QBEPBDXZ is already a member of \nAttackPositionHordeStateMachine\nIn Zeile:4 Zeichen:1\n+ python3 tools/rename.py function --rva 0x0033FC04 --to-class AttackPo ...\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : NotSpecified: (rename: refused...rdeStateMachine:String) [], RemoteException\n    + FullyQualifiedErrorId : NativeCommandError\n \n"
+}
