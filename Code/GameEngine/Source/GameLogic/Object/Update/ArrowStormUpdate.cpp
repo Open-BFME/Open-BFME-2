@@ -72,12 +72,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-template<int NUMBITS> class BitFlags
-{
-public:
-	unsigned long m_words[(NUMBITS + 31) / 32];
-	__forceinline unsigned long test(unsigned pos) const { return m_words[pos / 32] & (1UL << (pos % 32)); }
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
