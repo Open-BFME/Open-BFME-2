@@ -104,12 +104,7 @@ private:
 	T *m_finish;
 	T *m_endOfStorage;
 };
-struct Vec001DCDAF
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "../../Include/Common/Vec001DCDAF.h"
 // A returned position. The memberwise copy constructor is what gives the
 // retail return copies their fld/fstp-then-mov shape; the float constructor
 // builds a result in place.

@@ -49,12 +49,7 @@ private:
 	T *m_endOfStorage;
 };
 
-struct Vec001DCDAF
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "../../Include/Common/Vec001DCDAF.h"
 
 struct EvaCoord
 {

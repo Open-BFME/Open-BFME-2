@@ -10,12 +10,7 @@ struct Arg001DCDAF
     unsigned int u8;
 };
 
-struct Vec001DCDAF
-{
-    float x;
-    float y;
-    float z;
-};
+#include "../../../Include/Common/Vec001DCDAF.h"
 
 extern float g_00DBA4FC;
 
