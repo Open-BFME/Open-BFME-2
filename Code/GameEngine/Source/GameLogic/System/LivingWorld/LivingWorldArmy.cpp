@@ -36,7 +36,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void*>::end()
 { return _M_finish; }
 }
-class Rva003FDE1AHelper { public: void rva003FDE1A(int); };
+#include "../../../../Include/Common/Rva003FDE1AHelper.h"
 
 class InGameSimpleHelp
 {

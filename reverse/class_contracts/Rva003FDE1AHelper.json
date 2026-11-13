@@ -1,0 +1,107 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003FDE1AHelper",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "52": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 52,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "v0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "v4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "v5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "v6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "v7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot8(uchar,int)"
+  }
+ }
+}

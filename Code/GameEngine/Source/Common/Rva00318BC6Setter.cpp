@@ -4,10 +4,7 @@
 // helper object (callee 0x003FDE1A, pinned from the retail call) and store
 // it. All names are address-derived; the offsets and the null-guard shape
 // are target facts.
-class Rva003FDE1AHelper {
-public:
-    void rva003FDE1A(int value);
-};
+#include "../../Include/Common/Rva003FDE1AHelper.h"
 
 class Rva00318BC6Owner {
 public:
