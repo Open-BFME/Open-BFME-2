@@ -2280,15 +2280,19 @@ def member_prefix(name, member):
 def decl_param(text):
     """One declared parameter as (pointer levels outermost first, each its MSVC code with the pointee's
     constness; base), the base ("builtin", code) for a keyword type or ("name", components innermost
-    first) for a named one (a class, struct, union, enum or typedef: which is not known here). None when
+    first, whether spelled from the global scope `::`) for a named one (a class, struct, union, enum or
+    typedef: which is not known here). None when
     it cannot read it (a default argument, a template, an array, a function pointer, volatile, a type of
     several words it does not know)."""
     t = re.sub(r"\s+", " ", text).strip()
     if re.search(r"[=<(\[]|\.\.\.|\bvolatile\b", t):
         return None
     pointers, words, base_const = [], [], False
-    for token in re.findall(r"[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*|\*|&", t):
+    absolute = False
+    for token in re.findall(r"(?:::\s*)?[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*|\*|&", t):
         token = re.sub(r"\s+", "", token)
+        if token.startswith("::"):
+            absolute, token = True, token[2:]
         if token in ("*", "&"):
             pointers.append([token, False])
         elif token == "const":
@@ -2307,7 +2311,7 @@ def decl_param(text):
     if spelled in BUILTIN_CODES:
         base = ("builtin", BUILTIN_CODES[spelled])
     elif len(words) == 1 and re.fullmatch(r"[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*", words[0]):
-        base = ("name", tuple(reversed(words[0].split("::"))))
+        base = ("name", tuple(reversed(words[0].split("::"))), absolute)
     else:
         return None
     codes, const = [], base_const
@@ -2405,9 +2409,12 @@ def mangled_parts(row, prefix):
     return cv, params, [value for _, value in parser.names]
 
 
-def named_alike(mine, theirs, scopes):
+def named_alike(mine, theirs, scopes, absolute=False):
     """Whether a declared name (components innermost first) is the row's: the same components, the row's
-    remaining ones the declaring class's own scopes, from itself outward (`Mode` in K is `K::Mode`)."""
+    remaining ones the declaring class's own scopes, from itself outward (`Mode` in K is `K::Mode`); a
+    name spelled from the global scope (`::Mode`) is exactly the row's."""
+    if absolute:
+        return theirs == mine
     if theirs[:len(mine)] != mine:
         return False
     rest = theirs[len(mine):]
@@ -2431,7 +2438,8 @@ def compare_row(params, cv, letter, mangled, scopes):
             if (my_codes, my_base) != (their_codes, their_base):
                 return "mismatch"
             continue
-        if my_codes == their_codes and their_base[0] == "name" and named_alike(my_base[1], their_base[1], scopes):
+        if my_codes == their_codes and their_base[0] == "name" and \
+                named_alike(my_base[1], their_base[1], scopes, my_base[2]):
             continue
         verdict = "unknown"
     return verdict
@@ -2970,8 +2978,8 @@ def base_slot_names(contract, known=None):
 
 def base_slot_signatures(contract, known=None):
     """The virtual signatures (decl_signature) the contract's registered base headers declare, and `~` when
-    one declares a virtual destructor; a virtual it cannot read is kept by name as ("?", name), and a
-    view's virtual of that name counts as its override."""
+    one declares a virtual destructor; a virtual it cannot read is kept by name as ("?", name): whether a
+    view's virtual of that name overrides it cannot be told, so slot_declarations holds the class."""
     known = registered() if known is None else known
     found = set()
     for base in contract.get("bases", []):
@@ -3000,19 +3008,50 @@ def view_slots(found, inherited=()):
     """A view's own slots in order, from virtual_members' `found`: [(signature, declaration)], the
     signature decl_signature's (types with their pointee and member cv), or the declaration's spelling
     when it cannot be read. A virtual whose signature a base declares (`inherited`,
-    base_slot_signatures; the destructor by `~`, an unreadable base virtual by name) overrides a slot
-    and introduces none; an overload group takes its slots at its first declaration in reverse
+    base_slot_signatures; the destructor by `~`) overrides a slot and introduces none (a view's virtual
+    named like a base virtual that cannot be read holds the class: slot_declarations); an overload group takes its slots at its first declaration in reverse
     declaration order (class_layouts, "THE TRAP")."""
-    unreadable = {entry[1] for entry in inherited if isinstance(entry, tuple) and entry[0] == "?"}
     groups = collections.OrderedDict()
     for member_name, _, text in found:
         signature = decl_signature(text)
         if signature is None:
             signature = ("?", re.sub(r"\s+", " ", text.split("{")[0]).strip())
-        if (member_name == "~" and "~" in inherited) or signature in inherited or member_name in unreadable:
+        if (member_name == "~" and "~" in inherited) or signature in inherited:
             continue
         groups.setdefault(member_name, []).append((signature, text))
     return [entry for entries in groups.values() for entry in reversed(entries)]
+
+
+def qualified(signature):
+    """Whether a decl_signature carries a qualifier the contract's CodeView signature does not record:
+    `const`/`volatile` on the member, a const pointee, or a parameter it could not read."""
+    if signature is None or signature[0] == "?":
+        return True
+    if signature[0] == "~":
+        return False
+    return bool(signature[2]) or any(shape[0] == "text" or any(code[1] != "A" for code in shape[0])
+                                     for shape in signature[1])
+
+
+def qualifier_problem(name, member, signature, spelled, owners=None):
+    """Why the views' qualifiers for a slot cannot stand, or None. The contract's member spells qualifiers
+    only sometimes (its CodeView signature drops pointee cv, and member cv when the formatter did): when it
+    spells any, they must be the views'; else a qualified declaration needs a matched row that is exactly it
+    (rows_of compares pointee and member cv); without either it is unknown, and the class holds."""
+    if re.search(r"\b(?:const|volatile)\b", member):
+        theirs = decl_signature(f"virtual void {member};")
+        if theirs is None or theirs[1:] != signature[1:]:
+            return f"the contract's qualifiers are not the views' {spelled.split('{')[0].strip()}"
+        return None
+    if not qualified(signature):
+        return None
+    try:
+        if rows_of(name, spelled, owners):
+            return None
+    except OwnerUnknown as why:
+        return str(why)
+    return (f"the qualifiers of {spelled.split('{')[0].strip()} are confirmed neither by the contract nor by "
+            "a matched row")
 
 
 def emits_vtable(name, source, facts=None):
@@ -3070,6 +3109,13 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     # a view without it (a copy of the base's slots into the class) spells every slot from 0.
     inherited = base_slot_signatures(contract, known) if contract.get("bases") else set()
     positions = {source: view_slots(found, inherited if source in derived else ()) for source, found in views.items()}
+    unreadable = {entry[1] for entry in inherited if isinstance(entry, tuple) and entry[0] == "?"}
+    for source in sorted(derived):
+        for member_name, _, text in views.get(source, ()):
+            why = (f"{text.split('{')[0].strip()}: cannot tell whether it overrides the base's virtual "
+                   f"{member_name}, which cannot be read")
+            if member_name in unreadable and why not in problems:
+                problems.append(why)
     emitting = {source: emits_vtable(name, source, facts) for source in views} if slots else {}
     if slots and None in emitting.values():
         base = min(min(slots), (contract.get("evidence", {}).get("inherited", {}).get("inherited_slots", 0)
@@ -3109,6 +3155,10 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         if signature[0] != want[0] or want[0] != "~" and param_types(spelled.split("{")[0]) != param_types(member):
             problems.append(f"slot{slot} {member}: the contract's member is not the views' "
                             f"{spelled.split('{')[0].strip()}")
+            continue
+        why = qualifier_problem(name, member, signature, spelled, owners)
+        if why:
+            problems.append(f"slot{slot} {member}: {why}")
             continue
         spellings = collections.Counter(text for _, text in at.values())
         text = pick_declaration(spellings)
@@ -3165,12 +3215,21 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     overrides = []
     # Only a view that spells a base clause declares an override; a view that
     # copied the base's slots into the class re-declares them, never overrides.
-    for member_name in sorted(base_slot_names(contract, known) - own):
-        spellings = collections.Counter(text for source, found in views.items() if source in derived
-                                        for n, _, text in found if n == member_name)
-        text = pick_declaration(spellings) if spellings else None
-        if text is not None:
-            overrides.append(rename_destructor(text, short) if member_name == "~" else text)
+    # An override is a derived view's virtual whose signature a base declares (base_slot_signatures; the
+    # destructor by `~`), whatever the class introduces under the same name.
+    by_signature = collections.defaultdict(collections.Counter)
+    for source in derived:
+        for member_name, _, text in views.get(source, ()):
+            signature = decl_signature(text)
+            if (member_name == "~" and "~" in inherited) or (signature is not None and signature in inherited):
+                by_signature["~" if member_name == "~" else signature][text] += 1
+    for signature in sorted(by_signature, key=lambda sig: ("~" if sig == "~" else sig[0], repr(sig))):
+        spellings = by_signature[signature]
+        text = pick_declaration(spellings)
+        if text is None:
+            problems.append(f"override {next(iter(spellings)).split('{')[0].strip()}: " + slot_conflict(spellings))
+            continue
+        overrides.append(rename_destructor(text, short) if signature == "~" else text)
     return order, overrides, problems
 
 

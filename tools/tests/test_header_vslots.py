@@ -73,7 +73,7 @@ def declare(c, views, known):
 
 def test_derived_class_declares_its_own_slots_in_order_and_overrides_its_bases(base_header, monkeypatch):
     monkeypatch.setattr(lane, "registered", lambda: base_header)
-    c = contract({2: "onCapture(Player*,Player*)", 3: "getKey()"})
+    c = contract({2: "onCapture(Player*,Player*)", 3: "getKey() const"})
     views = {"a.cpp": DERIVED_VIEW, "b.cpp": DERIVED_VIEW, "flat.cpp": FLAT_VIEW}
     own, overrides, problems = declare(c, views, base_header)
     assert problems == []
@@ -87,7 +87,7 @@ def test_derived_class_declares_its_own_slots_in_order_and_overrides_its_bases(b
 
 def test_inherited_slot_is_not_re_emitted(base_header):
     # Only the flattened view spells xfer: it copied the base, so it overrides nothing.
-    c = contract({2: "onCapture(Player*,Player*)", 3: "getKey()"})
+    c = contract({2: "onCapture(Player*,Player*)", 3: "getKey() const"})
     own, overrides, problems = declare(c, {"flat.cpp": FLAT_VIEW}, base_header)
     assert problems == [] and overrides == []
     assert not any("xfer" in d or "s00" in d for d in own)
@@ -98,18 +98,18 @@ def test_pure_slot_is_pure_when_any_view_spells_it_pure(base_header, monkeypatch
     pure = "class Derived : public Base { public: virtual NameKeyType getKey() const = 0; };\n"
     plain = "class Derived : public Base { public: virtual NameKeyType getKey() const; };\n"
     inline = "class Derived : public Base { public: virtual NameKeyType getKey() const { return 0; } };\n"
-    c = contract({2: "getKey()"})
+    c = contract({2: "getKey() const"})
     for views in ({"a.cpp": pure, "b.cpp": pure, "c.cpp": plain}, {"a.cpp": pure, "c.cpp": plain},
                   {"a.cpp": pure, "b.cpp": plain, "c.cpp": plain}):
         own, _, problems = declare(c, views, base_header)
         assert problems == [] and own == ["virtual NameKeyType getKey() const = 0;"]
     # a pure spelling beside an inline body contradicts it: the class is held
     _, _, problems = declare(c, {"a.cpp": pure, "b.cpp": inline, "c.cpp": inline}, base_header)
-    assert problems == ["slot2 getKey(): pure in one view, an inline body in another"]
+    assert problems == ["slot2 getKey() const: pure in one view, an inline body in another"]
     # a matched row defines the member: `= 0` would put _purecall in its slot
     monkeypatch.setattr(lane, "_matched_index", lambda: {"?getKey@Derived@@": ["?getKey@Derived@@UBEHXZ"]})
     _, _, problems = declare(c, {"a.cpp": pure, "c.cpp": plain}, base_header)
-    assert problems == ["slot2 getKey(): pure in a view, but a matched row defines it"]
+    assert problems == ["slot2 getKey() const: pure in a view, but a matched row defines it"]
     # an overload the row may define is no contradiction: non-virtual, another arity, or one of several
     for rows in (["?getKey@Derived@@QBEHH@Z"], ["?getKey@Derived@@UBEHH@Z"],
                  ["?getKey@Derived@@UBEHXZ", "?getKey@Derived@@UBEHH@Z"]):
@@ -698,3 +698,63 @@ def test_build_units_runs_the_ordinary_build_once_per_unit(monkeypatch):
     REAL_BUILD_UNITS(["Code/a.cpp", "Code/b.cpp", "Code/a.cpp"])
     REAL_BUILD_UNITS(["Code/a.cpp"])
     assert len(calls) == 1 and calls[0][1:] == ["tools/build.py", "Code/a.cpp", "Code/b.cpp"]
+
+
+# ---- review r4: absolute names, unreadable base virtuals, overrides by signature, qualifiers
+
+def test_a_globally_qualified_name_is_exactly_the_rows():
+    nested = ("?f@K@@UAEXPAVMode@K@@@Z", "owner.cpp")                  # takes K::Mode*
+    with pytest.raises(lane.OwnerUnknown):
+        lane.rows_of("K", "virtual void f(::Mode *p) {}", {"?f@K@@": [nested]})
+    global_row = ("?f@K@@UAEXPAVMode@@@Z", "owner.cpp")                  # takes ::Mode*
+    assert lane.rows_of("K", "virtual void f(::Mode *p) {}", {"?f@K@@": [global_row]}) == [global_row]
+    assert lane.rows_of("K", "virtual void f(Mode *p) {}", {"?f@K@@": [nested]}) == [nested]
+
+
+def base_header_for(tmp_path, monkeypatch, body):
+    (tmp_path / "B5.h").write_text("class B5\n{\npublic:\n    %s\n};\n" % body, encoding="utf-8")
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    return {"B5": "B5.h"}
+
+
+def test_a_virtual_named_like_an_unreadable_base_virtual_holds(tmp_path, monkeypatch):
+    known = base_header_for(tmp_path, monkeypatch, "virtual void f(void (*cb)(int));")
+    view = ("class K : public B5\n{\npublic:\n\tvirtual void f(int a);\n\tvirtual void f(float a);\n"
+            "\tvirtual void g();\n};\n")
+    own, _, problems = k_slots([view], {1: "g()"}, bases=("B5",), known=known)
+    assert any("cannot tell whether it overrides" in p for p in problems), problems
+
+
+def test_an_override_is_chosen_by_signature_beside_new_overloads(tmp_path, monkeypatch):
+    known = base_header_for(tmp_path, monkeypatch, "virtual void f(int a) = 0;")
+    view = ("class K : public B5\n{\npublic:\n\tvirtual void f(int a) {}\n\tvirtual void f(float a);\n"
+            "\tvirtual void g();\n};\n")
+    own, overrides, problems = k_slots([view], {1: "f(float)", 2: "g()"}, bases=("B5",), known=known)
+    assert problems == [] and own == ["virtual void f(float a);", "virtual void g();"]
+    assert overrides == ["virtual void f(int a) {}"]
+
+
+@pytest.mark.parametrize("contract_member,declared,row", [
+    ("f(int*)", "virtual void f(const int *p);", "?f@K@@UAEXPBH@Z"),
+    ("f()", "virtual void f() const;", "?f@K@@UBEXXZ"),
+])
+def test_qualifiers_need_the_contract_or_a_matched_row(contract_member, declared, row):
+    view = "class K\n{\npublic:\n\t%s\n};\n" % declared
+    c = contract({0: contract_member}, bases=(), inherited=0)
+    c["class"] = "K"
+
+    def slots(member, owners):
+        c["vslots"] = {"0": {"member": member, "decided_by": "bytes"}}
+        return lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": view}.__getitem__, known={}, owners=owners,
+                                      facts=lambda source: None)
+    own, _, problems = slots(contract_member, {})
+    assert own == [] and "confirmed neither by the contract nor by a matched row" in problems[0]
+    prefix = "?f@K@@"
+    own, _, problems = slots(contract_member, {prefix: [(row, "owner.cpp")]})
+    assert problems == [] and own == [declared]
+    spelled = contract_member.replace("int*", "const int*") if "int*" in contract_member else contract_member + " const"
+    own, _, problems = slots(spelled, {})
+    assert problems == [] and own == [declared]
+    other = "f(int*) const" if "int*" in contract_member else "f() volatile"
+    own, _, problems = slots(other, {})
+    assert own == [] and "the contract's qualifiers are not the views'" in problems[0]
