@@ -20,12 +20,7 @@ private:
 	friend struct S4SortElem12;
 };
 
-struct S4SortElem12
-{
-	int m_bfmeA;
-	StringBase<char> m_bfmeName;
-	char m_bfmeC;
-};
+#include "../../../../GameEngine/Include/Common/S4SortElem12.h"
 
 struct S4Cmp002E1690
 {

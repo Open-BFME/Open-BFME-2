@@ -8,7 +8,7 @@
 // stlport
 #include "ascii_string.h"
 #include <vector>
-struct S4SortElem12 { int key; AsciiString name; char flag; };
+#include "../../../Include/Common/S4SortElem12.h"
 struct S4Cmp002E1690 {};
 namespace _STL { template<class T,class C> void sort(T,T,C); }
 struct S4LowerBoundLess {};
