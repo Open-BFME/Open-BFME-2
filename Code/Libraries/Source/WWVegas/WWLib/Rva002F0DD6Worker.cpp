@@ -14,14 +14,7 @@
 class Rva002F0DD6Value;
 class Rva002F1DDCValue;
 
-struct Rva002F1DDCNode
-{
-	unsigned int _color;
-	Rva002F1DDCNode *_parent;
-	Rva002F1DDCNode *_left;
-	Rva002F1DDCNode *_right;
-	unsigned int _key;
-};
+#include "Rva002F1DDCNode.h"
 
 namespace _STL
 {

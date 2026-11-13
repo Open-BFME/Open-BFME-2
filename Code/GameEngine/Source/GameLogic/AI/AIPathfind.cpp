@@ -820,14 +820,7 @@ template _Rva002F0BB5Tree::~_Rb_tree();
 extern template void _STL::__push_heap_aux(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare, int *, _Rva002EBB53Wrap **);
 template void _STL::push_heap(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare);
 class Rva002F1DDCValue;
-struct Rva002F1DDCNode
-{
-	unsigned int _color;
-	Rva002F1DDCNode *_parent;
-	Rva002F1DDCNode *_left;
-	Rva002F1DDCNode *_right;
-	unsigned int _key;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva002F1DDCNode.h"
 struct Rva002F1DDCIter
 {
 	::_STL::_Rb_tree_node_base *_M_node;
