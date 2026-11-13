@@ -290,21 +290,7 @@ int Rva002E6E8AGet(int layer);
 #include "ascii_string.h"
 #include "../../../Include/Common/ICoord2DBase.h"
 class Rva002E6DC4;
-class Rva002E9D09
-{
-public:
-	int rva002E9D09(Object *a1, int a2, int a3);
-private:
-	Rva002E6DC4 *m_check0; // +0x00
-	Object *m_holder4; // +0x04
-	int *m_counter8; // +0x08
-	bool m_cC; // +0x0C
-	char m_pad0D[0x3];
-	int m_10; // +0x10
-	bool m_14; // +0x14
-	char m_pad15[0x3];
-	Rva002E8BCFSrc *m_18; // +0x18
-};
+#include "../../../Include/GameLogic/Rva002E9D09.h"
 class Rva002E7C99
 {
 public:
