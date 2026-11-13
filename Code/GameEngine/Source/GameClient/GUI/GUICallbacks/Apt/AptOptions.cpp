@@ -169,11 +169,7 @@ extern Rva00A063B0Obj *g_a063b0;
 // Rva00595143Firewall.cpp's createFirewallHelper.
 FirewallHelperClass *Rva00595143Get();
 // Rva00595D95Firewall.cpp's detectFirewall.
-class Rva00595D95
-{
-public:
-	bool rva00595D95();
-};
+#include "../../../../../Include/GameClient/Rva00595D95.h"
 extern const char g_00BBFDE0[];
 extern const char g_00BBFDDC[];
 // OptionsMenu.cpp's OptionPreferences enum table at 0x00DBD120.

@@ -290,7 +290,7 @@ unsigned bfmeHash00013412(unsigned,unsigned);
 int Rva0056F5DEHook(int,int),Rva0056F637Hook(int,int);
 int Rva0056F690Hook(int,int),Rva0056F7F4Hook(int,int);
 int Rva0056F742Hook(int,int),Rva0056F79BHook(int,int);
-class Rva00595D95 { public: bool rva00595D95(); };
+#include "../../../../../Include/GameClient/Rva00595D95.h"
 FirewallHelperClass *Rva00595143Get();
 void HandleBuddyResponses();
 void HandlePersistentStorageResponses();
