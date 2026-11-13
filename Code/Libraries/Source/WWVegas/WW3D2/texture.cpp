@@ -355,16 +355,7 @@ private:
 	BfmeItemIJ *m_bfmeItem;			// 0x0
 };
 
-class Gen_00920A20
-{
-public:
-	Gen_00920A20(int mode);
-	int m_bfmeA;
-	int m_bfmeB;
-	int m_bfmeC;
-	int m_bfmeD;
-	int m_bfmeE;
-};
+#include "../../../../GameEngine/Include/Common/Gen_00920A20.h"
 
 class ShroudFilter
 {

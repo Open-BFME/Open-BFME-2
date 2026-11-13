@@ -5,11 +5,7 @@
 // Code/Libraries/Source/WWVegas/WW3D2/texturefilter.cpp, rowed as its ICF
 // alias; the stage-state body that lived here is TextureFilterClass::Apply.
 
-class Gen_00920A20
-{
-public:
-	Gen_00920A20(int mode);
-};
+#include "../../../../GameEngine/Include/Common/Gen_00920A20.h"
 
 Gen_00920A20::Gen_00920A20(int mode)
 {
