@@ -19,8 +19,8 @@ import build
 import link_check as C
 
 
-def index(date, commit="abc1234567"):
-    return pickle.dumps({"meta": {"date": date, "commit": commit}, "blockers": {}})
+def index(date, commit="abc1234567", **meta):
+    return pickle.dumps({"meta": {"date": date, "commit": commit, **meta}, "blockers": {}})
 
 
 @pytest.fixture
@@ -59,6 +59,43 @@ def test_older_local_index_is_replaced_and_newer_kept(served):
     body["data"] = index("2026-10-12 08:00", "older00000")
     C.fetch_index()
     assert C.index_meta(path)["commit"] == "new0000000"
+
+
+@pytest.mark.parametrize("local_meta,published_meta,replace", [
+    ({"date": "2026-11-13 00:18", "census_date": "2026-11-12 16:28"},
+     {"date": "2026-11-12 23:35", "census_date": "2026-11-12 21:59"}, True),
+    ({"date": "2026-11-13 00:18", "census_date": "2026-11-12 21:59"},
+     {"date": "2026-11-13 00:35", "census_date": "2026-11-12 16:28"}, False),
+    ({"date": "2026-11-13 00:18", "census_date": "2026-11-12 21:59"},
+     {"date": "2026-11-13 00:35", "census_date": "2026-11-12 21:59"}, False),
+    ({"date": "2026-11-12 16:28"},
+     {"date": "2026-11-12 23:35", "census_date": "2026-11-12 21:59"}, True),
+    ({"date": "2026-11-12 21:59"},
+     {"date": "2026-11-13 00:35", "census_date": "2026-11-12 16:28"}, False),
+])
+def test_fetch_compares_census_measurements_not_refresh_times(served, local_meta, published_meta, replace):
+    path, body = served
+    path.parent.mkdir(parents=True)
+    old = index(commit="local00000", **local_meta)
+    published = index(commit="published0", **published_meta)
+    path.write_bytes(old)
+    body["data"] = published
+    assert C.fetch_index() == 0
+    assert path.read_bytes() == (published if replace else old)
+    assert leftovers(path) == []
+
+
+def test_a_rolled_index_cannot_hide_an_unknown_census_commit(served):
+    path, body = served
+    path.parent.mkdir(parents=True)
+    old = index("2026-11-12 16:28", "local00000")
+    path.write_bytes(old)
+    body["data"] = index("2026-11-13 00:18", "known00000",
+                         census_date="2026-11-12 21:59", census_commit="future0000")
+    with pytest.raises(SystemExit, match="lacks census commit"):
+        C.fetch_index()
+    assert path.read_bytes() == old
+    assert leftovers(path) == []
 
 
 def test_a_download_that_is_not_an_index_replaces_nothing(served):

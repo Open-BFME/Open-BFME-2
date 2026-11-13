@@ -369,13 +369,20 @@ def fetch_index(url=INDEX_URL, objects=True):
         meta = index_meta(temp)
         if meta is None:
             raise SystemExit(f"link_check: {url} is not a census index; nothing replaced")
-        if not contains(meta["commit"]):
-            raise SystemExit(f"link_check: this checkout lacks census commit {meta['commit']}; nothing "
-                             "replaced: git pull --rebase origin master, then fetch again")
+        for commit in dict.fromkeys((meta["commit"], meta.get("census_commit", meta["commit"]))):
+            if not contains(commit):
+                raise SystemExit(f"link_check: this checkout lacks census commit {commit}; nothing "
+                                 "replaced: git pull --rebase origin master, then fetch again")
         local = index_meta(INDEX) if INDEX.exists() else None
-        if local and local["date"] >= meta["date"]:
+        # An update refreshes definitions, not the census's ordering evidence.
+        # Its wall clock cannot outrank a newer measurement, nor let an older
+        # measurement replace a newer local one merely by being refreshed later.
+        published_census = meta.get("census_date", meta["date"])
+        local_census = local.get("census_date", local["date"]) if local else None
+        if local and local_census >= published_census:
             print(f"link_check: keeping the local index ({local['date']} at {local['commit']}); "
-                  f"the published one is {meta['date']} at {meta['commit']}")
+                  f"the published one is {meta['date']} at {meta['commit']} "
+                  f"(census {local_census} vs {published_census})")
         else:
             temp.replace(INDEX)
             print(f"link_check: index {meta['date']} at {meta['commit']} -> {INDEX.relative_to(ROOT).as_posix()}")
