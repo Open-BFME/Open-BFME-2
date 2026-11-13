@@ -22,7 +22,7 @@ struct Rva0008B689Element {
 };
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class Rva0007BB79Owner {public:CameraClass *camera;Rva0008B689Element rva0007BB79();};
+#include "../../../Include/W3DDevice/GameClient/Rva0007BB79Owner.h"
 Rva0008B689Element Rva0007BB79Owner::rva0007BB79(){
  if(!TheWritableGlobalData->m_useShadowMapping)return Rva0008B689Element();
  return Rva0008B689Element(camera);
