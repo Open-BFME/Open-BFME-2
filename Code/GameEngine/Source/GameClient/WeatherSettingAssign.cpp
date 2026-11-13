@@ -33,12 +33,7 @@ private:
 	AsciiString m_04;
 };
 
-struct ThreeInts
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../Include/Common/ThreeInts.h"
 
 class WeatherSetting : public FXParticleSystem::StreakDrawModuleTemplate, public DynamicAudioEventRTS
 {

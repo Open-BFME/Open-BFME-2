@@ -26,12 +26,7 @@ public:
 	bool ready; // +0x1C
 	char m_pad1D[0x3];
 };
-struct ThreeInts
-{
-	int v00;
-	int v04;
-	int v08;
-};
+#include "../../../../GameEngine/Include/Common/ThreeInts.h"
 class Rva0008A234
 {
 public:

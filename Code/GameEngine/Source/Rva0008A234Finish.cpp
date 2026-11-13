@@ -25,12 +25,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct ThreeInts
-{
-	int v00;
-	int v04;
-	int v08;
-};
+#include "../Include/Common/ThreeInts.h"
 
 class Rva0008A234
 {

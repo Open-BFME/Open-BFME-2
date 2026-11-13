@@ -56,12 +56,7 @@ private:
 	AsciiString m_04;
 };
 
-struct ThreeInts
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../../Include/Common/ThreeInts.h"
 
 class Rva00200CB1 : public FXParticleSystem::StreakDrawModuleTemplate, public DynamicAudioEventRTS
 {

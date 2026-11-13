@@ -171,7 +171,7 @@ Rva0030D849::Rva0030D849(void *owner, BfmeParserRegistryVE *registry, const Asci
 // or original camera class name is inferred. Version 2 adds the last value.
 #include "../../Include/Common/DataChunk.h"
 #include "../../Include/Common/DataChunkInfo.h"
-struct ThreeInts { int v00,v04,v08; };
+#include "../../Include/Common/ThreeInts.h"
 struct NamedCameraPosition { float x,y,z; };
 class Rva0008A234 {
 public:
