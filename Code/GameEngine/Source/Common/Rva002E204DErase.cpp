@@ -6,11 +6,7 @@ public:
 	char m_pad[0xD8];
 };
 Rva002E0D93 *Rva002E1E9ACopy(Rva002E0D93 *src, Rva002E0D93 *srcEnd, Rva002E0D93 *dst, char *tmp);
-class Rva001EB63C
-{
-public:
-	~Rva001EB63C();
-};
+#include "../../Include/Common/Rva001EB63C.h"
 class Rva002E204D
 {
 public:

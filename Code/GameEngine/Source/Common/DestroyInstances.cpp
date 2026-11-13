@@ -147,11 +147,7 @@ template <> ScriptStringValue::~pair();
 typedef ScriptStringValue Rva00204686;
 #include "../../Include/Common/RvaSmartPtr12.h"
 #include "../../Include/Common/Rva0029E00D.h"
-class Rva001EB63C
-{
-public:
-	~Rva001EB63C();
-};
+#include "../../Include/Common/Rva001EB63C.h"
 class Rva00358B65
 {
 public:
