@@ -1,11 +1,7 @@
 // cl: /EHsc /MD
 // ?rva0042C083@Rva0042C083@@QAEXPBURva0042C083Param@@@Z @0x0042C083 31B via two-dword copy plus flag set
 // Evidence: stores [ecx+0x8c] [ecx+0x90] from [eax] [eax+4] plus byte [ecx+0x94]=1; callers 0x0042C134 0x0042C7D5; unblocks 0x0042C7B1 0x0042C0DB
-struct Rva0042C083Param
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva0042C083Param.h"
 
 class Rva0042C083
 {

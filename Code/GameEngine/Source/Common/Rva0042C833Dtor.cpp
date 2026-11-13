@@ -66,7 +66,7 @@ public:
     char unknown00[0x10];
     int type;
 };
-struct Rva0042C083Param { int m_00, m_04; };
+#include "../../Include/Common/Rva0042C083Param.h"
 class Rva0042C7B1
 {
 public:

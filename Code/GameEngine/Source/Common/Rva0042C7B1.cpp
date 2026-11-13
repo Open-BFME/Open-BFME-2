@@ -4,11 +4,7 @@
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
-struct Rva0042C083Param
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva0042C083Param.h"
 class Rva0042C083
 {
 public:

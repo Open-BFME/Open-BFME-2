@@ -104,7 +104,7 @@ public:
 
 #include "../../Include/Common/RegionTurnObserverView.h"
 
-struct Rva0042C083Param {int x,y;};
+#include "../../Include/Common/Rva0042C083Param.h"
 union GameMessageArgumentType {Rva0042C083Param position;int integer;};
 class GameMessage {public:const GameMessageArgumentType*getArgument(int)const;char unknown0[0x10];int type;};
 #include "../../Include/Common/Rva005E6817Mid.h"
