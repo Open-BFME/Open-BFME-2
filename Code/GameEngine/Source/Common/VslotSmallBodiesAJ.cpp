@@ -10,7 +10,7 @@ class Rva002A7DDEArg;
 #include "../../Include/Common/Rva002A7DDE.h"
 class Rva00005C357FPtrChaseField { public: int get() const; };
 class Rva00005C39A3PtrChaseField { public: int get() const; };
-class Rva0057C22FByteChaseField { public: unsigned char get() const; };
+#include "../../Include/Common/Rva0057C22FByteChaseField.h"
 #include "../../Include/Common/Rva005C39AA.h"
 class Rva005C3EE0 { public: void show(); };
 class Rva005C3F02;

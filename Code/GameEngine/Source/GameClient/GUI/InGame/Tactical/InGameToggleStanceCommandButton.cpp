@@ -15,7 +15,7 @@ static inline const _STL::vector<int> &stanceList(const CommandButton *button)
 	return *reinterpret_cast<const _STL::vector<int> *>(&button->m_stancesBegin);
 }
 #include "../../../../../Include/GameClient/Rva0035B424.h"
-class Rva0057C22FByteChaseField {public:unsigned char get()const;};
+#include "../../../../../Include/Common/Rva0057C22FByteChaseField.h"
 #include "../../../../../Include/Common/Rva005C39AA.h"
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
 // ?StanceToButtonSlot@@YAHPAVCommandButton@@H@Z present-unmatched

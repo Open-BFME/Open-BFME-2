@@ -115,7 +115,7 @@ StrategicHUD::CommandUIImpl::~CommandUIImpl()
 }
 
 #include "../../Include/Common/Rva002BED91.h"
-class Rva0057C22FByteChaseField { public: unsigned char get() const; };
+#include "../../Include/Common/Rva0057C22FByteChaseField.h"
 #include "../../Include/Common/Rva005C3E79.h"
 #include "../../Include/Common/Rva005D2664.h"
 

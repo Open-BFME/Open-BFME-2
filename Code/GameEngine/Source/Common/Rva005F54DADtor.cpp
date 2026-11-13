@@ -28,11 +28,7 @@ public:
 	__forceinline ~Rva00579E47() {}
 };
 
-class Rva0057C22FByteChaseField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../Include/Common/Rva0057C22FByteChaseField.h"
 
 #include "../../Include/Common/Rva0057C2CC.h"
 
