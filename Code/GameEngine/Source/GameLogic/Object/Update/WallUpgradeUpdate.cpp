@@ -86,13 +86,7 @@ public:
 	Rva0023DA79 m_18;
 };
 // vftable 0x00C07190, allow 0x002614DF.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002614DFFilter.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \

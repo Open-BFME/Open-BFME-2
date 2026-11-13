@@ -281,13 +281,7 @@ struct Rva0006EE7A
 // vftable 0x00BF91BC, allow 0x002611BF, with the object at +0x08.
 
 // vftable 0x00C07190, allow 0x002614DF, with the object at +0x08.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
+#include "../../../../Include/GameLogic/Rva002614DFFilter.h"
 
 // vftable 0x00C17F08, allow 0x0026118B: no members of its own.
 class Rva0026118BFilter : public Rva000421C8
