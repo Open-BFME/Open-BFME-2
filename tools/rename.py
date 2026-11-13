@@ -4896,7 +4896,8 @@ def retyped_tree_problem(ctx, rows, family):
     fact inside it. Each node's count and call lie in one matched row at the node's address, and each node path fact
     in its member's own row or a node's. The witness is the one matched row of its name at its address, with its call
     inside it, and reverse/symbols.csv pins at the called address exactly the name the family read the new map from.
-    No respelling changes an operator or identifier."""
+    Each pin respelled in place is called from inside a row of the family. No respelling changes an operator or
+    identifier."""
     import retail_identity
     matched_at = {}
     for r in rows:
@@ -4916,6 +4917,7 @@ def retyped_tree_problem(ctx, rows, family):
     for at, name in sorted(family.members.items()):
         if own_row(at, name) is None:
             return f"{name} is not rowed at 0x{at:08X}: the members the rows call are part of the proof"
+    extents = []
     for label, table in (("row", family.rows), ("caller", family.callers)):
         for at, (name, facts) in sorted(table.items()):
             found = own_row(at, name)
@@ -4924,6 +4926,12 @@ def retyped_tree_problem(ctx, rows, family):
             outside = [f for f in facts if not inside(f, at, int(found["target_size"]))]
             if outside:
                 return f"0x{outside[0].site:08X} is outside {name}'s row"
+            if table is family.rows:
+                extents.append((at, int(found["target_size"])))
+    for at, (old_name, facts) in sorted(family.pins.items()):
+        for fact in facts:
+            if not any(inside(fact, start, size) for start, size in extents):
+                return f"0x{fact.site:08X}, a call of the pin {old_name}, is in no row of the family"
     node_at = set()
     for at, alloc, call in family.nodes:
         node_at.add(at)
@@ -5066,6 +5074,16 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(f"pin {old_name} is not at 0x{at:08X}")
         if at not in family.members:
             raise Refusal(f"0x{at:08X} is not rowed for {family.new}: only a pin the new class's row replaces is retired")
+
+    if tree_kind and family.pins:
+        # the same callee at the same address under its new spelling: no object outside the rebuilt units may
+        # still name the old one, or the link would lose it
+        problems, _rebuilt = pin_consumers(ctx, sorted(name for name, _f in family.pins.values()), [],
+                                           {e["source"] for e in entries} | set(prepared),
+                                           groups=family.consumer_terms)
+        if problems:
+            raise Refusal(f"the old tree's pin(s) cannot be respelled: {problems[0]}"
+                          + (f" (and {len(problems) - 1} more)" if len(problems) > 1 else ""))
 
     moved = sorted(set(move_rows or ()))
     if moved:

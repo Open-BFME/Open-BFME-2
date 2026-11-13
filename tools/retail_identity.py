@@ -802,11 +802,15 @@ class RetypedTreeFamily:
       pair; each old name spells the old pair and less<old key>.
     `members` {rva: name} are rows outside the family that the rows call; `bindings` [(row rva, offset, target)] are
     the REL32s each rebuilt row must hold, to a respelled row or a member, one at least per row; `callers` and
-    `caller_bindings` are rows outside the family, rebuilt under their own names, that call a family row. There are
-    no pins, retired pins or duplicates: a pin the new spelling needs is admitted by tools/pin_admission.py."""
+    `caller_bindings` are rows outside the family, rebuilt under their own names, that call a family row.
+    `pins` {rva: (old name, facts)} are pins of the old tree's helpers that the rows call, respelled in place by the
+    same swap: the same callee at the same address, each fact a call of a row to it, and rename.py refuses while an
+    object outside the rebuilt units still names the old spelling. A pin the new spelling needs where no old one
+    is respelled is admitted by tools/pin_admission.py. There are no retired pins or duplicates."""
 
     def __init__(self, old_key, old_value, new_key, new_value, new_compare, value_size, copy, spellings, members,
-                 bindings, rows, nodes, node_path, witness, callers, caller_bindings):
+                 bindings, rows, nodes, node_path, witness, callers, caller_bindings, pins=None):
+        pins = pins or {}
         import rename                                  # lazily: rename imports this module inside its functions too
         if old_key not in SCALAR_KEYS:
             raise ValueError(f"{old_key!r} is no builtin key this route reads")
@@ -819,8 +823,14 @@ class RetypedTreeFamily:
                 raise ValueError(f"a retyped tree family still needs its {label}")
         if copy not in rows:
             raise ValueError(f"0x{copy:08X} is not a row of the family")
-        if set(spellings) != {old_name for old_name, _facts in rows.values()}:
-            raise ValueError("every spelling is a row's and every row has one")
+        claimed = [*rows.values(), *pins.values()]
+        if set(spellings) != {old_name for old_name, _facts in claimed} or len(claimed) != len(spellings):
+            raise ValueError("every spelling is a row's or pin's and every row and pin has one")
+        for at, (old_name, facts) in pins.items():
+            if at in rows or at in members or at in callers:
+                raise ValueError(f"pin 0x{at:08X} is at a row, member or caller of the family")
+            if not facts or any(f.kind != "calls" or f.value != at for f in facts):
+                raise ValueError(f"pin 0x{at:08X} {old_name} is proved by calls to it, and only those")
         key_arg, const_key, key_width = TREE_KEYS[new_key]
         old_tree, old_width = BUILTIN_VALUES[old_value]
         old_key_tree = ("B", old_key)
@@ -835,13 +845,16 @@ class RetypedTreeFamily:
                 return rename.type_tree(name)
             except rename.Unparsed as error:
                 raise ValueError(f"{name} cannot be decoded: {error}") from None
-        for old_name, _facts in rows.values():
+        for old_name, _facts in claimed:
             before, after = tree(old_name), tree(spellings[old_name])
             if tree_swap(before, old_key, old_value, new_key, new_value, new_compare) != after or before == after:
                 raise ValueError(f"{old_name} must respell by the tree swap alone (<{old_key}, {old_value}, less> to "
                                  f"<{new_key}, {new_value}, {new_compare}>)")
-            if not {old_pair, old_less} <= set(_subtrees(before)):
-                raise ValueError(f"{old_name} does not spell pair<const {old_key}, {old_value}> and less<{old_key}>")
+            # a row spells the whole tree; a pinned base helper (no comparator of its own) at least the pair
+            wanted = {old_pair, old_less} if (old_name, _facts) in rows.values() else {old_pair}
+            if not wanted <= set(_subtrees(before)):
+                raise ValueError(f"{old_name} does not spell pair<const {old_key}, {old_value}>"
+                                 + (f" and less<{old_key}>" if old_less in wanted else ""))
             if new_pair not in set(_subtrees(after)):
                 raise ValueError(f"{spellings[old_name]} is no instantiation over the new pair")
         if value_size <= 0 or value_size % 4 or value_size == old_width:
@@ -904,13 +917,17 @@ class RetypedTreeFamily:
         self.spellings, self.members, self.bindings, self.rows = spellings, dict(members), tuple(bindings), rows
         self.nodes, self.node_path, self.witness = tuple(nodes), tuple(node_path), witness
         self.callers, self.caller_bindings = callers, tuple(caller_bindings)
-        self.new_map, self.pins, self.retired, self.duplicates = new_map, {}, {}, {}
+        self.new_map, self.pins, self.retired, self.duplicates = new_map, dict(pins), {}, {}
+        # what a consumer's source spells when it names a respelled pin without defining it (rename.py rebuilds a
+        # stale object of such a unit before reading it): each pin's identifier
+        self.consumer_terms = tuple(sorted({(rename._identifier(old_name),) for old_name, _f in pins.values()}))
 
     def respell(self, name):
         return self.spellings.get(name, name)
 
     def facts(self):
-        return ([f for _name, facts in [*self.rows.values(), *self.callers.values()] for f in facts]
+        return ([f for _name, facts in [*self.rows.values(), *self.callers.values(), *self.pins.values()]
+                 for f in facts]
                 + [f for _at, alloc, call in self.nodes for f in (alloc, call)]
                 + [fact for _at, fact in self.node_path] + [self.witness[2]])
 
@@ -1417,7 +1434,12 @@ _BM_M_COPY = f"?_M_copy@{_BM_OLD_TREE}AAEPAU?$_Rb_tree_node@{_BM_OLD_PAIR}@2@PAU
 _BM_MAP_COPY = f"??0?$map@IPAXU?$less@I@_STL@@V?$allocator@{_BM_OLD_PAIR}@2@@_STL@@QAE@ABV01@@Z"
 _BM_PAIR_CTOR = f"??0Rva00603FD2@@QAE@PBIABV{_BM_OLD_TREE}@Z"
 _BM_MAKE = f"?Rva00604251@@YA?AVRva00603FD2@@ABIABV{_BM_OLD_TREE}@Z"
+_BM_GET_ALLOCATOR = (f"?get_allocator@?$_Rb_tree_base@{_BM_OLD_PAIR}V?$allocator@{_BM_OLD_PAIR}@2@@_STL@@QBE?AV?$"
+                     f"allocator@{_BM_OLD_PAIR}@2@XZ")
 _BM_SPELLINGS = {
+    # the base's allocator copy, the pin on 0x0021983A
+    _BM_GET_ALLOCATOR: (f"?get_allocator@?$_Rb_tree_base@{_BM_PAIR}V?$allocator@{_BM_PAIR}@2@@_STL@@QBE?AV?$allocator@"
+                        f"{_BM_PAIR}@2@XZ"),
     # the tree's copy constructor, 0x00603EEB
     _BM_COPY: f"??0{_BM_TREE}QAE@ABV01@@Z",
     # its _M_copy, 0x00603B9C
@@ -1476,7 +1498,10 @@ BIG_MEMBER_MAP_COPY = RetypedTreeFamily(
     witness=(0x006045A2, "?rva006045A2@Win32BIGFileSystem@@QAE_NPBD0PAUBigArchiveMemberInfo@@_N@Z",
              C("calls", 0x006045FE, 0x00604251), _BM_MAKE_PAIR_PIN),
     callers={0x0060426C: ("??0Rva0060426C@@QAE@ABV0@@Z", (C("calls", 0x0060427E, 0x00603EEB),))},
-    caller_bindings=((0x0060426C, 0x13, _BM_SPELLINGS[_BM_COPY]),))
+    caller_bindings=((0x0060426C, 0x13, _BM_SPELLINGS[_BM_COPY]),),
+    # the copy takes its allocator through the base's get_allocator, 0x0021983A: its pointer-pair pin is the same
+    # callee, respelled in place (seven bytes prove no fold for a new pin)
+    pins={0x0021983A: (_BM_GET_ALLOCATOR, (C("calls", 0x00603F08, 0x0021983A),))})
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR,
             MAP_UINT_INT_COPY, MAP_UINT_RECORD_INSERT,
             BIG_MEMBER_MAP_COPY)

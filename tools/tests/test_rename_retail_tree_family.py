@@ -27,6 +27,10 @@ OLD_MAP_COPY = F.rows[0x00603FC0][0]
 OLD_MAKE = F.rows[0x00604251][0]
 CALLER = F.callers[0x0060426C][0]
 WITNESS_AT, WITNESS, WITNESS_CALL, PIN = F.witness
+OLD_PIN = F.pins[0x0021983A][0]
+NEW_PIN = ("?get_allocator@?$_Rb_tree_base@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@V?$allocator@U?$pair@QBDUBigArchive"
+           "MemberInfo@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@2@XZ")
+OLD_PIN_LINE = f"{OLD_PIN},0x0021983A,callee read from the copy\n"
 LOWER, BIG = "Code/Lib/Lower.cpp", "Code/Lib/Big.cpp"
 SOURCES = {0x00603EEB: LOWER, 0x00603B9C: LOWER, 0x00603FC0: BIG, 0x00603FD2: BIG, 0x00604251: BIG}
 CALLER_SOURCE = BIG
@@ -88,7 +92,8 @@ def seed(root, files):
 def files(identity="", pins=None):
     out = {
         "reverse/functions.csv": ledger_rows(),
-        "reverse/symbols.csv": "name,address,notes\n" + (f"{PIN},0x00604251,caller binding\n" if pins is None else pins),
+        "reverse/symbols.csv": "name,address,notes\n" + (f"{PIN},0x00604251,caller binding\n{OLD_PIN_LINE}"
+                                                         if pins is None else pins),
         "reverse/deleted_rows.csv": "name,target_rva,reason\n",
         "reverse/name_basis.csv": "kind,old,new,basis,evidence,source,rva\n",
         "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status,evidence,model\n",
@@ -182,7 +187,9 @@ def test_the_entry_is_what_the_coordinator_reviewed():
                         "MemberInfo@@@_STL@@@2@URva006038D4Less@@V?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@"
                         "@2@@_STL@@QAE@ABV01@@Z")
     assert all(R.family_of(at, F.respell(old)) is F for at, (old, _f) in F.rows.items())
-    assert not F.pins and not F.retired and not F.duplicates
+    assert set(F.pins) == {0x0021983A} and F.pins[0x0021983A][1] == (C("calls", 0x00603F08, 0x0021983A),)
+    assert F.respell(OLD_PIN) == NEW_PIN and F.consumer_terms == (("get_allocator",),)
+    assert not F.retired and not F.duplicates
 
 
 def test_the_real_image_states_them_all():
@@ -221,7 +228,7 @@ def kwargs():
                 new_compare=F.new_compare, value_size=F.value_size, copy=F.copy, spellings=dict(F.spellings),
                 members=dict(F.members), bindings=tuple(F.bindings), rows=dict(F.rows), nodes=tuple(F.nodes),
                 node_path=tuple(F.node_path), witness=F.witness, callers=dict(F.callers),
-                caller_bindings=tuple(F.caller_bindings))
+                caller_bindings=tuple(F.caller_bindings), pins=dict(F.pins))
 
 
 LESS_COPY = NEW_COPY.replace("URva006038D4Less@@", "U?$less@PBD@2@")       # the default comparator: no pin spells it
@@ -298,6 +305,21 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("a caller with no binding", lambda k: k.update(caller_bindings=()), "every caller needs a binding"),
     ("a caller that is a row", lambda k: k["callers"].update({0x00603FC0: k["rows"][0x00603FC0]}),
      "different addresses"),
+    # the pins respelled in place
+    ("a pin proved by no call to it",
+     lambda k: k["pins"].update({0x0021983A: (OLD_PIN, (C("calls", 0x00603F08, 0x00001000),))}), "calls to it"),
+    ("a pin proved by nothing", lambda k: k["pins"].update({0x0021983A: (OLD_PIN, ())}), "calls to it"),
+    ("a pin at a row", lambda k: k["pins"].update({0x00603FC0: (OLD_PIN, (C("calls", 0x00603F08, 0x00603FC0),))}),
+     "every spelling|at a row"),
+    ("a pin left out of the spellings", lambda k: k["spellings"].pop(OLD_PIN), "every spelling"),
+    ("a pin respelled onto another value",
+     lambda k: k["spellings"].update({OLD_PIN: NEW_PIN.replace("BigArchiveMemberInfo", "BigArchiveSlot")}),
+     "tree swap alone"),
+    ("a pin over another pair", lambda k: (k["pins"].update({0x0021983A: (OLD_PIN.replace("$$CBIPAX", "$$CBHPAX"),
+                                                                          F.pins[0x0021983A][1])}),
+                                           k["spellings"].pop(OLD_PIN),
+                                           k["spellings"].update({OLD_PIN.replace("$$CBIPAX", "$$CBHPAX"): NEW_PIN})),
+     "tree swap alone|does not spell"),
 ])
 def test_the_constructor_refuses_each_missing_condition(label, change, message):
     k = kwargs()
@@ -364,9 +386,49 @@ def test_the_witness_call_must_lie_in_its_row(tree):
 
 @pytest.mark.parametrize("pins", ["", f"{OTHER_MAP_PIN},0x00604251,x\n", f"{PIN},0x00604252,x\n"])
 def test_the_witness_pin_must_be_there(tmp_path, image, pins):
-    ctx, _ = context(seed(tmp_path, files(pins=pins)))
+    ctx, _ = context(seed(tmp_path, files(pins=pins + OLD_PIN_LINE)))
     with pytest.raises(Refusal, match="the witness binds no pin"):
         plan(ctx)
+
+
+def test_the_pin_is_respelled_in_place(tree):
+    ctx, _ = context(tree)
+    got = plan(ctx)
+    pins = got.after["reverse/symbols.csv"].decode()
+    assert OLD_PIN not in pins and f"{NEW_PIN},0x0021983A," in pins and f"{PIN},0x00604251," in pins
+    assert [(old, new) for old, new, _at in got.renamed_pins] == [(OLD_PIN, NEW_PIN)]
+
+
+@pytest.mark.parametrize("pins", [f"{PIN},0x00604251,x\n", f"{PIN},0x00604251,x\n{OLD_PIN},0x0021983B,x\n"])
+def test_the_old_pin_must_be_there(tmp_path, image, pins):
+    ctx, _ = context(seed(tmp_path, files(pins=pins)))
+    with pytest.raises(Refusal, match="is not at 0x0021983A"):
+        plan(ctx)
+
+
+def test_the_new_pin_spelling_must_be_free(tmp_path, image):
+    ctx, _ = context(seed(tmp_path, files(pins=f"{PIN},0x00604251,x\n{OLD_PIN_LINE}{NEW_PIN},0x00001000,x\n")))
+    with pytest.raises(Refusal, match="already names a row or pin"):
+        plan(ctx)
+
+
+def test_the_pins_call_must_lie_in_a_row(tree):
+    """A row shrunk past the copy's allocator call leaves the pin's fact in no row of the family."""
+    with pytest.raises(Refusal, match="is outside|a call of the pin"):
+        plan(relaid(tree, resize={OLD_COPY: 0x1C}))
+
+
+def test_an_object_still_naming_the_old_pin_refuses(tree, monkeypatch):
+    seen = []
+
+    def consumers(ctx, names, words, rebuilt, groups=()):
+        seen.append((tuple(names), tuple(groups)))
+        return ([f"Code/Lib/Other.cpp references {names[0]}"], 0)
+    monkeypatch.setattr(rename, "pin_consumers", consumers)
+    ctx, _ = context(tree)
+    with pytest.raises(Refusal, match="the old tree's pin.* cannot be respelled"):
+        plan(ctx)
+    assert seen == [((OLD_PIN,), (("get_allocator",),))]
 
 
 @pytest.mark.parametrize("at", sorted(NODE_NAMES))
