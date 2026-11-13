@@ -681,19 +681,7 @@ AptValue *__cdecl Rva008A4EA0MakeFloat(float value);
 
 // ?rva006ee3b0@@YAPAVAptValue@@PAV1@@Z @0x006EE3B0, 393B.
 // ?rva006ee540@@YAPAVAptValue@@PAV1@@Z @0x006EE540, 373B.
-class Rva006EB4B0
-{
- public:EAStringC font;
- float size;
- int color;
- int align;
- unsigned flags;
- int indent;
- int left;
- int right;
- Rva006EB4B0(AptValue*,float,int,int,int,int,int,int,AptValue*,int,int,int,int);
- Rva006EB4B0(const Rva006EB4B0&);
-};
+#include "Rva006EB4B0.h"
 
 struct BindingDefinition;
 

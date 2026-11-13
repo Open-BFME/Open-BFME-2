@@ -168,11 +168,7 @@ AptValue *__cdecl Rva006ECA70PointHitTest(void *self,int count)
 }
 
 #include "../../../GameEngine/Include/Common/Rva008A4570Owner.h"
-class Rva006EB4B0 {
-public:EAStringC font;float size;int color,align;unsigned flags;int indent,left,right;
- Rva006EB4B0(AptValue*,float,int,int,int,int,int,int,AptValue*,int,int,int,int);
- Rva006EB4B0(const Rva006EB4B0&);
-};
+#include "Rva006EB4B0.h"
 Rva006EB4B0::Rva006EB4B0(AptValue *fontValue,float sizeValue,int colorValue,int bold,int italic,int underline,int unused6,int unused7,AptValue *alignValue,int leftValue,int rightValue,int indentValue,int unused12)
 : size(sizeValue),color(colorValue)
 {

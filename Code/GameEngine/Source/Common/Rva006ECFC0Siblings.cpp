@@ -53,32 +53,7 @@ public:
 
 };
 #include "../../../Libraries/Source/Apt/EAStringC.h"
-class Rva006EB4B0 {
-public:
-  EAStringC font;
-  float size;
-  int color, align;
-  unsigned flags;
-  int indent, left, right;
-
-public:
-  Rva006EB4B0(AptValue *, float, int, int, int, int, int, int, AptValue *, int,
-              int, int, int);
-  Rva006EB4B0(const Rva006EB4B0 &);
-  void assign(const Rva006EB4B0 &other) {
-    align = other.align;
-    color = other.color;
-    font = other.font;
-    size = other.size;
-    flags = other.flags;
-    if (other.indent != -1)
-      indent = other.indent;
-    if (other.left != -1)
-      left = other.left;
-    if (other.right != -1)
-      right = other.right;
-  }
-};
+#include "../../../Libraries/Source/Apt/Rva006EB4B0.h"
 class Rva006ECFC0Owner : public Rva006D6470Owner, public Rva006EB4B0 {
 public:
   Rva006ECFC0Owner(AptValue *, float, int, int, int, int, int, int, AptValue *,
