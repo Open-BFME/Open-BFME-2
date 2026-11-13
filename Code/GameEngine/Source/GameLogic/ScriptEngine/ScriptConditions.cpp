@@ -748,11 +748,7 @@ public:
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #define REALLY_FAR (100000 * 10.0f)
 // 0x00395E53, the castle area trigger for an index (row Rva00395E53Get.cpp).
-class Rva00395E53
-{
-public:
-	void *rva00395E53(unsigned int index);
-};
+#include "../../../Include/Common/Rva00395E53.h"
 #include "../../../Include/Common/TeamBFME2.h"
 struct Cond003E5D95
 {
