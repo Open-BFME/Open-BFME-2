@@ -27,11 +27,7 @@ Rva00328A75::~Rva00328A75()
 	((Rva000AD6F4 *)&m_member04)->clear();
 }
 
-class Rva005C65F1
-{
-public:
-	void rva005C65F1();
-};
+#include "../../Include/Common/Rva005C65F1.h"
 
 class Rva00577936
 {

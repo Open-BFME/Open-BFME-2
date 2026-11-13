@@ -66,11 +66,7 @@ extern GameLogic *TheGameLogic;
 class Object;
 #include "GameLogicObjectLookupView.h"
 #include "../../Include/Common/Rva005C6C7B.h"
-class Rva005C65F1
-{
-public:
-	void rva005C65F1();
-};
+#include "../../Include/Common/Rva005C65F1.h"
 
 void Rva0053ED1A::rva0053EDD2()
 {
