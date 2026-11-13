@@ -141,11 +141,7 @@ struct Rva006F73A0Input
 
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "BfmeAptValue006DCD20.h"
-class Rva006E1260
-{
-public:
-    void call(void *);
-};
+#include "Rva006E1260.h"
 #include "Rva006E15C0.h"
 struct BfmeTransform1236
 {

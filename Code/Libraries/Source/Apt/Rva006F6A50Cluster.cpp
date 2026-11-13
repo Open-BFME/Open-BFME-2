@@ -452,11 +452,7 @@ public:
 	void bfmeGoDXH(void *value);
 };
 
-class Rva006E1260
-{
-public:
-	void call(void *value);
-};
+#include "Rva006E1260.h"
 
 #include "Rva006E15C0.h"
 

@@ -685,10 +685,7 @@ AptValue *__cdecl Rva008A4EA0MakeFloat(float value);
 
 struct BindingDefinition;
 
-class Rva006E1260
-{
- public:void call(void*);
-};
+#include "Rva006E1260.h"
 
 #include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 
