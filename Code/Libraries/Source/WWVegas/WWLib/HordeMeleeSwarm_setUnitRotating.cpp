@@ -11,15 +11,7 @@
 // begin load before the index imul.
 #include <vector>
 
-struct Rva00583CE0Elem
-{
-	int m_00;
-	char m_pad04[0x0C];
-	bool m_10;
-	char m_pad11[0x03];
-	unsigned int m_14;
-	char m_pad18[0x04];
-};
+#include "Rva00583CE0Elem.h"
 
 struct Rva00583D54Held;
 #include "Rva005D6FCC.h"
