@@ -338,11 +338,7 @@ private:
 // Tail jmp to enable at this+0x288 via rowed 0x0043DB56.
 // Evidence: add ecx 0x288 plus jmp, prev GameEngine 0x004443E7.
 
-class Rva0043DB56ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../../../Include/Common/Rva0043DB56ByteOneSetter.h"
 class Rva00444462
 {
 public:

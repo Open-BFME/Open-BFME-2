@@ -1,0 +1,60 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0043DB56ByteOneSetter",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2be": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "703": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_lead",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 702,
+   "type": "char[702]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 702,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteOneSetters.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 703,
+ "size_by": "majority",
+ "vslots": {}
+}

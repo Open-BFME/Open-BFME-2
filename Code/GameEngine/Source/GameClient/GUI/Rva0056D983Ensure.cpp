@@ -17,11 +17,7 @@ public:
 class LivingWorld;
 extern LivingWorld *TheLivingWorld;	// 0x00DFEF18
 
-class Rva0043DB56ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../Include/Common/Rva0043DB56ByteOneSetter.h"
 
 extern int g_Va00E0333C;
 
