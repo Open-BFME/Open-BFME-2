@@ -19,11 +19,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
-class Rva002122D4
-{
-public:
-	int rva002122D4(int rawKey);
-};
+#include "../../Include/Common/Rva002122D4.h"
 
 #include "../../Include/Common/Rva00DFE1C8Host.h"
 

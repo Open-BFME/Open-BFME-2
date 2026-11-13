@@ -28,7 +28,7 @@ __forceinline void Overridable::markAsOverride()
 }
 class Rva00210F3D : public Overridable { public: int b,c,d; };
 class Rva003FA776 : public Rva00210F3D { public: Rva003FA776(); const FieldParse *rva003FA6FF(); };
-class Rva002122D4 { public: int rva002122D4(int); };
+#include "../../../Include/Common/Rva002122D4.h"
 void Rva0021376BParse(INI *);
 template<class T> class StringBase {
  friend void Rva0021376BParse(INI *);
