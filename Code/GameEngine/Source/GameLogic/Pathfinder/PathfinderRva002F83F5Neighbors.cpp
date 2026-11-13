@@ -297,7 +297,7 @@ char gap18[8];
 PathCollisionNode *goals;
 PathCollisionNode *reservations;
 };
-struct PathCollisionCell { PathCollisionInfo *info; };
+#include "../../../Include/GameLogic/PathCollisionCell.h"
 #include "../../../Include/GameLogic/BridgeClass.h"
 struct Rva002ED236Pos {
 float x, y, z;

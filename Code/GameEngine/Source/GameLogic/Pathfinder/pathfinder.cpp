@@ -517,7 +517,7 @@ struct PathCollisionInfo {
     PathCollisionNode *reservations;
     ObjectID fallbackID; // Native/WB fallback lookup when +20 list is empty.
 };
-struct PathCollisionCell { PathCollisionInfo *info; };
+#include "../../../Include/GameLogic/PathCollisionCell.h"
 // Native bridge list links at +4; height and containment use existing
 // independently admitted Bridge providers from the terrain-logic family.
 #include "../../../Include/GameLogic/BridgeClass.h"
