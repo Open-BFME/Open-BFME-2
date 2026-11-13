@@ -20,15 +20,7 @@ typedef int BOOL;
 typedef void *PVOID;
 typedef DWORD LCID;
 
-struct OSVERSIONINFOA
-{
-    DWORD dwOSVersionInfoSize;
-    DWORD dwMajorVersion;
-    DWORD dwMinorVersion;
-    DWORD dwBuildNumber;
-    DWORD dwPlatformId;
-    char szCSDVersion[128];
-};
+#include "../../../GameEngine/Include/Common/OSVERSIONINFOA.h"
 
 typedef OSVERSIONINFOA OSVERSIONINFO;
 

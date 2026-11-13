@@ -9,15 +9,7 @@ typedef unsigned short WORD;
 
 #include "../../../Include/Common/SYSTEMTIME.h"
 
-struct OSVERSIONINFOA
-{
-	DWORD dwOSVersionInfoSize;
-	DWORD dwMajorVersion;
-	DWORD dwMinorVersion;
-	DWORD dwBuildNumber;
-	DWORD dwPlatformId;
-	char szCSDVersion[128];
-};
+#include "../../../Include/Common/OSVERSIONINFOA.h"
 
 extern "C" __declspec(dllimport) Int __stdcall GetVersionExA(OSVERSIONINFOA *info);
 extern "C" __declspec(dllimport) Int __stdcall GetDateFormatA(
