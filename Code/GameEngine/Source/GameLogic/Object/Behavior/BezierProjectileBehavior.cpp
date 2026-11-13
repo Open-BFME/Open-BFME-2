@@ -264,11 +264,7 @@ extern WeaponStore *TheWeaponStore;
 
 extern TerrainLogic *TheTerrainLogic;
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 class Rva0024C7B3Member
 {
