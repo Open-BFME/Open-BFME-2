@@ -12,7 +12,7 @@
 void famgenDelete(Rva003EF14A *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva004703E0@@QAEPAXI@Z @0x004704AC 28B: calls rowed ~Rva004703E0 0x004703E0
-class Rva004703E0 { public: ~Rva004703E0(); };
+#include "../../Include/Common/Rva004703E0.h"
 void famgenDelete(Rva004703E0 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva004E7DC8@@QAEPAXI@Z @0x004E7E1E 28B: calls rowed ~Rva004E7DC8 0x004E7DC8

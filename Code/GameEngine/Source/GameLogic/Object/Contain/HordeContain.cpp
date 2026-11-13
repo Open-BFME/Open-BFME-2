@@ -38,7 +38,7 @@ template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
 }
 #include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
-class Rva004703E0 { public: ~Rva004703E0(); };
+#include "../../../../Include/Common/Rva004703E0.h"
 class Rva00469D86 { public: ~Rva00469D86(); };
 class Rva0046AA69Record { public: ~Rva0046AA69Record(); };
 struct Rva00200667
