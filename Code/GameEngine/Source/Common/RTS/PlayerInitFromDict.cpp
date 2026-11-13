@@ -252,7 +252,7 @@ struct DifficultyView{char pad[0x1a4c4];int value;};class ScriptEngine;extern Sc
 struct Rva004DFC20{void clear();};
 struct RegionManagerView{void*getCurrent();};
 class Rva003F468D;
-class Rva0020E6B7RegionManager{public:Rva003F468D*rva0020E6B7();};
+#include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 class LivingWorldBattle{public:char pad[0x24];class LivingWorldRegion*region;void*rva003F4DA9();};
 class RegionOwner{public:char pad[0x14];int index;};class CreateAHeroData;
 class LivingWorldRegion{public:char pad[0x11c];bool flag;int rva003F0614(CreateAHeroData*)const;};

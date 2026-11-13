@@ -3621,11 +3621,7 @@ public:
 	Rva0023FED9List *m_entries;                                          // +0x24
 };
 
-class Rva0020E6B7RegionManager
-{
-public:
-	Rva003F468D *rva0020E6B7(void);
-};
+#include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 
 class Rva002E2903Player
 {
