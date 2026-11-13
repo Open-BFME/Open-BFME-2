@@ -20,16 +20,7 @@ public:
     virtual ~BfmeNonRefSceneList();
 };
 
-class Rva00141D00
-{
-public:
-    Rva00141D00();
-    ~Rva00141D00();
-
-private:
-    int m_0;
-    BfmeNonRefSceneList m_list;
-};
+#include "../../../../GameEngine/Include/Common/Rva00141D00.h"
 
 typedef char SceneListElementSize[(sizeof(Rva00141D00) == 0x1c) ? 1 : -1];
 

@@ -27,15 +27,7 @@ private:
 	char m_pad[0x14];
 };
 
-class Rva00141D00
-{
-public:
-	~Rva00141D00();
-
-private:
-	int m_pad;
-	BfmeNonRefSceneList m_list;
-};
+#include "../../../../GameEngine/Include/Common/Rva00141D00.h"
 
 Rva00141D00::~Rva00141D00()
 {
