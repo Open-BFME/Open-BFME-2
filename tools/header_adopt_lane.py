@@ -230,19 +230,34 @@ def specialization_spans(text, name):
     """[(start, end)] of the explicit specializations of the global class template `name` that
     have a body (`template <> class name<11> {...};`), each with its closing `;` and newline.
     Comments and literals (raw strings too) are blanked first (masked). One inside a named
-    namespace specializes another class (`Other::name`) and is not counted; one inside any other
-    braces (a class, a function), or one that does not close, makes the answer unknown: None."""
+    namespace specializes another class (`Other::name`) and is not counted; one inside
+    `extern "C++" {` is global. The answer is unknown (None) when one lies inside any other
+    braces (a class, a function, `extern "C"`), when a brace before it sits in a conditional
+    region (#if ... #endif: which braces compile is not known here), or when one does not close."""
     code, out = masked(text), []
     namespaces = {m.end() - 1 for m in class_layouts.NAMESPACE.finditer(code)}
-    linkage = {m.end() - 1 for m in class_layouts.LINKAGE.finditer(code)}
+    linkage = {m.end() - 1 for m in re.finditer(r'\bextern\s+"C\+\+"\s*\{', masked(text, keep_literals=True))}
+    conditional, depth = set(), 0          # the offsets of braces inside a conditional region
+    for line in re.finditer(r"[^\n]*\n?", code):
+        directive = re.match(r"[ \t]*#[ \t]*(if|ifdef|ifndef|elif|else|endif)\b", line.group())
+        if directive:
+            depth += {"if": 1, "ifdef": 1, "ifndef": 1, "endif": -1}.get(directive.group(1), 0)
+            depth = max(depth, 0)
+        elif depth:
+            conditional.update(line.start() + k for k, char in enumerate(line.group()) if char in "{}")
+    braces = list(re.finditer(r"[{}]", code))
+    enclosing, seen = [], 0                # one scan of the braces, advanced to each specialization
     for found in re.finditer(SPECIALIZATION_HEAD % re.escape(name), code, re.M):
-        enclosing = []
-        for brace in re.finditer(r"[{}]", code[:found.start()]):
+        while seen < len(braces) and braces[seen].start() < found.start():
+            brace = braces[seen]
+            if brace.start() in conditional:
+                return None
             if brace.group() == "{":
                 enclosing.append("namespace" if brace.start() in namespaces else
                                  "linkage" if brace.start() in linkage else "other")
             elif enclosing:
                 enclosing.pop()
+            seen += 1
         if "other" in enclosing:
             return None
         if "namespace" in enclosing:

@@ -876,6 +876,29 @@ def test_a_trailing_specialization_declaration_hides_no_body():
     assert out == '#include "B.h"\ntemplate <> class BitFlags<12>;\n'
 
 
+def test_a_brace_in_a_conditional_region_makes_a_specializations_scope_unknown():
+    # review r2: a disabled `}` closed namespace Other early, so Other::BitFlags<11> was stripped; a disabled
+    # namespace opener hid a global copy from accept
+    early_close = ("template <int N> class BitFlags { int x; };\nnamespace Other {\ntemplate <int N> class BitFlags;\n"
+                   "#if 0\n}\n#endif\ntemplate <> class BitFlags<11> { int own; };\n}\n")
+    assert lane.specialization_spans(early_close, "BitFlags") is None
+    assert lane.swap(early_close, ["BitFlags"], "B.h") is None
+    hidden = '#include "B.h"\n#if 0\nnamespace Hidden {\n#endif\ntemplate <> class BitFlags<11> { int own; };\n'
+    assert lane.private_body(hidden, "BitFlags", template=True)
+    # a conditional region with no brace in it changes nothing
+    plain = '#include "B.h"\n#if 1\nint unrelated;\n#endif\ntemplate <> class BitFlags<11> { int own; };\n'
+    assert len(lane.specialization_spans(plain, "BitFlags")) == 1
+
+
+def test_extern_cpp_is_global_scope_and_extern_c_is_not_read():
+    # review r2: masked() blanks "C++", so the linkage opener was never recognised
+    unit = 'extern "C++" {\ntemplate <> class BitFlags<11> { int own; };\n}\n'
+    assert len(lane.specialization_spans(unit, "BitFlags")) == 1
+    out = lane.swap(unit, ["BitFlags"], "B.h")
+    assert out is not None and "BitFlags<11>" not in out
+    assert lane.specialization_spans(unit.replace('"C++"', '"C"'), "BitFlags") is None
+
+
 def test_dependency_views_go_with_the_class():
     out = lane.swap(UNIT, ["AsciiString", "StringBase"], "ascii_string.h")
     assert "StringBase" not in out.split("void use")[0].split('#include "ascii_string.h"')[1]
