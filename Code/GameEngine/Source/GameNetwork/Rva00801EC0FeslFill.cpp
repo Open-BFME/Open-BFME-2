@@ -30,16 +30,7 @@ public:
 	BfmeVecCZ m_ugidKeys;
 };
 
-class Rva007FBEF0GameRecord
-{
-public:
-	bool Rva007FBF40( const char *key, char *dest, unsigned int destSize );
-
-	int m_lid;
-	int m_gid;
-	void *m_msg;
-	char m_ugid[0x25];
-};
+#include "../../Include/Common/Rva007FBEF0GameRecord.h"
 
 class Rva00800290Buffer
 {
