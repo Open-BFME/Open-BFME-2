@@ -54,16 +54,7 @@ public:
 	virtual void fail(const char *expr, const char *file, int line);
 };
 
-class BfmeThingCIB
-{
-public:
-	void bfmeGoCIB(void *one, void *two);
-	unsigned char m_bfmeHead[0x10];
-	void *m_bfmeA;
-	void *m_bfmeB;
-	unsigned char m_bfmeGap[0xc];
-	int m_bfmeErr;
-};
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 
 extern Rva007EB810Diag *Rva007EB810Get();
 class GenAlloc;
