@@ -230,20 +230,7 @@ public:
 };
 
 class Rva00083E87Ref;
-class Rva00083CE9Host
-{
-public:
-	void releaseTrack(Rva00083CE9Node *p);
-	void Reset();
-	void rva00083E87();
-private:
-	Rva00083E87Ref *m_00;
-	Rva00083E87Ref *m_04;
-	Rva00083E87Ref *m_08;
-	char _pad0C[4];
-	Rva00083CE9Node *m_10;
-	Rva00083CE9Node *m_14;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00083CE9Host.h"
 // ?releaseTrack@Rva00083CE9Host@@QAEXPAURva00083CE9Node@@@Z retail 0x00083CE9
 // 107B unlink node from old list then push at head of this list and reset it.
 // Evidence: chain calls 0x00083CB2; callers at 0x00083EA6 0x00083FDD 0x00084016.

@@ -54,20 +54,7 @@ public:
 	Rva00083E87Ref *m_1320;
 };
 
-class Rva00083CE9Host
-{
-public:
-	void releaseTrack(Rva00083CE9Node *p);
-	void Reset();
-	void rva00083E87();
-private:
-	Rva00083E87Ref *m_00;
-	Rva00083E87Ref *m_04;
-	Rva00083E87Ref *m_08;
-	char _pad0C[4];
-	Rva00083CE9Node *m_10;
-	Rva00083CE9Node *m_14;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00083CE9Host.h"
 // Release provider (00083CE9) lives in W3DTerrainTracksBind.cpp.
 // ?Reset@Rva00083CE9Host@@QAEXXZ retail 0x00084002 34B drain m_10 list
 // via releaseTrack. Evidence: chain calls 0x00083CE9; caller at 0x00091CE6.
