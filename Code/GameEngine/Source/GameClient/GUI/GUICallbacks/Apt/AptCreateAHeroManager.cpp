@@ -120,7 +120,7 @@ void AptCreateAHero::Manager::rva005B6A05() {
  }
 }
 
-class Rva00406E53 {public:int rva00406E53();};
+#include "../../../../../Include/Common/Rva00406E53.h"
 class Rva00406E65 {public:int rva00406E65(unsigned);};
 #include "../../../../../Include/GameLogic/Module/Rva0040BAD0.h"
 class Rva0040AAD5;

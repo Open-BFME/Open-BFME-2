@@ -357,7 +357,7 @@ namespace _STL {
 template <> TreeHintPayload001F8ACB &map<AsciiString, TreeHintPayload001F8ACB, less<AsciiString>,
 	allocator<pair<const AsciiString, TreeHintPayload001F8ACB> > >::operator[](const AsciiString &key);
 }
-class Rva00406E53 { public: int rva00406E53(); };
+#include "../../../Include/Common/Rva00406E53.h"
 class Rva00406E65 { public: int rva00406E65(unsigned int); };
 class Rva0040B0D0 { public: bool isContributor(const void *); };
 #include "../../../Include/GameLogic/Module/Rva0040BAD0.h"
