@@ -45,11 +45,7 @@ private:
 
 // clear()'s rowed 0x001E7E25 body (the existing set.clear() spelling folds to
 // an address-named owner).
-class Rva001E7E25
-{
-public:
-	void rva001E7E25();
-};
+#include "../../../../Include/GameLogic/Module/Rva001E7E25.h"
 
 class Locomotor;
 

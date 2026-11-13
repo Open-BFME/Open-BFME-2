@@ -69,7 +69,7 @@ public:
 #include "../../../../Include/Common/StateMachineClass.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 class Locomotor;
-class Rva001E7E25 { public: void rva001E7E25(); };
+#include "../../../../Include/GameLogic/Module/Rva001E7E25.h"
 class LocomotorSet {
 public:
  void clear(); void xferSelfAndCurLocoPtr(Xfer *, Locomotor **);
