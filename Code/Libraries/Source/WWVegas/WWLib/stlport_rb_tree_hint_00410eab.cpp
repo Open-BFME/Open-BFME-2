@@ -14,7 +14,7 @@
 #include <map>
 #include "ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
-struct TreeHintPayload00410B17 { char m_body[4]; };
+#include "../../../../GameEngine/Include/Common/TreeHintPayload00410B17.h"
 typedef _STL::pair<const AsciiString, TreeHintPayload00410B17> TreeHintPair00410B17;
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair00410B17, _STL::_Select1st<TreeHintPair00410B17>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair00410B17> > TreeHint00410B17;
 // BFME replaces STLport allocation with a static byte allocator (RVA 0x307F0).

@@ -9,10 +9,7 @@
 // landed 0x002234BA 68B insert. Caller 0x004112E7 in 0x004112A0.
 #include "ascii_string.h"
 
-struct TreeHintPayload00410B17
-{
-	unsigned char m_body[4];
-};
+#include "../../Include/Common/TreeHintPayload00410B17.h"
 
 namespace _STL {
 template <class T1, class T2> struct pair
