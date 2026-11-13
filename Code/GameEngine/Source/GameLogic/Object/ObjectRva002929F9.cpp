@@ -84,11 +84,7 @@ public:
 	float rva001E48CF(class Object *object);
 };
 
-class Rva001E415F
-{
-public:
-	void rva001E415F(float value, Int frames);
-};
+#include "../../../Include/GameLogic/Module/Rva001E415F.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
