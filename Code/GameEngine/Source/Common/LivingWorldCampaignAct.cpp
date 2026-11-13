@@ -10,7 +10,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../Include/Common/BfmePairWI.h"
 
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+#include "../../Include/Common/Rva00564DF2NameView.h"
 
 #include "../../Include/GameClient/Anim2DTemplate.h"
 
