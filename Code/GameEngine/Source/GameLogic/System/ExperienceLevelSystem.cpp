@@ -536,7 +536,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <mbstring.h>
 #pragma pop_macro("_CRTIMP")
 // ExperienceLevel copy assignment, rowed at 0x00289902 under its address name.
-class Rva00289902 { public: Rva00289902 &rva00289902(const Rva00289902 &); };
+#include "../../../Include/GameLogic/Rva00289902.h"
 #include "../../../Include/GameClient/RadiusDecalTemplate.h"
 #include "../../../Include/Common/EmotionNuggetTemplate.h"
 void Rva00289C24Parse(INI *, void *, void *, const void *);

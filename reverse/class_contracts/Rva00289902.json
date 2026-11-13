@@ -1,0 +1,417 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00289902",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x100": {
+    "1": 1
+   },
+   "0x101": {
+    "1": 1
+   },
+   "0x102": {
+    "1": 1
+   },
+   "0x104": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0xa4": {
+    "4": 2
+   },
+   "0xd8": {
+    "1": 1
+   },
+   "0xdc": {
+    "4": 1
+   },
+   "0xe8": {
+    "4": 1
+   },
+   "0xec": {
+    "4": 1
+   },
+   "0xf0": {
+    "4": 1
+   },
+   "0xf4": {
+    "4": 1
+   },
+   "0xf8": {
+    "4": 1
+   },
+   "0xfc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "264": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 257,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 258,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelAssign.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

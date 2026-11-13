@@ -117,7 +117,7 @@ Rva002894A2::Rva002894A2()
 
 // Copy constructor 0x00289CEB default-constructs owned members, then calls
 // the already pinned 0x00289902 experience-level assignment operation.
-class Rva00289902 { public: Rva00289902 &rva00289902(const Rva00289902 &); };
+#include "../../../Include/GameLogic/Rva00289902.h"
 Rva002894A2::Rva002894A2(const Rva002894A2 &that)
 {
     reinterpret_cast<Rva00289902 *>(this)->rva00289902(reinterpret_cast<const Rva00289902 &>(that));
