@@ -25,8 +25,10 @@ class BfmeTaintManager;
 extern BfmeTaintManager *TheTaintManager;
 			// the taint manager, VA 0x00DFE750
 
-void Rva002D7AE0LocalPlayerShroudCallback();
-void Rva002D7B18LocalPlayerTaintCallback();
+// The local player's shroud and taint cell callbacks are Radar.cpp's rva002D7AE0 (TheDisplay and
+// TheRadar setShroudLevel) and rva002D7B18; setLocalPlayer registers their addresses.
+void rva002D7AE0(int a, int b, int c);
+void rva002D7B18(int a, int b, int c);
 extern TeamFactory *TheTeamFactory;
 //-----------------------------------------------------------------------------
 PlayerList *ThePlayerList = 0;
@@ -370,14 +372,6 @@ void PlayerList::updateTeamStates()
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList_setLocalPlayer.cpp
 
-void Rva002D7AE0LocalPlayerShroudCallback()
-{
-}
-
-void Rva002D7B18LocalPlayerTaintCallback()
-{
-}
-
 void PlayerList::setLocalPlayer(Player *player)
 {
 	// can't set local player to null -- if you try, you get neutral.
@@ -396,9 +390,9 @@ void PlayerList::setLocalPlayer(Player *player)
 	}
 
 	if (TheShroudManager)
-		((Rva00739730 *)TheShroudManager)->rva00739730(player->getPlayerIndex(), (int)&Rva002D7AE0LocalPlayerShroudCallback);
+		((Rva00739730 *)TheShroudManager)->rva00739730(player->getPlayerIndex(), (int)&rva002D7AE0);
 	if (TheTaintManager)
-		((Rva006C0800 *)TheTaintManager)->rva006C0800((PointGroupClass::PointModeEnum)(int)&Rva002D7B18LocalPlayerTaintCallback);
+		((Rva006C0800 *)TheTaintManager)->rva006C0800((PointGroupClass::PointModeEnum)(int)&rva002D7B18);
 }
 
 // ---- from Code/GameEngine/Source/Common/RTS/PlayerList_createClonedAllyFor.cpp
