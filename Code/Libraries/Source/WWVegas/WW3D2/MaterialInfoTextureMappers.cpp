@@ -20,9 +20,7 @@
 // header-inline Reset_Mappers / Are_Mappers_Time_Variant, which loop 8
 // mappers) inlines to exactly these double loops under /O2+/G7.
 
-class W3DMPO
-{
-};
+#include "../../../../GameEngine/Include/Common/W3DMPO.h"
 
 #include "../WWLib/RefCountData.h"
 

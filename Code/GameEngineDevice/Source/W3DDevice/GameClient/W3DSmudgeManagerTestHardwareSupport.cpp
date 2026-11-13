@@ -52,9 +52,7 @@ struct IDirect3DDevice8;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-class W3DMPO
-{
-};
+#include "../../../../GameEngine/Include/Common/W3DMPO.h"
 
 
 

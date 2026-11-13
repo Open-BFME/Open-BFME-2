@@ -15,7 +15,7 @@
 typedef int Int;
 typedef int Bool;
 
-class W3DMPO {};
+#include "../../../Include/Common/W3DMPO.h"
 
 template <class T> class DLNodeClass;
 

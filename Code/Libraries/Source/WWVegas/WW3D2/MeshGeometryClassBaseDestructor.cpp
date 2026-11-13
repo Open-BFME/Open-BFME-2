@@ -24,9 +24,7 @@ private:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/multilist.h
 #include "../WWLib/MultiListObjectClass.h"
 
-class W3DMPO
-{
-};
+#include "../../../../GameEngine/Include/Common/W3DMPO.h"
 
 class ChunkLoadClass;
 class Vector3;

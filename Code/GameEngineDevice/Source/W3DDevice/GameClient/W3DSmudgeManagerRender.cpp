@@ -159,9 +159,7 @@ struct IDirect3DDevice8;
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class W3DMPO
-{
-};
+#include "../../../../GameEngine/Include/Common/W3DMPO.h"
 
 class VertexMaterialClass : public W3DMPO, public RefCountClass
 {
