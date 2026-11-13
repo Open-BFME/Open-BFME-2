@@ -22,12 +22,7 @@ struct Rva005E0B0FHolder14 {
     __forceinline ~Rva005E0B0FHolder14() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
-class Rva0086E330Base
-{
-public:
-	Rva0086E330Base();
-	virtual ~Rva0086E330Base() {}
-};
+#include "../../Include/Common/Rva0086E330Base.h"
 // ??0Rva0086E330Base@@QAE@XZ @0x005E1871 9B: the default constructor, storing the
 // class's own vtable (VA 0x00C6E330) and returning this.
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

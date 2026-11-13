@@ -8,11 +8,7 @@ void Rva0052340DEnable(void);
 // spelling it CreateAHeroData gave that vftable symbol two addresses (full-gate
 // DIR32 consistency). The erase callee is rowed with a CreateAHeroData pointer.
 class CreateAHeroData;
-class Rva0086E330Base
-{
-public:
-	virtual ~Rva0086E330Base() {}
-};
+#include "../../Include/Common/Rva0086E330Base.h"
 #include "../../Include/Common/Rva002B7250.h"
 struct Holder005CD6A9
 {

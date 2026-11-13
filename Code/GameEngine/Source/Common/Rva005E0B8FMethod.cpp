@@ -19,11 +19,7 @@ struct Rva002BED91
 	void clear();
 };
 
-class Rva0086E330Base
-{
-public:
-	virtual ~Rva0086E330Base();
-};
+#include "../../Include/Common/Rva0086E330Base.h"
 
 class Rva005E0B0F : public Rva0086E330Base
 {

@@ -8,11 +8,7 @@
 // at +4 (rowed 0x002B7250). Class name address-derived.
 class CreateAHeroData;
 
-class Rva0086E330Base
-{
-public:
-	virtual ~Rva0086E330Base() {}
-};
+#include "../../Include/Common/Rva0086E330Base.h"
 
 #include "../../Include/Common/Rva002B7250.h"
 
