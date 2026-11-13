@@ -434,7 +434,7 @@ class Rva0039567CCmpBoolField { public: bool get() const; };
 #include "../../../Include/GameClient/Rva00397F45.h"
 #include "../../../Include/GameLogic/Module/Rva0039718B.h"
 #include "../../../Include/GameLogic/Rva00395F57.h"
-class Rva00395686 { public: bool rva00395686(Player *player, ThingTemplate *tt); };
+#include "../../../Include/Common/Rva00395686.h"
 #include "../../../Include/GameLogic/StancesBehavior.h"
 NameKeyType Rva0045EE2CGet();
 #include "../../../Include/GameClient/Rva0035B164.h"

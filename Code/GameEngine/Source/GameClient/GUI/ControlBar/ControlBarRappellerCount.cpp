@@ -218,7 +218,7 @@ class Rva0039567CCmpBoolField { public: Bool get() const; };
 #include "../../../../Include/GameLogic/Rva00395F57.h"
 #include "../../../../Include/GameClient/Rva00397F45.h"
 #include "../../../../Include/GameLogic/Module/Rva0039718B.h"
-class Rva00395686 { public: Bool rva00395686(Player *player, ThingTemplate *tt); };
+#include "../../../../Include/Common/Rva00395686.h"
 class Rva00395A82 { public: Real rva00395A82(); };
 class Rva003974CE { public: Int apply(Int (__cdecl *func)(class Object *, Int), Int userData); };
 class CastleBehavior {
