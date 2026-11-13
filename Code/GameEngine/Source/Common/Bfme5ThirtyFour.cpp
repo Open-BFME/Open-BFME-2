@@ -313,12 +313,7 @@ struct Rva006D07E0Iterator {
  Rva006D07E0Iterator(Rva006D07E0Node *initialNode):node(initialNode) {}
  Rva006D07E0Node *node;
 };
-class Rva006D07E0List {
-public:
- Rva006D07E0Iterator find(Rva006D07E0Key key);
- int contains(Rva006D07E0Key key);
- Rva006D07E0Node *head;
-};
+#include "../../Include/Common/Rva006D07E0List.h"
 Rva006D07E0Iterator Rva006D07E0List::find(Rva006D07E0Key key) {
  Rva006D07E0Node *node=head;
  while(node) {

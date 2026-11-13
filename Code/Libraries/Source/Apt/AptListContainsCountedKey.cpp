@@ -35,12 +35,7 @@ struct Rva006D07E0Iterator {
  Rva006D07E0Entry *operator->()const{return node->entry;}
  Rva006D07E0Node *node;
 };
-class Rva006D07E0List {
-public:
- Rva006D07E0Iterator find(Rva006D07E0Key key);
- int contains(Rva006D07E0Key key);
- Rva006D07E0Node *head;
-};
+#include "../../../GameEngine/Include/Common/Rva006D07E0List.h"
 // Native Ghidra6D0660..6D0766; comparator called by6D0860 with
 // counted owner key. The provider is at14; its string table is28/2c
 // with10-byte stride (hex). All offsets are target facts; purpose and
