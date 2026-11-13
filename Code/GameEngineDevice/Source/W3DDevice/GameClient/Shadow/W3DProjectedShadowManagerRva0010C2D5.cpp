@@ -45,15 +45,7 @@ public:
 	unsigned int m_value54; // +0x54
 };
 
-struct ShadowNameBuffer
-{
-public:
-	int refs; // +0x00
-	unsigned short length; // +0x04
-	unsigned short capacity; // +0x06
-	char text[1]; // +0x08
-	char m_pad09[0x3];
-};
+#include "../../../../Include/W3DDevice/GameClient/ShadowNameBuffer.h"
 
 struct ShadowDecalInfoView
 {

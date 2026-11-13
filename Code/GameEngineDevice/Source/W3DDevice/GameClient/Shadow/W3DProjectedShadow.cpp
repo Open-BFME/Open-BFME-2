@@ -263,15 +263,7 @@ class RenderObjClass;
 
  class W3DShadowTexture;
 
-struct ShadowNameBuffer
-{
-public:
-	int refs; // +0x00
-	unsigned short length; // +0x04
-	unsigned short capacity; // +0x06
-	char text[1]; // +0x08
-	char m_pad09[0x3];
-};
+#include "../../../../Include/W3DDevice/GameClient/ShadowNameBuffer.h"
 
 struct ShadowInfoView { ShadowNameBuffer *name; int unused; int type; float sizeX,sizeY,offsetX,offsetY,unused1,height; unsigned char force; };
 
