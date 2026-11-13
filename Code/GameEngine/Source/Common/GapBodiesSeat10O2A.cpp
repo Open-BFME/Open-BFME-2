@@ -19,11 +19,7 @@ void Rva0066D4F0::rva0066D4F0(int value)
 
 // Destructors whose only non-trivial member is a BfmeMsg (rowed virtual
 // ??1BfmeMsg@@UAE@XZ 0x00655780, called directly for a member).
-class BfmeMsg
-{
-public:
-	virtual ~BfmeMsg();
-};
+#include "../../Include/Common/BfmeMsg.h"
 
 // ??1Rva00665970@@QAE@XZ @0x00665970 8B: BfmeMsg member at +0x14.
 class Rva00665970

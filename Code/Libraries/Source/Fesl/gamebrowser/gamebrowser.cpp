@@ -221,14 +221,7 @@ struct Rva007F5900Context
 
 // EA FESL gamebrowser host-state request at retail 0x007F5C30.
 
-class BfmeMsg
-{
-public:
-	virtual ~BfmeMsg() throw();
-
-protected:
-	int m_state;
-};
+#include "../../../../GameEngine/Include/Common/BfmeMsg.h"
 
 class BfmeMsgVJH : public BfmeMsg
 {

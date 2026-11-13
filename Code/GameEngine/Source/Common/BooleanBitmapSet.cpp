@@ -226,11 +226,7 @@ class AsciiString;
 struct TreeHintRef0051030C;
 struct BfmeOpaque2148;
 struct SBServer;
-class BfmeMsg
-{
-public:
-	virtual ~BfmeMsg();
-};
+#include "../../Include/Common/BfmeMsg.h"
 struct Rva0060D031Member
 {
 	~Rva0060D031Member();

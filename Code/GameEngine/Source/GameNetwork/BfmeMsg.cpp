@@ -31,15 +31,7 @@
 // ctor: vptr plus m_state zero). The 121 image-wide direct callers are
 // explicit base destructions at FESL message-creation sites.
 
-class BfmeMsg
-{
-public:
-    virtual ~BfmeMsg();
-
-    // NOTE: the full base has an int m_state at +4 (proven by the landed
-    // VJH row and the 16B sibling zeroing [eax+4]), omitted here because
-    // this body never touches it.
-};
+#include "../../Include/Common/BfmeMsg.h"
 
 // BfmeMsgVJH is the derived message type constructed at 0x00655900. Its
 // virtual dtor restores the same BfmeMsg base vptr as this base dtor, so its
