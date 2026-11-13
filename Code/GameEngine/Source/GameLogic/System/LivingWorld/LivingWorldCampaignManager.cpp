@@ -11,12 +11,7 @@ extern GlobalData *TheWritableGlobalData;
 template<class T> class StringBase;
 struct Rva005657FEElement;
 struct Rva005657FEHolder;
-class Rva0052C036
-{
-public:
-	bool rva0052C036();
-	bool rva0052C9F9();
-};
+#include "../../../../Include/GameLogic/Rva0052C036.h"
 class Rva0052BFE1 : public Rva0052C036
 {
 public:

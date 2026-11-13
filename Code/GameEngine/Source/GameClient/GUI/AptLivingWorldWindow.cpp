@@ -10,7 +10,7 @@
 #include "../../../Include/GameLogic/Rva0052BAB2.h"
 class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
 #include "../../../Include/GameLogic/LivingWorldRegionManager.h"
-class Rva0052C036 {public: void rva0052C161();};
+#include "../../../Include/GameLogic/Rva0052C036.h"
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva0056DB19World {char unknown00[0xB0]; LivingWorldRegionManager *regions;};
