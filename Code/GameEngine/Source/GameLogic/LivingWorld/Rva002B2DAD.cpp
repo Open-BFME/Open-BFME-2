@@ -110,14 +110,7 @@ Rva003F468D *Rva0020E6B7RegionManager::rva0020E6B7()
  return (Rva003F468D *)((LivingWorldRegionManager *)this)->rva0020E5BB(currentKey);
 }
 
-class Rva003F468D
-{
-public:
-	char pad18[0x18];
-	char *m_sidesStart;
-	char *m_sidesEnd;
-	int rva003F4DAE(int side);
-};
+#include "../../../Include/Common/Rva003F468D.h"
 // Native 002B2DEE..002B2E31: ECX message; stack output/index/battle/side;
 // caller cleanup. GameMessage::getArgument is the independently rowed
 // 0030F4EA provider. Participant count is the independently rowed 003F4DAE
