@@ -41,14 +41,7 @@ inline void NetCommandMsg::setID(unsigned short id)
 
 // The type-14 chat command (ZH's NetChatCommandMsg), held in the ledger under
 // its constructor's address name.
-class Rva004D6134 : public NetCommandMsg
-{
-public:
-	Rva004D6134();
-
-private:
-	char m_pad1C[0x24 - 0x1c];
-};
+#include "../../Include/Common/Rva004D6134.h"
 
 // The type-13 disconnect chat command (ZH's NetDisconnectChatCommandMsg),
 // held in the ledger under its constructor's address name; ZH's

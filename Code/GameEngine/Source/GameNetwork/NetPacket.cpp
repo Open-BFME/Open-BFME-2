@@ -545,13 +545,7 @@ public:
 private:
 	char m_pad[0x20];
 };
-class Rva004D6134
-{
-public:
-	Rva004D6134();
-private:
-	char m_pad[0x24];
-};
+#include "../../Include/Common/Rva004D6134.h"
 class Rva004D582B
 {
 public:
