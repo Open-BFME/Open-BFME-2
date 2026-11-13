@@ -6227,3 +6227,4 @@ __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgra
 ?Rva004619A7Get@@YAHXZ,0x004619A7,"Renamed to ?GetSnapshotName@FakePathfindPortalBehaviour@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C42C1C slot 2)"
 ?Rva004AC12FGet@@YAHXZ,0x004AC12F,"Renamed to ?GetSnapshotName@RainOfFireUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C54C74 slot 2)"
 ?Rva4599DFGet@@YAHXZ,0x004599DF,"Renamed to ?GetSnapshotName@SiegeDockingBehavior@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C414DC slot 2)"
+?name@RemoveUpgradeUpgrade@@QBEPBDXZ,0x004B7F21,"Renamed to ?GetSnapshotName@RemoveUpgradeUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C58E20 slot 2)"

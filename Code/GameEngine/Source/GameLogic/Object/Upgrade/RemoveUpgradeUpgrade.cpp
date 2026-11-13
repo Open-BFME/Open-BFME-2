@@ -39,7 +39,7 @@ RemoveUpgradeUpgrade::~RemoveUpgradeUpgrade()
 {
 }
 
-// tu-skeleton: 0x004B7F21 6B ?name@RemoveUpgradeUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x004B7F21 6B ?GetSnapshotName@RemoveUpgradeUpgrade@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgrade.cpp
 

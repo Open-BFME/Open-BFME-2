@@ -119,7 +119,7 @@ BFME_SNAPSHOT_NAME_GETTER(ModelConditionUpgrade, "ModelConditionUpgrade")
 BFME_SNAPSHOT_NAME_GETTER(AttributeModifierUpgrade, "AttributeModifierUpgrade")
 BFME_SNAPSHOT_NAME_GETTER(CastleUpgrade, "CastleUpgrade")
 BFME_SNAPSHOT_NAME_GETTER(TooltipUpgrade, "TooltipUpgrade")
-BFME_LITERAL_NAME_GETTER(RemoveUpgradeUpgrade, "RemoveUpgradeUpgrade")
+BFME_SNAPSHOT_NAME_GETTER(RemoveUpgradeUpgrade, "RemoveUpgradeUpgrade")
 BFME_LITERAL_NAME_GETTER(Rva004B82C5Named, "BuildableHeroListUpgrade")
 class BoneFXDamage
 {
