@@ -647,12 +647,7 @@ public:
 	void rva002D9FD9(Rva002D9FD9Arg *xfer);
 };
 
-struct Twelve
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../../Include/Common/Twelve.h"
 
 class Rva002D9893
 {

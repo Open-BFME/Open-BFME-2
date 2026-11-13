@@ -7,12 +7,7 @@
 
 #include "../../Include/Common/BfmePoolRef10.h"
 
-struct Twelve
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../Include/Common/Twelve.h"
 
 class Rva002D9893
 {
