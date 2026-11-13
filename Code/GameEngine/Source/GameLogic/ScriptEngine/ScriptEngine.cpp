@@ -1440,13 +1440,7 @@ typedef _STL::_Rb_tree<TeamKey0020796D, TeamValue0020796D, _STL::_Select1st<Team
 // bfme link decl-only begin
 namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> > * _Rb_tree<_STL::pair<AsciiString,AsciiString>,_STL::pair<_STL::pair<AsciiString,AsciiString> const,int>,_STL::_Select1st<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> >,TeamLess0019B850,_STL::allocator<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> > >::_M_create_node(_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> const &); }
 
-struct RvaPair00207E26
-{
-public:
-	~RvaPair00207E26();
-	AsciiString text; // +0x00
-	int scalar; // +0x04
-};
+#include "../../../Include/GameLogic/RvaPair00207E26.h"
 
 Xfer *Rva002081C7XferList(Xfer *xfer, ListNocase4 *list);
 

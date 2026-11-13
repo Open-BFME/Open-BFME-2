@@ -7,12 +7,7 @@
 #include "ascii_string.h"
 
 // RvaPair00207E26 (Rva00207E26VectorDtor.cpp): AsciiString key plus int value.
-struct RvaPair00207E26
-{
-	AsciiString m_key;
-	int m_value;
-	~RvaPair00207E26();
-};
+#include "../../../../GameEngine/Include/GameLogic/RvaPair00207E26.h"
 
 RvaPair00207E26::~RvaPair00207E26()
 {
