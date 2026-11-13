@@ -6,16 +6,7 @@
 // Vtable values are DIR32 auto-patches. Owner identities are unproven
 // (opaque Rva names). One ledger row per destructor.
 
-class Rva00666BA0
-{
-public:
-	Rva00666BA0();
-	virtual ~Rva00666BA0();
-	// Retail table 0x00CE2BD8: the deleting destructor, then 3 __purecall entries.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-};
+#include "Rva00666BA0.h"
 // ??0Rva00666BA0@@QAE@XZ @0x00661320 9B: the default constructor, storing the
 // class's own vtable (VA 0x00CE2BD8) and returning this.
 Rva00666BA0::Rva00666BA0()

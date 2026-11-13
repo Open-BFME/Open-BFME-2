@@ -33,11 +33,7 @@ public:
 
 // Only the destructor is used through this existing four-byte base view.
 // Its complete rowed body lives in DirtySock/Rva00666BA0Dtor.cpp.
-class Rva00666BA0
-{
-public:
-	virtual ~Rva00666BA0();
-};
+#include "../../../Libraries/Source/DirtySock/Rva00666BA0.h"
 
 class Rva00803890Owner : public Rva00666BA0
 {

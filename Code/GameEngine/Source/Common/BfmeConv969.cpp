@@ -8,11 +8,7 @@ extern "C" char __identifier("??_7Rva006613E0@@6B@")[];
 extern "C" char __identifier("??_7Rva00661350@@6B@")[];
 
 // The base destructor is rowed as ??1Rva00666BA0 (DirtySock/Rva00666BA0Dtor.cpp).
-class Rva00666BA0
-{
-public:
-	virtual ~Rva00666BA0();
-};
+#include "../../../Libraries/Source/DirtySock/Rva00666BA0.h"
 
 class BfmeD969
 {
