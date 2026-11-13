@@ -26,20 +26,10 @@ class Drawable;
 
 // list<Drawable *> nodes come from the freelist pool at VA 0x00DBA5E0 (pop
 // 0x002393E2), as in the rowed _List_base ctor 0x00239BB0.
-// Full layout view (FreelistPoolCtor.cpp): with pop() alone the declaration
-// count flips translateGameMessage's pendingBuild/builderObj spill slots.
-class FreelistPool
-{
-public:
-	void *pop();
-private:
-	int m_00;
-	void *m_04;
-	void *m_head;
-	void *(__cdecl *m_alloc)(int, int);
-	void (__cdecl *m_free)(void *, int);
-	int m_14;
-};
+// translateGameMessage's pendingBuild/builderObj spill slots follow the unit's
+// declarations: a pop()-only view flipped them, and so did the private full-layout
+// view once Player.h embedded Money; the canonical header matches either way.
+#include "../../../Include/Common/FreelistPool.h"
 
 extern FreelistPool g_freelistPool00DBA5E0;
 
