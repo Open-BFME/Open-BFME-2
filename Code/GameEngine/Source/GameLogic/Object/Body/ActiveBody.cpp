@@ -466,7 +466,7 @@ struct BfmeBodyDataPair8 { float value; unsigned word; BfmeBodyDataPair8() {} __
 class Rva003427DD { public: Rva003427DD &operator=(const Rva003427DD &other); };
 #include "../../../../Include/GameLogic/Module/Rva00294D61.h"
 class Rva0028B749Host { public: void rva0028B749(Int victim, Real ratio); };
-class Rva002AA201IndexedByteField { public: void set(int index); };
+#include "../../../../Include/Common/Rva002AA201IndexedByteField.h"
 // The damage-delay call lands on the shared empty RET 4 at 0x0047A69C; it
 // goes through that address's rowed Rva0059BB50 name.
 class Rva0059BB50 { public: void rva0047A69C(int v); };

@@ -612,11 +612,7 @@ public:
 	int m_state40;
 };
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
-class Rva002AA201IndexedByteField
-{
-public:
-    unsigned char get(int index) const;
-};
+#include "../../../Include/Common/Rva002AA201IndexedByteField.h"
 class Vector3i16;
 // ledger 0x000B49A1 (named MeshGeometryClass::get_polys): [[this+0x2C]+0xC].
 class MeshGeometryClass
