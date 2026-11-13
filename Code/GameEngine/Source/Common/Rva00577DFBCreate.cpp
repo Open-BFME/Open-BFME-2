@@ -19,13 +19,7 @@ private:
 	int m_10;
 };
 
-class Rva00577DE1OwningCell
-{
-public:
-	Rva00577DE1OwningCell(int a1, const AsciiString &a2);
-private:
-	void *m_value;
-};
+#include "../../Include/Common/Rva00577DE1OwningCell.h"
 
 Rva00577DE1OwningCell::Rva00577DE1OwningCell(int a1, const AsciiString &asciiString)
 {

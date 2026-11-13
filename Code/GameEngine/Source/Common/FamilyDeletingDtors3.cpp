@@ -30,13 +30,7 @@ void famgenDelete(ProductionPrerequisite::PrereqUnitRec *p) { delete p; }
 // names remain unknown. The existing PrereqUnitRec destructor spelling is used
 // only as the already-linked call contract for the native577998 shared cleanup;
 // its +8 AsciiString teardown does not identify this payload as PrereqUnitRec.
-class Rva00577DE1OwningCell
-{
-    void *m_value;
-public:
-    __declspec(noinline) void clear();
-    void rva00577E3EForwardClear();
-};
+#include "../../Include/Common/Rva00577DE1OwningCell.h"
 void Rva00577DE1OwningCell::clear()
 {
     void *old = m_value;

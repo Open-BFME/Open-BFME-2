@@ -55,15 +55,7 @@ public:
 private:
 	unsigned char m_pad[0x20];
 };
-class Rva00577DE1OwningCell
-{
-public:
-	Rva00577DE1OwningCell(int level, const AsciiString &name); // 0x00577DFB
-	void rva00577E3EForwardClear(); // 0x00577E3E
-
-private:
-	void *m_value;
-};
+#include "../../Include/Common/Rva00577DE1OwningCell.h"
 // The Palantir (StrategicHUD::Palantir, constructor 0x00578D22 and methods in
 // Rva00578AC1.cpp) as the +0x2C slot holder's pointer type.
 class Rva00578C43;
