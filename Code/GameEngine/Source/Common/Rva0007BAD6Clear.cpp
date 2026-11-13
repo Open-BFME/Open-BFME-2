@@ -18,14 +18,7 @@
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
-class Rva005F2577Holder
-{
-public:
-	void rva005F2577();
-
-private:
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva005F2577Holder.h"
 
 class Rva0007BAD6Inner
 {

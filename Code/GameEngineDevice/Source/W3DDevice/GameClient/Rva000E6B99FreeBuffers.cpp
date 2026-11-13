@@ -58,11 +58,7 @@ public:
 	int m_refs;
 };
 
-class Rva005F2577Holder
-{
-public:
-	void rva005F2577();
-};
+#include "../../../../GameEngine/Include/Common/Rva005F2577Holder.h"
 
 class Rva000EC9C6
 {
