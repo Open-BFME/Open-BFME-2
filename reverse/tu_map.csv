@@ -19852,7 +19852,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028BB9E,67,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/Common/Object.cpp,Code/GameEngine/Source/Common/Object_getSpecialPowerModule.cpp
 0x0028BBE1,18,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x0028BB9E..0x0028BBF3,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028BBF3,18,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/Common/Object.cpp,Code/GameEngine/Source/Common/ObjectRva0028BBF3.cpp
-0x0028BC05,18,code,,,-,,Code/GameEngine/Source/Common/Rva0028BC05.cpp
+0x0028BC05,18,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028BC17,18,code,Code/GameEngine/Source/Common/BfmeSubBEC.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeSubBEC.cpp,Code/GameEngine/Source/Common/BfmeSubBECRva0028BC17.cpp
 0x0028BC29,18,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x0028BC3B,18,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1A_ModuleFactoryDataAt0025464A.cpp
@@ -19935,7 +19935,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0028CB23,6,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028CB29,28,code,,,-,,Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp
 0x0028CB45,81,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Helper/ObjectWeaponStatusHelperCtor.cpp
-0x0028CB96,69,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,E,"E=0x007742F7..0x00774381@0x0028BE2B,0x0028CF37",Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp
+0x0028CB96,69,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,E,"E=0x007742F7..0x00774381@0x0028BE2B,0x0028CF37",Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0028CBDB,6,code,,,-,,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
 0x0028CBE1,28,code,,,-,,Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp
 0x0028CBFD,127,code,,,-,,Code/GameEngine/Source/Common/Rva0028CBFDCleanup.cpp
@@ -20132,7 +20132,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0029268C,319,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00292330..0x002927CB,Code/GameEngine/Source/Common/System/BitFlagsXfer.cpp
 0x002927CB,45,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00292330..0x002927F8,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
 0x002927F8,81,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00292330..0x00292849,Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper_Rva002927f8.cpp
-0x00292849,69,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00292330..0x002928B0,Code/GameEngine/Source/GameLogic/AI/ObjectSMCHelperPoolKey.cpp
+0x00292849,69,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00292330..0x002928B0,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x0029288E,6,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper.cpp N=Code/GameEngine/Source/Common/ObjectSMCHelper.cpp,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp
 0x00292894,28,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper.cpp,Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelperDtor.cpp
 0x002928B0,5,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00292330..0x002928B5,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
@@ -20157,7 +20157,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002933CD,59,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp
 0x00293408,89,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp
 0x00293461,37,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00293408..0x00293486,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
-0x00293486,34,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00293408..0x002934A8,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00293486.cpp
+0x00293486,34,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00293408..0x002934A8,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x002934A8,49,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,C,C=0x00293408..0x002934D9,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x002934D9,14,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/Common/Object.cpp,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x002934E7,1087,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp W=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp
@@ -20227,7 +20227,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0029848E,70,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectAttemptDamage.cpp
 0x002984D4,67,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectKill.cpp
 0x00298517,798,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Object.cpp S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp W=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp
-0x00298835,94,code,,,-,,Code/GameEngine/Source/Common/Rva00298835.cpp
+0x00298835,94,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x00298893,174,code,Code/GameEngine/Source/Common/BfmeSubBGB.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeSubBGB.cpp,Code/GameEngine/Source/Common/Rva00298893.cpp
 0x00298941,11,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,proposed,K,K=Rva002983DAVector,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
 0x0029894C,14,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,proposed,C,C=0x00298941..0x0029895A,Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp
@@ -70459,8 +70459,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00774349,10,code,Code/GameEngine/Source/GameLogic/Object/ObjectRecoveryHelper.cpp,approved,P,P=0x0028CA4D@FuncInfo0x0091B50C p-group provisional,Code/GameEngine/Source/GameLogic/Object/ObjectRecoveryHelperPoolKey.cpp
 0x00774353,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CADE@FuncInfo0x0091B530,Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp
 0x00774360,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CADE@FuncInfo0x0091B530,Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp
-0x0077436A,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CB96@FuncInfo0x0091B554,Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp
-0x00774377,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CB96@FuncInfo0x0091B554,Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp
+0x0077436A,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CB96@FuncInfo0x0091B554,Code/GameEngine/Source/GameLogic/Object/Object.cpp
+0x00774377,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CB96@FuncInfo0x0091B554,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x00774381,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CF37@FuncInfo0x0091B578,Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp
 0x0077438E,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028CF37@FuncInfo0x0091B578,Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp
 0x00774398,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0028D2FB@FuncInfo0x0091B59C,Code/GameEngine/Source/GameLogic/Object/ObjectGetShroudStatusForPlayer.cpp
@@ -70500,8 +70500,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00774500,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x002923A7@FuncInfo0x0091B77C,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x0077450A,14,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x002927CB@FuncInfo0x0091B7CC,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
 0x00774518,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x002927CB@FuncInfo0x0091B7CC,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
-0x00774522,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00292849@FuncInfo0x0091B7F0,Code/GameEngine/Source/GameLogic/AI/ObjectSMCHelperPoolKey.cpp
-0x0077452F,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00292849@FuncInfo0x0091B7F0,Code/GameEngine/Source/GameLogic/AI/ObjectSMCHelperPoolKey.cpp
+0x00774522,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00292849@FuncInfo0x0091B7F0,Code/GameEngine/Source/GameLogic/Object/Object.cpp
+0x0077452F,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00292849@FuncInfo0x0091B7F0,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x00774539,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x002928B5@FuncInfo0x0091B814,Code/GameEngine/Source/GameLogic/Object/ObjectTransferReplacementState.cpp
 0x00774546,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x002928B5@FuncInfo0x0091B814,Code/GameEngine/Source/GameLogic/Object/ObjectTransferReplacementState.cpp
 0x00774550,8,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x002929F9@FuncInfo0x0091B850,Code/GameEngine/Source/GameLogic/Object/ObjectRva002929F9.cpp
@@ -70561,7 +70561,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00774750,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x0029840D@FuncInfo0x0091BB08,Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp
 0x0077475A,8,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00298517@FuncInfo0x0091BB2C,Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp
 0x00774762,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00298517@FuncInfo0x0091BB2C,Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp
-0x0077476C,10,code,,,-,,Code/GameEngine/Source/Common/Rva00298835.cpp
+0x0077476C,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Object.cpp
 0x00774776,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/WeaponStoreAllocateNewWeapon.cpp
 0x00774780,13,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00298979@FuncInfo0x0091BB50,Code/GameEngine/Source/GameLogic/Object/ObjectDefectionComplete.cpp
 0x0077478D,10,code,Code/GameEngine/Source/GameLogic/Object/Object.cpp,approved,P,P=0x00298979@FuncInfo0x0091BB50,Code/GameEngine/Source/GameLogic/Object/ObjectDefectionComplete.cpp

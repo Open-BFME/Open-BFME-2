@@ -31184,8 +31184,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FED00,4,.data,global,?$S1@?1??getModuleNameKey@ObjectRecoveryHelper@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/ObjectRecoveryHelperPoolKey.cpp,owned,,1,2
 0x009FED04,4,.data,global,?TheObjectRepulsorHelperPoolKey@?1??getModuleNameKey@ObjectRepulsorHelper@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp,owned,,1,2
 0x009FED08,4,.data,global,?$S1@?1??getModuleNameKey@ObjectRepulsorHelper@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp,owned,,1,2
-0x009FED0C,4,.data,global,?TheObjectWeaponStatusHelperPoolKey@?1??getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp,owned,,1,2
-0x009FED10,4,.data,global,?$S1@?1??getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp,owned,,1,2
+0x009FED0C,4,.data,global,?TheObjectWeaponStatusHelperPoolKey@?1??getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Object.cpp,owned,,1,2
+0x009FED10,4,.data,global,?$S1@?1??getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Object.cpp,owned,,1,2
 0x009FED14,4,.data,global,?key_ToppleUpdate@?1??topple@Object@@QAEXPBUCoord3D@@MI@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp,owned,,1,2
 0x009FED18,4,.data,global,?$S141@?1??topple@Object@@QAEXPBUCoord3D@@MI@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp,owned,,1,2
 0x009FED1C,4,.data,global,?heroDie@?M@??setEffectivelyDead@Object@@QAEX_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/ObjectGetShroudStatusForPlayer.cpp,owned,,1,2
@@ -31201,8 +31201,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FED44,4,.data,global,?s_key@?8??rva002911B7@Object@@QAEPAVThingTemplate@@XZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/ObjectGetCreateAHeroSpecialPower.cpp,owned,,1,2
 0x009FED48,4,.data,global,?$S1@?8??rva002911B7@Object@@QAEPAVThingTemplate@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/ObjectGetCreateAHeroSpecialPower.cpp,owned,,1,2
 0x009FED4C,4,.data,global,?didWarn@?DB@??setTriggerAreaFlagsForChangeInPosition@Object@@QAEXXZ@4_NA,Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp,owned,,1,2
-0x009FED50,4,.data,global,?TheObjectSMCHelperPoolKey@?1??getModuleNameKey@ObjectSMCHelper@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/AI/ObjectSMCHelperPoolKey.cpp,owned,,1,2
-0x009FED54,4,.data,global,?$S1@?1??getModuleNameKey@ObjectSMCHelper@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/AI/ObjectSMCHelperPoolKey.cpp,owned,,1,2
+0x009FED50,4,.data,global,?TheObjectSMCHelperPoolKey@?1??getModuleNameKey@ObjectSMCHelper@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Object.cpp,owned,,1,2
+0x009FED54,4,.data,global,?$S1@?1??getModuleNameKey@ObjectSMCHelper@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Object.cpp,owned,,1,2
 0x009FED58,4,.data,global,?key_TemporarilyDefectUpdate@?4??bfmeTransferReplacementState@Object@@QAEXPAV2@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/ObjectTransferReplacementState.cpp,owned,,1,3
 0x009FED5C,4,.data,global,?$S1@?4??bfmeTransferReplacementState@Object@@QAEXPAV2@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/ObjectTransferReplacementState.cpp,owned,,1,2
 0x009FED60,4,.data,global,?BfmeMeleeVictimScanDepth@@3HA,Code/GameEngine/Source/GameLogic/Object/ObjectRva00295CA6.cpp,owned,,1,3
