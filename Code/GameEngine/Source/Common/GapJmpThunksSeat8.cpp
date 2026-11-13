@@ -810,7 +810,7 @@ void Rva0033D005::rva0033D005()
 // ---- thunks over typed callees ----------------------------------------
 
 #include "../../Include/GameLogic/Module/Rva001E6516.h"
-class Rva00077710Value { public: bool operator!=(const Rva00077710Value &) const; };
+#include "../../Include/Common/Rva00077710Value.h"
 struct Rva0039B24FInput;
 #include "../../Include/Common/Rva0039B24F.h"
 #include "../../Include/GameLogic/Module/Rva003BD306Target.h"

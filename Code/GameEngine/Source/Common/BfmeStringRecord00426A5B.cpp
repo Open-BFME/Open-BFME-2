@@ -187,15 +187,7 @@ public:
 // --- 0x0022D834 / 0x003F2BC2 / 0x004360F6 (41B each): one three-argument
 // shape over three classes: kind 2 stores the third argument at +0x04, kind 1
 // passes the second to the class's rowed setter; returns this.
-class Rva00077710Value
-{
-public:
-	Rva00077710Value *rva0022D834(int kind, int value, int data);
-	void rva0022D189(int value);							// 0x0022D189
-private:
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/Rva00077710Value.h"
 
 class Gen_00528EC0
 {

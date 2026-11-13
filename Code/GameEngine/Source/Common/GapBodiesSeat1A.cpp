@@ -255,15 +255,7 @@ int Rva0022CF6E::rva0022CF9F(int value)
 
 // --- 0x0022D979 (20B): sets the timing value from the pointed word through
 // the rowed 0x0022D189 setter and returns this.
-class Rva00077710Value
-{
-public:
-	void rva0022D189(int value);
-	Rva00077710Value &rva0022D979(const int &value);
-	int rva0022D98D();
-	int m_a;
-	int m_b;
-};
+#include "../../Include/Common/Rva00077710Value.h"
 
 Rva00077710Value &Rva00077710Value::rva0022D979(const int &value)
 {
