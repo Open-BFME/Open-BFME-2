@@ -170,15 +170,7 @@ class BackAwayAndCowerStateMachine : public StateMachine
 public:
 	BackAwayAndCowerStateMachine(Object *owner, Object *arg, unsigned int nameKey);
 };
-class AIBackAwayAndCowerState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-private:
-	StateMachine *m_backAwayMachine; // +0x20
-};
+#include "../../../Include/Common/AIBackAwayAndCowerState.h"
 class AIAttackPursueTargetState : public AIInternalMoveToState
 {
 public:
@@ -291,30 +283,30 @@ StateReturnType AIAttackMoveToState::onEnter()
 // and starts it in its default state.
 StateReturnType AIBackAwayAndCowerState::onEnter()
 {
-	if (m_backAwayMachine)
+	if (m_20)
 		return STATE_FAILURE;
-	m_backAwayMachine = new BackAwayAndCowerStateMachine(getMachineOwner(), getMachine()->getGoalObject(), 0xD944B508);
-	if (m_backAwayMachine == NULL)
+	m_20 = new BackAwayAndCowerStateMachine(getMachineOwner(), getMachine()->getGoalObject(), 0xD944B508);
+	if (m_20 == NULL)
 		return STATE_FAILURE;
-	return m_backAwayMachine->initDefaultState();
+	return m_20->initDefaultState();
 }
 
 void AIBackAwayAndCowerState::onExit( StateExitType status )
 {
-	if (m_backAwayMachine)
+	if (m_20)
 	{
-		::delete m_backAwayMachine;
-		m_backAwayMachine = NULL;
+		::delete m_20;
+		m_20 = NULL;
 	}
 }
 
 StateReturnType AIBackAwayAndCowerState::update()
 {
-	if (m_backAwayMachine == NULL)
+	if (m_20 == NULL)
 		return STATE_FAILURE;
-	if (m_backAwayMachine->getCurrentStateID() == EXIT_MACHINE_WITH_SUCCESS)
+	if (m_20->getCurrentStateID() == EXIT_MACHINE_WITH_SUCCESS)
 		return STATE_SUCCESS;
-	return m_backAwayMachine->updateStateMachine();
+	return m_20->updateStateMachine();
 }
 
 StateReturnType AIMoveToPositionAndDieState::onEnter()

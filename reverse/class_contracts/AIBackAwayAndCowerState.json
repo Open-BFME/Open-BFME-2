@@ -1,0 +1,232 @@
+{
+ "bases": [
+  "State"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AIBackAwayAndCowerState",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 17,
+   "inherited_spans": [
+    [
+     0,
+     29
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x24": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x33f33d"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "State",
+       "offset": 0,
+       "own_vftable": "0x810ee0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x33f33d"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x33f33d"
+     ],
+     "value": {
+      "0x0": "0x810ee0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x810ee0"
+     ],
+     "value": {
+      "count": 17,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAIBackAwayAndCowerState@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3428f1"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@AIBackAwayAndCowerState@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x33f35e"
+       },
+       {
+        "name": "?xfer@AIBackAwayAndCowerState@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x34027d"
+       },
+       {
+        "name": "?onEnter@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ",
+        "slot": 4,
+        "target": "0x347c38"
+       },
+       {
+        "name": "?onExit@AIBackAwayAndCowerState@@UAEXW4StateExitType@@@Z",
+        "slot": 5,
+        "target": "0x34025e"
+       },
+       {
+        "name": "?update@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ",
+        "slot": 6,
+        "target": "0x34022f"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 14,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 16,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x810ee0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x810ee0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAIBackAwayAndCowerState@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@AIBackAwayAndCowerState@@MBEPBDXZ",
+     "3": "?xfer@AIBackAwayAndCowerState@@MAEXPAVXfer@@@Z",
+     "4": "?onEnter@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ",
+     "5": "?onExit@AIBackAwayAndCowerState@@UAEXW4StateExitType@@@Z",
+     "6": "?update@AIBackAwayAndCowerState@@UAE?AW4StateReturnType@@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "?IsCRC@Xfer@@UBE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?IsCRC@Xfer@@UBE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?IsCRC@Xfer@@UBE_NXZ",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "36": 5
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "StateMachine*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

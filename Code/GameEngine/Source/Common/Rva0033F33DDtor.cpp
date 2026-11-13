@@ -8,18 +8,7 @@
 class StateMachine;
 #include "../../Include/Common/StateMachineClass.h"
 
-class AIBackAwayAndCowerState : public State {
-public:
-	virtual ~AIBackAwayAndCowerState();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-private:
-	StateMachine *m_20;
-};
+#include "../../Include/Common/AIBackAwayAndCowerState.h"
 #include <new>
 AIBackAwayAndCowerState::~AIBackAwayAndCowerState()
 {

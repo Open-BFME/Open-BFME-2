@@ -278,13 +278,7 @@ public:
 private:
 	unsigned char m_pad00[0x54];
 };
-class AIBackAwayAndCowerState
-{
-public:
-	AIBackAwayAndCowerState(StateMachine *machine);
-private:
-	unsigned char m_pad00[0x24];
-};
+#include "../../../Include/Common/AIBackAwayAndCowerState.h"
 class Rva0033F51D
 {
 public:
