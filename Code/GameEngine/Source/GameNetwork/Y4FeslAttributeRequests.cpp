@@ -33,11 +33,7 @@ public:
 	int m_depth;
 };
 
-struct Rva007FC810Attribute
-{
-	const char *m_key;
-	const char *m_value;
-};
+#include "../../Include/GameNetwork/Rva007FC810Attribute.h"
 
 // Rva007FC810: defined in Y4FeslAttributeRequest.cpp (its row's unit).
 void __stdcall Rva007FC810( Rva007E8810Message *msg, const char *name,

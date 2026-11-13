@@ -27,11 +27,7 @@ public:
 	int m_depth;
 };
 
-struct Rva007FC810Attribute
-{
-	const char *m_key;
-	const char *m_value;
-};
+#include "../../Include/GameNetwork/Rva007FC810Attribute.h"
 
 void __stdcall Rva007FC990( Rva007E8810Message *msg, int pid,
 	const Rva007FC810Attribute *attributes, int numAttributes )
