@@ -18,11 +18,7 @@ inline Rva00330757Member::~Rva00330757Member()
 		free(field00);
 }
 
-class Rva005393F3Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../Include/Common/Rva005393F3Listener.h"
 
 class Rva005393F3List
 {

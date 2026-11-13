@@ -38,11 +38,7 @@ public:
 };
 
 // ---- forEach 0x005393F3, walk 0x00539386
-class Rva005393F3Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../Include/Common/Rva005393F3Listener.h"
 
 struct Rva00539386Call
 {
