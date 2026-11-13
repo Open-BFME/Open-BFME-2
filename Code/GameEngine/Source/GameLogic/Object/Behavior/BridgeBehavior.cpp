@@ -318,11 +318,7 @@ struct CreateMask
 // rowed under address-derived owners (0x002D9BC1 / 0x0056394A).
 #include "../../../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 
-class Rva0056394A
-{
-public:
-	AsciiString rva0056394A();
-};
+#include "../../../../Include/GameClient/Rva0056394A.h"
 
 #include "../../../../Include/Common/TerrainType.h"
 

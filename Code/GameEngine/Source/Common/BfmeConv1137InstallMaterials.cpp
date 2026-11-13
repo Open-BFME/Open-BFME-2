@@ -354,7 +354,7 @@ struct CloudFields
 };
 class Rva00564E0D { public: AsciiString rva00564E0D(); };
 #include "../../Include/Common/VersionClass.h"
-class Rva0056394A { public: AsciiString rva0056394A(); };
+#include "../../Include/GameClient/Rva0056394A.h"
 namespace FXParticleSystem {
 class ParticleSystemTemplate { public: AsciiString getTextureFilename() const; };
 }
