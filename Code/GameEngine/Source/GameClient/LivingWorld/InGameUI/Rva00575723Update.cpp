@@ -47,11 +47,7 @@ __forceinline Rva000AD6F4Action *heldAction(const Rva000AD6F4 &holder) { return 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva005CD010
-{
-public:
-	void rva005CD010();
-};
+#include "../../../../Include/GameClient/Rva005CD010.h"
 #include "../../../../Include/GameClient/Rva005CCEB6.h"
 #include "../../../../Include/Common/Rva005CB84A.h"
 
