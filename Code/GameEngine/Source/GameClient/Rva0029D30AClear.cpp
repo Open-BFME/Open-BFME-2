@@ -26,13 +26,7 @@ public:
 	virtual void *slot00(int flag);
 };
 
-class Rva0029D30A
-{
-public:
-	void rva0029D30A();
-	char m_pad00[0x8A0];
-	_STL::list<int> m_8A0; // +0x8A0
-};
+#include "../../Include/GameClient/Rva0029D30A.h"
 
 #include <new>
 

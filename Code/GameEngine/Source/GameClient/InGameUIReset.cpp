@@ -120,13 +120,7 @@ public:
 // The InGameUI members reset calls by address (each rowed under its address).
 class Rva0029C138 { public: void rva0029C138(); };
 #include "../../Include/Common/Rva0029B380.h"
-class Rva0029D30A
-{
-public:
-	void rva0029D30A();
-	char m_pad00[0x8A0];
-	_STL::list<int> m_8A0; // +0x8A0
-};
+#include "../../Include/GameClient/Rva0029D30A.h"
 class Rva0029D3FB
 {
 public:
