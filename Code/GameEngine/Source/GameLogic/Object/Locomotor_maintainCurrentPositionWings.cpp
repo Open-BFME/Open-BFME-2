@@ -11,15 +11,7 @@ int __cdecl Rva001E3896Check(float);
 float Cos(float); float Sin(float);
 struct Rva001E3F08Arg;
 struct Rva001E3F08MidA;
-class Rva001E3F08
-{
-public:
-	float rva001E3F2E(Rva001E3F08Arg *p);
-	float rva001E3F08(Rva001E3F08Arg *p);
-	char m_pad00[0x4];
-private:
-	Rva001E3F08MidA *m_p04; // +0x04
-};
+#include "../../../Include/GameLogic/Rva001E3F08.h"
 #include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 class Rva001E4073
 {
