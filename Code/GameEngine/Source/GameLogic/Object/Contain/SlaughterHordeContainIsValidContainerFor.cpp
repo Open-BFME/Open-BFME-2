@@ -116,12 +116,7 @@ public:
 };
 
 class Rva00588E44Contain;
-class Rva0047A040Base9E0
-{
-public:
-	void *rva00588B8A(void *obj);
-	Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);
-};
+#include "../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 
 class HordeGarrisonContain : public GarrisonContain, public Rva0047A040Base9E0
 {
