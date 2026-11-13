@@ -4,7 +4,7 @@
 // proves a cdecl two-pointer helper with x87 float return. The target clamps
 // before its 0.99 comparison; all four constants are independently PE-read.
 // Original names/input types are unknown; only the three-float prefix is used.
-struct Rva00363B4BVector { float x, y, z; };
+#include "../../../../GameEngine/Include/Common/Rva00363B4BVector.h"
 float ACos(float);
 
 __declspec(noinline) inline float rva00363B4BAngle(const Rva00363B4BVector *a, const Rva00363B4BVector *b)

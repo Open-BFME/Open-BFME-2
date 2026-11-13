@@ -33,7 +33,7 @@ static __forceinline void bfmeScaleV3(Vector3 &v,float s){v.X*=s;v.Y*=s;v.Z*=s;}
 static __forceinline void bfmeRotateZV3(Vector3 &v,float s_angle,float c_angle){float tmp_x=v.X;float tmp_y=v.Y;v.X=c_angle*tmp_x-s_angle*tmp_y;v.Y=s_angle*tmp_x+c_angle*tmp_y;}
 static __forceinline void bfmeRotateZV3(Vector3 &v,float angle){bfmeRotateZV3(v,sinf(angle),cosf(angle));}
 static __forceinline float bfmeCrossZV3(const Vector3 &lhs,const Vector3 &rhs){return lhs.X*rhs.Y-lhs.Y*rhs.X;}
-struct Rva00363B4BVector {float x,y,z;};
+#include "../../../Include/Common/Rva00363B4BVector.h"
 float ACos(float);
 inline __declspec(noinline) float rva00363B4BAngle(const Rva00363B4BVector *lhs, const Rva00363B4BVector *rhs)
 {

@@ -23,7 +23,7 @@ extern Rva00065964ObjectPool g_pathNodePool;
 
 #include "lineseg.h"
 
-struct Rva00363B4BVector { float x, y, z; };
+#include "../../../Include/Common/Rva00363B4BVector.h"
 float ACos(float);
 inline __declspec(noinline) float rva00363B4BAngle(const Rva00363B4BVector *a, const Rva00363B4BVector *b)
 {
