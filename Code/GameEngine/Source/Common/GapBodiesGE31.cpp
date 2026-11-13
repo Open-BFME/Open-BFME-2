@@ -300,12 +300,7 @@ void rva00085276(int value)
 }
 
 // --- 0x0008552B (16B): copy three words in.
-struct GapWords3
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../Include/Common/GapWords3.h"
 
 class Rva0008552B
 {

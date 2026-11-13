@@ -97,12 +97,7 @@ Rva0015F920::Rva0015F920(const GapQuat &rotation, const GapVec3 &translation)
 }
 
 // --- 0x00167E04 (24B): copy a three-word value into +0x0C.
-struct GapWords3
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../Include/Common/GapWords3.h"
 
 class Rva00167E04
 {

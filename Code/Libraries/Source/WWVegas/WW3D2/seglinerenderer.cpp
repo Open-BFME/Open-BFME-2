@@ -201,12 +201,7 @@ public:
 };
 
 // --- 0x0015DFB0 (24B): copy a three-word value into +0x0C.
-struct GapWords3
-{
-	int a;
-	int b;
-	int c;
-};
+#include "../../../../GameEngine/Include/Common/GapWords3.h"
 
 class Rva0015DFB0
 {
