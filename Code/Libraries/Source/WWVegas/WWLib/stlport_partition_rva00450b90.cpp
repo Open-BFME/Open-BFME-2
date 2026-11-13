@@ -15,12 +15,6 @@ struct Rva00450B90Item
 	bool m_flag26;
 };
 
-class Rva00450B90Predicate
-{
-public:
-	bool operator()(const Rva00450B90Item *item) const;
-
-	unsigned int m_mask;
-};
+#include "../../../../GameEngine/Include/Common/Rva00450B90Predicate.h"
 
 template Rva00450B90Item **_STL::partition<Rva00450B90Item **, Rva00450B90Predicate>(Rva00450B90Item **, Rva00450B90Item **, Rva00450B90Predicate);
