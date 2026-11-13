@@ -5,13 +5,7 @@
 // the local aliases in/out are what make MSVC 7.1 allocate that pair instead
 // of spilling dst to an ebp frame. Callers at 0x002828AE/0x002828F9.
 #include "../../Include/Common/Rva004733E0Obj.h"
-class Rva004733E0
-{
-	int m_00;
-	Rva004733E0Obj *m_04;
-public:
-	Rva004733E0 *set(const Rva004733E0 *src);
-};
+#include "../../Include/Common/Rva004733E0.h"
 void Rva0030CA53Set(Rva004733E0 *dst, const Rva004733E0 *src);
 Rva004733E0 *Rva0030CA65Copy(const Rva004733E0 *src, const Rva004733E0 *end, Rva004733E0 *dst)
 {

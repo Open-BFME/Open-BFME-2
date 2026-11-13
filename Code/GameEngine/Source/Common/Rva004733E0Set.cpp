@@ -2,14 +2,7 @@
 
 #include "../../Include/Common/Rva004733E0Obj.h"
 
-class Rva004733E0
-{
-	int m_00;
-	Rva004733E0Obj *m_04;
-
-public:
-	Rva004733E0 *set(const Rva004733E0 *src);
-};
+#include "../../Include/Common/Rva004733E0.h"
 
 Rva004733E0 *Rva004733E0::set(const Rva004733E0 *src)
 {

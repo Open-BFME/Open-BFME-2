@@ -234,11 +234,7 @@ struct Rva004733E0Obj
 	int m_04;
 };
 
-class Rva004733E0
-{
-	int m_00;
-	Rva004733E0Obj *m_04;
-};
+#include "../../../Include/Common/Rva004733E0.h"
 
 void Rva0030CA53Set(Rva004733E0 *dst, const Rva004733E0 *src);
 

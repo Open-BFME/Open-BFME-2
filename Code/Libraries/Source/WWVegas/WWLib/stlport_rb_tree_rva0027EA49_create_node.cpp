@@ -22,13 +22,7 @@ public:
 };
 }
 #include "../../../../GameEngine/Include/Common/Rva004733E0Obj.h"
-class Rva004733E0
-{
-	int m_00;
-	Rva004733E0Obj *m_04;
-public:
-	Rva004733E0 *set(const Rva004733E0 *src);
-};
+#include "../../../../GameEngine/Include/Common/Rva004733E0.h"
 void Rva0030CA53Set(Rva004733E0 *dst, const Rva004733E0 *src);
 // ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@@2@ABU?$pair@$$CBHUTreeHintRef00217D4C@@@2@@Z
 template <>
