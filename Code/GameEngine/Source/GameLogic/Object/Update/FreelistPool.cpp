@@ -103,20 +103,7 @@ private:
 	Rva001EB0B9Inner *m_ptr10;
 };
 
-class Rva00376A62 {
-private:
-	unsigned char m_pad[8];
-private:
-	StringBase<char> *m_begin;
-private:
-	StringBase<char> *m_end;
-private:
-	void *m_end_of_storage;
-private:
-	StringBase<char> m_14;
-public:
-	bool rva00376A62(const StringBase<char> &val);
-};
+#include "../../../../Include/GameLogic/Rva00376A62.h"
 
 class Rva001EB023 {
 	unsigned char m_pad[0xA4];
