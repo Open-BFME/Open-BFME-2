@@ -160,7 +160,7 @@ class AITactic;
 
 extern AI *TheAI;
 
-class Rva0025BFF8 { public: Object *rva0025BFF8(int); };
+#include "../../../../../Include/Common/Rva0025BFF8.h"
 
 namespace _STL {
 template<class T> struct hash;

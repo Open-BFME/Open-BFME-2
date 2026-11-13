@@ -64,11 +64,7 @@ struct Rva005A9CB3Record
 
 #include "../../Include/Common/Rva002A8AB1Record.h"
 
-class Rva0025BFF8
-{
-public:
-	Object *rva0025BFF8(int index);
-};
+#include "../../Include/Common/Rva0025BFF8.h"
 
 namespace _STL
 {

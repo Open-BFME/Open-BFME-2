@@ -480,7 +480,7 @@ struct IdleTargetList { char prefix[0x20]; _STL::vector<IdleTargetPoint*> points
 
 struct Rva002A8AB1Record { char prefix[0x164]; IdleTargetList* targetList; };
 
-class Rva0025BFF8 { public: Object* rva0025BFF8(int); };
+#include "../../../../Include/Common/Rva0025BFF8.h"
 
 #include "../../../../Include/Common/Rva00295A0FCommands.h"
 
