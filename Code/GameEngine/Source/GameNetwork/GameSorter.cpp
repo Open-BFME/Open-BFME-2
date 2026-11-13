@@ -142,24 +142,7 @@ static __forceinline void AddCommandMapDelegate(Rva005248D0 &registry, const Asc
 
 class GameInfo;
 
-class GameSorter {
-public:
- GameSorter(Rva005248D0 *registry);
- ~GameSorter();
- void OnSortStatus(const char*);
- void OnSortName(const char*);
- void OnSortMap(const char*);
- void OnSortPlayers(const char*);
- void OnSortPing(const char*);
-
-private:
- _STL::vector<GameInfo*> m_games;
- int m_primarySort;
- int m_previousSort;
- bool m_changed;
- bool m_sorted;
- int m_cycle;
-};
+#include "../../Include/GameClient/GameSorter.h"
 
 // The existing state-change provider has the same receiver and field layout.
 #include "../../Include/GameNetwork/Rva00580172.h"

@@ -85,18 +85,7 @@ public: AptLanLobbyNameEntry() {}
 // indexed result 58113D; shared sorter is used by the online screen too.
 class GameInfo;
 class Rva005248D0;
-class GameSorter {
-public:
- GameSorter(Rva005248D0 *registry);
- ~GameSorter();
-private:
- _STL::vector<GameInfo*> m_games;
- int m_primarySort;
- int m_previousSort;
- bool m_changed;
- bool m_sorted;
- int m_cycle;
-};
+#include "../../../../../Include/GameClient/GameSorter.h"
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "../../../../../Include/GameNetwork/LANAPI.h"
 extern LANAPI *TheLAN;
