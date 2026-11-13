@@ -157,7 +157,7 @@ class SpawnArmy:public Snapshot { public:
  float m_callActSubroutine; int m_48,m_4c; AsciiString m_jumpToAct; bool m_54,m_55;
 };
 struct Rva004FAFF2 { Rva004FAFF2 &rva004FAFF2(const Rva004FAFF2&); };
-struct Rva00318E8COut {float f;int i;};
+#include "../../../../Include/Common/Rva00318E8COut.h"
 class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
 #include "../../../../Include/Common/Rva002E18C3Lookup.h"
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;

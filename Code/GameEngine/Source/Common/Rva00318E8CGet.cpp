@@ -4,11 +4,7 @@
 // The second word is copied as raw bits. Neither its original source type
 // nor explicit-output versus hidden aggregate-return spelling is established.
 // Keep address-owned receiver/result names and expose only observed behavior.
-struct Rva00318E8COut
-{
-    float f;
-    int i;
-};
+#include "../../Include/Common/Rva00318E8COut.h"
 class Rva00318E8C
 {
 public:
