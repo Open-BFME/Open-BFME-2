@@ -24,12 +24,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-};
+#include "../../../../Include/Common/FontDesc.h"
 
 class Image;
 class GameFont;

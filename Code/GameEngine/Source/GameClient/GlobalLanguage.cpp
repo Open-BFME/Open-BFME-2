@@ -35,15 +35,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 
-struct FontDesc
-{
-public:
-	FontDesc();
-	AsciiString name; // +0x00
-	int size; // +0x04
-	bool bold; // +0x08
-	char m_pad09[0x3];
-};
+#include "../../Include/Common/FontDesc.h"
 
 struct Rva001EA443
 {

@@ -6,13 +6,7 @@
 // Evidence: retail bytes and caller 0x00222061 plus rowed FontDesc ctor.
 #include "ascii_string.h"
 
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-	FontDesc();
-};
+#include "../../Include/Common/FontDesc.h"
 
 class Rva0022181D
 {

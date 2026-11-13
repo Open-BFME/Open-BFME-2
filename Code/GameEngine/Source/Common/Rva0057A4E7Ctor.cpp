@@ -30,14 +30,7 @@ private:
 
 // The rowed FontDesc default ctor 0x00376900: AsciiString name at +0, int size
 // at +4, bool bold at +8.
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-
-	FontDesc();
-};
+#include "../../Include/Common/FontDesc.h"
 
 class Rva0057A4E7 : public Rva0022167C
 {

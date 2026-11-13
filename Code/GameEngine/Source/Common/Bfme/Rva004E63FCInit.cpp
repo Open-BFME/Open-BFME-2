@@ -9,13 +9,7 @@
 // 1 caller, honest rva name.
 #include "ascii_string.h"
 
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-	FontDesc();
-};
+#include "../../../Include/Common/FontDesc.h"
 
 class Rva004E63FC
 {
