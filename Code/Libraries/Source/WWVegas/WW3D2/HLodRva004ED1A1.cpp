@@ -18,13 +18,7 @@ struct Rva003A2FD4Proto;
 class AsciiString;
 class TeamPrototype;
 #include "../../../../GameEngine/Include/Common/TeamFactory.h"
-struct Rva004ECECDNode
-{
-public:
-	void *m_model; // +0x00
-	char m_pad04[0xC];
-	int m_10; // +0x10
-};
+#include "../../../../GameEngine/Include/Common/Rva004ECECDNode.h"
 struct Coord3D;
 #include "../../../../GameEngine/Include/Common/Rva00372571Params.h"
 #include "../../../../GameEngine/Include/Common/Rva002A9BF2.h"

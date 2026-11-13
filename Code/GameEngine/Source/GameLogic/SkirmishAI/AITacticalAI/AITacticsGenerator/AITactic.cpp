@@ -258,13 +258,7 @@ extern int BfmeLogicFramesPerSecond;
 
 class Rva002A8F24;
 
-struct Rva004ECECDNode
-{
-public:
-	void *m_model; // +0x00
-	char m_pad04[0xC];
-	int m_10; // +0x10
-};
+#include "../../../../../Include/Common/Rva004ECECDNode.h"
 
 // ?rva004ED69B@Rva004ED471@@QAEXPBVModelNodeClass@HLodClass@@@Z
 // ?rva004ED69B@Rva004ED471@@QAEXPBVModelNodeClass@HLodClass@@@Z at 0x004ED69B (55B).
