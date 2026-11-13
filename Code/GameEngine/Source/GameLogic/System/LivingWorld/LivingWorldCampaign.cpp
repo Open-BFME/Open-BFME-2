@@ -178,11 +178,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 #include "../../../../Include/Common/INI/FieldParse.h"
 #include "../../../../Include/Common/INI/INI.h"
 class ModuleData;
-class Rva00289218
-{
-public:
-	void rva00289218(const ModuleData *data);
-};
+#include "../../../../Include/Common/Rva00289218.h"
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
 // Retail's campaign block field table at RVA 0x008688A8 (.rdata, 240 bytes = fourteen 16-byte records and a zero

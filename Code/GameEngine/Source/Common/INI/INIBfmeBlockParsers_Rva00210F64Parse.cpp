@@ -149,11 +149,7 @@ void parseHouseColorDefinition(INI *ini)
 // forwarder LivingWorldCampaign's parser uses).
 class ModuleData;
 
-class Rva00289218
-{
-public:
-	void rva00289218(const ModuleData *data);
-};
+#include "../../../Include/Common/Rva00289218.h"
 
 class Rva00288BBA
 {
