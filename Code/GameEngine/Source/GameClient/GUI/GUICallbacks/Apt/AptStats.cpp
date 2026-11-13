@@ -213,7 +213,7 @@ void AptStats::rva005DD22B() {
 }
 
 class Rva005DE433 {public:void rva005DE433(int**);};
-struct Widths {int*begin,*end;};
+#include "../../../../../Include/GameClient/Widths.h"
 class GameWindow;
 class Rva005DD7C3 {public:void rva005DD7C3(GameWindow*,const Widths*);};
 // Native [5DD0EB,5DD14D), complete EH entry and RET4, proves a two-int

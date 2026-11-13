@@ -12,11 +12,7 @@ class GameWindow;
 void GadgetListBoxSetColumnWidths(GameWindow *window, int count, int *widths);
 void GadgetListBoxAddMultiSelect(GameWindow *window);
 
-struct Widths
-{
-	int *begin;
-	int *end;
-};
+#include "../../../../Include/GameClient/Widths.h"
 
 // Retail walks 24-byte entries and calls the two-argument member at 0x005DDBAB.
 class Rva005DDBAB

@@ -75,7 +75,7 @@ void Rva005DE433::rva005DE433(int **focus) {
   GadgetListBoxSetTopVisibleEntry(window,top);
  }
 }
-struct Widths {int *begin,*end;};
+#include "../../../../../Include/GameClient/Widths.h"
 class Rva005DD7C3 {public:void rva005DD7C3(GameWindow*,const Widths*);};
 class LivingWorldPlayer;
 class Player;
