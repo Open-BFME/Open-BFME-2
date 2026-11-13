@@ -164,11 +164,7 @@ public:
 	void rva003EE89E(int region, int list);
 };
 class Rva0059E2FD;
-class Rva004FC9CE
-{
-public:
-	void *rva004FC9CE(const Rva0059E2FD &start);
-};
+#include "../../../../../Include/Common/Rva004FC9CE.h"
 // The living-world region manager (TheLivingWorldLogic +0xB0): regions by
 // id (0x0020EAF6) and, at +0x08, the group holding every region.
 class Rva0057DB97Group

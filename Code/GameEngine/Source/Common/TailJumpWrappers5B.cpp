@@ -836,11 +836,7 @@ void Rva003FAC83::rva003FACE4()
 
 class Rva0059E2FD;
 
-class Rva004FC9CE
-{
-public:
-	void *rva004FC9CE(const Rva0059E2FD &key);
-};
+#include "../../Include/Common/Rva004FC9CE.h"
 
 class Rva0020E89C;
 struct Res004FCA0C;
