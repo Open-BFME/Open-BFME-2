@@ -1,0 +1,99 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005170CD",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x298": {
+    "4": 1
+   },
+   "0x2b0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "700": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 696,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

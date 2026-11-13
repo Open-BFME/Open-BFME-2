@@ -502,11 +502,7 @@ public:
 	UnsignedByte m_data[0x60];
 };
 
-class Rva005170CD
-{
-public:
-	void rva005170CD();
-};
+#include "../../../../../Include/GameClient/Rva005170CD.h"
 
 struct AptOnlineCustomMatchOwner
 {

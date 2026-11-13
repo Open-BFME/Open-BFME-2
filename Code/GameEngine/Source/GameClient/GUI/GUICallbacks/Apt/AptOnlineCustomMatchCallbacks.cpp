@@ -1350,7 +1350,7 @@ int g_Va00E063F0;	// retail RVA 0x00A063F0 (.bss), defined here
 #include <windows.h>
 void __cdecl Rva00381C2DClear(unsigned int value);
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)());
-class Rva005170CD { public: void rva005170CD(); };
+#include "../../../../../Include/GameClient/Rva005170CD.h"
 class Rva0059FC9F { public: int rva0059FC9F(); };
 
 // Retail 0x005A61C6, 956 bytes: slot 3 of vftable 0x00871414, the screen's
