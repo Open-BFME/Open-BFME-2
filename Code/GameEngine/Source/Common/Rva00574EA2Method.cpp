@@ -3,11 +3,7 @@
 // Evidence: lazy caches +0x6C +0x74 via rowed getters 0x0042D6D6
 // 0x0042D6C6; listeners +8 +0xC via rowed append 0x005A0B4C;
 // chain unblocks 0x00575038; caller 0x0057503C.
-class Rva0042D6D6PtrChaseField
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva0042D6D6PtrChaseField.h"
 class Rva0042D6C6PtrChaseField
 {
 public:

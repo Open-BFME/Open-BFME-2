@@ -10,7 +10,7 @@ struct Holder002B7250
     virtual void slot08(unsigned char flag);
 	Rva002B7250 m_list04;
 };
-struct Rva0042D6D6PtrChaseField { int get() const; };
+#include "../../Include/Common/Rva0042D6D6PtrChaseField.h"
 struct Rva002BA8F1Listener { char opaque[4]; };
 #include "../../Include/Common/Rva005A0B4CList.h"
 
