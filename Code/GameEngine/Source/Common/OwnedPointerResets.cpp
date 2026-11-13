@@ -378,11 +378,7 @@ void Rva004E6A1D::clear()
 	}
 }
 
-class Rva004E7DC8
-{
-public:
-	~Rva004E7DC8();
-};
+#include "../../Include/Common/Rva004E7DC8.h"
 
 class Rva004E7F29
 {
