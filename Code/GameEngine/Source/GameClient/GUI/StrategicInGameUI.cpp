@@ -333,7 +333,7 @@ private:
 };
 union GameMessageArgumentType { int integer;ICoord2D point;IRegion2D region; };
 class GameMessage { public: const GameMessageArgumentType*getArgument(int)const;char prefix[0x10];int type; };
-class Rva0005CB9F3DwordImmSetter { public:void apply(); };
+#include "../../../Include/Common/Rva0005CB9F3DwordImmSetter.h"
 class Rva005E5A38 { public:Rva005E5A38(int);__forceinline ~Rva005E5A38(){((Rva0005CB9F3DwordImmSetter*)this)->apply();} private:unsigned storage[3]; };
 #include "../../../Include/Common/Rva005CBB4A.h"
  // rowed 0x005CBB4A

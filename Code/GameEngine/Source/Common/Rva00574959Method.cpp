@@ -5,11 +5,7 @@
 // receives raw fields at outer offsets +0x1C and +0x44 plus this method's
 // 32-bit argument; their meanings are unresolved. Cleanup uses the matched
 // 0x005CB9F3 vtable-reset body through its existing address-derived owner.
-class Rva0005CB9F3DwordImmSetter
-{
-public:
-	void apply();
-};
+#include "../../Include/Common/Rva0005CB9F3DwordImmSetter.h"
 
 class Rva00574815
 {

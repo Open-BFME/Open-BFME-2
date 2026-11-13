@@ -7,11 +7,7 @@
 // argument in the existing 0x005CBB4A helper. These field meanings are not
 // established. The helper's address-derived C++ owner name is reused only to
 // emit the existing symbol; this call supplies the Rva005756B6 local.
-class Rva0005CB9F3DwordImmSetter
-{
-public:
-	void apply();
-};
+#include "../../Include/Common/Rva0005CB9F3DwordImmSetter.h"
 class Rva005756B6
 {
 public:

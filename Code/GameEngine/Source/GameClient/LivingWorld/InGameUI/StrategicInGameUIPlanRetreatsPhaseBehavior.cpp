@@ -61,11 +61,7 @@ public:
 // address-derived spelling, and the destructor is the rowed vptr reset
 // 0x005CB9F3, inline here as in the picker's other callers 0x00574959 and
 // 0x005757A5.
-class Rva0005CB9F3DwordImmSetter
-{
-public:
-	void apply();
-};
+#include "../../../../Include/Common/Rva0005CB9F3DwordImmSetter.h"
 #include "../../../../Include/Common/Rva005CBB4A.h"
 class Rva0057709A
 {
