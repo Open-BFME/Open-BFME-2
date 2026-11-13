@@ -3305,7 +3305,7 @@ struct Rva002B2BECArg;
 class Rva002B2BEC {public:void rva002B2BEC(Rva002B2BECArg*);};
 class Rva002B3B66 {public:void rva002B3B66();};
 class Rva002B3D0E {public:void rva002B3D0E();};
-class Rva002B6900 {public:void rva002B6900();};
+#include "../../../../Include/Common/Rva002B6900.h"
 
 void LivingWorldLogic::CheckTurnPhaseTransitions(){
  if(m_fieldF8!=m_turnPhase){
