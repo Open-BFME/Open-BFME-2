@@ -126,13 +126,7 @@ Rva00691110Handle::Rva00691110Handle(const Rva00691110Handle &other)
 		target->handle();
 }
 
-class Rva00691040Handle
-{
-public:
-	Rva00691040Handle &operator=(const Rva00691040Handle &other);
-
-	Gen0002857E *m_target;
-};
+#include "../../Include/Common/Rva00691040Handle.h"
 
 Rva00691040Handle &Rva00691040Handle::operator=(const Rva00691040Handle &other)
 {

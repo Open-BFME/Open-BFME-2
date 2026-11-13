@@ -79,11 +79,7 @@ public:
 };
 class Rva0010ECB5 { public: bool rva0010ECB5(); };
 #include "../../../GameEngine/Include/Common/AudioFileContainer.h"
-class Rva00691040Handle
-{
-public: Rva00691040Handle &operator=(const Rva00691040Handle &);
-private: Gen0002857E *m_target;
-};
+#include "../../../GameEngine/Include/Common/Rva00691040Handle.h"
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 class AudioFileCache : public _STL::hash_map<int, Rva000A7E7AElement>

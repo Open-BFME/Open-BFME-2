@@ -55,10 +55,7 @@ public:
 struct Rva000A7E9EInput;
 class Gen0002857E;
 #include "../../../GameEngine/Include/Common/AudioFileContainer.h"
-class Rva00691040Handle {
-public: Rva00691040Handle &operator=(const Rva00691040Handle &);
-private: Gen0002857E *m_target;
-};
+#include "../../../GameEngine/Include/Common/Rva00691040Handle.h"
 extern "C" __declspec(dllimport) int __stdcall AIL_WAV_info(const void *,int *);
 extern "C" __declspec(dllimport) int __stdcall AIL_decompress_ADPCM(const int *,void **,unsigned int *);
 class AudioFileCache {
