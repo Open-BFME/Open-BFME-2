@@ -624,19 +624,7 @@ struct Rva004E2199Record {
     char unknown14[0x0C];
 };
 
-class Rva004E2E58Value {
-public:
-    virtual ~Rva004E2E58Value();
-    void rva004E2199();
-    void rva004E20F7(bool force);
-private:
-    char unknown04[0x10];
-    Rva004E2199Record *begin14;
-    Rva004E2199Record *end18;
-    unsigned unknown1C;
-    bool flag20;
-    bool flag21;
-};
+#include "../../../../GameEngine/Include/Common/Rva004E2E58Value.h"
 
 class Rva004E366E
 {

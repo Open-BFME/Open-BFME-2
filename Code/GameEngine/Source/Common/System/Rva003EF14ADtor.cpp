@@ -119,17 +119,7 @@ struct Rva004E2199Record {
     // Retail records have a 0x20-byte stride; the tree occupies only +8..+0x13.
     char unknown14[0x0C];
 };
-class Rva004E2E58Value {
-public:
-    virtual ~Rva004E2E58Value();
-    void rva004E2199();
-private:
-    char unknown04[0x10];
-    Rva004E2199Record *begin14;
-    Rva004E2199Record *end18;
-    unsigned unknown1C;
-    bool flag20;
-};
+#include "../../../Include/Common/Rva004E2E58Value.h"
 
 class Rva003EF14A : public LivingWorldRegionObserver {
     Rva003EE9F1Ref *ref04;
