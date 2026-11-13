@@ -22,11 +22,7 @@ enum RadarEventType { RADAR_EVENT_INVALID };
 #include "../../../Include/Common/Radar.h"
 extern class Radar *TheRadar;
 
-class Rva001DDAE1
-{
-public:
-	void rva001DDAE1(Coord3D *pos);
-};
+#include "../../../Include/Common/Rva001DDAE1.h"
 extern class Eva *TheEva;
 
 void ScriptActions::doTeamRadarCreateEvent(const AsciiString *teamName, void *extra)

@@ -107,7 +107,7 @@ class Rva002D94CE { public: void rva002D94CE(int value); };
 #include "../../Include/GameLogic/Module/Rva002D9508.h"
 class Rva001DCD05 { public: void *rva001DCD05(); };
 struct Coord3D;
-class Rva001DDAE1 { public: void rva001DDAE1(Coord3D *pos); };
+#include "../../Include/Common/Rva001DDAE1.h"
 
 // One event's status record (0x34 bytes).
 class Rva001DCDAF

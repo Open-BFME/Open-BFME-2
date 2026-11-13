@@ -10,11 +10,7 @@ extern Radar *TheRadar;
 // Rowed 0x002D88A4: Radar::createEvent (Radar_createEvent.cpp).
 enum RadarEventType { RADAR_EVENT_INVALID };
 #include "../../../Include/Common/Radar.h"
-class Rva001DDAE1
-{
-public:
-	void rva001DDAE1(Coord3D *pos);
-};
+#include "../../../Include/Common/Rva001DDAE1.h"
 extern class Eva *TheEva;
 // g_00BC2918 was the retail address alias (RVA 0x007C2918) of the constant 4.0f; the literal is the source.
 void ScriptActions::Rva003BB76EDo(Coord3D *pos, void *extra)
