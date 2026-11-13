@@ -31,13 +31,7 @@ public:
 	Rva008951B0Entry *m_bfmeNode;
 };
 
-class Rva008951B0Owner
-{
-public:
-	void rva006CFF70(const Rva008951B0Handle &h);
-
-	Rva008951B0Node *m_bfmeHead;
-};
+#include "../../Include/Common/Rva008951B0Owner.h"
 
 // ?rva006CFF70@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z
 void Rva008951B0Owner::rva006CFF70(const Rva008951B0Handle &h)

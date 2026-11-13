@@ -27,13 +27,7 @@ public:
 	Rva008951B0Node *m_bfmeNode;
 };
 
-class Rva008951B0Owner
-{
-public:
-	Rva008951B0Handle find( void *key );
-
-	Rva008951B0Node *m_bfmeHead;
-};
+#include "../../Include/Common/Rva008951B0Owner.h"
 
 Rva008951B0Handle Rva008951B0Owner::find( void *key )
 {

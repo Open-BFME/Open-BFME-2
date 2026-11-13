@@ -18,7 +18,7 @@ class Rva006D07E0Key{public:Rva006D0280*m_object;
 };
 class Rva008951B0Node{public:Rva006D0280*entry;Rva008951B0Node*next;};
 class Rva008951B0Handle{public:Rva008951B0Node*node;};
-class Rva008951B0Owner{public:Rva008951B0Node*head;void eraseAfter(const Rva008951B0Handle&);void rva006CFFE0(const Rva008951B0Handle&);void rva006D25C0(Rva006D07E0Key,void*,void*,void*);};
+#include "../../../GameEngine/Include/Common/Rva008951B0Owner.h"
 class Rva006D1D10{public:void update(Rva006D07E0Key,Rva006D07E0Key);};
 class AptLinker;extern AptLinker*g_bfmeAptLinkerAtE176F8;
 class Rva006E58D0{public:void rva006E58D0Body(void*,void*,void*);};
@@ -27,13 +27,13 @@ struct ConstFile{char pad[0x14];Rva006E58D0*mainCharacter;};
 inline __declspec(noinline) void Rva008951B0Owner::rva006CFFE0(const Rva008951B0Handle &h)
 {
 	Rva008951B0Node *target = h.node;
-	Rva008951B0Node *cur = head;
+	Rva008951B0Node *cur = m_bfmeHead;
 	if (target == cur) {
 		if (!cur)
 			return;
 		Rva008951B0Node *next = cur->next;
 		g_pChainBlockAllocator->freeBlock(cur, 8);
-		head = next;
+		m_bfmeHead = next;
 		return;
 	}
 	while (cur) {
@@ -50,11 +50,11 @@ inline __declspec(noinline) void Rva008951B0Owner::rva006CFFE0(const Rva008951B0
 
 void Rva008951B0Owner::rva006D25C0(Rva006D07E0Key key,void*data,void*constant,void*buffer){
  if(!data)return;
- for(Rva008951B0Node*node=head;node;node=node->next){
+ for(Rva008951B0Node*node=m_bfmeHead;node;node=node->next){
   Rva006D07E0Key other(node->entry);
   if(other.m_object->argument10!=(void*)0xcccccccc && data==other.m_object->argument10 && other.m_object!=key.m_object){
    ((Rva006D1D10*)g_bfmeAptLinkerAtE176F8)->update(key,other);
-   Rva008951B0Handle i={head};
+   Rva008951B0Handle i={m_bfmeHead};
    for(;i.node;i.node=i.node->next){
     Rva006D07E0Key found(i.node->entry);
     if(found.m_object==key.m_object){rva006CFFE0(i);break;}
