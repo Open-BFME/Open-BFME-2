@@ -23,11 +23,7 @@ class Vector3;
 #include "../../Include/Common/Rva002BF4F3.h"
 class Rva002D3627Host;
 
-class Rva003F07CEOwner
-{
-public:
-	bool rva003F07CE();
-};
+#include "../../Include/Common/Rva003F07CEOwner.h"
 
 #include "../../Include/Common/Rva005F8427.h"
 

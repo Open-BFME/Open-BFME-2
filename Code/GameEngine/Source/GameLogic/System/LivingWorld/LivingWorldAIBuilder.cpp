@@ -303,11 +303,7 @@ public:
 	bool rva003F1BD3(NameKeyType key, int *out);
 };
 
-class Rva003F07CEOwner
-{
-public:
-	bool rva003F07CE();
-};
+#include "../../../../Include/Common/Rva003F07CEOwner.h"
 
 class Rva0020E89C;
 
