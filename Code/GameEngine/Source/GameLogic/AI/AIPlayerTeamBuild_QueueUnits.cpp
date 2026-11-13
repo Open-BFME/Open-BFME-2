@@ -586,11 +586,7 @@ extern ScriptEngine *TheScriptEngine;
 
 class BfmeRoomZC;
 #include "../../../Include/Common/Rva003573C4Owner.h"
-class Rva0020D451Engine
-{
-public:
-	void rva0020D451(const AsciiString &scope, void *action, void *script, void *scriptName, Team *team);	// rowed 0x0020D451
-};
+#include "../../../Include/Common/Rva0020D451Engine.h"
 
 enum { MAX_STRUCTURES_TO_REPAIR = 2 };
 

@@ -29,11 +29,7 @@ class Player;
 #include "../../../Include/GameLogic/ScriptClass.h"
 
 class Team;
-class Rva0020D451Engine
-{
-public:
-	void rva0020D451(const AsciiString &scope, void *action, void *script, void *scriptName, Team *team);	// rowed 0x0020D451
-};
+#include "../../../Include/Common/Rva0020D451Engine.h"
 
 class Xfer;
 class SequentialScript

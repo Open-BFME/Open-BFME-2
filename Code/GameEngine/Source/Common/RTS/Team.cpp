@@ -675,11 +675,7 @@ enum ErrorCode
 #include "../../../Include/GameLogic/ScriptClass.h"
 class BfmeRoomZC;
 #include "../../../Include/Common/Rva003573C4Owner.h"
-class Rva0020D451Engine
-{
-public:
-	void rva0020D451(const AsciiString &scope, void *action, void *script, void *scriptName, Team *team);	// rowed 0x0020D451
-};
+#include "../../../Include/Common/Rva0020D451Engine.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 // The production condition and execute-actions flag of the prototype's team
