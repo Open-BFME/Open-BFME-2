@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z
+// ?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z
 // Retail 0x005D5F86..0x005D62E8 (866 bytes) RET4, ecx unused. The chat
 // player tooltip: translates the player name, looks up its PlayerInfo
 // through TheGameSpyInfo slot 0x58, then builds the locale label
@@ -77,13 +77,55 @@ extern const char *g_rva0033A3F4Table[7];
 UnicodeString Rva00559CE5(int side, int rank);
 UnicodeString Rva005D59F0Get(int rank);
 
-class Rva005D5F86
+struct Rva005AFD89Param;
+class AsciiString;
+class UnicodeString;
+class GameWindow;
+
+// Retail table 0x00C6FFFC: two __purecall slots.
+class Rva005AFE3FBase
 {
 public:
-    void showPlayerTooltip(const AsciiString &name);
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
 };
 
-void Rva005D5F86::showPlayerTooltip(const AsciiString &name)
+// Retail table 0x00C728B8 (six slots); see Rva005AFE86Ctor.cpp.
+class Rva005AFE3F : public Rva005AFE3FBase
+{
+public:
+	Rva005AFE3F(void *p);
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
+	virtual ~Rva005AFE3F();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
+	void *m_04;
+	int m_08;
+	GameWindow *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
+};
+
+// Retail table 0x00C75B2C (six slots): slot 5 is the tooltip below.
+class Rva005D583C : public Rva005AFE3F
+{
+public:
+	virtual ~Rva005D583C();
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
+	virtual void vslot05(const AsciiString &name);
+};
+
+// The agreed name of this body is showPlayerTooltip (name_basis.csv,
+// agree:nl-293eeb80802e). It overrides the base's empty slot 5, which is still
+// declared vslot05, and an override takes the base's spelling.
+void Rva005D583C::vslot05(const AsciiString &name)
 {
     if (!TheGameSpyInfo)
         return;

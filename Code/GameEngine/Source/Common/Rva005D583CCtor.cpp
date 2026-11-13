@@ -12,16 +12,16 @@ void __identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z")();
 void __identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z")();
 void __identifier("??_GRva005D583C@@UAEPAXI@Z")();
 void __identifier("?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ")();
-void __identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z")();
-void __identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z")();
+void __identifier("?vslot04@Rva005D583C@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z")();
+void __identifier("?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z")();
 }
 extern "C" const void *const vtbl_00C75B44[6] = {
 	(const void *)&__identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
 	(const void *)&__identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z"), // slot 1 0x005AFCEC
 	(const void *)&__identifier("??_GRva005D583C@@UAEPAXI@Z"), // slot 2 0x005D58A8
 	(const void *)&__identifier("?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ"), // slot 3 0x005D6AA4
-	(const void *)&__identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z"), // slot 4 0x005D57EB
-	(const void *)&__identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z"), // slot 5 0x005D5F86
+	(const void *)&__identifier("?vslot04@Rva005D583C@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z"), // slot 4 0x005D57EB
+	(const void *)&__identifier("?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z"), // slot 5 0x005D5F86
 };
 // The retail table at RVA 0x00875B5C: 6 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -30,16 +30,16 @@ void __identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z")();
 void __identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z")();
 void __identifier("??_GRva005D583C@@UAEPAXI@Z")();
 void __identifier("?PopulatePlayerList@ChatWindowsOnlineBuddy@@UAE_NXZ")();
-void __identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z")();
-void __identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z")();
+void __identifier("?vslot04@Rva005D583C@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z")();
+void __identifier("?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z")();
 }
 extern "C" const void *const vtbl_00C75B5C[6] = {
 	(const void *)&__identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
 	(const void *)&__identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z"), // slot 1 0x005AFCEC
 	(const void *)&__identifier("??_GRva005D583C@@UAEPAXI@Z"), // slot 2 0x005D58A8
 	(const void *)&__identifier("?PopulatePlayerList@ChatWindowsOnlineBuddy@@UAE_NXZ"), // slot 3 0x005D6C94
-	(const void *)&__identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z"), // slot 4 0x005D57EB
-	(const void *)&__identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z"), // slot 5 0x005D5F86
+	(const void *)&__identifier("?vslot04@Rva005D583C@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z"), // slot 4 0x005D57EB
+	(const void *)&__identifier("?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z"), // slot 5 0x005D5F86
 };
 
 // A data-only view of the base (constructor 0x005AFE86; see Rva005AFE86Ctor.cpp

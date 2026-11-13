@@ -178,33 +178,6 @@ struct Rva005D57EBInner {
   return Rva00381458((int)this, msg, window);
  }
 };
-class Rva005D57EB {
-public:
- bool rva005D57EB(const UnicodeString &msg, GameWindow *window);
-private:
- int m_00;
- Rva005D57EBInner *m_04;
-};
-bool Rva005D57EB::rva005D57EB(const UnicodeString &msg, GameWindow *window) {
- return m_04->send(msg, window);
-}
-
-
-
-
-
-// ?vslot04@Rva005D50D8@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z @0x005D50AD 23B.
-// Same skeleton as 0x005D57EB above: forwards (m_04, msg, window) to the rowed
-// cdecl LAN chat submit 0x0038169D and returns its bool. Retail pushes three
-// arguments although the callee reads only two, so the call goes through the
-// three-argument type the call site shows. Slot owner names stay address-derived.
-bool __cdecl Rva0038169D(int channel, const UnicodeString &input);
-typedef bool (__cdecl *Rva005D50ADSend)(int, const UnicodeString &, GameWindow *);
-struct Rva005D50ADInner {
- __forceinline bool send(const UnicodeString &msg, GameWindow *window) {
-  return ((Rva005D50ADSend)&Rva0038169D)((int)this, msg, window);
- }
-};
 struct Rva005AFD89Param;
 class AsciiString;
 class UnicodeString;
@@ -241,6 +214,34 @@ public:
 	int m_20;
 };
 
+// Retail table 0x00C75B2C (six slots): slot 4 is the forwarder below.
+class Rva005D583C : public Rva005AFE3F
+{
+public:
+	virtual ~Rva005D583C();
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
+	virtual void vslot05(const AsciiString &name);
+};
+bool Rva005D583C::vslot04(const UnicodeString &msg, GameWindow *window) {
+ return ((Rva005D57EBInner *)m_04)->send(msg, window);
+}
+
+
+
+
+
+// ?vslot04@Rva005D50D8@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z @0x005D50AD 23B.
+// Same skeleton as 0x005D57EB above: forwards (m_04, msg, window) to the rowed
+// cdecl LAN chat submit 0x0038169D and returns its bool. Retail pushes three
+// arguments although the callee reads only two, so the call goes through the
+// three-argument type the call site shows. Slot owner names stay address-derived.
+bool __cdecl Rva0038169D(int channel, const UnicodeString &input);
+typedef bool (__cdecl *Rva005D50ADSend)(int, const UnicodeString &, GameWindow *);
+struct Rva005D50ADInner {
+ __forceinline bool send(const UnicodeString &msg, GameWindow *window) {
+  return ((Rva005D50ADSend)&Rva0038169D)((int)this, msg, window);
+ }
+};
 // Retail table 0x00C75AC4 (seven slots): slot 4 is 0x005D50AD, slot 6 pure.
 class Rva005D50D8 : public Rva005AFE3F
 {
