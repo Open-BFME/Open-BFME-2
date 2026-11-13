@@ -152,11 +152,7 @@ int BfmeClientFramesPerSecond = 30;
 // Donor type and interface from BFME1 LivingWorldEyeTowerState.cpp.
 struct Gen0060CBB0Pair { float first; float second; };
 
-class BfmeStateDF {
-public:
-  void interpolate(Gen0060CBB0Pair *from, Gen0060CBB0Pair *to,
-                   Gen0060CBB0Pair *current, float progress);
-};
+#include "../../../Include/Common/BfmeStateDF.h"
 
 class T4Host0060C2E0 {
 public:

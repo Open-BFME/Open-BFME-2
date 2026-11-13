@@ -29,15 +29,7 @@ struct BfmeStateDFVector3
 	float x, y, z;
 };
 
-class BfmeStateDF
-{
-public:
-	float rva002BEAAC(float from, float to, float progress);
-	void rva002BEACD(BfmeStateDFVector3 *from, BfmeStateDFVector3 *to, BfmeStateDFVector3 *result, float progress);
-private:
-	unsigned char prefix28[0x28];
-	FCurve curve;
-};
+#include "../../Include/Common/BfmeStateDF.h"
 
 class Rva002C021A
 {

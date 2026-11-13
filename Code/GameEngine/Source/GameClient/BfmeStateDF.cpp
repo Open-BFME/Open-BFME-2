@@ -21,21 +21,7 @@ struct BfmeStateDFVector3
 // curve receiver +28 and two calls to 00504BA9 (RET 4, x87 float result).
 struct Gen0060CBB0Pair { float first; float second; };
 
-class BfmeStateDF
-{
-public:
-	float rva002BEAAC(float from, float to, float progress);
-public:
-	void rva002BEACD(BfmeStateDFVector3 *from, BfmeStateDFVector3 *to,
-                    BfmeStateDFVector3 *result, float progress);
-private:
-	unsigned char prefix28[0x28];
-private:
-	FCurve curve;
-public:
-	void interpolate(Gen0060CBB0Pair *from, Gen0060CBB0Pair *to,
-        Gen0060CBB0Pair *current, float progress);
-};
+#include "../../Include/Common/BfmeStateDF.h"
 
 // ---- from Code/GameEngine/Source/GameClient/BfmeStateDFRva002BEAAC.cpp
 
