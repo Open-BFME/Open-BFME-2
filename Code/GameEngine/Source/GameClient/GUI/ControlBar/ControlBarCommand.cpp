@@ -292,7 +292,7 @@ const Image *__cdecl getButtonImage(ThingTemplate *, Object *);
 
 void __cdecl GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
 
-struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
+#include "../../../../Include/Common/ControlBarInventoryEntry.h"
 
 // Native32-slot window/ObjectID array atVA E05E20; zero-filled image storage.
 // Shared by population, construction update, lookup, command processing and reset.
