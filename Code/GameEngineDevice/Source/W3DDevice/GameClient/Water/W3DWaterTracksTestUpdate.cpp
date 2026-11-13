@@ -86,7 +86,7 @@ struct FeNode;
 class Rva000FF50D { public: void saveTracks(); };
 // Existing opaque pin's integer argument carries the filename reference;
 // native FF F02/F05 passes this+28. Preserve the existing provider spelling.
-class Rva0007E90ECallee { public: void rva000FF5E6(int); };
+#include "../../../../../GameEngine/Include/Common/Rva0007E90ECallee.h"
 
 extern WaterTracksRenderSystem *TheWaterTracksRenderSystem;
 struct BfmeNodeOJ;

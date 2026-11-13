@@ -2,11 +2,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class Rva0007E90ECallee
-{
-public:
-	void rva000FF5E6(int a);
-};
+#include "../../Include/Common/Rva0007E90ECallee.h"
 
 class Rva0007E90EElem
 {
