@@ -86,15 +86,7 @@ struct Out00418CC8 { int m_lo, m_hi; };
 
 #include "../../../../../Include/GameLogic/LivingWorldAutoResolveCombatChain.h"
 
-class Rva004FF8DA
-{
-	char pad[0x38];
-	IntIntTree tree;
-	IntIntTree fightTree;
-
-public:
-	bool rva0050010D(int unitType, int key);
-};
+#include "../../../../../Include/Common/Rva004FF8DA.h"
 
 int GetGameLogicRandomValue(int, int, char *, int);
 

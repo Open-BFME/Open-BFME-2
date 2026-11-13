@@ -84,12 +84,7 @@ struct BfmeE8
 namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(BfmeE8 const &); }
 // bfme link decl-only end
 
-class Rva004FF8DA
-{
-public:
-	bool rva0050010D(int type, int key);
-	void *rva0050024C(int type, int key);
-};
+#include "../../../../Include/Common/Rva004FF8DA.h"
 
 struct Rva0059D90CTypeKey
 {

@@ -1,0 +1,81 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004FF8DA",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "57": 1,
+   "80": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::_Rb_tree<int,_STL::pair<int const ,int>,_STL::_Select1st<_STL::pair<int const ,int> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,int> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "header",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node_base*"
+    }
+   ],
+   "name": "tree",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::_Rb_tree<int,_STL::pair<int const ,int>,_STL::_Select1st<_STL::pair<int const ,int> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,int> > >",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::_Rb_tree<int,_STL::pair<int const ,int>,_STL::_Select1st<_STL::pair<int const ,int> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,int> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "header",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node_base*"
+    }
+   ],
+   "name": "fightTree",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::_Rb_tree<int,_STL::pair<int const ,int>,_STL::_Select1st<_STL::pair<int const ,int> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,int> > >",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 80,
+ "size_by": "majority",
+ "vslots": {}
+}
