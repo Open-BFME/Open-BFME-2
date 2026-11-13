@@ -10,11 +10,7 @@
 // pushes; the default zero-extends them first (the bank's residual).
 #include "../../../Include/GameLogic/Rva002EC3CEProbes.h"
 
-class Rva002CB35CObj
-{
-public:
-	bool rva002CB35C(int p1, void *p2, void *p3, void *p4, float p5, int p6);
-};
+#include "../../../Include/Common/Rva002CB35CObj.h"
 struct Coord3D;
 class Object;
 class Rva002C9400ByteField;

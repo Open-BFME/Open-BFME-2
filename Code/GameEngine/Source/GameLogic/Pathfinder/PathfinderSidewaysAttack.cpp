@@ -198,11 +198,7 @@ Coord3D m_goal;							// +0x28
 };
 
 void *rva002EBC59(void *out, void *obj, Int a2, Int a3, Int a4);
-class Rva002CB35CObj
-{
-public:
-Bool rva002CB35C(Int a1, void *pos, void *a3, void *a4, float range, Int a6);
-};
+#include "../../../Include/Common/Rva002CB35CObj.h"
 
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 // Weapon::isWithinAttackRange 0x002CB35C (WorldBuilder name).

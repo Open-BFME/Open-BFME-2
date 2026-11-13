@@ -211,11 +211,7 @@ public:
 // The rowed cell-centre helper 0x002EBC59 (returns its out Coord3D) and the
 // pinned 0x002CB35C range probe (WorldBuilder: Weapon::isWithinAttackRange).
 void *rva002EBC59(void *out, void *obj, Int a2, Int a3, Int a4);
-class Rva002CB35CObj
-{
-public:
-	bool rva002CB35C(int p1, void *p2, void *p3, void *p4, float p5, int p6);
-};
+#include "../../../Include/Common/Rva002CB35CObj.h"
 
 // CanApproachToTarget's helpers. The rowed 0x002C9B80 range query returns a
 // float; its +0x04 member answers the rowed byte getter 0x002C9400.
