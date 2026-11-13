@@ -104,7 +104,7 @@ class LivingWorldBattle { public: int rva003F48FE(int region, int army, int unit
 
 struct Rva0040F87EArmy { char pad00[0x20]; int m_id; };
 
-class Rva003F3F83 { public: int rva003F3F83(); };
+#include "../../../Include/Common/Rva003F3F83.h"
 
 #include "../../../Include/GameLogic/ArmySummary.h"
 struct Rva0040F87EUnit { char pad00[0x78]; ArmySummary *m_summary; };

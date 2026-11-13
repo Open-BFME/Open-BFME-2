@@ -29,10 +29,7 @@ namespace _STL {
 template <> ScienceType *vector<ScienceType, allocator<ScienceType> >::erase(ScienceType *, ScienceType *);
 }
 
-struct Rva003F3F83
-{
-	int rva003F3F83();
-};
+#include "../../../../GameEngine/Include/Common/Rva003F3F83.h"
 
 struct Rva003F5BDBElem
 {
