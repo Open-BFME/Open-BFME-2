@@ -151,11 +151,7 @@ public:
 // The target call site passes the +0x2C subobject as ECX to RVA 0x0052B17F.
 // Keep the local type and method address-derived; the subobject's semantic
 // class remains unresolved.
-class Rva0052B17F
-{
-public:
-	void rva0052B17F();
-};
+#include "../../Include/Common/Rva0052B17F.h"
 
 // The established single datum uses the Rva002B7250 registry owner.
 class Rva002B7250;

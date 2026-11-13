@@ -44,11 +44,7 @@ class Rva004EDFFFDwordImmSetter {public:void apply();};
 
 class Xfer;
 
-class Rva0052B17F
-{
-public:
-	void rva0052B17F();
-};
+#include "../../../../Include/Common/Rva0052B17F.h"
 
 struct Rva004E0790Inner;
 
