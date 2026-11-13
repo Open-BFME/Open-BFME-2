@@ -32,11 +32,7 @@ public:
 }
 
 // Impl::GetIconAtQueueIndex in WorldBuilder (rowed address-named, 0x005E73E4).
-class Rva005E73E4
-{
-public:
-	void *rva005E73E4(int queueIndex);
-};
+#include "../../../../Include/GameClient/Rva005E73E4.h"
 
 // The icon's help hide check (rowed address-named, 0x005E73B2).
 class Rva005F830A
