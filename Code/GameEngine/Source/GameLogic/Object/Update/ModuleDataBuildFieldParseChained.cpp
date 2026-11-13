@@ -711,11 +711,7 @@ extern const FieldParse BfmeSpecialPowerCompletionDieFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class SpecialPowerCompletionDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerCompletionDieModuleData.h"
 
 inline void SpecialPowerCompletionDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

@@ -485,7 +485,7 @@ class SpecialDisguiseUpdateModuleData { public: static ModuleData *friend_newMod
 class SpecialEnemySenseUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpecialEnemySenseUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SpecialPowerCompletionDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class SpecialPowerCompletionDieModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/SpecialPowerCompletionDieModuleData.h"
 class SpecialPowerCreate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpecialPowerModule { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/SpecialPowerModuleData.h"

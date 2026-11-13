@@ -20,17 +20,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class SpecialPowerCompletionDieModuleData
-{
-public:
-	SpecialPowerCompletionDieModuleData();
-	virtual ~SpecialPowerCompletionDieModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x3C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerCompletionDieModuleData.h"
 
 // ?friend_newModuleData@SpecialPowerCompletionDieModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *SpecialPowerCompletionDieModuleData::friend_newModuleData(INI *ini)
