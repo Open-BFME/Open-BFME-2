@@ -212,11 +212,7 @@ void SpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>((unsigned int)&g_00C4E628), 0);
 }
 
-class DevastateSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/DevastateSpecialPowerModuleData.h"
 
 // ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C81C8 (27 bytes): base-table call above plus the Devastate

@@ -30,19 +30,7 @@ public:
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 #include "ascii_string.h"
 
-class DevastateSpecialPowerModuleData : public SpecialPowerModuleData
-{
-public:
-	DevastateSpecialPowerModuleData();
-	virtual ~DevastateSpecialPowerModuleData();
-
-private:
-	float m_radius; // +0x7C
-	void *m_fx; // +0x80
-	float m_treeValueMultiplier; // +0x84
-	float m_treeValueTotalCap; // +0x88
-	AsciiString m_fireWeapon; // +0x8C
-};
+#include "../../../../Include/Common/DevastateSpecialPowerModuleData.h"
 
 // tu-skeleton: 0x004C81C8 27B ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
 

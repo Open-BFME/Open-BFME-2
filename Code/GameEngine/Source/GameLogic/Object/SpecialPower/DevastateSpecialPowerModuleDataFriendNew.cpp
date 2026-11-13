@@ -17,17 +17,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class DevastateSpecialPowerModuleData
-{
-public:
-	DevastateSpecialPowerModuleData();
-	virtual ~DevastateSpecialPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x90 - 4];
-};
+#include "../../../../Include/Common/DevastateSpecialPowerModuleData.h"
 
 // ?friend_newModuleData@DevastateSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *DevastateSpecialPowerModuleData::friend_newModuleData(INI *ini)
