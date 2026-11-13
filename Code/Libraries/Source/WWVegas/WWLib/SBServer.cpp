@@ -72,13 +72,7 @@ struct Rva005F38D8Ref
 	}
 };
 
-class Rva005F38D8
-{
-public:
-	Rva005F38D8Ref rva005F38D8(int position);
-	void *unknown00;
-	void *implementation;
-};
+#include "../../../../GameEngine/Include/Common/Rva005F38D8.h"
 
 struct Rva005E39F3Arg
 {
