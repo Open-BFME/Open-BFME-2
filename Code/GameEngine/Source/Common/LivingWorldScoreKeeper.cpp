@@ -255,15 +255,7 @@ void Rva0040E269(Xfer0051FFF5 *xfer, void *data);
 Xfer *Rva0060C253Xfer(Xfer *xfer, Rva004EED02BoolList *list);
 void xferThingTemplateCountMap(Xfer *xfer, Rva004EED02CountMap *map);
 void XferLivingWorldPlayerID(Xfer *xfer, Int *id);
-class Rva004EE540
-{
-public:
-	void rva004EE540();
-
-private:
-	Rva0052BFB5Elem *m_start;
-	Rva0052BFB5Elem *m_finish;
-};
+#include "../../Include/Common/Rva004EE540.h"
 struct Rva004EE35DObj
 {
 	char m_pad[0x108];

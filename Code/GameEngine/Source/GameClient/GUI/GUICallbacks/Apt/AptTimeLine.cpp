@@ -1271,7 +1271,7 @@ __uninitialized_copy<ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequi
 // A user-provided constructor avoids zero-filling the opaque tag temporary.
 struct Rva0051F7ADCopyTag : _STL::__false_type { Rva0051F7ADCopyTag() {} };
 
-class Rva004EE540 { public: void rva004EE540(); };
+#include "../../../../../Include/Common/Rva004EE540.h"
 
 Rva0051EC31Output *Rva0051EC31RangeForward(Rva0051EC31Input *, Rva0051EC31Input *, Rva0051EC31Output *, const Rva0051EC31IteratorTag &);
 

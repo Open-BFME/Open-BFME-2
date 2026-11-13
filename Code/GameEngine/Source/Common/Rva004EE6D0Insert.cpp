@@ -54,15 +54,7 @@ typedef ProductionPrerequisite::PrereqUnitRec PrereqRec;
 
 struct Rva0052BFB5Elem;
 
-class Rva004EE540
-{
-public:
-	void rva004EE540();
-
-private:
-	Rva0052BFB5Elem *m_start;
-	Rva0052BFB5Elem *m_finish;
-};
+#include "../../Include/Common/Rva004EE540.h"
 
 class Rva004EE6D0
 {
