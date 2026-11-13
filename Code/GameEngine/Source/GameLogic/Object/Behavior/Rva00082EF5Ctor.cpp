@@ -93,7 +93,7 @@ namespace _STL {
                                const _Rb_tree_iterator<T, R>& b)
  { return a._M_node != b._M_node; }
 }
-class Rva00081F03 { public: void rva00081F03(); };
+#include "../../../../Include/GameLogic/Module/Rva00081F03.h"
 class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass;
 template <class T> class RefCountPtr

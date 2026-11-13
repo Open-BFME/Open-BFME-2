@@ -414,7 +414,7 @@ class Rva00082A53 {
  unsigned short rva00082E33(int,int);
 };
 class ModuleData;
-class Rva00081F03 {public:void rva00081F03();};
+#include "../../../../../GameEngine/Include/GameLogic/Module/Rva00081F03.h"
 class Rva0030D111Shape {public:virtual int count();};
 bool Rva0030D111Contains(Rva0030D111Shape*,const Coord2D*);
 #include "../../../../../Libraries/Include/Lib/Region2D.h"
