@@ -145,10 +145,7 @@ extern "C" void _ReadWriteBarrier();
 #include <stl/_algobase.h>
 #include <list>
 #include <windows.h>
-struct BfmePointFC
-{
-	float x, y;
-};
+#include "../../../Include/Common/BfmePointFC.h"
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeTaintManager.h"
 #define PARTITIONMANAGER_VIEW_REGION_FACADES
 #include "../../Common/PartitionRangeQueryCallView.h"

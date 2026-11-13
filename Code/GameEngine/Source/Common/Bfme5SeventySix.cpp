@@ -34,11 +34,7 @@ __forceinline long bfmeFloatToLongFC(Real value)
 	return result;
 }
 
-struct BfmePointFC
-{
-	Real x;
-	Real y;
-};
+#include "../../Include/Common/BfmePointFC.h"
 
 #include "Lib/Coord3D.h"
 

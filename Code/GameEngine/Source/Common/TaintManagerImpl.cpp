@@ -107,11 +107,7 @@ public:
 typedef void (__cdecl *BfmeCellVisitorFC)(int x, int y,
 	unsigned char kind);
 
-struct BfmePointFC
-{
-	Real x;
-	Real y;
-};
+#include "../../Include/Common/BfmePointFC.h"
 
 class TaintManagerImpl
 {
