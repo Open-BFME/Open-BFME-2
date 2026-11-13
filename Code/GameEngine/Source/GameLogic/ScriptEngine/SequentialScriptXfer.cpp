@@ -83,11 +83,7 @@ extern TeamFactory *TheTeamFactory;
 class Script;
 
 class BfmeRoomZC;
-class Rva003573C4Owner
-{
-public:
-	void *rva003573C4( const AsciiString &scope, const BfmeRoomZC &name, void *arg );	// rowed 0x003573C4
-};
+#include "../../../Include/Common/Rva003573C4Owner.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 

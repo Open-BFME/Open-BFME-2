@@ -585,11 +585,7 @@ extern int BfmeLogicFramesPerSecond;
 extern ScriptEngine *TheScriptEngine;
 
 class BfmeRoomZC;
-class Rva003573C4Owner
-{
-public:
-	void *rva003573C4(const AsciiString &owner, const BfmeRoomZC &name, void *outName);	// rowed 0x003573C4
-};
+#include "../../../Include/Common/Rva003573C4Owner.h"
 class Rva0020D451Engine
 {
 public:
