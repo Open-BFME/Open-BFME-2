@@ -81,11 +81,7 @@ class ParticleSystemTemplate;
 #include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva0055A88BDwordField;
-class Rva001F3C20Slot
-{
-  public:
-    void set(const Rva0055A88BDwordField *);
-};
+#include "../../../../Include/GameLogic/Module/Rva001F3C20Slot.h"
 struct Rva001F3899Arg;
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
