@@ -207,9 +207,6 @@ struct AudioEventChannelVolume {
     int m_channel;
     float m_volume;
 };
-// AudioEventInfo view: +0x44 is the priority the lowest-priority scan ranks by.
-// prep3DSample passes +0x94 as AIL_set_3D_sample_distances' max distance and
-// +0x98 (non-global sounds) as its min distance.
 #include "../../../GameEngine/Include/Common/RvaPair001D9F62.h"
 struct AudioEventInfo {
     const _STL::vector<RvaPair001D9F62> &getSoundsVector(void) const;
@@ -625,9 +622,6 @@ struct AudioAreaCorner {
     Coord3D m_pos;
     bool m_valid;                        // +0x0C
 };
-// The same five corners as recalculateMicrophone's local (rowed: element
-// ctor 0x00051CA2 with the folded empty dtor; array ctor 0x00052751) and the
-// rowed five-corner comparison 0x00051CF1.
 #include "../../Include/Rva00051CA2.h"
 class ScreenToTerrainSet {
 public:
@@ -947,7 +941,6 @@ class Rva00059FBBMap : public _STL::hash_map<AsciiString, AudioEventInfo *,
 public:
     AudioEventInfo *&rva00059FBB(const AsciiString &name);
 };
-// Address-derived callee view for the tree lookup used at 0x0005B1C2.
 #include "../../Include/Rva001F8437.h"
 // Rowed at 0x0005F279 under its address-derived host.
 class Rva0005F279Host { public: void rva0005F279(void); };
@@ -5233,7 +5226,6 @@ public:
     Rva00052B3D();
     PlayingAudioList::iterator m_streams[2];
 };
-// The subtitle window the update deletes once it reports itself finished.
 #include "../../../GameEngine/Include/GameClient/SubTitleWindow.h"
 // Zero Hour's LatchRestore: restores the latched value when the scope ends
 // (vftable 0x007C5314, ??_7?$LatchRestore@_N@@6B@).
@@ -5311,8 +5303,6 @@ void MilesAudioManager::update()
 class BfmeMade_009CB5F0;
 BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *owner);
 #include "../../../GameEngine/Include/GameNetwork/BfmeThingEC.h"
-// XferSave (ctor 0x0060D1F7, dtor 0x0060D0B3, open 0x0060D10A); its close
-// 0x0060C8CD is rowed under an address-derived owner.
 #include "../../../GameEngine/Include/Common/Gen009D6DD0.h"
 class XferSave : public Xfer {
 public:
@@ -5392,15 +5382,9 @@ static __forceinline void releaseUnicodeStringStorage(void *storage)
 #include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord00054F57.h"
 struct HashNode00056E8C { HashNode00056E8C *m_next; BfmeStringRecord00054F57 m_val; };
 struct Pair00058D4A { HashNode00056E8C *m_node; void *m_table; bool m_new; };
-
 File *createMemoryReadFile(char *data, int size);
-
 // The event refresh rowed at 0x002DAAD5 (play info regenerated around +0x74).
 class Rva002DAAD5Owner { public: void rva002DAAD5(); };
-
-// The 0x90-byte event copy 0x0005286A allocates (copy ctor 0x00051DCC).
-struct BfmeAudioEventPrefix136;
-
 class Rva005813E
 {
 public:
@@ -5409,7 +5393,6 @@ public:
 private:
     char m_opaque[0x90];
 };
-
 // The event-info table at +0xBC is walked through the rowed 0x00427195
 // (first cursor) and 0x00411084 (advance) declared above.
 struct AudioEventInfoTableNode
@@ -5418,9 +5401,7 @@ struct AudioEventInfoTableNode
     AsciiString m_name;
     AudioEventInfo *m_info;
 };
-
 #include "../../Include/Rva001D98BD.h"
-
 // Look direction from the camera to the first corner, in the WB shape (a copy of
 // the camera position, the corner subtracted in place, then the squared length):
 // the struct form puts lookDir.z in xmm0 and the squared length in xmm2 as retail
@@ -5430,13 +5411,36 @@ struct MicVec : public Coord3D {
     void sub(const Coord3D &c) { x -= c.x; y -= c.y; z -= c.z; }
     float lenSqr() const { return x * x + y * y + z * z; }
 };
-
-// MilesAudioManager::processFade (WorldBuilder twin 0x7A0EB0, asserts at
-// MilesAudioManager.cpp lines 11651..11740; retail 0x00053448, 350 B): advances
-// the volume fade toward m_at3C and the fade-down / fade-up time in m_at30 by
-// this frame's step (m_at90, or g_00DBA4FC for a view-type-2 event on the
-// tactical view while the step is below 1); true while a fade is in progress.
 #include "../../../GameEngine/Include/Common/Rva00050D86.h"
+unsigned int __stdcall Rva00055041AsciiHash(const AsciiString *name);
+struct Rva00056F61Node
+{
+	Rva00056F61Node *m_next;
+	AsciiString m_name;
+};
+//
+// Dump range 1 (0x0005E13C 44B): frameless thiscall predicate over a
+// two-level pointer chain. Null outer yields true, null inner yields false,
+// inner +0xB0 != 2 yields true, else returns this->helper(middle). The
+// helper is the pinned in-range 0x0005D425 (thiscall, this plus one ptr
+// arg); keeping ecx live as this is what puts the middle load in edx.
+// Honest address-derived names.
+
+struct Rva0005E13CInner2
+{
+	char m_pad[0xB0];
+	int m_B0; // +0xB0
+};
+struct Rva0005E13CInner1
+{
+	char m_pad[0x08];
+	Rva0005E13CInner2 *m_08; // +0x08
+};
+struct Rva0005E13CArg
+{
+	char m_pad[0x04];
+	Rva0005E13CInner1 *m_04; // +0x04
+};
 
 // Native 5F2BB..5FA3C RET4; WorldBuilder callgraph names processAmbientStreams.
 // The event's volume product getter, rowed at 0x002D94E4 under an
@@ -5813,6 +5817,29 @@ private:
 // tu-skeleton: 0x0005116B 8B ?rva0005116B@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00051173 8B ?reset@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesA.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+
+// AudioEventInfo view: +0x44 is the priority the lowest-priority scan ranks by.
+// prep3DSample passes +0x94 as AIL_set_3D_sample_distances' max distance and
+// +0x98 (non-global sounds) as its min distance.
+
+// The same five corners as recalculateMicrophone's local (rowed: element
+// ctor 0x00051CA2 with the folded empty dtor; array ctor 0x00052751) and the
+// rowed five-corner comparison 0x00051CF1.
+
+// Address-derived callee view for the tree lookup used at 0x0005B1C2.
+
+// The subtitle window the update deletes once it reports itself finished.
+
+// XferSave (ctor 0x0060D1F7, dtor 0x0060D0B3, open 0x0060D10A); its close
+// 0x0060C8CD is rowed under an address-derived owner.
+
+// MilesAudioManager::processFade (WorldBuilder twin 0x7A0EB0, asserts at
+// MilesAudioManager.cpp lines 11651..11740; retail 0x00053448, 350 B): advances
+// the volume fade toward m_at3C and the fade-down / fade-up time in m_at30 by
+// this frame's step (m_at90, or g_00DBA4FC for a view-type-2 event on the
+// tactical view while the step is below 1); true while a fade is in progress.
 
 // ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 
@@ -7172,6 +7199,287 @@ void MilesAudioManager::rva0005BE59(void *slot, float value, void *index)
     }
 }
 
+// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesPreferenceProduct.cpp
+
+int MilesAudioManager::bfmeMilesPreferenceProduct()
+{
+	return AIL_get_preference(0x2A) * AIL_get_preference(0x22);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp
+
+void __stdcall Rva000518E0Thunk(void *p)
+{
+	((Rva000518E0Base *)p)->slot2();
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// ---- from Code/GameEngine/Source/Common/Rva006963B0VirtualSlot5.cpp
+
+int __stdcall rva006963B0ForwardSlot5(Rva006963B0Receiver *receiver, int first, int second)
+{
+	return receiver->slot5(first, second);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva006963D0VirtualSlot3.cpp
+
+int __stdcall rva006963D0ForwardSlot3(Rva006963D0Receiver *receiver, int first, int second)
+{
+	return receiver->slot3(first, second);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod144_allocator.cpp
+
+// Only allocate (the rowed body) is instantiated: a whole-class
+// instantiation also emits allocator::construct, which references
+// _Construct<BfmePod144> (no definer under that spelling; an /alternatename
+// to another type's row did not reach the census), so the unit could not link.
+template BfmePod144 *_STL::allocator<BfmePod144>::allocate(unsigned int, const void *) const;
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva00051AC3.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Instantiate the recovered operation and its required template dependencies.
+template void _STL::_Deque_iterator_base<Rva00051AC3Element>::_M_set_node(Rva00051AC3Element **);
+
+// ---- from Code/GameEngine/Source/Common/Rva00051B89Mod.cpp
+
+unsigned __stdcall Rva00051B89Mod(void *p, unsigned div)
+{
+	unsigned q = *(unsigned *)p;
+	if (q != 0)
+		q = *(unsigned *)(q + 8);
+	return q % div;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00051BC5Call.cpp
+
+int __cdecl Rva00051BC5Call(void *a, int b)
+{
+	A27 *p = (A27 *)a;
+	void *r = p->v27(b);
+	B28 *q = (B28 *)r;
+	return q->w28(b + 4);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00051CBAEquals.cpp
+
+// ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z @0x00051CBA 38B
+// Honest-address equals helper: Coord3D at +0 via rowed equals then byte at +0xC.
+// Retail pushes other, calls ?equals@Coord3D@@QBE_NABUCoord3DBase@@@Z, early-false
+// on both compares, true returns 1. Unblocks 0x00051CF1. Neighbours use /O1 /MD.
+
+int Rva00051CBA::rva00051CBA(const Rva00051CBA &other)
+{
+	if (m_coord.equals(asBase(other.m_coord)))
+	{
+		if (m_flag0C == other.m_flag0C)
+			return 1;
+	}
+	return 0;
+}
+
+// ?rva00051CE0@Rva00051CBA@@QAEHABV1@@Z @0x00051CE0 17B, unreferenced: the
+// negation of the equality above. Retail tests only the low byte of its
+// result (neg al / sbb / inc), so the call's value is narrowed to a byte.
+int Rva00051CBA::rva00051CE0(const Rva00051CBA &other)
+{
+	return !(unsigned char)rva00051CBA(other);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00051CF1Equals.cpp
+
+// ?rva00051CF1@Rva00051CF1@@QAE_NAAV1@@Z @0x00051CF1 49B
+// Honest-address 5-element array equals via rowed ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z.
+// Evidence: chain packet calls 0x00051CBA; loop bumps esi by 0x10 five times; caller 0x00052B53.
+
+bool Rva00051CF1::rva00051CF1(Rva00051CF1 &other)
+{
+	for (int i = 0; i < 5; ++i)
+	{
+		if ((unsigned char)other.m_items[i].rva00051CBA(m_items[i]) == 0)
+			return false;
+	}
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva006994F0Fill.cpp
+
+void Rva006994F0Owner::initializeTable()
+{
+    for (unsigned int i = 0; i != sizeof(m_table); ++i) {
+        m_table[i] = 2;
+    }
+}
+
+// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005230D.cpp
+
+void Rva0005230D::rva0005230D(float volume, float b, float c, float d, float e)
+{
+    const float zero = 0.0f;
+    const float one = 1.0f;
+    if (zero > volume)
+        volume = zero;
+    else if (volume > one)
+        volume = one;
+    fieldAC = volume;
+    float end = one;
+    if (zero > b)
+        end = zero;
+    else if (!(b > one))
+        end = b;
+    fieldB0 = end;
+    fieldB4 = c;
+    fieldB8 = d;
+    fieldBC = e;
+    fieldC0 = zero;
+    fieldC4 = 1;
+    scale = volume;
+    reinterpret_cast<MilesAudioManager::GlobalVolumeData *>(this)->refreshAll();
+}
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1744.cpp
+
+void __cdecl bfmeRepeatAT(void *first, void *second)
+{
+	if (TheAudio == 0)
+		return;
+
+	int count = 3;
+
+	do
+	{
+		bfmeRepeatAT(first, second);
+		--count;
+	}
+	while (count != 0);
+}
+
+// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp
+
+// ??0Elem4@@QAE@XZ present-unmatched
+Elem4::Elem4() : m_x(0)
+{
+}
+
+Rva00052B3D::Rva00052B3D()
+{
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00053D66Assign.cpp
+
+void Rva00053D66DeviceRef::assign(Rva000A8903AudioDevice *device)
+{
+	void *old = object;
+	if (device == old)
+		return;
+	object = device;
+	if (old == 0)
+		return;
+	((Rva00A897D *)old)->Rva00A897D::~Rva00A897D();
+	operator delete(old);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00055864Free.cpp
+
+//
+// ?Rva00055864Free@@YGXPAURva00055864Node@@@Z @ 0x00055864 (28B).
+// Opaque node deleter calling the rowed holder release 0x0005333F on the
+// +4 value, then free.
+// Evidence: sole caller is deque clear loop 0x00056DA2; same flags as neighbours.
+
+void __stdcall Rva00055864Free(Rva00055864Node *p)
+{
+	p->m_val.rva0005333F();
+	if (p) {
+		free(p);
+	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp
+
+// Free AsciiString::operator< at 0x0005598C (23B). Leaf over the matched
+// StringBase<char>::compare row at 0x69D6.
+
+// ?bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z present-unmatched
+void bfmeEmitAsciiStringLess(const AsciiString *asciiString, const AsciiString *b)
+{
+    operator<(*asciiString, *b);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportDequeSweepRva00056DEB.cpp
+
+// STLport 4.5.3 deque<Rva00056DEBElement> destructor, retail 0x000579DE (87B).
+// The element destructor declaration arms the rowed _Destroy range helper
+// 0x56DEB; the _Deque_base destructor declaration without an exception
+// specification gives the or [ebp-4],-1 trylevel reset retail shows before the
+// base-destructor call. The base body itself is emitted by the ICF alias row
+// at 0x54FAAC from StlportDequeBaseSweepRva00056DEB.cpp.
+
+template _STL::deque<Rva00056DEBElement>::~deque();
+
+// 0x00057FC1 73B: hashtable<pair<const AsciiString, UnicodeString>, ...>::clear, m_fileText's clear;
+// rowed here as this unit's own instantiation (rva00061C87 and the map's destructor emit it).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportUnicodeStringVectorDtor.cpp
+
+// vector<UnicodeString>::~vector, retail 0x59F7C: same-shape sibling of the
+// AsciiString instantiation at 0x2CC70 (StlportAsciiStringVectorDtor.cpp).
+// It destroys the elements through _Destroy<UnicodeString*> at 0x56FC0
+// (rowed in stlport_vector_unicode_reserve.cpp), then frees the storage.
+// Use the same game allocator spelling as the kept shared UnicodeString
+// container definitions in MilesAudioManager.cpp (retail free RVA 0x00030830).
+
+template _STL::vector<UnicodeString>::~vector();
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00058D4AReserveInsert.cpp
+
+// ?rva0005A0EE@Rva00058D4A@@QAEPAUPair00058D4A@@PAU2@ABUBfmeStringRecord00054F57@@@Z @0x0005A0EE 36B reserve-then-insert wrapper for BfmeStringRecord table.
+// Evidence: callees pin reserve 0x00212858 rowed insert 0x00058D4A in stlport_hashtable_str_insert.cpp; m_size at +0x10; callers 0x0005B52C 0x0005B8E5; precedent Rva001DE84FReserveInsert.cpp.
+
+Pair00058D4A *Rva00058D4A::rva0005A0EE(Pair00058D4A *out, const BfmeStringRecord00054F57 &key)
+{
+	((Rva000427195 *)this)->rva00212858((unsigned int)m_size10 + 1);
+	rva00058D4A(out, key);
+	return out;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005B5EA.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Instantiate the recovered operation and its required template dependencies.
+template unsigned int _STL::_Rb_tree<Rva0005B5EAElement, _STL::pair<Rva0005B5EAElement const, int>, _STL::_Select1st<_STL::pair<Rva0005B5EAElement const, int> >, _STL::less<Rva0005B5EAElement>, _STL::allocator<_STL::pair<Rva0005B5EAElement const, int> > >::erase(Rva0005B5EAElement const &);
+
+// 0x0005CC1E (5B), unreferenced: map<Rva0005B5EAElement, int>::erase(key),
+// a tail jump into the tree erase above (0x0005B5EA).
+template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElement, int>::erase(const Rva0005B5EAElement &);
+
 // tu-skeleton: 0x000511C3 92B ?rva000511C3@MilesAudioManager@@UAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp (not merged yet)
 
 // tu-skeleton: 0x0005121F 157B ?rva0005121F@MilesAudioManager@@UAEMXZ -- matched in Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp (not merged yet)
@@ -7228,13 +7536,6 @@ void MilesAudioManager::rva0005BE59(void *slot, float value, void *index)
 
 // tu-skeleton: 0x00051840 6B ?rva00051840@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp (not merged yet)
 
-// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesPreferenceProduct.cpp
-
-int MilesAudioManager::bfmeMilesPreferenceProduct()
-{
-	return AIL_get_preference(0x2A) * AIL_get_preference(0x22);
-}
-
 // tu-skeleton: 0x0005185E 42B ?rva0005185E@MilesAudioManager@@UAEXPAH00@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x00051888 14B ?rva00051888@Rva00051888@@QAEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
@@ -7246,30 +7547,6 @@ int MilesAudioManager::bfmeMilesPreferenceProduct()
 // tu-skeleton: 0x000518A4 14B ?rva000518A4@MilesAudioManager@@UAEHH@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
 // tu-skeleton: 0x000518B2 6B ?name@MilesAudioManager@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp
-
-void __stdcall Rva000518E0Thunk(void *p)
-{
-	((Rva000518E0Base *)p)->slot2();
-}
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-
-// ---- from Code/GameEngine/Source/Common/Rva006963B0VirtualSlot5.cpp
-
-int __stdcall rva006963B0ForwardSlot5(Rva006963B0Receiver *receiver, int first, int second)
-{
-	return receiver->slot5(first, second);
-}
-
-// ---- from Code/GameEngine/Source/Common/Rva006963D0VirtualSlot3.cpp
-
-int __stdcall rva006963D0ForwardSlot3(Rva006963D0Receiver *receiver, int first, int second)
-{
-	return receiver->slot3(first, second);
-}
 
 // tu-skeleton: 0x000519D6 9B ?get@Rva000519D6SubImm32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubImm32DwordFieldGetters.cpp (not merged yet)
 
@@ -7283,49 +7560,13 @@ int __stdcall rva006963D0ForwardSlot3(Rva006963D0Receiver *receiver, int first, 
 
 // tu-skeleton: 0x00051A6B 14B ?get@Rva00051A6BDivMovField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod144_allocator.cpp
-
-// Only allocate (the rowed body) is instantiated: a whole-class
-// instantiation also emits allocator::construct, which references
-// _Construct<BfmePod144> (no definer under that spelling; an /alternatename
-// to another type's row did not reach the census), so the unit could not link.
-template BfmePod144 *_STL::allocator<BfmePod144>::allocate(unsigned int, const void *) const;
-
 // tu-skeleton: 0x00051A98 43B ?_M_subtract@?$_Deque_iterator_base@PAX@_STL@@QBEHABU12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva00051AC3.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
-// Instantiate the recovered operation and its required template dependencies.
-template void _STL::_Deque_iterator_base<Rva00051AC3Element>::_M_set_node(Rva00051AC3Element **);
 
 // tu-skeleton: 0x00051ADA 31B ?rva00051ADA@Rva00051ADA@@QAEAAV1@ABV1@H@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp (not merged yet)
 
 // tu-skeleton: 0x00051AF9 37B ??$__uninitialized_fill_n@PAVRva0036CA00Str@@IV1@@_STL@@YAPAVRva0036CA00Str@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00051AF9FillN.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00051B89Mod.cpp
-
-unsigned __stdcall Rva00051B89Mod(void *p, unsigned div)
-{
-	unsigned q = *(unsigned *)p;
-	if (q != 0)
-		q = *(unsigned *)(q + 8);
-	return q % div;
-}
-
 // tu-skeleton: 0x00051BA1 36B ?_M_create_nodes@?$_Deque_base@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@IAEXPAPAUBfmeWordValue4@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDeque.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00051BC5Call.cpp
-
-int __cdecl Rva00051BC5Call(void *a, int b)
-{
-	A27 *p = (A27 *)a;
-	void *r = p->v27(b);
-	B28 *q = (B28 *)r;
-	return q->w28(b + 4);
-}
 
 // tu-skeleton: 0x00051BE1 47B ??$__copy@PAVUnicodeString@@PAV1@H@_STL@@YAPAVUnicodeString@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00051C10Copy.cpp (not merged yet)
 
@@ -7340,47 +7581,6 @@ int __cdecl Rva00051BC5Call(void *a, int b)
 // tu-skeleton: 0x00051C9A 8B ??_ERva005109D@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
 
 // tu-skeleton: 0x00051CA2 24B ??0Rva00051CA2@@QAE@XZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioArray0005276C.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00051CBAEquals.cpp
-
-// ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z @0x00051CBA 38B
-// Honest-address equals helper: Coord3D at +0 via rowed equals then byte at +0xC.
-// Retail pushes other, calls ?equals@Coord3D@@QBE_NABUCoord3DBase@@@Z, early-false
-// on both compares, true returns 1. Unblocks 0x00051CF1. Neighbours use /O1 /MD.
-
-int Rva00051CBA::rva00051CBA(const Rva00051CBA &other)
-{
-	if (m_coord.equals(asBase(other.m_coord)))
-	{
-		if (m_flag0C == other.m_flag0C)
-			return 1;
-	}
-	return 0;
-}
-
-// ?rva00051CE0@Rva00051CBA@@QAEHABV1@@Z @0x00051CE0 17B, unreferenced: the
-// negation of the equality above. Retail tests only the low byte of its
-// result (neg al / sbb / inc), so the call's value is narrowed to a byte.
-int Rva00051CBA::rva00051CE0(const Rva00051CBA &other)
-{
-	return !(unsigned char)rva00051CBA(other);
-}
-
-// ---- from Code/GameEngine/Source/Common/Rva00051CF1Equals.cpp
-
-// ?rva00051CF1@Rva00051CF1@@QAE_NAAV1@@Z @0x00051CF1 49B
-// Honest-address 5-element array equals via rowed ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z.
-// Evidence: chain packet calls 0x00051CBA; loop bumps esi by 0x10 five times; caller 0x00052B53.
-
-bool Rva00051CF1::rva00051CF1(Rva00051CF1 &other)
-{
-	for (int i = 0; i < 5; ++i)
-	{
-		if ((unsigned char)other.m_items[i].rva00051CBA(m_items[i]) == 0)
-			return false;
-	}
-	return true;
-}
 
 // tu-skeleton: 0x00051E4D 29B ??_GRva00051E4D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
 
@@ -7398,15 +7598,6 @@ bool Rva00051CF1::rva00051CF1(Rva00051CF1 &other)
 
 // tu-skeleton: 0x00052098 27B ?rva00052098@GlobalVolumeData@MilesAudioManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva006994F0Fill.cpp
-
-void Rva006994F0Owner::initializeTable()
-{
-    for (unsigned int i = 0; i != sizeof(m_table); ++i) {
-        m_table[i] = 2;
-    }
-}
-
 // tu-skeleton: 0x000520C6 46B ?rva000520C6@GlobalVolumeData@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp (not merged yet)
 
 // tu-skeleton: 0x000520F4 74B ?rva000520F4@GlobalVolumeData@MilesAudioManager@@QAEEABVAudioEventInfoRef@@H@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva000520F4.cpp (not merged yet)
@@ -7415,50 +7606,7 @@ void Rva006994F0Owner::initializeTable()
 
 // tu-skeleton: 0x000522DF 46B ?rva000522DF@GlobalVolumeData@MilesAudioManager@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp (not merged yet)
 
-// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005230D.cpp
-
-void Rva0005230D::rva0005230D(float volume, float b, float c, float d, float e)
-{
-    const float zero = 0.0f;
-    const float one = 1.0f;
-    if (zero > volume)
-        volume = zero;
-    else if (volume > one)
-        volume = one;
-    fieldAC = volume;
-    float end = one;
-    if (zero > b)
-        end = zero;
-    else if (!(b > one))
-        end = b;
-    fieldB0 = end;
-    fieldB4 = c;
-    fieldB8 = d;
-    fieldBC = e;
-    fieldC0 = zero;
-    fieldC4 = 1;
-    scale = volume;
-    reinterpret_cast<MilesAudioManager::GlobalVolumeData *>(this)->refreshAll();
-}
-
 // tu-skeleton: 0x000523A0 137B ?setVolumes@GlobalVolumeData@MilesAudioManager@@QAEXME@Z -- matched in Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/BfmeConv1744.cpp
-
-void __cdecl bfmeRepeatAT(void *first, void *second)
-{
-	if (TheAudio == 0)
-		return;
-
-	int count = 3;
-
-	do
-	{
-		bfmeRepeatAT(first, second);
-		--count;
-	}
-	while (count != 0);
-}
 
 // tu-skeleton: 0x0005244A 48B ?Rva0005244ALoop@@YAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp (not merged yet)
 
@@ -7483,17 +7631,6 @@ void __cdecl bfmeRepeatAT(void *first, void *second)
 // tu-skeleton: 0x00052917 51B ?rva00052917@MilesAudioManager@@UAEHXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00052917.cpp (not merged yet)
 
 // tu-skeleton: 0x0005294A 499B ?getScreenToTerrainPositions@MilesAudioManager@@UAEXPAVScreenToTerrainSet@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getScreenToTerrainPositions.cpp (not merged yet)
-
-// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp
-
-// ??0Elem4@@QAE@XZ present-unmatched
-Elem4::Elem4() : m_x(0)
-{
-}
-
-Rva00052B3D::Rva00052B3D()
-{
-}
 
 // tu-skeleton: 0x00052F4C 84B ?getGlobalReverbMultiplier@MilesAudioManager@@QAEMXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getGlobalReverbMultiplier.cpp (not merged yet)
 
@@ -7522,20 +7659,6 @@ Rva00052B3D::Rva00052B3D()
 // tu-skeleton: 0x00053CE1 69B ?rva00053CE1@MilesAudioManager@@UAEXMHH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00053CE1.cpp (not merged yet)
 
 // tu-skeleton: 0x00053D4F 23B ?pop_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00053D66Assign.cpp
-
-void Rva00053D66DeviceRef::assign(Rva000A8903AudioDevice *device)
-{
-	void *old = object;
-	if (device == old)
-		return;
-	object = device;
-	if (old == 0)
-		return;
-	((Rva00A897D *)old)->Rva00A897D::~Rva00A897D();
-	operator delete(old);
-}
 
 // tu-skeleton: 0x00053D89 26B ?clear@Rva00053D89@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00053D89Clear.cpp (not merged yet)
 
@@ -7629,22 +7752,6 @@ void Rva00053D66DeviceRef::assign(Rva000A8903AudioDevice *device)
 
 // tu-skeleton: 0x00055825 63B ??$copy_backward@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_owned_copy_backward.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00055864Free.cpp
-
-//
-// ?Rva00055864Free@@YGXPAURva00055864Node@@@Z @ 0x00055864 (28B).
-// Opaque node deleter calling the rowed holder release 0x0005333F on the
-// +4 value, then free.
-// Evidence: sole caller is deque clear loop 0x00056DA2; same flags as neighbours.
-
-void __stdcall Rva00055864Free(Rva00055864Node *p)
-{
-	p->m_val.rva0005333F();
-	if (p) {
-		free(p);
-	}
-}
-
 // tu-skeleton: 0x00055880 45B ??$__destroy@U?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL@@@_STL@@URva00055880Element@@@_STL@@YAXU?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL@@@0@0PAURva00055880Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00055880.cpp (not merged yet)
 
 // tu-skeleton: 0x000558AD 65B ??$__copy_aux@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Const_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Const_traits@UOpaqueRefElement4@@@_STL@@@0@0U10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000558AD.cpp (not merged yet)
@@ -7654,17 +7761,6 @@ void __stdcall Rva00055864Free(Rva00055864Node *p)
 // tu-skeleton: 0x0005591B 9B ??$_Destroy@URva000543F5Record@@@_STL@@YAXPAURva000543F5Record@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x00055924 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00058ead.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp
-
-// Free AsciiString::operator< at 0x0005598C (23B). Leaf over the matched
-// StringBase<char>::compare row at 0x69D6.
-
-// ?bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z present-unmatched
-void bfmeEmitAsciiStringLess(const AsciiString *asciiString, const AsciiString *b)
-{
-    operator<(*asciiString, *b);
-}
 
 // tu-skeleton: 0x000559A3 19B ??8@YA_NABVAsciiString@@PBD@Z -- matched in Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp (not merged yet)
 
@@ -7720,7 +7816,31 @@ void bfmeEmitAsciiStringLess(const AsciiString *asciiString, const AsciiString *
 
 // tu-skeleton: 0x00056ECD 148B ?_M_insert@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp (not merged yet)
 
-// tu-skeleton: 0x00056F61 61B ?rva00056F61@Rva00056F61@@QAEPAXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva00056F61Find.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva00056F61Find.cpp
+
+// ?rva00056F61@Rva00056F61@@QAEPAXPBVAsciiString@@@Z, retail 0x00056F61 (61B).
+// Hash-mod-count find over the bucket vector. Same shape as the rowed
+// ?bucketIndex@Rva000427195@@QAEHPBVAsciiString@@@Z at 0x00223149 (identical
+// prolog through div) plus a linked-list walk comparing the node name at +4
+// via rowed ?compare@?$StringBase@D@@QBEHABV1@@Z. Node {next+0 name+4} and
+// table {unused+0 begin+4 end+8} read off the disassembly and the
+// EvaBucketIndex/EvaBucketAdvance archaeology notes. Callers at 0x001DEACA
+// (Eva event INI parse), 0x00216F6D (BannerMen lookup) and 0x000A8200 prove
+// a shared AsciiString-keyed table; owner unproven so honest-address name.
+
+void *Rva00056F61::rva00056F61(const AsciiString *key)
+{
+	unsigned hash = Rva00055041AsciiHash(key);
+	unsigned count = (unsigned)(((char *)m_endBuckets - (char *)m_beginBuckets) >> 2);
+	// Retail reloads the bucket pointer after computing its count.
+	Rva00056F61Node *cur = (*(Rva00056F61Node ** volatile *)&m_beginBuckets)[hash % count];
+	while (cur != 0) {
+		if (((const StringBase<char> *)&cur->m_name)->compare(*(const StringBase<char> *)key) == 0)
+			break;
+		cur = cur->m_next;
+	}
+	return cur;
+}
 
 // tu-skeleton: 0x00056F9E 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload0005808E@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00058ead.cpp (not merged yet)
 
@@ -7749,17 +7869,6 @@ void bfmeEmitAsciiStringLess(const AsciiString *asciiString, const AsciiString *
 // tu-skeleton: 0x00057994 63B ??1?$vector@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorDeferred.cpp (not merged yet)
 
 // tu-skeleton: 0x000579D3 11B ?clear@?$vector@UBfmeStringTailRecord144@@V?$allocator@UBfmeStringTailRecord144@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportDequeSweepRva00056DEB.cpp
-
-// STLport 4.5.3 deque<Rva00056DEBElement> destructor, retail 0x000579DE (87B).
-// The element destructor declaration arms the rowed _Destroy range helper
-// 0x56DEB; the _Deque_base destructor declaration without an exception
-// specification gives the or [ebp-4],-1 trylevel reset retail shows before the
-// base-destructor call. The base body itself is emitted by the ICF alias row
-// at 0x54FAAC from StlportDequeBaseSweepRva00056DEB.cpp.
-
-template _STL::deque<Rva00056DEBElement>::~deque();
 
 // tu-skeleton: 0x00057A35 180B ?erase@?$deque@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAE?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@2@U32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp (not merged yet)
 
@@ -7792,9 +7901,6 @@ template _STL::deque<Rva00056DEBElement>::~deque();
 // tu-skeleton: 0x00057E6A 192B ?_M_copy_from@?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@AAEXABV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00057E6A.cpp (not merged yet)
 
 // tu-skeleton: 0x00057F2A 151B ?insert_unique@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@_N@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp (not merged yet)
-
-// 0x00057FC1 73B: hashtable<pair<const AsciiString, UnicodeString>, ...>::clear, m_fileText's clear;
-// rowed here as this unit's own instantiation (rva00061C87 and the map's destructor emit it).
 
 // tu-skeleton: 0x0005800A 132B ?rva0005800A@Rva0005800A@@QAEXABVRva0036CA00Str@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp (not merged yet)
 
@@ -7836,17 +7942,6 @@ template _STL::deque<Rva00056DEBElement>::~deque();
 
 // tu-skeleton: 0x00059EAE 206B ?findAudioEventInfo@MilesAudioManager@@UBE?AVRva00051ADA@@ABVAsciiString@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportUnicodeStringVectorDtor.cpp
-
-// vector<UnicodeString>::~vector, retail 0x59F7C: same-shape sibling of the
-// AsciiString instantiation at 0x2CC70 (StlportAsciiStringVectorDtor.cpp).
-// It destroys the elements through _Destroy<UnicodeString*> at 0x56FC0
-// (rowed in stlport_vector_unicode_reserve.cpp), then frees the storage.
-// Use the same game allocator spelling as the kept shared UnicodeString
-// container definitions in MilesAudioManager.cpp (retail free RVA 0x00030830).
-
-template _STL::vector<UnicodeString>::~vector();
-
 // tu-skeleton: 0x00059FBB 121B ?rva00059FBB@Rva00059FBBMap@@QAEAAPAUAudioEventInfo@@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp (not merged yet)
 
 // tu-skeleton: 0x0005A034 20B ?insert@?$map@VAsciiString@@MU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@M@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@M@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@M@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@M@2@@Z -- matched in Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplay.cpp (not merged yet)
@@ -7858,18 +7953,6 @@ template _STL::vector<UnicodeString>::~vector();
 // tu-skeleton: 0x0005A084 55B ?push_back@?$vector@URva00058BBDElement@@V?$allocator@URva00058BBDElement@@@_STL@@@_STL@@QAEXABURva00058BBDElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00058BBD.cpp (not merged yet)
 
 // tu-skeleton: 0x0005A0BB 51B ?erase@?$vector@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAEPAVUnicodeString@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_erase.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00058D4AReserveInsert.cpp
-
-// ?rva0005A0EE@Rva00058D4A@@QAEPAUPair00058D4A@@PAU2@ABUBfmeStringRecord00054F57@@@Z @0x0005A0EE 36B reserve-then-insert wrapper for BfmeStringRecord table.
-// Evidence: callees pin reserve 0x00212858 rowed insert 0x00058D4A in stlport_hashtable_str_insert.cpp; m_size at +0x10; callers 0x0005B52C 0x0005B8E5; precedent Rva001DE84FReserveInsert.cpp.
-
-Pair00058D4A *Rva00058D4A::rva0005A0EE(Pair00058D4A *out, const BfmeStringRecord00054F57 &key)
-{
-	((Rva000427195 *)this)->rva00212858((unsigned int)m_size10 + 1);
-	rva00058D4A(out, key);
-	return out;
-}
 
 // tu-skeleton: 0x0005A112 64B ??0?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@IABU?$hash@H@1@ABU?$equal_to@H@1@ABV?$allocator@H@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005A112.cpp (not merged yet)
 
@@ -7900,18 +7983,6 @@ Pair00058D4A *Rva00058D4A::rva0005A0EE(Pair00058D4A *out, const BfmeStringRecord
 // tu-skeleton: 0x0005B524 20B ?rva0005B524@Rva00058D4A@@QAEPAUPair00058D4A@@PAU2@ABUBfmeStringRecord00054F57@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
 
 // tu-skeleton: 0x0005B538 178B ?_M_insert_overflow@?$vector@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@IAEXPAVUnicodeString@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_fill.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005B5EA.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
-// Instantiate the recovered operation and its required template dependencies.
-template unsigned int _STL::_Rb_tree<Rva0005B5EAElement, _STL::pair<Rva0005B5EAElement const, int>, _STL::_Select1st<_STL::pair<Rva0005B5EAElement const, int> >, _STL::less<Rva0005B5EAElement>, _STL::allocator<_STL::pair<Rva0005B5EAElement const, int> > >::erase(Rva0005B5EAElement const &);
-
-// 0x0005CC1E (5B), unreferenced: map<Rva0005B5EAElement, int>::erase(key),
-// a tail jump into the tree erase above (0x0005B5EA).
-template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElement, int>::erase(const Rva0005B5EAElement &);
 
 // tu-skeleton: 0x0005B633 73B ?rva0005B633@Rva00056CF8@@QAEIABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp (not merged yet)
 
@@ -7975,7 +8046,20 @@ template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElem
 
 // tu-skeleton: 0x0005DAE6 22B ?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp (not merged yet)
 
-// tu-skeleton: 0x0005E13C 44B ?rva0005E13C@Rva0005E13CHost@@QAE_NPBURva0005E13CArg@@@Z -- matched in Code/GameEngine/Source/Common/Rva0005E13CBody.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0005E13CBody.cpp
+
+bool Rva0005E13CHost::rva0005E13C(const Rva0005E13CArg *chainStart)
+{
+	Rva0005E13CInner1 *middle = chainStart->m_04;
+	if (!middle)
+		return true;
+	Rva0005E13CInner2 *inner = middle->m_08;
+	if (!inner)
+		return false;
+	if (inner->m_B0 != 2)
+		return true;
+	return helper(middle);
+}
 
 // tu-skeleton: 0x0005E168 87B ?rva0005E168@MilesAudioManager@@UAEXABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/System/Rva0005E168Method.cpp (not merged yet)
 
@@ -7993,7 +8077,43 @@ template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElem
 
 // tu-skeleton: 0x00061983 6B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x000619D1 172B ?rva000619D1@MilesAudioManager@@UAE_N_N@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000619D1.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000619D1.cpp
+
+//
+// ?rva000619D1@MilesAudioManager@@QAE_N_N@Z @ 0x000619D1 172B, ret 4
+//
+// Asks for the EAX 3 3D provider to be on or off and reports whether the
+// selected provider now agrees. Under the +0x9D4 Miles mutex: if a provider
+// is selected (+0x9D0, index into the 64 twelve-byte entries at +0x6CC) and
+// its name already is (or is not) "Creative Labs EAX 3 (TM)" as requested,
+// true at once; otherwise the provider is reselected through 0x000606CE with
+// the request, and the result is whether the newly selected provider's name
+// matches it (false when none is selected).
+//
+// Evidence: retail body and WorldBuilder's unoptimized twin at 0x0079DA00,
+// which has the same four returns. Taking a reference to the provider entry
+// and naming the comparison, in both halves, gives retail's evaluation order
+// and its 8-bit compare. The original method name is not established.
+
+bool MilesAudioManager::rva000619D1(bool enabled)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (m_selectedProvider != (unsigned int)-1) {
+        ProviderInfo &info = m_provider3D[m_selectedProvider];
+        if (info.name.compare("Creative Labs EAX 3 (TM)") == 0) {
+            if (enabled)
+                return true;
+        } else if (!enabled)
+            return true;
+    }
+    rva000606CE(enabled);
+    if (m_selectedProvider != (unsigned int)-1) {
+        ProviderInfo &info = m_provider3D[m_selectedProvider];
+        bool isEAX3 = info.name.compare("Creative Labs EAX 3 (TM)") == 0;
+        return enabled == isEAX3;
+    }
+    return false;
+}
 
 // tu-skeleton: 0x00061A7D 18B ?rva00061A7D@MilesAudioManager@@QAE_NAAVPlayingAudioRef@@PAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE29.cpp (not merged yet)
 
