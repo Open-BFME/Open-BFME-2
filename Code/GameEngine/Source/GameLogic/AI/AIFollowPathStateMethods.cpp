@@ -31,7 +31,10 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
-#define NULL 0
+// platformsdk
+#include <windows.h>
+#undef near
+#undef far
 #define PATHFIND_CELL_SIZE_F 10.0f
 inline Real sqr(Real x) { return x * x; }
 enum
@@ -47,13 +50,17 @@ struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game's _fprintf thunk through REL32, so read <stdio.h>
+// without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #define CRITTER_LOG(msg) \
 	if (g_00E03745) \
 	{ \
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile; \
+		FILE *log = (FILE *)theLogicRandomLogFile; \
 		if (log) \
 			fprintf msg; \
 	}
@@ -248,7 +255,7 @@ StateReturnType AIFollowPathState::update()
 		} 
 		else 
 		{
-			CRITTER_LOG(((FprintfTarget *)theLogicRandomLogFile, "CritterDesync: setAdjustDestination(m_adjustFinal=%s && (m_adjustFinalOverride=%s || ai->isDoingGroundMovement()=%s) 43",
+			CRITTER_LOG(((FILE *)theLogicRandomLogFile, "CritterDesync: setAdjustDestination(m_adjustFinal=%s && (m_adjustFinalOverride=%s || ai->isDoingGroundMovement()=%s) 43",
 				m_adjustFinal ? "TRUE" : "FALSE", m_adjustFinalOverride ? "TRUE" : "FALSE", ai->isDoingGroundMovement() ? "TRUE" : "FALSE"));
 			setAdjustsDestination(m_adjustFinal && (m_adjustFinalOverride || ai->isDoingGroundMovement()));
 			if (getAdjustsDestination()) 
