@@ -1004,3 +1004,18 @@ def test_access_records_that_disagree_on_one_member_hold(tmp_path, monkeypatch):
     own, overrides, problems = lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": view}.__getitem__, known=known,
                                                       owners={}, facts=lambda source: None)
     assert any("several accesses" in p for p in problems), problems
+
+
+# ---- P150 round 5: the qualifier check reads the chosen declaration's exact signature
+
+def test_an_overridden_slot_keeps_its_exact_qualifiers_for_the_contract(tmp_path, monkeypatch):
+    # inherited slot 0 spelled `f(int *const p)` by its one view, the contract `f(int *const)`, the matched row
+    # ?f@K@@UAEXQAH@Z: identical spellings, so nothing to hold (override_key serves only the views' agreement)
+    known = base_header_for(tmp_path, monkeypatch, "virtual void f(int *const p);")
+    view = "class K : public B5\n{\npublic:\n\tvirtual void f(int *const p);\n};\n"
+    c = contract({0: "f(int *const)"}, bases=("B5",), inherited=1)
+    c["class"] = "K"
+    own, _, problems = lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": view}.__getitem__, known=known,
+                                              owners={"?f@K@@": [("?f@K@@UAEXQAH@Z", "o.cpp")]},
+                                              facts=lambda source: None)
+    assert problems == [] and own == ["virtual void f(int *const p);"]

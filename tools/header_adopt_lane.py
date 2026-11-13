@@ -3416,10 +3416,6 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             problems.append(f"slot{slot} {member}: the contract's member is not the views' "
                             f"{spelled.split('{')[0].strip()}")
             continue
-        why = qualifier_problem(name, member, signature, spelled, owners)
-        if why:
-            problems.append(f"slot{slot} {member}: {why}")
-            continue
         spellings = collections.Counter(text for _, text in at.values())
         exact = {decl_signature(t) for t in spellings}
         if slot < inherited_count and len(exact) > 1:
@@ -3439,6 +3435,12 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         if text is None:
             problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings
                                                         else slot_conflict(spellings)))
+            continue
+        # the qualifiers are the chosen declaration's own (its exact signature: an overridden slot's views agree
+        # on override_key, which drops top-level parameter cv)
+        why = qualifier_problem(name, member, decl_signature(text) or ("?", text), text, owners)
+        if why:
+            problems.append(f"slot{slot} {member}: {why}")
             continue
         if declaration_key(text)[1] and want[0] != "~" and pure_contradicted(name, want[0], want[1], index):
             problems.append(f"slot{slot} {member}: pure in a view, but a matched row defines it")
