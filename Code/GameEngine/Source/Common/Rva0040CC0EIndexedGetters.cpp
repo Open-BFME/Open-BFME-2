@@ -2,11 +2,7 @@
 // Twin indexed getters into 8-byte entries at +0x40: first and second dword.
 // Evidence: 10 callers of 0x40CC0E including StateMachine::getGoalObject 0x5E68C0; 38 callers of 0x40CB2C;
 // sibling +4 twin shape; shared +0x40/+0x44 vector layout with 0x40CC1B linear search and 0x40CB3A binary search.
-struct Rva0040CC0EEntry
-{
-	int first;
-	int second;
-};
+#include "../../Include/GameClient/Rva0040CC0EEntry.h"
 
 class Rva0040CC0EIndexedField
 {

@@ -118,11 +118,7 @@ struct AptScorePersistentUnit
 	AsciiString m_regionName; // +0xA4
 };
 
-struct Rva0040CC0EEntry
-{
-	int first;
-	int second;
-};
+#include "../../../../../Include/GameClient/Rva0040CC0EEntry.h"
 
 #include "../../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
 
