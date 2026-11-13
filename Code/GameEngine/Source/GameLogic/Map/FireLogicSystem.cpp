@@ -302,15 +302,7 @@ public:
  virtual unsigned char materialAt(float x, float y);
 };
 extern TerrainLogic *TheTerrainLogic;
-struct Rva00286214Node
-{
-	void *pad0;
-	Rva00286214Node *link4;
-	Rva00286214Node *m_left;
-	Rva00286214Node *linkC;
-	char m_pad10[8];
-	FireCellCentre m_key;
-};
+#include "../../../Include/GameLogic/Rva00286214Node.h"
 // The 0x7C-byte damage record uses the rowed Rva00263895Member initializer.
 // Object consumes its damage and death types and the per-cell amount.
 class Rva00263895Member { public: Rva00263895Member(); };

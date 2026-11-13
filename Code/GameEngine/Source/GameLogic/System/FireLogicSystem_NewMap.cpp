@@ -249,13 +249,7 @@ namespace _STL
 		static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base *node);
 	};
 }
-struct Rva00286214Node
-{
-	char m_pad00[8];
-	Rva00286214Node *m_left;		// +0x08
-	char m_pad0C[0x18 - 0x0C];
-	FireCellCentre m_key;			// +0x18, the cell's centre
-};
+#include "../../../Include/GameLogic/Rva00286214Node.h"
 struct Rva002E6EFFPosition;
 #include <new>
 
