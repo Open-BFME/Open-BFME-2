@@ -50,11 +50,7 @@ void Rva0054CBEFTarget::method(int arg)
 // object and tail-jumping to its rowed transition flush 0x0054CA4A. The
 // caller 0x0038076D runs it each update on both message-box singletons
 // (g_Va00E032FC and AptStrategicMessageBox::s_instance).
-class Rva0054CFB8Target
-{
-public:
-	void rva0054CA4A();				// 0x0054CA4A
-};
+#include "../../../Include/GameClient/Rva0054CFB8Target.h"
 
 class Rva0054CBF7Target
 {

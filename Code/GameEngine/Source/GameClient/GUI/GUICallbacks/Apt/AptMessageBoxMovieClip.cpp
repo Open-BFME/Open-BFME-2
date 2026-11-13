@@ -85,14 +85,7 @@ static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva0054CFB8Target {
-public: Rva0054CFB8Target(int level, const AsciiString &movie);
- void method(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C,TreeHintRef00217D4C);
- void rva0054CA4A();
-protected:
- unsigned m_level00; AsciiString m_movie04; AptCommandMapAdder m_commands08; int m_previous14; int m_state18;
- TreeHintRef00217D4C m_callback1C; TreeHintRef00217D4C m_callback20; unsigned m_deadline24; bool m_long28; bool m_29;
-};
+#include "../../../../../Include/GameClient/Rva0054CFB8Target.h"
 // Pinned 0x0054C99A (unrowed; closes the box) names this view of the same
 // object; Show passes its own this.
 class Rva0054C99AImpl : public Rva0054CFB8Target { public: void rva0054C99A(int); };

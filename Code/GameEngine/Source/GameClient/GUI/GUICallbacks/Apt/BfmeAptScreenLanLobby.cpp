@@ -186,15 +186,7 @@ public:
 	Rva0054CFB8Target *m_child04;
 };
 
-class Rva0054CFB8Target
-{
-public:
-	Rva0054CFB8Target(int id, const AsciiString &screenName);
-	void method(int type, const UnicodeString &text, const UnicodeString &title,
-		TreeHintRef00217D4C callback, TreeHintRef00217D4C callback2);
-private:
-	char m_pad[0x2c];
-};
+#include "../../../../../Include/GameClient/Rva0054CFB8Target.h"
 
 // 0x0054D3D9 is rowed as Rva0054D3E1Prompt::configure (its bool result is unused here).
 #include "../../../../../Include/Common/Rva0054D3E1Prompt.h"
