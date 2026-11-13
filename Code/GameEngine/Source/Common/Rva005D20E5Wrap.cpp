@@ -4,11 +4,7 @@
 // pinned 0x005CCB5B (this-only void), then pinned 0x002BF6A7 via +0x10
 // with +0x14, then virtual slot +0x1C on this with +0x14. Ret void,
 // this only. Address-derived.
-class Rva000B3FD0Empty
-{
-public:
-	void rva000B3FD0Empty();
-};
+#include "../../Include/Common/Rva000B3FD0Empty.h"
 
 #include "../../Include/Common/Rva005CCB5B.h"
 

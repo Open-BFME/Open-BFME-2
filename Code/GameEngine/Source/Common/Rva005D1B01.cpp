@@ -8,7 +8,7 @@
 // independently established from this body. Existing providers are reused.
 #include "Coord3D.h"
 #include "vector3.h"
-class Rva000B3FD0Empty {public:void rva000B3FD0Empty();};
+#include "../../Include/Common/Rva000B3FD0Empty.h"
 #include "../../Include/Common/Rva005CCB5B.h"
 class Rva0020E89C;
 #include "../../Include/GameLogic/Rva0020EAF6View.h"

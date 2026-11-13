@@ -11,11 +11,7 @@
 // (xor al,al false paths, test al at the call). Names are address-derived;
 // identities are not recovered.
 
-class Rva000B3FD0Empty
-{
-public:
-	void rva000B3FD0Empty();
-};
+#include "../../Include/Common/Rva000B3FD0Empty.h"
 
 #include "../../Include/Common/Rva005CCB7B.h"
 

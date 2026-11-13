@@ -125,7 +125,7 @@ void Rva005C349D::rva005C349D()
 // while producing retail's shared constant-assignment POP tail. Natural
 // static key initialization owns guardE065B0; its exact parent EH graph
 // places the 13-byte reset at7A08F0, replacing the old manual global clearer.
-class Rva000B3FD0Empty {public:void rva000B3FD0Empty();};
+#include "../../../Include/Common/Rva000B3FD0Empty.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 enum NameKeyType { NAMEKEY_INVALID=0 };
 class Module;
