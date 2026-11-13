@@ -2448,11 +2448,13 @@ method retains its ledger coverage under the derived class. Verification:
 retains 333/333 bytes. Other names sharing 0x0087A630 and the secondary
 table at 0x00877FD0 remain separate work. Await the real link for bridge counts.
 
-Rva0056ACFF (RVA 0x0086D160, secondary; 0x0086D19C, primary) remains
-blocked. The canonical base trial emits both full table extents and preserves
-the five derived destructors. The secondary slot 4 move refuses a parameter
-type change; three siblings also need distinct overrides. Trial results and
-retail targets are in `reverse/attempt_support/registry-acff-slot-contract.md`. The B2DD sibling table at RVA
+Rva0056ACFF (RVA 0x0086D160, secondary; 0x0086D19C, primary) is spelled:
+slot 1 (0x0056ABCB, ?slot1@Rva0056ACFF@@UAE_NPAURva002B4BC9Arg@@@Z) and
+slot 4 (0x0056ABD6, ?slot4@Rva0056ACFF@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z)
+carry their contract names, both tables verify 15/15 and 5/5 AGREE against
+retail, and a store-wide object scan finds no reference to the retired
+names. The bridge rows retire by tooling at the next real link. Trial
+results and retail targets are in `reverse/attempt_support/registry-acff-slot-contract.md`. The B2DD sibling table at RVA
 0x0086D434 independently ties slot 4 to an army and destination region via
 tutorial task case 5. The base contract and its default row still use two
 integer parameters.
@@ -2525,17 +2527,26 @@ word targets the guarded flag update at 0x0056AB97. The compiler now emits
 a relocation to that 41-byte method in the derived object. The to-class
 check verified the table and 19/19 functions in two units. With the
 constructor included, the link preview retains 378 of 378 bytes at
-60189f9ced. Remaining slots and the ACFF secondary contract remain open.
+60189f9ced. Secondary slot 14 is now spelled: 0x0056ACF1 carries
+?slot14@Rva0056ACDF@@UAEHH@Z (`mov eax,[ecx+0x10]; ret 4`, this = the
+Base2 subobject) in VslotSmallBodiesAN.cpp, and the ACFF secondary
+contract is spelled. Remaining slots stay open.
 
 ACC5 primary table, RVA 0x0086D0FC. Constructor 0x0056AEC6 clears
 the flag at +0x18. Slot 1 reads it at 0x004C9990 and slot 2 sets it at
-0x0056AB35 after the ID matches. Constructor and destructor objects each
-emit 12 bytes with DIR32 relocations to the flag getter and setter at
-offsets 4 and 8. Slots 3 and 4 of the retail five-entry table are still
-missing. The three changed units verify 49/49 functions and three float
-literals. Including the current ACDF provider in the link preview retains
-768/768 bytes across four units at census 60189f9ced. The separate ACFF
-secondary table remains open.
+0x0056AB35 after the ID matches; the 83-byte setter is now spelled as the
+AC26 override ?vslot02@Rva0056ACC5@@UAEXH@Z (Rva0056AB35Method.cpp), the
+contract spelling that keeps the primary table at retail's 20 bytes.
+Secondary slot 12 (0x0056AB88) is spelled ?slot12@Rva0056ACC5@@UAE_NH@Z
+(Disp8ByteFieldGetters.cpp), comparing the first own member at +0x14
+against the argument; a store-wide scan finds zero callers outside the
+slot. Constructor and destructor objects each emit 12 bytes with DIR32
+relocations to the flag getter and setter at offsets 4 and 8. Slots 3 and
+4 of the retail five-entry table are still missing. The three changed
+units verify 49/49 functions and three float literals. Including the
+current ACDF provider in the link preview retains 768/768 bytes across
+four units at census 60189f9ced. The separate ACFF secondary table is
+spelled and awaits the real link.
 
 ACFF constructor identity, RVA 0x0056AF94. The class fold verifies its
 primary store of 0x0086D19C and its +8 store of 0x0086D160 against the
@@ -2548,14 +2559,16 @@ census 60189f9ced. Both hand-written tables remain pending replacement.
 ACFF native constructor trial after the class fold: 31/31 bytes match
 with compiler-generated 20-byte and 60-byte tables. Five primary and
 thirteen secondary relocations resolve to the retail targets. The secondary
-overrides at offsets 4 and 16 lack providers under their typed names. The
+overrides at offsets 4 and 16 now have typed providers (slot1 at
+0x0056ABCB, slot4 at 0x0056ABD6); that dry-run refusal is historical. The
 slot 4 to-class dry run rejects the old two-slot destructor table even
 with the complete constructor table present. See the reproduction in
 `reverse/attempt_support/registry-acff-slot-contract.md`. The production
 tables remain in place.
 
 ACFF paired installer trial. Both compiler-emitted tables now pass the data
-verifier with the typed slot 4 provider and the existing b1Slot1 symbol.
+verifier with the typed slot 4 provider and the contract slot1 symbol
+(b1Slot1's successor, renamed with a tombstone).
 The eight-unit link preview still loses 352 bytes in AC26Constructor due
 to two shared base table definitions. Restoring production inputs returns
 all 2,286 bytes. The reproducer and affected table names are in
@@ -2576,9 +2589,10 @@ string at +0x18. The shared slot retains its ordinal name and the five-byte
 default at 0x005CB9FF retains its fold proof. Rebuilding the header consumers,
 related providers and the forwarder's target verifies 129/129 functions and
 four data rows. The same 19 units retain 3,845 bytes in the link preview
-before and after the change at census 60189f9ced. ACFF's private override is
-still spelled b1Slot1; adopting the shared declaration must reconcile that
-name and check sibling slots before replacing the hand tables.
+before and after the change at census 60189f9ced. ACFF's private override now
+carries the contract name ?slot1@Rva0056ACFF@@UAE_NPAURva002B4BC9Arg@@@Z
+(renamed from b1Slot1 with a tombstone), and the sibling slots are spelled
+and judge AGREE; replacing the hand tables still awaits the real link.
 
 ACDF constructor at 0x0056AF4B: the class fold ties both table stores to
 ACDF's deleting destructor (0x0056AF78) and its secondary adjustment
@@ -2587,8 +2601,9 @@ and its constructor object defines that name. Both affected units verify
 18/18 functions. The preview with all shared-header consumers retains
 3,845/3,845 bytes in 19 units before and after the fold (60189f9ced).
 The current destructor object still emits 2 of 5 primary entries and
-1 of 15 secondary entries. Secondary slot 14 must target 0x0056ACF1
-when adopting the full tables in the shared ACFF/ACDF destructor unit.
+1 of 15 secondary entries. Secondary slot 14 now targets 0x0056ACF1
+under its contract name; adopting the full tables in the shared
+ACFF/ACDF destructor unit remains.
 
 The tutorial now constructs Rva0056AE4A at 0x0056ADF1. Its primary table
 at VA 0x00C6D23C starts with the deleting destructor at RVA 0x0056AE2E.
