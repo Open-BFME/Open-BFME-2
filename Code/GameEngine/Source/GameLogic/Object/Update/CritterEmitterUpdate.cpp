@@ -166,11 +166,7 @@ const char *CritterEmitterUpdate::GetSnapshotName() const
 
 struct Rva009A29A0Window;
 
-class Rva00758230
-{
-public:
-	void rva00758230(Rva009A29A0Window *window);
-};
+#include "../../../../Include/Common/Rva00758230.h"
 
 class Rva009A36F0Param;
 

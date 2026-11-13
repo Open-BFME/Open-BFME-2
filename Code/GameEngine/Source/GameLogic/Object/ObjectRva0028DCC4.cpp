@@ -13,7 +13,7 @@ class Rva00739750 {public: void rva00739750(void*);};
 #include "../../../Include/GameLogic/PartitionData.h"
 #include "../../Common/PartitionRangeQueryCallView.h"
 struct Rva009A29A0Window;
-class Rva00758230 {public:void rva00758230(Rva009A29A0Window*);};
+#include "../../../Include/Common/Rva00758230.h"
 struct Rva00287C21Other;
 #include "../../../Include/GameLogic/FireLogicSystem.h"
 #include "../../../Include/GameLogic/LuaDrawableState.h"
