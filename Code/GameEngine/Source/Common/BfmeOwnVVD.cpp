@@ -277,12 +277,7 @@ virtual unsigned int c31();
 extern GameClient *TheGameClient;
 
 
-class StatsCollector
-{
-public:
- void endScrollTime();
- void startScrollTime();
-};
+#include "../../Include/Common/StatsCollector.h"
 
 extern StatsCollector *g_00E032F8;
 

@@ -2869,16 +2869,7 @@ private:
 	int m_screenCount;                                                   // +0x4C
 };
 
-class StatsCollector
-{
-public:
-	StatsCollector(void);
-	void rva00437DF8(void);
-	void update(void);	// 0x00437BB6
-
-private:
-	char m_pad00[0x68];
-};
+#include "../../../Include/Common/StatsCollector.h"
 
 // ZH File: open/close/read/write/seek after the destructor.
 #include "../../../Include/Common/File.h"

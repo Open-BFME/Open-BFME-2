@@ -39,7 +39,7 @@ public:
     char pad[0x18-4]; bool flag;
 };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class StatsCollector { public: void writeFileEnd(); };
+#include "../../../Include/Common/StatsCollector.h"
 extern StatsCollector *g_00E032F8;
 class ScriptActions {
 public:
