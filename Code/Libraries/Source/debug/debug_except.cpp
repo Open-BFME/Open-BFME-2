@@ -270,13 +270,7 @@ struct STARTUPINFOA
 	unsigned char m_rest[0x40];
 };
 
-struct PROCESS_INFORMATION
-{
-	void *hProcess;
-	void *hThread;
-	DWORD dwProcessId;
-	DWORD dwThreadId;
-};
+#include "../../../GameEngine/Include/Common/PROCESS_INFORMATION.h"
 
 extern "C"
 {

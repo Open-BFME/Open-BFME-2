@@ -8,13 +8,7 @@ struct STARTUPINFOA
 	unsigned long cb;
 	unsigned char m_rest[0x40];
 };
-struct PROCESS_INFORMATION
-{
-	void *hProcess;
-	void *hThread;
-	unsigned long dwProcessId;
-	unsigned long dwThreadId;
-};
+#include "../../Include/Common/PROCESS_INFORMATION.h"
 extern "C"
 {
 	__declspec(dllimport) int __stdcall CreateProcessA(const char *application, char *commandLine,
