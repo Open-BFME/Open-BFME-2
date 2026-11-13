@@ -8,14 +8,7 @@
 // /O2 (not the family /O1) reproduces the load-first scheduling; the getter
 // is flag-neutral. Kept in its own TU so WinMain cannot inline either body.
 
-class CopyProtect
-{
-public:
-	static void setVerified(bool verified);
-	static bool isVerified(void);
-private:
-	static int s_verified;
-};
+#include "../../../Include/Common/CopyProtect.h"
 
 int CopyProtect::s_verified = -1;
 

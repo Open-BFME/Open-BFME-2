@@ -4636,11 +4636,7 @@ private:
 	char m_body[0x3c];
 };
 
-class CopyProtect
-{
-public:
-	static bool rva00232D38(void);
-};
+#include "../../../Include/Common/CopyProtect.h"
 
 
 class GlobalWeatherSystem : public SubsystemInterface

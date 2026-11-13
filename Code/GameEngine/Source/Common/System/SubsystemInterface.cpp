@@ -299,7 +299,7 @@ public:
 
 extern FileSystem *TheFileSystem;
 
-class CopyProtect {public:static void setVerified(bool);};
+#include "../../../Include/Common/CopyProtect.h"
 
 struct Rva0002C5E6Range {const StringBase<char> *begin,*end;};
 
