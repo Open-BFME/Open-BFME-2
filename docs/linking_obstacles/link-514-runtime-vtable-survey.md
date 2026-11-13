@@ -3738,3 +3738,19 @@ fold first. DeflectSpecialPower's 0x00C5D9C0 slot 43 is the same float forwarder
 rowed ?rva00494AC6@Rva00494AC6@@UAEXM@Z in WeaponModeSpecialPowerUpdate.cpp: now admissible as a slot43(float)
 override once its class is known. CashHack/Defector (bfme2_specialpower_layout shim) put getSpecialPower in slot 7:
 inference, unchecked: that shim's BehaviorModuleInterface order is one slot short before getSpecialPower.
+
+### SpecialPowerModule's interface slots in three more views; DynamicPortalBehaviour and DeflectSpecialPower routes (2026-11-14, seat halilkkaya-lk108)
+
+Base `ac2d8a4f93f`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py` (local objects, no link).
+Base: 3,278 bridged, 31 refused, 2,268 already correct, 37,359 mismatching source slots.
+
+**Done (commits by subject).**
+- "Declare SpecialPowerModule's slot 8/43/44 overrides in the OCL, PlayerHeal and SplitHorde views": the
+  SpecialPowerModule views of OCLSpecialPower.cpp, PlayerHealSpecialPower.cpp and SplitHordeSpecialPower.cpp
+  (ancalgonn-swarm-sweep-header's claims gone) declare getSpecialPower() (served by SpecialPowerModuleCtor.cpp's
+  inline COMDAT, retail 0x002533D3), slot43(float) and slot44() (VslotSmallBodiesAG.cpp, retail 0x00251C11 /
+  0x00251C24), as lk107's ten views do. 50/50 rows exact. 0x00BEFCF8 off for all three (3,278 -> 3,275; refused
+  identical; correct 2,268 -> 2,271; mismatching slots 37,359 -> 37,350). link_check with the providers:
+  OCLSpecialPower.cpp 1,734, PlayerHealSpecialPower.cpp 837, SplitHordeSpecialPower.cpp 307, VslotSmallBodiesAG.cpp
+  337 B LINK before and after (census-only reads `?slot44@SpecialPowerModule@@UAEXXZ` as unresolved: the census
+  index 16b6c8496e predates lk107's move).

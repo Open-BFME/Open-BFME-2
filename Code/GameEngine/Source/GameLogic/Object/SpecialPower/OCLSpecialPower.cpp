@@ -149,6 +149,10 @@ public:
 	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions );
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions );
 	virtual bool rva0049466D( const Coord3D *loc );
+public:
+	virtual SpecialPowerModuleInterface *getSpecialPower();	// BehaviorModuleInterface slot 8: retail 0x002533D3, the +0x10 interface
+	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
+	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
 };
 
 class Rva004C31A8ScienceSelector { public: unsigned select() const; private: void *vtable; Rva004C31A8DataWords *m_data; Object *m_object; };
