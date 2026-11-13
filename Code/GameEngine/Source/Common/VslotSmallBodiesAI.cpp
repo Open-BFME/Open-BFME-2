@@ -298,18 +298,7 @@ void Rva00575CA6::rva00575CA6()
 // adjusted owner pointer, then stores it through the rowed setter at +0x28.
 // The helper identity follows the direct constructor call; owner type is
 // address-derived and the -4/+0x28 offsets come from the target instructions.
-class Rva0057551C
-{
-public:
-	Rva0057551C(void *a, void *b, void *c) throw();
-
-private:
-	void *m_vtable;
-	void *m_04;
-	void *m_08;
-	void *m_0c;
-	int m_10;
-};
+#include "../../Include/Common/Rva0057551C.h"
 #include "../GameLogic/Object/object.h"
 #include "../../Include/Common/Rva00575674.h"
 

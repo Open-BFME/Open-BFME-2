@@ -283,13 +283,7 @@ public:
 class Object;
 struct Coord3D;
 #include "../../../../Include/Common/Rva00575674.h"
-class Rva0057551C
-{
-public:
-	Rva0057551C(void *owner, void *a, void *b) throw();	// 0x0057551C
-private:
-	char m_pad[0x14];
-};
+#include "../../../../Include/Common/Rva0057551C.h"
 class Rva00575540
 {
 public:

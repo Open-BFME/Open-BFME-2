@@ -13,13 +13,7 @@ struct Coord3D;
 // and both arguments and hand it to the +0x2C holder's rowed 0x00575674.
 #include "../../Include/Common/Rva00575674.h"
 
-class Rva0057551C
-{
-public:
-	Rva0057551C(void *owner, void *a, void *b) throw();	// 0x0057551C
-private:
-	char m_pad[0x14];
-};
+#include "../../Include/Common/Rva0057551C.h"
 
 class Rva00575540
 {
