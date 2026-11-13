@@ -1892,11 +1892,7 @@ public:
 
 // Declared nothrow: retail stores no EH state for the reference constructed
 // before this call (the state moves straight from 0 to the temporary's 3).
-class Rva00239435
-{
-public:
-	Rva002390CB rva00239435(int index) throw();
-};
+#include "../../Include/Common/Rva00239435.h"
 
 struct Rva0023AD91Record
 {

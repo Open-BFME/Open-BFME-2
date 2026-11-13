@@ -76,11 +76,7 @@ public:
 	OpaqueRefElement4 m_info; // +0x04
 };
 
-class Rva00239435
-{
-public:
-	Rva002390CB rva00239435(int index) throw();
-};
+#include "../../Include/Common/Rva00239435.h"
 
 #include "../../../GameEngineDevice/Include/Rva001D98BD.h"
 
