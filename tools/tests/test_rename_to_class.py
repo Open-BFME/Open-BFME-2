@@ -1487,3 +1487,76 @@ def test_a_name_getter_the_rebuilt_table_does_not_name_is_refused(tree, monkeypa
         "??_7Widget@@6B@": [GDTOR, STOP, "?GetSnapshotName@UpdateModule@@MBEPBDXZ"]}})
     with pytest.raises(Refusal, match="slot 2 names"):
         getter_plan(getter_tree(tree))
+
+
+# ------------------------------------- a free placeholder getter moved into its class (lk106)
+#
+# The const-int getter units row the same 6-byte `mov eax,"C"; ret` as a free `int RvaNNNNNNNNGet()` (address-
+# derived, no class witnessed). Retail binds it to slot 2 of C's own table: the same proof moves it into C as
+# `?GetSnapshotName@C@@MBEPBDXZ`; the body is identical under both spellings (no argument, eax returned).
+
+FREE_OLD = "?Rva00406000Get@@YAHXZ"
+FREE_NAMES = f"""// cl: /O2
+// {FREE_OLD}
+int Rva00406000Get(void) {{ return (int)"Widget"; }}
+"""
+
+
+def free_getter_tree(tree, widget=SNAPSHOT_WIDGET, old=FREE_OLD):
+    functions = (tree / "reverse/functions.csv").read_bytes().decode()
+    (tree / "reverse/functions.csv").write_bytes(
+        (functions + f"{old},,0x00406000,6,Code/Game/Names.cpp,matched,const-int getter\n").encode())
+    (tree / "Code/Game/Names.cpp").write_bytes(FREE_NAMES.replace(FREE_OLD, old).encode())
+    (tree / "Code/Game/Widget.cpp").write_bytes(widget.encode())
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "free getter")
+    return tree
+
+
+@pytest.mark.parametrize("name,cls,new,expected", [
+    (FREE_OLD, "Widget", GETTER_NEW, True),
+    ("?Rva4599DFGet@@YAHXZ", "Widget", GETTER_NEW, True),                       # six hex digits
+    (FREE_OLD, "Widget", "?GetSnapshotName@Widget@@UBEPBDXZ", False),           # public: not the override
+    (FREE_OLD, "Widget", "?getName@Widget@@MBEPBDXZ", False),                   # another identifier
+    ("?Rva00406000Get@@YAHH@Z", "Widget", GETTER_NEW, False),                   # takes an argument
+    ("?Rva00406000Get@@YAPBDXZ", "Widget", GETTER_NEW, False),                  # another return type
+    ("?countGet@@YAHXZ", "Widget", GETTER_NEW, False),                          # not a placeholder
+    (FREE_OLD, "Gadget", GETTER_NEW, False),                                    # another class's spelling
+])
+def test_snapshot_free_getter_shape(name, cls, new, expected):
+    assert rename.snapshot_free_getter(name, cls, new) is expected
+
+
+def test_a_free_placeholder_getter_moves_into_its_class_as_the_snapshot_override(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    p = getter_plan(free_getter_tree(tree))
+    assert p.new == GETTER_NEW and p.basis == "to-class"
+    assert p.to_class["slot"] == 2 and "slot 2 is Snapshot::GetSnapshotName's" in p.evidence
+    assert (FREE_OLD, GETTER_NEW, GETTER_RVA) in p.renamed_rows
+    assert p.subject() == f"Move {FREE_OLD} into Widget as {GETTER_NEW} (retail vftable 0x00C00000 slot 2)"
+
+
+def test_a_free_placeholder_getter_takes_only_the_snapshot_override(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled={"Code/Game/Widget.cpp": {
+        "??_7Widget@@6B@": [GDTOR, STOP, "?getName@Widget@@MBEPBDXZ"]}})
+    with pytest.raises(Refusal, match="not a method"):
+        getter_plan(free_getter_tree(tree), new="?getName@Widget@@MBEPBDXZ")
+
+
+def test_a_free_placeholder_getter_outside_slot_2_is_refused(tree, monkeypatch):
+    retail(monkeypatch, {TABLE: ([0x00403040, GETTER_RVA, 0x00404000], {CTOR_STORE: 0})},
+           compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, GETTER_NEW, STOP]}})
+    with pytest.raises(Refusal, match="sits in slot 1 of Widget's retail table 0x00C00000, not slot 2"):
+        getter_plan(free_getter_tree(tree))
+
+
+def test_a_free_placeholder_getter_whose_class_view_has_no_snapshot_base_is_refused(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    with pytest.raises(Refusal, match="no installer unit.s view of Widget derives from Snapshot"):
+        getter_plan(free_getter_tree(tree, widget=SNAPSHOT_WIDGET.replace(" : public Snapshot", "")))
+
+
+def test_a_free_getter_with_a_readable_name_is_still_refused(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    with pytest.raises(Refusal, match="not a method"):
+        getter_plan(free_getter_tree(tree, old="?widgetNameGet@@YAHXZ"))

@@ -7065,6 +7065,24 @@ def snapshot_name_getter(name, cls, new):
     return name == f"?name@{cls}@@QBEPBDXZ" and new == f"?GetSnapshotName@{cls}@@MBEPBDXZ"
 
 
+# The const-int getter units row the same 6-byte body as a free placeholder,
+# `int RvaNNNNNNNNGet(void)` (`?RvaNNNNNNNNGet@@YAHXZ`, no class witnessed: only
+# vftable slots reach it). Its move into C takes the name getter's proof and
+# nothing else: the one new spelling `?GetSnapshotName@C@@MBEPBDXZ`, slot 2 of
+# C's own table, an installer view deriving C from Snapshot, the rebuilt table
+# naming it. The body cannot tell the two apart (no argument, the literal's
+# address returned in eax, `this` unused), and the byte gate still reads it.
+SNAPSHOT_FREE_GETTER = re.compile(r"\?(Rva[0-9A-Fa-f]{6,8}Get)@@YAHXZ")
+
+
+def snapshot_free_getter(name, cls, new):
+    """True when `name` is a free placeholder getter `int RvaNNNNNNNNGet(void)` moved into `cls` as its
+    Snapshot override."""
+    match = SNAPSHOT_FREE_GETTER.fullmatch(name)
+    return (match is not None and is_placeholder(match.group(1), "function")
+            and new == f"?GetSnapshotName@{cls}@@MBEPBDXZ")
+
+
 def snapshot_name_getter_proof(ctx, name, cls, table, slot, installers, found, proof):
     """to_class_evidence's proof for a name getter moved within its class, or Refusal: its own
     table's slot 2, installed by special members whose units' views derive `cls` from Snapshot."""
@@ -7100,22 +7118,23 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                       "a class move needs exactly one (pass --old to choose)")
     row = owners[0]
     name = row["name"]
-    at, old_cls, _scopes, _role = member_function_header(name)
-    getter = old_cls == cls and snapshot_name_getter(name, cls, new)
+    free = snapshot_free_getter(name, cls, new)
+    at, old_cls = (None, None) if free else member_function_header(name)[:2]
+    getter = free or (old_cls == cls and snapshot_name_getter(name, cls, new))
     if old_cls == cls and not getter:
         raise Refusal(f"{name} is already a member of {cls}")
     if not getter and not is_placeholder(old_cls, "class"):
         raise Refusal(f"{name}'s class {old_cls} is a readable name: --to-class moves only a placeholder class's "
                       "member (choosing between two readable classes is a naming decision)")
     return_enum = None
-    if new.startswith("?"):
+    if new.startswith("?") and not free:
         try:
             nat = member_function_header(new)[0]
         except Refusal:
             nat = None
         if nat is not None:
             return_enum = enum_return_respelling(name[at + 1:], new[nat + 1:])
-    new_name = to_class_symbol(name, cls, new, return_enum=return_enum)
+    new_name = new if free else to_class_symbol(name, cls, new, return_enum=return_enum)
     if is_generated(row["source"]):
         raise Refusal(f"{name} lives in generated source {row['source']}; recover it as real C++ first")
     reason = is_protected(ctx, "function", name, rva=rva, identifier=scope_of(name).rsplit("::", 1)[-1])

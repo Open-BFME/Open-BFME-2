@@ -792,6 +792,11 @@ identifier, access or signature within the class is still refused:
     python3 tools/rename.py function --rva 0x0045BFD3 --to-class BezierProjectileBehavior \
         --new '?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ' --prepared ... --dry-run
 
+The same body rowed as a free placeholder, `int RvaNNNNNNNNGet(void)`
+(`?RvaNNNNNNNNGet@@YAHXZ` in the const-int getter units), moves into C the same
+way and only as `?GetSnapshotName@C@@MBEPBDXZ`, with the same proof; any other
+free function is still refused as not a method.
+
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
 C, a caller that names the old member, a view declaring the override); the
 files must be clean, tracked ledger sources. The tool respells rows, funclet
