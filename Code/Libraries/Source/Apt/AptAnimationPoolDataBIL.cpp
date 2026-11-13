@@ -16,7 +16,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "AptCIHClass.h"
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
-struct AptMatrix { float a,b,c,d,tx,ty; };
+#include "../../../GameEngine/Include/Common/AptMatrix.h"
 struct ButtonHitTestRecord { AptCIH *pCIH; AptMatrix matrix; };
 struct AptAnimationPoolData {
     unsigned char unaccessed[16];

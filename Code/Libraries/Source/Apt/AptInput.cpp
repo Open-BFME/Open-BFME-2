@@ -305,9 +305,7 @@ public:
 // isUndefined 0x6DC010 and get 0x6DBB30; caller 0x006E6540.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 
-struct AptMatrix {
-    float a, b, c, d, tx, ty;
-};
+#include "../../../GameEngine/Include/Common/AptMatrix.h"
 
 struct ButtonHitTestRecord {
     AptCIH *pCIH;

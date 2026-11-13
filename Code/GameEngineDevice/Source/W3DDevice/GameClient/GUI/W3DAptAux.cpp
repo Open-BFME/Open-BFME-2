@@ -425,10 +425,7 @@ private:
 };
 
 // The six transform words as WB aptMatrixMul reads them.
-struct AptMatrix
-{
-	float a, b, c, d, tx, ty;
-};
+#include "../../../../../GameEngine/Include/Common/AptMatrix.h"
 
 void BfmeT982::bfmeTouch982C()
 {

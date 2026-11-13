@@ -63,10 +63,7 @@ public:
 class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
-struct AptMatrix
-{
-    float a, b, c, d, tx, ty;
-};
+#include "../../../GameEngine/Include/Common/AptMatrix.h"
 extern "C" AptMatrix g_bfmeD1206;
 extern "C" void (__cdecl *bfmeNotify1209Callback)(void *ctx);
 extern void *g_aptDrawStringSlot;

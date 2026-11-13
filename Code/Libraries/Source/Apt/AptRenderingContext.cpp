@@ -21,7 +21,7 @@ void __debugbreak();
 
 struct AptCXForm { float scale[4]; float translate[4]; };
 
-struct AptMatrix { float a,b,c,d,tx,ty; };
+#include "../../../GameEngine/Include/Common/AptMatrix.h"
 
 // VA 0x00E177A0 (.data, zero-filled tail); target code calls this callback
 // with the restored vertex matrix. No donor callback identity is asserted.
