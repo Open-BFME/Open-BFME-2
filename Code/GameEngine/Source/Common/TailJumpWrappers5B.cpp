@@ -868,11 +868,7 @@ void Rva0059E647World::rva002B77AD()
 	((LivingWorldLogic *)this)->AwardOwnershipSetsToPlayers();
 }
 
-class Rva003F012F
-{
-public:
-	void rva003F012F();
-};
+#include "../../Include/Common/Rva003F012F.h"
 
 class Rva00210D6DElem
 {

@@ -10,11 +10,7 @@
 // ?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z symbol. The unreconstructed
 // remainder of the object is padding.
 
-class Rva003F012F
-{
-public:
-	void rva003F012F();
-};
+#include "../../../../Include/Common/Rva003F012F.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003EFDF5Host.h"
 
