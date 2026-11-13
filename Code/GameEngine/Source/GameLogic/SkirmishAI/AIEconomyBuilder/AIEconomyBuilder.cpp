@@ -148,7 +148,7 @@ public:
 class BaseA
 {
 public:
-	__declspec(dllimport) __forceinline BaseA() : m_04(2), m_08(1) {}
+	__forceinline BaseA(unsigned a, unsigned b) : m_04(a), m_08(b) {}
 	virtual void Register(Object *, void *) = 0;
 	virtual void UnRegister(Object *) = 0;
 	virtual ~BaseA() {}
@@ -379,7 +379,7 @@ void Rva004EA1A5::rva004EA1A5(void *x)
 // vtables, the vector (rowed _Vector_base<int> 0x00211E58; state 2), then the
 // class's 0x004EA420 set-up (not yet rowed; pinned).
 Rva004EA3B8::Rva004EA3B8(void *owner)
-	: m_owner14(owner), m_18(0), m_1C(0), m_20(-1)
+	: BaseA(2, 1), m_owner14(owner), m_18(0), m_1C(0), m_20(-1)
 {
 	rva004EA420();
 }

@@ -99,7 +99,7 @@ public: void update();
 class BaseA
 {
 public:
-	BaseA() : m_04(4), m_08(1) {}
+	__forceinline BaseA(unsigned a, unsigned b) : m_04(a), m_08(b) {}
 	virtual void Register(Object *, void *) = 0;
 	virtual void UnRegister(Object *) = 0;
 	virtual ~BaseA() {}
@@ -280,6 +280,6 @@ Rva005990DF::~Rva005990DF()
 // address-derived; the vector elements are 4-byte stand-ins.
 
 Rva005990DF::Rva005990DF(int owner)
-	: m_2C(owner)
+	: BaseA(4, 1), m_2C(owner)
 {
 }
