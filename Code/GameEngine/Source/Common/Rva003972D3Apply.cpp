@@ -37,11 +37,7 @@ public:
 	virtual class Object *s06();
 };
 
-class Rva003972D3
-{
-public:
-	void rva003972D3(Rva003972D3Range *range, const UpgradeTemplate *upgrade);
-};
+#include "../../Include/Common/Rva003972D3.h"
 
 void Rva003972D3::rva003972D3(Rva003972D3Range *range, const UpgradeTemplate *upgrade)
 {

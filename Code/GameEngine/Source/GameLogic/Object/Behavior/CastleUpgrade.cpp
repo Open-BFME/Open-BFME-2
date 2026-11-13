@@ -100,11 +100,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 // Castle-side behaviour found under CastleBehavior's key; 0x00397357 grants it the upgrade.
-class Rva003972D3
-{
-public:
-	void rva00397357(const UpgradeTemplate *upgrade);
-};
+#include "../../../../Include/Common/Rva003972D3.h"
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 #include "../../../../Include/Common/ModuleInterface.h"
