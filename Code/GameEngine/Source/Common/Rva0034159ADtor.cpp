@@ -43,6 +43,8 @@ protected:
 private:
 	Rva0034159AMember *m_20;
     bool m_24; // native constructor33F540 and transfer3415F5 establish +24
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0033F565
 };
 #include <new>
 AIDockState::~AIDockState()

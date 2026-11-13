@@ -3553,6 +3553,7 @@ Base: 3,324 bridged, 31 refused, 2,225 already correct.
 - "Give DelayedLuaEventUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C53A5C off the bridge (3,317 -> 3,316; refusals identical; 2,232 -> 2,233 correct). link_check: DelayedLuaEventUpdate.cpp 817 -> 822 B, ModuleNameGetters.cpp 288 -> 288 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
 - "Give AutoPickUpUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C4F06C off the bridge (3,316 -> 3,315; refusals identical; 2,233 -> 2,234 correct). link_check: AutoPickUpUpdate.cpp 2,331 -> 2,336 B, ModuleNameGetters3.cpp 605 -> 605 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
 - "Give AttributeModifierPoolUpdate its loadPostProcess base call (retail 0x00497805 fold)": 0x00C3856C off the bridge (3,315 -> 3,314; refusals identical; 2,234 -> 2,235 correct). link_check: AttributeModifierPoolUpdate.cpp 3,885 -> 3,890 B, SubsystemNameGetters4.cpp 209 -> 209 B, BattlePlanUpdate.cpp 2,621 -> 2,621 B LINK.
+- "Move ?Rva0033F565Get@@YAHXZ into AIDockState as ?GetSnapshotName@AIDockState@@MBEPBDXZ": 0x00C11368 off the bridge (3,314 -> 3,313; refusals identical; 2,235 -> 2,236 correct). link_check: ConstIntGetters4.cpp 1,483 -> 1,483 B, Rva0034159ADtor.cpp 118 -> 118 B, AIStateHashCtors0033F2FD.cpp 1,132 -> 1,132 B LINK.
 
 **Recipe and limits.** Prepare the getter unit (`BFME_LITERAL_NAME_GETTER(C, ...)` ->
 `BFME_SNAPSHOT_NAME_GETTER(C, ...)`) and every installer unit whose view compiles C's table (a protected

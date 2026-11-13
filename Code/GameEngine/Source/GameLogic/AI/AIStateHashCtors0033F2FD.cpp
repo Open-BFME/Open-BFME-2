@@ -252,6 +252,8 @@ protected:
 private:
 	int m_20; // +0x20
 	bool m_24; // +0x24
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0033F565
 };
 
 AIDockState::AIDockState(StateMachine *machine)

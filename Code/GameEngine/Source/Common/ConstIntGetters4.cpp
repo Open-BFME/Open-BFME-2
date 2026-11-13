@@ -39,12 +39,17 @@ int Rva0033F53AGet(void)
 	return (int)"AIDeadState";
 }
 
-// ?Rva0033F565Get@@YAHXZ @ 0x000033f565 (6B): returns 0x00C113AC.
+// ?GetSnapshotName@AIDockState@@MBEPBDXZ @ 0x000033f565 (6B): returns 0x00C113AC.
 // Follows a ret-4 (prev C2-04-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva0033F565Get(void)
+class AIDockState
 {
-	return (int)"AIDockState";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *AIDockState::GetSnapshotName() const
+{
+	return "AIDockState";
 }
 
 // ?Rva0033F590Get@@YAHXZ @ 0x0033f590 (6B): returns 0x00C113FC.
