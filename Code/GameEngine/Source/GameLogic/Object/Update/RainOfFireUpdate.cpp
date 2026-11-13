@@ -248,4 +248,4 @@ RainOfFireUpdate::RainOfFireUpdate(Thing *thing, const ModuleData *moduleData)
 	}
 }
 
-// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x004AC12F 6B ?GetSnapshotName@RainOfFireUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)

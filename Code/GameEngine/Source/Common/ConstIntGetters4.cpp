@@ -1132,12 +1132,17 @@ int Rva004AB889Get(void)
 	return (int)"LargeGroupAudioUpdate";
 }
 
-// ?Rva004AC12FGet@@YAHXZ @ 0x004ac12f (6B): returns 0x00bf554c.
+// ?GetSnapshotName@RainOfFireUpdate@@MBEPBDXZ @ 0x004ac12f (6B): returns 0x00bf554c.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva004AC12FGet(void)
+class RainOfFireUpdate
 {
-	return (int)"RainOfFireUpdate";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *RainOfFireUpdate::GetSnapshotName() const
+{
+	return "RainOfFireUpdate";
 }
 
 // ?GetSnapshotName@DestroyEnvironmentUpdate@@MBEPBDXZ @ 0x004ac680 (6B): returns 0x00bf5530.
