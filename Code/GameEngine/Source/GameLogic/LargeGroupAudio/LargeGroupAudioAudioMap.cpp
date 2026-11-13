@@ -171,11 +171,7 @@ private:
 // Chain of 0x001DFE56 (19-dword dual-mask tester): forwards this+0x28/+0x74 as required/exempt
 // against the passed-in mask. Prev stlport_rb_tree next ConstIntGetters.
 // Callers 0x003EDE44 0x003EDF69 0x003EDFD8 pass 76-byte masks.
-class Rva001DFE56
-{
-public:
-	bool rva001DFE56(const void *required, const void *exempt) const;
-};
+#include "../../../Include/Common/Rva001DFE56.h"
 
 // ?rva003EDE2A@Rva003EDE2A@@QBE_NPBX@Z @0x003EDE2A 26B
 // Forwarder to 4-dword tester ?testMasks@Rva0026157E (0x0026157E) with this+0xC0/+0xD0.

@@ -20,7 +20,7 @@ public:
  // ?Rva0036CA00Str::~Rva0036CA00Str present-unmatched
  __forceinline ~Rva0036CA00Str(){if(referent)referent->Release_Ref();}
 };
-class Rva001DFE56 { public: bool rva001DFE56(const void *,const void *) const; };
+#include "../../../../Include/Common/Rva001DFE56.h"
 class Rva000CF0D6
 {
 public:
