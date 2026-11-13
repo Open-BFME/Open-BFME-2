@@ -5312,14 +5312,14 @@ def dependency_blockers(plan, candidates):
     return blocked
 
 
-def acceptance_dependencies(sources):
+def acceptance_dependencies(sources, base="HEAD"):
     """Discover already-applied row renames too, before accepting/retiring debt."""
     if not BFME2 or not (ROOT / "reverse/functions.csv").is_file():
         return {}
     import name_dependents as nd
-    raw = nd.git_bytes("HEAD:reverse/functions.csv", ROOT)
+    raw = nd.git_bytes(f"{base}:reverse/functions.csv", ROOT)
     if raw is None:
-        raise RuntimeError("cannot read HEAD's function ledger")
+        raise RuntimeError(f"cannot read {base}'s function ledger")
     current_raw = LEDGER.read_bytes()
     if current_raw == raw:
         return {}  # Ordinary header-only adoption: no CSV parse or caller scan.
@@ -5905,7 +5905,10 @@ def acceptance_cohort(sources, providers):
     return sources, providers
 
 
-def accept_with_providers(name, sources, providers, header=None, gate=None):
+ACCEPTANCE_CONTEXT = "reverse/header_acceptance_context.json"
+
+
+def provider_verdict(name, sources, providers, header=None, gate=None, *, base="HEAD", check=None):
     """All explicit context must pass; only consumers undergo adoption and retirement.
 
     link_ok's True preserves measured census-linked bytes, including legacy 0 -> 0;
@@ -5914,15 +5917,16 @@ def accept_with_providers(name, sources, providers, header=None, gate=None):
     try:
         sources, providers = acceptance_cohort(sources, providers)
         cohort = sources + providers
-        dependencies = acceptance_dependencies(cohort)
+        if check:
+            why = check(cohort, False)
+            if why:
+                raise ValueError("; ".join(why))
+        dependencies = acceptance_dependencies(cohort) if base == "HEAD" else acceptance_dependencies(cohort, base)
         blocked = dependency_blockers(dependencies, cohort)
     except (Exception, SystemExit) as exc:
-        print(f"  FAIL acceptance context: {exc}")
-        return 1
+        return sources, providers, {"context": [str(exc)]}
     if blocked:
-        for source, why in blocked.items():
-            print(f"  FAIL {source}: {why}")
-        return 1
+        return sources, providers, {source: [why] for source, why in blocked.items()}
 
     builds = {s: gate(s) for s in cohort} if gate else gate_many(cohort)
     problems = {s: [builds.get(s, "byte gate produced no per-unit verdict")]
@@ -5932,6 +5936,10 @@ def accept_with_providers(name, sources, providers, header=None, gate=None):
             why = adoption_problems(name, source, header, lambda s: builds[s])
             if why:
                 problems[source] = why
+    if not problems and check:
+        why = check(cohort, True)
+        if why:
+            problems["context"] = why
     if not problems:
         # Refresh every mandatory provider together, even with a single consumer.
         # link_ok may retry after an out-of-census unit: require each original
@@ -5942,11 +5950,33 @@ def accept_with_providers(name, sources, providers, header=None, gate=None):
                 problems[source] = ["link_check predicts a loss of census-linked bytes" if
                                     linked.get(source) is False else
                                     "link_check produced no usable per-unit verdict"]
+    if not problems and check:
+        why = check(cohort, True)
+        if why:
+            problems["context"] = why
+    return sources, providers, problems
+
+
+def write_acceptance_context(name, sources, providers):
+    """Persist paths only, never a verdict: trusted debt hooks reverify the cohort."""
+    path = ROOT / ACCEPTANCE_CONTEXT
+    data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"version": 1, "cohorts": []}
+    selected = set(sources)
+    data["cohorts"] = [c for c in data["cohorts"]
+                       if c["class"] != name or not selected.intersection(c["consumers"])]
+    data["cohorts"].append({"class": name, "consumers": sources, "providers": providers})
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def accept_with_providers(name, sources, providers, header=None, gate=None):
+    sources, providers, problems = provider_verdict(name, sources, providers, header, gate)
     if problems:
         for source, why in problems.items():
             print(f"  FAIL {source}: {'; '.join(why)}")
         return 1
 
+    write_acceptance_context(name, sources, providers)
     for source in sources:
         print(f"  PASS {source}")
     retired = retire_rows({(name, source) for source in sources})

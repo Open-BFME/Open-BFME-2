@@ -3271,3 +3271,167 @@ def test_coverage_problems_judges_by_address(tmp_path, monkeypatch):
     assert len(rq.coverage_problems(source, {"?a@Loco@@QAEXXZ"}, {"0x00001000", "notanrva"})) == 1
     # rowless and vanished still come first
     assert "holds no matched row" in rq.coverage_problems(source, set(), both)[0]
+
+# Explicit header providers are path hints; only fresh trusted-base checks judge them.
+def provider_debt_tree(tmp_path, monkeypatch):
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES + [("Code/Provider.cpp", "// provider\n"),
+                                                           ("Code/provider.inc", "// dependency\n")])
+    git = _git_repo(tmp_path)
+    source, provider = "Code/GameEngine/Loco.cpp", "Code/Provider.cpp"
+    queue = rev / "header_queue.tsv"
+    queue.write_text("".join(line for line in queue.read_text().splitlines(True) if source not in line))
+    c = {"class": "AsciiString", "consumers": [source], "providers": [provider]}
+    (tmp_path / rq.HEADER_CONTEXT).write_text(json.dumps({"version": 1, "cohorts": [c]}))
+    git("add", "reverse/header_queue.tsv", rq.HEADER_CONTEXT)
+    return rq, git, c
+
+
+@pytest.mark.parametrize("case", ["pass", "partial-provider", "provider-dependency", "moved-provider",
+                                  "moved-dependency", "moved-index", "missing-provider"])
+def test_provider_hook_binds_every_provider_and_dependency_and_never_uses_old_receipts(tmp_path, monkeypatch, case):
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    provider = c["providers"][0]
+    monkeypatch.setattr(rq, "unit_deps", lambda s: {"Code/provider.inc"} if s == provider else set())
+    monkeypatch.setattr(rq, "_header_debt_receipts", lambda: pytest.fail("consumer-only receipt consulted"))
+    seen = []
+    def judge(rows, *, contexts, tree):
+        seen.append(contexts)
+        assert contexts == [c]
+        assert not rq._verification_problems(tree, [provider])
+        if case.startswith("moved-"):
+            path = tmp_path / ("Code/provider.inc" if case == "moved-dependency" else provider)
+            path.write_text("// moved\n")
+            if case == "moved-index":
+                git("add", str(path))
+        return {row: [] for row in rows}
+    if case in ("partial-provider", "provider-dependency", "missing-provider"):
+        path = tmp_path / ("Code/provider.inc" if case == "provider-dependency" else provider)
+        path.write_text("// unstaged\n")
+        if case == "missing-provider":
+            git("rm", "--cached", provider)
+    # Exercise the real trusted-context wrapper with a minimal nonmutating lane.
+    from types import SimpleNamespace
+    def verdict(name, sources, providers, *, base, check):
+        if check(sources + providers, False):
+            return sources, providers, {"context": ["staged input mismatch"]}
+        judge([(name, s) for s in sources], contexts=[c], tree=rq._verification_tree())
+        problems = check(sources + providers, False)
+        return sources, providers, {"context": problems} if problems else {}
+    lane = SimpleNamespace(provider_verdict=verdict)
+    monkeypatch.setattr(rq, "_head_header_verdicts", lambda rows, *, contexts, tree:
+                        rq._provider_header_verdicts(lane, contexts, tree))
+    result = rq.verify_removed_debt()
+    assert bool(result) == (case != "pass"), result
+    assert bool(seen) == (case not in ("partial-provider", "provider-dependency", "missing-provider"))
+
+
+@pytest.mark.parametrize("case", ["duplicate", "overlap", "partial-consumers", "duplicate-cohort", "schema", "oversize"])
+def test_provider_hint_cannot_expand_or_partially_retire_cohorts(tmp_path, monkeypatch, case):
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    data = {"version": 1, "cohorts": [c]}
+    if case == "duplicate": c["providers"] *= 2
+    elif case == "overlap": c["providers"] = c["consumers"]
+    elif case == "partial-consumers": c["consumers"].append("Code/Other.cpp")
+    elif case == "duplicate-cohort": data["cohorts"].append(c)
+    elif case == "schema": data["verdict"] = "PASS"
+    elif case == "oversize": c["providers"] = [f"Code/P{i}.cpp" for i in range(32)]
+    (tmp_path / rq.HEADER_CONTEXT).write_text(json.dumps(data))
+    git("add", rq.HEADER_CONTEXT)
+    monkeypatch.setattr(rq, "_head_header_verdicts", lambda *a, **k: pytest.fail("invalid context judged"))
+    assert rq.verify_removed_debt()
+
+
+@pytest.mark.parametrize("case", ["pass", "missing-deps", "stale-object", "object-moved", "sidecar-moved"])
+def test_provider_context_requires_complete_current_receipts_at_both_boundaries(tmp_path, monkeypatch, case):
+    from types import SimpleNamespace
+    import build
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    provider = c["providers"][0]
+    obj = tmp_path / "provider.obj"
+    obj.write_bytes(b"object")
+    sidecar = obj.with_suffix(".deps.json")
+    sidecar.write_bytes(b"sidecar")
+    monkeypatch.setattr(build, "obj_path", lambda s: obj)
+    counts = []
+    def receipt(root, source):
+        counts.append(source)
+        return (None, "missing dependency closure" if case == "missing-deps" else "stale object") if case in (
+            "missing-deps", "stale-object") else (["Code/provider.inc"], None)
+    def verdict(name, sources, providers, *, base, check):
+        cohort = sources + providers
+        assert check(cohort, False) == []
+        why = check(cohort, True)
+        if not why:
+            if case == "object-moved": obj.write_bytes(b"new object")
+            if case == "sidecar-moved": sidecar.write_bytes(b"new sidecar")
+            why = check(cohort, True)
+        return sources, providers, {"context": why} if why else {}
+    lane = SimpleNamespace(provider_verdict=verdict, _rekey_unit_receipt=receipt, _REKEY_INVENTORY_CACHE={})
+    result = rq._provider_header_verdicts(lane, [c], rq._verification_tree())
+    assert bool(result[c["class"], c["consumers"][0]]) == (case != "pass")
+    assert counts == [provider] * (1 if case in ("missing-deps", "stale-object") else 2)
+
+
+def test_provider_verdict_loads_trusted_base_even_with_accepting_worktree_helpers(tmp_path, monkeypatch):
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    for name in ("class_contract", "class_layouts"):
+        (tools / (name + ".py")).write_text("")
+    path = tools / "header_adopt_lane.py"
+    path.write_text('def provider_verdict(*args, **kwargs):\n    return [], [], {"context": ["trusted refusal"]}\n')
+    git("add", "tools")
+    git("-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "trusted tools")
+    path.write_text('def provider_verdict(*args, **kwargs):\n    raise AssertionError("untrusted helper executed")\n')
+    row = (c["class"], c["consumers"][0])
+    result = rq._head_header_verdicts([row], contexts=[c], tree=rq._verification_tree())
+    assert result == {row: ["context: trusted refusal"]}
+
+@pytest.mark.parametrize("kind", ["alias", "decoder"])
+def test_provider_hint_scope_is_revalidated_by_the_trusted_lane(tmp_path, monkeypatch, kind):
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    import header_adopt_lane as lane
+    import link_check as check
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "BFME2", True)
+    monkeypatch.setattr(check, "ROOT", tmp_path)
+    consumer, provider = c["consumers"][0], c["providers"][0]
+    monkeypatch.setattr(lane, "gate_many", lambda ss: pytest.fail("unsafe hint built"))
+    if kind == "decoder":
+        c["providers"] = ["Code/VP6/decoder.cpp"]
+    else:
+        monkeypatch.setattr(lane, "acceptance_cohort", lambda ss, ps: (ss, ["Code/Elsewhere.cpp"]))
+    result = rq._provider_header_verdicts(lane, [c], rq._verification_tree())
+    assert result[c["class"], consumer]
+
+
+def test_provider_hints_cannot_install_a_new_verifier_in_the_judged_change(tmp_path, monkeypatch):
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    for name in ("class_contract", "class_layouts", "header_adopt_lane"):
+        (tools / (name + ".py")).write_text("")  # Trusted base predates provider support.
+    git("add", "tools")
+    git("-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "old trusted verifier")
+    (tools / "header_adopt_lane.py").write_text('def provider_verdict(*a, **k): return [], [], {}\n')
+    row = (c["class"], c["consumers"][0])
+    result = rq._head_header_verdicts([row], contexts=[c], tree=rq._verification_tree())
+    assert "provider acceptance unavailable" in " ".join(result[row])
+
+@pytest.mark.parametrize("case", ["modified", "staged", "untracked"])
+def test_provider_debt_cannot_use_unpublished_verifier_dependencies(tmp_path, monkeypatch, case):
+    rq, git, c = provider_debt_tree(tmp_path, monkeypatch)
+    tools = tmp_path / 'tools'
+    tools.mkdir()
+    path = tools / 'link_check.py'
+    path.write_text('// trusted\n')
+    git('add', 'tools')
+    git('-c', 'user.name=t', '-c', 'user.email=', 'commit', '-qm', 'trusted dependency')
+    # The fixture's first commit also carried the retirement; restore its debt base.
+    rq.DEBT_BASE = 'HEAD~1'
+    if case == 'untracked': (tools / 'new.py').write_text('pass\n')
+    else:
+        path.write_text('// provisional\n')
+        if case == 'staged': git('add', 'tools')
+    monkeypatch.setattr(rq, '_head_header_verdicts', lambda *a, **k: pytest.fail('provisional verifier judged'))
+    assert 'publish verifier changes separately' in ' '.join(rq.verify_removed_debt())

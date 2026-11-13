@@ -2340,7 +2340,100 @@ def _header_verdicts(lane, rows):
     return judged
 
 
-def _head_header_verdicts(rows, *, structural_only=False):
+HEADER_CONTEXT = "reverse/header_acceptance_context.json"
+
+
+def _header_contexts(rows, tree):
+    """Read untrusted path hints from the judged tree, never local success receipts."""
+    entry = _git("ls-tree", tree, "--", HEADER_CONTEXT)
+    if entry.returncode:
+        raise ValueError("cannot inspect header acceptance context")
+    if not entry.stdout:
+        return []
+    raw = _git("show", f"{tree}:{HEADER_CONTEXT}")
+    if raw.returncode or len(raw.stdout) > 131072:
+        raise ValueError("header acceptance context unavailable or oversized")
+    data = json.loads(raw.stdout)
+    if (not isinstance(data, dict) or set(data) != {"version", "cohorts"}
+            or type(data["version"]) is not int or data["version"] != 1
+            or not isinstance(data["cohorts"], list) or len(data["cohorts"]) > 128):
+        raise ValueError("invalid header acceptance context schema")
+    wanted, seen, selected = set(rows), set(), []
+    for c in data["cohorts"]:
+        if (not isinstance(c, dict) or set(c) != {"class", "consumers", "providers"}
+                or not isinstance(c["class"], str) or not c["class"]
+                or any(not isinstance(c[k], list) or not c[k] for k in ("consumers", "providers"))):
+            raise ValueError("invalid header acceptance cohort")
+        paths = c["consumers"] + c["providers"]
+        if (len(paths) > 32 or any(not isinstance(p, str) or not p or len(p) > 1000 for p in paths)
+                or len(paths) != len(set(paths))):
+            raise ValueError("invalid or duplicate header acceptance paths")
+        keys = {(c["class"], s) for s in c["consumers"]}
+        if keys & seen:
+            raise ValueError("duplicate header acceptance consumer")
+        seen.update(keys)
+        if keys & wanted:
+            if not keys <= wanted:
+                raise ValueError("partial header acceptance cohort retirement")
+            selected.append(c)
+    return selected
+
+
+def _provider_header_verdicts(lane, contexts, tree):
+    """Fresh byte/link evidence, with every provider's complete dependencies bound.
+
+    Old header-debt receipts bind consumer objects only and are never consulted.
+    The strict compiler receipt and include-closure proof are required after the
+    byte gate and again after the link preview; both must describe the same bytes.
+    """
+    import build
+    judged = {}
+    for c in contexts:
+        name, sources, providers = c["class"], c["consumers"], c["providers"]
+        stamps = None
+
+        def check(cohort, built):
+            nonlocal stamps
+            if cohort != sources + providers:
+                return ["header acceptance paths moved from their recorded snapshot"]
+            problems = _verification_problems(tree, cohort)
+            if any(not _debt_present(s) for s in cohort):
+                problems.append("header acceptance member missing from staged/outgoing tree")
+            if not built or problems:
+                return problems
+            currency = {}
+            lane._REKEY_INVENTORY_CACHE.clear()
+            for source in providers:
+                deps, why = lane._rekey_unit_receipt(ROOT, source)
+                if why or deps is None:
+                    problems.append(f"{source}: provider dependency proof unavailable: {why}")
+                    continue
+            for source in cohort:
+                obj = build.obj_path(ROOT / source)
+                currency[source] = (obj.read_bytes(), build._deps_sidecar(obj).read_bytes())
+            if stamps is not None and stamps != currency:
+                problems.append("provider objects or dependency receipts changed during verification")
+            stamps = currency
+            return problems + _verification_problems(tree, cohort)
+
+        try:
+            _s, _p, problems = lane.provider_verdict(name, sources, providers, base=DEBT_BASE, check=check)
+            why = [f"{s}: {p}" for s, ps in problems.items() for p in ps]
+        except (Exception, SystemExit) as exc:
+            why = [f"provider acceptance unavailable: {exc}"]
+        judged.update({(name, s): why for s in sources})
+    return judged
+
+
+def _provider_tools_current():
+    """Provider evidence cannot be supplied by provisional verifier dependencies."""
+    if _git("diff", "--no-ext-diff", "--quiet", DEBT_BASE, "--", "tools", ".githooks").returncode:
+        return False
+    extra = _git("ls-files", "--others", "--exclude-standard", "-z", "--", "tools", ".githooks")
+    return extra.returncode == 0 and not extra.stdout
+
+
+def _head_header_verdicts(rows, *, structural_only=False, contexts=(), tree=None):
     """Load acceptance and layout helpers from the trusted base, never the edit being judged."""
     import types
     rows = list(dict.fromkeys(rows))
@@ -2361,6 +2454,10 @@ def _head_header_verdicts(rows, *, structural_only=False):
             exec(compile(got.stdout, module.__file__, "exec"), module.__dict__)
             modules[module_name] = module
         lane = modules["header_adopt_lane"]
+        contextual = _provider_header_verdicts(lane, contexts, tree) if contexts else {}
+        rows = [r for r in rows if r not in contextual]
+        if contextual:
+            return {**contextual, **(_header_verdicts(lane, rows) if rows else {})}
         if structural_only:
             return {row: lane.adoption_problems(*row, gate=lambda source: None) for row in rows}
         if len(rows) == 1:
@@ -2545,13 +2642,26 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
             continue
         judged.add(source)
         header_plan.append((name, source))
+    contexts = []
+    if header_plan:
+        try:
+            contexts = _header_contexts(header_plan, tree)
+        except (ValueError, TypeError) as exc:
+            failures.append(f"header debt context: {exc}")
+            header_plan = []
     receipt_key, receipt_hit, receipts = None, False, None
-    if header_plan and header_verdict is None:
+    if header_plan and header_verdict is None and not contexts:
         receipts = _header_debt_receipts()
         if receipts is not None:
             receipt_key = receipts.header_debt_key(header_plan, tree, DEBT_BASE)
             receipt_hit = receipts.header_debt_hit(receipt_key, header_plan)
-    if receipt_hit:
+    if contexts and not _provider_tools_current():
+        header_results = dict.fromkeys(header_plan, [
+            "provider context requires unchanged trusted-base tools; publish verifier changes separately first"])
+    elif contexts:
+        # Hints cannot reuse consumer-only receipts, even when an old key hits.
+        header_results = _head_header_verdicts(header_plan, contexts=contexts, tree=tree)
+    elif receipt_hit:
         # Only byte/link work is reusable. Resolve current includes and private
         # bodies afresh, including untracked/ignored include-shadowing changes.
         header_results = _head_header_verdicts(header_plan, structural_only=True)

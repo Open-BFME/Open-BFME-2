@@ -1,5 +1,6 @@
 """header_adopt_lane: source surgery, header generation, failure taxonomy and the closure check."""
 import csv
+import json
 import os
 import sys
 import time
@@ -2373,3 +2374,33 @@ def test_a_returned_pointers_cv_is_no_later_declarators():
     by_name = {r["name"]: r for r in records}
     assert not by_name["g"]["qualifiers"] and not by_name["k"]["qualifiers"]   # not const@1 from f's return
     assert by_name["k"]["shape"] == by_name["g"]["shape"]
+
+def test_provider_verdict_is_nonmutating_and_uses_trusted_comparison_base(provider_acceptance, monkeypatch):
+    t = provider_acceptance
+    seen = []
+    monkeypatch.setattr(lane, "acceptance_dependencies", lambda ss, base: seen.append((ss, base)) or {})
+    before = t.queue.read_bytes()
+    sources, providers, problems = lane.provider_verdict("C", [t.consumer], [t.provider], "C.h", base="outgoing-base")
+    assert (sources, providers, problems) == ([t.consumer], [t.provider], {})
+    assert seen == [([t.consumer, t.provider], "outgoing-base")]
+    assert t.queue.read_bytes() == before and not (t.root / lane.ACCEPTANCE_CONTEXT).exists()
+
+
+@pytest.mark.parametrize("phase", [0, 1, 2])
+def test_provider_verdict_refuses_moved_inputs_at_each_boundary(provider_acceptance, phase):
+    t = provider_acceptance
+    checks = []
+    def check(cohort, built):
+        checks.append((cohort, built))
+        return ["moved inputs"] if len(checks) == phase + 1 else []
+    before = t.queue.read_bytes()
+    assert lane.provider_verdict("C", [t.consumer], [t.provider], "C.h", check=check)[2]
+    assert len(checks) == phase + 1
+    assert t.queue.read_bytes() == before
+
+
+def test_provider_acceptance_persists_only_canonical_path_hints(provider_acceptance):
+    t = provider_acceptance
+    assert lane.accept("C", ["./" + t.consumer], "C.h", providers=[str(t.root / t.provider)]) == 0
+    assert json.loads((t.root / lane.ACCEPTANCE_CONTEXT).read_text()) == {"version": 1, "cohorts": [
+        {"class": "C", "consumers": [t.consumer], "providers": [t.provider]}]}

@@ -195,6 +195,16 @@ working verifiers, ordinary compiler/dependency currency, exact objects and
 dependency receipts, retail image, census index and environment still match.
 Structural/include checks and staged/outgoing tree binding always run afresh.
 Documentation and raw naming-vote changes alone do not invalidate them.
+Explicit `accept --provider PATH` cohorts also write
+`reverse/header_acceptance_context.json`; stage this path hint with the consumer
+and queue deletion. It records no verdict. The trusted-base debt hook validates
+the bounded cohort and re-runs every mandatory byte and link check, with
+structural adoption and retirement restricted to consumers. Every provider's
+complete, strict-current compiler dependencies and working inputs must match
+the staged/outgoing tree before and after judgment; objects and sidecars cannot
+move between byte and link checks. Consumer-only header-debt receipts are never
+reused or minted for these cohorts. Publish verifier changes separately before
+a retirement relies on their new context handling.
 Missing proof runs the normal
 checks; changed inputs during reuse refuse retirement. Other push audits still run.
 
