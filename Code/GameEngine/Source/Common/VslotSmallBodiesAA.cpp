@@ -63,14 +63,7 @@ void Rva0060038E::rva0060038E()
 class ParticleSystemTemplate;
 #include "../../Include/GameClient/ParticleSys.h"
 extern class ParticleSystemManager *TheParticleSystemManager;
-class Rva001E0C77
-{
-public:
-	ParticleSystemTemplate *rva001E0C77(Int a, Int unused);
-private:
-	char m_pad00[0x148];
-	void *m_templateName; // AsciiString
-};
+#include "../../Include/Common/Rva001E0C77.h"
 ParticleSystemTemplate *Rva001E0C77::rva001E0C77(Int a, Int)
 {
 	return TheParticleSystemManager->rva001F9343(*(const AsciiString *)&m_templateName, a);

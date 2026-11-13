@@ -1078,14 +1078,7 @@ private:
 };
 
 // 0x0060038E (three tables): virtual slot 4 of the +0x08 object.
-class Rva001E0C77
-{
-public:
-	ParticleSystemTemplate *rva001E0C77(Int a, Int unused);
-private:
-	char m_pad00[0x148];
-	void *m_templateName; // AsciiString
-};
+#include "../../../../Include/Common/Rva001E0C77.h"
 
 class ActiveBody : public BodyModule, public BodyModuleInterface
 {

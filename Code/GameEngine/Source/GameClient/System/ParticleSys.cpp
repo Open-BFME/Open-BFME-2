@@ -1658,14 +1658,7 @@ public:
 	__declspec(noinline) ParticleSystemTemplate *rva001F9343(const AsciiString &name, Int unused) const;
 };
 
-class Rva001E0C77
-{
-public:
-	ParticleSystemTemplate *rva001E0C77(Int a, Int unused);
-private:
-	char m_pad00[0x148];
-	void *m_templateName; // AsciiString
-};
+#include "../../../Include/Common/Rva001E0C77.h"
 
 // Native42C0AE and42C0B5 now use the proven +4/+8 observer receivers
 // in Rva0042C5C3Dtor.cpp; both write the complete object word at+2C.
