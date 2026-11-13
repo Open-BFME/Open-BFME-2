@@ -66,12 +66,7 @@ extern GameLogic *TheGameLogic;
 
 class ThingTemplate;
 
-struct BfmeVecVNB
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Include/Common/BfmeVecVNB.h"
 // A geometry shape (36 bytes): 0x006BD390 moves a point by the shape's
 // offset rotated through the angle.
 class BfmeXformVNB

@@ -22,7 +22,7 @@ struct FootprintBounds{int lx,ly,hx,hy;};
 class Rva0027C36A {public:Rva0027C36A();unsigned words[0xa8/4];};
 #include "../../../Include/GameClient/Drawable.h"
 class Rva00279677{public:void rva00279677();};
-struct BfmeVecVNB{float x,y,z; BfmeVecVNB(const float *v):x(v[0]),y(v[1]),z(v[2]){} };
+#include "../../../Include/Common/BfmeVecVNB.h"
 class BfmeXformVNB{public:void bfmeApplyVNB(BfmeVecVNB*,float);};
 struct BfmeShapeE15 {int type;int field4;float major,minor,offsetX,offsetY,offsetZ;bool flag1C;char pad1D[3];bool enabled;char pad21[3];};
 class BfmeObjE15{public:BfmeShapeE15 *getGeometryShape(int);};
