@@ -731,14 +731,46 @@ def include_path(name):
     """A header as cl's /showIncludes names it, as this host can read it. Under Wine (any host
     but Windows) drive Z: is the root and a backslash separates (`Z:\\home\\...\\string.h`,
     `reference/shims/bfme2_ascii\\ascii_string.h`); a relative name is the compiler's working
-    directory's, ROOT. Another drive stays unreadable here."""
+    directory's, ROOT. Wine matches names without regard to case (`code\\gameengine\\...`,
+    `Common/OVERRIDE.h`), so each component is found as the directory spells it (wine_component).
+    Another drive stays unreadable here."""
     name = name.strip()
-    if os.name != "nt":
-        name = name.replace("\\", "/")
-        if re.match(r"[Zz]:/", name):
-            name = name[2:]
+    if os.name == "nt":
+        path = Path(name)
+        return path if path.is_absolute() else ROOT / path
+    name = name.replace("\\", "/")
+    if re.match(r"[Zz]:/", name):
+        name = name[2:]
     path = Path(name)
-    return path if path.is_absolute() else ROOT / path
+    if not path.is_absolute():
+        path = ROOT / path
+    if path.exists():
+        return path
+    found = Path(path.anchor)
+    for part in path.parts[1:]:
+        if part in ("", "."):
+            continue
+        if part == "..":
+            found = found.parent
+            continue
+        found = wine_component(found, part)
+        if found is None:
+            return path                               # unreadable as named: no reuse rests on it
+    return found
+
+
+def wine_component(directory, part):
+    """`directory / part` as the directory spells it: the exact name, else the one entry equal to
+    it without regard to case; None when there is none, or more than one (an ambiguous match is
+    no proof of which file cl read)."""
+    exact = directory / part
+    if exact.exists():
+        return exact
+    try:
+        matches = [entry for entry in os.listdir(directory) if entry.casefold() == part.casefold()]
+    except OSError:
+        return None
+    return directory / matches[0] if len(matches) == 1 else None
 
 
 def headers_unchanged(headers):

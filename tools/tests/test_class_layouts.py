@@ -99,6 +99,23 @@ def test_an_edited_header_is_never_served_from_the_cache(monkeypatch, tmp_path, 
     assert class_layouts.include_path(named) == header
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="Wine's include names are the case under test")
+def test_a_header_named_in_another_case_is_read_as_wine_reads_it(monkeypatch, tmp_path):
+    # review r1: Wine matches names without regard to case; 33 of 299 cached names (`code\gameengine\...`,
+    # `Common/OVERRIDE.h`) stayed unreadable, so their entries were compiled again on every call
+    monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
+    (tmp_path / "Code" / "Include" / "Common").mkdir(parents=True)
+    header = tmp_path / "Code" / "Include" / "Common" / "Override.h"
+    header.write_text("x")
+    lower = "z:" + str(tmp_path).replace("/", "\\") + "\\code\\include\\common\\OVERRIDE.h"
+    assert class_layouts.include_path(lower) == header
+    assert class_layouts.include_path("Code\\Include\\common\\..\\Common\\override.h") == header
+    digest = class_layouts.file_sha(header)
+    assert class_layouts.headers_unchanged({lower: digest})
+    (tmp_path / "Code" / "Include" / "COMMON").mkdir()          # two spellings: no proof of which cl read
+    assert class_layouts.file_sha(class_layouts.include_path(lower)) == "missing"
+
+
 def test_a_header_the_cache_cannot_read_is_no_proof(monkeypatch, tmp_path):
     monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
     (tmp_path / "a.h").write_text("x")
