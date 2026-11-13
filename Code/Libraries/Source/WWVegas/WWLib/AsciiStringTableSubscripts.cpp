@@ -116,7 +116,7 @@ void * Rva000427195::rva004112A0(const AsciiString *key) {
 // opaque payload; only the actual FloatSlotPair temporary is constructed here.
 struct TargetRef00217D4C;
 #include "../../Apt/AptRefTarget.h"
-struct TreeHintPayload0005808E { char m_body[4]; };
+#include "../../../../GameEngine/Include/Common/TreeHintPayload0005808E.h"
 typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> RefLookupPair;
 typedef _STL::_Rb_tree<AsciiString, RefLookupPair, _STL::_Select1st<RefLookupPair>, _STL::less<AsciiString>, _STL::allocator<RefLookupPair> > RefLookupTree;
 typedef _STL::map<AsciiString, TreeHintPayload0005808E, _STL::less<AsciiString>, _STL::allocator<StoredPair5808E> > ExistingHintMap;
