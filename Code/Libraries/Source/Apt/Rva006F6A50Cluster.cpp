@@ -26,14 +26,7 @@ struct AptCIHKeyBits {int depth:17;int created:14;unsigned high:1;};
 static __forceinline AptCIHKeyBits &cihKeyBits(AptCIH *cih){return *(AptCIHKeyBits *)&cih->field58;}
 
 // ?rva006F7AC0@Rva006F7AC0List@@QAE_NXZ @0x006F7AC0 33B
-class Rva006F7AC0List
-{
-public:
-	bool rva006F7AC0();
-	void rva006F7AF0(int arg);
-
-	AptCIH *m_head;
-};
+#include "Rva006F7AC0List.h"
 
 bool Rva006F7AC0List::rva006F7AC0()
 {

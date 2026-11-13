@@ -626,7 +626,7 @@ void Rva006CD0B0ResetPoolCount() {
 
 // Native6CD350..6CD38A: asserts pMCInfo (Apt.cpp 0x7C0) and applies it to the
 // E176D0 pool's +30 child list through the rowed rva006F7AF0. Address name.
-class Rva006F7AC0List {public:bool rva006F7AC0();void rva006F7AF0(int);};
+#include "Rva006F7AC0List.h"
 void Rva006CD350ApplyChild(void *pMCInfo) {
  if (!pMCInfo) {
   g_bfmeAptAssertAtE17734("pMCInfo", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp", 0x7C0);
