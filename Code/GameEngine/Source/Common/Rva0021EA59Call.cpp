@@ -8,13 +8,7 @@
 
 class AsciiString;
 
-class Rva0021E9D8Call
-{
-public:
-	int rva0021E9D8Call(unsigned int value, const AsciiString &first,
-		const AsciiString &second, const AsciiString &third);
-	int rva0021EA59(void *arguments);
-};
+#include "../../Include/Common/Rva0021E9D8Call.h"
 
 int Rva0021E9D8Call::rva0021EA59(void *arguments)
 {

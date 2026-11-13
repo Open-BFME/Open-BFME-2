@@ -80,7 +80,7 @@ struct BfmeStringRecord002199C8 {
 class UpgradeTemplate;
 #include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
-class Rva0021E9D8Call {public:int rva0021EA59(void*);};
+#include "../../../Include/Common/Rva0021E9D8Call.h"
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 const FieldParse CreateAHeroBlingFieldParse[] = {
  {"BlingUpgradeName",INI::parseAsciiString,0,8},
