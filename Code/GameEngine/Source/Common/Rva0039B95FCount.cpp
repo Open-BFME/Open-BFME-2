@@ -16,11 +16,7 @@ public:
 	int m_end;
 };
 
-struct Rva0039B95FHolder
-{
-	char m_pad00[0x10];
-	Rva004266A1 *m_obj;
-};
+#include "../../Include/Common/Rva0039B95FHolder.h"
 
 extern Rva0039B95FHolder *TheMissionObjectiveTracker;
 // TheMissionObjectiveTracker: matched references place it at VA 0xe031e8 (zero-filled .bss).
