@@ -795,7 +795,7 @@ struct TeamMapInner
 	unsigned char m_pad00[0x14];
 	int m_14;
 };
-class Rva004EC05A { public: void rva004EC05A(void *); };
+#include "../../../Include/Common/Rva004EC05A.h"
 struct Rva002A8AB1Record;
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;

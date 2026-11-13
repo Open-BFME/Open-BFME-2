@@ -7,11 +7,7 @@ class SubsystemInterface;
 
 #include "../../Include/Common/SubsystemInterfaceList.h"
 
-class Rva004EC05A
-{
-public:
-	void rva004EC05A(SubsystemInterface *sys);
-};
+#include "../../Include/Common/Rva004EC05A.h"
 
 void Rva004EC05A::rva004EC05A(SubsystemInterface *sys)
 {
