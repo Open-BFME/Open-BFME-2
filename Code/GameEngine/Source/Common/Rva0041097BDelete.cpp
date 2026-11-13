@@ -4,11 +4,7 @@
 // hashtable node delete for Rva004104C9 value (val at +4). Destroys val via
 // rowed ??1Rva004104C9@@QAE@XZ then frees node via rowed _free. Callers
 // 0x00410A3D and 0x00410AC7 are hashtable clear/iterator-erase bodies (push node; mov ecx tbl).
-class Rva004104C9
-{
-public:
-	~Rva004104C9();
-};
+#include "../../Include/Common/Rva004104C9.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

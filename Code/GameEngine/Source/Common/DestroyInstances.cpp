@@ -35,11 +35,7 @@ struct Rva00382B3F
 public:
 	~Rva00382B3F();
 };
-class Rva004104C9
-{
-public:
-	~Rva004104C9();
-};
+#include "../../Include/Common/Rva004104C9.h"
 #include "../../Include/Common/Rva00410688.h"
 class Rva00466E23
 {
