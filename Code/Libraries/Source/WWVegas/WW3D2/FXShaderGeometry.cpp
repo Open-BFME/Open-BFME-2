@@ -176,7 +176,7 @@ extern bool bfmeRva000387C0(void);
 class FxPassCountProvider {public:virtual int slot00(const char *name);};
 extern int g_00DFCEBC;
 class CountedAsset {public:void Release_Ref();};
-class Rva0015148D {public:void *rva0015148D();};
+#include "../../../../GameEngine/Include/Common/Rva0015148D.h"
 class AssetReference {
 public:
  ~AssetReference() {if(m_object) m_object->Release_Ref();}

@@ -39,7 +39,7 @@ class BFME2ParticleTextureHandle:public RefCountPtr<TextureClass>{};
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 class AssetReference{public:AssetReference(const AssetReference&);TextureClass *p;~AssetReference(){if(p)p->Release_Ref();}};
 class Rva0007B9EE{public:AssetReference rva0007B9EE() throw();};
-class Rva0015148D{public:void *rva0015148D();};
+#include "../../../../GameEngine/Include/Common/Rva0015148D.h"
 class Rva00132A93{public:bool rva00132A93(void *);};
 class Rva0013101E{public:AsciiString rva001360EA()const;bool specialValue() const {return m_c != 0;}unsigned m_a:3,m_b:27,m_c:1,m_keep:1;};
 bool Render_Obj_Exists(const char *);

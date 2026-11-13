@@ -10,12 +10,7 @@
 // serves two rowed method families (getter + chain).
 // Early exits are bare returns (retail leaves eax undefined there).
 
-class Rva0015148D
-{
-public:
-	void *rva0015148D();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva0015148D.h"
 
 class Rva001514B2
 {
