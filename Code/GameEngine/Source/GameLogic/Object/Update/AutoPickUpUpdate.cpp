@@ -336,6 +336,8 @@ public:
 	// BehaviorModuleInterface table 0x00C4EFB0 (+0x0C) slot 27: retail 0x004543A9, the +0x0C
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot27();
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00495C68
 };
 
 void *AutoPickUpUpdate::slot27()
@@ -697,7 +699,7 @@ void AutoPickUpUpdateModuleData::iniParseEatObjectEntry(INI *ini, void *instance
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x00495C68 6B ?name@AutoPickUpUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x00495C68 6B ?GetSnapshotName@AutoPickUpUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // tu-skeleton: 0x00495DF8 9B ??$_Destroy@VRva00495C43PoolRecord@@@_STL@@YAXPAVRva00495C43PoolRecord@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
