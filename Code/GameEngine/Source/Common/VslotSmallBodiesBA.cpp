@@ -32,13 +32,7 @@ public:
 
 // The 0x2000-byte per-slot records at ConnectionManager+0x24; the method the
 // slot query calls is the ICF-folded `xor eax,eax; ret` at 0x000D43D0.
-class Rva0025DE76Slot
-{
-public:
-	__declspec(noinline) Int rva000D43D0();
-private:
-	char m_pad[0x2000];
-};
+#include "../../Include/Common/Rva0025DE76Slot.h"
 
 struct Rva0025DBDCPair
 {

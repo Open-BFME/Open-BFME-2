@@ -281,11 +281,7 @@ struct PickedGhostView
 
 #include "../../../../GameEngine/Include/GameLogic/Module/BfmeThingCME.h"
 
-class Rva0025DE76Slot
-{
-public:
-	int rva000D43D0();
-};
+#include "../../../../GameEngine/Include/Common/Rva0025DE76Slot.h"
 
 extern GameWindowManager *TheWindowManager;
 extern GameLogic *TheGameLogic;

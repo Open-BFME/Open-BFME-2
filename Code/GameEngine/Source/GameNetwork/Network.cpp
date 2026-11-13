@@ -44,13 +44,7 @@ public:
 	Int get() const;
 };
 #include "../../Include/GameNetwork/Rva004E05E9DwordField.h"
-class Rva0025DE76Slot
-{
-public:
-	__declspec(noinline) Int rva000D43D0();
-private:
-	char m_pad[0x2000];
-};
+#include "../../Include/Common/Rva0025DE76Slot.h"
 #include "../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 union GameMessageArgumentType;
