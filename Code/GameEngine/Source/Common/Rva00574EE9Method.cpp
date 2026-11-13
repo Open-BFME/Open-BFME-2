@@ -25,11 +25,7 @@ struct Rva002B256EState
 };
 
 #include "../../Include/Common/Rva002B254F.h"
-class Rva002B256E
-{
-public:
-	void *rva002B256E();
-};
+#include "../../Include/Common/Rva002B256E.h"
 
 #include "../../Include/Common/Rva0042D6FDPtrChaseField.h"
 

@@ -19,11 +19,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "../../../../Include/Common/Rva003F81FDProxy.h"
 
-class Rva002B256E
-{
-public:
-	void *rva002B256E();
-};
+#include "../../../../Include/Common/Rva002B256E.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

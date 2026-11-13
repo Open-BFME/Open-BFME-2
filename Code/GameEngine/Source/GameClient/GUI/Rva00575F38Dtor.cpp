@@ -47,11 +47,7 @@ struct Rva002B256EOwner
 	Rva002B7250 m_list; // +0x04
 };
 
-class Rva002B256E
-{
-public:
-	void *rva002B256E();
-};
+#include "../../../Include/Common/Rva002B256E.h"
 
 #include "../../../Include/Common/Rva005CB84A.h"
 

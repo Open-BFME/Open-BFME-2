@@ -18,7 +18,7 @@ class SkirmishGameInfo;
 extern SkirmishGameInfo *TheSkirmishGameInfo;
 #include "../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 #include "../../../../Include/Common/Rva002B254F.h"
-class Rva002B256E { public: void *rva002B256E(); };
+#include "../../../../Include/Common/Rva002B256E.h"
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003F44A9.h"
 #include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva0020E89C;

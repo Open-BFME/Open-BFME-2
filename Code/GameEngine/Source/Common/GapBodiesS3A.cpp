@@ -290,11 +290,7 @@ void Rva005743E9::rva005743E9(Rva005743E9Arg *arg, int v)
 // forwarders 0x003F8374 / 0x003F8385; the argument is unused.
 #include "../../Include/Common/Rva002B254F.h"
 
-class Rva002B256E
-{
-public:
-	void *rva002B256E();									// 0x002B256E
-};
+#include "../../Include/Common/Rva002B256E.h"
 
 #include "../../Include/Common/Rva003F81FDProxy.h"
 

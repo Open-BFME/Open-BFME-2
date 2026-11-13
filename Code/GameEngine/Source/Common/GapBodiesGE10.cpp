@@ -67,11 +67,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../Include/Common/Rva003F81FDProxy.h"
 
-class Rva002B256E
-{
-public:
-	void *rva002B256E();									// 0x002B256E
-};
+#include "../../Include/Common/Rva002B256E.h"
 
 struct Rva005E95B9Data
 {
