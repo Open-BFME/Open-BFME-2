@@ -42,16 +42,7 @@ public:
 	int m_used;
 };
 
-class Rva00800460Arena
-{
-public:
-	void *claim( int size, bool align );
-	char *append( const char *text );
-
-	char *m_base;
-	unsigned m_capacity;
-	unsigned m_used;
-};
+#include "../../Include/Common/Rva00800460Arena.h"
 
 #include "../../Include/Common/BfmeSlotCZ.h"
 

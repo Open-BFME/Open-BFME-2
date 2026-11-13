@@ -50,19 +50,7 @@ Rva007EB810Diag *Rva007EB810Get(void);
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
-class Rva00800460Arena
-{
-public:
-	void *claim( int size, bool align );
-public:
-	char *m_base;
-public:
-	unsigned m_cap;
-public:
-	unsigned m_used;
-public:
-	char *append( const char *text );
-};
+#include "../../../GameEngine/Include/Common/Rva00800460Arena.h"
 
 class GenAlloc
 {

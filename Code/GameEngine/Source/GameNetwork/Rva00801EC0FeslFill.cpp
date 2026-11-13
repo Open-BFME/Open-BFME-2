@@ -50,16 +50,7 @@ public:
 	int m_size;
 };
 
-class Rva00800460Arena
-{
-public:
-	void *claim( int size, bool align );
-	char *append( const char *text );
-
-	char *m_base;
-	unsigned m_cap;
-	unsigned m_used;
-};
+#include "../../Include/Common/Rva00800460Arena.h"
 
 class Rva00801EC0Owner
 {
