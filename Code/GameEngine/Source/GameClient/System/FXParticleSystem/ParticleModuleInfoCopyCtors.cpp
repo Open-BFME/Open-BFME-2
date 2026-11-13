@@ -445,17 +445,7 @@ Gen005EDB10::Gen005EDB10(Host005EDA90 *owner)
 {
 }
 
-struct Rva003AFA0BVector
-{
-	Rva003AFA0BVector() {}
-	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
-	{
-		x = that.x;
-		y = that.y;
-		z = that.z;
-	}
-	float x, y, z;
-};
+#include "../../../../Include/Common/Rva003AFA0BVector.h"
 
 class Rva003AFA0B
 {

@@ -75,21 +75,7 @@ class Object;
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 float __cdecl ACos(float);
 class Rva001F37C4 {public:void rva001F37C4(Xfer*);};
-struct Rva003AFA0BVector
-{
-public:
-	Rva003AFA0BVector() {}
-	Rva003AFA0BVector(float a, float b, float c) : x(a), y(b), z(c) {}
-	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
-	{
-		x = that.x;
-		y = that.y;
-		z = that.z;
-	}
-	float x; // +0x00
-	float y; // +0x04
-	float z; // +0x08
-};
+#include "../../../Include/Common/Rva003AFA0BVector.h"
 struct Rva001F55A8Info
 {
 	char pad00[0x10];

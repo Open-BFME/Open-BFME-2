@@ -62,21 +62,7 @@ namespace FXParticleSystem
 
 // Consumed return/call ABI of the rowed helper at 0x003AFA0B. Its receiver
 // and method retain opaque names; the three scalar components are observed.
-struct Rva003AFA0BVector
-{
-public:
-	Rva003AFA0BVector() {}
-	Rva003AFA0BVector(float a, float b, float c) : x(a), y(b), z(c) {}
-	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
-	{
-		x = that.x;
-		y = that.y;
-		z = that.z;
-	}
-	float x; // +0x00
-	float y; // +0x04
-	float z; // +0x08
-};
+#include "../../Include/Common/Rva003AFA0BVector.h"
 
 class Rva003AFA0B
 {
