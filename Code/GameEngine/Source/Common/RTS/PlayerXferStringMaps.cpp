@@ -185,11 +185,7 @@ public:
 	UnsignedInt m_numElements;	// +0x10
 };
 
-class Rva001FDE3F
-{
-public:
-	float &rva001FDE3F(const AsciiString &key);
-};
+#include "../../../Include/Common/Rva001FDE3F.h"
 struct Rva002AF236Node
 {
 	Rva002AF236Node *m_next;

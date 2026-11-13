@@ -12,11 +12,7 @@ class AsciiString;
 class Rva00056F61;
 #include "../../../Include/GameClient/Rva0041534BIter.h"
 #include "../../../Include/GameClient/Rva00056F61.h"
-class Rva001FDE3F
-{
-public:
-    float &rva001FDE3F(const AsciiString &key);
-};
+#include "../../../Include/Common/Rva001FDE3F.h"
 class Rva002AE4C5
 {
 public:

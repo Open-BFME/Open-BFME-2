@@ -113,13 +113,7 @@ private:
 }
 typedef _STL::map<int, float, _STL::less<int>, _STL::allocator<_STL::pair<const int, float> > > ProductionChangeMap;
 typedef _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > ProductionVeterancyMap;
-class Rva001FDE3F
-{
-public:
-	float &rva001FDE3F(const AsciiString &key);
-private:
-	unsigned char m_table[0x14]; // +0x00
-};
+#include "../../../Include/Common/Rva001FDE3F.h"
 class PlayerTemplate : public Overridable
 {
 public:
