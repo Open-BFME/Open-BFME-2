@@ -29,13 +29,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 // 0x00541021, which are rowed in their own units, so only insert and its
 // copy_backward pair are emitted here. The donor's opaque 28-byte view keeps
 // retail's register allocation.
-struct Rva00541021
-{
-	char m_body[28];
-	Rva00541021();
-	Rva00541021(const Rva00541021 &other);
-	Rva00541021 &operator=(const Rva00541021 &other);
-};
+#include "../../../../GameEngine/Include/Common/Rva00541021.h"
 namespace _STL {
 template <> void _Construct<Rva00541021, Rva00541021>(Rva00541021 *, const Rva00541021 &);
 // The growth path's helpers are kept from stlport_vector_rva00541021_allocate_copy.cpp.

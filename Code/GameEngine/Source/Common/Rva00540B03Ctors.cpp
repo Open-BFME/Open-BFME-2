@@ -21,7 +21,7 @@
 // unknown. Their implicit destructors are trivial, unlike the unrelated
 // 63-byte vector<BfmeE16> destructor previously declared here.
 class Rva0054000B { public: Rva0054000B(); int m_00; private: char m_pad04[0x24]; };
-struct Rva00541021 { int m_field0; Region3D m_region; Rva00541021(); Rva00541021(const Rva00541021 &); };
+#include "../../Include/Common/Rva00541021.h"
 class Rva0054103E { public: int m_field0; Region2D m_region; Rva0054103E(); Rva0054103E(const Rva0054103E &); };
 
 #include "../../Include/Common/Rva00330757Member.h"

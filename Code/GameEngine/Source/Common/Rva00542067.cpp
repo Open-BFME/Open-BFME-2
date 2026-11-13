@@ -16,13 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../../Libraries/Include/Lib/Region3D.h"
 
-struct Rva00541021
-{
-	int m_field0;
-	Region3D m_region;
-	Rva00541021();
-	Rva00541021(const Rva00541021 &other);
-};
+#include "../../Include/Common/Rva00541021.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void _Construct<Rva00541021,Rva00541021>(Rva00541021 *,Rva00541021 const &); }
 

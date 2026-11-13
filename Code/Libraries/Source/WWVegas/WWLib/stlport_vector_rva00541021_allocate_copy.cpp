@@ -13,13 +13,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 #include "../../../Include/Lib/Region3D.h"
-struct Rva00541021
-{
-    int m_field0;
-    Region3D m_region;
-    Rva00541021();
-    Rva00541021(const Rva00541021 &other);
-};
+#include "../../../../GameEngine/Include/Common/Rva00541021.h"
 namespace _STL {
 template <> void _Construct<Rva00541021, Rva00541021>(Rva00541021 *, const Rva00541021 &);
 }
