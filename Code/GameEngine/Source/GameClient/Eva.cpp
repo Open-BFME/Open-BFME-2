@@ -169,11 +169,7 @@ extern GameLogic *TheGameLogic;
 extern Eva *TheEva;
 // The status record's played counter (0x001DD240), placeholder-rowed under
 // another class name.
-class Rva001DD240
-{
-public:
-	void rva001DD240(UnsignedInt *info);			// 0x001DD240
-};
+#include "../../Include/Common/Rva001DD240.h"
 // The report internalReportEvaEvent takes (WB's report record; rowed under
 // the placeholder Rva001DD063, default constructor 0x001DD1D0): the event,
 // then two optional positions, each behind a presence flag.
