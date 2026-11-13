@@ -46,7 +46,7 @@ class CreateAHeroData;
 #include "../../Include/Common/Rva002B7250.h"
 struct StanceBehaviorPrefix { char pad[0x20]; Rva002B7250 observers; };
 struct TargetRef00217D4C;
-struct Rva002BED91 { TargetRef00217D4C *p; void clear(); };
+#include "../../Include/Common/Rva002BED91.h"
 struct Rva003591F4Arg {
  Rva003591F4Arg(const Rva003591F4Arg &other):m_id(other.m_id),m_flag(other.m_flag){}
  int m_id; bool m_flag;

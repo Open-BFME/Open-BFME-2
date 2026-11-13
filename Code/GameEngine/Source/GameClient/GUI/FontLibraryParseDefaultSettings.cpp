@@ -25,7 +25,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct FontSettingsOwner {TargetRef00217D4C *m_ptr;FontSettingsOwner(TargetRef00217D4C *p):m_ptr(p){if(p)++p->references;}__forceinline ~FontSettingsOwner(){ReleaseTreeHintRef00217D4C(m_ptr);}};
 struct TreeHintRef00218787 {TargetRef00217D4C *m_ptr;};
 namespace _STL {template<> TreeHintRef00217D4C &map<AsciiString,TreeHintRef00217D4C>::operator[](const AsciiString&);template<> TreeHintRef00218787 &map<int,TreeHintRef00218787>::operator[](const int&);}
-struct Rva002BED91 {TargetRef00217D4C *m_ptr;void set(TargetRef00217D4C*);};
+#include "../../../Include/Common/Rva002BED91.h"
 class Rva002186EB {public:Rva002186EB();const void *vtable;int references;TreeHintRef00218787 defaults;_STL::map<int,TreeHintRef00218787> sizes;};
 struct FontDefaultSettings {const void *vtable;int references;bool antialiased;FontDefaultSettings():references(0){vtable=__identifier("??_7Rva00217497@@6B@");}};
 #include "../../../Include/GameClient/FontLibrary.h"

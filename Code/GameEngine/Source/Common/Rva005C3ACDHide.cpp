@@ -12,13 +12,7 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class Rva002BED91
-{
-public:
-    void clear();
-private:
-    void *m_ptr; // +0 holder makes Elem stride 12 like retail imul 12
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 #include "../../Include/Common/Rva000AD6F4.h"
 

@@ -216,7 +216,7 @@ private:
  int m_referenceCount;
  void *m_implementation;
 };
-struct Rva002BED91 { void *m_ptr; void set(TargetRef00217D4C *); };
+#include "../../../../../Include/Common/Rva002BED91.h"
 #include "../../../../../Include/Common/Rva005CCB83.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

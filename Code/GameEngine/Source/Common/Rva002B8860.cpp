@@ -27,11 +27,7 @@ public:
 };
 }
 
-struct Rva002BED91
-{
-	TargetRef00217D4C *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 #include "../../Include/Common/Rva002B6151Listener.h"
 class Rva002B6151List

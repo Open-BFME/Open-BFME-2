@@ -2,11 +2,7 @@
 // ?OnButtonFrameUnloaded@Rva0052936C@@QAEXPBD@Z @0x005297A0 61B evidence: chain on 0x00529628 GetParam index atoi 0-5; array base +0x64 stride 0x14 count 6 like dtor 0x0052936C; clears via rowed 0x002BED91 plus 0x000AD6F4 plus null +0x10
 #include "../../Include/Common/Rva000AD6F4.h"
 
-struct Rva002BED91
-{
-	void *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 #include "../../Include/Common/Rva00528FE6.h"
 

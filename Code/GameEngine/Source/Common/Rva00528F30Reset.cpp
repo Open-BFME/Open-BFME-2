@@ -9,7 +9,7 @@
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva00528B98 {public:void rva00528B98();private:void *owner;bool flag04;};
 class Rva00528BDD {public:void rva00528BDD();private:void *owner;bool flag04;};
-class Rva002BED91 {public:void clear();private:void *reference;};
+#include "../../Include/Common/Rva002BED91.h"
 struct ResetRecord528F30 {Rva002BED91 reference;void *value;char unknown08[12];};
 class Rva00528F30Target {
 public:void reset();

@@ -202,11 +202,7 @@ class Rva005F4AED
 public:
 	Rva005F4AD7 rva005F4AED(int level, const AsciiString &leaf);
 };
-struct Rva002BED91
-{
-	TargetRef00217D4C *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::OnPanelLoaded(int which, const char *path)
 {
 	Rva005FD5D4UnitSlot &slot = m_slots[which];

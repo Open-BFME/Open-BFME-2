@@ -3,11 +3,7 @@
 // Evidence: loop dec count at +0xD8; elem (count+3)*12 + this; clear +0 via 0xAD6F4 plus +4 via 0x2BED91; or +8 -1; caller 0x005283E6
 #include "../../Include/Common/Rva000AD6F4.h"
 
-struct Rva002BED91
-{
-	void clear();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 struct Rva00528309Elem
 {

@@ -197,11 +197,7 @@ struct RvaF6Ret
 
 RvaF6Ret __cdecl Helper0056BABF(int v);
 
-struct Rva002BED91
-{
-    TargetRef00217D4C *m_ptr;
-    void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 // ?rva003FDE8C@LivingWorldArmyIcon@@QAEXE@Z @0x003FDE8C 33B: __thiscall void method iterating
 // pointer range [+0x2C,+0x30) calling rowed Rva0056B929::rva0056B929(arg). Evidence:
