@@ -45,11 +45,7 @@ public:
 	void Set_Points(UnsignedInt numpoints, Vector3 *locs);
 };
 
-class Rva002B269E
-{
-public:
-	bool rva002B269E(Int id);
-};
+#include "../../../Include/Common/Rva002B269E.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

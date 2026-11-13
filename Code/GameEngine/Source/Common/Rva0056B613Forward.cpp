@@ -8,11 +8,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002B269E
-{
-public:
-	bool rva002B269E(int arg);
-};
+#include "../../Include/Common/Rva002B269E.h"
 
 class Rva003F9FE6
 {
