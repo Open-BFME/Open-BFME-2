@@ -76,11 +76,7 @@
 // 0004F7D8 establishes the address-derived owner. Target bytes set its vptr,
 // invoke virtual slot 3 on the +20 object, release that reference, and call
 // the base destructor at 004E84A4. The original class identity is unknown.
-class Rva00539926Base
-{
-public:
-    virtual ~Rva00539926Base();
-};
+#include "../../../../../GameEngine/Include/Common/Rva00539926Base.h"
 
 #include "../../../../../GameEngine/Include/Common/RadarEventRef.h"
 

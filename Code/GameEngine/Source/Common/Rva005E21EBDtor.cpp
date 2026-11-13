@@ -18,11 +18,7 @@
 // destructor of its own in the unwind map, so it is held as a raw pointer.
 #include "../../Include/Common/Rva000AD6F4.h"
 
-class Rva00539926Base
-{
-public:
-	virtual ~Rva00539926Base();
-};
+#include "../../Include/Common/Rva00539926Base.h"
 
 class Rva005E21EB : public Rva00539926Base
 {

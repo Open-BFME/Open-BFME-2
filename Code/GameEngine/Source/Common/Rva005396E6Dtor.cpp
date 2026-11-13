@@ -80,11 +80,7 @@ void Rva005398B3::reset()
 // then base dtor pinned at 0x004E84A4 (ICF twin of rowed apply 7B mov plus
 // ret setting vptr to 0x00BC6F20). Caller 0x00539964 (??_G 28B). Evidence:
 // vtable store plus chain after 0x005398B3 plus base call; EH frame.
-class Rva00539926Base
-{
-public:
-	virtual ~Rva00539926Base();
-};
+#include "../../Include/Common/Rva00539926Base.h"
 
 class InGameSimpleHelp : public Rva00539926Base
 {

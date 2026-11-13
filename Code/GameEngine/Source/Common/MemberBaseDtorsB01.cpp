@@ -113,11 +113,7 @@ private:
 	void *m_value;
 };
 
-class Rva00539926Base
-{
-public:
-	virtual ~Rva00539926Base();
-};
+#include "../../Include/Common/Rva00539926Base.h"
 
 // Member destructor rowed as Rva005E1E81::clear (OwnedPointerResets.cpp); the
 // holder is a unit-local view so the inline by-product gets a local name.
