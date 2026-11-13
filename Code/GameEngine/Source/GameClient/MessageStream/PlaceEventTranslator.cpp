@@ -353,15 +353,10 @@ public:
 
 extern MessageStream *TheMessageStream;
 
-struct MiscAudio
-{
-	char m_pad[0xE8];
-	// Retail's own INI token for +0xE8 is BadBuildingPlacementSound (the
-	// MiscAudio FieldParse table 0x007DF2D0, reconstructed in
-	// Common/INI/INIMiscAudio.cpp); NoCanDoSound is the token at +0x2C, which
-	// this body does not read.
-	OpaqueRefElement4 m_badBuildingPlacementSound;
-};
+// MiscAudio's +0xE8 (canonical m_E8) is retail's INI token BadBuildingPlacementSound (the MiscAudio
+// FieldParse table 0x007DF2D0, reconstructed in Common/INI/INIMiscAudio.cpp); NoCanDoSound is the token
+// at +0x2C, which this body does not read.
+#include "../../../Include/Common/MiscAudioClass.h"
 
 #include "../../../Include/Common/GameAudio.h"
 
@@ -610,7 +605,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_CANNOT_BUILD_VOICE, &info);
 
 				// play a can't do that sound (UI beep type sound)
-				static BfmeAudioEventPrefix136 noCanDoSound(TheAudio->getMiscAudio()->m_badBuildingPlacementSound, 0);
+				static BfmeAudioEventPrefix136 noCanDoSound(TheAudio->getMiscAudio()->m_E8, 0);
 				TheAudio->addAudioEvent(&noCanDoSound);
 
 				// unhook the anchor so they can try again
