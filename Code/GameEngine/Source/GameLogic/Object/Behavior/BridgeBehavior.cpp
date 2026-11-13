@@ -316,11 +316,7 @@ struct CreateMask
 
 // The road template's scaffold / scaffold-support object name getters are
 // rowed under address-derived owners (0x002D9BC1 / 0x0056394A).
-class Rva002D9BC1AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 
 class Rva0056394A
 {

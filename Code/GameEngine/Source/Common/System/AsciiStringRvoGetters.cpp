@@ -258,15 +258,7 @@ AsciiString Rva0059F340AsciiField::get() const
 	return m_value;
 }
 
-class Rva002D9BC1AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x20];
-	AsciiString m_value; // +0x20
-};
+#include "../../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 
 class Rva004DC8E7AsciiField
 {

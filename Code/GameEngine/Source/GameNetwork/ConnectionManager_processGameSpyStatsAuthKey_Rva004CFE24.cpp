@@ -28,11 +28,7 @@ public:
 	void rva004CFBC2(AsciiString value);
 };
 
-class Rva002D9BC1AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 
 // Retail folds the +0x1C getter with CDDrive::getPath (0x002D9BA6).
 class CDDrive

@@ -34,11 +34,7 @@ public:
 	virtual AsciiString getPath();
 };
 
-class Rva002D9BC1AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../../GameEngine/Include/GameNetwork/Rva002D9BC1AsciiField.h"
 
 struct MilesAudioEventInfoView
 {

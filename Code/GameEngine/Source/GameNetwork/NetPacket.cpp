@@ -197,11 +197,7 @@ public:
 // reader also passes the message type, which the body never reads.
 void Rva00590D19Add(Int type, NetGameCommandMsg *msg, const void *data, Int *readOffset, Int msgType);
 // AsciiString getter at +0x20 (rowed under its address name).
-class Rva002D9BC1AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 // +0x20 word getter and +0x24 byte getter (rowed under their address names).
 class Rva004D5973WordField
 {
