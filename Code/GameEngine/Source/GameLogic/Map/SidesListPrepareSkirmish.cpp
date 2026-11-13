@@ -26,6 +26,7 @@
 // type held in a local.
 // stlport
 #include <vector>
+#include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -134,7 +135,7 @@ public:
 	Dict *getTeamInfo(int id) { return &m_teams[id].m_dict; }
 
 private:
-	char m_index[0x0C];
+	_STL::map<_STL::pair<AsciiString, AsciiString>, int> m_index;
 	_STL::vector<TeamsInfoEntry> m_teams;			// +0x0C, vector start
 	char m_rest[0x1C - 0x18];
 };

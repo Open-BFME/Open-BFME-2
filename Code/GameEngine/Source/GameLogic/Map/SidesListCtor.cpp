@@ -60,7 +60,8 @@ public:
     TeamsInfoRec();
     ~TeamsInfoRec();
 private:
-    char m_data[0x1C];
+    _STL::map<_STL::pair<AsciiString, AsciiString>, int> m_index;
+    char m_pad0c[0x1C - 0x0C]; // +0x0C entry vector and two shorts, unused here
 };
 class Rva001976F0 {
 public:

@@ -32,6 +32,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 #include <set>
+#include <map>
 
 #include "ascii_string.h"
 // bfme link decl-only begin
@@ -309,7 +310,7 @@ public:
 	Dict *getTeamInfo(int id) { return &m_teams[id].m_dict; }
 
 private:
-	char m_index[0x0C];
+	_STL::map<_STL::pair<AsciiString, AsciiString>, int> m_index;
 	_STL::vector<TeamsInfoEntry> m_teams;	// +0x0C
 	short m_count;						// +0x18, signed test at 0x0032E48C
 	char m_rest[0x1C - 0x1A];

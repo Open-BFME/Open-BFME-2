@@ -6,22 +6,15 @@
 // a claim that all private class views or inherited template pins agree.
 // LINK: the base dtor 0x0032C36B is rowed as the STLport map tree dtor and the
 // member dtor 0x0032C3A3 as ??1Rva0032C3A3, so the base and member take those types.
-class AsciiString;
-namespace _STL {
-template <class A, class B> struct pair;
-template <class P> struct _Select1st;
-template <class T> struct less;
-template <class T> class allocator;
-template <class K, class V, class KoV, class C, class A> class _Rb_tree
-{
-public:
-	~_Rb_tree();
+// stlport
+#include <map>
 
-	unsigned char m_bfmeHeadCH[0xc];
-};
-}
+class AsciiString;
 typedef _STL::pair<AsciiString, AsciiString> BfmeCHKey;
 typedef _STL::pair<const BfmeCHKey, int> BfmeCHValue;
+namespace _STL {
+template <> _Rb_tree<BfmeCHKey, BfmeCHValue, _Select1st<BfmeCHValue>, less<BfmeCHKey>, allocator<BfmeCHValue> >::~_Rb_tree();
+}
 typedef _STL::_Rb_tree<BfmeCHKey, BfmeCHValue, _STL::_Select1st<BfmeCHValue>, _STL::less<BfmeCHKey>, _STL::allocator<BfmeCHValue> > BfmeBaseCH;
 
 class Rva0032C3A3

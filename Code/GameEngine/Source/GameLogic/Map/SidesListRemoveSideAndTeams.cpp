@@ -20,6 +20,7 @@
 // where retail re-adds the base for each inline read.
 
 #include <vector>
+#include <map>
 
 #include "ascii_string.h"
 
@@ -63,7 +64,7 @@ public:
 	Dict *getTeamInfo(int id) { return &m_teams[id].m_dict; }
 
 private:
-	char m_map[0xc];
+	std::map<std::pair<AsciiString, AsciiString>, int> m_map;
 	std::vector<BfmeThingUBB> m_teams;
 	short m_numActive;
 	short m_freeHead;

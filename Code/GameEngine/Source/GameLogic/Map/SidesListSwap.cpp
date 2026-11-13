@@ -5,6 +5,7 @@
 // Evidence: prev/next swap TUs name SidesList swap; retail swaps counts SidesInfo arrays teamrecs extra vectors cleared byte then notifier posts both ways via rowed swaps and pin ??_9@$BBI@AE.
 #include <algorithm>
 #include <vector>
+#include <map>
 
 struct BfmeE12
 {
@@ -16,13 +17,16 @@ struct BfmeE12
 #include "../../../Include/GameLogic/SidesInfo.h"
 #include "../../../Include/GameLogic/ScriptList.h"
 
+class AsciiString;
+
 class TeamsInfoRec
 {
 public:
 	void swap(TeamsInfoRec *other);
 
 private:
-	char m_body[0x1C];
+	_STL::map<_STL::pair<AsciiString, AsciiString>, int> m_index;
+	char m_pad0c[0x1C - 0x0C];	// +0x0C entry vector and two shorts, unused here
 };
 
 #include "../../../Include/Common/Rva00330757Member.h"
