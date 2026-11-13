@@ -438,11 +438,7 @@ private:
 	Real m_reallyDamagedThresh;		// +0x28
 };
 // The rubble-state object reset (0x004BDA67), rowed under an address name.
-class Rva004BDA67
-{
-public:
-	void rva004BDA67();
-};
+#include "../../../../Include/GameLogic/Module/Rva004BDA67.h"
 #include "../../../../Include/Common/DamageFXClass.h"
 class Rva003605D5	// DamageFX throttle-time lookup (Zero Hour getDamageFXThrottleTime)
 {

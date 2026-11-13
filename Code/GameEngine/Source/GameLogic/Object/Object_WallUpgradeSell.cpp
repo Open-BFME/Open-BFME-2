@@ -38,11 +38,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_INVALID = -1
 };
 
-class Rva004BDA67
-{
-public:
-	void rva004BDA67();
-};
+#include "../../../Include/GameLogic/Module/Rva004BDA67.h"
 
 class Body254
 {
