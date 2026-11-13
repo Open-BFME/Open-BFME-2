@@ -3709,3 +3709,13 @@ Base: 3,295 bridged, 31 refused, 2,253 already correct, 37,456 mismatching sourc
   the ICF twin (fold-proof=CreateObjectDie.cpp). Slot 8 right in 15 tables (mismatching slots 37,456 -> 37,441);
   bridged 3,295 -> 3,295 (slots 43/44 remain), refused identical, correct 2,253. link_check: SpecialPowerModuleCtor.cpp
   340 -> 353 B, the eight view units, CashHackSpecialPower.cpp 488 B and DefectorSpecialPower.cpp 145 B LINK.
+- "Put SpecialPowerModuleDtor_Unresolved.cpp on the canonical BehaviorModule and retire the behaviorAnchor alias":
+  the destructor unit's private one-slot BehaviorModuleInterface/BehaviorModuleView views compiled a stand-in
+  ??_7SpecialPowerModule@@6BBehaviorModuleInterface@@@ that refused the slot 43/44 move ("no such slot"). The unit
+  now includes BehaviorModule.h and supplies the inline ~BehaviorModule (as FXListDie.cpp does); the gen-alias row
+  ?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ (0x000D43D0) is tombstoned, its two data consumers
+  (Rva00492402Ctor.cpp s_dummy20, ModuleUpdateDtors.cpp s_dummy62D8) name ?getBody@BehaviorModule@@... there;
+  header_adopt_lane accept retires the BehaviorModuleInterface queue line. 5/5 and 28/28 rows exact. Bridged
+  3,295 -> 3,293 (the two ??_7BehaviorModuleView stand-in tables are gone), refused identical, correct 2,253,
+  mismatching slots 37,441 -> 37,389. link_check: ModuleUpdateDtors.cpp 860 B, Rva00492402Ctor.cpp 49 B,
+  SpecialPowerModuleCtor.cpp 353 B LINK; the destructor unit LINKED 0 -> 0 (it did not link before either).

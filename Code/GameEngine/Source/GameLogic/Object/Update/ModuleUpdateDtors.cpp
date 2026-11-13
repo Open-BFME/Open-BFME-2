@@ -149,7 +149,7 @@ extern "C" {
 void __identifier("??1Region2D@@QAE@XZ")();
 void __identifier("?rva004B0303@Rva004B0303@@UAEXXZ")();
 void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
-void __identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ")();
+void __identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ")();
 void __identifier("?getRailedTransportDockUpdateInterface@RailedTransportDockUpdate@@UAEPAVRailedTransportDockUpdateInterface@@XZ")();
 void __identifier("?getDie@DieModule@@UAEPAVDieModuleInterface@@XZ")();
 void __identifier("?get@Rva004543A9LeaNegSbbField@@UBEHXZ")();
@@ -166,49 +166,49 @@ extern "C" const void *const s_dummy62C8[4] = {
 
 // RVA 0x008562D8; 47 code pointers; the next native word is zero padding.
 extern "C" const void *const s_dummy62D8[47] = {
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 0, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 1, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 2, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 0, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 1, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 2, RVA 0x000D43D0
 	(const void *)&__identifier("?getRailedTransportDockUpdateInterface@RailedTransportDockUpdate@@UAEPAVRailedTransportDockUpdateInterface@@XZ"), // slot 3, RVA 0x004B01D9
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 4, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 5, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 6, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 7, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 8, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 4, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 5, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 6, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 7, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 8, RVA 0x000D43D0
 	(const void *)&__identifier("?getDie@DieModule@@UAEPAVDieModuleInterface@@XZ"), // slot 9, RVA 0x002533D3
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 10, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 11, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 12, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 13, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 14, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 15, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 16, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 17, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 18, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 19, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 20, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 21, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 22, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 23, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 24, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 10, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 11, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 12, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 13, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 14, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 15, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 16, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 17, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 18, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 19, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 20, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 21, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 22, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 23, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 24, RVA 0x000D43D0
 	(const void *)&__identifier("?get@Rva004543A9LeaNegSbbField@@UBEHXZ"), // slot 25, RVA 0x004543A9
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 26, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 27, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 28, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 29, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 30, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 31, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 32, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 33, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 34, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 35, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 36, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 37, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 38, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 39, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 40, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 41, RVA 0x000D43D0
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // slot 42, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 26, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 27, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 28, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 29, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 30, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 31, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 32, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 33, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 34, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 35, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 36, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 37, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 38, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 39, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 40, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 41, RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // slot 42, RVA 0x000D43D0
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 43, RVA 0x0047A69C
 	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 44, RVA 0x000B3FD0
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 45, RVA 0x0047A69C

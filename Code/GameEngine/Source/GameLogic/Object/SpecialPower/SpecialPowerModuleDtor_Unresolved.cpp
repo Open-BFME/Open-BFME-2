@@ -77,27 +77,24 @@ struct SpecialPowerCreationFrameView { char m_pad[0x40]; unsigned int m_frame; }
 extern InGameUI *TheInGameUI;
 
 #include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class BehaviorModuleInterface
+// Retail's BehaviorModule destructor is inline and empty: ~SpecialPowerModule restores
+// BehaviorModule's 0x00BEEA7C at +0 and 0x00BEE9C0 at +0x0C before ~ObjectModule. The
+// canonical header only declares it, so this unit supplies the body its destructor expands
+// (as FXListDie.cpp does); the out-of-line copy is 0x004607E1 (??1BehaviorModule@@MAE@XZ).
+inline BehaviorModule::~BehaviorModule()
 {
-public:
-	virtual unsigned int behaviorAnchor();
-};
-
-// Local layout-only view. Naming it BehaviorModule would emit the canonical
-// ??_7BehaviorModule@@6B... COMDATs from this minimal view, where they differ
-// from the real class's owners and block this unit's dtor.
-class BehaviorModuleView : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	virtual ~BehaviorModuleView() {}
-};
+}
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class SpecialPowerModule : public BehaviorModuleView, public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
+	// BehaviorModuleInterface slot 8 of the table 0x00BEFCF8 this destructor restores at +0x0C:
+	// retail 0x002533D3, the +0x10 interface (inline, the COMDAT SpecialPowerModuleCtor.cpp emits)
+	virtual SpecialPowerModuleInterface *getSpecialPower() { return this; }
 	virtual ~SpecialPowerModule();
 	virtual AsciiString getPowerName() const;
 	virtual void onSpecialPowerCreation();
@@ -120,11 +117,3 @@ SpecialPowerModule::~SpecialPowerModule()
 										getSpecialPowerModuleData()->m_specialPowerTemplate);
 }
 
-// Native BehaviorModule's interface table at VA 0x00BEE9C0 starts with
-// the shared 0x000D43D0 body: zero in EAX, then RET. The original return
-// type and slot name remain unknown; retain the existing structural label
-// and expose only the observed machine-word result, without a linker alias.
-inline unsigned int BehaviorModuleInterface::behaviorAnchor()
-{
-    return 0;
-}

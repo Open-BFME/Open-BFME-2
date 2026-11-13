@@ -22,7 +22,7 @@ extern "C" {
 void __identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z")();
 void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
 void __identifier("?get@Rva005C4AE5ByteField@@QBEEXZ")();
-void __identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ")();
+void __identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ")();
 void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
 void __identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z")();
@@ -34,7 +34,7 @@ extern "C" const void *const s_dummy20[9] = {
 	(const void *)&__identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z"), // RVA 0x004500A3
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // RVA 0x0050B5C6
 	(const void *)&__identifier("?get@Rva005C4AE5ByteField@@QBEEXZ"), // RVA 0x005C4AE5
-	(const void *)&__identifier("?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ"), // RVA 0x000D43D0
+	(const void *)&__identifier("?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ"), // RVA 0x000D43D0
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // RVA 0x0047A699
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // RVA 0x0047A69C
 	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // RVA 0x0044EECA
