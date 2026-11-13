@@ -1,0 +1,203 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00072B3A",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 2
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 4
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "52": 2,
+   "60": 1
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numCellsX",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numCellsY",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "cellWidth",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "cellHeight",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_shroudData",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "ushort*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RvaTextureHandleView",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_object",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_texture",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RvaTextureHandleView",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "textureWidth",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "textureHeight",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "drawOriginX",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "drawOriginY",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 52,
+ "size_by": "majority",
+ "vslots": {}
+}

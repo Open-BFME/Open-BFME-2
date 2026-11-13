@@ -115,17 +115,7 @@ static __forceinline const BFME2TextureRef &AsTextureRef(const AssetReference &r
 	return reinterpret_cast<const BFME2TextureRef &>(ref);
 }
 
-class Rva00072B3A
-{
-public:
-	RvaTextureHandleView getShroudTexture() const;
-	char pad[0x10];
-	float cellWidth, cellHeight;
-	char pad18[8];
-	int textureWidth, textureHeight;
-	char pad28[4];
-	float drawOriginX, drawOriginY;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00072B3A.h"
 class BaseHeightMapRenderObjClass
 {
 public:

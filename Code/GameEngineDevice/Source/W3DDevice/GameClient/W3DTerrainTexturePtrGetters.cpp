@@ -166,11 +166,7 @@ RefCountPtr<TextureClass> Rva00132F30BlackTexture();
 // whose only base is this same nullable texture reference.
 class RvaTextureHandleView : public RefCountPtr<TextureClass> {};
 
-class Rva00072B3A
-{
-public:
-	RvaTextureHandleView getShroudTexture() const;
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00072B3A.h"
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 

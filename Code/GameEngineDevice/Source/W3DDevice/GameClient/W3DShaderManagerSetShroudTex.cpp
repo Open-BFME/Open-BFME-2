@@ -43,7 +43,7 @@ class WW3D {public: static bool Is_Snapshot_Activated(){return SnapshotActivated
 class TextureBaseClass {public:void Release_Ref();}; class TextureClass:public TextureBaseClass{public:void Release_Ref();};  // rowed ICF alias of the TextureBaseClass body (0x0061ED10)
 template<class T>class RefCountPtr {public:T *ptr; ~RefCountPtr(){if(ptr)ptr->Release_Ref();}};
 class RvaTextureHandleView:public RefCountPtr<TextureClass>{};
-class Rva00072B3A {public: RvaTextureHandleView getShroudTexture()const; char pad[0x10];float cellWidth,cellHeight;char pad18[8];int textureWidth,textureHeight;char pad28[4];float drawOriginX,drawOriginY;};
+#include "../../../Include/W3DDevice/GameClient/Rva00072B3A.h"
 class BaseHeightMapRenderObjClass
 {
 public:
