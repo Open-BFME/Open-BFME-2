@@ -11,14 +11,7 @@ public:
 	~Rva0022300F();
 };
 
-class Rva0022304A
-{
-public:
-	Rva0022304A(const AsciiString &head, const Rva0022300F &item);
-private:
-	AsciiString m_head;
-	Rva0022300F m_item;
-};
+#include "../../Include/Common/Rva0022304A.h"
 
 Rva0022304A::Rva0022304A(const AsciiString &head, const Rva0022300F &item) : m_head(head), m_item(item)
 {
