@@ -526,11 +526,7 @@ int Rva005FF1F8::rva005FF1F8() const
 
 // ?rva005E88E4@Rva005E88E4@@QAEXXZ @0x005E88E4 10B: the rowed 0x005F884D on
 // the +0x04 member of the object held at +0.
-class Rva005F884D
-{
-public:
-	void rva005F884D();
-};
+#include "../../Include/Common/Rva005F884D.h"
 struct Rva005E88E4Pointee
 {
 	int m_00;

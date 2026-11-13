@@ -31,11 +31,7 @@ public:
 
 #include "../../Include/Common/Rva005F8427.h"
 
-class Rva005F884D
-{
-public:
-	void rva005F884D();
-};
+#include "../../Include/Common/Rva005F884D.h"
 
 class Rva005F83F4
 {
