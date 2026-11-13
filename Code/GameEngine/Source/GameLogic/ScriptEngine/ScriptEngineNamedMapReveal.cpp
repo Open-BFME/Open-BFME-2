@@ -59,11 +59,7 @@ class Rva00739CA0
 public:
 	void rva00739CA0(FloatRect0073CE30 *world, int extra, unsigned int mask);
 };
-class Rva00739BE0
-{
-public:
-	void rva00739BE0(Pair00739BE0 *p, float f, int mask);
-};
+#include "../../../Include/GameLogic/Rva00739BE0.h"
 
 class PartitionManager;
 extern PartitionManager *TheShroudManager;

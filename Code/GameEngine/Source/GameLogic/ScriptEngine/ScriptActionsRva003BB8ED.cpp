@@ -38,11 +38,7 @@ class Rva00739A30
 public:
 	void rva00739A30(Pair00739BE0 *p, float f, int mask);
 };
-class Rva00739BE0
-{
-public:
-	void rva00739BE0(Pair00739BE0 *p, float f, int mask);
-};
+#include "../../../Include/GameLogic/Rva00739BE0.h"
 void ScriptActions::Rva003BB8EDReveal(const AsciiString &where, float radius, const AsciiString &playerName)
 {
 	TerrainLogicResult *loc = TheTerrainLogic->slot88(where);
