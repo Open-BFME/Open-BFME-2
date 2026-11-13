@@ -67,7 +67,7 @@ static inline _STL::list<Coord3D> &techOf(MapMetaData &md) { return reinterpret_
 typedef char CheckMetadata256[(sizeof(MapMetaData)==256)?1:-1];
 class Rva00304DC7Record { char data[256]; };
 class Rva00304DC7Map { public: Rva00304DC7Record &operator[](const AsciiString &); };
-struct FileInfo {unsigned sizeHigh,sizeLow,timestampHigh,timestampLow;};
+#include "../../Include/Common/FileInfo.h"
 #include "../../Include/GameClient/MapCache.h"
 static __forceinline MapMetaData &record(MapCache *cache,const AsciiString &key) {
     return reinterpret_cast<MapMetaData &>(reinterpret_cast<Rva00304DC7Map *>(cache)->operator[](key));

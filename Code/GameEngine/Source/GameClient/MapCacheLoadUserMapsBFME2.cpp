@@ -35,7 +35,7 @@ namespace _STL{template<>TreeHintPayload00207343&SeenMap::operator[](const Ascii
 class Rva00206667{public:void rva00206F6B();};
 #include "unicode_string.h"
 #include "../../Include/GameClient/MapMetaData.h"
-struct FileInfo{unsigned sizeHigh,sizeLow,timestampHigh,timestampLow;};
+#include "../../Include/Common/FileInfo.h"
 #include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem*TheFileSystem;

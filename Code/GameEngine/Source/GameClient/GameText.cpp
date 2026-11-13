@@ -64,13 +64,7 @@ namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString
 // File (vtable slots read from the calls below) and the FileSystem calls.
 #include "../../Include/Common/File.h"
 
-struct FileInfo
-{
-	int sizeHigh;
-	int sizeLow;
-	int timestampHigh;
-	int timestampLow;
-};
+#include "../../Include/Common/FileInfo.h"
 
 #include "../../Include/Common/FileSystem.h"
 

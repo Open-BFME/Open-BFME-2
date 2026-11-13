@@ -72,13 +72,7 @@ public:
 	char m_pad[0x09];
 	bool m_skipRender;
 };
-struct FileInfo
-{
-	long sizeHigh;
-	long sizeLow;
-	long timestampHigh;
-	long timestampLow;
-};
+#include "../../../../GameEngine/Include/Common/FileInfo.h"
 #include "../../../../GameEngine/Include/Common/File.h"
 #include "../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
