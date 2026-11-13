@@ -75,7 +75,7 @@ int GetGameLogicRandomValue(int,int,char *,int);
 // Keep its neutral address name until a complete class relationship is proven.
 #include "../../../../../Include/Common/Rva00506FE9Hit.h"
 
-class Rva004E9378 { public: bool rva004E9378(); };
+#include "../../../../../Include/Common/Rva004E9378.h"
 
 class AIUpgrade { public: void rva005975C0(); };
 
