@@ -96,11 +96,7 @@ extern LadderList *TheLadderList;
 
 // MapCache::getMapDir ("Maps") is rowed at 0x00300489 under this address-derived
 // view; retail calls it directly (GameStatePortableMapPathToReal.cpp precedent).
-class Rva00300489
-{
-public:
-	virtual AsciiString getMapDir() const;
-};
+#include "../../../Include/Common/Rva00300489.h"
 
 // BFME 2's GameSpy config interface has one slot fewer than Zero Hour's ahead
 // of getLeftoverConfig: retail reads it from slot 12 (+0x30).
