@@ -18,11 +18,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/Rva004D6C29.h"
 
-class Rva004D6C7C
-{
-public:
-	void rva004D6C7C(const Object *obj);
-};
+#include "../../../Include/Common/Rva004D6C7C.h"
 
 #include "../../../Include/GameClient/Rva002AA191.h"
 
