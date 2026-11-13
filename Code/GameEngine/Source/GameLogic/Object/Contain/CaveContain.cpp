@@ -137,12 +137,7 @@ public:
 	Bool rva0042755D(UnsignedInt oldIndex, UnsignedInt newIndex);
 };
 // Existing 31-byte target row used when adding an object to a tunnel tracker.
-class Rva004F56FC
-{
-public:
-	void rva004F56FC(Object *object);
-	Bool rva004F571B(const Object *object);
-};
+#include "../../../../Include/Common/Rva004F56FC.h"
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
 // Target view: the CaveContain module-data pointer is this-0x24 for the
 // +0x28 receiver. Retail calls isDieApplicable on its +8 DieMuxData member.

@@ -90,11 +90,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class Rva004F56FC
-{
-public:
-	void rva004F56FC(Object *obj);
-};
+#include "../../../Include/Common/Rva004F56FC.h"
 
 class Player
 {
