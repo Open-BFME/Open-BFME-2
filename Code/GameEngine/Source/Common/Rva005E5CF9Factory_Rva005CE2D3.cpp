@@ -21,12 +21,7 @@ public:
 
 #include "../../Include/Common/Rva005E5CF9In.h"
 
-struct Rva005E5CF9
-{
-	char m_pad08[8];
-	Rva005E5CF9In m_in;
-	RvaF1Handle rva005E5CF9(int a1);
-};
+#include "../../Include/Common/Rva005E5CF9.h"
 
 
 // Widened queue: three independently witnessed members of this factory
