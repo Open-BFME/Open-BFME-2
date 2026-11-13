@@ -67,10 +67,13 @@ Rva005D50D8::~Rva005D50D8()
 {
 }
 
+// Retail table 0x00C75B2C (six slots): slot 4 is 0x005D57EB. Slot 5 is
+// 0x005D5F86, rowed as Rva005D5F86::showPlayerTooltip and not declared here yet.
 class Rva005D583C : public Rva005AFE3F
 {
 public:
 	virtual ~Rva005D583C();
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
 };
 
 Rva005D583C::~Rva005D583C()
