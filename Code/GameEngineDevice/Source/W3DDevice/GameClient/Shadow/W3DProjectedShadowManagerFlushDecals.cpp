@@ -97,11 +97,7 @@ public:
 };
 
 class W3DShadowTexture;
-class Rva001085B4
-{
-public:
-	AssetReference rva001085B4(void);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva001085B4.h"
 
 extern unsigned number_of_DX8_calls;
 

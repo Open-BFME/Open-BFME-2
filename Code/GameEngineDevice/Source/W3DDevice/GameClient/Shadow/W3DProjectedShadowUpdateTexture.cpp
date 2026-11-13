@@ -111,11 +111,7 @@ public:
 };
 
 // Retail 0x001085B4 reads the AssetReference at shadow-texture +0x30.
-class Rva001085B4
-{
-public:
-	AssetReference rva001085B4(void);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva001085B4.h"
 
 // Offsets witnessed by this body and the landed destructor at 0x007AF4E0;
 // the order matches the Zero Hour W3DShadowTexture.
