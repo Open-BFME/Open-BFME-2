@@ -348,11 +348,7 @@ UnicodeString GadgetTextEntryGetText(GameWindow *window); // rowed 0x00320AAB
 // 0x005A5B38 (address-named views).
 #include "../../../../../Include/GameClient/Rva0043DFE0.h"
 
-class Rva005A5B38Box
-{
-public:
-	bool Run();
-};
+#include "../../../../../Include/GameClient/Rva005A5B38Box.h"
 
 // InitGadgets' helpers: the +0x450 preferences loader (rowed 0x00580316),
 // the +0x70 panel's reset (AptMpGameSetup 0x0043DE19), the screen closer

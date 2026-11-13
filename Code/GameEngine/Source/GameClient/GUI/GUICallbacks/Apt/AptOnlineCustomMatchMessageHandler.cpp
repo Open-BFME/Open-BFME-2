@@ -304,12 +304,7 @@ UnicodeString GadgetTextEntryGetText(GameWindow *window); // rowed 0x00320AAB
 
 // The +0x70 panel's rowed 0x0043DBCA test and the screen's state-2 action
 // 0x005A5B38 (address-named views).
-class Rva005A5B38Box
-{
-public:
-	bool Run();
-	void DoRefresh(int ladder, void *password); // pinned 0x005A51B9
-};
+#include "../../../../../Include/GameClient/Rva005A5B38Box.h"
 
 void GadgetComboBoxGetSelectedPos(GameWindow *window, int *pos);	   // rowed 0x003228EB
 void *GadgetComboBoxGetItemData(GameWindow *window, int pos);		  // rowed 0x00322981
