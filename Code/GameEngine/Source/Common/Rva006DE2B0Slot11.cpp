@@ -5,12 +5,7 @@
 // slot at +0x1C via slot-1 Release then tail-jmps to the rowed clear
 // ?rva006DE150@Rva006DE150@@QAEXXZ on the same this (flags at +4 table
 // at +8 overlap the opaque pad). No donor; retail-shaped.
-class AptRef
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-};
+#include "../../Include/Common/AptRef.h"
 
 class AptValueWithHash
 {

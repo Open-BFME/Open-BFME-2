@@ -69,12 +69,7 @@ public:
 // offset (+0x20 here, +0x1C in the template) and the tail target differ; the
 // tail is the rowed 5-byte thunk ?rva0070DFE0@BfmeAptValue006DCD20@@QAEXXZ at 0x0070DFE0,
 // itself a jmp to Rva006DE150::rva006DE150 at 0x006DE150, so the row name resolves it. Virtual slot 0x2C of the class vtable.
-class AptRef
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-};
+#include "../../../../GameEngine/Include/Common/AptRef.h"
 
 class Rva006F2C50
 {

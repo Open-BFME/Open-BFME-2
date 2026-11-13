@@ -111,12 +111,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
 extern Rva006DB270 *g_pChainBlockAllocator;   // 0x00E176E8
 
-class AptRef
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-};
+#include "../../../GameEngine/Include/Common/AptRef.h"
 
 class Rva006DE2B0 : public AptValueWithHash
 {
