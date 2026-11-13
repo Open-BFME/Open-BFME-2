@@ -465,6 +465,54 @@ def test_semicolon_declaration_before_class_still_credits_move(repo, capsys):
     assert repo.gate(capsys) == (0, '')
 
 
+# LivingWorldLogic.cpp's merge (sweeps/merge-climb/landing-livingworld): the seed's
+# logicMessageDispatcher declares a local `struct Pos3`. scoped_move_spans gave up on
+# the whole unit there, so four bodies moved verbatim from deleted donors were refused
+# as new private copies.
+LOCAL_POS3 = 'void dispatch() { struct Pos3 { float x, y, z; }; Pos3 p; (void)p; }\n'
+
+
+@pytest.mark.parametrize('where', ['before', 'after'])
+def test_a_function_local_class_leaves_the_units_other_spans(where):
+    text = LOCAL_POS3 + X_BODY if where == 'before' else X_BODY + LOCAL_POS3
+    assert class_gate.moved_bodies(text) == class_gate.moved_bodies(X_BODY)
+    assert [span[0] for span in class_gate.scoped_move_spans(text)] == ['X']
+    nested = 'void f() { struct Outer { struct Inner { int a; }; }; }\n' + X_BODY
+    assert [span[0] for span in class_gate.scoped_move_spans(nested)] == ['X']
+
+
+def test_a_move_beside_a_function_local_class_is_credited(repo, capsys):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, X_BODY + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + LOCAL_POS3 + X_BODY + FRESH, OLD)
+    assert class_gate.staged_renames() == {}
+    assert repo.gate(capsys) == (0, '')
+
+
+@pytest.mark.parametrize('local', [
+    'void f() { class X { int evil; }; }\n',            # a new local copy beside the moved body
+    'void f() { class X { int a; }; }\n',               # even a verbatim one: which body moved is unproven
+])
+def test_a_function_local_copy_of_a_registered_class_is_never_credited(repo, capsys, local):
+    assert 'X' not in class_gate.moved_bodies(X_BODY + local)
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, X_BODY + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + X_BODY + local + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
+def test_a_new_function_local_registered_class_is_still_refused(repo, capsys):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + 'void f() { class X { int a; }; }\n' + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err
+
+
 TEMPLATE = 'template <class T> struct Box { T *m_p; };\ntemplate <> struct Box<int> { int m_v; };\n'
 
 

@@ -499,8 +499,11 @@ def _balanced(body):
 def scoped_move_spans(text):
     """(name, start, end, enclosing path), or [] if scope proof is ambiguous.
 
-    Unknown brace scopes cannot enclose a credited class. A bare macro before
-    a scope head is likewise not evidence of global/namespace/class scope.
+    Unknown brace scopes cannot enclose a credited class: a class inside one (a
+    function body's local struct) gets no span, and neither does anything nested
+    in it, but the unit's other spans stand; braces are balanced lexically, so it
+    proves nothing about them either way. A bare macro before a scope head is not
+    evidence of global/namespace/class scope.
     Includes, pragmas, #undef and scope-neutral object-like #defines are
     accepted (scope_code); other directives can manufacture or condition scope
     and are refused. Check the whole unit's balance, not only a class's prefix.
@@ -519,7 +522,8 @@ def scoped_move_spans(text):
         pos, char = token.start(), token.group()
         if char == '{':
             head, namespace = heads.get(pos), namespaces.get(pos)
-            if head or namespace:
+            local = any(frame[0] is None or frame[3] for frame in stack)
+            if (head or namespace) and not local:
                 start = (head or namespace).start()
                 prefix = code[boundary:start].strip()
                 if (any(unproven) or any(frame[0] is None for frame in stack)
@@ -533,18 +537,18 @@ def scoped_move_spans(text):
             else:
                 path = () if pos in linkage else None
             scope = tuple(part for frame in stack for part in (frame[0] or ()))
-            stack.append((path, head, scope))
+            stack.append((path, head, scope, local))
             unproven.append(False)
         elif char == '}':
             if not stack:
                 return []
-            _, head, scope = stack.pop()
+            _, head, scope, local = stack.pop()
             unproven.pop()
             # A template body is never credited, but it does not void the
             # unit's other spans: a TU merge that also composes a template
             # (an STLport specialization, a local container) still moves its
             # ordinary class bodies verbatim.
-            if head and not head.group('template'):
+            if head and not head.group('template') and not local:
                 spans.append((head.group('name'), head.start(), pos + 1, scope))
         elif all(frame[0] is not None for frame in stack):
             # A semicolon ends text, not the uncertainty of a macro expansion.
@@ -570,12 +574,17 @@ def moved_bodies(text):
         return {}
     code, macros = scanned
     found, seen = {}, set()
+    heads = collections.Counter(m.group('name') for m in MOVE_HEAD.finditer(code))
     for name, start, end, scope in scoped_move_spans(text):
         # Unqualified keys cannot prove which of multiple bodies moved.
         # Count even bodies whose normalisation would refuse credit.
         if name in seen:
             return {}
         seen.add(name)
+        # Nor beside a head scoped_move_spans gives no span (a function's local
+        # class): introduced() credits a name, and that body may be the new one.
+        if heads[name] > 1:
+            continue
         # A name the unit #defines or #undefs may rename this class or an
         # enclosing scope, or change what the body's tokens mean.
         if macros & (set(re.findall(r'[A-Za-z_]\w*', code[start:end])) | set(scope)):
