@@ -12,13 +12,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct FreeNode
-{
-	void *m_unknown00;
-	void *m_unknown04;
-	FreeNode *m_next;
-	FreeNode *m_child;
-};
+#include "../../../Include/Common/FreeNode.h"
 
 class Rva0036426E
 {

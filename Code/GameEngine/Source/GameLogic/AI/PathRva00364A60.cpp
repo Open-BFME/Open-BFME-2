@@ -5,13 +5,7 @@
 // else free [0]+4 via rowed 0x0036429B then re-init [0]+8=[0] and [0]+4=0
 // and [0]+12=[0] and +4=0. Evidence: callers/callees plus free-list helper
 // 0x0036429B row; Path neighbours prove /O1 flags.
-struct FreeNode
-{
-	void *m_unknown00;
-	void *m_unknown04;
-	FreeNode *m_next;
-	FreeNode *m_child;
-};
+#include "../../../Include/Common/FreeNode.h"
 
 class Rva0036429B
 {
