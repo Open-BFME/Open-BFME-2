@@ -41,11 +41,7 @@ Rva00126350 &Rva00126350::operator=(const Rva00126350 &other)
 	return *this;
 }
 
-class Rva00126399
-{
-public:
-	const Rva00126399 &operator=(const Rva00126399 &other);
-};
+#include "../../../../GameEngine/Include/Common/Rva00126399.h"
 
 const Rva00126399 &Rva00126399::operator=(const Rva00126399 &other)
 {

@@ -55,7 +55,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct Rva00138GlobalView { char head[0x138]; int m_weather; };
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
-class Rva00126399 { public: TextureClass *Ptr; };
+#include "../../../../../../GameEngine/Include/Common/Rva00126399.h"
 class Rva00167EB9 { public: const Rva00126399 &rva00167EB9(const Rva00126399 &); };
 class Rva00167EFields { public: void setBound(float); };
 struct Rva00167EF8Rec
