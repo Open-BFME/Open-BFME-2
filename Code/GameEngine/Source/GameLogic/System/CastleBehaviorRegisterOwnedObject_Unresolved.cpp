@@ -112,13 +112,7 @@ inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); 
 class BuildListInfo;
 class ThingTemplate;
 class PolygonTrigger;
-class CastleBehaviorInterface {
-public:
- virtual void slot0()=0;
- virtual void rva00395DAC()=0;
- virtual void slot2()=0;
- virtual bool slot3()=0;
-};
+#include "../../../Include/Common/CastleBehaviorInterface.h"
 class CastleBehavior : public FoundationAIUpdate, public CastleBehaviorInterface
 {
 public:

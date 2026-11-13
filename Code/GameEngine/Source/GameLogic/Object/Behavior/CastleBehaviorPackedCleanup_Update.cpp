@@ -27,7 +27,7 @@ extern int BfmeClientFramesPerSecond;
 extern "C" void*theLogicRandomLogFile;
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1};
 class CastleObjectModule {public:virtual ~CastleObjectModule();CastleData*data;Object*object;};
-class CastleBehaviorInterface {public:virtual void behaviorSlot();};
+#include "../../../../Include/Common/CastleBehaviorInterface.h"
 class CastleBehavior:public CastleObjectModule,public CastleBehaviorInterface,public UpdateModuleInterface {public:virtual UpdateSleepTime update();void rva00398E9A();bool checkForInstantUnPack();bool checkForAutoPack();void initiatePack();void rva00398BC7();void teleportStragglersFromWallToGround(bool);Object*getObject()const{return object;}void rva0039A7D6();void rva00397D0A(bool);void rva00397B03(ObjectStatusTypes,bool);
  char pad14[0x20];int state34;char pad38[8];float wait40;char pad44[0xC];
  _STL::vector<ObjectID>owned50,owned5C,owned68,owned74;char pad80[0x20];Rva00395CEB mapA0;

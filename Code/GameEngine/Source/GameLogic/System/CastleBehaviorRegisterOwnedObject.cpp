@@ -89,13 +89,7 @@ inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); 
 class BuildListInfo;
 class ThingTemplate;
 class PolygonTrigger;
-class CastleBehaviorInterface {
-public:
- virtual void slot0()=0;
- virtual void rva00395DAC()=0;
- virtual void slot2()=0;
- virtual bool slot3()=0;
-};
+#include "../../../Include/Common/CastleBehaviorInterface.h"
 class CastleBehavior : public FoundationAIUpdate, public CastleBehaviorInterface { public: virtual void rva00395DAC(); void rva0039865E(PolygonTrigger*); Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); virtual void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
 
 // Native 0x003974CE..0x003975B7, 233B. CastleSystem auto-pack 0x003975B7

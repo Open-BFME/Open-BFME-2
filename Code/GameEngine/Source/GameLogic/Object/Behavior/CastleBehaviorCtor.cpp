@@ -70,15 +70,7 @@ private:
 	Bool m_2C; // +0x2C
 };
 
-class CastleBehaviorInterface
-{
-public:
-	virtual void slot0() = 0;
-	// Retail table 0x00C4EF80: 3 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-};
+#include "../../../../Include/Common/CastleBehaviorInterface.h"
 
 class CastleBehaviorModuleData
 {

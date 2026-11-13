@@ -118,13 +118,7 @@ public:
 class Xfer;
 class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rva0045527A(ObjectID); friend class CastleBehavior;
  friend class Rva00399959; char native04[0x2c]; };
-class CastleBehaviorInterface {
-public:
- virtual void slot0()=0;
- virtual void rva00395DAC()=0;
- virtual void slot2()=0;
- virtual bool slot3()=0;
-};
+#include "../../../Include/Common/CastleBehaviorInterface.h"
 class PolygonTrigger;
 class BuildListInfo;
 class ThingTemplate;
