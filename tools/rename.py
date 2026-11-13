@@ -4890,6 +4890,64 @@ def value_family_problem(ctx, rows, family):
     return None
 
 
+def retyped_tree_problem(ctx, rows, family):
+    """Why the ledger does not tie a RetypedTreeFamily to its new tree, or None. Each member is rowed (matched) at its
+    address under exactly that name. Each row and caller is the one matched row of its name at its address, with every
+    fact inside it. Each node's count and call lie in one matched row at the node's address, and each node path fact
+    in its member's own row or a node's. The witness is the one matched row of its name at its address, with its call
+    inside it, and reverse/symbols.csv pins at the called address exactly the name the family read the new map from.
+    No respelling changes an operator or identifier."""
+    import retail_identity
+    matched_at = {}
+    for r in rows:
+        if r.get("status") == "matched" and _rva(r.get("target_rva")) is not None:
+            matched_at.setdefault(_rva(r.get("target_rva")), []).append(r)
+
+    def inside(fact, start, size):
+        return start <= fact.site and fact.site + len(retail_identity.expected(fact)) <= start + size
+
+    def own_row(at, name):
+        found = [r for r in matched_at.get(at, ()) if r["name"] == name]
+        return found[0] if len(found) == 1 else None
+
+    def covers(at, facts):
+        return any(all(inside(f, at, int(r["target_size"])) for f in facts) for r in matched_at.get(at, ()))
+
+    for at, name in sorted(family.members.items()):
+        if own_row(at, name) is None:
+            return f"{name} is not rowed at 0x{at:08X}: the members the rows call are part of the proof"
+    for label, table in (("row", family.rows), ("caller", family.callers)):
+        for at, (name, facts) in sorted(table.items()):
+            found = own_row(at, name)
+            if found is None:
+                return f"the {label} {name} is not the one matched row at 0x{at:08X}"
+            outside = [f for f in facts if not inside(f, at, int(found["target_size"]))]
+            if outside:
+                return f"0x{outside[0].site:08X} is outside {name}'s row"
+    node_at = set()
+    for at, alloc, call in family.nodes:
+        node_at.add(at)
+        if not covers(at, (alloc, call)):
+            return f"0x{alloc.site:08X} (the node count) and its call are in no one matched row at 0x{at:08X}"
+    for at, fact in family.node_path:
+        found = own_row(at, family.members[at]) if at in family.members else None
+        held = (found is not None and inside(fact, at, int(found["target_size"]))) or (at in node_at and covers(at, (fact,)))
+        if not held:
+            return f"0x{fact.site:08X} (the node path) is in no matched row at 0x{at:08X}"
+    caller_at, caller_name, call, pin_name = family.witness
+    found = own_row(caller_at, caller_name)
+    if found is None:
+        return f"the witness {caller_name} is not the one matched row at 0x{caller_at:08X}"
+    if not inside(call, caller_at, int(found["target_size"])):
+        return f"0x{call.site:08X}, the witness's call, is outside its row"
+    if (pin_name, call.value) not in {(p.get("name", ""), _rva(p.get("address"))) for p in ctx.pins()}:
+        return f"the witness binds no pin {pin_name} at 0x{call.value:08X}: nothing ties the new map to retail's caller"
+    for old_name, new_name in sorted(family.spellings.items()):
+        if identity_head(old_name) != identity_head(new_name):
+            return f"{new_name} changes the operator or identifier of {old_name}"
+    return None
+
+
 def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, move_rows=(),
                         forced_moves=(), evidence="", max_files=25):
     """--respell --identity --basis retail: the whole family tools/retail_identity.py spells out, from
@@ -4920,6 +4978,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     stand_in = isinstance(family, retail_identity.StandInElementFamily)
     scalar_key = isinstance(family, retail_identity.StandInScalarKeyFamily)
     value_kind = isinstance(family, retail_identity.StandInValueFamily)
+    tree_kind = isinstance(family, retail_identity.RetypedTreeFamily)
     if slot_kind:
         problem = slot_operand_problem(rows, family)
         if problem:
@@ -4930,6 +4989,10 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(problem)
     elif value_kind:
         problem = value_family_problem(ctx, rows, family)
+        if problem:
+            raise Refusal(problem)
+    elif tree_kind:
+        problem = retyped_tree_problem(ctx, rows, family)
         if problem:
             raise Refusal(problem)
     elif stand_in:
@@ -4983,9 +5046,9 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
             raise Refusal(f"{old_name} is not the one row of that name at 0x{at:08X}")
         new_name = family.respell(old_name)
         function_identity_checks(ctx, at, old_name, old_name, found[0])
-        # the copy's wrong binding is what the respell fixes; a value family's rows all bind the old value's
-        # helpers, and the old spelling's divergent COMDAT goes with it: each key is retired in the next commit
-        frozen_ok = (frozenset({CODE_IDENTITY_BASELINE, DUP_DEFS_BASELINE}) if value_kind
+        # the copy's wrong binding is what the respell fixes; a value or retyped tree family's rows all bind the old
+        # tree's helpers, and the old spelling's divergent COMDAT goes with it: each key is retired in the next commit
+        frozen_ok = (frozenset({CODE_IDENTITY_BASELINE, DUP_DEFS_BASELINE}) if value_kind or tree_kind
                      else frozenset({CODE_IDENTITY_BASELINE}) if at == family.copy else frozenset())
         function_collision_checks(ctx, at, old_name, new_name, old_name, new_name, respell=True,
                                   frozen_ok=frozen_ok)
@@ -5198,7 +5261,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         plan.identity.update(forced=forced, units_before=units_before)
     if slot_kind:
         plan.identity["operands"] = slot_operand_bindings(family, source_of[family.copy], primary["new"])
-    elif no_table or stand_in or scalar_key or value_kind:
+    elif no_table or stand_in or scalar_key or value_kind or tree_kind:
         by_rva = {e["rva"]: e["new"] for e in entries}
         plan.identity["bindings"] = [(source_of[at], by_rva[at], offset, target) for at, offset, target in family.bindings]
         # a caller keeps its name; its rebuilt call must bind the respelled row, so its unit is prepared and verified
@@ -5224,7 +5287,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
     plan.claims += sorted({at for _n, at, _s in retired_rows}) + [f"file:{s}" for s in emptied]
     done = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))} - done)
-    if value_kind:
+    if value_kind or tree_kind:
         for e in entries:
             held = ctx.grep_files(e["old"], roots=FROZEN_KEYED)
             if CODE_IDENTITY_BASELINE in held:

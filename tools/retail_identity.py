@@ -747,6 +747,177 @@ class StandInValueFamily:
         return record(self.rows[self.copy][1])
 
 
+# The keys a RetypedTreeFamily may give a tree, by mangling code: the key as a template argument, its const form (the
+# pair's first, and the pointee of a const pointer or reference to the key) and its width in bytes. Only const char*
+# (P144); another key is another reviewed entry.
+TREE_KEYS = {"PBD": (("P", "PB", ("B", "D")), ("P", "QB", ("B", "D")), 4)}
+
+
+def _struct(name):
+    return ("C", "U", ("Q", (("N", name),)))
+
+
+def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare):
+    """`tree` (a rename.type_tree) with a builtin-keyed tree read as one with the new key, comparator and value, all
+    together. Four shapes change, and only whole: pair<const old_key, old_value> becomes pair<new const key, new
+    value>; an _Rb_tree whose key, pair and comparator are old_key, that pair and less<old_key> takes the new key and
+    comparator; a map over <old_key, old_value, less<old_key>, ...> takes the new key, value and comparator; a pointer
+    or reference to const old_key (how the pair's first is passed) points or refers to the new const key. Nothing else
+    changes: a key passed by value, the builtins in any other template, a pair or tree over another key or value."""
+    key_arg, const_key, _width = TREE_KEYS[new_key]
+    key = ("B", old_key)
+    value = BUILTIN_VALUES[old_value][0]
+    less = ("C", "U", ("Q", (("T", "less", (key,)), ("N", "_STL"))))
+    old_pair = ("T", "pair", (("CV", "$$CB", key), value))
+    pair_class = ("C", "U", ("Q", (old_pair, ("N", "_STL"))))
+    new_pair = ("T", "pair", (const_key, _struct(new_value)))
+
+    def walk(node):
+        if not isinstance(node, tuple):
+            return node
+        if node == old_pair:
+            return new_pair
+        if len(node) == 3 and node[0] == "T":
+            args = node[2]
+            if node[1] == "_Rb_tree" and len(args) == 5 and (args[0], args[1], args[3]) == (key, pair_class, less):
+                return ("T", "_Rb_tree", (key_arg, walk(args[1]), walk(args[2]), _struct(new_compare), walk(args[4])))
+            if node[1] == "map" and len(args) == 4 and args[:3] == (key, value, less):
+                return ("T", "map", (key_arg, _struct(new_value), _struct(new_compare), walk(args[3])))
+        if len(node) == 3 and node[0] == "P" and node[1] in ("PB", "AB") and node[2] == key:
+            return ("P", node[1], const_key)
+        return tuple(walk(child) for child in node)
+    return walk(tree)
+
+
+class RetypedTreeFamily:
+    """A tree's helpers rowed on <unsigned, void*> under less<unsigned>, where retail's tree has another key,
+    comparator and value (P144). They change together, which no one fact shows, so three kinds of fact must agree:
+    - `nodes` [(rva, alloc fact, call fact)]: retail's node allocations push NODE_HEADER plus the new key's width plus
+      `value_size`, never NODE_HEADER plus pair<const old key, old value>, and the call that follows at once takes the
+      count. Every row reaches one of them by calls: its own facts and `node_path` (calls in members or node owners).
+    - `witness` (caller rva, caller name, call fact, pin name): a matched row outside the family calls the address of
+      a family row, and the pin it binds there spells the map over exactly the new key, value and comparator.
+      rename.py ties the caller, its call and the pin to the ledger.
+    - `spellings` {old: new}: each row's new name is tree_swap of its old one and nothing else, and names the new
+      pair; each old name spells the old pair and less<old key>.
+    `members` {rva: name} are rows outside the family that the rows call; `bindings` [(row rva, offset, target)] are
+    the REL32s each rebuilt row must hold, to a respelled row or a member, one at least per row; `callers` and
+    `caller_bindings` are rows outside the family, rebuilt under their own names, that call a family row. There are
+    no pins, retired pins or duplicates: a pin the new spelling needs is admitted by tools/pin_admission.py."""
+
+    def __init__(self, old_key, old_value, new_key, new_value, new_compare, value_size, copy, spellings, members,
+                 bindings, rows, nodes, node_path, witness, callers, caller_bindings):
+        import rename                                  # lazily: rename imports this module inside its functions too
+        if old_key not in SCALAR_KEYS:
+            raise ValueError(f"{old_key!r} is no builtin key this route reads")
+        if old_value not in BUILTIN_VALUES:
+            raise ValueError(f"{old_value!r} is no builtin value this route replaces")
+        if new_key not in TREE_KEYS:
+            raise ValueError(f"{new_key!r} is no key this route gives a tree")
+        for label, value in (("rows", rows), ("nodes", nodes), ("bindings", bindings), ("witness", witness)):
+            if not value:
+                raise ValueError(f"a retyped tree family still needs its {label}")
+        if copy not in rows:
+            raise ValueError(f"0x{copy:08X} is not a row of the family")
+        if set(spellings) != {old_name for old_name, _facts in rows.values()}:
+            raise ValueError("every spelling is a row's and every row has one")
+        key_arg, const_key, key_width = TREE_KEYS[new_key]
+        old_tree, old_width = BUILTIN_VALUES[old_value]
+        old_key_tree = ("B", old_key)
+        old_pair = ("T", "pair", (("CV", "$$CB", old_key_tree), old_tree))
+        old_less = ("C", "U", ("Q", (("T", "less", (old_key_tree,)), ("N", "_STL"))))
+        new_pair = ("T", "pair", (const_key, _struct(new_value)))
+        new_map = ("T", "map", (key_arg, _struct(new_value), _struct(new_compare), ("C", "V", ("Q", (
+            ("T", "allocator", (("C", "U", ("Q", (new_pair, ("N", "_STL")))),)), ("N", "_STL"))))))
+
+        def tree(name):
+            try:
+                return rename.type_tree(name)
+            except rename.Unparsed as error:
+                raise ValueError(f"{name} cannot be decoded: {error}") from None
+        for old_name, _facts in rows.values():
+            before, after = tree(old_name), tree(spellings[old_name])
+            if tree_swap(before, old_key, old_value, new_key, new_value, new_compare) != after or before == after:
+                raise ValueError(f"{old_name} must respell by the tree swap alone (<{old_key}, {old_value}, less> to "
+                                 f"<{new_key}, {new_value}, {new_compare}>)")
+            if not {old_pair, old_less} <= set(_subtrees(before)):
+                raise ValueError(f"{old_name} does not spell pair<const {old_key}, {old_value}> and less<{old_key}>")
+            if new_pair not in set(_subtrees(after)):
+                raise ValueError(f"{spellings[old_name]} is no instantiation over the new pair")
+        if value_size <= 0 or value_size % 4 or value_size == old_width:
+            raise ValueError(f"a value of {value_size} bytes is no dword-aligned struct retail can tell from {old_value}")
+        owners = set(members)
+        for at, alloc, call in nodes:
+            if alloc.kind != "alloc":
+                raise ValueError(f"the node count at 0x{at:08X} must be an alloc fact")
+            problem = node_alloc_problem(alloc)
+            if problem:
+                raise ValueError(f"the node count at 0x{at:08X}: {problem}")
+            if call.kind != "calls" or call.site != alloc.site + len(expected(alloc)):
+                raise ValueError(f"the node count at 0x{at:08X} must feed the call that follows it at once")
+            if alloc.value != NODE_HEADER + key_width + value_size:
+                raise ValueError(f"retail's node at 0x{at:08X} holds {alloc.value - NODE_HEADER} bytes of pair, not "
+                                 f"pair<const {new_key}, {new_value}>'s {key_width + value_size}")
+            owners.add(at)
+        if set(callers) & (set(rows) | set(members)) or set(rows) & owners:
+            raise ValueError("a row, a member or node and a caller are different addresses")
+        edges = {}
+        for at, (_old_name, facts) in rows.items():
+            edges.setdefault(at, set()).update(f.value for f in facts if f.kind == "calls")
+        for at, fact in node_path:
+            if at not in owners or fact.kind != "calls":
+                raise ValueError("the node path is calls in members or node owners")
+            edges.setdefault(at, set()).add(fact.value)
+        node_at = {at for at, _alloc, _call in nodes}
+        for at, (old_name, _facts) in rows.items():
+            seen, frontier = {at}, [at]
+            while frontier:
+                for nxt in edges.get(frontier.pop(), ()):
+                    if nxt not in seen:
+                        seen.add(nxt)
+                        frontier.append(nxt)
+            if not seen & node_at:
+                raise ValueError(f"0x{at:08X} {old_name} reaches no node of the new value by calls")
+        caller_at, caller_name, call, pin_name = witness
+        if call.kind != "calls" or call.value not in rows:
+            raise ValueError("the witness must call a row of the family")
+        if caller_at in rows or caller_at in callers:
+            raise ValueError("the witness is a row outside the family and its rebuilt callers")
+        if new_map not in set(_subtrees(tree(pin_name))):
+            raise ValueError(f"the witness pin {pin_name} spells no map<{new_key}, {new_value}, {new_compare}>")
+        named = dict(members)
+        named.update({at: spellings[name] for at, (name, _facts) in rows.items()})
+        for table, bound, label in ((rows, bindings, "row of the family"), (callers, caller_bindings, "caller")):
+            for at, offset, target in bound:
+                if at not in table:
+                    raise ValueError(f"binding 0x{at:08X} is no {label}")
+                fact = next((f for f in table[at][1] if f.kind == "calls" and f.site == at + offset - 1), None)
+                if fact is None:
+                    raise ValueError(f"0x{at:08X}+{offset} is not one of the {label}'s own calls")
+                if named.get(fact.value) != target or (table is callers and fact.value not in rows):
+                    raise ValueError(f"0x{at:08X}+{offset} calls 0x{fact.value:08X}, which is not {target}")
+            if set(table) - {at for at, _offset, _target in bound}:
+                raise ValueError(f"every {label} needs a binding: one with nothing to bind cannot show the tree survived")
+        self.old, self.new = f"{old_key}/{old_value}", f"{new_key}/{new_value}/{new_compare}"
+        self.old_key, self.old_value, self.new_key = old_key, old_value, new_key
+        self.new_value, self.new_compare, self.value_size, self.copy = new_value, new_compare, value_size, copy
+        self.spellings, self.members, self.bindings, self.rows = spellings, dict(members), tuple(bindings), rows
+        self.nodes, self.node_path, self.witness = tuple(nodes), tuple(node_path), witness
+        self.callers, self.caller_bindings = callers, tuple(caller_bindings)
+        self.new_map, self.pins, self.retired, self.duplicates = new_map, {}, {}, {}
+
+    def respell(self, name):
+        return self.spellings.get(name, name)
+
+    def facts(self):
+        return ([f for _name, facts in [*self.rows.values(), *self.callers.values()] for f in facts]
+                + [f for _at, alloc, call in self.nodes for f in (alloc, call)]
+                + [fact for _at, fact in self.node_path] + [self.witness[2]])
+
+    def evidence(self):
+        return record(self.rows[self.copy][1])
+
+
 # The CRT's vector iterators (ehvecctr.cpp, ehvecdtr.cpp): the only calls a SlotOperandFamily's operand may feed.
 ITERATOR_NAMES = ("??_L@YGXPAXIHP6EX0@Z1@Z", "??_M@YGXPAXIHP6EX0@Z@Z")
 
@@ -1236,8 +1407,79 @@ MAP_UINT_RECORD_INSERT = StandInValueFamily(
     member_path=((0x0053479F, C("calls", 0x005347C7, 0x00534743)),),
     callers={0x00534A2A: ("?subscript@Rva00534A2A@@QAEAAUTreeStorage534@@ABI@Z", (C("calls", 0x00534A7B, 0x00534A0D),))},
     caller_bindings=((0x00534A2A, 0x52, _UR_SPELLINGS[_UR_INSERT]),))
+_BM_OLD_PAIR = "U?$pair@$$CBIPAX@_STL@@"
+_BM_OLD_TREE = (f"?$_Rb_tree@I{_BM_OLD_PAIR}U?$_Select1st@{_BM_OLD_PAIR}@2@U?$less@I@2@V?$allocator@{_BM_OLD_PAIR}@2@@"
+                "_STL@@")
+_BM_PAIR = "U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@"
+_BM_TREE = f"?$_Rb_tree@PBD{_BM_PAIR}U?$_Select1st@{_BM_PAIR}@2@URva006038D4Less@@V?$allocator@{_BM_PAIR}@2@@_STL@@"
+_BM_COPY = f"??0{_BM_OLD_TREE}QAE@ABV01@@Z"
+_BM_M_COPY = f"?_M_copy@{_BM_OLD_TREE}AAEPAU?$_Rb_tree_node@{_BM_OLD_PAIR}@2@PAU32@0@Z"
+_BM_MAP_COPY = f"??0?$map@IPAXU?$less@I@_STL@@V?$allocator@{_BM_OLD_PAIR}@2@@_STL@@QAE@ABV01@@Z"
+_BM_PAIR_CTOR = f"??0Rva00603FD2@@QAE@PBIABV{_BM_OLD_TREE}@Z"
+_BM_MAKE = f"?Rva00604251@@YA?AVRva00603FD2@@ABIABV{_BM_OLD_TREE}@Z"
+_BM_SPELLINGS = {
+    # the tree's copy constructor, 0x00603EEB
+    _BM_COPY: f"??0{_BM_TREE}QAE@ABV01@@Z",
+    # its _M_copy, 0x00603B9C
+    _BM_M_COPY: f"?_M_copy@{_BM_TREE}AAEPAU?$_Rb_tree_node@{_BM_PAIR}@2@PAU32@0@Z",
+    # the map's copy constructor, 0x00603FC0
+    _BM_MAP_COPY: (f"??0?$map@PBDUBigArchiveMemberInfo@@URva006038D4Less@@V?$allocator@{_BM_PAIR}@_STL@@@_STL@@QAE@ABV01"
+                   "@@Z"),
+    # the folder value's constructor from a name pointer and a member tree, 0x00603FD2
+    _BM_PAIR_CTOR: f"??0Rva00603FD2@@QAE@PBQBDABV{_BM_TREE}@Z",
+    # the folder value's factory, 0x00604251
+    _BM_MAKE: f"?Rva00604251@@YA?AVRva00603FD2@@ABQBDABV{_BM_TREE}@Z",
+}
+_BM_CLONE = ("?_M_clone_node@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@U"
+             "?$_Select1st@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@U?$less@W4NameKeyType@@@3"
+             "@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_"
+             "node@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@2@PAU32@@Z")
+# the pin at 0x00604251, as reverse/symbols.csv holds it
+_BM_MAKE_PAIR_PIN = (
+    "??$make_pair@PBDV?$map@PBDUBigArchiveMemberInfo@@URva006038D4Less@@V?$allocator@U?$pair@QBDUBigArchiveMemberInfo@"
+    "@@_STL@@@_STL@@@_STL@@@_STL@@YA?AU?$pair@PBDV?$map@PBDUBigArchiveMemberInfo@@URva006038D4Less@@V?$allocator@U?$pai"
+    "r@QBDUBigArchiveMemberInfo@@@_STL@@@_STL@@@_STL@@@0@ABQBDABV?$map@PBDUBigArchiveMemberInfo@@URva006038D4Less@@V?$"
+    "allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@_STL@@@0@@Z")
+
+# A BIG archive folder's member map, map<const char *, BigArchiveMemberInfo, Rva006038D4Less> (P144). Its copy chain
+# was rowed on map<unsigned int, void *>, so the copy bound the pointer-pair base constructor, whose one definer
+# allocated 0x18-byte headers. Retail's base constructor 0x0030087C and node creator 0x0029E11A push 0x20: the 16-byte
+# header and pair<const char *const, 12-byte BigArchiveMemberInfo>. Win32BIGFileSystem::rva006045A2, built from these
+# types, inserts make_pair(folder, BigMemberMap()) and binds the make_pair pin at 0x00604251, which spells the
+# comparator Rva006038D4Less. Rva0060426C (the folder value's copy) calls the tree's copy.
+BIG_MEMBER_MAP_COPY = RetypedTreeFamily(
+    old_key="I", old_value="PAX", new_key="PBD", new_value="BigArchiveMemberInfo", new_compare="Rva006038D4Less",
+    value_size=12, copy=0x00603EEB, spellings=dict(_BM_SPELLINGS),
+    members={0x00413E55: _BM_CLONE},
+    bindings=(
+        (0x00603EEB, 0x5C, _BM_SPELLINGS[_BM_M_COPY]),
+        (0x00603B9C, 0x0E, _BM_CLONE),
+        (0x00603B9C, 0x3E, _BM_CLONE),
+        (0x00603FC0, 0x08, _BM_SPELLINGS[_BM_COPY]),
+        (0x00603FD2, 0x13, _BM_SPELLINGS[_BM_COPY]),
+        (0x00604251, 0x12, _BM_SPELLINGS[_BM_PAIR_CTOR]),
+    ),
+    rows={
+        # the copy builds its header through the base constructor, then copies the nodes
+        0x00603EEB: (_BM_COPY, (C("calls", 0x00603F10, 0x0030087C), C("calls", 0x00603F46, 0x00603B9C))),
+        # which clones each node through the 32-byte node clone
+        0x00603B9C: (_BM_M_COPY, (C("calls", 0x00603BA9, 0x00413E55), C("calls", 0x00603BD9, 0x00413E55))),
+        0x00603FC0: (_BM_MAP_COPY, (C("calls", 0x00603FC7, 0x00603EEB),)),
+        0x00603FD2: (_BM_PAIR_CTOR, (C("calls", 0x00603FE4, 0x00603EEB),)),
+        0x00604251: (_BM_MAKE, (C("calls", 0x00604262, 0x00603FD2),)),
+    },
+    # push 20h, then the allocation: the base constructor's header and the creator's node
+    nodes=((0x0030087C, C("alloc", 0x0030088E, 0x20, "6a20"), C("calls", 0x00300890, 0x000307F0)),
+           (0x0029E11A, C("alloc", 0x0029E11D, 0x20, "6a20"), C("calls", 0x0029E11F, 0x000307F0))),
+    # the clone creates its node through the creator
+    node_path=((0x00413E55, C("calls", 0x00413E5E, 0x0029E11A)),),
+    witness=(0x006045A2, "?rva006045A2@Win32BIGFileSystem@@QAE_NPBD0PAUBigArchiveMemberInfo@@_N@Z",
+             C("calls", 0x006045FE, 0x00604251), _BM_MAKE_PAIR_PIN),
+    callers={0x0060426C: ("??0Rva0060426C@@QAE@ABV0@@Z", (C("calls", 0x0060427E, 0x00603EEB),))},
+    caller_bindings=((0x0060426C, 0x13, _BM_SPELLINGS[_BM_COPY]),))
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR,
-            MAP_UINT_INT_COPY, MAP_UINT_RECORD_INSERT)
+            MAP_UINT_INT_COPY, MAP_UINT_RECORD_INSERT,
+            BIG_MEMBER_MAP_COPY)
 
 # One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
 # treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at
