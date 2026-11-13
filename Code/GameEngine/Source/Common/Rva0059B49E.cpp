@@ -7,11 +7,7 @@
 
 #include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 
-class Rva002AC2CFTarget
-{
-public:
-	void rva002AC2CF(int a0, int a1, int a2);
-};
+#include "../../Include/Common/Rva002AC2CFTarget.h"
 
 #include <string.h>
 

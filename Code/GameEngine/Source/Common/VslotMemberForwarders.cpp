@@ -491,11 +491,7 @@ void Rva002A9F53Forwarder::rva002A9F53()
 	(*(Rva002034E9Host **)&TheGameLogic)->rva002034E9();
 }
 
-class Rva002AC2CFTarget
-{
-public:
-	void rva002AC2CF(Int firstValue, Int secondValue, Int thirdValue);
-};
+#include "../../Include/Common/Rva002AC2CFTarget.h"
 
 // The three slots of Rva002AAD9C's table 0x00BFDC6C (constructor in
 // RvaSmallVtableCtors.cpp), each reaching the payload it stores at +4.
