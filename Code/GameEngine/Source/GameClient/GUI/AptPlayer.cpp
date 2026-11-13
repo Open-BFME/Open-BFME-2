@@ -128,7 +128,7 @@ template<class T> AptRef<T> &AptRef<T>::operator=(const AptRef &other) {
 
 // Existing callee owners. The native records are 0x28 bytes, with two
 // canonical strings, the parameter/index words and flag byte at +0x24.
-class Rva00223CDB {public: int rva00223CDB(const AsciiString *);};
+#include "../../../Include/GameClient/Rva00223CDB.h"
 class Rva00222F0A {public: int rva00222F0A();};
 #include "../../../Include/Common/Rva002235F3.h"
 class Rva00062908Host {public:
