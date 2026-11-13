@@ -331,11 +331,7 @@ void Rva0059B420::rva0059B420(Int firstValue, Int secondValue, Int thirdValue)
 	m_04->rva0059B428(firstValue, secondValue, thirdValue);
 }
 
-class Rva005C33DD
-{
-public:
-	void rva005C33DD();
-};
+#include "../../Include/Common/Rva005C33DD.h"
 class Rva005C3586
 {
 public:

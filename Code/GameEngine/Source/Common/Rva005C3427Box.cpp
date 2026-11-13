@@ -8,10 +8,7 @@
 
 void PlaySound(const char *label);
 
-struct Rva005C33DD
-{
-	void rva005C33DD();
-};
+#include "../../Include/Common/Rva005C33DD.h"
 
 struct Rva005C3427
 {
