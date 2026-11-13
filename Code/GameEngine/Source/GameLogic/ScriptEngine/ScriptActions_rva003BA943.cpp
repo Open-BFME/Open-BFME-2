@@ -37,7 +37,7 @@ void ScriptActions::rva003BA943(Parameter *pUnit, bool flag)
 // was inferred only from a caller that discards the result; corrected here.
 // Radar callee 2D7FAE is independently rowed under its opaque owner name;
 // no stronger original method identity is claimed. Slot 34 remains unnamed.
-class Rva002D7FAEOwner {public:void rva002D7FAE(Object*);};
+#include "../../../Include/Common/Rva002D7FAEOwner.h"
 class Radar;
 extern Radar *TheRadar;
 #include "../../../Include/Common/GlobalData.h"

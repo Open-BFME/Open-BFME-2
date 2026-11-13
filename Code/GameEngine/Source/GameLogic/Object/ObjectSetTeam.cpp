@@ -64,7 +64,7 @@ extern class LuaScriptEngine *TheLuaScriptEngine;
 struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
-class Rva002D7FAEOwner { public: void rva002D7FAE(Object *obj); };
+#include "../../../Include/Common/Rva002D7FAEOwner.h"
 
 template <int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>
