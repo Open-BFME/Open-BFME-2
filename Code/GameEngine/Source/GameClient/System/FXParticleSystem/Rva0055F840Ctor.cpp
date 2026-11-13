@@ -38,11 +38,7 @@ inline RvaSmartPtr12::~RvaSmartPtr12() throw()
 		rva0004CBC0();
 }
 
-class Rva0055DDB6SmartField
-{
-public:
-	RvaSmartPtr12 get() const throw();
-};
+#include "../../../../Include/Common/Rva0055DDB6SmartField.h"
 
 ParticleSystem *Make001FCBD7();
 

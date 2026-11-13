@@ -108,11 +108,7 @@ public:
 	int m_08;
 };
 
-class Rva0055DDB6SmartField
-{
-public:
-	RvaSmartPtr12 get() const throw();
-};
+#include "../../../../Include/Common/Rva0055DDB6SmartField.h"
 
 struct ParticleSystemView
 {
