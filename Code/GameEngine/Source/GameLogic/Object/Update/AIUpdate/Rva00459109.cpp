@@ -7,11 +7,7 @@
 extern float g_Va00BBB8D8;
 extern int BfmeLogicFramesPerSecond;
 
-class Rva0045906E
-{
-public:
-	void rva0045906E(bool b);
-};
+#include "../../../../../Include/GameLogic/Module/Rva0045906E.h"
 
 class Rva00459109
 {

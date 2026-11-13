@@ -13,11 +13,7 @@ enum UpdateSleepTime
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class Rva0045906E
-{
-public:
-	void rva0045906E(bool b);
-};
+#include "../../../../../Include/GameLogic/Module/Rva0045906E.h"
 
 struct Rva004590C5Helper
 {
