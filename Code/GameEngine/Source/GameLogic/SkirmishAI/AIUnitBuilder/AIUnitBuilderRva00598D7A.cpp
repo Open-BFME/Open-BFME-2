@@ -66,7 +66,7 @@ struct Rva00598052Owner {char unknown00[0x3AC];int playerId;};
 class Rva002E2903Player;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva003F468D;
-class Rva0020E6B7RegionManager {public: Rva003F468D *rva0020E6B7();};
+#include "../../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "GameLogicObjectLookupView.h"

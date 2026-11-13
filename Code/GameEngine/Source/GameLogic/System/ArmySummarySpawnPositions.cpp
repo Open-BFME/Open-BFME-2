@@ -70,7 +70,7 @@ struct Rva002B488EResult;
 struct Rva002B3740Item;
 class Rva002E2903Player;
 class Rva003F468D;
-class Rva0020E6B7RegionManager { public: Rva003F468D *rva0020E6B7(); };
+#include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 class Rva002BA8F1Logic {
 public:
  Rva002B488EResult *rva002B488E(int);
