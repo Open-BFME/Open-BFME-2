@@ -10,11 +10,7 @@ enum { MAX_PARMS = 12 };
 
 class MemoryPool;
 
-class Rva0034FE00
-{
-public:
-	Rva0034FE00 &operator=(const Rva0034FE00 &other);
-};
+#include "../../../Include/GameLogic/Rva0034FE00.h"
 
 #include "../../../Include/GameLogic/ScriptCondition.h"
 
