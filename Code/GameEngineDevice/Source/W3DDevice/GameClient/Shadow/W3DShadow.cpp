@@ -155,11 +155,7 @@ public:
 	void rva0074011F();
 };
 
-class Rva00109DCF
-{
-public:
-	void rva00109DCF();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00109DCF.h"
 
 class R2GlobalReceiver;
 
