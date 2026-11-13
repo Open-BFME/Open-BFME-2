@@ -2189,13 +2189,19 @@ def pure_contradicted(name, member, args, index=None):
     return rows[0].endswith("XZ")
 
 
+class OwnerUnknown(ValueError):
+    """Whether a matched row's owner defines a member exclusively cannot be established
+    (generate raises it as a LayoutError; slot_declarations holds the class)."""
+
+
 def _matched_owners():
-    """{`?member@Scope@@` prefix: [(name, source)]} of the matched ledger rows, read once per ledger state."""
+    """{`?member@Scope@@` prefix: [(name, source)]} of the matched ledger rows, read once per ledger state.
+    An unreadable ledger raises OwnerUnknown: no owners is never assumed."""
     try:
         stat = LEDGER.stat()
-        state = (stat.st_mtime_ns, stat.st_size)
-    except OSError:
-        return {}
+    except OSError as why:
+        raise OwnerUnknown(f"the ledger {LEDGER} cannot be read: {why}") from why
+    state = (stat.st_mtime_ns, stat.st_size)
     if _matched_owners.cache[0] != state:
         owners = collections.defaultdict(list)
         for row in class_contract.ledger_rows():
@@ -2207,56 +2213,121 @@ def _matched_owners():
 
 _matched_owners.cache = (None, {})
 
+# MSVC's codes for the operators a class member can declare (`??R` is operator(), and so on).
+OPERATOR_CODES = {"=": "4", "==": "8", "!=": "9", "[]": "A", "->": "C", "*": "D", "++": "E", "--": "F",
+                  "-": "G", "+": "H", "&": "I", "->*": "J", "/": "K", "%": "L", "<": "M", "<=": "N", ">": "O",
+                  ">=": "P", ",": "Q", "()": "R", "~": "S", "^": "T", "|": "U", "&&": "V", "||": "W",
+                  "*=": "X", "+=": "Y", "-=": "Z", "/=": "_0", "%=": "_1", ">>=": "_2", "<<=": "_3", "&=": "_4",
+                  "|=": "_5", "^=": "_6", "<<": "6", ">>": "5", "!": "7"}
 
-def owner_definitions(name, member, owners=None, read=None):
-    """[(source, inline)]: the out-of-class definitions of `name`'s member `member` (a declaration's
-    text) in the sources of the matched ledger rows of its name, each with whether it is spelled
-    `inline` (a COMDAT copy, like a header's inline body) or not (a strong definition: P147, a
-    header body beside one is a duplicate definition). A member whose name is not a plain
-    identifier or destructor (an operator) has none found."""
-    key = member_key(member, name)
-    scopes = name.split("::")
-    short = scopes[-1]
-    scope = "@".join(reversed(scopes))
-    if key == "~":
-        prefix, last = f"??1{scope}@@", r"~\s*" + re.escape(short)
-    else:
-        found = re.search(r"(?<![\w~])([A-Za-z_]\w*)\s*\(", declaration_head(member))
-        if not found or found.group(1) == "operator":
-            return []
-        prefix, last = f"?{found.group(1)}@{scope}@@", re.escape(found.group(1))
-    qualified = r"\s*::\s*".join(re.escape(p) for p in scopes) + r"\s*::\s*" + last
-    pattern = re.compile(r"(?<![\w:>.])" + qualified + r"\s*\(")
-    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
-    out = []
-    for source in sorted({src for _, src in (_matched_owners() if owners is None else owners).get(prefix, ())}):
-        try:
-            text = masked(read(source))
-        except OSError:
+
+def member_prefix(name, member):
+    """The mangled prefix every matched row of `name`'s `member` (a declaration's text) starts with:
+    `??1Scope@@` for the destructor, `??RScope@@` for operator(), `?get@Scope@@` for a method.
+    OwnerUnknown for a member whose name it cannot mangle (a conversion operator, an unknown one)."""
+    scope = "@".join(reversed(name.split("::")))
+    head = declaration_head(member)
+    if member_key(member, name) == "~":
+        return f"??1{scope}@@"
+    found = re.search(r"\boperator\s*(\(\s*\)|\[\s*\]|->\*|[^\s\w(]+)\s*\(", head)
+    if found:
+        code = OPERATOR_CODES.get(re.sub(r"\s+", "", found.group(1)))
+        if code is None:
+            raise OwnerUnknown(f"{name}: cannot name the rows of {head.strip()}")
+        return f"??{code}{scope}@@"
+    if re.search(r"\boperator\b", head):
+        raise OwnerUnknown(f"{name}: cannot name the rows of {head.strip()}")
+    found = re.search(r"(?<![\w~])([A-Za-z_]\w*)\s*\(", head)
+    if not found:
+        raise OwnerUnknown(f"{name}: cannot name the rows of {head.strip()}")
+    return f"?{found.group(1)}@{scope}@@"
+
+
+def exclusive_definitions(data):
+    """(exclusive, defined) external names of an object's bytes: exclusive when link.exe refuses a second
+    definition (LNK2005), in an ordinary section or a NODUPLICATES COMDAT, which /Gy gives every
+    non-inline function; defined, any definition (a discardable COMDAT copy, an inline body's)."""
+    import struct
+    import link_census
+    count = struct.unpack_from("<H", data, 2)[0]
+    optional = struct.unpack_from("<H", data, 16)[0]
+    comdat = {i + 1 for i in range(count)
+              if struct.unpack_from("<I", data, 20 + optional + i * 40 + 36)[0] & link_census.COMDAT}
+    selections = link_census._comdat_selections(data)
+    exclusive, defined = set(), set()
+    for symbol in link_census._coff_symbols(data):
+        if symbol["storage"] != link_census.EXTERNAL or symbol["section"] <= 0:
             continue
-        for hit in pattern.finditer(text):
-            depth, close = 0, None
-            for i in range(hit.end() - 1, len(text)):
-                depth += {"(": 1, ")": -1}.get(text[i], 0)
-                if depth == 0:
-                    close = i
-                    break
-            body = re.match(r"\s*(?:const\b\s*)?(?:throw\s*\([^)]*\)\s*)?(?=[{:])", text[close + 1:]) if close else None
-            if body is None or text[close + 1 + body.end():close + 3 + body.end()] == "::":
-                continue                        # a call or a declaration, not a definition
-            start = max(text.rfind(c, 0, hit.start()) for c in ";{}") + 1
-            head = "\n".join(line for line in text[start:hit.start()].split("\n") if not line.lstrip().startswith("#"))
-            spelled = head + text[hit.start():close + 1 + body.end()]
-            if key != "~" and member_key(re.sub(qualified.rsplit(last, 1)[0] + "(?=" + last + ")", "", spelled),
-                                         name) != key:
-                continue                        # another overload of the name
-            out.append((source, bool(re.search(r"\b(?:inline|__forceinline)\b", head))))
-    return out
+        defined.add(symbol["name"])
+        if symbol["section"] not in comdat or selections.get(symbol["section"]) == 1:
+            exclusive.add(symbol["name"])
+    return exclusive, defined
 
 
-def strong_owners(name, member, owners=None, read=None):
-    """The sources that define `name`'s `member` out of line and not `inline` (owner_definitions)."""
-    return sorted({source for source, inline in owner_definitions(name, member, owners, read) if not inline})
+def local_facts(source):
+    """exclusive_definitions of `source`'s object when it is current here, else None."""
+    import build
+    obj = Path(build.obj_path(source))
+    try:
+        if not build.compile_is_current((ROOT / source).resolve(), obj):
+            return None
+        return exclusive_definitions(obj.read_bytes())
+    except (OSError, ValueError, IndexError):
+        return None
+
+
+@functools.lru_cache(maxsize=2)
+def _census_index(state):
+    import link_check
+    return link_check.load_index()
+
+
+def census_strength(row, source):
+    """'strong' or 'inline' for the census index's object of `source` defining `row`, else None."""
+    import link_check
+    try:
+        stat = link_check.INDEX.stat()
+        index = _census_index((str(link_check.INDEX), stat.st_mtime_ns, stat.st_size))
+    except (OSError, SystemExit):
+        return None
+    entry = index.get("blockers", {}).get(source)
+    objects = index.get("objects", [])
+    if not entry or entry.get("object") not in objects:
+        return None
+    position = objects.index(entry["object"])
+    if position in index.get("strong", {}).get(row, ()):
+        return "strong"
+    if any(copy[0] == position for copy in index.get("comdat", {}).get(row, ())):
+        return "inline"
+    return None
+
+
+def owner_strength(name, member, owners=None, facts=None, census=None):
+    """None when no matched row names `name`'s `member`; 'strong' when its owner defines it exclusively
+    (a header body beside that is a duplicate definition: P147), 'inline' when only as a discardable copy.
+    Read from the owner's object current here (`facts`: local_facts), else from the census index
+    (`census`: census_strength). OwnerUnknown when neither shows the row's definition, or the rows of an
+    overloaded name disagree: it is never assumed either way."""
+    facts = facts or local_facts
+    census = census or census_strength
+    rows = (_matched_owners() if owners is None else owners).get(member_prefix(name, member), ())
+    found = set()
+    for row, source in rows:
+        held = facts(source)
+        if held is not None:
+            exclusive, defined = held
+            if row not in defined:
+                raise OwnerUnknown(f"{row}: the current object of {source} does not define it")
+            found.add("strong" if row in exclusive else "inline")
+            continue
+        strength = census(row, source)
+        if strength is None:
+            raise OwnerUnknown(f"{row}: {source} has no current object here and the census index does not "
+                               "show its definition")
+        found.add(strength)
+    if len(found) > 1:
+        raise OwnerUnknown(f"{name}: the rows of {member_prefix(name, member)} differ (strong and inline)")
+    return found.pop() if found else None
 
 
 def special_declarations(name, sources, read=None, known=(), slotted=(), index=None):
@@ -2577,13 +2648,14 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     ledger row unambiguously defines (pure_contradicted; `index`:
     _matched_index's shape) is a problem.
 
-    An inline body is never emitted for a slot a matched row's source defines
-    out of line and not `inline` (strong_owners; `owners`: _matched_owners'
-    shape): the header would add a copy beside that definition (P147, the
-    Rva0058AD7A destructor). The slot is declared without a body instead, as
-    the views that declare it so spell it. When the views split between an
-    inline body and none and no such row exists, the slot is a problem (the
-    rule special_declarations applies to the other members)."""
+    An inline body is never emitted for a slot a matched row's owner defines
+    exclusively (owner_strength; `owners`: _matched_owners' shape): the header
+    would add a copy beside that definition (P147, the Rva0058AD7A
+    destructor). The slot is declared without a body instead, as the views
+    that declare it so spell it. When the views split between an inline body
+    and none and no such row exists, or the owner cannot be established, the
+    slot is a problem (the rule special_declarations applies to the other
+    members)."""
     name = contract["class"]
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
@@ -2618,7 +2690,12 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             continue
         if "{" in text:
             bare = [t for t in spellings if "{" not in t and declaration_key(t)[0] == declaration_key(text)[0]]
-            if strong_owners(name, text, owners):
+            try:
+                strength = owner_strength(name, text, owners)
+            except OwnerUnknown as why:
+                problems.append(f"slot{slot} {member}: {why}")
+                continue
+            if strength == "strong":
                 text = (max(bare, key=lambda t: (spellings[t], -len(t))) if bare
                         else text.split("{")[0].rstrip() + ";")
             elif bare:
@@ -2923,9 +3000,9 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
     variant: a dropped special member is a link fault the byte gate cannot see. The fields sit at
     the contract's offsets, holes padded, and the compiler checks it (layout_plan,
     size_assertions); a layout the plan cannot declare raises LayoutError. So does a virtual
-    member the header would give an inline body that a matched row's source defines out of line
-    and not `inline` (strong_owners; `owners`: _matched_owners' shape): P147's duplicate
-    definition, which every unit emitting the vtable would add."""
+    member the header would give an inline body that a matched row's owner defines exclusively
+    (owner_strength; `owners`: _matched_owners' shape): P147's duplicate definition, which every
+    unit emitting the vtable would add; and when that owner cannot be established (OwnerUnknown)."""
     plan, problems = layout_plan(contract)
     if problems:
         raise LayoutError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))
@@ -2985,11 +3062,14 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
     # A virtual member's inline body is emitted by every unit that emits the vtable, so beside a
     # strong definition it is always a duplicate. A non-virtual one is emitted only where a unit
     # does not inline it, and the units that inline it need the body (Region3D::depth).
-    conflicts = [f"{record['text'].split('{')[0].strip()} has an inline body, but {', '.join(owner)} "
-                 "defines it out of line"
-                 for record in declaration_records("\n".join(lines), name) or ()
-                 if record["inline"] and record["role"] == "virtual"
-                 for owner in [strong_owners(name, record["text"], owners)] if owner]
+    try:
+        conflicts = [f"{record['text'].split('{')[0].strip()} has an inline body, but its matched row's owner "
+                     "defines it exclusively"
+                     for record in declaration_records("\n".join(lines), name) or ()
+                     if record["inline"] and record["role"] == "virtual"
+                     and owner_strength(name, record["text"], owners) == "strong"]
+    except OwnerUnknown as why:
+        raise LayoutError(f"{name}: {why}") from why
     if conflicts:
         raise LayoutError(f"{name}: " + "; ".join(conflicts[:3]))
     lines += size_assertions(contract, "\n".join(lines)) + ["", f"#endif // {guard}", ""]

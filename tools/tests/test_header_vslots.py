@@ -205,7 +205,7 @@ if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
 
 
-# ---- P147: no inline body for a slot a matched row's source defines out of line
+# ---- P147: no inline body for a slot a matched row's owner defines exclusively
 
 def owned_view(dtor, get="virtual int get() const;"):
     return f"""class Owned
@@ -219,9 +219,22 @@ public:
 """
 
 
-OWNED_DTOR = {"??1Owned@@": [("??1Owned@@UAE@XZ", "Base.cpp")]}
-STRONG_DTOR = "class Owned\n{\npublic:\n    virtual ~Owned();\n};\n\nOwned::~Owned()\n{\n}\n"
-INLINE_DTOR = "class Owned\n{\npublic:\n    virtual ~Owned();\n};\n\ninline Owned::~Owned()\n{\n}\n"
+DTOR_ROW = "??1Owned@@UAE@XZ"
+GET_ROW = "?get@Owned@@UBEHXZ"
+OWNED_DTOR = {"??1Owned@@": [(DTOR_ROW, "Base.cpp")]}
+OWNED_GET = {"?get@Owned@@": [(GET_ROW, "Base.cpp")]}
+
+
+def objects(monkeypatch, local=None, census=None):
+    """The owner's current object here: {source: (exclusive, defined)} (absent: none current);
+    the census index: {(row, source): 'strong' | 'inline'} (absent: it does not show the row)."""
+    local, census = local or {}, census or {}
+    monkeypatch.setattr(lane, "local_facts", lambda source: local.get(source))
+    monkeypatch.setattr(lane, "census_strength", lambda row, source: census.get((row, source)))
+
+
+STRONG = {"Base.cpp": ({DTOR_ROW, GET_ROW}, {DTOR_ROW, GET_ROW})}
+INLINE = {"Base.cpp": (set(), {DTOR_ROW, GET_ROW})}
 
 
 def owned_contract(vslots):
@@ -230,86 +243,152 @@ def owned_contract(vslots):
     return c
 
 
-def owned_slots(tmp_path, monkeypatch, views, owner_text, owners=OWNED_DTOR, vslots=None):
-    monkeypatch.setattr(lane, "ROOT", tmp_path)
-    if owner_text is not None:
-        (tmp_path / "Base.cpp").write_text(owner_text, encoding="latin-1")
+def owned_slots(views, owners=OWNED_DTOR, vslots=None):
     texts = {f"v{i}.cpp": v for i, v in enumerate(views)}
     return lane.slot_declarations(owned_contract(vslots or {0: "__vecDelDtor(uint)"}), sorted(texts),
                                   read=texts.__getitem__, known={}, owners=owners)
 
 
-def test_p147_an_out_of_line_owner_wins_over_one_inline_view(tmp_path, monkeypatch):
+def test_p147_an_exclusive_owner_wins_over_one_inline_view(monkeypatch):
     # 242fa829c92: one view spelled `virtual ~Rva0058AD7A() {}`, five declared it without a body, and
     # Rva0058AD7ABase.cpp defines it out of line; the header's inline body made a duplicate definition
+    objects(monkeypatch, local=STRONG)
     views = [owned_view("virtual ~Owned() {}")] + [owned_view("virtual ~Owned();")] * 5
-    own, _, problems = owned_slots(tmp_path, monkeypatch, views, STRONG_DTOR)
+    own, _, problems = owned_slots(views)
     assert problems == [] and own == ["virtual ~Owned();"]
 
 
-def test_an_out_of_line_owner_strips_the_body_every_view_spells(tmp_path, monkeypatch):
-    own, _, problems = owned_slots(tmp_path, monkeypatch, [owned_view("virtual ~Owned() {}")] * 3, STRONG_DTOR)
+def test_an_exclusive_owner_strips_the_body_every_view_spells(monkeypatch):
+    objects(monkeypatch, census={(DTOR_ROW, "Base.cpp"): "strong"})       # from the census when not built here
+    own, _, problems = owned_slots([owned_view("virtual ~Owned() {}")] * 3)
     assert problems == [] and own == ["virtual ~Owned();"]
 
 
-def test_a_split_with_no_out_of_line_owner_holds_the_class(tmp_path, monkeypatch):
+def test_a_split_with_no_exclusive_owner_holds_the_class(monkeypatch):
+    objects(monkeypatch, local=INLINE)
     views = [owned_view("virtual ~Owned() {}")] + [owned_view("virtual ~Owned();")] * 2
-    own, _, problems = owned_slots(tmp_path, monkeypatch, views, None, owners={})
+    own, _, problems = owned_slots(views, owners={})
     assert own == [] and problems and "an inline body in one view, none in another" in problems[0]
-    # an owner that spells the definition `inline` is a COMDAT copy like the header's: still a split
-    own, _, problems = owned_slots(tmp_path, monkeypatch, views, INLINE_DTOR)
+    # an owner whose copy is a discardable COMDAT (an `inline` definition) is no exclusive owner: still a split
+    own, _, problems = owned_slots(views)
     assert own == [] and "no matched row defines it out of line" in problems[0]
 
 
-def test_an_inline_owner_keeps_an_inline_body_every_view_spells(tmp_path, monkeypatch):
-    # Rva00074626 / Region3D: the owner's copy comes from an `inline` definition, as the header's would
-    own, _, problems = owned_slots(tmp_path, monkeypatch, [owned_view("virtual ~Owned() {}")] * 2, INLINE_DTOR)
+def test_an_inline_owner_keeps_an_inline_body_every_view_spells(monkeypatch):
+    # Rva00074626 / Region3D: the owner's copy is a COMDAT like the header's would be
+    objects(monkeypatch, local=INLINE)
+    own, _, problems = owned_slots([owned_view("virtual ~Owned() {}")] * 2)
     assert problems == [] and own == ["virtual ~Owned() {}"]
 
 
-def test_the_rule_holds_for_a_virtual_that_is_not_the_destructor(tmp_path, monkeypatch):
+def test_the_rule_holds_for_a_virtual_that_is_not_the_destructor(monkeypatch):
+    objects(monkeypatch, local=STRONG)
     views = [owned_view("virtual ~Owned();", "virtual int get() const { return 1; }")] + \
             [owned_view("virtual ~Owned();", "virtual int get() const;")] * 2
-    owners = {"?get@Owned@@": [("?get@Owned@@UBEHXZ", "Base.cpp")]}
-    strong = "int Owned::get() const\n{\n    return 1;\n}\n"
-    own, _, problems = owned_slots(tmp_path, monkeypatch, views, strong, owners=owners,
-                                   vslots={0: "__vecDelDtor(uint)", 1: "get()"})
+    own, _, problems = owned_slots(views, owners=OWNED_GET, vslots={0: "__vecDelDtor(uint)", 1: "get()"})
     assert problems == [] and "virtual int get() const;" in own
-    # another overload's definition is not this slot's owner: the split holds
-    other = "int Owned::get(int a) const\n{\n    return a;\n}\n"
-    own, _, problems = owned_slots(tmp_path, monkeypatch, views, other, owners=owners,
-                                   vslots={0: "__vecDelDtor(uint)", 1: "get()"})
-    assert any("slot1" in p and "an inline body in one view" in p for p in problems), problems
 
 
-def test_a_call_or_a_declaration_is_no_owner_definition(tmp_path, monkeypatch):
-    monkeypatch.setattr(lane, "ROOT", tmp_path)
-    (tmp_path / "Base.cpp").write_text("class Owned { public: virtual ~Owned(); };\n"
-                                       "void f(Owned *p) { p->Owned::~Owned(); }\n", encoding="latin-1")
-    assert lane.owner_definitions("Owned", "virtual ~Owned() {}", OWNED_DTOR) == []
-    (tmp_path / "Base.cpp").write_text("// Owned::~Owned() { } in a comment\n#include \"x.h\"\n"
-                                       "Owned::~Owned() { }\n", encoding="latin-1")
-    assert lane.owner_definitions("Owned", "virtual ~Owned() {}", OWNED_DTOR) == [("Base.cpp", False)]
+@pytest.mark.parametrize("local,census,owners,why", [
+    ({}, {}, OWNED_DTOR, "census index does not show its definition"),         # not built here, not in the census
+    ({"Base.cpp": (set(), set())}, {}, OWNED_DTOR, "does not define it"),         # the current object lacks the row
+    (STRONG, {}, {"??1Owned@@": [(DTOR_ROW, "Base.cpp"), ("??1Owned@@QAE@XZ", "Other.cpp")]},
+     "census index does not show"),
+    ({"Base.cpp": ({DTOR_ROW}, {DTOR_ROW}), "Other.cpp": (set(), {"??1Owned@@QAE@XZ"})}, {},
+     {"??1Owned@@": [(DTOR_ROW, "Base.cpp"), ("??1Owned@@QAE@XZ", "Other.cpp")]}, "differ"),
+], ids=["no-evidence", "object-lacks-row", "second-owner-unknown", "owners-disagree"])
+def test_an_owner_it_cannot_establish_holds_the_class(monkeypatch, local, census, owners, why):
+    # review r1: unavailable owner evidence failed open (an unreadable source was skipped)
+    objects(monkeypatch, local=local, census=census)
+    own, _, problems = owned_slots([owned_view("virtual ~Owned() {}")] * 2, owners=owners)
+    assert own == [] and any(why in p for p in problems), problems
 
 
-def test_generate_refuses_an_inline_virtual_a_strong_owner_defines(base_header, tmp_path):
-    # the check that keeps P147 from coming back by any path: whatever declares a virtual member
-    # with an inline body beside a strong out-of-line definition, generate refuses the header
-    (tmp_path / "Base.cpp").write_text(STRONG_DTOR, encoding="latin-1")
+def test_an_unreadable_ledger_is_never_no_owners(base_header, tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "LEDGER", tmp_path / "missing" / "functions.csv")
+    with pytest.raises(lane.OwnerUnknown, match="cannot be read"):
+        lane.owner_strength("Owned", "virtual ~Owned() {}")
     c = owned_contract({0: "__vecDelDtor(uint)"})
-    with pytest.raises(lane.LayoutError, match="Base.cpp defines it out of line"):
+    with pytest.raises(lane.LayoutError, match="cannot be read"):
+        lane.generate(c, "data", {}, None, (["virtual ~Owned() {}"], []), ())
+
+
+@pytest.mark.parametrize("member,prefix", [
+    ("virtual ~Owned() {}", "??1Owned@@"),
+    ("virtual int operator()(int a) { return a; }", "??ROwned@@"),
+    ("virtual bool operator == (const Owned &o) const { return true; }", "??8Owned@@"),
+    ("virtual int &operator[](int i) { return m; }", "??AOwned@@"),
+    ("virtual int get() const volatile { return 1; }", "?get@Owned@@"),
+])
+def test_rows_are_found_by_their_mangled_prefix(member, prefix):
+    # review r1: a definition's spelling (`::Owned::~Owned`, a namespace, a macro, operator()) no longer
+    # matters: the rows are found by name and judged by their owner's object
+    assert lane.member_prefix("Owned", member) == prefix
+    assert lane.member_prefix("Outer::Owned", member) == prefix.replace("Owned@@", "Owned@Outer@@")
+
+
+def test_a_member_it_cannot_mangle_is_unknown():
+    with pytest.raises(lane.OwnerUnknown):
+        lane.member_prefix("Owned", "virtual operator int() const { return 1; }")
+
+
+def coff(sections, symbols, strings=b""):
+    """A minimal COFF object: sections [(name, characteristics)], symbols [(name, value, section, storage,
+    aux selection or None)]; a section symbol with a selection carries its aux record."""
+    import struct
+    header_size, section_size = 20, 40
+    table = header_size + section_size * len(sections)
+    records, count, table_strings = b"", 0, b""
+    for name, value, section, storage, selection in symbols:
+        raw = name.encode()
+        if len(raw) <= 8:
+            field = raw.ljust(8, b"\0")
+        else:
+            field = struct.pack("<II", 0, 4 + len(table_strings))
+            table_strings += raw + b"\0"
+        aux = 1 if selection is not None else 0
+        records += field + struct.pack("<IhHBB", value, section, 0, storage, aux)
+        count += 1
+        if aux:
+            records += struct.pack("<IHHIHB3x", 0, 0, 0, 0, 0, selection)
+            count += 1
+    data = struct.pack("<HHIIIHH", 0x14C, len(sections), 0, table, count, 0, 0)
+    for name, characteristics in sections:
+        data += name.encode().ljust(8, b"\0") + struct.pack("<IIIIIIHHI", 0, 0, 0, 0, 0, 0, 0, 0, characteristics)
+    return data + records + struct.pack("<I", 4 + len(table_strings)) + table_strings
+
+
+def test_exclusive_definitions_follow_the_linkers_rule():
+    # an ordinary section and a NODUPLICATES COMDAT (/Gy's non-inline function) are exclusive; an ANY
+    # COMDAT (an inline body's copy) is a definition only; an undefined external is neither
+    data = coff([(".text", 0x60000020), (".text", 0x60001020), (".text", 0x60001020)],
+                [("?strong@@YAXXZ", 0, 1, 2, None),
+                 (".text", 0, 2, 3, 1), ("?nodup@@YAXXZ", 0, 2, 2, None),
+                 (".text", 0, 3, 3, 2), ("?any@@YAXXZ", 0, 3, 2, None),
+                 ("?ref@@YAXXZ", 0, 0, 2, None)])
+    exclusive, defined = lane.exclusive_definitions(data)
+    assert exclusive == {"?strong@@YAXXZ", "?nodup@@YAXXZ"}
+    assert defined == {"?strong@@YAXXZ", "?nodup@@YAXXZ", "?any@@YAXXZ"}
+
+
+def test_generate_refuses_an_inline_virtual_an_exclusive_owner_defines(base_header, monkeypatch):
+    # the check that keeps P147 from coming back by any path
+    objects(monkeypatch, local=STRONG)
+    c = owned_contract({0: "__vecDelDtor(uint)"})
+    with pytest.raises(lane.LayoutError, match="defines it exclusively"):
         lane.generate(c, "data", {}, None, (["virtual ~Owned() {}"], []), (), owners=OWNED_DTOR)
     assert "virtual ~Owned();" in lane.generate(c, "data", {}, None, (["virtual ~Owned();"], []), (),
                                                 owners=OWNED_DTOR)
+    objects(monkeypatch)
+    with pytest.raises(lane.LayoutError, match="census index does not show"):
+        lane.generate(c, "data", {}, None, (["virtual ~Owned() {}"], []), (), owners=OWNED_DTOR)
 
 
-def test_generate_keeps_a_non_virtual_inline_body_beside_a_strong_owner(base_header, tmp_path):
+def test_generate_keeps_a_non_virtual_inline_body_beside_an_exclusive_owner(base_header, monkeypatch):
     # Region3D::depth: the units that inline a non-virtual body need it, and none emits a copy
     # unless it does not inline it, so that shape is not refused
-    (tmp_path / "Base.cpp").write_text("int Owned::get() const\n{\n    return 1;\n}\n", encoding="latin-1")
+    objects(monkeypatch, local=STRONG)
     c = owned_contract({})
     c["vslots"] = {}
     special = [{"role": "method", "access": "public", "sig": "get()const", "text": "int get() const { return 1; }"}]
-    text = lane.generate(c, "data", {}, None, None, special,
-                         owners={"?get@Owned@@": [("?get@Owned@@QBEHXZ", "Base.cpp")]})
-    assert "int get() const { return 1; }" in text
+    assert "int get() const { return 1; }" in lane.generate(c, "data", {}, None, None, special, owners=OWNED_GET)
