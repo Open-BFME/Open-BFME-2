@@ -5,12 +5,7 @@
 // Same 63B Destroy-plus-free shape as Rva005F8F96 dtor; /EHs gives or-state.
 // Caller at 0x004FA33D plus Unwind funclets.
 #include <vector>
-struct Rva004F69C3
-{
-	~Rva004F69C3();
-	int m_00;
-	void *m_04;
-};
+#include "../../../../GameEngine/Include/Common/Rva004F69C3.h"
 
 template void _STL::_Destroy<Rva004F69C3 *>(Rva004F69C3 *, Rva004F69C3 *);
 template _STL::vector<Rva004F69C3>::~vector();

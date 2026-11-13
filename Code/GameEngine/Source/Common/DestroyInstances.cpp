@@ -182,10 +182,7 @@ class BfmeVectorRecord002AF478
 public:
 	~BfmeVectorRecord002AF478();
 };
-struct Rva004F69C3
-{
-	~Rva004F69C3();
-};
+#include "../../Include/Common/Rva004F69C3.h"
 struct Rva0040AFF3
 {
 	~Rva0040AFF3();

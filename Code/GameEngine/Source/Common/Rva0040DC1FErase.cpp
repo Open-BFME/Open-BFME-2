@@ -4,12 +4,7 @@
 // Vector<Rva004F69C3> single erase via copy_ptrs twin at 0x0040D8FB and rowed
 // dtor 0x004F69C3. Same 55B shape as ModuleInfo Nugget erase 0x0033C3BC.
 // Callers at 0x0040DD86 0x0040DE08 0x0040DE93 0x0040DFEA.
-struct Rva004F69C3
-{
-	int m_00;
-	void *m_04;
-	~Rva004F69C3();
-};
+#include "../../Include/Common/Rva004F69C3.h"
 
 namespace _STL
 {
