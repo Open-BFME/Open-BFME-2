@@ -3,14 +3,7 @@
 // WB1439E70 constructs a returned aggregate through a hidden buffer.
 // Native caller564EC0 constructs one result directly in its outgoing arguments.
 // The empty destructor reproduces native evaluation order without extra cleanup.
-struct BfmePairWI
-{
-    BfmePairWI() {}
-    BfmePairWI(const BfmePairWI &other) : m_f(other.m_f), m_i(other.m_i) {}
-    ~BfmePairWI() {}
-    float m_f;
-    int m_i;
-};
+#include "../../Include/Common/BfmePairWI.h"
 class Rva00564BF6
 {
 public:

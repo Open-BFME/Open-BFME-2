@@ -14,14 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 
-struct BfmePairWI
-{
-    BfmePairWI() {}
-    BfmePairWI(const BfmePairWI &other) : m_f(other.m_f), m_i(other.m_i) {}
-    ~BfmePairWI() {}
-    float m_f;
-    int m_i;
-};
+#include "../../../../GameEngine/Include/Common/BfmePairWI.h"
 
 class AsciiStringWI
 {

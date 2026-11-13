@@ -8,14 +8,7 @@ typedef bool Bool;
 
 typedef unsigned int UnsignedInt;
 
-struct BfmePairWI
-{
-    BfmePairWI() {}
-    BfmePairWI(const BfmePairWI &other) : m_f(other.m_f), m_i(other.m_i) {}
-    ~BfmePairWI() {}
-    float m_f;
-    int m_i;
-};
+#include "../../Include/Common/BfmePairWI.h"
 
 class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
 
