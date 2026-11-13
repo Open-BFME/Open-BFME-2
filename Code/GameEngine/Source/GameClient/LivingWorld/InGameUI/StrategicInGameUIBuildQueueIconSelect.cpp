@@ -570,7 +570,7 @@ template<> __declspec(dllimport) __forceinline void allocator<Rva005E71C6Ref>::d
 template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<Rva005E71C6Ref *,Rva005E71C6Ref,allocator<Rva005E71C6Ref> >::deallocate(Rva005E71C6Ref *p,size_t n){static_cast<allocator<Rva005E71C6Ref> &>(*this).deallocate(p,n);}
 }
 #include "../../../../Include/Common/Rva002DF9E9.h"
-class Rva004E0625 { public: int rva004E0625() const; };
+#include "../../../../Include/Common/Rva004E0625.h"
 struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva005A0B4CList.h"
 class CreateAHeroData;
