@@ -323,13 +323,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 { allocator<char>::deallocate(__p, __n); }
 }
 
-struct BfmeNarrowRecord0054FEF1
-{
-	_STL::basic_string<char> text;
-	unsigned int word0;
-	unsigned int word1;
-	BfmeNarrowRecord0054FEF1(const BfmeNarrowRecord0054FEF1 &o);
-};
+#include "../../../../Include/Common/BfmeNarrowRecord0054FEF1.h"
 
 typedef _STL::deque<BfmeNarrowRecord0054FEF1, _STL::allocator<BfmeNarrowRecord0054FEF1> > NarrowRecord0054FEF1Deque;
 

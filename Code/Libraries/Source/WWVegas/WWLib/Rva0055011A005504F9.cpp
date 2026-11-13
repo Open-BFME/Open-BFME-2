@@ -45,13 +45,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 
-struct BfmeNarrowRecord0054FEF1
-{
-	_STL::basic_string<char> text;
-	unsigned int word0;
-	unsigned int word1;
-	BfmeNarrowRecord0054FEF1(const BfmeNarrowRecord0054FEF1 &o);
-};
+#include "../../../../GameEngine/Include/Common/BfmeNarrowRecord0054FEF1.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void deque<BfmeNarrowRecord0054FEF1,allocator<BfmeNarrowRecord0054FEF1> >::_M_push_back_aux_v(BfmeNarrowRecord0054FEF1 const &); }
 
