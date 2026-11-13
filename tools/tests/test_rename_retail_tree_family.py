@@ -246,6 +246,10 @@ def test_a_key_parameter_is_retyped_only_where_named():
     assert swap("?f@@YAXIPBI@Z", (0,)) == rename.type_tree("?f@@YAXIPBI@Z")   # a by-value key at that position
 
 
+# review 4's counterexample: a constructor of a class nested in the tree, and its destructor
+NESTED_OLD = "??0Nested@" + OLD_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "QAE@XZ"
+NESTED_NEW = "??0Nested@" + NEW_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "QAE@XZ"
+NESTED_DTOR = "??1Nested@" + OLD_COPY[len("??0"):-len("QAE@ABV01@@Z")] + "QAE@XZ"
 UNION_OLD = OLD_COPY[:-len("@Z")] + "T?$allocator@U?$pair@$$CBIPAX@_STL@@@_STL@@@Z"                     # review 3's counterexample
 UNION_NEW = NEW_COPY[:-len("@Z")] + "T?$allocator@U?$pair@QBDUBigArchiveMemberInfo@@@_STL@@@_STL@@@Z"
 UNRELATED_OLD = OLD_COPY[:-len("@Z")] + "ABU?$pair@$$CBIPAX@Unrelated@@@Z"         # review 2's counterexample
@@ -346,6 +350,9 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("a union spelling of the allocator retyped too (review 3)",
      lambda k: (k["rows"].update({COPY: (UNION_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
                 k["spellings"].update({UNION_OLD: UNION_NEW})), "tree swap alone"),
+    ("a nested class's constructor in the tree retyped (review 4)",
+     lambda k: (k["rows"].update({COPY: (NESTED_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
+                k["spellings"].update({NESTED_OLD: NESTED_NEW})), "tree swap alone"),
     ("key parameters on no row", lambda k: k["key_params"].update({0x00001000: (0,)}), "name no row"),
     ("key parameters with no index", lambda k: k["key_params"].update({0x00603FD2: ()}), "name no row"),
     ("a key parameter that is the tree", lambda k: k["key_params"].update({0x00603FD2: (1,)}),
@@ -680,3 +687,13 @@ def test_each_shape_kind_and_scope_is_what_the_spellings_use():
         finally:
             R.SCOPE_SHAPES = old
         assert changed, f"{name} is the scope of no spelling"
+
+
+@pytest.mark.parametrize("name", [NESTED_OLD, NESTED_DTOR])
+def test_a_nested_class_member_of_the_tree_stays_whole(name):
+    """Review 4: a special member of a class nested in the tree spells the tree as its enclosing scope; the scope
+    rule for named members must not read the nested class's name as a member's."""
+    before = rename.type_tree(name)
+    assert before[1] in ("??0", "??1") and before[2][1][0] == ("N", "Nested")
+    assert swap(name) == before
+    assert swap(NESTED_OLD) != rename.type_tree(NESTED_NEW)

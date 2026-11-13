@@ -800,10 +800,13 @@ def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_par
         return walk(tree)
     scope = tree[2]
     if isinstance(scope, tuple) and scope[:1] == ("Q",):
-        # a special member's qualified name is its class alone (??0, ??1); a named member's starts with its own name
+        # a special member's qualified name (??0, ??1, ...: tree[1] holds the operator) is its class alone; only a
+        # named member (no operator: tree[1] is empty) starts with its own name, which a special member never does:
+        # there a leading name is a class nested in the shape, which stays whole
         parts = scope[1]
         got = shape(parts, lambda name: name in SCOPE_SHAPES)
-        if got is None and len(parts) == 3 and isinstance(parts[0], tuple) and parts[0][:1] == ("N",):
+        if got is None and tree[1] == "" and len(parts) == 3 and isinstance(parts[0], tuple) \
+                and parts[0][:1] == ("N",):
             inner = shape(parts[1:], lambda name: name in SCOPE_SHAPES)
             got = None if inner is None else (parts[0],) + inner
         scope = scope if got is None else ("Q", got)
