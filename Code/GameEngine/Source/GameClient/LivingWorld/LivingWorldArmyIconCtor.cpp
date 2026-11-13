@@ -64,7 +64,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva003FDD29 { public: unsigned char rva003FDD29(); };
 class Rva00539281 { public: void rva00539281(unsigned char a, Int b); };
-class Rva003FE05E { public: void rva003FE05E(); };
+#include "../../../Include/Common/Rva003FE05E.h"
 
 typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > SubObjectVector;
 
