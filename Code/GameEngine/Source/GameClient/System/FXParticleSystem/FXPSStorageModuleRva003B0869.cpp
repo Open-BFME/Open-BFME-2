@@ -165,7 +165,7 @@ struct PrereqUnitRec
 };
 struct Rva003AFD22Node;
 struct Rva003B02F4Entry { Real time; Int slot; Rva003AFD22Node *node; };
-struct Rva003B02F4Greater {};
+#include "../../../../Include/Common/Rva003B02F4Greater.h"
 typedef _STL::priority_queue<Rva003B02F4Entry, _STL::vector<Rva003B02F4Entry, _STL::allocator<Rva003B02F4Entry> >, Rva003B02F4Greater> ExpiryQueue;
 class Rva003B0412 : public ExpiryQueue { public:void rva003B0412(const PrereqUnitRec*); };
 class ModuleData;

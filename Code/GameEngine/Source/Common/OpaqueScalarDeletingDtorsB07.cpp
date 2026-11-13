@@ -214,7 +214,7 @@ public:
 // counted object, drains two rowed priority queues, then unlocks before
 // their storage and the now-recovered 0x003B00D6 base are destroyed.
 #include "../../../Libraries/Source/WWVegas/WWLib/Rva003B02F4Entry.h"
-struct Rva003B02F4Greater {};
+#include "../../Include/Common/Rva003B02F4Greater.h"
 namespace _STL {
 template <class T> struct greater {};
 template <class T, class Container, class Compare> class priority_queue
