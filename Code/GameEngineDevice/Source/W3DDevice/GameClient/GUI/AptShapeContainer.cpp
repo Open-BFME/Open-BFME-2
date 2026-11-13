@@ -680,14 +680,7 @@ public:
 	void bfmeTouch982C();
 };
 
-class BfmeHub982
-{
-public:
-	void * __fastcall rva00111312(int count);
-	void rva001116E2();				// 0x001116E2
-	void bfmeBegin982C();				// 0x00111319
-	void bfmeEnd982C();				// 0x00110611
-};
+#include "../../../../Include/W3DDevice/GameClient/BfmeHub982.h"
 
 void rebuildMask(void);
 
