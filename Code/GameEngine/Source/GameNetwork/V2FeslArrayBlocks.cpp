@@ -186,11 +186,7 @@ void Rva007F77B0Block::allocate( int count )
 	m_count = count;
 }
 
-class Rva007F7810Block : public Rva007F6C60
-{
-public:
-	void allocate( int count );
-};
+#include "../../Include/GameNetwork/Rva007F7810Block.h"
 
 void Rva007F7810Block::allocate( int count )
 {
