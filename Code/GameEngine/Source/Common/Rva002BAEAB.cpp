@@ -18,13 +18,7 @@ private:
 };
 }
 
-class RvaVec002B80CE
-{
-public:
-	~RvaVec002B80CE();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/RvaVec002B80CE.h"
 
 class Rva003C2F40Owner
 {

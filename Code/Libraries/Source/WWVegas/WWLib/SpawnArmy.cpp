@@ -303,16 +303,7 @@ inline void _Destroy<Rva004E2382 *>(Rva004E2382 *__first, Rva004E2382 *__last)
 // Owner identity is unproven (opaque Rva name).
 // Upgrades the ??1Rva004E32F2 pin (called by the landed ??_G at 0x004E37B3).
 
-class RvaVec002B80CE
-{
-public:
-	~RvaVec002B80CE();
-
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_storage;
-};
+#include "../../../../GameEngine/Include/Common/RvaVec002B80CE.h"
 class Rva004E32F2
 {
 public:
