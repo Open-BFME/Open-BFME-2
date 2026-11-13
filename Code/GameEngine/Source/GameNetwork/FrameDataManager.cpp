@@ -23,21 +23,7 @@ class NetCommandRef
 // /G7 emits the retail mov+imul+add sequence (twin-accessor precedent).
 #include "../../Include/GameNetwork/NetCommandListClass.h"
 
-class FrameData
-{
-public:
-	__declspec(noinline) void zeroFrame();
-	void init(void);
-	void setFrameCommandCount(unsigned int count);
-	NetCommandRef *addCommand(NetCommandMsg *msg);
-	FrameData();
-	~FrameData();
-private:
-	unsigned int m_frameCommandCount; // +0x00
-	unsigned int m_commandCount; // +0x04
-	NetCommandList *m_commandList; // +0x08
-	char storage[8]; // +0x0C
-};
+#include "../../Include/Common/FrameData.h"
 
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 

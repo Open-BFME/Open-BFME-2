@@ -173,7 +173,7 @@ class Rva002217EA;
 class Rva005045DBTree {public:Rva005045DBTree&self();};
 #include "../../../../Include/Common/Rva005C4AD1LeaField.h"
 class NetCommandList;
-class FrameData {public:NetCommandList*getCommandList();};
+#include "../../../../Include/Common/FrameData.h"
 class UpgradeTemplate;
 #include "../../../../Include/Common/Upgrade.h"
 class Rva001DB09DDwordField {public:int get()const;};

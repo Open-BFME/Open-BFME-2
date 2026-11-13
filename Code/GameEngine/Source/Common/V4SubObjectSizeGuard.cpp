@@ -39,11 +39,7 @@ public:
 	int  m_at18;
 };
 
-class FrameData
-{
-public:
-	unsigned int getCommandCount();
-};
+#include "../../Include/Common/FrameData.h"
 
 class Rva00504138
 {
