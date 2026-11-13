@@ -697,11 +697,7 @@ struct ChecklistSelectNode
 	ChecklistSelectNode *prev;
 	StrategicHUD::ChecklistUIImpl::Item *item;
 };
-struct ChecklistIteratorView
-{
-	ChecklistSelectNode *node;
-	ChecklistIteratorView(const ChecklistIteratorView &other) : node(other.node) {}
-};
+#include "../../Include/Common/ChecklistIteratorView.h"
 struct ChecklistFontDesc;
 extern unsigned int g_Va00E06360[9];
 struct HudFontObject { static int *words() { return (int *)g_Va00E06360; } };

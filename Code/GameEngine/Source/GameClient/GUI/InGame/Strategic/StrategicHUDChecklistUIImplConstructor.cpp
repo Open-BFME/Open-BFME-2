@@ -138,11 +138,7 @@ struct XNode
 // base +0 (inc 0x005D1A79, Release_Ref 0x005D1A7D), movie clip base +8, 0x60 bytes.
 namespace StrategicHUD {class ChecklistUIImpl;}
 struct ChecklistSelectNode;
-struct ChecklistIteratorView
-{
-	ChecklistSelectNode *node;
-	ChecklistIteratorView(const ChecklistIteratorView &other) : node(other.node) {}
-};
+#include "../../../../../Include/Common/ChecklistIteratorView.h"
 class Rva005D1A6C {public:virtual ~Rva005D1A6C();int m_04;};
 class Rva005D40A6 {public:virtual ~Rva005D40A6();char m_pad04[0x40 - 0x04];};
 namespace StrategicHUD {

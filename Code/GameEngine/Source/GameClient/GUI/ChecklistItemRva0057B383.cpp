@@ -30,11 +30,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 typedef float Real;
 
 struct ChecklistSelectNode;
-struct ChecklistIteratorView
-{
-	ChecklistSelectNode *node;
-	ChecklistIteratorView(const ChecklistIteratorView &other) : node(other.node) {}
-};
+#include "../../../Include/Common/ChecklistIteratorView.h"
 
 namespace StrategicHUD
 {
