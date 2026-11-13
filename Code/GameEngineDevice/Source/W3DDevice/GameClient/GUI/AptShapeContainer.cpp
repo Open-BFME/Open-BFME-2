@@ -792,11 +792,7 @@ void Rva000A923EReleaseString(Rva000A923EString *value, unsigned int flags);
 // WB 8A7370 independently preserves the same argument and assignment order.
 // The Apt slot is SetColourTransform; component meanings and the original
 // global names are not established, so the two destination blocks stay neutral.
-struct Rva000A994CColors
-{
- float x, y, z, w;
- void set(float a, float b, float c, float d) { x=a; y=b; z=c; w=d; }
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva000A994CColors.h"
 
 extern Rva000A994CColors g_aptHostColorBlock0;
 
