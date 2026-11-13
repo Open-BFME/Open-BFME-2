@@ -90,7 +90,7 @@ void ScriptActions::doTeamCaptureNearestUnownedFactionUnit(const AsciiString &te
 	Coord3D pos;
 	theGroup->getCenter(&pos);
 
-	Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, FROM_CENTER_3D,
+	Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, FROM_CENTER_3D,
 		Rva00261409Filter(team->getControllingPlayer(), true, 0xC)
 			.link(Rva00261C58Filter(true).link(&Rva002611DDFilter())));
 	if (!obj)

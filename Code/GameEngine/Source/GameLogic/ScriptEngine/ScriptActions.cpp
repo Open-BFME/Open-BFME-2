@@ -1225,12 +1225,12 @@ extern TerrainLogic *TheTerrainLogic;
 static __declspec(noinline) void rva003BE11C(Object *obj, const ThingTemplate *tmpl, const CommandButton *button)
 {
 	if (targetsPosition(button)) {
-		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
+		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, 0,
 			Rva00261750Filter(tmpl, true).link(&Rva002611BFFilter(obj)));
 		if (target)
 			obj->doCommandButtonAtPosition(button, target->getPosition(), 1, 0);
 	} else {
-		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
+		Object *target = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, 0,
 			Rva00261750Filter(tmpl, true).link(Rva002614BCFilter(obj, button, true, 1).link(&Rva002611BFFilter(obj))));
 		if (!target) {
 			if (((tmpl->m_kindof[2] & 0x40000000U) != 0)) {

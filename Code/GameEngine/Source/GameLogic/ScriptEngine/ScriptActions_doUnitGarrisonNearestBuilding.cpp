@@ -94,7 +94,7 @@ void ScriptActions::doUnitGarrisonNearestBuilding(const AsciiString &unitName)
 	if (!ai)
 		return;
 
-	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(theUnit->getPosition(), REALLY_FAR, 2,
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(theUnit->getPosition(), 100000 * 10.0f, 2,
 		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 7, 118),
 			*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(&Rva002611BFFilter(theUnit)), 1);
 

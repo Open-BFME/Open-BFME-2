@@ -163,7 +163,7 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 	if (!leader)
 		return;
 
-	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(leader->getPosition(), REALLY_FAR, 3,
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(leader->getPosition(), 100000 * 10.0f, 3,
 		Rva00261478Filter(theTeam->getControllingPlayer(), true, CMD_FROM_SCRIPT).link(&Rva002611BFFilter(leader)), 1);
 
 	for (Object *theBuilding = iter.next(); theBuilding; theBuilding = iter.next()) {

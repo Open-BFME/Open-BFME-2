@@ -120,14 +120,14 @@ void ScriptActions::doAttackMoveTeamTowardsNearest(const AsciiString &teamName, 
 	Object *target = 0;
 	if (playerName.compare(AsciiString::TheEmptyString) == 0) {
 		Rva0026176EFilter typesFilter(types, true);
-		target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
+		target = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, FROM_CENTER_3D,
 			&typesFilter);
 	} else {
 		int mask = TheScriptEngine->rva00357475(playerName, 0);
 		if (mask) {
 			Rva002613AFFilter playerFilter(mask, true);
 			Rva0026176EFilter typesFilter(types, true);
-			target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
+			target = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, FROM_CENTER_3D,
 				typesFilter.link(&playerFilter));
 		} else {
 			AsciiString msg("WARNING - Player (");

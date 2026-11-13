@@ -94,7 +94,7 @@ Object *ScriptActions::rva003C24F0(const Coord3D *pos, ObjectTypes *types, Playe
 			thing.link(&owned);
 		if (flag)
 			thing.link(&third);
-		Object *obj = ThePartitionManager->getClosestObject(pos, REALLY_FAR, 0, &thing);
+		Object *obj = ThePartitionManager->getClosestObject(pos, 100000 * 10.0f, 0, &thing);
 		if (obj) {
 			Rva003C24F0Delta delta(*pos);
 			delta.sub(obj->getPosition());

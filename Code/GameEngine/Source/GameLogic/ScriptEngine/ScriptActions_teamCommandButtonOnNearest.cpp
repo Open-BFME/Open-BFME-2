@@ -209,7 +209,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestEnemy(const AsciiString &team
 	mask.set(54);
 	mask.set(130);
 	if (needsTargetPosition(commandButton)) {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 					*(BfmeFixedStorage0004543D *)&mask).link(&Rva002611BFFilter(srcObj))));
@@ -217,7 +217,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestEnemy(const AsciiString &team
 			return;
 		theGroup->groupDoCommandButtonAtPosition(commandButton, obj->getPosition(), CMD_FROM_SCRIPT);
 	} else {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva002614BCFilter(srcObj, commandButton, true, CMD_FROM_SCRIPT)
 					.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -259,7 +259,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestGarrisonedBuilding(const Asci
 	mask.set(54);
 	mask.set(130);
 	if (needsTargetPosition(commandButton)) {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 					*(BfmeFixedStorage0004543D *)&mask).link(&Rva002611BFFilter(srcObj))));
@@ -267,7 +267,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestGarrisonedBuilding(const Asci
 			return;
 		theGroup->groupDoCommandButtonAtPosition(commandButton, obj->getPosition(), CMD_FROM_SCRIPT);
 	} else {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7), *(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(Rva0026144CFilter(true).link(Rva002614BCFilter(srcObj, commandButton, true, CMD_FROM_SCRIPT)
 					.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -309,7 +309,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestKindof(const AsciiString &tea
 	mask.set(54);
 	mask.set(130);
 	if (needsTargetPosition(commandButton)) {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 					*(BfmeFixedStorage0004543D *)&mask).link(&Rva002611BFFilter(srcObj))));
@@ -317,7 +317,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestKindof(const AsciiString &tea
 			return;
 		theGroup->groupDoCommandButtonAtPosition(commandButton, obj->getPosition(), CMD_FROM_SCRIPT);
 	} else {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, kindofBit), *(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(Rva002614BCFilter(srcObj, commandButton, true, CMD_FROM_SCRIPT)
 					.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -359,7 +359,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuilding(const AsciiString &t
 	mask.set(54);
 	mask.set(130);
 	if (needsTargetPosition(commandButton)) {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 					*(BfmeFixedStorage0004543D *)&mask).link(&Rva002611BFFilter(srcObj))));
@@ -367,7 +367,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuilding(const AsciiString &t
 			return;
 		theGroup->groupDoCommandButtonAtPosition(commandButton, obj->getPosition(), CMD_FROM_SCRIPT);
 	} else {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7), *(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(Rva002614BCFilter(srcObj, commandButton, true, CMD_FROM_SCRIPT)
 					.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -409,7 +409,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuildingClass(const AsciiStri
 	mask.set(54);
 	mask.set(130);
 	if (needsTargetPosition(commandButton)) {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
 				*(BfmeFixedStorage0004543D *)&mask)
@@ -420,7 +420,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuildingClass(const AsciiStri
 			return;
 		theGroup->groupDoCommandButtonAtPosition(commandButton, obj->getPosition(), CMD_FROM_SCRIPT);
 	} else {
-		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
+		Object *obj = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
 				*(BfmeFixedStorage0004543D *)&mask)

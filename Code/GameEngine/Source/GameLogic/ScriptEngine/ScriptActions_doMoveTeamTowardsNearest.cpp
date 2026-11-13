@@ -160,7 +160,7 @@ void ScriptActions::doMoveTeamTowardsNearest(const AsciiString &teamName, const 
 		Object *obj = iter.cur();
 		AIUpdateInterface *ai = obj->getAIUpdateInterface();
 		if (ai) {
-			Object *bestObj = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
+			Object *bestObj = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, FROM_CENTER_3D,
 				Rva00261750Filter(thingTemplate, true).link(Rva00261723Filter(trig).link(&Rva002611BFFilter(obj))));
 			if (!bestObj)
 				return;

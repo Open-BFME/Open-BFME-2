@@ -94,14 +94,14 @@ void ScriptActions::rva003C951B(const AsciiString &unitName, const AsciiString &
 	Object *target = 0;
 	if (playerName.compare(AsciiString::TheEmptyString) == 0) {
 		Rva00261750Filter thingFilter(thingTemplate, true);
-		target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
+		target = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, FROM_CENTER_3D,
 			&thingFilter);
 	} else {
 		int mask = TheScriptEngine->rva00357475(playerName, 0);
 		if (mask) {
 			Rva002613AFFilter playerFilter(mask, true);
 			Rva00261750Filter thingFilter(thingTemplate, true);
-			target = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
+			target = ThePartitionManager->getClosestObject(obj->getPosition(), 100000 * 10.0f, FROM_CENTER_3D,
 				thingFilter.link(&playerFilter));
 		} else {
 			AsciiString msg("WARNING - Player (");
