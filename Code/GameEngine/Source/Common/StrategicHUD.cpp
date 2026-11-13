@@ -681,15 +681,7 @@ struct ChecklistSelectNode
 struct ChecklistFontDesc;
 extern unsigned int g_Va00E06360[9];
 struct HudFontObject { static int *words() { return (int *)g_Va00E06360; } };
-class Rva005D1A6C
-{
-public:
-	Rva005D1A6C();
-	virtual ~Rva005D1A6C() {}
-
-private:
-	int m_04;
-};
+#include "../../Include/Common/Rva005D1A6C.h"
 class Rva005D40A6
 {
 public:

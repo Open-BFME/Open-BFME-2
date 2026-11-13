@@ -1,0 +1,189 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005D1A6C",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5d1a6c"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5d1a6c"
+     ],
+     "value": {
+      "0x0": "0x842518"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x842518"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "__purecall",
+        "slot": 0,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 10,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x842518"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x842518": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "__purecall",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "__purecall",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "__purecall",
+     "11": "__purecall",
+     "12": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "8": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

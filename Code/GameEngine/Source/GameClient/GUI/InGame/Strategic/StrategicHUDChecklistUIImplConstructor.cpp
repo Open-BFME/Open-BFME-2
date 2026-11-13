@@ -139,7 +139,7 @@ struct XNode
 namespace StrategicHUD {class ChecklistUIImpl;}
 struct ChecklistSelectNode;
 #include "../../../../../Include/Common/ChecklistIteratorView.h"
-class Rva005D1A6C {public:virtual ~Rva005D1A6C();int m_04;};
+#include "../../../../../Include/Common/Rva005D1A6C.h"
 class Rva005D40A6 {public:virtual ~Rva005D40A6();char m_pad04[0x40 - 0x04];};
 namespace StrategicHUD {
 class ChecklistUIItemView : public Rva005D1A6C, public Rva005D40A6 {};
