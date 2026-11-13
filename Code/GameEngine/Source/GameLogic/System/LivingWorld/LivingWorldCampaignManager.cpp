@@ -376,7 +376,7 @@ namespace _STL { template <> BfmeAssignRecord104 * __copy<BfmeAssignRecord104 *,
 
 namespace _STL { template <> BfmeAssignRecord104 * vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::erase(BfmeAssignRecord104 *,BfmeAssignRecord104 *); }
 
-class Rva003B9132 { public: void rva003B9132(); };
+#include "../../../../Include/Common/Rva003B9132.h"
 
 class Rva003B92A2
 {

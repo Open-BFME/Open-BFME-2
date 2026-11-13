@@ -278,11 +278,7 @@ Rva003B0344::Rva003B0344(EmitVtableTag *tag) : Rva003B00D6(tag)
 // constructor is the rowed 0x001B4E63 body, so this unit must not emit its
 // own inline copy for the vtable-emitting constructor below.
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
-class Rva003B9132
-{
-public:
-    void rva003B9132();
-};
+#include "../../Include/Common/Rva003B9132.h"
 struct BfmeAssignRecord104;
 struct Rva003B923BBuffer
 {
