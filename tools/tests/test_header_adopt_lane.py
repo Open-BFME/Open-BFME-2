@@ -773,6 +773,24 @@ def test_view_methods_merge_void_spelling_and_skip_declspec_special_members(tmp_
     assert "{" in methods[lane.signature("bool in(const Coord3D *p) const;", "Region3D")]   # the body wins
 
 
+def test_view_methods_skips_friends_typedefs_and_enums(tmp_path, monkeypatch):
+    # The skip was spelled `(typedef|friend|enum)` followed by a literal backspace character, so it never
+    # matched: a friend function or a function-pointer typedef in a view was offered as a method. A method
+    # whose name only starts with one of the words is a method.
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "v.cpp").write_text("class Pool {\n"
+                                    "public:\n"
+                                    "    friend void helper(int n);\n"
+                                    "    typedef void (*callback)(int);\n"
+                                    "    void enumerate(int n);\n"
+                                    "    int size() const { return 0; }\n"
+                                    "};\n")
+    methods = " ".join(lane.view_methods("Pool", ["v.cpp"]).values())
+    assert "friend" not in methods and "typedef" not in methods
+    assert "void enumerate(int n);" in methods and "int size() const" in methods
+    assert chr(8) not in open(lane.__file__, encoding="utf-8").read()
+
+
 def test_view_methods_keeps_hump_underscore_identifiers(tmp_path, monkeypatch):
     # WWLib method names are hump-underscore identifiers (Delete_This,
     # Add_Ref); the old all-uppercase-sounds-like-a-type filter dropped every

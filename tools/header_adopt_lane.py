@@ -1368,7 +1368,7 @@ def view_methods(name, sources, known=()):
         inner = code[code.index("{") + 1:code.rindex("}")]
         for member in split_members(inner):
             member = re.sub(r"^(public|private|protected)\s*:\s*", "", member).strip()
-            if "(" not in member or special.match(member) or re.match(r"(typedef|friend|enum)", member):
+            if "(" not in member or special.match(member) or re.match(r"(typedef|friend|enum)\b", member):
                 continue
             for typedef, spelling in TYPEDEFS.items():
                 member = re.sub(r"\b%s\b" % typedef, spelling, member)
