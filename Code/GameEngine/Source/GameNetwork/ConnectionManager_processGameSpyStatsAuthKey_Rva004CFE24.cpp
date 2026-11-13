@@ -15,12 +15,7 @@ class GameSpyGameSlot;
 
 // Call-only views of the existing getter/setter owners. These declarations
 // preserve the retail calls without assigning a second name to each body.
-class Rva004CFB6DAsciiField
-{
-public:
-	AsciiString get() const;
-	void rva004CFB8B(AsciiString value);
-};
+#include "../../Include/GameNetwork/Rva004CFB6DAsciiField.h"
 
 #include "../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 

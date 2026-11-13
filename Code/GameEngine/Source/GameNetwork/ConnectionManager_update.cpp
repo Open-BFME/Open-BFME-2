@@ -84,12 +84,7 @@ UnsignedShort GenerateNextCommandID();
 
 // GameSpyGameSlot's login name getter 0x004CFB6D and setter 0x004CFB8B, and
 // its locale setter 0x004CFBC2, held in the ledger under address names.
-class Rva004CFB6DAsciiField
-{
-public:
-	AsciiString get() const;
-	void rva004CFB8B(AsciiString text);
-};
+#include "../../Include/GameNetwork/Rva004CFB6DAsciiField.h"
 
 #include "../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 

@@ -1493,16 +1493,7 @@ private:
 	AsciiString m_value; // +0x308
 };
 
-class Rva004CFB6DAsciiField
-{
-public:
-	AsciiString get() const;
-	void rva004CFB8B(AsciiString value);
-
-private:
-	char m_pad[0x1D8];
-	AsciiString m_value; // +0x1D8
-};
+#include "../../../Include/GameNetwork/Rva004CFB6DAsciiField.h"
 
 class Rva004DC902AsciiField
 {
