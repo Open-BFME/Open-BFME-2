@@ -495,7 +495,7 @@ void rva006ffce0(AptValue *,EAStringC &);
 
 void __debugbreak();
 
-struct Rect {float left,top,right,bottom;};
+#include "../ATL/Rect.h"
 
 AptValue *Rva008A4EA0MakeFloat(float);
 

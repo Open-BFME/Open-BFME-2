@@ -137,7 +137,7 @@ extern "C" { int (__cdecl *pointHitTestCallback)(float,float,void*) = 0; }
 // Native At calls use the interpreter's stack prefix at offset zero. The
 // two bounds rectangles form one aggregate to preserve the measured slots:
 // other +8 and receiver +18. All four bounds tests are inclusive and ordered.
-struct Rect {float left,top,right,bottom;};
+#include "../ATL/Rect.h"
 AptValue *__cdecl Rva006ECA70PointHitTest(void *self,int count)
 {
  struct {Rect otherRect,ownRect;} bounds;

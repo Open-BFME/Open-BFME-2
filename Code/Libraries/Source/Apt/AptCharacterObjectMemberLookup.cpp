@@ -69,7 +69,7 @@ struct TextInstance {
  char unknown60[0xC]; unsigned dirty; int unknown70;
  unsigned reserved0:1,border:1,background:1,mouseWheel:1,reserved4:28;
 };
-struct Rect {float left,top,right,bottom;};
+#include "../ATL/Rect.h"
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 #include "AptBoolean.h"
