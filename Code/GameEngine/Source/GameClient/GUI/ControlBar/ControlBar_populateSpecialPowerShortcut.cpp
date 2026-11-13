@@ -139,14 +139,7 @@ class Rva000AD6F4;
 extern ControlBar *TheControlBar;
 struct Rva0041534BIter;
 #include "../../../../Include/GameClient/Rva00056F61.h"
-class Rva0031D5F8
-{
-public:
-	void *rva0031D5F8(const AsciiString *key);
-	void *GetPurchaseScienceCommandSet(const void *player);
-	char m_pad[0x30];
-	Rva00056F61 m_table;
-};
+#include "../../../../Include/Common/Rva0031D5F8.h"
 class Rva0031AF54
 {
 public:
