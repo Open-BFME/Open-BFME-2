@@ -294,16 +294,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-class Rva003B8B2A
-{
-	char m_pad00[0x1C];
-	int m_field1C;
-	int m_field20;
-	char m_pad24[0x4C - 0x24];
-	unsigned char m_flag4C;
-public:
-	int rva003B8B2A();
-};
+#include "../../../../Include/Common/Rva003B8B2A.h"
 class ModuleData;
 namespace _STL {
 template<> void vector<const ModuleData *>::reserve(unsigned int);
