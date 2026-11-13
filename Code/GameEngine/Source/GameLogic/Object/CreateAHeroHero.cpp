@@ -59,7 +59,7 @@ private:
 };
 typedef char WriterSizeCheck[sizeof(XferSave)==0x40?1:-1];
 #include "../../../Include/Common/Gen009D6DD0.h"
-class Rva00406EBF { public: void rva00406EBF(Xfer *); };
+#include "../../../Include/Common/Rva00406EBF.h"
 
 
 class CreateAHeroHero;
