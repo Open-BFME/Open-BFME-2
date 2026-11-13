@@ -82,39 +82,7 @@ public:
     virtual int height();
 };
 
-class Rva0025C3AA
-{
-public:
-	void rva0025C3AA();
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual unsigned int getWidth();
-	virtual unsigned int getHeight();
-	char m_pad04[0x34];
-private:
-	Rva0025C3AAVideo *m_video; // +0x38
-	char m_pad3C[0xC0];
-	float m_fc; // +0xFC
-	float m_margin; // +0x100
-	float m_displayWidth; // +0x104
-	float m_extent; // +0x108
-	bool m_ready; // +0x10C
-	char m_pad10D[0x3];
-};
+#include "../../Include/Common/Rva0025C3AA.h"
 
 typedef bool Bool;
 
