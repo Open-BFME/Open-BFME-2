@@ -4,12 +4,7 @@
 #include "../../../Common/RTS/XYDistanceCallView.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 #include "DemoTrapObjectView.h"
-class Rva000CBA20Point
-{
-public:
-	float x;
-	float y;
-};
+#include "../../../../Include/Common/Rva000CBA20Point.h"
 extern PartitionManager *ThePartitionManager;
 #include "DemoTrapUpdateModuleDataView.h"
 //
