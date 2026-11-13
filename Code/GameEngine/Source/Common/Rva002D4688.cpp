@@ -11,12 +11,7 @@
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 
-struct WinMainTitlePair : Rva000B3F84Pair
-{
-	Rva000B3F84Pair m_secondPair;
-	int write(char *dst);
-	int length() const { return Rva000B3F84Pair::length() + m_secondPair.length(); }
-};
+#include "../../Include/Common/WinMainTitlePair.h"
 
 class Rva002D4688
 {

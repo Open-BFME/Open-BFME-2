@@ -36,12 +36,7 @@ extern const int g_emptyFieldParseTable[4];
 // The narrow "text + text" node, as WinMainPairUnicode.cpp and
 // RegistryAsciiPath.cpp view it.
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct WinMainTitlePair : Rva000B3F84Pair
-{
-	operator AsciiString();
-
-	Rva000B3F84Pair m_secondPair;
-};
+#include "../../Include/Common/WinMainTitlePair.h"
 Rva000B3F84Pair Rva00108B93Make(const char *src);
 WinMainTitlePair operator+(const Rva000B3F84Pair &left, const char *right);
 

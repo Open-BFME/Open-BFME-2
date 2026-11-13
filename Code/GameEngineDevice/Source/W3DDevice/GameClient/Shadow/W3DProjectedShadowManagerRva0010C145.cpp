@@ -114,13 +114,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
 #include "../../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
-struct WinMainTitlePair : Rva000B3F84Pair
-{
- operator AsciiString();
- Rva000B3F84Pair m_secondPair;
-
-}
-;
+#include "../../../../../GameEngine/Include/Common/WinMainTitlePair.h"
 Rva000B3F84Pair Rva00108B93Make(const char*);
 WinMainTitlePair operator+(const Rva000B3F84Pair&,const char*);
 class TextureBaseClass
