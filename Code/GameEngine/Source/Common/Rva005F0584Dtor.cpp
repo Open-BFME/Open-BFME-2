@@ -14,21 +14,7 @@ public:
 	virtual void onRelease(StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot *owner);
 };
 
-class Rva005F0584Base0
-{
-public:
- virtual void slot01(int) = 0;
- virtual int slot02() const = 0;
- virtual void DoSetState(int) = 0;
- virtual const Image *slot04() const = 0;
- virtual void slot05(const Image *) = 0;
- virtual const Image *slot06() const = 0;
- virtual void slot07(const Image *) = 0;
- virtual unsigned char slot08() const = 0;
- virtual void DoShowProgress(int, int) = 0;
- virtual void DoHideProgress() = 0;
- ~Rva005F0584Base0() {}
-};
+#include "../../Include/GameClient/Rva005F0584Base0.h"
 
 class Rva005F0584Base1
 {

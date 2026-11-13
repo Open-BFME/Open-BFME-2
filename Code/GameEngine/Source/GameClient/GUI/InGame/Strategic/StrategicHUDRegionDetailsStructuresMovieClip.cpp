@@ -126,21 +126,7 @@ Rva005EF5CA operator+(const AsciiStringPlusStringText &,const AsciiString &);
 
 class Rva005242D7 { public: Rva005242D7(); ~Rva005242D7(); private: char bytes[12]; };
 class Image;
-class Rva005F0584Base0
-{
-public:
- virtual void slot01(int) = 0;
- virtual int slot02() const = 0;
- virtual void DoSetState(int) = 0;
- virtual const Image *slot04() const = 0;
- virtual void slot05(const Image *) = 0;
- virtual const Image *slot06() const = 0;
- virtual void slot07(const Image *) = 0;
- virtual unsigned char slot08() const = 0;
- virtual void DoShowProgress(int, int) = 0;
- virtual void DoHideProgress() = 0;
- ~Rva005F0584Base0() {}
-};
+#include "../../../../../Include/GameClient/Rva005F0584Base0.h"
 class Rva005EEF2FBase4 { public: Rva005EEF2FBase4(): refs(0) {} virtual ~Rva005EEF2FBase4() {} int refs; };
 
 #include "Coord2D.h"
