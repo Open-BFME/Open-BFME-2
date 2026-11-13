@@ -5,15 +5,7 @@
 // Evidence: retail bytes caller 0x00221A9E unblocks 0x00221A58.
 #include "ascii_string.h"
 
-class Rva0022185A
-{
-public:
-	Rva0022185A(const Rva0022185A &other);
-private:
-	AsciiString m_str;
-	int m_04;
-	unsigned char m_08;
-};
+#include "../../Include/Common/Rva0022185A.h"
 
 Rva0022185A::Rva0022185A(const Rva0022185A &other)
 	: m_str(other.m_str)
