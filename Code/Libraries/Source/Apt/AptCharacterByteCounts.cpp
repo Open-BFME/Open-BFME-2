@@ -167,7 +167,7 @@ AptValue *__cdecl Rva006ECA70PointHitTest(void *self,int count)
  return AptInteger::Create(0);
 }
 
-struct Rva008A4570Owner {public:bool nameEquals(const char*);};
+#include "../../../GameEngine/Include/Common/Rva008A4570Owner.h"
 class Rva006EB4B0 {
 public:EAStringC font;float size;int color,align;unsigned flags;int indent,left,right;
  Rva006EB4B0(AptValue*,float,int,int,int,int,int,int,AptValue*,int,int,int,int);

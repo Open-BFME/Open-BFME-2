@@ -188,7 +188,7 @@ AptValue *aptMathTan(void *,int);
 
 #include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 
-class Rva008A4570Owner { public: bool nameEquals(const char *); };
+#include "../../../GameEngine/Include/Common/Rva008A4570Owner.h"
 
 #include "AptBasePtrStack.h"
 

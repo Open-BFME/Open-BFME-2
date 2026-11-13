@@ -86,10 +86,7 @@ public:
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
 extern AptValue *gpUndefinedValue;
-struct Rva008A4570Owner {
-  void *data;
-  bool nameEquals(const char *);
-};
+#include "../../../GameEngine/Include/Common/Rva008A4570Owner.h"
 #include "../../../GameEngine/Include/Common/R4Word.h"
 const R4Word *Rva008D4F80(const char *, unsigned int);
 void Rva006CC110Log(int, const char *, ...);
