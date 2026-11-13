@@ -5,18 +5,37 @@
 // C8, CC, D0, D4 and D5. Its matched destructor calls the sentence
 // destructor at 0x00157C70 on the same +4 member.
 
-class Gen0078D1C0Base
+class GameWindow;
+struct Rva0010500FDrawData;
+struct BfmeR1042;
+struct Rva00104DE6Font;
+
+// Retail table 0x00BCF7E8: five __purecall slots, then the deleting destructor.
+class Rva00104DB0Base
 {
 public:
-	virtual ~Gen0078D1C0Base() {}
+	Rva00104DB0Base() {}
+	virtual void drawBorder(GameWindow *window) = 0;
+	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data) = 0;
+	virtual void addExtents(int left, int top, int right, int bottom) = 0;
+	virtual void bfmeGo1042E(BfmeR1042 *rec) = 0;
+	virtual void setFont(const Rva00104DE6Font *font) = 0;
+	virtual ~Rva00104DB0Base() {}
 };
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
-class Rva00104DB0 : public Gen0078D1C0Base
+// Retail table 0x00BCF800 (six slots): 0x00105AF3, 0x0010500F, 0x00104E68,
+// 0x00105CC7, 0x00104DE6 and the deleting destructor 0x00104F16.
+class Rva00104DB0 : public Rva00104DB0Base
 {
 public:
 	Rva00104DB0();
+	virtual void drawBorder(GameWindow *window);
+	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data);
+	virtual void addExtents(int left, int top, int right, int bottom);
+	virtual void bfmeGo1042E(BfmeR1042 *rec);
+	virtual void setFont(const Rva00104DE6Font *font);
 	virtual ~Rva00104DB0();
 private:
 	Render2DSentenceClass m_sentence;

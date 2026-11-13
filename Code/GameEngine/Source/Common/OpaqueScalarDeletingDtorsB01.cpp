@@ -84,7 +84,36 @@ class Rva00102188 { public: Rva00102188(EmitVtableTag *); virtual ~Rva00102188()
 Rva00102188::Rva00102188(EmitVtableTag *) {}
 
 // ??_GRva00104DB0@@UAEPAXI@Z @0x00104F16 28B; calls pinned ??1 at 0x00104DB0
-class Rva00104DB0 { public: Rva00104DB0(EmitVtableTag *); virtual ~Rva00104DB0(); };
+// The class's virtual shape (see Rva00104DB0Dtor.cpp), without its data members.
+class GameWindow;
+struct Rva0010500FDrawData;
+struct BfmeR1042;
+struct Rva00104DE6Font;
+// Retail table 0x00BCF7E8: five __purecall slots, then the deleting destructor.
+class Rva00104DB0Base
+{
+public:
+	Rva00104DB0Base() {}
+	virtual void drawBorder(GameWindow *window) = 0;
+	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data) = 0;
+	virtual void addExtents(int left, int top, int right, int bottom) = 0;
+	virtual void bfmeGo1042E(BfmeR1042 *rec) = 0;
+	virtual void setFont(const Rva00104DE6Font *font) = 0;
+	virtual ~Rva00104DB0Base() {}
+};
+// Retail table 0x00BCF800 (six slots): 0x00105AF3, 0x0010500F, 0x00104E68,
+// 0x00105CC7, 0x00104DE6 and the deleting destructor 0x00104F16.
+class Rva00104DB0 : public Rva00104DB0Base
+{
+public:
+	Rva00104DB0(EmitVtableTag *);
+	virtual void drawBorder(GameWindow *window);
+	virtual void rva0010500F(GameWindow *window, Rva0010500FDrawData *data);
+	virtual void addExtents(int left, int top, int right, int bottom);
+	virtual void bfmeGo1042E(BfmeR1042 *rec);
+	virtual void setFont(const Rva00104DE6Font *font);
+	virtual ~Rva00104DB0();
+};
 // ?<Rva00104DB0::Rva00104DB0> absent-from-retail
 Rva00104DB0::Rva00104DB0(EmitVtableTag *) {}
 
