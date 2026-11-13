@@ -82,7 +82,7 @@ struct IntPtrMulti
 	_STL::pair<IntPtrCIt, IntPtrCIt> equal_range(const int &k) const { return _M_t.equal_range(k); }
 };
 
-struct Out00418CC8 { int m_lo, m_hi; };
+#include "../../../../../Include/Common/Out00418CC8.h"
 
 #include "../../../../../Include/GameLogic/LivingWorldAutoResolveCombatChain.h"
 

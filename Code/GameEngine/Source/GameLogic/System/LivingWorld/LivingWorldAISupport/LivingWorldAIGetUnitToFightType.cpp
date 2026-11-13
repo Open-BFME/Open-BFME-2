@@ -87,7 +87,7 @@ struct UnitArray
 	BfmePod88 &operator[](int i) { return first[i]; }
 };
 
-struct Out00418CC8 { int m_lo, m_hi; };
+#include "../../../../../Include/Common/Out00418CC8.h"
 
 #include "../../../../../Include/GameLogic/LivingWorldAutoResolveCombatChain.h"
 

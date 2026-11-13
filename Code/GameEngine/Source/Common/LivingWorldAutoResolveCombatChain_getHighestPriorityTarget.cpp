@@ -21,11 +21,7 @@ struct Node00418CC8
 	int m_hi;
 };
 
-struct Out00418CC8
-{
-	int m_lo;
-	int m_hi;
-};
+#include "../../Include/Common/Out00418CC8.h"
 
 class LivingWorldAutoResolveCombatChain
 {
