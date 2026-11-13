@@ -133,7 +133,7 @@ struct TemplateThreatBreakdown { unsigned int bits; TemplateThreatBreakdown() : 
 struct NoCaseMapView { ~NoCaseMapView(); NoCaseTree tree; NoCaseMapView() : tree(BfmeStringNoCaseLess(), NoCaseTree::allocator_type()) {} };
 struct Rva0025753F { SoundRecordTree tree; Rva0025753F() : tree(_STL::less<BfmeStringRecord002CF550>(), SoundRecordTree::allocator_type()) {} ~Rva0025753F(); };
 struct Rva0033C3F3 : VRva002D0EDCElement { __forceinline Rva0033C3F3() {} ~Rva0033C3F3(); };
-class Rva002DFC30 { public: ~Rva002DFC30(); unsigned char m_data[0xC]; };
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva002DFC30.h"
 namespace _STL { template<> vector<Rva002DFC30>::~vector(); }
 typedef _STL::vector<Rva002DFC30> WeaponTemplateSetVector;
 class ThingTemplate : public Overridable {

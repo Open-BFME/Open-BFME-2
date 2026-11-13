@@ -8,15 +8,7 @@
 
 #include "ascii_string.h"
 
-class Rva002DFC30
-{
-	int m_00;
-	AsciiString m_04;
-	char m_08;
-
-public:
-	~Rva002DFC30();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva002DFC30.h"
 
 namespace _STL
 {

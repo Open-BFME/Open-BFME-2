@@ -12,14 +12,7 @@ struct BfmeContainerRecord002CF46E
 	BfmeContainerRecord002CF46E(const BfmeContainerRecord002CF46E &other);
 	~BfmeContainerRecord002CF46E();
 };
-class Rva002DFC30
-{
-	int m_00;
-	AsciiString m_04;
-	char m_08;
-public:
-	~Rva002DFC30();
-};
+#include "Rva002DFC30.h"
 #include "Rva000B435F.h"
 namespace _STL
 {

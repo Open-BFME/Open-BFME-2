@@ -11,14 +11,7 @@ struct BfmeStringRecord000B950F
 	BfmeStringRecord000B950F(const BfmeStringRecord000B950F &other);
 	~BfmeStringRecord000B950F();
 };
-class Rva002DFC30
-{
-	int m_00;
-	AsciiString m_04;
-	char m_08;
-public:
-	~Rva002DFC30();
-};
+#include "Rva002DFC30.h"
 #include "Rva000B435F.h"
 namespace _STL
 {

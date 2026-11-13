@@ -3,14 +3,7 @@
 // ?erase@?$vector@URva000B435F@@V?$allocator@URva000B435F@@@_STL@@@_STL@@QAEPAURva000B435F@@PAU3@0@Z @0x000C059B 51B: vector Rva000B435F range erase via copy_ptrs 0x2CF830 plus destroy 0x331FF1 plus finish store. Evidence: retail calls pinned copy_ptrs plus rowed destroy; same 51B 4-plus-2 push shape as FXBoneInfo erase 0x00207F0D and PrereqUnitRec erase 0x004F50E2; callers at 0xC1C64 0xC6D86 0x33E12E.
 #include "ascii_string.h"
 #include "Rva000B435F.h"
-class Rva002DFC30
-{
-	int m_00;
-	AsciiString m_04;
-	char m_08;
-public:
-	~Rva002DFC30();
-};
+#include "Rva002DFC30.h"
 namespace _STL
 {
 struct __false_type
