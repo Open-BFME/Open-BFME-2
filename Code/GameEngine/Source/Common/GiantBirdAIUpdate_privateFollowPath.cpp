@@ -23,13 +23,7 @@ public:
 	Coord3D *m_end;
 };
 
-class Rva00351759
-{
-public:
-	char m_pad[0x3c];
-	Rva0035149F m_vec;
-	Rva0035149F &rva00351759(const Rva0035149F &other);
-};
+#include "../../Include/Common/Rva00351759.h"
 
 class AIStateMachine
 {

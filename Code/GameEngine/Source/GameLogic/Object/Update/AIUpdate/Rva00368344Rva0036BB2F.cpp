@@ -62,11 +62,7 @@ public:
 	void setGoalWaypoint(const Waypoint *goal); // 0x003E3BFB
 };
 
-class Rva00351759
-{
-public:
-	Rva0035149F &rva00351759(const Rva0035149F &path); // 0x00351759
-};
+#include "../../../../../Include/Common/Rva00351759.h"
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 

@@ -1413,13 +1413,7 @@ class Rva00347E4CState{public:
 // Callers: 0x00262F36 0x00264949 0x002649FB 0x0026BB19 0x0026BBE6 0x0026BCA2 0x0036986E 0x0036BC30 all pass this+1 arg; callees: rowed 0x0035149F vector assign.
 // Precedent: tail return m_member.method gives add ecx N + jmp at /O1; honest Rva address-derived class.
 
-class Rva00351759
-{
-public:
-	char m_pad[0x3c];
-	Rva0035149F m_vec;
-	Rva0035149F &rva00351759(const Rva0035149F &other);
-};
+#include "../../../Include/Common/Rva00351759.h"
 
 // tu-skeleton: 0x0033FAE9 11B ??1AttackStateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 

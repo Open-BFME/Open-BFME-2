@@ -641,11 +641,7 @@ public:
 	unsigned char m_unmodelled_00[0x68];		// makeStateMachine allocates 0x68 bytes
 };
 
-class Rva00351759
-{
-public:
-	Rva0035149F &rva00351759(const Rva0035149F &other);
-};
+#include "../../../../Include/Common/Rva00351759.h"
 
 // Locomotor helper 0x001E4147 (matched, Rva001E4147Copy.cpp): copies the
 // position at +0x38 of the object it is handed to +0x14 of the locomotor.
