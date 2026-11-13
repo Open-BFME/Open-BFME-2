@@ -89,7 +89,7 @@ namespace FXParticleSystem {class QuadDrawModule;}
 #include "../../../../Include/GameClient/Rva001F4E2D.h"
 #include "../../../../Include/GameClient/Rva001F4D2D.h"
 #include "../../../../Include/GameClient/Rva001F4DC4.h"
-class Rva001F4DE6 {public:int rva001F4DE6();};
+#include "../../../../Include/Common/Rva001F4DE6.h"
 #include "RGBColor.h"
 #include "../../../../Include/GameClient/Rva001F4E1BSlot.h"
 #include "../../../../Include/GameClient/Rva001F4DF9.h"
