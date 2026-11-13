@@ -233,18 +233,11 @@ void Rva001EADF7ByteOneSetter::enable()
 	m_enabled = 1;
 }
 
-class Rva001F3852ByteOneSetter
-{
-public:
-	void enable();
-
-	char m_lead[0x1A3];
-	unsigned char m_enabled;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 
 void Rva001F3852ByteOneSetter::enable()
 {
-	m_enabled = 1;
+	reinterpret_cast<unsigned char *>(this)[0x1A3] = 1;
 }
 
 class Rva00222479ByteOneSetter

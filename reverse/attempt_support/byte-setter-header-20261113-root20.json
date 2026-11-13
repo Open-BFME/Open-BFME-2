@@ -1,0 +1,16 @@
+{
+ "comdats": 174,
+ "sources": 3,
+ "differences": {},
+ "comparison": "Exact COMDAT contents and relocation identity",
+ "headers_unchanged": true,
+ "rows": 90,
+ "data_rows": 1,
+ "actual_private_views_removed": 1,
+ "class": "Rva001F3852ByteOneSetter",
+ "tooling_commit": "cd2da1d12dd",
+ "acceptance": "PASS",
+ "queue_entries_retired": 3,
+ "strict_providers": 3,
+ "link_closure_checked": false
+}
