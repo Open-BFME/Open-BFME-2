@@ -32,16 +32,7 @@ void Rva00655700(char *dst, unsigned dstSize, const char *src)
 	strncpy(dst, src, dstSize);
 }
 
-class Rva006557F0Holder
-{
-public:
-	void set(const char *src, int value);
-
-private:
-	char m_pad[8];
-	char m_text[28];
-	int m_value;
-};
+#include "../../Include/GameNetwork/Rva006557F0Holder.h"
 
 void Rva006557F0Holder::set(const char *src, int value)
 {

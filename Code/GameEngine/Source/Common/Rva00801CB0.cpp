@@ -96,7 +96,7 @@ public:
 
 // The real base constructor at 007E86B0 is the matched SnapshotDupReplica.
 #include "../../Include/Common/SnapshotDupReplica.h"
-class Rva006557F0Holder { public: void set(const char *, int); };
+#include "../../Include/GameNetwork/Rva006557F0Holder.h"
 class Rva007F4DA0 : public SnapshotDupReplica {
 public:
     Rva007F4DA0() { field04 = 1; field08 = 0; field24 = 0; }

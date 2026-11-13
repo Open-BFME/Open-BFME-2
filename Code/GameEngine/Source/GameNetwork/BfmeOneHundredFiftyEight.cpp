@@ -83,15 +83,7 @@ public:
 
 #include "../../Include/Common/Rva007E8760Addr.h"
 
-class Rva006557F0Holder
-{
-public:
-	void set( const char *text, int value );
-
-	char m_pad[ 8 ];
-	char m_text[ 0x1c ];
-	int m_value;
-};
+#include "../../Include/GameNetwork/Rva006557F0Holder.h"
 
 class BfmeListenerZI
 {
