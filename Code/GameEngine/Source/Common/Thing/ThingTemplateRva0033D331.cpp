@@ -38,11 +38,7 @@ class WeaponTemplateSet
 public:
 	void parseWeaponTemplateSet(class INI *ini, const class ThingTemplate *tt);
 };
-class Rva002CF7B5
-{
-public:
-	void rva002CF7B5();
-};
+#include "../../../Include/Common/Rva002CF7B5.h"
 #include "../../../Include/Common/ThingTemplate.h"
 void Rva0033D331Parse(INI *ini, ThingTemplate *tt)
 {

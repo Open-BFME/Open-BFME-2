@@ -245,11 +245,7 @@ public:
 	~Out();
 };
 
-class Rva002CF7B5
-{
-public:
-	void rva002CF7B5();
-};
+#include "../../Include/Common/Rva002CF7B5.h"
 
 class Rva002CF7DE
 {

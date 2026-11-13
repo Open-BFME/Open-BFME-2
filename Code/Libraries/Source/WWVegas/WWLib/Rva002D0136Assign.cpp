@@ -13,12 +13,7 @@ struct Rva002CFA30Node
 	Rva002CFA30Node *m_right;
 	unsigned char m_value[20];
 };
-struct Rva002CF7B5
-{
-	void *m_header;
-	int m_size;
-	void rva002CF7B5();
-};
+#include "../../../../GameEngine/Include/Common/Rva002CF7B5.h"
 struct Rva002CFC7B
 {
 	Rva002CFA30Node *rva002CFA30(const Rva002CFA30Node *src);
