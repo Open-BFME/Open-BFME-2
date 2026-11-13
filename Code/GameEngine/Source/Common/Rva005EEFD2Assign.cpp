@@ -8,11 +8,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Rva005EEFD2Target
-{
-	int m_00;
-	TargetRef00217D4C m_04;
-};
+#include "../../Include/Common/Rva005EEFD2Target.h"
 
 #include "../../Include/Common/Rva005EEFD2.h"
 
