@@ -514,7 +514,7 @@ class Rva00380200 {public:bool rva003805BB(float,bool);};
 #include "../../../../../Include/Common/Rva004194D6.h"
 class Rva00427157 {public:float rva004270FA(int);};
 #include "../../../../../Include/Common/Rva0033A9A5.h"
-class Rva0033A65E {public:void *rva0033A65E();};
+#include "../../../../../Include/Common/Rva0033A65E.h"
 class LivingWorldAutoResolveBodyTemplate {public:float getHitpointsForLevel(int);};
 int GetGameLogicRandomValue(int,int,char*,int);
 struct Rva004F99CCEntry {char opaque00[0xC];int level;int mask[4];char opaque20[0x78];int kills,combatKills;};

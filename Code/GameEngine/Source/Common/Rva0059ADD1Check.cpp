@@ -3,11 +3,7 @@
 // Its adjacent matched 0059ADB9 predicate confirms the value at +0x0C
 // and body-query owner at +0x2C. The rowed 0033A65E fallback query returns
 // the record whose flag at +0x1D is tested here. Domain identity is unknown.
-class Rva0033A65E
-{
-public:
-    void *rva0033A65E();
-};
+#include "../../Include/Common/Rva0033A65E.h"
 
 class Rva0059ADD1
 {

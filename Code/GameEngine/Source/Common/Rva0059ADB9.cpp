@@ -4,15 +4,7 @@
 // at +0x0C, calls the rowed body fallback getter through the pointer at
 // +0x2C, and returns the byte at +0x1C from that getter's result. The owner
 // identity remains address-derived.
-class Rva0033A65E
-{
-public:
-	void *rva0033A65E();
-
-private:
-	char m_pad[0x490];
-	void *m_body;
-};
+#include "../../Include/Common/Rva0033A65E.h"
 
 class Rva0059ADB9
 {

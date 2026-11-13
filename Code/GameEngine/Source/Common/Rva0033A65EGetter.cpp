@@ -12,14 +12,7 @@ public:
 // Rva0041811D table used for the default-body fallback.
 Rva0041811D *TheLivingWorldAutoResolveBodyStore;
 
-class Rva0033A65E
-{
-public:
-	void *rva0033A65E();
-private:
-	char m_pad[0x490];
-	void *m_body; // +0x490
-};
+#include "../../Include/Common/Rva0033A65E.h"
 
 void *Rva0033A65E::rva0033A65E()
 {
