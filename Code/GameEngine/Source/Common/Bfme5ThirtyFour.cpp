@@ -722,12 +722,7 @@ public:
 		if (g_bfmeAptBreakOnAssertAtDDC01C) \
 			__debugbreak(); } } while (0)
 
-class AptValueNameEntry
-{
-public:
-    EAStringC m_name;
-    int m_value;
-};
+#include "../../Include/Common/AptValueNameEntry.h"
 typedef AptValueNameEntry PlaybackItem;
 inline void iteratorCheck(bool, const char *) {}
 class PlaybackIterator

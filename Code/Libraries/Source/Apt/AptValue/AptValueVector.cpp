@@ -35,15 +35,7 @@ extern char g_eaEmptyStringData[16];
 
 #include "../AptValue.h"
 
-class AptValueNameEntry
-{
-public:
-	AptValueNameEntry();
-	AptValueNameEntry(const EAStringC &name, int value);
-
-	EAStringC m_name;
-	int m_value;
-};
+#include "../../../../GameEngine/Include/Common/AptValueNameEntry.h"
 
 #include "../AptValueVector.h"
 

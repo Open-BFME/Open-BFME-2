@@ -264,7 +264,7 @@ void Rva006CC110Log(int,const char *,...);
 extern unsigned g_rva00A176D8,g_rva00A176DC,g_rva00A176E4;
 // Native6CF96D/6CF972 use the existing AptValueNameEntry destructor/constructor.
 // Its shared EAStringC+0/int+4 layout is also used by the checkpoint lookup.
-class AptValueNameEntry {public:AptValueNameEntry();~AptValueNameEntry();EAStringC m_name;int m_value;};
+#include "../../../GameEngine/Include/Common/AptValueNameEntry.h"
 typedef AptValueNameEntry PlaybackItem;
 inline void iteratorCheck(bool,const char *){}
 class PlaybackIterator {
