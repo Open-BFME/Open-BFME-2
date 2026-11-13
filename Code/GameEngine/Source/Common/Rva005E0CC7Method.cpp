@@ -6,11 +6,7 @@
 // Evidence: rowed callees plus caller jmp at 0x005E0D97 and unblocks 0x005E0D94.
 #include "../../Include/Common/Rva0057C22FByteChaseField.h"
 
-class Rva005C39AA
-{
-public:
-	void rva005C39AA();
-};
+#include "../../Include/Common/Rva005C39AA.h"
 
 class Rva005E0CC7Inner
 {

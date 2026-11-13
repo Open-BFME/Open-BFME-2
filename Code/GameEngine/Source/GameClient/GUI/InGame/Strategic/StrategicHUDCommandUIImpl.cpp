@@ -91,11 +91,7 @@ private:
 #include "../../../../../Include/Common/Rva000B3FD0.h"
 
 // The per-slot sub-menu clip's activation (rowed 0x005C39AA, address-named).
-class Rva005C39AA
-{
-public:
-	void rva005C39AA();
-};
+#include "../../../../../Include/Common/Rva005C39AA.h"
 
 namespace StrategicHUD {
 class CommandUIImpl
