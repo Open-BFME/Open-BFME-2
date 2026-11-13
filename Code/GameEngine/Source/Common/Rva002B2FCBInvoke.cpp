@@ -4,11 +4,7 @@
 // invokes it with ecx = stack arg and the four members as stack args.
 // Evidence: retail mov eax,ecx; push [eax+0x10]; mov ecx,[esp+8]; push x3;
 // call [eax]; ret 4. Caller at 0x002B5711 passes vector element as stack arg.
-class Rva002B2FCBElem
-{
-public:
-	void Method(int a, int b, int c, int d);
-};
+#include "../../Include/Common/Rva002B2FCBElem.h"
 typedef void (Rva002B2FCBElem::*Rva002B2FCBFn)(int, int, int, int);
 class Rva002B2FCB
 {

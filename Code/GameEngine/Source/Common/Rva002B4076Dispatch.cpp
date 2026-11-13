@@ -39,7 +39,7 @@ static __declspec(noinline) void rva002B3E50(Rva002B3E50Range *range,LivingWorld
  int *end=range->finish;
  for(int *i=range->first;i!=end;++i)MoveArmyMember(source,*i,target);
 }
-class Rva002B2FCBElem { public: virtual void notify(int,int,int,int); };
+#include "../../Include/Common/Rva002B2FCBElem.h"
 class Rva002B6194List {
 public:
  void forEach(void(Rva002B2FCBElem::*)(int,int,int,int),int,int,int,int);

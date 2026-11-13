@@ -183,11 +183,7 @@ void Rva002B6126List::apply(const Rva002B5739Call &call)
 // is the functor rowed at 0x002B2FCB (Rva002B2FCBInvoke.cpp), whose call is
 // not inlined, so the walk hands it each listener instead of calling the
 // member pointer itself.
-class Rva002B2FCBElem
-{
-public:
-	void Method(int a, int b, int c, int d);
-};
+#include "../../Include/Common/Rva002B2FCBElem.h"
 
 typedef void (Rva002B2FCBElem::*Rva002B2FCBFn)(int, int, int, int);
 
