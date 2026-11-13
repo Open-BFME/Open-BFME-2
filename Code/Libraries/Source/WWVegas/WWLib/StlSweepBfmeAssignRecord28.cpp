@@ -14,7 +14,7 @@ namespace _STL { template <> vector<Rva003F5FD0Record,allocator<Rva003F5FD0Recor
 struct Rva003F5FD0Record;
 namespace _STL { template <> Rva003F5FD0Record * __copy<Rva003F5FD0Record const *,Rva003F5FD0Record *,int>(Rva003F5FD0Record const *,Rva003F5FD0Record const *,Rva003F5FD0Record *,random_access_iterator_tag const &,int *); }
 
-struct Rva003F5FD0Record { Rva003F5FD0Record(); Rva003F5FD0Record(const Rva003F5FD0Record&); ~Rva003F5FD0Record(); Rva003F5FD0Record& operator=(const Rva003F5FD0Record&); char bytes[48]; };
+#include "../../../../GameEngine/Include/Common/Rva003F5FD0Record.h"
 namespace _STL { template<> void _Construct<Rva003F5FD0Record, Rva003F5FD0Record>(Rva003F5FD0Record*, const Rva003F5FD0Record&); }
 #include "Rva0021C21BElement.h"
 namespace _STL {template<> vector<Rva0021C21BElement>& vector<Rva0021C21BElement>::operator=(const vector<Rva0021C21BElement>&);}

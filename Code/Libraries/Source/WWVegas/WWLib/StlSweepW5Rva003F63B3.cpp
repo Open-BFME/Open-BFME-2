@@ -13,7 +13,7 @@ template Rva003F63B3Element * _STL::__copy_backward<Rva003F63B3Element *, Rva003
 // StlSweepBfmeAssignRecord28.cpp): the same 28-byte record assignment, so the
 // copy loop above binds a definition. The member vectors' assignments stay
 // out of line, as in the owner unit.
-struct Rva003F5FD0Record { Rva003F5FD0Record(); Rva003F5FD0Record(const Rva003F5FD0Record&); ~Rva003F5FD0Record(); Rva003F5FD0Record& operator=(const Rva003F5FD0Record&); char bytes[48]; };
+#include "../../../../GameEngine/Include/Common/Rva003F5FD0Record.h"
 #include "Rva0021C21BElement.h"
 namespace _STL {
 template<> vector<Rva003F5FD0Record, allocator<Rva003F5FD0Record> > &vector<Rva003F5FD0Record, allocator<Rva003F5FD0Record> >::operator=(const vector<Rva003F5FD0Record, allocator<Rva003F5FD0Record> > &);
