@@ -1,0 +1,820 @@
+{
+  "parent": "37031a30f97",
+  "rows": 52,
+  "objects": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp",
+      "unchanged_comdats": 27,
+      "unchanged_tables": {
+        "??_7Rva005DAA36@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DAA36@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DAA36@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7AIUpgradeHeuristicFactoryUnlock@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ]
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA7F5Dtor.cpp",
+      "unchanged_comdats": 6,
+      "unchanged_tables": {
+        "??_7Rva005DAA36@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DAA36@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DAA36@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7AIUpgradeHeuristicFactoryUnlock@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ]
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp",
+      "unchanged_comdats": 46,
+      "unchanged_tables": {
+        "??_7Rva005D078B@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D078B@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D078B@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D0D85@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D0D85@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D0D85@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D12E3@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D12E3@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D12E3@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D13BD@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D13BD@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D13BD@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D1ADE@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D1ADE@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D1ADE@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D1D38@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D1D38@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D1D38@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D2015@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D2015@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D2015@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D2111@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D2111@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D2111@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D4C61@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "??_ERva005D4C61@@UAEPAXI@Z",
+                6,
+                0
+              ],
+              "4": [
+                "?setPosition@Rva005D4C61@@UAEXM@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D4C61@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7AIUpgradeHeuristicFactoryUnlock@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005DB221@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005DB221@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005DB221@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005E12D1@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005E12D1@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005E12D1@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005E1FBC@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005E1FBC@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005E1FBC@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_EIcon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GIcon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005E29CD@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005E29CD@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005E29CD@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ]
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA64BCtor.cpp",
+      "unchanged_comdats": 8,
+      "unchanged_tables": {
+        "??_7Rva005DAA36@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DAA36@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DAA36@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005DA64B@@6B@": [
+          {
+            "extent": 12,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DA64B@@UAEPAXI@Z",
+                6,
+                0
+              ],
+              "8": [
+                "?f0@Rva005DA64B@@UAEHH@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DA64B@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ]
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA831Ctor.cpp",
+      "unchanged_comdats": 6,
+      "unchanged_tables": {
+        "??_7Rva005DAA36@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DAA36@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DAA36@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005DA831@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DA831@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DA831@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ]
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp",
+      "unchanged_comdats": 47,
+      "unchanged_tables": {
+        "??_7Rva003AE11B@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva003AE11B@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva003AE11B@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva004AB7EB@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva004AB7EB@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva004AB7EB@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva004C9F61@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva004C9F61@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva004C9F61@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva0028C6D6@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "?rva004D70D5@Rva0028C6D6@@UAEXPAX@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {},
+            "selection": 2
+          }
+        ],
+        "??_7Rva003ADE98@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva003ADE98@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva003ADE98@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva003ADF61@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva003ADF61@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva003ADF61@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva004F5FD8@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva004F5FD8@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva004F5FD8@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva0020E449@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva0020E449@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva0020E449@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005DBCD1@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005DBCD1@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005DBCD1@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva0039B893@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva0039B893@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva0039B893@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva00575383@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva00575383@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva00575383@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005D6FCC@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005D6FCC@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005D6FCC@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005DAA36@@6B@": [
+          {
+            "extent": 8,
+            "pointers": {
+              "0": [
+                "__purecall",
+                6,
+                0
+              ],
+              "4": [
+                "??_ERva005DAA36@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "4": [
+                "??_GRva005DAA36@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005E67FE@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005E67FE@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005E67FE@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ],
+        "??_7Rva005DCC4B@@6B@": [
+          {
+            "extent": 4,
+            "pointers": {
+              "0": [
+                "??_ERva005DCC4B@@UAEPAXI@Z",
+                6,
+                0
+              ]
+            },
+            "weak": {
+              "0": [
+                "??_GRva005DCC4B@@UAEPAXI@Z",
+                2
+              ]
+            },
+            "selection": 2
+          }
+        ]
+      }
+    }
+  ],
+  "semantic_limit": "Integer return and one four-byte carrier established; int vsPlayer* source type and original method identifier unresolved. Other sibling slot debt is unchanged."
+}

@@ -3565,3 +3565,11 @@ dtor declaration removes the ctor TU implicit non-retail competitor;
 whole52/52rows and scoped3/3LINKS852->852B pass. Callback5DA67F still
 needs a matching inherited signature before virtual respelling; bridge
 remains. [Identity and provider proof](../../reverse/attempt_support/ai-upgrade-lifetime-identity-20261113-root20.md).
+
+**AI upgrade abstract callback ABI (2026-11-13, root20):**
+Dispatcher59710E and concrete5DA67F prove an integer result and one4B
+carrier. Updated BaseRva005DAA36 contract and regenerated pure slot0
+under the existing address-neutral rva005DA67F identifier. int/Player*
+source semantics remain unresolved. All52rows,140COMDATs and38table
+payloads/relocs remain exact before/after; sibling slot debt unchanged.
+[ABI evidence](../../reverse/attempt_support/ai-upgrade-base-abi-20261113-root20.md).

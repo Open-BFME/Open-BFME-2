@@ -85,6 +85,18 @@
     "stores": 1
    }
   },
+  "slot0_abi": {
+   "carrier": "int retained from the existing concrete row; Player* semantics are unresolved",
+   "kind": "inference",
+   "name": "existing address-derived member identifier; original base method name is unknown",
+   "result": "integer result in EAX",
+   "rule": "concrete-row-and-native-dispatch",
+   "sites": [
+    "0x005DA67F",
+    "0x0059710E"
+   ],
+   "stack_argument_bytes": 4
+  },
   "view_errors": 0,
   "view_sizes": {
    "4": 1,
@@ -129,8 +141,8 @@
  "size_by": "majority",
  "vslots": {
   "0": {
-   "decided_by": "majority",
-   "member": "slot0()"
+   "decided_by": "retail-call-abi",
+   "member": "rva005DA67F(int)"
   },
   "1": {
    "decided_by": "bytes",
