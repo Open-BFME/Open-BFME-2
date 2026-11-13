@@ -877,11 +877,7 @@ private:
 // Tail jumps to a rowed member of the tree / array at +0.
 struct Rva0027EA49;
 
-class Rva009F68C6PointerArray
-{
-public:
-	void RemoveAll();
-};
+#include "../../Include/Common/Rva009F68C6PointerArray.h"
 
 typedef _STL::_Rb_tree<Rva0027EA49, Rva0027EA49, _STL::_Identity<Rva0027EA49>, _STL::less<Rva0027EA49>, _STL::allocator<Rva0027EA49> > Rva005C6BF0Tree;
 

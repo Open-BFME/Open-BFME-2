@@ -96,11 +96,7 @@ void Rva0059EB5E::rva0059EB5E()
 	m_member.enable();
 }
 
-class Rva009F68C6PointerArray
-{
-public:
-	void RemoveAll();
-};
+#include "../../Include/Common/Rva009F68C6PointerArray.h"
 
 class Rva00628D18
 {

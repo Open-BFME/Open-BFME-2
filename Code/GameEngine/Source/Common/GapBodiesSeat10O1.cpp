@@ -1155,11 +1155,7 @@ void Rva005EFD8A::rva005EFD8A(Rva005EFD53Element *position, unsigned int count, 
 
 // Tail jumps to a rowed member of the tree / array at +0.
 struct Rva0027EA49;
-class Rva009F68C6PointerArray
-{
-public:
-	void RemoveAll();
-};
+#include "../../Include/Common/Rva009F68C6PointerArray.h"
 typedef _STL::_Rb_tree<Rva0027EA49, Rva0027EA49, _STL::_Identity<Rva0027EA49>, _STL::less<Rva0027EA49>, _STL::allocator<Rva0027EA49> > Rva005C6BF0Tree;
 typedef _STL::_Rb_tree<int, Rva005E4920Pair, _STL::_Select1st<Rva005E4920Pair>, _STL::less<int>, _STL::allocator<Rva005E4920Pair> > Rva005E466BTree;
 
