@@ -38,11 +38,7 @@ public:
 	void rva002E1FA5();
 };
 
-class Rva002E0BEB
-{
-public:
-	void rva002E0BEB(void *arg);
-};
+#include "../../../../Include/Common/Rva002E0BEB.h"
 
 class Rva002E2285;
 class Rva002E2903Player;

@@ -60,7 +60,7 @@ bool rva002B2DADCaller(GameMessage *message, void **out, int index)
 // the cast reuses that verified provider ABI; it does not identify the entry
 // as an AnimateWindow or give its word an animation meaning.
 class Rva002E2903Player;
-class Rva002E0BEB { public: void rva002E0BEB(void *); };
+#include "../../../Include/Common/Rva002E0BEB.h"
 struct Rva0020E63FPlayerRange {
  Rva002E2903Player **first, **last;
  int size() const { return (int)(last - first); }
