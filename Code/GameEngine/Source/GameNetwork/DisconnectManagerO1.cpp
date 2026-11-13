@@ -847,11 +847,7 @@ public:
 
 // The disconnect screen's timeout display (the donor's setPlayerTimeoutTime)
 // and per-slot control visibility, rowed under placeholder classes.
-class Rva00513040
-{
-public:
-	void rva00513040(Int slot, Int percent);
-};
+#include "../../Include/Common/Rva00513040.h"
 
 // Open-BFME-1's updateDisconnectStatus. BFME 2 reads the timeout at
 // GlobalData+0xc24, keeps its GameLogic flag at +0x2a4, sends the player

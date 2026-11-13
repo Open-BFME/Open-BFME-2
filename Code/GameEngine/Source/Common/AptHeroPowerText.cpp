@@ -181,11 +181,7 @@ public:
 	void rva00512CE9(int slot, bool b);
 };
 
-class Rva00513040
-{
-public:
-	void rva00513040(int v1, int v2);
-};
+#include "../../Include/Common/Rva00513040.h"
 
 // StringBase<unsigned short>::isEmpty, inline here as retail expands it.
 static inline bool Rva00513497IsEmpty(const UnicodeString &unicodeString)
