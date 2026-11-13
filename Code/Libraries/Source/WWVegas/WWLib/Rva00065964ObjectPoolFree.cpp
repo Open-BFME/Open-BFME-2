@@ -9,16 +9,7 @@
 
 #include "bfme_pool_critical_section.h"
 
-struct Rva00065964ObjectPool
-{
-	void *m_freeListHead;
-	void *m_blockListHead;
-	int m_freeObjectCount;
-	int m_pad0C;
-	BFMEPoolCriticalSection m_lock10;
-
-	void FreeObject(void *obj);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva00065964ObjectPool.h"
 
 // ?FreeObject@Rva00065964ObjectPool@@QAEXPAX@Z
 void Rva00065964ObjectPool::FreeObject(void *obj)
