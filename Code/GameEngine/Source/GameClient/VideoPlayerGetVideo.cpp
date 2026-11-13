@@ -75,30 +75,7 @@ BfmeVideoTableStorage g_videoTable = { 0, 0, 0 };
 // Snapshot vtable gate blocker. Donor: Open-BFME-1 34f59164f6,
 // game/GameEngine/Source/GameClient/VideoPlayerQueries.cpp.
 // Native 6897B0..6898C8 is 280 bytes; manager+8 is its string name.
-class BfmeAwakenLog
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual BfmeAwakenLog *slot38(const char *text);
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual BfmeAwakenLog *slot4C(int value);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeAwakenLog.h"
 
 class BfmeAwakenDebug
 {
