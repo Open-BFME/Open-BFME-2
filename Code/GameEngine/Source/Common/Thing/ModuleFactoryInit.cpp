@@ -111,7 +111,7 @@ class CashHackSpecialPower { public: static Module *friend_newModuleInstance(Thi
 class CastleBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CastleBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CastleMemberBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class CastleMemberBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/CastleMemberBehaviorModuleData.h"
 class CastleUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 class CaveContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

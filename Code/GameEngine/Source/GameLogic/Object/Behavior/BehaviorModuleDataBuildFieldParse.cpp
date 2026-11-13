@@ -90,12 +90,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/ClickReactionBehaviorModuleData.h"
 
-class CastleMemberBehaviorModuleData
-{
-public:
-    static void buildFieldParse(MultiIniFieldParse &parse);
-    static const FieldParse m_fieldParse[];
-};
+#include "../../../../Include/GameLogic/Module/CastleMemberBehaviorModuleData.h"
 
 class BuildingBehaviorModuleData
 {

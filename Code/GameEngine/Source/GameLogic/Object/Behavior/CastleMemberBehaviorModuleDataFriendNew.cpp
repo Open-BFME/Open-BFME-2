@@ -21,17 +21,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class CastleMemberBehaviorModuleData
-{
-public:
-	CastleMemberBehaviorModuleData();
-	virtual ~CastleMemberBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x1C - 4];
-};
+#include "../../../../Include/GameLogic/Module/CastleMemberBehaviorModuleData.h"
 
 // ?friend_newModuleData@CastleMemberBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *CastleMemberBehaviorModuleData::friend_newModuleData(INI *ini)
