@@ -9616,7 +9616,7 @@ Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyRva004BE67E.cpp,
 Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyApply.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,no,35,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp,yes,0,0,0,0,0
