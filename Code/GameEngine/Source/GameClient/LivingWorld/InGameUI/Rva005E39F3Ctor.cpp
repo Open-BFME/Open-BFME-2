@@ -71,13 +71,7 @@ struct Rva005F38D8Ref
 
 #include "../../../../Include/Common/Rva005F38D8.h"
 
-struct Rva005E39F3Arg
-{
-	char m_pad[0x10];
-	void *m_10;
-	char m_pad14[0x4];
-	Rva005F38D8 *m_18;
-};
+#include "../../../../Include/GameClient/Rva005E39F3Arg.h"
 
 class Rva005E39F3 : public virtual Rva005F4179
 {
