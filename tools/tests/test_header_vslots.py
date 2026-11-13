@@ -1,4 +1,5 @@
 """header_adopt_lane: a generated header declares the contract's virtual slots in slot order."""
+import subprocess
 import sys
 from pathlib import Path
 
@@ -392,3 +393,111 @@ def test_generate_keeps_a_non_virtual_inline_body_beside_an_exclusive_owner(base
     c["vslots"] = {}
     special = [{"role": "method", "access": "public", "sig": "get()const", "text": "int get() const { return 1; }"}]
     assert "int get() const { return 1; }" in lane.generate(c, "data", {}, None, None, special, owners=OWNED_GET)
+
+
+# ---- review r2: overloads, attributes, ledger reads, census freshness
+
+def test_another_overloads_owner_is_not_this_ones(monkeypatch):
+    # only get(int) is rowed (and strong); the inline virtual get() has no owner of its own
+    other = "?get@Owned@@UAEHH@Z"
+    objects(monkeypatch, local={"Base.cpp": ({other}, {other})})
+    owners = {"?get@Owned@@": [(other, "Base.cpp")]}
+    assert lane.owner_strength("Owned", "virtual int get() { return 1; }", owners) is None
+    assert lane.owner_strength("Owned", "virtual int get(int a) { return a; }", owners) == "strong"
+    assert lane.owner_strength("Owned", "virtual int get(int a) const { return a; }", owners) is None
+    views = [owned_view("virtual ~Owned();", "virtual int get() { return 1; }")] * 2
+    own, _, problems = owned_slots(views, owners=owners, vslots={0: "__vecDelDtor(uint)", 1: "get()"})
+    assert problems == [] and "virtual int get() { return 1; }" in own
+
+
+@pytest.mark.parametrize("member,row", [
+    ("virtual void f(const DamageInfo *info, BodyDamageType a, BodyDamageType b) {}",
+     "?f@Owned@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z"),               # a parameter back-reference
+    ("virtual void f(Owned *o) {}", "?f@Owned@@UAEXPAV1@@Z"),             # a name back-reference
+    ("virtual bool f(LivingWorldArmy *a, Rva00318C32Ret *r) {}",
+     "?f@Owned@@UAE_NPAULivingWorldArmy@@PAVRva00318C32Ret@@@Z"),
+    ("virtual void f(unsigned int n, const char *s) const {}", "?f@Owned@@UBEXIPBD@Z"),
+    ("virtual void f(int *const p, int &r) {}", "?f@Owned@@UAEXQAHAAH@Z"),
+])
+def test_a_rows_signature_is_matched_to_the_declaration(member, row):
+    owners = {"?f@Owned@@": [(row, "Base.cpp")]}
+    assert lane.rows_of("Owned", member, owners) == [(row, "Base.cpp")]
+    assert lane.rows_of("Owned", member.replace(" f(", " f(int extra, "), owners) == []
+
+
+@pytest.mark.parametrize("member", [
+    "virtual void f(int a = 3) {}",                                       # a default argument
+    "virtual void f(std::vector<int> v) {}",                              # a template
+    "virtual void f(void (*cb)(int)) {}",                                 # a function pointer
+])
+def test_a_declaration_it_cannot_read_is_unknown(member):
+    with pytest.raises(lane.OwnerUnknown):
+        lane.rows_of("Owned", member, {"?f@Owned@@": [("?f@Owned@@UAEXH@Z", "Base.cpp")]})
+
+
+def test_an_attribute_does_not_hide_the_declarator(base_header, monkeypatch):
+    # review r2: `virtual __declspec(noinline) int get()` named `?__declspec@Owned@@` and found no owner
+    member = "virtual __declspec(noinline) int get() const { return 1; }"
+    assert lane.member_prefix("Owned", member) == "?get@Owned@@"
+    objects(monkeypatch, local=STRONG)
+    assert lane.owner_strength("Owned", member, OWNED_GET) == "strong"
+    c = owned_contract({0: "__vecDelDtor(uint)", 1: "get()"})
+    with pytest.raises(lane.LayoutError, match="defines it exclusively"):
+        lane.generate(c, "data", {}, None, (["virtual ~Owned();", member], []), (), owners=OWNED_GET)
+
+
+def test_a_ledger_that_cannot_be_read_after_its_stat_is_unknown(tmp_path, monkeypatch):
+    # review r2: a PermissionError from the rows escaped the hold
+    ledger = tmp_path / "functions.csv"
+    ledger.write_text("name\n")
+    monkeypatch.setattr(lane, "LEDGER", ledger)
+    monkeypatch.setattr(lane, "_matched_owners", lane._matched_owners)
+    lane._matched_owners.cache = (None, {})
+
+    def refuse():
+        raise PermissionError("denied")
+    monkeypatch.setattr(lane.class_contract, "ledger_rows", refuse)
+    with pytest.raises(lane.OwnerUnknown, match="cannot be read"):
+        lane.owner_strength("Owned", "virtual ~Owned() {}")
+    lane._matched_owners.cache = (None, {})
+
+
+@pytest.fixture
+def census_repo(tmp_path, monkeypatch):
+    repo = tmp_path / "repo"
+    (repo / "Code").mkdir(parents=True)
+    (repo / "Code/a.cpp").write_text("a\n")
+    for args in (["init", "-q"], ["config", "user.email", "t@t"], ["config", "user.name", "t"], ["add", "."],
+                 ["commit", "-qm", "census"]):
+        subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True)
+    sha = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True).stdout.strip()
+    monkeypatch.setattr(lane, "ROOT", repo)
+    return repo, {"meta": {"commit": sha, "census_commit": sha}}
+
+
+def test_census_evidence_counts_only_for_an_owner_unaffected_since(census_repo, monkeypatch):
+    # review r2: a census object of an owner changed since (a macro, an include, a flag) proved nothing
+    repo, index = census_repo
+    monkeypatch.setattr(lane, "_since_census", lambda commits, head: {"Code/a.cpp"})
+    assert lane.census_fresh(index, "Code/b.cpp") and not lane.census_fresh(index, "Code/a.cpp")
+    monkeypatch.setattr(lane, "_since_census", lambda commits, head: None)    # unbounded, or a build input
+    assert not lane.census_fresh(index, "Code/b.cpp")
+    monkeypatch.setattr(lane, "_since_census", lambda commits, head: set())
+    assert not lane.census_fresh({"meta": {"commit": index["meta"]["commit"]}}, "Code/b.cpp")
+    assert not lane.census_fresh({"meta": {"commit": "0" * 40, "census_commit": "0" * 40}}, "Code/b.cpp")
+    (repo / "Code/a.cpp").write_text("dirty\n")
+    assert not lane.census_fresh(index, "Code/b.cpp")
+
+
+def test_census_strength_needs_a_fresh_owner(census_repo, monkeypatch):
+    import link_check
+    repo, index = census_repo
+    (repo / "index.pkl").write_bytes(b"x")
+    monkeypatch.setattr(link_check, "INDEX", repo / "index.pkl")
+    index.update({"blockers": {"Code/a.cpp": {"object": "a.obj"}}, "objects": ["a.obj"],
+                  "strong": {DTOR_ROW: [0]}, "comdat": {}})
+    monkeypatch.setattr(lane, "_census_index", lambda state: index)
+    monkeypatch.setattr(lane, "census_fresh", lambda idx, source: True)
+    assert lane.census_strength(DTOR_ROW, "Code/a.cpp") == "strong"
+    monkeypatch.setattr(lane, "census_fresh", lambda idx, source: False)
+    assert lane.census_strength(DTOR_ROW, "Code/a.cpp") is None

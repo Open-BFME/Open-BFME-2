@@ -790,7 +790,7 @@ def test_generated_header_orders_destructor_last():
                "~dtor": "virtual ~RefCountClass(void) {}"}
     contract = {"class": "RefCountClass", "key": "class", "key_by": "bytes", "size": 8, "size_by": "zh",
                 "bases": [], "fields": []}
-    text = lane.generate(contract, "data+methods", methods, None)
+    text = lane.generate(contract, "data+methods", methods, None, owners={})   # no owner rows (P147 check)
     assert text.index("Delete_This") < text.rindex("~RefCountClass")
 
 

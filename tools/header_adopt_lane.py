@@ -2204,9 +2204,12 @@ def _matched_owners():
     state = (stat.st_mtime_ns, stat.st_size)
     if _matched_owners.cache[0] != state:
         owners = collections.defaultdict(list)
-        for row in class_contract.ledger_rows():
-            if "@@" in row["name"]:
-                owners[row["name"][:row["name"].index("@@") + 2]].append((row["name"], row["source"]))
+        try:
+            for row in class_contract.ledger_rows():
+                if "@@" in row["name"]:
+                    owners[row["name"][:row["name"].index("@@") + 2]].append((row["name"], row["source"]))
+        except (OSError, ValueError, KeyError, csv.Error) as why:
+            raise OwnerUnknown(f"the ledger {LEDGER} cannot be read: {why}") from why
         _matched_owners.cache = (state, owners)
     return _matched_owners.cache[1]
 
@@ -2221,26 +2224,178 @@ OPERATOR_CODES = {"=": "4", "==": "8", "!=": "9", "[]": "A", "->": "C", "*": "D"
                   "|=": "_5", "^=": "_6", "<<": "6", ">>": "5", "!": "7"}
 
 
-def member_prefix(name, member):
-    """The mangled prefix every matched row of `name`'s `member` (a declaration's text) starts with:
-    `??1Scope@@` for the destructor, `??RScope@@` for operator(), `?get@Scope@@` for a method.
-    OwnerUnknown for a member whose name it cannot mangle (a conversion operator, an unknown one)."""
+ATTRIBUTES = re.compile(r"\b__declspec\s*\((?:[^()]|\([^()]*\))*\)|\b(?:__forceinline|__inline|inline|virtual|"
+                        r"explicit|static|__cdecl|__stdcall|__thiscall|__fastcall)\b")
+DECLARATOR = re.compile(r"(?P<name>~\s*[A-Za-z_]\w*|operator\s*(?:\(\s*\)|\[\s*\]|->\*|[^\s\w(]+)|[A-Za-z_]\w*)"
+                        r"\s*\((?P<params>[^()]*)\)\s*(?P<cv>(?:\b(?:const|volatile)\b\s*)*)"
+                        r"(?:throw\s*\([^()]*\)\s*)?(?:=\s*0\s*)?;?\s*$")
+BUILTIN_CODES = {"void": "X", "signed char": "C", "char": "D", "unsigned char": "E", "short": "F",
+                 "short int": "F", "unsigned short": "G", "unsigned short int": "G", "int": "H", "signed int": "H",
+                 "signed": "H", "unsigned int": "I", "unsigned": "I", "long": "J", "long int": "J",
+                 "unsigned long": "K", "unsigned long int": "K", "float": "M", "double": "N",
+                 "long double": "O", "bool": "_N", "__int64": "_J", "unsigned __int64": "_K", "wchar_t": "_W"}
+
+
+def declarator(name, member):
+    """(prefix, [parameter text], this-qualifiers) of `name`'s `member` (a declaration's text): the mangled
+    prefix every row of its name starts with (`??1Scope@@` for the destructor, `??RScope@@` for operator(),
+    `?get@Scope@@` for a method), its parameters and its `const`/`volatile`. Attributes such as
+    `__declspec(...)` are skipped. OwnerUnknown for a declaration it cannot read or a name it cannot
+    mangle (a conversion operator, an unknown operator)."""
     scope = "@".join(reversed(name.split("::")))
-    head = declaration_head(member)
-    if member_key(member, name) == "~":
-        return f"??1{scope}@@"
-    found = re.search(r"\boperator\s*(\(\s*\)|\[\s*\]|->\*|[^\s\w(]+)\s*\(", head)
-    if found:
-        code = OPERATOR_CODES.get(re.sub(r"\s+", "", found.group(1)))
+    head = re.sub(r"\s+", " ", ATTRIBUTES.sub(" ", declaration_head(member))).strip()
+    found = DECLARATOR.search(head)
+    if not found or re.search(r"\boperator\b", head[:found.start("name")]):
+        raise OwnerUnknown(f"{name}: cannot read the declaration {head}")
+    spelled = re.sub(r"\s+", "", found.group("name"))
+    params = [p.strip() for p in found.group("params").split(",")] if found.group("params").strip() else []
+    if params == ["void"]:
+        params = []
+    cv = frozenset(found.group("cv").split())
+    if spelled.startswith("~"):
+        return f"??1{scope}@@", params, cv
+    if spelled.startswith("operator"):
+        code = OPERATOR_CODES.get(spelled[len("operator"):])
         if code is None:
-            raise OwnerUnknown(f"{name}: cannot name the rows of {head.strip()}")
-        return f"??{code}{scope}@@"
-    if re.search(r"\boperator\b", head):
-        raise OwnerUnknown(f"{name}: cannot name the rows of {head.strip()}")
-    found = re.search(r"(?<![\w~])([A-Za-z_]\w*)\s*\(", head)
-    if not found:
-        raise OwnerUnknown(f"{name}: cannot name the rows of {head.strip()}")
-    return f"?{found.group(1)}@{scope}@@"
+            raise OwnerUnknown(f"{name}: cannot name the rows of {head}")
+        return f"??{code}{scope}@@", params, cv
+    return f"?{spelled}@{scope}@@", params, cv
+
+
+def member_prefix(name, member):
+    """The mangled prefix every matched row of `name`'s `member` starts with (declarator)."""
+    return declarator(name, member)[0]
+
+
+def param_pattern(text):
+    """A regex for one declared parameter's mangled type: a builtin exactly, a named type as a class,
+    struct, union or enum of that (qualified) name, `*`/`&` with their pointee's constness and the
+    pointer's own. None for a parameter it cannot read (a default argument, a template, an array, a
+    function pointer, volatile, a type of several words it does not know)."""
+    t = re.sub(r"\s+", " ", text).strip()
+    if re.search(r"[=<(\[]|\.\.\.|\bvolatile\b", t):
+        return None
+    pointers, words, base_const = [], [], False
+    for token in re.findall(r"[A-Za-z_]\w*(?:\s*::\s*[A-Za-z_]\w*)*|\*|&", t):
+        token = re.sub(r"\s+", "", token)
+        if token in ("*", "&"):
+            pointers.append([token, False])
+        elif token == "const":
+            if pointers:
+                pointers[-1][1] = True
+            else:
+                base_const = True
+        elif token not in ("struct", "class", "union", "enum"):
+            words.append(token)
+    if " ".join(words) not in BUILTIN_CODES:
+        if len(words) > 1 and " ".join(words[:-1]) in BUILTIN_CODES:
+            words = words[:-1]                          # a builtin and the parameter's name
+        elif len(words) == 2:
+            words = words[:1]                           # a named type and the parameter's name
+    spelled = " ".join(words)
+    if spelled in BUILTIN_CODES:
+        pattern = re.escape(BUILTIN_CODES[spelled])
+    elif len(words) == 1 and re.fullmatch(r"[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*", words[0]):
+        pattern = r"(?:[TUV]|W4)" + re.escape("@".join(reversed(words[0].split("::"))) + "@@")
+    else:
+        return None
+    const = base_const
+    for kind, own_const in pointers:
+        code = (("Q" if own_const else "P") if kind == "*" else "A") + ("B" if const else "A")
+        pattern = re.escape(code) + pattern
+        const = own_const
+    return pattern
+
+
+def mangled_parts(row, prefix):
+    """(this-qualifier letter, [each parameter's mangled type, name back-references spelled out]) of a
+    member function row, or None when it cannot be read (not a member function, variadic, a template or
+    a back-reference it cannot resolve)."""
+    import sig_check
+    import wb_gold
+    rest = row[len(prefix):]
+    if not rest or rest[0] not in sig_check.MEMBER_CODES:
+        return None
+    parser = wb_gold._Parser(row)
+    try:
+        parser.expect("?")
+        if parser.peek() == "?":
+            parser.special_name()
+        else:
+            name = parser.simple_name()
+            parser.memorize(name, name)
+        parser.scopes()
+        parser.take()
+        cv = parser.peek()
+        parser.storage_cv()
+        parser.take()                                     # calling convention
+        if parser.peek() == "@":
+            parser.i += 1
+        else:
+            parser.type()
+        params, table = [], []
+        if parser.peek() == "X":
+            parser.i += 1
+        else:
+            while parser.peek() not in ("@", "Z", ""):
+                begin = parser.i
+                if parser.peek().isdigit():
+                    index = int(parser.take())
+                    if index >= len(table):
+                        return None
+                    params.append(table[index])
+                    continue
+                parser.type()
+                text = parser.s[begin:parser.i]
+                if len(text) > 1 and len(table) < 10:
+                    table.append(text)
+                params.append(text)
+            if parser.peek() == "Z":
+                return None                               # variadic
+    except (wb_gold.DemangleError, IndexError):
+        return None
+    names = [value for _, value in parser.names]
+
+    def spell(match):
+        index = int(match.group(1))
+        if index >= len(names) or not isinstance(names[index], str):
+            raise LookupError(index)
+        return names[index] + "@"
+    try:
+        # a name component that is a digit is a back-reference to the parser's name table
+        params = [re.sub(r"(?:(?<=[TUV])|(?<=W4)|(?<=@))(\d)", spell, text) for text in params]
+    except LookupError:
+        return None
+    if any("?" in text for text in params):
+        return None                                       # a template argument
+    return cv, params
+
+
+CV_CODES = {frozenset(): "A", frozenset({"const"}): "B", frozenset({"volatile"}): "C",
+            frozenset({"const", "volatile"}): "D"}
+
+
+def rows_of(name, member, owners=None):
+    """The matched rows (name, source) that are `name`'s `member` itself: its name, and for a function other
+    than the destructor its parameter types and this-qualifiers, mangled (another overload's rows are not
+    its own). OwnerUnknown when a row of its name or the declaration cannot be read."""
+    prefix, params, cv = declarator(name, member)
+    rows = (_matched_owners() if owners is None else owners).get(prefix, ())
+    if prefix.startswith("??1"):
+        return list(rows)
+    patterns = [param_pattern(p) for p in params]
+    if any(p is None for p in patterns):
+        raise OwnerUnknown(f"{name}: cannot read the parameters of {declaration_head(member)}")
+    own = []
+    for row, source in rows:
+        parts = mangled_parts(row, prefix)
+        if parts is None:
+            raise OwnerUnknown(f"{row}: cannot read its signature")
+        letter, mangled = parts
+        if letter == CV_CODES.get(cv) and len(mangled) == len(patterns) and \
+                all(re.fullmatch(p, m) for p, m in zip(patterns, mangled)):
+            own.append((row, source))
+    return own
 
 
 def exclusive_definitions(data):
@@ -2282,13 +2437,66 @@ def _census_index(state):
     return link_check.load_index()
 
 
+# Inputs every compile reads: a change to one since the census leaves no census object current.
+BUILD_INPUTS = ("tools/build.py", "tools/cl_flags.py", "tools/flag_defaults.py", "tools/compiler_profiles.py",
+                "build.sh", "build.cmd", "reverse/flag_overrides.csv", "reverse/cl_include_roots.txt",
+                "reverse/retail_inventory/flag_regions.csv", "reference/open-bfme-1", "vendor")
+
+
+@functools.lru_cache(maxsize=4)
+def _since_census(commits, head):
+    """Sources whose object may differ from the census's: those the change from each census commit to `head`
+    can affect by the pre-push hook's scope tools (header_dependents, flag_delta_sources, the edited
+    sources), and every source when a build input changed or a range cannot be bounded (None)."""
+    affected = set()
+    for commit in commits:
+        changed = subprocess.run(["git", "diff", "--name-only", "--no-renames", commit, head], cwd=ROOT,
+                                 capture_output=True, text=True)
+        if changed.returncode:
+            return None
+        paths = changed.stdout.splitlines()
+        if any(p == i or p.startswith(i + "/") for p in paths for i in BUILD_INPUTS):
+            return None
+        affected |= {p for p in paths if p.startswith("Code/")}
+        for tool in ("header_dependents", "flag_delta_sources"):
+            done = subprocess.run([sys.executable, f"tools/{tool}.py", "--range", commit, head], cwd=ROOT,
+                                  capture_output=True, text=True)
+            if done.returncode:
+                return None
+            affected |= {line.strip() for line in done.stdout.splitlines() if line.strip()}
+    return affected
+
+
+def census_fresh(index, source):
+    """Whether the census index's object of `source` is the one the tree here compiles: no change since
+    the index's commits can affect it (_since_census) and no Code/ or build input is dirty here."""
+    meta = index.get("meta") or {}
+    commits = []
+    for key in ("census_commit", "commit"):
+        found = subprocess.run(["git", "rev-parse", "--verify", "-q", f"{meta.get(key) or ''}^{{commit}}"],
+                               cwd=ROOT, capture_output=True, text=True)
+        if found.returncode or not meta.get(key):
+            return False
+        commits.append(found.stdout.strip())
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    dirty = subprocess.run(["git", "status", "--porcelain", "--", "Code", *BUILD_INPUTS], cwd=ROOT,
+                           capture_output=True, text=True)
+    if not head or dirty.returncode or dirty.stdout.strip():
+        return False
+    affected = _since_census(tuple(sorted(set(commits))), head)
+    return affected is not None and source not in affected
+
+
 def census_strength(row, source):
-    """'strong' or 'inline' for the census index's object of `source` defining `row`, else None."""
+    """'strong' or 'inline' for the census index's object of `source` defining `row`, when that object is
+    still the one the tree here compiles (census_fresh); else None."""
     import link_check
     try:
         stat = link_check.INDEX.stat()
         index = _census_index((str(link_check.INDEX), stat.st_mtime_ns, stat.st_size))
     except (OSError, SystemExit):
+        return None
+    if not census_fresh(index, source):
         return None
     entry = index.get("blockers", {}).get(source)
     objects = index.get("objects", [])
@@ -2305,12 +2513,13 @@ def census_strength(row, source):
 def owner_strength(name, member, owners=None, facts=None, census=None):
     """None when no matched row names `name`'s `member`; 'strong' when its owner defines it exclusively
     (a header body beside that is a duplicate definition: P147), 'inline' when only as a discardable copy.
-    Read from the owner's object current here (`facts`: local_facts), else from the census index
-    (`census`: census_strength). OwnerUnknown when neither shows the row's definition, or the rows of an
-    overloaded name disagree: it is never assumed either way."""
+    The rows are the member's own (rows_of: another overload's are not). Read from the owner's object
+    current here (`facts`: local_facts), else from the census index while its object is still current
+    (`census`: census_strength). OwnerUnknown when neither shows the row's definition, a row or the
+    declaration cannot be read, or the rows disagree: it is never assumed either way."""
     facts = facts or local_facts
     census = census or census_strength
-    rows = (_matched_owners() if owners is None else owners).get(member_prefix(name, member), ())
+    rows = rows_of(name, member, owners)
     found = set()
     for row, source in rows:
         held = facts(source)
@@ -2323,7 +2532,7 @@ def owner_strength(name, member, owners=None, facts=None, census=None):
         strength = census(row, source)
         if strength is None:
             raise OwnerUnknown(f"{row}: {source} has no current object here and the census index does not "
-                               "show its definition")
+                               "show its definition in an object still current")
         found.add(strength)
     if len(found) > 1:
         raise OwnerUnknown(f"{name}: the rows of {member_prefix(name, member)} differ (strong and inline)")
