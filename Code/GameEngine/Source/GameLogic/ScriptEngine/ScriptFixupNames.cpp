@@ -194,11 +194,7 @@ bool Rva003B3485::read(DataChunkInput &file, DataChunkInfo *info)
 }
 
 #include "../../../Include/GameLogic/ScriptClass.h"
-class Rva003B40B6Holder
-{
-public:
-    void *captureGroup(void *node);
-};
+#include "../../../Include/GameLogic/Rva003B40B6Holder.h"
 // WB AA9050 names ScriptDataChunkParser::parse; the parser binding owner
 // keeps its established target token. New dependencies are independently
 // verified bodies; BF1/ZH list parser supplies purpose and append semantics.

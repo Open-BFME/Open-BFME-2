@@ -70,7 +70,7 @@ public:
 private:
 	char *m_table; // +0x38
 };
-class Rva003B40B6Holder { public: void *captureGroup(void *); };
+#include "../../../Include/GameLogic/Rva003B40B6Holder.h"
 void WriteScriptSubRecord_Rva003B24F2(DataChunkOutput &,const ScriptSubRecord *);
 
 void WriteActionDataChunk(char *,DataChunkOutput &,ScriptAction *);
