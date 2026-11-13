@@ -9,12 +9,7 @@
 
 #include "../../Include/Common/DataChunkOutput.h"
 
-class Rva005C706A
-{
-public:
-	void rva005C706A(DataChunkOutput *out);
-	int m_key;
-};
+#include "../../Include/Common/Rva005C706A.h"
 
 class Rva00540C59
 {

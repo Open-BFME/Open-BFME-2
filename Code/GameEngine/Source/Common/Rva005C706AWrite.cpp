@@ -24,12 +24,7 @@ extern "C" const KeyCode c_table[3] = {
 	{ 2, 0x6361746d },
 };
 
-class Rva005C706A
-{
-public:
-	void rva005C706A(DataChunkOutput *out);
-	int m_key;
-};
+#include "../../Include/Common/Rva005C706A.h"
 
 void Rva005C706A::rva005C706A(DataChunkOutput *out)
 {

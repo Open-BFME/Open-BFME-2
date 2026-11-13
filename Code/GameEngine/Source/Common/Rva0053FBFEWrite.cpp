@@ -7,12 +7,7 @@
 // sequences; base file Rva005C706AWrite.cpp names 0x53FC07 as a caller passing
 // the same this plus DataChunkOutput; caller at 0x0053FF4C.
 #include "../../Include/Common/DataChunkOutput.h"
-class Rva005C706A
-{
-public:
-	void rva005C706A(DataChunkOutput *out);
-	int m_key;
-};
+#include "../../Include/Common/Rva005C706A.h"
 class Rva0053FBFE
 {
 public:
