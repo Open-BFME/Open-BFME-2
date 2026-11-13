@@ -1,0 +1,208 @@
+{
+  "base_commit": "b54f8f1f5d5",
+  "owner": "codex-01a1071d-root-isolated-r20",
+  "header": "Code/GameEngine/Include/GameLogic/AIAttackState.h",
+  "header_sha256": "9df2c11b7841eea8a4679bc5cee1d913273b7e565966ba0629b08d58d978c6d8",
+  "objects_current_against_source_flags_and_dependencies": true,
+  "native_secondary": {
+    "table_rva": "0x00813B64",
+    "slots": [
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp",
+        "slot": 0,
+        "name": "?notifyFired@AIAttackState@@UAEXXZ",
+        "native_rva": "0xb3fd0",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp",
+        "slot": 1,
+        "name": "?bfmeGoFAC@AIAttackState@@UAEXPAX@Z",
+        "native_rva": "0x3413fd",
+        "defined": false
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp",
+        "slot": 2,
+        "name": "?slot2@AIAttackState@@UAE_NH@Z",
+        "native_rva": "0x5cb9fa",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp",
+        "slot": 3,
+        "name": "?slot3@AIAttackState@@UBEEXZ",
+        "native_rva": "0x4a6a40",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp",
+        "slot": 4,
+        "name": "?slot4@AIAttackState@@UBEPAXXZ",
+        "native_rva": "0x3f712f",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp",
+        "slot": 0,
+        "name": "?notifyFired@AIAttackState@@UAEXXZ",
+        "native_rva": "0xb3fd0",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp",
+        "slot": 1,
+        "name": "?bfmeGoFAC@AIAttackState@@UAEXPAX@Z",
+        "native_rva": "0x3413fd",
+        "defined": false
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp",
+        "slot": 2,
+        "name": "?slot2@AIAttackState@@UAE_NH@Z",
+        "native_rva": "0x5cb9fa",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp",
+        "slot": 3,
+        "name": "?slot3@AIAttackState@@UBEEXZ",
+        "native_rva": "0x4a6a40",
+        "defined": true,
+        "whole_body_exact": true
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp",
+        "slot": 4,
+        "name": "?slot4@AIAttackState@@UBEPAXXZ",
+        "native_rva": "0x3f712f",
+        "defined": true,
+        "whole_body_exact": true
+      }
+    ],
+    "comdats": {
+      "Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp": {
+        "before_comdats": 20,
+        "after_comdats": 24,
+        "changed": [
+          "??_7AIAttackState@@6BNotifyWeaponFiredInterface@@@"
+        ],
+        "added": [
+          "?notifyFired@AIAttackState@@UAEXXZ",
+          "?slot2@AIAttackState@@UAE_NH@Z",
+          "?slot3@AIAttackState@@UBEEXZ",
+          "?slot4@AIAttackState@@UBEPAXXZ"
+        ],
+        "removed": [],
+        "renamed": {},
+        "source_sha256": "2bc3c0475c358172a547d189266c3bb9b92dd650fe5e51ad44459d15f578139a",
+        "object_sha256": "056dcc235515b176e4259a5157b5a74c57372b075ea82a0a13b64684fdd25461"
+      },
+      "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp": {
+        "before_comdats": 17,
+        "after_comdats": 21,
+        "changed": [
+          "??_7AIAttackState@@6BNotifyWeaponFiredInterface@@@"
+        ],
+        "added": [
+          "?notifyFired@AIAttackState@@UAEXXZ",
+          "?slot2@AIAttackState@@UAE_NH@Z",
+          "?slot3@AIAttackState@@UBEEXZ",
+          "?slot4@AIAttackState@@UBEPAXXZ"
+        ],
+        "removed": [],
+        "renamed": {},
+        "source_sha256": "3f4e28c878efda08b7c58eae04bddbc667acd45f13f62a0044da53b965a7f1ac",
+        "object_sha256": "969a6cd2c01568d5ec7b0b86669eeff80382b53865dc13fbbcfa02c6896e7684"
+      },
+      "Code/GameEngine/Source/Common/BfmeConv890.cpp": {
+        "before_comdats": 1,
+        "after_comdats": 1,
+        "changed": [],
+        "added": [],
+        "removed": [],
+        "renamed": {
+          "?bfmeGoFAC@BfmeThingFAC@@QAEXPAX@Z": "?bfmeGoFAC@AIAttackState@@UAEXPAX@Z"
+        },
+        "source_sha256": "4b1b040c444c0c92a1e130046f59417a36220378bb5c2c4cace9533a4a57358e",
+        "object_sha256": "2501b0e7702bb7e5754a5ee73c953a388b5b35b280f07bb77e1b571d59207cc2"
+      }
+    },
+    "eh": [
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp",
+        "verdict": [
+          "EXACT",
+          ""
+        ]
+      }
+    ],
+    "callback_whole_body_exact": true,
+    "scope": "Secondary table only; primary19-slot contract remains incomplete; authoritative bridge retirement unmeasured"
+  },
+  "primary_diagnostic": {
+    "source_restored": true,
+    "rows": [
+      {
+        "slot": 9,
+        "name": "?_bfme_state_slot9@AIAttackState@@EBE_NXZ",
+        "native_rva": "0x34b167",
+        "native_size": 11,
+        "emitted_section_size": 11,
+        "raw_body_hex": "8b01ff5020f6d81bc040c3",
+        "exact": true,
+        "unresolved": [],
+        "note": null
+      },
+      {
+        "slot": 15,
+        "name": "?_bfme_state_slot15@AIAttackState@@EBE_NXZ",
+        "native_rva": "0x34b154",
+        "native_size": 19,
+        "emitted_section_size": 21,
+        "raw_body_hex": "8b492485c9740be80000000084c00f95c0c332c0c3",
+        "exact": false,
+        "unresolved": [],
+        "note": null
+      }
+    ],
+    "production_primary_changed": false,
+    "native_slots": 19,
+    "production_slots": 17
+  },
+  "normal_build": {
+    "functions_passed": 11,
+    "sources": 3,
+    "eh_exact": 1,
+    "string_refs": 0,
+    "float_refs": 0,
+    "import_refs": 0
+  },
+  "scoped_link_preview": {
+    "sources": 3,
+    "verdict": "LINKS",
+    "before_bytes": 290,
+    "after_bytes": 304,
+    "index": "0e4b2640a1",
+    "unique_new_code_bytes": 0,
+    "folded_provider_bytes": 14
+  },
+  "hatches": {
+    "own_alternatename_removed": 1,
+    "already_missing_pin_ceilings_removed": 2,
+    "already_landed_allow_stamps_normalized": 2,
+    "own_pins_removed": 0
+  },
+  "limits": [
+    "Primary table remains incomplete",
+    "No vtable queue retirement",
+    "No authoritative measurement of this change",
+    "No new original interface name recovered"
+  ]
+}

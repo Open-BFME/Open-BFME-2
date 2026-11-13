@@ -1246,3 +1246,18 @@ RecorderClass views to share headers; the other failed trials remain restored.
 MiscAudio typed-receiver preparation loses native push0 staging (7/9 rows).
 Eight hook shadow identity keys are unchanged in saved pre-change objects;
 no baseline changed. [Complete prerequisites](../../reverse/attempt_support/command-translator-prerequisites-20261113-root20.md).
+
+
+### AIAttackState five-slot secondary interface (2026-11-13, root20)
+
+Constructor, destructor and goal-propagation callback now share a native 0x50-byte
+view. Both five-slot secondary tables at 0x00813B64 have exact native providers;
+11/11 functions and destructor EH pass. The obsolete notifyFired alias is removed.
+All 36 other external COMDATs, including both primary tables, retain their bodies
+and relocation identities. The 14 added preview bytes are ICF providers, not
+unique recovery; current real-link bridge retirement is unmeasured.
+The primary 19-slot table at 0x00813B78 still has a 17-slot source view. A restored
+Boolean slot-9 diagnostic is exact, but slot 15 is 21B versus native 19B with the
+existing byte-returning nested-machine query. Query type/ownership proof and an
+owning admission route remain prerequisites. Both queue entries remain.
+[Native bindings and precise remaining contract](../../reverse/attempt_support/aiattack-native-slot-contracts-20261113-root20.md).

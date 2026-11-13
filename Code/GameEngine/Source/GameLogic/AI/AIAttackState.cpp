@@ -17,54 +17,11 @@ class Team;
 
 #include "../../../Include/Common/StateMachine.h"
 
-class NotifyWeaponFiredInterface
-{
-public:
-	virtual void notifyFired() = 0;
-	// Retail table 0x00C078DC: 4 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-};
+#include "../../../Include/GameLogic/AIAttackState.h"
 
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-class AIAttackState : public State, public NotifyWeaponFiredInterface
-{
-public:
-	~AIAttackState();	// rowed out of line; this view must not emit its own
-	AIAttackState(StateMachine *machine, bool follow, bool attackingObject, bool forceAttacking,
-		AttackExitConditionsInterface *attackParameters);
-	virtual bool isAttack() const;
-	virtual void notifyFired();
-
-private:
-	void *m_attackMachine;
-	AttackExitConditionsInterface *m_attackParameters;
-	Team *m_victimTeam;
-	Coord3D m_originalVictimPos;
-	AsciiString m_lockedWeaponOnEnter;
-	bool m_follow;
-	bool m_isAttackingObject;
-	bool m_isForceAttacking;
-	unsigned char m_pad47;
-	unsigned int m_bfmeAttackState48;
-	bool m_bfmeAttackState4C;
-	bool m_bfmeAttackState4D;
-	unsigned char m_pad4E[2];
-	unsigned int m_attackMachineType;
-protected:
-	// retail slot 3: the rowed ?xfer@AIAttackState@@MAEXPAVXfer@@@Z
-	virtual void xfer(Xfer *xfer);
-public:
-	// retail vftable slot: the rowed override
-	virtual StateReturnType update();
-public:
-	// retail vftable slot: the rowed override
-	virtual void onExit(StateExitType);
-};
 
 AIAttackState::AIAttackState(StateMachine *machine, bool follow, bool attackingObject, bool forceAttacking,
 	AttackExitConditionsInterface *attackParameters) :
@@ -83,8 +40,3 @@ AIAttackState::AIAttackState(StateMachine *machine, bool follow, bool attackingO
 {
 	m_originalVictimPos.zero();
 }
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?notifyFired@AIAttackState@@UAEXXZ=??1Region2D@@QAE@XZ")

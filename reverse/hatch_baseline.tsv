@@ -2418,7 +2418,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot10@R
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	?g_Va00CE4918@@3DA	1
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp	??1Video@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/View.cpp	?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp	?notifyFired@AIAttackState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateOnExit.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateOnExit_AIInternalMoveToState.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	?_M_create_node@?$_Rb_tree@IU?$pair@$$CBII@_STL@@U?$_Select1st@U?$pair@$$CBII@_STL@@@2@URva002F0DD6Less@@V?$allocator@U?$pair@$$CBII@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@ABU?$pair@$$CBII@2@@Z	1
@@ -3691,9 +3690,9 @@ export_alias	reverse/export_aliases.csv	?$S170@?1??GetValue@?$DefaultModuleKey@$
 export_alias	reverse/export_aliases.csv	?$S174@?1??GetValue@?$DefaultModuleName@$01@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S184@?1??GetValue@?$DefaultModuleKey@$06@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S188@?1??GetValue@?$DefaultModuleName@$06@FXParticleSystem@@CAPBDXZ@4IA	1
-export_alias	reverse/export_aliases.csv	?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1	allow=0b7e349ec4c8fdd80ada1c371f60fd7b036e4bd4
+export_alias	reverse/export_aliases.csv	?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
-export_alias	reverse/export_aliases.csv	?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1	allow=0b7e349ec4c8fdd80ada1c371f60fd7b036e4bd4
+export_alias	reverse/export_aliases.csv	?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	??0Matrix4D@@QAE@ABVCoord3D@@M@Z	1
 export_alias	reverse/export_aliases.csv	?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z	1
@@ -8294,7 +8293,6 @@ pin	reverse/symbols.csv	0x005AD9E6	1
 pin	reverse/symbols.csv	0x005AE38A	1
 pin	reverse/symbols.csv	0x005AE76E	1
 pin	reverse/symbols.csv	0x005AE7C6	1
-pin	reverse/symbols.csv	0x005AF9EF	1
 pin	reverse/symbols.csv	0x005AFC21	1
 pin	reverse/symbols.csv	0x005AFC4C	1
 pin	reverse/symbols.csv	0x005B0357	1
@@ -8461,7 +8459,6 @@ pin	reverse/symbols.csv	0x005D49CD	1
 pin	reverse/symbols.csv	0x005D4DA9	1
 pin	reverse/symbols.csv	0x005D4E6F	1
 pin	reverse/symbols.csv	0x005D4EA8	1
-pin	reverse/symbols.csv	0x005D5095	1
 pin	reverse/symbols.csv	0x005D521B	1
 pin	reverse/symbols.csv	0x005D5434	1
 pin	reverse/symbols.csv	0x005D5473	1

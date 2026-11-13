@@ -6234,3 +6234,4 @@ __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgra
 ?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ,0x000D43D0,"Retired gen-alias: SpecialPowerModuleDtor_Unresolved.cpp adopts the canonical BehaviorModule.h, whose BehaviorModuleInterface has no behaviorAnchor; 0x000D43D0 stays rowed (?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ and its twins) and Rva00492402Ctor.cpp's s_dummy20 slot 3 names getBody"
 ?rva00251C11@Rva00251C11@@QAEXM@Z,0x00251C11,"Renamed to ?slot43@SpecialPowerModule@@UAEXM@Z by tools/rename.py (to-class: retail vftable 0x00BEFCF8 slot 43)"
 ?forward@Rva00251C24@@UAEXXZ,0x00251C24,"Renamed to ?slot44@SpecialPowerModule@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BEFCF8 slot 44)"
+?bfmeGoFAC@BfmeThingFAC@@QAEXPAX@Z,0x003413FD,"Renamed to ?bfmeGoFAC@AIAttackState@@UAEXPAX@Z by tools/rename.py (to-class: retail vftable 0x00C13B64 slot 1)"

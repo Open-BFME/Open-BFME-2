@@ -15,48 +15,7 @@
 class AttackExitConditionsInterface;
 class Team;
 #include "../../../Include/Common/StateMachine.h"
-class NotifyWeaponFiredInterface
-{
-public:
-	virtual void notifyFired() = 0;
-	// Retail table 0x00C078DC: 4 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-};
-class AIAttackState : public State, public NotifyWeaponFiredInterface
-{
-public:
-	virtual ~AIAttackState();
-	// Keep the constructor view's rowed virtual in this destructor view too.
-	virtual bool isAttack() const;
-	virtual void notifyFired();
-private:
-	StateMachine *m_attackMachine;
-	AttackExitConditionsInterface *m_attackParameters;
-	Team *m_victimTeam;
-	float m_originalVictimPos[3];
-	AsciiString m_lockedWeaponOnEnter;
-	bool m_follow;
-	bool m_isAttackingObject;
-	bool m_isForceAttacking;
-	unsigned char m_pad47;
-	unsigned int m_bfmeAttackState48;
-	bool m_bfmeAttackState4C;
-	bool m_bfmeAttackState4D;
-	unsigned char m_pad4E[2];
-	unsigned int m_attackMachineType;
-protected:
-	// retail slot 3: the rowed ?xfer@AIAttackState@@MAEXPAVXfer@@@Z
-	virtual void xfer(Xfer *xfer);
-public:
-	// retail vftable slot: the rowed override
-	virtual StateReturnType update();
-public:
-	// retail vftable slot: the rowed override
-	virtual void onExit(StateExitType);
-};
+#include "../../../Include/GameLogic/AIAttackState.h"
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
