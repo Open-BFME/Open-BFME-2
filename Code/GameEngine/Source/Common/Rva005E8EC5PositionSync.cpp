@@ -33,11 +33,7 @@ public:
 
 #include "../../Include/Common/Rva005F884D.h"
 
-class Rva005F83F4
-{
-public:
-	void rva005F83F4(const Rva005F83F4Data &src);
-};
+#include "../../Include/Common/Rva005F83F4.h"
 
 struct Rva005E8EC5Target
 {

@@ -13,11 +13,7 @@ struct Rva005F83F4Data
 	int m_data[3];
 };
 
-class Rva005F83F4
-{
-public:
-	void rva005F83F4(const Rva005F83F4Data &src);
-};
+#include "../../../Include/Common/Rva005F83F4.h"
 
 class Rva005E888A
 {
