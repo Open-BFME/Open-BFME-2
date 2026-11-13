@@ -9,14 +9,7 @@
 bool operator==(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
 bool operator<(const BfmeFloat4Record00469C61 &, const BfmeFloat4Record00469C61 &);
 
-class Rva00357E14
-{
-public:
-	void rva00357E14(const BfmeFloat4Record00469C61 &rec);
-
-private:
-	_STL::list<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > m_list; // +0
-};
+#include "../../../Include/GameLogic/Rva00357E14.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> void _Construct<BfmeFloat4Record00469C61,BfmeFloat4Record00469C61>(BfmeFloat4Record00469C61 *,BfmeFloat4Record00469C61 const &); }

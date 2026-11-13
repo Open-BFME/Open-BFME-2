@@ -684,7 +684,7 @@ class Rva0041F431 {public:Rva0041F431*rva0041F431();};
 
 struct BfmeFloat4Record00469C61 {BfmeFloat4Record00469C61(){((Rva0041F431*)this)->rva0041F431();}unsigned int frame;Coord3D position;};
 
-class Rva00357E14 {public:void rva00357E14(const BfmeFloat4Record00469C61&);};
+#include "../../Include/GameLogic/Rva00357E14.h"
 
 typedef _STL::list<BfmeFloat4Record00469C61,_STL::allocator<BfmeFloat4Record00469C61> > EvaLocationList;
 

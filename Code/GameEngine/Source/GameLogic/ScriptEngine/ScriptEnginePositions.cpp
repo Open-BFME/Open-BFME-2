@@ -25,7 +25,7 @@ struct ScriptPositionRecord {
  Coord3D position;
 };
 #include "../../../Include/GameLogic/BfmeFloat4Record00469C61.h"
-class Rva00357E14 { public: void rva00357E14(const BfmeFloat4Record00469C61 &); };
+#include "../../../Include/GameLogic/Rva00357E14.h"
 typedef _STL::list<ScriptPositionRecord> ScriptPositionList;
 namespace _STL {
 template<> inline list<ScriptPositionRecord>::iterator list<ScriptPositionRecord>::erase(iterator pos){
