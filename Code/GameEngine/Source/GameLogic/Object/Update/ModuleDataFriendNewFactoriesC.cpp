@@ -91,11 +91,7 @@ void FXListDieModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(g_00BF08E0, 0);
 }
 
-class FXListDie
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-};
+#include "../../../../Include/Common/FXListDie.h"
 
 ModuleData *FXListDie::friend_newModuleData(INI *ini)
 {

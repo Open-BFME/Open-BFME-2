@@ -15,15 +15,7 @@ class ModuleData;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/FXListDie.h
-class FXListDie : public DieModule
-{
-public:
-	FXListDie( Thing *thing, const ModuleData *moduleData );
-	virtual ~FXListDie();
-public:
-	// retail vftable slot: the rowed override
-	virtual void onDie(const DamageInfo *);
-};
+#include "../../../../Include/Common/FXListDie.h"
 
 FXListDie::FXListDie( Thing *thing, const ModuleData *moduleData )
 	: DieModule( thing, moduleData )

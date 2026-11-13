@@ -215,7 +215,7 @@ class ExperienceLevelCreate { public: static Module *friend_newModuleInstance(Th
 class ExperienceLevelCreateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ExperienceScalarUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ExperienceScalarUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class FXListDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/Common/FXListDie.h"
 class FadeAndDieOrnamentUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FadeAndDieOrnamentUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class FakePathfindPortalBehaviour { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
