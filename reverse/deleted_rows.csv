@@ -6217,3 +6217,4 @@ __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgra
 ?name@AutoAbilityBehavior@@QBEPBDXZ,0x0045A3C8,"Renamed to ?GetSnapshotName@AutoAbilityBehavior@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4175C slot 2)"
 ?name@DelayedLuaEventUpdate@@QBEPBDXZ,0x004A8D93,"Renamed to ?GetSnapshotName@DelayedLuaEventUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C53A5C slot 2)"
 ?name@AutoPickUpUpdate@@QBEPBDXZ,0x00495C68,"Renamed to ?GetSnapshotName@AutoPickUpUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4F06C slot 2)"
+?name@AttributeModifierPoolUpdate@@QBEPBDXZ,0x00403A5B,"Renamed to ?GetSnapshotName@AttributeModifierPoolUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C3856C slot 2)"

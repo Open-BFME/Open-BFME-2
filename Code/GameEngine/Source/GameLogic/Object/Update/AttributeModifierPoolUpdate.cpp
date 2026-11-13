@@ -120,6 +120,8 @@ private:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00403A5B
 };
 
 class Object
@@ -911,7 +913,7 @@ Rva00403927 &Rva00403927::operator=(const Rva00403927 &other)
 
 // tu-skeleton: 0x0040399F 30B ?_M_clear@?$vector@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
-// tu-skeleton: 0x00403A5B 6B ?name@AttributeModifierPoolUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+// tu-skeleton: 0x00403A5B 6B ?GetSnapshotName@AttributeModifierPoolUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdatePoolKey.cpp
 

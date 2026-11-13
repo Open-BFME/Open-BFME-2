@@ -66,7 +66,7 @@ const char *LivingWorldRegion::GetSnapshotName() const
 BFME_LITERAL_NAME_GETTER(Rva003F6A8BNamed, "LivingWorldBattle")
 BFME_LITERAL_NAME_GETTER(Rva003F9CCCNamed, "LivingWorldEyeTower")
 BFME_LITERAL_NAME_GETTER(Rva003FD374Named, "DelayedRegionFlashModule")
-BFME_LITERAL_NAME_GETTER(AttributeModifierPoolUpdate, "AttributeModifierPoolUpdate")
+BFME_SNAPSHOT_NAME_GETTER(AttributeModifierPoolUpdate, "AttributeModifierPoolUpdate")
 // VictorySystem::GetSnapshotName is owned by Rva004053C2Dtor.cpp.
 BFME_LITERAL_NAME_GETTER(Rva005C43C9Named, "LivingWorldBuildingNuggetIncreaseCommandPoints")
 BFME_LITERAL_NAME_GETTER(Rva00351753Named, "AIStateMachine")
