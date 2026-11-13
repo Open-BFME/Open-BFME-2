@@ -156,11 +156,7 @@ struct RulesOverrideView {char padding[0x9D4]; unsigned char bits;};
 // banked exact by an earlier seat; this unit carries it with the class view of
 // AptMpGameRulesCallbacks.cpp at the /O1 G7 SSE flags its bytes need.
 
-class Rva002DB9B6
-{
-public:
-	void rva002DB9B6(void *out);
-};
+#include "../../../../../Include/Common/Rva002DB9B6.h"
 
 int __cdecl Rva00559EDCCompare(int *a, int *b);
 

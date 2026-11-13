@@ -274,10 +274,7 @@ class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern LANAPI *TheLAN;
 extern GameSpyStagingRoom *TheGameSpyGame;
 extern GameInfo *TheGameInfo;
-struct Rva002DB9B6
-{
-	void rva002DB9B6(void *out);	// copies the info's 28 bytes at +0x60
-};
+#include "../../../../Include/Common/Rva002DB9B6.h"
 
 // The MD5 block writer (ctor 0x0052B42B, vtable 0x00868620). Its destructor
 // 0x52B497 keeps that address name, so the class is split to reach it.
