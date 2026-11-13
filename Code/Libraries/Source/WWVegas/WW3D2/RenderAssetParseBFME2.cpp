@@ -150,7 +150,7 @@ class AssetName;
 // Preserve the native release at this TU's temporary cleanup sites.
 inline AssetReference::~AssetReference(){if(field00)field00->Release_Ref();}
 AssetReference Rva009EBEC0(const AssetName &);
-class Rva0013BE70Host{public:void opaqueCall(const char *);};
+#include "Rva0013BE70Host.h"
 extern bool g_Va00DB6218;
 static float renderAssetAbs(float v){int bits=*(int *)&v;bits&=0x7fffffff;return *(float *)&bits;}
 // WB9B42B0 RenderAsset::CreateRenderObj renderasset.cpp614..620; native

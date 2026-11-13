@@ -202,11 +202,7 @@ public:
 };
 }
 
-class Rva0013BE70Host
-{
-public:
-	void opaqueCall(const char *name);
-};
+#include "Rva0013BE70Host.h"
 
 class HierarchyPrototype
 {
