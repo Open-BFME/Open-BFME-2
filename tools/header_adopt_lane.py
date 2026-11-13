@@ -3029,6 +3029,133 @@ def unanchored(signature):
                        for shape in params), cv
 
 
+class Spelled(str):
+    """A member declaration with the access it is declared under (P150: MSVC mangles access)."""
+
+    def __new__(cls, text, access="public"):
+        made = super().__new__(cls, text)
+        made.access = access
+        return made
+
+
+# MSVC's member function codes: the letter after a member's scope (`?f@K@@MAEXXZ`: M, protected virtual).
+MEMBER_CODE = {}
+for _group, _access in (("ABCDEFGH", "private"), ("IJKLMNOP", "protected"), ("QRSTUVWX", "public")):
+    for _i, _letter in enumerate(_group):
+        MEMBER_CODE[_letter] = (_access, ("plain", "plain", "static", "static", "virtual", "virtual", "thunk",
+                                          "thunk")[_i])
+CONVENTION_CODES = {"A": "__cdecl", "C": "__pascal", "E": "__thiscall", "G": "__stdcall", "I": "__fastcall"}
+CV_LETTERS = {letter: cv for cv, letter in CV_CODES.items()}
+
+
+def row_mangling(row, prefix):
+    """(access, kind, this-qualifiers or None, calling convention) a member function row's name mangles, or None
+    for a thunk or a code it does not know."""
+    rest = row[len(prefix):]
+    if not rest or rest[0] not in MEMBER_CODE:
+        return None
+    access, kind = MEMBER_CODE[rest[0]]
+    if kind == "thunk":
+        return None
+    if kind == "static":
+        return access, kind, None, CONVENTION_CODES.get(rest[1:2])
+    return access, kind, CV_LETTERS.get(rest[1:2]), CONVENTION_CODES.get(rest[2:3])
+
+
+def rows_by_parameters(name, member, owners=None):
+    """([matched row of `member`'s name and parameters, whatever its this-qualifiers], [row that cannot be told]):
+    the rows a declaration's mangling is compared with (rows_of also requires the this-qualifiers)."""
+    prefix, params, _ = declarator(name, member)
+    rows = (_matched_owners() if owners is None else owners).get(prefix, ())
+    if prefix.startswith("??1"):
+        return [row for row, _ in rows], []
+    parsed = [decl_param(p) for p in params]
+    scopes = tuple(reversed(name.split("::")))
+    same, unknown = [], []
+    for row, _ in rows:
+        parts = mangled_parts(row, prefix)
+        if parts is None:
+            unknown.append(row)
+            continue
+        letter, texts, names = parts
+        verdict = compare_row(parsed, CV_LETTERS.get(letter, frozenset()), letter,
+                              [row_param(t, names) for t in texts], scopes)
+        if verdict == "match":
+            same.append(row)
+        elif verdict == "unknown":
+            unknown.append(row)
+    return same, unknown
+
+
+def member_access(name, text, views_access, owners=None):
+    """(access, problem): the access `name`'s member `text` is declared under, from its matched rows' mangled
+    code letter when they are its own (rows_of), else from `views_access` (the access each counted view
+    declares it under). Rows or views that disagree are a problem (the class holds)."""
+    try:
+        rows = rows_of(name, text, owners)
+    except OwnerUnknown:
+        rows = []
+    if rows:
+        prefix = declarator(name, text)[0]
+        found = {row_mangling(row, prefix)[0] for row, _ in rows if row_mangling(row, prefix)}
+        if len(found) == 1:
+            return found.pop(), None
+        if len(found) > 1:
+            return None, f"its matched rows disagree on access: {', '.join(sorted(found))}"
+    found = set(views_access) - {None}
+    if len(found) > 1:
+        return None, f"views disagree on its access: {', '.join(sorted(found))}"
+    return (found.pop() if found else "public"), None
+
+
+def views_access(name, read, sources):
+    """{source: {decl_signature: access}} of every member function each view of `name` declares."""
+    out = {}
+    for source in sources:
+        try:
+            records = declaration_records(read(source), name) or ()
+        except OSError:
+            continue
+        out[source] = {decl_signature(r["text"]): r["access"] for r in records if "(" in r["text"]}
+    return out
+
+
+def mangling_contradictions(name, text, contract, owners=None):
+    """Member functions of the class body in `text` whose declaration contradicts a matched row of its name and
+    parameters on what MSVC mangles beyond them: access, virtual or static, `this` cv, calling convention. A
+    declaration without `virtual` is virtual when a base declares that name virtual."""
+    inherited = base_slot_signatures(contract) if contract.get("bases") else set()
+    base_names = {e[0] if len(e) == 3 else e[1] for e in inherited if isinstance(e, tuple)} | \
+        ({"~"} if "~" in inherited else set())
+    found = []
+    for record in declaration_records(text, name) or ():
+        if "(" not in record["text"]:
+            continue
+        try:
+            prefix, _, cv = declarator(name, record["text"])
+            same, _ = rows_by_parameters(name, record["text"], owners)
+        except OwnerUnknown:
+            continue
+        head = declaration_head(record["text"])
+        member_name = "~" if prefix.startswith("??1") else split_head(record["text"])[0]
+        static = bool(re.search(r"\bstatic\b", head))
+        virtual = bool(re.search(r"\bvirtual\b", head)) or member_name in base_names
+        convention = next((c for c in ("__cdecl", "__stdcall", "__fastcall", "__thiscall", "__pascal") if c in head),
+                          "__cdecl" if static else "__thiscall")
+        mine = (record["access"], "static" if static else ("virtual" if virtual else "plain"),
+                None if static else cv, convention)
+        for row in same:
+            theirs = row_mangling(row, prefix)
+            if theirs is None:
+                continue
+            labels = ("access", "virtual/static", "this cv", "calling convention")
+            diff = [f"{label} {m if m is not None else '-'} (row {t})" for label, m, t in zip(labels, mine, theirs)
+                    if t is not None and m != t]
+            if diff:
+                found.append(f"{head.strip()}: " + ", ".join(diff) + f" against {row}")
+    return found
+
+
 def qualified(signature):
     """Whether a decl_signature carries a qualifier the contract's CodeView signature does not record:
     `const`/`volatile` on the member, a const pointee, or a parameter it could not read."""
@@ -3152,6 +3279,29 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         start = min(start, min(slots))
         problems += [f"slot{k} undecided" for k in range(start, max(slots) + 1)
                      if k not in slots and f"slot{k} undecided" not in problems]
+    accesses = views_access(name, read, list(views))
+    inherited_count = (contract.get("evidence", {}).get("inherited", {}).get("inherited_slots", 0)
+                       if contract.get("bases") else 0)
+
+    def entries(slot, member, want, sources):
+        """{source: (signature, declaration)} of what each of `sources` declares at contract slot `slot`: below the
+        inherited count (a base slot this class overrides), a derived view's override of the contract's member
+        (by name and parameter types), a flat view's declaration at that position; above it, each view's own
+        slot there (view_slots)."""
+        out = {}
+        for source in sources:
+            if slot < inherited_count and source in derived:
+                hits = [(decl_signature(t) or ("?", t), t) for n, _, t in views[source]
+                        if n == want[0] and ((n == "~" and "~" in inherited) or decl_signature(t) in inherited)
+                        and (n == "~" or param_types(t.split("{")[0]) == param_types(member))]
+                if hits:
+                    out[source] = hits[0]
+                continue
+            index = slot - (start if source in derived else 0)
+            if 0 <= index < len(positions[source]):
+                out[source] = positions[source][index]
+        return out
+
     decided = {}
     for slot, member in sorted(slots.items()):
         want = slot_key(member)
@@ -3160,8 +3310,7 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             problems.append(f"slot{slot} {member}: no " + ("vtable-emitting " if len(counted) < len(views) else "")
                             + "view spells it")
             continue
-        first = {s: (start if s in derived else 0) for s in counted}
-        at = {s: positions[s][slot - first[s]] for s in counted if 0 <= slot - first[s] < len(positions[s])}
+        at = entries(slot, member, want, counted)
         signatures = {signature for signature, _ in at.values()}
         if len(signatures) > 1:
             problems.append(f"slot{slot} {member}: views disagree on its signature: "
@@ -3203,8 +3352,7 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                                 "and no matched row defines it out of line")
                 continue
         if not declaration_key(text)[1] and "{" not in text and want[0] != "~":
-            here = [positions[s][slot - (start if s in derived else 0)][1] for s in views
-                    if 0 <= slot - (start if s in derived else 0) < len(positions[s])]
+            here = [text for _, text in entries(slot, member, want, list(views)).values()]
             purely = [t for t in here if declaration_key(t)[1] and declaration_key(t)[0] == declaration_key(text)[0]]
             try:
                 defined = rows_of(name, text, owners) if purely else True
@@ -3215,7 +3363,12 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                 problems.append(f"slot{slot} {member}: pure in a view, and no matched row defines the "
                                 "non-pure declaration that would replace it")
                 continue
-        decided[slot] =(want[0], rename_destructor(text, short) if want[0] == "~" else text)
+        signed = decl_signature(text)
+        access, why = member_access(name, text, [accesses.get(s, {}).get(signed) for s in at], owners)
+        if why:
+            problems.append(f"slot{slot} {member}: {why}")
+            continue
+        decided[slot] = (want[0], Spelled(rename_destructor(text, short) if want[0] == "~" else text, access))
     # MSVC lays an overload group out at its first declaration in REVERSE
     # declaration order (tools/class_layouts.py, "THE TRAP"): emit each run of
     # same-name slots reversed. A name split across non-adjacent slots cannot
@@ -3229,7 +3382,7 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         if any(r[0] == member_name for r in runs):
             problems.append(f"slot{slot} {member_name}: overloads in non-adjacent slots")
         runs.append((member_name, [slot]))
-    order = [decided[s][1] for _, run in runs for s in reversed(run)]
+    order = [decided[s][1] for _, run in runs for s in reversed(run)]       # Spelled: each keeps its access
     own = {n for n, _ in decided.values()}
     overrides = []
     # Only a view that spells a base clause declares an override; a view that
@@ -3237,18 +3390,30 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     # An override is a derived view's virtual whose signature a base declares (base_slot_signatures; the
     # destructor by `~`), whatever the class introduces under the same name.
     by_signature = collections.defaultdict(collections.Counter)
+    by_source = collections.defaultdict(set)
     for source in derived:
         for member_name, _, text in views.get(source, ()):
             signature = decl_signature(text)
             if (member_name == "~" and "~" in inherited) or (signature is not None and signature in inherited):
                 by_signature["~" if member_name == "~" else signature][text] += 1
+                by_source["~" if member_name == "~" else signature].add(source)
+    # a base slot the contract decided (below the inherited count) is already emitted as an own slot
+    emitted = {"~" if member_name == "~" else decl_signature(text) for member_name, text in decided.values()}
     for signature in sorted(by_signature, key=lambda sig: ("~" if sig == "~" else sig[0], repr(sig))):
+        if signature in emitted:
+            continue
         spellings = by_signature[signature]
         text = pick_declaration(spellings)
         if text is None:
             problems.append(f"override {next(iter(spellings)).split('{')[0].strip()}: " + slot_conflict(spellings))
             continue
-        overrides.append(rename_destructor(text, short) if signature == "~" else text)
+        ranked = [s for s in by_source[signature] if s in counted] or sorted(by_source[signature])
+        access, why = member_access(name, text, [accesses.get(s, {}).get(decl_signature(text)) for s in ranked],
+                                    owners)
+        if why:
+            problems.append(f"override {text.split('{')[0].strip()}: {why}")
+            continue
+        overrides.append(Spelled(rename_destructor(text, short) if signature == "~" else text, access))
     return order, overrides, problems
 
 
@@ -3564,8 +3729,15 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
         # slot order, then the overrides of the bases' slots the views spell.
         # The view methods then contribute no virtual of their own.
         own, overrides = slots
+        current = "public"
         for member in own + overrides:
+            access = getattr(member, "access", "public")
+            if access != current:
+                lines.append(f"{access}:")
+                current = access
             lines.append("    " + member)
+        if current != "public":
+            lines.append("public:")
         methods = {k: v for k, v in methods.items() if not re.match(r"\s*virtual\b", v)}
     if "methods" in variant:
         # A leading destructor would put the delete-dtor in earlier vtable
@@ -3592,6 +3764,7 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
                      and owner_strength(name, record["text"], owners) == "strong"]
     except OwnerUnknown as why:
         raise LayoutError(f"{name}: {why}") from why
+    conflicts += mangling_contradictions(name, "\n".join(lines), contract, owners)
     if conflicts:
         raise LayoutError(f"{name}: " + "; ".join(conflicts[:3]))
     lines += size_assertions(contract, "\n".join(lines)) + ["", f"#endif // {guard}", ""]

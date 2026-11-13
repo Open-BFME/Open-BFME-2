@@ -402,7 +402,9 @@ def test_generate_keeps_a_non_virtual_inline_body_beside_an_exclusive_owner(base
     c = owned_contract({})
     c["vslots"] = {}
     special = [{"role": "method", "access": "public", "sig": "get()const", "text": "int get() const { return 1; }"}]
-    assert "int get() const { return 1; }" in lane.generate(c, "data", {}, None, None, special, owners=OWNED_GET)
+    # the public non-virtual const member's own row (P150's check compares the mangling)
+    owners = {"?get@Owned@@": [("?get@Owned@@QBEHXZ", "Base.cpp")]}
+    assert "int get() const { return 1; }" in lane.generate(c, "data", {}, None, None, special, owners=owners)
 
 
 # ---- review r2: overloads, attributes, ledger reads, census freshness
@@ -773,3 +775,77 @@ def test_a_virtual_differing_from_a_base_one_only_by_global_scope_holds(tmp_path
     view = "class K : public B5\n{\npublic:\n\tvirtual void g();\n\tvirtual void f(::Mode *m) {}\n};\n"
     own, overrides, problems = k_slots([view], {1: "g()"}, bases=("B5",), known=known)
     assert problems == [] and own == ["virtual void g();"] and overrides == ["virtual void f(::Mode *m) {}"]
+
+
+# ---- P150: member access, and what else the mangled name records
+
+STATE_BASE = ("virtual ~B5();\n    virtual const char *GetSnapshotName() const;\n    virtual void xfer(Xfer *x);\n"
+              "    virtual int onEnter();")
+COWER = ("class K : public B5\n{\npublic:\n\tvirtual ~K();\n\tvirtual int onEnter();\nprotected:\n"
+         "\tvirtual const char *GetSnapshotName() const;\n\tvirtual void xfer(Xfer *xfer);\nprivate:\n\tint m_04;\n};\n")
+COWER_ROWS = {"?xfer@K@@": [("?xfer@K@@MAEXPAVXfer@@@Z", "x.cpp")],
+              "?GetSnapshotName@K@@": [("?GetSnapshotName@K@@MBEPBDXZ", "n.cpp")],
+              "?onEnter@K@@": [("?onEnter@K@@UAEHXZ", "e.cpp")]}
+
+
+def cower(tmp_path, monkeypatch, views, owners=COWER_ROWS):
+    known = base_header_for(tmp_path, monkeypatch, STATE_BASE)
+    monkeypatch.setattr(lane.class_contract, "ROOT", tmp_path)
+    monkeypatch.setattr(lane.class_contract, "CONTRACTS", tmp_path / "contracts")
+    c = contract({0: "__vecDelDtor(uint)"}, bases=("B5",), inherited=4)
+    c["class"] = "K"
+    texts = {f"v{i}.cpp": v for i, v in enumerate(views)}
+    return c, known, lane.slot_declarations(c, sorted(texts), read=texts.__getitem__, known=known, owners=owners,
+                                            facts=lambda source: None)
+
+
+def test_p150_access_comes_from_the_rows_and_the_views(tmp_path, monkeypatch):
+    # AIBackAwayAndCowerState (d7f1cd54518): xfer and GetSnapshotName are protected in the rowed definitions
+    # (`M`) and in the views that emit the vtable; the header declared them public and the link broke
+    c, known, (own, overrides, problems) = cower(tmp_path, monkeypatch, [COWER, COWER])
+    assert problems == [] and own == ["virtual ~K();"]
+    assert [(t, t.access) for t in overrides] == [
+        ("virtual const char *GetSnapshotName() const;", "protected"), ("virtual int onEnter();", "public"),
+        ("virtual void xfer(Xfer *xfer);", "protected")]
+    text = lane.generate(c, "data", {}, None, (own, overrides), (), owners=COWER_ROWS)
+    body = text[text.index("class K"):text.index("};")]
+    assert "protected:\n    virtual const char *GetSnapshotName() const;\npublic:\n    virtual int onEnter();" in body
+    assert "protected:\n    virtual void xfer(Xfer *xfer);\npublic:\n" in body
+
+
+def test_without_rows_the_views_give_access_and_rows_outrank_them(tmp_path, monkeypatch):
+    c, known, (own, overrides, problems) = cower(tmp_path, monkeypatch, [COWER], owners={})
+    assert problems == [] and [t.access for t in overrides] == ["protected", "public", "protected"]
+    public = COWER.replace("protected:", "public:")
+    c, known, (own, overrides, problems) = cower(tmp_path, monkeypatch, [public])
+    assert problems == [] and [t.access for t in overrides] == ["protected", "public", "protected"]
+
+
+def test_views_that_disagree_on_access_hold(tmp_path, monkeypatch):
+    public = COWER.replace("protected:", "public:")
+    c, known, (own, overrides, problems) = cower(tmp_path, monkeypatch, [COWER, public], owners={})
+    assert any("views disagree on its access" in p for p in problems), problems
+
+
+@pytest.mark.parametrize("declared,row,what", [
+    ("bool operator==(const K &r);", ("??8K@@", "??8K@@QBE_NABV0@@Z"), "this cv"),         # Coord3D::operator==
+    ("void __stdcall f();", ("?f@K@@", "?f@K@@QAEXXZ"), "calling convention"),
+    ("bool grow(int a, int b);", ("?grow@K@@", "?grow@K@@AAE_NHH@Z"), "access"),          # FreelistPool::grow
+    ("~K();", ("??1K@@", "??1K@@UAE@XZ"), "virtual/static"),                             # VBase00C6EE28
+])
+def test_generate_refuses_a_member_its_row_mangles_otherwise(base_header, declared, row, what):
+    c = contract({}, bases=(), inherited=0)
+    c["class"], c["vslots"] = "K", {}
+    role = "dtor" if declared.startswith("~") else "method"
+    special = [{"role": role, "access": "public", "sig": declared, "text": declared}]
+    owners = {row[0]: [(row[1], "owner.cpp")]}
+    with pytest.raises(lane.LayoutError, match=what):
+        lane.generate(c, "data", {}, None, None, special, owners=owners)
+
+
+def test_a_member_its_row_agrees_with_is_kept(base_header):
+    c = contract({}, bases=(), inherited=0)
+    c["class"], c["vslots"] = "K", {}
+    special = [{"role": "method", "access": "public", "sig": "eq", "text": "bool operator==(const K &r) const;"}]
+    text = lane.generate(c, "data", {}, None, None, special, owners={"??8K@@": [("??8K@@QBE_NABV0@@Z", "o.cpp")]})
+    assert "bool operator==(const K &r) const;" in text
