@@ -182,11 +182,7 @@ namespace _STL { template <> AngleFXInfo * __copy<AngleFXInfo *,AngleFXInfo *,in
 class FXList;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/StructureToppleUpdate.h
-struct AngleFXInfo
-{
-	float angle;
-	FXList *fxList;
-};
+#include "../../../../GameEngine/Include/Common/AngleFXInfo.h"
 
 // The growth and allocator providers are defined by AngleFXInfoVectorInsertOverflow.cpp.
 namespace _STL {

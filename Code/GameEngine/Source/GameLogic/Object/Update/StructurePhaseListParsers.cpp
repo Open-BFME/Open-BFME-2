@@ -39,11 +39,7 @@ namespace _STL { template <> void vector<FXList const *,allocator<FXList const *
 class FXList;
 class ObjectCreationList;
 
-struct AngleFXInfo
-{
-	float angle;
-	FXList *fxList;
-};
+#include "../../../../Include/Common/AngleFXInfo.h"
 
 typedef _STL::vector<AngleFXInfo> AngleFXInfoVector;
 

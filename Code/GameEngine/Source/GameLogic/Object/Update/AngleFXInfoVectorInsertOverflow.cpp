@@ -17,11 +17,7 @@ namespace _STL { template <> template <> AngleFXInfo * vector<AngleFXInfo,alloca
 class FXList;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/StructureToppleUpdate.h
-struct AngleFXInfo
-{
-	float angle;
-	FXList *fxList;
-};
+#include "../../../../Include/Common/AngleFXInfo.h"
 
 // Shared allocation/copy specialization, also emitted by Rva00181500Finish.cpp.
 template<>
