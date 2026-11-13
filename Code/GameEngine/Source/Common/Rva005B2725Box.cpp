@@ -5,10 +5,7 @@
 // pinned 0x219251 (-1, 0xFF707070, -1, 0xE0C898, 0,0,0), consume m_4+0x27C
 // via rowed 0x409359 Use, then run rowed 0x423A68. Fresh m_4 reloads; list
 // in ebx, built in edi per retail.
-struct Rva005B5C02Box
-{
-	void Run();
-};
+#include "../../Include/Common/Rva005B5C02Box.h"
 
 #include "../../Include/Common/Rva005B5C02List.h"
 

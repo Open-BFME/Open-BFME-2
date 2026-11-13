@@ -27,7 +27,7 @@ class AppearanceHeroView {public:virtual void slot00();virtual void slot04();vir
 #include "../../Include/GameClient/AptMyHero.h"
 #include "../../Include/Common/CreateAHeroHero.h"
 class Rva005B4BDB {public:void rva005B4C3C();void rva005B4BDB();void rva005B4AD9(int);};
-class Rva005B5C02Box {public:void Run();};
+#include "../../Include/Common/Rva005B5C02Box.h"
 class GameWindow;
 
 UnicodeString GadgetTextEntryGetText(GameWindow*);
