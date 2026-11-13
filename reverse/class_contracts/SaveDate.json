@@ -1,0 +1,178 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "SaveDate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "2": 2
+   },
+   "0x2": {
+    "2": 2
+   },
+   "0x4": {
+    "2": 2
+   },
+   "0x6": {
+    "2": 1
+   },
+   "0x8": {
+    "2": 2
+   },
+   "0xa": {
+    "2": 2
+   },
+   "0xc": {
+    "2": 2
+   },
+   "0xe": {
+    "2": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "16": 5
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameState.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "year",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "2": 2
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "month",
+   "name_by": "zh",
+   "offset": 2,
+   "retail_widths": {
+    "2": 2
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "day",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "2": 2
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "dayOfWeek",
+   "name_by": "zh",
+   "offset": 6,
+   "retail_widths": {
+    "2": 1
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "hour",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "2": 2
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "minute",
+   "name_by": "zh",
+   "offset": 10,
+   "retail_widths": {
+    "2": 2
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "second",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {
+    "2": 2
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "milliseconds",
+   "name_by": "zh",
+   "offset": 14,
+   "retail_widths": {
+    "2": 1
+   },
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 16,
+ "size_by": "zh",
+ "vslots": {}
+}

@@ -67,12 +67,7 @@ extern "C" __declspec(dllimport) void __cdecl _wsplitpath(const WideChar *path, 
 // BFME 2 SaveGameInfo (0xDE8 bytes; layout from its copy constructor and
 // xfer in SaveGameInfoCopyBFME2.cpp, where its rows keep the opaque class
 // name). Only the fields read here are named.
-struct SaveDate
-{
-	bool isNewerThan(SaveDate *other);
-	unsigned short year, month, day, dayOfWeek;
-	unsigned short hour, minute, second, milliseconds;
-};
+#include "../../../../Include/Common/SaveDate.h"
 
 struct BfmeSubobject0022CE19
 {

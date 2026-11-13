@@ -193,17 +193,7 @@ void *g_00DBD040 = (void *)L".BfME2Skirmish";
 void *g_00DBD044 = (void *)L".BfME2WotR";
 void *g_00DBD048 = (void *)L".BfME2WotRMP";
 
-struct SaveDate
-{
-	unsigned short year;
-	unsigned short month;
-	unsigned short day;
-	unsigned short dayOfWeek;
-	unsigned short hour;
-	unsigned short minute;
-	unsigned short second;
-	unsigned short milliseconds;
-};
+#include "../../Include/Common/SaveDate.h"
 
 class GameState
 {

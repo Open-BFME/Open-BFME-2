@@ -95,17 +95,7 @@ extern int BfmeINISavedMacroGeneration;
 
 typedef unsigned short WORD;
 
-struct SaveDate
-{
-	WORD year;
-	WORD month;
-	WORD day;
-	WORD dayOfWeek;
-	WORD hour;
-	WORD minute;
-	WORD second;
-	WORD milliseconds;
-};
+#include "../../../Include/Common/SaveDate.h"
 extern SaveDate BfmeINIReadTimestamp;
 
 // <windows.h>'s SYSTEMTIME (isFileNewer.cpp).

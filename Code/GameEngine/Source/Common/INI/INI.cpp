@@ -643,19 +643,7 @@ struct Rva0002C5E6Range { const StringBase<char>*first,*last; };
 
 extern bool __cdecl Rva0002C5E6(const StringBase<char>&candidate,const Rva0002C5E6Range*filter);
 
-struct SaveDate
-{
-	WORD year;
-	WORD month;
-	WORD day;
-	WORD dayOfWeek;
-	WORD hour;
-	WORD minute;
-	WORD second;
-	WORD milliseconds;
-public:
-	void rva0002BB1C();
-};
+#include "../../../Include/Common/SaveDate.h"
 
 // BfmeINIReadTimestamp: matched references place it at VA 0xddf5b8 (zero-filled; a plain-data view).
 SaveDate BfmeINIReadTimestamp;

@@ -7,19 +7,7 @@
 // is SaveDate ctor in GameState.cpp.
 #include <windows.h>
 
-struct SaveDate
-{
-	WORD year;
-	WORD month;
-	WORD day;
-	WORD dayOfWeek;
-	WORD hour;
-	WORD minute;
-	WORD second;
-	WORD milliseconds;
-public:
-	void rva0002BB1C();
-};
+#include "../../../../Include/Common/SaveDate.h"
 
 void SaveDate::rva0002BB1C()
 {
