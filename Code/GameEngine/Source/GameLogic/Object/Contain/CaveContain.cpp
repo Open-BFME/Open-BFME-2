@@ -108,11 +108,7 @@ public:
 	}
 };
 class BfmeTab1026;
-class Rva004F5436
-{
-public:
-	int rva004F5436(BfmeTab1026 *tab);
-};
+#include "../../../../Include/Common/Rva004F5436.h"
 #include "../../../../Include/GameLogic/Module/Rva00466398.h"
 class TunnelTracker : public Rva00466398
 {
