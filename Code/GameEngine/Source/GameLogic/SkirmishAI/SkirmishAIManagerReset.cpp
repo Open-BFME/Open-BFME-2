@@ -54,7 +54,7 @@ struct ManagerCollectorStorage {unsigned words[3];__forceinline ~ManagerCollecto
 namespace _STL {template<> struct hash<Rva002A9706Element>{unsigned operator()(const Rva002A9706Element&) const;};}
 class Rva002A8FE0 {public:~Rva002A8FE0();void rva002A8FE0();unsigned words[5];};
 class Rva004E9337 {public:void rva004E9337();};
-class ObjectCreationList {public:ObjectCreationList();__forceinline ~ObjectCreationList(){reinterpret_cast<Rva004E9337*>(this)->rva004E9337();}unsigned words[3];};
+#include "../../../Include/GameLogic/ObjectCreationListClass.h"
 class ModuleData;
 enum ObjectID {OBJECTID_INVALID=0};
 class Rva002A8F24:public SubsystemInterface,public Snapshot {
