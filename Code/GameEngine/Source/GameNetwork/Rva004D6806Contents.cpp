@@ -29,15 +29,7 @@ __forceinline const char *GetStr004D6806(const AsciiString &asciiString)
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-class Rva004D67D0 : public NetCommandMsg
-{
-public:
-	virtual AsciiString getContentsAsAsciiString();
-private:
-	int m_action;
-	int m_reason;
-	UnicodeString m_filename;
-};
+#include "../../Include/Common/Rva004D67D0.h"
 
 AsciiString Rva004D67D0::getContentsAsAsciiString()
 {

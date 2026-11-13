@@ -21,13 +21,7 @@
 // 0xFF) and detaches (NetCommandMsg::detach 0x004D55BC).
 #include "unicode_string.h"
 
-class Rva004D67D0
-{
-public:
-	Rva004D67D0();
-private:
-	char m_pad[0x28];
-};
+#include "../../Include/Common/Rva004D67D0.h"
 
 class Rva004D05D7
 {

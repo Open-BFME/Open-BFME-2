@@ -1,0 +1,220 @@
+{
+ "bases": [
+  "NetCommandMsg"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva004D67D0",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 4,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 4,
+   "inherited_spans": [
+    [
+     0,
+     28
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x28": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4d674d"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "NetCommandMsg",
+       "offset": 0,
+       "own_vftable": "0x860560",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d674d"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d674d"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d674d"
+     ],
+     "value": {
+      "0x24": [
+       "??0UnicodeString@@QAE@ABVAsciiString@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4d674d"
+     ],
+     "value": {
+      "0x0": "0x860560"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x860560"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004D67D0@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4d67b4"
+       },
+       {
+        "name": "?getSortNumber@NetCommandMsg@@UAEHXZ",
+        "slot": 1,
+        "target": "0x4ceea1"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 2,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?getContentsAsAsciiString@Rva004D67D0@@UAE?AVAsciiString@@XZ",
+        "slot": 3,
+        "target": "0x4d6806"
+       }
+      ],
+      "table": "0x860560"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x860560": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004D67D0@@MAEPAXI@Z",
+     "1": "?getSortNumber@NetCommandMsg@@UAEHXZ",
+     "2": "?IsCRC@Xfer@@UBE_NXZ",
+     "3": "?getContentsAsAsciiString@Rva004D67D0@@UAE?AVAsciiString@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "40": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_action",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_reason",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "m_filename",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 40,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

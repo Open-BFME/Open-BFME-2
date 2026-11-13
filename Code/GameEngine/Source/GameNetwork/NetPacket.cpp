@@ -97,13 +97,7 @@ public:
 	UnsignedInt m_20;
 };
 // Its ctor (rowed under the dtor's class name) and the +0x24 text setter.
-class Rva004D67D0
-{
-public:
-	Rva004D67D0();
-private:
-	char m_pad[0x28];
-};
+#include "../../Include/Common/Rva004D67D0.h"
 class Rva004D05D7
 {
 public:
