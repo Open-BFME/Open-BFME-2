@@ -197,12 +197,7 @@ public:
 	~Rva004FA2E2();
 };
 
-class Rva002B430C
-{
-public:
-	Rva004FA2E2 *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002B430C.h"
 
 void Rva002B430C::clear()
 {

@@ -46,7 +46,7 @@ class Rva002B4349;
 struct ResolverTransfer {Rva002B4349 &r;Rva004FA2E2 *const p;ResolverTransfer(Rva002B4349 &rr,Rva004FA2E2 *pp):r(rr),p(pp){} Rva004FA2E2 *release() const;};
 class Rva002B4349 {public:~Rva002B4349();Rva002B4349(Rva002B4349 &from){Rva004FA2E2 *p=from.m_ptr;from.m_ptr=0;m_ptr=p;} Rva002B4349(ResolverTransfer from){m_ptr=from.release();} ResolverTransfer transfer(){return ResolverTransfer(*this,m_ptr);}Rva004FA2E2 *m_ptr;};
 inline Rva004FA2E2 *ResolverTransfer::release() const {r.m_ptr=0;return p;}
-class Rva002B430C {public:void clear();};
+#include "../../Include/Common/Rva002B430C.h"
 class Rva002B43E7 {public:Rva002B43E7(Rva002B4349);~Rva002B43E7(){((Rva002B430C*)this)->clear();}Rva004FA2E2 *m_ptr;};
 class Rva002B54BB {public:Rva002B4349 rva002B54BB();};
 #include "../../Include/GameLogic/LivingWorldAutoResolveBattle.h"

@@ -112,7 +112,7 @@ private:
 	Item002B2EC7 *m_p;
 };
 class Rva004FA2E2;
-class Rva002B430C { public: void clear(); };		// 0x002B430C
+#include "../../../../Include/Common/Rva002B430C.h"
 class Rva002B4326
 {
 public:

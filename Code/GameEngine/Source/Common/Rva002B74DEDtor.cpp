@@ -28,14 +28,7 @@ private:
 
 class Rva004FA2E2 { public: ~Rva004FA2E2(); };
 
-class Rva002B430C
-{
-public:
-    ~Rva002B430C();
-    void clear();
-private:
-    Rva004FA2E2 *m_ptr;
-};
+#include "../../Include/Common/Rva002B430C.h"
 // Native normal and unwind paths both call the complete26-byte owning
 // teardown at2B430C: null the slot, destroy its pointee, then free storage.
 Rva002B430C::~Rva002B430C()
