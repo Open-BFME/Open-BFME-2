@@ -114,7 +114,7 @@ void StrategicInGameUI::RegionDetailsArmiesPage::Impl::rva005E19CA(int next){
 // The slot argument is borrowed and unused after the debug assertion.
 class Rva005EEF2F;
 class Rva005E197E {public:virtual void primarySlot();void rva005E197E();private:int unknown04,unknown08;};
-class Rva005E1928 {public:void rva005E1928();};
+#include "../../../../Include/Common/Rva005E1928.h"
 class ArmyIconSlotListenerView {
 public:
  virtual void OnDestroyingRegionDetailsArmiesIconSlot(Rva005EEF2F &) = 0;

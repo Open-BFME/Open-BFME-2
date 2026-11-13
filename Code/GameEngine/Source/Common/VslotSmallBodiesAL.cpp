@@ -128,11 +128,7 @@ class Rva005E197E
 public:
 	void rva005E197E();
 };
-class Rva005E1928
-{
-public:
-	void rva005E1928();
-};
+#include "../../Include/Common/Rva005E1928.h"
 class Rva005E1AB6Obj
 {
 public:
