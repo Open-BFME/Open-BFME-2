@@ -29,7 +29,7 @@ void Rva004D97B0::rva004D9874(const AsciiString &name) {
 struct Rva004388E3Template;
 class Object { public: Object *rva002931F5(bool); };
 class Rva004389AE { public: bool rva004389AE(Object*,const Coord3D*,Rva004388E3Template*); };
-class Rva004D9596 { public: bool rva004D9596(); };
+#include "../../Include/Common/Rva004D9596.h"
 class Rva004D990EBehavior { public:
  virtual void slot0();
  virtual const AsciiString &slot1();

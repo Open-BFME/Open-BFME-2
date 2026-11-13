@@ -8,20 +8,7 @@
 // 0x004D990E and 0x004D9CF3 families; &&-chain shares the single false
 // block where separate early returns give setne shape.
 
-class Rva004D9596
-{
-public:
-    bool rva004D9596();
-    int rva004D9586();
-
-private:
-    int m_00;
-    int m_04;
-    char m_pad08[4];
-    int m_0c;
-    char m_pad10[8];
-    int m_18;
-};
+#include "../../Include/Common/Rva004D9596.h"
 
 // The 28-byte rva004D9596 owner now lives in the genuine voice unit.
 

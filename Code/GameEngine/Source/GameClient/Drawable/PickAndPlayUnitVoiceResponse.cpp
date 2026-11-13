@@ -617,20 +617,7 @@ public:
 // destructor thunk 0x00239BAB in the unwind funclet.
 #include "../../../Include/GameClient/DrawableList.h"
 
-class Rva004D9596
-{
-public:
-	bool rva004D9596();
-	int rva004D9586();
-
-private:
-	int m_00;
-	int m_04;
-	char m_pad08[4];
-	int m_0c;
-	char m_pad10[8];
-	int m_18;
-};
+#include "../../../Include/Common/Rva004D9596.h"
 
 class Rva004D97B0
 {
