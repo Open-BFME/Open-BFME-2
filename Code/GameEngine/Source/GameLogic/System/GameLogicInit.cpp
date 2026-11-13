@@ -3390,17 +3390,7 @@ public:
 	}
 };
 
-class Rva0023E323
-{
-public:
-	__forceinline Rva0023E323(const AsciiString &groupName, int frame)
-	  : m_groupName(groupName), m_frame(frame) {}
-	int rva0023E323(float, int);
-
-private:
-	AsciiString m_groupName;                                             // +0x00
-	unsigned int m_frame;                                                // +0x04
-};
+#include "../../../Include/GameLogic/Rva0023E323.h"
 
 int Rva0023E323::rva0023E323(float, int)
 {

@@ -40,12 +40,7 @@ public:
 // The eight-byte (transition group name, frame) value the timed reverse
 // 0x0023E323 consumes; GameLogic's load-screen stage 0x002423E3 passes it by
 // value to build the callback for the event sequencer 0x003FE7E6.
-class Rva0023E323
-{
-public:
-	AsciiString m_groupName;
-	int m_frame;
-};
+#include "../../../Include/GameLogic/Rva0023E323.h"
 
 class Rva00211E75Callback
 {
