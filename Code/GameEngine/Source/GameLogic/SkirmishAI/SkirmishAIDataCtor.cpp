@@ -31,19 +31,7 @@ struct CombatChainEntry
 	float targetPriorityModifiers[16];
 };
 
-class Rva002A8823Tuning
-{
-public:
-	Rva002A8823Tuning();
-	int difficulty;
-	int economyUpgradeProbability;
-	int field8;
-	int specialPowerActivationProbability;
-	int field10;
-	int offensiveTacticActivationProbability;
-	int field18;
-	int economyMaxFarms;
-};
+#include "../../../Include/Common/Rva002A8823Tuning.h"
 
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16

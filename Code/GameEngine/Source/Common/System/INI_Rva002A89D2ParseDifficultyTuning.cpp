@@ -16,19 +16,7 @@ class INI;
 #include "../../../Include/Common/INI/FieldParse.h"
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
-class Rva002A8823Tuning
-{
-public:
-	Rva002A8823Tuning();
-	int difficulty;
-	int economyUpgradeProbability;
-	int field8;
-	int specialPowerActivationProbability;
-	int field10;
-	int offensiveTacticActivationProbability;
-	int field18;
-	int economyMaxFarms;
-};
+#include "../../../Include/Common/Rva002A8823Tuning.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

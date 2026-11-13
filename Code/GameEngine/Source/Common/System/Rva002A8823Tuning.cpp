@@ -5,19 +5,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Rva002A8823Tuning
-{
-public:
-	Rva002A8823Tuning();
-	int difficulty;
-	int economyUpgradeProbability;
-	int field8;
-	int specialPowerActivationProbability;
-	int field10;
-	int offensiveTacticActivationProbability;
-	int field18;
-	int economyMaxFarms;
-};
+#include "../../../Include/Common/Rva002A8823Tuning.h"
 
 Rva002A8823Tuning::Rva002A8823Tuning()
 {
