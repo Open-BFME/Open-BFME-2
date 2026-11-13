@@ -106,7 +106,7 @@ enum StaticGameLODLevel { STATIC_GAME_LOD_UNKNOWN = -1 };
 #include "../../../../GameEngine/Include/Common/GameLODManager.h"
 
 // The setter is still rowed under this owner; keep its existing call identity.
-class Rva00202739 { public: Bool rva00202739(Int); };
+#include "../../../../GameEngine/Include/Common/Rva00202739.h"
 
 class Rva0061EEE0
 {

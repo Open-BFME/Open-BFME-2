@@ -247,11 +247,7 @@ class Rva00202058
 public:
 	void rva00202058(OptionPreferences *prefs);
 };
-class Rva00202739
-{
-public:
-	bool rva00202739(int level);
-};
+#include "../../../../../Include/Common/Rva00202739.h"
 class Rva00202790
 {
 public:
