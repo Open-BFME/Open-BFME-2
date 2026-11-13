@@ -43,11 +43,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../../../Include/Common/Rva002B254F.h"
 
-class StrategicPlayerStatus
-{
-public:
-	static void rva00523592();
-};
+#include "../../../../Include/GameClient/StrategicPlayerStatus.h"
 
 bool StrategicInGameUI::PlayerStatusDisplayer::rva005CD625()
 {

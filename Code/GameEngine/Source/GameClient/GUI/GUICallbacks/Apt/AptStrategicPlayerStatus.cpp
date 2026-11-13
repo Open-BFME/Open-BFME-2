@@ -235,14 +235,7 @@ struct GlobalA04934;
 extern GlobalA04934 *g_Va00A04934;
 
 
-class StrategicPlayerStatus
-{
-public:
-	void OnInitialized(const char *unused);
-	void OnCloseWindow(const char *unused);
-	void rva00523438(int query, char *value, bool set);
-	void rva0052373A(int query, char *value, bool set);
-};
+#include "../../../../../Include/GameClient/StrategicPlayerStatus.h"
 
 // The constructor binds "StrategicPlayerStatus::OnInitialized" to the
 // shared empty RET 4 body at 0x0047A69C.
