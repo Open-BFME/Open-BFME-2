@@ -774,11 +774,7 @@ Rva005778B6Ret Rva005778B6::rva005778B6()
 }
 
 #include "../../Include/Common/Rva005F6037ByteChaseField.h"
-class Rva005F62FE
-{
-public:
-	void rva005F62FE(bool b);
-};
+#include "../../Include/Common/Rva005F62FE.h"
 class Rva005E6863
 {
 public:
