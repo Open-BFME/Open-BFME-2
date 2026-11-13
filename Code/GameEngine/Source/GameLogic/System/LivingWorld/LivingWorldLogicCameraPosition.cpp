@@ -16,11 +16,7 @@ struct RvaFloatPair
     RvaFloatPair(const RvaFloatPair &rvaFloatPair) { x = rvaFloatPair.x; y = rvaFloatPair.y; }
     ~RvaFloatPair() {}
 };
-class Rva002BECCD
-{
-public:
-    void rva002BECCD(RvaFloatPair, float);
-};
+#include "../../../../Include/Common/Rva002BECCD.h"
 class Rva002D3627Host
 {
 public:

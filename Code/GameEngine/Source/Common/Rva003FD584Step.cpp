@@ -76,11 +76,7 @@ struct RvaFloatPair
 	~RvaFloatPair() {}
 };
 
-class Rva002BECCD
-{
-public:
-	void rva002BECCD(RvaFloatPair pair, float height);
-};
+#include "../../Include/Common/Rva002BECCD.h"
 
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;

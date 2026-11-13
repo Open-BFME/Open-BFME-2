@@ -1,0 +1,183 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002BECCD",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "4": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "p00()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "p01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "p10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "p11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "p12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "p13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "p14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "p15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "p16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "p17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "p18()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "p19()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "p02()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "p20()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "p21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "virt58(Rva002BECCDVec*)"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "q23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "q24()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "q25()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "q26()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "q27()"
+  },
+  "28": {
+   "decided_by": "bytes",
+   "member": "q28()"
+  },
+  "29": {
+   "decided_by": "bytes",
+   "member": "q29()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "p03()"
+  },
+  "30": {
+   "decided_by": "bytes",
+   "member": "q30()"
+  },
+  "31": {
+   "decided_by": "bytes",
+   "member": "virt7c(float)"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "p04()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "p05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "p06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "p07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "p08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "p09()"
+  }
+ }
+}
