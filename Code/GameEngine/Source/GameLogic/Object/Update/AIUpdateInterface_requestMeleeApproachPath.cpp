@@ -30,7 +30,11 @@ typedef bool Bool;
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// Retail calls the game's _fprintf thunk (0x002CEC42) through REL32, so
+// read <stdio.h> without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -110,7 +114,7 @@ Bool AIUpdateInterface::requestMeleeApproachPath(const Coord3D *destination, Boo
 		{
 			if (g_00E03745)
 			{
-				void *log = theLogicRandomLogFile;
+				FILE *log = (FILE *)theLogicRandomLogFile;
 				if (log != 0)
 					fprintf(log, "CritterDesync: requestMeleeApproachPath1 -- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 						m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,
