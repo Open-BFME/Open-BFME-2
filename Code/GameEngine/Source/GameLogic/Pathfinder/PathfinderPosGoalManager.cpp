@@ -250,7 +250,7 @@ class NativeContain31 : public NativeSlots<31> { public: virtual void *slot31()=
 class NativeContain69 : public NativeSlots<69> { public: virtual unsigned int slot69(int)=0; };
 class Rva004DD9E3 { public: int rva004DD9E3(int,int,int); Rva004DD843Slot *slot; int category; Object *object; int layer,secondary; };
 #include "../../../Include/GameLogic/Rva002E9D09.h"
-class Rva002E7E26 { public: int rva002E7E26(Object *,int,int); int owner; Coord3D source,closest;float cost;bool found; };
+#include "../../../Include/GameLogic/Rva002E7E26.h"
 class Pathfinder {
 public:
     int IterateCellsInRectangle(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva002E9D09 *);

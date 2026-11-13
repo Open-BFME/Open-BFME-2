@@ -5068,16 +5068,7 @@ class Rva002E7DF5
  
 }
 ;
-class Rva002E7E26 
-{
- public:int rva002E7E26(Object*,int,int);
- int owner;
- Coord3D source,closest;
- float cost;
- bool found;
- 
-}
-;
+#include "../../../Include/GameLogic/Rva002E7E26.h"
 enum LandCellKind 
 {
  LandClear=0, LandWater=1, LandSolid=7 

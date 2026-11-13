@@ -86,11 +86,7 @@ PATHFINDER_CELL_LINE_CALLBACK( Rva002F600CInfo )
 
 class Object;
 
-class Rva002E7E26
-{
-public:
-	Int rva002E7E26( Object *cell, Int cellX, Int cellY );
-};
+#include "../../../Include/GameLogic/Rva002E7E26.h"
 
 #include "../../../Include/GameLogic/Rva002E9D09.h"
 class Rva004DD9E3 {public:Int rva004DD9E3(Int,Int,Int);};
