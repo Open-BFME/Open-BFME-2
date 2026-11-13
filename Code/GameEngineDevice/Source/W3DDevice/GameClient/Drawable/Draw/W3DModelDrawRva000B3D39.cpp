@@ -30,11 +30,7 @@ extern View *TheTacticalView;
 struct Rva000B2BE5Src;
 int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);	// 0x000B2BA3
 
-class Rva000B3A68
-{
-public:
-	unsigned char rva000B3A68();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva000B3A68.h"
 
 struct Rva000B3D39ModuleData
 {
