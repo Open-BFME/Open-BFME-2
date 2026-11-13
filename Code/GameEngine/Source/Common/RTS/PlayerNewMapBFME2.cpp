@@ -56,12 +56,7 @@ extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
-struct Rva002E2690Element
-{
-public:
-	~Rva002E2690Element();
-	char bytes[0xD8]; // +0x00
-};
+#include "../../../Include/Common/Rva002E2690Element.h"
 // Cleanup belongs to the existing 63-byte vector destructor provider at
 // 0x002B0B32. Declare that specialization so this TU emits no divergent
 // allocator/deallocation COMDAT copies for the accessed D8 record view.

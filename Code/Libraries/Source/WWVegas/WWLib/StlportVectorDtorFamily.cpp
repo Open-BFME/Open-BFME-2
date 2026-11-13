@@ -167,7 +167,7 @@ namespace _STL { template <> void _Destroy<Rva00413B16Element *>(Rva00413B16Elem
 template _STL::vector<Rva00413B16Element>::~vector();
 
 // ??1?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@QAE@XZ @0x002B0B32 (_Destroy at 0x002AF4ED)
-struct Rva002E2690Element { public: ~Rva002E2690Element(); };
+#include "../../../../GameEngine/Include/Common/Rva002E2690Element.h"
 // Use the retail range helper; this TU models only vector destruction.
 namespace _STL { template <> void _Destroy<Rva002E2690Element *>(Rva002E2690Element *, Rva002E2690Element *); }
 template _STL::vector<Rva002E2690Element>::~vector();

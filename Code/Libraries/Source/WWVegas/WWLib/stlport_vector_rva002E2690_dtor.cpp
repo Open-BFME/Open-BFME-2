@@ -6,10 +6,7 @@
 #include <stdlib.h>
 #include <vector>
 
-struct Rva002E2690Element
-{
-	~Rva002E2690Element();
-};
+#include "../../../../GameEngine/Include/Common/Rva002E2690Element.h"
 
 namespace _STL
 {

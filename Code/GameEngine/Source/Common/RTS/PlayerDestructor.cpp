@@ -63,12 +63,7 @@ struct PoolListNode
 	TeamPrototypeRef *m_tp;
 };
 
-struct Rva002E2690Element
-{
-public:
-	~Rva002E2690Element();
-	char bytes[0xD8]; // +0x00
-};
+#include "../../../Include/Common/Rva002E2690Element.h"
 
 struct BfmeVectorRecord002AF478
 {
