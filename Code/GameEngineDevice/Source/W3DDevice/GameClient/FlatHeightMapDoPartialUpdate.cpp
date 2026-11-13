@@ -29,7 +29,7 @@ __forceinline long fast_float2long_round(float f)
 #define REAL_TO_INT_CEIL(x) (fast_float2long_round(ceilf(x)))
 class RefRenderObjListIterator;
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
-class Rva00113110Holder { public: void rva00113110(void *); };
+#include "../../../Include/W3DDevice/GameClient/Rva00113110Holder.h"
 class W3DTerrainBackground { public: void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, bool doTextures, bool flag); };
 struct TerrainTileView { char data[0xd4]; };
 class Rva000E3B41

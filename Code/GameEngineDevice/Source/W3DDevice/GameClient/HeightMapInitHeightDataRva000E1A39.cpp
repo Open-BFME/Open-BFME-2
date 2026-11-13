@@ -23,7 +23,7 @@ class WorldHeightMap;
 class BaseHeightMapRenderObjClass{public:virtual int initHeightData(int,int,WorldHeightMap*,void*);};
 class Rva00112291TerrainOwner{public:Rva00112291TerrainOwner();~Rva00112291TerrainOwner();char bytes[0xd4];};
 class Rva0011216CSlotQuartet{public:void rva00112197();};
-class Rva00113110Holder{public:void rva00113110(void*);};
+#include "../../../Include/W3DDevice/GameClient/Rva00113110Holder.h"
 class RvaRef;
 #include "../../../Include/W3DDevice/GameClient/Rva00111F0E.h"
 class Rva000E15D1{public:void rva000E14C4();void rva000E153A();
