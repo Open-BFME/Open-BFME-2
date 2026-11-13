@@ -125,7 +125,7 @@ class Rva0055A88BDwordField;
 #include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3C20Slot.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3899Slot.h"
 #include "../../../../../../GameEngine/Include/GameClient/Rva001F38C1Slot.h"
-class Rva001F3852ByteOneSetter { public: void enable() throw(); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 
 class ParticleSystemColorSink { public: virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void setColor(int color); };
 

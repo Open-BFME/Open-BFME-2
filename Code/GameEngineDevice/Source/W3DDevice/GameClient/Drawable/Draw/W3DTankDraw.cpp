@@ -195,11 +195,7 @@ public:
 };
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 // ?rva000CE0EA@W3DTankDraw@@QAEXXZ @0x000CE0EA 63B: enable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-one enable 0x1F3852; W3DTankDraw layout from ctor 0xCEA6C; volatile loads preserve Make chases like truck toss 0xCB5C3; unblocks 0xCE147
-class Rva001F3852ByteOneSetter
-{
-public:
-	void enable();
-};
+#include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
 //
 // W3DTankDraw::setHidden, retail 0x000CE129 (30 bytes), ported from Zero
 // Hour's GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/
