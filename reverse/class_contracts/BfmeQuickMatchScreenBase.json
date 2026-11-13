@@ -1,0 +1,387 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeQuickMatchScreenBase",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x24": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x40fd38",
+      "0x538c0e"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x40fd38",
+      "0x538c0e"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       1
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x40fd38",
+      "0x538c0e"
+     ],
+     "value": {
+      "0x0": [
+       "?bfmeAttach@BfmeQuickMatchScreenBase@@AAEXPAX@Z"
+      ],
+      "0x4": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x40fd38",
+      "0x538c0e"
+     ],
+     "value": {
+      "0x0": "0x839608"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x839608"
+     ],
+     "value": {
+      "count": 9,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?runInit@WindowLayout@@QAEXPAX@Z",
+        "slot": 0,
+        "target": "0x40fd7c"
+       },
+       {
+        "name": "??_GRva00538C5F@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x40fdb5"
+       },
+       {
+        "name": "?runUpdate@WindowLayout@@QAEXPAX@Z",
+        "slot": 2,
+        "target": "0x40fd8f"
+       },
+       {
+        "name": "?runShutdown@WindowLayout@@UAEXPAX@Z",
+        "slot": 3,
+        "target": "0x40fda2"
+       },
+       {
+        "name": "?rva00538AB0@BfmeQuickMatchScreenBase@@UAEX_N@Z",
+        "slot": 4,
+        "target": "0x538ab0"
+       },
+       {
+        "name": "?bringForward@WindowLayout@@UAEXXZ",
+        "slot": 5,
+        "target": "0x538b07"
+       },
+       {
+        "name": "?addWindow@WindowLayout@@UAEXPAVGameWindow@@@Z",
+        "slot": 6,
+        "target": "0x538b48"
+       },
+       {
+        "name": "?removeWindow@WindowLayout@@UAEXPAVGameWindow@@@Z",
+        "slot": 7,
+        "target": "0x538b95"
+       },
+       {
+        "name": "?rva00538ADC@BfmeQuickMatchScreenBase@@UAEXXZ",
+        "slot": 8,
+        "target": "0x538adc"
+       }
+      ],
+      "table": "0x839608"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x839608": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?runInit@WindowLayout@@QAEXPAX@Z",
+     "1": "??_GRva00538C5F@@UAEPAXI@Z",
+     "2": "?runUpdate@WindowLayout@@QAEXPAX@Z",
+     "3": "?runShutdown@WindowLayout@@UAEXPAX@Z",
+     "4": "?rva00538AB0@BfmeQuickMatchScreenBase@@UAEX_N@Z",
+     "5": "?bringForward@WindowLayout@@UAEXXZ",
+     "6": "?addWindow@WindowLayout@@UAEXPAVGameWindow@@@Z",
+     "7": "?removeWindow@WindowLayout@@UAEXPAVGameWindow@@@Z",
+     "8": "?rva00538ADC@BfmeQuickMatchScreenBase@@UAEXXZ"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 1,
+   "36": 5
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_slot",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_head",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_bfmePad",
+   "name_by": "majority",
+   "offset": 21,
+   "retail_widths": {},
+   "size": 3,
+   "type": "char[3]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "bfmeSlot0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "bfmeSlot1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "bfmeSlot2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "bfmeSlot3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "rva00538AB0(bool)"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot5()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "add(void*)"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot7(GameWindow*)"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "rva00538ADC()"
+  }
+ }
+}

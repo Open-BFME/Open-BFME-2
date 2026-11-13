@@ -11,31 +11,7 @@
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class BfmeQuickMatchScreenBase
-{
-public:
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
-	virtual void bfmeSlot2() = 0;
-	virtual void bfmeSlot3() = 0;
-	virtual void rva00538AB0(bool flag);
-	virtual void slot5() = 0;
-	virtual void add(void *payload) = 0;
-	virtual void slot7(GameWindow *w);
-	virtual void rva00538ADC();
-	BfmeQuickMatchScreenBase();
-
-private:
-	AsciiString m_slot; // +0x04
-	GameWindow *m_head;
-	int m_0C;
-	int m_10;
-	bool m_14;
-	char m_pad15[3];
-	int m_18;
-	int m_1C;
-	int m_20;
-};
+#include "../../../Include/Common/BfmeQuickMatchScreenBase.h"
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva00538B2F@Rva00538B2F@@QAEPAURva0052A28EDwordField@@PAU2@@Z placeholder, retail 0x00538B2F, 25 bytes.
