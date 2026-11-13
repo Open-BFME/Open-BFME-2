@@ -66,11 +66,7 @@ struct Rva002120C2Entry;
 
 #include "../../../Include/Common/Rva002120A4.h"
 
-class Rva003FD690
-{
-public:
-	void rva003FD690(const Coord *position);		// 0x003FD690
-};
+#include "../../../Include/Common/Rva003FD690.h"
 
 // The named-object table at +0x204 (an AsciiString-keyed hash table: nodes
 // {next +0, key +4, object +8}, element count +0x10), reached through its

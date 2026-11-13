@@ -15,11 +15,7 @@ struct Rva002120C2Entry;
 
 #include "../../Include/Common/Rva002120A4.h"
 
-class Rva003FD690
-{
-public:
-	void rva003FD690(const Coord *value);
-};
+#include "../../Include/Common/Rva003FD690.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 
