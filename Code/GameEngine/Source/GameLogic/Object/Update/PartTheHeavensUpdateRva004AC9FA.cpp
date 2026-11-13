@@ -9,11 +9,7 @@
 
 static const float RADS_PER_DEGREE = 0.017453292f;	// __real@3c8efa35, as Rva00214F14Init.cpp spells it
 
-class FCurve
-{
-public:
-	float operator()(float t);
-};
+#include "../../../../Include/Common/FCurve.h"
 
 class PartModuleData
 {

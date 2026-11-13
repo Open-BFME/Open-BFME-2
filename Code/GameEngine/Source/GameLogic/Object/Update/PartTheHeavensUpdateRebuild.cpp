@@ -12,11 +12,7 @@
 
 
 
-class FCurve
-{
-public:
-	float operator()(float t);
-};
+#include "../../../../Include/Common/FCurve.h"
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 

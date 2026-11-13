@@ -22,11 +22,7 @@ public:
 	unsigned char m_livingWorldTurbo;
 };
 
-class FCurve
-{
-public:
-	float operator()(float progress);
-};
+#include "../../Include/Common/FCurve.h"
 
 struct BfmeStateDFVector3
 {

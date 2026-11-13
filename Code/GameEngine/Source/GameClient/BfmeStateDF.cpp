@@ -6,11 +6,7 @@
 // and single-lerp x87 shape as BfmeStateDF::interpolate in
 // LivingWorldPairInterpolate.cpp (which needs /Oy- for its EBP frame;
 // this frameless 33B leaf needs no /Oy-).
-class FCurve
-{
-public:
-    float operator()(float progress);
-};
+#include "../../Include/Common/FCurve.h"
 
 struct BfmeStateDFVector3
 {
