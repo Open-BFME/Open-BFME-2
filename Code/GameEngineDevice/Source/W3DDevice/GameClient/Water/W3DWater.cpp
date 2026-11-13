@@ -133,7 +133,7 @@ template<> _Vector_base<TreeHintRef00217D4C, allocator<TreeHintRef00217D4C> >::~
 template<> void allocator<TreeHintRef00217D4C>::deallocate(TreeHintRef00217D4C *, size_t) const;
 }
 #include "../../../../Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
-class Rva0007E12F {public: void rva0007E12F();};
+#include "../../../../../GameEngine/Include/Common/Rva0007E12F.h"
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 // Native destructor EH cleanup 75F6F6 uses the existing device-lock

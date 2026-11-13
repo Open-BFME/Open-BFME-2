@@ -11,7 +11,7 @@
 
 extern void *W3DGCData00DE2000;
 
-class Rva0007E12F { public: void rva0007E12F(); };
+#include "../../../../GameEngine/Include/Common/Rva0007E12F.h"
 #include "../../../../GameEngine/Include/Common/Rva000EC9C6.h"
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
