@@ -134,16 +134,7 @@ enum TurretTargetType
 // The 0x40-byte turret machine (vtable 0x00C609C8); getGoalObject is 0x004D7726.
 #include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
-class TurretAINotifyBase
-{
-public:
-	virtual void notifyFired() = 0;
-	virtual void notifyNewVictimChosen(Object *victim) = 0;
-	// Retail table 0x00C078DC: 3 __purecall entries follow.
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-};
+#include "../../../Include/Common/TurretAINotifyBase.h"
 
 class TurretAI : public Snapshot, public TurretAINotifyBase
 {

@@ -188,12 +188,7 @@ public:
 	TurretAI *m_turretAI;								// +0x3C
 };
 
-class TurretAINotifyBase
-{
-public:
-	virtual void notifyFired() = 0;
-	virtual void notifyNewVictimChosen(Object *victim) = 0;
-};
+#include "../../../Include/Common/TurretAINotifyBase.h"
 
 BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva004D86B1CmpBoolField, 0x28, 1, ==)
 
