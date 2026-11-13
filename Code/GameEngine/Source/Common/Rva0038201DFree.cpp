@@ -17,14 +17,7 @@ struct Rva0038201DNode
 	Rva0038201DNode* m_child;
 };
 
-class Rva0038201D
-{
-	Rva0038201DNode* m_head;
-	int m_count;
-public:
-	void rva0038201D(Rva0038201DNode* n);
-	void rva003828B6();
-};
+#include "../../Include/Common/Rva0038201D.h"
 
 void Rva0038201D::rva0038201D(Rva0038201DNode* n)
 {

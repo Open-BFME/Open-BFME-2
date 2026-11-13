@@ -3,13 +3,7 @@
 // +0x154/+0x160/+0x16c/+0x178/+0x184 via rowed 0x00383276/0x0038323E/0x003832AE
 // then base ??1Rva00383D71 at +0 rowed in Rva00383D71Dtor.cpp. Callers
 // 0x0038535F 0x0038539E unclaimed thiscall. No vptr store so non-virtual QAE.
-class Rva0038201D
-{
-public:
-	~Rva0038201D();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva0038201D.h"
 
 class Rva0038204A
 {

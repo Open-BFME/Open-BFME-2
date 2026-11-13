@@ -4,15 +4,7 @@
 // two 6x arrays via eh vector destructor at +0x4c/+0x94, 8x Rva0038204A at
 // +0xdc. Callees rowed in Rva0046A93EDtor.cpp, arrays use rowed element
 // dtors via 0x00629110. Callers 0x003844D7/0x0038454E tail-call as base.
-class Rva0038201D
-{
-public:
-	~Rva0038201D();
-private:
-	void *m_head;
-	int m_count;
-	int m_extra;
-};
+#include "../../Include/Common/Rva0038201D.h"
 
 class Rva0038204A
 {
