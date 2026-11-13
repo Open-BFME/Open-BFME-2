@@ -236,3 +236,19 @@ Return's State entry. Seed, States and Return now have no header-queue rows;
 the constructor's separate State entry remains. A fresh guarded merge is
 still required. The prior push's broad audit remains INCONCLUSIVE for the
 missing current AIBaseBuilder.cpp receipt.
+
+## Return and Idle declaration unions banked
+
+The supported tu_views run applies only AITNGuardReturnState and
+AITNGuardIdleState. Their native bases and field offsets now agree, so the
+union adds the existing method declarations and the +0x54 timer where a
+shorter view previously stopped. It preserves all 39 rows and all 131 emitted
+COMDATs unchanged. Strict preparation and three own previews retain 2,921
+bytes. The tool's guarded before/after checks still accept no donor.
+
+The remaining States composition errors now identify the private body-module
+getter and Object team helper. Return still conflicts with the seed's Object
+view and its list type. The constructor retains its known prerequisites.
+TunnelTracker's ObjectIDList versus STL list storage at +8 is excluded from
+the mechanical union; the planner reports that disagreement as CONFLICT.
+No unsupported field or base guess, alias or row move is introduced.

@@ -101,11 +101,18 @@ typedef UnsignedInt StateID;
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "AITNGuardEnterStateView.h"
+class Xfer;
+class AITNGuardMachine;
 class AITNGuardReturnState : public AIEnterState
 {
+protected:
+	virtual void xfer( Xfer *xfer );
+public:
+	virtual StateReturnType update();
+private:
+	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
 public:
 	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
 private:
 	UnsignedInt m_nextReturnScanTime; // +0x54
 };
@@ -139,6 +146,7 @@ inline StateReturnType STATE_SLEEP(UnsignedInt frames) { return (StateReturnType
 class AITNGuardIdleState : public State
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 protected:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }

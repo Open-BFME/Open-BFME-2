@@ -291,6 +291,11 @@
   clear the remaining seed and Return header entries. No further donor move
   is claimed until the next guarded composition; Object and constructor
   reconciliation remain separate.
+  The supported ReturnState/IdleState view unions then pass 39 rows and keep
+  all 131 emitted COMDATs unchanged. Before/after composition still accepts
+  no donor, now narrowing States to BodyModuleInterface and its Object team
+  helper, while Return retains Object/list conflicts. TunnelTracker's +8
+  list-type disagreement remains excluded from the mechanical union.
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the

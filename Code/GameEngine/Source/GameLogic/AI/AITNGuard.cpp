@@ -451,12 +451,19 @@ protected:
 // ------------------------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------------------------
+class AITNGuardMachine;
 class AITNGuardReturnState : public AIEnterState
 {
 protected:
 	virtual void xfer( Xfer *xfer );
+public:
+	virtual StateReturnType update();
 private:
-	UnsignedInt m_nextReturnScanTime;																					///< 0x54
+	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
+public:
+	virtual StateReturnType onEnter();
+private:
+	UnsignedInt m_nextReturnScanTime; // +0x54
 };
 
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA

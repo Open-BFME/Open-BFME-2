@@ -152,15 +152,24 @@ private:
 };
 class AITNGuardReturnState : public AIEnterState
 {
+protected:
+	virtual void xfer( Xfer *xfer );
 public:
 	virtual StateReturnType update();
 private:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
+public:
+	virtual StateReturnType onEnter();
+private:
+	UnsignedInt m_nextReturnScanTime; // +0x54
 };
 class AITNGuardIdleState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
+protected:
+	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
 private:
 	UnsignedInt m_nextEnemyScanTime; // +0x20
 };
