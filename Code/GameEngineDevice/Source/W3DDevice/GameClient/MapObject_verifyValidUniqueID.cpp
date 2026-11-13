@@ -65,7 +65,7 @@ class ThingTemplate : public ThingTemplateHead, public ThingTemplateName
 
 // The waypoint and generic-AI name getters bind to their rowed
 // address-derived owners in Rva0030D748Method.cpp and Rva0030D808Method.cpp.
-class Rva0030D748 { public: AsciiString rva0030D748(); };
+#include "../../../../GameEngine/Include/Common/Rva0030D748.h"
 #include "../../../Include/W3DDevice/GameClient/Rva0030D808.h"
 
 class MapObject

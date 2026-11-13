@@ -22,7 +22,7 @@ class Dict { public:
 #include "../../Include/Common/ThingTemplate.h"
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class Rva0030D748 { public: AsciiString rva0030D748(); };
+#include "../../Include/Common/Rva0030D748.h"
 class MapObject {public:const ThingTemplate *getThingTemplate() const;};
 class Rva0030DBD5 {public:
  virtual ~Rva0030DBD5();
