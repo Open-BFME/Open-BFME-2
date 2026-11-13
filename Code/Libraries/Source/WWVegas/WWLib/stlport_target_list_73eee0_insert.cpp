@@ -16,7 +16,7 @@
 // a provenance hypothesis, not a target identity claim.
 #include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 struct TargetNestedHandleData { unsigned char Unknown[12]; unsigned int RefCount; };
-struct TargetNestedHandle { TargetNestedHandleData *item; };
+#include "../../../../GameEngine/Include/Common/TargetNestedHandle.h"
 struct Rva0073EEE0ListValue {
     Rva0036CA00Str helperManagedPointer;
     unsigned int unknown_04;

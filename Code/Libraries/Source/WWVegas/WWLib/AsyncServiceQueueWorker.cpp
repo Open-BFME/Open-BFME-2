@@ -15,7 +15,7 @@
 #include "OpaqueRefCounted.h"
 #include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 struct TargetNestedHandleData {char pad[12];unsigned count;};
-struct TargetNestedHandle {TargetNestedHandleData *item;};
+#include "../../../../GameEngine/Include/Common/TargetNestedHandle.h"
 struct Rva0073EEE0ListValue {Rva0036CA00Str helperManagedPointer;unsigned unknown_04;TargetNestedHandle handle_08;Rva0073EEE0ListValue();Rva0073EEE0ListValue(const Rva0073EEE0ListValue&);~Rva0073EEE0ListValue();};
 typedef _STL::list<Rva0073EEE0ListValue> WorkList;
 namespace _STL {

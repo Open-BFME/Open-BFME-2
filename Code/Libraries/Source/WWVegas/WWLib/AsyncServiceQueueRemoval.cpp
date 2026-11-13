@@ -32,7 +32,7 @@ public:
 };
 inline __declspec(noinline) __declspec(nothrow) Rva0036CA00Str::Rva0036CA00Str(const Rva0036CA00Str &other):m_item(other.m_item){if(m_item)InterlockedIncrement((long volatile*)((char*)m_item+4));}
 struct TargetNestedHandleData { unsigned char Unknown[12]; unsigned int RefCount; };
-struct TargetNestedHandle { TargetNestedHandleData *item; };
+#include "../../../../GameEngine/Include/Common/TargetNestedHandle.h"
 struct Rva0073EEE0ListValue {
     Rva0036CA00Str helperManagedPointer;
     unsigned int unknown_04;

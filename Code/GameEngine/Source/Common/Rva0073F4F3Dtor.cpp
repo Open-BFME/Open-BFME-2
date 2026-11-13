@@ -9,7 +9,7 @@
 #include <list>
 #include "../../Include/Common/Rva0036CA00Str.h"
 struct TargetNestedHandleData;
-struct TargetNestedHandle {TargetNestedHandleData*item;};
+#include "../../Include/Common/TargetNestedHandle.h"
 struct Rva0073EEE0ListValue {Rva0036CA00Str helperManagedPointer;unsigned unknown_04;TargetNestedHandle handle_08;Rva0073EEE0ListValue();Rva0073EEE0ListValue(const Rva0073EEE0ListValue&);~Rva0073EEE0ListValue();};
 namespace _STL {template<> _List_base<Rva0073EEE0ListValue,allocator<Rva0073EEE0ListValue> >::~_List_base();}
 typedef _STL::list<Rva0073EEE0ListValue> WorkList;
