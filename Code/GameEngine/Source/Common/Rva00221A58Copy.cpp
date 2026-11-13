@@ -7,17 +7,7 @@
 
 #include "../../Include/Common/Rva0022185A.h"
 
-class Rva00221A58
-{
-public:
-	Rva00221A58(const Rva00221A58 &other);
-private:
-	AsciiString m_00;
-	AsciiString m_04;
-	AsciiString m_08;
-	Rva0022185A m_0C;
-	int m_18;
-};
+#include "../../Include/Common/Rva00221A58.h"
 
 Rva00221A58::Rva00221A58(const Rva00221A58 &other)
 	: m_00(other.m_00)
