@@ -19,11 +19,7 @@
 
 #include "../../Include/Common/DelegateDesc.h"
 
-struct ImplBase {
-    virtual ~ImplBase() {}
-    int m_ref;
-    ImplBase() : m_ref(0) {}
-};
+#include "../../Include/Common/ImplBase.h"
 
 class Impl : public ImplBase {
 public:

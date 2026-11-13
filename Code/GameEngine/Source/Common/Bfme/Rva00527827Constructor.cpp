@@ -29,11 +29,7 @@ template <class T, class M> __forceinline DelegateDesc MakeDelegate(T *object, M
 	return desc;
 }
 
-struct ImplBase {
-	virtual ~ImplBase() {}
-	int m_ref;
-	ImplBase() : m_ref(0) {}
-};
+#include "../../../Include/Common/ImplBase.h"
 
 struct Impl : ImplBase {
 	virtual void invoke(const char *argument);
