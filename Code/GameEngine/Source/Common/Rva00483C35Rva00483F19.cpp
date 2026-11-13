@@ -83,7 +83,7 @@ extern PartitionManager *ThePartitionManager;
 extern TerrainLogic *TheTerrainLogic;
 
 struct B00 { virtual void f00(); Rva00483C35ClearanceData *m_moduleData; Object *m_object; };
-struct B0C { virtual void f0C(); };
+#include "../../Include/Common/B0C.h"
 struct B10 { virtual void f10(); unsigned char m_pad[12]; };
 struct B20 { virtual void f20(); };
 struct B24

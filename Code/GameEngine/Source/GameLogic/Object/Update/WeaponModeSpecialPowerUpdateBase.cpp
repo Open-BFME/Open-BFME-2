@@ -149,7 +149,7 @@ struct Rva00494A97ModuleData
 
 struct B00 { virtual void f00(); const Rva00494A97ModuleData *m_moduleData; Object *m_object; };
 
-struct B0C { virtual void f0C(); };
+#include "../../../../Include/Common/B0C.h"
 
 struct B10 { virtual void f10(); unsigned char m_pad[12]; };
 

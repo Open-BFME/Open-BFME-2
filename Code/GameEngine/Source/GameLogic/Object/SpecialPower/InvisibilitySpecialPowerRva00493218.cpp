@@ -19,7 +19,7 @@ struct InvisibilitySpecialPowerModuleData
 	Rva002390CB m_10;
 };
 struct B00 { virtual void f00(); const InvisibilitySpecialPowerModuleData *m_moduleData; Object *m_object; };
-struct B0C { virtual void f0C(); };
+#include "../../../../Include/Common/B0C.h"
 class Iface10
 {
 public:
