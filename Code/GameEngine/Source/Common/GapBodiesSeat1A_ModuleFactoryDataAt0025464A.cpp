@@ -517,14 +517,7 @@ struct PoolNode002ABAC0
 // rowed init.
 extern FreelistPool g_freelistPool009BBD2C;
 
-class Rva002AC026Member
-{
-public:
-	Rva002AC026Member(void *context);
-	void *init(void *context);								// 0x002AC026
-private:
-	void *m_head;
-};
+#include "../../Include/Common/Rva002AC026Member.h"
 
 
 // --- 0x002AD7E9 (61B): the +8 interface of a player feeds the record's

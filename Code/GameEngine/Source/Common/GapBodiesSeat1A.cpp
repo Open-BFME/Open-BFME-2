@@ -1818,14 +1818,7 @@ void *Rva002ABB86::rva002ABB86(unsigned int count, const void *)
 	return g_freelistPool009BBD2C.pop();
 }
 
-class Rva002AC026Member
-{
-public:
-	Rva002AC026Member(void *context);
-	void *init(void *context);								// 0x002AC026
-private:
-	void *m_head;
-};
+#include "../../Include/Common/Rva002AC026Member.h"
 
 Rva002AC026Member::Rva002AC026Member(void *context)
 {
