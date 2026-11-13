@@ -31,7 +31,7 @@ class Rva004F6093Holder {public:
 struct Rva004E0790Inner;
 #include "../../../../../Include/GameLogic/ArmySummary.h"
 struct Rva0040DD3ARef {void *value;};
-class Rva002E34A9 {public:void rva002E34A9(const Rva0040DD3ARef&,int);};
+#include "../../../../../Include/GameLogic/Rva002E34A9.h"
 class Rva002E2903Player;
 struct Rva002B488EResult {char unknown00[0x54];int player54; __forceinline int GetPlayer() const{return player54;}};
 struct Rva002B2579Result;

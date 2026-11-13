@@ -132,7 +132,7 @@ class Rva002E2903Player;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002E34A9 { public: void rva002E34A9(const Rva0040DD3ARef &,int); };
+#include "../../../../Include/GameLogic/Rva002E34A9.h"
 #include "../../../../Include/GameLogic/ArmySummary.h"
 struct HeroTemplateKindView { char pad00[0x113]; unsigned char kind113; };
 void __cdecl Rva00030830GameFree(void *);
