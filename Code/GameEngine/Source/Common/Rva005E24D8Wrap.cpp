@@ -27,11 +27,7 @@ public:
 	void rva005F09D7();
 };
 
-class Rva005E2138
-{
-public:
-	void rva005E2144(bool b);
-};
+#include "../../Include/Common/Rva005E2138.h"
 
 #include "../../Include/Common/Rva005E2439.h"
 

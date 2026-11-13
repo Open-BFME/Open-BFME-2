@@ -52,7 +52,7 @@ public: virtual void OnBuildPlotBuildingChanged(LivingWorldBuildPlot &); virtual
 };
 #include "../../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
-class Rva005E2138 { public: void *GetBuildPlot(); };
+#include "../../../../Include/Common/Rva005E2138.h"
 class Rva004FC21AOwner { public: int rva004FC207(); };
 namespace StrategicInGameUI {
 enum LivingWorldBuildingType { LIVING_WORLD_BUILDING_TYPE_COUNT = 5 };

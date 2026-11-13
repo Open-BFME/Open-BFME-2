@@ -57,11 +57,7 @@ public:
 	virtual ~Rva005E278EPlot();
 };
 
-class Rva005E2138
-{
-public:
-	void *GetBuildPlot();
-};
+#include "../../Include/Common/Rva005E2138.h"
 
 class Rva005E278EBase0
 {
