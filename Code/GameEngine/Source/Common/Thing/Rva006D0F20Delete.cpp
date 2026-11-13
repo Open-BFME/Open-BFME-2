@@ -8,11 +8,7 @@
 
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
-struct Rva006D0F20
-{
-	void release();
-	void *rva006D1100(unsigned int flags);
-};
+#include "../../../Include/Common/Rva006D0F20.h"
 
 void *Rva006D0F20::rva006D1100(unsigned int flags)
 {

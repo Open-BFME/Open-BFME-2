@@ -5,10 +5,7 @@
 // shared deallocator at 0x006DB270 (allocator object at 0x00E176E8, args
 // (block, 16)). Both callees resolve via pins; the allocator global is a
 // TU-local extern (DIR32 auto-patches). No // cl: line (defaults match).
-struct Rva006D0F20
-{
-	void release();
-};
+#include "../../../Include/Common/Rva006D0F20.h"
 
 #include "../../../Include/Common/Rva006DB270.h"
 
