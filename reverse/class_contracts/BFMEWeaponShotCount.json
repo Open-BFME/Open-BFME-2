@@ -1,0 +1,83 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BFMEWeaponShotCount",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "56": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_unreconstructed_000",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 32,
+   "type": "char[32]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_shotsFired",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_unreconstructed_024",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 16,
+   "type": "char[16]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maxShotCount",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 56,
+ "size_by": "majority",
+ "vslots": {}
+}

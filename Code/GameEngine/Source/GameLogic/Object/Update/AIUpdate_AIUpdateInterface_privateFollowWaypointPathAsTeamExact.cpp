@@ -828,19 +828,7 @@ public:
 
 // BFME writes the max-shot count in place: the count at weapon+0x34 and the
 // shots-fired counter at +0x20 reset together, with no call.
-struct BFMEWeaponShotCount
-{
-	void setMaxShotCount( Int maxShots )
-	{
-		m_maxShotCount = maxShots;
-		m_shotsFired = 0;
-	}
-
-	char m_unreconstructed_000[0x20];
-	Int m_shotsFired;					///< retail this+0x20
-	char m_unreconstructed_024[0x34 - 0x24];
-	Int m_maxShotCount;					///< retail this+0x34
-};
+#include "../../../../Include/Common/BFMEWeaponShotCount.h"
 
 // BFME keeps the object's contain module at +0x1fc and its AI module at +0x204.
 struct BFMEObjectContainField
