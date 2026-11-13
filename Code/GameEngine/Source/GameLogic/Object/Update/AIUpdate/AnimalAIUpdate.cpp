@@ -96,7 +96,7 @@ extern "C" void *theLogicRandomLogFile;
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 float Sin(float radians);
 float Cos(float radians);
-template<int N> class BitFlags { public: unsigned int bits[7]; };
+#include "../../../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../../Include/GameLogic/Module/Rva00045411BitSet.h"

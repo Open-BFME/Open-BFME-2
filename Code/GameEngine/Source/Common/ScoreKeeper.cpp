@@ -52,15 +52,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 0x4C
 };
 
-template <int N>
-class BitFlags
-{
-public:
-	bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
-
-private:
-	unsigned m_words[7];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<116> KindOfMaskType;
 extern KindOfMaskType KINDOFMASK_NONE;
 

@@ -12,13 +12,7 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include <vector>
 
-template <int N> class BitFlags
-{
-public:
-	bool any() const;
-private:
-	unsigned int m_words[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 template <int N> class Rva004C861ESlots : public Rva004C861ESlots<N - 1>
 {

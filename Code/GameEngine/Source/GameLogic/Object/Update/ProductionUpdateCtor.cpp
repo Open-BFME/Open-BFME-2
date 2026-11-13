@@ -72,7 +72,7 @@ class ModuleData;
 // ProductionUpdate's UpdateModuleInterface table (0x00C514F4): update and the
 // getDisabledTypesToProcess override, then UpdateModule's 0x0044DF8D.
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
-template <int NUM_BITS> class BitFlags { unsigned int m_bits[(NUM_BITS + 31) / 32]; };
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<11> DisabledMaskType;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 

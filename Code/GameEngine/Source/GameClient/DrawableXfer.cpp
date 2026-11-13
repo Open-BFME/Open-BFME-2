@@ -152,13 +152,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-template<int N>
-class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-	unsigned int m_bits[(N + 31) / 32];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../Include/GameClient/ModelConditionFlags.h"
 

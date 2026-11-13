@@ -238,15 +238,7 @@ struct WorldMatrix
 class ThingTemplate;
 class Team;
 class Object;
-template <Int NUMBITS>
-class BitFlags
-{
-public:
-	BitFlags() {}
-
-private:
-	_STL::bitset<NUMBITS> m_bits;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/Common/Player.h"

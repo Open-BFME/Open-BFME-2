@@ -111,13 +111,7 @@ Rva0028C5CC *Rva0028C5CCGet(Rva0028C5CC *xfer, char *bytes);
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 class Sink00291440;
 class Rva00291440

@@ -38,13 +38,7 @@
 extern "C" const void *const __identifier("??_7CombineHordeSpecialPowerModuleData@@6B@")[];
 #include <string.h>
 class Player;
-template<int N>
-class BitFlags
-{
-public:
-	bool any() const;
-	unsigned int m_bits[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 enum Relationship
 {
 	REL_0 = 0,

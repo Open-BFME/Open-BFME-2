@@ -34,7 +34,7 @@ namespace _STL { template <> void __destroy_aux<BfmeStringTailRecord156 *>(BfmeS
 
 #include "../../../../Include/Common/OpaqueRefElement4.h"
 
-template<int N>class BitFlags {public:bool setBitByName(const char *);unsigned int words[(N+31)/32];};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 // Constructor4CBEB0 proves two76B subobjects at4 and50; only the named
 // bit-operation prefix uses the existing folded BitFlags304 provider.

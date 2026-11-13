@@ -157,14 +157,7 @@ extern Radar *TheRadar;
 struct Obj00526309;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-template <int N>
-class BitFlags
-{
-public:
-	unsigned int m_bits[(N + 31) / 32];
- bool any()const;
- int countInverseIntersection(const BitFlags &)const;
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 
 class ObjectCollisionFlags {public:

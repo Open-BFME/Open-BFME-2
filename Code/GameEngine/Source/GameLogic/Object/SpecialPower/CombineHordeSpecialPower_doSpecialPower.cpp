@@ -55,13 +55,7 @@ struct Rva004C888DMask
 
 extern PartitionManager *ThePartitionManager;
 
-template <int N> class BitFlags
-{
-public:
-	bool any() const;	// 0x0023C58B
-private:
-	unsigned int m_words[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 enum CommandSourceType
 {

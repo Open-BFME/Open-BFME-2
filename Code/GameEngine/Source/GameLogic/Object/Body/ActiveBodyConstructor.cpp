@@ -91,13 +91,7 @@ struct ActiveBodyModuleDataFields
 
 extern class GlobalData *TheWritableGlobalData;
 
-template<int N>
-class BitFlags
-{
-public:
-	BitFlags();
-	unsigned int m_bits;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 class ActiveBody : public BodyModule
 {

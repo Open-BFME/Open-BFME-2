@@ -4,13 +4,7 @@
 // the body is the banked one up to statement/operand order and local types.
 #include <string.h>
 
-template <int N>
-class BitFlags
-{
-public:
-    bool test(const void *kindOf) const;
-    unsigned m_words[7];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 struct Thing
 {

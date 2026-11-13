@@ -9,14 +9,7 @@
 
 typedef bool Bool;
 
-template<int NUM_BITS>
-class BitFlags
-{
-public:
-	// Retail-measured: 7 words (isKindOfMulti core compares 7 dwords).
-	// The template argument keeps the ?$BitFlags@$0HE mangling.
-	unsigned int m_words[7];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../Common/Thing/thing.h"
 

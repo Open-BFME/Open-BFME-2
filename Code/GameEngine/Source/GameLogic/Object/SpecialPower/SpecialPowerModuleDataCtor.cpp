@@ -90,15 +90,7 @@ private:
 	RefHolder14 m_ref14;
 };
 
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	BitFlags();
-
-private:
-	unsigned int m_words[1];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 // Local base is NOT the canonical virtual Snapshot (reference/shims/moduledata):
 // retail stores only the derived vtable 0x00C4E318, with no base BBB554 store,

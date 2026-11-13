@@ -55,14 +55,7 @@ private:
 	unsigned char m_pad[0x64 - 4]; // +0x04
 };
 
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	Bool any() const;
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<11> DisabledMaskType;
 
 enum ObjectStatusTypes

@@ -188,13 +188,7 @@ struct BfmeWideResultCursor
 	void *m_cursor;
 };
 
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-	unsigned int m_words[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 

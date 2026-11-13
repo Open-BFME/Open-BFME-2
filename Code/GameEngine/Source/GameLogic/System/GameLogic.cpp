@@ -1394,14 +1394,7 @@ public:
 	unsigned char m_a;
 	unsigned char m_b;
 };
-template <int N> class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-
-private:
-	char m_pad[0x10];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 class Rva00291440;
 void XferInvisibilityType(Xfer *xfer, int *value);
 void xferUpgradeMask(Xfer *xfer, Rva00291440 *value);

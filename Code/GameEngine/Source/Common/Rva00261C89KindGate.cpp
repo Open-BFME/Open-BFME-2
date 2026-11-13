@@ -1,14 +1,7 @@
 // cl: /O1 /G7 /MD
 // One-time init two global 7-word flags then KindOf gate: B8 set but not 9C set.
 // Evidence: chain from 0x002618A2/0x002618FA landing; caller 0x003E603E this-plus-4 no pushes; rowed BitFlags test 0x002615C0; neighbours 0x002619A0/0x00262002.
-template <int N>
-class BitFlags
-{
-public:
-	bool test(const void *other) const;
-private:
-	unsigned m_words[7];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 class Rva002618A2
 {
 public:

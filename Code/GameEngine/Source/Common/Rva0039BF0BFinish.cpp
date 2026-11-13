@@ -22,14 +22,7 @@
 // nested +8 member, /O1 /Os /O2 /Ot /Oi /Ob0 /Ob1 /Ob2 /Gr /G4 /G6 /G7 /Gy
 // /Gw /Zc /Zp8) folds to `add ecx`.
 
-template <int N>
-class BitFlags
-{
-public:
-	bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
-private:
-	unsigned m_words[7];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 //5BF4BC constructs both masks through the measured 28-byte224-bit
 //Rva00045411BitSet constructor. Keep its neutral type on these two

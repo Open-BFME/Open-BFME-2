@@ -17,14 +17,7 @@
 
 typedef bool Bool;
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	Bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
-
-private:
-	unsigned int m_bits[7];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 typedef BitFlags<116> KindOfMaskType;
 

@@ -22,16 +22,7 @@
 // the 0x368 extent are target-proven; +0 and the tail pad carry no identity
 // claim. The _STL vector mirror is layout-only (stlport start/finish/end);
 // its begin/end emit 3-4B loads no other TU currently emits.
-template <int Bits>
-class BitFlags
-{
-public:
-	int countIntersection(const BitFlags &that) const;
-	int countInverseIntersection(const BitFlags &that) const;
-
-private:
-	unsigned m_words[(Bits + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 struct ModelConditionInfo
 {

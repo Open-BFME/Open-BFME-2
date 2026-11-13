@@ -39,14 +39,7 @@ private:
 
 typedef unsigned int UnsignedInt;
 
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	BitFlags() throw();
-private:
-	UnsignedInt m_words[1];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 class FXList;
 

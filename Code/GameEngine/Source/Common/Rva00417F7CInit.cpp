@@ -15,14 +15,7 @@ private:
 	T *m_data;
 };
 
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	BitFlags();
-private:
-	unsigned int m_words[1];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 // LINK: the 12-byte tree is rowed as map<int, BfmePod24>'s default ctor
 // (0x005011C1); only that ctor is used here.

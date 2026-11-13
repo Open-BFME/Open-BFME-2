@@ -12,12 +12,7 @@
 // Callee 0x0030AD7D isKindOfMulti rowed; 0x0037BA0/0x00365F0 StringBase ctors rowed.
 #include "ascii_string.h"
 
-template <int N>
-class BitFlags
-{
-public:
-	unsigned int m_bits[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../Common/Thing/thing.h"
 

@@ -37,13 +37,7 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum KindOfType { KINDOF_47 = 47, KINDOF_109 = 109, KINDOF_300 = 300 };
 
-template <int N>
-class BitFlags
-{
-public:
-	bool any() const;
-	unsigned int m_words[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

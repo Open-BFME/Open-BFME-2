@@ -36,7 +36,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 class INI;
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-template<int N> class BitFlags { unsigned bits[7]; };
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 void Rva00360CB0Release(int *);
 class Rva003623E5Member {

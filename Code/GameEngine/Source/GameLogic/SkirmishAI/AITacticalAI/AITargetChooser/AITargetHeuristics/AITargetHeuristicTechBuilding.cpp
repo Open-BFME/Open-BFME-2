@@ -100,13 +100,7 @@ class Rva0004584D:public Rva000421C8
  
 }
 ;
-template<int N>class BitFlags
-
-{
- public:unsigned bits[7];
- 
-}
-;
+#include "../../../../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../../../Include/GameLogic/AITarget.h"
 static __forceinline float Distance2(const Coord3D&a,const Coord3D&b)

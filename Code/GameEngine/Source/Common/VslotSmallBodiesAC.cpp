@@ -61,18 +61,7 @@ void Rva00214A8A::rva00214AC7()
 // 0x00BFBE40): UpdateModuleInterface slot 1 overrides answering the
 // disabled mask of bits 3 and 4 (resp. 3 and 8), built by the rowed
 // two-bit BitFlags<11> constructor 0x005E5963.
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	enum BogusInitType
-	{
-		kInit = 0
-	};
-	BitFlags(BogusInitType init, Int b0, Int b1);
-private:
-	unsigned int m_words[1];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<11> DisabledMaskType;
 class Rva004AE972
 {

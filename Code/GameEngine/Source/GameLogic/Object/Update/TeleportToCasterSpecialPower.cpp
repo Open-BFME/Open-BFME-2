@@ -164,11 +164,7 @@ public:
 	unsigned bits[7];
 };
 
-template<int N> class BitFlags
-{
-public:
-	unsigned bits[7];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 extern BitFlags<116> KINDOFMASK_NONE;
 

@@ -5,14 +5,7 @@
 // 1F0/2EC as map plus two KindOf masks; ThingTemplate KindOf at +0x108 (StatsCollector
 // witness); callees rowed 0x30A146 testSetAndClear and 0x24250 _M_increment.
 
-template <int N>
-class BitFlags
-{
-public:
-	bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
-private:
-	unsigned m_words[7];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../Include/Common/ThingTemplate.h"
 // Retail 0x0030A8E3: the mask test on the canonical +0x108 storage. Kept an

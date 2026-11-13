@@ -194,14 +194,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_RECONSTRUCTING = 0x15
 };
 
-template <int N>
-class BitFlags
-{
-public:
-	Bool any() const;
-	Bool test(Int bit) const { return (m_bits[0] & (1 << bit)) != 0; }
-	unsigned int m_bits[1];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

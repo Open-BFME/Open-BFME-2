@@ -413,10 +413,7 @@ class BfmeFixedStorage0004543D {
   public:
     unsigned words[7];
 };
-template <int> class BitFlags {
-  public:
-    unsigned words[7];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D : public Rva000421C8

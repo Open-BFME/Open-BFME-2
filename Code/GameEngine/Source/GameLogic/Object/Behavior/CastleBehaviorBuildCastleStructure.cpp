@@ -15,8 +15,7 @@ class BuildListInfo { public: float angle() const { return *(const float*)((cons
 // KindOf bits (opaque names; numbered as retail tests them): WB EBC8C0 calls
 // BitFlags<218,KindOfType>::test(type+0x108, 100 / 60 / 17) for all three.
 enum KindOfType { KINDOF_17=17, KINDOF_60=60, KINDOF_100=100 };
-template<int NUMBITS> class BitFlags { public: unsigned long m_words[(NUMBITS+31)/32];
- __forceinline bool test(size_t pos) const { return (m_words[pos/32] & (1UL<<(pos%32)))!=0; } };
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;

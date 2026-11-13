@@ -29,11 +29,7 @@
 // records it as credited to a header rather than a definition), and an in-class
 // body MSVC 7.1 drops when nothing in the TU calls it.
 
-template <int NUMBITS>
-class BitFlags
-{
-	unsigned m_bits[2];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 // upstream layout: the status mask sits at this+0x24, behind the vptr, the
 // parameter-type/initialized pair and the int/real values.

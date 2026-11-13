@@ -125,7 +125,7 @@ struct Rva004C31A8DataWords {
  unsigned fallback;
 };
 
-template<int N> class BitFlags {public:bool any()const;};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 class Object { public: char pad[0x38]; Coord3D pos; Player *getControllingPlayer() const; };
 

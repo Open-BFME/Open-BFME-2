@@ -17,7 +17,7 @@ class Object;class Module;class SpecialPowerTemplate;
 enum NameKeyType {NK_UNKNOWN=0};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
-template<int N>class BitFlags {public:BitFlags():bits(0){}bool any()const;bool test(const void*)const;unsigned bits;};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<11>DisabledMaskType;
 class AutoAbilityMaskView{public:virtual void slot00();virtual DisabledMaskType slot04()const;};
 #include "../../../Include/Common/SpecialPowerStore.h"

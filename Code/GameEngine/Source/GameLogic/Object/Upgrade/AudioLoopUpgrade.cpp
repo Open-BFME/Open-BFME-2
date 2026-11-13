@@ -97,17 +97,7 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-template <int NUM_BITS> class BitFlags
-{
-public:
-	enum BogusInitType
-	{
-		kInit = 0
-	};
-	BitFlags(BogusInitType init, Int b0, Int b1);
-private:
-	UnsignedInt m_words[1];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage002CF0F0.h"
 

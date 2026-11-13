@@ -39,11 +39,7 @@ public:
     WeaponTemplateSetHead(const WeaponTemplateSetHead &);
     void rva000B3ED3(const WeaponTemplateSetHead &);
 };
-template<int N> class BitFlags
-{
-public:
-    int count() const;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva000B937E.h"
 struct INIException
 {

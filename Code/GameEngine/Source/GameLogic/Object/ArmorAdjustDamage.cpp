@@ -25,10 +25,7 @@ typedef bool Bool;
 typedef int Int;
 enum DamageType { DAMAGE_TYPE_ZERO = 0 };
 
-template <Int NUMBITS> class BitFlags
-{
-	unsigned int m_bits;
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<17> ArmorSetFlags;
 
 class DamageInfoInput

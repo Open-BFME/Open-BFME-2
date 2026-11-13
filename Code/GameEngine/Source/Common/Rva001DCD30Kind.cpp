@@ -1,10 +1,6 @@
 // cl: /Ob0
 
-template <int N>
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/BitFlags.h
-class BitFlags
-{
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Thing.h
 #include "Thing/thing.h"

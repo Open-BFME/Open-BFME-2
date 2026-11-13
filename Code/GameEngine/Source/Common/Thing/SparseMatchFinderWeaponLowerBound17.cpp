@@ -3,12 +3,7 @@
 #define _STLP_NO_EXCEPTIONS
 #include <map>
 class WeaponTemplateSet;
-template <int BitCount>
-class BitFlags
-{
-public:
-	unsigned int m_flagWords[(BitCount + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 template <class MatchableType, class FlagSet>
 class SparseMatchFinder
 {

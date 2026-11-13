@@ -6,12 +6,7 @@
 // Evidence: byte-twin of Weapon _M_lower_bound at 0x0033B7D0 (SparseMatchFinderWeaponLowerBound17.cpp);
 // calls rowed ModelCondition MapHelper 0x0033AD13; caller is map::operator[] 0x0033D142.
 struct ModelConditionInfo;
-template <int BitCount>
-class BitFlags
-{
-public:
-	unsigned int m_flagWords[(BitCount + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 template <class MatchableType, class FlagSet>
 class SparseMatchFinder
 {

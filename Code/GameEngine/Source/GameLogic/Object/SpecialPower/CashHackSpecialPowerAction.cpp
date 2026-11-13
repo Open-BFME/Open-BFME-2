@@ -27,7 +27,7 @@ class Player { public:
 };
 struct CashHackScienceEntry {ScienceType science;int amount;};
 struct CashHackDataView {char prefix[0x7C];CashHackScienceEntry *begin,*end,*capacity;int fallback;};
-template<int N> class BitFlags {public:bool any()const;};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 class Object {char pad[0x38];public:Coord3D pos;Player *getControllingPlayer()const;
  bool isDisabled()const{return reinterpret_cast<const BitFlags<11>*>(reinterpret_cast<const char*>(this)+0x1C8)->any();}
  const Coord3D *getPosition()const{return &pos;}

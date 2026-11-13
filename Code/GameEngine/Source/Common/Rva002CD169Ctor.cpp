@@ -59,12 +59,7 @@ struct Rva002CD169RefWords {
 
 #include "../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-template<int N>
-class BitFlags
-{
-public:
-	unsigned int m_bits[(N + 31) / 32];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 extern BitFlags<116> KINDOFMASK_NONE;
 

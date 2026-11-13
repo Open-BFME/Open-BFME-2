@@ -1,11 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 // ?rva00589135@WeaponModeSpecialPowerUpdateBase@@QAEXH@Z, retail 0x00589135 54B. Vslot 10 of 0x00870108 via rowed BitFlags 0x0023C58B any plus slot0 virtual on this-4 with 5 args. Donor WeaponModeSpecialPowerUpdateBaseCtor plus open-bfme-1 WeaponModeSpecialPowerUpdateCtorThunk.
-template<int N>
-class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/Common/Overridable.h"
 

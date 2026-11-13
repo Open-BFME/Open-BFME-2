@@ -75,11 +75,7 @@ public:
  void clear(); void xferSelfAndCurLocoPtr(Xfer *, Locomotor **);
  char m_data[0x24];
 };
-template<int N> class BitFlags {
-public:
- void xfer(Xfer *);
- unsigned int m_bits[(N+31)/32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 class Rva0026AFDAMember { public: void doXfer(Xfer *); char m_data[0xC4]; };
 struct Rva00336283Element;
 #include "../../../../Include/GameLogic/LuaScriptEngine.h"

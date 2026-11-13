@@ -162,11 +162,7 @@ enum NameKeyType
 // Player with the ModuleData bool at +0x118, then UpgradeMux slot 9 with
 // false. Zero Hour's RadarUpgrade::onDelete has this shape.
 
-template<int N> class BitFlags
-{
-public:
-	bool any() const;
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/Common/Player.h"
 

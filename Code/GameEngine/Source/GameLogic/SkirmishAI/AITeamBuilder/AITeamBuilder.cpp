@@ -143,7 +143,7 @@ void AITeamBuilder::rva0059A153(TeamPrototype *prototype)
 // Both rowed native query providers walk seven words. The existing
 // Thing::isAnyKindOf provider retains BitFlags<69> in its ABI spelling;
 // the actual requirement storage and any() instantiation are BitFlags<218>.
-template<int N> class BitFlags { public: bool any() const; unsigned int words[7]; };
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../Common/Thing/thing.h"
 // The template's kind-of words at +0x108, tested through an int-returning
 // word test that cl narrows to retail's byte test.

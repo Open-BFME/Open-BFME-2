@@ -20,12 +20,7 @@ typedef bool Bool;
 
 #include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	BitFlags() throw();
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 struct WeatherData
 {

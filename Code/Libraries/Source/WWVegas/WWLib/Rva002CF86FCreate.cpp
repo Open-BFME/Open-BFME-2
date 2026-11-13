@@ -33,13 +33,7 @@ void *__stdcall Rva002CF86FCreate(const Rva002CF13B *src)
 // the original template count (the verified comparator examines 21 bits).
 class WeaponTemplateSet;
 #include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
-template <int BitCount> class BitFlags {
-public:
-    unsigned int m_flagWords[(BitCount+31)/32];
-    __forceinline BitFlags(const BitFlags &that) {
-        new (this) BfmeFixedStorage002CF0F0(*reinterpret_cast<const BfmeFixedStorage002CF0F0 *>(&that));
-    }
-};
+#include "../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 template <class MatchableType, class FlagSet> class SparseMatchFinder { public: struct MapHelper { bool operator()(const FlagSet &, const FlagSet &) const; }; };
 typedef BitFlags<17> WeaponFlags17;
 typedef _STL::pair<const WeaponFlags17,const WeaponTemplateSet *> WeaponPair17;

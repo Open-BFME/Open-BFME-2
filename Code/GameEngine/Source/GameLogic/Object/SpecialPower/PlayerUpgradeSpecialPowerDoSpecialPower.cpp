@@ -25,13 +25,7 @@ template<> vector<AsciiString>::vector(const vector<AsciiString> &);
 
 struct Coord3D;
 
-template <int N> class BitFlags
-{
-public:
-	bool any() const;
-private:
-	unsigned int m_bits[(N + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../../../Include/Common/Upgrade.h"
 

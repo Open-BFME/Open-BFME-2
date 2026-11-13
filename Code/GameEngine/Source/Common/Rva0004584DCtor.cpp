@@ -67,12 +67,7 @@ public:
 Rva003959FA::Rva003959FA(const BfmeFixedStorage0004543D &mask) : m_08(mask) {}
 inline Rva003959FA::~Rva003959FA() {}
 
-template<int N>
-class BitFlags
-{
-public:
-	unsigned int m_bits[7];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 #include "Thing/thing.h"
 

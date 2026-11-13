@@ -8,12 +8,7 @@
 // Owner identities unproven; owner names are address-derived. The operand
 // stays const void* so no template spelling leaks into the wrapper names.
 
-template <int N>
-class BitFlags
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 #include "../../Include/GameLogic/Module/Rva00331682Holder.h"
 

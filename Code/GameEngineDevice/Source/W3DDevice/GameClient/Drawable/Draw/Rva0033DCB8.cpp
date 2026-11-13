@@ -10,12 +10,7 @@ class WeaponTemplateSet
 	int m_dummy;
 };
 
-template <int Bits>
-class BitFlags
-{
-public:
-	unsigned int m_bits;
-};
+#include "../../../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 
 template <class A, class B>
 class SparseMatchFinder

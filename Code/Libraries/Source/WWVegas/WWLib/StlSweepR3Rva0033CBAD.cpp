@@ -14,16 +14,7 @@
 class WeaponTemplateSet;
 #include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
 
-template <int BitCount>
-class BitFlags
-{
-public:
-	unsigned int m_flagWords[(BitCount + 31) / 32];
-	__forceinline BitFlags(const BitFlags &that)
-	{
-		new (this) BfmeFixedStorage002CF0F0(*reinterpret_cast<const BfmeFixedStorage002CF0F0 *>(&that));
-	}
-};
+#include "../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 template <class MatchableType, class FlagSet>
 class SparseMatchFinder
 {
