@@ -229,7 +229,7 @@ class FireWeaponCollideModuleData { public: static ModuleData *friend_newModuleD
 class FireWeaponUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 class FireWeaponWhenDamagedBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class FireWeaponWhenDamagedBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/Common/FireWeaponWhenDamagedBehaviorModuleData.h"
 class FireWeaponWhenDeadBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FireWeaponWhenDeadBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/FlammableUpdateClass.h"

@@ -1255,11 +1255,7 @@ extern const FieldParse BfmeFireWeaponWhenDamagedBehaviorFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class FireWeaponWhenDamagedBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/FireWeaponWhenDamagedBehaviorModuleData.h"
 
 // ?buildFieldParse@FireWeaponWhenDamagedBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x002536E1 (34 bytes): table-first double-add with own table

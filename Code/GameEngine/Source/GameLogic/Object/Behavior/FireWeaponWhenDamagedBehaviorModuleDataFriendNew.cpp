@@ -18,16 +18,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class FireWeaponWhenDamagedBehaviorModuleData
-{
-public:
-	FireWeaponWhenDamagedBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x144];
-};
+#include "../../../../Include/Common/FireWeaponWhenDamagedBehaviorModuleData.h"
 
 // ?friend_newModuleData@FireWeaponWhenDamagedBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *FireWeaponWhenDamagedBehaviorModuleData::friend_newModuleData(INI *ini)
