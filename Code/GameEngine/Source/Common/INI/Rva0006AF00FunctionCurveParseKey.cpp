@@ -16,12 +16,7 @@ public:
 
 double Rva005046B0ScanTangentAngle( INI *ini, const char *token );
 
-class Rva0006AF00FunctionCurve
-{
-public:
-	static void parseKey( INI *ini, void *instance, void *store,
-		const void *userData );
-};
+#include "../../../Include/Common/Rva0006AF00FunctionCurve.h"
 
 // ?parseKey@Rva0006AF00FunctionCurve@@SAXPAVINI@@PAX1PBX@Z
 void Rva0006AF00FunctionCurve::parseKey( INI *ini, void *, void *,

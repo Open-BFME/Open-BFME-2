@@ -41,12 +41,7 @@ private:
 	bool m_haveOutTangent;
 };
 
-class Rva0006AF00FunctionCurve
-{
-public:
-	void parse( INI *ini );
-	static void parseKey( INI *, void *, void *, const void * );
-};
+#include "../../../Include/Common/Rva0006AF00FunctionCurve.h"
 
 // ?parse@Rva0006AF00FunctionCurve@@QAEXPAVINI@@@Z
 void Rva0006AF00FunctionCurve::parse( INI *ini )
