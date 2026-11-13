@@ -945,11 +945,7 @@ void Rva005EBC74::clear()
 	}
 }
 
-class Rva005EC09B
-{
-public:
-	~Rva005EC09B();
-};
+#include "../../Include/Common/Rva005EC09B.h"
 
 class Rva005EC422
 {
