@@ -587,12 +587,7 @@ _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> >::erase(const int 
 }
 // The module data's +0x188-record lookup (its result carries a template name
 // at +4).
-class Rva00469294
-{
-public:
-	void *rva00469294(int key);
-	char *findEntry(int key) { return (char *)rva00469294(key); }
-};
+#include "../../../../Include/GameLogic/Module/Rva00469294.h"
 // A +0x188 record: the key the module data's +0x1B8 map is searched for.
 struct Rva00472329Record
 {

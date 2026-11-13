@@ -35,11 +35,7 @@ enum WeaponSetType
 
 #include "../object.h"
 
-class Rva00469294
-{
-public:
-	void *rva00469294(int key);
-};
+#include "../../../../Include/GameLogic/Module/Rva00469294.h"
 
 #include "../../../../Include/Common/BfmeObject872Header.h"
 
