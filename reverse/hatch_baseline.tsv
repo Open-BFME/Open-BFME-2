@@ -8005,7 +8005,7 @@ pin	reverse/symbols.csv	0x0054E796	1
 pin	reverse/symbols.csv	0x0054F508	2
 pin	reverse/symbols.csv	0x0054F91B	1
 pin	reverse/symbols.csv	0x0054F99E	1
-pin	reverse/symbols.csv	0x0054FAAC	16	allow=e7bf758b5d7168c8908719f9840d02e88235a2f7
+pin	reverse/symbols.csv	0x0054FAAC	16
 pin	reverse/symbols.csv	0x0054FC14	1
 pin	reverse/symbols.csv	0x0054FE47	1
 pin	reverse/symbols.csv	0x0054FE7A	1
