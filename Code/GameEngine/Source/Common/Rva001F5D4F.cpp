@@ -11,13 +11,7 @@ public:
     virtual void pad2();
     virtual void slot3(int);
 };
-class Rva001F5D4F {
-public:
-    void rva001F5D4F(int x);
-private:
-    Helper001F5D4F* m_ptr;
-    Rva001F42BA m_next;
-};
+#include "../../Include/Common/Rva001F5D4F.h"
 
 // ?rva001F820B@Rva001F820BOwner@@QAEXH@Z @0x001F820B 8B: offsets this to the Rva001F5D4F embedded at +0x4 and
 // tail-jumps Rva001F5D4F::rva001F5D4F. Owner and name are address-derived; no
