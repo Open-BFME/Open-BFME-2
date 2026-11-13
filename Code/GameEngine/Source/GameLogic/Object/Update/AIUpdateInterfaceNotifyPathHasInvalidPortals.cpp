@@ -21,7 +21,7 @@ struct VisLookupBuckets {
  unsigned int size() const { return end-begin; }
  VisLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
 };
-struct VisLookupMap { unsigned char hashEqual[4]; VisLookupBuckets buckets; };
+#include "../../../../Include/Common/VisLookupMap.h"
 inline ObjectIdNode *ObjectIdMap::find(const ObjectID &id) {
  VisLookupMap *map=(VisLookupMap*)this;
  unsigned int bucket=(unsigned int)id % map->buckets.size();

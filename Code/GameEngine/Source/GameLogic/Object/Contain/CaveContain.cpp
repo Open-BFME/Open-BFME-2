@@ -295,7 +295,7 @@ struct VisLookupBuckets {
  VisLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
 };
 
-struct VisLookupMap { unsigned char hashEqual[4]; VisLookupBuckets buckets; };
+#include "../../../../Include/Common/VisLookupMap.h"
 
 extern GameLogic *TheGameLogic;
 

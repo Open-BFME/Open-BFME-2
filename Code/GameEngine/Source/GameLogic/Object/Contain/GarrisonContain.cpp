@@ -582,7 +582,7 @@ struct VisLookupBuckets {
  VisLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
 };
 
-struct VisLookupMap { unsigned char hashEqual[4]; VisLookupBuckets buckets; };
+#include "../../../../Include/Common/VisLookupMap.h"
 
 // object.h keeps these three fields private; the offsets come from the matched
 // bodies: validateRallyPoint 0x00478141 (+0xB8), redeployOccupants 0x00479395
