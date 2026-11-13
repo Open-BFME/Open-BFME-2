@@ -1065,11 +1065,7 @@ void Rva005F55FA::clear()
 	}
 }
 
-class Rva005F6051
-{
-public:
-	~Rva005F6051();
-};
+#include "../../Include/Common/Rva005F6051.h"
 
 class Rva005F64DB
 {
