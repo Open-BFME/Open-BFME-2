@@ -457,12 +457,7 @@ struct Rva005FF1F8Element
 	int m_words[2];
 };
 
-struct Rva005FF1F8Vector
-{
-	Rva005FF1F8Element *m_begin;
-	Rva005FF1F8Element *m_end;
-	int size() const { return m_end - m_begin; }
-};
+#include "../../../Include/Common/Rva005FF1F8Vector.h"
 
 struct Rva005FF1F8Owner
 {
