@@ -105,7 +105,7 @@ bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile
 // /arch:SSE, so this slot lives apart from VtableSlotBodiesR3.cpp's /O1
 // siblings. The class is the one whose constructor 0x0023DB34 installs this table
 // (RvaSmallVtableCtors.cpp); the original name is unknown.
-extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
+#include <string.h>
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // DataChunkOutput::writeInt, retail 0x00306CFF (24 bytes).
