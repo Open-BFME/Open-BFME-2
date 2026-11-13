@@ -48,7 +48,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-class Rva0044E7A8 {public:bool rva0044E7A8(int);};
+#include "../../../../Include/Common/Rva0044E7A8.h"
 class Sub0044E5E7
 {
 public:

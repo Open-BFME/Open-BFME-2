@@ -19,11 +19,7 @@ class Rva0044EDA6ModuleData;
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
 
-class Rva0044E7A8
-{
-public:
-	bool rva0044E7A8(int arg);
-};
+#include "../../../../Include/Common/Rva0044E7A8.h"
 
 class Rva0044EDA6Virt
 {
