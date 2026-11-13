@@ -148,7 +148,7 @@ class Rva0049CB86LeaField { public:void *get()const; };
 struct RvaPair001D9F62; namespace _STL { template<class T> class allocator; template<class T, class A> class vector; }
 // 0x001D96EC is rowed as AudioEventInfo::getSoundsVector.
 class AudioEventInfo { public:const _STL::vector<RvaPair001D9F62, _STL::allocator<RvaPair001D9F62> > &getSoundsVector()const; };
-class Rva003EFDD7LeaField { public:void *get()const; };
+#include "../../../Include/GameLogic/Rva003EFDD7LeaField.h"
 class Rva0053B8E5LeaField { public:void *get()const; };
 struct OpaqueRefElement4;
 #include "../../../Include/GameLogic/Rva0023DC8E.h"

@@ -77,7 +77,7 @@ bool ClipLine2D(ICoord2D *p1, ICoord2D *p2, ICoord2D *c1, ICoord2D *c2, IRegion2
 #include "../../../../GameEngine/Include/GameLogic/PathNode.h"
 #include "../../../../GameEngine/Include/GameLogic/PathfindPath.h"
 class Rva003F3FCEDwordField { public: int get() const; };
-class Rva003EFDD7LeaField { public: void *get() const; };
+#include "../../../../GameEngine/Include/GameLogic/Rva003EFDD7LeaField.h"
 #include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
 class Pathfinder {
 public:

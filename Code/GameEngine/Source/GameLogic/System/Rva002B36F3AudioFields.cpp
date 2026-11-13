@@ -27,11 +27,7 @@ class Rva0049CB86LeaField
 public:
 	void *get() const;
 };
-class Rva003EFDD7LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../Include/GameLogic/Rva003EFDD7LeaField.h"
 class Rva0053B8E5LeaField
 {
 public:
