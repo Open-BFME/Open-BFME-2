@@ -54,13 +54,7 @@ typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> 
 class MutexClass;
 void *BFMENetworkAllocate(unsigned int bytes);
 
-struct BFMENetworkListNode
-{
-	Bool flag;
-	int value;
-	BFMENetworkListNode *next;
-	BFMENetworkListNode *previous;
-};
+#include "../../Include/GameNetwork/BFMENetworkListNode.h"
 
 struct BFMENetworkList
 {
