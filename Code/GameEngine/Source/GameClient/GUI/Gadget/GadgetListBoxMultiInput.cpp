@@ -120,13 +120,7 @@ template <> __declspec(dllimport) __forceinline unsigned short StringBase<unsign
 
 #include "../../../../Include/GameClient/DisplayString.h"
 
-struct ListEntryCell
-{
-	Int cellType;
-	unsigned char m_pad04[0x0C - 0x04];
-	void *data;
-	unsigned char m_pad10[0x1C - 0x10];
-};
+#include "../../../../Include/Common/ListEntryCell.h"
 
 struct ListEntryRow
 {

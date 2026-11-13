@@ -28,14 +28,7 @@ public:
 	virtual void getSize(int zero, int *out);
 };
 
-struct ListEntryCell
-{
-	int cellType;
-	char m_pad04[8];
-	void *data;
-	char m_pad10[8];
-	int height;
-};
+#include "../../../../Include/Common/ListEntryCell.h"
 
 struct ListEntryRow
 {

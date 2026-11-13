@@ -20,7 +20,7 @@ enum { LISTBOX_TEXT = 1 };
 class DisplayString;
 class DisplayStringManager;
 extern DisplayStringManager *TheDisplayStringManager;
-struct ListEntryCell { int cellType; char unknown4[8]; void *data; char unknown16[12]; };
+#include "../../Include/Common/ListEntryCell.h"
 struct ListEntryRow { char unknown0[8]; ListEntryCell *cell; char unknown12[4]; };
 void computeTotalHeight(GameWindow *);
 void Rva00326DE9Disable(GameWindow *);
