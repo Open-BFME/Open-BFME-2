@@ -1,0 +1,96 @@
+{
+ "source": "Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdate.cpp",
+ "source_sha256": "46253e4094439dc3e20e7f7af4d48841086e61f847266bc197b9b29a8729f3b3",
+ "header_sha256": {
+  "Code/GameEngine/Include/Common/AIBuildable.h": "09f89305cc353c43115a10e923070cc52ed997ee3e5e8f56dc26886a7e7d9ea7",
+  "Code/GameEngine/Include/Common/BfmeThing932E.h": "8d225c7fd2f8c7776e7f4c474c06f2441997a2a4baa4355e047f3b9a8e274f9c",
+  "Code/GameEngine/Include/Common/CellGrid.h": "3ca55a9dd6456cc3c998a0cd91616aff228ed37e34b934dabeb2f263bd1f47eb",
+  "Code/GameEngine/Include/Common/MovieWindowPlayback.h": "be5c0d5324616dd27961cc7e0ad8086562e4afec41d3865ffb065ca94c517e65",
+  "Code/GameEngine/Include/Common/Rva00041A06.h": "9c75880c97a03c30db56de8c255f244fb046d1ecf549b77819607d5269c6449f",
+  "Code/GameEngine/Include/Common/SelectionDetailsUIImpl.h": "52338fb87a27bd2f41f19cd2e5a212cc383e73d9d28cb80fa9f8cf41d147a319",
+  "Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DProjectedShadowClass.h": "8c835b5ee82d78fb9c3c03ead105f2890b76eab3c0cabd780f793df3b09db862"
+ },
+ "rows": 6,
+ "bytes": 151,
+ "comdats": {
+  "??0Rva00494DCA@@QAE@PAVThing@@PBVModuleData@@@Z": [
+   "5308d2b509f5",
+   49
+  ],
+  "??_7Rva00494DCA@@6B@": [
+   "469a13c5aea6",
+   4
+  ],
+  "??1Rva00494DCA@@UAE@XZ": [
+   "67a2b103de35",
+   11
+  ],
+  "?getModuleNameKey@ScaleWallSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ": [
+   "1ad315db3034",
+   69
+  ],
+  "??_C@_0BO@CNAGFLJ@ScaleWallSpecialAbilityUpdate?$AA@": [
+   "52b3e34f8845",
+   30
+  ],
+  "?rva00494E48@Rva00494E48@@QAEXXZ": [
+   "60d2c71b532f",
+   5
+  ],
+  "?rva00494E52@Rva00494E52@@QAE?AW4UpdateSleepTime@@XZ": [
+   "36cce7b4b0d6",
+   5
+  ],
+  "??_GRva00494DCA@@UAEPAXI@Z": [
+   "834d63e1892e",
+   28
+  ]
+ },
+ "actual_source_changes": 0,
+ "actual_private_views_removed": 0,
+ "acceptance": [
+  {
+   "class": "AIBuildable",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-AIBuildable.log"
+  },
+  {
+   "class": "BfmeThing932E",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-BfmeThing932E.log"
+  },
+  {
+   "class": "CellGrid",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-CellGrid.log"
+  },
+  {
+   "class": "MovieWindowPlayback",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-MovieWindowPlayback.log"
+  },
+  {
+   "class": "Rva00041A06",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-Rva00041A06.log"
+  },
+  {
+   "class": "SelectionDetailsUIImpl",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-SelectionDetailsUIImpl.log"
+  },
+  {
+   "class": "W3DProjectedShadow",
+   "exit": 0,
+   "log": "build\\root-scalewall-accept-W3DProjectedShadow.log"
+  }
+ ],
+ "queue_entries_retired": 7,
+ "remaining_queue": [
+  "SpecialAbilityUpdate"
+ ],
+ "source_and_headers_unchanged": true,
+ "comdat_contents_and_relocations_unchanged": true,
+ "strict_providers": 1,
+ "whole_link_clearance": false
+}
