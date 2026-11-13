@@ -14,11 +14,7 @@ public:
 	void init();
 };
 
-class Rva002710EC
-{
-public:
-	void rva002710EC();
-};
+#include "../../../Include/GameLogic/Module/Rva002710EC.h"
 
 class Object
 {
