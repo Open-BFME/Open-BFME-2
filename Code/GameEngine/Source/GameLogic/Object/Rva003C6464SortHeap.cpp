@@ -7,11 +7,7 @@
 // at the heap TU. Shard, not graft: home TU verifies its rows under /O1 and
 // a flag flip would perturb them; /G7 gives retail's byte-form threshold
 // mask `and al,0xfc` over /O1's dword `and eax,0xfc` (introsort_loop precedent).
-struct Rva003BD485Keyed
-{
-	char m_pad[0x20];
-	int m_key;
-};
+#include "../../../Include/GameLogic/Module/Rva003BD485Keyed.h"
 void Rva003C4B80PopHeap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int extra);
 void Rva003C6464SortHeap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int extra)
 {

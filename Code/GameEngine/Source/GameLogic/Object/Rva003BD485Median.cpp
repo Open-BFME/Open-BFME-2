@@ -6,11 +6,7 @@
 // 0x003CA2DF passes array slots (quicksort-style mid computation with sar
 // halves just above the call). Class layout is honest-address only; the
 // identity of the sorted type is unproven. Unlock lane.
-struct Rva003BD485Keyed
-{
-	char m_pad[0x20];
-	int m_key;
-};
+#include "../../../Include/GameLogic/Module/Rva003BD485Keyed.h"
 
 Rva003BD485Keyed **Rva003BD485Median(Rva003BD485Keyed **a, Rva003BD485Keyed **b, Rva003BD485Keyed **c)
 {

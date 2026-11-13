@@ -6,11 +6,7 @@
 // mid, last-1) via 0x003BD485 (called with extra dummy push like siblings),
 // partition via 0x003C3A79, recurse on (cut, last) then loop on (first, cut).
 // Chain lane on 0x003BD485/0x003C3A79/0x003C75C2; caller 0x003CA402; cdecl.
-struct Rva003BD485Keyed
-{
-	char m_pad[0x20];
-	int m_key;
-};
+#include "../../../Include/GameLogic/Module/Rva003BD485Keyed.h"
 
 Rva003BD485Keyed **Rva003BD485Median(Rva003BD485Keyed **a, Rva003BD485Keyed **b, Rva003BD485Keyed **c);
 Rva003BD485Keyed **Rva003C3A79Partition(Rva003BD485Keyed **first, Rva003BD485Keyed **last, Rva003BD485Keyed *pivot, int);
