@@ -76,7 +76,7 @@ void Rva005DE433::rva005DE433(int **focus) {
  }
 }
 #include "../../../../../Include/GameClient/Widths.h"
-class Rva005DD7C3 {public:void rva005DD7C3(GameWindow*,const Widths*);};
+#include "../../../../../Include/GameClient/Rva005DD7C3.h"
 class LivingWorldPlayer;
 class Player;
 class AptTimeLineStats {
