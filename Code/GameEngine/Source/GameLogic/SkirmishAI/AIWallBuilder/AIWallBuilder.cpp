@@ -139,7 +139,7 @@ public:
 };
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
-class Rva0030D4F2 {public:int rva0030D4F2();int rva0030D50C();};
+#include "../../../../Include/GameClient/Rva0030D4F2.h"
 #include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0030D808.h"
 #include "../../../../Include/Common/Rva0030D631.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
