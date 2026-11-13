@@ -262,7 +262,7 @@ AptMyHero::~AptMyHero(){
 #include "../../../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 extern int BfmeLogicFramesPerSecond;
-class Rva005B02B5 {public:void rva005B0249();void rva005B027F();void rva005B02B5();void rva005B02FD();};
+#include "../../../../../Include/Common/Rva005B02B5.h"
 // Same lock/unlock view as Rva0023C565Lock.cpp, so this unit's select-any ctor copy is retail's.
 class Rva001DBAA4 {public:void lock();void unlock();};
 class Rva0023C565 {
