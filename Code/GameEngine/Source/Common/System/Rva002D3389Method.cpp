@@ -7,13 +7,7 @@
 
 #include <new>
 
-class Rva002D3389
-{
-public:
-	void rva002D3389(void *p);
-private:
-	void *m_ptr;
-};
+#include "../../../Include/Common/Rva002D3389.h"
 
 void Rva002D3389::rva002D3389(void *p)
 {

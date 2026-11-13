@@ -2,11 +2,7 @@
 // ?rva002D3772@RadarWindowOverrideSource@@QAEXHM@Z retail 0x002D3772 65 bytes. RadarWindowOverrideSource setter allocating an 8-byte pair then forwarding to rowed Rva002D3389 at inner+0xEC. Evidence: caller 0x002B361B passes int plus float from 0x00BCEAFC with this equal theRadarWindowOverrideSource; callee 0x002D3389 rowed.
 #include <new>
 
-class Rva002D3389
-{
-public:
-	void rva002D3389(void *p);
-};
+#include "../../../Include/Common/Rva002D3389.h"
 
 extern int BfmeClientFramesPerSecond;
 static __forceinline int LogicFrameRate() { return BfmeClientFramesPerSecond; }

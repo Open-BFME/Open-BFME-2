@@ -74,7 +74,7 @@ struct LogicView {char pad[0x98];Rva002E0CD4 *region;char pad9c[0xb4-0x9c];bool 
 class Rva002D2DB2 {public:Rva002D2DB2 &initialize(int,int)throw();int delay,value,delta,accum;};
 class Rva002D2DD4 {public:Rva002D2DD4 &initialize(float)throw();int delay,hold;float value;};
 class Rva002D387A {public:void rva002D387A(void*);};
-class Rva002D3389 {public:void rva002D3389(void*);};
+#include "../../../../Include/Common/Rva002D3389.h"
 void Rva002D46ADSet(int);void setResourceIconState(bool);void playCommandPointEffect();
 bool Rva003FEECBSetPalantirCommandPoints(int,int);bool Rva003FEF80SetPalantirMultiplier(float);
 
