@@ -195,7 +195,7 @@ public:
  char prefix[0x24];S6SaveMapRecord saveGameInfo;
 };
 #include "../../Include/Common/Rva002DC74A.h"
-class Rva002DC7C1 {public:bool rva002DC7C1(const UnicodeString&)const;};
+#include "../../Include/Common/Rva002DC7C1.h"
 #include "../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;
 class LinearCampaignManager;

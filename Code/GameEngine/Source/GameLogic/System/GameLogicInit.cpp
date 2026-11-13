@@ -2644,11 +2644,7 @@ public:
 	void rva001EB298(AsciiString mapName);
 };
 
-class Rva002DC7C1
-{
-public:
-	bool rva002DC7C1(const UnicodeString &path) const;
-};
+#include "../../../Include/Common/Rva002DC7C1.h"
 
 class MultiplayerSettings
 {

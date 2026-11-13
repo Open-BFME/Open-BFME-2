@@ -202,11 +202,7 @@ extern GlobalData *TheWritableGlobalData;
 class GameState;
 extern GameState *TheGameState;
 
-class Rva002DC7C1
-{
-public:
-	bool rva002DC7C1(const UnicodeString &name) const;
-};
+#include "../../../../../Include/Common/Rva002DC7C1.h"
 
 class Player
 {

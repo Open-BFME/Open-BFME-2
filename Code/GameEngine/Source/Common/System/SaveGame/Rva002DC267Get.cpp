@@ -31,11 +31,7 @@ typedef unsigned short WideChar;
 
 #include "../../../../Include/Common/Rva002DC267.h"
 
-class Rva002DC7C1
-{
-public:
-	bool rva002DC7C1(const UnicodeString &path) const;
-};
+#include "../../../../Include/Common/Rva002DC7C1.h"
 
 #include "../../../../Include/Common/Rva002DC74A.h"
 

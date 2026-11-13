@@ -357,11 +357,7 @@ public:
 };
 #pragma function(strcmp)
 #include "../../../Include/Common/GameState.h"
-class Rva002DC7C1
-{
-public:
-	bool rva002DC7C1(const UnicodeString &path) const;
-};
+#include "../../../Include/Common/Rva002DC7C1.h"
 class File;
 extern GameState *TheGameState;
 extern "C" int (__cdecl * const _imp__sprintf)(char *buffer, const char *format, ...);
