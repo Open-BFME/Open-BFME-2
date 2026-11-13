@@ -113,11 +113,7 @@ public:
 	void rva0056B8F4(unsigned int arg);
 };
 
-class Rva003FDD29
-{
-public:
-	unsigned char rva003FDD29();
-};
+#include "../../Include/Common/Rva003FDD29.h"
 
 class Rva003FDE1AHelper
 {

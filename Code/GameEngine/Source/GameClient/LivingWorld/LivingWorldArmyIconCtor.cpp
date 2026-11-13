@@ -62,7 +62,7 @@ class Rva002E2903Player;
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva003FDD29 { public: unsigned char rva003FDD29(); };
+#include "../../../Include/Common/Rva003FDD29.h"
 class Rva00539281 { public: void rva00539281(unsigned char a, Int b); };
 #include "../../../Include/Common/Rva003FE05E.h"
 
