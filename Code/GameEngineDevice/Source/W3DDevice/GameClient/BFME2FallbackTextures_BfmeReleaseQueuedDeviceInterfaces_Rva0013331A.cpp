@@ -54,12 +54,7 @@ public:
  __forceinline ScopedCriticalSection(CriticalSection *cs):m_cs(cs),m_locked(false){Lock();}
  __forceinline ~ScopedCriticalSection(){if(m_locked)Unlock();}
 };
-class BfmeDeferredTexture {
-public:
- virtual long __stdcall QueryInterface(void *,void **);
- virtual unsigned long __stdcall AddRef();
- virtual unsigned long __stdcall Release();
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeDeferredTexture.h"
 class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 extern unsigned int g_Va00DF2984[9];

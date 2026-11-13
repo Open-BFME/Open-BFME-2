@@ -64,12 +64,7 @@ RefCountPtr<TextureClass> Rva00132F30BlackTexture() {
 // exists, otherwise released through IUnknown slot 2, then cleared. The
 // inline scoped guard uses the already matched Lock/Unlock providers.
 class CriticalSection;
-class BfmeDeferredTexture {
-public:
- virtual long __stdcall QueryInterface(void *,void **);
- virtual unsigned long __stdcall AddRef();
- virtual unsigned long __stdcall Release();
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeDeferredTexture.h"
 class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 extern unsigned int g_Va00DF2984[9];
