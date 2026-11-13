@@ -990,15 +990,7 @@ private:
 	AsciiString m_value; // +0x1C8
 };
 
-class Rva0059F322AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0xFFC];
-	AsciiString m_value; // +0xFFC
-};
+#include "../../../Include/Common/Rva0059F322AsciiField.h"
 
 class Rva0059F340AsciiField
 {

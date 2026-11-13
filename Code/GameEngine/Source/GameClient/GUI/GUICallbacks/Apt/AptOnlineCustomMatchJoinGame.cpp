@@ -88,7 +88,7 @@ public:
 class Rva0054D974;
 extern Rva0054D974 *TheLadderList;
 
-class Rva0059F322AsciiField { public: AsciiString get() const; };
+#include "../../../../../Include/Common/Rva0059F322AsciiField.h"
 
 class GameSpyStagingRoom
 {
