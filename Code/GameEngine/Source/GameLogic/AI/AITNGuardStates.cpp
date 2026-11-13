@@ -103,11 +103,7 @@ enum
 	GUARDMODE_NORMAL = 0,
 	GUARDMODE_GUARD_WITHOUT_PURSUIT = 1
 };
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
+#include "../../../Include/Common/AttackExitConditionsInterface.h"
 class AIAttackState : public State
 {
 public:
