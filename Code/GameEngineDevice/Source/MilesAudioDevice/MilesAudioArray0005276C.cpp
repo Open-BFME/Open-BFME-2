@@ -5,14 +5,7 @@
 // destructor callback is the shared empty RET at4B3FD0. Target callbacks,
 // stride, count and measured fields establish this opaque array view.
 // Original element/array owner names remain unknown; no Miles type claim.
-class Rva00051CA2 {
-public:
-    __declspec(noinline) Rva00051CA2();
-    ~Rva00051CA2();
-private:
-    float x, y, z;
-    bool active;
-};
+#include "../../Include/Rva00051CA2.h"
 class ScreenToTerrainSet {
 public:
     ScreenToTerrainSet();

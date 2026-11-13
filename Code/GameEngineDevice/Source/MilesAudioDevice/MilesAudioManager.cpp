@@ -628,14 +628,7 @@ struct AudioAreaCorner {
 // The same five corners as recalculateMicrophone's local (rowed: element
 // ctor 0x00051CA2 with the folded empty dtor; array ctor 0x00052751) and the
 // rowed five-corner comparison 0x00051CF1.
-class Rva00051CA2 {
-public:
-    Rva00051CA2();
-    ~Rva00051CA2();
-private:
-    float x, y, z;
-    bool active;
-};
+#include "../../Include/Rva00051CA2.h"
 class ScreenToTerrainSet {
 public:
     ScreenToTerrainSet();
