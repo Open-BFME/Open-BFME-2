@@ -19,7 +19,7 @@ namespace _STL
 	};
 }
 
-class Rva00082719Vector { public: void fillInsert(Coord3D*,unsigned int,const Coord3D&); };
+#include "../../../../../Include/W3DDevice/GameClient/Rva00082719Vector.h"
 
 class Rva00082C98Host
 {

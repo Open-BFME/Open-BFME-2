@@ -421,11 +421,7 @@ void Rva000E3B41::rva00069CE6(const Rva000E3A8D &cameras, Int arg)
 // pointers over 12-byte trivial elements), so the calls bind the rowed
 // 0x00081A24/0x00082719 bodies. Both callees are declared-only (no
 // definition visible, so nothing instantiates and no __copy is emitted).
-class Rva00082719Vector
-{
-public:
-	void fillInsert(Coord3D *, unsigned int, const Coord3D &);
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00082719Vector.h"
 
 // Declare-only explicit specialization: the erase call below binds the
 // rowed 0x00081A24 primary-template instantiation without emitting a local
