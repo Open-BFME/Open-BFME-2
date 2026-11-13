@@ -1,12 +1,6 @@
 // cl: /EHs-c-
 // ??0Rva003ADE58@@QAE@ABV0@@Z @0x003ADE58 64B MI copy via rowed base 0x003ADEBF plus rowed member 0x003ADE98 with derived vptrs. Evidence: callees rowed; caller 0x003ADE39; prev 0x003ADDEC next 0x003ADE98.
-class V3Vt01111D90
-{
-public:
-	virtual void s0() = 0;
-	virtual ~V3Vt01111D90() {}
-	int m04;
-};
+#include "../../Include/Common/V3Vt01111D90.h"
 class V3Second08
 {
 public:
