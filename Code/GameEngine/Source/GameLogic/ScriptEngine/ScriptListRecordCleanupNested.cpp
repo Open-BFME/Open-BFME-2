@@ -27,12 +27,7 @@ public:
 	Rva003B448C *m_next;
 };
 
-class BfmeNodeZ
-{
-public:
-	~BfmeNodeZ();
-	BfmeNodeZ *m_next;
-};
+#include "../../../Include/GameLogic/BfmeNodeZ.h"
 
 struct Rva003B7096Record
 {

@@ -947,12 +947,7 @@ public:
 	void rva003B5624(AsciiString text);
 };
 
-class BfmeNodeZ
-{
-public:
-	~BfmeNodeZ();
-	BfmeNodeZ *m_next;
-};
+#include "../../../Include/GameLogic/BfmeNodeZ.h"
 
 struct Rva00359330Record
 {

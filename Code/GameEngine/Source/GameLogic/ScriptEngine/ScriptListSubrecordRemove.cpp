@@ -58,12 +58,7 @@ template<> _Deque_base<BfmeScriptSlotAddress, allocator<BfmeScriptSlotAddress> >
 
 #include <new>
 
-class BfmeNodeZ
-{
-public:
-	~BfmeNodeZ();
-	BfmeNodeZ *m_next;
-};
+#include "../../../Include/GameLogic/BfmeNodeZ.h"
 
 class Rva003B448C
 {

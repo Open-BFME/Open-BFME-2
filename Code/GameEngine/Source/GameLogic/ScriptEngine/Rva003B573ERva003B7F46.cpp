@@ -12,11 +12,7 @@
 // uses the supplied key, then transfers one linked node and removes its source.
 #include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
-class BfmeNodeZ
-{
-public:
-	BfmeNodeZ *m_next;
-};
+#include "../../../Include/GameLogic/BfmeNodeZ.h"
 
 class Rva003B573E
 {

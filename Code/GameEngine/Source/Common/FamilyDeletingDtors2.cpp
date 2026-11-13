@@ -32,7 +32,7 @@ class BfmeStringHeadRecord148 { public: __declspec(dllimport) __forceinline ~Bfm
 void famgenDelete(BfmeStringHeadRecord148 *objectFilter) { delete objectFilter; }
 
 // ??_GBfmeNodeZ@@QAEPAXI@Z @0x3b4470
-class BfmeNodeZ { public: ~BfmeNodeZ(); };
+#include "../../Include/GameLogic/BfmeNodeZ.h"
 void famgenDelete(BfmeNodeZ *node) { delete node; }
 
 // ??_GBfmeStringRecord00111ACF@@QAEPAXI@Z @0x3f63e5
