@@ -6,7 +6,7 @@
 // branch behavior. The Palantir identity remains a donor/structural lead.
 // An explicit per-iteration record pointer reproduces retail's +0x28 cursor;
 // spelling saved[i].x/y directly picks +0x2C and changes the first load.
-class Rva002D3850 {public:float*GetRadarViewBoxCorner(int);};
+#include "../../../../GameEngine/Include/Common/Rva002D3850.h"
 struct NativeCoord2 {float x,y;};
 class Rva00104195 {public:bool rva00104195();private:char lead[0x28];NativeCoord2 saved[4];};
 bool Rva00104195::rva00104195(){for(int i=0;i<4;++i){float*p=((Rva002D3850*)this)->GetRadarViewBoxCorner(i);NativeCoord2*nativeCoord2=&saved[i];if(nativeCoord2->x!=p[0]||nativeCoord2->y!=p[1])return true;}return false;}

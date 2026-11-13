@@ -89,11 +89,7 @@ Rva0010461F::Rva0010461F()
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 
-class Rva002D3850
-{
-public:
-	float *GetRadarViewBoxCorner(int index);
-};
+#include "../../../../GameEngine/Include/Common/Rva002D3850.h"
 
 inline float sqr(float v) { return v * v; }
 
