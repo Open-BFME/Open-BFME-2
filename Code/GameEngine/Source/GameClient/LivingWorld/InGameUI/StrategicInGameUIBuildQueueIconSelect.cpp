@@ -390,11 +390,7 @@ __declspec(noinline) static UnicodeString GetDisplayDescriptionAtIndex(Rva005E76
  return StrategicInGameUI::GetDisplayDescription(context,queue,queue->slot13()->begin[index]);
 }
 }
-class __declspec(novtable) Rva005398CDRefCounted {
-public:
- Rva005398CDRefCounted() : m_refCount(0) {}
- virtual ~Rva005398CDRefCounted(); int m_refCount;
-};
+#include "../../../../Include/Common/Rva005398CDRefCounted.h"
 class InGameSimpleHelp : public Rva005398CDRefCounted {
 public:
  class Impl;

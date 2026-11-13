@@ -9,14 +9,7 @@
 #include "unicode_string.h"
 
 // The reference counted base (count +0x04; released through 0x0007DEEF).
-class __declspec(novtable) Rva005398CDRefCounted
-{
-public:
-	Rva005398CDRefCounted() : m_refCount(0) {}
-	virtual ~Rva005398CDRefCounted();
-
-	int m_refCount; // +0x04
-};
+#include "../../../../Include/Common/Rva005398CDRefCounted.h"
 
 class InGameSimpleHelp : public Rva005398CDRefCounted
 {

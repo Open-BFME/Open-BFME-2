@@ -227,11 +227,7 @@ RegionDetailsStructuresPage::Impl::Impl(void *page, void *level, void *name, con
 // 4-byte slot-0 forwarder 0x001FF3A9. The help/counted-reference views are
 // the ones StrategicInGameUIBuildQueueIconSelect.cpp uses for the same
 // pattern; the slot name is TU-local.
-class __declspec(novtable) Rva005398CDRefCounted {
-public:
- Rva005398CDRefCounted() : m_refCount(0) {}
- virtual ~Rva005398CDRefCounted(); int m_refCount;
-};
+#include "../../../../Include/Common/Rva005398CDRefCounted.h"
 class InGameSimpleHelp : public Rva005398CDRefCounted {
 public:
  class Impl;
