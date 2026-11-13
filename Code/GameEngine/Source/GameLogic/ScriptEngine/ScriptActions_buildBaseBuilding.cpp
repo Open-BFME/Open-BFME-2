@@ -86,11 +86,7 @@ public:
 struct Arg3971BF;
 #include "../../../Include/GameLogic/Rva003971BF.h"
 
-class Rva003980BF
-{
-public:
-	void *rva003980BF(void *tmpl, Int slot, Int unknown);
-};
+#include "../../../Include/Common/Rva003980BF.h"
 
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

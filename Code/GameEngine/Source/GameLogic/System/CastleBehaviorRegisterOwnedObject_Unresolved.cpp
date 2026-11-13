@@ -349,7 +349,7 @@ struct BfmeAsciiScalarValue8 {
  BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8&);
  ~BfmeAsciiScalarValue8() {}
 };
-class Rva003980BF { public: void* rva003980BF(void*,int,int); };
+#include "../../../Include/Common/Rva003980BF.h"
 #include "../../../Include/GameLogic/Rva00399959.h"
 class CastleConditionBits {
  unsigned words[20];
