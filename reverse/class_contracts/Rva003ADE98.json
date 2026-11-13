@@ -1,0 +1,177 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003ADE98",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3ade98"
+     ],
+     "value": 10
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3ade98"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       1
+      ],
+      "0x9": [
+       1
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3ade98"
+     ],
+     "value": {
+      "0x0": "0x81d1f4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81d1f4"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GObjectModule@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4a10fd"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Rva003ADEB9Get@@YAHXZ",
+        "slot": 2,
+        "target": "0x3adeb9"
+       },
+       {
+        "name": "?xfer@Rva0055EF6E@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x55ef6e"
+       }
+      ],
+      "table": "0x81d1f4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x81d1f4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GObjectModule@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?Rva003ADEB9Get@@YAHXZ",
+     "3": "?xfer@Rva0055EF6E@@QAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "char",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m09",
+   "name_by": "majority",
+   "offset": 9,
+   "retail_widths": {},
+   "size": 1,
+   "type": "char",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

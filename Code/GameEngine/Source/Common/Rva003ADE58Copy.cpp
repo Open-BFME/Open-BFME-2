@@ -12,15 +12,7 @@ public:
 // vtable 0x00C1D1D4) only restores that base's vptr to 0x00BBB554, the
 // Snapshot vtable, with no call; the base's own deleting dtor 0x004A10FD calls
 // 0x0049B47C, which does just that store.
-class Rva003ADE98
-{
-public:
-	Rva003ADE98(const Rva003ADE98 &other);
-	virtual ~Rva003ADE98() {}
-	int m04;
-	char m08;
-	char m09;
-};
+#include "../../Include/Common/Rva003ADE98.h"
 class Rva003ADE58 : public Rva003ADEBF, public Rva003ADE98
 {
 public:
