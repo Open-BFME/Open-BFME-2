@@ -80,13 +80,7 @@ enum { GWS_PUSH_BUTTON = 0x00000001, GWS_MOUSE_TRACK = 0x00000400 };
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 
-struct SliderData
-{
-	Int minVal;
-	Int maxVal;
-	Real numTicks;
-	Int position;
-};
+#include "../../../../Include/Common/SliderData.h"
 
 #include "../../../../Include/GameClient/KeyboardClass.h"
 

@@ -23,13 +23,7 @@ typedef bool Bool;
 
 #include "../../../../Include/GameClient/ListboxData.h"
 
-struct SliderData
-{
-	Int minVal;
-	Int maxVal;
-	float numTicks;
-	Int position;
-};
+#include "../../../../Include/Common/SliderData.h"
 
 class GameWindowManager
 {

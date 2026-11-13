@@ -27,13 +27,7 @@ enum { GSM_SET_SLIDER = 0x400D };
 #include <windows.h>
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
-struct SliderData
-{
-	Int minVal;
-	Int maxVal;
-	Real numTicks;
-	Int position;
-};
+#include "../../../../Include/Common/SliderData.h"
 
 struct ListboxData
 {

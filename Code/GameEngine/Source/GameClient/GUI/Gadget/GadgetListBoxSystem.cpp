@@ -480,11 +480,7 @@ struct TextAndColor
 	Int color;
 };
 
-struct SliderData
-{
-	Int minVal;
-	Int maxVal;
-};
+#include "../../../../Include/Common/SliderData.h"
 
 // GadgetListBoxSystem @0x00325FBF 3071B (jump table for 0x4018..0x4021
 // follows at 0x00326BBE): the list box system-message callback. Reference

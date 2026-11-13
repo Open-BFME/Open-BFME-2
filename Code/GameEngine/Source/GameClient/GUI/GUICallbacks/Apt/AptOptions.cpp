@@ -300,11 +300,7 @@ static inline bool TextIsEmpty(const UnicodeString &text)
 	return view.m_data == 0 || view.m_data->length == 0;
 }
 // A slider's user data: its range.
-struct SliderData
-{
-	int minVal;
-	int maxVal;
-};
+#include "../../../../../Include/Common/SliderData.h"
 int GadgetSliderGetPosition(GameWindow *slider);
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 struct BfmeAudioSettings

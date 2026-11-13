@@ -74,13 +74,7 @@ enum { GWS_MOUSE_TRACK = 0x00000400 };
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 
-struct SliderData
-{
-	Int minVal;
-	Int maxVal;
-	Real numTicks;
-	Int position;
-};
+#include "../../../../Include/Common/SliderData.h"
 
 extern GameWindowManager *TheWindowManager;
 

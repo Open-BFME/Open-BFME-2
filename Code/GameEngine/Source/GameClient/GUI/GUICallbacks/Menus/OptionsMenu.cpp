@@ -45,11 +45,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 // Zero Hour Gadget.h supplies these first two SliderData fields. The helper's
 // retail loads independently confirm maxVal at +4 and minVal at +0.
-struct SliderData
-{
-    int minVal;
-    int maxVal;
-};
+#include "../../../../../Include/Common/SliderData.h"
 bool operator<(const AsciiString &left, const AsciiString &right);
 namespace _STL
 {
