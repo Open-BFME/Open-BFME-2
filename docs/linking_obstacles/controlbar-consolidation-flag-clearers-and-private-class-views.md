@@ -21,3 +21,12 @@ Prerequisite (2026-11-05, codexb): adopted canonical NameKeyGenerator in UpdateV
 
 Prerequisite (2026-11-05, codexb2): adopted canonical CommandSet in fifteen sources, including ControlBarCommand and ControlBarCommandSetCtor; 423/423 functions match and owner-tool acceptance retires eighteen related header rows. Ordinary previews preserve 53,921 bytes; census confirmation and the remaining private-view prerequisites stay open ([scope and verification](../../reverse/attempt_support/commandset-header-20261105-codexb2.md)).
 Prerequisite (2026-11-05, codex5): PlayerList, PlayerList_getNthPlayer and Rva002D34FEChain adopt canonical ControlBar; acceptance retires three header rows, 37 code rows and one data row remain exact, and base/tip previews preserve 2,524 B LINKS; all-object scan finds no consumer of the removed inline setter ([evidence](../../reverse/attempt_support/controlbar-consumer-adoption-20261105-codex5.md)). Other layout prerequisites remain; census confirmation pending.
+
+2026-11-13 provider-debt follow-up: trusted-base cohort context now passes through
+the normal debt hook in published 7c6b5fb783e; path hints carry no verdict and
+all mandatory providers are freshly byte/link/dependency-verified. Restored
+AI-upgrade cohort remains 52/52 with scoped 3/3 LINKS, 852/852 census bytes at
+0e4b2640a1. Its genuine ControlBar adoption was not applied because the fresh
+class claim conflicts with StarkillerHDX@fleet's ControlBarRappellerCount.cpp
+claim. One consumer queue row remains; no native bridge retirement is measured.
+[Verification and retry handoff](../../reverse/attempt_support/controlbar-provider-debt-20261113-sol.md).

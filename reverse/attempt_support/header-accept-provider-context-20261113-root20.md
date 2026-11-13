@@ -40,3 +40,15 @@ paths changed since the index); no broad refresh or handwritten index update was
 run. Future work must carry explicit, bounded, freshly verified provider context
 through the normal debt gate, or use a supported safe current index. A provisional
 acceptance result must never be treated as a passed commit gate.
+
+## Trusted debt integration published; native retry ownership-blocked
+
+2026-11-13: 7c6b5fb783e345c6b948d63197204eab580130c0 publishes the separate
+trusted-base provider-context correction. Bounded staged/outgoing path hints
+trigger fresh mandatory cohort verification, complete strict provider dependency
+proof and object/sidecar currency checks; consumer-only receipts are excluded.
+Normal tooling hooks pass. The current published 0e4b2640a1 index gives 3/3 LINKS,
+852/852 bytes for the restored native cohort. A fresh ControlBar class claim
+conflicts with StarkillerHDX@fleet's ControlBarRappellerCount.cpp claim; no source
+adoption or queue deletion was attempted. All unused native scopes were released.
+[Tests, ownership boundary and precise retry](controlbar-provider-debt-20261113-sol.md).
