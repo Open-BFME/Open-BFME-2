@@ -16,11 +16,7 @@ public:
 	AsciiString resolveName(const AsciiString &s);
 };
 
-class Rva002A44D5
-{
-public:
-	void rva002A44D5(const AsciiString &name);
-};
+#include "../../../Include/Common/Rva002A44D5.h"
 
 class InGameUI;
 extern InGameUI *TheInGameUI;

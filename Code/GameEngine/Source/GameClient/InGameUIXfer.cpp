@@ -247,11 +247,7 @@ void vector<ScienceType, allocator<ScienceType> >::_M_clear() {
 typedef _STL::vector<ScienceType> FoldedReserveVector;
 
 // InGameUI::removeNamedTimer, rowed address-named at 0x002A44D5.
-class Rva002A44D5
-{
-public:
-	void rva002A44D5( const AsciiString &timerName );
-};
+#include "../../Include/Common/Rva002A44D5.h"
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
