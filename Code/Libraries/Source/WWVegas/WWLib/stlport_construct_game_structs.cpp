@@ -36,11 +36,7 @@ public:
 	Rva0052BEF0(const Rva0052BEF0 &other);
 };
 
-class Rva0052BD59
-{
-public:
-	Rva0052BD59(const Rva0052BD59 &other);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0052BD59.h"
 
 class Rva0052BE33
 {
