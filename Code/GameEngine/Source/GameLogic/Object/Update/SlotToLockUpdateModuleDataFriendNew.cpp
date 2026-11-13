@@ -24,17 +24,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class LockWeaponCreateModuleData
-{
-public:
-	LockWeaponCreateModuleData();
-	virtual ~LockWeaponCreateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xC - 4];
-};
+#include "../../../../Include/GameLogic/Module/LockWeaponCreateModuleData.h"
 
 // ?friend_newModuleData@LockWeaponCreateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *LockWeaponCreateModuleData::friend_newModuleData(INI *ini)

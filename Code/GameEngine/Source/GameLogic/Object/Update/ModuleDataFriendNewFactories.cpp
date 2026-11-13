@@ -19,15 +19,7 @@ class MultiIniFieldParse;
 // 0x0024AF5C: news 0x0C, ctor ??0LockWeaponCreateModuleData (rowed 0x254C8E),
 // parse proc 0x8598E1.
 
-class LockWeaponCreateModuleData
-{
-public:
-	LockWeaponCreateModuleData();
-	virtual ~LockWeaponCreateModuleData();
-
-private:
-	unsigned char m_pad[0x0C - 4];
-};
+#include "../../../../Include/GameLogic/Module/LockWeaponCreateModuleData.h"
 
 class SiegeDockingBehaviorModuleData
 {

@@ -324,7 +324,7 @@ class LevelUpUpgrade { public: static Module *friend_newModuleInstance(Thing *,c
 class LevelUpUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 class LockWeaponCreate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class LockWeaponCreateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/LockWeaponCreateModuleData.h"
 class LocomotorSetUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ManTheWallsSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ManTheWallsSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
