@@ -699,11 +699,7 @@ void Rva005D127C::clear()
 	}
 }
 
-class Rva005D309D
-{
-public:
-	~Rva005D309D();
-};
+#include "../../Include/Common/Rva005D309D.h"
 
 class Rva005D32AA
 {

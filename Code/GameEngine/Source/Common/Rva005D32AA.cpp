@@ -3,11 +3,7 @@
 // Clears owned Rva005D309D pointer and deletes it.
 // Evidence: dtor 0x005D309D just landed plus operator delete 0x0002FD60;
 // caller jmp at 0x005D32D4; ret void thiscall no args.
-class Rva005D309D
-{
-public:
-	~Rva005D309D();
-};
+#include "../../Include/Common/Rva005D309D.h"
 
 #include <new>
 

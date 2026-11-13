@@ -5,13 +5,7 @@
 // The 4-byte holder whose destructor is 0x005D32D4 (class named after it);
 // its caller 0x00578803 passes a const AsciiString reference. Allocation is
 // 0x6C, then stores result at +0. No vtable. Address-derived.
-class Rva005D309D
-{
-public:
-	Rva005D309D(int level, const AsciiString &name);
-protected:
-	unsigned char m_pad[0x6C];
-};
+#include "../../Include/Common/Rva005D309D.h"
 
 class Rva005D32D4
 {
