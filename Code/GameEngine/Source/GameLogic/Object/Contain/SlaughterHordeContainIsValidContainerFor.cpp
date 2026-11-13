@@ -23,11 +23,7 @@ class Player;
 
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 
-class Rva00331682Holder
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../../../Include/GameLogic/Module/Rva00331682Holder.h"
 
 struct SlaughterRiderTemplateView { unsigned char m_pad000[0x115]; unsigned char m_kindOf115; };
 
