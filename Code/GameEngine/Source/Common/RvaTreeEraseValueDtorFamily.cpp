@@ -29,13 +29,7 @@ struct RvaTreeValueNode
 	Rva002046BBValue m_value;	// +0x10
 };
 
-struct RvaTreeValueHead
-{
-	char m_pad00[4];			// +0x00
-	RvaTreeValueNode *m_root;	// +0x04
-	RvaTreeValueHead *m_left;	// +0x08
-	RvaTreeValueHead *m_right;	// +0x0C
-};
+#include "../../Include/Common/RvaTreeValueHead.h"
 
 #define RVA_TREE_VALUE_FAMILY( OWNER, ERASE, CLEAR )                       \
 	class OWNER                                                           \
