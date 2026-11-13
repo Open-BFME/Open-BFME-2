@@ -6,15 +6,7 @@ class CreateAHeroData;
 
 #include "../../Include/Common/Rva003F1093.h"
 
-class Rva004E05F0
-{
-public:
-	CreateAHeroData *rva004E05F0();
-	char m_lead[0x18];
-	void *m_18;
-	char m_mid[0x08];
-	Rva003F1093 *m_24;
-};
+#include "../../Include/Common/Rva004E05F0.h"
 
 #include "../../Include/GameClient/Rva005E683EMid.h"
 
