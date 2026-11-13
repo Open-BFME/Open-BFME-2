@@ -44,11 +44,7 @@ class AsciiString;
 #include "../../../Include/Common/AsciiStringRefWithChar.h"
 // Aggregate like Triple12 above (no user constructor), so the operator
 // below builds it with plain stores and no EH registration.
-struct Rva0002C9C2
-{
-	AsciiStringRefWithChar m_first;
-	AsciiStringRef m_second;
-};
+#include "../../../Include/Common/Rva0002C9C2.h"
 
 // ICF-folded twin of Rva0037BA97Init above (same 43 bytes at 0x0037BA97):
 // the narrow string+char concat node stores the same three dwords (two

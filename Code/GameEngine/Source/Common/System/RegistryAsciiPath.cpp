@@ -573,12 +573,7 @@ unsigned int GetRegistryMapPackVersion()
 // the first part through AsciiStringRefWithChar 0x0002C7A7 then the second
 // through AsciiStringRef 0x0002C5B1, summing the lengths. Called from the
 // unclaimed operator at 0x0002CB02. Honest address name; true type unknown.
-struct Rva0002C9C2
-{
-	AsciiStringRefWithChar m_first;
-	AsciiStringRef m_second;
-	int write(char *dst);
-};
+#include "../../../Include/Common/Rva0002C9C2.h"
 
 int Rva0002C9C2::write(char *dst)
 {

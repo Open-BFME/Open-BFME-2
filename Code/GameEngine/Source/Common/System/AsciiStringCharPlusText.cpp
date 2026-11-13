@@ -177,12 +177,7 @@ const char *GetRegistryUserDataLeafName();
 // the first part through AsciiStringRefWithChar 0x0002C7A7 then the second
 // through AsciiStringRef 0x0002C5B1, summing the lengths. Called from the
 // unclaimed operator at 0x0002CB02. Honest address name; true type unknown.
-struct Rva0002C9C2
-{
-	AsciiStringRefWithChar m_first;
-	AsciiStringRef m_second;
-	int write(char *dst);
-};
+#include "../../../Include/Common/Rva0002C9C2.h"
 
 // ?write@Rva0020F58E@@QAEHPAD@Z @0x0020F58E 37B narrow concat node PlusText plus Ref via rowed writes 0xBBD41 plus 0x2C5B1.
 // Evidence: unlock lane every callee rowed; callers 0x0020F741 0x00238C3E; same 37B shape as Rva0002C9C2.

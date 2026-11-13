@@ -741,12 +741,7 @@ public:
 	int rva005D0507();
 };
 
-struct Rva0002C9C2
-{
-public:
-	int write(char *dst);
-	operator AsciiString();
-};
+#include "../../../Include/Common/Rva0002C9C2.h"
 
 class Rva0002CBB4
 {
