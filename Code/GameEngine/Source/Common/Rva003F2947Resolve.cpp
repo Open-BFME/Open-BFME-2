@@ -7,15 +7,7 @@
 // back over this, and returns this. Membership in Rva003F2352 is inferred
 // from the identical head[4]+val[4] layout, the rowed (obj, obj) call, and
 // the +0x04 traffic; the byte gate is the proof.
-class Rva003F2352
-{
-public:
-	Rva003F2352 *rva003F2352(Rva003F2352 *dst, Rva003F2352 *src);
-	Rva003F2352 *rva003F2947(Rva003F2352 *src);
-private:
-	char m_head[4];
-	int m_val; // +0x04
-};
+#include "../../Include/Common/Rva003F2352.h"
 
 Rva003F2352 *Rva003F2352::rva003F2947(Rva003F2352 *src)
 {

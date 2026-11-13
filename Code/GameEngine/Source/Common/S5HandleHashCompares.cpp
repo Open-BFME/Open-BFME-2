@@ -98,15 +98,7 @@ inline bool Gen_0054EC80::bfmeDiffers(const Gen_0054EC80 &other) const
 // 00DC34DC as bfmeHash0002A473; caller at 0x003F2956 passes (tmp, arg).
 int Rva003F1D7CHook(int left, int right);
 
-class Rva003F2352
-{
-public:
-	Rva003F2352 *rva003F2352(Rva003F2352 *dst, Rva003F2352 *src);
-
-private:
-	char m_head[4];
-	int m_val; // +0x04
-};
+#include "../../Include/Common/Rva003F2352.h"
 
 Rva003F2352 *Rva003F2352::rva003F2352(Rva003F2352 *dst, Rva003F2352 *src)
 {
