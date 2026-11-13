@@ -155,17 +155,17 @@ Rva005D4C61::Rva005D4C61(EmitVtableTag *)
 // Two-slot table shared with Rva005DA7F5Dtor.cpp (retail 0x00C76510:
 // callback, then ??_G). The separately installed table at 0x00C76518
 // begins immediately afterwards; it is not another slot of this class.
-class Rva005DA7F5
+class AIUpgradeHeuristicFactoryUnlock
 {
 public:
-	Rva005DA7F5(EmitVtableTag *);
+	AIUpgradeHeuristicFactoryUnlock(EmitVtableTag *);
 public:
 	virtual void slot0() = 0;
-	virtual ~Rva005DA7F5();
+	virtual ~AIUpgradeHeuristicFactoryUnlock();
 };
 
-// ?<Rva005DA7F5::Rva005DA7F5> absent-from-retail
-Rva005DA7F5::Rva005DA7F5(EmitVtableTag *)
+// ?<AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock> absent-from-retail
+AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock(EmitVtableTag *)
 {
 }
 

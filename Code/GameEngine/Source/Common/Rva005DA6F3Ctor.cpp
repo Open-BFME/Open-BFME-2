@@ -93,6 +93,7 @@ class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
 {
 public:
 	AIUpgradeHeuristicFactoryUnlock(void *held);
+	virtual ~AIUpgradeHeuristicFactoryUnlock();
  int rva005DA67F(int);
 
 private:

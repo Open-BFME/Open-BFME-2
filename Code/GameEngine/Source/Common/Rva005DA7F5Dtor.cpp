@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHs
-// ??1Rva005DA7F5@@UAE@XZ @0x005DA7F5 60B
+// ??1AIUpgradeHeuristicFactoryUnlock@@UAE@XZ @0x005DA7F5 60B
 // Opaque dtor called by the rowed ??_G 0x005DA7D9 (vtable 0x00C76510#1).
 // Target facts: stores its two-slot vtable 0x00C76510 { 0x005DA67F,
 // ??_G 0x005DA7D9 }. Constructor 0x005DA831 separately installs the next
@@ -25,18 +25,18 @@ public:
 	virtual ~Rva005DAA36() {}
 };
 
-class Rva005DA7F5 : public Rva005DAA36
+class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
 {
 public:
 	virtual void slot0() = 0;
-	virtual ~Rva005DA7F5();
+	virtual ~AIUpgradeHeuristicFactoryUnlock();
 
 private:
 	int m_04;
 	void *m_buffer; // +0x08
 };
 
-Rva005DA7F5::~Rva005DA7F5()
+AIUpgradeHeuristicFactoryUnlock::~AIUpgradeHeuristicFactoryUnlock()
 {
 	if (m_buffer)
 		free(m_buffer);

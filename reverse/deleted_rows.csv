@@ -6210,3 +6210,6 @@ __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"R
 ?name@AIGuardMachine@@QBEPBDXZ,0x00542C24,"Renamed to ?GetSnapshotName@AIGuardMachine@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C69680 slot 2)"
 ?name@AITNGuardMachine@@QBEPBDXZ,0x00545B8F,"Renamed to ?GetSnapshotName@AITNGuardMachine@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C6A090 slot 2)"
 ?name@TurretAI@@QBEPBDXZ,0x004D86BB,"Renamed to ?GetSnapshotName@TurretAI@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C60D78 slot 2)"
+??_GRva005DA7F5@@UAEPAXI@Z,0x005DA7D9,"Renamed to ??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C76510)"
+??1Rva005DA7F5@@UAE@XZ,0x005DA7F5,"Renamed to ??1AIUpgradeHeuristicFactoryUnlock@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C76510)"
+__ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgradeHeuristicFactoryUnlock@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C76510)"

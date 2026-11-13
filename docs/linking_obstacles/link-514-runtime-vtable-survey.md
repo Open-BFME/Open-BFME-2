@@ -3557,3 +3557,11 @@ tables12->8B, only the third relocation removed; all other COMDATs unchanged.
 Whole class/base cohort52/52rows; scoped3/3LINKS852->852B against oldindex.
 Class fold and real slot0 override remain, no bridge retirement claimed.
 [Boundary proof](../../reverse/attempt_support/ai-upgrade-table-boundary-20261113-root20.md).
+
+**AI upgrade lifetime identity (2026-11-13, root20, after96001c50552):**
+Owning ordinary fold unites5DA7F5/5DA7D9 and its EH row with the
+constructor-owned AIUpgradeHeuristicFactoryUnlock. Explicit out-of-line
+dtor declaration removes the ctor TU implicit non-retail competitor;
+whole52/52rows and scoped3/3LINKS852->852B pass. Callback5DA67F still
+needs a matching inherited signature before virtual respelling; bridge
+remains. [Identity and provider proof](../../reverse/attempt_support/ai-upgrade-lifetime-identity-20261113-root20.md).
