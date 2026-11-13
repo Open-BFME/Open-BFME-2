@@ -5,20 +5,7 @@
 // frame counters are equal; this source only exposes the retail predicate.
 
 class Transport;
-class BFMEConnectionManager
-{
-public:
-	bool isPacketRouter(void);
-	bool isPlayerConnected(int arg);
-	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
-	void sendFrameInfo(bool flag);
-	bool hasPacketRouterFrameStall(void);
-	int isPlayerSlotActive(int playerID);
-	char m_pad00[0x12024];
-	Transport *m_transport12024; // +0x12024
-	char m_pad12028[0x34];
-	volatile int frameCeiling; // +0x1205C
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 class NetworkInterface
 {
