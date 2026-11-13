@@ -503,7 +503,7 @@ class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() 
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
-class Rva00131DFC { public: void rva00131DFC(void *, void *, void *, void *, int, int); };
+#include "../../../Include/W3DDevice/GameClient/Rva00131DFC.h"
 
 class W3DTaint
 {

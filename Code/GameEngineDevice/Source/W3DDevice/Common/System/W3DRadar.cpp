@@ -658,11 +658,7 @@ public:
 
 #include "../../../../Include/W3DDevice/GameClient/ShroudTexture.h"
 
-class Rva00131DFC
-{
-public:
-	void rva00131DFC(void *width, void *height, void *format, void *levels, Int a, Int b);
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00131DFC.h"
 
 // BFME's offset of the local player, reached through the real ThePlayerList. The inline
 // helper is what gives the static below retail's object in EDI and colour in EBX.

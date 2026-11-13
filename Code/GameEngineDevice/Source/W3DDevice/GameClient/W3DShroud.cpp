@@ -145,7 +145,7 @@ private:
 struct IDirect3DBaseTexture8;
 class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const; };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
-class Rva00131DFC { public: void rva00131DFC(void *, void *, void *, void *, int, int); };
+#include "../../../Include/W3DDevice/GameClient/Rva00131DFC.h"
 template<class T> class Rva0054E8DCAllocator : public _STL::allocator<T>
 {
 public:
