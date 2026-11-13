@@ -8,7 +8,7 @@ inline float Coord3D::length() const {return (float)sqrt(x*x+y*y+z*z);}
 inline void Coord3D::normalize(){float len=length();if(len!=0.0f){float scale=1.0f/len;x*=scale;y*=scale;z*=scale;}}
 class Object;
 #include "../../../Include/GameLogic/PathNode.h"
-struct DirectionOptions {bool flag0,flag1;float value4;bool flag8;};
+#include "../../../Include/Common/DirectionOptions.h"
 struct PathWorkingCoord {
  float x,y,z;
  __forceinline PathWorkingCoord(){} __forceinline PathWorkingCoord(float a,float b,float c):x(a),y(b),z(c){}

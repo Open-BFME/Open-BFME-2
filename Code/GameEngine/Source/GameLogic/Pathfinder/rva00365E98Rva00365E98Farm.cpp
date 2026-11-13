@@ -28,7 +28,7 @@ struct DirectionTemplateView {char pad00[0x40];float m_turnThresholdHS;char pad4
 struct DirectionEntryView {void *word0;DirectionTemplateView *settings;};
 #include "../../../Include/GameLogic/PathNode.h"
 class Rva00363BC7 {public:void *rva00363BC7(Coord2D *,float *);};
-struct DirectionOptions {Bool flag0,flag1;float value4;Bool flag8;};
+#include "../../../Include/Common/DirectionOptions.h"
 void FreePooledNode(void *);
 #include "../../../Include/GameLogic/PathfindPath.h"
 static __forceinline const float &directionMax(const float &leftOperand,const float &rightOperand) {return leftOperand>rightOperand?leftOperand:rightOperand;}
