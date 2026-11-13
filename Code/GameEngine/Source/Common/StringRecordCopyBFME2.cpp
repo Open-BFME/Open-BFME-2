@@ -41,10 +41,7 @@ template void _STL::_Construct<BfmeStringRecord000B950F,BfmeStringRecord000B950F
 
 // Retail copy 0x000B9534: observed scalar fields and string member.
 // Original application type and scalar meanings are unknown.
-struct BfmeStringRecord000B9534 {
-    AsciiString text; unsigned char flag; unsigned int word0, word1, word2, word3;
-    BfmeStringRecord000B9534(const BfmeStringRecord000B9534 &source) : text(source.text), flag(source.flag), word0(source.word0), word1(source.word1), word2(source.word2), word3(source.word3) {}
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord000B9534.h"
 template void _STL::_Construct<BfmeStringRecord000B9534,BfmeStringRecord000B9534>(BfmeStringRecord000B9534*,const BfmeStringRecord000B9534&);
 
 // Retail copy 0x002CF4C6: observed scalar fields and string member.

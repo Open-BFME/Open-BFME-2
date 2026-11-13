@@ -18,7 +18,7 @@
 // tag-taking casts (Rva003F325ACopy.cpp's pattern). Calling a declared-only specialization
 // of the real <vector> member template ICEs cl 7.1 (C1001 in P2), hence the stub.
 struct Rva003F318CRecord { char bytes[24]; };
-struct BfmeStringRecord000B9534 { char m_body[24]; };
+#include "BfmeStringRecord000B9534.h"
 class LivingWorldRegionConnection;
 class Rva003F2A11;
 

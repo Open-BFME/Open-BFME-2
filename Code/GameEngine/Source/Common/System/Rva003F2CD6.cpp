@@ -6,10 +6,7 @@
 // __uninitialized_copy<LivingWorldRegionConnection*> at 0x003F29D2 (every retail caller pushes the tag;
 // the STLport vector family units emit that name with retail's bytes). Casts like Rva00318D75Copy precedent.
 // Evidence: unlock lane, all callees rowed or pinned, caller 0x003F318C, landing unblocks it.
-struct BfmeStringRecord000B9534
-{
-	char m_body[24];
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord000B9534.h"
 class LivingWorldRegionConnection
 {
 	char _m[0x18];

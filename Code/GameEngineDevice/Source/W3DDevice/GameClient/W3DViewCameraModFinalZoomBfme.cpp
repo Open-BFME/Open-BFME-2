@@ -91,10 +91,7 @@ struct Rva0008DE1CElement
 	Coord3D world;
 	bool hit;
 };
-struct BfmeStringRecord000B9534
-{
-	int m_a[6];
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord000B9534.h"
 namespace _STL
 {
 template <class T> class allocator;
