@@ -745,11 +745,7 @@ Bool Rva0034311ECheck(Object *obj);
 // Retail 0033F9FE..0033FA64: position half of the line-of-sight guard.
 // Native calls establish Object / Coord3D / Weapon roles; filter shape reused
 // from the independently matched object-target guard below, not a donor name.
-class Rva0026163A
-{
-public:
- Bool rva0026163A(const Coord3D *target);
-};
+#include "../../../Include/Common/Rva0026163A.h"
 
 Bool rva0033F9FE(Object *source, const Coord3D *target, Weapon *weapon)
 {

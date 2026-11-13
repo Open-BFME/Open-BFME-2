@@ -98,11 +98,7 @@ public:
 	Object *m_owner;
 };
 
-class Rva0026163A
-{
-public:
-	Bool rva0026163A(const Coord3D *target);
-};
+#include "../../../../Include/Common/Rva0026163A.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
