@@ -35,12 +35,7 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 
-struct Rva006C1850Node
-{
-	unsigned int m_key;
-	void *m_value;
-	Rva006C1850Node *m_next;
-};
+#include "../../Include/Common/Rva006C1850Node.h"
 class Rva006C1850
 {
 public:

@@ -5,12 +5,7 @@
 // the body is the banked one up to statement/operand order and local types.
 // The hash lookup 0x006C1850 is owned by Rva006C3AB0DebugSetter.cpp,
 // whose caller needs its definition visible for retail slot-reload ordering.
-struct Rva006C1850Node
-{
-	unsigned int m_key;
-	void *m_value;
-	Rva006C1850Node *m_next;
-};
+#include "../../Include/Common/Rva006C1850Node.h"
 #include <string.h>
 class Rva006C1850
 {
