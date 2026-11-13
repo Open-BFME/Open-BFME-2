@@ -61,11 +61,7 @@ static inline Rva0020EAF6View *livingWorldRegions() { return (Rva0020EAF6View *)
 struct Rva0059E647Entry;
 #include "../../../../Include/GameLogic/Rva0059E647Factory.h"
 class LivingWorldBuildingTemplate;
-class LivingWorldBuildingTemplateStore
-{
-public:
-	const LivingWorldBuildingTemplate *getEmergencyBackupTemplateForBadLoads();
-};
+#include "../../../../Include/GameLogic/LivingWorldBuildingTemplateStore.h"
 class Rva0022C0CDSubsystem;
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 

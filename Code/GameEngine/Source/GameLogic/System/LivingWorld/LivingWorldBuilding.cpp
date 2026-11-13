@@ -137,11 +137,7 @@ struct Rva0059E647Entry;
 
 class LivingWorldBuildingTemplate;
 
-class LivingWorldBuildingTemplateStore
-{
-public:
-	const LivingWorldBuildingTemplate *getEmergencyBackupTemplateForBadLoads();
-};
+#include "../../../../Include/GameLogic/LivingWorldBuildingTemplateStore.h"
 
 class Rva0022C0CDSubsystem;
 
