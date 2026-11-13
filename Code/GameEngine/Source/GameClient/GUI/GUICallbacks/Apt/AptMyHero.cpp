@@ -48,7 +48,7 @@ public:
 };
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
-class Rva00406E47 {public: bool rva00406E47(int);};
+#include "../../../../../Include/Common/Rva00406E47.h"
 #include "../../../../../Include/GameClient/Rva005B0473View.h"
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};

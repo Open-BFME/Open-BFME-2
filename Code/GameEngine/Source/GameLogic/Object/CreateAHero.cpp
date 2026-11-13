@@ -92,11 +92,7 @@ template SignedBlingTree::_Link_type SignedBlingTree::_M_find<int>(const int &) 
 // operator= at 0x00409359 and the +4 setter at 0x00406E47.
 #include "../../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva00406E47
-{
-public:
-	Bool rva00406E47(Int value);
-};
+#include "../../../Include/Common/Rva00406E47.h"
 
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling
