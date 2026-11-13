@@ -479,7 +479,7 @@ bool Rva0027DC65Check(float*);
 #include "../../../Include/Common/Rva0031D5F8.h"
 #include "../../../Include/GameClient/CommandSet.h"
 #include "../../../Include/GameLogic/Module/Rva0026F0F0.h"
-class Rva0029DE76 { public: bool rva0029DE76(const Coord3D*); };
+#include "../../../Include/Common/Rva0029DE76.h"
 #include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager* TheActionManager;
 #include "../../../Include/GameClient/KeyboardClass.h"
