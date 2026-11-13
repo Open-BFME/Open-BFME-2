@@ -9,11 +9,7 @@
 // and jmps at 0x0022D8C7 0x0078660E; unblocks 0x0022D1C3 0x0022D9B7 0x004183AC.
 #include "ascii_string.h"
 
-class Rva0022CCB0
-{
-public:
-	~Rva0022CCB0();
-};
+#include "../../Include/Common/Rva0022CCB0.h"
 
 class Rva0022CFE6
 {
