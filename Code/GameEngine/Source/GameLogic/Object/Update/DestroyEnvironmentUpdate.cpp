@@ -35,6 +35,8 @@ private:
 	ObjectID m_objectID;
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004AC680
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 //
 // ??0DestroyEnvironmentUpdateModuleData@@QAE@XZ, retail 0x004AC615, 20 bytes.
@@ -189,3 +191,10 @@ void DestroyEnvironmentUpdate::xfer(Xfer *xfer)
 // tu-skeleton: 0x0078E368 8B uw_0078e368 -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E370 10B __ehhandler$?Rva004AC7C9@@YAPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp (not merged yet)
+
+// ?loadPostProcess@DestroyEnvironmentUpdate@@MAEXXZ: retail primary vftable 0x00C54D64 slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void DestroyEnvironmentUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
