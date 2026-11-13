@@ -273,13 +273,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Rva000E488F
-{
-public:
-	bool rva000E488F(void *arg);
-	void *m_begin;
-	void *m_end;
-};
+#include "../../../../GameEngine/Include/Common/Rva000E488F.h"
 
 class Rva000EB08C
 {

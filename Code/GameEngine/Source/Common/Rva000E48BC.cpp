@@ -64,13 +64,7 @@ static WWINLINE void bfme_xform(const Matrix3D &matrix3D, const Vector3 &in, Vec
 #include "../../Include/GameClient/Drawable.h"
 
 class Rva000E488FElement;
-class Rva000E488F
-{
-public:
-	bool rva000E488F(void *arg);
-	Rva000E488FElement **m_begin; // +0x00
-	Rva000E488FElement **m_end; // +0x04
-};
+#include "../../Include/Common/Rva000E488F.h"
 
 class Rva000E48BC
 {

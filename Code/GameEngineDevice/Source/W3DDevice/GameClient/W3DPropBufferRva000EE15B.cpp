@@ -11,14 +11,7 @@ public:
 private:
 	int m_refCount;
 };
-class Rva000E488F
-{
-public:
-	bool rva000E488F(void *arg);
-private:
-	void *m_begin;
-	void *m_end;
-};
+#include "../../../../GameEngine/Include/Common/Rva000E488F.h"
 void W3DPropBuffer::rva000EE15B()
 {
 	for (int i = 0; i < m_numProps; ++i)

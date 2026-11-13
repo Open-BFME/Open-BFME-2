@@ -8,13 +8,7 @@
 // Evidence: retail lea/imultri plus neg/sbb/inc invert plus caller at 0x000E8AA0
 // (W3DShrubBuffer::drawShrubs, on its own this; the offsets are that class's).
 
-class Rva000E488F
-{
-public:
-	bool rva000E488F(void *arg);
-	void *m_begin;
-	void *m_end;
-};
+#include "../../Include/Common/Rva000E488F.h"
 
 struct Rva000E76B8Elem
 {
