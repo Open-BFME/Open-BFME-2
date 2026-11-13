@@ -1,7 +1,7 @@
 // cl: /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // stlport
 
-// ??0Rva005DA6F3@@QAE@PAX@Z @0x005DA6F3 (230B).
+// ??0AIUpgradeHeuristicFactoryUnlock@@QAE@PAX@Z @0x005DA6F3 (230B).
 // Identity inference: calls the rowed Rva005DAA36 base constructor and
 // installs a derived vptr. Member offsets and filtering follow target loads.
 #include "ascii_string.h"
@@ -20,7 +20,7 @@ class Rva005DAA36
 {
 public:
 	Rva005DAA36(void *held);
-	virtual void slot0() = 0;
+	virtual int rva005DA67F(int) = 0;
 	virtual ~Rva005DAA36() {}
 
 	void *m_held;
@@ -87,6 +87,7 @@ class ControlBar : public Rva0031D5F8
 {
 };
 
+
 extern ControlBar *TheControlBar;
 
 class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
@@ -94,7 +95,7 @@ class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
 public:
 	AIUpgradeHeuristicFactoryUnlock(void *held);
 	virtual ~AIUpgradeHeuristicFactoryUnlock();
- int rva005DA67F(int);
+ virtual int rva005DA67F(int);
 
 private:
 	std::vector<PlayerAITypeEntry> m_modules;

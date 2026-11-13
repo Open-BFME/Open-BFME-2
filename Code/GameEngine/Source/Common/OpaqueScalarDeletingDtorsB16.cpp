@@ -160,7 +160,7 @@ class AIUpgradeHeuristicFactoryUnlock
 public:
 	AIUpgradeHeuristicFactoryUnlock(EmitVtableTag *);
 public:
-	virtual void slot0() = 0;
+	virtual int rva005DA67F(int);
 	virtual ~AIUpgradeHeuristicFactoryUnlock();
 };
 

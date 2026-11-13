@@ -1,0 +1,165 @@
+{
+  "base": "82e9aa3b0c0",
+  "native_slots": [
+    "0x5da67f",
+    "0x5da7d9"
+  ],
+  "table": "??_7AIUpgradeHeuristicFactoryUnlock@@6B@",
+  "definitions": [
+    {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^rva005^d^a6^f3^ctor.obj",
+      "extent": 8,
+      "offset": 0,
+      "comdat": true,
+      "selection": 2,
+      "executable": false,
+      "archive": false,
+      "other_publics": [],
+      "pointers": {
+        "0": [
+          "?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@UAEHH@Z",
+          6,
+          0
+        ],
+        "4": [
+          "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+          6,
+          0
+        ]
+      },
+      "weak": {
+        "4": [
+          "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+          2
+        ]
+      },
+      "mismatches": []
+    },
+    {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^rva005^d^a7^f5^dtor.obj",
+      "extent": 8,
+      "offset": 0,
+      "comdat": true,
+      "selection": 2,
+      "executable": false,
+      "archive": false,
+      "other_publics": [],
+      "pointers": {
+        "0": [
+          "?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@UAEHH@Z",
+          6,
+          0
+        ],
+        "4": [
+          "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+          6,
+          0
+        ]
+      },
+      "weak": {
+        "4": [
+          "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+          2
+        ]
+      },
+      "mismatches": []
+    },
+    {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^opaque^scalar^deleting^dtors^b16.obj",
+      "extent": 8,
+      "offset": 0,
+      "comdat": true,
+      "selection": 2,
+      "executable": false,
+      "archive": false,
+      "other_publics": [],
+      "pointers": {
+        "0": [
+          "?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@UAEHH@Z",
+          6,
+          0
+        ],
+        "4": [
+          "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+          6,
+          0
+        ]
+      },
+      "weak": {
+        "4": [
+          "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+          2
+        ]
+      },
+      "mismatches": []
+    }
+  ],
+  "compiler_weak_defaults": {
+    "??_EAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z": [
+      "??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z",
+      2
+    ]
+  },
+  "comdat_changes": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA6F3Ctor.cpp",
+      "old_comdats": 27,
+      "new_comdats": 27,
+      "changed": [
+        "??_7AIUpgradeHeuristicFactoryUnlock@@6B@"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA7F5Dtor.cpp",
+      "old_comdats": 6,
+      "new_comdats": 6,
+      "changed": [
+        "??_7AIUpgradeHeuristicFactoryUnlock@@6B@"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp",
+      "old_comdats": 46,
+      "new_comdats": 46,
+      "changed": [
+        "??_7AIUpgradeHeuristicFactoryUnlock@@6B@"
+      ],
+      "added": [],
+      "removed": []
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA64BCtor.cpp",
+      "old_comdats": 8,
+      "new_comdats": 8,
+      "changed": [],
+      "added": [],
+      "removed": []
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA831Ctor.cpp",
+      "old_comdats": 6,
+      "new_comdats": 6,
+      "changed": [],
+      "added": [],
+      "removed": []
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp",
+      "old_comdats": 47,
+      "new_comdats": 47,
+      "changed": [],
+      "added": [],
+      "removed": []
+    }
+  ],
+  "row_respelling": {
+    "old": "?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@QAEHH@Z",
+    "new": "?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@UAEHH@Z"
+  },
+  "unchanged_other_comdats": 137,
+  "source_limit": "Base private views/data layouts/include graphs retained. Normal Baseheader adoption remains blocked by unresolved conditional-include proof; no queue row retired."
+}

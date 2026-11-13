@@ -6213,3 +6213,4 @@ __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"R
 ??_GRva005DA7F5@@UAEPAXI@Z,0x005DA7D9,"Renamed to ??_GAIUpgradeHeuristicFactoryUnlock@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C76510)"
 ??1Rva005DA7F5@@UAE@XZ,0x005DA7F5,"Renamed to ??1AIUpgradeHeuristicFactoryUnlock@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C76510)"
 __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgradeHeuristicFactoryUnlock@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C76510)"
+?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@QAEHH@Z,0x005DA67F,"Renamed to ?rva005DA67F@AIUpgradeHeuristicFactoryUnlock@@UAEHH@Z by tools/rename.py (virtual: retail vtable slot)"

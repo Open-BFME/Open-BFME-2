@@ -3573,3 +3573,12 @@ under the existing address-neutral rva005DA67F identifier. int/Player*
 source semantics remain unresolved. All52rows,140COMDATs and38table
 payloads/relocs remain exact before/after; sibling slot debt unchanged.
 [ABI evidence](../../reverse/attempt_support/ai-upgrade-base-abi-20261113-root20.md).
+
+**AI upgrade native dispatch (2026-11-13, root20):**
+Owning --virtual transaction binds existing5DA67F callback to slot0 in
+all3eight-byte AIUpgradeHeuristicFactoryUnlock tables; slot1 weakdefaults
+resolve to the native28B deleting wrapper and sole60B dtor. Other137COMDATs,
+base/sibling tables and weak sets unchanged;52/52rows and3/3LINKS852->852B.
+Baseadoption is separately blocked by the conditional-include proof; both
+private data views remain. Await authoritative bridge retirement, no queue
+hand-edit. [Complete dispatch proof](../../reverse/attempt_support/ai-upgrade-native-dispatch-20261113-root20.md).

@@ -8,7 +8,8 @@
 // (0x00030830) when non-null, then the inline base dtor resets to the base
 // vtable 0x00C70B80 { __purecall, ??_G (Rva005DAA36), slot 2 }. Retail keeps
 // EH state 0 (base subobject) around the extern "C" free, which cl only does
-// under /EHs (TU-scoped flag). Identity unproven; address-derived names.
+// under /EHs (TU-scoped flag). The table and deleting wrapper tie this
+// lifetime to the constructor at 0x005DA6F3.
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
@@ -21,14 +22,14 @@
 class Rva005DAA36
 {
 public:
-	virtual void slot0() = 0;
+	virtual int rva005DA67F(int) = 0;
 	virtual ~Rva005DAA36() {}
 };
 
 class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
 {
 public:
-	virtual void slot0() = 0;
+	virtual int rva005DA67F(int);
 	virtual ~AIUpgradeHeuristicFactoryUnlock();
 
 private:
