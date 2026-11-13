@@ -218,7 +218,7 @@ class Rva000DE5B7 { public: AsciiString rva000DE5B7(); };
 #include "../../../../GameEngine/Include/GameLogic/Rva0027F5A6.h"
 #include "../../../../GameEngine/Include/GameNetwork/GameInfo.h"
 #include "../../../../GameEngine/Include/GameLogic/ScriptClass.h"
-class Rva004DC8E7AsciiField { public: AsciiString get() const; };
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva004DC8E7AsciiField.h"
 
 #define REF_PTR_RELEASE(x) if (x) { x->Release_Ref(); x = 0; }
 

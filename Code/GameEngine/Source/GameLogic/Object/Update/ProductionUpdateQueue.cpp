@@ -570,7 +570,7 @@ struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 struct ProductionExperienceView { char pad[0x24]; int level; int next; };
 #include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
-class Rva004DC8E7AsciiField { public: AsciiString get() const; };
+#include "../../../../Include/GameLogic/Module/Rva004DC8E7AsciiField.h"
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 #include "../../../../Include/GameLogic/Rva00358752Opaque.h"

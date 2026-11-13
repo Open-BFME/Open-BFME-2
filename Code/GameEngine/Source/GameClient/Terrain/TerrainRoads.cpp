@@ -228,7 +228,7 @@ class TerrainRoadType;
 
 class Rva000DE59C { public: AsciiString rva000DE59C(); };
 
-class Rva004DC8E7AsciiField { public: AsciiString get() const; };
+#include "../../../Include/GameLogic/Module/Rva004DC8E7AsciiField.h"
 
 class Rva000DE5B7 { public: AsciiString rva000DE5B7(); };
 
