@@ -258,13 +258,7 @@ class RenderObjClass;
 class SceneIterator;
 #include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
-class Rva00740555 : public SimpleSceneClass
-{
-public:
-	Rva00740555(EmitVtableTag *);
-public:
-	virtual ~Rva00740555();
-};
+#include "../../Include/Common/Rva00740555.h"
 
 // ?<Rva00740555::Rva00740555> absent-from-retail
 Rva00740555::Rva00740555(EmitVtableTag *)

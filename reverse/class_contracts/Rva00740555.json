@@ -1,0 +1,277 @@
+{
+ "bases": [
+  "SimpleSceneClass"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva00740555",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 28,
+   "inherited_spans": [
+    [
+     0,
+     264
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x740157"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SimpleSceneClass",
+       "offset": 0,
+       "own_vftable": "0x8f1578",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x740157"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x740157"
+     ],
+     "value": {
+      "0x0": "0x8f1578"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8f1578"
+     ],
+     "value": {
+      "count": 28,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?Delete_This@RefCountClass@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GRva00740555@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x1042cf"
+       },
+       {
+        "name": "?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+        "slot": 2,
+        "target": "0x1413a0"
+       },
+       {
+        "name": "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+        "slot": 3,
+        "target": "0x141860"
+       },
+       {
+        "name": "?Create_Iterator@SimpleSceneClass@@UAEPAVSceneIterator@@XZ",
+        "slot": 4,
+        "target": "0x141cd0"
+       },
+       {
+        "name": "?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z",
+        "slot": 5,
+        "target": "0x6132a0"
+       },
+       {
+        "name": "?Set_Ambient_Light@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 6,
+        "target": "0x6e265"
+       },
+       {
+        "name": "?get@Rva005C4AD5LeaField@@QBEPAXXZ",
+        "slot": 7,
+        "target": "0x5c4ad5"
+       },
+       {
+        "name": "?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z",
+        "slot": 8,
+        "target": "0x6ede3"
+       },
+       {
+        "name": "?getPercentage@NetProgressCommandMsg@@QAEEXZ",
+        "slot": 9,
+        "target": "0x4c54ec"
+       },
+       {
+        "name": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 10,
+        "target": "0x49f0f"
+       },
+       {
+        "name": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+        "slot": 11,
+        "target": "0x4f5fa3"
+       },
+       {
+        "name": "?Set_Fog_Range@SceneClass@@UAEXMM@Z",
+        "slot": 12,
+        "target": "0x6eded"
+       },
+       {
+        "name": "?Get_Fog_Range@SceneClass@@UAEXPAM0@Z",
+        "slot": 13,
+        "target": "0x6ee06"
+       },
+       {
+        "name": "?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+        "slot": 14,
+        "target": "0x141400"
+       },
+       {
+        "name": "?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+        "slot": 15,
+        "target": "0x1414d0"
+       },
+       {
+        "name": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
+        "slot": 16,
+        "target": "0x1418f0"
+       },
+       {
+        "name": "?get@Rva0006EE1BDwordField@@QBEHXZ",
+        "slot": 17,
+        "target": "0x6ee1b"
+       },
+       {
+        "name": "?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z",
+        "slot": 18,
+        "target": "0x1428e0"
+       },
+       {
+        "name": "?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z",
+        "slot": 19,
+        "target": "0x1428f0"
+       },
+       {
+        "name": "?Save@SceneClass@@UAEXAAVChunkSaveClass@@@Z",
+        "slot": 20,
+        "target": "0x140cf0"
+       },
+       {
+        "name": "?Load@SceneClass@@UAEXAAVChunkLoadClass@@@Z",
+        "slot": 21,
+        "target": "0x140dc0"
+       },
+       {
+        "name": "?Render@SceneClass@@MAEXAAVRenderInfoClass@@@Z",
+        "slot": 22,
+        "target": "0x141170"
+       },
+       {
+        "name": "?CustomizedRender@Rva007406E1@@QAEXAAVRenderInfoClass@@@Z",
+        "slot": 23,
+        "target": "0x7406e1"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 24,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+        "slot": 25,
+        "target": "0x141bb0"
+       },
+       {
+        "name": "?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ",
+        "slot": 26,
+        "target": "0x141370"
+       },
+       {
+        "name": "?Visibility_Check@SimpleSceneClass@@UAEXPAVCameraClass@@@Z",
+        "slot": 27,
+        "target": "0x1426d0"
+       }
+      ],
+      "table": "0x8f1578"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x8f1578": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?Delete_This@RefCountClass@@UAEXXZ",
+     "1": "??_GRva00740555@@UAEPAXI@Z",
+     "2": "?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+     "3": "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+     "4": "?Create_Iterator@SimpleSceneClass@@UAEPAVSceneIterator@@XZ",
+     "5": "?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z",
+     "6": "?Set_Ambient_Light@SceneClass@@UAEXABVVector3@@@Z",
+     "7": "?get@Rva005C4AD5LeaField@@QBEPAXXZ",
+     "8": "?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z",
+     "9": "?getPercentage@NetProgressCommandMsg@@QAEEXZ",
+     "10": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+     "11": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+     "12": "?Set_Fog_Range@SceneClass@@UAEXMM@Z",
+     "13": "?Get_Fog_Range@SceneClass@@UAEXPAM0@Z",
+     "14": "?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+     "15": "?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+     "16": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
+     "17": "?get@Rva0006EE1BDwordField@@QBEHXZ",
+     "18": "?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z",
+     "19": "?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z",
+     "20": "?Save@SceneClass@@UAEXAAVChunkSaveClass@@@Z",
+     "21": "?Load@SceneClass@@UAEXAAVChunkLoadClass@@@Z",
+     "22": "?Render@SceneClass@@MAEXAAVRenderInfoClass@@@Z",
+     "23": "?CustomizedRender@Rva007406E1@@QAEXAAVRenderInfoClass@@@Z",
+     "24": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "25": "?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+     "26": "?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ",
+     "27": "?Visibility_Check@SimpleSceneClass@@UAEXPAVCameraClass@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "264": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 264,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

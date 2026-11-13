@@ -760,11 +760,7 @@ Rva006F7DC0::~Rva006F7DC0()
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 
-class __declspec(novtable) Rva00740555 : public SimpleSceneClass
-{
-public:
-	virtual ~Rva00740555();
-};
+#include "../../Include/Common/Rva00740555.h"
 
 struct Coord3D;
 
