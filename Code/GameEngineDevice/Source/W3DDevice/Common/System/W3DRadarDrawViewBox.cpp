@@ -16,10 +16,7 @@
 // Out-of-line empty ctor/dtor (rowed 0x0047A6A9 / 0x000B3FD0, defined in
 // W3DRadarCornerLifetimes.cpp): only the corner array runs them, through the
 // eh vector iterators; the scalar Coord2D temporaries stay plain.
-struct BfmeRadarMapPoint : Coord2D {
-	BfmeRadarMapPoint();
-	~BfmeRadarMapPoint();
-};
+#include "../../../../../GameEngine/Include/Common/BfmeRadarMapPoint.h"
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 

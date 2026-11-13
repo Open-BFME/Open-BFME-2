@@ -6,7 +6,7 @@
 #include "Coord3D.h"
 #include "Coord2D.h"
 struct BfmeRadarWorldPoint:Coord3D{BfmeRadarWorldPoint();~BfmeRadarWorldPoint();};
-struct BfmeRadarMapPoint:Coord2D{BfmeRadarMapPoint();~BfmeRadarMapPoint();};
+#include "../../../../../GameEngine/Include/Common/BfmeRadarMapPoint.h"
 BfmeRadarWorldPoint::BfmeRadarWorldPoint(){}
 BfmeRadarWorldPoint::~BfmeRadarWorldPoint(){}
 BfmeRadarMapPoint::BfmeRadarMapPoint(){}

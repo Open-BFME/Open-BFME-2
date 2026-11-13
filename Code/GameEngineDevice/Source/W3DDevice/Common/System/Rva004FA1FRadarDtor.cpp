@@ -41,10 +41,7 @@ struct RadarTextureRef4 {
     RadarTextureRef4() : ptr(0) {}
     ~RadarTextureRef4() { if (ptr) ptr->Release_Ref(); }
 };
-struct BfmeRadarMapPoint : Coord2D {
-    BfmeRadarMapPoint();
-    ~BfmeRadarMapPoint();
-};
+#include "../../../../../GameEngine/Include/Common/BfmeRadarMapPoint.h"
 struct Rva004FA1FObserver {
     char unknown[0xC];
     void *radar;
