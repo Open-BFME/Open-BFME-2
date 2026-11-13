@@ -2686,7 +2686,7 @@ void LivingWorldLogic::UpdateTurnPhase(){
 // Player armies at1B8 and the pair's two-word storage are native facts.
 // Existing neutral callee spellings preserve their unresolved original
 // type identities; ModuleData is the owned allocation provider's wire ABI.
-struct Rva00538CEFPair {int a,b;};
+#include "../../../../Include/Common/Rva00538CEFPair.h"
 #include "../../../../Include/GameLogic/Rva00318F42.h"
 #include "../../../../Include/Common/Rva00318FA1MainOwner.h"
 struct Rva003F26AAPair {int a,b;};

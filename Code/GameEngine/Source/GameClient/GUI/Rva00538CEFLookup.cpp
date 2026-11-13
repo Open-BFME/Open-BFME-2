@@ -21,7 +21,7 @@ class Vector3;
 #include "../../../Include/Common/Rva002BF4F3.h"
 class Rva002D3627Host;class LivingWorld; extern LivingWorld *TheLivingWorld;
 struct Record00538D3B {int unused;float x,y,z;};
-struct Rva00538CEFPair {int a,b;};
+#include "../../../Include/Common/Rva00538CEFPair.h"
 class Rva00538CEF
 {
 public:

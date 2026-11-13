@@ -634,7 +634,7 @@ struct Rva00318F42View { Rva00318F42Record *first,*finish,*end; };
 
 struct Rva00318F42Holder { unsigned char pad[0x3C]; Rva00318F42View view; };
 
-struct Rva00538CEFPair {int a,b;};
+#include "../../../Include/Common/Rva00538CEFPair.h"
 
 struct Rva003196A7Call;
 
