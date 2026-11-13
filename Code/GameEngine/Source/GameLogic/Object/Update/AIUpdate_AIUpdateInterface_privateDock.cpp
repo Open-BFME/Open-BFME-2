@@ -404,20 +404,7 @@ public:
 
 // BFME reads the held-disabled and dead flags out of the object's own bytes
 // rather than through isDisabledByType and isEffectivelyDead.
-struct BFMEObjectDisabledMask
-{
-	__forceinline Bool isNotHeldDisabled() const
-	{
-		UnsignedByte disabled = m_disabledMask;
-		disabled >>= 3;
-		disabled = ~disabled;
-		disabled &= 1;
-		return disabled;
-	}
-
-	char m_unreconstructed_000[0x1A4];
-	UnsignedByte m_disabledMask;				///< retail this+0x1A4
-};
+#include "../../../../Include/Common/BFMEObjectDisabledMask.h"
 
 struct BFMEObjectDeadFlags
 {
