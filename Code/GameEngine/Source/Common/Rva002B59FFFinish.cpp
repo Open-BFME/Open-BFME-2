@@ -48,11 +48,7 @@ typedef bool Bool;
 
 #include "../../Include/Common/Rva0023C6A4.h"
 
-class Rva002BE8D4
-{
-public:
-	bool rva002BE8D4();
-};
+#include "../../Include/Common/Rva002BE8D4.h"
 
 // The two singletons the predicate consults.  Both are pinned in
 // reverse/symbols.csv, so the globals get their real addresses rather than

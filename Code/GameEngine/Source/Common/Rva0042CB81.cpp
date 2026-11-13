@@ -120,7 +120,7 @@ void Rva0042CBB6::rva0042CC1B()
 // Reuse the data ledger owner at 0x009FEF18; original class identity is unknown.
 class Rva002D3627Host; class LivingWorld; extern LivingWorld *TheLivingWorld;
 extern int BfmeClientFramesPerSecond;
-class Rva002BE8D4 { public: bool rva002BE8D4(); };
+#include "../../Include/Common/Rva002BE8D4.h"
 struct CameraPoint42 { float x,y,z; };
 class CameraOperations42 {
 public:
