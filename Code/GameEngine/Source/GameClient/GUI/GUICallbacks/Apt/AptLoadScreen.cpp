@@ -35,16 +35,7 @@ private:
 };
 
 class Rva0043DA65;
-class AptMapPreview
-{
-public:
-	void rva0057D5E5(); // preview teardown
-	AptMapPreview(Rva0043DA65 *game); // 0x0057CF43
-	~AptMapPreview(); // 0x0057CF0B
-	void rva0057E45C(); // 0x0057E45C, the preview's Apt registration
-private:
-	unsigned char m_data[0x70]; // +0x00
-};
+#include "../../../../../Include/GameClient/AptMapPreview.h"
 
 // The window layout at +0x10: slot 1 destroys, slot 3 shuts it down.
 class Rva0043A396Layout
