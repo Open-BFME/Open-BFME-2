@@ -64,11 +64,7 @@ typedef _STL::map<AsciiString, TreeHintPayload001F8ACB, _STL::less<AsciiString>,
 
 // Rowed byte getter at 0x002AA22A reads Player+0x734; rowed dword getter at
 // 0x005C4AF5 reads Team+0x40 (next team in the prototype's instance list).
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;			// 0x002AA22A
-};
+#include "../../../Include/Common/Rva002AA22AByteField.h"
 
 template<int NUMBITS>
 class BitFlags

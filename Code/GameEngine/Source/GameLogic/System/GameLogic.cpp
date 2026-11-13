@@ -1773,11 +1773,7 @@ private:
 	Object *m_head;
 };
 bool canPlayersTransferMoneyYet();
-class Rva002AA22AByteField
-{
-public:
-	unsigned char get() const;
-};
+#include "../../../Include/Common/Rva002AA22AByteField.h"
 struct OpaqueRefElement4
 {
 	void *m_ptr;
