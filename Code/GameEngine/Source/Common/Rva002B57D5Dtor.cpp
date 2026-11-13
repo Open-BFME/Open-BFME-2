@@ -16,12 +16,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct Node002B4509
-{
-	char m_pad[8];
-	Node002B4509 *m_next8;
-	Node002B4509 *m_childC;
-};
+#include "../../Include/Common/Node002B4509.h"
 
 struct Head002B57D5
 {
