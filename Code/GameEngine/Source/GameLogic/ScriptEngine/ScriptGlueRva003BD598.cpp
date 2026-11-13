@@ -36,11 +36,7 @@ public:
 };
 extern class ScriptEngine *TheScriptEngine;
 
-class Rva0021A54A
-{
-public:
-	void rva0021A54A();
-};
+#include "../../../Include/GameLogic/Rva0021A54A.h"
 extern class CreateAHeroManager *TheCreateAHeroManager;
 
 class Rva003BD598

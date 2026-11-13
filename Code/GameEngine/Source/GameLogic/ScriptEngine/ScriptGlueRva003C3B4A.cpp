@@ -28,11 +28,7 @@ extern Rva00E02D6C *TheCampaignManager;
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 
-class Rva0021A54A
-{
-public:
-	void rva0021A54A();
-};
+#include "../../../Include/GameLogic/Rva0021A54A.h"
 class CreateAHeroManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 
