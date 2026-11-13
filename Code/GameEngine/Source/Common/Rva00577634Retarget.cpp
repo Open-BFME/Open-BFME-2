@@ -30,11 +30,7 @@ public:
 	Rva00576FBA *m_entry;
 };
 
-class Rva0057704C
-{
-public:
-	void rva0057704C(Rva0057702EBase *entry);
-};
+#include "../../Include/Common/Rva0057704C.h"
 
 struct Rva00577634Owner
 {

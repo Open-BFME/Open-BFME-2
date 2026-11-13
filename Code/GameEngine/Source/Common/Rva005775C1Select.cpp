@@ -24,11 +24,7 @@ public:
 	void rva0057702E();
 	Rva0057702EBase *m_ptr;
 };
-class Rva0057704C
-{
-public:
-	void rva0057704C(Rva0057702EBase *selection);
-};
+#include "../../Include/Common/Rva0057704C.h"
 class Rva00576FBA
 {
 public:

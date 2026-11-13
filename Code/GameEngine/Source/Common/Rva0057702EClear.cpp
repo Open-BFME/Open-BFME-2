@@ -32,13 +32,7 @@ void Rva0057702E::rva0057702E()
 }
 
 // ?rva0057704C@Rva0057704C@@QAEXPAURva0057702EBase@@@Z @0x0057704C 39B: guarded assign on pointer at +0; assigns new when different then operator-deletes virtual slot4 result with 0 or null; callers 0x00577620 115B plus 0x00577693 115B; prev Clear next Acquire; no donor.
-class Rva0057704C
-{
-	Rva0057702EBase *m_ptr;
-
-public:
-	void rva0057704C(Rva0057702EBase *n);
-};
+#include "../../Include/Common/Rva0057704C.h"
 
 void Rva0057704C::rva0057704C(Rva0057702EBase *n)
 {
