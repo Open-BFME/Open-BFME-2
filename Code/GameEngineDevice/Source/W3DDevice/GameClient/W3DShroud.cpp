@@ -106,16 +106,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 // ?rva000729CC@Rva000729CC@@QAEX_N@Z, RVA 0x000729CC, 14B. Two-byte flag setter:
 // [ecx+0x36]=arg byte then [ecx+0x35]=1, ret 4. Evidence: adjacent to 0x000729DA,
 // callers in unclaimed 0x0046d58b/0x00444fb9/0x00444ff2; honest address name.
-class Rva000729CC
-{
-public:
-	void rva000729CC(bool on);
-	void rva00073CC0(int x, int y, unsigned char level, bool textureOnly);
-	char m_pad00[0x35];
-private:
-	bool m_flag35; // +0x35
-	bool m_flag36; // +0x36
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000729CC.h"
 // Retail 0x00727030. Store 4 or 0 at +0x28 from a bool argument.
 
 class Gen_00727030

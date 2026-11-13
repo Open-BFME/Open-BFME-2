@@ -57,26 +57,7 @@ inline void appendTaintIndex(_STL::vector<int> &values, const int &index)
 // set<int>::erase(const key_type &), rowed at 0x000733D8.
 #include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 // setTaintLevel, rowed at 0x00073CC0 (W3DTaint.cpp view).
-class Rva000729CC
-{
-public:
-	void rva00073CC0(int x, int y, unsigned char level, bool textureOnly);
-	float getXScale() {return scaleX;}
-	float getYScale() {return scaleY;}
-private:
-	int m_numCellsX; // +0x00
-	int m_numCellsY; // +0x04
-	char m_pad08[0x8];
-	float scaleX; // +0x10
-	float scaleY; // +0x14
-	unsigned int *m_taintData; // +0x18
-	char m_pad1C[0x1C];
-	unsigned char *m_cellLevels; // +0x38
-	unsigned char *m_referenceCellLevels; // +0x3C
-	unsigned char m_trackDirtyCells; // +0x40
-	char m_pad41[0x3];
-	_STL::set<int> m_dirty; // +0x44
-};
+#include "../../../Include/W3DDevice/GameClient/Rva000729CC.h"
 
 class W3DTaint
 {
