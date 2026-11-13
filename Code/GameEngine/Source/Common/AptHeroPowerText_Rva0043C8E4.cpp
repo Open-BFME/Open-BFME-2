@@ -55,13 +55,7 @@ const char *g_00DD3B90[6] = {
 };
 extern const unsigned short g_Va007C9260[];
 
-class Rva005B9378
-{
-public:
-	void rva005B9378(int index, const UnicodeString &value);
-	void rva005B942A(int index, int value);
-	void rva005BA02B();
-};
+#include "../../Include/Common/Rva005B9378.h"
 
 void Rva005B9378::rva005B9378(int index, const UnicodeString &value)
 {

@@ -8,12 +8,7 @@
 // index through rowed rva005B9378. Evidence: member +0x64 (UnicodeString
 // m_64 in AptOnlineHome dtor TU), TheNullChr fallback at VA 0x00BBB5C4,
 // callees rowed format/rva005B9378/releaseBuffer, 6 callers in 0x005B95B8.
-class Rva005B9378
-{
-public:
-	void rva005B9378(int index, const UnicodeString &value);
-	void rva005B942A(int index, int value);
-};
+#include "../../Include/Common/Rva005B9378.h"
 
 class AptOnlineHome
 {

@@ -8,13 +8,7 @@
 extern GameTextInterface *TheGameText;
 
 
-class Rva005B9378
-{
-public:
-	void rva005B9378(int index, const UnicodeString &value);
-	void rva005B942A(int index, int value);
-	void rva005BA02B();
-};
+#include "../../Include/Common/Rva005B9378.h"
 
 // ?rva005BA02B@Rva005B9378@@QAEXXZ @0x005BA02B 466B: the ticker screen's
 // GameSpy update, Zero Hour's WOLGameSetupMenuUpdate response pump: buddy and

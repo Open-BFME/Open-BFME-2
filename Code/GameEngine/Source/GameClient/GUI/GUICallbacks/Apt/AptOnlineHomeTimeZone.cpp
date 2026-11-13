@@ -34,7 +34,7 @@ private:
 // same zone abbreviation loop, embedded in a larger player-stat refresh.
 // Target resets12 ticker rows and calls the separately rowed PS request.
 typedef char HomeZoneSize[sizeof(TIME_ZONE_INFORMATION)==172 ? 1:-1];
-class Rva005B9378 { public: void rva005B9378(int,const UnicodeString &); };
+#include "../../../../../Include/Common/Rva005B9378.h"
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 void rva005BD64D();

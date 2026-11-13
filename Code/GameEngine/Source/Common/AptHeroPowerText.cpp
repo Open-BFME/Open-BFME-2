@@ -120,13 +120,7 @@ UnicodeString __cdecl Rva005B2446Describe(void *power)
 }
 extern const char *g_00DD3B90[];
 
-class Rva005B9378
-{
-public:
-	void rva005B9378(int index, const UnicodeString &value);
-	void rva005B942A(int index, int value);
-	void rva005BA02B();
-};
+#include "../../Include/Common/Rva005B9378.h"
 
 
 
