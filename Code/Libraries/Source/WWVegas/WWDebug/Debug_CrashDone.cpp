@@ -25,10 +25,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-struct DebugCriticalSection
-{
-	unsigned char m_data[0x18];
-};
+#include "DebugCriticalSection.h"
 
 // g_bfmeCsDWC: matched references place it at VA 0xde0884 (zero-filled; a plain-data view).
 DebugCriticalSection g_bfmeCsDWC;

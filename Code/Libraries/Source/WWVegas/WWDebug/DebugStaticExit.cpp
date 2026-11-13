@@ -12,10 +12,7 @@
 
 typedef void *HWND;
 
-struct DebugCriticalSection
-{
-	unsigned char m_data[0x18];
-};
+#include "DebugCriticalSection.h"
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(DebugCriticalSection *lock);
 extern "C" __declspec(dllimport) void *__stdcall ShellExecuteA(HWND window, const char *operation,

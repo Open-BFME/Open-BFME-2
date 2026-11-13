@@ -32,10 +32,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include <string.h>
 #include <stdlib.h>
 
-struct DebugCriticalSection
-{
-	unsigned char m_data[0x18];
-};
+#include "DebugCriticalSection.h"
 
 extern DebugCriticalSection g_bfmeCsDWC;
 // Raised whenever the assert dialog was answered with anything but
