@@ -882,13 +882,7 @@ public:
 };
 bool g_00E02E34;
 #include "../../../Include/GameLogic/ObjectTypesClass.h"
-class ObjectTypesTemp
-{
-public:
-	ObjectTypesTemp();	// 0x003BA7FF
-	~ObjectTypesTemp() { ::delete m_types; }
-	ObjectTypes *m_types;
-};
+#include "../../../Include/Common/ObjectTypesTemp.h"
 void Script_objectTypesFromParam(Parameter *typeParm, ObjectTypes *types);
 // vftable 0x00BFAD1C, allow 0x002611DD: no members of its own.
 class Rva002611DDFilter : public Rva000421C8

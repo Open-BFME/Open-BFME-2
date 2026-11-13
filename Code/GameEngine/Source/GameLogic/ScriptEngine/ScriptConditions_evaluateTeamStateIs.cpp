@@ -594,13 +594,7 @@ extern InGameUI *TheInGameUI;
 // false), rowed at 0x00376A84 under its address name.
 #include "../../../Include/GameLogic/Rva00376A62.h"
 
-class ObjectTypesTemp
-{
-public:
-	ObjectTypesTemp();
-	~ObjectTypesTemp() { ::delete m_types; }
-	ObjectTypes *m_types;
-};
+#include "../../../Include/Common/ObjectTypesTemp.h"
 
 // Zero Hour defines ObjectTypesTemp in ScriptConditions.cpp, and retail's
 // out-of-line copy of its ctor (0x003BA7FF) belongs to that unit: the

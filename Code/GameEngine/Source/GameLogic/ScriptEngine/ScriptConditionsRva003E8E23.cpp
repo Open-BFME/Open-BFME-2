@@ -132,13 +132,7 @@ extern ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/GameLogic/Rva00376A62.h"
 
-class ObjectTypesTemp
-{
-public:
-	ObjectTypesTemp();
-	~ObjectTypesTemp() { ::delete m_types; }
-	ObjectTypes *m_types;
-};
+#include "../../../Include/Common/ObjectTypesTemp.h"
 
 void Script_objectTypesFromParam(Parameter *typeParm, ObjectTypes *types);
 
