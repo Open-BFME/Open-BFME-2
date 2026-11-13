@@ -15,11 +15,7 @@ class StateMachine;
 class Object;
 
 struct Rva001E3F08MidB;
-struct Rva001E3F08Arg
-{
-	char m_pad00[0x258];
-	Rva001E3F08MidB *m_p258;
-};
+#include "../../Include/Common/Rva001E3F08Arg.h"
 
 #include "../../Include/GameLogic/Rva001E3F08.h"
 

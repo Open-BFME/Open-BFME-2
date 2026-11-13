@@ -26,11 +26,7 @@ struct Rva001E3F08MidB
 	float m_val1F8; // +0x1F8
 };
 
-struct Rva001E3F08Arg
-{
-	int m_pad00[150]; // +0x00..+0x257
-	Rva001E3F08MidB *m_p258; // +0x258
-};
+#include "../../Include/Common/Rva001E3F08Arg.h"
 
 class Rva001E3F08
 {
