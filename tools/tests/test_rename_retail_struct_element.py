@@ -97,8 +97,8 @@ HEADER = "Code/Lib/OpaqueRefElement4.h"
 class Ctx:
     """The parts of rename.Context stand_in_element_problem reads."""
 
-    def __init__(self, contract):
-        self.files = {HEADER: b"typedef char X[sizeof(OpaqueRefElement4)==4?1:-1];\n"}
+    def __init__(self, contract, header=b"typedef char X[sizeof(OpaqueRefElement4)==4?1:-1];\n", units=None):
+        self.files = {HEADER: header, **(units or {})}
         if contract is not None:
             self.files["reverse/class_contracts/OpaqueRefElement4.json"] = json.dumps(contract).encode()
 
@@ -126,3 +126,173 @@ def test_a_struct_reading_matching_its_contract_passes_the_key_check():
                                             (None, "says nothing")])
 def test_a_struct_reading_against_its_contract_refuses(contract, says):
     assert says in rename.stand_in_element_problem(Ctx(contract), rows(), A)
+
+
+# ---------------------------------------------------------------- the compiled size in the row units (W5)
+
+UNIT = "Code/Lib/X.cpp"
+NO_HEADER_ASSERT = b"struct OpaqueRefElement4 { void *referent; };\n"
+# what the text rule accepted, each with the class compiled at 8 bytes: only the compiler's record decides now
+TEXT_ONLY = [
+    b"#if 0\ntypedef char S[sizeof(OpaqueRefElement4)==4?1:-1];\n#endif\n",
+    b"#define UNUSED typedef char S[sizeof(OpaqueRefElement4)==4?1:-1];\n",
+    b'const char *s = "typedef char S[sizeof(OpaqueRefElement4)==4?1:-1];";\n',
+    b"namespace N { struct OpaqueRefElement4 { int a; }; typedef char S[sizeof(OpaqueRefElement4)==4?1:-1]; }\n",
+    b"#define sizeof(x) 4\ntypedef char S[sizeof(OpaqueRefElement4)==4?1:-1];\n",
+]
+
+
+def test_without_a_header_assertion_a_family_row_needs_a_unit():
+    ctx = Ctx({"key": "struct"}, header=NO_HEADER_ASSERT)
+    assert rename.stand_in_element_problem(ctx, rows(), A) is None
+    got = rename.stand_in_element_problem(ctx, [r for r in rows() if r["name"] not in {o for o, _f in A.rows.values()}], A)
+    assert got and "no family row has a unit" in got
+
+
+def test_a_header_asserting_another_size_refuses():
+    ctx = Ctx({"key": "struct"}, header=b"typedef char X[sizeof(OpaqueRefElement4)==8?1:-1];\n")
+    got = rename.stand_in_element_problem(ctx, rows(), A)
+    assert got and "asserts sizeof(OpaqueRefElement4) as [8]" in got
+
+
+# a header whose text matches the stride while the class it defines is 8 bytes
+HEADER_TEXT_ONLY = [
+    b"struct OpaqueRefElement4 { int a, b; };\n// typedef char S[sizeof(OpaqueRefElement4)==4?1:-1];\n",
+    b"struct OpaqueRefElement4 { int a, b; };\n#if 0\ntypedef char S[sizeof(OpaqueRefElement4)==4?1:-1];\n#endif\n",
+]
+
+
+@pytest.mark.parametrize("header", [NO_HEADER_ASSERT, b"typedef char X[sizeof(OpaqueRefElement4)==4?1:-1];\n",
+                                    *HEADER_TEXT_ONLY])
+def test_the_spec_names_every_owning_unit_whatever_the_header_says(header):
+    source_of = {at: f"Code/Lib/U{at:X}.cpp" for at in A.rows}
+    ctx = Ctx({"key": "struct"}, header=header)
+    assert rename.stand_in_element_problem(ctx, rows(), A) is None
+    spec = rename.element_size_spec(ctx, A, source_of)
+    assert spec == dict(cls="OpaqueRefElement4", header=HEADER, stride=4, units=sorted(source_of.values()))
+
+
+
+
+class Tree:
+    """A root holding the header and the unit, as element_size_problems reads them after ./build.sh."""
+
+    def __init__(self, root, unit=b"int x;\n", header=NO_HEADER_ASSERT):
+        self.root = Path(root).resolve()
+        for rel, data in ((HEADER, header), (UNIT, unit)):
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            (self.root / rel).write_bytes(data)
+
+    def read(self, rel):
+        path = self.root / rel
+        return path.read_bytes() if path.exists() else None
+
+
+def pp(root, *defs):
+    """cl -E output: a #line marker per file, then each (file, text)."""
+    return "".join(f'#line 1 "{root / f}"\n{t}\n' for f, t in defs)
+
+
+def compiled(monkeypatch, root, layouts, text=None, includes=(HEADER,)):
+    text = pp(root, (HEADER, "struct OpaqueRefElement4 { void *referent; };"), (UNIT, "int x;")) \
+        if text is None else text
+
+    def fake(ctx, rel, found=None):
+        if isinstance(text, Exception):
+            return None, text.args[0]
+        if found is not None:
+            found.extend(str(root / i) for i in includes)
+        return text, None
+
+    def views(ctx, rel, fresh=False):
+        if not fresh:
+            raise AssertionError("the size proof reads class_layouts' cache")
+        if isinstance(layouts, Exception):
+            raise layouts
+        return layouts
+    monkeypatch.setattr(rename, "preprocess_unit", fake)
+    monkeypatch.setattr(rename, "view_layouts", views)
+
+
+SPEC = dict(cls="OpaqueRefElement4", header=HEADER, stride=4, units=[UNIT])
+FOUR = {"OpaqueRefElement4": {"fwd": False, "size": 4}}
+
+
+def test_a_unit_compiling_the_header_class_at_the_stride_passes(tmp_path, monkeypatch):
+    tree = Tree(tmp_path)
+    compiled(monkeypatch, tree.root, FOUR)
+    assert rename.element_size_problems(tree, SPEC) == []
+
+
+@pytest.mark.parametrize("unit", TEXT_ONLY)
+def test_an_assertion_in_the_text_does_not_count_against_the_compiled_size(tmp_path, monkeypatch, unit):
+    tree = Tree(tmp_path, unit=unit)
+    compiled(monkeypatch, tree.root, {"OpaqueRefElement4": {"fwd": False, "size": 8},
+                                      "N::OpaqueRefElement4": {"fwd": False, "size": 4}})
+    got = rename.element_size_problems(tree, SPEC)
+    assert got and "compiles sizeof(OpaqueRefElement4) as 8" in got[0]
+
+
+@pytest.mark.parametrize("label, layouts, says", [
+    ("only another namespace's class", {"N::OpaqueRefElement4": {"fwd": False, "size": 4}}, "compiles no definition"),
+    ("a forward declaration", {"OpaqueRefElement4": {"fwd": True, "size": 0}}, "compiles no definition"),
+    ("no layouts", RuntimeError("X.cpp: compile failed: C2061"), "cannot be read"),
+])
+def test_no_compiled_definition_refuses(tmp_path, monkeypatch, label, layouts, says):
+    tree = Tree(tmp_path)
+    compiled(monkeypatch, tree.root, layouts)
+    got = rename.element_size_problems(tree, SPEC)
+    assert got and says in got[0]
+
+
+def test_the_class_must_come_from_the_registered_header(tmp_path, monkeypatch):
+    tree = Tree(tmp_path)
+    compiled(monkeypatch, tree.root, FOUR, includes=())
+    assert "never includes" in rename.element_size_problems(tree, SPEC)[0]
+    own = pp(tree.root, (HEADER, ""), (UNIT, "struct OpaqueRefElement4 { void *referent; };"))
+    compiled(monkeypatch, tree.root, FOUR, text=own)
+    got = rename.element_size_problems(tree, SPEC)[0]
+    assert "defines OpaqueRefElement4 in code/lib/x.cpp, not only through" in got
+
+
+def test_a_line_directive_refuses(tmp_path, monkeypatch):
+    tree = Tree(tmp_path, unit=b'#line 1 "Code/Lib/OpaqueRefElement4.h"\nstruct OpaqueRefElement4 { int a, b; };\n')
+    compiled(monkeypatch, tree.root, FOUR)
+    assert "X.cpp carries a #line directive" in rename.element_size_problems(tree, SPEC)[0]
+    tree = Tree(tmp_path, header=b'#line 1 "elsewhere.h"\n' + NO_HEADER_ASSERT)
+    compiled(monkeypatch, tree.root, FOUR)
+    assert "includes Code/Lib/OpaqueRefElement4.h, which carries a #line" in rename.element_size_problems(tree, SPEC)[0]
+
+
+def test_an_unpreprocessed_unit_refuses(tmp_path, monkeypatch):
+    tree = Tree(tmp_path)
+    compiled(monkeypatch, tree.root, FOUR, text=RuntimeError("the preprocessor refused it: C1083"))
+    assert "cannot be preprocessed" in rename.element_size_problems(tree, SPEC)[0]
+
+
+@pytest.mark.parametrize("header", HEADER_TEXT_ONLY)
+def test_a_header_text_assertion_does_not_count_against_the_compiled_size(tmp_path, monkeypatch, header):
+    tree = Tree(tmp_path, header=header)
+    compiled(monkeypatch, tree.root, {"OpaqueRefElement4": {"fwd": False, "size": 8}})
+    got = rename.element_size_problems(tree, SPEC)
+    assert got and "compiles sizeof(OpaqueRefElement4) as 8" in got[0]
+
+
+def test_the_size_is_compiled_afresh_not_read_from_the_cache(tmp_path, monkeypatch):
+    """A header changed to 8 bytes after a cached compile said 4: only a fresh compile may answer."""
+    tree = Tree(tmp_path, header=b"struct OpaqueRefElement4 { int a, b; };\n")
+    compiled(monkeypatch, tree.root, FOUR)
+    monkeypatch.setattr(rename, "view_layouts", lambda ctx, rel, fresh=False:
+                        {"OpaqueRefElement4": {"fwd": False, "size": 8 if fresh else 4}})
+    got = rename.element_size_problems(tree, SPEC)
+    assert got and "compiles sizeof(OpaqueRefElement4) as 8" in got[0]
+
+
+def test_view_layouts_skips_the_cache_only_when_asked(monkeypatch):
+    import class_layouts
+    seen = []
+    monkeypatch.setattr(class_layouts, "compile_layouts", lambda unit, use_cache=True: seen.append(use_cache) or {})
+    ctx = type("C", (), {"root": rename.ROOT})()
+    rename.view_layouts(ctx, "Code/Lib/X.cpp")
+    rename.view_layouts(ctx, "Code/Lib/X.cpp", fresh=True)
+    assert seen == [True, False]

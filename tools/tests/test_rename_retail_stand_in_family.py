@@ -152,8 +152,9 @@ def plan(ctx, **overrides):
 
 @pytest.fixture(autouse=True)
 def objects(monkeypatch):
-    """`consumers` {name: problem}: an object outside the rewrite that still references that name."""
-    state = {"consumers": {}, "referenced": set(), "asked": []}
+    """`consumers` {name: problem}: an object outside the rewrite that still references that name. `sizes`: what
+    element_size_problems (the units' compiled sizeof, after ./build.sh) reports; each spec it gets is in `specs`."""
+    state = {"consumers": {}, "referenced": set(), "asked": [], "sizes": [], "specs": []}
 
     def consumers(ctx, names, words, rebuilt, groups=()):
         state["asked"].append((list(names), set(rebuilt)))
@@ -162,6 +163,11 @@ def objects(monkeypatch):
     monkeypatch.setattr(rename, "object_pin_references",
                         lambda objects, names: [f"an object names {n}" for n in names if n in state["referenced"]])
     monkeypatch.setattr(rename, "source_objects", lambda ctx, sources: {})
+
+    def sizes(ctx, spec):
+        state["specs"].append(spec)
+        return list(state["sizes"])
+    monkeypatch.setattr(rename, "element_size_problems", sizes)
     return state
 
 
@@ -480,6 +486,17 @@ def test_a_rebuilt_object_binding_a_retired_pin_is_undone(tree):
                  target=0x0007E364, cls="owner")
     with pytest.raises(VerifyFailed, match="still binds the retired pin"):
         land(ctx, plan(ctx), state, refs=after_refs() + [still])
+
+
+def test_the_compiled_size_is_checked_and_its_problem_undone(tree, objects):
+    ctx, state = context(tree)
+    before = {rel: ctx.read(rel) for rel in sorted(set(SOURCES.values()))}
+    objects["sizes"] = ["Code/Lib/Assign.cpp compiles sizeof(ScoredKillTracker) as 8, not the family's stride 4"]
+    with pytest.raises(VerifyFailed, match="compiles sizeof"):
+        land(ctx, plan(ctx), state)
+    assert objects["specs"] == [dict(cls=F.new, header=HEADER, stride=F.stride,
+                                     units=sorted({SOURCES[at] for at in F.rows}))]
+    assert {rel: ctx.read(rel) for rel in before} == before
 
 
 def test_a_row_with_no_references_is_undone(tree):

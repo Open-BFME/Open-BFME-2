@@ -1511,6 +1511,8 @@ class Plan:
                                                       # installers' vftable must name
     respelled_headers: dict = None                    # signature-only --respell preparing headers: the old
                                                       # spelling no rebuilt includer's object may still name
+    element_size: dict = None                         # function --respell, stand-in element family: each owning
+                                                      # unit's compiled sizeof
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -4780,11 +4782,27 @@ def slot_operand_bindings(family, source, name):
 SIZEOF_ASSERTION = r"sizeof\s*\(\s*{cls}\s*\)\s*==\s*(0[xX][0-9A-Fa-f]+|\d+)"
 
 
+def header_sizes(ctx, header, cls):
+    """{sizes} the registered header `header` asserts for sizeof(cls) (SIZEOF_ASSERTION)."""
+    text = (ctx.read(header) or b"").decode("utf-8", "replace")
+    return {int(v, 0) for v in re.findall(SIZEOF_ASSERTION.format(cls=re.escape(cls)), text)}
+
+
+def element_size_spec(ctx, family, source_of):
+    """What element_size_problems must prove after ./build.sh for a StandInElementFamily: every unit that owns a
+    family row once respelled (`source_of`: rva -> unit). Always, whatever the header's text says: an assertion
+    there may sit in a comment or a disabled branch (stand_in_element_problem only refuses one naming another size)."""
+    header = {r.get("class"): r.get("header", "") for r in ctx.dicts(CANONICAL_CLASSES)}[family.new]
+    return dict(cls=family.new, header=header, stride=family.stride,
+                units=sorted({source_of[at] for at in family.rows}))
+
+
 def stand_in_element_problem(ctx, rows, family):
-    """Why the ledger does not tie a StandInElementFamily to its class, or None. The class is registered and its
-    header asserts the stride as its size; a struct reading (new_key U) is what its class contract declares; the
-    stand-in is neither registered nor has a constructor or destructor
-    row of its own; each member is rowed (matched) at its address under exactly that name; each row and duplicate is
+    """Why the ledger does not tie a StandInElementFamily to its class, or None. The class is registered, its
+    header asserts no size but the stride, and a family row has a unit (after ./build.sh, element_size_problems
+    reads each owning unit's compiled size, whatever the header's text says); a struct reading (new_key U) is what
+    its class contract declares; the stand-in is neither registered nor has a constructor or destructor row of its
+    own; each member is rowed (matched) at its address under exactly that name; each row and duplicate is
     the one stand-in row at its address, with every fact inside it; each duplicate's address rows the class under
     exactly its respelling at the same size; each pin's facts sit in a family row or in the row at the pin; and no
     respelling changes an operator or identifier."""
@@ -4794,12 +4812,15 @@ def stand_in_element_problem(ctx, rows, family):
         return f"{family.new} is not registered in {CANONICAL_CLASSES}: only a registered class is proved this way"
     if family.old in registered:
         return f"{family.old} is registered: a stand-in element is a placeholder no header owns"
-    header = ctx.read(registered[family.new]) or b""
-    sizes = {int(v, 0) for v in re.findall(SIZEOF_ASSERTION.format(cls=re.escape(family.new)),
-                                          header.decode("utf-8", "replace"))}
-    if sizes != {family.stride}:
-        return (f"{registered[family.new]} asserts sizeof({family.new}) as {sorted(sizes) or 'nothing'}, "
+    sizes = header_sizes(ctx, registered[family.new], family.new)
+    if sizes and sizes != {family.stride}:
+        return (f"{registered[family.new]} asserts sizeof({family.new}) as {sorted(sizes)}, "
                 f"not the family's stride {family.stride}")
+    if not any(r["name"] == old_name and _rva(r.get("target_rva")) == at
+               for r in rows for at, (old_name, _facts) in family.rows.items()):
+        # The compiler states the size in each unit owning a family row (element_size_problems), never the header's
+        # text, which may carry no assertion (an added declaration there can move a dependent unit's bytes, W5).
+        return f"no family row has a unit: nothing compiles sizeof({family.new}) for the family"
     key = getattr(family, "new_key", "V")
     if key != "V":
         # a struct reading (U) keeps the class-key U in every spelling: the class contract must say struct
@@ -5370,6 +5391,7 @@ def plan_retail_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move
         if stand_in:
             plan.identity["duplicates"] = sorted(retired_rows)
             plan.identity["survivors"] = survivors
+            plan.element_size = element_size_spec(ctx, family, source_of)
     else:
         plan.identity.update(table_name=family.table_name, copy_store=family.copy_store,
                              leaves={at: (source_of[at], family.respell(family.rows[at][0])) for at in leaves},
@@ -10241,12 +10263,13 @@ def prepared_attribution_problems(ctx, plan):
     return problems
 
 
-def view_layouts(ctx, unit):
+def view_layouts(ctx, unit, fresh=False):
     """{class: layout} the compiler reports for ledger source `unit` (tools/class_layouts.py:
-    its own flags plus -Z7, read from CodeView)."""
+    its own flags plus -Z7, read from CodeView). `fresh` compiles it now instead of reusing
+    class_layouts' cache, whose header freshness check cannot be relied on for a proof."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import class_layouts
-    return class_layouts.compile_layouts(unit)
+    return class_layouts.compile_layouts(unit, use_cache=not fresh)
 
 
 class Unknown(Exception):
@@ -12350,6 +12373,55 @@ def fold_layout_baseline(ctx, old, new, prepared, touched, registered):
                           f"against {shapes[new]}): one class has one layout; reconcile the two views first")
         units[rel] = next(iter(complete.values()), None)
     return {"old": old, "new": new, "units": units}
+
+
+def element_size_problems(ctx, spec):
+    """After ./build.sh, each unit owning a row of a stand-in element family (element_size_spec): the compiler's /showIncludes list holds the header, neither the unit nor any file it
+    includes carries a #line directive, its preprocessed text defines the class only through the header, and its
+    CodeView record of the class (view_layouts, compiled afresh: the unit's own flags plus -Z7, never class_layouts'
+    cache) is a definition the size of the family's stride. The compiler states the size, never the source text: an assertion the preprocessor drops, a
+    macro, a string or another namespace's class proves nothing. Anything it cannot read refuses."""
+    cls, header, stride, problems = spec["cls"], spec["header"], spec["stride"], []
+    for rel in spec["units"]:
+        own = ctx.read(rel)
+        if own is None or source_line_directive(own):
+            problems.append(f"{rel} carries a #line directive (or cannot be read): its lines could be attributed "
+                            "to any file")
+            continue
+        includes = []
+        text, why = preprocess_unit(ctx, rel, includes)
+        if text is None:
+            problems.append(f"{rel} cannot be preprocessed to prove sizeof({cls}): {why}")
+            continue
+        seen, marked = [], []
+        for host in includes:
+            path = Path(host)
+            included = os.path.relpath(path, ctx.root).replace(os.sep, "/")
+            if not path.is_file() or source_line_directive(path.read_bytes()):
+                marked.append(included)
+            seen.append(included)
+        if marked:
+            problems.append(f"{rel} includes {marked[0]}, which carries a #line directive (or cannot be read): "
+                            "its lines could be attributed to any file")
+            continue
+        if header not in seen:
+            problems.append(f"{rel} never includes {header} (the compiler's /showIncludes list)")
+            continue
+        defined = sorted({f or "<no #line>" for f, _at in class_definitions(text, cls, ctx.root)})
+        if defined != [header.lower()]:
+            problems.append(f"{rel} defines {cls} in {', '.join(defined[:2]) or 'nothing'}, not only through "
+                            f"{header}")
+            continue
+        try:
+            layout = view_layouts(ctx, rel, fresh=True).get(cls)
+        except Exception as error:                     # noqa: BLE001 - an unread layout proves nothing
+            problems.append(f"{rel}'s class layouts cannot be read: {str(error)[:200]}")
+            continue
+        if not layout or layout.get("fwd"):
+            problems.append(f"{rel} compiles no definition of {cls}")
+        elif layout.get("size") != stride:
+            problems.append(f"{rel} compiles sizeof({cls}) as {layout.get('size')}, not the family's stride {stride}")
+    return problems
 
 
 def fold_layout_problems(ctx, baseline):
@@ -14595,6 +14667,11 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if stale:
                 raise VerifyFailed(f"the rebuilt includers do not prove {plan.old} -> {plan.new}: "
                                    f"{stale[0][:300]}; every file restored")
+        if plan.element_size:
+            size_problems = element_size_problems(ctx, plan.element_size)
+            if size_problems:
+                raise VerifyFailed(f"the rebuilt units do not prove {plan.old} -> {plan.new}: "
+                                   f"{size_problems[0][:300]}; every file restored")
         if plan.identity:
             # The rebuilt objects' bindings are the proof: every reference of a
             # respelled row binds its retail owner, and no touched row gains a
