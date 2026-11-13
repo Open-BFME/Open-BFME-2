@@ -21,7 +21,7 @@ struct Rva002BEECDSubject
  unsigned lookupID;
 };
 struct Rva00318CEBOther;
-class Rva00318CEB { public: bool rva00318CEB(const Rva00318CEBOther *other); };
+#include "../../Include/Common/Rva00318CEB.h"
 unsigned Rva00318D4E(unsigned key);
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

@@ -18,7 +18,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline bool less<int>:
 namespace _STL { template <> bool less<int>::operator()(int const &, int const &) const; }
 // bfme link decl-only end
 struct Rva00318CEBOther {char gap[0x14];int playerID;};
-class Rva00318CEB {public:bool rva00318CEB(const Rva00318CEBOther*);};
+#include "../../../../Include/Common/Rva00318CEB.h"
 #include "../../../../Include/GameLogic/Rva002E071E.h"
 class Rva0020EB4EOuter {public:void rva0020EB4E(void*);};
 class Rva003F7478 {public:void rva003F7465(float);void rva003F7478(float);};
