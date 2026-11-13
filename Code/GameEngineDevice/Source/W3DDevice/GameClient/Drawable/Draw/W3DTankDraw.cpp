@@ -189,10 +189,7 @@ class Snapshot;
 #include "../../../../../../GameEngine/Include/Common/BfmeXfer.h"
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 // ?rva000CE09E@W3DTankDraw@@QAEXXZ @0x000CE09E 76B: disable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-zero disable 0x1F384A guarded by +0x8 rva00270260; W3DTankDraw layout from ctor 0xCEA6C and sibling Rva000CE0EA; volatile loads preserve Make chases; caller 0xCE4B0
-class Rva00270260 {
-public:
-	bool rva00270260();
-};
+#include "../../../../../../GameEngine/Include/Common/Rva00270260.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
 // ?rva000CE0EA@W3DTankDraw@@QAEXXZ @0x000CE0EA 63B: enable debris emitters at +0x2E8/+0x2F4 via get-or-Make then rowed byte-one enable 0x1F3852; W3DTankDraw layout from ctor 0xCEA6C; volatile loads preserve Make chases like truck toss 0xCB5C3; unblocks 0xCE147
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3852ByteOneSetter.h"
