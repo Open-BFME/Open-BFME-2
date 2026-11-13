@@ -147,14 +147,7 @@ class Rva00107152 { public: void rva00107152(); };
 
 class Rva00109236 { public: void rva00109236(); };
 
-class Rva0009A361
-{
-public:
-	void rva0009A361(int rinfo);
-
-private:
-	bool m_0;
-};
+#include "../../../../../GameEngine/Include/Common/Rva0009A361.h"
 
 class Rva0074011F
 {

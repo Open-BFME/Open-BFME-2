@@ -94,7 +94,7 @@ void rva001173f0(unsigned renderArgument);
 void Rva0004CB1E(int arg);
 void bfmeGo991B(int arg);
 #include "../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
-class Rva0009A361 { public: void rva0009A361(int arg); };
+#include "../../../../GameEngine/Include/Common/Rva0009A361.h"
 extern W3DShadowManager *TheW3DShadowManager;
 class BaseHeightMapRenderObjClass
 {

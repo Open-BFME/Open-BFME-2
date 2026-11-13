@@ -127,11 +127,7 @@ private:
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
-class Rva0009A361
-{
-public:
-	void rva0009A361(Int rinfo);
-};
+#include "../../Include/Common/Rva0009A361.h"
 
 class Rva0009C983
 {
