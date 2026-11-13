@@ -6,24 +6,7 @@ class Player;
 #include "../GameLogic/Object/object.h"
 // Partition filter base 0x00BC26E0 (rowed ~Rva000421C8 0x0049C38A, getPlayerMask 0x0036CC7A);
 // retail vtable 0x007F8FE4 is [deleting dtor 0x00395A19, allow, getPlayerMask].
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
-class Rva00261058 : public Rva000421C8
-{
-public:
-	Rva00261058(Object *obj, bool flag);
-	virtual bool allow(Object *obj);
-private:
-	Player *m_player;
-	bool m_flag;
-};
+#include "../../Include/GameLogic/Rva00261058.h"
 Rva00261058::Rva00261058(Object *obj, bool flag) : Rva000421C8()
 {
 	if (obj == 0)
