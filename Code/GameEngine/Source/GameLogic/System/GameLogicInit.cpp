@@ -2460,11 +2460,7 @@ public:
 	Team *findTeamByID(unsigned int id);
 };
 
-class Rva0023C666
-{
-public:
-	bool rva0023C666(void);
-};
+#include "../../../Include/Common/Rva0023C666.h"
 
 #include "../../../Include/Common/BfmeGlob939D.h"
 
