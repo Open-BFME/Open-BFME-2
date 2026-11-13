@@ -62,7 +62,7 @@ public:
     int id;
     int unknown14;
 };
-struct NameKeyBucket { NameKeyBucket* next; int key; void* value; };
+#include "../../../Include/Common/NameKeyBucket.h"
 class NameKeyGenerator {
 public: class KeyToBucketMap {
 public:

@@ -30,12 +30,7 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 // chain walk, and this stays in esi. A flat member-access phrasing merges the
 // start pointer into ecx and spills the key to a per-iteration reload.
 
-struct NameKeyBucket
-{
-	NameKeyBucket *next;
-	int key;
-	void *value;
-};
+#include "../../../Include/Common/NameKeyBucket.h"
 
 struct NameKeyBucketTable
 {

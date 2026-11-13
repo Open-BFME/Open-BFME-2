@@ -212,12 +212,7 @@ public:
 	void rva004D9FF2();
 };
 
-struct NameKeyBucket
-{
-	NameKeyBucket *next;
-	int key;
-	void *value;
-};
+#include "../../../Include/Common/NameKeyBucket.h"
 struct NameKeyBucketTable
 {
 	NameKeyBucket **start;
