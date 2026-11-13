@@ -66,13 +66,7 @@ template<class K, class V, class C, class A> class map;
 typedef _STL::map<const ThingTemplate *, int, _STL::less<const ThingTemplate *>,
  _STL::allocator<_STL::pair<const ThingTemplate *const, int> > > ScoreCountMap;
 
-class ScoreKeeper
-{
-public:
-	ScoreCountMap *getObjectsDestroyedMap(int index);
-private:
-	unsigned char m_bytes[4];
-};
+#include "../../../Include/Common/ScoreKeeperClass.h"
 
 extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
 

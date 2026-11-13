@@ -14,7 +14,7 @@ enum DamageType{DAMAGE_NONE=0};enum DeathType{DEATH_NONE=0};
 class Object;class Team;class ThingTemplate;class Player;
 class Rva0039B7AD;
 #include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
-class ScoreKeeper{public:void addObjectLost(const Object*);};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemplate(const ThingTemplate*,bool);
  char pad[0x90];Rva003B0D7C money;char pad91[0x280 - 0x9C];int color;
  char pad284[0x3bc-0x284];ScoreKeeper score;};
