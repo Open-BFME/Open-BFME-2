@@ -35,7 +35,7 @@ public:
 private:
 	_STL::vector<BfmeStringRecord002CF5B1> m_prereqUnits;
 	_STL::vector<ScienceType> m_prereqSciences;
-	_STL::vector<unsigned int> m_unused;
+	_STL::vector<unsigned int> m_prereqUpgrades;
 };
 
 typedef char ProductionPrerequisiteCopySizeCheck[sizeof(ProductionPrerequisite) == 0x24 ? 1 : -1];
@@ -43,7 +43,7 @@ typedef char ProductionPrerequisiteCopySizeCheck[sizeof(ProductionPrerequisite) 
 ProductionPrerequisite::ProductionPrerequisite(const ProductionPrerequisite &other)
 	: m_prereqUnits(other.m_prereqUnits)
 	, m_prereqSciences(other.m_prereqSciences)
-	, m_unused(other.m_unused)
+	, m_prereqUpgrades(other.m_prereqUpgrades)
 {
 }
 

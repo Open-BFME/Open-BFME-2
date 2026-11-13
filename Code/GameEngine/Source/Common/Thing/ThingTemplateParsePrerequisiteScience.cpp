@@ -24,6 +24,7 @@ enum ScienceType
 };
 
 class ProductionPrerequisite;
+class UpgradeTemplate;
 
 namespace _STL
 {
@@ -48,6 +49,13 @@ private:
 	ScienceType *m_finish;
 	ScienceType *m_endOfStorage;
 };
+template <> class vector<const UpgradeTemplate *, allocator<const UpgradeTemplate *> >
+{
+private:
+	const UpgradeTemplate **m_start;
+	const UpgradeTemplate **m_finish;
+	const UpgradeTemplate **m_endOfStorage;
+};
 template <> class vector<ProductionPrerequisite, allocator<ProductionPrerequisite> >
 {
 public:
@@ -70,7 +78,7 @@ public:
 
 	_STL::vector<int> m_prereqUnits;
 	_STL::vector<ScienceType> m_prereqSciences;
-	_STL::vector<ScienceType> m_unused;
+	_STL::vector<const UpgradeTemplate *> m_prereqUpgrades;
 };
 
 void __cdecl parsePrerequisiteScience(INI *ini, void *instance, void *, const void *)

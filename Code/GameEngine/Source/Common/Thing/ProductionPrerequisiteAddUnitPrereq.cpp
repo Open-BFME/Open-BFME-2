@@ -20,6 +20,7 @@ enum ScienceType
 };
 
 class ThingTemplate;
+class UpgradeTemplate;
 
 namespace _STL
 {
@@ -75,7 +76,7 @@ public:
 public:
 	_STL::vector<PrereqUnitRec> m_prereqUnits;
 	_STL::vector<ScienceType> m_prereqSciences;
-	_STL::vector<ScienceType> m_unused;
+	_STL::vector<const UpgradeTemplate *> m_prereqUpgrades;
 };
 
 void ProductionPrerequisite::addUnitPrereq(AsciiString unit, bool orUnitWithPrevious)

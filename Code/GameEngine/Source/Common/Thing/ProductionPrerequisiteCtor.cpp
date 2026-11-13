@@ -81,7 +81,7 @@ public:
 private:
 	_STL::vector<PrereqUnitRec> m_prereqUnits;
 	_STL::vector<ScienceType> m_prereqSciences;
-	_STL::vector<unsigned int> m_unused;
+	_STL::vector<unsigned int> m_prereqUpgrades;
 };
 
 typedef char ProductionPrerequisiteVeinSizeCheck[sizeof(ProductionPrerequisite) == 0x24 ? 1 : -1];
@@ -96,7 +96,7 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec, allocator<ProductionPrerequisite::PrereqUnitRec> >::deallocate(ProductionPrerequisite::PrereqUnitRec *__p, size_t __n)
 { __stl_alloc_rebind(static_cast<allocator<ProductionPrerequisite::PrereqUnitRec> &>(*this), (ProductionPrerequisite::PrereqUnitRec *)0).deallocate(__p, __n); }
 
-// m_unused's empty vector<unsigned int> constructor is inlined and calls the
+// m_prereqUpgrades's empty vector<unsigned int> constructor is inlined and calls the
 // out-of-line, ICF-folded _Vector_base constructor 0x00211E58 (rowed in
 // stlport_vector_e16_o1.cpp); declare that base constructor and inline the
 // vector constructor so this unit emits no non-retail copy of either.

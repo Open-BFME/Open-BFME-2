@@ -27,13 +27,13 @@ public:
 private:
 	_STL::vector<BfmeStringRecord002CF5B1> m_vec0;
 	_STL::vector<Rva0021C21BElement> m_vecC;
-	_STL::vector<unsigned int> m_vec18;
+	_STL::vector<unsigned int> m_prereqUpgrades;
 };
 
 ProductionPrerequisite &ProductionPrerequisite::rva002D0C44(const ProductionPrerequisite &other)
 {
 	m_vec0 = other.m_vec0;
 	m_vecC = other.m_vecC;
-	m_vec18 = other.m_vec18;
+	m_prereqUpgrades = other.m_prereqUpgrades;
 	return *this;
 }

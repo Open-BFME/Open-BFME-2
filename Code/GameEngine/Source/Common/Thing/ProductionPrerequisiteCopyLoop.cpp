@@ -15,6 +15,8 @@ struct BfmeStringRecord002CF5B1
 	~BfmeStringRecord002CF5B1();
 };
 
+class UpgradeTemplate;
+
 class ProductionPrerequisite
 {
 public:
@@ -22,7 +24,7 @@ public:
 private:
 	_STL::vector<BfmeStringRecord002CF5B1> m_vec0;
 	_STL::vector<int> m_vecC;
-	_STL::vector<unsigned int> m_vec18;
+	_STL::vector<const UpgradeTemplate *> m_prereqUpgrades;
 };
 
 // Spelled as the STLport instantiation the caller 0x002D0F36 names (tag and
