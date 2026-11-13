@@ -20,13 +20,7 @@ public:
 // or 0x00406F9C (false if true), then dispatches on virtual +0x34 with mask
 // as this and buf80 as other returning result. Slot 2 of many vtables.
 // Chain from 0x00406F9C. Sibling of 0x004B4130.
-class Rva002AA292
-{
-public:
-	bool rva002AA292(const int *mask) const;
-private:
-	int m_bits[32];
-};
+#include "../../../../Include/GameLogic/Module/Rva002AA292.h"
 // ?resetUpgrade@UpgradeMux@@UAE_NABV?$BitFlags@$0IA@@@@Z @0x004CE342 85B: consume-once mask check.
 // Clears two 0x80 buffers via rowed 0x001EAE6F, fills via virtual +0x2C,
 // returns false if buf80 vs mask via rowed 0x00406F9C is false or byte at

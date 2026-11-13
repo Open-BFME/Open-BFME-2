@@ -186,13 +186,7 @@ public:
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 #include "../../../../Include/Common/Rva001EAE6FHelper.h"
-class Rva002AA292
-{
-public:
-	bool rva002AA292(const int *mask) const;
-private:
-	int m_bits[32];
-};
+#include "../../../../Include/GameLogic/Module/Rva002AA292.h"
 // Player uses its canonical declaration; the target mask remains an opaque field view.
 enum DamageType;
 enum DeathType;
