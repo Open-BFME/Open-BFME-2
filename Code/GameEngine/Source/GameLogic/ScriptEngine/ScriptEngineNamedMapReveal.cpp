@@ -24,11 +24,7 @@ typedef bool Bool;
 
 unsigned long Rva003ECA13Get(const AsciiString &name);
 
-struct Pair00739BE0
-{
-	float x;
-	float y;
-};
+#include "../../../Include/GameLogic/Pair00739BE0.h"
 
 #include "../../../Include/Common/FloatRect0073CE30.h"
 

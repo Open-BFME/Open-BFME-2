@@ -6,11 +6,7 @@
 // Reveal/shroud circle at waypoint for player mask.
 // Evidence: leaf lane; callees TerrainLogic slot 0x88 ScriptEngine rva00357475 ShroudManager rva00739A30 rva00739BE0; caller 0x003CBE39.
 class AsciiString;
-struct Pair00739BE0
-{
-	float x;
-	float y;
-};
+#include "../../../Include/GameLogic/Pair00739BE0.h"
 struct TerrainLogicResult
 {
 	char m_pad00[0xc];
