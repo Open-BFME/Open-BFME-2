@@ -30160,7 +30160,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009E1F80,4,.data,global,?g_quadIndex@@3HA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,owned,,1,13
 0x009E1F84,4,.data,global,?g_fvfShader@@3IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,owned,,1,8
 0x009E1F88,4,.data,global,_s_rva007ABF6B,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009E1F8C,32,.data,global,?g_shaderTextureSlots@@3PAPAXA,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp,owned,,1,6
+0x009E1F8C,32,.data,global,?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp,owned,,1,6
 0x009E1FAC,4,.data,global,?TheW3DFileSystem@@3PAVW3DFileSystem@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,owned,,1,5
 0x009E1FB0,4,.data,global,?g_Va001FDEB0@@3HA,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,owned,,1,2
 0x009E1FB4,4,.data,global,?TheW3DHordeModelDrawCount@@3HA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp,owned,,1,3

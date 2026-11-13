@@ -79,7 +79,7 @@ extern unsigned int g_Va009E1F6C;
 #define rva012F9D08 (*(ShaderComResourceRef **)&W3DShaderManager::m_renderTexture)
 extern ShaderComResourceRef *rva012F9D10;
 // The native eight-slot table is owned by W3DShroudMaterialPass.cpp.
-extern void *g_shaderTextureSlots[8];
+extern RefCountPtr<TextureClass> g_shaderTextureSlots[8];
 class BfmeShaderShutdown { public: static void releaseDependentResources(); };
 void BfmeShaderShutdown::releaseDependentResources() {
  if(rva012F9D1C) { rva012F9D1C->Release_Ref(); rva012F9D1C=0; }

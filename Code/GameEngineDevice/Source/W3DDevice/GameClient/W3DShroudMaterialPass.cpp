@@ -45,6 +45,7 @@ template <class T> class RefCountPtr
 {
 public:
     AssetReference m_native;
+    RefCountPtr();
     RefCountPtr(const RefCountPtr<T> &rhs);
     template<class Native> __declspec(noinline) RefCountPtr(const Native &other)
     {
@@ -118,7 +119,7 @@ public:
 // The indexed F5D1B getter and the 76790 eight-slot reset prove the layout.
 // This raw pointer array has no startup constructor or exit destructor;
 // assignment and release are performed through the established handle view.
-void *g_shaderTextureSlots[8];
+RefCountPtr<TextureClass> g_shaderTextureSlots[8];
 typedef char ShaderTextureHandleWidth[sizeof(RefCountPtr<TextureClass>) == sizeof(void *) ? 1 : -1];
 
 // ?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ @0x00072EEB

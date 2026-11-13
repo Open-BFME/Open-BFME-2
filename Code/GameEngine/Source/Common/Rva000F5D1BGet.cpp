@@ -9,7 +9,9 @@
 #include "../../Include/Common/AssetReference.h"
 
 // Same eight native texture slots owned by W3DShroudMaterialPass.cpp.
-extern void *g_shaderTextureSlots[8];
+class TextureClass;
+template<class T> class RefCountPtr;
+extern RefCountPtr<TextureClass> g_shaderTextureSlots[8];
 
 AssetReference Rva000F5D1BGet(int index)
 {
