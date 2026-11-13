@@ -161,6 +161,8 @@ private:
 	float m_range;			// +0x70
 	bool m_f74;			// +0x74
 	bool m_f75;			// +0x75
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004A8D93
 };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
@@ -256,7 +258,7 @@ void DelayedLuaEventUpdate::rva004A8F0B(unsigned int f20, const DelayedLuaEventL
 	setWakeFrame(m_object, frame);
 }
 
-// tu-skeleton: 0x004A8D93 6B ?name@DelayedLuaEventUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x004A8D93 6B ?GetSnapshotName@DelayedLuaEventUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdatePoolKey.cpp
 
