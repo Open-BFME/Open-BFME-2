@@ -1015,3 +1015,57 @@ def test_a_failing_shadow_print_or_log_write_cannot_change_the_gate(trepo, capsy
     assert rc == 0
     assert class_gate.identity_failure("move credit", OSError("x"), "shadow") == 0
     assert class_gate.identity_failure("move credit", OSError("x"), "enforce") == 1
+
+
+# P154: reverting 922e561591f (HighlanderBody's adoption) restores HighlanderBody.cpp's own private
+# ActiveBody view, which the name check read as a new copy of a registered class. Here the adoption
+# registers Holder (row and generated header) and takes Old.cpp's GameLogic view out for the header.
+REGISTRY = "class,header\nGameLogic,Code/Game/GameLogic.h\nWidget,Code/Game/Widget.h\n"
+HOLDER_ROW = "Holder,Code/Game/HolderClass.h\n"
+HOLDER_H = "Code/Game/HolderClass.h"
+
+
+@pytest.fixture
+def adopted(repo):
+    repo.write(HOLDER_H, '#include "GameLogic.h"\nclass Holder : public GameLogic { int m_left; };\n')
+    repo.write("reverse/canonical_classes.csv", REGISTRY + HOLDER_ROW)
+    repo.write(OLD, '#include "HolderClass.h"\n' + BODY)
+    repo.commit(".")
+    return repo
+
+
+def revert(repo, unit=OLD, view=LOGIC, row=False, header=False):
+    repo.write(unit, view + BODY)
+    repo.write("reverse/canonical_classes.csv", REGISTRY + (HOLDER_ROW if row else ""))
+    if not header:
+        repo.git("rm", "-q", "--", HOLDER_H)
+    repo.stage(".")
+
+
+def test_a_revert_of_an_adoption_gets_its_private_view_back(adopted, capsys):
+    revert(adopted)
+    assert class_gate.reverted_adoptions(OLD, LOGIC + BODY, {"GameLogic"}) == {"GameLogic"}
+    assert adopted.gate(capsys) == (0, '')
+
+
+@pytest.mark.parametrize('how', ['body differs', 'registry row kept', 'header kept', 'another file'])
+def test_anything_short_of_the_adoptions_revert_is_refused(adopted, capsys, how):
+    if how == 'body differs':
+        revert(adopted, view=LOGIC.replace("int m_frame;", "int m_frame;\n    int m_more;"))
+    elif how == 'registry row kept':
+        revert(adopted, row=True)
+    elif how == 'header kept':
+        revert(adopted, header=True)
+    else:                                              # the adoption's file stays adopted
+        revert(adopted, unit="Code/Game/Other.cpp")
+    rc, err = adopted.gate(capsys)
+    assert rc == 1 and '`GameLogic`' in err
+
+
+def test_putting_back_a_view_an_ordinary_edit_removed_is_refused(repo, capsys):
+    repo.write(OLD, BODY)                              # no registry row, no header: not an adoption
+    repo.commit(".")
+    repo.write(OLD, LOGIC + BODY)
+    repo.stage(OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`GameLogic`' in err

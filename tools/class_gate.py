@@ -705,6 +705,62 @@ def introduced(path, text, canon, renamed_from=None, moved=None, class_renames=N
     return sorted(fresh)
 
 
+# A revert of an adoption puts back the private views the adoption removed (P154: reverting
+# 922e561591f restores HighlanderBody.cpp's own ActiveBody). How far back to look for the adoption.
+REVERT_DEPTH = 30
+
+
+def registry_classes(spec):
+    """The classes the registry at `spec` (`HEAD:`, `:` for the index, `<commit>:`) lists."""
+    return {r["class"] for r in _csv_rows(git_text(f"{spec}{CANONICAL}")) if r.get("class")}
+
+
+def reverted_adoptions(path, text, names):
+    """The `names` the staged `text` of `path` declares because this commit reverts an adoption.
+
+    An adoption commit (among the last REVERT_DEPTH that touched `path`) removed a class's body from
+    `path` while adding at least one registry row and at least one header under Code/. Its revert is
+    credited only when all of these hold:
+    - the index drops every row the adoption added, and HEAD still lists them;
+    - the index deletes every header it added, and HEAD still has them;
+    - the staged body is the one it removed: equal scope and normalised body (moved_bodies, so the
+      same lexical proof a merge's move credit needs).
+    A body that differs, a row or header kept, or any other file is still refused."""
+    if not names:
+        return set()
+    result = subprocess.run(["git", "log", f"-{REVERT_DEPTH}", "--format=%H", "HEAD", "--", path],
+                            cwd=ROOT, capture_output=True, env=trusted_env())
+    if result.returncode != 0:
+        return set()
+    staged = moved_bodies(text)
+    names = {name for name in names if name in staged}
+    head_rows, staged_rows, credited = registry_classes("HEAD:"), registry_classes(":"), set()
+    for commit in result.stdout.decode("ascii", "replace").split():
+        if not names - credited:
+            break
+        before, after = git_text(f"{commit}^:{path}"), git_text(f"{commit}:{path}")
+        if before is None or after is None:
+            continue
+        removed = (names - credited) & (declared_names(before) - declared_names(after))
+        if not removed:
+            continue
+        rows = registry_classes(f"{commit}:") - registry_classes(f"{commit}^:")
+        added = subprocess.run(["git", "diff", "--name-only", "-z", "--no-renames", "--diff-filter=A",
+                                f"{commit}^", commit, "--", "Code/"], cwd=ROOT, capture_output=True,
+                               env=trusted_env())
+        if added.returncode != 0:
+            continue
+        headers = [h for h in added.stdout.decode("utf-8", "surrogateescape").split("\0")
+                   if h.lower().endswith((".h", ".hpp", ".inl"))]
+        if not rows or not headers or not rows <= head_rows or rows & staged_rows:
+            continue
+        if any(git_text(f"HEAD:{h}") is None or git_text(f":{h}") is not None for h in headers):
+            continue
+        bodies = moved_bodies(before)
+        credited |= {name for name in removed if bodies.get(name) == staged[name]}
+    return credited
+
+
 # Step 2 of the class-template series (build/drift_review/swarm/template_tooling.md): registered
 # keys matched by scope-qualified identity, every specialization its own identity, and template
 # bodies credited when a merge moves them verbatim. It runs beside introduced(), never instead of
@@ -1048,6 +1104,7 @@ def main(argv=None):
         checks = [(p, (ROOT / p).read_text(encoding="latin-1"), None) for p in args.files]
         mode_path = ROOT / MODE_FILE
         mode = gate_mode(mode_path.read_text(encoding="latin-1") if mode_path.exists() else None)
+    staged = args.staged                     # (the identity loop below rebinds `args`)
     for path, text, renamed_from in checks:
         if text is None:
             # An unreadable staged unit is unchecked, not clean.
@@ -1055,6 +1112,8 @@ def main(argv=None):
             bad = 1
             continue
         refused = introduced(path, text, canon, renamed_from, moved, class_renames)
+        reverted = reverted_adoptions(path, text, set(refused)) if staged else set()
+        refused = [name for name in refused if name not in reverted]
         for name in refused:
             print(f"  {path}: declares its own `{name}`; include {canon[name]} instead "
                   f"(or `// class-gate: allow {name} <reason>` for a proved codegen view)", file=sys.stderr)
@@ -1065,8 +1124,8 @@ def main(argv=None):
             found = []
             bad |= identity_failure(path, error, mode)
         for key, args, why in found:
-            if key in refused:
-                continue                     # the name check above already refuses this class here
+            if key in refused or key in reverted:
+                continue                     # refused above already, or a reverted adoption's own view
             if mode == "enforce":
                 print(f"class_gate [refused] {path}: defines its own `{label(key, args)}` ({why}); "
                       f"include {canon[key]} instead", file=sys.stderr)
