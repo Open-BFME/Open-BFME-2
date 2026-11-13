@@ -98,11 +98,7 @@ public:
 };
 // Its ctor (rowed under the dtor's class name) and the +0x24 text setter.
 #include "../../Include/Common/Rva004D67D0.h"
-class Rva004D05D7
-{
-public:
-	void rva004D05D7(UnicodeString text);
-};
+#include "../../Include/GameNetwork/Rva004D05D7.h"
 // The +0x1C AsciiString getter is rowed as CDDrive::getPath (retail folds the
 // same-offset getters); it is called qualified, as the tree's other callers do.
 #include "../../Include/Common/CDDrive.h"

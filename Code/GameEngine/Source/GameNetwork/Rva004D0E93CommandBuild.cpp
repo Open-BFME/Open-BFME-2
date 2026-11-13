@@ -23,11 +23,7 @@
 
 #include "../../Include/Common/Rva004D67D0.h"
 
-class Rva004D05D7
-{
-public:
-	void rva004D05D7(UnicodeString s);
-};
+#include "../../Include/GameNetwork/Rva004D05D7.h"
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
