@@ -525,11 +525,7 @@ public:
 	void enable();
 };
 
-class Rva0043DFE0
-{
-public:
-	void rva0043DBA3();
-};
+#include "../../../../../Include/GameClient/Rva0043DFE0.h"
 
 class AptMpGameSetup
 {
