@@ -62,7 +62,7 @@ namespace _STL { template <> RvaSmartPtr12 * _STLP_alloc_proxy<RvaSmartPtr12 *,R
 class RvaSmartPtr12;
 namespace _STL { template <> void allocator<RvaSmartPtr12>::deallocate(RvaSmartPtr12 *,unsigned int) const; }
 
-class FrustumClass {};
+#include "../../../../GameEngine/Include/Common/FrustumClass.h"
 struct Vector3Data { float X, Y, Z; };
 #include "../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 

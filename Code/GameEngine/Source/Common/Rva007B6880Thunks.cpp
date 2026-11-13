@@ -6580,11 +6580,7 @@ void __cdecl rva007B54E0()
 // (0x000F0F5B, FrustumCtorO1.cpp) is defined in its own TU, so this thunk
 // reproduces the compiler-generated dynamic-initializer shape through an
 // explicit call of that ctor. The global holds a FrustumClass.
-class FrustumClass
-{
-public:
-	FrustumClass();
-};
+#include "../../Include/Common/FrustumClass.h"
 
 // RVA 0x009EBD00: defined in W3DVolumetricShadowRenderShadows.cpp.
 extern FrustumClass shadowCameraFrustum;

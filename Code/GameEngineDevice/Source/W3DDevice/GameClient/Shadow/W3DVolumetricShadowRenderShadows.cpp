@@ -47,13 +47,7 @@ typedef unsigned char UnsignedByte;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
-class FrustumClass
-{
-public:
-	FrustumClass &operator=(const FrustumClass &that);
-private:
-	char m_data[264];
-};
+#include "../../../../../GameEngine/Include/Common/FrustumClass.h"
 
 class CameraClass
 {

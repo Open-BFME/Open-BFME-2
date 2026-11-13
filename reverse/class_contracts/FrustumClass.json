@@ -1,0 +1,219 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "FrustumClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x10": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 2
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 2
+   },
+   "0x90": {
+    "4": 1
+   },
+   "0x9c": {
+    "4": 1
+   },
+   "0xa8": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xb8": {
+    "4": 2
+   },
+   "0xbc": {
+    "4": 2
+   },
+   "0xc": {
+    "4": 1
+   },
+   "0xc0": {
+    "4": 1
+   },
+   "0xc4": {
+    "4": 1
+   },
+   "0xc8": {
+    "4": 1
+   },
+   "0xcc": {
+    "4": 1
+   },
+   "0xd0": {
+    "4": 1
+   },
+   "0xd4": {
+    "4": 1
+   },
+   "0xd8": {
+    "4": 1
+   },
+   "0xdc": {
+    "4": 1
+   },
+   "0xe0": {
+    "4": 1
+   },
+   "0xe4": {
+    "4": 1
+   },
+   "0xe8": {
+    "4": 1
+   },
+   "0xec": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "144": 1,
+   "240": 2,
+   "264": 2
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/frustum.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "S:Matrix3D",
+   "members": [
+    {
+     "kind": "A",
+     "name": "Row",
+     "offset": 0,
+     "size": 48,
+     "type": "Vector4[48]"
+    }
+   ],
+   "name": "CameraTransform",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 48,
+   "type": "Matrix3D",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 13
+ },
+ "outliers": [
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetMaximumVisibleBox.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewFarRegion.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 264,
+ "size_by": "zh",
+ "vslots": {}
+}

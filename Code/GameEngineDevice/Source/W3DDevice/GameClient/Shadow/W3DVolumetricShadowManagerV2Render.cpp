@@ -8,7 +8,7 @@
 // helper method names remain unknown. Unclaimed native callees are pinned
 // from their complete boundaries and call ABI without asserting recovery.
 #include "vector3.h"
-class FrustumClass {};
+#include "../../../../../GameEngine/Include/Common/FrustumClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 class RenderObjClass {public: Vector3 Get_Position() const;};
 class CameraClass : public RenderObjClass {
