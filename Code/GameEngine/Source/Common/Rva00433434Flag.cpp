@@ -5,11 +5,7 @@ class Rva001D96FF
 public:
 	void rva001D96FF(int mask);
 };
-class Rva001D9709
-{
-public:
-	void rva001D9709(int mask);
-};
+#include "../../Include/Common/Rva001D9709.h"
 class Rva00433434
 {
 public:

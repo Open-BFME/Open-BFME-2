@@ -52,7 +52,7 @@ void WeaponTemplateSetHead::rva000B3FA5(int bit, int value)
 }
 
 class Rva001D96FF {public: void rva001D96FF(int);};
-class Rva001D9709 {public: void rva001D9709(int);};
+#include "../../../Include/Common/Rva001D9709.h"
 class W3DRopeDraw {public: virtual void setRopeCurLen(float);};
 class Anim2D {public: void setAlpha(float);};
 class Rva001D972BFloatField {public: void set(float);};
