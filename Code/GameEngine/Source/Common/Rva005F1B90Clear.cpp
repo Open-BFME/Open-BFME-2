@@ -1,11 +1,7 @@
 // cl: /MD
 // ?rva005F1B90@Rva005F1B90@@QAEXXZ @0x005F1B90 26B: clear holder at +0 deleting via rowed dtor 0x005F18C1 plus rowed delete 0x0002FD60.
 // Evidence: calls rowed dtor 0x005F18C1 plus rowed delete; caller jmp at 0x005F1CF1; sibling Rva0042D897Assign.
-class Rva005F18C1
-{
-public:
-	~Rva005F18C1();
-};
+#include "../../Include/Common/Rva005F18C1.h"
 
 #include <new>
 
