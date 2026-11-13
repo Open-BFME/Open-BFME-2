@@ -19,11 +19,7 @@ struct ScriptCounter;
 
 #include "../../../Include/Common/PlayerList.h"
 
-class Rva0039C0F4
-{
-public:
-	int rva0039C0F4(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/Rva0039C0F4.h"
 
 #include "../../../Include/Common/Player.h"
 

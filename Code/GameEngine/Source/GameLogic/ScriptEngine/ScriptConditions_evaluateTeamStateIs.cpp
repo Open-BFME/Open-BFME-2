@@ -622,11 +622,7 @@ void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTyp
 
 // Player+0x3BC; 0x0039C0F4 sums its per-type kill records whose name
 // matches (the rowed Rva0039C0F4Sum unit).
-class Rva0039C0F4
-{
-public:
-	int rva0039C0F4(const AsciiString &objectType);
-};
+#include "../../../Include/GameLogic/Rva0039C0F4.h"
 
 // BFME2's 28-byte kind mask; the copy constructor is the pinned 0x0004543D
 // memcpy twin, and a cleared mask is a 28-byte memset.
