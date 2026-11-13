@@ -16,3 +16,13 @@ header queue's current source/acceptance commands follow the absorbed donor.
 This is a partial source merge; it does not retire further header-adoption debt
 or establish census, real-link, or runtime closure for the manager. The
 three-consumer clearance and other remaining prerequisites above are retained.
+
+
+2026-11-13 landing follow-up: source merge `ba4944ecca395cb95659ab0764ca58290c4b518d`
+and log-only record `bc02ffea95e476c3235551c5af8540dccb257b5f` landed together.
+Post-landing checks retain 415/415 rows and the approved object unchanged. The
+manager's own scoped preview is LINKS. The broader pre-push link audit is
+INCONCLUSIVE: index `ec61e5dbe7` predates outgoing base `2decb620eba`, and
+19 affected source objects lack current receipts (first: Common/BuildingNuggetParse.cpp).
+Carry that wider consumer/provider scope into the next scheduled census;
+the scoped checks do not establish a full-image link or runtime result.

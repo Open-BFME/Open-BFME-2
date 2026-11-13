@@ -48,3 +48,27 @@ Completed: tested destructor suppression/declaration and the existing provider's
 Remaining / next check: reconcile allocator temporary lifetime and normal inline cleanup with the out-of-line unwind target together. Repeating destructor-only suppression changes either the parent or its unwind. Other container-operation blockers remain in the cohort; this is not a whole-family clearance. Carry a future verified provider repair and consumers into the normal census.
 
 Earlier destructor trial clearance: none; no source edit retained in that trial, debt retired or new linked bytes claimed. Census confirmation: no new result.
+
+
+2026-11-13 (merge-climb, partial source consolidation at `bc02ffea95e4`):
+The official composer absorbs 1 approved donor(s), including
+`Contain/Rva0046DA6BDraw.cpp`, into `Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp`.
+`./build.sh` verifies 61/61 matched rows, zero row identities lost; CSV
+and frozen-source checks pass. LinkGuard and ProviderGuard admit the composition
+with index SHA-256 `1ad77bbd3e53ab682e6717c726c7ad0c13e7109b701732394577d685658b23e3`
+(meta `1b7a6e9940`, census `1b7a6e9940`).
+This partial merge does not reopen or extend the resolved link-order repair above.
+Other unmerged donors retain their view/compile/flag prerequisites. No new
+census, full-image link or runtime clearance is claimed.
+
+Horde merge identity limit: the non-converged data check reports a new shadow
+`wrong-name` at RVA 0x00A0367C. The compiler-generated local static in
+`HordeContain::getModuleNameKey` changes from `$S1` to `$S3`; both cached
+objects show STATIC storage, four zero-initialized bytes, identical section
+characteristics and no relocations. The named TheHordeContainPoolKey symbol
+is unchanged. The data ledger still spells `$S1`; it was not changed or
+admitted here. All 61 code rows and the registered data-row byte check pass,
+but this is not data-identity or image-placement clearance. Evidence on srv1:
+`sweeps/merge-climb/landing-horde/shadow-before-after.json` and
+`shadow-guard-proof.json`. The data owner must review/admit a correct mapping
+through its normal tool path; do not retire this by editing a baseline.

@@ -151,12 +151,6 @@ class Object;
 class AIGroup;
 class AI;
 class GameLogic;
-class Object
-{
-public:
-	unsigned char m_pad[0x250];
-	void *m_250;
-};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/AIGroup.h"
 #include "../../../../Include/GameLogic/AI.h"
@@ -208,16 +202,12 @@ public:
     { x = other.x; y = other.y; return *this; }
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
 extern ThingFactory *TheThingFactory;
-
 void __cdecl ModuleFactoryHookAt00467564(void *owner, int value, void *context);
-
 // Declared as well as defined below: 0x0047A6A4's body is a tail jump to it, and
 // a carve of that row takes this file's declarations but never an
 // external-linkage definition (tu_skeleton.carve).
 void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context);
-
 class ModuleFactoryHookRange
 {
 public:
@@ -225,27 +215,19 @@ public:
 	unsigned char *m_begin;
 	unsigned char *m_end;
 };
-
 class GameLODManager;
-
 extern GameLODManager *TheGameLODManager;
-
-class AI;
-
 extern AI *TheAI;
-
 struct Rva00073116
 {
 	~Rva00073116() {}
 	Rva00072FE6 m_set;
 };
-
 class HordeContainOwned
 {
 public:
 	virtual ~HordeContainOwned();
 };
-
 class Rva004691A5
 {
 public:
@@ -257,7 +239,6 @@ private:
 	float m_14;
 	int m_18;
 };
-
 class Rva00469155
 {
 public:
@@ -274,7 +255,6 @@ private:
 	Float3 m_pos;
 	int m_0C;
 };
-
 // ??0Rva00469187@@QAE@XZ 0x00469187 30B evidence: zero int pair plus two rowed Rva0042526Member 0x4C ctors at +8 +0x54 callers 0x3A484A 0x46F639
 class Rva0042526Member
 {
@@ -284,7 +264,6 @@ public:
 private:
 	unsigned char m_pad[0x4C];
 };
-
 class Rva00469187
 {
 public:
@@ -296,7 +275,6 @@ private:
 	Rva0042526Member m_08;
 	Rva0042526Member m_54;
 };
-
 // Common base of the melee factory descriptors. Retail's base vtable is
 // ??_7Rva00468A46@@6B@ (0x00844890: deleting destructor, one behaviour
 // method, buildFieldParse); the view keeps its own name so it does not
@@ -309,21 +287,18 @@ public:
 	virtual void *slot1(void *horde) = 0;
 	virtual void buildFieldParse(MultiIniFieldParse &p) {}
 };
-
 class Rva004691B7Swarm : public Rva004691B7MeleeBehavior
 {
 public:
  virtual __declspec(noinline) ~Rva004691B7Swarm();
 	virtual void *slot1(void *horde);
 };
-
 class Rva004691B7HoldGround : public Rva004691B7MeleeBehavior
 {
 public:
  virtual __declspec(noinline) ~Rva004691B7HoldGround();
 	virtual void *slot1(void *horde);
 };
-
 class Rva00584C42 : public Rva004691B7MeleeBehavior
 {
 public:
@@ -332,7 +307,6 @@ public:
 private:
 	char m_pad04[0x10 - 0x04];
 };
-
 class Rva005876D5 : public Rva004691B7MeleeBehavior
 {
 public:
@@ -341,9 +315,7 @@ public:
 private:
 	char m_pad04[0x70 - 0x04];
 };
-
 const char *TheMeleeBehaviorNames[] = { "Swarm", "WaitForLeader", "HoldGround", "Amoeba", 0 };
-
 class HordeContainModuleData : public TransportContainModuleData
 {
 public:
@@ -389,11 +361,9 @@ private:
 public:
 	static void parseMeleeBehavior(INI *ini, void *instance, void *store, const void *userData);
 };
-
 class Rva005838B5 {
 public: Rva005838B5(void *); private: unsigned char storage[0x14];
 };
-
 //
 // ?rva004692BA@Rva004692BA@@QAEXPAVRva004692BAFactory@@@Z, retail
 // 0x004692BA..0x0046936B (177 bytes, EH, RET 4). Rebuilds the horde's melee
@@ -412,7 +382,6 @@ public:
 	virtual ~Rva004692BAFormation();
 	virtual void setMemberCount(int count);		// slot 1
 };
-
 class HordeMeleeSwarm : public Rva004692BAFormation
 {
 public:
@@ -420,20 +389,17 @@ public:
 private:
 	unsigned char m_pad04[0x18 - 0x04];
 };
-
 class Rva004692BAFactory
 {
 public:
 	virtual void slot0();
 	virtual Rva004692BAFormation *create(void *owner);	// slot 1
 };
-
 struct Rva004692BAObject
 {
 	unsigned char m_pad000[0x258];
 	Rva004692BAFactory *m_factory258;
 };
-
 class Rva004692BA
 {
 public:
@@ -449,16 +415,11 @@ private:
 	unsigned char m_pad074[0x1AC - 0x74];
 	Rva004692BAFormation *m_formation;	// +0x1AC
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class Object;
-
 // Native Object-pointer nodes use the dedicated freelist provider.
 namespace _STL {
 template <> _List_node<Object *> *list<Object *, allocator<Object *> >::_M_create_node(Object *const &);
 }
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -466,24 +427,19 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
-
 struct Rva00469124Pair
 {
 	ObjectID m_id;
 	int m_value;
 };
-
 // ?Rva00469103Xfer@@YAAAVXfer@@PAV1@PAURva00469103Pair@@@Z 0x00469103 33B evidence: ObjectID+int pair via rowed XferObjectID 0x3060B2 then slot 0x90 callers 0x47403C 0x47408A
 struct Rva00469103Pair
 {
 	ObjectID m_id;
 	int m_value;
 };
-
 extern GameLogic *TheGameLogic;
-
 class Gate250
 {
 public:
@@ -499,7 +455,6 @@ public:
 	virtual void g36(); virtual void g37();
 	virtual bool gate(void *a, int b, int c);
 };
-
 class GetterFC
 {
 public:
@@ -523,15 +478,12 @@ public:
 	virtual void h68(); virtual void h69();
 	virtual void get(void *out);
 };
-
 class Rva00472B54;
-
 struct SnapOut
 {
 	int m_unused;
 	_STL::list<int> **m_pp;
 };
-
 class Rva00472B54
 {
 public:
@@ -551,13 +503,9 @@ public:
 	unsigned char m_pad[0x54 - 4];
 	_STL::map<int, int> m_map;
 };
-
 #include "../../../../Include/GameClient/BfmeSubBIC.h"
-
 class ThingTemplate;
-
 void Rva003063A9XferThingTemplate(Xfer *xfer, const ThingTemplate **thing);
-
 class Rva00468FB4
 {
 public:
@@ -567,14 +515,12 @@ private:
 	const ThingTemplate *m_thing;
 	int m_int;
 };
-
 // ?rva00469294@Rva00469294@@QAEPAXH@Z 0x00469294 38B evidence: ptr-vector search key at [eax] callers 0x46AF67 0x472421 0x472CDC 0x474D57 0x470D4E ret ptr+4 is AsciiString
 struct Rva00469294Entry
 {
 	int m_key;
 	char m_pad[4];
 };
-
 class Rva00469294
 {
 public:
@@ -584,7 +530,6 @@ private:
 	Rva00469294Entry **m_begin;
 	Rva00469294Entry **m_end;
 };
-
 //
 // Retail 0x004697E1, 59 bytes, RET.
 // Virtual slot 33 on this (argument 0), a direct call to an unnamed member
@@ -597,7 +542,6 @@ public:
 	char unknown00[0x1D8];
 	bool flag;
 };
-
 class Rva004697E1Tail
 {
 public:
@@ -627,7 +571,6 @@ public:
 	virtual void slot23();
 	virtual void slot24();
 };
-
 class Rva004697E1Contain
 {
 public:
@@ -675,7 +618,6 @@ private:
 	char unknown120[0x2C5-0x120];
 	bool flag;
 };
-
 // ?rva00469B73@Rva00469B73@@QAEXPAX@Z 0x00469B73 44B evidence: this+8 +0x274 null-guarded then slot 0x58 with arg and 0 plus slot 0xC on ptr at +0x250 callers 0x46D12C 0x470962
 class DispatchTarget
 {
@@ -704,19 +646,16 @@ public:
 	virtual void s21();
 	virtual void s22(void *arg, int val);
 };
-
 struct MidBlock
 {
 	char m_pad[0x250];
 	DispatchTarget *m_250;
 };
-
 struct HolderObj
 {
 	char m_pad[0x274];
 	MidBlock *m_274;
 };
-
 class Rva00469B73
 {
 public:
@@ -725,19 +664,15 @@ private:
 	char m_pad[8];
 	HolderObj *m_08;
 };
-
 struct Rva00469D1AElement { short words[1]; bool operator<(const Rva00469D1AElement&b)const { return words[0]<b.words[0]; } bool operator==(const Rva00469D1AElement&b)const {return words[0]==b.words[0];} };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0046AB7D@Rva0046AB7D@@QAEXXZ 0x0046AB7D 41B evidence: chain from rowed free 0x46A9D2 plus caller 0x46E2E8 plus same shape as rowed clear 0x46A93E
 struct Rva0046A9D2Node;
-
 class Rva0046A9D2
 {
 public:
 	void rva0046A9D2(Rva0046A9D2Node *head);
 };
-
 struct Rva0046AB7DHeader
 {
 	int m_unk0;
@@ -745,7 +680,6 @@ struct Rva0046AB7DHeader
 	Rva0046AB7DHeader *m_next;
 	Rva0046AB7DHeader *m_prev;
 };
-
 class Rva0046AB7D
 {
 public:
@@ -753,28 +687,23 @@ public:
 	int m_flag;
 	void rva0046AB7D();
 };
-
 // ??1Rva0046D733@@QAE@XZ @0x0046D733 5B novtable empty dtor over rowed base 0x0046AB1B
 // Evidence: 5B jmp to ??1Rva0046A93E row; prev next HordeContain same TU; caller Unwind
 class Rva0046A93E {
 public:
 	~Rva0046A93E();
 };
-
 class __declspec(novtable) Rva0046D733 : public Rva0046A93E {
 public:
 	~Rva0046D733();
 };
-
 typedef _STL::map<unsigned short, unsigned char> Rva0046E30BMap;
-
 namespace _STL {
 template <> _Rb_tree_node<pair<unsigned short const, unsigned char> > *
 _Rb_tree<unsigned short, pair<unsigned short const, unsigned char>,
 	_Select1st<pair<unsigned short const, unsigned char> >, less<unsigned short>,
 	allocator<pair<unsigned short const, unsigned char> > >::_M_lower_bound(const unsigned short &) const;
 }
-
 class Rva0046E30B
 {
 public:
@@ -782,7 +711,6 @@ public:
 private:
 	Rva0046E30BMap m_map;
 };
-
 // Target evidence: Ghidra boundary 0x0046E7C2, 33 bytes. It reads this+8,
 // then module+0x258, and calls the adjacent Ghidra function 0x0046E740 with
 // zero when both tests pass. Type names stay address-derived.
@@ -790,7 +718,6 @@ struct Rva0046E7C2Module {
 	char opaque00[0x258];
 	void *field258;
 };
-
 class HordeContain
 {
 public:
@@ -798,27 +725,23 @@ public:
 public:
 	void rva0046E740(int value);
 };
-
 class Rva0046E7C2 {
 public:
 	char opaque00[8];
 	Rva0046E7C2Module *module;
 	void rva0046E7C2();
 };
-
 struct Rva00472620Object
 {
     char unknown00[0x74];
     int key;
     int getKey() const { return key; }
 };
-
 struct Rva00472620Owner
 {
     char unknown00[0x38];
     Coord3D position;
 };
-
 struct Rva00472620Offset
 {
     int unknown00;
@@ -827,8 +750,25 @@ struct Rva00472620Offset
     float auxiliary;
     int unknown18;
 };
-
 #include "../../../../Include/Common/Rva00468E98.h"
+#include "../../../../Include/GameLogic/Module/Rva00270644.h"
+#include "../../../../Include/GameClient/Drawable.h"
+class Player;
+class Object
+{
+public:
+	unsigned char m_pad[0x250];
+public:
+	void *m_250;
+public:
+	Drawable*getDrawable()const;
+public:
+	Player*getControllingPlayer()const;
+};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
+#include "GameLogicObjectLookupView.h"
+extern GameLogic*TheGameLogic;
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class Rva00472620
 {
@@ -841,6 +781,83 @@ private:
     std::map<int, int> indexByKey;
     std::vector<Rva00472620Offset> offsets;
 };
+
+class ContainView {public:virtual void d0();
+virtual void d1();
+virtual void d2();
+virtual void d3();
+virtual void d4();
+virtual void d5();
+virtual void d6();
+virtual void d7();
+virtual void d8();
+virtual void d9();
+virtual void d10();
+virtual void d11();
+virtual void d12();
+virtual void d13();
+virtual void d14();
+virtual void d15();
+virtual void d16();
+virtual void d17();
+virtual void d18();
+virtual void d19();
+virtual void d20();
+virtual void d21();
+virtual void d22();
+virtual void d23();
+virtual void d24();
+virtual void d25();
+virtual void d26();
+virtual void d27();
+virtual void d28();
+virtual void d29();
+virtual void d30();
+virtual void d31();
+virtual void d32();
+virtual void d33();
+virtual void d34();
+virtual void d35();
+virtual void d36();
+virtual void d37();
+virtual void d38();
+virtual void d39();
+virtual void d40();
+virtual void d41();
+virtual void d42();
+virtual void d43();
+virtual void d44();
+virtual void d45();
+virtual void d46();
+virtual void d47();
+virtual void d48();
+virtual void d49();
+virtual void d50();
+virtual void d51();
+virtual void d52();
+virtual void d53();
+virtual void d54();
+virtual void d55();
+virtual void d56();
+virtual void d57();
+virtual void d58();
+virtual void d59();
+virtual void d60();
+virtual void d61();
+virtual void d62();
+virtual void d63();
+virtual void d64();
+virtual void d65();
+virtual void d66();
+virtual void d67();
+virtual void d68();
+virtual void d69(); virtual void items(Rva0046247DPair&);};
+
+struct Node {Node*next;Node*prev;Object*object;};
+
+struct TreeNode: _STL::_Rb_tree_node_base {int id;};
+
+class Rva0046DA6B {public:void rva0046DA6B(int,float,float,Rva2225E0Filter*);private:char pad[0x54];TreeNode*head;};
 
 // tu-skeleton: 0x00468B24 55B ?rva00468B24@HordeContain@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
@@ -872,6 +889,8 @@ private:
 
 // tu-skeleton: 0x00468F7E 33B ?rva00468F7E@HordeContain@@UAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp
+
 // ---- from Code/GameEngine/Source/Common/BfmeConv470.cpp
 
 int __stdcall bfmeGoBIC(BfmeSubBIC *sub)
@@ -889,18 +908,6 @@ void Rva00468FB4::rva00468FB4(Xfer *xfer)
 	Rva003063A9XferThingTemplate(xfer, &m_thing);
 	*xfer == m_int;
 }
-
-// tu-skeleton: 0x00468FDC 54B ?rva00468FDC@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469012 99B ?rva00469012@Rva00469012@@QAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00469012Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x00469075 52B ?rva00469075@Rva00469075@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva00469075Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x004690A9 31B ?rva004690A9@HordeContain@@UAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004690C8 8B ?disable@Rva004690C8ByteZeroSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004690D0 51B ?rva004690D0@HordeContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00469124Xfer.cpp
 
@@ -920,8 +927,6 @@ Xfer &Rva00469103Xfer(Xfer *xfer, Rva00469103Pair *pair)
 	Xfer &r = ((Xfer &(__cdecl *)(Xfer *, ObjectID *))XferObjectID)(xfer, (ObjectID *)pair);
 	return r == reinterpret_cast<bool &>(pair->m_value);
 }
-
-// tu-skeleton: 0x00469142 19B ??0?$pair@$$CBI_N@_STL@@QAE@ABU01@@Z -- matched in Code/GameEngine/Source/Common/System/FileSystem.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004691A5Ctor.cpp
 
@@ -1054,30 +1059,6 @@ void Rva004692BA::rva004692BA(Rva004692BAFactory *factory)
 	m_formation->setMemberCount((m_membersEnd - m_membersBegin) / 0x1C);
 }
 
-// tu-skeleton: 0x0046936B 66B ?checkSpecialUnitDeath@HordeContain@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469602 36B ?rva00469602@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469626 33B ?rva00469626@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469647 37B ?slot38@HordeContain@@UAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0046966C 29B ?rva0046966C@Rva0046966C@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469689 68B ?rva00469689@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004696CD 24B ?rva004696CD@HordeContain@@UAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004696E5 40B ?rva004696E5@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0046970D 142B ?rva0046970D@HordeContain@@UAE_NPAVObject@@HPBURva00469851Names@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0046979B 13B ?rva0046979B@HordeContain@@UAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004697A8 37B ?rva004697A8@HordeContain@@UAEXHHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp (not merged yet)
-
-// tu-skeleton: 0x004697CD 20B ?rva004697CD@HordeContain@@UAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva004697E1Gate.cpp
 
 void Rva004697E1Contain::rva004697E1()
@@ -1090,24 +1071,6 @@ void Rva004697E1Contain::rva004697E1()
 	if (mine != ownerClear)
 		tail.slot24();
 }
-
-// tu-skeleton: 0x0046981C 53B ?rva0046981C@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469851 53B ?rva00469851@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469886 54B ?rva00469886@HordeContain@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004698BC 26B ?rva004698BC@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004698D6 12B ?rva004698D6@HordeContain@@UAEPBXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004698E2 12B ?rva004698E2@HordeContain@@UAEPBXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004698EE 62B ?rva004698EE@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0046992C 59B ?rva0046992C@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00469967 524B ?rva00469967@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00469B73Call.cpp
 
@@ -1139,6 +1102,335 @@ void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context)
 	}
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00469D1A.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Instantiate the recovered operation and its required template dependencies.
+template void _STL::_Construct<_STL::pair<Rva00469D1AElement const, int>, _STL::pair<Rva00469D1AElement const, int> >(_STL::pair<Rva00469D1AElement const, int> *, _STL::pair<Rva00469D1AElement const, int> const &);
+
+// ---- from Code/GameEngine/Source/Common/Rva0046AB7DClear.cpp
+
+void Rva0046AB7D::rva0046AB7D()
+{
+	if (m_flag == 0)
+		return;
+	reinterpret_cast<Rva0046A9D2 *>(this)->rva0046A9D2(m_header->m_head);
+	m_header->m_next = m_header;
+	m_header->m_head = 0;
+	m_header->m_prev = m_header;
+	m_flag = 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D733Dtor.cpp
+
+Rva0046D733::~Rva0046D733() {}
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva0046E30BLowerBound.cpp
+
+//
+// Rva0046E30B::rva0046E30B @0x0046E30B 20B: a container-level lower_bound
+// returning the iterator built from the folded _M_lower_bound body at
+// 0x0046A9AB (ConnectionManager.cpp's map<unsigned short, unsigned char>
+// spelling, the alias row's object symbol) through the hidden result slot.
+// Skeleton twin of the STLport find wrapper 0x004D7546. The folded callee
+// does not prove the key/value types, and the owner is not recovered (no
+// direct caller), so the view is address-named. The worker is declared, not
+// defined, so the call stays out of line as in retail.
+
+Rva0046E30BMap::iterator Rva0046E30B::rva0046E30B(const unsigned short &key)
+{
+	return m_map.lower_bound(key);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0046E7C2.cpp
+
+void Rva0046E7C2::rva0046E7C2()
+{
+	Rva0046E7C2Module *module = this->module;
+	if (module ? module->field258 : 0) {
+		if (module) {
+			((HordeContain *)this)->rva0046E740(0);
+		}
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/HordeContainParseComboHorde.cpp
+
+// bfme link decl-only end
+
+// ?parseHordeContainComboHorde@@YAXPAVINI@@PAX1PBX@Z
+void parseHordeContainComboHorde(INI *ini, void *instance, void *store, const void *userData)
+{
+    const char *token;
+    {
+    Rva00469D50 *entry = new Rva00469D50;
+    const ModuleData *slot = (const ModuleData *)entry;
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
+    if (!token || strcmp(token, "Target") != 0)
+        goto invalidTarget2;
+    entry->m_00 = ini->getNextToken(ini->m_sepsColon);
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
+    if (!token || strcmp(token, "Result") != 0)
+        goto invalidResult2;
+    entry->m_04 = ini->getNextToken(ini->m_sepsColon);
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
+    if (token) {
+        if (strcmp(token, "InitiateVoice") == 0) {
+            const char *voiceToken = ini->getNextToken(ini->m_sepsColon);
+            Rva00339235(voiceToken, (void *)&entry->m_08);
+            token = ini->getNextTokenOrNull(ini->m_sepsColon);
+        }
+        if (token)
+            goto unknownKey;
+    }
+    ((_STL::vector<const ModuleData *> *)store)->push_back(slot);
+    return;
+    }
+invalidResult2:
+    {
+        throw INIException(3, "'Result' expected");
+    }
+invalidTarget2:
+    {
+        throw INIException(3, "'Target' expected");
+    }
+unknownKey:
+    {
+        AsciiString msg("Unknown key '");
+        msg+=token;
+        msg+="' in HordeContain's ComboHorde line";
+        throw INIException(3, msg.str());
+    }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainPoolKey.cpp
+
+// ?getModuleNameKey@HordeContain@@UBE?AW4NameKeyType@@XZ
+NameKeyType HordeContain::getModuleNameKey() const
+{
+	static NameKeyType TheHordeContainPoolKey =
+		TheNameKeyGenerator->nameToKey("HordeContain");
+	return TheHordeContainPoolKey;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainFormationPosition.cpp
+
+// Native472620..4726DD RET12,189B. Existing caller474B51 supplies the
+// output Coord3D, Object and one ABI word, and adjusts its receiver by-11C.
+// Retain that established symbol; target dereferences the last word as float*.
+// Native accesses establish Object key74, owner8/position38, index map17C,
+// vector188 with28B records and float output at record14. Original field
+// names remain unknown. Same-ECX rotate468E98 has its existing value ABI.
+// Copy/assignment semantics follow the bank's BF1 ba7ddda7e8 Vector2 lead;
+// target instruction and relocation checks establish this caller's layout.
+// Assign rotate's returned point to an existing local, then copy it by value:
+// that lifetime reproduces the native ESP-save and cached record index.
+// Canonical Coord3D plus field-wise input and output copies preserve
+// native SSE values until return. No new pin or alternative callee spelling.
+
+Coord3D *Rva00472620::rva00472620(Coord3D *output, Object *object, int word)
+{
+    int index = indexByKey[reinterpret_cast<Rva00472620Object *>(object)->getKey()];
+    const Coord3D *base = &owner->position;
+    Coord3D result; result.x=base->x; result.y=base->y; result.z=base->z;
+    if (index >= 0 && static_cast<unsigned int>(index) < offsets.size())
+    {
+        Rva00468E98Point storage; storage=reinterpret_cast<Rva00468E98 *>(this)->rotate(offsets[index].offset);
+ const Rva00468E98Point rotated = storage;
+        result.x = base->x + rotated.x;
+        result.y = base->y + rotated.y;
+        result.z = base->z;
+        *reinterpret_cast<float *>(word) = offsets[index].auxiliary;
+    }
+    output->x=result.x; output->y=result.y; output->z=result.z; return output;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupChain00472B54.cpp
+
+//
+// ?rva00472B54@Rva00472B54@@QAEXPAVObject@@W4CommandSourceType@@@Z, retail 0x00472B54, 314 bytes.
+// Chain body that builds an AIGroup from a list snapshot and a map of ObjectIDs.
+// Evidence: calls rowed createGroup 0x002FEC4B, AIGroup::add 0x0036E5F1,
+// groupEnter 0x00370198, findObjectByID 0x00049DC5, aiBfmeObjectCommand3D
+// 0x00470447, AI::destroyGroup 0x002FE712, list<int> push_back 0x0005548F,
+// _M_increment 0x00024250; virtual slots 0x98/0x118/0xA8; map at +0x54;
+// neighbours ContainModuleDeletingDtors/HordeContainRva00473125.
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+void Rva00472B54::rva00472B54(Object *obj, CommandSourceType cmdSource)
+{
+	if (!obj)
+		return;
+	Gate250 *contain = (Gate250 *)obj->m_250;
+	if (!contain)
+		return;
+	void *outer = *(void **)((char *)this - 0x114);
+	if (!contain->gate(outer, 1, 0))
+		return;
+	Object *outerObj = *(Object **)((char *)this - 0x114);
+	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)outerObj + 0x258);
+	if (!ai)
+		return;
+	ai->aiBfmeObjectCommand3D(obj, cmdSource);
+	_STL::list<int> snap;
+	GetterFC *gf = (GetterFC *)((char *)this - 0xFC);
+	unsigned char buf[8];
+	gf->get(buf);
+	_STL::list<int> **ppsrclist = (_STL::list<int> **)&buf[4];
+	for (_STL::list<int>::iterator it = (*ppsrclist)->begin(); it != (*ppsrclist)->end(); ++it)
+		snap.push_back(*it);
+	AIGroup *grp = TheAI->createGroup();
+	for (_STL::list<int>::iterator it = snap.begin(); it != snap.end(); ++it)
+		slotA8(*it);
+	for (_STL::map<int, int>::iterator it = m_map.begin(); it != m_map.end(); StepMapIterator(it)) {
+		Object *object = TheGameLogic->findObjectByID((ObjectID)(*it).first);
+		if (object)
+			grp->add(object);
+	}
+	grp->groupEnter(obj, cmdSource);
+	TheAI->destroyGroup(grp);
+}
+
+// Retail's data references in this unit's matched rows land on globals defined
+// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_construct.cpp
+
+//
+// ??$_Construct@V?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@ABV10@@Z @0x004740AD (45B).
+// STLport placement-copy for list<Object*> element: null-guarded placement new
+// over a single element, calls rowed list copy ctor 0x004702FB. Called per element
+// by uninitialized_copy 0x004740DA and uninitialized_fill_n 0x00474100. Same 45B
+// EH shape as other _Constructs.
+
+template void _STL::_Construct<_STL::list<Object *, _STL::allocator<Object *> >, _STL::list<Object *, _STL::allocator<Object *> > >(_STL::list<Object *, _STL::allocator<Object *> > *, const _STL::list<Object *, _STL::allocator<Object *> > &);
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataDtor.cpp
+
+// ??1HordeContainModuleData@@UAE@XZ, retail 0x00475942..0x00475BDD (667
+// bytes, EH): table 0x00C457B0 (constructor 0x00475C9A in
+// HordeContainModuleDataCtor.cpp, slot-0 scalar deleting destructor
+// 0x00475E86). It deletes and empties its three owned-record vectors at
+// +0x18C/+0x198/+0x1A4 (record destructors rowed 0x004703E0, 0x00469D86 and
+// 0x00469DCE; range erase 0x0031BD55), clears the +0x1B4 list and the two
+// name sets, empties the +0x1F4 and +0x218 string vectors, deletes and
+// empties the +0x20C owned strings, empties the +0x224 string vector and
+// ::deletes its +0x258 object. Retail's unwind map then destroys the
+// members in reverse and TransportContainModuleData (rowed 0x004684F1). The
+// sets' wrapper unwind copy is the 5-byte thunk 0x00073116 (set destructor
+// 0x000730DE); the list's is 0x00200667. Members past the cited offsets
+// keep the constructor view's placeholders.
+
+HordeContainModuleData::~HordeContainModuleData()
+{
+	unsigned int i;
+	for (i = 0; i < m_vec18C.size(); ++i)
+		delete m_vec18C[i];
+	_STL::vector<void *> &v18C = reinterpret_cast<_STL::vector<void *> &>(m_vec18C);
+	v18C.erase(v18C.begin(), v18C.end());
+	for (i = 0; i < m_vec198.size(); ++i)
+		delete m_vec198[i];
+	_STL::vector<void *> &v198 = reinterpret_cast<_STL::vector<void *> &>(m_vec198);
+	v198.erase(v198.begin(), v198.end());
+	for (i = 0; i < m_vec1A4.size(); ++i)
+		delete m_vec1A4[i];
+	_STL::vector<void *> &v1A4 = reinterpret_cast<_STL::vector<void *> &>(m_vec1A4);
+	v1A4.erase(v1A4.begin(), v1A4.end());
+
+	m_list1B4.m_list.clear();
+	m_set1B8.m_set.rva00072FE6();
+	m_set1C4.m_set.rva00072FE6();
+	m_vec1F4.clear();
+	m_vec218.clear();
+
+	for (i = 0; i < m_vec20C.size(); ++i)
+		delete m_vec20C[i];
+	_STL::vector<void *> &v20C = reinterpret_cast<_STL::vector<void *> &>(m_vec20C);
+	v20C.erase(v20C.begin(), v20C.end());
+	m_vec224.clear();
+
+	::delete m_meleeBehavior;
+}
+
+// tu-skeleton: 0x00468FDC 54B ?rva00468FDC@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469012 99B ?rva00469012@Rva00469012@@QAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00469012Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x00469075 52B ?rva00469075@Rva00469075@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva00469075Setter.cpp (not merged yet)
+
+// tu-skeleton: 0x004690A9 31B ?rva004690A9@HordeContain@@UAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004690C8 8B ?disable@Rva004690C8ByteZeroSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004690D0 51B ?rva004690D0@HordeContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469142 19B ??0?$pair@$$CBI_N@_STL@@QAE@ABU01@@Z -- matched in Code/GameEngine/Source/Common/System/FileSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x0046936B 66B ?checkSpecialUnitDeath@HordeContain@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469602 36B ?rva00469602@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469626 33B ?rva00469626@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469647 37B ?slot38@HordeContain@@UAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0046966C 29B ?rva0046966C@Rva0046966C@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469689 68B ?rva00469689@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004696CD 24B ?rva004696CD@HordeContain@@UAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004696E5 40B ?rva004696E5@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0046970D 142B ?rva0046970D@HordeContain@@UAE_NPAVObject@@HPBURva00469851Names@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0046979B 13B ?rva0046979B@HordeContain@@UAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004697A8 37B ?rva004697A8@HordeContain@@UAEXHHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface20Slots.cpp (not merged yet)
+
+// tu-skeleton: 0x004697CD 20B ?rva004697CD@HordeContain@@UAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0046981C 53B ?rva0046981C@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469851 53B ?rva00469851@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469886 54B ?rva00469886@HordeContain@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004698BC 26B ?rva004698BC@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004698D6 12B ?rva004698D6@HordeContain@@UAEPBXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004698E2 12B ?rva004698E2@HordeContain@@UAEPBXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004698EE 62B ?rva004698EE@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0046992C 59B ?rva0046992C@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00469967 524B ?rva00469967@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
+
 // tu-skeleton: 0x00469BEA 29B ??0Rva00469BEA@@QAE@ABHABVRva00469155@@@Z -- matched in Code/GameEngine/Source/Common/Rva00469BEACtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00469C07 45B ?rva00469C07@Rva00469C07@@QAEXPAURva00469C07Node@@@Z -- matched in Code/GameEngine/Source/Common/Rva00469C07Free.cpp (not merged yet)
@@ -1156,14 +1448,6 @@ void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context)
 // tu-skeleton: 0x00469CC8 37B ??$__uninitialized_fill_n@PAVRva00064640Record@@IV1@@_STL@@YAPAVRva00064640Record@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp (not merged yet)
 
 // tu-skeleton: 0x00469CED 45B ??$_M_allocate_and_copy@PAVRva00064640Record@@@?$vector@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@IAEPAVRva00064640Record@@IPAV2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00469D1A.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
-// Instantiate the recovered operation and its required template dependencies.
-template void _STL::_Construct<_STL::pair<Rva00469D1AElement const, int>, _STL::pair<Rva00469D1AElement const, int> >(_STL::pair<Rva00469D1AElement const, int> *, _STL::pair<Rva00469D1AElement const, int> const &);
 
 // tu-skeleton: 0x00469D33 29B ??0Rva00469BEA@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva00469BEACtor.cpp (not merged yet)
 
@@ -1228,19 +1512,6 @@ template void _STL::_Construct<_STL::pair<Rva00469D1AElement const, int>, _STL::
 // tu-skeleton: 0x0046AB1B 56B ??1Rva0046A93E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0046AB53 42B ??0?$_Rb_tree@JU?$pair@$$CBJVLadderPref@@@_STL@@U?$_Select1st@U?$pair@$$CBJVLadderPref@@@_STL@@@2@U?$less@J@2@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@2@@_STL@@QAE@ABU?$less@J@1@ABV?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_long_ladderpref.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva0046AB7DClear.cpp
-
-void Rva0046AB7D::rva0046AB7D()
-{
-	if (m_flag == 0)
-		return;
-	reinterpret_cast<Rva0046A9D2 *>(this)->rva0046A9D2(m_header->m_head);
-	m_header->m_next = m_header;
-	m_header->m_head = 0;
-	m_header->m_prev = m_header;
-	m_flag = 0;
-}
 
 // tu-skeleton: 0x0046ABA6 138B ?rva0046ABA6@Rva004D1C81@@QAE?AURva004D1C81Pair@@ABURva004D1C81Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp (not merged yet)
 
@@ -1342,10 +1613,6 @@ void Rva0046AB7D::rva0046AB7D()
 
 // tu-skeleton: 0x0046D4BD 630B ?rva0046D4BD@HordeContain@@UAEXPAUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainAveragePosition.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D733Dtor.cpp
-
-Rva0046D733::~Rva0046D733() {}
-
 // tu-skeleton: 0x0046D738 119B ?rva0046D738@HordeContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D738.cpp (not merged yet)
 
 // tu-skeleton: 0x0046D7AF 92B ?rva0046D7AF@HordeContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
@@ -1356,7 +1623,30 @@ Rva0046D733::~Rva0046D733() {}
 
 // tu-skeleton: 0x0046D946 293B ?rva0046D946@Rva0046D946@@QAEPAVObject@@PAV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046D946Closest.cpp (not merged yet)
 
-// tu-skeleton: 0x0046DA6B 258B ?rva0046DA6B@Rva0046DA6B@@QAEXHMMPAVRva2225E0Filter@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046DA6BDraw.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046DA6BDraw.cpp
+
+// ?rva0046DA6B@Rva0046DA6B@@QAEXHMMPAVRva2225E0Filter@@@Z @0x0046DA6B 258B
+// Evidence: Native46DA6B..46DB6B RET16; HordeContain-family interface at11C calls contain slot70 on secondary20 and reads owner8. Applies established Drawable272870 and two-float270644 to contained objects and ID-keyed tree at receiver54; optional rowed filter362437 and owner player28AFA9. Native frameC uses descriptor8 plus owner4; recomputing list endpoint avoids extra cached pointer. Full258 exact with all existing providers; method name and unconstrained types remain address-level inference.
+
+void Rva0046DA6B::rva0046DA6B(int flags,float a,float b,Rva2225E0Filter*filter){
+ Rva0046247DPair items;
+ reinterpret_cast<ContainView*>(reinterpret_cast<char*>(this)-0xFC)->items(items);
+ Node*node=(*static_cast<Node**>(items.m04))->next;
+ Object*owner=*reinterpret_cast<Object**>(reinterpret_cast<char*>(this)-0x114);
+ for(;node!=*static_cast<Node**>(items.m04);node=node->next){
+  Object*object=node->object;
+  if(filter&&!filter->accepts(object,owner->getControllingPlayer()))continue;
+  Drawable*drawable=object->getDrawable();
+  if(drawable){drawable->rva00272870(flags);reinterpret_cast<Rva00270644*>(drawable)->rva00270644(a,b);}
+ }
+ for(TreeNode*treeNode=static_cast<TreeNode*>(head->_M_left);treeNode!=head;treeNode=static_cast<TreeNode*>(_STL::_Rb_global<bool>::_M_increment(treeNode))){
+  Object*object=TheGameLogic->findObjectByID(static_cast<ObjectID>(treeNode->id));
+  if(!object)continue;
+  if(filter&&!filter->accepts(object,owner->getControllingPlayer()))continue;
+  Drawable*drawable=object->getDrawable();
+  if(drawable){drawable->rva00272870(flags);reinterpret_cast<Rva00270644*>(drawable)->rva00270644(a,b);}
+ }
+}
 
 // tu-skeleton: 0x0046DB6D 293B ?rva0046DB6D@HordeContain@@UAEXABVAsciiString@@PAVRva2225E0Filter@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
@@ -1382,23 +1672,6 @@ Rva0046D733::~Rva0046D733() {}
 
 // tu-skeleton: 0x0046E2D3 56B ??1Rva0046AB7D@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameNetwork/Rva0046E30BLowerBound.cpp
-
-//
-// Rva0046E30B::rva0046E30B @0x0046E30B 20B: a container-level lower_bound
-// returning the iterator built from the folded _M_lower_bound body at
-// 0x0046A9AB (ConnectionManager.cpp's map<unsigned short, unsigned char>
-// spelling, the alias row's object symbol) through the hidden result slot.
-// Skeleton twin of the STLport find wrapper 0x004D7546. The folded callee
-// does not prove the key/value types, and the owner is not recovered (no
-// direct caller), so the view is address-named. The worker is declared, not
-// defined, so the call stays out of line as in retail.
-
-Rva0046E30BMap::iterator Rva0046E30B::rva0046E30B(const unsigned short &key)
-{
-	return m_map.lower_bound(key);
-}
-
 // tu-skeleton: 0x0046E31F 310B ?rva0046E31F@Rva004D1C81@@QAE?AURva004D1C81Iter@@U2@ABURva004D1C81Key@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp (not merged yet)
 
 // tu-skeleton: 0x0046E455 136B ?rva0046E455@Rva0046E455@@QAE?AURva0046E455Iter@@PAURva0046E455Node@@0ABVRva00469BEA@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0046E455.cpp (not merged yet)
@@ -1417,18 +1690,6 @@ Rva0046E30BMap::iterator Rva0046E30B::rva0046E30B(const unsigned short &key)
 
 // tu-skeleton: 0x0046E740 130B ?rva0046E740@HordeContain@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046E740.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva0046E7C2.cpp
-
-void Rva0046E7C2::rva0046E7C2()
-{
-	Rva0046E7C2Module *module = this->module;
-	if (module ? module->field258 : 0) {
-		if (module) {
-			((HordeContain *)this)->rva0046E740(0);
-		}
-	}
-}
-
 // tu-skeleton: 0x0046E7E3 267B ?rva0046E7E3@HordeContain@@UAEXPBVUpgradeTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x0046E8EE 422B ?createPayload@HordeContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain_createPayload.cpp (not merged yet)
@@ -1438,55 +1699,6 @@ void Rva0046E7C2::rva0046E7C2()
 // tu-skeleton: 0x0046EC7C 98B ?rva0046EC7C@HordeContain@@UAE?AVRva002390CB@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x0046ECDE 273B ?rva0046ECDE@HordeContain@@UAEXPBUCoord3D@@0HW4PathfindLayerEnum@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/HordeContainParseComboHorde.cpp
-
-// bfme link decl-only end
-
-// ?parseHordeContainComboHorde@@YAXPAVINI@@PAX1PBX@Z
-void parseHordeContainComboHorde(INI *ini, void *instance, void *store, const void *userData)
-{
-    const char *token;
-    {
-    Rva00469D50 *entry = new Rva00469D50;
-    const ModuleData *slot = (const ModuleData *)entry;
-    token = ini->getNextTokenOrNull(ini->m_sepsColon);
-    if (!token || strcmp(token, "Target") != 0)
-        goto invalidTarget2;
-    entry->m_00 = ini->getNextToken(ini->m_sepsColon);
-    token = ini->getNextTokenOrNull(ini->m_sepsColon);
-    if (!token || strcmp(token, "Result") != 0)
-        goto invalidResult2;
-    entry->m_04 = ini->getNextToken(ini->m_sepsColon);
-    token = ini->getNextTokenOrNull(ini->m_sepsColon);
-    if (token) {
-        if (strcmp(token, "InitiateVoice") == 0) {
-            const char *voiceToken = ini->getNextToken(ini->m_sepsColon);
-            Rva00339235(voiceToken, (void *)&entry->m_08);
-            token = ini->getNextTokenOrNull(ini->m_sepsColon);
-        }
-        if (token)
-            goto unknownKey;
-    }
-    ((_STL::vector<const ModuleData *> *)store)->push_back(slot);
-    return;
-    }
-invalidResult2:
-    {
-        throw INIException(3, "'Result' expected");
-    }
-invalidTarget2:
-    {
-        throw INIException(3, "'Target' expected");
-    }
-unknownKey:
-    {
-        AsciiString msg("Unknown key '");
-        msg+=token;
-        msg+="' in HordeContain's ComboHorde line";
-        throw INIException(3, msg.str());
-    }
-}
 
 // tu-skeleton: 0x0046F543 624B ??0HordeContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainCtor.cpp (not merged yet)
 
@@ -1517,16 +1729,6 @@ unknownKey:
 // tu-skeleton: 0x0046F84C 13B ?set@Rva0046F84CByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0046F859 7B ?get@Rva0046F859ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainPoolKey.cpp
-
-// ?getModuleNameKey@HordeContain@@UBE?AW4NameKeyType@@XZ
-NameKeyType HordeContain::getModuleNameKey() const
-{
-	static NameKeyType TheHordeContainPoolKey =
-		TheNameKeyGenerator->nameToKey("HordeContain");
-	return TheHordeContainPoolKey;
-}
 
 // tu-skeleton: 0x0046F8A5 13B ?rva0046F8A5@HordeContain@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
@@ -1584,95 +1786,11 @@ NameKeyType HordeContain::getModuleNameKey() const
 
 // tu-skeleton: 0x004725D5 75B ?gatherUnitBack@HordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain_gatherUnitBack.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainFormationPosition.cpp
-
-// Native472620..4726DD RET12,189B. Existing caller474B51 supplies the
-// output Coord3D, Object and one ABI word, and adjusts its receiver by-11C.
-// Retain that established symbol; target dereferences the last word as float*.
-// Native accesses establish Object key74, owner8/position38, index map17C,
-// vector188 with28B records and float output at record14. Original field
-// names remain unknown. Same-ECX rotate468E98 has its existing value ABI.
-// Copy/assignment semantics follow the bank's BF1 ba7ddda7e8 Vector2 lead;
-// target instruction and relocation checks establish this caller's layout.
-// Assign rotate's returned point to an existing local, then copy it by value:
-// that lifetime reproduces the native ESP-save and cached record index.
-// Canonical Coord3D plus field-wise input and output copies preserve
-// native SSE values until return. No new pin or alternative callee spelling.
-
-Coord3D *Rva00472620::rva00472620(Coord3D *output, Object *object, int word)
-{
-    int index = indexByKey[reinterpret_cast<Rva00472620Object *>(object)->getKey()];
-    const Coord3D *base = &owner->position;
-    Coord3D result; result.x=base->x; result.y=base->y; result.z=base->z;
-    if (index >= 0 && static_cast<unsigned int>(index) < offsets.size())
-    {
-        Rva00468E98Point storage; storage=reinterpret_cast<Rva00468E98 *>(this)->rotate(offsets[index].offset);
- const Rva00468E98Point rotated = storage;
-        result.x = base->x + rotated.x;
-        result.y = base->y + rotated.y;
-        result.z = base->z;
-        *reinterpret_cast<float *>(word) = offsets[index].auxiliary;
-    }
-    output->x=result.x; output->y=result.y; output->z=result.z; return output;
-}
-
 // tu-skeleton: 0x004726DD 179B ?rva004726DD@HordeContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x00472790 660B ?returnToFormation@HordeContain@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x00472A24 304B ?rva00472A24@HordeContain@@UAEXPBUCoord3D@@W4CommandSourceType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupChain00472B54.cpp
-
-//
-// ?rva00472B54@Rva00472B54@@QAEXPAVObject@@W4CommandSourceType@@@Z, retail 0x00472B54, 314 bytes.
-// Chain body that builds an AIGroup from a list snapshot and a map of ObjectIDs.
-// Evidence: calls rowed createGroup 0x002FEC4B, AIGroup::add 0x0036E5F1,
-// groupEnter 0x00370198, findObjectByID 0x00049DC5, aiBfmeObjectCommand3D
-// 0x00470447, AI::destroyGroup 0x002FE712, list<int> push_back 0x0005548F,
-// _M_increment 0x00024250; virtual slots 0x98/0x118/0xA8; map at +0x54;
-// neighbours ContainModuleDeletingDtors/HordeContainRva00473125.
-
-// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
-// COMDAT (one byte shape per TU flags); a file-static overload takes those
-// calls instead so this TU emits no external copy.
-
-void Rva00472B54::rva00472B54(Object *obj, CommandSourceType cmdSource)
-{
-	if (!obj)
-		return;
-	Gate250 *contain = (Gate250 *)obj->m_250;
-	if (!contain)
-		return;
-	void *outer = *(void **)((char *)this - 0x114);
-	if (!contain->gate(outer, 1, 0))
-		return;
-	Object *outerObj = *(Object **)((char *)this - 0x114);
-	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)outerObj + 0x258);
-	if (!ai)
-		return;
-	ai->aiBfmeObjectCommand3D(obj, cmdSource);
-	_STL::list<int> snap;
-	GetterFC *gf = (GetterFC *)((char *)this - 0xFC);
-	unsigned char buf[8];
-	gf->get(buf);
-	_STL::list<int> **ppsrclist = (_STL::list<int> **)&buf[4];
-	for (_STL::list<int>::iterator it = (*ppsrclist)->begin(); it != (*ppsrclist)->end(); ++it)
-		snap.push_back(*it);
-	AIGroup *grp = TheAI->createGroup();
-	for (_STL::list<int>::iterator it = snap.begin(); it != snap.end(); ++it)
-		slotA8(*it);
-	for (_STL::map<int, int>::iterator it = m_map.begin(); it != m_map.end(); StepMapIterator(it)) {
-		Object *object = TheGameLogic->findObjectByID((ObjectID)(*it).first);
-		if (object)
-			grp->add(object);
-	}
-	grp->groupEnter(obj, cmdSource);
-	TheAI->destroyGroup(grp);
-}
-
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
 
 // tu-skeleton: 0x00472C8E 27B ?rva00472C8E@HordeContain@@UAEXPAVObject@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (not merged yet)
 
@@ -1710,17 +1828,6 @@ void Rva00472B54::rva00472B54(Object *obj, CommandSourceType cmdSource)
 
 // tu-skeleton: 0x00473FD4 217B ?Rva00473FD4Xfer@@YAPAVXfer@@PAV1@PAV?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@@Z -- matched in Code/GameEngine/Source/Common/Rva00473FD4Xfer.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_construct.cpp
-
-//
-// ??$_Construct@V?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@ABV10@@Z @0x004740AD (45B).
-// STLport placement-copy for list<Object*> element: null-guarded placement new
-// over a single element, calls rowed list copy ctor 0x004702FB. Called per element
-// by uninitialized_copy 0x004740DA and uninitialized_fill_n 0x00474100. Same 45B
-// EH shape as other _Constructs.
-
-template void _STL::_Construct<_STL::list<Object *, _STL::allocator<Object *> >, _STL::list<Object *, _STL::allocator<Object *> > >(_STL::list<Object *, _STL::allocator<Object *> > *, const _STL::list<Object *, _STL::allocator<Object *> > &);
-
 // tu-skeleton: 0x004740DA 38B ??$__uninitialized_copy@PAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@PAV10@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00474100 37B ??$__uninitialized_fill_n@PAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IV12@@_STL@@YAPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@0@PAV10@IABV10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_filln.cpp (not merged yet)
@@ -1752,53 +1859,6 @@ template void _STL::_Construct<_STL::list<Object *, _STL::allocator<Object *> >,
 // tu-skeleton: 0x004758F4 51B ?erase@?$vector@URva004758F4Element@@V?$allocator@URva004758F4Element@@@_STL@@@_STL@@QAEPAURva004758F4Element@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // tu-skeleton: 0x00475927 27B ?buildFieldParse@HordeContainModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataParse.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataDtor.cpp
-
-// ??1HordeContainModuleData@@UAE@XZ, retail 0x00475942..0x00475BDD (667
-// bytes, EH): table 0x00C457B0 (constructor 0x00475C9A in
-// HordeContainModuleDataCtor.cpp, slot-0 scalar deleting destructor
-// 0x00475E86). It deletes and empties its three owned-record vectors at
-// +0x18C/+0x198/+0x1A4 (record destructors rowed 0x004703E0, 0x00469D86 and
-// 0x00469DCE; range erase 0x0031BD55), clears the +0x1B4 list and the two
-// name sets, empties the +0x1F4 and +0x218 string vectors, deletes and
-// empties the +0x20C owned strings, empties the +0x224 string vector and
-// ::deletes its +0x258 object. Retail's unwind map then destroys the
-// members in reverse and TransportContainModuleData (rowed 0x004684F1). The
-// sets' wrapper unwind copy is the 5-byte thunk 0x00073116 (set destructor
-// 0x000730DE); the list's is 0x00200667. Members past the cited offsets
-// keep the constructor view's placeholders.
-
-HordeContainModuleData::~HordeContainModuleData()
-{
-	unsigned int i;
-	for (i = 0; i < m_vec18C.size(); ++i)
-		delete m_vec18C[i];
-	_STL::vector<void *> &v18C = reinterpret_cast<_STL::vector<void *> &>(m_vec18C);
-	v18C.erase(v18C.begin(), v18C.end());
-	for (i = 0; i < m_vec198.size(); ++i)
-		delete m_vec198[i];
-	_STL::vector<void *> &v198 = reinterpret_cast<_STL::vector<void *> &>(m_vec198);
-	v198.erase(v198.begin(), v198.end());
-	for (i = 0; i < m_vec1A4.size(); ++i)
-		delete m_vec1A4[i];
-	_STL::vector<void *> &v1A4 = reinterpret_cast<_STL::vector<void *> &>(m_vec1A4);
-	v1A4.erase(v1A4.begin(), v1A4.end());
-
-	m_list1B4.m_list.clear();
-	m_set1B8.m_set.rva00072FE6();
-	m_set1C4.m_set.rva00072FE6();
-	m_vec1F4.clear();
-	m_vec218.clear();
-
-	for (i = 0; i < m_vec20C.size(); ++i)
-		delete m_vec20C[i];
-	_STL::vector<void *> &v20C = reinterpret_cast<_STL::vector<void *> &>(m_vec20C);
-	v20C.erase(v20C.begin(), v20C.end());
-	m_vec224.clear();
-
-	::delete m_meleeBehavior;
-}
 
 // tu-skeleton: 0x00475BDD 11B ?clear@?$vector@URva004758F4Element@@V?$allocator@URva004758F4Element@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearFamily.cpp (not merged yet)
 
