@@ -43,12 +43,7 @@ public:
 	AsciiString m_name88; // +0x88
 };
 
-struct Rva0020A227Element
-{
-	AsciiString key;
-	Object *obj;
-	Rva0020A227Element() : obj(0) {}
-};
+#include "../../../Include/GameLogic/Rva0020A227Element.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

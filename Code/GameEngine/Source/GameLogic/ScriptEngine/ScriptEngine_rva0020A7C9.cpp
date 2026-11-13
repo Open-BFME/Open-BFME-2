@@ -45,12 +45,7 @@ private:
 
 class Object;
 
-struct Rva0020A227Element
-{
-	AsciiString key;
-	Object *obj;
-	Rva0020A227Element() : obj(0) {}
-};
+#include "../../../Include/GameLogic/Rva0020A227Element.h"
 
 // Target views used by ScriptEngine::walkNamed at 0x0020A775. The node's
 // first two words and the array offsets below come from that body; meanings

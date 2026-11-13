@@ -177,12 +177,7 @@ private:
 };
 }
 
-struct Rva0020A227Element
-{
-	AsciiString key;
-	Object *obj;
-	Rva0020A227Element() : obj(0) {}
-};
+#include "../../../Include/GameLogic/Rva0020A227Element.h"
 
 // Retail 0x0020479E (Rva0020479ECtor.cpp): stores only, so loading needs no
 // unwind state around the allocation.
