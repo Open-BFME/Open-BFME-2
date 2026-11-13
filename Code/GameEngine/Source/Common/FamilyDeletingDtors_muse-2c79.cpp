@@ -24,20 +24,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
 
 
-class MonitorConditionUpdate : public UpdateModule
-{
-public:
-	MonitorConditionUpdate(EmitVtableTag *);
-	virtual ~MonitorConditionUpdate();
-	virtual UpdateSleepTime update();
-	// Retail 0x0084DAD8 slots 3 and 4: the rowed overrides 0x004915C6 and 0x00491667
-	// (MonitorConditionUpdate.cpp), so both units emit one primary table.
-	virtual void xfer(Xfer *xfer);
-	virtual NameKeyType getModuleNameKey() const;
-
-private:
-	AsciiString m_str; // +0x20
-};
+#include "../../Include/Common/MonitorConditionUpdate.h"
 // ?<MonitorConditionUpdate::MonitorConditionUpdate> absent-from-retail
 MonitorConditionUpdate::MonitorConditionUpdate(EmitVtableTag *) : UpdateModule(0, 0) {}
 // ??_GDamageFieldUpdateModuleData@@UAEPAXI@Z @0x0049114E 28B

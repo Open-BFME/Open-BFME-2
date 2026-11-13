@@ -1,0 +1,245 @@
+{
+ "bases": [
+  "UpdateModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MonitorConditionUpdate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 13,
+   "inherited_spans": [
+    [
+     0,
+     32
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x491633"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x84dad8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x491633"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x491633"
+     ],
+     "value": {
+      "0x20": [
+       4
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24d838"
+     ],
+     "value": 36
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x491633"
+     ],
+     "value": {
+      "0x10": [
+       "0x84dacc"
+      ],
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x491633"
+     ],
+     "value": {
+      "0x0": "0x84dad8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84dad8"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GMonitorConditionUpdate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x491750"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?Rva00491661Get@@YAHXZ",
+        "slot": 2,
+        "target": "0x491661"
+       },
+       {
+        "name": "?xfer@MonitorConditionUpdate@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4915c6"
+       },
+       {
+        "name": "?getModuleNameKey@MonitorConditionUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x491667"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x84dad8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x84dad8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GMonitorConditionUpdate@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?Rva00491661Get@@YAHXZ",
+     "3": "?xfer@MonitorConditionUpdate@@UAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@MonitorConditionUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "36": 4
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_rememberedCommandSet",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 36,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

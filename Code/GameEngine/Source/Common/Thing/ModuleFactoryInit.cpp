@@ -344,7 +344,7 @@ class ModelConditionUpgrade { public: static Module *friend_newModuleInstance(Th
 class ModelConditionUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class MoneyCrateCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class MoneyCrateCollideModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class MonitorConditionUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/Common/MonitorConditionUpdate.h"
 class MonitorConditionUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class MonsterDockUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class MonsterDockUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

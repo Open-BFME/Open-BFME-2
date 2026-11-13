@@ -101,17 +101,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class MonitorConditionUpdate : public UpdateModule
-{
-public:
-	MonitorConditionUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-	virtual void xfer(Xfer *xfer);
-	virtual ~MonitorConditionUpdate();
-private:
-	AsciiString m_rememberedCommandSet; // +0x20
-};
+#include "../../../../Include/Common/MonitorConditionUpdate.h"
 
 // ?update@MonitorConditionUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x0049176C
 UpdateSleepTime MonitorConditionUpdate::update()
