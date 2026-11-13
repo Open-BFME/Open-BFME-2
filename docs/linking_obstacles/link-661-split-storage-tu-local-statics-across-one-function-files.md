@@ -215,3 +215,26 @@ are measured, and the merge blocker is narrower than the pass above reported. Ha
   `PointGroupClass.h` adoption. (3) Then VertexLoc static, with 0x007ACF20 and 0x007B7400 rowed as pointgr.obj's
   `_$E` pair, the way the VertexDiffuse and VertexUV pairs already are. That needs the `VectorClass<Vector3>`
   destructor inline-visible.
+
+**2026-11-13, seat halilkkaya-bt2 (CI diagnostic image `2e045b51115`, artifact `diagnostic-link-2e045b51115...`, base
+0x2000000): the VertexLoc split in the linked image, read statically.** Nothing changed in `Code/`.
+- Target facts: retail 0x0017A890 starts `mov eax,[0x00DF7090]` (VertexLoc+4, `.Vector`), the datum Render's sizer
+  0x0017F150 resizes. Its triangle loops store through that pointer after `add eax,8`; the first store is
+  `movss [eax-8],xmm0` at 0x0017CBF9.
+- Image facts (capstone over `exit.exe`, names from `exit.map`): the body (`?rva009148C0@PointGroupClass@@...` at
+  0x02723870) starts `mov eax,[0x02C07284]`, which is PointGroupClassRva0017A890.obj's static `_VertexLoc`
+  (0x02C07280, constructed by that object's `_$E6` at 0x029949D0 and nothing else). pointgr.obj's
+  `?VertexLoc@@3V?$VectorClass@VVector3@@@@A` is at 0x02C166DC; the sizer (`rva00914860`) and every other pointgr.cpp
+  user name that one. The image's store at body+0x2369 (0x02725BD9) is retail's 0x0017CBF9 instruction. With the
+  static never resized, `eax` is 8 there and the first point written goes to address 0.
+- Reach (retail call graph, E8 sites): `DefaultModule<5>::doParticles` of FXParticleSystem (0x0055C478) calls
+  PointGroupClass::Render (0x0017F400, call at 0x0055C844) and RenderVolumeParticle (0x0017F6E0, at 0x0055C81E);
+  Render calls 0x0017A890 at 0x0017F695 right after the sizer, RenderVolumeParticle at 0x0017FA91;
+  ParticleBufferClass::Render_Particles (0x001AEF10) also calls Render. So the first draw of one of these
+  particle systems faults.
+- Same objects at `2e045b51115` (`build/match`): 0x0017A890's relocation at offset 1 names `_VertexLoc`; pointgr.obj's
+  `Rva00912CF0`, `rva00913AF0`, `rva00914860`, `_$E32` and `_$E33` name the external. The split is unchanged since
+  `a1dee01711d` (2026-10-20).
+- Consequence for the order of work: of the splits in the table above, this is the one whose first use faults (the
+  SortingRenderer lists only leak), so its merge ranks first. The repair is still the pointgr.cpp merge with
+  VertexLoc file-static (pg1's next leads above); no extern spelling can reproduce the body.
