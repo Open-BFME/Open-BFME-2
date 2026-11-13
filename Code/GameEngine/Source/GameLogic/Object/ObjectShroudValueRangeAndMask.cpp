@@ -29,11 +29,7 @@ class AsciiString;
 
 // Partial storage view only: the native nonvirtual prefix has vfptr+vbptr.
 // The actual lifetime implementations retain their virtual-base hierarchy.
-class Rva007FC2D8ShroudStorageView : public ObjectShroudClient
-{
-private:
-    unsigned char m_vbptrStorage[4];
-};
+#include "../../../Include/GameLogic/Module/Rva007FC2D8ShroudStorageView.h"
 class Object:public ObjectThingBase,public Rva007FC2D8ShroudStorageView{public:
  Player *getControllingPlayer()const;float getShroudClearingRange()const;float getVisionRange()const;bool testStatus(ObjectStatusTypes)const;
  virtual bool ShroudHideIfFogged(int)const;virtual float ShroudGetValueRangeAndMask(int,unsigned*,unsigned*)const;
