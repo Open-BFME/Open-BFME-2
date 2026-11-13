@@ -672,7 +672,7 @@ int BfmeINISavedMacroGeneration;
 
 // strcmp without dllimport, as in INIParseLineBFME2.cpp: E8 into the linker
 // thunk at 0x006291C6 like retail.
-extern "C" int __cdecl strcmp(const char *s1, const char *s2);
+
 
 //
 // Retail 0x0002C621 (27B): ?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z.
