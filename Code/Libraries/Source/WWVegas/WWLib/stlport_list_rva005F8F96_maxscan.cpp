@@ -18,11 +18,7 @@ public:
 // ?rva005CCCFC@Rva005CCCD0@@QAEXXZ, retail 0x005CCCFC, 58 bytes.
 // Scans list at +8 for max [obj+0xc], tail-jumps to Rva005CCB16::rva005CCB16 on best's [+8].
 // Evidence: same +8 list sentinel as neighbours; callee 0x005CCB16 row; caller 0x005CCE88 passes same this.
-class Rva005CCB16
-{
-public:
-    void rva005CCB16();
-};
+#include "../../../../GameEngine/Include/Common/Rva005CCB16.h"
 struct Obj005CCCFC
 {
     int m_00;
