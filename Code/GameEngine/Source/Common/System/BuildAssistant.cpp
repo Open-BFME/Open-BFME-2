@@ -2355,15 +2355,7 @@ class CommandSet;
 
 // --- 0x003681DC (17B): false while +0x4B8 bit 0 is set, else the rowed
 // 0x002645FF.
-class Rva002645FF
-{
-public:
-	bool rva002645FF();										// 0x002645FF
-	bool rva003681DC();
-private:
-	char m_pad[0x4B8];
-	unsigned char m_4B8;
-};
+#include "../../../Include/Common/Rva002645FF.h"
 
 // --- 0x004CFC81 (80B): frames until the pending deadline (+0x1205C) while
 // the queue (+0x12028 / +0x1202C) is non-empty, else frames since the
