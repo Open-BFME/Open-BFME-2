@@ -66,11 +66,7 @@ public:
 	int rva00404927(Rva00404781 *cell, int player);
 };
 
-class Rva00404C26
-{
-public:
-	Rva00404927 *rva00404C26(int player);
-};
+#include "../../Include/Common/Rva00404C26.h"
 
 class VictorySystem;
 

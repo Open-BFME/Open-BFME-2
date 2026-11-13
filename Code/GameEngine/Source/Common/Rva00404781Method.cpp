@@ -19,11 +19,7 @@ public:
 	float unknown14;
 };
 
-class Rva00404C26
-{
-public:
-	Rva00404927 *rva00404C26(int player);
-};
+#include "../../Include/Common/Rva00404C26.h"
 
 // Owned native VictorySystem pointer, defined by GameStateInit.cpp.
 class VictorySystem;
