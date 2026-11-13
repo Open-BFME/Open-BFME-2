@@ -14346,6 +14346,32 @@ def refusing(problems):
     return ", ".join(dict.fromkeys(p.split(":", 1)[0] for p in problems))
 
 
+def restamp_admissions(ctx, plan):
+    """Keep the hatch admissions tools made earlier in this working change across the plan's own edit of
+    reverse/symbols.csv (pin_admission.py --add before a respell that needs those pins and renames another pin in
+    place). The register's allow= stamps name the file's blob, so any edit voids them; hatch_counters --restamp
+    re-stamps exactly what the tools admitted (its record, in the git dir, scoped to HEAD) and grants nothing new.
+    The register joins the plan's files: its old bytes go back with them on any failure, and its new bytes are
+    staged with them for the hooks' checks. Only for the tree the tools run on: hatch_counters works on its own
+    checkout."""
+    raw = ctx.read(HATCH_BASELINE)
+    if SYMBOLS not in plan.after or raw is None or b"\tallow=" not in raw:
+        return
+    import hatch_counters
+    if Path(hatch_counters.ROOT).resolve() != Path(ctx.root).resolve():
+        return
+    plan.before.setdefault(HATCH_BASELINE, raw)
+    try:
+        hatch_counters.admit(SYMBOLS, "rename.py: restamp this working change's tool admissions after its "
+                             "symbols.csv edit", tokens=())
+    except SystemExit as error:
+        raise VerifyFailed(f"hatch_counters cannot restamp {SYMBOLS}: {error}; every file restored") from None
+    # the re-stamped register is part of what the plan wrote: the hooks' checks stage it with the rest
+    now = ctx.read(HATCH_BASELINE)
+    if now != raw:
+        plan.after[HATCH_BASELINE] = now
+
+
 def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, claimed=None):
     """Write the plan, verify it (./build.sh, then the hooks' ledger checks),
     restore everything on any failure. A journal written before the first
@@ -14382,6 +14408,7 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
         for rel in plan.removed:
             if ctx.path(rel).exists():
                 ctx.path(rel).unlink()
+        restamp_admissions(ctx, plan)
         ctx._build_diagnostics = ""
         if not verify(ctx, plan.verify):
             error = VerifyFailed(f"verification failed for {plan.old} -> {plan.new}; every file restored")

@@ -492,6 +492,54 @@ def test_the_landing_writes_it_all(tree):
     assert PIN in (tree / "reverse/symbols.csv").read_text()
 
 
+REGISTER = "pin\treverse/symbols.csv\t0x0030087C\t7\tallow=0123456789abcdef0123456789abcdef01234567\n"
+
+
+def admissions(tree, monkeypatch):
+    """hatch_counters on the test tree: admit() records its calls and re-stamps the register as the real one does."""
+    import hatch_counters
+    calls = []
+
+    def admit(path, reason, tokens=None, before=None, now=None):
+        calls.append((path, tokens))
+        (tree / "reverse/hatch_baseline.tsv").write_text(REGISTER.replace("0123456789abcdef", "fedcba9876543210"))
+        return {"admitted": [], "kept": ["pin"], "refused": []}
+    monkeypatch.setattr(hatch_counters, "ROOT", tree)
+    monkeypatch.setattr(hatch_counters, "admit", admit)
+    write(tree / "reverse/hatch_baseline.tsv", REGISTER)
+    git(tree, "add", "-A")
+    return calls
+
+
+def test_the_pin_respell_restamps_this_changes_admissions(tree, monkeypatch):
+    """The plan renames a pin in symbols.csv; the admissions tools made earlier in the change are re-stamped, and
+    nothing new is granted (tokens=())."""
+    calls = admissions(tree, monkeypatch)
+    ctx, state = context(tree)
+    got = land(ctx, plan(ctx), state)
+    assert calls == [("reverse/symbols.csv", ())]
+    assert "fedcba9876543210" in (tree / "reverse/hatch_baseline.tsv").read_text()
+    assert b"fedcba9876543210" in got.after["reverse/hatch_baseline.tsv"]       # staged for the hooks' checks
+
+
+def test_an_undone_respell_restores_the_register(tree, monkeypatch):
+    calls = admissions(tree, monkeypatch)
+    ctx, state = context(tree)
+    undone(ctx, plan(ctx), state, refs=after_refs()[:1])
+    assert calls == [("reverse/symbols.csv", ())]
+    assert (tree / "reverse/hatch_baseline.tsv").read_text() == REGISTER
+
+
+def test_another_tree_is_never_restamped(tree, monkeypatch):
+    """hatch_counters works on its own checkout: a plan for another tree leaves it alone."""
+    import hatch_counters
+    calls = admissions(tree, monkeypatch)
+    monkeypatch.setattr(hatch_counters, "ROOT", tree / "elsewhere")
+    ctx, state = context(tree)
+    land(ctx, plan(ctx), state)
+    assert calls == [] and (tree / "reverse/hatch_baseline.tsv").read_text() == REGISTER
+
+
 @pytest.mark.parametrize("label, change", [
     ("no relocation at all", lambda relocs: []),
     ("another offset", lambda relocs: [(o + 1, k, t) for o, k, t in relocs]),
