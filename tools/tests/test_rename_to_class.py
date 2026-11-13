@@ -1622,3 +1622,21 @@ def test_a_prepared_view_header_must_be_clean(tree, monkeypatch):
     (root / VIEW).write_bytes(b"// an unstaged edit\n" + (root / VIEW).read_bytes())
     with pytest.raises(Refusal, match="requires clean source paths"):
         view_plan(root)
+
+
+def test_an_installer_including_a_prepared_view_header_is_judged_after_the_build(tree, monkeypatch):
+    # its object still holds the base's getter in slot 2 before ./build.sh: planning passes it over (lk106)
+    stale = {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, STOP, "?GetSnapshotName@UpdateModule@@MBEPBDXZ"]}}
+    retail(monkeypatch, GETTER_TABLES, compiled=stale)
+    p = view_plan(view_tree(tree))
+    assert p.new == GETTER_NEW and "Code/Game/Widget.cpp" in p.verify
+    with pytest.raises(VerifyFailed, match="rebuilt vftable"):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+
+
+def test_an_installer_without_the_prepared_header_is_still_judged_before_the_build(tree, monkeypatch):
+    stale = {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, STOP, "?GetSnapshotName@UpdateModule@@MBEPBDXZ"]}}
+    retail(monkeypatch, GETTER_TABLES, compiled=stale)
+    root = view_tree(tree)
+    with pytest.raises(Refusal, match="slot 2 names"):
+        getter_plan(root)          # the getter unit alone is prepared: Widget.cpp's view is unchanged

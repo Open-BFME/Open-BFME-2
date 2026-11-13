@@ -7220,10 +7220,14 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         check["where"] = first["where"]
         check["rva"] = first["rva"]
     edited = set(prepared or {})
-    early_check = dict(check, sources=[s for s in installer_sources if s not in edited])
+    # an installer that includes a prepared view header compiles the moved slot only after ./build.sh,
+    # like a prepared installer unit: both are judged then
+    views = {rel for rel in edited if rel.endswith(".h")}
+    later = edited | (includers(ctx, views, max_files) if views else set())
+    early_check = dict(check, sources=[s for s in installer_sources if s not in later])
     if check.get("bases"):
         # a prepared installer unit is judged after ./build.sh, as an own installer is
-        early_check["bases"] = [dict(record, sources=[s for s in record["sources"] if s not in edited])
+        early_check["bases"] = [dict(record, sources=[s for s in record["sources"] if s not in later])
                                 for record in check["bases"]]
     early = to_class_slot_problems(ctx, early_check)
     if early:
