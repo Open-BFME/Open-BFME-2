@@ -165,11 +165,7 @@ public:
 
 
 struct TintDrawable { char pad[0x118]; unsigned int m_tintStatus; __forceinline void setTintStatus(unsigned int b) { m_tintStatus |= b; } };
-class Rva001E4A4E
-{
-public:
-	bool rva001E4A4E(int);
-};
+#include "../../../Include/GameLogic/Module/Rva001E4A4E.h"
 #include "../../../Include/GameLogic/Module/Rva00270619.h"
 class Object
 {

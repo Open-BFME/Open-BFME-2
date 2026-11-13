@@ -40,11 +40,7 @@ enum DisabledType
 	DISABLED_COUNT
 };
 
-class Rva001E4A4E
-{
-public:
-	bool rva001E4A4E(int);
-};
+#include "../../../Include/GameLogic/Module/Rva001E4A4E.h"
 
 class Object
 {
