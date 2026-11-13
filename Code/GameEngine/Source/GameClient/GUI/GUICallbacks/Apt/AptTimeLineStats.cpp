@@ -271,7 +271,7 @@ class Player {public:char beforeScore[0x3BC];ScoreKeeper score;};
 class Rva002618A2 {public:unsigned words[7];Rva002618A2*rva002618FA(int,int,int,int,int,int);};
 class Rva0039BDB8 {public:void rva0039BE95(const BitFlags<69>*,UnicodeString*);};
 class Rva0039BF0B {public:int rva0039BF0B(const Rva00045411BitSet&,const Rva00045411BitSet&);};
-class Rva0039BF39 {public:int rva0039BF39(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+#include "../../../../../Include/Common/Rva0039BF39.h"
 class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const UnicodeString&,float);};
 #include "../../../../../Include/GameClient/GameText.h"
 

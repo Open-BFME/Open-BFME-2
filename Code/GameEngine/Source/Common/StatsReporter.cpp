@@ -191,7 +191,7 @@ class Player {public:char gap0[0x34];PlayerTemplate*playerTemplate;char gap38[0x
 
 class Rva0039BF0B {public:int rva0039BF0B(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 
-class Rva0039BF39 {public:int rva0039BF39(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+#include "../../Include/Common/Rva0039BF39.h"
 
 #include "../../Include/Common/Rva004EE35D.h"
 
