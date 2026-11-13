@@ -124,9 +124,7 @@ struct ObjectTransformRegion {
 extern TerrainLogic *TheTerrainLogic;
 bool isPosDifferent(const Coord3D *,const Coord3D *);
 bool isAngleDifferent(float,float);
-class ObjectTransformContain {
-public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void notify();
-};
+#include "../../../Include/GameLogic/Module/ObjectTransformContain.h"
 enum PathfindLayerEnum { LAYER_GROUND = 1 };
 struct Rva002ED236Pos {
  float x,y,z;
