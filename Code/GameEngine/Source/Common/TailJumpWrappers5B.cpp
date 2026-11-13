@@ -821,11 +821,7 @@ void Rva0057EE5C::rva0057E6D8()
 	((AptMpGameRules *)this)->rva0057E6C1();
 }
 
-class Rva003FAC3F
-{
-public:
-	void rva003FAC3F();
-};
+#include "../../Include/Common/Rva003FAC3F.h"
 
 class Rva003FAC83
 {
