@@ -3,11 +3,7 @@
 // +0x10/+0x1C, body zeros, m_4C=-1. Stride 0x80 from Rva00802A10::allocate.
 // Pin: ??0Rva00800630Owner@@QAE@XZ -> 0x00800340 (this-zero3).
 
-struct V2ZeroInt
-{
-	__forceinline V2ZeroInt() : m_value(0) {}
-	int m_value;
-};
+#include "../../Include/Common/V2ZeroInt.h"
 
 class Rva00800630Owner
 {

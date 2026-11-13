@@ -3,11 +3,7 @@
 // member at +0x18. This partial constructor view retains that ordering and
 // explicitly tears down the existing base view after clearing the member.
 // The complete inheritance layout and original class names remain unproven.
-struct V2ZeroInt
-{
-    __forceinline V2ZeroInt() : m_value(0) {}
-    int m_value;
-};
+#include "../../Include/Common/V2ZeroInt.h"
 
 class Rva00800630Owner
 {

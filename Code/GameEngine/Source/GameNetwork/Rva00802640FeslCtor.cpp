@@ -4,11 +4,7 @@
 // The inline cleanup and explicit base-view teardown preserve the native
 // deleting wrapper; the flat constructor view preserves member initialization.
 
-struct V2ZeroInt
-{
-	__forceinline V2ZeroInt() : m_value(0) {}
-	int m_value;
-};
+#include "../../Include/Common/V2ZeroInt.h"
 
 struct V2ZeroPair
 {

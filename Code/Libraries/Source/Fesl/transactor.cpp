@@ -296,11 +296,7 @@ struct Gen_dtor_007f6d20
 	int m_pad;
 };
 
-struct V2ZeroInt
-{
-	__forceinline V2ZeroInt() : m_value(0) {}
-	int m_value;
-};
+#include "../../../GameEngine/Include/Common/V2ZeroInt.h"
 
 struct Rva00802E70Element
 {
