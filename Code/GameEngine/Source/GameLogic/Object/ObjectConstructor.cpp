@@ -156,13 +156,7 @@ class FiringTracker { public: FiringTracker(Thing *thing, const ModuleData *data
 class Rva004DD7E3 { public: Rva004DD7E3(int obj); unsigned char m_data[0x4C]; };
 class Rva0039ADF3 { public: Rva0039ADF3(Object *obj); unsigned char m_data[0x40]; };
 
-class Rva00291775AsciiField
-{
-public:
-	AsciiString get() const;
-	unsigned char m_pad000[0x228];
-	int m_initialTeamAttitude;				// +0x228
-};
+#include "../../../Include/GameLogic/Module/Rva00291775AsciiField.h"
 struct AsciiNotEmpty
 {
 	static bool test(const AsciiString &asciiString) { return !((const StringBase<char> *)&asciiString)->isEmpty(); }
