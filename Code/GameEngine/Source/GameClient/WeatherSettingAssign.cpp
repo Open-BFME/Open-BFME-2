@@ -24,14 +24,7 @@ private:
 };
 }
 
-class DynamicAudioEventRTS
-{
-public:
-	DynamicAudioEventRTS &operator=(const DynamicAudioEventRTS &other);
-private:
-	int m_00;
-	AsciiString m_04;
-};
+#include "../../Include/Common/DynamicAudioEventRTS.h"
 
 #include "../../Include/Common/ThreeInts.h"
 

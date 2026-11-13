@@ -192,13 +192,7 @@ public:
 // (last-first), assigns each slot through the rowed operator= 0x00200BC0,
 // advances src/dst, returns final dst. Caller at 0x00565614; unblocks 0x00565601.
 
-class DynamicAudioEventRTS
-{
-public:
-	DynamicAudioEventRTS &operator=(const DynamicAudioEventRTS &other);
-private:
-	char m_pad[8];
-};
+#include "../../Include/Common/DynamicAudioEventRTS.h"
 
 // ?Rva00564D06Copy@@YAPAVRva003B3080@@PAV1@00@Z, retail 0x00564D06, 50 bytes.
 // Range-copy loop over 0x14-byte Rva003B3080 elements: count is (last-first) via idiv 0x14, assigns each slot through rowed operator= 0x00564B41, advances src/dst, returns final dst. Caller at 0x005656BD; unblocks 0x005656AA.
