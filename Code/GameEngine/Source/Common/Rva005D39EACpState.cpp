@@ -1,11 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?ShowCommandPoints@SelectionUIImpl@StrategicHUD@@QAEXHH@Z retail 0x005D39EA 107B
 // Evidence: cached ints at +0x28 +0x2c via StrategicHUD::SetCommandPointsString 0x005D3966; shown-once bool at +0x31 via SetCPState _show rowed 0x005FB5E6; level at +0x04 outer at +0x08 prefix from +8 else g_Rva0107301CEmptyString; global TheRva00222A8BTarget; sibling Rva005D3B9A prefix layout
-struct Rva005D2FD0Inner
-{
-	char m_pad8[8];
-	char m_name[1];
-};
+#include "../../Include/Common/Rva005D2FD0Inner.h"
 struct Rva005D2FD0Outer
 {
 	Rva005D2FD0Inner *m_ptr;

@@ -10,11 +10,7 @@ class AsciiString;
 #include "ascii_string.h"
 
 
-struct Rva005D2FD0Inner
-{
-	char m_pad8[8];
-	char m_name[1];
-};
+#include "../../Include/Common/Rva005D2FD0Inner.h"
 
 #include "../../Include/Common/Rva00223A94.h"
 
