@@ -9,15 +9,7 @@
 
 extern AudioManager *TheAudio;
 
-class Rva003F802B
-{
-public:
-	bool rva003F802B();
-private:
-	char m_pad00[8];
-	void *m_08;
-	int m_0C;
-};
+#include "../../../../GameEngine/Include/Common/Rva003F802B.h"
 
 bool Rva003F802B::rva003F802B()
 {

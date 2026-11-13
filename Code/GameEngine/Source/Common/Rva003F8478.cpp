@@ -5,11 +5,7 @@
 // Evidence: retail call 802B / test al,al / je else / xor al,al+ret;
 // else: call 8052 (pinned, banked near-miss) / neg al + sbb al,al + inc al;
 // 8052 is declared E here so the ! stays byte-wide (neg al).
-class Rva003F802B
-{
-public:
-	bool rva003F802B();
-};
+#include "../../Include/Common/Rva003F802B.h"
 
 class Rva003F8052
 {

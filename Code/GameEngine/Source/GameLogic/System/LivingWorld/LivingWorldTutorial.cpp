@@ -25,15 +25,7 @@ public:
 
 	// TheLivingWorldLogic
 
-class Rva003F802B
-{
-public:
-	bool rva003F802B();
-private:
-	unsigned char m_pad00[8];
-	void *m_08;
-	int m_0C;
-};
+#include "../../../../Include/Common/Rva003F802B.h"
 
 #include <vector>
 #include "ascii_string.h"
