@@ -4,10 +4,7 @@ extern "C" void _ReadWriteBarrier();
 // partial score=0.97 date=2026-10-08
 // cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
-class Rva00691110Handle {
-public: Rva00691110Handle(const Rva00691110Handle&);
-private: void *target;
-};
+#include "../../../GameEngine/Include/Common/Rva00691110Handle.h"
 class Rva00690FF0Handle {
 public:
  Rva00690FF0Handle(const Rva00690FF0Handle& other) {

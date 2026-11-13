@@ -46,7 +46,7 @@ public:
  char pad48[0xC];
 };
 class Rva0010ED3D {public: void rva0010ED3D(int);};
-class Rva00691110Handle {public: Rva00691110Handle(const Rva00691110Handle &); private: void *target;};
+#include "../../../GameEngine/Include/Common/Rva00691110Handle.h"
 #include "../../../GameEngine/Include/Common/AudioFileContainer.h"
 class Rva00690FF0Handle {
 public:
