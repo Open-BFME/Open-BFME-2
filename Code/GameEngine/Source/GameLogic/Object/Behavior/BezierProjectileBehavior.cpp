@@ -104,18 +104,7 @@ template <> Gen_p12pod *vector<Gen_p12pod, allocator<Gen_p12pod> >::erase(Gen_p1
 
 // vftable 0x00BFBC90, allow 0x00260EB1: +0x08 the object, +0x0C
 // relationship flags, +0x10 whether a hit allows.
-class Rva00260EB1Filter : public Rva000421C8
-{
-public:
-	Rva00260EB1Filter(const Object *obj, int flags, bool match)
-	: m_obj(obj), m_flags(flags), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	const Object *m_obj; // +0x08
-	int m_flags; // +0x0C
-	bool m_match; // +0x10
-	char m_pad11[0x3];
-};
+#include "../../../../Include/GameLogic/Rva00260EB1Filter.h"
 
 extern PartitionManager *ThePartitionManager;
 
