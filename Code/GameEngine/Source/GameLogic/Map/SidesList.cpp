@@ -723,11 +723,7 @@ private:
 // Evidence: caller 0x0032FB9E in 617B body; retail pushes two args calls rowed Compare wrapper neg-sbb-inc booleanizes ==0 with pop-ecx stack cleaning per Rva000B3EECNotEqual.
 int __cdecl Rva0032B610Compare(int a, int b);
 
-struct Rva0032C0E3Element
-{
-public:
-	char m_body[0x80]; // +0x00
-};
+#include "../../../Include/GameLogic/Rva0032C0E3Element.h"
 
 // Use the rowed 0x0032C0E3 assignment rather than emitting a POD-only copy.
 namespace _STL {

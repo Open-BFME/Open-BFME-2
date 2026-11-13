@@ -60,11 +60,7 @@ template <class ForwardIter>
 void _Destroy(ForwardIter first, ForwardIter last);
 }
 
-struct Rva0032C0E3Element
-{
-public:
-	char m_body[0x80]; // +0x00
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0032C0E3Element.h"
 
 template <class Type, class Allocator>
 _STL::vector<Type, Allocator> &_STL::vector<Type, Allocator>::operator=(const vector &x)

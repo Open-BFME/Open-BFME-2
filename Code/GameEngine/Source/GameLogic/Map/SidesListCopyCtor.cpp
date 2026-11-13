@@ -82,11 +82,7 @@ private:
 	char m_body[0x1C];
 };
 
-struct Rva0032C0E3Element
-{
-public:
-	char m_body[0x80]; // +0x00
-};
+#include "../../../Include/GameLogic/Rva0032C0E3Element.h"
 // POD cleanup stays inline, as in SidesListCopyCtors.cpp, so this unit does
 // not compete with the rowed nontrivial destroy worker at 0x32B580.
 namespace _STL {
