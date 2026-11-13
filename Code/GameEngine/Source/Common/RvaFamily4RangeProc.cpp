@@ -14,7 +14,7 @@
 enum Rva0021B68DKey;
 struct Rva0021B68DCmp { int m_state; };
 class Rva004F6093Holder;
-struct Rva002BBC1CCmp { int m_state; };
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva002BBC1CCmp.h"
 struct Rva003C3AB0Item;
 struct Rva003C3AB0Cmp { int m_state; };
 namespace _STL

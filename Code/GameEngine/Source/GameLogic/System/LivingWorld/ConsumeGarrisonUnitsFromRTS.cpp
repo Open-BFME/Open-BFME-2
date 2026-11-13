@@ -43,7 +43,7 @@ struct Rva002BC1DAArmy {char bytes[0x38];};
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
 class Rva002B6066 {public:Rva0040DC56Element*rva002B6066(Rva0040DC56Element*);};
-struct Rva002BBC1CCmp {bool operator()(const Rva004F6093Holder&,const Rva004F6093Holder&)const;};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva002BBC1CCmp.h"
 namespace _STL {
 template<>void sort<Rva004F6093Holder*,Rva002BBC1CCmp>(Rva004F6093Holder*,Rva004F6093Holder*,Rva002BBC1CCmp);
 template<>vector<Rva0040DC56Element>::~vector();

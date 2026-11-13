@@ -39,10 +39,7 @@ private:
 	Rva002BBC1CTarget *m_ptr;
 };
 
-struct Rva002BBC1CCmp
-{
-	bool operator()(const Rva004F6093Holder &a, const Rva004F6093Holder &b) const;
-};
+#include "Rva002BBC1CCmp.h"
 
 namespace _STL
 {
