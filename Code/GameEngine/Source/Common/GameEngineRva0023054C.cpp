@@ -44,11 +44,7 @@ public:
 	virtual void endThreads();
 };
 
-class Rva00214A8A
-{
-public:
-	void rva00214A8A();										// 0x00214A8A
-};
+#include "../../Include/Common/Rva00214A8A.h"
 
 class AttributeModifierStore;
 

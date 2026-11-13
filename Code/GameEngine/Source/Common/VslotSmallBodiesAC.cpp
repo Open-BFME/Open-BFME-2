@@ -46,12 +46,7 @@ bool Rva005D7305::rva005D7305(Object *obj)
 
 // 0x00214AC7 (table VA 0x00BE534C): only tail-calls the rowed
 // Rva00214A8A::rva00214A8A (Rva00214A8AClear.cpp).
-class Rva00214A8A
-{
-public:
-	void rva00214A8A();
-	void rva00214AC7();
-};
+#include "../../Include/Common/Rva00214A8A.h"
 void Rva00214A8A::rva00214AC7()
 {
 	rva00214A8A();
