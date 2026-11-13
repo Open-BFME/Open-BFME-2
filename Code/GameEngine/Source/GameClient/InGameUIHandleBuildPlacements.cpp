@@ -362,11 +362,7 @@ public:
 protected:
     virtual ~BuildListInfo();
 };
-class Rva00396A5C
-{
-public:
-    int rva00396A5C(Player*);
-};
+#include "../../Include/GameClient/Rva00396A5C.h"
 #include "../../Include/Common/SidesList.h"
 extern SidesList* TheSidesList;
 #include "../../Include/GameLogic/TerrainLogic.h"

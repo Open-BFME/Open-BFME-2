@@ -16,7 +16,7 @@ class Player;
 class Object { public: Player *getControllingPlayer() const; char pad00[0x44]; float angle44; };
 
 class ModuleData;
-class Rva00396A5C { public: int rva00396A5C(Player *); };
+#include "../../../Include/GameClient/Rva00396A5C.h"
 class ObjectCreationNugget;
 #include "../../../Include/GameLogic/ObjectCreationListClass.h"
 struct OCLArray { ObjectCreationList **begin,**end,**cap; };
