@@ -190,11 +190,7 @@ public:
 // this is interior (Module at Object+0x3E0): [esi-0x3E0]=obj+0 (Aux with +0x64), [esi-0x3DC]=obj+4 (BuildListInfo), [esi+0x1C]=counter.
 // Honest address names; class identity unproven.
 class BuildListInfo { public: int getDesiredGatherers(); };
-struct Rva002716Holder
-{
-public:
-	void Rva0027164EBroadcast(int a, int b);
-};
+#include "../../../../../Include/GameClient/Rva002716Holder.h"
 struct Rva004A6EAux { unsigned char m_pad[0x64]; int m_maxBoxes; };
 struct Rva004A6EObj { Rva004A6EAux* m_moduleData; BuildListInfo* m_04; };
 class Rva004A6EHolder {
