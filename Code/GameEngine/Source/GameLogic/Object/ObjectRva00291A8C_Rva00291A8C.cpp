@@ -134,7 +134,7 @@ struct Rva002ED236Pos {
 extern AI *TheAI;
 
 
-class Rva001E3591 { public: bool rva001E3591(); };
+#include "../../../Include/Common/Rva001E3591.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };

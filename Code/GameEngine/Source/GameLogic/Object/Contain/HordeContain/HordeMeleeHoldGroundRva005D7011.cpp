@@ -53,11 +53,7 @@ public:
 	void aiIdle(CommandSourceType cmdSource);
 };
 
-class Rva001E3591
-{
-public:
-	bool rva001E3591();
-};
+#include "../../../../../Include/Common/Rva001E3591.h"
 
 template <int N> class Rva005D7011Slots : public Rva005D7011Slots<N - 1>
 {
