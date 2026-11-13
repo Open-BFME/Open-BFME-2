@@ -264,13 +264,7 @@ void W3DTerrainLogic::Rva0027D5E0(float *out, const float *in)
 // (lo=hi+c hi=lo-c), water+0x18+off real gives count via slot0,
 // points via rowed 0x7E016 forwarder to slot1, Z via slot2 int to float.
 // Callers: 0x282E8B. Identity class plus honest address name.
-class Rva0007E016
-{
-	virtual void f0();
-	virtual void vfunc(int a0, int a1);
-public:
-	int rva0007E016(int a0, int a1);
-};
+#include "../../Include/Common/Rva0007E016.h"
 
 struct Rva0027D960Real
 {
