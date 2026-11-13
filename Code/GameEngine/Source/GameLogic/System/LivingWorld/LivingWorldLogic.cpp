@@ -501,11 +501,7 @@ int __cdecl Rva002B24F0Get(Rva002B24F0Obj *obj, void *out);	// 0x002B24F0, "Livi
 // rowed stdcall lookup 0x002B4948 of the player's army in a region.
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
-struct Rva003F0F13Elem
-{
-	float a;
-	float b;
-};
+#include "../../../../Include/Common/Rva003F0F13Elem.h"
 struct Rva0059E647Entry;
 // The owner change 0x003F2A8C, rowed under its address class (LivingWorldRegion.cpp).
 #include "../../../../Include/GameLogic/Rva003F2A8C.h"

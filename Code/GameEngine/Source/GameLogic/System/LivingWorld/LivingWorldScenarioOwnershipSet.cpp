@@ -39,7 +39,7 @@ struct Rva002B8660Army;
 struct Rva002B8660Player;
 struct LivingWorldArmy;
 struct Rva002B6A04Player;
-struct Rva003F0F13Elem {float a,b;};
+#include "../../../../Include/Common/Rva003F0F13Elem.h"
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 // Use the Snapshot slot-3 spelling already selected by LivingWorldRegion.
 #define xfer DoXfer
