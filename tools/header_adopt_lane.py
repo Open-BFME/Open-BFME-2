@@ -552,8 +552,10 @@ masked_once = functools.lru_cache(maxsize=2048)(masked)
 comment_splice_once = functools.lru_cache(maxsize=2048)(header_comment_splice)
 
 
-def include_walk(source, text, include_roots=(), cache=None):
-    """Scan the complete quoted include closure once, refusing unorderable cycles and a quoted include
+def include_walk(source, text, include_roots=(), cache=None, seeds=()):
+    """Scan the complete quoted include closure once, from `source` (its `text`) and each of `seeds` (ROOT
+    paths, read from disk: a canonical header walked in its unit's closure, by its own identity and its own
+    text, never as a line appended to the unit's), refusing unorderable cycles and a quoted include
     that resolves nowhere, unless only a branch never compiled names it (never_compiled) and nothing the
     unit compiles defines that branch's macro: its `// cl:` definitions, a `#define` of the closure in a
     branch that can be compiled, or a header the walk cannot read (an angle include that resolves nowhere
@@ -567,7 +569,13 @@ def include_walk(source, text, include_roots=(), cache=None):
     unread = []                          # (path, include, logical text, offset): an angle include found nowhere
     logicals = {}                        # path: its logical, masked text (literals kept)
     never = NEVER_DEFINED - compiler_defines(text)
-    stack = [(start, text, False)]
+    stack = []
+    for seed in reversed(seeds):
+        path = (ROOT / seed).resolve()
+        if path not in cache:
+            cache[path] = read_path(path)
+        stack.append((path, cache[path], False))
+    stack.append((start, text, False))
     while stack:
         path, body, leaving = stack.pop()
         if leaving:
@@ -685,8 +693,8 @@ def include_walk(source, text, include_roots=(), cache=None):
     return out, None
 
 
-def include_problem(source, text, include_roots=(), cache=None):
-    return include_walk(source, text, include_roots, cache)[1]
+def include_problem(source, text, include_roots=(), cache=None, seeds=()):
+    return include_walk(source, text, include_roots, cache, seeds)[1]
 
 
 def include_sources(source, text=None, include_roots=(), cache=None):
@@ -990,10 +998,9 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             mappings[name] = mine
     if mappings:
         if header:
-            # the header as the unit compiles it: inside the unit's closure, after its flags and every
-            # definition it makes (a header walked alone took a macro the unit defines for absent)
-            why = include_problem(source, f'{text}\n#include "{header}"\n', include_roots=include_roots,
-                                  cache=include_cache)
+            # the header as the unit compiles it: in the unit's closure, with its flags and every definition
+            # it makes (a header walked alone took a macro the unit defines for absent), as a seed of its own
+            why = include_problem(source, text, include_roots=include_roots, cache=include_cache, seeds=(header,))
             if why:
                 return None, why
             family = {cls for name in mappings for cls in hierarchy(name, laid)}

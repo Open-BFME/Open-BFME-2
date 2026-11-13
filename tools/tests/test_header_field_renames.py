@@ -681,6 +681,23 @@ def test_review_r3_the_canonical_header_sees_every_macro_its_unit_defines(tmp_pa
     assert mapping is None and "missing.h" in why and "<outside.h> resolves nowhere" in why, why
 
 
+def test_review_r4_the_canonical_header_is_its_own_seed(tmp_path, monkeypatch):
+    # review r4: an appended `#include "<header>"` resolved a same-named file under the unit's directory first,
+    # and an unterminated comment at the unit's end swallowed it; both hid the canonical header's missing include
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Code/Obj").mkdir(parents=True)
+    (tmp_path / "sub/Code/Obj").mkdir(parents=True)
+    (tmp_path / "Code/Obj/Object.h").write_text(HEADER + '#include "missing.h"\n')
+    (tmp_path / "sub/Code/Obj/Object.h").write_text(HEADER)
+    assert "missing.h" in lane.include_problem("sub/u.cpp", UNIT, seeds=("Code/Obj/Object.h",))
+    mapping, why = lane.field_renames("sub/u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Code/Obj/Object.h")
+    assert mapping is None and "Code/Obj/Object.h" in why and "missing.h" in why, why
+    mapping, why = lane.field_renames("u.cpp", UNIT + "/*", ["Object"], "Object.h", compiler(),
+                                      header="Code/Obj/Object.h")
+    assert mapping is None and "missing.h" in why, why
+    assert "cannot be read" in lane.include_problem("u.cpp", UNIT, seeds=("Code/Obj/Nowhere.h",))
+
+
 def test_review_r2_a_digraph_else_spoils_the_guard(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "a.h").write_text('#ifndef A_H\n#define A_H\n#include "b.h"\n%:else\n#include "b.h"\n#endif\n')
