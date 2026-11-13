@@ -45,7 +45,7 @@ class Rva00534E13 {public:Rva00534E13();~Rva00534E13();
  static const FieldParse fieldTable[];
 };
 
-struct TreeHintPayload003012F0 {unsigned a,b,c;};
+#include "../../../Include/Common/TreeHintPayload003012F0.h"
 
 typedef _STL::map<AsciiString,TreeHintPayload003012F0> CoordMapProvider;
 

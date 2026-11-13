@@ -27,7 +27,7 @@ typedef _STL::pair<const AsciiString, AsciiString> AsciiPair;
 typedef _STL::_Rb_tree<AsciiString, AsciiPair, _STL::_Select1st<AsciiPair>, _STL::less<AsciiString>, _STL::allocator<AsciiPair> > AsciiTree;
 typedef _STL::map<AsciiString, AsciiString> AsciiFindMap;
 
-struct TreeHintPayload003012F0 { unsigned int a,b,c; };
+#include "../../Include/Common/TreeHintPayload003012F0.h"
 typedef _STL::pair<const AsciiString,TreeHintPayload003012F0> PayloadPair;
 typedef _STL::map<AsciiString,TreeHintPayload003012F0,_STL::less<AsciiString>,_STL::allocator<PayloadPair> > PayloadMap;
 namespace _STL {

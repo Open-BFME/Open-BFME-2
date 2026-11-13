@@ -33,7 +33,7 @@ class MapObjectDeleteSlotView {public:virtual void *destroy(unsigned flags)=0;};
 enum NameKeyType { NAMEKEY_INVALID=0 };
 class Rva00148F5ECache {public: NameKeyType get(); NameKeyType key;const char *name;};
 extern Rva00148F5ECache g_00DBDC74;
-struct TreeHintPayload003012F0 {unsigned a,b,c;};
+#include "../../Include/Common/TreeHintPayload003012F0.h"
 typedef _STL::map<AsciiString,TreeHintPayload003012F0> WaypointMap;
 namespace _STL {template<> TreeHintPayload003012F0 &WaypointMap::operator[](const AsciiString &);}
 extern "C" WaypointMap *m_waypoints;
