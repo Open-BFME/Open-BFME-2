@@ -10,11 +10,5 @@ namespace _STL {
 template <> const unsigned int& max<unsigned int>(const unsigned int&, const unsigned int&);
 }
 
-struct Rva004E1D4EElement
-{
-public:
-	bool operator<(const Rva004E1D4EElement&)const;
-	bool operator==(const Rva004E1D4EElement&)const;
-	char bytes[12]; // +0x00
-};
+#include "Rva004E1D4EElement.h"
 template class _STL::vector<Rva004E1D4EElement>;

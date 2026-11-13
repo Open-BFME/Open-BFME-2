@@ -26,7 +26,7 @@ private:
     char m_bytes[0x90];
 };
 
-struct Rva004E1D4EElement { char bytes[12]; };
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva004E1D4EElement.h"
 class HostClass005C8E0A { public: void method_005C9069(); };
 class GameMessageList;
 #include "../../Include/Common/MessageStream.h"

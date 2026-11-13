@@ -159,13 +159,7 @@ public:
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 struct Rva004E1FE4Element { char bytes[8]; };
-struct Rva004E1D4EElement
-{
-public:
-	bool operator<(const Rva004E1D4EElement&)const;
-	bool operator==(const Rva004E1D4EElement&)const;
-	char bytes[12]; // +0x00
-};
+#include "Rva004E1D4EElement.h"
 typedef _STL::_Rb_tree<Rva004E1FE4Element, Rva004E1FE4Element,
     _STL::_Identity<Rva004E1FE4Element>, _STL::less<Rva004E1FE4Element>,
     _STL::allocator<Rva004E1FE4Element> > Rva004E1FE4Tree;
