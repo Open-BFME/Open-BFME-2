@@ -18,11 +18,7 @@ template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
 
-class Rva00153D16
-{
-public:
-	~Rva00153D16();
-};
+#include "../../Include/Common/Rva00153D16.h"
 
 typedef void (__stdcall *SurfaceRelease)(void *surface);
 

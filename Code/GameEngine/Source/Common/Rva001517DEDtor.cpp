@@ -19,11 +19,7 @@ private:
 
 #include "../../../Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h"
 
-class Rva00153D16
-{
-public:
-	~Rva00153D16();
-};
+#include "../../Include/Common/Rva00153D16.h"
 
 typedef void (__stdcall *SurfaceRelease)(void *surface);
 
