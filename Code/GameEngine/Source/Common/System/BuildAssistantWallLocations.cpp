@@ -482,23 +482,7 @@ productionCountData->count +=pui->countUnitTypeInQueue(productionCountData->type
 }
 return 1;
 }
-struct SampleBuildData
-{
-public:
-	const ThingTemplate *build; // +0x00 +0x00 +0x00
-	Bool requireWaterOrLand; // +0x04 +0x04 +0x04
-	char m_pad05[0x3];
-	Region3D mapRegion; // +0x08 +0x08 +0x08
-	Bool terrainRestricted; // +0x20 +0x20 +0x20
-	char m_pad21[0x3];
-	Real hiZ; // +0x24 +0x24 +0x24
-	Real loZ; // +0x28 +0x28 +0x28
-	Real waterSamples; // +0x2C +0x2C +0x2C
-	Real landSamples; // +0x30 +0x30 +0x30
-	Coord3D waterSum; // +0x34 +0x34 +0x34
-	Coord3D landSum; // +0x40 +0x40 +0x40
-	Int playerIndex; // +0x4C +0x4C +0x4C
-};
+#include "../../../Include/Common/SampleBuildData.h"
 inline void addCoord3D(Coord3D*sum,const Coord3D*a)
 {
 sum->x +=a->x;
