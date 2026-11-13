@@ -103,16 +103,7 @@ private:
 // Rva003F87FFNotifiers owners all call them non-virtually.
 class Rva0053805DBase;
 
-class Rva0053805DListener
-{
-public:
-	virtual void notify00(Rva0053805DBase *owner);
-	virtual void notify04(Rva0053805DBase *owner);
-	virtual void notify08(Rva0053805DBase *owner);
-	virtual void notify0C(Rva0053805DBase *owner);
-	virtual void notify10(Rva0053805DBase *owner);
-	virtual void notify14(Rva0053805DBase *owner);
-};
+#include "../../Include/Common/Rva0053805DListener.h"
 
 struct Rva00537EE9Call
 {

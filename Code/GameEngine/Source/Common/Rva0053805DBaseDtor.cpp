@@ -31,11 +31,7 @@ void __cdecl Rva00030830GameFree(void *);
 
 class Rva0053805DBase;
 
-class Rva0053805DListener
-{
-public:
-	virtual void notify00(Rva0053805DBase *owner);
-};
+#include "../../Include/Common/Rva0053805DListener.h"
 
 class Rva00537F56List
 {
