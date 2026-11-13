@@ -21,14 +21,7 @@ extern Mouse*TheMouse;
 struct BfmeUiResourceEntryState;extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 class Rva0029B5E3 {public:void clear();void*ptr;};
 struct Rva0029A94FSlot;
-class Rva0029A94F
-{
-public:
-	void rva0029A94F();
-	char m_pad00[0x544];
-private:
-	Rva0029A94FSlot *m_slots; // +0x544
-};
+#include "../../Include/GameClient/Rva0029A94F.h"
 struct BuildIcon {Drawable*draw;float angle;};
 class InGameUI {public:
  V10(0) V10(1) V10(2) V10(3) V10(4) V(50) V(51) V(52) V(53) V(54)

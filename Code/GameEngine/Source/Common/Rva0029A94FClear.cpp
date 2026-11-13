@@ -36,14 +36,7 @@ struct Rva0029A94FSlot
 	int unk;
 };
 
-class Rva0029A94F
-{
-public:
-	void rva0029A94F();
-	char m_pad00[0x544];
-private:
-	Rva0029A94FSlot *m_slots; // +0x544
-};
+#include "../../Include/GameClient/Rva0029A94F.h"
 
 void Rva0029A94F::rva0029A94F()
 {
