@@ -47,12 +47,7 @@ public:
 #include "../../Include/GameClient/Rva003AEEB3.h"
 
 
-class Rva0055BF21 : public Rva003AEEB3
-{
-public:
-	Rva0055BF21(const RvaSmartPtr12 &smart, int i);
-	virtual ~Rva0055BF21();
-};
+#include "../../Include/Common/Rva0055BF21.h"
 
 #include "../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 namespace FXParticleSystem

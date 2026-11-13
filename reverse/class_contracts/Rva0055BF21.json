@@ -1,0 +1,166 @@
+{
+ "bases": [
+  "Rva003AEEB3"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva0055BF21",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 6,
+   "inherited_slots": 4,
+   "inherited_spans": [
+    [
+     0,
+     28
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x55bf21"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva003AEEB3",
+       "offset": 0,
+       "own_vftable": "0x81d638",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x55bf21"
+     ],
+     "value": 4
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x55bf21"
+     ],
+     "value": {
+      "0x14": [
+       "0x81c780"
+      ],
+      "0x18": [
+       "0x81c780"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x55bf21"
+     ],
+     "value": {
+      "0x0": "0x81d638"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81d638"
+     ],
+     "value": {
+      "count": 7,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0055F98A@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3aef18"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x81d638"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x81d638": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0055F98A@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "__purecall",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "28": 6
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -34,12 +34,7 @@ public:
 	virtual ~Rva0055B5BF();
 };
 
-class Rva0055BF21 : public Rva003AEEB3
-{
-public:
-	__declspec(noinline) Rva0055BF21(const RvaSmartPtr12 &smart, int i);
-	virtual ~Rva0055BF21();
-};
+#include "../../../../Include/Common/Rva0055BF21.h"
 
 class Rva0055F98A : public Rva003AEEB3
 {
