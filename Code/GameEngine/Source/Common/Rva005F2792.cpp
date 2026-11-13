@@ -71,12 +71,7 @@ void Rva005F2792::rva005F27F8(const char *path)
 // This callback installs the rowed 16-byte Rva00528B06 panel in owner +0x14,
 // then passes its stored pointer and index +0x0C to [receiver+8]->+0x3C slot3.
 // The callback's original name and enclosing class remain unknown.
-class Rva00528B06 : public Rva005C31FB
-{
-public:
-    Rva00528B06(int level, const AsciiString &name);
-    virtual ~Rva00528B06();
-};
+#include "../../Include/Common/Rva00528B06.h"
 class Rva00577A2ADispatch
 {
 public:

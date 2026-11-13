@@ -5,12 +5,7 @@
 
 #include "../../Include/Common/Rva005C31FB.h"
 
-class Rva00528B06 : public Rva005C31FB
-{
-public:
-	Rva00528B06(int level, const AsciiString &name);
-	virtual ~Rva00528B06();
-};
+#include "../../Include/Common/Rva00528B06.h"
 
 Rva00528B06::Rva00528B06(int level, const AsciiString &name) : Rva005C31FB(level, name)
 {
