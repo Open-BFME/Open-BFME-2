@@ -76,13 +76,7 @@ public:
 	char m_pad00[0x8CC];
 	_STL::list<int> m_8CC; // +0x8CC
 };
-class Rva0029D7CA
-{
-public:
-	void rva0029D7CA();
-	char m_pad00[0x8D0];
-	_STL::list<int> m_8D0; // +0x8D0
-};
+#include "../../Include/GameClient/Rva0029D7CA.h"
 
 // Zero Hour's DrawableList typedef. The member destructors call the base
 // destructor 0x00239AF4 (defined in InGameUICtor.cpp) with no state store
