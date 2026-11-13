@@ -7,13 +7,7 @@
 // The two floats live in a base: retail's constructors and assignments take
 // ABUCoord2DBase, and the same seventeen-byte body serves Coord2DBase,
 // Coord3DBase and Coord2D itself, because all three start with the same pair.
-struct Coord2DBase
-{
-    Coord2DBase &operator=(const Coord2DBase &that);
-
-    float x;
-    float y;
-};
+#include "Coord2DBase.h"
 
 #include "../../../Include/Lib/Coord3DBase.h"
 

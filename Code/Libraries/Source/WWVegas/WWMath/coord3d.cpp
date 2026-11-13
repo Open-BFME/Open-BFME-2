@@ -13,11 +13,7 @@ struct Coord3DBase
     float z;
 };
 
-struct Coord2DBase
-{
-    float x;
-    float y;
-};
+#include "Coord2DBase.h"
 
 #include "../../../Include/Lib/Coord2D.h"
 

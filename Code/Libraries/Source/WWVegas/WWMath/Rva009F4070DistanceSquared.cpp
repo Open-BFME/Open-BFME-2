@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-struct Coord2DBase { float x; float y; };
+#include "Coord2DBase.h"
 class Rva009F4070PositionProvider {
 public:
  virtual void slot0();
