@@ -2613,11 +2613,7 @@ public:
 
 class GameState;
 
-class Rva001EB298
-{
-public:
-	void rva001EB298(AsciiString mapName);
-};
+#include "../../../Include/Common/Rva001EB298.h"
 
 #include "../../../Include/Common/Rva002DC7C1.h"
 

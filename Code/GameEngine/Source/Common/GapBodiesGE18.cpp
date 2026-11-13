@@ -19,11 +19,7 @@ struct Rva001EB3D1Record
 
 #include "../../Include/Common/Rva001EB3A6.h"
 
-class Rva001EB298
-{
-public:
-	void rva001EB298(AsciiString s);						// 0x001EB298
-};
+#include "../../Include/Common/Rva001EB298.h"
 
 AsciiString Rva001EB2CCGetMapPath(const char *name);		// 0x001EB2CC
 
