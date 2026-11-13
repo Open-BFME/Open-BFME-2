@@ -4,7 +4,7 @@
 // C79E30 connects it to the destructor at 005FAF5D; +28 stores input +04.
 // Replaces the fastcall surrogate and literal vtable store with real C++.
 #include "BattlePromptArmyPanelView.h"
-class Rva005FED59 { public: void rva005FED59() const; };
+#include "../../Include/Common/Rva005FED59.h"
 Rva005FAF5D::Rva005FAF5D(int a, int b, Rva005FA89CC *input)
     : Rva005FF13A(a, b, (const Rva005FEF11Input **)input), m_owner28(input->m_04)
 {

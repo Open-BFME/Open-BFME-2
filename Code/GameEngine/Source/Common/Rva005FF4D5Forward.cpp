@@ -24,10 +24,7 @@ void Rva005FF4D5::rva005FF4D5(bool flag)
 // mouse-over bridge5FF4D5 with receiver+8. Its independently matched
 // Impl::SetMouseOver callee establishes the flag's role. Original wrapper
 // owner/name and allocation extent remain unknown; only borrowed prefixes.
-class Rva005FED59 {
-public:
-    void rva005FED59() const;
-};
+#include "../../Include/Common/Rva005FED59.h"
 struct Rva005FA8CDHoverPrefix {
     unsigned char prefix[8];
     Rva005FF4D5 panel;

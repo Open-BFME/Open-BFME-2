@@ -11,13 +11,7 @@ template <typename T> class StringBase
 	void validate() const;
 };
 
-class Rva005FED59
-{
-public:
-	void rva005FED59() const;
-private:
-	char m_pad00[8];
-};
+#include "../../Include/Common/Rva005FED59.h"
 
 void Rva005FED59::rva005FED59() const
 {
