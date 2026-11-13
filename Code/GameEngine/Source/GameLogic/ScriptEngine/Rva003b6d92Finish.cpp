@@ -43,57 +43,7 @@ void Rva0034FF50::checkAndSet() { if (m_val0 == 15) m_val0 = 61; }
 
 #include "../../../Include/Common/DataChunk.h"
 
-class Parameter
-{
-public:
-	enum ParameterType
-	{
-		INT = 0,
-		REAL = 1,
-		BOOLEAN = 8,
-		AI_MOOD = 20,
-		OBJECT_TYPE = 0x0f,
-		SIDE = 0x0b,
-		SURFACES_ALLOWED = 0x25,
-		TEMPLATE_REMAP_TYPE = 0x3d
-	};
-
-	Parameter(ParameterType type, Int value = 0) throw();
-
-	static Parameter *ReadParameter(DataChunkInput &file);
-
-	void deleteInstance() { this->~Parameter(); ::operator delete(this); }
-
-	__forceinline ParameterType getParameterType() const
-	{
-		return m_paramType;
-	}
-
-	Int getInt() const { return m_int; }
-
-	__forceinline void friend_setString(AsciiString text)
-	{
-		((Rva00333B02 *)this)->rva00333B02(text);
-	}
-	__forceinline void friend_setParameterType(ParameterType type)
-	{
-		((Rva0034FF50 *)this)->checkAndSet();
-	}
-
-private:
-	ParameterType m_paramType;
-	bool m_initialized;
-	Int m_int;
-	float m_real;
-	AsciiString m_string;
-	Coord3D m_coord;
-	struct ObjectStatusMask
-	{
-		__forceinline ObjectStatusMask() : m_low(0), m_high(0) {}
-		unsigned int m_low;
-		unsigned int m_high;
-	} m_objectStatus;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Template
 {
@@ -125,7 +75,7 @@ void ScriptAction::setActionType(ScriptActionType type)
 	Int i;
 	for (i = 0; i < m_numParms; i++) {
 		if (m_parms[i])
-			m_parms[i]->deleteInstance();
+			delete m_parms[i];
 		m_parms[i] = 0;
 	}
 	m_actionType = type;
@@ -162,7 +112,7 @@ void Condition::setConditionType(ConditionType type)
 	Int i;
 	for (i = 0; i < m_numParms; i++) {
 		if (m_parms[i])
-			m_parms[i]->deleteInstance();
+			delete m_parms[i];
 		m_parms[i] = 0;
 	}
 	m_conditionType = type;
@@ -222,8 +172,8 @@ ScriptAction *ScriptAction::ParseAction(DataChunkInput &file, DataChunkInfo *inf
 		Parameter *parameter = Parameter::ReadParameter(file);
 		pScriptAction->m_parms[i] = parameter;
 		if (parameter->getParameterType() == Parameter::OBJECT_TYPE && at->getNumParameters() > i &&
-			at->getParameterType(i) == 0x3d)
-			parameter->friend_setParameterType(Parameter::TEMPLATE_REMAP_TYPE);
+			at->getParameterType(i) == Parameter::TEMPLATE_REMAP_TYPE)
+			reinterpret_cast<Rva0034FF50 *>(parameter)->checkAndSet();
 	}
 
 	if (info->version >= 3)
@@ -258,7 +208,7 @@ ScriptAction *ScriptAction::ParseAction(DataChunkInput &file, DataChunkInfo *inf
 			if (pScriptAction->m_numParms == 1) {
 				Bool flank = pScriptAction->m_parms[0]->getInt() != 0;
 				if (pScriptAction->m_parms[0])
-					pScriptAction->m_parms[0]->deleteInstance();
+					delete pScriptAction->m_parms[0];
 				pScriptAction->m_numParms = 0;
 				if (flank)
 					pScriptAction->m_actionType = 0x102;
@@ -417,7 +367,7 @@ bool Condition::ParseConditionDataChunk(DataChunkInput &file,
 		if (ct->getNumParameters() > i &&
 			ct->getParameterType(i) == Parameter::TEMPLATE_REMAP_TYPE)
 		{
-			parameter->friend_setParameterType(Parameter::TEMPLATE_REMAP_TYPE);
+			reinterpret_cast<Rva0034FF50 *>(parameter)->checkAndSet();
 		}
 	}
 	if (info->version >= 5)

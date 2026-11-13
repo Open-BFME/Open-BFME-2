@@ -50,7 +50,7 @@ static inline void yieldToOS(void)
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
 // Retail 0x003B333A (55 B), the row this unit owns.
-Parameter::Parameter(ParameterType type, Int val) :
+Parameter::Parameter(ParameterType type, Int val) throw() :
 	m_paramType(type),
 	m_initialized(false),
 	m_int(val),

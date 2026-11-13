@@ -47,12 +47,14 @@ public:
         LOCALIZED_TEXT = 25,
         BRIDGE = 26,
         KIND_OF_PARAM = 27,
-        ATTACK_PRIORITY_SET = 28
+        ATTACK_PRIORITY_SET = 28,
+        SURFACES_ALLOWED = 0x25,
+        TEMPLATE_REMAP_TYPE = 0x3d
     };
 
     enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
 
-    Parameter(ParameterType type, int value = 0);
+    Parameter(ParameterType type, int value = 0) throw();
     void getCoord3D(Coord3D *position) const;
     AsciiString getUiText() const;
     BitFlags<45> getStatus() const;
