@@ -14,11 +14,7 @@
 // through the ledger. Rva001FA54D's view below copies Rva001FA54DForward.cpp
 // member for member. All setups take (void *, void *) so each level can hand
 // its slot pointer down unchanged; the slot cast emits no code.
-class Rva001F5E10Slot
-{
-public:
-	void *get(void *a);
-};
+#include "../../Include/Common/Rva001F5E10Slot.h"
 class Rva001F5DFCSlot
 {
 public:
