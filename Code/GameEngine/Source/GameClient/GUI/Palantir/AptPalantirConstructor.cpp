@@ -270,11 +270,7 @@ struct Rva0046AC52Pair
 	bool m_inserted;
 };
 
-class Rva0046AC52
-{
-public:
-	Rva0046AC52Pair rva002D563D(const Rva0046AC52Key &value);
-};
+#include "../../../../Include/Common/Rva0046AC52.h"
 
 class Rva002D5188ResourceBar
 {

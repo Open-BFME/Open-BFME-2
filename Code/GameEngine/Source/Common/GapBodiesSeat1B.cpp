@@ -449,12 +449,7 @@ struct Rva0046AC52Pair
 	int m_08;
 };
 
-class Rva0046AC52
-{
-public:
-	Rva0046AC52Pair rva002D563D(const Rva0046AC52Key &key);	// 0x002D563D
-	Rva0046AC52Pair rva002D644C(const Rva0046AC52Key &key);
-};
+#include "../../Include/Common/Rva0046AC52.h"
 
 Rva0046AC52Pair Rva0046AC52::rva002D644C(const Rva0046AC52Key &key)
 {
