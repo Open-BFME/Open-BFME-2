@@ -1,0 +1,87 @@
+{
+ "rows": 31,
+ "data_rows": 4,
+ "sources": 4,
+ "comdat_fingerprints": 127,
+ "comdat_counts": {
+  "Code/GameEngine/Source/Common/Rva000FE1ACUpdate.cpp": 2,
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp": 108,
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjInit.cpp": 6,
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush_Flush.cpp": 11
+ },
+ "comparison": "Existing link_census._normal per-TU namespace normalization; bijective mapping, all fingerprints and sizes equal",
+ "private_name_changes": [
+  {
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp",
+   "old": "??0BoundsValue@?A0x4b0e576e@@QAE@MMM@Z",
+   "new": "??0BoundsValue@?A0xdacda315@@QAE@MMM@Z",
+   "fingerprint": "7476688645e4",
+   "size": 37,
+   "current_incoming_relocations": 0,
+   "current_outgoing_relocations": 0,
+   "weak_bindings": 0
+  },
+  {
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp",
+   "old": "??4BoundsValue@?A0x4b0e576e@@QAEAAV01@ABV01@@Z",
+   "new": "??4BoundsValue@?A0xdacda315@@QAEAAV01@ABV01@@Z",
+   "fingerprint": "79571e26f4e7",
+   "size": 25,
+   "current_incoming_relocations": 0,
+   "current_outgoing_relocations": 0,
+   "weak_bindings": 0
+  }
+ ],
+ "raw_before_after_object_graph_equality_claimed": false,
+ "actual_private_views_removed": 4,
+ "changed_source_count": 3,
+ "headers_changed": 0,
+ "coverage_gain_bytes": 0,
+ "scope": "Scoped native and provider evidence; no authoritative bridge/link/runtime claim",
+ "acceptance": [
+  {
+   "class": "WaterTracksRenderSystem",
+   "source": "Code/GameEngine/Source/Common/Rva000FE1ACUpdate.cpp",
+   "exit": 0,
+   "log": "build\\root-water-accept-WaterTracksRenderSystem.log"
+  },
+  {
+   "class": "VertexMaterialClass",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp",
+   "exit": 0,
+   "log": "build\\root-water-accept-VertexMaterialClass.log"
+  },
+  {
+   "class": "CameraClass",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush_Flush.cpp",
+   "exit": 0,
+   "log": "build\\root-water-accept-CameraClass.log"
+  },
+  {
+   "class": "WW3D",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush_Flush.cpp",
+   "exit": 0,
+   "log": "build\\root-water-accept-WW3D.log"
+  }
+ ],
+ "queue_entries_retired": 4,
+ "remaining_queue": [
+  {
+   "class": "RenderObjClass",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp"
+  },
+  {
+   "class": "WaterTracksRenderSystem",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp"
+  },
+  {
+   "class": "WaterTracksRenderSystem",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjInit.cpp"
+  },
+  {
+   "class": "WaterTracksRenderSystem",
+   "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush_Flush.cpp"
+  }
+ ],
+ "strict_providers": 4
+}

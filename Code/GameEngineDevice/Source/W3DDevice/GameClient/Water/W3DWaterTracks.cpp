@@ -266,11 +266,7 @@ public:
 
 class WaterTracksObj;
 
-class VertexMaterialClass {
-public:
- enum PresetType { PRESET_ZERO=0 };
- static VertexMaterialClass *Get_Preset(PresetType);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class GlobalData;
 

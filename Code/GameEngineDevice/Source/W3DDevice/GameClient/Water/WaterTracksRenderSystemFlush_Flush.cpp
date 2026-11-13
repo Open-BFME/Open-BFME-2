@@ -21,9 +21,11 @@
 #include "always.h"
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include "vector3.h"
-#include "layer.h"
 #include "w3derr.h"
 #include "robjlist.h"
+class PersistFactoryClass;
+class ChunkSaveClass;
+class ChunkLoadClass;
 class SceneClass;
 class CameraClass;
 class ShaderClass;
@@ -40,17 +42,10 @@ class MaterialPassClass;
 class StaticSortListClass;
 #define MESH_RENDER_SNAPSHOT_ENABLED
 #define SNAPSHOT_SAY(x) if (WW3D::Is_Snapshot_Activated()) { WWDEBUG_SAY(x); }
-class WW3D {
-public:
- static bool Is_Snapshot_Activated() { return SnapshotActivated; }
- static bool Is_Currently_Rendering_Shadow_Map() { return IsCurrentlyRenderingShadowMap; }
-private:
- static bool SnapshotActivated;
- static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 #include "dx8wrapper.h"
 #include "matrix3d.h"
-class CameraClass { public: void Apply(); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

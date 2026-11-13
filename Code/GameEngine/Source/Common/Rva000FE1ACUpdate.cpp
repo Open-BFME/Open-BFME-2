@@ -23,17 +23,7 @@ struct FeNode
 	int update(int elapsed);
 };
 
-class WaterTracksRenderSystem
-{
-public:
-	void releaseTrack(FeNode *other);
-	void rva000FE1AC();
-
-private:
-	unsigned char m_pad[0x10];
-	FeNode *m_tail10;
-	FeNode *m_head14;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 
 extern unsigned int g_waterTracksTimeInitialized;
 // g_00DEC224: matched references place it at VA 0xdec224 (zero-filled .bss).
@@ -51,7 +41,7 @@ void WaterTracksRenderSystem::rva000FE1AC()
 		g_waterTracksTimeInitialized |= 1;
 		g_00DEC220 = timeGetTime();
 	}
-	FeNode *node = m_tail10;
+	FeNode *node = reinterpret_cast<FeNode *>(m_usedModules);
 	unsigned long cur = timeGetTime();
 	unsigned long delta = cur - g_00DEC220;
 	_ReadWriteBarrier();
