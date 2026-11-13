@@ -14,10 +14,11 @@ public:
     StateMachine *m_20;
     AIBackAwayAndCowerState(StateMachine *machine);
     virtual ~AIBackAwayAndCowerState();
-    virtual const char *GetSnapshotName() const;
     virtual StateReturnType onEnter();
     virtual void onExit(StateExitType status);
     virtual StateReturnType update();
+protected:
+    virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer);
 };
 

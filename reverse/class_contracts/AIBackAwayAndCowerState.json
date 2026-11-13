@@ -219,6 +219,13 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_special_members": {
+  "access": {
+   "GetSnapshotName() const": "protected",
+   "xfer(Xfer*)": "protected"
+  },
+  "reason": "P150 (sweep-header 2026-11-13): GetSnapshotName and xfer are protected. The matched rows' decorated names say so (?GetSnapshotName@AIBackAwayAndCowerState@@MBEPBDXZ 0x0033F35E, ?xfer@AIBackAwayAndCowerState@@MAEXPAVXfer@@@Z 0x0034027D), and the ctor/dtor views at d7f1cd54518^ declared both under protected:. Declared public, the vtable-emitting ctor and dtor referenced public-mangled names nothing defines (real link LNK2001). Both override State's slots, so the vtable is unchanged."
+ },
  "outliers": [],
  "queue": [],
  "size": 36,
