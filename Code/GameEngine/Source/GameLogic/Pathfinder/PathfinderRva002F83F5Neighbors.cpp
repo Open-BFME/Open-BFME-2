@@ -350,22 +350,7 @@ extern "C" void *theLogicRandomLogFile;
 #include "Lib/ICoord2D.h"
 struct TCheckMovementInfo { ICoord2D cell;PathfindLayerEnum layer;Int radius;Bool centerInCell,considerTransient;char pad12[2];Int options,ignore;Rva002E8BCF movement;Int allyFixedCount;Bool flag30,flag31,allyGoal;char pad33;Int blockedCells; };
 #include "../../../Include/Common/Rva002E6FDF.h"
-class Rva002EAB6F
-{
-public:
-	Rva002EAB6F(int a1, Rva002E8BCFSrc const *src, unsigned char a3, int a4, Object *obj, unsigned char a6, int a7, int a8);
-	int m0; // +0x00
-	Rva002E8BCF m4; // +0x04
-	unsigned char m14; // +0x14
-	unsigned char m15; // +0x15
-	char m_pad16[0x2];
-	int m18; // +0x18
-	Object *m1C; // +0x1C
-	int m20; // +0x20
-	int m24; // +0x24
-	char _28[8]; // +0x28
-	int m30; // +0x30
-};
+#include "../../../Include/GameLogic/Rva002EAB6F.h"
 struct Rva002F5925Info;
 struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};

@@ -277,7 +277,7 @@ extern "C" void *theLogicRandomLogFile;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 struct TCheckMovementInfo { ICoord2D cell;PathfindLayerEnum layer;Int radius;Bool centerInCell,considerTransient;char pad12[2];Int options,ignore;Rva002E8BCF movement;Int allyFixedCount;Bool flag30,flag31,allyGoal;char pad33;Int blockedCells; };
 #include "../../../Include/Common/Rva002E6FDF.h"
-class Rva002EAB6F {public:Rva002EAB6F(Int,const Rva002E8BCFSrc *,unsigned char,Int,Object *,unsigned char,Int,Int);char fields[0x34];};
+#include "../../../Include/GameLogic/Rva002EAB6F.h"
 struct Rva002F5925Info;
 struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};

@@ -3638,7 +3638,7 @@ __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2
 	} 
 	return 0; 
 }
-class Rva002EAB6F {public:Rva002EAB6F(Int,const Rva002E8BCFSrc *,unsigned char,Int,Object *,unsigned char,Int,Int);int m0;Rva002E8BCF m4;unsigned char m14,m15;int m18;Object*m1C;int m20,m24;char pad28[8];int m30;};
+#include "../../../Include/GameLogic/Rva002EAB6F.h"
 struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};
 class Rva002872BA;extern Rva002872BA *TheTriggerManager;

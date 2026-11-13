@@ -1,0 +1,197 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002EAB6F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2eab6f"
+     ],
+     "value": {
+      "0x4": [
+       "Rva002E8BCF"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "52": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m0",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva002E8BCF",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "surfaces",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i1",
+     "name": "field4",
+     "offset": 4,
+     "size": 1,
+     "type": "bool"
+    },
+    {
+     "kind": "i1",
+     "name": "field5",
+     "offset": 5,
+     "size": 1,
+     "type": "bool"
+    },
+    {
+     "kind": "i4",
+     "name": "maxLayer",
+     "offset": 8,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i1",
+     "name": "fieldC",
+     "offset": 12,
+     "size": 1,
+     "type": "bool"
+    }
+   ],
+   "name": "m4",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 16,
+   "type": "Rva002E8BCF",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m15",
+   "name_by": "majority",
+   "offset": 21,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 52,
+ "size_by": "majority",
+ "vslots": {}
+}
