@@ -3,12 +3,7 @@
 // Native 0x000B68F0,27B: extends the observed20B record assignment by one dword.
 // Application type and field meanings remain unknown; the old gslice identity is refuted.
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeRecord000B43E5 {
-    unsigned int word0, word1, word2;
-    char flag;
-    AsciiString text;
-    BfmeRecord000B43E5 &operator=(const BfmeRecord000B43E5 &);
-};
+#include "../../../../GameEngine/Include/Common/BfmeRecord000B43E5.h"
 struct Rva000B978ARecord : BfmeRecord000B43E5 {
     unsigned int word14;
     Rva000B978ARecord &operator=(const Rva000B978ARecord &);

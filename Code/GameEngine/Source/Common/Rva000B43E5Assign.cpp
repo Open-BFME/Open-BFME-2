@@ -6,10 +6,7 @@
 // Layout read from the retail body; application name and scalar meanings are unknown.
 #include "ascii_string.h"
 
-struct BfmeRecord000B43E5 {
-    unsigned int word0; unsigned int word1; unsigned int word2; char flag; AsciiString text;
-    BfmeRecord000B43E5 &operator=(const BfmeRecord000B43E5 &o);
-};
+#include "../../Include/Common/BfmeRecord000B43E5.h"
 BfmeRecord000B43E5 &BfmeRecord000B43E5::operator=(const BfmeRecord000B43E5 &o)
 {
     word0 = o.word0;

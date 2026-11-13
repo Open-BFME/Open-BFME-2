@@ -7,12 +7,7 @@
 // ??4Rva000B3F15; returns this. Memberwise operator=, not a copy ctor: the
 // +0 callee assigns its AsciiString through StringBase::set rather than
 // constructing it.
-struct BfmeRecord000B43E5
-{
-	BfmeRecord000B43E5 &operator=(const BfmeRecord000B43E5 &o);
-private:
-	char m_pad[0x14];
-};
+#include "../../Include/Common/BfmeRecord000B43E5.h"
 
 class Rva000B3F15
 {
