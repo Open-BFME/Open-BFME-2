@@ -175,7 +175,7 @@ private:
 	unsigned char m_prefix[0x15C];
 };
 
-class Rva004E93A8 { public: int rva004E93A8(); };
+#include "../../../Include/Common/Rva004E93A8.h"
 
 class Rva004E9600;
 
