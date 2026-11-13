@@ -7,11 +7,7 @@
 // 0x005F6AB0 directly before operator delete.
 // Model: dtor over rowed base Rva005F69F5 with helper call via cast. The views declare only
 // DoSetState, the slot-9 virtual WorldBuilder names (the base's slot 9 is 0x002B22A5).
-class Rva005F697C
-{
-public:
-	void rva005F697C();
-};
+#include "../../Include/Common/Rva005F697C.h"
 
 class Rva005F69F5
 {
