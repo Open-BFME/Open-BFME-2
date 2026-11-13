@@ -116,16 +116,7 @@ struct G00E032F8Wrap { char m_pad00[4]; int m_val04; int m_val08; };
 
 #include "../../../Include/GameLogic/Module/Rva0039B795.h"
 
-class Rva003B0D7C
-{
-public:
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *tracker, bool flag);
-	void rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag);
-private:
-	char m_pad00[4];
-	int m_val04;
-	int m_val08;
-};
+// Rva003B0D7C (Money) is the canonical class from Player.h (Code/GameEngine/Include/GameLogic/Module/Rva003B0D7C.h): vptr, m_val04, m_val08.
 
 unsigned int Rva003B0D7C::withdraw(unsigned int amount, Rva0039B795 *tracker, bool flag)
 {

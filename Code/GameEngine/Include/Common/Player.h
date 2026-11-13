@@ -10,6 +10,7 @@
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../Source/Common/Rva00380200.h"
+#include "../GameLogic/Module/Rva003B0D7C.h"
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class PlayerTemplate;
 class Upgrade;
@@ -259,7 +260,8 @@ public:
  int m_playerIndex; // constructor 2B0F94/97 stores the int argument at +54
  AsciiString m_side; // init 2AFA1D copies the template's side into it; the dtor releases it at 2B13DD
  PlayerType m_playerType; // setPlayerType 2A9A34 stores its PlayerType argument
- unsigned char m_opaque60[0x9C - 0x60];
+ unsigned char m_opaque60[0x90 - 0x60];
+ Rva003B0D7C m_money; // ctor 2B0FA5 stores the Money vtable 0xBE1AA0 at +0x90 and zeroes +0x94/+0x98
  Upgrade *m_upgradeList; // findUpgrade 2AA031 walks the Upgrade list from here
  int m_radarCount; // addRadar 2AA937 increments it, removeRadar 2AA9DA decrements it
  int m_disableProofRadarCount; // addRadar 2AA943 counts disable-proof radars here
