@@ -238,11 +238,7 @@ public:
 #include "../../../../../Include/GameLogic/Module/Rva0036748E.h"
 
 class BfmeVec3EJ;
-class Gen_000E5A50
-{
-public:
-	Real Get3DCenterDistanceSquared(const BfmeVec3EJ *pos) const;
-};
+#include "../../../../../Include/GameLogic/Module/Gen_000E5A50.h"
 
 // The owner's model-condition bits at +0x10C (bit 155 is word +0x11C).
 class GiantBirdAttackConditionBits
