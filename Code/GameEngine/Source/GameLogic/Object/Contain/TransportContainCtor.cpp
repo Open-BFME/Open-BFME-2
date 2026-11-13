@@ -52,7 +52,7 @@ protected:
 #include "../../../../Include/GameLogic/Module/B2.h"
 class B3 { public: virtual void b3(); virtual void onCapture(int a1, int a2) = 0; };
 #include "../../../../Include/Common/B4.h"
-class B5 { public: virtual void b5(); };
+#include "../../../../Include/Common/B5.h"
 class DamageInfo;
 enum BodyDamageType;
 // The +0x2C interface (GarrisonContain overrides slot 2 as onBodyDamageStateChange):

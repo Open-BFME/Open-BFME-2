@@ -258,7 +258,7 @@ public:
     virtual unsigned int getStealthUnitsContained() const;
 };
 #include "../../../../Include/Common/B4.h"
-class B5 { public: virtual void b5(); };
+#include "../../../../Include/Common/B5.h"
 enum BodyDamageType
 {
     BODY_PRISTINE = 0,
