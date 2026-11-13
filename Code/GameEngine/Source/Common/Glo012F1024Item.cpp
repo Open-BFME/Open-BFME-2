@@ -441,14 +441,7 @@ struct Rva0052BF9BElem
 
 void Rva0022C8E3DestroyRange(Rva0052BF9BElem *first, Rva0052BF9BElem *last);
 
-class Rva00565A42
-{
-public:
-	void rva00565A42();
-private:
-	Rva0052BF9BElem *m_00;
-	Rva0052BF9BElem *m_04;
-};
+#include "../../Include/Common/Rva00565A42.h"
 
 struct Rva0052BF67Elem
 {

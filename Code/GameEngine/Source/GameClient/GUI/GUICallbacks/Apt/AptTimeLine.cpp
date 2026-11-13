@@ -919,11 +919,7 @@ namespace _STL { template <> BfmeStringRecord002CF4C6 *allocator<BfmeStringRecor
 struct Rva0052BF9BElem;
 void __cdecl Rva0039BD9BCopy(Rva0039B893 *first, Rva0039B893 *last, Rva0039B893 *result);
 void __cdecl Rva0022C8E3DestroyRange(Rva0052BF9BElem *first, Rva0052BF9BElem *last);
-class Rva00565A42
-{
-public:
-	void rva00565A42();
-};
+#include "../../../../../Include/Common/Rva00565A42.h"
 class Rva0051F6DF
 {
 public:

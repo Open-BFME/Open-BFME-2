@@ -23,13 +23,7 @@ void __cdecl Rva0022C8E3DestroyRange(struct Rva0052BF9BElem *first, struct Rva00
 struct Rva0052BF9BElem {
     virtual ~Rva0052BF9BElem();
 };
-class Rva00565A42 {
-public:
-    void rva00565A42();
-private:
-    Rva0052BF9BElem *m_00;
-    Rva0052BF9BElem *m_04;
-};
+#include "../../../../Include/Common/Rva00565A42.h"
 namespace _STL {
 struct __false_type {
     __false_type() {}
