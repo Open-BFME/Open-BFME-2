@@ -17,6 +17,7 @@
 typedef int Int;
 
 #include "../../../Include/Common/INI/INI.h"
+#include "../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 namespace _STL
 {
@@ -37,15 +38,6 @@ struct InitialRoster
 {
 	AsciiString templateName;
 	Int count;
-};
-
-class GarrisonContainModuleData
-{
-public:
-	static void parseInitialRoster(INI *ini, void *instance, void *store, const void *);
-
-	unsigned char m_unreconstructed_00[0xA4];
-	InitialRoster m_initialRoster;		// +0xA4
 };
 
 class SiegeEngineContainModuleData
