@@ -79,18 +79,7 @@ extern GlobalData *TheWritableGlobalData;
 #include <math.h>
 #include "../../../Include/Common/PathfinderCostCellInfo.h"
 class Waypoint;
-struct PathfinderGroundInfo
-{
-public:
-	PathfinderCostCellInfo position; // +0x00
-	Int parent; // +0x08
-	Waypoint *parentWaypoint; // +0x0C
-	unsigned short totalCost; // +0x10
-	unsigned short costSoFar; // +0x12
-	char m_pad14[0x14];
-	Int obstacleID; // +0x28
-	unsigned int flags; // +0x2C
-};
+#include "../../../Include/GameLogic/PathfinderGroundInfo.h"
 #include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
