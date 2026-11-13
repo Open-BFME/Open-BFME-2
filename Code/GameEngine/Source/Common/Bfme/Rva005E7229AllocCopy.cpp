@@ -5,7 +5,7 @@
 // 0x005E71DE then return new storage. Caller 0x005E80C7 passes count plus
 // start/finish. Same /O1 flags as prev/next Fill/CopyBackward. Evidence:
 // chain via 0x005E71DE plus unlock lane plus callers 0x005E80C7.
-struct Rva005E71C6Ref { void *m_object; };
+#include "../../../Include/Common/Rva005E71C6Ref.h"
 struct BfmeE12 { float x, y, z; };
 namespace _STL {
 template <typename T> class allocator {

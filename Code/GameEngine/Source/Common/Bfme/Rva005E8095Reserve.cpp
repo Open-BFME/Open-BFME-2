@@ -4,10 +4,7 @@
 // start!=0 allocate_and_copy via rowed 0x005E7229 plus clear via rowed 0x005E8077
 // else allocate n via rowed STL allocator; then finish=start+size and
 // storage=start+n. Chain via just-landed 0x005E7229 plus prev/next same /O1 flags.
-struct Rva005E71C6Ref
-{
-	void *m_object;
-};
+#include "../../../Include/Common/Rva005E71C6Ref.h"
 struct BfmeE12
 {
 	float x;

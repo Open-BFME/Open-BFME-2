@@ -18,10 +18,7 @@
 
 struct Rva005E71C6Object;
 
-struct Rva005E71C6Ref
-{
-	Rva005E71C6Object *m_object;
-};
+#include "../../../Include/Common/Rva005E71C6Ref.h"
 
 namespace _STL
 {
