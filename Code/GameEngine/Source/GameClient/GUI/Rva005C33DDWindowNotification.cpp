@@ -143,7 +143,7 @@ struct Rva0045A63FObject;class Rva0045A63FModule;
 Rva0045A63FModule *Rva0045A63F(const Rva0045A63FObject *,const AsciiString &);
 struct Rva0045A6D3Arg;
 #include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
-class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
+#include "../../../Include/Common/Rva005C7C7D.h"
 class Rva005C7C75 {public:void rva005C7C75(int);};
 #include "../../../Include/Common/Rva005C7C5D.h"
 class Rva005C7C6D {public:void rva005C7C6D(int);};

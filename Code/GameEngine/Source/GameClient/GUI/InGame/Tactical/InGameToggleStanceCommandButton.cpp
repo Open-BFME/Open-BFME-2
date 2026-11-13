@@ -115,7 +115,7 @@ TreeHintRef00217D4C Rva00567960::rva0056786B() {
 // The opening update is the established empty-hook receiver view, not a
 // claim that this member is one of the unrelated destructors folded there.
 #include "../../../../../Include/Common/Rva000B3FD0Nop.h"
-class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
+#include "../../../../../Include/Common/Rva005C7C7D.h"
 class Rva005C7C75 {public:void rva005C7C75(int);};
 #include "../../../../../Include/Common/Rva005C7C5D.h"
 // Existing provider retains its original opaque 32-bit return; native passes
