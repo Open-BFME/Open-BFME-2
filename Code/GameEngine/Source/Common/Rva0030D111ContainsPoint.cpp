@@ -8,7 +8,7 @@
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
 #include "../../Include/Common/Rva0007E016.h"
-class Rva0007E02A { public:void *rva0007E02A(void *); };
+#include "../../Include/Common/Rva0007E02A.h"
 class Rva0030D111Shape { public:virtual int count(); virtual void pointLookup(); virtual int planeHeight(); };
 struct Rva0030D111Point : Coord2D {
  Rva0030D111Point() {}

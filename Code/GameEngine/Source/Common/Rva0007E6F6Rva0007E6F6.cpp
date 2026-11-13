@@ -15,7 +15,7 @@ __declspec(dllimport) __forceinline Vector3 operator+(const Vector3&a,const Vect
 __declspec(dllimport) __forceinline Vector3 operator-(const Vector3&a,const Vector3&b) {return Vector3(a.X-b.X,a.Y-b.Y,a.Z-b.Z);}
 __declspec(dllimport) __forceinline Vector3 operator*(float k,const Vector3&a) {return Vector3(a.X*k,a.Y*k,a.Z*k);}
 
-class Rva0007E02A { public: void *rva0007E02A(void*); };
+#include "../../Include/Common/Rva0007E02A.h"
 class WaterAreaHeightView { public: virtual void f0();virtual void f1();virtual int height(); };
 struct WaterRenderBox {Vector3 center,extent;};
 class Rva0007E6F6 {

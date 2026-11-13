@@ -4,14 +4,7 @@
 // pointer. Evidence: callers 0x0007E6F6/0x0030D111 pass stack locals for a
 // 12-byte fill; slot 3 matches xfer position but class remains opaque.
 
-class Rva0007E02A {
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual void slot3(void *out);
-public:
-	void *rva0007E02A(void *out);
-};
+#include "../../Include/Common/Rva0007E02A.h"
 
 void *Rva0007E02A::rva0007E02A(void *out)
 {
