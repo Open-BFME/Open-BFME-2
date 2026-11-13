@@ -260,14 +260,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 enum NameKeyType;
 
 // The +0x1C interface: the ctor's temporary table 0x00C4EF80, then 0x00C58AB8.
-class Rva004B70F0Iface1C
-{
-public:
-	virtual void i1C_0() = 0;
-	virtual void rva004B70F0() = 0;
-	virtual void i1C_2() = 0;
-	virtual bool i1C_3() = 0;
-};
+#include "../../../../Include/GameLogic/Module/Rva004B70F0Iface1C.h"
 
 class ReplaceSelfUpgrade : public UpgradeModule, public Rva004B70F0Iface1C
 {

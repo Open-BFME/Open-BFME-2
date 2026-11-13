@@ -18,14 +18,7 @@ class Xfer;
 
 enum NameKeyType;
 
-class Rva004B70F0Iface1C
-{
-public:
-	virtual void i1C_0() = 0;
-	virtual void rva004B70F0() = 0;
-	virtual void i1C_2() = 0;
-	virtual bool i1C_3() = 0;
-};
+#include "../../Include/GameLogic/Module/Rva004B70F0Iface1C.h"
 
 class ReplaceSelfUpgrade : public UpgradeModule, public Rva004B70F0Iface1C
 {

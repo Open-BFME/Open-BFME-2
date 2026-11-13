@@ -28,12 +28,7 @@ struct ControlBarView
 
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
-class Rva004B70F0Iface1C
-{
-public:
-	virtual void i1C_0();
-	virtual void rva004B70F0();
-};
+#include "../../../../Include/GameLogic/Module/Rva004B70F0Iface1C.h"
 
 class __declspec(novtable) ReplaceSelfUpgrade : public UpgradeModule, public Rva004B70F0Iface1C
 {
