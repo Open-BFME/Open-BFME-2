@@ -1,84 +1,59 @@
-// cl: /O2 /Ireference/shims/bfmestages /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
-// platformsdk
-// dxsdk
+// cl: /O2 /arch:SSE /G7 /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /DNDEBUG /MD /I. /Ireference/shims/banked_segline /Ireference/shims/bfmestages /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/bfmerendobj /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// stlport
 // PointGroupClass vertex-location fill, retail RVA 0x0017A890 (VA 0x009148C0),
 // 12000 bytes including its 12-entry dispatch table. Called by the matched
-// array-update helper 0x0017F3A0 (PointGroupClassUpdateArrays00917B10.cpp),
-// which proves the receiver and the (point_loc, point_size, point_orientation,
-// active_points) ABI; the existing neutral pin keeps the address-named method.
+// array-update helper 0x0017F3A0, which proves the receiver and the
+// (point_loc, point_size, point_orientation, active_points) ABI.
 // Semantic lead (donor source, not a target fact): the location subsection of
 // ZH/BFME1 pointgr.cpp PointGroupClass::Update_Arrays (the WorldBuilder twin
 // names it Update_Location_Array), split out of Update_Arrays in BFME 2.
-// Target findings: view matrix read transposed from the DX8 render state
-// (offset 0x22C) into a 48-byte Matrix3D, billboard flag bit 1, scaled_offset[3]
-// built by the vector constructor iterator, per-case loops in the ZH shape.
-// Retail codegen only reproduces with VertexLoc at internal linkage: an extern
-// or non-static definition changes the prologue load and the induction
-// variables of the varying-size and ground cases. BFME 2's pointgr.cpp
-// therefore keeps VertexLoc file-static (ZH/BFME1 define it globally); this TU
-// carries its own static copy until the remaining VertexLoc users rejoin one
-// unit. History: reverse/attempt_support/rva17a890-2026-10-20.md.
-#include "sharebuf.h"
+// Retail approves this row for pointgr.cpp, whose header world this file now
+// shares: BFME 1's matrix4.h, the banked DX8Wrapper with BFME 2's transform
+// accessors (BFME2_DX8WRAPPER_TRANSFORMS; Get_Transform 0x000768FE) and
+// canonical PointGroupClass.h. Retail codegen only reproduces with VertexLoc
+// at internal linkage (an extern changes the prologue load and the induction
+// variables), so this file keeps its own static copy until the merge into
+// pointgr.cpp leaves one. History: reverse/attempt_support/rva17a890-2026-10-20.md
+// and reverse/attempt_support/pointgr-vertexloc-merge-probe-20261112.md.
+#define Matrix4x4 Matrix4
+#define BFME_POINT_MATRIX4_TRANSFORM_INLINE
+#include "reference/shims/bfme_vector3_len_link/vector3_len_link.h"
+#include "reference/shims/bfme_matrix3d_sse_link/vector4.h"
+#include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix4.h"
+#include "refcount.h"
+#include "rendobj.h"
+#include "wwstring.h"
+#include "shader.h"
+#define BFME2_DX8WRAPPER_TRANSFORMS
+#include "reference/shims/banked_segline/dx8wrapper.h"
+#include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "vector.h"
 #include "vector2.h"
-#include "vector3.h"
+template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
+#include "sharebuf.h"
+#include "shader.h"
 #include "vector4.h"
-#include "matrix4.h"
-#include "matrix3d.h"
-#include "RenderStateStruct.h"
-class DX8Wrapper { public:
- static __forceinline void Get_Transform(int transform,Matrix4& matrix4) {
-  switch (transform) {
-	case 0x100:
-		if (render_state_changed&(1<<18)) matrix4.Make_Identity();
-		else matrix4=render_state.world.Transpose();
-		break;
-	case 2:
-		if (render_state_changed&(1<<19)) matrix4.Make_Identity();
-		else matrix4=render_state.view.Transpose();
-		break;
-	case 3:
-		matrix4=ProjectionMatrix.Transpose();
-		break;
-	default:
-		matrix4.Make_Identity();
-		break;
-  }
- }
- static __forceinline void Get_Transform(int,Matrix3D& matrix3D) {
-  if(render_state_changed&(1<<19)) matrix3D.Make_Identity();
-  else {matrix3D[0][0]=render_state.view[0][0];matrix3D[0][1]=render_state.view[1][0];matrix3D[0][2]=render_state.view[2][0];matrix3D[0][3]=render_state.view[3][0];matrix3D[1][0]=render_state.view[0][1];matrix3D[1][1]=render_state.view[1][1];matrix3D[1][2]=render_state.view[2][1];matrix3D[1][3]=render_state.view[3][1];matrix3D[2][0]=render_state.view[0][2];matrix3D[2][1]=render_state.view[1][2];matrix3D[2][2]=render_state.view[2][2];matrix3D[2][3]=render_state.view[3][2];}
- }
-protected: static Matrix4 ProjectionMatrix; static RenderStateStruct render_state; static unsigned render_state_changed;
-};
+#include "vector3.h"
+#include "vector2.h"
+#include "vector.h"
+#include "PointGroupClass.h"
 #include "ww3d.h"
-#include <d3dx9.h>
-static __forceinline Vector3 operator * (const Matrix3D &A,const Vector3 &a)
-{
-	return Vector3
-	(
-		(A[0][0]*a[0] + A[0][1]*a[1] + A[0][2]*a[2] + A[0][3]),
-		(A[1][0]*a[0] + A[1][1]*a[1] + A[1][2]*a[2] + A[1][3]),
-		(A[2][0]*a[0] + A[2][1]*a[1] + A[2][2]*a[2] + A[2][3])
-	);
-}
-static Vector3 GroundMultiplierX(1,0,0),GroundMultiplierY(0,1,0);
+#include "D3dx8math.h"
 // The static VertexLoc instantiates VectorClass<Vector3>; its /O2 copies of
 // the constructor and Resize are not retail's, so bind both to the rowed
 // 0x000F0D2F and 0x000F0BF1 bodies (vector_class_vector3_ctor/_resize.cpp).
 // Declaring the dtor too stops cl synthesizing a /O2 scalar deleting destructor
 // copy here; retail's is 0x000F1CF7.
 template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
-template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
 template <> VectorClass<Vector3>::~VectorClass();
-static VectorClass<Vector3> VertexLoc;
-extern VectorClass<Vector2> VertexUV;
+static Vector3 GroundMultiplierX(1.0f, 0.0f, 0.0f);
+static Vector3 GroundMultiplierY(0.0f, 1.0f, 0.0f);
+static VectorClass<Vector3>			VertexLoc;
 
-#include "PointGroupClass.h"
-
+// Get_Flag is owned here with the consolidated render helpers.
 inline int PointGroupClass::Get_Flag(FlagsType flag)
 {
-	return (Flags >> flag) & 1;
+	return (Flags>>flag) & 0x1;
 }
 
 void PointGroupClass::rva009148C0(Vector3 *point_loc, float *point_size, unsigned char *point_orientation, int active_points)
