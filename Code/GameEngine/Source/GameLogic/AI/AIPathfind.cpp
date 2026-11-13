@@ -1218,11 +1218,7 @@ private:
 // name and a view of only the members it touches. Callees use the ledger's
 // existing spellings.
 
-struct GapPair
-{
-	int a;
-	int b;
-};
+#include "../../../Include/Common/GapPair.h"
 
 // --- 0x002E7334 (26B): a word and a pair; 0x002E734E (58B): cell callback.
 struct Rva002E734ECell { int m_pad00[3]; unsigned int m_flags; };
