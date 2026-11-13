@@ -42,10 +42,14 @@ template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
 // The static VertexLoc instantiates VectorClass<Vector3>; its /O2 copies of
 // the constructor and Resize are not retail's, so bind both to the rowed
 // 0x000F0D2F and 0x000F0BF1 bodies (vector_class_vector3_ctor/_resize.cpp).
-// Declaring the dtor too stops cl synthesizing a /O2 scalar deleting destructor
-// copy here; retail's is 0x000F1CF7.
+// The destructor stays visible, as in pointgr.cpp (retail's VertexLoc atexit
+// 0x007B7400 inlines it).
 template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
-template <> VectorClass<Vector3>::~VectorClass();
+// The vtable the destructor stores names these; retail's /O1 bodies are rowed
+// with it (vector_class_vector3_ctor.cpp), as pointgr.cpp declares them.
+template <> int VectorClass<Vector3>::ID(Vector3 const *);
+template <> int VectorClass<Vector3>::ID(Vector3 const &);
+template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
 static Vector3 GroundMultiplierX(1.0f, 0.0f, 0.0f);
 static Vector3 GroundMultiplierY(0.0f, 1.0f, 0.0f);
 static VectorClass<Vector3>			VertexLoc;
