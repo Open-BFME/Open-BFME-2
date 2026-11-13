@@ -16,11 +16,7 @@ class Rva002BA8F1Logic;
 #include "../../Include/Common/Rva002E0C68.h"
 #include "../../Include/Common/Rva002E0CD4.h"
 #include "../../Include/Common/Rva002E0C2B.h"
-class Rva002E063B
-{
-public:
-	int get() const;
-};
+#include "../../Include/Common/Rva002E063B.h"
 extern float g_Va00BBB8D8;
 struct Virt04
 {

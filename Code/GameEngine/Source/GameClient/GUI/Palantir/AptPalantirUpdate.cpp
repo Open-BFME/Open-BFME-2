@@ -692,11 +692,7 @@ __declspec(noinline) inline void AptPalantir::init()
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva002E063B
-{
-public:
-	int get() const;
-};
+#include "../../../../Include/Common/Rva002E063B.h"
 struct AptPalantirLivingWorldView
 {
 	unsigned char m_pad000[0x98];
