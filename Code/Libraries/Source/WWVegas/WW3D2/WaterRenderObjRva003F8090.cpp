@@ -7,21 +7,7 @@ public:
 	void rva003F7F30();
 };
 
-class Rva003F8090
-{
-public:
-	void rva003F8090();
-	void *rva003F80C3();
-	void *rva003F80E1();
-	int rva003F80AF();
-	int rva003F7D41(int count);
-private:
-	char m_00[0xc];
-	Rva003F7F30 **m_0c;
-	Rva003F7F30 **m_10;
-	char m_14[4];
-	int m_18;
-};
+#include "../../../../GameEngine/Include/Common/Rva003F8090.h"
 
 void Rva003F8090::rva003F8090()
 {

@@ -26,19 +26,7 @@ public:
 
 #include "../../Include/Common/Rva003F8052.h"
 
-class Rva003F8090
-{
-public:
-	void rva003F8509();
-	unsigned char rva003F8536();
-	void *rva003F80C3();
-private:
-	char m_00[0xc];
-	Rva003F7F30 **m_0c;
-	Rva003F7F30 **m_10;
-	char m_14[4];
-	int m_18;
-};
+#include "../../Include/Common/Rva003F8090.h"
 
 void Rva003F8090::rva003F8509()
 {
