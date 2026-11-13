@@ -104,11 +104,7 @@ public:
 	InsertResult *rva001DE84F(InsertResult *out, const NocasePair &obj);	// 0x001DE84F
 };
 
-class Rva001DEE92Member
-{
-public:
-	void rva001DEE92(int count);							// 0x001DEE92
-};
+#include "../../Include/GameClient/Rva001DEE92Member.h"
 
 class Rva001DF88CVector
 {

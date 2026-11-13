@@ -59,11 +59,7 @@ class Rva001DE3E3Member
 {
 };
 
-class Rva001DEE92Member
-{
-public:
-	void rva001DEE92(int count);
-};
+#include "../../Include/GameClient/Rva001DEE92Member.h"
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
