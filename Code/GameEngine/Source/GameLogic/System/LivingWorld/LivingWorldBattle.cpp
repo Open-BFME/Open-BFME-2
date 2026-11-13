@@ -38,7 +38,7 @@ struct Rva002B488EResult { char pad00[0x54]; int playerID; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 #include "../../../../Include/Common/Rva003F468D.h"
-struct Rva003F4E07Player { char pad00[0x14];int id; };
+#include "../../../../Include/Common/Rva003F4E07Player.h"
 struct Rva003F4E07Record { char pad00[0x30];int playerID; };
 struct Rva003F4E07ArmyIndex { char pad00[0x30];int index; };
 struct Rva003F4E07Pair { Rva003F4E07ArmyIndex*loser;Rva003F4E07ArmyIndex*winner; };

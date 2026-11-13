@@ -37,7 +37,7 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
 
-struct Rva003F4E07Player {char pad[0x14];int id;};
+#include "../../../../Include/Common/Rva003F4E07Player.h"
 class Rva002E2903Player;
 class ModuleData;
 // LivingWorldBattle.h needs the capitalized Snapshot slots with the reference transfer.

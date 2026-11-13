@@ -43,7 +43,7 @@ struct Rva003F4FD4Region {
     std::vector<AdjacentRegion> &getAdjacent() { return adjacent; }
 };
 struct Rva003F4FD4OwnedRegion { char pad00[0x13C]; int playerID; };
-struct Rva003F4E07Player { char pad00[0x14]; int id; };
+#include "../../../../Include/Common/Rva003F4E07Player.h"
 class LivingWorldBattle;
 class Rva003F4FD4Tutorial {
 public:
