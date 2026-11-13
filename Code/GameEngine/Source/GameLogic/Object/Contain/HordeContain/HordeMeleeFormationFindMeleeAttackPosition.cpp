@@ -181,7 +181,7 @@ namespace _STL {
 class Rva00585257Iter : public _STL::_Deque_iterator_base<BfmeE12> { public: void *rva00585257(); };
 
 #include "../../../../../Include/GameLogic/Module/Rva0046ACF6.h"
-class Rva005D6FE5 { public: unsigned char rva005D6FE5(); };
+#include "../../../../../Include/Common/Rva005D6FE5.h"
 struct FormationAttackEntry { int state; Coord3D position,previousPosition; bool needsPosition; unsigned char pad1D[3];
  unsigned int nextFrame,lastFrame; _STL::deque<BfmeE12> path; ObjectID lastTarget; };
 class HordeMeleeFormation {
