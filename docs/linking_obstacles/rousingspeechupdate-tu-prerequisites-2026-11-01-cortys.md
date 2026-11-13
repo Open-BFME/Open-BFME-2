@@ -32,6 +32,17 @@ still accepts zero donors. The two other accepted view edits were formatting
 only and are not retained.
 Clearance: pending.
 
+2026-11-13, base `413a3f8e1c9`: the base identity scopes are now claimable. A
+new prerequisite corrects the registered SpecialAbilityUpdateModuleData header
+to retain the native five owning-reference members and exact four-word
+initialization group. Both source-restoring owner candidates are C8 and pass
+15/15 strict code rows, two complete EXACT EH graphs, and 62 native table slots
+(58 emitted whole bodies plus four existing external bindings). The unchanged
+48 consumer sources pass 722/722 code and 68 data rows, retaining 48/48 LINKS and
+40,537 bytes at published index 0e4b2640a1. The actual destructor-family fold and
+Rousing source moves remain pending; no table/queue retirement claimed.
+[Native lifetime proof and next transaction](../../reverse/attempt_support/specialability-native-lifetimes-20261113-root20.md).
+
 2026-11-04: Canonical list adoption clears the seed and behavior-destructor header prerequisites (26 strict-exact rows; ordinary preview preserves 1,241 bytes); four-donor merge remains blocked on the other class/special-member conflicts. [Repair and remaining prerequisites](../../reverse/attempt_support/rousing-speech-canonical-list-20261104-codex3/readme.md).
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default

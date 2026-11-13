@@ -1,0 +1,893 @@
+{
+  "base": "413a3f8e1c965bfe0c2f62820c596de710168a77",
+  "header": "Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h",
+  "header_before_sha256": "5c1aee5000ea83893eade3a5e00b86bf4dc44b91f2639fca419fc257a51d911a",
+  "header_after_sha256": "f35711b77afd5b9e64a0be1d720943f701263740937c49a4bab59870bc19bd81",
+  "diagnostic_code": {
+    "scope": "Diagnostic objects only; source restored; planned class fold names bind only their existing native owner RVAs",
+    "rows": [
+      {
+        "name": "??0SpecialAbilityUpdateModuleData@@QAE@XZ",
+        "rva": "0x0044EB54",
+        "exact": true,
+        "unresolved": [],
+        "note": null,
+        "first_differences": []
+      },
+      {
+        "name": "$L1342",
+        "rva": "0x00789A4F",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1342 was renumbered; verified parent EH data places $L1517 at 0x00789A4F",
+        "first_differences": []
+      },
+      {
+        "name": "$L1343",
+        "rva": "0x00789A57",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1343 was renumbered; verified parent EH data places $L1518 at 0x00789A57",
+        "first_differences": []
+      },
+      {
+        "name": "$L1344",
+        "rva": "0x00789A62",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1344 was renumbered; verified parent EH data places $L1519 at 0x00789A62",
+        "first_differences": []
+      },
+      {
+        "name": "$L1345",
+        "rva": "0x00789A6D",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1345 was renumbered; verified parent EH data places $L1520 at 0x00789A6D",
+        "first_differences": []
+      },
+      {
+        "name": "$L1346",
+        "rva": "0x00789A78",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1346 was renumbered; verified parent EH data places $L1521 at 0x00789A78",
+        "first_differences": []
+      },
+      {
+        "name": "$L1347",
+        "rva": "0x00789A83",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1347 was renumbered; verified parent EH data places $L1522 at 0x00789A83",
+        "first_differences": []
+      },
+      {
+        "name": "$L1348",
+        "rva": "0x00789A8E",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1348 was renumbered; verified parent EH data places $L1523 at 0x00789A8E",
+        "first_differences": []
+      },
+      {
+        "name": "$L1349",
+        "rva": "0x00789A99",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1349 was renumbered; verified parent EH data places $L1524 at 0x00789A99",
+        "first_differences": []
+      },
+      {
+        "name": "$L1350",
+        "rva": "0x00789AA4",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1350 was renumbered; verified parent EH data places $L1525 at 0x00789AA4",
+        "first_differences": []
+      },
+      {
+        "name": "$L1351",
+        "rva": "0x00789AAF",
+        "exact": true,
+        "unresolved": [],
+        "note": "$L1351 was renumbered; verified parent EH data places $L1526 at 0x00789AAF",
+        "first_differences": []
+      },
+      {
+        "name": "??1SpecialAbilityUpdateModuleData@@UAE@XZ",
+        "rva": "0x0044ECCE",
+        "exact": true,
+        "unresolved": [],
+        "note": null,
+        "first_differences": []
+      },
+      {
+        "name": "??_GSpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "rva": "0x0044EF42",
+        "exact": true,
+        "unresolved": [],
+        "note": null,
+        "first_differences": []
+      },
+      {
+        "name": "__ehhandler$??1SpecialAbilityUpdateModuleData@@UAE@XZ",
+        "rva": "0x00789ABD",
+        "exact": true,
+        "unresolved": [],
+        "note": null,
+        "first_differences": []
+      },
+      {
+        "name": "??1OpaqueRefPtr@@QAE@XZ",
+        "rva": "0x0010F149",
+        "exact": true,
+        "unresolved": [],
+        "note": null,
+        "first_differences": []
+      }
+    ],
+    "full_gates": "Owning fold, normal source builds, tables and whole EH verification still required"
+  },
+  "diagnostic_graphs": {
+    "eh": [
+      {
+        "object": "build\\root-specialability-lifetime\\SpecialAbilityUpdateModuleData-prepared.obj",
+        "name": "??0SpecialAbilityUpdateModuleData@@QAE@XZ",
+        "verdict": [
+          "EXACT",
+          ""
+        ]
+      },
+      {
+        "object": "build\\root-specialability-lifetime\\Rva0044ECCEDtor-prepared.obj",
+        "name": "??1SpecialAbilityUpdateModuleData@@UAE@XZ",
+        "verdict": [
+          "EXACT",
+          ""
+        ]
+      }
+    ],
+    "slots": [
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 0,
+        "target_rva": "0x44ef42",
+        "symbol": "??_ESpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "weak_default": "??_GSpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 1,
+        "target_rva": "0xb3fd0",
+        "symbol": "?loadPostProcess@ModuleData@@UAEXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 2,
+        "target_rva": "0x65212",
+        "symbol": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": false
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 3,
+        "target_rva": "0x47a69c",
+        "symbol": "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 4,
+        "target_rva": "0x47a699",
+        "symbol": "?isAiModuleData@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 5,
+        "target_rva": "0x47a699",
+        "symbol": "?slot05@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 6,
+        "target_rva": "0x47a699",
+        "symbol": "?slot06@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 7,
+        "target_rva": "0x47a699",
+        "symbol": "?slot07@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 8,
+        "target_rva": "0x47a699",
+        "symbol": "?slot08@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 9,
+        "target_rva": "0x47a699",
+        "symbol": "?slot09@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 10,
+        "target_rva": "0x47a699",
+        "symbol": "?slot10@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 11,
+        "target_rva": "0x47a699",
+        "symbol": "?slot11@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 12,
+        "target_rva": "0x47a699",
+        "symbol": "?slot12@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 13,
+        "target_rva": "0x47a699",
+        "symbol": "?slot13@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 14,
+        "target_rva": "0xb69a1",
+        "symbol": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": false
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 15,
+        "target_rva": "0x47a699",
+        "symbol": "?slot15@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 16,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot16@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 17,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot17@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 18,
+        "target_rva": "0xd43d0",
+        "symbol": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 19,
+        "target_rva": "0xd43d0",
+        "symbol": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 20,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot20@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 21,
+        "target_rva": "0xd43d0",
+        "symbol": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 22,
+        "target_rva": "0xd43d0",
+        "symbol": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 23,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot23@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 24,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot24@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 25,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot25@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 26,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot26@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 27,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot27@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 28,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot28@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 29,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot29@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "SpecialAbilityUpdateModuleData",
+        "slot": 30,
+        "target_rva": "0x50b5c6",
+        "symbol": "?slot30@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 0,
+        "target_rva": "0x44ef42",
+        "symbol": "??_ESpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "weak_default": "??_GSpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 1,
+        "target_rva": "0xb3fd0",
+        "symbol": "?loadPostProcess@ModuleData@@UAEXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 2,
+        "target_rva": "0x65212",
+        "symbol": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": false
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 3,
+        "target_rva": "0x47a69c",
+        "symbol": "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 4,
+        "target_rva": "0x47a699",
+        "symbol": "?isAiModuleData@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 5,
+        "target_rva": "0x47a699",
+        "symbol": "?slot05@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 6,
+        "target_rva": "0x47a699",
+        "symbol": "?slot06@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 7,
+        "target_rva": "0x47a699",
+        "symbol": "?slot07@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 8,
+        "target_rva": "0x47a699",
+        "symbol": "?slot08@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 9,
+        "target_rva": "0x47a699",
+        "symbol": "?slot09@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 10,
+        "target_rva": "0x47a699",
+        "symbol": "?slot10@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 11,
+        "target_rva": "0x47a699",
+        "symbol": "?slot11@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 12,
+        "target_rva": "0x47a699",
+        "symbol": "?slot12@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 13,
+        "target_rva": "0x47a699",
+        "symbol": "?slot13@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 14,
+        "target_rva": "0xb69a1",
+        "symbol": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": false
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 15,
+        "target_rva": "0x47a699",
+        "symbol": "?slot15@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 16,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot16@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 17,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot17@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 18,
+        "target_rva": "0xd43d0",
+        "symbol": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 19,
+        "target_rva": "0xd43d0",
+        "symbol": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 20,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot20@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 21,
+        "target_rva": "0xd43d0",
+        "symbol": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 22,
+        "target_rva": "0xd43d0",
+        "symbol": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 23,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot23@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 24,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot24@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 25,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot25@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 26,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot26@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 27,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot27@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 28,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot28@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 29,
+        "target_rva": "0xd43d0",
+        "symbol": "?slot29@ModuleData@@UBEPBXXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      },
+      {
+        "object": "Rva0044ECCEDtor",
+        "slot": 30,
+        "target_rva": "0x50b5c6",
+        "symbol": "?slot30@ModuleData@@UBE_NXZ",
+        "weak_default": null,
+        "known_binding": true,
+        "defined": true,
+        "whole_body_exact": true,
+        "unresolved": []
+      }
+    ],
+    "note": "Source-restoring diagnostic objects; full owning transaction gates still required"
+  },
+  "consumer_sources": [
+    "Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CommandPointsUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CurseSpecialPowerSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataFriendNew.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FellBeastSwoopPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlingPassengerSpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataFriendNew.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateFriendNew.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateInitiateIntent.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateIsWithinStartAbilityRange.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateRun.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateRva0044FEB6.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpyVisionUpdateFriendNew.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterProductionExitUpdateFriendNew.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/UnleashSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataFriendNew.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdateModuleDataCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgrade.cpp"
+  ],
+  "current_consumers": {
+    "functions": 722,
+    "data_rows": 68,
+    "strings": 335,
+    "float_literals": 24,
+    "sources": 48,
+    "links": 48,
+    "linked_bytes_before": 40537,
+    "linked_bytes_after": 40537,
+    "index": "0e4b2640a1"
+  },
+  "scope": "Header prerequisite only; diagnostic source texts restored; no production identity, queue or bridge retirement",
+  "ctor_candidate_sha256": "5477b3a29f2e46aaa4fe99e3f3a7f4663264f42730f91d6b52d60b3d2bee3490",
+  "dtor_candidate_sha256": "2e6f9edd641458824db2687e6fadc7cbb907951d44686d4f538cdbd86dc76300"
+}

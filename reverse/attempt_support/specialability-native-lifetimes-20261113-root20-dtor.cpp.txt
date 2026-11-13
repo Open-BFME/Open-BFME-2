@@ -1,0 +1,12 @@
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// Native199B special-ability data teardown; shared member lifetimes retain order.
+#include "../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
+
+// The native base teardown expands Snapshot's table restore here.
+inline ModuleData::~ModuleData() {}
+
+SpecialAbilityUpdateModuleData::~SpecialAbilityUpdateModuleData()
+{
+    m_specialPowerTemplate = 0;
+    m_disableFXParticleSystem = 0;
+}

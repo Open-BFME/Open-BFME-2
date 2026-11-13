@@ -1,0 +1,86 @@
+// ??0SpecialAbilityUpdateModuleData@@QAE@XZ
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
+// ??0SpecialAbilityUpdateModuleData@@QAE@XZ at 0x0044EB54 (378 bytes).
+// Identity: ModuleFactory registers SpecialAbilityUpdate with the data factory
+// at 0x0024A882, which calls this ctor and pushes buildFieldParse 0x0044ED95
+// (tools/check_module_registry.py); it was rowed by address as Rva0044EB54.
+// Address-derived opaque intermediate default ctor. Target evidence: vtable
+// immediate 0x00C3F2A8, 26 this-only module-data ctor callers, a 0xC8 prefix
+// shared by derived factories, and the rowed chained parser at 0x0044ED95.
+// Ghidra boundary is 378 bytes. Association with the SpecialAbility family
+// is structural inference; exact semantic identity is unproven.
+#include <stddef.h>
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
+
+
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+
+
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
+
+
+// The four dwords form one layout-only group so the +1C/+20 zero stores precede
+// the paired -1 stores, matching the target's schedule without asserting names.
+
+
+SpecialAbilityUpdateModuleData::SpecialAbilityUpdateModuleData()
+	: m_packSound()
+	, m_unpackSound()
+	, m_prepSoundLoop()
+	, m_triggerSound()
+	, field28(0)
+	, field2C(0)
+	, field30(100.0f)
+	, field34()
+	, m_specialPowerTemplate(0)
+	, m_disableFXParticleSystem(0)
+	, m_specialObjectName()
+	, m_specialObjectAttachToBoneName()
+	, field48()
+	, m_startAbilityRange(10000000.0f)
+	, m_abilityAbortRange(10000000.0f)
+	, m_packUnpackVariationFactor(0.0f)
+	, m_fleeRangeAfterCompletion(0.0f)
+	, m_effectValue(1)
+	, field60(0.0f)
+	, m_awardXPForTriggering(0)
+	, m_skillPointsForTriggering(-1)
+	, field6C(0)
+	, field70(-1)
+	, m_preparationFrames(0)
+	, m_persistentPrepFrames(0)
+	, m_effectDuration(0)
+	, m_maxSpecialObjects(1)
+	, m_packTime(0)
+	, m_unpackTime(0)
+	, m_preTriggerUnstealthFrames(0)
+	, field90(0)
+	, field94(0)
+	, field98(0)
+	, field9C(0)
+	, fieldA0(0)
+	, fieldA4(0)
+	, m_skipPackingWithNoTarget(0)
+	, m_specialObjectsPersistent(0)
+	, m_uniqueSpecialObjectTargets(0)
+	, m_specialObjectsPersistWhenOwnerDies(0)
+	, m_flipObjectAfterPacking(0)
+	, m_flipObjectAfterUnpacking(0)
+	, m_alwaysValidateSpecialObjects(0)
+	, m_doCaptureFX(0)
+	, m_loseStealthOnTrigger(0)
+	, m_approachRequiresLOS(1)
+	, fieldB2(0)
+	, fieldB3(0)
+	, fieldB4(0)
+	, fieldB5(0)
+	, fieldB6(0)
+	, fieldB7(0)
+	, fieldB8(0)
+	, fieldBC()
+	, fieldC0("")
+	, fieldC4(0)
+	, fieldC5(0)
+	, fieldC6(0)
+{
+}
