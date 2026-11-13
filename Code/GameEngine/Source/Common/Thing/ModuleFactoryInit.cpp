@@ -115,7 +115,7 @@ class CastleMemberBehaviorModuleData { public: static ModuleData *friend_newModu
 class CastleUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 class CaveContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class CaveContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/Common/CaveContainModuleData.h"
 class CitadelSlaughterHordeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CitadelSlaughterHordeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CivilianSpawnCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

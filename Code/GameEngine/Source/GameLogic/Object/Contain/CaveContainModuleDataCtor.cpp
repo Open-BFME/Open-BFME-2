@@ -6,15 +6,7 @@
 // inheritance lets the compiler emit that vtable relocation and store.
 #include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
-class CaveContainModuleData : public OpenContainModuleData
-{
-public:
-	CaveContainModuleData();
-	virtual ~CaveContainModuleData();
-
-private:
-	int m_caveIndexData;		// +0x98
-};
+#include "../../../../Include/Common/CaveContainModuleData.h"
 
 inline CaveContainModuleData::CaveContainModuleData()
 {

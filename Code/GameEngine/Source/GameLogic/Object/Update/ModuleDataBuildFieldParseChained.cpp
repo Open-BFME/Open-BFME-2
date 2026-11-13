@@ -1068,11 +1068,7 @@ extern const FieldParse BfmeCaveContainFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class CaveContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/CaveContainModuleData.h"
 
 // ?buildFieldParse@CaveContainModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x0024B77C (27 bytes): base-table call above plus the CaveContain
