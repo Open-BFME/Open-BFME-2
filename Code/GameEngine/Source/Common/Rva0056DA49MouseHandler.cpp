@@ -21,12 +21,7 @@ struct Rva0056DA49Point
 	int y;
 };
 
-class Obj005C9B0C
-{
-public:
-	int rva005C9B0C(int point, int extra, int button);
-	int rva005C9B31(int point, int extra, int button);
-};
+#include "../../Include/GameLogic/Module/Obj005C9B0C.h"
 class Rva005C9B76
 {
 public:

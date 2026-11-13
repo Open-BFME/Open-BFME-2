@@ -25,11 +25,7 @@ public:
 	int rva005C9ADD(int v, int);
 };
 
-class Obj005C9B0C
-{
-public:
-	int rva005C9B31(int v, int, int extra);
-};
+#include "../../../Include/GameLogic/Module/Obj005C9B0C.h"
 
 #include "../../../Include/GameClient/Rva005C9BE3Call.h"
 
