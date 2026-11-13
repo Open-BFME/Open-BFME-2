@@ -4,11 +4,7 @@
 // Evidence: callees rowed 0x00298E6A 0x00049DC5 0x00024250 0x0028BDD7 0x002983DA; TheGameLogic extern in use 72 TUs; prev HordeContainModuleDataParse next HorseHordeContainCtor.
 #include "../../../Common/GameLogicObjectLookupView.h"
 class Object;
-class Rva00298E6A
-{
-public:
-	void rva00298E6A();
-};
+#include "../../../../Include/Common/Rva00298E6A.h"
 class Rva00297360Element
 {
 };

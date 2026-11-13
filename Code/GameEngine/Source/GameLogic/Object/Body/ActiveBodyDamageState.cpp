@@ -31,11 +31,7 @@ public:
 	friend class Rva004BDA67;
 };
 
-class Rva00298E6A
-{
-public:
-	void rva00298E6A();
-};
+#include "../../../../Include/Common/Rva00298E6A.h"
 
 class Rva004BDA67
 {
