@@ -187,6 +187,8 @@ public:
 	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004A34C0
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 typedef bool Bool;
@@ -395,4 +397,11 @@ BroadcastStealthUpdate::~BroadcastStealthUpdate()
 UpgradeModuleInterface *BroadcastStealthUpdate::getUpgrade()
 {
 	return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this));
+}
+
+// ?loadPostProcess@BroadcastStealthUpdate@@MAEXXZ: retail primary vftable 0x00C52364 slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void BroadcastStealthUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
 }
