@@ -199,11 +199,7 @@ public:
 	UnicodeString rva004fcb61();
 };
 
-class Rva004FCB85
-{
-public:
-	UnicodeString rva004fcb85();
-};
+#include "../../../../../Include/Common/Rva004FCB85.h"
 
 #include "../../../../../Include/GameClient/Rva005E755E.h"
 
