@@ -13,10 +13,7 @@ public:
 
 #include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
-struct Elem1C4
-{
-    char data[0x1C4];
-};
+#include "../../Include/Common/Elem1C4.h"
 
 class MilesAudioManager
 {

@@ -10,10 +10,7 @@ class MilesAudioManager::GlobalVolumeData
 public:
     void volumeAdjustingSoundStopping(Holder *o, int key);
 };
-struct Elem1C4
-{
-    char data[0x1C4];
-};
+#include "../../Include/Common/Elem1C4.h"
 class Rva0005516F
 {
 public:

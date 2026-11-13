@@ -7,10 +7,7 @@
 // target-measured for MilesAudioManager in StopAudio TU. Chain from 0x000523A0.
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
-struct Elem1C4
-{
-    char data[0x1C4];
-};
+#include "../../../GameEngine/Include/Common/Elem1C4.h"
 
 class MilesAudioManager
 {
