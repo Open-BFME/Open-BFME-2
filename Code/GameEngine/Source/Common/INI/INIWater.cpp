@@ -103,17 +103,7 @@ public:
 
 _STL::vector<const ModuleData *> g_vec00200D38;	// retail VA 0x00DDF580, 12 bytes
 
-class Rva00200D38
-{
-public:
-	virtual void slot0() = 0;
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-
-	Rva00200D38(const AsciiString &name);
-private:
-	AsciiString m_name;
-};
+#include "../../../Include/Common/Rva00200D38.h"
 
 #include "../../../Include/Common/Overridable.h"
 

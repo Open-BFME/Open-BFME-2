@@ -19,17 +19,7 @@ inline void setWeatherPair(Coord2D &pair,float x,float y){pair.x=x;pair.y=y;}
 
 class WeatherSetting;
 
-class Rva00200D38
-{
-public:
-	virtual WeatherSetting *rva00201153() = 0;
-	virtual void rva00201085() = 0;
-	virtual int getFieldParse() = 0;
-
-	Rva00200D38(const AsciiString &name);
-private:
-	AsciiString m_name;
-};
+#include "../../Include/Common/Rva00200D38.h"
 
 class WeatherSetting : public Overridable, public Rva00200D38
 {
