@@ -73,7 +73,7 @@ public:Rva0040E0EB(const _STL::vector<Rva0040CB11Entry>&v):_STL::vector<Rva0040C
 struct Rva0040F454Cmp {};
 class Rva0040CF55Owner {public:int sumUnflagged()const;};
 // The entry lookup is the rowed ArmySummaryEntry::rva0040C495 0x0040C495.
-struct Rva0040E534Input {ArmySummaryEntry*value;};
+#include "../../../Include/Common/Rva0040E534Input.h"
 // The delayed-key append is the rowed four-byte vector push_back 0x002E01C6
 // (ICF-shared; bound through the vector<NameKeyType> row).
 enum NameKeyType { NAMEKEY_INVALID = 0 };
