@@ -29,11 +29,7 @@ public:
 struct Rva002BA8F1Listener;
 #include "../../Include/Common/Rva005A0B4CList.h"
 
-class Rva005FC6F7
-{
-public:
-	void rva005FC6F7(unsigned char flag);
-};
+#include "../../Include/Common/Rva005FC6F7.h"
 
 class Rva005FC745PtrChaseField
 {

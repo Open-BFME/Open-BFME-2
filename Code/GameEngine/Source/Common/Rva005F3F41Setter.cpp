@@ -7,11 +7,7 @@
 // 0x005E4D74, 0x005E4DD0, 0x005E4DE5. Owner identity unproven so the address
 // token is kept. Flags /O1: default /O2 duplicates the store (49B) while /O1
 // keeps the single trailing store (35B exact).
-class Rva005FC6F7
-{
-public:
-	void rva005FC6F7(unsigned char value);
-};
+#include "../../Include/Common/Rva005FC6F7.h"
 struct Sub005F3F41
 {
 	char m_pad0[0x0C];
