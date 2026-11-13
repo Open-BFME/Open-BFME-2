@@ -24,7 +24,7 @@ class GameFont;
 
 class Gen_00942BC0 { public: void process( void *text, void *hkX, void *hkY ); };
 
-class Rva00155AD0 { public: void rva00155AD0( void ); };
+#include "../../../Include/W3DDevice/GameClient/Rva00155AD0.h"
 
 class Render2DSentenceClass
 {

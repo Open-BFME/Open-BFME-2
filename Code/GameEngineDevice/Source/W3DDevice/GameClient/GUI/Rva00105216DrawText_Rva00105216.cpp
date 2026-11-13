@@ -28,11 +28,7 @@ class Image;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
-class Rva00155AD0
-{
-public:
-	void rva00155AD0();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva00155AD0.h"
 
 class GameWindowManager;
 extern GameWindowManager *TheWindowManager;
