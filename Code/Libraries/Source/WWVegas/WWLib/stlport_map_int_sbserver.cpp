@@ -146,7 +146,7 @@ template SBServerPair::~pair();
 // erase specialization proposed by the drift queue. WB 015FA460 passes the
 // same stack argument through the handle at +10 to native 005E4087.
 // Keep the receiver and callee address-derived until independent names exist.
-class Rva005E4087 { public: void rva005E4087(int); };
+#include "../../../../GameEngine/Include/Common/Rva005E4087.h"
 class Rva005E4157
 {
 public:

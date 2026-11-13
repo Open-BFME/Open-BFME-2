@@ -10,11 +10,7 @@ public:
 	void rva005F3FF4();
 };
 
-class Rva005E4087
-{
-public:
-	void rva005E4087(int a);
-};
+#include "../../Include/Common/Rva005E4087.h"
 
 class Rva005E3E41Inner
 {

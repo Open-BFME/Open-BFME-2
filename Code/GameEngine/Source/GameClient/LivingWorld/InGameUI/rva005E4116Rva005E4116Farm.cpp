@@ -87,10 +87,7 @@ static float Rva005E3F0A(const Rva005E4300Entry *entry) {
 struct Rva005E4087Context {
  char pad0[0x54];int playerID;char pad1[0x78-0x58];Rva0040CB3AIndexedField *index;
 };
-class Rva005E4087 {public:void rva005E4087(int);
- char pad0[0x10];Rva005E4087Context *context;int unknown14;Rva005F2A32 *clip;
- char pad1[0x28-0x1C];int selected;
-};
+#include "../../../../Include/Common/Rva005E4087.h"
 // Rva005E4087::rva005E4087 is rowed in its home unit; this copy was a duplicate definition.
 
 class GameWindow;
