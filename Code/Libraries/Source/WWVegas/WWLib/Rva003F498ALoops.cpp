@@ -23,10 +23,7 @@
 // stlport_pod_vector_bodies.cpp with the same // cl:.
 #include <vector>
 
-class Rva003F498ACallback {
-public:
-    virtual bool invoke(int v) = 0;
-};
+#include "../../../../GameEngine/Include/Common/Rva003F498ACallback.h"
 
 struct Rva003F498AInner {
     int unk0;
