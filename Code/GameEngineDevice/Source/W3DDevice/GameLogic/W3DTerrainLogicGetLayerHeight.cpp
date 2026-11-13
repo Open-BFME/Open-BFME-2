@@ -18,11 +18,7 @@ enum PathfindLayerEnum
 
 #include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
 
-class Rva002E7482
-{
-public:
-	float rva002E7482(int layer);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva002E7482.h"
 
 #include "../../../../GameEngine/Include/GameLogic/AIPathfind.h"
 

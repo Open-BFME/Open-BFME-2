@@ -527,7 +527,7 @@ struct Rva002ED236Pos {
     ~Rva002ED236Pos() {}
 };
 int Rva002E6E8AGet(int layer);
-class Rva002E7482 { public: float rva002E7482(int layer); };
+#include "../../../Include/GameLogic/Rva002E7482.h"
 
 #include "ascii_string.h"
 struct GeometryShape {
