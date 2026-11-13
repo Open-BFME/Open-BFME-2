@@ -868,7 +868,7 @@ private:
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class Rva003FA835 {public: BfmeEventPositionView rva003FA835();};
+#include "../../../Include/Common/Rva003FA835.h"
 
 struct Rva002B2579Position {char pad[0x18];BfmeEventPositionView position;};
 

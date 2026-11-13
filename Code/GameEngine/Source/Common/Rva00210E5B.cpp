@@ -10,11 +10,7 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 
 #include "../../Include/GameLogic/LivingWorldClass.h"
 
-class Rva003FA835
-{
-public:
-	void rva003FA781(int value);
-};
+#include "../../Include/Common/Rva003FA835.h"
 
 void __stdcall rva00210E5B(void *key, int value)
 {
