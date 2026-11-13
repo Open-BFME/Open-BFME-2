@@ -31,6 +31,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 import re
 import struct
 import subprocess
@@ -726,6 +727,27 @@ def file_sha(path):
         return "missing"
 
 
+def include_path(name):
+    """A header as cl's /showIncludes names it, as this host can read it. Under Wine (any host
+    but Windows) drive Z: is the root and a backslash separates (`Z:\\home\\...\\string.h`,
+    `reference/shims/bfme2_ascii\\ascii_string.h`); a relative name is the compiler's working
+    directory's, ROOT. Another drive stays unreadable here."""
+    name = name.strip()
+    if os.name != "nt":
+        name = name.replace("\\", "/")
+        if re.match(r"[Zz]:/", name):
+            name = name[2:]
+    path = Path(name)
+    return path if path.is_absolute() else ROOT / path
+
+
+def headers_unchanged(headers):
+    """Whether every header a cached compile included still holds the bytes it held. One that
+    cannot be read now, or could not be read then ("missing"), is no proof: the entry is not
+    reused (a header edited from 4 to 8 bytes must not keep its stale layout)."""
+    return all(digest != "missing" and file_sha(include_path(name)) == digest for name, digest in headers.items())
+
+
 def parsed_path(digest):
     # Parsed evidence depends on the reader as well as the compiler's bytes.
     return CACHE / (f"types_{digest}_{PARSER_HASH}.json")
@@ -745,7 +767,7 @@ def compile_layouts(source, builder=None, use_cache=True, extra_flags=()):
     key = sha("\0".join(command).encode() + source.read_bytes())
     if use_cache and REVERSED_GROUPS and meta.exists():
         cached = json.loads(meta.read_text(encoding="utf-8"))
-        if cached.get("key") == key and all(file_sha(p) == h for p, h in cached["headers"].items()):
+        if cached.get("key") == key and headers_unchanged(cached["headers"]):
             parsed = parsed_path(cached["types"])
             if parsed.exists():
                 return json.loads(parsed.read_text(encoding="utf-8"))
@@ -768,7 +790,7 @@ def compile_layouts(source, builder=None, use_cache=True, extra_flags=()):
         found = re.match(r"Note: including file:\s*(.+)$", line)
         if found:
             path = found.group(1).strip()
-            headers[path] = file_sha(path)
+            headers[path] = file_sha(include_path(path))
     stream = type_stream(obj.read_bytes())
     digest = sha(stream)
     parsed = parsed_path(digest)

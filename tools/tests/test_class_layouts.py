@@ -68,6 +68,46 @@ def failing_compile(monkeypatch, tmp_path, output, returncode=2):
     return str(caught.value)
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="Wine's include names are the case under test")
+@pytest.mark.parametrize("spelling", ["absolute", "relative"])
+def test_an_edited_header_is_never_served_from_the_cache(monkeypatch, tmp_path, spelling):
+    # The placeholders lane: cl under Wine names headers `Z:\...` or `reference/...\x.h`, file_sha could
+    # read neither, every recorded hash was "missing" == "missing", and a header edited from a 4- to an
+    # 8-byte class kept reporting 4 (rename.py's prepared and fold checks read this cache)
+    monkeypatch.setattr(class_layouts, "CACHE", tmp_path / "cache")
+    monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
+    (tmp_path / "Lib").mkdir()
+    header = tmp_path / "Lib" / "Thing.h"
+    header.write_text("4")
+    (tmp_path / "u.cpp").write_text('#include "Lib/Thing.h"\n')
+    named = ("Z:" + str(header).replace("/", "\\")) if spelling == "absolute" else "Lib\\Thing.h"
+    compiles = []
+
+    def run(command, **kwargs):
+        obj = next(a[3:] for a in command if a.startswith("-Fo"))
+        (tmp_path / obj).write_bytes(header.read_bytes())          # the "object" carries the header's layout
+        compiles.append(command)
+        return type("Done", (), {"returncode": 0, "stdout": f"Note: including file: {named}\n", "stderr": ""})()
+    monkeypatch.setattr(class_layouts.subprocess, "run", run)
+    monkeypatch.setattr(class_layouts, "type_stream", lambda data: data)
+    monkeypatch.setattr(class_layouts, "TypeStream",
+                        lambda stream: type("T", (), {"classes": lambda self: {"Thing": {"size": int(stream)}}})())
+    assert class_layouts.compile_layouts("u.cpp", FakeBuilder())["Thing"]["size"] == 4
+    assert class_layouts.compile_layouts("u.cpp", FakeBuilder())["Thing"]["size"] == 4 and len(compiles) == 1
+    header.write_text("8")
+    assert class_layouts.compile_layouts("u.cpp", FakeBuilder())["Thing"]["size"] == 8 and len(compiles) == 2
+    assert class_layouts.include_path(named) == header
+
+
+def test_a_header_the_cache_cannot_read_is_no_proof(monkeypatch, tmp_path):
+    monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text("x")
+    digest = class_layouts.file_sha(tmp_path / "a.h")
+    assert class_layouts.headers_unchanged({"a.h": digest})
+    assert not class_layouts.headers_unchanged({"a.h": digest, "C:\\sdk\\gone.h": "missing"})
+    assert not class_layouts.headers_unchanged({"gone.h": "missing"})
+
+
 def test_a_failed_compile_names_the_include_it_could_not_open(monkeypatch, tmp_path):
     why = failing_compile(monkeypatch, tmp_path,
                           "u.cpp(3) : fatal error C1083: Cannot open include file: 'Lib/Gone.h'\n")
