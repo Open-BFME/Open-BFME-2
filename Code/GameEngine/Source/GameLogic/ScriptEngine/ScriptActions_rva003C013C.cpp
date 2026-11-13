@@ -10,11 +10,7 @@
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Rva00739AF0
-{
-public:
-	void rva00739AF0(FloatRect0073CE30 *rect, int a, unsigned int b);
-};
+#include "../../../Include/GameLogic/Rva00739AF0.h"
 
 class Rva00739CA0
 {

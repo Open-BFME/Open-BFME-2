@@ -44,11 +44,7 @@ public:
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva00739AF0
-{
-public:
-	void rva00739AF0(FloatRect0073CE30 *world, int extra, unsigned int mask);
-};
+#include "../../../Include/GameLogic/Rva00739AF0.h"
 class Rva00739A30
 {
 public:
