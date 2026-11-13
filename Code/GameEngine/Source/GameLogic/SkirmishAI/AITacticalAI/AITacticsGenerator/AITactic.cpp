@@ -233,11 +233,7 @@ public:
 typedef Rva004ECDC8 AITacticTeamRecord;
 
 // Existing 20-byte-record erase provider at 0x004ED3A2.
-class Rva004ED3A2
-{
-public:
-	void *rva004ED3A2(void *position);
-};
+#include "../../../../../Include/Common/Rva004ED3A2.h"
 
 // Target +38/+44 are three-float coordinates. This initialization view
 // models inline construction while retaining canonical Coord3D argument ABI;

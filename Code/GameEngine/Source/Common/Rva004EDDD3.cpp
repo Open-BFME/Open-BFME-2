@@ -59,11 +59,7 @@ namespace _STL {
 template <class _InputIter, class _Tp>
 _InputIter find(_InputIter, _InputIter, const _Tp &);
 }
-class Rva004ED3A2
-{
-public:
-	void *rva004ED3A2(void *position);
-};
+#include "../../Include/Common/Rva004ED3A2.h"
 
 extern float g_Va00BBB8D8;
 extern float g_00BC26EC;
