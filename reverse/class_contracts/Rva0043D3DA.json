@@ -1,0 +1,102 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0043D3DA",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x27c": {
+    "4": 1
+   },
+   "0x288": {
+    "4": 1
+   },
+   "0x2a2": {
+    "1": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "676": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 674,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 675,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

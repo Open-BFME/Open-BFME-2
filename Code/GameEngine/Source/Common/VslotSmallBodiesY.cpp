@@ -322,13 +322,7 @@ struct Rva004B65A5Data
 // 0x0043D41E: message 0x15 answers 1 for byte arguments 1, 0x1C and 0x29;
 // with bit 0 of the third argument, byte 1 runs the rowed 0x0043D3DA then
 // 0x0043C7C9 (each with 0) and the others only the latter; else 0.
-class Rva0043D3DA
-{
-public:
-	void rva0043D3DA(Int a);
-	void rva0043C7C9(Int a);
-	Int rva0043D41E(Int msg, unsigned char b, Int c);
-};
+#include "../../Include/GameClient/Rva0043D3DA.h"
 Int Rva0043D3DA::rva0043D41E(Int msg, unsigned char b, Int c)
 {
 	if (msg != 0x15)

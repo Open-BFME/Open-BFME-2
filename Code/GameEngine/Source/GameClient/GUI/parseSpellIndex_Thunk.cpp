@@ -531,12 +531,7 @@ extern GameTextInterface *TheGameText;
 // The screen's rowed OnBttnClose 0x0043C7C9, layout query 0x0043C933,
 // science check 0x0043C6EA (on the +0x288 holder) and button state setter
 // 0x0043C8E4, named by their rows' views.
-class Rva0043D3DA
-{
-public:
-	void rva0043C7C9(int unused);
-	void rva0043D3DA(int unused);
-};
+#include "../../../Include/GameClient/Rva0043D3DA.h"
 
 int Rva0043C933Get(void);
 
