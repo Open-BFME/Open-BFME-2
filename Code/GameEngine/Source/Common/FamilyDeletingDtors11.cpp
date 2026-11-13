@@ -93,7 +93,7 @@ class Rva001EB940 { public: ~Rva001EB940(); };
 void famgenDelete(Rva001EB940 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva004DCE8E@@QAEPAXI@Z @0x004B0D0C 28B: calls ~Rva004DCE8E 0x004DCE8E
-class Rva004DCE8E { public: ~Rva004DCE8E(); };
+#include "../../Include/GameLogic/Module/Rva004DCE8E.h"
 void famgenDelete(Rva004DCE8E *objectToDelete) { delete objectToDelete; }
 
 // Target facts: 0x0052BBD7 is a complete 28B scalar deleting wrapper. Its

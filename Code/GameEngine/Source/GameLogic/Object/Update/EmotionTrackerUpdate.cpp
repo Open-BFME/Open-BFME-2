@@ -201,11 +201,7 @@ struct Rva004B0DACArg
 };
 #include "../../../../Include/Common/ObjectModule.h"
 class Object;
-class Rva004DCE8E
-{
-public:
-	~Rva004DCE8E();
-};
+#include "../../../../Include/GameLogic/Module/Rva004DCE8E.h"
 #include <new>
 namespace _STL {
 static inline void _Construct(int *__p, const int &__val)
