@@ -549,7 +549,7 @@ namespace _STL { template <> _List_base<Drawable *, allocator<Drawable *> >::~_L
 // bfme link decl-only end
 #include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 #include "../../../../Include/Common/Rva0033F15DDwordSlot.h"
-class Rva002AE98B { public: float rva002AE98B(const AsciiString *); };
+#include "../../../../Include/Common/Rva002AE98B.h"
 struct Rva002A7557In;
 #include "../../../../Include/GameLogic/Rva002A7461.h"
 #include "../../../../Include/GameLogic/Rva0037E6E8.h"
