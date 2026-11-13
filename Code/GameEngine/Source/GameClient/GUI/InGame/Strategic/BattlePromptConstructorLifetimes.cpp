@@ -7,7 +7,7 @@
 #include <vector>
 #include "ascii_string.h"
 class Rva005FA0C9;
-struct Rva005FA197Element {Rva005FA0C9*ptr;Rva005FA197Element(const Rva005FA197Element&);~Rva005FA197Element();};
+#include "../../../../../Include/Common/Rva005FA197Element.h"
 class Rva005FA0F7;
 #include "../../../../../Include/Common/Rva005FA1CEElement.h"
 struct TreeHintRef00217D4C;

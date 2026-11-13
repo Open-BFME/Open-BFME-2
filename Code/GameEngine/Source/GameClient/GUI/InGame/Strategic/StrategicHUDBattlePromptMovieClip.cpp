@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct Rva005F91F3Src {unsigned int header,word0,word1;UnicodeString text;};
 struct Rva005F91F3 {unsigned int word0,word1;UnicodeString text;Rva005F91F3(const Rva005F91F3Src &);};
 class Rva005FA0C9;
-struct Rva005FA197Element {Rva005FA0C9 *ptr;Rva005FA197Element(Rva005FA0C9 *);Rva005FA197Element(const Rva005FA197Element &);~Rva005FA197Element();};
+#include "../../../../../Include/Common/Rva005FA197Element.h"
 class Rva005FA0F7;
 #include "../../../../../Include/Common/Rva005FA1CEElement.h"
 namespace _STL {

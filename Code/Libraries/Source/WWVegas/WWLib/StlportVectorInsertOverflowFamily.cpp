@@ -186,7 +186,7 @@ namespace _STL { template <> void _Destroy<BfmePod104 *>(BfmePod104 *,BfmePod104
 // 4-byte element; push_back 0x005F13E6.
 struct Rva005F13E6Element { char m_pad[4]; public: Rva005F13E6Element(const Rva005F13E6Element &); ~Rva005F13E6Element(); };
 // 4-byte element; push_back 0x005FA197.
-struct Rva005FA197Element { char m_pad[4]; public: Rva005FA197Element(const Rva005FA197Element &); ~Rva005FA197Element(); };
+#include "../../../../GameEngine/Include/Common/Rva005FA197Element.h"
 // 4-byte element; push_back 0x005FA1CE.
 #include "../../../../GameEngine/Include/Common/Rva005FA1CEElement.h"
 
