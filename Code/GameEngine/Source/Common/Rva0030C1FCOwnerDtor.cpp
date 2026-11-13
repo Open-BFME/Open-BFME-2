@@ -28,13 +28,7 @@ void __cdecl Rva00030830GameFree(void *);
 // destructor there (0x00C088FC slot 0 is the rowed ??_G), so declare the root's
 // phantom slot as its destructor instead of the undefined placeholder s1;
 // Rva0053805DBase then overrides it, and the unresolved name disappears.
-class Rva00538133Root
-{
-public:
-	virtual ~Rva00538133Root();
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../Include/Common/Rva00538133Root.h"
 
 class Rva0053805DBase : public Rva00538133Root, public virtual Rva00330C50Interface
 {

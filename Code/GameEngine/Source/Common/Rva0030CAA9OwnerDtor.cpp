@@ -22,13 +22,7 @@ void __cdecl Rva00030830GameFree(void *);
 // Native seven-slot polygon interface, as in Rva00330C50Ctor.cpp.
 #include "../../Include/Common/Rva00330C50Interface.h"
 
-class Rva00538133Root
-{
-public:
-	virtual ~Rva00538133Root();
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../Include/Common/Rva00538133Root.h"
 
 class Rva0053805DBase : public Rva00538133Root, public virtual Rva00330C50Interface
 {
