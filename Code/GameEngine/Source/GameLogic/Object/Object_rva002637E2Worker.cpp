@@ -10,13 +10,7 @@
 // with (ptr float get() float ptr 0 0); neighbours share flags/TU dir.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Rva0073A1C0FloatField
-{
-public:
-	float get() const;
-	char m_lead[0x20];
-	float m_value;
-};
+#include "../../../Include/GameLogic/Module/Rva0073A1C0FloatField.h"
 
 float Rva00263778Distance(Coord3D const *a, float b, float c, Coord3D const *d, float e, float f);
 
