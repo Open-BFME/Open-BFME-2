@@ -928,11 +928,7 @@ struct Rva003182BCRecord
 	bool m_1BC;
 };
 
-class Rva0023D2D8DwordClearer
-{
-public:
-	void clear();											// 0x0023D2D8
-};
+#include "../../Include/Common/Rva0023D2D8DwordClearer.h"
 
 #include "../../Include/Common/LivingWorldArmyLine.h"
 

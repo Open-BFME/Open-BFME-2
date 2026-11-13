@@ -4,11 +4,7 @@
 #include "ascii_string.h"
 #include <new>
 // ?createGhostObject@LivingWorldBuilding@@QAEXXZ @0x004E0A96 69B flush pending pointer at +0x2c via dword clearer then add Upgrades pair with amount 1 through global holder at +0x264
-class Rva0023D2D8DwordClearer
-{
-public:
-	void clear();
-};
+#include "../../Include/Common/Rva0023D2D8DwordClearer.h"
 class Rva003FA681
 {
 public:

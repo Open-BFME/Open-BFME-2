@@ -2353,7 +2353,7 @@ void LivingWorldLogic::PrepareBattleForLoading(LivingWorldBattle *battle)
 // unknown. The offsets, argument ABI and dispatch slots below are native
 // facts. No donor layout or method name is inferred from the byte match.
 class GameLogic; extern GameLogic *TheGameLogic;
-class Rva0023D2D8DwordClearer { public: void clear(); };
+#include "../../../../Include/Common/Rva0023D2D8DwordClearer.h"
 class Rva00210C66CmpBoolField { public: Bool get() const{int value=*(const int*)((const char*)this+0x114);return value==1||value==2;} };
 void Rva00437E9C(Int);
 class BfmeAptWindowManager; extern BfmeAptWindowManager *g_bfmeAptWindowManager;
