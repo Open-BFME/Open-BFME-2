@@ -72,12 +72,7 @@ private:
 
 #include "../../../../GameEngine/Include/Common/Rva00141D00.h"
 
-struct Rva0006FB50List
-{
-	Gen_00943CF0_Node *head;
-	// 6FB50 -> 6FABF only relinks and recycles nodes, without throwing calls.
-	~Rva0006FB50List() throw();
-};
+#include "Rva0006FB50List.h"
 
 class BfmeSceneVector
 {

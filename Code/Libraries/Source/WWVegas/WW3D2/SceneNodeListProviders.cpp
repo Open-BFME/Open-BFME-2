@@ -10,12 +10,7 @@
 #include <slist>
 #include "Gen_00943CF0_Node.h"
 
-struct Rva0006FB50List
-{
-	Gen_00943CF0_Node *head;
-	// 6FB50 -> 6FABF only relinks and recycles nodes, without throwing calls.
-	~Rva0006FB50List() throw();
-};
+#include "Rva0006FB50List.h"
 
 // Keep the known list destructor's erase call outlined under /Ob0.
 // The same inline erase definition is visible to the optimized rescale caller.
