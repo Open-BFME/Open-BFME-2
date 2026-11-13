@@ -8,12 +8,7 @@
 // on this then the inlined member dtor frees m_begin.p via the rowed C free
 // 0x00030830 when non-null. Same EH prolog shape as the rowed 63B 0x0033C3F3
 // and the landed 56B 0x0033BDC0 0x0033BD50 under /EHs. Caller at 0x0033DE59 unblocks 0x0033DDA1.
-struct Rva002CF7DE
-{
-	void *m_header;
-	int m_size;
-	void rva002CF7DE();
-};
+#include "../../Include/Common/Rva002CF7DE.h"
 
 struct Rva0033BD88Begin
 {

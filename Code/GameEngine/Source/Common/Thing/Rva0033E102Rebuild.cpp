@@ -63,15 +63,7 @@ namespace _STL
 	};
 }
 
-class Rva002CF7DE
-{
-public:
-	void rva002CF7DE();
-
-private:
-	void *m_header;
-	int m_size;
-};
+#include "../../../Include/Common/Rva002CF7DE.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

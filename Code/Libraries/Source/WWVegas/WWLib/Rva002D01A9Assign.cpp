@@ -13,12 +13,7 @@ struct Rva002CFA4ENode
 	Rva002CFA4ENode *m_right;
 	unsigned char m_value[20];
 };
-struct Rva002CF7DE
-{
-	void *m_header;
-	int m_size;
-	void rva002CF7DE();
-};
+#include "../../../../GameEngine/Include/Common/Rva002CF7DE.h"
 struct Rva002CFCEE
 {
 	Rva002CFA4ENode *rva002CFCEE(Rva002CFA4ENode *x, Rva002CFA4ENode *p);

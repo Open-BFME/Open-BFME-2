@@ -247,11 +247,7 @@ public:
 
 #include "../../Include/Common/Rva002CF7B5.h"
 
-class Rva002CF7DE
-{
-public:
-	void rva002CF7DE();
-};
+#include "../../Include/Common/Rva002CF7DE.h"
 
 class Rva002D02FD
 {
