@@ -133,7 +133,7 @@ void StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576AF3()
 
 class Rva00576BDDDispute;
 class Rva002B8817 { public: void rva002B8817(void *, void *); };
-class Rva005768CBCall { public: void rva005768CB(void *); };
+#include "../../../../Include/Common/Rva005768CBCall.h"
 
 // WB14D0CB0 names this method and its dispute/checklist loop. Retail576BDD
 // proves the12-byte pointer vector and receiver+18 filter; original payload
