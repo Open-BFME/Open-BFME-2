@@ -40,7 +40,7 @@ private:
 
 #include "../../../Include/Common/AptCommandMap.h"
 class AptOverButtonHandler : public AptRefCounted {};
-class AptCustomRender : public AptRefCounted {};
+#include "../../../Include/Common/AptCustomRender.h"
 class AptTimer : public AptRefCounted {};
 class AptExternHandler : public AptRefCounted {};
 

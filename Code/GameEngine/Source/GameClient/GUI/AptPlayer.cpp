@@ -102,7 +102,7 @@ private:
 
 #include "../../../Include/Common/AptRefCounted.h"
 #include "../../../Include/Common/AptCommandMap.h"
-class AptCustomRender : public AptRefCounted {};
+#include "../../../Include/Common/AptCustomRender.h"
 class AptTimer : public AptRefCounted {};
 class AptExternHandler : public AptRefCounted {};
 class AptOverButtonHandler : public AptRefCounted {};
