@@ -42,11 +42,7 @@ public:
 
 #include "../../../../Include/Common/Rva0057C2CC.h"
 
-class Rva0057C394 : public Rva0057C2CC
-{
-public:
-	void rva0057C394(const AsciiString &name, const TreeHintRef00217D4C &callback);
-};
+#include "../../../../Include/Common/Rva0057C394.h"
 
 class LivingWorldBattle;
 class Rva005E9625;

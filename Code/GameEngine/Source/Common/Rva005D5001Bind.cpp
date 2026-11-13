@@ -26,7 +26,7 @@ class Rva00579E47:public TreeHintRef00217D4C {
 public:Rva00579E47(const DelegateDesc&);~Rva00579E47(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
 };
 class Rva005D4F0E {public:void rva005D4F0E();void rva005D4F27(int,int);};
-class Rva0057C394 {public:void rva0057C394(const AsciiString&,const TreeHintRef00217D4C&);};
+#include "../../Include/Common/Rva0057C394.h"
 class Rva005D5001 {
 public:void rva005D5001(const TreeHintRef00217D4C&);
 private:char prefix[8];TreeHintRef00217D4C m_08;

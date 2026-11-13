@@ -29,7 +29,7 @@ typedef void(StrategicInGameUI::RegionAwardDialog::Impl::*AwardLoadMethod)(int,c
 #include "../../Include/Common/DelegateDesc.h"
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);void*ptr;};
 struct TreeHintRef00217D4C:public Rva00579E47 {TreeHintRef00217D4C(DelegateDesc d):Rva00579E47(d){}~TreeHintRef00217D4C(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
-class Rva0057C394 {public:void rva0057C394(const AsciiString&,const TreeHintRef00217D4C&);};
+#include "../../Include/Common/Rva0057C394.h"
 struct AwardSource {int unknown0,unknown4;_STL::vector<const ModuleData*>players;};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 struct AwardWorld {char unknown[0x98];const ModuleData*localPlayer;};
