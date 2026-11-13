@@ -10,11 +10,7 @@
 
 #include <new>
 
-class Rva000A97A9
-{
-public:
-	void rva000A97A9(void *dst);
-};
+#include "../../Include/Common/Rva000A97A9.h"
 
 struct Rva000AAD88Arg;
 // 0x000AA966 is matched as the constructor W3DAptDisplayString(Rva000AAD88Arg *).

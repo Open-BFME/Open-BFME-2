@@ -857,11 +857,7 @@ extern GameTextInterface *TheGameText;
 
 #include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
-class Rva000A97A9
-{
-public:
-	void rva000A97A9(void *dst);
-};
+#include "../../../../../GameEngine/Include/Common/Rva000A97A9.h"
 
 // The Apt text-field parameters (w3dAllocateString's argument).
 struct Rva000AAD88Arg
