@@ -452,14 +452,7 @@ public:
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 // The status setter 0x003743CF, rowed under an address-derived name.
-class Rva003743CF
-{
-public:
-	void rva003743CF(void *status, bool set);
-	char m_pad00[0x8];
-private:
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/Rva003743CF.h"
 
 // Zero Hour's Drawable::isDrawableEffectivelyHidden (0x00270260), rowed
 // under an address-derived name.

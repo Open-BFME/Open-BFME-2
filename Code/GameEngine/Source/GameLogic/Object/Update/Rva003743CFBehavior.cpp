@@ -105,14 +105,7 @@ void __cdecl setStatusCallback(Object *obj, void *userData)
 	obj->setStatus((ObjectStatusTypes)param->m_00, param->m_04);
 }
 
-class Rva003743CF
-{
-public:
-	void rva003743CF(void *status, bool set);
-	char m_pad00[0x8];
-private:
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/Rva003743CF.h"
 void Rva003743CF::rva003743CF(void *statusType, bool set)
 {
 	Object *object = m_object;

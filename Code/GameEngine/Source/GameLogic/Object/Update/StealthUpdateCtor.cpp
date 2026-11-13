@@ -91,14 +91,7 @@ public:
 };
 
 // The status helper at 0x003743CF, rowed under an address name.
-class Rva003743CF
-{
-public:
-	void rva003743CF(void *status, bool set);
-	char m_pad00[0x8];
-private:
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/Rva003743CF.h"
 
 class StealthUpdate : public UpdateModule, public MiBase1, public Rva00373CB1_B2
 {
