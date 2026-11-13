@@ -322,7 +322,7 @@ inline void addCoord(Coord3D *lhs, const Coord3D *rhs)
 	lhs->z += rhs->z;
 }
 class ModuleData;
-class Rva001E438B { public: float *rva00261988(float *out, Rva001E438B *other); };
+#include "../../../../../Include/GameLogic/Module/Rva001E438B.h"
 
 extern const char *TheLocomotorSetNames[];
 
