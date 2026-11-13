@@ -3,25 +3,7 @@
 // Calls rowed W3DProjectedShadow::rva00108951 at +0x58 then tail-jmps it at
 // +0x5C; caller at 0x0010BA18; chain from 0x00108951.
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DProjectedShadowClass.h"
-class Rva0010959E
-{
-public:
-	void rva0010959E();
-private:
-	char m_pad0[4];
-	unsigned char m_4;
-	unsigned char m_5;
-	char m_pad6[2];
-	float m_8;
-	float m_C;
-	float m_10;
-	char m_pad14[12];
-	float m_20;
-	char m_pad24[52];
-	W3DProjectedShadow *m_58;
-	W3DProjectedShadow *m_5c;
-	int m_60;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva0010959E.h"
 void Rva0010959E::rva0010959E()
 {
 	m_58->rva00108951();

@@ -158,11 +158,7 @@ public:
 };
 }
 
-class Rva0010959E
-{
-public:
-	void rva0010953E();
-};
+#include "../../../../Include/W3DDevice/GameClient/Rva0010959E.h"
 
 struct Rva007AED00Entry;
 class Rva007AED00Table
