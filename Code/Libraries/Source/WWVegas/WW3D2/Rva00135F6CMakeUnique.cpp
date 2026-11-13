@@ -8,11 +8,7 @@ public:
     void Make_Unique(bool);
     MeshModelClass *Get_Model();
 };
-class Rva0010E4D4
-{
-public:
-    void rva0010E4D4();
-};
+#include "../../../../GameEngine/Include/Common/Rva0010E4D4.h"
 #include "MeshModelClass.h"
 class Rva00135F6CNode
 {

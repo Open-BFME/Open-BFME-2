@@ -173,7 +173,7 @@ class MeshClass : public RenderObjClass { public: void Make_Unique(bool); };
 #define BFME2_WWLIB_REFCOUNTDATA_H
 #include "MaterialInfoClass.h"
 
-class Rva0010E4D4 { public: void rva0010E4D4(); };
+#include "../../../../GameEngine/Include/Common/Rva0010E4D4.h"
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/mapper.cpp
 
