@@ -356,3 +356,11 @@ files. The append tool's ICF option does not override tu_ownership A1's cross-TU
 second-row rule. No hand pin, gen-alias, source-only workaround or bridge
 clearance is claimed. Original6/6 is restored. [Exact evidence and admission
 prerequisite](../../reverse/attempt_support/godup-native-tables-20261113-root20.md).
+
+**Eva constructor table review (2026-11-13, root20, b5e6664017):** scratch full
+Subsystem14/Snapshot4 declarations preserve all7 constructor/EH rows357B.
+All18 slots agree only after hypothetical virtual reset1DF1A4 and empty
+loadPostProcessB3FD0 bindings. The owning A1 check rejects a new cross-TU
+empty row; reset's flat view also needs a normal virtual correction preserving
+layout. No source/row/pin changes banked or bridge retirement claimed.
+[Evidence](../../reverse/attempt_support/eva-native-tables-20261113-root20.md).

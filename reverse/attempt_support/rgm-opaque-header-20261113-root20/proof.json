@@ -1,0 +1,63 @@
+{
+ "references": {
+  "matched": [
+   "0x004F5A0D",
+   "0x004F5A67",
+   "0x004F5DFB",
+   "0x0079300D",
+   "0x00793017",
+   "0x00793024"
+  ],
+  "expected": [
+   "0x004F5A0D",
+   "0x004F5A67",
+   "0x004F5C84",
+   "0x004F5DFB",
+   "0x00793000",
+   "0x0079300D",
+   "0x00793017",
+   "0x00793024"
+  ],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\7633c31adff27105.obj",
+  "comdats": 22,
+  "delta": {
+   "changed": [
+    "?findBestSupplyWarehouse@ResourceGatheringManager@@QAEPAVObject@@PAV2@@Z"
+   ],
+   "added": [],
+   "removed": []
+  }
+ },
+ "inline_casts": {
+  "matched": [
+   "0x004F5A0D",
+   "0x004F5A67",
+   "0x004F5C84",
+   "0x004F5DFB",
+   "0x00793000",
+   "0x0079300D",
+   "0x00793017",
+   "0x00793024"
+  ],
+  "expected": [
+   "0x004F5A0D",
+   "0x004F5A67",
+   "0x004F5C84",
+   "0x004F5DFB",
+   "0x00793000",
+   "0x0079300D",
+   "0x00793017",
+   "0x00793024"
+  ],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\c69741b0e254e9e4.obj",
+  "comdats": 22,
+  "delta": {
+   "changed": [],
+   "added": [],
+   "removed": []
+  }
+ },
+ "winner": "inline_casts"
+}

@@ -1,0 +1,352 @@
+{
+ "source": "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+ "trials": {
+  "concrete_snapshot": {
+   "matched": [
+    "0x001DF91B",
+    "0x00769B19",
+    "0x00769B21",
+    "0x00769B63",
+    "0x00769B79",
+    "0x00769B81",
+    "0x00769B89"
+   ],
+   "expected": [
+    "0x001DF91B",
+    "0x00769B19",
+    "0x00769B21",
+    "0x00769B63",
+    "0x00769B79",
+    "0x00769B81",
+    "0x00769B89"
+   ],
+   "errors": [],
+   "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\79ba6a78e703ffb1.obj",
+   "tables": {
+    "??_7Eva@@6BSnapshot@@@": [
+     {
+      "extent": 16,
+      "pointers": {
+       "0": [
+        "??_EEva@@WM@AEPAXI@Z",
+        6,
+        0
+       ],
+       "4": [
+        "?loadPostProcess@Eva@@MAEXXZ",
+        6,
+        0
+       ],
+       "8": [
+        "?GetSnapshotName@Eva@@UBEPBDXZ",
+        6,
+        0
+       ],
+       "12": [
+        "?xfer@Eva@@MAEXPAVXfer@@@Z",
+        6,
+        0
+       ]
+      }
+     }
+    ],
+    "??_7Eva@@6BSubsystemInterface@@@": [
+     {
+      "extent": 4,
+      "pointers": {
+       "0": [
+        "??_EEva@@UAEPAXI@Z",
+        6,
+        0
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "complete": {
+   "matched": [
+    "0x001DF91B",
+    "0x00769B19",
+    "0x00769B21",
+    "0x00769B63",
+    "0x00769B79",
+    "0x00769B81",
+    "0x00769B89"
+   ],
+   "expected": [
+    "0x001DF91B",
+    "0x00769B19",
+    "0x00769B21",
+    "0x00769B63",
+    "0x00769B79",
+    "0x00769B81",
+    "0x00769B89"
+   ],
+   "errors": [],
+   "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\08bf4abf82310c97.obj",
+   "tables": {
+    "??_7Eva@@6BSnapshot@@@": [
+     {
+      "extent": 16,
+      "pointers": {
+       "0": [
+        "??_EEva@@WM@AEPAXI@Z",
+        6,
+        0
+       ],
+       "4": [
+        "?loadPostProcess@Eva@@MAEXXZ",
+        6,
+        0
+       ],
+       "8": [
+        "?GetSnapshotName@Eva@@UBEPBDXZ",
+        6,
+        0
+       ],
+       "12": [
+        "?xfer@Eva@@MAEXPAVXfer@@@Z",
+        6,
+        0
+       ]
+      }
+     }
+    ],
+    "??_7Eva@@6BSubsystemInterface@@@": [
+     {
+      "extent": 56,
+      "pointers": {
+       "0": [
+        "??_EEva@@UAEPAXI@Z",
+        6,
+        0
+       ],
+       "4": [
+        "?init@Eva@@UAEXXZ",
+        6,
+        0
+       ],
+       "8": [
+        "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        6,
+        0
+       ],
+       "12": [
+        "?postProcessLoad@SubsystemInterface@@UAEXXZ",
+        6,
+        0
+       ],
+       "16": [
+        "?vslot04@SubsystemInterface@@UAE_NH@Z",
+        6,
+        0
+       ],
+       "20": [
+        "?vslot05@SubsystemInterface@@UAE_NXZ",
+        6,
+        0
+       ],
+       "24": [
+        "?vslot06@SubsystemInterface@@UAEHXZ",
+        6,
+        0
+       ],
+       "28": [
+        "?vslot07@SubsystemInterface@@UAEXH@Z",
+        6,
+        0
+       ],
+       "32": [
+        "?vslot08@SubsystemInterface@@UAEXXZ",
+        6,
+        0
+       ],
+       "36": [
+        "?reset@Eva@@UAEXXZ",
+        6,
+        0
+       ],
+       "40": [
+        "?update@Eva@@UAEXXZ",
+        6,
+        0
+       ],
+       "44": [
+        "?vslot11@SubsystemInterface@@UAE_NH@Z",
+        6,
+        0
+       ],
+       "48": [
+        "?vslot12@SubsystemInterface@@UAEXXZ",
+        6,
+        0
+       ],
+       "52": [
+        "?vslot13@SubsystemInterface@@UAEXH@Z",
+        6,
+        0
+       ]
+      }
+     }
+    ]
+   }
+  }
+ },
+ "tables": {
+  "??_7Eva@@6BSnapshot@@@": {
+   "rva": "0x007DC5A8",
+   "slots": 4,
+   "native_targets": [
+    "0x001DF0F1",
+    "0x000B3FD0",
+    "0x001DD02B",
+    "0x001DD031"
+   ],
+   "unadmitted_mismatches": [
+    {
+     "slot": 1,
+     "name": "?loadPostProcess@Eva@@MAEXXZ",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 737232
+    }
+   ],
+   "mismatches_after_unadmitted_hypotheses": [],
+   "pointers": {
+    "0": [
+     "??_EEva@@WM@AEPAXI@Z",
+     6,
+     0
+    ],
+    "4": [
+     "?loadPostProcess@Eva@@MAEXXZ",
+     6,
+     0
+    ],
+    "8": [
+     "?GetSnapshotName@Eva@@UBEPBDXZ",
+     6,
+     0
+    ],
+    "12": [
+     "?xfer@Eva@@MAEXPAVXfer@@@Z",
+     6,
+     0
+    ]
+   }
+  },
+  "??_7Eva@@6BSubsystemInterface@@@": {
+   "rva": "0x007DC5B8",
+   "slots": 14,
+   "native_targets": [
+    "0x001DF3D5",
+    "0x001DF0F9",
+    "0x001B5384",
+    "0x000B3FD0",
+    "0x005CB9FF",
+    "0x0047A699",
+    "0x000D43D0",
+    "0x0047A69C",
+    "0x000B3FD0",
+    "0x001DF1A4",
+    "0x001DE156",
+    "0x005CB9FF",
+    "0x000B3FD0",
+    "0x0047A69C"
+   ],
+   "unadmitted_mismatches": [
+    {
+     "slot": 9,
+     "name": "?reset@Eva@@UAEXXZ",
+     "ledger_rvas": [],
+     "relocation_kind": 6,
+     "addend": 0,
+     "retail_target_rva": 1962404
+    }
+   ],
+   "mismatches_after_unadmitted_hypotheses": [],
+   "pointers": {
+    "0": [
+     "??_EEva@@UAEPAXI@Z",
+     6,
+     0
+    ],
+    "4": [
+     "?init@Eva@@UAEXXZ",
+     6,
+     0
+    ],
+    "8": [
+     "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     6,
+     0
+    ],
+    "12": [
+     "?postProcessLoad@SubsystemInterface@@UAEXXZ",
+     6,
+     0
+    ],
+    "16": [
+     "?vslot04@SubsystemInterface@@UAE_NH@Z",
+     6,
+     0
+    ],
+    "20": [
+     "?vslot05@SubsystemInterface@@UAE_NXZ",
+     6,
+     0
+    ],
+    "24": [
+     "?vslot06@SubsystemInterface@@UAEHXZ",
+     6,
+     0
+    ],
+    "28": [
+     "?vslot07@SubsystemInterface@@UAEXH@Z",
+     6,
+     0
+    ],
+    "32": [
+     "?vslot08@SubsystemInterface@@UAEXXZ",
+     6,
+     0
+    ],
+    "36": [
+     "?reset@Eva@@UAEXXZ",
+     6,
+     0
+    ],
+    "40": [
+     "?update@Eva@@UAEXXZ",
+     6,
+     0
+    ],
+    "44": [
+     "?vslot11@SubsystemInterface@@UAE_NH@Z",
+     6,
+     0
+    ],
+    "48": [
+     "?vslot12@SubsystemInterface@@UAEXXZ",
+     6,
+     0
+    ],
+    "52": [
+     "?vslot13@SubsystemInterface@@UAEXH@Z",
+     6,
+     0
+    ]
+   }
+  }
+ },
+ "load_post_process_full_byte_exact": true,
+ "load_post_process_admission_refusal": [
+  [
+   "A1",
+   "0x000B3FD0 ?loadPostProcess@Eva@@MAEXXZ: second row in Code/GameEngine/Source/GameClient/EvaCtor.cpp; owned by Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+  ]
+ ],
+ "limitation": "Only scratch declarations and hypothetical bindings. No source/ledger changes or bridge clearance."
+}
