@@ -21,12 +21,7 @@ struct HashNode
 
 #include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
-struct InsertResult
-{
-	HashNode *m_node;
-	void *m_table;
-	unsigned char m_inserted;
-};
+#include "../../../../GameEngine/Include/Common/InsertResult.h"
 
 class Rva001DE556
 {

@@ -17,12 +17,7 @@ struct HashNode
 	NoCaseTreeValue4 m_value;
 };
 
-struct InsertResult
-{
-	HashNode *m_node;
-	void *m_table;
-	unsigned char m_inserted;
-};
+#include "../../../../GameEngine/Include/Common/InsertResult.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 

@@ -96,12 +96,7 @@ struct NoCaseTreeValue4
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
 
-struct InsertResult
-{
-	void *m_node;
-	void *m_table;
-	bool m_inserted;
-};
+#include "../../Include/Common/InsertResult.h"
 
 class Rva001DE556
 {
