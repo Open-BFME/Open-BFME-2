@@ -434,14 +434,7 @@ void AptDisplayList::rva006F7AB0(int, void *item)
 // WorldBuilder body labels that renderer AptCIH::render and uses +0x28/+0x4C;
 // this callback's target offsets and cdecl argument order follow game.dat.
 // The callback's original source name remains unproven, so it stays RVA-based.
-class AptRenderingContext
-{
-public:
-	void pushColourTransform();
-	void pushVertexMatrix();
-	void popVertexMatrix();
-	void popColourTransform();
-};
+#include "AptRenderingContext.h"
 
 struct BfmeS1209;
 #include "BfmeA1209.h"

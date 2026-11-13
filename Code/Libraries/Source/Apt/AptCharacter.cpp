@@ -192,7 +192,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class AptRenderingContext {public:void pushVertexMatrix();void popVertexMatrix();};
+#include "AptRenderingContext.h"
 
 class BfmeThingDXH {public:void bfmeGoDXH(void*);};
 
