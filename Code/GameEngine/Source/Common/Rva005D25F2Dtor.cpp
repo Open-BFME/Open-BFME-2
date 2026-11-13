@@ -31,7 +31,7 @@ private:
 // The constructor's6x1C iterator calls native25-byte zero initialization;
 // the matching destructor5D258E..5D25F2 reverses five nontrivial members.
 #include "../../Include/Common/Rva000AD6F4.h"
-class Rva00528FE6 { public: void rva00529009(); };
+#include "../../Include/Common/Rva00528FE6.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct SlotClipOwner {

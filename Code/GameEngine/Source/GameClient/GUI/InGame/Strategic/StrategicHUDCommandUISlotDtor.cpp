@@ -8,7 +8,7 @@
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 // The button and submenu holders' destructor is 0x000AD6F4, the body clear shares.
 #include "../../../../../Include/Common/Rva000AD6F4.h"
-class Rva00528FE6 {public:void rva00529009();char data[4];};
+#include "../../../../../Include/Common/Rva00528FE6.h"
 struct FlashRef {Rva00528FE6 handle;~FlashRef(){handle.rva00529009();}};
 struct CountedSlotRef {TargetRef00217D4C*ptr;~CountedSlotRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}};
 class Rva005D2575 {public:Rva005D2575();~Rva005D2575();private:Rva000AD6F4 button,submenu;FlashRef flash;CountedSlotRef callback,timer;unsigned unknown14,unknown18;};

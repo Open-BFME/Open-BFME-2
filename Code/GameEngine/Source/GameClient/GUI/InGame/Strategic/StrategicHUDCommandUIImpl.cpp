@@ -61,14 +61,7 @@ namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 class Object;
 struct CameraMarker;
 #include "../../../../../Include/Common/Rva00575674.h"
-class Rva00528FE6
-{
-public:
-	void rva00528FE6(CameraMarker *marker);
-
-private:
-	void *m_ptr;
-};
+#include "../../../../../Include/Common/Rva00528FE6.h"
 
 // The Apt clip base the sub-menu derives from (vtable at +0x00, its
 // impl at +0x04; rowed under address names, ctor 0x005C40E7 with an untyped

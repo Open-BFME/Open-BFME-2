@@ -8,11 +8,7 @@ struct Rva002BED91
 	void clear();
 };
 
-struct Rva00528FE6
-{
-	void rva00529009();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva00528FE6.h"
 
 struct Rva005297A0Elem
 {

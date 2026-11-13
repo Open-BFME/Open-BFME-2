@@ -3,11 +3,7 @@
 // Evidence: chain from rowed 0x005D2505Get plus rowed 0x005D2664 plus caller shape plus sibling Rva005D2664Method TU.
 #include "../../Include/Common/Rva000AD6F4.h"
 
-class Rva00528FE6
-{
-public:
-	void rva00529009();
-};
+#include "../../Include/Common/Rva00528FE6.h"
 
 class Rva005D2664
 {
