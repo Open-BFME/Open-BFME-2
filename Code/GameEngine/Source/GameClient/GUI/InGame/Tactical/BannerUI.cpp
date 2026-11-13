@@ -223,11 +223,7 @@ extern "C" const void *const __identifier("??_7Rva00215E42@@6B@")[];
 class Rva00222A8BTarget;
 #define _CRTIMP
 void __cdecl Rva00030830GameFree(void *);
-class Rva00224455
-{
-public:
-	int RemoveCommandMap(const AsciiString *name);
-};
+#include "../../../../../Include/Common/Rva00224455.h"
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <cstddef>
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
