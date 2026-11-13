@@ -1,0 +1,157 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00215E42",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x29a287",
+      "0x4059b3"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x29a287",
+      "0x4059b3"
+     ],
+     "value": {
+      "0x0": "0x7e5838"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e5838"
+     ],
+     "value": {
+      "count": 6,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00215E42@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x215e42"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7e5838"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7e5838": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00215E42@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "__purecall",
+     "4": "__purecall",
+     "5": "__purecall"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot5()"
+  }
+ }
+}

@@ -21,11 +21,7 @@ private:
 
 // Retail's ctor unwind destroys this base through the rowed ~Rva00215E42
 // at 0x004059AC.
-class Rva00215E42
-{
-public:
-	virtual ~Rva00215E42();
-};
+#include "../../Include/Common/Rva00215E42.h"
 
 class Rva00406BB0Base
 {
