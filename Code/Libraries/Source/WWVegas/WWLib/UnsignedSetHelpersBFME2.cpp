@@ -36,7 +36,7 @@ void vector<unsigned int>::_M_set(unsigned int *s, unsigned int *f, unsigned int
     this->_M_end_of_storage._M_data = e;
 }
 }
-struct Rva0061F910Key {unsigned int a;};
+#include "../../assetmanager/Rva0061F910Key.h"
 inline bool operator<(const Rva0061F910Key&a,const Rva0061F910Key&b){return a.a<b.a;}
 // Both releases call the GameMemory free wrapper (0x00030830) directly.
 namespace _STL {

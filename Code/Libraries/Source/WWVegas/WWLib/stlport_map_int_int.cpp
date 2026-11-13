@@ -117,7 +117,7 @@ template class _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<c
 // this unit's int-map owner at 0x61F7B0, including its allocation release and
 // 0x692F5 subtree callee. No original key or application class name is claimed.
 extern void __cdecl Rva00030830FreeAllocation(void *);
-struct Rva0061F910Key { unsigned int a; };
+#include "../../assetmanager/Rva0061F910Key.h"
 inline bool operator<(const Rva0061F910Key &left, const Rva0061F910Key &right)
 {
     return left.a < right.a;

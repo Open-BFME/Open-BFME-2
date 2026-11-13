@@ -734,10 +734,7 @@ struct Rva0061F910Found : _STL::vector<unsigned int>
 	}
 };
 
-struct Rva0061F910Key
-{
-	unsigned int a;
-};
+#include "Rva0061F910Key.h"
 
 inline bool operator<(const Rva0061F910Key &left,
 	const Rva0061F910Key &right)
