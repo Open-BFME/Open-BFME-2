@@ -69,14 +69,7 @@ struct DamageFilteredCreateObjectDieModuleData
 	unsigned int m_timeWindow;			// +0x44
 };
 class ModuleData;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;			// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 class Rva00C4AA84Iface
 {

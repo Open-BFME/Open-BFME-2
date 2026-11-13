@@ -22,14 +22,7 @@ public:
 };
 class ModuleData;
 class Object;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 class AISpecialPowerUpdate : public ModuleBase, public Rva00C56D60Iface
 {
 public:

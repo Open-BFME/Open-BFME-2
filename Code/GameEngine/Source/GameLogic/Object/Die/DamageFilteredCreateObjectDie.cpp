@@ -35,14 +35,7 @@ enum NameKeyType
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Damage.h"
 class ModuleData;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	void *m_object;			// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

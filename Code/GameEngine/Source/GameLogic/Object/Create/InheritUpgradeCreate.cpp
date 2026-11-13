@@ -98,14 +98,7 @@ class Snapshot;
 // primary this (tail call; pinned by address on this call site, the body the
 // +0x10 slot-2 thunk 0x004B96C4 also reaches).
 typedef bool Bool;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 
 // Retail's tables, which the constructor installs: 0x00C596F4 (12 slots):
 // deleting dtor 0x004B94C7, loadPostProcess 0x00497805 (`jmp 0x0058B03E`,

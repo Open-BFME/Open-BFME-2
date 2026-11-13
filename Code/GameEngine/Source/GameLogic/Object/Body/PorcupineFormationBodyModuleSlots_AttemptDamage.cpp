@@ -50,14 +50,7 @@ struct PorcupineFormationBodyModuleData
 	char m_level;			// +0x6C
 };
 class ModuleData;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../../Include/GameLogic/Module/ActiveBody.h"

@@ -24,14 +24,7 @@ struct NotifyTargetsOfImminentProbableCrushingUpdateModuleData
 	unsigned char m_pad00[0x08];
 	int m_rate;			// +0x08
 };
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class NotifyTargetsOfImminentProbableCrushingUpdate : public UpdateModule

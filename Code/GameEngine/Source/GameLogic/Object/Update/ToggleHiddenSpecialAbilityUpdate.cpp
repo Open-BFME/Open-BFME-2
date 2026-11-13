@@ -211,20 +211,7 @@ private:
 	unsigned int m_88; // +0x88
 };
 
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-	virtual void p01(); virtual void p02(); virtual void p03(); virtual void p04();
-	virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08();
-	virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12();
-	virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16();
-	virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20();
-	virtual void p21(); virtual void p22();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 
 // tu-skeleton: 0x004AE155 25B ??0ToggleHiddenSpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleHiddenSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
 

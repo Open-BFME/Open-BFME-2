@@ -255,14 +255,7 @@ public:
 	float m_scanIntervalSeconds; // +0x14
 };
 
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../Include/GameLogic/Module/ModuleBase.h"
 
 #include "../../Include/Common/MiBase1.h"
 

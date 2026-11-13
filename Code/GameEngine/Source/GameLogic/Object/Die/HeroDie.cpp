@@ -35,14 +35,7 @@ struct HeroDieModuleData
 	unsigned char m_pad00[0x38];
 	const SpecialPowerTemplate *m_specialPowerTemplate;	// +0x38
 };
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ModuleBase.h"
 //
 // ??0HeroDie@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C2324, 42 bytes.
 // Behavior-side ctor completing the HeroDie file-unit (poolkey rowed at
