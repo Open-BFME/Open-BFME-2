@@ -623,11 +623,7 @@ public:
 
 void bfmeFreeSizedVF( void *block, unsigned int size );
 
-class BfmeThingRF
-{
-public:
-	void *bfmeGoRF( void *key, void *defaultValue );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeThingRF.h"
 
 struct Rva00809500Entry;
 
