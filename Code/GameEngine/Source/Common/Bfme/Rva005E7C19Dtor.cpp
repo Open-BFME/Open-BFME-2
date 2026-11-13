@@ -10,7 +10,7 @@
 // 0x005E7EE8 plus prev/next same /O1 flags.
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-class Rva005E7855 { public: void rva005E7855(); };
+#include "../../../Include/Common/Rva005E7855.h"
 struct Holder005E7C19 {
   ~Holder005E7C19() { if (ptr) ReleaseTreeHintRef00217D4C(ptr); }
   TargetRef00217D4C *ptr;

@@ -3,11 +3,7 @@
 // Change-notify setter: when the argument differs from +0xC, runs the
 // pinned 0x005E7855 pre-hook, stores it, then runs the pinned 0x005E7C56
 // post-hook. All identities unproven (address-derived).
-class Rva005E7855
-{
-public:
-	void rva005E7855();
-};
+#include "../../Include/Common/Rva005E7855.h"
 
 class StrategicInGameUI
 {
