@@ -73,7 +73,7 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern "C" double __cdecl fabs(double);
-struct PathfinderCostCellInfo { Int x,y; };
+#include "../../../Include/Common/PathfinderCostCellInfo.h"
 struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent,state;unsigned short totalCost,costSoFar;char pad14[0x28-0x14];Int obstacleID;unsigned int flags; };
 #include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;

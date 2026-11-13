@@ -41,12 +41,7 @@ struct BlockParse
 extern BlockParse *theBlockParseList;
 
 
-struct PathfinderCostCellInfo
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/PathfinderCostCellInfo.h"
 #include "../../../Include/Common/Rva002F35AFHop.h"
 struct Rva002F0D35Record {void *m_value; bool operator<(const Rva002F0D35Record &) const;};
 // The member vector dies through the folded POD vector destructor 0x0007FAB3

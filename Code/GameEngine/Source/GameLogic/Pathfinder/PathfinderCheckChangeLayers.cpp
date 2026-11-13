@@ -82,12 +82,7 @@ class Pathfinder;
 class PathfindCell;
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-struct PathfinderCostCellInfo
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/PathfinderCostCellInfo.h"
 void ji_00629952();
 #include "../../../Include/GameLogic/PathfindCell.h"
 

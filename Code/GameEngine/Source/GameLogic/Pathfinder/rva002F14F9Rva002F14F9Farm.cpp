@@ -138,12 +138,7 @@ bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 extern "C" double __cdecl fabs(double);
-struct PathfinderCostCellInfo
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/PathfinderCostCellInfo.h"
 struct PathfinderGroundInfo
 {
 public:

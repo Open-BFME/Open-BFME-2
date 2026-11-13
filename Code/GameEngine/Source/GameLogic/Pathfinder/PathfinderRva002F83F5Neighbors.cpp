@@ -77,12 +77,7 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include <math.h>
-struct PathfinderCostCellInfo
-{
-public:
-	int x; // +0x00
-	int y; // +0x04
-};
+#include "../../../Include/Common/PathfinderCostCellInfo.h"
 class Waypoint;
 struct PathfinderGroundInfo
 {

@@ -184,7 +184,7 @@ bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 #include <math.h>
-struct PathfinderCostCellInfo { Int x,y; };
+#include "../../../Include/Common/PathfinderCostCellInfo.h"
 struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent;Waypoint *parentWaypoint;unsigned short totalCost,costSoFar;char pad14[0x28-0x14];ObjectID obstacleID;unsigned int flags; };
 #include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;
