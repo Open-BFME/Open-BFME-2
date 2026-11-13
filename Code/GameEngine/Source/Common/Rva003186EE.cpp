@@ -7,11 +7,7 @@ class Rva00285D34;
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 
-class Rva003184B8
-{
-public:
-	void rva003184B8();
-};
+#include "../../Include/Common/Rva003184B8.h"
 
 class Rva003186EE
 {

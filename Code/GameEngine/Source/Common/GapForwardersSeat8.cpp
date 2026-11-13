@@ -75,7 +75,7 @@ class DataChunkInput;
 #include "../../Include/Common/ElevatedAreaPolygon.h"
 struct Rva0030B7C2Point;
 class Rva002E37B1 { public: bool rva002E37B1(const Rva0030B7C2Point *point); };	// 0x002E37B1
-class Rva003184B8 { public: void rva003184B8(); };	// 0x003184B8
+#include "../../Include/Common/Rva003184B8.h"
 #include "../../Include/GameLogic/Rva0030B719Shape.h"
 
 // --- 0x001F4A1A: +0x78 then RvaSmartPtr12::operator=.
