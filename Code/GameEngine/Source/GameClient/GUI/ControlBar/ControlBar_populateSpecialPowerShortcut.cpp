@@ -94,11 +94,7 @@ class SpecialPowerTemplate;
 
 #include "../../../../Include/GameClient/CommandSet.h"
 
-class Rva0035B7D9
-{
-public:
-	void rva0035B7D9(Rva0035B7D9 *source, bool notify);
-};
+#include "../../../../Include/GameClient/Rva0035B7D9.h"
 
 #include "ControlBarMemberTypes.h"
 enum CommandButtonMappedBorderType
