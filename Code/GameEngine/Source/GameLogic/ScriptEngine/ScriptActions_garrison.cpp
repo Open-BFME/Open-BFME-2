@@ -288,11 +288,7 @@ private:
 	unsigned char m_data[0x14];
 };
 
-class InGameNotificationType
-{
-public:
-	Rva002217EA rva00221ABB() const; // WB 0x00B8D300, unnamed: the type's record
-};
+#include "../../../Include/GameClient/InGameNotificationType.h"
 InGameNotificationType *FindInGameNotificationType(const AsciiString &name);
 
 #include "../../../Include/GameClient/GameText.h"
