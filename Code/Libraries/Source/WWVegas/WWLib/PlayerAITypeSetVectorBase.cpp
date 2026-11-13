@@ -6,5 +6,5 @@
 // byte-and-relocation twins of the existing owners; neither adds code credit.
 #include "ascii_string.h"
 #include <vector>
-struct BfmeVectorRecord0002154F3 { AsciiString name; _STL::vector<AsciiString> libraries; };
+#include "../../../../GameEngine/Include/Common/BfmeVectorRecord0002154F3.h"
 template _STL::_Vector_base<BfmeVectorRecord0002154F3,_STL::allocator<BfmeVectorRecord0002154F3> >::_Vector_base(const _STL::allocator<BfmeVectorRecord0002154F3>&);
