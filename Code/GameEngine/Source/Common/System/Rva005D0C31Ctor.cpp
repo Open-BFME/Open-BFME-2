@@ -27,11 +27,7 @@ public:
 	Rva005A0B4CList m_6c;
 };
 
-class Rva005D0C31Second
-{
-public:
-	virtual ~Rva005D0C31Second() {}
-};
+#include "../../../Include/Common/Rva005D0C31Second.h"
 
 class Rva005D078B : public Rva005CF8A1, public Rva005D0C31Second
 {
