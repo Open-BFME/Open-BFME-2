@@ -46,13 +46,13 @@ public:
 };
 
 // Retail table 0x00C728B8 (six slots); see Rva005AFE86Ctor.cpp.
-class Rva005AFE86 : public Rva005AFE3FBase
+class Rva005AFE3F : public Rva005AFE3FBase
 {
 public:
-	Rva005AFE86(void *p);
+	Rva005AFE3F(void *p);
 	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
 	virtual void rva005AFCEC(int id);
-	virtual ~Rva005AFE86();
+	virtual ~Rva005AFE3F();
 	virtual bool PopulatePlayerList() = 0;
 	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
 	virtual void vslot05(const AsciiString &name) {}
@@ -70,26 +70,26 @@ public:
 // ??0Rva005D5095Base@@QAE@H@Z retail 0x005D5095 24B (the pinned base of the
 // two constructors below): forwards its int to 0x005AFE86 and stamps vtable
 // 0x00875AC4, the one ??1Rva005D50D8 restores.
-class Rva005D5095Base : public Rva005AFE86
+class Rva005D5095Base : public Rva005AFE3F
 {
 public:
 	Rva005D5095Base(int a);
 };
 
-Rva005D5095Base::Rva005D5095Base(int a) : Rva005AFE86((void *)a)
+Rva005D5095Base::Rva005D5095Base(int a) : Rva005AFE3F((void *)a)
 {
 }
 
 // ??0Rva005AF9EF@@QAE@XZ retail 0x005AF9EF 20B: the same chain with the
 // constant 1 and vtable 0x0087287C, the one ??1Rva005AFA03 restores (caller
 // 0x00511826).
-class Rva005AF9EF : public Rva005AFE86
+class Rva005AF9EF : public Rva005AFE3F
 {
 public:
 	Rva005AF9EF();
 };
 
-Rva005AF9EF::Rva005AF9EF() : Rva005AFE86((void *)1)
+Rva005AF9EF::Rva005AF9EF() : Rva005AFE3F((void *)1)
 {
 }
 

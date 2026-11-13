@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ??0Rva005AFE86@@QAE@PAX@Z, retail 0x005AFE86, 85 bytes.
+// ??0Rva005AFE3F@@QAE@PAX@Z, retail 0x005AFE86, 85 bytes.
 // Chain ctor: stores vtable 0x00C728B8, arg at +4, zeroes +8..+20,
 // then appends this to global list via Get 0x00381452 (returns 0x00E02310)
 // and append 0x005A0B4C. Base 0x005AFE86 calls derived 0x005D57D3.
@@ -36,13 +36,13 @@ public:
 // Slot 3 is the PopulatePlayerList the derived tables fill; slots 4 and 5 keep
 // slot names (the derived rows at them take a string reference and a window,
 // and a string reference).
-class Rva005AFE86 : public Rva005AFE3FBase
+class Rva005AFE3F : public Rva005AFE3FBase
 {
 public:
-	Rva005AFE86(void *p);
+	Rva005AFE3F(void *p);
 	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
 	virtual void rva005AFCEC(int id);
-	virtual ~Rva005AFE86();
+	virtual ~Rva005AFE3F();
 	virtual bool PopulatePlayerList() = 0;
 	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
 	virtual void vslot05(const AsciiString &name) {}
@@ -57,7 +57,7 @@ public:
 	int m_20;
 };
 
-Rva005AFE86::Rva005AFE86(void *p)
+Rva005AFE3F::Rva005AFE3F(void *p)
 	: m_04(p)
 {
 	m_08 = 0;

@@ -255,14 +255,14 @@ public:
 // Retail table 0x00C728B8, six slots: 0x005AFD89, 0x005AFCEC, the deleting
 // destructor 0x005AFEDB, two __purecall slots and the shared `ret 4` 0x0047A69C.
 // Slot 3 is the PopulatePlayerList the derived tables fill; slots 4 and 5 keep
-// slot names. The constructor 0x005AFE86 is rowed under this name.
-class Rva005AFE86 : public Rva005AFE3FBase
+// slot names.
+class Rva005AFE3F : public Rva005AFE3FBase
 {
 public:
-	Rva005AFE86(void *p);
+	Rva005AFE3F(void *p);
 	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
 	virtual void rva005AFCEC(int id);
-	virtual ~Rva005AFE86();
+	virtual ~Rva005AFE3F();
 	virtual bool PopulatePlayerList() = 0;
 	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
 	virtual void vslot05(const AsciiString &name) {}
@@ -290,27 +290,6 @@ int Rva00381452Get();
 
 #include "../../../Include/Common/Rva002B7250.h"
 
-// The same class under the name its destructor rows carry.
-class Rva005AFE3F : public Rva005AFE3FBase
-{
-public:
-	Rva005AFE3F(void *p);
-	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
-	virtual void rva005AFCEC(int id);
-	virtual ~Rva005AFE3F();
-	virtual bool PopulatePlayerList() = 0;
-	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
-	virtual void vslot05(const AsciiString &name) {}
-
-	void *m_04;
-	int m_08;
-	GameWindow *m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1C;
-	int m_20;
-};
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp
 
@@ -583,14 +562,14 @@ void Rva005AFD43::rva005AFD43(GameWindow *g, const UnicodeString &s)
 // ---- from Code/GameEngine/Source/Common/Rva005AFD89Slot0.cpp
 
 //
-// ?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z, retail 0x005AFD89, 60 bytes.
-// Slot 0 of vtable 0x008728B8 (Rva005AFE86 ctor TU): checks id vs +4 and
+// ?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z, retail 0x005AFD89, 60 bytes.
+// Slot 0 of vtable 0x008728B8 (Rva005AFE3F ctor TU): checks id vs +4 and
 // listbox +0xC non-null then GadgetListBoxAddEntryText via rowed 0x00326BEC
 // with text+color from second param struct, row -1 column -1 overwrite true.
 // Evidence: vtable slot 0 refs; callees rowed copyCtor 0x00037050 and
 // 0x00326BEC; neighbours Rva005AFE86Ctor // cl /O1 /MD /EHsc.
 
-void Rva005AFE86::rva005AFD89(int id, const Rva005AFD89Param *p)
+void Rva005AFE3F::rva005AFD89(int id, const Rva005AFD89Param *p)
 {
 	if (id != (int)m_04) {
 		return;
@@ -611,5 +590,5 @@ Rva005AFE3F::~Rva005AFE3F()
 	m_10 = 0;
 }
 
-// tu-skeleton: 0x005AFE86 85B ??0Rva005AFE86@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva005AFE86Ctor.cpp (not merged yet)
+// tu-skeleton: 0x005AFE86 85B ??0Rva005AFE3F@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva005AFE86Ctor.cpp (not merged yet)
 

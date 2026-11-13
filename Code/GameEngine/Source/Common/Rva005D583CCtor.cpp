@@ -1,6 +1,6 @@
 // cl: /MD
 // ??0Rva005D57D3@@QAE@PAX@Z retail 0x005D57D3 24B
-// Derived ctor: calls rowed base ??0Rva005AFE86@@QAE@PAX@Z 0x005AFE86
+// Derived ctor: calls rowed base ??0Rva005AFE3F@@QAE@PAX@Z 0x005AFE86
 // with same arg, then overwrites base m_vtable slot at +0 with own
 // vtable 0x00875B2C via plain store (non-polymorphic derived, no shift,
 // no lea). Evidence: callers 0x005D5807 0x005D582D do new plus this ctor.
@@ -8,7 +8,7 @@ extern "C" const void *const __identifier("??_7Rva005D583C@@6B@")[];  // vftable
 // The retail table at RVA 0x00875B44: 6 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
-void __identifier("?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z")();
+void __identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z")();
 void __identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z")();
 void __identifier("??_GRva005D583C@@UAEPAXI@Z")();
 void __identifier("?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ")();
@@ -16,7 +16,7 @@ void __identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindo
 void __identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z")();
 }
 extern "C" const void *const vtbl_00C75B44[6] = {
-	(const void *)&__identifier("?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
+	(const void *)&__identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
 	(const void *)&__identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z"), // slot 1 0x005AFCEC
 	(const void *)&__identifier("??_GRva005D583C@@UAEPAXI@Z"), // slot 2 0x005D58A8
 	(const void *)&__identifier("?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ"), // slot 3 0x005D6AA4
@@ -26,7 +26,7 @@ extern "C" const void *const vtbl_00C75B44[6] = {
 // The retail table at RVA 0x00875B5C: 6 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
-void __identifier("?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z")();
+void __identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z")();
 void __identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z")();
 void __identifier("??_GRva005D583C@@UAEPAXI@Z")();
 void __identifier("?PopulatePlayerList@ChatWindowsOnlineBuddy@@UAE_NXZ")();
@@ -34,7 +34,7 @@ void __identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindo
 void __identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z")();
 }
 extern "C" const void *const vtbl_00C75B5C[6] = {
-	(const void *)&__identifier("?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
+	(const void *)&__identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
 	(const void *)&__identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z"), // slot 1 0x005AFCEC
 	(const void *)&__identifier("??_GRva005D583C@@UAEPAXI@Z"), // slot 2 0x005D58A8
 	(const void *)&__identifier("?PopulatePlayerList@ChatWindowsOnlineBuddy@@UAE_NXZ"), // slot 3 0x005D6C94
@@ -49,10 +49,10 @@ public:
 	~EmptyBase005AFE86();
 };
 
-class Rva005AFE86 : public EmptyBase005AFE86
+class Rva005AFE3F : public EmptyBase005AFE86
 {
 public:
-	Rva005AFE86(void *p);
+	Rva005AFE3F(void *p);
 private:
 	const void *m_vtable;
 	void *m_04;
@@ -65,13 +65,13 @@ private:
 	int m_20;
 };
 
-class Rva005D57D3 : public Rva005AFE86
+class Rva005D57D3 : public Rva005AFE3F
 {
 public:
 	Rva005D57D3(void *p);
 };
 
-Rva005D57D3::Rva005D57D3(void *p) : Rva005AFE86(p)
+Rva005D57D3::Rva005D57D3(void *p) : Rva005AFE3F(p)
 {
 	*(unsigned *)this = ((unsigned int)__identifier("??_7Rva005D583C@@6B@"));
 }
