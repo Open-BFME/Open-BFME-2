@@ -183,6 +183,8 @@ private:
 	bool m_firesWhileTurning;					// +0x3D
 	bool m_isForceAttacking;					// +0x3E
 	bool m_targetWasSetByIdleMood;				// +0x3F
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004D86BB
 };
 // End of the TurretAI.cpp TU view.
 

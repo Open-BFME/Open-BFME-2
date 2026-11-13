@@ -47,7 +47,7 @@ const char *WorkOrder::GetSnapshotName() const { return "WorkOrder"; }
 const char *TeamInQueue::GetSnapshotName() const { return "TeamInQueue"; }
 BFME_LITERAL_NAME_GETTER(Rva004E4007Named, "ObjectivesMenu")
 BFME_SNAPSHOT_NAME_GETTER(FiringTracker, "FiringTracker")
-BFME_LITERAL_NAME_GETTER(TurretAI, "TurretAI")
+BFME_SNAPSHOT_NAME_GETTER(TurretAI, "TurretAI")
 BFME_LITERAL_NAME_GETTER(AnimationSoundClientBehavior, "AnimationSoundClientBehavior")
 BFME_LITERAL_NAME_GETTER(ActiveBody, "ActiveBody")
 BFME_LITERAL_NAME_GETTER(AudioLoopUpgrade, "AudioLoopUpgrade")

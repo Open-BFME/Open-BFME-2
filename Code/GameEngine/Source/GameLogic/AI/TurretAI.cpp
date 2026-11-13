@@ -1437,7 +1437,7 @@ Bool TurretAI::friend_isAnyWeaponInRangeOf(const Object* object) const
 
 // tu-skeleton: 0x004D85B6 251B ??0TurretAI@@QAE@PAVObject@@PBVTurretAIData@@W4WhichTurretType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004D86BB 6B ?name@TurretAI@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x004D86BB 6B ?GetSnapshotName@TurretAI@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004D86C1 86B ??1TurretAI@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp (not merged yet)
 
