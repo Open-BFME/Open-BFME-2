@@ -118,6 +118,184 @@ def test_trial_batch_shares_ledger_and_restores_sources_even_on_exception(tmp_pa
     assert {s: (tmp_path / s).read_bytes() for s in originals} == originals
 
 
+@pytest.fixture
+def provider_acceptance(tmp_path, monkeypatch):
+    import link_check as check
+    policy = tmp_path / "reverse/vp6_cleanroom/queue.tsv"
+    policy.parent.mkdir(parents=True)
+    policy.write_bytes((check.ROOT / "reverse/vp6_cleanroom/queue.tsv").read_bytes())
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "BFME2", True)
+    monkeypatch.setattr(check, "ROOT", tmp_path)
+    (tmp_path / "tools").mkdir()
+    (tmp_path / "tools/link_check.py").touch()
+    (tmp_path / "C.h").write_text("class C {};\n")
+    rows, owned, calls = [], {}, []
+
+    def add(name):
+        source = "Code/" + name
+        path = tmp_path / source
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('#include "../C.h"\n')
+        owned[path.with_suffix(".obj")] = path
+        rows.append(dict(source=source, name=name, target_rva="0x00200000", target_size="5"))
+        return source
+
+    consumer, provider = add("consumer.cpp"), add("provider.cpp")
+    queue = tmp_path / "queue.tsv"
+    queue.write_bytes(f"class\tsource\nC\t{consumer}\nC\t{provider}\n".encode())
+    monkeypatch.setattr(lane, "QUEUE", queue)
+    monkeypatch.setattr(check.link_census, "ledger", lambda: rows)
+    monkeypatch.setattr(check.link_census, "_object_sources", lambda _: owned)
+    monkeypatch.setattr(check, "_git", lambda *a, **kw: "tracked")
+    monkeypatch.setattr(lane, "gate_many", lambda ss: calls.append(("byte", list(ss))) or dict.fromkeys(ss))
+    real_link_ok = lane.link_ok
+    monkeypatch.setattr(lane, "link_ok", lambda ss: calls.append(("link", list(ss))) or dict.fromkeys(ss, True))
+    return SimpleNamespace(root=tmp_path, consumer=consumer, provider=provider, queue=queue,
+                           rows=rows, owned=owned, calls=calls, add=add, check=check, parser=real_link_ok)
+
+
+def test_explicit_provider_context_preserves_single_consumer_and_retires_only_it(provider_acceptance, monkeypatch):
+    t = provider_acceptance
+    monkeypatch.setattr(lane, "link_ok", lambda ss: t.calls.append(("link", list(ss))) or
+                        {s: t.provider in ss for s in ss})
+    before = t.queue.read_bytes()
+    assert lane.accept("C", [t.consumer], "C.h", gate=lambda s: None) == 1
+    assert t.queue.read_bytes() == before
+    t.calls.clear()
+    assert lane.accept("C", ["./" + t.consumer], "C.h", providers=[str(t.root / t.provider)]) == 0
+    assert t.calls == [("byte", [t.consumer, t.provider]), ("link", [t.consumer, t.provider])]
+    assert t.queue.read_text() == f"class\tsource\nC\t{t.provider}\n"
+
+
+@pytest.mark.parametrize("failure", ["byte", "missing-byte", "link", "missing-link", "unknown-link"])
+def test_explicit_provider_failure_never_retires_consumer(provider_acceptance, monkeypatch, failure):
+    t = provider_acceptance
+    before = t.queue.read_bytes()
+    builds = {t.consumer: None, t.provider: "byte mismatch" if failure == "byte" else None}
+    links = {t.consumer: True, t.provider: False if failure == "link" else None if failure == "unknown-link" else True}
+    if failure == "missing-byte":
+        del builds[t.provider]
+    if failure == "missing-link":
+        del links[t.provider]
+    monkeypatch.setattr(lane, "gate_many", lambda ss: builds)
+    monkeypatch.setattr(lane, "link_ok", lambda ss: links)
+    assert lane.accept("C", [t.consumer], "C.h", providers=[t.provider]) == 1
+    assert t.queue.read_bytes() == before
+
+
+@pytest.mark.parametrize("output", ["missing", "duplicate", "out-of-census"])
+def test_provider_parser_failure_cannot_be_hidden_by_passing_consumer(provider_acceptance, monkeypatch, output):
+    t = provider_acceptance
+    monkeypatch.setattr(lane, "link_ok", t.parser)
+    linked = []
+    def run(command, **kwargs):
+        linked.append(command[2:])
+        if output == "out-of-census" and t.provider in command:
+            return SimpleNamespace(stdout="", returncode=1, stderr=(
+                "link_check: not in census old, so not previewable (the next census measures it): "
+                + t.provider + "\n"))
+        text = preview(t.consumer, 351, 351)
+        if output == "duplicate":
+            text += preview(t.provider, 60, 60) * 2
+        return SimpleNamespace(stdout=text, stderr="", returncode=0)
+    monkeypatch.setattr(lane.subprocess, "run", run)
+    before = t.queue.read_bytes()
+    assert lane.accept("C", [t.consumer], "C.h", providers=[t.provider]) == 1
+    assert linked == ([[t.consumer, t.provider], [t.consumer]] if output == "out-of-census"
+                      else [[t.consumer, t.provider]])
+    assert t.queue.read_bytes() == before
+
+
+def test_explicit_context_keeps_validated_snapshot_when_raw_alias_retargets(provider_acceptance, monkeypatch):
+    t = provider_acceptance
+    alias = t.root / "Code/alias.cpp"
+    resolve = Path.resolve
+    alias_reads = []
+    def retarget(path, *args, **kwargs):
+        if path == alias:
+            alias_reads.append(path)
+            return t.root / (t.provider if len(alias_reads) == 1 else "Code/VP6/decoder.cpp")
+        return resolve(path, *args, **kwargs)
+    monkeypatch.setattr(Path, "resolve", retarget)
+    assert lane.accept("C", [t.consumer], "C.h", providers=[str(alias)]) == 0
+    assert len(alias_reads) == 1
+    assert t.calls == [("byte", [t.consumer, t.provider]), ("link", [t.consumer, t.provider])]
+
+
+def test_explicit_context_refuses_snapshot_changed_by_validation(provider_acceptance, monkeypatch):
+    t = provider_acceptance
+    monkeypatch.setattr(t.check, "preparation_sources", lambda *args: [t.root / t.consumer])
+    before = t.queue.read_bytes()
+    assert lane.accept("C", [t.consumer], "C.h", providers=[t.provider]) == 1
+    assert t.calls == [] and t.queue.read_bytes() == before
+
+
+@pytest.mark.parametrize("body", ['class C {};\n#include "../C.h"\n', "// missing include\n"])
+def test_explicit_provider_does_not_substitute_for_adoption(provider_acceptance, body):
+    t = provider_acceptance
+    (t.root / t.consumer).write_text(body)
+    before = t.queue.read_bytes()
+    assert lane.accept("C", [t.consumer], "C.h", providers=[t.provider]) == 1
+    assert t.queue.read_bytes() == before
+    assert t.calls == [("byte", [t.consumer, t.provider])]
+
+
+@pytest.mark.parametrize("failure", ["discovery", "incomplete"])
+def test_explicit_context_never_partially_accepts_a_dependency_group(provider_acceptance, monkeypatch, failure):
+    t = provider_acceptance
+    other = t.add("other.cpp")
+    seen = []
+    def dependencies(sources):
+        seen.append(sources)
+        if failure == "discovery":
+            raise RuntimeError("missing dependency evidence")
+        return {t.provider: {"old": [other]}}
+    monkeypatch.setattr(lane, "acceptance_dependencies", dependencies)
+    before = t.queue.read_bytes()
+    assert lane.accept("C", [t.consumer], "C.h", providers=[t.provider]) == 1
+    assert seen == [[t.consumer, t.provider]]
+    assert t.calls == [] and t.queue.read_bytes() == before
+
+
+@pytest.mark.parametrize("failure", ["outside", "unowned", "untracked", "decoder-path", "decoder-rva",
+                                    "ambiguous", "too-many", "overlap", "asm", "upstream"])
+def test_explicit_context_scope_refuses_before_build(provider_acceptance, monkeypatch, failure):
+    t = provider_acceptance
+    providers = [t.provider]
+    if failure == "outside":
+        providers = ["../outside.cpp"]
+    elif failure == "unowned":
+        t.owned.clear()
+    elif failure == "untracked":
+        monkeypatch.setattr(t.check, "_git", lambda *a, **kw: (_ for _ in ()).throw(SystemExit("untracked")))
+    elif failure == "decoder-path":
+        providers = ["Code/VP6/decoder.cpp"]
+        monkeypatch.setattr(t.check.link_census, "ledger", lambda: pytest.fail("protected request read ledger"))
+    elif failure == "decoder-rva":
+        t.rows[1]["target_rva"] = f"0x{t.check.decoder_policy()[0][0][0]:08X}"
+    elif failure == "ambiguous":
+        t.rows.append(dict(t.rows[0], source="Code/other.cpp", name=t.provider + "Extra"))
+    elif failure == "too-many":
+        providers += [t.add(f"extra{i}.cpp") for i in range(31)]
+    elif failure == "overlap":
+        providers = [str(t.root / "Code/../Code/consumer.cpp")]
+    elif failure == "asm":
+        providers = [t.add("provider.asm")]
+    elif failure == "upstream":
+        monkeypatch.setattr(lane, "BFME2", False)
+    before = t.queue.read_bytes()
+    assert lane.accept("C", [t.consumer], "C.h", providers=providers) == 1
+    assert t.calls == [] and t.queue.read_bytes() == before
+
+
+def test_accept_cli_passes_explicit_provider_roles(monkeypatch):
+    calls = []
+    monkeypatch.setattr(lane, "accept", lambda *args, **kwargs: calls.append((args, kwargs)) or 0)
+    assert lane.main(["accept", "--class", "C", "--provider", "Code/p.cpp", "Code/c.cpp"]) == 0
+    assert calls == [(("C", ["Code/c.cpp"], None), {"providers": ["Code/p.cpp"]})]
+
+
 def test_batch_acceptance_shares_setup_and_requires_individual_link_results(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "C.h").write_text("class C {};\n")

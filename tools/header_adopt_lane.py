@@ -5877,9 +5877,89 @@ def retire_rows(done):
     return len(rows) - len(kept)
 
 
-def accept(name, sources, header=None, gate=None):
+def acceptance_cohort(sources, providers):
+    """Bound explicit current C/C++ context using the link maintenance safety checks."""
+    if not BFME2:
+        raise ValueError("explicit acceptance providers require BFME 2")
+    import link_check
+    arguments = [*sources, *providers]
+    link_check.preparation_path_preflight(arguments)
+    # Preserve one resolved snapshot for validation, roles, builds and retirement;
+    # re-resolving raw aliases later could substitute an unchecked symlink target.
+    resolved = [(Path(p) if Path(p).is_absolute() else ROOT / p).resolve() for p in arguments]
+    link_check.preparation_path_preflight(resolved)
+    paths = link_check.preparation_sources(resolved, link_check.link_census.ledger())
+    if set(paths) != set(resolved):
+        raise ValueError("acceptance source paths moved during validation")
+    if any(path.suffix.lower() not in (".c", ".cpp") for path in paths):
+        raise ValueError("acceptance providers and consumers must be C/C++ sources")
+
+    def normalized(paths):
+        return list(dict.fromkeys(p.relative_to(ROOT.resolve()).as_posix() for p in paths))
+
+    sources, providers = normalized(resolved[:len(sources)]), normalized(resolved[len(sources):])
+    if set(sources) & set(providers):
+        raise ValueError("acceptance consumers and providers overlap")
+    if not sources or not providers:
+        raise ValueError("explicit acceptance context needs consumers and providers")
+    return sources, providers
+
+
+def accept_with_providers(name, sources, providers, header=None, gate=None):
+    """All explicit context must pass; only consumers undergo adoption and retirement.
+
+    link_ok's True preserves measured census-linked bytes, including legacy 0 -> 0;
+    it does not establish actual link closure. Unknown/removed providers never pass.
+    """
+    try:
+        sources, providers = acceptance_cohort(sources, providers)
+        cohort = sources + providers
+        dependencies = acceptance_dependencies(cohort)
+        blocked = dependency_blockers(dependencies, cohort)
+    except (Exception, SystemExit) as exc:
+        print(f"  FAIL acceptance context: {exc}")
+        return 1
+    if blocked:
+        for source, why in blocked.items():
+            print(f"  FAIL {source}: {why}")
+        return 1
+
+    builds = {s: gate(s) for s in cohort} if gate else gate_many(cohort)
+    problems = {s: [builds.get(s, "byte gate produced no per-unit verdict")]
+                for s in cohort if builds.get(s, "missing") is not None}
+    for source in sources:
+        if source not in problems:
+            why = adoption_problems(name, source, header, lambda s: builds[s])
+            if why:
+                problems[source] = why
+    if not problems:
+        # Refresh every mandatory provider together, even with a single consumer.
+        # link_ok may retry after an out-of-census unit: require each original
+        # member's explicit True so that retry cannot silently discard context.
+        linked = link_ok(cohort)
+        for source in cohort:
+            if linked.get(source) is not True:
+                problems[source] = ["link_check predicts a loss of census-linked bytes" if
+                                    linked.get(source) is False else
+                                    "link_check produced no usable per-unit verdict"]
+    if problems:
+        for source, why in problems.items():
+            print(f"  FAIL {source}: {'; '.join(why)}")
+        return 1
+
+    for source in sources:
+        print(f"  PASS {source}")
+    retired = retire_rows({(name, source) for source in sources})
+    if retired:
+        print(f"  retired {retired} row(s) from {QUEUE.relative_to(ROOT).as_posix()}; commit it with the adoption")
+    return 0
+
+
+def accept(name, sources, header=None, gate=None, providers=()):
     """Judge each unit (verdict) and retire every passing unit's queue row: the row
     leaves only on this verdict, never by a hand deletion."""
+    if providers:
+        return accept_with_providers(name, sources, providers, header, gate)
     sources = list(dict.fromkeys(sources))
     try:
         dependencies = acceptance_dependencies(sources)
@@ -7105,6 +7185,9 @@ def main(argv=None):
     p = sub.add_parser("accept")
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
+    p.add_argument("--provider", action="append", default=[], metavar="SOURCE",
+                   help="mandatory current C/C++ provider (repeatable; consumers plus providers: at most 32); "
+                        "byte-check and preserve census-linked bytes for the whole cohort, retire consumers only")
     p.add_argument("files", nargs="+")
     p = sub.add_parser("adopt", help="adopt a header in named units without registering the class")
     p.add_argument("--class", dest="name", required=True)
@@ -7164,7 +7247,7 @@ def main(argv=None):
         args.jobs = args.jobs or max(2, (os.cpu_count() or 4) // 2)
         return run(args)
     if args.cmd == "accept":
-        return accept(args.name, args.files, args.header)
+        return accept(args.name, args.files, args.header, providers=args.provider)
     if args.cmd == "adopt":
         return 1 if adopt(args.name, args.header, args.files, args.apply, args.jobs) else 0
     if args.cmd == "rekey":
