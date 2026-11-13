@@ -136,14 +136,7 @@ Rva005E8C54::Rva005E8C54(void *a, int b, void *c, const Rva005E8C54Source *sourc
 		reinterpret_cast<Rva005F8427 *>(&m_member04)->rva005F841F();
 }
 
-class Rva005E8CB0
-{
-public:
-	Rva005E8CB0(void *a, int b, void *c, const Rva005E8C54Source *source);
-
-private:
-	Rva005E8C54 *m_object;			// +0x00
-};
+#include "../../Include/Common/Rva005E8CB0.h"
 
 Rva005E8CB0::Rva005E8CB0(void *a, int b, void *c, const Rva005E8C54Source *source)
 	: m_object(new Rva005E8C54(a, b, c, source))

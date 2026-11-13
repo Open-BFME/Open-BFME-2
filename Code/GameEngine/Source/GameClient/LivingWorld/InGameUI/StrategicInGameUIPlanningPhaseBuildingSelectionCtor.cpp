@@ -93,12 +93,7 @@ Rva005CE3F9 Rva005CE3F9Create(const Rva005CE327::Payload *src);	// 0x005CE3F9
 #undef ICOORD2D_VIEW_COMPONENT_CTOR
 
 struct Rva005E8C54Source;
-class Rva005E8CB0
-{
-public:
-	Rva005E8CB0(void *a, int b, void *c, const Rva005E8C54Source *source);
-	void *m_object;
-};
+#include "../../../../Include/Common/Rva005E8CB0.h"
 class Rva005E893E;
 class Rva005CE236
 {
