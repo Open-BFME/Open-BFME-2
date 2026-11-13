@@ -183,11 +183,7 @@ extern GlobalData *TheWritableGlobalData;
 
 extern Mouse *TheMouse;
 
-class Rva005B5440
-{
-public:
-	void clearFlags();
-};
+#include "../../../Include/Common/Rva005B5440.h"
 
 class BfmeOwnVVD;
 class LookAtTranslator; extern LookAtTranslator *TheLookAtTranslator;

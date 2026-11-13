@@ -19,11 +19,7 @@ public:
 };
 class BfmeOwnVVD;
 class LookAtTranslator; extern LookAtTranslator *TheLookAtTranslator;
-class Rva005B5440
-{
-public:
-	void clearFlags();
-};
+#include "../../../Include/Common/Rva005B5440.h"
 void Rva003BBAD3Set()
 {
 	TheInGameUI->setInputEnabled(false);
