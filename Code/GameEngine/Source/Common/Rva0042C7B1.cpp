@@ -5,11 +5,7 @@
 extern Mouse *TheMouse;
 
 #include "../../Include/Common/Rva0042C083Param.h"
-class Rva0042C083
-{
-public:
-	void rva0042C083(const Rva0042C083Param *p);
-};
+#include "../../Include/Common/Rva0042C083.h"
 
 class Rva0042C7B1
 {

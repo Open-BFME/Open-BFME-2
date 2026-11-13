@@ -108,7 +108,7 @@ public:
 union GameMessageArgumentType {Rva0042C083Param position;int integer;};
 class GameMessage {public:const GameMessageArgumentType*getArgument(int)const;char unknown0[0x10];int type;};
 #include "../../Include/Common/Rva005E6817Mid.h"
-class Rva0042C083 {public:void rva0042C083(const Rva0042C083Param*);};
+#include "../../Include/Common/Rva0042C083.h"
 #include "../../Include/Common/RAMFileClass.h"
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse*TheMouse;
