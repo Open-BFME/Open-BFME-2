@@ -230,7 +230,7 @@ WaterRenderObjClass::~WaterRenderObjClass() {
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 bool Rva00118660Call(void *scene, void *camera);
 extern bool bfmeCameraProjectionOverride;
-class Rva0007F0FBOwner {public: void rva0007F0FB(CameraClass *camera, bool flag);};
+#include "../../../../Include/W3DDevice/GameClient/Rva0007F0FBOwner.h"
 void WaterRenderObjClass::rva0007F87C(void *scene, CameraClass *camera) {
  reinterpret_cast<Rva0007F0FBOwner*>(this)->rva0007F0FB(camera,false);
  if(refFC.ptr) {
