@@ -11535,7 +11535,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp,
 Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateMapLoadPostProcess.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp,yes,0,0,0,0,0
@@ -17174,7 +17174,7 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_tree_004FF6AB.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_004FF6D5.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_004FF6FF.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_asciistring_key_insert.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_00357C6A.cpp,no,1,0,0,0,0
+Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_00357C6A.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_00462D08.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004636FE.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp,yes,0,0,0,0,0
