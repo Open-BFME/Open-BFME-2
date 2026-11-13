@@ -47,12 +47,7 @@ public:
 extern ArchiveFileSystem *TheArchiveFileSystem;
 extern bool BFME2PreferLocalFiles;
 
-class Rva0060061A
-{
-public:
-	virtual ~Rva0060061A();
-	void rva006006D9(void *a1);
-};
+#include "../../Include/Common/Rva0060061A.h"
 
 void Rva0060061A::rva006006D9(void *a1)
 {

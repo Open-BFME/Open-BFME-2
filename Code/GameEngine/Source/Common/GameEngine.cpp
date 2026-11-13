@@ -146,12 +146,7 @@ private:
 // ??0Rva0060061A at 0x00600611, the call retail makes).
 class BfmeThingVTD;
 
-class Rva0060061A
-{
-public:
-	Rva0060061A();
-	virtual ~Rva0060061A();
-};
+#include "../../Include/Common/Rva0060061A.h"
 
 // tu-skeleton: 0x00225AD5 42B ?rva00225AD5@GameEngine@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/GameEngineSlots.cpp (not merged yet)
 

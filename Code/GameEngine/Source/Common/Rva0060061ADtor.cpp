@@ -15,12 +15,7 @@ extern class LocalFileSystem *TheLocalFileSystem;
 
 #include <new>
 
-class Rva0060061A
-{
-public:
-	Rva0060061A();
-	virtual ~Rva0060061A();
-};
+#include "../../Include/Common/Rva0060061A.h"
 
 // ??0Rva0060061A@@QAE@XZ @0x00600611 9B, just ahead of the dtor: installs the
 // same one-slot vtable 0x0087A660 and returns this (the empty ctor).

@@ -475,7 +475,7 @@ extern class Rva00A00958Obj *g_Rva00A00958;
 
 class FileSystem;
 extern FileSystem *TheFileSystem;
-class Rva0060061A { public: void rva006006D9(void *p); };
+#include "../../Include/Common/Rva0060061A.h"
 
 #include "../../Include/Common/GameLODManager.h"
 
