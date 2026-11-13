@@ -80,7 +80,7 @@ class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
 #include "../../../../Include/Common/B1.h"
 #include "../../../../Include/GameLogic/Module/B2.h"
 class B3 { public: virtual void b3(); };
-class B4 { public: virtual void b4(); };
+#include "../../../../Include/Common/B4.h"
 #include "../../../../Include/Common/B5.h"
 class DamageInfo;
 enum BodyDamageType;
