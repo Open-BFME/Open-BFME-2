@@ -319,7 +319,7 @@ class LibraryMapCache;
 
 // The case-insensitive set of library map names linkLibraryMaps has visited;
 // its _M_find 0x0002C751 and insert 0x0002CA26 are rowed in WWLib.
-struct BfmeStringNoCaseLess { bool operator()(const AsciiString &a, const AsciiString &b) const; };
+#include "../../../Include/Common/BfmeStringNoCaseLess.h"
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess> AsciiStringNoCaseSet;
 
 // BFME 2's SidesList has two bases (SidesList_sidesInfo.cpp), so its member
