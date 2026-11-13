@@ -38,7 +38,7 @@ struct AptNativeHash;
 
 #include "AptBasePtrStack.h"
 
-struct AptActionSetup {AptValue *context,*value;const char *name;int action;};
+#include "../../../GameEngine/Include/Common/AptActionSetup.h"
 
 #include "AptActionInterpreter.h"
 

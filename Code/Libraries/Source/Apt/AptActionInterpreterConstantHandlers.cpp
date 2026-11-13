@@ -191,7 +191,7 @@ template<class T> struct AptValuePtrStack {
 };
 
 // Original MAP names AptActionSetup; native cleanup reads function name at+8.
-struct AptActionSetup { AptValue *context,*value; const char *name; int action; };
+#include "../../../GameEngine/Include/Common/AptActionSetup.h"
 void rva007097B0(void *);
 void *AptPushStaticData();
 #pragma comment(linker, "/alternatename:?AptPushStaticData@@YAPAXXZ=?PushStaticData@AptScriptFunctionBase@@SAPAXXZ")

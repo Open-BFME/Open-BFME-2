@@ -132,7 +132,7 @@ public:
 	int count, capacity;
 	T **elements;
 };
-struct AptActionSetup { AptValue *context, *value; const char *name; int action; };
+#include "../../../GameEngine/Include/Common/AptActionSetup.h"
 struct AptActionInterpreter
 {
 	AptBasePtrStack stack;
