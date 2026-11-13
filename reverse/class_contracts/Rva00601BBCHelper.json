@@ -1,0 +1,230 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00601BBCHelper",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1c": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x601bbc",
+      "0x602091"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x601bbc",
+      "0x602091"
+     ],
+     "value": {
+      "0x0": [
+       "?rva00602072@Rva00601BBCHelper@@QAE_NPAX@Z"
+      ],
+      "0x1c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x28": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x4": [
+       "??0Rva00524415@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x601bbc",
+      "0x602091"
+     ],
+     "value": {
+      "0x0": "0x87a6b0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x87a6b0"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00601BBCHelper@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x602056"
+       }
+      ],
+      "table": "0x87a6b0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x87a6b0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00601BBCHelper@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "52": 6
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva00524415",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_body",
+     "offset": 0,
+     "size": 24,
+     "type": "char[24]"
+    }
+   ],
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 24,
+   "type": "Rva00524415",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<int,_STL::allocator<int> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "int*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "int*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "int*"
+    }
+   ],
+   "name": "m_1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<int,_STL::allocator<int> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<int,_STL::allocator<int> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "int*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "int*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "int*"
+    }
+   ],
+   "name": "m_28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<int,_STL::allocator<int> >",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 52,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -55,21 +55,7 @@ struct Rva00524415
 	char m_body[0x18];
 };
 
-class Rva00601BBCHelper
-{
-public:
-	Rva00601BBCHelper();
-	Rva00601BBCHelper(void *outer);
-	virtual ~Rva00601BBCHelper();
-
-	void rva00601A8D();
-	bool rva00602072(void *outer);
-
-private:
-	Rva00524415 m_04;            // +0x04
-	_STL::vector<int> m_1C;      // +0x1C
-	_STL::vector<int> m_28;      // +0x28
-};
+#include "../../Include/Common/Rva00601BBCHelper.h"
 
 class Rva00601B30 {public:void clear();char storage[0x18];};
 void Rva00601BBCHelper::rva00601A8D(){
