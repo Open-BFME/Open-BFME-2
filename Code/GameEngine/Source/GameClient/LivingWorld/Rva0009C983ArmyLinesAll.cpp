@@ -27,12 +27,7 @@ struct Rva0009C983LogicView
 	Int m_mode; // +0xF4
 };
 
-class Rva0009C983
-{
-public:
-	void rva0009C983(Int renderInfo);
-	void rva0009C814(Int arg, Rva002E2903Player *player);
-};
+#include "../../../Include/GameClient/Rva0009C983.h"
 
 void Rva0009C983::rva0009C983(Int renderInfo)
 {

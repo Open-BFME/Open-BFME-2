@@ -129,11 +129,7 @@ extern W3DShadowManager *TheW3DShadowManager;
 
 #include "../../Include/Common/Rva0009A361.h"
 
-class Rva0009C983
-{
-public:
-	void rva0009C983(Int rinfo);
-};
+#include "../../Include/GameClient/Rva0009C983.h"
 
 class DisplayPass
 {
