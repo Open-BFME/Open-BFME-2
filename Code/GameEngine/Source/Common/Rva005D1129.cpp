@@ -12,11 +12,7 @@ extern "C" const void *const __identifier("??_7Rva005D1052@@6B@")[];  // folded,
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-struct Rva005EB87AInner
-{
-	char m_pad[8];
-	int m_field08;
-};
+#include "../../Include/Common/Rva005EB87AInner.h"
 
 #include "../../Include/Common/Rva005EB87A.h"
 

@@ -10,11 +10,7 @@
 
 extern "C" const void *const __identifier("??_7Rva005CF925@@6B@")[];  // folded, 3 classes; via ??_7Rva005CF925@@6B@
 
-struct Rva005EB87AInner
-{
-	char m_pad[8];
-	int m_field08;
-};
+#include "../../Include/Common/Rva005EB87AInner.h"
 
 #include "../../Include/Common/Rva005EB87A.h"
 
