@@ -849,3 +849,65 @@ def test_a_member_its_row_agrees_with_is_kept(base_header):
     special = [{"role": "method", "access": "public", "sig": "eq", "text": "bool operator==(const K &r) const;"}]
     text = lane.generate(c, "data", {}, None, None, special, owners={"??8K@@": [("??8K@@QBE_NABV0@@Z", "o.cpp")]})
     assert "bool operator==(const K &r) const;" in text
+
+
+# ---- P150 review r1: statics, virtual by base signature, cv overloads, the introductions' offset
+
+def generate_k(specials, owners, bases=(), known=None, monkeypatch=None):
+    c = contract({}, bases=bases, inherited=0)
+    c["class"], c["vslots"] = "K", {}
+    if monkeypatch is not None:
+        monkeypatch.setattr(lane, "registered", lambda: dict(known or {}))
+    special = [{"role": "method", "access": access, "sig": text, "text": text} for access, text in specials]
+    return lane.generate(c, "data", {}, None, None, special, owners=owners)
+
+
+@pytest.mark.parametrize("declared,row,what", [
+    ("static void f();", "?f@K@@CAXXZ", "access"),                       # private static
+    ("static void __stdcall f();", "?f@K@@SAXXZ", "calling convention"),  # public static, cdecl
+    ("void f();", "?f@K@@SAXXZ", "virtual/static"),
+])
+def test_static_rows_are_compared(base_header, declared, row, what):
+    with pytest.raises(lane.LayoutError, match=what):
+        generate_k([("public", declared)], {"?f@K@@": [(row, "o.cpp")]})
+    agreeing = {"static void f();": "?f@K@@SAXXZ", "static void __stdcall f();": "?f@K@@SGXXZ",
+                "void f();": "?f@K@@QAEXXZ"}[declared]
+    assert declared in generate_k([("public", declared)], {"?f@K@@": [(agreeing, "o.cpp")]})
+
+
+def test_a_row_it_cannot_attribute_holds(base_header):
+    with pytest.raises(lane.LayoutError, match="cannot tell whether"):
+        generate_k([("public", "void f(uint x);")], {"?f@K@@": [("?f@K@@QAEXI@Z", "o.cpp")]})
+
+
+def test_virtual_comes_from_the_bases_signature_not_its_name(base_header, tmp_path, monkeypatch):
+    (tmp_path / "B5.h").write_text("class B5\n{\npublic:\n    virtual void f(int a);\n};\n", encoding="utf-8")
+    known = {"B5": "B5.h"}
+    with pytest.raises(lane.LayoutError, match="virtual/static plain"):
+        generate_k([("public", "void f(double d);")], {"?f@K@@": [("?f@K@@UAEXN@Z", "o.cpp")]}, ("B5",), known,
+                   monkeypatch)
+    assert "void f(double d);" in generate_k([("public", "void f(double d);")],
+                                             {"?f@K@@": [("?f@K@@QAEXN@Z", "o.cpp")]}, ("B5",), known, monkeypatch)
+    # f(int) is the base's virtual: declared without `virtual` it is still virtual
+    assert "void f(int a);" in generate_k([("public", "void f(int a);")],
+                                          {"?f@K@@": [("?f@K@@UAEXH@Z", "o.cpp")]}, ("B5",), known, monkeypatch)
+
+
+def test_cv_overloads_are_each_compared_with_their_own_row(base_header):
+    owners = {"?f@K@@": [("?f@K@@QAEXXZ", "o.cpp"), ("?f@K@@QBEXXZ", "o.cpp")]}
+    text = generate_k([("public", "void f();"), ("public", "void f() const;")], owners)
+    assert "void f();" in text and "void f() const;" in text
+    with pytest.raises(lane.LayoutError, match="this cv"):
+        generate_k([("public", "void f();")], {"?f@K@@": [("?f@K@@QBEXXZ", "o.cpp")]})
+
+
+def test_introductions_start_after_the_inherited_slots(tmp_path, monkeypatch):
+    # two inherited slots, the contract deciding both (overridden) and one introduction
+    known = base_header_for(tmp_path, monkeypatch, "virtual ~B5();\n    virtual void f();")
+    view = "class K : public B5\n{\npublic:\n\tvirtual ~K();\n\tvirtual void f();\n\tvirtual void g();\n};\n"
+    c = contract({0: "__vecDelDtor(uint)", 1: "f()", 2: "g()"}, bases=("B5",), inherited=2)
+    c["class"] = "K"
+    own, overrides, problems = lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": view}.__getitem__, known=known,
+                                                      owners={}, facts=lambda source: None)
+    assert problems == [] and own == ["virtual ~K();", "virtual void f();", "virtual void g();"]
+    assert overrides == []
