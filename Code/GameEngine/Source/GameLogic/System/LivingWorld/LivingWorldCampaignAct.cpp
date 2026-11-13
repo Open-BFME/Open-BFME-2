@@ -158,7 +158,7 @@ class SpawnArmy:public Snapshot { public:
 };
 struct Rva004FAFF2 { Rva004FAFF2 &rva004FAFF2(const Rva004FAFF2&); };
 #include "../../../../Include/Common/Rva00318E8COut.h"
-class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
+#include "../../../../Include/Common/Rva00318E8C.h"
 #include "../../../../Include/Common/Rva002E18C3Lookup.h"
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 class Rva002E2903Player {public:char pad[0x40];AsciiString *template40;};

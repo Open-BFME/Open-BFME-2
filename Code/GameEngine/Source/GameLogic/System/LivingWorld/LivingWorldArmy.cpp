@@ -277,7 +277,7 @@ class SpawnArmy {public: bool rva00319CED(); void *rva004E23C1(); char pad00[4];
 struct Rva002B6A04Player {char pad00[20];int id14;};
 #include "../../../../Include/Common/LivingWorldArmyLine.h"
 #include "../../../../Include/Common/Rva00318E8COut.h"
-class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
+#include "../../../../Include/Common/Rva00318E8C.h"
 struct Rva003F0F13Elem {float x,y;};
 
 #include "../../../../Include/Common/Rva002104B6.h"
