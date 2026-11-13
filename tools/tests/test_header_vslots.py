@@ -952,3 +952,55 @@ def test_the_contracts_recorded_access_is_honoured_and_never_contradicted(tmp_pa
     c["native_special_members"]["access"]["xfer(Xfer*)"] = "public"
     own, overrides, problems = slots(COWER_ROWS)          # a record the rows contradict holds
     assert any("the contract records it public, its matched rows protected" in p for p in problems), problems
+
+
+# ---- P150 round 4: the three reviewer probes
+
+@pytest.mark.parametrize("declared", ["void f(int *const p);", "static void f(int *p);"])
+def test_cross_kind_rows_ignore_top_level_pointer_const(base_header, declared):
+    # ?f@K@@QAEXQAH@Z (member, int *const) and ?f@K@@SAXPAH@Z (static, int *): one C++ parameter list
+    owners = {"?f@K@@": [("?f@K@@QAEXQAH@Z", "o.cpp"), ("?f@K@@SAXPAH@Z", "o.cpp")]}
+    with pytest.raises(lane.LayoutError, match="virtual/static"):
+        generate_k([("public", declared)], owners)
+
+
+def test_an_overridden_slot_spelled_with_different_top_level_cv_takes_the_rows_spelling(tmp_path, monkeypatch):
+    known = base_header_for(tmp_path, monkeypatch, "virtual void f(int *const p);")
+    derived = "class K : public B5\n{\npublic:\n\tvirtual void f(int *p);\n};\n"
+    flat = "class K\n{\npublic:\n\tvirtual void f(int *const p);\n};\n"
+    c = contract({0: "f(int*)"}, bases=("B5",), inherited=1)
+    c["class"] = "K"
+
+    def slots(owners):
+        views = {"d.cpp": derived, "f.cpp": flat}
+        return lane.slot_declarations(c, sorted(views), read=views.__getitem__, known=known, owners=owners,
+                                      facts=lambda source: None)
+    own, _, problems = slots({"?f@K@@": [("?f@K@@UAEXPAH@Z", "o.cpp")]})
+    assert problems == [] and own == ["virtual void f(int *p);"]
+    own, _, problems = slots({"?f@K@@": [("?f@K@@UAEXQAH@Z", "o.cpp")]})
+    assert problems == [] and own == ["virtual void f(int *const p);"]
+    own, _, problems = slots({})
+    assert own == [] and "no single matched row picks one" in problems[0]
+
+
+@pytest.mark.parametrize("override", ["virtual void xfer(const Xfer *x);", "virtual void xfer(Xfer *x) volatile;"])
+def test_an_access_record_applies_only_to_its_exact_signature(tmp_path, monkeypatch, override):
+    known = base_header_for(tmp_path, monkeypatch, override)         # the base declares the overridden virtual
+    view = "class K : public B5\n{\npublic:\n\t%s\n};\n" % override
+    c = contract({}, bases=("B5",), inherited=1)
+    c["class"], c["vslots"] = "K", {}
+    c["native_special_members"] = {"access": {"xfer(Xfer*)": "protected"}}
+    own, overrides, problems = lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": view}.__getitem__, known=known,
+                                                      owners={}, facts=lambda source: None)
+    assert problems == [] and overrides == [override] and overrides[0].access == "public"
+
+
+def test_access_records_that_disagree_on_one_member_hold(tmp_path, monkeypatch):
+    known = base_header_for(tmp_path, monkeypatch, "virtual void xfer(Xfer *x);")
+    view = "class K : public B5\n{\npublic:\n\tvirtual void xfer(Xfer *x);\n};\n"
+    c = contract({}, bases=("B5",), inherited=1)
+    c["class"], c["vslots"] = "K", {}
+    c["native_special_members"] = {"access": {"xfer(Xfer*)": "protected", "xfer(Xfer *)": "private"}}
+    own, overrides, problems = lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": view}.__getitem__, known=known,
+                                                      owners={}, facts=lambda source: None)
+    assert any("several accesses" in p for p in problems), problems

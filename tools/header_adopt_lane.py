@@ -3026,20 +3026,22 @@ def view_slots(found, inherited=()):
     return [entry for entries in groups.values() for entry in reversed(entries)]
 
 
+def drop_top_cv(shape):
+    """A parameter shape (decl_param / row_param) without its pointer's own top-level cv (Q as P, S as R)."""
+    if not shape or shape[0] == "text" or not shape[0]:
+        return shape
+    codes = list(shape[0])
+    codes[0] = {"Q": "P", "S": "R"}.get(codes[0][0], codes[0][0]) + codes[0][1:]
+    return tuple(codes), shape[1]
+
+
 def override_key(signature):
     """A decl_signature as overriding sees it: a pointer parameter's own top-level cv dropped (`int *const p`
     overrides as `int *p`; MSVC still mangles it), pointee and member cv kept. Strings pass through."""
     if not isinstance(signature, tuple) or len(signature) != 3:
         return signature
     name, params, cv = signature
-    out = []
-    for shape in params:
-        if shape[0] != "text" and shape[0]:
-            codes = list(shape[0])
-            codes[0] = {"Q": "P", "S": "R"}.get(codes[0][0], codes[0][0]) + codes[0][1:]
-            shape = (tuple(codes), shape[1])
-        out.append(shape)
-    return name, tuple(out), cv
+    return name, tuple(drop_top_cv(shape) for shape in params), cv
 
 
 def unanchored(signature):
@@ -3102,7 +3104,13 @@ def rows_by_parameters(name, member, owners=None, static=False):
             unknown.append(row)
             continue
         letter, texts, names = parts
-        verdict = compare_row(parsed, frozenset(), "A", [row_param(t, names) for t in texts], scopes)
+        mangled = [row_param(t, names) for t in texts]
+        if (letter is None) != static:
+            # the other kind: one with the same C++ parameter list, top-level pointer cv aside, contradicts
+            verdict = compare_row([drop_top_cv(p) for p in parsed], frozenset(), "A",
+                                  [drop_top_cv(m) for m in mangled], scopes)
+        else:
+            verdict = compare_row(parsed, frozenset(), "A", mangled, scopes)
         if verdict == "unknown":
             unknown.append(row)
         elif verdict == "match":
@@ -3120,17 +3128,20 @@ def rows_by_parameters(name, member, owners=None, static=False):
 
 
 def recorded_access(contract, text):
-    """The access the contract's native_special_members records for a member (keyed like its slot members:
-    `xfer(Xfer*)`, `GetSnapshotName() const`), or None."""
+    """(access, problem): the access the contract's native_special_members records for a member, keyed like its
+    slot members (`xfer(Xfer*)`, `GetSnapshotName() const`). A key applies only when it is exactly the member's
+    signature, pointee and member qualifiers included (decl_signature: `xfer(Xfer*)` is not `xfer(const Xfer*)`
+    nor `xfer(Xfer*) volatile`); keys that match one member with different accesses are a problem."""
     record = (contract.get("native_special_members") or {}).get("access") or {}
     if not record:
-        return None
-    try:
-        spelled, _, cv = split_head(text)
-    except ValueError:
-        return None
-    key = f"{spelled}({','.join(param_types(declaration_head(text)))})" + (" const" if "const" in cv else "")
-    return record.get(key)
+        return None, None
+    mine = decl_signature(text)
+    if mine is None:
+        return None, None
+    found = {access for key, access in record.items() if decl_signature(f"void {key};") == mine}
+    if len(found) > 1:
+        return None, f"the contract records several accesses for it: {', '.join(sorted(found))}"
+    return (found.pop() if found else None), None
 
 
 def member_access(name, text, views_access, owners=None, recorded=None):
@@ -3360,11 +3371,13 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                                              override_key(decl_signature(t)) in inherited)
                         and (n == "~" or param_types(t.split("{")[0]) == param_types(member))]
                 if hits:
-                    out[source] = hits[0]
+                    out[source] = (override_key(hits[0][0]), hits[0][1])
                 continue
             index = slot - (inherited_count if source in derived else 0)
             if 0 <= index < len(positions[source]):
-                out[source] = positions[source][index]
+                signature, text = positions[source][index]
+                # a base slot's identity is C++'s: top-level parameter cv aside
+                out[source] = (override_key(signature) if slot < inherited_count else signature, text)
         return out
 
     if slots and None in emitting.values():
@@ -3408,6 +3421,20 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             problems.append(f"slot{slot} {member}: {why}")
             continue
         spellings = collections.Counter(text for _, text in at.values())
+        exact = {decl_signature(t) for t in spellings}
+        if slot < inherited_count and len(exact) > 1:
+            # one overridden slot spelled with different top-level parameter cv: MSVC mangles that, so the
+            # spelling is the one the member's matched row is; without exactly one such, the class holds
+            try:
+                owned = {decl_signature(t) for t in spellings if rows_of(name, t, owners)}
+            except OwnerUnknown as why:
+                problems.append(f"slot{slot} {member}: {why}")
+                continue
+            if len(owned) != 1:
+                problems.append(f"slot{slot} {member}: views spell it with different top-level parameter cv "
+                                "and no single matched row picks one")
+                continue
+            spellings = collections.Counter({t: n for t, n in spellings.items() if decl_signature(t) in owned})
         text = pick_declaration(spellings)
         if text is None:
             problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings
@@ -3443,8 +3470,9 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                                 "non-pure declaration that would replace it")
                 continue
         signed = decl_signature(text)
-        access, why = member_access(name, text, [accesses.get(s, {}).get(signed) for s in at], owners,
-                                    recorded_access(contract, text))
+        recorded, why = recorded_access(contract, text)
+        if not why:
+            access, why = member_access(name, text, [accesses.get(s, {}).get(signed) for s in at], owners, recorded)
         if why:
             problems.append(f"slot{slot} {member}: {why}")
             continue
@@ -3490,8 +3518,10 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             problems.append(f"override {next(iter(spellings)).split('{')[0].strip()}: " + slot_conflict(spellings))
             continue
         ranked = [s for s in by_source[signature] if s in counted] or sorted(by_source[signature])
-        access, why = member_access(name, text, [accesses.get(s, {}).get(decl_signature(text)) for s in ranked],
-                                    owners, recorded_access(contract, text))
+        recorded, why = recorded_access(contract, text)
+        if not why:
+            access, why = member_access(name, text, [accesses.get(s, {}).get(decl_signature(text)) for s in ranked],
+                                        owners, recorded)
         if why:
             problems.append(f"override {text.split('{')[0].strip()}: {why}")
             continue
