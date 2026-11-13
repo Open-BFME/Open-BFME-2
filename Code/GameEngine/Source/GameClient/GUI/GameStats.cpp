@@ -183,7 +183,7 @@ GameStats::Persistent::Persistent(int numCells)
 // caller preserve the target x87 stack across calls.
 #include "../../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005DDD40.h"
 class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned int);};
-class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
+#include "../../../Include/Common/Rva005DD8E0.h"
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned int);};
 #include "../../../Include/Common/Rva005DDE01.h"
 
