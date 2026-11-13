@@ -795,11 +795,7 @@ struct Rva0056A378Source {
 #include "../../Include/Common/OpaqueRefElement4.h"
 
 // Existing rowed adjustor destructor5C8565, called before scalar delete.
-class Rva005C8565
-{
-public:
-	~Rva005C8565();
-};
+#include "../../Include/Common/Rva005C8565.h"
 
 struct Rva00569F0CVec : _STL::vector<BfmeStringRecord00568CE0,_STL::allocator<BfmeStringRecord00568CE0> > {
  void rva00569F0C(void *,void *,bool *);
