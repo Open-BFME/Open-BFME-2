@@ -462,10 +462,7 @@ public:
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class Rva0049C6E1 {
-public:
-    bool rva0049C6E1(Object *obj);
-};
+#include "../../../Include/Common/Rva0049C6E1.h"
 
 template<int N> class NativeSlots : public NativeSlots<N-1> { public: virtual void gap(char (*)[N]) = 0; };
 

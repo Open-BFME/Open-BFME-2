@@ -73,11 +73,7 @@ public:
 	void *rva0049C5F4(Object *arg);
 };
 
-class Rva0049C6E1
-{
-public:
-	bool rva0049C6E1(Object *arg);
-};
+#include "../../Include/Common/Rva0049C6E1.h"
 
 class Rva0049C67E
 {
