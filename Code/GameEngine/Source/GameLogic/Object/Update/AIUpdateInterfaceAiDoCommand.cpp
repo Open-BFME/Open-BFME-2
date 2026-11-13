@@ -39,7 +39,7 @@ public:
  char m_unknown25C[0x274-0x25c];
  Object *m_containedBy;
 };
-class Rva0026228F { public: void rva0026228F(int, int); };
+#include "../../../../Include/Common/Rva0026228F.h"
 class Rva00262271 { public: void rva00262271(int, int, int); };
 class CommandRedirectInterface {
 public:

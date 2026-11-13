@@ -110,11 +110,7 @@ struct Rva0049B0BFData
 	GeometryInfo m_geoA8;
 };
 
-class Rva0026228F
-{
-public:
-	void rva0026228F(int a, int b);
-};
+#include "../../../../../Include/Common/Rva0026228F.h"
 
 class Rva0049B0BF
 {
