@@ -506,7 +506,7 @@ public:
 // The list-role labels below describe the three observed conflict passes;
 // their original member spellings are not established. Nodes link at +0 and
 // carry Object* at +8; native Object position/AI/container are +0x38/+0x258/+0x274.
-struct PathCollisionNode { PathCollisionNode *next; void *word4; Object *object; };
+#include "../../../Include/GameLogic/PathCollisionNode.h"
 struct PathCollisionInfo {
     int x,y;
     char gap08[0x14-8];

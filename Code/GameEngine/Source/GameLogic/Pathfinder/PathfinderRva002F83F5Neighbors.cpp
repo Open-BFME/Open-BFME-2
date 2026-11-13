@@ -288,7 +288,7 @@ int rva0026417F(bool);
 char gap[0x1f0];
 Locomotor *locomotor;
 };
-struct PathCollisionNode { PathCollisionNode *next; void *word4; Object *object; };
+#include "../../../Include/GameLogic/PathCollisionNode.h"
 struct PathCollisionInfo {
 int x,y;
 char gap08[0x14-8];
