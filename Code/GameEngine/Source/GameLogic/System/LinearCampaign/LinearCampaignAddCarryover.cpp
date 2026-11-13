@@ -170,14 +170,7 @@ struct Rva001EB8A4Elem;
 class Rva001EB8A4 { public: bool rva001EB8A4(const Rva001EB8A4Elem &e); };
 #include "../../../../Include/Common/Rva001EB3A6.h"
 class Slot0Receiver;
-class Rva001EBCD8
-{
-public:
-	void *rva001EBCD8(void *a1);
-	char m_pad00[0x4];
-private:
-	Slot0Receiver *m_ptr; // +0x04
-};
+#include "../../../../Include/GameLogic/Rva001EBCD8.h"
 
 #include "../../../../Include/Common/Rva0037F57E.h"
 struct Rva0037FE3DList;

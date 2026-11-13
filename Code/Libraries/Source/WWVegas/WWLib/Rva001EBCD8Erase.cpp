@@ -31,14 +31,7 @@ public:
 	virtual void v0(int code);
 };
 
-class Rva001EBCD8
-{
-public:
-	void *rva001EBCD8(void *a1);
-	char m_pad00[0x4];
-private:
-	Slot0Receiver *m_ptr; // +0x04
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva001EBCD8.h"
 
 // ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z retail 0x001EBCD8 62B. Custom
 // erase-like method over 172B records: copies [a1+0xAC, m_ptr) down to a1

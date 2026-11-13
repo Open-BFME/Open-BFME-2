@@ -561,14 +561,7 @@ struct Rva001EC859ObjectView
 
 class Slot0Receiver;
 
-class Rva001EBCD8
-{
-public:
-	void *rva001EBCD8(void *a1);
-	char m_pad00[0x4];
-private:
-	Slot0Receiver *m_ptr; // +0x04
-};
+#include "../../../Include/GameLogic/Rva001EBCD8.h"
 
 class Rva0037DE0E
 {
