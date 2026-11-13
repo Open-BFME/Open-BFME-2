@@ -33,3 +33,6 @@ the header's include). Expected result: FamilyDeletingDtors' table equals Monito
 retail's, and MonitorConditionUpdate.cpp links again (+334 B). Check the other generated headers whose classes
 derive from a module base the same way: FXListDieConstructor.cpp's `??_7FXListDie@@6BObjectModule@@@` has
 `__purecall` at slots 1-4 (not measured as a census loss).
+
+**2026-11-13, later.** The tool fix was not attempted: `file:tools/header_adopt_lane.py` is claimed by
+`ancalgonn-swarm-toollane2` (claims.py dry-run: held).
