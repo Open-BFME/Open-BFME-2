@@ -25,14 +25,7 @@ struct RadarDrawMarker
 	class Rva002D3366 *window;
 };
 
-class Rva002D3366
-{
-public:
-	virtual void m_spare0();
-	virtual void m_spare1();
-	virtual void m_slot8(float a, float b);
-	void rva002D3366(float a, float b);
-};
+#include "../../../Include/Common/Rva002D3366.h"
 
 class Radar
 {

@@ -8,7 +8,7 @@ extern "C" void _ReadWriteBarrier(void);
 class RadarEventRefSlot {public:RadarEventRefSlot():ptr(0){}RadarEventRefSlot(const RadarEventRefSlot&s):ptr(s.ptr){}~RadarEventRefSlot(){if(ptr)ptr->release();}RadarEventRefSlot&operator=(const RadarEventRefSlot&);RadarEventRef*ptr;};
 #include "../../../../GameEngine/Include/Common/RadarWindowOverrideSource.h"
 extern RadarWindowOverrideSource*theRadarWindowOverrideSource;
-class Rva002D3366 {public:void rva002D3366(float,float);};
+#include "../../../../GameEngine/Include/Common/Rva002D3366.h"
 class Rva002D5333 {public:virtual~Rva002D5333();virtual void rva002D3D2A();virtual void rva002D4AEF(float,float);virtual void DoStartFade();__declspec(noinline) void rva005CB265();};
 struct RadarEventView {int type;unsigned char active;char pad05[0x10-5];unsigned expiry;char pad14[0x40-0x14];ICoord2D radarLoc;bool soundPlayed;char pad49[3];RadarEventRefSlot ping;};
 struct RadarAudioMiscView {char pad[0x14];OpaqueRefElement4 radarEvent;};
