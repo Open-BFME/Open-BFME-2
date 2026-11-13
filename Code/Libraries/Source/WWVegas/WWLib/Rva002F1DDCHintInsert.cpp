@@ -27,16 +27,7 @@ struct Rva002F1DDCOut
 	bool inserted;
 };
 
-class Rva002F1DDCTree
-{
-public:
-	Rva002F1DDCIter rva002F0DD6(Rva002F1DDCNode *x, Rva002F1DDCNode *y, const Rva002F1DDCValue &value, Rva002F1DDCNode *w);
-	Rva002F1DDCOut rva002F0E5E(const Rva002F1DDCValue &value);
-	Rva002F1DDCIter rva002F1DDC(Rva002F1DDCIter position, const Rva002F1DDCValue &value);
-private:
-	Rva002F1DDCNode *m_header; // +0x00
-	unsigned int m_count; // +0x04
-};
+#include "Rva002F1DDCTree.h"
 
 typedef Rva002F1DDCOut (Rva002F1DDCTree::*Rva002F1DDCFindFn)(
 	const Rva002F1DDCValue &);
