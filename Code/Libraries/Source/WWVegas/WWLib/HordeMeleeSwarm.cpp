@@ -236,14 +236,7 @@ private:
 	Int m_30;
 };
 
-class AIUpdateInterface
-{
-public:
-	void *getLocomotorSet() const { return m_1dc; }
-private:
-	unsigned char m_pad000[0x1DC];
-	void *m_1dc;					// +0x1DC
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -496,7 +489,8 @@ Bool HordeMeleeSwarm::findMeleeAttackPosition(Object *obj, Coord3D *result, Obje
 	if (!ai)
 		return false;
 
-	void *locomotorSet = ai->getLocomotorSet();
+	// The existing pathfinder ABI consumes the surface mask at AI+0x1DC.
+	void *locomotorSet = (void *)ai->getLocomotorSet().getValidSurfaces();
 	const Real goodAngle = 0.7071f;
 	const Real closeRatio = 0.5f;
 	const Weapon *weapon = obj->getCurrentWeapon(0);

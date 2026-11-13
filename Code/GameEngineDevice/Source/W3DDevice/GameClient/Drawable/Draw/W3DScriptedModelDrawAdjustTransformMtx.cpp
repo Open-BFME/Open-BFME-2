@@ -28,6 +28,7 @@
 
 #define SLOT(n) virtual void slot##n();
 
+#include "../../../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../../../GameEngine/Include/Common/Geometry.h"
 
 class Rva0028B6A2Host
@@ -41,14 +42,6 @@ class Object;
 #include "../../../../../../GameEngine/Include/GameLogic/Weapon.h"
 
 enum WeaponSlotType {};
-
-class AIUpdateInterface
-{
-public:
-	Object *getCurrentVictim() const;
-	char m_pad00[0x30];
-	char *m_field30;
-};
 
 class ContainView
 {
@@ -210,7 +203,7 @@ __declspec(noinline) bool W3DScriptedModelDraw::rva000B4CE2(float *angle)
 			const Weapon *weapon = obj->getCurrentWeapon(0);
 			if (weapon && weapon->isWithinAttackRange(obj, (const Object *)victim, 0.0f, 1))
 			{
-				Vector3 goal(*(const Vector3 *)(ai->m_field30 + 0x24));
+				Vector3 goal(*(const Vector3 *)((const char *)ai->m_stateMachine + 0x24));
 				target.Set(goal.X, goal.Y, 0.0f);
 				pos.Set(obj->m_transform[0][3], obj->m_transform[1][3], 0.0f);
 				Matrix3D look(true);

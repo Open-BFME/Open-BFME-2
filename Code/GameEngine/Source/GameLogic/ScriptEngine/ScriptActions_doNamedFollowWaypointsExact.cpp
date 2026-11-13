@@ -37,12 +37,7 @@ class Rva00352F2FOpaque
 public:
     void invoke(const Waypoint *, int, CommandSourceType);
 };
-class AIUpdateInterface
-{
-public:
-    char pad[0x20];
-    Rva00352F2FOpaque command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 class ScriptActions
 {
@@ -69,5 +64,7 @@ void ScriptActions::doNamedFollowWaypointsExact(const AsciiString &unitName,
         waypointPathLabel);
     if (!waypoint) return;
     unit->leaveGroup();
-    ai->command.invoke(waypoint, 0x7fffffff, CMD_FROM_SCRIPT);
+    // The rowed three-argument helper receives the command subobject at +0x20.
+    ((Rva00352F2FOpaque *)&static_cast<AICommandInterface &>(*ai))->invoke(
+        waypoint, 0x7fffffff, CMD_FROM_SCRIPT);
 }

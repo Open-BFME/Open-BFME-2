@@ -1,0 +1,41 @@
+{
+ "sources": 7,
+ "baseline_comdats": 172,
+ "current_comdats": 170,
+ "unchanged_common_comdats": 165,
+ "comparison": "Section contents and relocation identity via link_census.comdat_bodies",
+ "differences": {
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDoDrawModule.cpp": {
+   "changed": [],
+   "added": [
+    "?getAI@Object@@QBEPAVAIUpdateInterface@@XZ",
+    "?getCurLocomotor@AIUpdateInterface@@QAEPAVLocomotor@@XZ",
+    "?getPath@AIUpdateInterface@@QAEPAVPath@@XZ"
+   ],
+   "removed": [
+    "?getAI@Object@@QBEPAUAIUpdateInterface@@XZ",
+    "?getCurLocomotor@AIUpdateInterface@@QBEPAURva00781660Locomotor@@XZ",
+    "?getPath@AIUpdateInterface@@QBEPAVBfmeHostFC@@XZ"
+   ]
+  },
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DWaypointBuffer.cpp": {
+   "changed": [],
+   "added": [],
+   "removed": [
+    "?friend_getCurrentGoalPathIndex@AIUpdateInterface@@QBEHXZ",
+    "?friend_getGoalPathPosition@AIUpdateInterface@@QBEPBURva0016F770Coord3D@@H@Z",
+    "?friend_getWaypointGoalPathSize@AIUpdateInterface@@QAEHXZ"
+   ]
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp": {
+   "changed": [],
+   "added": [
+    "?getLocomotorSet@AIUpdateInterface@@QBEABVLocomotorSet@@XZ",
+    "?getValidSurfaces@LocomotorSet@@QBEHXZ"
+   ],
+   "removed": [
+    "?getLocomotorSet@AIUpdateInterface@@QBEPAXXZ"
+   ]
+  }
+ }
+}

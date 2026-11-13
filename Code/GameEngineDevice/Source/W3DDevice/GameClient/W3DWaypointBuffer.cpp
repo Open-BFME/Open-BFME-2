@@ -94,22 +94,7 @@ struct Rva0016F770Coord3D
 // BFME 2's goal-path position lookup is rowed as 0x00346FA5.
 #include "../../../../GameEngine/Include/Common/Rva00346FA5.h"
 
-class AIUpdateInterface
-{
-public:
-	// retail 0x00271AE0 via ILT 0x0000BD84: ZH AIUpdate.cpp body (state id vs
-	// AI_FOLLOW_PATH=6 with INVALID_STATE_ID 999999, then goal-path size / 12).
-	// BFME 2: rowed 0x00265143 (ZH friend_getWaypointGoalPathSize).
-	Int rva00265143();
-	Int friend_getWaypointGoalPathSize() { return rva00265143(); }
-	Int friend_getCurrentGoalPathIndex() const { return m_nextGoalPathIndex; }
-	const Rva0016F770Coord3D *friend_getGoalPathPosition(Int index) const { return (const Rva0016F770Coord3D *)m_stateMachine->rva00346FA5(index); }
-
-	unsigned char m_unreconstructed_000[0x30];
-	Rva00346FA5 *m_stateMachine;
-	unsigned char m_unreconstructed_034[0x194 - 0x34];
-	Int m_nextGoalPathIndex;
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -225,8 +210,8 @@ void W3DWaypointBuffer::drawWaypoints(RenderInfoClass &rinfo)
 			if( obj && ! obj->bfme_is_kind_of( KINDOF_IGNORED_IN_GUI ))
 			{
 				AIUpdateInterface *ai = obj->getAI();
-				Int goalSize = ai ? ai->friend_getWaypointGoalPathSize() : 0;
-				Int gpIdx = ai ? ai->friend_getCurrentGoalPathIndex() : 0;
+				Int goalSize = ai ? ai->rva00265143() : 0;
+				Int gpIdx = ai ? (Int)ai->m_field194 : 0;
 				if( ai && gpIdx >= 0 && gpIdx < goalSize )
 				{
 					const Coord3D *pos = obj->getPosition();
@@ -234,7 +219,8 @@ void W3DWaypointBuffer::drawWaypoints(RenderInfoClass &rinfo)
 
 					for( int i = gpIdx; i < goalSize; i++ )
 					{
-						const Rva0016F770Coord3D *waypoint = ai->friend_getGoalPathPosition( i );
+						const Rva0016F770Coord3D *waypoint = (const Rva0016F770Coord3D *)
+							((Rva00346FA5 *)ai->m_stateMachine)->rva00346FA5(i);
 						if( waypoint )
 						{
 							if( numPoints < MAX_DISPLAY_NODES + 1 )

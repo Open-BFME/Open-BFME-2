@@ -41,7 +41,7 @@ class BfmeOwnerRW { public: int bfmeCheckRW(); };
 class W3DModelDraw { public: virtual void doDrawModule(const Matrix3D*); };
 class W3DTankTruckDraw { friend class W3DTruckDraw; protected: void enableEmitters(bool); };
 struct Rva00781660Locomotor { char head[0x44]; unsigned field40; bool isMovingBackwards() const { return (field40 >> 7) & 1; } };
-struct AIUpdateInterface { char head[0x140]; BfmeHostFC *path; char gap[0x1f0-0x144]; Rva00781660Locomotor *loco; BfmeHostFC *getPath() const { return path; } Rva00781660Locomotor *getCurLocomotor() const { return loco; } };
+#include "../../../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 class Object : public Thing { public: bool isKindOf(KindOfType)const; float rva0028AC7D() const; float GetRelativeAngle(const Coord3D*)const; bool isSignificantlyAboveTerrain()const; char head[0x258]; AIUpdateInterface *ai; AIUpdateInterface *getAI() const { return ai; } };
 struct TWheelInfo { float m_frontLeftHeightOffset, m_frontRightHeightOffset, m_rearLeftHeightOffset, m_rearRightHeightOffset, m_wheelAngle; };
 class Drawable { public: const TWheelInfo *getWheelInfoRV() const { return m_locoInfo ? reinterpret_cast<const TWheelInfo *>(reinterpret_cast<const unsigned char *>(m_locoInfo)+0x3c) : 0; } char head[0xfc]; Object *object; char before138[0x3c]; void *m_locoInfo; Object *getObject() const { return object; } };
@@ -216,7 +216,7 @@ void W3DTruckDraw::doDrawModule(const Matrix3D* transformMtx)
 		if (ai && ai->getPath())
 		{
 			Coord3D pointOnPath;
-			ai->getPath()->bfmeGetPosFC((BfmeVec3FC *)&pointOnPath);
+			((BfmeHostFC *)ai->getPath())->bfmeGetPosFC((BfmeVec3FC *)&pointOnPath);
 			float angleToGoal = obj->GetRelativeAngle(&pointOnPath);
 			//DEBUG_LOG(("To goal %f, desired %f ", 180*angleToGoal/PI, 180*desiredAngle/PI));
 			if (angleToGoal<0) {
@@ -252,7 +252,7 @@ void W3DTruckDraw::doDrawModule(const Matrix3D* transformMtx)
 	{
 		float powerslideRotationAddition = moduleData->m_powerslideRotationAddition;
 		if (ai) {
-			Rva00781660Locomotor *loco = ai->getCurLocomotor();
+			Rva00781660Locomotor *loco = (Rva00781660Locomotor *)ai->getCurLocomotor();
 			if (loco) {
 				if (loco->isMovingBackwards()) {
 					speed = -speed; // rotate wheels backwards.  jba.

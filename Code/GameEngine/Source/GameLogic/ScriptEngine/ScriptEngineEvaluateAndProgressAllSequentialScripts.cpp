@@ -123,27 +123,7 @@ public:
 	SequentialScript *m_nextScriptInSequence;	// +0x28
 };
 
-template <int N>
-class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>
-{
-public:
-	virtual void unused(char (*)[N]) = 0;
-};
-
-template <>
-class BfmeVirtualSlots<0>
-{
-};
-
-class AIUpdateInterface : public BfmeVirtualSlots<110>
-{
-public:
-	virtual Bool isIdle() const;	// +0x1B8
-	char m_pad04[0x3CA - 4];
-	Bool m_3CA;	// +0x3CA
-	char m_pad3CB[0x3DA - 0x3CB];
-	Bool m_3DA;	// +0x3DA, script tracker (+0x3D0) flag
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -252,14 +232,14 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 			if (seqScript->m_framesToWait > 0) {
 				advance = false;
 				if (ai)
-					ai->m_3DA = true;
+					ai->m_storage3D0[0xA] = true;
 				if (aigroup)
 					aigroup->rva0036E2E2(true);
 			} else if (seqScript->m_framesToWait <= 0) {
 				if (ai) {
-					if (!ai->isIdle() || ai->m_3CA)
+					if (!ai->isIdle() || ai->m_field3CA)
 						advance = false;
-					ai->m_3DA = false;
+					ai->m_storage3D0[0xA] = false;
 				}
 				if (aigroup) {
 					if (!aigroup->isIdle() || aigroup->rva0036E0B6())

@@ -1210,3 +1210,22 @@ prefix covered the now-declared flags and index. All 31 rows and 72 COMDAT
 fingerprints remain unchanged; strict verification and owning-tool acceptance
 retire its path queue row. The preceding push audit remains INCONCLUSIVE for
 the post-rebase FloorBuffer receipt; no full-link or runtime result is implied.
+
+### 2026-11-13: seven fixed-header AIUpdate callers adopted
+
+Seven queued consumers now use the existing AIUpdateInterface header, preserving
+the command-base receiver, construction slot, opaque script-flag byte, signed
+waypoint index and locomotor surface-mask value. All 34 function rows and one
+data row pass normal/strict checks; all 165 common COMDATs retain their contents
+and relocation identities. Four shared-header accessors and one Object getter
+respelling replace seven old prefix helpers, with no new tables. Owning acceptance retires seven queue entries;
+the historical-index scoped preview preserves 11861 linked bytes.
+[Verification and exact object differences](../../reverse/attempt_support/aiupdate-consumers-20261113-root20.md).
+
+The remaining GameLogic phase-access trial is restored: an access-only member
+pointer emits a new virtual-call thunk and loses loadPostProcess/registerObject
+(170/172 rows). GameLogicInit still needs canonical protected-object and mask
+declarations. Mouse/View still meet duplicate string/coordinate declarations;
+Mouse also has incompatible BitFlags template parameters. Those four queue
+entries remain. [Concrete prerequisites and rejected object proof](../../reverse/attempt_support/aiupdate-prerequisites-20261113-root20.md).
+These are caller/source improvements, not a current real-link or runtime result.
