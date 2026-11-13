@@ -202,7 +202,7 @@ const
         Rva00030830FreeAllocation(p);
 }
 }
-class Rva00599534 {public: void rva00599534(int);};
+#include "../../../Include/Common/Rva00599534.h"
 #include "../../../Include/GameLogic/Rva00598149.h"
 void *Rva00486687Find(void *);
 struct Rva005996FFArg;

@@ -1623,11 +1623,7 @@ public:
 	void addFXNugget(FXNugget *nugget);						// 0x0037D097
 };
 
-class Rva00599534
-{
-public:
-	void rva00599534(int value);							// 0x00599534
-};
+#include "../../Include/Common/Rva00599534.h"
 
 class Rva004EC044
 {
