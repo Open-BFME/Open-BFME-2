@@ -265,15 +265,7 @@ private:
 #include "../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 #include "../../Include/GameLogic/Module/Rva004DC8E7AsciiField.h"
 #include "../../Include/Common/Rva0029173EAsciiField.h"
-class Rva004CFBC2AsciiField
-{
-public:
-	void rva004CFBC2(AsciiString value);
-
-private:
-	char m_pad[0x1DC];
-	AsciiString m_value; // +0x1DC
-};
+#include "../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 BFME_DISP_FLOAT_GETTER(Rva0009533CFloatField, 0xD0)
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 

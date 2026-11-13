@@ -22,11 +22,7 @@ public:
 	void rva004CFB8B(AsciiString value);
 };
 
-class Rva004CFBC2AsciiField
-{
-public:
-	void rva004CFBC2(AsciiString value);
-};
+#include "../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 
 #include "../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 

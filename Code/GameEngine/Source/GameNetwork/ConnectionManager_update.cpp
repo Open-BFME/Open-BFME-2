@@ -91,11 +91,7 @@ public:
 	void rva004CFB8B(AsciiString text);
 };
 
-class Rva004CFBC2AsciiField
-{
-public:
-	void rva004CFBC2(AsciiString text);
-};
+#include "../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 
 class GameSpyGameSlot;
 

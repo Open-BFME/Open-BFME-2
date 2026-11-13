@@ -1591,15 +1591,7 @@ private:
 	AsciiString m_value; // +0x308
 };
 
-class Rva004CFBC2AsciiField
-{
-public:
-	void rva004CFBC2(AsciiString value);
-
-private:
-	char m_pad[0x1DC];
-	AsciiString m_value; // +0x1DC
-};
+#include "../../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0028B7B5CmpBoolField, 0x354, !=)
 

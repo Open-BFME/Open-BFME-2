@@ -1016,15 +1016,7 @@ private:
 
 #include "../../../Include/Common/Rva0029173EAsciiField.h"
 
-class Rva004CFBC2AsciiField
-{
-public:
-	void rva004CFBC2(AsciiString value);
-
-private:
-	char m_pad[0x1DC];
-	AsciiString m_value; // +0x1DC
-};
+#include "../../../Include/GameNetwork/Rva004CFBC2AsciiField.h"
 
 // ---- from Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 
