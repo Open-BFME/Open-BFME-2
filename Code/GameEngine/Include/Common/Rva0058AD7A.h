@@ -15,7 +15,7 @@ public:
     unsigned char m_19;
     unsigned char m_1A;
     Rva0058AD7A(int x);
-    virtual ~Rva0058AD7A() {}
+    virtual ~Rva0058AD7A();
 };
 
 typedef char canonical_Rva0058AD7A_3e724fc2_sizeof[sizeof(Rva0058AD7A) == 28 ? 1 : -1];
