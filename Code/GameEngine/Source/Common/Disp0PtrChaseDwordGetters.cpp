@@ -17,12 +17,7 @@ int Rva0042D697PtrChaseField::get() const
 {
 	return *(int *)((char *)m_ptr + 0x30);
 }
-class Rva0042D6AEPtrChaseField
-{
-public:
-	int get() const;
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva0042D6AEPtrChaseField.h"
 int Rva0042D6AEPtrChaseField::get() const
 {
 	return *(int *)((char *)m_ptr + 0x28);
