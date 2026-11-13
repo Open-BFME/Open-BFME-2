@@ -241,8 +241,7 @@ void AI::reset()
 // Original member identity is unknown; no complete Palantir layout claimed.
 #include "ascii_string.h"
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRefWithChar { const AsciiString *m_string; char m_char; };
-struct AsciiStringCharPlusText : AsciiStringRefWithChar { Rva000B3F84Pair m_right; };
+#include "../../Include/Common/AsciiStringCharPlusText.h"
 #include "../../Include/Common/Rva005D2F96S16.h"
 struct Rva005D2F96Base24 { int m0, m1, m2, m3, m4, m5; };
 struct Rva005D2F96S24 : Rva005D2F96Base24 {};

@@ -1,0 +1,79 @@
+{
+ "bases": [
+  "AsciiStringRefWithChar"
+ ],
+ "bases_by": "majority",
+ "class": "AsciiStringCharPlusText",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": [
+    [
+     0,
+     5
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 5,
+  "view_sizes": {
+   "16": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva000B3F84Pair",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    },
+    {
+     "kind": "i4",
+     "name": "m_len",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_right",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 8,
+   "type": "Rva000B3F84Pair",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 1
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {}
+}

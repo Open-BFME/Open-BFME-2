@@ -333,16 +333,8 @@ Rva005D32EC __cdecl operator+(const AsciiStringPlusStringText &left, const char 
 Rva005D3311 __cdecl operator+(const Rva005D32EC &left, const char *right);
 Rva005F8FA2Dst *__cdecl Rva005F8FA2Copy(Rva005F8FA2Dst *dest, Rva005F8FA2Src *src, int value);
 
-struct AsciiStringRefWithChar
-{
-	const AsciiString *m_string;
-	char m_char;
-};
+#include "../../../../../Include/Common/AsciiStringCharPlusText.h"
 
-struct AsciiStringCharPlusText : AsciiStringRefWithChar
-{
-	Rva000B3F84Pair m_right;
-};
 
 #include "../../../../../Include/Common/Rva005D2F96S16.h"
 

@@ -74,14 +74,7 @@ struct AsciiStringPlusText : AsciiStringRef
 };
 
 // "string + char + text"
-struct AsciiStringCharPlusText : AsciiStringRefWithChar
-{
-	int length() const;
-	int write(char *dst);
-	operator AsciiString();
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../../Include/Common/AsciiStringCharPlusText.h"
 
 // "string + string": two AsciiString operands. The length sums through the
 // shared header-length fold pinned at 0x002198C8 (layout-compatible with

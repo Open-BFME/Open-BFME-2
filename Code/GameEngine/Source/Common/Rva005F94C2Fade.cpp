@@ -8,16 +8,8 @@
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringRefWithChar
-{
-	const AsciiString *m_string;
-	char m_char;
-};
+#include "../../Include/Common/AsciiStringCharPlusText.h"
 
-struct AsciiStringCharPlusText : AsciiStringRefWithChar
-{
-	Rva000B3F84Pair m_right;
-};
 
 #include "../../Include/Common/Rva005D2F96S16.h"
 

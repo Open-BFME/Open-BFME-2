@@ -146,10 +146,7 @@ public:
 
 #include "../../../../../Include/Common/AsciiStringRefWithChar.h"
 
-struct AsciiStringCharPlusText : AsciiStringRefWithChar
-{
-	Rva000B3F84Pair m_right;
-};
+#include "../../../../../Include/Common/AsciiStringCharPlusText.h"
 
 #include "../../../../../Include/Common/AsciiStringPlusString.h"
 

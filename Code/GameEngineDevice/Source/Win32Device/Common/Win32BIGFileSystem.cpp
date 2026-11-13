@@ -196,11 +196,7 @@ AsciiString makeAsciiString(const char *text);
 #include "../../../../GameEngine/Include/Common/AsciiStringRef.h"
 #include "../../../../GameEngine/Include/Common/AsciiStringRefWithChar.h"
 #include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringCharPlusText : AsciiStringRefWithChar
-{
-	operator AsciiString();					// 0x00234CA6
-	Rva000B3F84Pair m_right;
-};
+#include "../../../../GameEngine/Include/Common/AsciiStringCharPlusText.h"
 inline AsciiStringRefWithChar operator+(const AsciiString &s, char c)
 {
 	AsciiStringRefWithChar r;
