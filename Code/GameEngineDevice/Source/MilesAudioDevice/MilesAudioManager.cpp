@@ -145,10 +145,19 @@ struct OpaqueRefElement4 {
     OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
 };
 typedef _STL::deque<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> > MusicStack;
+// W5's stride: the element these rows step is 4 bytes (tools/retail_identity.py OPAQUE_REF_DEQUE_*).
+typedef char OpaqueRefElement4SizeIs4[sizeof(OpaqueRefElement4)==4?1:-1];
 // Use the retail deque erase emitted by StlportOwnedDeque.cpp.
 namespace _STL { template <> MusicStack::iterator MusicStack::erase(MusicStack::iterator); }
 // The vector destructor is provided by StlportVectorDtorDeferred.cpp.
 namespace _STL { template <> vector<OpaqueRefElement4>::~vector(); }
+// deque<OpaqueRefElement4>'s destructor chain (W5): this unit emits ~deque 0x000579DE; its range teardown _Destroy
+// 0x00056DEB, __destroy 0x00055880 and __destroy_aux 0x00054FD9 are rowed in their own units, and its base destructor
+// is the fold 0x0054FAAC (StlportDequeBaseSweepRva00056DEB.cpp). The base destructor declaration without an
+// exception specification gives the or [ebp-4],-1 trylevel reset retail shows before the base-destructor call.
+namespace _STL { template <> void __destroy_aux<MusicStack::iterator>(MusicStack::iterator, MusicStack::iterator, __false_type const &); }
+namespace _STL { template <> void __destroy<MusicStack::iterator, OpaqueRefElement4>(MusicStack::iterator, MusicStack::iterator, OpaqueRefElement4 *); }
+namespace _STL { template<> _Deque_base<OpaqueRefElement4, allocator<OpaqueRefElement4> >::~_Deque_base(); }
 enum MusicSystem { MUSIC_SYSTEM_0, MUSIC_SYSTEM_1 };
 inline MusicSystem &operator--(MusicSystem &ms, int) { ms = (MusicSystem)(ms - 1); return ms; }
 #include "../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -5593,20 +5602,6 @@ public:
     Rva000A8684();
 };
 
-// Suppress this TU's non-retail copy of ??$__destroy_aux@U?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056DEBE:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva00056DEBElement;
-
-namespace _STL { template <> void __destroy_aux<_Deque_iterator<Rva00056DEBElement,_Nonconst_traits<Rva00056DEBElement> > >(_Deque_iterator<Rva00056DEBElement,_Nonconst_traits<Rva00056DEBElement> >,_Deque_iterator<Rva00056DEBElement,_Nonconst_traits<Rva00056DEBElement> >,__false_type const &); }
-
-struct Rva00056DEBElement { char bytes[1]; ~Rva00056DEBElement(); bool operator<(const Rva00056DEBElement&)const; bool operator==(const Rva00056DEBElement&)const; };
-
-namespace _STL { template<> _Deque_base<Rva00056DEBElement, allocator<Rva00056DEBElement> >::~_Deque_base(); }
-
-// Suppress this TU's copies of template members whose kept copy (first in link
-// order) is another unit's. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void __destroy<_Deque_iterator<Rva00056DEBElement,_Nonconst_traits<Rva00056DEBElement> >,Rva00056DEBElement>(_Deque_iterator<Rva00056DEBElement,_Nonconst_traits<Rva00056DEBElement> >,_Deque_iterator<Rva00056DEBElement,_Nonconst_traits<Rva00056DEBElement> >,Rva00056DEBElement *); }
-
 class Rva00051CBA
 {
 public:
@@ -7413,14 +7408,10 @@ void bfmeEmitAsciiStringLess(const AsciiString *asciiString, const AsciiString *
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportDequeSweepRva00056DEB.cpp
 
-// STLport 4.5.3 deque<Rva00056DEBElement> destructor, retail 0x000579DE (87B).
-// The element destructor declaration arms the rowed _Destroy range helper
-// 0x56DEB; the _Deque_base destructor declaration without an exception
-// specification gives the or [ebp-4],-1 trylevel reset retail shows before the
-// base-destructor call. The base body itself is emitted by the ICF alias row
-// at 0x54FAAC from StlportDequeBaseSweepRva00056DEB.cpp.
+// STLport 4.5.3 deque<OpaqueRefElement4> destructor, retail 0x000579DE (87B), MusicStack's: see the declarations
+// beside MusicStack for the chain it calls (W5).
 
-template _STL::deque<Rva00056DEBElement>::~deque();
+template _STL::deque<OpaqueRefElement4>::~deque();
 
 // 0x00057FC1 73B: hashtable<pair<const AsciiString, UnicodeString>, ...>::clear, m_fileText's clear;
 // rowed here as this unit's own instantiation (rva00061C87 and the map's destructor emit it).
@@ -7752,7 +7743,7 @@ template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElem
 
 // tu-skeleton: 0x00055825 63B ??$copy_backward@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_owned_copy_backward.cpp (not merged yet)
 
-// tu-skeleton: 0x00055880 45B ??$__destroy@U?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL@@@_STL@@URva00055880Element@@@_STL@@YAXU?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL@@@0@0PAURva00055880Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00055880.cpp (not merged yet)
+// tu-skeleton: 0x00055880 45B ??$__destroy@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@UOpaqueRefElement4@@@_STL@@YAXU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@0PAUOpaqueRefElement4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00055880.cpp (not merged yet)
 
 // tu-skeleton: 0x000558AD 65B ??$__copy_aux@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Const_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Const_traits@UOpaqueRefElement4@@@_STL@@@0@0U10@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000558AD.cpp (not merged yet)
 
@@ -7802,7 +7793,7 @@ template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElem
 
 // tu-skeleton: 0x00056DA2 73B ?rva00056DA2@Rva00056DA2@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp (not merged yet)
 
-// tu-skeleton: 0x00056DEB 41B ??$_Destroy@U?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056DEBElement@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056DEBElement@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00056DEB.cpp (not merged yet)
+// tu-skeleton: 0x00056DEB 41B ??$_Destroy@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00056DEB.cpp (not merged yet)
 
 // tu-skeleton: 0x00056E14 63B ??$uninitialized_copy@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp (not merged yet)
 

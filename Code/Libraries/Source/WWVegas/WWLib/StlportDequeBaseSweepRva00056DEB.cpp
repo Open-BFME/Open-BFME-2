@@ -19,3 +19,17 @@ template<> _Deque_base<Rva00056DEBElement, allocator<Rva00056DEBElement> >::~_De
   }
 }
 }
+
+// deque<OpaqueRefElement4>'s base destructor (W5): the same folded body, defined here as the fold proof of its pin
+// on 0x54FAAC. MilesAudioManager.cpp's ~deque<OpaqueRefElement4> 0x579DE and its unwind funclet call it by name.
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
+
+namespace _STL {
+template<> _Deque_base<OpaqueRefElement4, allocator<OpaqueRefElement4> >::~_Deque_base()
+{
+  if (_M_map._M_data) {
+    _M_destroy_nodes(_M_start._M_node, this->_M_finish._M_node + 1);
+    _M_map.deallocate(_M_map._M_data, _M_map_size._M_data);
+  }
+}
+}
