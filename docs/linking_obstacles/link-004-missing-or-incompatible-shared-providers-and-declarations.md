@@ -1229,3 +1229,11 @@ declarations. Mouse/View still meet duplicate string/coordinate declarations;
 Mouse also has incompatible BitFlags template parameters. Those four queue
 entries remain. [Concrete prerequisites and rejected object proof](../../reverse/attempt_support/aiupdate-prerequisites-20261113-root20.md).
 These are caller/source improvements, not a current real-link or runtime result.
+
+**Water shared-view batch (2026-11-13, root20,95ee37400c7):** four private
+views removed in three files after31/31 functions+4data and four owning
+acceptances. Three track-system consumers remain blocked on class-scoped
+field rewriting or whole-storage/lifetime proof. RenderObjClass additionally
+passes only22/24 in a parsing diagnostic; its native Get_User_Data call is
+inlined away and cleanup76408F fails. No failed candidate or header edit.
+[Remaining prerequisites](../../reverse/attempt_support/water-shared-views-prerequisites-20261113-root20.md).
