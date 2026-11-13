@@ -21,7 +21,7 @@ class Xfer;
 class AsciiString;
 enum INILoadType { INI_LOAD_INVALID = 0, INI_LOAD_OVERWRITE = 1, INI_LOAD_CREATE_OVERRIDES = 2 };
 #include "../../../../Include/Common/INI/INI.h"
-struct LookupListRec { const char* name; int value; };
+#include "../../../../Include/Common/LookupListRec.h"
 class ControlBarScheme;
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "ControlBarSchemeManagerView.h"

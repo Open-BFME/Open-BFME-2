@@ -184,7 +184,7 @@ void __identifier("?parseGeometryHeight@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseGeometryIsSmall@GeometryInfo@@SAXPAVINI@@PAX1PBX@Z")();
 }
 
-struct LookupListRec { const char *name; int value; };
+#include "../../../../Include/Common/LookupListRec.h"
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 // EvacuateDamage.cpp, the proc's approved unit, defines its table with that unit's names.
 extern const FieldParse g_00C59DD0[];
