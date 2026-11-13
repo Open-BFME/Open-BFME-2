@@ -272,11 +272,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "../../Include/Common/RAMFileClass.h"
 
-class Rva005E5884
-{
-public:
-	int rva005E5884(void *a1, int a2);
-};
+#include "../../Include/Common/Rva005E5884.h"
 
 class Rva005E5920
 {

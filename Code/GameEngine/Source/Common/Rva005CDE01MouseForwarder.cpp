@@ -22,7 +22,7 @@ int Rva005CDE01::rva005CDE01(GameMessage*msg){
 // RAMFile-write wrapper 0x5E5920 on this and the fallback is the rowed
 // 0x5D1F14.  The 5E5920/5D1F14 call slots are 8-byte (ret 8).
 #include "../../Include/Common/RAMFileClass.h"
-class Rva005E5884 { public: int rva005E5884(void *, int); };
+#include "../../Include/Common/Rva005E5884.h"
 class Rva005E5920 : public RAMFile
 {
 public:
