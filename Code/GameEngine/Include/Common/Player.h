@@ -273,7 +273,7 @@ public:
  Rva002AA14DBonuses *m_battlePlanBonuses; // 2AC9DA/2AC9F0 store a new Rva002AA14DBonuses
  unsigned char m_opaqueBC[0x278 - 0xBC];
  BuildListInfo *m_pBuildList; // ctor 2B1007 clears it; init 2AF7B1/2AF7C7 deletes the list and clears it
- unsigned char m_opaque27C[0x280 - 0x27C];
+ int m_27C; // init 2AFAAE/2AFBAE and initFromDict 2AFED6 store it; DoXfer 2B1B0E transfers it
  int m_color; // becomingLocalPlayer 2AE017 passes it to RGBColor::setFromInt
  int m_nightColor; // init 2AFA9B; becomingLocalPlayer 2AE1AD picks it before +0x280
  unsigned char m_opaque288[0x2D0 - 0x288];
@@ -305,17 +305,26 @@ public:
  bool m_canBuildBase; // allowedToBuild 2ABE28 tests it for structures
  bool m_observer; // isPlayerObserver 2AA223 returns it
  bool m_isPreorder; // init 2AF8E3 clears it, initFromDict 2AFF3E sets it
- unsigned char m_opaque33C[0x33D - 0x33C];
+ bool m_33C; // init 2AF8EA stores 1; DoXfer 2B1B37 transfers it
  bool m_unitsShouldHunt; // setUnitsShouldHunt 2AE9C1 stores it
- unsigned char m_opaque33E[0x358 - 0x33E];
+ bool m_33E; // init 2AF8F8 stores 0; update 2AE864 compares it; DoXfer 2B1566 transfers it
+ bool m_33F; // ctor 2B10C8 and init 2AF8FF clear it; accumulateRTSBattleStatsIntoLivingWorldScoreKeeper 2A9997 tests it, 2A99C9 sets it
+ unsigned char m_opaque340[0x358 - 0x340];
  int m_358[20]; // setUnitsVisionSpied 2ABA49 counts per player index; init 2AF916 clears 20 entries
  int m_3A8; // setUnitsVisionSpied 2ABA8B stores the mask of nonzero m_358 entries
  int m_3AC; // ctor 2B10AB stores -1; initFromDict 2B06E5 stores Dict::getInt(TheKey_livingWorldPlayerID)
  unsigned char m_opaque3B0[0x6F0 - 0x3B0];
  ObjectID m_6F0; // rva002AC629 2AC659 caches an object's ID here and passes it to findObjectByID
- unsigned char m_opaque6F4[0x708 - 0x6F4];
+ unsigned char m_opaque6F4[0x6F8 - 0x6F4];
+ float m_6F8; // init 2AF94B stores it with movss; DoXfer 2B1CDF transfers it
+ int m_6FC; // init 2AF953 stores it; DoXfer 2B1CED transfers it
+ unsigned char m_opaque700[0x708 - 0x700];
  Squad *m_squads[10]; // processCreateTeamGameMessage 2ACA94/2ACA9B bound the index by 10 and read it
  Squad *m_currentSelection; // getCurrentSelectionAsAIGroup 2AA164 reads it, the dtor deletes it
- unsigned char m_opaque734[0x758 - 0x734];
+ bool m_734; // init 2AF9D2 clears it and 2AFB32 stores it; DoXfer 2B16B6 transfers it
+ unsigned char m_opaque735[0x74C - 0x735];
+ AsciiString m_74C; // ctor 2B1131 clears it; init 2AFCC3 and initFromDict 2B06AC use it; the dtor releases it at 2B12A5
+ int m_750; // ctor 2B1145 stores it; DoXfer 2B2089 transfers it
+ unsigned char m_opaque754[0x758 - 0x754];
 };
 typedef char PlayerCanonicalSizeCheck[sizeof(Player) == 0x758 ? 1 : -1];
