@@ -723,11 +723,7 @@ InsertRet0041FA92 Rva000427195::rva0041FCD6(const void *value)
 // the rowed 0x00421263 (that row's notes name this wrapper's shape).
 class ModuleData;
 
-struct Rva00421263Vec
-{
-	const ModuleData **m_begin;
-	const ModuleData **m_end;
-};
+#include "../../Include/Common/Rva00421263Vec.h"
 
 class LightPointSystem
 {
