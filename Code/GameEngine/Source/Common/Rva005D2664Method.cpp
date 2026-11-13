@@ -28,14 +28,7 @@ struct Elem005D2664
 	char m_pad14[8];
 };
 
-class Rva005D2664
-{
-public:
-	void rva005D2664(int idx);
-	void rva005D269B();
-private:
-	char m_header00[0x1C];
-};
+#include "../../Include/Common/Rva005D2664.h"
 
 void Rva005D2664::rva005D2664(int idx)
 {

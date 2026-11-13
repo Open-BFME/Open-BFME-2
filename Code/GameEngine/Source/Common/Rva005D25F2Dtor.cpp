@@ -117,10 +117,7 @@ StrategicHUD::CommandUIImpl::~CommandUIImpl()
 #include "../../Include/Common/Rva002BED91.h"
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };
 #include "../../Include/Common/Rva005C3E79.h"
-class Rva005D2664 { public:
-    void rva005D2664(int); void rva005D27BE(const char *);
-    void rva005D28F4(const char *); void rva005D2A27(const char *);
-};
+#include "../../Include/Common/Rva005D2664.h"
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"

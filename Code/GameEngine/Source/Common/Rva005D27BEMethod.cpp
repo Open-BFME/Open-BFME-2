@@ -5,16 +5,7 @@
 
 #include "../../Include/Common/Rva00528FE6.h"
 
-class Rva005D2664
-{
-public:
-	void rva005D2664(int idx);
-	void rva005D27BE(const char *params);
-	void rva005D28F4(const char *params);
-	void rva005D2A27(const char *params);
-private:
-	char m_header00[0x1C];
-};
+#include "../../Include/Common/Rva005D2664.h"
 
 namespace StrategicHUD { bool __cdecl ParseButtonSlotIndex(const char *params, int *out); }
 
