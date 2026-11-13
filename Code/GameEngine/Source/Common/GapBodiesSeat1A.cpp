@@ -950,11 +950,7 @@ bool Rva00272366::rva00272366(int a, int b, int c)
 // --- 0x002785D6 (37B): changes the +0x447 flag, then on set the rowed
 // 0x002783F6(0), on clear the rowed 0x002743D7; 0x0027862C (24B): changes the
 // +0x449 flag, then the rowed 0x002784EB.
-class Rva002783F6Host
-{
-public:
-	void rva002783F6(int value);							// 0x002783F6
-};
+#include "../../Include/Common/Rva002783F6Host.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

@@ -1,0 +1,105 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002783F6Host",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x447": {
+    "1": 1
+   },
+   "0x448": {
+    "1": 1
+   },
+   "0x44a": {
+    "1": 1
+   },
+   "0xfc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 1,
+   "1100": 2
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 252,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "Object*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_x447",
+   "name_by": "majority",
+   "offset": 1095,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_x448",
+   "name_by": "majority",
+   "offset": 1096,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_x44A",
+   "name_by": "majority",
+   "offset": 1098,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1100,
+ "size_by": "majority",
+ "vslots": {}
+}
