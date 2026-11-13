@@ -185,11 +185,7 @@ public:
 	AptRef &operator=(const AptRef &other);
 };
 
-class Rva0059AE94
-{
-public:
-	bool rva0059AE94();
-};
+#include "../../../../../Include/Common/Rva0059AE94.h"
 
 class Rva0059ADB9
 {

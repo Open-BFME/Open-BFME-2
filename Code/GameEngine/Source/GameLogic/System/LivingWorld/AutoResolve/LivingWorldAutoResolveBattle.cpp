@@ -504,7 +504,7 @@ LivingWorldAutoResolveBattle::LivingWorldAutoResolveBattle(const PlayerStorage&i
 // attacker-stride spill order. A named bool adds SETNE/TEST (five bytes);
 // the bare pointer test swaps EAX/ECX. This is a code-generation adaptation,
 // not a claim that WorldBuilder originally declared this pointer local.
-class Rva0059AE94 {public:bool rva0059AE94();};
+#include "../../../../../Include/Common/Rva0059AE94.h"
 class Rva0059AEFF {public:int rva0059AEFF();};
 class Rva0059ADF4 {public:void rva0059ADF4(int);};
 #include "../../../../../Include/Common/Rva002B254F.h"
