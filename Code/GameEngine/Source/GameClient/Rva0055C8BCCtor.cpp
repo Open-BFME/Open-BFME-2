@@ -20,6 +20,7 @@ private:
 };
 }
 void __cdecl Rva005C7889Init(void);
+typedef unsigned int UnsignedInt; // Lib/BaseType.h's spelling
 #include <new>
 #include "../../../Libraries/Source/WWVegas/WW3D2/PointGroupClass.h"
 typedef char CheckPointGroupSize[(sizeof(PointGroupClass) == 0x5c) ? 1 : -1];
