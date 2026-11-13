@@ -179,7 +179,7 @@ struct Rva0054D54ANode {virtual void*destroy(unsigned);Rva0054D54ANode*next;int 
 
 class Rva0054D54A {public:Rva0054D54A();Rva0054D54A(GameMessage*);virtual ~Rva0054D54A();Rva0054D54ANode*first;void*last;int numTypes;};
 
-class Rva0054D5D3 {public:void rva0054D5D3(void*,void*);};
+#include "../../Include/Common/Rva0054D5D3.h"
 
 extern GameLogic*TheGameLogic;
 

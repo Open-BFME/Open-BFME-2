@@ -178,11 +178,7 @@ public:
 // The parser's addArgType, rowed under its address name on the class view
 // RvaSmallVtableCtors.cpp gives it (same object; the type and count travel
 // as pointer-sized values).
-class Rva0054D5D3
-{
-public:
-	void rva0054D5D3(void *type, void *argCount);
-};
+#include "../../Include/Common/Rva0054D5D3.h"
 // readGameMessageArgumentFromPacket, rowed with four parameters; BFME's
 // reader also passes the message type, which the body never reads.
 void Rva00590D19Add(Int type, NetGameCommandMsg *msg, const void *data, Int *readOffset, Int msgType);
