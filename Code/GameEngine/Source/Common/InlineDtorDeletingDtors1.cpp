@@ -55,19 +55,6 @@ Rva004BDA0C::Rva004BDA0C(EmitVtableTag *)
 {
 }
 
-// ??_GRva004EA01D@@UAEPAXI@Z @0x004EA01D 29B: slot 2 of the vtable it stores, VA 0x00C62888
-class Rva004EA01D
-{
-public:
-	Rva004EA01D(EmitVtableTag *);
-	virtual ~Rva004EA01D() {}
-};
-
-// ?<Rva004EA01D::Rva004EA01D> absent-from-retail
-Rva004EA01D::Rva004EA01D(EmitVtableTag *)
-{
-}
-
 // ??_GRva0052B668@@UAEPAXI@Z @0x0052B668 29B: slot 0 of the vtable it stores, VA 0x00C686BC
 class Rva0052B668
 {

@@ -28528,7 +28528,6 @@ _FilterBlock_C,,0x001B8560,993,Code/Libraries/Source/VP6/FilterBlockC.cpp,matche
 ??0Rva005E9742@@QAE@PBUPayload@0@@Z,,0x005E9742,31,Code/GameEngine/Source/Common/Rva005CEB57Ctor.cpp,matched,payload ctor: bytes equal ??0Rva005CEB57 except the vtable VA 0xc78038
 ??0Rva00359853@@QAE@II@Z,,0x00359853,25,Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp,matched,two-field ctor: bytes equal ??0Rva0059B7CB except the vtable VA 0xc153d4
 ??0Rva00431A34@@QAE@II@Z,,0x00431A34,25,Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp,matched,two-field ctor: bytes equal ??0Rva0059B7CB except the vtable VA 0xc3c9ac
-??0Rva004E9FFD@@QAE@II@Z,,0x004E9FFD,25,Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp,matched,two-field ctor: bytes equal ??0Rva0059B7CB except the vtable VA 0xc62888
 ??0Rva00567847@@QAE@II@Z,,0x00567847,25,Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp,matched,two-field ctor: bytes equal ??0Rva0059B7CB except the vtable VA 0xc6ced8
 ?rva002A1B1D@Rva002A1B1D@@QAEXPBURva002A1B1DChunk@@000@Z,,0x002A1B1D,54,Code/Libraries/Source/WWVegas/WWLib/Rva002A1B1D.cpp,matched,Four 12B chunk copies then List_base clear via rowed 0x002934A8
 ?Rva00444525Init@@YAXXZ,,0x00444525,55,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp,matched,precedent Rva005185D8Init Shell push LanLobby apt caller 0x005148D1
@@ -38669,7 +38668,6 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ??_GRva00468A46@@UAEPAXI@Z,,0x00468A46,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 0 of the vtable it stores (VA 0x00C44890) then operator delete 0x0002FD60 on bit 0
 ??_GRva0048195F@@UAEPAXI@Z,,0x0048195F,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 0 of the vtable it stores (VA 0x00C49174) then operator delete 0x0002FD60 on bit 0
 ??_GRva004BDA0C@@UAEPAXI@Z,,0x004BDA0C,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 0 of the vtable it stores (VA 0x00C5AEB0) then operator delete 0x0002FD60 on bit 0
-??_GRva004EA01D@@UAEPAXI@Z,,0x004EA01D,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 2 of the vtable it stores (VA 0x00C62888) then operator delete 0x0002FD60 on bit 0
 ??_GRva0052B668@@UAEPAXI@Z,,0x0052B668,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 0 of the vtable it stores (VA 0x00C686BC) then operator delete 0x0002FD60 on bit 0
 ??_GRva00549C74@@UAEPAXI@Z,,0x00549C74,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 0 of the vtable it stores (VA 0x00C6A68C) then operator delete 0x0002FD60 on bit 0
 ??_GRva0054F434Base@@UAEPAXI@Z,,0x0054E79D,29,Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp,matched,scalar deleting dtor with inline empty dtor: slot 0 of the vtable it stores (VA 0x00C6A894) then operator delete 0x0002FD60 on bit 0

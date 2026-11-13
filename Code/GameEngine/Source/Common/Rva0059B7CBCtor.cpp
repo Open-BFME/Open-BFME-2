@@ -73,23 +73,6 @@ Rva00431A34::Rva00431A34(unsigned int field04, unsigned int field08)
 	m_field08 = field08;
 }
 
-class Rva004E9FFD
-{
-public:
-	Rva004E9FFD(unsigned int field04, unsigned int field08);
-	// Retail table 0x00C62888 holds one __purecall entry.
-	virtual void slot00() = 0;
-private:
-	unsigned int m_field04;
-	unsigned int m_field08;
-};
-
-Rva004E9FFD::Rva004E9FFD(unsigned int field04, unsigned int field08)
-{
-	m_field04 = field04;
-	m_field08 = field08;
-}
-
 class Rva00567847
 {
 public:
