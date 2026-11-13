@@ -14,11 +14,7 @@ public:
 	Rva001DF88CEntry(const Rva001DF88CEntry &other);
 	~Rva001DF88CEntry();
 };
-class Rva001DF88CVector
-{
-public:
-	void resize(unsigned n, Rva001DF88CEntry rec);
-};
+#include "../../Include/Common/Rva001DF88CVector.h"
 class Rva001DF8F8
 {
 public:

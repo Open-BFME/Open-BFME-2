@@ -106,11 +106,7 @@ public:
 
 #include "../../Include/GameClient/Rva001DEE92Member.h"
 
-class Rva001DF88CVector
-{
-public:
-	void resize(unsigned n);								// 0x001DF8F8
-};
+#include "../../Include/Common/Rva001DF88CVector.h"
 
 class Rva001DCF82
 {
