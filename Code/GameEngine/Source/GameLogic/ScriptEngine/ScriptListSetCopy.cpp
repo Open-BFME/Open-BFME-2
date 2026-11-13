@@ -5,16 +5,7 @@
 // 3B7FE0 and 3B825F. Native full constructor extents include both catches:
 // 3B872A..3B8802 and 3B8802..3B88DA (216 bytes each).
 #include "ascii_string.h"
-struct BfmeStringRecord003B3F78
-{
-    unsigned int word0, word1;
-    AsciiString text;
-    unsigned char flag;
-    unsigned short short0;
-    unsigned int word2;
-    BfmeStringRecord003B3F78() : word2(0) {}
-    BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &other);
-};
+#include "../../../Include/Common/BfmeStringRecord003B3F78.h"
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
