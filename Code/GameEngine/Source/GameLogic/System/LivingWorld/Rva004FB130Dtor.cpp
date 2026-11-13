@@ -42,11 +42,7 @@ public:
 // SpawnArmy: 88-byte record (LivingWorldCampaignObjects.cpp).
 #include "../../../../Include/Common/SpawnArmy.h"
 
-class Rva004FA935Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../../../Include/GameLogic/Rva004FA935Listener.h"
 
 class Rva004FA978
 {

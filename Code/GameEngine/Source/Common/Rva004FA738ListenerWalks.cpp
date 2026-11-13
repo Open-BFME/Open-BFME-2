@@ -46,11 +46,7 @@ public:
 };
 
 // ---- forEach 0x004FA935, walk 0x004FA738
-class Rva004FA935Listener
-{
-public:
-	virtual void notify(void *);
-};
+#include "../../Include/GameLogic/Rva004FA935Listener.h"
 
 struct Rva004FA738Call
 {
