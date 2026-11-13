@@ -69,15 +69,7 @@ extern class View *TheTacticalView;
 
 // BFME2 selection-state guard: two flag bytes at +0xB4/+0xB5, tested by the
 // outlined thiscall at 0x0042253A (returns true only if both non-zero).
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-	char m_pad00[0xB4];
-private:
-	unsigned char m_first; // +0xB4
-	unsigned char m_second; // +0xB5
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 // Borrowed prefix: native 29CBCA loads Drawable::m_object at +FC.
 class Object;

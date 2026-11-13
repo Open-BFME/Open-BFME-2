@@ -26,15 +26,7 @@ extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
 
 // BFME2 selection-state guard: true only if bytes +0xB4/+0xB5 are both set.
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-	char m_pad00[0xB4];
-private:
-	unsigned char m_first; // +0xB4
-	unsigned char m_second; // +0xB5
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

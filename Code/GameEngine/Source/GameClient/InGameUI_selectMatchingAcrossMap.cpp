@@ -39,15 +39,7 @@ extern GameTextInterface *TheGameText;
 
 struct IRegion2D;
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked() const;
-	char m_pad00[0xB4];
-private:
-	unsigned char m_first; // +0xB4
-	unsigned char m_second; // +0xB5
-};
+#include "../../Include/Common/BfmeSelectionState.h"
 
 #include "../../Include/Common/ThingTemplate.h"
 

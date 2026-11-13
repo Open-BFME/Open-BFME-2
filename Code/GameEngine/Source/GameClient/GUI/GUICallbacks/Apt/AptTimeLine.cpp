@@ -865,15 +865,7 @@ extern RecorderClass *TheRecorder;
 // ?get@Rva00210C66CmpBoolField@@QBE_NXZ, rowed 0x00210C66 (LivingWorldLogic.cpp)
 #include "../../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 // ?isSelectionLocked@BfmeSelectionState@@QBE_NXZ, rowed 0x0004253A
-class BfmeSelectionState
-{
-public:
-	__declspec(noinline) bool isSelectionLocked() const { return m_first != 0 && m_second != 0; }
-private:
-	unsigned char m_pad[0xB4];
-	unsigned char m_first;
-	unsigned char m_second;
-};
+#include "../../../../../Include/Common/BfmeSelectionState.h"
 class AptTimeLineScreen { public: void rva00520CD1(); };
 class Rva0039B893
 {
