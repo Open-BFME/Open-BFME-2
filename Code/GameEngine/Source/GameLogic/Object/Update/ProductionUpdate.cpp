@@ -457,12 +457,7 @@ template QuantityModifier * _STL::__uninitialized_fill_n<QuantityModifier *, uns
 // as __uninitialized_copy<QuantityModifier *, QuantityModifier *>, and its copy
 // loop calls 0x0049DD0B, _Construct<QuantityModifier> (emitted by
 // stlport_vector_quantitymodifier_insert_overflow_49F729.cpp). Declared only here.
-struct QuantityModifier
-{
-public:
-	AsciiString m_templateName; // +0x00
-	int m_quantity; // +0x04
-};
+#include "../../../../Include/Common/QuantityModifier.h"
 
 template void _STL::vector<QuantityModifier>::_M_insert_overflow(
 	QuantityModifier *,

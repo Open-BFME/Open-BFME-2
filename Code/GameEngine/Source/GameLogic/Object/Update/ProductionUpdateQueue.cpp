@@ -430,12 +430,7 @@ public:
 	char m_unknown50[0x54 - 0x50];
 };
 
-struct QuantityModifier
-{
-public:
-	AsciiString m_templateName; // +0x00
-	int m_quantity; // +0x04
-};
+#include "../../../../Include/Common/QuantityModifier.h"
 class ProductionUpdateModuleData
 {
 public:

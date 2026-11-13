@@ -50,12 +50,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 
 #include "../../../../Include/Common/INI/INI.h"
 
-struct QuantityModifier
-{
-public:
-	AsciiString m_templateName; // +0x00
-	int m_quantity; // +0x04
-};
+#include "../../../../Include/Common/QuantityModifier.h"
 
 class ProductionUpdateModuleData
 {

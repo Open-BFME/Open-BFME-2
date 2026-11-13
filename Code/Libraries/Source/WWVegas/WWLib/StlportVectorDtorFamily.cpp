@@ -16,11 +16,7 @@
 // real layout (implicit dtor) here so the _Destroy range COMDAT this unit
 // emits is the same body the insert-overflow, parse and ctor units emit.
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct QuantityModifier
-{
-	AsciiString m_templateName;
-	int m_quantity;
-};
+#include "../../../../GameEngine/Include/Common/QuantityModifier.h"
 template _STL::vector<QuantityModifier>::~vector();
 
 // ??1?$vector@UBfmeVectorRecord000BDF17@@V?$allocator@UBfmeVectorRecord000BDF17@@@_STL@@@_STL@@QAE@XZ @0xc6878 (_Destroy at 0xc37cd)
