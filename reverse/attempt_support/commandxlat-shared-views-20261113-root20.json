@@ -1,0 +1,135 @@
+{
+  "base": "5f3deb924b5",
+  "function_rows": 147,
+  "normal_gate": "PASS",
+  "strict_receipts": "PASS; census/index/status unchanged; LINK closure not checked",
+  "source_changes": [
+    "UnicodeString include and two private views replaced in CommandXlat",
+    "Explicit already-transitive SubsystemInterface dependency after MessageStream.h"
+  ],
+  "retired_queue_rows": [
+    [
+      "BfmeSelectionState",
+      "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    ],
+    [
+      "GameInfo",
+      "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    ],
+    [
+      "RecorderClass",
+      "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    ],
+    [
+      "Rva0031D5F8",
+      "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+    ],
+    [
+      "SubsystemInterface",
+      "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+    ]
+  ],
+  "objects": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp",
+      "before_object_sha256": "31fb403253ecfcb3d9be9faea00c3411b1c8f2356dea7f738abadec4b0c97b52",
+      "after_object_sha256": "6f3144e55c651cb915bc83618dd7762cfda0dfc02b7060a7a1ed33266bd43209",
+      "before_count": 9,
+      "after_count": 9,
+      "before_comdats_sha256": "5d4374fe7d984bfc056f1053512993d8d4711f55307035da336bab2392c23b93",
+      "after_comdats_sha256": "5d4374fe7d984bfc056f1053512993d8d4711f55307035da336bab2392c23b93",
+      "changed": [],
+      "removed": [],
+      "added": {},
+      "undefined_sets_equal": true,
+      "undefined_sha256": "26f11ecb7085db028858f3d27a4dcafd13ea255ed17e0e546652192ffa5aea4d"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+      "before_object_sha256": "7722eb7a94f29e4c01669eea16c87466936426f1f87bdfc6f6d4d7df0a1c4f75",
+      "after_object_sha256": "163bbf3e44f80d1651d81f2d9ae0ab497759fbda8eb8b84b0f48543226585b94",
+      "before_count": 327,
+      "after_count": 327,
+      "before_comdats_sha256": "97e11046d03f8078cf1d088cba043756f78bf1206645271b177adf97a3437d75",
+      "after_comdats_sha256": "97e11046d03f8078cf1d088cba043756f78bf1206645271b177adf97a3437d75",
+      "changed": [],
+      "removed": [],
+      "added": {},
+      "undefined_sets_equal": true,
+      "undefined_sha256": "2ec3def877f73f3d0cac553b0f05ee28ac673eba2d6a85dd8845e8d2631b6517"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp",
+      "before_object_sha256": "5819d8e99dc0158853e2da0830ad6bb6f546c34aea51fe657799d2500b08d50b",
+      "after_object_sha256": "c76060d135da78ec9cfa89d7adae6e66e9be0faacfb85e21a8c9b07117c9987e",
+      "before_count": 72,
+      "after_count": 74,
+      "before_comdats_sha256": "b9e7496bd2a6f3ea4dc6f51a9b74a92eb35141355eedaf01ca7ef8a90b4bf849",
+      "after_comdats_sha256": "c370b9e890005c812cac7387ab29d51fc73efb3fced8a17a785912b1a434b3bd",
+      "changed": [],
+      "removed": [],
+      "added": {
+        "?validate@?$StringBase@G@@ABEXXZ": [
+          "8bf7b464aaa2",
+          1
+        ],
+        "??1?$StringBase@G@@AAE@XZ": [
+          "d51c53aa15c1",
+          5
+        ]
+      },
+      "undefined_sets_equal": true,
+      "undefined_sha256": "c2ed9f73dab2ab5fcaddb15e3d3df1e2eb212efc8a090bf58ff072e720bb30d7"
+    }
+  ],
+  "template_helpers": [
+    {
+      "name": "??1?$StringBase@G@@AAE@XZ",
+      "size": 5,
+      "relocations": [
+        [
+          "REL32",
+          1,
+          "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+        ]
+      ],
+      "runtime_incoming": 0,
+      "debug_incoming": 1,
+      "weak_bindings": 0,
+      "selection": "ANY",
+      "existing_provider": "FireWeaponUpdate.obj",
+      "native_shape_rva": "0x005B804E"
+    },
+    {
+      "name": "?validate@?$StringBase@G@@ABEXXZ",
+      "size": 1,
+      "bytes": "c3",
+      "relocations": [],
+      "runtime_incoming": 0,
+      "debug_incoming": 1,
+      "weak_bindings": 0,
+      "selection": "ANY",
+      "existing_provider": "FireWeaponUpdate.obj",
+      "native_shape_rva": "0x000B3FD0"
+    }
+  ],
+  "independent_review": "shader_lifetime_review; no material provider objection",
+  "latest_authoritative": {
+    "commit": "c9d82e95b9457840e5f3a5fb52365513443af150",
+    "run_id": "43449493373",
+    "when": "2026-11-13 15:50 UTC",
+    "build": "success",
+    "refusal": null,
+    "authoritative": true,
+    "link_seconds_with_proofs": 511,
+    "linker_exit": 1120,
+    "image_written": false,
+    "unresolved": 38,
+    "duplicates": 0,
+    "objects": 17714,
+    "initializers_bridged": 468,
+    "vtables_bridged": 3331,
+    "vtable_slots_bridged": 50310,
+    "omitted_funclets": []
+  }
+}

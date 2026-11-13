@@ -25,8 +25,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 #include "ascii_string.h"
-#include "Common/UnicodeString.h"
-inline UnicodeString::~UnicodeString() { ((StringBase<wchar_t>*)this)->releaseBuffer(); }
+#include "unicode_string.h"
 #include "Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
@@ -111,7 +110,7 @@ struct Rva001EDD80Pair;
 class Rva004891C0 { public: char pad00[0x4d]; bool field4d; bool test() const; };
 class Rva003968A0 { public: bool test(); };
 enum RecorderModeType { RECORDER_NONE };
-class RecorderClass { public: RecorderModeType getMode(); };
+#include "../../../Include/Common/RecorderClass.h"
 enum NameKeyType { NAMEKEY_NONE };
 #include "../../../Include/Common/NameKeyGenerator.h"
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
@@ -241,22 +240,7 @@ public:
 };
 #include "../../../Include/GameClient/Shell.h"
 #include "../../../Include/GameClient/GameWindowManager.h"
-class GameInfo {
-public:
-    virtual void slot00(); // vtable +0x0
-    virtual void slot01(); // vtable +0x4
-    virtual void slot02(); // vtable +0x8
-    virtual void slot03(); // vtable +0xC
-    virtual void slot04(); // vtable +0x10
-    virtual void slot05(); // vtable +0x14
-    virtual void slot06(); // vtable +0x18
-    virtual void slot07(); // vtable +0x1C
-    virtual void slot08(); // vtable +0x20
-    virtual void slot09(); // vtable +0x24
-    virtual void slot0A(); // vtable +0x28
-    virtual bool isMultiPlayer() const; // vtable +0x2C
-
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 #include "../../../Include/Common/GameAudio.h"
 #include "../../../Include/GameClient/Display.h"
 extern InGameUI* TheInGameUI;

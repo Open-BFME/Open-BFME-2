@@ -249,6 +249,7 @@ private:
 // creates, GameClient::reset calls reset in slot 9 (+0x24) and its vftable
 // 0x007ED850 keeps update in slot 10. setName is the out-of-line 0x0006F3CC.
 #include "../../Include/Common/MessageStream.h"
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 typedef unsigned int TranslatorID;
 enum { TRANSLATOR_ID_INVALID = -1 };
