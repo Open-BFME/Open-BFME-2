@@ -43,11 +43,7 @@ public:
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 struct Rva004211A0Key;
-class Rva004211A0Host
-{
-public:
-	Bool rva004211A0(const Rva004211A0Key *key, const Overridable *power);
-};
+#include "../../../Include/Common/Rva004211A0Host.h"
 class Rva00421520;
 extern Rva00421520 *TheLightPointSystem;
 

@@ -19,12 +19,7 @@ struct Rva004211A0Key
 	int m_00;
 	int m_04;
 };
-class Rva004211A0Host
-{
-public:
-	bool rva004211A0(const Rva004211A0Key *key, const Overridable *o);
-	int rva004210F8(const Overridable *o);
-};
+#include "../../../../Include/Common/Rva004211A0Host.h"
 bool Rva004211A0Host::rva004211A0(const Rva004211A0Key *key, const Overridable *overridable)
 {
 	bool r;
