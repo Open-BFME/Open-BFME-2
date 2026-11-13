@@ -8,14 +8,7 @@
 // Precedent: Code/GameEngine/Source/GameClient/Rva001F93A3Insert.cpp.
 #include "ascii_string.h"
 
-struct InsertRet00212A5A
-{
-	InsertRet00212A5A(void *node, void *owner, unsigned char found)
-		: m_node(node), m_owner(owner), m_found(found) {}
-	void *m_node;
-	void *m_owner;
-	unsigned char m_found;
-};
+#include "../../Include/GameClient/InsertRet00212A5A.h"
 
 #include "../../Include/GameLogic/Rva000427195.h"
 
