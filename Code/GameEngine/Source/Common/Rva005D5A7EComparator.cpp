@@ -16,15 +16,7 @@ private:
 
 #include "../../Include/Common/Rva005D5A7EInner.h"
 
-class Rva005D5A7E
-{
-public:
-    bool rva005D5A7E(const Rva005D5A7E &other) const;
-private:
-    Rva005D5A7EInner *m_ptr;
-    int m_val;
-    int m_pad;
-};
+#include "../../Include/Common/Rva005D5A7E.h"
 
 bool Rva005D5A7E::rva005D5A7E(const Rva005D5A7E &other) const
 {

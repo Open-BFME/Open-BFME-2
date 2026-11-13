@@ -19,15 +19,6 @@
 
 struct Rva005D5A7EInner;
 
-class Rva005D5A7E
-{
-public:
-	bool rva005D5A7E(const Rva005D5A7E &other) const;
-	bool operator<(const Rva005D5A7E &other) const { return rva005D5A7E(other); }
-private:
-	Rva005D5A7EInner *m_ptr;
-	int m_val;
-	int m_pad;
-};
+#include "../../../../GameEngine/Include/Common/Rva005D5A7E.h"
 
 template void _STL::sort<Rva005D5A7E *>(Rva005D5A7E *, Rva005D5A7E *);

@@ -15,15 +15,7 @@ private:
 
 #include "../../Include/Common/Rva005D5A7EInner.h"
 
-class Rva005D5A7E
-{
-public:
-    bool rva005D5A7E(const Rva005D5A7E &other) const;
-private:
-    Rva005D5A7EInner *m_ptr;
-    int m_val;
-    int m_pad;
-};
+#include "../../Include/Common/Rva005D5A7E.h"
 
 void Rva005D5E8AAdjustHeap(Rva005D5A7E *first, int hole, int len, Rva005D5A7E val, int comp);
 
