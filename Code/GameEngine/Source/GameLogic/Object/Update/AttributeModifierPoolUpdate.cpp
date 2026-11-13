@@ -122,6 +122,8 @@ public:
 	virtual UpdateSleepTime update();
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00403A5B
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 class Object
@@ -1168,3 +1170,10 @@ void AttributeModifierPoolUpdate::xfer(Xfer *xfer)
 // tu-skeleton: 0x00784D7B 10B __ehhandler$?update@AttributeModifierPoolUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateTick.cpp (not merged yet)
 
 // tu-skeleton: 0x00784D85 8B uw_00784d85 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
+
+// ?loadPostProcess@AttributeModifierPoolUpdate@@MAEXXZ: retail primary vftable 0x00C3856C slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void AttributeModifierPoolUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
