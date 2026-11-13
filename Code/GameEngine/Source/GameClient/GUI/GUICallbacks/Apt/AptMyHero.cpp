@@ -1171,19 +1171,7 @@ extern int g_00E06450;
 // g_00E06450: matched references place it at VA 0xe06450 (zero-filled .bss).
 int g_00E06450;
 
-class Rva005B045D
-{
-public:
-	void *rva005B045D();
-	void rva005B04B6();
-	char m_pad00[0x144];
-private:
-	void *m_ptr144; // +0x144
-	char m_pad148[0x4];
-	int m_flag14c; // +0x14C
-	char m_pad150[0x8];
-	int m_val158; // +0x158
-};
+#include "../../../../../Include/GameClient/Rva005B045D.h"
 
 // Call the single retained erase owner at 0x005B129F. Record identity is
 // address-derived; only the pointer ABI is needed in this caller.

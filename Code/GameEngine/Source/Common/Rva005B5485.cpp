@@ -21,10 +21,7 @@ public:
     const AsciiString &GetSubClassDescTag(unsigned, unsigned);
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
-class Rva005B045D {
-public:
-    void *rva005B045D();
-};
+#include "../../Include/GameClient/Rva005B045D.h"
 #include "../../Include/Common/AptCreateAHero.h"
 
 class AptCreateAHero::Class {

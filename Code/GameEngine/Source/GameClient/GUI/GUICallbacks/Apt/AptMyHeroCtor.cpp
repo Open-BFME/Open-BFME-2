@@ -38,19 +38,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 
 const AsciiString &rva005B0A53(const char *kind, int index);
 
-class Rva005B045D
-{
-public:
-	void *rva005B045D();
-	void rva005B04B6();
-	char m_pad00[0x144];
-private:
-	void *m_ptr144; // +0x144
-	char m_pad148[0x4];
-	int m_flag14c; // +0x14C
-	char m_pad150[0x8];
-	int m_val158; // +0x158
-};
+#include "../../../../../Include/GameClient/Rva005B045D.h"
 
 #include "../../../../../Include/GameClient/AptMyHero.h"
 
