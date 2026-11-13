@@ -1,0 +1,98 @@
+{
+  "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+  "agreement": {
+    "id": "nl-87cec91d5d58",
+    "kind": "function",
+    "old": "rva0056B613",
+    "new": "isVisibleForPlayer",
+    "rva": "0x0056B613",
+    "agents": "w-8f1611e41339@gpt-6.1-sol;w-d1ed67a6c7bd@gpt-6.1-sol",
+    "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+    "status": "landed",
+    "detail": "two-agent agreement: w-8f1611e41339@gpt-6.1-sol;w-d1ed67a6c7bd@gpt-6.1-sol"
+  },
+  "original_source_sha": "a8919a8a1dde2ac738d5aff8928b97142d8a20a80a2e42f9382b0c6854ef6a80",
+  "candidate_source_sha": "cc93cd5d787b30f7d6f78c031d263897e9d360ed516dce6ed14d30d7d0ea457e",
+  "normal_apply": "name_lane prepared batch: landed1, blocked0;3/3functions+1data; strict4sources24/24+1data",
+  "commit_failure": "class_gate.vote_sources_change_problems compares each newly added original-vote source_sha with final staged source, without recognizing the legitimate prepared operation",
+  "votes": {
+    "reverse/name_votes.csv": [
+      {
+        "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+        "hash": "4c0e94b7abbaeb205e802235",
+        "model": "gpt-6.1-sol",
+        "session": "root20-derived-slot-names-a",
+        "worker": "w-d1ed67a6c7bd",
+        "date": "2026-11-13"
+      },
+      {
+        "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+        "hash": "4c0e94b7abbaeb205e802235",
+        "model": "gpt-6.1-sol",
+        "session": "root20-derived-slot-names-b",
+        "worker": "w-8f1611e41339",
+        "date": "2026-11-13"
+      }
+    ],
+    "reverse/name_vote_sources.csv": [
+      {
+        "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+        "hash": "4c0e94b7abbaeb205e802235",
+        "worker": "w-d1ed67a6c7bd",
+        "session": "root20-derived-slot-names-a",
+        "source_sha": "a8919a8a1dde2ac738d5aff8928b97142d8a20a80a2e42f9382b0c6854ef6a80"
+      },
+      {
+        "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+        "hash": "4c0e94b7abbaeb205e802235",
+        "worker": "w-8f1611e41339",
+        "session": "root20-derived-slot-names-b",
+        "source_sha": "a8919a8a1dde2ac738d5aff8928b97142d8a20a80a2e42f9382b0c6854ef6a80"
+      }
+    ],
+    "reverse/name_agreed.csv": [
+      {
+        "id": "nl-87cec91d5d58",
+        "kind": "function",
+        "old": "rva0056B613",
+        "new": "isVisibleForPlayer",
+        "rva": "0x0056B613",
+        "agents": "w-8f1611e41339@gpt-6.1-sol;w-d1ed67a6c7bd@gpt-6.1-sol",
+        "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+        "status": "agreed",
+        "detail": "two-agent agreement: w-8f1611e41339@gpt-6.1-sol;w-d1ed67a6c7bd@gpt-6.1-sol"
+      },
+      {
+        "id": "nl-87cec91d5d58",
+        "kind": "function",
+        "old": "rva0056B613",
+        "new": "isVisibleForPlayer",
+        "rva": "0x0056B613",
+        "agents": "w-8f1611e41339@gpt-6.1-sol;w-d1ed67a6c7bd@gpt-6.1-sol",
+        "key": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613",
+        "status": "landed",
+        "detail": "two-agent agreement: w-8f1611e41339@gpt-6.1-sol;w-d1ed67a6c7bd@gpt-6.1-sol"
+      }
+    ]
+  },
+  "function_rows": [
+    {
+      "name": "?isVisibleForPlayer@Rva0056B613@@QAEEH@Z",
+      "export_rva": "",
+      "target_rva": "0x0056B613",
+      "target_size": "43",
+      "source": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp",
+      "status": "matched",
+      "notes": "gated forward via pinned 0x002B269E singleton check and banked-spelling 0x0056B7A0"
+    },
+    {
+      "name": "?rva0056B7A0@Rva003F9FE6@@UAEEH@Z",
+      "export_rva": "",
+      "target_rva": "0x0056B7A0",
+      "target_size": "62",
+      "source": "Code/GameEngine/Source/Common/Rva0056B613Forward.cpp",
+      "status": "matched",
+      "notes": "flag/id-gated helper predicate; single-exit goto shares xor-0/mov-1 epilogue (early returns keep 60B); Logic+0x98 local player and pinned uchar Helper getter"
+    }
+  ]
+}

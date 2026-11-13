@@ -1,5 +1,17 @@
 ### LINK-625: Zero vtable placeholders, and the ModuleData family's vptrs
 
+**2026-11-13, return prerequisite false reject (isolated root20).** An exact
+unsigned-char candidate preserves the gate's zero AL on rejection without a
+new zero instruction. Two independent workers agree on `isVisibleForPlayer`;
+normal prepared naming application verifies three function rows and the
+four-byte hand-table datum, with strict 24/24 plus one data row across the
+four-source closure. Commit still refuses the genuine original-vote hashes
+against the final prepared text in class_gate.vote_sources_change_problems.
+The source/row change is restored and the false reject recorded. No verifier,
+fingerprint, pin or name-proof threshold is altered. The derived table remains
+on the base slot; no bridge retirement is claimed.
+[Exact candidate, hashes and tooling prerequisite](../../reverse/attempt_support/derived-slot-return-20261113-root20.md).
+
 Status: Open (partly repaired). Updated: 2026-11-08 (seat ancalgonn-swarm-defects); earlier: 2026-11-07 (seat halilkkaya-lk49); base `f0cce4d912f`, census index
 `c26c6b63fa`.
 
