@@ -10,9 +10,7 @@ struct Rva005B5C02Box
 	void Run();
 };
 
-struct Rva005B5C02List
-{
-};
+#include "../../Include/Common/Rva005B5C02List.h"
 
 // The list getter 0x0021F797 is the rowed CreateAHeroManager::rva0021F797.
 class Rva0040A3F9;

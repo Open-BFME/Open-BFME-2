@@ -23,10 +23,7 @@ struct Rva005B5C02Entry
 };
 
 // The rowed bool-returning add 0x0040A384 (result unused here).
-struct Rva005B5C02List
-{
-	bool Add(Rva005B5C02Entry *e);
-};
+#include "../../Include/Common/Rva005B5C02List.h"
 
 // The manager's rowed hero-list fetch 0x0021F797.
 class Rva0040A3F9;
