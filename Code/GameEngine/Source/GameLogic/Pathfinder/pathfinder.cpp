@@ -157,11 +157,7 @@ private:
 };
 
 #include "../../../Include/Common/Rva002E8C23Pair.h"
-struct PathfinderCellPoint : Coord3D {
-	__forceinline PathfinderCellPoint() {}
-	__forceinline PathfinderCellPoint(const PathfinderCellPoint &pathfinderCellPoint) { x = pathfinderCellPoint.x; y = pathfinderCellPoint.y; z = pathfinderCellPoint.z; }
-	__forceinline ~PathfinderCellPoint() {}
-};
+#include "../../../Include/Common/PathfinderCellPoint.h"
 PathfinderCellPoint rva002E79A8(Bool centerInCell, Int cellX, Int cellY, PathfindLayerEnum layer);
 // The int-form callers hand 0x002E79A8 their hidden result pointer directly
 // (cdecl struct return: the hidden result pointer is the first argument).

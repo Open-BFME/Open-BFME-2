@@ -14,11 +14,7 @@ typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-struct PathfinderCellPoint : Coord3D {
-	__forceinline PathfinderCellPoint() {}
-	__forceinline PathfinderCellPoint(const PathfinderCellPoint &pathfinderCellPoint) { x = pathfinderCellPoint.x; y = pathfinderCellPoint.y; z = pathfinderCellPoint.z; }
-	__forceinline ~PathfinderCellPoint() {}
-};
+#include "../../../Include/Common/PathfinderCellPoint.h"
 enum Relationship { ENEMIES = 0, NEUTRAL, ALLIES };
 enum PathfindLayerEnum { LAYER_GROUND = 0, LAYER_WALL = 1 };
 enum ObjectID { INVALID_ID = 0 };

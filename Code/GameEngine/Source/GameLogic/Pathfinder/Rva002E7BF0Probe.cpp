@@ -32,12 +32,7 @@ enum PathfindLayerEnum
 
 // pathfinder.cpp's cell-centre helper 0x002E79A8: it returns the centre by
 // value through the caller's temporary (whose address comes back in EAX).
-struct PathfinderCellPoint : Coord3D
-{
-	__forceinline PathfinderCellPoint() {}
-	__forceinline PathfinderCellPoint(const PathfinderCellPoint &pathfinderCellPoint) { x = pathfinderCellPoint.x; y = pathfinderCellPoint.y; z = pathfinderCellPoint.z; }
-	__forceinline ~PathfinderCellPoint() {}
-};
+#include "../../../Include/Common/PathfinderCellPoint.h"
 PathfinderCellPoint rva002E79A8(bool centerInCell, int cellX, int cellY, PathfindLayerEnum layer);
 
 struct Rva002E7BF0Locomotor
