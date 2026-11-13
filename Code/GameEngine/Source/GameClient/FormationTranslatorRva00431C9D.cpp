@@ -176,11 +176,7 @@ class GameClient;
 extern GameClient *TheGameClient;
 extern "C" const void *const __identifier("??_7Rva004319C2@@6B@")[];
 
-class Rva0029AA3F
-{
-public:
-	void rva0029A9FF(const Coord3D *src);
-};
+#include "../../Include/Common/Rva0029AA3F.h"
 
 unsigned int __cdecl Rva0030F099(bool v);
 class Rva0022AD10Subsystem { public: bool rva00422CF3HasOne(void *p); };

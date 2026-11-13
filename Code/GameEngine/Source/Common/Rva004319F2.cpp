@@ -5,12 +5,7 @@
 // prev Rva004319D4 next Rva00431A34.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Rva0029AA3F
-{
-public:
-	void rva0029AA3F();
-	void rva0029A9FF(const Coord3D *src);
-};
+#include "../../Include/Common/Rva0029AA3F.h"
 
 #include "../../Include/GameClient/InGameUI.h"
 
