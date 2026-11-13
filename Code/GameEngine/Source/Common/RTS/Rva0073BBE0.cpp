@@ -10,16 +10,7 @@ class ShroudManagerCell;
 
 #include "../../../Include/Common/ShroudManagerCell.h"
 
-class Rva0073BBE0
-{
-public:
-	char rva0073BBE0(int x1, int x2, int y);
-private:
-	Gen_008F7CD0 *m_grid;
-	unsigned int m_mask;
-	int m_counterIndex;
-	int m_amount;
-};
+#include "../../../Include/Common/Rva0073BBE0.h"
 
 char Rva0073BBE0::rva0073BBE0(int x1, int x2, int y)
 {

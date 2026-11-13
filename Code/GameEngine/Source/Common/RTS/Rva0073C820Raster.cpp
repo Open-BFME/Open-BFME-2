@@ -7,16 +7,7 @@ class BfmeCellFD;
 class ShroudManagerImpl;
 class ShroudManagerCell;
 
-class Rva0073BBE0
-{
-public:
-	char rva0073BBE0(int x1, int x2, int y);
-private:
-	Gen_008F7CD0 *m_grid;
-	unsigned int m_mask;
-	int m_counterIndex;
-	int m_amount;
-};
+#include "../../../Include/Common/Rva0073BBE0.h"
 
 char __cdecl Rva0073C820Raster(int centerX, int centerY, const int radius, Rva0073BBE0 updater)
 {
