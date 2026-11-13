@@ -86,6 +86,7 @@ class Rva0056ACC5:public Rva0056AC26 {
 public:virtual ~Rva0056ACC5();
  virtual bool ac26Slot1();
  virtual void vslot02(int id);	// the AC26 vslot02 override; body rowed in Rva0056AB35Method.cpp at 0x0056AB35
+ virtual bool slot12(int);	// retail Base2 table 0x0086D0C0 slot 12: 0x0056AB88, as Rva0056AC26Derived.cpp spells it
  Rva0056ACC5(Rva0056AC26Owner *,LivingWorldPendingBattle *);
  LivingWorldPendingBattle *selected14;bool flag18;
 };

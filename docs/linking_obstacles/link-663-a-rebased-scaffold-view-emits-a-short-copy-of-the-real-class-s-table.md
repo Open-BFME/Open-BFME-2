@@ -34,3 +34,25 @@ view's bases, list the `??_7` names its object defines and check the index for o
 **Tooling lead (not edited).** link_check could report a `??_7` COMDAT whose copies differ in length even when the
 losing unit is not among the checked units, and `header_adopt_lane` / `class_views` could refuse an edit after which
 an object starts to define a `??_7` name that another object already defines with more slots.
+
+### Regression 2026-11-13: two units emit Rva0056ACC5's Base2 table with different slot 12 (seat halilkkaya-rg1)
+
+Base `d605b7a1a05`, census index `16b6c8496e` (census `b25a313d87`).
+
+**Symptom.** Rva0056AC26Constructor.cpp: census 2026-11-13 01:15 (`e5da954ea6`) "yes", 352 B; census 04:18
+(`6e37424cf7`) "no". link_check: comdat `??_7Rva0056ACC5@@6BRva0056AC26Base2@@@` "differs from the first copy in
+link order (no retail address)".
+
+**Cause.** "Migrate the Rva0056AC26 family onto the canonical Rva0056AC26 base" (`5968bf97836`, nleigh) made
+Rva0056AC26Derived.cpp emit that table under its canonical name, with Rva0056ACC5's `slot12` override. Before, the
+unit defined hand tables under `_B1` spellings, and only the constructor unit emitted the name. The constructor
+unit's private Rva0056ACC5 view has no `slot12`, so its copy names `?slot12@Rva0056AC26Base2@@UAE_NH@Z` at slot
+12. Derived.cpp's copy is the first, and the constructor unit's differs. Retail table 0x0086D0C0 slot 12 is
+0x0056AB88, `?slot12@Rva0056ACC5@@UAE_NH@Z` (Disp8ByteFieldGetters.cpp). So Derived.cpp's copy is retail's.
+`1e7badec2f8` fixed slot 2 of the same view the same way.
+
+**Repair.** "Give the ACC5 ctor unit's view the slot12 override its Base2 table holds" adds
+`virtual bool slot12(int);` to the constructor unit's view. Object diff: only that table's slot 12 changes
+(`?slot12@Rva0056AC26Base2@@UAE_NH@Z` -> `?slot12@Rva0056ACC5@@UAE_NH@Z`); `./build.sh` 30/30 exact. link_check
+over the four units that define or emit Rva0056ACC5 names (the constructor unit, Derived, Disp8ByteFieldGetters,
+Rva0056AB35Method): 4/4 LINKS, LINKED 783 -> 1,135 B (the constructor unit 0 -> 352).
