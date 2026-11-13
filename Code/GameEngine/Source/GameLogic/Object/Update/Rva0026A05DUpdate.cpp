@@ -130,11 +130,7 @@ public:
 	void refresh();
 };
 struct Object00265AAB;
-class Rva00265AAB
-{
-public:
-	void rva00265AAB(Object00265AAB *object, int *sleep);
-};
+#include "../../../../Include/GameLogic/Module/Rva00265AAB.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
