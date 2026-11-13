@@ -204,10 +204,10 @@ public:
 
 // The native20B constructor at 0x005AF9EF installs the same C7287C
 // vtable and receives the independently proven 0x24-byte chat-tab allocation.
-class Rva005AF9EF : public Rva005B000C
+class Rva005AFA03 : public Rva005B000C
 {
 public:
-	Rva005AF9EF();
+	Rva005AFA03();
 
 private:
 	unsigned char m_pad004[0x24 - 0x4];
@@ -457,7 +457,7 @@ void AptMessenger::rva00511826()
 	for (int i = 0; i < 2; ++i)
 	{
 		if (i == 1 && multiplayer)
-			m_entries[1] = new Rva005AF9EF;
+			m_entries[1] = new Rva005AFA03;
 		else
 		{
 			Rva005B000C **entries = m_entries;

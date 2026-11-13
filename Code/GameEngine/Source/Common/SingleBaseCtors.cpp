@@ -83,16 +83,16 @@ Rva005D50D8::Rva005D50D8(int a) : Rva005AFE3F((void *)a)
 {
 }
 
-// ??0Rva005AF9EF@@QAE@XZ retail 0x005AF9EF 20B: the same chain with the
+// ??0Rva005AFA03@@QAE@XZ retail 0x005AF9EF 20B: the same chain with the
 // constant 1 and vtable 0x0087287C, the one ??1Rva005AFA03 restores (caller
 // 0x00511826).
-class Rva005AF9EF : public Rva005AFE3F
+class Rva005AFA03 : public Rva005AFE3F
 {
 public:
-	Rva005AF9EF();
+	Rva005AFA03();
 };
 
-Rva005AF9EF::Rva005AF9EF() : Rva005AFE3F((void *)1)
+Rva005AFA03::Rva005AFA03() : Rva005AFE3F((void *)1)
 {
 }
 

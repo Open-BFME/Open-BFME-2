@@ -6200,3 +6200,4 @@ __ehhandler$??0Rva005AFE86@@QAE@PAX@Z,0x0079EDBA,"Renamed to __ehhandler$??0Rva0
 ?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z,0x005D57EB,"Renamed to ?vslot04@Rva005D583C@@UAE_NABVUnicodeString@@PAVGameWindow@@@Z by tools/rename.py (to-class: retail vftable 0x00C75B2C slot 4)"
 ?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x005D5F86,"Renamed to ?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z by tools/rename.py (to-class: retail vftable 0x00C75B2C slot 5)"
 __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"Renamed to __ehhandler$?vslot05@Rva005D583C@@UAEXABVAsciiString@@@Z by tools/rename.py (to-class: retail vftable 0x00C75B2C slot 5)"
+??0Rva005AF9EF@@QAE@XZ,0x005AF9EF,"Renamed to ??0Rva005AFA03@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C7287C)"
