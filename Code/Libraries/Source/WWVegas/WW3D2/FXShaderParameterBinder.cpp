@@ -364,13 +364,7 @@ private:
 
 template BfmeE8 *_STL::vector<BfmeE8, _STL::allocator<BfmeE8> >::_M_allocate_and_copy<Rva00468520 *>(unsigned int, Rva00468520 *, Rva00468520 *);
 
-struct D3DXEFFECT_DESC
-{
-	const char *Creator;
-	unsigned int Parameters;
-	unsigned int Techniques;
-	unsigned int Functions;
-};
+#include "D3DXEFFECT_DESC.h"
 
 // Interface slots are d3dx9effect.h's ID3DXEffect order.
 struct ID3DXEffect

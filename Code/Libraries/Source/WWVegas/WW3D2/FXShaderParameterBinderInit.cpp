@@ -101,13 +101,7 @@ private:
 };
 
 
-struct D3DXEFFECT_DESC
-{
-	const char *Creator;
-	unsigned int Parameters;
-	unsigned int Techniques;
-	unsigned int Functions;
-};
+#include "D3DXEFFECT_DESC.h"
 
 #define FX_SLOT(n) virtual HRESULT __stdcall slot##n()
 

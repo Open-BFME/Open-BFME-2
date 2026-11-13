@@ -58,13 +58,7 @@ struct D3DXMACRO
 	const char *Definition;
 };
 
-struct D3DXEFFECT_DESC
-{
-	const char *Creator;
-	unsigned int Parameters;
-	unsigned int Techniques;
-	unsigned int Functions;
-};
+#include "D3DXEFFECT_DESC.h"
 
 struct D3DXPARAMETER_DESC
 {
