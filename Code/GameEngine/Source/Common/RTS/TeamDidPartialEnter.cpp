@@ -87,13 +87,7 @@ class Player;
 
 class TeamPrototype;
 class Rva002C5FBA;
-struct Rva002A8AB1Record
-{
-public:
-	void rva004EC07D(TeamPrototype *proto);
-	char m_pad00[0x164];
-	Rva002C5FBA *target; // +0x164
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 
 // 0x002C6A76 is rowed as SkirmishAI::UnRegister (23B from
 // SkirmishAI.cpp); these calls go through a TU-local view so they resolve
