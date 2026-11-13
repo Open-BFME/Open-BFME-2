@@ -359,11 +359,7 @@ Rva005772BF::~Rva005772BF()
 {
 }
 
-class Rva005D1F14
-{
-public:
-	int rva005D1F14(int a, int b);
-};
+#include "../../Include/Common/Rva005D1F14.h"
 
 struct Rva005772BFHolder
 {

@@ -31,7 +31,7 @@ private:
 	char m_pad04[4];
 	Rva005E5884 *m_8;
 };
-class Rva005D1F14 { public: int rva005D1F14(int, int); };
+#include "../../Include/Common/Rva005D1F14.h"
 class Rva005CDE31
 {
 public:
