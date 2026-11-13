@@ -2189,6 +2189,76 @@ def pure_contradicted(name, member, args, index=None):
     return rows[0].endswith("XZ")
 
 
+def _matched_owners():
+    """{`?member@Scope@@` prefix: [(name, source)]} of the matched ledger rows, read once per ledger state."""
+    try:
+        stat = LEDGER.stat()
+        state = (stat.st_mtime_ns, stat.st_size)
+    except OSError:
+        return {}
+    if _matched_owners.cache[0] != state:
+        owners = collections.defaultdict(list)
+        for row in class_contract.ledger_rows():
+            if "@@" in row["name"]:
+                owners[row["name"][:row["name"].index("@@") + 2]].append((row["name"], row["source"]))
+        _matched_owners.cache = (state, owners)
+    return _matched_owners.cache[1]
+
+
+_matched_owners.cache = (None, {})
+
+
+def owner_definitions(name, member, owners=None, read=None):
+    """[(source, inline)]: the out-of-class definitions of `name`'s member `member` (a declaration's
+    text) in the sources of the matched ledger rows of its name, each with whether it is spelled
+    `inline` (a COMDAT copy, like a header's inline body) or not (a strong definition: P147, a
+    header body beside one is a duplicate definition). A member whose name is not a plain
+    identifier or destructor (an operator) has none found."""
+    key = member_key(member, name)
+    scopes = name.split("::")
+    short = scopes[-1]
+    scope = "@".join(reversed(scopes))
+    if key == "~":
+        prefix, last = f"??1{scope}@@", r"~\s*" + re.escape(short)
+    else:
+        found = re.search(r"(?<![\w~])([A-Za-z_]\w*)\s*\(", declaration_head(member))
+        if not found or found.group(1) == "operator":
+            return []
+        prefix, last = f"?{found.group(1)}@{scope}@@", re.escape(found.group(1))
+    qualified = r"\s*::\s*".join(re.escape(p) for p in scopes) + r"\s*::\s*" + last
+    pattern = re.compile(r"(?<![\w:>.])" + qualified + r"\s*\(")
+    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
+    out = []
+    for source in sorted({src for _, src in (_matched_owners() if owners is None else owners).get(prefix, ())}):
+        try:
+            text = masked(read(source))
+        except OSError:
+            continue
+        for hit in pattern.finditer(text):
+            depth, close = 0, None
+            for i in range(hit.end() - 1, len(text)):
+                depth += {"(": 1, ")": -1}.get(text[i], 0)
+                if depth == 0:
+                    close = i
+                    break
+            body = re.match(r"\s*(?:const\b\s*)?(?:throw\s*\([^)]*\)\s*)?(?=[{:])", text[close + 1:]) if close else None
+            if body is None or text[close + 1 + body.end():close + 3 + body.end()] == "::":
+                continue                        # a call or a declaration, not a definition
+            start = max(text.rfind(c, 0, hit.start()) for c in ";{}") + 1
+            head = "\n".join(line for line in text[start:hit.start()].split("\n") if not line.lstrip().startswith("#"))
+            spelled = head + text[hit.start():close + 1 + body.end()]
+            if key != "~" and member_key(re.sub(qualified.rsplit(last, 1)[0] + "(?=" + last + ")", "", spelled),
+                                         name) != key:
+                continue                        # another overload of the name
+            out.append((source, bool(re.search(r"\b(?:inline|__forceinline)\b", head))))
+    return out
+
+
+def strong_owners(name, member, owners=None, read=None):
+    """The sources that define `name`'s `member` out of line and not `inline` (owner_definitions)."""
+    return sorted({source for source, inline in owner_definitions(name, member, owners, read) if not inline})
+
+
 def special_declarations(name, sources, read=None, known=(), slotted=(), index=None):
     """([{role, access, text, sig}] member declarations to carry, [problem]).
 
@@ -2497,7 +2567,7 @@ def rename_destructor(text, short):
     return re.sub(r"~\s*[A-Za-z_]\w*", "~" + short, text, count=1)
 
 
-def slot_declarations(contract, sources, read=None, known=None, index=None):
+def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None):
     """([own slot declaration, emit order], [override declaration], [problem]) for the contract's vslots.
 
     Own slots are the ones the contract decided (a derived contract holds only
@@ -2505,7 +2575,15 @@ def slot_declarations(contract, sources, read=None, known=None, index=None):
     virtual whose name a registered base header declares is an override,
     spelled by majority like an own slot. A pure own slot that a matched
     ledger row unambiguously defines (pure_contradicted; `index`:
-    _matched_index's shape) is a problem."""
+    _matched_index's shape) is a problem.
+
+    An inline body is never emitted for a slot a matched row's source defines
+    out of line and not `inline` (strong_owners; `owners`: _matched_owners'
+    shape): the header would add a copy beside that definition (P147, the
+    Rva0058AD7A destructor). The slot is declared without a body instead, as
+    the views that declare it so spell it. When the views split between an
+    inline body and none and no such row exists, the slot is a problem (the
+    rule special_declarations applies to the other members)."""
     name = contract["class"]
     short = name.split("::")[-1]
     read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
@@ -2538,6 +2616,15 @@ def slot_declarations(contract, sources, read=None, known=None, index=None):
         if declaration_key(text)[1] and want[0] != "~" and pure_contradicted(name, want[0], want[1], index):
             problems.append(f"slot{slot} {member}: pure in a view, but a matched row defines it")
             continue
+        if "{" in text:
+            bare = [t for t in spellings if "{" not in t and declaration_key(t)[0] == declaration_key(text)[0]]
+            if strong_owners(name, text, owners):
+                text = (max(bare, key=lambda t: (spellings[t], -len(t))) if bare
+                        else text.split("{")[0].rstrip() + ";")
+            elif bare:
+                problems.append(f"slot{slot} {member}: an inline body in one view, none in another, "
+                                "and no matched row defines it out of line")
+                continue
         decided[slot] =(want[0], rename_destructor(text, short) if want[0] == "~" else text)
     # MSVC lays an overload group out at its first declaration in REVERSE
     # declaration order (tools/class_layouts.py, "THE TRAP"): emit each run of
@@ -2831,11 +2918,14 @@ def size_assertions(contract, text=""):
     return lines
 
 
-def generate(contract, variant, methods, header=None, slots=None, special=()):
+def generate(contract, variant, methods, header=None, slots=None, special=(), owners=None):
     """The header text of `variant`. `special` (special_declarations) is declared in every
     variant: a dropped special member is a link fault the byte gate cannot see. The fields sit at
     the contract's offsets, holes padded, and the compiler checks it (layout_plan,
-    size_assertions); a layout the plan cannot declare raises LayoutError."""
+    size_assertions); a layout the plan cannot declare raises LayoutError. So does a virtual
+    member the header would give an inline body that a matched row's source defines out of line
+    and not `inline` (strong_owners; `owners`: _matched_owners' shape): P147's duplicate
+    definition, which every unit emitting the vtable would add."""
     plan, problems = layout_plan(contract)
     if problems:
         raise LayoutError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))
@@ -2892,6 +2982,16 @@ def generate(contract, variant, methods, header=None, slots=None, special=()):
         held = member_lines(s for s in special if s["access"] == access)
         lines += [f"{access}:"] + held if held else []
     lines += ["};", ""]
+    # A virtual member's inline body is emitted by every unit that emits the vtable, so beside a
+    # strong definition it is always a duplicate. A non-virtual one is emitted only where a unit
+    # does not inline it, and the units that inline it need the body (Region3D::depth).
+    conflicts = [f"{record['text'].split('{')[0].strip()} has an inline body, but {', '.join(owner)} "
+                 "defines it out of line"
+                 for record in declaration_records("\n".join(lines), name) or ()
+                 if record["inline"] and record["role"] == "virtual"
+                 for owner in [strong_owners(name, record["text"], owners)] if owner]
+    if conflicts:
+        raise LayoutError(f"{name}: " + "; ".join(conflicts[:3]))
     lines += size_assertions(contract, "\n".join(lines)) + ["", f"#endif // {guard}", ""]
     return "\n".join(lines)
 
