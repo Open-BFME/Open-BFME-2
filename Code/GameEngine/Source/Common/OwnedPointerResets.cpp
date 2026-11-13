@@ -460,11 +460,7 @@ void Rva00526F2C::clear()
 	}
 }
 
-class Rva00527E53
-{
-public:
-	~Rva00527E53();
-};
+#include "../../Include/Common/Rva00527E53.h"
 
 class Rva00527F88
 {

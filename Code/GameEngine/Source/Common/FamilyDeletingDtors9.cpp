@@ -57,7 +57,7 @@ class Rva005262BF { public: ~Rva005262BF(); };
 void famgenDelete(Rva005262BF *p) { delete p; }
 
 // ??_GRva00527E53@@QAEPAXI@Z @0x00527F6C 28B: calls pinned ~Rva00527E53 0x00527E53
-class Rva00527E53 { public: ~Rva00527E53(); };
+#include "../../Include/Common/Rva00527E53.h"
 void famgenDelete(Rva00527E53 *p) { delete p; }
 
 // ??_GRva005282BA@@QAEPAXI@Z @0x00528566 28B: calls pinned ~Rva005282BA 0x005282BA
