@@ -20,14 +20,7 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
-class Rva005DCC4B
-{
-public:
-	Rva005DCC4B(const Rva005DCC4BSource *source);
-	virtual ~Rva005DCC4B();
-
-	Int m_field04;
-};
+#include "../../Include/Common/Rva005DCC4B.h"
 
 class Object;
 

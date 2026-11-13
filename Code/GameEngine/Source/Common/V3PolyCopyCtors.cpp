@@ -328,14 +328,7 @@ Rva005E67FE::~Rva005E67FE() {}
 // 0x005AD6CA passes the source pointer by value then installs its own vptr.
 #include "../../Include/Common/Rva005DCC4BSource.h"
 
-class Rva005DCC4B
-{
-public:
-	Rva005DCC4B(const Rva005DCC4BSource *source);
-	virtual ~Rva005DCC4B();
-
-	Int m_field04;
-};
+#include "../../Include/Common/Rva005DCC4B.h"
 
 Rva005DCC4B::Rva005DCC4B(const Rva005DCC4BSource *source)
 {

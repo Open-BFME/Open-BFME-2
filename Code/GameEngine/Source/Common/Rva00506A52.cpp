@@ -68,14 +68,7 @@ public:
 	bool rva00506A0C(const Rva00506A0COther *other);
 };
 
-class Rva005DCC4B
-{
-public:
-	Rva005DCC4B(const Rva005DCC4BSource *source);
-	virtual ~Rva005DCC4B();
-
-	int m_field04;
-};
+#include "../../Include/Common/Rva005DCC4B.h"
 
 class AINavyUnitBattleShip : public Rva005DCC4B
 {
