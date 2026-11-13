@@ -89,18 +89,7 @@ public:
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 
-struct VertexFormatXYZDUV2
-{
-public:
-	Real x; // +0x00
-	Real y; // +0x04
-	Real z; // +0x08
-	unsigned int diffuse; // +0x0C
-	Real u1; // +0x10
-	Real v1; // +0x14
-	Real u2; // +0x18
-	Real v2; // +0x1C
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexFormatXYZDUV2.h"
 typedef VertexFormatXYZDUV2 VERTEX_FORMAT;
 
 // The render object's first 8 bytes (vptr, reference count) precede its

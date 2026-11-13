@@ -252,12 +252,7 @@ static __forceinline void matrixRotateVector(const Matrix3D &matrix3D, const Vec
 	out->Y = (matrix3D[1][0] * v->X + matrix3D[1][1] * v->Y + matrix3D[1][2] * v->Z);
 	out->Z = (matrix3D[2][0] * v->X + matrix3D[2][1] * v->Y + matrix3D[2][2] * v->Z);
 }
-struct VertexFormatXYZDUV2
-{
-	Real x, y, z;
-	unsigned int diffuse;
-	Real u1, v1, u2, v2;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexFormatXYZDUV2.h"
 typedef VertexFormatXYZDUV2 VERTEX_FORMAT;
 struct VertexFormatXYZNDUV1
 {
