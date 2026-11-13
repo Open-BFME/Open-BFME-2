@@ -801,8 +801,8 @@ A class declared only in a unit's view header (RainOfFireUpdateView.h) takes
 its declaration there: `--to-class` may prepare a Code `.h` that is no class's
 registered header in `reverse/canonical_classes.csv`, and every ledger source
 including it is rebuilt. A canonical header is refused (its class contract
-and `header_adopt_lane.py` change it), and every other route still prepares
-`.cpp` sources only.
+and `header_adopt_lane.py` change it), and every other route but a
+signature-only `--respell` (below) still prepares `.cpp` sources only.
 
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
 C, a caller that names the old member, a view declaring the override); the
@@ -1387,6 +1387,16 @@ two review rounds set where the evidence ends:
   another of those types (`?slot43@BehaviorModule@@UAEXH@Z` to `UAEXM@Z`: its
   signature was guessed with its name); a return type, a pointee or a wider or
   narrower type is refused. Every unit naming the row is prepared and rebuilt.
+  When the declaration lives in a header, this route (and no other respell) may
+  prepare a hand-written Code `.h`, registered in `reverse/canonical_classes.csv`
+  or not but never one `header_adopt_lane.py` generates, plus every
+  `reference/shims` copy of it (the same path tail, e.g.
+  `GameLogic/Module/BehaviorModule.h`). Each prepared header may change only the
+  parameter list of lines that declare the identifier, line for line; a copy
+  still holding a replaced line refuses. Every ledger source including a
+  prepared header (transitively) is rebuilt and byte-verified, so pass a
+  `--max-files` that covers them (BehaviorModule.h: 1,981), and after the build
+  no rebuilt object may still name the old spelling.
 - **`this` cv** (`--basis inferred --evidence 'signature-only: ...'`, no vote): a
   virtual rowed with the wrong `this` cv (`UAE` for `UBE`) when retail proves
   the cv. The row fills exactly one slot of a table its class's own ctor or dtor

@@ -3681,3 +3681,15 @@ except the fold units (+5 B each).
 - Not tried: the `Named` placeholder-class getters (lk76's cross-class recipe), Weapon (0x002CC2F6, compiled slot 2
   already Weapon::GetSnapshotName with slot 1 wrong), BridgeTowerBehavior, HealCrateCollide, BodyModule,
   DeflectSpecialPower (slot 1 is 0x00483CEF or 0x0058B03E, not the 0x00497805 fold).
+
+### slot43's header respell route and SpecialPowerModule's interface slots (2026-11-13, seat halilkkaya-lk107)
+
+Base `56174094dd2`; measure lk74_snap/lk74_cmp with HEAD's `vtable_bridge.py` (local objects, no link).
+Base: 3,295 bridged, 31 refused, 2,253 already correct, 37,456 mismatching source slots.
+
+**Tooling.**
+- "rename.py --respell (signature only): prepare a hand-written header and its shim copies, rebuild every
+  includer": a signature-only respell may prepare a hand-written Code `.h` (registered or not, never a
+  header_adopt_lane-generated one) and its `reference/shims` copies; each may change only the respelled
+  identifier's parameter lists; a copy left unprepared refuses; every includer is rebuilt and none may still
+  name the old spelling. Clears the cause-6 prerequisite (BehaviorModule.h: 1,981 includers).
