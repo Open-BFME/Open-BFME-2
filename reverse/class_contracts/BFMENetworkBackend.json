@@ -1,0 +1,142 @@
+{
+ "bases": [
+  "ThreadClass"
+ ],
+ "bases_by": "majority",
+ "class": "BFMENetworkBackend",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 3,
+   "inherited_spans": [
+    [
+     0,
+     80
+    ]
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "108": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag50",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag51",
+   "name_by": "majority",
+   "offset": 81,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value54",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag58",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BFMENetworkList",
+   "members": [
+    {
+     "kind": "P",
+     "name": "head",
+     "offset": 0,
+     "size": 4,
+     "type": "BFMENetworkListNode*"
+    },
+    {
+     "kind": "i4",
+     "name": "size",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "allocatorStorage",
+     "offset": 8,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_list",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 12,
+   "type": "BFMENetworkList",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_ownerLock",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "MutexClass*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 108,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

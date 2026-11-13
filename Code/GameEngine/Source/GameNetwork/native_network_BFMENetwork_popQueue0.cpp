@@ -81,24 +81,7 @@ struct BFMENetworkList
 
 #include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
-class BFMENetworkBackend : public ThreadClass
-{
-public:
-	BFMENetworkBackend(MutexClass *ownerLock);
-	virtual ~BFMENetworkBackend();
-	void *destroyAndMaybeDelete(unsigned int flags);
-	virtual void Thread_Function();
-
-private:
-	Bool m_flag50;
-	Bool m_flag51;
-	char m_pad52[2];
-	int m_value54;
-	Bool m_flag58;
-	char m_pad59[3];
-	BFMENetworkList m_list;
-	MutexClass *m_ownerLock;
-};
+#include "../../Include/GameNetwork/BFMENetworkBackend.h"
 
 class MutexClass
 {
