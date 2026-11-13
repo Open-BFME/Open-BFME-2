@@ -12,22 +12,7 @@ public:
 // Inline empty destructor, as in V3PolyCopyCtors.cpp: the deleting dtor
 // 0x004A10FD in its vtable 0x00C1D264 calls 0x0049B47C, which only restores
 // the Snapshot vtable 0x00BBB554.
-class Rva003ADF61
-{
-public:
-	Rva003ADF61(const Rva003ADF61 &other);
-	virtual ~Rva003ADF61() {}
-	int m04;
-	int m08;
-	int m0C;
-	int m10;
-	int m14;
-	int m18;
-	int m1C;
-	int m20;
-	int m24;
-	int m28;
-};
+#include "../../Include/Common/Rva003ADF61.h"
 class Rva003ADF21 : public Rva003ADFDB, public Rva003ADF61
 {
 public:
