@@ -350,11 +350,7 @@ struct Rva0028AC4EEntry
 	const LocoTemplateFlags *m_template;
 };
 
-class LocomotorStore
-{
-public:
-	LocomotorTemplate *findLocomotorTemplate(int key);
-};
+#include "../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
