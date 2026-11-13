@@ -160,7 +160,7 @@ class DarknessSpecialPowerModuleData { public: static ModuleData *friend_newModu
 class DefaultProductionExitUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DefaultProductionExitUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DefectorSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class DefectorSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/Common/DefectorSpecialPowerModuleData.h"
 class DeflectSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DeflectSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DelayedDeathBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

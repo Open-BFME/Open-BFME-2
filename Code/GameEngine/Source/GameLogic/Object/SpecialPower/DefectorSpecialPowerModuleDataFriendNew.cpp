@@ -23,17 +23,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class DefectorSpecialPowerModuleData
-{
-public:
-	DefectorSpecialPowerModuleData();
-	virtual ~DefectorSpecialPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x80 - 4];
-};
+#include "../../../../Include/Common/DefectorSpecialPowerModuleData.h"
 
 // ?friend_newModuleData@DefectorSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *DefectorSpecialPowerModuleData::friend_newModuleData(INI *ini)

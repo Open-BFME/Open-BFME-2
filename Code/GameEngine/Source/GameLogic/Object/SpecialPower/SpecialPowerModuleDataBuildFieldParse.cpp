@@ -283,11 +283,7 @@ void WeaponChangeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &par
 	parse.add(reinterpret_cast<const FieldParse *>((unsigned int)&g_00C5D0F0), 0);
 }
 
-class DefectorSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/DefectorSpecialPowerModuleData.h"
 
 // ?buildFieldParse@DefectorSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C2970 (27 bytes): base-table call above plus the Defector

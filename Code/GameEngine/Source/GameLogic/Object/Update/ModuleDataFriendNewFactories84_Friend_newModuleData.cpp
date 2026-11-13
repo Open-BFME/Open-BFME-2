@@ -23,15 +23,7 @@ class MultiIniFieldParse;
 // 0x00251DCC: news 0x80, ctor ??0DefectorSpecialPowerModuleData (rowed 0x4C2A6A),
 // parse proc 0x8C4338.
 
-class DefectorSpecialPowerModuleData
-{
-public:
-	DefectorSpecialPowerModuleData();
-	virtual ~DefectorSpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x80 - 4];
-};
+#include "../../../../Include/Common/DefectorSpecialPowerModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/ScavengerSpecialPowerModuleData.h"
 
