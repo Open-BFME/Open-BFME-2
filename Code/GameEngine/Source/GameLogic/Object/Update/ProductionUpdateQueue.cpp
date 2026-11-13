@@ -262,12 +262,7 @@ private:
 // The lookup's existing address-derived owner is retained: neither WB helper
 // carries an original name. Native GetEntryToProcess passes Player+0x738 to
 // both this RET12 lookup and the RET8, float-returning progress query.
-class Rva0037EE4C
-{
-public:
-	Int rva0037EE4C(const ThingTemplate *, Int, Int);
-	char m_unknown00[0x14];
-};
+#include "../../../../Include/GameLogic/Rva0037EE4C.h"
 
 class Rva002A7461;
 class Player
