@@ -10,12 +10,7 @@
 // and 0x002AB44A (381B), pinned by address.
 class AsciiString;
 class Player;
-class Rva002AB5C7Player
-{
-public:
-	void rva002AB5C7();
-	void rva002AB44A();
-};
+#include "../../../Include/Common/Rva002AB5C7Player.h"
 class Rva002A9F0FDwordClearer
 {
 public:

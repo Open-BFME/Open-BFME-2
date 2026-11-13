@@ -217,7 +217,7 @@ extern Eva *TheEva;
 class BfmeAptWindowManager; extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern PartitionManager *TheShroudManager;
 class Rva002E2903Player { public: char pad[0x3C4]; Bool m_3c4; };
-class Rva002AB5C7Player { public: void rva002AB44A(); };
+#include "../../../Include/Common/Rva002AB5C7Player.h"
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 inline __declspec(noinline) bool GameLogic::isInMultiplayerGame() { int m = ((VictoryUpdateGameLogicView *)this)->m_mode; return m == 1 || m == 5; }
 void VictoryConditions::update()

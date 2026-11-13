@@ -1,0 +1,106 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva002AB5C7Player",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x32c": {
+    "4": 1
+   },
+   "0x734": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "1848": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 812,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1208,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1216,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1752,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1756,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1760,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1844,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
