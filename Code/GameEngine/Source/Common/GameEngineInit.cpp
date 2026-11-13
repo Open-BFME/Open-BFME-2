@@ -116,7 +116,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 class Xfer;
-class GameMessage { public: void appendIntegerArgument(Int arg); };
+#include "../../Include/Common/MessageStream.h"
 
 #define BFME2_SPLINE_INLINE_CTOR
 #include "spline_service.h"
@@ -544,13 +544,6 @@ public:
 	virtual Bool isMusicAlreadyLoaded();					// slot 83 (+0x14C)
 };
 
-class MessageStream
-{
-public:
-	VSLOTS16(m0)
-	virtual void m10(); virtual void m11();
-	virtual GameMessage *appendMessage(Int type);			// slot 18 (+0x48)
-};
 
 #include "../../Include/GameClient/MapMetaData.h"
 
