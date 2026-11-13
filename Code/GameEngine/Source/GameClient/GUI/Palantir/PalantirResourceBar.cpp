@@ -15,7 +15,7 @@ extern Display *TheDisplay;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../Include/Common/Rva00222A8BTarget.h"
-class Rva00223A94 {public:int rva00223A94(const AsciiString *);};
+#include "../../../../Include/Common/Rva00223A94.h"
 #include "../../../../Include/GameClient/Rva002246B1.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

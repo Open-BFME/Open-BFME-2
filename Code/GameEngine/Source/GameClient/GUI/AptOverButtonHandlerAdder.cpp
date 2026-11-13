@@ -13,11 +13,7 @@ template <> Gen_t_001db910_p4cd *vector<Gen_t_001db910_p4cd>::erase(Gen_t_001db9
 template <> void vector<AsciiString>::push_back(const AsciiString &x);
 }
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../../Include/Common/Rva00223A94.h"
 class Image;
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
