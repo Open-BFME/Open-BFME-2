@@ -158,11 +158,7 @@ class Rva003EE8D8
 public:
 	void rva003EE8D8(int region);
 };
-class Rva003EE89E
-{
-public:
-	void rva003EE89E(int region, int list);
-};
+#include "../../../../../Include/Common/Rva003EE89E.h"
 class Rva0059E2FD;
 #include "../../../../../Include/Common/Rva004FC9CE.h"
 // The living-world region manager (TheLivingWorldLogic +0xB0): regions by

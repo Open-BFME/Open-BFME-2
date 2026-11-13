@@ -88,11 +88,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../Include/Common/Rva003EE7CA.h"
 
-class Rva003EE89E
-{
-public:
-	void rva003EE89E(int a, int b);
-};
+#include "../../Include/Common/Rva003EE89E.h"
 
 class Rva003EE900
 {
