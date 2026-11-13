@@ -377,11 +377,7 @@ public:
 	void rva0023F88C(bool loadingSaveGame);
 };
 
-class Rva0035A1D8
-{
-public:
-	void rva0035A1D8(void);
-};
+#include "../../../Include/GameLogic/Rva0035A1D8.h"
 
 class DOTManager
 {

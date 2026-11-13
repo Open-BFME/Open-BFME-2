@@ -791,11 +791,7 @@ void Rva00596074::rva00596074()
 	((Rva0025C010 *)this)->rva0025C010();
 }
 
-class Rva0035A1D8
-{
-public:
-	void rva0035A1D8();
-};
+#include "../../Include/GameLogic/Rva0035A1D8.h"
 
 class Rva00359E13
 {
