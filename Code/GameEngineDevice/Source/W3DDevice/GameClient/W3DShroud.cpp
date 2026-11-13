@@ -48,13 +48,7 @@ class TextureClass
 public:
 	void Release_Ref();
 };
-class ShroudTextureHandle
-{
-public:
-	ShroudTextureHandle() : m_p(0) {}
-	~ShroudTextureHandle() { if (m_p) m_p->Release_Ref(); }
-	TextureClass *m_p;
-};
+#include "../../../Include/W3DDevice/GameClient/ShroudTextureHandle.h"
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
