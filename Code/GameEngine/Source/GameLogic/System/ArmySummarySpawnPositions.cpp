@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-struct Rva004F69C3Target { unsigned char unknown0[4]; AsciiString templateName; unsigned char opaque[0xAC-8]; TargetRef00217D4C ref; };
+#include "../../../Include/Common/Rva004F69C3Target.h"
 // Target lookup2D06CA and the following byte test prove only this flag offset.
 #include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/ThingFactory.h"

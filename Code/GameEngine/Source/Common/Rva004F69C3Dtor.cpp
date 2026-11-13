@@ -12,11 +12,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 #include <vector>
 
-struct Rva004F69C3Target
-{
-	char m_pad[0xAC];
-	TargetRef00217D4C m_ac;
-};
+#include "../../Include/Common/Rva004F69C3Target.h"
 
 struct Rva004F69C3
 {
@@ -31,7 +27,7 @@ struct Rva004F69C3
 inline Rva004F69C3::~Rva004F69C3()
 {
 	if (m_04)
-		ReleaseTreeHintRef00217D4C(&m_04->m_ac);
+		ReleaseTreeHintRef00217D4C(&m_04->ref);
 }
 
 // ?pop_back@?$vector@URva004F69C3@@V?$allocator@URva004F69C3@@@_STL@@@_STL@@QAEXXZ

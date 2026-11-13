@@ -121,7 +121,7 @@ class Rva00318C32Ret;
 class Rva004F6093Holder { public: ArmySummaryEntry *entry; };
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct Rva004F69C3Target { char pad00[0xAC]; TargetRef00217D4C ref; };
+#include "../../../../Include/Common/Rva004F69C3Target.h"
 struct Rva0040DD3ARef {
     Rva004F69C3Target *value;
     Rva0040DD3ARef(Rva004F69C3Target *p) : value(p) { if(value) ++value->ref.references; }
