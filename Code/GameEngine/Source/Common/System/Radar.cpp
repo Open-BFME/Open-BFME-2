@@ -67,11 +67,7 @@ enum Relationship
 	REL_NEUTRAL = 1,
 	REL_ALLY = 2
 };
-class Rva0028E58E
-{
-public:
-	int rva0028E58E();
-};
+#include "../../../Include/Common/Rva0028E58E.h"
 enum RadarPriorityType { RADAR_PRIORITY_INVALID, RADAR_PRIORITY_NOT_ON_RADAR, RADAR_PRIORITY_STRUCTURE, RADAR_PRIORITY_UNIT, RADAR_PRIORITY_LOCAL_UNIT_ONLY };
 int __cdecl rva002D7BFD(int v);
 #include "../../../Include/GameClient/BfmeThingRV.h"

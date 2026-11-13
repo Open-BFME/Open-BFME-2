@@ -69,7 +69,7 @@ class ThingTemplate;
 extern PlayerList *ThePlayerList;
 #include "../../../../../GameEngine/Include/Common/Rva002A7DD0.h"
 class Rva00373EC6 { public: char m_pad00[0x3c]; const ThingTemplate *m_template; };
-class Rva0028E58E { public: Int rva0028E58E(); };
+#include "../../../../../GameEngine/Include/Common/Rva0028E58E.h"
 enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED };
 enum ObjectStatusTypes { OBJECT_STATUS_BFME_17 = 0x11 };
 
