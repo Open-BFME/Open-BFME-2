@@ -21,15 +21,7 @@
 #include <vector>
 
 #include "ascii_string.h"
-struct BfmeVectorRecord000C0BEC {
-    AsciiString text;
-    _STL::vector<AsciiString> names;
-    unsigned int word10;
-    BfmeVectorRecord000C0BEC();
-    BfmeVectorRecord000C0BEC(const BfmeVectorRecord000C0BEC &);
-    ~BfmeVectorRecord000C0BEC();
-    BfmeVectorRecord000C0BEC &operator=(const BfmeVectorRecord000C0BEC &);
-};
+#include "../../../Include/Common/BfmeVectorRecord000C0BEC.h"
 typedef char RecordExtent000C8492[sizeof(BfmeVectorRecord000C0BEC)==20?1:-1];
 namespace _STL {
 template <> void _Construct<BfmeVectorRecord000C0BEC,BfmeVectorRecord000C0BEC>(BfmeVectorRecord000C0BEC *, const BfmeVectorRecord000C0BEC &);

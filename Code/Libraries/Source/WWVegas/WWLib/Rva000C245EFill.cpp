@@ -8,11 +8,7 @@
 // _Construct keeps the call external.
 #include <vector>
 
-struct BfmeVectorRecord000C0BEC
-{
-	~BfmeVectorRecord000C0BEC();
-	unsigned char m_data[0x14];
-};
+#include "../../../../GameEngine/Include/Common/BfmeVectorRecord000C0BEC.h"
 
 namespace _STL
 {
