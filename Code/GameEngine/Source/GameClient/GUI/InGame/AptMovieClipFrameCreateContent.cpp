@@ -9,7 +9,7 @@
 // are recovered from target bytes; the helper names/ABI are existing rows.
 #include "ascii_string.h"
 struct Rva0057ACEBData {int m_0,m_4;};
-class Rva0057ACEB {public:Rva0057ACEB(const Rva0057ACEBData*);void* impl;};
+#include "../../../../Include/Common/Rva0057ACEB.h"
 class Rva005D4E22 {public:Rva005D4E22(bool*,AsciiString*);int m_0,m_4;};
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);

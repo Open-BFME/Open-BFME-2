@@ -228,12 +228,7 @@ public:
 	bool *m_flag;
 	AsciiString *m_value;
 };
-class Rva0057ACEB
-{
-public:
-	Rva0057ACEB(const Rva0057ACEBData *d);
-	AptExternHandler *m_impl;
-};
+#include "../../Include/Common/Rva0057ACEB.h"
 class AptSingleExternHandlerAdder
 {
 public:

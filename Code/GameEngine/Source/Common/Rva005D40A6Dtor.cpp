@@ -190,7 +190,7 @@ void Rva005D40A6::RenderText(const FloatPair &position,const FloatPair &size,uns
 }
 
 struct Rva0057ACEBData { int word0,word4; };
-class Rva0057ACEB { public: Rva0057ACEB(const Rva0057ACEBData *); void *impl; };
+#include "../../Include/Common/Rva0057ACEB.h"
 class Rva005D4E22 { public: Rva005D4E22(bool *,AsciiString *); int word0,word4; };
 class AptExternHandler;
 template<> class AptRef<AptExternHandler> : public Rva0057ACEB {
