@@ -35,11 +35,7 @@ struct BfmeMsgDN;
 // the same table to the same class (its TooltipRecord); C01's Rva00215E42
 // defines its ctor and dtor out of line, so an inline view under that name
 // would duplicate them.
-class TooltipBase
-{
-public:
-	virtual ~TooltipBase() {}
-};
+#include "../../Include/Common/TooltipBase.h"
 
 // The class is compiled without inlining: its scalar deleting destructor
 // (retail 0x00406B1D, shared) calls ~Rva004E7392 (0x004059AC) out of line.

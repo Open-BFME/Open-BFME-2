@@ -330,7 +330,7 @@ class LookAtTranslator; extern LookAtTranslator *TheLookAtTranslator;
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
-class TooltipBase { public: virtual ~TooltipBase() {} };
+#include "../../Include/Common/TooltipBase.h"
 class TooltipRecord: public TooltipBase { public:
  TooltipRecord(UnsignedInt id,UnsignedInt context):objectID(id),uiContext(context) {}
  virtual ~TooltipRecord() {}

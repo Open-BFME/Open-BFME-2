@@ -96,11 +96,7 @@ extern ControlBar *TheControlBar;
 // the same table to the same class (its TooltipRecord); C01's Rva00215E42
 // defines its ctor and dtor out of line, so an inline view under that name
 // would duplicate them.
-class TooltipBase
-{
-public:
-	virtual ~TooltipBase() {}
-};
+#include "../../../../../Include/Common/TooltipBase.h"
 
 struct Rva004E7392 : public TooltipBase
 {
