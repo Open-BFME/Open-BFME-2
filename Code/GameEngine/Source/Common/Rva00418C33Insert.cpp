@@ -26,10 +26,7 @@ namespace _STL {
 	};
 }
 
-struct Rva00418BFBKey {
-	int lo;
-	int hi;
-};
+#include "../../Include/Common/Rva00418BFBKey.h"
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
 #include "../../Include/Common/Rva00418BFBIter.h"

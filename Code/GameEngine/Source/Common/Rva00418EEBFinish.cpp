@@ -6,10 +6,7 @@
 // rather than `if (atBegin) return false; found;`: that orientation is what
 // places the shared found block directly after the loop, matching retail's
 // `jne`-to-false / fall-through-to-found tail layout.
-struct Rva00418BFBKey {
-	int lo;
-	int hi;
-};
+#include "../../Include/Common/Rva00418BFBKey.h"
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
 #include "../../Include/Common/Rva00418BFB.h"

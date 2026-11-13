@@ -22,12 +22,7 @@ typedef const ConstCharPtr *ConstCharPtrArray;
 const char *getAutoResolveUnitNameFromIndex(int index);
 extern const char *g_Va00DC85C4Names[];
 
-struct Rva00418BFBKey
-{
-	int lo;
-	int hi;
-	__forceinline Rva00418BFBKey(const int &lowValue, const int &highValue) : lo(lowValue), hi(highValue) {}
-};
+#include "../../Include/Common/Rva00418BFBKey.h"
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
 #include "../../Include/Common/Rva00418BFBIter.h"

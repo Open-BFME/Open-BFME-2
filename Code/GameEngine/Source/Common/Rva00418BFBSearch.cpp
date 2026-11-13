@@ -2,10 +2,7 @@
 // ?rva00418BFB@Rva00418BFB@@QAEPAXPBX@Z @ 0x00418BFB 56B: tree lower_bound search
 // calling rowed 0x00418BB7 less over keys at +0x10, left at +8, right at +0xC.
 // Evidence: chain packet calls 0x00418BB7, loop shape matches lower_bound.
-struct Rva00418BFBKey {
-	int lo;
-	int hi;
-};
+#include "../../Include/Common/Rva00418BFBKey.h"
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
 

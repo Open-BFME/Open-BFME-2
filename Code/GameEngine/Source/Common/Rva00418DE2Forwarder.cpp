@@ -2,10 +2,7 @@
 // ?rva00418DE2@Rva00418DE2@@QAE?AURva00418BFBPair@@ABURva00418BFBKey@@@Z @ 0x00418DE2 35B: map insert forwarder
 // calling rowed 0x00418D3C insert_unique. Unblocks 0x00418F7D.
 // Evidence: chain packet calls 0x00418D3C with same this and value.
-struct Rva00418BFBKey {
-	int lo;
-	int hi;
-};
+#include "../../Include/Common/Rva00418BFBKey.h"
 #include "../../Include/Common/Rva00418BFBNode.h"
 #include "../../Include/Common/Rva00418BFBComp.h"
 #include "../../Include/Common/Rva00418BFBIter.h"
