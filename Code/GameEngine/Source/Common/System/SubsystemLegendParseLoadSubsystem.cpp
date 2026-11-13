@@ -15,11 +15,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
 #include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
-struct BfmeVectorRecord001B4A39 {
- AsciiString text0;_STL::vector<AsciiString> names0,names1,names2,names3,names4;
- unsigned word40;AsciiString text1;
- BfmeVectorRecord001B4A39();~BfmeVectorRecord001B4A39();
-};
+#include "../../../Include/Common/BfmeVectorRecord001B4A39.h"
 struct BfmePod72 {int a[18];};
 namespace _STL {template<>void list<BfmePod72>::push_back(const BfmePod72&);}
 class SubsystemLegend {public:

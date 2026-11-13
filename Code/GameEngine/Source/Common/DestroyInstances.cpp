@@ -129,11 +129,7 @@ class BfmePod248
 public:
 	~BfmePod248();
 };
-struct BfmeVectorRecord001B4A39
-{
-public:
-	~BfmeVectorRecord001B4A39();
-};
+#include "../../Include/Common/BfmeVectorRecord001B4A39.h"
 struct Rva0010F149Handle
 {
 public:

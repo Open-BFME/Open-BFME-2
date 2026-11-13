@@ -44,11 +44,7 @@ BfmeVectorRecord000BDF17::BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF1
 template void _STL::_Construct<BfmeVectorRecord000BDF17,BfmeVectorRecord000BDF17>(BfmeVectorRecord000BDF17*,const BfmeVectorRecord000BDF17&);
 
 // Complete retail record copy at 0x001B4A39.
-struct BfmeVectorRecord001B4A39 {
-    AsciiString text0; _STL::vector<AsciiString> names0, names1, names2, names3, names4; unsigned int word40; AsciiString text1;
-    BfmeVectorRecord001B4A39(const BfmeVectorRecord001B4A39 &other);
-    ~BfmeVectorRecord001B4A39();
-};
+#include "../../Include/Common/BfmeVectorRecord001B4A39.h"
 BfmeVectorRecord001B4A39::BfmeVectorRecord001B4A39(const BfmeVectorRecord001B4A39 &other) : text0(other.text0), names0(other.names0), names1(other.names1), names2(other.names2), names3(other.names3), names4(other.names4), word40(other.word40), text1(other.text1) {}
 BfmeVectorRecord001B4A39::~BfmeVectorRecord001B4A39() {}
 template void _STL::_Construct<BfmeVectorRecord001B4A39,BfmeVectorRecord001B4A39>(BfmeVectorRecord001B4A39*,const BfmeVectorRecord001B4A39&);

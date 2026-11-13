@@ -63,20 +63,7 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
-struct BfmeVectorRecord001B4A39 {
-public:
-	AsciiString text0;
-public:
-	_STL::vector<AsciiString> names0, names1, names2, names3, names4;
-public:
-	unsigned int word40;
-public:
-	AsciiString text1;
-public:
-	BfmeVectorRecord001B4A39();
-public:
-	~BfmeVectorRecord001B4A39();
-};
+#include "../../Include/Common/BfmeVectorRecord001B4A39.h"
 
 template void _STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> >::clear();
 
