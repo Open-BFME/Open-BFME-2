@@ -148,15 +148,7 @@ private:
 	BfmeTexHold1137 m_tex3;
 	mutable volatile unsigned char m_clear68;
 };
-class Rva00274DB6AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x79C];
-	AsciiString m_value; // +0x79C
-};
+#include "../../Include/Common/Rva00274DB6AsciiField.h"
 #include "../../Include/GameLogic/Module/Rva00291775AsciiField.h"
 #include "../../Include/GameClient/Rva003821B9AsciiField.h"
 class Rva00382216AsciiField

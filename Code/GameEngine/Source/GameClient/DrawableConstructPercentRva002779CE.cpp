@@ -43,11 +43,7 @@ extern FontLibrary *TheFontLibrary;
 #include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
-class Rva00274DB6AsciiField
-{
-public:
-	AsciiString get() const;
-};
+#include "../../Include/Common/Rva00274DB6AsciiField.h"
 
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;

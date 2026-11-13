@@ -38,7 +38,7 @@ struct CaptionUIFields
     bool bold;
     bool isBold() const { return bold; }
 };
-class Rva00274DB6AsciiField { public: AsciiString get() const; };
+#include "../../Include/Common/Rva00274DB6AsciiField.h"
 class DisplayString;
 class Rva00271496
 {

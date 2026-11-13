@@ -1449,15 +1449,7 @@ BFME_DISP_DWORD_SETTER(Rva00299C7CDwordSlot, 0x45C)
 // ?set@Rva002DAC16Fields@@QAEXM@Z
 struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
 
-class Rva00274DB6AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x79C];
-	AsciiString m_value; // +0x79C
-};
+#include "../../../Include/Common/Rva00274DB6AsciiField.h"
 
 #include "../../../Include/GameLogic/Module/Rva00291775AsciiField.h"
 

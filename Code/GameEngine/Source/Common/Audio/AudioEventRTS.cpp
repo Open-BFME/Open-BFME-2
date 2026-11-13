@@ -873,15 +873,7 @@ extern GameClient *TheGameClient;
 
 extern const char g_00BBD3EC[];
 
-class Rva00274DB6AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x79C];
-	AsciiString m_value; // +0x79C
-};
+#include "../../../Include/Common/Rva00274DB6AsciiField.h"
 
 #include "../../../Include/GameLogic/Module/Rva00291775AsciiField.h"
 
