@@ -12,11 +12,7 @@
 // to rowed rva003F8478.
 // Evidence: retail count/next loads / cmp edx,eax+jae / xor al,al+ret /
 // call 80C3 / test+jne found / mov al,1+ret / mov ecx,eax+jmp 8478.
-class Rva003F7F30
-{
-public:
-	void rva003F7F30();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Rva003F7F30.h"
 
 class Rva003F7F4B
 {

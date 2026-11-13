@@ -1,0 +1,87 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003F7F30",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "1": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "28": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 12,
+   "type": "char[12]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F7F30.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F7F30.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F7F30.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F7F30.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {}
+}
