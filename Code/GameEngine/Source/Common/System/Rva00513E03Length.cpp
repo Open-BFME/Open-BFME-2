@@ -8,14 +8,7 @@ class UnicodeString;
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 #include "../../../Include/Common/AsciiStringRef.h"
 #include "../../../Include/GameClient/Rva002226E5TextPlusString.h"
-struct Rva00513E03
-{
-	int length() const;
-	Rva000B3F84Pair m_first;
-	const AsciiString *m_second;
-	Rva000B3F84Pair m_third;
-	const AsciiString *m_fourth;
-};
+#include "../../../Include/Common/Rva00513E03.h"
 
 // ?length@Rva005E3693@@QBEHXZ @0x005E3693 13B: five-part extension (four-part base at 0x00513E03 plus fifth pair len at +0x1C); chain from 0x00513E03 landing.
 struct Rva005E3693 : Rva00513E03

@@ -62,14 +62,7 @@ private:
 	Rva005E36A0 m_head;
 	Rva000B3F84Pair m_tail;
 };
-struct Rva00513E03
-{
-	int length() const;
-	Rva000B3F84Pair m_first;
-	const AsciiString *m_second;
-	Rva000B3F84Pair m_third;
-	const AsciiString *m_fourth;
-};
+#include "../../Include/Common/Rva00513E03.h"
 
 Rva005E36C5::operator StringBase<char>()
 {

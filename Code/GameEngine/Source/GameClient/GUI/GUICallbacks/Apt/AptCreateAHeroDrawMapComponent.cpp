@@ -187,15 +187,7 @@ Rva0059B036Concat operator+(const Rva00513B5BConcat &left, const UnicodeString &
     return result;
 }
 
-struct Rva00513E03
-{
-public:
-	int length() const;
-	Rva000B3F84Pair m_first; // +0x00
-	const AsciiString *m_second; // +0x08
-	Rva000B3F84Pair m_third; // +0x0C
-	const AsciiString *m_fourth; // +0x14
-};
+#include "../../../../../Include/Common/Rva00513E03.h"
 class Rva00513E4A { public: int copyToBuffer(unsigned short *dst); };
 Rva0059B036Concat::operator UnicodeString()
 {

@@ -202,11 +202,7 @@ public:
 	void rva005D2A53();
 };
 // 0x0059B19A: the rowed length 0x00513E03 of the +0x04 object.
-class Rva00513E03
-{
-public:
-	Int length() const;
-};
+#include "../../Include/Common/Rva00513E03.h"
 class Rva0059B19A
 {
 public:
