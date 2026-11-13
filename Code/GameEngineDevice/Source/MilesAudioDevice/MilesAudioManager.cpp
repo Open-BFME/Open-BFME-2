@@ -138,12 +138,7 @@ private:
 };
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-struct OpaqueRefElement4 {
-    OpaqueRefCounted *referent;
-    OpaqueRefElement4() : referent(0) {}
-    ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 typedef _STL::deque<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> > MusicStack;
 // W5's stride: the element these rows step is 4 bytes (tools/retail_identity.py OPAQUE_REF_DEQUE_*).
 typedef char OpaqueRefElement4SizeIs4[sizeof(OpaqueRefElement4)==4?1:-1];
