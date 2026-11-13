@@ -19,15 +19,7 @@ struct Rva001F385ASub
 	float m_2c;
 };
 
-class Rva001F385A
-{
-public:
-	void rva001F385A(void *out);
-
-private:
-	char m_pad[0xEC];
-	Rva001F385ASub m_sub;
-};
+#include "../../Include/GameClient/Rva001F385A.h"
 
 void Rva001F385A::rva001F385A(void *out)
 {
