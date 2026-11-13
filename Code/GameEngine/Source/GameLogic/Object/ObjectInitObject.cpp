@@ -140,11 +140,7 @@ extern EmotionSystem *TheEmotionSystem;
 extern CreateAHeroManager *TheCreateAHeroManager;
 
 struct Obj00526309;
-class Rva002D3726
-{
-public:
-	void rva002D3726(Obj00526309 *);
-};
+#include "../../../Include/GameLogic/Module/Rva002D3726.h"
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 

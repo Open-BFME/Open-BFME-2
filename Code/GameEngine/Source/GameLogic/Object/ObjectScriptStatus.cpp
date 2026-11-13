@@ -151,11 +151,7 @@ public:
 	void rva002D373E(int);
 };
 struct Obj00526309;
-class Rva002D3726
-{
-public:
-	void rva002D3726(Obj00526309 *);
-};
+#include "../../../Include/GameLogic/Module/Rva002D3726.h"
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 template <int N>
