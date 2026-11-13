@@ -356,11 +356,7 @@ class Rva00E02D6C {char prefix[0x14]; _STL::vector<void *> elements;public:int r
 // Caller chain: vector dtor at 0x003B9065 and _M_clear plus 0x003B90A9/0x003F52D4.
 // Mirrors LivingWorldRegionConnectionHelpers DestroyRange/Tagged shapes; element
 // is the 0x68 virtual-dtor holder from Rva003B8B61Destroy.cpp.
-struct Rva003B8B61Elem
-{
-	virtual void destroy(int);
-	char m_pad[0x68 - 4];
-};
+#include "../../../../Include/Common/Rva003B8B61Elem.h"
 
 void __cdecl Rva003B8B61Destroy(Rva003B8B61Elem *first, Rva003B8B61Elem *last, int unused);
 

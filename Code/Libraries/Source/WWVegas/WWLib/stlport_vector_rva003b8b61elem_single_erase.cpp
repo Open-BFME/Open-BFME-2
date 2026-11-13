@@ -6,10 +6,7 @@
 // If pos+1 != finish, shifts tail down with rowed CopyDispatch 0x003B8B44,
 // decrements finish by 0x68, destroys the vacated tail via virtual slot0 with 0,
 // returns pos. Follows pod28 single erase shape; prvalue tag keeps tag at [ebp+0xb].
-struct Rva003B8B61Elem {
-	virtual void destroy(int);
-	unsigned char m_pad[0x68 - 4];
-};
+#include "../../../../GameEngine/Include/Common/Rva003B8B61Elem.h"
 
 #include "RvaCopyIteratorTag.h"
 struct RvaVector104Tag : RvaCopyIteratorTag {};

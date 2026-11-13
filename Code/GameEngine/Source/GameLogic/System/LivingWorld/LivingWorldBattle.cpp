@@ -13,7 +13,7 @@ typedef int Int;
 class CreateAHeroData;
 #include "../../../../Include/GameLogic/Rva003F4DCA.h"
 #include "../../../../Include/Common/Rva002B7250.h"
-struct Rva003B8B61Elem { virtual void destroy(int); char pad04[0x68-4]; };
+#include "../../../../Include/Common/Rva003B8B61Elem.h"
 namespace _STL {
  template<> void** vector<void*,allocator<void*> >::erase(void**);
  template<> Rva003B8B61Elem*vector<Rva003B8B61Elem,allocator<Rva003B8B61Elem> >::erase(Rva003B8B61Elem*);
