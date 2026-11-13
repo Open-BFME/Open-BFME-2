@@ -227,11 +227,7 @@ public:
 	bool rva002B5F8A();										// 0x002B5F8A
 };
 
-class Rva005743C0
-{
-public:
-	virtual bool rva005743C0();
-};
+#include "../../Include/Common/Rva005743C0.h"
 
 bool Rva005743C0::rva005743C0()
 {

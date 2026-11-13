@@ -206,11 +206,7 @@ private:
 // ?rva00574AB3@Rva00574AB3@@UAE_NXZ @0x00574AB3 8B (vftable slot at VA
 // 0x00C3C6D0): direct (qualified) call of the rowed Rva005743C0 slot body
 // 0x005743C0 on the object held at +0x04.
-class Rva005743C0
-{
-public:
-	virtual bool rva005743C0();
-};
+#include "../../Include/Common/Rva005743C0.h"
 class Rva00574AB3
 {
 public:
