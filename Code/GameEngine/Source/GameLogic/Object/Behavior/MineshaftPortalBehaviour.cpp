@@ -72,12 +72,7 @@ public:
 	float z; // +0x14
 };
 #include "../../../../Include/GameLogic/Rva002E6ECA.h"
-class Rva00372CA8
-{
-public:
-	void remove(int value);
-	bool contains(int value);
-};
+#include "../../../../Include/GameLogic/Module/Rva00372CA8.h"
 #include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 #include "../../../../Include/Common/Rva004618D4Caller.h"
 class AI { public: char pad[0x10]; Rva002E9042 *pathfinder; };
