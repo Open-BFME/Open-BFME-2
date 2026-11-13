@@ -3639,7 +3639,7 @@ __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2
 	return 0; 
 }
 #include "../../../Include/GameLogic/Rva002EAB6F.h"
-struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
+#include "../../../Include/Common/BurningCell.h"
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};
 class Rva002872BA;extern Rva002872BA *TheTriggerManager;
 struct NeighborMovementInfo { ICoord2D cell;PathfindLayerEnum layer;Int radius;Bool centerInCell,considerTransient;char pad12[2];Int options,ignore;Rva002E8BCF movement;Int allyFixedCount;Bool flag30,flag31,allyGoal;char pad33;Int blockedCells; };

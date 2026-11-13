@@ -279,7 +279,7 @@ struct TCheckMovementInfo { ICoord2D cell;PathfindLayerEnum layer;Int radius;Boo
 #include "../../../Include/Common/Rva002E6FDF.h"
 #include "../../../Include/GameLogic/Rva002EAB6F.h"
 struct Rva002F5925Info;
-struct BurningCell {char pad[6];unsigned short count;char pad8[12];};
+#include "../../../Include/Common/BurningCell.h"
 struct BurningGrid {char pad[0x70];BurningCell **cells;char word74[4];Int width,height;};
 class Rva002872BA;extern Rva002872BA *TheTriggerManager;
 Int isGroundOrBridgeLayer(Int);
