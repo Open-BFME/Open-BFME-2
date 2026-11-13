@@ -54,11 +54,7 @@ public:
 extern GameLogic *TheGameLogic;
 extern "C" void *theLogicRandomLogFile;
 
-class Rva003973EB
-{
-public:
-	bool rva003973EB(Player *player, Int arg);
-};
+#include "../../../../Include/GameLogic/Module/Rva003973EB.h"
 
 class Rva00397F45
 {

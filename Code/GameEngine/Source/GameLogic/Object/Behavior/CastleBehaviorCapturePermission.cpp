@@ -18,7 +18,7 @@ public:
  char pad8[0x74-8]; int id;
 };
 extern GameLogic *TheGameLogic;
-class Rva003973EB { public: bool rva003973EB(Player *,int); };
+#include "../../../../Include/GameLogic/Module/Rva003973EB.h"
 class Rva00397EAC {
 public:
  bool isPlayerAllowedToCapture(Player *,int);
