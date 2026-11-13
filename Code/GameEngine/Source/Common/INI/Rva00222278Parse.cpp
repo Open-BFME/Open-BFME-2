@@ -31,7 +31,7 @@ class AsciiString; struct TreeHintRef00221D6B;
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > >::deallocate(_Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > *,unsigned int) const; }
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/Rva00221A58.h"
-class Rva00221B42 { private: char m_pad[0x20]; };
+#include "../../../Include/Common/Rva00221B42.h"
 class Rva00221C15 { public: Rva00221C15(const AsciiString &a, const Rva00221A58 &b, INI *ini); const void *m_vtable; int m_refs; Rva00221B42 m_08; };
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }

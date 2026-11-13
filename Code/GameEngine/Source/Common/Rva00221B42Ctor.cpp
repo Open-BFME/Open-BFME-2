@@ -34,14 +34,7 @@ const FieldParse g_00BE6BD8[] =
 	{ 0, 0, 0, 0 }
 };
 
-class Rva00221B42
-{
-public:
-	Rva00221B42(const AsciiString &a, const Rva00221A58 &b, INI *ini);
-private:
-	Rva00221A58 m_00;
-	AsciiString m_1C;
-};
+#include "../../Include/Common/Rva00221B42.h"
 
 Rva00221B42::Rva00221B42(const AsciiString &asciiString, const Rva00221A58 &b, INI *ini)
 	: m_00(b)

@@ -9,14 +9,7 @@
 
 #include "../../Include/Common/Rva00221A58.h"
 
-class Rva00221B42
-{
-public:
-	~Rva00221B42();
-private:
-	Rva00221A58 m_00;
-	AsciiString m_1C;
-};
+#include "../../Include/Common/Rva00221B42.h"
 
 extern "C" const unsigned char __identifier("??_7Secondary005E7ED7@@6B@")[];
 
