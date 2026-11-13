@@ -33,16 +33,7 @@ private:
 
 class Rva005CD1A9;
 
-class Rva005CD0FEElem
-{
-public:
-	Rva005CD0FEElem(Rva005CD1A9 *parent);
-
-private:
-	Rva005CD1A9 *m_parent; // +0
-	int m_x; // +4
-	_STL::_List_base<BfmePod8, _STL::allocator<BfmePod8> > m_list; // +8
-};
+#include "../../Include/Common/Rva005CD0FEElem.h"
 
 Rva005CD0FEElem::Rva005CD0FEElem(Rva005CD1A9 *parent)
 	: m_parent(parent), m_x(0), m_list(_STL::allocator<BfmePod8>())
