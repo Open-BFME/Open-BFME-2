@@ -65,11 +65,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 class Object;
 #include "GameLogicObjectLookupView.h"
-class Rva005C6C7B
-{
-public:
-	void reset();
-};
+#include "../../Include/Common/Rva005C6C7B.h"
 class Rva005C65F1
 {
 public:

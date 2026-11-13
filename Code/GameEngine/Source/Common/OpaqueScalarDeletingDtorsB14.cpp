@@ -213,13 +213,7 @@ Rva005C4A91::Rva005C4A91(EmitVtableTag *)
 {
 }
 
-class Rva005C6C7B
-{
-public:
-	Rva005C6C7B(EmitVtableTag *);
-public:
-	virtual ~Rva005C6C7B();
-};
+#include "../../Include/Common/Rva005C6C7B.h"
 
 // ?<Rva005C6C7B::Rva005C6C7B> absent-from-retail
 Rva005C6C7B::Rva005C6C7B(EmitVtableTag *)

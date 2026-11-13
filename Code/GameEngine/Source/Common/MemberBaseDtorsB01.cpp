@@ -79,11 +79,7 @@ public:
 
 #include "../../Include/Common/Rva00577010.h"
 
-class Rva005C6C7B
-{
-public:
-	virtual ~Rva005C6C7B();
-};
+#include "../../Include/Common/Rva005C6C7B.h"
 
 class Rva00577EB2
 {

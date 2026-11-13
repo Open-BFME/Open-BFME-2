@@ -773,11 +773,7 @@ void Drawable::setPosition(const Coord3D *pos)
 	Thing::setPosition(pos);
 }
 
-class Rva005C6C7B
-{
-public:
-	void reset();
-};
+#include "../../Include/Common/Rva005C6C7B.h"
 
 #include "../../Include/Common/Rva005C6CC7Call.h"
 
