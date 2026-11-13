@@ -6,14 +6,7 @@
 // pops the header node via pool 0x002EB448 at g_IntKeyedTreeNodePool and stores
 // it at +0. Caller 0x002F1C66 in Rva002F1C5FSelfLink.cpp. AIPathfind.cpp declares
 // this specialization and emits no copy of its own.
-class Rva002EB448
-{
-public:
-	void *rva002EB448();
-	char m_pad00[0x8];
-private:
-	void *m_head8; // +0x08
-};
+#include "../../Include/Common/Rva002EB448.h"
 
 #include "../../Include/Common/Rva002E8548Pool.h"
 extern Rva002E8548 g_IntKeyedTreeNodePool; // canonical24-byte pool owner in Rva007B6880Thunks.cpp
