@@ -229,11 +229,7 @@ public:
 class Object;
 enum BodyDamageType { BODY_PRISTINE = 0 };
 #include "../../../Include/GameLogic/Rva0037EE4C.h"
-class Rva0037E6E8
-{
-public:
-	Int rva0037E649(Int index, Object *obj);
-};
+#include "../../../Include/GameLogic/Rva0037E6E8.h"
 
 enum ScienceType { SCIENCE_INVALID = -1 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
