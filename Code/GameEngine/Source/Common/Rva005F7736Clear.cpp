@@ -5,11 +5,7 @@
 // dtor 0x005F7750 in Rva005F7750Dtor.cpp.
 #include <new>
 
-class Rva005F75C9
-{
-public:
-	~Rva005F75C9();
-};
+#include "../../Include/Common/Rva005F75C9.h"
 
 class Rva005F7736
 {
