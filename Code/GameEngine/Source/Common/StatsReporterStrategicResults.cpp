@@ -44,14 +44,7 @@ class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002E071E.h"
 class Rva0009AAA4DwordField {public:int get()const;};
 class Rva0021937DTarget;
-class Rva0021937D
-{
-public:
-	void rva002193D9(Rva0021937DTarget*);
-	void rva00219407(Rva0021937DTarget*);
-	void rva0021937D(Rva0021937DTarget*);
-	void rva002193AB(Rva0021937DTarget*);
-};
+#include "../../Include/Common/Rva0021937D.h"
 class LivingWorldLogic {public:
  char beforePlayers[0x8c];_STL::vector<LivingWorldPlayer*>players;
  char beforeFrame[0x64];int frame;

@@ -211,14 +211,7 @@ class Rva002E2903Player;
 
 class Rva0021937DTarget;
 
-class Rva0021937D
-{
-public:
-	void rva002193D9(Rva0021937DTarget*);
-	void rva00219407(Rva0021937DTarget*);
-	void rva0021937D(Rva0021937DTarget*);
-	void rva002193AB(Rva0021937DTarget*);
-};
+#include "../../Include/Common/Rva0021937D.h"
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 
