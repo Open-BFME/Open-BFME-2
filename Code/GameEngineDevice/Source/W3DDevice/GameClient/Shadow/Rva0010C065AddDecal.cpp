@@ -33,13 +33,7 @@ public:
 };
 
 class HAnimManagerClass;
-class Rva0010BC90ShadowManager
-{
-public:
-	W3DShadowTexture *getTexture(const char*);
-	char prefix[0x24c]; // +0x00
-	HAnimManagerClass *manager; // +0x24C
-};
+#include "../../../../../GameEngine/Include/Common/Rva0010BC90ShadowManager.h"
 
 class Rva0010BB11ShadowFactory
 {
