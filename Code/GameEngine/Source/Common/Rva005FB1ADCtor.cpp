@@ -15,13 +15,7 @@ public:
 	Rva006003FC(void *a, void *b, void *c);
 };
 
-class Rva005FAD8D
-{
-public:
-	Rva005FAD8D(void *owner, void *c);
-private:
-	char m_data[0x54];
-};
+#include "../../Include/Common/Rva005FAD8D.h"
 
 struct Rva005FB14EMember
 {

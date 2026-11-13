@@ -1,0 +1,217 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005FAD8D",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 5,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5fafe8"
+     ],
+     "value": 84
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5fafe8"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5fafe8"
+     ],
+     "value": {
+      "0x18": [
+       "??0Rva005F2381@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5fafe8"
+     ],
+     "value": {
+      "0x0": "0x879ed4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x879ed4"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 0,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?swapEntries@@YIXPAVRva005FA98C@@HHHHHH@Z",
+        "slot": 1,
+        "target": "0x5fa98c"
+       }
+      ],
+      "table": "0x879ed4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x879ed4": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "1": "?swapEntries@@YIXPAVRva005FA98C@@HHHHHH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "28": 1,
+   "84": 2
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 84,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -63,7 +63,7 @@ class Rva005F6051 { public: ~Rva005F6051(); };
 void famgenDelete(Rva005F6051 *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005FAD8D@@QAEPAXI@Z @0x005FAF41 28B: calls pinned ~Rva005FAD8D 0x005FAD8D
-class Rva005FAD8D { public: ~Rva005FAD8D(); };
+#include "../../Include/Common/Rva005FAD8D.h"
 void famgenDelete(Rva005FAD8D *objectToDelete) { delete objectToDelete; }
 
 // ??_GRva005FCA8B@@QAEPAXI@Z @0x005FCB11 28B: calls pinned ~Rva005FCA8B 0x005FCA8B

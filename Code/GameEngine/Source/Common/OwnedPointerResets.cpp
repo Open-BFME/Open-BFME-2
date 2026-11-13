@@ -1113,11 +1113,7 @@ void Rva005F74A0::clear()
 	}
 }
 
-class Rva005FAD8D
-{
-public:
-	~Rva005FAD8D();
-};
+#include "../../Include/Common/Rva005FAD8D.h"
 
 class Rva005FAFB2
 {
