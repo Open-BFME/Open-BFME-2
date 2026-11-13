@@ -530,8 +530,8 @@ def scoped_move_spans(text):
     no statement in it is a bare name (`SHIFT;`) and no scope in it opens on one
     (`OPEN {`), and the local class has no prefix but labels. A macro there could
     close the function and open a namespace, so anything less voids the unit, as
-    any local class did before. A bare macro before a scope head is not evidence
-    of global/namespace/class scope.
+    any local class did before; so does a namespace head in one, as on master. A
+    bare macro before a scope head is not evidence of global/namespace/class scope.
     Includes, pragmas, #undef and scope-neutral object-like #defines are
     accepted (scope_code); other directives can manufacture or condition scope
     and are refused. Check the whole unit's balance, not only a class's prefix.
@@ -556,8 +556,9 @@ def scoped_move_spans(text):
             head, namespace = heads.get(pos), namespaces.get(pos)
             local = any(frame[0] is None or frame[3] for frame in stack)
             if (head or namespace) and local:
+                # Only a class is local: a namespace there means the braces are not what they seem.
                 body['local'] = True
-                if any(unproven) or not LOCAL_PREFIX.fullmatch(code[boundary:(head or namespace).start()].strip()):
+                if namespace or any(unproven) or not LOCAL_PREFIX.fullmatch(code[boundary:head.start()].strip()):
                     return []
             elif head or namespace:
                 start = (head or namespace).start()

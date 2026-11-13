@@ -492,6 +492,9 @@ def test_a_function_local_class_leaves_the_units_other_spans(where):
     '#include "scope.h"\nvoid f() { if (1) { SHIFT } struct Local {}; }\n' + X_BODY + 'CLOSE\n',
     '#include "scope.h"\nvoid f() { OPEN { } struct Local {}; }\n' + X_BODY + 'CLOSE\n',
     '#include "scope.h"\nvoid f() { SHIFT struct Local {}; }\n' + X_BODY + 'CLOSE\n',
+    # re-check: `#define SHIFT() } namespace Hidden { namespace Extra { void g()`; a namespace is no local class
+    '#include "scope.h"\nvoid f() { SHIFT(); namespace N { struct Local {}; } }\n' + X_BODY + 'CLOSE\n',
+    '#include "scope.h"\nvoid f() { SHIFT(); namespace N { int y; } }\n' + X_BODY + 'CLOSE\n',
 ])
 def test_a_local_class_in_a_scope_a_macro_may_move_voids_the_unit(unit):
     assert class_gate.scoped_move_spans(unit) == []
