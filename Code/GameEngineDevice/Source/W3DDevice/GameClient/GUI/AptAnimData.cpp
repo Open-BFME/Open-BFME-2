@@ -164,7 +164,7 @@ struct Rva007882F0Value;
 
 class Rva007882F0PointerMap {public:Rva007882F0Value *lookup(unsigned);};
 
-class Rva000AB0F5 {public:void *rva000AB0F5(int);};
+#include "../../../../../GameEngine/Include/GameClient/Rva000AB0F5.h"
 
 class GeometryRecord00788A30 {public:
  virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual unsigned slot10();

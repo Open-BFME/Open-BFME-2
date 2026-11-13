@@ -9,7 +9,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "GameLogicObjectLookupView.h"
 #include "../../Include/Common/ObjectLookupMap.h"
 #include <new>
-class Rva000AB0F5 { public: void *rva000AB0F5(int key); private: char m_pad[0x1C]; };
+#include "../../Include/GameClient/Rva000AB0F5.h"
 void *Rva000AB0F5::rva000AB0F5(int key)
 {
 	char *mapBase = (char *)this + 0x1C;

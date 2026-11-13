@@ -9,11 +9,7 @@ struct Rva007882F0Value { unsigned value; };
 class Rva007882F0PointerMap;
 // LINK: the lookup is rowed as Rva000AB0F5::rva000AB0F5(int) returning void *;
 // the key and result words are the same, so the call keeps its shape through a cast.
-class Rva000AB0F5
-{
-public:
-	void *rva000AB0F5(int key);
-};
+#include "../../../Include/GameClient/Rva000AB0F5.h"
 typedef Rva007882F0Value *(Rva000AB0F5::*Rva007882F0LookupShape)(unsigned);
 
 // ?Rva00788A00Assign@@YAXPAVRva007882F0PointerMap@@II@Z
