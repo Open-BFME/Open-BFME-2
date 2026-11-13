@@ -90,12 +90,7 @@ class Rva005CC37C
 public:
 	Rva005CC37C(void *argument, struct Rva005CC3C0In *context);
 };
-struct Rva00574AD9
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva00574AD9(void *argument);
-};
+#include "../../Include/Common/Rva00574AD9.h"
 
 
 // ?rva00567F3D@Rva00567F3D@@QAE?AURvaF1Handle@@H@Z, retail 0x00567F3D (84B): the same factory shape with a 0x1C-byte

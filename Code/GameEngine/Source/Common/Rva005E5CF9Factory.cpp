@@ -157,12 +157,7 @@ class Rva005CC37C
 public:
 	Rva005CC37C(void *argument, struct Rva005CC3C0In *context);
 };
-struct Rva00574AD9
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva00574AD9(void *argument);
-};
+#include "../../Include/Common/Rva00574AD9.h"
 
 RvaF1Handle Rva00574AD9::rva00574AD9(void *argument)
 {
