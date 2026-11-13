@@ -17,11 +17,7 @@ class ModuleData;
 
 #include "../../../../Include/GameLogic/DBaseRoot.h"
 
-class DBaseM1
-{
-public:
-	virtual void f1();
-};
+#include "../../../../Include/GameLogic/DBaseM1.h"
 
 #include "../../../../Include/GameLogic/DBaseB2.h"
 
