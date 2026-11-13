@@ -363,11 +363,7 @@ public:
 	Rva0028F59A(int a, int bit);
 	unsigned int m_bits[19];
 };
-class Rva001E42F2
-{
-public:
-	void rva001E42F2(const int *mask);
-};
+#include "../../../../Include/GameLogic/Module/Rva001E42F2.h"
 extern GameLogic *TheGameLogic;
 class Rva0044F633Inner
 {
