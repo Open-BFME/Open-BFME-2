@@ -4,12 +4,7 @@
 // Evidence: calls 0x002B4360 which this session landed; callers 0x002B5FF1 56B 0x002B5F8A 98B 0x002B6900 63B pass ecx with no pushes.
 // TU-local honest-address class; Node layout from Rva002B4360.cpp.
 #include <stdlib.h>
-struct Node002B4360
-{
-	char m_pad[8];
-	Node002B4360 *m_next8;
-	Node002B4360 *m_childC;
-};
+#include "../../Include/Common/Node002B4360.h"
 class Rva002B4360
 {
 public:

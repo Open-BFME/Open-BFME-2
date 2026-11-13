@@ -26,12 +26,7 @@ public:
 
 #include <new>
 
-struct Node002B4360
-{
-	char m_pad[8];
-	Node002B4360 *m_next8;
-	Node002B4360 *m_childC;
-};
+#include "../../Include/Common/Node002B4360.h"
 
 struct Head002B54F9
 {
