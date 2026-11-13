@@ -43,13 +43,7 @@ class TeamInQueue;
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class Rva001DB09DDwordField
-{
-public:
-	int get() const;
-	char m_lead[0x10];
-	int m_value;
-};
+#include "../../../Include/GameLogic/Rva001DB09DDwordField.h"
 
 // TeamInQueue: the build-queue record ctor 0x004EF5CE (new 0x30).
 #include "TeamInQueue.h"

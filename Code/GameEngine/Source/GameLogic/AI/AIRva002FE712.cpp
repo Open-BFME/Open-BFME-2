@@ -64,11 +64,7 @@ void AI::destroyGroup(AIGroup *group)
 // Primary source lead: GeneralsMD AI.cpp AI::findGroup's list/key search;
 // neighbouring AI::destroyGroup confirms the subsystem's +0x14 list.
 // Original receiver/payload names and full layouts remain unproven.
-class Rva001DB09DDwordField
-{
-public:
-    int get() const;
-};
+#include "../../../Include/GameLogic/Rva001DB09DDwordField.h"
 
 struct Rva002FE76BNode
 {
