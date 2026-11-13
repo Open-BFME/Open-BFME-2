@@ -15,14 +15,7 @@ struct WSADataBlock
 	char details[0x18A];
 };
 
-struct hostent
-{
-	char *h_name;
-	char **h_aliases;
-	short h_addrtype;
-	short h_length;
-	char **h_addr_list;
-};
+#include "../../Include/Common/hostent.h"
 
 extern "C"
 {
