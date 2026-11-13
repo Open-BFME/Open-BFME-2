@@ -855,7 +855,7 @@ extern LuaScriptEngine*TheLuaScriptEngine;
 class Rva000B7539 {public:~Rva000B7539();AsciiString previous,transition,animation;void*source;float fraction;bool finish;Rva000B7539():source(0),fraction(0),finish(false){} };
 class Rva000B4926 {public:const AsciiString&rva000B4926()const;};
 class HTreeClass;
-class Rva000BE027Anim {public:HTreeClass*rva000BE027(const AsciiString&,const AsciiString&,bool,int);};
+#include "../../../../../../GameEngine/Include/Common/Rva000BE027Anim.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B9A0E.h"
 #include "../../../../../../GameEngine/Include/Common/Rva000B49F9.h"
 class AnimConditionInfo {public:int rva000B495B();int pickRandomAnimation(int,int);};

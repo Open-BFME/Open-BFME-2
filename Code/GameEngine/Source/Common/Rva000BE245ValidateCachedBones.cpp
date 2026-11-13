@@ -1058,11 +1058,7 @@ public:
 };
 
 class HTreeClass;
-class Rva000BE027Anim
-{
-public:
-	HTreeClass *rva000BE027(const AsciiString &base, const AsciiString &model, bool numbered, int number);
-};
+#include "../../Include/Common/Rva000BE027Anim.h"
 
 #include "../../Include/Common/Rva000B646B.h"
 
