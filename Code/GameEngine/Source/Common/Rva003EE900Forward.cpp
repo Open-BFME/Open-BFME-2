@@ -312,11 +312,7 @@ void Rva003EE7E1::rva003EE7E1(Int regionAddress)
 // ?rva003EE91A@Rva003EE91A@@QAEXH@Z @0x003EE91A 76B chain via landed 0x003EE7CA
 // Retail: tmp[3] at ebp-0xc; this->rva003EE7CA(&tmp,arg) then owner+8 three-call
 // forward with string 80 and (arg+0x54,1)/(arg+0x54,&tmp)/(80,0).
-class Rva003EE7CA
-{
-public:
-	int rva003EE7CA(int a, int b);
-};
+#include "../../Include/Common/Rva003EE7CA.h"
 class Rva003EE91A
 {
 public:

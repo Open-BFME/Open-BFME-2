@@ -86,11 +86,7 @@ class LivingWorldLogic;
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva003EE7CA
-{
-public:
-	int rva003EE7CA(int a, int b);
-};
+#include "../../Include/Common/Rva003EE7CA.h"
 
 class Rva003EE89E
 {
