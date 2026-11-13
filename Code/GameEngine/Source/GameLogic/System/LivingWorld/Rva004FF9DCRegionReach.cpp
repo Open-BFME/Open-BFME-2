@@ -69,14 +69,7 @@ struct Rva004FFA6EValue
 	_STL::vector<Rva004FFA6EEntry> m_entries;
 };
 
-class Rva004FFA6E
-{
-public:
-	bool rva004FF9DC(int playerIndex, int limit, Rva004FFA6ESource *const &source);
-private:
-	int m_00;
-	_STL::map<int, Rva004FFA6EValue> m_map;
-};
+#include "../../../../Include/GameLogic/Rva004FFA6E.h"
 
 bool Rva004FFA6E::rva004FF9DC(int playerIndex, int limit, Rva004FFA6ESource *const &source)
 {
