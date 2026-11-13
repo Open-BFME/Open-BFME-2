@@ -3,12 +3,7 @@
 #include "ascii_string.h"
 #include "../../Include/Common/AsciiStringRef.h"
 #include "../../Include/GameClient/Rva002226E5TextPlusString.h"
-struct Rva005F1B75 : Rva002226E5TextPlusString
-{
-	int length() const;
-	int write(char *dst);
-	AsciiStringRef m_third;
-};
+#include "../../Include/Common/Rva005F1B75.h"
 class Rva005F1D06 : public Rva005F1B75
 {
 public:
