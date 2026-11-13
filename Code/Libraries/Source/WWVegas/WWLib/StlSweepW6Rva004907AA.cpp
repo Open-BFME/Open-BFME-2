@@ -7,7 +7,7 @@
 #include <memory>
 #include <utility>
 
-struct Rva004907AAElement { unsigned int id;bool operator<(const Rva004907AAElement&)const;bool operator==(const Rva004907AAElement&)const; };
+#include "../../../../GameEngine/Include/Common/Rva004907AAElement.h"
 
 // Native uses the owned pooled erase specialization at2ABB20, not generic
 // allocator deallocation. Suppress the generic body and bind the real provider.

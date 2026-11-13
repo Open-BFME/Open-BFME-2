@@ -15,7 +15,7 @@
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-struct Rva004907AAElement {unsigned int id;bool operator<(const Rva004907AAElement&)const;bool operator==(const Rva004907AAElement&)const;};
+#include "../../../../Include/Common/Rva004907AAElement.h"
 template<> void _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::pop_front();
 class Object {public:char pad[0x438];unsigned char status;};
 struct ArrowStormUpdateModuleData {char pad[0xC8];AsciiString weapon;float radius;int shotsPerTarget,shotsPerBurst,maxShots;bool emptyGround;};

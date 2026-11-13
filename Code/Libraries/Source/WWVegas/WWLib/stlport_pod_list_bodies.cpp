@@ -44,7 +44,7 @@ struct BfmePod24 { int a[6]; };
 inline bool operator==(const BfmePod12 &x, const BfmePod12 &y) { return x.a[0] == y.a[0]; }
 // remove() reaches retail's one erase body at 0x002ABB20, rowed under this element
 // name in Rva002ABB20PoolFree.cpp; this unit's own copy was not the one the link keeps.
-struct Rva004907AAElement { unsigned int id; };
+#include "../../../../GameEngine/Include/Common/Rva004907AAElement.h"
 namespace _STL {
 template <> list<Rva004907AAElement>::iterator list<Rva004907AAElement>::erase(iterator __position);
 template <> __declspec(dllimport) __forceinline list<BfmePod12>::iterator list<BfmePod12>::erase(iterator __position)
