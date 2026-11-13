@@ -66,7 +66,7 @@ public:
 	char m_pad94[0xAC - 0x94];
 };
 struct Rva00291198Dest;
-class Rva00291198Host {public:void rva002910B7(Rva00291198Dest*);};
+#include "../../../Include/Common/Rva00291198Host.h"
 class Rva0037EACC {public:void rva0037EACC(void*);};
 #include "../../../Include/GameLogic/Module/Rva0037E421.h"
 class Object {public:char p0[0x8c]; Object* next;char p90[0x438-0x90];unsigned char status;};

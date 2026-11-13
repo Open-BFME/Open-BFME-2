@@ -286,7 +286,7 @@ struct Rva0040F19DLivingWorldLogic { char pad00[0xb0]; Rva0020E6B7RegionManager 
 
 struct Rva0040F19DTemplate { char pad00[0x118]; unsigned char m_kindOf118; };
 struct Rva00291198Dest;
-class Rva00291198Host { public: void rva00291198(Rva00291198Dest *dest); };
+#include "../../../../GameEngine/Include/Common/Rva00291198Host.h"
 
 class Object
 {
