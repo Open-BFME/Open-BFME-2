@@ -152,8 +152,9 @@ Rva005D4C61::Rva005D4C61(EmitVtableTag *)
 {
 }
 
-// Vtable view shared with Rva005DA7F5Dtor.cpp (retail 0x00C76510: slot 0,
-// ??_G, slot 2), so both units emit the same ??_7Rva005DA7F5@@6B@ copy.
+// Two-slot table shared with Rva005DA7F5Dtor.cpp (retail 0x00C76510:
+// callback, then ??_G). The separately installed table at 0x00C76518
+// begins immediately afterwards; it is not another slot of this class.
 class Rva005DA7F5
 {
 public:
@@ -161,7 +162,6 @@ public:
 public:
 	virtual void slot0() = 0;
 	virtual ~Rva005DA7F5();
-	virtual void slot2() = 0;
 };
 
 // ?<Rva005DA7F5::Rva005DA7F5> absent-from-retail

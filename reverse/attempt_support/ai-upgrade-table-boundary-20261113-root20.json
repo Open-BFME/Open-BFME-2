@@ -1,0 +1,160 @@
+{
+  "base": "e00363180fb",
+  "native_tables": {
+    "0x00876510": [
+      "0x5da67f",
+      "0x5da7d9"
+    ],
+    "0x00876518": [
+      "0x5da854",
+      "0x5da663"
+    ]
+  },
+  "next_table_installer": "0x005DA831; store at0x005DA841",
+  "cohort_rows": 52,
+  "proofs": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005DA7F5Dtor.cpp",
+      "rows": 3,
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\86de703b591ba36c.obj",
+      "current_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^rva005^d^a7^f5^dtor.obj",
+      "changed_comdat": [
+        "??_7Rva005DA7F5@@6B@"
+      ],
+      "unchanged_other_comdats": 5,
+      "before_table": {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\86de703b591ba36c.obj",
+        "extent": 12,
+        "offset": 0,
+        "comdat": true,
+        "selection": 2,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "__purecall",
+            6,
+            0
+          ],
+          "4": [
+            "??_ERva005DA7F5@@UAEPAXI@Z",
+            6,
+            0
+          ],
+          "8": [
+            "__purecall",
+            6,
+            0
+          ]
+        },
+        "weak": {
+          "4": [
+            "??_GRva005DA7F5@@UAEPAXI@Z",
+            2
+          ]
+        }
+      },
+      "after_table": {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^rva005^d^a7^f5^dtor.obj",
+        "extent": 8,
+        "offset": 0,
+        "comdat": true,
+        "selection": 2,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "__purecall",
+            6,
+            0
+          ],
+          "4": [
+            "??_ERva005DA7F5@@UAEPAXI@Z",
+            6,
+            0
+          ]
+        },
+        "weak": {
+          "4": [
+            "??_GRva005DA7F5@@UAEPAXI@Z",
+            2
+          ]
+        }
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp",
+      "rows": 16,
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\e0f81bccb2c3861a.obj",
+      "current_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^opaque^scalar^deleting^dtors^b16.obj",
+      "changed_comdat": [
+        "??_7Rva005DA7F5@@6B@"
+      ],
+      "unchanged_other_comdats": 45,
+      "before_table": {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\tu_skeleton\\e0f81bccb2c3861a.obj",
+        "extent": 12,
+        "offset": 0,
+        "comdat": true,
+        "selection": 2,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "__purecall",
+            6,
+            0
+          ],
+          "4": [
+            "??_ERva005DA7F5@@UAEPAXI@Z",
+            6,
+            0
+          ],
+          "8": [
+            "__purecall",
+            6,
+            0
+          ]
+        },
+        "weak": {
+          "4": [
+            "??_GRva005DA7F5@@UAEPAXI@Z",
+            2
+          ]
+        }
+      },
+      "after_table": {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^opaque^scalar^deleting^dtors^b16.obj",
+        "extent": 8,
+        "offset": 0,
+        "comdat": true,
+        "selection": 2,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "__purecall",
+            6,
+            0
+          ],
+          "4": [
+            "??_ERva005DA7F5@@UAEPAXI@Z",
+            6,
+            0
+          ]
+        },
+        "weak": {
+          "4": [
+            "??_GRva005DA7F5@@UAEPAXI@Z",
+            2
+          ]
+        }
+      }
+    }
+  ],
+  "remaining": "Slot0 still pure; placeholder destructor identity and base method signature still need reconciliation. No bridge row retired or whole-link result claimed."
+}

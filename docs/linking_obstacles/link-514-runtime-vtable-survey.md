@@ -3548,3 +3548,12 @@ Base: 3,324 bridged, 31 refused, 2,225 already correct.
 '?GetSnapshotName@C@@MBEPBDXZ' --prepared ...`. One move per commit: a second move with the first unstaged is
 refused by name_dependents. A refused apply restores the files but leaves its verify objects in `build/match`:
 rebuild those units before measuring.
+
+**AI upgrade table boundary (2026-11-13, root20, e00363180fb):**
+Native876510 has exactly2slots (5DA67F/5DA7D9). Constructor5DA831
+independently installs876518, whose5DA854 entry is not a third slot.
+Removed the stale slot2 from both placeholder destructor emitters: their
+tables12->8B, only the third relocation removed; all other COMDATs unchanged.
+Whole class/base cohort52/52rows; scoped3/3LINKS852->852B against oldindex.
+Class fold and real slot0 override remain, no bridge retirement claimed.
+[Boundary proof](../../reverse/attempt_support/ai-upgrade-table-boundary-20261113-root20.md).
