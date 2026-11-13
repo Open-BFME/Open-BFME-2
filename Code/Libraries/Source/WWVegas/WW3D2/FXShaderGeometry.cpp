@@ -175,7 +175,7 @@ extern bool bfmeRva000387C0(void);
 // Pass-count provider stored at 0xDFCEBC (set by 18C0E7, cleared by 18C0F1); slot 0 takes the mesh name.
 class FxPassCountProvider {public:virtual int slot00(const char *name);};
 extern int g_00DFCEBC;
-class CountedAsset {public:void Release_Ref();};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 #include "../../../../GameEngine/Include/Common/Rva0015148D.h"
 class AssetReference {
 public:
