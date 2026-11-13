@@ -521,7 +521,7 @@ float Cos(float x);
 
 
 class Rva002EAD62 { public: void rva002EAD62(); };
-class HierarchicalPath {public: Int lookUpPositionOnPath(const Coord3D*);};
+#include "../../../Include/GameLogic/HierarchicalPath.h"
 struct PathfinderAttackHandle
 {
 	Path *path;

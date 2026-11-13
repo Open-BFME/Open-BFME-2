@@ -3030,7 +3030,7 @@ struct TCheckMovementInfo
 	Int m_34;
 };
 #include "../../../Include/Common/Rva002E6FDF.h"
-class HierarchicalPath { public: Int lookUpPositionOnPath(const Coord3D *); };
+#include "../../../Include/GameLogic/HierarchicalPath.h"
 struct PathfinderCellLimitView { char pad[0x1210]; unsigned int maxCells; };
 extern unsigned int PathfinderSearchCellsVisited;	// 0x00DFF0CC, also cleared by FindSafePath
 // A cell centre temporary passed on by address.
