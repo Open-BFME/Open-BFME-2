@@ -17,11 +17,7 @@ inline DrawModule::~DrawModule() {} // retail inlines this into the derived dest
 
 // Same slot views as W3DLaserDrawBfmeConstructor.cpp, so both units emit one pair of
 // W3DLaserDraw tables.
-class LaserDrawInterface
-{
-public:
-	virtual float getLaserTemplateWidth() const = 0;
-};
+#include "../../../../../../GameEngine/Include/Common/LaserDrawInterface.h"
 
 class SegmentedLineClass
 {

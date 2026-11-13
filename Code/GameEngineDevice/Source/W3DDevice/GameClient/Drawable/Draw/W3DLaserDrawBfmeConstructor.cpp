@@ -89,11 +89,7 @@ public:
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-class LaserDrawInterface
-{
-public:
-	virtual float getLaserTemplateWidth() const = 0;
-};
+#include "../../../../../../GameEngine/Include/Common/LaserDrawInterface.h"
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 

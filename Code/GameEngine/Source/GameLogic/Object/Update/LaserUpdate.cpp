@@ -102,7 +102,7 @@ protected:
 // Reuse the existing owner of the folded drawable+14C pointer getter.
 class Rva002B224BDwordField { public: int get() const; };
 
-class LaserDrawInterface { public: virtual float getLaserTemplateWidth() const; };
+#include "../../../../Include/Common/LaserDrawInterface.h"
 
 class LaserRadiusDrawModule {
 public:

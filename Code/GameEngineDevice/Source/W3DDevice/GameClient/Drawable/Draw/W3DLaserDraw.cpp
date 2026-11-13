@@ -189,11 +189,7 @@ class SegmentedLineClass;
 
 // Retail's constructor installs the laser interface at +0x0C; the line array
 // and texture-vector storage follow it at +0x10 and +0x14 respectively.
-class LaserDrawInterface
-{
-public:
-	virtual float getLaserTemplateWidth() const = 0;
-};
+#include "../../../../../../GameEngine/Include/Common/LaserDrawInterface.h"
 
 class W3DLaserDraw : public DrawModule, public LaserDrawInterface
 {
