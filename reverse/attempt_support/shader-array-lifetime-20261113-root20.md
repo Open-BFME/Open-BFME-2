@@ -55,3 +55,26 @@ hand-shaped function is copied from the mixed initializer file.
 
 This is source/lifetime recovery evidence. No whole-game link, bridge-count
 measurement or runtime result is claimed here.
+
+## Compiler-row admission
+
+The parent/retraction commit is b30f237f5cb. `add_match.py` then admitted
+`_$E2` at0x007B6BB9 first, followed by `_$E1` at0x007ABF7B. Both ordinary
+admission builds pass; the complete parent now verifies11/11 rows and its
+data row. No `object-symbol` alias, pin, callback body or handwritten CRT
+entry was added. The two original lifetime addresses are recovered through
+actual compiler emission; the temporary56-byte retraction is closed.
+
+The final four-source normal and strict builds pass21/21 functions and
+both data rows. The actual object contains exactly one four-byte
+`.CRT$XCU` relocation to `_$E1`, matching the native initializer identified
+by the pointer at VA0x00DA4124. The JSON records this object evidence.
+
+The older index lacks the already-landed class-form cursorTextures
+definition used by the residual mixed initializer file. An explicit
+current cursor producer witness and its three consumers complete the
+preview: all8 sources LINK and preserve2278/2278 bytes against index
+aa7acf764d (2026-11-12 19:19; seven subsequent source-path changes warned).
+The residual file moves193->137 bytes and the parent moves559->615;
+the56 bytes are recovered once in their real compiler-emitted bodies.
+This scoped prediction is not a fresh census or a runtime result.

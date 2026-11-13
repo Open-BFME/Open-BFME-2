@@ -1,116 +1,144 @@
-﻿{
-    "native_init":  {
-                        "_$E1":  {
-                                     "size":  36,
-                                     "rva":  "0x7abf7b",
-                                     "exact":  true,
-                                     "relocations":  [
-                                                         {
-                                                             "offset":  1,
-                                                             "kind":  6,
-                                                             "symbol":  "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ",
-                                                             "target_va":  "0x57098d"
-                                                         },
-                                                         {
-                                                             "offset":  6,
-                                                             "kind":  6,
-                                                             "symbol":  "??0?$RefCountPtr@VTextureClass@@@@QAE@XZ",
-                                                             "target_va":  "0x726be6"
-                                                         },
-                                                         {
-                                                             "offset":  15,
-                                                             "kind":  6,
-                                                             "symbol":  "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
-                                                             "target_va":  "0xde1f8c"
-                                                         },
-                                                         {
-                                                             "offset":  20,
-                                                             "kind":  20,
-                                                             "symbol":  "??_L@YGXPAXIHP6EX0@Z1@Z",
-                                                             "target_va":  "0xa29512"
-                                                         },
-                                                         {
-                                                             "offset":  25,
-                                                             "kind":  6,
-                                                             "symbol":  "_$E2",
-                                                             "target_va":  "0xbb6bb9"
-                                                         },
-                                                         {
-                                                             "offset":  30,
-                                                             "kind":  20,
-                                                             "symbol":  "_atexit",
-                                                             "target_va":  "0xa291f8"
-                                                         }
-                                                     ],
-                                     "compiled":  "688d09570068e66b72006a086a04688c1fde00e87fd5e7ff68b96bbb00e85bd2e7ff59c3",
-                                     "retail":  "688d09570068e66b72006a086a04688c1fde00e87fd5e7ff68b96bbb00e85bd2e7ff59c3"
-                                 },
-                        "_$E2":  {
-                                     "size":  20,
-                                     "rva":  "0x7b6bb9",
-                                     "exact":  true,
-                                     "relocations":  [
-                                                         {
-                                                             "offset":  1,
-                                                             "kind":  6,
-                                                             "symbol":  "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ",
-                                                             "target_va":  "0x57098d"
-                                                         },
-                                                         {
-                                                             "offset":  10,
-                                                             "kind":  6,
-                                                             "symbol":  "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
-                                                             "target_va":  "0xde1f8c"
-                                                         },
-                                                         {
-                                                             "offset":  15,
-                                                             "kind":  20,
-                                                             "symbol":  "??_M@YGXPAXIHP6EX0@Z@Z",
-                                                             "target_va":  "0xa29110"
-                                                         }
-                                                     ],
-                                     "compiled":  "688d0957006a086a04688c1fde00e84425e7ffc3",
-                                     "retail":  "688d0957006a086a04688c1fde00e84425e7ffc3"
-                                 }
-                    },
-    "data":  {
-                 "address":  "0x00DE1F8C",
-                 "size":  32,
-                 "old_symbol":  "?g_shaderTextureSlots@@3PAPAXA",
-                 "new_symbol":  "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
-                 "owners":  1
-             },
-    "existing_rows_verified":  19,
-    "owner_existing_rows_verified":  9,
-    "owner_comdat_changed":  [
-                                 "?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ",
-                                 "?setTexture@W3DShaderManager@@SAXHABVTextureHandle@@@Z"
-                             ],
-    "owner_comdat_added":  [
-
-                           ],
-    "owner_comdat_removed":  [
-
-                             ],
-    "limitations":  [
-                        "Compiler-row admissions follow the required separate retraction commit.",
-                        "The fresh map assigns no TU to either address; original TU identity remains unproved.",
-                        "No new real-link run or runtime result."
-                    ],
-    "binding_proof":  {
-                          "owner_comdats":  14,
-                          "byte_and_relocation_identity":  "all identical after normalizing the sole data symbol type change",
-                          "old_data_symbol":  "?g_shaderTextureSlots@@3PAPAXA",
-                          "new_data_symbol":  "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
-                          "native_data_va":  "0x00DE1F8C",
-                          "storage_size":  32
-                      },
-    "fresh_map":  {
-                      "sha256":  "39A0940E832615386D4010BA88D348C64CD1C1C7EED722BDED0A00E5805749DF",
-                      "rows":  [
-                                   "0x007ABF7B,36,code,,,-,,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp",
-                                   "0x007B6BB9,20,code,,,-,,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp"
-                               ],
-                      "inputs_sha256":  "F62582BD3685DBD17F09D03C33566FCFF720B3A00D4F6040185B473F3FC241D6"
-                  }
+{
+ "native_init": {
+  "_$E1": {
+   "size": 36,
+   "rva": "0x7abf7b",
+   "exact": true,
+   "relocations": [
+    {
+     "offset": 1,
+     "kind": 6,
+     "symbol": "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ",
+     "target_va": "0x57098d"
+    },
+    {
+     "offset": 6,
+     "kind": 6,
+     "symbol": "??0?$RefCountPtr@VTextureClass@@@@QAE@XZ",
+     "target_va": "0x726be6"
+    },
+    {
+     "offset": 15,
+     "kind": 6,
+     "symbol": "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
+     "target_va": "0xde1f8c"
+    },
+    {
+     "offset": 20,
+     "kind": 20,
+     "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+     "target_va": "0xa29512"
+    },
+    {
+     "offset": 25,
+     "kind": 6,
+     "symbol": "_$E2",
+     "target_va": "0xbb6bb9"
+    },
+    {
+     "offset": 30,
+     "kind": 20,
+     "symbol": "_atexit",
+     "target_va": "0xa291f8"
+    }
+   ],
+   "compiled": "688d09570068e66b72006a086a04688c1fde00e87fd5e7ff68b96bbb00e85bd2e7ff59c3",
+   "retail": "688d09570068e66b72006a086a04688c1fde00e87fd5e7ff68b96bbb00e85bd2e7ff59c3"
+  },
+  "_$E2": {
+   "size": 20,
+   "rva": "0x7b6bb9",
+   "exact": true,
+   "relocations": [
+    {
+     "offset": 1,
+     "kind": 6,
+     "symbol": "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ",
+     "target_va": "0x57098d"
+    },
+    {
+     "offset": 10,
+     "kind": 6,
+     "symbol": "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
+     "target_va": "0xde1f8c"
+    },
+    {
+     "offset": 15,
+     "kind": 20,
+     "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+     "target_va": "0xa29110"
+    }
+   ],
+   "compiled": "688d0957006a086a04688c1fde00e84425e7ffc3",
+   "retail": "688d0957006a086a04688c1fde00e84425e7ffc3"
+  }
+ },
+ "data": {
+  "address": "0x00DE1F8C",
+  "size": 32,
+  "old_symbol": "?g_shaderTextureSlots@@3PAPAXA",
+  "new_symbol": "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
+  "owners": 1
+ },
+ "existing_rows_verified": 19,
+ "owner_existing_rows_verified": 9,
+ "owner_comdat_changed": [
+  "?Install_Materials@W3DShroudMaterialPassClass@@UBEXXZ",
+  "?setTexture@W3DShaderManager@@SAXHABVTextureHandle@@@Z"
+ ],
+ "owner_comdat_added": [],
+ "owner_comdat_removed": [],
+ "limitations": [
+  "Compiler-row admissions follow the required separate retraction commit.",
+  "The fresh map assigns no TU to either address; original TU identity remains unproved.",
+  "No new real-link run or runtime result."
+ ],
+ "binding_proof": {
+  "owner_comdats": 14,
+  "byte_and_relocation_identity": "all identical after normalizing the sole data symbol type change",
+  "old_data_symbol": "?g_shaderTextureSlots@@3PAPAXA",
+  "new_data_symbol": "?g_shaderTextureSlots@@3PAV?$RefCountPtr@VTextureClass@@@@A",
+  "native_data_va": "0x00DE1F8C",
+  "storage_size": 32
+ },
+ "fresh_map": {
+  "sha256": "39A0940E832615386D4010BA88D348C64CD1C1C7EED722BDED0A00E5805749DF",
+  "rows": [
+   "0x007ABF7B,36,code,,,-,,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp",
+   "0x007B6BB9,20,code,,,-,,Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp"
+  ],
+  "inputs_sha256": "F62582BD3685DBD17F09D03C33566FCFF720B3A00D4F6040185B473F3FC241D6"
+ },
+ "compiler_crt": {
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shroud^material^pass.obj",
+  "compiler_crt_entries": [
+   {
+    "section": ".CRT$XCU",
+    "size": 4,
+    "relocation_symbol": "_$E1",
+    "kind": 6
+   }
+  ],
+  "native_crt_pointer_va": "0x00DA4124",
+  "native_init_rva": "0x007ABF7B",
+  "ordinary_rows": "_$E1/36B and _$E2/20B admitted through add_match"
+ },
+ "final_verification": {
+  "normal_functions": 21,
+  "strict_functions": 21,
+  "sources": 4,
+  "data_rows": 2,
+  "compiler_rows_admitted": [
+   "_$E2 at0x007B6BB9/20B",
+   "_$E1 at0x007ABF7B/36B"
+  ],
+  "link_preview": {
+   "sources": 8,
+   "before": 2278,
+   "after": 2278,
+   "index": "aa7acf764d",
+   "peers": "Current cursor producer and three consumers included because old index lacks class-form cursorTextures; all8 source verdicts LINKS"
+  },
+  "retraction_commit": "b30f237f5cb"
+ }
 }

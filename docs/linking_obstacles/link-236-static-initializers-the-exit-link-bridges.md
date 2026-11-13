@@ -1398,3 +1398,20 @@ its bridge-first position.
 - *What the rest is.* The 465 bridged entries in the initializer region fall in 236 marker runs; 133 runs hold only a rate copy (138 entries), and 174 of the
   178 rate copies have no reader. registered_twice's jump to about 220 was a counting artefact (a TU-local name read across objects, fixed in
   `3a38963e87`), and no global is built twice on a decoded image beyond the 3 retail shares.
+
+**2026-11-13, root20: the eight shader texture handles have real parent lifetime.**
+[The native/placement and compiler-emission proof](../../reverse/attempt_support/shader-array-lifetime-20261113-root20.md)
+defines the existing sole storage `g_shaderTextureSlots[8]` at VA0x00DE1F8C as
+`RefCountPtr<TextureClass>` in W3DShroudMaterialPass.cpp. Declaration-only default
+construction uses the existing6B provider; existing copy/assignment/destruction
+remain. The two remaining extern consumers and the same32-byte data registration
+agree on its type; the obsolete initializer declaration is removed. The compiler
+emits native36B initializer0x7ABF7B and20B cleanup0x7B6BB9;
+their manual grab-bag functions were separately retracted, then the compiler's
+`_$E1`/`_$E2` admitted with ordinary verification. A regenerated fresh map assigns
+neither address, so the actual compiler rows follow this parent object under the
+documented exception. Original TU identity remains unproved. All19 surviving
+rows and both data rows passed before readmission, and all14 owner COMDATs keep
+their bytes and relocation identities after normalizing only the data-symbol
+type decoration. No new pin/callback body or alias. The next real-link scoreboard
+must measure the resulting bridge count; no image/runtime result is claimed.

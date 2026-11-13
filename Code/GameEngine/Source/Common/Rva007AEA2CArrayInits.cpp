@@ -1,6 +1,6 @@
 // cl: /MD /d1Binl
 //
-// Static-init and atexit bodies for three file-scope object arrays, from the
+// Static-init and atexit bodies for the remaining object arrays, from the
 // startup strip and the cleanup-thunk strip. Each array's initializer runs
 // the CRT eh vector constructor iterator (0x00629512) over the elements and
 // registers the matching cleanup with atexit; each cleanup runs the eh vector

@@ -117,8 +117,8 @@ public:
 
 // Native DE1F8C..DE1FAB holds eight four-byte nullable texture slots.
 // The indexed F5D1B getter and the 76790 eight-slot reset prove the layout.
-// This raw pointer array has no startup constructor or exit destructor;
-// assignment and release are performed through the established handle view.
+// The typed parent emits native startup7ABF7B and atexit cleanup7B6BB9.
+// Its original TU remains unproved; the compiler rows follow this object.
 RefCountPtr<TextureClass> g_shaderTextureSlots[8];
 typedef char ShaderTextureHandleWidth[sizeof(RefCountPtr<TextureClass>) == sizeof(void *) ? 1 : -1];
 
