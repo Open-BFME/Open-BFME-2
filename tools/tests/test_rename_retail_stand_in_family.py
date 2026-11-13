@@ -155,7 +155,7 @@ def objects(monkeypatch):
     """`consumers` {name: problem}: an object outside the rewrite that still references that name."""
     state = {"consumers": {}, "referenced": set(), "asked": []}
 
-    def consumers(ctx, names, words, rebuilt):
+    def consumers(ctx, names, words, rebuilt, groups=()):
         state["asked"].append((list(names), set(rebuilt)))
         return [state["consumers"][n] for n in names if n in state["consumers"]], 0
     monkeypatch.setattr(rename, "pin_consumers", consumers)

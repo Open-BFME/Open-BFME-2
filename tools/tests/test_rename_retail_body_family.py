@@ -103,7 +103,7 @@ def plan(ctx, **overrides):
 def no_consumers(monkeypatch):
     calls = {"names": None, "words": None, "problems": []}
 
-    def consumers(ctx, names, words, rebuilt):
+    def consumers(ctx, names, words, rebuilt, groups=()):
         calls["names"], calls["words"] = names, words
         return list(calls["problems"]), 0
     monkeypatch.setattr(rename, "pin_consumers", consumers)
