@@ -777,11 +777,7 @@ extern int BfmeLogicFramesPerSecond;
 // The two AIStateMachine helpers command 0x31 reaches when given a value:
 // 0x0033FCC8 (matched, Rva0033FCC8Copy.cpp) and 0x0033FCE1, which takes a
 // state id and frame limit (the rowed AIStateMachine::setTemporaryState).
-class Rva0033FCC8
-{
-public:
-	void rva0033FCC8();
-};
+#include "../../../../Include/GameLogic/Module/Rva0033FCC8.h"
 
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Locomotor.h

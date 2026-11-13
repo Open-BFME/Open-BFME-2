@@ -11,11 +11,7 @@
 
 #include "../object.h"
 
-class Rva0033FCC8
-{
-public:
-	void rva0033FCC8();
-};
+#include "../../../../Include/GameLogic/Module/Rva0033FCC8.h"
 
 enum StateReturnType { STATE_CONTINUE = 0, STATE_SUCCESS = -1, STATE_FAILURE = -2 };
 
