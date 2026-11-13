@@ -757,13 +757,15 @@ def _struct(name):
     return ("C", "U", ("Q", (("N", name),)))
 
 
-def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare):
+def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare, key_params=()):
     """`tree` (a rename.type_tree) with a builtin-keyed tree read as one with the new key, comparator and value, all
-    together. Four shapes change, and only whole: pair<const old_key, old_value> becomes pair<new const key, new
+    together. Three shapes change, and only whole: pair<const old_key, old_value> becomes pair<new const key, new
     value>; an _Rb_tree whose key, pair and comparator are old_key, that pair and less<old_key> takes the new key and
-    comparator; a map over <old_key, old_value, less<old_key>, ...> takes the new key, value and comparator; a pointer
-    or reference to const old_key (how the pair's first is passed) points or refers to the new const key. Nothing else
-    changes: a key passed by value, the builtins in any other template, a pair or tree over another key or value."""
+    comparator; a map over <old_key, old_value, less<old_key>, ...> takes the new key, value and comparator. And the
+    function parameters at `key_params` (indices into the name's own parameter list), each a pointer or reference to
+    const old_key, point or refer to the new const key: how a row passes the pair's first, named per row by the
+    family. Nothing else changes: a key passed by value, a const old_key pointer at any other position or inside a
+    template, the builtins in any other template, a pair or tree over another key or value."""
     key_arg, const_key, _width = TREE_KEYS[new_key]
     key = ("B", old_key)
     value = BUILTIN_VALUES[old_value][0]
@@ -783,10 +785,34 @@ def tree_swap(tree, old_key, old_value, new_key, new_value, new_compare):
                 return ("T", "_Rb_tree", (key_arg, walk(args[1]), walk(args[2]), _struct(new_compare), walk(args[4])))
             if node[1] == "map" and len(args) == 4 and args[:3] == (key, value, less):
                 return ("T", "map", (key_arg, _struct(new_value), _struct(new_compare), walk(args[3])))
-        if len(node) == 3 and node[0] == "P" and node[1] in ("PB", "AB") and node[2] == key:
-            return ("P", node[1], const_key)
         return tuple(walk(child) for child in node)
-    return walk(tree)
+
+    out = walk(tree)
+    if not key_params:
+        return out
+    params = _params(out)
+    if params is None:
+        return out
+    params = list(params)
+    for index in key_params:
+        if 0 <= index < len(params) - 1 and params[index + 1][:2] in (("P", "PB"), ("P", "AB")) \
+                and params[index + 1][2] == key:
+            params[index + 1] = ("P", params[index + 1][1], const_key)
+    return _with_params(out, tuple(params))
+
+
+def _params(tree):
+    """The ('ARGS', ...) node of a function name's type tree, or None."""
+    try:
+        args = tree[3][2][2]
+    except (IndexError, TypeError):
+        return None
+    return args if isinstance(args, tuple) and args[:1] == ("ARGS",) else None
+
+
+def _with_params(tree, params):
+    head, kind, sig = tree[3][0], tree[3][1], tree[3][2]
+    return tree[:3] + ((head, kind, sig[:2] + (params,) + sig[3:]),) + tree[4:]
 
 
 class RetypedTreeFamily:
@@ -806,11 +832,14 @@ class RetypedTreeFamily:
     `pins` {rva: (old name, facts)} are pins of the old tree's helpers that the rows call, respelled in place by the
     same swap: the same callee at the same address, each fact a call of a row to it, and rename.py refuses while an
     object outside the rebuilt units still names the old spelling. A pin the new spelling needs where no old one
-    is respelled is admitted by tools/pin_admission.py. There are no retired pins or duplicates."""
+    is respelled is admitted by tools/pin_admission.py. There are no retired pins or duplicates.
+    `key_params` {row rva: parameter indices} names, row by row, each parameter that passes the pair's first (a
+    pointer or reference to const old key); tree_swap retypes those and no other."""
 
     def __init__(self, old_key, old_value, new_key, new_value, new_compare, value_size, copy, spellings, members,
-                 bindings, rows, nodes, node_path, witness, callers, caller_bindings, pins=None):
+                 bindings, rows, nodes, node_path, witness, callers, caller_bindings, pins=None, key_params=None):
         pins = pins or {}
+        key_params = {at: tuple(indices) for at, indices in (key_params or {}).items()}
         import rename                                  # lazily: rename imports this module inside its functions too
         if old_key not in SCALAR_KEYS:
             raise ValueError(f"{old_key!r} is no builtin key this route reads")
@@ -845,9 +874,21 @@ class RetypedTreeFamily:
                 return rename.type_tree(name)
             except rename.Unparsed as error:
                 raise ValueError(f"{name} cannot be decoded: {error}") from None
+        params_of = {}
+        for at, indices in key_params.items():
+            if at not in rows or not indices:
+                raise ValueError(f"key parameters 0x{at:08X} name no row of the family")
+            params = _params(tree(rows[at][0]))
+            for index in indices:
+                if params is None or not 0 <= index < len(params) - 1 \
+                        or params[index + 1] not in (("P", "PB", old_key_tree), ("P", "AB", old_key_tree)):
+                    raise ValueError(f"0x{at:08X}'s parameter {index} is no pointer or reference to const {old_key}")
+            params_of[rows[at][0]] = indices
         for old_name, _facts in claimed:
             before, after = tree(old_name), tree(spellings[old_name])
-            if tree_swap(before, old_key, old_value, new_key, new_value, new_compare) != after or before == after:
+            swapped = tree_swap(before, old_key, old_value, new_key, new_value, new_compare,
+                                key_params=params_of.get(old_name, ()))
+            if swapped != after or before == after:
                 raise ValueError(f"{old_name} must respell by the tree swap alone (<{old_key}, {old_value}, less> to "
                                  f"<{new_key}, {new_value}, {new_compare}>)")
             # a row spells the whole tree; a pinned base helper (no comparator of its own) at least the pair
@@ -918,6 +959,7 @@ class RetypedTreeFamily:
         self.nodes, self.node_path, self.witness = tuple(nodes), tuple(node_path), witness
         self.callers, self.caller_bindings = callers, tuple(caller_bindings)
         self.new_map, self.pins, self.retired, self.duplicates = new_map, dict(pins), {}, {}
+        self.key_params = key_params
         # what a consumer's source spells when it names a respelled pin without defining it (rename.py rebuilds a
         # stale object of such a unit before reading it): each pin's identifier
         self.consumer_terms = tuple(sorted({(rename._identifier(old_name),) for old_name, _f in pins.values()}))
@@ -1501,7 +1543,9 @@ BIG_MEMBER_MAP_COPY = RetypedTreeFamily(
     caller_bindings=((0x0060426C, 0x13, _BM_SPELLINGS[_BM_COPY]),),
     # the copy takes its allocator through the base's get_allocator, 0x0021983A: its pointer-pair pin is the same
     # callee, respelled in place (seven bytes prove no fold for a new pin)
-    pins={0x0021983A: (_BM_GET_ALLOCATOR, (C("calls", 0x00603F08, 0x0021983A),))})
+    pins={0x0021983A: (_BM_GET_ALLOCATOR, (C("calls", 0x00603F08, 0x0021983A),))},
+    # the folder value's constructor takes the name by pointer, its factory by reference: the pair's first
+    key_params={0x00603FD2: (0,), 0x00604251: (0,)})
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR,
             MAP_UINT_INT_COPY, MAP_UINT_RECORD_INSERT,
             BIG_MEMBER_MAP_COPY)

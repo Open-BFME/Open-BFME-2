@@ -190,6 +190,7 @@ def test_the_entry_is_what_the_coordinator_reviewed():
     assert set(F.pins) == {0x0021983A} and F.pins[0x0021983A][1] == (C("calls", 0x00603F08, 0x0021983A),)
     assert F.respell(OLD_PIN) == NEW_PIN and F.consumer_terms == (("get_allocator",),)
     assert not F.retired and not F.duplicates
+    assert F.key_params == {0x00603FD2: (0,), 0x00604251: (0,)}
 
 
 def test_the_real_image_states_them_all():
@@ -198,14 +199,18 @@ def test_the_real_image_states_them_all():
     assert R.facts_problems(F.facts()) == []
 
 
-def swap(name):
-    return R.tree_swap(rename.type_tree(name), F.old_key, F.old_value, F.new_key, F.new_value, F.new_compare)
+PARAMS = {F.rows[at][0]: indices for at, indices in F.key_params.items()}
+
+
+def swap(name, key_params=()):
+    return R.tree_swap(rename.type_tree(name), F.old_key, F.old_value, F.new_key, F.new_value, F.new_compare,
+                       key_params=key_params)
 
 
 def test_the_swap_is_a_decoded_one():
     """The new types enter the name table, so the back-references renumber: no text substitution respells them."""
     for old, new in F.spellings.items():
-        assert swap(old) == rename.type_tree(new)
+        assert swap(old, PARAMS.get(old, ())) == rename.type_tree(new)
     assert OLD_COPY.replace("IU?$pair@$$CBIPAX", "PBDU?$pair@QBDUBigArchiveMemberInfo@@") != NEW_COPY
 
 
@@ -215,6 +220,8 @@ def test_the_swap_is_a_decoded_one():
     "??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@XZ",               # another template's unsigned
     "??0?$pair@$$CBHPAX@_STL@@QAE@ABU01@@Z",                         # a pair over another key
     "?f@@YAXPAI@Z",                                                  # a pointer to a non-const unsigned
+    "?f@@YAXPBI@Z",                                                  # a const unsigned* nobody named (review 1)
+    "??0?$vector@PBIV?$allocator@PBI@_STL@@@_STL@@QAE@XZ",           # vector<const unsigned *> (review 1)
     "??0?$map@IHU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIH@_STL@@@2@@_STL@@QAE@XZ",   # a map over another value
     "??0?$_Rb_tree@IU?$pair@$$CBIH@_STL@@U?$_Select1st@U?$pair@$$CBIH@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIH"
     "@_STL@@@2@@_STL@@QAE@ABV01@@Z",                                 # a tree over another value
@@ -223,12 +230,25 @@ def test_the_swap_leaves_what_is_no_part_of_the_tree(name):
     assert swap(name) == rename.type_tree(name)
 
 
+def test_a_key_parameter_is_retyped_only_where_named():
+    """Review round 1: the const-key pointer rule applies to the listed parameter positions and no others."""
+    tree = rename.type_tree("?f@@YAXPBIPBI@Z")
+    once = swap("?f@@YAXPBIPBI@Z", (1,))
+    assert once != tree and once == rename.type_tree("?f@@YAXPBIPBQBD@Z")
+    assert swap("?f@@YAXPBIPBI@Z", (2,)) == tree                    # past the parameter list: nothing
+    assert swap("?f@@YAXIPBI@Z", (0,)) == rename.type_tree("?f@@YAXIPBI@Z")   # a by-value key at that position
+
+
+EXTRA_OLD = OLD_COPY[:-len("@Z")] + "PBI@Z"                         # the copy with an unrelated const unsigned *
+EXTRA_NEW = NEW_COPY[:-len("@Z")] + "PBQBD@Z"
+
+
 def kwargs():
     return dict(old_key=F.old_key, old_value=F.old_value, new_key=F.new_key, new_value=F.new_value,
                 new_compare=F.new_compare, value_size=F.value_size, copy=F.copy, spellings=dict(F.spellings),
                 members=dict(F.members), bindings=tuple(F.bindings), rows=dict(F.rows), nodes=tuple(F.nodes),
                 node_path=tuple(F.node_path), witness=F.witness, callers=dict(F.callers),
-                caller_bindings=tuple(F.caller_bindings), pins=dict(F.pins))
+                caller_bindings=tuple(F.caller_bindings), pins=dict(F.pins), key_params=dict(F.key_params))
 
 
 LESS_COPY = NEW_COPY.replace("URva006038D4Less@@", "U?$less@PBD@2@")       # the default comparator: no pin spells it
@@ -257,7 +277,7 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("a value as wide as the old one", lambda k: k.update(value_size=4), "no dword-aligned struct"),
     ("a value of no dword size", lambda k: k.update(value_size=10), "no dword-aligned struct"),
     ("a by-value key retyped too", lambda k: (k["rows"].update({0x00604251: (BY_VALUE, F.rows[0x00604251][1])}),
-                                              k["spellings"].pop(OLD_MAKE),
+                                              k["spellings"].pop(OLD_MAKE), k["key_params"].pop(0x00604251),
                                               k["spellings"].update({BY_VALUE: BY_VALUE_RETYPED})),
      "tree swap alone"),
     # the builtins and the new key
@@ -305,6 +325,17 @@ def node(at=None, alloc=None, call=None, which=NODE0):
     ("a caller with no binding", lambda k: k.update(caller_bindings=()), "every caller needs a binding"),
     ("a caller that is a row", lambda k: k["callers"].update({0x00603FC0: k["rows"][0x00603FC0]}),
      "different addresses"),
+    # review round 1: a const unsigned * at an unlisted position is no key, and a listed one must be a key
+    ("an unrelated const unsigned * retyped too",
+     lambda k: (k["rows"].update({COPY: (EXTRA_OLD, F.rows[COPY][1])}), k["spellings"].pop(OLD_COPY),
+                k["spellings"].update({EXTRA_OLD: EXTRA_NEW})), "tree swap alone"),
+    ("key parameters on no row", lambda k: k["key_params"].update({0x00001000: (0,)}), "name no row"),
+    ("key parameters with no index", lambda k: k["key_params"].update({0x00603FD2: ()}), "name no row"),
+    ("a key parameter that is the tree", lambda k: k["key_params"].update({0x00603FD2: (1,)}),
+     "no pointer or reference to const"),
+    ("a key parameter past the list", lambda k: k["key_params"].update({0x00604251: (5,)}),
+     "no pointer or reference to const"),
+    ("a factory whose key is left unnamed", lambda k: k["key_params"].pop(0x00604251), "tree swap alone"),
     # the pins respelled in place
     ("a pin proved by no call to it",
      lambda k: k["pins"].update({0x0021983A: (OLD_PIN, (C("calls", 0x00603F08, 0x00001000),))}), "calls to it"),
@@ -527,6 +558,41 @@ def test_an_undone_respell_restores_the_register(tree, monkeypatch):
     ctx, state = context(tree)
     undone(ctx, plan(ctx), state, refs=after_refs()[:1])
     assert calls == [("reverse/symbols.csv", ())]
+    assert (tree / "reverse/hatch_baseline.tsv").read_text() == REGISTER
+
+
+def test_the_journal_holds_the_register_before_any_write(tree, monkeypatch):
+    """Review round 1: a run killed after the restamp is recovered from its journal, so the register's original
+    bytes must be in the journal, written before the first write."""
+    calls = admissions(tree, monkeypatch)
+    journaled = []
+    real = rename.write_journal
+
+    def journal(ctx, plan, claimed=None):
+        journaled.append(dict(plan.before))
+        return real(ctx, plan, claimed)
+    monkeypatch.setattr(rename, "write_journal", journal)
+    ctx, state = context(tree)
+    land(ctx, plan(ctx), state)
+    assert calls == [("reverse/symbols.csv", ())]
+    assert journaled[0]["reverse/hatch_baseline.tsv"] == REGISTER.encode()
+
+
+def test_a_killed_restamp_is_recovered(tree, monkeypatch):
+    """The process dies right after the restamp: `rename.py recover` puts the register back from the journal."""
+    admissions(tree, monkeypatch)
+
+    def die(*_args):
+        raise KeyboardInterrupt
+    ctx, state = context(tree)
+    got = plan(ctx)
+    # killed during the build: the in-process restore never runs, so the journal stays for `rename.py recover`
+    monkeypatch.setattr(rename, "restore", die)
+    with pytest.raises(KeyboardInterrupt):
+        rename.apply_rename(got, ctx=ctx, verify=die, checks=None)
+    assert "fedcba9876543210" in (tree / "reverse/hatch_baseline.tsv").read_text()
+    monkeypatch.undo()
+    rename.recover(rename.Context(tree, object_scan=False), release_claims=False)
     assert (tree / "reverse/hatch_baseline.tsv").read_text() == REGISTER
 
 
