@@ -4,9 +4,12 @@
 #ifndef CANONICAL_SPAWNEXTRABASE_H
 #define CANONICAL_SPAWNEXTRABASE_H
 
+class Object;
+typedef int (__cdecl *Rva0045FE4ACallback)(Object *obj, void *data);
+
 class SpawnExtraBase {
 public:
-    virtual void extraAnchor();
+    virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data) = 0;
 };
 
 typedef char canonical_SpawnExtraBase_404ad032_sizeof[sizeof(SpawnExtraBase) == 4 ? 1 : -1];

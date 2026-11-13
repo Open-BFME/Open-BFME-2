@@ -39,14 +39,23 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_special_members": {
+  "pure_slots": [
+   "virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data) = 0;"
+  ],
+  "reason": "P148 (sweep-header 2026-11-13): slot 0 is SpawnBehavior::rva0045FE4A's slot, the matched row 0x0045FE4A ?rva0045FE4A@SpawnBehavior@@UAEHP6AHPAVObject@@PAX@Z1@Z ('vftable slot 0'; retail's interface table 0x00C42598 holds it in slot 0), declared pure by the vtable-emitting views SpawnBehaviorCtor.cpp and SpawnBehaviorDtor.cpp at be11f799eb8^. The majority vote for a never-defined placeholder `virtual void extraAnchor();` left ?extraAnchor@SpawnExtraBase@@UAEXXZ unresolved in the real link. Declared in the header with the callback typedef it names, since no view is left for the generator to spell it.",
+  "typedefs": [
+   "typedef int (__cdecl *Rva0045FE4ACallback)(Object *obj, void *data);"
+  ]
+ },
  "outliers": [],
  "queue": [],
  "size": 4,
  "size_by": "majority",
  "vslots": {
   "0": {
-   "decided_by": "majority",
-   "member": "extraAnchor()"
+   "decided_by": "bytes",
+   "member": "rva0045FE4A(Rva0045FE4ACallback,void*)"
   }
  }
 }
