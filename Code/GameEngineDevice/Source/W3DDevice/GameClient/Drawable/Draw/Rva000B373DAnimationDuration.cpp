@@ -18,7 +18,7 @@
 #include <math.h>
 #undef inline
 #pragma intrinsic(ceil)
-class Rva000B2F38 { public: bool rva000B2F38(float); };
+#include "../../../../../../GameEngine/Include/Common/Rva000B2F38.h"
 class Rva000B373D { public: void setDuration(unsigned int); };
 void Rva000B373D::setDuration(unsigned int amount) {
  float result=(float)ceil((float)amount * 200.0f);

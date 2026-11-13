@@ -9,11 +9,7 @@ class Rva000B4E23
 public:
 	float rva000B4E23();
 };
-class Rva000B2F38
-{
-public:
-	bool rva000B2F38(float v);
-};
+#include "../../../../../../GameEngine/Include/Common/Rva000B2F38.h"
 #include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 struct Cont000B7074
 {
