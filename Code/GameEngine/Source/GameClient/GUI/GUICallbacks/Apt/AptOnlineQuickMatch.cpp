@@ -432,10 +432,7 @@ public:
 	~Rva00323674();
 	GameWindow *m_window; // +0x00
 };
-class Rva003236C4 {
-public:
-  int rva003236C4(int);
-};
+#include "../../../../../Include/GameClient/Rva003236C4.h"
 class Rva00237E28 {
 public:
   int v[4];

@@ -382,11 +382,7 @@ public:
 	int rva00323674() const;
 };
 
-class Rva003236C4
-{
-public:
-	int rva003236C4(int index);
-};
+#include "../../../Include/GameClient/Rva003236C4.h"
 
 // The +0x60 member is the map preview (AptMapPreviewSetMapDescription.cpp's
 // class; its rowed 0x0057C597 enables the preview windows).
