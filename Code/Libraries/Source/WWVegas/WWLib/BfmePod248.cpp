@@ -105,10 +105,7 @@ struct BfmeVectorRecord000BDF17 { char m[64]; BfmeVectorRecord000BDF17(const Bfm
 // Native copyB9074/47B and derived copyBB491/27B prove the20B base
 // with its string at10 plus a trivial int tail at14. Array destroyBDD08
 // calls the8B string-at10 teardownB9AAA for each24B element.
-class Rva000B9074 {
-public: Rva000B9074(const Rva000B9074 &);
-private: unsigned m_words[3]; unsigned char m_flag; char m_pad[3]; AsciiString m_str10;
-};
+#include "../../../../GameEngine/Include/Common/Rva000B9074.h"
 
 class Rva000BB491 : public Rva000B9074 {
 public: Rva000BB491(const Rva000BB491 &); ~Rva000BB491();

@@ -25,18 +25,7 @@ class StringBase
 	friend class Rva000B9074;
 };
 
-class Rva000B9074
-{
-public:
-	Rva000B9074(const Rva000B9074 &o);
-private:
-	int m_0;
-	int m_4;
-	int m_8;
-	unsigned char m_C;
-	char m_padD[3];
-	StringBase<char> m_str10;
-};
+#include "../../Include/Common/Rva000B9074.h"
 
 class Rva000BB491 : public Rva000B9074
 {
