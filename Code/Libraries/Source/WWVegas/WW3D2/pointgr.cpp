@@ -20,7 +20,6 @@
 template <> bool VectorClass<Vector2>::Resize(int, Vector2 const *);
 template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
 template <> bool VectorClass<Vector4>::Resize(int, Vector4 const *);
-extern VectorClass<Vector3> VertexLoc;
 extern VectorClass<Vector4> VertexDiffuse;
 void Rva00912CF0();
 #include "sharebuf.h"
@@ -67,11 +66,10 @@ template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
 template <> bool VectorClass<float>::operator==(VectorClass<float> const &) const;
 template <> bool VectorClass<Vector2>::operator==(VectorClass<Vector2> const &) const;
 template <> int VectorClass<float>::ID(float const &);
-// Declaring the dtor only stops cl synthesizing this unit's scalar deleting
-// destructor copy, which inlines Clear; retail's, 0x000F1CF7 (rowed in
-// vector_class_vector3_ctor.cpp), calls it. Clear stays inline for
-// Rva00912CF0, which retail expands it in.
-template <> VectorClass<Vector3>::~VectorClass();
+// The VectorClass<Vector3> destructor stays visible: retail's atexit for the
+// file-static VertexLoc (0x007B7400, 59 bytes) and for compressed_loc and
+// transformed_loc inline it, so this unit also emits an /O2 scalar deleting
+// destructor COMDAT beside retail's 0x000F1CF7 (vector_class_vector3_ctor.cpp).
 // bfme link decl-only end
 // The table's operator== and both IDs are retail's /O1 bodies 0x000F1C16,
 // 0x000F0DC5 and 0x000F0E20, emitted with the vtable by
@@ -119,7 +117,7 @@ Vector3 PointGroupClass::_ScreenspaceVertexLocationSizeTable[2][3] =
 static Vector3 GroundMultiplierX(1.0f, 0.0f, 0.0f);
 static Vector3 GroundMultiplierY(0.0f, 1.0f, 0.0f);
 // Some internal variables
-VectorClass<Vector3>			VertexLoc;
+static VectorClass<Vector3>			VertexLoc;
 		// camera-space vertex locations
 VectorClass<Vector4>			VertexDiffuse;
 	// vertex diffuse/alpha colors

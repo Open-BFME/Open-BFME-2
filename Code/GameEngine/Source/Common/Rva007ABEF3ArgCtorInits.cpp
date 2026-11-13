@@ -69,7 +69,6 @@ void __cdecl rva007B6E54();
 void __cdecl rva007B6E5E();
 void __cdecl rva007B7280();
 void __cdecl rva007B72C0();
-void __cdecl destroyVertexLoc();
 void __cdecl rva007B70AB();
 void __cdecl rva007B6C2A();
 void __cdecl rva007B75C4();
@@ -144,8 +143,6 @@ class PointGroupClass
 	static Vector3Vector compressed_loc;
 	static Vector4Vector compressed_diffuse;
 };
-// VA 0x00DF708C is pointgr.cpp's global VertexLoc.
-extern Vector3Vector VertexLoc;
 typedef BitFlags<11> Mask11;
 typedef SimpleDynVecClass<BfmePod4> Pod4Vector;
 
@@ -156,7 +153,6 @@ struct Rva007ABEF3ArgCtorInits
 	static void rva007AC832();
 	static void rva007ACE90();
 	static void rva007ACEB0();
-	static void rva007ACF20();
 	static void rva007AEBB7();
 	static void rva007AF7ED();
 	static void rva007B3DB8();
@@ -208,13 +204,6 @@ void Rva007ABEF3ArgCtorInits::rva007ACEB0()
 {
 	( &PointGroupClass::compressed_diffuse )->Vector4Vector::VectorClass( 0, 0 );
 	atexit( rva007B72C0 );
-}
-
-// 0x007ACF20 (26B): VectorClass<Vector3>(0, 0) on VA 0x00DF708C, atexit(0x007B7400)
-void Rva007ABEF3ArgCtorInits::rva007ACF20()
-{
-	( &VertexLoc )->Vector3Vector::VectorClass( 0, 0 );
-	atexit( destroyVertexLoc );
 }
 
 // 0x007AEBB7 (21B): Rva00346BC0(0, 5, 0x17, 0x3C, 3) on VA 0x00E01E08
