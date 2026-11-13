@@ -13,11 +13,7 @@
 // _Construct<Rva003371B1> 0x00337313) emits and the explicit if does not.
 // The struct/class keyword of each record follows its copy-constructor row.
 #include <memory>
-class Rva003829E5
-{
-public:
-	Rva003829E5(const Rva003829E5 &other);
-};
+#include "Rva003829E5.h"
 struct Rva00382BF0
 {
 	Rva00382BF0(const Rva00382BF0 &other);

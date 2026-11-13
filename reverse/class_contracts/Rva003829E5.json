@@ -1,0 +1,138 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003829E5",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3829e5",
+      "0x382c2d"
+     ],
+     "value": {
+      "0x4": [
+       "AsciiUnicodePair"
+      ]
+     }
+    },
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x382c2d"
+     ],
+     "value": {
+      "0x382c2d": [
+       "?$pair@$$CBHVGameSpyGroupRoom@@@_STL",
+       "Rva003829E5"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "36": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m0",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {}
+}
