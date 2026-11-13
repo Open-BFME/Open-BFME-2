@@ -9,13 +9,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva004E7A76
-{
-public:
-	void rva004E7A76();
-	char m_pad[8];
-	void *m_p8;
-};
+#include "../../Include/Common/Rva004E7A76.h"
 
 struct Rva004E7C1CNode
 {
