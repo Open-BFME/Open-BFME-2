@@ -44,17 +44,7 @@ struct FeslSendEnvelope
 	int m_20;
 };
 
-class BfmeC994 : public Rva007E86B0Base
-{
-public:
-	int m_field08;
-	int m_field0c;
-	void *m_buffer;
-	int m_size;
-	int m_pad18;
-	int m_category;
-	int m_field20;
-};
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 class FeslSendConnection
 {
@@ -82,7 +72,7 @@ void Rva008038F0Sender::send( BfmeC994 *message )
 	envelope.m_prefix.m_00 = message->m_category;
 	envelope.m_prefix.m_04 = message->m_field20;
 	envelope.m_prefix.m_08 = message->m_buffer;
-	envelope.m_prefix.m_0c = message->m_size;
+	envelope.m_prefix.m_0c = message->m_capacity;
 	*(volatile int *)&envelope.m_tail = (int)&__identifier("??_7BfmeMsgVJH@@6B@");
 	envelope.m_1c = 0;
 	envelope.m_20 = 0;

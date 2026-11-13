@@ -8,20 +8,7 @@ extern "C" void _ReadWriteBarrier( void );
 
 #include "../../Include/Common/Rva007E86B0Base.h"
 
-class BfmeC994 : public Rva007E86B0Base
-{
-public:
-	virtual ~BfmeC994();
-	BfmeC994( char *buffer, int capacity );
-
-	int m_field08;
-	int m_field0c;
-	char m_pad10[ 0x0c ];
-	int m_category;
-	int m_field20;
-	char m_pad24[ 0x0c ];
-	char m_pad30;
-};
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 #include "../../Include/GameNetwork/BfmeThingCIB.h"
 

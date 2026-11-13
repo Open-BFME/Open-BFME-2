@@ -36,21 +36,7 @@ public:
 
 #include "../../Include/Common/Rva007E86B0Base.h"
 
-class BfmeC994 : public Rva007E86B0Base
-{
-public:
-	virtual ~BfmeC994();
-	BfmeC994( char *buffer, int capacity );
-	void addString( const char *key, const char *value );
-
-	char m_pad08[ 8 ];
-	char *m_buffer;
-	int m_capacity;
-	int m_field18;
-	int m_category;
-	int m_field20;
-	char m_tail24[ 0x10 ];
-};
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 // The copy is msvcr71's strncpy (import thunk 0x0062983E), from <string.h>
 // with _CRTIMP empty (the header's own guard) so the call is direct.

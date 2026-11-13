@@ -97,26 +97,7 @@ public:
 
 extern "C" void _WriteBarrier( void );
 
-class BfmeC994 : public Rva007E86B0Base
-{
-public:
-	virtual ~BfmeC994();
-	BfmeC994( char *buffer, int capacity );
-	void addInt( const char *key, int value );
-	void addString( const char *key, const char *value );
-
-	int m_field08;
-	int m_field0c;
-	char *m_buffer;
-	int m_capacity;
-	int m_field18;
-	int m_category;
-	int m_field20;
-	int m_field24;
-	int m_field28;
-	int m_field2c;
-	char m_field30;
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeC994.h"
 
 class BfmeC994;
 
