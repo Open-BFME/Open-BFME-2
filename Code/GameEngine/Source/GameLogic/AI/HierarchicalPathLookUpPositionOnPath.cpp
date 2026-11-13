@@ -31,9 +31,7 @@ typedef int Int;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct Rva00534557EmptyBase
-{
-};
+#include "../../../Include/Common/Rva00534557EmptyBase.h"
 
 struct Rva00534557Record : Rva00534557EmptyBase
 {
