@@ -312,13 +312,7 @@ void FireWeaponUpdate::loadPostProcess()
 }
 struct Rva0048B95FTracked;
 // The watch-list value; its dtor is rowed at 0x0048B95F (Rva0048B95FDtor.cpp).
-class Rva0048B95F
-{
-public:
-	~Rva0048B95F();
-private:
-	Rva0048B95FTracked *m_tracked;	// +0
-};
+#include "../../../../Include/GameLogic/Module/Rva0048B95F.h"
 class Weapon;
 #include "../../../../Include/Common/NameKeyGenerator.h"
 // flags: region default (reverse/retail_inventory/flag_regions.csv)

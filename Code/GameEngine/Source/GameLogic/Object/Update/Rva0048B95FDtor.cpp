@@ -13,13 +13,7 @@ struct Rva0048B95FTracked
 	virtual void *deleteInstance(int flags);
 };
 
-class Rva0048B95F
-{
-public:
-	~Rva0048B95F();
-private:
-	Rva0048B95FTracked *m_tracked;	// +0
-};
+#include "../../../../Include/GameLogic/Module/Rva0048B95F.h"
 
 // ??1Rva0048B95F@@QAE@XZ @0x0048B95F
 Rva0048B95F::~Rva0048B95F()
