@@ -325,12 +325,15 @@ class BodyFamily:
         return record(self.rows[self.copy][1])
 
 
-def stand_in_swap(name, old, new):
-    """`name` with the stand-in struct `old` read as the class `new`: its `U<old>@@` fragments become `V<new>@@`, an
-    operator scoped in it (`??4<old>@@`) is scoped in `new`, and the pointer and reference back-references that
-    name a struct (`PAU1@`, `ABU0@`) name a class. That is the whole respelling a stand-in element allows."""
-    name = name.replace(f"??4{old}@@", f"??4{new}@@").replace(f"U{old}@@", f"V{new}@@")
-    return re.sub(r"(PA|PB|AA|AB)U(\d)@", r"\1V\2@", name)
+def stand_in_swap(name, old, new, key="V"):
+    """`name` with the stand-in struct `old` read as `new`, whose class-key is `key` (V class, U struct): its `U<old>@@`
+    fragments become `<key><new>@@` and an operator scoped in it (`??4<old>@@`) is scoped in `new`. For a class, the
+    pointer and reference back-references that name a struct (`PAU1@`, `ABU0@`) name a class; for a struct they stay.
+    That is the whole respelling a stand-in element allows."""
+    if key not in ("V", "U"):
+        raise ValueError(f"{key!r} is no class-key a stand-in element is read as")
+    name = name.replace(f"??4{old}@@", f"??4{new}@@").replace(f"U{old}@@", f"{key}{new}@@")
+    return re.sub(r"(PA|PB|AA|AB)U(\d)@", r"\1V\2@", name) if key == "V" else name
 
 
 class StandInElementFamily:
@@ -345,9 +348,11 @@ class StandInElementFamily:
     under exactly the respelled name: they are retired, never respelled into a second row. `retired` {rva: (old name,
     facts)} are stand-in pins on an address `members` rows: they go. `bindings` [(row rva, offset, target name)] are
     the REL32s each rebuilt row must hold; each is one of that row's own call facts, to a member or a respelled row
-    or pin at the call's target. `copy` is the row the plan is keyed on."""
+    or pin at the call's target. `copy` is the row the plan is keyed on. `new_key` is the class's key, V (class, the
+    default) or U (struct); rename.py holds a struct's to its class contract."""
 
-    def __init__(self, old, new, copy, stride, spellings, members, bindings, rows, pins, duplicates, retired):
+    def __init__(self, old, new, copy, stride, spellings, members, bindings, rows, pins, duplicates, retired,
+                 new_key="V"):
         for label, value in (("members", members), ("bindings", bindings), ("rows", rows)):
             if not value:
                 raise ValueError(f"a stand-in element family still needs its {label}")
@@ -357,8 +362,9 @@ class StandInElementFamily:
         for old_name, _facts in claimed:
             if f"{old}@@" not in old_name:
                 raise ValueError(f"{old_name} does not spell the stand-in {old}")
-            if spellings.get(old_name) != stand_in_swap(old_name, old, new) or spellings[old_name] == old_name:
-                raise ValueError(f"{old_name} must respell by the stand-in swap alone, to {stand_in_swap(old_name, old, new)}")
+            want = stand_in_swap(old_name, old, new, new_key)
+            if spellings.get(old_name) != want or spellings[old_name] == old_name:
+                raise ValueError(f"{old_name} must respell by the stand-in swap alone, to {want}")
         if set(spellings) != {old_name for old_name, _facts in claimed}:
             raise ValueError("every spelling is a row's or pin's and every row and pin has one")
         for at, name in members.items():
@@ -394,6 +400,7 @@ class StandInElementFamily:
         self.old, self.new, self.copy, self.stride, self.spellings = old, new, copy, stride, spellings
         self.members, self.bindings = dict(members), tuple(bindings)
         self.rows, self.pins, self.duplicates, self.retired = rows, pins, duplicates, retired
+        self.new_key = new_key
 
     def respell(self, name):
         return self.spellings.get(name, name)
@@ -1598,9 +1605,68 @@ BIG_MEMBER_MAP_COPY = RetypedTreeFamily(
     pins={0x0021983A: (_BM_GET_ALLOCATOR, (C("calls", 0x00603F08, 0x0021983A),))},
     # the folder value's constructor takes the name by pointer, its factory by reference: the pair's first
     key_params={0x00603FD2: (0,), 0x00604251: (0,)})
+_ORE = "OpaqueRefElement4"
+_W5A, _W5B = "Rva00055880Element", "Rva00056DEBElement"
+
+_W5A_DESTROY = (
+    '??$__destroy@U?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL@@@_S'
+    'TL@@URva00055880Element@@@_STL@@YAXU?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055'
+    '880Element@@@_STL@@@0@0PAURva00055880Element@@@Z')
+_W5A_PIN = (
+    '??$__destroy_aux@U?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL@'
+    '@@_STL@@@_STL@@YAXU?$_Deque_iterator@URva00055880Element@@U?$_Nonconst_traits@URva00055880Element@@@_STL'
+    '@@@0@0ABU__false_type@0@@Z')
+_W5_DESTROY_AUX = (
+    '??$__destroy_aux@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@'
+    '_STL@@@_STL@@YAXU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0'
+    '@0ABU__false_type@0@@Z')
+_W5B_DESTROY = (
+    '??$_Destroy@U?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056DEBElement@@@_STL@@@_ST'
+    'L@@@_STL@@YAXU?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056DEBElement@@@_STL@@@0@'
+    '0@Z')
+_W5B_DTOR = (
+    '??1?$deque@URva00056DEBElement@@V?$allocator@URva00056DEBElement@@@_STL@@@_STL@@QAE@XZ')
+_W5B_PIN = (
+    '??$__destroy@U?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056DEBElement@@@_STL@@@_S'
+    'TL@@URva00056DEBElement@@@_STL@@YAXU?$_Deque_iterator@URva00056DEBElement@@U?$_Nonconst_traits@URva00056'
+    'DEBElement@@@_STL@@@0@0PAURva00056DEBElement@@@Z')
+
+
+def _w5(name, old):
+    return stand_in_swap(name, old, _ORE, "U")
+
+
+# W5: deque<OpaqueRefElement4>'s destructor chain, MilesAudioManager's MusicStack. Its element range teardown was rowed
+# on two size-only stand-ins, a 12-byte {wstring[1]} (__destroy 0x00055880) and a 1-byte {char[1]} (_Destroy 0x00056DEB
+# and ~deque 0x000579DE), so a rebuilt teardown stepped the 4-byte elements at another width. Retail's __destroy
+# calls the rowed __destroy_aux<_Deque_iterator<OpaqueRefElement4>> 0x00054FD9 (??_GOpaqueRefElement4 per element,
+# _M_increment add [ecx],4), _Destroy calls that __destroy, and ~deque calls that _Destroy. OpaqueRefElement4 is a
+# registered struct (U) whose header asserts sizeof 4. Two families, one per stand-in: the second's member is the
+# first's respelled row, so the first lands first. The stand-in pins on 0x00054FD9 and 0x00055880 go.
+OPAQUE_REF_DEQUE_DESTROY = StandInElementFamily(
+    old=_W5A, new=_ORE, new_key="U", copy=0x00055880, stride=4,
+    spellings={name: _w5(name, _W5A) for name in (_W5A_DESTROY, _W5A_PIN)},
+    members={0x00054FD9: _W5_DESTROY_AUX},
+    bindings=((0x00055880, 0x22, _W5_DESTROY_AUX),),
+    rows={0x00055880: (_W5A_DESTROY, (C("calls", 0x000558A1, 0x00054FD9),))},
+    pins={}, duplicates={},
+    retired={0x00054FD9: (_W5A_PIN, (C("calls", 0x000558A1, 0x00054FD9),))})
+OPAQUE_REF_DEQUE_DTOR = StandInElementFamily(
+    old=_W5B, new=_ORE, new_key="U", copy=0x000579DE, stride=4,
+    spellings={name: _w5(name, _W5B) for name in (_W5B_DESTROY, _W5B_DTOR, _W5B_PIN)},
+    members={0x00055880: _w5(_W5A_DESTROY, _W5A)},
+    bindings=((0x00056DEB, 0x1F, _w5(_W5A_DESTROY, _W5A)),
+              (0x000579DE, 0x36, _w5(_W5B_DESTROY, _W5B))),
+    rows={
+        0x00056DEB: (_W5B_DESTROY, (C("calls", 0x00056E09, 0x00055880),)),
+        # the range teardown, then the folded base destructor 0x0054FAAC
+        0x000579DE: (_W5B_DTOR, (C("calls", 0x00057A13, 0x00056DEB), C("calls", 0x00057A21, 0x0054FAAC))),
+    },
+    pins={}, duplicates={},
+    retired={0x00055880: (_W5B_PIN, (C("calls", 0x00056E09, 0x00055880),))})
 FAMILIES = (ENABLE_REGION_RECORD, HERO_RECORD_SET, LOCOMOTOR, RENDERER_VECTOR, SCORED_KILL_TRACKER_VECTOR,
             MAP_UINT_INT_COPY, MAP_UINT_RECORD_INSERT,
-            BIG_MEMBER_MAP_COPY)
+            BIG_MEMBER_MAP_COPY, OPAQUE_REF_DEQUE_DESTROY, OPAQUE_REF_DEQUE_DTOR)
 
 # One body at the same slot of many retail tables, proved one class's virtual: what `rename.py function --to-class` may
 # treat as related although no view says so. `tables` holds only the tables the view test refuses, each stated at

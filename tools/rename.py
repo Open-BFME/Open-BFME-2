@@ -4782,7 +4782,8 @@ SIZEOF_ASSERTION = r"sizeof\s*\(\s*{cls}\s*\)\s*==\s*(0[xX][0-9A-Fa-f]+|\d+)"
 
 def stand_in_element_problem(ctx, rows, family):
     """Why the ledger does not tie a StandInElementFamily to its class, or None. The class is registered and its
-    header asserts the stride as its size; the stand-in is neither registered nor has a constructor or destructor
+    header asserts the stride as its size; a struct reading (new_key U) is what its class contract declares; the
+    stand-in is neither registered nor has a constructor or destructor
     row of its own; each member is rowed (matched) at its address under exactly that name; each row and duplicate is
     the one stand-in row at its address, with every fact inside it; each duplicate's address rows the class under
     exactly its respelling at the same size; each pin's facts sit in a family row or in the row at the pin; and no
@@ -4799,6 +4800,17 @@ def stand_in_element_problem(ctx, rows, family):
     if sizes != {family.stride}:
         return (f"{registered[family.new]} asserts sizeof({family.new}) as {sorted(sizes) or 'nothing'}, "
                 f"not the family's stride {family.stride}")
+    key = getattr(family, "new_key", "V")
+    if key != "V":
+        # a struct reading (U) keeps the class-key U in every spelling: the class contract must say struct
+        raw = ctx.read(f"reverse/class_contracts/{family.new}.json")
+        try:
+            declared = json.loads(raw).get("key") if raw else None
+        except ValueError:
+            declared = None
+        if {"struct": "U", "class": "V"}.get(declared) != key:
+            return (f"{family.new} is read with class-key {key}, but reverse/class_contracts/{family.new}.json says "
+                    f"{declared or 'nothing'}")
     own = sorted(r["name"] for r in rows if r["name"].startswith((f"??0{family.old}@@", f"??1{family.old}@@")))
     if own:
         return f"{family.old} has a constructor or destructor row of its own ({own[0]}): it is no size-only stand-in"
