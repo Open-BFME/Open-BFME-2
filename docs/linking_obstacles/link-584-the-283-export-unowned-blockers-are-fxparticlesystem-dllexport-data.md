@@ -623,3 +623,17 @@ directory, so an absolute literal is the only way code can name a `.data` word. 
 No ledger or source names either address, so no `register-data` request was filed: no address neighbour stands in as
 owner. They stay unresolved until a recovered source compiles them.
 Evidence: `~/bfme2-ops/swarm/sweeps/link-018/alias-step3/`.
+
+
+**2026-11-13 event primary-table recovery (root20).** The V06 Life/Terrain
+primaries at81C2F4/81C314 were short after deletion/clone. Their native remaining
+slots are createModule at3AD9BB/3ADA36 and writeINI at56435C/56499B. They are not
+getClass; the getter remains secondary. The coherent three-emitter repair gives
+all five copies four native slots, with310/310code,42/42data and58EXACT EH.
+All3scoped previews preserve8143/8143bytes.994otherCOMDATs and the initializer,
+guard, defined-symbol and weak graphs are unchanged. Fixed KEY/NAME references
+avoid VC7.1's failed reference-deducing partial form; existing event declaration
+and destructor policies remain at their original sites. The category base's
+complete common runtime return interface and the two DefaultModule guard exports
+remain separate. No bridge retirement is claimed before the next authoritative
+receipt. [Full source/slot proof and failed trials](../../reverse/attempt_support/fx-event-primary-interface-20261113-root20.md).

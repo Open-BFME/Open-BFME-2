@@ -1,5 +1,6 @@
 // cl: /EHsc /Ireference/shims/fxparticle_link
 #include "ModuleTemplate.h"
+#include "../../Include/GameClient/FXConcreteEventModuleTemplate.h"
 
 // Declared so a vector deleting destructor frees through operator delete[]
 // (0x0002FD80) as retail does; left undeclared, cl falls back to scalar delete.
@@ -242,6 +243,7 @@ class CategoryModuleTemplate<8> : public CategoryModuleTemplateBase<8>,
 public:
     CategoryModuleTemplate();
     CategoryModuleTemplate(const CategoryModuleTemplate &that);
+    virtual ModuleTemplate *clone() const = 0;
 };
 
 class TerrainCollisionModuleInfo : public ::Snapshot
@@ -392,10 +394,13 @@ FX_CATEGORY_MODULE_TEMPLATE(QuadDrawModuleTemplate, QuadDrawModuleInfo, 6)
 FX_CATEGORY_MODULE_TEMPLATE(StreakDrawModuleTemplate, StreakDrawModuleInfo, 6)
 FX_CATEGORY_MODULE_TEMPLATE(ButterflyDrawModuleTemplate, ButterflyDrawModuleInfo, 6)
 
-#define FX_EVENT_MODULE_TEMPLATE(NAME, INFO)                                                        class NAME : public CategoryModuleTemplate<8>, public INFO                                     {                                                                                                  public:                                                                                            NAME();                                                                                        NAME(const NAME &that);                                                                        NAME &operator=(const NAME &that);                                                             void parse(INI *ini);                                                                      };
+class LifeEventModule;
+class TerrainCollisionModule;
 
-FX_EVENT_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo)
-FX_EVENT_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo)
+#define FX_EVENT_MODULE_TEMPLATE(NAME, INFO, MODULE)                                                        class NAME : public CategoryModuleTemplate<8>, public INFO                                     {                                                                                                  public:                                                                                            NAME();                                                                                        NAME(const NAME &that);                                                                        NAME &operator=(const NAME &that);                                                             void parse(INI *ini);                                                                      virtual MODULE *createModule(TrackingPtr<ParticleSystem> &system) = 0; virtual void writeINI(File &file, unsigned int indent) const; };
+
+FX_EVENT_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo, LifeEventModule)
+FX_EVENT_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo, TerrainCollisionModule)
 
 template <int CATEGORY>
 class DefaultParticleModule;
@@ -860,6 +865,9 @@ ButterflyDrawModuleTag &(ButterflyDrawModuleTag::*g_ButterflyDrawModuleTagAssign
 // The event wrappers follow the draw wrappers: declaring one instantiates its wrapper
 // template and, through getClass, its wrapper class, so their tags' KEY/NAME initializers
 // keep their place after the draw tags'.
+extern const char *const LIFE_EVENT_MODULE_KEY;
+extern const char *const LIFE_EVENT_MODULE_NAME;
+BFME_FX_EVENT_CONCRETE(LIFE_EVENT_MODULE_KEY, LIFE_EVENT_MODULE_NAME)
 FX_NAMED_WRAPPER(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
 // Construction binds to the module unit; destruction and cloning are defined here. The
 // specialization comes after the draw wrappers: its getClass instantiates the wrapper class,
@@ -881,6 +889,7 @@ public:
     virtual ~ConcreteModuleTemplate();
     virtual const ConcreteModuleClass<TerrainCollisionModuleNamedTag> &getClass() const;
     virtual TerrainCollisionModuleTemplate *clone() const;
+    virtual TerrainCollisionModule *createModule(TrackingPtr<ParticleSystem> &system);
 };
 
 ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::~ConcreteModuleTemplate() {}

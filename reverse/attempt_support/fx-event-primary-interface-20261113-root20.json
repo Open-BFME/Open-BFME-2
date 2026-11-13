@@ -1,0 +1,308 @@
+{
+  "parent": "0f83626577b",
+  "sources": [
+    "Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp",
+    "Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp",
+    "Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp"
+  ],
+  "tables": [
+    {
+      "rva": "0x0081C2F4",
+      "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@",
+      "native_slots": [
+        "0x3ab899",
+        "0x3ab991",
+        "0x3ad9bb",
+        "0x56435c"
+      ],
+      "copies": [
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^vector^deleting^dtors^v06.obj",
+          "extent": 16,
+          "offset": 0,
+          "comdat": true,
+          "selection": 2,
+          "executable": false,
+          "archive": false,
+          "other_publics": [],
+          "pointers": {
+            "0": [
+              "??_E?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              6,
+              0
+            ],
+            "4": [
+              "?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLifeEventModuleTemplate@2@XZ",
+              6,
+              0
+            ],
+            "8": [
+              "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLifeEventModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z",
+              6,
+              0
+            ],
+            "12": [
+              "?writeINI@LifeEventModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z",
+              6,
+              0
+            ]
+          },
+          "weak": {}
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^particle^system^modules.obj",
+          "extent": 16,
+          "offset": 0,
+          "comdat": true,
+          "selection": 2,
+          "executable": false,
+          "archive": false,
+          "other_publics": [],
+          "pointers": {
+            "0": [
+              "??_E?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              6,
+              0
+            ],
+            "4": [
+              "?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLifeEventModuleTemplate@2@XZ",
+              6,
+              0
+            ],
+            "8": [
+              "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLifeEventModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z",
+              6,
+              0
+            ],
+            "12": [
+              "?writeINI@LifeEventModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z",
+              6,
+              0
+            ]
+          },
+          "weak": {
+            "0": [
+              "??_G?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              2
+            ]
+          }
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^particle^system^factories.obj",
+          "extent": 16,
+          "offset": 0,
+          "comdat": true,
+          "selection": 2,
+          "executable": false,
+          "archive": false,
+          "other_publics": [],
+          "pointers": {
+            "0": [
+              "??_E?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              6,
+              0
+            ],
+            "4": [
+              "?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLifeEventModuleTemplate@2@XZ",
+              6,
+              0
+            ],
+            "8": [
+              "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLifeEventModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z",
+              6,
+              0
+            ],
+            "12": [
+              "?writeINI@LifeEventModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z",
+              6,
+              0
+            ]
+          },
+          "weak": {
+            "0": [
+              "??_G?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "rva": "0x0081C314",
+      "name": "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@",
+      "native_slots": [
+        "0x3ab946",
+        "0x3ab9c8",
+        "0x3ada36",
+        "0x56499b"
+      ],
+      "copies": [
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^common_^vector^deleting^dtors^v06.obj",
+          "extent": 16,
+          "offset": 0,
+          "comdat": true,
+          "selection": 2,
+          "executable": false,
+          "archive": false,
+          "other_publics": [],
+          "pointers": {
+            "0": [
+              "??_E?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              6,
+              0
+            ],
+            "4": [
+              "?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVTerrainCollisionModuleTemplate@2@XZ",
+              6,
+              0
+            ],
+            "8": [
+              "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVTerrainCollisionModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z",
+              6,
+              0
+            ],
+            "12": [
+              "?writeINI@TerrainCollisionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z",
+              6,
+              0
+            ]
+          },
+          "weak": {}
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^particle^system^modules.obj",
+          "extent": 16,
+          "offset": 0,
+          "comdat": true,
+          "selection": 2,
+          "executable": false,
+          "archive": false,
+          "other_publics": [],
+          "pointers": {
+            "0": [
+              "??_E?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              6,
+              0
+            ],
+            "4": [
+              "?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVTerrainCollisionModuleTemplate@2@XZ",
+              6,
+              0
+            ],
+            "8": [
+              "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVTerrainCollisionModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z",
+              6,
+              0
+            ],
+            "12": [
+              "?writeINI@TerrainCollisionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z",
+              6,
+              0
+            ]
+          },
+          "weak": {
+            "0": [
+              "??_G?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z",
+              2
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "source": "Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp",
+      "source_sha256": "b0defe0314b170d14a1d7fcb6582ce0e8eaad75ffc418170bc34a799d2856a75",
+      "old_comdats": 13,
+      "new_comdats": 13,
+      "unchanged": 11,
+      "changed": [
+        "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@",
+        "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@"
+      ],
+      "added": [],
+      "removed": [],
+      "weak_bindings_unchanged": true,
+      "defined_graph_changed": [],
+      "defined_graph_added": [],
+      "defined_graph_removed": [],
+      "baseline_object_sha256": "fe9ed03bec974ec781f1685c0953f13b9632cf85f07a6470d578ba583d6aff0b",
+      "current_object_sha256": "dce50016a723ddcf51854eab2b4b853caecfbe8f66d45024e70c6213b176ff96"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp",
+      "source_sha256": "c40c7cf2b735dc3b42f0acb514a63f1f34ec88999356c974bf896f123b7db8ac",
+      "old_comdats": 499,
+      "new_comdats": 499,
+      "unchanged": 497,
+      "changed": [
+        "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@",
+        "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@"
+      ],
+      "added": [],
+      "removed": [],
+      "weak_bindings_unchanged": true,
+      "defined_graph_changed": [],
+      "defined_graph_added": [],
+      "defined_graph_removed": [],
+      "baseline_object_sha256": "7cf6018994d1ce90a77d7d4cbfb8c79f140d585feb7f01ba81ce2b5a18771484",
+      "current_object_sha256": "6110db63a1ccab276ae4e5fd400e231b50735bc1b94753de694bf70625a37a5e"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp",
+      "source_sha256": "43a649e500e6cdc5fe3f0e8f4ae224a89212dee123739844c0f3b01a8b178cad",
+      "old_comdats": 487,
+      "new_comdats": 487,
+      "unchanged": 486,
+      "changed": [
+        "??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6BModuleTemplate@1@@"
+      ],
+      "added": [],
+      "removed": [],
+      "weak_bindings_unchanged": true,
+      "defined_graph_changed": [],
+      "defined_graph_added": [],
+      "defined_graph_removed": [],
+      "baseline_object_sha256": "fa5247937be7950e8a47c7d8e3a70a42520f91b97f1d762574869082f4abf4e7",
+      "current_object_sha256": "622ebff3e817ec74e4e1632baa0f720067f702b8df1c231e96288f9294f92dad"
+    }
+  ],
+  "code_rows": 310,
+  "data_rows": 42,
+  "preview": "3/3 LINKS;8143->8143 census-linked bytes against aa7acf764d",
+  "remaining": "category8baseown interface and commonruntime returnbase; no authoritative bridge retirement yet",
+  "initializer_guard_inventories": [
+    {
+      "source": "Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp",
+      "initializer_guard_symbols_unchanged": 0
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp",
+      "initializer_guard_symbols_unchanged": 142
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp",
+      "initializer_guard_symbols_unchanged": 70
+    }
+  ],
+  "shared_header": {
+    "path": "Code/GameEngine/Include/GameClient/FXConcreteEventModuleTemplate.h",
+    "sha256": "d2b3a673cc90a3bfe8cbbda5a019284afc8ccd3e826c017b3051959986e102df",
+    "consumers": [
+      "Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp",
+      "Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp"
+    ]
+  },
+  "eh_graphs_exact": 58,
+  "strict_preparation_sources": 3,
+  "independent_review": {
+    "native_slots": 20,
+    "changed_table_sections": 5,
+    "other_comdats_unchanged": 994,
+    "other_section_graphs_unchanged": 1520,
+    "section_graph_normalization": "compiler $L/$T labels and SafeSEH symbol indices",
+    "weak_initializer_guard_names_unchanged": true
+  }
+}

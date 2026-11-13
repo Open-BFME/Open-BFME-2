@@ -1,5 +1,6 @@
 // cl: /O1 /GX- /arch:SSE2 /Ireference/shims/fxparticle_link
 #include "ModuleTemplate.h"
+#include "../../Include/GameClient/FXConcreteEventModuleTemplate.h"
 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -227,6 +228,7 @@ class CategoryModuleTemplate<8> : public CategoryModuleTemplateBase<8>,
 public:
     CategoryModuleTemplate();
     CategoryModuleTemplate(const CategoryModuleTemplate &that);
+    virtual ModuleTemplate *clone() const = 0;
 };
 
 // Category 7 is wind: retail DefaultModuleTemplate<7> copy at 0x003A8CA5 calls
@@ -419,7 +421,10 @@ public:
     virtual ~ButterflyDrawModuleTemplate();
 };
 
-#define FX_EVENT_MODULE_TEMPLATE(NAME, INFO)                                                       \
+class LifeEventModule;
+class TerrainCollisionModule;
+
+#define FX_EVENT_MODULE_TEMPLATE(NAME, INFO, MODULE)                                                       \
     class NAME : public CategoryModuleTemplate<8>, public INFO                                     \
     {                                                                                              \
     public:                                                                                        \
@@ -428,10 +433,12 @@ public:
         virtual ~NAME();                                                                           \
                                                                                                    \
         NAME &operator=(const NAME &that);                                                         \
+        virtual MODULE *createModule(TrackingPtr<ParticleSystem> &system) = 0; \
+        virtual void writeINI(File &file, unsigned int indent) const; \
     };
 
-FX_EVENT_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo)
-FX_EVENT_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo)
+FX_EVENT_MODULE_TEMPLATE(LifeEventModuleTemplate, LifeEventModuleInfo, LifeEventModule)
+FX_EVENT_MODULE_TEMPLATE(TerrainCollisionModuleTemplate, TerrainCollisionModuleInfo, TerrainCollisionModule)
 
 template <int CATEGORY>
 class DefaultParticleModule;
@@ -887,6 +894,7 @@ extern const char *const LIFE_EVENT_MODULE_KEY;
 extern const char *const LIFE_EVENT_MODULE_NAME;
 class LifeEventModule;
 class ParticleLifeEventModule;
+BFME_FX_EVENT_CONCRETE(LIFE_EVENT_MODULE_KEY, LIFE_EVENT_MODULE_NAME)
 FX_CLONE_ELSEWHERE(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
 template <> __declspec(noinline) ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY,
     LIFE_EVENT_MODULE_NAME, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule> >::~ConcreteModuleTemplate();
@@ -898,6 +906,7 @@ class ParticleTerrainCollisionModule;
 typedef ModuleTag<8, TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME,
     TerrainCollisionModule, TerrainCollisionModuleTemplate, ParticleTerrainCollisionModule>
     TerrainCollisionModuleNamedTag;
+BFME_FX_EVENT_CONCRETE(TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME)
 template <> TerrainCollisionModuleTemplate *ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::clone() const;
 template <> __declspec(dllimport) __forceinline ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::~ConcreteModuleTemplate();
 FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionModuleTemplate,

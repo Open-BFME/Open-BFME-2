@@ -3616,3 +3616,15 @@ Other571COMDAT fingerprints stay unchanged; all28new inherited inline helpers
 match their rowed retail bytes.18/18rows,3EXACT EH, scopedLINK682->682B.
 Await authoritative bridge retirement; no ledger or queue deletion.
 [Native layout and slot proof](../../reverse/attempt_support/citadel-moduledata-native-table-20261113-root20.md).
+
+**FX event primary interfaces (2026-11-13, root20):**
+Life81C2F4 and Terrain81C314 require createModule/writeINI after deletion/clone;
+getClass belongs to CategoryModuleInfo's secondary table. Restore these real
+typed methods in V06 and both peer emitters, sharing fixed-KEY/NAME event views
+at the original declaration sites. All5primary copies grow8->16B and match20/20
+native slot instances; other994COMDATs and1520normalized section graphs stay
+unchanged, as do weak, initializer, guard and defined-symbol graphs.
+310/310code,42/42data,58EXACT EH; all3scopedLINKS8143->8143B. The category base's
+own complete pure interface/common runtime return base remains separate debt.
+Await authoritative bridge retirement; no queue or data-ledger deletion.
+[Native proof and compiler/lifetime boundaries](../../reverse/attempt_support/fx-event-primary-interface-20261113-root20.md).
