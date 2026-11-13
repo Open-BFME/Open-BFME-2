@@ -271,9 +271,20 @@ are measured, and the merge blocker is narrower than the pass above reported. Ha
   merge, Render2DClassRender's c4c6893c5c81 is. Census (retail) order is unchanged (fxshadernamespacesas,
   Render2DClassRender, the donor and pointgr.cpp all LINK). A `__declspec(dllimport)` Get_Transform emits no COMDAT but
   keeps the Transpose temporaries' `??_H` calls (6 / 1 / 5 / 1), so no source spelling avoids the copy.
-- **Next.** A provider-guard rule that accepts a path-order change of an inline COMDAT's kept copy when the merge only
-  returns it to the copy kept before the donor's own previous commit, or a guard that judges the kept copy against the
-  retail owner row; `tools/tu_skeleton.py` was held by another seat (ancalgonn-swarm-toollane2) during this pass. Then
+- **That refusal is a false reject** (recorded as `false-reject` under `tu-merge:` in `reverse/re_attempts.log`). No
+  relocation in any `build/match` object names the `_D3DTRANSFORMSTATETYPE` spelling outside `.debug` sections; its
+  11 emitters (linegrp, mapper, pointgr, seglinerenderer, LineGroupClassRender, PointGroupClassRva0017A890,
+  Render2DClassRender, Rva00177860Render, SimpleStreakRendererRenderStreak, SortingRendererBFME1,
+  StreakRendererRenderStreak) only carry the unreferenced inline copy. Retail's row 0x000768FE is the other spelling,
+  `?Get_Transform@DX8Wrapper@@SAXW4D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z` (fxshadernamespacesas.cpp). exit_link's
+  /OPT:NOREF places whichever copy it keeps, but nothing calls it, so `90d495de95` changed no code that runs and the
+  merge would only return the kept copy to Render2DClassRender's. Source routes measured: pointgr.cpp with
+  dx8wrapper.h above its size pragmas makes its copy equal the donor's (57/57 rows exact) but leaves the path-order
+  clause; Render2DClassRender.cpp with BFME 2's Get_Transform makes its copy equal as well but breaks its Render row
+  0x0011A040 (7,625 bytes against 7,476, 3,587 differ).
+- **Next.** A narrow provider-guard rule: a COMDAT that no object references outside its debug sections (an inline
+  copy nothing calls) has no kept copy that matters, in either order, with a regression test that a referenced one is
+  still judged; `tools/tu_skeleton.py` was held by another seat (ancalgonn-swarm-toollane2) during this pass. Then
   the merge itself: one `_VertexLoc`, named by 0x0017A890, the sizer 0x0017F150, 0x00179B50, 0x0017E920 and the `_$E`
   pair. Until then the split remains (pointgr.obj's static and the donor's static), but no object names the external
   symbol any more and both copies are constructed by their own registered `_$E` pairs.
