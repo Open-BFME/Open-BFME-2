@@ -1,0 +1,54 @@
+{
+  "AptWindowLayout": {
+    "table_rva": "0x8395e4",
+    "extent": 36,
+    "words_va": [
+      "0x0080FB9C",
+      "0x0080FD1C",
+      "0x0080FC79",
+      "0x0080FCC0",
+      "0x00938AB0",
+      "0x00938B07",
+      "0x00938B48",
+      "0x00938B95",
+      "0x00938ADC"
+    ]
+  },
+  "base": "bc1ac42b01d",
+  "bodies_hex": {
+    "0x40fb4a": "b8555ab800e83496210051568bf18975f0c706e495c3008b4624ffb0740200008b0dcce4df008365fc00e80450e1ff8bcee85c8f120083662400834dfcff8bcee8d09012008b4df45e64890d00000000c9c3",
+    "0x538c5f": "c7010896c30083c104e9a3d7afff",
+    "0x785a74": "8b4df0e9e331dbff",
+    "0x785a7c": "8b4d08e9b55fd0ff"
+  },
+  "status": "No implementation: paired native lifetime and class identity prerequisites",
+  "baseline": {
+    "sources": 3,
+    "code_rows": 15,
+    "string_literals": 1
+  },
+  "native_table_slots_rva": {
+    "AptWindowLayout": [
+      "0x40fb9c",
+      "0x40fd1c",
+      "0x40fc79",
+      "0x40fcc0",
+      "0x538ab0",
+      "0x538b07",
+      "0x538b48",
+      "0x538b95",
+      "0x538adc"
+    ],
+    "base": [
+      "0x40fd7c",
+      "0x40fdb5",
+      "0x40fd8f",
+      "0x40fda2",
+      "0x538ab0",
+      "0x538b07",
+      "0x538b48",
+      "0x538b95",
+      "0x538adc"
+    ]
+  }
+}
