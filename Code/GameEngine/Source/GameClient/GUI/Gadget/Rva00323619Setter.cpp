@@ -8,14 +8,7 @@
 
 extern GlobalData *TheWritableGlobalData;
 
-class Rva00323619
-{
-public:
-	void rva00323619(int v);
-	void rva00323642();
-private:
-	GameWindow *m_window;
-};
+#include "../../../../Include/Common/Rva00323619.h"
 
 void GadgetListBoxReset(GameWindow *listbox);
 
