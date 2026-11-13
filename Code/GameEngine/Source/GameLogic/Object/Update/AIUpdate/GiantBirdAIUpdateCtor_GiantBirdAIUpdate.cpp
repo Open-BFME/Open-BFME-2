@@ -90,16 +90,7 @@ public:
 
 // The +0x24 interface: GiantBirdAIUpdate's table 0x00C17A54 slot 0 is its
 // rowed onCollide 0x003698CD.
-class AIUpdateInterface24
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
-	virtual bool slot02() const { return false; }
-	virtual bool slot03() const { return false; }
-	virtual bool slot04() const { return false; }
-	virtual bool isSalvageCrateCollide() const { return false; }
-};
+#include "../../../../../Include/Common/AIUpdateInterface24.h"
 
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
 {

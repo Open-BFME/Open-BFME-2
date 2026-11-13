@@ -187,7 +187,7 @@ class __declspec(novtable) UpdateModule : public BehaviorModule, public UpdateMo
 public: unsigned int nextFrame; int index, reserved;
 };
 
-class __declspec(novtable) AIUpdateInterface24 { public: virtual void slot00(); };
+#include "../../../../../Include/Common/AIUpdateInterface24.h"
 
 class Rva0048E61F { public: int rva0048E61F(); };
 

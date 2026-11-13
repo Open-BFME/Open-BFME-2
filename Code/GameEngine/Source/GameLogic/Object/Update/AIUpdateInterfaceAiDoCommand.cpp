@@ -52,7 +52,7 @@ public:
 // unit keeps only the reference). data_rows.csv names the owner.
 extern unsigned char g_00DFE7A8;
 class AICommandInterface { public: virtual void aiDoCommand(const AICommandParms *)=0; };
-class AIUpdateInterface24 { public: virtual void slot0(); };
+#include "../../../../Include/Common/AIUpdateInterface24.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24 {
 public:
