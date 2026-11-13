@@ -225,11 +225,7 @@ EA::Allocator::GeneralAllocator::~GeneralAllocator()
 }
 
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
-class Rva00041A06 : public Rva001EDDBBForwarder
-{
-public:
-	void rva00041A06();
-};
+#include "../../Include/Common/Rva00041A06.h"
 
 
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
