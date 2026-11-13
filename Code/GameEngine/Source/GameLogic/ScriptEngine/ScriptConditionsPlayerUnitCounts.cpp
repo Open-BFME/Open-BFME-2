@@ -121,21 +121,7 @@ public:
 
 #include "Common/Snapshot.h"
 
-class AsciiString;
-
-class Parameter
-{
-public:
-	Int getInt() const { return m_int; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getInt copy loses to the first-in-order copy. No flags touched.
-	Int bfme_getInt_f996b() const { return m_int; }
-	const AsciiString *getString() const { return (const AsciiString *)m_string; }
-private:
-	unsigned char m_beforeInt[8];
-	Int m_int; // +0x08
-	float m_real; // +0x0C
-	unsigned char m_string[4]; // +0x10 (AsciiString)
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 enum KindOfType
 {
@@ -340,12 +326,12 @@ Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, 
 				if (!obj)
 					continue;
 				if ((((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0) && obj->getExperienceTracker() != 0
-					&& obj->getExperienceTracker()->getVeterancyLevel() >= rankParm->bfme_getInt_f996b())
+					&& obj->getExperienceTracker()->getVeterancyLevel() >= rankParm->getInt())
 					count++;
 			}
 		}
 	}
-	if (count >= countParm->bfme_getInt_f996b())
+	if (count >= countParm->getInt())
 		return true;
 	return false;
 }
@@ -398,14 +384,14 @@ Bool ScriptConditions::evaluateSkirmishUnownedFactionUnitComparison(Parameter *p
 			}
 		}
 	}
-	switch (pComparisonParm->bfme_getInt_f996b())
+	switch (pComparisonParm->getInt())
 	{
-		case 0: return count < pCountParm->bfme_getInt_f996b();
-		case 1: return count <= pCountParm->bfme_getInt_f996b();
-		case 2: return count == pCountParm->bfme_getInt_f996b();
-		case 3: return count >= pCountParm->bfme_getInt_f996b();
-		case 4: return count > pCountParm->bfme_getInt_f996b();
-		case 5: return count != pCountParm->bfme_getInt_f996b();
+		case 0: return count < pCountParm->getInt();
+		case 1: return count <= pCountParm->getInt();
+		case 2: return count == pCountParm->getInt();
+		case 3: return count >= pCountParm->getInt();
+		case 4: return count > pCountParm->getInt();
+		case 5: return count != pCountParm->getInt();
 	}
 	return false;
 }
@@ -441,14 +427,14 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *
 			}
 		}
 		Bool result = false;
-		switch (pComparisonParm->bfme_getInt_f996b())
+		switch (pComparisonParm->getInt())
 		{
-			case 0: result = numGarrisonedBuildings < pCountParm->bfme_getInt_f996b(); break;
-			case 1: result = numGarrisonedBuildings <= pCountParm->bfme_getInt_f996b(); break;
-			case 2: result = numGarrisonedBuildings == pCountParm->bfme_getInt_f996b(); break;
-			case 3: result = numGarrisonedBuildings >= pCountParm->bfme_getInt_f996b(); break;
-			case 4: result = numGarrisonedBuildings > pCountParm->bfme_getInt_f996b(); break;
-			case 5: result = numGarrisonedBuildings != pCountParm->bfme_getInt_f996b(); break;
+			case 0: result = numGarrisonedBuildings < pCountParm->getInt(); break;
+			case 1: result = numGarrisonedBuildings <= pCountParm->getInt(); break;
+			case 2: result = numGarrisonedBuildings == pCountParm->getInt(); break;
+			case 3: result = numGarrisonedBuildings >= pCountParm->getInt(); break;
+			case 4: result = numGarrisonedBuildings > pCountParm->getInt(); break;
+			case 5: result = numGarrisonedBuildings != pCountParm->getInt(); break;
 		}
 		if (result)
 			return true;
@@ -484,14 +470,14 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasComparisonCapturedUnits(Paramete
 			}
 		}
 		Bool result = false;
-		switch (pComparisonParm->bfme_getInt_f996b())
+		switch (pComparisonParm->getInt())
 		{
-			case 0: result = numCapturedUnits < pCountParm->bfme_getInt_f996b(); break;
-			case 1: result = numCapturedUnits <= pCountParm->bfme_getInt_f996b(); break;
-			case 2: result = numCapturedUnits == pCountParm->bfme_getInt_f996b(); break;
-			case 3: result = numCapturedUnits >= pCountParm->bfme_getInt_f996b(); break;
-			case 4: result = numCapturedUnits > pCountParm->bfme_getInt_f996b(); break;
-			case 5: result = numCapturedUnits != pCountParm->bfme_getInt_f996b(); break;
+			case 0: result = numCapturedUnits < pCountParm->getInt(); break;
+			case 1: result = numCapturedUnits <= pCountParm->getInt(); break;
+			case 2: result = numCapturedUnits == pCountParm->getInt(); break;
+			case 3: result = numCapturedUnits >= pCountParm->getInt(); break;
+			case 4: result = numCapturedUnits > pCountParm->getInt(); break;
+			case 5: result = numCapturedUnits != pCountParm->getInt(); break;
 		}
 		if (result)
 			return true;
@@ -567,7 +553,7 @@ Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, 
 				Object *obj = iter2.cur();
 				if (obj->testStatus((ObjectStatusTypes)0x26))
 					continue;
-				if (modeParm->bfme_getInt_f996b() == 0 && (((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0))
+				if (modeParm->getInt() == 0 && (((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0))
 					continue;
 				ExperienceTracker *tracker = obj->getExperienceTracker();
 				if (tracker && tracker->getVeterancyLevel() > ((ExperienceTrackerLevelCapView *)tracker)->levelCap())
@@ -575,7 +561,7 @@ Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, 
 			}
 		}
 	}
-	if (count >= countParm->bfme_getInt_f996b())
+	if (count >= countParm->getInt())
 		return true;
 	return false;
 }
@@ -595,8 +581,8 @@ Bool ScriptConditions::rva003E8863(Parameter *playerParm, Parameter *countParm, 
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	const ThingTemplate *loadedTemplate = TheThingFactory->findTemplate(*loadedParm->getString());
-	const ThingTemplate *transportTemplate = TheThingFactory->findTemplate(*transportParm->getString());
+	const ThingTemplate *loadedTemplate = TheThingFactory->findTemplate(loadedParm->getString());
+	const ThingTemplate *transportTemplate = TheThingFactory->findTemplate(transportParm->getString());
 	if (!loadedTemplate || !transportTemplate)
 		return false;
 	Int count = 0;
@@ -629,7 +615,7 @@ Bool ScriptConditions::rva003E8863(Parameter *playerParm, Parameter *countParm, 
 			}
 		}
 	}
-	if (count >= countParm->bfme_getInt_f996b())
+	if (count >= countParm->getInt())
 		return true;
 	return false;
 }
@@ -646,7 +632,7 @@ Bool ScriptConditions::rva003E8B47(Parameter *playerParm, Parameter *parameter)
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*parameter->getString());
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(parameter->getString());
 	if (!thingTemplate)
 		return false;
 	PlayerTeamNode *head = player->getPlayerTeams();
@@ -683,7 +669,7 @@ Bool ScriptConditions::rva003E8C24(Parameter *playerParm, Parameter *parameter)
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*parameter->getString());
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(parameter->getString());
 	if (!thingTemplate)
 		return false;
 	PlayerTeamNode *head = player->getPlayerTeams();
@@ -722,7 +708,7 @@ Bool ScriptConditions::evaluateUnitHasToggledWeapon(Parameter *playerParm, Param
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*parameter->getString());
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(parameter->getString());
 	if (!thingTemplate)
 		return false;
 	PlayerTeamNode *head = player->getPlayerTeams();
@@ -753,7 +739,7 @@ Bool ScriptConditions::rva003E8785(Parameter *playerParm, Parameter *countParm, 
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(*upgradeParm->getString());
+	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(upgradeParm->getString());
 	if (!upgrade)
 		return false;
 	Int count = 0;
@@ -775,5 +761,5 @@ Bool ScriptConditions::rva003E8785(Parameter *playerParm, Parameter *countParm, 
 			}
 		}
 	}
-	return (count >= countParm->bfme_getInt_f996b()) ? true : false;
+	return (count >= countParm->getInt()) ? true : false;
 }
