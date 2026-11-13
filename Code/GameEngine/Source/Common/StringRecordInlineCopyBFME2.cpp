@@ -214,10 +214,7 @@ template void _STL::_Construct<BfmeStringRecord002CF550,BfmeStringRecord002CF550
 // Same 8-byte layout as 005DDD40 (UnicodeString text + word) without self-check.
 // Callee StringBase<ushort>::set at 0x00037150 (pin-only); 47B __copy caller
 // at 0x002605EB uses sar 3 stride 8.
-struct BfmeStringRecord002602A6 {
-    UnicodeString text; unsigned int word;
-    BfmeStringRecord002602A6 &operator=(const BfmeStringRecord002602A6 &source);
-};
+#include "../../Include/Common/BfmeStringRecord002602A6.h"
 #include <vector>
 // Retail __copy 0x002605EB 47B: forward copy of 8-byte BfmeStringRecord002602A6 via operator= at 0x002602A6; sar 3 stride 8; caller at 0x0026065A; same shape as 47B __copy at 0x00426A82.
 template BfmeStringRecord002602A6* _STL::__copy<BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, int>(BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, BfmeStringRecord002602A6*, const _STL::random_access_iterator_tag&, int*);

@@ -106,10 +106,7 @@ template void _STL::_Construct<BfmeStringRecord002CF550,BfmeStringRecord002CF550
 // Same 8-byte layout as 005DDD40 (UnicodeString text + word) without self-check.
 // Callee StringBase<ushort>::set at 0x00037150 (pin-only); 47B __copy caller
 // at 0x002605EB uses sar 3 stride 8.
-struct BfmeStringRecord002602A6 {
-    UnicodeString text; unsigned int word;
-    BfmeStringRecord002602A6 &operator=(const BfmeStringRecord002602A6 &source);
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord002602A6.h"
 #include <vector>
 
 // StrategicHUD::BattlePromptMovieClip::Impl::SetAutoResolveButtonEnabled @0x005F921F 91B (WorldBuilder name, StrategicHUDBattlePromptMovieClip.cpp; same SetButtonState AutoResolve _up/_disabled) slot Apt SetButtonState AutoResolve _up/_disabled.
