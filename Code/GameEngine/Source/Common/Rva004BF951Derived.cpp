@@ -11,14 +11,7 @@
 // Owner identities are unproven (opaque Rva names). One ledger row per
 // destructor, landed one commit at a time.
 
-class Rva004BF951
-{
-public:
-	virtual ~Rva004BF951();
-
-private:
-	char m_pad04[8];
-};
+#include "../../Include/Common/Rva004BF951.h"
 
 #include "../../Include/Common/MiBase1.h"
 
