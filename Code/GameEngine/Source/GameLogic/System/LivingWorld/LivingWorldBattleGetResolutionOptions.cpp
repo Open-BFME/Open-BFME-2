@@ -16,7 +16,7 @@ class GameInfo;
 extern GameInfo *TheGameInfo;
 class SkirmishGameInfo;
 extern SkirmishGameInfo *TheSkirmishGameInfo;
-class Rva00210C66CmpBoolField { public: bool get() const; };
+#include "../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 #include "../../../../Include/Common/Rva002B254F.h"
 class Rva002B256E { public: void *rva002B256E(); };
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003F44A9.h"

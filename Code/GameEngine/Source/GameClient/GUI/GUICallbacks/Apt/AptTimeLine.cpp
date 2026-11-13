@@ -863,11 +863,7 @@ enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
 	// 0x0030F2C7
 extern RecorderClass *TheRecorder;
 // ?get@Rva00210C66CmpBoolField@@QBE_NXZ, rowed 0x00210C66 (LivingWorldLogic.cpp)
-class Rva00210C66CmpBoolField
-{
-public:
-	__declspec(noinline) bool get() const { int value = *(const int *)((const char *)this + 0x114); return value == 1 || value == 2; }
-};
+#include "../../../../../Include/GameNetwork/Rva00210C66CmpBoolField.h"
 // ?isSelectionLocked@BfmeSelectionState@@QBE_NXZ, rowed 0x0004253A
 class BfmeSelectionState
 {
