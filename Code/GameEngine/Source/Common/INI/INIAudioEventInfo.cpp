@@ -624,14 +624,7 @@ extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
 // between independently bounded RET4 at30F2B7 and known getter30F2C7.
 // Found beside the BF1 9cb WaterRenderObjConstructor Boxed<float> placement;
 // adjacency does not establish its original class or field purpose.
-class Rva000A8CAE
-{
-public:
-    Rva000A8CAE &operator=(const Rva000A8CAE &other);
-private:
-    OpaqueRefElement4 m_ref;
-    int m_4;
-};
+#include "../../../Include/Common/Rva000A8CAE.h"
 
 class Rva004362B0StrideAdd {
 public:

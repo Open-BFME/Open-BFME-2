@@ -7,14 +7,7 @@
 // 0x00062260 and 0x001D9BBD.
 #include "../../Include/Common/OpaqueRefElement4.h"
 
-class Rva000A8CAE
-{
-public:
-    Rva000A8CAE &operator=(const Rva000A8CAE &other);
-private:
-    OpaqueRefElement4 m_ref;
-    int m_4;
-};
+#include "../../Include/Common/Rva000A8CAE.h"
 
 Rva000A8CAE &Rva000A8CAE::operator=(const Rva000A8CAE &other)
 {
