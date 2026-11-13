@@ -20,13 +20,7 @@ struct TexturePtr
 	TexturePtr& operator=( int val ) { m_ptr = (TextureBaseClass*)val; return *this; }
 };
 
-class VirtualReleaser00739E00
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual unsigned long __stdcall Release();
-};
+#include "../../../Include/Common/VirtualReleaser00739E00.h"
 
 // The three calls made through the pointer at +0x0C are pinned under this
 // spelling (clear 0x008FC7D0, methodA 0x008FC710, methodB 0x008FC660); it is a

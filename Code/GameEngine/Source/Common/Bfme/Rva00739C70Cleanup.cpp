@@ -19,27 +19,7 @@ struct TexturePtr
 	TexturePtr& operator=( int val ) { m_ptr = (TextureBaseClass*)val; return *this; }
 };
 
-class VirtualReleaser00739E00
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual unsigned long __stdcall Release();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	// Slot 14 (0x38): returns a texture pointer that clear() null-checks and
-	// reports to Log_DX8_ErrorCode. Name is opaque; only the slot matters.
-	virtual TextureBaseClass *__stdcall GetTexture();
-};
+#include "../../../Include/Common/VirtualReleaser00739E00.h"
 
 void Log_DX8_ErrorCode( unsigned int code );
 
