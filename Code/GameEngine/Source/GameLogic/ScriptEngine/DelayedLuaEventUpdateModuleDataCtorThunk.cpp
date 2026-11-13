@@ -2,14 +2,7 @@
 
 // Open-BFME5: DelayedLuaEventUpdateModuleData constructor lifted from retail.
 
-class DelayedLuaEventUpdateModuleData
-{
-public:
-	DelayedLuaEventUpdateModuleData();
-	// Empty destructor: retail's vtable 0x0084ED70 slot 0 0x004A10FD calls
-	// 0x0049B47C, which only stores the vtable.
-	virtual ~DelayedLuaEventUpdateModuleData() {}
-};
+#include "../../../Include/Common/DelayedLuaEventUpdateModuleData.h"
 
 // ??0DelayedLuaEventUpdateModuleData@@QAE@XZ
 DelayedLuaEventUpdateModuleData::DelayedLuaEventUpdateModuleData()

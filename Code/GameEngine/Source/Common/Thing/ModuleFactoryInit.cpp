@@ -166,7 +166,7 @@ class DeflectSpecialPowerModuleData { public: static ModuleData *friend_newModul
 class DelayedDeathBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 class DelayedLuaEventUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class DelayedLuaEventUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/Common/DelayedLuaEventUpdateModuleData.h"
 class DelayedUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DelayedWeaponSetUpgradeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DelayedWeaponSetUpgradeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

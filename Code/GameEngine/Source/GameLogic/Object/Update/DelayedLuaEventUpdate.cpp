@@ -53,11 +53,7 @@ extern const int g_emptyFieldParseTable[4];
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class DelayedLuaEventUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/Common/DelayedLuaEventUpdateModuleData.h"
 
 #include "../../../../Include/Common/BfmeSubA.h"
 

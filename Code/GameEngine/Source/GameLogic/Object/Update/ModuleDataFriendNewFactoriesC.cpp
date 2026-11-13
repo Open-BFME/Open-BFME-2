@@ -117,18 +117,7 @@ ModuleData *DestroyDie::friend_newModuleData(INI *ini)
 
 // ---- the 8-byte data class ---------------------------------------------------
 
-class DelayedLuaEventUpdateModuleData
-{
-public:
-	DelayedLuaEventUpdateModuleData();
-	virtual ~DelayedLuaEventUpdateModuleData();
-
-	// Empty in retail; it resolves to the shared `ret` stub 0x004B3FD0.
-	static void buildFieldParse(MultiIniFieldParse &parse);
-
-private:
-	int m_04;
-};
+#include "../../../../Include/Common/DelayedLuaEventUpdateModuleData.h"
 
 // The shared empty proc at 0x000B3FD0 is distinct from DelayedLuaEventUpdate's
 // nonempty proc at 0x004A8D06. Folding does not establish its class identity.

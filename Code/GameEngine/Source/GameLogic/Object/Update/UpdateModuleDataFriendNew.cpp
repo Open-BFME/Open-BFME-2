@@ -117,17 +117,7 @@ ModuleData *GiantBirdAIUpdateModuleData::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class DelayedLuaEventUpdateModuleData
-{
-public:
-	DelayedLuaEventUpdateModuleData();
-	virtual ~DelayedLuaEventUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x8 - 4];
-};
+#include "../../../../Include/Common/DelayedLuaEventUpdateModuleData.h"
 
 // ?friend_newModuleData@DelayedLuaEventUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *DelayedLuaEventUpdateModuleData::friend_newModuleData(INI *ini)
