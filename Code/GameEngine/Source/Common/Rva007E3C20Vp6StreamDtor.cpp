@@ -66,19 +66,7 @@ extern "C" int __cdecl VP6_StopDecoder(CodecState **p);
 void freeBlock(void **p);
 
 struct VP6Instance;
-struct VP6YUVConfig
-{
-	int yWidth;
-	int yHeight;
-	int yStride;
-	int uvWidth;
-	int uvHeight;
-	int uvStride;
-	unsigned char *y;
-	unsigned char *u;
-	unsigned char *v;
-	unsigned char *yOrigin;
-};
+#include "../../Include/Common/VP6YUVConfig.h"
 extern "C" void __cdecl VP6_GetYUVConfig(VP6Instance *instance, VP6YUVConfig *config);
 
 void __cdecl BFME_DX8_Thread_Lock();

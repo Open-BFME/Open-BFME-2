@@ -38,19 +38,7 @@ typedef void (__cdecl *VP6ClampLevelsFn)(void *post, int black, int white, unsig
 // fills with ClearMmx or the empty generic routine.
 extern void *g_bfmeSlotB48;
 
-struct VP6YUVConfig
-{
-	int yWidth;
-	int yHeight;
-	int yStride;
-	int uvWidth;
-	int uvHeight;
-	int uvStride;
-	unsigned char *y;
-	unsigned char *u;
-	unsigned char *v;
-	unsigned char *yOrigin;
-};
+#include "../../../GameEngine/Include/Common/VP6YUVConfig.h"
 
 struct VP6Instance
 {
