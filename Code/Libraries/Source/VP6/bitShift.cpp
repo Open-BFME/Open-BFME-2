@@ -7,7 +7,7 @@
 // big-endian as the new word (pointer advanced by 4) and 32 is added back.
 // Retail holds no direct caller. Layout follows the matched readers at
 // 0x001C4FE0 and 0x001C50B0.
-struct Vp6RawBits { int bits; unsigned value; const unsigned char *next; };
+#include "../../../GameEngine/Include/Common/Vp6RawBits.h"
 extern "C" static void bitShift(Vp6RawBits *state, int bits)
 {
 	if ((state->bits -= bits) < 0) {

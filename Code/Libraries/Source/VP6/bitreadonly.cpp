@@ -7,7 +7,7 @@
 // they suffice (unsigned compare); otherwise they are topped up by the next
 // buffer byte. Reader state is not modified. Retail holds no direct caller.
 // Layout follows the matched readers at 0x001C4FE0 and 0x001C50B0.
-struct Vp6RawBits { unsigned bits; unsigned value; const unsigned char *next; };
+#include "../../../GameEngine/Include/Common/Vp6RawBits.h"
 extern "C" static unsigned bitreadonly(Vp6RawBits *state, unsigned bits)
 {
 	unsigned avail = state->bits;

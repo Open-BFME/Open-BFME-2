@@ -19,41 +19,7 @@
 // it; each branch advances the scan position itself (retail's per-branch
 // reload into ECX before the shared increment).
 
-struct Vp6RawBits {
-	int bits; unsigned value; const unsigned char *next;
-	__forceinline unsigned peek(unsigned count)
-	{
-		unsigned avail = bits;
-		unsigned word = value & ((1 << avail) - 1);
-		if (avail >= count)
-			return word >> (avail - count);
-		return (*next | (word << 8)) >> (avail - count + 8);
-	}
-	__forceinline void skip(int count)
-	{
-		if ((bits -= count) < 0) {
-			unsigned v = 0;
-			for (int i = 0; i < 4; i++)
-				v = (v << 8) + next[i];
-			value = v;
-			next += 4;
-			bits += 32;
-		}
-	}
-	__forceinline int bit()
-	{
-		if (bits) { --bits; return (value >> bits) & 1; }
-		unsigned v = 0;
-		v = (v << 8) + next[0];
-		v = (v << 8) + next[1];
-		v = (v << 8) + next[2];
-		v = (v << 8) + next[3];
-		value = v;
-		next += 4;
-		bits = 31;
-		return value >> 31;
-	}
-};
+#include "../../../GameEngine/Include/Common/Vp6RawBits.h"
 struct Vp6TokenEntry { unsigned short leaf : 1; unsigned short value : 5; unsigned short unused : 6; unsigned short length : 4; };
 struct Vp6TreeEdge { unsigned leaf : 1; unsigned value : 7; unsigned unused : 24; };
 struct Vp6TreeNode { Vp6TreeEdge left; Vp6TreeEdge right; unsigned probability; };
