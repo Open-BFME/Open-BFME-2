@@ -528,11 +528,7 @@ public:
 
 extern Display *TheDisplay;
 
-class Rva001EB456
-{
-public:
-	void rva001EB456(int,int);
-};
+#include "../../../Include/Common/Rva001EB456.h"
 
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> BfmeAssignRecord172 * vector<BfmeAssignRecord172,allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *,BfmeAssignRecord172 *); }

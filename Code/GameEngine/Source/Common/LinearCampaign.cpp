@@ -10,11 +10,7 @@
 // restartCurrentCampaignMission runs 0x1EB68A on its own this. Method names
 // stay address-derived.
 
-class Rva001EB456
-{
-public:
-	void rva001EB456(int a, int b);
-};
+#include "../../Include/Common/Rva001EB456.h"
 
 struct Rva001EB6A5Out;
 
