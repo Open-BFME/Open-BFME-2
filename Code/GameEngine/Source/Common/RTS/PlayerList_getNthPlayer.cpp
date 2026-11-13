@@ -378,13 +378,7 @@ void PlayerList::newGame()
 }
 
 class BfmeMemberRV;
-class BfmeThingRV
-{
-public:
-	BfmeMemberRV *bfmePickRV();
-	unsigned char m_bfmeHead[0x10]; // +0x00 BFME1 0xc
-	BfmeMemberRV *m_bfmeMine; // +0x10
-};
+#include "../../../Include/GameClient/BfmeThingRV.h"
 
 #include "../../../Include/Common/Rva002A7DD0.h"
 
