@@ -9,12 +9,7 @@
 class INI;
 class AsciiString;
 
-class Rva0021B7B6
-{
-public:
-	void rva0021B7B6(INI *ini, void *str);
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva0021B7B6.h"
 
 #include "../../../Include/Common/Rva0033AFBB.h"
 

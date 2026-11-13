@@ -112,11 +112,7 @@ void parseCreateAHeroBlingBinder(INI *ini, void *instance, void *store, const vo
 
 void Rva00219440Parse(INI *ini, void *instance, void *store, const void *userData);
 
-class Rva0021B7B6
-{
-public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/Rva0021B7B6.h"
 
 // Retail's faction name list at VA 0x00DB9D18 (.data, 32 bytes: seven names
 // and the null), the parseIndexList user data of DefaultFaction below; the
