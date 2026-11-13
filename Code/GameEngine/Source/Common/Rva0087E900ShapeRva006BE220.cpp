@@ -9,13 +9,7 @@ public:
 	float y; // +0x04
 	float z; // +0x08
 };
-struct Rva0087E900Shape
-{
-public:
-	void rva006BE220(const Rva0087E900Coord *position, float angle, Rva0087E900Coord *dest);
-	char m_pad00[0x10];
-	Rva0087E900Coord offset; // +0x10
-};
+#include "../../Include/Common/Rva0087E900Shape.h"
 Rva0087E900Coord *Rva0087E900(Rva0087E900Coord *out, const Rva0087E900Coord *position, const Rva0087E900Shape *shape, float angle);
 void Rva0087E900Shape::rva006BE220(const Rva0087E900Coord *position, float angle, Rva0087E900Coord *dest)
 {

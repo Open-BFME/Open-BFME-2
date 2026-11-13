@@ -61,11 +61,7 @@ struct Rva0087E900Coord
 	Real y;
 	Real z;
 };
-class Rva0087E900Shape
-{
-public:
-	void rva006BE220(const Rva0087E900Coord *pos, Real angle, Rva0087E900Coord *result);
-};
+#include "../../../../Include/Common/Rva0087E900Shape.h"
 struct BfmeShapeE15;
 class BfmeObjE15
 {
