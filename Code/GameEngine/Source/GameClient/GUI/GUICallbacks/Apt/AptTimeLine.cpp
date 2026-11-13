@@ -1128,11 +1128,7 @@ public:
 	UnicodeString m_displayName; // +0x30
 };
 #include "../../../../../Include/Common/Rva003F83B5.h"
-class Rva004FCBA9
-{
-public:
-	UnicodeString rva004fcba9();
-};
+#include "../../../../../Include/Common/Rva004FCBA9.h"
 struct Rva00520923Scenario
 {
 	unsigned char m_pad00[4];
