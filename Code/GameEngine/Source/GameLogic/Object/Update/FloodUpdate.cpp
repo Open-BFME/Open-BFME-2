@@ -280,6 +280,8 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0048E0F4
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 namespace _STL {
@@ -563,3 +565,10 @@ FloodUpdate::~FloodUpdate()
 // tu-skeleton: 0x0048E16C 29B ??0Rva0048E16C@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0048E16CCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C7A4 8B uw_0078c7a4 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
+
+// ?loadPostProcess@FloodUpdate@@MAEXXZ: retail primary vftable 0x00C4C948 slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void FloodUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
