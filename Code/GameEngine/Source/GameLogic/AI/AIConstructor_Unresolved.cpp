@@ -233,17 +233,7 @@ class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiStr
 
 class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};
 class Rva0014A470{public:Rva0014A470&operator=(const Rva0014A470&);};
-struct Rva002FFC74Record
-{
-public:
-	Rva002FFC74Record();
-	Rva002FFC74Record(const Rva002FFC74Record&);
-	~Rva002FFC74Record();
-	Rva002FFC74Record&operator=(const Rva002FFC74Record&);
-	bool operator==(const Rva002FFC74Record&) const;
-	bool operator<(const Rva002FFC74Record&) const;
-	unsigned char bytes[8]; // +0x00
-};
+#include "../../../Include/GameLogic/Rva002FFC74Record.h"
 // The named-list copy calls the separately rowed assignment at 0x002FFC74.
 // Its opaque record declaration cannot supply the element's nontrivial
 // assignment or cleanup. Reuse the exact provider instead of emitting a POD copy.

@@ -238,17 +238,7 @@ void TAiData::addFactionBuildList(Gen0014AE40*buildList){
 }
 
 class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};
-struct Rva002FFC74Record
-{
-public:
-	Rva002FFC74Record();
-	Rva002FFC74Record(const Rva002FFC74Record&);
-	~Rva002FFC74Record();
-	Rva002FFC74Record&operator=(const Rva002FFC74Record&);
-	bool operator==(const Rva002FFC74Record&) const;
-	bool operator<(const Rva002FFC74Record&) const;
-	unsigned char bytes[8]; // +0x00
-};
+#include "../../../Include/GameLogic/Rva002FFC74Record.h"
 class Rva002FED8D{public:Rva002FED8D(AsciiString);virtual~Rva002FED8D();AsciiString name;unsigned int value;_STL::list<Rva002FFC74Record>tail;Rva002FED8D*next;};
 
 void AI::addSideInfo(Rva002FE620*info){TAiData*aiData=m_aiData;Rva002FE620*previous=aiData->m_sideInfo;info->next=previous;aiData->m_sideInfo=info;}
