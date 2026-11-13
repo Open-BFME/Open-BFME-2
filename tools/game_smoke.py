@@ -211,6 +211,7 @@ STALL_EVERY = 3.0       # seconds between them
 STALL_FRAMES = 64       # scan candidates kept per sample
 STALL_THREADS = 32      # other threads read with a stall (srv1's runs have about 12)
 STALL_THREAD_SECONDS = 5.0      # and at most this long reading them
+FAULT_WORDS = 256       # stack dwords from esp kept with a fault (--fault-words, P153)
 STALL_METHOD = ("stack scan, not a frame-pointer walk: the aligned dwords from esp that point into the image's code "
                 "right after a call instruction. Stale return addresses and coincidences pass, so a candidate list "
                 "supports a hypothesis about where the thread is; it is not a call chain. common_scan_candidates: "
@@ -523,8 +524,10 @@ class Game:
     follows it, applies the lies at the WOW64 loader breakpoint and serves
     breakpoints (RVA -> handler(game, tid, ctx) returning True to keep it)."""
 
-    def __init__(self, game_dir, args, appdata, rva_map=None, focus_lie=True, version_lie=True, int3_faults=False):
+    def __init__(self, game_dir, args, appdata, rva_map=None, focus_lie=True, version_lie=True, int3_faults=False,
+                 fault_words=FAULT_WORDS):
         self.game_dir, self.args, self.appdata = Path(game_dir), args, Path(appdata)
+        self.fault_words = fault_words  # stack dwords capture_fault keeps from esp
         self.rva_map = rva_map or (lambda r: r)
         boot_smoke.check_sandbox_appdata(self.appdata)
         self.want_focus, self.want_version = focus_lie, version_lie
@@ -968,10 +971,11 @@ class Game:
             return f"{n}+{va - b:#x}"
         return hex(va)
 
-    def capture_fault(self, tid, res, n=256):
+    def capture_fault(self, tid, res, n=None):
         """boot_smoke's fault capture: fault_words, the dwords from esp (return-address candidates,
-        for a real image's map), and fault_context, the registers and what each points at."""
-        st = boot_smoke.fault_capture(self.k, self.hproc, tid, n) or {}
+        for a real image's map), and fault_context, the registers and what each points at. n defaults to the run's
+        --fault-words."""
+        st = boot_smoke.fault_capture(self.k, self.hproc, tid, n or self.fault_words) or {}
         res["fault_words"] = st.get("words", [])
         res["fault_context"] = {key: st[key] for key in ("esp", "ebp", "regs", "memory") if key in st}
 
@@ -1371,6 +1375,14 @@ def other_games():
     return out
 
 
+def fault_words_arg(v):
+    """--fault-words: 1..4096 dwords (boot_smoke.stack_words reads them a page at a time)."""
+    n = int(v, 0)
+    if not 1 <= n <= 4096:
+        raise argparse.ArgumentTypeError(f"--fault-words {n}: 1..4096")
+    return n
+
+
 def launch(a, extra, handlers=(), tick=None, timeout=None):
     """Copy the image under test into the sandbox, run it with the lies, and
     guard the owner's profile, HKCU's EA keys and --guard dirs around the run."""
@@ -1422,7 +1434,7 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     # it two retail runs differ from the first CRC on).
     seed = f"-randomSeed {a.seed}" if a.seed is not None else ""
     game = Game(gd, f"{a.args} {seed} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie,
-                int3_faults=a.ri is not None)
+                int3_faults=a.ri is not None, fault_words=a.fault_words)
     a.started, a.t_start = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), time.time()
     for name, h in handlers:
         game.on(name, h)
@@ -2196,6 +2208,9 @@ def main(argv=None):
                          f"slow host, shutdown): a `stall` section is an observation, not a diagnosis of deadlock. "
                          f"Sampling only suspends threads briefly to read them; it does not stop the run. The stack "
                          f"scan is not a call chain (the section's `method` says what it is)")
+    ap.add_argument("--fault-words", type=fault_words_arg, default=FAULT_WORDS, metavar="N",
+                    help=f"stack dwords from esp kept with a fault (fault_words; default {FAULT_WORDS}, at most 4096): "
+                         f"enough to reach a crashing function's own arguments when its frame is deep (P153)")
     ap.add_argument("--player", action="store_true",
                     help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")

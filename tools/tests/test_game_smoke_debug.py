@@ -281,7 +281,7 @@ class FaultCaptureTests(unittest.TestCase):
     """P106: a skirmish's crash keeps the fault's registers, through boot_smoke's capture."""
 
     def test_the_fault_is_captured_by_boot_smoke_s_path(self):
-        game = SimpleNamespace(k=object(), hproc=9)
+        game = SimpleNamespace(k=object(), hproc=9, fault_words=runner.FAULT_WORDS)
         st = {"esp": 0x19F000, "ebp": 0x19F040, "regs": {"eax": "0x190100", "esp": "0x19f000"},
               "memory": {"eax": "0011"}, "words": [1, 2, 3]}
         res = {}
@@ -306,7 +306,7 @@ class FaultCaptureTests(unittest.TestCase):
     def test_an_unreadable_thread_keeps_the_old_empty_words(self):
         res = {}
         with mock.patch.object(runner.boot_smoke, "fault_capture", return_value=None):
-            runner.Game.capture_fault(SimpleNamespace(k=None, hproc=None), 77, res)
+            runner.Game.capture_fault(SimpleNamespace(k=None, hproc=None, fault_words=runner.FAULT_WORDS), 77, res)
         self.assertEqual((res["fault_words"], res["fault_context"]), ([], {}))
 
     def test_the_real_image_crash_record_has_boot_smoke_s_stack(self):

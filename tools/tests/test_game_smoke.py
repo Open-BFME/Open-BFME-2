@@ -721,6 +721,28 @@ class UntilFrame(unittest.TestCase):
         self.assertEqual([tick(g), tick(g)], [None, "done"])
 
 
+class FaultWords(unittest.TestCase):
+    """--fault-words sizes the stack window a fault keeps (P153 needed a crashing function's own arguments)."""
+
+    def test_range(self):
+        self.assertEqual(gs.fault_words_arg("1024"), 1024)
+        self.assertEqual(gs.fault_words_arg("0x400"), 1024)
+        for bad in ("0", "4097"):
+            with self.assertRaises(argparse.ArgumentTypeError):
+                gs.fault_words_arg(bad)
+
+    def test_capture_uses_the_runs_window(self):
+        game = SimpleNamespace(k=None, hproc=None, fault_words=1024)
+        with mock.patch.object(gs.boot_smoke, "fault_capture", return_value={"words": [1, 2], "esp": 4}) as cap:
+            res = {}
+            gs.Game.capture_fault(game, 7, res)
+            cap.assert_called_once_with(None, None, 7, 1024)
+            gs.Game.capture_fault(game, 7, res, n=16)
+            self.assertEqual(cap.call_args[0][3], 16)
+        self.assertEqual(res["fault_words"], [1, 2])
+        self.assertEqual(gs.FAULT_WORDS, 256)
+
+
 if __name__ == "__main__":
     unittest.main()
 
