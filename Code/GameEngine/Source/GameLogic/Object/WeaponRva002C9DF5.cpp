@@ -61,12 +61,7 @@ private:
 	Rva000CBA20Point m_position;		// +0x38
 };
 
-class AssistedTargetingUpdate
-{
-public:
-	bool isFreeToAssist() const;
-	void assistAttack(const Object *requestingObject, Object *victimObject);
-};
+#include "../../../Include/Common/AssistedTargetingUpdate.h"
 
 #include "../../../Include/Common/Player.h"
 

@@ -59,7 +59,7 @@ class ArrowStormUpdate { public: static Module *friend_newModuleInstance(Thing *
 class ArrowStormUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AssaultTransportAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AssaultTransportAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class AssistedTargetingUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/Common/AssistedTargetingUpdate.h"
 class AssistedTargetingUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AttachUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AttachUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
