@@ -5,7 +5,7 @@
 // through the named size-aware free thunk6CBC50. The legacy Init spelling
 // does not establish initializer semantics; the original name is unknown.
 class Rva006CC4A0;
-class Rva006DAFA0Walk {public:void rva006DAFA0();};
+#include "../../../Libraries/Source/Apt/Rva006DAFA0Walk.h"
 void rva006CBC50(void *,unsigned);
 
 Rva006CC4A0 *__fastcall rva006CC4A0Init(Rva006CC4A0 *o, int fwd, int arg)

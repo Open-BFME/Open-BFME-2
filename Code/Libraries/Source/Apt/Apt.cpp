@@ -563,7 +563,7 @@ AptCIH *_AptGetAnimationAtLevel(int key) {
 // Apt.cpp lines 666..691. Both pool allocations are 28B. WB's two deleting
 // helpers receive flags 1; inline delete views retain the native operand copy.
 class DOGMA_PoolManager {public:unsigned GetTotalBytesUsed();};
-class Rva006DAFA0Walk {public:void rva006DAFA0();};
+#include "Rva006DAFA0Walk.h"
 void rva006CBC50(void *,unsigned);
 class Rva006CD6C0SizedDeleting {
 public:
