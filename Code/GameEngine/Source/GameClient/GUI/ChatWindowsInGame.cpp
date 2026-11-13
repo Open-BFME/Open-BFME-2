@@ -285,11 +285,6 @@ private:
 	int m_10;
 };
 
-struct Rva005AFEDBRecord { __declspec(dllimport) __forceinline ~Rva005AFEDBRecord() { ((Rva005AFE3F *)this)->Rva005AFE3F::~Rva005AFE3F(); } char bytes[1]; };
-
-// Scalar destruction also emits the compiler-generated deleting destructor.
-template void _STL::_Destroy<Rva005AFEDBRecord>(Rva005AFEDBRecord *);
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp
 
 int ChatWindowsInGame::rva005AFDC5(int user,const UnicodeString &name,const UnicodeString &team,int color)
@@ -591,7 +586,3 @@ Rva005AFE3F::~Rva005AFE3F()
 
 // tu-skeleton: 0x005AFE86 85B ??0Rva005AFE86@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva005AFE86Ctor.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005AFEDB.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
