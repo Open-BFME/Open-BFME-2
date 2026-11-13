@@ -300,13 +300,7 @@ public:
 // rather than through isDisabledByType and isEffectivelyDead.
 #include "../../../../Include/Common/BFMEObjectDisabledMask.h"
 
-struct BFMEObjectDeadFlags
-{
-	Bool isEffectivelyDead() const { return (m_deadFlags & 1) != 0; }
-
-	char m_unreconstructed_000[0x344];
-	UnsignedByte m_deadFlags;				///< retail this+0x344
-};
+#include "../../../../Include/Common/BFMEObjectDeadFlags.h"
 
 // BFME's legal-surface read walks the locomotor's override chain; the
 // reference Locomotor reads its template's surface mask instead.
