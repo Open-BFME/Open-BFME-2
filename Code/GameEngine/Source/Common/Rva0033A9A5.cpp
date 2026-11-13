@@ -18,11 +18,7 @@ struct AutoResolveArmorEntry
 	char m_pad[0x104 - 4];
 };
 
-class LivingWorldAutoResolveArmorStore
-{
-public:
-	const Rva00427157 *getDefault();
-};
+#include "../../Include/Common/LivingWorldAutoResolveArmorStore.h"
 
 class LivingWorldAutoResolveArmorStore; extern LivingWorldAutoResolveArmorStore *TheLivingWorldAutoResolveArmorStore;
 
