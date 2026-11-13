@@ -55,11 +55,7 @@ public:
 	void rva006C26F0(void *block, bool allocation);						// 0x006C26F0
 };
 
-class Rva006C1D60
-{
-public:
-	bool rva006C1D60(unsigned int p, bool a);					// 0x006C1D60
-};
+#include "../../Include/Common/Rva006C1D60.h"
 
 unsigned int Rva006C1790();									// 0x006C1790
 

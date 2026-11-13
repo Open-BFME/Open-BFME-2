@@ -104,7 +104,7 @@ private:
 
 class Rva006C1850 { public: bool rva006C1850(unsigned int, void **); };
 class Rva006C17B0 { public: void rva006C17B0(bool, bool); };
-class Rva006C1D60 { public: bool rva006C1D60(unsigned int, bool); };
+#include "../../Include/Common/Rva006C1D60.h"
 #include "../../Include/Common/Rva006C39F0Owner.h"
 #include "../../Include/Common/Rva006C2270Slot.h"
 struct Rva006C2270Record
