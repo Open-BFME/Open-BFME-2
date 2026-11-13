@@ -60,6 +60,8 @@ public:
 	virtual DieModuleInterface *getDie();			// slot 7: retail 0x004543A9, the +0x20 die interface
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004619A7
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 FakePathfindPortalBehaviour::~FakePathfindPortalBehaviour()
@@ -173,4 +175,11 @@ CreateModuleInterface *FakePathfindPortalBehaviour::getCreate()
 DieModuleInterface *FakePathfindPortalBehaviour::getDie()
 {
 	return reinterpret_cast<DieModuleInterface *>(static_cast<FakePathfindPortalBehaviour_B3 *>(this));
+}
+
+// ?loadPostProcess@FakePathfindPortalBehaviour@@MAEXXZ: retail primary vftable 0x00C42C1C slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void FakePathfindPortalBehaviour::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
 }
