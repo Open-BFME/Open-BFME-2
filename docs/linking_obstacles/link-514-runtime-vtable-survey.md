@@ -3719,3 +3719,22 @@ Base: 3,295 bridged, 31 refused, 2,253 already correct, 37,456 mismatching sourc
   3,295 -> 3,293 (the two ??_7BehaviorModuleView stand-in tables are gone), refused identical, correct 2,253,
   mismatching slots 37,441 -> 37,389. link_check: ModuleUpdateDtors.cpp 860 B, Rva00492402Ctor.cpp 49 B,
   SpecialPowerModuleCtor.cpp 353 B LINK; the destructor unit LINKED 0 -> 0 (it did not link before either).
+- "Move 2 members into SpecialPowerModule (retail vftable 0x00BEFCF8 slots 43, 44)": rename.py --to-class moves
+  ?rva00251C11@Rva00251C11@@QAEXM@Z -> ?slot43@SpecialPowerModule@@UAEXM@Z and (--also) ?forward@Rva00251C24@@UAEXXZ
+  -> ?slot44@SpecialPowerModule@@UAEXXZ; VslotSmallBodiesAG.cpp defines them under a SpecialPowerModule view on the
+  canonical BehaviorModule.h/SpecialPowerModule.h (startPowerRecharge through the +0x10 interface; the primary
+  slot 12 rva00493805), ten views declare them. 210/210 rows exact. 15 tables off the bridge (3,293 -> 3,278;
+  refused identical; correct 2,253 -> 2,268; mismatching slots 37,389 -> 37,359). link_check: VslotSmallBodiesAG.cpp
+  337 B and the nine linking SpecialPower units unchanged, LINK; the destructor unit LINKED 0 -> 0.
+
+**Series measure (lk74, local objects).** 3,295 -> 3,278 bridged; refused 31 -> 31 (identical); correct 2,253 ->
+2,268; mismatching source slots 37,456 -> 37,359. Nothing newly bridged, no correct table lost.
+
+**Left in this family.** OCLSpecialPower.cpp, PlayerHealSpecialPower.cpp and SplitHordeSpecialPower.cpp (claimed by
+ancalgonn-swarm-sweep-header today): their views need the same three declarations (getSpecialPower inline is not
+needed: SpecialPowerModuleCtor.cpp's COMDAT serves). Rva00493DEFDerived.cpp's three tables (Rva004C29BB, Rva004C67A0,
+Rva004C8A16) derive from the placeholder Rva00493DEF (SpecialPowerModule under its destructor-row spelling): a class
+fold first. DeflectSpecialPower's 0x00C5D9C0 slot 43 is the same float forwarder at 0x00494AC6 (+0x18 interface),
+rowed ?rva00494AC6@Rva00494AC6@@UAEXM@Z in WeaponModeSpecialPowerUpdate.cpp: now admissible as a slot43(float)
+override once its class is known. CashHack/Defector (bfme2_specialpower_layout shim) put getSpecialPower in slot 7:
+inference, unchecked: that shim's BehaviorModuleInterface order is one slot short before getSpecialPower.

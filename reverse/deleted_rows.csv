@@ -6232,3 +6232,5 @@ __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgra
 ?name@LocomotorSetUpgrade@@QBEPBDXZ,0x004B3EC0,"Renamed to ?GetSnapshotName@LocomotorSetUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C57530 slot 2)"
 ?slot43@BehaviorModule@@UAEXH@Z,0x0047A69C,"Renamed to ?slot43@BehaviorModule@@UAEXM@Z by tools/rename.py (inferred)"
 ?behaviorAnchor@BehaviorModuleInterface@@UAEIXZ,0x000D43D0,"Retired gen-alias: SpecialPowerModuleDtor_Unresolved.cpp adopts the canonical BehaviorModule.h, whose BehaviorModuleInterface has no behaviorAnchor; 0x000D43D0 stays rowed (?getBody@BehaviorModule@@UAEPAVBodyModuleInterface@@XZ and its twins) and Rva00492402Ctor.cpp's s_dummy20 slot 3 names getBody"
+?rva00251C11@Rva00251C11@@QAEXM@Z,0x00251C11,"Renamed to ?slot43@SpecialPowerModule@@UAEXM@Z by tools/rename.py (to-class: retail vftable 0x00BEFCF8 slot 43)"
+?forward@Rva00251C24@@UAEXXZ,0x00251C24,"Renamed to ?slot44@SpecialPowerModule@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00BEFCF8 slot 44)"

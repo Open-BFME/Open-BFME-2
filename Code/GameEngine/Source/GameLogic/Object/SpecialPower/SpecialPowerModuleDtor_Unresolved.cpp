@@ -105,6 +105,9 @@ protected:
 private:
 	int m_unknown14;
 	unsigned int m_availableOnFrame;
+public:
+	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
+	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
 };
 
 SpecialPowerModule::~SpecialPowerModule()

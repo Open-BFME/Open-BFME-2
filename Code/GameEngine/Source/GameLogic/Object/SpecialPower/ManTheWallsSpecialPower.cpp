@@ -109,6 +109,9 @@ public:
 	virtual ~SpecialPowerModule();
 public:
 	virtual SpecialPowerModuleInterface *getSpecialPower();	// BehaviorModuleInterface slot 8: retail 0x002533D3, the +0x10 interface
+public:
+	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
+	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
 };
 
 #include "../../../Common/PartitionRangeQueryCallView.h"

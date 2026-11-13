@@ -123,6 +123,9 @@ public:
 	// BehaviorModuleInterface slot 8, retail 0x002533D3 (the +0x10 interface): inline as in the units that adopt
 	// reference/shims/bfme2_specialpower_layout's SpecialPowerModule.h, so every copy is the same COMDAT
 	virtual SpecialPowerModuleInterface *getSpecialPower() { return this; }
+public:
+	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
+	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
 };
 
 SpecialPowerModule::SpecialPowerModule(Thing *thing, const ModuleData *moduleData)

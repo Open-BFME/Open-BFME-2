@@ -41,48 +41,10 @@ extern const FieldParse g_rva005C47A8FieldParse[];
 // 0x00576FFE (table VA 0x00C6E8F0): the dword the rowed getter 0x0042D697
 // reads through the object the rowed getter 0x00328A83 (alias-pinned with
 // its pointer result) reaches from the +0x08 object's +0x04 member.
-// 0x00251C24, 0x00466E0A and 0x004BC51B: interface overrides
-// (interface at +0x0C, +0x34 resp. +0x10) that only dispatch to
-// virtual slot 12, 28 resp. 13 of the complete object.
-// 0x00251C11 (the slot just before 0x00251C24 in the same vtable, at
-// 0x007EFDA4): hands its float to virtual slot 15 of the object at +0x04.
-class Rva00251C11Primary
-{
-public:
-	virtual void p00();
-};
-class Rva00251C11Base04
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void rva00251C11Target(Real value);
-};
-class Rva00251C11 : public Rva00251C11Primary
-{
-public:
-	void rva00251C11(Real value);
-private:
-	Rva00251C11Base04 m_04;
-};
-void Rva00251C11::rva00251C11(Real value)
-{
-	m_04.rva00251C11Target(value);
-}
-
+// 0x00466E0A and 0x004BC51B: interface overrides (interface at +0x34
+// resp. +0x10) that only dispatch to virtual slot 28 resp. 13 of the
+// complete object. SpecialPowerModule's 0x00251C11 and 0x00251C24 are at
+// the end of this file.
 template <int N>
 class Rva00251C24Slots : public Rva00251C24Slots<N - 1>
 {
@@ -102,15 +64,6 @@ private:
 	char m_pad04[SIZE - 4];
 };
 #include "../../Include/Common/Rva00251C24Iface.h"
-class Rva00251C24 : public Rva00251C24Primary<12, 0x0C>, public Rva00251C24Iface
-{
-public:
-	void forward();
-};
-void Rva00251C24::forward()
-{
-	target();
-}
 class Rva004BC51B : public Rva00251C24Primary<13, 0x10>, public Rva00251C24Iface
 {
 public:
@@ -307,3 +260,25 @@ void Rva004469D1Receiver::rva0044446D(bool flag)
 	}
 }
 
+
+// 0x00251C11 and 0x00251C24: SpecialPowerModule's overrides of BehaviorModuleInterface (its +0x0C base)
+// slots 43 and 44, table VA 0x00BEFCF8 (installed by ??0SpecialPowerModule 0x00493C5A). Slot 43 hands its
+// float to the +0x10 SpecialPowerModuleInterface's startPowerRecharge (slot 15); slot 44 calls the primary
+// table's slot 12, rva00493805.
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../Include/GameLogic/Module/SpecialPowerModule.h"
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
+{
+public:
+	virtual void rva00493805();			// primary slot 12
+	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43
+	virtual void slot44();				// BehaviorModuleInterface slot 44
+};
+void SpecialPowerModule::slot43(float readyFraction)
+{
+	startPowerRecharge(readyFraction);
+}
+void SpecialPowerModule::slot44()
+{
+	rva00493805();
+}
