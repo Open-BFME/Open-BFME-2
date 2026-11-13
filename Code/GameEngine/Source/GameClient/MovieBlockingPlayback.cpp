@@ -10,7 +10,7 @@
 #include "ascii_string.h"
 #include "../Common/GameLogicObjectLookupView.h"
 // Retail's timer frequency at 0x00DFE9E0 is one object, owned by Rva0025D489Ctor.cpp, which Display's ctor fills through QueryPerformanceFrequency.
-struct DisplayCriticalSection { __int64 frequency; char data[16]; };
+#include "../../Include/Common/DisplayCriticalSection.h"
 extern DisplayCriticalSection g_00DFE9E0;
 #define g_bfmeVM0Total g_00DFE9E0.frequency
 extern void*ApplicationHWnd;extern double g_bfmeVM0Scale;
