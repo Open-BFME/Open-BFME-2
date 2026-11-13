@@ -53,7 +53,7 @@ public:
 
 	char m_pad000[0x90];
 	Rva003B0D7C m_money; // +0x90
-	char m_pad094[0x280 - 0x94];
+	char m_pad094[0x280 - 0x9C];
 	Color m_color; // +0x280
 	char m_pad284[0x3BC - 0x284];
 	Rva0039B7AD m_3BC; // +0x3BC

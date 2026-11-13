@@ -528,7 +528,7 @@ private:
 	PlayerType m_playerType; // +0x5C
 	unsigned char m_pad060[0x90 - 0x60];
 	Rva003B0D7C m_money; // +0x90
-	unsigned char m_pad091[0x2E4 - 0x91];
+	unsigned char m_pad091[0x2E4 - 0x9C];
 	ResourceGatheringManager *m_resourceGatheringManager; // +0x2E4
 	unsigned char m_pad2E8[0x2EC - 0x2E8];
 	Team *m_defaultTeam; // +0x2EC

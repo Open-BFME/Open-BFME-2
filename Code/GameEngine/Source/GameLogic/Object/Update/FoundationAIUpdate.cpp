@@ -114,7 +114,7 @@ public:
 private:
 	unsigned char m_pad000[0x90];
 	Rva003B0D7C m_money; // +0x90
-	unsigned char m_pad091[0x2EC - 0x91];
+	unsigned char m_pad091[0x2EC - 0x9C];
 	Team *m_defaultTeam; // +0x2EC
 	unsigned char m_pad2F0[0x3BC - 0x2F0];
 	Rva0039B795 m_stats; // +0x3BC

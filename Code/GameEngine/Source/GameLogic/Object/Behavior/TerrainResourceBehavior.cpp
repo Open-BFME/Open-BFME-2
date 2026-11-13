@@ -322,7 +322,7 @@ public:
 	TerrainResourcePlayerData *getData() const { return m_data; }
 	char unknown038[0x90 - 0x38];
 	Rva003B0D7C m_money;							// +0x90
-	char unknown091[0x280 - 0x91];
+	char unknown091[0x280 - 0x9C];
 	Color m_color;									// +0x280
 	char unknown284[0x3BC - 0x284];
 	char m_stats[4];								// +0x3BC

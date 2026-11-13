@@ -84,7 +84,7 @@ class Player {
     Rva00380200 skill;
     char pad09[0x90 - 9];
     Rva003B0D7C money;
-    char pad91[0x2ec - 0x91];
+    char pad9c[0x2ec - 0x9c]; // Rva003B0D7C (Money) is 12 bytes, +0x90..+0x9B
     Team *defaultTeam;
     char pad2f0[0x3bc - 0x2f0];
     ScoreKeeper score;

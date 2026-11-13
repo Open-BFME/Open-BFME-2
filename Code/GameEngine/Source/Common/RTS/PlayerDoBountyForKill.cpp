@@ -50,7 +50,7 @@ public:
 	int m_5C;			// +0x5C (1 a computer player)
 	char m_pad060[0x90 - 0x60];
 	Rva003B0D7C m_money;		// +0x90
-	char m_pad094[0x314 - 0x94];
+	char m_pad094[0x314 - 0x9C];
  float m_cashBountyPercent;
  char m_pad318[0x3BC - 0x318];
 	Rva0039B7AD m_3BC;		// +0x3BC

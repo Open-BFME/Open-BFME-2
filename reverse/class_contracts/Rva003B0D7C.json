@@ -1,6 +1,8 @@
 {
- "bases": [],
- "bases_by": "majority",
+ "bases": [
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
  "class": "Rva003B0D7C",
  "evidence": {
   "bases_overruled": null,
@@ -17,9 +19,9 @@
   "view_errors": 0,
   "view_sizes": {
    "1": 16,
+   "12": 8,
    "4": 6,
-   "8": 8,
-   "12": 8
+   "8": 8
   },
   "views": 38,
   "witness_offsets": [],
@@ -36,6 +38,34 @@
    "size": 4,
    "type": "void*",
    "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_val04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_val08",
+   "name_by": "neutral",
+   "offset": 8,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 0,
    "witness": null
   }
  ],
@@ -74,24 +104,25 @@
    "views": 5
   }
  ],
- "queue": [
-  {
-   "attribute": "size",
-   "candidates": {
-    "1": 16,
-    "4": 6,
-    "8": 8,
-    "12": 8
-   },
-   "class": "Rva003B0D7C"
-  }
- ],
- "size": 4,
- "size_by": "tie",
+ "queue": [],
+ "size": 12,
+ "size_by": "retail-ctor",
  "vslots": {
   "0": {
    "decided_by": "bytes",
    "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "loadPostProcess()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "GetSnapshotName()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
   }
  }
 }

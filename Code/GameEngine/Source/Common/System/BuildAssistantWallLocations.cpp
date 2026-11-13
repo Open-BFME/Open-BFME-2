@@ -349,10 +349,7 @@ class Rva0039B795;
 class Money : public Rva003B0D7C
 {
 public:
-UnsignedInt countMoney()const{return m_money;}
-private:
-unsigned char m_pad0[4];
-UnsignedInt m_money;
+UnsignedInt countMoney() const { return m_val04; } // the canonical base's +4 word
 };
 #include "../../../Include/Common/ScoreKeeperClass.h"
 class Player
@@ -378,7 +375,7 @@ unsigned char m_pad058[0x60 - 0x58];
 Rva002A7461 m_rva060;
 unsigned char m_pad061[0x90 - 0x61];
 Money m_money;
-unsigned char m_pad098[0x280 - 0x98];
+unsigned char m_pad098[0x280 - 0x9C];
 Color m_color;
 unsigned char m_pad284[0x2EC - 0x284];
 Team*m_defaultTeam;
