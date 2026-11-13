@@ -78,12 +78,7 @@ public:
 
 #include "../../../Include/Common/StateMachineClass.h"
 
-class Rva00343F8A
-{
-public:
-	char m_pad00[0x18];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/GameLogic/Rva00343F8A.h"
 
 bool rva003430A3(Object*,Object*,Weapon*);
 

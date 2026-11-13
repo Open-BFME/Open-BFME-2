@@ -18,12 +18,7 @@ enum CommandSourceType { COMMAND_SOURCE_0 = 0 };
 #include "../Object/object.h"
 
 #include "../../../Include/Common/StateMachineClass.h"
-class Rva00343F8A
-{
-public:
-	char m_pad00[0x18];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/GameLogic/Rva00343F8A.h"
 bool rva00343DD8(void *state, void *arg);
 bool rva0033FD98(Rva00343F8A *st, void *arg);
 
