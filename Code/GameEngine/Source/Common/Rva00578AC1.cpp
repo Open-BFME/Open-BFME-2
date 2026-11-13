@@ -519,11 +519,7 @@ void StrategicHUD::Palantir::rva005785A2(void *selection)
 
 // The region UI and region stats tray have empty updates, which fold onto
 // the shared empty body 0x000B3FD0.
-class Rva000B3FD0Nop
-{
-public:
-	void noop();
-};
+#include "../../Include/Common/Rva000B3FD0Nop.h"
 
 // Retail 0x005785CD, 41 bytes. Name unknown. The Palantir's per-frame
 // update, reached from the HUD's (0x0042D577): updates the command UI, the

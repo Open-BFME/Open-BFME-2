@@ -86,11 +86,7 @@ class Object;
 #include "../../../Include/GameClient/Rva005D49CD.h"
 
 // The empty update folded onto the shared empty body 0x000B3FD0.
-class Rva000B3FD0Nop
-{
-public:
-	void noop();
-};
+#include "../../../Include/Common/Rva000B3FD0Nop.h"
 
 // The checklist's items: an STLport list of pointers (sentinel node at
 // +0x30, data at node +8), each item updating its +8 member through the

@@ -114,7 +114,7 @@ TreeHintRef00217D4C Rva00567960::rva0056786B() {
 // every tenth client frame; retail accesses its counter at +F8 (WB +FC).
 // The opening update is the established empty-hook receiver view, not a
 // claim that this member is one of the unrelated destructors folded there.
-class Rva000B3FD0Nop {public:void noop();};
+#include "../../../../../Include/Common/Rva000B3FD0Nop.h"
 class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
 class Rva005C7C75 {public:void rva005C7C75(int);};
 class Rva005C7C5D {public:void rva005C7C65(bool);};

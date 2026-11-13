@@ -937,7 +937,7 @@ unsigned char Rva005E687F::get() const
 // Two retail tables store this member (file offsets8744A4 and877260).
 // Existing opaque empty-body pin supplies the no-argument thiscall ABI;
 // the original owner and the empty operation's purpose remain unknown.
-class Rva000B3FD0Nop { public: void noop(); };
+#include "../../Include/Common/Rva000B3FD0Nop.h"
 class Rva005E6884
 {
 public:

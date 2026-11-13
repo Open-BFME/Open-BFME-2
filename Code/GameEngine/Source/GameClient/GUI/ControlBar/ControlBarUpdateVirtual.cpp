@@ -40,7 +40,7 @@ class Rva0031FA8E { public: void rva0031FA8E(); };
 class Rva002D36D8 { public: int rva002D36D8(); };
 #include <vector>
 #include "../../../../Include/Common/Rva000AD6F4.h"
-class Rva000B3FD0Nop { public: void noop(); };
+#include "../../../../Include/Common/Rva000B3FD0Nop.h"
 class BfmeMemberRV;
 #include "../../../../Include/GameClient/BfmeThingRV.h"
 void *GadgetButtonGetData(GameWindow *);

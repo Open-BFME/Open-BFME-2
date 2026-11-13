@@ -2,7 +2,7 @@
 // Native [005CD2D0,005CD2EF),31B, RET0. The known shared empty
 // member ABI then reset5CCB5B precede a ground placement of record20->point1C
 // through receiver10. Both neutral call names are existing pins.
-class Rva000B3FD0Nop { public:void noop(); };
+#include "../../../Include/Common/Rva000B3FD0Nop.h"
 #include "../../../Include/Common/Rva005CCB5B.h"
 #include "../../../Include/Common/Rva002BF6A7.h"
 struct Rva005CD2D0Record { char pad[0x1c];int point; };

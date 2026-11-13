@@ -192,11 +192,7 @@ private:
 #include "../../Include/Common/InGameHelpBoxMovieClip.h"
 // The stats display and the new-turn indicator have empty updates, which
 // fold onto the shared empty body 0x000B3FD0.
-class Rva000B3FD0Nop
-{
-public:
-	void noop();
-};
+#include "../../Include/Common/Rva000B3FD0Nop.h"
 #include <new>
 // StrategicHUD::FormatBonusText retail 0x00579900 149B,
 // StrategicHUD::FormatCommandPointsText 0x00579868 152B and
