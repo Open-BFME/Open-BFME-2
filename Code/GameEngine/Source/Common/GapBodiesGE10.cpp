@@ -50,11 +50,7 @@ private:
 // 0x005DB004.
 #include "../../Include/Common/Rva005DB004.h"
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B28F(bool value);							// 0x0039B28F
-};
+#include "../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 void Rva005DB004::rva005DB033()
 {

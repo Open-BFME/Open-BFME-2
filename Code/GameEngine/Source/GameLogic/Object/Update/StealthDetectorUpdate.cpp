@@ -84,11 +84,7 @@ private:
 // --- 0x005DB033 (18B): the rowed 0x0039B28F with 0, then the rowed
 // 0x005DB004.
 #include "../../../../Include/Common/Rva005DB004.h"
-class Rva003BD306Target
-{
-public:
-	void rva0039B28F(bool value);							// 0x0039B28F
-};
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 // --- 0x005E95B9 (48B): when TheLivingWorldLogic passes the rowed check, its
 // 0x002B256E object takes the +0x08 object's +0x08 matrix (rowed 0x003F8361).
 class LivingWorldLogic;

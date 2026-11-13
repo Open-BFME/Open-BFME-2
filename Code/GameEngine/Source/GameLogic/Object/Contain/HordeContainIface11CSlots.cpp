@@ -353,11 +353,7 @@ float Sin(float x);
 float Cos(float x);
 // The tracker's 0x0039B3D1 entry, under the owner name its pin (read from
 // ScriptActions::rva003BC93C) already carries.
-class Rva003BD306Target
-{
-public:
-	void rva0039B3D1(float value, bool flag);	// 0x0039B3D1
-};
+#include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 // Object +0x264: the experience tracker; +0x10 is the value slots 30 and 49
 // record per template.
 #include "../../../../Include/GameLogic/ExperienceTracker.h"

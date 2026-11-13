@@ -5896,11 +5896,7 @@ public:
 	int rva000B49A1(void) const;
 };
 
-class Rva003BD306Target
-{
-public:
-	void rva0039B3D1(float level, bool flag);
-};
+#include "../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
 #include "../../../Include/GameLogic/Module/Rva0039B20C.h"
 
