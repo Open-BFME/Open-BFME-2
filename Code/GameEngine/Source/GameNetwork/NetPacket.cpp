@@ -105,11 +105,7 @@ public:
 };
 // The +0x1C AsciiString getter is rowed as CDDrive::getPath (retail folds the
 // same-offset getters); it is called qualified, as the tree's other callers do.
-class CDDrive
-{
-public:
-	virtual AsciiString getPath();
-};
+#include "../../Include/Common/CDDrive.h"
 // GameMessage, as addGameCommand and its room check read it: the type at
 // +0x10, the argument count byte at +0x18 and the rowed argument queries.
 enum GameMessageArgumentDataType

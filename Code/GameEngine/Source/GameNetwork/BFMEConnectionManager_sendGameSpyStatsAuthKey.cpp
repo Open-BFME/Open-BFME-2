@@ -40,11 +40,7 @@ inline void NetCommandMsg::setID(unsigned short id)
 }
 
 // The folded +0x1C AsciiString getter at 0x002D9BA6.
-class CDDrive
-{
-public:
-	virtual AsciiString getPath();
-};
+#include "../../Include/Common/CDDrive.h"
 
 // The request's +0x1C AsciiString setter 0x004D65F9, shared by the reply.
 class Rva004D64F5 : public NetCommandMsg

@@ -28,11 +28,7 @@ typedef float Real;
 #include "../../../GameEngine/Include/Common/AudioEventRTSClass.h"
 
 
-class CDDrive
-{
-public:
-	virtual AsciiString getPath();
-};
+#include "../../../GameEngine/Include/Common/CDDrive.h"
 
 #include "../../../GameEngine/Include/GameNetwork/Rva002D9BC1AsciiField.h"
 

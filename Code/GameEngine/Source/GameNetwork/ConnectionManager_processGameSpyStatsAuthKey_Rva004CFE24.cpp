@@ -31,11 +31,7 @@ public:
 #include "../../Include/GameNetwork/Rva002D9BC1AsciiField.h"
 
 // Retail folds the +0x1C getter with CDDrive::getPath (0x002D9BA6).
-class CDDrive
-{
-public:
-	virtual AsciiString getPath();
-};
+#include "../../Include/Common/CDDrive.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/StagingRoomGameInfo.h
 #include "../../Include/GameNetwork/GameSpyStagingRoom.h"
