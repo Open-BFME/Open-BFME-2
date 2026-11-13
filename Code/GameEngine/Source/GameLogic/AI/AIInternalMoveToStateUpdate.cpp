@@ -145,7 +145,7 @@ typedef unsigned int UnsignedInt;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond; // LOGICFRAMES_PER_SECOND
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
-#define FLT_MAX 3.402823466e+38F
+#include <float.h>
 Real normalizeAngle(Real angle);
 // The two .data tunables AIInternalMoveToState::update reads for AI state
 // 0x47: a repath-delay scale (10) and a repath distance (200.0).
@@ -457,14 +457,18 @@ struct FprintfTarget
 {
 	char m_pad[4];
 };
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game's _fprintf thunk through REL32, so read <stdio.h>
+// without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
 		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
-			fprintf(log, text);
+			fprintf((FILE *)log, text);
 	}
 }
 
