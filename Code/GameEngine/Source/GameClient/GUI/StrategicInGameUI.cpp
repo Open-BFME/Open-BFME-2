@@ -271,13 +271,7 @@ struct Rva005E509FCallView {
     char m_unmodelled00[0x10];
     void *m_pointer10;
 };
-class Rva005E508F
-{
-public:
-	void rva005E509F();
-	void rva005E508F(int);
-	void rva005E5097(int);
-};
+#include "../../../Include/Common/Rva005E508F.h"
 #include "../../../Include/GameLogic/PathfindLayer.h"
 class Rva005E6894 {
 public:

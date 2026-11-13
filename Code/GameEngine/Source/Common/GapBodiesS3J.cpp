@@ -45,11 +45,7 @@ void Rva005CFAD3::rva005CFAD3(int, int value, int)
 
 // --- 0x005E5575 (19B): run the +0x08 part's rowed 0x005E509F, then the
 // (folded, empty) base hook.
-class Rva005E508F
-{
-public:
-	void rva005E509F();										// 0x005E509F
-};
+#include "../../Include/Common/Rva005E508F.h"
 
 class Rva005E5575
 {
