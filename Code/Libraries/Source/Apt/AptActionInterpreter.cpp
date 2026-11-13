@@ -339,7 +339,7 @@ class BfmeN1034;
 
 class Rva8D0D80Value;
 
-class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
+#include "Rva006D2A60.h"
 
 class Rva006DB160
 {
