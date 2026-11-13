@@ -1123,11 +1123,7 @@ void HandleUnmarkUnitForUpgradeMessage(const GameMessage *msg)
 // Rva00318C79Owner): NULL when the army stands in no region.
 class Rva00318C32Ret;
 
-class Rva00318C79Owner
-{
-public:
-	Rva00318C32Ret *rva00318C32();				// 0x00318C32
-};
+#include "../../../../Include/GameLogic/Rva00318C79Owner.h"
 
 // HandleMarkUnitForUpgradeMessage, retail 0x002B6F57 (169 bytes): WB's
 // handler in LivingWorldLogic.cpp: argument 0 names an army standing in a
