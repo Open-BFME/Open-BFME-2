@@ -185,6 +185,8 @@ public:
 	virtual UpdateSleepTime update();
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x0045A3C8
+protected:
+	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
 };
 
 
@@ -411,3 +413,10 @@ void AutoAbilityBehavior::rva0045A6FE(void *src)
 // tu-skeleton: 0x0078A3FF 8B Unwind@00b8a3ff -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A407 10B __ehhandler$?update@AutoAbilityBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorUpdate.cpp (not merged yet)
+
+// ?loadPostProcess@AutoAbilityBehavior@@MAEXXZ: retail primary vftable 0x00C4175C slot 1,
+// the UpdateModule base call every module family folds into 0x00497805.
+void AutoAbilityBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
