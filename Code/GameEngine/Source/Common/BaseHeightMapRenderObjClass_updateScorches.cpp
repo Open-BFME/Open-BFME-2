@@ -24,15 +24,7 @@ typedef unsigned int UnsignedInt;
 extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 #include "wwmath.h"
-struct VertexFormatXYZDUV1
-
-{
- Real x, y, z;
- UnsignedInt diffuse;
- Real u1, v1;
- 
-}
-;
+#include "../../Include/Common/VertexFormatXYZDUV1.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

@@ -454,15 +454,7 @@ __declspec(dllimport) __forceinline unsigned int DX8Wrapper::Convert_Color(const
 	}
 
 // upstream layout: dx8fvf.h VertexFormatXYZDUV1 (24 bytes).
-struct VertexFormatXYZDUV1
-{
-	float x;
-	float y;
-	float z;
-	unsigned diffuse;
-	float u1;
-	float v1;
-};
+#include "../../../../GameEngine/Include/Common/VertexFormatXYZDUV1.h"
 
 // Zero Hour's DX8VertexBufferClass::Copy for XYZDUV1, dx8vertexbuffer.cpp:
 // same lock dance as the XYZNDUV1 form, fanning loc/uv/diffuse out.

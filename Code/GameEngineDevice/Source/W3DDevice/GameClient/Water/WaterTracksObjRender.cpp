@@ -23,7 +23,7 @@ typedef bool Bool;
 #include "rinfo.h"
 #include "d3d8.h"
 class FVFInfoClass { char unknown00[8]; unsigned fvf; int size; public: int Get_FVF_Size() const { return size; } };
-struct VertexFormatXYZDUV1 { float x,y,z; unsigned diffuse; float u1,v1; };
+#include "../../../../../GameEngine/Include/Common/VertexFormatXYZDUV1.h"
 
 // BFME DX8VertexBufferClass keeps fvf_info at +0x14 (ZH layout hint) but its
 // D3D buffer sits at +0x1c, four bytes past ZH's; this body reads only those.

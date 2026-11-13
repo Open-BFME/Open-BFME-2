@@ -35,12 +35,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-struct VertexFormatXYZDUV1
-{
-	Real x, y, z;
-	UnsignedInt diffuse;
-	Real u1, v1;
-};
+#include "../../../../GameEngine/Include/Common/VertexFormatXYZDUV1.h"
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 
