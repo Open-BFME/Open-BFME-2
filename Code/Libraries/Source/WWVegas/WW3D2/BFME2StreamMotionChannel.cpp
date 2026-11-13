@@ -23,7 +23,7 @@
 class ChunkLoadClass;
 #include "../WWMath/Vector3Data.h"
 
-class Quaternion { public: float X, Y, Z, W; };
+#include "../../../../GameEngine/Include/Common/Quaternion.h"
 
 void BFME2_Nlerp(Quaternion &res, const Quaternion &p, const Quaternion &q, float alpha);
 

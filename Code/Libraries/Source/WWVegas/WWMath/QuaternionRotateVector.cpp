@@ -7,13 +7,7 @@
 // quat.cpp's operator* (0x0015F5E0); same expansion, each component stored in turn.
 #include "Vector3Data.h"
 
-class Quaternion
-{
-public:
-	Vector3 Rotate_Vector(const Vector3 &v) const;
-	void Rotate_Vector(const Vector3 &v, Vector3 *result) const;
-	float X, Y, Z, W;
-};
+#include "../../../../GameEngine/Include/Common/Quaternion.h"
 
 // Select-any like the header copies other TUs emit (a strong definition would
 // duplicate theirs at link time: HTreeClassFirstCapturedBone.cpp emits the

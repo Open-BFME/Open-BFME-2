@@ -4,7 +4,7 @@
 // Timecode search and quaternion slot of the BFME 2 encoding-0 motion channel (WorldBuilder twin:
 // MotionChannelTimeCoded.cpp). Layout from the factory/ctor units: Count +0xC, Components +0x10,
 // TimeCodes +0x14, Samples +0x18. Retail inlines both searches into the slots and emits them standalone.
-class Quaternion { public: float X, Y, Z, W; };
+#include "../../../../GameEngine/Include/Common/Quaternion.h"
 #include "../WWMath/Vector3Data.h"
 #include <new>
 

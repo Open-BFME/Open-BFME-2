@@ -4,14 +4,7 @@
 // src2 with t then copy tmp to dst else copy src1 to dst. Evidence: int at +0
 // 0 STEP 1 LINE 2 CATM like Rva005C706AWrite; Slerp row
 // ?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z; 10 stack args ret 0x28; caller 0x0053FED5.
-class Quaternion
-{
-public:
-	float x;
-	float y;
-	float z;
-	float w;
-};
+#include "../../Include/Common/Quaternion.h"
 
 void __cdecl Slerp(Quaternion &result, const Quaternion &a, const Quaternion &b, float t);
 
