@@ -535,11 +535,7 @@ public:
 	void *rva005533BC(const void *key);
 };
 
-struct Rva005538BAIterator
-{
-	Rva005538BAIterator(void *node) : m_node(node) {}
-	void *m_node;
-};
+#include "../../../Include/Common/Rva005538BAIterator.h"
 
 class Rva005538BA
 {
