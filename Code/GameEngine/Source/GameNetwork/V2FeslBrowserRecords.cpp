@@ -79,13 +79,7 @@ public:
 	char m_pad[ 0x1C ];
 };
 
-struct Rva00802DF0Source
-{
-	int m_field0;
-	char m_pad004[ 8 ];
-	char m_name[ 0x80 ];
-	char m_text[ 1 ];
-};
+#include "../../Include/GameNetwork/Rva00802DF0Source.h"
 
 class Rva00802DF0Owner
 {

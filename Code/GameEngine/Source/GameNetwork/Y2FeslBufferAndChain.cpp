@@ -179,13 +179,7 @@ void __stdcall Rva008014F0ResetHpState( Rva008022A0Owner *owner )
 // --------------------------------------------- 0x00802DF0, a two-field fill
 // Two char arrays 0x80 apart in the source record are appended into two
 // buffers; the dword the record starts with lands at +0x08.
-struct Rva00802DF0Source
-{
-	int  m_field0;
-	char m_pad004[ 8 ];
-	char m_name[ 0x80 ];        // +0x0C
-	char m_text[ 1 ];           // +0x8C
-};
+#include "../../Include/GameNetwork/Rva00802DF0Source.h"
 
 class Rva00802DF0Owner
 {
