@@ -32,11 +32,7 @@ class Rva00086D73
 public:
 	void rva00086D73();
 };
-class Rva00086E24
-{
-public:
-	void rva00086E24();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00086E24.h"
 class Rva00086EBD
 {
 public:

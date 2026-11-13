@@ -15,11 +15,7 @@ typedef float Real;
 extern Int TheW3DFrameLengthInMsec;
 
 #include "../../../../GameEngine/Include/Common/ParabolicEase.h"
-class Rva00086E24
-{
-public:
-	void rva00086E24();
-};
+#include "../../../Include/W3DDevice/GameClient/Rva00086E24.h"
 class Rva00086EBD
 {
 public:
