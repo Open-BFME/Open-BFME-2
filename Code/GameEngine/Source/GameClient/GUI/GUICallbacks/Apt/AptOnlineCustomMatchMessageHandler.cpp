@@ -289,13 +289,7 @@ public:
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 // The screen's owner at +0x58 keeps its Apt movie at +0x274.
-struct AptOnlineCustomMatchOwner
-{
-	unsigned char m_pad000[0x274];
-	void *m_movie; // +0x274
-	unsigned char m_pad278[0x2B0 - 0x278];
-	int m_2b0; // +0x2B0, nonzero while its pending reset (0x005170CD) is due
-};
+#include "../../../../../Include/GameClient/AptOnlineCustomMatchOwner.h"
 
 // The screen's game-mode preferences (GameModePreferences.cpp; vslot 3 is
 // write, as in AptLanLobby).

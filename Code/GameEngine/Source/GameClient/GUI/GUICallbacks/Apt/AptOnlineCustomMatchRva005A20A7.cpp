@@ -189,11 +189,7 @@ public:
 	virtual void *deleteInstance(int flags);
 };
 
-struct AptOnlineCustomMatchOwner
-{
-	unsigned char m_pad000[0x274];
-	void *m_movie; // +0x274
-};
+#include "../../../../../Include/GameClient/AptOnlineCustomMatchOwner.h"
 
 class CustomMatchScreen
 {

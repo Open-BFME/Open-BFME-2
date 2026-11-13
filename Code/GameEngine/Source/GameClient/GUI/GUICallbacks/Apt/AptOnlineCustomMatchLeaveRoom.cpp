@@ -101,11 +101,7 @@ struct PeerRequest
 #include "../../../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
-struct AptOnlineCustomMatchOwner
-{
-	unsigned char m_pad000[0x274];
-	void *m_movie; // +0x274
-};
+#include "../../../../../Include/GameClient/AptOnlineCustomMatchOwner.h"
 
 class AptOnline
 {

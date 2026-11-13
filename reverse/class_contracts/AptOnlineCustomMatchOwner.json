@@ -1,0 +1,101 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AptOnlineCustomMatchOwner",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "632": 4,
+   "688": 1,
+   "692": 3
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_movie",
+   "name_by": "majority",
+   "offset": 628,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchJoinGame.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 632,
+ "size_by": "majority",
+ "vslots": {}
+}
