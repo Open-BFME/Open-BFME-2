@@ -130,7 +130,7 @@ template<class T> AptRef<T> &AptRef<T>::operator=(const AptRef &other) {
 // canonical strings, the parameter/index words and flag byte at +0x24.
 class Rva00223CDB {public: int rva00223CDB(const AsciiString *);};
 class Rva00222F0A {public: int rva00222F0A();};
-class Rva002235F3 {public: void *rva002235F3(const void *);};
+#include "../../../Include/Common/Rva002235F3.h"
 class Rva00062908Host {public:
  struct Slot {
   void rva00222647(int,const AsciiString &,const AsciiString &,int);

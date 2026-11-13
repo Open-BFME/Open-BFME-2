@@ -42,7 +42,7 @@ struct BoolSlotPair {
 #include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 class Rva00059FBBMap { public: AudioEventInfo *&rva00059FBB(const AsciiString &); };
 #include "../../../../GameEngine/Include/Common/Rva001FDE3F.h"
-class Rva002235F3 { public: void *rva002235F3(const void *); };
+#include "../../../../GameEngine/Include/Common/Rva002235F3.h"
 class Rva002AE4C5 { public: int &rva002AE4C5(const AsciiString *); };
 class Rva002CFEA5 { public: void *rva002CFEA5(const AsciiString *); };
 class Rva002ADD31 { public: void *rva002ADD31(const void *); };

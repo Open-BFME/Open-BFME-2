@@ -43,14 +43,7 @@ struct Rva001408C0Target
 
 typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>, _STL::allocator<Rva001408C0Target *> > PtrSet001408C0;
 
-class Rva002235F3
-{
-private:
-	char m_opaque[0x14];
-
-public:
-	void *rva002235F3(const void *key);
-};
+#include "../../Include/Common/Rva002235F3.h"
 
 class Rva002239B2
 {
