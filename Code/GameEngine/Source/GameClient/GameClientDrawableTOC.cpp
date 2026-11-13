@@ -348,7 +348,7 @@ public:
 };
 
 struct RayEffectData;
-class Rva0023ABDD { public: void rva0023ABDD(); };
+#include "../../Include/Common/Rva0023ABDD.h"
 class GameClient : public SubsystemInterface, public Snapshot
 {
 public:

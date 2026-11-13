@@ -338,11 +338,7 @@ public:
 	void rva0023AB78(AsciiString s, unsigned short v);
 };
 
-class Rva0023ABDD
-{
-public:
-	void rva0023ABDD();
-};
+#include "../../Include/Common/Rva0023ABDD.h"
 
 class GameClient : public SubsystemInterface, public Snapshot
 {
