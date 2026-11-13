@@ -47,6 +47,15 @@ class SandboxAppdata(unittest.TestCase):
             bs.prepare_sandbox_profile(d, real=r"C:\nowhere")
             self.assertEqual((prof / "Options.ini").read_text(), "StaticGameLOD = High\n")
 
+    def test_an_empty_or_unparsable_options_is_reseeded(self):
+        """2026-11-13: a full disk left Options.ini at 0 bytes; an existing but unusable file must be reseeded."""
+        with tempfile.TemporaryDirectory() as d:
+            prof = bs.prepare_sandbox_profile(Path(d) / "sandbox", real=Path(d) / "real")
+            for broken in ("", "\n\n", "\x00\x00\x00\x00", "StaticGameLOD = High\ngarbage line\n"):
+                (prof / "Options.ini").write_text(broken, encoding="latin-1")
+                bs.prepare_sandbox_profile(Path(d) / "sandbox", real=Path(d) / "real")
+                self.assertEqual((prof / "Options.ini").read_text(), bs.SANDBOX_OPTIONS, repr(broken))
+
     def test_seeded_options_skip_the_first_start_benchmark(self):
         keys = dict(line.split(" = ") for line in bs.SANDBOX_OPTIONS.splitlines())
         self.assertIn("IdealStaticGameLOD", keys)                  # its absence triggers the benchmark

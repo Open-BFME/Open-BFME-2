@@ -409,6 +409,19 @@ Resolution = 1024 768
 StaticGameLOD = Low
 TimesInGame = 1
 """
+# One `key = value` per non-blank line, the only shape the game writes. 2026-11-13: a full disk left the sandbox
+# Options.ini at 0 bytes; it still existed, so it was never reseeded, and every run started without options
+# (retail exited 666, images faulted) until the file was removed by hand.
+OPTIONS_LINE = re.compile(r"\s*[^=\s][^=]*=.*")
+
+
+def options_usable(path):
+    """An Options.ini the game can read: present, non-empty, and every non-blank line `key = value`."""
+    try:
+        lines = [line for line in path.read_text(encoding="latin-1").splitlines() if line.strip()]
+    except OSError:
+        return False
+    return bool(lines) and all(OPTIONS_LINE.fullmatch(line) for line in lines)
 
 
 class RedirectError(RuntimeError):
@@ -494,11 +507,11 @@ def check_sandbox_appdata(appdata, real=None):
 
 
 def prepare_sandbox_profile(appdata, real=None):
-    """Check the sandbox root, create its profile and seed Options.ini (only if
-    missing). Returns the sandbox profile directory."""
+    """Check the sandbox root, create its profile and seed Options.ini (when missing, empty or unparsable; a
+    usable one is kept). Returns the sandbox profile directory."""
     prof = check_sandbox_appdata(appdata, real) / PROFILE_LEAF
     prof.mkdir(parents=True, exist_ok=True)
-    if not (prof / "Options.ini").exists():
+    if not options_usable(prof / "Options.ini"):
         (prof / "Options.ini").write_text(SANDBOX_OPTIONS)
     return prof
 
