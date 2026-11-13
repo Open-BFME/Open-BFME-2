@@ -17,11 +17,7 @@ public:
 	int getDesiredGatherers();
 };
 
-class Rva00271C68
-{
-public:
-	void rva00271C68(int value);
-};
+#include "../../../Include/Common/Rva00271C68.h"
 
 #include "../../../Include/GameLogic/DOTManager.h"
 

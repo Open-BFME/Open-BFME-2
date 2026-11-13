@@ -17,11 +17,7 @@ class Drawable;
 
 extern GameLogic *TheGameLogic;
 
-class Rva00271C68
-{
-public:
-	void rva00271C79(int value);
-};
+#include "../../Include/Common/Rva00271C68.h"
 
 class Drawable : public Rva00271C68
 {
