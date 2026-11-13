@@ -52,13 +52,7 @@ private:
 	_STL::map<AsciiString, AsciiString> m_map;
 };
 
-class Rva004E35D5
-{
-public:
-	void rva004E35D5(const AsciiString &key, Int a, bool b);
-private:
-	_STL::map<AsciiString, AsciiString> m_map;
-};
+#include "../../Include/Common/Rva004E35D5.h"
 
 class Rva004E35FF
 {
