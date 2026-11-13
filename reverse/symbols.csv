@@ -1589,7 +1589,6 @@ name,address,notes
 ??0Rva005CF4A8Helper@@QAE@PAURva005CF22CBig@@H@Z,0x005CF4A8,in-place constructor of the F78 throwing-new helper 0x005CF703 over (member, arg); name unknown
 ??0Rva005D3731@@QAE@HABVAsciiString@@@Z,0x005D36D1,unrowed 96B ctor (Ghidra FUN_009d36d1; ret 8) storing level at +0 and copying the path to +4; the rowed owner reset 0x00578701 deletes it through the rowed ??1Rva005D3731 0x005D3731; REL32 read at _OnRegionUILoaded 0x005788FD; address-named class
 ??0Rva005D4DA9@@QAE@HABVAsciiString@@@Z,0x005D4DA9,unrowed 93B thiscall constructor (Ghidra FUN_009d4da9); REL32 read at the WOTR panel's _OnScrollBarLoaded 0x0057B55B on the 0x18-byte block new'd there with (level and AsciiString name) pushed; address name
-??0Rva005D5095Base@@QAE@H@Z,0x005D5095,pinned base constructor forwarding target of the F24 single-base ctor 0x005D50C4; name unknown
 ??0Rva005DCBE3@@QAE@ABVAsciiString@@H@Z,0x005DCBC7,tactic base ctor taking the tactic name and a kind (SimpleExpansion base); REL32 at 0x005AAA08
 ??0Rva005DCC24@@QAE@ABVAsciiString@@@Z,0x005DCC0A,tactic base ctor taking the tactic name (RoamingDefense/StartWoTRBattle/RingHero bases); REL32 at 0x005AABF1
 ??0Rva005E16DA@@QAE@ABVAsciiString@@@Z,0x005E16DA,retail REL32 at 0x007B49D8/0x007B50BF/0x007B510C in three __xc_a initializers that pass the address of a temporary AsciiString; the body forwards that one stack argument to base 0x00221635 pinned with the same const AsciiString & signature; same body rowed as ??0Rva005E16DA@@QAE@H@Z

@@ -6194,3 +6194,4 @@ __ehhandler$??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX
 ?rva005AFD89@Rva005AFE86@@UAEXHPBURva005AFD89Param@@@Z,0x005AFD89,"Renamed to ?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z by tools/rename.py (fold: retail vftable 0x00C728B8)"
 __ehhandler$??0Rva005AFE86@@QAE@PAX@Z,0x0079EDBA,"Renamed to __ehhandler$??0Rva005AFE3F@@QAE@PAX@Z by tools/rename.py (fold: retail vftable 0x00C728B8)"
 ?rva005AFCEC@Rva005AFCEC@@QAEXH@Z,0x005AFCEC,"Renamed to ?rva005AFCEC@Rva005AFE3F@@UAEXH@Z by tools/rename.py (to-class: retail vftable 0x00C728B8 slot 1)"
+??0Rva005D5095Base@@QAE@H@Z,0x005D5095,"Renamed to ??0Rva005D50D8@@QAE@H@Z by tools/rename.py (fold: retail vftable 0x00C75AC4)"

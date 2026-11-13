@@ -67,19 +67,19 @@ public:
 	int m_20;
 };
 
-// ??0Rva005D5095Base@@QAE@H@Z retail 0x005D5095 24B (the pinned base of the
+// ??0Rva005D50D8@@QAE@H@Z retail 0x005D5095 24B (the pinned base of the
 // two constructors below): forwards its int to 0x005AFE86 and stamps vtable
 // 0x00875AC4, the one ??1Rva005D50D8 restores.
-class Rva005D5095Base : public Rva005AFE3F
+class Rva005D50D8 : public Rva005AFE3F
 {
 public:
-	Rva005D5095Base(int a);
-	virtual ~Rva005D5095Base();
+	Rva005D50D8(int a);
+	virtual ~Rva005D50D8();
 	virtual bool vslot04(const UnicodeString &text, GameWindow *window);
 	virtual bool vslot06() = 0;
 };
 
-Rva005D5095Base::Rva005D5095Base(int a) : Rva005AFE3F((void *)a)
+Rva005D50D8::Rva005D50D8(int a) : Rva005AFE3F((void *)a)
 {
 }
 
@@ -96,24 +96,24 @@ Rva005AF9EF::Rva005AF9EF() : Rva005AFE3F((void *)1)
 {
 }
 
-class Rva005D50C4 : public Rva005D5095Base
+class Rva005D50C4 : public Rva005D50D8
 {
 public:
 	Rva005D50C4();
 };
 
-Rva005D50C4::Rva005D50C4() : Rva005D5095Base(1)
+Rva005D50C4::Rva005D50C4() : Rva005D50D8(1)
 {
 }
 
 // ??0Rva005D50E3@@QAE@XZ retail 0x005D50E3 20B
-// Evidence: leaf lane; base Rva005D5095Base(0) pin plus vtable 0x00875AFC; caller 0x005AE368; sibling Rva005D50C4 same TU same flags.
-class Rva005D50E3 : public Rva005D5095Base
+// Evidence: leaf lane; base Rva005D50D8(0) pin plus vtable 0x00875AFC; caller 0x005AE368; sibling Rva005D50C4 same TU same flags.
+class Rva005D50E3 : public Rva005D50D8
 {
 public:
 	Rva005D50E3();
 };
 
-Rva005D50E3::Rva005D50E3() : Rva005D5095Base(0)
+Rva005D50E3::Rva005D50E3() : Rva005D50D8(0)
 {
 }
