@@ -33,6 +33,8 @@ protected:
 private:
 	unsigned int m_nextCallFrame;
 	ObjectID m_objectID;
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004AC680
 };
 //
 // ??0DestroyEnvironmentUpdateModuleData@@QAE@XZ, retail 0x004AC615, 20 bytes.
@@ -160,7 +162,7 @@ DestroyEnvironmentUpdate::DestroyEnvironmentUpdate(Thing *thing, const ModuleDat
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x004AC680 6B ?Rva004AC680Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x004AC680 6B ?GetSnapshotName@DestroyEnvironmentUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateXfer.cpp
 

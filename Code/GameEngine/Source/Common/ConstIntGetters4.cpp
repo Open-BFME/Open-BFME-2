@@ -1135,12 +1135,17 @@ int Rva004AC12FGet(void)
 	return (int)"RainOfFireUpdate";
 }
 
-// ?Rva004AC680Get@@YAHXZ @ 0x004ac680 (6B): returns 0x00bf5530.
+// ?GetSnapshotName@DestroyEnvironmentUpdate@@MBEPBDXZ @ 0x004ac680 (6B): returns 0x00bf5530.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva004AC680Get(void)
+class DestroyEnvironmentUpdate
 {
-	return (int)"DestroyEnvironmentUpdate";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *DestroyEnvironmentUpdate::GetSnapshotName() const
+{
+	return "DestroyEnvironmentUpdate";
 }
 
 // ?Rva004AE1A6Get@@YAHXZ @ 0x004ae1a6 (6B): returns 0x00bf52ac.
