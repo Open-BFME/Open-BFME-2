@@ -41,6 +41,8 @@ protected:
 	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 	virtual void upgradeRemovalImplementation() { }
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004B7084
 };
 // ?<ReplaceSelfUpgrade::ReplaceSelfUpgrade> absent-from-retail
 ReplaceSelfUpgrade::ReplaceSelfUpgrade(EmitVtableTag *) : UpgradeModule(0, 0) {}

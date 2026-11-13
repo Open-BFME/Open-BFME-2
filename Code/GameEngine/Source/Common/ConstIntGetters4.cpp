@@ -1160,12 +1160,17 @@ int Rva004B6AB9Get(void)
 	return (int)"GeometryUpgrade";
 }
 
-// ?Rva004B7084Get@@YAHXZ @ 0x004b7084 (6B): returns 0x00bf4c74.
+// ?GetSnapshotName@ReplaceSelfUpgrade@@MBEPBDXZ @ 0x004b7084 (6B): returns 0x00bf4c74.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva004B7084Get(void)
+class ReplaceSelfUpgrade
 {
-	return (int)"ReplaceSelfUpgrade";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *ReplaceSelfUpgrade::GetSnapshotName() const
+{
+	return "ReplaceSelfUpgrade";
 }
 
 // ?Rva004B8C38Get@@YAHXZ @ 0x004b8c38 (6B): returns 0x00bf4aa4.

@@ -241,7 +241,7 @@ enum NameKeyType
 //  - 0x00C58B10 (12 slots): deleting dtor 0x004B70CF, loadPostProcess
 //    0x00497805 (`jmp 0x0058B03E`, the class's UpgradeModule base call, ICF-folded),
 //    the name getter 0x004B7084 (rowed as the free-function scaffold
-//    ?Rva004B7084Get@@YAHXZ, so slot 2 stays UpgradeModule's), xfer 0x004B6FF7,
+//    ?GetSnapshotName@ReplaceSelfUpgrade@@MBEPBDXZ, so slot 2 stays UpgradeModule's), xfer 0x004B6FF7,
 //    getModuleNameKey 0x004B708A, then UpgradeModule's slots.
 //  - 0x00C58AC8 (UpgradeMux, 18 slots): UpgradeModule's except slot 2,
 //    wouldUpgrade 0x004B7110, slot 8, upgradeRemovalImplementation, the shared
@@ -285,6 +285,8 @@ protected:
 	virtual void loadPostProcess();										// primary slot 1
 	virtual void xfer(Xfer *xfer);											// primary slot 3
 	virtual void upgradeRemovalImplementation() { }						// UpgradeMux slot 8
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004B7084
 };
 
 // Primary slot 1 of 0x00C58B10, retail 0x00497805 (`jmp 0x0058B03E`): the UpgradeModule base
@@ -502,7 +504,7 @@ ReplaceSelfUpgrade::ReplaceSelfUpgrade(Thing *thing, const ModuleData *moduleDat
 {
 }
 
-// tu-skeleton: 0x004B7084 6B ?Rva004B7084Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x004B7084 6B ?GetSnapshotName@ReplaceSelfUpgrade@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004B70EB 5B ??1ReplaceSelfUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeDtor.cpp (not merged yet)
 
