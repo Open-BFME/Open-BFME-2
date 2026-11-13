@@ -3564,7 +3564,7 @@ void *Pathfinder::rva001E3647Pos(int layer, const Coord3D *pos)
 	return cell;
 }
 struct PathfinderPatchLimitView { char pad[0x120C]; unsigned int maxCells; };
-struct Rva002F5925Info {Pathfinder *pathfinder;char data4[16];bool center,human;char pad16[2];int radius;Object*object;PathfindCell*goal;int ignoreID;ICoord2D previous;int range;int cellCallback(PathfindCell*,PathfindCell*,int,int);};
+#include "../../../Include/Common/Rva002F5925Info.h"
 extern unsigned PathfinderSearchCellsVisited;
 __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2D *startCell, 
 	const ICoord2D *destinationCell, PathfindLayerEnum layer, 

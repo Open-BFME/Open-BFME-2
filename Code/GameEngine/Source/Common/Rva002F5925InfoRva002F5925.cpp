@@ -129,22 +129,7 @@ public:
  char pad0[0x24];int loX,loY,hiX,hiY;char pad34[4];bool tunneling;
  char pad39[0x460-0x39];PathfindZoneManager zones;
 };
-struct Rva002F5925Info
-{
-public:
-	int cellCallback(PathfindCell*,PathfindCell*,int,int);
-	Pathfinder *pathfinder; // +0x00
-	char data4[16]; // +0x04
-	bool center; // +0x14
-	bool human; // +0x15
-	char m_pad16[0x2];
-	int radius; // +0x18
-	Object *object; // +0x1C
-	PathfindCell *goal; // +0x20
-	int ignoreID; // +0x24
-	ICoord2D previous; // +0x28
-	int range; // +0x30
-};
+#include "../../Include/Common/Rva002F5925Info.h"
 int Rva002F5925Info::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
 {
  if(PathfinderSearchCellsVisited>TheWritableGlobalData->m_maxCellsToExamineTowardsGoal)return 1;
