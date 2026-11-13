@@ -1,0 +1,176 @@
+{
+  "base": "49aa290f08a9d722a6fb0aebd2086dfe3bc36292",
+  "status": "Blocked before writes by a foreign consumer file claim; no fold applied",
+  "old": "Rva0044ECCE",
+  "new": "SpecialAbilityUpdateModuleData",
+  "retail_table_va": "0x00C3F2A8",
+  "prepared_sources": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 4,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/TailJumpWrappers5B_~Rva002563CE.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPower.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponFireSpecialAbilityUpdateModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 4,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 4,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp",
+      "old_definition": false,
+      "code_mentions": 0,
+      "existing_new_definition": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataDtor.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp",
+      "old_definition": true,
+      "code_mentions": 3,
+      "existing_new_definition": false
+    }
+  ],
+  "extra_prepared_source": "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp",
+  "prepared_sha256": {
+    "Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp": "2e6f9edd641458824db2687e6fadc7cbb907951d44686d4f538cdbd86dc76300",
+    "Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp": "983ac064dc55f4d872f950a7961b02824cad5753ee331a06986b237897a28ef9",
+    "Code/GameEngine/Source/Common/TailJumpWrappers5B_~Rva002563CE.cpp": "c2ccd917dbc095e28963290f4eace4806ce493314690b6bb40f2dc22e3f9c188",
+    "Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp": "23ad88b0b3fd058660a62f79c376faa7badb5c7c9287a04cdb98d0bec5b853ba",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataDtor.cpp": "26c75751668c255f26d3d2c8302b02025b99f908f3c6bb0b6bd96f15783c105c",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataDtor.cpp": "460d4d8db005d202e6bad627f4ada0e64979a9646d4e859b6e28dbc1e54071df",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/GiveOrRestoreUpgradeSpecialPower.cpp": "05aef04743c90861bb863c472b917a620fbdbc53eb368b4b254a7f718602fbe9",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataDtor.cpp": "135eabfb9a2e9e73319288afd27cd859034397ff61342da1b8bd9d4cbd3bab2f",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponFireSpecialAbilityUpdateModuleDataDtor.cpp": "c073bcce2778acc4d50e10a250919d13005c44820cbd20f72e68ad64a2cda6de",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataDtor.cpp": "68bf68fbdc3bd3ec9a114e2c5297428f172c0408c2ce2f24d9b2c03e67aa1401",
+    "Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp": "3b37ab8804a4b76968eb6bc4e6fb0d45f8e5b684daa4c6991f56cf5fceae3d26",
+    "Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateModuleDataDtor.cpp": "b4d6b770c4691e951a6f614d731d7e2b3724134707c81541ff244708748ec772",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp": "b6a2332091c24d2a189da8f31acb298d4e2db79b4045f8f8bfa028d2c0b99c7f",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateModuleDataDtor.cpp": "059d98c29cf50dc8a454d9dacde427a1d5bc07346f6380ab41778e7db2663640",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp": "977e26fa658854d6d42e565aef0f271eb00a22dfa215bb404c8086d7dcba05fa",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp": "0760c3ad13e56875b5538c29730a3d5ec6f757ece82a03de44db5087b3a77c74",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp": "d09f177d239285fd51b154cb6147e4b77c719f2d7d666aff5843841dd1f4b2be",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataDtor.cpp": "1cd718b2b2bab2a6d53a8e51d392d7b786bb67fc3455c798e0a07e432f670f31",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp": "6ab09d87bcf3bd1e012e64b9fe919daeceb48f3ed635059940a80b67a94a11d4",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp": "93551ffb179dcdda99ae3449066f5bd3d62d576b49d2638c85d18629a0fbd69d",
+    "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp": "5477b3a29f2e46aaa4fe99e3f3a7f4663264f42730f91d6b52d60b3d2bee3490"
+  },
+  "foreign_claims": [
+    {
+      "source": "Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp",
+      "key": "file/106f564bbed9c3c9",
+      "claim": {
+        "created": 1794602389,
+        "expires": 1794616789,
+        "host": "fleet",
+        "lease": "6e63c26878e34a8b8278a0904000744d",
+        "nonce": "0f031c45aa224be0a72449aad9c325cd",
+        "note": "header_adopt_lane apply Rva0035A1D8",
+        "owner": "StarkillerHDX@fleet",
+        "run": "",
+        "scope": "Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp",
+        "since": 1794602389
+      },
+      "ours": false
+    }
+  ],
+  "before_edit_inspection": "All21 sources: find_declared_unmatched passes",
+  "dry_run": "Accepted21prepared sources and3native destructor-family row renames before the source-review correction below",
+  "source_review_correction": "GiveUpgradeUpdate's sole getGiveUpgradeUpdateModuleData()->m_38 becomes (int)getGiveUpgradeUpdateModuleData()->m_specialPowerTemplate, preserving the existing int call-view ABI; corrected candidate has not been compiled",
+  "runtime_claim": "None: no fold, source move, queue retirement or measured bridge retirement"
+}

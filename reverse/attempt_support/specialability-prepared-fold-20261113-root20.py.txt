@@ -1,0 +1,51 @@
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path.cwd() / "tools"))
+import header_adopt_lane as lane
+import rename
+import tu_views
+
+out = Path("build/root-specialability-lifetime/fold")
+out.mkdir(exist_ok=True)
+ctx = rename.Context()
+old, new = "Rva0044ECCE", "SpecialAbilityUpdateModuleData"
+header = Path("Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h")
+prepared, inventory = {}, []
+for rel in ctx.grep_files(old):
+    data = ctx.read(rel)
+    if data is None or not rename.class_token_re(old).search(data.decode("utf-8", errors="surrogateescape")):
+        continue
+    assert rel.endswith(".cpp"), rel
+    text = data.decode("latin-1")
+    code = lane.masked(text)
+    span = tu_views.class_span(text, old)
+    include = os.path.relpath(header, Path(rel).parent).replace("\\", "/")
+    if span:
+        candidate = text[:span[0]] + '#include "' + include + '"\n' + text[span[1]:]
+    else:
+        candidate = text
+    candidate = rename.class_token_re(old).sub(new, candidate)
+    if rel.endswith("/GiveUpgradeUpdate.cpp"):
+        access = "getGiveUpgradeUpdateModuleData()->m_38"
+        assert candidate.count(access) == 1
+        candidate = candidate.replace(access, "(int)getGiveUpgradeUpdateModuleData()->m_specialPowerTemplate")
+    if rel.endswith("/Rva0044ECCEDtor.cpp"):
+        candidate = Path("build/root-specialability-lifetime/Rva0044ECCEDtor-prepared.cpp").read_text(encoding="latin-1")
+    path = out / (rel.replace("/", "_") + ".txt")
+    path.write_bytes(candidate.encode("latin-1"))
+    prepared[rel] = path.as_posix()
+    inventory.append({"source": rel, "old_definition": bool(span),
+                      "code_mentions": len(re.findall(r"\b" + old + r"\b", code)),
+                      "existing_new_definition": bool(tu_views.class_span(text, new))})
+
+ctor = "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp"
+prepared[ctor] = "build/root-specialability-lifetime/SpecialAbilityUpdateModuleData-prepared.cpp"
+manifest = {"prepared": prepared, "inventory": inventory}
+Path("build/root-specialability-lifetime/fold-manifest.json").write_bytes((json.dumps(manifest, indent=2) + "\n").encode())
+print("Prepared", len(prepared), "source paths")
+for item in inventory:
+    print(item)

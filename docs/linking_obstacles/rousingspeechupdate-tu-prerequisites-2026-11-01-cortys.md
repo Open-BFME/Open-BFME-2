@@ -43,6 +43,14 @@ initialization group. Both source-restoring owner candidates are C8 and pass
 Rousing source moves remain pending; no table/queue retirement claimed.
 [Native lifetime proof and next transaction](../../reverse/attempt_support/specialability-native-lifetimes-20261113-root20.md).
 
+The subsequent supported prepared fold accepts all 21 source paths in its dry
+run but refuses application before writes: `TailJumpWrappers5B.cpp` is held by
+`StarkillerHDX@fleet` for Rva0035A1D8 adoption. The lifetime header is banked at
+`49aa290f08a`; no source/ledger identity changed. The preserved preparation and
+distinct plain-class/implicit-destructor hypothesis still need normal native
+verification after that consumer is claimable.
+[Held scope and exact next steps](../../reverse/attempt_support/specialability-prepared-fold-20261113-root20.md).
+
 2026-11-04: Canonical list adoption clears the seed and behavior-destructor header prerequisites (26 strict-exact rows; ordinary preview preserves 1,241 bytes); four-donor merge remains blocked on the other class/special-member conflicts. [Repair and remaining prerequisites](../../reverse/attempt_support/rousing-speech-canonical-list-20261104-codex3/readme.md).
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default
