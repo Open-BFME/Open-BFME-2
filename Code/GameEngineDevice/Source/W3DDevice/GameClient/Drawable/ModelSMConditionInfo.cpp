@@ -24,7 +24,7 @@ struct AssetList00208F90 {AssetList00208F90& operator<<(const AsciiString&);};
 
 bool Render_Obj_Exists(const char*);
 
-class Rva000B2D4D {public:void rva000B2D4D(int,int);};
+#include "../../../../../GameEngine/Include/Common/Rva000B2D4D.h"
 
 #include "../../../../../GameEngine/Include/Common/Rva001E11F8.h"
 

@@ -11,7 +11,7 @@ template<class T> struct StringInlineData{int m_refCount,m_length;T m_text[1];};
 struct AsciiStringPlusString{const AsciiString*m_left,*m_right;operator AsciiString();};
 class AssetList{public:AssetList&operator<<(const AsciiString&);};
 #include "../../../../../GameEngine/Include/Common/Rva001E11F8.h"
-class Rva000B2D4D{public:void rva000B2D4D(int,int);};
+#include "../../../../../GameEngine/Include/Common/Rva000B2D4D.h"
 struct TransitionModel40{AsciiString*begin,*end;char tail[0x38];};
 struct TransitionFx18{char pad[0x14];Rva001E11F8*value;};
 struct TransitionNode{TransitionNode*next,*prev;char value[0x14];};
