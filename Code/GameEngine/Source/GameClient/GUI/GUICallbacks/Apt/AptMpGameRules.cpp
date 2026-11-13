@@ -18,12 +18,7 @@ bool GadgetCheckBoxIsChecked(GameWindow *window);
 template<class T> struct RuleVectorView { T *m_begin; T *m_end; T *m_capacity; T &operator[](unsigned int i) {T *begin=m_begin; return begin[i];} unsigned int size() const {return m_end-m_begin;} };
 // Rowed 0x00559FAC in Common/RTS/MpGameRules.cpp: resets rules at +0x8C
 // for the mode at +0x60; existing cdecl caller ABI.
-class MpGameRules
-{
-public:
-	static void GetDefaults(int mode, void *rules);
-	static UnicodeString GetRuleString(int rule);
-};
+#include "../../../../../Include/Common/MpGameRules.h"
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an
 // object and an eight-byte multiple-inheritance member pointer, and the

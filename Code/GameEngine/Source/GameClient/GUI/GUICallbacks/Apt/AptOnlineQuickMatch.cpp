@@ -893,7 +893,7 @@ typedef void (QuickMatchFunctorTarget::*QuickMatchInitGadgets)(const char *, voi
 
 class Rva004FDD36AsciiField{public:void setClan(AsciiString);};
 
-class MpGameRules { public: static void GetDefaults(int,void*); };
+#include "../../../../../Include/Common/MpGameRules.h"
 
 class Rva005A734B{public:char storage[0x974];Rva005A734B();};
 

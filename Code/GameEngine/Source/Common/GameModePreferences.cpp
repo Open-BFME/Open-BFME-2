@@ -216,7 +216,7 @@ AsciiString QuotedPrintableToAsciiString(AsciiString original);
 // Evidence: makeKey 0x0044D512; map find 0x001F8437; pin 0x00559FAC;
 // parse 0x00559F11; empty 0x007BAC1C; callers 0x004468A0 0x005A232B;
 // prev 0x0044DAA8 next 0x0044DBA5.
-class MpGameRules { public: static void GetDefaults(int mode, void *store); };
+#include "../../Include/Common/MpGameRules.h"
 
 void __cdecl Rva00559F11Parse(const char *s, int *out);
 
