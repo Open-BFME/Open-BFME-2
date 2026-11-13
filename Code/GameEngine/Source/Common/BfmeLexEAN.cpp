@@ -55,11 +55,7 @@ public:
 	int m_bfmeStackEAN[0x61];
 };
 
-class Rva005423F0
-{
-public:
-	char *rva005423F0(char *text);				// 0x005423F0, skip whitespace
-};
+#include "../../Include/Common/Rva005423F0.h"
 
 class Rva0054273B
 {

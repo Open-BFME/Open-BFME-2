@@ -69,7 +69,7 @@ char *Rva00542425Caller(char *text)
 // clobbered byte saved at +0x20/+0x24, and the depth at +0x04 moves by one.
 // Any malformed input returns bfmeFailEAN(-1). Retail bytes and call sites.
 class BfmeLexEAN {public:int bfmeFailEAN(int);int bfmeScanEAN();};
-class Rva005423F0 {public:char *rva005423F0(char *);};
+#include "../../Include/Common/Rva005423F0.h"
 struct Rva005424C4Attribute {char name[33];char value[64];};
 class XmlNameSlotList {
 public:
