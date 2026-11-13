@@ -475,11 +475,7 @@ private:
 	char m_pad04[SIZE - 4];
 };
 
-class Rva00251C24Iface
-{
-public:
-	virtual void forward() = 0;
-};
+#include "../../../../Include/Common/Rva00251C24Iface.h"
 
 class Rva00466E0A : public Rva00251C24Primary<28, 0x34>, public Rva00251C24Iface
 {
