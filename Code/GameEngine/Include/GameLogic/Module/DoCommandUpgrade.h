@@ -40,6 +40,8 @@ protected:
 	virtual ~DoCommandUpgrade();
 	virtual void loadPostProcess();											// primary slot 1
 	virtual void xfer( Xfer *xfer );										// primary slot 3
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004B4BC1
 };
 
 #endif // __BFME2_DOCOMMANDUPGRADE_H_

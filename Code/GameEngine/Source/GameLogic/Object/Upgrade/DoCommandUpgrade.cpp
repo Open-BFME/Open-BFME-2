@@ -96,7 +96,7 @@ void DoCommandUpgrade::xfer(Xfer *xfer)
 	UpgradeModule::xfer(xfer);
 }
 
-// tu-skeleton: 0x004B4BC1 6B ?name@DoCommandUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x004B4BC1 6B ?GetSnapshotName@DoCommandUpgrade@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // tu-skeleton: 0x004B4C0C 34B ?buildFieldParse@DoCommandUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataGetterBuildFieldParse.cpp (not merged yet)
 
