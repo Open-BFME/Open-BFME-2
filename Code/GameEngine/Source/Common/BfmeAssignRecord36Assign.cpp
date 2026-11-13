@@ -31,15 +31,7 @@ private:
 	Header *m_data;
 };
 
-class Rva00151288
-{
-public:
-	void rva00151288(const char *path);
-
-private:
-	char m_pad00[8];
-	StringBase<char> m_str08;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Rva00151288.h"
 
 struct BfmeAssignRecord36
 {
