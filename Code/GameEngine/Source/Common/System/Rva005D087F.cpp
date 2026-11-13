@@ -10,11 +10,7 @@
 // Its 25-byte extent excludes the interior return label.
 #include "unicode_string.h"
 
-class Rva005D0507
-{
-public:
-	int rva005D0507();
-};
+#include "../../../Include/Common/Rva005D0507.h"
 
 class Rva005D061E
 {

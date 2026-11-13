@@ -735,11 +735,7 @@ public:
 	bool rva0002CB98(const AsciiString &a) const;
 };
 
-class Rva005D0507
-{
-public:
-	int rva005D0507();
-};
+#include "../../../Include/Common/Rva005D0507.h"
 
 #include "../../../Include/Common/Rva0002C9C2.h"
 
