@@ -27,7 +27,7 @@ class Rva00373CAAFloatChaseField {public:float get()const;};
 struct DirectionTemplateView {char pad00[0x40];float m_turnThresholdHS;char pad44[0x70-0x44];Int mode70;char pad74[0x84-0x74];float m_maxTurnWithoutReform;char pad88[0xD8-0x88];Int m_canMoveBackwards;};
 struct DirectionEntryView {void *word0;DirectionTemplateView *settings;};
 #include "../../../Include/GameLogic/PathNode.h"
-class Rva00363BC7 {public:void *rva00363BC7(Coord2D *,float *);};
+#include "../../../Include/Common/Rva00363BC7.h"
 #include "../../../Include/Common/DirectionOptions.h"
 void FreePooledNode(void *);
 #include "../../../Include/GameLogic/PathfindPath.h"

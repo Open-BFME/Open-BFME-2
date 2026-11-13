@@ -9,11 +9,7 @@
 
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 
-class Rva00363BC7
-{
-public:
-	void *rva00363BC7(Coord2D *out, float *outLen);
-};
+#include "../../Include/Common/Rva00363BC7.h"
 
 class Rva001E3557
 {
