@@ -24272,3 +24272,7 @@ Code/GameEngine/Source/GameNetwork/NetCommandMsgContents.cpp|function|0x004D5B4C
 Code/GameEngine/Source/GameNetwork/NetCommandMsgContents.cpp|function|0x004D5B4C|rva004D5B4C,1a533dcfb68017b439c1e032,devin-swe-2-high,vote-b-netcmd-20261109,w-a5c07c0368e8,2026-11-09
 Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613,4c0e94b7abbaeb205e802235,gpt-6.1-sol,root20-derived-slot-names-a,w-d1ed67a6c7bd,2026-11-13
 Code/GameEngine/Source/Common/Rva0056B613Forward.cpp|function|0x0056B613|rva0056B613,4c0e94b7abbaeb205e802235,gpt-6.1-sol,root20-derived-slot-names-b,w-8f1611e41339,2026-11-13
+Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp|global|unrowed:f814f22185fb03531b5d41577866269731c1c0f411e50bec18958c839feaabe1|unrowedData,f3eee48a354b4fb68053e0ec,claude-sonnet-5-5,fx-blind-claude2b,w-acf018d4b4d9,2026-11-13
+Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp|global|unrowed:e1f703195d2f3ca395b7a1e2680011306324ec7079f853f4fec7f5fd736f6eaf|unrowedData,5a1a96f4dca366139f63ebe2,claude-sonnet-5-5,fx-blind-claude2b,w-acf018d4b4d9,2026-11-13
+Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp|global|unrowed:f814f22185fb03531b5d41577866269731c1c0f411e50bec18958c839feaabe1|unrowedData,0046090b5ee9f02a4176817b,claude-opus-5-5,fx-blind-claude1b,w-a0d27a5d48b1,2026-11-13
+Code/GameEngine/Source/GameClient/Rva0055C8BCCtor.cpp|global|unrowed:e1f703195d2f3ca395b7a1e2680011306324ec7079f853f4fec7f5fd736f6eaf|unrowedData,2692011e7a4f6981cea2262d,claude-opus-5-5,fx-blind-claude1b,w-a0d27a5d48b1,2026-11-13
