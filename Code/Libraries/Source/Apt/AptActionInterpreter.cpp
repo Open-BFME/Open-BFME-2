@@ -520,7 +520,7 @@ public:
     Rva006D6470Owner(int,int);
 };
 
-class Rva0070A5C0 { public: BfmeN1034 *rva0070A5C0(int); };
+#include "Rva0070A5C0.h"
 
 class Rva0070DFF0 { public: void rva0070DFF0(Rva8D0D80Value *, unsigned char); };
 
