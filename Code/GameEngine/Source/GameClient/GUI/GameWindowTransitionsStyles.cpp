@@ -394,11 +394,7 @@ class DisplayString;
 #include "../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 class WinInstanceData;
-class Rva00314046LeaField
-{
-public:
-	void *get() const;
-};
+#include "../../../Include/Common/Rva00314046LeaField.h"
 UnicodeString __cdecl GadgetStaticTextGetText(GameWindow *window);
 void __cdecl GadgetStaticTextSetText(GameWindow *win, UnicodeString text);
 class CountUpTransition
