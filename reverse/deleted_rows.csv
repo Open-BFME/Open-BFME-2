@@ -6206,3 +6206,4 @@ __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"R
 ?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,0x00104DE6,"Renamed to ?setFont@Rva00104DB0@@UAEXPBURva00104DE6Font@@@Z by tools/rename.py (to-class: retail vftable 0x00BCF800 slot 4)"
 ?name@BezierProjectileBehavior@@QBEPBDXZ,0x0045BFD3,"Renamed to ?GetSnapshotName@BezierProjectileBehavior@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C41E04 slot 2)"
 ?name@PickupStuffUpdate@@QBEPBDXZ,0x00491DEC,"Renamed to ?GetSnapshotName@PickupStuffUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4DDA8 slot 2)"
+?name@ArmorUpgrade@@QBEPBDXZ,0x004B341D,"Renamed to ?GetSnapshotName@ArmorUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C570A0 slot 2)"

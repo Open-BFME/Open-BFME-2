@@ -146,6 +146,8 @@ protected:
 	virtual void xfer(Xfer *xfer);
 	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();
+protected:
+	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004B341D
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgrade.cpp
@@ -185,7 +187,7 @@ NameKeyType ArmorUpgrade::getModuleNameKey() const
 	return TheArmorUpgradePoolKey;
 }
 
-// tu-skeleton: 0x004B341D 6B ?name@ArmorUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// tu-skeleton: 0x004B341D 6B ?GetSnapshotName@ArmorUpgrade@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgradeUpgradeImplementation.cpp
 

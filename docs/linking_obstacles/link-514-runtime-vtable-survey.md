@@ -3537,6 +3537,7 @@ Base: 3,324 bridged, 31 refused, 2,225 already correct.
   3,322; refusals identical; 2,226 -> 2,227 correct). link_check PickupStuffUpdate.cpp 831 -> 836 B,
   ModuleNameGetters3.cpp 605 B, BattlePlanUpdate.cpp 2,621 B, all LINK (checked together: the census index
   predates the getter move, so alone the unit reads ModuleNameGetters3's old object).
+- "Move ?name@ArmorUpgrade@@QBEPBDXZ into ArmorUpgrade as ?GetSnapshotName@ArmorUpgrade@@MBEPBDXZ": 0x00C570A0 off the bridge (3,322 -> 3,321; refusals identical; 2,227 -> 2,228 correct). link_check: ModuleNameGetters3.cpp 605 B and ArmorUpgrade.cpp 575 B LINK before and after.
 
 **Recipe and limits.** Prepare the getter unit (`BFME_LITERAL_NAME_GETTER(C, ...)` ->
 `BFME_SNAPSHOT_NAME_GETTER(C, ...)`) and every installer unit whose view compiles C's table (a protected
