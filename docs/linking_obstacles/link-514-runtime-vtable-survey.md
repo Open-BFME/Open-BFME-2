@@ -2,6 +2,24 @@
 Status: Open (partly repaired). Updated: 2026-11-08 (lk67 shape survey and twins at 49e50f8ba4; lk64 pass at d171e84869; lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
+**Rva0056B188 prerequisite review (2026-11-13, `b9047f2d164`):** Blocked;
+the +14 observer table needs overrides56B1F2/56AA22, and the +8 table needs
+56AA32/56AA54/50BD7C. The first four targets are unique native table entries;
+the last is a shared true-leaf fold. Registered callback prototypes disagree
+with existing row signatures (pointer/word, int/bool and free stdcall/member),
+and the existing owning signature planners refuse the first alignment.
+Both current emitters remain unchanged and pass16/16. No table/queue retirement
+or whole-link clearance claimed. [Native slots, reproduced refusals and coherent
+cohort handoff](../../reverse/attempt_support/b188-listener-override-prerequisites-20261113-root20.md).
+
+**Xfer queued cohort reinspection (2026-11-13, `dd783b916de`):** the four
+remaining units still have the recorded XferLoad/Xfer deleting-lifetime and
+block-method identities, or the writer's unrelated stream prototype. No
+adoption trial was repeated, no source changed and no row retired. Preserve the
+[identity prerequisites](../../reverse/attempt_support/xfer-identity-prerequisites-20261030/)
+and [lifetime-emission evidence](../../reverse/attempt_support/xfer-header-blockers-20261028-codex.md)
+before preparing a coherent owning transaction.
+
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
 private view gives a short table, a wrong slot, or `__purecall` where retail has a body. link.exe keeps
 the first COMDAT copy in link order without a word, and the census judges vftables only where a matched

@@ -1,5 +1,14 @@
 ### LINK-006: compiler emission and the selected copy still disagree with retail
 
+- **Unsigned/pointer tree destructor, already-landed repair verified (2026-11-13,
+  inspected `b9047f2d164`):** the served missing tree-base constructor at
+  `stlport_tree_dtor_00357C6A.cpp` was removed by `0e4b2640a11`, after measured
+  commit `bd2310feee1`. Current strict object passes5/5 and references no tree-base
+  constructor; scoped preview retains LINKS99 -> 99 against old index
+  `aa7acf764d`. Source unchanged. Repair landed / awaiting authoritative
+  verification; no census or whole-link gain claimed.
+  [Object proof and measurement boundary](../../reverse/attempt_support/tree-base-current-object-20261113-root20.md).
+
 - **MapMetaData cleanup (2026-11-05):** removing its declaration-only AsciiString destructor override preserves 16/16 rows, EXACT EH and the 320-byte LINKS preview; `repair_queue.py retire identity` clears both keys for `MapMetaDataCopy.cpp`. Deferred waypoint-tree obstacles remain; [evidence and scope](../../reverse/attempt_support/map-metadata-ascii-identity-20261105-codex.md).
 
 - **Buddy status CRT declaration cleanup (2026-10-30, inspected `c790c01553`):**
