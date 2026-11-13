@@ -288,11 +288,7 @@ public:
 	virtual void vslot20();
 	virtual void vslot21(float value, int flag);
 };
-class SpecialDisguiseUpdate
-{
-public:
-	void rva004B05F5(bool disguise);
-};
+#include "../../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 #include "../../../../Include/GameLogic/Module/Rva004CE41ECondition.h"
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
