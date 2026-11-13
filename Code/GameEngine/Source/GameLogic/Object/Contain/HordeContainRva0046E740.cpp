@@ -8,10 +8,7 @@
 // state26C and resets countdown27C on its successful paths; plain RET,
 // no incoming stack arguments. Its semantic name remains unestablished.
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Gen_0028EF10 {
-public:
-    bool rva004B0FA0();
-};
+#include "../../../../Include/GameLogic/Module/Gen_0028EF10.h"
 struct Rva0046E740Definition {
     char unknown00[0x24];
     int count;

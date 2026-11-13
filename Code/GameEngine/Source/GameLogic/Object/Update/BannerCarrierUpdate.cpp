@@ -50,7 +50,7 @@ class UpgradeTemplate;
 #include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 extern GameLogic *TheGameLogic;
-class Gen_0028EF10 { public: bool rva004B0FA0(); };
+#include "../../../../Include/GameLogic/Module/Gen_0028EF10.h"
 template<int N> class BannerSlots : public BannerSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
 template<> class BannerSlots<0> {};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
