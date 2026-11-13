@@ -18,14 +18,7 @@ public:
 	virtual void f1();
 };
 
-class DBaseB2
-{
-public:
-	virtual void f2();
-
-private:
-	char m_pad08[12];
-};
+#include "../../../Include/GameLogic/DBaseB2.h"
 
 struct AICommandParms;
 
