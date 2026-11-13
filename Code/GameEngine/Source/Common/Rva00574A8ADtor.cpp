@@ -20,11 +20,7 @@ public:
 };
 }
 
-class Rva00577010
-{
-public:
-	~Rva00577010();
-};
+#include "../../Include/Common/Rva00577010.h"
 
 class Rva00574A8A
 {

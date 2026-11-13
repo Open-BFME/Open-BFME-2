@@ -38,11 +38,7 @@ void Rva00239300::rva00239300(int a, int b)
 	}
 }
 
-class Rva00577010
-{
-public:
-	~Rva00577010();
-};
+#include "../../Include/Common/Rva00577010.h"
 
 class __declspec(novtable) Rva0042C1B7Item : public Rva00577010
 {

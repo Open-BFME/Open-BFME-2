@@ -77,14 +77,7 @@ public:
 	virtual ~Rva00575383();
 };
 
-class Rva00577010
-{
-public:
-	~Rva00577010();
-
-private:
-	void *m_value;
-};
+#include "../../Include/Common/Rva00577010.h"
 
 class Rva005C6C7B
 {
