@@ -178,12 +178,7 @@ class Rva00567960
 public:
 	Rva00567960(int argument, const struct Rva00567CCDInfo *info);
 };
-struct Rva00567F3D
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva00567F3D(int argument);
-};
+#include "../../Include/Common/Rva00567F3D.h"
 
 RvaF1Handle Rva00567F3D::rva00567F3D(int argument)
 {

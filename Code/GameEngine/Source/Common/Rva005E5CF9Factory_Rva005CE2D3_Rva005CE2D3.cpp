@@ -107,12 +107,7 @@ class Rva00567960
 public:
 	Rva00567960(int argument, const struct Rva00567CCDInfo *info);
 };
-struct Rva00567F3D
-{
-	char m_prefix[8];
-	Rva005E5CF9In m_context;
-	RvaF1Handle rva00567F3D(int argument);
-};
+#include "../../Include/Common/Rva00567F3D.h"
 
 
 // Three more factories of the same family at 0x005E9761, 0x005E97D5 and 0x005E9849 (ret 0xC): two opaque words and
