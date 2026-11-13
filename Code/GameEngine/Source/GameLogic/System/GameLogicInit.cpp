@@ -1799,11 +1799,7 @@ private:
 
 // The second notify argument: the callee picks one of two 0x14-byte asset
 // records at +0x3C4 by its first byte.
-struct AssetLoadMode
-{
-	bool m_alternate;
-	AssetLoadMode() : m_alternate(false) {}
-};
+#include "../../../Include/Common/AssetLoadMode.h"
 
 void bfmeMergeReceiverKeys(int value);
 

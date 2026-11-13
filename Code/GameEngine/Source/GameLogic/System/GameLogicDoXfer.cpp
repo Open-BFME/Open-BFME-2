@@ -108,11 +108,7 @@ private:
 	bool m_changed;
 };
 
-struct AssetLoadMode
-{
-	bool m_alternate;
-	AssetLoadMode() : m_alternate(false) {}
-};
+#include "../../../Include/Common/AssetLoadMode.h"
 
 void bfmeMergeReceiverKeys(int value);
 
