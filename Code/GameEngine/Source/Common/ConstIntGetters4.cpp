@@ -723,12 +723,17 @@ int Rva00460BCDGet(void)
 	return (int)"DynamicPortalBehaviour";
 }
 
-// ?Rva004619A7Get@@YAHXZ @ 0x004619a7 (6B): returns 0x00bf5a90.
+// ?GetSnapshotName@FakePathfindPortalBehaviour@@MBEPBDXZ @ 0x004619a7 (6B): returns 0x00bf5a90.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-int Rva004619A7Get(void)
+class FakePathfindPortalBehaviour
 {
-	return (int)"FakePathfindPortalBehaviour";
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+const char *FakePathfindPortalBehaviour::GetSnapshotName() const
+{
+	return "FakePathfindPortalBehaviour";
 }
 
 // ?Rva004621ACGet@@YAHXZ @ 0x004621ac (6B): returns 0x00bf5824.

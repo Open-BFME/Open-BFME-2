@@ -457,7 +457,7 @@ void FakePathfindPortalBehaviour::rva00461C1F()
 
 // tu-skeleton: 0x004618D4 54B ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004619A7 6B ?Rva004619A7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+// tu-skeleton: 0x004619A7 6B ?GetSnapshotName@FakePathfindPortalBehaviour@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004619F2 84B ??1FakePathfindPortalBehaviour@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 

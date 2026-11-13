@@ -6224,3 +6224,4 @@ __ehhandler$??1Rva005DA7F5@@UAE@XZ,0x007A2A78,"Renamed to __ehhandler$??1AIUpgra
 ?Rva0048E0F4Get@@YAHXZ,0x0048E0F4,"Renamed to ?GetSnapshotName@FloodUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4C948 slot 2)"
 ?Rva004A34C0Get@@YAHXZ,0x004A34C0,"Renamed to ?GetSnapshotName@BroadcastStealthUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C52364 slot 2)"
 ?Rva004AC680Get@@YAHXZ,0x004AC680,"Renamed to ?GetSnapshotName@DestroyEnvironmentUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C54D64 slot 2)"
+?Rva004619A7Get@@YAHXZ,0x004619A7,"Renamed to ?GetSnapshotName@FakePathfindPortalBehaviour@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C42C1C slot 2)"
