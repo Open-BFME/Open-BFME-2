@@ -43,11 +43,7 @@ template <class T, class A> class vector;
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class Rva0018B8B0Holder
-{
-public:
-	void apply(Rva0018B8B0Arg *arg, bool clearFirst);
-};
+#include "../../../Include/GameLogic/Rva0018B8B0Holder.h"
 
 class Rva004D6C9C
 {

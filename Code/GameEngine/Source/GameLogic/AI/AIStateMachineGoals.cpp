@@ -35,11 +35,7 @@ public:
 	void rva004D6D95(Team *fromTeam, Bool clearSquadFirst);
 };
 class Rva0018B8B0Arg;
-class Rva0018B8B0Holder
-{
-public:
-	void apply(Rva0018B8B0Arg *arg, Bool clearSquadFirst);
-};
+#include "../../../Include/GameLogic/Rva0018B8B0Holder.h"
 struct BfmeThingCDF
 {
 	BfmeThingCDF *bfmeGoCDF(BfmeThingCDF *that);
