@@ -32,15 +32,7 @@ class Object;
 
 class Rva0020E90FView;
 
-class Rva0020EAF6View
-{
-public:
-	Rva0020E89C *rva0020EAF6(int index);
-
-private:
-	char m_pad00[8];
-	Rva0020E90FView *m_holder;
-};
+#include "../../../Include/GameLogic/Rva0020EAF6View.h"
 
 struct Rva005D137DKey
 {
