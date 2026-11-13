@@ -1,0 +1,130 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DAptRenderer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "1": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xd4": {
+    "4": 1
+   },
+   "0xd8": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "224": 1
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "stateDirty",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 1,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -338,7 +338,7 @@ b=b*g_aptHostColorBlock0.w+g_aptHostColorBlock1.w;
 return (unsigned(a*255.0f)<<24)|(unsigned(r*255.0f)<<16)|(unsigned(g*255.0f)<<8)|unsigned(b*255.0f);
 }
 
-class W3DAptRenderer {public:void *__fastcall BeginTriangleList(int count);};
+#include "../../../../Include/W3DDevice/GameClient/W3DAptRenderer.h"
 // Native111312 is a whole7B tail wrapper. Unmatched WB979610 independently
 // shows the same ECX receiver and EDX count doubled before BeginTriangleList.
 // The purpose and original wrapper name remain unknown; this unit reuses

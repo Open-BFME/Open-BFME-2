@@ -147,11 +147,7 @@ protected:
 	}
 };
 
-class W3DAptRenderer
-{
-public:
-	void rva00110CFE();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DAptRenderer.h"
 
 class BfmeHub982
 {
