@@ -6,12 +6,7 @@
 // 0x006BF5AB. Returns dest+n.
 #include "ascii_string.h"
 
-struct BfmeCoord60
-{
-	int m_x;
-	int m_y;
-	int m_z;
-};
+#include "../../Include/Common/BfmeCoord60.h"
 
 struct BfmeElem60
 {
