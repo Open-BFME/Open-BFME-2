@@ -1,7 +1,5 @@
-# real link at 89957033708a8cd6b6d1d4b4f2f52b4875da65f8: tools/exit_link.py --blockers
+# real link at cd10b88be822016deb082e0fb795bb1d998f240e: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	2	?$S22@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA
-Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp	1	?cursorTextures@@3PAY0BF@UCursorTextureSlot@@A
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp	1	?cursorTextures@@3PAY0BF@UCursorTextureSlot@@A
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_freeD3DAssets.cpp	1	?cursorTextures@@3PAY0BF@UCursorTextureSlot@@A
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_releaseD3DCursorTextures.cpp	1	?cursorTextures@@3PAY0BF@UCursorTextureSlot@@A
+Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	1	?extraAnchor@SpawnExtraBase@@UAEXXZ
+Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp	1	?extraAnchor@SpawnExtraBase@@UAEXXZ
