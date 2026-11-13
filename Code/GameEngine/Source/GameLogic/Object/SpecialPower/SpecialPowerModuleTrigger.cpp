@@ -149,7 +149,7 @@ public:
 	void rva00318719();
 	void rva00318807(int kind, int *what, void *player, const StringBase<char> *name, int *mask, int value);
 };
-class Rva003186EE { public: void rva003186EE(int a, int b, int c); };
+#include "../../../../Include/Common/Rva003186EE.h"
 
 extern PartitionManager *ThePartitionManager;
 

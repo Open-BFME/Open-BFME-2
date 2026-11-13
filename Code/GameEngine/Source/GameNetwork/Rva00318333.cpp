@@ -60,11 +60,7 @@ private:
 	char m_pad30[0x28];
 	BitFlags<11> m_58;
 };
-class Rva003186EE
-{
-public:
-	void rva003186EE(int a, int b, int c);
-};
+#include "../../Include/Common/Rva003186EE.h"
 #include <string.h>
 #include "../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
