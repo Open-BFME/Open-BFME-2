@@ -4562,7 +4562,7 @@ Code/GameEngine/Source/Common/Rva00564BF6Method.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00565668Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00565898Erase.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0056644EOverflow.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00566695Assign.cpp,no,0,0,2,0,1
+Code/GameEngine/Source/Common/Rva00566695Assign.cpp,no,0,0,1,0,1
 Code/GameEngine/Source/Common/Rva00566AB7.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00566B81EraseRange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00566D7B.cpp,yes,0,0,0,0,0
@@ -6862,7 +6862,7 @@ Code/GameEngine/Source/Common/UpdateRva002BB7D6Farm.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/UpgradeCenter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/UpgradeCenterDestructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/UserPreferences.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp,no,0,0,3,0,2
+Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp,no,0,0,2,0,2
 Code/GameEngine/Source/Common/UserPreferences_LadderPreferences_addRecentLadder.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/V3CloneFactories_Rva003af860.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/V3InlineTwoBaseCopyCtors.cpp,yes,0,0,0,0,0
@@ -7497,7 +7497,7 @@ Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Rva003829E5Init.cpp,yes
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishMapStartSpots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishPositionAdditionalImages.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp,no,0,0,1,0,1
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp,no,0,0,2,0,1
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLGameSetupMenu.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu_GameSpyLoginPreferences_getPasswordForEmail.cpp,yes,0,0,0,0,0
@@ -9622,7 +9622,7 @@ Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyRva004BE67E.cpp,
 Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyApply.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,no,35,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp,yes,0,0,0,0,0
@@ -9989,7 +9989,7 @@ Code/GameEngine/Source/GameLogic/Object/CreateAHeroSlotFind.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/CreateAHeroTextWarmup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/AttackNuggetCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamageFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/CallHelpOnDamageFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/CallHelpOnDamageXfer.cpp,yes,0,0,0,0,0
@@ -12737,7 +12737,7 @@ Code/GameEngine/Source/GameNetwork/GameSpy/MainMenuUtils.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/MainMenuUtils_hasWriteAccess.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences_Unresolved.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsDisconnects.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsGameOptions.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsGroupRoomMapOperator.cpp,yes,0,0,0,0,0
