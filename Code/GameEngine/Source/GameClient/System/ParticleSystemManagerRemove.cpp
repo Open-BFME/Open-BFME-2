@@ -24,7 +24,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 #include "../../../Include/Common/RvaSmartPtr12.h"
-class Rva0004CCFF {public:void *destroyDelete(unsigned);void *ptr,*prev,*next;};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0004CCFF.h"
 struct Rva001F63C9Node {void *next,*prev;Rva0004CCFF handle;};
 class Rva001F63C9List {public:_STL::list<void*>::iterator erase(_STL::list<void*>::iterator);};
 _STL::list<void*>::iterator Rva001F63C9List::erase(_STL::list<void*>::iterator position) {
