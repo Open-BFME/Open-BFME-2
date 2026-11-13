@@ -1,5 +1,7 @@
 // cl: /MD
 // RVA 0x0056A9B5 sets byte at +0x1E to 1 when bytes at +0x1C and +0x1D are both nonzero.
+class Rva0056AC26Owner;
+#include "../../Include/Common/Rva0056AC26.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva0056A9A3LogicView
@@ -11,7 +13,6 @@ struct Rva0056A9A3LogicView
 class Rva0056A9B5
 {
 public:
-	int rva0056A9A3();
 	__declspec(noinline) void rva0056A9B5();
 	void rva0056A9C6();
 	char m_lead[0x14];
@@ -22,8 +23,19 @@ public:
 	unsigned char m_c;
 };
 
-// ?rva0056A9A3@Rva0056A9B5@@QAEHXZ @0x0056A9A3 (18B)
-int Rva0056A9B5::rva0056A9A3()
+// Rva0056AE4A's primary table slot 1 (retail 0x0086D23C, installed by its constructor 0x0056ADF1 and
+// destructor 0x0056AE4A): the logic singleton's +0x100 against this object's +0x14, the first word after
+// the 20-byte Rva0056AC26 base.
+class Rva0056AE4A : public Rva0056AC26
+{
+public:
+	virtual bool ac26Slot1();
+private:
+	unsigned int m_14;
+};
+
+// ?ac26Slot1@Rva0056AE4A@@UAE_NXZ @0x0056A9A3 (18B)
+bool Rva0056AE4A::ac26Slot1()
 {
 	return ((Rva0056A9A3LogicView *)TheLivingWorldLogic)->m_100 >= m_14;
 }

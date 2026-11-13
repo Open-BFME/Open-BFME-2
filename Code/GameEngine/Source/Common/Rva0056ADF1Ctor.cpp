@@ -15,13 +15,13 @@ class Rva0056AC26Owner;
 // word is not a code address or starts another ledger datum).
 extern "C" {
 void __identifier("??_GRva0056AE4A@@UAEPAXI@Z")();
-void __identifier("?rva0056A9A3@Rva0056A9B5@@QAEHXZ")();
+void __identifier("?ac26Slot1@Rva0056AE4A@@UAE_NXZ")();
 void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
 void __identifier("??1BfmeRadarMapPoint@@QAE@XZ")();
 }
 extern "C" const void *const vtbl_00C6D23C[5] = {
 	(const void *)&__identifier("??_GRva0056AE4A@@UAEPAXI@Z"), // slot 0 0x0056AE2E
-	(const void *)&__identifier("?rva0056A9A3@Rva0056A9B5@@QAEHXZ"), // slot 1 0x0056A9A3
+	(const void *)&__identifier("?ac26Slot1@Rva0056AE4A@@UAE_NXZ"), // slot 1 0x0056A9A3
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 2 0x0047A69C
 	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 3 0x000B3FD0
 	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 4 0x000B3FD0
