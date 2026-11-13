@@ -116,11 +116,7 @@ class Rva001F52CC { public: void rva001F52CC(Vec2001F52CC *out); };
 
 #include "../../Include/Common/RvaSmartPtr12.h"
 
-class Rva001F6C54SmartField
-{
-public:
-	RvaSmartPtr12 get() const throw();
-};
+#include "../../Include/Common/Rva001F6C54SmartField.h"
 
 #include "../../Include/GameClient/ParticleSys.h"
 

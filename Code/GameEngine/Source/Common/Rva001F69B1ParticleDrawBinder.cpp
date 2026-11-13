@@ -176,11 +176,7 @@ __forceinline RvaSmartPtr12::~RvaSmartPtr12() throw()
         rva0004CBC0();
 }
 
-class Rva001F6C54SmartField
-{
-public:
-	RvaSmartPtr12 get() const throw();
-};
+#include "../../Include/Common/Rva001F6C54SmartField.h"
 
 class ParticleSystemManager : public Rva001F6C54SmartField
 {
