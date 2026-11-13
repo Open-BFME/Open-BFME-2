@@ -237,17 +237,43 @@ void Rva005AFA0E::rva005AFA0E(Int text, Int selected)
 // 0x005AFCEC (eight tables): the pinned 0x005AFCB4(1) when the argument
 // equals +0x04.
 #include "../../Include/Common/ChatWindowsInGame.h"
-class Rva005AFCEC
+struct Rva005AFD89Param;
+class GameWindow;
+
+// Retail table 0x00C6FFFC: two __purecall slots.
+class Rva005AFE3FBase
 {
 public:
-	void rva005AFCEC(Int a);
-private:
-	Int m_00;
-	Int m_04;
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p) = 0;
+	virtual void rva005AFCEC(int id) = 0;
+	~Rva005AFE3FBase() {}
 };
-void Rva005AFCEC::rva005AFCEC(Int a)
+
+// Retail table 0x00C728B8 (six slots); see Rva005AFE86Ctor.cpp. Slot 1 is
+// this body.
+class Rva005AFE3F : public Rva005AFE3FBase
 {
-	if (a == m_04)
+public:
+	Rva005AFE3F(void *p);
+	virtual void rva005AFD89(int id, const Rva005AFD89Param *p);
+	virtual void rva005AFCEC(int id);
+	virtual ~Rva005AFE3F();
+	virtual bool PopulatePlayerList() = 0;
+	virtual bool vslot04(const UnicodeString &text, GameWindow *window) = 0;
+	virtual void vslot05(const AsciiString &name) {}
+
+	void *m_04;
+	int m_08;
+	GameWindow *m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1C;
+	int m_20;
+};
+void Rva005AFE3F::rva005AFCEC(int id)
+{
+	if (id == (int)m_04)
 		reinterpret_cast<ChatWindowsInGame *>(this)->rva005AFCB4(true);
 }
 

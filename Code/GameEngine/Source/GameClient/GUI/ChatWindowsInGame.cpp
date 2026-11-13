@@ -534,7 +534,7 @@ bool Rva005AFC92::rva005AFD2E()
 	return false;
 }
 
-// tu-skeleton: 0x005AFCEC 19B ?rva005AFCEC@Rva005AFCEC@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
+// tu-skeleton: 0x005AFCEC 19B ?rva005AFCEC@Rva005AFE3F@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005AFD43SetText.cpp
 

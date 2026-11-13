@@ -9,7 +9,7 @@ extern "C" const void *const __identifier("??_7Rva005D583C@@6B@")[];  // vftable
 // word is not a code address or starts another ledger datum).
 extern "C" {
 void __identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z")();
-void __identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z")();
+void __identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z")();
 void __identifier("??_GRva005D583C@@UAEPAXI@Z")();
 void __identifier("?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ")();
 void __identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z")();
@@ -17,7 +17,7 @@ void __identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z")();
 }
 extern "C" const void *const vtbl_00C75B44[6] = {
 	(const void *)&__identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
-	(const void *)&__identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z"), // slot 1 0x005AFCEC
+	(const void *)&__identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z"), // slot 1 0x005AFCEC
 	(const void *)&__identifier("??_GRva005D583C@@UAEPAXI@Z"), // slot 2 0x005D58A8
 	(const void *)&__identifier("?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ"), // slot 3 0x005D6AA4
 	(const void *)&__identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z"), // slot 4 0x005D57EB
@@ -27,7 +27,7 @@ extern "C" const void *const vtbl_00C75B44[6] = {
 // word is not a code address or starts another ledger datum).
 extern "C" {
 void __identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z")();
-void __identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z")();
+void __identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z")();
 void __identifier("??_GRva005D583C@@UAEPAXI@Z")();
 void __identifier("?PopulatePlayerList@ChatWindowsOnlineBuddy@@UAE_NXZ")();
 void __identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z")();
@@ -35,7 +35,7 @@ void __identifier("?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z")();
 }
 extern "C" const void *const vtbl_00C75B5C[6] = {
 	(const void *)&__identifier("?rva005AFD89@Rva005AFE3F@@UAEXHPBURva005AFD89Param@@@Z"), // slot 0 0x005AFD89
-	(const void *)&__identifier("?rva005AFCEC@Rva005AFCEC@@QAEXH@Z"), // slot 1 0x005AFCEC
+	(const void *)&__identifier("?rva005AFCEC@Rva005AFE3F@@UAEXH@Z"), // slot 1 0x005AFCEC
 	(const void *)&__identifier("??_GRva005D583C@@UAEPAXI@Z"), // slot 2 0x005D58A8
 	(const void *)&__identifier("?PopulatePlayerList@ChatWindowsOnlineBuddy@@UAE_NXZ"), // slot 3 0x005D6C94
 	(const void *)&__identifier("?rva005D57EB@Rva005D57EB@@QAE_NABVUnicodeString@@PAVGameWindow@@@Z"), // slot 4 0x005D57EB
