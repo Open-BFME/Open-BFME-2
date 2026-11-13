@@ -44,15 +44,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 struct Rva0021246DInput;
 
-class Rva0021237E
-{
-	char m_pad[0x2CC];
-
-public:
-	void rva0021237E();
-	void rva0021246D(Rva0021246DInput *input);
-	void rva002126BB();
-};
+#include "../../../Include/GameClient/Rva0021237E.h"
 
 void Rva0021237E::rva0021237E()
 {

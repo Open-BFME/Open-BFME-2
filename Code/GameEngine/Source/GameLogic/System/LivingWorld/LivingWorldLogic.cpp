@@ -3546,7 +3546,7 @@ static __forceinline void dispatchChange(int kind,const UnicodeString&title,cons
 class Rva0023D26F {public:void rva0023D26F(bool);};
 class Rva0023D2DD {public:void rva0023D2DD();};
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
-class Rva0021237E {public:void rva0021246D(struct Rva0021246DInput*);};
+#include "../../../../Include/GameClient/Rva0021237E.h"
 struct DispatcherResolver {void*logic;LivingWorldBattle*battle;};
 class DispatcherSpawn {
  public:virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14(int);virtual void s18();virtual void s1c();virtual void s20();virtual void s24(int);virtual void s28(int);

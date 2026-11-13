@@ -12,7 +12,7 @@ class Rva002141D1 { public: void rva002141D1(); };
 class Rva002115EC { public: void rva002115EC(); };
 #include "../../../Include/GameClient/Rva00211589.h"
 #include "../../../Include/GameClient/Rva00213A85.h"
-class Rva0021237E { public: void rva0021237E(); void rva002126BB(); };
+#include "../../../Include/GameClient/Rva0021237E.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class Rva002D3627Host {
