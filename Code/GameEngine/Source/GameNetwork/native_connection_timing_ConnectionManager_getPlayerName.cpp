@@ -141,14 +141,7 @@ private:
 };
 // Retail copies this address as two dwords and aligns its local copy to eight
 // bytes. The storage view expresses that alignment without changing ip/port.
-struct NetPacketAddress
-{
-	union
-	{
-		struct { unsigned int ip; unsigned short port; };
-		unsigned __int64 storage;
-	};
-};
+#include "../../Include/Common/NetPacketAddress.h"
 #pragma pack(push, 1)
 struct TransportMessage
 {

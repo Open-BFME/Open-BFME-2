@@ -241,7 +241,7 @@ void NAT::notifyNATHostSlot() {
 
 extern "C" __declspec(dllimport) int __cdecl sscanf(const char *,const char *,...);
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *,const char *);
-struct NetPacketAddress { unsigned ip;unsigned short port; NetPacketAddress(unsigned i,unsigned short p):ip(i),port(p){} };
+#include "../../Include/Common/NetPacketAddress.h"
 #pragma pack(push,1)
 // Canonical Transport ring witness: same40E stride and field offsets;
 // this local representation accesses the packet storage, not a second class view.

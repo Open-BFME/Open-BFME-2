@@ -61,11 +61,7 @@ enum { MAX_PACKET_SIZE = 0x1DC };
 enum { MAX_MESSAGES = 0x80 };
 extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long netlong);
 UnsignedInt ComputeCRC(const UnsignedByte *data, UnsignedInt length, UnsignedInt crc);
-struct NetPacketAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-};
+#include "../../Include/Common/NetPacketAddress.h"
 struct TransportAddr
 {
 	unsigned int m_ip;
