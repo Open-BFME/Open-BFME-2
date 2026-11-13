@@ -761,13 +761,18 @@ def include_path(name):
 
 def wine_component(directory, part):
     """`directory / part` as the directory spells it: the exact name, else the one entry equal to
-    it without regard to case; None when there is none, or more than one (an ambiguous match is
-    no proof of which file cl read)."""
+    it without regard to ASCII case; None when there is none, or more than one (an ambiguous
+    match is no proof of which file cl read). Only ASCII names are matched that way: Wine compares
+    names of equal length character by character, where Python's casefold would make `ss.h` read
+    `ß.h`."""
     exact = directory / part
     if exact.exists():
         return exact
+    if not part.isascii():
+        return None
     try:
-        matches = [entry for entry in os.listdir(directory) if entry.casefold() == part.casefold()]
+        matches = [entry for entry in os.listdir(directory)
+                   if entry.isascii() and entry.lower() == part.lower()]
     except OSError:
         return None
     return directory / matches[0] if len(matches) == 1 else None

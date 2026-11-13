@@ -116,6 +116,21 @@ def test_a_header_named_in_another_case_is_read_as_wine_reads_it(monkeypatch, tm
     assert class_layouts.file_sha(class_layouts.include_path(lower)) == "missing"
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="Wine's include names are the case under test")
+def test_only_ascii_names_match_without_regard_to_case(monkeypatch, tmp_path):
+    # review r2: Python's casefold made a recorded `ss.h` read a header renamed to `\u00df.h`, which Wine (names of
+    # equal length, compared character by character) never opens under that name
+    monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
+    header = tmp_path / "ss.h"
+    header.write_text("x")
+    digest = class_layouts.file_sha(header)
+    header.rename(tmp_path / "\u00df.h")
+    assert class_layouts.file_sha(class_layouts.include_path("ss.h")) == "missing"
+    assert not class_layouts.headers_unchanged({"ss.h": digest})
+    (tmp_path / "\u00c9t\u00e9.h").write_text("y")                       # non-ASCII names match only as spelled
+    assert class_layouts.file_sha(class_layouts.include_path("\u00e9T\u00c9.h")) == "missing"
+
+
 def test_a_header_the_cache_cannot_read_is_no_proof(monkeypatch, tmp_path):
     monkeypatch.setattr(class_layouts, "ROOT", tmp_path)
     (tmp_path / "a.h").write_text("x")
