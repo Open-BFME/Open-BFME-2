@@ -4,14 +4,7 @@
 #include "Lib/BfmeE16.h"
 #include <map>
 #include <vector>
-class TargetObj005C8DBF
-{
-public:
-	void method_005C8DBF(float val);
-	void method_005C902A(float val);
-	void method_005C8D6B();
-	char m_pad00[0x2C];
-};
+#include "../../Include/Common/TargetObj005C8DBF.h"
 struct Element005C8E0A {
 	TargetObj005C8DBF *m_obj;
 	int m_pad4;

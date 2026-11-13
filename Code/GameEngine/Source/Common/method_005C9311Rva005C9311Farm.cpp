@@ -12,7 +12,7 @@ class Rva005C8176{public:void*rva005C8176(FloatPair);};
 struct GridScaleView{char unknown[0x10];float scale;};
 class LargeGroupAudioSoundKeyPair{public:int getGrid(int);char unknown[0x3c];GridScaleView*scale;};
 struct GridRadiusView{char unknown[0x10];float radius;};
-class TargetObj005C8DBF{public:void method_005C902A(float);};
+#include "../../Include/Common/TargetObj005C8DBF.h"
 struct PrereqUnitRec{union{unsigned m_data[3];float m_float[3];};~PrereqUnitRec(){}};
 // Declaration-only: bind to the rowed retail copy instead of emitting this unit's own.
 namespace _STL { template <> void vector<PrereqUnitRec, allocator<PrereqUnitRec> >::_M_insert_overflow(PrereqUnitRec *, const PrereqUnitRec &, const __false_type &, size_t, bool); }
