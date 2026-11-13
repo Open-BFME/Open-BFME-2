@@ -425,10 +425,7 @@ namespace _STL { template <> BfmeAssignRecord36 *__copy_backward<BfmeAssignRecor
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class Rva001524CA {
-public:
-    TreeHintRef00217D4C rva001524CA();
-};
+#include "../../../../GameEngine/Include/Common/Rva001524CA.h"
 
 struct Rva00152BDBEntry { Rva00152BDBEntry(); Rva00152BDBEntry(const Rva00152BDBEntry&); ~Rva00152BDBEntry(); private: unsigned char storage[36]; };
 

@@ -61,7 +61,7 @@ class ThingTemplate;
 extern ThingFactory *TheThingFactory;
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
+#include "../../Include/Common/Rva001524CA.h"
 // StrategicInGameUI::ArmyUnitIcon's slot-3 override of its virtual base
 // (C794AC slot 3 reaches it through the vtordisp thunk 0x005F4889, which
 // StrategicInGameUIArmyUnitIconLifetime.cpp emits). Its receiver is that

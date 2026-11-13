@@ -116,7 +116,7 @@ TreeHintRef00217D4C StrategicInGameUI::ArmyUnitIcon::CreateMovieClip(AptMovieCli
  return TreeHintRef00217D4C(*(TargetRef00217D4C **)holder);
 }
 
-class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
+#include "../../../../Include/Common/Rva001524CA.h"
 #include "../../../../Include/Common/Rva0037DCA5.h"
 class InGameSimpleHelp {
 public:

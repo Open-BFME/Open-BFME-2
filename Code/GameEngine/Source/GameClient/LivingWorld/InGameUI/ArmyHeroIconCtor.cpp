@@ -99,7 +99,7 @@ UnicodeString __cdecl GetTooltipText(int id); // 0x005F027D (pinned)
 }
 
 // Rows retail's tables hold in the shared virtual base's slots (0x00879448, 0x00877C50).
-class Rva001524CA { public: TreeHintRef00217D4C rva001524CA(); };
+#include "../../../../Include/Common/Rva001524CA.h"
 #include "../../../../Include/GameClient/Rva005F41AF.h"
 class Rva005F3FF4 { public: void rva005F3FF4(); };
 class Rva005F3F6B { public: void rva005F3F6B(); };
