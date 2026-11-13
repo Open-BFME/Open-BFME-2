@@ -1,0 +1,37 @@
+{
+  "scoreboard": {
+    "commit": "5f3deb924b583020b167b9854c54a5c3b2adbbe4",
+    "run_id": "43469719371",
+    "when": "2026-11-13 17:48 UTC",
+    "build": "success",
+    "refusal": null,
+    "authoritative": true,
+    "link_seconds_with_proofs": 445,
+    "linker_exit": 1120,
+    "image_written": false,
+    "unresolved": 3,
+    "duplicates": 0,
+    "objects": 17714,
+    "initializers_bridged": 468,
+    "vtables_bridged": 3325,
+    "vtable_slots_bridged": 50276,
+    "omitted_funclets": []
+  },
+  "provenance": {
+    "run": 43469719371,
+    "commit": "5f3deb924b583020b167b9854c54a5c3b2adbbe4",
+    "artifact": 14062402550,
+    "sha256": "5df065617f681014e9b3ea0e57557388c374cd8a1ca78a4743405b33b06efaa9"
+  },
+  "native_commits": [
+    "96001c50552",
+    "37031a30f97",
+    "82e9aa3b0c0",
+    "6c5724cf417"
+  ],
+  "tooling_commit": "8b828f97d9b",
+  "native_rows": "52/52",
+  "tool_tests": "566 passed, 1 skipped",
+  "ControlBar_adoption": "refused by normal debt hook; source and queue restored",
+  "target_bridge_retirement": "not yet measured by an authoritative run"
+}
