@@ -82,14 +82,7 @@ void Rva0027D244::rva0027D1EF(Rva0027D244 *a, Rva0027D244 *b)
 
 
 class PolygonTrigger;
-class Rva0027D30D
-{
-public:
-	void rva0027D30D(Coord3D *pos, int dummy);
-private:
-	int m_count; // +0x00
-	PolygonTrigger *m_trigger; // +0x04
-};
+#include "../../Include/Common/Rva0027D30D.h"
 
 struct Rva0027D347Arg;
 struct Rva0027D35FArg;

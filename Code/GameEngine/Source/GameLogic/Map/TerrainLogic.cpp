@@ -524,14 +524,7 @@ private:
 	float m_10;
 	int m_14;
 };
-class Rva0027D30D
-{
-public:
-	void rva0027D30D(Coord3D *pos, int dummy);
-private:
-	int m_count; // +0x00
-	PolygonTrigger *m_trigger; // +0x04
-};
+#include "../../../Include/Common/Rva0027D30D.h"
 class Rva009FF080Manager0027D35F
 {
 public:
