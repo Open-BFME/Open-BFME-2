@@ -2,14 +2,7 @@
 // ??1Rva005E8EA1@@QAE@XZ @0x005E8EA1 8B
 // Non-virtual dtor holding rowed member Rva005F86FE at +8 via tail-jmp.
 // Same recipe as 0x005E888A with wider pad. No vptr and no EH frame.
-class Rva005F86FE
-{
-public:
-	virtual ~Rva005F86FE();
-
-private:
-	char m_pad04[8];
-};
+#include "../../../Include/Common/Rva005F86FE.h"
 
 class Rva005E8EA1
 {

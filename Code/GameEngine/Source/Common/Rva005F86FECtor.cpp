@@ -14,14 +14,7 @@ private:
 	char m_pad[0x2C];
 };
 
-class Rva005F86FE
-{
-public:
-	Rva005F86FE(void *a1, void *a2);
-	virtual ~Rva005F86FE();
-private:
-	Rva005F86C3 *m_04;
-};
+#include "../../Include/Common/Rva005F86FE.h"
 
 Rva005F86FE::Rva005F86FE(void *a1, void *a2)
 	: m_04(new Rva005F86C3((int)a1, (int)a2))
