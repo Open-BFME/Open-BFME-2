@@ -85,25 +85,7 @@ public:
     void rva004E9337();
 };
 
-class GateOpenBehaviorList
-{
-public:
-	void rva004E908C(void *item);
-private:
-	void **m_begin;
-private:
-	void **m_end;
-public:
-	void *rva004E90B1(const Coord3D *pos, const Player *player);
-public:
-	void *rva004E9179(const Coord3D *pos, const Player *player);
-public:
-	bool rva004E923E(Object *obj);
-public:
-	void appendOnce(void *item);
-public:
-	void push_back(void *const &item);
-};
+#include "../../../../Include/GameLogic/Module/GateOpenBehaviorList.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenBehaviorListRva004E908C.cpp
 

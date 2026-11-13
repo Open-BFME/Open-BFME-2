@@ -467,16 +467,7 @@ extern PartitionManager *ThePartitionManager;
 
 extern AI *TheAI;
 
-class GateOpenBehaviorList
-{
-public:
-	void rva004E908C(void *item);
-	void appendOnce(void *item);
-	void push_back(void *const &item);
-private:
-	void **m_begin; // +0x00
-	void **m_end; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/GateOpenBehaviorList.h"
 
 class Rva002A8F24
 {

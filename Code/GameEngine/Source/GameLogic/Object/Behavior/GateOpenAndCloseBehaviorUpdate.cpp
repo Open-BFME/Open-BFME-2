@@ -129,11 +129,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
-class GateOpenBehaviorList
-{
-public:
-	void rva004E908C(void *item);
-};
+#include "../../../../Include/GameLogic/Module/GateOpenBehaviorList.h"
 
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 // The canonical header keeps +0x940 opaque (m_pad91C): read the gate list
