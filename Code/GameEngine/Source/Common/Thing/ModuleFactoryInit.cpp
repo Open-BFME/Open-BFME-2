@@ -251,7 +251,7 @@ class GarrisonUpgrade { public: static Module *friend_newModuleInstance(Thing *,
 class GateOpenAndCloseBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h"
 class GateProxyBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class GateProxyBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/GateProxyBehaviorModuleData.h"
 class GeometryUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GeometryUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GettingBuiltBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

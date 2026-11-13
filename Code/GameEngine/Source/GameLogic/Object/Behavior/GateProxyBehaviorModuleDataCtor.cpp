@@ -11,12 +11,7 @@
 
 #include "../../../../Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h"
 
-class GateProxyBehaviorModuleData : public GateOpenAndCloseBehaviorModuleData
-{
-public:
-	GateProxyBehaviorModuleData();
-	virtual ~GateProxyBehaviorModuleData();
-};
+#include "../../../../Include/GameLogic/Module/GateProxyBehaviorModuleData.h"
 
 // ??0GateProxyBehaviorModuleData@@QAE@XZ @0x24E359
 inline GateProxyBehaviorModuleData::GateProxyBehaviorModuleData()
