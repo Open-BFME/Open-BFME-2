@@ -25,17 +25,7 @@ class Player;
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags (ZH's PartitionFilterRelationship
 // analogue), +0x0C whether a hit allows.
-class Rva00261409Filter : public Rva000421C8
-{
-public:
-	Rva00261409Filter(Player *player, bool match, int flags)
-		: m_player(player), m_match(match), m_flags(flags) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-	int m_flags;
-};
+#include "../../../Include/GameLogic/Rva00261409Filter.h"
 
 // vftable 0x00BFAD1C, allow 0x002611DD: no members of its own (Zero Hour's
 // PartitionFilterOnMap in this caller).
