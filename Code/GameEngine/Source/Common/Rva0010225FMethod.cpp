@@ -49,11 +49,7 @@ public:
 	void rva00116496();
 };
 
-class Rva00116482
-{
-public:
-	void rva00116482();
-};
+#include "../../Include/Common/Rva00116482.h"
 
 class Rva0010225F
 {

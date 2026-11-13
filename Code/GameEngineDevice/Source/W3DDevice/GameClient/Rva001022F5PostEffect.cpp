@@ -7,11 +7,7 @@
 
 #include "../../../../GameEngine/Include/Common/Rva0010223B.h"
 
-class Rva00116482
-{
-public:
-	void rva00116482();
-};
+#include "../../../../GameEngine/Include/Common/Rva00116482.h"
 
 class LookupTablePostEffect;
 
