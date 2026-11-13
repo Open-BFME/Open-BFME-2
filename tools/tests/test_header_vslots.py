@@ -911,3 +911,44 @@ def test_introductions_start_after_the_inherited_slots(tmp_path, monkeypatch):
                                                       owners={}, facts=lambda source: None)
     assert problems == [] and own == ["virtual ~K();", "virtual void f();", "virtual void g();"]
     assert overrides == []
+
+
+# ---- P150 re-check: static against member rows, top-level parameter cv, the contract's recorded access
+
+@pytest.mark.parametrize("declared", ["void f() const;", "static void f();"])
+def test_a_static_and_a_member_row_of_one_parameter_list_contradict(base_header, declared):
+    owners = {"?f@K@@": [("?f@K@@QBEXXZ", "o.cpp"), ("?f@K@@SAXXZ", "o.cpp")]}
+    with pytest.raises(lane.LayoutError, match="virtual/static"):
+        generate_k([("public", declared)], owners)
+
+
+def test_top_level_parameter_cv_does_not_change_an_override(base_header, tmp_path, monkeypatch):
+    (tmp_path / "B5.h").write_text("class B5\n{\npublic:\n    virtual void f(int *const p);\n};\n", encoding="utf-8")
+    known = {"B5": "B5.h"}
+    assert "void f(int *p);" in generate_k([("public", "void f(int *p);")],
+                                           {"?f@K@@": [("?f@K@@UAEXPAH@Z", "o.cpp")]}, ("B5",), known, monkeypatch)
+    # and a derived view's f(int *p) overrides it rather than introducing a slot
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    view = "class K : public B5\n{\npublic:\n\tvirtual void f(int *p);\n\tvirtual void g();\n};\n"
+    own, overrides, problems = k_slots([view], {1: "g()"}, bases=("B5",), known=known)
+    assert problems == [] and own == ["virtual void g();"] and overrides == ["virtual void f(int *p);"]
+
+
+def test_the_contracts_recorded_access_is_honoured_and_never_contradicted(tmp_path, monkeypatch):
+    # 2e045b51115 recorded AIBackAwayAndCowerState's access in native_special_members
+    public = COWER.replace("protected:", "public:")
+    known = base_header_for(tmp_path, monkeypatch, STATE_BASE)
+    c = contract({0: "__vecDelDtor(uint)"}, bases=("B5",), inherited=4)
+    c["class"] = "K"
+    c["native_special_members"] = {"access": {"GetSnapshotName() const": "protected", "xfer(Xfer*)": "protected"}}
+
+    def slots(owners):
+        return lane.slot_declarations(c, ["v.cpp"], read={"v.cpp": public}.__getitem__, known=known, owners=owners,
+                                      facts=lambda source: None)
+    own, overrides, problems = slots({})                  # no rows: the record, over a public view
+    assert problems == [] and [t.access for t in overrides] == ["protected", "public", "protected"]
+    own, overrides, problems = slots(COWER_ROWS)          # rows that agree
+    assert problems == [] and [t.access for t in overrides] == ["protected", "public", "protected"]
+    c["native_special_members"]["access"]["xfer(Xfer*)"] = "public"
+    own, overrides, problems = slots(COWER_ROWS)          # a record the rows contradict holds
+    assert any("the contract records it public, its matched rows protected" in p for p in problems), problems

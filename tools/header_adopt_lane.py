@@ -3000,7 +3000,7 @@ def base_slot_signatures(contract, known=None):
             elif signature[0] == "~":
                 found.add("~")
             else:
-                found.add(signature)
+                found.add(override_key(signature))
     return found
 
 
@@ -3020,10 +3020,26 @@ def view_slots(found, inherited=()):
         signature = decl_signature(text)
         if signature is None:
             signature = ("?", re.sub(r"\s+", " ", text.split("{")[0]).strip())
-        if (member_name == "~" and "~" in inherited) or signature in inherited:
+        if (member_name == "~" and "~" in inherited) or override_key(signature) in inherited:
             continue
         groups.setdefault(member_name, []).append((signature, text))
     return [entry for entries in groups.values() for entry in reversed(entries)]
+
+
+def override_key(signature):
+    """A decl_signature as overriding sees it: a pointer parameter's own top-level cv dropped (`int *const p`
+    overrides as `int *p`; MSVC still mangles it), pointee and member cv kept. Strings pass through."""
+    if not isinstance(signature, tuple) or len(signature) != 3:
+        return signature
+    name, params, cv = signature
+    out = []
+    for shape in params:
+        if shape[0] != "text" and shape[0]:
+            codes = list(shape[0])
+            codes[0] = {"Q": "P", "S": "R"}.get(codes[0][0], codes[0][0]) + codes[0][1:]
+            shape = (tuple(codes), shape[1])
+        out.append(shape)
+    return name, tuple(out), cv
 
 
 def unanchored(signature):
@@ -3071,14 +3087,15 @@ def rows_by_parameters(name, member, owners=None, static=False):
     compared with. A row is the member's when its parameters are (compare_row); of those, the ones whose
     this-qualifiers are also the declaration's (none for a static member) when there are any, else the others
     (a declaration whose only candidates differ in cv is compared with them: a contradiction). A destructor's
-    rows are all its own."""
+    rows are all its own. A row of the other kind (static against a member, or the reverse) is always among
+    them: the two cannot overload on one parameter list."""
     prefix, params, cv = declarator(name, member)
     rows = (_matched_owners() if owners is None else owners).get(prefix, ())
     if prefix.startswith("??1"):
         return [row for row, _ in rows], []
     parsed = [decl_param(p) for p in params]
     scopes = tuple(reversed(name.split("::")))
-    exact, other, unknown = [], [], []
+    exact, other, statics, unknown = [], [], [], []
     for row, _ in rows:
         parts = mangled_parts(row, prefix)
         if parts is None:
@@ -3089,16 +3106,38 @@ def rows_by_parameters(name, member, owners=None, static=False):
         if verdict == "unknown":
             unknown.append(row)
         elif verdict == "match":
-            mine = None if static else cv
-            theirs = None if letter is None else CV_LETTERS.get(letter)
-            (exact if mine == theirs else other).append(row)
-    return (exact or other), unknown
+            if letter is None:
+                statics.append(row)
+            elif not static and CV_LETTERS.get(letter) == cv:
+                exact.append(row)
+            else:
+                other.append(row)
+    # A static and a member function cannot overload on one parameter list: every row of the other kind is
+    # compared (a contradiction). Among member rows, cv overloads are told apart by their this-qualifiers.
+    if static:
+        return statics + exact + other, unknown
+    return (exact or other) + statics, unknown
 
 
-def member_access(name, text, views_access, owners=None):
+def recorded_access(contract, text):
+    """The access the contract's native_special_members records for a member (keyed like its slot members:
+    `xfer(Xfer*)`, `GetSnapshotName() const`), or None."""
+    record = (contract.get("native_special_members") or {}).get("access") or {}
+    if not record:
+        return None
+    try:
+        spelled, _, cv = split_head(text)
+    except ValueError:
+        return None
+    key = f"{spelled}({','.join(param_types(declaration_head(text)))})" + (" const" if "const" in cv else "")
+    return record.get(key)
+
+
+def member_access(name, text, views_access, owners=None, recorded=None):
     """(access, problem): the access `name`'s member `text` is declared under, from its matched rows' mangled
-    code letter when they are its own (rows_of), else from `views_access` (the access each counted view
-    declares it under). Rows or views that disagree are a problem (the class holds)."""
+    code letter when they are its own (rows_of), else the access the contract records for it (`recorded`,
+    recorded_access), else `views_access` (the access each counted view declares it under). Rows, or views,
+    that disagree, or rows the contract's record contradicts, are a problem (the class holds)."""
     try:
         rows = rows_of(name, text, owners)
     except OwnerUnknown:
@@ -3107,9 +3146,14 @@ def member_access(name, text, views_access, owners=None):
         prefix = declarator(name, text)[0]
         found = {row_mangling(row, prefix)[0] for row, _ in rows if row_mangling(row, prefix)}
         if len(found) == 1:
-            return found.pop(), None
+            access = found.pop()
+            if recorded and recorded != access:
+                return None, f"the contract records it {recorded}, its matched rows {access}"
+            return access, None
         if len(found) > 1:
             return None, f"its matched rows disagree on access: {', '.join(sorted(found))}"
+    if recorded:
+        return recorded, None
     found = set(views_access) - {None}
     if len(found) > 1:
         return None, f"views disagree on its access: {', '.join(sorted(found))}"
@@ -3167,9 +3211,9 @@ def mangling_contradictions(name, text, contract, owners=None):
             virtual = True
         elif member_name == "~":
             virtual = "~" in inherited
-        elif signature is not None and signature in inherited:
+        elif signature is not None and override_key(signature) in inherited:
             virtual = True
-        elif member_name in unreadable or (signature is not None and unanchored(signature) in anchored):
+        elif member_name in unreadable or (signature is not None and unanchored(override_key(signature)) in anchored):
             found.append(f"{head.strip()}: cannot tell whether a base declares it virtual")
             continue
         else:
@@ -3292,7 +3336,8 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     for source in sorted(derived):
         for member_name, _, text in views.get(source, ()):
             signature = decl_signature(text)
-            if signature is None or signature in inherited or unanchored(signature) not in anchored:
+            if signature is None or override_key(signature) in inherited or \
+                    unanchored(override_key(signature)) not in anchored:
                 continue
             why = (f"{text.split('{')[0].strip()}: cannot tell whether it overrides the base's virtual "
                    f"{member_name}, spelled with another scope")
@@ -3311,7 +3356,8 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
         for source in sources:
             if slot < inherited_count and source in derived:
                 hits = [(decl_signature(t) or ("?", t), t) for n, _, t in views[source]
-                        if n == want[0] and ((n == "~" and "~" in inherited) or decl_signature(t) in inherited)
+                        if n == want[0] and ((n == "~" and "~" in inherited) or
+                                             override_key(decl_signature(t)) in inherited)
                         and (n == "~" or param_types(t.split("{")[0]) == param_types(member))]
                 if hits:
                     out[source] = hits[0]
@@ -3397,7 +3443,8 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                                 "non-pure declaration that would replace it")
                 continue
         signed = decl_signature(text)
-        access, why = member_access(name, text, [accesses.get(s, {}).get(signed) for s in at], owners)
+        access, why = member_access(name, text, [accesses.get(s, {}).get(signed) for s in at], owners,
+                                    recorded_access(contract, text))
         if why:
             problems.append(f"slot{slot} {member}: {why}")
             continue
@@ -3427,11 +3474,13 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     for source in derived:
         for member_name, _, text in views.get(source, ()):
             signature = decl_signature(text)
-            if (member_name == "~" and "~" in inherited) or (signature is not None and signature in inherited):
-                by_signature["~" if member_name == "~" else signature][text] += 1
-                by_source["~" if member_name == "~" else signature].add(source)
+            key = override_key(signature)
+            if (member_name == "~" and "~" in inherited) or (signature is not None and key in inherited):
+                by_signature["~" if member_name == "~" else key][text] += 1
+                by_source["~" if member_name == "~" else key].add(source)
     # a base slot the contract decided (below the inherited count) is already emitted as an own slot
-    emitted = {"~" if member_name == "~" else decl_signature(text) for member_name, text in decided.values()}
+    emitted = {"~" if member_name == "~" else override_key(decl_signature(text))
+               for member_name, text in decided.values()}
     for signature in sorted(by_signature, key=lambda sig: ("~" if sig == "~" else sig[0], repr(sig))):
         if signature in emitted:
             continue
@@ -3442,7 +3491,7 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             continue
         ranked = [s for s in by_source[signature] if s in counted] or sorted(by_source[signature])
         access, why = member_access(name, text, [accesses.get(s, {}).get(decl_signature(text)) for s in ranked],
-                                    owners)
+                                    owners, recorded_access(contract, text))
         if why:
             problems.append(f"override {text.split('{')[0].strip()}: {why}")
             continue
