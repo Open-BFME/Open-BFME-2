@@ -110,11 +110,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Module;
 
-class Rva0039B2E6
-{
-public:
-	void rva0039B2E6(const Rva0039B2E6Input &level);			// 0x0039B2E6
-};
+#include "../../../Include/Common/Rva0039B2E6.h"
 
 #include "../../../Include/GameLogic/Module/Rva001E431E.h"
 

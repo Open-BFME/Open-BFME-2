@@ -49,11 +49,7 @@ extern "C" void _ReadWriteBarrier(void);
 // flag at +0x20; tail calls rowed 0x39B2E6 on input; second arg unread.
 struct Rva0039B2E6Input;
 
-class Rva0039B2E6
-{
-public:
-	void rva0039B2E6(const struct Rva0039B2E6Input &input);
-};
+#include "../../Include/Common/Rva0039B2E6.h"
 
 #include "../../Include/Common/BfmeFixedStorage128.h"
 
