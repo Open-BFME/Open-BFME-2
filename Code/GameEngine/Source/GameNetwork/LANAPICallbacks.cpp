@@ -329,11 +329,7 @@ class Rva00444357DwordImmSetter
 public:
 	void apply( void );
 };
-class Rva00444462
-{
-public:
-	void rva00444462( void );
-};
+#include "../../Include/Common/Rva00444462.h"
 void Rva00248D84Enable( void );
 void Rva00248E98Enable( void );
 // Retries of an options update from the host that leaves us out of the game.

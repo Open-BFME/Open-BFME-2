@@ -63,11 +63,7 @@ struct Global009FE958
 };
 class LANAPI; extern LANAPI *TheLAN;
 extern unsigned char Rva00446A71Get(void);
-class Rva00444462
-{
-public:
-	void rva00444462();
-};
+#include "../../Include/Common/Rva00444462.h"
 void Rva00248E98Enable(void)
 {
 	if (!((Global009FE958 *)TheLAN)->v56())
