@@ -6,17 +6,7 @@
 // caller 0x0059726E. Base declared only here so the call stays out-of-line
 // and `this` is kept in esi, as retail.
 
-class Rva005DAA36
-{
-public:
-	Rva005DAA36(void *held);
-	// Same base view as V3PolyCopyCtors.cpp: retail base vftable 0x00C70B80
-	// is __purecall then the deleting dtor (inline vptr-reset dtor).
-	virtual int f0(int) = 0;
-	virtual ~Rva005DAA36() {}
-
-	void *m_field04;
-};
+#include "../../Include/Common/Rva005DAA36.h"
 
 class Rva005DA64B : public Rva005DAA36
 {
