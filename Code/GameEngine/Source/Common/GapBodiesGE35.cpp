@@ -413,12 +413,7 @@ Rva000B42AD::Rva000B42AD(const GapWords4 &a, const GapVec3 &b) : m_a(a), m_b(b)
 
 // --- 0x000B4670 (18B): store a value into the slot the rowed 0x000B2361
 // picks for a key.
-class Rva000B2361
-{
-public:
-	int *rva000B2361(int key);								// 0x000B2361
-	void rva000B4670(int value, int key);
-};
+#include "../../Include/Common/Rva000B2361.h"
 
 void Rva000B2361::rva000B4670(int value, int key)
 {

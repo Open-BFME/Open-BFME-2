@@ -253,7 +253,7 @@ struct TextureRecolorImpl
 
 };
 
-class Rva000B2361 { public: int *rva000B2361(int); int m_00,m_04,m_08,m_0C; };
+#include "../../../../GameEngine/Include/Common/Rva000B2361.h"
 
 class GenBase009EB7D0
 {

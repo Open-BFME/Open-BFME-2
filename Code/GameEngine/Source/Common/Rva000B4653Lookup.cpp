@@ -7,7 +7,7 @@
 // verified (frameless at 0xB4653, ret 4 at end).
 
 
-class Rva000B2361 { public: int *rva000B2361(int a); }; // rowed 0x000B2361 int*(int)
+#include "../../Include/Common/Rva000B2361.h"
 class Rva000B4653
 {
 public:
