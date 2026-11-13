@@ -23,12 +23,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "rendobj.h"
 #include "sphere.h"
 
-class Gen_009431F0
-{
-public:
-	int map_x(float x);
-	int map_y(float y);
-};
+#include "../../Include/Common/Gen_009431F0.h"
 
 class Gen_00943CF0 : public Gen_009431F0
 {

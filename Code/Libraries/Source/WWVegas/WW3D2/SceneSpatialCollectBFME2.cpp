@@ -28,7 +28,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "Gen_00943CF0_Node.h"
 struct SceneCollectCell { unsigned count; MultiListClass<RenderObjClass> objects; };
 typedef char SceneCollectCellSize[(sizeof(SceneCollectCell)==28)?1:-1];
-class Gen_009431F0 { public: int map_x(float); int map_y(float); };
+#include "../../../../GameEngine/Include/Common/Gen_009431F0.h"
 struct SceneCollectPair { float X,Y; };
 struct SceneCollectRect {
  SceneCollectPair min,max;
