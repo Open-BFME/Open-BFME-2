@@ -41,17 +41,7 @@ private:
 	char m_bytes[8];
 };
 
-class Rva00574499
-{
-public:
-	~Rva00574499();
-	TreeHintRef00217D4C rva005744DD() const;
-
-private:
-	Rva0022167C m_at00;
-	AsciiString m_at08;
-	AsciiString m_at0c;
-};
+#include "../../Include/Common/Rva00574499.h"
 
 Rva00574499::~Rva00574499()
 {
