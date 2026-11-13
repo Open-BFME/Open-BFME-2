@@ -59,7 +59,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../Include/Common/Rva00224455.h"
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 #include "../../Include/GameClient/Rva002246B1.h"
-class Rva00224705 { public: int rva00224705(const AsciiString *name); };
+#include "../../Include/GameClient/Rva00224705.h"
 
 class Rva0052416D : public Rva003769C2StringVector
 {
