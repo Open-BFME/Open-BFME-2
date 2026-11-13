@@ -43,7 +43,7 @@ class VictoryConditionsInterface {public:
 };
 #include "../../Include/Common/Rva0039B709.h"
 struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int);};
-template<int N>class BitFlags {unsigned words[7];};
+#include "../../Include/Common/BitFlagsTemplate.h"
 class Rva0039BF22 {public:int rva0039BF22(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva0039BF50 {public:int rva0039BF50(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class ScoreKeeper {

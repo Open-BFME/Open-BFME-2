@@ -169,11 +169,7 @@ class Drawable;
 #include "plane.h"
 void XferWaypointID(Xfer *xfer, Int *id);
 void XferObjectID(Xfer *xfer, ObjectID *id);
-template <int NUMBITS> class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../Include/GameLogic/ObjectFilter.h"
 // Zero Hour's Coord3D::zero, and a location copied member by member rather
 // than as a block.

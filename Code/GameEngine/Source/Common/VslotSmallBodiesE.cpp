@@ -74,13 +74,7 @@ enum UpdateSleepTime
 // Native Update interface at +0x10: update, disabled mask, wake frame.
 #pragma function(memcpy)
 #include <string.h>
-template <int NUM_BITS> class BitFlags
-{
-public:
-    __forceinline BitFlags(const BitFlags &other) { memcpy(m_bits, other.m_bits, sizeof(m_bits)); }
-private:
-    UnsignedInt m_bits[(NUM_BITS + 31) / 32];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<11> DisabledMaskType;
 extern DisabledMaskType DISABLEDMASK_ALL;
 

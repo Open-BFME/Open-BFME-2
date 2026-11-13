@@ -20,7 +20,7 @@ template<>class LookupSlots<0>{};
 class SoundLookupView:public LookupSlots<75>{public:virtual Rva0036CA00Str lookup(const AsciiString&);};
 class AudioManager;
 extern AudioManager *TheAudio;
-template<int N>class BitFlags{public:bool setBitByName(const char*);};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 // LINK: the empty default ctor's COMDAT loses to the first-in-order copy; the parse
 // locals use a TU-unique no-init ctor instead (same empty body). No flags touched.
 class WeaponTemplateSetHead {public:struct BfmeNoInitAnim{};WeaponTemplateSetHead(){} WeaponTemplateSetHead(BfmeNoInitAnim){} WeaponTemplateSetHead(const WeaponTemplateSetHead&);unsigned words[19];};

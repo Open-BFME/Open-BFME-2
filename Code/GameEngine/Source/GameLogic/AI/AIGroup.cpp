@@ -303,12 +303,7 @@ public:
 #include "../../../Include/GameClient/ControlBar.h"
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SpecialPower.h
 #include "../../../Include/Common/SpecialPowerStore.h"
-template<int N>
-class BitFlags
-{
-public:
-	unsigned int m_words[7];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 class Provider250
 {
 public:

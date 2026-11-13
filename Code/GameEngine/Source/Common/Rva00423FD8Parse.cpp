@@ -61,7 +61,7 @@ void rva00421749(INI *ini, void *instance, void *store, const void *userData);
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../Include/Common/BfmeFixedStorage0004543D.h"
-template <int N> class BitFlags { unsigned char m_bytes[28]; };
+#include "../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../Include/GameLogic/Module/Rva003623E5Member.h"

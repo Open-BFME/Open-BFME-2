@@ -165,13 +165,7 @@ protected:
 
 #include "../../../../Include/GameLogic/StancesBehavior.h"
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-private:
-	UnsignedInt m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<591> ModelConditionFlags;
 
 class Rva00468FB4

@@ -23,7 +23,7 @@ class BfmeFixedStorage0004543D {public: BfmeFixedStorage0004543D(const BfmeFixed
 
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D &,const BfmeFixedStorage0004543D &); virtual bool allow(Object *);BfmeFixedStorage0004543D a,b;};
 
-template<int N> class BitFlags {public:unsigned bits[7];};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 extern BitFlags<116> KINDOFMASK_NONE;
 

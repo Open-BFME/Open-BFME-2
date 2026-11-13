@@ -31,7 +31,7 @@ static __forceinline bool Rva0029FFFFIsPoint(const IRegion2D &region2D) { return
 #include "../../Include/GameClient/Rva0087DC00.h"
 #include "../../Include/Common/Rva00270FEE.h"
 #include "../../Include/Common/Rva00276470Drawable.h"
-template<int N> class BitFlags { public: bool test(const void*) const; };
+#include "../../Include/Common/BitFlagsTemplate.h"
 class Drawable {
 public:
     char pad00[4]; char* thingTemplate;

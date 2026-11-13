@@ -195,11 +195,7 @@ public:
 
 // --- 0x002619AE (19B): the argument's rowed BitFlags<69>::test of this
 // +0x108.
-template <int N> class BitFlags
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 // --- 0x002628E0 (25B): the +0x224 owner's rowed removeFromMatching of the
 // argument's +0x74 word and the second argument.

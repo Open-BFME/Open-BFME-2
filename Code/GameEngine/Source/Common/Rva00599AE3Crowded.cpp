@@ -63,7 +63,7 @@ Rva0027231F::Rva0027231F(const BfmeFixedStorage0004543D &mask)
 // Thing::isAnyKindOf 0x0030ADC7 negated). The same bytes are rowed as
 // Rva001DCD30::isNotAnyKindOf (ICF); defined here, where the vftable is
 // emitted, so the slot resolves.
-template <int N> class BitFlags {};
+#include "../../Include/Common/BitFlagsTemplate.h"
 #include "Thing/thing.h"
 
 bool Rva0027231F::allow(Object *obj)

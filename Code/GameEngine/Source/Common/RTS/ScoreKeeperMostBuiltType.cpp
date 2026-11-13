@@ -13,7 +13,7 @@
 // Native39BEAC begins after the preceding verified RET8 and its own RET8
 // ends at the rowed helper39BEC3. Its map1C8 and full REL32 are witnessed.
 #include "unicode_string.h"
-template<int N>class BitFlags {public:bool test(const void*)const;private:unsigned words[7];};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 namespace _STL {
 struct _Rb_tree_node_base {bool color;_Rb_tree_node_base *parent,*left,*right;};
 template<class T>struct _Rb_global {static _Rb_tree_node_base*__cdecl _M_increment(_Rb_tree_node_base*);};

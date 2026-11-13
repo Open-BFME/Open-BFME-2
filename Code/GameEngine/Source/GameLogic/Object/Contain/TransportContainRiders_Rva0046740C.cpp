@@ -85,13 +85,7 @@ class Locomotor;
 class AIUpdateInterface;
 
 // The 28-byte kind-of mask.
-template <int N> class BitFlags
-{
-public:
-	Bool any() const;
-private:
-	unsigned int m_bits[7];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<116> KindOfMaskType;
 extern KindOfMaskType KINDOFMASK_NONE;
 

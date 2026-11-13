@@ -187,7 +187,7 @@ class Player {public:char gap0[0x34];PlayerTemplate*playerTemplate;char gap38[0x
 
 #include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 
-template<int N>class BitFlags {unsigned words[7];};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 class Rva0039BF0B {public:int rva0039BF0B(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 

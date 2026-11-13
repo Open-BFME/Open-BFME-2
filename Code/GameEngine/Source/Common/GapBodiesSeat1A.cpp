@@ -655,11 +655,7 @@ bool Rva0026176EFilter::allow(Object *obj)
 
 // --- 0x002619AE (19B): the argument's rowed BitFlags<69>::test of this
 // +0x108.
-template <int N> class BitFlags
-{
-public:
-	bool test(const void *other) const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 // --- 0x002619A0 (14B): the rowed BitFlags<69>::test of the first argument run
 // on the second; the receiver (ecx) is discarded, so the object carrying the

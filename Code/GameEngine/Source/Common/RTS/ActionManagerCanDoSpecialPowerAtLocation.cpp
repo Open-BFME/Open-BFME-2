@@ -44,7 +44,7 @@ enum NameKeyType { NAMEKEY_INVALID };
 enum PathfindLayerEnum { LAYER_GROUND };
 enum CellShroudStatus { CELLSHROUD_CLEAR, CELLSHROUD_FOGGED, CELLSHROUD_SHROUDED };
 class Object; class Module; class Player; class SpecialPowerTemplate;
-template<int N> class BitFlags { public: unsigned words[7]; };
+#include "../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeFixedStorage0004543D { public: BfmeFixedStorage0004543D(int,int); unsigned words[7]; };
 struct Rva0006EE7A { Rva0006EE7A(int,int,int); unsigned words[7]; };

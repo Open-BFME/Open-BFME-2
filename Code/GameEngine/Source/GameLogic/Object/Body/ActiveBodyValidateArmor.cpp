@@ -18,10 +18,7 @@
 
 #include "ascii_string.h"
 
-template <int NUMBITS> class BitFlags
-{
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 typedef BitFlags<17> ArmorSetFlags;
 
 class DamageFX;

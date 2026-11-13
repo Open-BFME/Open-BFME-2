@@ -168,7 +168,7 @@ class Rva002614ECFilter:public Rva000421C8 {
 public: Rva002614ECFilter(const void *what,Player *player,bool match):what(what),player(player),match(match){}
 virtual bool allow(Object *); const void *what; Player *player; bool match;
 };
-template<int N>class BitFlags {public:unsigned words[7];};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 struct Rva0006EE7A {unsigned words[7];Rva0006EE7A(int,int,int);__forceinline operator const BitFlags<69>&()const{return *(const BitFlags<69>*)this;}};
 #include "../../../Common/Thing/thing.h"
 extern PartitionManager *ThePartitionManager;

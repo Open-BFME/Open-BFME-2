@@ -23,7 +23,7 @@ enum NameKeyType {NAMEKEY_INVALID=0};
 class PlayerTemplate {public:const AsciiString&getSide()const{return side;}char gap[24];AsciiString side;};
 class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};
 class Rva004EE35D;class Rva004EE3AB;class Rva004EE3F9;class Rva004EE447;class Rva004EE485;class Rva004EE4C3;
-template<int N>class BitFlags {unsigned words[7];};
+#include "../../Include/Common/BitFlagsTemplate.h"
 #include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../Include/Common/Rva004EE35D.h"
 #include "../../Include/Common/Rva004EE3AB.h"

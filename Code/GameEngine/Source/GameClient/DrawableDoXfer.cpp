@@ -70,12 +70,7 @@ void XferWaypointID(Xfer *xfer, int *id);
 Xfer *Rva003062FEXfer(Xfer *xfer, float *value);
 void Rva0030612AXfer(Xfer *xfer, float *value);
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	void xfer(Xfer *xfer);
-	unsigned char m_bits[0x4C];
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 class ModelConditionFlags : public BitFlags<591> {};
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"

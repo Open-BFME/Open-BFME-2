@@ -1259,11 +1259,7 @@ Rva0033B123::Rva0033B123() : m_00(0), m_04(50.0f), m_08(50.0f)
 
 // --- 0x0033B73C (14B): the rowed BitFlags<117> intersection count of the
 // first argument with the second (cdecl).
-template <int N> class BitFlags
-{
-public:
-	int countIntersection(const BitFlags &other) const;
-};
+#include "../../Include/Common/BitFlagsTemplate.h"
 
 int Rva0033B73C(const BitFlags<117> *a, const BitFlags<117> &b)
 {

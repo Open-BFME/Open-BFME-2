@@ -94,14 +94,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-template <int NUMBITS> class BitFlags
-{
-public:
-	Bool any() const;	// 0x002C7501
-
-private:
-	unsigned int m_bits[7];
-};
+#include "../../../../Include/Common/BitFlagsTemplate.h"
 
 typedef BitFlags<218> KindOfMaskType;
 

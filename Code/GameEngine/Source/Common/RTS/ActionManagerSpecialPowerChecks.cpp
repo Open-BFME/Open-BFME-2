@@ -424,7 +424,7 @@ bool ActionManager::canRepairObject(
 // The local chain is 64 bytes, with seven-dword masks at +8 and +24.
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
-template<int N> class BitFlags { public: unsigned m_bits[7]; };
+#include "../../../Include/Common/BitFlagsTemplate.h"
 // Native second mask at DFEFA4 is seven clear words. Use the existing
 // default-mask definition; this caller supplies its first verified DIR32 site.
 extern BitFlags<116> KINDOFMASK_NONE;

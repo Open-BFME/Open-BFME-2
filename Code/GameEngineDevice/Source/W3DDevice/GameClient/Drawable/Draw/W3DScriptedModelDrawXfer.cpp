@@ -56,12 +56,7 @@ void XferDrawableID(Xfer *, int *);
 Xfer *Rva000BC559Xfer(Xfer *, _STL::set<int> *);
 void Rva0030612AXfer(Xfer *, float *);
 
-template <int N> class BitFlags
-{
-public:
-	void xfer(Xfer *);
-	unsigned int m_bits[(N + 31) / 32];
-};
+#include "../../../../../../GameEngine/Include/Common/BitFlagsTemplate.h"
 
 class HAnimClass
 {
