@@ -3022,6 +3022,13 @@ def view_slots(found, inherited=()):
     return [entry for entries in groups.values() for entry in reversed(entries)]
 
 
+def unanchored(signature):
+    """A decl_signature with every named parameter's global-scope mark dropped (`::Mode` as `Mode`)."""
+    name, params, cv = signature
+    return name, tuple(shape if shape[0] == "text" or shape[1][0] != "name" else (shape[0], shape[1][:2])
+                       for shape in params), cv
+
+
 def qualified(signature):
     """Whether a decl_signature carries a qualifier the contract's CodeView signature does not record:
     `const`/`volatile` on the member, a const pointee, or a parameter it could not read."""
@@ -3115,6 +3122,18 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             why = (f"{text.split('{')[0].strip()}: cannot tell whether it overrides the base's virtual "
                    f"{member_name}, which cannot be read")
             if member_name in unreadable and why not in problems:
+                problems.append(why)
+    # `f(Mode *)` in a derived view beside a base's `f(::Mode *)`: the same signature when Mode is global, a
+    # new overload when the class sees another Mode. Which cannot be told here, so the class holds.
+    anchored = {unanchored(entry) for entry in inherited if isinstance(entry, tuple) and len(entry) == 3}
+    for source in sorted(derived):
+        for member_name, _, text in views.get(source, ()):
+            signature = decl_signature(text)
+            if signature is None or signature in inherited or unanchored(signature) not in anchored:
+                continue
+            why = (f"{text.split('{')[0].strip()}: cannot tell whether it overrides the base's virtual "
+                   f"{member_name}, spelled with another scope")
+            if why not in problems:
                 problems.append(why)
     emitting = {source: emits_vtable(name, source, facts) for source in views} if slots else {}
     if slots and None in emitting.values():

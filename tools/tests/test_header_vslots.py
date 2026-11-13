@@ -758,3 +758,18 @@ def test_qualifiers_need_the_contract_or_a_matched_row(contract_member, declared
     other = "f(int*) const" if "int*" in contract_member else "f() volatile"
     own, _, problems = slots(other, {})
     assert own == [] and "the contract's qualifiers are not the views'" in problems[0]
+
+
+# ---- review r5: a base virtual spelled with `::`
+
+def test_a_virtual_differing_from_a_base_one_only_by_global_scope_holds(tmp_path, monkeypatch):
+    # global Mode: f(Mode *) overrides the base's pure f(::Mode *), so dropping it as an introduction (or
+    # ignoring it) would leave the class abstract; whether Mode is global cannot be told here
+    known = base_header_for(tmp_path, monkeypatch, "virtual void f(::Mode *m) = 0;")
+    view = "class K : public B5\n{\npublic:\n\tvirtual void g();\n\tvirtual void f(Mode *m) {}\n};\n"
+    own, _, problems = k_slots([view], {1: "g()"}, bases=("B5",), known=known)
+    assert any("cannot tell whether it overrides" in p and "another scope" in p for p in problems), problems
+    # the same spelling is the override
+    view = "class K : public B5\n{\npublic:\n\tvirtual void g();\n\tvirtual void f(::Mode *m) {}\n};\n"
+    own, overrides, problems = k_slots([view], {1: "g()"}, bases=("B5",), known=known)
+    assert problems == [] and own == ["virtual void g();"] and overrides == ["virtual void f(::Mode *m) {}"]
