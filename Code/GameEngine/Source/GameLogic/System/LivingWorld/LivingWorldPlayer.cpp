@@ -444,7 +444,7 @@ extern Rva002E18C3Lookup *TheLivingWorldAITemplateStore;
 
 struct Rva004FB303Target;
 
-class Rva004FB222Owner {public:void rva004FB222(Rva004FB303Target*,int);};
+#include "../../../../Include/Common/Rva004FB222Owner.h"
 
 typedef char PlayerSize[sizeof(Rva002E2AAE)==0x3c8?1:-1];
 

@@ -24,11 +24,7 @@ public:
 };
 
 struct Rva004FB303Target;
-class Rva004FB222Owner
-{
-public:
-	void rva004FB222(Rva004FB303Target *target, int value);
-};
+#include "../../Include/Common/Rva004FB222Owner.h"
 
 struct Rva002E0648M48
 {
