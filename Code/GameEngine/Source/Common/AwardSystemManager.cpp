@@ -86,7 +86,7 @@ public:
 	char *mFailureMessage; // +0x00
 	int mErrorCode; // +0x04
 };
-class Rva0040A7D5 {public:int GetStatNameKey(int) const;};
+#include "../../Include/Common/Rva0040A7D5.h"
 // Retail calls the TU's sort<int *> (0x0040B4B6) out of line.
 namespace _STL { template <> void sort<int *>(int *, int *); }
 struct Rva0040C0C7Element {char bytes[40];};

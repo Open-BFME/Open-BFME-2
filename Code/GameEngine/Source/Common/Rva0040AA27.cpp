@@ -17,7 +17,7 @@ enum NameKeyType { NAMEKEY_INVALID=0, FORCE_NAMEKEYTYPE_LONG=0x7fffffff };
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/GameLogic/CreateAHeroData.h"
-class Rva0040A7D5 { public: int GetStatNameKey(int) const; };
+#include "../../Include/Common/Rva0040A7D5.h"
 
 class Rva0040A99AElem
 {
