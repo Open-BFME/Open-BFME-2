@@ -50,11 +50,7 @@ extern Display *TheDisplay;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // The rowed 0x00518359, run on the screen after the detail combo fills.
-class Rva00518359
-{
-public:
-	void rva00518359();
-};
+#include "../../../../../Include/Common/Rva00518359.h"
 // The rowed 0x005183FA, called on the screen.
 class Rva005183A0
 {

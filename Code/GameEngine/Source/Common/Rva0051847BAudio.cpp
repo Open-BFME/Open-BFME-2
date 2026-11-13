@@ -7,11 +7,7 @@
 // plus just-landed Rva00518262Enable. Evidence: callers in next TU; rowed
 // OptionPreferences ctor/getVolume/getUseEAX3 plus OptionPreferences dtor; globals
 // 0x009FE758 0x009FE9D8 0x009FE6E8 0x007CF628; precedent Miles openDevice.
-class Rva00518359
-{
-public:
-	void rva00518359();
-};
+#include "../../Include/Common/Rva00518359.h"
 void __cdecl Rva00518262Enable(void);
 #include "../../Include/Common/OptionPreferences.h"
 #include "../../Include/GameClient/Display.h"
