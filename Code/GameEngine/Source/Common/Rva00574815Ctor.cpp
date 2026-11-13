@@ -10,14 +10,7 @@ extern unsigned g_Va00E0661C;
 // at 0x00574971; same 49B shape as sibling Rva005756B6; neighbours share /O1.
 // Honest Rva address name.
 #include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
-class Rva005CBA04
-{
-public:
-	virtual ~Rva005CBA04();
-	Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
-private:
-	BfmeFixedStorage002CF0F0 m_storage;
-};
+#include "../../Include/Common/Rva005CBA04.h"
 class Rva00574815 : public Rva005CBA04
 {
 public:

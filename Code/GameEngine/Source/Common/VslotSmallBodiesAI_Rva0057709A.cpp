@@ -235,14 +235,7 @@ extern const void *const g_00C6E8A8[19] = {
 	(const void *)&__identifier("?rva00576FFE@Rva00576FFE@@QAEHXZ"), // slot 18 0x00576FFE
 };
 
-class Rva005CBA04
-{
-public:
-	virtual ~Rva005CBA04();
-	Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
-private:
-	BfmeFixedStorage002CF0F0 m_storage;
-};
+#include "../../Include/Common/Rva005CBA04.h"
 
 class __declspec(novtable) Rva0057709A : public Rva005CBA04
 {

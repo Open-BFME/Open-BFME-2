@@ -9,14 +9,7 @@ extern unsigned g_Va00E0661C;
 // comment listing this as derived ctor with global 0x00E0661C; sole caller
 // at 0x005757B9; neighbours share /O1. Honest Rva address name.
 #include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
-class Rva005CBA04
-{
-public:
-	virtual ~Rva005CBA04();
-	Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
-private:
-	BfmeFixedStorage002CF0F0 m_storage;
-};
+#include "../../Include/Common/Rva005CBA04.h"
 class Rva005756B6 : public Rva005CBA04
 {
 public:

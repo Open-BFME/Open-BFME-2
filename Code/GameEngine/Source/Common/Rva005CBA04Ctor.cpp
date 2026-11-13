@@ -16,14 +16,7 @@
 // BitFlags11DisabilityCtors.cpp; same as FixedStorageCopyBFME2.cpp.
 #include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
-class Rva005CBA04
-{
-public:
-	virtual ~Rva005CBA04();
-	Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
-private:
-	BfmeFixedStorage002CF0F0 m_storage;
-};
+#include "../../Include/Common/Rva005CBA04.h"
 
 Rva005CBA04::Rva005CBA04(BfmeFixedStorage002CF0F0 storage)
 	: m_storage(storage)
