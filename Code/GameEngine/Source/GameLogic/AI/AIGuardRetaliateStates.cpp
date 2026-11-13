@@ -456,11 +456,7 @@ StateReturnType AIGuardRetaliateReturnState::update( void )
 	return AIInternalMoveToState::update();
 }
 
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
+#include "../../../Include/Common/AttackExitConditionsInterface.h"
 class GuardRetaliateExitConditions : public AttackExitConditionsInterface
 {
 public:

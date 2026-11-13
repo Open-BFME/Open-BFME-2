@@ -169,11 +169,7 @@ private:
 	unsigned char m_pad18[0x1C - 0x18];
 	Int m_1c; // +0x1C
 };
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
+#include "../../../Include/Common/AttackExitConditionsInterface.h"
 class AIAttackState : public State
 {
 public:

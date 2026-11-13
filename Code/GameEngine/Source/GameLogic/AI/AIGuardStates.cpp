@@ -264,11 +264,7 @@ protected:
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
 };
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
+#include "../../../Include/Common/AttackExitConditionsInterface.h"
 class ExitConditions : public AttackExitConditionsInterface
 {
 public:

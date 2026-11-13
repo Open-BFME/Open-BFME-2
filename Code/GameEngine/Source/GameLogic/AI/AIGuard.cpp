@@ -313,11 +313,7 @@ enum
 // The state base: only its virtual table matters to these bodies. The
 // ledger spells it struct (U), as the transition conditions' rows do.
 
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
+#include "../../../Include/Common/AttackExitConditionsInterface.h"
 
 class ExitConditions : public AttackExitConditionsInterface
 {
