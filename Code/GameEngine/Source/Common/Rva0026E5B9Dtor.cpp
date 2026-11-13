@@ -5,13 +5,7 @@
 
 #include <stdlib.h>
 
-class PoolMember
-{
-public:
-	void Rva00268902();
-private:
-	void *m_head;
-};
+#include "../../Include/Common/PoolMember.h"
 
 class Rva00268B04
 {
