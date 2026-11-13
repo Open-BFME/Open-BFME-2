@@ -23600,7 +23600,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva00548700@Rva0054840A@@QAEXXZ,,0x00548700,44,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp,matched,pop list back when nonempty plus m_08 nonzero via rowed pop_back same 0x14 layout
 ??0LightSubPoint@@QAE@I@Z,,0x00424CB6,33,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00423a4a_single.cpp,matched,chain ctor via rowed 0x0042499E plus empty base unblocks 0x004257AD
 ??1Rva0054D974@@QAE@XZ,,0x0054D974,205,Code/GameEngine/Source/Common/Rva0054D974Dtor.cpp,matched,dtor 3 lists of Rva0054D8D8 ptrs via iterators plus pop_front EH states
-??0Rva005D57D3@@QAE@PAX@Z,,0x005D57D3,24,Code/GameEngine/Source/Common/Rva005D583CCtor.cpp,matched,derived ctor calls base 0x005AFE86 then vtable 0x00C75B2C
+??0Rva005D583C@@QAE@PAX@Z,,0x005D57D3,24,Code/GameEngine/Source/Common/Rva005D583CCtor.cpp,matched,derived ctor calls base 0x005AFE86 then vtable 0x00C75B2C
 ??$partial_sort@PAHVRva00422CA8@@@_STL@@YAXPAH00VRva00422CA8@@@Z,,0x00424DB1,27,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.cpp,matched,chain wrapper via rowed __partial_sort 0x00424C21 unblocks 0x00425385
 ??_GRva0054D8D8@@QAEPAXI@Z,,0x0054D958,28,Code/GameEngine/Source/GameNetwork/GameSpy/LadderDefs.cpp,matched,scalar deleting dtor calls rowed dtor 0x0054D8D8
 ?rva0054D6C8@Rva0054D974@@QAEPAVRva0054D8D8@@H@Z,,0x0054D6C8,83,Code/GameEngine/Source/Common/Rva0054D974Dtor.cpp,matched,finder in 3 lists by m38 null id returns null
