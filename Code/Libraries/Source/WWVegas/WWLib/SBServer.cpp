@@ -256,11 +256,7 @@ struct Rva005E3D8CFields
 // (0x005F3F6B / 0x005F3FF4) then call pinned second (0x005E3AAA / 0x005E4087)
 // with (this2member-0x10 as this, [this-0x0C] as int). Ret void, this only.
 // Address-derived.
-class Rva005F3F6B
-{
-public:
-	void rva005F3F6B();
-};
+#include "../../../../GameEngine/Include/Common/Rva005F3F6B.h"
 
 #include "../../../../GameEngine/Include/Common/Rva005E39AE.h"
 

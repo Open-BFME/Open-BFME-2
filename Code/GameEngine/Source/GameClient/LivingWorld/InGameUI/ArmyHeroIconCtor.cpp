@@ -102,7 +102,7 @@ UnicodeString __cdecl GetTooltipText(int id); // 0x005F027D (pinned)
 #include "../../../../Include/Common/Rva001524CA.h"
 #include "../../../../Include/GameClient/Rva005F41AF.h"
 class Rva005F3FF4 { public: void rva005F3FF4(); };
-class Rva005F3F6B { public: void rva005F3F6B(); };
+#include "../../../../Include/Common/Rva005F3F6B.h"
 // Retail's details-portion rows. A vtordisp thunk enters them with the virtual base's pointer and they adjust it
 // themselves, so these forward by jump: a cast to a class would subtract the base's offset a second time.
 extern "C" {
