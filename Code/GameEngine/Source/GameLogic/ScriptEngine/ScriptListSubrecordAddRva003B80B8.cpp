@@ -23,16 +23,7 @@ public:
 	char m_payload[0x54];	// +0x04 (embedded 0x003B7448 object)
 };
 
-struct Rva003B675BRecord
-{
-	int m_previous;		// +0x00
-	int m_next;		// +0x04
-	AsciiString m_name;	// +0x08
-	unsigned char m_released;	// +0x0C
-	unsigned char m_pad;	// +0x0D
-	unsigned short m_references;	// +0x0E
-	Rva003B770B *m_nodes;	// +0x10
-};
+#include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
 class Rva003B573E
 {
@@ -56,7 +47,7 @@ int Rva003B573E::rva003B80B8(const StringBase<char> &key, int *value)
 		{
 			Rva003B675BRecord *rec = &records[index];
 			Rva003B770B *node = new Rva003B770B(value);
-			node->m_next = rec->m_nodes;
+			node->m_next = (Rva003B770B *)rec->m_nodes;
 			rec->m_nodes = node;
 		}
 		catch (...)
