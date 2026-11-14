@@ -50,7 +50,7 @@ struct BfmeAssignRecord32 { char m_pad[32]; public: BfmeAssignRecord32(const Bfm
 // 20-byte element; layout owner Rva003371B1Copy.cpp.
 class Rva003371B1 { char m_pad[20]; public: Rva003371B1(const Rva003371B1 &); ~Rva003371B1(); };
 // 20-byte element; layout owner stlport_vector_stringrecord_5ed5f3_allocate_copy.cpp.
-struct BfmeStringRecord005ED5F3 { char m_pad[20]; public: BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &); ~BfmeStringRecord005ED5F3(); };
+#include "BfmeStringRecord005ED5F3.h"
 // 36-byte element; the first and second fields are AsciiString. The copy
 // constructor's retail body initializes those two fields before calling the
 // matched BfmeAssignRecord36 assignment worker.

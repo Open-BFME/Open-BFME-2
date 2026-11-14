@@ -15,16 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "unicode_string.h"
 typedef unsigned short wchar_t;
 #include <vector>
-struct BfmeStringRecord005ED5F3 {
-    UnicodeString text;
-    unsigned int word0;
-    unsigned int word1;
-    unsigned int word2;
-    unsigned int word3;
-    BfmeStringRecord005ED5F3();
-    BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &);
-    BfmeStringRecord005ED5F3 &operator=(const BfmeStringRecord005ED5F3 &);
-};
+#include "BfmeStringRecord005ED5F3.h"
 namespace _STL {
 template <> void _Construct<BfmeStringRecord005ED5F3, BfmeStringRecord005ED5F3>(BfmeStringRecord005ED5F3 *, const BfmeStringRecord005ED5F3 &);
 
