@@ -165,7 +165,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include "../../../../../Include/Common/DelegateDesc.h"
 static __forceinline DelegateDesc MakeDelegate(void *object,void *method){return DelegateDesc(object,method);}
 
-struct ImplBase {virtual ~ImplBase(){} int m_ref;ImplBase():m_ref(0){}};
+#include "../../../../../Include/Common/ImplBase.h"
 struct Impl:ImplBase {virtual void invoke(const char*);void *m_object,*m_method;Impl(const DelegateDesc&d):m_object(d.field00),m_method(d.field04){}};
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc &);private:void *m_ptr;};
 
