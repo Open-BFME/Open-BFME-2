@@ -361,12 +361,8 @@ class LargeGroupAudioKeyMap;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "../../../Include/GameLogic/AITNGuard.h"
-#pragma comment(linker, "/alternatename:?update@State@@UAE?AW4StateReturnType@@XZ=?update@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ")
 typedef UnsignedInt StateID;
 #include "../../../Include/Common/StateMachine.h"
-#pragma comment(linker, "/alternatename:?slot01@State@@UAEXXZ=?rva005CB26A@Rva005CB26A@@QAEHXZ")
-#pragma comment(linker, "/alternatename:?slot02@State@@UAEXXZ=?Rva00545EACGet@@YAHXZ")
-#pragma comment(linker, "/alternatename:?slot03@State@@UAEXXZ=?Rva00306A9BDoXfer@@YGXPAVXfer@@@Z")
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

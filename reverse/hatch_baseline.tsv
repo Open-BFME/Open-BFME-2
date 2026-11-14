@@ -2424,10 +2424,6 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp	?firs
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp	?rva004F0479@Rva004F0479@@QAEXPAVTeamInQueue@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	?slot01@State@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	?slot02@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?slot01@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?slot02@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?slot03@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	?insert_unique_noresize@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@6@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removeGoal@Pathfinder@@QAEXPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removePos@Pathfinder@@QAEXPAVObject@@@Z	1
