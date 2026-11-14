@@ -133,12 +133,7 @@ extern int BfmeClientFramesPerSecond;
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
-struct Rva003AFA0BVector
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "../../../../Include/Common/Rva003AFA0BVector.h"
 
 #include "../../../../Include/GameClient/ParticleSystemClass.h"
 
