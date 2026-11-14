@@ -9,3 +9,18 @@ Census confirmation: no new census was run or claimed.
 2026-11-05: Further fresh dry runs for SpawnPointProductionExitUpdate, QuadStrip2D, FireLogicSystem and AptCampaignReview accepted no unchanged donors; exact class-view and byte blockers are in [follow-up evidence](../../reverse/attempt_support/shard0-consolidation-followup-20261105-codex-root.md).
 2026-11-05: FireLogicSystem's opaque-record tree now preserves native EH state through the matched game-free wrapper under /EHsc composition; standalone bytes, EH and LINKS61 pass. The ObjectID helper trial was reverted because its shared base-destructor COMDAT conflicts; reconcile that binding next. [Focused prerequisite and trial evidence](../../reverse/attempt_support/firelogic-tree-composition-20261105-codex/readme.md).
 2026-11-05: The guarded FireLogicSystem merge now absorbs the opaque-record helper (two rows, one fewer source); 34/34 bytes, EXACT3 EH and LINKS3112 pass. The unchanged ObjectID helper still needs its base-destructor binding reconciled. [Merge and path-consumer audit](../../reverse/attempt_support/firelogic-tree-composition-20261105-codex/merge-audit.md).
+
+
+2026-11-14 (merge-climb, base `f7e45e4a6b40973bf6fc8a8cdbb1126080d2aff9`): the official
+composer now absorbs AITNGuardStates.cpp alone into AITNGuard.cpp. All36/36
+named rows survive (13 source repoints), one data row verifies, four EH
+label-equivalence checks pass, and no row identity is lost. Class, ownership,
+pin, data/converged, CSV and frozen-source checks pass. ProviderGuard and
+LinkGuard accept; preview LINKS1033->2416 bytes. Fresh dry/apply index SHA256
+`16184addcbed9ac6fe32e08ffa74c61f8bee32df9d9d9b4c80ff2b321d2fd4c8`. The fetch retains the same census
+epoch and warns about four prior source moves; no older index was forced.
+The AttackExitConditionsInterface queue source/command follows the TU without
+retiring its debt. Remaining constructor/machine donors and their prerequisites
+are not cleared. Historical caller, contract and naming evidence remains
+historical; no active file-opening path consumer needs an edit. This removes
+one source file; it is not a census, real-link or runtime receipt.
