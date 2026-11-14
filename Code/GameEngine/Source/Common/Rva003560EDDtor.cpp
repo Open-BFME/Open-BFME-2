@@ -28,12 +28,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
-class Rva00355D66 {
-public:
-	virtual ~Rva00355D66();
-private:
-	char m_pad[0x0c];
-};
+#include "../../Include/GameClient/Rva00355D66.h"
 
 class Rva003560ED : public Rva00355D66 {
 public:
