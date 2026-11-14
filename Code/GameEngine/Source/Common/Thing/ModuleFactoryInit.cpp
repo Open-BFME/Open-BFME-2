@@ -112,7 +112,7 @@ class CastleBehavior { public: static Module *friend_newModuleInstance(Thing *,c
 class CastleBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CastleMemberBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/GameLogic/Module/CastleMemberBehaviorModuleData.h"
-class CastleUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/Common/CastleUpgrade.h"
 #include "../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 class CaveContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/Common/CaveContainModuleData.h"
