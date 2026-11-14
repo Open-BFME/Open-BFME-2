@@ -43,11 +43,13 @@ private:
 };
 class BfmeStrF9;
 #include "../../../../Include/GameLogic/Module/BfmeObjF9.h"
-class UpdateModule
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+struct Rva004BF40FUpdateAccessor : public UpdateModule
 {
-protected:
-	virtual void loadPostProcess();
-	friend class Rva004BF40F;
+	void callLoadPostProcess()
+	{
+		UpdateModule::loadPostProcess();
+	}
 };
 class Rva004BF40F
 {
@@ -61,7 +63,7 @@ private:
 };
 void Rva004BF40F::rva004BF40F()
 {
-	((UpdateModule *)this)->UpdateModule::loadPostProcess();
+	((Rva004BF40FUpdateAccessor *)this)->callLoadPostProcess();
 	Object *obj = m_object;
 	if (!obj->testStatus(STATUS_53))
 		return;

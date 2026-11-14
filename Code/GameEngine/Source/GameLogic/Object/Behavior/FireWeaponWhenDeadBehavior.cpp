@@ -49,33 +49,8 @@ private:
 };
 typedef BitFlags<11> DisabledMaskType;
 extern DisabledMaskType DISABLEDMASK_ALL;
-class UpdateModuleInterface
-{
-public:
-    virtual UpdateSleepTime update() = 0;
-    virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-    virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum SleepyUpdatePhase;
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	// BehaviorModuleInterface slot 9: UpdateModule's override, rowed at 0x002533D3
-	// (header-inline in UpdateModule.h; SupplyTruckAIUpdateCtor.cpp).
-	virtual UpdateModuleInterface *getUpdate();
-    virtual DisabledMaskType getDisabledTypesToProcess() const;
-    virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
-protected:
-    virtual SleepyUpdatePhase getUpdatePhase() const;
-	Object *getObject() const { return m_object; }
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 class UpgradeMux
 {
 public:

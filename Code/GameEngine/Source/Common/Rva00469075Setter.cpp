@@ -1,7 +1,6 @@
 // cl: /MD /EHsc /DNDEBUG
 // ?rva00469075@Rva00469075@@QAEXM@Z 0x00469075 52B evidence: chain from setOrientation 0x30AB9D; calls setWakeFrame 0x44DF71 with 1; null Object at this-0x114
 class Object;
-class UpdateModule;
 
 enum UpdateSleepTime
 {
@@ -11,13 +10,14 @@ enum UpdateSleepTime
 #include "Thing/thing.h"
 
 #include "../GameLogic/Object/object.h"
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule
+struct Rva00469075UpdateAccessor : public UpdateModule
 {
-	friend class Rva00469075;
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+	void callSetWakeFrame(Object *obj, UpdateSleepTime wakeDelay)
+	{
+		setWakeFrame(obj, wakeDelay);
+	}
 };
 
 class Rva00469075
@@ -37,5 +37,5 @@ void Rva00469075::rva00469075(float angle)
 		return;
 	obj->setOrientation(angle);
 	m_04 = true;
-	((UpdateModule *)((char *)this - 0x11C))->setWakeFrame(obj, UPDATE_SLEEP_NONE);
+	((Rva00469075UpdateAccessor *)((char *)this - 0x11C))->callSetWakeFrame(obj, UPDATE_SLEEP_NONE);
 }
