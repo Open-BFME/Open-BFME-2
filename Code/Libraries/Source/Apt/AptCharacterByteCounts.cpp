@@ -314,7 +314,7 @@ AptValue *__cdecl Rva006EC900StartDrag(AptValue *self,int count)
 // +4; an undefined argument stores -1 there. Name remains address-derived.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-class AptFloat {public:float GetFloat() const;};
+#include "AptFloat.h"
 #include "AptNativeHash.h"
 class BfmeAptObject006DD0E0 {public:char m_pad0[8];AptNativeHash m_hash;};
 struct BfmeM1208;
