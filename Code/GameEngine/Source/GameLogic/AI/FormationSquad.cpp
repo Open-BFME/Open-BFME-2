@@ -218,13 +218,7 @@ private:
 };
 
 // ??1Rva00550634@@QAE@XZ @0x00550634 5B: BfmeMsg member, rowed dtor 0x00655780.
-class Rva00550634
-{
-public:
-	~Rva00550634();
-private:
-	BfmeMsg m_msg;
-};
+#include "../../../Include/Common/Rva00550634.h"
 
 // ??1Rva00551983@@QAE@XZ @0x00551983 5B: deque member, rowed dtor 0x00551868.
 class Rva00551983
