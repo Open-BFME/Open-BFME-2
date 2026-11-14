@@ -479,15 +479,7 @@ private:
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
 
-class Rva000F6D56Filter
-{
-public:
-	virtual bool preRender(bool &skip, int &mode);
-
-private:
-	char m_pad00[0x18];
-	IDirect3DSurface8 *m_surface; // +0x1C
-};
+#include "../../../../GameEngine/Include/Common/Rva000F6D56Filter.h"
 
 // Nine __thiscall constructors that zero a fixed set of members (trimmed to
 // the placed Rva007E3A20 body; the other eight are declared-only here).

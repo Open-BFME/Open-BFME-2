@@ -975,15 +975,7 @@ public:
 	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
 };
 
-class Rva000F6D56Filter
-{
-public:
-	virtual bool preRender(bool &skip, int &mode);
-
-private:
-	char m_pad00[0x18];
-	IDirect3DSurface8 *m_surface; // +0x1C
-};
+#include "../../../../GameEngine/Include/Common/Rva000F6D56Filter.h"
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
 

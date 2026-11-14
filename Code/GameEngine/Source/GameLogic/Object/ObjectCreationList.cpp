@@ -863,15 +863,7 @@ extern GlobalData *TheWritableGlobalData;
 // +0x14, +4) is set, else -2.
 struct IDirect3DSurface8;
 
-class Rva000F6D56Filter
-{
-public:
-	virtual bool preRender(bool &skip, int &mode);
-
-private:
-	char m_pad00[0x18];
-	IDirect3DSurface8 *m_surface; // +0x1C
-};
+#include "../../../Include/Common/Rva000F6D56Filter.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp
 

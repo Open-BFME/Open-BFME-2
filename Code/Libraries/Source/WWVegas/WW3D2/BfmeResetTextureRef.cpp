@@ -191,15 +191,7 @@ struct IDirect3DSurface8;
 // Native 0x11D330 Clear uses WWMath's class-tagged 12B Vector3 view.
 #include "../WWMath/Vector3Data.h"
 
-class Rva000F6D56Filter
-{
-public:
-	virtual bool preRender(bool &skip, int &mode);
-
-private:
-	char m_pad00[0x18];
-	IDirect3DSurface8 *m_surface; // +0x1C
-};
+#include "../../../../GameEngine/Include/Common/Rva000F6D56Filter.h"
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 
