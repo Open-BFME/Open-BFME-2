@@ -115,3 +115,15 @@ def test_a_specialization_inside_a_literal_is_no_copy(tmp_path, monkeypatch):
     (tmp_path / "n.cpp").write_text("namespace Other {\ntemplate <int N> class BitFlags;\n"
                                     "template <> class BitFlags<11> { int own; };\n}\n")
     assert inventory.inventory(["r.cpp", "n.cpp"], tmp_path, {"BitFlags"}, templates=True) == {}
+
+
+def test_a_template_copy_whose_name_a_splice_splits_is_counted(tmp_path, monkeypatch):
+    # review r4: the prefilter and the scan read the unspliced text, so `Bit\` + `Flags<11>` was missed
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
+    for memo in ("HEADS", "VIEWS", "TEMPLATE_VIEWS"):
+        monkeypatch.setattr(inventory, memo, picker_cache.FileMemo("test-" + memo.lower(), inventory.CODE))
+    (tmp_path / "s.cpp").write_text("template <> class Bit\\\nFlags<11> { int own; };\n")
+    (tmp_path / "p.cpp").write_text("template <int N> class Bit\\\nFlags { int x; };\n")
+    (tmp_path / "l.cpp").write_text("template <int N> class BitFlags; template <> class BitFlags<11> { int own; };\n")
+    found = inventory.inventory(["s.cpp", "p.cpp", "l.cpp"], tmp_path, {"BitFlags"}, templates=True)
+    assert set(found["BitFlags"]) == {"s.cpp", "p.cpp", "l.cpp"}

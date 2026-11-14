@@ -921,6 +921,38 @@ def test_a_conditional_brace_in_a_specializations_body_makes_its_end_unknown():
     assert lane.swap("template <int N> class BitFlags { int x; };\n" + unit, ["BitFlags"], "B.h") is None
 
 
+def test_a_specialization_after_other_code_on_its_line_is_read():
+    # review r4: heads were anchored to line starts, so this copy passed accept unseen
+    unit = '#include "B.h"\ntemplate <int N> class BitFlags; template <> class BitFlags<11> { int own; };\n'
+    assert len(lane.specialization_spans(unit, "BitFlags")) == 1
+    assert lane.private_body(unit, "BitFlags", template=True)
+
+
+@pytest.mark.parametrize("hash_", ["%:", "\v#", "\f#"])
+def test_every_spelling_of_a_directive_counts(hash_):
+    # review r4: `%:if 0` (a digraph) and a vertical tab before `#` were no directives
+    hidden = f'#include "B.h"\n{hash_}if 0\nnamespace Hidden {{\n{hash_}endif\ntemplate <> class BitFlags<11> {{ int own; }};\n'
+    assert lane.specialization_spans(hidden, "BitFlags") is None
+    assert lane.private_body(hidden, "BitFlags", template=True)
+    other = ("template <int N> class BitFlags { int x; };\nnamespace Other {\ntemplate <int N> class BitFlags;\n"
+             f"{hash_}if 0\n}}\n{hash_}endif\ntemplate <> class BitFlags<11> {{ int own; }};\n}}\n")
+    assert lane.swap(other, ["BitFlags"], "B.h") is None
+
+
+def test_a_raw_string_holding_a_splice_is_not_read():
+    # review r4: removing the splice first ended the raw string early, and its contents were cut out
+    unit = 'const char *s = R"tag(\n)tag\\\n"\ntemplate <> class BitFlags<11> { int fake; };\n)tag";\n'
+    assert lane.specialization_spans(unit, "BitFlags") is None
+    assert lane.swap(unit, ["BitFlags"], "B.h") is None
+    plain = 'const char *s = R"tag(\ntemplate <> class BitFlags<11> { int fake; };\n)tag";\n'
+    assert lane.specialization_spans(plain, "BitFlags") == []       # a raw string without one is read as before
+
+
+def test_accept_reads_a_template_body_whose_name_a_splice_splits():
+    unit = '#include "B.h"\ntemplate <int N> class Bit\\\nFlags { int x; };\n'
+    assert lane.private_body(unit, "BitFlags", template=True)
+
+
 def test_dependency_views_go_with_the_class():
     out = lane.swap(UNIT, ["AsciiString", "StringBase"], "ascii_string.h")
     assert "StringBase" not in out.split("void use")[0].split('#include "ascii_string.h"')[1]

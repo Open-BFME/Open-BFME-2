@@ -25,7 +25,7 @@ VIEWS = picker_cache.FileMemo("class-inventory-views", CODE)
 # too) and knows which scope a specialization belongs to.
 TEMPLATE_VIEWS = picker_cache.FileMemo("class-inventory-template-views",
                                        CODE + [str(Path(__file__).with_name("header_adopt_lane.py"))])
-SPECIALIZATION = re.compile(r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+(?P<name>[A-Za-z_]\w*)\s*<", re.M)
+SPECIALIZATION = re.compile(r"(?<![\w$])template\s*<\s*>\s*(?:class|struct)\s+(?P<name>[A-Za-z_]\w*)\s*<")
 
 
 def parse(text, templates=False):
@@ -33,18 +33,27 @@ def parse(text, templates=False):
     `templates`, a class template's own body and its explicit specializations count too
     (a registered class template's private copies)."""
     out = {}
-    for name, start, end, _ in class_layouts.class_body_spans(text, include_templates=templates):
-        body = " ".join(COMMENT.sub("", text[start:end]).split())
-        out.setdefault(name, hashlib.sha1(body.encode("latin-1")).hexdigest()[:10])
+    source = text
     if templates:
         import header_adopt_lane    # its scanner, not a copy of it; imported here, where no cycle forms
-        code = header_adopt_lane.masked(text)
+        source = header_adopt_lane.spliced(text)[0]   # a name a line splice splits is read whole
+    for name, start, end, _ in class_layouts.class_body_spans(source, include_templates=templates):
+        body = " ".join(COMMENT.sub("", source[start:end]).split())
+        out.setdefault(name, hashlib.sha1(body.encode("latin-1")).hexdigest()[:10])
+    if templates:
+        code = header_adopt_lane.masked(source)
         for name in sorted({found.group("name") for found in SPECIALIZATION.finditer(code)}):
             spans = header_adopt_lane.specialization_spans(text, name)
             if spans is None or spans:           # an unreadable one counts: the swap decides it
-                body = " ".join(" ".join(code[a:b].split()) for a, b in spans or ()) or "unread"
+                body = " ".join(" ".join(text[a:b].split()) for a, b in spans or ()) or "unread"
                 out.setdefault(name, hashlib.sha1(body.encode("latin-1")).hexdigest()[:10])
     return out
+
+
+def spliced_text(text):
+    """`text` with its line splices removed (header_adopt_lane.spliced)."""
+    import header_adopt_lane
+    return header_adopt_lane.spliced(text)[0]
 
 
 def inventory(sources, root=ROOT, wanted=None, templates=False):
@@ -67,7 +76,7 @@ def inventory(sources, root=ROOT, wanted=None, templates=False):
             continue
         # A parser-produced name is a contiguous spelling in its source. Avoid
         # filling a whole head index just to answer the first single-class query.
-        if needle is not None and needle not in text:
+        if needle is not None and needle not in text and not (templates and needle in spliced_text(text)):
             continue
         key = picker_cache.text_key(text)
         if wanted is not None and not templates:

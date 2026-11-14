@@ -223,7 +223,17 @@ def template_class(header, name):
                for found in class_layouts.HEAD.finditer(masked(text)))
 
 
-SPECIALIZATION_HEAD = r"^[ \t]*template\s*<\s*>\s*(?:class|struct)\s+%s\s*<"
+SPECIALIZATION_HEAD = r"(?<![\w$])template\s*<\s*>\s*(?:class|struct)\s+%s\s*<"   # anywhere a token starts
+
+
+def raw_string_splice(text):
+    """Whether a raw string literal holds a line splice: translation phase 2 does not join lines
+    inside one, so the text read with its splices removed (spliced) would end it early."""
+    for found in RAW_STRING.finditer(text):
+        close = text.find(")" + found.group(1) + '"', found.end())
+        if SPLICE.search(text, found.end(), close if close >= 0 else len(text)):
+            return True
+    return False
 
 
 def spliced(text):
@@ -253,13 +263,15 @@ def specialization_spans(text, name):
     other braces (a class, a function, `extern "C"`), when a brace before it or in its body is on
     a directive line or in a conditional region (#if ... #endif: which braces compile is not known
     here), or when one does not close."""
+    if raw_string_splice(text):
+        return None
     joined, keep = spliced(text)
     code, out = masked(joined), []
     namespaces = {m.end() - 1 for m in class_layouts.NAMESPACE.finditer(code)}
     linkage = {m.end() - 1 for m in re.finditer(r'\bextern\s+"C\+\+"\s*\{', masked(joined, keep_literals=True))}
     conditional, depth = set(), 0          # braces on a directive line or inside a conditional region
     for line in re.finditer(r"[^\n]*\n?", code):
-        directive = re.match(r"[ \t]*#[ \t]*(\w*)", line.group())
+        directive = re.match(r"[ \t\v\f]*(?:#|%:)[ \t\v\f]*(\w*)", line.group())
         if directive:
             depth += {"if": 1, "ifdef": 1, "ifndef": 1, "endif": -1}.get(directive.group(1), 0)
             depth = max(depth, 0)
@@ -336,6 +348,8 @@ def private_body(text, name, template=False):
         return True
     if not template:
         return False
+    if name in (n for n, _s, _e, _k in class_layouts.class_body_spans(spliced(text)[0], include_templates=True)):
+        return True                                   # a template body whose name a splice splits
     specializations = specialization_spans(text, name)
     return specializations is None or bool(specializations)
 
