@@ -2456,3 +2456,60 @@ def test_a_disputed_section_lends_no_evidence(tmp_path):
     publics = [dict(name="fn", rva=0x500, object="unit.obj"), dict(name="anchor", rva=0x2100, object="unit.obj")]
     assert iso.place_statics(publics, manifest, {"bstatic", "cstatic"}, image) == {}
 
+
+def test_pooled_equality_does_not_discharge_a_named_global_at_the_address():
+    # image_iso review r3: retail "NONE"; the pooled copy holds it, the qualified named global does not
+    alias, name = "??_C@_04OKGDLNCL@NONE?$AA@", "_BfmeParticleBoneNone"
+    c = checker([public(alias, 0x2000, 5), public(name, 0x2100, 5)], {alias: {0x300}, name: {0x300}})
+    c.mapping.targets_for = lambda p: {0x300} if p["rva"] == 0x2100 else set()
+    c.retail.put(0x300, b"NONE\0")
+    c.ours.put(0x2000, b"NONE\0")
+    c.ours.put(0x2100, b"BAD!\0")
+    r = row(name, 0x300, 5)
+    r["names"] = alias
+    c.ledger([r], {})
+    assert "global_contents" in [d["family"] for d in c.defects]
+
+
+def test_a_named_global_longer_than_its_pooled_alias_is_checked_whole():
+    # image_iso review r3: an 8-byte global aliased with __real@3f800000; the second float differs
+    alias, name = "__real@3f800000", "g_pair"
+    c = checker([public(alias, 0x2000, 4), public(name, 0x2100, 8)], {alias: {0x300}, name: {0x300}})
+    c.mapping.targets_for = lambda p: {0x300} if p["rva"] == 0x2100 else set()
+    c.retail.put(0x300, struct.pack("<ff", 1.0, 2.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ours.put(0x2100, struct.pack("<ff", 1.0, 9.0))
+    r = row(name, 0x300, 8)
+    r["names"] = alias
+    c.ledger([r], {})
+    assert "global_contents" in [d["family"] for d in c.defects]
+
+
+def test_a_literal_whose_copy_cannot_hold_its_length_excludes_no_word(tmp_path):
+    # image_iso review r3: "payload" encodes 8 bytes, the copy's extent is 4: neither exclusion applies
+    name = "??_C@_07ABCDEFGH@payload@"
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+    with_data_section(c)
+    c.publics.append(public(name, 0x2000, 4))
+    c.ours.put(0x2000, struct.pack("<I", 0x403100))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"].get("data_literal_payload_candidates_excluded", 0) == 0
+    assert result["counts"].get("data_words_in_nonpointer_containers_excluded", 0) == 0
+    assert len(result["defects"]) == 1
+
+
+@pytest.mark.parametrize("named,family", [(b"NONE\0", None), (b"BAD!\0", "global_contents")])
+def test_a_named_global_beside_equal_pooled_copies_is_checked_through_its_own_name(named, family):
+    # retail folds _BfmeParticleBoneNone with the literal "NONE"; our image keeps them apart. With every pooled
+    # copy equal, the named global's own copy decides -- the pooled copies do not make its location ambiguous.
+    alias, name = "??_C@_04OKGDLNCL@NONE?$AA@", "_BfmeParticleBoneNone"
+    c = checker([public(alias, 0x2000, 5), public(name, 0x2100, 5)], {alias: {0x300}, name: {0x300}})
+    c.retail.put(0x300, b"NONE\0")
+    c.ours.put(0x2000, b"NONE\0")
+    c.ours.put(0x2100, named)
+    r = row(name, 0x300, 5)
+    r["names"] = alias
+    c.ledger([r], {})
+    assert [d["family"] for d in c.defects] == ([family] if family else [])
+    assert c.counts["globals_compared"] == 1
+

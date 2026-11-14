@@ -1015,25 +1015,37 @@ class Checker:
             if kind not in ("vtable", "global", "string", "wstring", "float"):
                 self.counts[kind + "_unanalyzed"] += 1
                 continue
+            owners = names                                  # the names whose storage the winner path checks
             if any(POOLED.match(n) and self.by_name.get(n) for n in names):
-                # every image copy of a pooled constant, not only one a winner qualifies
+                # every image copy of a pooled constant, not only one a winner qualifies; equality of the pooled
+                # value never discharges a named global sharing the address (the winner path below checks its
+                # own storage over the row's size)
+                named = any(not POOLED.match(n) and (self.by_name.get(n) or self.statics.get(n)) for n in names)
                 pooled = self.pooled_copies(names, rva, size)
-                if pooled is not None:
+                compared = kind + "_compared" if kind in ("string", "wstring", "float") else "globals_compared"
+                if pooled is False:
                     self.counts["pooled_constant_rows_compared"] += 1
-                    self.counts[kind + "_compared" if kind in ("string", "wstring", "float") else "globals_compared"] += 1
-                    if pooled is False:
-                        self.defect("pooled_constant_contents", rva, row, "an image copy of the pooled constant "
-                                    "differs from retail's value")
+                    self.counts[compared] += 1
+                    self.defect("pooled_constant_contents", rva, row, "an image copy of the pooled constant "
+                                "differs from retail's value")
                     continue
-                self.counts["pooled_constant_copies_unanalyzed"] += 1
-            p = self.winner(names, rva)
+                if pooled is None:
+                    self.counts["pooled_constant_copies_unanalyzed"] += 1
+                else:
+                    self.counts["pooled_constant_rows_compared"] += 1
+                    if not named:
+                        self.counts[compared] += 1
+                        continue
+                    # every pooled copy holds the value: the named storage is located through its own names
+                    owners = {n for n in names if not POOLED.match(n)}
+            p = self.winner(owners, rva)
             retail = self.retail.read(rva, size)
-            if p is None and not any(self.by_name.get(n) for n in names):
-                p = self.static_winner(names, row)          # internal-linkage data the MAP does not list
+            if p is None and not any(self.by_name.get(n) for n in owners):
+                p = self.static_winner(owners, row)         # internal-linkage data the MAP does not list
                 if p is not None:
                     self.counts["static_data_placed"] += 1
             if p is None:
-                family = "mapping_ambiguous" if any(self.by_name.get(n) for n in names) else "no_object_retail_nonzero"
+                family = "mapping_ambiguous" if any(self.by_name.get(n) for n in owners) else "no_object_retail_nonzero"
                 if retail and any(retail) or family == "mapping_ambiguous":
                     self.defect(family, rva, row, "No unique linked MAP location for ledger names")
                 else:
@@ -1388,8 +1400,9 @@ def word_container(symbol, proven, offset):
     pointer variable, and nothing is said; a word past the proven payload is outside the container."""
     name = symbol["name"]
     if name.startswith("??_C@"):
-        length = literal_length(name)
-        return "nonpointer" if length and offset + 4 <= length else None
+        length = literal_length(name)                 # and only where this copy's own extent holds all of it
+        held = length and symbol.get("extent") and length <= symbol["extent"]
+        return "nonpointer" if held and offset + 4 <= length else None
     size = proven.get(name) or 0
     if size <= 4 or offset + 4 > size:
         return None
