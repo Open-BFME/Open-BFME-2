@@ -201,11 +201,7 @@ namespace _STL { template<> void vector<const ModuleData *>::push_back(const Mod
 
 #include "../../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
-class Rva003909FAObj
-{
-public:
-	void consume(void *,int,int);
-};
+#include "../../../../../Include/Common/Rva003909FAObj.h"
 
 struct Rva0047778BConditions {
  unsigned int words[19];

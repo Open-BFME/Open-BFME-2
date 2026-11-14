@@ -170,11 +170,7 @@ static inline void scaleInPlace(Coord3D &c, float s)
 }
 
 // The physics force consumer (0x003909FA): (force, 0, 0).
-class Rva003909FAObj
-{
-public:
-	void consume(void *force, int a, int b);
-};
+#include "../../../Include/Common/Rva003909FAObj.h"
 
 struct PhysicsBehaviorView
 {

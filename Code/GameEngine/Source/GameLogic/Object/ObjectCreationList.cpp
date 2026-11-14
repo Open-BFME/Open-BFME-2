@@ -752,10 +752,7 @@ static const FieldParse s_debrisFieldParse[] =
 	{ 0, 0, 0, 0 }
 };
 
-struct Rva003909FAObj
-{
-	void consume(void *buf, int a, int b);
-};
+#include "../../../Include/Common/Rva003909FAObj.h"
 
 // The existing ObjectCreationList.cpp owner supplies this same native call.
 void __cdecl calcRandomForce(float minMag, float maxMag,

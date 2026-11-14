@@ -55,11 +55,7 @@ template<> class ShockSlots<0> {};
 #include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
-class Rva003909FAObj
-{
-public:
-	void consume(void*,int,int);
-};
+#include "../../../Include/Common/Rva003909FAObj.h"
 class PhysicsBehavior
 {
 public:

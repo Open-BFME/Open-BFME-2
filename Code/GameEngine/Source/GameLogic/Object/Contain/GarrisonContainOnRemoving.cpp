@@ -102,11 +102,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
 
-class Rva003909FAObj
-{
-public:
-    void consume(void *force, int a, int b);
-};
+#include "../../../../Include/Common/Rva003909FAObj.h"
 
 class ContainSlots
 {
