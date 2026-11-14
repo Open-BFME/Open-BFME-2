@@ -55,7 +55,7 @@ public:
 class W3DDisplay
 {
 public:
-	void createLightPulse(const Coord3D *pos, const RGBColor *color, float innerRadius, float b, unsigned int c, unsigned int d);
+	virtual void createLightPulse(const Coord3D *pos, const RGBColor *color, float innerRadius, float b, unsigned int c, unsigned int d);
 
 	static RTS3DScene *m_3DScene;
 };
