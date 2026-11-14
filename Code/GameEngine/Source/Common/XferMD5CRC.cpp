@@ -702,13 +702,7 @@ class Rva00534641
 public:
 	~Rva00534641();
 };
-class Rva00534765
-{
-public:
-	~Rva00534765();
-private:
-	Rva00534641 m_00;
-};
+#include "../../Include/Common/Rva00534765.h"
 // ?rva00531EB8@Rva00531EB8@@QAEXXZ @0x00531EB8 4B: advance the +0 pointer by one word.
 class Rva00531EB8
 {
