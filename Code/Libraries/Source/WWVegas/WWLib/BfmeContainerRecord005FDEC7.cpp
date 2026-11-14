@@ -85,13 +85,7 @@ struct BfmeStringRecord00448113 {
 };
 template void _STL::_Construct<BfmeStringRecord00448113,BfmeStringRecord00448113>(BfmeStringRecord00448113*,const BfmeStringRecord00448113&);
 #include "../../../../GameEngine/Include/Common/Rva00468520Obj.h"
-class Rva00468520 {
-    Rva00468520Obj *m_00; int m_04;
-public:
-    __declspec(nothrow) Rva00468520 *set(const Rva00468520 *src);
-    ~Rva00468520();
-    __declspec(nothrow) __forceinline Rva00468520(const Rva00468520 &other) { set(&other); }
-};
+#include "../../../../GameEngine/Include/Common/Rva00468520.h"
 #include "../../../../GameEngine/Include/GameClient/BfmeStringRecord00222E08.h"
 template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08>(BfmeStringRecord00222E08*,const BfmeStringRecord00222E08&);
 #include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
