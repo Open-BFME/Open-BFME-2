@@ -79,9 +79,7 @@ __declspec(noinline) UnicodeString Rva00539619(const UnicodeString &str){
 }
 #include "../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
-class __declspec(novtable) Rva005398CDRefCounted {public:
- Rva005398CDRefCounted():m_refCount(0){} virtual ~Rva005398CDRefCounted();int m_refCount;
-};
+#include "../../../Include/Common/Rva005398CDRefCounted.h"
 class InGameSimpleHelp:public Rva005398CDRefCounted {public:class Impl;
  InGameSimpleHelp(const UnicodeString&,const UnicodeString&);virtual ~InGameSimpleHelp();
  private:Impl *m_impl;
