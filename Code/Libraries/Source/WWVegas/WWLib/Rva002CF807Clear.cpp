@@ -24,20 +24,15 @@ struct Rva002CF807Header
 	void *m_right;
 };
 
-struct Rva002CF807
-{
-	Rva002CF807Header *m_header;
-	int m_size;
-	void rva002CF807();
-};
+#include "Rva002CF807.h"
 
 void Rva002CF807::rva002CF807()
 {
 	if (m_size != 0) {
-		((Rva002CF32F *)this)->rva002CF32F(m_header->m_root);
-		m_header->m_left = m_header;
-		m_header->m_root = 0;
-		m_header->m_right = m_header;
+		((Rva002CF32F *)this)->rva002CF32F(((Rva002CF807Header *)m_header)->m_root);
+		((Rva002CF807Header *)m_header)->m_left = m_header;
+		((Rva002CF807Header *)m_header)->m_root = 0;
+		((Rva002CF807Header *)m_header)->m_right = m_header;
 		m_size = 0;
 	}
 }
