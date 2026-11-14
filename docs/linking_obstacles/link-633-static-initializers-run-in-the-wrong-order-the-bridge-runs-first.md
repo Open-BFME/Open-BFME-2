@@ -1,5 +1,5 @@
 ### LINK-633: static initializers run in the wrong order: the bridge runs first, and object order is path order (P32)
-Status: Open. Updated: 2026-11-12; inspected revision: 8a30049c6a (swarm Link lane).
+Status: Open. Updated: 2026-11-14; inspected revision: 7477c3573a (swarm tool lane 2).
 
 Evidence / affected units: P32. LivingWorldRegionEffects' field table gets empty names because
 `initializeRegionEffectFields` (0x007AF9D6, Rva003EE746ColorProvider.cpp) runs before the nine string
@@ -136,6 +136,37 @@ parse pointers itself. Candidates: FieldParse constructors for those entries, or
 object whose constructor fills the table. The row would also need a respell to the compiler's initializer
 name. So `initializers_bridged` is unchanged and P32 stays open; it needs that registration and retail
 order together.
+
+*Update 2026-11-14 (swarm tool lane 2): real links of 7477c3573a in both orders.* One boat sandbox, one compile
+(store audit clean), then `exit_link.py --link --order path` and `--order retail` on the same objects at the
+same checkout path, and image_iso at 7477c3573a on each image. Both are real, authoritative, with no stubs.
+
+| | path | retail |
+|---|---:|---:|
+| unresolved / duplicates | 0 / 0 | 0 / 0 |
+| COMDAT copies kept from a non-owner unit (image_iso kept_copies) | 242 in 132 units | 5 in 5 units |
+| of them in header-queue units | 148 (69 units) | 1 |
+| of them STLport | 194 | 4 |
+| image_iso vtable_slot / vtable_short | 20 / 1 | 13 / 2 |
+| image_iso defects | 1,316 | 1,310 |
+
+Each kept body was compared with retail at its row, instruction by instruction, with absolute addresses in
+either image's range and rel32 targets masked:
+- Of the 242 path-order non-owner copies, 238 differ from retail under path order and match it under retail
+  order. 4 differ under both: `money_get::do_get`, the `hashtable<pair<const int, Rva003A37FAElement>>`
+  constructor, and two `vector::_M_insert_overflow`.
+- Retail order keeps 2 copies that are worse (they match retail under path order and differ under retail
+  order). Each is a non-owner unit whose lowest own code RVA places it ahead of the owner:
+  - `_List_base<Object*>` constructor: HordeDispatchSpecialPower.cpp beats the owner AIGroup.cpp.
+  - `??_GRva0058AD7A@@UAEPAXI@Z`: Rva0058AD7ACtor.cpp beats the owner Rva0058AD7ABase.cpp. This is also the
+    one new vtable defect (`??_7Rva0058AD7A@@6B@` short, with a wrong slot).
+  Whole-object order cannot put every owner first. These need the non-owner unit's private view replaced
+  (header adoption) or its identity.
+
+Limits: this covers image_iso's kept-copy table, not every moved public. The 8 worse cases of the
+2026-11-08 comparison over all moved publics were not re-checked at 7477c3573a. The comparison is static
+only: retail order also changes .CRT$XCU order, and no game has run on either image. Evidence on srv1:
+`~/bfme2-ops/swarm/sweeps/toollane2/linkorder/` (report.md, the driver, both images).
 
 Clearance: pending.
 Census confirmation: not claimed.
