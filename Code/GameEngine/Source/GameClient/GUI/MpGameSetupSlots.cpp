@@ -362,12 +362,7 @@ public:
 	const AsciiString &GetSubClassNameTag(unsigned int classIndex, unsigned int subClassIndex);
 };
 
-class PlayerTemplate
-{
-public:
-	int rva001FD234() const;
-	UnicodeString getDisplayName() const;
-};
+#include "../../../Include/Common/PlayerTemplate.h"
 
 #include "../../../Include/Common/PlayerTemplateStore.h"
 

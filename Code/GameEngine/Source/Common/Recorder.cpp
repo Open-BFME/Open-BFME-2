@@ -192,7 +192,7 @@ extern CommandList*TheCommandList;
 // two argument slots (RET8), player limit20, message-list head+C, player
 // fields34/38/4C, ThingTemplate name64 and default team2EC. The target
 // has eleven argument cases and the additional message458 power parameter.
-class PlayerTemplate {public:AsciiString getName() const;};
+#include "../../Include/Common/PlayerTemplate.h"
 
 class Team;
 
