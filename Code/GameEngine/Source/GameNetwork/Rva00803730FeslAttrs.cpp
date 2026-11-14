@@ -58,11 +58,7 @@ void Rva00803730Host::go( Rva00803730Getter *r )
 	m_sink->apply( tid, allowed, pid, reason );
 }
 
-class Gen007F0130
-{
-public:
-	static void *operator new( unsigned int size );
-};
+#include "../../Include/GameNetwork/Gen007F0130.h"
 
 #include "../../Include/Common/Rva007E86B0Base.h"
 
