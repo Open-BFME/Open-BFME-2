@@ -2741,3 +2741,13 @@ def test_a_retail_address_at_two_slots_keeps_both():
     entry = c.initializer_entries[0]
     assert entry["unit_retail_slots"] == "0/1" and entry["previous_retail_slot"] == "0/1"
 
+
+def test_an_entry_mapped_outside_retails_table_is_listed():
+    # review r2: `extra` maps to retail code (0x250) that retail never registers as an initializer
+    c = checker([dict(public("extra", 0x500), source="Code/extra.cpp")], {"extra": {0x250}})
+    c.retail.inits = [0x100]
+    c.ours.inits = [0x500]
+    c.initializers({})
+    assert [(e["kind"], e["name"]) for e in c.initializer_entries] == [("slotless", "extra")]
+    assert c.counts["initializer_extra"] == 1 and c.counts["initializers_unanalyzed"] == 0
+

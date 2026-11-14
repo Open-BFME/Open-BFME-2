@@ -1174,7 +1174,8 @@ class Checker:
                 self.counts["globals_compared" if kind == "global" else kind + "_compared"])
 
     def unresolved_initializers(self, expected, actual, mapped, slotted_sources):
-        """One record per image table entry that resolves to no retail initializer: its image slot and address,
+        """One record per image table entry that resolves to no retail initializer (no name, or a name whose retail
+        address is not in retail's table): its image slot and address,
         the MAP symbols there (name, object, attached source), its kind, and the nearest retail-slotted entries
         before and after it (their retail slots and names)."""
         slotted = collections.defaultdict(set)
@@ -1200,8 +1201,8 @@ class Checker:
             return None, ""
         out = []
         for slot, (rva, resolved) in enumerate(zip(actual, mapped)):
-            if resolved is not None:
-                continue
+            if resolved in retail_slots:
+                continue                    # a retail initializer; an address outside the table is listed too
             symbols = here.get(rva, [])
             sources = sorted({unit_key(p["source"]) for p in symbols if p.get("source")})
             if not symbols:
