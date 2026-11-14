@@ -215,6 +215,10 @@ public:
 	Rva000A8EF6();
 	Rva000A8EF6(EmitVtableTag *);
 	virtual ~Rva000A8EF6();
+	virtual void slot04() = 0;
+	virtual int slot08() { return 0; }
+	virtual int slot0C() { return 0; }
+	virtual int slot10() { return 0; }
 };
 
 // ??0Rva000A8EF6@@QAE@XZ @0x000A8EE6 9B: the default constructor, storing the
