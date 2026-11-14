@@ -1,10 +1,14 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_CRTIMP=
 // Target evidence at 0x00433DFE: Apt query callback over the Save/Load label
 // and the Campaign/Skirmish/Replay/WOTR/WOTRMP mode bits. The surrounding
 // save/load callbacks establish the screen and state field at +0x27C.
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
-extern "C" char *__cdecl _mbscpy(char *, const char *);
-extern "C" char *__cdecl _mbscat(char *, const char *);
+// Retail imports _strcmpi and calls the multibyte routines through thunks.
+// Use the native headers with the matching declaration context for each.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
+#include <mbstring.h>
 
 #include "../../../../../Include/GameClient/AptSaveLoad.h"
 
@@ -22,9 +26,9 @@ void AptSaveLoad::Externs(int query, char *value, bool set)
 		if (!set)
 		{
 			if (field294 == 3)
-				_mbscpy(value, "Save");
+				_mbscpy(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("Save"));
 			else if (field294 == 2)
-				_mbscpy(value, "Load");
+				_mbscpy(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("Load"));
 		}
 		break;
 	case 1:
@@ -32,15 +36,15 @@ void AptSaveLoad::Externs(int query, char *value, bool set)
 			return;
 		value[0] = set;
 		if (field298Byte & 1)
-			_mbscat(value, "Campaign");
+			_mbscat(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("Campaign"));
 		if (field298Byte & 2)
-			_mbscat(value, "Skirmish");
+			_mbscat(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("Skirmish"));
 		if (field298Byte & 4)
-			_mbscat(value, "Replay");
+			_mbscat(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("Replay"));
 		if (field298Byte & 8)
-			_mbscat(value, "WOTRSP");
+			_mbscat(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("WOTRSP"));
 		if (field298Byte & 16)
-			_mbscat(value, "WOTRMP");
+			_mbscat(reinterpret_cast<unsigned char *>(value), reinterpret_cast<const unsigned char *>("WOTRMP"));
 		break;
 	case 2:
 		if (!set)
