@@ -243,15 +243,7 @@ void __debugbreak();
 class BfmeAptValue006DCD20;
 void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
 #include "Rva006CFCD0.h"
-class AptDisplayList
-{
-public:
-	AptDisplayList();
-	~AptDisplayList();
-	void removeClonedObject(AptCIH *);
-private:
-	void *list; // +0x00
-};
+#include "AptDisplayList.h"
 AptValue *Rva006ED770RemoveMovieClip(AptValue *self,int){
  BfmeAptValue006DCD20 *found=0;
  rva007065e0((int)self->c_cih(false),0,(BfmeAptValue006DCD20 *)self->c_cih(false),&found);
