@@ -2150,7 +2150,16 @@ class Rva004CE267
 {
 public:
 	Rva004CE267();
-	virtual ~Rva004CE267() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual bool slot1C() { return false; }
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
 };
 
 Rva004CE267::Rva004CE267()
