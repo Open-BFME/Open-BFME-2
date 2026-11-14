@@ -1340,3 +1340,62 @@ def test_interleaved_unanchored_tus_are_neither_provisional(tmp_path):
                            ("?b@Foo@@QAEXXZ", 0x8000, "FooB.cpp"), ("?b@Bar@@QAEXXZ", 0x9000, "BarB.cpp")])
     assert {out[rva]["tu"] for rva in (0x5000, 0x8000)} == {"Code/X/Foo.cpp"}
     assert all(out[rva]["confidence"] == "proposed" for rva in (0x5000, 0x6000, 0x8000, 0x9000))
+
+
+# LookupTablePostEffect: a pre-existing private body is transferred verbatim
+# from an absorbed .cpp. Its canonical header is not adopted by that move.
+PRIVATE_REG = 'class Reg\n{\npublic:\n    int a;\n    float b;\n};\n'
+
+
+def private_transfer(repo, *, changed=False, keep=False, namespace=False, copies=1):
+    donor = repo / 'Code/X/Private.cpp'
+    donor.write_text(PRIVATE_REG)
+    git(repo, 'add', 'Code/X/Private.cpp')
+    git(repo, 'commit', '-qm', 'existing private body')
+    if not keep:
+        donor.unlink()
+    body = PRIVATE_REG.replace('int a;', 'long a;') if changed else PRIVATE_REG
+    if namespace:
+        body = 'namespace Other {\n' + body + '}\n'
+    for i in range(copies):
+        (repo / f'Code/X/Target{i}.cpp').write_text(body)
+
+
+def test_b1_deleted_private_body_transfer(repo):
+    private_transfer(repo)
+    assert staged(repo) == set()
+
+
+def test_b1_deleted_private_body_transfer_commit_mode(repo):
+    private_transfer(repo)
+    git(repo, 'add', '-A')
+    git(repo, 'commit', '-qm', 'transfer existing private body')
+    assert tu_ownership.check('HEAD^', 'HEAD') == []
+
+
+@pytest.mark.parametrize('kwargs', [
+    {'changed': True}, {'keep': True}, {'namespace': True}, {'copies': 2},
+])
+def test_b1_transfer_cannot_launder_a_new_copy(repo, kwargs):
+    private_transfer(repo, **kwargs)
+    assert 'B1' in staged(repo)
+
+
+def test_b1_deleting_the_canonical_header_cannot_credit_a_private_copy(repo):
+    (repo / 'Code/X/Shared.h').unlink()
+    (repo / 'Code/X/Target.cpp').write_text(PRIVATE_REG)
+    assert 'B1' in staged(repo)
+
+
+def test_fold_notes_do_not_override_an_approved_tu(repo):
+    p = repo / 'reverse/functions.csv'
+    p.write_text(p.read_text().replace(',Code/X/FooG.cpp,matched,',
+                                       ',Code/X/Elsewhere.cpp,matched,header-inline folded RET4;'))
+    assert 'A2' in staged(repo)
+
+
+
+def test_b1_a_deleted_private_source_does_not_credit_a_new_header(repo):
+    private_transfer(repo)
+    (repo / 'Code/X/Target0.cpp').rename(repo / 'Code/X/PrivateHeader.h')
+    assert 'B1' in staged(repo)

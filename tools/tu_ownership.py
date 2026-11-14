@@ -252,9 +252,38 @@ def registered_fingerprints(reg):
     return _FP
 
 
+def deleted_private_bodies(base, new, reg):
+    """One-use class-body credits from sources absent from the destination tree.
+
+    Use class_gate's conservative body and enclosing-scope identity. This is
+    existing debt moving, not header adoption. Never credit a canonical header,
+    a retained source, an unreadable body, or a changed/ambiguous declaration.
+    Both staged and historical checks read exactly the requested two trees.
+    """
+    import class_gate
+
+    args = ["diff", "--no-renames", "--name-only", "-z", "--diff-filter=D"]
+    args += ["--cached", base] if new is None else [base, new]
+    paths = git(*args, "--", LAYOUT.src.rstrip("/")).split("\0")
+    credits = collections.Counter()
+    headers = set(reg.values())
+    for path in paths:
+        if (not path.startswith(LAYOUT.src) or not path.endswith((".cpp", ".c"))
+                or path in headers):
+            continue
+        before = git("show", f"{base}:{path}")
+        for name, body in class_gate.moved_bodies(before).items():
+            if name in reg:
+                credits[(name, body)] += 1
+    return credits
+
+
 def check_classes(base, new, d, reg):
+    import class_gate
+
     out = []
-    for path, (added, removed) in d.items():
+    moves = None
+    for path, (added, removed) in sorted(d.items()):
         if not path.startswith(LAYOUT.src) or not path.endswith((".cpp", ".c", ".h")):
             continue
         new_names = {m.group(1) for m in map(CLASS.match, added) if m}
@@ -268,6 +297,13 @@ def check_classes(base, new, d, reg):
         for name in sorted(new_names):
             if name in reg and name not in allowed and name in bodies and ROOT / reg[name] != ROOT / path \
                     and reg[name] != path:
+                if moves is None:
+                    moves = deleted_private_bodies(base, new, reg)
+                body = class_gate.moved_bodies(text).get(name)
+                key = (name, body)
+                if path.endswith((".cpp", ".c")) and body is not None and moves[key]:
+                    moves[key] -= 1
+                    continue
                 out.append(("B1", f"{path}: private body of registered class {name} (header {reg[name]})"))
             elif name in bodies and name not in reg:
                 hit = registered_fingerprints(reg).get(bodies[name])
