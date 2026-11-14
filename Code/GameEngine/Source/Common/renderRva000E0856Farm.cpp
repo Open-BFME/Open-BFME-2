@@ -9,7 +9,7 @@
 class BfmeVecHF {public:float x,y,z;};
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Gen_0094AC70.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-class LightEnvironmentClass {public:void Pre_Render_Update(const Matrix3D&);};
+#include "../../../Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h"
 #include "../../../../reference/shims/wwmath/Vector2.h"
 class SegmentedLineClass {public:void rva0015E3E0(const Vector2&);};
 class CameraClass {public:
