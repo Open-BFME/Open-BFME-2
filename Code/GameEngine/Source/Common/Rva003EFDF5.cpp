@@ -14,12 +14,7 @@ public:
 	void rva0020EA22(int v);
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xB0];
-	Rva0020EA22Outer *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
@@ -54,7 +49,7 @@ void Rva003EFDF5Host::rva003EFDF5(void *enabled)
 	m_1A2 = enabledByte;
 	inner->m_enabled = enabledByte;
 	if (enabledByte == 0)
-		(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->rva0020EA22(m_12C);
+		((Rva0020EA22Outer *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0))->rva0020EA22(m_12C);
 	LivingWorldRegionEffectsManager *obj = TheLivingWorldManager->field268;
 	if (obj)
 		obj->SyncRegion((int)this);

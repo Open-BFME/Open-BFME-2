@@ -112,16 +112,11 @@ struct Rva003EF2FFMid
 	Rva003EF2FFHolder *m_8;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xB0];
-	Rva003EF2FFMid *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 void LivingWorldRegionEffectsManager::rva003EF2FF()
 {
-	Rva003EF2FFHolder *holder = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->m_8;
+	Rva003EF2FFHolder *holder = ((Rva003EF2FFMid *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0)->m_8;
 	_STL::vector<Int> *range;
 	if (holder)
 		range = &holder->m_2C;

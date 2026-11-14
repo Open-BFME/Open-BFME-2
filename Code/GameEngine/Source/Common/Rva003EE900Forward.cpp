@@ -493,13 +493,7 @@ public:
 	char m_pad00[8];
 	Rva003EEBEFHolder *m_holder; // +0x08
 };
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad00[0xB0];
-	Rva0020EAF6View *m_B0; // +0xB0
-	Rva0020EAF6View *getLookup() const { return m_B0; }
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva003EEBEFRecord
@@ -520,15 +514,19 @@ class Rva003EEBEF
 public:
 	void rva003EEBEF(Int recordSourceAddress);
 };
+static inline Rva0020EAF6View *rva003EEBEFGetLookup(void *mgr)
+{
+	return (Rva0020EAF6View *)mgr;
+}
 void Rva003EEBEF::rva003EEBEF(Int recordSourceAddress)
 {
-	Rva003EEBEFGate *gate = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_B0->m_holder;
+	Rva003EEBEFGate *gate = ((Rva0020EAF6View *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_B0)->m_holder;
 	if (gate == 0)
 		return;
 	Rva003EEBEFArg *regionArg = (Rva003EEBEFArg *)recordSourceAddress;
 	int count = regionArg->m_records.size();
 	for (int recordIndex = 0; recordIndex < count; ++recordIndex) {
-		Rva0020E89C *found = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->getLookup()->rva0020EAF6(regionArg->m_records[recordIndex].m_index);
+		Rva0020E89C *found = rva003EEBEFGetLookup(((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_B0)->rva0020EAF6(regionArg->m_records[recordIndex].m_index);
 		((LivingWorldRegionEffectsManager *)this)->rva003EE84A((Int)found, (Int)&regionArg->m_records[recordIndex].m_payload);
 	}
 }

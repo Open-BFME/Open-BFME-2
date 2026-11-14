@@ -8,18 +8,11 @@
 
 struct Rva002B2579Result;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B2579Result *rva002B2579(int id);
-private:
-	char m_pad[0xB0];
-	Rva0020EEF4Outer *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 Rva002B2579Result *Rva002BA8F1Logic::rva002B2579(int id)
 {
 	if (id == 0)
 		return 0;
-	return (Rva002B2579Result *)m_B0->rva0020EEF4(id);
+	return (Rva002B2579Result *)((Rva0020EEF4Outer *)m_B0)->rva0020EEF4(id);
 }
