@@ -702,15 +702,7 @@ int BfmeINISavedMacroGeneration;
 // A four-byte view of the established word type. Member bodies are supplied by
 // the existing splitter/string providers; this factory only calls the pair ctor.
 // Keep the canonical StringBase template out of this TU rather than redeclaring it.
-class BfmeWordEL
-{
-public:
-    BfmeWordEL(const BfmeWordEL &other);
-    BfmeWordEL(const BfmeWordEL &other, int start, int len);
-    ~BfmeWordEL();
-private:
-    void *m_stringStorage;
-};
+#include "../../../Include/Common/BfmeWordEL.h"
 
 typedef char BfmeWordELSizeCheck[sizeof(BfmeWordEL) == 4 ? 1 : -1];
 
