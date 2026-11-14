@@ -19,19 +19,7 @@ typedef float Real;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class LivingWorldVisual
-{
-public:
-	virtual void setHouseColor(const int &color);
-	void rva003FBC4D(Real scale);
-private:
-	unsigned char m_pad04[4];
-	RenderObjClass *m_primaryRObj;										// +0x08
-	unsigned char m_pad0C[0x14 - 0x0C];
-	RenderObjClass *m_secondaryRObj;									// +0x14
-	unsigned char m_pad18[0x7C - 0x18];
-	Real m_scale;														// +0x7C
-};
+#include "../../../Include/GameClient/LivingWorldVisual.h"
 
 void LivingWorldVisual::rva003FBC4D(Real scale)
 {
@@ -39,14 +27,14 @@ void LivingWorldVisual::rva003FBC4D(Real scale)
 	{
 		Matrix3D tm = m_primaryRObj->Get_Transform();
 		Real objectScale = m_primaryRObj->Get_ObjectScale() * scale;
-		m_scale = objectScale;
+		m_7C = objectScale;
 		tm.Scale(scale);
 		m_primaryRObj->Set_ObjectScale(objectScale);
 		m_primaryRObj->Set_Transform(tm);
-		if (m_secondaryRObj)
+		if (m_robj14)
 		{
-			m_secondaryRObj->Set_ObjectScale(objectScale);
-			m_secondaryRObj->Set_Transform(tm);
+			m_robj14->Set_ObjectScale(objectScale);
+			m_robj14->Set_Transform(tm);
 		}
 	}
 }
