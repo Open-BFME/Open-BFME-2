@@ -12,6 +12,10 @@ class Rva00782CB0
 public:
     Rva00782CB0();
     virtual ~Rva00782CB0();
+    virtual void slot04() = 0;
+    virtual int slot08() { return 0; }
+    virtual int slot0C() { return 0; }
+    virtual int slot10() { return 0; }
 };
 // ??0Rva00782CB0@@QAE@XZ @0x000A8EB9 9B: the default constructor, storing the
 // class's own vtable (VA 0x00BC93C8) and returning this.
