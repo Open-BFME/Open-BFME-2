@@ -1252,3 +1252,17 @@ def test_review_r2_a_header_reached_through_another_includer_may_read_another_qu
     assert problem and "may resolve to" in problem and "b/config.h" in problem.replace("\\", "/"), problem
     # one chain alone: only a/config.h can be read, and it is
     assert lane.include_problem("u.cpp", '#include "a/outer.h"\n') is None
+
+
+def test_review_r3_a_header_only_the_compiler_roots_reach_is_read_for_the_canonical_header(tmp_path, monkeypatch):
+    # include resolver review r3: the canonical header's closure was read with the walk's own roots only, so a
+    # config.h only the compiler's roots hold went unread, and its `#define m_status m_extra` turned the renamed
+    # `o->m_status` into a valid access at another offset
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "compiler").mkdir()
+    (tmp_path / "Code" / "Object.h").write_text(HEADER + '#include "config.h"\n')
+    (tmp_path / "compiler" / "config.h").write_text("#define m_status m_extra\n")
+    monkeypatch.setattr(lane, "compiler_search_roots", lambda source: [tmp_path / "compiler"])
+    mapping, why = lane.field_renames("Code/u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Code/Object.h")
+    assert mapping is None and why and "m_status" in why, (mapping, why)

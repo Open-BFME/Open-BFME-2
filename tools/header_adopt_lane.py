@@ -1374,9 +1374,14 @@ def field_renames(source, text, strip, include, compile=None, header=None):
                 include_roots.append(stlport)
         include_roots.extend(root.parent / "include" for root in tuple(include_roots))
     include_cache = {}
+    # the directories the compiler searches (None when they cannot be derived): the walk searches them too, after
+    # its own, since build maps a legacy Open-BFME-1 /I path (reference/open-bfme-1/reference/...) to the
+    # restructured tree that `ROOT / flag` does not name
+    compiler_roots = compiler_search_roots(source)
+    walk_roots = include_roots + [r for r in compiler_roots or () if r not in include_roots]
     canonical = []
     if header:
-        canonical = header_sources(header, include_roots, include_cache)
+        canonical = header_sources(header, walk_roots, include_cache)
         if canonical is None:
             return None, f"the canonical header {header} cannot be read; no proof of its names"
     try:
@@ -1440,18 +1445,16 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             mappings[name] = mine
             field_checks[name] = mine
     if field_checks:
-        # the directories the compiler searches (None when they cannot be derived): the walk searches them too,
-        # after its own, since build maps a legacy Open-BFME-1 /I path (reference/open-bfme-1/reference/...)
-        # to the restructured tree that `ROOT / flag` does not name
-        compiler_roots = compiler_search_roots(source)
-        walk_roots = include_roots + [r for r in compiler_roots or () if r not in include_roots]
         if header:
             # the header as the unit compiles it: in the unit's closure, with its flags and every definition
-            # it makes (a header walked alone took a macro the unit defines for absent), as a seed of its own
-            why = include_problem(source, text, include_roots=walk_roots, cache=include_cache, seeds=(header,),
-                                  compiler_roots=compiler_roots)
+            # it makes (a header walked alone took a macro the unit defines for absent), as a seed of its own;
+            # every file that walk reads joins the corpus the checks below read
+            seeded, why = include_walk(source, text, walk_roots, include_cache, (header,), compiler_roots)
             if why:
                 return None, why
+            known = {str((ROOT / path).resolve()) for path, _ in canonical}
+            canonical = canonical + [(path, body) for path, body in seeded[1:]
+                                     if str((ROOT / path).resolve()) not in known]
             family = {cls for name in field_checks for cls in hierarchy(name, laid)}
             rename_names = {token for mapping in field_checks.values() for pair in mapping.items() for token in pair}
             why = conditional_hierarchy(canonical, family, rename_names)
