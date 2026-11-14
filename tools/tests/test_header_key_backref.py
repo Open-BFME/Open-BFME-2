@@ -368,6 +368,8 @@ def test_migration_plan_rewrites_every_spelling_and_nothing_else(tmp_path, monke
     ("exports", "retail's exports decide"), ("base", "base clause"), ("collision-old", "collision:"),
     ("converged", "converged names"), ("generated", "generated or vendored"),
     ("namespace-use", "cannot be resolved to the global class"), ("braces", "unbalanced braces"),
+    ("exported", r"needs \?f@@YAXPAUCoord3D@@@Z \(a retail export\)"),
+    ("alias-target", r"export_aliases.csv answers \?f@@YAXPAVCoord3D@@@Z with it"),
 ])
 def test_migration_refuses_whole(tmp_path, monkeypatch, case, want):
     kw = {"functions": ROW}
@@ -394,6 +396,14 @@ def test_migration_refuses_whole(tmp_path, monkeypatch, case, want):
         kw["unit"] = "namespace N { void f(const struct Coord3D *p); }\n"
     elif case == "braces":
         kw["unit"] = "struct Coord3D;\n#if 0\nnamespace N {\n#endif\nvoid f() {}\n"
+    elif case == "exported":     # retail exports the row's present (U) spelling: the migration may not rename it
+        kw["extra"] = {"reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n"
+                                              "1,0x00001000,,.text,code,?f@@YAXPAUCoord3D@@@Z\n"}
+    elif case == "alias-target":  # the export's alias answers it with the row's present name
+        kw["extra"] = {"reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n"
+                                              "1,0x00001000,,.text,code,?f@@YAXPAVCoord3D@@@Z\n",
+                       "reverse/export_aliases.csv": "export,target,notes\n"
+                                                     "?f@@YAXPAVCoord3D@@@Z,?f@@YAXPAUCoord3D@@@Z,admitted\n"}
     root = tree(tmp_path, monkeypatch, **kw)
     snapshot = {p: p.read_bytes() for p in root.rglob("*") if p.is_file() and ".git" not in p.parts}
     with pytest.raises(hal.RekeyRefused, match=want):
@@ -890,9 +900,9 @@ def test_adoption_refuses_renaming_retail_exports_away(tmp_path, monkeypatch):
     before = path.read_bytes()
     renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct")
     assert renames == []
-    assert "8 retail export name(s) renamed with no reverse/export_aliases.csv answer" in why
+    assert "8 name(s) the real link's /DEF needs renamed away" in why
     assert "??0Matrix4D@@QAE@ABVCoord3D@@@Z" in why
-    with pytest.raises(ValueError, match="retail export name"):
+    with pytest.raises(ValueError, match="a retail export"):
         hal.rewrite_ledger(MATRIX4D)
     assert path.read_bytes() == before
 
@@ -900,7 +910,7 @@ def test_adoption_refuses_renaming_retail_exports_away(tmp_path, monkeypatch):
 def test_one_exported_name_refuses_the_unit(tmp_path, monkeypatch):
     matrix4d_tree(tmp_path, monkeypatch, [MATRIX4D[5][0]])
     renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct")
-    assert renames == [] and "1 retail export name(s)" in why and MATRIX4D[5][0] in why
+    assert renames == [] and "1 name(s) the real link's /DEF needs" in why and MATRIX4D[5][0] in why
 
 
 def test_names_retail_does_not_export_still_rename(tmp_path, monkeypatch):
@@ -919,3 +929,18 @@ def test_an_alias_to_another_name_does_not(tmp_path, monkeypatch):
     matrix4d_tree(tmp_path, monkeypatch, [old], aliases=f"{old},?other@@YAXXZ,elsewhere\n")
     renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct")
     assert renames == [] and old in why
+
+
+def test_adoption_refuses_renaming_an_export_alias_target(tmp_path, monkeypatch):
+    # export_aliases.csv:14's shape: retail's V-spelled ctor answered with the tree's U definition. Adopting
+    # the class header would respell that U row back to V and leave `export=target` naming nothing.
+    exported, target = MATRIX4D[5]
+    (tmp_path / "Code/Libraries/Source/WWVegas/WWMath").mkdir(parents=True)
+    (tmp_path / MATRIX4D_SOURCE).write_text("struct Coord3D { float x, y, z; };\n")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/exports.csv").write_text(f"ordinal,rva,target_rva,section,kind,name\n1,0x1000,,.text,code,{exported}\n")
+    (tmp_path / "reverse/export_aliases.csv").write_text(f"export,target,notes\n{exported},{target},admitted\n")
+    monkeypatch.setattr(hal, "ROOT", tmp_path)
+    ledger(tmp_path, monkeypatch, rows(target, source=MATRIX4D_SOURCE))
+    renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "class")
+    assert renames == [] and f"{target} (export_aliases.csv answers {exported} with it)" in why

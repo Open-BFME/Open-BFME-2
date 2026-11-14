@@ -4607,26 +4607,32 @@ def key_backref_names(rows, scope, other):
     return _key_renames(rows, scope, other)[1]
 
 
-def export_rename_blockers(items):
-    """{source: [old]}: renames of a row whose name is a retail export (reverse/exports.csv) to another
-    decorated name that reverse/export_aliases.csv does not answer that export with. The real link's /DEF
-    names every retail export; renamed away, the export has no definition and the link fails, while the
-    census link_check, which does not read the /DEF, still passes (23b22e04f4a: matrix4d.cpp's adoption
-    respelled eight exported Matrix4D members from Coord3D `V` to `U`)."""
+def export_rename_blockers(items, root=None):
+    """{source: [what]}: renames of a row the real link's /DEF needs under its present name. The /DEF
+    names every retail export (reverse/exports.csv), and answers an aliased one with its target
+    (reverse/export_aliases.csv, `export=target`). Renamed away, either has no definition and the link
+    fails, while the census link_check, which does not read the /DEF, still passes (23b22e04f4a:
+    matrix4d.cpp's adoption respelled eight exported Matrix4D members from Coord3D `V` to `U`). An export
+    may be renamed only to the target its alias already names; an alias target never."""
     import hatch_counters
-    path = ROOT / "reverse" / "exports.csv"
-    if not path.is_file():
-        return {}
-    with path.open(newline="", encoding="utf-8") as handle:
-        exports = {row.get("name") for row in csv.DictReader(handle)}
-    aliases_path = ROOT / "reverse" / "export_aliases.csv"
-    aliases = dict(hatch_counters.export_aliases(aliases_path.read_text(encoding="utf-8"))
-                   if aliases_path.is_file() else [])
+    root = Path(root or ROOT)
+    path = root / "reverse" / "exports.csv"
+    exports = set()
+    if path.is_file():
+        with path.open(newline="", encoding="utf-8") as handle:
+            exports = {row.get("name") for row in csv.DictReader(handle)}
+    aliases_path = root / "reverse" / "export_aliases.csv"
+    pairs = (hatch_counters.export_aliases(aliases_path.read_text(encoding="utf-8"))
+             if aliases_path.is_file() else [])
+    aliases = dict(pairs)
+    targets = {target: export for export, target in pairs}
     out = collections.defaultdict(list)
     for source, _, _, renames in items:
         for old, new in renames:
             if old in exports and aliases.get(old) != new:
-                out[source].append(old)
+                out[source].append(f"{old} (a retail export)")
+            elif old in targets:
+                out[source].append(f"{old} (export_aliases.csv answers {targets[old]} with it)")
     return dict(out)
 
 
@@ -4677,8 +4683,8 @@ def key_metadata_blockers(items):
                     for source in targets[row["name"]]:
                         hits[source].add("deleted_rows.csv target tombstone")
     for source, exported in export_rename_blockers(items).items():
-        hits[source].add(f"{len(exported)} retail export name(s) renamed with no reverse/export_aliases.csv "
-                         f"answer for the new spelling (the real link's /DEF names them): "
+        hits[source].add(f"{len(exported)} name(s) the real link's /DEF needs renamed away (a retail export "
+                         f"with no reverse/export_aliases.csv answer for the new spelling, or an alias target): "
                          + ", ".join(sorted(exported)[:3]) + (", ..." if len(exported) > 3 else ""))
     return {s: "class-key metadata requires a coordinated name transaction: " + ", ".join(sorted(labels))
             for s, labels in hits.items()}
@@ -5336,6 +5342,14 @@ def plan_class_key(name, key, root=None):
         after[header] = line.sub(lambda m: m.group(1) + f"{key} (exports).", head).encode("utf-8")
     refusals += [f"unresolvable identity {t[:110]} ({why})" for t, why in sorted(rekeyer.refused.items())]
     refusals += _rekey_collisions(root, after, rekeyer.mapping)
+    if "reverse/functions.csv" in after:
+        # the ledger rewrite renames rows in place: every changed name is a rename the /DEF must survive
+        old_rows = csv.DictReader(io.StringIO((root / "reverse/functions.csv").read_text(encoding="utf-8-sig")))
+        new_rows = csv.DictReader(io.StringIO(after["reverse/functions.csv"].decode("utf-8-sig")))
+        renames = [(a["name"], b["name"]) for a, b in zip(old_rows, new_rows) if a["name"] != b["name"]]
+        for what in export_rename_blockers([("reverse/functions.csv", None, None, renames)], root).get(
+                "reverse/functions.csv", []):
+            refusals.append(f"reverse/functions.csv: the real link's /DEF needs {what[:160]} under its present name")
     donor_units, unverified = _rekey_donor_units(root, name, key)
     for rel, why in sorted(unverified.items()):
         refusals.append(f"unverified: {rel}: {why}; rebuild it so its receipt shows whether it compiles a donor {name}")
