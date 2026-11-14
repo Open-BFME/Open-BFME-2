@@ -852,3 +852,70 @@ def test_a_search_directory_that_changes_after_the_cache_is_warm_voids_the_scan(
     donor_units, unverified = hal._rekey_donor_units(tmp_path, "Coord3D", "class")
     assert donor_units == {} and set(unverified) == {"Code/A.cpp", "Code/B.cpp"}
     assert all("changed during the scan" in why for why in unverified.values())
+
+
+# 23b22e04f4a: adopting the struct Coord3D header in matrix4d.cpp respelled eight Matrix4D members retail
+# exports with Coord3D as a class (V) to struct (U). The census link_check does not read the /DEF, so it
+# passed; the real link lost eight exports.
+MATRIX4D = [
+    ("?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z", "?GetXVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z"),
+    ("?GetYVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z", "?GetYVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z"),
+    ("?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z", "?GetZVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z"),
+    ("?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z", "?RotateCoord@Matrix4D@@QAEAAUCoord3D@@ABU2@AAU2@@Z"),
+    ("?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z",
+     "?TransformCoord@Matrix4D@@QAEAAUCoord3D@@ABU2@AAU2@@Z"),
+    ("??0Matrix4D@@QAE@ABVCoord3D@@@Z", "??0Matrix4D@@QAE@ABUCoord3D@@@Z"),
+    ("?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z",
+     "?GetTranslationVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z"),
+    ("?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z", "?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@@Z"),
+]
+MATRIX4D_SOURCE = "Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp"
+
+
+def matrix4d_tree(tmp_path, monkeypatch, exported, aliases=""):
+    (tmp_path / "Code/Libraries/Source/WWVegas/WWMath").mkdir(parents=True)
+    (tmp_path / MATRIX4D_SOURCE).write_text("class Coord3D { public: float x, y, z; };\n")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/exports.csv").write_text(
+        "ordinal,rva,target_rva,section,kind,name\n"
+        + "".join(f"{i},0x{0x1000 + i:08X},,.text,code,{name}\n" for i, name in enumerate(exported, 1)))
+    if aliases:
+        (tmp_path / "reverse/export_aliases.csv").write_text("export,target,notes\n" + aliases)
+    monkeypatch.setattr(hal, "ROOT", tmp_path)
+    return ledger(tmp_path, monkeypatch, rows(*(old for old, _ in MATRIX4D), source=MATRIX4D_SOURCE))
+
+
+def test_adoption_refuses_renaming_retail_exports_away(tmp_path, monkeypatch):
+    path = matrix4d_tree(tmp_path, monkeypatch, [old for old, _ in MATRIX4D])
+    before = path.read_bytes()
+    renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct")
+    assert renames == []
+    assert "8 retail export name(s) renamed with no reverse/export_aliases.csv answer" in why
+    assert "??0Matrix4D@@QAE@ABVCoord3D@@@Z" in why
+    with pytest.raises(ValueError, match="retail export name"):
+        hal.rewrite_ledger(MATRIX4D)
+    assert path.read_bytes() == before
+
+
+def test_one_exported_name_refuses_the_unit(tmp_path, monkeypatch):
+    matrix4d_tree(tmp_path, monkeypatch, [MATRIX4D[5][0]])
+    renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct")
+    assert renames == [] and "1 retail export name(s)" in why and MATRIX4D[5][0] in why
+
+
+def test_names_retail_does_not_export_still_rename(tmp_path, monkeypatch):
+    matrix4d_tree(tmp_path, monkeypatch, ["?Unrelated@@YAXXZ"])
+    assert hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct") == (MATRIX4D, None)
+
+
+def test_an_export_alias_for_the_new_spelling_admits_the_rename(tmp_path, monkeypatch):
+    old, new = MATRIX4D[5]
+    matrix4d_tree(tmp_path, monkeypatch, [old], aliases=f"{old},{new},admitted by pin_admission --alias\n")
+    assert hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct") == (MATRIX4D, None)
+
+
+def test_an_alias_to_another_name_does_not(tmp_path, monkeypatch):
+    old, _new = MATRIX4D[5]
+    matrix4d_tree(tmp_path, monkeypatch, [old], aliases=f"{old},?other@@YAXXZ,elsewhere\n")
+    renames, why = hal.ledger_renames(MATRIX4D_SOURCE, "Coord3D", "struct")
+    assert renames == [] and old in why

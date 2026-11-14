@@ -4607,12 +4607,36 @@ def key_backref_names(rows, scope, other):
     return _key_renames(rows, scope, other)[1]
 
 
+def export_rename_blockers(items):
+    """{source: [old]}: renames of a row whose name is a retail export (reverse/exports.csv) to another
+    decorated name that reverse/export_aliases.csv does not answer that export with. The real link's /DEF
+    names every retail export; renamed away, the export has no definition and the link fails, while the
+    census link_check, which does not read the /DEF, still passes (23b22e04f4a: matrix4d.cpp's adoption
+    respelled eight exported Matrix4D members from Coord3D `V` to `U`)."""
+    import hatch_counters
+    path = ROOT / "reverse" / "exports.csv"
+    if not path.is_file():
+        return {}
+    with path.open(newline="", encoding="utf-8") as handle:
+        exports = {row.get("name") for row in csv.DictReader(handle)}
+    aliases_path = ROOT / "reverse" / "export_aliases.csv"
+    aliases = dict(hatch_counters.export_aliases(aliases_path.read_text(encoding="utf-8"))
+                   if aliases_path.is_file() else [])
+    out = collections.defaultdict(list)
+    for source, _, _, renames in items:
+        for old, new in renames:
+            if old in exports and aliases.get(old) != new:
+                out[source].append(old)
+    return dict(out)
+
+
 def key_metadata_blockers(items):
     """Refuse renames the lane's name-column-only writer cannot carry safely.
 
     A later full key-migration transaction must own pins, funclet parents,
     body-owner identities and other embedded names together. Resolving a
     backreference is not permission to leave that metadata on the old name.
+    A retail export name is never renamed away (export_rename_blockers).
     Discovery is read-only and batched before preparing or writing a unit.
     """
     owners = collections.defaultdict(set)
@@ -4652,6 +4676,10 @@ def key_metadata_blockers(items):
                 if row.get("name") in targets:
                     for source in targets[row["name"]]:
                         hits[source].add("deleted_rows.csv target tombstone")
+    for source, exported in export_rename_blockers(items).items():
+        hits[source].add(f"{len(exported)} retail export name(s) renamed with no reverse/export_aliases.csv "
+                         f"answer for the new spelling (the real link's /DEF names them): "
+                         + ", ".join(sorted(exported)[:3]) + (", ..." if len(exported) > 3 else ""))
     return {s: "class-key metadata requires a coordinated name transaction: " + ", ".join(sorted(labels))
             for s, labels in hits.items()}
 
