@@ -16,6 +16,8 @@ public:
 	Rva00468A46();
 	Rva00468A46(EmitVtableTag *);
 	virtual ~Rva00468A46() {}
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
 };
 
 // ??0Rva00468A46@@QAE@XZ @0x00468A36 9B: the default constructor, storing the
