@@ -21,25 +21,16 @@ public:
 	Rva003B448C *m_next;
 };
 
-struct Rva003B675BRecord
-{
-	int m_previous;
-	int m_next;
-	void *m_name;
-	unsigned char m_released;
-	unsigned char m_pad;
-	unsigned short m_references;
-	Rva003B448C *m_nodes;
-};
+#include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
 // ?clearRva003B675BNodes@@YAXPAURva003B675BRecord@@@Z
 void clearRva003B675BNodes(Rva003B675BRecord *record)
 {
 	while (record->m_nodes)
 	{
-		Rva003B448C *node = record->m_nodes;
+		Rva003B448C *node = (Rva003B448C *)record->m_nodes;
 
-		record->m_nodes = record->m_nodes->m_next;
+		record->m_nodes = ((Rva003B448C *)record->m_nodes)->m_next;
 		delete node;
 	}
 }
