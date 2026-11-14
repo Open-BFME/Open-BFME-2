@@ -21,7 +21,7 @@ struct RegionView { char pad[0x13c]; int player; int getPlayer() const { return 
 struct BuildingView { char pad00[0x18]; int key; char pad1c[8]; RegionView *region; int getType() const { return ((const Rva004E0632*)this)->rva004E0632(); } };
 class Rva002E2903Player;
 class AsciiString;
-class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned*); };
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva00318C32Ret;
 class Rva002E2504 { public: bool rva002E2504(Rva00318C32Ret*,_STL::vector<const ModuleData*>*); };
 #include "../../../../Include/GameLogic/Rva0040CB2CIndexedField.h"
