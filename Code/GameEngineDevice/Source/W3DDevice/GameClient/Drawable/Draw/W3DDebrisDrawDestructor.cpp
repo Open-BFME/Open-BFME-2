@@ -48,11 +48,7 @@ class RTS3DScene : public SceneClass
 {
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
 // g_shadowManager: VA 0xde5dfc (zero-filled .bss).
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;

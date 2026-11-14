@@ -87,11 +87,7 @@ public:
 	virtual void Remove_Render_Object(SegmentedLineClass *line);
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class __declspec(novtable) W3DProjectileStreamDraw : public DrawModule
 {

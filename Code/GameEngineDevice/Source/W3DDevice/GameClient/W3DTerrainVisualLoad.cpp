@@ -279,11 +279,7 @@ class BaseHeightMapRenderObjClass
     void addScorch(Vector3, float, Scorches);
 };
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
-class W3DDisplay
-{
-  public:
-    static RTS3DScene *m_3DScene;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 #include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 class Dict
 {

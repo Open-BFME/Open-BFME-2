@@ -45,11 +45,7 @@ public:
 	virtual void Add_Render_Object(RenderObjClass *obj);			// slot 2
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 // Drawable::getScale is ICF-folded onto the matched +0x200 float getter row at 0x000788D3
 // (DispFloatFieldGetters.cpp); called here by that row name.

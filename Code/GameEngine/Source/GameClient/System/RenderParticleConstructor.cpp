@@ -245,7 +245,7 @@ virtual void enabled(int);};
 
 class RefTree621 {public:virtual void destroy();int refs;};
 class RTS3DScene {public:virtual void v00();virtual void v04();virtual void add(RenderObjClass*);};
-class W3DDisplay {public:static RTS3DScene*m_3DScene;};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 #include "../../Common/debug.h"
 extern Debug *theDebug;
 bool bfmeRva000387C0();void _bfme_debugRecordCallsite(int);

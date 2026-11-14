@@ -10,11 +10,7 @@ public:
 	virtual void slot08(int value);
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class Rva006BC6C0
 {

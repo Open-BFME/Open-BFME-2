@@ -107,11 +107,7 @@ public:
 	W3DDynamicLight *getADynamicLight(void);
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class W3DLightDrawModuleData : public ModuleData
 {

@@ -335,11 +335,7 @@ private:
 };
 
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 // The asset manager's loader: the free 0x00137364 (name, scale, options) with
 // the option block call sites build empty (W3DMouseInitW3DAssets.cpp).

@@ -113,7 +113,7 @@ class Rva00084206Track {public:char pad[0x38];HordeDrawableView *owner;};
 #include "../../../../../Include/W3DDevice/GameClient/Rva00084C05System.h"
 class TerrainTracksRenderObjClassSystem;extern TerrainTracksRenderObjClassSystem *TheTerrainTracksRenderObjClassSystem;
 class RTS3DScene {public:virtual void v0();virtual void v1();virtual void add(RenderObjClass*);};
-class W3DDisplay {public:static RTS3DScene *m_3DScene;};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class Rva000789A0Outer;
 class W3DHordeModelDrawManager {public:void rva000789A0Update(Rva000789A0Outer*);};
 extern W3DHordeModelDrawManager *TheW3DHordeModelDrawManager;

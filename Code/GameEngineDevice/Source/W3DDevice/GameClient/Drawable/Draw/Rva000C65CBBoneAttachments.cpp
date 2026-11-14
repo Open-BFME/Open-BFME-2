@@ -158,11 +158,7 @@ private:
 
 #include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class Rva000C24EA
 {

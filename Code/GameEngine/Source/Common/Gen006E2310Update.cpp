@@ -134,11 +134,7 @@ public:
 	AsciiString get() const;
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 extern int g_Va00DB47EC;
 

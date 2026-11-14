@@ -1128,7 +1128,7 @@ public:
 // SceneClass view, which is what the retail call sites do.
 class RTS3DScene;
 
-class W3DDisplay { public: static RTS3DScene *m_3DScene; };
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 RenderObjClass *Create_Render_Obj(const char *name);
 

@@ -33,13 +33,7 @@ class RTS2DScene {
 public:
 	void doRender(CameraClass *camera); // 0x0006EE27 (Rva0006ED36Call.cpp)
 };
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-	static RTS2DScene *m_2DScene;
-	void rva0004D664(float x0, float y0, float x1, float y1, float width, int color);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 #define SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define SLOTS16(p) SLOTS4(p##a) SLOTS4(p##b) SLOTS4(p##c) SLOTS4(p##d)

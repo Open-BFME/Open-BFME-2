@@ -87,13 +87,7 @@ class RenderObjClass;template<class T>class RefMultiListIterator;
 #include "../../../Include/W3DDevice/GameClient/Rva0006ED29.h"
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class RTS2DScene;
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-	static RTS2DScene *m_2DScene;
-	void rva0004D664(float x0, float y0, float x1, float y1, float width, int color);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class BaseHeightMapRenderObjClass{public:
 virtual void v000();
 virtual void v001();

@@ -43,7 +43,7 @@ static __declspec(noinline) void rva000443BA(const Rva000443BARow *rows, float s
 // field0650 keeps its unknown role; the recovered RGB row ABI stays local.
 // Retain the recovered RGB value/assignment ABI through the canonical field.
 // The native stores snapshot all three source floats before writing the field.
-class W3DDisplay {public:static RTS3DScene*m_3DScene;};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class Rva0004443E {public:char p0[0x148];Rva000443BALight*lights[4];Rva000443BALight*otherLights[4];void rva0004443E(float);void rva00044688(const Rva000443BAVec*);void rva0004474C(int);void rva0004450E(int,Rva000443BAVec);void rva00044545(int,Rva000443BAVec);};
 void Rva0004443E::rva0004443E(float scale){
  const Rva000443BARow*rows=reinterpret_cast<const Rva000443BARow *>(TheWritableGlobalData->m_terrainObjectsLighting[TheWritableGlobalData->m_timeOfDay]);

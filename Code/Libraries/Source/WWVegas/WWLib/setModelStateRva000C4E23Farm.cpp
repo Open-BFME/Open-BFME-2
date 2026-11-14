@@ -347,11 +347,7 @@ public:
 // VA 0x00DE1B34 is the defined ?m_3DScene@W3DDisplay@@2PAVRTS3DScene@@A; this
 // unit calls it through its W3DDisplayView view.
 class RTS3DScene;
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 struct ThingTemplateView
 {

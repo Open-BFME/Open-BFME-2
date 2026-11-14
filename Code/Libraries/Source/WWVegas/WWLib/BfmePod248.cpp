@@ -219,7 +219,7 @@ class Rva000C24EAVector {public:Rva000C24EA*eraseRange(Rva000C24EA*,Rva000C24EA*
 
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/RTS3DScene.h"
 
-class W3DDisplay {public:static RTS3DScene*m_3DScene;};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class Rva000C7699 {public:void rva000C7699();private:char pad[0x164];Rva000C24EAVector list;};
 

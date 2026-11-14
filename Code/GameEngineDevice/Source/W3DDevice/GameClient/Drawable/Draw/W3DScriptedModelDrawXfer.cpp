@@ -127,11 +127,7 @@ RenderObjClass *Create_Render_Obj(const char *name);
 
 #include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 struct Rva00079EA1Element;
 struct BfmeStringRecord000B9534

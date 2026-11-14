@@ -93,7 +93,7 @@ class RenderObjClass {public:
  void Add_Ref(){++references;}
 };
 #include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
-class W3DDisplay {public:static RTS3DScene*m_3DScene;};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 #include "../../../../../../GameEngine/Include/Common/GameLODManager.h"
 int GetGameClientRandomValue(int,int,char*,int);
 struct BfmeNarrowRecord000BFDC7 {

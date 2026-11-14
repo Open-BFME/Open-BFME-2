@@ -28,11 +28,7 @@ public:
 // The scene pointer is W3DDisplay::m_3DScene as its owner declares it (an
 // RTS3DScene *); this unit calls it through its scene view.
 class RTS3DScene;
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class BfmeStreakObject
 {
