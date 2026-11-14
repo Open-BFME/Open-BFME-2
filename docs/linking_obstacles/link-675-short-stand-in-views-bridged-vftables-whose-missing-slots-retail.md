@@ -110,3 +110,16 @@ there>`. First case: `Rva0057434D` (VA 0x00C6E360, one slot at 0x0047A69C): `./b
 LINKS 3,046 -> 3,049, bridge plan 3,265 -> 3,264 bridged with refusals identical and nothing newly undefined.
 A body rowed as a member of a placeholder class cannot be moved the same way: `rename.py function --to-class`
 refuses a class without a registered header and a `name_lane.py` slot approval.
+
+
+Stand-ins for a class that is already right (2026-11-14): 239 bridged primary tables share their retail address with
+a table that is correct under another class name P. Reading each stand-in X's layout from the compiler
+(`tools/class_layouts.compile_layouts`, sizeof P from its contract or from a unit that holds P): 127 are root views
+whose bytes below sizeof P hold only fillers or nothing, 72 derive from another class, 15 have named fields there,
+9 are smaller than P. Method for the 127: X derives from P's real definition (its registered header) and declares no
+virtual of its own; the compiler's layout before and after must agree (size, base offsets, every kept field).
+First case: `Rva0056B218B2` (VA 0x00C3702C, five slots, the table of `LivingWorldBattleListener`): both views
+(`Rva0056B218Constructor.cpp`, `Rva0056B218Dtor.cpp`) declared an empty virtual destructor; they now derive from
+`LivingWorldBattleListener`. Layout: 4 bytes, base at +0, no slot of its own; the derived `Rva0056B218` keeps its
+bases at +0 and +20. `./build.sh` 5/5; `link_check.py` 2 of 2, LINKED 270 -> 274; bridge plan 3,271 -> 3,270 bridged,
+mismatching slots 37,308 -> 37,300, refusals identical.

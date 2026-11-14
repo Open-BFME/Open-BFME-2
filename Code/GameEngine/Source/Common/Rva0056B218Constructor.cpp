@@ -20,11 +20,12 @@ struct Parent0056B218
 
 #include "../../Include/Common/Rva0056AC26.h"
 
-class Rva0056B218B2
+#include "../../Include/Common/LivingWorldBattleListener.h"
+
+class Rva0056B218B2 : public LivingWorldBattleListener
 {
 public:
 	Rva0056B218B2() {}
-	virtual ~Rva0056B218B2() {}
 };
 
 class Rva0056B218 : public Rva0056AC26, public Rva0056B218B2
