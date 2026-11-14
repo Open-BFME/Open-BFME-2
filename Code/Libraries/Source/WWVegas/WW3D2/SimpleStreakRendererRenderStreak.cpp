@@ -1336,19 +1336,7 @@ namespace _STL {
 template <> vector<Rva0007BB16Record>::~vector();
 }
 struct Rva00082EB8Rec;
-class FXShaderSetup
-{
-public:
-virtual void Delete_This();
-void Release_Ref()
-{
---NumRefs;
-if (NumRefs == 0)
-Delete_This();
-}
-private:
-int NumRefs;
-};
+#include "FXShaderSetup.h"
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char *, const char *,
 const _STL::vector<Rva0007BB16Record> *, int);
 class Rva007B7024Object;

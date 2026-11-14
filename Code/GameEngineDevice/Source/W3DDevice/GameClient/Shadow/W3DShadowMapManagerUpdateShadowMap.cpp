@@ -110,7 +110,7 @@ public:
     void *vtable;
     unsigned short refs;
 };
-class FXShaderSetup : public RefCountClass {};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 
 // The existing ctor and dtor have different ledger view names. Their whole
 // bodies establish the same 36-byte parameter storage. Delegate cleanup to
