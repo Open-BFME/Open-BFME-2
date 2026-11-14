@@ -15,13 +15,10 @@ class Rva005CCDDD {
 public:virtual ~Rva005CCDDD();
 protected:int unknown4,unknown8;
 };
-class SecondBase005D2111 {
+#include "../../Include/Common/LivingWorldBattleListener.h"
+
+class SecondBase005D2111 : public LivingWorldBattleListener {
 public:
- virtual void observerSlot0(int);
- virtual void observerSlot1(void *,unsigned);
- virtual void observerSlot2(void *);
- virtual void observerSlot3(void *);
- virtual void observerSlot4(void *);
 };
 class Rva005D2111:public Rva005CCDDD,public SecondBase005D2111 {
 public:Rva005D2111(void *,void *);virtual ~Rva005D2111();

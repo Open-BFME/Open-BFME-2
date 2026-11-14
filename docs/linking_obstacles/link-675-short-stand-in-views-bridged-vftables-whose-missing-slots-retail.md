@@ -129,3 +129,4 @@ Derived from the class whose table they share (unattended worker; layout read fr
 - 2026-11-14 `Rva000E59D3Base` (VA 0x00BBB554, 4 slots) from `Snapshot`: `Rva000E59D3Dtor.cpp`, `W3DFloorBuffer.cpp`.
 - 2026-11-14 `W3DTreeDrawModuleDataBase` (VA 0x00BBB554, 4 slots) from `Snapshot`: `W3DTreeDraw.cpp`.
 - 2026-11-14 `Rva001E7087Base` (VA 0x00BBB554, 4 slots) from `Snapshot`: `Locomotor.cpp`.
+- 2026-11-14 `SecondBase005D2111` (VA 0x00C3702C, 5 slots) from `LivingWorldBattleListener`: `Rva00576FD3Permuted.cpp`, `StrategicInGameUIPlanRetreatChecklistItem.cpp`.
