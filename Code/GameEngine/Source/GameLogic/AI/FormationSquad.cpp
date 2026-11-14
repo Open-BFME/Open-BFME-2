@@ -328,13 +328,7 @@ namespace _STL
 	};
 }
 
-class Rva005206FE
-{
-public:
-	void rva005206FE(Rva005205DAElement *position, unsigned int count, const Rva005205DAElement &value);
-private:
-	_STL::vector<Rva005205DAElement> m_vector;
-};
+#include "../../../Include/Common/Rva005206FE.h"
 
 // ?rva00531C54@Rva00531C54@@QAEXXZ @0x00531C54 6B: clear the 16-bit field at +2.
 #include "../../../Include/Common/Rva00531C54.h"

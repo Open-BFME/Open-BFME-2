@@ -398,13 +398,7 @@ namespace _STL
 		void _M_fill_insert(Rva005205DAElement *position, unsigned int count, const Rva005205DAElement &value);
 	};
 }
-class Rva005206FE
-{
-public:
-	void rva005206FE(Rva005205DAElement *position, unsigned int count, const Rva005205DAElement &value);
-private:
-	_STL::vector<Rva005205DAElement> m_vector;
-};
+#include "../../../../../Include/Common/Rva005206FE.h"
 #include "../../../../../Include/Common/Rva00531C54.h"
 int Rva00531EF6(unsigned short value);
 // ?rva0053B8F1@Rva0053B8F1@@QBE_NXZ @0x0053B8F1 7B: the flag byte at +0x106.
