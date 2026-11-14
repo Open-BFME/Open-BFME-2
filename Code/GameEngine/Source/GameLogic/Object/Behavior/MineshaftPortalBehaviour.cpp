@@ -198,23 +198,7 @@ class BehaviorModuleOther
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual UpdateSleepTime update();
- virtual ~UpdateModule();
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class MineshaftPortalInterfaceA
 {
 public:
