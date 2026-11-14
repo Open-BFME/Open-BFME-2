@@ -4,11 +4,7 @@
 // store plus ret, no cleanup). The Rva005EE30C chain tail-calls it. Owner
 // identity is unproven (opaque Rva name).
 
-class Rva0058AD7A
-{
-public:
-	virtual ~Rva0058AD7A();
-};
+#include "../../Include/Common/Rva0058AD7A.h"
 
 Rva0058AD7A::~Rva0058AD7A()
 {

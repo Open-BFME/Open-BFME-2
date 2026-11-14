@@ -7,22 +7,7 @@
 // Base size 0x20 (Rva0058AD7A 0x1C plus int at +0x1C). throw() on callees
 // suppresses the EH frame and is mangle-safe.
 
-class Rva0058AD7A
-{
-public:
-	Rva0058AD7A(int x) throw();
-	virtual ~Rva0058AD7A();
-
-private:
-	int m_04;
-	int m_08;
-	int m_0C;
-	float m_10;
-	float m_14;
-	unsigned char m_18;
-	unsigned char m_19;
-	unsigned char m_1A;
-};
+#include "../../Include/Common/Rva0058AD7A.h"
 
 class Rva005EEDAA : public Rva0058AD7A
 {
