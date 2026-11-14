@@ -380,7 +380,11 @@ def template_surgery_refused(text, name):
       - an #include inside braces: the header it reads may be the one the swap includes, spent there;
       - a head the swap cuts that does not follow a finished declaration (`;`, a brace or a directive line), or a
         file-scope statement that is one bare name, perhaps with arguments (`OPEN;`): a macro a header defines may
-        open a scope there."""
+        open a scope there;
+      - a file-scope statement before the last cut that starts with a name neither a keyword (FILE_SCOPE_WORDS) nor
+        a type the unit declares itself after its last earlier #include (`OPEN int marker;`): a macro could share
+        no such name, since the declaration would expand it too.
+    swap_at also refuses a directive inside a span it cuts (`#pragma pack(1)` in a body reaches later types)."""
     joined, _keep = spliced(text)
     if RAW_STRING.search(text) or RAW_STRING.search(joined):
         return "a raw string literal (the primary body's span is not read raw-string-aware)"
@@ -458,7 +462,40 @@ def template_surgery_refused(text, name):
         depth += {"{": 1, "}": -1}.get(brace.group(), 0)
         if depth == 0:
             start = brace.end()
+    last = max([m.end() for m in heads.finditer(code)] + [m.end() for m in re.finditer(SPECIALIZATION_HEAD % word, code)],
+              default=0)
+    includes = [m.start() for m in re.finditer(r"(?m)^[ \t\v\f]*(?:#|%:)[ \t\v\f]*include\b", code)]
+    depth, start = 0, 0
+    for brace in re.finditer(r"[{};]", plain_code[:last]):
+        if depth == 0 and brace.group() != "}":
+            first = re.match(r"\s*([A-Za-z_]\w*)", plain_code[start:brace.start()])
+            if first and first.group(1) not in FILE_SCOPE_WORDS:
+                at = start + first.start(1)
+                since = max([i for i in includes if i < at], default=0)
+                if first.group(1) not in declared_types(plain_code[since:at]):
+                    return (f"a file-scope statement before a cut starting with {first.group(1)}, no keyword or type "
+                            "the unit declares (a macro may open a scope there)")
+        depth += {"{": 1, "}": -1}.get(brace.group(), 0)
+        if depth == 0:
+            start = brace.end()
     return None
+
+
+# Words a file-scope declaration may start with that no macro can be (keywords and MSVC's own specifiers)
+FILE_SCOPE_WORDS = frozenset({
+    "class", "struct", "union", "enum", "typedef", "extern", "namespace", "template", "static", "inline", "const",
+    "volatile", "void", "bool", "char", "short", "int", "long", "float", "double", "signed", "unsigned", "wchar_t",
+    "__int8", "__int16", "__int32", "__int64", "__declspec", "__inline", "__forceinline", "using", "friend",
+    "virtual", "explicit", "operator", "typename", "mutable", "register", "auto", "__cdecl", "__stdcall",
+    "__fastcall"})
+
+
+def declared_types(code):
+    """The type names `code` (masked) declares itself: `class|struct|union|enum X`, and the last name of a
+    `typedef ... X;`."""
+    names = set(re.findall(r"\b(?:class|struct|union|enum)\s+(?:__declspec\s*\([^)]*\)\s*)*([A-Za-z_]\w*)", code))
+    names.update(re.findall(r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*(?:\[[^;{}]*\])?\s*;", code))
+    return names
 
 
 def swap_at(text, names, include):
@@ -480,6 +517,9 @@ def swap_at(text, names, include):
             specializations = specialization_spans(original, name)
             if specializations is None or template_surgery_refused(original, name):
                 return None
+            code = masked(original)
+            if any(re.search(r"(?m)^[ \t\v\f]*(?:#|%:)", code[a:b]) for a, b in spans + specializations):
+                return None             # a directive inside a cut span (#pragma pack) may reach the code after it
             for start, end in specializations:
                 spans.append((start, end))
                 text = text[:start] + "\0" * (end - start) + text[end:]

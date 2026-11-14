@@ -902,6 +902,15 @@ def test_a_class_template_copy_goes_whole_unless_a_member_is_defined_out_of_clas
      "int use() { return sizeof(BitFlags<11>); }\n", "an #include inside braces"),
     ('struct Holder {\n#include "B.h"\n};\ntemplate <int N> class BitFlags { int own[N]; };\n',
      "an #include inside braces"),
+    # fail-closed review r4: a header's macro ahead of a declaration opened a scope around a specialization
+    ('#include "scope.h"\ntemplate <int N> class BitFlags { int own; };\nOPEN int marker;\n'
+     "template <> class BitFlags<11> { int keep[4]; };\nextern char required_extent[sizeof(BitFlags<11>)];\n"
+     "CLOSE\nint unchanged() { return 7; }\n", "starting with OPEN"),
+    ('#include "scope.h"\nOPEN int marker;\ntemplate <int N> class BitFlags { int own; };\nCLOSE\n',
+     "starting with OPEN"),
+    # ... a type the unit declares counts only after its last earlier #include (a later header may define it)
+    ('class GameWindow;\n#include "later.h"\nGameWindow *TheWindow;\ntemplate <int N> class BitFlags { int own; };\n',
+     "starting with GameWindow"),
 ])
 def test_the_swap_leaves_what_it_cannot_tell_apart(unit, why):
     assert why in lane.template_surgery_refused(unit, "BitFlags")
@@ -2647,3 +2656,22 @@ def test_provider_acceptance_persists_only_canonical_path_hints(provider_accepta
     assert lane.accept("C", ["./" + t.consumer], "C.h", providers=[str(t.root / t.provider)]) == 0
     assert json.loads((t.root / lane.ACCEPTANCE_CONTEXT).read_text()) == {"version": 1, "cohorts": [
         {"class": "C", "consumers": [t.consumer], "providers": [t.provider]}]}
+
+
+
+def test_a_type_the_unit_declares_may_start_a_statement_before_the_cut():
+    # fail-closed review r4: a macro shares no name the unit declares as a type, so these do not refuse the swap
+    unit = ('#include "x.h"\nclass GameWindow;\ntypedef int Int;\nGameWindow *TheWindow;\nInt TheCount;\n'
+            "Int GameWindow::count() { return 1; }\ntemplate <int N> class BitFlags { int own; };\nint after;\n")
+    assert lane.template_surgery_refused(unit, "BitFlags") is None
+    assert lane.swap(unit, ["BitFlags"], "B.h") is not None
+
+
+def test_a_directive_inside_a_cut_body_refuses_the_swap():
+    # fail-closed review r4: `#pragma pack(1)` inside the primary's body packs the types after it; cut, it is lost
+    unit = ("template <int N> class BitFlags {\n#pragma pack(1)\nint own;\n};\n"
+            "struct Record { char tag; int value; };\nextern Record record;\n")
+    assert lane.swap(unit, ["BitFlags"], "B.h") is None
+    unit = ("template <int N> class BitFlags { int own; };\ntemplate <> class BitFlags<11> {\n#pragma pack(1)\n"
+            "int own;\n};\nstruct Record { char tag; int value; };\n")
+    assert lane.swap(unit, ["BitFlags"], "B.h") is None
