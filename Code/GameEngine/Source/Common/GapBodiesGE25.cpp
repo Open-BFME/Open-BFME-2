@@ -69,16 +69,7 @@ Rva00041D03::Rva00041D03(int skip)
 // AreStaticSortListsEnabled.
 class Rva000422F3;
 
-class WW3D
-{
-	friend class Rva000422F3;
-	static bool IsInitted;
-	static bool ThumbnailEnabled;
-	static bool IsScreenUVBiased;
-	static bool AreStaticSortListsEnabled;
-	enum PrelitModeEnum { PRELIT_MODE_VERTEX, PRELIT_MODE_LIGHTMAP_MULTI_PASS, PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE };
-	static PrelitModeEnum PrelitMode;	// VA 0x00DB5F88; ww3d.cpp defines it
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva000422F3
 {

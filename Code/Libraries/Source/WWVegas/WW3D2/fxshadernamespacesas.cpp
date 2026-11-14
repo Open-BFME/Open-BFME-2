@@ -181,13 +181,7 @@ private:
 
 extern bool ShaderOverbrightEnabled;
 
-class WW3D
-{
-public:
-	static unsigned int Get_Sync_Time() { return SyncTime; }
-private:
-	static unsigned int SyncTime;
-};
+#include "WW3DClass.h"
 
 enum D3DTRANSFORMSTATETYPE
 {

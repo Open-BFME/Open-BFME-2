@@ -40,14 +40,7 @@ void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-class WW3D
-{
-public:
-	static bool Prepare_Render_New_Frame();
-	static bool Set_Device_Resolution(int width, int height, int bits, int windowed, bool resize_window);
-	static bool Begin_Render(bool clear, bool clearz, const Vector3 &color, float destAlpha);
-	static bool End_Render(bool flipFrame);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class IDirect3DSurface9;
 class DX8Caps;
 class DX8Wrapper
