@@ -736,14 +736,7 @@ public:
 };
 // The save screen (0x00E032E0 while the saved-game prompt is up) and its
 // rowed members.
-class AptSaveLoad
-{
-public:
-	static AptSaveLoad *s_instance;
-	void MultiplayerSaveGameDenied(int reason);
-	// Rowed 0x00433D96 (Rva00433FDDSet.cpp): state +0x27C = 10.
-	void rva00433D96(void);
-};
+#include "../../../Include/GameClient/AptSaveLoad.h"
 // VA 0x00E02EAC is a typo in the symbol name: the object is at VA
 // 0x00E032E8 (RVA 0x00A032E8), in .data's zero-filled tail past the raw end
 // at RVA 0x009DE008, so retail loads it an empty UnicodeString. Rva007ABBB3CtorInits.cpp

@@ -135,11 +135,7 @@ struct Rva00446443GameLogic
 	int m_110; // +0x110
 };
 void __cdecl Rva005118F3Show(int mode, bool show);
-class AptSaveLoad
-{
-public:
-	static void OpenScreen(int a, int b, bool c);
-};
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 void __cdecl Rva003B3371Call(int value);
 void Rva00444040Enable();
 #include "../../../../../Include/GameClient/AptOptions.h"
