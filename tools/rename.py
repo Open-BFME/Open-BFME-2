@@ -1527,8 +1527,8 @@ class Plan:
 
     def subject(self):
         if self.kind == "initializers":
-            return (f"Respell {len(self.renamed_rows)} compiler initializer row(s) of {posixpath.basename(self.source)} "
-                    "by .CRT$XCU order")
+            return (f"Respell {len(self.renamed_rows) + len(self.notes_rows)} compiler initializer row(s) of "
+                    f"{posixpath.basename(self.source)} by .CRT$XCU order")
         if self.identity:
             rows = self.identity["rows"]
             what = (f"{self.old} as {self.new}" if len(rows) == 1 else
@@ -14213,11 +14213,22 @@ CODE_SECTION = 0x20
 GATE_BASELINE = "reverse/gate_baseline.txt"
 
 
+def initializer_ordinal(row):
+    """The `_$E<n>` object symbol the byte gate reads `row` from (build.ledger_object_symbol: its
+    `object-symbol=` note when it has one, else its own name); None when that is no `_$E<n>`."""
+    import build
+    symbol = build.ledger_object_symbol(row)
+    return symbol if ledger_io.LOCAL_STATIC.fullmatch(symbol) else None
+
+
 def object_initializers(path):
     """(the `_$E` names an object's `.CRT$XCU` relocations register, in order; {`_$E` name: its local
-    code definitions}). A registration is a DIR32 relocation of one aligned pointer slot whose stored
-    addend is 0, so the slot holds the function's entry; any other relocation naming a `_$E` refuses, as
-    does a COMDAT `.CRT$XCU` contribution that names one (the linker may drop it)."""
+    code definitions}; the names registered from COMDAT contributions). A registration is a DIR32
+    relocation of one aligned pointer slot whose stored addend is 0, so the slot holds the function's
+    entry; any other relocation naming a `_$E` refuses. Only a plain section's order is evidence: any
+    link keeps one object's plain `.CRT$XCU` section whole and in order. A COMDAT one (a template
+    static's initializer) sits wherever the object whose copy retail kept put it, so it pairs by what it
+    builds instead (template_identities)."""
     import link_cycle
     data = Path(path).read_bytes()
     sections, symbols = link_cycle.parse_coff(data)
@@ -14225,7 +14236,7 @@ def object_initializers(path):
         s.name for s in symbols.values()
         if ledger_io.LOCAL_STATIC.fullmatch(s.name) and s.cls == link_cycle.STATIC and 0 < s.sec <= len(sections)
         and sections[s.sec - 1].flags & CODE_SECTION)
-    order = []
+    order, comdat = [], set()
     for section in sections:
         if section.name != ".CRT$XCU":
             continue
@@ -14242,25 +14253,138 @@ def object_initializers(path):
                 raise Refusal(f"{Path(path).name}: .CRT$XCU registers {name}+0x{addend:X} at +0x{offset:X}, "
                               "not the function's entry")
             named.append(name)
-        if named and section.flags & link_cycle.COMDAT:
-            raise Refusal(f"{Path(path).name}: a COMDAT .CRT$XCU contribution registers {', '.join(named)}; "
-                          "the linker may drop it, so its position proves nothing")
+        if section.flags & link_cycle.COMDAT:
+            comdat.update(named)
         order += named
-    return order, defined
+    return order, defined, comdat
+
+
+# A COMDAT-registered initializer pairs with a row only when both bodies are one of these exact byte
+# templates and every operand is the same address on both sides. No instruction is interpreted: the
+# fixed bytes are compared as bytes, and each operand is a 4-byte address the object relocates with
+# exactly one DIR32 (no other relocation may touch the body) and data_ledger.csv places at exactly one
+# address. The first operand is the static the initializer builds. The byte gate cannot stand in for
+# this: it copies every DIR32 operand from retail before comparing, so two such initializers that differ
+# only in their addresses compile to the same bytes.
+#   (description, length, {offset: fixed byte}, operand offsets)
+INITIALIZER_TEMPLATES = (
+    ("mov dword ptr [static], offset address; ret", 11, {0: 0xC7, 1: 0x05, 10: 0xC3}, (2, 6)),
+)
+
+
+def template_match(code):
+    """The INITIALIZER_TEMPLATES entry `code` is exactly (length and every fixed byte), or None."""
+    return next((t for t in INITIALIZER_TEMPLATES
+                 if len(code) == t[1] and all(code[at] == byte for at, byte in t[2].items())), None)
+
+
+def ledger_statics(ctx):
+    """{name: {rva}} of data_ledger.csv, every spelling (`name` and `names`)."""
+    key = "_ledger_statics"
+    if key not in ctx._cache:
+        by_name = collections.defaultdict(set)
+        for d in ctx.dicts(DATA_LEDGER):
+            at = _rva(d.get("address"))
+            if at is None:
+                continue
+            for name in {d.get("name") or "", *(d.get("names") or "").split(";")} - {""}:
+                by_name[name].add(at)
+        ctx._cache[key] = by_name
+    return ctx._cache[key]
+
+
+def object_template_operands(ctx, path, name):
+    """(template, (retail VA of each operand)): object `path`'s COMDAT-registered `name` as one exact
+    template, each operand resolved through its DIR32 relocation, the addend the object holds there and
+    data_ledger.csv. Refuses anything else."""
+    import build
+    import link_cycle
+    data = Path(path).read_bytes()
+    sections, symbols = link_cycle.parse_coff(data)
+    symbol = next(s for s in symbols.values() if s.name == name and s.sec > 0)
+    section = sections[symbol.sec - 1]
+    stat = Path(path).stat()
+    starts = build._function_starts(str(path), stat.st_mtime_ns, stat.st_size).get(symbol.sec, [])
+    end = min([value for value in starts if value > symbol.value] + [section.size])
+    code = data[section.ptr + symbol.value:section.ptr + end]
+    template = template_match(code)
+    if template is None:
+        raise Refusal(f"{Path(path).name}: COMDAT-registered {name} ({code[:16].hex(' ')}, {len(code)} bytes) is no "
+                      "initializer template this route can prove (" + "; ".join(t[0] for t in INITIALIZER_TEMPLATES)
+                      + ")")
+    relocs = {off - symbol.value: (index, kind) for off, index, kind in section.relocs
+              if symbol.value <= off < end}
+    if sorted(relocs) != sorted(template[3]) or any(kind != link_cycle.DIR32 for _i, kind in relocs.values()):
+        raise Refusal(f"{Path(path).name}: {name} has relocations at "
+                      + (", ".join(f"+{off}" for off in sorted(relocs)) or "no offset")
+                      + f"; its template takes exactly one DIR32 at each of "
+                      + ", ".join(f"+{off}" for off in template[3]))
+    by_name = ledger_statics(ctx)
+    values = []
+    for offset in template[3]:
+        index, _kind = relocs[offset]
+        target = symbols[index].name if index in symbols else f"#{index}"
+        homes = by_name.get(target, set())
+        if len(homes) != 1:
+            raise Refusal(f"{target} ({name} +{offset}) is {'missing from' if not homes else 'at several addresses in'} "
+                          f"{DATA_LEDGER}: a COMDAT initializer pairs only through each operand's one ledger address")
+        held = struct.unpack_from("<i", code, offset)[0]
+        values.append((next(iter(homes)) + held + IMAGE_BASE) & 0xFFFFFFFF)
+    return template, tuple(values)
+
+
+def template_identities(ctx, path, comdat, placed):
+    """{row's rva: COMDAT name}: each COMDAT-registered initializer paired with the one row whose retail
+    body is the same template with the same operands. Refuses any initializer outside the templates, and
+    any match that is not one to one."""
+    import build
+    pairs = {}
+    for name in sorted(comdat):
+        template, values = object_template_operands(ctx, path, name)
+        rows = []
+        for _index, at, row in placed:
+            if int(row["target_size"]) != template[1]:
+                continue
+            code = build.read_target_bytes(at, template[1])
+            if template_match(code) is template and tuple(
+                    struct.unpack_from("<I", code, offset)[0] for offset in template[3]) == values:
+                rows.append((at, row))
+        if len(rows) != 1:
+            raise Refusal(f"{len(rows)} rows' retail bodies are {name}'s template with its operands ("
+                          + ", ".join(f"0x{v:08X}" for v in values) + "): the pairing must be one to one")
+        at, row = rows[0]
+        if at in pairs:
+            raise Refusal(f"{row['name']} at 0x{at:08X} pairs with both {pairs[at]} and {name}")
+        pairs[at] = name
+    return pairs
 
 
 def initializer_pairs(ctx, source, path):
     """[(row, the object's name for it)]: `source`'s `_$E` rows in retail's `.CRT$XCU` order, paired
-    with the `_$E` initializers the object at `path` registers. Raises Refusal unless every check of
-    the route holds."""
+    with the `_$E` initializers the object at `path` registers. A row is a `_$E` row when the byte gate
+    reads it from a `_$E<n>` object symbol: by its own name, or through an `object-symbol=_$E<n>` note
+    (initializer_ordinal). Plain registrations pair by order; COMDAT ones by exact template
+    (template_identities). Raises Refusal unless every check of the route holds."""
     rows = [r for r in ctx.rows()
-            if (r.get("source") or "").replace("\\", "/") == source and ledger_io.LOCAL_STATIC.fullmatch(r.get("name", ""))]
+            if (r.get("source") or "").replace("\\", "/") == source and initializer_ordinal(r) is not None]
     if not rows:
-        raise Refusal(f"{source} has no `_$E<n>` row")
+        raise Refusal(f"{source} has no `_$E<n>` row (by name or object-symbol=)")
     for row in rows:
-        if not ledger_io.local_static(row):
-            raise Refusal(f"{row['name']} at {row['target_rva']} is not read by its own name (generated source or "
-                          "an object-symbol=/gen- note); this route respells only rows the byte gate reads by name")
+        # the ordinal as the row's name, the binding note aside: the same unit and placeholder rules
+        bare = dict(row, name=initializer_ordinal(row), notes=";".join(
+            token for token in (row.get("notes") or "").split(";")
+            if not token.strip().startswith("object-symbol=")))
+        if not ledger_io.local_static(bare):
+            raise Refusal(f"{row['name']} at {row['target_rva']} is in generated source or carries a gen- note; "
+                          "this route respells only real rows of a Code/ unit")
+    bound = collections.defaultdict(list)
+    for row in rows:
+        bound[initializer_ordinal(row)].append(row)
+    for ordinal, claims in sorted(bound.items()):
+        if len(claims) > 1:
+            raise Refusal(f"{len(claims)} rows of {source} bind {ordinal} ("
+                          + ", ".join(f"{r['name']}@{r['target_rva']}" for r in claims)
+                          + "): one object initializer claimed twice; settle that claim first")
     at_rows = collections.Counter(_rva(r.get("target_rva")) for r in ctx.rows() if _rva(r.get("target_rva")) is not None)
     table = retail_initializers(ctx)
     positions = collections.defaultdict(list)
@@ -14274,8 +14398,9 @@ def initializer_pairs(ctx, source, path):
                           "with nothing")
         hits = positions.get(at, [])
         if len(hits) != 1:
-            raise Refusal(f"{row['name']} at 0x{at:08X} is {'no entry' if not hits else f'{len(hits)} entries'} of "
-                          "retail's .CRT$XCU table (an atexit callback or a misrowed body?); this route pairs "
+            raise Refusal(f"{row['name']} ({initializer_ordinal(row)}) at 0x{at:08X} is "
+                          f"{'no entry' if not hits else f'{len(hits)} entries'} of retail's .CRT$XCU table (an atexit "
+                          "callback, a misrowed body, or a registration retail did not keep); this route pairs "
                           "registered initializers only")
         placed.append((hits[0], at, row))
     placed.sort(key=lambda item: item[0])
@@ -14283,16 +14408,20 @@ def initializer_pairs(ctx, source, path):
     if addresses != sorted(addresses):
         raise Refusal(f"{source}'s `_$E` rows run in a different order in retail's .CRT$XCU table than by address ("
                       + ", ".join(f"0x{at:08X}" for at in addresses) + "): the two orders must agree")
-    names, defined = object_initializers(path)
+    names, defined, comdat = object_initializers(path)
     for name in names:
         if names.count(name) != 1 or defined[name] != 1:
             raise Refusal(f"{Path(path).name}: {name} is registered {names.count(name)} time(s) and defined "
                           f"{defined[name]} time(s) as a local code symbol: each must be once")
     if len(names) != len(placed):
-        raise Refusal(f"{Path(path).name} registers {len(names)} `_$E` initializer(s) ({', '.join(names) or 'none'}) "
-                      f"but {source} rows {len(placed)} in retail's table ("
-                      + ", ".join(f"{row['name']}@0x{at:08X}" for _i, at, row in placed) + ")")
-    return [(row, name) for (_index, _at, row), name in zip(placed, names)]
+        shared = f"; {len(comdat)} of them COMDAT (a copy retail kept from another object has no row here)" \
+            if comdat else ""
+        raise Refusal(f"{Path(path).name} registers {len(names)} `_$E` initializer(s) ({', '.join(names) or 'none'}"
+                      f"{shared}) but {source} rows {len(placed)} in retail's table ("
+                      + ", ".join(f"{initializer_ordinal(row)}@0x{at:08X}" for _i, at, row in placed) + ")")
+    identities = template_identities(ctx, path, comdat, placed) if comdat else {}
+    plain = iter(name for name in names if name not in comdat)
+    return [(row, identities[at] if at in identities else next(plain)) for _index, at, row in placed]
 
 
 def plan_initializers(ctx, source, evidence="", **_ignored):
@@ -14306,17 +14435,22 @@ def plan_initializers(ctx, source, evidence="", **_ignored):
         raise Refusal(f"{source} has no object compiled from its present text: ./build.sh {source} first (its "
                       "byte gate may refuse the renumbered rows; the object is what this route reads)")
     pairs = initializer_pairs(ctx, source, path)
-    renames = [(row["name"], new, _rva(row["target_rva"])) for row, new in pairs if row["name"] != new]
-    if not renames:
+    noted = {_rva(row["target_rva"]) for row, _new in pairs if "object-symbol=" in (row.get("notes") or "")}
+    changed = [(initializer_ordinal(row), new, _rva(row["target_rva"])) for row, new in pairs
+               if initializer_ordinal(row) != new]
+    if not changed:
         raise Refusal(f"{source}'s `_$E` rows already carry the ordinals its object registers")
+    renames = [(old, new, at) for old, new, at in changed if at not in noted]
+    respelled = [(old, new, at) for old, new, at in changed if at in noted]
     tombstoned = _tombstones(ctx)
     for old, new, at in renames:
         if (new, at) in tombstoned:
             raise Refusal(f"{DELETED} retires {new} at 0x{at:08X}; this route does not restore a tombstoned spelling")
-    # each register parsed in its own format: names compared exactly, addresses as numbers
+    # each register parsed in its own format: names compared exactly, addresses as numbers. A code
+    # identity record keys an ordinal as its row or as the symbol a row binds.
     for rel, split, keyed in (
             (CODE_IDENTITY_BASELINE, lambda line: line.split("\t"),
-             lambda f, old, at: len(f) > 1 and f[0].replace("\\", "/") == source and f[1] == old),
+             lambda f, old, at: len(f) > 2 and f[0].replace("\\", "/") == source and old in (f[1], f[2])),
             (GATE_BASELINE, lambda line: line.split(),
              lambda f, old, at: old in f and at in {_rva(x) for x in f}),
             (BODY_OWNERS, lambda line: next(csv.reader([line]), []),
@@ -14327,10 +14461,11 @@ def plan_initializers(ctx, source, evidence="", **_ignored):
             if not line.strip() or line.startswith("#"):
                 continue
             fields = split(line)
-            hit = next((old for old, _new, at in renames if keyed(fields, old, at)), None)
+            hit = next((old for old, _new, at in changed if keyed(fields, old, at)), None)
             if hit:
                 raise Refusal(f"{rel} keys {hit}: {line[:160]}; retire or move that record by its own path first")
     by_at = {at: new for _old, new, at in renames}
+    notes_at = {at: (old, new) for old, new, at in respelled}
     raw = ctx.read(FUNCTIONS)
     ledger_io.lf_terminator(raw, "functions.csv")
     out = []
@@ -14342,20 +14477,32 @@ def plan_initializers(ctx, source, evidence="", **_ignored):
             if not payload.startswith(fields[0].encode("utf-8") + b","):
                 raise Refusal(f"{FUNCTIONS}: the record of {fields[0]} at {fields[2]} quotes its name")
             payload = by_at[_rva(fields[2])].encode("utf-8") + payload[len(fields[0]):]
+        elif (index and len(fields) > 6 and fields[4].replace("\\", "/") == source and _rva(fields[2]) in notes_at
+                and initializer_ordinal(dict(name=fields[0], notes=fields[6])) == notes_at[_rva(fields[2])][0]):
+            # only the note's ordinal changes: `object-symbol=_$E<old>` once, not a longer ordinal
+            old, new = notes_at[_rva(fields[2])]
+            token = re.compile(r"object-symbol=" + re.escape(old) + r"(?![0-9])")
+            if len(token.findall(payload.decode("utf-8"))) != 1:
+                raise Refusal(f"{FUNCTIONS}: the record of {fields[0]} at {fields[2]} does not spell "
+                              f"object-symbol={old} exactly once")
+            payload = token.sub(lambda _m: "object-symbol=" + new, payload.decode("utf-8"), count=1).encode("utf-8")
         out.append(payload + term)
-    olds = ", ".join(old for old, _n, _a in renames)
-    news = ", ".join(new for _o, new, _a in renames)
+    olds = ", ".join(old for old, _n, _a in changed)
+    news = ", ".join(new for _o, new, _a in changed)
     plan = Plan("initializers", olds, news, "retail .CRT$XCU order",
                 evidence or f"{path.name}'s .CRT$XCU order against retail's table", source, None)
     plan.edit(ctx, FUNCTIONS, b"".join(out))
     plan.renamed_rows = renames
-    plan.edit(ctx, DELETED, appended(ctx.read(DELETED), [
-        tombstone_line(old, at, f"Respelled to {new} by tools/rename.py initializers ({path.name}'s .CRT$XCU "
-                                f"order against retail's table)") for old, new, at in renames],
-        header="name,target_rva,reason"))
+    plan.notes_rows = [(row["name"], _rva(row["target_rva"])) for row, new in pairs
+                       if _rva(row["target_rva"]) in notes_at]
+    if renames:
+        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), [
+            tombstone_line(old, at, f"Respelled to {new} by tools/rename.py initializers ({path.name}'s .CRT$XCU "
+                                    f"order against retail's table)") for old, new, at in renames],
+            header="name,target_rva,reason"))
     plan.verify = [source]
     plan.initializers = {"source": source, "names": {_rva(row["target_rva"]): new for row, new in pairs}}
-    plan.claims = sorted(at for _o, _n, at in renames) + [f"file:{source}"]
+    plan.claims = sorted(at for _o, _n, at in changed) + [f"file:{source}"]
     return plan
 
 
@@ -14370,8 +14517,9 @@ def initializer_problems(ctx, initializers):
         pairs = initializer_pairs(fresh, source, path)
     except Refusal as why:
         return [str(why)]
-    return [f"0x{_rva(row['target_rva']):08X} is rowed {row['name']} but {path.name} registers {new} there"
-            for row, new in pairs if row["name"] != new or initializers["names"].get(_rva(row["target_rva"])) != new]
+    return [f"0x{_rva(row['target_rva']):08X} is bound to {initializer_ordinal(row)} but {path.name} registers "
+            f"{new} there" for row, new in pairs
+            if initializer_ordinal(row) != new or initializers["names"].get(_rva(row["target_rva"])) != new]
 
 
 PLANNERS = {"function": plan_function, "global": plan_global, "file": plan_file, "class": plan_class,
