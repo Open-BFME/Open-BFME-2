@@ -167,15 +167,7 @@ GameResultsInterface::GameResultsInterface()
 {
 }
 
-class ActionManager : public SubsystemInterface
-{
-public:
-	ActionManager();
-	virtual ~ActionManager();
-	virtual void init() {}
-	virtual void reset() {}
-	virtual void update() {}
-};
+#include "../../Include/GameLogic/ActionManager.h"
 
 // ??0Rva0041B8C7@@QAE@XZ retail 0x0041B8B5 18B: base ctor 0x001B4E63 then own
 // vptr 0x00C3AE60 (caller 0x0022FA81).
