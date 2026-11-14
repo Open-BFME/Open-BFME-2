@@ -441,22 +441,7 @@ extern int g_Va00E0333C;
 // constructor (0x0027EA56) and empty destructor (0x000B3FD0) are folded
 // bodies; its selected position and item data go through the rowed
 // address-named views 0x00323674 and 0x003236C4.
-class MpGameSetupComboRef
-{
-public:
-	MpGameSetupComboRef(const MpGameSetupComboRef &other);
-	~MpGameSetupComboRef();
-
-	// Rebinds the wrapped window; 0x0043DE19 clears each one through the
-	// one-pointer store at 0x0007B719, defined in MpGameSetupComboRef.cpp.
-	MpGameSetupComboRef &operator=(GameWindow *window);
-
-	// Unrowed 0x00323736 (308 bytes; ret 4, a byte flag), pinned by
-	// address.
-	void rva00323736(bool flag);
-
-	GameWindow *m_window;
-};
+#include "../../../Include/Common/MpGameSetupComboRef.h"
 
 class Rva00323674
 {
