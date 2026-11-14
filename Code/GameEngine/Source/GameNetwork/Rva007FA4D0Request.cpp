@@ -59,11 +59,7 @@ struct Rva007FA170Slot
 
 struct BfmeSlotRecord;
 
-class BfmeSlotPool
-{
-public:
-	BfmeSlotRecord *acquireSlot(void);
-};
+#include "../../Include/GameNetwork/BfmeSlotPool.h"
 
 class Rva007FA2C0
 {
