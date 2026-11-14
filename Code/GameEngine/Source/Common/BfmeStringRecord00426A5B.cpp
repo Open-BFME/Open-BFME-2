@@ -74,15 +74,7 @@ public:
 	int m_54;
 };
 
-class PlayerList
-{
-public:
-	Afield *getLocalPlayer() { return m_10; }
-	char m_pad[0x10];
-	Afield *m_10;
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
 
 class AudioManager
 {
@@ -341,11 +333,11 @@ void Rva004266A1::rva0042682B(int index, unsigned char value)
 	vec[index].flag1 = value;
 	if (TheAudio && !old && value)
 	{
-		if (ThePlayerList->getLocalPlayer() && ThePlayerList->getLocalPlayer()->m_34
-			&& ThePlayerList->getLocalPlayer()->m_34->m_ref1a8.referent != 0)
+		if (ThePlayerList->getLocalPlayer() && ((Afield *)ThePlayerList->getLocalPlayer())->m_34
+			&& ((Afield *)ThePlayerList->getLocalPlayer())->m_34->m_ref1a8.referent != 0)
 		{
-			BfmeAudioEventPrefix136 ev(ThePlayerList->getLocalPlayer()->m_34->m_ref1a8, 2);
-			((Rva0033F15DDwordSlot *)&ev)->set(ThePlayerList->getLocalPlayer()->m_54);
+			BfmeAudioEventPrefix136 ev(((Afield *)ThePlayerList->getLocalPlayer())->m_34->m_ref1a8, 2);
+			((Rva0033F15DDwordSlot *)&ev)->set(((Afield *)ThePlayerList->getLocalPlayer())->m_54);
 			TheAudio->audioEvent(&ev);
 		}
 	}
@@ -366,7 +358,7 @@ void Rva004266A1::rva00426914(int index, unsigned char value)
 	vec[index].flag2 = value;
 	if (TheAudio == 0 || old != 0 || value == 0)
 		return;
-	Afield *afield = (*(Afield * volatile *)&(ThePlayerList->m_10));
+	Afield *afield = (*(Afield * volatile *)&(ThePlayerList->m_local));
 	if (afield == 0)
 		return;
 	if ((*(Bfield * volatile *)&(afield->m_34)) == 0)
@@ -376,8 +368,8 @@ void Rva004266A1::rva00426914(int index, unsigned char value)
 	if (TheGameLogic == 0 || (unsigned int)((GameLogicFrameView *)TheGameLogic)->m_40 <= 3)
 		return;
 	
-	BfmeAudioEventPrefix136 ev(ThePlayerList->m_10->m_34->m_ref1ac, 2);
-	((Rva0033F15DDwordSlot *)&ev)->set(ThePlayerList->m_10->m_54);
+	BfmeAudioEventPrefix136 ev(((Afield *)ThePlayerList->m_local)->m_34->m_ref1ac, 2);
+	((Rva0033F15DDwordSlot *)&ev)->set(((Afield *)ThePlayerList->m_local)->m_54);
 	TheAudio->audioEvent(&ev);
 }
 

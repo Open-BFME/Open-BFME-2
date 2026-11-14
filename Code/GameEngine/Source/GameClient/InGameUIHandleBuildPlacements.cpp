@@ -155,14 +155,7 @@ class Cb00359D42;
 #include "../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic* TheGameLogic;
-class PlayerList
-{
-public:
-    int getPlayersWithRelationship(int, unsigned, bool);
-    char unknown00[0x10];
-    Player* local;
-};
-extern PlayerList* ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
 #include "../../Include/GameClient/ResourceEntryCollector.h"
 #include "../../Include/Common/Rva004E54B8.h"
 struct BfmeUiResourceEntryState
@@ -538,9 +531,9 @@ void InGameUI::handleBuildPlacements()
                     &resourcePoint, icons[0].drawable, data));
                 ((ResourceEntryCollector*)&BfmeUiResourceEntryCollectorState)->rva004E551E();
                 int mask = 0;
-                if (ThePlayerList && ThePlayerList->local)
+                if (ThePlayerList && ThePlayerList->m_local)
                     mask = ThePlayerList->getPlayersWithRelationship(
-                        ThePlayerList->local->getPlayerIndex(), 3, false);
+                        ThePlayerList->m_local->getPlayerIndex(), 3, false);
                 manager->enumerateRegisteredClaimants(
                     mask, (Cb00359D42*)&BfmeUiResourceEntryCollectorState);
                 ((Rva004E54B8*)&BfmeUiResourceEntryCollectorState)->rva004E54B8();

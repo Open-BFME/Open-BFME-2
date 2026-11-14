@@ -9,7 +9,6 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 class Parameter;
 class Player;
-class PlayerList;
 class ScriptEngine;
 class Object;
 class Condition;
@@ -123,7 +122,6 @@ public:
 	Int m_count;				// +0x10
 	Int m_max;				// +0x14
 };
-extern PlayerList *ThePlayerList;
 class SpecialPowerTemplate;
 #include "../../../Include/Common/SpecialPowerStore.h"
 extern SpecialPowerStore *TheSpecialPowerStore;
@@ -453,17 +451,7 @@ class Rva002A9ED2DwordField
 public:
     int get() const;
 };
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-	Player *getEachPlayerFromMask(int &mask);
-	int rva002A7C0B(bool flag);
-	Player *getNeutralPlayer() const { return m_neutralPlayer; }
-	char m_pad00[0x18];
-private:
-	Player *m_neutralPlayer; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 struct CondA003E53C8
 {
 	char m_pad[8];

@@ -88,8 +88,7 @@ private:
 	unsigned char m_first;
 	unsigned char m_second;
 };
-class PlayerList {public:char prefix[0x10];Player *m_local;char pad14[0x18-0x14];Player *neutralPlayer;};
-extern PlayerList *ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -440,7 +439,7 @@ Bool VictoryConditions::isLocalAlliedDefeat()
 Bool VictoryConditions::rva00420017(Player *player)
 {
  const PlayerTemplate *civilian = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionCivilian"));
- if (player && player != ThePlayerList->neutralPlayer && player->playerTemplate && player->playerTemplate != civilian && !player->isPlayerObserver()) {
+ if (player && player != ThePlayerList->getNeutralPlayer() && player->playerTemplate && player->playerTemplate != civilian && !player->isPlayerObserver()) {
   m_players[m_cachedPlayerCount] = player;
   if (m_players[m_cachedPlayerCount]->isLocalPlayer()) m_localSlotNum=m_cachedPlayerCount;
   ++m_cachedPlayerCount;

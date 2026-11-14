@@ -57,17 +57,7 @@ enum NameKeyType
 
 class Player;
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-
-private:
-	char m_pad00[0x10];
-
-public:
-	BfmeMemberRV *m_local10;
-};
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
@@ -80,7 +70,6 @@ public:
 
 extern NetworkInterface *TheNetwork;
 extern GameLogic *TheGameLogic;
-extern PlayerList *ThePlayerList;
 extern GameInfo *TheGameInfo;
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameTextInterface *TheGameText;
@@ -91,7 +80,7 @@ bool Rva0038190FSendChat(const UnicodeString &text, const SelectionIDs &selected
 		return false;
 	if (TheGameLogic->m_110 == 3)
 		return false;
-	BfmeMemberRV *localPlayer = ThePlayerList->m_local10;
+	BfmeMemberRV *localPlayer = (BfmeMemberRV *)ThePlayerList->m_local;
 	if (localPlayer == 0)
 		return false;
 	bool observer = !localPlayer->bfmeAskRV();

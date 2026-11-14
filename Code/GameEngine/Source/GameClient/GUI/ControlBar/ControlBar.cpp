@@ -624,13 +624,7 @@ public:
     char m_pad14C[0x17C - 0x14C];
     AsciiString m_beaconTemplate;
 };
-class PlayerList
-{
-public:
-	char unknown00[0x10]; // +0x00
-	Player *local; // +0x10
-};
-extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
 #include "ControlBarMemberTypes.h"
 #include <string.h>
 #include "unicode_string.h"
@@ -753,7 +747,6 @@ struct ShortcutCommandButtonView
     unsigned int options;
 };
 #include "../../../../Include/Common/BfmeMemberRV.h"
-class PlayerList;
 struct ShortcutPlayerListView
 {
     char unknown00[0x10];
@@ -1416,7 +1409,7 @@ public:
 
 int ControlBar::rva0031AA86()
 {
-	int money = ((MoneyInner *)ThePlayerList->local)->m_money;
+	int money = ((MoneyInner *)ThePlayerList->m_local)->m_money;
 	if (m_lastFlashedAtPointValue <= money && money > 0)
 		m_lastFlashedAtPointValue = money;
 	else
@@ -2070,7 +2063,7 @@ void ControlBar::rva0031D61E(const AsciiString *name) {
 
 void ControlBar::rva0031D64F() {
  if(!ThePlayerList||!TheThingFactory)return;
- Player *player=ThePlayerList->local;
+ Player *player=ThePlayerList->m_local;
  if(!player)return;
  AsciiString side=player->m_side;
  for(ThingTemplate *thingTemplate=TheThingFactory->first;thingTemplate;thingTemplate=thingTemplate->next) {
@@ -2250,7 +2243,7 @@ void ControlBar::showPurchaseScience()
 {
 	if (((ScriptEngineView *)TheScriptEngine)->getValue1A104() >= 0)
 		return;
-	Player *player = ThePlayerList->local;
+	Player *player = ThePlayerList->m_local;
 	if (!player || !player->isPlayerActive())
 		return;
 	m_genStarFlash = false;
@@ -2267,7 +2260,7 @@ void ControlBar::rva0031ADAE()
     m_contextParent[0]->winSetPosition(m_defaultControlBarPosition.x, m_defaultControlBarPosition.y);
     TheTacticalView->setHeight(TheDisplay->getHeight());
     m_controlBarSchemeManager->setControlBarSchemeByPlayerTemplate(
-        reinterpret_cast<Rva0031ADAEPlayerView *>(ThePlayerList->local)
+        reinterpret_cast<Rva0031ADAEPlayerView *>(ThePlayerList->m_local)
             ->playerTemplate, true);
 }
 
@@ -2473,7 +2466,7 @@ void ControlBar::rva0031B5A3(const Player *player)
 	if (!player->isLocalPlayer())
 		return;
 	{
-		int money = ((MoneyInner *)ThePlayerList->local)->m_money;
+		int money = ((MoneyInner *)ThePlayerList->m_local)->m_money;
 		if (m_lastFlashedAtPointValue > money)
 			goto done;
 	}

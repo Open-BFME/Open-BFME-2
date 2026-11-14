@@ -74,16 +74,7 @@ public:
 	unsigned char m_pad2E4[0x2EC - 0x2E4];
 	Team *m_defaultTeam;			// +0x2EC
 };
-class PlayerList
-{
-public:
-	Int getPlayerCount() const { return m_playerCount; }
-	Player *getNthPlayer(Int playerIndex);
-private:
-	unsigned char m_pad00[0x14];
-	Int m_playerCount;			// +0x14
-};
-extern PlayerList *ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameLogic/ScriptEngine.h"
