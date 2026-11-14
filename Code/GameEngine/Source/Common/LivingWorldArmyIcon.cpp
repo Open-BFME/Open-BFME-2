@@ -257,14 +257,7 @@ public:
     int rva002E0BC0(int v);
 };
 
-class Rva002BA8F1Logic
-{
-public:
-    char m_pad00[0x98];
-    Rva002E071E *m_98;
-    char m_pad9C[0xF4 - 0x9C];
-    int m_F4;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva003FE05E
 {
@@ -463,8 +456,8 @@ TreeHintRef00217D4C Rva003FE05E::rva003FE0EB()
     {
         int v = ((Rva003FE38 *)m_38)->m_54;
         Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
-        int f4 = logic->m_F4;
-        Rva002E071E *helper = logic->m_98;
+        int f4 = logic->m_xF4;
+        Rva002E071E *helper = (Rva002E071E *)logic->m_98;
         if (f4 != 0)
             rva003FE05E();
         else if (helper->m_14 == v)

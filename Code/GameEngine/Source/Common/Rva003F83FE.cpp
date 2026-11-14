@@ -13,12 +13,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xb0];
-	Rva002104B6 *m_b0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldTutorial
 {
@@ -38,6 +33,6 @@ void *LivingWorldTutorial::SessionTask::getRegionParam(int i)
 {
 	AsciiString *arr = m_arr0C;
 	int j = i;
-	Rva002104B6 *h = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0;
+	Rva002104B6 *h = (Rva002104B6 *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0);
 	return h->rva002104B6(arr + j);
 }

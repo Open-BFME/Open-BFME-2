@@ -61,12 +61,7 @@ struct Rva0020E8DBHolder
 	Rva0020E8DB *m_db;
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xb0];
-	Rva0020E8DBHolder *m_holder;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 // Target callback VA 0x009CC208 is the slot-two thunk 8B01FF6008.
 // Rowed forEach/walk prove a receiver and three dword arguments;
@@ -97,7 +92,7 @@ void LivingWorldPlayer::CheckForRemovedMultiRegionBonuses()
 	_STL::map<int, int>::iterator it2 = m_map2.begin();
 	while (it2 != m_map2.end()) {
 		if (it1 == m_map1.end() || (*it1).first > (*it2).first) {
-			Rva0020E8DBEntry *entry = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder->m_db->rva0020E8DB((*it2).first);
+			Rva0020E8DBEntry *entry = ((Rva0020E8DBHolder *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0))->m_db->rva0020E8DB((*it2).first);
 			if (entry != 0) {
 				m_list.forEach((void (Rva002E1E6FListener::*)(void *, int, int))&Rva002E1FC2Slot2Callback::notify, this, (int)entry, (int)&entry->m_extra);
 			}

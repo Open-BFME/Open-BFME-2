@@ -36,11 +36,7 @@ struct Rva00210D68Mid {
 	Rva00210D68KeyHolder *m_keyHolder;
 };
 
-class Rva002BA8F1Logic {
-public:
-	char m_pad[0xB0];
-	Rva00210D68Mid *m_mid;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 extern Rva003EF328 *TheLivingWorldRegionEffectsManagerStore;
 
@@ -50,7 +46,7 @@ void LivingWorldManager::SetUpRegionEffectsManager()
 		((Rva003EF14A *)field268)->rva003EF1B8();
 		field268 = 0;
 	}
-	Rva00210D68KeyHolder *holder = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_mid->m_keyHolder;
+	Rva00210D68KeyHolder *holder = ((Rva00210D68Mid *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0))->m_keyHolder;
 	if (!holder)
 		return;
 	void *found = TheLivingWorldRegionEffectsManagerStore->rva003EF328((const AsciiString *)((char *)holder + 0x54));

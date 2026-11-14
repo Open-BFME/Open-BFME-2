@@ -106,13 +106,7 @@ public:
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *idx);
-	char m_pad[0xB0];
-	Rva002104B6 *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 struct Rva003EF08BArg
 {
@@ -389,7 +383,7 @@ void LivingWorldRegionEffectsManager::SyncRegion(int argInt)
 		Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(faction, (unsigned int *)0);
 		bool same = false;
 		if (player) {
-			Rva002104B6 *mid = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
+			Rva002104B6 *mid = (Rva002104B6 *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0);
 			void *q = mid->rva002104B6((void *)((char *)player + 0x2C));
 			same = (q == (void *)argInt);
 		}

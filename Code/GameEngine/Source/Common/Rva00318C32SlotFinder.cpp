@@ -16,12 +16,7 @@ public:
 
 #include "../../Include/GameLogic/Rva0020EE29.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad00[0xB0];
-	Rva0020EE29 *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -45,7 +40,7 @@ Rva00318C32Ret *Rva00318C79Owner::rva00318C32()
 	v[1] = m_48;
 	v[2] = 0.0f;
 	Rva002BA8F1Logic *l = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic);
-	Rva0020EE29 *mgr = l->m_B0;
+	Rva0020EE29 *mgr = (Rva0020EE29 *)l->m_B0;
 	m_8C = mgr->rva0020FAEA(v, m_8C);
 	return (Rva00318C32Ret *)m_8C;
 }
