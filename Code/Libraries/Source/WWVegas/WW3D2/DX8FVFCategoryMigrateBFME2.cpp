@@ -91,14 +91,7 @@ typedef MultiListIterator<DX8TextureCategoryClass> TextureCategoryListIterator;
 typedef MultiListClass<DX8PolygonRendererClass> DX8PolygonRendererList;
 typedef MultiListIterator<DX8PolygonRendererClass> DX8PolygonRendererListIterator;
 
-class DX8PolygonRendererClass : public MultiListObjectClass
-{
-	char m_pad04[4];
-	DX8TextureCategoryClass* Category;
-public:
-	DX8TextureCategoryClass* Get_Texture_Category() { return Category; }
-	void Set_Texture_Category(DX8TextureCategoryClass* dX8TextureCategory) { Category = dX8TextureCategory; }
-};
+#include "dx8polygonrendererClass.h"
 
 struct TextureCategoryDeleteListView
 {
