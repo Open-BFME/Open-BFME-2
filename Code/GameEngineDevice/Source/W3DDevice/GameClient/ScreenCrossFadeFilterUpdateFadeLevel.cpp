@@ -65,7 +65,7 @@ typedef int Int;typedef float Real;typedef bool Bool;
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct IDirect3DDevice8;
 extern unsigned number_of_DX8_calls;
-struct D3DXVECTOR4 {float x,y,z,w;D3DXVECTOR4(){} D3DXVECTOR4(float a,float b,float c,float d):x(a),y(b),z(c),w(d){} };
+#include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 struct BfmeTextureRef;
 struct BfmeTextureRefVt {void *query;unsigned (__stdcall *addRef)(BfmeTextureRef *);unsigned (__stdcall *release)(BfmeTextureRef *);};
 struct BfmeTextureRef {BfmeTextureRefVt *vt;};

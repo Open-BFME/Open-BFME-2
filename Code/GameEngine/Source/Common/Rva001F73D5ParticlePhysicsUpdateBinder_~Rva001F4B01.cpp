@@ -52,13 +52,7 @@ typedef const char *D3DXHANDLE;
 
 struct IDirect3DBaseTexture8;
 
-struct D3DXVECTOR4
-{
-	D3DXVECTOR4() {}
-	D3DXVECTOR4(float fx, float fy, float fz, float fw) { x = fx; y = fy; z = fz; w = fw; }
-	operator float *() { return &x; }
-	float x, y, z, w;
-};
+#include "../../Include/Common/D3DXVECTOR4.h"
 
 struct ID3DXEffect
 {
