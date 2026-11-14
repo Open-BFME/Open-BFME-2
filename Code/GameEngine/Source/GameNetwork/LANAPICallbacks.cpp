@@ -172,10 +172,12 @@ public:
 	__declspec(dllimport) __forceinline void setTeamNumber( Int teamNumber ) { m_teamNumber = teamNumber; }
 	void setHandicap( Int handicap ) { m_handicap = handicap; }
 	void setNATBehavior( Int behavior ) { m_NATBehavior = behavior; }
+	void unAccept();
 	const UnicodeString &getName( void ) const { return m_name; }
 
 private:
-	UnsignedByte m_pre0C[0x0C - 4];
+	UnsignedByte m_pre08[0x08 - 0x04];
+	Bool m_isAccepted;				// +0x08
 	Int m_color;					// +0x0C
 	Int m_startPos;					// +0x10
 	Int m_bfme14;					// +0x14, set with the start position
@@ -209,18 +211,7 @@ struct LANSlotAddress
 	BfmeNetAddress m_address;			// slot +0x38
 	UnsignedByte m_rest[0x1D0 - 0x40];
 };
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14();
-	virtual UnicodeString fetch( const char *label, Bool *exists = 0 );	// slot 15 (+0x3C)
-	virtual void v16();
-	virtual const UnicodeString *fetchPointer( const char *label, Bool *exists );	// slot 17 (+0x44)
-};
-extern GameTextInterface *TheGameText;
+#include "../../Include/GameClient/GameText.h"
 #include "../../Include/GameClient/MapMetaData.h"
 #include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
@@ -697,10 +688,10 @@ void LANAPI::OnHasMap( const BfmeNetAddress *ip, Bool status )
 	{
 		UnicodeString text;
 		if( willTransfer )
-			text.format( TheGameText->fetchPointer( "GUI:PlayerNoMapWillTransfer", 0 ),
+			text.format( TheGameText->fetchPtr( "GUI:PlayerNoMapWillTransfer", 0 ),
 				((LANGameSlot *)m_currentGame->getLANSlot( i ))->getName().str(), mapDisplayName.str() );
 		else
-			text.format( TheGameText->fetchPointer( "GUI:PlayerNoMap", 0 ),
+			text.format( TheGameText->fetchPtr( "GUI:PlayerNoMap", 0 ),
 				((LANGameSlot *)m_currentGame->getLANSlot( i ))->getName().str(), mapDisplayName.str() );
 		OnChat( UnicodeString( L"SYSTEM" ), getLocalAddress(), text, LANAPIInterface::LANCHAT_SYSTEM );
 	}
