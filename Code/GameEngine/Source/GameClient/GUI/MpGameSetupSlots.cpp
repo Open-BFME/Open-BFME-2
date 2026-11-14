@@ -191,11 +191,7 @@ public:
 	void rva00401FAF(const TreeHintOpaque0043671B *saved);
 };
 
-class Rva00381D02
-{
-public:
-	void rva00381D02(void *digest);
-};
+#include "../../../Include/GameNetwork/Rva00381D02.h"
 
 // Unrowed 0x004361B3 (41 bytes; prints the digest through MD5Print and
 // looks the saved game up by that name), pinned by address.
