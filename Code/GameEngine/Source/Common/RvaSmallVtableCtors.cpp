@@ -2292,7 +2292,13 @@ class Rva005CC93A
 {
 public:
 	Rva005CC93A();
-	virtual ~Rva005CC93A() {}
+	virtual void slot00(int) {}
+	virtual void slot04(int) {}
+	virtual void slot08(int) {}
+	virtual void slot0C(int) {}
+	virtual void slot10(int) {}
+	virtual void slot14(int) {}
+	virtual void slot18(int) {}
 };
 
 Rva005CC93A::Rva005CC93A()
