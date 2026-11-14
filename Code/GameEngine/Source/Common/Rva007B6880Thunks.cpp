@@ -1984,22 +1984,6 @@ void __cdecl Rva007B7090Set()
 	g_00DB6200 = (void *)__identifier("??_7Rva0012D780@@6B@");
 }
 
-class BfmeDualVtableReleaseDtor
-{
-public:
-	virtual ~BfmeDualVtableReleaseDtor();
-};
-
-// ScriptEngine_init.cpp owns the 12-byte loader at VA 0x00DFE180.
-extern BfmeDualVtableReleaseDtor TheFXParticleEditor;
-
-// ?rva007B75E2@@YAXXZ @ 0x007B75E2 (10B). Global BfmeDualVtableReleaseDtor dtor thunk: ecx=&TheFXParticleEditor then tail-jmp to rowed ??1BfmeDualVtableReleaseDtor@@UAE@XZ (0x00203629). Registered by the rowed initializer at 0x007AD7DD. Between 0x007B75D8 and 0x007B75EC. Honest address name.
-void __cdecl rva007B75E2()
-{
-	BfmeDualVtableReleaseDtor *receiver = &TheFXParticleEditor;
-	return receiver->BfmeDualVtableReleaseDtor::~BfmeDualVtableReleaseDtor();
-}
-
 namespace _STL
 {
 template <typename T, typename A>

@@ -18,12 +18,6 @@ namespace ATL
 
 #include "../../Include/Common/SortingRenderStateStruct.h"
 
-class BfmeDualVtableReleaseDtor
-{
-public:
-	BfmeDualVtableReleaseDtor();
-};
-
 class Rva0030ADED
 {
 public:
@@ -69,7 +63,6 @@ void __cdecl rva007B6C3E();
 void __cdecl rva007B6FC0();
 void __cdecl rva007B6FD0();
 void __cdecl rva007B71C0();
-void __cdecl rva007B75E2();
 void __cdecl rva007B763C();
 void __cdecl rva007B7632();
 void __cdecl rva007B7AF5();
@@ -91,8 +84,6 @@ extern unsigned int g_00DDE0AC;
 // ?render_state@DX8Wrapper@@1URenderStateStruct@@A, reached as a friend of
 // the canonical DX8Wrapper header instead of a second datum at its address.
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
-// VA 0x00DFE180 is ScriptEngine_init.cpp's TheFXParticleEditor.
-extern BfmeDualVtableReleaseDtor TheFXParticleEditor;
 extern Rva0030ADED TheFireSettings;			// 0x00DFF4F8 (Rva007B6880Thunks.cpp)
 extern Rva0030ADED TheFireSettingsSaved;		// 0x00DFF4B8
 extern Rva00214E02 TheCloudEffectSettings;		// 0x00DFE280 (Rva007B6880Thunks.cpp)
@@ -118,7 +109,6 @@ struct Rva007AB81ACtorInits
 	static void rva007ACC00();
 	static void rva007ACC20();
 	static void rva007ACE30();
-	static void rva007AD7DD();
 	static void rva007AD9BC();
 	static void rva007AD9D2();
 	static void rva007AE79E();
@@ -148,13 +138,6 @@ void Rva007AB81ACtorInits::rva007ACC20()
 	atexit( rva007B6FD0 );
 }
 
-
-// ?rva007AD7DD@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD7DD (22B): ??0BfmeDualVtableReleaseDtor@@QAE@XZ on VA 0x00DFE180, atexit(0x007B75E2)
-void Rva007AB81ACtorInits::rva007AD7DD()
-{
-	( &TheFXParticleEditor )->BfmeDualVtableReleaseDtor::BfmeDualVtableReleaseDtor();
-	atexit( rva007B75E2 );
-}
 
 
 
