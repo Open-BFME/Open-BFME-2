@@ -275,19 +275,7 @@ int GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color
 void GadgetListBoxJustifyEntry(GameWindow *listbox, int row, int column, int justification);
 // The map picture; the preview deletes one it owns through the virtual
 // destructor.
-class Image
-{
-public:
-	virtual ~Image();
-
-	unsigned char m_pad04[0x8 - 0x4];
-	AsciiString m_name;	// +0x08
-};
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 class Display;
 extern Display *TheDisplay;
@@ -1156,7 +1144,7 @@ void AptMapPreview::rva0057DDAE(MapMetaData *map)
 	else
 	{
 		Image *image = getMapPreviewImage(map->m_fileName);
-		if (image != 0 && image->m_name.endsWithNoCase("_art.tga"))
+		if (image != 0 && image->m_filename.endsWithNoCase("_art.tga"))
 			m_currentMap->winSetEnabledImage(1, TheMappedImageCollection->findImageByName(AsciiString("ScrollShroud")));
 		m_currentMap->winSetUserData(map);
 		if (image != 0)

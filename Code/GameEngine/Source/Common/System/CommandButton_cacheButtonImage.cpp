@@ -25,15 +25,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../../Include/Common/ModuleData.h"
 
-class Image : public ModuleData
-{
-};
+#include "../../../Include/GameClient/Image.h"
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
 
 extern ImageCollection *TheMappedImageCollection;
 
@@ -55,7 +48,8 @@ void CommandButton::cacheButtonImage()
 		{
 			if (!it->isEmpty())
 			{
-				const ModuleData *found = TheMappedImageCollection->findImageByName(*it);
+				// Keep the existing non-owning vector provider ABI; Image has no ModuleData base.
+				const ModuleData *found = reinterpret_cast<const ModuleData *>(TheMappedImageCollection->findImageByName(*it));
 				if (found != 0)
 					reinterpret_cast<_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *>(&m_imagesBegin)->push_back(found);
 				it->clear();

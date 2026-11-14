@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// platformsdk
 // stlport
 //
 // Small AptMpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
@@ -259,11 +260,7 @@ int Rva0043DDF8(int count);
 
 class Image;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 

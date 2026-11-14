@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// platformsdk
 // stlport
 // Split from MpGameSetupSlots_Init_InitGadgets.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -230,11 +231,7 @@ int Rva0043DDF8(int count);
 
 class Image;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 

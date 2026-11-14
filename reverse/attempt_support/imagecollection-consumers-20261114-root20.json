@@ -1,0 +1,726 @@
+{
+  "sources": {
+    "Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp": {
+      "source_sha256": "ce043aab444f74eb0713d43796ce397fa7478e4a65625f994ffd9edf78a110a8",
+      "object_sha256": "7e9647874fa22a02b246baf99c2aca0d7168207d5e2e61fb1cfba799907fc56f",
+      "before_comdats": 8,
+      "after_comdats": 8,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/Common/System/CommandButton_cacheButtonImage.cpp": {
+      "source_sha256": "84a5cf9d6437b97e738695128e81fd5ce24ba54729bd8470521a58adb39c47f8",
+      "object_sha256": "68f993f9b7e816efb29c73de2b0875a38289987d9bb3f3dfaec4c1b05d678f41",
+      "before_comdats": 2,
+      "after_comdats": 2,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/Common/System/UpgradeTemplate_cacheButtonImage.cpp": {
+      "source_sha256": "bc739c3dcc0cae126b5a1e0d1309a0343bdc58dc4ad3240ce6d8fded399826b4",
+      "object_sha256": "82449b76339cde0f3f764cf42c10416c3e4f56baad318e365e31fc5b9bc51199",
+      "before_comdats": 2,
+      "after_comdats": 2,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp": {
+      "source_sha256": "ae5c66365c6df2e606148ed0555069e68faeddcbac4c60c4f0efa31c063ec15e",
+      "object_sha256": "ddd7cd0c3cea475b8a59f89066e54e0d7da10d3ecda7f6b6104228b2ca66f5d4",
+      "before_comdats": 254,
+      "after_comdats": 254,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp": {
+      "source_sha256": "af56974eb956e4ec90e62150537597d72b929c0d6ba4772da7ab0652f5bb0f27",
+      "object_sha256": "6aef227f61fa1f80a22693c2a68e1fe563537fd44cc4bebad14265980fe3b966",
+      "before_comdats": 77,
+      "after_comdats": 77,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp": {
+      "source_sha256": "f41b2f0a7b8cab94d6bd1ead4592ac52d5cc8bec4b5bb6b29c36323c9d958fc5",
+      "object_sha256": "a04a168f2d0f1b460bb44e135d09f9d78dce7331f6a9104df7627487e2a7a53b",
+      "before_comdats": 21,
+      "after_comdats": 21,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": false
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp": {
+      "source_sha256": "abc8e204ef9bdabcc01d20c9f837a9df23262a31d9eaceb62fe53487757858b9",
+      "object_sha256": "3b2885f114b3917b08e43176b4227ca55e9b8abb37f0870de8221da02aff15cd",
+      "before_comdats": 298,
+      "after_comdats": 298,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp": {
+      "source_sha256": "20dc27974a09d8f00a2a71270511bf3f3daac143aeca37545c29cb192801bd10",
+      "object_sha256": "0be62573eeef33946720e51e415d49cf69d5af688c0ac0f2b6c4a95fbc950444",
+      "before_comdats": 141,
+      "after_comdats": 141,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp": {
+      "source_sha256": "7ce4d1b3789719b1dd00b79d0d25fa3db3814dccc34c8aa209ddb2df4c2fcd50",
+      "object_sha256": "9bef126cee4c9bd7c82a44b2a901c5cc8ec2bd4a7f7dda05c6eba8a1d29d060d",
+      "before_comdats": 14,
+      "after_comdats": 14,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp": {
+      "source_sha256": "6f75e43223cd10d3dfced71bd53e8ca12b3bdfb385f3f927dcf7db2d0ad3639a",
+      "object_sha256": "ea0074dd4da829d482508b3c1b50f6849be6b8c6c18f3f23023527820162c15b",
+      "before_comdats": 59,
+      "after_comdats": 59,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    },
+    "Code/GameEngine/Source/GameClient/System/ImageCollectionDeletingDtor.cpp": {
+      "source_sha256": "03d1cb11ba2e5dd400dc83a15f10442a6b9c74c1f5f031fcead4636d4cb02e16",
+      "object_sha256": "0c919e722355ce79fa015034b1de9ffffe23a7cb9441e070283b6f2e557d2a30",
+      "before_comdats": 16,
+      "after_comdats": 16,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": false
+    },
+    "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp": {
+      "source_sha256": "5c43daf041f65aa04b38415c6ae816fd2444e9fe1b9d50488f749ae086a3829d",
+      "object_sha256": "8e35f7744efcee858e7f97224a94f648272121a36ce0fcc216d4815e320e776c",
+      "before_comdats": 136,
+      "after_comdats": 136,
+      "changed": [],
+      "added": [],
+      "removed": [],
+      "source_changed": true
+    }
+  },
+  "normal_rows": 545,
+  "eh": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057D10F@AptMapPreview@@QAEXPAVMapMetaData@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "??0AptMapPreview@@QAE@PAVRva0043DA65@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?UpdateStrategicScenarioDesc@AptMapPreview@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057E45C@AptMapPreview@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?PopulateStrategicScenario@AptMapPreview@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057E058@AptMapPreview@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?OnMouseoverRegionChanged_internal@AptMapPreview@@QAEXPAVRva0020E89C@@0@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057D5E5@AptMapPreview@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?UpdateMapStartSpots@AptMapPreview@@QAEXPAVMapMetaData@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057DDAE@AptMapPreview@@QAEXPAVMapMetaData@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?UpdateStrategicStartSpots@AptMapPreview@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057D922@AptMapPreview@@QAEPAVMapMetaData@@ABVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+      "name": "?rva0057D19A@AptMapPreview@@QAEXPAVMapMetaData@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+      "name": "?rva005B1830@Rva005B1830@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+      "name": "?SetBling@AptMyHero@@QAEXHHH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+      "name": "?rva005B0725@AptMyHero@@QAE_NXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+      "name": "?BuildBlingData@AptMyHero@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp",
+      "name": "??1AptMyHero@@UAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp",
+      "name": "?FrameUpdate@AptMyHero@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "??$_Construct@UBfmePod80@@U1@@_STL@@YAXPAUBfmePod80@@ABU1@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "??1Rva00520211Element@@QAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "??0Rva0051F87B@@QAE@ABV0@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "??$_Construct@URva00520211Element@@U1@@_STL@@YAXPAURva00520211Element@@ABU1@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "??0Rva005202C8@@QAE@PAX@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "??1Rva005202C8@@UAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?CollectPlayerData@AptTimeLine@@QAEXPAVLivingWorldPlayer@@PAVRva00520923Source@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?CollectPlayerData@AptTimeLine@@QAEXPAVPlayer@@PBVGameSlot@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?CollectAllPlayerData@AptTimeLine@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?rva0051FCA2@AptTimeLine@@UAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?rva0051E4B0@Rva0051E4B0@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?CaHAwardNumber@AptTimeLine@@QAEXPBD@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?RenderGraph@AptTimeLine@@QAEXABUPair0051E31A@@0HPBD@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+      "name": "?rva00520CD1@AptTimeLine@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?Rva0043F1A4@@YAHPAVRva00222A8BTarget@@PAXPBDABHABQBD@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?Rva0043E8F1Tooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?rva0043E512@AptMpGameSetup@@QAEPBVImage@@H@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?rva0043E5C1@AptMpGameSetup@@QAEXHHH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?rva00443BF3@AptMpGameSetup@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?rva00442A68@AptMpGameSetup@@QAE_NH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?rva0043FA68@AptMpGameSetup@@QAEXPAVGameInfo@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?ChangePlayerSelection@AptMpGameSetup@@QAEXHH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?HandleClanChange@AptMpGameSetup@@QAE_NXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?UpdateHeroDisplay@AptMpGameSetup@@QAEXH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?WaitStartGame@AptMpGameSetup@@QAE_NXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?UpdatePlayerTemplateDisplay@AptMpGameSetup@@QAEXH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+      "name": "?rva0043F244@AptMpGameSetup@@QAEXH_N@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp",
+      "name": "?InitGadgets@AptMpGameSetup@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp",
+      "name": "?UpdateSlot@AptMpGameSetup@@QAEXH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "?loadScheme@Shell@@QAEXVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "??1Shell@@UAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "??0Shell@@QAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "?doPush@Shell@@IAEXVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "?push@Shell@@QAEXVAsciiString@@_N@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "?findScreenByFilename@Shell@@QAEPAVWindowLayout@@VAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "?update@Shell@@UAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+      "name": "?rva0035C2B9@Shell@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?rva004FDB57@Rva004FDB57@@QAEXVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?setGameSpyName@Rva004FDCE1AsciiField@@QAEXVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?setClan@Rva004FDD36AsciiField@@QAEXVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?amIHost@GameSpyStagingRoom@@UBE_NXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?getLocalSlotNum@GameSpyStagingRoom@@UBEHXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "??0GameSpyStagingRoom@@QAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "??0Rva00382398@@QAE@XZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?rva004FDB04@Rva004FDB04@@QAEXVAsciiString@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?rva00401015@GameSpyStagingRoom@@UAEPBVImage@@H@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?GetLocalChatConnectionAddress@@YA_NVAsciiString@@GAAI@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?generateGameSpyGameResultsPacket@GameSpyStagingRoom@@QAE?AVAsciiString@@_N0@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?launchGame@GameSpyStagingRoom@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?launchWOTRMPGame@GameSpyStagingRoom@@QAEXXZ",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?rva004FDEFF@GameSpyStagingRoom@@QAEXPAVLivingWorldBattle@@@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp",
+      "name": "?startGame@GameSpyStagingRoom@@UAEXH@Z",
+      "verdict": [
+        "EXACT",
+        ""
+      ]
+    }
+  ],
+  "changed_sources": [],
+  "all_existing_comdats_unchanged": true,
+  "normal_verified_functions": 545,
+  "data_rows_verified": 3,
+  "eh_exact_count": 71,
+  "scope": "10adopted consumers plus2unchanged controls; all1028runtimeCOMDATs unchanged; no new tables/helpers/initializer changes",
+  "owning_accept": "PASS10;retired10header_queue rows",
+  "passing_sources": [
+    "Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp",
+    "Code/GameEngine/Source/Common/System/CommandButton_cacheButtonImage.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeTemplate_cacheButtonImage.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMapPreview.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp"
+  ],
+  "blocked_controls": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp",
+    "Code/GameEngine/Source/GameClient/System/ImageCollectionDeletingDtor.cpp"
+  ],
+  "references": {
+    "string_literals": 211,
+    "empty_strings": 18,
+    "floats": 24,
+    "named_imports": 24
+  },
+  "header_unchanged": true,
+  "unique_new_code_bytes": 0
+}

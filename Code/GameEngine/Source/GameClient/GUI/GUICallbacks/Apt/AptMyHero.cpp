@@ -5,7 +5,7 @@
 #include "unicode_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 class Image;
-class ImageCollection {public: const Image *findImageByName(const AsciiString &);};
+#include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -268,14 +268,6 @@ namespace _STL
 	template <class A, class B> struct pair;
 	template <class P> struct _Select1st;
 	template <class T> struct less;
-	template <class K, class V, class KoV, class C, class A>
-	class _Rb_tree
-	{
-	public:
-		~_Rb_tree();
-		void clear();
-		unsigned int erase(const K &key);
-	};
 	template <class T> struct _Identity;
 	template <class T, class A> class list;
 }
@@ -348,16 +340,8 @@ struct Rva0060D031Member
 {
 	~Rva0060D031Member();
 };
-typedef _STL::pair<const AsciiString, TreeHintRef0051030C> Rva00510D07Pair;
-typedef _STL::pair<const int, SBServer> Rva005E4920Pair;
 // ??1Rva00510D07@@QAE@XZ @0x00510D07 5B: tree member, rowed dtor 0x0051097F.
-class Rva00510D07
-{
-public:
-	~Rva00510D07();
-private:
-	_STL::_Rb_tree<AsciiString, Rva00510D07Pair, _STL::_Select1st<Rva00510D07Pair>, _STL::less<AsciiString>, _STL::allocator<Rva00510D07Pair> > m_tree;
-};
+class Rva00510D07;
 // ??1Rva00550634@@QAE@XZ @0x00550634 5B: BfmeMsg member, rowed dtor 0x00655780.
 class Rva00550634
 {
@@ -375,13 +359,7 @@ private:
 	_STL::deque<BfmeOpaque2148> m_deque;
 };
 // ??1Rva005E4920@@QAE@XZ @0x005E4920 5B: tree member, rowed dtor 0x005E4670.
-class Rva005E4920
-{
-public:
-	~Rva005E4920();
-private:
-	_STL::_Rb_tree<int, Rva005E4920Pair, _STL::_Select1st<Rva005E4920Pair>, _STL::less<int>, _STL::allocator<Rva005E4920Pair> > m_tree;
-};
+class Rva005E4920;
 // ??1Rva0060D0AE@@QAE@XZ @0x0060D0AE 5B: member, rowed dtor 0x0060D031.
 class Rva0060D0AE
 {
@@ -416,23 +394,8 @@ struct Rva0050EE1C : AsciiStringPlusString
 // ?rva00522AFC@Rva00522AFC@@QAEAAV1@ABV1@@Z @0x00522AFC 18B: assignment of an
 // object whose only member is an AsciiString->AsciiString tree, through the
 // rowed tree operator= 0x0052274D, returning this.
-typedef _STL::pair<const AsciiString, AsciiString> Rva00522AFCPair;
-namespace _STL
-{
-	template <>
-	class _Rb_tree<AsciiString, Rva00522AFCPair, _Select1st<Rva00522AFCPair>, less<AsciiString>, allocator<Rva00522AFCPair> >
-	{
-	public:
-		_Rb_tree &operator=(const _Rb_tree &other);
-	};
-}
-class Rva00522AFC
-{
-public:
-	Rva00522AFC &rva00522AFC(const Rva00522AFC &other);
-private:
-	_STL::_Rb_tree<AsciiString, Rva00522AFCPair, _STL::_Select1st<Rva00522AFCPair>, _STL::less<AsciiString>, _STL::allocator<Rva00522AFCPair> > m_tree;
-};
+
+class Rva00522AFC;
 // ?Rva0051C3AB@@YAXAAUBfmeE12@@0@Z @0x0051C3AB 5B: swap two 12-byte records
 // through the rowed _STL::swap<BfmeE12> 0x004219CD (a tail jump).
 struct BfmeE12;
@@ -874,13 +837,7 @@ private:
 // through the rowed _Rb_tree::clear 0x0056926C.
 struct Rva00568FE4Key;
 struct Rva00568FE4Less;
-class Rva005693CF
-{
-public:
-	void rva005693CF();
-private:
-	_STL::_Rb_tree<Rva00568FE4Key, Rva00568FE4Key, _STL::_Identity<Rva00568FE4Key>, Rva00568FE4Less, _STL::allocator<Rva00568FE4Key> > m_tree;
-};
+class Rva005693CF;
 // ??1Rva00534765@@QAE@XZ @0x00534765 5B: member-only dtor, rowed 0x0053470B.
 class Rva00534641
 {
@@ -1001,36 +958,16 @@ struct Rva0027EA49;
 
 #include "../../../../../Include/Common/Rva009F68C6PointerArray.h"
 
-typedef _STL::_Rb_tree<Rva0027EA49, Rva0027EA49, _STL::_Identity<Rva0027EA49>, _STL::less<Rva0027EA49>, _STL::allocator<Rva0027EA49> > Rva005C6BF0Tree;
 
-typedef _STL::_Rb_tree<int, Rva005E4920Pair, _STL::_Select1st<Rva005E4920Pair>, _STL::less<int>, _STL::allocator<Rva005E4920Pair> > Rva005E466BTree;
 
 // ?rva005C6BF0@Rva005C6BF0@@QAEXXZ @0x005C6BF0 5B: rowed tree clear 0x005C6B83.
 // ??1Rva005C6C76@@QAE@XZ @0x005C6C76 5B: member-only dtor, rowed tree dtor 0x005C6BF5.
-class Rva005C6BF0
-{
-public:
-	void rva005C6BF0();
-private:
-	Rva005C6BF0Tree m_tree;
-};
+class Rva005C6BF0;
 
-class Rva005C6C76
-{
-public:
-	~Rva005C6C76();
-private:
-	Rva005C6BF0Tree m_tree;
-};
+class Rva005C6C76;
 
 // ?rva005E466B@Rva005E466B@@QAEXXZ @0x005E466B 5B: rowed int->SBServer tree clear 0x005E43A8.
-class Rva005E466B
-{
-public:
-	void rva005E466B();
-private:
-	Rva005E466BTree m_tree;
-};
+class Rva005E466B;
 
 // ?rva00628C69@Rva00628C69@@QAEXXZ @0x00628C69 5B: rowed RemoveAll 0x00628C25.
 class Rva00628C69
@@ -1058,27 +995,12 @@ float *Rva005EA5CE(float *dest, int count, const int &value, const Rva005EA5CETa
 // ?rva005CABBB@Rva005CABBB@@QAEIABVAsciiString@@@Z @0x005CABBB 5B: erase a key
 // from the map<AsciiString, list<AsciiString> > tree at +0 through its rowed
 // _Rb_tree::erase(const key &) 0x005CA950.
-typedef _STL::list<AsciiString, _STL::allocator<AsciiString> > Rva005CABBBList;
 
-typedef _STL::pair<const AsciiString, Rva005CABBBList> Rva005CABBBPair;
 
-typedef _STL::_Rb_tree<AsciiString, Rva005CABBBPair, _STL::_Select1st<Rva005CABBBPair>, _STL::less<AsciiString>, _STL::allocator<Rva005CABBBPair> > Rva005CABBBTree;
 
-class Rva005C6D48
-{
-public:
-	unsigned int rva005C6D48(const Rva0027EA49 &key);
-private:
-	Rva005C6BF0Tree m_tree;
-};
+class Rva005C6D48;
 
-class Rva005CABBB
-{
-public:
-	unsigned int rva005CABBB(const AsciiString &key);
-private:
-	Rva005CABBBTree m_tree;
-};
+class Rva005CABBB;
 
 namespace _STL
 {

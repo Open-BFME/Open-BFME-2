@@ -197,7 +197,7 @@ public:
 	int frames; // +0x10
 	float maximum; // +0x14
 };
-class Image {public:char beforeDimensions[0x24];int width,height;};
+#include "../../../../../Include/GameClient/Image.h"
 class Rva0051E664ScaleView {
 public:
  virtual void slot00()=0;virtual void slot04()=0;virtual void slot08()=0;virtual void slot0C()=0;
@@ -424,11 +424,6 @@ private:
 	char m_pad279[0x3];
 };
 class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
 extern ImageCollection *TheMappedImageCollection;
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
@@ -1518,7 +1513,7 @@ Vector2 Rva0051E354::rva0051E354(TimelineSeries*series,int index) {
 void Rva0051E354::rva0051E664(TimelineSeries*series,int index,Image*image) {
  if(!image)return;
  Vector2 point=rva0051E354(series,index);
- Vector2 dimensions(float(image->width),float(image->height));
+ Vector2 dimensions(float(image->m_imageSize.x),float(image->m_imageSize.y));
  dimensions.Scale(reinterpret_cast<Rva0051E664ScaleView*>(g_bfmeAptWindowManager)->scale());
  reinterpret_cast<W3DDisplay*>(TheDisplay)->rva0004D6B3(image,point.X-dimensions.X/2.0f,point.Y-dimensions.Y/2.0f,point.X+dimensions.X/2.0f,point.Y+dimensions.Y/2.0f,-1,2);
 }

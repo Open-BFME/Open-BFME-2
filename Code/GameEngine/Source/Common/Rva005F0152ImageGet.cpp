@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+// stlport
 // ?rva005F0152@MappedImageCache@@QAEPBVImage@@H@Z retail 0x005F0152 51B
 // Cached image fetch by index through AsciiString names at +8 and Image
 // slots at +0x3C via ImageCollection::findImageByName. Evidence: unlock lane
@@ -8,11 +9,7 @@
 
 
 class Image;
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &n);
-};
+#include "../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 
 
