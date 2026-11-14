@@ -33,6 +33,20 @@ struct TargetRefHolder1C
 struct Base003F8ED6
 {
 	virtual ~Base003F8ED6() {}
+	virtual bool slot04(int) { return false; }
+	virtual bool slot08(int) { return false; }
+	virtual bool slot0C(int, int) { return false; }
+	virtual bool slot10(int, int) { return false; }
+	virtual bool slot14(int) { return false; }
+	virtual bool slot18(int) { return false; }
+	virtual bool slot1C(int) { return false; }
+	virtual bool slot20(int) { return false; }
+	virtual bool slot24(int, int) { return false; }
+	virtual bool slot28(int, int) { return false; }
+	virtual bool slot2C(int, int) { return false; }
+	virtual bool slot30(int) { return false; }
+	virtual bool slot34() { return false; }
+	virtual int slot38(int) { return 0; }
 private:
 	char m_pad04[8];
 };
