@@ -3,11 +3,7 @@
 // List clear over BuddyMessage nodes via rowed dtor 0x0038215B plus rowed
 // free 0x00030830. Identity from unlock (makes 0x00383F3C ready) and callers
 // 0x00383F3F/0x00385D6C.
-class BuddyMessage
-{
-public:
-	~BuddyMessage() throw();
-};
+#include "../../../Include/Common/BuddyMessage.h"
 
 struct BuddyListNode
 {
