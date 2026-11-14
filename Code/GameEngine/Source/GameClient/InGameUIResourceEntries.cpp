@@ -268,20 +268,20 @@ public:
     // ??1Rva004E5654Base@@UAE@XZ present-unmatched
     virtual ~Rva004E5654Base() {}
 };
-class Rva004E5654 : public Rva004E5654Base
+class Rva004E5610 : public Rva004E5654Base
 {
 public:
-    ~Rva004E5654();
+    ~Rva004E5610();
 private:
     ResourceOwnedEntryList m_list;
 };
-Rva004E5654::~Rva004E5654()
+Rva004E5610::~Rva004E5610()
 {
     m_list.rva004E54ED();
 }
 
 // Retail 0x004E7DC8/81B dtor of holder with string +8 list +C tree +10 and
-// Rva004E5654 +1C. Evidence: chain lane caller of rowed 0x004E5654; callees
+// Rva004E5610 +1C. Evidence: chain lane caller of rowed 0x004E5654; callees
 // rowed 0x004E5654 0x004E7C52 0x004E7C8A and StringBase releaseBuffer 0x36410;
 // callers 0x004E7E21 0x004E7F35 are deleting-dtor sized; prev/next share
 // // cl: /O1 /MD with EHsc for the unwind states 2/1/0.
@@ -302,7 +302,7 @@ private:
     Rva004E7DC8List m_0C;
     Rva004E7B13 m_10;
     char m_18[4];
-    Rva004E5654 m_1C;
+    Rva004E5610 m_1C;
 };
 Rva004E7DC8::~Rva004E7DC8()
 {

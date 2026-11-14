@@ -47,10 +47,10 @@ namespace FXParticleSystem
 	};
 }
 
-class Rva004E5654
+class Rva004E5610
 {
 public:
-	virtual ~Rva004E5654();
+	virtual ~Rva004E5610();
 };
 
 class PlayerPosition
@@ -193,11 +193,11 @@ void __cdecl rva007B7768()
 }
 
 
-// ?rva007B789C@@YAXXZ @ 0x007B789C (10B): ecx=&BfmeUiResourceEntryCollectorState, tail-jump to rowed ??1Rva004E5654@@UAE@XZ (0x004E5654)
+// ?rva007B789C@@YAXXZ @ 0x007B789C (10B): ecx=&BfmeUiResourceEntryCollectorState, tail-jump to rowed ??1Rva004E5610@@UAE@XZ (0x004E5654)
 void __cdecl rva007B789C()
 {
-	Rva004E5654 *receiver = (Rva004E5654 *)&BfmeUiResourceEntryCollectorState;
-	receiver->Rva004E5654::~Rva004E5654();
+	Rva004E5610 *receiver = (Rva004E5610 *)&BfmeUiResourceEntryCollectorState;
+	receiver->Rva004E5610::~Rva004E5610();
 }
 
 // ?rva007B79FB@@YAXXZ @ 0x007B79FB (10B): ecx=&g_Va00DFF0A0, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)

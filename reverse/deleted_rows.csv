@@ -6245,3 +6245,5 @@ __ehhandler$??1?$deque@URva00056DEBElement@@V?$allocator@URva00056DEBElement@@@_
 ?rva004FAFB6@Rva004FAC21@@UAEPAVRva004FADF4@@I@Z,0x004FAFB6,"Renamed to ?rva004FAFB6@Rva004FAC21@@UAEPAVRva004FB130@@I@Z by tools/rename.py (fold: retail vftable 0x00C63438)"
 __ehhandler$?rva004FAFB6@Rva004FAC21@@UAEPAVRva004FADF4@@I@Z,0x0079346A,"Renamed to __ehhandler$?rva004FAFB6@Rva004FAC21@@UAEPAVRva004FB130@@I@Z by tools/rename.py (fold: retail vftable 0x00C63438)"
 ??0Rva00524F61@@QAE@XZ,0x00524F61,"Renamed to ??0Rva0052634F_Base@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C67E3C)"
+??1Rva004E5654@@UAE@XZ,0x004E5654,"Renamed to ??1Rva004E5610@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C623C4)"
+__ehhandler$??1Rva004E5654@@UAE@XZ,0x00792018,"Renamed to __ehhandler$??1Rva004E5610@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C623C4)"
