@@ -59,11 +59,7 @@ public:
 
 class LivingWorldPendingBattle;
 
-class PendingBattleVisitor
-{
-public:
-	virtual bool Visit(LivingWorldPendingBattle *battle) = 0;
-};
+#include "../../../../Include/Common/PendingBattleVisitor.h"
 
 class ModuleData;
 struct RegionBattleView;
