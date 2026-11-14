@@ -55,9 +55,12 @@ OutputChunk::OutputChunk()
 }
 
 
-extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *buf, unsigned int size, unsigned int count, void *stream);
-extern "C" __declspec(dllimport) int __cdecl ftell(void *stream);
-extern "C" __declspec(dllimport) int __cdecl fseek(void *stream, long offset, int origin);
+// fwrite/ftell/fseek go through the CRT import slots (IAT): read <stdio.h>
+// with _CRTIMP redefined to dllimport for the include only.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#undef _CRTIMP
 
 void __cdecl operator delete(void *ptr);
 
