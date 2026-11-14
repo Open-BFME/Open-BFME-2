@@ -5342,14 +5342,11 @@ def plan_class_key(name, key, root=None):
         after[header] = line.sub(lambda m: m.group(1) + f"{key} (exports).", head).encode("utf-8")
     refusals += [f"unresolvable identity {t[:110]} ({why})" for t, why in sorted(rekeyer.refused.items())]
     refusals += _rekey_collisions(root, after, rekeyer.mapping)
-    if "reverse/functions.csv" in after:
-        # the ledger rewrite renames rows in place: every changed name is a rename the /DEF must survive
-        old_rows = csv.DictReader(io.StringIO((root / "reverse/functions.csv").read_text(encoding="utf-8-sig")))
-        new_rows = csv.DictReader(io.StringIO(after["reverse/functions.csv"].decode("utf-8-sig")))
-        renames = [(a["name"], b["name"]) for a, b in zip(old_rows, new_rows) if a["name"] != b["name"]]
-        for what in export_rename_blockers([("reverse/functions.csv", None, None, renames)], root).get(
-                "reverse/functions.csv", []):
-            refusals.append(f"reverse/functions.csv: the real link's /DEF needs {what[:160]} under its present name")
+    # Every name the migration respells, wherever it is spelled (a row's name, an object-symbol= or data
+    # row identity, a source definition, a pin): one the /DEF needs may not change, whichever field holds it.
+    for what in export_rename_blockers([("migration", None, None, sorted(rekeyer.mapping.items()))], root).get(
+            "migration", []):
+        refusals.append(f"the real link's /DEF needs {what[:160]} under its present name")
     donor_units, unverified = _rekey_donor_units(root, name, key)
     for rel, why in sorted(unverified.items()):
         refusals.append(f"unverified: {rel}: {why}; rebuild it so its receipt shows whether it compiles a donor {name}")

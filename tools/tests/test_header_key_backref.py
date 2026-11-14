@@ -370,6 +370,8 @@ def test_migration_plan_rewrites_every_spelling_and_nothing_else(tmp_path, monke
     ("namespace-use", "cannot be resolved to the global class"), ("braces", "unbalanced braces"),
     ("exported", r"needs \?f@@YAXPAUCoord3D@@@Z \(a retail export\)"),
     ("alias-target", r"export_aliases.csv answers \?f@@YAXPAVCoord3D@@@Z with it"),
+    ("exported-object-symbol", r"needs \?g@@YAXPAUCoord3D@@@Z \(a retail export\)"),
+    ("exported-data", r"needs \?g_c@@3PAUCoord3D@@A \(a retail export\)"),
 ])
 def test_migration_refuses_whole(tmp_path, monkeypatch, case, want):
     kw = {"functions": ROW}
@@ -399,6 +401,14 @@ def test_migration_refuses_whole(tmp_path, monkeypatch, case, want):
     elif case == "exported":     # retail exports the row's present (U) spelling: the migration may not rename it
         kw["extra"] = {"reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n"
                                               "1,0x00001000,,.text,code,?f@@YAXPAUCoord3D@@@Z\n"}
+    elif case == "exported-object-symbol":   # a placeholder row binds the exported name: its name never changes
+        kw["functions"] = ROW + "gen_00001010,,0x00001010,4,Code/Unit.cpp,matched,object-symbol=?g@@YAXPAUCoord3D@@@Z\n"
+        kw["extra"] = {"reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n"
+                                              "1,0x00001010,,.text,code,?g@@YAXPAUCoord3D@@@Z\n"}
+    elif case == "exported-data":            # an exported global, rowed in data_rows.csv
+        kw["data_rows"] = "?g_c@@3PAUCoord3D@@A,0x00A00000,va,4,.data,Code/Unit.cpp,matched,probe,m\n"
+        kw["extra"] = {"reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n"
+                                              "1,0x00600000,,.data,data,?g_c@@3PAUCoord3D@@A\n"}
     elif case == "alias-target":  # the export's alias answers it with the row's present name
         kw["extra"] = {"reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n"
                                               "1,0x00001000,,.text,code,?f@@YAXPAVCoord3D@@@Z\n",
