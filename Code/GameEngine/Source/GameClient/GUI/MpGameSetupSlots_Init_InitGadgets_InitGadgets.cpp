@@ -651,11 +651,7 @@ public:
 };
 
 // The Apt window manager's erase by name (rowed 0x00223A94).
-class Rva00223A94
-{
-public:
-	int rva00223A94(const AsciiString *key);
-};
+#include "../../../Include/Common/Rva00223A94.h"
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp): a binding of an
 // object and an eight-byte multiple-inheritance member pointer, and the
