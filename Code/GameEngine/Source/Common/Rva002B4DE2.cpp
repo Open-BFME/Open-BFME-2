@@ -7,12 +7,7 @@
 // TU-local honest-address class; record layout from StringRecordInlineCopyBFME2.cpp.
 #include "unicode_string.h"
 
-struct BfmeStringRecord002B4DC1 {
-    UnicodeString text;
-    unsigned int word0;
-    unsigned int word1;
-    BfmeStringRecord002B4DC1(const BfmeStringRecord002B4DC1 &o) throw();
-};
+#include "../../Include/Common/BfmeStringRecord002B4DC1.h"
 
 struct Rva002B4DE2Node {
     Rva002B4DE2Node *m_next;
