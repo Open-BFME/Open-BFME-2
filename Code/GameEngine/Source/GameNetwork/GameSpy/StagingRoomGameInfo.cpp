@@ -341,11 +341,7 @@ _STL::string WideCharStringToMultiByte(const unsigned short *orig);
 void updateBuddyStatus(GameSpyBuddyStatus status, int sleepTime, _STL::string mapName);
 
 // The rowed name getter 0x0022C4DF, called on TheGameSpyGame.
-class Rva0022C4DF
-{
-public:
-	UnicodeString rva0022C4DF(void) const;
-};
+#include "../../../Include/GameNetwork/Rva0022C4DF.h"
 
 // TheGameLogic's byte +0x9D, which the shared GameLogic view does not lay
 // out; LANAPI::OnGameStart sets it the same way after MSG_NEW_GAME.
