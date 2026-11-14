@@ -1,18 +1,18 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ??1Rva0056D690@@UAE@XZ retail 0x0056D690 62 bytes.
 // Virtual dtor: vptr 0x0086DAC4, AsciiString at +0x26C via shared header,
-// base Rva005C9659 rowed via pin 0x005C9659.
+// base Rva005C96EB rowed via pin 0x005C9659.
 // Evidence: deleting dtor 0x0056D74F calls here; vtable 0x00C6DAC4;
 // callees releaseBuffer 0x00036410 base pin 0x005C9659; prev/next flags.
 #include "ascii_string.h"
 
-class Rva005C9659
+class Rva005C96EB
 {
 public:
-	virtual ~Rva005C9659();
+	virtual ~Rva005C96EB();
 };
 
-class Rva0056D690 : public Rva005C9659
+class Rva0056D690 : public Rva005C96EB
 {
 public:
 	virtual ~Rva0056D690();
