@@ -497,21 +497,7 @@ struct Rva000EB2EFBufferView
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(IndexBufferClass *indexBuffer, int flags);
-		~WriteLockClass();
-		unsigned short *Get_Index_Array(void) { return m_indices; }
-	private:
-		IndexBufferClass *m_indexBuffer;
-		unsigned short *m_indices;
-		int m_flags;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 
 struct VertexFormatXYZNDUV1
 {
