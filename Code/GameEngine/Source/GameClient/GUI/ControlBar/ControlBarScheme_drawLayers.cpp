@@ -15,9 +15,7 @@ typedef int Int;
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class ControlBarScheme
-{
-};
+#include "../../../../Include/GameClient/ControlBarSchemeClass.h"
 
 // LINK: the scheme draws are rowed as Rva0031F89E::rva0031F89E and Rva0031F96F::rva0031F96F(float, float, int, int) (the multiplier and offset
 // are four stack words); the by-value Coord2D/ICoord2D call shape is kept through a member-pointer cast.

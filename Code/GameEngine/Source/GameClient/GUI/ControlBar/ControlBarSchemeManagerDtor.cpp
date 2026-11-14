@@ -3,11 +3,7 @@
 // ??1ControlBarSchemeManager@@QAE@XZ, retail 0x003204D9, 101 bytes. Manager dtor: deletes each scheme via the ControlBarScheme deleting dtor 0x0032013C (rowed here: this unit emits retail's copy) then clears list at +0xC and nulls current at +0x0.
 // Evidence: donor ZH ControlBarSchemeManager::~ControlBarSchemeManager; deleting-dtor caller at 0x0031AA18; layout m_currentScheme+0x0 multiplyer+0x4 list+0xC from ControlBarScheme.cpp init TU; callees rowed 0x32002C 0x2FD60 0x23DAA5 0x4EC395.
 
-class ControlBarScheme
-{
-public:
-	~ControlBarScheme();
-};
+#include "../../../../Include/GameClient/ControlBarSchemeClass.h"
 
 #include <list>
 namespace _STL {
