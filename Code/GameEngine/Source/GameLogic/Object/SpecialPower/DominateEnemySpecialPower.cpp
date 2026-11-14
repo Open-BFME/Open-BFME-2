@@ -111,15 +111,7 @@ extern GameLogic *TheGameLogic;
 // Retail's table holds ModuleData's 30 inherited slots after the deleting destructor.
 #include "../../../../Include/Common/ModuleData.h"
 
-class SpecialAbilityUpdateModuleData : public ModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-private:
-	unsigned char m_pad[0xC8 - 8];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
