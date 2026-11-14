@@ -178,11 +178,7 @@ public:
 	virtual void stopSpawning();
 };
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie();
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 class DamageModuleInterface
 {

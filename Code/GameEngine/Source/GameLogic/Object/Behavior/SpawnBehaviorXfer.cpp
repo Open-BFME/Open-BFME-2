@@ -91,11 +91,7 @@ public:
 	virtual void spawnBehaviorAnchor();
 };
 
-class DieModuleInterface
-{
-public:
-	virtual void dieAnchor();
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 class DamageModuleInterface
 {

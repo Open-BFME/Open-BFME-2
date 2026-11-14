@@ -551,11 +551,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie();
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 struct DoorInfo
 {

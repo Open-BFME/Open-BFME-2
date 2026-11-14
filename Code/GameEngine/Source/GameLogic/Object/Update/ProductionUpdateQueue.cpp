@@ -521,11 +521,7 @@ struct Rva0039BAD2Input;
 #include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie();
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 #include "../../../../Include/GameLogic/Module/Rva0049D526.h"
 

@@ -39,7 +39,7 @@ class Object { public:
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
-class DieModuleInterface { public: virtual void dieSlot(); };
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 class SlowDeathBehaviorInterface { public: virtual void beginSlowDeath(const DamageInfo *)=0; };
 class SlowDeathBehavior : public UpdateModule,public DieModuleInterface,public SlowDeathBehaviorInterface { public:
  virtual UpdateSleepTime update(); virtual void beginSlowDeath(const DamageInfo *);

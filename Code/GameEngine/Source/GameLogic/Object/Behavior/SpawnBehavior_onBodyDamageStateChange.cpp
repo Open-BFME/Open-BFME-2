@@ -23,11 +23,7 @@ class SpawnBehaviorInterface
 public:
 	virtual void spawnAnchor();
 };
-class DieModuleInterface
-{
-public:
-	virtual void dieAnchor();
-};
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 #include "../../../../Include/Common/SpawnExtraBase.h"
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"

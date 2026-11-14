@@ -44,7 +44,7 @@ class Object;
 
 
 class SlowDeathBehaviorInterface { public: virtual void slowDeathSlot(); };
-class DieModuleInterface { public: virtual void dieSlot(); };
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 class SlowDeathBehavior : public UpdateModule,
 	public SlowDeathBehaviorInterface, public DieModuleInterface
