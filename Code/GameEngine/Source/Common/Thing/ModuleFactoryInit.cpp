@@ -176,7 +176,7 @@ class DemoTrapUpdate { public: static Module *friend_newModuleInstance(Thing *,c
 class DemoTrapUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"
 class DeployStyleAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class DestroyDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/DestroyDieClass.h"
 class DestroyEnvironmentUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DestroyEnvironmentUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DetachableRiderBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };

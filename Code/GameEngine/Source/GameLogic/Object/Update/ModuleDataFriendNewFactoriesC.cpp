@@ -101,11 +101,7 @@ ModuleData *FXListDie::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class DestroyDie
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-};
+#include "../../../../Include/GameLogic/Module/DestroyDieClass.h"
 
 ModuleData *DestroyDie::friend_newModuleData(INI *ini)
 {
