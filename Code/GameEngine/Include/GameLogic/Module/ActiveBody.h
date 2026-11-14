@@ -89,7 +89,7 @@ public:
     virtual void rva00101CBE(float value);
 
     void validateArmorAndDamageFX() const;
-    void setCorrectDamageState(bool update);
+    virtual void setCorrectDamageState(bool update);
     void rva004BFB1C(float amount, const Coord3D *position);
     void rva004BFCD4(float amount, DamageInfo *damageInfo);
 

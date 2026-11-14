@@ -1096,7 +1096,7 @@ public:
 
 	virtual void rva004BE69C();
 	virtual void onDelete();
-	void setCorrectDamageState(Bool arg);
+	virtual void setCorrectDamageState(Bool arg);
 	void rva004BFB1C(Real amount, const Coord3D *pos);	// 0x004BFB1C
 	void rva004BFCD4(Real amount, DamageInfo *damageInfo);
 

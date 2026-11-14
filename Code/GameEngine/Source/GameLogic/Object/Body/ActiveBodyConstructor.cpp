@@ -99,7 +99,7 @@ public:
 	ActiveBody(Thing *thing, const ModuleData *moduleData);
 	virtual ~ActiveBody();
 	void validateArmorAndDamageFX() const;
-	void setCorrectDamageState(Bool update);
+	virtual void setCorrectDamageState(Bool update);
 
 private:
 	float m_currentHealth;
