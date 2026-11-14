@@ -25,12 +25,7 @@ public:
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xb0];
-	Rva002104B6 *m_B0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "../../Include/Common/LivingWorldScenario.h"
 
@@ -47,7 +42,7 @@ private:
 void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *player, _STL::vector<const ModuleData *> *vec, int *maxOut)
 {
 	if (m_14 != 0) {
-		Rva002104B6 *mgr = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
+		Rva002104B6 *mgr = (Rva002104B6 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
 		const ModuleData *mod = (const ModuleData *)mgr->rva002104B6((char *)player + 0x2c);
 		struct Vec12
 		{

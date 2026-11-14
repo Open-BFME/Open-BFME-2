@@ -7,12 +7,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	unsigned char m_pad[0xb0];
-	Rva002104B6 *m_b0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva0059E2AB
 {
@@ -30,7 +25,7 @@ void *Rva0059E2AB::rva0059E2AB(void *def)
 {
 	if (m_28.isEmpty())
 		return def;
-	void *found = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0->rva002104B6(&m_28);
+	void *found = ((Rva002104B6 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0)->rva002104B6(&m_28);
 	return found != 0 ? found : def;
 }
 

@@ -10,18 +10,9 @@ class Rva0020E89C;
 
 struct Rva002B3740Item;
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B3740Item *rva002B2B2D();
-private:
-	char m_pad[0xB0];
-	Rva0020EAF6View *m_B0;
-	int m_B4;
-	int m_B8;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 Rva002B3740Item *Rva002BA8F1Logic::rva002B2B2D()
 {
-	return (Rva002B3740Item *)m_B0->rva0020EAF6(m_B8);
+	return (Rva002B3740Item *)((Rva0020EAF6View *)m_B0)->rva0020EAF6(fieldB8);
 }

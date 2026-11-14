@@ -27,12 +27,7 @@ public:
 
 #include "../../Include/Common/Rva002104B6.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	unsigned char m_pad[0xb0];
-	Rva002104B6 *m_b0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "../../Include/Common/LivingWorldScenario.h"
 
@@ -51,7 +46,7 @@ void LivingWorldScenario::OwnershipSet::getRegions(_STL::vector<const ModuleData
 	((_STL::vector<void *, _STL::allocator<void *> > *)out)->erase((void **)out->_M_start, (void **)out->_M_finish);
 	out->reserve(m_end - m_begin);
 	for (StringBase<char> *p = m_begin, *e = m_end; p != e; ++p) {
-		const ModuleData *found = (const ModuleData *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0->rva002104B6(p);
+		const ModuleData *found = (const ModuleData *)((Rva002104B6 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0)->rva002104B6(p);
 		if (found)
 			out->push_back(found);
 	}

@@ -67,12 +67,7 @@ public:
 	unsigned char m_18;
 	unsigned char m_19;
 };
-class Rva002BA8F1Logic
-{
-public:
-	char pad[0x4c];
-	Rva005A0B4CList list;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 // GameLogic's mode view (Rva0023C6A4Check.cpp).
 class Rva0023C6A4
@@ -225,14 +220,14 @@ Rva0023A128::Rva0023A128(void *a0, void *a1, int a2)
 	: m_08((Rva0023A128Owner *)a0), m_0C((Rva002D3627Host *)a1), m_10((Rva0042CBB6 *)a2)
 {
 	m_0C->list.append((Rva002BA8F1Listener *)static_cast<Rva0023A128Listener *>(this));
-	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->list.append((Rva002BA8F1Listener *)static_cast<Rva0023A128Link *>(this));
+	((Rva005A0B4CList *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field10 + 0x3C))->append((Rva002BA8F1Listener *)static_cast<Rva0023A128Link *>(this));
 }
 
 // Retail 0x00239D7A, 127 bytes.
 Rva0023A128::~Rva0023A128()
 {
 	m_0C->list.rva002B7250((CreateAHeroData *)static_cast<Rva0023A128Listener *>(this));
-	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->list.rva002B7250((CreateAHeroData *)static_cast<Rva0023A128Link *>(this));
+	((Rva005A0B4CList *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field10 + 0x3C))->rva002B7250((CreateAHeroData *)static_cast<Rva0023A128Link *>(this));
 }
 
 // Retail 0x00239457, 226 bytes.

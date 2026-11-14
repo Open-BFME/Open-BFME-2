@@ -296,12 +296,7 @@ class LivingWorldCampaignActEntry;
 // ?rva00564E43@Rva00564E43@@QAEXXZ @0x00564E43 125B: unlock loops 8B array at +8/+0xc setting local AsciiString from +4 then calling m_b0 ActivateRegion with 1. Evidence: calls rowed set releaseBuffer ActivateRegion EH_prolog; g_009FEF10; single caller call at 0x00566972; prev CDManager next GloItem.
 #include "../../Include/Common/Rva002104C7.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xb0];
-	Rva002104C7 *m_b0;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 extern "C"
 {
@@ -539,13 +534,13 @@ void LivingWorldCampaignAct::rva00564EC0()
 void Rva00564E43::rva00564E43()
 {
 	AsciiString tmp;
-	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0 == 0)
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0 == 0)
 		return;
 	for (unsigned i = 0; i < (unsigned)(((char *)m_end - (char *)m_begin) >> 3); ++i)
 	{
 		_ReadWriteBarrier();
 		tmp.setCopyInline(m_begin[i].m_4);
-		Rva002104C7 *h = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0;
+		Rva002104C7 *h = (Rva002104C7 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
 		_ReadWriteBarrier();
 		h->ActivateRegion(&tmp, (void *)1);
 	}

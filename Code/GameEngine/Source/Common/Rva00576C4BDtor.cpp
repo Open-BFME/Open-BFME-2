@@ -20,12 +20,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class CreateAHeroData;
 #include "../../Include/Common/Rva002B7250.h"
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0x5c];
-	Rva002B7250 m_holder;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "../../Include/Common/Rva00328A83PtrChaseField.h"
 #include "../../Include/Common/Rva0042D6AEPtrChaseField.h"
@@ -158,7 +153,7 @@ private:
 };
 StrategicInGameUI::ResolveBattlesBehavior::Impl::~Impl()
 {
-	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder.rva002B7250((CreateAHeroData *)(Listener00576C4B *)this);
+	((Rva002B7250 *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field10 + 0x4C))->rva002B7250((CreateAHeroData *)(Listener00576C4B *)this);
 	if (m_flag44) {
 		int subscriberHandleAddress = m_s->m_p->get();
 		int subscriber = ((Rva0042D6AEPtrChaseField *)subscriberHandleAddress)->get();

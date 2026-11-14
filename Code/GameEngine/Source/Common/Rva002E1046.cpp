@@ -17,20 +17,15 @@ public:
 	unsigned char m_3c4;
 };
 
-class Rva002BA8F1Logic
+struct Rva002E1046PlayerList
 {
-public:
-	Rva002E2903Player *GetPlayerAtIndex(int index);
-	struct PlayerList
-	{
-		Rva002E2903Player **m_begin;
-		Rva002E2903Player **m_end;
-		Rva002E2903Player **m_storage;
-		int size() const { return m_end - m_begin; }
-	};
-	char m_gap00[0x8c];
-	PlayerList m_players8c;
+	Rva002E2903Player **m_begin;
+	Rva002E2903Player **m_end;
+	Rva002E2903Player **m_storage;
+	int size() const { return m_end - m_begin; }
 };
+
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 // The native provider normalizes its bool result with movzx eax,al at
 // 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
@@ -49,7 +44,7 @@ bool Rva002E1046::rva002E1046()
 {
 	if (m_3c4 != 0)
 		return false;
-	for (int i = 0; i < (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_players8c.size(); i++)
+	for (int i = 0; i < ((Rva002E1046PlayerList *)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field8C)->size(); i++)
 	{
 		Rva002E2903Player *p1 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if ((unsigned char)((Rva002E071E *)this)->rva002E0BC0(p1->m_14))
