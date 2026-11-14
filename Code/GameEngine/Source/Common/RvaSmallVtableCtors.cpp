@@ -240,6 +240,8 @@ class Rva004318C6
 public:
 	Rva004318C6(void *payload);
 	virtual ~Rva004318C6();
+	virtual void slot04() {}
+	virtual int slot08(int) { return 0; }
 private:
 	void *m_04;
 };

@@ -26,7 +26,10 @@
 // Each dtor is rowed at its address under another name (a virtual dtor, or an
 // ICF-folded setter/cleanup); forward to it so ??_G calls the rowed symbol.
 class Rva002BED74 { public: virtual ~Rva002BED74(); };
-class Rva004318C6 { public: virtual ~Rva004318C6(); };
+class Rva004318C6 { public: 	virtual ~Rva004318C6();
+	virtual void slot04() {}
+	virtual int slot08(int) { return 0; }
+};
 class EvacuateDamage { protected: virtual ~EvacuateDamage(); friend class Rva004BAEC8; };
 class Rva000419B8DDwordImmSetter { public: void apply(); };
 class Rva0004E84A4DwordImmSetter { public: void apply(); };
