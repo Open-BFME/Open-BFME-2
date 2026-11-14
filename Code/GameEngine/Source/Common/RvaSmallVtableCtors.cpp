@@ -185,12 +185,7 @@ Rva003F3FEC::Rva003F3FEC(void *payload) : m_04(payload)
 // VslotSmallBodiesL.cpp, inlined construction in Rva003F6A91Dtor.cpp); its
 // one-slot interface base keeps the emitted table and deleting destructor
 // identical in every unit.
-class Rva003F498ACallback
-{
-public:
-	virtual bool invoke(int) = 0;
-	~Rva003F498ACallback() {}
-};
+#include "../../Include/Common/Rva003F498ACallback.h"
 class Rva003F424F : public Rva003F498ACallback
 {
 public:
