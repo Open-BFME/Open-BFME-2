@@ -29,7 +29,7 @@ class Template:public Rva003B39C7 {public:Template(){}~Template(){}};
 class ConditionTemplate:public Rva003B39C7 {public:ConditionTemplate(){}~ConditionTemplate(){}};
 class Rva0034C5E0 {public:Rva0034C5E0();virtual~Rva0034C5E0();char opaque[12];};
 enum NameKeyType { NativeNameKeyUnknown=0 };
-class ModuleFactory {public:class ModuleTemplate {int opaque[3];};};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 struct BfmePod8 {int words[2];};
 typedef _STL::map<NameKeyType,ModuleFactory::ModuleTemplate> MapHeaderA;
 typedef _STL::map<int,BfmePod8> MapHeaderB;
