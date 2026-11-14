@@ -941,13 +941,7 @@ public:
 	const void *m_arg;
 };
 
-struct Rva002AF6C5Element
-{
-	~Rva002AF6C5Element();
-	Rva002AF6C5Element &operator=(const Rva002AF6C5Element &other);
-
-	unsigned char m_pad[0x24];
-};
+#include "../../../Include/Common/Rva002AF6C5Element.h"
 
 //
 // ?rva002A99D2@Rva002A99D2@@QAEXPAX@Z @0x002A99D2 40B

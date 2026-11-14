@@ -30,13 +30,7 @@ private:
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct Rva002AF6C5Element
-{
-	~Rva002AF6C5Element();
-	Rva002AF6C5Element &operator=(const Rva002AF6C5Element &other);
-
-	unsigned char m_pad[0x24];
-};
+#include "../../../Include/Common/Rva002AF6C5Element.h"
 
 struct Elem002B0E55
 {
