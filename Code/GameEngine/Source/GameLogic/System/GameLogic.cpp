@@ -1523,14 +1523,7 @@ private:
 	char m_lead[0x4];
 	SizedForwarderSlots *m_inner;
 };
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-private:
-	char m_lead[0x4FA8];
-	SizedForwarderSlots *m_inner;
-};
+#include "../../../Include/Common/Rva001EDDBBForwarder.h"
 class Rva0024002ELead
 {
 public:
