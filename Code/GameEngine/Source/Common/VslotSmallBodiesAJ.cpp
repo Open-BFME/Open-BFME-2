@@ -47,10 +47,7 @@ class CreateAHeroData;
 struct StanceBehaviorPrefix { char pad[0x20]; Rva002B7250 observers; };
 struct TargetRef00217D4C;
 #include "../../Include/Common/Rva002BED91.h"
-struct Rva003591F4Arg {
- Rva003591F4Arg(const Rva003591F4Arg &other):m_id(other.m_id),m_flag(other.m_flag){}
- int m_id; bool m_flag;
-};
+#include "../../Include/Common/Rva003591F4Arg.h"
 // The existing release provider touches only the 12-byte prefix (ref +8).
 // Retail's hotkey vector advances 16 bytes and tests its active flag at +12.
 // Keep that extra flag in a distinct record instead of widening the prefix.
