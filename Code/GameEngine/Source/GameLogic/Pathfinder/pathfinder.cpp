@@ -3237,13 +3237,7 @@ struct CheckMovementObjectNode
 	int m_04;
 	Object *m_object;	// +0x08
 };
-struct CheckMovementCellInfo
-{
-	unsigned char m_pad00[0x14];
-	int m_14;
-	unsigned char m_pad18[0x20 - 0x18];
-	CheckMovementObjectNode *m_objects;	// +0x20
-};
+#include "../../../Include/GameLogic/CheckMovementCellInfo.h"
 struct CheckMovementCell
 {
 	Int getType() const { return m_flags & 0xf; }
