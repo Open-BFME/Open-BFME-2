@@ -138,7 +138,7 @@ extern RayEffectSystem *TheRayEffects;
 class Rva004C743
 {
 public:
-	void *rva0004C45D();
+	virtual void *rva0004C45D();
 	void *createInGameUI();
 	void *rva0004C4C7();
 	void *rva0004C553();
