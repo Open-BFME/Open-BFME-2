@@ -16,6 +16,7 @@ typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef bool Bool;
 typedef unsigned char UnsignedByte;
+typedef int Int;
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 
@@ -27,26 +28,8 @@ typedef unsigned char UnsignedByte;
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #undef COORD3D_VIEW_EXTERN_DTOR
 
-class GameSlot
-{
-public:
-	void unAccept();
-	char m_pad[8];
-	Bool m_isAccepted;
-};
-
-#include "../../Include/Common/SlotEntry.h"
-
-class Rva00447773
-{
-public:
-	void *getLANSlot(int index);
-	const BfmeNetAddress *getSlotAddress(int index) const { return &m_slots[index].m_address; }
-	char m_pre[0x114];
-	SlotEntry m_slots[8];
-};
-
-class LANGameInfo : public Rva00447773 {};
+#include "../../Include/GameNetwork/LANAPI.h"
+#include "../../Include/GameNetwork/LANGameViews.h"
 
 class AptLanLobby
 {
@@ -58,8 +41,6 @@ public:
 	void OnGameCreate( void );
 };
 void Rva00248D84Enable();
-
-#include "../../Include/GameNetwork/LANAPI.h"
 
 struct GlobalA03354
 {
