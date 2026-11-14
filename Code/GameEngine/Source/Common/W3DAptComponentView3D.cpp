@@ -534,17 +534,7 @@ public:
 };
 #include "../../Include/GameClient/Display.h"
 extern Display *TheDisplay;
-class ParticleSystemManager
-{
-public:
-#define G(n) virtual void v##n();
-	G(00) G(01) G(02) G(03) G(04) G(05) G(06) G(07) G(08) G(09) G(10)
-	G(11) G(12) G(13) G(14) G(15)
-#undef G
-	virtual void doParticles(RenderInfoClass &rinfo); // 16
-	virtual void v17();
-	virtual void queueParticleRender(void); // 18
-};
+#include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 void rva001173f0(unsigned rinfo);
 class Rva007406E1
