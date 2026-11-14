@@ -1804,12 +1804,7 @@ public:
 
 extern Rva002872BA *TheTriggerManager;
 
-class FireLogicSystem
-{
-public:
-	void rva00286373(int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
-	void rva0028641F(unsigned int key, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/FireLogicSystem.h"
 
 template<int N> class Rva0028449FSlots : public Rva0028449FSlots<N - 1>
 {
