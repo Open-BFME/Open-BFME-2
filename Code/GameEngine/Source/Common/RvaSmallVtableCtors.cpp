@@ -2186,7 +2186,8 @@ class Rva0056775B
 {
 public:
 	Rva0056775B();
-	virtual ~Rva0056775B() {}
+	virtual void slot00(int) {}
+	virtual void slot04(int, int, int) {}
 };
 
 Rva0056775B::Rva0056775B()
