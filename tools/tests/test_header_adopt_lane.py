@@ -845,6 +845,14 @@ def test_a_class_template_copy_goes_whole_unless_a_member_is_defined_out_of_clas
     # review r5: a primary template that does not start its line, or sits in a conditional region
     ("typedef int Int; template <int N> class BitFlags { int own; };\n", "mid-line primary"),
     ("#if 0\ntemplate <int N> class BitFlags { int own; };\n#endif\n", "inside a conditional region"),
+    # fail-closed review r1: another namespace's template of the name went with the global copy
+    ("template <int N> class BitFlags { int own; };\nnamespace Other {\ntemplate <int N> class BitFlags "
+     "{ int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\n}\n", "scope other than the global one"),
+    ("template <int N> class BitFlags { int own; };\nstruct Holder {\n    class BitFlags { int n; };\n};\n",
+     "scope other than the global one"),
+    # fail-closed review r1: a raw string's template-shaped text and its closing delimiter were cut
+    ('template <int N> class BitFlags { int own; };\nconst char *s = R"tag(\n"\n'
+     'template <int N> class BitFlags { int literal; };\n)tag";\nint keep;\n', "raw string literal"),
 ])
 def test_the_swap_leaves_what_it_cannot_tell_apart(unit, why):
     assert why in lane.template_surgery_refused(unit, "BitFlags")

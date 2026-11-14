@@ -368,12 +368,35 @@ def template_surgery_refused(text, name):
       - a unit that spells `name<...>::` (a member defined out of class, which may be another
         class's: `Other::name<N>::f`; or a use);
       - a decorated or mid-line specialization head (`template <> class __declspec(...) name<11>`);
-      - a decorated or mid-line primary template head, or one inside #if ... #endif."""
+      - a decorated or mid-line primary template head, or one inside #if ... #endif;
+      - a class head of that name in any scope but the global one (`namespace Other { template <int N>
+        class name {...}; }`): the primary body's span (body_span) does not tell the scopes apart;
+      - any raw string literal: body_span's spans come from class_layouts' masking, which does not
+        read raw strings as masked does."""
+    if RAW_STRING.search(text):
+        return "a raw string literal (the primary body's span is not read raw-string-aware)"
     joined, _keep = spliced(text)
     code = masked(joined)
     word = re.escape(name)
     if re.search(r"\b%s\s*<[^;{}]*>\s*::" % word, code):
         return f"spells {name}<...>:: (a member out of class, or a use)"
+    namespaces = {m.end() - 1 for m in class_layouts.NAMESPACE.finditer(code)}
+    linkage = {m.end() - 1 for m in re.finditer(r'\bextern\s+"C\+\+"\s*\{', masked(joined, keep_literals=True))}
+    braces = list(re.finditer(r"[{}]", code))
+    for head in class_layouts.HEAD.finditer(code):
+        if head.group("name").split("::")[-1] != name:
+            continue
+        enclosing = []
+        for brace in braces:
+            if brace.start() >= head.start():
+                break
+            if brace.group() == "{":
+                enclosing.append("linkage" if brace.start() in linkage else
+                                 "namespace" if brace.start() in namespaces else "other")
+            elif enclosing:
+                enclosing.pop()
+        if any(kind != "linkage" for kind in enclosing) or "::" in head.group("name"):
+            return f"a class {name} in a scope other than the global one"
     plain = {m.start() for m in re.finditer(SPECIALIZATION_HEAD % word, code)
              if re.match(r"[ \t]*$", code[code.rfind("\n", 0, m.start()) + 1:m.start()])}
     for found in re.finditer(r"(?<![\w$])template\s*<\s*>\s*(?:class|struct)\b[^;{}]*?\b%s\s*<" % word, code):
