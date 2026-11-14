@@ -22,14 +22,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 // The Apt window manager (VA 0x00DFE4CC) and its background switch.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

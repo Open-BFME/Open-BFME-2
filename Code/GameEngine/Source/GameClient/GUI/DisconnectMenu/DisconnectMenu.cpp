@@ -16,14 +16,7 @@
 #define _CRTIMP __declspec(dllimport)
 #include <stdlib.h>
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // The Apt window manager (VA 0x00DFE4CC) and its background switch.
 #include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

@@ -233,15 +233,7 @@ LivingWorldBuilding::LivingWorldBuilding(EmitVtableTag *)
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class GameWindow
-{
-public:
-	GameWindow();
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_unmodelled04[0x218 - 4];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../../Include/GameClient/Rva005248D0.h"
 

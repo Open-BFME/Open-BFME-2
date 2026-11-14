@@ -28,13 +28,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "unicode_string.h"
 #include "ascii_string.h"
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);

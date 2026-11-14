@@ -26,11 +26,7 @@
 // target class name and fields beyond the consumed prefix remain unproven.
 // All three providers are independently full-byte verified. The shared
 // BFME2 AsciiString header deliberately supplies target36410 teardown.
-class GameWindow {
-public: GameWindow(); // call-only default ctor: keep the shared census provider
-protected: virtual ~GameWindow();
-private: unsigned char unknown[0x218-4];
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../Include/GameClient/Rva005248D0.h"
 #include "ascii_string.h"
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {

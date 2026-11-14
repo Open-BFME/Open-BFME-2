@@ -16,17 +16,7 @@
 // and fill_n (0x0007E48F) stay out of line, as in retail.
 #include "ascii_string.h"
 
-class GameWindow
-{
-public:
-	unsigned int winSetStatus(unsigned int status);
-
-protected:
-	virtual ~GameWindow();
-
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);

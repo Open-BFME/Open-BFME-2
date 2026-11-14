@@ -3,11 +3,7 @@
 // Evidence: callers 0x0052380C; callees rowed _free 0x00030830 plus pin Shell hide 0x0035BF4C plus pin AptGameWindow 0x005126F5; base secondary vptr +0x218 and member +0x288 free; globals g_Va00A04934 TheInGameUI g_Va00A01E48; vtables 0x00867C34 0x00867C30; neighbours ConstIntGetters.
 // The base's real two-base prefix: GameWindow218 + secondary58 + tailC.
 // The constructor51268C and factory2D1E55 prove its complete27C extent.
-class GameWindow
-{
-public: virtual ~GameWindow();
-private: unsigned char unknown[0x218-4];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../Include/GameClient/Rva005248D0.h"
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {

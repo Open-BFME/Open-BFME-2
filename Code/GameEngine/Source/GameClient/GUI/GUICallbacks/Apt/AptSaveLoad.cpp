@@ -24,15 +24,7 @@ struct TreeHintOpaque0043671B;
 #include <stdlib.h>
 #include <windows.h>
 
-class GameWindow
-{
-public:
-	GameWindow();
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_opaque[0x218 - 4]; // +0x04
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class __multiple_inheritance FunctorTarget;
 

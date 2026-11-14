@@ -195,15 +195,7 @@ Rva00431FB5::Rva00431FB5(EmitVtableTag *)
 
 // The screen destructors share the GameWindow and secondary-base prefix.
 // Their rowed base destructor fixes the secondary vptr at +0x218.
-class GameWindow
-{
-public:
-	GameWindow();
-protected:
-	virtual ~GameWindow();
-private:
-	char m_unmodelled[0x214];
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
