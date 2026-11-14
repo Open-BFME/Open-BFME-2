@@ -127,3 +127,4 @@ mismatching slots 37,308 -> 37,300, refusals identical.
 Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
 - 2026-11-14 `Rva0056B2DDB2` (VA 0x00C3702C, 5 slots) from `LivingWorldBattleListener`: `Rva0056B2DDConstructor.cpp`, `Rva0056B2DDDtor.cpp`.
 - 2026-11-14 `Rva000E59D3Base` (VA 0x00BBB554, 4 slots) from `Snapshot`: `Rva000E59D3Dtor.cpp`, `W3DFloorBuffer.cpp`.
+- 2026-11-14 `W3DTreeDrawModuleDataBase` (VA 0x00BBB554, 4 slots) from `Snapshot`: `W3DTreeDraw.cpp`.

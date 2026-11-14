@@ -145,7 +145,9 @@ class Object;
 #include "../../../../../../GameEngine/Include/Common/BfmeXfer.h"
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
-class W3DTreeDrawModuleDataBase
+#include "../../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+class W3DTreeDrawModuleDataBase : public Snapshot
 {
 public:
 	W3DTreeDrawModuleDataBase() {}
