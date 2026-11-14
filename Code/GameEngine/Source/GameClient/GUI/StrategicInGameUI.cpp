@@ -43,17 +43,7 @@ private:
 #include "../../../Include/GameClient/Rva002B6C9F.h"
 class Rva0020E89C;
 #include "../../../Include/GameLogic/Rva0020EAF6View.h"
-class Rva002E2903Player;
-struct Rva002B488EResult;
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-	Rva002B488EResult *rva002B488E(int id);
-public:
-	char m_pad[0xB0];
-	Rva0020EAF6View *m_B0;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva005E56FCIdInner
 {
 	char m_pad[0x54];
@@ -837,7 +827,7 @@ int StrategicInGameUI::PlanningPhaseArmySelection::Impl::SelectedMemberArmyDest:
 
 void *Rva005E56FC::rva005E56FC()
 {
-	Rva0020E89C *view = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->rva0020EAF6(m_08);
+	Rva0020E89C *view = ((Rva0020EAF6View *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0)->rva0020EAF6(m_08);
 	if (view != 0)
 	{
 		int id = m_04->m_ptr18->m_id54;

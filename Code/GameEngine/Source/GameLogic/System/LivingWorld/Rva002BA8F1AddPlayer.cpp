@@ -60,14 +60,7 @@ public:
 };
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E0648Owner { public: void rva002E0648(void *); };
-typedef _STL::vector<Rva002E2903Player *> Rva002BA8F1PlayerList;
-struct Rva002BA8F1Primary { char opaque[0x18]; };
-class Rva002BA8F1Logic : public Rva002BA8F1Primary, public Rva002BA8F1Listener {
-public:
-    Rva002E2903Player *find(const AsciiString &, unsigned int *);
-    void setLocal(Rva002E2903Player *);
-    char gap[0x8c-0x1c]; Rva002BA8F1PlayerList players;
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 // Name: WorldBuilder twin 0x00D8BB70 is LivingWorldLogic::AddPlayer (LivingWorldLogic.cpp,
 // asserts 6210..6266), matched by call graph; it agrees with the bfme12x-dll lead above.
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
@@ -87,7 +80,7 @@ void LivingWorldLogic::AddPlayer(Rva002BA8F1Input *input, bool local, int kind, 
     Rva002000D7Config *config = (*(Rva002000D7Store **)&TheRankInfoStore)->get(1);
     if (config) player->setAt1C4(config->at34);
     ((LivingWorldPlayer *)player)->SetColorIndex(input->at18);
-    logic->players.push_back(player);
+    ((_STL::vector<Rva002E2903Player *> *)&logic->field8C)->push_back(player);
     if (local) logic->setLocal(player);
     if (input->at24) player->state2();
     else if (kind == 0) player->state0();

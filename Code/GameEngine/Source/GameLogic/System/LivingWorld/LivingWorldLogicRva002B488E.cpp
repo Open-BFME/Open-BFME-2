@@ -20,27 +20,15 @@ struct Rva002B3187Elem
 	int m_key;	// +0x20
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002B488EResult *rva002B488E(int key);
-	Rva002B3187Elem *rva002B3187(int key);
-	Rva002B488EResult *rva002B4929(int key);
-
-private:
-	unsigned char m_pad0[0x8C];
-	std::vector<Rva002E0A9FElem *> m_elems;	// +0x8C
-	unsigned char m_pad98[0x124 - 0x98];
-	std::vector<Rva002B3187Elem *> m_records;	// +0x124
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 Rva002B488EResult *Rva002BA8F1Logic::rva002B488E(int key)
 {
 	if (key == 0)
 		return 0;
-	for (unsigned int i = 0; i < m_elems.size(); ++i)
+	for (unsigned int i = 0; i < ((_STL::vector<Rva002E0A9FElem *> *)&field8C)->size(); ++i)
 	{
-		int found = m_elems[i]->rva002E0A9F((void *)key);
+		int found = (*(_STL::vector<Rva002E0A9FElem *> *)&field8C)[i]->rva002E0A9F((void *)key);
 		if (found)
 			return (Rva002B488EResult *)found;
 	}
@@ -53,10 +41,10 @@ Rva002B488EResult *Rva002BA8F1Logic::rva002B488E(int key)
 // pending-battle lookups).
 Rva002B3187Elem *Rva002BA8F1Logic::rva002B3187(int key)
 {
-	for (unsigned int i = 0; i < m_records.size(); ++i)
+	for (unsigned int i = 0; i < ((_STL::vector<Rva002B3187Elem *> *)&field100[0x124 - 0x100])->size(); ++i)
 	{
-		if (m_records[i]->m_key == key)
-			return m_records[i];
+		if ((*(_STL::vector<Rva002B3187Elem *> *)&field100[0x124 - 0x100])[i]->m_key == key)
+			return (*(_STL::vector<Rva002B3187Elem *> *)&field100[0x124 - 0x100])[i];
 	}
 	return 0;
 }

@@ -175,14 +175,7 @@ public:
 struct Rva002E0D02Arg;
 int CountOwnedUnits(Rva002E0D02Arg *player);
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *GetPlayerAtIndex(int index);
-	unsigned char m_pad000[0x8C];
-	_STL::vector<Rva002E2903Player *> m_players; // +0x8C
-	Rva002E2903Player *m_localPlayer; // +0x98
-};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -331,11 +324,11 @@ AptStrategicPlayerStatus::AptStrategicPlayerStatus(void *context)
 		}
 	}
 
-	Rva002E2903Player *localPlayer = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_localPlayer;
+	Rva002E2903Player *localPlayer = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_98;
 	if (localPlayer == 0)
 		return;
 	AsciiString unused;
-	int count = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_players.size();
+	int count = ((_STL::vector<Rva002E2903Player *> *)&((Rva002BA8F1Logic *)TheLivingWorldLogic)->field8C)->size();
 	for (int i = 0; i < count; ++i)
 	{
 		Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(i);

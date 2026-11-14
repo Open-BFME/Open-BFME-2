@@ -71,15 +71,8 @@ struct Rva002B3740Item;
 class Rva002E2903Player;
 class Rva003F468D;
 #include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
-class Rva002BA8F1Logic {
-public:
- Rva002B488EResult *rva002B488E(int);
- Rva002B3740Item *rva002B2B2D();
- Rva002E2903Player *find(int,unsigned*);
- unsigned char unknown[0xb0];
- Rva0020E6B7RegionManager *manager;
- Rva0020E6B7RegionManager *getManager()const{return manager;}
-};
+class Rva0020E6B7RegionManager;
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0020E89C;
@@ -111,7 +104,7 @@ bool ArmySummary::getSpawnPositions(int playerId, Coord3D *spawn, Coord3D *gathe
  if(!localPlayer)return false;
  Rva002E2903Player *player=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->find(playerId,0);
  if(!player)return false;
- Rva003F468D *battle=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->getManager()->rva0020E6B7();
+ Rva003F468D *battle=((Rva0020E6B7RegionManager *)reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->m_B0)->rva0020E6B7();
  if(!battle)return false;
  int side=reinterpret_cast<LivingWorldBattle*>(battle)->rva003F4752(player);
  if(side<0)return false;

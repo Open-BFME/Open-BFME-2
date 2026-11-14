@@ -38,24 +38,14 @@ public:
     char pad48_3C4[0x3C4-0x48]; bool m_3C4; // +0x3C4 byte-checked with flag OR
     char pad3C5_3C8[0x3C8-0x3C5];
 };
-typedef _STL::vector<Rva002E2903Player *> Rva002BA8F1PlayerList;
-struct Rva002BA8F1Primary { char opaque[0x18]; };
-class Rva002BA8F1Logic : public Rva002BA8F1Primary, public Rva002BA8F1Listener {
-public:
-    Rva002E2903Player *find(const AsciiString &, unsigned int *);
-    Rva002E2903Player *find(int, unsigned int *);
-    Rva002E2903Player *GetPlayerAtIndex(int);
-    int rva002B5256(bool flag);
-    void setLocal(Rva002E2903Player *);
-    char gap[0x8c-0x1c]; Rva002BA8F1PlayerList players;
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 Rva002E2903Player *Rva002BA8F1Logic::find(const AsciiString &name, unsigned int *index)
 {
-    for (unsigned int i = 0; i < players.size(); ++i) {
-        if (players[i]->name.compare(name) == 0) {
+    for (unsigned int i = 0; i < ((_STL::vector<Rva002E2903Player *> *)&field8C)->size(); ++i) {
+        if ((*(_STL::vector<Rva002E2903Player *> *)&field8C)[i]->name.compare(name) == 0) {
             if (index) *index = i;
-            return players[i];
+            return (*(_STL::vector<Rva002E2903Player *> *)&field8C)[i];
         }
     }
     return 0;
@@ -77,11 +67,11 @@ Rva002E2903Player *Rva002BA8F1Logic::find(int id, unsigned int *index)
 {
     if (id == -1)
         return 0;
-    for (unsigned int i = 0; i < players.size(); ++i) {
-        if (players[i]->at14 == id) {
+    for (unsigned int i = 0; i < ((_STL::vector<Rva002E2903Player *> *)&field8C)->size(); ++i) {
+        if ((*(_STL::vector<Rva002E2903Player *> *)&field8C)[i]->at14 == id) {
             if (index)
                 *index = i;
-            return players[i];
+            return (*(_STL::vector<Rva002E2903Player *> *)&field8C)[i];
         }
     }
     return 0;
@@ -91,9 +81,9 @@ Rva002E2903Player *Rva002BA8F1Logic::find(int id, unsigned int *index)
 // Bounds-checked index into the same +0x8C player vector. Returns 0 on negative or past-end.
 Rva002E2903Player *Rva002BA8F1Logic::GetPlayerAtIndex(int index)
 {
-    if (index < 0 || (unsigned int)index >= players.size())
+    if (index < 0 || (unsigned int)index >= ((_STL::vector<Rva002E2903Player *> *)&field8C)->size())
         return 0;
-    return players[index];
+    return (*(_STL::vector<Rva002E2903Player *> *)&field8C)[index];
 }
 
 // ?find@Rva002E1904Lookup@@QAEPAURva002E1904Entry@@ABVAsciiString@@@Z @0x002E1904 68B.

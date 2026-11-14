@@ -102,16 +102,13 @@ public: void rva002B31F2(_STL::vector<unsigned int>*);
 char pad[0xb0];Rva0020E6B7RegionManager *manager;
 };
 class Rva0040D701ArmySummary;
-class Rva002BA8F1Logic {
-public:void rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*,int);
-char pad[0xb0];Rva0020E6B7RegionManager *manager;
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 void Rva002B31F2::rva002B31F2(_STL::vector<unsigned int>*out) {
  LivingWorldBattle *battle=(LivingWorldBattle*)manager->rva0020E6B7();
  if(battle){Rva002B8573 callback((_STL::vector<Object*>*)out,0);battle->rva003F498A((Rva003F498ACallback*)&callback);}
 }
 void Rva002BA8F1Logic::rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*out,int id) {
- LivingWorldBattle *battle=(LivingWorldBattle*)manager->rva0020E6B7();
+ LivingWorldBattle *battle=(LivingWorldBattle*)((Rva0020E6B7RegionManager *)m_B0)->rva0020E6B7();
  if(battle){Rva002B85B1 callback((_STL::vector<Object*>*)out,id);battle->rva003F498A((Rva003F498ACallback*)&callback);}
 }
 // Native 2B25EF..2B262D, 62B; WB D7EE00 is unnamed. The receiver
