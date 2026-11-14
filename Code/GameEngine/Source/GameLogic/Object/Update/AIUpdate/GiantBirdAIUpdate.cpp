@@ -73,31 +73,7 @@ private:
 	Real m_cachedAngle; // +0x44
 };
 #include "../../../../../Include/GameLogic/Module/BodyModule.h"
-class ContainModuleInterface
-{
-public:
-	virtual void gap00(); virtual void gap01(); virtual void gap02(); virtual void gap03();
-	virtual void gap04(); virtual void gap05(); virtual void gap06(); virtual void gap07();
-	virtual void gap08(); virtual void gap09(); virtual void gap10(); virtual void gap11();
-	virtual void gap12(); virtual void gap13(); virtual void gap14(); virtual void gap15();
-	virtual void gap16(); virtual void gap17(); virtual void gap18(); virtual void gap19();
-	virtual void gap20(); virtual void gap21(); virtual void gap22(); virtual void gap23();
-	virtual void gap24(); virtual void gap25(); virtual void gap26(); virtual void gap27();
-	virtual void gap28(); virtual void gap29(); virtual void gap30(); virtual void gap31();
-	virtual void gap32(); virtual void gap33(); virtual void gap34(); virtual void gap35();
-	virtual void gap36(); virtual void gap37(); virtual void gap38(); virtual void gap39();
-	virtual void gap40();
-	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits) = 0; // +0xA4
-	virtual void gap42(); virtual void gap43(); virtual void gap44(); virtual void gap45();
-	virtual void gap46(); virtual void gap47(); virtual void gap48(); virtual void gap49();
-	virtual void gap50(); virtual void gap51(); virtual void gap52(); virtual void gap53();
-	virtual void gap54(); virtual void gap55(); virtual void gap56(); virtual void gap57();
-	virtual void gap58(); virtual void gap59(); virtual void gap60(); virtual void gap61();
-	virtual void gap62(); virtual void gap63(); virtual void gap64(); virtual void gap65();
-	virtual void gap66(); virtual void gap67(); virtual void gap68();
-	virtual UnsignedInt getContainCount(Int unused) const = 0; // +0x114
-	virtual Rva0036AE51ListView getContainedItemsView() = 0; // +0x118
-};
+#include "../../../../../Include/GameLogic/Module/ContainModule.h"
 class PhysicsBehavior
 {
 public:
@@ -482,7 +458,7 @@ void GiantBirdAIUpdate::rva0036AE79()
 			|| (data->m_grabTossHeightTrigger > 0.0 && height > data->m_grabTossHeightTrigger))
 		{
 			clearFlag(6);
-			ContainmentList riders = contain->getContainedItemsView().rva0036AE51();
+			ContainmentList riders = const_cast<Rva0036AE51ListView &>((const Rva0036AE51ListView &)contain->slot70()).rva0036AE51();
 			for (ContainmentList::iterator it = riders.begin(); it._M_node != riders.end()._M_node; )
 			{
 				Object *rider = (Object *)containmentFirstWord(*it);

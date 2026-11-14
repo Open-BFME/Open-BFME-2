@@ -357,53 +357,7 @@ struct BfmeContainedRange
 	BfmeContainedList *m_list;					// +0x04
 };
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ContainModule.h
-// BFME2 slot 31 (+0x7C) hands out the horde interface.
-class ContainModuleInterface
-{
-public:
-	virtual void slot00() = 0; 	virtual void slot01() = 0;
-	virtual void slot02() = 0; 	virtual void slot03() = 0;
-	virtual void slot04() = 0; 	virtual void slot05() = 0;
-	virtual void slot06() = 0; 	virtual void slot07() = 0;
-	virtual void slot08() = 0; 	virtual void slot09() = 0;
-	virtual void slot10() = 0; 	virtual void slot11() = 0;
-	virtual void slot12() = 0; 	virtual void slot13() = 0;
-	virtual void slot14() = 0; 	virtual void slot15() = 0;
-	virtual void slot16() = 0; 	virtual void slot17() = 0;
-	virtual void slot18() = 0; 	virtual void slot19() = 0;
-	virtual void slot20() = 0; 	virtual void slot21() = 0;
-	virtual void slot22() = 0; 	virtual void slot23() = 0;
-	virtual void slot24() = 0; 	virtual void slot25() = 0;
-	virtual void slot26() = 0; 	virtual void slot27() = 0;
-	virtual void slot28() = 0; 	virtual void slot29() = 0;
-	virtual void slot30() = 0; 
-	virtual HordeContainInterface *getHordeContainInterface() = 0;
-	virtual void slot32() = 0; 	virtual void slot33() = 0;
-	virtual void slot34() = 0; 	virtual void slot35() = 0;
-	virtual void slot36() = 0; 	virtual void slot37() = 0;
-	virtual void slot38() = 0; 	virtual void slot39() = 0;
-	virtual void slot40() = 0; 	virtual void slot41() = 0;
-	virtual void slot42() = 0; 	virtual void slot43() = 0;
-	virtual void slot44() = 0; 	virtual void slot45() = 0;
-	virtual void slot46() = 0; 	virtual void slot47() = 0;
-	virtual void slot48() = 0; 	virtual void slot49() = 0;
-	virtual void slot50() = 0; 	virtual void slot51() = 0;
-	virtual void slot52() = 0; 	virtual void slot53() = 0;
-	virtual void slot54() = 0; 	virtual void slot55() = 0;
-	virtual void slot56() = 0; 	virtual void slot57() = 0;
-	virtual void slot58() = 0; 	virtual void slot59() = 0;
-	virtual void slot60() = 0; 	virtual void slot61() = 0;
-	virtual void slot62() = 0; 	virtual void slot63() = 0;
-	virtual void slot64() = 0; 	virtual void slot65() = 0;
-	virtual void slot66() = 0; 	virtual void slot67() = 0;
-	virtual void slot68() = 0; 	virtual void slot69() = 0;
-	// Slot 70 (+0x118), read from privateIdle (0x0026D5FB). It returns an
-	// eight-byte holder through a hidden pointer; the contained list is its
-	// second word. BFME1's privateIdle asks getContainedItemsList at this
-	// point (a list pointer there), so the name is donor-carried.
-	virtual BfmeContainedRange getContainedItemsList() = 0;
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class BFMEActionManager
 {
@@ -1421,7 +1375,7 @@ void AIUpdateInterface::privateExitInstantly(Object *objectToExit, CommandSource
 	ContainModuleInterface *contain = us->m_contain;
 	if (contain)
 	{
-		HordeContainInterface *horde = contain->getHordeContainInterface();
+		HordeContainInterface *horde = contain->slot31();
 		if (horde)
 		{
 			horde->exitObject(objectToExit, commandSource);
@@ -1846,7 +1800,7 @@ void AIUpdateInterface::privateEnter(Object *object, CommandSourceType commandSo
 	ContainModuleInterface *contain = me->m_contain;
 	if (contain)
 	{
-		HordeContainInterface *horde = contain->getHordeContainInterface();
+		HordeContainInterface *horde = contain->slot31();
 		if (horde)
 		{
 			horde->enterObject(object, commandSource);
@@ -2036,16 +1990,16 @@ void AIUpdateInterface::privateIdle(CommandSourceType commandSource)
 	Bool idleContained = false;
 	if (contain)
 	{
-		if (contain->getHordeContainInterface() == 0)
+		if (contain->slot31() == 0)
 			idleContained = true;
 		if (reinterpret_cast<AIUpdateSlot110 *>(this)->isAttacking() || getCurrentVictim() != 0)
 			idleContained = true;
 
 		if (idleContained)
 		{
-			BfmeContainedRange items = contain->getContainedItemsList();
-			for (BfmeContainedNode *node = items.m_list->m_head->m_next;
-				node != items.m_list->m_head; node = node->m_next)
+			Rva0046247DPair items = contain->slot70();
+			for (BfmeContainedNode *node = ((BfmeContainedList *)items.m04)->m_head->m_next;
+				node != ((BfmeContainedList *)items.m04)->m_head; node = node->m_next)
 			{
 				Object *member = node->m_object;
 				AIUpdateInterface *ai = member ? member->getAI() : 0;
@@ -2221,7 +2175,7 @@ void AIUpdateInterface::privateMoveAwayFromUnit(Object *unit, const Coord3D *pos
 	Object *container = me->m_containedBy;
 	if (container)
 	{
-		HordeContainInterface *horde = container->getContain() ? container->getContain()->getHordeContainInterface() : 0;
+		HordeContainInterface *horde = container->getContain() ? container->getContain()->slot31() : 0;
 		if (horde && container->getAI() && !reinterpret_cast<AIUpdateSlot110 *>(container->getAI())->isAttacking())
 		{
 			reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(container->getAI()) + 0x20)->aiMoveAwayFromUnit(unit, pos, commandSource);

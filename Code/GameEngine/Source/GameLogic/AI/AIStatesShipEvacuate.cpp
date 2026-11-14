@@ -104,29 +104,7 @@ public:
 	Rva00352F9D m_commands; // +0x20
 };
 
-// The contained objects come back by value: a context word and the list (header node, next first).
-struct ContainedNode
-{
-	ContainedNode *next;
-	ContainedNode *prev;
-	Object *object;
-};
-struct ContainedList
-{
-	ContainedNode *header;
-};
-struct ContainedObjects
-{
-	void *context;
-	ContainedList *list;
-};
-
-class ContainModuleInterface : public VirtualSlots<69>
-{
-public:
-	virtual Int getContainCount(Int extra) = 0; // slot 69
-	virtual ContainedObjects getContainedObjects() = 0; // slot 70
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
@@ -164,8 +142,18 @@ void rva003532BF(Object *owner, StateMachine *machine, Bool attackMove)
 		const Coord3D *position = owner->getPosition();
 		if (TheAI->pathfinder()->getClosestPointOnLand(position, owner, &land))
 		{
-			ContainedObjects objects = contain->getContainedObjects();
-			for (ContainedNode *node = objects.list->header->next; node != objects.list->header; node = node->next)
+			struct ContainedNode
+			{
+				ContainedNode *next;
+				ContainedNode *prev;
+				Object *object;
+			};
+			struct ContainedList
+			{
+				ContainedNode *header;
+			};
+			Rva0046247DPair objects = contain->slot70();
+			for (ContainedNode *node = ((ContainedList *)objects.m04)->header->next; node != ((ContainedList *)objects.m04)->header; node = node->next)
 			{
 				Object *passenger = node->object;
 				passenger->getAI()->ignoreObstacle(owner);

@@ -69,22 +69,7 @@ enum AIStateType
 
 typedef _STL::list<Object *> ContainedItemsList;
 
-struct ContainedItemsPair
-{
-	void *m_unknown00;
-	const ContainedItemsList *m_items; // +4
-};
-
-#define CONTAIN_GAP10(n) virtual void gap##n##0(); virtual void gap##n##1(); virtual void gap##n##2(); virtual void gap##n##3(); virtual void gap##n##4(); \
-	virtual void gap##n##5(); virtual void gap##n##6(); virtual void gap##n##7(); virtual void gap##n##8(); virtual void gap##n##9();
-
-class ContainModuleInterface
-{
-public:
-	CONTAIN_GAP10(0) CONTAIN_GAP10(1) CONTAIN_GAP10(2) CONTAIN_GAP10(3)
-	CONTAIN_GAP10(4) CONTAIN_GAP10(5) CONTAIN_GAP10(6)
-	virtual void getContainedItemsList(ContainedItemsPair &pair); // slot 70
-};
+#include "../../../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
@@ -240,11 +225,10 @@ UpdateSleepTime AssaultTransportAIUpdate::update( void )
 	ContainModuleInterface *contain = transport->getContain();
 	if( contain )
 	{
-		ContainedItemsPair items;
-		contain->getContainedItemsList( items );
+		Rva0046247DPair items = contain->slot70();
 		ContainedItemsList::const_iterator passengerIterator;
-		passengerIterator = items.m_items->begin();
-		while( passengerIterator != items.m_items->end() )
+		passengerIterator = ((const ContainedItemsList *)items.m04)->begin();
+		while( passengerIterator != ((const ContainedItemsList *)items.m04)->end() )
 		{
 			Object *passenger = *passengerIterator;
 			//Advance to the next iterator

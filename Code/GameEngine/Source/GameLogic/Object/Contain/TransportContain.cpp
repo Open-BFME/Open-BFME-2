@@ -100,16 +100,7 @@ struct TransportContainItems
 	const TransportContainList *m_list;
 };
 
-class ContainModuleInterface
-{
-public:
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V10(1) V10(2) V10(3) V10(4) V10(5)
-	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
-	virtual TransportContainItems getContainedItems();
-#undef V10
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 struct TransportContainModelFlags
 {
@@ -1109,9 +1100,9 @@ UpdateSleepTime TransportContain::update()
 		ContainModuleInterface *contain = m_object->m_contain;
 		if (contain)
 		{
-			TransportContainItems items = contain->getContainedItems();
-			TransportContainListNode *head = items.m_list->m_head;
-			for (TransportContainListNode *node = head->m_next; node != items.m_list->m_head;)
+			Rva0046247DPair items = contain->slot70();
+			TransportContainListNode *head = ((const TransportContainList *)items.m04)->m_head;
+			for (TransportContainListNode *node = head->m_next; node != ((const TransportContainList *)items.m04)->m_head;)
 			{
 				Object *object = node->m_data;
 				node = node->m_next;
@@ -1144,9 +1135,9 @@ UpdateSleepTime TransportContain::update()
 		ContainModuleInterface *contain = m_object->m_contain;
 		if (contain)
 		{
-			TransportContainItems items = contain->getContainedItems();
-			TransportContainListNode *head = items.m_list->m_head;
-			for (TransportContainListNode *node = head->m_next; node != items.m_list->m_head; node = node->m_next)
+			Rva0046247DPair items = contain->slot70();
+			TransportContainListNode *head = ((const TransportContainList *)items.m04)->m_head;
+			for (TransportContainListNode *node = head->m_next; node != ((const TransportContainList *)items.m04)->m_head; node = node->m_next)
 			{
 				Object *object = node->m_data;
 				if (!object)

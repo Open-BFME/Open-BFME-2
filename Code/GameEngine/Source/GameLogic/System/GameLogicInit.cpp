@@ -5878,32 +5878,7 @@ public:
 	virtual void slot60(void);                                           // +0x60
 };
 
-class ContainModuleInterface
-{
-public:
-	virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
-	virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07();
-	virtual void c08(); virtual void c09(); virtual void c0a(); virtual void c0b();
-	virtual void c0c(); virtual void c0d(); virtual void c0e(); virtual void c0f();
-	virtual void c10(); virtual void c11(); virtual void c12(); virtual void c13();
-	virtual void c14(); virtual void c15(); virtual void c16(); virtual void c17();
-	virtual void c18(); virtual void c19(); virtual void c1a(); virtual void c1b();
-	virtual void c1c(); virtual void c1d(); virtual void c1e();
-	virtual Rva0024877AProducer *slot7C(void);                           // +0x7C
-	virtual void c20(); virtual void c21(); virtual void c22(); virtual void c23();
-	virtual void c24(); virtual void c25(); virtual void c26();
-	virtual void slot9C(Object *obj);                                    // +0x9C
-	virtual void c28(); virtual void c29();
-	virtual void slotA8(int arg);                                        // +0xA8
-	virtual void c2b(); virtual void c2c(); virtual void c2d(); virtual void c2e();
-	virtual void c2f(); virtual void c30(); virtual void c31(); virtual void c32();
-	virtual void c33(); virtual void c34(); virtual void c35(); virtual void c36();
-	virtual void c37(); virtual void c38(); virtual void c39(); virtual void c3a();
-	virtual void c3b(); virtual void c3c(); virtual void c3d(); virtual void c3e();
-	virtual void c3f(); virtual void c40(); virtual void c41(); virtual void c42();
-	virtual void c43();
-	virtual void slot110(void (*func)(void *, IntList *), IntList *ids, int mask); // +0x110
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 // The interface Object 0x0028C197 returns.
 class Rva0024877ABody
@@ -6012,9 +5987,9 @@ bool GameLogic::rva0024877A(void)
 			record.m_experience = ((RevivalExperienceView *)obj->getExperienceTracker())->rva000B49A1();
 		}
 		if (obj->getContain()) {
-			obj->getContain()->slot110(Rva0024080FAdd, &record.m_contained, 1);
-			obj->getContain()->slot110(Rva0024080FAdd, &record.m_contained, 0x10);
-			obj->getContain()->slotA8(0);
+			obj->getContain()->iterateContained((ContainIterateFunc)Rva0024080FAdd, &record.m_contained, 1);
+			obj->getContain()->iterateContained((ContainIterateFunc)Rva0024080FAdd, &record.m_contained, 0x10);
+			obj->getContain()->removeAllContained(false);
 		}
 		if (obj->getContainedBy())
 			record.m_containerID = obj->getContainedBy()->getID();
@@ -6057,19 +6032,19 @@ bool GameLogic::rva0024877A(void)
 			continue;
 		Object *container = findObjectByID(it->m_containerID);
 		if (container && container->getContain()) {
-			container->getContain()->slot9C(obj);
-			if (container->getContain()->slot7C()) {
+			container->getContain()->addToContain(obj);
+			if (container->getContain()->slot31()) {
 				obj->setProducer(container);
 				obj->getExperienceTracker()->setExperienceSink(container->getID());
-				container->getContain()->slot7C()->slot2C(obj);
-				container->getContain()->slot7C()->slot60();
-				container->getContain()->slot7C()->slot60();
+				((Rva0024877AProducer *)container->getContain()->slot31())->slot2C(obj);
+				((Rva0024877AProducer *)container->getContain()->slot31())->slot60();
+				((Rva0024877AProducer *)container->getContain()->slot31())->slot60();
 			}
 		}
 		for (IntList::iterator id = it->m_contained.begin(); id != it->m_contained.end(); ++id) {
 			Object *rider = findObjectByID((ObjectID)*id);
 			if (rider && obj->getContain()) {
-				obj->getContain()->slot9C(rider);
+				obj->getContain()->addToContain(rider);
 				if (obj->rva0029439D()) {
 					rider->setProducer(obj);
 					rider->getExperienceTracker()->setExperienceSink(obj->getID());
@@ -6077,8 +6052,8 @@ bool GameLogic::rva0024877A(void)
 				}
 			}
 		}
-		if (obj->getContain() && obj->getContain()->slot7C())
-			obj->getContain()->slot7C()->slot40();
+		if (obj->getContain() && obj->getContain()->slot31())
+			((Rva0024877AProducer *)obj->getContain()->slot31())->slot40();
 	}
 	return destroyed;
 	}
