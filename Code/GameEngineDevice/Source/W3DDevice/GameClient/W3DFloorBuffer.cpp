@@ -755,7 +755,7 @@ private:
 	bool m_ready20, m_flag21, m_ready22;
 };
 
-class __declspec(novtable) Rva000E59D3Base
+class __declspec(novtable) Rva000E59D3Base : public Snapshot
 {
 public:
     Rva000E59D3Base() {}

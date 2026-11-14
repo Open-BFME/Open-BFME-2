@@ -33,7 +33,9 @@ public:
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DFloorBuffer.h"
 
-class Rva000E59D3Base
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+class Rva000E59D3Base : public Snapshot
 {
 public:
 	virtual ~Rva000E59D3Base() {}
