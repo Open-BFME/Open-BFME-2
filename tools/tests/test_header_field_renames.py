@@ -1235,3 +1235,20 @@ def test_review_r1_a_conditional_pragma_once_needs_msc_ver_untouched(tmp_path, m
     (tmp_path / "b.h").write_text(('#define _MSC_VER 900\n' if cycle is None else "") + '#include "a.h"\n')
     problem = lane.include_problem("u.cpp", flags + '#include "a.h"\n')
     assert ("cycle" in problem) if cycle in (True, None) else problem is None, problem
+
+
+def test_review_r2_a_header_reached_through_another_includer_may_read_another_quoted_target(tmp_path, monkeypatch):
+    # include resolver review r2: dispatch.h was walked once, through a/outer.h, so its "config.h" read a/config.h;
+    # MSVC enters it again through b/outer.h and reads b/config.h, which defines a macro the rename must see
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    for d in ("a", "b", "common"):
+        (tmp_path / d).mkdir()
+    (tmp_path / "a" / "outer.h").write_text('#include "../common/dispatch.h"\n')
+    (tmp_path / "b" / "outer.h").write_text('#include "../common/dispatch.h"\n')
+    (tmp_path / "common" / "dispatch.h").write_text('#include "config.h"\n')
+    (tmp_path / "a" / "config.h").write_text("")
+    (tmp_path / "b" / "config.h").write_text("#define m_flags m_speed\n")
+    problem = lane.include_problem("u.cpp", '#include "a/outer.h"\n#include "b/outer.h"\n')
+    assert problem and "may resolve to" in problem and "b/config.h" in problem.replace("\\", "/"), problem
+    # one chain alone: only a/config.h can be read, and it is
+    assert lane.include_problem("u.cpp", '#include "a/outer.h"\n') is None

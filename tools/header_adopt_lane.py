@@ -899,6 +899,7 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
     unknown_macro_stack = False
     skipped = []                         # (path, include, logical text, offset): never compiled (never_compiled)
     unread = []                          # (path, include, logical text, offset): an angle include found nowhere
+    loose = []                           # (path, include, {files read for it}): a quoted include not beside path
     logicals = {}                        # path: its logical, masked text (literals kept)
     never = NEVER_DEFINED - compiler_defines(text)
     stack = []
@@ -985,6 +986,8 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
             # beside its includer, it is that file; otherwise MSVC's pick among the rest depends on a search
             # order the walk does not keep (_include_search_roots sorts), so every one is read
             children.extend([beside] if beside.is_file() else targets)
+            if not beside.is_file():
+                loose.append((path, name, set(targets)))
         graph[path] = children
         for target in reversed(children):
             if target not in cache:
@@ -1016,6 +1019,20 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
             return out, (f"{path}: unresolved include {name} ("
                          + (f"<{incomplete[0]}> resolves nowhere" if incomplete else "its branch's macro can be defined")
                          + ")")
+    # A header is walked once, through the first includer chain that reaches it, but MSVC resolves its quoted
+    # includes against every chain it is reached through (each includer's directory). Any file of the closure may
+    # sit in such a chain: a quoted include not beside its includer that names a file beside one the walk did not
+    # read for it may have been read there instead.
+    places = {Path(p).parent for p, _ in out}
+    for path, name, read in loose:
+        for place in sorted(places - {path.parent}, key=str):
+            other = place / name
+            if os.name != "nt":
+                import build
+                other = Path(build._case_resolve(str(other)) or other)
+            if other.is_file() and other.resolve() not in read:
+                return out, (f"{path}: quoted include {name} may resolve to {other.resolve()} through another "
+                             "includer, which the walk did not read")
     # a `#pragma once` under an _MSC_VER condition holds only while _MSC_VER stays MSVC 7.1's own
     msc_steady = not unknown_macro_stack and "_MSC_VER" not in invalidated and not re.search(
         r"(?m)^// cl:.*?(?:[/-]D\s*_MSC_VER\b|[/-]U\s*_MSC_VER\b|[/-]u(?:\s|$))", text)
