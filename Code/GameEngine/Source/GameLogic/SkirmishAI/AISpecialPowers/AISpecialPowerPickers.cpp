@@ -219,11 +219,7 @@ extern PartitionManager *ThePartitionManager;
 
 // The AoE special-power target picker (AISPecialPowerTargetAoE.cpp holds
 // 0x005EE816 and 0x005EE8DD).
-class AISpellBookStructureBreaker
-{
-public:
-	bool shouldActivate(Object *source);	// 0x005D7D93
-};
+#include "../../../../Include/GameLogic/AISpellBookStructureBreaker.h"
 
 // WB names the 0x005D7558 body AISpellBookStructureBaseKill::enemyHasAFortress
 // (EA AISpellBookPowers/AISpellBookStructureBaseKill.cpp, asserts myAI/stats/
