@@ -47,14 +47,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_CALL
 typedef int Int;
 typedef bool Bool;
 
-struct AsciiUnicodePair
-{
-    AsciiString m_name;
-    UnicodeString m_translatedName;
-    int m_groupID, m_numWaiting, m_maxWaiting, m_numGames, m_numPlaying, m_roomType;
-    AsciiUnicodePair(const AsciiUnicodePair &other);
-    ~AsciiUnicodePair();
-};
+#include "../../../../../Include/Common/AsciiUnicodePair.h"
 class GameSpyGroupRoom : public AsciiUnicodePair
 {
 public:
