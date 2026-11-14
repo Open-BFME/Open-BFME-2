@@ -34,7 +34,7 @@
 #include "GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
-class Player { public: AsciiString getBaseSide() const; };
+#include "../../../../../GameEngine/Include/Common/Player.h"
 class GameState; extern GameState *TheGameState;
 #include "../../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;

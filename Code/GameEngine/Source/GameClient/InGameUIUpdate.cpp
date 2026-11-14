@@ -96,16 +96,7 @@ public:
 
 #include "../../Include/GameClient/BfmeThingRV.h"
 
-class Player
-{
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-
-	char m_pad000[0x54];
-	Int m_playerIndex;		// +0x54
-	char m_pad058[0x750 - 0x58];
-	Int m_750;			// +0x750
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

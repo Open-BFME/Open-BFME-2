@@ -44,14 +44,7 @@ UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
 // The money a player holds sits at Player+0x90 (canonical Rva003B0D7C, 12 bytes).
 #include "../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
-class Player
-{
-public:
-	Rva003B0D7C *getMoney() { return &m_money; }
-private:
-	char m_pad00[0x90];
-	Rva003B0D7C m_money;
-};
+#include "../../../Include/Common/Player.h"
 
 // TheSkirmishAIManager's per-player statistics: 0x002A8F24 returns the
 // collector, whose +0x0C economy record holds an amount at +0x14 (WB

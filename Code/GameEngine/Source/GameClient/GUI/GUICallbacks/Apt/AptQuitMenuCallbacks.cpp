@@ -199,11 +199,7 @@ extern GameState *TheGameState;
 
 #include "../../../../../Include/Common/Rva002DC7C1.h"
 
-class Player
-{
-public:
-	AsciiString getBaseSide() const;
-};
+#include "../../../../../Include/Common/Player.h"
 
 // TheRecorder (0x00A02290).
 enum RecorderModeType

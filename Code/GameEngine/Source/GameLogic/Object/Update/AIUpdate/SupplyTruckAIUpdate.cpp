@@ -344,16 +344,7 @@ private:
 
 enum { AI_DOCK = 14 };
 
-class Player
-{
-public:
-	ResourceGatheringManager *getResourceGatheringManager() const { return m_resourceGatheringManager; }
-
-	char m_pad[0x5C];
-	int m_playerType; // +0x5C
-	char m_pad60[0x2E4 - 0x60];
-	ResourceGatheringManager *m_resourceGatheringManager; // +0x2E4
-};
+#include "../../../../../Include/Common/Player.h"
 
 class Rva004A6FBF
 {
