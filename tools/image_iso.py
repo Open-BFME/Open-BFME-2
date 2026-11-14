@@ -189,7 +189,7 @@ def attach_objects(publics, manifest, mapfile=None):
 
 
 
-def place_statics(publics, manifest, wanted, image, missed=None):
+def place_statics(publics, manifest, wanted, image, missed=None, failed=None):
     """{name: [placement]} for data symbols of `wanted` the MAP does not list: MSVC's MAP lists no internal-linkage
     data (a file `static`, a namespace-scope `const`, an anonymous namespace's global), so each is placed through
     its own object. A COFF section is contiguous in the image: its start is fixed by any symbol in it the MAP
@@ -232,7 +232,12 @@ def place_statics(publics, manifest, wanted, image, missed=None):
         try:
             sections, symbols = link_cycle.parse_coff(raw)
         except (ValueError, struct.error, IndexError):
+            if failed is not None:
+                failed.append(entry["path"])  # what it defines is unknown, not absent
             continue
+        if missed is not None:                # defined here, absent from the MAP: storage nothing locates
+            missed.update(sym.name for sym in symbols.values() if sym.name in wanted and sym.sec > 0
+                          and sym.cls == link_cycle.EXTERNAL)
         targets = [sym for sym in symbols.values() if sym.name in wanted and sym.cls == link_cycle.STATIC
                    and sym.sec > 0]
         if not targets:
@@ -690,6 +695,7 @@ class Checker:
         self.ledger_literal_cache = {}
         self.statics = {}                      # place_statics: data the MAP does not list
         self.unplaced = set()                  # place_statics: such data an object defines but nothing places
+        self.inventory_failed = []             # place_statics: objects it could not read (their names unknown)
         for p in publics:
             literal = re.match(r"\?\?_C@_([01])", p["name"])
             if literal:
@@ -1044,6 +1050,11 @@ class Checker:
                     self.counts["pooled_constant_copies_unanalyzed"] += 1
                 else:
                     self.counts["pooled_constant_rows_compared"] += 1
+                    if not named and self.inventory_failed and any(not POOLED.match(n) for n in names):
+                        # an unread object may define the row's own storage: no pooled-only credit
+                        self.counts["pooled_named_inventory_unknown"] += 1
+                        self.counts[kind + "_unanalyzed"] += 1
+                        continue
                     if not named:
                         self.counts[compared] += 1
                         continue
@@ -2644,7 +2655,8 @@ def main(argv=None):
     checker = Checker(ours, retail, publics, addresses, qualified)
     # internal-linkage data the MAP does not list: placed through its own object (place_statics)
     checker.statics = place_statics(publics, args.objects, unlisted_names(rows, checker.by_name), ours,
-                                    missed=checker.unplaced)
+                                    missed=checker.unplaced, failed=checker.inventory_failed)
+    object_counts["static_inventory_objects_unread"] = len(checker.inventory_failed)
     object_counts["static_data_names_placed"] = len(checker.statics)
     if args.vptr_stores:
         return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))

@@ -2612,3 +2612,41 @@ def test_place_statics_reports_what_it_could_not_place(tmp_path):
     assert iso.place_statics([], manifest, {"sdata"}, Memory(0x10000000), missed=missed) == {}
     assert missed == {"sdata"}
 
+
+def pooled_pair_row_through_place_statics(tmp_path, obj_bytes=None, cls=None):
+    """The r5 confirmation case end to end: s_pair (8 bytes, aliasing __real@3f800000) is defined by unit.obj but
+    nothing places it; the pooled copy holds the alias's 4 equal bytes."""
+    obj = tmp_path / "unit.obj"
+    if obj_bytes is None:
+        iso.link_cycle.write_coff(obj, [(".data", 0xC0000040, bytes(8), 0)], [("s_pair", 1, 0, cls)])
+    else:
+        obj.write_bytes(obj_bytes)
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path="unit.obj", sha256=iso.digest(obj), source="Code/unit.cpp",
+                                         provider="unit.obj")]))
+    alias = "__real@3f800000"
+    c = checker([public(alias, 0x2000)], {alias: {0x300}})
+    c.statics = iso.place_statics(c.publics, manifest, {"s_pair"}, Memory(0x10000000), missed=c.unplaced,
+                                  failed=c.inventory_failed)
+    c.retail.put(0x300, struct.pack("<ff", 1.0, 2.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ledger([dict(row("s_pair", 0x300, 8), names=alias)], {})
+    return c
+
+
+@pytest.mark.parametrize("cls", [iso.link_cycle.STATIC, iso.link_cycle.EXTERNAL])
+def test_unplaced_storage_of_any_storage_class_takes_no_pooled_credit(tmp_path, cls):
+    # image_iso r5 confirmation: an EXTERNAL definition the MAP lacks is unlocated storage too
+    c = pooled_pair_row_through_place_statics(tmp_path, cls=cls)
+    assert c.unplaced == {"s_pair"}
+    assert c.counts["globals_compared"] == 0
+    assert [d["family"] for d in c.defects] == ["no_object_retail_nonzero"]
+
+
+def test_an_unread_object_leaves_named_storage_unknown_not_absent(tmp_path):
+    # image_iso r5 confirmation: an object place_statics cannot parse may define s_pair
+    c = pooled_pair_row_through_place_statics(tmp_path, obj_bytes=b"\x00" * 3)
+    assert c.inventory_failed == ["unit.obj"]
+    assert c.counts["globals_compared"] == 0 and c.counts["global_unanalyzed"] == 1
+    assert c.counts["pooled_named_inventory_unknown"] == 1
+
