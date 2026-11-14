@@ -2331,7 +2331,11 @@ class Rva005E3994
 {
 public:
 	Rva005E3994();
-	virtual ~Rva005E3994() {}
+	virtual void slot00(int, int) {}
+	virtual void slot04(int) {}
+	virtual void slot08(int, int) {}
+	virtual void slot0C(int, int) {}
+	virtual void slot10(int, int) {}
 };
 
 Rva005E3994::Rva005E3994()
