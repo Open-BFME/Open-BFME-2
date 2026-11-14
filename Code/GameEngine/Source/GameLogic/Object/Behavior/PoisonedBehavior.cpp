@@ -167,15 +167,7 @@ private:
 extern DisabledMaskType DISABLEDMASK_ALL;
 
 
-class DamageModuleInterface
-{
-public:
-	DamageModuleInterface() {}
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-	virtual void onHealing(DamageInfo *damageInfo) = 0;
-	virtual void onBodyDamageStateChange(
-		const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 class PoisonedBehavior : public UpdateModule, public DamageModuleInterface
 {
