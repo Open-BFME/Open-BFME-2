@@ -1,13 +1,17 @@
 // cl: /Ireference/shims/bfmealloc /O1 /G7 /GX /MD /arch:SSE /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#define strchr _stlport_hides_strchr
-#define sprintf _stlport_hides_sprintf
+// Retail imports strchr/sprintf but calls the other CRT routines through thunks.
+// Let these native headers supply their /MD import declarations, then restore
+// the existing STLport/mbstring declaration context.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#include <string.h>
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 #include <utility>
 #include <new>
 #include <mbstring.h>
 #include "ascii_string.h"
-#undef strchr
-#undef sprintf
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00222C5A {
@@ -342,7 +346,6 @@ int AptPlayer::GetLevelIndex(GameWindow *gameWindow)
 }
 
 bool Rva004128F0GetParam(const char *,const char *,AsciiString &);
-extern "C" __declspec(dllimport) char *__cdecl strchr(const char *,int);
 #include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 struct AptImageNode { void *next; AsciiString key; const Image *image; };
@@ -427,7 +430,6 @@ bool AptPlayer::ShowLevel(int index)
  return true;
 }
 
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
 #pragma function(sprintf)
 void Rva006CC600(const char *,char *);
 void Rva00411E80(int);
