@@ -11,14 +11,11 @@ public:
 	void m(void);
 };
 
-struct Rva0130A588State
-{
-	T_007ea120 *m_obj;
-	char m_flagC;
-	char m_flagD;
-};
-
 extern T_007ea120 *g_Va0130A588;
+// Retail reads the one-byte flags at 0x00A09FA9 and 0x00A09FA8 (0x0065828F, 0x0065829D); they are their own
+// globals (Rva007EB270Shutdown.cpp, verified data rows), not bytes of g_Va0130A588 (0x00A09FA4, 4 bytes).
+extern unsigned char g_createdDefaultAllocator;
+extern unsigned char g_createdDefaultDiagReporter;
 
 extern void Rva007EB830Release(void);
 extern void Rva007F0060(void);
@@ -46,9 +43,9 @@ Rva007EB2C0Object::~Rva007EB2C0Object()
 	}
 	_ReadWriteBarrier();
 
-	if (((Rva0130A588State *)&g_Va0130A588)->m_flagD)
+	if (g_createdDefaultDiagReporter)
 		Rva007EB830Release();
 
-	if (((Rva0130A588State *)&g_Va0130A588)->m_flagC)
+	if (g_createdDefaultAllocator)
 		Rva007F0060();
 }
