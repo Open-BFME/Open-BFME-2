@@ -128,13 +128,6 @@ typedef unsigned short UnsignedShort;
 typedef unsigned short WideChar;
 #include "ascii_string.h"
 #include "unicode_string.h"
-// Retail's validate hook on the lobby's global wide name is an empty
-// function folded into the 0x000B3FD0 pool; the shared StringBase header
-// inlines it empty, so the OnAccept body (merging LANAPI_OnAccept.cpp's row)
-// spells the call through the pool's Coord3D destructor row (0x000B3FD0,
-// coord3d.cpp). The view is taken here, ahead of MapMetaData.h and
-// GlobalData.h, whose Coord3D includes would otherwise take the guard with
-// the plain POD flavor and inline the call away.
 #define COORD3D_VIEW_EXTERN_DTOR
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #undef COORD3D_VIEW_EXTERN_DTOR
@@ -276,8 +269,13 @@ public:
 extern "C" __declspec(dllimport) char * __cdecl getenv( const char *name );
 struct LANMessage;
 #include "../../Include/Common/PlayerTemplate.h"
+#define COORD3D_VIEW_EXTERN_DTOR
+#undef COORD3D_VIEW_EXTERN_DTOR
+
 typedef int Color;
+
 extern const Color chatSystemColor;
+
 // Retail helper at 0x00381C82. Takes a window index, the text and a color;
 // the 0x0024A323 chat path calls it with (edi, text, -1), so the first
 // parameter is an integer window, not a pointer. Semantic identity unproven.
@@ -334,13 +332,67 @@ extern LANAPI *TheLAN;
 
 extern GameTextInterface *TheGameText;
 
-// tu-skeleton: 0x00248D9D 146B ?OnAccept@LANAPI@@UAEXPBUBfmeNetAddress@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_OnAccept.cpp (not merged yet)
+struct GlobalA03354
+{
+	StringBase<UnsignedShort> m_name;
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPI_OnAccept.cpp
+
+// Retail's validate hook on the lobby's global wide name is an empty
+// function folded into the 0x000B3FD0 pool; the shared StringBase header
+// inlines it empty, so the body spells the call through the pool's Coord3D
+// destructor row (0x000B3FD0, coord3d.cpp) instead.
+
+void LANAPI::OnAccept(const BfmeNetAddress *address, Bool flag)
+{
+	if (!(UnsignedByte)AmIHost())
+		return;
+	int index;
+	for (index = 0; index < 8; ++index)
+	{
+		const BfmeNetAddress *slotAddr = m_currentGame->getSlotAddress(index);
+		if (slotAddr->Rva00248CBF(address))
+			goto found;
+		GlobalA03354 *g = (GlobalA03354 *)AptLanLobby::Instance();
+		if (g != 0)
+			((Coord3D *)&g->m_name)->~Coord3D();
+	}
+	goto done;
+found:
+	{
+		GameSlot *gs = (GameSlot *)m_currentGame->getLANSlot(index);
+		if (flag)
+			gs->m_isAccepted = true;
+		else
+			gs->unAccept();
+	}
+done:
+	if (index != 8)
+	{
+		BfmeNetAddress query;
+		query.ip = 0;
+		query.port = 0;
+		RequestGameOptionsPacked(0, &query);
+		Rva00248D84Enable();
+	}
+}
 
 // tu-skeleton: 0x00248E41 46B ?OnHostLeave@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00248E6F 24B ?OnGameList@LANAPI@@UAEXPAVLANGameInfo@@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00248E98 43B ?Rva00248E98Enable@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva00446A77Enable.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp
+
+// Retail's validate hook on the lobby's global wide name is an empty
+// function folded into the 0x000B3FD0 pool; the shared StringBase header
+// inlines it empty, so the OnAccept body (merging LANAPI_OnAccept.cpp's row)
+// spells the call through the pool's Coord3D destructor row (0x000B3FD0,
+// coord3d.cpp). The view is taken here, ahead of MapMetaData.h and
+// GlobalData.h, whose Coord3D includes would otherwise take the guard with
+// the plain POD flavor and inline the call away.
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIGetErrorStringFromReturnType.cpp
 
