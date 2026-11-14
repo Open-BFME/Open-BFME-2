@@ -846,15 +846,12 @@ FX_WRAPPER(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate)
 FX_WRAPPER(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate)
 FX_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate)
 
-// LINK-DUP: only QUAD/STREAK/BUTTERFLY concretes stay defined here; the rest
-// are owned by FXParticleSystemModules.cpp / FXParticleSystem.cpp (see packet).
-QuadDrawModuleConcrete g_QuadDrawModuleConcrete;
+// No ModuleConcrete global here: observed retail construction sites use operator new storage
+// (createTemplate, clone), and a global adds an initializer with no identified retail counterpart.
 QuadDrawModuleTag &(QuadDrawModuleTag::*g_QuadDrawModuleTagAssign)(const QuadDrawModuleTag &)
     = &QuadDrawModuleTag::operator=;
-StreakDrawModuleConcrete g_StreakDrawModuleConcrete;
 StreakDrawModuleTag &(StreakDrawModuleTag::*g_StreakDrawModuleTagAssign)(const StreakDrawModuleTag &)
     = &StreakDrawModuleTag::operator=;
-ButterflyDrawModuleConcrete g_ButterflyDrawModuleConcrete;
 ButterflyDrawModuleTag &(ButterflyDrawModuleTag::*g_ButterflyDrawModuleTagAssign)(
     const ButterflyDrawModuleTag &)
     = &ButterflyDrawModuleTag::operator=;

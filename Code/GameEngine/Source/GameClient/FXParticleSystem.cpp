@@ -1602,8 +1602,6 @@ typedef LineEmissionVolumeModuleConcrete &(LineEmissionVolumeModuleConcrete::*Li
 
 LineEmissionVolumeModuleConcreteAssign g_lineEmissionVolumeModuleConcreteAssign = &LineEmissionVolumeModuleConcrete::operator=;
 
-LineEmissionVolumeModuleConcrete g_lineEmissionVolumeModuleConcrete;
-
 extern const char *const BOX_EMISSION_VOLUME_MODULE_KEY;
 extern const char *const BOX_EMISSION_VOLUME_MODULE_NAME;
 
@@ -1619,8 +1617,6 @@ typedef BoxEmissionVolumeModuleConcrete &(BoxEmissionVolumeModuleConcrete::*BoxE
 
 BoxEmissionVolumeModuleConcreteAssign g_boxEmissionVolumeModuleConcreteAssign = &BoxEmissionVolumeModuleConcrete::operator=;
 
-BoxEmissionVolumeModuleConcrete g_boxEmissionVolumeModuleConcrete;
-
 extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_KEY;
 extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_NAME;
 
@@ -1635,8 +1631,6 @@ template class ConcreteModuleTemplate<ModuleTag<5, CYLINDER_EMISSION_VOLUME_MODU
 typedef CylinderEmissionVolumeModuleConcrete &(CylinderEmissionVolumeModuleConcrete::*CylinderEmissionVolumeModuleConcreteAssign)(const CylinderEmissionVolumeModuleConcrete &);
 
 CylinderEmissionVolumeModuleConcreteAssign g_cylinderEmissionVolumeModuleConcreteAssign = &CylinderEmissionVolumeModuleConcrete::operator=;
-
-CylinderEmissionVolumeModuleConcrete g_cylinderEmissionVolumeModuleConcrete;
 
 extern const char *const LIGHTNING_EMISSION_MODULE_KEY;
 extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
@@ -1902,7 +1896,9 @@ public:
 typedef ConcreteModuleTemplate<ModuleTag<6, STREAK_DRAW_MODULE_KEY, STREAK_DRAW_MODULE_NAME, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6> > >
     StreakDrawModuleConcrete;
 
-StreakDrawModuleConcrete g_streakDrawModuleConcrete;
+// Observed retail construction sites use operator new storage (createTemplate, clone); no static
+// or global construction was found. Instantiate this unit's members here, with no initializer.
+template class ConcreteModuleTemplate<ModuleTag<6, STREAK_DRAW_MODULE_KEY, STREAK_DRAW_MODULE_NAME, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6> > >;
 
 typedef StreakDrawModuleConcrete &(StreakDrawModuleConcrete::*StreakDrawModuleConcreteAssign)(
     const StreakDrawModuleConcrete &);
@@ -1924,7 +1920,9 @@ public:
 typedef ConcreteModuleTemplate<ModuleTag<6, QUAD_DRAW_MODULE_KEY, QUAD_DRAW_MODULE_NAME, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6> > >
     QuadDrawModuleConcrete;
 
-QuadDrawModuleConcrete g_quadDrawModuleConcrete;
+// Observed retail construction sites use operator new storage (createTemplate, clone); no static
+// or global construction was found. Instantiate this unit's members here, with no initializer.
+template class ConcreteModuleTemplate<ModuleTag<6, QUAD_DRAW_MODULE_KEY, QUAD_DRAW_MODULE_NAME, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6> > >;
 
 typedef QuadDrawModuleConcrete &(QuadDrawModuleConcrete::*QuadDrawModuleConcreteAssign)(
     const QuadDrawModuleConcrete &);
@@ -1946,7 +1944,9 @@ public:
 typedef ConcreteModuleTemplate<ModuleTag<6, BUTTERFLY_DRAW_MODULE_KEY, BUTTERFLY_DRAW_MODULE_NAME, ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6> > >
     ButterflyDrawModuleConcrete;
 
-ButterflyDrawModuleConcrete g_butterflyDrawModuleConcrete;
+// Observed retail construction sites use operator new storage (createTemplate, clone); no static
+// or global construction was found. Instantiate this unit's members here, with no initializer.
+template class ConcreteModuleTemplate<ModuleTag<6, BUTTERFLY_DRAW_MODULE_KEY, BUTTERFLY_DRAW_MODULE_NAME, ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6> > >;
 
 typedef ButterflyDrawModuleConcrete &(ButterflyDrawModuleConcrete::*ButterflyDrawModuleConcreteAssign)(
     const ButterflyDrawModuleConcrete &);

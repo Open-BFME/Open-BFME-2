@@ -1,6 +1,6 @@
 ### LINK-584: the 283 "(export unowned)" real-link blockers are FXParticleSystem dllexport data
 
-Status: Open. Updated: 2026-11-13; inspected revision: `2ca142bab23`; real links `4f0e20847d`
+Status: Open. Updated: 2026-11-14; inspected revision: `2ca142bab23`; real links `4f0e20847d`
 (run 42093361060) and `17904ed53a` (both 283).
 
 **What the label means.** `exit_link.py` puts every retail export (`reverse/exports.csv`, 1,964)
@@ -669,3 +669,56 @@ link_check (index 2026-11-13 16:28 at `b5e6664017`): Rva0055C8BCCtor.cpp LINKS, 
 
 Predicted: the last two FX names leave the real link's unresolved list. Pass test: the next real link has 0 unresolved
 once P154's revert is also on master. Not yet measured.
+
+**2026-11-14 the invented ModuleConcrete globals go (waste lane, item 1 of the initializer work).** This is not one
+of the 283 export blockers. It is the FX side of the linked image's slot-less initializers (image_iso at
+`35b446dcb3`, its group 7, class c). Nine globals had no retail address and no data-ledger row:
+- in FXParticleSystem.cpp, `g_lineEmissionVolumeModuleConcrete`, `g_boxEmissionVolumeModuleConcrete`,
+  `g_cylinderEmissionVolumeModuleConcrete`, `g_streakDrawModuleConcrete`, `g_quadDrawModuleConcrete` and
+  `g_butterflyDrawModuleConcrete`;
+- in FXParticleSystemFactories.cpp, `g_QuadDrawModuleConcrete`, `g_StreakDrawModuleConcrete` and
+  `g_ButterflyDrawModuleConcrete`.
+
+Each one gave its unit a dynamic initializer that the image could not match to retail.
+
+*Where retail constructs these types, measured for every one* (`lane/shared/init/concrete_sites.txt`,
+`factory_bodies.txt` and `copy_ctor_sites.txt` on srv1). This covers the six types above and the two left for
+later, Point and Ortho:
+- **Vtables.** Each type's full vftables are stored only by its own default ctor and its copy ctor; any
+  construction, inlined or not, has to store one. Its one-slot `CategoryModuleInfo<5|6>` subobject table is also
+  stored into `this` by an instance ctor and a copy ctor of other classes (e.g. 0x003AD2B3 writes 0x0081C0C0 at
+  `this+0x14`).
+- **Default ctors** (Line 0x003A90A2, Box 0x003A90FA, Cylinder 0x003A922E, Streak 0x003A84FA, Quad 0x003A8540,
+  Butterfly 0x003A8586, Point 0x003A8FF7, Ortho 0x003A8DCD). Each is reached only from the type's own
+  `ConcreteModuleClass<tag>::createTemplate` rows, through 16 sites in all: 12 calls and 4 tail jumps. At every
+  site `this` is the pointer `operator new` (`??2@YAPAXI@Z`) just returned: `push <size>; call ??2; test eax, eax;
+  mov ecx, eax`.
+- **Copy ctors.** Each has exactly one reference, from the type's own `clone`, with the same `operator new` /
+  `mov ecx, eax` shape.
+- **No absolute reference** to any of these ctors, and no reference from retail's initializer range
+  (0x007AC000..0x007BA000).
+- **No stored pointer** to any of the 16 ctors or copy ctors in .text, .rdata, .data or STLPORT_
+  (`ctor_ptrs.txt`). There is one 4-byte match for Quad's copy ctor at the unaligned .rsrc offset
+  0x00A29215, which is resource bytes, not a pointer table. So no indirect call through a stored ctor
+  pointer was found either; this rests on the scan, as an exhaustive proof cannot.
+
+So every observed retail construction of these types uses `operator new` storage, and no static or global
+construction was found. The nine globals added initializers with no identified retail counterpart.
+
+*The change.* Six of the globals emitted nothing else and were deleted. The three FXParticleSystem.cpp draw globals
+made that unit emit 15 of its rows (ctor, copy ctor, clone, dtors), so they became the explicit instantiation
+`template class ConcreteModuleTemplate<...>;` that the emission-volume siblings already use.
+
+Results:
+- Old and new objects define the same external symbols, except the nine globals; no COMDAT is gained or lost.
+- Both units are 474/474, and `link_check` is 2 of 2 (9,824 -> 9,824 bytes).
+- FXParticleSystem.obj registers 56 initializers, the 56 class-a2 anchors (62 on the image).
+- FXParticleSystemFactories.obj registers none (55 on the image; 52 of them were the KEY/NAME initializers that
+  32a511657e9 removed).
+
+*Still open, FXParticleSystemModules.cpp.* `g_pointEmissionVolumeModuleConcrete` and
+`g_orthoEmissionVelocityModuleConcrete` are just as absent from retail, but neither can go yet:
+- Removing the Point global makes cl 7.1 bind `ModuleTag<POINT>::KEY` and `::NAME` statically instead of at run
+  time, which breaks two matched data rows. The file's own comment says a dynamic initializer must precede them.
+- Removing the Ortho global needs an explicit instantiation (five rows) and renumbers about 50 rowed `_$E<n>`
+  initializers by one. `rename.py initializers` refuses those rows because they are bound with `object-symbol=`.
