@@ -585,15 +585,7 @@ public:
 	void rva004FDB04(AsciiString arg);
 };
 
-class Rva00274DB6AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x79C];
-	AsciiString m_value; // +0x79C
-};
+#include "../../../Include/Common/Rva00274DB6AsciiField.h"
 
 class Rva00291775AsciiField
 {
