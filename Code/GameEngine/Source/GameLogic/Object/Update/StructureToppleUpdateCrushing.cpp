@@ -182,11 +182,7 @@ struct FXBoneInfo
 	const class ParticleSystemTemplate *particleSystemTemplate;
 };
 
-struct AngleFXInfo
-{
-	Real angle;
-	const FXList *fxList;
-};
+#include "../../../../Include/Common/AngleFXInfo.h"
 
 template <class T> class ConstVector
 {
