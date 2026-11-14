@@ -139,7 +139,7 @@ class Rva004C743
 {
 public:
 	virtual void *rva0004C45D();
-	void *createInGameUI();
+	virtual void *createInGameUI();
 	void *rva0004C4C7();
 	void *rva0004C553();
 	void *rva0004C5C6();
