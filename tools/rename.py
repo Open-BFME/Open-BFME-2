@@ -14330,7 +14330,8 @@ def object_template_operands(ctx, path, name, index, required=True, prefix=False
     if template is None and not required:
         return None
     if template is None:
-        raise Refusal(f"{Path(path).name}: COMDAT-registered {name} ({code[:16].hex(' ')}, {len(code)} bytes) is no "
+        raise Refusal(f"{Path(path).name}: {'plain' if prefix else 'COMDAT'}-registered {name} "
+                      f"({code[:16].hex(' ')}, {len(code)} bytes) is no "
                       "initializer template this route can prove (" + "; ".join(t[0] for t in INITIALIZER_TEMPLATES)
                       + ")")
     # a relocation patches four bytes at its offset: any that reaches into the body counts
@@ -14354,6 +14355,15 @@ def object_template_operands(ctx, path, name, index, required=True, prefix=False
         held = struct.unpack_from("<i", code, offset)[0]
         values.append((next(iter(homes)) + held + IMAGE_BASE) & 0xFFFFFFFF)
     return template, tuple(values)
+
+
+def retail_template(at, row):
+    """The INITIALIZER_TEMPLATES entry the row at `at` is exactly in retail, or None."""
+    import build
+    size = int(row["target_size"])
+    if not any(t[1] == size for t in INITIALIZER_TEMPLATES):
+        return None
+    return template_match(build.read_target_bytes(at, size))
 
 
 def retail_holds(at, row, template, values):
@@ -14448,14 +14458,18 @@ def initializer_pairs(ctx, source, path):
     plain = iter(name for name in names if name not in comdat)
     pairs = [(row, identities[at] if at in identities else next(plain)) for _index, at, row in placed]
     if comdat:
-        # The COMDAT matches took rows out of the order pairing. A plain registration that is itself a
-        # template must then hold, in retail, the very row order gave it: else a COMDAT match took a plain
-        # row and shifted every pairing after it (DIR32 masking would hide that from the byte gate).
+        # The COMDAT matches took rows out of the order pairing; a match can only take a row that is a
+        # template in retail. So a plain registration that order pairs with such a row must be that very
+        # template in the object (exact bytes, one DIR32 per operand, the same operands), and one whose body
+        # begins with a template must hold the row order gave it: else a COMDAT match took a plain row and
+        # shifted every pairing after it. The byte gate cannot stand in: it masks every relocated byte,
+        # an opcode under a relocation included.
         for row, name in pairs:
             at = _rva(row["target_rva"])
             if at in identities:
                 continue
-            found = object_template_operands(ctx, path, name, index_of[name], required=False, prefix=True)
+            found = object_template_operands(ctx, path, name, index_of[name],
+                                             required=retail_template(at, row) is not None, prefix=True)
             if found is not None and not retail_holds(at, row, *found):
                 raise Refusal(f"order pairs plain {name} with {row['name']} at 0x{at:08X}, but that row is not "
                               f"{name}'s template with its operands (" + ", ".join(f"0x{v:08X}" for v in found[1])

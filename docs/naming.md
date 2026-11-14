@@ -1239,6 +1239,19 @@ ordinal:
   before comparing, so two such initializers that differ only in their
   addresses compile to the same bytes. A COMDAT initializer of any other shape
   (FXParticleSystemDefaults' `call; mov [static], eax; ret`, say) refuses.
+  Every relocation whose four bytes reach into the body counts, wherever it
+  starts, and each operand takes exactly one. The body inspected is the very
+  symbol the `.CRT$XCU` relocation registers: a STATIC code definition whose
+  name the object defines once. No two relocations of a `.CRT$XCU` section may
+  patch overlapping bytes.
+- when a source has COMDAT registrations, the matches take rows out of the
+  order pairing, and a match can only take a row that is a template in retail.
+  So a plain registration that order pairs with such a row must be that very
+  template in the object (exact bytes, one DIR32 per operand, the same
+  operands), and one whose body begins with a template (padding after its
+  `ret` never runs) must hold the row order gave it. Else a COMDAT match took a
+  plain row and shifted every pairing after it; the byte gate masks every
+  relocated byte, an opcode under a relocation included, and would not see it.
 
 The route refuses unless:
 

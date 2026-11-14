@@ -665,3 +665,26 @@ def test_refuses_a_registration_slot_with_a_second_relocation(tree, monkeypatch,
     monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
     with pytest.raises(Refusal, match=r"two relocations of a .CRT\$XCU section patch overlapping bytes \(\+0x0, \+0x0\)"):
         plan(root)
+
+
+# ------------------------------------------------------------ Sol r3: a plain row that is a template in retail
+
+def test_refuses_a_plain_body_that_is_no_template_on_a_template_row(tree, monkeypatch, tmp_path):
+    # COMDAT _$E5 takes row A. Plain _$E1 is `90 05 .. .. C3` with DIR32s at +0, +2 and +6: no template, yet the
+    # byte gate masks all three relocations (the opcode too) and would pass it for row B's template
+    tree.tree_args = dict(tree.tree_args, fn=TPL_ROWS)
+    root, _obj = tree(retail=TPL_RETAIL)
+    forged = ("_$E1", b"\x90\x05" + b"\0" * 8 + b"\xC3",
+              [(0, STR_C, 0x0590, link_cycle.DIR32), (2, KEY_B, 0, link_cycle.DIR32), (6, STR_B, 0, link_cycle.DIR32)])
+    obj = template_object(tmp_path / "tpl.obj", [entry("_$E5", KEY_A, STR_A)], plain_entries=[forged])
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"plain-registered _\$E1 \(90 05 .*\) is no initializer template"):
+        plan(root)
+
+
+def test_a_plain_non_template_on_a_non_template_row_pairs_by_order(tree, monkeypatch, tmp_path):
+    # FIRST is no template in retail (BODY, 16 bytes): order is its proof, as in the landed route
+    fn = functions(f"_$E16,,0x{FIRST:08X},16,{SRC},matched,a\n_$E88,,0x{SECOND:08X},11,{SRC},matched,b\n")
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E5", KEY_B, STR_B)], plain=("_$E1",), fn=fn,
+                               retail={FIRST: BODY, SECOND: tpl(va(KEY_B), va(STR_B))})
+    assert plan(root).renamed_rows == [("_$E16", "_$E1", FIRST), ("_$E88", "_$E5", SECOND)]
