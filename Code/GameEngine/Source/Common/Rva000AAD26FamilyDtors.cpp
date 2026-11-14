@@ -61,13 +61,13 @@ Rva00AAD26::~Rva00AAD26()
 {
 }
 
-class __declspec(novtable) Rva000AB0D4 : public Rva00AAD26
+class __declspec(novtable) Rva000AAD5C : public Rva00AAD26
 {
 public:
-	virtual ~Rva000AB0D4();
+	virtual ~Rva000AAD5C();
 };
 
-Rva000AB0D4::~Rva000AB0D4()
+Rva000AAD5C::~Rva000AAD5C()
 {
 }
 
