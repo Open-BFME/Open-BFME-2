@@ -368,6 +368,10 @@ class Rva005E567D
 public:
 	Rva005E567D(EmitVtableTag *);
 	virtual ~Rva005E567D() {}
+	virtual bool slot04(int) { return false; }
+	virtual bool slot08(int) { return false; }
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
 };
 
 // ?<Rva005E567D::Rva005E567D> absent-from-retail
