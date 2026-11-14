@@ -47,3 +47,18 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `PropagandaTowerBehaviorIface` (VA 0x00C1C780): 1 slots (1 pure, 0 rowed virtual, 0 destructor), 2 view(s): `PropagandaTowerBehavior.cpp`, `PropagandaTowerBehaviorConstructor.cpp`.
 - 2026-11-14 `Rva00577936` (VA 0x00C6E9E8): 5 slots (3 pure, 1 rowed virtual, 1 destructor), 5 view(s): `MemberBaseDtorsB01.cpp`, `Rva000AD6F4Members.cpp`, `Rva00577936Ctor.cpp`, `Rva005F8388.cpp`, `Rva005F86C3Constructor.cpp`.
 - 2026-11-14 `DelayedUpgradeUpdateInterface` (VA 0x00C6FFFC): 2 slots (2 pure, 0 rowed virtual, 0 destructor), 1 view(s): `DelayedWeaponSetUpgradeUpdate.cpp`.
+
+Correction (2026-11-14, inspected 90f2c095cd): the "9,663 an adjustor thunk" and "68% of the slots" figures above
+are wrong. The classifier read free functions at shared bodies (for example `?ControlBarInput@@YA...` at
+0x000D43D0, the folded `xor eax,eax; ret`) as members with a thunk access letter. By bytes (`sub ecx,N; jmp`) 574
+slots are adjustor thunks; the share of slots whose declaration is already spelled is well below 68%. The 28,792
+missing-slot count and the per-table method are unaffected.
+
+Shared trivial bodies (2026-11-14): 4,467 own slots of the measured primary tables point at ICF-folded bodies (385
+addresses; `33 C0 C3`, `32 C0 C3`, `C3`, `C2 04 00`, `B0 01 C3` cover most). Method: the view declares the slot
+inline with the body those bytes compile from (`C2 04 00` -> `virtual void slotNN(int) {}`) and the class's name
+for it is rowed at the folded address with `tools/add_match.py NAME RVA SIZE UNIT --icf-owner <an existing row
+there>`. First case: `Rva0057434D` (VA 0x00C6E360, one slot at 0x0047A69C): `./build.sh` 201/201, `link_check.py`
+LINKS 3,046 -> 3,049, bridge plan 3,265 -> 3,264 bridged with refusals identical and nothing newly undefined.
+A body rowed as a member of a placeholder class cannot be moved the same way: `rename.py function --to-class`
+refuses a class without a registered header and a `name_lane.py` slot approval.

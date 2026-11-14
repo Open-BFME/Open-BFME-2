@@ -2209,7 +2209,7 @@ class Rva0057434D
 {
 public:
 	Rva0057434D();
-	virtual ~Rva0057434D() {}
+	virtual void slot00(int) {}
 };
 
 Rva0057434D::Rva0057434D()
