@@ -8,10 +8,7 @@
 // vtable slot 0x34. Only the first forwarder call (a thunk of the rowed
 // Rva006D6360::rva006DCC00 at 0x006DCC00) and the member offset (+0x20 here,
 // +0x1C in the template) differ; get/setGCMark and slot 0x34 are shared.
-class Rva006DBB40ShrAndField {
-public:
-    int get() const;
-};
+#include "../../../../GameEngine/Include/Common/Rva006DBB40ShrAndField.h"
 
 #include "../AptValue.h"
 

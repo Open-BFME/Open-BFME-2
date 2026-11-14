@@ -4,10 +4,7 @@
 // calls rowed forwarder 0x006DCC00 (Rva006D6360::rva006DCC00 add 8 to mark);
 // m_ctor at +0x1C (pad 0x18 like Rva0070DF60 sibling); get/setGCMark/unused13
 // pattern matches AptNativeHashMark.cpp triple-mark with tail-jmp to slot 0x34.
-class Rva006DBB40ShrAndField {
-public:
-    int get() const;
-};
+#include "../../Include/Common/Rva006DBB40ShrAndField.h"
 
 #include "../../../Libraries/Source/Apt/AptValue.h"
 
