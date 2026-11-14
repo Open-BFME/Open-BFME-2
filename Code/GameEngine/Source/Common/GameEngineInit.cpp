@@ -586,7 +586,7 @@ public:
 class SkirmishGameInfo : public GameInfo { public: SkirmishGameInfo(); char m_data[0xE3C - sizeof(GameInfo)]; };
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 
-class RecorderClass { public: Bool playbackFile(UnicodeString filename); };
+#include "../../Include/Common/RecorderClass.h"
 
 class Rva0022C1B7Subsystem;
 class CreateAHeroCRC { public: UnsignedInt getCRC(); };
