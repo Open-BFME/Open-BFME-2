@@ -128,9 +128,6 @@ typedef unsigned short UnsignedShort;
 typedef unsigned short WideChar;
 #include "ascii_string.h"
 #include "unicode_string.h"
-// The ledger's inequality test of two addresses (0x00248CDD) is a method of
-// a class named by its address with BfmeNetAddress's dword/word key; the
-// callers below view their addresses as one.
 #include "../../Include/Common/Rva00248CDD.h"
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 // The zero address of a SYSTEM line nobody sent, built as a temporary.
@@ -280,8 +277,6 @@ public:
 
 	const BfmeNetAddress *getHostAddress( void ) const { return &m_slots[0].m_address; }
 };
-// setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
-// calls it on the current game directly, not through an inline wrapper.
 #include "../../Include/GameNetwork/Rva00248D35.h"
 class LANGameInfo : public Rva004482FB
 {
@@ -404,6 +399,13 @@ public:
 extern "C" __declspec(dllimport) char * __cdecl getenv( const char *name );
 struct LANMessage;
 #include "../../Include/Common/PlayerTemplate.h"
+typedef int Color;
+extern const Color chatSystemColor;
+// Retail helper at 0x00381C82. Takes a window index, the text and a color;
+// the 0x0024A323 chat path calls it with (edi, text, -1), so the first
+// parameter is an integer window, not a pointer. Semantic identity unproven.
+void Rva00381C82AddChatText( Int window, const UnicodeString &text, Color color );
+
 class Holder44
 {
 public:
@@ -423,6 +425,7 @@ public:
 	virtual void slot13() = 0;
 	virtual void slot14() = 0;
 };
+
 void Rva00248D84Enable();
 
 class PlayerTemplateStore
@@ -452,6 +455,8 @@ void InitGameLogicRandom( UnsignedInt seed );
 
 extern LANAPI *TheLAN;
 
+extern GameTextInterface *TheGameText;
+
 // tu-skeleton: 0x00248D9D 146B ?OnAccept@LANAPI@@UAEXPBUBfmeNetAddress@@_N@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPI_OnAccept.cpp (not merged yet)
 
 // tu-skeleton: 0x00248E41 46B ?OnHostLeave@LANAPI@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp (not merged yet)
@@ -460,9 +465,57 @@ extern LANAPI *TheLAN;
 
 // tu-skeleton: 0x00248E98 43B ?Rva00248E98Enable@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva00446A77Enable.cpp (not merged yet)
 
-// tu-skeleton: 0x00248EC3 171B ?getErrorStringFromReturnType@LANAPIInterface@@QAE?AVUnicodeString@@W4ReturnType@1@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIGetErrorStringFromReturnType.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPIGetErrorStringFromReturnType.cpp
 
-// tu-skeleton: 0x00248F6E 159B ?OnGameStartTimer@LANAPI@@UAEXH@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp (not merged yet)
+UnicodeString LANAPIInterface::getErrorStringFromReturnType(ReturnType ret)
+{
+	switch (ret)
+	{
+		case RET_OK:
+			return TheGameText->fetch("LAN:OK");
+		case RET_TIMEOUT:
+			return TheGameText->fetch("LAN:ErrorTimeout");
+		case RET_GAME_FULL:
+			return TheGameText->fetch("LAN:ErrorGameFull");
+		case RET_DUPLICATE_NAME:
+			return TheGameText->fetch("LAN:ErrorDuplicateName");
+		case RET_CRC_MISMATCH:
+			return TheGameText->fetch("LAN:ErrorCRCMismatch");
+		case RET_GAME_STARTED:
+			return TheGameText->fetch("LAN:ErrorGameStarted");
+		case RET_GAME_EXISTS:
+			return TheGameText->fetch("LAN:ErrorGameExists");
+		case RET_GAME_GONE:
+			return TheGameText->fetch("LAN:ErrorGameGone");
+		case RET_BUSY:
+			return TheGameText->fetch("LAN:ErrorBusy");
+		case RET_SERIAL_DUPE:
+			return TheGameText->fetch("WOL:ChatErrorSerialDup");
+		default:
+			return TheGameText->fetch("LAN:ErrorUnknown");
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp
+
+void LANAPI::OnGameStartTimer(Int seconds)
+{
+	UnicodeString text;
+	if (seconds == 1)
+		text.format(TheGameText->fetchPtr("LAN:GameStartTimerSingular", 0), seconds);
+	else
+		text.format(TheGameText->fetchPtr("LAN:GameStartTimerPlural", 0), seconds);
+	OnChat(L"SYSTEM", getLocalAddress(), text, LANCHAT_SYSTEM);
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp
+
+// The ledger's inequality test of two addresses (0x00248CDD) is a method of
+// a class named by its address with BfmeNetAddress's dword/word key; the
+// callers below view their addresses as one.
+
+// setPlayerLastHeard (0x00248D35), under the ledger's class name; retail
+// calls it on the current game directly, not through an inline wrapper.
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPI_OnPlayerJoin.cpp
 
@@ -484,10 +537,6 @@ void LANAPI::OnPlayerJoin(int unused, UnicodeString playerName)
 tail:
 	Rva00248D84Enable();
 }
-
-// tu-skeleton: 0x00249430 254B ?OnGameCreate@LANAPI@@UAEXW4ReturnType@LANAPIInterface@@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x00249445 233B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/GameNetwork/LANAPIOnNameChange.cpp
 
@@ -1107,16 +1156,45 @@ void LANAPI::OnGameOptions( const BfmeNetAddress &sender, Int playerSlot, AsciiS
 	}
 }
 
-// tu-skeleton: 0x00771A06 8B Unwind@00b71a06 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp
 
-// tu-skeleton: 0x00771A0E 8B Unwind@00b71a0e -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp (not merged yet)
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
 
-// tu-skeleton: 0x00771A16 10B __ehhandler$?OnGameStartTimer@LANAPI@@UAEXH@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp (not merged yet)
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
 
-// tu-skeleton: 0x00771A5E 8B Unwind@00b71a5e -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp (not merged yet)
+// Keep only the proven LANAPI prefix and the virtual slots this body needs.
 
-// tu-skeleton: 0x00771A66 8B Unwind@00b71a66 -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp (not merged yet)
+// ?OnGameCreate@LANAPI@@UAEXW4ReturnType@LANAPIInterface@@@Z
+void LANAPI::OnGameCreate( LANAPIInterface::ReturnType ret )
+{
+	if( ret == LANAPIInterface::RET_OK )
+	{
+		if( AptLanLobby::Instance() )
+		{
+			AptLanLobby::Instance()->OnGameCreate();
+		}
+		else
+		{
+			LANbuttonPushed = true;
+			TheShell->push( AsciiString( "Menus/LanGameOptionsMenu.wnd" ), false );
+		}
+		RequestLobbyLeave( false );
+	}
+	else if( m_inLobby )
+	{
+		switch( ret )
+		{
+		case LANAPIInterface::RET_GAME_EXISTS:
+			Rva00381C82AddChatText( 1, TheGameText->fetch( "LAN:ErrorGameExists" ), chatSystemColor );
+			break;
+		case LANAPIInterface::RET_BUSY:
+			Rva00381C82AddChatText( 1, TheGameText->fetch( "LAN:ErrorBusy" ), chatSystemColor );
+			break;
+		default:
+			Rva00381C82AddChatText( 1, TheGameText->fetch( "LAN:ErrorUnknown" ), chatSystemColor );
+			break;
+		}
+	}
+}
 
-// tu-skeleton: 0x00771A6E 8B Unwind@00b71a6e -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x00771A76 10B __ehhandler$?OnGameCreate@LANAPI@@UAEXW4ReturnType@LANAPIInterface@@@Z -- matched in Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp (not merged yet)
+// tu-skeleton: 0x00249445 233B (unledgered) -- unmatched, no code, never credited
