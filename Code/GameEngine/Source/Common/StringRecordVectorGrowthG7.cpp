@@ -41,11 +41,7 @@ struct BfmeStringRecord00219A68 {
     unsigned int word0; AsciiString text0, text1; unsigned int word1, word2;
     BfmeStringRecord00219A68(const BfmeStringRecord00219A68 &o);
 };
-struct BfmeStringRecord0022074B {
-    AsciiString text0, text1; unsigned int word;
-    BfmeStringRecord0022074B(const BfmeStringRecord0022074B &o);
-    ~BfmeStringRecord0022074B();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord0022074B.h"
 #include "../../Include/Common/BfmeStringRecord005D511F.h"
 #include "../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord005EC43C.h"
 #include "BfmeStringRecord005F93E3.h"
