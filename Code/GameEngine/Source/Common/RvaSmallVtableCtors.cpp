@@ -2223,7 +2223,10 @@ class Rva005743AE
 {
 public:
 	Rva005743AE();
-	virtual ~Rva005743AE() {}
+	virtual void slot00(int) {}
+	virtual void slot04(int, int) {}
+	virtual void slot08(int, int, int) {}
+	virtual void slot0C(int, int, int) {}
 };
 
 Rva005743AE::Rva005743AE()
