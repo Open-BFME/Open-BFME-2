@@ -6258,3 +6258,4 @@ _$E88,0x007B0C0F,"Respelled to _$E3 by tools/rename.py initializers (^code_^game
 ?rva0030CAC1@Rva0030CAA9Owner@@QAEXXZ,0x0030CAC1,"Renamed to ?rva0030CAC1@Rva0030CAA9Owner@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?setCorrectDamageState@ActiveBody@@QAEX_N@Z,0x004BE8BD,"Renamed to ?setCorrectDamageState@ActiveBody@@UAEX_N@Z by tools/rename.py (virtual: retail vtable slot)"
 __ehhandler$?setCorrectDamageState@ActiveBody@@QAEX_N@Z,0x0078F9C2,"Renamed to __ehhandler$?setCorrectDamageState@ActiveBody@@UAEX_N@Z by tools/rename.py (virtual: retail vtable slot)"
+?MpOwnerGetLocalPlayerName@AptSkirmish@@QAEXPAVUnicodeString@@@Z,0x00521720,"Renamed to ?MpOwnerGetLocalPlayerName@AptSkirmish@@UAEXPAVUnicodeString@@@Z by tools/rename.py (virtual: retail vtable slot)"

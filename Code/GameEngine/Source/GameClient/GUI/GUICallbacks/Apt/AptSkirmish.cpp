@@ -296,7 +296,7 @@ Rva0008FF3E *__stdcall Rva0008FF84Create(void *context);
 
 AptSkirmish *__stdcall Rva002D21BBCreate(void *context);
 
-// tu-skeleton: 0x00521720 33B ?MpOwnerGetLocalPlayerName@AptSkirmish@@QAEXPAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
+// tu-skeleton: 0x00521720 33B ?MpOwnerGetLocalPlayerName@AptSkirmish@@UAEXPAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00521741 13B ?OnInitialized@AptSkirmish@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 

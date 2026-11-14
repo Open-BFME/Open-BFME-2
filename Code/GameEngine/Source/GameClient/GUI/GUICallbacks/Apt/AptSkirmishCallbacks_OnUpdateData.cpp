@@ -107,7 +107,7 @@ public:
 	void rva00522A91(); // profile popup close, rowed in AptInvokeWrappers.cpp
 
 	bool InitTheGame();
-	void MpOwnerGetLocalPlayerName(UnicodeString *);
+	virtual void MpOwnerGetLocalPlayerName(UnicodeString *);
 	void OnInitialized(const char *unused);
 	// Bound under both "AptSkirmish::Back" and "AptSkirmish::Exit" (one
 	// body or two folded), so it keeps its address.
