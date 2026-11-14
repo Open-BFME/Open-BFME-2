@@ -173,6 +173,8 @@ class Rva004444EBObject : public Rva004444EBBase
 {
 public:
 	Rva004444EBObject() {}
+public:
+	virtual bool slot04(int) { return true; }
 };
 class Rva004444EB
 {
