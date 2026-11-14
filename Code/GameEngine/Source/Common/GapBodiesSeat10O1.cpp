@@ -693,13 +693,7 @@ void Rva0054FF12::rva0054FF12()
 }
 
 // ?rva00550C81@Rva00550C81@@QAEXXZ @0x00550C81 5B: deque<BuddyRequest>::pop_front.
-class Rva00550C81
-{
-public:
-	void rva00550C81();
-private:
-	_STL::deque<BuddyRequest> m_queue;
-};
+#include "../../Include/Common/Rva00550C81.h"
 void Rva00550C81::rva00550C81()
 {
 	m_queue.pop_front();

@@ -623,13 +623,7 @@ private:
 	_STL::deque<PingRequest> m_queue;
 };
 // ?rva00550C81@Rva00550C81@@QAEXXZ @0x00550C81 5B: deque<BuddyRequest>::pop_front.
-class Rva00550C81
-{
-public:
-	void rva00550C81();
-private:
-	_STL::deque<BuddyRequest> m_queue;
-};
+#include "../../../../../Include/Common/Rva00550C81.h"
 // ?rva00550C86@Rva00550C86@@QAEXXZ @0x00550C86 5B: deque<BfmeOpaque2148>::pop_front.
 class Rva00550C86
 {
