@@ -10,12 +10,7 @@
 // shr-and getter in Common; flags /O1 from PtrChaseNullOrZero sibling
 // with the same test-je and xor-tail idioms.
 
-class Rva002E6B06
-{
-public:
-	int rva002E6B06();
-	void *m_ptr;
-};
+#include "../../Include/GameLogic/Rva002E6B06.h"
 
 struct Rva002E6B06Inner
 {
