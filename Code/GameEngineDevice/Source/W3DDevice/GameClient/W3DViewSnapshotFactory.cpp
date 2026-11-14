@@ -183,7 +183,7 @@ virtual void s131();
 virtual void s132();
 virtual void s133();
 virtual float s134(float);
-void rva0008A2EF(const V3 *p,const CameraGoalInfo*info,int time,bool orient,float easeIn,float easeOut);
+virtual void rva0008A2EF(const V3 *p,const CameraGoalInfo*info,int time,bool orient,float easeIn,float easeOut);
 void rva00089C2D(int time,bool orient,float easeIn,float easeOut);
 Rva0008A234* rva0008A566(const StringBase<char>&name);
 void rva0008AD96(const AsciiString&name);

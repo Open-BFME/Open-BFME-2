@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /ICode /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /arch:SSE /DNDEBUG /MD /EHsc
 //
-// ?rva0008A2EF@W3DView@@QAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z, retail 0x0008a2ef, 631 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// ?rva0008A2EF@W3DView@@UAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z, retail 0x0008a2ef, 631 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 #include "ascii_string.h"
 #include "vector2.h"
@@ -167,7 +167,7 @@ virtual void s131();
 virtual void s132();
 virtual void s133();
 virtual float s134(float);
-void rva0008A2EF(const V3 *p,const CameraGoalInfo*info,int time,bool orient,float easeIn,float easeOut);
+virtual void rva0008A2EF(const V3 *p,const CameraGoalInfo*info,int time,bool orient,float easeIn,float easeOut);
 void rva00089C2D(int time,bool orient,float easeIn,float easeOut);
 private: void moveAlongWaypointPath(int frames); public:
 char pad04[8]; V3 position; char pad18[0x138-0x18];float f138;

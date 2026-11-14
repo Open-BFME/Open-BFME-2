@@ -1917,7 +1917,7 @@ void __cdecl Rva0008A173Copy(Rva00089822 *dst, const Rva00089822 &src)
 
 // tu-skeleton: 0x0008A234 111B ??0Rva0008A234@@QAE@ABV?$StringBase@D@@PBUThreeInts@@MMMMMM@Z -- matched in Code/GameEngine/Source/Rva0008A234Finish.cpp (not merged yet)
 
-// tu-skeleton: 0x0008A2EF 631B ?rva0008A2EF@W3DView@@QAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008A2EF.cpp (not merged yet)
+// tu-skeleton: 0x0008A2EF 631B ?rva0008A2EF@W3DView@@UAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008A2EF.cpp (not merged yet)
 
 // tu-skeleton: 0x0008A566 172B ?rva0008A566@W3DView@@QAEPAVRva0008A234@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSnapshotFactory.cpp (not merged yet)
 
