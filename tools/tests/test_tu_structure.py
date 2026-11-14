@@ -1399,3 +1399,32 @@ def test_b1_a_deleted_private_source_does_not_credit_a_new_header(repo):
     private_transfer(repo)
     (repo / 'Code/X/Target0.cpp').rename(repo / 'Code/X/PrivateHeader.h')
     assert 'B1' in staged(repo)
+
+
+@pytest.mark.parametrize('historical', [False, True])
+@pytest.mark.parametrize('old_literal,new_literal,allowed', [
+    (b'\x80', b'\x80', True),
+    (b'\x80', b'\x81', False),
+    (b'\xef\xbf\xbd', b'\x80', False),
+    (b'\x80', b'\xef\xbf\xbd', False),
+    (b'\xc3\xa9', b'\xc3\xa9', True),
+    (b'\xc3\xa9', b'\xc3\xa8', False),
+])
+def test_b1_transfer_preserves_literal_bytes(repo, historical, old_literal, new_literal, allowed):
+    # MSVC source may hold legacy non-UTF-8 bytes. Replacement decoding must
+    # never launder changed literal data into an unchanged private-body move.
+    def body(literal):
+        return b'class Reg\n{\n const char *tag() { return "' + literal + b'"; }\n};\n'
+    donor = repo / 'Code/X/Private.cpp'
+    donor.write_bytes(body(old_literal))
+    git(repo, 'add', 'Code/X/Private.cpp')
+    git(repo, 'commit', '-qm', 'existing private body with literal bytes')
+    donor.unlink()
+    (repo / 'Code/X/Target.cpp').write_bytes(body(new_literal))
+    if historical:
+        git(repo, 'add', '-A')
+        git(repo, 'commit', '-qm', 'private-body transfer')
+        found = {rule for rule, _ in tu_ownership.check('HEAD^', 'HEAD')}
+    else:
+        found = staged(repo)
+    assert found == (set() if allowed else {'B1'})

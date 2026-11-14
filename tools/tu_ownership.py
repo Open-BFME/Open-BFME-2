@@ -68,9 +68,9 @@ def ledger():
     return f"{LAYOUT.reverse}/functions.csv"
 
 
-def git(*args, check=False):
+def git(*args, check=False, encoding="utf-8"):
     r = subprocess.run(["git", *args], cwd=ROOT, capture_output=True)
-    return r.stdout.decode("utf-8", errors="replace") if (r.returncode == 0 or not check) else ""
+    return r.stdout.decode(encoding, errors="replace") if (r.returncode == 0 or not check) else ""
 
 
 def row_of(line):
@@ -271,7 +271,7 @@ def deleted_private_bodies(base, new, reg):
         if (not path.startswith(LAYOUT.src) or not path.endswith((".cpp", ".c"))
                 or path in headers):
             continue
-        before = git("show", f"{base}:{path}")
+        before = git("show", f"{base}:{path}", encoding="latin-1")
         for name, body in class_gate.moved_bodies(before).items():
             if name in reg:
                 credits[(name, body)] += 1
@@ -291,7 +291,9 @@ def check_classes(base, new, d, reg):
         if not new_names:
             continue
         spec = f":{path}" if new is None else f"{new}:{path}"
-        text = git("show", spec)
+        # Preserve every source byte for move identity, as class_gate does.
+        # UTF-8 replacement decoding can collapse distinct legacy literals.
+        text = git("show", spec, encoding="latin-1")
         allowed = set(ALLOW.findall(text)) | exempt().get(path, set())
         bodies = class_bodies(text)
         for name in sorted(new_names):
