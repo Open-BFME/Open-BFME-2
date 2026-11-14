@@ -45,16 +45,7 @@ struct Holder04
 	unsigned char m_flag;
 };
 
-class StructureCollapseUpdate
-{
-protected:
-	void doCollapseDoneStuff();
-
-private:
-	const void *m_vtable;
-	Holder04 *m_04;
-	Object *m_object;
-};
+#include "../../../../Include/GameLogic/Module/StructureCollapseUpdateClass.h"
 
 void StructureCollapseUpdate::doCollapseDoneStuff()
 {
@@ -62,6 +53,6 @@ void StructureCollapseUpdate::doCollapseDoneStuff()
 	Module *mod = m_object->findModule(key_BoneFXUpdate);
 	if (mod != 0)
 		((BoneFXUpdate *)mod)->stopAllBoneFX();
-	if (m_04->m_flag == 1)
+	if (((Holder04 *)m_moduleData)->m_flag == 1)
 		TheGameLogic->destroyObject(m_object);
 }

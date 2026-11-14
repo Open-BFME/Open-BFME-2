@@ -15,27 +15,18 @@ struct Rva00373EECSub
 	unsigned int m_8;
 };
 
-class StealthUpdate
-{
-public:
-	void rva00373EEC(unsigned int v);
-private:
-	char m_pad0[4];
-	Rva00373EECSub *m_ptr; // +0x04
-	char m_pad1[0x24 - 0x08];
-	unsigned int m_24; // +0x24
-};
+#include "../../Include/GameLogic/Module/StealthUpdate.h"
 
 void StealthUpdate::rva00373EEC(unsigned int v)
 {
-	if (m_ptr == 0)
+	if (m_moduleData == 0)
 		return;
 	unsigned int base = TheGameLogic->getFrame();
 	if (v == 0)
-		m_24 = m_ptr->m_8 + base;
+		m_detectionExpiresFrame = ((Rva00373EECSub *)m_moduleData)->m_8 + base;
 	else {
 		unsigned int nv = base + v;
-		if (m_24 < nv)
-			m_24 = nv;
+		if (m_detectionExpiresFrame < nv)
+			m_detectionExpiresFrame = nv;
 	}
 }

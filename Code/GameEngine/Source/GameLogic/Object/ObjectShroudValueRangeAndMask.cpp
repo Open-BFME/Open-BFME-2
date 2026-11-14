@@ -19,7 +19,7 @@ extern PlayerList *ThePlayerList;
 enum ObjectStatusTypes{STATUS2=2,STATUS38=38};
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 struct ShroudTemplateView{char pad0[0x108];unsigned char kinds[0x20];char pad128[0x4ac-0x128];float radius;char pad4B0[0x530-0x4b0];float reveal;char pad534[12];float special;char pad544[0x5d4-0x544];unsigned specialCount;char pad5d8[2];unsigned short visionCount;char pad5dc[2];unsigned short revealCount;};
-class ObjectThingBase{public:virtual ~ObjectThingBase();protected:const ShroudTemplateView *m_template;char pad8[0x64-8];};
+#include "../../../Include/GameLogic/Module/ObjectThingBase.h"
 // Compatibility surface of Object's native table at +0x64 (VA 00BFC2D8).
 // This is not the complete original base: +0x68 is a vbptr, reserved separately.
 // Original class identity and the empty slot's return type remain unknown;
@@ -41,13 +41,13 @@ float Object::ShroudGetValueRangeAndMask(int type,unsigned *count,unsigned *mask
  switch(type){
  case 0:
   if(testStatus(STATUS2))break;
-  *count=m_template->visionCount;*mask=1U<<getControllingPlayer()->m_playerIndex;return getVisionRange();
+  *count=((const ShroudTemplateView *)m_template)->visionCount;*mask=1U<<getControllingPlayer()->m_playerIndex;return getVisionRange();
  case 1:
   if(testStatus(STATUS2))break;
-  *count=m_template->revealCount;*mask=1U<<getControllingPlayer()->m_playerIndex;
-  {float range=m_template->reveal;if(range==-1.0f && !(m_template->kinds[0]&0x80)){*count=(unsigned)body->getHealth();range=m_template->radius;}return range;}
+  *count=((const ShroudTemplateView *)m_template)->revealCount;*mask=1U<<getControllingPlayer()->m_playerIndex;
+  {float range=((const ShroudTemplateView *)m_template)->reveal;if(range==-1.0f && !(((const ShroudTemplateView *)m_template)->kinds[0]&0x80)){*count=(unsigned)body->getHealth();range=((const ShroudTemplateView *)m_template)->radius;}return range;}
  case 2:
-  if(m_template->kinds[0]&0x80){*count=m_template->specialCount;if(*count>0){int playerIndex=getControllingPlayer()->m_playerIndex;*mask=ThePlayerList->getPlayersWithRelationship(playerIndex,3,false);return m_template->special;}return -1.0f;}
+  if(((const ShroudTemplateView *)m_template)->kinds[0]&0x80){*count=((const ShroudTemplateView *)m_template)->specialCount;if(*count>0){int playerIndex=getControllingPlayer()->m_playerIndex;*mask=ThePlayerList->getPlayersWithRelationship(playerIndex,3,false);return ((const ShroudTemplateView *)m_template)->special;}return -1.0f;}
   break;
  }
  *count=0;return -1.0f;

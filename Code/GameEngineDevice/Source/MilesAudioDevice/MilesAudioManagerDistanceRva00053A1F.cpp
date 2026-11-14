@@ -48,15 +48,7 @@ struct AudioDistanceDelta {
     }
 };
 
-class MilesAudioManager {
-public:
-    float rva00053A1F(void *rawEvent);
-private:
-    char pad00[0x10];
-    AudioDistanceSettings *m_audioSettings;
-    int at14;
-    Coord3D m_micPos;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 float MilesAudioManager::rva00053A1F(void *rawEvent)
 {
@@ -65,13 +57,13 @@ float MilesAudioManager::rva00053A1F(void *rawEvent)
     BfmeEventPositionView pos = reinterpret_cast<BfmeAudioEventPrefix136 *>(event)->rva002DA1CC(valid);
     if (valid) {
         const AudioDistanceInfo *info = event->m_info;
-        const volatile Coord3D &listener = m_micPos;
+        const volatile Coord3D &listener = m_listenerPosition;
         Coord3D delta;
         float nearDistance, farDistance;
         if (info->m_type & 8) {
             AudioDistanceDelta::subtract(delta, listener, pos);
-            nearDistance = (float)m_audioSettings->m_at70;
-            farDistance = (float)m_audioSettings->m_at74;
+            nearDistance = (float)((AudioDistanceSettings *)m_audioSettings)->m_at70;
+            farDistance = (float)((AudioDistanceSettings *)m_audioSettings)->m_at74;
         } else {
             AudioDistanceDelta::subtract(delta, listener, pos);
             nearDistance = info->m_at94;
