@@ -307,16 +307,7 @@ enum TimeOfDay
 // WW3D FrustumClass: CameraTransform (a Matrix3D, 0x30 bytes), then six
 // planes of normal and distance. Slot 26's only caller passes
 // CameraClass +0x100 right after CameraClass::Update_Frustum.
-class Vector3
-{
-public:
-	float X, Y, Z;
-	Vector3(void) {}
-	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	static float Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X * b.X + a.Y * b.Y + a.Z * b.Z; }
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class SphereClass
 {

@@ -56,18 +56,7 @@ static inline void coordSub(Coord3D &dst, const Coord3D *source)
 	dst.z -= source->z;
 }
 
-class Vector3
-{
-public:
-	float X, Y, Z;
-	__forceinline Vector3(void) {}
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	static __forceinline float Dot_Product(const Vector3 &left, const Vector3 &right)
-	{
-		return left.X * right.X + left.Y * right.Y + left.Z * right.Z;
-	}
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 

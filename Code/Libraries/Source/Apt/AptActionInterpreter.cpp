@@ -341,11 +341,7 @@ class Rva8D0D80Value;
 
 #include "Rva006D2A60.h"
 
-class Rva006DB160
-{
-public:
-	void *allocBlock(int);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB160.h"
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 

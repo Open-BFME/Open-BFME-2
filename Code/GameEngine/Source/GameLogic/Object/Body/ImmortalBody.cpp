@@ -52,11 +52,7 @@ public:
 	signed char m_structureRubbleHeight; // +0x5F7
 };
 
-class Drawable
-{
-public:
-	void rva00275DCE(int mode, Real a, Real b, Real c);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 

@@ -54,23 +54,7 @@ static __forceinline void critterDesyncLog(const char *text)
 
 class Object;
 
-class ContainModuleInterface
-{
-public:
-#define X1_V(n) virtual void slot##n() = 0;
-	X1_V(00) X1_V(01) X1_V(02) X1_V(03) X1_V(04) X1_V(05) X1_V(06) X1_V(07) X1_V(08) X1_V(09)
-	X1_V(10) X1_V(11) X1_V(12) X1_V(13) X1_V(14) X1_V(15) X1_V(16)
-	virtual void onObjectWantsToEnterOrExit(Object *obj, ObjectEnterExitType wants) = 0;
-	X1_V(18) X1_V(19) X1_V(20) X1_V(21) X1_V(22) X1_V(23) X1_V(24) X1_V(25) X1_V(26) X1_V(27) X1_V(28) X1_V(29)
-	X1_V(30) X1_V(31) X1_V(32) X1_V(33) X1_V(34) X1_V(35) X1_V(36) X1_V(37) X1_V(38) X1_V(39)
-	X1_V(40) X1_V(41) X1_V(42) X1_V(43) X1_V(44) X1_V(45) X1_V(46) X1_V(47) X1_V(48) X1_V(49)
-	X1_V(50) X1_V(51) X1_V(52) X1_V(53) X1_V(54) X1_V(55) X1_V(56) X1_V(57) X1_V(58) X1_V(59)
-	X1_V(60) X1_V(61) X1_V(62) X1_V(63) X1_V(64) X1_V(65) X1_V(66) X1_V(67) X1_V(68) X1_V(69)
-	X1_V(70) X1_V(71) X1_V(72) X1_V(73) X1_V(74) X1_V(75) X1_V(76) X1_V(77) X1_V(78) X1_V(79)
-	X1_V(80) X1_V(81) X1_V(82) X1_V(83) X1_V(84) X1_V(85)
-#undef X1_V
-	virtual const Coord3D *getEnterPosition() = 0;
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
@@ -156,7 +140,7 @@ StateReturnType AIEnterState::onEnter()
 		ContainModuleInterface *contain = goal->getContain();
 		if (contain)
 		{
-			m_goalPosition = *contain->getEnterPosition();
+			m_goalPosition = *contain->slot86();
 			if ((goal->getTemplate()->m_kindof[KINDOF_BIT_191 >> 5] & (1U << (KINDOF_BIT_191 & 0x1f))))
 				TheAI->pathfinder()->AdjustDestination(obj, obj->getAI()->m_locomotorSet,
 					&m_goalPosition, 0);
