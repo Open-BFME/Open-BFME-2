@@ -440,9 +440,6 @@ void __make_heap(RandomAccessIter first, RandomAccessIter last, Compare comp);
 }
 typedef void (__cdecl *MakeHeap3)(int *, int *, Rva00204BB8);
 typedef void (__cdecl *MakeHeap5)(int *, int *, Rva00204BB8, int, int);
-// The element is BfmeStringRecord00204A30: _M_clear's destroy call (0x00207F7B) goes to the
-// rowed _Destroy<BfmeStringRecord00204A30 *> at 0x00206CBA
-// (stlport_vector_stringrecord_00204a30_allocate_copy.cpp), declared only here.
 #include "../../../Include/Common/BfmeStringRecord00204A30.h"
 namespace _STL { template <> void _Destroy<BfmeStringRecord00204A30 *>(BfmeStringRecord00204A30 *, BfmeStringRecord00204A30 *); }
 // Instantiate the recovered operation and its required template dependencies.
@@ -1264,15 +1261,10 @@ class ArmorTemplate;
 #define RVA0020C140_REPORT(HEADLINE) 	do { 		AppendDebugMessage(AsciiString(HEADLINE), false); 		AppendDebugMessage(Rva0032B389Join(canonical, scriptName), false); 	} while (0)
 extern unsigned char g_00DFE15D;
 void Rva002040E7GetFrameNumber();
-
 extern float g_parseDurationMsecScale;
-
 int GetGameClientRandomValue(int low, int high, char *file, int line);
-
 float GetGameLogicRandomValueReal(float low, float high, char *file, int line);
-
 float GetGameClientRandomValueReal(float low, float high, char *file, int line);
-
 // The read-only flag lookup setFlag reaches here is the ledger's matched
 // ?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z body at 0x0020881A (134
 // bytes), called by that row's name and signature so the unit links; the
@@ -1285,15 +1277,10 @@ class BFMEScriptEngineFlagLookup
 public:
 	bool *findFlag(AsciiString name);
 };
-
 typedef bool *(BFMEScriptEngineFlagLookup::*FindFlagFunction)(AsciiString);
-
 class Rva00355950Arr;
-
 struct Rva003412E0Node;
-
 class ScriptList;
-
 class ScriptGroup
 {
 public:
@@ -1304,38 +1291,30 @@ public:
 	bool isActive() const { return *(const unsigned char *)((const char *)this + 0x0C) != 0; }
 	bool isSubroutine() const { return *(const unsigned char *)((const char *)this + 0x0D) != 0; }
 };
-
-// Scope latch: saves *a1 at +4, installs a2, restores on destruction.
 #include "../../../Include/GameLogic/Rva002048A2.h"
-
 AsciiString Rva0032B389Join(const AsciiString &left, const AsciiString &right);
-
 struct Rva00355640Key
 {
 	int m_pad;
 	int m_index;
 };
-
 struct Rva003558C0Key
 {
 	int m_pad;
 	int m_index;
 	int m_value;
 };
-
 struct Rva00354400Elem
 {
 	char m_pad[0x0E];
 	short m_0e;
 	char m_tail[4];
 };
-
 struct Rva003558A0Elem
 {
 	char m_pad[0x10];
 	int m_10;
 };
-
 // Rows 0x003B483D (check) and 0x003B4826 are const Rva003B483DHolder members.
 class Rva003B483DHolder
 {
@@ -1343,7 +1322,6 @@ public:
 	bool check(const void *key) const;
 	int rva003B4826(const void *key) const;
 };
-
 class Rva003558C0Arr
 {
 public:
@@ -1352,7 +1330,6 @@ public:
 	char m_pad[0x18];
 	Rva00354400Elem *m_items;
 };
-
 class Rva003558A0Arr
 {
 public:
@@ -1361,7 +1338,6 @@ public:
 	char m_pad[0x18];
 	Rva003558A0Elem *m_items;
 };
-
 class Rva00355950Arr
 {
 public:
@@ -1370,7 +1346,6 @@ public:
 	char m_pad[0x38];
 	Rva00354400Elem *m_items;
 };
-
 class Rva00355930Arr
 {
 public:
@@ -1379,13 +1354,11 @@ public:
 	char m_pad[0x38];
 	Rva003558A0Elem *m_items;
 };
-
 struct Rva003412E0Node
 {
 	Rva003412E0Node *next;
 	int index;
 };
-
 // Matched DIR32 references in the two ScriptEngine search rows place this
 // FieldParse table at VA 0x00BE3908 (.rdata). Four 16-byte entries plus the
 // zero sentinel occupy 0x50 bytes, ending at VA 0x00BE3958 where the HelpText
@@ -1399,10 +1372,8 @@ extern const FieldParse g_00BE3908[] = {
     { "HelpText", &INI::parseAsciiString, 0, 0x7C },
     { 0, 0, 0, 0 }
 };
-
 bool operator<(const _STL::pair<AsciiString, AsciiString> &a,
     const _STL::pair<AsciiString, AsciiString> &b);
-
 // Explicit specialization already rowed at 0x00206ABE in stlport_list_create_nodes2.cpp.
 // Declaring it suppresses implicit instantiation of the generic 94B _M_create_node here,
 // so this TU emits only insert and calls the rowed version.
@@ -1410,7 +1381,6 @@ namespace _STL {
 template <>
 _List_node<PairNocase4> *list<PairNocase4, allocator<PairNocase4> >::_M_create_node(const PairNocase4 &);
 }
-
 // Rva002081C7Xfer.cpp declares this specialization, so the header template cannot emit the row.
 namespace _STL {
 template <>
@@ -1426,21 +1396,21 @@ __declspec(noinline) ListNocase4::iterator ListNocase4::insert(ListNocase4::iter
     return tmp;
 }
 }
-
 bool operator<(const _STL::pair<AsciiString, AsciiString> &, const _STL::pair<AsciiString, AsciiString> &);
-
 typedef _STL::pair<AsciiString, AsciiString> TeamKey0020796D;
-
 typedef _STL::pair<const TeamKey0020796D, int> TeamValue0020796D;
-
 struct TeamLess0019B850 : _STL::less<TeamKey0020796D> {};
-
 typedef _STL::_Rb_tree<TeamKey0020796D, TeamValue0020796D, _STL::_Select1st<TeamValue0020796D>, TeamLess0019B850, _STL::allocator<TeamValue0020796D> > TeamTree0020796D;
-
 // bfme link decl-only begin
 namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> > * _Rb_tree<_STL::pair<AsciiString,AsciiString>,_STL::pair<_STL::pair<AsciiString,AsciiString> const,int>,_STL::_Select1st<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> >,TeamLess0019B850,_STL::allocator<_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> > >::_M_create_node(_STL::pair<_STL::pair<AsciiString,AsciiString> const,int> const &); }
-
 #include "../../../Include/GameLogic/RvaPair00207E26.h"
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+extern bool BFME2ScriptDebugLiteMode;
+#define TheRva00DFEF10 (*(void **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
+#define TheScriptDebugWindowDLL st_DebugDLL
+#define ScriptDebugMessagesDisabled BFME2ScriptDebugLiteMode
 
 Xfer *Rva002081C7XferList(Xfer *xfer, ListNocase4 *list);
 
@@ -1529,6 +1499,14 @@ struct BlockParse
 };
 
 extern ScriptEngine *TheScriptEngine;
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
+
+// The element is BfmeStringRecord00204A30: _M_clear's destroy call (0x00207F7B) goes to the
+// rowed _Destroy<BfmeStringRecord00204A30 *> at 0x00206CBA
+// (stlport_vector_stringrecord_00204a30_allocate_copy.cpp), declared only here.
+
+// Scope latch: saves *a1 at +4, installs a2, restores on destruction.
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
 
@@ -3852,6 +3830,27 @@ void ScriptEngine::rva0020CE13()
 	}
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_rva002047CF.cpp
+
+// platformsdk
+// ?rva002047CF@ScriptEngine@@QAEXXZ at 0x002047CF (55B). Identity: ScriptEngine field offset matches the adjacent named client updater; shared frame getter and debug DLL state.
+
+void ScriptEngine::rva002047CF()
+{
+	if (!m_1A4D9)
+		return;
+	Rva002040E7GetFrameNumber();
+	if (st_DebugDLL)
+	{
+		typedef unsigned char (__stdcall *CanAppContinueProc)();
+		CanAppContinueProc proc = (CanAppContinueProc)GetProcAddress(reinterpret_cast<HMODULE>(st_DebugDLL), "CanAppContinue");
+		if (proc)
+			g_00DFE15D = proc();
+		return;
+	}
+	g_00DFE15D = 1;
+}
+
 // tu-skeleton: 0x0020385F 192B ?setSway@ScriptEngine@@IAEXPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/Common/ScriptEngine_setSway.cpp (not merged yet)
 
 // tu-skeleton: 0x0020391F 7B ?get@Rva0020391FLeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
@@ -3888,27 +3887,6 @@ void ScriptEngine::rva0020CE13()
 
 // tu-skeleton: 0x002047C9 6B ?GetSnapshotName@SequentialScript@@UAEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_rva002047CF.cpp
-
-// platformsdk
-// ?rva002047CF@ScriptEngine@@QAEXXZ at 0x002047CF (55B). Identity: ScriptEngine field offset matches the adjacent named client updater; shared frame getter and debug DLL state.
-
-void ScriptEngine::rva002047CF()
-{
-	if (!m_1A4D9)
-		return;
-	Rva002040E7GetFrameNumber();
-	if (st_DebugDLL)
-	{
-		typedef unsigned char (__stdcall *CanAppContinueProc)();
-		CanAppContinueProc proc = (CanAppContinueProc)GetProcAddress(reinterpret_cast<HMODULE>(st_DebugDLL), "CanAppContinue");
-		if (proc)
-			g_00DFE15D = proc();
-		return;
-	}
-	g_00DFE15D = 1;
-}
-
 // tu-skeleton: 0x00204806 55B ?_bfme_updateClientDebugFrame@ScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_updateClientDebugFrame.cpp (not merged yet)
 
 // tu-skeleton: 0x0020483D 11B ?rva0020483D@Rva0020483DZeroView@@QAEPAV1@XZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
@@ -3927,7 +3905,34 @@ void ScriptEngine::rva002047CF()
 
 // tu-skeleton: 0x00205224 63B ??1SequentialScript@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScript.cpp (not merged yet)
 
-// tu-skeleton: 0x00205263 171B ?AppendDebugMessage@ScriptEngine@@QAEXABVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAppendDebugMessage.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAppendDebugMessage.cpp
+
+// platformsdk
+// ?AppendDebugMessage@ScriptEngine@@QAEXABVAsciiString@@_N@Z @0x00205263 171B
+// Retail ScriptEngine debug-window append: disabled/DLL guards, AppendMessage
+// proc via GetProcAddress, frame from TheGameLogic+0x40 or TheRva00DFEF10+0xFC
+// gated by GameLogic::rva001DCD1C, "%d " format plus concat, proc(msg.str()).
+// Donor: BFME1 ScriptEngineAppendDebugMessage.cpp (ignores forcePause, always
+// AppendMessage) plus BFME2 ScriptEngine_setFrame.cpp frame-gate pattern.
+// Evidence: pinned name, callers at 0x00205CC3 0x00205F67 0x00206168,
+// rowed callees format 0x38150 concat 0x6987 releaseBuffer 0x36410 gate 0x1DCD1C.
+
+void ScriptEngine::AppendDebugMessage(const AsciiString &strToAdd, Bool forcePause)
+{
+	if (ScriptDebugMessagesDisabled || !TheScriptDebugWindowDLL)
+		return;
+	FARPROC proc = GetProcAddress(reinterpret_cast<HMODULE>(TheScriptDebugWindowDLL), "AppendMessage");
+	if (!proc)
+		return;
+	AsciiString msg;
+	GameLogic *logic = TheGameLogic;
+	if (!logic->rva001DCD1C())
+		msg.format("%d ", logic->getFrame());
+	else
+		msg.format("%d ", *(Int *)((char *)TheRva00DFEF10 + 0xFC));
+	((StringBase<char> *)&msg)->concat(*(const StringBase<char> *)&strToAdd);
+	((void (__cdecl *)(const char *))proc)(msg.str());
+}
 
 // tu-skeleton: 0x00205358 162B ?rva00205358@ScriptEngine@@QAEXPAVAssetList@@PAUAssetLoadMode@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCollectAssets.cpp (not merged yet)
 

@@ -320,3 +320,16 @@ the VertexLoc split is repaired.** Two commits:
   (`tools/data_ledger.py`), refreshed by the measurement cycle. The header_queue DX8Wrapper row moved with the donor
   to pointgr.cpp (the banked DX8Wrapper view).
 - **Next.** The table's other splits, in order: sortingrenderer.cpp lists, then W3DMouse `isThread`.
+
+
+2026-11-14 (merge-climb, base `a677035d0dcccc14d6e9f401d05536957796de9d`): the official composer
+absorbs only `ScriptEngineAppendDebugMessage.cpp` into the existing ScriptEngine
+TU. Fresh dry/apply index SHA-256 `b32dd6e4b2bbed16293725dffec0e1509d5264334a30f7325b95a5ef5ec688df`. All
+199/199 named rows survive, including the parent and its two compiler-emitted
+EH rows; data, converged ownership, pins, frozen-source and CSV checks pass.
+ProviderGuard/LinkGuard admit the composition; preview LINKS 11,862 -> 12,043
+bytes. The MS-header queue is unchanged; no header debt is retired.
+The path audit found historical attempt/callee/census references and source
+provenance only, with no active file-opening consumer needing a change.
+This removes one source file; it is not a new real-link or debug-DLL runtime
+receipt and does not close unrelated static/bridge prerequisites above.

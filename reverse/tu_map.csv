@@ -14505,7 +14505,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002051B7,81,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020517D.cpp
 0x00205208,28,code,,displaced,-,N=Code/GameEngine/Source/Common/SequentialScript.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00205224.cpp
 0x00205224,63,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScript.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScript.cpp
-0x00205263,171,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAppendDebugMessage.cpp
+0x00205263,171,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
 0x0020530E,74,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,C,C=0x00205263..0x00205358,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
 0x00205358,162,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCollectAssets.cpp
 0x002053FA,261,code,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,approved,C,C=0x00205358..0x002054FF,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp
@@ -67398,8 +67398,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076C78E,10,code,Code/GameEngine/Source/Common/BfmeStringRecord00204A30.cpp,approved,P,P=0x0020492B@FuncInfo0x009120C4 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_0032cb55.cpp
 0x0076C798,11,code,,,-,,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
 0x0076C7A3,10,code,,,-,,Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp
-0x0076C7AD,8,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAppendDebugMessage.cpp
-0x0076C7B5,10,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAppendDebugMessage.cpp
+0x0076C7AD,8,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
+0x0076C7B5,10,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
 0x0076C7BF,8,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
 0x0076C7C7,8,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
 0x0076C7CF,10,code,,,-,,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
