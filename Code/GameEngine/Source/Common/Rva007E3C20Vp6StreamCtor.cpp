@@ -26,11 +26,7 @@
 
 // Retail's ctor unwind destroys this base through 0x0068A110 (restore
 // 0xCE4A10, release +0xC), rowed as BfmeThingUC::bfmeResetUC.
-class BfmeThingUC
-{
-public:
-    void bfmeResetUC();
-};
+#include "../../Include/Common/BfmeThingUC.h"
 
 class __declspec(novtable) Gen_0081E480
 {

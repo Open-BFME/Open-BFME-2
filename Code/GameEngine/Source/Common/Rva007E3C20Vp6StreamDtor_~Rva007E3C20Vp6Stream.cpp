@@ -16,11 +16,7 @@
 // the base use the rowed bodies at 0x00106A2D and 0x0068A110.
 // The layout is the rowed constructor 0x000907C1's.
 
-class BfmeThingUC
-{
-public:
-	void bfmeResetUC();
-};
+#include "../../Include/Common/BfmeThingUC.h"
 
 // The rowed cleanup restores the base vptr.
 class __declspec(novtable) Gen_0081E480
