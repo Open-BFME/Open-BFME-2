@@ -6,14 +6,7 @@
 // 0x005C3BB9 (lea [ebp-0x14] plus edx) 0x005D2A87 (lea [ebp-0x18] plus [esi]) 0x005F84BF (lea [ebp+8] plus [ebp+0xC]).
 // Unblocks 0x005C3B3E 0x005D2A53 0x005F8484. Precedent Rva000F5D1BGet.cpp (/O1 /MD hidden plus guard plus leave plus ret).
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
-class Rva005C39C4
-{
-public:
-	virtual void m_unknown01();
-	virtual void m_unknown02();
-	virtual TreeHintRef00217D4C m_unknown03(int x);
-	TreeHintRef00217D4C rva005C39C4(int x);
-};
+#include "../../Include/Common/Rva005C39C4.h"
 TreeHintRef00217D4C Rva005C39C4::rva005C39C4(int x)
 {
 	return m_unknown03(x);
