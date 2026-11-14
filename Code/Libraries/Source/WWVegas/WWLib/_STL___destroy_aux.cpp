@@ -9,12 +9,7 @@
 // temporary (lea eax,[ebp-1]); landing this makes 0x0032B580 ready.
 // Neighbours 0x0032A37A (__uninitialized_copy BfmePod128) and 0x0032A3E1
 // (_M_allocate_and_copy BfmePod128) fix the TU flags and 128-byte stride.
-class Rva0032A3A9Element {
-public:
-	virtual ~Rva0032A3A9Element();
-private:
-	char m_pad[124];
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva0032A3A9Element.h"
 
 namespace _STL {
 struct __false_type {
