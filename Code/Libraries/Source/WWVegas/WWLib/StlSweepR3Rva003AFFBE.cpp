@@ -30,12 +30,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // Rva003B02F4Entry, Rva003B02F4Greater> at 0x003AFE48 (stlport_priority_queue_rva003b02f4.cpp),
 // declared only here. Only the rowed __push_heap_aux is instantiated.
 #include "Rva003B02F4Entry.h"
-struct Rva003B02F4Greater
-{
-	bool operator()(const Rva003B02F4Entry &x, const Rva003B02F4Entry &y) const
-	{
-		return x.key > y.key;
-	}
-};
+#include "../../../../GameEngine/Include/Common/Rva003B02F4Greater.h"
 namespace _STL { template <> void __push_heap<Rva003B02F4Entry *, int, Rva003B02F4Entry, Rva003B02F4Greater>(Rva003B02F4Entry *, int, int, Rva003B02F4Entry, Rva003B02F4Greater); }
 template void _STL::__push_heap_aux<Rva003B02F4Entry *, Rva003B02F4Greater, int, Rva003B02F4Entry>(Rva003B02F4Entry *, Rva003B02F4Entry *, Rva003B02F4Greater, int *, Rva003B02F4Entry *);
