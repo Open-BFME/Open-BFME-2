@@ -31,21 +31,7 @@ struct TexturePtr
 // Retail's destructor for this sub-object lives at 0x008FC5B0 and is defined as
 // W3DRadarResetSurface::~W3DRadarResetSurface, so the member that owns it is
 // spelled with that class name.
-class W3DRadarResetSurface
-{
-public:
-	VirtualReleaser00739E00 *m_obj;
-
-	~W3DRadarResetSurface();
-	void reset()
-	{
-		if ( m_obj )
-		{
-			m_obj->Release();
-			m_obj = 0;
-		}
-	}
-};
+#include "../../../Include/Common/W3DRadarResetSurface.h"
 
 class Rva00739C70
 {
