@@ -6,7 +6,11 @@
 
 #include "ascii_string.h"
 
-extern "C" void free(void *);
+// Retail frees through the game _free (0x00030830) directly, not the CRT
+// import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 #pragma function(memset)
 #include <string.h>
