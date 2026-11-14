@@ -167,8 +167,9 @@ extern "C" void _ReadWriteBarrier();
 #include <stddef.h>
 // Preserve the rowed array allocator bindings without the CRT placement
 // operator bodies that conflict with the seed's WWLib declarations.
-void *__cdecl operator new[](size_t size);
-void __cdecl operator delete[](void *pointer);
+// The array operators come from the real <crtdbg.h>; the cl line's
+// /D_CRTIMP= keeps them off the IAT, matching the direct thunk calls.
+#include <crtdbg.h>
 #define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 #include "unicode_string.h"
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
