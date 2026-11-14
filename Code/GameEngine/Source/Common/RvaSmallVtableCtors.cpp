@@ -2025,7 +2025,38 @@ class Rva00488AC0
 {
 public:
 	Rva00488AC0();
-	virtual ~Rva00488AC0() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual void slot38() = 0;
+	virtual void slot3C() = 0;
+	virtual void slot40() = 0;
+	virtual void slot44() = 0;
+	virtual void slot48() = 0;
+	virtual void slot4C() = 0;
+	virtual void slot50() = 0;
+	virtual void slot54() = 0;
+	virtual void slot58() = 0;
+	virtual void slot5C() = 0;
+	virtual void slot60() = 0;
+	virtual void slot64() = 0;
+	virtual void slot68() = 0;
+	virtual void slot6C() = 0;
+	virtual void slot70() = 0;
+	virtual void slot74() = 0;
+	virtual void slot78() = 0;
+	virtual void slot7C() {}
 };
 
 Rva00488AC0::Rva00488AC0()
