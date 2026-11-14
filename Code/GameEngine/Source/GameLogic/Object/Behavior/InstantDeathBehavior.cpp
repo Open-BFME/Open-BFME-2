@@ -23,8 +23,6 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
-// Retail's InstantDeathBehavior builds Drawable.h's flash constant: its copy 0x007B0B66, alone in its
-// .text$yc run, static right after its pool-key guard (LINK-236).
 #include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 // platformsdk
 //
@@ -65,6 +63,28 @@ template <> __declspec(dllimport) __forceinline void vector<Rva0005A084Element>:
 { ((vector<Rva00058BBDElement> *)this)->push_back(*(const Rva00058BBDElement *)&x); }
 }
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
+// ?xfer@Rva0045CE8C@@QAEXPAVXfer@@@Z, retail 0x0045CE8C 27B: slot-3 xfer calls rowed Xfer::Version1 then rowed Rva004CE56D xfer.
+// Evidence: vslot 3 of DieModuleDerived vtables (InstantDeathBehavior plus 15 siblings incl Rva004851FE/Rva00485425/CreateObjectDie)
+// plus caller 0x00485BF5; callees rowed 0x000053EE and 0x004CE56D; class unproven so honest Rva name.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/Rva004CE56D.h"
 
 //
 // ??0InstantDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045CF55,
@@ -153,6 +173,16 @@ public:
 	}
 	OpaqueRefCounted *m_ref;
 };
+
+class Rva0045CE8C {
+public:
+	void xfer(Xfer *xfer);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp
+
+// Retail's InstantDeathBehavior builds Drawable.h's flash constant: its copy 0x007B0B66, alone in its
+// .text$yc run, static right after its pool-key guard (LINK-236).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp
 
@@ -270,10 +300,6 @@ void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
     parse.add(dataFieldParse);
 }
 
-// tu-skeleton: 0x0045CF9B 412B ?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
-
-// tu-skeleton: 0x0045D137 63B ??1Rva0045D137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp
 
 // ?parseOCL@InstantDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z
@@ -298,8 +324,6 @@ void InstantDeathBehaviorModuleData::parseWeapon(INI *ini, void *instance, void 
 	}
 }
 
-// tu-skeleton: 0x0045D28D 105B ??1InstantDeathBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers_Rva0045D2F6Parse.cpp
 
 // ?Rva0045D2F6Parse@@YAXPAVINI@@PAX1PBX@Z
@@ -313,6 +337,26 @@ void Rva0045D2F6Parse(INI *ini, void *instance, void * /*store*/, const void * /
 		self->m_sounds.push_back(*(const Rva0005A084Element *)&sound);
 	}
 }
+
+// tu-skeleton: 0x0045CE86 6B ?name@Rva0045CE86Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0045CE8CXfer.cpp
+
+void Rva0045CE8C::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	((Rva004CE56D *)this)->xfer(xfer);
+}
+
+// tu-skeleton: 0x0045CEBD 49B ??0DieModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0045CEEE 6B ?Rva45CEEEGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0045CF9B 412B ?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0045D137 63B ??1Rva0045D137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0045D28D 105B ??1InstantDeathBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A556 8B Unwind@00b8a556 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
 

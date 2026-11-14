@@ -3782,3 +3782,18 @@ Base: 3,278 bridged, 31 refused, 2,268 already correct, 37,359 mismatching sourc
 
 **Measure (base -> after, lk74_cmp, local objects).** Bridged 3,278 -> 3,275; refused 31 -> 31 (identical);
 correct 2,268 -> 2,271; mismatching source slots 37,359 -> 37,350.
+
+
+2026-11-14 merge-climb: the official TU merge absorbs only
+`Common/Rva0045CE8CXfer.cpp` into the map-approved
+`GameLogic/Object/Behavior/InstantDeathBehavior.cpp`; the 0x0045CE8C xfer body,
+name, extent and call bindings are unchanged. Both live BoneFXDamage and
+SquishCollide fold-proof notes now resolve to the destination; the historical
+survey above retains its original path. Build 23/23 rows, zero lost; three EH
+label equivalences and the existing emitted STL constructor fold verify.
+ProviderGuard/LinkGuard pass; fresh-index preview LINKS 855 -> 882 bytes
+(SHA256 `16184addcbed9ac6fe32e08ffa74c61f8bee32df9d9d9b4c80ff2b321d2fd4c8`).
+This is a source-path consolidation only. The onDie donor still has a module-data
+member compile error, its destructor donor still fails bytes, and four mixed
+donors still need prior reconciliation. No canonical-header or real-image/runtime
+result is claimed. Receipts: srv1 sweeps/merge-climb/ready-landings/instantdeathbehavior/.
