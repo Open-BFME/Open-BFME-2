@@ -6,18 +6,7 @@
 // implicit vptr store. Called after new(0x14) at 0x00575CB3 with (ptr,arg,0);
 // result fed to setter @0x00575674. Unblocks 0x00575CAE. Honest-address name.
 
-class Rva0057551C
-{
-public:
-	Rva0057551C(void *a, void *b, void *c);
-
-private:
-	void *m_vtable;
-	void *m_04;
-	void *m_08;
-	void *m_0c;
-	int m_10;
-};
+#include "../../Include/Common/Rva0057551C.h"
 
 // Retail table 0x00C6E614 (12-byte row): [0x00575700, 0x00575DFE, 0]. Own the
 // complete initialized table instead of a zero-filled stand-in (the
