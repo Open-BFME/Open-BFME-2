@@ -40,7 +40,7 @@ struct BfmeNodeEBD
 // independently reached by scalar-deleting destructor382B47 and the value
 // cleanup wrapper383415. It adjusts +4 to mapped-value dtor38240F; pair
 // constructor3829E5 constructs that same mapped subobject at +4.
-class BfmeNodeValueEBD { public: ~BfmeNodeValueEBD(); };
+#include "../../Include/Common/BfmeNodeValueEBD.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
