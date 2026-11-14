@@ -550,7 +550,7 @@ BFME_DISP_DWORD_SETTER(Rva0031417CDwordSlot, 0x1F0)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?set@Rva002DAC16Fields@@QAEXM@Z
-struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+#include "../../../Include/Common/Rva002DAC16Fields.h"
 
 BFME_DISP8_LEA_GETTER(Rva00314046LeaField, 0x30)
 

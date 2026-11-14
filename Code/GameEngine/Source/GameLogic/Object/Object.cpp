@@ -1273,7 +1273,7 @@ BFME_DISP_DWORD_SETTER(Rva00299C7CDwordSlot, 0x45C)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?set@Rva002DAC16Fields@@QAEXM@Z
-struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+#include "../../../Include/Common/Rva002DAC16Fields.h"
 #include "../../../Include/Common/Rva00274DB6AsciiField.h"
 #include "../../../Include/GameLogic/Module/Rva00291775AsciiField.h"
 #include "../../../Include/GameClient/Rva003821B9AsciiField.h"

@@ -1584,7 +1584,7 @@ BFME_DISP_DWORD_SETTER(Rva001F3D21DwordSlot, 0x19C)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?set@Rva002DAC16Fields@@QAEXM@Z
-struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+#include "../../../Include/Common/Rva002DAC16Fields.h"
 
 // ?rva001F5D4F@Rva001F5D4F@@QAEXH@Z @0x001F5D4F 34B.
 // Null-checked virtual slot 3 at +0 with int arg, then rowed Rva001F42BA::call on this+4.

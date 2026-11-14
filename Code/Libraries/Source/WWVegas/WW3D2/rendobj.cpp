@@ -137,7 +137,7 @@ BFME_DISP_DWORD_SETTER(Rva0013BEB0DwordSlot, 0xC0)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?set@Rva002DAC16Fields@@QAEXM@Z
-struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+#include "../../../../GameEngine/Include/Common/Rva002DAC16Fields.h"
 
 // tu-skeleton: 0x0013B160 10B ?Are_Sub_Object_Transforms_Dirty@RenderObjClass@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp (not merged yet)
 

@@ -162,7 +162,7 @@ BFME_DISP_DWORD_SETTER(Rva000419CFDwordSlot, 0x12DC)
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?set@Rva002DAC16Fields@@QAEXM@Z
-struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+#include "../../../../GameEngine/Include/Common/Rva002DAC16Fields.h"
 
 // ---- from Code/GameEngineDevice/Source/Win32Device/GameClient/Win32Mouse.cpp
 
