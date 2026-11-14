@@ -11,9 +11,7 @@ private:
 	AsciiString m_str;
 	bool m_byte;
 };
-struct Rva0021B753 {
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../../Include/Common/Rva0021B753.h"
 void __cdecl Rva0021BAA3Insert(Rva0021915B *last, Rva0021915B val, Rva0021B753 comp);
 void __cdecl Rva0021C811InsertionSort(Rva0021915B *first, Rva0021915B *last, int unused, Rva0021B753 comp)
 {

@@ -104,10 +104,7 @@ typedef _STL::pair<const AsciiString, char> HeroFileEntry;
 
 // The sorted element and comparator under their rowed spellings.
 class Rva0021915B;
-struct Rva0021B753
-{
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../Include/Common/Rva0021B753.h"
 
 namespace _STL {
 template <> void vector<HeroFileEntry, allocator<HeroFileEntry> >::push_back(const HeroFileEntry &value);
