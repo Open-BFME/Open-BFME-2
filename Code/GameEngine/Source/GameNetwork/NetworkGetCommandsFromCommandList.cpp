@@ -32,14 +32,7 @@ template <> class Rva0025E75FSlots<0>
 {
 };
 
-class CommandList : public Rva0025E75FSlots<16>
-{
-public:
-	virtual void removeMessage(GameMessage *msg);	// +0x40
-	GameMessage *getFirstMessage() { return m_firstMessage; }
-	unsigned char m_pad04[0x0C - 0x04];
-	GameMessage *m_firstMessage;		// +0x0C
-};
+#include "../../Include/Common/CommandList.h"
 extern CommandList *TheCommandList;
 
 #include "../../Include/GameNetwork/GameInfo.h"
