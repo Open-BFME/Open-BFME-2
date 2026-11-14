@@ -38,10 +38,7 @@ typedef _STL::_Rb_tree<Rva000A7E31Key, Rva000A7E31Key,
 	_STL::_Identity<Rva000A7E31Key>, _STL::less<Rva000A7E31Key>,
 	_STL::allocator<Rva000A7E31Key> > Rva000A7E9ETree;
 
-struct Rva000A7AA7Less
-{
-	bool operator()(const TreeKey00242F5E &a, const TreeKey00242F5E &b) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva000A7AA7Less.h"
 
 typedef _STL::set<TreeKey00242F5E, Rva000A7AA7Less,
 	_STL::allocator<TreeKey00242F5E> > TreeKey00242F5ESet;
