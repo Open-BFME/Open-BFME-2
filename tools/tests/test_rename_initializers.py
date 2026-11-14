@@ -2,6 +2,7 @@
 `.CRT$XCU` position with retail's table (SpawnBehavior.cpp's shape: rows _$E16 and _$E88 become _$E1 and _$E3 once
 the unit leaves the Zero Hour headers). The object is a real COFF file; retail's table and the object lookup are
 injected."""
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -34,12 +35,12 @@ def functions(rows=None):
             + f"?pool@@YAXXZ,,0x{POOL:08X},26,Code/Game/Pool.cpp,matched,\n")
 
 
-def make_tree(root, *, fn=None, deleted="", identity="", gate=""):
+def make_tree(root, *, fn=None, deleted="", identity="", gate="", symbols="", owners=""):
     files = {
         "reverse/functions.csv": fn or functions(),
         "reverse/deleted_rows.csv": "name,target_rva,reason\n" + deleted,
-        "reverse/symbols.csv": "name,address,notes\n",
-        "reverse/body_owners.csv": "target_rva,name,target_size,source,evidence\n",
+        "reverse/symbols.csv": "name,address,notes\n" + symbols,
+        "reverse/body_owners.csv": "target_rva,name,target_size,source,evidence\n" + owners,
         "reverse/code_identity_baseline.tsv": "# mode shadow\n" + identity,
         "reverse/gate_baseline.txt": gate,
         SRC: "int g = frames / 2;\n",
@@ -54,16 +55,17 @@ def make_tree(root, *, fn=None, deleted="", identity="", gate=""):
     return root
 
 
-def write_object(path, registered=("_$E1", "_$E3"), defined=("_$E1", "_$E2", "_$E3"), comdat=False):
+def write_object(path, registered=("_$E1", "_$E3"), defined=("_$E1", "_$E2", "_$E3"), comdat=False,
+                 kind=link_cycle.DIR32, addend=0):
     """A unit's object: `defined` local code symbols 16 bytes apart (_$E2 is the atexit callback no
     `.CRT$XCU` entry names), `registered` in `.CRT$XCU` order."""
     text = BODY * len(defined)
-    xcu = b"\0" * (4 * len(registered))
+    xcu = struct.pack("<I", addend) * len(registered)
     sections = [(".text", CODE, text, 0), (".CRT$XCU", XCU | (link_cycle.COMDAT if comdat else 0), xcu,
                                            2 if comdat else 0)]
     symbols = [(name, 1, 16 * i, link_cycle.STATIC) for i, name in enumerate(defined)]
     symbols += [(name, 0, 0, link_cycle.EXTERNAL) for name in registered if name not in defined]
-    relocs = {2: [(4 * i, name, link_cycle.DIR32) for i, name in enumerate(registered)]}
+    relocs = {2: [(4 * i, name, kind) for i, name in enumerate(registered)]}
     return link_cycle.write_coff(path, sections, symbols, relocs)
 
 
@@ -234,3 +236,41 @@ def test_the_cli_takes_no_basis(tree, capsys):
     with pytest.raises(SystemExit):
         rename.main(["initializers", "--source", SRC, "--basis", "inferred", "--root", str(root), "--dry-run"])
     assert "pass no --basis" in capsys.readouterr().err
+
+
+def test_refuses_a_relocation_that_registers_nothing(tree):
+    # IMAGE_REL_I386_ABSOLUTE names the symbol and relocates nothing
+    root, _obj = tree(kind=0)
+    with pytest.raises(Refusal, match=r"relocation of type 0x0 at \+0x0, not a DIR32 pointer slot"):
+        plan(root)
+
+
+def test_refuses_a_registration_past_the_entry(tree):
+    root, _obj = tree(addend=4)
+    with pytest.raises(Refusal, match=r"registers _\$E1\+0x4 at \+0x0, not the function's entry"):
+        plan(root)
+
+
+@pytest.mark.parametrize("record", [
+    f'"_$E16",0x{FIRST:08X},note\n',            # a quoted name is still the name
+    f"_$E16,0x{FIRST:08x},note\n",              # lowercase hex is the same address
+    f"_$E16,0x{FIRST:X},note\n"])               # so is an unpadded one
+def test_refuses_a_pin_however_spelled(tree, record):
+    tree.tree_args = {"symbols": record}
+    root, _obj = tree()
+    with pytest.raises(Refusal, match=r"symbols.csv keys _\$E16"):
+        plan(root)
+
+
+def test_refuses_a_quoted_body_owner(tree):
+    tree.tree_args = {"owners": f'0x{SECOND:08x},"_$E88",16,{SRC},owned\n'}
+    root, _obj = tree()
+    with pytest.raises(Refusal, match=r"body_owners.csv keys _\$E88"):
+        plan(root)
+
+
+def test_a_pin_of_the_same_name_elsewhere_is_no_key(tree):
+    # another unit's _$E16 at another address is not this row's record
+    tree.tree_args = {"symbols": "_$E16,0x007B0000,note\n"}
+    root, _obj = tree()
+    assert plan(root).renamed_rows[0] == ("_$E16", "_$E1", FIRST)

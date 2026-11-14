@@ -14214,10 +14214,13 @@ GATE_BASELINE = "reverse/gate_baseline.txt"
 
 
 def object_initializers(path):
-    """(the `_$E` names an object's `.CRT$XCU` relocations name, in order; {`_$E` name: its local code
-    definitions}). Refuses a COMDAT `.CRT$XCU` contribution that names one: the linker may drop it."""
+    """(the `_$E` names an object's `.CRT$XCU` relocations register, in order; {`_$E` name: its local
+    code definitions}). A registration is a DIR32 relocation of one aligned pointer slot whose stored
+    addend is 0, so the slot holds the function's entry; any other relocation naming a `_$E` refuses, as
+    does a COMDAT `.CRT$XCU` contribution that names one (the linker may drop it)."""
     import link_cycle
-    sections, symbols = link_cycle.parse_coff(Path(path).read_bytes())
+    data = Path(path).read_bytes()
+    sections, symbols = link_cycle.parse_coff(data)
     defined = collections.Counter(
         s.name for s in symbols.values()
         if ledger_io.LOCAL_STATIC.fullmatch(s.name) and s.cls == link_cycle.STATIC and 0 < s.sec <= len(sections)
@@ -14226,8 +14229,19 @@ def object_initializers(path):
     for section in sections:
         if section.name != ".CRT$XCU":
             continue
-        named = [symbols[index].name for _offset, index, _kind in sorted(section.relocs)
-                 if index in symbols and ledger_io.LOCAL_STATIC.fullmatch(symbols[index].name)]
+        named = []
+        for offset, index, kind in sorted(section.relocs):
+            if index not in symbols or not ledger_io.LOCAL_STATIC.fullmatch(symbols[index].name):
+                continue
+            name = symbols[index].name
+            if kind != link_cycle.DIR32 or offset % 4 or offset + 4 > section.size or not section.ptr:
+                raise Refusal(f"{Path(path).name}: .CRT$XCU names {name} by a relocation of type 0x{kind:X} at "
+                              f"+0x{offset:X}, not a DIR32 pointer slot: it does not register the function")
+            addend = struct.unpack_from("<I", data, section.ptr + offset)[0]
+            if addend:
+                raise Refusal(f"{Path(path).name}: .CRT$XCU registers {name}+0x{addend:X} at +0x{offset:X}, "
+                              "not the function's entry")
+            named.append(name)
         if named and section.flags & link_cycle.COMDAT:
             raise Refusal(f"{Path(path).name}: a COMDAT .CRT$XCU contribution registers {', '.join(named)}; "
                           "the linker may drop it, so its position proves nothing")
@@ -14299,12 +14313,20 @@ def plan_initializers(ctx, source, evidence="", **_ignored):
     for old, new, at in renames:
         if (new, at) in tombstoned:
             raise Refusal(f"{DELETED} retires {new} at 0x{at:08X}; this route does not restore a tombstoned spelling")
-    for rel, keyed in ((CODE_IDENTITY_BASELINE, lambda f, old, at: f[:2] == [source, old]),
-                       (GATE_BASELINE, lambda f, old, at: f"0x{at:08X}" in f and old in f),
-                       (BODY_OWNERS, lambda f, old, at: old in f and f"0x{at:08X}" in f),
-                       (SYMBOLS, lambda f, old, at: old in f and f"0x{at:08X}" in f)):
+    # each register parsed in its own format: names compared exactly, addresses as numbers
+    for rel, split, keyed in (
+            (CODE_IDENTITY_BASELINE, lambda line: line.split("\t"),
+             lambda f, old, at: len(f) > 1 and f[0].replace("\\", "/") == source and f[1] == old),
+            (GATE_BASELINE, lambda line: line.split(),
+             lambda f, old, at: old in f and at in {_rva(x) for x in f}),
+            (BODY_OWNERS, lambda line: next(csv.reader([line]), []),
+             lambda f, old, at: len(f) > 1 and f[1] == old and _rva(f[0]) == at),
+            (SYMBOLS, lambda line: next(csv.reader([line]), []),
+             lambda f, old, at: len(f) > 1 and f[0] == old and _rva(f[1]) == at)):
         for line in (ctx.read(rel) or b"").decode("utf-8", "replace").splitlines():
-            fields = line.split("\t") if rel.endswith(".tsv") else line.replace(",", " ").split()
+            if not line.strip() or line.startswith("#"):
+                continue
+            fields = split(line)
             hit = next((old for old, _new, at in renames if keyed(fields, old, at)), None)
             if hit:
                 raise Refusal(f"{rel} keys {hit}: {line[:160]}; retire or move that record by its own path first")
