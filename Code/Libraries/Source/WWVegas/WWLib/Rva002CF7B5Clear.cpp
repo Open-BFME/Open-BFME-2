@@ -24,20 +24,15 @@ struct Rva002CF7B5Header
 	void *m_right;
 };
 
-struct Rva002CF7B5
-{
-	Rva002CF7B5Header *m_header;
-	int m_size;
-	void rva002CF7B5();
-};
+#include "../../../../GameEngine/Include/Common/Rva002CF7B5.h"
 
 void Rva002CF7B5::rva002CF7B5()
 {
 	if (m_size != 0) {
-		((Rva002CF2D5 *)this)->_M_erase(m_header->m_root);
-		m_header->m_left = m_header;
-		m_header->m_root = 0;
-		m_header->m_right = m_header;
+		((Rva002CF2D5 *)this)->_M_erase(((Rva002CF7B5Header *)m_header)->m_root);
+		((Rva002CF7B5Header *)m_header)->m_left = m_header;
+		((Rva002CF7B5Header *)m_header)->m_root = 0;
+		((Rva002CF7B5Header *)m_header)->m_right = m_header;
 		m_size = 0;
 	}
 }
