@@ -45,8 +45,13 @@ enum ModelConditionFlagType
 	MODELCONDITION_BFME_130 = 4 * 32 + 2
 };
 #include "../../../Include/GameClient/ModelConditionFlags.h"
-struct FprintfTarget;
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 typedef float Real;
@@ -234,7 +239,7 @@ StateReturnType AIWanderState::update()
 		computeGoal(false);
 		if (g_00E03745)
 		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: ComputePath39");
 		}
@@ -319,7 +324,7 @@ StateReturnType AIPanicState::update()
 		computeGoal(false);
 		if (g_00E03745)
 		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: ComputePath40");
 		}

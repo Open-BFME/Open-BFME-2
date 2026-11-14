@@ -257,7 +257,7 @@ extern BfmeEnumTableEntry BfmeEnumTable[];
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../../../Include/Common/UserPreferences.h"
-int strcmp(const char *a, const char *b);
+#include <string.h>
 #include "../../../../../Include/Common/GlobalData.h"
 struct ScriptEngineDifficultyView
 {

@@ -88,11 +88,7 @@ const char *TheDrawableIconNames[] =
 // Dedicated TU: only verified bodies from the donor are defined here.
 
 // Retail calls msvcr71.dll!_strcmpi at this body's only import slot
-// (0x00BBA518). The donor's `stricmp` is a macro, so /MD expands it to a call
-// to __stricmp -- an export retail does not import. Declaring _strcmpi as a
-// TU-scoped dllimport gives the call the identity the import directory proves;
-// same override FXListStoreFindFXList.cpp carries for the same reason.
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+// (0x00BBA518); <string.h> under /MD provides that dllimport declaration.
 // The donor's only caller is one of the omitted bodies, so `static` here would
 // leave the function unreferenced and elided; retail's own mangled name
 // ?drawableIconNameToIndex@@YA?AW4DrawableIconType@@PBD@Z is a global __cdecl

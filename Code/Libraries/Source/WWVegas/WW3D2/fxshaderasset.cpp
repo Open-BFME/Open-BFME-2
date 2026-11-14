@@ -19,7 +19,11 @@
 // only here and never written by code: it adds "_W3DVIEW_" and skips the
 // precompiled path, so its name is a structural inference.
 
-#define _strcmpi _stlport_hides_strcmpi
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -29,7 +33,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-#undef _strcmpi
 #include "ascii_string.h"
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAURva0007BB16Record@@IU1@@_STL@@YAPAURva0007BB16Record@@PAU1@IA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -40,13 +43,8 @@ namespace _STL { template <> Rva0007BB16Record *__uninitialized_fill_n<Rva0007BB
 struct Rva0007BB16Record;
 namespace _STL { template <> Rva0007BB16Record *__uninitialized_copy<Rva0007BB16Record *, Rva0007BB16Record *>(Rva0007BB16Record *, Rva0007BB16Record *, Rva0007BB16Record *, const __false_type &); }
 
-#include <string.h>
 #include <mbstring.h>
 #include <windows.h>
-// /D_CRTIMP= keeps the CRT calls direct, but retail calls _strcmpi through
-// its import: <string.h> is read with the name hidden (above) and the
-// dllimport declaration is written here.
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 
 typedef const char *D3DXHANDLE;
 

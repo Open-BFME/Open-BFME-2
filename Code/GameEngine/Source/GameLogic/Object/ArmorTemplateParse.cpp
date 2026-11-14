@@ -16,14 +16,16 @@
 // which is ArmorStore::parseArmorDefinition below; its field table names the
 // DamageScalar verb (0x001D8F02) whose body is a tokenize-scale-store one-liner.
 
-// string.h (via the STL headers below) declares _strcmpi without dllimport
-// because this TU builds with /D_CRTIMP=; rename that decl away so the real
-// import decl after the includes is the only _strcmpi the TU sees.
-#define _strcmpi _stlport_hides_strcmpi
+// string.h is included first under dllimport _CRTIMP so _strcmpi carries
+// its msvcr71 IAT import (retail slot 0xBBA518) before STLport includes it.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
 #include <hash_map>
 #include <vector>
 #include <cstddef>
-#undef _strcmpi
 
 enum NameKeyType
 {
@@ -45,11 +47,6 @@ template <typename T> struct hash
 #include "ascii_string.h"
 
 extern AsciiString TheDefaultArmorTemplateName; // zeroed static at 0x009E0878
-
-// msvcr71!_strcmpi through the IAT (retail slot 0xBBA518), not _stricmp.
-// The STL headers above declare it without dllimport, so the shield at the
-// top renamed that decl away and this import decl is the only one in force.
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 
 // Retail damage-name table at 0x009B8968 (27 entries: FORCE, CRUSH, SLASH,
 // PIERCE, SIEGE, STRUCTURAL, FLAME, HEALING, UNRESISTABLE, WATER, PENALTY,

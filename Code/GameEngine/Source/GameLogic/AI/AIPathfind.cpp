@@ -1259,9 +1259,13 @@ public:
 	void rva0052A387(int value);							// 0x0052A387
 };
 
-struct PathfinderLogFile;
-
-extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 extern unsigned char g_00E03745;
 
@@ -2480,26 +2484,26 @@ bool Rva002F6F90Context::rva002F6F90(unsigned int first,int second)
 {
 
  if(g_00E03745 && theLogicRandomLogFile)
-  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() called with cell=%d,%d",first,second);
+  fprintf((FILE*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() called with cell=%d,%d",first,second);
  int count;
  if(!query->CheckForAdjust((Object *)object,*(const LocomotorSet *)word08,mode0C,first,second,(PathfindLayerEnum)word18,word10,option0D,(Coord3D *)&position30,(const Coord3D *)word14,value1C,&count,word2C)) {
   if(g_00E03745 && theLogicRandomLogFile)
-   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() checkAdjust failed");
+   fprintf((FILE*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() checkAdjust failed");
   return false;
  }
 
  if(!count || (object->objectTemplate->flags & 0x20000000)) {
   if(g_00E03745 && theLogicRandomLogFile)
-   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%s, isInfantry=%s, returning true",count?"TRUE":"FALSE",(object->objectTemplate->flags&0x20000000)?"TRUE":"FALSE");
+   fprintf((FILE*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%s, isInfantry=%s, returning true",count?"TRUE":"FALSE",(object->objectTemplate->flags&0x20000000)?"TRUE":"FALSE");
   return true;
  }
  if(count<minimum28 || !minimum28) {
   minimum28=count;saved20=first;saved24=second;
   if(g_00E03745 && theLogicRandomLogFile)
-   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%d, m_foundWithAllies=%d",count,minimum28);
+   fprintf((FILE*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%d, m_foundWithAllies=%d",count,minimum28);
  }
  if(g_00E03745 && theLogicRandomLogFile)
-  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() total failure, return false",count,minimum28);
+  fprintf((FILE*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() total failure, return false",count,minimum28);
  return false;
 }
 

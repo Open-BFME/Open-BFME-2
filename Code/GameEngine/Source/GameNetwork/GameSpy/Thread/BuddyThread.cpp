@@ -647,7 +647,13 @@ class GPConnection;
 
 struct GPGetInfoResponseArg;
 
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *, const unsigned char *);
+// Retail calls msvcr71!_mbscpy through its REL32 import thunk, so read
+// <mbstring.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 
 // tu-skeleton: 0x00550618 14B ?isConnected@GameSpyBuddyMessageQueue@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
 
