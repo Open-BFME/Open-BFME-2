@@ -371,15 +371,26 @@ def template_surgery_refused(text, name):
       - a decorated or mid-line primary template head, or one inside #if ... #endif;
       - a class head of that name in any scope but the global one (`namespace Other { template <int N>
         class name {...}; }`): the primary body's span (body_span) does not tell the scopes apart;
-      - any raw string literal: body_span's spans come from class_layouts' masking, which does not
-        read raw strings as masked does."""
-    if RAW_STRING.search(text):
-        return "a raw string literal (the primary body's span is not read raw-string-aware)"
+      - any raw string literal, also one a line splice forms: body_span's spans come from
+        class_layouts' masking, which does not read raw strings as masked does;
+      - more than one class head of that name anywhere (`class name {` at any depth, mid-line too);
+      - braces the scope walk cannot read: one spelled as a digraph or trigraph (`<%`, `??<`), one in
+        a macro definition (`#define OPEN namespace Other {`), or one inside #if ... #endif."""
     joined, _keep = spliced(text)
+    if RAW_STRING.search(text) or RAW_STRING.search(joined):
+        return "a raw string literal (the primary body's span is not read raw-string-aware)"
     code = masked(joined)
     word = re.escape(name)
     if re.search(r"\b%s\s*<[^;{}]*>\s*::" % word, code):
         return f"spells {name}<...>:: (a member out of class, or a use)"
+    heads = re.findall(r"(?<![\w$])(?:class|struct|union)\s+(?:__declspec\s*\([^)]*\)\s*)*(?:[A-Za-z_]\w*\s*::\s*)*"
+                       r"%s\s*(?::(?!:)[^;{}]*)?(?:\{|<%%|\?\?<)" % word, code)
+    if len(heads) > 1:
+        return f"{len(heads)} class heads of {name} (another class of the name, in whatever scope)"
+    if re.search(r"<%|%>|\?\?[<>]", code):
+        return "a brace spelled as a digraph or trigraph (the scope walk reads only { and })"
+    if any(re.search(r"[{}]", line) for line in re.findall(r"(?m)^[ \t\v\f]*(?:#|%:)[ \t\v\f]*define\b[^\n]*", code)):
+        return "a macro definition holding a brace (the scope walk does not expand macros)"
     namespaces = {m.end() - 1 for m in class_layouts.NAMESPACE.finditer(code)}
     linkage = {m.end() - 1 for m in re.finditer(r'\bextern\s+"C\+\+"\s*\{', masked(joined, keep_literals=True))}
     braces = list(re.finditer(r"[{}]", code))
@@ -417,6 +428,8 @@ def template_surgery_refused(text, name):
             return "a decorated or mid-line primary template head"
         if any(a <= found.start() < b for a, b in regions):
             return "a primary template inside a conditional region"
+    if any(re.search(r"[{}]", code[a:b]) for a, b in regions):
+        return "a brace inside a conditional region (the scope walk counts every branch)"
     return None
 
 

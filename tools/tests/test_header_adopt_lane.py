@@ -847,11 +847,42 @@ def test_a_class_template_copy_goes_whole_unless_a_member_is_defined_out_of_clas
     ("#if 0\ntemplate <int N> class BitFlags { int own; };\n#endif\n", "inside a conditional region"),
     # fail-closed review r1: another namespace's template of the name went with the global copy
     ("template <int N> class BitFlags { int own; };\nnamespace Other {\ntemplate <int N> class BitFlags "
-     "{ int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\n}\n", "scope other than the global one"),
+     "{ int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\n}\n", "2 class heads of BitFlags"),
     ("template <int N> class BitFlags { int own; };\nstruct Holder {\n    class BitFlags { int n; };\n};\n",
+     "2 class heads of BitFlags"),
+    ("namespace Other {\ntemplate <int N> class BitFlags { int own; };\n}\n", "scope other than the global one"),
+    ('extern "C++" {\nnamespace Other {\ntemplate <int N> class BitFlags { int own; };\n}\n}\n',
      "scope other than the global one"),
     # fail-closed review r1: a raw string's template-shaped text and its closing delimiter were cut
     ('template <int N> class BitFlags { int own; };\nconst char *s = R"tag(\n"\n'
+     'template <int N> class BitFlags { int literal; };\n)tag";\nint keep;\n', "raw string literal"),
+    # fail-closed review r2: braces the scope walk could not read hid another namespace's template
+    ("template <int N> class BitFlags { int own; };\nnamespace Other {\n#if 0\n}\n#endif\n"
+     "template <int N> class BitFlags { int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\n}\n",
+     "2 class heads of BitFlags"),
+    ("#define OPEN namespace Other {\n#define CLOSE }\ntemplate <int N> class BitFlags { int own; };\nOPEN\n"
+     "template <int N> class BitFlags { int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\nCLOSE\n",
+     "2 class heads of BitFlags"),
+    ("template <int N> class BitFlags { int own; };\nnamespace Other <%\ntemplate <int N> class BitFlags "
+     "{ int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\n%>\n", "2 class heads of BitFlags"),
+    # ... and with one head, the unreadable braces themselves
+    ("template <int N> class BitFlags { int own; };\nnamespace Other <%\nint size() { return 4; }\n%>\n",
+     "digraph or trigraph"),
+    ("template <int N> class BitFlags { int own; };\nnamespace Other ??<\nint size() { return 4; }\n??>\n",
+     "digraph or trigraph"),
+    ("#define OPEN namespace Other {\ntemplate <int N> class BitFlags { int own; };\nint keep;\n",
+     "macro definition holding a brace"),
+    ("#define OPEN namespace Other \\\n{\ntemplate <int N> class BitFlags { int own; };\nint keep;\n",
+     "macro definition holding a brace"),
+    ("template <int N> class BitFlags { int own; };\nnamespace Other {\n#if 0\n}\n#endif\nint keep;\n}\n",
+     "brace inside a conditional region"),
+    ("template <int N> class BitFlags { int own; };\n#ifdef X\nnamespace Other {\n#else\nnamespace Another {\n"
+     "#endif\nint keep;\n}\n", "brace inside a conditional region"),
+    # ... a head mid-line, in whatever scope
+    ("template <int N> class BitFlags { int own; };\nnamespace Other { struct BitFlags { int n; }; }\n",
+     "2 class heads of BitFlags"),
+    # fail-closed review r2: a raw string whose opener a line splice forms
+    ('template <int N> class BitFlags { int own; };\nconst char *s = R\\\n"tag(\n"\n'
      'template <int N> class BitFlags { int literal; };\n)tag";\nint keep;\n', "raw string literal"),
 ])
 def test_the_swap_leaves_what_it_cannot_tell_apart(unit, why):
