@@ -192,12 +192,7 @@ enum D3DTRANSFORMSTATETYPE
 
 // DX8Wrapper's render state (render_state at 0x009EE5D8): the world and view
 // transforms it keeps transposed at +0x1EC and +0x22C.
-struct RenderStateStruct
-{
-	char m_unknown[0x1EC];
-	Matrix4 world;
-	Matrix4 view;
-};
+#include "RenderStateStruct.h"
 
 class DX8Wrapper
 {

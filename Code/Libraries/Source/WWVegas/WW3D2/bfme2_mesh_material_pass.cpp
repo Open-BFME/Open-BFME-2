@@ -108,7 +108,7 @@ class LightEnvironmentClass;
 // Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
 // (0x00DEE7C4) and view at +0x22C (0x00DEE804). render_state_changed is
 // VA 0x00DEC4F4.
-struct RenderStateStruct { unsigned char m_pad00[0x1EC]; Matrix4 world,view; };
+#include "RenderStateStruct.h"
 // IDirect3DDevice8::SetTransform is vtable slot 37 (d3d8.h).
 struct IDirect3DDevice8;
 struct IDirect3DDevice8Vtbl { void *m_slots[37]; long (__stdcall *SetTransform)(IDirect3DDevice8*,int,const Matrix4*); };
