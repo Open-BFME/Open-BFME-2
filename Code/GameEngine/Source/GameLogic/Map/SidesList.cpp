@@ -129,11 +129,7 @@ enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
-class Rva006C1F60
-{
-public:
-	bool rva00033D50();
-};
+#include "../../../Include/Common/Rva006C1F60.h"
 #include "../../../Include/Common/Rva001EDDBBForwarder.h"
 class Win32GameEngine
 {
