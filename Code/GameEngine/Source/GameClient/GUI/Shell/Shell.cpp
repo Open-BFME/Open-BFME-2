@@ -89,11 +89,7 @@ private:
 	char m_pad16[0x38 - 0x16];
 };
 #include "subsystem_interface.h"
-class Rva0035BD3F
-{
-public:
-	void rva0035BD3F();
-};
+#include "../../../../Include/Common/Rva0035BD3F.h"
 class Rva002007D5
 {
 public:
