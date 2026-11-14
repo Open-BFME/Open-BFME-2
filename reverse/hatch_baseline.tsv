@@ -11147,13 +11147,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditio
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::~Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp	dummyCtor@RampageBehaviorModuleData@@QAE@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorXfer.cpp	TU	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	OrphanData::OrphanData	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	SpawnBehaviorFindAnchor@@YAXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	maySpawnSelfTaskAI@SpawnBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	orderSlavesDisabledUntil@SpawnBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	orderSlavesToClearDisabled@SpawnBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	startSpawning@SpawnBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	stopSpawning@SpawnBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	0Rva00148F5ECache@@QAE@PBD@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	1FreePtr@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp	1ImmortalBody@@UAE@XZ	1
