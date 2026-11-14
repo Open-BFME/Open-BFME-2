@@ -7,12 +7,7 @@
 // inline ctor plus declared-only dtor arms EH state 0 per ModuleData precedent.
 #include "ascii_string.h"
 extern "C" const void *const __identifier("??_7CarryoverUnit@@6B@")[];
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../Include/Common/EmptyBase.h"
 struct BfmeFixedStorage128
 {
 	BfmeFixedStorage128(const BfmeFixedStorage128 &o);

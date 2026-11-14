@@ -29,12 +29,7 @@ public:
 private:
     int m_x;
 };
-class EmptyBase
-{
-public:
-    EmptyBase() {}
-    ~EmptyBase();
-};
+#include "../../Include/Common/EmptyBase.h"
 
 class Rva004147CF : public EmptyBase
 {

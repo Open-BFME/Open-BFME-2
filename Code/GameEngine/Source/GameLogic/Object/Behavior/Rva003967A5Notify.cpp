@@ -77,12 +77,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y);
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../../../Include/Common/EmptyBase.h"
 
 class BuildListInfo : public EmptyBase
 {

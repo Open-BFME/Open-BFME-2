@@ -257,12 +257,7 @@ private:
 	unsigned int m_24; // +0x24
 };
 extern "C" const void *const __identifier("??_7Rva004E1B00@@6B@")[];
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../../../Include/Common/EmptyBase.h"
 extern "C" const void *const __identifier("??_7Rva004E179A@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva004E1B72@@6B@")[];
 // ?rva0052BFE1@Rva0052BFE1@@QAEPAURva005657FEElement@@ABV?$StringBase@D@@PBURva005657FEHolder@@@Z

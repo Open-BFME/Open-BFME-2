@@ -21,12 +21,7 @@ private:
 	T *m_data;
 };
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../../Include/Common/EmptyBase.h"
 
 class Rva003FD789 : public EmptyBase
 {

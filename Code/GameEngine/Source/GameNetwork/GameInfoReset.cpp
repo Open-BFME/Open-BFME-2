@@ -44,12 +44,7 @@ public:
 
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../Include/Common/EmptyBase.h"
 
 class GameInfo : public EmptyBase
 {

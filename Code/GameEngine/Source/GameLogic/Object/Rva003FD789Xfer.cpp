@@ -38,12 +38,7 @@ class DamageInfo;
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../../Include/Common/EmptyBase.h"
 
 class Rva003FD789 : public EmptyBase
 {

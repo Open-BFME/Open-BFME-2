@@ -65,12 +65,7 @@ public:
 	void construct();
 };
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#include "../../../../Include/Common/EmptyBase.h"
 
 class PickupStuffUpdateModuleData : public EmptyBase
 {
