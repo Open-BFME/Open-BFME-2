@@ -4325,15 +4325,20 @@ public:
 """
 SLOT_TABLE = 0x00800000                    # retail table rva; VA 0x00C00000
 SLOT_KEY = f"{WIDGET_H}|slot|Widget@0x00C00000|1"
+UNRELATED_TABLE = 0x00810000               # VA 0x00C10000
 
 
 @pytest.fixture
 def slot_tree(tree, monkeypatch):
     (tree / WIDGET_H).write_text(WIDGET_TEXT)
     (tree / "reverse/canonical_classes.csv").write_text(f"class,header,notes\nWidget,{WIDGET_H},registered\n")
+    with open(tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write("??0Widget@@QAE@XZ,,0x00402000,64,Code/Game/Widget.cpp,matched,installs its table\n")
     _git(tree, "add", "-A")
     _git(tree, "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-qm", "a registered class")
-    monkeypatch.setattr(rename, "retail_vtables", lambda ctx: {SLOT_TABLE: ([0x00403040, 0x00401000, 0x00404000], {})})
+    monkeypatch.setattr(rename, "retail_vtables", lambda ctx: {
+        SLOT_TABLE: ([0x00403040, 0x00401000, 0x00404000], {0x00402010: 0}),      # Widget's ctor installs it
+        UNRELATED_TABLE: ([0x00405000, 0x00401000], {0x00408010: 0})})           # nothing of Widget's does
     monkeypatch.setattr(name_lane, "retail_callee_lines", lambda lane, rva, under_vote="": ["  (retail callees)"])
     return tree
 
@@ -4368,7 +4373,8 @@ def test_a_slot_key_is_served_only_by_its_key_with_its_retail_facts(slot_tree):
 
 @pytest.mark.parametrize("key", [f"{WIDGET_H}|slot|Gadget@0x00C00000|1",          # not registered with this header
                                  f"{WIDGET_H}|slot|Widget@0x00C00000|7",           # past the table
-                                 f"{WIDGET_H}|slot|Widget@0x00C10000|1"])          # no such retail table
+                                 f"{WIDGET_H}|slot|Widget@0x00C20000|1",           # no such retail table
+                                 f"{WIDGET_H}|slot|Widget@0x00C10000|1"])          # a table Widget does not own
 def test_a_slot_key_naming_no_registered_retail_slot_is_not_served(slot_tree, key):
     assert serve_slot(slot_tree, "x", "seat-x", key=key) is None
 
@@ -4383,6 +4389,7 @@ def test_two_blind_votes_give_the_approval_to_class_reads(slot_tree, tmp_path, c
     row = lane_of(slot_tree).state()[SLOT_KEY]
     assert (row["status"], row["kind"], row["old"], row["new"], row["rva"]) == ("agreed", "slot", "1", "spin",
                                                                                  "0x00401000")
+    commit_votes(slot_tree)
     ctx = rename.Context(slot_tree, object_scan=False)
     assert rename.slot_key(ctx, "Widget", SLOT_TABLE, 1) == SLOT_KEY
     assert rename.approved_slot_name(ctx, SLOT_KEY) == "spin"
@@ -4413,3 +4420,35 @@ def test_agree_records_a_slot_agreement_the_votes_reached(slot_tree, tmp_path):
     assert name_lane.cmd_agree(lane_of(slot_tree), args) == 0
     row = lane_of(slot_tree).state()[SLOT_KEY]
     assert (row["kind"], row["new"], row["status"]) == ("slot", "spin", "agreed")
+
+
+def commit_votes(root, message="votes"):
+    _git(root, "add", "-A")
+    _git(root, "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-qm", message)
+
+
+def test_a_table_a_reviewed_base_entry_relates_is_served(slot_tree, monkeypatch):
+    import retail_identity
+    entry = SimpleNamespace(cls="Widget", slot=1, tables={UNRELATED_TABLE + rename.IMAGE_BASE: ("Other", ())})
+    monkeypatch.setattr(retail_identity, "BASE_SLOTS", (entry,))
+    served = serve_slot(slot_tree, "b", "seat-b", key=f"{WIDGET_H}|slot|Widget@0x00C10000|1")
+    assert served and served["files"][WIDGET_H]["items"][0][:3] == ["slot", "Widget@0x00C10000", "1"]
+
+
+def test_a_changed_header_ends_the_slot_approval(slot_tree, tmp_path, capsys):
+    # review r2: the votes were served the header as it read then; after an edit rename.py takes nothing from
+    # them, and apply reopens the key for fresh votes
+    for seat in ("a", "b"):
+        serve_slot(slot_tree, seat, f"seat-{seat}")
+        assert submit_slot(slot_tree, tmp_path, seat, "spin") == 0
+    commit_votes(slot_tree)
+    ctx = rename.Context(slot_tree, object_scan=False)
+    assert rename.approved_slot_name(ctx, SLOT_KEY) == "spin"
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// edited\n")
+    commit_votes(slot_tree, "an edit")
+    assert rename.approved_slot_name(rename.Context(slot_tree, object_scan=False), SLOT_KEY) is None
+    capsys.readouterr()
+    assert apply(slot_tree, key=[SLOT_KEY]) == 0
+    assert "reopened for fresh votes" in capsys.readouterr().out
+    assert lane_of(slot_tree).state()[SLOT_KEY]["status"] == "source-changed"
+

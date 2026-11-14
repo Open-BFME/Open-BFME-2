@@ -1659,6 +1659,8 @@ def register(tree, cls="Widget", header=WIDGET_H):
     path = tree / "reverse/canonical_classes.csv"
     text = path.read_text() if path.exists() else "class,header,notes\n"
     path.write_text(text + f"{cls},{header},registered\n")
+    if not (tree / header).exists():
+        (tree / header).write_text(f"class {cls} {{ public: virtual ~{cls}(); }};\n")
 
 
 def key_of(table_va, slot, cls="Widget", header=WIDGET_H):
@@ -1677,9 +1679,19 @@ def approve(tree, key, name, status="agreed", workers=("w-aaaaaaaaaaaa", "w-bbbb
     with votes.open("a") as f:
         for worker in workers:
             f.write(f"{key},{digest},seat,s-{worker},{worker},2026-11-14\n")
+    # each vote's fingerprint: the header it was served, committed with it (votes_bound_to_text)
+    sources = tree / rename.VOTE_SOURCES
+    if not sources.exists():
+        sources.write_text("key,hash,worker,session,source_sha\n")
+    header = (tree / key.split("|", 1)[0]).read_bytes()
+    with sources.open("a") as f:
+        for worker in workers:
+            f.write(f"{key},{digest},{worker},s-{worker},{__import__('hashlib').sha256(header).hexdigest()}\n")
     with agreed.open("a") as f:
         f.write(f"nl-{abs(hash(key)) % 10**8},slot,{key.rsplit('|', 1)[1]},{name},,{';'.join(workers)},{key},{status},"
                 "two-agent agreement\n")
+    _git(tree, "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "slot votes")
 
 
 def test_votes_slot_key_is_built_from_retail_facts_and_the_registered_header(tree):
@@ -1790,6 +1802,18 @@ def test_votes_a_later_record_of_another_kind_ends_the_approval(tree, monkeypatc
     with (tree / "reverse/name_agreed.csv").open("a") as f:
         f.write(f"nl-later,member,1,whirl,,,{key},blocked,a later record\n")
     assert rename.approved_slot_name(ctx_of(tree), key) is None
+    with pytest.raises(Refusal, match="no approved name"):
+        plan(tree)
+
+
+def test_votes_a_header_edited_after_the_votes_ends_the_approval(tree, monkeypatch):
+    # review r2: the consumer binds the votes to the header as it reads now
+    retail(monkeypatch, GOOD)
+    register(tree)
+    approve(tree, key_of(0x00C00000, 1), "spin")
+    assert plan(tree).new == NEW
+    (tree / WIDGET_H).write_text("class Widget { public: virtual ~Widget(); virtual void spin(); };\n")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "an edit")
     with pytest.raises(Refusal, match="no approved name"):
         plan(tree)
 

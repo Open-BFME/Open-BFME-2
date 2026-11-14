@@ -1106,16 +1106,23 @@ def slot_key(key):
 
 def slot_items(lane, rel, keys):
     """[(kind, scope, ident, rva)] for the slot keys of `keys` that name `rel` as their class's registered canonical
-    header (reverse/canonical_classes.csv) and a slot of a retail vftable; rva is the retail word in that slot."""
+    header (reverse/canonical_classes.csv) and a slot of a retail vftable the class owns (its special members
+    install it) or a reviewed base-slot entry relates to it; rva is the retail word in that slot."""
     wanted = [(key, parsed) for key in keys for parsed in [slot_key(key)] if parsed and parsed[0] == rel]
     if not wanted:
         return []
+    import retail_identity
     headers = {(r.get("class"), r.get("header")) for r in lane.ctx.dicts(rename.CANONICAL_CLASSES)}
     tables = rename.retail_vtables(lane.ctx)
     out = []
     for key, (_rel, cls, table, slot) in wanted:
-        slots = tables.get(table, ((), {}))[0]
-        if (cls, rel) in headers and slot < len(slots):
+        slots, stores = tables.get(table, ((), {}))
+        # the table is the class's own (one of its special members installs it), or a reviewed base-slot entry
+        # relates it to the class at this slot: the two ways rename.py --to-class reaches a slot
+        owned = bool(slots) and bool(rename.class_installers(lane.ctx, cls, stores, tables))
+        based = any(entry.cls == cls and entry.slot == slot and table + rename.IMAGE_BASE in entry.tables
+                    for entry in retail_identity.BASE_SLOTS)
+        if (cls, rel) in headers and slot < len(slots) and (owned or based):
             _r, kind, scope, ident = split_key(key)
             out.append((kind, scope, ident, slots[slot]))
     return out
@@ -3179,22 +3186,22 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 else:
                     print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
-            if slot_key(key):
-                _rel, cls, _table, _slot = slot_key(key)
-                print(f"{key}: agreed {row['new']}; land it with tools/rename.py function --rva RVA --to-class {cls} "
-                      f"--new {row['new']} --prepared ... (its check reads this record)")
-                continue
             source_text = lane.text(split_key(key)[0])
             # A scoped record has its own route, and a placeholder that has gone is stale as before.
             if (not row["id"].startswith("nr-") and row["id"] not in grandfathered and source_text is not None
                     and not name_agreement.scoped_key(key)
-                    and (spelled_key(key) or re.search(rf"\b{re.escape(row['old'])}\b", source_text))
+                    and (spelled_key(key) or slot_key(key) or re.search(rf"\b{re.escape(row['old'])}\b", source_text))
                     and not wins(fresh_voters(lane, key, digest(key, row["new"]), mine, source_text), rivals,
                                  lead=args.lead, min_models=args.min_models, key=key)):
                 print(f"{key}: {split_key(key)[0]} no longer reads as it did for the votes on {row['new']}; "
                       "reopened for fresh votes (status source-changed), nothing landed")
                 lane.append(AGREED, AGREED_COLUMNS, [dict(row, agents="", status="source-changed",
                                                           detail="the source changed since its votes")])
+                continue
+            if slot_key(key):
+                _rel, cls, _table, _slot = slot_key(key)
+                print(f"{key}: agreed {row['new']}; land it with tools/rename.py function --rva RVA --to-class {cls} "
+                      f"--new {row['new']} --prepared ... (its check reads this record)")
                 continue
             if spelled_key(key):
                 print(f"{key}: agreed {row['new']}; land it with tools/rename.py function --rva {scope_rva(key)} "

@@ -7158,8 +7158,8 @@ def slot_key(ctx, cls, table, slot):
 
 def approved_slot_name(ctx, key):
     """The spelling reverse/name_agreed.csv's latest record for slot `key` approves, when that record agrees or
-    landed, is not disputed, and the votes still carry it (name_agreement.verify, check_agreement's floor);
-    else None."""
+    landed, is not disputed, the votes still carry it (name_agreement.verify, check_agreement's floor), and every
+    counted vote was served the class's header as it reads now (votes_bound_to_text); else None."""
     rows = [r for r in ctx.dicts(AGREED) if r.get("key") == key]
     # the key's latest record decides, whatever its kind: an older slot approval is not revived by a later record
     if (not rows or any(r.get("status") == "disputed" for r in rows) or rows[-1].get("kind") != "slot"
@@ -7168,7 +7168,14 @@ def approved_slot_name(ctx, key):
     new = rows[-1].get("new") or ""
     problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key, new,
                                      meaning_votes=ctx.dicts(name_agreement.MEANINGS))
-    return None if problems else new
+    if problems:
+        return None
+    try:
+        # every counted vote was served the header as it reads now (its fingerprint, bound by history)
+        votes_bound_to_text(ctx, rows[-1].get("id") or "", key, new, key.split("|", 1)[0])
+    except Refusal:
+        return None
+    return new
 
 
 def to_class_name_problem(ctx, cls, table, slot, new_name):
@@ -9604,7 +9611,7 @@ def votes_bound_to_text(ctx, rid, key, new, rel):
     fingerprint must be the sha256 of base's `rel`, the text the rename is applied to.
     A vote with no fingerprint, or one cast on any other text -- edited before, with,
     or after the votes, in whatever order the commits land -- earns nothing."""
-    base = ctx.base or "HEAD"
+    base = getattr(ctx, "base", None) or "HEAD"
     data = ctx.read(rel)
     if data is None:
         raise Refusal(f"{rel} is not in {base}")
@@ -9637,7 +9644,7 @@ def fingerprint_bound(ctx, row, rel):
     removed) must hold, in its own tree, `rel` with exactly that sha256. The hook
     (tools/class_gate.py --staged) refuses any other change; this reads history itself, so
     a commit made around the hook gains nothing either."""
-    base = ctx.base or "HEAD"
+    base = getattr(ctx, "base", None) or "HEAD"
     line = ",".join(row.get(c) or "" for c in VOTE_SOURCE_FIELDS)
     vote = ",".join(row.get(c) or "" for c in VOTE_SOURCE_FIELDS[:4]) + ","
     # every line this vote's fingerprint ever had, added (+) or removed (-), commit by commit
