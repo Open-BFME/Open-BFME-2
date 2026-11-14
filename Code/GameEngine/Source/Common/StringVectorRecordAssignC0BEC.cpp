@@ -13,12 +13,7 @@ namespace _STL
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> > &);
 }
 
-struct BfmeVectorRecord000C0BEC {
-	AsciiString text;
-	_STL::vector<AsciiString> names;
-	unsigned int word10;
-	BfmeVectorRecord000C0BEC &operator=(const BfmeVectorRecord000C0BEC &o);
-};
+#include "../../Include/Common/BfmeVectorRecord000C0BEC.h"
 
 BfmeVectorRecord000C0BEC &BfmeVectorRecord000C0BEC::operator=(const BfmeVectorRecord000C0BEC &o)
 {

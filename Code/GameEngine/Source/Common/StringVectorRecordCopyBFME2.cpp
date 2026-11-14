@@ -47,10 +47,7 @@ BfmeVectorRecord001B4A39::~BfmeVectorRecord001B4A39() {}
 template void _STL::_Construct<BfmeVectorRecord001B4A39,BfmeVectorRecord001B4A39>(BfmeVectorRecord001B4A39*,const BfmeVectorRecord001B4A39&);
 
 // Complete retail record copy at 0x000C0BEC.
-struct BfmeVectorRecord000C0BEC {
-    AsciiString text; _STL::vector<AsciiString> names; unsigned int word10;
-    BfmeVectorRecord000C0BEC(const BfmeVectorRecord000C0BEC &other);
-};
+#include "../../Include/Common/BfmeVectorRecord000C0BEC.h"
 BfmeVectorRecord000C0BEC::BfmeVectorRecord000C0BEC(const BfmeVectorRecord000C0BEC &other) : text(other.text), names(other.names), word10(other.word10) {}
 template void _STL::_Construct<BfmeVectorRecord000C0BEC,BfmeVectorRecord000C0BEC>(BfmeVectorRecord000C0BEC*,const BfmeVectorRecord000C0BEC&);
 
