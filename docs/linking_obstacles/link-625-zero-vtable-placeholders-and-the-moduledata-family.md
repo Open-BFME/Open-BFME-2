@@ -587,3 +587,14 @@ FireWeaponWhenDead repair above. Whole-image verification remains outstanding.
   LINK-661 (split storage). One repair there: FileSystem's lang lookups read the language buffer, not a literal.
 - Tree-wide, no matched instruction writes a retail-`.data` address that our build defines in a read-only section
   (222 such definitions; every access is a read).
+
+
+2026-11-14 merge-climb, base `a3cd645d2f8f59e6953ef59996818276c8a9e014`: official `tu_skeleton --merge`
+absorbs only `RampageBehaviorModuleDataDtor.cpp` into `RampageBehavior.cpp`. All 14
+matched row identities remain, zero lost, one source removed. The moved EH rows
+follow their recorded parent (??1RampageBehaviorModuleData@@UAE@XZ at 0x00458C9B).
+Build verifies three EH label equivalences; ProviderGuard/LinkGuard pass, and
+fresh-index preview LINKS 338 -> 422 bytes. Index SHA256
+`dda3d19aaa1de0d1c6399c1fdf3f83cd054596d9391256e56322cf951d3808ae`. Remaining: xfer donor: UpdateModule base undefined; pool-key donor: getModuleNameKey missing; update donor: m_p0C/m_p10 view mismatch; two mixed donors remain.
+This is a partial source consolidation, with no new census, canonical-layout
+or real-image/runtime claim. Receipts: srv1 sweeps/merge-climb/ready-landings/rampagebehavior/.

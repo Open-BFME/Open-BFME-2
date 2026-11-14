@@ -11138,7 +11138,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp	R
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::~Rva0036CA00Str	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp	dummyCtor@RampageBehaviorModuleData@@QAE@H@Z	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp	dummyCtor@RampageBehaviorModuleData@@QAE@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorXfer.cpp	TU	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	OrphanData::OrphanData	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	SpawnBehaviorFindAnchor@@YAXXZ	1
@@ -12196,7 +12196,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00222
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_asciistring_insert_005014FF.cpp	_M_insert@?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHVAsciiString@@@2@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rva004f6352_sort.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rva004f6352_sort_entry.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp	BfmeEventPositionView::zero	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy_rva0054000b.cpp	get_allocator@?$vector@VRva0054000B@@V?$allocator@VRva0054000B@@@_STL@@@_STL@@QBE?AV?$allocator@VRva0054000B@@@2@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp	bfmeEmitstlport_vector_e12_copy_ptrs@@YAXPAUBfmeE12@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp	1OpaqueRefElement4@@QAE@XZ	1

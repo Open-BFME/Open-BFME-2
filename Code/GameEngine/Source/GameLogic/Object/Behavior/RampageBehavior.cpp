@@ -4,7 +4,6 @@
 #include <vector>
 #include <string.h>
 #include "ascii_string.h"
-
 //
 // ??0RampageBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00458B60,
 // 101 bytes. Behavior-side ctor completing the RampageBehavior file-unit
@@ -19,15 +18,10 @@
 // Row supersedes the ctor pin.
 
 class Thing;
-
 class ModuleData;
-
 class Object;
-
 static int s_vtable;
-
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
-
 // Retail table 0x00C40D9C (+0x10, UpdateModuleInterface, 3 slots). Own the complete
 // initialized table instead of a zero-int stand-in (Rva004DF324Dtor.cpp s_10
 // precedent): the rowed slot bodies by address, never called through these
@@ -42,7 +36,6 @@ static const void *const s_secondary10[3] = {
 	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")
 };
 }
-
 // Opaque UpdateModule base; ctor resolves to its row. The declared-only
 // virtual dtor drives the single EH state with zero emitted code. Protected
 // slots mirror the retail stores.
@@ -51,7 +44,6 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-
 class UpdateModule
 {
 public:
@@ -67,7 +59,6 @@ protected:
 	const void *m_p10;
 	unsigned char m_pad[0x20 - 0x14];
 };
-
 class RampageBehavior : public UpdateModule
 {
 public:
@@ -79,18 +70,14 @@ private:
 	int m_24;
 	int m_28;
 };
-
 #include "../../../../Include/GameLogic/AI.h"
-
 extern class AI *TheAI;
-
 struct Rva00458BE1Sub
 {
 	char m_pad[0x24];
 	float m_range;
 	int m_limit;
 };
-
 class Rva00458BE1
 {
 public:
@@ -100,8 +87,6 @@ private:
 	Rva00458BE1Sub *m_sub; // +0x04
 	Object *m_obj; // +0x08
 };
-
-
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
 namespace _STL {
@@ -111,13 +96,18 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
-
 #include "../../../../Include/Common/ModuleData.h"
-
 inline ModuleData::~ModuleData() {}
-
 #include "../../../../Include/Common/GlobalData.h"
 #include "../../../../Include/GameClient/Drawable.h"
+// A declaration-only specialization stops this TU emitting its own
+// vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
+template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+}
 
 extern GlobalData *TheWritableGlobalData;
 
@@ -136,6 +126,8 @@ private:
 	float m_enemyCheckRange; // +0x24
 	int m_enemyThreshold; // +0x28
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorCtor.cpp
 
@@ -158,14 +150,6 @@ RampageBehavior::~RampageBehavior()
 	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = s_secondary10;
 }
-
-// tu-skeleton: 0x00458AC7 6B ?name@RampageBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
-// tu-skeleton: 0x00458ACD 61B ?xfer@Rva00458AAE@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00458AAEXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00458B0A 69B ?getModuleNameKey@RampageBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x00458B4F 17B ?buildFieldParse@RampageBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00458BE1Pred.cpp
 
@@ -203,9 +187,32 @@ RampageBehaviorModuleData::RampageBehaviorModuleData()
 	m_requiredUpgrade.clear();
 }
 
-// tu-skeleton: 0x00458C7F 28B ??_GRampageBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp (not merged yet)
+// tu-skeleton: 0x00458AC7 6B ?name@RampageBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x00458C9B 48B ??1RampageBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp (not merged yet)
+// tu-skeleton: 0x00458ACD 61B ?xfer@Rva00458AAE@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00458AAEXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00458B0A 69B ?getModuleNameKey@RampageBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x00458B4F 17B ?buildFieldParse@RampageBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp
+
+// ??1RampageBehaviorModuleData@@UAE@XZ, RVA 0x00458C9B, size 48.
+// Virtual dtor destroying RequiredUpgrade vector at +8 then restoring
+// Snapshot base vtable 0xBBB554 with trivial base inlined (no base call).
+// Evidence: EH state 0 single vector teardown 0x2CC70, vtable-last
+// 0xBBB554 same shape as UpgradeModuleData 0x255A42, slot-0 deleter
+// 0x458C7F calls here, ctor 0x458C0F owns class and table 0xC40EF8.
+
+// ?dummyCtor@RampageBehaviorModuleData@@QAE@H@Z present-unmatched
+RampageBehaviorModuleData::RampageBehaviorModuleData(int)
+{
+}
+
+void deleteRampageBehaviorModuleData(RampageBehaviorModuleData *rampageBehaviorModuleData)
+{
+    delete rampageBehaviorModuleData;
+}
 
 // tu-skeleton: 0x00458CCB 689B ?update@RampageBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior_update.cpp (not merged yet)
 
@@ -214,7 +221,3 @@ RampageBehaviorModuleData::RampageBehaviorModuleData()
 // tu-skeleton: 0x0078A1E1 10B __ehhandler$?getModuleNameKey@RampageBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A1FD 8B uw_0078a1fd -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A21A 8B $L5206 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A222 10B __ehhandler$??1RampageBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp (not merged yet)
