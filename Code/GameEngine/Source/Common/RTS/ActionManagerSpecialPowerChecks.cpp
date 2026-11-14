@@ -1054,19 +1054,9 @@ bool ActionManager::canDockAt(const Object *obj, const Object *dockDest, Command
 // canFireWeaponAtLocation's views: the weapon set at Object+0x330, the
 // weapon's template at +4 with its float at +0x2C, and the Coord3D overload
 // of Weapon::isWithinAttackRange.
-struct ActionWeaponTemplateView
-{
-	char m_pad00[0x2C];
-	float m_2C;	// +0x2C
-};
+#include "../../../Include/GameLogic/WeaponTemplate.h"
 
-class Weapon
-{
-public:
-	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;	// 0x002CB902
-	char m_pad00[4];
-	const ActionWeaponTemplateView *m_template;	// +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 
@@ -1094,7 +1084,7 @@ bool ActionManager::canFireWeaponAtLocation(const Object *obj, const Coord3D *lo
 	if (!weapon->isWithinAttackRange(const_cast<Object *>(obj), (void *)loc, 0.0f, 1))
 		return false;
 
-	float arc = weapon->m_template->m_2C;
+	float arc = weapon->m_template->m_aimDelta;
 	if (arc > 0.0f && (actionTemplate(obj)[0x108] & 4)) {
 		double angle = fabs((double)obj->GetRelativeAngle(loc));
 		if (angle > arc)

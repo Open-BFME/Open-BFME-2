@@ -54,11 +54,7 @@ extern GameLogic *TheGameLogic;
 enum WeaponSlotType { HmaWeaponSlotInvalid=-1 };
 enum ObjectStatusTypes { HmaStatus26=0x26 };
 #include "../../../Include/Common/Rva002C9400ByteField.h"
-class Weapon {public:
- const Rva002C9400ByteField *getTemplate()const{return data;}
- float getAttackRange(const Object*)const;
- void *vptr;const Rva002C9400ByteField *data;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/Rva001E3591.h"
 template<int N> class HmaVirtualSlots:public HmaVirtualSlots<N-1>{public:virtual void gap(char(*)[N]);};
@@ -86,7 +82,7 @@ bool HordeMeleeAmoeba::rva005879C8(Object *victim)
  if(!victim)return false;
  Object *owner=((HmaHolder*)held)->owner;
  const Weapon *weapon=owner->getCurrentWeapon(0);
- if(!weapon || !weapon->getTemplate()->get())return false;
+ if(!weapon || !((const Rva002C9400ByteField *)weapon->getTemplate())->get())return false;
  float range=weapon->getAttackRange(owner);
  if(!(victim->data->kinds108&0x80) && fabs(owner->position.z-victim->position.z)>20.0f)return false;
  range=range-(-10.0f);

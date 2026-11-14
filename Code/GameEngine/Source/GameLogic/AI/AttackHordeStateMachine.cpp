@@ -33,12 +33,7 @@ static __forceinline void zeroCoord3D(Coord3D &coord)
 	coord.z = 0.0f;
 }
 #include "../../../Include/Common/Rva002C9400ByteField.h"
-class Weapon
-{
-public:
-	unsigned char m_pad00[0x04];
-	Rva002C9400ByteField *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
@@ -148,7 +143,7 @@ public:
 AttackHordeStateMachine::AttackHordeStateMachine(Object *obj, Rva00343367Attack *att, UnsignedInt nameKey, Bool follow, Bool attackingObject, Bool forceAttacking) : StateMachine(obj, nameKey, false)
 {
 	const Weapon *weapon;
-	if ((obj->m_template->m_kind116 & 0x80) && (weapon = obj->getCurrentWeapon(NULL)) != NULL && weapon->m_template->get())
+	if ((obj->m_template->m_kind116 & 0x80) && (weapon = obj->getCurrentWeapon(NULL)) != NULL && ((const Rva002C9400ByteField *)weapon->m_template)->get())
 	{
 		defineState( 200, new AIAttackMeleeSquishState( this ), 201, 9999 );
 		defineState( 201, new Rva003429B9( this ), 203, 9999 );

@@ -102,15 +102,7 @@ class Module;
 // Weapon template view: the rowed byte getter reads +0x125.
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 
-class Weapon
-{
-public:
-	Bool rva002C9586();
-	const Rva002C9400ByteField *getTemplate() const { return m_template; }
-private:
-	unsigned char m_pad00[0x04];
-	const Rva002C9400ByteField *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -273,7 +265,7 @@ StateReturnType AIIdleState::update()
 			return STATE_CONTINUE;
 		}
 
-		if (obj->testStatus(OBJECT_STATUS_BFME_26) && weapon && weapon->getTemplate()->get())
+		if (obj->testStatus(OBJECT_STATUS_BFME_26) && weapon && ((const Rva002C9400ByteField *)weapon->getTemplate())->get())
 			return STATE_CONTINUE;
 
 		// do repulsor logic

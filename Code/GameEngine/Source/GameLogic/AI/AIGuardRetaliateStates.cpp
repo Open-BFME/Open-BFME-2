@@ -270,7 +270,7 @@ private:
 };
 enum WeaponSlotType { WEAPON_PRIMARY = 0 };
 #include "../../../Include/Common/Rva002C9400ByteField.h"
-class Weapon { public: const Rva002C9400ByteField *getTemplate() const { return m_template; } private: unsigned char pad00[4]; const Rva002C9400ByteField *m_template; };
+#include "../../../Include/GameLogic/Weapon.h"
 #include "../../../Include/Common/TeamBFME2.h"
 class Object
 {
@@ -595,7 +595,7 @@ StateReturnType AIGuardRetaliateAttackAggressorState::onEnter()
  Coord3D pos; pos.set(getGuardMachine()->getPositionToGuard());
  Real range = AI::getAdjustedVisionRangeForObject(obj, 3);
  UnsignedInt chaseFrames = TheAI->getAiData()->m_guardChaseUnitFrames;
- if (obj->getCurrentWeapon() && obj->getCurrentWeapon()->getTemplate()->get())
+ if (obj->getCurrentWeapon() && ((const Rva002C9400ByteField *)obj->getCurrentWeapon()->getTemplate())->get())
   chaseFrames += chaseFrames >> 1;
  m_exitConditions.m_center = pos;
  m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + chaseFrames;
