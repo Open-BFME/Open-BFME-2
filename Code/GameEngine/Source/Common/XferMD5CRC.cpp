@@ -507,13 +507,7 @@ class BuddyRequest;
 struct BfmeOpaqueOwnedRecord1432;
 struct BfmeOpaqueOwnedRecord1408;
 // ?rva0054FF12@Rva0054FF12@@QAEXXZ @0x0054FF12 5B: deque<PingRequest>::pop_front.
-class Rva0054FF12
-{
-public:
-	void rva0054FF12();
-private:
-	_STL::deque<PingRequest> m_queue;
-};
+#include "../../Include/Common/Rva0054FF12.h"
 // ?rva00550C81@Rva00550C81@@QAEXXZ @0x00550C81 5B: deque<BuddyRequest>::pop_front.
 #include "../../Include/Common/Rva00550C81.h"
 // ?rva00550C86@Rva00550C86@@QAEXXZ @0x00550C86 5B: deque<BfmeOpaque2148>::pop_front.

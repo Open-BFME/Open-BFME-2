@@ -677,13 +677,7 @@ struct BfmeOpaqueOwnedRecord1432;
 struct BfmeOpaqueOwnedRecord1408;
 
 // ?rva0054FF12@Rva0054FF12@@QAEXXZ @0x0054FF12 5B: deque<PingRequest>::pop_front.
-class Rva0054FF12
-{
-public:
-	void rva0054FF12();
-private:
-	_STL::deque<PingRequest> m_queue;
-};
+#include "../../Include/Common/Rva0054FF12.h"
 void Rva0054FF12::rva0054FF12()
 {
 	m_queue.pop_front();
