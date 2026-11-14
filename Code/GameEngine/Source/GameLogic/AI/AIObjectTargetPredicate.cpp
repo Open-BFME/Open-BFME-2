@@ -13,7 +13,7 @@ class Object;class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../Include/Common/Rva002C9400ByteField.h"
-class Weapon {public:bool isWithinAttackRange(const Object*,const Object*,float,int)const;char pad[4];const Rva002C9400ByteField*data;};
+#include "../../../Include/GameLogic/Weapon.h"
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/ThingTemplate.h"
@@ -38,8 +38,8 @@ bool AI::rva002FE193(Object*source,Object*target)
   for(int slot=0;slot<6;++slot){
    Weapon*weapon=source->weapons.getWeaponInWeaponSlot((WeaponSlotType)slot);
    if(!weapon)continue;
-   if(weapon->isWithinAttackRange(source,target,0.0f,1))return true;
-   if(!weapon->data->get())continue;
+   if(weapon->isWithinAttackRange((const Object *)source,(const Object *)target,0.0f,1))return true;
+   if(!((const Rva002C9400ByteField *)weapon->m_template)->get())continue;
    if(onGround)return false;
    int sourceLayer=source->rva0028B511();
    bool sameLayer=target->rva0028B511()==sourceLayer;
@@ -56,8 +56,8 @@ bool AI::rva002FE193(Object*source,Object*target)
  for(int slot=0;slot<6;++slot){
   Weapon*weapon=source->weapons.getWeaponInWeaponSlot((WeaponSlotType)slot);
   if(!weapon)continue;
-  if(weapon->isWithinAttackRange(source,target,0.0f,1))return true;
-  if(!weapon->data->get())continue;
+  if(weapon->isWithinAttackRange((const Object *)source,(const Object *)target,0.0f,1))return true;
+  if(!((const Rva002C9400ByteField *)weapon->m_template)->get())continue;
   if(onGround)return false;
   int sourceLayer=source->rva0028B511();
   if(target->rva0028B511()!=sourceLayer)continue;

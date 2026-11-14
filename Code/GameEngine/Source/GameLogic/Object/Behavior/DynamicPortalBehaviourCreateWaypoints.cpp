@@ -45,12 +45,7 @@ static inline void setWaypointField44(Waypoint *way, Waypoint *next) { way->m_fi
 
 #include "../../../../Include/GameLogic/Module/Rva002E9042.h"
 
-class AI
-{
-public:
-	char m_pad00[0x10];
-	Rva002E9042 *m_pathfinder; // +0x10
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
@@ -137,7 +132,7 @@ void DynamicPortalBehaviour::createWaypoints()
 		
 		if (!alreadyCreated)
 			m_waypoints[first]->addLink(m_waypoints[last]);
-		(alreadyCreated ? TheAI->m_pathfinder : TheAI->m_pathfinder)->AddPortal(m_waypoints[first]);
+		((Rva002E9042 *)(alreadyCreated ? TheAI->m_pathfinder : TheAI->m_pathfinder))->AddPortal(m_waypoints[first]);
 		if (!alreadyCreated)
 		{
 			const int limit = count - 2;

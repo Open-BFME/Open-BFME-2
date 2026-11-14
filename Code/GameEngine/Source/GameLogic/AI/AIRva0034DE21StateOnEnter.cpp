@@ -41,14 +41,7 @@ extern unsigned char g_00E03745;
 // Pathfinder::_GetOverlapUnits.
 #include "../../../Include/GameLogic/Rva002EF3D9Host.h"
 
-class AI
-{
-public:
-	Rva002EF3D9Host *pathfinder() { return m_pathfinder; }
-private:
-	unsigned char m_pad00[0x10];
-	Rva002EF3D9Host *m_pathfinder; // +0x10
-};
+#include "../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 
@@ -68,7 +61,7 @@ StateReturnType Rva0034DE21::onEnter()
 {
 	Object *obj = getMachineOwner();
 	Object *overlaps[16];
-	if (!TheAI->pathfinder()->rva002EF3D9((char *)obj, (int)overlaps))
+	if (!((Rva002EF3D9Host *)TheAI->pathfinder())->rva002EF3D9((char *)obj, (int)overlaps))
 	{
 		Coord3D pos;
 		pos.x = obj->getPosition()->x;

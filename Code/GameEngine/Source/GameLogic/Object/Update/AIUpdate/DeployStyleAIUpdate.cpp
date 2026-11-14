@@ -164,11 +164,7 @@ public:
  void rva0026C2D9(Object *, int, CommandSourceType);
 };
 
-class Weapon {
-public:
- Bool isWithinAttackRange(const Object *, const Object *, float, int) const;
- Bool isWithinAttackRange(Object *, const Coord3D *, Object *, const Coord3D *, float, Bool);
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 #include "../../../../../Include/GameLogic/Module/TurretStateMachine.h"
 
@@ -793,7 +789,7 @@ UpdateSleepTime DeployStyleAIUpdate::update()
   } else if(m_4D1) {
    target=TheGameLogic->findObjectByID((ObjectID)m_4C0);
    if(target && target->isEffectivelyDead()) target=0;
-   if(target) { inRange=weapon->isWithinAttackRange(self,target,0.0f,1); attacking=true; }
+   if(target) { inRange=weapon->isWithinAttackRange((const Object *)self,(const Object *)target,0.0f,1); attacking=true; }
   } else if(m_4D0) {
    Bool newTarget=false;
    WhichTurretType tur=getWhichTurretForCurWeapon();
@@ -804,12 +800,12 @@ UpdateSleepTime DeployStyleAIUpdate::update()
    if(!target && m_4D3) {
     target=getNextMoodTarget(false,false);
     if(target) {
-     inRange=weapon->isWithinAttackRange(self,target,0.0f,1); attacking=true;
+     inRange=weapon->isWithinAttackRange((const Object *)self,(const Object *)target,0.0f,1); attacking=true;
      if(inRange) { rva0026C2D9(target,0x7fffffff,CMD_FROM_AI); m_4D4=true; m_4BC=target->getID(); }
      else target=0;
     } else target=0;
    } else if(target) {
-    inRange=weapon->isWithinAttackRange(self,target,0.0f,1); attacking=true; m_4BC=target->getID();
+    inRange=weapon->isWithinAttackRange((const Object *)self,(const Object *)target,0.0f,1); attacking=true; m_4BC=target->getID();
     if(m_4D4 && newTarget && inRange) rva0026C2D9(target,0x7fffffff,CMD_FROM_AI);
    } else m_4BC=0;
   }
