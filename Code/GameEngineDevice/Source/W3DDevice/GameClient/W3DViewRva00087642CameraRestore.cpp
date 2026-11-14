@@ -125,7 +125,7 @@ public:
 	virtual void slot164Set(Int value);			// +0x290
 
 	virtual void rva00087642();
-	void rva0008780A(int unused);
+	virtual void rva0008780A(int unused);
 
 private:
 	char m_pad0004[0x0C - 0x04];
@@ -220,7 +220,7 @@ void W3DView::rva00087642()
 	TheMouse->field5009 = false;
 }
 
-// ?rva0008780A@W3DView@@QAEXH@Z retail 0x0008780A..0x00087952 (328B) RET4:
+// ?rva0008780A@W3DView@@UAEXH@Z retail 0x0008780A..0x00087952 (328B) RET4:
 // default-camera reset. Clears follow mode through the same file statics the
 // restore (0x87642) reads, re-clamps the camera height over the terrain and
 // rebuilds the +0x23E8 projection offset from the +0x24C8 camera-limits
