@@ -2284,13 +2284,7 @@ public:
 	char m_lead[0xA8];
 	unsigned char m_enabled;
 };
-class MilesAudioManager : public SizedForwarderSlots
-{
-public:
-	virtual void rva000512BC();
-public:
-	char m_lead[0x6AB - sizeof(void *)];
-};
+#include "../../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 class Rva00066517ByteOneSetter
 {
 public:
