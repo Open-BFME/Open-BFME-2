@@ -1724,8 +1724,11 @@ def cmd_next(lane, args, *, _claim_snapshot=None):
         targeted = [i for i in items if key_of(rel, *i[:3]) in reviews.get(rel, ())]
         meanings = [i for i in items if key_of(rel, *i[:3]) in clarifications.get(rel, ())]
         explicit_review = getattr(args, "review_only", False)
-        meaning_review = bool(meanings) and (not args.file or only_meaning) and not targeted and not explicit_review
-        review = bool(targeted) and (not args.file or explicit_review)
+        # a file the worker names (--file or --files) is served whole; only the picker's own choice of a
+        # file for its pending review narrows the packet to the keys awaiting review
+        named_file = bool(args.file or requested_files)
+        meaning_review = bool(meanings) and (not named_file or only_meaning) and not targeted and not explicit_review
+        review = bool(targeted) and (not named_file or explicit_review)
         if only_meaning or selected_meaning is True or meaning_review:
             items = meanings
             meaning_review = bool(items)

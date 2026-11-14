@@ -985,6 +985,19 @@ def test_second_review_overrides_affinity_for_fresh_work(tree, tmp_path):
     assert record["files"][SOURCE]["second_review"]
 
 
+@pytest.mark.parametrize("how", ["file", "files"])
+def test_a_named_file_serves_fresh_keys_beside_a_pending_review(tree, tmp_path, how):
+    # InGameUI gap 1: GapBodiesS3B.cpp's virtual members went unserved under --files because another key of the
+    # file awaited a second review; --file served them
+    vote(tree, tmp_path, "pending", {"rva00401000": "sumBox"}, worker="other-worker")
+    be("reviewer")
+    record = subsystem_next(tree, "named-" + how, count=1, **({"file": SOURCE} if how == "file" else {"files": [SOURCE]}))
+    items = record["files"][SOURCE]["items"]
+    assert ["function", "0x00401000", "rva00401000", 0x00401000] in items
+    assert any(item[0] == "member" for item in items)
+    assert not record["files"][SOURCE]["second_review"]
+
+
 def test_busy_second_review_is_not_served(tree, tmp_path, monkeypatch, capsys):
     import claims
     vote(tree, tmp_path, "pending", {"rva00401000": "sumBox"}, worker="other-worker")
