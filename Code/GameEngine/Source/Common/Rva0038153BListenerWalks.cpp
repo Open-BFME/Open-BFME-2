@@ -114,11 +114,7 @@ private:
 	unsigned int m_index;	// +0x0C
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 void Rva003818B0List::forEach(void (Rva003818B0Listener::*notify)(void *), void *arg)
 {
@@ -145,7 +141,7 @@ void Rva003818B0List::apply(const Rva003815ABCall &call)
 // Evidence: unlock lane, caller 0x00381900 loads g_00E02310 as this.
 void Rva003818B0List::rva003818E3(void *userData)
 {
-	forEach((void (Rva003818B0Listener::*)(void *))&Rva005CB260::rva005CB260, userData);
+	forEach((void (Rva003818B0Listener::*)(void *))static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260), userData);
 }
 
 // ?Rva00381900@@YAXH@Z, retail 0x00381900, 15 bytes.

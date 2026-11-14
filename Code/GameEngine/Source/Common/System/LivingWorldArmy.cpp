@@ -201,11 +201,7 @@ private:
 	unsigned int m_index;	// +0x0C
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../Include/Common/Rva005CB260.h"
 
 class Rva0040DDD6
 {
@@ -1085,7 +1081,7 @@ void Rva003193EC::rva003198B8(Rva003193EC *other)
 		((Rva000B3FD0 *)m_88)->rva000B3FD0();
 	other->rva003190E7(false);
 	rva003190E7(false);
-	m_list08.forEach((void (Rva0031980CListener::*)(void *, int))&Rva005CB260::rva005CB260, this, (int)other);
+	m_list08.forEach((void (Rva0031980CListener::*)(void *, int))static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260), this, (int)other);
 }
 
 void Rva003193EC::rva003191B1()

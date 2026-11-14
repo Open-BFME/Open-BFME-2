@@ -320,20 +320,14 @@ typedef void (Rva004FA953Listener::*Rva004FA953Notify)(void *, int);
 // receiver and the two arguments when the record is invoked. These casts
 // preserve that call-record ABI without assigning the owners' semantics
 // to this unrelated listener interface.
-class Rva005CB260
-{
-public:
-	virtual void rva005CB260_slot0();
-	virtual void rva005CB260_slot1();
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 class GameMessage;
 struct Rva0042C083Param;
 #include "../../Include/Common/Rva0042C0DBDelegate.h"
 
 void Rva004FA992Owner::rva004FA9B1(int index)
 {
-	Rva004FA953Notify notify = reinterpret_cast<Rva004FA953Notify>(&Rva005CB260::rva005CB260);
+	Rva004FA953Notify notify = reinterpret_cast<Rva004FA953Notify>(static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260));
 	if (index < 0)
 		return;
 	if ((unsigned int)index >= m_ids.size())

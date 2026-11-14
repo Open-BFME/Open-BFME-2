@@ -20,13 +20,7 @@ public:
 	void forEach(void (Rva005F2230Listener::*notify)(void *), void *arg);
 };
 
-class Rva005CB260
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 #include "../../Include/GameClient/Rva005F22D2.h"
 
@@ -64,5 +58,5 @@ private:
 Rva005F23B2::~Rva005F23B2()
 {
 	((Rva005F22D2 *)this)->rva005F22D2();
-	((Rva005F2230List *)&m_list00)->forEach((void (Rva005F2230Listener::*)(void *))&Rva005CB260::rva005CB260, this);
+	((Rva005F2230List *)&m_list00)->forEach((void (Rva005F2230Listener::*)(void *))static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260), this);
 }

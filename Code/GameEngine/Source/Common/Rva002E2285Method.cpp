@@ -62,11 +62,7 @@ private:
 	int m_18;
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 
 class Rva002E2285
 {
@@ -87,7 +83,7 @@ void Rva002E2285::rva002E2285(int *elem, const Rva0020E449 &other)
 	int key = *elem;
 	if (m_lookup.find(key) == m_lookup.end()) {
 		m_list.forEach(
-			reinterpret_cast<void (Rva002E1E6FListener::*)(void *, int, int)>(&Rva005CB260::rva005CB260),
+			reinterpret_cast<void (Rva002E1E6FListener::*)(void *, int, int)>(static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260)),
 			this,
 			(int)elem,
 			(int)&other);

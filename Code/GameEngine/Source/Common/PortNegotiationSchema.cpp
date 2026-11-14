@@ -243,11 +243,7 @@ public:
 	void *m_ptr;
 };
 struct Rva005DBDF7Call;
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../Include/Common/Rva005CB260.h"
 class Rva001FF3A9
 {
 public:
@@ -567,7 +563,7 @@ bool PortNegotiationSchema::receivedAPong(unsigned short x, unsigned short y, in
 	if (!elem)
 		return false;
 	((Elem005DB98E *)elem)->rva005DB885(a);
-	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva005CB260::rva005CB260, this, x, y);
+	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260), this, x, y);
 	return true;
 }
 
@@ -579,7 +575,7 @@ bool PortNegotiationSchema::setPingStats(unsigned short x, unsigned short y, flo
 	if (!elem)
 		return false;
 	((Elem005DB98E *)elem)->rva005DB8F7(a, m_pingsSent, pongsReceived);
-	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva005CB260::rva005CB260, this, x, y);
+	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260), this, x, y);
 	return true;
 }
 

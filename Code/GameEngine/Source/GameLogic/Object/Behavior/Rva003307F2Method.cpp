@@ -42,11 +42,7 @@ public:
 	void rva001FF3A9(const TreeHintRef00217D4C &hint);
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../../Include/Common/Rva005CB260.h"
 
 class Rva0053F8E5DwordCounter
 {
@@ -72,7 +68,7 @@ void Rva003307F2::rva003307F2(const ModuleData *mod)
 	m_vec.push_back(mod);
 	((Rva0053F8E5DwordCounter *)mod)->inc();
 	m_list.forEach(
-		reinterpret_cast<void (Rva0033068BListener::*)(void *, int)>(&Rva005CB260::rva005CB260),
+		reinterpret_cast<void (Rva0033068BListener::*)(void *, int)>(static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260)),
 		this,
 		(int)mod);
 }

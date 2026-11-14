@@ -18,11 +18,7 @@ private:
 	unsigned int m_index;
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../Include/Common/Rva005CB260.h"
 
 #include "../../../Include/GameLogic/Module/Rva005C98C0.h"
 
@@ -48,7 +44,7 @@ void Rva005C9B76::rva005C9AB4()
 		if (v != 0) {
 			m_i1C = 0;
 			m_list.forEach(
-				reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(&Rva005CB260::rva005CB260),
+				reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260)),
 				this,
 				v);
 		}
@@ -63,7 +59,7 @@ int Rva005C9B76::rva005C9ADD(int id, int)
 	if (r != cur) {
 		m_i1C = r;
 		m_list.forEach(
-			reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(&Rva005CB260::rva005CB260),
+			reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260)),
 			this,
 			cur);
 	}
@@ -75,7 +71,7 @@ void Rva005C9B76::rva005C9B56(int v)
 	if (v != cur) {
 		m_i1C = v;
 		m_list.forEach(
-			reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(&Rva005CB260::rva005CB260),
+			reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260)),
 			this,
 			cur);
 	}

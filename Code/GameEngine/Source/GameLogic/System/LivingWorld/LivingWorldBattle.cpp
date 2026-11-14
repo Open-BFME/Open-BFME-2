@@ -85,11 +85,7 @@ private:
 	unsigned int m_index;
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
+#include "../../../../Include/Common/Rva005CB260.h"
 
 struct Rva003F5397Slot;
 
@@ -136,7 +132,7 @@ struct Rva003F5397Slot
 void LivingWorldBattle::rva003F5397(Int sideIndex, Int playerIndex, Int firstArmyIndex, Int secondArmyIndex)
 {
 	((BattlePlayer *)((char *)m_table18[sideIndex].m_players.begin() + playerIndex * 0x30))->SwapArmies(firstArmyIndex, secondArmyIndex);
-	m_list08.forEach((Rva003F41A4Fn)&Rva005CB260::rva005CB260, (int)this, sideIndex, playerIndex, firstArmyIndex, secondArmyIndex);
+	m_list08.forEach((Rva003F41A4Fn)static_cast<void (Rva005CB260::*)()>(&Rva005CB260::rva005CB260), (int)this, sideIndex, playerIndex, firstArmyIndex, secondArmyIndex);
 }
 
 // LivingWorldBattle::BattlePlayer::SwapArmies, retail 0x003F427D.
