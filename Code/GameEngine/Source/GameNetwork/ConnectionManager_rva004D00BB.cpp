@@ -55,28 +55,13 @@ struct NetCommandListNode
 
 #include "../../Include/GameNetwork/NetCommandListClass.h"
 
-class ConnectionManager
-{
-public:
-	void requestLeave(Int arg);
-	void resendPendingCommands();
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-private:
-	void *m_vptr;
-	char m_pad04[0x12028 - 4];
-	UnsignedInt m_localPlayerID;
-	char m_pad1202C[0x12124 - 0x1202C];
-	NetCommandList *m_list12124;
-	char m_pad12128[0x12130 - 0x12128];
-	UnsignedInt m_lastTime;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::requestLeave(Int arg)
 {
 	Rva004D5A10 *cmd = new Rva004D5A10();
-	((Rva004D57AE *)cmd)->setPlayerIndex(m_localPlayerID);
-	cmd->m_playerID = m_localPlayerID;
+	((Rva004D57AE *)cmd)->setPlayerIndex(m_localSlot);
+	cmd->m_playerID = m_localSlot;
 	((BFMENetInformPlayerLeaveFrameCommandMsg *)cmd)->setLeavingPlayerID(arg);
 	if (DoesCommandRequireACommandID(cmd->m_commandType))
 		cmd->m_id = GenerateNextCommandID();
@@ -85,16 +70,16 @@ void ConnectionManager::requestLeave(Int arg)
 	sendLocalCommandDirect(cmd, 0xff);
 	((BfmeOwnerFY *)this)->bfmeShutdownFY();
 	cmd->detach();
-	if (m_lastTime == 0)
-		m_lastTime = timeGetTime();
+	if (field12130 == 0)
+		field12130 = timeGetTime();
 }
 
 // ?resendPendingCommands@ConnectionManager@@QAEXXZ @0x004D016E (42B)
 void ConnectionManager::resendPendingCommands()
 {
-	if (m_list12124 != 0)
+	if (m_pendingCommands != 0)
 	{
-		for (NetCommandListNode *node = reinterpret_cast<NetCommandListNode *>(m_list12124->m_first); node != 0; node = node->m_next)
+		for (NetCommandListNode *node = reinterpret_cast<NetCommandListNode *>(m_pendingCommands->m_first); node != 0; node = node->m_next)
 			sendLocalCommand(node->m_msg, node->m_relay);
 	}
 }
