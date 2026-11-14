@@ -690,6 +690,38 @@ def header_comment_splice(text):
     return None
 
 
+# `#if _MSC_VER > N` (N below MSVC 7.1's 1310) or `>= N` (N at most 1310), `#ifdef _MSC_VER`: always compiled
+MSC_VER_TRUE = re.compile(r"\s*(?:_MSC_VER\s*(?:>\s*(?P<gt>\d+)|>=\s*(?P<ge>\d+))|defined\s*\(?\s*_MSC_VER\s*\)?)\s*")
+
+
+def pragma_once_first(code):
+    """True when `code` (masked, logical lines) reaches `#pragma once` before any `#include`, in branches the
+    compiler always takes (none, or `#if _MSC_VER > 1000`-like: MSC_VER_TRUE): MSVC then never enters the file
+    again, whatever any macro holds, so an include cycle through it ends there."""
+    frames = []                                    # per open #if: always taken
+    for directive in DIRECTIVE_LINE.finditer(code):
+        op, rest = directive.group(1), directive.group(2)
+        if op == "include":
+            return False
+        if op in ("if", "ifdef", "ifndef"):
+            test = MSC_VER_TRUE.fullmatch(rest) if op == "if" else None
+            taken = (op == "ifdef" and rest.strip() == "_MSC_VER") or bool(
+                test and (test.group("gt") is None or int(test.group("gt")) < 1310)
+                and (test.group("ge") is None or int(test.group("ge")) <= 1310))
+            frames.append(taken)
+        elif op in ("elif", "else"):
+            if not frames:
+                return False
+            frames[-1] = False
+        elif op == "endif":
+            if not frames:
+                return False
+            frames.pop()
+        elif op == "pragma" and re.fullmatch(r"\s*once\s*", rest):
+            return all(frames)
+    return False
+
+
 def include_guarded(code):
     return include_guard(code) is not None
 
@@ -730,8 +762,9 @@ def include_guard(code):
 # only with one of them is never compiled, so a quoted include it alone names cannot be missing from the
 # build: the Platform SDK's Ole2.h reaches `#include "macname1.h"` only under `#ifndef _MAC ... #else`.
 # include_walk takes back each one the unit's compiler flags (`/D`) or a reachable `#define` give.
+# WWLib's thread.h likewise reaches `#include "osdep.h"` only under `#ifdef _UNIX`.
 NEVER_DEFINED = frozenset({"MAC", "_MAC", "_MPPC_", "_68K_", "_M_MPPC", "_M_M68K", "_WIN64", "_M_IA64", "_M_AMD64",
-                           "_M_X64"})
+                           "_M_X64", "_UNIX", "__unix__", "__unix", "unix", "__linux__", "__APPLE__", "__GNUC__"})
 # What MSVC 7.1 itself may define for an x86 unit (some only under a flag: /MT, /MD, /LD, /J, /GR, /EHsc,
 # /Zc:wchar_t, /clr, /Za, /RTC, /arch): never inferred absent from the closure's own definitions.
 COMPILER_PREDEFINED = frozenset({"_WIN32", "_M_IX86", "_M_IX86_FP", "_MSC_VER", "_MSC_FULL_VER", "_MSC_EXTENSIONS",
@@ -847,18 +880,21 @@ masked_once = functools.lru_cache(maxsize=2048)(masked)
 comment_splice_once = functools.lru_cache(maxsize=2048)(header_comment_splice)
 
 
-def include_walk(source, text, include_roots=(), cache=None, seeds=()):
+def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_roots=None):
     """Scan the complete quoted include closure once, from `source` (its `text`) and each of `seeds` (ROOT
     paths, read from disk: a canonical header walked in its unit's closure, by its own identity and its own
     text, never as a line appended to the unit's), refusing unorderable cycles and a quoted include
     that resolves nowhere, unless only a branch never compiled names it (never_compiled) and nothing the
     unit compiles defines that branch's macro: its `// cl:` definitions, a `#define` of the closure in a
     branch that can be compiled, or a header the walk cannot read (an angle include that resolves nowhere
-    in such a branch, which may define any)."""
+    in such a branch, which may define any). Given `compiler_roots`, every directory the compiler searches for
+    the unit (build._include_search_roots), an angle include none of them holds is no such header: the compile
+    stops there (C1083) wherever it is reached, so it defines nothing in any compile that succeeds. A cycle is
+    orderable through an include guard that stays defined or a `#pragma once` (pragma_once_first)."""
     start = (ROOT / source).resolve()
     cache = {} if cache is None else cache
     seen, active, out = set(), set(), []
-    graph, guards, invalidated = {}, {}, set()
+    graph, guards, invalidated, once = {}, {}, set(), set()
     unknown_macro_stack = False
     skipped = []                         # (path, include, logical text, offset): never compiled (never_compiled)
     unread = []                          # (path, include, logical text, offset): an angle include found nowhere
@@ -896,6 +932,8 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=()):
         guard = include_guard(spliced)          # logical lines: a continued `#if !defined(X)` is read whole
         if guard:
             guards[path] = guard
+        if pragma_once_first(spliced):
+            once.add(path)
         invalidated.update(re.findall(
             r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*undef[ \t\f\v\r]+([A-Za-z_]\w*)', spliced))
         literal_code = logicals[path] = masked_once(phase_two, keep_literals=True)
@@ -923,7 +961,8 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=()):
                               if (resolved := build._case_resolve(str(p))) is not None]
             targets = list(dict.fromkeys(p for p in candidates if p.is_file()))
             if angle:
-                if not targets:
+                if not targets and not (compiler_roots is not None and not any(
+                        found_in(root, name) for root in compiler_roots)):
                     unread.append((path, name, scan, m.start()))
                 children.extend(targets)
                 continue
@@ -964,8 +1003,8 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=()):
             return out, (f"{path}: unresolved include {name} ("
                          + (f"<{incomplete[0]}> resolves nowhere" if incomplete else "its branch's macro can be defined")
                          + ")")
-    barriers = (set() if unknown_macro_stack else
-                {path for path, macro in guards.items() if macro not in invalidated})
+    barriers = once | (set() if unknown_macro_stack else
+                       {path for path, macro in guards.items() if macro not in invalidated})
     # Removing stable guard vertices must leave an acyclic graph. Checking only
     # DFS back-edges can miss an unguarded alternate cycle through a seen node.
     colors = {}
@@ -988,8 +1027,29 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=()):
     return out, None
 
 
-def include_problem(source, text, include_roots=(), cache=None, seeds=()):
-    return include_walk(source, text, include_roots, cache, seeds)[1]
+def found_in(root, name):
+    """Whether directory `root` holds the include `name` as the compiler finds it (any case off Windows)."""
+    path = Path(root) / name
+    if os.name != "nt":
+        import build
+        resolved = build._case_resolve(str(path))
+        return resolved is not None and Path(resolved).is_file()
+    return path.is_file()
+
+
+def include_problem(source, text, include_roots=(), cache=None, seeds=(), compiler_roots=None):
+    return include_walk(source, text, include_roots, cache, seeds, compiler_roots)[1]
+
+
+def compiler_search_roots(source):
+    """Every directory the compiler searches for `source`'s includes (build._include_search_roots over its real
+    command and environment), or None when they cannot be derived."""
+    import build
+    try:
+        command, env = build.compiler_command(ROOT / source, ROOT / "build" / "header_adopt_roots.obj")
+    except (SystemExit, OSError, ValueError, RuntimeError):
+        return None
+    return build._include_search_roots(ROOT / source, command, env)
 
 
 def include_sources(source, text=None, include_roots=(), cache=None):
@@ -1347,10 +1407,16 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             mappings[name] = mine
             field_checks[name] = mine
     if field_checks:
+        # the directories the compiler searches (None when they cannot be derived): the walk searches them too,
+        # after its own, since build maps a legacy Open-BFME-1 /I path (reference/open-bfme-1/reference/...)
+        # to the restructured tree that `ROOT / flag` does not name
+        compiler_roots = compiler_search_roots(source)
+        walk_roots = include_roots + [r for r in compiler_roots or () if r not in include_roots]
         if header:
             # the header as the unit compiles it: in the unit's closure, with its flags and every definition
             # it makes (a header walked alone took a macro the unit defines for absent), as a seed of its own
-            why = include_problem(source, text, include_roots=include_roots, cache=include_cache, seeds=(header,))
+            why = include_problem(source, text, include_roots=walk_roots, cache=include_cache, seeds=(header,),
+                                  compiler_roots=compiler_roots)
             if why:
                 return None, why
             family = {cls for name in field_checks for cls in hierarchy(name, laid)}
@@ -1358,10 +1424,11 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             why = conditional_hierarchy(canonical, family, rename_names)
             if why:
                 return None, why
-        why = include_problem(source, text, include_roots=include_roots, cache=include_cache)
+        why = include_problem(source, text, include_roots=walk_roots, cache=include_cache,
+                              compiler_roots=compiler_roots)
         if why:
             return None, why
-        sources = [(source, text)] + include_sources(source, text, include_roots, include_cache) + canonical
+        sources = [(source, text)] + include_sources(source, text, walk_roots, include_cache) + canonical
         for name in field_checks:
             why = name_shadow(sources, name)
             if why:

@@ -1077,3 +1077,99 @@ def test_method_only_preparation_still_runs_the_full_source_gate_and_restores(op
     _source, why, _text, _renames = lane.try_unit("Code/u.cpp", ["Setter"], "Code/Setter.h", "class")
     assert seen and "C2039" in why
     assert (root / "Code/u.cpp").read_text() == original
+
+
+# stage-2 trial item 1: the VS2003 standard headers (typeinfo, xstddef, exception) guard themselves with
+# `#pragma once` above their #ifndef, which include_guard does not read; STLport's typeinfo.h closes the cycle
+VS2003_ONCE = "#if _MSC_VER > 1000\n#pragma once\n#endif\n\n#ifndef _TYPEINFO_\n#define _TYPEINFO_\n#include <b.h>\n#endif\n"
+
+
+@pytest.mark.parametrize("head,cycle", [
+    (VS2003_ONCE, False),
+    ("#pragma once\n#include <b.h>\n", False),
+    ("#if _MSC_VER >= 1310\n#pragma once\n#endif\n#include <b.h>\n", False),
+    ("#ifdef _MSC_VER\n#pragma once\n#endif\n#include <b.h>\n", False),
+    ("#if defined(_MSC_VER)\n#pragma once\n#endif\n#include <b.h>\n", False),
+    # ... but not after the include that closes the cycle, nor in a branch the compiler may skip
+    ("#include <b.h>\n#pragma once\n", True),
+    ("#if _MSC_VER > 1400\n#pragma once\n#endif\n#include <b.h>\n", True),
+    ("#if _MSC_VER >= 1311\n#pragma once\n#endif\n#include <b.h>\n", True),
+    ("#ifdef ONCE\n#pragma once\n#endif\n#include <b.h>\n", True),
+    ("#if _MSC_VER > 1000\n#else\n#pragma once\n#endif\n#include <b.h>\n", True),
+    ("#ifndef _MSC_VER\n#pragma once\n#endif\n#include <b.h>\n", True),
+    ("// #pragma once\n#include <b.h>\n", True),
+    ("#pragma onceler\n#include <b.h>\n", True),
+])
+def test_a_pragma_once_ahead_of_every_include_is_a_barrier(tmp_path, monkeypatch, head, cycle):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text(head)
+    (tmp_path / "b.h").write_text("#include <a.h>\n")
+    problem = lane.include_problem("u.cpp", '#include "a.h"\n')
+    assert ("cycle" in problem) if cycle else problem is None, problem
+
+
+def test_a_pragma_once_header_does_not_hide_a_cycle_beside_it(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text("#pragma once\n#include <b.h>\n")
+    (tmp_path / "b.h").write_text("#include <c.h>\n")
+    (tmp_path / "c.h").write_text("#include <b.h>\n")
+    assert "cycle" in lane.include_problem("u.cpp", '#include "a.h"\n')
+
+
+@pytest.mark.parametrize("compiler_has,unresolved", [
+    # the compiler searches no directory holding <outside.h>: reaching it stops the compile (C1083), so it
+    # defines nothing in any compile that succeeds, and the _MAC branch stays never compiled
+    (False, None),
+    # the compiler finds it where the walk did not look: unread, it may define _MAC
+    (True, "<outside.h> resolves nowhere"),
+])
+def test_with_the_compiler_roots_an_angle_include_found_nowhere_reads_nothing(tmp_path, monkeypatch, compiler_has,
+                                                                             unresolved):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    compiler = tmp_path / "compiler-include"
+    compiler.mkdir()
+    if compiler_has:
+        (compiler / "outside.h").write_text("#define _MAC\n")
+    text = '#include <outside.h>\n#ifdef _MAC\n#include "missing.h"\n#endif\n'
+    problem = lane.include_problem("u.cpp", text, compiler_roots=[tmp_path, compiler])
+    assert problem is None if unresolved is None else (unresolved in problem and "missing.h" in problem), problem
+    assert "<outside.h> resolves nowhere" in lane.include_problem("u.cpp", text)          # no roots: as before
+
+
+def test_compiler_search_roots_are_none_when_the_command_cannot_be_built(monkeypatch):
+    import build
+
+    def fail(source, output):
+        raise SystemExit("wine not found")
+    monkeypatch.setattr(build, "compiler_command", fail)
+    assert lane.compiler_search_roots("Code/u.cpp") is None
+
+
+def test_field_renames_walks_with_the_compilers_search_roots(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    marker = [tmp_path / "compiler-include"]
+    monkeypatch.setattr(lane, "compiler_search_roots", lambda source: marker)
+    seen, walk = [], lane.include_problem
+
+    def spy(*args, **kwargs):
+        seen.append((kwargs.get("compiler_roots"), list(kwargs.get("include_roots", ()))))
+        return walk(*args, **kwargs)
+    monkeypatch.setattr(lane, "include_problem", spy)
+    lane.field_renames("u.cpp", UNIT + "#define o q\n", ["Object"], "Object.h", compiler())
+    # the compiler's roots decide what resolves nowhere, and the walk searches them too (a legacy /I path build
+    # maps to the restructured Open-BFME-1 tree resolves only there)
+    assert seen and all(roots is marker and marker[0] in searched for roots, searched in seen), seen
+
+
+@pytest.mark.parametrize("text,unresolved", [
+    # stage-2 trial: WWLib's thread.h names osdep.h only for Unix, which this x86 Win32 target never is
+    ('#if defined(_MSC_VER)\n#pragma once\n#endif\n#ifdef _UNIX\n#include "osdep.h"\n#endif\n', False),
+    ('#if defined(__unix__) || defined(__linux__)\n#include "osdep.h"\n#endif\n', False),
+    # ... unless the unit's flags or the closure define it
+    ('// cl: /D_UNIX\n#ifdef _UNIX\n#include "osdep.h"\n#endif\n', True),
+    ('#define _UNIX 1\n#ifdef _UNIX\n#include "osdep.h"\n#endif\n', True),
+])
+def test_an_include_only_unix_compiles_is_no_unresolved_include(tmp_path, monkeypatch, text, unresolved):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    problem = lane.include_problem("u.cpp", text)
+    assert ("unresolved include osdep.h" in problem) if unresolved else problem is None, problem
