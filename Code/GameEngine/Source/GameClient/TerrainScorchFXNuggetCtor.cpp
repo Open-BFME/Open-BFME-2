@@ -26,15 +26,7 @@ extern "C" const void *const vtbl_00BDD828[5] = {
 	(const void *)&__identifier("?Add_Dependencies_To_List@RenderObjClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z"), // slot 3 0x0050B238
 	(const void *)&__identifier("?rva001DFF5D@Rva001DFEAABase@@UAE_NPAVObject@@0@Z"), // slot 4 0x001DFF5D
 };
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-protected:
-	unsigned int m_vtablePad; // +0, overwritten by the derived vtable store
-	int m_nuggetType; // +4, nugget type id
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 class TerrainScorchFXNugget : public Rva001DFEAABase
 {

@@ -11,15 +11,7 @@
 // FXNugget-family base ctor; pinned opaquely. Vtable 0x00BDD91C. News 0x180
 // builder 0x001DFD36.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-	virtual ~Rva001DFEAABase();
-protected:
-	int m_nuggetType; // +4, nugget type id (BFME1 FXNugget::m_nuggetType)
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "ascii_string.h"
 

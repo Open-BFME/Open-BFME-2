@@ -7,15 +7,7 @@
 // (m_fx NULL, m_boneName clear, m_nuggetType 10; BFME2 drops orientToBone).
 // Base 0x001DFEAA is a shared FXNugget-family base ctor; pinned opaquely.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-	virtual ~Rva001DFEAABase();
-protected:
-	int m_nuggetType; // +4, nugget type id (BFME1 FXNugget::m_nuggetType)
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "ascii_string.h"
 

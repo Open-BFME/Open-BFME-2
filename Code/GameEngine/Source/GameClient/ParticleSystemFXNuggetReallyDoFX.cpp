@@ -12,15 +12,7 @@
 // SetTargetMatrix@0x1AD OnlyIfOnLand@0x1AE OnlyIfOnWater@0x1AF TargetOffset@0x1B0). Base
 // 0x001DFEAA is a shared FXNugget-family base ctor. Vtable 0x00BDD908.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-	virtual ~Rva001DFEAABase();
-protected:
-	int m_nuggetType; // +4, nugget type id (BFME1 FXNugget::m_nuggetType)
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 // math.h's float overloads as static inline, so atan2(float, float) inlines down to _atan2.
 #define inline static inline

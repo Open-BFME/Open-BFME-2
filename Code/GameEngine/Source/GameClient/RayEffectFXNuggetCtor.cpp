@@ -8,15 +8,7 @@
 // zeroed). Base 0x001DFEAA is a shared FXNugget-family base ctor (16
 // ctor-start callers with this undisplaced); pinned opaquely, do not name.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-	virtual ~Rva001DFEAABase();
-protected:
-	int m_nuggetType; // +4, nugget type id (BFME1 FXNugget::m_nuggetType)
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "ascii_string.h"
 
