@@ -360,14 +360,51 @@ def swap(text, names, include):
     return swapped and swapped[0]
 
 
+def template_surgery_refused(text, name):
+    """Why the swap leaves a unit holding a class template copy of `name` as it is, or None. It
+    takes only what it can tell apart: a primary template whose head starts its line (`template
+    <...> class name {`) outside every conditional region, and explicit specializations whose
+    heads start their lines undecorated. Anything else it never cuts:
+      - a unit that spells `name<...>::` (a member defined out of class, which may be another
+        class's: `Other::name<N>::f`; or a use);
+      - a decorated or mid-line specialization head (`template <> class __declspec(...) name<11>`);
+      - a decorated or mid-line primary template head, or one inside #if ... #endif."""
+    joined, _keep = spliced(text)
+    code = masked(joined)
+    word = re.escape(name)
+    if re.search(r"\b%s\s*<[^;{}]*>\s*::" % word, code):
+        return f"spells {name}<...>:: (a member out of class, or a use)"
+    plain = {m.start() for m in re.finditer(SPECIALIZATION_HEAD % word, code)
+             if re.match(r"[ \t]*$", code[code.rfind("\n", 0, m.start()) + 1:m.start()])}
+    for found in re.finditer(r"(?<![\w$])template\s*<\s*>\s*(?:class|struct)\b[^;{}]*?\b%s\s*<" % word, code):
+        if found.start() not in plain:
+            return "a decorated or mid-line specialization head"
+    regions, depth = [], 0
+    for line in re.finditer(r"[^\n]*\n?", code):
+        directive = re.match(r"[ \t\v\f]*(?:#|%:)[ \t\v\f]*(\w*)", line.group())
+        if directive:
+            depth = max(0, depth + {"if": 1, "ifdef": 1, "ifndef": 1, "endif": -1}.get(directive.group(1), 0))
+        elif depth:
+            regions.append((line.start(), line.end()))
+    heads = re.compile(r"^[ \t]*template\s*<[^;{}]*>\s*(?:class|struct)\s+%s\s*(?::[^;{]*)?\{" % word, re.M)
+    plain = {m.end() for m in heads.finditer(code)}
+    for found in re.finditer(r"(?<![\w$])template\s*<[^;{}]*>\s*(?:class|struct)\b[^;{}<]*?\b%s\b\s*(?::[^;{]*)?\{"
+                             % word, code):
+        if found.end() not in plain:
+            return "a decorated or mid-line primary template head"
+        if any(a <= found.start() < b for a, b in regions):
+            return "a primary template inside a conditional region"
+    return None
+
+
 def swap_at(text, names, include):
     """(swap's text, the offset just past the inserted #include line), or None.
 
-    A class template's copy goes whole: its body, its members defined out of class
-    (class_layouts.template_member_definitions) and the unit's explicit specializations, which
-    the header's one template instantiates instead (the byte gate proves each unit). A unit
-    that names a member out of class (`name<...>::`) the reader cannot read whole is left as it
-    is (None)."""
+    A class template's copy goes whole when the swap can tell it apart (template_surgery_refused):
+    its body and the unit's explicit specializations, which the header's one template
+    instantiates instead (the byte gate proves each unit). A member defined out of class is
+    never cut: a unit with one is left as it is (None), as is any other unit the swap cannot read
+    whole."""
     original, spans = text, []
     for name in names:
         span = body_span(text, name)
@@ -376,14 +413,10 @@ def swap_at(text, names, include):
             text = text[:span[0]] + "\0" * (span[1] - span[0]) + text[span[1]:]
             span = body_span(text, name)
         if template_copy(original, name):
-            # The member reader fails closed on any directive but #include and #pragma; a unit that never
-            # spells `name<...>::` has no member defined out of class for it to find.
-            names_members = re.search(r"\b%s\s*<[^;{}]*>\s*::" % re.escape(name), masked(original))
-            members = class_layouts.template_member_definitions(original, name) if names_members else []
             specializations = specialization_spans(original, name)
-            if members is None or specializations is None:
+            if specializations is None or template_surgery_refused(original, name):
                 return None
-            for start, end in members + specializations:
+            for start, end in specializations:
                 spans.append((start, end))
                 text = text[:start] + "\0" * (end - start) + text[end:]
     if not spans:

@@ -819,18 +819,37 @@ SPECIALIZED_UNIT = ("template <int N> class BitFlags;\n"
                     "bool use(BitFlags<218> *f);\n")
 
 
-def test_a_class_template_copy_goes_whole_with_its_members_and_specializations():
-    # BitFlags: the shared header's one template instantiates every N, so a unit's template body, the
-    # members it defines out of class and its explicit specializations all give way to the header
-    out = lane.swap(TEMPLATE_UNIT, ["BitFlags"], "Common/BitFlagsTemplate.h")
-    assert "class BitFlags" not in out and "BitFlags<NUMBITS>::test" not in out and "BitFlags<11>" not in out
+def test_a_class_template_copy_goes_whole_unless_a_member_is_defined_out_of_class():
+    # BitFlags: the shared header's one template instantiates every N, so a unit's template body and its explicit
+    # specializations give way to the header; a member defined out of class is never cut (it may be another
+    # class's), so such a unit is left as it is
+    plain = ('#include "Lib.h"\n' + TEMPLATE_HEADER +
+             "template <> class BitFlags<11> { public: bool any() const; unsigned m_bits[1]; };\n"
+             "bool use(const BitFlags<218> &f) { return f.test(3); }\n")
+    out = lane.swap(plain, ["BitFlags"], "Common/BitFlagsTemplate.h")
+    assert "class BitFlags" not in out and "BitFlags<11>" not in out
     assert out.index('#include "Common/BitFlagsTemplate.h"') < out.index("bool use")
+    assert lane.swap(TEMPLATE_UNIT, ["BitFlags"], "B.h") is None             # BitFlags<NUMBITS>::test defined out of class
     out = lane.swap(SPECIALIZED_UNIT, ["BitFlags"], "B.h")       # a specialization only: the forward stays
     assert out == 'template <int N> class BitFlags;\n#include "B.h"\nbool use(BitFlags<218> *f);\n'
-    # a directive the member reader refuses leaves a unit that defines a member out of class as it is,
-    # and does not stop one that defines none
-    assert lane.swap("#define W 32\n" + TEMPLATE_UNIT, ["BitFlags"], "B.h") is None
     assert lane.swap("#define W 32\n" + SPECIALIZED_UNIT, ["BitFlags"], "B.h") is not None
+
+
+@pytest.mark.parametrize("unit,why", [
+    # review r5: another class's nested template member was cut with the copy
+    ("template <int N> class BitFlags { int x; };\nstruct Other {\n    template <int N> struct BitFlags "
+     "{ static int test(); };\n};\ntemplate <int N> int Other::BitFlags<N>::test() { return 17; }\n", "spells BitFlags"),
+    # review r5: a decorated specialization head
+    ("template <int N> class BitFlags { int x; };\ntemplate <> class __declspec(align(4)) BitFlags<11> { int own; };\n",
+     "decorated or mid-line specialization"),
+    # review r5: a primary template that does not start its line, or sits in a conditional region
+    ("typedef int Int; template <int N> class BitFlags { int own; };\n", "mid-line primary"),
+    ("#if 0\ntemplate <int N> class BitFlags { int own; };\n#endif\n", "inside a conditional region"),
+])
+def test_the_swap_leaves_what_it_cannot_tell_apart(unit, why):
+    assert why in lane.template_surgery_refused(unit, "BitFlags")
+    assert lane.swap(unit, ["BitFlags"], "B.h") is None
+    assert lane.template_surgery_refused(TEMPLATE_HEADER, "BitFlags") is None
 
 
 def test_accept_sees_a_class_template_copy_left_behind(tmp_path, monkeypatch):
