@@ -4094,7 +4094,6 @@ Code/GameEngine/Source/Common/Rva004E05F0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E0D67Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E12D7Parse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E179ADoXfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004E179ADtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E17EBParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E1A04Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E1B00DoXfer.cpp,yes,0,0,0,0,0
@@ -4103,7 +4102,6 @@ Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E2941Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E32D5Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E32F2Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004E35D5Notify.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E37CFNamedReplace.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E3C32Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E3C71DestroyFree.cpp,yes,0,0,0,0,0
@@ -9067,7 +9065,6 @@ Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/Rva002B2DAD.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectParseINIBlock.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectRva004E3383.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectSubObjectColor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LocomotorHeight.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/AerialPathfinder.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp,yes,0,0,0,0,0
@@ -10488,7 +10485,7 @@ Code/GameEngine/Source/GameLogic/Object/Rva005480E8.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva005481F9.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva005483C6PopOrder.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva005C65F1Finish.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Rva005C96EBFinish.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Rva005C96EBFinish.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva005C9B76Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva005C9B76Dtor.cpp,yes,0,0,0,0,0
@@ -13611,7 +13608,6 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001041D8Dtor.cpp,yes,0,0,0,
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00105CF6.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00111DB6PostFXLookupTable.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00111F0EClear.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva004E5372CloudArcs.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeCtor.cpp,yes,0,0,0,0,0
@@ -15865,7 +15861,6 @@ Code/Libraries/Source/WWVegas/WWLib/Rva009E19A0OwnerGet.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva009F39F0ResultCtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva009F3C00ResultAppend.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva009F3C70ResultAppend.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/Rva00C6E2C0TimerInit.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00E03CE0RegistryInsert.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/RvaHashIndex00928620.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/RvaHashResize00927DE0.cpp,yes,0,0,0,0,0
