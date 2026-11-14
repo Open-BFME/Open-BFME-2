@@ -104,20 +104,7 @@ private:
 	unsigned char m_pad102[2];
 };
 
-class DelayedDeathBodyModuleData : public RespawnBodyModuleData
-{
-public:
-	DelayedDeathBodyModuleData();
-
-private:
-	int m_delayedDeathTime; // +0x6C
-	unsigned char m_immortal; // +0x70
-	unsigned char m_pad71[3];
-	int m_invulnerableFX; // +0x74
-	unsigned char m_doHealthCheck; // +0x78
-	unsigned char m_pad79[3];
-	int m_prerequisite; // +0x7C
-};
+#include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 
 //
 // Opaque multiple-inheritance destructors tail-calling Rva004C131B::~
@@ -184,12 +171,12 @@ DelayedDeathBody::DelayedDeathBody(Thing *thing, const ModuleData *moduleData) :
 DelayedDeathBodyModuleData::DelayedDeathBodyModuleData()
 	: RespawnBodyModuleData()
 {
-	m_delayedDeathTime = 0;
-	m_invulnerableFX = 0;
-	m_prerequisite = 0;
+	field6C = 0;
+	field74 = 0;
+	field7C = 0;
 	*(unsigned int *)this = (unsigned int)g_00C5BC48;
-	m_immortal = 1;
-	m_doHealthCheck = 1;
+	field70 = 1;
+	field78 = 1;
 }
 
 // tu-skeleton: 0x004C15F1 6B ?Rva004C15F1Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
