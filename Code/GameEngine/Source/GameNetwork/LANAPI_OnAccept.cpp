@@ -1,17 +1,17 @@
 // cl: /DNDEBUG /MD /EHsc
 // Retail 0x00248D9D, 146 bytes. LANAPI vtable slot 38 (vtable 0x0083E680,
 // class of ??1LANAPI@@UAE@XZ).
-// The slots are walked by index and addressed as m_holder->m_slots[i]: the
+// The slots are walked by index through m_currentGame's getSlotAddress: the
 // banked 0.99 attempt computed holder + offset + 0x114 by hand, which swaps
 // the lea operands of retail's strength-reduced address.
 // Honest address name: __thiscall (ret 8: address plus flag byte). Guards on
-// virtual slot54, scans 8 net slots at holder+0x114 stride 0x1D0 comparing
+// AmIHost (vslot 54), scans 8 net slots at +0x114 stride 0x1D0 comparing
 // each BfmeNetAddress with pin-only Rva00248CBF, validates the global wide
-// string per miss, then marks the hit via indexer 0x00447773 (flag byte at
-// +8 or GameSlot::unAccept) and finishes with virtual slot26 plus rowed
-// Rva00248D84Enable unless all 8 missed. Layout follows LANAPILookupPlayer
-// (BfmeNetAddress struct, LANAPI +0x44 holder) and Rva00447773Indexer
-// (8x1D0 entries, caller 0x00248DF1).
+// string per miss, then marks the hit via indexer 0x00447773 (m_isAccepted at
+// +8 or GameSlot::unAccept) and finishes with RequestGameOptionsPacked
+// (vslot 26) plus rowed Rva00248D84Enable unless all 8 missed. Layout follows
+// LANAPILookupPlayer (BfmeNetAddress struct, LANAPI +0x44 current game) and
+// Rva00447773Indexer (8x1D0 entries, caller 0x00248DF1).
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef bool Bool;
@@ -19,18 +19,20 @@ typedef unsigned char UnsignedByte;
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 
-template<typename T> class StringBase
-{
-	friend class LANAPI;
-	void validate() const;
-};
+// Retail's validate hook on the lobby's global wide name is an empty
+// function folded into the 0x000B3FD0 pool; the shared StringBase header
+// inlines it empty, so the body spells the call through the pool's Coord3D
+// destructor row (0x000B3FD0, coord3d.cpp) instead.
+#define COORD3D_VIEW_EXTERN_DTOR
+#include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
+#undef COORD3D_VIEW_EXTERN_DTOR
 
 class GameSlot
 {
 public:
 	void unAccept();
 	char m_pad[8];
-	UnsignedByte m_flag8;
+	Bool m_isAccepted;
 };
 
 #include "../../Include/Common/SlotEntry.h"
@@ -39,110 +41,43 @@ class Rva00447773
 {
 public:
 	void *getLANSlot(int index);
+	const BfmeNetAddress *getSlotAddress(int index) const { return &m_slots[index].m_address; }
 	char m_pre[0x114];
 	SlotEntry m_slots[8];
 };
+
+class LANGameInfo : public Rva00447773 {};
+
+class AptLanLobby { static AptLanLobby *s_instance; public: static AptLanLobby *Instance() { return s_instance; } };
+void Rva00248D84Enable();
+
+#include "../../Include/GameNetwork/LANAPI.h"
 
 struct GlobalA03354
 {
 	StringBase<UnsignedShort> m_name;
 };
 
-class AptLanLobby { static AptLanLobby *s_instance; public: static AptLanLobby *Instance() { return s_instance; } };
-void Rva00248D84Enable();
-
-class LANAPI
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void slot17() = 0;
-	virtual void slot18() = 0;
-	virtual void slot19() = 0;
-	virtual void slot20() = 0;
-	virtual void slot21() = 0;
-	virtual void slot22() = 0;
-	virtual void slot23() = 0;
-	virtual void slot24() = 0;
-	virtual void slot25() = 0;
-	virtual void slot26(int code, BfmeNetAddress *query) = 0;
-	virtual void slot27() = 0;
-	virtual void slot28() = 0;
-	virtual void slot29() = 0;
-	virtual void slot30() = 0;
-	virtual void slot31() = 0;
-	virtual void slot32() = 0;
-	virtual void slot33() = 0;
-	virtual void slot34() = 0;
-	virtual void slot35() = 0;
-	virtual void slot36() = 0;
-	virtual void slot37() = 0;
-	virtual void OnAccept(const BfmeNetAddress *address, Bool flag);
-	virtual void slot39() = 0;
-	virtual void slot40() = 0;
-	virtual void slot41() = 0;
-	virtual void slot42() = 0;
-	virtual void slot43() = 0;
-	virtual void slot44() = 0;
-	virtual void slot45() = 0;
-	virtual void slot46() = 0;
-	virtual void slot47() = 0;
-	virtual void slot48() = 0;
-	virtual void slot49() = 0;
-	virtual void slot50() = 0;
-	virtual void slot51() = 0;
-	virtual void slot52() = 0;
-	virtual void slot53() = 0;
-	virtual Bool slot54() = 0;
-	virtual void slot55() = 0;
-	virtual void slot56() = 0;
-	virtual void slot57() = 0;
-	virtual void slot58() = 0;
-	virtual void slot59() = 0;
-	virtual void slot60() = 0;
-	virtual void slot61() = 0;
-	virtual void slot62() = 0;
-
-protected:
-	UnsignedByte m_pre44[0x40];
-	Rva00447773 *m_holder;
-};
-
 void LANAPI::OnAccept(const BfmeNetAddress *address, Bool flag)
 {
-	if (!slot54())
+	if (!(UnsignedByte)AmIHost())
 		return;
 	int index;
 	for (index = 0; index < 8; ++index)
 	{
-		BfmeNetAddress *slotAddr = &m_holder->m_slots[index].m_address;
+		const BfmeNetAddress *slotAddr = m_currentGame->getSlotAddress(index);
 		if (slotAddr->Rva00248CBF(address))
 			goto found;
 		GlobalA03354 *g = (GlobalA03354 *)AptLanLobby::Instance();
 		if (g != 0)
-			g->m_name.validate();
+			((Coord3D *)&g->m_name)->~Coord3D();
 	}
 	goto done;
 found:
 	{
-		GameSlot *gs = (GameSlot *)m_holder->getLANSlot(index);
+		GameSlot *gs = (GameSlot *)m_currentGame->getLANSlot(index);
 		if (flag)
-			gs->m_flag8 = 1;
+			gs->m_isAccepted = true;
 		else
 			gs->unAccept();
 	}
@@ -152,7 +87,7 @@ done:
 		BfmeNetAddress query;
 		query.ip = 0;
 		query.port = 0;
-		slot26(0, &query);
+		RequestGameOptionsPacked(0, &query);
 		Rva00248D84Enable();
 	}
 }
