@@ -68,12 +68,7 @@ struct ChecklistSelectObserver
 	virtual void deselect(Rva0057AD26 *item);
 };
 
-struct ChecklistSelectNode
-{
-	ChecklistSelectNode *next;
-	ChecklistSelectNode *prev;
-	Rva0057AD26 *item;
-};
+#include "../../../Include/Common/ChecklistSelectNode.h"
 
 // The owning holder whose end-of-scope release is the rowed 0x0057A418
 // (deletes the held item).

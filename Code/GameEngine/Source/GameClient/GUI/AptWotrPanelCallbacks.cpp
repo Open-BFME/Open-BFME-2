@@ -600,7 +600,7 @@ StrategicHUD::SelectionDetailsUIImpl::~SelectionDetailsUIImpl()
 struct ChecklistSelectionOwnerView {char prefix[0x30];ChecklistIteratorView end,current;};
 class Rva0057AD26;
 struct ChecklistSelectObserver {virtual void deselect(Rva0057AD26*);virtual void slot04();virtual void slot08();virtual void slot0c();virtual void select(Rva0057AD26*);};
-struct ChecklistSelectNode {void *next,*prev;Rva0057AD26* item;};
+#include "../../../Include/Common/ChecklistSelectNode.h"
 class Rva0057AD26 {public: void rva0057AD26(); char prefix[0x48]; StrategicHUD::ChecklistUIImpl *owner;ChecklistIteratorView position;int pad50;ChecklistSelectObserver *observer;};
 void Rva0057AD26::rva0057AD26()
 {
