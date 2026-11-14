@@ -8,18 +8,7 @@
 // +0x30, +0x34) that a nested-block header loses to dead-store elimination.
 #include <string.h>
 
-class Rva007E86B0Base
-{
-public:
-	Rva007E86B0Base();
-	virtual ~Rva007E86B0Base();
-	Rva007E86B0Base &operator=(const Rva007E86B0Base &other)
-	{
-		m_field04 = other.m_field04;
-		return *this;
-	}
-	int m_field04;
-};
+#include "../../Include/Common/Rva007E86B0Base.h"
 
 class Rva00808CB0LanGameEntry : public Rva007E86B0Base
 {
