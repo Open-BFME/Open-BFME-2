@@ -16,14 +16,7 @@
 class Thing;
 class ModuleData;
 
-class UpgradeMux
-{
-public:
-	virtual void muxAnchor();
-
-private:
-	bool m_executed;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"

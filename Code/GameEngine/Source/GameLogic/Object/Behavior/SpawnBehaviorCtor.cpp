@@ -79,15 +79,7 @@ typedef int (__cdecl *Rva0045FE4ACallback)(Object *obj, void *data);
 // Retail's interface table 0x00C42598 holds SpawnBehavior::rva0045FE4A in slot 0.
 #include "../../../../Include/Common/SpawnExtraBase.h"
 
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual void upgradeMuxAnchor();
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 struct SpawnBehaviorModuleDataView
 {
