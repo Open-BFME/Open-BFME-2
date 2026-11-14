@@ -52,13 +52,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // implicit, so it has no address and destroys just this member.
 #include "../../Include/Common/RvaSmartPtr12.h"
 
-class Rva002111C8 {
-public:
-	RvaSmartPtr12 m_00;
-	int m_0c;
-	Rva002111C8(const Rva002111C8 &) throw();
-	Rva002111C8 &operator=(const Rva002111C8 &);
-};
+#include "../../Include/Common/Rva002111C8.h"
 
 
 template void _STL::vector<Rva002111C8>::_M_insert_overflow(
