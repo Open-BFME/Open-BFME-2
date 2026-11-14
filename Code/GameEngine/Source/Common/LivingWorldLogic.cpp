@@ -52,14 +52,7 @@ struct Rva002B5D36Player
 	unsigned char m_3C4;
 };
 
-class LivingWorldLogic
-{
-public:
-	void ShowEndGameSplashScreen();
-private:
-	char m_pad[0x98];
-	Rva002B5D36Player *m_98;
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 // ---- from Code/GameEngine/Source/Common/Rva002B5D36EndGame.cpp
 
@@ -77,11 +70,11 @@ private:
 
 void LivingWorldLogic::ShowEndGameSplashScreen()
 {
-	const PlayerTemplate *playerTemplate = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(m_98->m_40->m_name));
+	const PlayerTemplate *playerTemplate = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(((Rva002B5D36Player *)field98)->m_40->m_name));
 	if (!playerTemplate)
 		return;
 	unsigned char isEvil = playerTemplate->m_isEvil;
-	bool isVictory = m_98->m_3C4 == 0;
+	bool isVictory = ((Rva002B5D36Player *)field98)->m_3C4 == 0;
 	AsciiString screen(isVictory ? "Gui_VictoryScreen" : "Gui_DefeatScreen");
 	AsciiString cheer(isEvil ? "Gui_VictoryCheerEvil" : "Gui_VictoryCheerGood");
 	AsciiString endKey(isVictory ? "APT:EndVictorious" : "APT:EndDefeat");

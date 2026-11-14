@@ -45,10 +45,7 @@ struct ChaseB {
 	char m_pad000[0x258];
 	ChaseC *m_ai;
 };
-struct StateMachine {
-	char m_pad000[0x14];
-	ChaseB *m_14;
-};
+#include "../../Include/Common/StateMachineClass.h"
 class AIHarvestState : public FXParticleSystem::WindModuleInfo {
 public:
 	virtual void onExit(int status);
@@ -69,7 +66,7 @@ void AIHarvestState::onExit(int status)
 		::operator delete(memory);
 		m_20 = 0;
 	}
-	ChaseC *chaseC = m_machine->m_14->m_ai;
+	ChaseC *chaseC = ((ChaseB *)m_machine->m_owner)->m_ai;
 	if (chaseC)
 		chaseC->m_canPathThroughUnits = 0;
 }

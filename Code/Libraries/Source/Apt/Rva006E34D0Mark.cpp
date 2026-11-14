@@ -53,123 +53,93 @@ struct Entry20
     AptValuePtrStack m_stack;
 };
 
-class Rva006E34D0
-{
-public:
-    void rva006E47C0();
-private:
-    AptValue **m_pArray0;
-    int m_nCount0;
-    char _pad08[2];
-    unsigned short m_nCountC;
-    AptValue **m_pArrayC;
-    int m_nCount10;
-    Entry1C *m_pArray14;
-    char _pad18[2];
-    unsigned short m_nCount1C;
-    AptValue **m_pArray1C;
-    char _pad20[2];
-    unsigned short m_nCount24;
-    AptValue **m_pArray24;
-    char _pad28[2];
-    unsigned short m_nCount2C;
-    AptValue **m_pArray2C;
-    AptDisplayListState *m_pDisp;
-    Entry20 *m_pArray34;
-    char _pad38[0x6c - 0x38];
-    AptValue *m_pValue6C;
-    char _pad70[0x9c - 0x70];
-    AptValue *m_pValue9C;
-    AptActionQueueC *m_pActionPool;
-    char _padA4[4];
-    int m_nCountA8;
-};
+#include "Rva006E34D0.h"
 
 void Rva006E34D0::rva006E47C0()
 {
-    if (m_pValue6C != 0) {
-        if (!((const Rva006DBB40ShrAndField *)m_pValue6C)->get()) {
-            m_pValue6C->setGCMark(true);
-            m_pValue6C->RegisterReferences();
+    if (m_field6C != 0) {
+        if (!((const Rva006DBB40ShrAndField *)m_field6C)->get()) {
+            m_field6C->setGCMark(true);
+            m_field6C->RegisterReferences();
         }
     }
-    if (m_pValue9C != 0) {
-        if (!((const Rva006DBB40ShrAndField *)m_pValue9C)->get()) {
-            m_pValue9C->setGCMark(true);
-            m_pValue9C->RegisterReferences();
+    if (m_field9C != 0) {
+        if (!((const Rva006DBB40ShrAndField *)m_field9C)->get()) {
+            m_field9C->setGCMark(true);
+            m_field9C->RegisterReferences();
         }
     }
-    for (int i = 0; i < m_nCount0; ++i) {
-        if (!((const Rva006DBB40ShrAndField *)m_pArray0[i])->get()) {
-            m_pArray0[i]->setGCMark(true);
-            m_pArray0[i]->RegisterReferences();
+    for (int i = 0; i < m_field04; ++i) {
+        if (!((const Rva006DBB40ShrAndField *)((AptValue *)m_field00[i]))->get()) {
+            ((AptValue *)m_field00[i])->setGCMark(true);
+            ((AptValue *)m_field00[i])->RegisterReferences();
         }
     }
-    for (int i = 0; i < m_nCount10; ++i) {
-        if (!((const Rva006DBB40ShrAndField *)m_pArray14[i].m_pValue)->get()) {
-            m_pArray14[i].m_pValue->setGCMark(true);
-            m_pArray14[i].m_pValue->RegisterReferences();
+    for (int i = 0; i < m_field10; ++i) {
+        if (!((const Rva006DBB40ShrAndField *)m_field14[i].m_pValue)->get()) {
+            m_field14[i].m_pValue->setGCMark(true);
+            m_field14[i].m_pValue->RegisterReferences();
         }
     }
     {
-        int nC = m_nCountC;
+        int nC = m_field0A;
         for (int i = 0; i < nC; ++i) {
-            if (m_pArrayC[i] != 0) {
-                if (!((const Rva006DBB40ShrAndField *)m_pArrayC[i])->get()) {
-                    m_pArrayC[i]->setGCMark(true);
-                    m_pArrayC[i]->RegisterReferences();
+            if (m_field0C[i] != 0) {
+                if (!((const Rva006DBB40ShrAndField *)m_field0C[i])->get()) {
+                    m_field0C[i]->setGCMark(true);
+                    m_field0C[i]->RegisterReferences();
                 }
             }
         }
     }
     {
-        int nC = m_nCount1C;
+        int nC = m_field1A;
         for (int i = 0; i < nC; ++i) {
-            if (m_pArray1C[i] != 0) {
-                if (!((const Rva006DBB40ShrAndField *)m_pArray1C[i])->get()) {
-                    m_pArray1C[i]->setGCMark(true);
-                    m_pArray1C[i]->RegisterReferences();
+            if (m_field1C[i] != 0) {
+                if (!((const Rva006DBB40ShrAndField *)m_field1C[i])->get()) {
+                    m_field1C[i]->setGCMark(true);
+                    m_field1C[i]->RegisterReferences();
                 }
             }
         }
     }
     {
-        int nC = m_nCount24;
+        int nC = m_field22;
         for (int i = 0; i < nC; ++i) {
-            if (m_pArray24[i] != 0) {
-                if (!((const Rva006DBB40ShrAndField *)m_pArray24[i])->get()) {
-                    m_pArray24[i]->setGCMark(true);
-                    m_pArray24[i]->RegisterReferences();
+            if (m_field24[i] != 0) {
+                if (!((const Rva006DBB40ShrAndField *)m_field24[i])->get()) {
+                    m_field24[i]->setGCMark(true);
+                    m_field24[i]->RegisterReferences();
                 }
             }
         }
     }
     {
-        int nC = m_nCount2C;
+        int nC = m_field2A;
         for (int i = 0; i < nC; ++i) {
-            if (m_pArray2C[i] != 0) {
-                if (!((const Rva006DBB40ShrAndField *)m_pArray2C[i])->get()) {
-                    m_pArray2C[i]->setGCMark(true);
-                    m_pArray2C[i]->RegisterReferences();
+            if (m_field2C[i] != 0) {
+                if (!((const Rva006DBB40ShrAndField *)m_field2C[i])->get()) {
+                    m_field2C[i]->setGCMark(true);
+                    m_field2C[i]->RegisterReferences();
                 }
             }
         }
     }
-    if (m_pDisp != 0) {
-        m_pDisp->DisplayListItem(0);
+    if (m_field30 != 0) {
+        ((AptDisplayListState *)m_field30)->DisplayListItem(0);
     }
-    m_pActionPool->rva006E39A0();
-    for (int i = 0; i < m_nCountA8; ++i) {
-        if (m_pArray34[i].m_pField0 == 0)
+    m_fieldA0->rva006E39A0();
+    for (int i = 0; i < m_fieldA8; ++i) {
+        if (((Entry20 *)m_field34)[i].m_pField0 == 0)
             continue;
-        if (!((const Rva006DBB40ShrAndField *)m_pArray34[i].m_pValue)->get()) {
-            m_pArray34[i].m_pValue->setGCMark(true);
-            m_pArray34[i].m_pValue->RegisterReferences();
+        if (!((const Rva006DBB40ShrAndField *)((Entry20 *)m_field34)[i].m_pValue)->get()) {
+            ((Entry20 *)m_field34)[i].m_pValue->setGCMark(true);
+            ((Entry20 *)m_field34)[i].m_pValue->RegisterReferences();
         }
         {
-            int nInner = m_pArray34[i].m_stack.m_nElements;
+            int nInner = ((Entry20 *)m_field34)[i].m_stack.m_nElements;
             for (int j = 0; j < nInner; ++j) {
-                AptValue *aptValue = m_pArray34[i].m_stack.At(j);
+                AptValue *aptValue = ((Entry20 *)m_field34)[i].m_stack.At(j);
                 if (!((const Rva006DBB40ShrAndField *)aptValue)->get()) {
                     aptValue->setGCMark(true);
                     aptValue->RegisterReferences();

@@ -10,7 +10,8 @@
 class CreateAHeroData;
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 #include "../../Include/Common/Rva005B034ADwordSlot.h"
-class AptCreateAHero { public: class Manager { public: void PopulateHeroList(); }; };
+#include "../../Include/Common/AptCreateAHero.h"
+class AptCreateAHero::Manager { public: void PopulateHeroList(); };
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 
