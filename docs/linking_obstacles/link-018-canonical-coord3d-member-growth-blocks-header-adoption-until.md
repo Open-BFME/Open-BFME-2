@@ -372,3 +372,26 @@ regression recorded above (23b22e04f4a, real link at `729b351200`: matrix4d.cpp,
   `ledger_renames` should refuse a rename that moves a row off its retail export name (tooling seat).
 - **For the flip:** these eight join the two above. The flip's commit deletes all ten alias lines and their
   `export_alias` register lines.
+
+**2026-11-14 real-link confirmation of the eight matrix4d.cpp exports.**
+[Run 43633148716](https://github.com/Open-BFME/Open-BFME-2/actions/runs/43633148716),
+input d19ddaeff1657635a7fe84994af702ed0ad31d9d (contains 2afae4a4106), publishes an
+authoritative real-link scoreboard at 20:20 UTC: 0 unresolved (previously 8),
+0 duplicates, linker exit 0 and image_written=true. result.json records force=false,
+stubs=false and base 0x02000000. The real artifact was read independently of the
+workflow's still-running diagnostic phase.
+
+All eight formerly missing names above are present in the actual PE export directory:
+ordinals 284, 1212, 1225, 1226, 1227, 1374, 1390 and 1426 point to nonzero addresses
+in executable sections, with no forwarders. None remains in errors.tsv.
+The receipt's image SHA256 is
+4b0cc6173ffb775291f11e73f3a5a15d38e02556bdf0823156241c7ff734ae26.
+This measures the eight-name export repair as resolved; it does not close the
+remaining Coord3D class-key/adoption/flip work described in this entry.
+
+The image still contains 468 initializer bridges and 3,248 vtable bridges
+(48,618 slots). The bundled image_iso report is incomplete and does not pass G2:
+it reports 2 wrong pointers, 20 wrong vtable slots and 43 missing or unresolved
+initializers, among other unanalyzed/ambiguous cases. These are bounded static
+findings, not a boot, skirmish, save/load or crash-fix result. No srv1 runtime
+receipt for this image was available from this checkout.
