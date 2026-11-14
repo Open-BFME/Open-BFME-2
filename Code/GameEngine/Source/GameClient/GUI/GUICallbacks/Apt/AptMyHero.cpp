@@ -788,13 +788,7 @@ public:
 };
 #include "../../../../../Include/Common/Rva00534765.h"
 // ?rva00531EB8@Rva00531EB8@@QAEXXZ @0x00531EB8 4B: advance the +0 pointer by one word.
-class Rva00531EB8
-{
-public:
-	void rva00531EB8();
-private:
-	int *m_cur;
-};
+#include "../../../../../Include/Common/Rva00531EB8.h"
 // ?rva00586FBB@Rva00586FBB@@QAEXPAVRva00585B16@@IABV2@@Z @0x00586FBB 5B and
 // ?rva005880B8@Rva005880B8@@QAEXPAURva00587375@@IABU2@@Z @0x005880B8 5B:
 // fill-insert into the vector at +0 through the rowed _M_fill_insert.

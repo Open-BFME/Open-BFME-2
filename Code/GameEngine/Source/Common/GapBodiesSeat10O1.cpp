@@ -995,13 +995,7 @@ Rva00534765::~Rva00534765()
 }
 
 // ?rva00531EB8@Rva00531EB8@@QAEXXZ @0x00531EB8 4B: advance the +0 pointer by one word.
-class Rva00531EB8
-{
-public:
-	void rva00531EB8();
-private:
-	int *m_cur;
-};
+#include "../../Include/Common/Rva00531EB8.h"
 void Rva00531EB8::rva00531EB8()
 {
 	++m_cur;
