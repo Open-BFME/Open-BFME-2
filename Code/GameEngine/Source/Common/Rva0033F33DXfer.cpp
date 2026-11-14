@@ -32,13 +32,7 @@ class StateMachine;
 
 #include "../../Include/Common/StateMachineClass.h"
 
-class AIBackAwayAndCowerState : public State
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	StateMachine *m_20;
-};
+#include "../../Include/Common/AIBackAwayAndCowerState.h"
 
 void AIBackAwayAndCowerState::xfer(Xfer *xfer)
 {
