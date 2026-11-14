@@ -191,6 +191,11 @@ def bare_identifier(name):
         # that names it at all writes `$L1311`, which `\bL1311\b` finds. Without
         # a word every objectless source in the tree was listed for one rename.
         return match.group(1)
+    match = re.fullmatch(r"_\$(E\d+)", name)
+    if match:
+        # A compiler-local initializer or atexit callback, the same way: an object
+        # defines its `_$E<n>` STATIC, so only text that spells `_$E16` can name it.
+        return match.group(1)
     if name.startswith("??"):
         # A function template (??$name@...) names itself; special members
         # (??0 ctor, ??1 dtor, ??_G ...) are named by their class, which may

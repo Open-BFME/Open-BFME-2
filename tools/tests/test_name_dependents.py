@@ -364,7 +364,9 @@ def test_a_source_with_uncommitted_edits_is_judged_on_the_committed_text(tmp_pat
     ("__ehhandler$?rva0059EB90@@YAXPAVINI@@PAUGen_00489270@@@Z", "rva0059EB90"),
     ("__ehhandler$??1AptMpGameSetup@@UAE@XZ", "AptMpGameSetup"),
     # A compiler-local EH label is looked for as the text it is spelled with.
-    ("$L1311", "L1311")])
+    ("$L1311", "L1311"),
+    # So is a compiler-local initializer (tools/rename.py initializers respells them).
+    ("_$E16", "E16")])
 def test_bare_identifier(name, word):
     assert nd.bare_identifier(name) == word
 
@@ -517,3 +519,15 @@ def test_real_rename_is_refused_for_a_real_dependent(tmp_path, monkeypatch):
     with pytest.raises(SystemExit) as exc:
         build.verify_functions([dependent])
     assert exc.value.code
+
+
+def test_a_lost_initializer_ordinal_widens_only_objectless_sources_that_spell_it(tmp_path):
+    # Respelling a renumbered _$E row (rename.py initializers) must not list every
+    # objectless source in the tree; text that names the ordinal is still a dependent.
+    code = tmp_path / "Code"
+    code.mkdir()
+    (code / "silent.cpp").write_text("int x = 0xE16; int E160 = 1;\n")
+    (code / "spells.cpp").write_text("extern \"C\" void _$E16();\n")
+    objects = {"Code/silent.cpp": [tmp_path / "none.obj"],
+               "Code/spells.cpp": [tmp_path / "none.obj"]}
+    assert nd.dependents({"_$E16": {0x1000}}, objects, tmp_path) == {"Code/spells.cpp"}
