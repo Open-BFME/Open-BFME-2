@@ -13,7 +13,17 @@
 // Quick_Distance 0x0026FE70, Rotate_Z(float) 0x0008E48C,
 // Rotate_Z(float,float) 0x0008E11F, Lerp 0x0009AA48, Distance 0x000CFF7F,
 // Find_X_At_Z 0x000852F7 and Find_Y_At_Z 0x00085317. These stay declarations
-// so consumers call the rowed bodies without emitting their own copies.
+// so consumers call the rowed bodies without emitting their own copies, except
+// Length2, Dot_Product and Rotate_Z(sine, cosine): retail inlines them at their
+// call sites. RTS3DScene::rva00072109 0x00072109 computes Dot_Product and
+// Length2 inline; MineshaftPortalBehaviour::createWaypoint 0x003738F6 rotates
+// inline after calling msvcr71's sin and cos. No matched row of the units that
+// include this header calls one of the rowed out-of-line copies. They are
+// defined inline here with the bodies of Zero Hour's vector3.h (WWINLINE,
+// __forceinline under MSVC); their rowed copies stay with their owners.
+// Normalize and Rotate_Z(angle) are inline in retail too, but need
+// WWMath::Inv_Sqrt and sinf/cosf, whose headers collide with private views in
+// units that include this one; they stay declared here.
 // operator= is the exception: its rowed body 0x00169FB0 is a compiler COMDAT
 // of Zero Hour's inline assignment (owner matrix3d_inverse.cpp) that nothing in
 // retail calls or references, while consumers such as renderSubBox 0x00093507
@@ -57,7 +67,7 @@ public:
 
     void Normalize();
     float Length() const;
-    float Length2() const;
+    __forceinline float Length2() const { return X * X + Y * Y + Z * Z; }
     float Quick_Length() const;
     void Scale(const Vector3 &scale);
     void Rotate_X(float angle);
@@ -65,7 +75,13 @@ public:
     void Rotate_Y(float angle);
     void Rotate_Y(float sine, float cosine);
     void Rotate_Z(float angle);
-    void Rotate_Z(float sine, float cosine);
+    __forceinline void Rotate_Z(float sine, float cosine)
+    {
+        float x = X;
+        float y = Y;
+        X = cosine * x - sine * y;
+        Y = sine * x + cosine * y;
+    }
 
     Vector3 operator-() const;
     Vector3 operator+() const;
@@ -74,7 +90,10 @@ public:
     __forceinline Vector3 &operator*=(float scale) { X *= scale; Y *= scale; Z *= scale; return *this; }
     __forceinline Vector3 &operator/=(float scale) { float inverse = 1.0f / scale; X *= inverse; Y *= inverse; Z *= inverse; return *this; }
 
-    static float Dot_Product(const Vector3 &a, const Vector3 &b);
+    static __forceinline float Dot_Product(const Vector3 &a, const Vector3 &b)
+    {
+        return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+    }
     static void Cross_Product(const Vector3 &a, const Vector3 &b, Vector3 *result);
     static void Normalized_Cross_Product(const Vector3 &a, const Vector3 &b, Vector3 *result);
     static float Cross_Product_X(const Vector3 &a, const Vector3 &b);
