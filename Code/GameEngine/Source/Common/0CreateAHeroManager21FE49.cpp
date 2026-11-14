@@ -91,11 +91,7 @@ extern ControlBar *TheControlBar;
 // at +0x60 is set; the player's name key is at +0x50.
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);		// 0x0009FA65
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

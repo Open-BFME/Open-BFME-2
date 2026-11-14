@@ -74,11 +74,7 @@ public:
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 // Observed GameWindowManager slots only.
 #include "../../../Include/GameClient/GameWindowManager.h"
