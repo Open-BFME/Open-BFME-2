@@ -3264,7 +3264,7 @@ def function_collision_checks(ctx, rva, old_name, new_name, old_word, new_word, 
 
 def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
                   to_class=None, prepared=None, access=None, also=None, respell=False, identity=False,
-                  move_to=None, move_rows=(), forced_moves=()):
+                  move_to=None, move_rows=(), forced_moves=(), approval_base=None):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
     (plan_virtual: no new identifier, no basis, retail evidence); with
@@ -3274,7 +3274,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         if basis:
             raise Refusal("--to-class takes its evidence from retail's vftable: pass no --basis")
         return plan_to_class(ctx, rva, to_class, new, evidence=evidence, old=old, prepared=prepared,
-                             max_files=max_files, also=also)
+                             max_files=max_files, also=also, approval_base=approval_base)
     if identity or move_to:
         if not respell or identity is False:
             raise Refusal("--identity and --move-to go with --respell --identity only")
@@ -7156,10 +7156,15 @@ def slot_key(ctx, cls, table, slot):
     return f"{header}|slot|{cls}@0x{table + IMAGE_BASE:08X}|{slot}" if header else None
 
 
-def approved_slot_name(ctx, key):
+def approved_slot_name(ctx, key, base):
     """The spelling reverse/name_agreed.csv's latest record for slot `key` approves, when that record agrees or
-    landed, is not disputed, the votes still carry it (name_agreement.verify, check_agreement's floor), and every
-    counted vote was served the class's header as it reads now (votes_bound_to_text); else None."""
+    landed, is not disputed, the votes still carry it (name_agreement.verify, check_agreement's floor), and two
+    workers whose votes were served the class's header as revision `base` holds it (fresh_slot_voters) carry it
+    with no rival as strong; else None. All of it is read at `base` (a RevisionContext): records not committed
+    there do not count."""
+    if not base:
+        raise Refusal("a slot approval is read at an explicit revision (--approval-base REV)")
+    ctx = RevisionContext(ctx.root, base)
     rows = [r for r in ctx.dicts(AGREED) if r.get("key") == key]
     # the key's latest record decides, whatever its kind: an older slot approval is not revived by a later record
     if (not rows or any(r.get("status") == "disputed" for r in rows) or rows[-1].get("kind") != "slot"
@@ -7170,15 +7175,46 @@ def approved_slot_name(ctx, key):
                                      meaning_votes=ctx.dicts(name_agreement.MEANINGS))
     if problems:
         return None
-    try:
-        # every counted vote was served the header as it reads now (its fingerprint, bound by history)
-        votes_bound_to_text(ctx, rows[-1].get("id") or "", key, new, key.split("|", 1)[0])
-    except Refusal:
+    # the votes that count were served the header as `base` holds it, their fingerprints bound by history; older
+    # votes on another text count for nothing (fresh votes after a header edit restore the approval), while rivals
+    # still count whenever they were cast, as name_lane counts them when it records an agreement
+    mine, rivals = name_agreement.standing(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key, new)
+    fresh = set(mine) & fresh_slot_voters(ctx, key, new, key.split("|", 1)[0])
+    top = max((len(r) for r in rivals), default=0)
+    if len(fresh) < name_agreement.review_workers(key, rivals) or len(fresh) - top < 1:
         return None
     return new
 
 
-def to_class_name_problem(ctx, cls, table, slot, new_name):
+def fresh_slot_voters(ctx, key, new, rel):
+    """The workers whose vote for `new` at `key` was served `rel` as revision ctx.base holds it: a VOTE_SOURCES
+    fingerprint equal to that text's sha256 and bound by history (fingerprint_bound)."""
+    data = ctx.read(rel)
+    if data is None:
+        return set()
+    applied = hashlib.sha256(data).hexdigest()
+    wanted = name_agreement.digest(key, new)
+    sources = collections.defaultdict(list)
+    for row in ctx.dicts(VOTE_SOURCES):
+        sources[tuple(row.get(c) or "" for c in ("key", "hash", "worker", "session"))].append(row)
+    out = set()
+    for vote in ctx.dicts(name_agreement.VOTES):
+        if vote.get("key") != key or vote.get("hash") != wanted:
+            continue
+        rows = sources.get(tuple(vote.get(c) or "" for c in ("key", "hash", "worker", "session")), [])
+        if not rows or {r.get("source_sha") for r in rows} != {applied}:
+            continue
+        try:
+            for row in rows:
+                fingerprint_bound(ctx, row, rel)
+        except Refusal:
+            continue
+        out.add(vote.get("worker") or "")
+    out.discard("")
+    return out
+
+
+def to_class_name_problem(ctx, cls, table, slot, new_name, base=None):
     """Why the move's new symbol `new_name` may not take retail table `table`'s slot `slot` in `cls`, or None: its
     identifier must be the name tools/name_lane.py approved for that slot key. Votes alone name a slot; the
     class's declaration is never read for it."""
@@ -7187,11 +7223,18 @@ def to_class_name_problem(ctx, cls, table, slot, new_name):
     if key is None:
         return (f"{cls} has no canonical header in {CANONICAL_CLASSES}: the name of {where} is voted on the "
                 "registered class (register it first)")
+    if not base:
+        return (f"the name of {where} in {cls} is read from name_lane's approval at an explicit revision: pass "
+                "--approval-base REV")
+    header = key.split("|", 1)[0]
+    if ctx.read(header) != RevisionContext(ctx.root, base).read(header):
+        return (f"{header} differs from {base}'s: the slot's votes are bound to the header as a revision holds it; "
+                "commit or stash the header change, or name that revision")
     try:
         word = split_function_name(new_name)[1]
     except Refusal:
         word = None
-    approved = approved_slot_name(ctx, key)
+    approved = approved_slot_name(ctx, key, base)
     if word != approved:
         return (f"tools/name_lane.py holds {'the approved name ' + approved if approved else 'no approved name'} "
                 f"for slot key {key}" + (f", not {word}" if approved else "") + f": the name of {where} in {cls} "
@@ -7199,7 +7242,7 @@ def to_class_name_problem(ctx, cls, table, slot, new_name):
     return None
 
 
-def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
+def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None, approval_base=None):
     """Every check of one --to-class move of the row at `rva` into `cls` as
     `new` (see the section comment), up to its retail slot; a dict of what
     plan_to_class writes. Raises Refusal; writes nothing."""
@@ -7268,7 +7311,7 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                                                                reviewed=retail_identity.shared_slot_of(rva, cls, new_name),
                                                                base=retail_identity.base_slot_of(rva, cls, new_name),
                                                                found=found)
-    problem = to_class_name_problem(ctx, cls, table, slot, new_name)
+    problem = to_class_name_problem(ctx, cls, table, slot, new_name, approval_base)
     if problem:
         raise Refusal(problem)
     if getter:
@@ -7283,7 +7326,8 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
             "tombstoned": tombstoned, "statics": statics, "bases": found.get("bases"), "where": found.get("where")}
 
 
-def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, max_files=25, also=None):
+def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, max_files=25, also=None,
+                  approval_base=None):
     """Plan moving one placeholder-class member into class `cls` as its
     virtual `new`; see the section comment. `also` [(rva, new)] moves more
     slots of the same retail table in the same plan (a batch: the slots of a
@@ -7293,9 +7337,9 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     cls = cls or ""
     if not IDENT.fullmatch(cls) or cls in name_metric.KEYWORDS:
         raise Refusal(f"{cls!r} is not a class identifier")
-    moves = [_to_class_move(ctx, rva, cls, new, old=old, prepared=prepared)]
+    moves = [_to_class_move(ctx, rva, cls, new, old=old, prepared=prepared, approval_base=approval_base)]
     for extra_rva, extra_new in also or ():
-        moves.append(_to_class_move(ctx, extra_rva, cls, extra_new, prepared=prepared))
+        moves.append(_to_class_move(ctx, extra_rva, cls, extra_new, prepared=prepared, approval_base=approval_base))
     first = moves[0]
     if len(moves) > 1 and any(m["bases"] for m in moves):
         raise Refusal("a base-slot move (retail_identity.BASE_SLOTS) moves one slot; --also is not read with it")
@@ -9603,6 +9647,15 @@ def check_registered_basis(ctx, header, basis, evidence, old, new):
 VOTE_SOURCES = "reverse/name_vote_sources.csv"
 
 
+def revision_base(ctx):
+    """The explicit revision `ctx` reads (a RevisionContext's base); Refusal when there is none. Binding votes to a
+    text compares them with one committed revision, named by the caller, never a default."""
+    base = getattr(ctx, "base", None)
+    if not base:
+        raise Refusal("binding votes to a text needs a revision context with an explicit base (RevisionContext)")
+    return base
+
+
 def votes_bound_to_text(ctx, rid, key, new, rel):
     """A gate's credit is bound to the text each vote named. An `nl-` vote's row carries
     no fingerprint (an `nr-` resolution does, and check_agreement checks it), so
@@ -9611,7 +9664,7 @@ def votes_bound_to_text(ctx, rid, key, new, rel):
     fingerprint must be the sha256 of base's `rel`, the text the rename is applied to.
     A vote with no fingerprint, or one cast on any other text -- edited before, with,
     or after the votes, in whatever order the commits land -- earns nothing."""
-    base = getattr(ctx, "base", None) or "HEAD"
+    base = revision_base(ctx)
     data = ctx.read(rel)
     if data is None:
         raise Refusal(f"{rel} is not in {base}")
@@ -9644,7 +9697,7 @@ def fingerprint_bound(ctx, row, rel):
     removed) must hold, in its own tree, `rel` with exactly that sha256. The hook
     (tools/class_gate.py --staged) refuses any other change; this reads history itself, so
     a commit made around the hook gains nothing either."""
-    base = getattr(ctx, "base", None) or "HEAD"
+    base = revision_base(ctx)
     line = ",".join(row.get(c) or "" for c in VOTE_SOURCE_FIELDS)
     vote = ",".join(row.get(c) or "" for c in VOTE_SOURCE_FIELDS[:4]) + ","
     # every line this vote's fingerprint ever had, added (+) or removed (-), commit by commit
@@ -16260,6 +16313,9 @@ def main(argv=None):
     function.add_argument("--access", choices=sorted(VIRTUAL_CODE_OF),
                           help="with --virtual: the virtual member's access instead of the row's "
                                "(protected: QAE->MAE); each in-class declaration is put under that label")
+    function.add_argument("--approval-base", metavar="REV",
+                          help="with --to-class: the revision whose name_lane records and header the slot's "
+                               "approval is read at (no default; the working header must equal it)")
     function.add_argument("--to-class", metavar="CLASS",
                           help="move a placeholder-class member into CLASS as its virtual --new (identifier or "
                                "full mangled name); no --basis: refused unless a table CLASS's own constructor "
@@ -16531,7 +16587,7 @@ def main(argv=None):
             kwargs["access"] = args.access
     if to_class:
         kwargs = dict(to_class=args.to_class, new=args.new, prepared=prepared, evidence=args.evidence or "",
-                      max_files=args.max_files)
+                      max_files=args.max_files, approval_base=args.approval_base)
         if also:
             kwargs["also"] = also
     if fold:

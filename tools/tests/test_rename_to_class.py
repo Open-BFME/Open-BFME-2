@@ -121,6 +121,7 @@ def ctx_of(root):
 
 def plan(root, rva=0x00401000, new="spin", cls="Widget", prepared=True, **overrides):
     edits = {"Code/Game/Bits.cpp": BITS_PREPARED.encode()} if prepared else None
+    overrides.setdefault("approval_base", "HEAD")
     return rename.plan_rename("function", ctx=ctx_of(root), rva=rva, to_class=cls, new=new,
                               prepared=edits, **overrides)
 
@@ -451,7 +452,7 @@ def sleep_tree(root, *, registered=True, header=UPDATE_H, widget=SLEEP_WIDGET):
 
 def sleep_plan(root, new=SLEEP_NEW):
     return rename.plan_rename("function", ctx=ctx_of(root), rva=0x00401100, to_class="Widget", new=new,
-                              prepared={"Code/Game/SleepBits.cpp": SLEEP_PREPARED.encode()})
+                              prepared={"Code/Game/SleepBits.cpp": SLEEP_PREPARED.encode()}, approval_base="HEAD")
 
 
 @pytest.mark.parametrize("tail,new_tail,enum", [
@@ -581,7 +582,8 @@ def batch_tree(root):
 
 def batch_plan(root, also=((0x00401100, N_B), (0x00401200, N_C))):
     return rename.plan_rename("function", ctx=ctx_of(root), rva=0x00401000, to_class="Widget", new=N_A,
-                              prepared={rel: p.encode() for rel, (_t, p) in B_SOURCES.items()}, also=list(also))
+                              prepared={rel: p.encode() for rel, (_t, p) in B_SOURCES.items()}, also=list(also),
+                              approval_base="HEAD")
 
 
 def test_a_lone_slot_of_an_unresolved_table_is_refused(tree, monkeypatch):
@@ -1434,7 +1436,7 @@ def getter_tree(tree, widget=SNAPSHOT_WIDGET):
 
 def getter_plan(root, new=GETTER_NEW, **overrides):
     kwargs = dict(rva=GETTER_RVA, to_class="Widget", new=new,
-                  prepared={"Code/Game/Names.cpp": NAMES_PREPARED.encode()})
+                  prepared={"Code/Game/Names.cpp": NAMES_PREPARED.encode()}, approval_base="HEAD")
     kwargs.update(overrides)
     return rename.plan_rename("function", ctx=ctx_of(root), **kwargs)
 
@@ -1661,6 +1663,8 @@ def register(tree, cls="Widget", header=WIDGET_H):
     path.write_text(text + f"{cls},{header},registered\n")
     if not (tree / header).exists():
         (tree / header).write_text(f"class {cls} {{ public: virtual ~{cls}(); }};\n")
+    _git(tree, "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", f"register {cls}")
 
 
 def key_of(table_va, slot, cls="Widget", header=WIDGET_H):
@@ -1801,7 +1805,8 @@ def test_votes_a_later_record_of_another_kind_ends_the_approval(tree, monkeypatc
     approve(tree, key, "spin")
     with (tree / "reverse/name_agreed.csv").open("a") as f:
         f.write(f"nl-later,member,1,whirl,,,{key},blocked,a later record\n")
-    assert rename.approved_slot_name(ctx_of(tree), key) is None
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "a later record")
+    assert rename.approved_slot_name(ctx_of(tree), key, "HEAD") is None
     with pytest.raises(Refusal, match="no approved name"):
         plan(tree)
 
@@ -1816,4 +1821,29 @@ def test_votes_a_header_edited_after_the_votes_ends_the_approval(tree, monkeypat
     _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "an edit")
     with pytest.raises(Refusal, match="no approved name"):
         plan(tree)
+
+
+def test_votes_a_move_without_an_approval_base_is_refused(tree, monkeypatch):
+    # coordinator: no fallback revision; the caller names it
+    retail(monkeypatch, GOOD)
+    register(tree)
+    approve(tree, key_of(0x00C00000, 1), "spin")
+    with pytest.raises(Refusal, match="pass --approval-base REV"):
+        plan(tree, approval_base=None)
+
+
+def test_votes_a_working_header_that_differs_from_the_base_is_refused(tree, monkeypatch):
+    retail(monkeypatch, GOOD)
+    register(tree)
+    approve(tree, key_of(0x00C00000, 1), "spin")
+    (tree / WIDGET_H).write_text("class Widget { public: virtual ~Widget(); }; // uncommitted\n")
+    with pytest.raises(Refusal, match="differs from HEAD's"):
+        plan(tree)
+
+
+def test_votes_binding_needs_an_explicit_revision(tree):
+    with pytest.raises(Refusal, match="explicit base"):
+        rename.votes_bound_to_text(ctx_of(tree), "nl-x", "a|slot|W@0x00C00000|1", "spin", "a")
+    with pytest.raises(Refusal, match="explicit revision"):
+        rename.approved_slot_name(ctx_of(tree), "a|slot|W@0x00C00000|1", None)
 

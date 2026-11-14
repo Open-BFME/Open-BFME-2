@@ -4392,7 +4392,7 @@ def test_two_blind_votes_give_the_approval_to_class_reads(slot_tree, tmp_path, c
     commit_votes(slot_tree)
     ctx = rename.Context(slot_tree, object_scan=False)
     assert rename.slot_key(ctx, "Widget", SLOT_TABLE, 1) == SLOT_KEY
-    assert rename.approved_slot_name(ctx, SLOT_KEY) == "spin"
+    assert rename.approved_slot_name(ctx, SLOT_KEY, "HEAD") == "spin"
     # apply lands nothing for it: rename.py --to-class reads the record
     capsys.readouterr()
     assert apply(slot_tree, key=[SLOT_KEY]) == 0
@@ -4443,12 +4443,19 @@ def test_a_changed_header_ends_the_slot_approval(slot_tree, tmp_path, capsys):
         assert submit_slot(slot_tree, tmp_path, seat, "spin") == 0
     commit_votes(slot_tree)
     ctx = rename.Context(slot_tree, object_scan=False)
-    assert rename.approved_slot_name(ctx, SLOT_KEY) == "spin"
+    assert rename.approved_slot_name(ctx, SLOT_KEY, "HEAD") == "spin"
     (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// edited\n")
     commit_votes(slot_tree, "an edit")
-    assert rename.approved_slot_name(rename.Context(slot_tree, object_scan=False), SLOT_KEY) is None
+    assert rename.approved_slot_name(rename.Context(slot_tree, object_scan=False), SLOT_KEY, "HEAD") is None
     capsys.readouterr()
     assert apply(slot_tree, key=[SLOT_KEY]) == 0
     assert "reopened for fresh votes" in capsys.readouterr().out
     assert lane_of(slot_tree).state()[SLOT_KEY]["status"] == "source-changed"
+    # review r3: two fresh votes on the edited header restore it, whatever the older votes fingerprinted
+    for seat in ("c", "d"):
+        serve_slot(slot_tree, seat, f"seat-{seat}")
+        assert submit_slot(slot_tree, tmp_path, seat, "spin") == 0
+    assert lane_of(slot_tree).state()[SLOT_KEY]["status"] == "agreed"
+    commit_votes(slot_tree, "fresh votes")
+    assert rename.approved_slot_name(rename.Context(slot_tree, object_scan=False), SLOT_KEY, "HEAD") == "spin"
 
