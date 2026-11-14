@@ -224,9 +224,9 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0RGBColorKeyframe@FXParticleSystem@@QAE@XZ,0x00001E67,0x00001E67,24,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,
 ?rad2deg@@YAMM@Z,0x00003524,0x00003524,11,Code/GameEngine/Source/Common/System/Trig.cpp,matched,
 ?deg2rad@@YAMM@Z,0x0000352F,0x0000352F,11,Code/GameEngine/Source/Common/System/Trig.cpp,matched,
-?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BBF,0x00004BBF,23,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
-?GetYVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BD6,0x00004BD6,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
-?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x00004BEE,0x00004BEE,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?GetXVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z,0x00004BBF,0x00004BBF,23,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?GetYVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z,0x00004BD6,0x00004BD6,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?GetZVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z,0x00004BEE,0x00004BEE,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??YICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CE5,0x00004CE5,19,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
 ??ZICoord2D@@QAEAAU0@ABUICoord2DBase@@@Z,0x00004CF8,0x00004CF8,19,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
 ?MoveBy@ICoord2D@@QAEAAU1@H@Z,0x00004D3D,0x00004D3D,14,Code/GameEngine/Source/Common/System/Snapshot.cpp,matched,
@@ -358,8 +358,8 @@ _zlibVersion,,0x006946C0,6,Code/Libraries/Source/Compression/ZLib/zutil.c,matche
 ??0SphereEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z,,0x003A67FD,33,Code/GameEngine/Source/GameClient/FXParticleSystemVelocityTemplate.cpp,matched,BFME1 copy constructor transferred; BFME2 vtable at 0x00C1BB60 and base copy helper at 0x001F3550
 ?Determinant@Matrix4D@@QBEMXZ,0x0000424D,0x0000424D,188,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Transpose@Matrix4D@@QAEAAV1@XZ,0x000041DE,0x000041DE,111,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
-?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x00004753,0x00004753,135,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
-?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z,0x000046BD,0x000046BD,150,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?RotateCoord@Matrix4D@@QAEAAUCoord3D@@ABU2@AAU2@@Z,0x00004753,0x00004753,135,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?TransformCoord@Matrix4D@@QAEAAUCoord3D@@ABU2@AAU2@@Z,0x000046BD,0x000046BD,150,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??0Matrix4D@@QAE@ABV0@@Z,0x00005B4D,0x00005B4D,107,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??0Matrix4D@@QAE@MMMMMMMMMMMMMMMM@Z,0x00005C2C,0x00005C2C,168,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ??XMatrix4D@@QAEAAV0@M@Z,0x000044F5,0x000044F5,233,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
@@ -476,7 +476,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ?SetIdentity@Matrix4D@@QAEAAV1@XZ,0x0000401C,0x0000401C,93,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D SetIdentity
 ?expandRange@@YAXPAHH0@Z,,0x000057F1,23,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; shared integer expandBy axis worker
 ??0Matrix4D@@QAE@_N@Z,0x00005AE7,0x00005AE7,102,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D identity-flag constructor
-??0Matrix4D@@QAE@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation constructor
+??0Matrix4D@@QAE@ABUCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation constructor
 ??$?6D@@YAAAVDebug@@AAV0@ABV?$StringBase@D@@@Z,0x000028E8,0x000028E8,37,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; Debug stream insertion for StringBase<char>
 ??0?$CW2AEX@$0IA@@ATL@@QAE@PBG@Z,,0x000066F0,32,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 CW2AEX<> constructor primes its inline buffer and dispatches conversion through Init
 ?isNotEmpty@?$StringBase@D@@QBE_NXZ,0x00407101,0x00407101,11,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp,matched,Open-BFME5 clean C++; StringBase predicate and accessor
@@ -501,7 +501,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,0x002341E7,31,Code/GameEngine/Source/Common/RandomValue.cpp,matched,Open-BFME5 clean C++; GameClientRandomVariable
 ??0ICoord3D@@QAE@HHH@Z,0x005CC49A,0x005CC49A,25,Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,matched,Open-BFME5 clean C++; ICoord3D component constructor
 ?set@Coord3D@@QAEXPBUCoord3DBase@@@Z,0x000DFCB6,0x000DFCB6,23,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D set from a base pointer
-?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z,0x0009314A,0x0009314A,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation vector accessor
+?GetTranslationVector@Matrix4D@@QBEAAUCoord3D@@AAU2@@Z,0x0009314A,0x0009314A,24,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,Open-BFME5 clean C++; Matrix4D translation vector accessor
 ?lengthSqr@Coord3D@@QBEMXZ,0x00065A1A,0x00065A1A,31,Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp,matched,Open-BFME5 clean C++; Coord3D squared length
 ?AtlW2AHelper@@YGPADPADPBGHI@Z,,0x000031DC,56,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 global wide-to-ANSI conversion helper
 ?AtlA2WHelper@@YGPAGPAGPBDHI@Z,,0x000031A5,55,Code/Libraries/Source/ATL/atlconv.cpp,matched,Open-BFME5 clean C++; ATL 7.1 global ANSI-to-wide conversion helper
@@ -1109,7 +1109,7 @@ _free,,0x00030830,17,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched
 ?getName@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x00002600,0x00002600,30,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,
 ?getTextureFilename@ParticleSystemTemplate@FXParticleSystem@@QBE?AVAsciiString@@XZ,0x0000261E,0x0000261E,27,Code/GameEngine/Source/GameClient/ParticleSystemTemplate.cpp,matched,
 ?Multiply@Matrix4D@@QAEAAV1@ABV1@0@Z,0x000047DA,0x000047DA,918,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
-?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
+?Set@Matrix4D@@QAEAAV1@ABUCoord3D@@@Z,0x00005BB8,0x00005BB8,116,Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp,matched,
 ?Clone@Image@Gdiplus@@UAEPAV12@XZ,,0x00002639,66,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline emitted by the ATL CImage TU
 ??1Image@Gdiplus@@UAE@XZ,,0x000012A3,15,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline
 ?GetWidth@Image@Gdiplus@@QAEIXZ,,0x000012B2,36,Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp,matched,Open-BFME5 clean C++; vendored=gdiplus-1.0 Platform SDK inline

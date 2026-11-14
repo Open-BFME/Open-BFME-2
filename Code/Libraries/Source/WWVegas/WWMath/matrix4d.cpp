@@ -2,13 +2,7 @@
 #include <math.h>
 
 
-class Coord3D
-{
-public:
-    float x;
-    float y;
-    float z;
-};
+#include "../../../Include/Lib/Coord3D.h"
 
 class Matrix4D
 {
