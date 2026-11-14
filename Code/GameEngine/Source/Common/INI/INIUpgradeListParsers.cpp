@@ -14,7 +14,10 @@
 
 #include "ascii_string.h"
 
+// platformsdk
 #include <windows.h>
+#undef near
+#undef far
 
 enum NameKeyType
 {
