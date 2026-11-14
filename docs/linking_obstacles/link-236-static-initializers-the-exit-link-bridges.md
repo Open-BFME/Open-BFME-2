@@ -1415,3 +1415,27 @@ rows and both data rows passed before readmission, and all14 owner COMDATs keep
 their bytes and relocation identities after normalizing only the data-symbol
 type decoration. No new pin/callback body or alias. The next real-link scoreboard
 must measure the resulting bridge count; no image/runtime result is claimed.
+
+**2026-11-14, ancalgonn-swarm-waste: segline/streak `_LineRenderer` parked for a data-identity route.**
+This takes up the 0x007ACE30/0x007B6830 lead from round bridge-1 above. image_iso on image `3de83fce49` lists two
+slot-less initializers: segline.cpp `_$E4` (image 0x00994430) and streak.cpp `_$E26` (image 0x00994470). Each one
+constructs that unit's `static SegLineRendererClass _LineRenderer;` (segline.cpp:83, streak.cpp:121) and registers
+its cleanup with `_atexit`. Neither static has a data row. The retail side is all rowed, but under placeholder names:
+- The initializers are 0x007ACE30 (`?rva007ACE30@Rva007AB81ACtorInits@@SAXXZ`, Rva007AB81ACtorInits.cpp) and
+  0x007B6830 (`?rva007B6830@@YAXXZ`, Rva007B6830SegLineInit.cpp).
+- The cleanups are 0x007B71C0 and 0x007B9CC0 (Rva007B6880Thunks.cpp). Each loads `ecx` with its object and
+  tail-jumps to the rowed `??1SegLineRendererClass@@QAE@XZ` (0x001911C0).
+- The objects are RVA 0x009F6F30 (VA 0x00DF6F30) and RVA 0x00A1F4E8 (VA 0x00E1F4E8). Rva007B6880Thunks.cpp defines
+  them as address-named `unsigned int[20]` arrays, `?g_Va009F6F30@@3IA` and `?g_Va00A1F4E8@@3IA`.
+- `reverse/hatch_baseline.tsv` counts `address_global` 2 for each name, in each file that names it:
+  Rva007B6880Thunks.cpp (both names), Rva007AB81ACtorInits.cpp (`g_Va009F6F30`) and Rva007B6830SegLineInit.cpp
+  (`g_Va00A1F4E8`).
+- `reverse/data_converged.csv` has no row for either address.
+
+Retail constructs two `SegLineRendererClass` objects, so deleting the units’ statics solely because their rebuilt
+initializers are slot-less is not justified. These objects are candidates for segline.cpp’s and streak.cpp’s
+`_LineRenderer` statics; their correspondence and which unit owns each address remain unproved. The data-identity
+lane must establish those identities before binding the four placeholder rows to the corresponding
+compiler-generated initializer and cleanup labels and retiring the arrays and their `address_global` hatches.
+Renaming the storage is data-identity work and goes through that register’s route, not a hand rename. Parked until
+the data-identity lane takes it. Nothing changed in this pass.
