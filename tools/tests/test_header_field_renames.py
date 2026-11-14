@@ -1266,3 +1266,22 @@ def test_review_r3_a_header_only_the_compiler_roots_reach_is_read_for_the_canoni
     monkeypatch.setattr(lane, "compiler_search_roots", lambda source: [tmp_path / "compiler"])
     mapping, why = lane.field_renames("Code/u.cpp", UNIT, ["Object"], "Object.h", compiler(), header="Code/Object.h")
     assert mapping is None and why and "m_status" in why, (mapping, why)
+
+
+def test_review_r4_hiding_reads_the_header_as_the_unit_compiles_it(tmp_path, monkeypatch):
+    # include resolver review r4: hiding() read the canonical header walked alone, which missed sub/config.h (found
+    # beside the unit only); its enumerator Thing::m_status hid Base's field, so `o->m_status` would read 7
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    for d in ("shared", "sub"):
+        (tmp_path / d).mkdir()
+    (tmp_path / "Object.h").write_text('#pragma once\n#include "shared/Thing.h"\nclass Object : public Thing {\n'
+                                       "public:\n    float m_moveSpeed;\n    int getFlags() const;\n};\n")
+    (tmp_path / "shared" / "Thing.h").write_text('#pragma once\n#include "config.h"\n')
+    (tmp_path / "sub" / "config.h").write_text("#pragma once\nclass Base { public: int m_status; int m_extra; };\n"
+                                               "class Thing : public Base {\npublic:\n    enum { m_status = 7 };\n};\n")
+    unit = UNIT.replace("class Object", '#include "../shared/Thing.h"\nclass Object', 1)
+    lays = dict(HEADER_LAYOUTS, Base=HEADER_LAYOUTS["Thing"], Thing=layout([], bases=[("Base", 0)], size=8))
+    monkeypatch.setattr(lane, "compiler_search_roots", lambda source: [])
+    mapping, why = lane.field_renames("sub/u.cpp", unit, ["Object"], "../Object.h", compiler(header=lays),
+                                      header="Object.h")
+    assert mapping is None and why and "m_status" in why, (mapping, why)

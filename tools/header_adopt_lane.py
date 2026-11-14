@@ -1379,11 +1379,19 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     # restructured tree that `ROOT / flag` does not name
     compiler_roots = compiler_search_roots(source)
     walk_roots = include_roots + [r for r in compiler_roots or () if r not in include_roots]
-    canonical = []
+    canonical, seeded_why = [], None
     if header:
         canonical = header_sources(header, walk_roots, include_cache)
         if canonical is None:
             return None, f"the canonical header {header} cannot be read; no proof of its names"
+        # the header as the unit compiles it: in the unit's closure, with its flags and every definition it makes
+        # (a header walked alone took a macro the unit defines for absent), as a seed of its own. Every file that
+        # walk reads joins the corpus before any check reads it (method_only_header, hiding, and the name, macro
+        # and hierarchy checks below); its refusal stands once the unit has field checks
+        seeded, seeded_why = include_walk(source, text, walk_roots, include_cache, (header,), compiler_roots)
+        known = {str((ROOT / path).resolve()) for path, _ in canonical}
+        canonical = canonical + [(path, body) for path, body in seeded[1:]
+                                 if str((ROOT / path).resolve()) not in known]
     try:
         laid = compile(source, probe_text(text, strip, include))
     except RuntimeError as exc:
@@ -1446,15 +1454,8 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             field_checks[name] = mine
     if field_checks:
         if header:
-            # the header as the unit compiles it: in the unit's closure, with its flags and every definition
-            # it makes (a header walked alone took a macro the unit defines for absent), as a seed of its own;
-            # every file that walk reads joins the corpus the checks below read
-            seeded, why = include_walk(source, text, walk_roots, include_cache, (header,), compiler_roots)
-            if why:
-                return None, why
-            known = {str((ROOT / path).resolve()) for path, _ in canonical}
-            canonical = canonical + [(path, body) for path, body in seeded[1:]
-                                     if str((ROOT / path).resolve()) not in known]
+            if seeded_why:
+                return None, seeded_why
             family = {cls for name in field_checks for cls in hierarchy(name, laid)}
             rename_names = {token for mapping in field_checks.values() for pair in mapping.items() for token in pair}
             why = conditional_hierarchy(canonical, family, rename_names)
