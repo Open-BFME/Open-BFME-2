@@ -9,24 +9,7 @@ public:
     int get() const;
 };
 
-class AptValue {
-public:
-    virtual void AddRef();
-    virtual void Release();
-    virtual void unused2();
-    virtual void unused3();
-    virtual void unused4();
-    virtual void unused5();
-    virtual void unused6();
-    virtual void unused7();
-    virtual void unused8();
-    virtual void unused9();
-    virtual void unused10();
-    virtual void unused11();
-    virtual void unused12();
-    virtual void unused13();
-    void setGCMark(bool value);
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 
 class AptValueWithHash
 {
@@ -62,5 +45,5 @@ void Rva006DE2B0::rva0070DF80()
     if (static_cast<unsigned char>(((const Rva006DBB40ShrAndField *)m_ctor)->get()))
         return;
     m_ctor->setGCMark(true);
-    m_ctor->unused13();
+    m_ctor->RegisterReferences();
 }

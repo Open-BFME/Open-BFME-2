@@ -11,13 +11,11 @@ class AudioEventInfoRef {
 public:
     AudioEventInfo *info;
 };
-class MilesAudioManager {
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
+class MilesAudioManager::GlobalVolumeData {
 public:
-    class GlobalVolumeData {
-    public:
-        unsigned char rva000520F4(const AudioEventInfoRef &, int);
-        char reserved[0x1c4];
-    };
+    unsigned char rva000520F4(const AudioEventInfoRef &, int);
+    char reserved[0x1c4];
 };
 
 unsigned char MilesAudioManager::GlobalVolumeData::rva000520F4(

@@ -29,7 +29,8 @@ template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 }
 struct BfmePod8 {int m_at00,m_viewType;};
 struct OpaqueVolumeWord {unsigned char data[4];};
-class MilesAudioManager {public: class GlobalVolumeData{public:void refreshAll() throw();};};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
+class MilesAudioManager::GlobalVolumeData{public:void refreshAll() throw();};
 class Rva006ABC60 {
  int word00;
  float volumes[6][2];

@@ -13,24 +13,7 @@ public:
     int get() const;
 };
 
-class AptValue {
-public:
-    virtual void AddRef();
-    virtual void Release();
-    virtual void unused2();
-    virtual void unused3();
-    virtual void unused4();
-    virtual void unused5();
-    virtual void unused6();
-    virtual void unused7();
-    virtual void unused8();
-    virtual void unused9();
-    virtual void unused10();
-    virtual void unused11();
-    virtual void unused12();
-    virtual void unused13();
-    void setGCMark(bool value);
-};
+#include "../AptValue.h"
 
 // Retail calls 0x0070DFD0, the rowed 5-byte forward to Rva006D6360::rva006DCC00
 // (VslotSmallBodiesAJ.cpp); the call names that row.
@@ -153,7 +136,7 @@ void Rva006F2C20::rva006F2C20()
     if (static_cast<unsigned char>(((const Rva006DBB40ShrAndField *)m_ctor)->get()))
         return;
     m_ctor->setGCMark(true);
-    m_ctor->unused13();
+    m_ctor->RegisterReferences();
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva006F2C50Siblings.cpp
