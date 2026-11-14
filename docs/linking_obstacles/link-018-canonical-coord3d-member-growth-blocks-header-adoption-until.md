@@ -1,5 +1,19 @@
 ### LINK-018: canonical `Coord3D` member growth blocks header-adoption until dependents are recomputed
 
+**matrix4d.cpp adoption unresolved eight retail exports; repair refused (2026-11-14; base `729b351200`, real link `90f2c095cd`).**
+- 23b22e04f4 (the lane's own retry) adopted the canonical `struct Coord3D` in WWMath/matrix4d.cpp and respelled eight rows
+  from `V` to `U`. Retail exports all eight with `V` (`grep -c "Matrix4D@@.*VCoord3D" reverse/exports.csv`: 10, `U`: 0), so
+  the real link at `90f2c095cd` lists the unit with 8 missing names (`reverse/exit_link_blockers.tsv`), e.g.
+  `??0Matrix4D@@QAE@ABVCoord3D@@@Z`. The lane's "no name newly undefined" closure reads link objects, not exit.exp.
+- Tried: reverting the adoption for this unit alone (private `class Coord3D` view, the eight `V` rows, the queue row).
+  It builds 24/24 and link_check keeps LINKS 4,707 -> 4,707 B, and nothing else binds the `U` names (only Snapshot.cpp
+  also declares Matrix4D, with the two axis-angle members; census index 29dfc2e011 references only `V`). The pre-commit
+  class gate refuses it as a new private copy of Coord3D. Backed out; master still has the eight names missing.
+- Routes, each an owner decision: the class-key flip (option A), eight more option-B export aliases
+  (`pin_admission.py --alias`), or a gate-admitted view for this unit. The lane also needs to refuse a respelling that
+  moves a row off its retail export name, or it will repeat this elsewhere.
+- [Handoff](../../reverse/attempt_support/matrix4d-export-key-regression-20261114.md).
+
 **Weapon hidden-result profile check (2026-11-01; base `8c6bd6ae65d`):** All six remaining units pass 113/113 control rows. Replacing the weapon-specific Coord3D constructor with the existing non-POD companion and a named output grows native 30 bytes to 63 (temporary allocation and result copy). The trial is fully reverted; restored external object facts are identical. No queue/header/source change or census gain is retained. The five other units keep their documented class-key/interface prerequisites; shared-member growth is not retried. [Rejected patch, controls and next prerequisite](../../reverse/attempt_support/coord3d-weapon-return-profile-20261101-bce2/README.md).
 
 **Wrapper adoption and deferred retirements (2026-10-29; base `a2e9c2b5b2`):**
