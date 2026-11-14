@@ -449,12 +449,7 @@ private:
 	char m_pad[0x14];
 };
 
-class Rva0036666B
-{
-public:
-	bool rva0036666B();
-	bool rva0036736E(bool destroyed);	// rowed 0x0036736E (PathfindLayer::setDestroyed body)
-};
+#include "../../../Include/Common/Rva0036666B.h"
 
 class PathfindLayer
 {
