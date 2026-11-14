@@ -39,22 +39,7 @@ public:
 	virtual void vfunc20();
 };
 
-class Rva003F936EHost
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void vfunc7(Vec3 *v);
-	void rva003FB793(Vec3 *out);
-private:
-	char m_pad04[4];
-	Rva003FB793Inner *m_p08;
-};
+#include "../../Include/Common/Rva003F936EHost.h"
 
 #include "../../Include/Common/LivingWorldEyeTower.h"
 
