@@ -188,7 +188,7 @@ private:
 // EAX=receiver. The donor class names and complete layouts remain unproven;
 // address-owned carriers preserve that uncertainty without aliases or pins.
 // ?clear@Rva004D9A35Fields@@QAEPAU1@XZ
-struct Rva004D9A35Fields { char pad[0x14]; unsigned int word14; Rva004D9A35Fields *clear(); };
+#include "../../Include/Common/Rva004D9A35Fields.h"
 
 // ?clear@Rva002175C7Fields@@QAEPAU1@XZ
 #include "../../Include/Common/Rva002175C7Fields.h"
