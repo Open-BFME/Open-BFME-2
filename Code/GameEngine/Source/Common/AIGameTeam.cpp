@@ -50,14 +50,7 @@ class Player;
 // GameEngine::init creates; addPlayer reads its armor lookup through this view.
 class Rva0022BD25Subsystem;
 extern Rva0022BD25Subsystem *TheArmyDefinitionManager;
-class SkirmishAI
-{
-public:
-	SkirmishAI(Player *player, void *master, bool first);
-
-private:
-	char m_pad[0x188];
-};
+#include "../../Include/Common/SkirmishAI.h"
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
