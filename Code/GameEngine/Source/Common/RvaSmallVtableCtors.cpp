@@ -2123,7 +2123,8 @@ class Rva004C9994
 {
 public:
 	Rva004C9994();
-	virtual ~Rva004C9994() {}
+	virtual void slot00() {}
+	virtual void slot04() {}
 };
 
 Rva004C9994::Rva004C9994()

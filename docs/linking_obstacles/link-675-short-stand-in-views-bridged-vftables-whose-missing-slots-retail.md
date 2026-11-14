@@ -47,6 +47,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `PropagandaTowerBehaviorIface` (VA 0x00C1C780): 1 slots (1 pure, 0 rowed virtual, 0 destructor), 2 view(s): `PropagandaTowerBehavior.cpp`, `PropagandaTowerBehaviorConstructor.cpp`.
 - 2026-11-14 `Rva00577936` (VA 0x00C6E9E8): 5 slots (3 pure, 1 rowed virtual, 1 destructor), 5 view(s): `MemberBaseDtorsB01.cpp`, `Rva000AD6F4Members.cpp`, `Rva00577936Ctor.cpp`, `Rva005F8388.cpp`, `Rva005F86C3Constructor.cpp`.
 - 2026-11-14 `DelayedUpgradeUpdateInterface` (VA 0x00C6FFFC): 2 slots (2 pure, 0 rowed virtual, 0 destructor), 1 view(s): `DelayedWeaponSetUpgradeUpdate.cpp`.
+- 2026-11-14 `Rva004C9994` (VA 0x00C5EBEC): 2 slots (0 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 Correction (2026-11-14, inspected 90f2c095cd): the "9,663 an adjustor thunk" and "68% of the slots" figures above
 are wrong. The classifier read free functions at shared bodies (for example `?ControlBarInput@@YA...` at
