@@ -300,6 +300,8 @@ class Rva005CB243
 public:
 	Rva005CB243(EmitVtableTag *);
 	virtual ~Rva005CB243() {}
+	virtual void slot04() = 0;
+	virtual void slot08() {}
 };
 
 // ?<Rva005CB243::Rva005CB243> absent-from-retail
