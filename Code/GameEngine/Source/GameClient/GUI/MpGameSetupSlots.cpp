@@ -369,11 +369,7 @@ public:
 	UnicodeString getDisplayName() const;
 };
 
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *getNthPlayerTemplate(int index) const;
-};
+#include "../../../Include/Common/PlayerTemplateStore.h"
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 extern CreateAHeroManager *TheCreateAHeroManager;
