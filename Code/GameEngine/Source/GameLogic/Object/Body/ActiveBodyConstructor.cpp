@@ -22,18 +22,7 @@ class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class __declspec(novtable) BodyModule : public BehaviorModule, public BodyModuleInterface
-{
-public:
-	BodyModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~BodyModule();
-	// BehaviorModuleInterface slot 0 (retail VA 0x00C5AD78): BodyModule's override,
-	// rowed at 0x002533D3 (BodyModuleCtor.cpp).
-	virtual BodyModuleInterface *getBody();
-
-private:
-	float m_damageScalar;
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 
 class Rva00263653
 {

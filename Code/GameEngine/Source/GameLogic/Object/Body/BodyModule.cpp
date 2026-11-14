@@ -30,15 +30,7 @@ class DamageInfo;
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class BodyModule : public BehaviorModule, public BodyModuleInterface
-{
-public:
-	BodyModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	float m_damageScalar;
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleXfer.cpp
 
