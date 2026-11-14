@@ -7,11 +7,7 @@
 class Rva8D0D80String;
 class Rva8D0D80Value;
 
-class Rva8D0D80Table {
-    char data[0x14];
-public:
-    void add(Rva8D0D80String *name, Rva8D0D80Value *value);
-};
+#include "../../../Libraries/Source/EA/Apt/Rva8D0D80Table.h"
 
 class Rva0070DFF0 {
     char m_pad[8];
