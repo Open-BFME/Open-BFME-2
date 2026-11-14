@@ -66,6 +66,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `Rva005E567D` (VA 0x00C77D30): 5 slots (2 pure, 0 rowed virtual, 1 destructor, 2 folded trivial body), 2 view(s): `GapBodiesGE05.cpp`, `InlineDtorDeletingDtors1.cpp`.
 - 2026-11-14 `Rva005753E9` (VA 0x00C6E5C4): 11 slots (0 pure, 0 rowed virtual, 1 destructor, 10 folded trivial body), 2 view(s): `InlineDtorDeletingDtors1.cpp`, `Rva00575F38Dtor.cpp`.
 - 2026-11-14 `ClickReactionBehaviorIface` (VA 0x00BE2B78): 3 slots (3 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `ClickReactionBehaviorView.h`.
+- 2026-11-14 `SiegeDockingBehaviorSecondaryBase` (VA 0x00C4EF80): 4 slots (4 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 3 view(s): `SiegeDockingBehaviorDtor.cpp`, `SiegeDockingBehaviorView.h`, `SiegeDockingBehaviorXfer.cpp`.
+
 
 
 

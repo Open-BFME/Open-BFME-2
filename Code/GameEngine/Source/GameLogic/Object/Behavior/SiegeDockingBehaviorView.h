@@ -27,6 +27,9 @@ class SiegeDockingBehaviorSecondaryBase
 {
 public:
 	virtual void slot() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
 };
 
 struct Rva004598F2Point;
