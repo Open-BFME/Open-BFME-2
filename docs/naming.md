@@ -1201,6 +1201,40 @@ was restored); the other records still land. A plan over `--max-files` sources
 is refused as a whole: carry fewer renames (`--range`). Commit the printed paths
 (functions.csv only) with the suggested subject, then run `check` again.
 
+### `rename.py initializers`: a unit's renumbered `_$E<n>` rows
+
+MSVC 7.1 names a unit's dynamic initializers `_$E<n>` by a per-object counter
+that every included header advances. An include change (moving a unit off the
+Zero Hour headers, say) renumbers them, and the byte gate then reports
+"compiler-local static is not one local COFF definition in its object": a
+`_$E` row is read by its own name, and build.py's stale-ordinal fallback
+resolves one only when its size is unique among the object's initializers.
+
+    ./build.sh Code/.../SpawnBehavior.cpp            # compiles the edited unit; the byte gate refuses the old ordinals
+    python3 tools/rename.py initializers --source Code/.../SpawnBehavior.cpp --dry-run
+    python3 tools/rename.py initializers --source Code/.../SpawnBehavior.cpp
+
+The source's `_$E` rows, in retail's `.CRT$XCU` table order, pair one to one
+with the `_$E` initializers its object (compiled from the present text)
+registers, in the order its `.CRT$XCU` relocations name them; each row takes
+its partner's ordinal. The route refuses unless:
+
+- every `_$E` row of the source is read by its own name (no generated source,
+  `object-symbol=` or `gen-` note) and is the only row at its address;
+- each sits exactly once in retail's table, and table order and address order
+  agree;
+- the object registers exactly as many `_$E` initializers, each once, each one
+  local code definition, none in a COMDAT `.CRT$XCU` contribution;
+- no tombstone retires a new spelling at its address, and no debt register
+  (`code_identity_baseline.tsv`, `gate_baseline.txt`, `body_owners.csv`,
+  `symbols.csv`) keys an old one.
+
+Each renamed row is tombstoned in the same plan (the new ordinal is the reason),
+and only the first field of each record changes. `./build.sh` over the source
+is the byte proof; then the rebuilt object is paired again and must give every
+row the ordinal planned. An atexit callback (`_$E` with no table entry) is not
+paired by this route: a unit that rows one is refused.
+
 ### `rename.py global --retype`: a rowed global's type and extent
 
 A placeholder global can be smaller than the retail object it stands for: `unsigned

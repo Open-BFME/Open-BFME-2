@@ -1513,6 +1513,7 @@ class Plan:
                                                       # spelling no rebuilt includer's object may still name
     element_size: dict = None                         # function --respell, stand-in element family: each owning
                                                       # unit's compiled sizeof
+    initializers: dict = None                         # initializers: each row's ordinal the rebuilt object must give
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1525,6 +1526,9 @@ class Plan:
         return set(self.after) | {new for _old, new in self.moves} | set(self.removed)
 
     def subject(self):
+        if self.kind == "initializers":
+            return (f"Respell {len(self.renamed_rows)} compiler initializer row(s) of {posixpath.basename(self.source)} "
+                    "by .CRT$XCU order")
         if self.identity:
             rows = self.identity["rows"]
             what = (f"{self.old} as {self.new}" if len(rows) == 1 else
@@ -14194,8 +14198,163 @@ def _tombstones(ctx, honour_restores=True):
     return out
 
 
+# ---------------------------------------------------------------- initializers
+#
+# MSVC 7.1 names a unit's dynamic initializers `_$E<n>` by a per-object counter that every included
+# header advances, so an include change renumbers them and the rows keyed by the old ordinals stop
+# resolving (build.read_local_static reads a `_$E` row by its own name). `initializers --source SRC`
+# respells them by position: the source's `_$E` rows, in retail's `.CRT$XCU` table order (their
+# address order must agree), pair one to one with the `_$E` initializers the source's current object
+# registers, in the order its `.CRT$XCU` relocations name them (the linker keeps one object's
+# contributions in that order). The byte gate over the respelled rows is the rest of the proof, and
+# the rebuilt object is paired again after it.
+
+CODE_SECTION = 0x20
+GATE_BASELINE = "reverse/gate_baseline.txt"
+
+
+def object_initializers(path):
+    """(the `_$E` names an object's `.CRT$XCU` relocations name, in order; {`_$E` name: its local code
+    definitions}). Refuses a COMDAT `.CRT$XCU` contribution that names one: the linker may drop it."""
+    import link_cycle
+    sections, symbols = link_cycle.parse_coff(Path(path).read_bytes())
+    defined = collections.Counter(
+        s.name for s in symbols.values()
+        if ledger_io.LOCAL_STATIC.fullmatch(s.name) and s.cls == link_cycle.STATIC and 0 < s.sec <= len(sections)
+        and sections[s.sec - 1].flags & CODE_SECTION)
+    order = []
+    for section in sections:
+        if section.name != ".CRT$XCU":
+            continue
+        named = [symbols[index].name for _offset, index, _kind in sorted(section.relocs)
+                 if index in symbols and ledger_io.LOCAL_STATIC.fullmatch(symbols[index].name)]
+        if named and section.flags & link_cycle.COMDAT:
+            raise Refusal(f"{Path(path).name}: a COMDAT .CRT$XCU contribution registers {', '.join(named)}; "
+                          "the linker may drop it, so its position proves nothing")
+        order += named
+    return order, defined
+
+
+def initializer_pairs(ctx, source, path):
+    """[(row, the object's name for it)]: `source`'s `_$E` rows in retail's `.CRT$XCU` order, paired
+    with the `_$E` initializers the object at `path` registers. Raises Refusal unless every check of
+    the route holds."""
+    rows = [r for r in ctx.rows()
+            if (r.get("source") or "").replace("\\", "/") == source and ledger_io.LOCAL_STATIC.fullmatch(r.get("name", ""))]
+    if not rows:
+        raise Refusal(f"{source} has no `_$E<n>` row")
+    for row in rows:
+        if not ledger_io.local_static(row):
+            raise Refusal(f"{row['name']} at {row['target_rva']} is not read by its own name (generated source or "
+                          "an object-symbol=/gen- note); this route respells only rows the byte gate reads by name")
+    at_rows = collections.Counter(_rva(r.get("target_rva")) for r in ctx.rows() if _rva(r.get("target_rva")) is not None)
+    table = retail_initializers(ctx)
+    positions = collections.defaultdict(list)
+    for index, entry in enumerate(table):
+        positions[entry].append(index)
+    placed = []
+    for row in rows:
+        at = _rva(row["target_rva"])
+        if at_rows[at] != 1:
+            raise Refusal(f"{at_rows[at]} rows sit at 0x{at:08X} ({row['name']}): two rows at one address pair "
+                          "with nothing")
+        hits = positions.get(at, [])
+        if len(hits) != 1:
+            raise Refusal(f"{row['name']} at 0x{at:08X} is {'no entry' if not hits else f'{len(hits)} entries'} of "
+                          "retail's .CRT$XCU table (an atexit callback or a misrowed body?); this route pairs "
+                          "registered initializers only")
+        placed.append((hits[0], at, row))
+    placed.sort(key=lambda item: item[0])
+    addresses = [at for _index, at, _row in placed]
+    if addresses != sorted(addresses):
+        raise Refusal(f"{source}'s `_$E` rows run in a different order in retail's .CRT$XCU table than by address ("
+                      + ", ".join(f"0x{at:08X}" for at in addresses) + "): the two orders must agree")
+    names, defined = object_initializers(path)
+    for name in names:
+        if names.count(name) != 1 or defined[name] != 1:
+            raise Refusal(f"{Path(path).name}: {name} is registered {names.count(name)} time(s) and defined "
+                          f"{defined[name]} time(s) as a local code symbol: each must be once")
+    if len(names) != len(placed):
+        raise Refusal(f"{Path(path).name} registers {len(names)} `_$E` initializer(s) ({', '.join(names) or 'none'}) "
+                      f"but {source} rows {len(placed)} in retail's table ("
+                      + ", ".join(f"{row['name']}@0x{at:08X}" for _i, at, row in placed) + ")")
+    return [(row, name) for (_index, _at, row), name in zip(placed, names)]
+
+
+def plan_initializers(ctx, source, evidence="", **_ignored):
+    """Plan respelling `source`'s `_$E<n>` rows to the ordinals its current object gives them,
+    paired by `.CRT$XCU` position (initializer_pairs). Each renamed row is tombstoned."""
+    source = (source or "").replace("\\", "/")
+    if ctx.read(source) is None:
+        raise Refusal(f"{source} does not exist")
+    path = _source_object(ctx, source, current=True)
+    if path is None:
+        raise Refusal(f"{source} has no object compiled from its present text: ./build.sh {source} first (its "
+                      "byte gate may refuse the renumbered rows; the object is what this route reads)")
+    pairs = initializer_pairs(ctx, source, path)
+    renames = [(row["name"], new, _rva(row["target_rva"])) for row, new in pairs if row["name"] != new]
+    if not renames:
+        raise Refusal(f"{source}'s `_$E` rows already carry the ordinals its object registers")
+    tombstoned = _tombstones(ctx)
+    for old, new, at in renames:
+        if (new, at) in tombstoned:
+            raise Refusal(f"{DELETED} retires {new} at 0x{at:08X}; this route does not restore a tombstoned spelling")
+    for rel, keyed in ((CODE_IDENTITY_BASELINE, lambda f, old, at: f[:2] == [source, old]),
+                       (GATE_BASELINE, lambda f, old, at: f"0x{at:08X}" in f and old in f),
+                       (BODY_OWNERS, lambda f, old, at: old in f and f"0x{at:08X}" in f),
+                       (SYMBOLS, lambda f, old, at: old in f and f"0x{at:08X}" in f)):
+        for line in (ctx.read(rel) or b"").decode("utf-8", "replace").splitlines():
+            fields = line.split("\t") if rel.endswith(".tsv") else line.replace(",", " ").split()
+            hit = next((old for old, _new, at in renames if keyed(fields, old, at)), None)
+            if hit:
+                raise Refusal(f"{rel} keys {hit}: {line[:160]}; retire or move that record by its own path first")
+    by_at = {at: new for _old, new, at in renames}
+    raw = ctx.read(FUNCTIONS)
+    ledger_io.lf_terminator(raw, "functions.csv")
+    out = []
+    for index, (payload, term) in enumerate(ledger_io.split_records(raw)):
+        fields = ledger_io.fields(payload)
+        if (index and len(fields) > 4 and fields[4].replace("\\", "/") == source and _rva(fields[2]) in by_at
+                and ledger_io.LOCAL_STATIC.fullmatch(fields[0])):
+            # the ordinal is the record's whole first field (never quoted); the rest keeps its bytes
+            if not payload.startswith(fields[0].encode("utf-8") + b","):
+                raise Refusal(f"{FUNCTIONS}: the record of {fields[0]} at {fields[2]} quotes its name")
+            payload = by_at[_rva(fields[2])].encode("utf-8") + payload[len(fields[0]):]
+        out.append(payload + term)
+    olds = ", ".join(old for old, _n, _a in renames)
+    news = ", ".join(new for _o, new, _a in renames)
+    plan = Plan("initializers", olds, news, "retail .CRT$XCU order",
+                evidence or f"{path.name}'s .CRT$XCU order against retail's table", source, None)
+    plan.edit(ctx, FUNCTIONS, b"".join(out))
+    plan.renamed_rows = renames
+    plan.edit(ctx, DELETED, appended(ctx.read(DELETED), [
+        tombstone_line(old, at, f"Respelled to {new} by tools/rename.py initializers ({path.name}'s .CRT$XCU "
+                                f"order against retail's table)") for old, new, at in renames],
+        header="name,target_rva,reason"))
+    plan.verify = [source]
+    plan.initializers = {"source": source, "names": {_rva(row["target_rva"]): new for row, new in pairs}}
+    plan.claims = sorted(at for _o, _n, at in renames) + [f"file:{source}"]
+    return plan
+
+
+def initializer_problems(ctx, initializers):
+    """The rebuilt object, paired again: every row of the source must carry its object's ordinal."""
+    fresh = Context(ctx.root, object_scan=False)
+    source = initializers["source"]
+    path = _source_object(fresh, source, current=True)
+    if path is None:
+        return [f"{source} has no object compiled from its present text after the build"]
+    try:
+        pairs = initializer_pairs(fresh, source, path)
+    except Refusal as why:
+        return [str(why)]
+    return [f"0x{_rva(row['target_rva']):08X} is rowed {row['name']} but {path.name} registers {new} there"
+            for row, new in pairs if row["name"] != new or initializers["names"].get(_rva(row["target_rva"])) != new]
+
+
 PLANNERS = {"function": plan_function, "global": plan_global, "file": plan_file, "class": plan_class,
-            "member": plan_member, "param": plan_param, "local": plan_local, "scoped-set": plan_scoped_set}
+            "member": plan_member, "param": plan_param, "local": plan_local, "scoped-set": plan_scoped_set,
+            "initializers": plan_initializers}
 
 
 def plan_rename(kind, *, ctx=None, **kwargs):
@@ -14776,6 +14935,11 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if stale:
                 raise VerifyFailed(f"the rebuilt includers do not prove {plan.old} -> {plan.new}: "
                                    f"{stale[0][:300]}; every file restored")
+        if plan.initializers:
+            pairing = initializer_problems(ctx, plan.initializers)
+            if pairing:
+                raise VerifyFailed(f"the rebuilt object does not prove {plan.old} -> {plan.new}: "
+                                   f"{pairing[0][:300]}; every file restored")
         if plan.element_size:
             size_problems = element_size_problems(ctx, plan.element_size)
             if size_problems:
@@ -16383,6 +16547,10 @@ def main(argv=None):
                             help="git mv one Code/ unit within its directory, with its path-keyed rows")
     unit.add_argument("--source", required=True, help="the unit's repo-relative path")
     unit.add_argument("--new", required=True, help="new file name or stem (same directory), or full path")
+    inits = kinds.add_parser("initializers", parents=[common],
+                             help="respell one unit's `_$E<n>` rows to its object's ordinals, paired by .CRT$XCU "
+                                  "order with retail's table")
+    inits.add_argument("--source", required=True, help="the unit's repo-relative path (built from its present text)")
     klass = kinds.add_parser("class", parents=[common],
                              help="respell one class/struct/union/enum token in every name and view")
     klass.add_argument("--name", help="the type's current identifier (required unless --fold)")
@@ -16488,6 +16656,20 @@ def main(argv=None):
                       "carried by: python3 tools/rename.py carry " + ("--all" if args.all else f"--range {args.span}"),
                       file=sys.stderr)
         return 1 if problems else 0
+    if args.kind == "initializers":
+        if args.basis:
+            parser.error("initializers takes each ordinal from the object and retail's table: pass no --basis")
+        ctx = Context(args.root, object_scan=not args.no_object_scan)
+        try:
+            run("initializers", ctx, dry_run=args.dry_run, claim=not args.no_claim,
+                keep_claims=False if args.release_claims else None, source=args.source, evidence=args.evidence or "")
+        except Refusal as why:
+            print(f"rename: refused: {why}", file=sys.stderr)
+            return 2
+        except VerifyFailed as why:
+            print(f"rename: {why}", file=sys.stderr)
+            return 1
+        return 0
     to_class = args.kind == "function" and args.to_class
     fold = args.kind == "class" and (args.fold is not None or args.into is not None)
     respell = args.kind == "function" and getattr(args, "respell", False)
