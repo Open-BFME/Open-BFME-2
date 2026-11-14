@@ -133,12 +133,7 @@ BfmeAptValue006DCD20 *rva006D9CE0(BfmeAptValue006DCD20 *pValue, int count)
 // handle compares equal. The interpreter object is the stack's own address;
 // callees are the rowed PrepareForExecution, Push, callFunction, toInteger,
 // pop and CleanupAfterExecution.
-struct AptActionSetup
-{
-	BfmeAptValue006DCD20 *context, *value;
-	const char *name;
-	int action;
-};
+#include "../../Include/Common/AptActionSetup.h"
 #include "../../../Libraries/Source/Apt/AptActionInterpreter.h"
 
 extern "C" int __cdecl rva006D9E40Comparator(const void *a, const void *b)
@@ -149,8 +144,8 @@ extern "C" int __cdecl rva006D9E40Comparator(const void *a, const void *b)
 	BfmeAptValue006DCD20 *right = *(BfmeAptValue006DCD20 **)b;
 	AptActionInterpreter *interpreter = &g_aptDateInterpreter;
 	AptActionSetup setup;
-	setup.context = (BfmeAptValue006DCD20 *)g_rva006D9F00Data;
-	setup.value = g_rva006D9F00Handle;
+	setup.context = (AptValue *)g_rva006D9F00Data;
+	setup.value = (AptValue *)g_rva006D9F00Handle;
 	setup.name = "AptArraySortScriptFunction";
 	setup.action = 0x1000000;
 	void *saved = interpreter->PrepareForExecution(&setup);
