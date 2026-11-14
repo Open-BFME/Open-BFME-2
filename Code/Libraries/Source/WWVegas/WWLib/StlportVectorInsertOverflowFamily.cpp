@@ -81,7 +81,7 @@ struct Rva0032EA3FElement { char m_pad[12]; public: Rva0032EA3FElement(const Rva
 // 12-byte element; push_back 0x003328B6.
 struct Rva003328B6Element { char m_pad[12]; public: Rva003328B6Element(const Rva003328B6Element &); ~Rva003328B6Element(); };
 // 12-byte element; push_back 0x0033A23A.
-struct Rva0033A23AElement { char m_pad[12]; public: Rva0033A23AElement(const Rva0033A23AElement &); ~Rva0033A23AElement(); };
+#include "../../../../GameEngine/Include/Common/Rva0033A23AElement.h"
 // 8-byte element; push_back 0x0039A48E.
 struct Rva0039A48EElement { char m_pad[8]; public: Rva0039A48EElement(const Rva0039A48EElement &); ~Rva0039A48EElement(); };
 // 12-byte element; push_back 0x0039A4C5.
