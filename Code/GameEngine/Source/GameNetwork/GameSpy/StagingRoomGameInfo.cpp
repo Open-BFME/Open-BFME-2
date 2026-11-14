@@ -587,15 +587,7 @@ public:
 
 #include "../../../Include/Common/Rva00274DB6AsciiField.h"
 
-class Rva00291775AsciiField
-{
-public:
-	AsciiString get() const;
-
-private:
-	char m_pad[0x318];
-	AsciiString m_value; // +0x318
-};
+#include "../../../Include/GameLogic/Module/Rva00291775AsciiField.h"
 
 class Rva003821B9AsciiField
 {
