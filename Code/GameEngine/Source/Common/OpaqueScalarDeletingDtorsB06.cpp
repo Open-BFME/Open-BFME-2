@@ -296,13 +296,7 @@ void Rva002D62AB::updateButtonFlash()
 #include "unicode_string.h"
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 #include "../../Include/Common/Rva002DC74A.h"
-class GameState
-{
-public:
-    bool getSaveGameInfoFromFile(UnicodeString filename, BfmeSubobject0022CE19 *);
-    int rva002DE3C1(TreeHintOpaque0043671B gameInfo);
-    int rva002DF2F6(const UnicodeString &filename);
-};
+#include "../../Include/Common/GameState.h"
 int GameState::rva002DF2F6(const UnicodeString &filename)
 {
     UnicodeString filepath = reinterpret_cast<const Rva002DC74A *>(this)->rva002DC74A(filename);
