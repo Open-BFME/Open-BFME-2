@@ -57,11 +57,7 @@ public:
 
 class CreateAHeroHero;
 // The rowed award test (0x0040AA27): every requirement holds for the hero.
-class CreateAHeroAward
-{
-public:
-	bool rva0040AA27(const CreateAHeroHero *hero) const;
-};
+#include "../../../Include/GameLogic/Module/CreateAHeroAward.h"
 // The award record's upgrade-key list (+0x04) and its keyed getter.
 class Rva0040A7F1
 {

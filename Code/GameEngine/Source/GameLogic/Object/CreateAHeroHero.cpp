@@ -345,11 +345,7 @@ enum { CAH_MAX_EXP_LEVELS = 15 };
 
 // Award record; 0x0040AA27 (unnamed in WB) tests every requirement against
 // the hero.
-class CreateAHeroAward
-{
-public:
-	Bool rva0040AA27(const CreateAHeroHero *hero) const;
-};
+#include "../../../Include/GameLogic/Module/CreateAHeroAward.h"
 
 // The award-count map's mapped word (rowed operator[] 0x002C6F8C spelling).
 #include "../../../Include/Common/TreeHintPayload001F8ACB.h"
