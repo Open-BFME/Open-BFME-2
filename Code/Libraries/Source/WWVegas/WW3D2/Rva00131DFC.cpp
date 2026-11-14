@@ -16,17 +16,7 @@ public:
 
 #include "../WWLib/StringClassData.h"
 
-class Gen_00920A20
-{
-public:
-	Gen_00920A20(int mode);
-	~Gen_00920A20();
-	int m_bfmeA;
-	int m_bfmeB;
-	int m_bfmeC;
-	int m_bfmeD;
-	int m_bfmeE;
-};
+#include "../../../../GameEngine/Include/Common/Gen_00920A20.h"
 
 class Rva0013107A
 {
