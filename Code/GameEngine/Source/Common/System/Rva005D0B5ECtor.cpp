@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /O1 /arch:SSE /G7
+class LivingWorldBattle;
 // ??0Rva005D06CB@@QAE@PAXPAX0@Z @ 0x005D0B5E 127B. Constructor of the rowed
 // Rva005D06CB (dtor 0x005D06CB, scalar deleting dtor 0x005D0A67). Target
 // evidence: first base (vtable 0x00C75290) owner at +4, second base (vtable
@@ -19,14 +20,13 @@ public:
 };
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva005D06CBB2
+// LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
+class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
+
+class Rva005D06CBB2 : public LivingWorldAutoResolveEventObserver
 {
 public:
 	Rva005D06CBB2();
-	~Rva005D06CBB2() {}
-	virtual void s0() {}
-	virtual void s1() {}
-	virtual void s2() {}
 };
 // ??0Rva005D06CBB2@@QAE@XZ @0x004EE00D 9B: the default constructor, storing the
 // class's own vtable (VA 0x00C62A14) and returning this.

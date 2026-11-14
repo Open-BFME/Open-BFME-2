@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc
+class LivingWorldBattle;
 // ??1Rva005D06CB@@UAE@XZ @ 0x005D06CB 103B: MI virtual dtor with three bases
 // unregistering the second base via rowed erase 0x002B7250 on holder at
 // g_009FEF10+0x2C then pinned third-base dtor 0x005EB753. Evidence:
@@ -20,13 +21,12 @@ public:
 private:
 	int m_04;
 };
-class Rva005D06CBB2
+// LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
+class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
+
+class Rva005D06CBB2 : public LivingWorldAutoResolveEventObserver
 {
 public:
-	~Rva005D06CBB2() {}
-	virtual void s0() {}
-	virtual void s1() {}
-	virtual void s2() {}
 };
 class Rva005EB753
 {

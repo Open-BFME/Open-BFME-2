@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /DNDEBUG /MD /EHsc
+class LivingWorldBattle;
 // platformsdk
 #include <windows.h>
 #include <new>
@@ -164,7 +165,10 @@ class MessageStream{public:virtual ~MessageStream();
  virtual void v01();virtual void v02();virtual void v03();virtual void v04();virtual void v05();virtual void v06();virtual void v07();virtual void v08();virtual void v09();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void v15();virtual void v16();virtual void v17();virtual GameMessage*CreateMessage(int);};
 extern class MessageStream *TheMessageStream;
 struct Rva005D06CBOwner;
-class Rva005D06CBB2{public:virtual ~Rva005D06CBB2();};
+// LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
+class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
+
+class Rva005D06CBB2 : public LivingWorldAutoResolveEventObserver{public:};
 class Rva005EB753{public:Rva005EB753(void*,void*,void*);virtual ~Rva005EB753();virtual void veterancySlot04();void*member04;};
 class Rva005D06CB:public Rva005CF872,public Rva005D06CBB2,public Rva005EB753{public:Rva005D06CB(Rva005D06CBOwner*,void*,void*);virtual ~Rva005D06CB();virtual void veterancySlot04();bool flag14;};
 struct ResolveBattleIDView{char unknown[0x34];int id;};

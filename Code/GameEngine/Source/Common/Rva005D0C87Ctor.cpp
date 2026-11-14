@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+class LivingWorldBattle;
 //
 // ??0Rva005D0C87@@QAE@PAVRva005D0D85@@HHH@Z, retail 0x005D0C87..0x005D0D2D
 // (166 bytes, EH, RET 16): the 0x20-byte implementation the rowed
@@ -59,14 +60,13 @@ public:
 	virtual void i0() {}
 };
 
-class Rva005D06CBB2
+// LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
+class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
+
+class Rva005D06CBB2 : public LivingWorldAutoResolveEventObserver
 {
 public:
 	__declspec(dllimport) __forceinline Rva005D06CBB2() {}
-	~Rva005D06CBB2() {}
-	virtual void s0() {}
-	virtual void s1() {}
-	virtual void s2() {}
 };
 
 class Rva005D0C87;
