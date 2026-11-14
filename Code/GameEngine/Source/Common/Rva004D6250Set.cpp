@@ -14,14 +14,7 @@ template <> StringBase<char>::~StringBase();
 
 #include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
-class Rva004D632D
-{
-public:
-	void rva004D6250(AsciiString s);
-private:
-	char m_pad[0x1c];
-	AsciiString m_str1c;
-};
+#include "../../Include/GameNetwork/Rva004D632D.h"
 void Rva004D632D::rva004D6250(AsciiString s)
 {
 	m_str1c = TheGameState->realMapPathToPortableMapPath(s);

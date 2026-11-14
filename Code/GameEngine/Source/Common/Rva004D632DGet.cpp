@@ -12,15 +12,7 @@
 
 extern GameState *TheGameState;
 
-class Rva004D632D
-{
-public:
-	AsciiString rva004D632D() const;
-
-private:
-	char m_pad[0x1c];
-	AsciiString m_str1c;
-};
+#include "../../Include/GameNetwork/Rva004D632D.h"
 
 AsciiString Rva004D632D::rva004D632D() const
 {

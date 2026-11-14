@@ -149,15 +149,7 @@ public:
 	unsigned char m_value;
 };
 
-class Rva004D632D
-{
-public:
-	AsciiString rva004D632D() const;
-
-private:
-	char m_pad[0x1c];
-	AsciiString m_str1c;
-};
+#include "../../Include/GameNetwork/Rva004D632D.h"
 
 struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
 typedef _STL::map<unsigned short, int, Gen_lt_00940b40> Rva004D2C8EFileProgressMap;
