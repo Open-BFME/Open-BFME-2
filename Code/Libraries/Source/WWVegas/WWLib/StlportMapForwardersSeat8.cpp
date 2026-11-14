@@ -101,7 +101,7 @@ struct Rva0021A917Element { short words[1]; bool operator<(const Rva0021A917Elem
 struct TreeHintOpaque0043671B;
 enum ObjectID { INVALID_ID = 0 };
 struct Rva004D751DElement { short words[1]; bool operator<(const Rva004D751DElement &b) const { return words[0] < b.words[0]; } };
-class Rva00064640Record { public: bool operator<(const Rva00064640Record &) const; };
+#include "../../../../GameEngine/Include/Common/Rva00064640Record.h"
 template <int N> class BitFlags {};
 class WeaponTemplateSet;
 template <class T, class F> class SparseMatchFinder {

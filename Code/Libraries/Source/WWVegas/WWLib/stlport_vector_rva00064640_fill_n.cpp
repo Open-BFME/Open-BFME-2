@@ -15,19 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma optimize("", on)
 
 #include <vector>
-class Rva00064640Record {
-public:
-	Rva00064640Record();
-	Rva00064640Record(const Rva00064640Record &other);
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	float m_10;
-	float m_14;
-	unsigned int m_18;
-};
+#include "../../../../GameEngine/Include/Common/Rva00064640Record.h"
 namespace _STL {
 template <> void _Construct<Rva00064640Record, Rva00064640Record>(Rva00064640Record *, const Rva00064640Record &);
 template Rva00064640Record *__uninitialized_fill_n<Rva00064640Record *, unsigned int, Rva00064640Record>(Rva00064640Record *, unsigned int, const Rva00064640Record &, const __false_type &);

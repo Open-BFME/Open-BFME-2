@@ -72,13 +72,7 @@ struct Rva00474519Jitter {
 struct HordeRankPosition { Coord2D position; int partner,localIndex; };
 struct HordeRankInfo { int key; AsciiString name; _STL::vector<HordeRankPosition> positions; };
 struct Rva00474519RecordValues { int key; Coord2D position,original; float value; unsigned partner; };
-class Rva00064640Record {
-public:
- // ?Rva00064640Record::Rva00064640Record present-unmatched
- __forceinline Rva00064640Record() : m_00(0),m_14(0),m_18(-1) {}
- Rva00064640Record(const Rva00064640Record &);
- int m_00,m_04,m_08,m_0C; float m_10,m_14; unsigned m_18;
-};
+#include "../../../../../Include/Common/Rva00064640Record.h"
 namespace _STL { template<> void _Construct<Rva00064640Record,Rva00064640Record>(Rva00064640Record*,const Rva00064640Record&); }
 struct Rva00474483Definition {
  char opaque00[0x18c]; _STL::vector<HordeRankInfo*> ranks;
