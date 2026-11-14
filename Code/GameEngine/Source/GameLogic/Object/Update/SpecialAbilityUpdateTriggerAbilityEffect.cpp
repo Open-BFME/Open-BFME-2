@@ -71,10 +71,7 @@ class Rva002A9EFB {
 };
 class Rva0039B7AD;
 #include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
-class ScoreKeeper {
-  public:
-    void addObjectBuilt(Object *, int);
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
 // Accessed prefixes only. One-byte call-only member views below are padded
 // to each next proven field; they do not assert those classes' full sizes.
 // Accessed prefixes, not complete recovered class sizes.
