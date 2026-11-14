@@ -11,7 +11,6 @@ extern ImageCollection *TheMappedImageCollection;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-// CreateAHeroData's bling value get/set pair, rowed under this owner.
 #include "../../../../../Include/GameNetwork/Rva00407E28.h"
 #include "../../../../../Include/Common/CreateAHeroHero.h"
 // A bling binder (20 bytes): its name key, the game-text label, and the
@@ -55,8 +54,6 @@ struct CreateAHeroClassList {unsigned int size() const {return last-first;}Creat
 class Rva002195E6;
 class CreateAHeroManager {public: const Rva002195E6 *GetViewInfo(unsigned int,unsigned int);const AsciiString &GetClassNameTag(unsigned int);const AsciiString &GetSubClassNameTag(unsigned int,unsigned int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);int GetSubClassSpendableAttributePoints(unsigned int,unsigned int);void *GetBlingBinder(unsigned int);int GetBlingCount(int,const CreateAHeroHero *) const;int GetSubClassDefaultBlingId(int,unsigned int,unsigned int) const;int GetSubClassAttributeMinValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeMaxValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeDefaultValue(unsigned int,unsigned int,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x168-0x158];BlingBinderList binders168;char pad174[0x1E8-0x174];AsciiString field1E8,field1EC;};
 class Object;
-// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
-// its own views, so it takes only the header's constant (LINK-236).
 #include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
 #include "../../../../../Include/GameClient/GameClientClass.h"
@@ -189,18 +186,7 @@ private:
 extern Keyboard *TheKeyboard;
 extern int BfmeLogicFramesPerSecond;
 class Rva001DBAA4L {public:void lock();};
-// Split from GapBodiesSeat10O1.cpp: these definitions reference a callee with no matched body yet,
-// so they are kept apart from the unit's bodies that already link.
-// Small unrowed .text bodies from the 0x0051xxxx..0x005Fxxxx (/O1) region.
-// Retail bytes establish every shape; the owning classes are not recovered,
-// so each keeps an address-derived name and a view of only the fields it
-// touches. Bodies reached through a vftable slot (an absolute reference in
-// .rdata, no direct caller) are declared virtual; the others have no
-// recovered caller. Callees are the rowed bodies the retail jmp targets.
-
-// ?rva00531041@Rva00531041@@QAEXXZ @0x00531041 9B: clear +0x10 then +0x0C.
 #include "../../../../../Include/Common/Rva00531041.h"
-// ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
 #include "../../../../../Include/Common/Rva0054C836.h"
 // ?rva005FC6EE@Rva005FC6EE@@QBE_NXZ @0x005FC6EE 9B: bit 0 of the byte at +0x34
 // of the object held at +0x18 (same shape as the rowed 0x005F273B).
@@ -316,9 +302,6 @@ private:
 	char m_pad[0x08];
 	Rva005EA91A m_0c;
 };
-// ?rva00574AB3@Rva00574AB3@@UAE_NXZ @0x00574AB3 8B (vftable slot at VA
-// 0x00C3C6D0): direct (qualified) call of the rowed Rva005743C0 slot body
-// 0x005743C0 on the object held at +0x04.
 #include "../../../../../Include/Common/Rva005743C0.h"
 class Rva00574AB3
 {
@@ -384,8 +367,6 @@ public:
 private:
 	Rva00525ABF *m_00;
 };
-// ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
-// AsciiStringPlusString::length 0x002198C8 of this object plus one.
 #include "../../../../../Include/Common/AsciiStringPlusString.h"
 struct Rva0050EE1C : AsciiStringPlusString
 {
@@ -424,7 +405,6 @@ public:
 private:
 	_STL::vector<Rva005205DAElement> m_vector;
 };
-// ?rva00531C54@Rva00531C54@@QAEXXZ @0x00531C54 6B: clear the 16-bit field at +2.
 #include "../../../../../Include/Common/Rva00531C54.h"
 int Rva00531EF6(unsigned short value);
 // ?rva0053B8F1@Rva0053B8F1@@QBE_NXZ @0x0053B8F1 7B: the flag byte at +0x106.
@@ -538,8 +518,6 @@ private:
 	char m_pad[4];
 	Rva005FF1F8Owner *m_04;
 };
-// ?rva005E88E4@Rva005E88E4@@QAEXXZ @0x005E88E4 10B: the rowed 0x005F884D on
-// the +0x04 member of the object held at +0.
 #include "../../../../../Include/Common/Rva005F884D.h"
 struct Rva005E88E4Pointee
 {
@@ -553,9 +531,6 @@ public:
 private:
 	Rva005E88E4Pointee *m_00;
 };
-// ?rva005E358A@Rva005E358A@@QAEXXZ @0x005E358A 5B and
-// ?rva005EB8D1@Rva005EB8D1@@QAEXXZ @0x005EB8D1 5B: tail jumps to the rowed
-// 0x005F1B51 / 0x0022999F on the member at +0.
 #include "../../../../../Include/Common/Rva005F1B51.h"
 #include "../../../../../Include/Common/Rva00226883.h"
 class Rva005E358A
@@ -634,8 +609,6 @@ struct Rva00565865Element;
 template void _STL::vector<Rva0054107FRecord>::clear();
 template void _STL::vector<Rva0054103E>::clear();
 template void _STL::vector<Rva00565865Element>::clear();
-// ?rva00600396@Rva00600396@@QAEHXZ @0x00600396 15B: the rowed 0x003F468D on
-// the object held at +0x14 with the +0x18 and +0x1C words.
 #include "../../../../../Include/Common/Rva003F468D.h"
 class Rva00600396
 {
@@ -750,7 +723,6 @@ void Rva0052BFD8(Rva004E366E *p);
 void Rva00534626(Rva005344C0 *p);
 void Rva005690DE(Rva00568C4E *p);
 void Rva005690E7(BfmePoolRef10 *p);
-// Bare tail jumps to a rowed member of the object at +0.
 #include "../../../../../Include/Common/Rva0038201D.h"
 #include "../../../../../Include/Common/Rva0038204A.h"
 #include "../../../../../Include/Common/Rva00382077.h"
@@ -823,8 +795,6 @@ public:
 private:
 	Rva0056FA72 m_00;
 };
-// ?rva005709CC@Rva005709CC@@QAE_NXZ @0x005709CC 5B: the rowed
-// AptOnlineLogin::rva005706D4 0x005706D4 on the member at +0.
 #include "../../../../../Include/GameClient/AptOnlineLogin.h"
 class Rva005709CC
 {
@@ -891,7 +861,6 @@ private:
 	bool m_35;
 };
 #include "../../../../../Include/Common/Rva000AD6F4.h"
-
 class Rva005F8F80
 {
 public:
@@ -903,16 +872,13 @@ private:
 	char m_pad30[0x3c - 0x30];
 	Rva000AD6F4 m_3c;
 };
-
 // ?rva005B1903@Rva005B1903@@QAEXPAUBfmePod8@@IABU2@@Z @0x005B1903 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x000B02B6.
 // 0x000B02B6 is the BfmeE8 instantiation (its copies are
 // __uninitialized_copy 0x004C3121 and _M_insert_overflow 0x00057C80), so the
 // vector and the incoming record use that spelling; BfmePod8 in this
 // signature is the same 8-byte record under the older placeholder name.
 struct BfmePod8;
-
 struct BfmeE8;
-
 class Rva005B1903
 {
 public:
@@ -920,7 +886,6 @@ public:
 private:
 	_STL::vector<BfmeE8> m_vector;
 };
-
 // ?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z @0x005B1908 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005B1748.
 
 class Rva005B1908
@@ -930,10 +895,8 @@ public:
 private:
 	_STL::vector<BfmePod20> m_vector;
 };
-
 // ?rva005EE00F@Rva005EE00F@@QAEXPAUBfmeStringRecord005ED5F3@@IABU2@@Z @0x005EE00F 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005EDEF3.
 struct BfmeStringRecord005ED5F3;
-
 class Rva005EE00F
 {
 public:
@@ -941,10 +904,8 @@ public:
 private:
 	_STL::vector<BfmeStringRecord005ED5F3> m_vector;
 };
-
 // ?rva005EFD8A@Rva005EFD8A@@QAEXPAURva005EFD53Element@@IABU2@@Z @0x005EFD8A 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005EFC30.
 struct Rva005EFD53Element;
-
 class Rva005EFD8A
 {
 public:
@@ -952,23 +913,15 @@ public:
 private:
 	_STL::vector<Rva005EFD53Element> m_vector;
 };
-
 // Tail jumps to a rowed member of the tree / array at +0.
 struct Rva0027EA49;
-
 #include "../../../../../Include/Common/Rva009F68C6PointerArray.h"
-
-
-
 // ?rva005C6BF0@Rva005C6BF0@@QAEXXZ @0x005C6BF0 5B: rowed tree clear 0x005C6B83.
 // ??1Rva005C6C76@@QAE@XZ @0x005C6C76 5B: member-only dtor, rowed tree dtor 0x005C6BF5.
 class Rva005C6BF0;
-
 class Rva005C6C76;
-
 // ?rva005E466B@Rva005E466B@@QAEXXZ @0x005E466B 5B: rowed int->SBServer tree clear 0x005E43A8.
 class Rva005E466B;
-
 // ?rva00628C69@Rva00628C69@@QAEXXZ @0x00628C69 5B: rowed RemoveAll 0x00628C25.
 class Rva00628C69
 {
@@ -977,20 +930,15 @@ public:
 private:
 	Rva009F68C6PointerArray m_array;
 };
-
 // Fill wrappers over the rowed cdecl Rva005EA1B1Fill 0x005EA1B1:
 // ?Rva005EA966@@YAPAMPAMHABH@Z @0x005EA966 5B forwards the same three
 // arguments (a tail jump); ?Rva005EA5CE@@YAPAMPAMHABHABURva005EA5CETag@@@Z
 // @0x005EA5CE 21B takes an extra empty tag argument, so it re-pushes the
 // three and calls (the shape of STLport's __uninitialized_fill_n dispatch).
 float *Rva005EA1B1Fill(float *dest, int count, const int &value);
-
 #include "../../../../../Include/Common/Rva005EA5CETag.h"
-
 float *Rva005EA966(float *dest, int count, const int &value);
-
 float *Rva005EA5CE(float *dest, int count, const int &value, const Rva005EA5CETag &);
-
 // ?rva005C6D48@Rva005C6D48@@QAEIABURva0027EA49@@@Z @0x005C6D48 5B and
 // ?rva005CABBB@Rva005CABBB@@QAEIABVAsciiString@@@Z @0x005CABBB 5B: erase a key
 // from the map<AsciiString, list<AsciiString> > tree at +0 through its rowed
@@ -999,9 +947,7 @@ float *Rva005EA5CE(float *dest, int count, const int &value, const Rva005EA5CETa
 
 
 class Rva005C6D48;
-
 class Rva005CABBB;
-
 namespace _STL
 {
 	template <class T>
@@ -1014,7 +960,6 @@ namespace _STL
 		T **_M_node;
 	};
 }
-
 // ?rva005D7357@Rva005D7357@@QBEIXZ @0x005D7357 5B: bucket count of the
 // int->int hash_map at +0 through its rowed bucket_count.
 namespace _STL
@@ -1028,7 +973,6 @@ namespace _STL
 		unsigned int bucket_count() const;
 	};
 }
-
 class Rva005D7357
 {
 public:
@@ -1036,7 +980,6 @@ public:
 private:
 	_STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > m_map;
 };
-
 // ?rva0052B488@Rva0052B488@@QAEHPBD@Z @0x0052B488 5B: rowed
 // XferSave::rva0060D435 0x0060D435 on the saver at +0 (a tail jump).
 class XferSave
@@ -1044,28 +987,20 @@ class XferSave
 public:
 	int rva0060D435(const char *name);
 };
-
 #include "../../../../../Include/Common/Rva0052B488.h"
-
 // ?Rva005676FB@@YAPAXPAVGameWindow@@@Z @0x005676FB 5B: cdecl forward to the
 // rowed GadgetButtonGetData 0x00327D56.
 class GameWindow;
-
 void *GadgetButtonGetData(GameWindow *window);
-
 void *Rva005676FB(GameWindow *window);
-
 // ?Rva005BE344@@YAPAHPAHHPBH@Z @0x005BE344 5B: cdecl forward to the rowed
 // rva499ed0 0x005BE225 with the same arguments.
 int *rva499ed0(int *dest, int count, const int *value);
-
 int *Rva005BE344(int *dest, int count, const int *value);
-
 // ?rva00603912@Rva00603912@@QBEIXZ @0x00603912 9B and
 // ?rva0060391B@Rva00603912@@QBEIXZ @0x0060391B 10B: byte-swap the +0 / +4 word
 // through the rowed cdecl Rva009CC290Swap 0x006038EF.
 unsigned int Rva009CC290Swap(unsigned int value);
-
 class Rva00603912
 {
 public:
@@ -1075,17 +1010,14 @@ private:
 	unsigned int m_00;
 	unsigned int m_04;
 };
-
 bool Rva006D3850(int codePoint);
-
 // ?rva005B045D@Rva005B045D@@QAEPAXXZ @0x005B045D 22B
 // Evidence: caller 0x005B54A7; flag at +0x14c plus ptr at +0x144 else this.
 extern int g_00E06450;
-
 // g_00E06450: matched references place it at VA 0xe06450 (zero-filled .bss).
 int g_00E06450;
-
 #include "../../../../../Include/GameClient/Rva005B045D.h"
+#include <stl/_algobase.h>
 
 // Call the single retained erase owner at 0x005B129F. Record identity is
 // address-derived; only the pointer ABI is needed in this caller.
@@ -1139,6 +1071,52 @@ private:
 	char m_pad144[0x174 - 0x144];
 	Rva005B1830Item m_174[2];
 };
+
+struct Rva005B09D8Record { int words[5]; };
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
+
+// CreateAHeroData's bling value get/set pair, rowed under this owner.
+
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+
+// Split from GapBodiesSeat10O1.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+// Small unrowed .text bodies from the 0x0051xxxx..0x005Fxxxx (/O1) region.
+// Retail bytes establish every shape; the owning classes are not recovered,
+// so each keeps an address-derived name and a view of only the fields it
+// touches. Bodies reached through a vftable slot (an absolute reference in
+// .rdata, no direct caller) are declared virtual; the others have no
+// recovered caller. Callees are the rowed bodies the retail jmp targets.
+
+// ?rva00531041@Rva00531041@@QAEXXZ @0x00531041 9B: clear +0x10 then +0x0C.
+
+// ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
+
+// ?rva00574AB3@Rva00574AB3@@UAE_NXZ @0x00574AB3 8B (vftable slot at VA
+// 0x00C3C6D0): direct (qualified) call of the rowed Rva005743C0 slot body
+// 0x005743C0 on the object held at +0x04.
+
+// ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
+// AsciiStringPlusString::length 0x002198C8 of this object plus one.
+
+// ?rva00531C54@Rva00531C54@@QAEXXZ @0x00531C54 6B: clear the 16-bit field at +2.
+
+// ?rva005E88E4@Rva005E88E4@@QAEXXZ @0x005E88E4 10B: the rowed 0x005F884D on
+// the +0x04 member of the object held at +0.
+
+// ?rva005E358A@Rva005E358A@@QAEXXZ @0x005E358A 5B and
+// ?rva005EB8D1@Rva005EB8D1@@QAEXXZ @0x005EB8D1 5B: tail jumps to the rowed
+// 0x005F1B51 / 0x0022999F on the member at +0.
+
+// ?rva00600396@Rva00600396@@QAEHXZ @0x00600396 15B: the rowed 0x003F468D on
+// the object held at +0x14 with the +0x18 and +0x1C words.
+
+// Bare tail jumps to a rowed member of the object at +0.
+
+// ?rva005709CC@Rva005709CC@@QAE_NXZ @0x005709CC 5B: the rowed
+// AptOnlineLogin::rva005706D4 0x005706D4 on the member at +0.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 
@@ -1514,7 +1492,55 @@ void Rva005B045D::rva005B04B6()
 	g_00E06450 = 0x14;
 }
 
-// tu-skeleton: 0x005B04D3 50B ??$__copy@PAURva005B09D8Record@@PAU1@H@_STL@@YAPAURva005B09D8Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005B09D8CopyPointers.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
+
+// ?rva005B1830@Rva005B1830@@QAEXXZ, retail 0x005B1830 211B.
+// Double loop over +0x174 calling rowed 0x005B129F then three MyHero StringBase blocks via rowed 0x005241DF.
+// Evidence: rowed 0x005B129F and 0x005241DF plus StringBase ctor/release rows; literals MyHero::BaseAttrib/CurAttrib/MaxAttrib; callers 0x005B19BA 0x005B1B6E.
+
+void Rva005B1830::rva005B1830()
+{
+	for (int i = 0; i < 2; ++i) {
+		Rva005B129FClass &slot = (Rva005B129FClass &)m_174[i];
+		int b = slot.m_4;
+		int a = slot.m_0;
+		((Rva005B129FVector *)&slot)->erase((Rva005B09D8Record *)a, (Rva005B09D8Record *)b);
+	}
+	{
+		AsciiString s("MyHero::BaseAttrib");
+		((Rva005241DF *)((char *)m_140 + 0x228))->rva005241DF(*(const StringBase<char> *)&s);
+	}
+	{
+		AsciiString s("MyHero::CurAttrib");
+		((Rva005241DF *)((char *)m_140 + 0x228))->rva005241DF(*(const StringBase<char> *)&s);
+	}
+	{
+		AsciiString s("MyHero::MaxAttrib");
+		((Rva005241DF *)((char *)m_140 + 0x228))->rva005241DF(*(const StringBase<char> *)&s);
+	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005B09D8CopyPointers.cpp
+
+// Retail [5B04D3,5B0505),50B computes signed count at stride20 and copies
+// five DWORDs per iteration; [5B09D8,5B09F5),29B is its const-tag wrapper.
+// Erase5B129F supplies last/finish/first and the empty false_type reference.
+// STLport4.5.3 __copy and __copy_ptrs are the reference algorithms. This local
+// wrapper restores the retail const-reference tag ABI changed by the shim.
+// Record is only the target's raw20 copy view; application identity unknown.
+// The pre-existing50B alias row is rehomed here from a unit the link census
+// refuses; this is an existing-body linkage repair, not added byte coverage.
+
+template Rva005B09D8Record* _STL::__copy<Rva005B09D8Record*,Rva005B09D8Record*,int>(Rva005B09D8Record*,Rva005B09D8Record*,Rva005B09D8Record*,const _STL::random_access_iterator_tag&,int*);
+
+Rva005B09D8Record* copyPointersRva005B09D8(Rva005B09D8Record*first,Rva005B09D8Record*last,Rva005B09D8Record*result,const _STL::__false_type&) {
+return _STL::__copy(first,last,result,_STL::random_access_iterator_tag(),(int*)0);
+}
+
+Rva005B09D8Record* Rva005B129FVector::erase(Rva005B09D8Record*first,Rva005B09D8Record*last) {
+finish=copyPointersRva005B09D8(last,finish,first,_STL::__false_type());
+return first;
+}
 
 // tu-skeleton: 0x005B0505 50B ??$__copy_backward@PAUBfmeE8@@PAU1@H@_STL@@YAPAUBfmeE8@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
 
@@ -1554,39 +1580,9 @@ void Rva005B045D::rva005B04B6()
 
 // tu-skeleton: 0x005B1275 19B ??0Rva005B1275@@QAE@UDelegateDesc@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE36.cpp (not merged yet)
 
-// tu-skeleton: 0x005B129F 38B ?erase@Rva005B129FVector@@QAEPAURva005B09D8Record@@PAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005B09D8CopyPointers.cpp (not merged yet)
-
 // tu-skeleton: 0x005B12C5 1155B ??0AptMyHero@@QAE@PAVAptCreateAHero@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x005B1748 232B ?_M_fill_insert@?$vector@UBfmePod20@@V?$allocator@UBfmePod20@@@_STL@@@_STL@@QAEXPAUBfmePod20@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorFillInsertRva005B1748.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
-
-// ?rva005B1830@Rva005B1830@@QAEXXZ, retail 0x005B1830 211B.
-// Double loop over +0x174 calling rowed 0x005B129F then three MyHero StringBase blocks via rowed 0x005241DF.
-// Evidence: rowed 0x005B129F and 0x005241DF plus StringBase ctor/release rows; literals MyHero::BaseAttrib/CurAttrib/MaxAttrib; callers 0x005B19BA 0x005B1B6E.
-
-void Rva005B1830::rva005B1830()
-{
-	for (int i = 0; i < 2; ++i) {
-		Rva005B129FClass &slot = (Rva005B129FClass &)m_174[i];
-		int b = slot.m_4;
-		int a = slot.m_0;
-		((Rva005B129FVector *)&slot)->erase((Rva005B09D8Record *)a, (Rva005B09D8Record *)b);
-	}
-	{
-		AsciiString s("MyHero::BaseAttrib");
-		((Rva005241DF *)((char *)m_140 + 0x228))->rva005241DF(*(const StringBase<char> *)&s);
-	}
-	{
-		AsciiString s("MyHero::CurAttrib");
-		((Rva005241DF *)((char *)m_140 + 0x228))->rva005241DF(*(const StringBase<char> *)&s);
-	}
-	{
-		AsciiString s("MyHero::MaxAttrib");
-		((Rva005241DF *)((char *)m_140 + 0x228))->rva005241DF(*(const StringBase<char> *)&s);
-	}
-}
 
 // tu-skeleton: 0x005B190D 250B ??1AptMyHero@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp (not merged yet)
 
