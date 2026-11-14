@@ -35,19 +35,7 @@ static __forceinline Vector3 &copyLightHistory(Vector3 &out,const Vector3 &in) {
 // The vector-constructor callback is retail 0x0007671F, already owned under
 // this address-derived name. Preserve the donor matrix view without assigning
 // that constructor a second name.
-class Rva0007671F
-{
-public:
-	Rva0007671F(void);
-	void Make_Identity(void)
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-		Row[3].Set(0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	Vector4 Row[4];
-};
+#include "../../../../../GameEngine/Include/GameClient/Rva0007671F.h"
 
 class RenderObjClass;
 class W3DShadowGeometry;
