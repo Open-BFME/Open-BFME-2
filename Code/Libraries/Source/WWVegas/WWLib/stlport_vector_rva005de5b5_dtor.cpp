@@ -23,20 +23,7 @@ namespace _STL {
 template <> void _Construct<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40 *, const BfmeStringRecord005DDD40 &);
 }
 
-class Rva005DE5B5
-{
-public:
-	~Rva005DE5B5();
-	void *rva005DE782(unsigned int flags);
-
-private:
-	UnicodeString m_00;
-	_STL::vector<BfmeStringRecord005DDD40, _STL::allocator<BfmeStringRecord005DDD40> > m_04;
-	// Constructor 0x005DE5EA and copy 0x005DE56C establish these
-	// trailing fields; range cleanup 0x005DE952 advances by 0x18.
-	float m_10;
-	unsigned char m_14;
-};
+#include "Rva005DE5B5.h"
 
 // Retail 0x005DE985 (63B): _STL::vector<Rva005DE5B5> dtor, Destroy range
 // 0x005DE952 plus _free.
