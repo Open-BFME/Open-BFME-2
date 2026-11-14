@@ -2008,7 +2008,7 @@ Code/GameEngine/Source/Common/Rva000A97ECRelease.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000A98BACleanup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AAD06Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva000AAD5CCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva000AAD5CCtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva000AADC1Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AAE3DCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AB0F5Rva000AB0F5.cpp,yes,0,0,0,0,0
@@ -5996,7 +5996,7 @@ Code/GameEngine/Source/Common/Script_objectTypesFromParam.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SetStreamPlaybackRateCommand_execute.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SetStreamPositionCommand_execute.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SideFlagsParseCallbacks.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/SingleBaseCtors.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/SingleBaseCtors.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/SingletonForwarders.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SizedDeleteDestructors.cpp,yes,0,0,0,0,0
@@ -13479,7 +13479,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapVisibleBounds.cpp
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimDataGeometryCopies.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,yes,0,0,0,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,no,0,0,1,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DNoDraw.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0CE7Ctor.cpp,yes,0,0,0,0,0
