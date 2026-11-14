@@ -569,11 +569,7 @@ public:
 
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
 
-class Rva006CFCD0
-{
-public:
-	bool isSpriteInstBase() const;
-};
+#include "Rva006CFCD0.h"
 
 #include "AptAnimationPoolData.h"
 

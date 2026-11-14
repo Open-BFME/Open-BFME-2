@@ -235,7 +235,7 @@ class AptLinker;
 #include "AptDisplayList.h"
 class AptCIH;
 #include "BfmeSubmitter1283.h"
-class Rva006CFCD0 { public: bool isSpriteInstBase() const; };
+#include "Rva006CFCD0.h"
 class BfmeNestedBE;
 BfmeNestedBE *__cdecl bfmeUnlinkNestedBE(BfmeNestedBE *);
 
