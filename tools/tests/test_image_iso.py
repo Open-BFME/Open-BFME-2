@@ -2220,6 +2220,27 @@ def test_data_word_in_a_nonpointer_container_is_excluded(tmp_path, name, size, d
     assert result["counts"].get("data_words_in_nonpointer_containers_excluded", 0) == excluded
 
 
+def test_a_container_word_past_its_proven_payload_is_still_a_defect(tmp_path):
+    # image_iso review r1: an array proven 8 bytes, the word at +8 lies past it; a literal "abc" (length 4), the
+    # word at +8 lies past its terminator
+    for name, size in (("?a@@3PAEA", 8), ("??_C@_03ABCDEFGH@abc?$AA@", None)):
+        c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+        proven(tmp_path, {name: size} if size else {})
+        with_data_section(c)
+        c.publics.append(public(name, 0x2000, 16))
+        c.ours.put(0x2000, b"abc\0")
+        c.ours.put(0x2008, struct.pack("<I", 0x403100))
+        result = iso.unrelocated_retail_addresses(c, ledger, data)
+        assert len(result["defects"]) == 1, name
+
+
+def test_literal_length_is_the_one_its_name_encodes():
+    assert iso.literal_length("??_C@_03DEOAGKCL@HZz?$AA@") == 4
+    assert iso.literal_length("??_C@_0BA@ABCDEFGH@x@") == 16
+    assert iso.literal_length("??_C@_1M@ABCDEFGH@?$AAL?$AAM?$AA?$AA@") == 12
+    assert iso.literal_length("__real@3f800000") is None
+
+
 def test_data_word_in_a_struct_array_is_marked_unproven_not_a_defect(tmp_path):
     # the LZH symbol tables: an array of struct Symbol, whose fields no registered layout proves
     name = "?symbolTable0@LZHLEncoderStat@@2PAUSymbol@1@A"
@@ -2316,3 +2337,65 @@ def test_pooled_constant_copies_are_compared_by_value(second, family):
     c.ledger([row(name, 0x300, 8, kind="float")], {})
     assert c.counts["pooled_constant_rows_compared"] == 1
     assert [d["family"] for d in c.defects] == ([family] if family else [])
+
+
+def test_place_statics_needs_the_objects_own_provider(tmp_path):
+    # image_iso review r1: libB's unit.obj places `anchor`; libA's unit.obj (the manifest's) is another object
+    obj = tmp_path / "unit.obj"
+    iso.link_cycle.write_coff(obj, [(".data", 0xC0000040, bytes(16), 0)],
+                              [("anchor", 1, 0, iso.link_cycle.EXTERNAL), ("sdata", 1, 4, iso.link_cycle.STATIC)])
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path="unit.obj", sha256=iso.digest(obj), source="Code/a.cpp",
+                                         provider="libA:unit.obj")]))
+    publics = [dict(name="anchor", rva=0x2000, object="libB:unit.obj")]
+    assert iso.place_statics(publics, manifest, {"sdata"}, Memory(0x10000000)) == {}
+    publics = [dict(name="anchor", rva=0x2000, object="libA:unit.obj")]
+    assert [p["rva"] for p in iso.place_statics(publics, manifest, {"sdata"}, Memory(0x10000000))["sdata"]] == [0x2004]
+
+
+def test_a_row_whose_source_has_no_placement_takes_no_other_sources_copy():
+    # image_iso review r1: the row's a.cpp static is missing; b.cpp's independent static must not stand in for it
+    c = checker([], {"sdata": {0x300}})
+    c.retail.put(0x300, b"GOOD")
+    c.ours.put(0x2000, b"GOOD")
+    c.statics = {"sdata": [dict(public("sdata", 0x2000, 4), source="Code/b.cpp", static=True)]}
+    c.ledger([dict(row("sdata", 0x300, 4), source="Code/a.cpp")], {})
+    assert c.counts["globals_compared"] == 0
+    assert [d["family"] for d in c.defects] == ["no_object_retail_nonzero"]
+
+
+def test_a_pooled_literal_is_compared_over_its_whole_encoded_length():
+    # image_iso review r1: "a\0bc\0" -- the first NUL is not the end
+    name = "??_C@_04ABCDEFGH@a?$AAbc?$AA@"
+    c = checker([public(name, 0x2000, 5), public(name, 0x2010, 5)], {name: {0x300}})
+    c.retail.put(0x300, b"a\0bc\0")
+    c.ours.put(0x2000, b"a\0bc\0")
+    c.ours.put(0x2010, b"a\0XX\0")
+    c.ledger([row(name, 0x300, 5, kind="string")], {})
+    assert [d["family"] for d in c.defects] == ["pooled_constant_contents"]
+
+
+def test_a_pooled_copy_whose_extent_cannot_hold_the_value_proves_nothing():
+    # image_iso review r1: the first copy's extent is 2; the bytes after it are another symbol's
+    name = "__real@3f800000"
+    c = checker([public(name, 0x2000, 2), public("other", 0x2002, 2), public(name, 0x2100, 4)], {name: {0x300}})
+    c.retail.put(0x300, b"\x00\x00\x80\x3f")
+    c.ours.put(0x2000, b"\x00\x00\x80\x3f")
+    c.ours.put(0x2100, b"\x00\x00\x80\x3f")
+    c.ledger([row(name, 0x300, 4, kind="float")], {})
+    assert c.counts["pooled_constant_rows_compared"] == 0
+    assert [d["family"] for d in c.defects] == ["mapping_ambiguous"]
+
+
+@pytest.mark.parametrize("wide,result", [(b"\0\0", True), (b"\0X", False)])
+def test_folded_pooled_names_compare_each_copy_over_its_own_length(wide, result):
+    # retail folds the narrow "" and the wide L"" at one address; the narrow copy's extent is 1, the wide one's 2
+    narrow, broad = "??_C@_00CNPNBAHC@?$AA@", "??_C@_11LOCGONAA@?$AA?$AA@"
+    for names in ([narrow, broad], [broad, narrow]):
+        c = checker([public(narrow, 0x2000, 1), public("next", 0x2001, 3), public(broad, 0x2010, 2)],
+                    {narrow: {0x300}, broad: {0x300}})
+        c.retail.put(0x300, b"\0\0\0\0")
+        c.ours.put(0x2000, b"\0ZZZ")
+        c.ours.put(0x2010, wide)
+        assert c.pooled_copies(names, 0x300, 4) is result
+

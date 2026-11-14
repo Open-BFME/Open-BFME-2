@@ -199,11 +199,32 @@ def place_statics(publics, manifest, wanted, image):
     whose extent runs to the next symbol of its section, with its section's COFF evidence (data_coff)."""
     if manifest is None or not wanted:
         return {}
-    placed = collections.defaultdict(lambda: collections.defaultdict(set))
+    placed = collections.defaultdict(lambda: collections.defaultdict(set))   # exact MAP object -> name -> rvas
+    map_objects = collections.defaultdict(set)                                # basename -> exact MAP objects
     for p in publics:
-        placed[object_name(p["object"])][p["name"]].add(p["rva"])
+        placed[p["object"]][p["name"]].add(p["rva"])
+        map_objects[object_name(p["object"])].add(p["object"])
+    entries = json.loads(manifest.read_text())
+    manifest_basenames = collections.Counter(object_name(e.get("provider", e["path"])) for e in entries)
+
+    def library(value):
+        last = value.replace("\\", "/").rsplit("/", 1)[-1]
+        return last.rsplit(":", 1)[0] if ":" in last else None
+
+    def anchors(provider):
+        """The MAP placements of this object: its exact MAP object, or the one MAP object of its basename when that
+        basename is unique among MAP objects and manifest entries alike and the library qualifiers agree."""
+        if provider in placed:
+            return placed[provider]
+        base = object_name(provider)
+        candidates = map_objects.get(base, set())
+        if len(candidates) == 1 and manifest_basenames[base] == 1:
+            only = next(iter(candidates))
+            if library(only) == library(provider):
+                return placed[only]
+        return {}
     found = collections.defaultdict(list)
-    for entry in json.loads(manifest.read_text()):
+    for entry in entries:
         path = manifest.parent / entry["path"].replace("\\", "/")
         raw = path.read_bytes()
         if digest(path) != entry["sha256"]:
@@ -216,7 +237,7 @@ def place_statics(publics, manifest, wanted, image):
                    and sym.sec > 0]
         if not targets:
             continue
-        here = placed.get(object_name(entry.get("provider", object_name(str(path)))), {})
+        here = anchors(entry.get("provider", object_name(str(path))))
         starts = collections.defaultdict(set)
         for sym in symbols.values():
             locations = here.get(sym.name, ())
@@ -261,18 +282,24 @@ def place_statics(publics, manifest, wanted, image):
 POOLED = re.compile(r"\?\?_C@_[01]|__real@[0-9a-fA-F]+|__xmm@[0-9a-fA-F]+")
 
 
-def pooled_length(name, retail, rva, size):
-    """The length of a pooled constant's own value at retail RVA: a literal's bytes through its terminator (within
-    `size`), a __real@/__xmm@ constant's width from its name; None when it cannot be read."""
-    if name.startswith("??_C@_"):
-        width = 2 if name.startswith("??_C@_1") else 1
-        body = retail.read(rva, size) if size else None
-        if not body:
-            return None
-        for at in range(0, len(body) - width + 1, width):
-            if body[at:at + width] == bytes(width):
-                return at + width
+def literal_length(name):
+    """The byte length, terminator and embedded NULs included, that an MSVC string literal's decorated name
+    encodes (`??_C@_0` narrow / `_1` wide, then the length: a digit d is d + 1, else hex digits A..P ended by
+    `@`); None when the name does not spell one."""
+    found = re.match(r"\?\?_C@_[01](?:(\d)|([A-P]+)@)", name)
+    if not found:
         return None
+    if found.group(1):
+        return int(found.group(1)) + 1
+    return int("".join("0123456789ABCDEF"[ord(c) - 65] for c in found.group(2)), 16)
+
+
+def pooled_length(name, retail, rva, size):
+    """The length of a pooled constant's own value: a literal's from its decorated name (within `size`), a
+    __real@/__xmm@ constant's width from its name; None when it cannot be told."""
+    if name.startswith("??_C@_"):
+        length = literal_length(name)
+        return length if length and (not size or length <= size) else None
     digits = name.split("@", 1)[1]
     return len(digits) // 2 if len(digits) in (8, 16, 32) else None
 
@@ -671,8 +698,7 @@ class Checker:
         objects define (a header `static` gives each including unit its own); None when not exactly one."""
         found = [p for n in names for p in self.statics.get(n, ())]
         if row.get("source"):
-            found = [p for p in found if source_key(p["source"]) == source_key(row["source"])] or (
-                found if len({p["rva"] for p in found}) == 1 else [])
+            found = [p for p in found if source_key(p["source"]) == source_key(row["source"])]
         locations = {p["rva"] for p in found}
         return found[0] if len(locations) == 1 else None
 
@@ -680,18 +706,22 @@ class Checker:
         """True when every image copy of a pooled constant the row names (??_C@, __real@, __xmm@) holds retail's
         value over the value's own length, False when one differs, None when it cannot be told (no copy, or a
         value or copy that cannot be read)."""
-        pooled = [n for n in names if POOLED.match(n)]
-        copies = {p["rva"] for n in pooled for p in self.by_name.get(n, [])}
-        if not pooled or not copies:
+        checks = []                        # (copy rva, length, retail value) for every copy of every pooled name
+        for n in sorted(n for n in names if POOLED.match(n)):
+            copies = self.by_name.get(n, [])
+            if not copies:
+                continue
+            length = pooled_length(n, self.retail, rva, size)
+            expected = self.retail.read(rva, length) if length else None
+            if expected is None:
+                return None
+            for p in copies:
+                if p["extent"] is None or p["extent"] < length:
+                    return None            # a copy whose own extent cannot hold the whole value proves nothing
+                checks.append((p["rva"], length, expected))
+        if not checks:
             return None
-        length = pooled_length(pooled[0], self.retail, rva, size or 4096)
-        expected = self.retail.read(rva, length) if length else None
-        if expected is None:
-            return None
-        for at in sorted(copies):
-            if self.ours.read(at, length) != expected:
-                return False
-        return True
+        return all(self.ours.read(at, length) == expected for at, length, expected in sorted(checks))
 
     def end_pointer(self, actual, expected):
         targets = self.end_targets.get(actual - self.ours.base, set())
@@ -1329,15 +1359,18 @@ SCALAR_ARRAY = re.compile(r"@@[23][PQRS][A-D](C|D|E|F|G|H|I|J|K|M|N|O|_J|_K|_N|_
 STRUCT_ARRAY = re.compile(r"@@[23][PQRS][A-D][UV]\w")
 
 
-def word_container(symbol, proven):
-    """'nonpointer' when the data symbol holding a word cannot hold a pointer there (a string literal; an array of
-    integral or floating elements), 'struct' for an array of structs (its fields are not known), else None.
-    `symbol` is a public-shaped dict; `proven` maps a data symbol to its proven sizeof (reverse/data_rows.csv):
-    without one larger than a pointer, an element-typed name may be a pointer variable, and nothing is said."""
+def word_container(symbol, proven, offset):
+    """'nonpointer' when the data symbol holding a word at `offset` cannot hold a pointer there (inside a string
+    literal's encoded length; inside an array of integral or floating elements), 'struct' inside an array of
+    structs (its fields are not known), else None. `symbol` is a public-shaped dict; `proven` maps a data symbol to
+    its proven sizeof (reverse/data_rows.csv): without one larger than a pointer, an element-typed name may be a
+    pointer variable, and nothing is said; a word past the proven payload is outside the container."""
     name = symbol["name"]
     if name.startswith("??_C@"):
-        return "nonpointer"
-    if (proven.get(name) or 0) <= 4:
+        length = literal_length(name)
+        return "nonpointer" if length and offset + 4 <= length else None
+    size = proven.get(name) or 0
+    if size <= 4 or offset + 4 > size:
         return None
     if SCALAR_ARRAY.search(name):
         return "nonpointer"
@@ -1459,7 +1492,7 @@ def data_address_words(checker, limit, counts, proven=None):
             if literal:
                 counts["data_literal_payload_candidates_excluded"] += 1
                 continue
-            container = word_container(public, proven or {}) if public else None
+            container = word_container(public, proven or {}, image_rva - public["rva"]) if public else None
             if container == "nonpointer":
                 counts["data_words_in_nonpointer_containers_excluded"] += 1
                 continue
