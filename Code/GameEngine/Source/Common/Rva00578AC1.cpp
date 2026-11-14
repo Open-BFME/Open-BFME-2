@@ -72,14 +72,7 @@ public:
 	unsigned char m_pad[0x4];
 };
 
-class Rva005D3731
-{
-public:
-	Rva005D3731(unsigned int level, const AsciiString &path);	// as rowed (Rva005D36D1Ctor.cpp)
-	~Rva005D3731();
-
-	unsigned char m_pad[0x20];
-};
+#include "../../Include/Common/Rva005D3731.h"
 
 class Rva005D3CA6 { public: void rva005D3CA6(void *); };
 class Rva005D3C2B
