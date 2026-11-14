@@ -609,14 +609,7 @@ Rva0020F58E::operator AsciiString()
 // Narrow materializer for the double-pair title segment rowed at 0x00109D3A:
 // sizes via both pair lengths then fills through that write; callers at
 // 0x0010BCC8 0x0057A11F 0x0057A190; chain from 0x00109D3A.
-struct WinMainTitlePair : Rva000B3F84Pair
-{
-	int write(char *dst);
-	int firstLength() const { return m_len; }
-	int length() const { return firstLength() + m_secondPair.m_len; }
-	operator AsciiString();
-	Rva000B3F84Pair m_secondPair;
-};
+#include "../../../Include/Common/WinMainTitlePair.h"
 
 WinMainTitlePair::operator AsciiString()
 {
