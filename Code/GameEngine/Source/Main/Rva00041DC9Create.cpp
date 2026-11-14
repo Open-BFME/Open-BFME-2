@@ -5,15 +5,7 @@
 // slot 33; unblocks none (leaf chain end); EH_prolog.
 #include "../../Include/Common/AsciiStringMember.h"
 
-class GameEngineDeletingBase
-{
-public:
-	GameEngineDeletingBase();
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[4];
-	AsciiStringMember m_member08;
-};
+#include "../../Include/Common/GameEngineDeletingBase.h"
 
 class Rva002D22CA : public GameEngineDeletingBase
 {

@@ -20,14 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../Include/Common/ModuleData.h"
 
-class GameEngineDeletingBase
-{
-public:
-	GameEngineDeletingBase() throw();
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad[8];
-};
+#include "../../Include/Common/GameEngineDeletingBase.h"
 
 class Rva0041E4A3 : public GameEngineDeletingBase
 {
