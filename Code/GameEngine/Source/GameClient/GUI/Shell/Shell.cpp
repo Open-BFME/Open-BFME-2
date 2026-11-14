@@ -26,31 +26,7 @@ private:
 	char _pad14[0x10];
 	bool m_hidden;
 };
-class IMEManager
-{
-public:
-	virtual void m00() = 0;
-	virtual void m04() = 0;
-	virtual void m08() = 0;
-	virtual void m0C() = 0;
-	virtual void m10() = 0;
-	virtual void m14() = 0;
-	virtual void m18() = 0;
-	virtual void m1C() = 0;
-	virtual void m20() = 0;
-	virtual void m24() = 0;
-	virtual void m28() = 0;
-	virtual void m2C() = 0;
-	virtual void m30() = 0;
-	virtual void m34() = 0;
-	virtual void m38() = 0;
-	virtual void detatch() = 0;
-	virtual void m40() = 0;
-	virtual void m44() = 0;
-	virtual void m48() = 0;
-	virtual void m4C() = 0;
-	virtual void *m50() = 0;
-};
+#include "../../../../Include/GameClient/IMEManagerClass.h"
 extern IMEManager *TheIMEManager;
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;
