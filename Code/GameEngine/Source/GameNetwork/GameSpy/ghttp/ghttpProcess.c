@@ -42,8 +42,6 @@ devsupport@gamespy.com
 // IAT at 0x00BBA5C8 identifies msvcr71.dll!_mbsdup. Other explicit goastrdup
 // calls keep their separate SDK helper, so the adaptation stays local.
 #include <mbstring.h>
-#undef strdup
-#define strdup(value) ((char *)_mbsdup((const unsigned char *)(value)))
 
 // Parse the URL into:
 //   server address (and IP)
@@ -83,7 +81,7 @@ static GHTTPBool ghiParseURL
 	nIndex = strcspn(URL, ":/");
 	tempChar = URL[nIndex];
 	URL[nIndex] = '\0';
-	connection->serverAddress = strdup(URL);
+	connection->serverAddress = (char *)_mbsdup((const unsigned char *)(URL));
 	if(!connection->serverAddress)
 		return GHTTPFalse;
 	URL[nIndex] = tempChar;
@@ -111,7 +109,7 @@ static GHTTPBool ghiParseURL
 	/////////////////
 	if(!*URL)
 		URL = "/";
-	connection->requestPath = strdup(URL);
+	connection->requestPath = (char *)_mbsdup((const unsigned char *)(URL));
 	while((str = strchr(connection->requestPath, ' ')) != NULL)
 		*str = '+';
 	if(!connection->requestPath)
@@ -1083,7 +1081,7 @@ void ghiDoReceivingHeaders
 				{
 					// Set the redirect URL.
 					////////////////////////
-					connection->redirectURL = strdup(location);
+					connection->redirectURL = (char *)_mbsdup((const unsigned char *)(location));
 					if(!connection->redirectURL)
 					{
 						connection->completed = GHTTPTrue;

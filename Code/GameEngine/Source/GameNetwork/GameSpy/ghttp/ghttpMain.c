@@ -40,8 +40,6 @@ devsupport@gamespy.com
 // IAT at 0x00BBA5C8 identifies msvcr71.dll!_mbsdup. Other explicit goastrdup
 // calls keep their separate SDK helper, so the adaptation stays local.
 #include <mbstring.h>
-#undef strdup
-#define strdup(value) ((char *)_mbsdup((const unsigned char *)(value)))
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -341,7 +339,7 @@ GHTTPRequest ghttpGetExA
 	// Fill in the necessary info.
 	//////////////////////////////
 	connection->type = GHIGET;
-	connection->URL = strdup(URL);
+	connection->URL = (char *)_mbsdup((const unsigned char *)(URL));
 	if(!connection->URL)
 	{
 		ghiFreeConnection(connection);
@@ -493,7 +491,7 @@ GHTTPRequest ghttpSaveExA
 	// Fill in the necessary info.
 	//////////////////////////////
 	connection->type = GHISAVE;
-	connection->URL = strdup(URL);
+	connection->URL = (char *)_mbsdup((const unsigned char *)(URL));
 	if(!connection->URL)
 	{
 		ghiFreeConnection(connection);
@@ -643,7 +641,7 @@ GHTTPRequest ghttpStreamExA
 	// Fill in the necessary info.
 	//////////////////////////////
 	connection->type = GHISTREAM;
-	connection->URL = strdup(URL);
+	connection->URL = (char *)_mbsdup((const unsigned char *)(URL));
 	if(!connection->URL)
 	{
 		ghiFreeConnection(connection);
@@ -770,7 +768,7 @@ GHTTPRequest ghttpHeadExA
 	// Fill in the necessary info.
 	//////////////////////////////
 	connection->type = GHIHEAD;
-	connection->URL = strdup(URL);
+	connection->URL = (char *)_mbsdup((const unsigned char *)(URL));
 	if(!connection->URL)
 	{
 		ghiFreeConnection(connection);
@@ -894,7 +892,7 @@ GHTTPRequest ghttpPostExA
 	// Fill in the necessary info.
 	//////////////////////////////
 	connection->type = GHIPOST;
-	connection->URL = strdup(URL);
+	connection->URL = (char *)_mbsdup((const unsigned char *)(URL));
 	if(!connection->URL)
 	{
 		ghiFreeConnection(connection);

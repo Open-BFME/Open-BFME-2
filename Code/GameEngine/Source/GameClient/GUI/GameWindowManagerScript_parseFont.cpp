@@ -30,9 +30,11 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-#ifndef NULL
-#define NULL 0
-#endif
+#include <string.h>
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 
 class AsciiString;
 class GameFont;
@@ -53,9 +55,6 @@ FontLibrary * TheFontLibrary;
 // C2129); the decoration is identical and the pin resolves the address.
 Int scanInt(const char *source, Int &val);
 
-extern "C" __declspec(dllimport) char *__cdecl strtok(char *str, const char *delimiters);
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-
 // ?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z
 Bool parseFont(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
@@ -74,7 +73,7 @@ Bool parseFont(char *token, WinInstanceData *instData, char *buffer, void *data)
 		ptr++;
 	ptr++;  // skip the "
 	c = strtok(ptr, stringSeps);  // value
-	_mbscpy(fontName, c);
+	_mbscpy((unsigned char *)fontName, (const unsigned char *)c);
 
 	// "SIZE"
 	c = strtok(NULL, seps);  // label

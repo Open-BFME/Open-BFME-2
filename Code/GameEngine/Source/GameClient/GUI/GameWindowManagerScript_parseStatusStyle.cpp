@@ -24,14 +24,11 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-#ifndef NULL
-#define NULL 0
-#endif
-
-extern "C" __declspec(dllimport) int __cdecl strncmp(const char *, const char *, unsigned int);
-extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
-extern "C" char *_mbscpy(char *, const char *);
+#include <string.h>
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 
 #include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
@@ -102,7 +99,7 @@ static void parseBitString(const char *inBuffer, UnsignedInt *bits, const char *
 	int count;
 
 	// do not modify the inBuffer argument
-	_mbscpy(buffer, inBuffer);
+	_mbscpy((unsigned char *)buffer, (const unsigned char *)inBuffer);
 
 	if (strncmp(buffer, "NULL", 4)) {
 		for (tok = strtok(buffer, "+"); tok; tok = strtok(NULL, "+")) {

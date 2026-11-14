@@ -27,7 +27,10 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-extern "C" char *__cdecl _mbscpy(char *, const char *);
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../../Include/GameLogic/LivingWorldBattle.h"
@@ -45,7 +48,7 @@ private:
 
 void Rva005EB955::rva005EB955(int index, char *result, bool disabled)
 {
-    _mbscpy(result, "0");
+    _mbscpy((unsigned char *)result, (const unsigned char *)"0");
     if (!disabled && battle && index < battle->rva003F459A()) {
         _STL::map<int, int>::iterator found = participants.find(index);
         if (found != participants.end()) {

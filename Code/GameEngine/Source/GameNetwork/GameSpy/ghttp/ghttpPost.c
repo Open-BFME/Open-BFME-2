@@ -37,8 +37,6 @@ devsupport@gamespy.com
 // import at 0x00BBA5C8 names msvcr71.dll!_mbsdup; the reference nonport.h
 // instead redirects strdup to the older goastrdup helper. Keep this local.
 #include <mbstring.h>
-#undef strdup
-#define strdup(value) ((char *)_mbsdup((const unsigned char *)(value)))
 
 // The border between parts in a file send.
 ///////////////////////////////////////////
@@ -261,8 +259,8 @@ GHTTPBool ghiPostAddString
 
 	// Copy the strings.
 	////////////////////
-	name = strdup(name);
-	string = strdup(string);
+	name = (char *)_mbsdup((const unsigned char *)(name));
+	string = (char *)_mbsdup((const unsigned char *)(string));
 	if(!name || !string)
 	{
 		gsifree((char *)name);
@@ -320,10 +318,10 @@ GHTTPBool ghiPostAddFileFromDisk
 
 	// Copy the strings.
 	////////////////////
-	name = strdup(name);
-	filename = strdup(filename);
-	reportFilename = strdup(reportFilename);
-	contentType = strdup(contentType);
+	name = (char *)_mbsdup((const unsigned char *)(name));
+	filename = (char *)_mbsdup((const unsigned char *)(filename));
+	reportFilename = (char *)_mbsdup((const unsigned char *)(reportFilename));
+	contentType = (char *)_mbsdup((const unsigned char *)(contentType));
 	if(!name || !filename || !reportFilename || !contentType)
 	{
 		gsifree((char *)name);
@@ -368,9 +366,9 @@ GHTTPBool ghiPostAddFileFromMemory
 
 	// Copy the strings.
 	////////////////////
-	name = strdup(name);
-	reportFilename = strdup(reportFilename);
-	contentType = strdup(contentType);
+	name = (char *)_mbsdup((const unsigned char *)(name));
+	reportFilename = (char *)_mbsdup((const unsigned char *)(reportFilename));
+	contentType = (char *)_mbsdup((const unsigned char *)(contentType));
 	if(!name || !reportFilename || !contentType)
 	{
 		gsifree((char *)name);

@@ -47,10 +47,7 @@ UnicodeString Rva0037B9D4Get();
 UnicodeString Rva002DBFAD(SYSTEMTIME time);
 UnicodeString Rva002DC081(SYSTEMTIME time, int flags);
 
-// MSVCR71 _wsplitpath (import slot VA 0x00BBA4EC; hint/name at RVA 0x00A7429C).
-extern "C" __declspec(dllimport) void __cdecl _wsplitpath(const unsigned short *path,
-		unsigned short *drive, unsigned short *dir, unsigned short *fname,
-		unsigned short *ext);
+#include <stdlib.h>
 
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

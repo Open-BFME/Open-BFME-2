@@ -4,7 +4,10 @@
 #pragma inline_depth()
 #include <string.h>
 #include "AnimationAssetBFME2.h"
-extern "C" char *_mbscpy(char *destination, const char *source);
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 // Registry contains-check (retail 0x0061F0D0, 28B): null name or null
 // registry answers false, else tail-calls the registry lookup 0xA21170.
 extern bool __cdecl Render_Obj_Exists(const char *name);
@@ -15,8 +18,8 @@ bool AnimationAsset::HasAnim(const char *name)
 		return false;
 
 	char lookup[512];
-	_mbscpy(lookup, "a*");
-	_mbscpy(lookup + 2, name);
+	_mbscpy((unsigned char *)lookup, (const unsigned char *)"a*");
+	_mbscpy((unsigned char *)(lookup + 2), (const unsigned char *)name);
 	_strlwr(lookup);
 	return Render_Obj_Exists(lookup);
 }
@@ -173,8 +176,8 @@ HAnimClass *AnimationAsset::GetAnim(const char *name)
 		return 0;
 
 	char lookup[512];
-	_mbscpy(lookup, "a*");
-	_mbscpy(lookup + 2, name);
+	_mbscpy((unsigned char *)lookup, (const unsigned char *)"a*");
+	_mbscpy((unsigned char *)(lookup + 2), (const unsigned char *)name);
 	_strlwr(lookup);
 
 	HAnimPrototypeOwner owner(Rva0061F230_GetPrototype(lookup));

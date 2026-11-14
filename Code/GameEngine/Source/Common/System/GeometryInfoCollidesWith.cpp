@@ -61,8 +61,7 @@ public:
 	float z; // +0x08
 };
 #include "../../../Include/Common/Rva0087E900Shape.h"
-extern "C" double __cdecl sin(double angle);
-extern "C" double __cdecl cos(double angle);
+#include <math.h>
 Rva0087E900Coord *Rva0087E900(Rva0087E900Coord *out,
     const Rva0087E900Coord *position,
     const Rva0087E900Shape *shape,
@@ -71,10 +70,10 @@ Rva0087E900Coord *Rva0087E900(Rva0087E900Coord *out,
     // Volatile accesses preserve retail x87 scheduling; storage itself is ordinary.
     float raw[6];
     volatile float *scratch = raw;
-    float sine = (float)sin(angle);
+    float sine = (float)sin((double)angle);
     scratch[1] = shape->offset.y;
     scratch[2] = shape->offset.z;
-    float cosine = (float)cos(angle);
+    float cosine = (float)cos((double)angle);
     float shapeX = shape->offset.x;
     volatile float &angleRef = angle;
     angleRef = shapeX;

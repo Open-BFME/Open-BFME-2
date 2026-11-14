@@ -10,6 +10,12 @@
 // The 0x004E5B0A caller allocates 0x18 bytes; the last eight bytes are opaque.
 // The original owner class name is unproven: retain an RVA-derived name.
 // stlport
+// This TU sets /D_CRTIMP=, but retail imports iswspace from MSVCR71.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <ctype.h>
+#pragma pop_macro("_CRTIMP")
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a,const unsigned int &b)
@@ -308,7 +314,6 @@ struct NoticeTextLayout {
     Header *header;
     unsigned short charAt(int index) const { return header ? header->chars[index] : 0; }
 };
-extern "C" __declspec(dllimport) int __cdecl iswspace(unsigned short);
 // Native 0x004E5EBE..0x004E61C8; WB 0x01320090 names Start at line 449.
 // Retail proves reset slot 9, screen dimensions, frame timing and tokenization.
 // The inline line-input initialization also emits the standalone constructor
