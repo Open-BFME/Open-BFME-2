@@ -17,13 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <vector>
-struct BfmeStringRecord00204A30 {
-    unsigned int word0; AsciiString text0; unsigned int word1; AsciiString text1; unsigned int word2;
-    BfmeStringRecord00204A30();
-    BfmeStringRecord00204A30(const BfmeStringRecord00204A30 &);
-    ~BfmeStringRecord00204A30();
-    BfmeStringRecord00204A30 &operator=(const BfmeStringRecord00204A30 &);
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord00204A30.h"
 namespace _STL {
 template <> void _Construct<BfmeStringRecord00204A30, BfmeStringRecord00204A30>(BfmeStringRecord00204A30 *, const BfmeStringRecord00204A30 &);
 }
