@@ -495,21 +495,7 @@ struct Rva000EB2EFBufferView
     Rva000EB2EFType m_treeTypes[64];
 };
 
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(VertexBufferClass *vertexBuffer, int flags);
-		~WriteLockClass();
-		void *Get_Vertex_Array(void) { return m_vertices; }
-	private:
-		VertexBufferClass *m_vertexBuffer;
-		void *m_vertices;
-		int m_flags;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
 class IndexBufferClass
 {
