@@ -238,23 +238,43 @@ def place_statics(publics, manifest, wanted, image):
         if not targets:
             continue
         here = anchors(entry.get("provider", object_name(str(path))))
-        starts = collections.defaultdict(set)
+        anchored = collections.defaultdict(set)
         for sym in symbols.values():
             locations = here.get(sym.name, ())
             if sym.sec > 0 and len(locations) == 1:
-                starts[sym.sec].add(next(iter(locations)) - sym.value)
-        anchored = {sec: next(iter(values)) for sec, values in starts.items() if len(values) == 1}
-        for sec, start in anchored.items():
-            section = sections[sec - 1]
-            for offset, index, kind in section.relocs:
-                target = symbols.get(index)
-                if kind != link_cycle.DIR32 or target is None or target.sec <= 0:
+                anchored[sym.sec].add(next(iter(locations)) - sym.value)
+        # Evidence for a section's start: its anchors, and DIR32 relocations read from sections whose start is
+        # anchored. A disputed section (two starts) and every section whose relocations spoke to the dispute are
+        # distrusted -- either side may be the wrong one -- and lend no evidence; repeat until nothing new is
+        # distrusted, so no placement rests on a start the evidence contradicts.
+        distrusted = set()
+        while True:
+            claims = collections.defaultdict(lambda: collections.defaultdict(set))   # sec -> start -> sources
+            for sec, values in anchored.items():
+                for value in values:
+                    claims[sec][value].add(None)
+            for sec, values in anchored.items():
+                if len(values) != 1 or sec in distrusted:
                     continue
-                word = image.read(start + offset, 4)
-                if word is None or section.ptr == 0:
-                    continue
-                addend = struct.unpack_from("<I", raw, section.ptr + offset)[0]
-                starts[target.sec].add((struct.unpack("<I", word)[0] - addend - target.value - image.base) & 0xFFFFFFFF)
+                start = next(iter(values))
+                section = sections[sec - 1]
+                for offset, index, kind in section.relocs:
+                    target = symbols.get(index)
+                    if kind != link_cycle.DIR32 or target is None or target.sec <= 0:
+                        continue
+                    word = image.read(start + offset, 4)
+                    if word is None or section.ptr == 0:
+                        continue
+                    addend = struct.unpack_from("<I", raw, section.ptr + offset)[0]
+                    value = (struct.unpack("<I", word)[0] - addend - target.value - image.base) & 0xFFFFFFFF
+                    claims[target.sec][value].add(sec)
+            disputed = {sec for sec, by in claims.items() if len(by) > 1}
+            spoke = {source for sec in disputed for sources in claims[sec].values() for source in sources
+                     if source is not None}
+            if not (disputed | spoke) - distrusted:
+                break
+            distrusted |= disputed | spoke
+        starts = {sec: set(by) for sec, by in claims.items() if sec not in distrusted}
         values_by_sec = collections.defaultdict(set)
         for sym in symbols.values():
             if sym.sec > 0:
@@ -703,25 +723,24 @@ class Checker:
         return found[0] if len(locations) == 1 else None
 
     def pooled_copies(self, names, rva, size):
-        """True when every image copy of a pooled constant the row names (??_C@, __real@, __xmm@) holds retail's
-        value over the value's own length, False when one differs, None when it cannot be told (no copy, or a
-        value or copy that cannot be read)."""
-        checks = []                        # (copy rva, length, retail value) for every copy of every pooled name
+        """False when an image copy of a pooled constant the row names (??_C@, __real@, __xmm@) differs from
+        retail's value over that name's own length; True when every copy was compared and holds it; None when no
+        copy differs but one cannot be told (an unknown value, or a copy whose own extent cannot hold it)."""
+        equal, untold = 0, False
         for n in sorted(n for n in names if POOLED.match(n)):
             copies = self.by_name.get(n, [])
             if not copies:
                 continue
             length = pooled_length(n, self.retail, rva, size)
             expected = self.retail.read(rva, length) if length else None
-            if expected is None:
-                return None
-            for p in copies:
-                if p["extent"] is None or p["extent"] < length:
-                    return None            # a copy whose own extent cannot hold the whole value proves nothing
-                checks.append((p["rva"], length, expected))
-        if not checks:
-            return None
-        return all(self.ours.read(at, length) == expected for at, length, expected in sorted(checks))
+            for p in sorted(copies, key=lambda p: p["rva"]):
+                if expected is None or p["extent"] is None or p["extent"] < length:
+                    untold = True          # a copy whose own extent cannot hold the whole value proves nothing
+                elif self.ours.read(p["rva"], length) != expected:
+                    return False
+                else:
+                    equal += 1
+        return None if untold or not equal else True
 
     def end_pointer(self, actual, expected):
         targets = self.end_targets.get(actual - self.ours.base, set())
@@ -996,13 +1015,8 @@ class Checker:
             if kind not in ("vtable", "global", "string", "wstring", "float"):
                 self.counts[kind + "_unanalyzed"] += 1
                 continue
-            p = self.winner(names, rva)
-            retail = self.retail.read(rva, size)
-            if p is None and not any(self.by_name.get(n) for n in names):
-                p = self.static_winner(names, row)          # internal-linkage data the MAP does not list
-                if p is not None:
-                    self.counts["static_data_placed"] += 1
-            if p is None and any(POOLED.match(n) for n in names):
+            if any(POOLED.match(n) and self.by_name.get(n) for n in names):
+                # every image copy of a pooled constant, not only one a winner qualifies
                 pooled = self.pooled_copies(names, rva, size)
                 if pooled is not None:
                     self.counts["pooled_constant_rows_compared"] += 1
@@ -1011,6 +1025,13 @@ class Checker:
                         self.defect("pooled_constant_contents", rva, row, "an image copy of the pooled constant "
                                     "differs from retail's value")
                     continue
+                self.counts["pooled_constant_copies_unanalyzed"] += 1
+            p = self.winner(names, rva)
+            retail = self.retail.read(rva, size)
+            if p is None and not any(self.by_name.get(n) for n in names):
+                p = self.static_winner(names, row)          # internal-linkage data the MAP does not list
+                if p is not None:
+                    self.counts["static_data_placed"] += 1
             if p is None:
                 family = "mapping_ambiguous" if any(self.by_name.get(n) for n in names) else "no_object_retail_nonzero"
                 if retail and any(retail) or family == "mapping_ambiguous":
@@ -1479,10 +1500,9 @@ def data_address_words(checker, limit, counts, proven=None):
             literal = None
             for p in choices:
                 if p["name"].startswith("??_C@_"):
-                    width = 2 if p["name"].startswith("??_C@_1") else 1
-                    payload = ours.read(p["rva"], p["extent"]) or b""
-                    end = next((at + width for at in range(0, len(payload) - width + 1, width)
-                                if payload[at:at + width] == bytes(width)), 0)
+                    end = literal_length(p["name"]) or 0          # the payload its name encodes, no further
+                    if end > (p["extent"] or 0):
+                        end = 0
                 elif re.fullmatch(r"__real@(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{16})", p["name"]):
                     end = len(p["name"].split("@", 1)[1]) // 2
                 else:

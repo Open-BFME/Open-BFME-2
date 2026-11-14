@@ -1007,7 +1007,7 @@ def test_data_literal_payload_and_import_directory_are_excluded(tmp_path):
     c, ledger, data = absolute_case(tmp_path, b"\xc3", extra_rows=[target])
     with_data_section(c)
     c.ours.put(0x2000, struct.pack("<IIII", 0x400200, 0, 0x400200, 0x400200))
-    c.publics.append(public("??_C@_1wide", 0x2000, 8))
+    c.publics.append(public("??_C@_17ABCDEFGH@wide@", 0x2000, 8))   # a wide literal of 8 bytes
     c.publics.append(public("next", 0x2008, 4))
     directories = [SimpleNamespace(VirtualAddress=0, Size=0) for _ in range(13)]
     directories[12] = SimpleNamespace(VirtualAddress=0x200c, Size=4)
@@ -2398,4 +2398,61 @@ def test_folded_pooled_names_compare_each_copy_over_its_own_length(wide, result)
         c.ours.put(0x2000, b"\0ZZZ")
         c.ours.put(0x2010, wide)
         assert c.pooled_copies(names, 0x300, 4) is result
+
+
+def test_a_literal_payload_exclusion_stops_at_the_encoded_length(tmp_path):
+    # image_iso review r2: "abc" encodes 4 bytes; a later NUL in the image (the address word's high byte) must
+    # not stretch the payload over the word at +8
+    name = "??_C@_03ABCDEFGH@abc?$AA@"
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3104, 4)])
+    with_data_section(c)
+    c.publics.append(public(name, 0x2000, 16))
+    c.ours.put(0x2000, b"ABCDEFGH" + struct.pack("<I", 0x403104))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"].get("data_literal_payload_candidates_excluded", 0) == 0
+    assert len(result["defects"]) == 1
+
+
+def test_every_pooled_copy_is_compared_even_when_one_is_qualified():
+    # image_iso review r2: a.cpp's copy qualifies to retail 0x300; b.cpp's copy still has to hold the value
+    name = "__real@3f800000"
+    c = checker([public(name, 0x2000), dict(public(name, 0x2100), source="Code/b.cpp", object="b.obj")],
+                {name: {0x300}})
+    c.mapping.targets_for = lambda p: {0x300} if p["rva"] == 0x2000 else set()
+    c.retail.put(0x300, struct.pack("<f", 1.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ours.put(0x2100, struct.pack("<f", 2.0))
+    c.ledger([row(name, 0x300, 4, kind="float")], {})
+    assert [d["family"] for d in c.defects] == ["pooled_constant_contents"]
+
+
+def test_a_differing_pooled_copy_is_a_defect_even_beside_an_untold_one():
+    name = "__real@3f800000"
+    c = checker([public(name, 0x2000, None), public(name, 0x2100)], {name: {0x300}})
+    c.retail.put(0x300, struct.pack("<f", 1.0))
+    c.ours.put(0x2100, struct.pack("<f", 2.0))
+    assert c.pooled_copies([name], 0x300, 4) is False
+    c.ours.put(0x2100, struct.pack("<f", 1.0))
+    assert c.pooled_copies([name], 0x300, 4) is None
+
+
+def test_a_disputed_section_lends_no_evidence(tmp_path):
+    # image_iso review r2: the MAP anchors A (.text) at 0x500 and B (.data) at 0x2100; A's DIR32 puts B at
+    # 0x2400. B's relocation to C (.bss-like third section) read at either start must place nothing.
+    obj = tmp_path / "unit.obj"
+    iso.link_cycle.write_coff(
+        obj, [(".text", 0x60000020, b"\xa1" + bytes(4) + b"\xc3", 0), (".data", 0xC0000040, bytes(8), 0),
+              (".data", 0xC0000040, bytes(8), 0)],
+        [("fn", 1, 0, iso.link_cycle.EXTERNAL), ("anchor", 2, 0, iso.link_cycle.EXTERNAL),
+         ("bstatic", 2, 4, iso.link_cycle.STATIC), ("cstatic", 3, 0, iso.link_cycle.STATIC)],
+        {1: [(1, "anchor", iso.link_cycle.DIR32)], 2: [(4, "cstatic", iso.link_cycle.DIR32)]})
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path="unit.obj", sha256=iso.digest(obj), source="Code/unit.cpp",
+                                         provider="unit.obj")]))
+    image = Memory(0x10000000)
+    image.put(0x501, struct.pack("<I", 0x10000000 + 0x2400))           # A says B starts at 0x2400
+    image.put(0x2104, struct.pack("<I", 0x10000000 + 0x3000))          # read at the MAP's 0x2100: C at 0x3000
+    image.put(0x2404, struct.pack("<I", 0x10000000 + 0x3100))          # read at A's 0x2400: C at 0x3100
+    publics = [dict(name="fn", rva=0x500, object="unit.obj"), dict(name="anchor", rva=0x2100, object="unit.obj")]
+    assert iso.place_statics(publics, manifest, {"bstatic", "cstatic"}, image) == {}
 
