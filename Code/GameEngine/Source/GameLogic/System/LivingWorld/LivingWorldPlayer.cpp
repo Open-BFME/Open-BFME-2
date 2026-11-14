@@ -396,11 +396,7 @@ class LivingWorldScoreKeeper:public Snapshot {public:
  protected:virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
  private:char bytes[248];};
 
-struct Rva002E2690Element
-{
-public:
-	char bytes[216]; // +0x00
-};
+#include "../../../../Include/Common/Rva002E2690Element.h"
 
 namespace _STL {template<> vector<Rva002E2690Element>::~vector();}
 
