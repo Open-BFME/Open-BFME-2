@@ -122,16 +122,16 @@ LivingWorldRegionManager::LivingWorldRegionManager(EmitVtableTag *)
 {
 }
 
-class Rva0021113D
+class Rva00210EF1
 {
 public:
-	Rva0021113D(EmitVtableTag *);
+	Rva00210EF1(EmitVtableTag *);
 public:
-	virtual ~Rva0021113D();
+	virtual ~Rva00210EF1();
 };
 
-// ?<Rva0021113D::Rva0021113D> absent-from-retail
-Rva0021113D::Rva0021113D(EmitVtableTag *)
+// ?<Rva00210EF1::Rva00210EF1> absent-from-retail
+Rva00210EF1::Rva00210EF1(EmitVtableTag *)
 {
 }
 

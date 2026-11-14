@@ -6270,3 +6270,5 @@ __ehhandler$?setCorrectDamageState@ActiveBody@@QAEX_N@Z,0x0078F9C2,"Renamed to _
 ?rva0008A2EF@W3DView@@QAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z,0x0008A2EF,"Renamed to ?rva0008A2EF@W3DView@@UAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z by tools/rename.py (virtual: retail vtable slot)"
 ??_GRva000AB0D4@@UAEPAXI@Z,0x000AB0B8,"Renamed to ??_GRva000AAD5C@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BC9468)"
 ??1Rva000AB0D4@@UAE@XZ,0x000AB0D4,"Renamed to ??1Rva000AAD5C@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BC9468)"
+??_GRva0021113D@@UAEPAXI@Z,0x00211121,"Renamed to ??_GRva00210EF1@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE5118)"
+??1Rva0021113D@@UAE@XZ,0x0021113D,"Renamed to ??1Rva00210EF1@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE5118)"
