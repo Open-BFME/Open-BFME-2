@@ -124,6 +124,16 @@ class Rva005753E9
 {
 public:
 	__declspec(dllimport) __forceinline Rva005753E9() {}
+	virtual void slot00(int) {}
+	virtual void slot04(int, int) {}
+	virtual void slot08(int, int) {}
+	virtual void slot0C(int, int) {}
+	virtual void slot10(int, int) {}
+	virtual void slot14(int, int) {}
+	virtual void slot18(int, int) {}
+	virtual void slot1C(int, int) {}
+	virtual void slot20(int, int) {}
+	virtual void slot24(int, int) {}
 	virtual ~Rva005753E9() {}
 };
 
