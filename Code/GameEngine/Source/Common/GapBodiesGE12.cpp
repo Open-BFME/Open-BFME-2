@@ -92,14 +92,14 @@ int Rva00431FF2::translateGameMessage(Rva00431FF2Message *msg)
 
 // --- 0x00524F61 (9B): vtable 0x00C67E3C only; 0x00524F6A (13B): the +0x10
 // object's +0x18 word.
-class Rva00524F61
+class Rva0052634F_Base
 {
 public:
-	Rva00524F61();
-	virtual ~Rva00524F61() {}
+	Rva0052634F_Base();
+	virtual ~Rva0052634F_Base() {}
 };
 
-Rva00524F61::Rva00524F61()
+Rva0052634F_Base::Rva0052634F_Base()
 {
 }
 
