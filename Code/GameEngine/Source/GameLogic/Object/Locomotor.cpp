@@ -195,11 +195,7 @@ private:
 
 // The Snapshot-shaped base (its dtor folds into 0x0049B47C, storing BBB554): only the
 // destructor slot, so the vtable is the ctor unit's one ??_E slot.
-class Rva001E7087Base
-{
-public:
-    virtual ~Rva001E7087Base() {}
-};
+typedef Snapshot Rva001E7087Base;
 
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
