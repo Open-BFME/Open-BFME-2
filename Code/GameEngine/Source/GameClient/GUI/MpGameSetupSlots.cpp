@@ -402,7 +402,7 @@ public:
 
 // The member at +0xD0 (destroyed through ??1Rva0057EE5C); its 0x0057EA0F
 // (158 bytes) is unrowed and pinned.
-class AptMpGameRules { public: void rva0057F0AA(); };
+#include "../../../Include/Common/AptMpGameRules.h"
 class Rva0057EE5C
 {
 public:
