@@ -837,17 +837,7 @@ public:
 };
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
 // object's team against the +0x10 flags, +0x0C whether a hit allows.
-class Rva00261409Filter : public Rva000421C8
-{
-public:
-	Rva00261409Filter(Player *player, bool match, int flags)
-		: m_player(player), m_match(match), m_flags(flags) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-	int m_flags;
-};
+#include "../../../Include/GameLogic/Rva00261409Filter.h"
 // Partial storage view of the module found by this condition. Native
 // 3EA6DF reads +0x88; the original complete derived layout is not recovered.
 class Rva003EA566ModuleView : public Module
