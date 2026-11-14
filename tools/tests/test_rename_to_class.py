@@ -1780,3 +1780,16 @@ def test_votes_an_enum_respelled_move_needs_the_vote(tree, monkeypatch):
     approve(tree, key_of(SLEEP_TABLE + 0x00400000, 0), "update")
     assert sleep_plan(tree).new == SLEEP_NEW
 
+
+def test_votes_a_later_record_of_another_kind_ends_the_approval(tree, monkeypatch):
+    # review r1: the key's latest record decides; an older slot approval is not revived past it
+    retail(monkeypatch, GOOD)
+    register(tree)
+    key = key_of(0x00C00000, 1)
+    approve(tree, key, "spin")
+    with (tree / "reverse/name_agreed.csv").open("a") as f:
+        f.write(f"nl-later,member,1,whirl,,,{key},blocked,a later record\n")
+    assert rename.approved_slot_name(ctx_of(tree), key) is None
+    with pytest.raises(Refusal, match="no approved name"):
+        plan(tree)
+

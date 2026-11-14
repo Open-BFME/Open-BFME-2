@@ -161,7 +161,7 @@ RESOLUTION_COLUMNS = name_agreement.RESOLUTION_COLUMNS
 LANE_DIR = "build/name_lane"
 EVIDENCE_TSV = "build/name_evidence.tsv"
 MAX_CHARS = 15000
-KINDS = ("function", "class", "member", "param", "local", "global")
+KINDS = ("function", "class", "member", "param", "local", "global", "slot")
 NAMED = ("class", "member", "function", "global")
 SCOPED_KINDS = frozenset(("param", "local"))
 
@@ -684,6 +684,9 @@ class Lane:
         """Read-only protection preflight; the planner still rechecks at apply."""
         if kind in ("param", "local"):
             return None
+        if kind == "slot":
+            return None if slot_items(self, rel, [key_of(rel, kind, scope, ident)]) else (
+                "the key no longer names a retail vftable slot of a class registered with this header")
         if unrowed_key(key_of(rel, kind, scope, ident)):
             row = request_for_key(self, key_of(rel, kind, scope, ident))
             try:
@@ -996,6 +999,8 @@ class Lane:
         """Why `new` may not be voted for `old`, or None (BFME 1's problem())."""
         if kind == "function" and compiler_spelled(old):
             return spelled_problem(old, new)
+        if kind == "slot":
+            return slot_problem(new)
         if not re.fullmatch(r"[A-Za-z_]\w*", new or "") or new in name_metric.KEYWORDS:
             return "not a C++ identifier"
         if new == old or name_metric.weak(kind if kind in ("param", "local") else "function", new):
@@ -1081,6 +1086,52 @@ def spelled_problem(old, new):
     return None
 
 
+# A slot key names "the name of slot N of retail table T in class C": `<C's canonical header>|slot|C@0x<T VA>|<N>`,
+# built from retail facts and the registered header alone (rename.slot_key). It is served only by `next --key KEY`,
+# voted like any shared name, and landed by tools/rename.py function --to-class C --new NAME, never by apply.
+SLOT_SCOPE = re.compile(r"([A-Za-z_]\w*)@0x([0-9A-F]{8})")
+STRUCTURAL_SLOT = re.compile(r"(?:slot|vf|v)\d+(?:_\d+)*")
+
+
+def slot_key(key):
+    """(rel, class, table rva, slot) of a well-formed slot key, else None."""
+    parts = key.split("|")
+    if len(parts) != 4 or parts[1] != "slot" or not parts[3].isdigit():
+        return None
+    match = SLOT_SCOPE.fullmatch(parts[2])
+    if not match:
+        return None
+    return parts[0], match.group(1), int(match.group(2), 16) - rename.IMAGE_BASE, int(parts[3])
+
+
+def slot_items(lane, rel, keys):
+    """[(kind, scope, ident, rva)] for the slot keys of `keys` that name `rel` as their class's registered canonical
+    header (reverse/canonical_classes.csv) and a slot of a retail vftable; rva is the retail word in that slot."""
+    wanted = [(key, parsed) for key in keys for parsed in [slot_key(key)] if parsed and parsed[0] == rel]
+    if not wanted:
+        return []
+    headers = {(r.get("class"), r.get("header")) for r in lane.ctx.dicts(rename.CANONICAL_CLASSES)}
+    tables = rename.retail_vtables(lane.ctx)
+    out = []
+    for key, (_rel, cls, table, slot) in wanted:
+        slots = tables.get(table, ((), {}))[0]
+        if (cls, rel) in headers and slot < len(slots):
+            _r, kind, scope, ident = split_key(key)
+            out.append((kind, scope, ident, slots[slot]))
+    return out
+
+
+def slot_problem(new):
+    """Why `new` cannot name a vftable slot, or None: a C++ identifier that names a member, not a position."""
+    if not re.fullmatch(r"[A-Za-z_]\w*", new or "") or new in name_metric.KEYWORDS:
+        return "not a C++ identifier"
+    if name_metric.placeholder(new) or name_metric.weak("function", new) or STRUCTURAL_SLOT.fullmatch(new):
+        return "still a placeholder"
+    if canon(new).replace(" ", "") in GENERIC:
+        return "too generic to help a reader"
+    return None
+
+
 def key_of(rel, kind, scope, ident):
     return f"{rel}|{kind}|{scope}|{ident}"
 
@@ -1121,6 +1172,8 @@ def served_answers(rel, items, mapping):
 
 
 def answer_key(kind, scope, ident):
+    if kind == "slot":
+        return f"{scope}:{ident}"
     if kind in ("param", "local"):
         return f"{scope}:{ident}"
     if kind == "member":
@@ -1433,11 +1486,23 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
                           r"(?:\[[^\]]*\]\s*)*[;,=)(]")
         return next((l for l in uses if decl.search(l)), uses[0] if uses else "")[:90]
 
-    items = [item for item in items if item[0] in NAMED]
+    items = [item for item in items if item[0] in NAMED or item[0] == "slot"]
     spelled = collections.Counter(answer_key(k, s, i) for k, s, i, _ in items)
     listing = "\n".join(f"  {answer_key(k, s, i) if spelled[answer_key(k, s, i)] == 1 else key_of(rel, k, s, i):44} "
-                        f"{k:8} {declared_at(i)}" for k, s, i, _ in items)
+                        f"{k:8} {f'retail table {s.split(chr(64))[1]} slot {i}' if k == 'slot' else declared_at(i)}"
+                        for k, s, i, _ in items)
     evidence = []
+    for kind, scope, ident, rva in items:
+        if kind != "slot":
+            continue
+        cls, table = scope.split("@")
+        holders = sorted({f"{r['name']} ({r['source']})" for r in lane.ctx.rows()
+                          if rename._rva(r.get("target_rva")) == rva})
+        evidence.append(f"SLOT KEY {scope}:{ident}: name virtual slot {ident} of {cls}'s retail vftable {table}, the "
+                        f"member of {cls} retail's table holds there (0x{rva:08X}). Answer the member's identifier "
+                        "alone, from what the body does; its current spelling and the header's declaration are not "
+                        "evidence of the name. Rows at that address now: " + ("; ".join(holders) or "none"))
+        evidence += retail_callee_lines(lane, rva, scope)
     for kind, scope, ident, rva in items:
         request = request_for_key(lane, key_of(rel, kind, scope, ident)) if scope.startswith('unrowed:') else None
         if request:
@@ -1624,6 +1689,8 @@ def cmd_next(lane, args, *, _claim_snapshot=None):
     reviews = second_reviews(worker, state, tally, refused)
     clarifications = {}  # Unfinished scoped votes now need fresh scoped review.
     files, voted = queue(lane, worker, model, args.file, reviews=reviews, clarifications=clarifications)
+    # a slot key's header is served for it whatever else this worker voted there: each key still excludes its voters
+    files += sorted({slot_key(k)[0] for k in selected_keys if slot_key(k)} - set(files))
     if requested_files:
         eligible = set(files)
         files = [rel for rel in requested_files if rel in eligible]
@@ -1701,24 +1768,28 @@ def cmd_next(lane, args, *, _claim_snapshot=None):
         if rel in current["files"]:
             skipped(rel, 'already in this session')
             continue
-        if not lane.servable(rel):
+        slots = slot_items(lane, rel, selected_keys) if selected_keys else []
+        if not lane.servable(rel) and not slots:
             skipped(rel, 'not an eligible source (ownership, vendor/export or request protections)')
             continue
         text = lane.text(rel)
         if text is None:
             skipped(rel, 'source is missing')
             continue
-        if len(text) > source_limit:
+        if slots and not lane.servable(rel):
+            candidates = []                     # a slot key's header: only its slot keys are served
+        elif len(text) > source_limit:
             candidates = data_request_items(lane, rel)
-            if not candidates:
+            if not candidates and not slots:
                 skipped(rel, f'exceeds {source_limit} character limit; no eligible registered data request')
                 continue
         else:
             candidates = cache.items(rel, text)
         if selected_keys:
-            candidates = [*candidates, *(i for i in spelled_items(lane, rel) if key_of(rel, *i[:3]) in selected_keys)]
+            candidates = [*candidates, *(i for i in spelled_items(lane, rel) if key_of(rel, *i[:3]) in selected_keys),
+                          *slots]
         items = [i for i in candidates
-                 if i[0] in NAMED and (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
+                 if (i[0] in NAMED or i[0] == "slot") and (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
                  and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
                       or key_of(rel, *i[:3]) in clarifications.get(rel, ()))]
         targeted = [i for i in items if key_of(rel, *i[:3]) in reviews.get(rel, ())]
@@ -2121,7 +2192,7 @@ def cmd_agree(lane, args):
         rel, kind, scope, ident = split_key(key)
     except ValueError:
         fail("--key needs source|kind|scope|placeholder")
-    if kind not in NAMED:
+    if kind not in NAMED and kind != "slot":
         fail(scoped_route(sources=[rel]))
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
     if key in state and state[key]["status"] not in REOPENED:
@@ -2136,7 +2207,8 @@ def cmd_agree(lane, args):
     text = lane.text(rel)
     if text is None:
         fail(f"{rel} no longer exists: its votes name nothing")
-    items = {key_of(rel, *item[:3]): item for item in [*lane.owned(rel, text, kinds=NAMED), *spelled_items(lane, rel)]}
+    items = {key_of(rel, *item[:3]): item for item in ([*lane.owned(rel, text, kinds=NAMED), *spelled_items(lane, rel)]
+                                                       if kind != "slot" else slot_items(lane, rel, [key]))}
     if key not in items:
         fail(f"{rel} no longer owns {ident} as a {kind}: its votes name nothing")
     rva = items[key][3]
@@ -3106,6 +3178,11 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                     print(f"{key}: reviewed approval is no longer valid for this source and voter set; left")
                 else:
                     print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
+                continue
+            if slot_key(key):
+                _rel, cls, _table, _slot = slot_key(key)
+                print(f"{key}: agreed {row['new']}; land it with tools/rename.py function --rva RVA --to-class {cls} "
+                      f"--new {row['new']} --prepared ... (its check reads this record)")
                 continue
             source_text = lane.text(split_key(key)[0])
             # A scoped record has its own route, and a placeholder that has gone is stale as before.

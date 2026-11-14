@@ -7160,8 +7160,10 @@ def approved_slot_name(ctx, key):
     """The spelling reverse/name_agreed.csv's latest record for slot `key` approves, when that record agrees or
     landed, is not disputed, and the votes still carry it (name_agreement.verify, check_agreement's floor);
     else None."""
-    rows = [r for r in ctx.dicts(AGREED) if r.get("key") == key and r.get("kind") == "slot"]
-    if not rows or any(r.get("status") == "disputed" for r in rows) or rows[-1].get("status") not in ("agreed", "landed"):
+    rows = [r for r in ctx.dicts(AGREED) if r.get("key") == key]
+    # the key's latest record decides, whatever its kind: an older slot approval is not revived by a later record
+    if (not rows or any(r.get("status") == "disputed" for r in rows) or rows[-1].get("kind") != "slot"
+            or rows[-1].get("status") not in ("agreed", "landed")):
         return None
     new = rows[-1].get("new") or ""
     problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key, new,

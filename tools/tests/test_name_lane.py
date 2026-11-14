@@ -4311,3 +4311,105 @@ def test_a_source_changed_row_never_reopens_a_landing_or_a_dispute(tree, tmp_pat
         lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, status=status)])
         lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, status="source-changed")])
         assert lane_of(tree).state()[MEMBER_KEY]["status"] == status
+
+
+# ---------------------------------------------------------------- slot keys (votes-only slot naming)
+
+WIDGET_H = "Code/Game/Widget.h"
+WIDGET_TEXT = """class Widget {
+public:
+    virtual ~Widget();
+    virtual void spin();
+    virtual void slot2();
+};
+"""
+SLOT_TABLE = 0x00800000                    # retail table rva; VA 0x00C00000
+SLOT_KEY = f"{WIDGET_H}|slot|Widget@0x00C00000|1"
+
+
+@pytest.fixture
+def slot_tree(tree, monkeypatch):
+    (tree / WIDGET_H).write_text(WIDGET_TEXT)
+    (tree / "reverse/canonical_classes.csv").write_text(f"class,header,notes\nWidget,{WIDGET_H},registered\n")
+    _git(tree, "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-qm", "a registered class")
+    monkeypatch.setattr(rename, "retail_vtables", lambda ctx: {SLOT_TABLE: ([0x00403040, 0x00401000, 0x00404000], {})})
+    monkeypatch.setattr(name_lane, "retail_callee_lines", lambda lane, rva, under_vote="": ["  (retail callees)"])
+    return tree
+
+
+def serve_slot(root, session, worker, key=SLOT_KEY):
+    be(worker)
+    args = SimpleNamespace(session=session, model="claude-opus-5-5", count=1, file=WIDGET_H, list_only=False,
+                           key=[key])
+    assert name_lane.cmd_next(lane_of(root), args) == 0
+    record = root / f"build/name_lane/sessions/{session}.json"
+    return json.loads(record.read_text()) if record.exists() else None
+
+
+def submit_slot(root, tmp_path, session, name, key=SLOT_KEY):
+    answer = tmp_path / f"answer-{session}.json"
+    answer.write_text(json.dumps({key.split("|")[2] + ":" + key.split("|")[3]: name}))
+    args = SimpleNamespace(answer=str(answer), session=session, model="claude-opus-5-5")
+    return name_lane.cmd_submit(lane_of(root), args, lead=2, min_models=1)
+
+
+def test_a_slot_key_is_served_only_by_its_key_with_its_retail_facts(slot_tree):
+    served = serve_slot(slot_tree, "a", "seat-a")
+    assert [tuple(i) for i in served["files"][WIDGET_H]["items"]] == [("slot", "Widget@0x00C00000", "1", 0x00401000)]
+    brief = (slot_tree / "build/name_lane/briefs/a.txt").read_text(encoding="utf-8")
+    assert "SLOT KEY Widget@0x00C00000:1" in brief and "(retail callees)" in brief
+    # without --key the header serves nothing: a slot key is never served unasked
+    be("seat-plain")
+    args = SimpleNamespace(session="plain", model="claude-opus-5-5", count=1, file=WIDGET_H, list_only=False)
+    assert name_lane.cmd_next(lane_of(slot_tree), args) == 0
+    assert not (slot_tree / "build/name_lane/sessions/plain.json").exists()
+
+
+@pytest.mark.parametrize("key", [f"{WIDGET_H}|slot|Gadget@0x00C00000|1",          # not registered with this header
+                                 f"{WIDGET_H}|slot|Widget@0x00C00000|7",           # past the table
+                                 f"{WIDGET_H}|slot|Widget@0x00C10000|1"])          # no such retail table
+def test_a_slot_key_naming_no_registered_retail_slot_is_not_served(slot_tree, key):
+    assert serve_slot(slot_tree, "x", "seat-x", key=key) is None
+
+
+def test_two_blind_votes_give_the_approval_to_class_reads(slot_tree, tmp_path, capsys):
+    # the header already declares spin: a vote for it is not a collision, and the vote decides, not the header
+    serve_slot(slot_tree, "a", "seat-a")
+    assert submit_slot(slot_tree, tmp_path, "a", "spin") == 0
+    assert SLOT_KEY not in lane_of(slot_tree).state()
+    serve_slot(slot_tree, "b", "seat-b")
+    assert submit_slot(slot_tree, tmp_path, "b", "spin") == 0
+    row = lane_of(slot_tree).state()[SLOT_KEY]
+    assert (row["status"], row["kind"], row["old"], row["new"], row["rva"]) == ("agreed", "slot", "1", "spin",
+                                                                                 "0x00401000")
+    ctx = rename.Context(slot_tree, object_scan=False)
+    assert rename.slot_key(ctx, "Widget", SLOT_TABLE, 1) == SLOT_KEY
+    assert rename.approved_slot_name(ctx, SLOT_KEY) == "spin"
+    # apply lands nothing for it: rename.py --to-class reads the record
+    capsys.readouterr()
+    assert apply(slot_tree, key=[SLOT_KEY]) == 0
+    assert "land it with tools/rename.py function --rva RVA --to-class Widget --new spin" in capsys.readouterr().out
+    assert lane_of(slot_tree).state()[SLOT_KEY]["status"] == "agreed"
+
+
+@pytest.mark.parametrize("name,why", [("slot1", "still a placeholder"), ("vf3", "still a placeholder"),
+                                      ("rva00401000", "still a placeholder"), ("not an id", "not a C++ identifier"),
+                                      ("spin", None), ("GetSnapshotName", None)])
+def test_a_slot_answer_names_a_member_not_a_position(name, why):
+    got = name_lane.slot_problem(name)
+    assert (got is None) if why is None else (why in got)
+
+
+def test_agree_records_a_slot_agreement_the_votes_reached(slot_tree, tmp_path):
+    for seat in ("a", "b"):
+        serve_slot(slot_tree, seat, f"seat-{seat}")
+        assert submit_slot(slot_tree, tmp_path, seat, "spin") == 0
+    # the votes landed through separate pushes, so neither submit recorded the agreement
+    agreed = slot_tree / name_lane.AGREED
+    agreed.write_text("".join(line for line in agreed.read_text().splitlines(keepends=True) if SLOT_KEY not in line))
+    assert SLOT_KEY not in lane_of(slot_tree).state()
+    args = SimpleNamespace(key=SLOT_KEY, name="spin", lead=2, min_models=1)
+    assert name_lane.cmd_agree(lane_of(slot_tree), args) == 0
+    row = lane_of(slot_tree).state()[SLOT_KEY]
+    assert (row["kind"], row["new"], row["status"]) == ("slot", "spin", "agreed")
