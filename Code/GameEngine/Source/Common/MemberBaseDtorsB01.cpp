@@ -165,6 +165,10 @@ class Rva00577936
 {
 public:
 	virtual ~Rva00577936();
+	virtual void slot04() = 0;
+	virtual void rva00577966(void);
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
 };
 
 

@@ -45,3 +45,4 @@ Census confirmation: awaiting; the census does not count bridged tables.
 
 Applied by the same rule (unattended worker; each commit carries its measurement):
 - 2026-11-14 `PropagandaTowerBehaviorIface` (VA 0x00C1C780): 1 slots (1 pure, 0 rowed virtual, 0 destructor), 2 view(s): `PropagandaTowerBehavior.cpp`, `PropagandaTowerBehaviorConstructor.cpp`.
+- 2026-11-14 `Rva00577936` (VA 0x00C6E9E8): 5 slots (3 pure, 1 rowed virtual, 1 destructor), 5 view(s): `MemberBaseDtorsB01.cpp`, `Rva000AD6F4Members.cpp`, `Rva00577936Ctor.cpp`, `Rva005F8388.cpp`, `Rva005F86C3Constructor.cpp`.
