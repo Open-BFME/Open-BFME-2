@@ -6,13 +6,7 @@
 // Original identities and unused fields remain unknown.
 #include <vector>
 #include "ascii_string.h"
-class Rva00564DF2NameView
-{
-public:
-    AsciiString rva00564DF2() const;
-private:
-    char unknown[0xB8];
-};
+#include "../../../../Include/Common/Rva00564DF2NameView.h"
 class Rva0052BFE1
 {
 public:
@@ -75,5 +69,5 @@ bool Rva0052BFE1::hasEntryNamed(const AsciiString &key)
 // Out of line so the scans above keep their call.
 __declspec(noinline) AsciiString Rva00564DF2NameView::rva00564DF2() const
 {
-    return *(const AsciiString *)(unknown + 4);
+    return *(const AsciiString *)(m_bytes + 4);
 }

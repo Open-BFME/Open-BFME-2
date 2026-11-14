@@ -285,13 +285,7 @@ public: Rva005657FEElement *rva005657FE(const StringBase<char>&,const Rva005657F
 };
 struct CampaignEntry184 {unsigned char opaque[184];};
 struct CampaignRange184 {CampaignEntry184 *begin,*end;};
-class Rva00564DF2NameView
-{
-public:
-	AsciiString rva00564DF2() const;	// 0x00564DF2
-private:
-	char m_bytes[0xB8];
-};
+#include "../../../../Include/Common/Rva00564DF2NameView.h"
 // The 184-byte records at +0x0C, read as name views by rva0052C7A2.
 struct Rva0052BFE1Records
 {
