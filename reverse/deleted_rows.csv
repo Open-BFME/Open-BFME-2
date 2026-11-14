@@ -6265,3 +6265,4 @@ __ehhandler$?setCorrectDamageState@ActiveBody@@QAEX_N@Z,0x0078F9C2,"Renamed to _
 ?rva0004C4C7@Rva004C743@@QAEPAXXZ,0x0004C4C7,"Renamed to ?rva0004C4C7@Rva004C743@@UAEPAXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?rva0004C62D@Rva004C743@@QAEPAXXZ,0x0004C62D,"Renamed to ?rva0004C62D@Rva004C743@@UAEPAXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?rva0004C8DD@Rva004C743@@QAEPAXXZ,0x0004C8DD,"Renamed to ?rva0004C8DD@Rva004C743@@UAEPAXXZ by tools/rename.py (virtual: retail vtable slot)"
+?rva00087642@W3DView@@QAEXXZ,0x00087642,"Renamed to ?rva00087642@W3DView@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"

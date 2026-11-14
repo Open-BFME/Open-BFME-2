@@ -4,7 +4,7 @@
 // W3DView virtual (primary vftable VA 0x00BC7568 stored by the ctor at
 // 0x0008B805) that restores the camera saved around an object-follow mode:
 //
-// ?rva00087642@W3DView@@QAEXXZ retail 0x00087642..0x0008780A (456B), vftable
+// ?rva00087642@W3DView@@UAEXXZ retail 0x00087642..0x0008780A (456B), vftable
 // slot 119 (+0x1DC): restores the saved camera. When slot +0x1CC is set it
 // clears the followed id (slots +0x1D4 / +0x1D8) and puts back the eight
 // saved camera values (position z angle pitch zoom +0x23E8 target height and
@@ -124,7 +124,7 @@ public:
 	virtual Bool slot163Test();				// +0x28C
 	virtual void slot164Set(Int value);			// +0x290
 
-	void rva00087642();
+	virtual void rva00087642();
 	void rva0008780A(int unused);
 
 private:

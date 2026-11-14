@@ -1839,7 +1839,7 @@ void Rva00085FA8::calcDeltaScroll(float *out)
 
 // tu-skeleton: 0x000875D6 28B ?rva000875D6@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
-// tu-skeleton: 0x00087642 456B ?rva00087642@W3DView@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
+// tu-skeleton: 0x00087642 456B ?rva00087642@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
 
 // tu-skeleton: 0x0008780A 328B ?rva0008780A@W3DView@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva00087642CameraRestore.cpp (not merged yet)
 
