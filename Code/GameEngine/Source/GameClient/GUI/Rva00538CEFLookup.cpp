@@ -7,12 +7,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0020E89C;
 #include "../../../Include/GameLogic/Rva0020EAF6View.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad00[0xB0];
-	Rva0020EAF6View *m_B0;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "../../../Include/Common/LivingWorldArmyIcon.h"
 class Rva003FDE50 {public:void rva003FDE50(unsigned int);};
@@ -41,7 +36,7 @@ Rva0020E89C *Rva00538CEF::rva00538CEF()
 	if (m_start != m_finish) {
 		Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 		if (logic) {
-			Rva0020EAF6View *view = logic->m_B0;
+			Rva0020EAF6View *view = (Rva0020EAF6View *)logic->m_B0;
 			if (view)
 				return view->rva0020EAF6(m_finish[-1]);
 		}

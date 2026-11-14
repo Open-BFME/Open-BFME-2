@@ -5,7 +5,7 @@
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /arch:SSE
 #include "../../../Include/Common/Rva002A9BF2.h"
 #include "../../Common/GameLogicObjectLookupView.h"
-class Rva002BA8F1Logic { public: char m_pad00[0xF4]; unsigned int m_bitIndex; int m_padF8; unsigned int m_frame; };
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 extern GameLogic *TheGameLogic;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -45,12 +45,12 @@ bool ScriptEngine::rva00203F0E(void *p) {
     }
     else
     {
-        unsigned int bit = World->m_bitIndex;
+        unsigned int bit = World->m_xF4;
         unsigned int mask = 1u << (bit & 31);
         unsigned int *bits = (unsigned int *)((char *)scriptTimerArg + 0x24);
         if ((bits[bit >> 5] & mask) == 0)
             return false;
-        if (World->m_frame < scriptTimerArg->m_targetFrame)
+        if (World->m_FC < scriptTimerArg->m_targetFrame)
             return false;
     }
     return true;

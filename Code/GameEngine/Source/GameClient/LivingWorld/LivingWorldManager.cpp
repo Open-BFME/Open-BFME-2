@@ -11,11 +11,7 @@
 #include "ascii_string.h"
 class Rva002E2903Player;
 #include "../../../Include/GameLogic/Rva002E071E.h"
-class Rva002BA8F1Logic {
-public:
- Rva002E2903Player *find(int,unsigned int *);
- char unknown00[0x98];Rva002E071E *localPlayer98;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../Include/Common/LivingWorldArmyIcon.h"
@@ -44,7 +40,7 @@ void LivingWorldManager::OnSwapArmyMembers(ArmySwapView *armyA,const ArmyMemberR
  Rva002BA8F1Logic *logic=(Rva002BA8F1Logic *)TheLivingWorldLogic;
  int id=armyA->m_playerID;
  Rva002E2903Player *player=logic->find(id,0);
- Rva002E071E *local=((Rva002BA8F1Logic *)TheLivingWorldLogic)->localPlayer98;
+ Rva002E071E *local=(Rva002E071E *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_98;
  if(!player || !local || !((Rva002E071E *)player)->rva002E071E(local))return;
  bool nameA=armyA->hasName();
  bool nameB=armyB->hasName();

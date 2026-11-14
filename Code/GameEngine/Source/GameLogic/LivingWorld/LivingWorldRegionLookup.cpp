@@ -12,12 +12,7 @@ struct Rva0020FAB4Ret
 
 #include "../../../Include/GameLogic/Rva0020EE29.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xb0];
-	Rva0020EE29 *m_b0;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -32,4 +27,4 @@ private:
 	int m_1c;
 };
 
-void *Rva005C98C0::rva005C98C0(int id){Rva0020FAB4Ret*region=0;if(TheLivingWorldLogic&&((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_b0){region=(Rva0020FAB4Ret*)((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_b0->rva0020FAB4(id,m_1c);if(region&&!region->m_1a2)region=0;}return region;}
+void *Rva005C98C0::rva005C98C0(int id){Rva0020FAB4Ret*region=0;if(TheLivingWorldLogic&&((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_B0){region=(Rva0020FAB4Ret*)((Rva0020EE29 *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_B0)->rva0020FAB4(id,m_1c);if(region&&!region->m_1a2)region=0;}return region;}

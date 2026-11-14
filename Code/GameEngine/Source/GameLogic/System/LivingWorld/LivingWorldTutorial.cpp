@@ -16,12 +16,7 @@ typedef int Int;
 class LivingWorldPendingBattle;
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	unsigned char m_pad00[0xb0];
-	LivingWorldRegionManager *m_regionManager;	// +0xB0
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 	// TheLivingWorldLogic
 
@@ -246,7 +241,7 @@ void *LivingWorldTutorial::SessionTask::getBattleParam(Int index)
 	void *region = getRegionParam(index);
 	if (region)
 	{
-		LivingWorldRegionManager *manager = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_regionManager;
+		LivingWorldRegionManager *manager = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
 		return manager->rva0020E57F(reinterpret_cast<unsigned int>(region));
 	}
 	return 0;

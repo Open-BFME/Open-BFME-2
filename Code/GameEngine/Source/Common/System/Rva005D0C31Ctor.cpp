@@ -20,12 +20,7 @@ struct Rva002BA8F1Listener
 
 #include "../../../Include/Common/Rva005A0B4CList.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad00[0x6c];
-	Rva005A0B4CList m_6c;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 #include "../../../Include/Common/Rva005D0C31Second.h"
 
@@ -40,5 +35,5 @@ Rva005D078B::Rva005D078B(void *p)
 	: Rva005CF8A1(p)
 	, Rva005D0C31Second()
 {
-	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_6c.append((Rva002BA8F1Listener *)((char *)this + 0x10));
+	((Rva005A0B4CList *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field10 + 0x5C))->append((Rva002BA8F1Listener *)((char *)this + 0x10));
 }

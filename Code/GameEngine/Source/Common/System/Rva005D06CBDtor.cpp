@@ -9,12 +9,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class CreateAHeroData;
 #include "../../../Include/Common/Rva002B7250.h"
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0x2C];
-	Rva002B7250 m_holder2C;
-};
+#include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva005D06CBB1
 {
@@ -47,5 +42,5 @@ public:
 };
 Rva005D06CB::~Rva005D06CB()
 {
-	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder2C.rva002B7250((CreateAHeroData *)(Rva005D06CBB2 *)this);
+	((Rva002B7250 *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field10 + 0x1C))->rva002B7250((CreateAHeroData *)(Rva005D06CBB2 *)this);
 }
