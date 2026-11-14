@@ -5,11 +5,7 @@
 // places uniquely on unclaimed game.dat .text by masked whole-.text search:
 //   ?bfmeGoBLD@@YGXPAX@Z 0x0029ACE3 (24B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
-class BfmeSinkBLD
-{
-public:
-	void bfmeDoBLD(void *what, int flag);
-};
+#include "../../Include/Common/BfmeSinkBLD.h"
 
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;

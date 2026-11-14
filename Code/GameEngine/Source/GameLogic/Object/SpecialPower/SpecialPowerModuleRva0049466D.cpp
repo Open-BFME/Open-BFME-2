@@ -155,11 +155,7 @@ public:
 class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-class BfmeSinkBLD
-{
-public:
-	void bfmeDoBLD(void *name, int flag);
-};
+#include "../../../../Include/Common/BfmeSinkBLD.h"
 
 struct Rva00493251GameLogicView
 {
