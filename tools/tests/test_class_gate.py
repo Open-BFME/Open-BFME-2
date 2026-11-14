@@ -1069,3 +1069,31 @@ def test_putting_back_a_view_an_ordinary_edit_removed_is_refused(repo, capsys):
     repo.stage(OLD)
     rc, err = repo.gate(capsys)
     assert rc == 1 and '`GameLogic`' in err
+
+
+# SpawnArmy's deleted donor declares this free operator before later class bodies.
+OPERATOR_PLUS_DECL = 'AsciiStringPlusText operator+(const AsciiString &,const char *);\n'
+
+
+@pytest.mark.parametrize('side', ['donor', 'destination'])
+def test_operator_plus_declaration_preserves_deleted_body_credit(repo, capsys, side):
+    old = OPERATOR_PLUS_DECL + LOGIC if side == 'donor' else LOGIC
+    new = OPERATOR_PLUS_DECL + LOGIC if side == 'destination' else LOGIC
+    repo.write(OLD, '// operator declaration fixture\n' + old + BODY)
+    repo.commit(OLD)
+    merge_into(repo, FILLER + new + 'int fresh() { return 4; }\n', OLD)
+    assert class_gate.staged_renames() == {}
+    assert repo.gate(capsys) == (0, '')
+
+
+@pytest.mark.parametrize('change', ['edited', 'copy', 'namespace'])
+def test_operator_plus_declaration_does_not_excuse_a_new_copy(repo, capsys, change):
+    repo.write(OLD, OPERATOR_PLUS_DECL + LOGIC + BODY)
+    repo.commit(OLD)
+    new = LOGIC.replace('int m_frame;', 'long m_frame;') if change == 'edited' else LOGIC
+    if change == 'namespace':
+        new = 'namespace Other {\n' + new + '}\n'
+    merge_into(repo, FILLER + OPERATOR_PLUS_DECL + new + 'int fresh() { return 4; }\n',
+               *([] if change == 'copy' else [OLD]))
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`GameLogic`' in err

@@ -391,6 +391,14 @@ def proven_scope_statement(statement):
                 r'char32_t|short|int|long|float|double|signed|unsigned|__int(?:8|16|32|64))\b',
                 statement):
         return True
+    # A free operator+ declaration (SpawnArmy's donor) has a symbolic
+    # declarator. Require its return type and parameter list; a bare macro
+    # invocation still cannot establish scope. Keep other uncertain syntax
+    # conservative, and leave body/scope identity and one-use credit intact.
+    if re.fullmatch(
+            r'[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*(?:\s*<[^;{}()]*>)?'
+            r'(?:\s+|\s*[*&]\s*)[*&\s]*operator\s*\+\s*\([^;{}]*\)', statement):
+        return True
     # Require a separate type and declarator: NAME or NAME(args) alone is not
     # a declaration. Keep this deliberately narrow; uncertain syntax refuses.
     return re.fullmatch(
