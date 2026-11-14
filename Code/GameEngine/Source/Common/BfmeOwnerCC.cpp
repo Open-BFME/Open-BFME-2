@@ -54,9 +54,18 @@ extern Display *TheDisplay;
 class BfmeBaseCC
 {
 public:
+	virtual void slot00(void) = 0;
 	virtual ~BfmeBaseCC(void)
 	{
 	}
+	virtual void slot08(void) = 0;
+	virtual void slot0C(void) = 0;
+	virtual void slot10(void) = 0;
+	virtual void slot14(void) = 0;
+	virtual void slot18(void) = 0;
+	virtual void slot1C(void) = 0;
+	virtual void slot20(void) = 0;
+	virtual void slot24(void) = 0;
 };
 
 class BfmeOwnerCC : public BfmeBaseCC
