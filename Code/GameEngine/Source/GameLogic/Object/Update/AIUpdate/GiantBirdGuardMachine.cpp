@@ -57,11 +57,7 @@ struct StateConditionInfo;
 
 #include "../../../../../Include/GameLogic/PolygonTrigger.h"
 
-struct TAiData
-{
-	unsigned char m_pad00[0x44];
-	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-};
+#include "../../../../../Include/GameLogic/TAiData.h"
 
 #include "../../../../../Include/GameLogic/AI.h"
 
