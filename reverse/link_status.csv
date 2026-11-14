@@ -12896,17 +12896,13 @@ Code/GameEngine/Source/GameNetwork/LANAPI.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPICompleteDestructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/LANAPIGetErrorStringFromReturnType.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIGetMyName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/LANAPIOnGameCreate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/LANAPIOnGameStartTimer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva00581641.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva005816E3.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPIRva00582EB0.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/LANAPI_OnAccept.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_handleGameOptions.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_handleGameStartTimer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/LANAPI_handleSetAccept.cpp,yes,0,0,0,0,0
