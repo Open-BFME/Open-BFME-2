@@ -805,7 +805,7 @@ class Rva005C865B {public: Rva005C865B(void *,float *); char opaque[0x1C];};
 
 class Rva005C81D8 {public: void rva005C81D8(Rva005C8176 *,Rva005C8176 *,Rva005C8176 *);};
 
-struct BfmeEventPositionView {float x,y,z;};
+#include "../../../GameEngineDevice/Include/BfmeEventPositionView.h"
 
 struct Rva005C8876Position {float x,y,z;Rva005C8876Position(){} Rva005C8876Position(const Rva005C8876Position&p):x(p.x),y(p.y),z(p.z){} };
 

@@ -31,11 +31,7 @@ public:
 };
 #include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 class Rva000A8C9B { public: void clear(); };
-struct BfmeEventPositionView {
-    float x,y,z;
-    // ?BfmeEventPositionView::zero present-unmatched
-    __forceinline void zero() { x=0.0f; y=0.0f; z=0.0f; }
-};
+#include "../../../../GameEngineDevice/Include/BfmeEventPositionView.h"
 struct BfmeStringTailRecord144
 {
     virtual ~BfmeStringTailRecord144();
