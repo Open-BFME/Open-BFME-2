@@ -38,13 +38,7 @@ struct BoneLocInfo
 	AsciiString boneName;					// bone name to use for effect pos
 };
 
-struct BaseBoneListInfo
-{
-	BoneLocInfo locInfo;
-	GameClientRandomVariable gameClientDelay;
-	GameLogicRandomVariable gameLogicDelay;
-	bool onlyOnce;
-};
+#include "../../../../Include/GameLogic/Module/BaseBoneListInfo.h"
 
 struct BoneFXListInfo : public BaseBoneListInfo
 {

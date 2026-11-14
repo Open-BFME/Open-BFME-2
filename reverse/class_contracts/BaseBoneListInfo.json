@@ -1,0 +1,142 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "BaseBoneListInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "32": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BoneFXUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:BoneLocInfo",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString::AsciiStringData*"
+    }
+   ],
+   "name": "locInfo",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "BoneLocInfo",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:GameClientRandomVariable",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_type",
+     "offset": 0,
+     "size": 4,
+     "type": "enum"
+    },
+    {
+     "kind": "f4",
+     "name": "m_low",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_high",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "gameClientDelay",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "GameClientRandomVariable",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:GameLogicRandomVariable",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_type",
+     "offset": 0,
+     "size": 4,
+     "type": "enum"
+    },
+    {
+     "kind": "f4",
+     "name": "m_low",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_high",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "gameLogicDelay",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 12,
+   "type": "GameLogicRandomVariable",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "onlyOnce",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 2
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 32,
+ "size_by": "zh",
+ "vslots": {}
+}
