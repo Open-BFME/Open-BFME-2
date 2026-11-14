@@ -1497,7 +1497,7 @@ file,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008C3AC.cpp,Co
 file,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_Rva0008BB27.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/View_getPosition.cpp,inferred,mechanical:?getPosition@View@@UAEXPAUCoord3D@@@Z,Code/GameEngineDevice/Source/W3DDevice/GameClient/View_getPosition.cpp,
 file,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/Rva0007FD89EntryQuery.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjClass_IsReflectionVisible.cpp,inferred,mechanical:?IsReflectionVisible@WaterRenderObjClass@@QAE_NPAX@Z,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjClass_IsReflectionVisible.cpp,
 param,sqr::v,sqr::operand,inferred,agree:nl-3a6468473975,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00474842.cpp,
-local,Rva002B280C::rva002B280C::p,Rva002B280C::rva002B280C::campaign,inferred,agree:nl-6c1e87c7f29d,Code/GameEngine/Source/Common/Rva002B280CCheck.cpp,0x002B280C
+local,Rva002B280C::rva002B280C::p,Rva002B280C::rva002B280C::campaign,inferred,agree:nl-6c1e87c7f29d,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,0x002B280C
 local,Object::rva0028EBDA::m,Object::rva0028EBDA::enragedBehavior,inferred,agree:nl-c8b411a10888,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,0x0028EBDA
 member,BfmeHostFN::m_bfmeBufsFN,BfmeHostFN::m_buffers,inferred,agree:nl-08a9ece0cfb6,Code/GameEngine/Source/Common/BfmeConv2048.cpp,
 member,BfmeHostFN::m_bfmeCountFN,BfmeHostFN::m_bufferCount,inferred,agree:nl-2beb2ad15f2f,Code/GameEngine/Source/Common/BfmeConv2048.cpp,
@@ -2043,7 +2043,7 @@ file,Code/Libraries/Source/VP6/Rva001C5070SkipBits.cpp,Code/Libraries/Source/VP6
 file,Code/Libraries/Source/VP6/Rva001C6980InsertSorted.cpp,Code/Libraries/Source/VP6/InsertSorted.cpp,inferred,mechanical:?InsertSorted@@YAXPAUVp6SortRecord@@HPAH@Z,Code/Libraries/Source/VP6/InsertSorted.cpp,
 file,Code/Libraries/Source/VP6/_AnyRatioFrameScaleRva001BAF30Farm.cpp,Code/Libraries/Source/VP6/AnyRatioFrameScale.cpp,inferred,mechanical:_AnyRatioFrameScale,Code/Libraries/Source/VP6/AnyRatioFrameScale.cpp,
 param,LivingWorldCampaignManager::UseGenericSpawnArmyForPlayer::b,LivingWorldCampaignManager::UseGenericSpawnArmyForPlayer::player,inferred,agree:nl-254be0ff19b0,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp,0x003B8CE0
-param,Rva002B280C::rva002B280C::a,Rva002B280C::rva002B280C::army,inferred,agree:nl-3026eb8f92d6,Code/GameEngine/Source/Common/Rva002B280CCheck.cpp,0x002B280C
+param,Rva002B280C::rva002B280C::a,Rva002B280C::rva002B280C::army,inferred,agree:nl-3026eb8f92d6,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,0x002B280C
 param,q4Notify002CC841::c,q4Notify002CC841::store,inferred,agree:nl-df658b0feb30,Code/GameEngine/Source/GameLogic/Object/Made002CC841Parse.cpp,0x00509780
 param,Rva0028867DCaller::p,Rva0028867DCaller::level,inferred,agree:nl-d0504418acb3,Code/GameEngine/Source/Common/Rva0028867DCheck.cpp,
 param,vector::a,vector::alloc,inferred,agree:nl-ca2eaeb5d4e2,Code/GameEngine/Source/GameClient/DrawablePhysicsXformHugeFourLegs.cpp,
@@ -6524,7 +6524,7 @@ member,Rva002B4948Container::m_begin1B8,Rva002B4948Container::m_begin,inferred,a
 member,Rva002B4948Container::m_end1BC,Rva002B4948Container::m_end,inferred,agree:nl-f5b63cf748f9,Code/GameEngine/Source/Common/Rva002B4948Find.cpp,
 local,Rva002B2EC7::rva002B2EC7::p,Rva002B2EC7::rva002B2EC7::oldItem,inferred,agree:nl-1f110cb2f6eb,Code/GameEngine/Source/Common/Rva002B2EC7Set.cpp,0x002B2EC7
 param,Rva002B2EC7::rva002B2EC7::v,Rva002B2EC7::rva002B2EC7::newItem,inferred,agree:nl-c54b6ff99702,Code/GameEngine/Source/Common/Rva002B2EC7Set.cpp,0x002B2EC7
-local,Rva002B36BE::rva002B36BE::r,Rva002B36BE::rva002B36BE::checkPassed,inferred,agree:nl-8103785327e3,Code/GameEngine/Source/Common/Rva002B36BE.cpp,0x002B36BE
+local,Rva002B36BE::rva002B36BE::r,Rva002B36BE::rva002B36BE::checkPassed,inferred,agree:nl-8103785327e3,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,0x002B36BE
 param,rva002B4623::a,rva002B4623::first,inferred,agree:nl-b61b041af27c,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
 param,rva002B4623::b,rva002B4623::last,inferred,agree:nl-cc4329d5a2bc,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
 param,rva002B4623::c,rva002B4623::destEnd,inferred,agree:nl-e5dc0d2aea41,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
@@ -7282,7 +7282,7 @@ param,Rva0016825DPoint#2::v,Rva0016825DPoint#2::source,inferred,agree:nl-4c1bc07
 local,Rva001800B2Create::p,Rva001800B2Create::prototype,inferred,agree:nl-ad606e3b154f,Code/Libraries/Source/WWVegas/WW3D2/Rva00180054Factory.cpp,0x001800B2
 param,Rva004C77C4Max::a,Rva004C77C4Max::left,inferred,agree:nl-33b427c6d93c,Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp,
 param,Rva004C77C4Max::b,Rva004C77C4Max::right,inferred,agree:nl-35fd61f21d98,Code/Libraries/Source/WWVegas/WWLib/LocomotorPairVectorOverflow.cpp,
-param,Rva002BBBE7::rva002BBBE7::n,Rva002BBBE7::rva002BBBE7::node,inferred,agree:nl-d3f39abeb65d,Code/Libraries/Source/WWVegas/WWLib/Rva002BBBE7.cpp,0x002BBBE7
+param,Rva002BBBE7::rva002BBBE7::n,Rva002BBBE7::rva002BBBE7::node,inferred,agree:nl-d3f39abeb65d,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp,0x002BBBE7
 local,BfmeHostAAS::bfmeProbeAAS::r,BfmeHostAAS::bfmeProbeAAS::windowRect,inferred,agree:nl-749e2fa7cbcc,Code/Libraries/Source/debug/debug_cmd.cpp,0x000397D0
 local,~BfmeHolderDB::p,~BfmeHolderDB::countedObject,inferred,agree:nl-cda036a59a26,Code/Libraries/Source/Apt/AptLoad.cpp,
 local,~Rva006D07E0Key::p,~Rva006D07E0Key::countedObject,inferred,agree:nl-8f9c04c1897c,Code/Libraries/Source/Apt/AptLoad.cpp,

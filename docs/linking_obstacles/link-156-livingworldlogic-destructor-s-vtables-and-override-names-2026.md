@@ -71,3 +71,16 @@ unchanged LINKS. LivingWorldLogicCtorBfme's blocker, `event5_2` (player slot 2 =
 the undeclared virtual override so slot 2 binds the base default: `LivingWorldLogicCtorBfme.cpp`
 now LINKS 0 -> 815 B cleanly (cohort total 24,030 B). Remaining: the observer bases' slot names
 (identity), then the overrides return.
+
+
+2026-11-13 (merge-climb retry after class_gate fixes 4783bc7256e, 62293cb43e1,
+and 0d695d658a1; base `a518c2c963fd`): the official composer absorbs
+28 approved donors into `Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp`.
+`./build.sh` verifies 212/212 matched rows with zero row identities lost;
+CSV and frozen-source checks pass. LinkGuard and ProviderGuard admit the
+composition using freshly fetched index SHA-256 `d1d043b3a395600da212d61d693c571e8fa570dddb3c1f42741984890ef3c324`
+(meta `50ce6f90bb`, census `50ce6f90bb`).
+This is partial source consolidation, not a new census or full-image/runtime
+result; historical evidence and unrelated prerequisites remain in force.
+The separate constructor/destructor and observer-identity work above is not
+cleared by these source moves.
