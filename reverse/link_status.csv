@@ -3927,7 +3927,6 @@ Code/GameEngine/Source/Common/Rva00451F45Derived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00452FE0Same.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00454200Advance_Rva00454200Element_refresh.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00458AAEXfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0045CE8CXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0045EF90CopyConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0045EF90Dtor.cpp,yes,0,0,0,0,0
@@ -8892,7 +8891,6 @@ Code/GameEngine/Source/GameLogic/AI/AIStatesXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateOnEnter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIWanderInPlaceStateOnExit.cpp,yes,0,0,0,0,0
@@ -9398,7 +9396,6 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDa
 Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorPoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior_update.cpp,yes,0,0,0,0,0
@@ -9413,7 +9410,6 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorFriendNew.cp
 Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RenderableRiverArea.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/RenderableRiverAreaCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp,yes,0,0,0,0,0
@@ -12171,7 +12167,6 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDuplicate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAppendDebugMessage.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCheckConditionsForTeamNames.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineCollectAssets.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDidUnitExist.cpp,yes,0,0,0,0,0
@@ -15828,7 +15823,6 @@ Code/Libraries/Source/WWVegas/WWLib/Rva0058729DContains.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00587F69Dtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00588B8AGet.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00599534EraseFirst.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/Rva005B09D8CopyPointers.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva005B0E9F.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva005B26CEItemCmp.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva005B2DDFLookup.cpp,yes,0,0,0,0,0
