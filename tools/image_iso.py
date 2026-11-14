@@ -189,7 +189,7 @@ def attach_objects(publics, manifest, mapfile=None):
 
 
 
-def place_statics(publics, manifest, wanted, image):
+def place_statics(publics, manifest, wanted, image, missed=None):
     """{name: [placement]} for data symbols of `wanted` the MAP does not list: MSVC's MAP lists no internal-linkage
     data (a file `static`, a namespace-scope `const`, an anonymous namespace's global), so each is placed through
     its own object. A COFF section is contiguous in the image: its start is fixed by any symbol in it the MAP
@@ -282,6 +282,8 @@ def place_statics(publics, manifest, wanted, image):
         for sym in targets:
             begins = starts.get(sym.sec, set())
             if len(begins) != 1:
+                if missed is not None:
+                    missed.add(sym.name)      # an object defines it, but nothing places it
                 continue
             section = sections[sym.sec - 1]
             values = sorted(values_by_sec[sym.sec])
@@ -687,6 +689,7 @@ class Checker:
         self.retail_literals = {}
         self.ledger_literal_cache = {}
         self.statics = {}                      # place_statics: data the MAP does not list
+        self.unplaced = set()                  # place_statics: such data an object defines but nothing places
         for p in publics:
             literal = re.match(r"\?\?_C@_([01])", p["name"])
             if literal:
@@ -1027,7 +1030,8 @@ class Checker:
                 # every image copy of a pooled constant, not only one a winner qualifies; equality of the pooled
                 # value never discharges a named global sharing the address (the winner path below checks its
                 # own storage over the row's size)
-                named = any(not POOLED.match(n) and (self.by_name.get(n) or self.statics.get(n)) for n in names)
+                named = any(not POOLED.match(n) and (self.by_name.get(n) or self.statics.get(n) or n in self.unplaced)
+                            for n in names)
                 pooled = self.pooled_copies(names, rva, size)
                 compared = kind + "_compared" if kind in ("string", "wstring", "float") else "globals_compared"
                 if pooled is False:
@@ -1409,15 +1413,16 @@ STRUCT_ARRAY = re.compile(r"@@[23][PQRS][A-D][UV]\w")
 def word_container(symbol, proven, offset):
     """'nonpointer' when the data symbol holding a word at `offset` cannot hold a pointer there (inside a string
     literal's encoded length; inside an array of integral or floating elements), 'struct' inside an array of
-    structs (its fields are not known), else None. `symbol` is a public-shaped dict; `proven` maps a data symbol to
-    its proven sizeof (reverse/data_rows.csv): without one larger than a pointer, an element-typed name may be a
+    structs (its fields are not known), else None. `symbol` is a public-shaped dict; `proven` maps a data symbol and
+    its defining source to its proven sizeof (reverse/data_rows.csv): without one larger than a pointer, an element-typed name may be a
     pointer variable, and nothing is said; a word past the proven payload is outside the container."""
     name = symbol["name"]
     if name.startswith("??_C@"):
         length = literal_length(name)                 # and only where this copy's own extent holds all of it
         held = length and symbol.get("extent") and length <= symbol["extent"]
         return "nonpointer" if held and offset + 4 <= length else None
-    size = proven.get(name) or 0
+    size = proven.get((name, source_key(symbol.get("source") or ""))) if symbol.get("source") else None
+    size = size or 0
     if size <= 4 or offset + 4 > size:
         return None
     if SCALAR_ARRAY.search(name):
@@ -1428,13 +1433,18 @@ def word_container(symbol, proven, offset):
 
 
 def proven_sizes(path):
-    """{name: sizeof} of the matched rows of reverse/data_rows.csv at `path` (sizes the build proves); {} when absent."""
+    """{(name, source): sizeof} of the matched rows of reverse/data_rows.csv at `path` (sizes the build proves for
+    the symbol its source defines; internal symbols of one name are not one object); a pair proven two ways is
+    left out. {} when absent."""
     path = Path(path)
     if not path.exists():
         return {}
+    found = collections.defaultdict(set)
     with path.open(newline="", encoding="utf-8") as f:
-        return {r["name"]: int(r["size"]) for r in csv.DictReader(f)
-                if r.get("status") == "matched" and (r.get("size") or "").isdigit()}
+        for r in csv.DictReader(f):
+            if r.get("status") == "matched" and (r.get("size") or "").isdigit() and r.get("source"):
+                found[(r["name"], source_key(r["source"]))].add(int(r["size"]))
+    return {key: next(iter(sizes)) for key, sizes in found.items() if len(sizes) == 1}
 
 
 def data_address_words(checker, limit, counts, proven=None):
@@ -2633,7 +2643,8 @@ def main(argv=None):
         return 1
     checker = Checker(ours, retail, publics, addresses, qualified)
     # internal-linkage data the MAP does not list: placed through its own object (place_statics)
-    checker.statics = place_statics(publics, args.objects, unlisted_names(rows, checker.by_name), ours)
+    checker.statics = place_statics(publics, args.objects, unlisted_names(rows, checker.by_name), ours,
+                                    missed=checker.unplaced)
     object_counts["static_data_names_placed"] = len(checker.statics)
     if args.vptr_stores:
         return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))

@@ -2198,7 +2198,7 @@ def test_round5_code_end_requires_its_text_dir32_symbol_and_addend(proof, opcode
 def proven(tmp_path, sizes):
     """reverse/data_rows.csv beside the fixture's functions.csv: the sizes the build proves."""
     lines = ["name,address,address_kind,size,section,source,status,evidence,model"]
-    lines += [f"{n},0x00402000,rva,{size},.data,Code/x.cpp,matched,probe,m" for n, size in sizes.items()]
+    lines += [f"{n},0x00402000,rva,{size},.data,Code/{n}.cpp,matched,probe,m" for n, size in sizes.items()]
     (tmp_path / "data_rows.csv").write_text("\n".join(lines) + "\n")
 
 
@@ -2554,4 +2554,61 @@ def test_named_storage_at_a_map_location_and_a_placed_static_is_ambiguous():
     c.ledger([dict(row("g", 0x300, 4), names="g_static")], {})
     assert [d["family"] for d in c.defects] == ["mapping_ambiguous"]
     assert c.counts["split_storage_rows"] == 1 and c.defects[0]["evidence"].startswith("Split storage")
+
+
+def test_a_proven_size_binds_to_its_defining_source(tmp_path):
+    # image_iso review r5: b.cpp's ?numbers is a 4-byte pointer; a.cpp's own ?numbers is a 16-byte array
+    name = "?numbers@@3PAHA"
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+    (tmp_path / "data_rows.csv").write_text(
+        "name,address,address_kind,size,section,source,status,evidence,model\n"
+        f"{name},0x00402000,rva,4,.data,Code/b.cpp,matched,probe,m\n"
+        f"{name},0x00402100,rva,16,.data,Code/a.cpp,matched,probe,m\n")
+    with_data_section(c)
+    c.publics.append(dict(public(name, 0x2000, 16), source="Code/b.cpp"))
+    c.ours.put(0x2000, struct.pack("<I", 0x403100))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"].get("data_words_in_nonpointer_containers_excluded", 0) == 0
+    assert len(result["defects"]) == 1
+
+
+def test_proven_sizes_drop_a_pair_proven_two_ways(tmp_path):
+    path = tmp_path / "data_rows.csv"
+    path.write_text("name,address,address_kind,size,section,source,status,evidence,model\n"
+                    "n,0x1,rva,4,.data,Code/a.cpp,matched,p,m\nn,0x2,rva,16,.data,Code/a.cpp,matched,p,m\n"
+                    "m,0x3,rva,8,.data,,matched,p,m\nk,0x4,rva,8,.data,./Code/k.cpp,matched,p,m\n")
+    assert iso.proven_sizes(path) == {("k", "Code/k.cpp"): 8}
+
+
+def test_unplaced_named_storage_takes_no_pooled_credit():
+    # image_iso review r5: s_pair's static exists in an object but nothing places it; the pooled alias's 4 equal
+    # bytes must not stand for its 8
+    alias, name = "__real@3f800000", "s_pair"
+    c = checker([public(alias, 0x2000)], {alias: {0x300}})
+    c.unplaced = {name}
+    c.retail.put(0x300, struct.pack("<ff", 1.0, 2.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ledger([dict(row(name, 0x300, 8), names=alias)], {})
+    assert c.counts["globals_compared"] == 0
+    assert [d["family"] for d in c.defects] == ["no_object_retail_nonzero"]
+
+
+def test_a_ledger_alias_our_objects_never_define_is_no_obligation():
+    alias = "__real@3f800000"
+    c = checker([public(alias, 0x2000)], {alias: {0x300}})
+    c.retail.put(0x300, struct.pack("<f", 1.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ledger([dict(row(alias, 0x300, 4, kind="float"), names="?g_Va00BBB8D8@@3MA")], {})
+    assert c.counts["float_compared"] == 1 and not c.defects
+
+
+def test_place_statics_reports_what_it_could_not_place(tmp_path):
+    obj = tmp_path / "unit.obj"
+    iso.link_cycle.write_coff(obj, [(".data", 0xC0000040, bytes(8), 0)], [("sdata", 1, 4, iso.link_cycle.STATIC)])
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path="unit.obj", sha256=iso.digest(obj), source="Code/unit.cpp",
+                                         provider="unit.obj")]))
+    missed = set()
+    assert iso.place_statics([], manifest, {"sdata"}, Memory(0x10000000), missed=missed) == {}
+    assert missed == {"sdata"}
 
