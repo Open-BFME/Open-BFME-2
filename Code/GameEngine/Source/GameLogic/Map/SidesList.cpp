@@ -434,16 +434,7 @@ private:
 
 #include "../../../Include/Common/Rva0056C3E5.h"
 
-class Rva00404781
-{
-public:
-    void rva0040475C();
-private:
-    float a[20];
-    float b[20];
-    unsigned int flags0;
-    unsigned int flags1;
-};
+#include "../../../Include/Common/Rva00404781.h"
 
 class VictorySystem
 {
