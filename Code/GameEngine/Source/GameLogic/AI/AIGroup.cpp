@@ -826,14 +826,7 @@ public:
 	ExperienceLevelIterator(const ExperienceLevelIterator &other) : m_node(other.m_node) {}
 	void *m_node; // +0x00
 };
-struct ExperienceLevelHandle
-{
-public:
-	ExperienceLevelHandle() {}
-	ExperienceLevelHandle(const ExperienceLevelHandle &other) : m_list(other.m_list), m_iter(other.m_iter) {}
-	ExperienceLevelList *m_list; // +0x00
-	ExperienceLevelIterator m_iter; // +0x04
-};
+#include "../../../Include/Common/ExperienceLevelHandle.h"
 #include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
