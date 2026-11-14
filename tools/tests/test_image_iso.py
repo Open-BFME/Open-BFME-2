@@ -2191,3 +2191,128 @@ def test_round5_code_end_requires_its_text_dir32_symbol_and_addend(proof, opcode
     expected = (True, "row-identity-and-abi-equal") if proof == "valid" else (None, "code-equal-unresolved-operand")
     assert c.code_comparison(0x300, 0x100, 5) == expected
     assert c.counts["pointers_end_equal"] == int(proof == "valid")
+
+
+# ---- measurement gaps (waste lane, toollane2-image-iso.md) ---------------------------------------------------
+
+def proven(tmp_path, sizes):
+    """reverse/data_rows.csv beside the fixture's functions.csv: the sizes the build proves."""
+    lines = ["name,address,address_kind,size,section,source,status,evidence,model"]
+    lines += [f"{n},0x00402000,rva,{size},.data,Code/x.cpp,matched,probe,m" for n, size in sizes.items()]
+    (tmp_path / "data_rows.csv").write_text("\n".join(lines) + "\n")
+
+
+@pytest.mark.parametrize("name,size,defects,excluded", [
+    ("?defaultModeProbs@@3PAEA", 80, 0, 1),           # an unsigned char array (proven 80 bytes): no pointer there
+    ("?table@@3QBGB", 8, 0, 1),                       # a const unsigned short array
+    ("?p@@3PAEA", 4, 1, 0),                           # sizeof 4: may be a pointer variable
+    ("?q@@3PAEA", None, 1, 0),                        # no proven sizeof: nothing is said
+    ("?ptrs@@3PAPAXA", 16, 1, 0),                     # an array of pointers
+])
+def test_data_word_in_a_nonpointer_container_is_excluded(tmp_path, name, size, defects, excluded):
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+    proven(tmp_path, {name: size} if size else {})
+    with_data_section(c)
+    c.publics.append(public(name, 0x2000, 16))       # the extent to the next symbol says nothing on its own
+    c.ours.put(0x2000, struct.pack("<I", 0x403100))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert len(result["defects"]) == defects
+    assert result["counts"].get("data_words_in_nonpointer_containers_excluded", 0) == excluded
+
+
+def test_data_word_in_a_struct_array_is_marked_unproven_not_a_defect(tmp_path):
+    # the LZH symbol tables: an array of struct Symbol, whose fields no registered layout proves
+    name = "?symbolTable0@LZHLEncoderStat@@2PAUSymbol@1@A"
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+    proven(tmp_path, {name: 1096})
+    with_data_section(c)
+    c.publics.append(public(name, 0x2000, 16))
+    c.ours.put(0x2000, struct.pack("<I", 0x403100))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"]
+    marked = [d for d in result["ambiguous"] if d.get("ambiguity_reason") == "struct_fields_unproven"]
+    assert len(marked) == 1 and marked[0]["container"] == "struct array; non-pointer fields unproven"
+
+
+def test_data_word_without_a_map_public_is_attributed_to_a_placed_static(tmp_path):
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+    proven(tmp_path, {"?numbers@@3PAGA": 16})
+    with_data_section(c)
+    c.statics = {"?numbers@@3PAGA": [dict(public("?numbers@@3PAGA", 0x2000, 16), static=True)]}
+    c.ours.put(0x2000, struct.pack("<I", 0x403100))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"]
+    assert result["counts"]["data_words_attributed_to_placed_statics"] == 1
+    assert result["counts"]["data_words_in_nonpointer_containers_excluded"] == 1
+
+
+def static_object(tmp_path, relocations=None, symbols=None):
+    obj = tmp_path / "unit.obj"
+    iso.link_cycle.write_coff(
+        obj, [(".text", 0x60000020, b"\xa1\x04\x00\x00\x00\xc3", 0), (".data", 0xC0000040, bytes(16), 0)],
+        symbols or [("fn", 1, 0, iso.link_cycle.EXTERNAL), ("sdata", 2, 4, iso.link_cycle.STATIC)],
+        relocations if relocations is not None else {1: [(1, "sdata", iso.link_cycle.DIR32)]})
+    manifest = tmp_path / "objects.json"
+    manifest.write_text(json.dumps([dict(path="unit.obj", sha256=iso.digest(obj), source="Code/unit.cpp",
+                                         provider="unit.obj")]))
+    return manifest
+
+
+def test_place_statics_through_a_relocation_from_a_placed_section(tmp_path):
+    # fn (MAP-placed at 0x500) loads sdata (.data+4, a file static the MAP does not list) through a DIR32 to sdata
+    # whose in-place addend is 4: the image word there, less the addend and sdata's value, is .data's start
+    manifest = static_object(tmp_path)
+    image = Memory(0x10000000)
+    image.put(0x501, struct.pack("<I", 0x10000000 + 0x2404 + 4))
+    placed = iso.place_statics([dict(name="fn", rva=0x500, object="unit.obj")], manifest, {"sdata"}, image)
+    assert [(p["rva"], p["extent"], p["source"]) for p in placed["sdata"]] == [(0x2404, 12, "Code/unit.cpp")]
+
+
+def test_place_statics_through_an_anchor_in_its_own_section(tmp_path):
+    manifest = static_object(tmp_path, relocations={},
+                             symbols=[("fn", 1, 0, iso.link_cycle.EXTERNAL), ("anchor", 2, 0, iso.link_cycle.EXTERNAL),
+                                      ("sdata", 2, 8, iso.link_cycle.STATIC)])
+    publics = [dict(name="fn", rva=0x500, object="unit.obj"), dict(name="anchor", rva=0x2100, object="unit.obj")]
+    placed = iso.place_statics(publics, manifest, {"sdata"}, Memory(0x10000000))
+    assert [p["rva"] for p in placed["sdata"]] == [0x2108]
+
+
+def test_place_statics_refuses_disagreeing_evidence(tmp_path):
+    # the anchor puts .data at 0x2100, the relocation at 0x2400: no placement
+    manifest = static_object(tmp_path, symbols=[("fn", 1, 0, iso.link_cycle.EXTERNAL),
+                                                ("anchor", 2, 0, iso.link_cycle.EXTERNAL),
+                                                ("sdata", 2, 4, iso.link_cycle.STATIC)])
+    image = Memory(0x10000000)
+    image.put(0x501, struct.pack("<I", 0x10000000 + 0x2404 + 4))
+    publics = [dict(name="fn", rva=0x500, object="unit.obj"), dict(name="anchor", rva=0x2100, object="unit.obj")]
+    assert iso.place_statics(publics, manifest, {"sdata"}, image) == {}
+
+
+def test_a_static_the_map_does_not_list_is_compared_through_its_placement():
+    c = checker([], {"_pingNames": {0x300}})
+    c.retail.put(0x300, b"ABCDEFGH")
+    c.ours.put(0x2000, b"ABCDEFGH")
+    c.ours.put(0x2100, b"ABCDXXXX")
+    c.statics = {"_pingNames": [dict(public("_pingNames", 0x2000, 8), source="Code/a.cpp", static=True),
+                                dict(public("_pingNames", 0x2100, 8), source="Code/b.cpp", static=True)]}
+    c.ledger([dict(row("_pingNames", 0x300, 8), source="Code/a.cpp")], {})
+    assert c.counts["static_data_placed"] == 1 and c.counts["globals_compared"] == 1
+    assert not [d for d in c.defects if d["family"] in ("no_object_retail_nonzero", "global_contents")]
+    c = checker([], {"_pingNames": {0x300}})
+    c.retail.put(0x300, b"ABCDEFGH")
+    c.ours.put(0x2100, b"ABCDXXXX")
+    c.statics = {"_pingNames": [dict(public("_pingNames", 0x2100, 8), source="Code/b.cpp", static=True)]}
+    c.ledger([dict(row("_pingNames", 0x300, 8), source="Code/b.cpp")], {})
+    assert [d["family"] for d in c.defects] == ["global_contents"]
+
+
+@pytest.mark.parametrize("second,family", [(b"\x00\x00\x80\x3f", None), (b"\x00\x00\x00\x40", "pooled_constant_contents")])
+def test_pooled_constant_copies_are_compared_by_value(second, family):
+    name = "__real@3f800000"
+    c = checker([public(name, 0x2000, 4), public(name, 0x2004, 4)], {name: {0x300}})
+    c.retail.put(0x300, b"\x00\x00\x80\x3f" + b"\xff" * 4)       # the ledger extent runs past the value
+    c.ours.put(0x2000, b"\x00\x00\x80\x3f")
+    c.ours.put(0x2004, second)
+    c.ledger([row(name, 0x300, 8, kind="float")], {})
+    assert c.counts["pooled_constant_rows_compared"] == 1
+    assert [d["family"] for d in c.defects] == ([family] if family else [])

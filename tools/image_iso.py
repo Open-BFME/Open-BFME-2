@@ -189,6 +189,94 @@ def attach_objects(publics, manifest, mapfile=None):
 
 
 
+def place_statics(publics, manifest, wanted, image):
+    """{name: [placement]} for data symbols of `wanted` the MAP does not list: MSVC's MAP lists no internal-linkage
+    data (a file `static`, a namespace-scope `const`, an anonymous namespace's global), so each is placed through
+    its own object. A COFF section is contiguous in the image: its start is fixed by any symbol in it the MAP
+    places for that object (an anchor), or by a DIR32 relocation to any symbol in it from a section an anchor
+    places (the image's relocated word, less the relocation's in-place addend and the target's value). A section
+    with no start, or with two different ones, places nothing. A placement is a public-shaped dict (static=True)
+    whose extent runs to the next symbol of its section, with its section's COFF evidence (data_coff)."""
+    if manifest is None or not wanted:
+        return {}
+    placed = collections.defaultdict(lambda: collections.defaultdict(set))
+    for p in publics:
+        placed[object_name(p["object"])][p["name"]].add(p["rva"])
+    found = collections.defaultdict(list)
+    for entry in json.loads(manifest.read_text()):
+        path = manifest.parent / entry["path"].replace("\\", "/")
+        raw = path.read_bytes()
+        if digest(path) != entry["sha256"]:
+            raise ValueError("object hash mismatch: " + str(path))
+        try:
+            sections, symbols = link_cycle.parse_coff(raw)
+        except (ValueError, struct.error, IndexError):
+            continue
+        targets = [sym for sym in symbols.values() if sym.name in wanted and sym.cls == link_cycle.STATIC
+                   and sym.sec > 0]
+        if not targets:
+            continue
+        here = placed.get(object_name(entry.get("provider", object_name(str(path)))), {})
+        starts = collections.defaultdict(set)
+        for sym in symbols.values():
+            locations = here.get(sym.name, ())
+            if sym.sec > 0 and len(locations) == 1:
+                starts[sym.sec].add(next(iter(locations)) - sym.value)
+        anchored = {sec: next(iter(values)) for sec, values in starts.items() if len(values) == 1}
+        for sec, start in anchored.items():
+            section = sections[sec - 1]
+            for offset, index, kind in section.relocs:
+                target = symbols.get(index)
+                if kind != link_cycle.DIR32 or target is None or target.sec <= 0:
+                    continue
+                word = image.read(start + offset, 4)
+                if word is None or section.ptr == 0:
+                    continue
+                addend = struct.unpack_from("<I", raw, section.ptr + offset)[0]
+                starts[target.sec].add((struct.unpack("<I", word)[0] - addend - target.value - image.base) & 0xFFFFFFFF)
+        values_by_sec = collections.defaultdict(set)
+        for sym in symbols.values():
+            if sym.sec > 0:
+                values_by_sec[sym.sec].add(sym.value)
+        for sym in targets:
+            begins = starts.get(sym.sec, set())
+            if len(begins) != 1:
+                continue
+            section = sections[sym.sec - 1]
+            values = sorted(values_by_sec[sym.sec])
+            following = bisect.bisect_right(values, sym.value)
+            end = values[following] if following < len(values) else section.size
+            evidence = dict(body=raw[section.ptr:section.ptr + section.size] if section.ptr else b"",
+                            size=section.size, flags=section.flags, is_code=section.name.startswith(".text"),
+                            relocations=tuple((offset, kind) for offset, _index, kind in section.relocs),
+                            relocation_targets={offset: dict(name=symbols[index].name, cls=symbols[index].cls,
+                                section=symbols[index].sec) for offset, index, _kind in section.relocs
+                                if index in symbols})
+            found[sym.name].append(dict(name=sym.name, rva=next(iter(begins)) + sym.value, extent=end - sym.value,
+                object=entry.get("provider", object_name(str(path))), source=entry["source"], static=True,
+                data_coff=dict(section=evidence, offset=sym.value)))
+    return dict(found)
+
+
+POOLED = re.compile(r"\?\?_C@_[01]|__real@[0-9a-fA-F]+|__xmm@[0-9a-fA-F]+")
+
+
+def pooled_length(name, retail, rva, size):
+    """The length of a pooled constant's own value at retail RVA: a literal's bytes through its terminator (within
+    `size`), a __real@/__xmm@ constant's width from its name; None when it cannot be read."""
+    if name.startswith("??_C@_"):
+        width = 2 if name.startswith("??_C@_1") else 1
+        body = retail.read(rva, size) if size else None
+        if not body:
+            return None
+        for at in range(0, len(body) - width + 1, width):
+            if body[at:at + width] == bytes(width):
+                return at + width
+        return None
+    digits = name.split("@", 1)[1]
+    return len(digits) // 2 if len(digits) in (8, 16, 32) else None
+
+
 def kept_copies(ours, retail, publics, ledger):
     """Report only: rowed names whose copy in this image differs from retail, read from the linked image.
     A row is byte-verified in its owner's object, but the linker keeps the first COMDAT definition on its
@@ -544,6 +632,7 @@ class Checker:
         self.literal_cache = {}
         self.retail_literals = {}
         self.ledger_literal_cache = {}
+        self.statics = {}                      # place_statics: data the MAP does not list
         for p in publics:
             literal = re.match(r"\?\?_C@_([01])", p["name"])
             if literal:
@@ -576,6 +665,33 @@ class Checker:
         if len(locations) == 1:
             return max(found, key=lambda p: p["extent"] or 0)
         return None
+
+    def static_winner(self, names, row):
+        """The one placement (place_statics) of the row's names, the row's source selecting among copies several
+        objects define (a header `static` gives each including unit its own); None when not exactly one."""
+        found = [p for n in names for p in self.statics.get(n, ())]
+        if row.get("source"):
+            found = [p for p in found if source_key(p["source"]) == source_key(row["source"])] or (
+                found if len({p["rva"] for p in found}) == 1 else [])
+        locations = {p["rva"] for p in found}
+        return found[0] if len(locations) == 1 else None
+
+    def pooled_copies(self, names, rva, size):
+        """True when every image copy of a pooled constant the row names (??_C@, __real@, __xmm@) holds retail's
+        value over the value's own length, False when one differs, None when it cannot be told (no copy, or a
+        value or copy that cannot be read)."""
+        pooled = [n for n in names if POOLED.match(n)]
+        copies = {p["rva"] for n in pooled for p in self.by_name.get(n, [])}
+        if not pooled or not copies:
+            return None
+        length = pooled_length(pooled[0], self.retail, rva, size or 4096)
+        expected = self.retail.read(rva, length) if length else None
+        if expected is None:
+            return None
+        for at in sorted(copies):
+            if self.ours.read(at, length) != expected:
+                return False
+        return True
 
     def end_pointer(self, actual, expected):
         targets = self.end_targets.get(actual - self.ours.base, set())
@@ -852,6 +968,19 @@ class Checker:
                 continue
             p = self.winner(names, rva)
             retail = self.retail.read(rva, size)
+            if p is None and not any(self.by_name.get(n) for n in names):
+                p = self.static_winner(names, row)          # internal-linkage data the MAP does not list
+                if p is not None:
+                    self.counts["static_data_placed"] += 1
+            if p is None and any(POOLED.match(n) for n in names):
+                pooled = self.pooled_copies(names, rva, size)
+                if pooled is not None:
+                    self.counts["pooled_constant_rows_compared"] += 1
+                    self.counts[kind + "_compared" if kind in ("string", "wstring", "float") else "globals_compared"] += 1
+                    if pooled is False:
+                        self.defect("pooled_constant_contents", rva, row, "an image copy of the pooled constant "
+                                    "differs from retail's value")
+                    continue
             if p is None:
                 family = "mapping_ambiguous" if any(self.by_name.get(n) for n in names) else "no_object_retail_nonzero"
                 if retail and any(retail) or family == "mapping_ambiguous":
@@ -1192,7 +1321,42 @@ def first_pointer_argument_call(instructions, origin):
     return None
 
 
-def data_address_words(checker, limit, counts):
+# A global's decorated type: `@@3` (or `@@2`, a static member) then its type. MSVC spells an array like a pointer to
+# its element ([PQRS][A-D]); only a sizeof proven larger than a pointer (reverse/data_rows.csv: the compiler's sizeof
+# in a probe of the defining unit) tells an array from a pointer variable -- an extent to the next symbol may be
+# padding.
+SCALAR_ARRAY = re.compile(r"@@[23][PQRS][A-D](C|D|E|F|G|H|I|J|K|M|N|O|_J|_K|_N|_W)[A-D]$")
+STRUCT_ARRAY = re.compile(r"@@[23][PQRS][A-D][UV]\w")
+
+
+def word_container(symbol, proven):
+    """'nonpointer' when the data symbol holding a word cannot hold a pointer there (a string literal; an array of
+    integral or floating elements), 'struct' for an array of structs (its fields are not known), else None.
+    `symbol` is a public-shaped dict; `proven` maps a data symbol to its proven sizeof (reverse/data_rows.csv):
+    without one larger than a pointer, an element-typed name may be a pointer variable, and nothing is said."""
+    name = symbol["name"]
+    if name.startswith("??_C@"):
+        return "nonpointer"
+    if (proven.get(name) or 0) <= 4:
+        return None
+    if SCALAR_ARRAY.search(name):
+        return "nonpointer"
+    if STRUCT_ARRAY.search(name):
+        return "struct"
+    return None
+
+
+def proven_sizes(path):
+    """{name: sizeof} of the matched rows of reverse/data_rows.csv at `path` (sizes the build proves); {} when absent."""
+    path = Path(path)
+    if not path.exists():
+        return {}
+    with path.open(newline="", encoding="utf-8") as f:
+        return {r["name"]: int(r["size"]) for r in csv.DictReader(f)
+                if r.get("status") == "matched" and (r.get("size") or "").isdigit()}
+
+
+def data_address_words(checker, limit, counts, proven=None):
     """Raw aligned words in .data/.rdata, independent of MAP/COFF coverage.
     Virtual zero-fill, other sections and PE import/export directory extents
     are explicitly outside this scan. Known terminated strings/floats are
@@ -1203,6 +1367,10 @@ def data_address_words(checker, limit, counts):
     for p in checker.publics:
         by_start[p["rva"]].append(p)
     starts = sorted(by_start)
+    # internal-linkage data the MAP does not list, placed through its own object (place_statics)
+    placed = sorted((p["rva"], p["rva"] + p["extent"], id(p), p) for found in checker.statics.values() for p in found
+                    if p.get("extent"))
+    placed_starts = [start for start, _end, _id, _p in placed]
     excluded = []
     pe = getattr(ours, "pe", None)
     directories = getattr(getattr(pe, "OPTIONAL_HEADER", None), "DATA_DIRECTORY", [])
@@ -1268,6 +1436,13 @@ def data_address_words(checker, limit, counts):
             # Attribution requires agreement; a nearest symbol alone is no extent proof.
             identities = {(p["rva"], p["object"], p.get("source", "")) for p in choices}
             public = choices[0] if len(identities) == 1 else None
+            if not choices:
+                at = bisect.bisect_right(placed_starts, image_rva)
+                covering = [p for start, end, _id, p in placed[max(0, at - 16):at]
+                            if start <= image_rva and image_rva + 4 <= end]
+                if len({(p["rva"], p["object"]) for p in covering}) == 1:
+                    public = covering[0]
+                    counts["data_words_attributed_to_placed_statics"] += 1
             literal = None
             for p in choices:
                 if p["name"].startswith("??_C@_"):
@@ -1284,6 +1459,10 @@ def data_address_words(checker, limit, counts):
             if literal:
                 counts["data_literal_payload_candidates_excluded"] += 1
                 continue
+            container = word_container(public, proven or {}) if public else None
+            if container == "nonpointer":
+                counts["data_words_in_nonpointer_containers_excluded"] += 1
+                continue
             target_rva = value - retail.base
             target_section = next((s.Name.rstrip(b"\0").decode(errors="replace") for s in retail.sections
                 if s.VirtualAddress <= target_rva < s.VirtualAddress + max(s.Misc_VirtualSize, s.SizeOfRawData)), "none")
@@ -1297,6 +1476,8 @@ def data_address_words(checker, limit, counts):
                 target_kind=target_section.removeprefix(".") if target_section in (".data", ".rdata", ".text") else "other")
             if public is None:
                 counts["data_candidate_attribution_unresolved"] += 1
+            if container == "struct":
+                detail["container"] = "struct array; non-pointer fields unproven"
             result.append(detail)
     return result, sections
 
@@ -1531,7 +1712,8 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
             definitive.append(detail)
     findings = definitive
 
-    data_candidates, data_sections = data_address_words(checker, limit, counts)
+    data_candidates, data_sections = data_address_words(
+        checker, limit, counts, proven_sizes(Path(function_ledger).with_name("data_rows.csv")))
     # Resolve only discovered target/callee values, streaming the code ledger.
     values = sorted({int(d["target_rva"], 16) for d in findings + ambiguous + data_candidates} |
                     {int(d["first_argument_callee_rva"], 16) for d in findings + ambiguous
@@ -1608,6 +1790,12 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
             retained.append(detail)
     ambiguous = retained
     for detail in data_candidates:
+        if detail.get("container"):
+            # an array of structs whose fields no registered layout proves: kept out of the defects, marked
+            detail["ambiguity_reason"] = "struct_fields_unproven"
+            ambiguous.append(detail)
+            counts["ambiguous_struct_fields_unproven"] += 1
+            continue
         if exact_address(detail):
             detail["address_evidence"] = "exact_ledger_start"
             findings.append(detail)
@@ -2364,6 +2552,14 @@ def main(argv=None):
         print(json.dumps(kept["counts"], indent=2))
         return 1
     checker = Checker(ours, retail, publics, addresses, qualified)
+    # internal-linkage data the MAP does not list: placed through its own object (place_statics)
+    unlisted = set()
+    for row in rows:
+        names_of = {row["name"], *(row.get("names") or "").split(";")} - {""}
+        if not any(checker.by_name.get(n) for n in names_of):
+            unlisted |= names_of
+    checker.statics = place_statics(publics, args.objects, unlisted, ours)
+    object_counts["static_data_names_placed"] = len(checker.statics)
     if args.vptr_stores:
         return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))
     if not args.address_only and not args.relocation_bounds_only and not args.data_pointers_only:
