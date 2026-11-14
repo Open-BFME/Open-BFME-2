@@ -197,11 +197,7 @@ class AIPickUpCrateState
 public:
 	virtual StateReturnType update();
 };
-class Rva00262CB6DwordClearer
-{
-public:
-	void clear();
-};
+#include "../../../Include/Common/Rva00262CB6DwordClearer.h"
 class GiantBirdNormalFlightState
 {
 public:
@@ -293,11 +289,7 @@ public:
 #include "../../../Include/Common/Rva005E39E0Named.h"
 #include "../../../Include/Common/AIBuildable.h"
 #include "../../../Include/Common/Rva00420B2AZeroSetter.h"
-class Rva005FD8C1
-{
-public:
-	void rva005FD8C1();
-};
+#include "../../../Include/Common/Rva005FD8C1.h"
 class AptCIH
 {
 public:
@@ -318,11 +310,7 @@ int Rva000A8F5EGet();
 
 // 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
-class Rva00041A06 : public Rva001EDDBBForwarder
-{
-public:
-	void rva00041A06();
-};
+#include "../../../Include/Common/Rva00041A06.h"
 
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
@@ -784,13 +772,7 @@ public:
 	~Rva0032C4D5();
 };
 
-struct DynamicPortalLink
-{
-	void *m_owned;
-	int m_second;
-	int m_third;
-	~DynamicPortalLink();
-};
+#include "../../../Include/GameLogic/DynamicPortalLink.h"
 
 class Rva0032E83A
 {

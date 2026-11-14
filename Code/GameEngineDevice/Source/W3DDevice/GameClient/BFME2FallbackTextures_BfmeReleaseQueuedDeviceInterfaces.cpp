@@ -17,13 +17,7 @@
 // SurfaceClass and W3DRadarResetSurface are both the established one-pointer COM
 // holder view; DrawPixel takes the holder address rather than its COM pointer.
 #include "../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
-class W3DRadarResetSurface {
-public:
- W3DRadarResetSurface():surface(0){}
- ~W3DRadarResetSurface();
- __forceinline void DrawPixel(unsigned x,unsigned y,unsigned color) { ((SurfaceClass *)this)->DrawPixel(x,y,color); }
- void *surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 struct IDirect3DBaseTexture8;
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();

@@ -1790,11 +1790,7 @@ void RetreatArmiesForPlayer(void*);bool rva003F4538();int rva003F45DF();void rva
 };
 #include "../../../../Include/Common/Rva003F468D.h"
 #include "../../../../Include/GameLogic/Rva003F4DCA.h"
-class Rva0020E6B7RegionManager
-{
-public:
-	Rva003F468D *rva0020E6B7();			// 0x0020E6B7, existing owner
-};
+#include "../../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 struct Rva002BC1DAArmy
 {
 	unsigned char m_pad00[0x34];
@@ -4122,14 +4118,7 @@ public:
 	~BfmeStrWI(void) {}
 };
 
-struct BfmePairWI
-{
-    BfmePairWI() {}
-    BfmePairWI(const BfmePairWI &o) : m_f(o.m_f), m_i(o.m_i) {}
-    ~BfmePairWI() {}
-    float m_f;
-    int m_i;
-};
+#include "../../../../Include/Common/BfmePairWI.h"
 
 class Gen_003BEA30
 {

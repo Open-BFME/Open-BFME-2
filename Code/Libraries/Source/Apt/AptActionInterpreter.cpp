@@ -840,7 +840,7 @@ extern "C" void (__cdecl *g_bfmeAptLogAtE1773C)(const char *,const char *);
 class AptObject;
 
 // Original MAP names AptActionSetup; native cleanup reads function name at+8.
-struct AptActionSetup { AptValue *context,*value; const char *name; int action; };
+#include "../../../GameEngine/Include/Common/AptActionSetup.h"
 
 void rva007097B0(void *);
 
