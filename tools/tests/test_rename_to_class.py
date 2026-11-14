@@ -1711,6 +1711,46 @@ def test_votes_an_unregistered_class_is_refused(tree, monkeypatch):
         plan(tree)
 
 
+KEPT = "?rva00401000@Widget@@UAEXXZ"
+KEPT_PREPARED = f"""// cl: /O2
+// {OLD} @ 0x00401000
+class Widget {{ public: virtual void rva00401000(); }};
+void Widget::rva00401000() {{}}
+"""
+KEPT_COMPILED = {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, KEPT, STOP]}}
+
+
+def kept_plan(root, new="rva00401000", **overrides):
+    overrides.setdefault("approval_base", None)
+    return rename.plan_rename("function", ctx=ctx_of(root), rva=0x00401000, to_class="Widget", new=new,
+                              prepared={"Code/Game/Bits.cpp": KEPT_PREPARED.encode()}, **overrides)
+
+
+def test_votes_a_move_that_keeps_its_placeholder_identifier_names_nothing(tree, monkeypatch):
+    # The class is unregistered, no approval base is given and no vote exists: the move writes only the class
+    # retail's table proves, under the identifier the row already had. The slot stays a placeholder.
+    retail(monkeypatch, GOOD, compiled=KEPT_COMPILED)
+    p = kept_plan(tree)
+    assert any(KEPT in str(v) for v in vars(p).values())
+
+
+def test_votes_a_kept_placeholder_still_needs_retails_installer(tree, monkeypatch):
+    # the exemption is about the name only: ownership is still read from retail
+    retail(monkeypatch, {TABLE: ([0x00403040, 0x00401000, 0x00404000], {OTHER_STORE: 0})}, compiled=KEPT_COMPILED)
+    with pytest.raises(Refusal):
+        kept_plan(tree)
+
+
+def test_votes_another_placeholder_identifier_is_a_new_name(tree, monkeypatch):
+    # a placeholder the row does not carry is a spelling someone chose: not exempt
+    other = {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, "?rva00409999@Widget@@UAEXXZ", STOP]}}
+    retail(monkeypatch, GOOD, compiled=other)
+    with pytest.raises(Refusal, match="Widget has no canonical header in reverse/canonical_classes.csv"):
+        rename.plan_rename("function", ctx=ctx_of(tree), rva=0x00401000, to_class="Widget", new="rva00409999",
+                           prepared={"Code/Game/Bits.cpp": KEPT_PREPARED.replace("rva00401000()", "rva00409999()").encode()},
+                           approval_base=None)
+
+
 def test_votes_an_unvoted_slot_is_refused_naming_its_key(tree, monkeypatch):
     retail(monkeypatch, GOOD)
     register(tree)

@@ -701,6 +701,13 @@ the row into C as its virtual member:
     python3 tools/rename.py function --rva 0x00550B4C --to-class GameSpyBuddyMessageQueue \
         --new endThread --prepared Code/.../BuddyThread.cpp=build/endThread.cpp --dry-run
 
+The slot's name is not the mover's to choose: `--new` must be the identifier `tools/name_lane.py` approved for
+the slot key of the registered class, read at `--approval-base REV` (two votes bound to the header as that
+revision holds it). One move names nothing and reads no approval: `--new` is the row's own placeholder identifier
+(`rva00550B4C` stays `rva00550B4C`). The slot is as unnamed after it as before, only the class retail's table
+proves is written, so the class need not be registered either; votes still name the slot later. Any other
+spelling, another placeholder included, is a name and needs the approval.
+
 A table holding the address that no view relates to C is a fold, and refused, unless a reviewed entry in
 `tools/retail_identity.py` (`SHARED_SLOTS`) names that table for this address, class and name. Each entry states its
 tables at exact addresses, and `shared_slot_problems` checks them against retail's bytes. A table it does not list

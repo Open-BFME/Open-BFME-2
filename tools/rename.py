@@ -7218,10 +7218,21 @@ def fresh_slot_voters(ctx, key, new, rel):
     return out
 
 
-def to_class_name_problem(ctx, cls, table, slot, new_name, base=None):
+def to_class_name_problem(ctx, cls, table, slot, new_name, base=None, old_name=None):
     """Why the move's new symbol `new_name` may not take retail table `table`'s slot `slot` in `cls`, or None: its
     identifier must be the name tools/name_lane.py approved for that slot key. Votes alone name a slot; the
-    class's declaration is never read for it."""
+    class's declaration is never read for it.
+
+    A move that keeps the row's own placeholder identifier (`old_name`'s, e.g. `rva00550B4C`) names nothing: the
+    slot is as unnamed after it as before, only the class the retail table proves is written. No approval is read
+    for it and the class need not be registered; the slot is still named by votes, later, like any placeholder."""
+    if old_name:
+        try:
+            kept = split_function_name(new_name)[1] == split_function_name(old_name)[1]
+        except Refusal:
+            kept = False
+        if kept and is_placeholder(new_name):
+            return None
     key = slot_key(ctx, cls, table, slot)
     where = f"retail table 0x{table + IMAGE_BASE:08X} slot {slot}"
     if key is None:
@@ -7315,7 +7326,7 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None, approval_base
                                                                reviewed=retail_identity.shared_slot_of(rva, cls, new_name),
                                                                base=retail_identity.base_slot_of(rva, cls, new_name),
                                                                found=found)
-    problem = to_class_name_problem(ctx, cls, table, slot, new_name, approval_base)
+    problem = to_class_name_problem(ctx, cls, table, slot, new_name, approval_base, old_name=name)
     if problem:
         raise Refusal(problem)
     if getter:
