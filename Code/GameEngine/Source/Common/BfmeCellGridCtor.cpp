@@ -124,7 +124,7 @@ CellGrid::CellGrid(int width, int height, float cellSize, float offset)
 
 // Native0056C3E5 five-byte JMP to the owned provider; address-derived dtor
 // spelling is the existing deleting-caller pin, original class unknown.
-class Rva0056C3E5 { public: ~Rva0056C3E5(); };
+#include "../../Include/Common/Rva0056C3E5.h"
 Rva0056C3E5::~Rva0056C3E5()
 {
     reinterpret_cast<CellGrid *>(this)->rva0056C065();
