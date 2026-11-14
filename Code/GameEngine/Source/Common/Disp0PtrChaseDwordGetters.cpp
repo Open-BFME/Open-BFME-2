@@ -7,12 +7,7 @@
 // the zero-displacement first load plus `8B 40 XX` and `ret` for six bytes.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless six-byte shape).
-class Rva0042D697PtrChaseField
-{
-public:
-	int get() const;
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva0042D697PtrChaseField.h"
 int Rva0042D697PtrChaseField::get() const
 {
 	return *(int *)((char *)m_ptr + 0x30);
