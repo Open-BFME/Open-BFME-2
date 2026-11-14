@@ -68,3 +68,32 @@ Remaining / next check:
 Clearance: sentinel part, pending a bisect/real image built after this commit that runs AI::destroyGroup without
 the GeneralAllocator fault. Node part and type: open.
 Census confirmation: awaiting.
+
+**2026-11-14 the sentinel repair landed; the retype is parked (waste lane).** `729b351200a` removed the pooled
+specialization of the standard ctor name. The runtime defect behind bisect B is fixed. What remains is identity
+debt: the two shadow code-identity findings on 0x004702FB and 0x001EBCC6.
+
+Item 2 (the retype), measured and parked by the coordinator:
+- *First slice: 18 sources.* stlport_list_objectptr_insert.cpp's 7 rows, plus the 17 units whose own rows call those
+  addresses in retail (29 call sites, found by retail call target):
+  - 0x001EBCC6: InGameUIObjectListSort.
+  - 0x001EBD16: LinearCampaignAddCarryover, InGameUIUpdateFormationPreview, FormationAssistant, LightSubPoint,
+    HordeContainRva00473212, HordeContainRva00475F61, MoveToFormationGroupOrder.
+  - 0x001EC03C: GameLogicDestroyObject, InGameUIIdleWorker, ArmySummary_LoadArmyEntry, stlport_moduledatavector_push,
+    AutoHealBehaviorPlayerScan, HordeContainIface11CSlots, HordeContainRva00475F61.
+  - 0x00423890: stlport_list_gamewindow_assign_dispatch, GameWindowManagerScript.
+  - 0x004702FB: HordeContain.
+
+  12 of the 17 still spell the type with `allocator<Object*>`; the rest already use `Rva001EB984PoolAllocator`.
+- *Refused route.* `rename.py function --respell --identity` refuses it. A dry-run on push_back 0x001EC03C gave
+  "names no placeholder type ... an identity respell replaces a placeholder-typed spelling only". This respell goes
+  the other way: the real `_STL::allocator<Object*>` becomes the placeholder `Rva001EB984PoolAllocator<Object*>`.
+- *Candidate routes:* (a) a reviewed `tools/retail_identity.py` family entry for the pooled `list<Object*>`, proven
+  from retail's bytes (the 0x00DB8FEC pool pops and the call graph above); or (b) a new respell route for a
+  standard-allocator spelling whose retail callee is a distinct pooled instantiation.
+- *Upper bound on scope.* An object-store scan (every cached variant, so stale ones too) finds 322 sources whose
+  objects name at least one of the nine standard spellings: insert in 224, _M_create_node in 159, the base ctor in
+  138, push_back in 83. Most are standard-family users that keep the standard names. Whichever route is chosen also
+  decides whether a unit that merely names the old spelling must be prepared.
+
+The retype waits for a tool route. Tool lane 2's current queue is the crash bisect and the initializers extension.

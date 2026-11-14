@@ -197,15 +197,13 @@ template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
 // bfme link decl-only end
 
 /*
-** Global Instance of the DX8MeshRender
+** BFME II keeps the renderer behind the pointer TheDX8MeshRenderer (data ledger
+** 0x009F363C), created in DX8Wrapper::Do_Onetime_Device_Dependent_Inits; Zero Hour's
+** global object has no identified retail counterpart.
 */
-DX8MeshRendererClass TheDX8MeshRenderer;
 bool DX8TextureCategoryClass::m_gForceMultiply = false; // Forces opaque materials to use the multiply blend - pseudo transparent effect.  jba.
 // ----------------------------------------------------------------------------
 
-static MultiListClass<MeshModelClass>			_RegisteredMeshList;
-static TextureCategoryList							texture_category_delete_list;
-static FVFCategoryList								fvf_category_container_delete_list;
 
 // helper data structure
 class PolyRemover : public MultiListObjectClass

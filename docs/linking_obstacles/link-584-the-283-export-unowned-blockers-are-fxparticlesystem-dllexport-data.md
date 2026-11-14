@@ -722,3 +722,25 @@ Results:
   time, which breaks two matched data rows. The file's own comment says a dynamic initializer must precede them.
 - Removing the Ortho global needs an explicit instantiation (five rows) and renumbers about 50 rowed `_$E<n>`
   initializers by one. `rename.py initializers` refuses those rows because they are bound with `object-symbol=`.
+
+**2026-11-14 open defect: `_$E158`/`_$E160` each claimed by two rows in FXParticleSystemModules.cpp (waste lane).**
+- `_$E158` is bound by the object-symbol row at slot 0x007AF48B (`??__E?s_key@?$DefaultModuleTag@$05...`) and by a
+  bare row at 0x007B3EB4.
+- `_$E160` is bound by the object-symbol row at 0x007AF496 and by a bare row at 0x007B3EBF.
+
+One object label cannot be two retail addresses. `rename.py initializers` refuses the unit until this is resolved,
+and the FX Modules initializer commit is parked behind it.
+
+What retail has:
+- 0x007B3EB4 and 0x007B3EBF are real code, byte-identical copies of the slotted ModuleTag<6,...>::KEY/NAME reference
+  initializers.
+- They have no .CRT$XCU slot and no reference, and lie in a contiguous slot-less block 0x007B3E84..0x007B3EF3 (only
+  0x007B3ECA, slot 910, is live). The same block's 0x007B3E9E/0x007B3EA9 are rowed in Rva007AC6DDGlobalInits.cpp.
+
+A whole-block reconstruction verifies byte for byte: that grab-bag instantiates the four template statics. But Sol
+ruled the parent-follow placement unproven while the second retail object is unknown. It is banked at
+`reverse/attempt_support/second-unit-fx-initializer-copies-20261114.md` (commit `976ebb09157` on an unpushed
+branch). Coverage stays as it is.
+
+Remaining: either identify the second object's real unit and place the four rows there, or a supported repair for
+the duplicate label claims.
