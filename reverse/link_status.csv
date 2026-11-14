@@ -4114,7 +4114,7 @@ Code/GameEngine/Source/Common/Rva004E3D2ACtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E3D47Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E44C9Check.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004E5610Ctor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva004E5610Ctor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva004E6745Factory.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E67B3Stamp.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E6935Dtor.cpp,yes,0,0,0,0,0
@@ -4332,7 +4332,7 @@ Code/GameEngine/Source/Common/Rva00525D9AListAppend.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005262BFDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00526309Dispatcher.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva00526F0BForward.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00527925Fire.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0052798FConcat.cpp,yes,0,0,0,0,0
@@ -10555,7 +10555,7 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerDo
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower_doSpecialPower.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPowerPoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPower.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/InvisibilitySpecialPowerCtor.cpp,yes,0,0,0,0,0
@@ -12561,7 +12561,7 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002E2903PlayerRevival.cpp
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6672Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004FB130Dtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004FB130Dtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004FD0DACtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004FF9DCRegionReach.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004FFA6ERegionReach.cpp,yes,0,0,0,0,0
@@ -16748,7 +16748,7 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_list_nocase4_create_node_002FE8AA.cp
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_nocase4_insert_002FEC97.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_copy.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_filln.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp,no,0,0,1,0,0
+Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_opaqueref_erase.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_pod196_insert.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_list_radar_ping.cpp,yes,0,0,0,0,0
