@@ -8,6 +8,12 @@
 // WriteNamedHero4074CF opens a wide path with mode w, writes map50 entries
 // as "%s = %d\n", closes the file and returns success as a bool.
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
+// Native binary imports _wfopen, fprintf, and fclose from MSVCR71 despite /D_CRTIMP=.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 #include <memory>
 #include <vector>
 #include <map>
@@ -162,11 +168,7 @@ class GameState;
 extern GameState *TheGameState;
 #include "../../../../Include/Common/Rva002DC74A.h"
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
-struct _iobuf;
 extern "C" {
-__declspec(dllimport) _iobuf *__cdecl _wfopen(const unsigned short *,const unsigned short *);
-__declspec(dllimport) int __cdecl fprintf(_iobuf *, const char *,...);
-__declspec(dllimport) int __cdecl fclose(_iobuf *);
 // The real fgets import slot; a pointer call preserves retail's two loop tests.
 extern char *(__cdecl *_imp__fgets)(char *, int, _iobuf *);
 }

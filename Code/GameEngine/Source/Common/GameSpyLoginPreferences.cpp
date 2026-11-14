@@ -50,14 +50,13 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 #include <stdlib.h>
 #include <string.h>
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-
-void *operator new[](unsigned size);
-void operator delete[](void *p);
-
-struct _iobuf;
-typedef struct _iobuf FILE;
-extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *name, const unsigned short *mode);
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
+#include <crtdbg.h>
 
 typedef bool Bool;
 typedef int Int;
@@ -478,7 +477,7 @@ AsciiString GameSpyLoginPreferences::rva005C9FC4(void)
 AsciiString obfuscate( AsciiString in )
 {
 	char *buf = new char[in.getLength() + 1];
-	_mbscpy(buf, in.str());
+	_mbscpy((unsigned char *)buf, (const unsigned char *)in.str());
 	static const char *xor = "1337Munkee";
 	char *c = buf;
 	const char *c2 = xor;

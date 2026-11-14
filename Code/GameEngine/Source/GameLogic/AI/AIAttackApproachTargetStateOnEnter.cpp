@@ -145,15 +145,15 @@ enum ObjectStatusTypes
 class Object;
 class Weapon;
 
+#include <stdio.h>
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}
@@ -563,7 +563,7 @@ static __forceinline Int gameLogicDebugLevel()
 
 static __forceinline void debugTrace(const char *text)
 {
-	void *log = theLogicRandomLogFile;
+	FILE *log = (FILE *)theLogicRandomLogFile;
 	if (log != 0)
 		fprintf(log, text);
 }
@@ -1210,7 +1210,7 @@ Bool AIAttackFireDuringApproachState::computePath()
 		m_goalPosition = m_prevVictimPos;
 		if (gameLogicDebugLevel() > 0)
 		{
-			void *log = theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "AIAttackFireDuringApproachState::computePath will call FindMeleeEngagmentLocation with m_goalPosition=%f,%f",
 					(double)m_goalPosition.x, (double)m_goalPosition.y);
@@ -1641,7 +1641,7 @@ StateReturnType AIFollowPathAsTeamState::onEnter()
 
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, "CritterDesync: setAdjustDestination(nextPos=%s) 44", nextPos ? "VALID" : "NULL");
 	}
@@ -1665,7 +1665,7 @@ StateReturnType AIFollowPathAsTeamState::onEnter()
 	{
 		if (g_00E03745)
 		{
-			void *log = theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "CritterDesync: setAdjustDestination(m_adjustFinal=%s) 46", m_adjustFinal ? "TRUE" : "FALSE");
 		}
@@ -1939,7 +1939,7 @@ StateReturnType AIAttackApproachTargetState::updateInternal()
 		if (computePath() == false)
 		{
 			if (theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile, "%i AIAttackApproachTargetState success [3]", source->m_id);
+				fprintf((FILE *)theLogicRandomLogFile, "%i AIAttackApproachTargetState success [3]", source->m_id);
 			return STATE_SUCCESS;
 		}
 		if (!m_waiting)
@@ -1976,7 +1976,7 @@ StateReturnType AIAttackApproachTargetState::updateInternal()
 	if (((const ApproachLogStatusView*)TheGameLogic)->value > 0 && m_stopIfInRange && weapon)
 	{
 		if (theLogicRandomLogFile)
-			fprintf(theLogicRandomLogFile, "masiwar called by AIAttackApproachTargetState::updateInternal [2]");
+			fprintf((FILE *)theLogicRandomLogFile, "masiwar called by AIAttackApproachTargetState::updateInternal [2]");
 	}
 	if (m_stopIfInRange && weapon && weapon->isWithinAttackRange(source, &m_goalPosition, 0.0f, 1))
 	{

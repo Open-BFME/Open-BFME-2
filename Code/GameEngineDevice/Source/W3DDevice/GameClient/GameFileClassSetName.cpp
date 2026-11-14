@@ -13,15 +13,12 @@
 // retail strcpy/strlen instead call the verified direct CRT thunks. Hide
 // only their unused imported header declarations before declaring those
 // real names. No renamed CRT helper is defined or used by this body.
-#define strcpy GameFileUnusedHeaderCopy
-#define strlen GameFileUnusedHeaderLength
+#include <stdio.h>
 #include "ascii_string.h"
-#undef strcpy
-#undef strlen
-extern "C" char *__cdecl strcpy(char *,const char *);
-extern "C" unsigned int __cdecl strlen(const char *);
-extern "C" char *__cdecl _mbscat(char *,const char *);
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
+// Native binary calls CRT _mbscat without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 #include "../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
@@ -70,17 +67,17 @@ const char *GameFileClass::Set_Name(const char *filename) {
   if(strlen(name)>=2) {
    char *end=m_filePath+strlen(m_filePath);
    *end++=filename[0];*end++=filename[1];*end++='\\';strcpy(end,filename);
-  } else _mbscat(m_filePath,filename);
+  } else _mbscat((unsigned char *)m_filePath, (const unsigned char *)filename);
  } else if(isImageFileType(fileType)) {
   if(strlen(name)>=2 && strncmp(filename,"apt_",4)!=0) {
    strcpy(m_filePath,"Art/CompiledTextures/");
    char *end=m_filePath+strlen(m_filePath);
    *end++=filename[0];*end++=filename[1];*end++='\\';strcpy(end,filename);
-  } else {strcpy(m_filePath,"Art/Textures/");_mbscat(m_filePath,filename);}
+  } else {strcpy(m_filePath,"Art/Textures/");_mbscat((unsigned char *)m_filePath, (const unsigned char *)filename);}
  } else strcpy(m_filePath,filename);
  m_fileExists=TheFileSystem->doesFileExist(m_filePath);
  if(!m_fileExists && TheWritableGlobalData) {
-  if(fileType==2) {sprintf(m_filePath,"%sMapPreviews/",TheWritableGlobalData->rva002360DE().str());_mbscat(m_filePath,filename);}
+  if(fileType==2) {sprintf(m_filePath,"%sMapPreviews/",TheWritableGlobalData->rva002360DE().str());_mbscat((unsigned char *)m_filePath, (const unsigned char *)filename);}
   m_fileExists=TheFileSystem->doesFileExist(m_filePath);
  }
  if(!m_fileExists && fileType==1) {

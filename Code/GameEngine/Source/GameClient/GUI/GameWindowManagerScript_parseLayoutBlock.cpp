@@ -27,9 +27,12 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-#ifndef NULL
-#define NULL 0
-#endif
+#include <ctype.h>
+#include <string.h>
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 
 #ifndef TRUE
 #define TRUE true
@@ -61,11 +64,6 @@ extern LayoutScriptParse layoutScriptTable[];
 #include "ascii_string.h"
 #include "PreRTS.h"
 #include "Common/FunctionLexicon.h"
-
-
-extern "C" __declspec(dllimport) int __cdecl isspace(int c);
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" __declspec(dllimport) char *__cdecl strtok(char *str, const char *delimiters);
 
 // readUntilSemicolon =========================================================
 static void readUntilSemicolon(File *fp, char *buffer, int maxBufLen)
@@ -144,7 +142,7 @@ Bool parseLayoutBlock(File *inFile, char *buffer, UnsignedInt version, WindowLay
 				// eat equals separator " = "
 				c = strtok(buffer, " =");
 
-				_mbscpy(token, asciitoken.str());
+				_mbscpy((unsigned char *)token, (const unsigned char *)asciitoken.str());
 
 				// parse it
 				if (parse->parse(token, c, version, info) == FALSE)

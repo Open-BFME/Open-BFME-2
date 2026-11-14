@@ -11,9 +11,13 @@
 // Request, queue and NAT layout follow the sibling Rva005A8666BoxNat.cpp
 // (NAT::rva005A7974, the "PORT" request); WorldBuilder twin 0x014E30C0 is
 // unnamed (string lead) and agrees on the flow.
-// This parser imports strtok; keep the CRT declaration read under
-// /D_CRTIMP= separate from the measured IAT declaration below.
-#define strtok strtok_unimported
+// This TU sets /D_CRTIMP=, but retail imports sscanf and strtok from MSVCR71.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
 #include "ascii_string.h"
 #include "../../Include/GameNetwork/Transport.h"
 #include "unicode_string.h"
@@ -41,7 +45,6 @@ namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, 
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-#undef strtok
 
 struct PeerRequest
 {
@@ -239,8 +242,6 @@ void NAT::notifyNATHostSlot() {
  m_nextHostUpdate=now+s_hostUpdateInterval;
 }
 
-extern "C" __declspec(dllimport) int __cdecl sscanf(const char *,const char *,...);
-extern "C" __declspec(dllimport) char *__cdecl strtok(char *,const char *);
 #include "../../Include/Common/NetPacketAddress.h"
 #pragma pack(push,1)
 // Canonical Transport ring witness: same40E stride and field offsets;

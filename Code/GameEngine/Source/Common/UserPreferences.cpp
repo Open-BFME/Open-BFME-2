@@ -24,10 +24,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 #include <stdlib.h>
-struct _iobuf;
-typedef struct _iobuf FILE;
-extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *name, const unsigned short *mode);
-extern "C" __declspec(dllimport) int __cdecl _wunlink(const unsigned short *path);
+#include <wchar.h>
 typedef bool Bool;
 typedef int Int;
 typedef float Real;

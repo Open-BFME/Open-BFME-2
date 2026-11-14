@@ -48,8 +48,10 @@ private:
 	int m_unk20;
 };
 
-extern "C" char *__cdecl _mbscpy(char *, const char *);
-extern "C" char *__cdecl _mbscat(char *, const char *);
+// Native binary calls CRT _mbscpy/_mbscat without dllimport; mask _CRTIMP around <mbstring.h>.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
 void *__cdecl operator new(unsigned int);
 
 // Same chunk reader view as the verified sibling factory at 0x001808B0.
@@ -79,12 +81,12 @@ private:
 void Gen_dtor_00970f60::Load()
 {
 	char buf[0x104];
-	_mbscpy(buf, m_name.m_buffer);
+	_mbscpy((unsigned char *)buf, (const unsigned char *)m_name.m_buffer);
 	char *dot = strchr(buf, '.');
 	if (dot)
-		_mbscpy(dot, ".w3d");
+		_mbscpy((unsigned char *)dot, (const unsigned char *)".w3d");
 	else
-		_mbscat(buf, ".w3d");
+		_mbscat((unsigned char *)buf, (const unsigned char *)".w3d");
 	File *file = GetGameFilePart(buf, m_unk1C, m_unk20);
 	if (file) {
 		// The chunk reader retains its legacy slot-compatible stream view.

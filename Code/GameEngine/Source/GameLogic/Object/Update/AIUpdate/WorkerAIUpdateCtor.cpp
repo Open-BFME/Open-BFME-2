@@ -156,9 +156,12 @@ typedef unsigned int UnsignedInt;
 #include <windows.h>
 #undef near
 #undef far
+// Native binary calls game's _fprintf directly, not MSVCR71's import slot.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
 #include <stdio.h>
-
-extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
+#pragma pop_macro("_CRTIMP")
 
 // The logic random log file; BFME 2's docking diagnostics write to it.
 extern "C" FILE *theLogicRandomLogFile;
