@@ -111,11 +111,7 @@ public:
 // File-static, so it emits no external COMDAT. No flags touched.
 static inline void bfme_unlock(StateMachine *machine) { machine->m_locked = false; }
 
-class TurretStateMachine : public StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class AIDockMachine : public StateMachine
 {

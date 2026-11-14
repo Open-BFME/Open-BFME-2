@@ -12,11 +12,7 @@
 class Object;
 class DockUpdateInterface;
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../Include/GameLogic/Module/TurretStateMachine.h"
 
 #include "../GameLogic/Object/object.h"
 
