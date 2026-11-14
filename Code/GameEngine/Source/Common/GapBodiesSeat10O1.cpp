@@ -275,10 +275,7 @@ class Xfer;
 // ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
 // AsciiStringPlusString::length 0x002198C8 of this object plus one.
 #include "../../Include/Common/AsciiStringPlusString.h"
-struct Rva0050EE1C : AsciiStringPlusString
-{
-	int rva0050EE1C() const;
-};
+#include "../../Include/Common/Rva0050EE1C.h"
 int Rva0050EE1C::rva0050EE1C() const
 {
 	return length() + 1;

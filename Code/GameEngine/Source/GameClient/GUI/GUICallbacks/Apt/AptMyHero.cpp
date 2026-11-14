@@ -368,10 +368,7 @@ private:
 	Rva00525ABF *m_00;
 };
 #include "../../../../../Include/Common/AsciiStringPlusString.h"
-struct Rva0050EE1C : AsciiStringPlusString
-{
-	int rva0050EE1C() const;
-};
+#include "../../../../../Include/Common/Rva0050EE1C.h"
 // ?rva00522AFC@Rva00522AFC@@QAEAAV1@ABV1@@Z @0x00522AFC 18B: assignment of an
 // object whose only member is an AsciiString->AsciiString tree, through the
 // rowed tree operator= 0x0052274D, returning this.

@@ -288,10 +288,7 @@ private:
 // ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
 // AsciiStringPlusString::length 0x002198C8 of this object plus one.
 #include "../../Include/Common/AsciiStringPlusString.h"
-struct Rva0050EE1C : AsciiStringPlusString
-{
-	int rva0050EE1C() const;
-};
+#include "../../Include/Common/Rva0050EE1C.h"
 // ?rva00522AFC@Rva00522AFC@@QAEAAV1@ABV1@@Z @0x00522AFC 18B: assignment of an
 // object whose only member is an AsciiString->AsciiString tree, through the
 // rowed tree operator= 0x0052274D, returning this.
