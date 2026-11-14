@@ -126,12 +126,7 @@ class Rva001E41D3
 float __stdcall Rva001E40D9Get(float,float);
 bool Rva001E3679(int);
 #include "../../../Include/Common/Geometry.h"
-class StealthUpdate
-{
- public:void markAsDetected(unsigned,int,Object*,bool);
- 
-}
-;
+#include "../../../Include/GameLogic/Module/StealthUpdate.h"
 struct LocoStealthView
 {
  char pad[0x3c];

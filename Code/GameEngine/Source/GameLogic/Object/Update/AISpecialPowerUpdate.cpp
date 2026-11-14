@@ -28,16 +28,7 @@ enum UpdateSleepTime
 // UpdateModule layout from the rowed ctor 0x004B2F2A and dtor 0x004B2E79:
 // vptrs at +0x00, +0x0C and +0x10 (the dtor's three stores of 0x00856E1C,
 // 0x00856D60 and 0x00856D50), module data at +4, object at +8.
-class BehaviorModuleBase
-{
-protected:
-	Object *getObject() const { return m_object; }
-public:
-	virtual ~BehaviorModuleBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 class BehaviorModuleOther
 {
 public:

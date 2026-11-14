@@ -78,7 +78,7 @@ class Rva00690FF0Handle:public Rva00691110Handle {public:
  bool hasFailed()const{return target ? target->failed.check(0):false;}
 };
 struct Rva00051107AudioRequest {int kind;BfmePoolRef10 event;unsigned field08;Rva00690FF0Handle file;bool flag10,flag11,flag12,flag13,flag14;char pad15[3];};
-struct Rva00051B89Hash {unsigned operator()(const Rva00051107AudioRequest*r)const{return r?r->field08:0;}};
+#include "../../../GameEngine/Include/Common/Rva00051B89Hash.h"
 struct Rva00050E1CEqualTo {bool operator()(const Rva00051107AudioRequest*a,const Rva00051107AudioRequest*b)const{return a&&b?a->field08==b->field08:a==b;}};
 typedef _STL::hash_set<Rva00051107AudioRequest*,Rva00051B89Hash,Rva00050E1CEqualTo> Rva00051107AudioRequestSet;
 struct PlayingAudio {char pad0[0x1c];AudioEventRTS*event;};

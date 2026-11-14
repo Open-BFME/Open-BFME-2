@@ -14,16 +14,7 @@
 class Thing;
 class ModuleData;
 class Object;
-class BehaviorModuleBase
-{
-protected:
-	Object *getObject() const { return m_object; }
-public:
-	virtual ~BehaviorModuleBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 class BehaviorModuleOther
 {
 public:

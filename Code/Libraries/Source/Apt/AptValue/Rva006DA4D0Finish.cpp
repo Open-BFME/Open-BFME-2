@@ -5,7 +5,7 @@
 // This call-only declaration does not assert their private class layout.
 // cl: /O2 /MD
 #include <string.h>
-class BfmeAptValue006DCD20 { public: void SetAt(int, BfmeAptValue006DCD20 *); };
+#include "../BfmeAptValue006DCD20.h"
 #include "../../../../GameEngine/Include/Common/Rva006D9500.h"
 // AptValue's AddRef/Release come first in these vtables, as in the five units
 // (Rva006D6360Ctor.cpp, ...) that emit the same ??_7Rva006D6470Owner@@6B@.

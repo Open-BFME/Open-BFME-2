@@ -404,18 +404,7 @@ const ThingTemplate*findTemplate(const AsciiString&name);
 Object*newObject(const ThingTemplate*tmplate,Team*team,const CreateMask*statusBits,ObjectID flag);
 };
 extern ThingFactory*TheThingFactory;
-class GlobalData
-{
-public:
-unsigned char m_pad000[0xA68];
-Real m_minDistFromEdgeOfMapForBuild;
-Real m_supplyBuildBorder;
-Real m_allowedHeightVariationForBuilding;
-unsigned char m_padA74[0xA94 - 0xA74];
-Int m_wallCount;
-unsigned char m_padA98[0xB94 - 0xA98];
-Real m_sellPercentage;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData*TheWritableGlobalData;
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface*TheGameText;
@@ -556,12 +545,12 @@ sampleData->loZ=samplePoint->z;
 if(samplePoint->z > sampleData->hiZ)
 sampleData->hiZ=samplePoint->z;
 }
-if(TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild > 0.0f)
+if(TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild > 0.0f)
 {
-if(samplePoint->x < sampleData->mapRegion.lo.x + TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
-|| samplePoint->x > sampleData->mapRegion.hi.x - TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
-|| samplePoint->y < sampleData->mapRegion.lo.y + TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
-|| samplePoint->y > sampleData->mapRegion.hi.y - TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild)
+if(samplePoint->x < sampleData->mapRegion.lo.x + TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
+|| samplePoint->x > sampleData->mapRegion.hi.x - TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
+|| samplePoint->y < sampleData->mapRegion.lo.y + TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
+|| samplePoint->y > sampleData->mapRegion.hi.y - TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild)
 {
 sampleData->terrainRestricted=TRUE;
 }
@@ -703,7 +692,7 @@ Coord3D previous=current;
 Bool connected=endAtObject&&Rva003919F6Connected(builder,nearObject);
 Bool lastWouldBeLegal=false;
 remaining-=hubHalf;
-while(progress < remaining&&index < TheWritableGlobalData->m_wallCount-1){
+while(progress < remaining&&index < TheWritableGlobalData->m_maxLineBuildObjects-1){
 const ThingTemplate*segment=module->getSegment(index);
 if(!segment)segment=builder->m_template;
 Real half=segment->getTemplateGeometryInfo().field28;half-=1.f;
@@ -750,7 +739,7 @@ out->cost+=segment->rva0033A69A(builder->getControllingPlayer(),(Int)builder,-1)
 if(out->cost>funds){out->status=7;out->rva00392196(index,7);}
 progress+=2.f*half;
 ++index;
-if(index>=TheWritableGlobalData->m_wallCount)break;
+if(index>=TheWritableGlobalData->m_maxLineBuildObjects)break;
 }
 if(endAtObject){
 if(connected&&lastWouldBeLegal){

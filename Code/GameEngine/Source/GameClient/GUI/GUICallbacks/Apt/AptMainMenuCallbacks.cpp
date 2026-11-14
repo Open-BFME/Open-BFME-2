@@ -838,13 +838,7 @@ typedef void (FunctorTarget::*FunctorMethod)(void);
 // plain member converts to it through a derived class of that form.
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class FunctorWrapperHead
-{
-public:
-	FunctorWrapperHead() : m_refCount(0) {}
-	virtual void anchor();
-	int m_refCount; // +0x04
-};
+#include "../../../../../Include/Common/FunctorWrapperHead.h"
 class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
 {
 public:

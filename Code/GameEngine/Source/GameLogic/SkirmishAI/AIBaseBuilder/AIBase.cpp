@@ -156,16 +156,7 @@ struct Rva002A8AB1Target
 	int m_20;		// +0x20
 };
 
-struct Rva002A8AB1Record
-{
-	char m_pad000[0x140];
-	Rva005AD9E6 m_140;			// +0x140
-	_STL::list<ObjectID> m_144;		// +0x144
-	char m_pad148[0x160 - 0x148];
-	Rva002A8AB1Target *m_160;		// +0x160
-	char m_pad164[0x16C - 0x164];
-	int m_16C;				// +0x16C
-};
+#include "../../../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 

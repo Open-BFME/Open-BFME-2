@@ -1020,20 +1020,7 @@ BuildAssistant *TheBuildAssistant = NULL;
 enum ObjectID;
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class GlobalData
-{
-public:
-	char m_pad00[0xA68];
-	float m_minDistFromEdgeOfMapForBuild; // +0xA68 +0xA68
-	float m_supplyBuildBorder; // +0xA6C +0xA6C
-	float m_allowedHeightVariationForBuilding; // +0xA70 +0xA70
-	char m_padA74[0x20];
-	int m_maxLineBuildObjects; // +0xA94 +0xA94
-	char m_padA98[0xFC];
-	float m_sellPercentage; // +0xB94 +0xB94
-	char m_padB98[0x688];
-	float m_1220; // +0x1220 +0x1220
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
@@ -1980,12 +1967,12 @@ void checkSampleBuildLocation( const Coord3D *samplePoint, void *userData )
 	}
 
 	// too close to edge of map?
-	if( TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild > 0.0f )
+	if( TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild > 0.0f )
 	{
-		if( samplePoint->x < sampleData->mapRegion.lo.x + TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
-				|| samplePoint->x > sampleData->mapRegion.hi.x - TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
-				|| samplePoint->y < sampleData->mapRegion.lo.y + TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
-				|| samplePoint->y > sampleData->mapRegion.hi.y - TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild )
+		if( samplePoint->x < sampleData->mapRegion.lo.x + TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
+				|| samplePoint->x > sampleData->mapRegion.hi.x - TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
+				|| samplePoint->y < sampleData->mapRegion.lo.y + TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
+				|| samplePoint->y > sampleData->mapRegion.hi.y - TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild )
 		{
 			sampleData->terrainRestricted = TRUE;
 		}
@@ -2052,10 +2039,10 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 			return LBC_OBJECTS_IN_THE_WAY;
 	}
 
-	if( build->isKindOf( KINDOF_85 ) && TheWritableGlobalData->m_supplyBuildBorder > 0.0f )
+	if( build->isKindOf( KINDOF_85 ) && TheWritableGlobalData->m_SupplyBuildBorder > 0.0f )
 	{
 		// see if there are any reasonably close by
-		Real range = build->getTemplateGeometryInfo().getMajorRadius() + TheWritableGlobalData->m_supplyBuildBorder * 2;
+		Real range = build->getTemplateGeometryInfo().getMajorRadius() + TheWritableGlobalData->m_SupplyBuildBorder * 2;
 		Object *tooClose = ThePartitionManager->getClosestObject( worldPos, range, FROM_CENTER_3D,
 			&Rva0004584D( *(BfmeFixedStorage0004543D *)&Rva00045411BitSet( 0, KINDOF_86 ),
 						  *(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE ) );
@@ -2063,7 +2050,7 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 		{
 			// yep, see if we would collide with an expanded version
 			GeometryInfo tooCloseGeom = tooClose->getGeometryInfo();
-			tooCloseGeom.expandFootprint( TheWritableGlobalData->m_supplyBuildBorder );
+			tooCloseGeom.expandFootprint( TheWritableGlobalData->m_SupplyBuildBorder );
 			if( build->getTemplateGeometryInfo().CollidesWith( *worldPos, angle, tooCloseGeom,
 						*tooClose->getPosition(), tooClose->getOrientation() ) )
 				return LBC_TOO_CLOSE_TO_SUPPLIES;
@@ -2665,13 +2652,13 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 	const Rva0033B3D7Data *data = (const Rva0033B3D7Data *)build->rva0033B3D7();
 	if( data )
 	{
-		range = TheWritableGlobalData->m_1220 * 2.0f;
+		range = TheWritableGlobalData->m_maxCastleRadius * 2.0f;
 		rangeFilter.m_range = data->m_range;
 		filter = &rangeFilter;
 	}
 	else
 	{
-		range = build->getTemplateGeometryInfo().getBoundingCircleRadius() + TheWritableGlobalData->m_1220;
+		range = build->getTemplateGeometryInfo().getBoundingCircleRadius() + TheWritableGlobalData->m_maxCastleRadius;
 		if( build->isKindOf( KINDOF_189 ) )
 			collideFilter.m_1d = false;
 		filter = &collideFilter;

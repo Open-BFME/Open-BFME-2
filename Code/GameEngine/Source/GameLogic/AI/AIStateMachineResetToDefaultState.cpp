@@ -29,35 +29,12 @@ enum
 	MACHINE_DONE_STATE_ID = 999998,
 	INVALID_STATE_ID = 999999
 };
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual StateReturnType resetToDefaultState();
-	virtual StateReturnType setState(unsigned int newStateID);
-	Object *getOwner() const { return m_owner; }
-	StateID getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
-private:
-	State *m_currentState; // +0x04
-	unsigned char m_pad08[0x14 - 0x08];
-	Object *m_owner; // +0x14
-};
-class AIStateMachine : public StateMachine
-{
-public:
-	virtual StateReturnType resetToDefaultState();
-	virtual StateReturnType setState(unsigned int newStateID);
-	void rva0035033F();
-private:
-	unsigned char m_pad18[0x50 - 0x18];
-	State *m_temporaryState; // +0x50
-	int m_54; // +0x54
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 StateReturnType AIStateMachine::resetToDefaultState()
 {
 	if (m_temporaryState)
 	{
-		if (m_54 == -1)
+		if (m_temporaryStateFramEnd == -1)
 			return STATE_CONTINUE;
 		rva0035033F();
 	}
@@ -73,7 +50,7 @@ StateReturnType AIStateMachine::setState(unsigned int newStateID)
 {
 	if (m_temporaryState)
 	{
-		if (m_54 == -1)
+		if (m_temporaryStateFramEnd == -1)
 			return STATE_CONTINUE;
 		rva0035033F();
 	}

@@ -48,7 +48,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 struct Rva002AAC9ERange {float const *begin,*end;};
-struct AsciiRange002ADD75 {AsciiString const *begin,*end;};
+#include "../../../Include/Common/AsciiRange002ADD75.h"
 int Rva002AAC9EEqual(const Rva002AAC9ERange *,const Rva002AAC9ERange *);
 int Rva002ADD75Equal(const AsciiRange002ADD75 *,const AsciiRange002ADD75 *);
 struct BfmeVectorRecord002AF478 {char opaque[36];};

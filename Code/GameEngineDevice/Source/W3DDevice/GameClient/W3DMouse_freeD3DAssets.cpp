@@ -12,12 +12,7 @@ struct TextureBaseClass
 
 // CursorTextureSlot is a class in retail (reverse/class_contracts/CursorTextureSlot.json, key by bytes),
 // so this view spells the class-key the definition of cursorTextures mangles with.
-class CursorTextureSlot
-{
-public:
-	TextureBaseClass *Ptr;
-	void operator=(const CursorTextureSlot &rhs);
-};
+#include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 enum
 {

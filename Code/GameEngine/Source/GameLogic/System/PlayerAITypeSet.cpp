@@ -93,13 +93,7 @@ private:
 // record's vector bodies and reaches its rowed providers: allocate-and-copy 0x00215614
 // -> uninitialized_copy 0x002155C9 -> placement copy 0x0021559C; clear 0x0021580E
 // -> destroy range 0x00215783. Both loops step 0x10.
-struct BfmeVectorRecord0002154F3 {
-    AsciiString text;
-    _STL::vector<AsciiString> names;
-    BfmeVectorRecord0002154F3();
-    BfmeVectorRecord0002154F3(const BfmeVectorRecord0002154F3 &);
-    BfmeVectorRecord0002154F3 &operator=(const BfmeVectorRecord0002154F3 &);
-};
+#include "../../../Include/Common/BfmeVectorRecord0002154F3.h"
 
 namespace _STL {template<> void _Construct<BfmeVectorRecord0002154F3,BfmeVectorRecord0002154F3>(BfmeVectorRecord0002154F3*,const BfmeVectorRecord0002154F3&);}
 

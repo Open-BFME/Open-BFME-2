@@ -273,12 +273,7 @@ public:
     virtual void screenToTerrain(const ICoord2D*, Coord3D*, bool = false);
 };
 extern View* TheTacticalView;
-class GlobalData
-{
-public:
-    char unknown00[0xa94];
-    int maxLineBuildObjects;
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData* TheWritableGlobalData;
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient* TheGameClient;
@@ -548,7 +543,7 @@ void InGameUI::handleBuildPlacements()
             }
             else
             {
-                unsigned int last = TheWritableGlobalData->maxLineBuildObjects - 1;
+                unsigned int last = TheWritableGlobalData->m_maxLineBuildObjects - 1;
                 if (feedbackState == 1)
                 {
                     feedbackState = 0;
@@ -589,7 +584,7 @@ void InGameUI::handleBuildPlacements()
                     &info, builder, &builderPos, &mouseWorld, command);
                 if (!portResult)
                 {
-                    for (int i = 0; i < TheWritableGlobalData->maxLineBuildObjects; ++i)
+                    for (int i = 0; i < TheWritableGlobalData->m_maxLineBuildObjects; ++i)
                     {
                         if (!icons[i].drawable)
                         {
@@ -640,8 +635,8 @@ void InGameUI::handleBuildPlacements()
                     break;
                 }
                 int count
-                    = (unsigned)(TheWritableGlobalData->maxLineBuildObjects - 1) < info.count - 1
-                    ? (TheWritableGlobalData->maxLineBuildObjects - 1)
+                    = (unsigned)(TheWritableGlobalData->m_maxLineBuildObjects - 1) < info.count - 1
+                    ? (TheWritableGlobalData->m_maxLineBuildObjects - 1)
                     : info.count - 1;
                 if (info.status == 10)
                     ++count;
@@ -710,7 +705,7 @@ void InGameUI::handleBuildPlacements()
                         icons[last].drawable->colorTint(0);
                 }
                 for (int i = ((count - 1 >= 0) ? count - 1 : 0) + 1;
-                    i < TheWritableGlobalData->maxLineBuildObjects - 1; ++i)
+                    i < TheWritableGlobalData->m_maxLineBuildObjects - 1; ++i)
                 {
                     if (!icons[i].drawable)
                     {
@@ -776,7 +771,7 @@ void InGameUI::handleBuildPlacements()
             icons[i].drawable->setDrawableHidden(false);
             icons[i].drawable->rva002791E7((const ModelConditionFlags&)Rva0028F59A(0, 108), 1, 0);
         }
-        for (; i < TheWritableGlobalData->maxLineBuildObjects; ++i)
+        for (; i < TheWritableGlobalData->m_maxLineBuildObjects; ++i)
             if (icons[i].drawable)
             {
                 TheGameClient->destroyDrawable(icons[i].drawable);
@@ -832,7 +827,7 @@ void InGameUI::handleBuildPlacements()
     {
         TheTerrainVisual->removeAllBibs();
         bool anyIllegal = false;
-        for (int i = 0; i < TheWritableGlobalData->maxLineBuildObjects; ++i)
+        for (int i = 0; i < TheWritableGlobalData->m_maxLineBuildObjects; ++i)
         {
             if (!icons[i].drawable)
                 continue;
