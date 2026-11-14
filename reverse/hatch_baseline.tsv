@@ -3486,7 +3486,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?destroy@CustomAsciiStringShim@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?release@Rva0048C200String@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?releaseBuffer@UnicodeString@@IAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp	?destroy@UnicodeStringCleanup@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorCopyDispatchRva003F5B3E.cpp	?backwardDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorCopyDispatchRva003F5B3E.cpp	?copyDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorFillInsertRva003F61C6.cpp	??$_Construct@URva003F61C6Record@@U1@@_STL@@YAXPAURva003F61C6Record@@ABU1@@Z	1

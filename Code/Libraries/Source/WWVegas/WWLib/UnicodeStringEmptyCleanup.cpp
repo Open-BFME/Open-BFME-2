@@ -1,33 +1,16 @@
 // cl: /Ireference/shims/bfme2_ascii
-// Native 007B9C10..007B9C1A: the atexit callback registered by 007B6740.
-// That initializer constructs UnicodeString::TheEmptyString at VA00E0C898
-// through 00326BE6 and passes this callback to atexit. The callback calls
-// the rowed UnicodeString destructor at 005B804E with the same object.
-// Keep the address in the helper name: retail's compiler-local name is unknown.
+// Zero Hour's UnicodeString.cpp defines the shared empty string; retail keeps it
+// in .bss at VA 0x00E0C898, the address every reader in the ledger loads
+// (GadgetTextEntryGetText, GameInfo::clearSlotList, ...). The export
+// ?TheEmptyString@UnicodeString@@2V1@B makes it const.
+//
+// Retail builds it only through this definition's own dynamic initializer:
+// native 007B6740..007B6756 (_$E1) calls the out-of-line default constructor
+// at 00326BE6 and passes the cleanup 007B9C10..007B9C1A (_$E2), which calls the
+// rowed destructor at 005B804E, to atexit. Neither constructor nor destructor
+// is expanded inline in retail's copy, hence inline_depth(0).
 #include "unicode_string.h"
-#include <stdlib.h>
 
-// Declaration-only ABI view keeps the retail out-of-line destructor call.
-class UnicodeStringCleanup
-{
-public:
-    void destroy();
-};
-#pragma comment(linker, "/alternatename:?destroy@UnicodeStringCleanup@@QAEXXZ=??1UnicodeString@@QAE@XZ")
-
-void rva007B9C10DestroyEmptyUnicodeString()
-{
-    reinterpret_cast<UnicodeStringCleanup *>(const_cast<UnicodeString *>(&UnicodeString::TheEmptyString))->destroy();
-}
-
-// Native 007B6740..007B6756 constructs the same object, then registers
-// its cleanup with atexit. The constructor's folded address is 00326BE6.
-// AtexitThunk.cpp defines the recovered CRT body as __atexit in COFF.
 #pragma inline_depth(0)
-void rva007B6740InitializeEmptyUnicodeString()
-{
-    const_cast<UnicodeString &>(UnicodeString::TheEmptyString).UnicodeString::UnicodeString();
-    atexit(rva007B9C10DestroyEmptyUnicodeString);
-}
+const UnicodeString UnicodeString::TheEmptyString;
 #pragma inline_depth()
-

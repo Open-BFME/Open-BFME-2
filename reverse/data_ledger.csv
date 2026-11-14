@@ -34049,7 +34049,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0C790,4,.data,global,?threadId@?1??AsyncGetHostByName@Cftp@@QAEHPADAAUsockaddr_in@@@Z@4KA,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,owned,,1,1
 0x00A0C794,4,.data,global,?stat@?1??AsyncGetHostByName@Cftp@@QAEHPADAAUsockaddr_in@@@Z@4HA,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,owned,,1,3
 0x00A0C798,256,.data,global,?listline@?1??FindFile@Cftp@@QAEJPBDPAH@Z@4PADA,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,owned,,1,5
-0x00A0C898,8,.data,global,?TheEmptyString@UnicodeString@@2V1@B,Code/Libraries/Source/WWVegas/WWLib/unicode_string.cpp,owned,,1,189
+0x00A0C898,8,.data,global,?TheEmptyString@UnicodeString@@2V1@B,Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp,owned,,1,189
 0x00A0C8A0,44524,.data,global,?m_hash@PooledString@@0PAPAUStringEntry@1@A,Code/Libraries/Source/WWVegas/WWLib/PooledStringSetString.cpp,owned,,1,2
 0x00A1768C,12,.data,global,?m_null@PooledString@@0UStringEntry@1@A,Code/GameEngine/Source/Common/System/PooledString.cpp,owned,,1,5
 0x00A17698,4,.data,global,?m_buf@PooledString@@0PADA,Code/Libraries/Source/WWVegas/WWLib/PooledStringSetString.cpp,owned,,1,2
