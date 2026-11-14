@@ -54,11 +54,7 @@ public:
 	void rva000AC514( Real x, Real y, int value );
 };
 struct RGBColor;
-class WorldHeightMap
-{
-public:
-	void getTerrainColorAt( Real x, Real y, RGBColor *pColor );
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
 class Rva00068119
 {
 public:
