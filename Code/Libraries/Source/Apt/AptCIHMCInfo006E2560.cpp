@@ -57,7 +57,7 @@ struct AptFileSlot { AptFileRecord *file; };
 class AptCharacterInst { public: virtual void slot0(); virtual ~AptCharacterInst(); virtual void slot8(); };
 #include "AptNativeHash.h"
 #include "BfmeAptValue006DCD20.h"
-class Rva006DBB60ShrNAndField {public:int get() const;};
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
 // 0x006E44F0 is rowed as AptAnimationPoolData::removeTimerFunctions.
 #include "AptAnimationPoolData.h"

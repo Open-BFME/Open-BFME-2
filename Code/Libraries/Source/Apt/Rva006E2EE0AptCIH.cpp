@@ -33,7 +33,7 @@ void __debugbreak();
 
 #include "BfmeAptValue006DCD20.h"
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
-class Rva006DBB60ShrNAndField { public: int get() const; };
+#include "../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 #include "Rva006CFCD0.h"
 
 struct AptNativeHash
