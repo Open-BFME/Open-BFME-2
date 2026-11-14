@@ -59,20 +59,7 @@ public:
 private:
 	unsigned char m_pad00[0x2C];
 };
-class AITNGuardMachine : public StateMachine
-{
-public:
-	AITNGuardMachine(Object *owner);
-	virtual ~AITNGuardMachine();
-	Coord3D m_positionToGuard;	// +0x3C
-	ObjectID m_nemesisToAttack;	// +0x48
-	UnsignedInt m_4C;			// +0x4C
-protected:
-	// retail vftable slot: the rowed override
-	virtual void xfer(Xfer *);
-protected:
-	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00545B8F
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 // condition 0x00545F10 (retail .rdata table entry)
 Bool rva00545F10(State *thisState, void *userData);
 
@@ -84,7 +71,7 @@ AITNGuardMachine::AITNGuardMachine(Object *owner) : StateMachine(owner, 0x91632a
 		{ NULL, 0, NULL }	// keep last
 	};
 	m_nemesisToAttack = 0;
-	m_4C = 0;
+	m_guardMode = 0;
 	zeroCoord3D(m_positionToGuard);
 	// order matters: first state is the default state.
 	defineState( 5003, (State *)new Rva00545DB0( this ), 5001, 5000, g_condC6A2FC );

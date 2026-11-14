@@ -23,9 +23,7 @@ private:
 	const ThingTemplate *m_template; // +0x04
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AITNGuardMachine : public StateMachine
-{
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 class AITunnelNetworkGuardState : public State
 {
 public:
