@@ -59,7 +59,7 @@ class AptString { public: static AptString *Create(); };
 #include "EAStringC.h"
 #include "BfmeAptValue006DCD20.h"
 
-class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); int count,capacity; BfmeAptValue006DCD20 **elements; };
+#include "AptBasePtrStack.h"
 
 // Retail's constructor (0x006FE980) zeroes words out to +0x3C and the ledger's gap is 72 bytes. This view names
 // only the stack, so the rest is storage: as 12 bytes the constructor overwrote its neighbours at startup.
