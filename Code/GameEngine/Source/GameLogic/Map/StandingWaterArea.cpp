@@ -228,11 +228,7 @@ struct Rva00308213StringPrefix {
 // Fill n Rva004733E0 slots via rowed Rva0030CA53Set with a fixed value.
 // Evidence: loop calls rowed 0x0030CA53 with (dst, fixed src), dst+=8,
 // count--, returns end; caller 0x002828DB in 0x00282870. Honest free-function name.
-struct Rva004733E0Obj
-{
-	int m_00;
-	int m_04;
-};
+#include "../../../Include/Common/Rva004733E0Obj.h"
 
 #include "../../../Include/Common/Rva004733E0.h"
 
