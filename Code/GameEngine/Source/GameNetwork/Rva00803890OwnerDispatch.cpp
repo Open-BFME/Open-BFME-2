@@ -21,11 +21,7 @@ struct Rva00809500Entry
 };
 
 // FESL message (ctor 0x007E8810, dtor 0x007E86C0, getInt 0x007E8900).
-class SnapshotDupReplica
-{
-public:
-	virtual void handle();
-};
+#include "../../Include/Common/SnapshotDupReplica.h"
 
 class Rva007E8810Message : public SnapshotDupReplica
 {
