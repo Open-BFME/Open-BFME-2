@@ -28,7 +28,6 @@ namespace _STL
 }
 
 struct BfmeUiResourceEntryState;
-class MappedImageCache;
 
 class Rva000FA83B
 {
@@ -62,17 +61,6 @@ public:
 };
 
 #include "../../Include/Common/Rva005E3DE8.h"
-
-// retail's constructor 0x005F005B builds it; the owner is Rva005F0152ImageGet.cpp
-class INI;
-
-class MappedImageCache
-{
-public:
-	MappedImageCache();
-	virtual ~MappedImageCache();
-	virtual void rva005EFFA6(INI *ini);
-};
 
 class Rva003B6831
 {
@@ -167,16 +155,6 @@ void rva007B5000()
 {
 	new (&g_Va00E06710) Rva005E3DE8;
 	atexit(rva007B9947);
-}
-
-extern MappedImageCache Rva00A06858;
-void __cdecl rva007B99B5();
-
-// ?rva007B51EB@@YAXXZ @0x007B51EB 22B: ctor 0x005F005B on &Rva00A06858, atexit(0x007B99B5).
-void rva007B51EB()
-{
-	new (&Rva00A06858) MappedImageCache;
-	atexit(rva007B99B5);
 }
 
 extern unsigned g_Va00E06E60;

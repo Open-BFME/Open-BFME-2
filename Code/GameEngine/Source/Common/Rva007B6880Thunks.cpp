@@ -6445,18 +6445,6 @@ void __cdecl rva007B9843()
 	return receiver->~basic_string();
 }
 
-// MappedImageCache's members for the thunk below; the owner is Rva005F0152ImageGet.cpp and its
-// destructor is the row 0x005F00FB.
-class INI;
-
-class MappedImageCache
-{
-public:
-	MappedImageCache();
-	virtual ~MappedImageCache();
-	virtual void rva005EFFA6(INI *ini);
-};
-
 // Retail's object extends 112 bytes; the mangled name stays the one its other users declare.
 extern "C" { unsigned int __identifier("?g_Va00E0669C@@3IA")[28]; }
 
@@ -6475,17 +6463,6 @@ void __cdecl rva007B9997()
 {
 	Rva005E9F7B *receiver = (Rva005E9F7B *)__identifier("?g_Va00E06778@@3IA");
 	return receiver->Rva005E9F7B::~Rva005E9F7B();
-}
-
-// 0x00A06858: defined elsewhere as ?Rva00A06858@@3VMappedImageCache@@A.
-class MappedImageCache;
-extern MappedImageCache Rva00A06858;
-
-// ?rva007B99B5@@YAXXZ @ 0x007B99B5 (10B). Global MappedImageCache dtor thunk: ecx=&Rva00A06858 then tail-jmp to pinned ??1MappedImageCache@@UAE@XZ (0x005F00FB; scalar deleting dtor 0x005F02C4). No callers. Honest address name.
-void __cdecl rva007B99B5()
-{
-	MappedImageCache *receiver = (MappedImageCache *)&Rva00A06858;
-	return receiver->MappedImageCache::~MappedImageCache();
 }
 
 // Construction-thunk view for the six thunks below. MSVC emits no dynamic
