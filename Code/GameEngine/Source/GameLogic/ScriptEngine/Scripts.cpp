@@ -694,16 +694,7 @@ public:
 	ScriptGroup m_payload;		// +0x04
 };
 
-struct Rva003B675BRecord
-{
-	int m_previous;		// +0x00
-	int m_next;		// +0x04
-	AsciiString m_name;	// +0x08
-	unsigned char m_released;	// +0x0C
-	unsigned char m_pad;	// +0x0D
-	unsigned short m_references;	// +0x0E
-	Rva003B7EC2Node *m_nodes;	// +0x10
-};
+#include "../../../Include/GameLogic/Rva003B675BRecord.h"
 
 class Rva003B573E
 {
@@ -1924,7 +1915,7 @@ int Rva003B7EC2View::rva003B7EC2(int key)
 		{
 			Rva003B675BRecord *rec = &records[index];
 			Rva003B7EC2Node *node = new Rva003B7EC2Node;
-			node->m_next = rec->m_nodes;
+			node->m_next = (Rva003B7EC2Node *)rec->m_nodes;
 			rec->m_nodes = node;
 		}
 		catch (...)
