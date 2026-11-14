@@ -346,13 +346,7 @@ public:
 	Real rva001E3E6D(Rva001E3E6DArg *obj);
 };
 
-class Locomotor
-{
-public:
-	Real getMaxSpeed(Object *obj) const;
-	Real getMaxTurnRate(Object *obj) const;
-	void rva001E9083(Object *obj, const Coord3D *goal, Real onPathDistToGoal, Real desiredSpeed);
-};
+#include "../../../../../Include/GameLogic/LocomotorClass.h"
 
 #include "../../../../../Include/GameLogic/Module/Rva001E46E1.h"
 

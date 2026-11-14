@@ -145,11 +145,7 @@ struct AODHistoryOwnerView
 // The receiver/callee spellings retain unresolved target method identities.
 enum KindOfType { KINDOF_INVALID = -1, KINDOF_RVA_0 = 0 };
 struct Rva0028AC4EEntry;
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *object) const;
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 #include "../../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../../Include/Common/Geometry.h"
 class AIUpdateInterface;
