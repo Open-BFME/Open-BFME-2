@@ -2704,11 +2704,7 @@ public:
 };
 class SequentialScript { public: virtual const char *GetSnapshotName(); };
 // LargeGroupAudio getter is owned by the complete subsystem unit.
-class GeometryInfo
-{
-public:
-	virtual const char *GetSnapshotName();
-};
+#include "../../../Include/Common/Geometry.h"
 #include "../../../Include/GameLogic/Module/DrawModule.h"
 
 BFME_LITERAL_NAME_GETTER(Rva002431A9Named, "InvisibilityManager")

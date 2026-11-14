@@ -546,7 +546,7 @@ class TerrainLogic;
 // fills two corners; the first positive x extent wins.
 #include "../../../../Include/Common/Rva0087E650Bounds.h"
 
-class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds *bounds); };
+#include "../../../../Include/Common/Geometry.h"
 
 // WWMath Vector3 subset used by createWaypoint (WB F3CD30 names
 // Vector3::Rotate_Z, vector3.h). As in the BFME 1 vector3.h donor, the angle
