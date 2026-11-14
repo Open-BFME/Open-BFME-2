@@ -137,3 +137,6 @@ Real classes completed across their units (unattended worker; layout read from t
 
 Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
 - 2026-11-15 `Rva005CF07EListener` (VA 0x00C77F44, 4 slots) from `LivingWorldBuildingObserver`: `ThrowingNewHelpers.cpp`.
+
+Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
+- 2026-11-15 `Base005CEFD3` (VA 0x00BFDF68, 4 slots) from `LivingWorldRegionObserver`: `Rva005CEFD3Dtor.cpp`.

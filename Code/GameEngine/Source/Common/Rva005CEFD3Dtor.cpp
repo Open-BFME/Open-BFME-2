@@ -30,10 +30,17 @@ public:
     Rva003EE966 *m_268;
 };
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
-class Base005CEFD3 {
+// LivingWorldRegionObserver: definition as Code/GameEngine/Include/Common/LivingWorldObservers.h holds it
+class LivingWorldRegionObserver
+{
 public:
-    virtual ~Base005CEFD3() {}
+	~LivingWorldRegionObserver() {}
+	virtual void event4_0(int, int, int) {}
+	virtual void event4_1(int, int, int) {}
+	virtual void event4_2(int, int) {}
+	virtual void event4_3(int, int) {}
 };
+typedef LivingWorldRegionObserver Base005CEFD3;
 class Rva005CEFD3 : public Base005CEFD3 {
 public:
     virtual ~Rva005CEFD3();
