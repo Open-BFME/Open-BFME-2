@@ -350,3 +350,25 @@ counted export aliases until the class-key flip. Option A (the flip, parked in t
   names nothing defines. The flip's commit must delete both alias lines and their `export_alias` register lines, and
   remove Coord3D from `CLASS_KEY_EXPORTS`.
 - Evidence: `~/bfme2-ops/swarm/sweeps/link-018/option-b/`.
+
+**2026-11-14 matrix4d.cpp's eight exports answered by option B (sweep-header; base `7b228162bb`).** Repairs the
+regression recorded above (23b22e04f4a, real link at `729b351200`: matrix4d.cpp, 8 missing names).
+- Reverting the adoption for this unit alone is still refused. It builds 24/24, but pre-commit's class gate reports
+  "new private copy of a class with a shared header"; the gate's own escape (`// class-gate: allow`) is a counted hatch,
+  not used.
+- `tools/pin_admission.py --alias` admitted eight export aliases (`reverse/export_aliases.csv`, eight `export_alias`
+  lines in `reverse/hatch_baseline.tsv`), each the retail `V` export -> the matched row's `U` name at the same address:
+  `??0Matrix4D@@QAE@ABVCoord3D@@@Z`, `?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z`,
+  `?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z`, `?GetXVector`/`?GetYVector`/`?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z`,
+  `?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z` and `?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z`.
+- Checked without a real link: `exit_link.export_definition` writes all eight as `export=target` (ordinals 284, 1212,
+  1225-1227, 1374, 1390, 1426), and matrix4d.cpp's object (24/24 at this base) defines all eight targets. link_check:
+  matrix4d.cpp LINKS, 4,707 -> 4,707 B (census 18:08 at `0afc3c1e5f`), unchanged, since the census link does not read
+  the /DEF. Not measured: a real link; the next one should drop matrix4d.cpp from `reverse/exit_link_blockers.tsv`.
+- No supported queue hold exists. `header_adopt_lane.write_queue` rebuilds a class's rows from each run's failures,
+  `retry_budget` is always 3, and `--skip-held` skips only files another worker has claimed. A `run --class Coord3D
+  --apply` still re-adopts any unit whose bytes pass, and this unit's census link_check passed. With the aliases the
+  adopted unit links; the open risks are coord3d.cpp and region.cpp (queued, also holding exported Coord3D names).
+  `ledger_renames` should refuse a rename that moves a row off its retail export name (tooling seat).
+- **For the flip:** these eight join the two above. The flip's commit deletes all ten alias lines and their
+  `export_alias` register lines.

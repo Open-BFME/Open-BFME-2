@@ -3693,8 +3693,16 @@ export_alias	reverse/export_aliases.csv	?$S22@?1??GetValue@?$DefaultModuleKey@$0
 export_alias	reverse/export_aliases.csv	?$S24@?1??GetValue@?$DefaultModuleKey@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S26@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
 export_alias	reverse/export_aliases.csv	?$S28@?1??GetValue@?$DefaultModuleName@$05@FXParticleSystem@@CAPBDXZ@4IA	1
+export_alias	reverse/export_aliases.csv	??0Matrix4D@@QAE@ABVCoord3D@@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
 export_alias	reverse/export_aliases.csv	??0Matrix4D@@QAE@ABVCoord3D@@M@Z	1
+export_alias	reverse/export_aliases.csv	?GetTranslationVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
+export_alias	reverse/export_aliases.csv	?GetXVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
+export_alias	reverse/export_aliases.csv	?GetYVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
+export_alias	reverse/export_aliases.csv	?GetZVector@Matrix4D@@QBEAAVCoord3D@@AAV2@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
+export_alias	reverse/export_aliases.csv	?RotateCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
+export_alias	reverse/export_aliases.csv	?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
 export_alias	reverse/export_aliases.csv	?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z	1
+export_alias	reverse/export_aliases.csv	?TransformCoord@Matrix4D@@QAEAAVCoord3D@@ABV2@AAV2@@Z	1	allow=2ebf7bdbe4e9e5bf847207032bfbb647d811b41e
 object_symbol	reverse/functions.csv	0x000240E0	1
 object_symbol	reverse/functions.csv	0x00024160	1
 object_symbol	reverse/functions.csv	0x00025090	1
