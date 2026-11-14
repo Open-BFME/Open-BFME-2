@@ -782,7 +782,7 @@ class BfmeEnumerationCaps { public: ~BfmeEnumerationCaps(); };
 // Native 0x006560C0 calls the real seven-byte destructor at 0x00658650.
 // Its scalar wrapper is emitted by DirtySock/BfmeDirtyBaseDtor.cpp.
 // Defining a placeholder here emitted a wrong fourteen-byte destructor copy.
-class BfmeDirtyBase { public: virtual ~BfmeDirtyBase(); };
+#include "../../../GameEngine/Include/Common/BfmeDirtyBase.h"
 
 struct Rva00759B40Record {  char bytes[1]; };
 
