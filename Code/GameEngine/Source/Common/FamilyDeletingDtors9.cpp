@@ -25,7 +25,7 @@ void famgenDelete(Rva004FA2E2 *autoResolveBattle) { delete autoResolveBattle; }
 void famgenDelete(Rva002B74DE *autoBattleResolver) { delete autoBattleResolver; }
 
 // ??_GRva00527CCE@@QAEPAXI@Z @0x002D33BB 28B: calls pinned ~Rva00527CCE 0x00527CCE
-class Rva00527CCE { public: ~Rva00527CCE(); };
+#include "../../Include/Common/Rva00527CCE.h"
 void famgenDelete(Rva00527CCE *helpBox) { delete helpBox; }
 
 // ??_GRva00527FA2@@QAEPAXI@Z @0x002D33D7 28B: calls pinned ~Rva00527FA2 0x00527FA2
