@@ -676,10 +676,7 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 }
 #include "../../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 #include "../../../../../GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h"
-class BfmeFixedStorage0004543D {
-public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();
-private: unsigned char bytes[28];
-};
+#include "../../../../../GameEngine/Include/Common/BfmeFixedStorage0004543D.h"
 class Rva0004584D:public Rva000421C8 {
 public:
  Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();

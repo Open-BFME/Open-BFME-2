@@ -17,7 +17,7 @@ class Object {public:char pad[0x38]; Coord3D position;const Coord3D *getPosition
 
 #include "../../Include/GameLogic/PartitionFilter.h"
 
-class BfmeFixedStorage0004543D {public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();unsigned bits[7];};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 
 #include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 

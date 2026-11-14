@@ -108,13 +108,7 @@ class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // A KindOfMaskType (0x0004543D copies it).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
 struct Rva00045411BitSet
 {
