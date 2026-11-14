@@ -688,3 +688,39 @@ def test_a_plain_non_template_on_a_non_template_row_pairs_by_order(tree, monkeyp
     root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E5", KEY_B, STR_B)], plain=("_$E1",), fn=fn,
                                retail={FIRST: BODY, SECOND: tpl(va(KEY_B), va(STR_B))})
     assert plan(root).renamed_rows == [("_$E16", "_$E1", FIRST), ("_$E88", "_$E5", SECOND)]
+
+
+# ------------------------------------------------------------ Sol r4: what an operand relocates against
+
+@pytest.mark.parametrize("section,storage,why", [
+    (-1, link_cycle.EXTERNAL, "an absolute symbol holds its own value"),
+    (-2, link_cycle.EXTERNAL, "a debug symbol"),
+    (1, link_cycle.STATIC, "a local symbol's name means nothing outside the object"),
+    (0, link_cycle.WEAK, "a weak external"),
+])
+def test_refuses_an_operand_that_is_no_external_symbol(tree, monkeypatch, tmp_path, section, storage, why):
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E3", KEY_A, STR_A)])
+    sections = [(".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2), (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2)]
+    symbols = ([("_$E1", 1, 0, link_cycle.STATIC), ("_$E3", 2, 0, link_cycle.STATIC),
+                (KEY_B, section, 0x12345678 if section < 0 else 0, storage)]
+               + [(s, 0, 0, link_cycle.EXTERNAL) for s in (KEY_A, STR_A, STR_B)])
+    obj = raw_object(tmp_path / "raw.obj", sections, symbols,
+                     {1: [(2, KEY_B, link_cycle.DIR32), (6, STR_B, link_cycle.DIR32)],
+                      2: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)]}, ("_$E1", "_$E3"))
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"_\$E1 \+2 relocates against .*only an external symbol"):
+        plan(root)
+
+
+def test_an_operand_defined_in_the_object_pairs(tree, monkeypatch, tmp_path):
+    # a template static's own COMDAT data, defined here and external: the linker places it, the ledger knows where
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E3", KEY_A, STR_A)])
+    sections = [(".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2), (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2),
+                (".data", 0xC0300040 | link_cycle.COMDAT, b"\0" * 4, 2)]
+    symbols = ([("_$E1", 1, 0, link_cycle.STATIC), ("_$E3", 2, 0, link_cycle.STATIC), (KEY_B, 3, 0, link_cycle.EXTERNAL)]
+               + [(s, 0, 0, link_cycle.EXTERNAL) for s in (KEY_A, STR_A, STR_B)])
+    obj = raw_object(tmp_path / "raw.obj", sections, symbols,
+                     {1: [(2, KEY_B, link_cycle.DIR32), (6, STR_B, link_cycle.DIR32)],
+                      2: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)]}, ("_$E1", "_$E3"))
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    assert plan(root).renamed_rows == [("_$E16", "_$E3", FIRST), ("_$E88", "_$E1", SECOND)]

@@ -1240,7 +1240,10 @@ ordinal:
   addresses compile to the same bytes. A COMDAT initializer of any other shape
   (FXParticleSystemDefaults' `call; mov [static], eax; ret`, say) refuses.
   Every relocation whose four bytes reach into the body counts, wherever it
-  starts, and each operand takes exactly one. The body inspected is the very
+  starts, and each operand takes exactly one, against an external symbol in a
+  section or undefined: only such a symbol's address is the linker's to decide
+  and the ledger's to place (an absolute symbol holds its own value; a STATIC,
+  label or weak symbol's name says nothing outside the object). The body inspected is the very
   symbol the `.CRT$XCU` relocation registers: a STATIC code definition whose
   name the object defines once. No two relocations of a `.CRT$XCU` section may
   patch overlapping bytes.

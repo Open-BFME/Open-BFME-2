@@ -14348,6 +14348,14 @@ def object_template_operands(ctx, path, name, index, required=True, prefix=False
     for offset in template[3]:
         index, _kind = relocs[offset]
         target = symbols[index].name if index in symbols else f"#{index}"
+        # Only an external symbol's address is the linker's to decide, so only it is the address the data
+        # ledger places: an absolute or debug symbol (section < 0) holds its own value, and a STATIC, label
+        # or weak symbol's name says nothing outside this object.
+        found = symbols.get(index)
+        if found is None or found.cls != link_cycle.EXTERNAL or found.sec < 0:
+            raise Refusal(f"{Path(path).name}: {name} +{offset} relocates against {target} (storage class "
+                          f"{found.cls if found else '?'}, section {found.sec if found else '?'}): only an external "
+                          "symbol in a section or undefined names an operand the data ledger can place")
         homes = by_name.get(target, set())
         if len(homes) != 1:
             raise Refusal(f"{target} ({name} +{offset}) is {'missing from' if not homes else 'at several addresses in'} "
