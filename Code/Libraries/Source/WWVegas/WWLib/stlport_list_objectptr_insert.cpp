@@ -12,24 +12,12 @@ namespace _STL {
 template <> _List_node<Object *> *list<Object *, allocator<Object *> >::_M_create_node(Object *const &);
 }
 
-// list<Object *>'s base constructor, native 0x001EB984 (40B), which the copy
-// constructor 0x004702FB calls: stock STLport except that the sentinel node
-// comes from the Object-pointer node pool at VA 0x00DB8FEC (the pool the
-// out-of-line create_node 0x001EB9AC pops) instead of allocator<char>.
-// Same shape as list<Drawable *>'s base constructor 0x00239BB0.
-#include "../../../../GameEngine/Include/Common/FreelistPool.h"
-extern FreelistPool g_freelistPool00DB8FEC;
-namespace _STL {
-template <> __declspec(noinline)
-_List_base<Object *, allocator<Object *> >::_List_base(const allocator<Object *> &__a)
-	: _M_node(allocator<_List_node<Object *> >(__a), (_List_node<Object *> *)0)
-{
-	_List_node<Object *> *node = (_List_node<Object *> *)g_freelistPool00DB8FEC.pop();
-	node->_M_next = node;
-	node->_M_prev = node;
-	_M_node._M_data = node;
-}
-}
+// The list constructors here call retail's pooled base constructor 0x001EB984 (sentinel
+// popped from the Object-pointer pool at VA 0x00DB8FEC). Retail's standard-allocator
+// _List_base<Object *> constructor is a different body, 0x004EC36C (AIGroup.cpp's row,
+// allocating with allocator<char>::allocate). A specialization of the standard-allocator
+// name with the pooled body would give that one symbol two bodies across objects, and
+// link order would decide which every std list<Object *> gets: see LINK-676.
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
