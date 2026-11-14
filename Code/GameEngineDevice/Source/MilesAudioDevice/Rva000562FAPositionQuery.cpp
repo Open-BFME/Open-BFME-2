@@ -2,11 +2,7 @@
 // Position-result layout is shared with the verified 0x0005160F provider.
 // The query and receiver relationship are target facts; the original
 // method and validity-flag meanings remain unresolved.
-struct BfmeEventPositionView {
-    float x, y, z;
-    BfmeEventPositionView() {}
-    BfmeEventPositionView(float a, float b, float c) : x(a), y(b), z(c) {}
-};
+#include "../../Include/BfmeEventPositionView.h"
 class AudioEventRTS;
 #include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
