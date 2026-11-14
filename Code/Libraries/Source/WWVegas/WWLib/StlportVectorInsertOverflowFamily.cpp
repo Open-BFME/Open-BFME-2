@@ -208,7 +208,7 @@ struct BfmePod104 { char m_pad[104]; public: BfmePod104(const BfmePod104 &); ~Bf
 // 16-byte element; push_back 0x0032D2EA.
 class BfmeThingUBB { char m_pad[16]; public: BfmeThingUBB(const BfmeThingUBB &); ~BfmeThingUBB(); };
 // 4-byte element; push_back 0x005E825C.
-struct Rva005E71C6Ref { char m_pad[4]; public: Rva005E71C6Ref(const Rva005E71C6Ref &); ~Rva005E71C6Ref(); };
+#include "../../../../GameEngine/Include/Common/Rva005E71C6Ref.h"
 // BuildQueueIconSelect supplies the native counted-reference range dispatcher.
 namespace _STL {
 template <> void _Destroy<Rva005E71C6Ref *>(Rva005E71C6Ref *, Rva005E71C6Ref *);
