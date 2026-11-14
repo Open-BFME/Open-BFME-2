@@ -43,14 +43,7 @@ public:
 	virtual ~Rva0059EB41() {}
 };
 
-class AptMpGameSetup
-{
-public:
-	virtual ~AptMpGameSetup();
-
-private:
-	char m_pad[0x450 - 0x70 - 4];
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 class Rva0035A18D
 {

@@ -63,16 +63,7 @@ public:
 
 class MpGameSetupOwner;
 
-class AptMpGameSetup
-{
-public:
-	AptMpGameSetup(MpGameSetupOwner *owner, int mask);
-	virtual ~AptMpGameSetup();
-	void rva004422B4(int);
-	void rva0044303D();
-private:
-	unsigned char m_pad04[0x450 - 0x70 - 4];
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 class GameSorter
 {
