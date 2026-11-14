@@ -695,14 +695,15 @@ MSC_VER_TRUE = re.compile(r"\s*(?:_MSC_VER\s*(?:>\s*(?P<gt>\d+)|>=\s*(?P<ge>\d+)
 
 
 def pragma_once_first(code):
-    """True when `code` (masked, logical lines) reaches `#pragma once` before any `#include`, in branches the
-    compiler always takes (none, or `#if _MSC_VER > 1000`-like: MSC_VER_TRUE): MSVC then never enters the file
-    again, whatever any macro holds, so an include cycle through it ends there."""
+    """"always" when `code` (masked, logical lines) reaches `#pragma once` before any `#include` outside every
+    conditional, "msc" when it does so only inside `#if _MSC_VER > 1000`-like branches (MSC_VER_TRUE: taken while
+    _MSC_VER is MSVC 7.1's own 1310), else None. MSVC then never enters the file again, so an include cycle
+    through it ends there (include_walk takes an "msc" one only while nothing touches _MSC_VER)."""
     frames = []                                    # per open #if: always taken
     for directive in DIRECTIVE_LINE.finditer(code):
         op, rest = directive.group(1), directive.group(2)
         if op == "include":
-            return False
+            return None
         if op in ("if", "ifdef", "ifndef"):
             test = MSC_VER_TRUE.fullmatch(rest) if op == "if" else None
             taken = (op == "ifdef" and rest.strip() == "_MSC_VER") or bool(
@@ -711,15 +712,15 @@ def pragma_once_first(code):
             frames.append(taken)
         elif op in ("elif", "else"):
             if not frames:
-                return False
+                return None
             frames[-1] = False
         elif op == "endif":
             if not frames:
-                return False
+                return None
             frames.pop()
         elif op == "pragma" and re.fullmatch(r"\s*once\s*", rest):
-            return all(frames)
-    return False
+            return None if not all(frames) else "msc" if frames else "always"
+    return None
 
 
 def include_guarded(code):
@@ -894,7 +895,7 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
     start = (ROOT / source).resolve()
     cache = {} if cache is None else cache
     seen, active, out = set(), set(), []
-    graph, guards, invalidated, once = {}, {}, set(), set()
+    graph, guards, invalidated, once = {}, {}, set(), {}
     unknown_macro_stack = False
     skipped = []                         # (path, include, logical text, offset): never compiled (never_compiled)
     unread = []                          # (path, include, logical text, offset): an angle include found nowhere
@@ -932,8 +933,11 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
         guard = include_guard(spliced)          # logical lines: a continued `#if !defined(X)` is read whole
         if guard:
             guards[path] = guard
-        if pragma_once_first(spliced):
-            once.add(path)
+        kind = pragma_once_first(spliced)
+        if kind:
+            once[path] = kind
+        if re.search(r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*define[ \t\f\v\r]+_MSC_VER\b', spliced):
+            invalidated.add("_MSC_VER")
         invalidated.update(re.findall(
             r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*undef[ \t\f\v\r]+([A-Za-z_]\w*)', spliced))
         literal_code = logicals[path] = masked_once(phase_two, keep_literals=True)
@@ -953,8 +957,12 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
         children = []
         scan = literal_code                      # logical lines: a continued directive is one
         for m in re.finditer(r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*include[ \t]*([<"])([^>"\n]+)[>"]', scan):
-            angle, name = m.group(1) == "<", m.group(2)
-            candidates = [(base / name).resolve() for base in (path.parent, ROOT, ROOT / "Code", *include_roots)]
+            # MSVC reads `\` in an include operand as a separator (`<sub\outside.h>`)
+            angle, name = m.group(1) == "<", m.group(2).replace("\\", "/")
+            # a quoted include not beside its includer may come from any includer's directory before the roots
+            bases = (path.parent, ROOT, ROOT / "Code", *include_roots) + (
+                () if angle else tuple(p.parent for p in active if p != path))
+            candidates = [(base / name).resolve() for base in bases]
             if os.name != "nt":
                 import build
                 candidates = [Path(resolved).resolve() for p in candidates
@@ -971,7 +979,12 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
                     return out, f"{path}: unresolved include {name}"
                 skipped.append((path, name, scan, m.start()))
                 continue
-            children.append(targets[0])
+            beside = (path.parent / name).resolve()
+            if os.name != "nt":
+                beside = Path(build._case_resolve(str(beside)) or beside).resolve()
+            # beside its includer, it is that file; otherwise MSVC's pick among the rest depends on a search
+            # order the walk does not keep (_include_search_roots sorts), so every one is read
+            children.extend([beside] if beside.is_file() else targets)
         graph[path] = children
         for target in reversed(children):
             if target not in cache:
@@ -1003,8 +1016,11 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
             return out, (f"{path}: unresolved include {name} ("
                          + (f"<{incomplete[0]}> resolves nowhere" if incomplete else "its branch's macro can be defined")
                          + ")")
-    barriers = once | (set() if unknown_macro_stack else
-                       {path for path, macro in guards.items() if macro not in invalidated})
+    # a `#pragma once` under an _MSC_VER condition holds only while _MSC_VER stays MSVC 7.1's own
+    msc_steady = not unknown_macro_stack and "_MSC_VER" not in invalidated and not re.search(
+        r"(?m)^// cl:.*?(?:[/-]D\s*_MSC_VER\b|[/-]U\s*_MSC_VER\b|[/-]u(?:\s|$))", text)
+    barriers = {path for path, kind in once.items() if kind == "always" or msc_steady} | (
+        set() if unknown_macro_stack else {path for path, macro in guards.items() if macro not in invalidated})
     # Removing stable guard vertices must leave an acyclic graph. Checking only
     # DFS back-edges can miss an unguarded alternate cycle through a seen node.
     colors = {}

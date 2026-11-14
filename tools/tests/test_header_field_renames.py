@@ -1173,3 +1173,65 @@ def test_an_include_only_unix_compiles_is_no_unresolved_include(tmp_path, monkey
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     problem = lane.include_problem("u.cpp", text)
     assert ("unresolved include osdep.h" in problem) if unresolved else problem is None, problem
+
+
+def test_review_r1_a_backslash_include_is_read_as_the_compiler_reads_it(tmp_path, monkeypatch):
+    # include resolver review r1: `<sub\outside.h>` named no file on POSIX, so with the compiler's roots it read as
+    # found nowhere (C1083) though MSVC under Wine reads it, and its `#define _UNIX` went unseen
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "sub").mkdir()
+    (tmp_path / "sub" / "outside.h").write_text("#define _UNIX 1\n#define m_flags m_speed\n")
+    (tmp_path / "sub" / "hidden.h").write_text("int hidden;\n")
+    text = '#include <sub\\outside.h>\n#ifdef _UNIX\n#include "sub\\missing.h"\n#endif\n'
+    problem = lane.include_problem("u.cpp", text, [tmp_path], compiler_roots=[tmp_path])
+    assert problem and "unresolved include sub/missing.h" in problem, problem
+    sources = lane.include_sources("u.cpp", '#include <sub\\outside.h>\n#include "sub\\hidden.h"\n', [tmp_path])
+    assert {Path(p).name for p, _ in sources} == {"outside.h", "hidden.h"}
+
+
+def test_review_r1_a_quoted_include_not_beside_its_includer_reads_every_candidate(tmp_path, monkeypatch):
+    # include resolver review r1: the compiler's roots come sorted, not in search order, so the walk read a/config.h
+    # where MSVC reads b/config.h, and missed the macro in it
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    for d, body in (("a", "// nothing\n"), ("b", "#define m_flags m_speed\n")):
+        (tmp_path / d).mkdir()
+        (tmp_path / d / "config.h").write_text(body)
+    sources = lane.include_sources("Code/u.cpp", '#include "config.h"\n', [tmp_path / "a", tmp_path / "b"])
+    assert sorted(Path(p).parent.name for p, _ in sources) == ["a", "b"]
+    # beside its includer, it is that one file
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code" / "config.h").write_text("// local\n")
+    sources = lane.include_sources("Code/u.cpp", '#include "config.h"\n', [tmp_path / "a", tmp_path / "b"])
+    assert [Path(p).parent.name for p, _ in sources] == ["Code"]
+
+
+def test_review_r1_a_quoted_include_may_come_from_an_outer_includers_directory(tmp_path, monkeypatch):
+    # MSVC searches every includer's directory: inner.h's "config.h" is found beside outer.h
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "outer").mkdir()
+    (tmp_path / "outer" / "deeper").mkdir()
+    (tmp_path / "outer" / "outer.h").write_text('#include "deeper/inner.h"\n')
+    (tmp_path / "outer" / "deeper" / "inner.h").write_text('#include "config.h"\n')
+    (tmp_path / "outer" / "config.h").write_text("#define m_flags m_speed\n")
+    sources = lane.include_sources("u.cpp", '#include "outer/outer.h"\n')
+    assert "config.h" in {Path(p).name for p, _ in sources}
+
+
+@pytest.mark.parametrize("a_h,flags,cycle", [
+    # include resolver review r1: `#undef _MSC_VER` ahead of the condition: the pragma never runs
+    ("#undef _MSC_VER\n#ifdef _MSC_VER\n#pragma once\n#endif\n#include \"b.h\"\n", "", True),
+    ("#ifdef _MSC_VER\n#pragma once\n#endif\n#include \"b.h\"\n", "", False),
+    ("#ifdef _MSC_VER\n#pragma once\n#endif\n#include \"b.h\"\n", "// cl: /U_MSC_VER\n", True),
+    ("#ifdef _MSC_VER\n#pragma once\n#endif\n#include \"b.h\"\n", "// cl: /u\n", True),
+    ("#if _MSC_VER > 1000\n#pragma once\n#endif\n#include \"b.h\"\n", "// cl: /D_MSC_VER=900\n", True),
+    # ... b.h touching it counts too, wherever it sits in the closure
+    ("#if _MSC_VER > 1000\n#pragma once\n#endif\n#include \"b.h\"\n", "", None),
+    # an unconditional `#pragma once` holds whatever _MSC_VER holds
+    ("#undef _MSC_VER\n#pragma once\n#include \"b.h\"\n", "", False),
+])
+def test_review_r1_a_conditional_pragma_once_needs_msc_ver_untouched(tmp_path, monkeypatch, a_h, flags, cycle):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text(a_h)
+    (tmp_path / "b.h").write_text(('#define _MSC_VER 900\n' if cycle is None else "") + '#include "a.h"\n')
+    problem = lane.include_problem("u.cpp", flags + '#include "a.h"\n')
+    assert ("cycle" in problem) if cycle in (True, None) else problem is None, problem
