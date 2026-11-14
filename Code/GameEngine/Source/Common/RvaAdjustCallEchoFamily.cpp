@@ -6,11 +6,7 @@
 #include <math.h>
 #include "Lib/Region2D.h"
 struct BfmeE16;
-struct Rva0030B72CPoint {
- Rva0030B72CPoint() {}
- __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &point):x(point.x),y(point.y) {}
- float x,y;
-};
+#include "../../Include/Common/Rva0030B72CPoint.h"
 
 class Rva0053863ESub
 {

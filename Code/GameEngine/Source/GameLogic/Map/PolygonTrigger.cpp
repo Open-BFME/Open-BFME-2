@@ -317,16 +317,7 @@ Rva002E373CHolder *g_Va00DBD0F4 = (Rva002E373CHolder *)&g_00DFF0B8;
 
 extern TerrainLogic *TheTerrainLogic;
 
-struct Rva0030B72CPoint
-{
-	Rva0030B72CPoint() {}
-	__forceinline Rva0030B72CPoint(const Rva0030B72CPoint &that)
-	{
-		x = that.x;
-		y = that.y;
-	}
-	float x, y;
-};
+#include "../../../Include/Common/Rva0030B72CPoint.h"
 
 struct PlanarPoint
 {

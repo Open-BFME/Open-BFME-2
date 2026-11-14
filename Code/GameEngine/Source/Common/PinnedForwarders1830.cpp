@@ -23,16 +23,7 @@ typedef float Real;
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
 
-struct Rva0030B72CPoint
-{
-	Rva0030B72CPoint() {}
-	__forceinline Rva0030B72CPoint(const Rva0030B72CPoint &that)
-	{
-		x = that.x;
-		y = that.y;
-	}
-	float x, y;
-};
+#include "../../Include/Common/Rva0030B72CPoint.h"
 
 class AreaPolygonBase
 {

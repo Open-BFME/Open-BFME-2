@@ -13,11 +13,7 @@
 // free-first-pointer body 0x0007FAB3. The virtual base sits at +0x90.
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/Region2D.h"
-struct Rva0030B72CPoint {
- Rva0030B72CPoint() {}
- __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &point):x(point.x),y(point.y) {}
- float x,y;
-};
+#include "../../Include/Common/Rva0030B72CPoint.h"
 
 
 void __cdecl Rva00030830GameFree(void *);

@@ -11,11 +11,7 @@
 #include "ascii_string.h"
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
-struct Rva0030B72CPoint {
- Rva0030B72CPoint() {}
- __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &other):x(other.x),y(other.y) {}
- float x,y;
-};
+#include "../../Include/Common/Rva0030B72CPoint.h"
 
 class VBase00C6EE28
 {
