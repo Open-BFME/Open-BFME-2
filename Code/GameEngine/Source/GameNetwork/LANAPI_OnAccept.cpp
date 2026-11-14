@@ -48,7 +48,15 @@ public:
 
 class LANGameInfo : public Rva00447773 {};
 
-class AptLanLobby { static AptLanLobby *s_instance; public: static AptLanLobby *Instance() { return s_instance; } };
+class AptLanLobby
+{
+	static AptLanLobby *s_instance;
+public:
+	static AptLanLobby *Instance() { return s_instance; }
+	void OnGameJoin( void );
+	void CancelMenu( void );
+	void OnGameCreate( void );
+};
 void Rva00248D84Enable();
 
 #include "../../Include/GameNetwork/LANAPI.h"

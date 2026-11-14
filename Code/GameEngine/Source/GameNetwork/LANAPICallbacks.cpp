@@ -323,6 +323,7 @@ public:
 	static AptLanLobby *Instance() { return s_instance; }
 	void OnGameJoin( void );
 	void CancelMenu( void );
+	void OnGameCreate( void );
 };
 class Rva00444357DwordImmSetter
 {
