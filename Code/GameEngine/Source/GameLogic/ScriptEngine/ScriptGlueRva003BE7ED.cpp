@@ -63,7 +63,7 @@ public:
 };
 class VictoryConditionsInterface; extern VictoryConditionsInterface *TheVictoryConditions;
 
-class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); };
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 
 // Both range-7 bodies use the registry at VA 0x00DFE358 through the already
 // matched _STL::find specialization at 0x0020E873. Their direct callees and
