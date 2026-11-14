@@ -237,12 +237,12 @@ template bool DynamicVectorClassWide<TextureStatisticsStructWide>::Add(
 	TextureStatisticsStructWide const &);
 template VectorClassWide<TextureStatisticsStructWide>::~VectorClassWide();
 
-static DynamicVectorClassWide<TextureStatisticsStructWide> texture_statistics_wide;
-
-void Record_Texture_Wide_Begin()
-{
-	texture_statistics_wide.Resize(0);
-}
+// Explicitly instantiate the rowed ctor and Resize members.
+// No references to retail ctor 0x001566B0 were found in retail .text.
+template DynamicVectorClassWide<TextureStatisticsStructWide>::DynamicVectorClassWide(
+	unsigned int, TextureStatisticsStructWide const *);
+template bool DynamicVectorClassWide<TextureStatisticsStructWide>::Resize(
+	int, TextureStatisticsStructWide const *);
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
