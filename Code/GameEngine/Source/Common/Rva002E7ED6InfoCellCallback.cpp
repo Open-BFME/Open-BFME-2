@@ -13,7 +13,7 @@
 #include "../../Include/GameLogic/PathfindCell.h"
 
 int __cdecl Rva002E6E8AGet(int v);
-struct PathfinderCellPoint : Coord3D {};
+#include "../../Include/Common/PathfinderCellPoint.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0 };
 PathfinderCellPoint rva002E79A8(bool centerInCell, int cellX, int cellY, PathfindLayerEnum layer);
 

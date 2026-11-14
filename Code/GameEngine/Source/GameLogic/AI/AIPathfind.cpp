@@ -749,7 +749,7 @@ public:
 	void rva002E7964(ICoord2D *out, unsigned char center, const Coord3D *pos);
 };
 #include "../../../Include/GameLogic/Rva002EBC34.h"
-struct PathfinderCellPoint { int x; int y; };
+#include "../../../Include/Common/PathfinderCellPoint.h"
 // Rowed 0x002E79A8 returns its cell point through the hidden first argument;
 // this caller forwards that buffer, so it calls the rowed symbol through the
 // five-slot cdecl view.
