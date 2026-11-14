@@ -123,3 +123,6 @@ First case: `Rva0056B218B2` (VA 0x00C3702C, five slots, the table of `LivingWorl
 `LivingWorldBattleListener`. Layout: 4 bytes, base at +0, no slot of its own; the derived `Rva0056B218` keeps its
 bases at +0 and +20. `./build.sh` 5/5; `link_check.py` 2 of 2, LINKED 270 -> 274; bridge plan 3,271 -> 3,270 bridged,
 mismatching slots 37,308 -> 37,300, refusals identical.
+
+Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
+- 2026-11-14 `Rva0056B2DDB2` (VA 0x00C3702C, 5 slots) from `LivingWorldBattleListener`: `Rva0056B2DDConstructor.cpp`, `Rva0056B2DDDtor.cpp`.

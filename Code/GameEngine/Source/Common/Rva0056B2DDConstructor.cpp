@@ -21,11 +21,12 @@ struct Parent0056B2DD
 
 #include "../../Include/Common/Rva0056AC26.h"
 
-class Rva0056B2DDB2
+#include "../../Include/Common/LivingWorldBattleListener.h"
+
+class Rva0056B2DDB2 : public LivingWorldBattleListener
 {
 public:
 	Rva0056B2DDB2() {}
-	virtual ~Rva0056B2DDB2() {}
 };
 
 #include "../../Include/Common/Rva003EE91A.h"
