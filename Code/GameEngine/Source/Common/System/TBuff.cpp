@@ -292,37 +292,10 @@ extern bool bfmeOnlyEmissiveDraws;
 // Root tables BC6F34: empty RET4 followed by three pure callbacks.
 class WaterHandle;
 
-class TerrainLogicListenerRootA {
-public:
- virtual void vslot0(int);
- virtual void vslot1(int, WaterHandle *) = 0;
- virtual void vslot2(void *, void *) = 0;
- virtual void vslot3(void *, void *) = 0;
- ~TerrainLogicListenerRootA() {}
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
-class TerrainLogicListenerA : public TerrainLogicListenerRootA {
-public:
- virtual void vslot1(int, WaterHandle *);
- virtual void vslot3(void *, void *);
- ~TerrainLogicListenerA();
-};
 
-class TerrainLogicListenerRootB {
-public:
- virtual void vslot0(int);
- virtual void vslot1(int, WaterHandle *) = 0;
- virtual void vslot2(void *, void *) = 0;
- virtual void vslot3(void *, void *) = 0;
- ~TerrainLogicListenerRootB() {}
-};
 
-class TerrainLogicListenerB : public TerrainLogicListenerRootB {
-public:
- virtual void vslot1(int, WaterHandle *);
- virtual void vslot3(void *, void *);
- ~TerrainLogicListenerB();
-};
 
 // Native getWaypointByID28333F stores Waypoint pointers keyed by unsigned ID
 // at +56C; xfer clears that same cache through280AB6.
@@ -369,53 +342,6 @@ struct TerrainLogicRecord
 	Real m_04[4];
 };
 
-class TerrainLogic : public Snapshot, public SubsystemInterface,
-	public TerrainLogicListenerA, public TerrainLogicListenerB
-{
-public:
-	TerrainLogic();
-	virtual ~TerrainLogic();
-	virtual void reset();
-	virtual bool loadMap(const AsciiString &, class ChunkInputStream *, bool, bool);
-	virtual void init();
-	virtual void update();
-
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-
-protected:
-	Int m_18;											// +0x18 (Zero Hour's m_mapData)
-
-private:
-	Int m_1C;											// +0x1C
-	Int m_20;											// +0x20
-	Int m_24;											// +0x24
-	Int m_28;											// +0x28
-	Int m_2C;											// +0x2C
-	_STL::vector<Int> m_30;								// +0x30
-	Int m_3C;											// +0x3C
-	Int m_40;											// +0x40
-	bool m_44;											// +0x44
-	Int m_48;											// +0x48
-	AsciiString m_4C;									// +0x4C
-	Rva002833E7Holder m_50;								// +0x50
-	Rva002833E7Holder m_54;								// +0x54
-	Rva002833E7Holder m_58;								// +0x58
-	Rva002833E7Holder m_5C;								// +0x5C
-	bool m_60;											// +0x60
-	_STL::list<TerrainBeaconPath> m_64;				// +0x64
-	TerrainLogicRecord m_records[64];					// +0x68
-	Int m_568;											// +0x568
-	_STL::map<unsigned int, Waypoint *> m_56C;				// +0x56C
-	_STL::vector<Int> m_578;							// +0x578
-	Rva00283081 *m_584;									// +0x584
-	Int m_588[1250];									// +0x588
-	Int m_1910;											// +0x1910
-	bool m_1914;										// +0x1914
-	Real m_1918;										// +0x1918
-};
 
 // ??0Rva00062A7EProduct@@QAE@XZ, retail 0x00062A7E..0x00062AC4 (70 bytes):
 // W3DTerrainLogic's constructor (pinned under its address name; the factory

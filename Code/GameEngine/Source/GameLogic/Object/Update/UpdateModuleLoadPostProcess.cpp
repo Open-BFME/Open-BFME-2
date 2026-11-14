@@ -13,11 +13,7 @@
 #define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModule : public BehaviorModule
-{
-protected:
-	virtual void loadPostProcess(void);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 void UpdateModule::loadPostProcess(void)
 {

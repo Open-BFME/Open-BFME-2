@@ -51,19 +51,7 @@ extern GameLogic *TheGameLogic;
 #define BFME_BEHAVIORMODULE_XFER
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModule : public BehaviorModule
-{
-public:
-	virtual void xfer(Xfer *xfer);
-private:
-	char m_unreconstructed_10[0x04];
-private:
-	unsigned int m_nextCallFrameAndPhase;
-private:
-	int m_indexInLogic;
-protected:
-	UpdateSleepTime frameToSleepTime(UnsignedInt frame1, UnsignedInt frame2, UnsignedInt frame3, UnsignedInt frame4);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp
 

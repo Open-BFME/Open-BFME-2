@@ -11,11 +11,7 @@ struct Thing
     unsigned char m_pad95[0x438 - 0x94 - 1];
     unsigned char m_438;
 };
-struct Rva002A8AB1Record
-{
-    char m_pad[0x16C];
-    int m_16C;
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 // class key matches the data ledger primary ?TheSkirmishAIManager@@3PAVRva002A8F24@@A (Rva005EEA20Find.cpp).
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;

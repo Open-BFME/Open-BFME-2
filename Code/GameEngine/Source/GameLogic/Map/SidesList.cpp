@@ -167,12 +167,7 @@ public:
 	void rva002D6AE2();
 };
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DProjectedShadowClass.h"
-class GameInfo
-{
-public:
-	int getNumPlayers() const;
-	int getNumOpenOrOccupiedSlots() const;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 class AIUpdateInterface
 {
 public:
