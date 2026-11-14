@@ -192,19 +192,7 @@ public:
 private:
 	unsigned char m_pad[0x20]; // sizeof 0x20 per BfmeDynamicNativeVBSize check
 };
-class DX8IndexBufferClass
-{
-public:
-	enum UsageType
-	{
-		USAGE_DEFAULT = 0,
-		USAGE_DYNAMIC = 1
-	};
-	DX8IndexBufferClass(unsigned indexCount, UsageType usage);
-
-private:
-	unsigned char m_pad[0x18]; // sizeof 0x18 (new 0x18)
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 class W3DBuffBuffer : public Rva0074011F
 {
 public:
