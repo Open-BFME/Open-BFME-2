@@ -558,12 +558,7 @@ Rva00217497::Rva00217497()
 // The two-slot native table shares WindowTranslator's handler.
 class GameMessage;
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg) = 0;
-	virtual ~GameMessageTranslator() {}
-};
+#include "../../Include/Common/GameMessageTranslator.h"
 class WindowTranslator : public GameMessageTranslator
 {
 public:
