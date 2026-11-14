@@ -5,16 +5,7 @@
 // push edi push esi call 0x00583A72; same shape as Rva00153425Copy 38B but stride 0x1c;
 // callers 0x0058435E 0x005843A9 0x00584460 0x005844AC with 4 pushes.
 
-struct Rva002337F0Blk
-{
-	int a;
-	int b;
-	int c;
-	int d;
-	char e;
-	int f;
-	int g;
-};
+#include "../../Include/Common/Rva002337F0Blk.h"
 
 class Rva002337F0
 {

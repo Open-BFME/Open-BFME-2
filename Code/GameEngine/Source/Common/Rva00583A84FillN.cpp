@@ -4,16 +4,7 @@
 // Evidence: push esi mov esi [esp+8] push edi mov edi [esp+0x10] test jbe push [esp+0x14] push esi call 0x00583A72;
 // same shape as Rva0015344BFillN 37B; callers 0x00583B65 0x0058438B with 4 pushes and add esp 0x10.
 
-struct Rva002337F0Blk
-{
-	int a;
-	int b;
-	int c;
-	int d;
-	char e;
-	int f;
-	int g;
-};
+#include "../../Include/Common/Rva002337F0Blk.h"
 
 class Rva002337F0
 {

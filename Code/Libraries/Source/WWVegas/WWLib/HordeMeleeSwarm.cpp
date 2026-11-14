@@ -166,16 +166,7 @@ private:
 
 struct BfmeStringRecord00111ACF { char m_data[28]; };
 
-struct Rva002337F0Blk
-{
-	int a;
-	int b;
-	int c;
-	int d;
-	char e;
-	int f;
-	int g;
-};
+#include "../../../../GameEngine/Include/Common/Rva002337F0Blk.h"
 
 class Rva002337F0
 {

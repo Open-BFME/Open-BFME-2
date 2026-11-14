@@ -5,16 +5,7 @@
 // push [ebp+8] call 0x00583A84 add esp 0x10 leave ret; same shape as Rva0014F90DFillN 27B;
 // caller 0x00584493 with 4 pushes.
 
-struct Rva002337F0Blk
-{
-	int a;
-	int b;
-	int c;
-	int d;
-	char e;
-	int f;
-	int g;
-};
+#include "../../Include/Common/Rva002337F0Blk.h"
 
 class Rva002337F0
 {
