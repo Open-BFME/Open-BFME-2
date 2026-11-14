@@ -63,15 +63,7 @@ class UnicodeString;
 #include "../../../Include/Common/AsciiStringRefWithChar.h"
 
 // "string + text"
-struct AsciiStringPlusText : AsciiStringRef
-{
-	int length() const;
-	int write(char *dst);
-	operator AsciiString();
-	operator UnicodeString();
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../../Include/Common/AsciiStringPlusText.h"
 
 // "string + char + text"
 #include "../../../Include/Common/AsciiStringCharPlusText.h"

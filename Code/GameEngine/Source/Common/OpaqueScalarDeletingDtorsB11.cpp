@@ -386,23 +386,9 @@ __forceinline const char *GetStr0050FDDC(const AsciiString &asciiString)
 	return stringData ? stringData + 8 : "";
 }
 
-class Rva000B3F84Pair
-{
-public:
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/AsciiStringPlusText.h"
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
 
-struct AsciiStringPlusText : AsciiStringRef
-{
-	operator AsciiString();
-	Rva000B3F84Pair m_right;
-};
 
 struct AsciiStringPlusText __cdecl operator+(const AsciiString &lhs, const char *rhs);
 
