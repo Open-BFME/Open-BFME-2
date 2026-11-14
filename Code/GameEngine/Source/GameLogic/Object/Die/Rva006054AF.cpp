@@ -7,7 +7,9 @@
 // 0x00601556 0x006045E1 0x00604667; neighbours 0x00605464 and 0x006054E7.
 #include <mbstring.h>
 #include <string.h>
-void *__cdecl operator new[](unsigned int size);
+// operator new[] comes from the real <crtdbg.h>; /D_CRTIMP= keeps it off
+// the IAT, matching the direct thunk call.
+#include <crtdbg.h>
 
 #include <deque>
 
