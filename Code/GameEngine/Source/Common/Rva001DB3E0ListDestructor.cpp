@@ -12,7 +12,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <new>
 
-struct Rva004DFCB0Element { unsigned word0;Rva004DFCB0Element& operator=(const Rva004DFCB0Element&b){if(this!=&b){word0=b.word0;}return *this;}bool operator<(const Rva004DFCB0Element&)const;bool operator==(const Rva004DFCB0Element&)const; };
+#include "../../Include/Common/Rva004DFCB0Element.h"
 
 struct Gen_001DB2C0
 {

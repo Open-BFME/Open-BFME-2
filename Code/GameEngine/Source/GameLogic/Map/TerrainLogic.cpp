@@ -456,18 +456,7 @@ public:
 private:
 	int m_00; // +0x00
 };
-struct Rva004DFCB0Element
-{
-	unsigned word0;
-	Rva004DFCB0Element &operator=(const Rva004DFCB0Element &other)
-	{
-		if (this != &other)
-			word0 = other.word0;
-		return *this;
-	}
-	bool operator<(const Rva004DFCB0Element &) const;
-	bool operator==(const Rva004DFCB0Element &) const;
-};
+#include "../../../Include/Common/Rva004DFCB0Element.h"
 class Rva00281A76;
 typedef void *(__cdecl *Rva00282B26Callback)(void *key);
 class Rva00283114

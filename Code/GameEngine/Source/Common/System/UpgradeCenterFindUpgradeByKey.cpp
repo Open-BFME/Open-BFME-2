@@ -159,18 +159,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // Four-byte slot ABI shared with the verified push_back fold; original
 // element spelling is unresolved. Retail stores UpgradeTemplate pointers.
-struct Rva004DFCB0Element
-{
-	unsigned word0;
-	Rva004DFCB0Element &operator=(const Rva004DFCB0Element &other)
-	{
-		if (this != &other)
-			word0 = other.word0;
-		return *this;
-	}
-	bool operator<(const Rva004DFCB0Element &) const;
-	bool operator==(const Rva004DFCB0Element &) const;
-};
+#include "../../../Include/Common/Rva004DFCB0Element.h"
 
 class Rva0026F684
 {
