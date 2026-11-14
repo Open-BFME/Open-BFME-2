@@ -10,16 +10,7 @@
 //   landing unblocks 7 callers (0x00086C4A/0x00086CDA/0x00086D73/0x00086E24/0x00086EBD/0x00086F56/0x00089ED4)
 //   that lerp with its result; 1.0f global at 0x00BBB8D8.
 typedef float Real;
-class ParabolicEase
-{
-public:
-	void rva0030E51F(Real easeInTime, Real easeOutTime, Real duration);
-	ParabolicEase(Real easeInTime = 0.0f, Real easeOutTime = 0.0f, Real duration = 1.0f);
-	Real operator()(Real param) const;
-private:
-	Real m_in;
-	Real m_out;
-};
+#include "../../Include/Common/ParabolicEase.h"
 Real ParabolicEase::operator()(Real param) const
 {
 	if (param < 0.0f || param > 1.0f) {
