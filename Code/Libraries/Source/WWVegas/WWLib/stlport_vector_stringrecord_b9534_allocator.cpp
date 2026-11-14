@@ -10,15 +10,6 @@
 // B9534 allocate_and_copy at 0xBBCEF and the Pod24 pin); it is rowed under the
 // B9534 spelling by caller evidence, the Pod24 pin standing as fold candidate.
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct BfmeStringRecord000B9534 {
-    AsciiString text;
-    unsigned char flag;
-    unsigned int word0, word1, word2, word3;
-    BfmeStringRecord000B9534();
-    // The allocation/copy unit already owns the shared cleanup COMDAT.
-    // Keep calls to it without emitting a different AsciiString forwarding copy.
-    ~BfmeStringRecord000B9534();
-    BfmeStringRecord000B9534(const BfmeStringRecord000B9534 &);
-};
+#include "BfmeStringRecord000B9534.h"
 #include <memory>
 template class _STL::allocator<BfmeStringRecord000B9534>;
