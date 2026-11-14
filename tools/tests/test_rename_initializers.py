@@ -177,7 +177,7 @@ def test_refuses_a_comdat_registration_outside_the_templates(tree):
 
 def test_refuses_a_registered_name_the_object_does_not_define(tree):
     root, _obj = tree(defined=("_$E1", "_$E2"))
-    with pytest.raises(Refusal, match=r"_\$E3 is registered 1 time\(s\) and defined 0 time\(s\)"):
+    with pytest.raises(Refusal, match=r"registers _\$E3, which is no STATIC code definition"):
         plan(root)
 
 
@@ -347,15 +347,30 @@ def tpl(store, address):
     return b"\xC7\x05" + struct.pack("<I", store) + struct.pack("<I", address) + b"\xC3"
 
 
-def template_object(path, entries, *, plain=()):
+def template_object(path, entries, *, plain=(), plain_entries=()):
     """An object registering each of `entries` [(name, code, [(offset, symbol, addend, kind)])] from its own
-    COMDAT .text and COMDAT .CRT$XCU section, after `plain` names (BODY, one plain section) if any."""
+    COMDAT .text and COMDAT .CRT$XCU section, after `plain` names (BODY, one plain section) or `plain_entries`
+    (like `entries`, laid out in one plain .text and registered in one plain .CRT$XCU) if any."""
     sections, symbols, table = [], [], {}
+    externals = set()
     if plain:
         sections += [(".text", CODE, BODY * len(plain), 0), (".CRT$XCU", XCU, b"\0" * 4 * len(plain), 0)]
         symbols += [(name, 1, 16 * i, link_cycle.STATIC) for i, name in enumerate(plain)]
         table[2] = [(4 * i, name, link_cycle.DIR32) for i, name in enumerate(plain)]
-    externals = set()
+    elif plain_entries:
+        text, relocs, at = bytearray(), [], 0
+        for name, code, entry_relocs in plain_entries:
+            symbols.append((name, 1, at, link_cycle.STATIC))
+            chunk = bytearray(code)
+            for offset, symbol, addend, kind in entry_relocs:
+                chunk[offset:offset + 4] = struct.pack("<i", addend)
+                relocs.append((at + offset, symbol, kind))
+                externals.add(symbol)
+            text += chunk
+            at += len(code)
+        sections += [(".text", CODE, bytes(text), 0), (".CRT$XCU", XCU, b"\0" * 4 * len(plain_entries), 0)]
+        table[1] = relocs
+        table[2] = [(4 * i, name, link_cycle.DIR32) for i, (name, _c, _r) in enumerate(plain_entries)]
     for name, code, relocs in entries:
         text = bytearray(code)
         for offset, _symbol, addend, _kind in relocs:
@@ -516,3 +531,99 @@ def test_apply_refuses_a_rebuilt_object_whose_template_builds_another_static(tre
     with pytest.raises(VerifyFailed, match=r"rebuilt object does not prove"):
         rename.apply_rename(result, ctx=ctx, verify=rebuilt, checks=None)
     assert (root / "reverse/functions.csv").read_bytes() == before
+
+
+# ------------------------------------------------------------ Sol r1: capture, repeated and overlapping relocations
+
+THIRD = 0x007B0C2F
+THREE_ROWS = functions(f"_$E16,,0x{FIRST:08X},11,{SRC},matched,a\n_$E88,,0x{SECOND:08X},11,{SRC},matched,b\n"
+                       f"_$E90,,0x{THIRD:08X},11,{SRC},matched,c\n")
+THREE_RETAIL = {FIRST: tpl(va(KEY_A), va(STR_A)), SECOND: tpl(va(KEY_B), va(STR_B)), THIRD: tpl(va(KEY_C), va(STR_C))}
+PLAIN_AB = [entry("_$E1", KEY_A, STR_A), entry("_$E3", KEY_B, STR_B)]
+
+
+def three_tree(tree, monkeypatch, tmp_path, comdat_entries):
+    tree.tree_args = dict(tree.tree_args, fn=THREE_ROWS)
+    root, _obj = tree(retail=THREE_RETAIL, table=[0x007B0000, FIRST, SECOND, THIRD])
+    obj = template_object(tmp_path / "tpl.obj", comdat_entries, plain_entries=PLAIN_AB)
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    return root
+
+
+def test_plain_template_rows_confirm_the_order_pairing(tree, monkeypatch, tmp_path):
+    root = three_tree(tree, monkeypatch, tmp_path, [entry("_$E5", KEY_C, STR_C)])
+    assert plan(root).renamed_rows == [("_$E16", "_$E1", FIRST), ("_$E88", "_$E3", SECOND), ("_$E90", "_$E5", THIRD)]
+
+
+def test_refuses_a_comdat_match_that_takes_a_plain_row(tree, monkeypatch, tmp_path):
+    # the COMDAT initializer now builds A, as plain _$E1 does: it takes row A, and order would then give
+    # plain _$E1 row B and plain _$E3 row C
+    root = three_tree(tree, monkeypatch, tmp_path, [entry("_$E5", KEY_A, STR_A)])
+    with pytest.raises(Refusal, match=r"order pairs plain _\$E1 with _\$E88 at 0x007B0C0F, but that row is not"):
+        plan(root)
+
+
+def test_refuses_two_relocations_at_one_operand(tree, monkeypatch, tmp_path):
+    relocs = [(2, KEY_B, 0, link_cycle.DIR32), (2, KEY_B, 0, link_cycle.DIR32), (6, STR_B, 0, link_cycle.DIR32)]
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [("_$E1", tpl(0, 0), relocs), entry("_$E3", KEY_A, STR_A)])
+    with pytest.raises(Refusal, match=r"_\$E1 has relocations at \+2, \+2, \+6; its template takes exactly one"):
+        plan(root)
+
+
+def raw_object(path, text_sections, symbols, relocs, registered):
+    """An object of the given (name, flags, body, sel) code sections, symbols [(name, sec, value, class)],
+    relocs {sec: [(offset, symbol, kind)]}, and one COMDAT .CRT$XCU section per name in `registered`."""
+    sections = list(text_sections)
+    table = dict(relocs)
+    for name in registered:
+        sections.append((".CRT$XCU", XCU | link_cycle.COMDAT, b"\0" * 4, 2))
+        table[len(sections)] = [(0, name, link_cycle.DIR32)]
+    return link_cycle.write_coff(path, sections, symbols, table)
+
+
+def test_refuses_a_relocation_reaching_in_from_before_the_body(tree, monkeypatch, tmp_path):
+    # _$E1 starts at +1 of its section; a DIR32 at +0 rewrites its opcode bytes C7 05 when linked
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E3", KEY_A, STR_A)])
+    body = b"\x90" + tpl(0, 0)
+    obj = raw_object(tmp_path / "raw.obj",
+                     [(".text", CODE | link_cycle.COMDAT, body, 2), (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2)],
+                     [("_$E1", 1, 1, link_cycle.STATIC), ("_$E3", 2, 0, link_cycle.STATIC)]
+                     + [(s, 0, 0, link_cycle.EXTERNAL) for s in (KEY_A, KEY_B, STR_A, STR_B, STR_C)],
+                     {1: [(0, STR_C, link_cycle.DIR32), (3, KEY_B, link_cycle.DIR32), (7, STR_B, link_cycle.DIR32)],
+                      2: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)]},
+                     ("_$E1", "_$E3"))
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"_\$E1 has relocations at -1, \+2, \+6"):
+        plan(root)
+
+
+def test_refuses_a_registered_name_defined_twice(tree, monkeypatch, tmp_path):
+    # an EXTERNAL _$E1 in one section and the registered STATIC _$E1 in another: one name, two bodies
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E3", KEY_A, STR_A)])
+    obj = raw_object(tmp_path / "raw.obj",
+                     [(".text", CODE, tpl(0, 0), 0), (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2),
+                      (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2)],
+                     [("_$E1", 1, 0, link_cycle.EXTERNAL), ("_$E1", 2, 0, link_cycle.STATIC),
+                      ("_$E3", 3, 0, link_cycle.STATIC)]
+                     + [(s, 0, 0, link_cycle.EXTERNAL) for s in (KEY_A, KEY_B, STR_A, STR_B)],
+                     {1: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)],
+                      2: [(2, KEY_B, link_cycle.DIR32), (6, STR_B, link_cycle.DIR32)],
+                      3: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)]},
+                     ("_$E1", "_$E3"))
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"_\$E1 is registered 1 time\(s\) and defined 2 time\(s\) in the object"):
+        plan(root)
+
+
+def test_refuses_a_registration_of_no_static_code_symbol(tree, monkeypatch, tmp_path):
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, [entry("_$E3", KEY_A, STR_A)])
+    obj = raw_object(tmp_path / "raw.obj",
+                     [(".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2), (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2)],
+                     [("_$E1", 1, 0, link_cycle.EXTERNAL), ("_$E3", 2, 0, link_cycle.STATIC)]
+                     + [(s, 0, 0, link_cycle.EXTERNAL) for s in (KEY_A, KEY_B, STR_A, STR_B)],
+                     {1: [(2, KEY_B, link_cycle.DIR32), (6, STR_B, link_cycle.DIR32)],
+                      2: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)]},
+                     ("_$E1", "_$E3"))
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"registers _\$E1, which is no STATIC code definition"):
+        plan(root)

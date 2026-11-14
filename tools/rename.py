@@ -14222,8 +14222,9 @@ def initializer_ordinal(row):
 
 
 def object_initializers(path):
-    """(the `_$E` names an object's `.CRT$XCU` relocations register, in order; {`_$E` name: its local
-    code definitions}; the names registered from COMDAT contributions). A registration is a DIR32
+    """(the `_$E` names an object's `.CRT$XCU` relocations register, in order; {`_$E` name: its
+    definitions, of any storage class}; the names registered from COMDAT contributions; {name: the symbol
+    index registered}). The registered symbol must be a STATIC code definition. A registration is a DIR32
     relocation of one aligned pointer slot whose stored addend is 0, so the slot holds the function's
     entry; any other relocation naming a `_$E` refuses. Only a plain section's order is evidence: any
     link keeps one object's plain `.CRT$XCU` section whole and in order. A COMDAT one (a template
@@ -14233,10 +14234,8 @@ def object_initializers(path):
     data = Path(path).read_bytes()
     sections, symbols = link_cycle.parse_coff(data)
     defined = collections.Counter(
-        s.name for s in symbols.values()
-        if ledger_io.LOCAL_STATIC.fullmatch(s.name) and s.cls == link_cycle.STATIC and 0 < s.sec <= len(sections)
-        and sections[s.sec - 1].flags & CODE_SECTION)
-    order, comdat = [], set()
+        s.name for s in symbols.values() if ledger_io.LOCAL_STATIC.fullmatch(s.name) and 0 < s.sec <= len(sections))
+    order, comdat, index_of = [], set(), {}
     for section in sections:
         if section.name != ".CRT$XCU":
             continue
@@ -14252,11 +14251,16 @@ def object_initializers(path):
             if addend:
                 raise Refusal(f"{Path(path).name}: .CRT$XCU registers {name}+0x{addend:X} at +0x{offset:X}, "
                               "not the function's entry")
+            symbol = symbols[index]
+            if not (symbol.cls == link_cycle.STATIC and 0 < symbol.sec <= len(sections)
+                    and sections[symbol.sec - 1].flags & CODE_SECTION):
+                raise Refusal(f"{Path(path).name}: .CRT$XCU registers {name}, which is no STATIC code definition")
             named.append(name)
+            index_of[name] = index
         if section.flags & link_cycle.COMDAT:
             comdat.update(named)
         order += named
-    return order, defined, comdat
+    return order, defined, comdat, index_of
 
 
 # A COMDAT-registered initializer pairs with a row only when both bodies are one of these exact byte
@@ -14293,32 +14297,38 @@ def ledger_statics(ctx):
     return ctx._cache[key]
 
 
-def object_template_operands(ctx, path, name):
-    """(template, (retail VA of each operand)): object `path`'s COMDAT-registered `name` as one exact
-    template, each operand resolved through its DIR32 relocation, the addend the object holds there and
-    data_ledger.csv. Refuses anything else."""
+def object_template_operands(ctx, path, name, index, required=True):
+    """(template, (retail VA of each operand)): the initializer `name` that object `path` registers (symbol
+    `index`) as one exact template, each operand resolved through its DIR32 relocation, the addend the
+    object holds there and data_ledger.csv. Every relocation that overlaps the body counts, wherever it
+    starts, and each operand must carry exactly one. Refuses anything else; with `required` false, a body
+    that is no template at all gives None."""
     import build
     import link_cycle
     data = Path(path).read_bytes()
     sections, symbols = link_cycle.parse_coff(data)
-    symbol = next(s for s in symbols.values() if s.name == name and s.sec > 0)
+    symbol = symbols[index]
     section = sections[symbol.sec - 1]
     stat = Path(path).stat()
     starts = build._function_starts(str(path), stat.st_mtime_ns, stat.st_size).get(symbol.sec, [])
     end = min([value for value in starts if value > symbol.value] + [section.size])
     code = data[section.ptr + symbol.value:section.ptr + end]
     template = template_match(code)
+    if template is None and not required:
+        return None
     if template is None:
         raise Refusal(f"{Path(path).name}: COMDAT-registered {name} ({code[:16].hex(' ')}, {len(code)} bytes) is no "
                       "initializer template this route can prove (" + "; ".join(t[0] for t in INITIALIZER_TEMPLATES)
                       + ")")
-    relocs = {off - symbol.value: (index, kind) for off, index, kind in section.relocs
-              if symbol.value <= off < end}
-    if sorted(relocs) != sorted(template[3]) or any(kind != link_cycle.DIR32 for _i, kind in relocs.values()):
+    # a relocation patches four bytes at its offset: any that reaches into the body counts
+    touching = sorted((off - symbol.value, target, kind) for off, target, kind in section.relocs
+                      if off < end and off + 4 > symbol.value)
+    if [off for off, _t, _k in touching] != sorted(template[3]) or any(k != link_cycle.DIR32 for *_x, k in touching):
         raise Refusal(f"{Path(path).name}: {name} has relocations at "
-                      + (", ".join(f"+{off}" for off in sorted(relocs)) or "no offset")
+                      + (", ".join(f"{off:+d}" for off, _t, _k in touching) or "no offset")
                       + f"; its template takes exactly one DIR32 at each of "
                       + ", ".join(f"+{off}" for off in template[3]))
+    relocs = {off: (target, kind) for off, target, kind in touching}
     by_name = ledger_statics(ctx)
     values = []
     for offset in template[3]:
@@ -14333,22 +14343,24 @@ def object_template_operands(ctx, path, name):
     return template, tuple(values)
 
 
-def template_identities(ctx, path, comdat, placed):
+def retail_holds(at, row, template, values):
+    """Whether the row at `at` is `template` in retail, exactly, with operands `values`."""
+    import build
+    if int(row["target_size"]) != template[1]:
+        return False
+    code = build.read_target_bytes(at, template[1])
+    return template_match(code) is template and tuple(
+        struct.unpack_from("<I", code, offset)[0] for offset in template[3]) == values
+
+
+def template_identities(ctx, path, comdat, placed, index_of):
     """{row's rva: COMDAT name}: each COMDAT-registered initializer paired with the one row whose retail
     body is the same template with the same operands. Refuses any initializer outside the templates, and
     any match that is not one to one."""
-    import build
     pairs = {}
     for name in sorted(comdat):
-        template, values = object_template_operands(ctx, path, name)
-        rows = []
-        for _index, at, row in placed:
-            if int(row["target_size"]) != template[1]:
-                continue
-            code = build.read_target_bytes(at, template[1])
-            if template_match(code) is template and tuple(
-                    struct.unpack_from("<I", code, offset)[0] for offset in template[3]) == values:
-                rows.append((at, row))
+        template, values = object_template_operands(ctx, path, name, index_of[name])
+        rows = [(at, row) for _index, at, row in placed if retail_holds(at, row, template, values)]
         if len(rows) != 1:
             raise Refusal(f"{len(rows)} rows' retail bodies are {name}'s template with its operands ("
                           + ", ".join(f"0x{v:08X}" for v in values) + "): the pairing must be one to one")
@@ -14408,20 +14420,34 @@ def initializer_pairs(ctx, source, path):
     if addresses != sorted(addresses):
         raise Refusal(f"{source}'s `_$E` rows run in a different order in retail's .CRT$XCU table than by address ("
                       + ", ".join(f"0x{at:08X}" for at in addresses) + "): the two orders must agree")
-    names, defined, comdat = object_initializers(path)
+    names, defined, comdat, index_of = object_initializers(path)
     for name in names:
         if names.count(name) != 1 or defined[name] != 1:
             raise Refusal(f"{Path(path).name}: {name} is registered {names.count(name)} time(s) and defined "
-                          f"{defined[name]} time(s) as a local code symbol: each must be once")
+                          f"{defined[name]} time(s) in the object: each must be once")
     if len(names) != len(placed):
         shared = f"; {len(comdat)} of them COMDAT (a copy retail kept from another object has no row here)" \
             if comdat else ""
         raise Refusal(f"{Path(path).name} registers {len(names)} `_$E` initializer(s) ({', '.join(names) or 'none'}"
                       f"{shared}) but {source} rows {len(placed)} in retail's table ("
                       + ", ".join(f"{initializer_ordinal(row)}@0x{at:08X}" for _i, at, row in placed) + ")")
-    identities = template_identities(ctx, path, comdat, placed) if comdat else {}
+    identities = template_identities(ctx, path, comdat, placed, index_of) if comdat else {}
     plain = iter(name for name in names if name not in comdat)
-    return [(row, identities[at] if at in identities else next(plain)) for _index, at, row in placed]
+    pairs = [(row, identities[at] if at in identities else next(plain)) for _index, at, row in placed]
+    if comdat:
+        # The COMDAT matches took rows out of the order pairing. A plain registration that is itself a
+        # template must then hold, in retail, the very row order gave it: else a COMDAT match took a plain
+        # row and shifted every pairing after it (DIR32 masking would hide that from the byte gate).
+        for row, name in pairs:
+            at = _rva(row["target_rva"])
+            if at in identities:
+                continue
+            found = object_template_operands(ctx, path, name, index_of[name], required=False)
+            if found is not None and not retail_holds(at, row, *found):
+                raise Refusal(f"order pairs plain {name} with {row['name']} at 0x{at:08X}, but that row is not "
+                              f"{name}'s template with its operands (" + ", ".join(f"0x{v:08X}" for v in found[1])
+                              + "): a COMDAT match took a plain row, or the order is not retail's")
+    return pairs
 
 
 def plan_initializers(ctx, source, evidence="", **_ignored):
