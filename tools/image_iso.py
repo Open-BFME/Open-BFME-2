@@ -1177,10 +1177,15 @@ class Checker:
         """One record per image table entry that resolves to no retail initializer: its image slot and address,
         the MAP symbols there (name, object, attached source), its kind, and the nearest retail-slotted entries
         before and after it (their retail slots and names)."""
-        slotted = {source_key(k): v for k, v in (slotted_sources or {}).items()}
-        retail_slot = {}
+        slotted = collections.defaultdict(set)
+        for key, rvas in (slotted_sources or {}).items():
+            slotted[unit_key(key)].update(rvas)
+        retail_slots = collections.defaultdict(list)   # a retail address at several slots keeps every one
         for index, rva in enumerate(expected):
-            retail_slot.setdefault(rva, index)
+            retail_slots[rva].append(index)
+
+        def slots_text(rva):
+            return "/".join(map(str, retail_slots[rva]))
         here = collections.defaultdict(list)
         for p in self.publics:
             here[p["rva"]].append(p)
@@ -1188,9 +1193,9 @@ class Checker:
         def neighbour(start, step):
             at = start + step
             while 0 <= at < len(mapped):
-                if mapped[at] in retail_slot:
+                if mapped[at] in retail_slots:
                     names = sorted({p["name"] for p in here.get(actual[at], ())})
-                    return retail_slot[mapped[at]], (names[0] if names else f"0x{actual[at]:08X}")
+                    return slots_text(mapped[at]), (names[0] if names else f"0x{actual[at]:08X}")
                 at += step
             return None, ""
         out = []
@@ -1198,7 +1203,7 @@ class Checker:
             if resolved is not None:
                 continue
             symbols = here.get(rva, [])
-            sources = sorted({source_key(p["source"]) for p in symbols if p.get("source")})
+            sources = sorted({unit_key(p["source"]) for p in symbols if p.get("source")})
             if not symbols:
                 kind = "unnamed"
             elif not sources:
@@ -1211,8 +1216,8 @@ class Checker:
             out.append(dict(image_slot=slot, image_rva=f"0x{rva:08X}", kind=kind,
                             name=";".join(sorted({p["name"] for p in symbols})),
                             object=";".join(sorted({p["object"] for p in symbols})), source=";".join(sources),
-                            unit_retail_slots=" ".join(str(retail_slot[r]) for src in sources
-                                                       for r in sorted(slotted.get(src, ())) if r in retail_slot),
+                            unit_retail_slots=" ".join(slots_text(r) for r in sorted({r for src in sources
+                                                       for r in slotted.get(src, ())}) if r in retail_slots),
                             previous_retail_slot="" if before[0] is None else before[0], previous_name=before[1],
                             next_retail_slot="" if after[0] is None else after[0], next_name=after[1]))
         return out
@@ -1240,8 +1245,9 @@ class Checker:
         self.counts["initializers_runtime_execution_unanalyzed"] = len(expected)
         for entry in self.initializer_entries:
             self.counts["initializers_" + entry["kind"]] += 1
-        self.counts["initializers_slotless_units"] = len({e["source"] for e in self.initializer_entries
-                                                          if e["kind"] == "slotless"})
+        self.counts["initializers_slotless_units"] = len({src for e in self.initializer_entries
+                                                          if e["kind"] == "slotless" for src in e["source"].split(";")
+                                                          if src})
         # The bridge has no public symbols. A MAP public count cannot count it.
         self.counts["initializer_bridge_public_symbols_seen"] = sum("retail_initializers" in p["object"] for p in self.publics)
         self.counts["initializer_bridge_entries_unanalyzed"] = len(expected)
@@ -2574,6 +2580,13 @@ def vptr_store_report(checker, stores, sizes, order=None):
     return dict(counts=dict(counts), stores=results)
 
 
+def unit_key(value):
+    """One spelling per source path: forward slashes, no `.` or `..` segments, no leading `./`."""
+    import posixpath
+    text = (value or "").replace("\\", "/")
+    return posixpath.normpath(text) if text else ""
+
+
 def retail_slotted_sources(function_ledger, retail_initializers):
     """{source: {retail RVA}}: the ledger rows at retail initializer addresses, by source."""
     wanted = set(retail_initializers)
@@ -2585,7 +2598,7 @@ def retail_slotted_sources(function_ledger, retail_initializers):
             except (KeyError, TypeError, ValueError):
                 continue
             if rva in wanted and row.get("source"):
-                out[row["source"]].add(rva)
+                out[unit_key(row["source"])].add(rva)
     return dict(out)
 
 

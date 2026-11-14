@@ -2672,8 +2672,8 @@ def test_unresolved_initializers_are_classified_with_their_neighbours():
     assert kinds == {1: "slotless", 2: "unmatched_in_slotted_unit", 4: "unnamed"}
     debug = c.initializer_entries[0]
     assert (debug["name"], debug["source"], debug["unit_retail_slots"]) == ("_$E1", "Code/debug.cpp", "")
-    assert (debug["previous_retail_slot"], debug["previous_name"]) == (0, "a")
-    assert (debug["next_retail_slot"], debug["next_name"]) == (1, "b")
+    assert (debug["previous_retail_slot"], debug["previous_name"]) == ("0", "a")
+    assert (debug["next_retail_slot"], debug["next_name"]) == ("1", "b")
     assert c.initializer_entries[1]["unit_retail_slots"] == "1"
     assert c.counts["initializers_slotless"] == 1 and c.counts["initializers_unnamed"] == 1
     assert c.counts["initializers_unmatched_in_slotted_unit"] == 1 and c.counts["initializers_slotless_units"] == 1
@@ -2707,4 +2707,37 @@ def test_retail_slotted_sources_and_the_tsv(tmp_path):
     lines = (tmp_path / "initializers_slotless.tsv").read_text().splitlines()
     assert lines[0].split("\t") == iso.INITIALIZER_COLUMNS
     assert lines[1].split("\t")[:3] == ["1", "0x00000500", "slotless"]
+
+
+def test_source_spellings_are_one_unit_and_their_slots_union():
+    # review r1: Code/./cmd.cpp in the manifest is the ledger's Code/cmd.cpp; ./Code/cmd.cpp's slots join it
+    c = slotless_case()
+    for p in c.publics:
+        if p["source"] == "Code/cmd.cpp":
+            p["source"] = "Code/./cmd.cpp"
+    c.retail.inits = [0x100, 0x200, 0x250]
+    c.initializers({"Code/cmd.cpp": {0x200}, "./Code/cmd.cpp": {0x250}})
+    cmd = next(e for e in c.initializer_entries if e["name"] == "_$E1" and "cmd" in e["object"])
+    assert cmd["kind"] == "unmatched_in_slotted_unit" and cmd["unit_retail_slots"] == "1 2"
+    assert iso.unit_key("./Code/x\\y/../z.cpp") == "Code/x/z.cpp"
+
+
+def test_slotless_units_count_each_source():
+    c = slotless_case()
+    c.publics.append(dict(public("_$E2", 0x500), object="other.obj", source="Code/other.cpp"))
+    c.initializers({"Code/cmd.cpp": {0x200}})
+    debug = next(e for e in c.initializer_entries if e["image_slot"] == 1)
+    assert debug["source"] == "Code/debug.cpp;Code/other.cpp"
+    assert c.counts["initializers_slotless_units"] == 2
+
+
+def test_a_retail_address_at_two_slots_keeps_both():
+    # review r1: retail runs 0x100 twice; which occurrence an image entry is, is not proven
+    c = checker([dict(public("a", 0x300), source="Code/a.cpp"),
+                 dict(public("_$E1", 0x500), object="x.obj", source="Code/x.cpp")], {"a": {0x100}})
+    c.retail.inits = [0x100, 0x100]
+    c.ours.inits = [0x300, 0x300, 0x500]
+    c.initializers({"Code/x.cpp": {0x100}})
+    entry = c.initializer_entries[0]
+    assert entry["unit_retail_slots"] == "0/1" and entry["previous_retail_slot"] == "0/1"
 
