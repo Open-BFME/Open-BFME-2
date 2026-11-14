@@ -68,6 +68,14 @@ OTHER = "class Other { public: Other(); };\nOther::Other() {}\n"
 COMPILED = {"??_7Widget@@6B@": [GDTOR, NEW, STOP]}
 
 
+@pytest.fixture(autouse=True)
+def _slot_votes(request, monkeypatch):
+    """The slot's name is voted (to_class_name_problem); the tests below that predate it test every other check of
+    the move, so the vote is taken as given for them. test_votes_* run the real check."""
+    if not request.node.name.startswith("test_votes_"):
+        monkeypatch.setattr(rename, "to_class_name_problem", lambda *args, **kwargs: None)
+
+
 def _git(root, *args):
     subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True)
 
@@ -1640,3 +1648,135 @@ def test_an_installer_without_the_prepared_header_is_still_judged_before_the_bui
     root = view_tree(tree)
     with pytest.raises(Refusal, match="slot 2 names"):
         getter_plan(root)          # the getter unit alone is prepared: Widget.cpp's view is unchanged
+
+
+# ------------------------------------------------------------ the slot's name is voted (votes only)
+
+WIDGET_H = "Code/Game/Widget.h"
+
+
+def register(tree, cls="Widget", header=WIDGET_H):
+    path = tree / "reverse/canonical_classes.csv"
+    text = path.read_text() if path.exists() else "class,header,notes\n"
+    path.write_text(text + f"{cls},{header},registered\n")
+
+
+def key_of(table_va, slot, cls="Widget", header=WIDGET_H):
+    return f"{header}|slot|{cls}@0x{table_va:08X}|{slot}"
+
+
+def approve(tree, key, name, status="agreed", workers=("w-aaaaaaaaaaaa", "w-bbbbbbbbbbbb")):
+    """name_lane's approval of `name` for slot `key`: the workers' votes and the agreed record."""
+    import name_agreement
+    votes, agreed = tree / name_agreement.VOTES, tree / name_agreement.AGREED
+    if not votes.exists():
+        votes.write_text(",".join(name_agreement.VOTE_COLUMNS) + "\n")
+    if not agreed.exists():
+        agreed.write_text(",".join(name_agreement.AGREED_COLUMNS) + "\n")
+    digest = name_agreement.digest(key, name)
+    with votes.open("a") as f:
+        for worker in workers:
+            f.write(f"{key},{digest},seat,s-{worker},{worker},2026-11-14\n")
+    with agreed.open("a") as f:
+        f.write(f"nl-{abs(hash(key)) % 10**8},slot,{key.rsplit('|', 1)[1]},{name},,{';'.join(workers)},{key},{status},"
+                "two-agent agreement\n")
+
+
+def test_votes_slot_key_is_built_from_retail_facts_and_the_registered_header(tree):
+    register(tree)
+    ctx = ctx_of(tree)
+    assert rename.slot_key(ctx, "Widget", TABLE, 1) == key_of(0x00C00000, 1)
+    assert rename.slot_key(ctx, "Gadget", TABLE, 1) is None
+
+
+def test_votes_an_unregistered_class_is_refused(tree, monkeypatch):
+    retail(monkeypatch, GOOD)
+    with pytest.raises(Refusal, match="Widget has no canonical header in reverse/canonical_classes.csv"):
+        plan(tree)
+
+
+def test_votes_an_unvoted_slot_is_refused_naming_its_key(tree, monkeypatch):
+    retail(monkeypatch, GOOD)
+    register(tree)
+    with pytest.raises(Refusal, match=re.escape(f"no approved name for slot key {key_of(0x00C00000, 1)}")):
+        plan(tree)
+
+
+def test_votes_the_approved_name_is_accepted_and_no_other(tree, monkeypatch):
+    retail(monkeypatch, GOOD)
+    register(tree)
+    approve(tree, key_of(0x00C00000, 1), "spin")
+    assert plan(tree).new == NEW
+    assert plan(tree, new=NEW).new == NEW                     # a full mangled --new is judged by its identifier
+    with pytest.raises(Refusal, match="the approved name spin for slot key .*, not whirl"):
+        plan(tree, new="whirl")
+
+
+@pytest.mark.parametrize("status,workers", [("disputed", ("w-aaaaaaaaaaaa", "w-bbbbbbbbbbbb")),
+                                            ("agreed", ("w-aaaaaaaaaaaa",))])
+def test_votes_a_disputed_or_one_vote_name_is_not_approved(tree, monkeypatch, status, workers):
+    retail(monkeypatch, GOOD)
+    register(tree)
+    approve(tree, key_of(0x00C00000, 1), "spin", status=status, workers=workers)
+    with pytest.raises(Refusal, match="no approved name for slot key"):
+        plan(tree)
+
+
+def test_votes_the_declaration_is_never_read(tree, monkeypatch):
+    # the compiled table already declares spin there; without a vote the move is still refused
+    retail(monkeypatch, GOOD)
+    register(tree)
+    with pytest.raises(Refusal, match="no approved name"):
+        plan(tree, new="spin")
+
+
+def test_votes_a_reviewed_shared_slot_needs_the_vote(tree, monkeypatch):
+    retail(monkeypatch, SHARED)
+    _holds(monkeypatch, [ENTRY])
+    register(tree)
+    with pytest.raises(Refusal, match="no approved name"):
+        plan(tree)
+    approve(tree, key_of(0x00C00000, 1), "spin")
+    assert plan(tree).new == NEW
+
+
+def test_votes_a_base_slot_needs_the_vote_on_its_table(tree, monkeypatch):
+    _base(monkeypatch, [BASE])
+    register(tree)
+    with pytest.raises(Refusal, match=re.escape(f"no approved name for slot key {key_of(OTHER_TABLE_VA, 1)}")):
+        plan(tree)
+    approve(tree, key_of(OTHER_TABLE_VA, 1), "spin")
+    assert plan(tree).new == NEW
+
+
+def test_votes_every_batch_member_needs_its_vote(tree, monkeypatch):
+    retail(monkeypatch, B_TABLE, compiled=B_COMPILED)
+    root = batch_tree(tree)
+    register(root)
+    approve(root, key_of(0x00C00000, 1), "create")
+    approve(root, key_of(0x00C00000, 2), "getName")
+    with pytest.raises(Refusal, match=re.escape(f"no approved name for slot key {key_of(0x00C00000, 3)}")):
+        batch_plan(root)
+    approve(root, key_of(0x00C00000, 3), "parse")
+    assert batch_plan(root).to_class["slots"] == {1: N_A, 2: N_B, 3: N_C}
+
+
+def test_votes_a_snapshot_getter_needs_the_vote(tree, monkeypatch):
+    retail(monkeypatch, GETTER_TABLES, compiled=GETTER_COMPILED)
+    root = getter_tree(tree)
+    register(root)
+    with pytest.raises(Refusal, match="no approved name"):
+        getter_plan(root)
+    approve(root, key_of(0x00C00000, 2), "GetSnapshotName")
+    assert getter_plan(root).new == GETTER_NEW
+
+
+def test_votes_an_enum_respelled_move_needs_the_vote(tree, monkeypatch):
+    sleep_tree(tree)
+    register(tree)
+    retail(monkeypatch, SLEEP_TABLES, compiled=SLEEP_COMPILED)
+    with pytest.raises(Refusal, match="no approved name"):
+        sleep_plan(tree)
+    approve(tree, key_of(SLEEP_TABLE + 0x00400000, 0), "update")
+    assert sleep_plan(tree).new == SLEEP_NEW
+

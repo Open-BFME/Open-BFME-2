@@ -7147,12 +7147,56 @@ def snapshot_name_getter_proof(ctx, name, cls, table, slot, installers, found, p
     return f"{proof}; slot {SNAPSHOT_NAME_SLOT} is Snapshot::GetSnapshotName's ({derived[0]}'s view)"
 
 
+def slot_key(ctx, cls, table, slot):
+    """name_lane's key for "the name of slot `slot` of retail table `table` in class `cls`", from retail facts and
+    the class's registered canonical header alone (no declaration is read):
+    `<header>|slot|<cls>@0x<table VA>|<slot>`; None when reverse/canonical_classes.csv registers no header."""
+    header = next((r.get("header") for r in ctx.dicts(CANONICAL_CLASSES) if r.get("class") == cls and r.get("header")),
+                  None)
+    return f"{header}|slot|{cls}@0x{table + IMAGE_BASE:08X}|{slot}" if header else None
+
+
+def approved_slot_name(ctx, key):
+    """The spelling reverse/name_agreed.csv's latest record for slot `key` approves, when that record agrees or
+    landed, is not disputed, and the votes still carry it (name_agreement.verify, check_agreement's floor);
+    else None."""
+    rows = [r for r in ctx.dicts(AGREED) if r.get("key") == key and r.get("kind") == "slot"]
+    if not rows or any(r.get("status") == "disputed" for r in rows) or rows[-1].get("status") not in ("agreed", "landed"):
+        return None
+    new = rows[-1].get("new") or ""
+    problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key, new,
+                                     meaning_votes=ctx.dicts(name_agreement.MEANINGS))
+    return None if problems else new
+
+
+def to_class_name_problem(ctx, cls, table, slot, new_name):
+    """Why the move's new symbol `new_name` may not take retail table `table`'s slot `slot` in `cls`, or None: its
+    identifier must be the name tools/name_lane.py approved for that slot key. Votes alone name a slot; the
+    class's declaration is never read for it."""
+    key = slot_key(ctx, cls, table, slot)
+    where = f"retail table 0x{table + IMAGE_BASE:08X} slot {slot}"
+    if key is None:
+        return (f"{cls} has no canonical header in {CANONICAL_CLASSES}: the name of {where} is voted on the "
+                "registered class (register it first)")
+    try:
+        word = split_function_name(new_name)[1]
+    except Refusal:
+        word = None
+    approved = approved_slot_name(ctx, key)
+    if word != approved:
+        return (f"tools/name_lane.py holds {'the approved name ' + approved if approved else 'no approved name'} "
+                f"for slot key {key}" + (f", not {word}" if approved else "") + f": the name of {where} in {cls} "
+                "is voted there first")
+    return None
+
+
 def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
     """Every check of one --to-class move of the row at `rva` into `cls` as
     `new` (see the section comment), up to its retail slot; a dict of what
     plan_to_class writes. Raises Refusal; writes nothing."""
     if not new:
-        raise Refusal("--to-class needs --new: the member's identifier in that class, or its full mangled name")
+        raise Refusal("--to-class needs --new: the name tools/name_lane.py approved for the slot (its identifier, "
+                      "or the full mangled name)")
     owners = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva
               and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
     if old:
@@ -7215,6 +7259,9 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                                                                reviewed=retail_identity.shared_slot_of(rva, cls, new_name),
                                                                base=retail_identity.base_slot_of(rva, cls, new_name),
                                                                found=found)
+    problem = to_class_name_problem(ctx, cls, table, slot, new_name)
+    if problem:
+        raise Refusal(problem)
     if getter:
         proof = snapshot_name_getter_proof(ctx, name, cls, table, slot, installers, found, proof)
     declared = []
