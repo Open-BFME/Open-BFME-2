@@ -138,11 +138,7 @@ public:
 #include "../../../Include/GameClient/Rva003821B9AsciiField.h"
 
 // The slot's +0x5C setter (rowed as a Disp8 dword setter).
-class Rva003FF0E7DwordSlot
-{
-public:
-	void set(int value);
-};
+#include "../../../Include/GameNetwork/Rva003FF0E7DwordSlot.h"
 
 class GameInfo
 {
