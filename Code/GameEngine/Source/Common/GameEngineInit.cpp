@@ -647,12 +647,7 @@ void __cdecl _bfme_debugRecordCallsite(int kind);
 extern void *ApplicationHWnd;
 extern bool g_00DFE718;
 
-class GameTextInterface
-{
-public:
-	VSLOTS4(t0) VSLOTS4(t1) VSLOTS4(t2) virtual void t30(); virtual void t31();
-	virtual UnicodeString fetch(const AsciiString &label, Bool *exists);	// slot 14 (+0x38)
-};
+#include "../../Include/GameClient/GameText.h"
 
 #include "../../Include/Common/INI/FieldParse.h"
 enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };

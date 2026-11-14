@@ -270,25 +270,7 @@ struct Rva0021B68DEntry
 	AsciiString m_second;		// +0x60
 };
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void reset() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2C() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
