@@ -447,11 +447,7 @@ public:
 	void stopHealing();
 	void rva004523CC();
 };
-class SpecialDisguiseUpdate
-{
-public:
-	void rva004B05F5(bool disguise);
-};
+#include "../../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 // Descriptive bank-only declarations: existing address-named owners need a
 // coherent rename before landing. Never bind a second global at their address.
