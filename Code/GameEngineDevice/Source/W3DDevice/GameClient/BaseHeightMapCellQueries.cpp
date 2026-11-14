@@ -33,7 +33,7 @@ extern "C" void _ReadWriteBarrier(void);
 // (reverse/functions.csv); call them through their owner views.
 #include "../../../../GameEngine/Include/Common/Rva0006AB49BitPlane.h"
 class Rva0006AB98 { public: unsigned char rva0006AB98(int xIndex, int yIndex); };
-class BfmeGridWM { public: unsigned char rva000AE18D(int xIndex, int yIndex); };
+#include "../../../../GameEngine/Include/Common/BfmeGridWM.h"
 class Gen_0074BB30 { public: bool bfmeBitA(int xIndex, int yIndex) const; };
 class Rva000AE234 { public: char rva000AE234(int xIndex, int yIndex); };
 class Gen_0074BA50 { public: bool bfmeBitA(int xIndex, int yIndex) const; };

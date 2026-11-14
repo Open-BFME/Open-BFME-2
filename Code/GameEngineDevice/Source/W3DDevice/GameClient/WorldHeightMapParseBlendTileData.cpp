@@ -33,7 +33,7 @@ public:
 };
 class Rva000AFAFB { public: short *first,*last,*limit; Rva000AFAFB(unsigned); ~Rva000AFAFB() { if(first)free(first); } };
 void rva000AF1C2(int,int,int);
-class BfmeGridWM { public: void walk(); };
+#include "../../../../GameEngine/Include/Common/BfmeGridWM.h"
 struct BlendTileRecord { int blendIndex; unsigned char horiz,vert,rightDiagonal,leftDiagonal,inverted,longDiagonal; unsigned short pad; int customBlendEdgeClass; };
 class BfmeE16Vector : public _STL::vector<BlendTileRecord> { public: void resize(unsigned); };
 struct BfmePod36 { float f[8]; unsigned char b0,b1; unsigned short w; };
