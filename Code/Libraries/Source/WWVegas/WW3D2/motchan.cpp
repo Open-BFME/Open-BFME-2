@@ -140,9 +140,11 @@ float bfme2AdaptiveDeltaFilterTable[256] = { 0.00000001f, 0.0000001f, 0.000001f,
 // Declare the array operators (not <new>, whose placement bodies collide in
 // motchan.cpp) so MSVC keeps new[] on the target array allocator.
 
-void * __cdecl operator new[](unsigned int);
-
-void __cdecl operator delete[](void *);
+// The array operators come from the real <crtdbg.h>, read without dllimport
+// so MSVC keeps new[] on the target array allocator (direct thunk call).
+#define _CRTIMP
+#include <crtdbg.h>
+#undef _CRTIMP
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp
 
