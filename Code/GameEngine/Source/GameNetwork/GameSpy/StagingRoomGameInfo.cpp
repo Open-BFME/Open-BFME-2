@@ -439,7 +439,7 @@ class VictoryConditionsInterface;
 
 // The global in Zero Hour's TheNAT position (0x00E063F8); NAT::get is the
 // slot port getter rowed in NATUpdateBfme.cpp.
-struct NAT { void rva005A6A4C(); unsigned int get(unsigned int index) const; };
+#include "../../../Include/GameNetwork/NATClass.h"
 
 class Rva005A6D47
 {
