@@ -78,17 +78,7 @@ public:
 
 class Rva002C589B;
 
-class AITargetChooser
-{
-public:
-	void xfer(Xfer *);
-	void rva00505911();
-	Rva002C589B *getBestTarget();
-	Rva002C589B *rva00505408(int index); // 0x00505408
-	AITargetChooser(void *p);
-	~AITargetChooser();
-	char m_pad[0x20]; // +0x00
-};
+#include "../../../../Include/Common/AITargetChooser.h"
 
 class AITacticsGenerator
 {
