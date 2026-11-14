@@ -10,16 +10,7 @@ class ModuleData;
 #include "../../../../Include/Common/ModuleInterface.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/CreateModule.h
-class CreateModule : public BehaviorModule, public ModuleInterface
-{
-public:
-	CreateModule( Thing *thing, const ModuleData *moduleData );
-	// BehaviorModuleInterface slot 3 (retail VA 0x00BEF9C0): CreateModule's override,
-	// rowed at 0x002533D3 (header-inline in CreateModuleClass.h; Rva004B8CDEDerived.cpp).
-	virtual CreateModuleInterface *getCreate();
-protected:
-	virtual ~CreateModule();
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SupplyCenterCreate.h
 class SupplyCenterCreate : public CreateModule
