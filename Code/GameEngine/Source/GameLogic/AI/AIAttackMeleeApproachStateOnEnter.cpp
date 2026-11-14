@@ -44,17 +44,19 @@ class Player;
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 // This is the game append helper at RVA 0x002CEC42, not CRT stdio.
-// Share the existing provider's opaque parameter and void return type.
-struct FprintfTarget;
-extern "C" void __cdecl fprintf(FprintfTarget *target, const char *format, ...);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
-			fprintf((FprintfTarget *)log, text);
+			fprintf(log, text);
 	}
 }
 

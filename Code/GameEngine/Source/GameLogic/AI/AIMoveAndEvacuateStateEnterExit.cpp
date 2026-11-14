@@ -15,11 +15,11 @@ typedef bool Bool;
 typedef float Real;
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #include "../Object/object.h"
@@ -44,7 +44,7 @@ StateReturnType AIMoveAndEvacuateState::onEnter()
 	// The inlined setAdjustsDestination(TRUE) logs first.
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 49");
 	}

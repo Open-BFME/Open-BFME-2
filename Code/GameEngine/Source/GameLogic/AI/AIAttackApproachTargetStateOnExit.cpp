@@ -93,7 +93,11 @@ struct GameLogicFieldView
 
 extern GameLogic *TheGameLogic;
 extern "C" void *theLogicRandomLogFile;
-extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
@@ -275,7 +279,7 @@ StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
 	{
 		if (m_stopIfInRange && weapon != 0)
 		{
-			void *log = theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "masiwar called by AIAttackPositionApproachTargetState::updateInternal [2]");
 		}

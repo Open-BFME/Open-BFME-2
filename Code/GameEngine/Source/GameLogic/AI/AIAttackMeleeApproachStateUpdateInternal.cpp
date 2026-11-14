@@ -55,7 +55,11 @@ public:
 extern class AI *TheAI;
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 #include "../../../Include/GameLogic/Weapon.h"
 
@@ -151,7 +155,7 @@ StateReturnType Rva00349611::rva00349611()
 		}
 		if (g_00E03745)
 		{
-			void *log = theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "CritterDesync: ComputePath20");
 		}

@@ -45,13 +45,17 @@ struct MemberwiseCoord3D : public Coord3D
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}

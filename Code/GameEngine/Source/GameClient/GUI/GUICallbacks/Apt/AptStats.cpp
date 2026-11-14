@@ -25,7 +25,11 @@ void Rva00030830FreeAllocation(void*);
 namespace _STL {template<> inline void allocator<unsigned int>::deallocate(unsigned int*p,size_t)const {if(p)Rva00030830FreeAllocation(p);}}
 #include "ascii_string.h"
 #include "unicode_string.h"
-extern "C" unsigned char*__cdecl _mbscpy(unsigned char*,const unsigned char*);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 // WB15D9470 names AptStats::ColorExtern (AptStats.cpp251). The native
 // faction initializer5DD2D3 takes this callback address and the same
 // six color strings; stack arguments are faction, output and bool, RET12.

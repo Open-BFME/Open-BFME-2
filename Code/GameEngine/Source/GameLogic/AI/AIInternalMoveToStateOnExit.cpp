@@ -84,18 +84,18 @@ private:
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 Bool AIInternalMoveToState::getAdjustsDestination() const
 {
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: getAdjustsDestination() entered.");
 	}
@@ -104,7 +104,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 	{
 		if (g_00E03745)
 		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: getAdjustsDestination1 - parachuting returning FALSE.");
 		}
@@ -115,7 +115,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 	{
 		if (g_00E03745)
 		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: getAdjustsDestination1 - isAllowedToAdjustDestination FALSE, returning FALSE.");
 		}
@@ -123,7 +123,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 	}
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log)
 		{
 			const char *tf = "TRUE";

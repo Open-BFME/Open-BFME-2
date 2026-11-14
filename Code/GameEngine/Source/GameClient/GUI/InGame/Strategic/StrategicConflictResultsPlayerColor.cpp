@@ -22,6 +22,7 @@
 #include <stdio.h>
 #undef _CRTIMP
 #define _CRTIMP
+#include <mbstring.h>
 // Declaration-only STL call view, following Rva00422D1CFind.cpp.
 class StrategicConflictResults {public:class Impl;};
 namespace _STL {
@@ -39,7 +40,6 @@ typedef _STL::pair<const int,int> StrategicIntValue;
 typedef _STL::_Rb_tree_node<StrategicIntValue> StrategicIntNode;
 typedef _STL::_Rb_tree<int,StrategicIntValue,_STL::_Select1st<StrategicIntValue>,_STL::less<int>,_STL::allocator<StrategicIntValue> > StrategicIntTree;
 struct StrategicIntIndexPrefix {StrategicIntNode *end;};
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
 
 #include "../../../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../../../../Include/GameLogic/LivingWorldBattle.h"

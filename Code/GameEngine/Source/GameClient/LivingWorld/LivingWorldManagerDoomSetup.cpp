@@ -20,6 +20,11 @@
 // stlport
 // Match the allocator and helper policy of SiegeDockingBehaviorInitializeBones:
 // the real growth helper stays visible and compiles to its retail body.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned &max(const unsigned &a,const unsigned &b) { return a<b?b:a; }
@@ -88,7 +93,6 @@ class BfmeVisualPositionView {public:
 
     virtual void setPosition(const Coord3D*);
 };
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
 template <int N> class DoomVSlots : public DoomVSlots<N - 1> { public: virtual void gap(char (*)[N]) = 0; };
 template <> class DoomVSlots<0> { };
 class DoomPrimaryView : public DoomVSlots<101> { public: virtual void setHidden(int); };

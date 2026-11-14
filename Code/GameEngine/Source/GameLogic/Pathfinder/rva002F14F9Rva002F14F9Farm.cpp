@@ -424,8 +424,6 @@ union PathfinderCheckCoordinates
  }
  cells;
 };
-struct PathfinderLogFile;
-extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #include "../../../Include/GameLogic/Rva002F336AOwner.h"
