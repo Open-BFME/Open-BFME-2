@@ -15,7 +15,7 @@ void Rva00417FF0Parse(INI*,void*,void*,const void*);
 #include "../../../../../Include/Common/INI/INI.h"
 static const FieldParse leadershipFields[]={ {"Affects",Rva00417DFB::parseFromINI,0,4},{"AffectsHigherLevelFirst",INI::parseBool,0,20},{"BonusForLevel",Rva00417FF0Parse,0,8},{0,0,0,0} };
 #include "../../../../../Include/Common/Rva0022CCB0.h"
-class Rva0022CFE6 {public:~Rva0022CFE6();};
+#include "../../../../../Include/Common/Rva0022CFE6.h"
 class Rva00417F7C {
 public:Rva00417F7C(const StringBase<char>&);
  __forceinline ~Rva00417F7C(){reinterpret_cast<Rva0022CCB0*>(this)->~Rva0022CCB0();}
