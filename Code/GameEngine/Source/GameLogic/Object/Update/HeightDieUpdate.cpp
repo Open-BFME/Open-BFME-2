@@ -110,11 +110,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 // A KindOfMaskType (0x0004543D copies it).
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
-struct Rva00045411BitSet
-{
-	unsigned int bits[7];
-	Rva00045411BitSet(int unused, int bit) throw();
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 // The empty kind-of mask, owned by ThingIsAnyKindOf.cpp; only its address is taken.
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
