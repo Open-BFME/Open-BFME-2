@@ -143,7 +143,7 @@ public:
 	virtual void *rva0004C4C7();
 	void *rva0004C553();
 	void *rva0004C5C6();
-	void *rva0004C62D();
+	virtual void *rva0004C62D();
 	virtual void *rva0004C694();
 	virtual Win32Mouse *createMouse();
 	void *rva0004C8DD();

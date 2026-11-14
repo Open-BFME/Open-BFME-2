@@ -423,7 +423,7 @@ Rva009111B *Rva004C743::rva0004C585()
 
 // tu-skeleton: 0x0004C5F8 53B ?createSnowManager@W3DGameClient@@MAEPAVSnowManager@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientSnowFactory.cpp (not merged yet)
 
-// tu-skeleton: 0x0004C62D 53B ?rva0004C62D@Rva004C743@@QAEPAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp (not merged yet)
+// tu-skeleton: 0x0004C62D 53B ?rva0004C62D@Rva004C743@@UAEPAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp (not merged yet)
 
 // tu-skeleton: 0x0004C662 50B ?rva0004C662@Rva004C743@@UAEPAVRva00984EF@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004C662Factory.cpp (not merged yet)
 
