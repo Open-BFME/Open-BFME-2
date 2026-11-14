@@ -627,3 +627,41 @@ def test_refuses_a_registration_of_no_static_code_symbol(tree, monkeypatch, tmp_
     monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
     with pytest.raises(Refusal, match=r"registers _\$E1, which is no STATIC code definition"):
         plan(root)
+
+
+# ------------------------------------------------------------ Sol r2: padded plain templates, shared registration slots
+
+def test_refuses_a_comdat_match_that_takes_a_padded_plain_row(tree, monkeypatch, tmp_path):
+    # plain _$E1 is template A followed by int3 padding (16 bytes); COMDAT _$E5 is template A exactly: it takes
+    # row A, and order would give the padded plain _$E1 row B
+    tree.tree_args = dict(tree.tree_args, fn=TPL_ROWS)
+    root, _obj = tree(retail=TPL_RETAIL)
+    padded = ("_$E1", tpl(0, 0) + b"\xCC" * 5, [(2, KEY_A, 0, link_cycle.DIR32), (6, STR_A, 0, link_cycle.DIR32)])
+    obj = template_object(tmp_path / "tpl.obj", [entry("_$E5", KEY_A, STR_A)], plain_entries=[padded])
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"order pairs plain _\$E1 with _\$E88 at 0x007B0C0F, but that row is not"):
+        plan(root)
+
+
+def test_a_padded_plain_template_on_its_own_row_pairs(tree, monkeypatch, tmp_path):
+    tree.tree_args = dict(tree.tree_args, fn=TPL_ROWS)
+    root, _obj = tree(retail=TPL_RETAIL)
+    padded = ("_$E1", tpl(0, 0) + b"\xCC" * 5, [(2, KEY_A, 0, link_cycle.DIR32), (6, STR_A, 0, link_cycle.DIR32)])
+    obj = template_object(tmp_path / "tpl.obj", [entry("_$E5", KEY_B, STR_B)], plain_entries=[padded])
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    assert plan(root).renamed_rows == [("_$E16", "_$E1", FIRST), ("_$E88", "_$E5", SECOND)]
+
+
+def test_refuses_a_registration_slot_with_a_second_relocation(tree, monkeypatch, tmp_path):
+    root, _obj = template_tree(tree, monkeypatch, tmp_path, SWAPPED)
+    sections = [(".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2), (".text", CODE | link_cycle.COMDAT, tpl(0, 0), 2),
+                (".CRT$XCU", XCU, b"\0" * 8, 0)]
+    symbols = ([("_$E1", 1, 0, link_cycle.STATIC), ("_$E3", 2, 0, link_cycle.STATIC)]
+               + [(s, 0, 0, link_cycle.EXTERNAL) for s in (KEY_A, KEY_B, STR_A, STR_B, "?other@@3HA")])
+    relocs = {1: [(2, KEY_B, link_cycle.DIR32), (6, STR_B, link_cycle.DIR32)],
+              2: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)],
+              3: [(0, "_$E1", link_cycle.DIR32), (0, "?other@@3HA", link_cycle.DIR32), (4, "_$E3", link_cycle.DIR32)]}
+    obj = link_cycle.write_coff(tmp_path / "slot.obj", sections, symbols, relocs)
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    with pytest.raises(Refusal, match=r"two relocations of a .CRT\$XCU section patch overlapping bytes \(\+0x0, \+0x0\)"):
+        plan(root)

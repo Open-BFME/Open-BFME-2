@@ -14240,6 +14240,11 @@ def object_initializers(path):
         if section.name != ".CRT$XCU":
             continue
         named = []
+        offsets = sorted(offset for offset, _index, _kind in section.relocs)
+        for a, b in zip(offsets, offsets[1:]):
+            if b - a < 4:
+                raise Refusal(f"{Path(path).name}: two relocations of a .CRT$XCU section patch overlapping bytes "
+                              f"(+0x{a:X}, +0x{b:X}): a registration slot must hold exactly one")
         for offset, index, kind in sorted(section.relocs):
             if index not in symbols or not ledger_io.LOCAL_STATIC.fullmatch(symbols[index].name):
                 continue
@@ -14297,12 +14302,14 @@ def ledger_statics(ctx):
     return ctx._cache[key]
 
 
-def object_template_operands(ctx, path, name, index, required=True):
+def object_template_operands(ctx, path, name, index, required=True, prefix=False):
     """(template, (retail VA of each operand)): the initializer `name` that object `path` registers (symbol
     `index`) as one exact template, each operand resolved through its DIR32 relocation, the addend the
     object holds there and data_ledger.csv. Every relocation that overlaps the body counts, wherever it
     starts, and each operand must carry exactly one. Refuses anything else; with `required` false, a body
-    that is no template at all gives None."""
+    that is no template at all gives None. With `prefix`, a body that begins with a template is that
+    template (execution ends at its `ret`: padding or anything after it never runs), and the relocations
+    that count are those reaching into the template's bytes."""
     import build
     import link_cycle
     data = Path(path).read_bytes()
@@ -14313,7 +14320,13 @@ def object_template_operands(ctx, path, name, index, required=True):
     starts = build._function_starts(str(path), stat.st_mtime_ns, stat.st_size).get(symbol.sec, [])
     end = min([value for value in starts if value > symbol.value] + [section.size])
     code = data[section.ptr + symbol.value:section.ptr + end]
-    template = template_match(code)
+    if prefix:
+        template = next((t for t in INITIALIZER_TEMPLATES if template_match(code[:t[1]]) is t), None)
+        if template is not None:
+            code = code[:template[1]]
+            end = symbol.value + template[1]
+    else:
+        template = template_match(code)
     if template is None and not required:
         return None
     if template is None:
@@ -14442,7 +14455,7 @@ def initializer_pairs(ctx, source, path):
             at = _rva(row["target_rva"])
             if at in identities:
                 continue
-            found = object_template_operands(ctx, path, name, index_of[name], required=False)
+            found = object_template_operands(ctx, path, name, index_of[name], required=False, prefix=True)
             if found is not None and not retail_holds(at, row, *found):
                 raise Refusal(f"order pairs plain {name} with {row['name']} at 0x{at:08X}, but that row is not "
                               f"{name}'s template with its operands (" + ", ".join(f"0x{v:08X}" for v in found[1])
