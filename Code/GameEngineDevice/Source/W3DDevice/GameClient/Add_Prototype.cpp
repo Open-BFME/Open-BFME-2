@@ -88,25 +88,7 @@ struct BfmeCriticalSectionGuard
 	}
 };
 
-class BfmeResourceEnumerator
-{
-public:
-	void Add_Prototype_Impl(void *prototype);
-	void Begin(unsigned tag);
-
-private:
-	// +0x00 vptr and +0x04..0x33 unrecovered; the absolute offsets below are
-	// what the retail bodies prove.
-	unsigned char m_unknown00[0x34];
-	CRITICAL_SECTION m_lock; // +0x34
-	BfmePrototypeTable m_prototypes; // +0x4C
-	void *m_cachedNode; // +0x60: begin()._M_cur snapshot
-	void *m_cachedTable; // +0x64: begin()._M_ht snapshot
-	unsigned char m_unknown68[0x1F0 - 0x68];
-	unsigned m_tag; // +0x1F0
-	unsigned char m_unknownF4[0x1F8 - 0x1F4];
-	NameKeyGenerator *m_nameTable; // +0x1F8
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeResourceEnumerator.h"
 
 extern class Q1Receiver0134FAAC *TheQ1Receiver;
 

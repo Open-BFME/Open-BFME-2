@@ -1,0 +1,230 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeResourceEnumerator",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1f0": {
+    "4": 1
+   },
+   "0x1f8": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 1
+   },
+   "0x64": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "508": 2
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:_RTL_CRITICAL_SECTION",
+   "members": [
+    {
+     "kind": "P",
+     "name": "DebugInfo",
+     "offset": 0,
+     "size": 4,
+     "type": "_RTL_CRITICAL_SECTION_DEBUG*"
+    },
+    {
+     "kind": "i4",
+     "name": "LockCount",
+     "offset": 4,
+     "size": 4,
+     "type": "long"
+    },
+    {
+     "kind": "i4",
+     "name": "RecursionCount",
+     "offset": 8,
+     "size": 4,
+     "type": "long"
+    },
+    {
+     "kind": "P",
+     "name": "OwningThread",
+     "offset": 12,
+     "size": 4,
+     "type": "void*"
+    },
+    {
+     "kind": "P",
+     "name": "LockSemaphore",
+     "offset": 16,
+     "size": 4,
+     "type": "void*"
+    },
+    {
+     "kind": "i4",
+     "name": "SpinCount",
+     "offset": 20,
+     "size": 4,
+     "type": "ulong"
+    }
+   ],
+   "name": "m_lock",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 24,
+   "type": "_RTL_CRITICAL_SECTION",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::hashtable<_STL::pair<int const ,int>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<int const ,int> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<int const ,int> > >",
+   "members": [
+    {
+     "kind": "S:_STL::hash<int>",
+     "name": "_M_hash",
+     "offset": 0,
+     "size": 1,
+     "type": "_STL::hash<int>"
+    },
+    {
+     "kind": "S:_STL::equal_to<int>",
+     "name": "_M_equals",
+     "offset": 1,
+     "size": 1,
+     "type": "_STL::equal_to<int>"
+    },
+    {
+     "kind": "S:_STL::_Select1st<_STL::pair<int const ,int> >",
+     "name": "_M_get_key",
+     "offset": 2,
+     "size": 1,
+     "type": "_STL::_Select1st<_STL::pair<int const ,int> >"
+    },
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 4,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 8,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 12,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_data",
+     "offset": 16,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "m_prototypes",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 20,
+   "type": "_STL::hashtable<_STL::pair<int const ,int>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<int const ,int> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<int const ,int> > >",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_cachedNode",
+   "name_by": "majority",
+   "offset": 96,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_cachedTable",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_tag",
+   "name_by": "majority",
+   "offset": 496,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_nameTable",
+   "name_by": "majority",
+   "offset": 504,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "NameKeyGenerator*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 508,
+ "size_by": "majority",
+ "vslots": {}
+}

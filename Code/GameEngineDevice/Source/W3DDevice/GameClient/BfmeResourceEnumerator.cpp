@@ -144,15 +144,7 @@ private:
 	NameKeyGenerator *m_hash_context;
 };
 
-class BfmeResourceEnumerator
-{
-public:
-	int FindOrCreatePrototypeId(const char *prototypeName);
-
-private:
-	unsigned char m_pad[0x1F8];
-	NameKeyGenerator *m_nameTable; // +0x1F8
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeResourceEnumerator.h"
 
 // ?rva006206E0@Rva006206E0@@QAEXXZ, RVA 0x006206E0, 51 bytes.
 // Evidence: chain calls 0x620390 just landed now all callees resolved; same page
