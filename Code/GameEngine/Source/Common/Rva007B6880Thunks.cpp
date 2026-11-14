@@ -6553,22 +6553,6 @@ void __cdecl rva007B54E0()
 	receiver->CPUDetectInitClass::CPUDetectInitClass();
 }
 
-// FrustumClass construction view for the thunk below. The rowed ctor
-// (0x000F0F5B, FrustumCtorO1.cpp) is defined in its own TU, so this thunk
-// reproduces the compiler-generated dynamic-initializer shape through an
-// explicit call of that ctor. The global holds a FrustumClass.
-#include "../../Include/Common/FrustumClass.h"
-
-// RVA 0x009EBD00: defined in W3DVolumetricShadowRenderShadows.cpp.
-extern FrustumClass shadowCameraFrustum;
-
-// ?rva007AC7F5@@YAXXZ @ 0x007AC7F5 (10B). FrustumClass construction thunk: ecx=&shadowCameraFrustum then tail-jmp to rowed ??0FrustumClass@@QAE@XZ (0x000F0F5B). No callers. Honest address name.
-void __cdecl rva007AC7F5()
-{
-	FrustumClass *receiver = &shadowCameraFrustum;
-	receiver->FrustumClass::FrustumClass();
-}
-
 // Opaque-class view for the thunk below. The destructor is declared only;
 // symbols.csv pins ??1Rva007A4E6@@QAE@XZ to 0x007A4E6 (101B EH dtor: frees
 // members at +0x10/+0x1C via 0x00030830, clears +0xC via rowed 0x000799D0,
