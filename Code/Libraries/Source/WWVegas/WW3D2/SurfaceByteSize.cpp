@@ -105,13 +105,7 @@ struct D3DLockedRect
     int Pitch;
     void *pBits;
 };
-class Rva00116680
-{
-public:
-    void *rva00116680(int *pitchOut, bool discard);
-private:
-    void *m_surface;
-};
+#include "Rva00116680.h"
 
 void *Rva00116680::rva00116680(int *pitchOut, bool discard)
 {
