@@ -5,9 +5,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 class Object;
 #include "../../../../Include/Common/Rva00298E6A.h"
-class Rva00297360Element
-{
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva00297360Element.h"
 #include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 class Object
