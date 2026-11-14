@@ -441,13 +441,10 @@ public:
     static __declspec(dllimport) __forceinline const char *const &nameReference() { return NAME; }
 };
 
-template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
-    class TEMPLATE, class DEFAULT>
-const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::KEY = Key;
-
-template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
-    class TEMPLATE, class DEFAULT>
-const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::NAME = Name;
+// KEY and NAME are declared only. Retail sets each one once, from
+// FXParticleSystemModules.cpp's object (its dynamic initializers, e.g. 0x007AF6F3
+// `mov [0x00E02D28], &SPHERE_EMISSION_VOLUME_MODULE_KEY`); defining them here as well
+// gave this unit a second initializer per global that retail does not have.
 
 // The module class that builds them. createTemplate is one operator new for the
 // wrapper's size and a tail jump into its default constructor.
