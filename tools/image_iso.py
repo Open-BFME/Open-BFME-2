@@ -302,6 +302,13 @@ def place_statics(publics, manifest, wanted, image):
 POOLED = re.compile(r"\?\?_C@_[01]|__real@[0-9a-fA-F]+|__xmm@[0-9a-fA-F]+")
 
 
+def unlisted_names(rows, by_name):
+    """Every ledger name (a row's own or an alias) the MAP does not list, one by one: those place_statics looks
+    for. A row whose pooled alias the MAP lists can still name a static of its own."""
+    return {n for row in rows for n in {row["name"], *(row.get("names") or "").split(";")} - {""}
+            if not by_name.get(n)}
+
+
 def literal_length(name):
     """The byte length, terminator and embedded NULs included, that an MSVC string literal's decorated name
     encodes (`??_C@_0` narrow / `_1` wide, then the length: a digit d is d + 1, else hex digits A..P ended by
@@ -1036,18 +1043,25 @@ class Checker:
                     if not named:
                         self.counts[compared] += 1
                         continue
-                    # every pooled copy holds the value: the named storage is located through its own names
+                if named:
+                    # the row's own storage is located through its own names, whatever the pooled copies showed
                     owners = {n for n in names if not POOLED.match(n)}
             p = self.winner(owners, rva)
             retail = self.retail.read(rva, size)
+            split = False
             if p is None and not any(self.by_name.get(n) for n in owners):
                 p = self.static_winner(owners, row)         # internal-linkage data the MAP does not list
                 if p is not None:
                     self.counts["static_data_placed"] += 1
+            elif p is not None and any(self.statics.get(n) for n in owners):
+                p, split = None, True  # storage at a MAP location and at a placed static: which is retail's is untold
+                self.counts["split_storage_rows"] += 1
             if p is None:
                 family = "mapping_ambiguous" if any(self.by_name.get(n) for n in owners) else "no_object_retail_nonzero"
                 if retail and any(retail) or family == "mapping_ambiguous":
-                    self.defect(family, rva, row, "No unique linked MAP location for ledger names")
+                    self.defect(family, rva, row, "Split storage: one retail address, a MAP-listed global and a "
+                                "placed static in our image" if split else
+                                "No unique linked MAP location for ledger names")
                 else:
                     self.counts["absent_zero_globals_unanalyzed"] += 1
                 continue
@@ -2619,12 +2633,7 @@ def main(argv=None):
         return 1
     checker = Checker(ours, retail, publics, addresses, qualified)
     # internal-linkage data the MAP does not list: placed through its own object (place_statics)
-    unlisted = set()
-    for row in rows:
-        names_of = {row["name"], *(row.get("names") or "").split(";")} - {""}
-        if not any(checker.by_name.get(n) for n in names_of):
-            unlisted |= names_of
-    checker.statics = place_statics(publics, args.objects, unlisted, ours)
+    checker.statics = place_statics(publics, args.objects, unlisted_names(rows, checker.by_name), ours)
     object_counts["static_data_names_placed"] = len(checker.statics)
     if args.vptr_stores:
         return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))

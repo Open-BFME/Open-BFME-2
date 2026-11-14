@@ -2513,3 +2513,45 @@ def test_a_named_global_beside_equal_pooled_copies_is_checked_through_its_own_na
     assert [d["family"] for d in c.defects] == ([family] if family else [])
     assert c.counts["globals_compared"] == 1
 
+
+def test_unlisted_names_include_a_static_beside_a_map_listed_pooled_alias():
+    # image_iso review r4: s_pair's pooled alias is in the MAP; s_pair itself still has to be placed
+    rows = [dict(row("s_pair", 0x300, 8), names="__real@3f800000"), dict(row("listed", 0x400), names="")]
+    by_name = {"__real@3f800000": [public("__real@3f800000", 0x2000)], "listed": [public("listed", 0x2400)]}
+    assert iso.unlisted_names(rows, by_name) == {"s_pair"}
+
+
+def test_a_placed_static_beside_its_pooled_alias_is_checked_over_the_row():
+    alias, name = "__real@3f800000", "s_pair"
+    c = checker([public(alias, 0x2000)], {alias: {0x300}})
+    c.statics = {name: [dict(public(name, 0x2200, 8), static=True)]}
+    c.retail.put(0x300, struct.pack("<ff", 1.0, 2.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ours.put(0x2200, struct.pack("<ff", 1.0, 9.0))
+    c.ledger([dict(row(name, 0x300, 8), names=alias)], {})
+    assert "global_contents" in [d["family"] for d in c.defects]
+
+
+def test_an_untold_pooled_copy_does_not_let_a_pooled_winner_stand_for_named_storage():
+    # image_iso review r4: one pooled copy is short (extent 2), the qualified one equal; the static holds 9
+    alias, name = "__real@3f800000", "s_one"
+    c = checker([public(alias, 0x2000), public(alias, 0x2100, 2)], {alias: {0x300}})
+    c.mapping.targets_for = lambda p: {0x300} if p["rva"] == 0x2000 else set()
+    c.statics = {name: [dict(public(name, 0x2200, 4), static=True)]}
+    c.retail.put(0x300, struct.pack("<f", 1.0))
+    c.ours.put(0x2000, struct.pack("<f", 1.0))
+    c.ours.put(0x2200, struct.pack("<f", 9.0))
+    c.ledger([dict(row(name, 0x300, 4), names=alias)], {})
+    assert "global_contents" in [d["family"] for d in c.defects]
+
+
+def test_named_storage_at_a_map_location_and_a_placed_static_is_ambiguous():
+    c = checker([public("g", 0x2000)], {"g": {0x300}})
+    c.statics = {"g_static": [dict(public("g_static", 0x2200, 4), static=True)]}
+    c.retail.put(0x300, b"GOOD")
+    c.ours.put(0x2000, b"GOOD")
+    c.ours.put(0x2200, b"BAD!")
+    c.ledger([dict(row("g", 0x300, 4), names="g_static")], {})
+    assert [d["family"] for d in c.defects] == ["mapping_ambiguous"]
+    assert c.counts["split_storage_rows"] == 1 and c.defects[0]["evidence"].startswith("Split storage")
+
