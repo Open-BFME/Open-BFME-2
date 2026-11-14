@@ -2650,3 +2650,61 @@ def test_an_unread_object_leaves_named_storage_unknown_not_absent(tmp_path):
     assert c.counts["globals_compared"] == 0 and c.counts["global_unanalyzed"] == 1
     assert c.counts["pooled_named_inventory_unknown"] == 1
 
+
+# ---- slot-less initializers (retail-order crash, step 3) ----------------------------------------------------
+
+def slotless_case():
+    """Retail runs a (0x100) and b (0x200). Ours: a, then debug.cpp's _$E1 (a unit with no retail initializer),
+    then cmd.cpp's _$E1 (the unit rows retail's b under another name), then b, then an unnamed entry."""
+    publics = [dict(public("a", 0x300), source="Code/a.cpp"), dict(public("b", 0x400), source="Code/b.cpp"),
+               dict(public("_$E1", 0x500), object="debug.obj", source="Code/debug.cpp"),
+               dict(public("_$E1", 0x600), object="cmd.obj", source="Code/cmd.cpp")]
+    c = checker(publics, {"a": {0x100}, "b": {0x200}})
+    c.retail.inits = [0x100, 0x200]
+    c.ours.inits = [0x300, 0x500, 0x600, 0x400, 0x777]
+    return c
+
+
+def test_unresolved_initializers_are_classified_with_their_neighbours():
+    c = slotless_case()
+    c.initializers({"Code/a.cpp": {0x100}, "Code/cmd.cpp": {0x200}, "Code/b.cpp": {0x200}})
+    kinds = {e["image_slot"]: e["kind"] for e in c.initializer_entries}
+    assert kinds == {1: "slotless", 2: "unmatched_in_slotted_unit", 4: "unnamed"}
+    debug = c.initializer_entries[0]
+    assert (debug["name"], debug["source"], debug["unit_retail_slots"]) == ("_$E1", "Code/debug.cpp", "")
+    assert (debug["previous_retail_slot"], debug["previous_name"]) == (0, "a")
+    assert (debug["next_retail_slot"], debug["next_name"]) == (1, "b")
+    assert c.initializer_entries[1]["unit_retail_slots"] == "1"
+    assert c.counts["initializers_slotless"] == 1 and c.counts["initializers_unnamed"] == 1
+    assert c.counts["initializers_unmatched_in_slotted_unit"] == 1 and c.counts["initializers_slotless_units"] == 1
+    assert c.counts["initializers_unanalyzed"] == 3
+
+
+def test_an_unresolved_entry_without_a_source_is_unattributed():
+    c = slotless_case()
+    for p in c.publics:
+        p["source"] = ""
+    c.initializers({})
+    assert {e["kind"] for e in c.initializer_entries} == {"unattributed", "unnamed"}
+
+
+def test_without_ledger_sources_every_named_unresolved_entry_is_slotless():
+    c = slotless_case()
+    c.initializers()
+    assert [e["kind"] for e in c.initializer_entries] == ["slotless", "slotless", "unnamed"]
+
+
+def test_retail_slotted_sources_and_the_tsv(tmp_path):
+    ledger = tmp_path / "functions.csv"
+    ledger.write_text("name,export_rva,target_rva,target_size,source,status,notes\n"
+                      "??__Es_x@@YAXXZ,,0x00000200,8,Code/cmd.cpp,matched,\n"
+                      "?f@@YAXXZ,,0x00000300,8,Code/cmd.cpp,matched,\n"
+                      "?g@@YAXXZ,,bad,8,Code/x.cpp,matched,\n")
+    assert iso.retail_slotted_sources(ledger, [0x100, 0x200]) == {"Code/cmd.cpp": {0x200}}
+    c = slotless_case()
+    c.initializers({"Code/cmd.cpp": {0x200}})
+    iso.write_initializer_entries(tmp_path, c.initializer_entries)
+    lines = (tmp_path / "initializers_slotless.tsv").read_text().splitlines()
+    assert lines[0].split("\t") == iso.INITIALIZER_COLUMNS
+    assert lines[1].split("\t")[:3] == ["1", "0x00000500", "slotless"]
+

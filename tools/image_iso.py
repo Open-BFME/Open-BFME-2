@@ -696,6 +696,7 @@ class Checker:
         self.statics = {}                      # place_statics: data the MAP does not list
         self.unplaced = set()                  # place_statics: such data an object defines but nothing places
         self.inventory_failed = []             # place_statics: objects it could not read (their names unknown)
+        self.initializer_entries = []          # initializers(): table entries no retail initializer resolves
         for p in publics:
             literal = re.match(r"\?\?_C@_([01])", p["name"])
             if literal:
@@ -1172,11 +1173,59 @@ class Checker:
                 self.counts[kind + "_ledger_entries"] -
                 self.counts["globals_compared" if kind == "global" else kind + "_compared"])
 
-    def initializers(self):
+    def unresolved_initializers(self, expected, actual, mapped, slotted_sources):
+        """One record per image table entry that resolves to no retail initializer: its image slot and address,
+        the MAP symbols there (name, object, attached source), its kind, and the nearest retail-slotted entries
+        before and after it (their retail slots and names)."""
+        slotted = {source_key(k): v for k, v in (slotted_sources or {}).items()}
+        retail_slot = {}
+        for index, rva in enumerate(expected):
+            retail_slot.setdefault(rva, index)
+        here = collections.defaultdict(list)
+        for p in self.publics:
+            here[p["rva"]].append(p)
+
+        def neighbour(start, step):
+            at = start + step
+            while 0 <= at < len(mapped):
+                if mapped[at] in retail_slot:
+                    names = sorted({p["name"] for p in here.get(actual[at], ())})
+                    return retail_slot[mapped[at]], (names[0] if names else f"0x{actual[at]:08X}")
+                at += step
+            return None, ""
+        out = []
+        for slot, (rva, resolved) in enumerate(zip(actual, mapped)):
+            if resolved is not None:
+                continue
+            symbols = here.get(rva, [])
+            sources = sorted({source_key(p["source"]) for p in symbols if p.get("source")})
+            if not symbols:
+                kind = "unnamed"
+            elif not sources:
+                kind = "unattributed"
+            elif any(slotted.get(src) for src in sources):
+                kind = "unmatched_in_slotted_unit"
+            else:
+                kind = "slotless"
+            before, after = neighbour(slot, -1), neighbour(slot, 1)
+            out.append(dict(image_slot=slot, image_rva=f"0x{rva:08X}", kind=kind,
+                            name=";".join(sorted({p["name"] for p in symbols})),
+                            object=";".join(sorted({p["object"] for p in symbols})), source=";".join(sources),
+                            unit_retail_slots=" ".join(str(retail_slot[r]) for src in sources
+                                                       for r in sorted(slotted.get(src, ())) if r in retail_slot),
+                            previous_retail_slot="" if before[0] is None else before[0], previous_name=before[1],
+                            next_retail_slot="" if after[0] is None else after[0], next_name=after[1]))
+        return out
+
+    def initializers(self, slotted_sources=None):
+        """Compare the image's initializer table with retail's. `slotted_sources` ({source: {retail RVA}}, the
+        ledger's rows at retail initializer addresses) classifies the entries no name resolves
+        (initializer_entries, initializers_slotless.tsv)."""
         expected, actual = self.retail.initializers(), self.ours.initializers()
         self.counts.update(initializers_retail=len(expected), initializers_image=len(actual))
         mapped = [self.mapping.resolve(rva) for rva in actual]
         self.counts["initializers_unanalyzed"] = mapped.count(None)
+        self.initializer_entries = self.unresolved_initializers(expected, actual, mapped, slotted_sources)
         counts = collections.Counter(mapped)
         for rva in set(mapped) - set(expected) - {None}:
             self.defect("initializer_extra", rva, {}, f"{counts[rva]} static registrations absent from retail table")
@@ -1189,6 +1238,10 @@ class Checker:
         if sequence != wanted:
             self.defect("initializer_order", 0, {}, "Resolved static initializer sequence differs from retail")
         self.counts["initializers_runtime_execution_unanalyzed"] = len(expected)
+        for entry in self.initializer_entries:
+            self.counts["initializers_" + entry["kind"]] += 1
+        self.counts["initializers_slotless_units"] = len({e["source"] for e in self.initializer_entries
+                                                          if e["kind"] == "slotless"})
         # The bridge has no public symbols. A MAP public count cannot count it.
         self.counts["initializer_bridge_public_symbols_seen"] = sum("retail_initializers" in p["object"] for p in self.publics)
         self.counts["initializer_bridge_entries_unanalyzed"] = len(expected)
@@ -2521,6 +2574,33 @@ def vptr_store_report(checker, stores, sizes, order=None):
     return dict(counts=dict(counts), stores=results)
 
 
+def retail_slotted_sources(function_ledger, retail_initializers):
+    """{source: {retail RVA}}: the ledger rows at retail initializer addresses, by source."""
+    wanted = set(retail_initializers)
+    out = collections.defaultdict(set)
+    with Path(function_ledger).open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            try:
+                rva = int(row["target_rva"], 16)
+            except (KeyError, TypeError, ValueError):
+                continue
+            if rva in wanted and row.get("source"):
+                out[row["source"]].add(rva)
+    return dict(out)
+
+
+INITIALIZER_COLUMNS = ["image_slot", "image_rva", "kind", "name", "object", "source", "unit_retail_slots",
+                       "previous_retail_slot", "previous_name", "next_retail_slot", "next_name"]
+
+
+def write_initializer_entries(out, entries):
+    """initializers_slotless.tsv: every table entry no retail initializer resolves, in table order."""
+    with (out / "initializers_slotless.tsv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=INITIALIZER_COLUMNS, delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(entries)
+
+
 def vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, map_symbols):
     """--vptr-stores: report.json, defects.tsv and vptr_stores.tsv under --out."""
     function_rows = []
@@ -2662,7 +2742,7 @@ def main(argv=None):
         return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))
     if not args.address_only and not args.relocation_bounds_only and not args.data_pointers_only:
         checker.ledger(rows, sizes)
-        checker.initializers()
+        checker.initializers(retail_slotted_sources(build.ROOT / "reverse/functions.csv", retail.initializers()))
         evidence = storage_evidence(retail, rows)
         checker.counts["storage_initializers_considered"] = len(retail.initializers())
         proven = {e["rva"] for e in evidence}
@@ -2698,6 +2778,7 @@ def main(argv=None):
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     write_kept_copies(args.out, kept)
+    write_initializer_entries(args.out, checker.initializer_entries)
     with (args.out / "defects.tsv").open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["family", "retail_rva", "name", "object", "source", "evidence"], delimiter="\t")
         writer.writeheader()
