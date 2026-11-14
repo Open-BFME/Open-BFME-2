@@ -312,12 +312,7 @@ class GameMessage;
 enum { GWM_LEFT_UP = 6, GWM_CHAR = 0x15, GWM_MOUSE_POS = 0x18 };
 class SelectionTranslator;
 extern SelectionTranslator *TheSelectionTranslator;
-class BfmeSelectionTranslator
-{
-public:
-	void setLeftMouseButton( bool state );
-	void setDragSelecting( void );
-};
+#include "../../../Include/GameClient/BfmeSelectionTranslator.h"
 #include "../../../Include/GameLogic/Module/UpgradeMux.h"
 #include "../../../Include/GameClient/View.h"
 extern View *TheTacticalView;

@@ -66,11 +66,7 @@ extern Mouse *TheMouse;
 class SelectionTranslator;
 extern SelectionTranslator *TheSelectionTranslator;
 
-class BfmeSelectionTranslator
-{
-public:
-	void setDragSelecting( void );
-};
+#include "../../Include/GameClient/BfmeSelectionTranslator.h"
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
