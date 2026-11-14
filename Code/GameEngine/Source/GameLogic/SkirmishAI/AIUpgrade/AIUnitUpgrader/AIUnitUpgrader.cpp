@@ -60,7 +60,7 @@ struct UpgradeConfigView { char pad[0xc4]; float probability; char padC8[0xd8-0x
 
 struct Rva002A8AB1Record { char pad[0x160]; UpgradeConfigView *config; char pad164[8]; int enabled; };
 
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
