@@ -141,13 +141,7 @@ struct BfmeRect
     int right;
     int bottom;
 };
-class Rva001166E0
-{
-public:
-    void *rva001166E0(int *pitchOut, int left, int top, int right, int bottom);
-private:
-    void *m_surface;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001166E0.h"
 
 void *Rva001166E0::rva001166E0(int *pitchOut, int left, int top, int right, int bottom)
 {

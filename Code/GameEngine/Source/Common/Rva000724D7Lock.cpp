@@ -9,12 +9,7 @@ public:
 	int m_04;
 };
 
-class Rva001166E0
-{
-public:
-	void *rva001166E0(int *pitchOut, int left, int top, int right, int bottom);
-	void *m_surface;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001166E0.h"
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/Rva00116680.h"
 
