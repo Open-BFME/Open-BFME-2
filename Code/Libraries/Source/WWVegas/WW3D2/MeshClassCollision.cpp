@@ -61,14 +61,7 @@ protected:
 	int VertexCount;                        // +0x28
 };
 
-class MeshMatDescClass
-{
-public:
-	int Get_Pass_Count(void) const { return PassCount; }
-
-private:
-	int PassCount;                          // +0x00
-};
+#include "MeshMatDescClass.h"
 
 class MaterialInfoClass : public RefCountClass
 {
