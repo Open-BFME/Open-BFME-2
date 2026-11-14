@@ -140,7 +140,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-class CameraMarkerList { public: void clear(); };
+#include "../../../../GameEngine/Include/GameClient/CameraMarkerList.h"
 
 #include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;

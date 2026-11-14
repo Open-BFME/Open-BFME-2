@@ -200,11 +200,7 @@ extern ScriptEngine *TheScriptEngine;
 
 // Existing descriptive owner of the rowed 0x0025F385 lookup. Its original
 // EA class name is unresolved; the emitted ABI uses struct CameraMarker.
-class CameraMarkerList
-{
-public:
-	CameraMarker *find(const AsciiString &name) const;
-};
+#include "../../../Include/GameClient/CameraMarkerList.h"
 
 struct Rva003BAAE4TerrainPosition
 {
