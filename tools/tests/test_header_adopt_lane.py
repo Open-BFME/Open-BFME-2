@@ -884,6 +884,24 @@ def test_a_class_template_copy_goes_whole_unless_a_member_is_defined_out_of_clas
     # fail-closed review r2: a raw string whose opener a line splice forms
     ('template <int N> class BitFlags { int own; };\nconst char *s = R\\\n"tag(\n"\n'
      'template <int N> class BitFlags { int literal; };\n)tag";\nint keep;\n', "raw string literal"),
+    # fail-closed review r3: a comment a line splice opens hid a class head from the masking, not from body_span
+    ("namespace Real {\n/\\\n*\ntemplate <int N> class BitFlags {\n*/\nint important;\n};\n"
+     "template <int N> class BitFlags { int own; };\n", "line splice"),
+    ("template <int N> class BitFlags { int own; };\nint x = 1 + \\\n2;\n", "line splice"),
+    # fail-closed review r3: a header's macro opened a scope around a specialization
+    ('#include "scope.h"\ntemplate <int N> class BitFlags { int own; };\nOPEN\n'
+     "template <> class BitFlags<11> { int keep[4]; };\nint size() { return sizeof(BitFlags<11>); }\nCLOSE\n",
+     "does not follow a finished declaration"),
+    ('#include "scope.h"\nOPEN\ntemplate <int N> class BitFlags { int own; };\nCLOSE\n',
+     "does not follow a finished declaration"),
+    ('#include "scope.h"\ntemplate <int N> class BitFlags { int own; };\nOPEN;\n'
+     "template <> class BitFlags<11> { int keep[4]; };\nCLOSE;\n", "one bare name"),
+    ('#include "scope.h"\ntemplate <int N> class BitFlags { int own; };\nOPEN(Other);\nint x;\n', "one bare name"),
+    # fail-closed review r3: the header included inside a namespace spent its guard there
+    ('namespace Other {\n#include "B.h"\n}\ntemplate <int N> class BitFlags { int own[N]; };\n'
+     "int use() { return sizeof(BitFlags<11>); }\n", "an #include inside braces"),
+    ('struct Holder {\n#include "B.h"\n};\ntemplate <int N> class BitFlags { int own[N]; };\n',
+     "an #include inside braces"),
 ])
 def test_the_swap_leaves_what_it_cannot_tell_apart(unit, why):
     assert why in lane.template_surgery_refused(unit, "BitFlags")
@@ -969,7 +987,8 @@ def test_a_name_continued_with_a_backslash_is_still_a_specialization():
     unit = "template <> class Bit\\\nFlags<11> { int own; };\nint after;\n"
     spans = lane.specialization_spans(unit, "BitFlags")
     assert spans == [(0, unit.index("int after"))]
-    assert lane.swap(unit, ["BitFlags"], "B.h") == '#include "B.h"\nint after;\n'
+    # fail-closed review r3: the swap cuts nothing in a unit with a line splice (body_span reads unspliced text)
+    assert lane.swap(unit, ["BitFlags"], "B.h") is None
 
 
 def test_a_conditional_brace_in_a_specializations_body_makes_its_end_unknown():

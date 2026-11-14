@@ -375,7 +375,12 @@ def template_surgery_refused(text, name):
         class_layouts' masking, which does not read raw strings as masked does;
       - more than one class head of that name anywhere (`class name {` at any depth, mid-line too);
       - braces the scope walk cannot read: one spelled as a digraph or trigraph (`<%`, `??<`), one in
-        a macro definition (`#define OPEN namespace Other {`), or one inside #if ... #endif."""
+        a macro definition (`#define OPEN namespace Other {`), or one inside #if ... #endif;
+      - any line splice: body_span reads the unspliced text (`/`, a backslash and a newline, then `*`, opens a comment);
+      - an #include inside braces: the header it reads may be the one the swap includes, spent there;
+      - a head the swap cuts that does not follow a finished declaration (`;`, a brace or a directive line), or a
+        file-scope statement that is one bare name, perhaps with arguments (`OPEN;`): a macro a header defines may
+        open a scope there."""
     joined, _keep = spliced(text)
     if RAW_STRING.search(text) or RAW_STRING.search(joined):
         return "a raw string literal (the primary body's span is not read raw-string-aware)"
@@ -430,6 +435,29 @@ def template_surgery_refused(text, name):
             return "a primary template inside a conditional region"
     if any(re.search(r"[{}]", code[a:b]) for a, b in regions):
         return "a brace inside a conditional region (the scope walk counts every branch)"
+    if SPLICE.search(text):
+        return "a line splice (the body's span is read on unspliced text)"
+    # directive lines blanked: what is left is the code the scope walk and the head rules read
+    plain_code = re.sub(r"(?m)^[ \t\v\f]*(?:#|%:)[^\n]*", lambda m: " " * len(m.group()), code)
+    for include in re.finditer(r"(?m)^[ \t\v\f]*(?:#|%:)[ \t\v\f]*include\b", code):
+        if plain_code.count("{", 0, include.start()) != plain_code.count("}", 0, include.start()):
+            return "an #include inside braces (the header the swap includes may be spent there)"
+    cut = [m.start() for m in heads.finditer(code)] + sorted(
+        m.start() for m in re.finditer(SPECIALIZATION_HEAD % word, code)
+        if re.match(r"[ \t]*$", code[code.rfind("\n", 0, m.start()) + 1:m.start()]))
+    for at in cut:
+        before = plain_code[:at]
+        boundary = max(before.rfind(";"), before.rfind("{"), before.rfind("}"))
+        if before[boundary + 1:].strip():
+            return "a cut head that does not follow a finished declaration (a macro may open a scope there)"
+    depth, start = 0, 0
+    for brace in re.finditer(r"[{};]", plain_code):
+        if depth == 0 and brace.group() == ";" and re.fullmatch(r"\s*[A-Za-z_]\w*\s*(?:\([^;{}]*\))?\s*",
+                                                                 plain_code[start:brace.start()]):
+            return "a file-scope statement that is one bare name (a macro may open a scope there)"
+        depth += {"{": 1, "}": -1}.get(brace.group(), 0)
+        if depth == 0:
+            start = brace.end()
     return None
 
 
