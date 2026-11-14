@@ -20,13 +20,7 @@ namespace _STL {
 template<> LowerTree::_Link_type LowerTree::_M_lower_bound(const BfmeStringRecord00448113 &) const;
 template<> InsertTree::iterator InsertTree::insert_unique(InsertTree::iterator,const Rva00448FF2Record &);
 }
-class Rva00448089 {
-public:
- Rva00448089(const UnicodeString &,const UnicodeString &);
- ~Rva00448089();
-private:
- UnicodeString m_00,m_04;
-};
+#include "../../Include/Common/Rva00448089.h"
 class Rva004491CB {
 public:
  UnicodeString &rva004491CB(const UnicodeString &key);
