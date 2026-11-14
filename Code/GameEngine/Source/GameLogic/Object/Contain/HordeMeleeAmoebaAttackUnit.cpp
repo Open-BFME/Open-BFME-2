@@ -51,14 +51,10 @@ void HordeMeleeAmoeba::AttackUnit(Object *attacker, Object *victim)
 // two Object pointers and returns the selected Object* (or null) in EAX.
 // The original wrapper and pathfinder-member names remain unknown.
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {
- char m_pad[0x10]; Pathfinder *m_pathfinder;
-public:
- Pathfinder *getPathfinder() const {return m_pathfinder;}
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 Object *Rva0058723D(Object *unit,Object *current)
 {
- return TheAI->getPathfinder()->rva002F14F9(unit,current);
+ return TheAI->pathfinder()->rva002F14F9(unit,current);
 }
 

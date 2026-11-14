@@ -157,16 +157,7 @@ enum PathfindLayerEnum
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-  public:
-    Pathfinder *getPathfinder()
-    {
-        return m_pathfinder;
-    }
-    char m_pad00[0x10];
-    Pathfinder *m_pathfinder; // +0x10
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern TerrainLogic *TheTerrainLogic;
 extern AI *TheAI;
@@ -186,7 +177,7 @@ class HordeContain
 __forceinline Object *Rva0046B05BFindAt(PathfindLayerEnum layer, const Coord3D *pos)
 {
     return TheGameLogic->findObjectByID(
-        (ObjectID)(int)TheAI->getPathfinder()->getObstacleID(layer, (int)pos));
+        (ObjectID)(int)TheAI->pathfinder()->getObstacleID(layer, (int)pos));
 }
 
 void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg)

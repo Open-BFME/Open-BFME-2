@@ -11,7 +11,8 @@
 class AsciiString;
 #include "BfmeAptValue006DCD20.h"
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
-class AptNativeHash {public:struct Entry {EAStringC key;BfmeAptValue006DCD20 *value;};AsciiString *rva0070AA40();Entry *rva0070AAA0(Entry*);};
+struct Rva0070AA40InputEntry {EAStringC key;BfmeAptValue006DCD20 *value;};
+#include "AptNativeHash.h"
 struct AptInputInst {char unknown00[0x10];AptNativeHash *hash;};
 #include "AptCIHClass.h"
 static __forceinline EAStringC *cihName(AptCIH *cih){return &cih->field08;}
@@ -98,7 +99,7 @@ AptCIH *rva006F99D0(int direction,AptCIH *current,AptCIH *reference)
   bestNode=0;
   INPUT_ASSERT(current->rva006CFCD0(),"pCIH->isSpriteInstBase()",0xA3);
   if(reference){bool bRet=rva006F97F0Parse(cihName(reference),&referenceFirst,&referenceSecond);INPUT_ASSERT(bRet,"bRet",0xAB);}
-  for(AptNativeHash::Entry *iterator=(AptNativeHash::Entry*)((AptInputInst *)current->field4C)->hash->rva0070AA40();iterator;iterator=((AptInputInst *)current->field4C)->hash->rva0070AAA0(iterator)){
+  for(Rva0070AA40InputEntry *iterator=(Rva0070AA40InputEntry*)((AptInputInst *)current->field4C)->hash->rva0070AA40();iterator;iterator=(Rva0070AA40InputEntry*)((AptInputInst *)current->field4C)->hash->rva0070AAA0((AptNativeHash::Entry*)iterator)){
    BfmeAptValue006DCD20 *value=iterator->value;
    if(!(unsigned char)value->isCIH(false))continue;
    AptCIH *candidate=(AptCIH*)value->rva006DCF60(false);

@@ -7,17 +7,12 @@
 
 class AptValue;
 
-class AptNativeHash
+struct Rva0070AA40ValueEntry
 {
-public:
-	struct Entry
-	{
-		EAStringC key;
-		AptValue *value;
-	};
-	class AsciiString *rva0070AA40();
-	Entry *rva0070AAA0(Entry *pItem);
+	EAStringC key;
+	AptValue *value;
 };
+#include "../AptNativeHash.h"
 
 class AptValue
 {
@@ -66,7 +61,7 @@ EAStringC AptValue::rva006DDF60()
 		return result;
 
 	EAStringC valueText;
-	for (AptNativeHash::Entry *entry = (AptNativeHash::Entry *)hash->rva0070AA40(); entry; entry = hash->rva0070AAA0(entry))
+	for (Rva0070AA40ValueEntry *entry = (Rva0070AA40ValueEntry *)hash->rva0070AA40(); entry; entry = (Rva0070AA40ValueEntry *)hash->rva0070AAA0((AptNativeHash::Entry *)entry))
 	{
 		EAStringC name(entry->key);
 		if (name.GetAt(0) == '_')

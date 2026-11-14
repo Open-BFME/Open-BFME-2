@@ -166,7 +166,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; }};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 template<int N>class ReplaceSlots:public ReplaceSlots<N-1>{public:virtual void slot(char(*)[N]);};
 template<>class ReplaceSlots<0>{};
@@ -462,7 +462,7 @@ void ReplaceSelfUpgrade::upgradeImplementation()
  m_object->rva0028BAC0();
  m_object->leaveGroup();
  if(m_object->getDrawable())m_object->getDrawable()->setDrawableHidden(true);
- if(TheAI)TheAI->getPathfinder()->RemoveObjectFromPathfindMap(getObject());
+ if(TheAI)TheAI->pathfinder()->RemoveObjectFromPathfindMap(getObject());
  TheGameLogic->destroyObject(m_object);
  Real totalLength=0;
  for(Int i=0;i<count;++i){const ThingTemplate *thingTemplate=TheThingFactory->findTemplate(names[i]);if(!thingTemplate)return;totalLength+=thingTemplate->getC8();}
