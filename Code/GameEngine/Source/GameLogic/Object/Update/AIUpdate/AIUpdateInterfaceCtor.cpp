@@ -86,17 +86,13 @@ public:
 class StateMachine;
 class Locomotor;
 
-// The waypoint queue element: Coord3D with the empty out-of-line ctor/dtor
-// retail folds (0x0047A6A9, 0x000B3FD0).
-#define COORD3D_VIEW_EXTERN_CTOR
-#define COORD3D_VIEW_EXTERN_DTOR
+// Coord3D as retail builds it here: an empty inline default ctor and dtor
+// (so the five Coord3D members construct to nothing, and the +0x74 array's
+// eh vector constructor iterator takes ??0Coord3D 0x0047A6A9 and ??1Coord3D
+// 0x000B3FD0) and Zero Hour's inline zero().
+#define COORD3D_VIEW_DTOR
+#define COORD3D_VIEW_INLINE
 #include "../../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
-
-struct AIUpdatePoint
-{
-	float x, y, z;
-	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
-};
 
 // LocomotorSet (0x24 bytes).
 class Rva001E7087
@@ -195,7 +191,7 @@ private:
 	int m_lastCommandSource;			// +0x48
 	int m_guardMode;				// +0x4C
 	int m_guardTargetType[2];			// +0x50
-	AIUpdatePoint m_locationToGuard;		// +0x58
+	Coord3D m_locationToGuard;		// +0x58
 	int m_objectToGuard;				// +0x64
 	int m_areaToGuard;				// +0x68
 	int m_6C;
@@ -206,8 +202,8 @@ private:
 	int m_completedWaypoint;			// +0x13C
 	int m_path;					// +0x140
 	int m_requestedVictimID;			// +0x144
-	AIUpdatePoint m_requestedDestination;		// +0x148
-	AIUpdatePoint m_requestedDestination2;		// +0x154
+	Coord3D m_requestedDestination;		// +0x148
+	Coord3D m_requestedDestination2;		// +0x154
 	int m_pathTimestamp;				// +0x160
 	int m_ignoreObstacleID;				// +0x164
 	float m_pathExtraDistance;			// +0x168
@@ -216,7 +212,7 @@ private:
 	float m_bumpSpeedLimit;				// +0x174
 	int m_178;
 	int m_17C;
-	AIUpdatePoint m_finalPosition;			// +0x180
+	Coord3D m_finalPosition;			// +0x180
 	int m_18C;
 	int m_190;
 	int m_194;
@@ -231,7 +227,7 @@ private:
 	int m_curLocomotorSet;				// +0x1F4
 	float m_1F8;
 	int m_1FC;
-	AIUpdatePoint m_locomotorGoalData;		// +0x200
+	Coord3D m_locomotorGoalData;		// +0x200
 	TurretAI *m_turretAI[1];			// +0x20C
 	int m_210;
 	AsciiString m_214;				// +0x214

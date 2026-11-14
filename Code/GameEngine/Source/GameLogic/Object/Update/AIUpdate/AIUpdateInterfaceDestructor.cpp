@@ -12,6 +12,11 @@
 // shared bare return 0x000B3FD0) and UpdateModule (rowed 0x0024A797). Own
 // tables 0x00BFA480, 0x00BFA3C0 (+0xC), 0x00C53A98 (+0x10), 0x00C47B88
 // (+0x20) and 0x00C52F88 (+0x24). The views below carry only that layout.
+// The +0x74 waypoint queue is Coord3D with retail's empty inline dtor: the
+// eh vector destructor iterator takes ??1Coord3D (0x000B3FD0). Included
+// first: it takes Coord3D.h's guard.
+#define COORD3D_VIEW_DTOR
+#include "../../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "ascii_string.h"
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
@@ -45,17 +50,6 @@ public:
 	virtual ~Rva0026E836Owned();
 };
 
-struct Rva0026E836Record
-{
-	~Rva0026E836Record();
-	unsigned char m_data[0xC];
-};
-
-// The +0x74 record array's element destructor, which the dtor's __ehvec_dtor
-// call takes as the ICF-folded empty body at 0x000B3FD0.
-Rva0026E836Record::~Rva0026E836Record()
-{
-}
 
 class AIUpdateInterface;
 
@@ -111,7 +105,7 @@ private:
 	int m_2C;
 	StateMachine *m_stateMachine;			// +0x30
 	unsigned char m_pad34[0x74 - 0x34];
-	Rva0026E836Record m_records[16];		// +0x74
+	Coord3D m_waypointQueue[16];		// +0x74
 	unsigned char m_pad134[0x1CC - 0x134];
 	Rva001E7087 m_locomotorSet;			// +0x1CC
 	Locomotor *m_curLocomotor;			// +0x1F0
