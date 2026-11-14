@@ -156,12 +156,7 @@ public:
 
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
 
-class BfmeObjectDlinkPad
-{
-public:
-	const ThingTemplate *m_template;	// +0x04
-	unsigned char m_pad[0x60];
-};
+#include "../../../Include/Common/BfmeObjectDlinkPad.h"
 
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
 	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
