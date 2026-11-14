@@ -5,10 +5,7 @@
 // One-word, nontrivially copied iterator ABI witnessed at native57AD4D.
 // It is a node pointer, not the integer index the older declaration used.
 struct ChecklistSelectNode;
-struct ChecklistIteratorView {
- ChecklistSelectNode *node;
- ChecklistIteratorView(const ChecklistIteratorView& other):node(other.node){}
-};
+#include "../../Include/Common/ChecklistIteratorView.h"
 
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
