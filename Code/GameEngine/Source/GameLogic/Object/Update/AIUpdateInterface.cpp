@@ -20,11 +20,13 @@ typedef bool Bool;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
@@ -56,7 +58,7 @@ void AIUpdateInterface::requestPath( Coord3D *destination, Bool isFinalGoal )
 
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: requestPath1-- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 				m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,

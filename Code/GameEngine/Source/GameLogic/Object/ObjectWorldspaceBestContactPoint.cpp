@@ -65,7 +65,13 @@ enum BodyDamageType
 extern bool g_bfmeDockingTraceActive;
 extern "C" void *theLogicRandomLogFile;
 
-extern "C" int __cdecl fprintf(void *sink, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 class Object
@@ -101,7 +107,7 @@ Bool Object::getWorldspaceBestContactPoint(Coord3D *pointOut,
 		UnsignedInt id = (skipCollideTestString =
 			skipCollideTest ? "TRUE" : "FALSE", m_id);
 		const ThingTemplate *thingTemplate = getTemplate();
-		fprintf(theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"      Object::getWorldspaceBestContactPoint() BEGIN: Object %s(%d), callerPos=%g,%g,%g, pref=%d, seed=%d, skipCollideTest=%s",
 			thingTemplate->getName().str(), id,
 			callerPos->x, callerPos->y, callerPos->z,
@@ -137,7 +143,7 @@ Bool Object::getWorldspaceBestContactPoint(Coord3D *pointOut,
 		label, preference, seed, skipCollideTest))
 	{
 		if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
-			fprintf(theLogicRandomLogFile,
+			fprintf((FILE *)theLogicRandomLogFile,
 				"Geometry.getBestContactPoint failed, return FALSE");
 		return false;
 	}
@@ -151,7 +157,7 @@ Bool Object::getWorldspaceBestContactPoint(Coord3D *pointOut,
 
 	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
 	{
-		fprintf(theLogicRandomLogFile,
+		fprintf((FILE *)theLogicRandomLogFile,
 			"Geometry.getBestContactPoint succeeded, pointOut=%g,%g,%g, return TRUE",
 			pointOut->x, pointOut->y, pointOut->z);
 	}

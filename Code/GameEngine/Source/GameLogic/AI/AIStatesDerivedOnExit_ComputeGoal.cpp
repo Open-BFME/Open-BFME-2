@@ -474,16 +474,18 @@ private:
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}
@@ -492,7 +494,7 @@ static __forceinline void critterDesyncLog(const char *text)
 #define CRITTER_DESYNC_GOAL_LOG(text) \
 	if (g_00E03745) \
 	{ \
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile; \
+		FILE *log = (FILE *)theLogicRandomLogFile; \
 		if (log != 0) \
 			fprintf(log, text, m_goalPosition.x, m_goalPosition.y, m_goalPosition.z); \
 	}
@@ -526,7 +528,7 @@ StateReturnType AIInternalMoveToState::onEnter()
 
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, "CritterDesync: AIInternalMoveToState::onEnter() entered. Object %s(%d) m_goalPosition=%g,%g,%g",
 				obj->getTemplate()->getName().str(), obj->getID(),

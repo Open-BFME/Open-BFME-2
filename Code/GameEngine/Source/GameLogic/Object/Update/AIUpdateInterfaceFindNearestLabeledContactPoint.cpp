@@ -27,7 +27,13 @@ class Object { public:
 // fix unblocks.
 bool g_bfmeDockingTraceActive = false;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void*,const char*,...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 struct ContactPointModuleData { char pad[0x58]; AsciiString *begin,*end; };
 class AIUpdateInterface { public:
  char pad0[4]; ContactPointModuleData *moduleData; Object *owner;
@@ -37,23 +43,23 @@ Bool AIUpdateInterface::findNearestLabeledContactPointOnTarget(Object *target,Co
 {
  Object *me;
  if(g_bfmeDockingTraceActive&&(me=owner,theLogicRandomLogFile)) {
-  fprintf(theLogicRandomLogFile,"      AIUpdateInterface::findNearestLabeledContactPointOnTarget BEGIN: Object %s(%d), target %s(%d), workingPos %g,%g,%g, skipCollideTest=%s",
+  fprintf((FILE *)theLogicRandomLogFile,"      AIUpdateInterface::findNearestLabeledContactPointOnTarget BEGIN: Object %s(%d), target %s(%d), workingPos %g,%g,%g, skipCollideTest=%s",
    me->getTemplate()->getName().str(),me->getID(),target?target->getTemplate()->getName().str():"NULL",target?target->getID():0,
    workingPosition->x,workingPosition->y,workingPosition->z,skipCollideTest?"TRUE":"FALSE");
  }
  ContactPointModuleData *data=moduleData;
  for(AsciiString *name=data->begin;name!=data->end;++name) {
   if(g_bfmeDockingTraceActive&&theLogicRandomLogFile)
-   fprintf(theLogicRandomLogFile,"        handling contactPointName %s",name->str());
+   fprintf((FILE *)theLogicRandomLogFile,"        handling contactPointName %s",name->str());
   if(target->getWorldspaceBestContactPoint(result,workingPosition,name->str(),0,0,skipCollideTest)) {
    if(g_bfmeDockingTraceActive&&theLogicRandomLogFile)
-    fprintf(theLogicRandomLogFile,"        handling contactPointName %s succeeded - result=%g,%g,%g, RETURN TRUE",name->str(),result->x,result->y,result->z);
+    fprintf((FILE *)theLogicRandomLogFile,"        handling contactPointName %s succeeded - result=%g,%g,%g, RETURN TRUE",name->str(),result->x,result->y,result->z);
    return true;
   }
   if(g_bfmeDockingTraceActive&&theLogicRandomLogFile)
-   fprintf(theLogicRandomLogFile,"        handling contactPointName %s failed",name->str());
+   fprintf((FILE *)theLogicRandomLogFile,"        handling contactPointName %s failed",name->str());
  }
  if(g_bfmeDockingTraceActive&&theLogicRandomLogFile)
-  fprintf(theLogicRandomLogFile,"        end of contactPoints. return FALSE");
+  fprintf((FILE *)theLogicRandomLogFile,"        end of contactPoints. return FALSE");
  return false;
 }

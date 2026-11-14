@@ -23,10 +23,13 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 typedef float Real;
 
-// Retail calls the game format-and-append helper at 0x002CEC42.
-// Its target owns a vector of lines; it is not a CRT FILE stream.
-struct FprintfTarget;
-extern "C" void __cdecl fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the game format-and-append helper at 0x002CEC42,
+// matching the non-dllimport <stdio.h> declaration here.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern "C" void *theLogicRandomLogFile;
 
 class GameFont;
@@ -407,10 +410,10 @@ selection:
 			} else {
 				Rva0004224C guard;
 				if (theLogicRandomLogFile)
-					fprintf((FprintfTarget *)theLogicRandomLogFile, "POTENTIAL DESYNC: Forced into EnterLogic State. (W3DDisplay::gatherAnimationDebuggingInfo)");
+					fprintf((FILE *)theLogicRandomLogFile, "POTENTIAL DESYNC: Forced into EnterLogic State. (W3DDisplay::gatherAnimationDebuggingInfo)");
 				status = weapon->getStatus();
 				if (theLogicRandomLogFile)
-					fprintf((FprintfTarget *)theLogicRandomLogFile, "LeaveLogic() called.");
+					fprintf((FILE *)theLogicRandomLogFile, "LeaveLogic() called.");
 			}
 			text.format(L"Weapon: %S(%S), NextShot:%d(%d%%), Status:%S", weaponTemplateNameText(weapon->m_template),
 				TheWeaponSlotTypeNames[slot], nextShot, percent, TheWeaponStatusNames[status]);

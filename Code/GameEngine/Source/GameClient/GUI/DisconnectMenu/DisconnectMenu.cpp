@@ -14,6 +14,7 @@
 #include <mbstring.h>
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
@@ -237,8 +238,6 @@ extern InGameUI *TheInGameUI;
 #include "../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
-
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
 
 extern const unsigned short g_Va007C9260[];
 

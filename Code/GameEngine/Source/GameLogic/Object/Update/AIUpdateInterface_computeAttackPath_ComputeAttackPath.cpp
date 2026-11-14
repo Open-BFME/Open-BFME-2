@@ -47,21 +47,27 @@ enum KindOfType
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern GameLogic *TheGameLogic;
 
 #define CRITTER_TRACE(s) \
-	if (g_00E03745 && theLogicRandomLogFile) { fprintf(theLogicRandomLogFile, s); }
+	if (g_00E03745 && theLogicRandomLogFile) { fprintf((FILE *)theLogicRandomLogFile, s); }
 #define CRITTER_DETAIL() \
-	if (theLogicRandomLogFile) { fprintf(theLogicRandomLogFile, "m_path=%s, m_locomotorSet=%s, destination=%g,%g,%g", \
+	if (theLogicRandomLogFile) { fprintf((FILE *)theLogicRandomLogFile, "m_path=%s, m_locomotorSet=%s, destination=%g,%g,%g", \
 		m_path ? "VALID" : "NULL", m_locomotorSet.m_name.str(), destination->x, destination->y, destination->z); }
 #define CRITTER_NEWDETAIL() \
-	if (theLogicRandomLogFile) { fprintf(theLogicRandomLogFile, "m_path=%s, theNewPath=%s, m_locomotorSet=%s, destination=%g,%g,%g", \
+	if (theLogicRandomLogFile) { fprintf((FILE *)theLogicRandomLogFile, "m_path=%s, theNewPath=%s, m_locomotorSet=%s, destination=%g,%g,%g", \
 		m_path ? "VALID" : "NULL", theNewPath ? "VALID" : "NULL", m_locomotorSet.m_name.str(), destination->x, destination->y, destination->z); }
 #define CRITTER_TRACEDETAIL(s) \
-	if (g_00E03745 && theLogicRandomLogFile) { fprintf(theLogicRandomLogFile, s); CRITTER_DETAIL(); }
+	if (g_00E03745 && theLogicRandomLogFile) { fprintf((FILE *)theLogicRandomLogFile, s); CRITTER_DETAIL(); }
 #define CRITTER_TRACENEW(s) \
-	if (g_00E03745 && theLogicRandomLogFile) { fprintf(theLogicRandomLogFile, s); CRITTER_NEWDETAIL(); }
+	if (g_00E03745 && theLogicRandomLogFile) { fprintf((FILE *)theLogicRandomLogFile, s); CRITTER_NEWDETAIL(); }
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 

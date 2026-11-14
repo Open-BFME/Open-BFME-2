@@ -14,7 +14,13 @@ extern unsigned char g_00E03745;
 // g_00E03745: matched references place it at VA 0xe03745 (zero-filled .bss).
 unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" void __cdecl fprintf(void *sink, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 #include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
@@ -49,7 +55,7 @@ void AIUpdateInterface::ignoreObstacle(const Object *obj)
 		if (obj)
 		{
 			if (theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf((FILE *)theLogicRandomLogFile,
 					"  CritterDesync - Critter %s(%d) set to ignore %s(%d)",
 					m_object->getTemplate()->getName().str(), m_object->getID(),
 					obj->getTemplate()->getName().str(), obj->getID());
@@ -60,7 +66,7 @@ void AIUpdateInterface::ignoreObstacle(const Object *obj)
 			if (old)
 			{
 				if (theLogicRandomLogFile)
-					fprintf(theLogicRandomLogFile,
+					fprintf((FILE *)theLogicRandomLogFile,
 						"  CritterDesync - Critter %s(%d) set to ignore NOTHING. Was previously ignoring %s(%d)",
 						m_object->getTemplate()->getName().str(), m_object->getID(),
 						old->getTemplate()->getName().str(), old->getID());
@@ -68,7 +74,7 @@ void AIUpdateInterface::ignoreObstacle(const Object *obj)
 			else
 			{
 				if (theLogicRandomLogFile)
-					fprintf(theLogicRandomLogFile,
+					fprintf((FILE *)theLogicRandomLogFile,
 						"  CritterDesync - Critter %s(%d) set to ignore NOTHING. Was previously ignoring NOTHING",
 						m_object->getTemplate()->getName().str(), m_object->getID());
 			}
