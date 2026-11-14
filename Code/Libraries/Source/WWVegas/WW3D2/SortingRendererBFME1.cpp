@@ -932,10 +932,7 @@ void SortingRendererClass::Insert_VolumeParticle(
 // SortingNodeStructDtor.cpp: state +0x0C, depth +0x29C, ranges +0x2A0..+0x2A6.
 // The original source name is not independently proved; retain the neutral
 // ABI spelling already used by the verified dispatch and PointGroup bank.
-struct TargetCenter3 {
-	float x, y, z;
-	TargetCenter3(float a, float b, float c) : x(a), y(b), z(c) {}
-};
+#include "TargetCenter3.h"
 #include "BfmeSortingDispatchAt0012FE00.h"
 
 void BfmeSortingDispatchAt0012FE00::Insert(const TargetCenter3& center,

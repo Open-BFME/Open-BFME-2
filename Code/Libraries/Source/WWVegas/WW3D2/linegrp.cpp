@@ -1231,7 +1231,7 @@ struct BFME2TextureRef { TextureBaseClass *Ptr; };
 
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
-struct TargetCenter3 { float x,y,z; TargetCenter3(float a,float b,float c):x(a),y(b),z(c) {} };
+#include "TargetCenter3.h"
 
 #include "BfmeSortingDispatchAt0012FE00.h"
 
