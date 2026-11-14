@@ -94,11 +94,7 @@ public:
 	virtual void rva004CCB0ESlot123(const FXList *fx) = 0;
 };
 
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);	// 0x00362437
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
