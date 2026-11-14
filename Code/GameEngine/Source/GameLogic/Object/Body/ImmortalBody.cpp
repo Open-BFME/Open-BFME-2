@@ -259,15 +259,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 // displacement, and the derived vtable store lands mid-init through the
 // ??_7 pin (DominateEnemySpecialPowerModuleDataCtor precedent, which arms
 // the same two EH states over the same 0xDFEFA4 temps).
-class ActiveBodyModuleData
-{
-public:
-	ActiveBodyModuleData();
-	virtual ~ActiveBodyModuleData();
-
-private:
-	unsigned char m_pad[0x64 - 4]; // +0x04..+0x63, real SupplyTruck base
-};
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 class RespawnBodyModuleData : public ActiveBodyModuleData
 {
