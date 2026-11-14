@@ -475,14 +475,7 @@ typedef void *LPVOID;
 
 typedef int (__stdcall *FARPROC)();
 
-struct hostent
-{
-	char *h_name;
-	char **h_aliases;
-	short h_addrtype;
-	short h_length;
-	char **h_addr_list;
-};
+#include "../../../Include/Common/hostent.h"
 
 extern "C" __declspec(dllimport) struct hostent * __stdcall gethostbyname(const char *name);
 
