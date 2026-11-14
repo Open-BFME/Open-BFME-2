@@ -26,18 +26,8 @@ struct DamageInfo;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
-class DamageModule : public ObjectModule, public BehaviorModuleInterface, public DamageModuleInterface
-{
-public:
-	DamageModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~DamageModule();	// 0x004B96CC, out of line
-};
 
 class CallHelpOnDamage : public DamageModule
 {

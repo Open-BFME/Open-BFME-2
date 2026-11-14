@@ -122,14 +122,7 @@ enum ParticleSystemID
 {
     INVALID_PARTICLE_SYSTEM_ID = 0
 };
-class DamageModule : public ObjectModule,
-    public BehaviorModuleinterface,
-    public DamageModuleinterface
-{
-public:
-    DamageModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~DamageModule();
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
 namespace _STL {
