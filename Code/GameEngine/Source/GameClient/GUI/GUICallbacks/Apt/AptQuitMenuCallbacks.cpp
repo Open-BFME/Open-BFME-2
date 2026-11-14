@@ -156,12 +156,7 @@ extern MessageStream *TheMessageStream;
 extern unsigned int g_007ED97C;
 
 // TheScriptEngine (0x009FE16C): +0x1A104 is negative unless the game is ending.
-class ScriptEngine
-{
-public:
-	unsigned char m_pad00000[0x1A104];
-	int m_1a104; // +0x1A104
-};
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 
@@ -590,7 +585,7 @@ void ShowQuitMenu()
 		return;
 	if (TheGameLogic->m_6d)
 		return;
-	if (TheScriptEngine->m_1a104 >= 0)
+	if (TheScriptEngine->m_endGameTimer >= 0)
 		return;
 	if (TheLivingWorldLogic && ((LivingWorldLocal *)TheLivingWorldLogic)->m_b4 && ((LivingWorldLocal *)TheLivingWorldLogic)->m_168)
 		return;

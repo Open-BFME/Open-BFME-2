@@ -425,12 +425,7 @@ class AptQuitMenu; extern AptQuitMenu *TheAptQuitMenu;
 class DisconnectMenu; extern DisconnectMenu *TheDisconnectMenu;
 
 // TheScriptEngine (0x009FE16C): +0x1A104 is negative unless the game is ending.
-class ScriptEngine
-{
-public:
-	unsigned char m_pad00000[0x1A104];
-	int m_1a104; // +0x1A104
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 
@@ -495,7 +490,7 @@ void finishShowPurchaseScience(void)
 		return;
 	if (TheGameLogic->m_6d)
 		return;
-	if (TheScriptEngine->m_1a104 >= 0)
+	if (TheScriptEngine->m_endGameTimer >= 0)
 		return;
 	if (!TheTransitionHandler->isFinished())
 		return;
