@@ -155,7 +155,15 @@ public:
  Team *getDefaultTeam() const { return m_defaultTeam; }
  void setCanBuildUnits(bool canProduce) { m_canBuildUnits = canProduce; }
  bool getCanBuildUnits() const { return m_canBuildUnits; }
+ // Inline accessors over members typed below. No out-of-line row exists for any of them; each call site
+ // inlines the field access (structural inference from those sites, not retail-declared methods).
+ Rva003B0D7C *getMoney() { return &m_money; } // lea eax, [ecx+0x90] at 0x0050F31F
+ bool getCanBuildBase() const { return m_canBuildBase; } // cmp byte ptr [ebx+0x339], 0 at 0x003BE3B9
+ ResourceGatheringManager *getResourceGatheringManager() const { return m_resourceGatheringManager; } // mov ebx, [eax+0x2e4] at 0x004A729D
+ int getNumBattlePlansActive() const { return m_searchAndDestroyBattlePlans + m_holdTheLineBattlePlans + m_bombardBattlePlans; } // [eax+0xb4] + [eax+0xb0] + [eax+0xac] at 0x00273A01
  // Further matched Player rows, as their decorated names state.
+ int getPlayerNightColor() const; // 0x00509D29
+ AsciiString getBaseSide() const; // 0x0004F833
  void accumulateRTSBattleStatsIntoLivingWorldScoreKeeper(); // 0x002A9994
  void setPlayerType(PlayerType, bool); // 0x002A9A18
  void addCommandPoints(Rva002A7588In *); // 0x002A9B35
