@@ -381,6 +381,13 @@ class Rva005E9FA4
 public:
 	Rva005E9FA4(EmitVtableTag *);
 	virtual ~Rva005E9FA4() {}
+	virtual void slot04() {}
+	virtual void slot08() {}
+	virtual void slot0C() {}
+	virtual void slot10(int, int) {}
+	virtual void slot14(int, int) {}
+	virtual void slot18(int, int) {}
+	virtual bool slot1C() { return false; }
 };
 
 // ?<Rva005E9FA4::Rva005E9FA4> absent-from-retail
