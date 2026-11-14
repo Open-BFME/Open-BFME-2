@@ -571,53 +571,7 @@ public:
 	virtual void slot23();
 	virtual void slot24();
 };
-class Rva004697E1Contain
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual void slot23();
-	virtual void slot24();
-	virtual void slot25();
-	virtual void slot26();
-	virtual void slot27();
-	virtual void slot28();
-	virtual void slot29();
-	virtual void slot30();
-	virtual void slot31();
-	virtual void slot32();
-	virtual void slot33(int value);
-	void rva004697E1();
-	// Retail calls the 0x004783D7 forward; never inline it into rva004697E1.
-	__declspec(noinline) void rva004783D7();
-private:
-	Rva004697E1Owner *owner;
-	char unknown08[0x11C-0x08];
-	Rva004697E1Tail tail;
-	char unknown120[0x2C5-0x120];
-	bool flag;
-};
+#include "../../../../Include/Common/Rva004697E1Contain.h"
 // ?rva00469B73@Rva00469B73@@QAEXPAX@Z 0x00469B73 44B evidence: this+8 +0x274 null-guarded then slot 0x58 with arg and 0 plus slot 0xC on ptr at +0x250 callers 0x46D12C 0x470962
 class DispatchTarget
 {
