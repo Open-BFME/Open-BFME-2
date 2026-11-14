@@ -2,14 +2,7 @@
 // stlport
 // ?erase@?$vector@UBfmeStringRecord005DDD40@@V?$allocator@UBfmeStringRecord005DDD40@@@_STL@@@_STL@@QAEPAUBfmeStringRecord005DDD40@@PAU3@0@Z @0x00381B1F 51B: range erase over 8-byte BfmeStringRecord005DDD40 vector. Shifts tail down with __copy_ptrs wrapper then destroys vacated tail with rowed _Destroy 0x00381AC7 stores new finish returns first. Evidence: retail 4-push plus 2-push shape with tag at [ebp+0xb] same as FXBoneInfo erase 0x00207F0D and VectorAsciiStringErase 0x002CCFC; callees rowed copy_ptrs 0x0038151E and Destroy 0x00381AC7; callers 0x00381B75 0x00381C45 0x005DE7F9 0x005DE93D.
 #include "unicode_string.h"
-struct BfmeStringRecord005DDD40
-{
-	UnicodeString text;
-	unsigned int word;
-	BfmeStringRecord005DDD40();
-	BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &other);
-	BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &other);
-};
+#include "BfmeStringRecord005DDD40.h"
 namespace _STL
 {
 struct __false_type

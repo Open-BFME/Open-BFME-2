@@ -37,13 +37,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-struct BfmeStringRecord005DDD40 {
-    UnicodeString text;
-    unsigned int word;
-    BfmeStringRecord005DDD40();
-    BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &);
-    BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &);
-};
+#include "BfmeStringRecord005DDD40.h"
 // The overflow call at retail +0xF0 reaches the separate 0x005DE4BA
 // owner, not the chat-history overflow at 0x00381B7B.
 // Retail's element is BfmeStringRecord005DDD40 (a UnicodeString and a word): 0x005DE4BA's calls reach the copy 0x005DDD40

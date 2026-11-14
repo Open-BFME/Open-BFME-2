@@ -9,13 +9,7 @@
 // (same flags plus /G7).
 #include "unicode_string.h"
 #include <vector>
-struct BfmeStringRecord005DDD40 {
-    UnicodeString text;
-    unsigned int word;
-    BfmeStringRecord005DDD40();
-    BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &);
-    BfmeStringRecord005DDD40 &operator=(const BfmeStringRecord005DDD40 &);
-};
+#include "BfmeStringRecord005DDD40.h"
 namespace _STL {
 template <> void _Construct<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40 *, const BfmeStringRecord005DDD40 &);
 // Calls use the separately verified 0x00381B1F range-erase specialization.
