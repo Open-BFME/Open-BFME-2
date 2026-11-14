@@ -13,13 +13,7 @@ public:
 	char m_pad[0x2ec];
 	Team *m_2ec; // +0x2ec
 };
-class PlayerList
-{
-public:
-	char m_pad[0x10];
-	BfmeMemberRV *m_10; // +0x10
-};
-extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
 enum ObjectStatusTypes
 {
 	STATUS_5F = 0x5f
@@ -35,7 +29,7 @@ int Rva004383EB::rva004383EB(Object *obj)
 {
 	PlayerList *pl = ThePlayerList;
 	Team *team1 = obj->m_team;
-	BfmeMemberRV *mem = pl->m_10;
+	BfmeMemberRV *mem = (BfmeMemberRV *)pl->m_local;
 	int rel;
 	if (team1) {
 		Team *team2 = mem->m_2ec;

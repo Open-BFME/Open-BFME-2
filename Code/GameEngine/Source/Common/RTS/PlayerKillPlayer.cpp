@@ -12,6 +12,7 @@
 // already matched PlayerRva002AD93A.cpp and confirmed by callback9C4AF5.
 // Cache the range's begin pointer before the count: native keeps it for the
 // final record read after signed division by20.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 extern GameLogic *TheGameLogic;
@@ -72,19 +73,7 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 }
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
-class PlayerList {
-  public:
-#define SLOT(n) virtual void slot##n();
-    SLOT(0)
-    SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11)
-        SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-#undef SLOT
-            virtual void dispatch40();
-    char pad[0xC];
-    void *local;
-    Player *getNthPlayer(int);
-};
-extern PlayerList *ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 #include "../../../Include/Common/GlobalData.h"
@@ -134,14 +123,14 @@ void Rva002AB5C7Player::rva002AB44A() {
                     continue;
                 team->killTeam();
             }
-        ThePlayerList->dispatch40();
+        ThePlayerList->rva002A7ACE();
         money.withdraw(money.money, 0, true);
     }
     if ((unsigned char)((Rva0023C666 *)TheGameLogic)->rva0023C666() && type == 1) {
         dead = false;
         return;
     }
-    if (this == ThePlayerList->local)
+    if ((void *)this == (void *)ThePlayerList->m_local)
         TheInGameUI->setGUICommand(false);
     Rva0039B683 *stats = &score;
     if (stats) {

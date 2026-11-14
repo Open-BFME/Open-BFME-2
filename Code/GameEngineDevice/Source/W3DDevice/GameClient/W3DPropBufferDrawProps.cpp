@@ -158,8 +158,7 @@ enum ObjectShroudStatus
 };
 
 #include "../../../../GameEngine/Include/Common/Player.h"
-class PlayerList { public: Player *propLocalPlayer(void) { return m_local; } private: char m_pad[0x10]; Player *m_local; };
-extern PlayerList *ThePlayerList;
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
@@ -273,7 +272,7 @@ void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 			m_props[i].ss = OBJECTSHROUD_CLEAR;
 		}
 		if (m_props[i].ss == OBJECTSHROUD_INVALID) {
-			Int localPlayerIndex = ThePlayerList ? ThePlayerList->propLocalPlayer()->getPlayerIndex() : 0;
+			Int localPlayerIndex = ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0;
 			m_props[i].ss = reinterpret_cast<Rva00739800 *>(TheShroudManager)->rva00739800(localPlayerIndex, &m_props[i].location);
 		}
 		if (m_props[i].ss >= OBJECTSHROUD_SHROUDED) {

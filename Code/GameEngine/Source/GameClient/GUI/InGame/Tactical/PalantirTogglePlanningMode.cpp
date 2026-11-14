@@ -18,13 +18,7 @@ struct Rva002D2F32Mid
 	int m_planningMode;
 };
 
-class PlayerList
-{
-public:
-	char m_pad[0x10];
-	Rva002D2F32Mid *m_mid;
-};
-extern PlayerList *ThePlayerList;
+#include "../../../../../Include/Common/PlayerList.h"
 
 #include "../../../../../Include/Common/MessageStream.h"
 
@@ -50,7 +44,7 @@ void Palantir::Impl::TogglePlanningMode()
 		return;
 	if (m_128 == 0)
 		return;
-	Rva002D2F32Mid *mid = ThePlayerList->m_mid;
+	Rva002D2F32Mid *mid = (Rva002D2F32Mid *)ThePlayerList->m_local;
 	if (mid != 0 && mid->m_planningMode == 2) {
 		GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_CHANGE_ORDERMODE);
 		gameMessage->appendIntegerArgument(0);

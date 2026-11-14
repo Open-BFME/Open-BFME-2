@@ -15,6 +15,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0
 };
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../Common/GameLogicObjectLookupView.h"
 #define TheGlobalData TheWritableGlobalData
 
@@ -80,16 +81,7 @@ public:
 	Drawable *getDrawable() const;
 };
 
-class PlayerList
-{
-public:
-	Player *symbioticLocalPlayer() { return m_local; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
@@ -427,7 +419,7 @@ void SymbioticStructuresBody::rva004C0C52()
 	Object *obj = m_object;
 	if (!obj)
 		return;
-	Player *local = ThePlayerList->symbioticLocalPlayer();
+	Player *local = ThePlayerList->getLocalPlayer();
 	Player *owner = obj->getControllingPlayer();
 	if (!local || !owner)
 		return;

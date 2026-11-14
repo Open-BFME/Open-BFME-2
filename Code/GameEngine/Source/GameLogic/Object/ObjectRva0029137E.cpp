@@ -20,14 +20,7 @@ public:
 	Team *m_team2ec;
 };
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	BfmeMemberRV *m_p10;
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
 
 struct ObjectTmplPart
 {
@@ -53,7 +46,7 @@ bool Object::rva0029137E(AsciiString &out)
 		return false;
 	PlayerList *pl = ThePlayerList;
 	Team *myTeam = m_team304;
-	BfmeMemberRV *member = pl->m_p10;
+	BfmeMemberRV *member = (BfmeMemberRV *)pl->m_local;
 	if (!member || !myTeam)
 		return false;
 	if (member->bfmeAskRV()) {

@@ -13,13 +13,7 @@ struct Rva002D37BDMid
 	int m_750;
 };
 
-class PlayerList
-{
-public:
-	char m_pad[0x10];
-	Rva002D37BDMid *m_mid;
-};
-extern PlayerList *ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
 
 #include "../../Include/Common/MessageStream.h"
 
@@ -47,7 +41,7 @@ void Palantir::SetPlanningModeEnabled(unsigned char enabled)
 	if (enabled == m_10->m_planningModeEnabled)
 		return;
 	if (enabled == 0) {
-		Rva002D37BDMid *mid = ThePlayerList->m_mid;
+		Rva002D37BDMid *mid = (Rva002D37BDMid *)ThePlayerList->m_local;
 		if (mid != 0 && mid->m_750 == 2) {
 			GameMessage *gameMessage = TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x469));
 			gameMessage->appendIntegerArgument(0);
