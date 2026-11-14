@@ -546,11 +546,7 @@ public:
 
 // The panel's own clear at +0x00 (rowed 0x0052493F, six Rva00524021
 // clears).
-class Rva0052493F
-{
-public:
-	void rva0052493F();
-};
+#include "../../../Include/Common/Rva0052493F.h"
 
 // The Apt window manager's erase by name (rowed 0x00223A94).
 #include "../../../Include/Common/Rva00223A94.h"
