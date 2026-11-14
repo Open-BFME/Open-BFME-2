@@ -128,7 +128,7 @@ template _STL::vector<RvaPair001D9F62>::~vector();
 // through the rowed _Destroy at 0x0008B632 then frees storage via 0x00030830;
 // caller at 0x0008B79B in 0x0008B77D (+0x2C member). Element is the 184-byte
 // AsciiString-head view in stlport_asciistring_record_bodies.cpp.
-struct BfmeStringHeadRecord184 { public: ~BfmeStringHeadRecord184(); };
+#include "BfmeStringHeadRecord184.h"
 template _STL::vector<BfmeStringHeadRecord184>::~vector();
 
 // ??1?$vector@UMade002CC5E1DamageScalar@@V?$allocator@UMade002CC5E1DamageScalar@@@_STL@@@_STL@@QAE@XZ @0x507bd0 (_Destroy at 0x507bb7)

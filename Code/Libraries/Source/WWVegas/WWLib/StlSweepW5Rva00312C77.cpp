@@ -5,7 +5,7 @@
 // _Destroy<BfmeStringHeadRecord184 *> at 0x0008B632 (stlport_asciistring_record_bodies.cpp).
 #include <vector>
 
-struct BfmeStringHeadRecord184 { unsigned char body[184]; ~BfmeStringHeadRecord184(); BfmeStringHeadRecord184 &operator=(const BfmeStringHeadRecord184 &); };
+#include "BfmeStringHeadRecord184.h"
 
 // Declared only: the rowed copy serves the call.
 namespace _STL { template <> void _Destroy<BfmeStringHeadRecord184 *>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *); }

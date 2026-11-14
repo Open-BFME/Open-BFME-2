@@ -6,7 +6,7 @@
 // which also emits this same forwarder for BfmeStringHeadRecord184.
 #include <vector>
 
-struct BfmeStringHeadRecord184 { unsigned char body[184]; ~BfmeStringHeadRecord184(); BfmeStringHeadRecord184 &operator=(const BfmeStringHeadRecord184 &); };
+#include "BfmeStringHeadRecord184.h"
 
 // Declared only: the rowed copy serves the call.
 namespace _STL { template <> BfmeStringHeadRecord184 *__copy_backward<BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, int>(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *, const random_access_iterator_tag &, int *); }
