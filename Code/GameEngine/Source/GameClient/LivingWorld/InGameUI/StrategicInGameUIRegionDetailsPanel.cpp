@@ -5,10 +5,7 @@
 // Retail5CC81F/237 and WB15BF010/936 establish the three page branches.
 // Constructor arguments remain opaque pointer-sized ABI values. PageContext
 // carries the three copied words; its original type and member names are unknown.
-struct PageContext {
- void *word0;void *word4;void *word8;
- PageContext(void *a,void *b,void *c):word0(a),word4(b),word8(c){}
-};
+#include "../../../../Include/Common/PageContext.h"
 // Storage-only caller views: sizes come from retail's allocations. These
 // declarations intentionally do not model the constructors' virtual interfaces.
 class Rva005CC656 { char storage[20];public:Rva005CC656(void *,void *,void *,const PageContext &); };
