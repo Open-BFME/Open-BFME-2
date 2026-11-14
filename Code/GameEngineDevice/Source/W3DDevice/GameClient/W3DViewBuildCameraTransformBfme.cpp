@@ -117,14 +117,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class GameClient
-{
-	char m_padding00[0xc0];
-
-public:
-	Bool m_cameraSlaveActive;
-	Bool m_cameraSlaveGuard;
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 
@@ -366,7 +359,7 @@ void W3DView::buildCameraTransform(Matrix3D *transform)
 	w3d46(context.m_bfmeb8);
 	*position = context.m_outputPosition;
 
-	if (TheGameClient->m_cameraSlaveGuard || TheGameClient->m_cameraSlaveActive)
+	if (TheGameClient->m_fieldC1 || TheGameClient->m_fieldC0)
 	{
 		NameKeyType key = g_00DBDEEC.get();
 		MapObject::TheWorldDict.setReal(key, m_field28 * 57.2957763671875f);
