@@ -23,14 +23,7 @@ struct Rva00540E9DSrc
 {
 	int a, b, c;
 };
-class Rva00540D94
-{
-public:
-	__declspec(noinline) Rva00540D94(const Rva00540D94 &other);
-	int mode;
-	Rva00540E9DSrc position;
-	float scalar10, scalar14;
-};
+#include "../../../Include/Common/Rva00540D94.h"
 
 Rva00540D94::Rva00540D94(const Rva00540D94 &other)
 {
