@@ -18,7 +18,7 @@ extern GameLogic *TheGameLogic;
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 #include "../../../../Include/Common/ThingTemplate.h"
-class BfmeVec3EJ {public:float x,y,z;};
+#include "../../../../Include/Common/BfmeVec3EJ.h"
 class Gen_000E5A50 {public:inline __declspec(noinline) float Get3DCenterDistanceSquared(const BfmeVec3EJ*p)const{float dx=x-p->x;float dy=y-p->y;float dz=z-p->z;return dx*dx+dy*dy+dz*dz;}char pad[0x38];float x,y,z;};
 class Object {public:
  void *rva0028C197()const;

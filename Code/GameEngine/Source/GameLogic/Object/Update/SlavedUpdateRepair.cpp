@@ -255,11 +255,7 @@ public:
 // noinline COMDAT HordeDispatchSpecialPower.cpp emits): doGuardLogic's retail
 // code reads the guard wander range only after the call, which VC7.1 does
 // only when it can see the callee writes no memory.
-class BfmeVec3EJ
-{
-public:
-	Real x, y, z;
-};
+#include "../../../../Include/Common/BfmeVec3EJ.h"
 class Gen_000E5A50
 {
 public:
