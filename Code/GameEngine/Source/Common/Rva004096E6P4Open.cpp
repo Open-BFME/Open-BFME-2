@@ -13,7 +13,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <stdlib.h>
 #include <io.h>
 #include <string.h>
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
+// Retail calls msvcr71!_mbscpy through its REL32 import thunk, so read
+// <mbstring.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 #include "ascii_string.h"
 
 // A declaration-only specialization stops this TU emitting its own

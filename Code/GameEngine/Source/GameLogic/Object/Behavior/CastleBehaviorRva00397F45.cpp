@@ -21,7 +21,13 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Rva00397FEBInterface;
 
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 #include "../../../../Include/Common/Player.h"
 
@@ -78,7 +84,7 @@ bool Rva00397F45::isPlayerAllowedToPackOrUnpack( Player *player, Int arg )
 		const char *playerName = object->getControllingPlayer()->m_playerName.str();
 		Int id = object->m_id;
 		const char *castleName = object->m_chain->m_value.str();
-		fprintf( theLogicRandomLogFile,
+		fprintf( (FILE *)theLogicRandomLogFile,
 			"CAMP: Frame %d: Castle %s(%d) ::isPlayerAllowedToPackOrUnpack() called by %s -- alreadyMyCastle=%d, playerAllowedToCapture=%d",
 			TheGameLogic->getFrame(), castleName, id, playerName,
 			alreadyMyCastle, playerAllowed );

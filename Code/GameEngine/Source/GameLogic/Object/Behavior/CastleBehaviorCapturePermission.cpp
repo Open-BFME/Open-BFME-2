@@ -7,7 +7,13 @@
 // logic-level log guard. The second input is carried as an opaque ABI word.
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-extern "C" int __cdecl fprintf(void *,const char *,...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern "C" void *theLogicRandomLogFile;
 #include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/ThingTemplate.h"
@@ -34,7 +40,7 @@ bool Rva00397EAC::isPlayerAllowedToCapture(Player *player,int arg)
   const char *callerName=object->getControllingPlayer()->m_playerName.str();
   int id=object->id;
   const char *castleName=object->type->m_nameString.str();
-  fprintf(theLogicRandomLogFile,
+  fprintf((FILE *)theLogicRandomLogFile,
    "CAMP: Frame %d: Castle %s(%d) ::isPlayerAllowedToCapture() called by %s -- alreadyMyCastle=%d, playerAllowedToCapture=%d",
    TheGameLogic->getFrame(),castleName,id,callerName,alreadyMyCastle,decision.allowed);
  }

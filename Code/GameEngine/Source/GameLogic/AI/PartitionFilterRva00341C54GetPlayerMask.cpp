@@ -54,7 +54,13 @@ class AI{public:char pad[0x10];Rva002F23A6*pathfinder;};
 extern AI*TheAI;
 extern GameLogic*TheGameLogic;
 extern "C" void*theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void*,const char*,...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 // Slot1 of C122F0; WB E2E130 independently gives the reject flags,
 // relationship/physics checks and melee engagement callback purpose.
@@ -77,7 +83,7 @@ accepted:
  if (*reinterpret_cast<const int*>(reinterpret_cast<const char*>(TheGameLogic)+0x1B4)>0)
  {
   if (theLogicRandomLogFile)
-   fprintf(theLogicRandomLogFile,"FUCK OFF DESYNC: AIAttackFireDuringApproachState::computePath will call FindMeleeEngagmentLocation with pos=%f,%f",pos.x,pos.y);
+   fprintf((FILE *)theLogicRandomLogFile,"FUCK OFF DESYNC: AIAttackFireDuringApproachState::computePath will call FindMeleeEngagmentLocation with pos=%f,%f",pos.x,pos.y);
  }
  int ai = m_obj->ai258;
  Rva002F23A6 *pf = TheAI->pathfinder;

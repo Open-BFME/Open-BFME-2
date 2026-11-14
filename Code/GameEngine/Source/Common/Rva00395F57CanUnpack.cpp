@@ -13,7 +13,13 @@
 // shared header (str() gives +8-or-empty shape, literals link).
 #include "ascii_string.h"
 
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 
 class Player;
 #include "../GameLogic/Object/object.h"
@@ -53,7 +59,7 @@ bool Rva00395F57::canUnpack(bool checkTimer)
 			int id = object->m_id;
 			ChainValue *chain = (ChainValue *)object->m_template;
 			const char *textB = chain->m_value.str();
-			fprintf(theLogicRandomLogFile,
+			fprintf((FILE *)theLogicRandomLogFile,
 				"CAMP: Frame %d: Castle %s(%d) %s ::canUnpack() -- m_needInstantBuild=%d, m_currentState=%d, checkTimer=%d, m_timer=%g",
 				*(int *)((char *)TheGameLogic + 0x40), textB, id, textA,
 				m_needInstantBuild, m_currentState, checkTimer, (double)m_timer);

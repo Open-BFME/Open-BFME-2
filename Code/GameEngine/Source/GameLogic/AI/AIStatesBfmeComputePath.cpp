@@ -168,16 +168,18 @@ enum WeaponLockType
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}
@@ -726,7 +728,7 @@ static __declspec(noinline) Bool isSamePosition(const Coord3D *ourPos,
 
 static __forceinline void debugTrace(const char *text)
 {
-	FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+	FILE *log = (FILE *)theLogicRandomLogFile;
 	if (log != 0)
 		fprintf(log, text);
 }
@@ -809,7 +811,7 @@ Bool AIAttackMeleeEngageState::computePath()
 			return true;
 		if (TheGameLogic->getBfmeDebugLevel() > 0)
 		{
-			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+			FILE *log = (FILE *)theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "AIAttackFireDuringApproachState::computePath[2] will call FindMeleeEngagmentLocation with %f,%f (m_goalPosition:%f,%f = m_prevVictimPosition:%f, %f;)",
 					(double)m_goalPosition.x, (double)m_goalPosition.y,

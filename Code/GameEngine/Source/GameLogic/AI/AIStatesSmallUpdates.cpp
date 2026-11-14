@@ -61,11 +61,13 @@ class Snapshot;
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIGroup.h"
 class RadarObject;
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Retail calls the CRT fprintf import thunk through REL32, so read
+// <stdio.h> without dllimport.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 #include "../../../Include/GameLogic/LocomotorClass.h"
@@ -186,7 +188,7 @@ StateReturnType AIFollowWaypointPathExactState::onEnter()
 
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = (FILE *)theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 56");
 	}
