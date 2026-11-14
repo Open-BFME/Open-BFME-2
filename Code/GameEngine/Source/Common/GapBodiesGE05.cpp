@@ -293,15 +293,15 @@ Rva005E564B::Rva005E564B(int a, int b, int c, bool d) : m_00(a), m_04(b), m_08(c
 {
 }
 
-class Rva005E566B
+class Rva005E567D
 {
 public:
-	Rva005E566B(int value);
-	virtual ~Rva005E566B() {}
+	Rva005E567D(int value);
+	virtual ~Rva005E567D() {}
 private:
 	int m_04;
 };
 
-Rva005E566B::Rva005E566B(int value) : m_04(value)
+Rva005E567D::Rva005E567D(int value) : m_04(value)
 {
 }
