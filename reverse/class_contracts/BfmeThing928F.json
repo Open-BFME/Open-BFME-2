@@ -1,0 +1,109 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeThing928F",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x24c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "12": 1,
+   "592": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_bfmePad0",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 16,
+   "type": "char[16]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThing928FOne.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThing928FOne.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv928.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv928.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv928.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv928.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 588,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeConv928.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 592,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -123,11 +123,7 @@ public:
 
 extern class Rva00108660ResourceManager *Rva00DEC2D8Manager;
 
-class BfmeThing928F
-{
-public:
-	void bfmeGo928F();
-};
+#include "../../../../../GameEngine/Include/Common/BfmeThing928F.h"
 
 class Rva0007BA35
 {

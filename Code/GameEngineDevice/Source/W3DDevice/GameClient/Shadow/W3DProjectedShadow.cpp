@@ -160,12 +160,7 @@ struct Rva00109236Node
 	char m_pad04[0x110];
 	Rva00109236Node *m_next114;
 };
-class BfmeThing928F
-{
-public:
-	void bfmeTwo928F();
-	void bfmeOne928F();
-};
+#include "../../../../../GameEngine/Include/Common/BfmeThing928F.h"
 class Rva00109236
 {
 	char m_pad00[4];
