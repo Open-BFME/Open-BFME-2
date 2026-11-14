@@ -304,7 +304,9 @@ class Rva0059B060
 {
 public:
 	Rva0059B060(void *payload);
-	virtual ~Rva0059B060() {}
+	virtual int rva0059B19A() const;
+	virtual void rva0059B420(int, int, int);
+	virtual int rva0059B3C1(char *);
 private:
 	void *m_04;
 };

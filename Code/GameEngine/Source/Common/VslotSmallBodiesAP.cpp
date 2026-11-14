@@ -318,15 +318,14 @@ class Rva0059B428
 public:
 	void rva0059B428(Int firstValue, Int secondValue, Int thirdValue);
 };
-class Rva0059B420
+class Rva0059B060
 {
 public:
-	void rva0059B420(Int firstValue, Int secondValue, Int thirdValue);
+	virtual void rva0059B420(Int firstValue, Int secondValue, Int thirdValue);
 private:
-	char m_pad00[0x04];
 	Rva0059B428 *m_04;
 };
-void Rva0059B420::rva0059B420(Int firstValue, Int secondValue, Int thirdValue)
+void Rva0059B060::rva0059B420(Int firstValue, Int secondValue, Int thirdValue)
 {
 	m_04->rva0059B428(firstValue, secondValue, thirdValue);
 }

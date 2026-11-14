@@ -52,8 +52,8 @@ struct Holder08_0059B072
 	}
 };
 #include "../../Include/Common/Rva0007DF07.h"
-#pragma comment(linker, "/alternatename:?getChars@NarrowStrSource0059B0DD@@UBEHPAD@Z=?rva0059B3C1@Rva0059B3C1@@QAEHPAD@Z")
-#pragma comment(linker, "/alternatename:?getLength@NarrowStrSource0059B0DD@@UBEHXZ=?rva0059B19A@Rva0059B19A@@QBEHXZ")
+#pragma comment(linker, "/alternatename:?getChars@NarrowStrSource0059B0DD@@UBEHPAD@Z=?rva0059B3C1@Rva0059B060@@UAEHPAD@Z")
+#pragma comment(linker, "/alternatename:?getLength@NarrowStrSource0059B0DD@@UBEHXZ=?rva0059B19A@Rva0059B060@@UBEHXZ")
 
 class LivingWorldAutoResolveUnit : public Rva0007DF07
 {

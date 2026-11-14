@@ -69,6 +69,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `SiegeDockingBehaviorSecondaryBase` (VA 0x00C4EF80): 4 slots (4 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 3 view(s): `SiegeDockingBehaviorDtor.cpp`, `SiegeDockingBehaviorView.h`, `SiegeDockingBehaviorXfer.cpp`.
 - 2026-11-14 `Rva005FF912` (VA 0x00C7A530): 6 slots (0 pure, 0 rowed virtual, 1 destructor, 5 folded trivial body), 1 view(s): `BattlePromptMovieClipView.h`.
 - 2026-11-14 `Rva002AAD77` (VA 0x00BFDC60): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-14 `Rva0059B060` (VA 0x00C70E60): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
