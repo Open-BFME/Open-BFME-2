@@ -123,11 +123,7 @@ public:
 // 0x006253C0 is rowed as a void forwarder with int arguments, yet it hands
 // back the implementation's closest object in EAX: its typed signature is
 // reached through a member-pointer cast so the call keeps the row's name.
-class BfmeWideForwardB
-{
-public:
-	BfmeWideResult bfmeForwardWideB(int region, int distType, int filters, int order);	// 0x00625690
-};
+#include "../../../Include/Common/BfmeWideForwardB.h"
 
 class BfmeC1050
 {

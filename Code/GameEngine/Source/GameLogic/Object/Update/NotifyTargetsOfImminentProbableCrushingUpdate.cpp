@@ -51,7 +51,7 @@ class Rva0026156C:public Rva000421C8{public:
  Object*object;int value;
 };
 struct NotifyRegion3D{NotifyCoord lo,hi;};
-class BfmeWideForwardB{public:BfmeWideResult bfmeForwardWideB(int,int,int,int);};
+#include "../../../../Include/Common/BfmeWideForwardB.h"
 extern PartitionManager *ThePartitionManager;
 int GetGameLogicRandomValue(int,int,char*,int);
 enum UpdateSleepTime{UPDATE_SLEEP_NONE=1};
