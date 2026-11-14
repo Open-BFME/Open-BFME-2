@@ -6254,3 +6254,4 @@ __ehhandler$??1Rva005C9659@@UAE@XZ,0x007A0EF7,"Renamed to __ehhandler$??1Rva005C
 ??0Rva005E566B@@QAE@H@Z,0x005E566B,"Renamed to ??0Rva005E567D@@QAE@H@Z by tools/rename.py (fold: retail vftable 0x00C77D30)"
 _$E16,0x007B0BFF,"Respelled to _$E1 by tools/rename.py initializers (^code_^game^engine_^source_^game^logic_^object_^behavior_^spawn^behavior.obj's .CRT$XCU order against retail's table)"
 _$E88,0x007B0C0F,"Respelled to _$E3 by tools/rename.py initializers (^code_^game^engine_^source_^game^logic_^object_^behavior_^spawn^behavior.obj's .CRT$XCU order against retail's table)"
+?rva0030CAA9@Rva0030CAA9Owner@@QAEXXZ,0x0030CAA9,"Renamed to ?rva0030CAA9@Rva0030CAA9Owner@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"

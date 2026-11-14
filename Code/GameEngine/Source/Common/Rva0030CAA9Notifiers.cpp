@@ -95,7 +95,7 @@ public:
 class Rva0030CAA9Owner : public Rva0053805DBase, public Rva0030CAD9Base
 {
 public:
-	void rva0030CAA9();
+	virtual void rva0030CAA9();
 	void rva0030CAC1();
 	virtual void rva0030CAD9();
 
