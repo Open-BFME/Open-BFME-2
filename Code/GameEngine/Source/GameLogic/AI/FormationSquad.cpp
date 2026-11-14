@@ -334,14 +334,7 @@ namespace _STL
 #include "../../../Include/Common/Rva00531C54.h"
 
 // ?rva0053B8F1@Rva0053B8F1@@QBE_NXZ @0x0053B8F1 7B: the flag byte at +0x106.
-class Rva0053B8F1
-{
-public:
-	bool rva0053B8F1() const;
-private:
-	char m_pad[0x106];
-	bool m_106;
-};
+#include "../../../Include/Common/Rva0053B8F1.h"
 
 // ?rva0056864A@Rva0056864A@@QBEEXZ @0x0056864A 7B: high nibble of the byte at +0x47.
 class Rva0056864A
