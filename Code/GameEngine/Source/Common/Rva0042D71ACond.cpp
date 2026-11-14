@@ -1,9 +1,4 @@
-class Rva0042D71A
-{
-public:
-	int get() const;
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva0042D71A.h"
 int Rva0042D71A::get() const
 {
 	int x = *(int *)((char *)m_ptr + 0x30);
