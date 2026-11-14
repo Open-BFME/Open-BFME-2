@@ -10,6 +10,11 @@ class Rva005FF912
 public:
     Rva005FF912(int, int);
     virtual ~Rva005FF912();
+    virtual void slot04() {}
+    virtual void slot08() {}
+    virtual void slot0C() {}
+    virtual void slot10(int) {}
+    virtual void slot14(int) {}
 protected:
     StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *m_04;
 };
