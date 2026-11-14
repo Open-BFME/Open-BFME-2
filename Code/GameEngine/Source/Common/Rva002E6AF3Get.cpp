@@ -8,12 +8,7 @@
 // dx8wrapper and Disp8Shr getters; flags /O1 for xor-eax false tail.
 // Positive if-form places true path inline per §4.6.
 
-class Rva002E6AF3
-{
-public:
-	int get() const;
-	void *m_ptr;
-};
+#include "../../Include/GameLogic/Rva002E6AF3.h"
 struct Rva002E6AF3Inner
 {
 	char m_pad[0x2C];
