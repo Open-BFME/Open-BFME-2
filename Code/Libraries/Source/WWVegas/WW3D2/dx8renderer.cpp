@@ -1042,11 +1042,7 @@ public:
 	RenderObjClass **SkinContainer;	// +0x310
 };
 
-class BFME2RenderObjInheritedDataView
-{
-public:
-	void *Get_Inherited_Render_Data(void);
-};
+#include "BFME2RenderObjInheritedDataView.h"
 extern int G00DEDA78;
 
 #include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"

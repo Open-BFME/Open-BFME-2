@@ -14,7 +14,7 @@ struct Rva00174753ReleaseView { virtual void *releaseInstance(unsigned)=0; unsig
 extern Rva00174753ReleaseView *g_gapFillerAuxiliarySource;
 struct Rva0014A710Inner {unsigned char prefix[0xb8];int flagB8;unsigned char pad[0x108-0xbc];int flag108;};
 struct Rva0014A710Model {unsigned char prefix[0x94];Rva0014A710Inner* inner;};
-class BFME2RenderObjInheritedDataView {public:void *Get_Inherited_Render_Data();};
+#include "BFME2RenderObjInheritedDataView.h"
 class Rva0014A710 {
 public:
  virtual void slot0();
