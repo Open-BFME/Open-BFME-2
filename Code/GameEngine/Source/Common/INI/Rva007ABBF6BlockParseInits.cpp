@@ -92,11 +92,7 @@ class CrateSystem
 public:
 	static void parseCrateTemplateDefinition(INI *);
 };
-class DamageFXStore
-{
-public:
-	static void parseDamageFXDefinition(INI *);
-};
+#include "../../../Include/Common/DamageFXStore.h"
 #include "../../../Include/GameClient/Eva.h"
 #include "../../../Include/Common/GlobalData.h"
 #include "../../../Include/Common/INI/INI.h"

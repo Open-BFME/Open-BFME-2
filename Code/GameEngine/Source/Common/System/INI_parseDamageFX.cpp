@@ -20,11 +20,7 @@
 
 class DamageFX;
 
-class DamageFXStore
-{
-public:
-	const DamageFX *findDamageFX(AsciiString name) const;
-};
+#include "../../../Include/Common/DamageFXStore.h"
 
 extern DamageFXStore *TheDamageFXStore;
 
