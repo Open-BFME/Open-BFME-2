@@ -28,13 +28,7 @@ class RenderObjClass;
 template<class T> class RefMultiListIterator;
 class RTS3DScene { public: RefMultiListIterator<RenderObjClass>* createLightsIterator(); void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*); };
 class RTS2DScene;
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-	static RTS2DScene *m_2DScene;
-	void rva0004D664(float x0, float y0, float x1, float y1, float width, int color);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class CameraClass { public: virtual void Delete_This(); int refs; void Add_Ref(){++refs;} void Release_Ref(){if(--refs==0)Delete_This();} protected: void Update_Frustum() const; public: void *Get_Frustum() const { Update_Frustum(); return (char*)this+0x100; } };
 struct Rva0008B689Element{CameraClass*pointer;Rva0008B689Element():pointer(0){}Rva0008B689Element(const Rva0008B689Element&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();}~Rva0008B689Element(){if(pointer)pointer->Release_Ref();}bool isNull()const{return !pointer;}};
 namespace _STL{template<>void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}

@@ -19,11 +19,7 @@ bool __cdecl BFME_DX8_Thread_Assert();
 class SceneClass;
 class RTS3DScene;
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

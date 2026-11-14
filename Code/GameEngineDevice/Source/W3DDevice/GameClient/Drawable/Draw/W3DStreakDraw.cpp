@@ -118,7 +118,7 @@ public:
 	virtual void Add_Render_Object(Rva001684D6 *object);
 };
 class RTS3DScene : public BfmeStreakVtable {};
-class W3DDisplay { public: static RTS3DScene *m_3DScene; };
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class CameraMarker {
 public:
 	CameraMarker *m_next;

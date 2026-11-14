@@ -253,13 +253,7 @@ class Image;
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 
-class W3DDisplay : public Display
-{
-public:
-	void rva0004D6B3( Image *image, Real startX, Real startY, Real endX, Real endY, Int color = 0xFFFFFFFF, Int mode = 2 );
-
-	static RTS3DInterfaceScene *m_3DInterfaceScene;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class W3DRadarResetSurface
 {

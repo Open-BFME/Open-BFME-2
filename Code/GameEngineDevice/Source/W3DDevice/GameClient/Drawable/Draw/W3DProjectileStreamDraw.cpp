@@ -97,11 +97,7 @@ class RTS3DScene : public SceneClass
 {
 };
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 enum NameKeyType;
 

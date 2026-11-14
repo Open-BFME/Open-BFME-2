@@ -61,12 +61,7 @@ public:
 
 class RTS2DScene;
 
-class W3DDisplay
-{
-public:
-	static RTS3DScene *m_3DScene;
-	static RTS2DScene *m_2DScene;
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 // Matched DIR32 references place W3DDisplay::m_3DScene at VA 0x00DE1B34;
 // the four retail bytes are zero, so the scene pointer starts null.
