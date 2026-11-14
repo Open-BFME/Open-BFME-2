@@ -13,15 +13,7 @@
 // +0x1C, INI table 0x00C4C2A8, factory 0x24CFDF news 0x20). Unlike DamageField
 // retail HAS the derived store so no novtable. Empty derived body.
 
-class FireWeaponUpdateModuleData
-{
-public:
-	FireWeaponUpdateModuleData();
-	virtual ~FireWeaponUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x10 - 4];
-};
+#include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 
 #include "ascii_string.h"
 

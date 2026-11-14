@@ -107,17 +107,7 @@ extern const FieldParse g_00C4D8A8[] = {
  
  
 
-class FireWeaponUpdateModuleData
-{
-public:
-	FireWeaponUpdateModuleData();
-public:
-	virtual ~FireWeaponUpdateModuleData();
-private:
-	unsigned char m_pad[0x10 - 4];
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 class DamageFieldUpdateModuleData : public FireWeaponUpdateModuleData
 {
 public:
