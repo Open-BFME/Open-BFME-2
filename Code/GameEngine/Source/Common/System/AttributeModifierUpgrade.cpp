@@ -21,11 +21,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AttributeModifierUpgrade
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../Include/Common/AttributeModifierUpgrade.h"
 
 // ---- from Code/GameEngine/Source/Common/System/AttributeModifierUpgradePoolKey.cpp
 
