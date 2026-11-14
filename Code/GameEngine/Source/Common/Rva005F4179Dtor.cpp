@@ -28,14 +28,7 @@ private:
     Rva005F3F73 *m_ptr;
 };
 
-class Rva005F4179Base
-{
-public:
-	Rva005F4179Base() : m_04(0) {}
-	virtual ~Rva005F4179Base() {}
-protected:
-	int m_04;
-};
+#include "../../Include/Common/Rva005F4179Base.h"
 
 class Rva005F4179 : public Rva005F4179Base
 {
