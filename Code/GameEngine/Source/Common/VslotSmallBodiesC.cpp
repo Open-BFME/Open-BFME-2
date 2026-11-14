@@ -242,15 +242,14 @@ struct Rva002AAD89Item
 	void *m_00;
 	unsigned short m_04;
 };
-class Rva002AAD89
+class Rva002AAD77
 {
 public:
-	Int rva002AAD89();
+	virtual Int rva002AAD89();
 private:
-	void *m_00;
 	Rva002AAD89Item ***m_04;
 };
-Int Rva002AAD89::rva002AAD89()
+Int Rva002AAD77::rva002AAD89()
 {
 	Rva002AAD89Item *item = **m_04;
 	return item ? item->m_04 : 0;

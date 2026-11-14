@@ -108,16 +108,15 @@ struct Rva002AC290Name
 	const char *str() const { return m_data ? m_data + 8 : ""; }
 };
 
-class Rva002AC290
+class Rva002AAD77
 {
 public:
-	void rva002AC290(void *dest, int offset, unsigned int count);
+	virtual void rva002AC290(void *dest, int offset, unsigned int count);
 private:
-	int m_00;
 	Rva002AC290Name **m_04;
 };
 
-void Rva002AC290::rva002AC290(void *dest, int offset, unsigned int count)
+void Rva002AAD77::rva002AC290(void *dest, int offset, unsigned int count)
 {
 	memcpy(dest, (*m_04)->str() + offset, count);
 }

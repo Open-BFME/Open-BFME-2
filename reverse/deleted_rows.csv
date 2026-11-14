@@ -6272,3 +6272,6 @@ __ehhandler$?setCorrectDamageState@ActiveBody@@QAEX_N@Z,0x0078F9C2,"Renamed to _
 ??1Rva000AB0D4@@UAE@XZ,0x000AB0D4,"Renamed to ??1Rva000AAD5C@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BC9468)"
 ??_GRva0021113D@@UAEPAXI@Z,0x00211121,"Renamed to ??_GRva00210EF1@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE5118)"
 ??1Rva0021113D@@UAE@XZ,0x0021113D,"Renamed to ??1Rva00210EF1@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE5118)"
+?rva002AAD89@Rva002AAD89@@QAEHXZ,0x002AAD89,"Renamed to ?rva002AAD89@Rva002AAD77@@UAEHXZ by tools/rename.py (to-class: retail vftable 0x00BFDC60 slot 0)"
+?rva002ABC76@Rva002ABC76@@QAEHPAD@Z,0x002ABC76,"Renamed to ?rva002ABC76@Rva002AAD77@@UAEHPAD@Z by tools/rename.py (to-class: retail vftable 0x00BFDC60 slot 2)"
+?rva002AC290@Rva002AC290@@QAEXPAXHI@Z,0x002AC290,"Renamed to ?rva002AC290@Rva002AAD77@@UAEXPAXHI@Z by tools/rename.py (to-class: retail vftable 0x00BFDC60 slot 1)"

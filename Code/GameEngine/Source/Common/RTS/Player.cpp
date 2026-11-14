@@ -1897,7 +1897,7 @@ int Rva002AACDB::rva002AACDB()
 
 // tu-skeleton: 0x002AAD77 18B ??0Rva002AAD77@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x002AAD89 19B ?rva002AAD89@Rva002AAD89@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+// tu-skeleton: 0x002AAD89 19B ?rva002AAD89@Rva002AAD77@@UAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
 
 // tu-skeleton: 0x002AAD9C 18B ??0Rva002AAD9C@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
@@ -2106,7 +2106,7 @@ int __cdecl Rva002ABC22Compare(int a, int b, int c)
 	return Rva002AADB6Compare((Rva002AADB6Reader *)&ra, (Rva002AADB6Reader *)&rb, c);
 }
 
-// tu-skeleton: 0x002ABC76 8B ?rva002ABC76@Rva002ABC76@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
+// tu-skeleton: 0x002ABC76 8B ?rva002ABC76@Rva002AAD77@@UAEHPAD@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
 
 // tu-skeleton: 0x002ABC7E 114B ?setDefaultTeam@Player@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/PlayerSetDefaultTeam.cpp (not merged yet)
 
@@ -2169,7 +2169,7 @@ void *__stdcall Rva002AC04EAlloc(void **arg)
 
 // tu-skeleton: 0x002AC271 31B ?Rva002AC271Compare@@YAHHH@Z -- matched in Code/GameEngine/Source/Common/Rva002AC271Compare.cpp (not merged yet)
 
-// tu-skeleton: 0x002AC290 47B ?rva002AC290@Rva002AC290@@QAEXPAXHI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
+// tu-skeleton: 0x002AC290 47B ?rva002AC290@Rva002AAD77@@UAEXPAXHI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE04.cpp (not merged yet)
 
 // tu-skeleton: 0x002AC2BF 8B ?rva002AC2BF@Rva002AC2BFForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 

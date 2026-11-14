@@ -70,7 +70,9 @@ class Rva002AAD77
 {
 public:
 	Rva002AAD77(void *payload);
-	virtual ~Rva002AAD77() {}
+	virtual int rva002AAD89();
+	virtual void rva002AC290(void *, int, unsigned int);
+	virtual int rva002ABC76(char *);
 private:
 	void *m_04;
 };
