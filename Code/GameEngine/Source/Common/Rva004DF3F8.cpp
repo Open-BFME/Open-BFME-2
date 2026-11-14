@@ -21,7 +21,7 @@ struct BfmePod12
 inline bool operator==(const BfmePod12 &x, const BfmePod12 &y) { return x.a[0] == y.a[0]; }
 // Retail erase(iterator) relinks the node onto the freelist pool head inline
 // (pool at VA 0x00DA60E8, head at +0x08; retail 0x002ABB20).
-class FreelistPool { public: void *pop(); int m_00; void *m_04; void *m_head; };
+#include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
 namespace _STL {
 template <> list<BfmePod12>::iterator list<BfmePod12>::erase(iterator __position)
