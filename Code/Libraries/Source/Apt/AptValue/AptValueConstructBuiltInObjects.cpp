@@ -41,16 +41,15 @@ class AptValue;
 
 struct AptNativeHash;
 
-class AptValue
+#include "../AptValue.h"
+
+// Bits 18..24 of AptValue's protected flag word at +4 hold the GC root count
+// (the retail stores below clear 0x01FC0000 and set 0x00040000). The shared
+// header rows no setter for it, so this unit writes it through a derived view.
+class AptValueGCRootCount : public AptValue
 {
 public:
-    virtual void AddRef();
-    virtual void Release();
-    virtual void ForceDelete();
-    virtual AptNativeHash *GetNativeHashVirtual();
-    unsigned int mnLowBits : 18;
-    unsigned int mnGCRootCount : 7;
-    unsigned int mnType : 7;
+    void set(unsigned int n) { field04 = (field04 & ~0x01FC0000u) | ((n & 0x7Fu) << 18); }
 };
 
 struct AptNativeHash
@@ -93,6 +92,8 @@ public:
     AptNativeFunction(AptNativeCallback);
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static void operator delete(void *p, unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p, n); }
+    virtual bool IsGarbageCollected() const;
+    virtual void RegisterReferences() const;
 private:
     char mBody[0x24 - 8];
 };
@@ -103,6 +104,8 @@ public:
     AptPrototype();
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static void operator delete(void *p, unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p, n); }
+    virtual bool IsGarbageCollected() const;
+    virtual void RegisterReferences() const;
 private:
     char mBody[0x20 - 8];
 };
@@ -145,8 +148,8 @@ AptValue *Rva006DDCE0(AptValue *, int);
         AptPrototype *pProto = new AptPrototype();                             \
         pFunc->GetNativeHashVirtual()->SetPrototype(pProto);                   \
         pFunc->GetNativeHashVirtual()->Set__Proto__(gpObjectPrototype);        \
-        pFunc->mnGCRootCount = 1;                                              \
-        pProto->mnGCRootCount = 1;                                             \
+        ((AptValueGCRootCount *)pFunc)->set(1);                                              \
+        ((AptValueGCRootCount *)pProto)->set(1);                                             \
     }
 
 void _constructBuiltInObjects()
@@ -170,8 +173,8 @@ void _constructBuiltInObjects()
         gpObjectPrototype = new AptPrototype();
         pFunc->GetNativeHashVirtual()->SetPrototype(gpObjectPrototype);
         g_00E180B0 = gpObjectPrototype;
-        pFunc->mnGCRootCount = 1;
-        gpObjectPrototype->mnGCRootCount = 1;
+        ((AptValueGCRootCount *)pFunc)->set(1);
+        ((AptValueGCRootCount *)gpObjectPrototype)->set(1);
     }
     BUILTIN_PROTOTYPE(0x21)
     BUILTIN_PROTOTYPE(0x99)
@@ -182,8 +185,8 @@ void _constructBuiltInObjects()
         AptValue *pFunc = LOOKUP(0x5E);
         AptPrototype *pProto = new AptPrototype();
         g_00E1807C = pProto;
-        pFunc->mnGCRootCount = 1;
-        pProto->mnGCRootCount = 1;
+        ((AptValueGCRootCount *)pFunc)->set(1);
+        ((AptValueGCRootCount *)pProto)->set(1);
         pFunc->GetNativeHashVirtual()->SetPrototype(pProto);
         pFunc->GetNativeHashVirtual()->Set__Proto__(gpObjectPrototype);
     }
@@ -193,14 +196,14 @@ void _constructBuiltInObjects()
     BUILTIN_PROTOTYPE(0x9D)
 
     g_00E18064 = (int)new AptNativeFunction(Rva006DDCE0);
-    ((AptValue *)g_00E18064)->mnGCRootCount = 1;
+    ((AptValueGCRootCount *)g_00E18064)->set(1);
     ((AptValue *)g_00E18064)->AddRef();
 
     g_releaseVectorAtE17710->ReleaseValues();
 }
 
 extern AptNativeHash *g_bfmeAptHashAtE180E4;
-class AptBoolean {public: static AptValue *Create(bool);};
+#include "../AptBoolean.h"
 AptValue *Rva006DDCE0(AptValue *,int argc)
 {
  if (argc != 2) return AptBoolean::Create(false);
