@@ -89,11 +89,7 @@ public:
 	virtual Bool slot88(Object *goal) = 0;
 };
 
-class ContainModuleInterface : public AIHuntSlots<31>
-{
-public:
-	virtual AIHuntContainTarget *slot31() = 0;
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
@@ -240,7 +236,7 @@ StateReturnType AIHuntState::update()
 		ContainModuleInterface *contain = owner->getContain();
 		if (contain)
 		{
-			AIHuntContainTarget *target = contain->slot31();
+			AIHuntContainTarget *target = (AIHuntContainTarget *)contain->slot31();
 			if (target && huntGoal && !((huntGoal->getTemplate()->m_kindof[0] & (1U << 7)) != 0) && target->slot88(huntGoal))
 				holdTarget = true;
 		}

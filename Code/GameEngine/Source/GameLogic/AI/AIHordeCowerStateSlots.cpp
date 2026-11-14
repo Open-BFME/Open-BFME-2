@@ -111,39 +111,7 @@ class ThingTemplate;
 // A contain module's exit interface (contain slot 29).
 #include "../../../Include/GameLogic/Module/ExitInterface.h"
 
-class ContainModuleInterface
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void onObjectWantsToEnterOrExit(Object *obj, ObjectEnterExitType wants) = 0;
-	virtual void slot18() = 0; virtual void slot19() = 0; virtual void slot20() = 0;
-	virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
-	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0;
-	virtual void slot27() = 0; virtual void slot28() = 0;
-	virtual ExitInterface *getContainExitInterface() = 0;
-	virtual void slot30() = 0;
-	virtual class Rva00341A3EHorde *rva00341A3ESlot31() = 0;
-	virtual void slot32() = 0; virtual void slot33() = 0; virtual void slot34() = 0;
-	virtual void slot35() = 0; virtual void slot36() = 0; virtual void slot37() = 0;
-	virtual Bool rva00346269Slot38(Object *obj, Bool flagA, Bool flagB) = 0;
-	virtual void rva0034629CSlot39(Object *obj) = 0;
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 template <int N> class HordeSlots : public HordeSlots<N - 1>
 {
@@ -532,7 +500,7 @@ StateReturnType AIHordeExitState::onEnter()
 {
 	Object *owner = getMachineOwner();
 	Object *goal = getMachine()->getGoalObject();
-	if (owner && goal && owner->getContain() && owner->getContain()->rva00341A3ESlot31())
+	if (owner && goal && owner->getContain() && owner->getContain()->slot31())
 	{
 		if (goal->getContain())
 			goal->getContain()->onObjectWantsToEnterOrExit(owner, WANTS_TO_EXIT);
@@ -551,7 +519,7 @@ StateReturnType AIHordeExitState::update()
 		return STATE_CONTINUE;
 	if (!owner->getContain())
 		return STATE_FAILURE;
-	Rva00341A3EHorde *horde = owner->getContain()->rva00341A3ESlot31();
+	Rva00341A3EHorde *horde = (Rva00341A3EHorde *)owner->getContain()->slot31();
 	if (!horde)
 		return STATE_FAILURE;
 	ExitInterface *exitInterface = goal->getContain() ? goal->getContain()->getContainExitInterface() : 0;
@@ -585,7 +553,7 @@ StateReturnType AIHordeEnterState::update()
 	Object *goal = getMachine()->getGoalObject();
 	if (owner && goal && owner->getContain())
 	{
-		Rva00341A3EHorde *horde = owner->getContain()->rva00341A3ESlot31();
+		Rva00341A3EHorde *horde = (Rva00341A3EHorde *)owner->getContain()->slot31();
 		if (horde)
 		{
 			if (horde->rva003419F7Slot61())
@@ -603,17 +571,17 @@ StateReturnType AIHordeEnterState::onEnter()
 	Object *goal = getMachine()->getGoalObject();
 	if (owner && goal && !goal->isDestroyedBfme() && owner->getContain())
 	{
-		Rva00341A3EHorde *horde = owner->getContain()->rva00341A3ESlot31();
+		Rva00341A3EHorde *horde = (Rva00341A3EHorde *)owner->getContain()->slot31();
 		if (horde)
 		{
 			ContainModuleInterface *goalContain = goal->getContain();
-			if (goalContain && !goalContain->rva00341A3ESlot31()
-				&& goalContain->rva00346269Slot38(owner, true, false))
+			if (goalContain && !goalContain->slot31()
+				&& goalContain->isValidContainerFor(owner, true, false))
 			{
 				horde->rva0034627FSlot31(goal->getPosition(), 2, goal);
 				if (!((goal->getTemplate()->m_kindof[0] & (1U << 2)) != 0))
 					goal->rva00292EB3(DISABLED_BFME_8);
-				goalContain->rva0034629CSlot39(owner);
+				goalContain->addToContain(owner);
 				return STATE_CONTINUE;
 			}
 		}
@@ -634,7 +602,7 @@ void AIAttackMeleeHordeWaitState::onExit(StateExitType status)
 		return;
 	if (owner->getContain())
 	{
-		Rva00341A3EHorde *horde = owner->getContain()->rva00341A3ESlot31();
+		Rva00341A3EHorde *horde = (Rva00341A3EHorde *)owner->getContain()->slot31();
 		if (horde)
 		{
 			horde->rva00345230Slot78();

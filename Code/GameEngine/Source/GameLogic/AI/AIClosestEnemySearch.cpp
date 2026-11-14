@@ -205,24 +205,7 @@ struct Rva002FDB93Best { float priority; const AttackPriorityInfo *info; const O
 void Rva002FDB93Callback(Object *, void *);
 template<int N> class QuerySlots : public QuerySlots<N - 1> { public: virtual void slot(char (*)[N]) = 0; };
 template<> class QuerySlots<0> {};
-class ContainModuleInterface : public QuerySlots<55>
-{
-public:
-	virtual bool slot55(Object *, Object **) = 0;
-	virtual void slot56() = 0;
-	virtual void slot57() = 0;
-	virtual void slot58() = 0;
-	virtual void slot59() = 0;
-	virtual void slot60() = 0;
-	virtual void slot61() = 0;
-	virtual void slot62() = 0;
-	virtual void slot63() = 0;
-	virtual void slot64() = 0;
-	virtual void slot65() = 0;
-	virtual void slot66() = 0;
-	virtual void slot67() = 0;
-	virtual void iterateContained(void (*)(Object *, void *), void *, bool) = 0;
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 enum ObjectStatusTypes { STATUS23 = 23, STATUS37 = 37, STATUS38 = 38, STATUS79 = 79 };
 enum Relationship { ENEMY = 0, NEUTRAL = 1, ALLY = 2 };
 enum WeaponSlotType { PRIMARY = 0 };

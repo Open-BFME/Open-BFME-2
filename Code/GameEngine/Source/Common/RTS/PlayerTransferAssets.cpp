@@ -116,22 +116,7 @@ static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t
 	return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0;
 }
 
-class ContainModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual class OpenContain *slot02();
-	virtual void slot03();
-	virtual Bool slot04();
-#define CONTAIN_SLOT(n) virtual void slot##n();
-	CONTAIN_SLOT(05) CONTAIN_SLOT(06) CONTAIN_SLOT(07) CONTAIN_SLOT(08) CONTAIN_SLOT(09)
-	CONTAIN_SLOT(10) CONTAIN_SLOT(11) CONTAIN_SLOT(12) CONTAIN_SLOT(13) CONTAIN_SLOT(14)
-	CONTAIN_SLOT(15) CONTAIN_SLOT(16) CONTAIN_SLOT(17) CONTAIN_SLOT(18) CONTAIN_SLOT(19)
-	CONTAIN_SLOT(20)
-#undef CONTAIN_SLOT
-	virtual void slot21(Team *team); // slot 0x54
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 // Object::rva00290DBB's two player views.
 struct Rva002A9B58;
@@ -323,7 +308,7 @@ void Player::transferAssetsFromThat(Player *that, Bool flag)
 		else
 		{
 			ContainModuleInterface *contain = obj->getContain();
-			if (contain && (contain->slot04() || contain->slot02()))
+			if (contain && (contain->isGarrisonable() || contain->slot02()))
 				contain->slot21(defaultTeam);
 			obj->setTeam(defaultTeam);
 			TheRadar->removeObject((Rva002D76C6Owner *)obj);

@@ -75,20 +75,7 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 
-class ContainModuleInterface
-{
-public:
-#define CONTAIN_SLOT(n) virtual void containSlot##n();
-	CONTAIN_SLOT(0) CONTAIN_SLOT(1) CONTAIN_SLOT(2) CONTAIN_SLOT(3) CONTAIN_SLOT(4)
-	CONTAIN_SLOT(5) CONTAIN_SLOT(6) CONTAIN_SLOT(7) CONTAIN_SLOT(8) CONTAIN_SLOT(9)
-	CONTAIN_SLOT(10) CONTAIN_SLOT(11) CONTAIN_SLOT(12) CONTAIN_SLOT(13) CONTAIN_SLOT(14)
-	CONTAIN_SLOT(15) CONTAIN_SLOT(16) CONTAIN_SLOT(17) CONTAIN_SLOT(18) CONTAIN_SLOT(19)
-	CONTAIN_SLOT(20) CONTAIN_SLOT(21) CONTAIN_SLOT(22) CONTAIN_SLOT(23) CONTAIN_SLOT(24)
-	CONTAIN_SLOT(25) CONTAIN_SLOT(26) CONTAIN_SLOT(27) CONTAIN_SLOT(28) CONTAIN_SLOT(29)
-	CONTAIN_SLOT(30)
-#undef CONTAIN_SLOT
-	virtual HordeContainInterface *getHordeContainInterface();	// slot 31 (+0x7C)
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -241,7 +228,7 @@ void Team::updateState()
 			for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance())
 			{
 				ContainModuleInterface *contain = iter.cur()->getContain();
-				HordeContainInterface *horde = contain ? contain->getHordeContainInterface() : 0;
+				HordeContainInterface *horde = contain ? contain->slot31() : 0;
 				if (horde)
 					m_curUnits += horde->getMemberCount(0);
 				else
@@ -307,7 +294,7 @@ void Team::updateState()
 			if (iter.cur()->isEffectivelyDead())
 				continue;
 			ContainModuleInterface *contain = iter.cur()->getContain();
-			HordeContainInterface *horde = contain ? contain->getHordeContainInterface() : 0;
+			HordeContainInterface *horde = contain ? contain->slot31() : 0;
 			if (horde)
 				m_curUnits += horde->getMemberCount(0);
 			else

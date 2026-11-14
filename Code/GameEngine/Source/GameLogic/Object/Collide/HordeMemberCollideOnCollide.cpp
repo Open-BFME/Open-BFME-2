@@ -47,11 +47,7 @@ public:
 	virtual ObjectID slot91();                // +0x16C
 };
 
-class ContainModuleInterface : public VSlots<31>
-{
-public:
-	virtual Rva004BC3CFHordeRecord *slot31(); // +0x7C
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
@@ -103,7 +99,7 @@ void HordeMemberCollide::onCollide(Object *other, const Coord3D *, const Coord3D
 	ContainModuleInterface *contain = container->getContain();
 	if (!contain)
 		return;
-	Rva004BC3CFHordeRecord *record = contain->slot31();
+	Rva004BC3CFHordeRecord *record = (Rva004BC3CFHordeRecord *)contain->slot31();
 	if (!record)
 		return;
 	if (!record->slot91())
@@ -138,7 +134,7 @@ void HordeMemberCollide::onCollide(Object *other, const Coord3D *, const Coord3D
 
 	Rva004BC3CFHordeRecord *otherRecord = 0;
 	if (target->getContain())
-		otherRecord = target->getContain()->slot31();
+		otherRecord = (Rva004BC3CFHordeRecord *)target->getContain()->slot31();
 	if (!otherRecord->slot88(recordObject))
 		return;
 	if (!otherRecord->slot87())

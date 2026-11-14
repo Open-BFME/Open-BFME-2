@@ -33,23 +33,7 @@ public:
 	virtual void s8B(); virtual void s8C(); virtual void s8D();
 	virtual void rva004B04B2Slot142(int value); // slot 142 (+0x238)
 };
-class ContainModuleInterface
-{
-public:
-	SLOT08(s00,s01,s02,s03,s04,s05,s06,s07)
-	SLOT08(s08,s09,s0A,s0B,s0C,s0D,s0E,s0F)
-	SLOT08(s10,s11,s12,s13,s14,s15,s16,s17)
-	SLOT08(s18,s19,s1A,s1B,s1C,s1D,s1E,s1F)
-	SLOT08(s20,s21,s22,s23,s24,s25,s26,s27)
-	virtual void s28(); virtual void s29();
-	virtual void rva42(int which); // slot 42
-	virtual void s2B(); virtual void s2C(); virtual void s2D(); virtual void s2E(); virtual void s2F();
-	SLOT08(s30,s31,s32,s33,s34,s35,s36,s37)
-	SLOT08(s38,s39,s3A,s3B,s3C,s3D,s3E,s3F)
-	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
-	virtual void s44();
-	virtual unsigned int rva69(int which); // slot 69
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 class Rva0036CA00Str
 {
 public:
@@ -547,8 +531,8 @@ void SpecialDisguiseUpdate::triggerAbilityEffect()
 	}
 
 	ContainModuleInterface *contain = obj->m_contain;
-	if (contain && contain->rva69(0) > 0)
-		obj->m_contain->rva42(0);
+	if (contain && contain->getContainCount(0) > 0)
+		obj->m_contain->removeAllContained(false);
 
 	Drawable *draw = obj->getDrawable();
 	if (draw)
