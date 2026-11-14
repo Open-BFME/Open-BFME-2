@@ -594,31 +594,9 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 
 // WWMath's Vector3 (its inline members, WWINLINE as __forceinline).
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-
-	__forceinline Vector3(void) {}
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	__forceinline float Length2(void) const { return X*X + Y*Y + Z*Z; }
-	__forceinline void Normalize(void)
-	{
-		float len2 = Length2();
-		if (len2 != 0.0f)
-		{
-			float oolen = WWMath::Inv_Sqrt(len2);
-			X *= oolen;
-			Y *= oolen;
-			Z *= oolen;
-		}
-	}
-	__forceinline friend Vector3 operator*(const Vector3 &a, float k) { return Vector3((a.X * k), (a.Y * k), (a.Z * k)); }
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Operators.h"
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3InlineMath.h"
 
 struct FindPositionOptions
 {

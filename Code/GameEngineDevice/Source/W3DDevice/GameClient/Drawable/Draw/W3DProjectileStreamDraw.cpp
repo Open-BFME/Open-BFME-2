@@ -223,21 +223,8 @@ public:
 	int m_maxSegments; // +0x18
 };
 
-class Vector3
-{
-public:
-	Vector3() {}
-	__declspec(dllimport) __forceinline Vector3( float x, float y, float z ) { X = x; Y = y; Z = z; }
-	Vector3( const Vector3 &vec ) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3 &operator = ( const Vector3 &vec ) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	friend __forceinline bool operator != ( const Vector3 &lhs, const Vector3 &rhs )
-	{
-		return ( lhs.X != rhs.X || lhs.Y != rhs.Y || lhs.Z != rhs.Z );
-	}
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Operators.h"
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 

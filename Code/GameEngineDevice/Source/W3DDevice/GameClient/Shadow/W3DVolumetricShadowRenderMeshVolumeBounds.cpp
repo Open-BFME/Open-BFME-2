@@ -35,16 +35,7 @@ struct IDirect3DIndexBuffer8;
 // DX8Wrapper::D3DDevice, the shadow buffers and the WW3D buffer classes) but
 // are Direct3D 9 objects: SetTransform 44, DrawIndexedPrimitive 82,
 // SetStreamSource 100, SetIndices 104; buffer Lock / Unlock 11 / 12.
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Real &operator[](int i) { return (&X)[i]; }
-	const Real &operator[](int i) const { return (&X)[i]; }
-	Vector3 &operator+=(const Vector3 &v) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Vector3i
 {

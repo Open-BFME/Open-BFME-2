@@ -10,38 +10,9 @@ typedef unsigned char UnsignedByte;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #define TheGlobalLighting ((const BridgeLightingGlobals *)TheWritableGlobalData)
 #include "../../../../Libraries/Include/Lib/Region3D.h"
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-
-	__forceinline Vector3() {}
-	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	__forceinline void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-
-	__forceinline float Length2() const { return X * X + Y * Y + Z * Z; }
-	__forceinline void Normalize()
-	{
-		float len2 = Length2();
-		if (len2 != 0.0f)
-		{
-			float oolen = WWMath::Inv_Sqrt(len2);
-			X *= oolen;
-			Y *= oolen;
-			Z *= oolen;
-		}
-	}
-	friend Vector3 operator*(const Vector3 &a, float k) { return Vector3(a.X * k, a.Y * k, a.Z * k); }
-	friend Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z); }
-	// Declared here, defined out of class as in WWMath vector3.h: in-class
-	// friend bodies shift cl's SSE operand tie-breaks in the vertex blend.
-	__forceinline friend Vector3 operator * (float k, const Vector3 &a);
-	__forceinline friend Vector3 operator + (const Vector3 &a, const Vector3 &b);
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Operators.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3InlineMath.h"
 struct BridgeTriangle
 {
 	unsigned short corner[3];
@@ -451,19 +422,7 @@ public:
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
 
-__forceinline Vector3 operator * (float k, const Vector3 &a)
-{
-	return Vector3((a.X * k),(a.Y * k),(a.Z * k));
-}
 
-__forceinline Vector3 operator + (const Vector3 &a,const Vector3 &b)
-{
-	return Vector3(
-		a.X+b.X,
-		a.Y+b.Y,
-		a.Z+b.Z
-	);
-}
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
 

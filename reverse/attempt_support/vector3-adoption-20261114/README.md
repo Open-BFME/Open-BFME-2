@@ -7,7 +7,8 @@ row unmatched. Each .cpp.txt file here is the whole tried unit text: the private
 
 Every row is matched today under the unit's private Vector3. That is why these trials are kept here and not under
 `reverse/attempts/`, which tools/check_csv.py refuses for matched addresses. Verdicts are in
-`reverse/re_attempts.log` (status `partial`).
+`reverse/re_attempts.log` with status `attempted`, each naming its file here. The `partial` rows first recorded for
+them pointed at a `reverse/attempts/` stash that does not exist, and are retracted with `void`.
 
 | File | Row | Unit | Private copy | Note |
 |---|---|---|---|---|
@@ -31,3 +32,16 @@ coordinator ruled the canonical constructors unchanged there).
 Its private copy declares a copy constructor (assignment-style body), its Lerp is `__declspec(dllimport)
 __forceinline`, and its operator+ is plain `inline`. Making the canonical operator+ plain `inline` did not change
 the result. The remaining suspects are the copy-constructor style and the dllimport Lerp.
+
+## Rva0007E6F6Rva0007E6F6.cpp's operator copies (0x000659e3.cpp.txt, 0x000663b8.cpp.txt): not landed
+
+A trial defined Vector3's free operators in Vector3Data.h as plain `__forceinline` (Zero Hour's WWINLINE; retail
+imports none of them, so not `dllimport`). This unit then had to drop its own `__declspec(dllimport) __forceinline`
+definitions. Its row still matched (1/1), but it emitted unreferenced out-of-line copies of a-b (`??G`) and a+b
+(`??H`): 56 bytes each, while retail's rows (0x000659E3, 0x000663B8, owned by colmathaabox.cpp) are 55. Both files
+are that trial's unit text.
+
+These copies are select-any COMDATs, and select-any lets the linker keep any definition, so nothing proved the image
+would keep retail's bytes. The operators therefore moved to Vector3Operators.h, which only the units that use them
+include, and this unit keeps its own definitions unchanged. The verdicts are `attempted` rows in
+reverse/re_attempts.log.

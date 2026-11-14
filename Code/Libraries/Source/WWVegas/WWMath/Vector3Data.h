@@ -23,7 +23,16 @@
 // __forceinline under MSVC); their rowed copies stay with their owners.
 // Normalize and Rotate_Z(angle) are inline in retail too, but need
 // WWMath::Inv_Sqrt and sinf/cosf, whose headers collide with private views in
-// units that include this one; they stay declared here.
+// units that include this one; they stay declared here and are defined inline
+// in Vector3InlineMath.h, as is the const subscript (see there).
+// The non-const subscript, the unary operators and Lerp are inline as well:
+// units that keep a private Vector3 inline them (Rva000E48BC, HordeContain,
+// Locomotor, DozerAIUpdate, WorkerAIUpdate, W3DBridgeBuffer, RTS3DScene,
+// HTreeClass), and no matched row of this header's dependents or of those units
+// calls the rowed out-of-line copies (non-const subscript 0x007173D0, unary minus
+// 0x0007DF87, Lerp 0x0009AA48), whose owners do not include this header.
+// The free operators (+, -, * both ways, /, ==, !=) are not defined here but in
+// Vector3Operators.h, included only by the units that use them; see there.
 // operator= is the exception: its rowed body 0x00169FB0 is a compiler COMDAT
 // of Zero Hour's inline assignment (owner matrix3d_inverse.cpp) that nothing in
 // retail calls or references, while consumers such as renderSubBox 0x00093507
@@ -62,7 +71,7 @@ public:
     __forceinline Vector3 &operator=(const Vector3 &value) { X = value.X; Y = value.Y; Z = value.Z; return *this; }
     __forceinline void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
     __forceinline void Set(const Vector3 &value) { X = value.X; Y = value.Y; Z = value.Z; }
-    float &operator[](int index);
+    __forceinline float &operator[](int index) { return (&X)[index]; }
     float operator[](int index) const;
 
     void Normalize();
@@ -83,8 +92,8 @@ public:
         Y = sine * x + cosine * y;
     }
 
-    Vector3 operator-() const;
-    Vector3 operator+() const;
+    __forceinline Vector3 operator-() const { return Vector3(-X, -Y, -Z); }
+    __forceinline Vector3 operator+() const { return *this; }
     __forceinline Vector3 &operator+=(const Vector3 &value) { X += value.X; Y += value.Y; Z += value.Z; return *this; }
     __forceinline Vector3 &operator-=(const Vector3 &value) { X -= value.X; Y -= value.Y; Z -= value.Z; return *this; }
     __forceinline Vector3 &operator*=(float scale) { X *= scale; Y *= scale; Z *= scale; return *this; }
@@ -113,7 +122,12 @@ public:
     bool Is_Valid() const;
     static float Quick_Distance(const Vector3 &a, const Vector3 &b);
     static float Distance(const Vector3 &a, const Vector3 &b);
-    static void Lerp(const Vector3 &a, const Vector3 &b, float alpha, Vector3 *result);
+    static __forceinline void Lerp(const Vector3 &a, const Vector3 &b, float alpha, Vector3 *result)
+    {
+        result->X = (a.X + (b.X - a.X) * alpha);
+        result->Y = (a.Y + (b.Y - a.Y) * alpha);
+        result->Z = (a.Z + (b.Z - a.Z) * alpha);
+    }
     unsigned long Convert_To_ABGR() const;
     unsigned long Convert_To_ARGB() const;
 };

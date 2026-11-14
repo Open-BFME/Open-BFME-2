@@ -243,13 +243,7 @@ struct Rva0009DB5ALivingWorldView { unsigned char m_pad[0x18]; bool m_active; bo
 // the three render words +0x18C/+0x190/+0x194 from +0x134 through 0x0009AACF
 // (a member that ignores this, ret 8), passes +0xE0 to scene slot 6, runs the
 // pinned refresh 0x0009BAA4 and renders the scene through 0x00118660.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 bool Rva00118660Call(void *scene, void *camera);
 extern bool ShaderOverbrightEnabled;
@@ -266,7 +260,7 @@ void Rva0009D55BProduct::rva0009BC17()
 	if (m_C4 == 0 || m_C0 == 0 || !((Rva0009DB5ALivingWorldView *)this)->m_active)
 		return;
 	ShaderOverbrightEnabled = true;
-	Vector3 black = { 0.0f, 0.0f, 0.0f };
+	Vector3 black(0.0f, 0.0f, 0.0f);
 	DX8Wrapper::Clear(true, true, true, black, 0.0f, 1.0f, 0);
 	int row = 0;
 	if (TheWritableGlobalData && ((Rva0009BC17GlobalView *)TheWritableGlobalData)->m_D2E)
@@ -393,7 +387,7 @@ void Rva0009D55BProduct::rva0009C4FC(int x, int y, int width, int height)
 	((CameraClass *)m_C0)->Set_Aspect_Ratio(w / h);
 	ShaderOverbrightEnabled = true;
 	{
-		Vector3 black = { 0.0f, 0.0f, 0.0f };
+		Vector3 black(0.0f, 0.0f, 0.0f);
 		DX8Wrapper::Clear(false, true, true, black, 0.0f, 1.0f, 0);
 	}
 	int row = 0;
