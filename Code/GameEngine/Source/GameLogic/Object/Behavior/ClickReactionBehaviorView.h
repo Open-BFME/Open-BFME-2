@@ -14,8 +14,9 @@ class Xfer;
 class ClickReactionBehaviorIface
 {
 public:
-	virtual void slot();
+	virtual void slot() = 0;
 	virtual void rva004596F9() = 0;
+	virtual void slot08() = 0;
 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
