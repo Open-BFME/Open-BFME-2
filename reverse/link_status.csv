@@ -6499,7 +6499,6 @@ Code/GameEngine/Source/Common/System/Rva0050FED4Finish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/Rva0050FF7FMethod.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/System/Rva0052D6BE.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/Rva0056616BCopy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/Rva0056DCBFWindows.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/Rva005748F2Method.cpp,yes,0,0,0,0,0
@@ -16324,7 +16323,6 @@ Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0039C028.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlVectorRva003F6B24.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlVectorRva004C7878.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00500EFA.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0052D801.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlVectorRva005C84F1.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlWordAssignRva000BC20D.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/StlWordAssignRva00540295.cpp,yes,0,0,0,0,0
@@ -16505,7 +16503,6 @@ Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva002BBC7A.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva002E2BBA.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva003F3277.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0050129F.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0052D742.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva005C856D.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/VectorRangeEraseRva003F6975.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/VectorResizeRva003F6EA1.cpp,yes,0,0,0,0,0
@@ -16632,7 +16629,6 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva001ED03C.cpp,yes,0,0,0,
 Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva001dd1b3.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva0022304a.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva004d971d.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva004e32f2.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva0054000b.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva_records.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp,yes,0,0,0,0,0
