@@ -161,12 +161,7 @@ public:
 
 class BfmeNodeVMU { public: Rva006D0790Ref entry; BfmeNodeVMU *next; };
 #include "../../../GameEngine/Include/Common/Rva006CD530.h"
-class BfmeListVMU
-{
-public:
-	void bfmeEraseVMU(BfmeNodeVMU **);
-	BfmeNodeVMU *head; // +0x00
-};
+#include "../../../GameEngine/Include/Common/BfmeListVMU.h"
 // The rowed 0x006D1C90 erase body, visible here so that passing an
 // iterator's address to it does not keep the iterator in memory.
 __declspec(noinline) inline void BfmeListVMU::bfmeEraseVMU(BfmeNodeVMU **it)

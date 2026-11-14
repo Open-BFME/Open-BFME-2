@@ -15,12 +15,7 @@ public:
 	BfmeNodeVMU *m_bfmeNext;
 };
 
-class BfmeListVMU
-{
-public:
-	void bfmeEraseVMU(BfmeNodeVMU **);
-	BfmeNodeVMU *head; // +0x00
-};
+#include "../../Include/Common/BfmeListVMU.h"
 
 class BfmeTracker4310 : public BfmeListVMU
 {
