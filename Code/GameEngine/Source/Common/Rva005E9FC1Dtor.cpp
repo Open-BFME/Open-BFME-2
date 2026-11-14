@@ -4,14 +4,7 @@
 // Evidence: slot-0 deleting dtor at 0x005EA208 calls this body; lea ecx [esi+8] call 0x0057417E pinned ??1Rva0057417E@@QAE@XZ; mov [esi] 0x008780F4; layout from rowed ctor 0x005E9FC1 in Rva005E9FC1Ctor.cpp.
 extern "C" const void *const __identifier("??_7Rva005E9F92@@6B@")[];
 
-class Rva0057417E
-{
-public:
-	~Rva0057417E();
-private:
-	unsigned long m_time;
-	bool m_flag;
-};
+#include "../../Include/Common/Rva0057417E.h"
 
 struct Rva005E9FC1Base
 {
