@@ -15,16 +15,7 @@
 
 extern GameLogic *TheGameLogic;
 
-class AIPlayer
-{
-public:
-	AIPlayer(Player *p);
-	virtual ~AIPlayer();
-protected:
-	char m_pad04[0x28 - 0x04];
-	unsigned int m_frameLastBuildingBuilt;
-	char m_pad2C[0x78 - 0x2C];
-};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
 class AISkirmishPlayer : public AIPlayer
 {
