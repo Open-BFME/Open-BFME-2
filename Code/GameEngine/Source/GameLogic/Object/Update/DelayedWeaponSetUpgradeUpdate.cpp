@@ -35,7 +35,8 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 class DelayedUpgradeUpdateInterface
 {
 public:
-	virtual void setDelay();
+	virtual void setDelay() = 0;
+	virtual void slot04() = 0;
 };
 
 //
