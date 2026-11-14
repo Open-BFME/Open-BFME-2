@@ -9,12 +9,7 @@
 // filter's required kinds (+0x14) and none of its forbidden kinds (+0x30),
 // both through the rowed Thing::isAnyKindOf 0x0030ADC7.
 
-template <int NUMBITS>
-class BitFlags
-{
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
+#include "../../../Include/Common/BitFlagsTemplate.h"
 
 #include "../Thing/thing.h"
 
