@@ -34,12 +34,7 @@ FreelistPool g_freelistPool00DB8FEC = {
 // pushes the head node at this+0 onto freelist 0x009B8FF4 when non-null).
 // Callers at 0x001EC845 0x00243DCC 0x002A57A1 0x00372811 etc. are all
 // unclaimed so the owner class is unproven; honest address names.
-class Rva001EB769
-{
-public:
-	void *m_head;
-	void rva001EB769();
-};
+#include "../../Include/Common/Rva001EB769.h"
 void Rva001EB769::rva001EB769()
 {
 	((Rva001EB130Holder *)this)->rva001EB130();

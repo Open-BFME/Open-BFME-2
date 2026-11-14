@@ -317,11 +317,7 @@ extern Rva0022AD10Subsystem *TheFormationAssistant;
 
 // The pooled list<Object *> body: its out-of-line ~_List_base is 0x001EB769
 // and the unwind funclet calls the out-of-line complete dtor 0x001EB940.
-class Rva001EB769
-{
-public:
-	void rva001EB769();
-};
+#include "../../../Include/Common/Rva001EB769.h"
 
 class Rva001EB940 : public _STL::_List_base<Object *, Rva001EB984PoolAllocator<Object *> >
 {
