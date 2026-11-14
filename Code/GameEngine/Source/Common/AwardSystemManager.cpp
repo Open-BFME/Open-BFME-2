@@ -214,15 +214,7 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 
 namespace _STL { template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &); }
 
-class Rva0040AEE3
-{
-public:
-	Rva0040AEE3(const Rva0040AEE3 &other);
-	Rva0040AEE3 &operator=(const Rva0040AEE3 &other);
-private:
-	_STL::vector<ScienceType> m_0000;
-	int m_000C;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva0040AEE3.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char,_STL::allocator<char> >::~_String_base(); }
