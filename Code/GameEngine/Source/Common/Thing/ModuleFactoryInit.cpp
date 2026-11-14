@@ -82,7 +82,7 @@ class AutoPickUpUpdate { public: static Module *friend_newModuleInstance(Thing *
 class AutoPickUpUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BannerCarrierUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BannerCarrierUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class BaseUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/Common/BaseUpgrade.h"
 class BaseUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class BattlePlanUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class BattlePlanUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };

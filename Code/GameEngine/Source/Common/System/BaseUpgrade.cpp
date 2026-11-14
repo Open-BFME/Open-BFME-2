@@ -21,11 +21,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BaseUpgrade
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../Include/Common/BaseUpgrade.h"
 
 // ---- from Code/GameEngine/Source/Common/System/BaseUpgradePoolKey.cpp
 
