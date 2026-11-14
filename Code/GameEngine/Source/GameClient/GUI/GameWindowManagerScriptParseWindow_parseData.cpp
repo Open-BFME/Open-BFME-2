@@ -12,9 +12,9 @@
 // BFME's shared window record (0x012F253C), File scanString slot +0x24,
 // and native StringBase layout. WinInstanceData uses the reference header;
 // its accessed offsets are independently witnessed by name_oracle.
-// createWindow and parseData are convention companions: visible static
-// bodies let MSVC reproduce the private register arguments. Their ledger
-// owners are unchanged. parseData's layout corrections also probe exact.
+// parseData's layout corrections also probe exact. The file statics
+// (theSystemString..theDrawString) and createWindow's static helpers live
+// in GameWindowManagerScript.cpp, whose initializers retail's table holds.
 
 #define ASCIISTRING_H
 #include "ascii_string.h"
@@ -85,98 +85,6 @@ void GadgetCheckBoxSetText( GameWindow *g, UnicodeString text );
 void GadgetStaticTextSetText( GameWindow *g, UnicodeString text );
 void GadgetTextEntrySetText( GameWindow *g, UnicodeString text );
 
-static AsciiString theSystemString;
-static AsciiString theInputString;
-static AsciiString theTooltipString;
-static AsciiString theDrawString;
-
-static GameWindow **stackPtr;
-static GameWindow *windowStack[ 10 ];
-
-static GameWindow *peekWindow( void )
-{
-	if( stackPtr == windowStack )
-		return 0;
-	return *( stackPtr - 1 );
-}
-
-// Convention companion only: its row stays with setWindowText_Thunk.cpp.
-static void setWindowText( GameWindow *window, AsciiString textLabel )
-{
-	if( textLabel.isEmpty() )
-		return;
-
-	UnicodeString theText, entryText;
-	theText = ( (Rva004864E0GameTextView *)TheGameText )->s28( textLabel.str(), 0 );
-	if( window->winGetStyle() & 0x00000001 )
-		GadgetButtonSetText( window, theText );
-	else if( window->winGetStyle() & 0x00000002 )
-		GadgetRadioSetText( window, theText );
-	else if( window->winGetStyle() & 0x00000004 )
-		GadgetCheckBoxSetText( window, theText );
-	else if( window->winGetStyle() & 0x00000080 )
-		GadgetStaticTextSetText( window, theText );
-	else if( window->winGetStyle() & 0x00000040 )
-	{
-		entryText.translate( textLabel );
-		GadgetTextEntrySetText( window, entryText );
-	}
-	else
-		window->winSetText( theText );
-}
-
-static GameWindow *createWindow( char *type, Int id, Open2479440Record *record, void *data )
-{
-	GameWindow *window, *parent;
-
-	parent = peekWindow();
-
-	if( !strcmp( type, "USER" ) )
-	{
-		window = ( (Rva004874A0ManagerView *)TheWindowManager )->s74( record );
-		if( window )
-		{
-			record->m_instData->m_style |= 0x00000200;
-			( (Rva00478C90Object *)window )->store( id );
-		}
-	}
-	else if( !strcmp( type, "TABPANE" ) )
-	{
-		window = ( (Rva004874A0ManagerView *)TheWindowManager )->s74( record );
-		if( window )
-		{
-			record->m_instData->m_style |= 0x00004000;
-			window->winSetInstanceData( record->m_instData );
-			( (Rva00478C90Object *)window )->store( id );
-		}
-	}
-	else
-	{
-		window = createGadget( type, data, record, 0 );
-		if( window )
-			( (Rva00478C90Object *)window )->store( id );
-	}
-
-	if( window )
-	{
-		GameWindowEditData *editData = (GameWindowEditData *)( (Gen_004791e0 *)window )->m();
-		if( editData )
-		{
-			editData->systemCallbackString = theSystemString;
-			editData->inputCallbackString = theInputString;
-			editData->tooltipCallbackString = theTooltipString;
-			editData->drawCallbackString = theDrawString;
-		}
-	}
-
-	if( window )
-		setWindowText( window, record->m_instData->m_textLabelString );
-
-	if( window && parent )
-		( (Rva004874A0ManagerView *)TheWindowManager )->sD8( parent, 0x16, id, 0 );
-
-	return window;
-}
 
 // Native BFME StringBase inlines at this caller.
 template<> inline int StringBase<char>::compare(const char *s) const {
