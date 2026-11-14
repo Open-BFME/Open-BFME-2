@@ -167,7 +167,7 @@ class DelayedDeathBody { public: static Module *friend_newModuleInstance(Thing *
 #include "../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 class DelayedLuaEventUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 #include "../../../Include/Common/DelayedLuaEventUpdateModuleData.h"
-class DelayedUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/Common/DelayedUpgrade.h"
 class DelayedWeaponSetUpgradeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DelayedWeaponSetUpgradeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 #include "../../../Include/GameLogic/Module/DeletionUpdateClass.h"

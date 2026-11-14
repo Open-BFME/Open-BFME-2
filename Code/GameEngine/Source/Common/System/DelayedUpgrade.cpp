@@ -21,11 +21,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class DelayedUpgrade
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../Include/Common/DelayedUpgrade.h"
 
 // ---- from Code/GameEngine/Source/Common/System/DelayedUpgradePoolKey.cpp
 
