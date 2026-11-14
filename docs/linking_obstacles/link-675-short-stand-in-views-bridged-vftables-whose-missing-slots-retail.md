@@ -42,3 +42,6 @@ Clearance: `??_7BfmeBaseCC@@6B@` only, by the bridge plan and `link_check.py` at
 entry.
 
 Census confirmation: awaiting; the census does not count bridged tables.
+
+Applied by the same rule (unattended worker; each commit carries its measurement):
+- 2026-11-14 `PropagandaTowerBehaviorIface` (VA 0x00C1C780): 1 slots (1 pure, 0 rowed virtual, 0 destructor), 2 view(s): `PropagandaTowerBehavior.cpp`, `PropagandaTowerBehaviorConstructor.cpp`.

@@ -35,7 +35,7 @@ extern DisabledMaskType DISABLEDMASK_ALL;
 class PropagandaTowerBehaviorIface
 {
 public:
-    virtual void slot();
+    virtual void slot() = 0;
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/PropagandaTowerBehavior.h

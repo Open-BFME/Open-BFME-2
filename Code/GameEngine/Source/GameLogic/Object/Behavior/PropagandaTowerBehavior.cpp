@@ -238,7 +238,7 @@ enum SleepyUpdatePhase { PHASE_NORMAL = 2 };
 class PropagandaTowerBehaviorIface
 {
 public:
-	virtual void slot();
+	virtual void slot() = 0;
 };
 
 class PropagandaTowerBehavior : public UpdateModule, public PropagandaTowerBehaviorIface
