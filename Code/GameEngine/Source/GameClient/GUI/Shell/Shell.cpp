@@ -311,11 +311,7 @@ class Image;
 
 extern ImageCollection *TheMappedImageCollection;
 
-class Display
-{
-public:
-	void SetStaticImage(int image, int arg, float x0, float y0, float x1, float y1);
-};
+#include "../../../../Include/GameClient/Display.h"
 
 struct ShellDisplayView
 {

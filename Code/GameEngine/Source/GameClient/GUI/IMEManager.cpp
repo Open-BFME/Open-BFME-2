@@ -80,15 +80,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/GameClient/GameWindowManager.h"
 
 // Observed Display slot only.
-class Display
-{
-public:
-#define SLOT(N) virtual void slot##N();
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-#undef SLOT
-	virtual Int getWidth();																	// +0x40
-};
+#include "../../../Include/GameClient/Display.h"
 
 extern GameWindowManager *TheWindowManager;
 extern Display *TheDisplay;
