@@ -145,16 +145,7 @@ public:
 	BfmeElem12 *m_bfmeBegin;
 	BfmeElem12 *m_bfmeEnd;
 };
-class BfmeSubA
-{
-public:
-	BfmeSubA() : m_item(0) {}
-	BfmeSubA(const BfmeSubA &other);
-	~BfmeSubA();
-
-private:
-	void *m_item;
-};
+#include "../../Include/Common/BfmeSubA.h"
 struct BfmeElem8Str
 {
 	int m_first;
