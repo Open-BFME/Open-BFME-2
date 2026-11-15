@@ -9,6 +9,8 @@
 // SetTransform); u_values is stored element by element before `last`, in WB's order.
 // Link view first: Vector4(x,y,z,w) stays inline without emitting an SSE
 // copy that competes with retail's integer-move owner (0x006D8A30).
+#include "../WWLib/Rva0007BB16Record.h"
+
 #include "reference/shims/bfme_matrix3d_sse_link/vector4.h"
 #define Matrix4x4 Matrix4
 // ShaderClass's copy ctor is emitted here; every other copy is the speed-optimized
@@ -1325,12 +1327,6 @@ BfmeAssignRecord36(const char *, int);
 char m_prefix[28];
 int m_int;
 char m_tail[4];
-};
-struct Rva0007BB16Record
-{
-Rva0007BB16Record(const char *name, int type) : m_record(name, type) {}
-~Rva0007BB16Record();
-BfmeAssignRecord36 m_record;
 };
 namespace _STL {
 template <> vector<Rva0007BB16Record>::~vector();
