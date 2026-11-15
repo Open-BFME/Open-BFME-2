@@ -14,7 +14,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Common/INIException.h"
-extern "C" __declspec(dllimport) __declspec(noreturn) void __cdecl exit(int);
+#include <stdlib.h>
 #include "../../../Libraries/Source/profile/profile.h"
 void _bfme_debugRecordCallsite(int);
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"
