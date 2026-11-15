@@ -33,12 +33,7 @@ void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-class Rva00360D26Member
-{
-public:
-    ~Rva00360D26Member();
-    char m_data[0x40];
-};
+#include "../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 struct Rva002CD4A6Aux
 {
@@ -93,7 +88,8 @@ private:
     Rva002CD4A6RefSlot m_d8;
     void *m_e0;
     char m_padE4[0x120 - 0xE4];
-    Rva00360D26Member m_120;
+    Rva003623E5Member m_120;
+    char m_pad124[0x160 - 0x124];
     bool m_160;
     char m_pad161[0x178 - 0x161];
     AsciiString m_178;
