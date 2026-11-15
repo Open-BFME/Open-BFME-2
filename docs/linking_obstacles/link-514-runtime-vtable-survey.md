@@ -3797,3 +3797,25 @@ This is a source-path consolidation only. The onDie donor still has a module-dat
 member compile error, its destructor donor still fails bytes, and four mixed
 donors still need prior reconciliation. No canonical-header or real-image/runtime
 result is claimed. Receipts: srv1 sweeps/merge-climb/ready-landings/instantdeathbehavior/.
+
+**2026-11-15, ancalgonn-swarm-waste: `?slot02@State@@UAEXXZ` is a real identity split, left for adoption.**
+Two units alias the private-view phantom `?slot02@State@@UAEXXZ` to different rows:
+- AIStatesSmallUpdates.cpp aliases it to `?Rva00342C91Get@@YAHXZ` (0x00342C91, ConstIntGetters3.cpp).
+- GiantBirdGuardMachine.cpp aliases it to `?Rva00367F13Get@@YAHXZ` (0x00367F13, ConstIntGetters4.cpp).
+
+Both objects reference the name: `nm` at `d99bbdfa9d` shows `U ?slot02@State@@UAEXXZ` in each. Neither alias is
+unused, unlike AITNGuard.cpp's four (`0b6fe9514d9`). In the canonical `State` (Include/Common/StateMachine.h, with
+`BFME_SNAPSHOT_NAME_SLOT`), slot 2 is the pure `GetSnapshotName() const`, which each derived class overrides. The two
+retail bodies are 6-byte `mov eax, imm32; ret` getters returning the strings `"AIFollowWaypointPathExactState"`
+(VA 0x00C12A50) and `"GiantBirdGuardReturnState"` (VA 0x00C1774C). That fits two classes' own overrides, not
+one shared State member. One phantom name cannot serve both, so neither alias can be removed on its own. The lasting
+fix is adoption of the canonical `State` in both units, with each class's `GetSnapshotName` override bound to its row;
+that retires both aliases. Neither unit can be adopted yet, and both refuse for the same reason.
+`header_adopt_lane.py adopt --class State --header Code/GameEngine/Include/Common/StateMachine.h`, run as a dry run
+on each unit alone, fails the swapped compile with `C2011` enum redefinitions:
+- GiantBirdGuardMachine.cpp: `StateReturnType`.
+- AIStatesSmallUpdates.cpp: `StateReturnType` and `StateExitType`.
+
+Each unit declares those enums privately; the header defines them too, and the tool strips only classes. On GiantBirdGuardMachine.cpp,
+removing the private enum first breaks the tool's compile of the unit's own layout (`C2146`), which still needs it. Both units wait
+on the adopt tool's enum-stripping change, queued with tool lane 2. Nothing changed in this pass.
