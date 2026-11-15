@@ -2911,25 +2911,73 @@ def compiler_error(raw):
     return record
 
 
-def finish_compiler_receipt(report, inherited=None, limit=None):
-    """Attach selected-rejection diagnostics, with a single explicit whole-receipt budget.
+def diagnostic_json_size(value):
+    """Malformed optional receipt metadata must never interrupt an operation."""
+    try:
+        return len(json.dumps(value, ensure_ascii=False, allow_nan=False,
+                              separators=(",", ":")).encode("utf-8"))
+    except (TypeError, ValueError, UnicodeError, OverflowError):
+        return None
 
-    Never shorten a diagnostic: if the budget is exhausted omit a whole donor entry and
-    report both the omitted-donor and omitted-error counts. Old plans remain usable;
-    their short compile reasons are explicitly unavailable, never presented as complete.
+
+def valid_diagnostic_entry(entry, reason):
+    if (not isinstance(entry, dict) or entry.get("reason") != reason
+            or not isinstance(entry.get("context"), dict)
+            or not isinstance(entry.get("errors"), list)
+            or type(entry.get("complete")) is not bool
+            or entry.get("status") not in ("recorded", "unavailable")):
+        return False
+    for error in entry["errors"]:
+        if (not isinstance(error, dict)
+                or not isinstance(error.get("raw"), str)
+                or not isinstance(error.get("message"), str)
+                or any(error.get(k) is not None and not isinstance(error[k], str)
+                       for k in ("code", "symbol", "class", "file"))
+                or any(error.get(k) is not None and
+                       (type(error[k]) is not int or error[k] < 0) for k in ("line", "column"))):
+            return False
+    return diagnostic_json_size(entry) is not None
+
+
+def finish_compiler_receipt(report, inherited=None, limit=None):
+    """Keep whole diagnostics; bind any budget omissions to the exact rejected set.
+
+    Reusing a plan reuses its bounded evidence unchanged. If a smaller budget requires
+    repacking, only previously recorded entries can become new omissions; donors
+    already omitted from this exact rejection snapshot are never counted again.
     """
     limit = COMPILER_DIAGNOSTICS_LIMIT if limit is None else limit
+    reasons = report.get("rejected", {})
+    # ASCII escaping also makes the identity safe for unusual source-path spelling.
+    identity = hashlib.sha256(json.dumps({f: str(why) for f, why in reasons.items()},
+        sort_keys=True, ensure_ascii=True, separators=(",", ":")).encode()).hexdigest()
+    inherited_size = diagnostic_json_size(inherited) if isinstance(inherited, dict) else None
+    stored = inherited.get("donors", {}) if inherited_size is not None else {}
+    previous = {f: entry for f, entry in stored.items()
+                if f in reasons and valid_diagnostic_entry(entry, reasons[f])} if isinstance(stored, dict) else {}
+    same_snapshot = (isinstance(stored, dict) and len(previous) == len(stored)
+                     and inherited_size is not None
+                     and inherited.get("version") == 1
+                     and inherited.get("rejections_sha256") == identity
+                     and isinstance(inherited.get("truncated"), bool)
+                     and all(type(inherited.get(k)) is int and inherited[k] >= 0
+                             for k in ("omitted_donors", "omitted_errors")))
+    if (same_snapshot and inherited_size <= limit
+            and not any(isinstance(why, CompilerRejection) for why in reasons.values())):
+        # Do not generate unavailable placeholders for omissions or count them again.
+        report["compiler_diagnostics"] = inherited
+        if "_plan" in report:
+            report["_plan"]["compiler_diagnostics"] = inherited
+        return report
     payload = {"version": 1, "scope": "selected-rejection", "limit_bytes": limit,
-               "truncated": False, "omitted_donors": 0, "omitted_errors": 0, "donors": {}}
-    previous = inherited.get("donors", {}) if isinstance(inherited, dict) else {}
-    if isinstance(inherited, dict) and inherited.get("truncated") is True:
-        payload["truncated"] = True
-        for name in ("omitted_donors", "omitted_errors"):
-            value = inherited.get(name, 0)
-            payload[name] = value if isinstance(value, int) and value >= 0 else 0
-    # Reserve more than the maximum growth of numeric omission counters below.
-    used = len(json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) + 128
-    for donor, reason in sorted(report.get("rejected", {}).items()):
+               "rejections_sha256": identity, "truncated": False,
+               "omitted_donors": 0, "omitted_errors": 0, "donors": {}}
+    if same_snapshot and inherited["truncated"]:
+        payload.update(truncated=True, omitted_donors=inherited["omitted_donors"],
+                       omitted_errors=inherited["omitted_errors"])
+    # Numeric counters cannot grow by this much within the receipt's size bound.
+    used = diagnostic_json_size(payload) + 128
+    for donor, reason in sorted(reasons.items()):
         if isinstance(reason, CompilerRejection):
             unique = list(dict.fromkeys(reason.compiler_errors))
             entry = {"reason": str(reason), "status": "recorded", "complete": True,
@@ -2937,17 +2985,23 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
                      "context": reason.compiler_context,
                      "errors": [compiler_error(line) for line in unique]}
         elif (isinstance(previous, dict) and isinstance(previous.get(donor), dict)
-              and previous[donor].get("reason") == reason
-              and isinstance(previous[donor].get("errors"), list)
-              and isinstance(previous[donor].get("context"), dict)):
+              and valid_diagnostic_entry(previous[donor], reason)):
             entry = previous[donor]
+        elif same_snapshot and inherited["truncated"] and donor not in previous:
+            continue  # already included in the inherited omission counters
         elif isinstance(reason, str) and reason.startswith("compile"):
             entry = {"reason": reason, "status": "unavailable", "complete": False,
                      "context": {}, "errors": [], "explanation": "full diagnostics were not recorded"}
         else:
             continue
-        size = len(json.dumps({donor: entry}, ensure_ascii=False,
-                              separators=(",", ":")).encode("utf-8"))
+        size = diagnostic_json_size({donor: entry})
+        if size is None:
+            # The optional payload is unusable, but the search/apply already succeeded.
+            entry = {"reason": str(reason), "status": "unavailable", "complete": False,
+                     "context": {}, "errors": [], "explanation": "invalid optional diagnostic metadata"}
+            # Escaping preserves unusual strings without a UTF-8 encoder exception.
+            size = len(json.dumps({donor: entry}, ensure_ascii=True,
+                                  separators=(",", ":")).encode())
         if used + size <= limit:
             payload["donors"][donor] = entry
             used += size
@@ -3284,7 +3338,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         if got is None:
             baseline_errors[f] = CompilerRejection("no baseline match",
                 getattr(v, "all_errors", v.errors), {"stage": "baseline", "files": [f],
-                "flags": v.flags, "text_sha256": hashlib.sha256(texts[f].encode()).hexdigest()})
+                "flags": getattr(v, "flags", None), "text_sha256": hashlib.sha256(texts[f].encode()).hexdigest()})
     if ov:   # nobody may lose a row its own build matches under the region default
         rv = Verifier(tu, region=True)
         if tu in don and tu not in ov:
@@ -3367,7 +3421,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 failed_errors = list(v.errors)
                 failed_full_errors = list(getattr(v, "all_errors", v.errors))
                 failed_context = {"stage": "prepared", "files": list(files), "flags": list(flags),
-                                  "verifier_flags": v.flags,
+                                  "verifier_flags": getattr(v, "flags", None),
                                   "text_sha256": hashlib.sha256(fixed_text.encode()).hexdigest()}
                 return "compile"
             if not need <= got:
@@ -3400,7 +3454,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 failed_errors = list(v.errors)  # a later strategy's compile must not stand in for this one's
                 failed_full_errors = list(getattr(v, "all_errors", v.errors))
                 failed_context = {"stage": "composed", "files": list(files), "flags": list(flags),
-                                  "verifier_flags": v.flags, "strategy": st,
+                                  "verifier_flags": getattr(v, "flags", None), "strategy": st,
                                   "drop": sorted(drop), "drop_all": sorted(drop_all),
                                   "text_sha256": hashlib.sha256(text.encode()).hexdigest()}
             best = best or ("compile" if got is None else "bytes")

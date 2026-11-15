@@ -153,3 +153,60 @@ def test_bad_optional_plan_diagnostics_cannot_affect_admission(inherited):
     out = T.finish_compiler_receipt({"rejected": {X: "compile: x"}}, inherited)
     assert out["rejected"][X] == "compile: x"
     assert out["compiler_diagnostics"]["donors"][X]["status"] == "unavailable"
+
+
+
+def test_r1_long_reason_omission_counts_do_not_double_on_reuse():
+    reason = T.CompilerRejection("compile: " + "x" * 300, ["e" * 2000], {})
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, limit=512)
+    initial = json.loads(json.dumps(out["compiler_diagnostics"]))
+    assert (initial["omitted_donors"], initial["omitted_errors"]) == (1, 1)
+    for _ in range(4):
+        out = T.finish_compiler_receipt({"rejected": {X: str(reason)}}, initial, limit=512)
+        assert out["compiler_diagnostics"] == initial
+        initial = json.loads(json.dumps(out["compiler_diagnostics"]))
+
+
+def test_r1_malformed_optional_unicode_cannot_raise_after_apply():
+    reason = "compile: x"
+    inherited = {"donors": {X: {"reason": reason, "errors": [],
+                               "context": {"flag": "\ud800"}}}}
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
+    assert out["compiler_diagnostics"]["donors"][X]["status"] == "unavailable"
+    assert not out["compiler_diagnostics"]["donors"][X]["complete"]
+    json.dumps(out).encode()
+
+
+def test_smaller_reuse_budget_does_not_recount_previously_omitted_donors():
+    first = T.finish_compiler_receipt({"rejected": {
+        A: T.CompilerRejection("compile: small", [error(1)], {}),
+        X: T.CompilerRejection("compile: huge", ["x" * 10000], {})}}, limit=2000)
+    inherited = json.loads(json.dumps(first["compiler_diagnostics"]))
+    assert inherited["omitted_donors"] == 1
+    out = T.finish_compiler_receipt({"rejected": {A: "compile: small", X: "compile: huge"}},
+                                     inherited, limit=512)
+    assert out["compiler_diagnostics"]["omitted_donors"] == 2
+    assert out["compiler_diagnostics"]["omitted_errors"] == 2
+
+
+
+@pytest.mark.parametrize("context", [{"flag": "\ud800"}, {"flag": float("nan")}])
+def test_matching_snapshot_with_malformed_metadata_is_unavailable(context):
+    reason = "compile: x"
+    good = T.finish_compiler_receipt({"rejected": {
+        X: T.CompilerRejection(reason, [error(1)], {})}})["compiler_diagnostics"]
+    inherited = json.loads(json.dumps(good))
+    inherited["donors"][X]["context"] = context
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
+    assert out["compiler_diagnostics"]["donors"][X]["status"] == "unavailable"
+    assert not out["compiler_diagnostics"]["donors"][X]["complete"]
+
+
+def test_malformed_record_shape_cannot_be_reused_as_complete_evidence():
+    reason = "compile: x"
+    good = T.finish_compiler_receipt({"rejected": {
+        X: T.CompilerRejection(reason, [error(1)], {})}})["compiler_diagnostics"]
+    inherited = json.loads(json.dumps(good))
+    inherited["donors"][X]["errors"] = ["a raw string without structured fields"]
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
+    assert out["compiler_diagnostics"]["donors"][X]["status"] == "unavailable"
