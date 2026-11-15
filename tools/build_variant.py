@@ -13,6 +13,27 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFINES = ("BFME2_MODERN=1",)
 
 
+def link_input_manifest(response, *, root=ROOT):
+    """Hash every explicit input of exit_link's generated response file.
+
+    Includes archives and resource objects, even if they supply no MAP public.
+    The exit_link control-file contract places retail.def beside the response.
+    Call before and after the link; this is evidence, not a currency override.
+    """
+    import image_iso
+    root = Path(root).resolve(strict=True)
+    response = Path(response).resolve(strict=True)
+    paths = set(image_iso.response_inputs(response, root))
+    paths.update((response, response.with_name("retail.def")))
+    entries = []
+    for path in sorted(paths):
+        path = path.resolve(strict=True)
+        relative = path.relative_to(root).as_posix()
+        entries.append({"path": relative,
+                        "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+    return entries
+
+
 def variant_paths(root, variant):
     """Validate every output directory, without creating or changing anything."""
     if variant != "modern":

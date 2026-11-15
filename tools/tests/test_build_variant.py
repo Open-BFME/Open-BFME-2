@@ -14,6 +14,29 @@ import build as B
 import exit_link as E
 
 
+def test_link_input_manifest_covers_objects_libraries_and_control_files(tmp_path):
+    folder = tmp_path / "link"
+    folder.mkdir()
+    rsp = folder / "exit.rsp"
+    rsp.write_text('"a.obj"\n"runtime.lib"\n"resource.obj"\n/DEF:"link/retail.def"\n')
+    for name in ("a.obj", "runtime.lib", "resource.obj", "link/retail.def"):
+        (tmp_path / name).write_bytes(name.encode())
+    before = V.link_input_manifest(rsp, root=tmp_path)
+    assert {entry["path"] for entry in before} == {
+        "a.obj", "runtime.lib", "resource.obj", "link/retail.def", "link/exit.rsp"}
+    assert all(len(entry["sha256"]) == 64 for entry in before)
+    (tmp_path / "runtime.lib").write_bytes(b"changed")
+    assert V.link_input_manifest(rsp, root=tmp_path) != before
+
+
+def test_link_input_manifest_refuses_missing_input(tmp_path):
+    rsp = tmp_path / "exit.rsp"
+    rsp.write_text('"missing.obj"\n')
+    (tmp_path / "retail.def").write_text("EXPORTS\n")
+    with pytest.raises(FileNotFoundError):
+        V.link_input_manifest(rsp, root=tmp_path)
+
+
 def test_local_base_link_is_scoped_and_preserves_failure(tmp_path, monkeypatch):
     monkeypatch.setattr(E, "ROOT", tmp_path)
     original = tmp_path / "build/exit_link"
