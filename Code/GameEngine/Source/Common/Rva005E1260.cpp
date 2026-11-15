@@ -7,14 +7,15 @@ struct Init005E1260
 	int m_b;
 };
 
-class Rva005E1260Body
+#include "../../Include/Common/Rva0007DF07.h"
+
+class Rva005E1260Body : public Rva0007DF07
 {
 public:
 	virtual ~Rva005E1260Body() {}
-	int m_ref;
 	int m_a;
 	int m_b;
-	Rva005E1260Body(const Init005E1260 *p) : m_ref(0)
+	Rva005E1260Body(const Init005E1260 *p)
 	{
 		m_a = p->m_a;
 		m_b = p->m_b;
@@ -42,6 +43,6 @@ Rva005E1260 &Rva005E1260::rva005E1260(const Init005E1260 *p)
 	Rva005E1260Body *q = new Rva005E1260Body(p);
 	m_ptr = q;
 	if (q)
-		++q->m_ref;
+		++q->m_04;
 	return *this;
 }
