@@ -2505,3 +2505,11 @@ void bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSy
 {
 	p->FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<5,FXParticleSystem::CYLINDER_EMISSION_VOLUME_MODULE_KEY,FXParticleSystem::CYLINDER_EMISSION_VOLUME_MODULE_NAME,FXParticleSystem::CylinderEmissionVolumeModule,FXParticleSystem::CylinderEmissionVolumeModuleTemplate,FXParticleSystem::DefaultParticleModule<5> > >::__vecDelDtor(3);
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::CategoryModuleTemplate<1>, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_CategoryModuleTemplate_1_> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_CategoryModuleTemplate_1_(FXParticleSystem::CategoryModuleTemplate<1> *p)
+{
+	p->FXParticleSystem::CategoryModuleTemplate<1>::__vecDelDtor(3);
+}
