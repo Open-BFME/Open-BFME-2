@@ -33,6 +33,10 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/ModuleData.h"
+// The deleting destructor 0x004A10FD calls 0x0049B47C, which only restores
+// Snapshot's table 0x00BBB554: the implicit destructor of this class reduces
+// to Snapshot's, so ModuleData's is inline here.
+inline ModuleData::~ModuleData() {}
 class ExperienceLevelCreateModuleData : public ModuleData
 {
 public:
