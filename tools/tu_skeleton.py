@@ -2879,6 +2879,96 @@ def header_queue_rows(root=ROOT):
 ACCRETE_MAX = 64
 
 
+
+# Reporting only: search continues to compare the original short rejection strings.
+# A selected compile failure carries its full diagnostics until its report is serialized.
+COMPILER_DIAGNOSTICS_LIMIT = 8 * 1024 * 1024
+
+
+class CompilerRejection(str):
+    def __new__(cls, reason, errors, context):
+        result = super().__new__(cls, reason)
+        result.compiler_errors = tuple(errors)
+        result.compiler_context = dict(context)
+        return result
+
+
+def compiler_error(raw):
+    """Preserve the whole diagnostic, even when its compiler-specific shape is unknown."""
+    record = {"raw": raw, "code": None, "symbol": None, "class": None,
+              "file": None, "line": None, "column": None, "message": raw}
+    match = re.search(r"\b(?:fatal\s+)?error\s+([A-Z]+\d+)\s*:\s*(.*)", raw)
+    if match:
+        record.update(code=match[1], message=match[2])
+        quoted = re.findall(r"'([^']+)'", match[2])
+        record["symbol"] = quoted[0] if quoted else None
+        if match[1] in ("C2011", "C2953", "C2766"):
+            record["class"] = record["symbol"]
+        where = re.match(r"^(.*?)\((\d+)(?:,(\d+))?\)\s*:\s*$", raw[:match.start()])
+        if where:
+            record.update(file=where[1], line=int(where[2]),
+                          column=int(where[3]) if where[3] else None)
+    return record
+
+
+def finish_compiler_receipt(report, inherited=None, limit=None):
+    """Attach selected-rejection diagnostics, with a single explicit whole-receipt budget.
+
+    Never shorten a diagnostic: if the budget is exhausted omit a whole donor entry and
+    report both the omitted-donor and omitted-error counts. Old plans remain usable;
+    their short compile reasons are explicitly unavailable, never presented as complete.
+    """
+    limit = COMPILER_DIAGNOSTICS_LIMIT if limit is None else limit
+    payload = {"version": 1, "scope": "selected-rejection", "limit_bytes": limit,
+               "truncated": False, "omitted_donors": 0, "omitted_errors": 0, "donors": {}}
+    previous = inherited.get("donors", {}) if isinstance(inherited, dict) else {}
+    if isinstance(inherited, dict) and inherited.get("truncated") is True:
+        payload["truncated"] = True
+        for name in ("omitted_donors", "omitted_errors"):
+            value = inherited.get(name, 0)
+            payload[name] = value if isinstance(value, int) and value >= 0 else 0
+    # Reserve more than the maximum growth of numeric omission counters below.
+    used = len(json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) + 128
+    for donor, reason in sorted(report.get("rejected", {}).items()):
+        if isinstance(reason, CompilerRejection):
+            unique = list(dict.fromkeys(reason.compiler_errors))
+            entry = {"reason": str(reason), "status": "recorded", "complete": True,
+                     "duplicates_removed": len(reason.compiler_errors) - len(unique),
+                     "context": reason.compiler_context,
+                     "errors": [compiler_error(line) for line in unique]}
+        elif (isinstance(previous, dict) and isinstance(previous.get(donor), dict)
+              and previous[donor].get("reason") == reason
+              and isinstance(previous[donor].get("errors"), list)
+              and isinstance(previous[donor].get("context"), dict)):
+            entry = previous[donor]
+        elif isinstance(reason, str) and reason.startswith("compile"):
+            entry = {"reason": reason, "status": "unavailable", "complete": False,
+                     "context": {}, "errors": [], "explanation": "full diagnostics were not recorded"}
+        else:
+            continue
+        size = len(json.dumps({donor: entry}, ensure_ascii=False,
+                              separators=(",", ":")).encode("utf-8"))
+        if used + size <= limit:
+            payload["donors"][donor] = entry
+            used += size
+        else:
+            payload["truncated"] = True
+            payload["omitted_donors"] += 1
+            payload["omitted_errors"] += len(entry.get("errors", []))
+    if payload["donors"] or payload["truncated"]:
+        report["compiler_diagnostics"] = payload
+        if "_plan" in report:
+            report["_plan"]["compiler_diagnostics"] = payload
+    return report
+
+
+def compiler_receipt(function):
+    @functools.wraps(function)
+    def wrapped(*args, **kwargs):
+        return finish_compiler_receipt(function(*args, **kwargs))
+    return wrapped
+
+
 def merge_plan_path(tu):
     return ROOT / "build/tu_skeleton/plans" / (hashlib.sha256(tu.encode("utf-8")).hexdigest() + ".json")
 
@@ -2983,7 +3073,7 @@ def reuse_merge_plan(tu, don, report, plan, dry_run):
     why = map_regressions(tu, acc)
     if why:                  # not a stale plan: today's map would lose an approval either way
         report.update(accepted=acc, rejected=plan["rejected"], blocked=why)
-        return report
+        return finish_compiler_receipt(report, plan.get("compiler_diagnostics"))
     if plan.get("state") and merge_plan_state() != plan["state"]:
         return None  # a source changed during the final check
     report.update(accepted=acc, rejected=plan["rejected"], flags=plan.get("flags", []),
@@ -2992,13 +3082,13 @@ def reuse_merge_plan(tu, don, report, plan, dry_run):
     report.update(carry.report())
     if dry_run:
         report["text"] = text
-        return report
+        return finish_compiler_receipt(report, plan.get("compiler_diagnostics"))
     moved = apply(tu, acc, text, carry=carry)
     report["repointed"] = moved
     report["stage"] = "staged: " + " ".join([tu] + sorted(moved) + [f for f in acc if f != tu])
     report["subject"] = (f"Merge {len(acc)} files into {posixpath.basename(tu)} "
                          f"({plan['rows']} rows, tu_map approved TU, retail order)")
-    return report
+    return finish_compiler_receipt(report, plan.get("compiler_diagnostics"))
 
 
 class NothingWritten(SystemExit):
@@ -3135,6 +3225,7 @@ def view_hint(report, tu, don):
     return report
 
 
+@compiler_receipt
 def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None, deletes_donor=False,
            moved_rows=None, provider=None):
     """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed:
@@ -3186,10 +3277,14 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 report["rejected"][f] = f"its flag override '{e['flags']}' is not the carried '{v.flags}'"
         don = {f: r for f, r in don.items() if f not in report["rejected"]}
         ov = {f: e for f, e in ov.items() if f in don}
-    base = {}
+    base, baseline_errors = {}, {}
     for f in don:
         got = v.matched(texts[f], don[f])
         base[f] = got or set()
+        if got is None:
+            baseline_errors[f] = CompilerRejection("no baseline match",
+                getattr(v, "all_errors", v.errors), {"stage": "baseline", "files": [f],
+                "flags": v.flags, "text_sha256": hashlib.sha256(texts[f].encode()).hexdigest()})
     if ov:   # nobody may lose a row its own build matches under the region default
         rv = Verifier(tu, region=True)
         if tu in don and tu not in ov:
@@ -3210,7 +3305,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 don = {g: r for g, r in don.items() if g != f}
     good = [f for f in don if base[f]]
     if tu in don and tu not in good:
-        report["rejected"].update({f: "no baseline match" for f in don if f not in good})
+        report["rejected"].update({f: baseline_errors.get(f, "no baseline match") for f in don if f not in good})
         report["blocked"] = "the TU file's own rows do not match under the verifier"
         return report
     weight = collections.Counter()
@@ -3240,6 +3335,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
             flag_sets.append(fl)
 
     link_why = {}
+    failed_full_errors, failed_context = [], {}
     failed_errors = []      # attempt()'s: the diagnostics of the compile that decided a "compile" result
 
     def provider_why(files, obj):
@@ -3259,15 +3355,20 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         return provider_reasons(provider_found[key])
 
     def attempt(files, flags):
-        nonlocal failed_errors
+        nonlocal failed_errors, failed_full_errors, failed_context
         best = None
         failed_errors = []
+        failed_full_errors, failed_context = [], {}
         need = set().union(*(base[f] for f in files))
         rows = [r for f in files for r in don[f]]
         if fixed_text is not None:          # a prepared TU text: judged as it is, every baseline row in it
             got = v.matched(fixed_text, rows)
             if got is None:
                 failed_errors = list(v.errors)
+                failed_full_errors = list(getattr(v, "all_errors", v.errors))
+                failed_context = {"stage": "prepared", "files": list(files), "flags": list(flags),
+                                  "verifier_flags": v.flags,
+                                  "text_sha256": hashlib.sha256(fixed_text.encode()).hexdigest()}
                 return "compile"
             if not need <= got:
                 return "bytes"
@@ -3297,6 +3398,11 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 continue
             if best is None and got is None:
                 failed_errors = list(v.errors)  # a later strategy's compile must not stand in for this one's
+                failed_full_errors = list(getattr(v, "all_errors", v.errors))
+                failed_context = {"stage": "composed", "files": list(files), "flags": list(flags),
+                                  "verifier_flags": v.flags, "strategy": st,
+                                  "drop": sorted(drop), "drop_all": sorted(drop_all),
+                                  "text_sha256": hashlib.sha256(text.encode()).hexdigest()}
             best = best or ("compile" if got is None else "bytes")
         return best
 
@@ -3315,14 +3421,18 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                  else f"{f} never linked at the census and {', '.join(linked)} link")
         return f"link: {whose}; the merged object would not: " + "; ".join(link_why[tuple(files)][:3])[:300]
 
-    def reject_reason(res, errors, files, f):
+    def reject_reason(res, errors, files, f, flags):
         if res == "link":
             return link_reason(files, f)
         if errors == [TIMEOUT_REASON]:      # a killed compile is no diagnostic list to quote
             return TIMEOUT_REASON
-        return res + ("" if res == "bytes" else ": " + " | ".join(errors)[:300])
+        reason = res + ("" if res == "bytes" else ": " + " | ".join(errors)[:300])
+        if res == "compile":
+            full, context = trial_diagnostics[(tuple(files), tuple(flags))]
+            return CompilerRejection(reason, full, context)
+        return reason
 
-    tried = {}
+    tried, trial_diagnostics = {}, {}
 
     def tried_attempt(files, flags):
         """attempt(), once per (donor list, flags): accretion asks again for a set it
@@ -3331,6 +3441,8 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         if key not in tried:
             res = attempt(files, flags)
             tried[key] = (res, list(failed_errors) if res == "compile" else list(v.errors))
+            if res == "compile":
+                trial_diagnostics[key] = (list(failed_full_errors), dict(failed_context))
         return tried[key]
 
     def greedy(order, flags, floor=None):
@@ -3351,7 +3463,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 acc.extend(group)
                 return True
             if len(group) == 1:
-                rej[group[0]] = reject_reason(res, errors, acc + group, group[0])
+                rej[group[0]] = reject_reason(res, errors, acc + group, group[0], flags)
                 return False
             mid = len(group) // 2
             settle(group[:mid])
@@ -3395,7 +3507,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
             if f != tu and f not in out:
                 res, errors = tried_attempt([tu, f], flags)
                 if res == "compile":
-                    out[f] = reject_reason(res, errors, [tu, f], f)
+                    out[f] = reject_reason(res, errors, [tu, f], f, flags)
 
     suspects = []
 
@@ -3407,7 +3519,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 # stop before any donor is tried
                 res, errors = tried_attempt([tu], flags)
                 if res in ("compile", "bytes", "link"):
-                    reason = reject_reason(res, errors, [tu], tu)
+                    reason = reject_reason(res, errors, [tu], tu, flags)
                     seed_error = seed_error or reason
                     rejected_seed = rejected_seed or (0, {tu: reason, **{f: SEED_NOT_TRIED for f in good if f != tu}})
                     continue
@@ -3451,7 +3563,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         own_incs = [x for x in own if x.lower().startswith(("/i", "-i"))]
         extra = [stl_static(own_k + incs), own_k + own_incs]
         trial([f for i, f in enumerate(extra) if f not in flag_sets[:3] and f not in extra[:i]])
-    report["rejected"].update({f: "no baseline match" for f in don if f not in good})
+    report["rejected"].update({f: baseline_errors.get(f, "no baseline match") for f in don if f not in good})
     if not best or len(best[1]) < 2 and not (len(best[1]) == 1 and best[1][0] != tu):
         report["rejected"].update(best[2] if best else rejected_seed[1] if rejected_seed else {})
         report["blocked"] = "no verified merge of two or more donors" + \
@@ -4242,7 +4354,7 @@ def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state, move
     why = map_regressions(tu, moved_rows=moved_rows) if moved_rows else None
     if why:                  # not a stale plan: today's map would lose an approval either way
         report.update(accepted=acc, rejected=plan["rejected"], blocked=why)
-        return report
+        return finish_compiler_receipt(report, plan.get("compiler_diagnostics"))
     report.update(accepted=acc, flags=plan["flags"], rows=plan["rows"],
                   rejected=plan["rejected"], plan_reused=True,
                   link_guard="split: residual and destination compared together")
@@ -4252,7 +4364,7 @@ def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state, move
         moved = applier(tu, acc, text)
         report["repointed"] = moved
         report["stage"] = "staged: " + " ".join([tu] + sorted(moved) + [f for f in acc if f != tu])
-    return report
+    return finish_compiler_receipt(report, plan.get("compiler_diagnostics"))
 
 
 def split(path, tu, dry_run=False, claim=True, prepared=None):
@@ -4539,7 +4651,8 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
             save_verified_plan(split_plan_path(path, tu), state, inputs, {
                 "tu_file": tu, "accepted": report["accepted"], "text": report["text"],
                 "baseline": sorted({r["target_rva"] for f in report["accepted"] for r in don[f]}),
-                "rows": report["rows"], "flags": report["flags"], "rejected": report["rejected"]})
+                "rows": report["rows"], "flags": report["flags"], "rejected": report["rejected"],
+                "compiler_diagnostics": report.get("compiler_diagnostics")})
     if path not in report.get("accepted", []):
         report.setdefault("blocked", "the carved bodies do not verify in the TU: "
                           + str(report.get("rejected", {}).get(path, ""))[:300])
