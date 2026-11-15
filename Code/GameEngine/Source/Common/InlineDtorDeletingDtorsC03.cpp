@@ -48,6 +48,44 @@ class Rva00005405
 public:
 	Rva00005405(C03VtableEmissionTag *);
 	virtual ~Rva00005405() {}
+	virtual bool slot04() { return false; }
+	virtual bool slot08() { return false; }
+	virtual bool slot0C() { return false; }
+	virtual bool slot10() { return false; }
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20(int, int) {}
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual void slot38() = 0;
+	virtual void slot3C() = 0;
+	virtual void slot40() = 0;
+	virtual void slot44() = 0;
+	virtual void slot48() = 0;
+	virtual void slot4C() = 0;
+	virtual void slot50() = 0;
+	virtual void slot54() = 0;
+	virtual void slot58() = 0;
+	virtual void slot5C() = 0;
+	virtual void slot60() = 0;
+	virtual void slot64() = 0;
+	virtual void slot68() = 0;
+	virtual void slot6C() = 0;
+	virtual void slot70() = 0;
+	virtual void slot74() = 0;
+	virtual void slot78() = 0;
+	virtual void slot7C() = 0;
+	virtual void slot80() = 0;
+	virtual void slot84() = 0;
+	virtual void slot88() = 0;
+	virtual void slot8C() = 0;
+	virtual void slot90() = 0;
+	virtual void slot94() = 0;
+	virtual void slot98() = 0;
 };
 
 // ?<Rva00005405::Rva00005405> absent-from-retail
