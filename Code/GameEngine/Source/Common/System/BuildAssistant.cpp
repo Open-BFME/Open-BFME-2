@@ -54,12 +54,6 @@ typedef unsigned short UnsignedShort;
 typedef float Real;
 typedef int Color;
 #define GameMakeColor(r, g, b, a) (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
-#ifndef FALSE
-#define FALSE 0
-#endif
-#ifndef TRUE
-#define TRUE 1
-#endif
 enum KindOfType
 {
 	KINDOF_2 = 2,
@@ -1292,7 +1286,7 @@ void BuildAssistant::update( void )
 				fraction = body->slot05();
 			sellValue = (UnsignedInt)( sellValue * fraction );
 
-			player->getMoney()->rva003B0D7C( sellValue, NULL, TRUE );
+			player->getMoney()->rva003B0D7C( sellValue, NULL, true );
 
 			UnicodeString moneyString;
 			moneyString.format( TheGameText->fetchPtr( "GUI:AddCash", NULL ), sellValue );
@@ -1313,7 +1307,7 @@ void BuildAssistant::update( void )
 			pui->cancelAndRefundAllProduction();
 
 		// a damaged structure credits whoever last hurt it with the kill
-		Bool scored = FALSE;
+		Bool scored = false;
 		if( obj->isKindOf( KINDOF_STRUCTURE ) && obj->getBodyModule()->getDamageState() > BODY_DAMAGED )
 		{
 			ObjectID killerID = INVALID_OBJECT_ID;
@@ -1323,7 +1317,7 @@ void BuildAssistant::update( void )
 				if( killer )
 				{
 					reinterpret_cast< Rva00294D61 * >( killer )->report( obj, 1 );
-					scored = TRUE;
+					scored = true;
 				}
 			}
 		}
@@ -1465,9 +1459,9 @@ Bool BuildAssistant::isRemovableForConstruction(Object *obj)
 Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate *whatToBuild, Int revivalIndex ) const
 {
 	if( builder == NULL )
-		return FALSE;
+		return false;
 	if( whatToBuild == NULL && revivalIndex == -1 )
-		return FALSE;
+		return false;
 
 	Bool isRevival = (revivalIndex != -1);
 
@@ -1479,13 +1473,13 @@ Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate 
 			if( bi == NULL )
 				continue;
 			if( bi->slot00() == whatToBuild->getName() )
-				return TRUE;
+				return true;
 		}
 	}
 
 	const CommandSet *commandSet = TheControlBar->findCommandSet( builder->rva00290E67() );
 	if( commandSet == NULL )
-		return FALSE;
+		return false;
 
 	const CommandButton *commandButton = NULL;
 	Int revivalCount = 0;
@@ -1502,7 +1496,7 @@ Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate 
 				 button->getCommandType() == GUI_COMMAND_DOZER_CONSTRUCT) &&
 				button->rva0035B570()->isEquivalentTo( whatToBuild ) )
 			{
-				Bool ok = TRUE;
+				Bool ok = true;
 				Bool needUpgrade = (button->getOptions() & NEED_UPGRADE) != 0;
 				if( needUpgrade )
 				{
@@ -1553,14 +1547,14 @@ Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate 
 	}
 
 	if( commandButton == NULL )
-		return FALSE;
+		return false;
 
 	Player *player = builder->getControllingPlayer();
 	if( !isRevival && !player->canBuild( commandButton->rva0035B570() ) )
-		return FALSE;
+		return false;
 	if( isRevival && !player->m_revivalTracker.rva0037E7BC( revivalIndex ) )
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 // BuildAssistant::sellObject, retail 0x003941FD (vslot 26).
 void BuildAssistant::sellObject( Object *obj )
@@ -1570,14 +1564,14 @@ void BuildAssistant::sellObject( Object *obj )
 		return;
 
 	// we can only sell structures ... sanity check this
-	if( obj->getTemplate()->isKindOf( KINDOF_STRUCTURE ) == FALSE )
+	if( obj->getTemplate()->isKindOf( KINDOF_STRUCTURE ) == false )
 		return;
 
 	if( obj->isKindOf( KINDOF_NOT_SELLABLE ) )
 		return;
 
 	// BFME2: only an object whose command set offers the sell command
-	if( reinterpret_cast<Rva00391994 *>( obj )->rva00391994() == FALSE )
+	if( reinterpret_cast<Rva00391994 *>( obj )->rva00391994() == false )
 		return;
 
 	// an object under construction cannot be sold
@@ -1607,10 +1601,10 @@ void BuildAssistant::sellObject( Object *obj )
 	sellInfo->m_sellFrame = TheGameLogic->getFrame();
 	m_sellList.push_front( sellInfo );
 
-	obj->rva0028CDEB( Rva00391F4E( 0, OBJECT_STATUS_SOLD, OBJECT_STATUS_UNSELECTABLE ), TRUE );
+	obj->rva0028CDEB( Rva00391F4E( 0, OBJECT_STATUS_SOLD, OBJECT_STATUS_UNSELECTABLE ), true );
 
 	// for everybody, unselect them at this time
-	TheGameLogic->deselectObject( obj, PLAYERMASK_ALL, TRUE );
+	TheGameLogic->deselectObject( obj, PLAYERMASK_ALL, true );
 
 	Drawable *draw = obj->getDrawable();
 	if( draw )
@@ -1636,10 +1630,10 @@ void BuildAssistant::clearRemovableForConstruction( const ThingTemplate *whatToB
 {
 	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( pos,
 		whatToBuild->getTemplateGeometryInfo().getBoundingCircleRadius() * 1.1f, FROM_BOUNDINGSPHERE_3D,
-		&Rva00261603Filter( *pos, whatToBuild->getTemplateGeometryInfo(), angle, TRUE ), 0 );
+		&Rva00261603Filter( *pos, whatToBuild->getTemplateGeometryInfo(), angle, true ), 0 );
 	for( Object *them = iter.next(); them; them = iter.next() )
 	{
-		if( isRemovableForConstruction( them ) == TRUE && !them->isKindOf( KINDOF_58 ) )
+		if( isRemovableForConstruction( them ) == true && !them->isKindOf( KINDOF_58 ) )
 			TheGameLogic->destroyObject( them );
 	}
 }
@@ -1652,7 +1646,7 @@ Bool BuildAssistant::rva0039361E( const Coord3D *pos, const ThingTemplate *whatT
 {
 	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( pos,
 		whatToBuild->getTemplateGeometryInfo().getBoundingCircleRadius() * 1.1f, FROM_BOUNDINGSPHERE_3D,
-		&Rva00261603Filter( *pos, whatToBuild->getTemplateGeometryInfo(), angle, TRUE ), 0 );
+		&Rva00261603Filter( *pos, whatToBuild->getTemplateGeometryInfo(), angle, true ), 0 );
 	for( Object *them = iter.next(); them; them = iter.next() )
 	{
 		if( !them->isKindOf( KINDOF_104 ) )
@@ -1674,9 +1668,9 @@ Bool BuildAssistant::rva0039361E( const Coord3D *pos, const ThingTemplate *whatT
 		delta.z -= pos->z;
 		Real dist = delta.length();
 		if( dist < them->getTemplate()->getTemplateGeometryInfo().getMajorRadius() / 2.0f )
-			return TRUE;
+			return true;
 	}
-	return FALSE;
+	return false;
 }
 // BuildAssistant::addBibs, retail 0x00393741 (vslot 19). Zero Hour's, with
 // the range query measured from the center (1) rather than ZH's 2D bounding
@@ -1693,11 +1687,11 @@ void BuildAssistant::addBibs( const Coord3D *worldPos, const ThingTemplate *buil
 	{
 
 		// ignore any kind of class of objects that we will "remove" for building
-		if( isRemovableForConstruction( them ) == TRUE )
+		if( isRemovableForConstruction( them ) == true )
 			continue;
 
 		if( them->isKindOf( KINDOF_2 ) )
-			TheTerrainVisual->addFactionBib( them, TRUE );
+			TheTerrainVisual->addFactionBib( them, true );
 
 	}
 
@@ -1732,7 +1726,7 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 		if( ai )
 		{
 			ai->aiIdle( CMD_FROM_AI ); // stop any current behavior.
-			return ai->construct( what, pos, angle, owningPlayer, FALSE, 0 );
+			return ai->construct( what, pos, angle, owningPlayer, false, 0 );
 		}
 		return NULL;
 
@@ -1740,7 +1734,7 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 	else if( constructorObject->isKindOf( KINDOF_104 ) )
 	{
 		FoundationAIInterface *foundation = (FoundationAIInterface *)constructorObject->rva0028BCF4();
-		return foundation->construct( what, pos, angle, owningPlayer, FALSE, 0 );
+		return foundation->construct( what, pos, angle, owningPlayer, false, 0 );
 	}
 	else
 	{
@@ -1773,7 +1767,7 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 		{
 			owningPlayer->onStructureCreated( constructorObject, obj );
 			if( !constructorObject->isKindOf( KINDOF_156 ) )
-				owningPlayer->onStructureConstructionComplete( constructorObject, obj, FALSE );
+				owningPlayer->onStructureConstructionComplete( constructorObject, obj, false );
 		}
 		else
 		{
@@ -1795,7 +1789,7 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 Bool BuildAssistant::moveObjectsForConstruction( const ThingTemplate *whatToBuild, const Coord3D *pos,
 												 Real angle, Player *playerToBuild )
 {
-	GeometryInfo gi( GEOMETRY_BOX, FALSE, 10.0f, whatToBuild->getTemplateGeometryInfo().getMajorRadius(),
+	GeometryInfo gi( GEOMETRY_BOX, false, 10.0f, whatToBuild->getTemplateGeometryInfo().getMajorRadius(),
 		whatToBuild->getTemplateGeometryInfo().getMajorRadius() );
 	if( ((const BfmeThingTemplateShadowSelector *)&whatToBuild->getTemplateGeometryInfo())->usePluralShadowName() )
 		((BfmeCopyElementA *)&gi)->bfmeAssign( (BfmeCopyElementA *)&whatToBuild->getTemplateGeometryInfo() );
@@ -1803,13 +1797,13 @@ Bool BuildAssistant::moveObjectsForConstruction( const ThingTemplate *whatToBuil
 	Real radius = gi.getMajorRadius() * 1.4f;
 	((BfmeResultForwardB *)ThePartitionManager)->bfmeForwardResultB( (int)&Rva00391D25Filter( pos, radius ) );
 
-	Bool anyUnmovables = FALSE;
+	Bool anyUnmovables = false;
 	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( pos,
 		gi.getBoundingCircleRadius() * 1.1f, FROM_BOUNDINGSPHERE_3D,
 		Rva0026119DFilter().link( &Rva0026118BFilter() )->link(
 			&Rva0004584D( *(BfmeFixedStorage0004543D *)&Rva00045411BitSet( 0, 1 ),
 				*(BfmeFixedStorage0004543D *)&Rva0006EE7A( 0, 0x59, 0x86, 0x68, 0x3c ) ) )->link(
-			&Rva00261603Filter( *pos, gi, angle, TRUE ) ), 0 );
+			&Rva00261603Filter( *pos, gi, angle, true ) ), 0 );
 	for( Object *them = iter.next(); them; them = iter.next() )
 	{
 		if( them->isKindOf( KINDOF_2 ) )
@@ -1845,12 +1839,12 @@ Bool BuildAssistant::moveObjectsForConstruction( const ThingTemplate *whatToBuil
 			}
 			else
 			{
-				anyUnmovables = TRUE;
+				anyUnmovables = true;
 			}
 		}
 		else
 		{
-			anyUnmovables = TRUE;
+			anyUnmovables = true;
 		}
 	}
 
@@ -1886,19 +1880,19 @@ void checkSampleBuildLocation( const Coord3D *samplePoint, void *userData )
 		return;
 
 	Bool isValid;
-	Bool isBlocked = FALSE;
+	Bool isBlocked = false;
 	Int cellType;
 	if( isK189 )
 		TheAI->pathfinder()->GetCellType( (int)samplePoint, &isValid, &isBlocked, &cellType,
-																			TheTerrainLogic->getHighestLayerForDestination( samplePoint, FALSE ) );
+																			TheTerrainLogic->getHighestLayerForDestination( samplePoint, false ) );
 	else
 		TheAI->pathfinder()->GetCellType( (int)samplePoint, &isValid, &isBlocked, &cellType, 1 );
 
-	sampleData->terrainRestricted = FALSE;
+	sampleData->terrainRestricted = false;
 	if( isValid )
 	{
 		if( isBlocked )
-			sampleData->terrainRestricted = TRUE;
+			sampleData->terrainRestricted = true;
 		else
 		{
 			switch( cellType )
@@ -1912,33 +1906,33 @@ void checkSampleBuildLocation( const Coord3D *samplePoint, void *userData )
 				case 4:
 				{
 					ObjectID id = (ObjectID)(Int)TheAI->pathfinder()->getObstacleID(
-						TheTerrainLogic->getHighestLayerForDestination( samplePoint, FALSE ), (int)samplePoint );
+						TheTerrainLogic->getHighestLayerForDestination( samplePoint, false ), (int)samplePoint );
 					Object *obj = TheGameLogic->findObjectByID( id );
 					if( obj == NULL || obj->getTemplate()->isKindOf( KINDOF_INERT ) )
-						sampleData->terrainRestricted = TRUE;
+						sampleData->terrainRestricted = true;
 					break;
 				}
 
 				case 2:
-					sampleData->terrainRestricted = TRUE;
+					sampleData->terrainRestricted = true;
 					break;
 
 				case 1:
 				case 7:
 					if( !isK188 )
-						sampleData->terrainRestricted = TRUE;
+						sampleData->terrainRestricted = true;
 					break;
 
 				default:
-					sampleData->terrainRestricted = TRUE;
+					sampleData->terrainRestricted = true;
 					break;
 			}
 		}
 	}
 	else
-		sampleData->terrainRestricted = TRUE;
+		sampleData->terrainRestricted = true;
 
-	Bool isWater = FALSE;
+	Bool isWater = false;
 	if( isK188 )
 	{
 		isWater = TheTerrainLogic->isUnderwater( samplePoint->x, samplePoint->y );
@@ -1974,7 +1968,7 @@ void checkSampleBuildLocation( const Coord3D *samplePoint, void *userData )
 				|| samplePoint->y < sampleData->mapRegion.lo.y + TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild
 				|| samplePoint->y > sampleData->mapRegion.hi.y - TheWritableGlobalData->m_MinDistFromEdgeOfMapForBuild )
 		{
-			sampleData->terrainRestricted = TRUE;
+			sampleData->terrainRestricted = true;
 		}
 	}
 
@@ -2065,7 +2059,7 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 		if( ai == NULL )
 			return LBC_NO_CLEAR_PATH;
 
-		if( ((options & 0x08) ? ai->isQuickPathAvailable( worldPos ) : ai->isPathAvailable( worldPos )) == FALSE )
+		if( ((options & 0x08) ? ai->isQuickPathAvailable( worldPos ) : ai->isPathAvailable( worldPos )) == false )
 			return LBC_NO_CLEAR_PATH;
 	}
 
@@ -2096,7 +2090,7 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 		sampleData.playerIndex = playerIndex;
 		sampleData.hiZ = terrainExtent.lo.z;  // note we set hi point to lowest point
 		sampleData.loZ = terrainExtent.hi.z;  // note we set lo point to highest point
-		sampleData.terrainRestricted = FALSE;
+		sampleData.terrainRestricted = false;
 		sampleData.waterSamples = 0.0f;
 		sampleData.landSamples = 0.0f;
 		sampleData.landSum.x = 0.0f;
@@ -2108,7 +2102,7 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 
 		// quick check at triple res.
 		iterateFootprint( build, angle, worldPos, 3 * MAP_XY_FACTOR, checkSampleBuildLocation, &sampleData );
-		if( sampleData.terrainRestricted == TRUE )
+		if( sampleData.terrainRestricted == true )
 			return LBC_RESTRICTED_TERRAIN;
 		// check if the height across the whole footprint area is too varied (not flat enough)
 		if( sampleData.hiZ - sampleData.loZ > TheWritableGlobalData->m_allowedHeightVariationForBuilding )
@@ -2124,7 +2118,7 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 		sampleData.waterSum.y = 0.0f;
 		sampleData.waterSum.z = 0.0f;
 		iterateFootprint( build, angle, worldPos, MAP_XY_FACTOR, checkSampleBuildLocation, &sampleData );
-		if( sampleData.terrainRestricted == TRUE )
+		if( sampleData.terrainRestricted == true )
 			return LBC_RESTRICTED_TERRAIN;
 		if( sampleData.hiZ - sampleData.loZ > TheWritableGlobalData->m_allowedHeightVariationForBuilding )
 			return LBC_NOT_FLAT_ENOUGH;
@@ -2674,7 +2668,7 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 			if( cs == CELLSHROUD_3 || cs == CELLSHROUD_4 )
 				continue;
 		}
-		if( isRemovableForConstruction( them ) == TRUE )
+		if( isRemovableForConstruction( them ) == true )
 			continue;
 		if( them->getTemplate()->isKindOfByte( KINDOF_12 ) || them->getTemplate()->isKindOfByte( KINDOF_INERT ) )
 			continue;
@@ -2703,13 +2697,13 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 		{
 			if( b20 && builderObject && builderObject->getRelationship( them ) != ENEMIES )
 				continue;
-			return FALSE;
+			return false;
 		}
 		if( builderObject && builderObject->getRelationship( them ) == ENEMIES && !b200 )
-			return FALSE;
+			return false;
 		if( b200 && builderObject && builderObject->getRelationship( them ) == ENEMIES &&
 				them->getTemplate()->isKindOfByte( KINDOF_STRUCTURE ) )
-			return FALSE;
+			return false;
 	}
 
 	if( b400 && builderObject )
@@ -2723,12 +2717,12 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 				Object *obj = TheGameLogic->findObjectByID( node->m_id );
 				if( obj && build->getTemplateGeometryInfo().CollidesWith( *worldPos, angle, obj->getGeometryInfo(),
 						*obj->getPosition(), obj->getOrientation() ) )
-					return FALSE;
+					return false;
 			}
 		}
 	}
 	if( b20 || b40 || b100 )
-		return TRUE;
+		return true;
 
 	// the exit or door point of the structure must stay reachable and unblocked
 	const Coord3D *wp = worldPos;
@@ -2771,14 +2765,14 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 		out.Y += wp->y;
 		if( builderObject && builderObject->getTemplate()->isKindOfByte( KINDOF_DOZER )
 				&& !TheAI->pathfinder()->QuickDoesPathExist( builderObject, worldPos, (const Coord3D *)&out, 0 ) )
-			return FALSE;
+			return false;
 
 		Real dy = out.Y - wp->y;
 		Coord2D dir;
 		dir.x = out.X - wp->x;
 		dir.y = dy;
 		Real len = dir.length();
-		GeometryInfo doorGeom( GEOMETRY_BOX, FALSE, 1.0f, len * 0.5, 0.5f );
+		GeometryInfo doorGeom( GEOMETRY_BOX, false, 1.0f, len * 0.5, 0.5f );
 		Real inv = 1.0f / len;
 		Real doorAngle = atan2( dir.x * inv, dy * inv );
 		Coord3D tmp;
@@ -2798,10 +2792,10 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 		{
 			const GeometryInfo &themGeom = them->getGeometryInfo();
 			if( themGeom.CollidesWith( *them->getPosition(), them->getOrientation(), doorGeom, center, doorAngle ) )
-				return FALSE;
+				return false;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
   // end isLocationClearOfObjects
