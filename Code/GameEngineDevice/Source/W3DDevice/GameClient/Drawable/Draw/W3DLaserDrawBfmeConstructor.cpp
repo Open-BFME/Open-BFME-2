@@ -254,6 +254,7 @@ public:
 #include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 
+enum NameKeyType;
 class W3DLaserDraw : public DrawModule, public LaserDrawInterface
 {
 public:
@@ -272,6 +273,8 @@ protected:
 	Real m_field2c;
 	Int m_field30;
 	OrnamentData m_params;
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
 };
 
 extern void Rva002D2ACAGet(

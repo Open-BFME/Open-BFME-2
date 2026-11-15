@@ -70,6 +70,7 @@ RTS3DScene *W3DDisplay::m_3DScene = 0;
 // reference) is likewise a null-initialised static.
 RTS2DScene *W3DDisplay::m_2DScene = 0;
 
+enum NameKeyType;
 class W3DLaserDraw : public DrawModule, public LaserDrawInterface
 {
 public:
@@ -81,6 +82,8 @@ protected:
 
 	SegmentedLineClass **m_line3D;
 	Rva000C9A12 m_textureVector;
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
 };
 
 #include <new>
