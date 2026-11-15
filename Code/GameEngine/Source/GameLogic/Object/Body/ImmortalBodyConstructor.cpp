@@ -92,7 +92,6 @@ ImmortalBody::ImmortalBody( Thing *thing, const ModuleData *moduleData )
 {
 }
 
-// ??1ImmortalBody@@UAE@XZ present-unmatched
 ImmortalBody::~ImmortalBody()
 {
 }
