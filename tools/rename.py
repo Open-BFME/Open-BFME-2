@@ -7310,27 +7310,46 @@ def resolved_slot_approved(ctx, key, new, record):
 
 def resolution_bound(ctx, row, rel):
     """Whether history binds resolution `row` (a name_agreement.RESOLUTIONS row) to the text of `rel` its source_sha
-    names: the one commit that added its line, never removed since, holds `rel` with that sha256 (fingerprint_bound's
-    rule for a vote's fingerprint). A line csv cannot read alone binds nothing."""
+    names: every commit up to the base that added it (holds the row while none of its parents does) holds `rel`
+    with that sha256 (fingerprint_bound's rule for a vote's fingerprint). Each revision's whole file is read as csv,
+    so a quoted reason spanning lines counts, and the file's full history is walked, so a merge that added the row
+    counts too."""
     base = revision_base(ctx)
-    wanted = [row.get(c) or "" for c in name_agreement.RESOLUTION_COLUMNS]
-    _code, patches = _git_out(ctx.root, "log", "-p", "--format=COMMIT %H", "--no-renames", "--unified=0", base,
-                              "--", name_agreement.RESOLUTIONS)
-    changes, commit = [], None
-    for text in patches.decode("utf-8", errors="replace").splitlines():
-        if text.startswith("COMMIT "):
-            commit = text.split()[1]
-        elif text[:1] in "+-" and not text.startswith(("+++", "---")):
+    columns = name_agreement.RESOLUTION_COLUMNS
+    wanted = tuple(row.get(c) or "" for c in columns)
+    held = {}
+
+    def holds(commit):
+        if commit not in held:
+            code, blob = _git_out(ctx.root, "show", f"{commit}:{name_agreement.RESOLUTIONS}")
             try:
-                fields = next(csv.reader([text[1:]]))
-            except (csv.Error, StopIteration):
-                continue
-            if fields == wanted:
-                changes.append((commit, text[:1]))
-    if len(changes) != 1 or changes[0][1] != "+":
+                rows = [] if code else list(csv.DictReader(io.StringIO(blob.decode("utf-8"), newline="")))
+            except (UnicodeDecodeError, csv.Error):
+                rows = []
+            held[commit] = any(tuple(r.get(c) or "" for c in columns) == wanted for r in rows)
+        return held[commit]
+
+    code, listed = _git_out(ctx.root, "rev-list", "--full-history", "--parents", base, "--",
+                            name_agreement.RESOLUTIONS)
+    if code:
         return False
-    code, blob = _git_out(ctx.root, "show", f"{changes[0][0]}:{rel}")
-    return not code and hashlib.sha256(blob).hexdigest() == row.get("source_sha")
+    adding = []
+    for line in listed.decode().splitlines():
+        commit = line.split()[0]
+        if not holds(commit):
+            continue
+        code, parents = _git_out(ctx.root, "rev-parse", f"{commit}^@")
+        if code:
+            return False
+        if not any(holds(parent) for parent in parents.decode().split()):
+            adding.append(commit)
+    if not adding:
+        return False
+    for commit in adding:
+        code, blob = _git_out(ctx.root, "show", f"{commit}:{rel}")
+        if code or hashlib.sha256(blob).hexdigest() != row.get("source_sha"):
+            return False
+    return True
 
 
 def fresh_slot_voters(ctx, key, new, rel):

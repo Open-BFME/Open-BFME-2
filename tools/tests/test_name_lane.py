@@ -4562,3 +4562,52 @@ def test_a_slot_resolution_is_bound_to_the_header_it_was_added_with(slot_tree, t
     (slot_tree / WIDGET_H).write_text(WIDGET_TEXT)
     commit_votes(slot_tree, "the header restored")
     assert slot_approval(slot_tree) is None
+
+
+
+def test_a_slot_resolution_with_a_reason_over_several_lines_binds(slot_tree, tmp_path):
+    # resolve-slot r1: the csv record spans physical lines
+    contested_slot(slot_tree, tmp_path)
+    assert resolve_slot(slot_tree, "seat-b", "spin", reason="the retail body spins\nthe rotor on this header") == 0
+    commit_votes(slot_tree, "the resolution")
+    assert slot_approval(slot_tree) == "spin"
+
+
+def test_a_slot_resolution_a_merge_commit_adds_binds(slot_tree, tmp_path):
+    # resolve-slot r1: the resolution is recorded while merging, so only the merge commit adds it
+    contested_slot(slot_tree, tmp_path)
+    who = ("-c", "user.name=t", "-c", "user.email=t@example.invalid")
+    main = _git(slot_tree, "rev-parse", "--abbrev-ref", "HEAD").strip()
+    _git(slot_tree, "checkout", "-q", "-b", "side")
+    (slot_tree / "side.txt").write_text("side\n")
+    commit_votes(slot_tree, "side work")
+    _git(slot_tree, "checkout", "-q", main)
+    (slot_tree / "main.txt").write_text("main\n")
+    commit_votes(slot_tree, "main work")
+    _git(slot_tree, *who, "merge", "-q", "--no-commit", "--no-ff", "side")
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    _git(slot_tree, "add", "-A")
+    _git(slot_tree, *who, "commit", "-qm", "merge with the resolution")
+    assert len(_git(slot_tree, "rev-parse", "HEAD^@").split()) == 2
+    assert slot_approval(slot_tree) == "spin"
+
+
+def test_a_slot_resolution_added_on_a_branch_with_another_header_is_not_bound(slot_tree, tmp_path):
+    # every commit that added the row must hold the header: one branch adding it with another text refuses
+    contested_slot(slot_tree, tmp_path)
+    who = ("-c", "user.name=t", "-c", "user.email=t@example.invalid")
+    main = _git(slot_tree, "rev-parse", "--abbrev-ref", "HEAD").strip()
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    resolutions = (slot_tree / name_lane.RESOLUTIONS).read_text()
+    agreed = (slot_tree / name_lane.AGREED).read_text()
+    commit_votes(slot_tree, "the resolution with the header")
+    _git(slot_tree, "checkout", "-q", "-b", "side", "HEAD~1")
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// another text\n")
+    (slot_tree / name_lane.RESOLUTIONS).write_text(resolutions)
+    (slot_tree / name_lane.AGREED).write_text(agreed)
+    commit_votes(slot_tree, "the same rows with another header")
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT)
+    commit_votes(slot_tree, "the header restored")
+    _git(slot_tree, "checkout", "-q", main)
+    _git(slot_tree, *who, "merge", "-q", "--no-ff", "-m", "merge", "side")
+    assert slot_approval(slot_tree) is None
