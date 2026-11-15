@@ -2008,7 +2008,7 @@ Code/GameEngine/Source/Common/Rva000A97ECRelease.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000A98BACleanup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AAD06Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva000AAD5CCtor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/Rva000AAD5CCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AADC1Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AAE3DCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000AB0F5Rva000AB0F5.cpp,yes,0,0,0,0,0
@@ -4330,7 +4330,7 @@ Code/GameEngine/Source/Common/Rva00525D9AListAppend.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005262BFDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00526309Dispatcher.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00526F0BForward.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00527925Fire.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0052798FConcat.cpp,yes,0,0,0,0,0
@@ -5996,7 +5996,7 @@ Code/GameEngine/Source/Common/Script_objectTypesFromParam.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SetStreamPlaybackRateCommand_execute.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SetStreamPositionCommand_execute.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SideFlagsParseCallbacks.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/SingleBaseCtors.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/SingleBaseCtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SingletonForwarders.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SizedDeleteDestructors.cpp,yes,0,0,0,0,0
@@ -6035,7 +6035,6 @@ Code/GameEngine/Source/Common/SmallGaps/copyPairsStrided.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SmallGaps/copyVec3Strided.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SmallGaps/daysInYear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SmallGaps/hashLower.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/SmallGaps/notifyLookedUp.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SmallGaps/probeFile.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/SmallGaps/wrapAngle.cpp,yes,0,0,0,0,0
@@ -9511,7 +9510,6 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorLoadPostProcess.cp
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_canAnySlavesAttack.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_computeAggregateStates.cpp,yes,0,0,0,0,0
@@ -10397,7 +10395,7 @@ Code/GameEngine/Source/GameLogic/Object/Rva001DBC77Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001DBCC0Delete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001DDBE0AddObjectID.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001E6516ConditionClear.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001E7270Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001F0434Finish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp,yes,0,0,0,0,0
@@ -11922,7 +11920,6 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C90B1Exit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C91D1Idle.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003EF77E.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00460216XferList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionDuplicate.cpp,yes,0,0,0,0,0
