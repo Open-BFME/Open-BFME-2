@@ -1004,3 +1004,11 @@ DefaultModule<CATEGORY> *DefaultModule<CATEGORY>::clone() const
 template class DefaultModule<1>;
 
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::DefaultModuleTag<6> >, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSystem_DefaultModuleTag_6_> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSystem_DefaultModuleTag_6_(FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::DefaultModuleTag<6> > *p)
+{
+	p->FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::DefaultModuleTag<6> >::__vecDelDtor(3);
+}
