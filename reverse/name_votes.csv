@@ -24292,3 +24292,5 @@ Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|1,cee22
 Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|2,7ea9d280b58056c233e2f2e1,gpt-6.1-sol,aisp-blind-voter2-slot2b-20261115,w-e4f6c6947057,2026-11-15
 Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|5,119f0c065df85370b05545b4,gpt-6.1-sol,slotnames-aisp5-parent-20261115,w-8e95b11f5db9,2026-11-15
 Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|5,119f0c065df85370b05545b4,gpt-6.1-sol,aisp-slot5-completion-20261115b,w-5a04c5e9a75b,2026-11-15
+Code/Libraries/Source/WWVegas/WW3D2/Rva0012CAC3Run.cpp|global||g_00DEE93C,767b7d5ae502d61f088c26aa,gpt-6.1-sol,dataid-directory-name-20261115,w-7d132e753b1e,2026-11-15
+Code/Libraries/Source/WWVegas/WW3D2/Rva0012CAC3Run.cpp|global||g_00DEE93C,551568d0a7dba82096a41173,gpt-6.1-sol,dataid-directory-blind-sol-20261115,w-c027e35ad79d,2026-11-15

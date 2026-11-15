@@ -139,7 +139,7 @@ extern unsigned int g_00DE1CCD;
 class BfmeSrcUDC;
 extern BfmeSrcUDC *g_bfmeObjUDC;
 // VA 0x00DEE93C: the AsciiString Rva0012CAC3Run.cpp defines.
-extern AsciiString g_00DEE93C;
+extern unsigned int g_00DEE93C;
 unsigned g_Va00DFF0C4;	// retail RVA 0x009FF0C4 (.bss), defined here
 unsigned g_Va00E01CF0;	// retail RVA 0x00A01CF0 (.bss), defined here
 unsigned g_Va00E01CF4;	// retail RVA 0x00A01CF4 (.bss), defined here
@@ -241,7 +241,7 @@ void Rva007ABBB3CtorInits::rva007AC880()
 // 0x007ACD72 (22B): ??0AsciiString@@QAE@XZ on VA 0x00DEE93C, atexit(0x007B707A -> AsciiString dtor 0x0048BA39)
 void Rva007ABBB3CtorInits::rva007ACD72()
 {
-	( &g_00DEE93C )->AsciiString::AsciiString();
+	((AsciiString *)&g_00DEE93C)->AsciiString::AsciiString();
 	atexit( rva007B707A );
 }
 

@@ -11,15 +11,15 @@
 #include "unicode_string.h"
 
 // g_00DEE93C: matched references place it at VA 0xdee93c (zero-filled; a plain-data view).
-AsciiString g_00DEE93C;
+unsigned int g_00DEE93C;
 bool __cdecl ExecuteTextureAssetBuilder(const unsigned short *currentDirectory);
 bool __cdecl ExecuteAssetCacheBuilder(const unsigned short *currentDirectory);
 
 bool __cdecl Rva0012CAC3Run()
 {
 	bool ok = ExecuteTextureAssetBuilder(0);
-	if (!g_00DEE93C.isEmpty()) {
-		ok |= ExecuteTextureAssetBuilder(UnicodeString(g_00DEE93C).str());
+	if (!((AsciiString *)&g_00DEE93C)->isEmpty()) {
+		ok |= ExecuteTextureAssetBuilder(UnicodeString(*(AsciiString *)&g_00DEE93C).str());
 	}
 	return ok;
 }
@@ -27,8 +27,8 @@ bool __cdecl Rva0012CAC3Run()
 bool __cdecl Rva0012CB15Run()
 {
 	bool ok = ExecuteAssetCacheBuilder(0);
-	if (!g_00DEE93C.isEmpty()) {
-		ok |= ExecuteAssetCacheBuilder(UnicodeString(g_00DEE93C).str());
+	if (!((AsciiString *)&g_00DEE93C)->isEmpty()) {
+		ok |= ExecuteAssetCacheBuilder(UnicodeString(*(AsciiString *)&g_00DEE93C).str());
 	}
 	return ok;
 }
