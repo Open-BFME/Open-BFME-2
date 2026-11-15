@@ -26,6 +26,8 @@ typedef bool Bool;
 typedef float Real;
 typedef unsigned char UnsignedByte;
 
+#include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
+
 class WWMath
 {
 public:
@@ -133,21 +135,6 @@ public:
 	Real FarAttenEnd;			// +0x104
 };
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	MultiListObjectClass *Object;
-};
-
-class GenericMultiListClass
-{
-public:
-	virtual ~GenericMultiListClass();
-	MultiListNodeClass Head;
-};
 
 class GenericMultiListIterator
 {
