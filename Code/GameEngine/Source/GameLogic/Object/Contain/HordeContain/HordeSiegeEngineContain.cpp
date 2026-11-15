@@ -6,6 +6,10 @@
 #include "GameLogicObjectLookupView.h"
 #include "../../../../../Include/GameLogic/ContainmentListView.h"
 #include <memory>
+// Retail 0x007B0F20: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run;
+// its static (VA 0x00E03724) directly follows HordeSiegeEngineContain's function-local statics. The unit is
+// built on private views, so it takes the constant's own header where retail's unit included Drawable.h.
+#include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
 
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.

@@ -1508,7 +1508,7 @@ The explicit matched data row and all verified source remain unchanged;
 the cache keeps master's old class spelling until the ordinary refresh.
 No retired cache name is newly added across the corrected batch.
 
-**Round init-1 (halilkkaya-init, 2026-11-15, bridged 471 -> 469).** Measured with `image_report.bridge_entries`
+**Round init-1 (halilkkaya-init, 2026-11-15, bridged 471 -> 468).** Measured with `image_report.bridge_entries`
 over the kept objects of `e9c6c9136fa` (exit_link's rule, 471, the same 471 RVAs the first 470 slots and the last
 slot of image `a9c23ee`'s table name) plus the round.
 - *Taken (471 -> 470): ControlBar.cpp's Drawable.h copy.* 0x007AE9A2 stores the half rate into 0x00E01D10 and is
@@ -1532,7 +1532,16 @@ slot of image `a9c23ee`'s table name) plus the round.
   the fragment InGameUIResourceEntryState.cpp with a placeholder class, and it must register between the two.
   `exit_link.static_init_readers` lists only the global's two readers (its conservative reachability scan), so
   the entry now runs in InGameUI.obj's place instead of bridge-first; read the next image's order check.
-- *Census and leads.* The 469 left, by what they build: 171 Drawable.h copies, 63 four-byte zero masks, 56
+- *Taken (469 -> 468): HordeSiegeEngineContain.cpp's Drawable.h copy.* Retail's table runs AODHordeContain's rowed
+  copy 0x007B0ECC, 0x007B0EF6, 0x007B0F20, TunnelContain's rowed copy 0x007B0F4A, each closed by its own marker, so
+  the two between are two units' copies. Their statics follow function-local statics of two classes: 0x00E03710
+  after `SiegeEngineContain::exitObjectViaDoor`'s guard 0x00E0370C, and 0x00E03724 after the guard 0x00E03720 of
+  `HordeSiegeEngineContain::rva0047D53A` (pool key, guard, key, guard, copy: a unit with no plain global). The TU
+  file HordeSiegeEngineContain.cpp is built on private views, so it includes GameClient/DrawableFramesPerFlash.h;
+  9 of 9 rows stay exact and 0x007B0F20 is its `_$E1`. *Left:* 0x007B0EF6 is SiegeEngineContain's unit's copy, but
+  `tu_map` approves SiegeEngineContain's rows to HordeContain/HordeSiegeEngineContain.cpp, one file for two retail
+  units, so it has no unit to register it until that approval is split.
+- *Census and leads.* The 468 left, by what they build: 170 Drawable.h copies, 63 four-byte zero masks, 56
   BlockParse nodes, about 140 class-typed objects (constructor, most with an atexit cleanup), 9 atexit-only
   entries, 7 frame-rate scalars and a few singles. 318 of the 471 globals are never read, so only layout names
   their unit. Scripts for the table (retail table, marker runs, `.bss` neighbours with the approved TUs of their
