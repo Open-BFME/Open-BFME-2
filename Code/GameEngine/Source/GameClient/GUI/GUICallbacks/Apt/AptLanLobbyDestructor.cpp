@@ -14,6 +14,8 @@
 // the separate complete14B7FAB3 teardown, proven with all relocations.
 // rva004443E7 is the existing37B cleanup member rehomed from
 // AptLanLobbyGameCreate.cpp so teardown and its cleanup share this layout.
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
+
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <vector>
@@ -74,7 +76,6 @@ private: AsciiString filename270; void *owner274; int tail278;
 };
 #include "../../../../../Include/GameClient/Rva004444D2.h"
 class MpGameSetupOwner;
-class AptMpGameSetup { public: AptMpGameSetup(MpGameSetupOwner*,int); virtual ~AptMpGameSetup(); private: char storage[0x3E0-4]; };
 class LANPreferences { public: LANPreferences(int); virtual ~LANPreferences(); private: char storage[0x1C-4]; };
 class Rva0031455E { public: Rva0031455E(); virtual ~Rva0031455E(); private: char storage[8]; };
 class AptLanLobbyNameEntry : public Rva0031455E {
