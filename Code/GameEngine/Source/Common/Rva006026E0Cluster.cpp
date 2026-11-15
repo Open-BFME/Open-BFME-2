@@ -6,7 +6,6 @@
 // derived from their addresses. No // cl: line so the frameless /O2 shapes
 // match, the same defaults the neighbouring zero getters rely on.
 
-void *operator new[](unsigned n);
 #include <new>
 
 class Rva006026E0
