@@ -32,6 +32,13 @@ begin() branch. With `/D_BFME_RETAIL_TREE_INSERT_LAYOUT` on its `// cl:` line th
 exact. The unit's other `insert_unique` instantiation (the `SparseMatchFinder` armor map, no retail
 address, this unit its only copy) changes with it; nothing else does. Preview against index
 `bb93a2a56e`: LINKS 0 -> 672; no other census object touches a changed name. Census confirmation:
-awaiting. Not this cause: `ConnectionManager.cpp`'s `map<unsigned short, AsciiString>` names. Its
-pinned `_Construct` target 0x006204B0 is a two-dword pair copy with no AsciiString constructor
-call, so the pin or the element type is wrong and the unit needs its tree identity read first.
+awaiting. Not this cause: `ConnectionManager.cpp`'s `map<unsigned short, AsciiString>` names, now
+[LINK-682](link-682-connectionmanager-cpp-tree-rows-and-pins-name-another-map-s-bodies.md).
+Triage of every remaining unit against retail (2026-11-15, base `2e75acaf83`) found no further unit
+explained by this layout or by LINK-680's const allocate: the other STL-family units either hold a
+copy whose bytes equal retail's while a callee's ledger address differs from where retail's call
+lands (`UserPreferencesDeferredIgnores.cpp`, `MapMetaDataCopyDeferred.cpp`,
+`EvaMessageVectorAssign.cpp`, `stlport_list_b757d_insert.cpp`,
+`ProductionPrerequisiteRecVectorInsertOverflow.cpp`, `Rva00566695Assign.cpp`), or a copy pinned to a
+body of another shape (the `StlSweepW4`/`W5` element constructors and `_M_insert_overflow`s). Both
+are identity questions about which instantiation a retail body is, one unit at a time.

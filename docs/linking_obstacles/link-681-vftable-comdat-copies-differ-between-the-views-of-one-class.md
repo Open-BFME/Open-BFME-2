@@ -120,6 +120,14 @@ Slot comparison of each remaining copy against retail's table (2026-11-15), stil
   where retail's `BattlePromptMovieClip` table (0x008078DC) is five pure slots, as the shared
   `GameClient/BattlePromptMovieClip.h` has it, so its row `??1BattlePromptMovieClip@StrategicHUD@@UAE@XZ`
   (0x005FA393) is a non-virtual destructor under a virtual name and needs a rename first;
+  `Rva005C96EBFinish.cpp` (114 B) derives the class from a private `BfmeAptScreenBase` whose first
+  virtual is `slot0`, where retail's slot 0 (table 0x00874B70, eleven slots) is the deleting destructor
+  0x005C9753 that B14 and `Rva005C9659Dtors.cpp` name. Tried 2026-11-15 and reverted: a virtual
+  destructor in that base keeps the unit's 2/2 rows exact and equalizes `??_7Rva005C96EB@@6B@`, but the
+  base is shared, and the unit then loses on `??_7BfmeAptScreenBase@@6B@` (first copy
+  `BfmeAptScreenBaseConstructor.cpp`, also `slot0`) and on `??1BfmeAptScreenBase@@UAE@XZ`
+  (`BfmeAptGameWindowConstructor.cpp` emits a 5-byte jump under that name). The three units' views of
+  the base have to change together;
   `FunctorRefInvoke005D388B.cpp` is the right copy (`what@exception` in slot 1, retail 0x006299B8) and
   the eight one-slot copies are wrong; `Rva004E5610` is `ResourceEntryCollector` under a second name
   (retail's one slot is `ResourceEntryCollector::rva004E55B9`) and neither copy has it.
