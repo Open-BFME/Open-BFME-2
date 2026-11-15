@@ -2516,7 +2516,8 @@ class Rva005CFB8A
 {
 public:
 	Rva005CFB8A();
-	virtual ~Rva005CFB8A() {}
+	virtual void slot00(int) {}
+	virtual void slot04() = 0;
 };
 
 Rva005CFB8A::Rva005CFB8A()

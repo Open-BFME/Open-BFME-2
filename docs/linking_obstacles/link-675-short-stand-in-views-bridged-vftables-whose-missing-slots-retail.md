@@ -78,6 +78,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva006560B0` (VA 0x00CE0FB8): 3 slots (2 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva006ED020` (VA 0x00CEC9CC): 3 slots (0 pure, 0 rowed virtual, 1 destructor, 1 folded trivial body), 1 view(s): `AptCharacter.cpp`.
 - 2026-11-15 `Rva0020E38B` (VA 0x00BE4318): 2 slots (1 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva005CFB8A` (VA 0x00C75284): 2 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
@@ -166,7 +168,6 @@ Derived from the class whose table they share (unattended worker; layout read fr
 
 Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
 - 2026-11-15 `Base005CEFD3` (VA 0x00BFDF68, 4 slots) from `LivingWorldRegionObserver`: `Rva005CEFD3Dtor.cpp`.
-
 **2026-11-15, ancalgonn-swarm-waste: W3DTreeDrawModuleDataBase's table after `9761e893cde` holds the data ledger
 refresh.** The 2026-11-15 refresh (attempt 1, report `report-20261115T000812Z.json`) was held on one loss: the
 regenerated `reverse/data_ledger.csv` drops `??_7W3DTreeDrawModuleDataBase@@6B@` from the folded names of row
