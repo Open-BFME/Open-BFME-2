@@ -417,6 +417,7 @@ public:
 	virtual void fe();
 };
 
+enum NameKeyType;
 class SupplyCenterProductionExitUpdate : public UpdateModule, public Rva004A653D_E1
 {
 public:
@@ -427,6 +428,8 @@ public:
 	// BehaviorModuleInterface table 0x00C4B1F0 (+0x0C) slot 20: retail 0x004543A9, the +0x0C
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot20();
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
 };
 
 SupplyCenterProductionExitUpdate::~SupplyCenterProductionExitUpdate()
