@@ -10,6 +10,90 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import build_variant as V
+import build as B
+
+
+def test_context_refuses_reference_output(tmp_path, monkeypatch):
+    monkeypatch.setattr(B, "ROOT", tmp_path)
+    context = B.CompilationContext()
+    with pytest.raises(ValueError):
+        context.validate_output(tmp_path / "build/match/example.obj")
+    assert not (tmp_path / "build").exists()
+
+
+def test_context_does_not_change_reference_globals(tmp_path, monkeypatch):
+    before = B.BUILD_DIR
+    monkeypatch.setattr(B, "ROOT", tmp_path)
+    context = B.CompilationContext()
+    context.validate_output(tmp_path / "build/modern/objects/example.obj")
+    assert context.defines == ("BFME2_MODERN=1",)
+    assert B.BUILD_DIR == before
+
+
+def test_context_rejects_hardlinked_object(tmp_path, monkeypatch):
+    monkeypatch.setattr(B, "ROOT", tmp_path)
+    original = tmp_path / "reference.obj"
+    original.write_bytes(b"reference")
+    out = tmp_path / "build/modern/objects/other.obj"
+    out.parent.mkdir(parents=True)
+    os.link(original, out)
+    with pytest.raises(ValueError, match="linked"):
+        B.CompilationContext().validate_output(out)
+    assert original.read_bytes() == b"reference"
+
+
+def test_compile_rejects_all_inputs_before_writing(tmp_path):
+    good = tmp_path / "Code/good.cpp"
+    good.parent.mkdir()
+    good.write_text("int x;")
+    with pytest.raises(ValueError, match="source"):
+        V.compile_sources(["Code/good.cpp", "../outside.cpp"], root=tmp_path)
+    assert not (tmp_path / "build").exists()
+
+
+def test_compile_uses_context_and_requires_current_receipt(tmp_path, monkeypatch):
+    source = tmp_path / "Code/example.cpp"
+    source.parent.mkdir()
+    source.write_text("int x;")
+    monkeypatch.setattr(B, "ROOT", tmp_path)
+    calls = []
+
+    def compile_one(src, out, *, inventory, context):
+        assert src == source and inventory
+        context.validate_output(out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(b"test object")
+        calls.append(out)
+
+    monkeypatch.setattr(B, "compile_source", compile_one)
+    monkeypatch.setattr(B, "compile_is_current", lambda *a, **kw: False)
+    with pytest.raises(ValueError, match="receipt"):
+        V.compile_sources(["Code/example.cpp"], root=tmp_path)
+    assert len(calls) == 1
+    assert not (tmp_path / "build/match").exists()
+
+
+def test_variant_receipt_rejects_reference_command_and_changed_object(tmp_path, monkeypatch):
+    monkeypatch.setattr(B, "ROOT", tmp_path)
+    source = tmp_path / "example.cpp"
+    source.write_text("int answer = 42;")
+    output = tmp_path / "build/modern/objects/example.obj"
+    output.parent.mkdir(parents=True)
+    output.write_bytes(b"original object")
+    context = B.CompilationContext()
+
+    def command(src, out, *, context=None):
+        return ["cl", *(["-DBFME2_MODERN=1"] if context else [])], {}
+
+    monkeypatch.setattr(B, "compiler_command", command)
+    monkeypatch.setattr(B, "_legacy_header_free", lambda *args: True)
+    payload = {"source": B._hash_file(str(source)), "object": B._hash_file(str(output)),
+               "deps": {}, "cmd": B._cmd_fingerprint(*command(source, output, context=context))}
+    B._deps_sidecar(output).write_text(json.dumps(payload))
+    assert B.compile_is_current(source, output, strict=True, context=context)
+    assert not B.compile_is_current(source, output, strict=True)
+    output.write_bytes(b"replaced object with different bytes")
+    assert not B.compile_is_current(source, output, strict=True, context=context)
 
 
 def redirect(link, target):
