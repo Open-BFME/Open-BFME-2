@@ -490,7 +490,6 @@ public:
 class Rva00069AF5Math
 {
 public:
-// ?Rva00069AF5Math::Sqrt present-unmatched
 	static __forceinline float Sqrt(float val)
 	{
 		float retval;

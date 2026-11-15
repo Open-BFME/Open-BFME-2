@@ -50,7 +50,6 @@ class NarrowLock
     unsigned char m_state;
 
 public:
-    // ??0NarrowLock@@QAE@PAVRva00041004@@@Z present-unmatched
     __forceinline NarrowLock(Rva00041004 *lock) : m_lock(lock)
     {
         if (!m_lock->m_flag)

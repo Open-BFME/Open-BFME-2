@@ -21,7 +21,6 @@ typedef unsigned int UnsignedInt;
 // The canonical object contains one pointer. Copy its representation without
 // redefining StringBase::getCharAt; that out-of-line copy has different codegen.
 // Native returns a signed first character from header+8, or zero for null.
-// ?rva00581339FirstChar present-unmatched
 static __forceinline char rva00581339FirstChar(const AsciiString &host) {
     const char *header;
     memcpy(&header, &host, sizeof(header));

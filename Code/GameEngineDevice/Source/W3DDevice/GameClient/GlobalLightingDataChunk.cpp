@@ -116,7 +116,6 @@ class UserParser;
 class ChunkInputStream;
 #include "../../../../GameEngine/Include/Common/DataChunk.h"
 struct DataChunkInfo { char labels[8]; unsigned short version; };
-// ?storeLightingOverbright present-unmatched
 static __forceinline void storeLightingOverbright(bool enabled) { ShaderOverbrightEnabled = enabled; }
 bool __stdcall ReadGlobalLighting_Rva000ACAF7(DataChunkInput &file, DataChunkInfo *info) {
  float x,y,z;

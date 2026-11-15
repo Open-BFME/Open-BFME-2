@@ -11320,7 +11320,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataC
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummary.h	ArmySummary::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummaryCopyBFME2.cpp	ArmySummary::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	Rva00288BF9AllocationLifetime::~Rva00288BF9AllocationLifetime	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	famgenDelete0023DACC@@YAXPAVRva0023D377@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	Rva0035A18DDeleteArray@@YAXPAVRva0035A18D@@@Z	1
@@ -11421,7 +11420,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setPercen
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setSlot@NetDisconnectVoteCommandMsg@@QAEXE@Z	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	setVoteFrame@NetDisconnectVoteCommandMsg@@QAEXI@Z	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandWrapperList.cpp	init@NetCommandWrapperList@@QAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/NetworkUtilResolveIP.cpp	rva00581339FirstChar	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/Rva004D65DCDtor.cpp	1NetCommandMsg@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/V2FeslArrayBlocks.cpp	clear@Rva007F7860Block@@QAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	0Elem4@@QAE@XZ	1
@@ -11432,7 +11430,6 @@ present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtit
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	getSurfaceLevel@W3DRadarResetTexture@@QAE?AVW3DRadarResetSurface@@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	renderObjectList@W3DRadar@@IAEXPBVRadarObject@@PAVTextureClass@@_N@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp	Rva00069AF5Math::Sqrt	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	loadPostProcess@W3DDebrisDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setFullyObscuredByShroud@W3DDebrisDraw@@UAEX_N@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setShadowsEnabled@W3DDebrisDraw@@UAEX_N@Z	1
@@ -11444,7 +11441,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3D
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp	Rva00115DA7::rva00115DA7	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp	W3DGadgetVerticalSliderDraw	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp	the	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp	storeLightingOverbright	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp	getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z	1
@@ -12027,7 +12023,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.c
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteDwordNodeTree::_M_insert	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteWordNodeTree::_M_copy	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteWordNodeTree::_M_insert	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	0NarrowLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	1NarrowLock@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	1WideLock@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	1WideLock@@QAE@XZ	1

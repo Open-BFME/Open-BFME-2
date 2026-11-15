@@ -591,7 +591,6 @@ struct Rva00288BF9AllocationLifetime
 {
     void *allocation;
     unsigned char unknown04[8];
-    // ?Rva00288BF9AllocationLifetime::~Rva00288BF9AllocationLifetime present-unmatched
     __forceinline ~Rva00288BF9AllocationLifetime()
     {
         if (allocation) Rva00030830FreeAllocation(allocation);
