@@ -7,6 +7,8 @@
 // stlport_rb_tree_hint_asciistring_set (no allocation-cleanup catch
 // path); each _Construct is declared only so its call resolves
 // through its own row.
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord002B4DC1.h"
+
 #include "../../../../GameEngine/Include/GameLogic/BfmeFloat4Record00469C61.h"
 
 #include <map>
@@ -25,7 +27,6 @@ struct BfmeStringRecord000B757D { public: unsigned char m_data[20]; };
 struct BfmeStringRecord001EA478 { public: unsigned char m_data[8]; };
 #include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct BfmeStringRecord00239B46 { public: unsigned char m_data[8]; };
-struct BfmeStringRecord002B4DC1 { public: unsigned char m_data[12]; };
 struct BfmeStringRecord00415F34 { public: unsigned char m_data[24]; };
 struct BfmeContainerRecord00462D62 { public: unsigned char m_data[32]; };
 
