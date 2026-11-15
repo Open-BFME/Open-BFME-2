@@ -90,7 +90,7 @@ class State
 {
 public:
 	virtual ~State();
-	virtual void slot01();
+	virtual void slot01() { }
 	virtual void slot02();
 	virtual void xfer(Xfer *xfer);
 	virtual StateReturnType onEnter();
