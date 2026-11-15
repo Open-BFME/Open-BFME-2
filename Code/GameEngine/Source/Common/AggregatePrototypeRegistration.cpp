@@ -9,6 +9,8 @@
 // likewise unknown. Explicit global delete preserves destructor flag0 followed
 // by global deallocation, unlike an ordinary delete expression.
 bool __cdecl Render_Obj_Exists(const char*);
+#include "../../../Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h"
+
 #include <new>
 void __cdecl Add_Prototype(void*);
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
@@ -26,7 +28,6 @@ void __cdecl Rva00180CCBRegister(const char *name,AggregatePayload *payload) {
 }
 
 class BFMEChunkInput;
-class ChunkLoadClass {char buffer[0xC18];public:ChunkLoadClass(BFMEChunkInput*);bool Open_Chunk();unsigned long Cur_Chunk_ID();};
 #include "../../Include/Common/File.h"
 File * __cdecl GetGameFilePart(const char*,int,int);
 class AggregateDefClass {
