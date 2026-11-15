@@ -427,6 +427,11 @@ class Rva0059E08F
 public:
 	Rva0059E08F();
 	virtual void slot0() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
+	virtual void slot0C() = 0;
+	virtual void slot10(int) {}
+	virtual void slot14() = 0;
 };
 
 Rva0059E08F::Rva0059E08F()
