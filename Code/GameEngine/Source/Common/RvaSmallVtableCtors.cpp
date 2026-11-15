@@ -1205,7 +1205,15 @@ class Rva00306A36
 {
 public:
 	Rva00306A36(void *payload);
-	virtual ~Rva00306A36() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() {}
+	virtual void slot18() {}
+	virtual void slot1C() {}
+	virtual void slot20() {}
 private:
 	void *m_04;
 };
