@@ -19,7 +19,7 @@ class Rva003FD14D : public Rva003FD14DBase
 {
 public:
 	Rva003FD14D(int arg);
-	virtual void vfunc();
+	virtual void vfunc(int) { }
 private:
 	char m_pad04[0xA8];
 	char m_ac;
