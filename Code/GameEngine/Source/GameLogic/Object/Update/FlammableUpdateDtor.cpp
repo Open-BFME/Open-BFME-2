@@ -8,6 +8,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #define Matrix4x4 Matrix4  // BFME renamed it
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
 #include "GameLogic/Module/BodyModule.h"
