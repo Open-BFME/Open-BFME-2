@@ -4,14 +4,7 @@
 // Evidence: caller 0x005D5F09 in 0x005D5E8A cleans 0x1C (28B = 4+4+4+12+4);
 // callee rva005D5A7E rowed; imul 0xC needs /G7 (probe: /O1 alone gives lea 92B).
 
-template <typename T>
-class StringBase
-{
-public:
-    int compareNoCase(const StringBase &other) const;
-private:
-    void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../Include/Common/Rva005D5A7EInner.h"
 

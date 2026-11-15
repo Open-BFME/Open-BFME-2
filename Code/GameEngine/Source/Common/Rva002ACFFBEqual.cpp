@@ -5,21 +5,7 @@
 // Same shape as STL equal for 4-byte StringBase elements; caller at 0x002ADD9C checks
 // sizes then delegates. Prev Rva002ACFD6NewNode stlport next SubsystemNameGetters2.
 
-template <typename T>
-class StringBase
-{
-public:
-	int compare(const StringBase<T> &str) const;
-private:
-	struct Header
-	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-	Header *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 bool __cdecl Rva002ACFFBEqual(StringBase<char> *first1, StringBase<char> *last1, StringBase<char> *first2)
 {

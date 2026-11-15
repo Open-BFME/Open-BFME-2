@@ -17,11 +17,7 @@ public:
 	AsciiString *find(AsciiString const &x);
 };
 
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase &other);
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva004FB303Target;
 #include "../../Include/Common/Rva004FB222Owner.h"

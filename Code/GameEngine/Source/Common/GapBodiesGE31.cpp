@@ -392,13 +392,7 @@ GapTriple3 Rva00094AA0::rva00094AB3() const
 // returning this: the string at +0x0C from the source's +8 through the
 // rowed narrow StringBase<char>::set (0x000366F0), then the three words at
 // +0 from the source's +0x0C and the word at +0x10 from its +4.
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase &other);
-private:
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct GapWords3B
 {

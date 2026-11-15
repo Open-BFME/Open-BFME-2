@@ -5,12 +5,7 @@
 // trailing byte. Evidence: caller 0x0037E0EC passes the +0x94 subobject by
 // address; rowed compares 0x00006A7A wide and 0x000069D6 narrow.
 
-template <typename T> class StringBase
-{
-	void *m_data;
-public:
-	int compare(const StringBase &other) const;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva0037E09A
 {

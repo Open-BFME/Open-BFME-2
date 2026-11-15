@@ -6,10 +6,7 @@
 // Helper identity is based on the full 453-byte body at 3BA06E:
 // source-derived slash/token/.map normalization plus BFME2's second output.
 #include <stdlib.h>
-template<class T> class StringBase {
-    T *data;
-public: void set(const T*);
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 class GlobalData {
 public:
     char prefix[0xc];

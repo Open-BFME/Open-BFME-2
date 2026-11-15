@@ -6,15 +6,7 @@
 // compare at 0x000069D6 returning node or null. Evidence: 20 callers;
 // honest Rva container and node plus rowed StringBase compare.
 
-template <typename T>
-class StringBase
-{
-public:
-	int compare(const StringBase<T> &other) const;
-
-private:
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva002D752DNode
 {

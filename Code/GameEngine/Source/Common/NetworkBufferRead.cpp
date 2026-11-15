@@ -5,14 +5,7 @@
 // via concat until null with limit checks, return past null (src/limit on
 // early-out). Evidence: unlock lane; callees set 0x000055F5 concat 0x000369A0
 // rowed; caller at 0x00448461; neighbours share flags.
-template <typename T> class StringBase
-{
-public:
-	void set(const char *s);
-	void concat(const char *s, int len);
-private:
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 // WorldBuilder NetworkBufferRead, WB VA 0x014A89F0 (align lead, score 1.5).
 char *__cdecl NetworkBufferRead(char *src, StringBase<char> *dst, char *limit)

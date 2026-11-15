@@ -5,14 +5,7 @@
 // unblock 7 (3 ready); callee StringBase<char>::compareNoCase rowed at 0x6A00;
 // 12B stride (imul 0xC movsd x3) in callers 0x005D5B21 0x005D5BA3 0x005D5C61.
 
-template <typename T>
-class StringBase
-{
-public:
-    int compareNoCase(const StringBase &other) const;
-private:
-    void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../Include/Common/Rva005D5A7EInner.h"
 

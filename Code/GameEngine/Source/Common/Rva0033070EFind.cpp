@@ -3,10 +3,7 @@
 // ?rva0033070E@Rva0033070E@@QAEPAURva0033070EEntry@@ABV?$StringBase@D@@@Z @0x0033070E 46B
 // Unlock lane: linear find over pointer array at +0x10/+0x14 comparing
 // StringBase at +0x18 via rowed compare 0x000069D6. Caller 0x003BB14B.
-template <class T> class StringBase {
-public:
-	int compare(const StringBase &other) const;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 struct Rva0033070EEntry {
 	char m_pad[0x18];
 	StringBase<char> m_name; // +0x18

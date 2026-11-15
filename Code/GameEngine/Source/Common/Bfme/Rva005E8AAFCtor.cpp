@@ -21,16 +21,7 @@
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-template <typename T>
-class StringBase
-{
-public:
-	StringBase(const StringBase &other);
-	~StringBase();
-
-private:
-	void *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva005E8908
 {

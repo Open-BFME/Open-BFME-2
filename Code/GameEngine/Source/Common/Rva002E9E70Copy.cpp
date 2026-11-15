@@ -9,11 +9,7 @@
 // placeholder sized by the retail accesses; the string member reuses the
 // proven StringBase layout. Returns the new object pointer in eax.
 
-template <class T> class StringBase
-{
-public:
-    void set(const StringBase &other);
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 struct Rva00332217Record;
 namespace _STL {
 template <class T> class allocator;

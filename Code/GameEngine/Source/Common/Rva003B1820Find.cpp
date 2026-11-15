@@ -8,14 +8,7 @@
 // and returns the entry address or null. Shape matches the retail loop with
 // index in esi, base in ebx and imul recompute on hit.
 // Evidence: unlock lane, sole callee rowed, caller 0x00200B20.
-template <typename T>
-class StringBase
-{
-public:
-	int compareNoCase(const StringBase &other) const;
-private:
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva003B1820Entry
 {

@@ -5,12 +5,7 @@
 // plus the +0x94 Rva0037E09A subobject. Evidence: calls rowed compare
 // 0x000069D6 and rowed 0x0037DC8AEqual and just-landed 0x0037E09A.
 
-template <typename T> class StringBase
-{
-	void *m_data;
-public:
-	int compare(const StringBase &other) const;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva0037E09A
 {

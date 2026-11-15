@@ -4,13 +4,7 @@
 // Copy-assign: set three StringBase<wchar> at +0 +4 +8 via pinned 0x00037150
 // then copy dwords at +0xC +0x10 +0x14 +0x18, return *this. Evidence: unlock
 // lane; same set pin as callers; caller 0x00447B73; neighbours share flags.
-template <typename T> class StringBase
-{
-public:
-	void set(const StringBase &other);
-private:
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva004479FD
 {

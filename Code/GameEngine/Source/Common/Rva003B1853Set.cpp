@@ -32,14 +32,7 @@ private:
 };
 }
 
-template <typename T>
-class StringBase
-{
-public:
-	void set(const char *text);
-private:
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva003B1853
 {

@@ -9,11 +9,7 @@
 // The element is a narrow string handle: retail assigns it through the rowed
 // StringBase<char>::set 0x000366F0 (the refcounted Rva0036CA00Str handle's own
 // assignment is OpaqueRefElement4::operator= 0x00239099, see Rva00403055CopyCtor.cpp).
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase<T> &src);
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 #define BFME_STR_SET(dst, src) ((StringBase<char> &)(dst)).set((const StringBase<char> &)(src))
 
 #include "../../Include/Common/Rva0036CA00Str.h"

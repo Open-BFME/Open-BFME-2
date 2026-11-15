@@ -4,10 +4,7 @@
 // optional StringBase filter against the inner pointer list at +8/+0xC via
 // rowed compare 0x000069D6 then copying float at +4 to out. Caller 0x00214795.
 // Evidence unlock lane plus key float string rows.
-template <typename T> class StringBase {
-public: int compare(const StringBase &other) const;
-private: void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 struct Elem004036B1 {
 	void *m_key;
 	float m_val;

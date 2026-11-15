@@ -165,12 +165,7 @@ public:
 	virtual int getChars(T *dest) const = 0;
 };
 
-template <typename T>
-class StringBase
-{
-public:
-	void concat(const CharSource<T> &source);
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class NarrowStrSource0059B0DD : public CharSource<char>
 {

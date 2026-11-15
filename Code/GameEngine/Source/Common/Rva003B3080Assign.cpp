@@ -7,15 +7,7 @@
 // same worker BFME2's AsciiString::operator= wrapper (0x001733) reaches, which
 // mirrors BFME1's operator=-calls-set shape.
 
-template <typename CharType>
-class StringBase
-{
-public:
-	void set(const StringBase<CharType> &other);
-
-private:
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva003B3080
 {

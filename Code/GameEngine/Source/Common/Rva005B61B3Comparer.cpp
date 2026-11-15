@@ -8,14 +8,7 @@
 // (odd keys). Callers are the unclaimed sort helpers around 0x5B6270 and
 // the list-box fill at 0x5B6755; prev is Disp8DwordClearers /O1.
 
-template <typename T>
-class StringBase
-{
-public:
-	int compareNoCase(const StringBase<T> &other) const;
-private:
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva005B61B3Elem
 {

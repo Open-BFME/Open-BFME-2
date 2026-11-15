@@ -7,10 +7,7 @@
 // of arguments consumed. Their command names are not recovered, so they keep
 // address-derived names; the GlobalData offsets are the stores retail makes.
 #include <stdlib.h>
-template<class T> class StringBase {
-    T *data;
-public: void set(const T*);
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

@@ -6,14 +6,7 @@
 // version 1 second string at +8, 2-5 raw block at +0x0C, 6 dword at +0x1C,
 // 7 byte at +0x20. Caller 0x00152F42 proves load shape. Layout mirrors
 // Rva00151288 string plus versioned tail.
-template <typename T>
-class StringBase
-{
-public:
-	char *getBufferForRead(int len);
-private:
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../../Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h"
 
