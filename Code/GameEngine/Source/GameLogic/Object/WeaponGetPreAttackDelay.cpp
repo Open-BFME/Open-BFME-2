@@ -30,24 +30,19 @@ enum WeaponPrefireType
 	PREFIRE_PER_POSITION = 3
 };
 
-enum WeaponBonusField
-{
-	PRE_ATTACK = 4,
-	FIELD_COUNT = 6
-};
+typedef float Real;
 
 class WeaponBonus
 {
 public:
+	enum Field { DAMAGE = 0, RADIUS, RANGE, RATE_OF_FIRE, PRE_ATTACK };
 	WeaponBonus()
 	{
-		for (int i = 0; i < FIELD_COUNT; ++i)
+		for (int i = 0; i < 6; ++i)
 			m_field[i] = 1.0f;
 	}
-	float getField(WeaponBonusField f) const { return m_field[f]; }
-
-private:
-	float m_field[FIELD_COUNT];
+	Real getField(Field field) const { return m_field[field]; }
+	Real m_field[6];
 };
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
@@ -60,7 +55,7 @@ static __forceinline WeaponPrefireType weaponTemplatePrefireType(const WeaponTem
 }
 static __forceinline int weaponTemplatePreAttackDelay(const WeaponTemplate *wt, const WeaponBonus &bonus)
 {
-	return (int)(wt->m_preAttackDelay * bonus.getField(PRE_ATTACK));
+	return (int)(wt->m_preAttackDelay * bonus.getField(WeaponBonus::PRE_ATTACK));
 }
 
 #include "../../../Include/GameLogic/Weapon.h"
