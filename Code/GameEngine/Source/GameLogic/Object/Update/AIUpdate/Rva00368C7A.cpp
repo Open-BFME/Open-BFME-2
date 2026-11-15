@@ -7,7 +7,7 @@
 
 extern unsigned char g_00E01EC0[4];
 extern unsigned char g_00E01EC4[4];
-// Owned here (no retail bytes claimed: present-unmatched, unpinned): passed
+// Owned here (no retail bytes claimed, unpinned): passed
 // to rva003681F2 below. Retail BSS starts it at 0.
 unsigned char g_00E01EC0[4] = { 0, 0, 0, 0 };
 // Sibling scratch arrays for rva003681F2 (rowed below with verified addresses).

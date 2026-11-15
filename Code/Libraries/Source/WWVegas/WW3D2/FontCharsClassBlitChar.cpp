@@ -2,7 +2,7 @@
 //
 // FontCharsClass::Blit_Char, retail 0x001587C0 (215 bytes).
 // Dedicated TU (render2dsentence.cpp keeps the ZH simple-copy Blit as an
-// orphan per the boxrobj precedent; that file has 30 present-unmatched
+// orphan per the boxrobj precedent; that file has 30 unmatched
 // markers and must not be disturbed).
 //
 // Source is the BFME1 FontCharsClass_Blit_Char_BFME.cpp nibble-expansion

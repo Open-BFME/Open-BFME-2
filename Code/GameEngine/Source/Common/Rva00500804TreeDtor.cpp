@@ -9,7 +9,7 @@
 // ??1Rva005011BC@@QAE@XZ @0x005011BC 5B: holder whose offset-0 member is that
 // tree; its empty destructor tail-jumps to the member destructor. No REL32
 // caller found.
-// ??1Rva00500804Header@@QAE@XZ present-unmatched (inline base dtor emitted for EH unwind)
+// ??1Rva00500804Header@@QAE@XZ (inline base dtor emitted for EH unwind)
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

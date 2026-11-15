@@ -130,7 +130,6 @@ __declspec(dllimport) __forceinline void DX8Wrapper::Set_Shader(const ShaderClas
 	SNAPSHOT_SAY(("DX8Wrapper::Set_Shader(%s)\n",shader.Get_Description(str)));
 }
 
-// ?Set_Material@DX8Wrapper@@SAXPBVVertexMaterialClass@@@Z present-unmatched
 // Retained for its verified inline expansion in Render; no separate body claim.
 __declspec(dllimport) __forceinline void DX8Wrapper::Set_Material(const VertexMaterialClass* material)
 {
@@ -139,7 +138,6 @@ __declspec(dllimport) __forceinline void DX8Wrapper::Set_Material(const VertexMa
 	SNAPSHOT_SAY(("DX8Wrapper::Set_Material(%s)\n",material ? material->Get_Name() : "NULL"));
 }
 
-// ?Set_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@ABVMatrix3D@@@Z present-unmatched
 // Retained for its verified inline expansion in Render; no separate body claim.
 __declspec(dllimport) __forceinline void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m)
 {

@@ -4,7 +4,7 @@
 // The BFME2 Render2DClass constructor, retail 0x0011C0F0 (202 bytes). The class
 // and its flags come from the already-landed
 // Code/Libraries/Source/WWVegas/WW3D2/Render2DClassConstructor.cpp, whose
-// Render2DClass body is still present-unmatched -- this is that body.
+// Render2DClass body is still unmatched -- this is that body.
 //
 // Retail's store sequence fixes the BFME2 layout, which differs from the
 // reference header's: BFME2 dropped the W3D virtual glue, so this class has no

@@ -103,7 +103,6 @@ struct CtorCoord : ICoord2D
 // W3DGadgetVerticalSliderDraw ================================================
 /** Draw colored vertical slider using standard graphics */
 //=============================================================================
-// ?W3DGadgetVerticalSliderDraw present-unmatched
 // (identical-code folded into W3DGadgetHorizontalSliderDraw, 0x000A166A)
 void W3DGadgetVerticalSliderDraw( GameWindow *window, 
 																	WinInstanceData *instData )

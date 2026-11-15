@@ -10654,7 +10654,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp	f2@Rva004
 present_unmatched	Code/GameEngine/Source/Common/Rva004F6352Swap.cpp	1Rva004F6352@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva004F6352Swap.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva004F9378Dtor.cpp	1Rva004F9378Base@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00500804TreeDtor.cpp	1Rva00500804Header@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00517345Ctor.cpp	rva00517345slot@Rva00517345@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00542425Skip.cpp	Rva00542425Caller@@YAPADPAD@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005562DDClear.cpp	Rva005562DDHeaderOwner::~Rva005562DDHeaderOwner	1
@@ -11042,7 +11041,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerA
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getBoredRange@DozerAIUpdate@@UBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getBoredTime@DozerAIUpdate@@UBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getRepairHealthPerSecond@DozerAIUpdate@@UBEMXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368C7A.cpp	claimed:	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	cancelTask@WorkerAIUpdate@@UAEXW4DozerTask@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	createBridgeScaffolding@WorkerAIUpdate@@UAEXPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	exitingSupplyTruckState@WorkerAIUpdate@@UAEXXZ	1
@@ -11301,7 +11299,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Dra
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp	BfmeParticleSystemHandle::operator->	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	loadPostProcess@W3DRopeDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp	Rva00115DA7::rva00115DA7	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp	W3DGadgetVerticalSliderDraw	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp	getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp	W3DBridge::getModelVertices	1
@@ -11405,19 +11402,15 @@ present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	0Gen0080A
 present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	0Rva00666E10@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	0Rva00672460@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/Fesl/blobservice.cpp	0Rva0065D1D0@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/Fesl/blobservice.cpp	marked	1
 present_unmatched	Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp	Image::SetNativeImage	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperSetDX8States.cpp	bfmeEmitDX8WrapperSetDX8States@@YAXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva0018C262::begin	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva0018C262::end	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva005E59FCKeyIterator::operator++	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassBlitChar.cpp	30	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Get_Weight	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Peek_Motion	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Peek_Pivot_Weight_Map	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Set_Weight	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	Set_Material@DX8Wrapper@@SAXPBVVertexMaterialClass@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	Set_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@ABVMatrix3D@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassCtor.cpp	0TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassDtor.cpp	1TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructAssignmentBFME.cpp	bfmeEmitPendingSurfaceStructAssignmentBFME@@YAXPAUPendingSurfaceStruct@Render2DSentenceClass@@@Z	1
@@ -11426,8 +11419,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildTexturesBFME2.cpp	FontTextureOwnerLifetime	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RenderObjAccessors.cpp	bfmeEmitRenderObjAccessors@@YAXPAVRenderObjClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp	_bfmeRva001171B0Anchor	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp	is	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva0011C0F0Finish.cpp	still	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva0012CB67AssetReader.cpp	Q1ReceiverLocalSet::Q1ReceiverLocalSet	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva0012CB67AssetReader.cpp	Q1ReceiverLocalSet::~Q1ReceiverLocalSet	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva00167EFieldUpdates.cpp	Rva00167EWords::operator=	1
@@ -11846,11 +11837,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp	bfmeE
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/registry.cpp	Set_Float@RegistryClass@@QAEXPBDM@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/rva002C5761_sort.cpp	$sort@PAHP6A_NHH@Z@_STL@@YAXPAH0P6A_NHH@Z@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod216.cpp	bfmeEmitPod216Construct@@YAXPAVCreateAHeroSubClass@CreateAHeroManager@@ABV12@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_copy_buildlistinfo.cpp	$_IsOKToMemCpy@VBuildListInfo@@V1@@_STL@@YA?AU?$_OKToMemCpy@VBuildListInfo@@V1@@0@PAVBuildListInfo@@0@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_copy_buildlistinfo.cpp	$__copy_aux@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00U__true_type@0@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_copy_buildlistinfo.cpp	$__copy_ptrs@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00U__false_type@0@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_copy_buildlistinfo.cpp	_Ret@?$_BothPtrType@PAVBuildListInfo@@PAV1@@_STL@@SA?AU__true_type@2@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_copy_buildlistinfo.cpp	_Ret@?$_OKToMemCpy@VBuildListInfo@@V1@@_STL@@SA?AU__false_type@2@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp	1Rva0036CA00Str@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp	RankTree::_M_clone_node	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp	_Rb_tree_base::~_Rb_tree_base	1

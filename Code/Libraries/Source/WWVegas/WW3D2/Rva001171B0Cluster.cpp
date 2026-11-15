@@ -3,7 +3,7 @@
 // ?_Invalidate_Textures@WW3D@@SAXXZ retail 0x001171B0, 199 bytes.
 //
 // BFME2 version of WW3D::_Invalidate_Textures (the ZH HashTemplateIterator
-// body is present-unmatched in ww3d.cpp). Retail instead takes the DX8 device
+// body is unmatched in ww3d.cpp). Retail instead takes the DX8 device
 // lock (0x0011F520 / 0x00120F50), selects the 'TEX' asset stream through
 // bfmeBeginResourceEnumeration 0x0061F110, and loops on the counted
 // AssetReference returned by 0x0061F310, invalidating each texture through

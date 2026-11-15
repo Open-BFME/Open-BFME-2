@@ -20,9 +20,4 @@
 
 #include "../../../../GameEngine/Include/GameLogic/Bfme2BuildListInfo.h"
 
-// ??$__copy_ptrs@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00U__false_type@0@@Z present-unmatched
-// ??$__copy_aux@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00U__true_type@0@@Z present-unmatched
-// ?_Ret@?$_BothPtrType@PAVBuildListInfo@@PAV1@@_STL@@SA?AU__true_type@2@XZ present-unmatched
-// ?_Ret@?$_OKToMemCpy@VBuildListInfo@@V1@@_STL@@SA?AU__false_type@2@XZ present-unmatched
-// ??$_IsOKToMemCpy@VBuildListInfo@@V1@@_STL@@YA?AU?$_OKToMemCpy@VBuildListInfo@@V1@@0@PAVBuildListInfo@@0@Z present-unmatched
 template BuildListInfo *_STL::copy<BuildListInfo *, BuildListInfo *>(BuildListInfo *, BuildListInfo *, BuildListInfo *);
