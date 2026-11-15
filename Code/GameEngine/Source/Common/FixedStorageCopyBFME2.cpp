@@ -21,6 +21,21 @@ struct Rva0033A7DCElement {
 };
 Rva0033A7DCElement::Rva0033A7DCElement(const Rva0033A7DCElement &other) { memcpy(this, &other, sizeof(*this)); }
 
+// LargeGroupAudioUpdate::getDisabledTypesToProcess (0x004AB9D5) calls
+// 0x002CF0F0 to copy DISABLEDMASK_ALL (BitFlags<11>, 4 bytes) into its return
+// slot; retail ICF-folded that BitFlags<11> copy constructor with 0x002CF0F0.
+template <int N>
+class BitFlags
+{
+public:
+    __declspec(nothrow) BitFlags(const BitFlags &);
+private:
+    unsigned int m_bits[(N + 31) / 32];
+};
+template <int N>
+BitFlags<N>::BitFlags(const BitFlags &other) { memcpy(this, &other, sizeof(*this)); }
+template BitFlags<11>::BitFlags(const BitFlags &);
+
 // BF1 9cb donors unchanged through current f989 Rva007F90B0.cpp and the one-byte ByteAC copy in
 // Gen_t_00776240CopyConstructor.cpp expose these primitive copy leads.
 // Target222695..2226A2 and56DE10..56DE1F are independently full RET4

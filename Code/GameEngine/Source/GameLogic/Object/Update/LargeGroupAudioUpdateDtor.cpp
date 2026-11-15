@@ -35,12 +35,26 @@ private:
 	char m_pad08[12];
 };
 
+template <int numBits>
+class BitFlags
+{
+public:
+	BitFlags(const BitFlags &);
+
+private:
+	unsigned long m_bits[(numBits + 31) / 32];
+};
+
+typedef BitFlags<11> DisabledMaskType;
+extern DisabledMaskType DISABLEDMASK_ALL;
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class LargeGroupAudioUpdate_B20
 {
 public:
-	virtual void f20();
+	virtual void rva004ABA71() = 0;
+	virtual void rva004ABA79() = 0;
 };
 
 class LargeGroupAudioUpdate_B24
@@ -58,21 +72,49 @@ public:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@LargeGroupAudioUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onObjectCreated();
+	virtual void onDelete();
 protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
 public:
 	// BehaviorModuleInterface table 0x00C54900 (+0x0C) slot 36: retail 0x004543A9, the +0x0C
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot36();
+	virtual void rva004ABA71();
+	virtual void rva004ABA79();
+	void rva004AB9A2();
 };
 
 void *LargeGroupAudioUpdate::slot36()
 {
 	return static_cast<LargeGroupAudioUpdate_B20 *>(this);
+}
+
+void LargeGroupAudioUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
+
+const char *LargeGroupAudioUpdate::GetSnapshotName() const
+{
+	return "LargeGroupAudioUpdate";
+}
+
+void LargeGroupAudioUpdate::onDelete()
+{
+	rva004AB9A2();
+}
+
+DisabledMaskType LargeGroupAudioUpdate::getDisabledTypesToProcess() const
+{
+	return DISABLEDMASK_ALL;
 }
 
 LargeGroupAudioUpdate::~LargeGroupAudioUpdate()
@@ -82,5 +124,4 @@ LargeGroupAudioUpdate::~LargeGroupAudioUpdate()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f20@LargeGroupAudioUpdate_B20@@UAEXXZ=?rva004ABA71@LargeGroupAudioUpdate@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?f24@LargeGroupAudioUpdate_B24@@UAEXXZ=__purecall")

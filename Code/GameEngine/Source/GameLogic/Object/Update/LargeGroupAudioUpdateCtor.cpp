@@ -19,18 +19,7 @@ extern "C" const void *const __identifier("??_7?$CategoryModuleClass@$04@FXParti
 extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate_B24@@6B@")[];  // vftable 0x00BFB698
 extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BLargeGroupAudioUpdate_B24@@@")[];  // vftable 0x00C548B8
 extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BLargeGroupAudioUpdate_B20@@@")[];  // vftable 0x00C548E8
-// The retail table at RVA 0x008548F0: 3 slots, each a rowed code owner (the next
-// word is not a code address or starts another ledger datum).
-extern "C" {
-void __identifier("?update@LargeGroupAudioUpdate@@UAE?AW4UpdateSleepTime@@XZ")();
-void __identifier("?getDisabledTypesToProcess@Rva004AB9D5@@QAE?AVBfmeFixedStorage002CF0F0@@XZ")();
-void __identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z")();
-}
-extern "C" const void *const vtbl_00C548F0[3] = {
-	(const void *)&__identifier("?update@LargeGroupAudioUpdate@@UAE?AW4UpdateSleepTime@@XZ"), // slot 0 0x004ABB4B
-	(const void *)&__identifier("?getDisabledTypesToProcess@Rva004AB9D5@@QAE?AVBfmeFixedStorage002CF0F0@@XZ"), // slot 1 0x004AB9D5
-	(const void *)&__identifier("?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z"), // slot 2 0x0044DF8D
-};
+extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BUpdateModule@@@")[];  // vftable 0x00C548F0
 extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C54900
 extern "C" const void *const __identifier("??_7LargeGroupAudioUpdate@@6BObjectModule@@@")[];  // vftable 0x00C549BC
 
@@ -104,7 +93,7 @@ LargeGroupAudioUpdate::LargeGroupAudioUpdate(Thing *thing, const ModuleData *mod
 	int *sec0C = (int *)&m_secondary0C;
 	*sec0C = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BBehaviorModuleInterface@@@"));
 	int *sec10 = (int *)&m_secondary10;
-	*sec10 = (int)((unsigned int)vtbl_00C548F0);
+	*sec10 = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BUpdateModule@@@"));
 	int *slot20 = (int *)&m_secondary20;
 	*slot20 = (int)((unsigned int)__identifier("??_7LargeGroupAudioUpdate@@6BLargeGroupAudioUpdate_B20@@@"));
 	int *slot24 = (int *)&m_secondary24;
