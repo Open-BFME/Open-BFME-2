@@ -1608,7 +1608,10 @@ class Rva000F5B56
 {
 public:
 	Rva000F5B56();
-	virtual ~Rva000F5B56() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual int slot0C() { return 1; }
 };
 
 Rva000F5B56::Rva000F5B56()
