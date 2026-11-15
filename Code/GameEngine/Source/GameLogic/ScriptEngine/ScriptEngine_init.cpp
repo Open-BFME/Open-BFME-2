@@ -21,6 +21,8 @@
 //   * the template tables are filled by the three out-of-line helpers.
 // GlobalData field names follow ZH; their offsets are target-derived.
 
+#include "../../../Include/GameLogic/ScriptEngine.h"
+
 #include <windows.h>
 
 #include "../../../Include/Common/GlobalData.h"
@@ -105,30 +107,6 @@ void rva00203C21();
 extern int st_DebugDLL;
 #define TheDebugDLL (*(HMODULE *)&st_DebugDLL)
 
-class ScriptEngine
-{
-public:
-	virtual ~ScriptEngine();
-	virtual void init();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void reset();
-
-	void initActionTemplates();
-	void initConditionTemplates();
-	void initTemplateNameKeys();
-
-private:
-	char   m_pre[0x1A4E0 - 8];
-	double m_numFrames;        // +0x1A4E0
-	double m_totalUpdateTime;  // +0x1A4E8
-	double m_maxUpdateTime;    // +0x1A4F0
-};
 
 // TheScriptEngine (VA 0x00DFE16C) is defined in ScriptEngine_setSequentialTimer.cpp.
 extern ScriptEngine *TheScriptEngine;
