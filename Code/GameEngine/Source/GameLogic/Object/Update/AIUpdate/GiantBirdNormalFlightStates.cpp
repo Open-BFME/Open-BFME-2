@@ -216,6 +216,7 @@ protected:
 	Bool m_bfme21; // +0x21
 };
 
+class Xfer;
 class GiantBirdAttackMoveToState : public GiantBirdNormalFlightState
 {
 public:
@@ -225,6 +226,8 @@ private:
 	Int m_commandSource; // +0x24
 	StateMachine *m_attackMachine; // +0x28
 	Int m_retryCount; // +0x2C
+protected:
+	virtual void xfer(class Xfer *);
 };
 
 StateReturnType GiantBirdNormalFlightState::onEnter()

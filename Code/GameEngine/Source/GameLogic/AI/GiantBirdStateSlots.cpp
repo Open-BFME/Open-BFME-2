@@ -147,6 +147,8 @@ void GiantBirdNormalFlightState::onExit(StateExitType status)
 		const_cast<Rva0028AC4EEntry *>(owner->rva0028AC4E())->m_bfme2C = -1.0f;
 }
 
+class Xfer;
+enum StateReturnType;
 class GiantBirdAttackMoveToState : public GiantBirdNormalFlightState
 {
 public:
@@ -154,6 +156,10 @@ public:
 private:
 	unsigned char m_pad20[0x28 - 0x20];
 	StateMachine *m_attackMachine; // +0x28
+protected:
+	virtual void xfer(class Xfer *);
+public:
+	virtual enum StateReturnType update();
 };
 
 void GiantBirdAttackMoveToState::onExit(StateExitType status)

@@ -48,6 +48,7 @@ private:
 	bool m_20;
 };
 
+enum StateReturnType;
 class GiantBirdAttackMoveToState : public Rva0055CA8A
 {
 protected:
@@ -56,6 +57,8 @@ private:
 	int m_24;
 	Snapshot *m_28;
 	int m_2C;
+public:
+	virtual enum StateReturnType update();
 };
 
 void XferCommandSourceType(Xfer *xfer, int *value);

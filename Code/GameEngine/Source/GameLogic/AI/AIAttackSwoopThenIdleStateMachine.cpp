@@ -125,6 +125,8 @@ struct Rva0036890EObject { unsigned char m_pad000[0x258]; Rva0036890EAI *m_ai; }
 
 struct Rva0036890EMachine { void *m_vtable; Rva0036890EState *m_currentState; unsigned char m_pad08[0x14 - 0x08]; Rva0036890EObject *m_owner; };
 
+class Xfer;
+enum StateReturnType;
 class GiantBirdAttackMoveToState : public State
 {
 public:
@@ -135,6 +137,10 @@ private:
 	int m_24;
 	Rva0036783FMember *m_28;
 	int m_2C;
+protected:
+	virtual void xfer(class Xfer *);
+public:
+	virtual enum StateReturnType update();
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp
