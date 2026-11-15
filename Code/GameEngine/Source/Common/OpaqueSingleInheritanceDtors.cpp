@@ -171,7 +171,7 @@ public:
 class MiBase3_62AF7
 {
 public:
-	virtual void f3();
+	virtual void f3(int) { }
 };
 
 class W3DTerrainLogic : public Rva0028418A, public MiBase1_62AF7, public MiBase2_62AF7, public MiBase3_62AF7
