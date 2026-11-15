@@ -240,7 +240,7 @@ class Rva002CD4A6
 public:
 	Rva002CD4A6();
 private:
-	unsigned char m_bytes[0x180];
+	unsigned char m_pad00[0x180];
 };
 
 class WeaponStore
