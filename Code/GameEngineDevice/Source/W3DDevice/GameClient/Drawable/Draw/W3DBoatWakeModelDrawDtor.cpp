@@ -36,6 +36,8 @@ void Rva00082C88Host::rva00082C88(int key)
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 
+enum NameKeyType;
+struct AEXPBVMatrix3D;
 class W3DBoatWakeModelDraw : public DrawModule
 {
 public:
@@ -46,6 +48,10 @@ private:
 	bool m_flag10;
 	RefCountClass *m_14;
 	Rva00082C88Host *m_18;
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void doDrawModule(const class Matrix3D *);
 };
 
 W3DBoatWakeModelDraw::~W3DBoatWakeModelDraw()

@@ -48,7 +48,14 @@ void W3DSailModelDraw_Delete(W3DSailModelDraw *w3DSailModelDraw) { delete w3DSai
 
 // ??_GW3DBoatWakeModelDraw@@UAEPAXI@Z @0x000D0D08 28B: slot 0 of vtable 0x00BCDD70; calls ??1 at 0x000D0B69.
 // Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x000D0C93 uses class-name string "W3DBoatWakeModelDraw".
-class W3DBoatWakeModelDraw : public DrawModule { public: W3DBoatWakeModelDraw(struct EmitVtableTag *); virtual ~W3DBoatWakeModelDraw(); };
+enum NameKeyType;
+struct AEXPBVMatrix3D;
+class W3DBoatWakeModelDraw : public DrawModule { public: W3DBoatWakeModelDraw(struct EmitVtableTag *); virtual ~W3DBoatWakeModelDraw();
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void doDrawModule(const class Matrix3D *);
+};
 // ?<W3DBoatWakeModelDraw::W3DBoatWakeModelDraw> absent-from-retail
 inline W3DBoatWakeModelDraw::W3DBoatWakeModelDraw(struct EmitVtableTag *) : DrawModule(0, 0) {}
 void W3DBoatWakeModelDraw_Delete(W3DBoatWakeModelDraw *w3DBoatWakeModelDraw) { w3DBoatWakeModelDraw->W3DBoatWakeModelDraw::W3DBoatWakeModelDraw(0); delete w3DBoatWakeModelDraw; }
