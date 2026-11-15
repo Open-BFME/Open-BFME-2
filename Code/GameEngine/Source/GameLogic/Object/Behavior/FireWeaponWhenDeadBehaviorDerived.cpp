@@ -244,6 +244,7 @@ AttributeModifierUpgrade::~AttributeModifierUpgrade()
 {
 }
 
+enum NameKeyType;
 class CommandPointsUpgrade : public UpgradeModule
 {
 public:
@@ -251,6 +252,8 @@ public:
 protected:
 	virtual void upgradeRemovalImplementation();						// UpgradeMux slot 8 (0x004B86DA)
 	virtual void upgradeImplementation();							// UpgradeMux slot 10 (0x004B86AE)
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
 };
 
 CommandPointsUpgrade::~CommandPointsUpgrade()
