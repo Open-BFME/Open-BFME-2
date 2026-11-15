@@ -13,6 +13,18 @@
 
 #include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
+// The deleting destructor 0x004A10FD calls 0x0049B47C, which only restores
+// Snapshot's table 0x00BBB554: ModuleData's and DestroyDieModuleData's
+// destructors are trivial inlines (as CreateCrateDieModuleDataDtor.cpp
+// declares them), so the implicit destructor reduces to Snapshot's.
+inline ModuleData::~ModuleData()
+{
+}
+
+inline DestroyDieModuleData::~DestroyDieModuleData()
+{
+}
+
 class FXListDieModuleData : public DestroyDieModuleData
 {
 public:
