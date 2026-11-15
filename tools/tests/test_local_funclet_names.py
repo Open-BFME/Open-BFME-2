@@ -16,6 +16,7 @@ import ledger_io
 
 HEADER = check_csv.FUNCTIONS_HEADER
 NOTES = "gen-funclet;parent=?parent@@YAXXZ"
+FUNCLET_EH_LOCATIONS = build.funclet_eh_locations.__wrapped__
 
 
 def row(source="Code/a.cpp", name="$L1893", notes=NOTES):
@@ -356,3 +357,72 @@ def test_cross_source_parent_never_uses_hint_or_unshared_definition(renamed_func
     with pytest.raises(SystemExit,match="exact parent EH|local COFF label"):
         build.read_funclet(item,"$L310",output,target)
     if bad!="external_funclet":assert state.reads==[]
+
+
+def stringrecord_parent_twins(renamed_funclet, monkeypatch, item_notes):
+    """Identical parent code at two retail addresses has different EH placement."""
+    import eh_verify
+    item, output, target, state, _ = renamed_funclet
+    symbol = "??1BfmeStringRecord000B94D2@@QAE@XZ"
+    alias = "??1Rva005796FC@@QAE@XZ"
+    item.update(name="Unwind@00b9ba9e", target_rva="0x0079BA9E", notes=item_notes)
+    path = build.ROOT / "reverse/functions.csv"
+    with path.open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=HEADER.split(","), lineterminator="\n")
+        writer.writeheader()
+        writer.writerow(dict(name=symbol, source="Code/Other.cpp", target_rva="0x000B6CF1",
+                             target_size="53", status="matched", notes=""))
+        writer.writerow(dict(name=alias, source=item["source"], target_rva="0x005796FC",
+                             target_size="53", status="matched", notes="object-symbol=" + symbol))
+        writer.writerow(item)
+    sections = [{"characteristics": 0x60101020}]
+    symbols = [dict(name=symbol, storage=2, section=1),
+               dict(name="$L77", storage=3, section=1)]
+    monkeypatch.setattr(build, "_object_layout", lambda *a: (b"", sections, symbols))
+    monkeypatch.setattr(build, "funclet_eh_locations", FUNCLET_EH_LOCATIONS)
+    monkeypatch.setattr(build, "funclet_eh_object", lambda *a: SimpleNamespace(by_name={symbol: 1}))
+    monkeypatch.setattr(build, "funclet_retail_image", lambda: object())
+    monkeypatch.setattr(build, "funclet_parent_symbol_map", lambda *a: {})
+    state.parents = []
+    state.graphs = []
+
+    def parent_bytes(parent, *a):
+        state.parents.append(parent["name"])
+        return dict(bytes=b"same parent", target=b"same parent", masked=False, unresolved=[])
+
+    def locations(image, obj, parent_symbol, rva):
+        state.graphs.append((parent_symbol, rva))
+        return {"$L77": 0x79BA9E if rva == 0x5796FC else 0x761589}
+
+    monkeypatch.setattr(build, "compile_function", parent_bytes)
+    monkeypatch.setattr(eh_verify, "verified_funclet_locations", locations)
+    return item, output, target, state, symbol, alias
+
+
+def test_byte_identical_parent_at_other_address_cannot_prove_funclet_location(
+        renamed_funclet, monkeypatch):
+    notes = "gen-funclet;parent=??1BfmeStringRecord000B94D2@@QAE@XZ;object-symbol=$L5396"
+    item, output, target, state, symbol, _ = stringrecord_parent_twins(
+        renamed_funclet, monkeypatch, notes)
+    with pytest.raises(SystemExit, match="exact parent EH"):
+        build.read_funclet(item, "$L5396", output, target)
+    assert state.parents == [symbol]
+    assert state.graphs == [(symbol, 0xB6CF1)]
+    assert state.reads == []
+
+
+def test_existing_stringrecord_funclet_keeps_exact_aliased_parent_eh_address(
+        renamed_funclet, monkeypatch):
+    # Read only this existing row from the real ledger; its exact placement is
+    # different from the other destructor whose machine code is identical.
+    source_ledger = Path(__file__).resolve().parents[2] / "reverse/functions.csv"
+    with source_ledger.open(newline="", encoding="utf-8") as f:
+        header = next(f)
+        line = next(line for line in f if line.startswith("Unwind@00b9ba9e,"))
+    actual = next(csv.DictReader(io.StringIO(header + line)))
+    item, output, target, state, symbol, alias = stringrecord_parent_twins(
+        renamed_funclet, monkeypatch, actual["notes"])
+    body, relocs, note = build.read_funclet(item, "$L5396", output, target)
+    assert body == target and relocs == [] and "$L77" in note
+    assert state.parents == [alias]
+    assert state.graphs == [(symbol, 0x5796FC)]
