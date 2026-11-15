@@ -3189,7 +3189,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/MatPassTaskPoolAllocateObjectM
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoCopyCtor.cpp	??0BfmeCreated_0035B680@@QAE@PAVGen_0035B680@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapMesh.cpp	?Get_Single_Texture@MeshMatDescClass@@QBE?AVBfmeHandleCX@@HH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapMesh.cpp	?Get_Texture@MeshMatDescClass@@QBE?AVBfmeHandleCX@@HHH@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescInstallUVArray.cpp	?g_007CE338@@3QBQBXB	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureHandles.cpp	?bfmeGet@Gen_009299D0@@QBE?AVBfmeHandleCX@@HHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureSetters.cpp	?Set_Single_Texture@MeshMatDescClass@@QAEXABVBfmeHandleCX@@HH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureSetters.cpp	?Set_Texture@MeshMatDescClass@@QAEXHABVBfmeHandleCX@@HH@Z	1

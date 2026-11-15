@@ -53,14 +53,12 @@ private:
 };
 
 // upstream layout: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.h
-extern const void *const g_007CE338[];
-class __declspec(novtable) UVBufferClass : public ShareBufferClass<Vector2>
+class UVBufferClass : public ShareBufferClass<Vector2>
 {
 public:
 	// Keep the inlined construction here; MatInfoUVBufferO1Inlines owns the retail body.
 	__declspec(dllimport) __forceinline UVBufferClass(int count, const char *msg) : ShareBufferClass<Vector2>(count, msg)
 	{
-		*(const void **)this = g_007CE338;
 		CRC = 0xFFFFFFFF;
 	}
 	virtual ~UVBufferClass();
@@ -115,7 +113,3 @@ void MeshMatDescClass::Install_UV_Array(int pass, int stage, Vector2 *uvs, int c
 		}
 	}
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_007CE338@@3QBQBXB=??_7UVBufferClass@@6B@")
