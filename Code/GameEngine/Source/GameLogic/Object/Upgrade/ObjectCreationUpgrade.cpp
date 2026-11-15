@@ -74,6 +74,7 @@ enum UpdateSleepTime
 };
 class ObjectCreationUpgradeModuleData;
 class ModuleData;
+struct UpgradeMaskType;
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
@@ -92,6 +93,12 @@ private:
 	unsigned int m_status28; // +0x28
 	bool m_flag2C; // +0x2C
 	char m_pad2D[0x3];
+protected:
+	virtual void upgradeImplementation();
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
+protected:
+	virtual void performUpgradeFX();
 };
 //
 // Ported from Open-BFME-1 GameEngine/Source/GameLogic/AI/Rva002D6EB0ForwardedMember.cpp

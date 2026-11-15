@@ -26,6 +26,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
 
 
+struct UpgradeMaskType;
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
@@ -38,6 +39,12 @@ protected:
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+protected:
+	virtual void upgradeImplementation();
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
+protected:
+	virtual void performUpgradeFX();
 };
 
 // ??1ObjectCreationUpgrade@@MAE@XZ @0x004B3F90
