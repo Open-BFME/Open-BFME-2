@@ -2496,7 +2496,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonConta
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f20@Iface20@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f28@Iface28@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f30@Iface30@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f34@Iface34@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCtor.cpp	?f10@Iface10@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCtor.cpp	?f24@Iface24@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCtor.cpp	?f28@Iface28@@UAEXXZ	1
@@ -2807,7 +2806,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva007F9C50Dtor.cpp	?v8@Rva007F
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007FA990Ctor.cpp	?v0@Rva007FA990@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007FA990Ctor.cpp	?v0@Rva007FA990Base0@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva007FA990Ctor.cpp	?v4@Rva007FA990@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	?v0@Rva00800920Primary@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	?v0@Rva00800920Sec@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801BD0FeslAlloc.cpp	?allocate@Rva00802040Arr@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslFill.cpp	?bfmeHitZP@BfmeSlotZP@@QAEXPAVBfmeKeyZP@@@Z	1
@@ -3199,12 +3197,8 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp	_bfmeFreeBYX@4	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp	_bfmeVftYX	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/GenBase009EB7D0Ctor.cpp	_GenBase009EB7D0_vtbl	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot00@Rva009EB810TailBase@@UAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot04@Rva009EB810TailBase@@UAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot0C@Rva009EB810TailBase@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot10@Rva009EB810TailBase@@UAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot14@Rva009EB810TailBase@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot18@Rva009EB810TailBase@@UAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot1C@Rva009EB810TailBase@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	?slot20@Rva009EB810TailBase@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/GetHTree.cpp	?Release_Ref@HierarchyPrototype@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/GetHTree.cpp	?Rva0061F230_GetPrototype@@YA?AVHierarchyPrototypeRef@@PBD@Z	1

@@ -140,4 +140,3 @@ HordeGarrisonContain::HordeGarrisonContain(Thing *thing, const ModuleData *modul
 #pragma comment(linker, "/alternatename:?f20@Iface20@@UAEXXZ=?rva0046261B@SlaughterHordeContain@@UAEX_N@Z")
 #pragma comment(linker, "/alternatename:?f28@Iface28@@UAEXXZ=?rva00479CF6@Rva00479CF6@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?f30@Iface30@@UAEXXZ=?isExitBusy@HordeGarrisonContain@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?f34@Iface34@@UAEXXZ=??1Region2D@@QAE@XZ")
