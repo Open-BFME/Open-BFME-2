@@ -405,7 +405,7 @@ def fetch_index(url=INDEX_URL, objects=True):
 
 
 FETCH_RECEIPT = "fetch-receipt.json"
-RECEIPT_VERSION = 2
+RECEIPT_VERSION = 3
 REPLAY_PARALLEL_MIN = 256      # entries below which the replay runs in this process
 
 
@@ -442,8 +442,10 @@ def objects_unchanged(index_sha):
     receipt (fetch_objects) must name that index, and the import is replayed against the tree as it stands
     (build._import_candidate, as import_objects decides): every entry it would take now must be one it took, under
     the store fingerprint this host's command gives it now, with the object's bytes (md5) and its sidecar's
-    (sha256) still in the store (which prunes and can be damaged). Objects only spare compiles, so this never
-    changes a verdict."""
+    (sha256) still in the store (which prunes and can be damaged). The receipt must also name the bundle published
+    now (bundle_identity: the index and the bundle are separate assets, so a fetch during a publication can pair
+    a new index with the old bundle). A receipt that is not what an import writes, or an entry the replay cannot
+    read, imports again. Objects only spare compiles, so this never changes a verdict."""
     path = fetch_receipt_path()
     if path is None:
         return "no object store"
@@ -456,9 +458,25 @@ def objects_unchanged(index_sha):
     if receipt.get("index") != index_sha:
         return f"a new census index ({index_sha[:12]}; the store holds {str(receipt.get('index'))[:12]}'s)"
     store = path.parent
+    taken, passed = receipt.get("taken"), receipt.get("passed")
+    fields = ("path", "source", "neutral")
+    if (not isinstance(taken, list) or not isinstance(passed, list)
+            or not all(isinstance(entry, dict) and all(isinstance(entry.get(k), str) for k in fields)
+                       and "\0" not in entry["path"] for entry in taken + passed)
+            or not all(all(isinstance(entry.get(k), str) for k in ("fingerprint", "object", "file", "deps", "sidecar"))
+                       for entry in taken)
+            or any("file" in entry for entry in passed)):
+        return "the receipt is unreadable"
+    published = bundle_identity()
+    if published is None or published != receipt.get("bundle"):
+        return "the published bundle is not the one the store's receipt names (or its identity cannot be read)"
     try:
-        entries = receipt["taken"] + receipt["passed"]
-        for entry, now in zip(entries, replay_import(entries)):
+        entries = taken + passed
+        replayed = replay_import(entries)
+    except (ValueError, OSError, TypeError) as error:
+        return f"the replay cannot read the receipt ({type(error).__name__})"
+    try:
+        for entry, now in zip(entries, replayed):
             if now is None:
                 continue                    # not takeable on this tree as it stands
             if "file" not in entry:
@@ -477,9 +495,33 @@ def objects_unchanged(index_sha):
     return None
 
 
-def download(url, prefix):
+def asset_identity(headers):
+    """A release asset's identity from a response's headers: its ETag, else its length and Last-Modified; None
+    when they name neither (nothing then binds a receipt to it)."""
+    get = getattr(headers, "get", None)
+    if get is None:
+        return None
+    if get("ETag"):
+        return f"etag {get('ETag')}"
+    if get("Content-Length") and get("Last-Modified"):
+        return f"length {get('Content-Length')}, modified {get('Last-Modified')}"
+    return None
+
+
+def bundle_identity(url=OBJECTS_URL):
+    """The published bundle's identity (asset_identity) from one HEAD request, or None when it cannot be read."""
+    import urllib.request
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=60) as response:
+            return asset_identity(getattr(response, "headers", None))
+    except (OSError, ValueError):
+        return None
+
+
+def download(url, prefix, identity=None):
     """`url` into a new temporary file beside the index (concurrent fetches
-    never share one); the caller removes it."""
+    never share one); the caller removes it. `identity` (a dict) gains the
+    delivered asset's identity under "asset" (asset_identity)."""
     import tempfile
     import urllib.request
     link_census.OUT.mkdir(parents=True, exist_ok=True)
@@ -487,6 +529,8 @@ def download(url, prefix):
     temp = Path(handle.name)
     try:
         with handle, urllib.request.urlopen(url, timeout=60) as response:
+            if identity is not None:
+                identity["asset"] = asset_identity(getattr(response, "headers", None))
             while chunk := response.read(1 << 20):
                 handle.write(chunk)
     except OSError as exc:
@@ -505,8 +549,9 @@ def fetch_objects(url=OBJECTS_URL, index_sha=None):
     receipt = fetch_receipt_path()
     if receipt is not None:
         receipt.unlink(missing_ok=True)
+    delivered = {}
     try:
-        temp = download(url, "objects.")
+        temp = download(url, "objects.", identity=delivered)
     except SystemExit as exc:
         print(f"{exc}; objects not imported", file=sys.stderr)
         return 0
@@ -518,10 +563,10 @@ def fetch_objects(url=OBJECTS_URL, index_sha=None):
         return 0
     finally:
         temp.unlink(missing_ok=True)
-    if index_sha and receipt is not None and not record.get("incomplete"):
+    if index_sha and receipt is not None and not record.get("incomplete") and delivered.get("asset"):
         receipt.parent.mkdir(parents=True, exist_ok=True)   # an import that took nothing made no store yet
         tmp = receipt.with_name(receipt.name + f".{os.getpid()}.tmp")
-        tmp.write_text(json.dumps({"version": RECEIPT_VERSION, "index": index_sha,
+        tmp.write_text(json.dumps({"version": RECEIPT_VERSION, "index": index_sha, "bundle": delivered["asset"],
                                    "taken": record.get("taken", []), "passed": record.get("passed", [])}),
                        encoding="utf-8")
         os.replace(tmp, receipt)

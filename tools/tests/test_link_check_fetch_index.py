@@ -381,9 +381,24 @@ def fetching(hosts, tmp_path, monkeypatch):
     monkeypatch.setattr(C, "INDEX", out / "link_index.pkl")
     monkeypatch.setattr(C.link_census, "OUT", out)
     monkeypatch.setattr(C, "contains", lambda commit, ref="HEAD": True)
-    served = {"index": index("2026-11-15 08:00", "census0000")}
-    monkeypatch.setattr("urllib.request.urlopen", lambda url, timeout: io.BytesIO(
-        served["index"] if url == C.INDEX_URL else bundle.read_bytes()))
+    served = {"index": index("2026-11-15 08:00", "census0000"), "etag": '"0x1"', "heads": 0}
+
+    class Response(io.BytesIO):
+        def __init__(self, data, etag):
+            super().__init__(data)
+            self.headers = {"ETag": etag} if etag else {}
+
+    def urlopen(request, timeout):
+        url = getattr(request, "full_url", request)
+        if url == C.INDEX_URL:
+            return Response(served["index"], '"index"')
+        if getattr(request, "method", None) == "HEAD":
+            served["heads"] += 1
+            if served["etag"] == "unreachable":
+                raise OSError("no route")
+            return Response(b"", served["etag"])
+        return Response(bundle.read_bytes(), served["etag"])
+    monkeypatch.setattr("urllib.request.urlopen", urlopen)
     imports, real = [], build.import_objects
     monkeypatch.setattr(build, "import_objects",
                         lambda path, record=None: imports.append(path) or real(path, record=record))
@@ -501,3 +516,42 @@ def test_r1_the_replay_in_a_pool_answers_as_in_one_process(fetching, monkeypatch
     serial = C.replay_import(entries)
     monkeypatch.setattr(C, "REPLAY_PARALLEL_MIN", 1)
     assert C.replay_import(entries) == serial and serial[-1] is None and serial[0] is not None
+
+
+
+def test_r2_a_bundle_published_after_its_index_imports_again(fetching, capsys):
+    # the fetch saw the new index with the old bundle; the new bundle appears later and must still be imported
+    source, served, imports = fetching
+    C.fetch_index()
+    served["etag"] = '"0x2"'
+    C.fetch_index()
+    assert len(imports) == 2 and "the published bundle is not the one" in capsys.readouterr().out
+    C.fetch_index()
+    assert len(imports) == 2                      # bound to the new bundle now: a no-op
+
+
+@pytest.mark.parametrize("etag", ["unreachable", None])
+def test_r2_a_bundle_whose_identity_cannot_be_read_imports_again(fetching, etag):
+    source, served, imports = fetching
+    C.fetch_index()
+    served["etag"] = etag
+    C.fetch_index()
+    assert len(imports) == 2
+
+
+@pytest.mark.parametrize("damage", [
+    lambda r: r.update(taken="", passed=""),
+    lambda r: r.update(passed=[dict(r["taken"][0])]),
+    lambda r: r["taken"][0].update(path="\u0000"),
+    lambda r: r["taken"][0].update(sidecar=None),
+])
+def test_r2_a_malformed_receipt_imports_again_without_failing(fetching, damage):
+    source, served, imports = fetching
+    C.fetch_index()
+    path = C.fetch_receipt_path()
+    receipt = json.loads(path.read_text())
+    damage(receipt)
+    path.write_text(json.dumps(receipt))
+    assert C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest()) == "the receipt is unreadable"
+    C.fetch_index()
+    assert len(imports) == 2
