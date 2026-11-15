@@ -4,6 +4,8 @@
 #ifndef BFME_SUBSYSTEM_SLOTS
 #define BFME_SUBSYSTEM_SLOTS
 #endif
+#include "../../../Include/GameClient/Shell.h"
+
 #include "../../../Include/Common/MessageStream.h"
 
 #include "unicode_string.h"
@@ -78,14 +80,6 @@ MetaMap *TheMetaMap = 0;
 
 extern GameClient *TheGameClient;
 
-class Shell
-{
-public:
-	bool isShellActive() const { return m_isShellActive; }
-private:
-	unsigned char m_00[0x5C];
-	bool m_isShellActive;	// +0x5C
-};
 
 extern Shell *TheShell;
 
