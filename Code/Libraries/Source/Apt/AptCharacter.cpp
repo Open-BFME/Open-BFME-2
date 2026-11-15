@@ -354,7 +354,9 @@ Acac0Releaseable * g_Va00E18200;
 class Rva006ED020
 {
 public:
+    virtual void slot00() {}
     virtual ~Rva006ED020();
+    virtual void slot08() = 0;
 private:
     char m_pad[0x0C];
     Rva0070A840 *m_10;

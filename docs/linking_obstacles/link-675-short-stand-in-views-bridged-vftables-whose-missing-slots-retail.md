@@ -76,6 +76,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva000F5ACB` (VA 0x00BCF1C8): 4 slots (1 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva0059EB66` (VA 0x00C711BC): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva006560B0` (VA 0x00CE0FB8): 3 slots (2 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva006ED020` (VA 0x00CEC9CC): 3 slots (0 pure, 0 rowed virtual, 1 destructor, 1 folded trivial body), 1 view(s): `AptCharacter.cpp`.
+
 
 
 
@@ -178,7 +180,6 @@ when nothing array-deletes the class. A fold pin of `??_EW3DTreeDrawModuleDataBa
 refused by `tools/pin_admission.py --add` (pin_consistency clean before; nothing written):
 "0x00001750 already carries the real name ??_ESnapshot@@UAEPAXI@Z ... no ICF fold proof: W3DTreeDraw.cpp: symbol
 not found in object". That refusal is correct: the object has no vector-deleting body to prove against retail's.
-
 Retail does use this table for the class. `??1W3DTreeDrawModuleData@@UAE@XZ` (rowed, W3DTreeDraw.cpp) restores the
 base vptr with VA 0x00BBB554, which is RVA 0x007BB554, at 0x000CECF5. So in retail, W3DTreeDrawModuleDataBase's
 table is Snapshot's, including slot 0 at the vector deleting body 0x00001750. Master's ledger name is the right
