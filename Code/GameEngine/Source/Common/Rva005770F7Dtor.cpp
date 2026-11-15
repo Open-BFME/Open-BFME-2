@@ -48,11 +48,17 @@ public:
 	virtual ~Rva005CD1A9();
 	void *m_ptr;
 };
-class Base0_005770F7
+class GameMessage;
+enum GameMessageDisposition;
+// Base0_00576C4B: definition as Code/GameEngine/Include/GameClient/UserInputTranslator.h holds it
+class Base0_00576C4B
 {
 public:
-	virtual ~Base0_005770F7() {}
+	Base0_00576C4B() {}
+	virtual GameMessageDisposition translateGameMessage(const GameMessage *) = 0;
+	virtual ~Base0_00576C4B() {}
 };
+typedef Base0_00576C4B Base0_005770F7;
 class Rva005770F7 : public Base0_005770F7, public Rva005CD1A9
 {
 public:
