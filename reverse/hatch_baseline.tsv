@@ -10472,7 +10472,6 @@ present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::
 present_unmatched	Code/GameEngine/Include/Common/Rva00041004Lock.h	Rva0040EDB::Rva0040EDB	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
-present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Owner00739C90::cleanup	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::reset	1
@@ -10637,7 +10636,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp	BitFlag
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp	1BfmePairEL@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamIterateTeamMemberList.cpp	0?$DLINK_ITERATOR@VObject@@@@QAE@PAVObject@@P81@BEPAV1@XZ@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp	RevivalExperienceView::rva000B49A1	1
-present_unmatched	Code/GameEngine/Source/Common/RegionArmyIconSlotView.h	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00030DD0AddRef.cpp	bfmeEmitRva00030DD0LockDtor@@YAXPAURva00030DD0Lock@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00068119::rva00068119	2
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE3::rva00078AE3	2
@@ -10734,8 +10732,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FB
 present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FBase4dtor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp	StrategicHUD::ArmyDetailsMovieClip::Impl::IconSlot::OnLoaded	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005F54DADtor.cpp	Rva00579E47::~Rva00579E47	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp	AsciiString)	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp	text)	2
 present_unmatched	Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp	Rva005F8F96::Rva005F8F96	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp	Rva005FEA62VirtualValue::~Rva005FEA62VirtualValue	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
@@ -10874,11 +10870,9 @@ present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXList@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp	bfmeEmitFXParticleSystemModulesAssign@@YAXXZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptLoadMovieFrame.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::~AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	1Rva0057B993@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete002004FD@@YAXPAVRva002004FD@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete0031F831@@YAXPAVRva0031F831@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp	markUIDirty@ControlBar@@QAEXXZ	1
@@ -10931,11 +10925,8 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp	IMEManage
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp	IMEManager::update	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp	StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOut	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp	StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOver	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp	Rva005FA197Element::Rva005FA197Element	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp	Rva005FA1CEElement::Rva005FA1CEElement	2
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDDynamicAutoResolveMovieClip.cpp	AsciiString)	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDDynamicAutoResolveMovieClip.cpp	text)	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip_IconSlot.cpp	text)	1
@@ -11040,7 +11031,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva
 present_unmatched	Code/GameEngine/Source/GameClient/ParabolicEase.cpp	clamp	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00177860TextureRef::Rva00177860TextureRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00177860TextureRef::~Rva00177860TextureRef	1
-present_unmatched	Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoDefaultCtors.cpp	bfmeEmitEmissionInfoDefaultCtors@@YAXPAVSphericalEmissionVelocityInfo@FXParticleSystem@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp	@0x003AE43F	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoCopyCtors.cpp	@0x003AE465	1

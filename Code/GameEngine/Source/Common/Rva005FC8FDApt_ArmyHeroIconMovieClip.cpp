@@ -95,7 +95,6 @@ static __forceinline AsciiStringPlusString operator+(const AsciiString &left, co
 	return result;
 }
 
-// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
 {
 	Rva000B3F84Pair text;
@@ -128,7 +127,6 @@ struct Rva005F1D06 : AptTextPlusStringPlusString
 };
 struct AptTextPlusStringPlusStringText : Rva005F1D06 {};
 
-// ?operator+(Rva002226E5TextPlusString, AsciiString) present-unmatched (inline, emitted out of line; ICF-folded at 0x005F17C6; pinned)
 inline AptTextPlusStringPlusString operator+(const Rva002226E5TextPlusString &left, const AsciiString &right)
 {
 	AptTextPlusStringPlusString r;
@@ -137,7 +135,6 @@ inline AptTextPlusStringPlusString operator+(const Rva002226E5TextPlusString &le
 	return r;
 }
 
-// ?operator+(AptTextPlusStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x005D2F96; pinned)
 inline AptTextPlusStringPlusStringText operator+(const AptTextPlusStringPlusString &left, const char *right)
 {
 	Rva000B3F84Pair p;
