@@ -12,6 +12,8 @@
 // donor575ba2b04; WB1496390 names it and native44712F..4474C7 proves its
 // complete920B body, field reads, slots and BFME2 combo refresh additions.
 
+#include "../../Include/Common/PlayerTemplate.h"
+
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -401,15 +403,6 @@ void UpdateSlotList( GameInfo *myGame, GameWindow *comboPlayer[],
 // Retail 0x004474C7, 537B. BFME2 lists one entry per side whose SIDE: label
 // exists in the string table (no starting-building, old-faction or locked
 // general checks).
-class PlayerTemplate
-{
-public:
-	const AsciiString &getSide() const { return m_side; }
-private:
-	unsigned char m_00[0x18];
-	AsciiString m_side;	// +0x18
-	unsigned char m_1c[0x1DC - 0x1C];
-};
 class PlayerTemplateStore
 {
 public:
