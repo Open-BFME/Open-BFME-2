@@ -1278,8 +1278,6 @@ struct BlockParse
 };
 BlockParse theLivingWorldCampaignBlockParse( "LivingWorldCampaign", LivingWorldCampaign::ParseLivingWorldCampaignBlock );
 #include "../../../../Include/GameLogic/LivingWorldCampaignAct.h"
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #pragma comment(linker, "/alternatename:??$_Construct@URva0052D801Record@@U1@@_STL@@YAXPAURva0052D801Record@@ABU1@@Z=?Rva0052D6BEConstruct@@YAXPAVRva0056616B@@ABV1@@Z")
 
 class Rva004E32F2;

@@ -46,9 +46,6 @@ public:
 void Rva0032AF56Destroy(Rva00329D0E *first, Rva00329D0E *last);
 #define _CRTIMP
 #undef _CRTIMP
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include <map>
 #include "ascii_string.h"
 //
@@ -1238,12 +1235,6 @@ template Rva0032CD3BRecord *_STL::__copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,R
 template Rva0032CD3BRecord *_STL::copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*);
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
-
-#pragma optimize("s", off)
-
-#pragma optimize("t", on)
-
-#pragma optimize("", on)
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
 

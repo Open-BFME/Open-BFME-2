@@ -3285,10 +3285,6 @@ void Object::rva00291C84(const Matrix3D *mtx)
 // this TU is /O1 for its row, so its own copy differs. Specialize only the member
 // under "t" so our emitted copy matches the kept body, while the row keeps /O1.
 
-#pragma optimize("t", on)
-
-#pragma optimize("", on)
-
 void *Rva00293330::rva00293330(unsigned int key)
 {
 	_STL::map<unsigned int, void *>::iterator it = m_map.find(key);
