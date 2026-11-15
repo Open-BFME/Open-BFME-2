@@ -2920,12 +2920,46 @@ def diagnostic_json_size(value):
         return None
 
 
-def compiler_errors_digest(errors):
+def compiler_evidence_digest(errors):
     return hashlib.sha256(json.dumps(errors, ensure_ascii=True, sort_keys=True,
                                      separators=(",", ":")).encode()).hexdigest()
 
 
-def valid_diagnostic_entry(entry, reason):
+def valid_trial_context(context, donor=None):
+    """Recognize the complete provenance emitted by each compiler-failure stage."""
+    if not isinstance(context, dict) or diagnostic_json_size(context) is None:
+        return False
+    stage, files = context.get("stage"), context.get("files")
+    digest = context.get("text_sha256")
+    if (stage not in ("baseline", "composed", "prepared")
+            or not isinstance(files, list) or not files
+            or not all(isinstance(f, str) and f for f in files)
+            or len(files) != len(set(files))
+            or donor is not None and donor not in files
+            or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)):
+        return False
+    if stage == "baseline":
+        return (len(files) == 1 and "flags" in context
+                and (context["flags"] is None or isinstance(context["flags"], str)))
+    if (not isinstance(context.get("flags"), list)
+            or not all(isinstance(f, str) and f for f in context["flags"])
+            or "verifier_flags" not in context
+            or not (context["verifier_flags"] is None or isinstance(context["verifier_flags"], str))):
+        return False
+    if stage == "composed":
+        if context.get("strategy") not in STRATEGIES:
+            return False
+        for key in ("drop", "drop_all"):
+            value = context.get(key)
+            if (not isinstance(value, list) or not all(isinstance(n, str) and n for n in value)
+                    or len(value) != len(set(value))):
+                return False
+        if not set(context["drop_all"]) <= set(context["drop"]):
+            return False
+    return True
+
+
+def valid_diagnostic_entry(entry, reason, donor=None):
     if (not isinstance(entry, dict) or entry.get("reason") != reason
             or not isinstance(entry.get("context"), dict)
             or not isinstance(entry.get("errors"), list)
@@ -2943,8 +2977,10 @@ def valid_diagnostic_entry(entry, reason):
                        (type(error[k]) is not int or error[k] < 0) for k in ("line", "column"))):
             return False
     if entry["status"] == "recorded" and (
-            type(entry.get("error_count")) is not int or entry["error_count"] != len(entry["errors"])
-            or entry.get("errors_sha256") != compiler_errors_digest(entry["errors"])):
+            not valid_trial_context(entry["context"], donor)
+            or entry.get("context_sha256") != compiler_evidence_digest(entry["context"])
+            or type(entry.get("error_count")) is not int or entry["error_count"] != len(entry["errors"])
+            or entry.get("errors_sha256") != compiler_evidence_digest(entry["errors"])):
         return False
     return diagnostic_json_size(entry) is not None
 
@@ -2964,7 +3000,7 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
     inherited_size = diagnostic_json_size(inherited) if isinstance(inherited, dict) else None
     stored = inherited.get("donors", {}) if inherited_size is not None else {}
     previous = {f: entry for f, entry in stored.items()
-                if f in reasons and valid_diagnostic_entry(entry, reasons[f])} if isinstance(stored, dict) else {}
+                if f in reasons and valid_diagnostic_entry(entry, reasons[f], f)} if isinstance(stored, dict) else {}
     same_snapshot = (isinstance(stored, dict) and len(previous) == len(stored)
                      and inherited_size is not None
                      and inherited.get("version") == 1
@@ -2993,8 +3029,10 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
     if same_snapshot and inherited["truncated"]:
         payload.update(truncated=True, omitted_donors=inherited["omitted_donors"],
                        omitted_errors=inherited["omitted_errors"])
-    # Numeric counters cannot grow by this much within the receipt's size bound.
-    used = diagnostic_json_size(payload) + 128
+    encoded_entries, entry_sizes = 0, {}
+
+    def metadata_size():
+        return diagnostic_json_size({**payload, "donors": {}})
     for donor, reason in sorted(reasons.items()):
         if isinstance(reason, CompilerRejection):
             unique = list(dict.fromkeys(reason.compiler_errors))
@@ -3003,9 +3041,10 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
                      "context": reason.compiler_context,
                      "errors": [compiler_error(line) for line in unique]}
             entry.update(error_count=len(entry["errors"]),
-                         errors_sha256=compiler_errors_digest(entry["errors"]))
+                         errors_sha256=compiler_evidence_digest(entry["errors"]),
+                         context_sha256=compiler_evidence_digest(entry["context"]))
         elif (isinstance(previous, dict) and isinstance(previous.get(donor), dict)
-              and valid_diagnostic_entry(previous[donor], reason)):
+              and valid_diagnostic_entry(previous[donor], reason, donor)):
             entry = previous[donor]
         elif same_snapshot and inherited["truncated"] and donor not in previous:
             continue  # already included in the inherited omission counters
@@ -3015,20 +3054,30 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
         else:
             continue
         size = diagnostic_json_size({donor: entry})
-        if size is None:
+        if size is None or not valid_diagnostic_entry(entry, str(reason), donor):
             # The optional payload is unusable, but the search/apply already succeeded.
             entry = {"reason": str(reason), "status": "unavailable", "complete": False,
                      "context": {}, "errors": [], "explanation": "invalid optional diagnostic metadata"}
             # Escaping preserves unusual strings without a UTF-8 encoder exception.
             size = len(json.dumps({donor: entry}, ensure_ascii=True,
                                   separators=(",", ":")).encode())
-        if used + size <= limit:
+        content_size = size - 2  # the entry's outer braces are already in metadata_size()
+        with_entry = encoded_entries + content_size + bool(payload["donors"])
+        if metadata_size() + with_entry <= limit:
             payload["donors"][donor] = entry
-            used += size
+            entry_sizes[donor] = content_size
+            encoded_entries = with_entry
         else:
             payload["truncated"] = True
             payload["omitted_donors"] += 1
             payload["omitted_errors"] += len(entry.get("errors", []))
+            # Later omission counters can grow in digits after an earlier exact-fit
+            # entry. Reclaim whole entries only if the final encoded size requires it.
+            while metadata_size() + encoded_entries > limit and payload["donors"]:
+                removed, old = payload["donors"].popitem()
+                encoded_entries -= entry_sizes.pop(removed) + bool(payload["donors"])
+                payload["omitted_donors"] += 1
+                payload["omitted_errors"] += len(old.get("errors", []))
     if payload["donors"] or payload["truncated"]:
         report["compiler_diagnostics"] = payload
         if "_plan" in report:
@@ -3455,7 +3504,8 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         for st, _first in distinct_strategies(lambda st: compose(tu, sk, files, texts, flags, st)):
             drop, drop_all = set(), set()
             for _ in range(16):
-                text = compose(tu, sk, files, texts, flags, st, frozenset(drop), frozenset(drop_all))
+                trial_drop, trial_drop_all = frozenset(drop), frozenset(drop_all)
+                text = compose(tu, sk, files, texts, flags, st, trial_drop, trial_drop_all)
                 got = v.matched(text, rows)
                 again = redefined(v.all_errors) if got is None else set()
                 if not again - drop_all:
@@ -3475,7 +3525,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
                 failed_full_errors = list(getattr(v, "all_errors", v.errors))
                 failed_context = {"stage": "composed", "files": list(files), "flags": list(flags),
                                   "verifier_flags": getattr(v, "flags", None), "strategy": st,
-                                  "drop": sorted(drop), "drop_all": sorted(drop_all),
+                                  "drop": sorted(trial_drop), "drop_all": sorted(trial_drop_all),
                                   "text_sha256": hashlib.sha256(text.encode()).hexdigest()}
             best = best or ("compile" if got is None else "bytes")
         return best
