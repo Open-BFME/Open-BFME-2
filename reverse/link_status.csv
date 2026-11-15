@@ -3253,7 +3253,7 @@ Code/GameEngine/Source/Common/Rva00352F2FOpaqueInvoke.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00352F9DAICommand.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00355CD8Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00355D66Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva003560EDDtor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/Common/Rva003560EDDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003561BEDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003570D1.cpp,yes,0,0,0,0,0
@@ -6761,7 +6761,7 @@ Code/GameEngine/Source/Common/Thing/ThingRva0030A3E4.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ThingSetOrientation.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ThingSetPosition.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ThingSetTransformMatrix.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,no,0,0,1,0,1
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ThingTemplateAssetListCleanup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ThingTemplateAssignment.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Thing/ThingTemplateBuildCost.cpp,yes,0,0,0,0,0
@@ -7722,7 +7722,7 @@ Code/GameEngine/Source/GameClient/GUI/InGameCommandButtonHelpDisplayStrings.cpp,
 Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/LivingWorldAutoResolveArmorStore.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/LoadGameFadeWrapper_invoke.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/LoadScreen.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameClient/GUI/LoadScreen.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/LoadScreen_MapTransferProcessProgress.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/MapMetaData_MPPositionWriters.cpp,yes,0,0,0,0,0
@@ -8837,7 +8837,7 @@ Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPredicate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPanicStateOnExit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIParseSideInfo.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPathfind_setDebugPathPosition_Pathfinder_QAEXPBUCoord3D_Z.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPickUpCrateStateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,yes,0,0,0,0,0
@@ -9923,7 +9923,7 @@ Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreateModuleDataDtor.
 Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate_onBuildComplete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate_onCreate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp,no,0,0,2,0,0
+Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Create/ObjectModuleCtor.cpp,yes,0,0,0,0,0
@@ -11505,7 +11505,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp,
 Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderUpdateMapLoadPostProcess.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp,yes,0,0,0,0,0
@@ -12732,7 +12732,7 @@ Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerParseQueryThunk.cpp,yes,0,
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerResponseAssign.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerStatMapTreeDestructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerTextRequestValidate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadAggregateDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadFindServerByID.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadHandleQMMatch.cpp,yes,0,0,0,0,0
@@ -13479,7 +13479,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapVisibleBounds.cpp
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimDataGeometryCopies.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,no,0,0,1,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DNoDraw.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0CE7Ctor.cpp,yes,0,0,0,0,0
