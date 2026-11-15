@@ -14,14 +14,14 @@ typedef float Real;
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
+#include "../../Common/Thing/thing.h"
+
 #include "../../../Include/Common/Geometry.h"
 
-class Object
+class Object : public Thing
 {
 public:
-	unsigned char m_pad000[0x38];
-	Coord3D m_position;
-	unsigned char m_pad044[0xA8 - 0x38 - sizeof(Coord3D)];
+	unsigned char m_pad060[0xA8 - 0x60];
 	GeometryInfo m_geometry;
 };
 
@@ -32,8 +32,8 @@ bool Weapon::isWithinTargetPitch(const Object *source, const Object *victim) con
 {
 	if (m_pitchLimited)
 	{
-		const Coord3D *src = &source->m_position;
-		const Coord3D *dst = &victim->m_position;
+		const Coord3D *src = &source->m_cachedPos;
+		const Coord3D *dst = &victim->m_cachedPos;
 
 		float dz = (float)fabs((double)(dst->z - src->z));
 		if (dz < 10.0f)
