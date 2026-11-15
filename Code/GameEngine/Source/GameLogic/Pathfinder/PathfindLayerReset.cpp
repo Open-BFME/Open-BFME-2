@@ -20,8 +20,11 @@ template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-void __cdecl operator delete(void *pointer);
-void __cdecl operator delete[](void *pointer);
+// The allocation operators come from the real <crtdbg.h>, read without
+// dllimport so the calls stay on the direct thunks.
+#define _CRTIMP
+#include <crtdbg.h>
+#undef _CRTIMP
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
