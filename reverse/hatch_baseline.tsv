@@ -11384,8 +11384,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	famgenDe
 present_unmatched	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	Rva0035A18DDeleteArray@@YAXPAVRva0035A18D@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	TheGameLogic@@3PAVGameLogic@@A	1
-present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	hence	1
-present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	slot00@Rva0035A97EVisitor@@UAEXHH@Z	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	Rva004D2941MapInstantiationAnchor	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	init@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	reset@DownloadManager@@	1

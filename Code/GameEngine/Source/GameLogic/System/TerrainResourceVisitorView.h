@@ -6,7 +6,7 @@
 // base and derived remain unknown; only the complete28-byte layout is used.
 class Rva0035A97EVisitor {
 public:
-    virtual void slot00(int,int);
+    virtual void slot00(int,int) = 0;
     ~Rva0035A97EVisitor() {}
 };
 class Rva0035986C: public Rva0035A97EVisitor {

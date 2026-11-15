@@ -698,14 +698,6 @@ void Rva003598D3::slot00(int cellX,int cellY)
 
 // Base visitor slot: declared virtual in the shared view header but defined
 // nowhere, so every TU whose vtable falls back to it carries
-// U ?slot00@Rva0035A97EVisitor. Defined once here (empty: retail inlines or
-// dead-strips it; no retail bytes are claimed,
-// hence present-unmatched rather than a row).
-// ?slot00@Rva0035A97EVisitor@@UAEXHH@Z present-unmatched
-void Rva0035A97EVisitor::slot00(int,int)
-{
-}
-
 // ---- from Code/GameEngine/Source/Common/Rva00359B59ListenerWalks.cpp
 
 void Rva00359C06List::forEach(void (Rva00359C06Listener::*notify)(void *, int, int), void *arg, int value, int extra)
