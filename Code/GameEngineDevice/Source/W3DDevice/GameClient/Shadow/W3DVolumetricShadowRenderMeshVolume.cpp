@@ -23,6 +23,8 @@
 // bound buffer stays the ZH file-static: retail keeps the slot chain live
 // across its store, which only a non-escaping static allows.
 
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
+
 #include <d3d9.h>
 typedef float Real;
 typedef int Int;
@@ -51,15 +53,6 @@ namespace Debug_Statistics
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
-class W3DShadowManager
-{
-public:
-	unsigned getStencilShadowMask(void) { return m_stencilShadowMask; }
-private:
-	void *m_vtable;
-	unsigned m_shadowColor;
-	unsigned m_stencilShadowMask;
-};
 extern W3DShadowManager *TheW3DShadowManager;
 
 class FVFInfoClass
