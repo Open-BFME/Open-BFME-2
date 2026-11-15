@@ -23,9 +23,11 @@ namespace _STL { template <> void _Rb_tree<AsciiString, AsciiString, _Identity<A
 namespace _STL { template <> _Rb_tree_node<pair<const AsciiString, NoCaseTreeValue4> > *_Rb_tree<AsciiString, pair<const AsciiString, NoCaseTreeValue4>, _Select1st<pair<const AsciiString, NoCaseTreeValue4> >, less<AsciiString>, allocator<pair<const AsciiString, NoCaseTreeValue4> > >::_M_create_node(const pair<const AsciiString, NoCaseTreeValue4> &); }
 // bfme link decl-only end
 
+// Pure: the class's one-slot table 0x00C1C780 holds __purecall; the
+// destructor body is still the rowed 0x002214A6.
 class Rva002214A6 {
 public:
-    virtual ~Rva002214A6();
+    virtual ~Rva002214A6() = 0;
     _STL::set<AsciiString>::iterator m_it;
     Rva002214A6(const AsciiString &name);
 };
