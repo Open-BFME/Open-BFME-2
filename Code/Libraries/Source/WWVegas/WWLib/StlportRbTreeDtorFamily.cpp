@@ -12,6 +12,8 @@
 //   0x00384E28  0x00383F13  AsciiString -> PlayerInfo, AsciiComparator (PeerDefs.cpp)
 //   0x0021D61F  0x0021CFD1  set<BfmeStringRecord0021A940> (stlport_rb_tree_bfme0021A940_erase.cpp)
 //   0x0032C36B  0x0032BEBF  pair<AsciiString, AsciiString> -> int (SidesListTeamsInfoRecClear.cpp)
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord0021A940.h"
+
 #include <map>
 #include "ascii_string.h"
 
@@ -38,11 +40,6 @@ static void retainPlayerInfoMapDtor(_STL::map<AsciiString, PlayerInfo, AsciiComp
     delete[] maps;
 }
 
-struct BfmeStringRecord0021A940
-{
-	~BfmeStringRecord0021A940();
-	unsigned char m_data[20];
-};
 typedef _STL::_Rb_tree<BfmeStringRecord0021A940, BfmeStringRecord0021A940, _STL::_Identity<BfmeStringRecord0021A940>, _STL::less<BfmeStringRecord0021A940>, _STL::allocator<BfmeStringRecord0021A940> > BfmeStringRecord0021A940SetTree;
 template BfmeStringRecord0021A940SetTree::~_Rb_tree();
 
