@@ -12,6 +12,10 @@
 // folder; the base model mirrors GpuDrawModuleTemplateCtorThunk.cpp and
 // the info members mirror GpuDrawModuleInfoCopyCtor.cpp.
 
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 #include "ascii_string.h"
 
 
@@ -83,3 +87,11 @@ GpuDrawModuleTemplate::GpuDrawModuleTemplate(const GpuDrawModuleTemplate &that)
 
 }
 
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::GpuDrawModuleTemplate, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_GpuDrawModuleTemplate> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_GpuDrawModuleTemplate(FXParticleSystem::GpuDrawModuleTemplate *p)
+{
+	p->FXParticleSystem::GpuDrawModuleTemplate::__vecDelDtor(3);
+}
