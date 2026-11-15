@@ -21,11 +21,10 @@ class Object;
 #include "../../../../Include/Common/Rva000AD6F4.h"
 class Rva005D10B0State {public:virtual void slot0();virtual void slot1();};
 struct Rva005D10B0Owner{Rva005D10B0State*state;};
-#include "../../../../Include/Common/Rva0005D10D6DwordImmSetter.h"
-// The 7-byte destructor body at 0x005D10D6 (rowed as the imm-setter apply) only
-// restores the base vftable; inline it as VslotSmallBodiesAS.cpp does, so this
-// unit's deleting dtor calls the rowed body and no unrowed ??1 is referenced.
-class Rva005D10D6:public Rva005D1035{public:Rva005D10D6(void*p):Rva005D1035(p){}virtual __forceinline ~Rva005D10D6(){((Rva0005D10D6DwordImmSetter*)this)->apply();}virtual void slot1();};
+// The deleting destructor 0x005D10BA (slot 0 of 0x00C755A4) calls the 7-byte
+// destructor 0x005D10D6, which only restores the base table 0x00C7559C: an
+// empty out-of-line destructor over Rva005D1035's inline one.
+class Rva005D10D6:public Rva005D1035{public:Rva005D10D6(void*p):Rva005D1035(p){}virtual ~Rva005D10D6();virtual void slot1();};
 namespace StrategicInGameUI{class TacticalBattleResolver{public:class Impl{public:Impl(void*);~Impl();void*owner;void*object;Rva000AD6F4 state;};};}
 // WB15BBB70 names this ctor StrategicInGameUI::TacticalBattleResolver::Impl::Impl (callgraph 1.0).
 StrategicInGameUI::TacticalBattleResolver::Impl::Impl(void*p):owner(p),object(0){
@@ -35,6 +34,8 @@ StrategicInGameUI::TacticalBattleResolver::Impl::Impl(void*p):owner(p),object(0)
 }
 
 Rva005D10F9::Rva005D10F9(void*p,void*s):Rva005D1035(p),view(s){((StrategicVeterancy*)&view)->Show();}
+
+Rva005D10D6::~Rva005D10D6(){}
 
 void Rva005D10D6::slot1(){((Rva005D10B0Owner*)owner)->state->slot1();}
 
