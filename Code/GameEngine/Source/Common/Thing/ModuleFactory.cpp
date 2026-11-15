@@ -759,8 +759,8 @@ void bfmeEmitModuleFactoryInlines(NewModuleProc *instances, NewModuleDataProc *d
 	BFME_EMIT_MODULE_INSTANCE( AnimatedParticleSysBoneClientUpdate );
 	BFME_EMIT_MODULE_INSTANCE( BeaconClientUpdate );
 }
-#undef BFME_EMIT_MODULE_INSTANCE
-#undef BFME_EMIT_MODULE_DATA
+// Composer-driven: keep BFME_EMIT_MODULE_INSTANCE defined for hoisted helper bodies.
+// Composer-driven: keep BFME_EMIT_MODULE_DATA defined for hoisted helper bodies.
 
 
 //-------------------------------------------------------------------------------------------------
