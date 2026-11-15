@@ -111,7 +111,6 @@ public:
 	virtual void rva00579542() = 0;
 };
 
-// ??1Rva005794EDBase@@UAE@XZ present-unmatched (register key kept; the dtor is non-virtual)
 inline Rva005794EDBase::~Rva005794EDBase()
 {
 	*(const void **)this = __identifier("??_7Rva00330C50Interface@@6B@");

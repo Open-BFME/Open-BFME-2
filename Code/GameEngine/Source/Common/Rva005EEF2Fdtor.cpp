@@ -8,7 +8,6 @@
 
 #include "RegionArmyIconSlotView.h"
 
-// ?Rva005EEF2FBase0dtor present-unmatched
 inline Rva005EEF2FBase0::~Rva005EEF2FBase0()
 {
 }

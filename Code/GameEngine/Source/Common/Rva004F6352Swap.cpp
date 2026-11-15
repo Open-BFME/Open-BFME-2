@@ -21,7 +21,6 @@ struct Rva004F6352
 	~Rva004F6352();
 };
 
-// ??1TreeHintRef00217D4C@@QAE@XZ present-unmatched
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
 	if (m_ptr)
