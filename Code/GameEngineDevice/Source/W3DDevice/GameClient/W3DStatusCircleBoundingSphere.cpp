@@ -120,16 +120,13 @@ private:
 // member-default (Reset→0x8441b) vs retail 4-dword shader init shape.
 
 
-// ?Cast_Ray@W3DStatusCircle@@UAE_NAAVRayCollisionTestClass@@@Z present-unmatched
 
 
 
 //@todo: MW Handle both of these properly!!
 // byte-exact reconstruction: game/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleCtorThunk.cpp
-// ??0W3DStatusCircle@@ present-unmatched
 
 
-// ??4W3DStatusCircle@@QAEAAV0@ABV0@@Z present-unmatched
 
 
 void W3DStatusCircle::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
@@ -182,5 +179,4 @@ struct W3DStatusCircleRetailResources
 
 
 
-// ?Render@W3DStatusCircle@@UAEXAAVRenderInfoClass@@@Z present-unmatched
 

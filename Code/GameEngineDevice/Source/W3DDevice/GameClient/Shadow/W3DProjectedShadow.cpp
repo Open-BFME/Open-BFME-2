@@ -202,7 +202,6 @@ class W3DShadowManager;
 #define DEFAULT_RENDER_TARGET_HEIGHT		512
 #define SHADOW_DECAL_FVF	D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_DIFFUSE
 #if defined(_DEBUG) || defined(_INTERNAL)
-// ?getRenderCost@W3DProjectedShadow@@ present-unmatched
 
 
 
@@ -679,7 +678,6 @@ public:
 		Bool projected);
 };
 
-// ?init@W3DShadowTexture@@QAEHPAVRenderObjClass@@@Z present-unmatched
 
 
 
@@ -1333,54 +1331,40 @@ Maybe project onto a deformed terrain patch that molds to trays/bibs.
 
 
 
-// ?reset@W3DProjectedShadowManager@@QAEXXZ present-unmatched
   // end Reset
 
 
 
 
 // byte-exact reconstruction: game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowReAcquireResources.cpp
-// ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ present-unmatched
 
 
 // byte-exact reconstruction: game/GameEngine/Source/Common/promoted_ReleaseResources_W3DProjectedShadowManager_QAEXXZ_007B1450.cpp
-// ?ReleaseResources@W3DProjectedShadowManager@@QAEXXZ present-unmatched
 
 
-// ?invalidateCachedLightPositions@W3DProjectedShadowManager@@QAEXXZ present-unmatched
 
 
-// ?updateRenderTargetTextures@W3DProjectedShadowManager@@QAEXXZ present-unmatched
 
 
 ///Renders shadow on part of terrain covered by world-space bounding box.
-// ?renderProjectedTerrainShadow@W3DProjectedShadowManager@@ present-unmatched
 
 /** Generic function which can be used to create arbitrary decals that follow the renderObject but don't have to be used for shadows.
 Some examples: Scorch marks, blood, stains, selection/status indicators, etc.*/
-// ?addDecal@W3DProjectedShadowManager@@UAEPAVShadow@@PAVRenderObjClass@@PAUShadowTypeInfo@2@@Z present-unmatched
 
 
 
 
-// ?createDecalShadow@W3DProjectedShadowManager@@ present-unmatched
 
 
-// ?removeShadow@W3DProjectedShadowManager@@QAEXPAVW3DProjectedShadow@@@Z present-unmatched
 
 
 // byte-exact reconstruction: game/GameEngine/Source/Common/promoted__removeAllShadows_W3DProjectedShadowManager_QAEXXZ_007AEA90.cpp
-// ?removeAllShadows@W3DProjectedShadowManager@@QAEXXZ present-unmatched
-
-// ??0W3DProjectedShadow@@QAE@XZ present-unmatched
 
 
-// ??1W3DProjectedShadow@@QAE@XZ present-unmatched
 
 
-// ?init@W3DProjectedShadow@@QAEXXZ present-unmatched
 
-// ?updateProjectionParameters@W3DProjectedShadow@@QAEXABVMatrix3D@@@Z present-unmatched
+
 
 
 void W3DProjectedShadow::update(void)
@@ -1406,7 +1390,6 @@ void W3DProjectedShadow::update(void)
 
 
 /** Create shadow geometry from a reference W3D RenderObject*/
-// ?createTexture@W3DShadowTextureManager@@QAEHPAVRenderObjClass@@PBD@Z present-unmatched
 
 // ---- from Code/GameEngine/Source/Common/Rva0010953EFinish.cpp
 

@@ -100,7 +100,6 @@ struct BfmeBuildListInfoFields
 	BuildListInfo *m_nextBuildList;		///< retail +0x2C
 };
 
-// ?parseSkirmishBuildList@AI@@ present-unmatched
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -110,12 +109,10 @@ AI *TheAI = NULL;
 /**
  * Constructor for the AI system
  */
-// ??0AI@@QAE@XZ present-unmatched
 
 /**
  * Initialize the AI system
  */
-// ?init@AI@@UAEXXZ present-unmatched
 
 /**
  * Reset the AI system in preparation for a new map
@@ -201,17 +198,13 @@ public:
 /**
  * Update the AI system
  */
-// ?update@AI@@UAEXXZ present-unmatched
 
 /**
  * Destroy the AI system
  */
-// ??1AI@@UAE@XZ present-unmatched
 
 
-// ?newOverride@AI@@IAEXXZ present-unmatched
 
-// ?addSideInfo@AI@@IAEXPAVAISideInfo@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Parse GameData entry */
@@ -508,7 +501,6 @@ void AI::parseScience(INI *ini, void *instance, void* /*store*/, const void* /*u
 /**
  * Return the closest enemy, according to the qualifiers.
  */
-// ?findClosestEnemy@AI@@QAEPAVObject@@PBV2@MIPBVAttackPriorityInfo@@PAVPartitionFilter@@@Z present-unmatched
 
 
 
@@ -517,7 +509,6 @@ void AI::parseScience(INI *ini, void *instance, void* /*store*/, const void* /*u
 /**
  * Return the closest ally, according to the qualifiers.
  */
-// ?findClosestAlly@AI@@QAEPAVObject@@PBV2@MI@Z present-unmatched
 /////////////////////////////
 
 
@@ -526,29 +517,22 @@ void AI::parseScience(INI *ini, void *instance, void* /*store*/, const void* /*u
 /**
  * Return the closest repulsor.
  */
-// ?findClosestRepulsor@AI@@QAEPAVObject@@PBV2@M@Z present-unmatched
 /////////////////////////////
 
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameLogic/AI/TAiDataCtor.cpp
-// ??0TAiData@@QAE@XZ present-unmatched
 //-------------------------------------------------------------------------------------------------
-// ?crc@TAiData@@UAEXPAVXfer@@@Z present-unmatched
 
 //-----------------------------------------------------------------------------
-// ?xfer@TAiData@@UAEXPAVXfer@@@Z present-unmatched
 
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/Common/AI_crc_Thunk.cpp
-// ?crc@AI@@UAEXPAVXfer@@@Z present-unmatched
 
 //-----------------------------------------------------------------------------
-// ?xfer@AI@@UAEXPAVXfer@@@Z present-unmatched
 
 //-----------------------------------------------------------------------------
-// ?loadPostProcess@AI@@UAEXXZ present-unmatched
 
 
 

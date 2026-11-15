@@ -286,7 +286,6 @@ extern void (Coord3D::*g_controlBarCoord3DSet)( const Coord3D * );
 // but the global and the callee are now right.
 
 /// mark the UI as dirty so the context of everything is re-evaluated
-// ?markUIDirty@ControlBar@@QAEXXZ present-unmatched
 
 
 // ?populatePurchaseScience@ControlBar@@IAEXPAVPlayer@@@Z
@@ -318,11 +317,9 @@ struct BfmePurchaseSciencePlayer
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??0CommandButton@@QAE@XZ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??1CommandButton@@MAE@XZ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 
@@ -391,32 +388,26 @@ public:
 
 //-------------------------------------------------------------------------------------------------
 // bleah. shouldn't be const, but is. sue me. (srj)
-// ?copyImagesFrom@CommandButton@@QBEXPBV1@_N@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 // bleah. shouldn't be const, but is. sue me. (Kris) -snork!
-// ?copyButtonTextFrom@CommandButton@@QBEXPBV1@_N1@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Parse a single command button definition */
 //-------------------------------------------------------------------------------------------------
-// ?parseCommandButton@CommandSet@@CAXPAVINI@@PAX1PBX@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/CommandSetConstructor.cpp
-// ??0CommandSet@@QAE@ABVAsciiString@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?friend_addToList@CommandSet@@QAEXPAPAV1@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??1CommandSet@@MAE@XZ present-unmatched
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // ControlBar /////////////////////////////////////////////////////////////////////////////////////
@@ -430,34 +421,29 @@ public:
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/Common/ControlBarDestructorThunk.cpp
-// ??1ControlBar@@UAE@XZ present-unmatched
 void ControlBarPopupDescriptionUpdateFunc( WindowLayout *layout, void *param );
 
 //-------------------------------------------------------------------------------------------------
 /** Initialzie the control bar, this is our interface to the context sinsitive GUI */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitThunk.cpp
-// ?init@ControlBar@@UAEXXZ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Reset the context sensitive control bar GUI */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/Common/ControlBar_resetMethodThunk.cpp
-// ?reset@ControlBar@@UAEXXZ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Update phase, we can track if our selected object is destroyed, update button
 	* percentages, status, enabled status etc */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate_Thunk.cpp
-// ?update@ControlBar@@ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?onDrawableDeselected@ControlBar@@QAEXPAVDrawable@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 
@@ -467,7 +453,6 @@ void ControlBarPopupDescriptionUpdateFunc( WindowLayout *layout, void *param );
 //-------------------------------------------------------------------------------------------------
 // Matched via game/masm_dumps/ControlBar_onPlayerRankChanged.asm @ 0x0049DC90
 // byte-exact reconstruction: game/GameEngine/Source/Common/ControlBar_onPlayerRankChanged_Thunk.cpp
-// ?onPlayerRankChanged@ControlBar@@QAEXPBVPlayer@@@Z present-unmatched
 // onPlayerRankChanged cannot come home: it stops two bytes short on the
 // EH-temporary transposition, a known wall this
 // toolchain does not cross. Recorded so nobody spends the cycle again.
@@ -500,7 +485,6 @@ void ControlBarPopupDescriptionUpdateFunc( WindowLayout *layout, void *param );
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?onPlayerSciencePurchasePointsChanged@ControlBar@@QAEXPBVPlayer@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Given the drawables that we have selected into our context sensitive UI, evaluate 
@@ -508,7 +492,6 @@ void ControlBarPopupDescriptionUpdateFunc( WindowLayout *layout, void *param );
 	* to see */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarEvaluateContextUIThunk.cpp
-// ?evaluateContextUI@ControlBar@@ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Find a command button of the given name if present */
@@ -792,7 +775,6 @@ public:
 /** Allocate a new command button, assign name, and tie to list */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarNewCommandSet.cpp
-// ?newCommandButton@ControlBar@@IAEPAVCommandButton@@ABVAsciiString@@@Z present-unmatched
 // The newCommandButton / newCommandSet / newCommandSetOverride family cannot come
 // home: class shape. Retail allocates 472 bytes for a CommandButton and 100 for a
 // CommandSet; the vendored declarations give 224 and 92, and the allocation size
@@ -806,7 +788,6 @@ public:
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?newCommandButtonOverride@ControlBar@@IAEPAVCommandButton@@PAV2@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Parse a command set */
@@ -846,23 +827,19 @@ struct BfmeControlBarSetList
 /** Allocate a new command set, link to list, initialize to default, and return it */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarNewCommandSet.cpp
-// ?newCommandSet@ControlBar@@IAEPAVCommandSet@@ABVAsciiString@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Create an overridden command set. */
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/ControlBar_newCommandSetOverride.cpp
-// ?newCommandSetOverride@ControlBar@@IAEPAVCommandSet@@PAV2@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Process a button click for the context sensitive GUI */
 //-------------------------------------------------------------------------------------------------
-// ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 /** Process a button click for the context sensitive GUI */
 //-------------------------------------------------------------------------------------------------
-// ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
@@ -1031,7 +1008,6 @@ class WindowManager;
 extern WindowManager *g_rva012F19E8WindowManager;
 
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_togglePurchaseScience.cpp
-// ?togglePurchaseScience@ControlBar@@QAEXXZ present-unmatched
 
 // Functions for repositioning/resizing the control bar
 
@@ -1060,7 +1036,6 @@ struct BfmeControlBarLowConfig
 //}
 //
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateSlotExitImageThunk.cpp
-// ?updateSlotExitImage@ControlBar@@QAEXPBVImage@@@Z present-unmatched
 
 // Retail places the final two image fields at +0x2c0/+0x2c4.  The shared ZH
 // ControlBar declaration places them at +0x300/+0x304, so keep this BFME
@@ -1072,10 +1047,7 @@ struct BfmeControlBarUpdateImageTail
 	const Image *generalButtonHighlight;
 };
 
-// ?getForegroundMarkerPos@ControlBar@@QAEXPAH0@Z present-unmatched
-// ?getBackgroundMarkerPos@ControlBar@@QAEXPAH0@Z present-unmatched
 
-// ?drawTransitionHandler@ControlBar@@QAEXXZ present-unmatched
 enum{
 	RADAR_ATTACK_GLOW_FRAMES = 150,
 	RADAR_ATTACK_GLOW_NUM_TIMES = 15  ///< number of times we'll flash
@@ -1119,16 +1091,13 @@ struct BfmeControlBarRadarGlow
 // ?initSpecialPowershortcutBar@ControlBar@@QAEXPAVPlayer@@@Z
 // Body in game/masm_dumps/_str3__initSpecialPowershortcutBar_ControlBar_QAEXPAVPlayer_Z_49F1C0.asm (exact 766B retail @ 0x0049F1C0).
 // byte-exact reconstruction: game/GameEngine/Source/Common/ControlBar_populateSpecialPowerShortcutMethodThunk.cpp
-// ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z present-unmatched
 
 //-------------------------------------------------------------------------------------------------
-// ?hasAnyShortcutSelection@ControlBar@@QBE_NXZ present-unmatched
 
 //-------------------------------------------------------------------------------------------------
 // ControlBar::updateSpecialPowerShortcut is byte-verified in ControlBar_updateSpecialPowerShortcut.cpp.
 
 //-------------------------------------------------------------------------------------------------
-// ?drawSpecialPowerShortcutMultiplierText@ControlBar@@QAEXXZ present-unmatched
 
 // The animation manager is at ControlBar+0x10, the shortcut button array at
 // +0xcc, the used-button count at +0xf4 and the shortcut parent at +0xfc.  reset

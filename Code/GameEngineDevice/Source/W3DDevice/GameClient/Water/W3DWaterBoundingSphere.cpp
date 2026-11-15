@@ -248,7 +248,6 @@ WaterRenderObjClass *TheWaterRenderObj=NULL; ///<global water rendering object
 					
 static Bool wireframeForDebug = 0;
 
-// ?setupJbaWaterShader@WaterRenderObjClass@@IAEXXZ present-unmatched
 
 
 
@@ -257,13 +256,11 @@ static Bool wireframeForDebug = 0;
 //-------------------------------------------------------------------------------------------------
 /** Destructor. Releases w3d assets. */
 //-------------------------------------------------------------------------------------------------
-// ??1WaterRenderObjClass@@UAE@XZ present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
 /** Constructor. Just nulls out some variables. */
 //-------------------------------------------------------------------------------------------------
-// ??0WaterRenderObjClass@@QAE@XZ present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
@@ -299,20 +296,17 @@ void WaterRenderObjClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 //-------------------------------------------------------------------------------------------------
 /** returns the class id, so the scene can tell what kind of render object it has. */
 //-------------------------------------------------------------------------------------------------
-// ?Class_ID@WaterRenderObjClass@@UBEHXZ present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
 /** Not used, but required virtual method. */
 //-------------------------------------------------------------------------------------------------
-// ?Clone@WaterRenderObjClass@@UBEPAVRenderObjClass@@XZ present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
 /** Copies raw bits from pBumpSrc (a regular grayscale texture) into a D3D
 	*   bump-map format. */
 //-------------------------------------------------------------------------------------------------
-// ?initBumpMap@WaterRenderObjClass@@IAEJPAPAUIDirect3DTexture8@@PAVTextureClass@@@Z present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
@@ -368,7 +362,6 @@ struct BfmeWaterIndexLayout
 //-------------------------------------------------------------------------------------------------
 /** Releases all w3d assets, to prepare for Reset device call. */
 //-------------------------------------------------------------------------------------------------
-// ?ReleaseResources@WaterRenderObjClass@@QAEXXZ present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
@@ -384,16 +377,13 @@ struct BfmeWaterIndexLayout
 	* and reflect the parent scene in its surface.  For now, waters are
 	* forced to be rectangles. */
 //-------------------------------------------------------------------------------------------------
-// ?init@WaterRenderObjClass@@QAEHMMMPAVSceneClass@@W4WaterType@1@@Z present-unmatched
 
 
-// ?updateMapOverrides@WaterRenderObjClass@@QAEXXZ present-unmatched
 
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjReset.cpp
-// ?reset@WaterRenderObjClass@@QAEXXZ present-unmatched
  
 
 // enableWaterGrid is defined by UpdateInitializationThunks.cpp; its retail
@@ -410,7 +400,6 @@ struct BfmeWaterIndexLayout
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjReplaceSkyboxTextureRetail.cpp
-// ?replaceSkyboxTexture@WaterRenderObjClass@@QAEXABVAsciiString@@0@Z present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
@@ -451,7 +440,6 @@ public:
 	*   texture and rendered at end of scene. */
 //-------------------------------------------------------------------------------------------------
 //DECLARE_PERF_TIMER(Water)
-// ?Render@WaterRenderObjClass@@UAEXAAVRenderInfoClass@@@Z present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
@@ -565,7 +553,6 @@ public:
 //-------------------------------------------------------------------------------------------------
 /** Renders (draws) the water surface.*/
 //-------------------------------------------------------------------------------------------------
-// ?renderWater@WaterRenderObjClass@@QAEXXZ present-unmatched
 
 
 // Exact BFME renderSky and renderSkyBody are provided by WaterRenderObjSky.cpp.
@@ -579,10 +566,8 @@ public:
 /** Renders (draws) the water surface mesh geometry.
 	*	This is a work-in-progress!  Do not use this code! */
 //-------------------------------------------------------------------------------------------------
-// ?renderWaterMesh@WaterRenderObjClass@@IAEXXZ present-unmatched
 
 
-// ?setGridVertexHeight@WaterRenderObjClass@@ present-unmatched
 
 
 
@@ -606,22 +591,18 @@ public:
 
 
 /**Utility function used to query water heights in a manner that works in both RTS and WB.*/
-// ?getWaterHeight@WaterRenderObjClass@@QAEMMM@Z present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
 //Draw a many sided river polygon.
 //-------------------------------------------------------------------------------------------------
-// ?drawRiverWater@WaterRenderObjClass@@IAEXPAVPolygonTrigger@@@Z present-unmatched
 
 
-// ?setupFlatWaterShader@WaterRenderObjClass@@IAEXXZ present-unmatched
 
 
 //-------------------------------------------------------------------------------------------------
 //Draw a 4 sided flat water area.
 //-------------------------------------------------------------------------------------------------
-// ?drawTrapezoidWater@WaterRenderObjClass@@IAEXQAVVector3@@@Z present-unmatched
 
 
 
@@ -631,14 +612,12 @@ public:
 //-------------------------------------------------------------------------------------------------
 #if 0
 // byte-exact reconstruction: game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjRenderSkyBodyRetail.cpp
-// ?renderSkyBody@WaterRenderObjClass@@IAEXPAVMatrix3D@@@Z present-unmatched
 
 #endif
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@WaterRenderObjClass@@MAEXPAVXfer@@@Z present-unmatched
   // end crc
 
 // ------------------------------------------------------------------------------------------------
@@ -647,7 +626,6 @@ public:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterRenderObjXferRetail.cpp
-// ?xfer@WaterRenderObjClass@@MAEXPAVXfer@@@Z present-unmatched
   // end xfer
 
 // ------------------------------------------------------------------------------------------------
