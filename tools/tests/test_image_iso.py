@@ -2751,3 +2751,64 @@ def test_an_entry_mapped_outside_retails_table_is_listed():
     assert [(e["kind"], e["name"]) for e in c.initializer_entries] == [("slotless", "extra")]
     assert c.counts["initializer_extra"] == 1 and c.counts["initializers_unanalyzed"] == 0
 
+
+
+# ------------------------------------------------------------ member calls on globals (member_call_evidence)
+
+def member_call(c, callee_body, between=b"", target=0x2100):
+    """A retail function at 0x100: `mov ecx, offset target; <between>; call 0x200; ret`, and the callee at 0x200
+    (`callee_body`, which may call 0x300: a bare ret)."""
+    call_at = 0x105 + len(between)
+    c.retail.put(0x100, b"\xb9" + struct.pack("<I", c.retail.base + target) + between +
+                 b"\xe8" + struct.pack("<i", 0x200 - (call_at + 5)) + b"\xc3")
+    c.retail.put(0x200, callee_body)
+    c.retail.put(0x300, b"\xc3")
+
+
+def call_300(at):
+    """`call 0x300` assembled at `at`."""
+    return b"\xe8" + struct.pack("<i", 0x300 - (at + 5))
+
+
+def test_a_member_call_proves_an_access_past_calls_through_a_saved_register():
+    # g_aptDateInterpreter's shape: push esi; mov esi, ecx; call ...; mov byte [esi+0x68], al; ret. The declared
+    # 72 bytes end before +0x68: undersized, which the initializer scan never saw
+    c = checker([public("object", 0x2000, 72)], {"object": {0x2100}})
+    member_call(c, b"\x56\x8b\xf1" + call_300(0x203) + b"\x88\x46\x68\xc3")
+    evidence = iso.member_call_evidence(c.retail, [row("object", 0x2100, 72)], [(0x100, 0x20)])
+    assert [(e["offset"], e["width"]) for e in evidence] == [(0x68, 1)]
+    assert "retail member call at 0x105 in 0x100 on it calls 0x200; access at 0x208" == evidence[0]["evidence"]
+    c.storage(evidence)
+    assert c.counts["storage_undersized"] == 1
+    c = checker([public("object", 0x2000, 0x6C)], {"object": {0x2100}})
+    c.storage(evidence)
+    assert not c.defects                                # 0x6C bytes cover +0x68
+
+
+def test_a_load_through_this_counts_and_lea_does_not():
+    c = checker([], {})
+    member_call(c, b"\x8b\x41\x10\xc3")                  # mov eax, [ecx+0x10]; ret
+    assert [(e["offset"], e["width"]) for e in
+            iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)])] == [(0x10, 4)]
+    member_call(c, b"\x8d\x41\x40\xc3")                  # lea eax, [ecx+0x40]; ret: an address, no access
+    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)]) == []
+
+
+@pytest.mark.parametrize("body", [
+    b"\x8b\xc1" + call_300(0x202) + b"\xc7\x40\x08\x01\x00\x00\x00\xc3",   # mov eax, ecx; call: eax is not kept
+    b"\xeb\x00\xc7\x41\x08\x01\x00\x00\x00\xc3",                            # a jump ends the straight-line prefix
+    b"\x31\xc9\xc7\x41\x08\x01\x00\x00\x00\xc3",                            # xor ecx, ecx drops this
+    b"\xc3\xc7\x41\x08\x01\x00\x00\x00",                                    # ret
+])
+def test_the_prefix_ends_where_this_is_no_longer_known(body):
+    c = checker([], {})
+    member_call(c, body)
+    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)]) == []
+
+
+def test_no_member_call_without_ecx_held_or_a_ledger_global():
+    c = checker([], {})
+    member_call(c, b"\xc7\x41\x08\x01\x00\x00\x00\xc3", between=b"\x31\xc9")     # ecx clobbered before the call
+    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)]) == []
+    member_call(c, b"\xc7\x41\x08\x01\x00\x00\x00\xc3")
+    assert iso.member_call_evidence(c.retail, [row("other", 0x2200)], [(0x100, 0x20)]) == []   # not a ledger row

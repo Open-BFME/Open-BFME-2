@@ -1333,6 +1333,88 @@ def storage_evidence(retail, rows):
     return result
 
 
+def this_reach(retail, md, callee, cache):
+    """(furthest offset+width, width, offset, instruction address) of an access through `this` in `callee`'s
+    straight-line prefix, or None. `this` arrives in ECX and is followed through register copies (`mov esi, ecx`); a
+    call keeps it only in the callee-saved registers (ESI, EDI, EBX, EBP) and the scan goes on past it; a jump or
+    return ends the prefix, any other write to a register holding it drops that register, and `lea` is no access.
+    A lower bound: what the prefix shows, never what a branch might reach."""
+    from capstone.x86_const import (X86_OP_MEM, X86_OP_REG, X86_REG_EBP, X86_REG_EBX, X86_REG_ECX, X86_REG_EDI,
+                                    X86_REG_ESI)
+    import capstone
+    if callee in cache:
+        return cache[callee]
+    saved = {X86_REG_ESI, X86_REG_EDI, X86_REG_EBX, X86_REG_EBP}
+    holders, best = {X86_REG_ECX}, None
+    for ins in md.disasm(retail.read(callee, 0x400) or b"", retail.base + callee):
+        if ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET):
+            break
+        if ins.mnemonic != "lea":
+            for op in ins.operands:
+                if op.type == X86_OP_MEM and op.mem.base in holders and not op.mem.index and op.mem.disp >= 0:
+                    end = op.mem.disp + op.size
+                    if best is None or end > best[0]:
+                        best = (end, op.size, op.mem.disp, ins.address - retail.base)
+        if ins.group(capstone.CS_GRP_CALL):
+            holders &= saved
+        else:
+            ops = ins.operands
+            copy = (ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and
+                    ops[1].type == X86_OP_REG and ops[1].reg in holders)
+            holders -= set(ins.regs_access()[1])
+            if copy:
+                holders.add(ops[0].reg)
+        if not holders:
+            break
+    cache[callee] = best
+    return best
+
+
+def member_call_evidence(retail, rows, functions):
+    """Storage evidence from member calls on globals anywhere in retail's code: in each function of `functions`
+    ([(rva, size)]), a `mov ecx, offset G` (G a ledger global) followed by `call T` with ECX untouched between
+    is a member call on G, and T's furthest this-relative access (this_reach) is an access at G+offset. One record
+    per (G, T), the furthest; lower bounds only, as storage_evidence's. The initializer scan sees only
+    constructors called by static initializers, up to their first call: g_aptDateInterpreter's +0x64/+0x68 writes
+    sit in an init method called from Rva006CF230Initialize, behind `mov esi, ecx` and three calls."""
+    import capstone
+    from capstone.x86_const import X86_OP_IMM, X86_OP_REG, X86_REG_ECX
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    names = {int(r["address"], 16): r["name"] for r in rows if r["kind"] == "global"}
+    cache, seen, result = {}, set(), []
+    for start, size in functions:
+        held = None
+        for ins in md.disasm(retail.read(start, min(size or 0x400, 0x4000)) or b"", retail.base + start):
+            ops = ins.operands
+            if ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and ops[0].reg == X86_REG_ECX:
+                held = ops[1].imm - retail.base if ops[1].type == X86_OP_IMM else None
+                held = held if held in names else None
+            elif ins.mnemonic == "call" and held is not None and ops and ops[0].type == X86_OP_IMM:
+                callee = ops[0].imm - retail.base
+                reached = this_reach(retail, md, callee, cache)
+                if reached and (held, callee) not in seen:
+                    seen.add((held, callee))
+                    _end, width, offset, at = reached
+                    result.append(dict(name=names[held], rva=held, offset=offset, width=width,
+                                       evidence=f"retail member call at {hex(ins.address - retail.base)} in "
+                                                f"{hex(start)} on it calls {hex(callee)}; access at {hex(at)}"))
+                held = None
+            elif ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET) or ins.mnemonic == "call":
+                held = None
+            elif X86_REG_ECX in ins.regs_access()[1]:
+                held = None
+    return result
+
+
+def retail_function_starts(path):
+    """[(rva, size)] of every retail function in reverse/ghidra_functions.csv, or None when the list is absent."""
+    if not Path(path).exists():
+        return None
+    with Path(path).open(newline="") as f:
+        return [(int(r["rva"], 16), int(r["size"] or 0)) for r in csv.DictReader(f)]
+
+
 # COFF field widths, not PE fixups: internal REL32 fields can need no PE relocation.
 _COFF_WIDTH = {6: 4, 7: 4, 10: 2, 11: 4, 12: 4, 20: 4}
 
@@ -2757,8 +2839,12 @@ def main(argv=None):
     if not args.address_only and not args.relocation_bounds_only and not args.data_pointers_only:
         checker.ledger(rows, sizes)
         checker.initializers(retail_slotted_sources(build.ROOT / "reverse/functions.csv", retail.initializers()))
-        evidence = storage_evidence(retail, rows)
+        functions = retail_function_starts(build.ROOT / "reverse/ghidra_functions.csv")
+        members = member_call_evidence(retail, rows, functions or [])
+        evidence = storage_evidence(retail, rows) + members
         checker.counts["storage_initializers_considered"] = len(retail.initializers())
+        checker.counts["storage_member_calls_with_access"] = len(members)
+        checker.counts["storage_member_calls_unanalyzed"] = int(functions is None)   # no function list to scan
         proven = {e["rva"] for e in evidence}
         checker.counts["storage_objects_with_proven_access"] = len(proven)
         checker.counts["storage_globals_without_proven_access"] = sum(
