@@ -66,7 +66,6 @@ DieMuxData *DieMuxData::init()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0DieMuxData@@QAE@XZ=?init@DieMuxData@@QAEPAV1@XZ")
 
 // ?isDieApplicable@DieMuxData@@QBE_NPBVObject@@PBVDamageInfo@@@Z
 // Target004CE588..004CE69D(277B): donor DieModule.cpp confirms death-mask

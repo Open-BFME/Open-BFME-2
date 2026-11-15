@@ -53,4 +53,3 @@ SpecialAbilityUpdate::~SpecialAbilityUpdate()
 
 // The rowed constructor and its derived callers use this opaque base spelling.
 // Native calls and the shared vtable identify the same complete destructor.
-#pragma comment(linker, "/alternatename:??1Rva0044EF5E@@UAE@XZ=??1SpecialAbilityUpdate@@UAE@XZ")

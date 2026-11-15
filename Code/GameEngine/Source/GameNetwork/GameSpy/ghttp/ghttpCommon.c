@@ -307,7 +307,6 @@ GHTTPBool ghiSocketSelect
 #endif
 }
 #endif
-#pragma comment(linker, "/alternatename:_ghiSocketSelect=_GSISocketSelect")
 
 // Receive some data.
 /////////////////////
