@@ -72,7 +72,11 @@ namespace _STL {
 // The long-double parser is provided by stlport_narrow_money_get_long_double.cpp.
 template <> MoneyGetCharIterator money_get<char, MoneyGetCharIterator>::do_get(
     MoneyGetCharIterator, MoneyGetCharIterator, bool, ios_base &, int &, long double &) const;
+// The string parser is provided by stlport_narrow_money_get_string.cpp (0x00011230).
+template <> MoneyGetCharIterator money_get<char, MoneyGetCharIterator>::do_get(
+    MoneyGetCharIterator, MoneyGetCharIterator, bool, ios_base &, int &, basic_string<char, char_traits<char>, allocator<char> > &) const;
 }
+_STL::money_base::pattern (_STL::moneypunct<char, true>::* const s_negFormatAnchor)() const = &_STL::moneypunct<char, true>::neg_format;
 template class _STL::money_get<char, _STL::istreambuf_iterator<char, _STL::char_traits<char> > >;
 template _STL::pair<_STL::MoneyGetWideIterator, bool> _STL::__get_string(
     _STL::MoneyGetWideIterator, _STL::MoneyGetWideIterator, const wchar_t *, const wchar_t *);
