@@ -2982,7 +2982,10 @@ class Rva002AA39B
 {
 public:
 	Rva002AA39B();
-	virtual ~Rva002AA39B() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
 private:
 	void *m_04;
 	void *m_08;
