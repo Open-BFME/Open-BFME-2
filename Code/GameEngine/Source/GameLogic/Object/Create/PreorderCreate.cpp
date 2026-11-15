@@ -130,7 +130,6 @@ PreorderCreate::PreorderCreate( Thing *thing, const ModuleData *moduleData )
 {
 }
 
-// ??1PreorderCreate@@MAE@XZ present-unmatched
 PreorderCreate::~PreorderCreate()
 {
 }
