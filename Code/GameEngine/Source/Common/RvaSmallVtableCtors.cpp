@@ -1644,7 +1644,13 @@ class Rva000F6490
 {
 public:
 	Rva000F6490();
-	virtual ~Rva000F6490() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual bool slot10(int) { return true; }
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
 };
 
 Rva000F6490::Rva000F6490()
