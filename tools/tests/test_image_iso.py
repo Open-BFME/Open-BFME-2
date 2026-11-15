@@ -2755,27 +2755,31 @@ def test_an_entry_mapped_outside_retails_table_is_listed():
 
 # ------------------------------------------------------------ member calls on globals (member_call_evidence)
 
-FUNCTIONS = [(0x100, 0x20), (0x200, 0x40), (0x300, 0x10)]
-
-
-def member_call(c, callee_body, between=b"", target=0x2100, helper=b"\xc3", caller=None):
+def member_call(c, callee_body, between=b"", target=0x2100, helper=b"\xc3", caller=None, extra=()):
     """A retail function at 0x100: `mov ecx, offset target; <between>; call 0x200; ret` (or `caller` as given), the
-    callee at 0x200 (`callee_body`, which may call 0x300), and the helper at 0x300 (a bare ret by default)."""
+    callee at 0x200 (`callee_body`, which may call 0x300), the helper at 0x300 (a bare ret by default), and any
+    `extra` (rva, bytes) functions. Each is listed with its exact extent (c.functions)."""
     call_at = 0x105 + len(between)
-    c.retail.put(0x100, caller if caller is not None else (
+    caller = caller if caller is not None else (
         b"\xb9" + struct.pack("<I", c.retail.base + target) + between +
-        b"\xe8" + struct.pack("<i", 0x200 - (call_at + 5)) + b"\xc3"))
-    c.retail.put(0x200, callee_body)
-    c.retail.put(0x300, helper)
+        b"\xe8" + struct.pack("<i", 0x200 - (call_at + 5)) + b"\xc3")
+    c.functions = []
+    for rva, body in ((0x100, caller), (0x200, callee_body), (0x300, helper)) + tuple(extra):
+        c.retail.put(rva, body)
+        c.functions.append((rva, len(body)))
+
+
+def call_to(target, at):
+    """`call target` assembled at `at`."""
+    return b"\xe8" + struct.pack("<i", target - (at + 5))
 
 
 def call_300(at):
-    """`call 0x300` assembled at `at`."""
-    return b"\xe8" + struct.pack("<i", 0x300 - (at + 5))
+    return call_to(0x300, at)
 
 
-def evidence(c, rows=None):
-    return iso.member_call_evidence(c.retail, rows or [row("object", 0x2100)], FUNCTIONS)
+def evidence(c, rows=None, functions=None):
+    return iso.member_call_evidence(c.retail, rows or [row("object", 0x2100)], functions or c.functions)
 
 
 def test_a_member_call_proves_an_access_past_calls_through_a_saved_register():
@@ -2788,9 +2792,9 @@ def test_a_member_call_proves_an_access_past_calls_through_a_saved_register():
     assert "retail member call at 0x105 in 0x100 on it calls 0x200; access at 0x208" == found[0]["evidence"]
     c.storage(found)
     assert c.counts["storage_undersized"] == 1
-    c = checker([public("object", 0x2000, 0x6C)], {"object": {0x2100}})
-    c.storage(found)
-    assert not c.defects                                # 0x6C bytes cover +0x68
+    c2 = checker([public("object", 0x2000, 0x6C)], {"object": {0x2100}})
+    c2.storage(found)
+    assert not c2.defects                               # 0x6C bytes cover +0x68
 
 
 def test_a_load_through_this_counts_and_lea_does_not():
@@ -2825,6 +2829,7 @@ def test_no_member_call_without_ecx_held_or_a_ledger_global():
 # Sol r1: what may not count as an access through this
 
 STORE_68 = b"\xc7\x46\x68\x01\x00\x00\x00"                                        # mov dword [esi+0x68], 1
+SAVED_CALL = b"\x8b\xf1" + call_300(0x202) + STORE_68 + b"\xc3"                    # mov esi, ecx; call 0x300; store
 
 
 @pytest.mark.parametrize("body,between", [
@@ -2861,14 +2866,14 @@ def test_r1_a_function_with_an_indirect_jump_gives_no_member_call():
 ])
 def test_r1_a_call_keeps_a_register_only_when_the_target_preserves_it(helper, kept):
     c = checker([], {})
-    member_call(c, b"\x8b\xf1" + call_300(0x202) + STORE_68 + b"\xc3", helper=helper)
+    member_call(c, SAVED_CALL, helper=helper)
     assert [(e["offset"], e["width"]) for e in evidence(c)] == ([(0x68, 4)] if kept else [])
 
 
 def test_r1_a_call_to_an_unlisted_target_keeps_nothing():
     c = checker([], {})
-    member_call(c, b"\x8b\xf1" + call_300(0x202) + STORE_68 + b"\xc3")
-    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], FUNCTIONS[:2]) == []
+    member_call(c, SAVED_CALL)
+    assert evidence(c, functions=c.functions[:2]) == []
 
 
 @pytest.mark.parametrize("body", [
@@ -2894,3 +2899,62 @@ def test_r1_a_split_needs_an_access_that_touches_the_other_global():
     member_call(c, b"\x8b\x41\x08\xc3")
     c.storage(evidence(c, [row("object", 0x2100, 12)]))
     assert c.counts["storage_split"] == 1
+
+
+# Sol r2: preservation is proven for one straight-line shape only
+
+@pytest.mark.parametrize("helper,extra", [
+    # a branch: the alternate path returns with ESI replaced
+    (b"\x85\xc0\x74\x08\x56\xbe\x00\x30\x40\x00\x5e\xc3\xbe\x00\x30\x40\x00\xeb\xf8", ()),
+    (b"\x56\x50\xbe\x00\x30\x40\x00\x5e\x83\xc4\x04\xc3", ()),                 # pop esi takes the pushed EAX
+    (b"\x56\xc7\x04\x24\x00\x30\x40\x00\xbe\x00\x30\x40\x00\x5e\xc3", ()),     # the saved slot overwritten
+    (b"\x66\x56\xbe\x00\x30\x40\x00\x66\x5e\xc3", ()),                         # only SI saved
+    # a call before the save: the callee at 0x400 replaces ESI, which the helper then saves and restores
+    (call_to(0x400, 0x300) + b"\x56\xbe\x00\x30\x40\x00\x5e\xc3", ((0x400, b"\xbe\x00\x30\x40\x00\xc3"),)),
+])
+def test_r2_a_register_is_kept_only_across_a_proven_save_and_restore(helper, extra):
+    c = checker([], {})
+    member_call(c, SAVED_CALL, helper=helper, extra=extra)
+    assert evidence(c) == []
+
+
+def test_r2_an_extent_that_falls_through_proves_nothing():
+    # 0x300 listed with one byte (a nop): execution falls into `mov esi, 0x403000; ret`
+    c = checker([], {})
+    member_call(c, SAVED_CALL, helper=b"\x90\xbe\x00\x30\x40\x00\xc3")
+    functions = [f if f[0] != 0x300 else (0x300, 1) for f in c.functions]
+    assert evidence(c, functions=functions) == []
+
+
+def test_r2_a_save_with_a_balanced_call_between_is_kept():
+    # push esi; push 1; call 0x400 (ret 4); mov esi, ...; pop esi; ret: the depth is back at the slot
+    c = checker([], {})
+    helper = b"\x56\x6a\x01" + call_to(0x400, 0x303) + b"\xbe\x00\x30\x40\x00\x5e\xc3"
+    member_call(c, SAVED_CALL, helper=helper, extra=((0x400, b"\xc2\x04\x00"),))
+    assert [(e["offset"], e["width"]) for e in evidence(c)] == [(0x68, 4)]
+
+
+def test_r2_sixteen_bit_addressing_is_no_access():
+    c = checker([], {})
+    member_call(c, b"\x8b\xf1\x67\x8b\x44\x68\xc3")      # mov esi, ecx; mov eax, [si+0x68]
+    assert evidence(c) == []
+
+
+def test_r2_loop_is_a_branch_to_the_call():
+    # mov ecx, 0x403000; loop +5 (over mov ecx, G) to the call: ECX is not G there
+    c = checker([], {})
+    caller = (b"\xb9" + struct.pack("<I", c.retail.base + 0x3000) + b"\xe2\x05" +
+              b"\xb9" + struct.pack("<I", c.retail.base + 0x2100) + b"\xe8" + struct.pack("<i", 0x200 - 0x111) + b"\xc3")
+    member_call(c, b"\x8b\x41\x68\xc3", caller=caller)
+    assert evidence(c) == []
+
+
+def test_r2_a_branch_from_far_in_the_extent_is_seen():
+    # 0x100: jmp 0x4100; mov ecx, G; call 0x4800; ret ... 0x4100: mov ecx, 0x403000; jmp 0x10a (the call)
+    c = checker([], {})
+    member_call(c, b"\xc3")
+    c.retail.put(0x100, b"\xe9" + struct.pack("<i", 0x4100 - 0x105) + b"\xb9" +
+                 struct.pack("<I", c.retail.base + 0x2100) + call_to(0x4800, 0x10a) + b"\xc3")
+    c.retail.put(0x4100, b"\xb9" + struct.pack("<I", c.retail.base + 0x3000) + b"\xe9" + struct.pack("<i", 0x10a - 0x410a))
+    c.retail.put(0x4800, b"\x8b\x41\x68\xc3")
+    assert evidence(c, functions=[(0x100, 0x400a), (0x4800, 4)]) == []

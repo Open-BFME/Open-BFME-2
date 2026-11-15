@@ -1348,53 +1348,112 @@ def written_families(md, ins):
     return {REGISTER_FAMILY.get(md.reg_name(reg)) for reg in ins.regs_access()[1]} - {None}
 
 
+BRANCHES = ("loop", "loope", "loopne", "loopz", "loopnz", "jecxz", "jcxz")
+
+
+def transfers(ins):
+    """Whether `ins` may transfer control other than by falling through or calling: a jump, a LOOP-family or
+    JECXZ instruction (capstone groups those apart from the jumps), a return."""
+    import capstone
+    return (ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET) or ins.mnemonic in BRANCHES)
+
+
+def decode_whole(retail, md, start, size):
+    """The instructions of [start, start+size), or None unless they decode the extent completely."""
+    body = list(md.disasm(retail.read(start, size) or b"", retail.base + start)) if size else []
+    return body if body and sum(ins.size for ins in body) == size else None
+
+
+def straight_line(retail, md, target, sizes):
+    """The target's listed extent when it is one straight-line run: decoded completely, no branch, and a `ret` (or
+    `ret n`) as its last instruction and nowhere else. (instructions, bytes the ret pops besides the return
+    address), or None."""
+    import capstone
+    body = decode_whole(retail, md, target, sizes.get(target))
+    if body is None or not body[-1].group(capstone.CS_GRP_RET) or any(transfers(ins) for ins in body[:-1]):
+        return None
+    ops = body[-1].operands
+    return body, (ops[0].imm if ops else 0)
+
+
 def preserves(retail, md, target, family, sizes, memo, depth=0):
-    """Whether the function at `target` returns with register `family` as it found it, proven from its whole extent
-    (sizes: reverse/ghidra_functions.csv): it never writes it and every function it calls preserves it too (up to
-    three calls deep); or it pushes it before its first write and pops it before every return. Unknown: an extent not
-    listed, a jump out of the extent or through a register or memory, an indirect call. Unknown is False."""
+    """Whether a call to `target` returns with register `family` as it found it. Proven only for a straight-line
+    target (straight_line), either:
+    - one that never writes the register, every call in it to a target that preserves it too (up to three deep); or
+    - one exact save and restore: its first instruction `push reg` and its last before the ret `pop reg`, both the
+      full 32-bit register, with the stack depth tracked exactly between them (push, pop, add/sub esp by an
+      immediate, a call to a straight-line target whose `ret n` is known) back to the saved slot at the pop; no
+      write in between reaches the saved slot or goes through EBP, and no `leave` or other write to ESP.
+    Anything else (a branch, an extent that falls through, a call before the save, an unknown callee) is False."""
     key = (target, family)
     if key in memo:
         return memo[key]
     memo[key] = False                                   # a recursive call proves nothing
-    size = sizes.get(target)
-    if not size or depth > 3:
+    if depth > 3:
         return False
-    body = list(md.disasm(retail.read(target, size) or b"", retail.base + target))
-    if not body:
+    found = straight_line(retail, md, target, sizes)
+    if found is None:
         return False
+    body, _pops = found
     import capstone
-    from capstone.x86_const import X86_OP_IMM, X86_OP_REG
-    for ins in body:
-        if ins.group(capstone.CS_GRP_JUMP):
-            op = ins.operands[0] if ins.operands else None
-            if op is None or op.type != X86_OP_IMM or not target <= op.imm - retail.base < target + size:
-                return False
-    writes = [i for i, ins in enumerate(body) if family in written_families(md, ins)]
-    if not writes:
+    from capstone.x86_const import X86_OP_IMM, X86_OP_MEM, X86_OP_REG
+
+    def callee_of(ins):
+        op = ins.operands[0] if ins.operands else None
+        return op.imm - retail.base if op is not None and op.type == X86_OP_IMM else None
+
+    if not any(family in written_families(md, ins) for ins in body):
         for ins in body:
             if ins.group(capstone.CS_GRP_CALL):
-                op = ins.operands[0] if ins.operands else None
-                if op is None or op.type != X86_OP_IMM or not preserves(
-                        retail, md, op.imm - retail.base, family, sizes, memo, depth + 1):
+                callee = callee_of(ins)
+                if callee is None or not preserves(retail, md, callee, family, sizes, memo, depth + 1):
                     return False
         memo[key] = True
         return True
 
-    def names(ins, mnemonic):
-        return (ins.mnemonic == mnemonic and len(ins.operands) == 1 and ins.operands[0].type == X86_OP_REG
-                and REGISTER_FAMILY.get(md.reg_name(ins.operands[0].reg)) == family)
-    if not any(names(ins, "push") for ins in body[:writes[0]]):
+    def register_operand(ins, mnemonic):
+        ops = ins.operands
+        return (ins.mnemonic == mnemonic and len(ops) == 1 and ops[0].type == X86_OP_REG
+                and md.reg_name(ops[0].reg) == family)
+    if len(body) < 3 or not register_operand(body[0], "push") or not register_operand(body[-2], "pop"):
         return False
-    for i, ins in enumerate(body):
-        if ins.group(capstone.CS_GRP_RET):
-            j, restored = i - 1, False
-            while j >= 0 and (body[j].mnemonic in ("pop", "leave") or
-                              (body[j].mnemonic in ("add", "mov") and "esp" in body[j].op_str.split(",")[0])):
-                restored = restored or names(body[j], "pop")
-                j -= 1
-            if not restored:
+    depth_bytes = 0                                     # bytes pushed since the save; the slot is at [esp+depth]
+    for ins in body[1:-2]:
+        ops = ins.operands
+        if ins.mnemonic == "push":
+            depth_bytes += 4 if not ops or ops[0].size in (0, 4) else ops[0].size
+            continue
+        if ins.mnemonic == "pop":
+            depth_bytes -= 4 if not ops or ops[0].size in (0, 4) else ops[0].size
+            if depth_bytes < 0:
                 return False
+            continue
+        if ins.group(capstone.CS_GRP_CALL):
+            callee = callee_of(ins)
+            pops = straight_line(retail, md, callee, sizes) if callee is not None else None
+            if pops is None:
+                return False
+            depth_bytes -= pops[1]
+            if depth_bytes < 0:
+                return False
+            continue
+        if ins.mnemonic in ("add", "sub") and len(ops) == 2 and ops[0].type == X86_OP_REG \
+                and md.reg_name(ops[0].reg) == "esp" and ops[1].type == X86_OP_IMM:
+            depth_bytes += -ops[1].imm if ins.mnemonic == "add" else ops[1].imm
+            if depth_bytes < 0:
+                return False
+            continue
+        if "esp" in written_families(md, ins):
+            return False                                # leave, mov esp, ...: the depth is no longer known
+        for op in ops:
+            if op.type == X86_OP_MEM and op.access & capstone.CS_AC_WRITE:
+                base = md.reg_name(op.mem.base)
+                if base in ("ebp", "bp") or op.mem.index:
+                    return False
+                if base == "esp" and op.mem.disp < depth_bytes + 4 and op.mem.disp + op.size > depth_bytes:
+                    return False                        # it reaches the saved slot
+    if depth_bytes != 0:
+        return False
     memo[key] = True
     return True
 
@@ -1403,23 +1462,25 @@ def this_accesses(retail, md, callee, sizes, cache, memo):
     """{(offset, width): instruction address} of the accesses through `this` in `callee`'s straight-line prefix.
     `this` arrives in ECX and is followed through 32-bit register copies (`mov esi, ecx`); a write to any part of a
     register holding it drops that register; a call keeps a register only when its target provably preserves it
-    (preserves); a jump or return ends the prefix. An access is a memory operand based on a register holding
-    `this`, with no index, no segment override and a non-negative displacement, in an instruction that touches
-    memory: `lea`, `nop`, `prefetch*` and REP-prefixed string instructions (a zero count touches nothing) are not.
-    Lower bounds: what the prefix proves, never what a branch might reach."""
+    (preserves); a jump, LOOP-family instruction or return ends the prefix. An access is a memory operand with
+    32-bit addressing, a full 32-bit base register holding `this`, no index, no segment override and a
+    non-negative displacement, in an instruction that touches memory: `lea`, `nop`, `prefetch*` and REP-prefixed
+    string instructions (a zero count touches nothing) are not. Lower bounds: what the prefix proves, never what a
+    branch might reach."""
     if callee in cache:
         return cache[callee]
     import capstone
     from capstone.x86_const import X86_OP_IMM, X86_OP_MEM, X86_OP_REG, X86_REG_INVALID
     holders, found = {"ecx"}, {}
     for ins in md.disasm(retail.read(callee, 0x400) or b"", retail.base + callee):
-        if ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET):
+        if transfers(ins):
             break
         repeated = ins.prefix[0] in (0xF2, 0xF3) and ins.mnemonic.split()[-1].startswith(
             ("movs", "stos", "lods", "cmps", "scas", "ins", "outs"))
-        if not (ins.mnemonic in ("lea", "nop") or ins.mnemonic.startswith("prefetch") or repeated):
+        if not (ins.mnemonic in ("lea", "nop") or ins.mnemonic.startswith("prefetch") or repeated
+                or ins.prefix[3] == 0x67):
             for op in ins.operands:
-                if op.type == X86_OP_MEM and REGISTER_FAMILY.get(md.reg_name(op.mem.base)) in holders \
+                if op.type == X86_OP_MEM and md.reg_name(op.mem.base) in holders \
                         and not op.mem.index and op.mem.segment == X86_REG_INVALID and op.mem.disp >= 0:
                     found.setdefault((op.mem.disp, op.size), ins.address - retail.base)
         if ins.group(capstone.CS_GRP_CALL):
@@ -1430,7 +1491,7 @@ def this_accesses(retail, md, callee, sizes, cache, memo):
         else:
             ops = ins.operands
             copy = (ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and
-                    ops[1].type == X86_OP_REG and REGISTER_FAMILY.get(md.reg_name(ops[1].reg)) in holders and
+                    ops[1].type == X86_OP_REG and md.reg_name(ops[1].reg) in holders and
                     md.reg_name(ops[0].reg) in REGISTER_FAMILY.values())
             holders = holders - written_families(md, ins)
             if copy:
@@ -1443,12 +1504,13 @@ def this_accesses(retail, md, callee, sizes, cache, memo):
 
 def member_call_evidence(retail, rows, functions):
     """Storage evidence from member calls on globals anywhere in retail's code: in each function of `functions`
-    ([(rva, size)]), a `mov ecx, offset G` (G a ledger global) followed by `call T`, with no write to any part of ECX
-    and no direct jump target between them, is a member call on G, and each access T makes through `this`
-    (this_accesses) is an access at G+offset. A function with an indirect jump gives none (its targets are unknown).
-    One record per distinct (G, offset, width); lower bounds only, as storage_evidence's. The initializer scan sees
-    only constructors called by static initializers, up to their first call: g_aptDateInterpreter's +0x64/+0x68
-    writes sit in an init method called from Rva006CF230Initialize, behind `mov esi, ecx` and three calls."""
+    ([(rva, size)]) decoded completely over its listed extent, a `mov ecx, offset G` (G a ledger global) followed by
+    `call T`, with no write to any part of ECX and no direct branch target between them, is a member call on G, and
+    each access T makes through `this` (this_accesses) is an access at G+offset. A function with an indirect jump,
+    or one that does not decode completely, gives none (its branch targets are unknown). One record per distinct
+    (G, offset, width); lower bounds only, as storage_evidence's. The initializer scan sees only constructors called
+    by static initializers, up to their first call: g_aptDateInterpreter's +0x64/+0x68 writes sit in an init method
+    behind `mov esi, ecx` and three calls."""
     import capstone
     from capstone.x86_const import X86_OP_IMM, X86_OP_REG
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
@@ -1457,10 +1519,12 @@ def member_call_evidence(retail, rows, functions):
     sizes = {start: size for start, size in functions}
     cache, memo, seen, result = {}, {}, set(), []
     for start, size in functions:
-        body = list(md.disasm(retail.read(start, min(size or 0x400, 0x4000)) or b"", retail.base + start))
+        body = decode_whole(retail, md, start, size)
+        if body is None:
+            continue
         targets, indirect = set(), False
         for ins in body:
-            if ins.group(capstone.CS_GRP_JUMP):
+            if transfers(ins) and not ins.group(capstone.CS_GRP_RET):
                 op = ins.operands[0] if ins.operands else None
                 if op is not None and op.type == X86_OP_IMM:
                     targets.add(op.imm - retail.base)
@@ -1473,7 +1537,7 @@ def member_call_evidence(retail, rows, functions):
             here = ins.address - retail.base
             ops = ins.operands
             if held is not None and here in targets:
-                held = None                             # reached by a jump, ECX may be anything here
+                held = None                             # reached by a branch, ECX may be anything here
             if ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and md.reg_name(ops[0].reg) == "ecx":
                 held = ops[1].imm - retail.base if ops[1].type == X86_OP_IMM else None
                 held = held if held in names else None
@@ -1486,7 +1550,7 @@ def member_call_evidence(retail, rows, functions):
                                            evidence=f"retail member call at {hex(here)} in {hex(start)} on it calls "
                                                     f"{hex(callee)}; access at {hex(at)}"))
                 held = None
-            elif ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET) or ins.mnemonic == "call":
+            elif transfers(ins) or ins.mnemonic == "call":
                 held = None
             elif "ecx" in written_families(md, ins):
                 held = None
