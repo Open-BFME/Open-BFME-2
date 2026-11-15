@@ -10499,7 +10499,6 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingG
 present_unmatched	Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	Rva000421C8::link	1
 present_unmatched	Code/GameEngine/Source/Common/BigChainBaseDtorsO1.cpp	BigChainO1Hold::~BigChainO1Hold	1
 present_unmatched	Code/GameEngine/Source/Common/BitRange.cpp	_M_create_node@?$_Rb_tree@UBfmeStringRecord004071F7@@U1@U?$_Identity@UBfmeStringRecord004071F7@@@_STL@@URecordNocaseLess@@V?$allocator@UBfmeStringRecord004071F7@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmeStringRecord004071F7@@@2@ABUBfmeStringRecord004071F7@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311974SplineGet.cpp	splineGetActive	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	Rva00311F46Delta::Rva00311F46Delta	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	Rva00311F46Delta::length	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	Rva00311FE2Words::Rva00311FE2Words	1
@@ -10633,7 +10632,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp	Reviv
 present_unmatched	Code/GameEngine/Source/Common/Rva00030DD0AddRef.cpp	bfmeEmitRva00030DD0LockDtor@@YAXPAURva00030DD0Lock@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00068119::rva00068119	2
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE3::rva00078AE3	2
-present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0007B851Math::Sqrt	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	Rva000BC93DCBase::~Rva000BC93DCBase	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	GDIFileStream::read	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	makeNrmTextureName@@	1
@@ -10693,14 +10691,12 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00517345Ctor.cpp	rva00517345s
 present_unmatched	Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp	releaseBuffer@?$StringBase@D@@AAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00542425Skip.cpp	Rva00542425Caller@@YAPADPAD@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005562DDClear.cpp	Rva005562DDHeaderOwner::~Rva005562DDHeaderOwner	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0055A0DDEvaluate.cpp	rvaDot	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp	Rva0055A627Difference::length	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0055A40CSplit.cpp	Rva0055A40CDifference	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056AC26Base1::Rva0056AC26Base1	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056ACAEVisitor::Rva0056ACAEVisitor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C4B56.cpp	rva005C4BC8@Rva005C4B56@@QAEX_N_NH@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005C76C0Ctor.cpp	rva005C7448Zero	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CB260Forwarder.cpp	Rva005CB265::rva005CB265	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CBA04Ctor.cpp	1Rva005CBA04@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CF8E3Dtor.cpp	1Rva005CF8E3Base@@UAE@XZ	1
@@ -10851,7 +10847,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@
 present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp	bfmeEmitFXParticleSystemModulesAssign@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::~AptTooltipHolder	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	1Rva0057B993@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete002004FD@@YAXPAVRva002004FD@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete0031F831@@YAXPAVRva0031F831@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp	markUIDirty@ControlBar@@QAEXXZ	1
@@ -10908,7 +10903,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Strateg
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicVeterancy.cpp	Rva005FA874::Rva005FA874	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	famgenDelete00216108@@YAXPAVRva00216108@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp	StanceToButtonSlot@@YAHPAVCommandButton@@H@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirCostInterface::PalantirCostInterface	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirSlotRef::PalantirSlotRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirSlotRef::~PalantirSlotRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirToggleHolder::~PalantirToggleHolder	1
@@ -11033,7 +11027,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePat
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp	0BfmeWideResult@@QAE@ABU0@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	getDrawable@Thing@@QBEPAVDrawable@@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp	isSamePosition@@YA_NPBUCoord3D@@00@Z	1

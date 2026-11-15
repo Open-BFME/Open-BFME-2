@@ -90,7 +90,6 @@ struct Rva0007B851Point
 class Rva0007B851Math
 {
 public:
-// ?Rva0007B851Math::Sqrt present-unmatched
 	static __forceinline float Sqrt(float val)
 	{
 		float retval;

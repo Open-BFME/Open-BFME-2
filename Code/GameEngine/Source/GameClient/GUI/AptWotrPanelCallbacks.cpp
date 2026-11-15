@@ -325,7 +325,6 @@ class Rva0057B993
 public:
 	Rva0057B993() { m_ptr = 0; }
 	void reset(Rva005D4FFC *p);
-	// ??1Rva0057B993@@QAE@XZ present-unmatched
 	__forceinline ~Rva0057B993() { ((Rva0057B9B6 *)this)->clear(); }
 
 	Rva005D4FFC *m_ptr;

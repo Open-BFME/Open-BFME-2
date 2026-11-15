@@ -277,7 +277,6 @@ typedef BfmeWideResult (BfmeResultForwardB::*AllObjectsCall)(int);
 // Retail inlines the result copy (bump the shared record's +0x10 count) when
 // the ternary's temporary initialises the iterator; the shared view only
 // declares it out of line.
-// ??0BfmeWideResult@@QAE@ABU0@@Z present-unmatched
 __forceinline BfmeWideResult::BfmeWideResult(const BfmeWideResult &other)
 {
 	void *value = other.m_value;

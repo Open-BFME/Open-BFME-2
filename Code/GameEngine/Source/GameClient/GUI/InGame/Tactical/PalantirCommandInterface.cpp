@@ -185,7 +185,6 @@ __forceinline PalantirRankInterface(void*p) throw(){state.rva00528B72(p);}
 __forceinline ~PalantirRankInterface(){((Rva00528B98*)this)->rva00528B98();}};
 class Rva00528BC1 {public:Rva00528BC1*rva00528BC1(void*);char data[16];};
 struct PalantirCostInterface {Rva00528BC1 state;
-// ?PalantirCostInterface::PalantirCostInterface present-unmatched
 __forceinline PalantirCostInterface(void*p){state.rva00528BC1(p);}};
 class Rva00529F3D {public:void rva00529F3D(int);};
 class Rva0052936C {public:

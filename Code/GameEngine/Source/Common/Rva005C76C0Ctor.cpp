@@ -13,7 +13,6 @@ extern "C" D3DXVECTOR4* __stdcall rva0062AF4AD3DXVec4Transform(D3DXVECTOR4*,cons
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
 // TU-local donor zero operation preserves inline call scheduling.
-// ?rva005C7448Zero present-unmatched
 static __forceinline void rva005C7448Zero(Coord3D &pos) { pos.x = 0.0f; pos.y = 0.0f; pos.z = 0.0f; }
 
 class Rva0055A246
