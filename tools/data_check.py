@@ -246,7 +246,14 @@ def converged_facts(rows, unread):
     in `unread` [(source, row name, why)]. Currency is checked once per
     (source, object) during this call, then checked again before returning.
     Source, object, receipt and recorded dependency identities must remain
-    unchanged throughout; no verdict is cached between calls."""
+    unchanged throughout; no verdict is cached between calls. Each object's layout
+    is pinned for the call (build.pinned_object_layouts), so every digest of it is
+    of the bytes the row reads used, and a disk that differs is caught."""
+    with build.pinned_object_layouts():
+        return _converged_facts(rows, unread)
+
+
+def _converged_facts(rows, unread):
     def stamp(path):
         try:
             stat = path.stat()

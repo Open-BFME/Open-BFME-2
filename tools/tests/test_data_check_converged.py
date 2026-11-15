@@ -292,19 +292,53 @@ def test_bad_receipts_remain_unjudged_for_every_row(tmp_path, monkeypatch, damag
 def test_an_old_same_stamp_layout_is_not_trusted_with_a_new_receipt(tmp_path, monkeypatch):
     import hashlib
     rows, _source, _header, obj, meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
-    # Warm the exact reader cache, then change a relocation's symbol name
-    # without changing file size or mtime. A fresh receipt alone is insufficient.
-    dc.build.read_object_symbol_bytes(obj, rows[0]["name"], 6)
+    # Change a relocation's symbol name without changing file size or mtime, with a fresh receipt, and serve the
+    # old layout as a stale reader cache would: a fresh receipt alone is insufficient.
+    stale = dc.build._object_layout.__wrapped__(str(obj))
     old_stat = obj.stat()
     old = obj.read_bytes()
     assert b"?alias@@3PAXA" in old
     obj.write_bytes(old.replace(b"?alias@@3PAXA", b"?other@@3PAXA"))
     os.utime(obj, ns=(old_stat.st_atime_ns, old_stat.st_mtime_ns))
     dc.build._deps_sidecar(obj).write_text(json.dumps({**meta, "object": hashlib.md5(obj.read_bytes()).hexdigest()}))
+    layout = dc.build._object_layout
+    monkeypatch.setattr(dc.build, "_object_layout", lambda path, *a, **kw:
+                        stale if path == str(obj) else layout(path, *a, **kw))
     unread = []
     assert dc.converged_facts(rows, unread) == []
     assert len(unread) == len(rows)
     assert all(why == "cached object layout differs from its build receipt" for _s, _n, why in unread)
+
+
+def test_a_same_stamp_rewrite_is_read_as_it_is_now(tmp_path, monkeypatch):
+    # build's layout memo reads a same-size, restored-mtime rewrite again: the audit judges the object on disk
+    import hashlib
+    rows, _source, _header, obj, meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    dc.build.read_object_symbol_bytes(obj, rows[0]["name"], 6)
+    old_stat = obj.stat()
+    obj.write_bytes(obj.read_bytes().replace(b"?alias@@3PAXA", b"?other@@3PAXA"))
+    os.utime(obj, ns=(old_stat.st_atime_ns, old_stat.st_mtime_ns))
+    dc.build._deps_sidecar(obj).write_text(json.dumps({**meta, "object": hashlib.md5(obj.read_bytes()).hexdigest()}))
+    unread = []
+    facts = dc.converged_facts(rows, unread)
+    assert not any(why == "cached object layout differs from its build receipt" for _s, _n, why in unread)
+    assert facts and all(name != "?alias@@3PAXA" for _source, name, _base, _effective in facts)
+
+
+def test_the_audit_pins_each_layout_it_reads(tmp_path, monkeypatch):
+    # every read in one audit sees the bytes the first saw; the pins end with the audit
+    rows, _source, _header, obj, _meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    seen = []
+    read = dc.build.read_object_symbol_bytes
+
+    def tracking_read(*args, **kwargs):
+        assert str(obj) in dc.build._LAYOUT_PINS.pins        # pinned for the audit
+        seen.append(dc.build._object_layout(str(obj))[0])
+        return read(*args, **kwargs)
+    monkeypatch.setattr(dc.build, "read_object_symbol_bytes", tracking_read)
+    dc.converged_facts(rows, [])
+    assert len(seen) == len(rows) and all(data is seen[0] for data in seen)
+    assert getattr(dc.build._LAYOUT_PINS, "pins", None) is None
 
 
 def test_a_reloaded_layout_generation_cannot_hide_a_transient_swap(tmp_path, monkeypatch):

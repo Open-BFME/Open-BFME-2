@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import bisect
+import collections
 import concurrent.futures
+import contextlib
 import csv
 import functools
 import hashlib
@@ -587,22 +589,96 @@ def defined_coff_indices(symbols):
 
 
 class IndexedCoffSymbols(list):
-    """COFF records and their first definitions, owned by one parsed layout."""
+    """COFF records and their first definitions, owned by one parsed layout (and, once
+    _function_starts asks, its function starts)."""
 
     def __init__(self, symbols):
         super().__init__(symbols)
         self.defined_indices = defined_coff_indices(self)
+        self.function_starts = None
 
 
-@functools.lru_cache(maxsize=256)
-def _object_layout(path_str, mtime_ns, size):
-    """Parsed COFF layout, keyed by (path, mtime, size) so a recompile misses.
+_LAYOUT_MEMO = collections.OrderedDict()
+_LAYOUT_MEMO_SIZE = 256
+_LAYOUT_LOCK = threading.Lock()
+_LAYOUT_PINS = threading.local()
+
+
+@contextlib.contextmanager
+def pinned_object_layouts():
+    """Within it, each object's layout is read once and kept: every later _object_layout of that path in this
+    thread returns the bytes the first read saw, so a caller can digest exactly what its reads used
+    (data_check.converged_facts) and checks those bytes against the disk itself. Nested scopes share the outer
+    one's pins; _object_layout.cache_clear() drops them too."""
+    outer = getattr(_LAYOUT_PINS, "pins", None)
+    _LAYOUT_PINS.pins = {} if outer is None else outer
+    try:
+        yield
+    finally:
+        _LAYOUT_PINS.pins = outer
+
+
+def _object_layout(path_str, mtime_ns=None, size=None):
+    """Parsed COFF layout of the object at `path_str` as it is on disk now (_current_object_layout), or, inside
+    pinned_object_layouts, as the scope's first read of it saw it."""
+    pins = getattr(_LAYOUT_PINS, "pins", None)
+    if pins is not None and path_str in pins:
+        return pins[path_str]
+    layout = _current_object_layout(path_str)
+    if pins is not None:
+        pins[path_str] = layout
+    return layout
+
+
+def _current_object_layout(path_str):
+    """Parsed COFF layout of the object at `path_str` as it is on disk now.
 
     The gate reads the SAME multi-MB object once per ledger row; with generated
     claims putting hundreds of rows on one TU, re-reading and re-parsing per row
-    came to dominate full-gate wall time (91k rows over ~4k objects). One parse
-    per object version is behavior-identical."""
+    came to dominate full-gate wall time (91k rows over ~4k objects), so the last
+    _LAYOUT_MEMO_SIZE layouts are kept. An entry is keyed on the file's full
+    identity (device, inode, size, mtime and ctime), and, as _hash_file's memo
+    is, trusted only when the file had settled more than _HASH_TICK_NS before it
+    was parsed: a same-size rewrite within one tick of coarse file times leaves
+    every stat field as it was, so a younger entry reads the bytes again and is
+    used only when they are the bytes it parsed. The memo stats the file itself
+    (_object_layout keeps its callers' `mtime_ns` and `size` arguments)."""
+    stat = os.stat(path_str)
+    stamp = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+    with _LAYOUT_LOCK:
+        cached = _LAYOUT_MEMO.get(path_str)
+        if cached is not None:
+            _LAYOUT_MEMO.move_to_end(path_str)
+    if cached is not None and cached[0] == stamp:
+        if max(stat.st_mtime_ns, stat.st_ctime_ns) < cached[1] - _HASH_TICK_NS:
+            return cached[2]
+    read_at = _hash_clock()
     data = Path(path_str).read_bytes()
+    after = os.stat(path_str)
+    if cached is not None and cached[0] == stamp and data == cached[2][0]:
+        layout = cached[2]                      # the bytes it parsed: still them, read again now
+    else:
+        layout = _read_object_layout(path_str, data=data)
+    if stamp == (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns):
+        with _LAYOUT_LOCK:
+            _LAYOUT_MEMO[path_str] = (stamp, read_at, layout)
+            _LAYOUT_MEMO.move_to_end(path_str)
+            while len(_LAYOUT_MEMO) > _LAYOUT_MEMO_SIZE:
+                _LAYOUT_MEMO.popitem(last=False)
+    return layout
+
+
+def _clear_object_layouts():
+    with _LAYOUT_LOCK:
+        _LAYOUT_MEMO.clear()
+    pins = getattr(_LAYOUT_PINS, "pins", None)
+    if pins is not None:
+        pins.clear()
+
+
+def _read_object_layout(path_str, mtime_ns=None, size=None, *, data=None):
+    """The COFF layout (bytes, sections, IndexedCoffSymbols) of `data`, else of the file at `path_str`; no memo."""
+    data = Path(path_str).read_bytes() if data is None else data
     section_count = u16(data, 2)
     section_table = 20
 
@@ -621,6 +697,10 @@ def _object_layout(path_str, mtime_ns, size):
         )
 
     return data, sections, IndexedCoffSymbols(read_object_symbols(data))
+
+
+_object_layout.cache_clear = _clear_object_layouts
+_object_layout.__wrapped__ = _read_object_layout
 
 
 def defined_code_symbols(path):
@@ -3474,10 +3554,12 @@ def masked_call_problems(target, target_rva, relocs, strict, symbol_map):
     return problems
 
 
-@functools.lru_cache(maxsize=256)
-def _function_starts(path_str, mtime_ns, size):
-    """Per code section, the sorted offsets at which a function symbol starts."""
+def _function_starts(path_str, mtime_ns=None, size=None):
+    """Per code section, the sorted offsets at which a function symbol starts in the object
+    as it is on disk now (_object_layout); kept on the parsed layout, so it is never older."""
     _, _, symbols = _object_layout(path_str, mtime_ns, size)
+    if isinstance(symbols, IndexedCoffSymbols) and symbols.function_starts is not None:
+        return symbols.function_starts
     starts = {}
     for symbol in symbols:
         if (symbol["section"] > 0 and symbol["name"] and not symbol["name"].startswith("$")
@@ -3485,6 +3567,8 @@ def _function_starts(path_str, mtime_ns, size):
             starts.setdefault(symbol["section"], []).append(symbol["value"])
     for values in starts.values():
         values.sort()
+    if isinstance(symbols, IndexedCoffSymbols):
+        symbols.function_starts = starts
     return starts
 
 
