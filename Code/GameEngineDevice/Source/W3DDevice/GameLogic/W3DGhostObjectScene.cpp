@@ -111,6 +111,7 @@ class RGBAColorInt;
 // BFME 2 Xfer surface (the TeamInQueueXfer.cpp view): overloads of operator==
 // fill the table in reverse declaration order.
 #include "../../../../GameEngine/Include/Common/BfmeXfer.h"
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 // The rowed 0x003062FE (Zero Hour xferMatrix3D) sends the three rows of four floats.
 Xfer *Rva003062FEXfer(Xfer *xfer, float *vals);

@@ -62,6 +62,7 @@ public:
 };
 enum { MAX_BRIDGES = 200 };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.h"
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class MeshModelClass;
 class MeshClass : public RefCountClass
 {
