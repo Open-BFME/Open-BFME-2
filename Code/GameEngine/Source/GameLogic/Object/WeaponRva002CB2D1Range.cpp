@@ -14,6 +14,8 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
+#include "../../Common/Thing/thing.h"
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_25 = 0x25,
@@ -49,7 +51,7 @@ public:
 };
 
 
-class Object
+class Object : public Thing
 {
 public:
 	float rva002636F6(const Coord3D *a, const void *other, const Coord3D *b) const;
@@ -58,9 +60,7 @@ public:
 	float rva00263763(const void *other) const;
 	bool testStatus(ObjectStatusTypes status) const;
 	int rva0028B511() const;
-	char m_pad000[4];
-	Rva002CB35CTemplate *m_template;	// +0x04
-	char m_pad008[0xA8 - 8];
+	char m_pad060[0xA8 - 0x60];
 	BfmeThingTemplateShadowSelector m_A8;	// +0xA8
 	char m_pad0A9[0x258 - 0xA9];
 	Rva002CB35CAI *m_258;				// +0x258
@@ -123,7 +123,7 @@ bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 		if (source->testStatus(OBJECT_STATUS_25) && victim->testStatus(OBJECT_STATUS_25))
 			return true;
 		bool melee = true;
-		if (!victim->m_template->isKindOf(7))
+		if (!((Rva002CB35CTemplate *)victim->m_template)->isKindOf(7))
 		{
 			Rva002CB35CAI *ai = victim->m_258;
 			if (!ai || !ai->m_1F0)
@@ -138,7 +138,7 @@ bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 					return true;
 			}
 			bool result = TheAI->m_pathfinder->rva002EC479(source, pos, victim);
-			if (result && !victim->m_template->isKindOf(150))
+			if (result && !((Rva002CB35CTemplate *)victim->m_template)->isKindOf(150))
 			{
 				int sourceLayer = source->rva0028B511();
 				int victimLayer = victim->rva0028B511();
