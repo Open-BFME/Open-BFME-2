@@ -1917,7 +1917,12 @@ class Rva003FDD38
 {
 public:
 	Rva003FDD38();
-	virtual ~Rva003FDD38() {}
+	virtual void slot00(int) {}
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
+	virtual void slot0C() = 0;
+	virtual void slot10(int) {}
+	virtual void slot14() = 0;
 };
 
 Rva003FDD38::Rva003FDD38()
