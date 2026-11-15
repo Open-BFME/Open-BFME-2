@@ -19,8 +19,6 @@ private:
 	StringBase<char> m_28;
 };
 
-// ?isEmpty@?$StringBase@D@@QBE_NXZ present-unmatched
-// ?rva002104B6@Rva002104B6@@QAEPAXPAX@Z present-unmatched
 void *Rva0059E2AB::rva0059E2AB(void *def)
 {
 	if (m_28.isEmpty())

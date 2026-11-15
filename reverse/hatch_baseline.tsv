@@ -10710,8 +10710,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva0055A40CSplit.cpp	Rva0055A40C
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056AC26Base1::Rva0056AC26Base1	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056ACAEVisitor::Rva0056ACAEVisitor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	isEmpty@?$StringBase@D@@QBE_NXZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	rva002104B6@Rva002104B6@@QAEPAXPAX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C4B56.cpp	rva005C4BC8@Rva005C4B56@@QAEX_N_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C76C0Ctor.cpp	rva005C7448Zero	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CB260Forwarder.cpp	Rva005CB265::rva005CB265	1
@@ -11450,9 +11448,6 @@ present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManage
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	Rva00059068Tree::~Rva00059068Tree	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	Rva00054AFA::~Rva00054AFA	1
-present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	record	1
-present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	subtitleFirstChar	1
-present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	subtitleIsEmpty	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	getSurfaceLevel@W3DRadarResetTexture@@QAE?AVW3DRadarResetSurface@@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	renderObjectList@W3DRadar@@IAEXPBVRadarObject@@PAVTextureClass@@_N@Z	1
@@ -12023,7 +12018,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0000234DVectorDeletingD
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	Rva00151248String::Rva00151248String	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C4A9Result::Rva0018C4A9Result	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva001EBAEACtor.cpp	0Rva001EAE6FHelper@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp	RvaMapCacheEmptyAllocator::RvaMapCacheEmptyAllocator	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00383BACFinish.cpp	_M_insert@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHH@2@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Iter@@QAE@PAURva004D1C81Node@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Pair@@QAE@PAURva004D1C81Node@@_N@Z	1

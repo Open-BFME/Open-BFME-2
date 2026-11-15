@@ -48,7 +48,6 @@ class Rva00054AFA {
 public:Rva00054AFA(const AsciiString &,const UnicodeString &);
  // ?Rva00054AFA::~Rva00054AFA present-unmatched
  ~Rva00054AFA(){reinterpret_cast<Rva000543F5Record *>(this)->~Rva000543F5Record();}
- // ?Rva00054AFA::operator record present-unmatched
  operator const BfmeStringRecord00054F57 &()const{return *reinterpret_cast<const BfmeStringRecord00054F57 *>(this);}
  char storage[8];
 };
@@ -57,12 +56,10 @@ class Rva00058D4A {public:Pair00058D4A *rva0005A0EE(Pair00058D4A *,const BfmeStr
 // Clean BF1 f989 rva006AF840 supplies primary subtitle-drain semantics;
 // target5B708..5B96D supplies manager offsets, mutex wrapper, global flag9A2,
 // canonical string ABI, GameText slot14 and independently owned map provider.
-// ?subtitleFirstChar present-unmatched
 __forceinline unsigned short subtitleFirstChar(const UnicodeString &text) {
  const char *data=*reinterpret_cast<const char *const *>(&text);
  return data?*reinterpret_cast<const unsigned short *>(data+8):0;
 }
-// ?subtitleIsEmpty present-unmatched
 __forceinline bool subtitleIsEmpty(const UnicodeString &text) {
  const char *data=*reinterpret_cast<const char *const *>(&text);
  return !data||!*reinterpret_cast<const unsigned short *>(data+4);

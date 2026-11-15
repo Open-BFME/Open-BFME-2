@@ -18,7 +18,6 @@ namespace _STL { template<class T> class allocator; template<> class allocator<c
 public: static char *allocate(unsigned int,const void*);
 }; }
 struct RvaMapCacheEmptyAllocator {
- // ?RvaMapCacheEmptyAllocator::RvaMapCacheEmptyAllocator present-unmatched
  __forceinline RvaMapCacheEmptyAllocator() {}
 };
 struct RvaMapCacheNodeHeader {
