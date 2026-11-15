@@ -7202,7 +7202,7 @@ Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupPopulateColorCombo.cpp,yes,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRefreshMapList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/AptPlayerCountRva005EE11E.cpp,yes,0,0,0,0,0
@@ -14202,7 +14202,7 @@ Code/Libraries/Source/DirectX/dxerrdescriptionw.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/DirectX/dxerrstringa.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/DirectX/dxerrstringw.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/DirectX/dxtracea.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/DirectX/dxtracew.cpp,yes,0,0,0,0,0
+Code/Libraries/Source/DirectX/dxtracew.cpp,no,1,0,0,0,0
 Code/Libraries/Source/DirectX/strsafe.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/DirtySock/BfmeDirtyBaseDerived.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/DirtySock/BfmeDirtyBaseDtor.cpp,yes,0,0,0,0,0
@@ -15733,7 +15733,7 @@ Code/Libraries/Source/WWVegas/WWLib/Rva00524021Loop.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00524056Loop.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva0052413EDtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva005241B0Dtor.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/Rva005241DF.cpp,yes,0,0,0,0,0
+Code/Libraries/Source/WWVegas/WWLib/Rva005241DF.cpp,no,1,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00524265Dtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva005242D7Chain.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/Rva00524349Dtor.cpp,yes,0,0,0,0,0
