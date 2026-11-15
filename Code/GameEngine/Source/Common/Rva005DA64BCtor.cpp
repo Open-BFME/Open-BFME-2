@@ -14,7 +14,7 @@ public:
 	Rva005DA64B(void *held);
 	// Inline like the base: retail's deleting dtor (0x005DA663) only resets
 	// the vptrs before delete; no out-of-line ~Rva005DA64B exists.
-	virtual int f0(int) { return 0; }
+	virtual int rva005DA67F(int) { return 0; }
 	virtual ~Rva005DA64B() {}
 };
 
