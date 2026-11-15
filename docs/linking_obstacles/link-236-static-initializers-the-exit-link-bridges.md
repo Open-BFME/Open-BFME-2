@@ -1507,3 +1507,18 @@ The type rekey above describes the tool transaction, not the final cache.
 The explicit matched data row and all verified source remain unchanged;
 the cache keeps master's old class spelling until the ordinary refresh.
 No retired cache name is newly added across the corrected batch.
+
+**Round init-1 (halilkkaya-init, 2026-11-15, bridged 471 -> 470).** Measured with `image_report.bridge_entries`
+over the kept objects of `e9c6c9136fa` (exit_link's rule, 471, the same 471 RVAs the first 470 slots and the last
+slot of image `a9c23ee`'s table name) plus the round.
+- *Taken (471 -> 470): ControlBar.cpp's Drawable.h copy.* 0x007AE9A2 stores the half rate into 0x00E01D10 and is
+  alone in its marker-bounded run (the copy 0x007AE978, its marker 0x007AE988, this copy, its marker 0x007AE9B2).
+  The static lies inside ControlBar.cpp's `.bss`: TheControlBar 0x00E01CFC, the three rank icons, the reload-notice
+  flag 0x00E01D0C, the copy, then 0x00E01D14 (read only by `ControlBar::switchToContext`) and
+  `setControlBarSchemeByPlayer`'s locals. Every `.text` reference to the items on both sides is in a function
+  approved to ControlBar.cpp (`init`, `switchToContext`, `setControlBarSchemeByPlayer`, the reload-notice readers),
+  which is the layout of a unit with plain globals (round lk54): plain globals, the copy, the function locals.
+  ControlBar.cpp already compiled the copy as its only registration; the grab-bag row is retracted and readmitted
+  as its `_$E1`. Not this unit's: 0x007B3BCE (static 0x00E05F68 after `updateConstructionTextDisplay`'s guard)
+  belongs to the unit that holds that function, and ControlBarRva0031D230.cpp's fragment copy stays unrowed until
+  its merge.
