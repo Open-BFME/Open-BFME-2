@@ -52,12 +52,12 @@ void parseArmySummaryDescriptionDefinition(INI *ini)
 // The notification-type holder at 0x009FE4C4 (defined in Rva002220DCInit.cpp,
 // the data ledger's name for it); its first word is the store pointer.
 class Rva00575674;
-extern Rva00575674 g_00DFE4C4;
+extern Rva00575674 g_inGameNotificationTypeStoreHolder;
 extern const FieldParse InGameNotificationBoxFields[];
 
 void parseInGameNotificationBoxDefinition(INI *ini)
 {
-	ini->initFromINI(*(void **)&g_00DFE4C4, InGameNotificationBoxFields);
+	ini->initFromINI(*(void **)&g_inGameNotificationTypeStoreHolder, InGameNotificationBoxFields);
 }
 
 // 0x002859A8 (25B): "FireLogicSystem" (registration VA 0x00DBB758). Skips

@@ -1439,3 +1439,28 @@ lane must establish those identities before binding the four placeholder rows to
 compiler-generated initializer and cleanup labels and retiring the arrays and their `address_global` hatches.
 Renaming the storage is data-identity work and goes through that register’s route, not a hand rename. Parked until
 the data-identity lane takes it. Nothing changed in this pass.
+
+**2026-11-15, dataid: notification holder native lifecycle has retail counterparts.**
+The address-named holder at RVA 0x009FE4C4 is the four-byte owning pointer used by the
+notification-type store. Its supported inferred rename is
+`g_inGameNotificationTypeStoreHolder`; the canonical Rva00575674 layout and lifecycle remain.
+
+The waste lane's `slotless_classes_379e.tsv` lists Rva002220DCInit.cpp's `_$E1`, but raw
+COFF inspection establishes an existing retail pair: the native initializer is 12 bytes
+(register cleanup only), exactly retail table slot 285 / RVA 0x007ADB61; native `_$E2`
+is 10 bytes, exactly the cleanup at 0x007B770E. The cleanup's complete bytes agree using
+the current admitted holder-data and Rva00575674-destructor bindings (0x000AD6F4).
+Using that proven cleanup correspondence for the initializer's callback, and its existing
+`_atexit` binding, the initializer's complete bytes agree too. This is candidate
+native-to-retail identity evidence, not an admitted native-symbol or real-image mapping.
+Its zeroing constructor was already folded into static/BSS initialization. The native
+pair has retail counterparts and was preserved.
+
+This classification does not establish an absent retail lifetime. Its association with
+the rowed grab-bag initializer and cleanup needs native identity/provider reconciliation.
+A proposed constructor-free storage admission was withdrawn before any data-row type edit
+or lifecycle removal. No claim of completed bridge or runtime repair is made.
+Evidence on srv1: `~/bfme2-ops/swarm/sweeps/dataid/slotless/notification-native-counterparts.json`
+and the before/named objects in `notification-live-proof/build/dataid-notification-proof/`.
+The ordinary rename preserves 86/86 tested rows, 27 data rows and link_check's 8/8 clean
+verdict (1,805 -> 1,805 bytes); native lifecycle counts remain unchanged by that rename.

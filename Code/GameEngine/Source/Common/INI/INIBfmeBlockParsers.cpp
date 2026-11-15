@@ -37,7 +37,6 @@ extern const FieldParse ArmySummaryDescriptionFields[];
 
 // 0x0022232E (21B): "InGameNotificationBox" (registration VA 0x00DBA19C).
 // No null check: initFromINI the object at 0x00DFE4C4 against VA 0x00BE6CE0.
-extern void *g_00DFE4C4;
 extern const FieldParse InGameNotificationBoxFields[];
 
 

@@ -44,7 +44,7 @@ public:
 
 extern unsigned int g_00DDE0AC;
 class Rva00575674;
-extern Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), defined in Rva002220DCInit.cpp
+extern Rva00575674 g_inGameNotificationTypeStoreHolder;	// retail RVA 0x009FE4C4 (.bss), defined in Rva002220DCInit.cpp
 
 struct BfmeUiResourceEntryState;
 extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;

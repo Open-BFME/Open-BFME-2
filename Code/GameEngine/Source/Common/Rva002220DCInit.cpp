@@ -14,7 +14,7 @@ public:
 
 #include "../../Include/Common/Rva00575674.h"
 
-Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), the only definition
+Rva00575674 g_inGameNotificationTypeStoreHolder;	// retail RVA 0x009FE4C4 (.bss), the only definition
 
 class Rva00222061
 {
@@ -26,10 +26,10 @@ private:
 
 void Rva002220DCInit()
 {
-	if (g_00DFE4C4.m_ptr == 0) {
+	if (g_inGameNotificationTypeStoreHolder.m_ptr == 0) {
 		Rva00222061 *p = new Rva00222061;
-		g_00DFE4C4.rva00575674((Object *)p);
-		g_00DFE4C4.m_ptr->v01();
-		g_00DFE4C4.m_ptr->v02();
+		g_inGameNotificationTypeStoreHolder.rva00575674((Object *)p);
+		g_inGameNotificationTypeStoreHolder.m_ptr->v01();
+		g_inGameNotificationTypeStoreHolder.m_ptr->v02();
 	}
 }

@@ -333,3 +333,31 @@ The path audit found historical attempt/callee/census references and source
 provenance only, with no active file-opening consumer needing a change.
 This removes one source file; it is not a new real-link or debug-DLL runtime
 receipt and does not close unrelated static/bridge prerequisites above.
+
+**2026-11-15, dataid: sorting-list composition is byte-feasible but blocked on TU approval.**
+Reviewed base: `5646c01afd78b501fc864b2cb5c845dd7b28c8f0`. The private complete renderer
+composition with one pair of static lists, the accurate 0x2A8 node view, explicit node
+constructor/destructor declarations and BFME's O2 context passes 38/38 code rows and the five
+existing data rows. The external-list form still fails five rows; the static O1 form fails
+Flush. These are private feasibility results, not an admitted source move or a real-image
+lifecycle result. Evidence: srv1
+`~/bfme2-ops/swarm/wt/dataid/build/boat-run/dataid-20261115t091445/build/dataid-sorting-unified/`;
+the sandbox was deleted.
+
+The irreducible ordinary-helper blocker is RVA 0x0012D660: its static comparator's only use
+is in Flush_Sorting_Pool. Moving that pool removes the residual unit's only honest emitter.
+Its full 181 raw bytes, section flags and relocation offset/type/target-name triples agree
+before/after the private composition; that is object evidence, not retail TU provenance.
+The passing whole composition also needs legitimate ownership for 0x0012D4D0, 0x0012D860,
+0x0012D8A0 and 0x0012DCF0. The existing map leaves these five helpers unassigned.
+A name-only simulation that preserves TargetCenter3 and four unsigned parameters and
+corrects Insert's placeholder scope approves Insert (Z) and Get_Sorting_Struct (T), not
+these helpers. The Insert name itself still requires the naming lane.
+
+GPT-6.1 Sol high route review, round 2/5: **BLOCKED; no landing approval**.
+Report: `~/bfme2-ops/swarm/sweeps/dataid/sorting/sol-review-tu-route.md`.
+Prepared transfers and helper-copy exceptions cannot move this ordinary row without map
+approval. No synthetic anchor, invented class membership, fold bypass, gate change or
+unapproved move was applied. All 18 sorting claims were released. Next dependency: the
+coordinator's TU-evidence/tooling lane supplies independently justified approvals, followed
+by the supported split and full residual/destination, identity, binding and lifecycle checks.
