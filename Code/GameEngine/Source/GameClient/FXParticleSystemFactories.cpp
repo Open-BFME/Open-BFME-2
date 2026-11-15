@@ -1012,3 +1012,11 @@ void bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSy
 {
 	p->FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::DefaultModuleTag<6> >::__vecDelDtor(3);
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::LIGHTNING_DRAW_MODULE_KEY,FXParticleSystem::LIGHTNING_DRAW_MODULE_NAME,FXParticleSystem::LightningDrawModule,FXParticleSystem::LightningDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > >, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSystem_ModuleTag_6_FXParticleSystem_LIGHTNING_DRAW_MODULE_KEY_FXParticleSystem_LIGHTNING_DRAW_MODULE_NAME_FXParticleSystem_LightningDrawModule_FXParticleSystem_LightningDrawModuleTemplate_FXParticleSystem_DefaultParticleModule_6_> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSystem_ModuleTag_6_FXParticleSystem_LIGHTNING_DRAW_MODULE_KEY_FXParticleSystem_LIGHTNING_DRAW_MODULE_NAME_FXParticleSystem_LightningDrawModule_FXParticleSystem_LightningDrawModuleTemplate_FXParticleSystem_DefaultParticleModule_6_(FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::LIGHTNING_DRAW_MODULE_KEY,FXParticleSystem::LIGHTNING_DRAW_MODULE_NAME,FXParticleSystem::LightningDrawModule,FXParticleSystem::LightningDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > > *p)
+{
+	p->FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::LIGHTNING_DRAW_MODULE_KEY,FXParticleSystem::LIGHTNING_DRAW_MODULE_NAME,FXParticleSystem::LightningDrawModule,FXParticleSystem::LightningDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > >::__vecDelDtor(3);
+}
