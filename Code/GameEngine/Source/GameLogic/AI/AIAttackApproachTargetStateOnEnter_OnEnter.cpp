@@ -723,7 +723,6 @@ Bool rva0033F9FE(Object *source, const Coord3D *target, Weapon *weapon);
 __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Weapon *weapon);
 
 
-// ?rva00343FB0@@YA_NPAVObject@@@Z present-unmatched
 static Bool rva00343FB0(Object *obj)
 {
 	if (obj->isKindOfImmobile())

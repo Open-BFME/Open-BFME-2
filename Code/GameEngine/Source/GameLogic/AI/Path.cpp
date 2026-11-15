@@ -130,7 +130,6 @@ float Path::computeFlightDistToGoal(const Coord3D *currentPosition,
 // normalize declared, cl schedules the current-position reload after node.x.
 // Both emitted COMDATs independently equal their existing complete retail
 // providers (71B at 0x0000378A and 53B at 0x00003755); no new alias or pin.
-// ?normalize@Coord2D@@QAEXXZ present-unmatched
 inline void Coord2D::normalize()
 {
     float len = length();
@@ -140,7 +139,6 @@ inline void Coord2D::normalize()
     }
 }
 
-// ?length@Coord2D@@QBEMXZ present-unmatched
 inline float Coord2D::length() const
 {
     return (float)sqrt(x * x + y * y);

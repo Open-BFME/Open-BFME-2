@@ -22,7 +22,6 @@ struct DataChunkInfo;
 class OrCondition { public: OrCondition *duplicate() const; static bool ParseOrConditionDataChunk(DataChunkInput &,DataChunkInfo *,void *); static void WriteOrConditionDataChunk(DataChunkOutput &,OrCondition *); };
 #include "../../../Include/Common/DataChunkOutput.h"
 #include <string.h>
-// ?equalTag_Rva003B31C7@@YA_NPBX0H@Z present-unmatched
 static __declspec(noinline) bool equalTag_Rva003B31C7(const void *record, const void *tag, int) {
  return memcmp(record,tag,4)==0;
 }

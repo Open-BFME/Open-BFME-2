@@ -10703,7 +10703,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/Rva0087FDC0VectorFillInse
 present_unmatched	Code/GameEngine/Source/Common/System/Rva0087FDC0VectorFillInsert.cpp	bfmeFillBE	1
 present_unmatched	Code/GameEngine/Source/Common/System/SaveGame/FamilyDeletingDtors_Rva0022CDDA.cpp	@0x0022CDBE	1
 present_unmatched	Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp	0SaveGameInfo@@	1
-present_unmatched	Code/GameEngine/Source/Common/System/SaveGame/GameStateRealMapPathToPortable.cpp	getMapLeafAndDirName@@YA?AVAsciiString@@ABV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/SmartPtrRvoGetter.cpp	RvaSmartPtr12::~RvaSmartPtr12	1
 present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	crc@Upgrade@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	xfer@Upgrade@@	1
@@ -10782,7 +10781,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowP
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	@0x0021887C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	0WindowLayoutInfo@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseListboxData.cpp	scanShort@@YAHPBDAAF@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp	IMEManager::getWindow	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp	IMEManager::isAttachedTo	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp	IMEManager::reset	1
@@ -10903,9 +10901,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::scrollBy	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::setAngleAndPitchToDefault	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::setLocation	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::~View	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	Rva002F0DD6Less::operator()	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp	TeamInQueue::disband	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp	TeamInQueue::disband	1
@@ -10913,8 +10908,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUni
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	AIFollowWaypointPathExactState::~AIFollowWaypointPathExactState	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator<	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator==	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	length@Coord2D@@QBEMXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	normalize@Coord2D@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	1BfmeWorkerDockPoint@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	ArmorTemplate::adjustDamage	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp	Rva001F0622Base::~Rva001F0622Base	1
@@ -11142,7 +11135,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSideways
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::AdjustGroundPathPosition	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::SetBridgeStateRepaired	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::rva002F83F5	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	equalTag_Rva003B31C7@@YA_NPBX0H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummary.h	ArmySummary::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummaryCopyBFME2.cpp	ArmySummary::loadPostProcess	1
@@ -11215,7 +11207,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piCrossPingFree	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piDisconnectedFree	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piGetPlayerIPFree	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piGetPlayerInfoFree	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piGetPlayerProfileIDFree	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piJoinRoomFree	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piListingGamesFree	1
@@ -11274,8 +11265,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffe
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	crc@W3DPropBuffer@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	crc@W3DPropBuffer@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	cull@W3DPropBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	drawProps@W3DPropBuffer@@QAEXAAVRenderInfoClass@@@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	RTS3DScene::addDynamicLight	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	RTS3DScene::castRay	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	RTS3DScene::destroyLightsIterator	1

@@ -341,7 +341,6 @@ void W3DPropBuffer::removeProp(Int id)
 //=============================================================================
 /** Draws the props.  Uses camera to cull. */
 //=============================================================================
-// ?drawProps@W3DPropBuffer@@QAEXAAVRenderInfoClass@@@Z present-unmatched
 
 
 
@@ -356,7 +355,6 @@ void W3DPropBuffer::removeProp(Int id)
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z present-unmatched
   // end xfer
 
 // ------------------------------------------------------------------------------------------------

@@ -3089,7 +3089,6 @@ static const piCallbackFuncs callbackFuncs[] =
    type 11 (ROOM_NAME_CHANGED) and type 20 (NEW_PLAYER_LIST) of this table.
 
    _piListingGamesFree present-unmatched
-   _piGetPlayerInfoFree present-unmatched
    _piGetPlayerProfileIDFree present-unmatched
    _piGetPlayerIPFree present-unmatched
    _piReadyChangedFree present-unmatched

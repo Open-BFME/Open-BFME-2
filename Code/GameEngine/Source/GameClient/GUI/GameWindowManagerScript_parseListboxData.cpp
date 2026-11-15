@@ -52,7 +52,6 @@ Int scanBool(const char *source, Bool &val);
 // and no other TU can bind to it). Same body as the thunk, so the calls
 // above still emit exactly as verified; internal linkage means no COMDAT
 // conflict with the row owner's copy.
-// ?scanShort@@YAHPBDAAF@Z present-unmatched
 static Int scanShort(const char *source, Short &val)
 {
 	Int temp = 0;
