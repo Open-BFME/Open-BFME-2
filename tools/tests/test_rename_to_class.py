@@ -2142,3 +2142,15 @@ def test_r2_aliases_are_read_from_the_object_as_the_linker_reads_them(tmp_path):
     with unittest.mock.patch.object(rename, "_source_object", lambda ctx, rel, current=True: obj):
         defined, aliases = rename.object_link_names(ctx, "Code/Game/Unit.cpp")
     assert aliases == {"?ghost@State@@UAEXXZ": "?stop@Widget@@UAEXXZ"}
+
+
+
+def test_r3_a_weak_externals_default_is_no_alias(tmp_path, monkeypatch):
+    # link.exe takes a weak external's search default (characteristics 1 or 2) for no reference: LNK2001
+    import link_census
+    obj = tmp_path / "unit.obj"
+    obj.write_bytes(b"\0" * 64)
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj)
+    monkeypatch.setattr(link_census, "object_symbols", lambda path, data=None: (
+        {"_fall"}, set(), [("_weak", "_middle"), ("_middle", "_fall")], {"?alias@@YAXXZ": "_fall"}, set()))
+    assert rename.object_link_names(None, "Code/Game/Unit.cpp") == ({"_fall"}, {"?alias@@YAXXZ": "_fall"})

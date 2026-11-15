@@ -7048,25 +7048,25 @@ PURECALL = frozenset({"__purecall", "_purecall"})
 
 
 def object_link_names(ctx, rel):
-    """(names the fresh object of ledger source `rel` defines, {alias: target} of its /alternatename directives and
-    weak externals), read as the linker reads them (link_census.object_symbols: an alias an #if drops is not there,
-    one an included header adds is); None with no object."""
+    """(names the fresh object of ledger source `rel` defines, {alias: target} of its /alternatename directives),
+    read as the linker reads them (link_census.object_symbols: an alias an #if drops is not there, one an included
+    header adds is); None with no object. A weak external is no alias here: its default may be a search default
+    (characteristics 1 or 2), which link.exe does not take for the reference, and the reader keeps no
+    characteristics."""
     path = _source_object(ctx, rel, current=False)
     if path is None:
         return None
     import link_census
-    defined, _referenced, weak, alternate, _includes = link_census.object_symbols(path, path.read_bytes())
-    aliases = {name: default for name, default in weak if default}
-    aliases.update(alternate)
-    return set(defined), aliases
+    defined, _referenced, _weak, alternate, _includes = link_census.object_symbols(path, path.read_bytes())
+    return set(defined), dict(alternate)
 
 
 def to_class_dangling_problems(ctx, check):
     """Slot names a rebuilt vftable of the plan's units (`check['units']`, every ledger source it rebuilds) gained
     that nothing defines: [] when every name a compiled ??_7 holds after ./build.sh is one it held before the plan
     (`check['vtables']`, read at planning from objects compiled from the present text only), or resolves: a moved
-    name, a row or pin, a symbol the unit's object defines, __purecall, or an alias of the object's own directives
-    (object_link_names) whose target resolves. A name the plan retires (`check['retired']`: the old names of its
+    name, a row or pin, a symbol the unit's object defines, __purecall, or an /alternatename of the object's own
+    directives (object_link_names; never a weak external's default) whose target resolves. A name the plan retires (`check['retired']`: the old names of its
     rows and pins, which the context's ledgers may still hold) resolves only through the object. Renaming a slot a
     base view shares (`State::slot02` to
     `GetSnapshotName`) for some of its derived classes leaves the others' tables naming a symbol only the link
