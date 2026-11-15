@@ -39,6 +39,12 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
+// The data's deleting destructor 0x004A10FD calls 0x0049B47C, which only
+// restores Snapshot's table 0x00BBB554: ModuleData's and the base's
+// destructors are trivial inlines here, so the implicit destructor of
+// UnpauseSpecialPowerUpgradeModuleData reduces to Snapshot's.
+inline ModuleData::~ModuleData() {}
+inline Rva00253487Base::~Rva00253487Base() {}
 // Open-BFME5: UnpauseSpecialPowerUpgrade module ctor via UpgradeModule multi-inheritance.
 
 class Thing;
