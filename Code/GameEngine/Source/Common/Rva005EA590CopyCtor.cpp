@@ -40,7 +40,10 @@ class Rva005E95C0
 {
 public:
 	Rva005E95C0( const Rva005E95C0 & );
-	virtual ~Rva005E95C0() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
 	Rva005EA590Block m_block;
 	int m_field84;
 };
