@@ -29,7 +29,6 @@ SpecialPowerCreate::SpecialPowerCreate( Thing *thing, const ModuleData *moduleDa
 {
 }
 
-// ??1SpecialPowerCreate@@MAE@XZ present-unmatched
 SpecialPowerCreate::~SpecialPowerCreate()
 {
 }
