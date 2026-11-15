@@ -3,12 +3,11 @@
 // ??0Rva00541913@@QAE@ABV0@@Z @0x00541913 66B. Copy ctor for member-plus-vector holder.
 // Evidence: calls rowed Rva00330757Member default ctor 0x00330757 for +0 then rowed vector<Rva00541021> copy ctor 0x00541434 for +0x10 then copies dword +0x1c; caller 0x00541F1F; prev/next are vector bodies.
 // Honest Rva name; /O1 for push/mov idioms; /EHsc for vector copy unwind; bfmealloc for vector allocator.
+#include "../../../../Include/Common/Rva00541021.h"
+
 #include <vector>
 
 // The vector element is Rva00541021 (an int then a Region3D; 0x00541434).
-struct Rva00541021 {
-	int a[7];
-};
 
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only begin
