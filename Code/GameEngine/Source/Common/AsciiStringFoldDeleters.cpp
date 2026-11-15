@@ -90,7 +90,15 @@ void _bfmeRva004FA830DtorInlineAnchor(Rva004FA830 *first, Rva004E194E *second)
 class Rva00538C5F
 {
 public:
+	virtual void slot00() = 0;
 	virtual ~Rva00538C5F();
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
 
 private:
 	AsciiString m_member04;

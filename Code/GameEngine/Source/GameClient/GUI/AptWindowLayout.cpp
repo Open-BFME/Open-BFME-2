@@ -82,7 +82,15 @@ struct Rva0040FB4AScreen
 class Rva00538C5F
 {
 public:
+	virtual void slot00() = 0;
 	virtual ~Rva00538C5F();
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
 };
 
 class Rva0040FB4A : public Rva00538C5F
