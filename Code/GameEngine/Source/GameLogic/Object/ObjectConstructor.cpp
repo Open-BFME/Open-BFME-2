@@ -35,6 +35,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include <map>
 #include "ascii_string.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 // vector<int>/char destruction otherwise instantiates per-TU allocator
 // deallocate COMDATs (one byte shape per TU flags); explicit

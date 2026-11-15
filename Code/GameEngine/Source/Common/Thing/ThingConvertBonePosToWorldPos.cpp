@@ -10,6 +10,7 @@
 // Coord3D's canonical trivial copy restores the native12B temporary and MOVSDs.
 #include "Lib/Coord3D.h"
 #include "vector3.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "thing.h"
 // LINK: file-static helpers and direct Row fields replace Vector3's MMM ctor and
 // operator=, Vector4/Matrix3D operator[] and Matrix3D::mul: identical inlined

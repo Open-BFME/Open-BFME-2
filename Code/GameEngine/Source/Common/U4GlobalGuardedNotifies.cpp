@@ -14,6 +14,7 @@ typedef float Real;
 class Matrix3D;
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 
 

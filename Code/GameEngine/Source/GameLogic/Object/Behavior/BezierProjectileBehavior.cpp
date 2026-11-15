@@ -11,6 +11,7 @@
 #include "../../../Common/PartitionRangeQueryCallView.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "matrix3d.h"
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../Common/Thing/thing.h"
 enum NameKeyType
 {
