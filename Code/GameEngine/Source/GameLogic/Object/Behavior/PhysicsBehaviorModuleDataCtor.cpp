@@ -22,11 +22,17 @@ extern int BfmeLogicFramesPerSecond;
 // UpdateModuleData base override nothing.
 #include "../../../../Include/Common/ModuleData.h"
 
+// Retail's deleting destructor 0x004A10FD (slot 0 of 0x00C4ED70) calls the
+// 7-byte 0x0049B47C, which only restores Snapshot's table 0x00BBB554: this
+// class's implicit destructor reduces to Snapshot's, so neither base
+// destructor is out of line here.
+inline ModuleData::~ModuleData() {}
+
 class UpdateModuleData : public ModuleData
 {
 public:
 	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData();
+	~UpdateModuleData() {}
 };
 
 class PhysicsBehaviorModuleData : public UpdateModuleData
