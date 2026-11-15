@@ -10,7 +10,7 @@
 // uint 0x70 float 0x90 bool. Layout is the rowed 10-member 0x50-byte class
 // (real UpdateModule base 0x20 plus 2 new interfaces for +0x20/+0x24 giving
 // +0x28 start, reference thunk precedent); donor is BFME1 SlowDeathBehavior::
-// xfer (5 members) plus old TU present-unmatched marker; BFME2 adds members
+// xfer (5 members) plus old TU unmatched marker; BFME2 adds members
 // and IsLightCRC/Version1 order so retail is followed. Callers (3 unclaimed
 // inits) plus vtable slot prove xfer identity.
 

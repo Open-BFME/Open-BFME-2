@@ -11,7 +11,7 @@
 // trailing state at +0x100, and returns this.
 // The +8 member's semantic identity is unproven: ZH OpenContain.h says the
 // first member is DieMuxData and DieModule.cpp already carries a
-// ??0DieMuxData@@ present-unmatched marker for the concept, but the body at
+// ??0DieMuxData@@ unmatched-function marker for the concept, but the body at
 // 0x0025342C has no independent identity yet, so the callee keeps an
 // address-derived name here (pinned) instead of a guessed class name.
 extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];  // vftable 0x00BF2558

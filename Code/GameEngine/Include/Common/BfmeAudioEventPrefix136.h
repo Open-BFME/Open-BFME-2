@@ -17,7 +17,6 @@ class BfmePoolRef08
 {
 	OpaqueRefCounted *m_target;
 public:
-    // ?BfmePoolRef08::BfmePoolRef08 present-unmatched
     __forceinline BfmePoolRef08() : m_target(0) {}
 	__forceinline ~BfmePoolRef08() { if (m_target != 0) m_target->Release_Ref(); }
 };
@@ -31,7 +30,6 @@ struct BfmeEventPositionView {
     BfmeEventPositionView() {}
     BfmeEventPositionView(const BfmeEventPositionView &p) : x(p.x), y(p.y), z(p.z) {}
     BfmeEventPositionView(float a, float b, float c) : x(a), y(b), z(c) {}
-    // ?BfmeEventPositionView::zero present-unmatched
     __forceinline void zero() { x=0.0f; y=0.0f; z=0.0f; }
 };
 enum ObjectID;

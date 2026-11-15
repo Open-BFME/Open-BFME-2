@@ -10465,10 +10465,6 @@ pragma_optimize	reference/shims/wwstring_teardown/local/wwstring.h	"t",off	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"",on	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"s",on	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"t",off	1
-present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmeEventPositionView::zero	1
-present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmePoolRef08::BfmePoolRef08	1
-present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::BfmePoolRef10	1
-present_unmatched	Code/GameEngine/Include/Common/Rva00041004Lock.h	Rva0040EDB::Rva0040EDB	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
 present_unmatched	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
@@ -11006,7 +11002,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBeh
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::~Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp	dummyCtor@RampageBehaviorModuleData@@QAE@H@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorXfer.cpp	TU	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	SpawnBehaviorFindAnchor@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	0Rva00148F5ECache@@QAE@PBD@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	1FreePtr@@QAE@XZ	1
@@ -11026,7 +11021,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngi
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f30@HordeSiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f34@HordeSiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp	OpenContain::pruneDeadWanters	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataCtor.cpp	0DieMuxData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f00@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f20@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f30@SiegeEngineContain@@UAEXXZ	1

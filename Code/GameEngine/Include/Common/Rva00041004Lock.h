@@ -12,7 +12,6 @@ public:
  virtual bool lock(int time) throw();
  virtual bool unlock();
  virtual ~Rva0040EDB();
- // ?Rva0040EDB::Rva0040EDB present-unmatched
  __forceinline Rva0040EDB() : m_handle04(0) {}
  void *m_handle04;
 };
