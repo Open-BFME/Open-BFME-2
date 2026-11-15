@@ -86,9 +86,7 @@ void Rva003304A4CameraAnimationList::writeDataChunk(DataChunkOutput *out)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?visitFree@Rva003304A4AnimationVisitor@@UAEXPAVRva003304A4Animation@@@Z=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?visitFree@Rva003304A4TypeTagWriter@@UAEXPAVRva003304A4Animation@@@Z=?rva00330484@Rva00330484@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?visitFreeConst@Rva003304A4AnimationVisitor@@UAEXPAVRva003304A4Animation@@@Z=?rva005CC208@Rva005CC208@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?visitLookAt@Rva003304A4AnimationVisitor@@UAEXPAVRva003304A4Animation@@@Z=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?visitLookAt@Rva003304A4TypeTagWriter@@UAEXPAVRva003304A4Animation@@@Z=?rva00330494@Rva00330484@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?visitLookAtConst@Rva003304A4AnimationVisitor@@UAEXPAVRva003304A4Animation@@@Z=?rva001FF3A9@Rva001FF3A9@@UAEXXZ")

@@ -98,7 +98,6 @@ void FakePathfindPortalBehaviour::rva004618D4()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ=??1Coord2D@@QAE@XZ")
 
 class Rva002E6ECA { public: virtual void *destroy(unsigned); int get() const; };
 typedef Rva002E6ECA Rva0046183BWaypoint;

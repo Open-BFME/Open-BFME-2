@@ -36,7 +36,6 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
-#pragma comment(linker, "/alternatename:?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z=?erase@Rva003769C2StringVector@@QAEPAVAsciiString@@PAV2@@Z")
 
 // Retail's ObjectTypes::addObjectType calls push_back out of line (the pinned
 // copy). The explicit specialization declared without a body keeps every
