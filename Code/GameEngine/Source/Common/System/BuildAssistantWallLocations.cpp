@@ -15,6 +15,8 @@
 // does not escape, which gives retail's stack colouring (sub esp,0xe8).
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
+#include "../../../Include/GameClient/CommandButton.h"
+
 #include <windows.h>
 #include <list>
 class Drawable;
@@ -218,23 +220,6 @@ const UpgradeTemplate**m_end;
 const UpgradeTemplate**m_capacity;
 UnsignedInt size()const{return(UnsignedInt)(m_end - m_begin);}
 const UpgradeTemplate*operator[](UnsignedInt i)const{return m_begin[i];}
-};
-class CommandButton
-{
-public:
-GUICommandType getCommandType()const{return m_command;}
-UnsignedInt getOptions()const{return m_options;}
-const ThingTemplate*rva0035B570()const;
-const UpgradeTemplateList&getNeededUpgrades()const{return m_neededUpgrades;}
-Bool isAnyUpgradeEnough()const{return m_anyUpgrade;}
-private:
-unsigned char m_pad00[0x14];
-GUICommandType m_command;
-unsigned char m_pad18[0x1C - 0x18];
-UnsignedInt m_options;
-unsigned char m_pad20[0x28 - 0x20];
-UpgradeTemplateList m_neededUpgrades;
-Bool m_anyUpgrade;
 };
 class CommandSet
 {
