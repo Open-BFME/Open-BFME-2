@@ -8,7 +8,9 @@
 // address. Owner identities are unproven (opaque Rva names). One ledger row
 // per destructor, landed one commit at a time.
 
-class Rva005EE2A0
+#include "../../Include/Common/Rva0058AD7A.h"
+
+class Rva005EE2A0 : public Rva0058AD7A
 {
 public:
 	Rva005EE2A0();

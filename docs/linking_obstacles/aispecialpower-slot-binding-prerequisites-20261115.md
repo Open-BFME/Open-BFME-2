@@ -1,0 +1,31 @@
+### AISpecialPower seven-slot table binding prerequisites
+Status: Open;2026-11-15, inspected15223b296d5/ec75d405847.
+
+Rva0058AD7A constructor/dtor install0087091C but canonical header emits only destructor. Slots1/2 are own existing nonvirtual placeholder rows, slot5 is readable AISpecialPower::activate. Supported registered-class fold and activation virtuality preflights refuse identity/ownership; no gate or ledger workaround used. The installer declaration must participate in the binding transaction because --to-class checks native ordinals after compilation. Slot1 xfer is independently AGREED; slot2 interval-name disagreement remains pending. Nothing bound, no unit cleared. Retail correction: shared slot3 RVA000910FB returns1, not0 (33c040c3); slots4/6 purecall. [Exact evidence, refusals and prerequisites](../../reverse/attempt_support/slotnames-aispecialpower-slot-binding-20261115.md).
+
+## Current-class attempt and verified ancestry prerequisites
+
+The coordinator explicitly separated the AISpecialPower fold from this repair. The binding target remains Rva0058AD7A; no fold or readable-class transfer is being pursued. Slot1 xfer and slot5 activate are AGREED and recorded locally in d46e5bee3aa4a41a7a1573970ad79270548e0d62 (not pushed). Slot2 source comparison accepted getMinimumActivationInterval in the original voter role, but supported name_lane resolve rejects this registered retail slot key as no longer owned by this source. No acceptance/approval was hand-added. Exact report aisp-vote-completion.md and aisp-slot2-completion-resolve.log; original votes unchanged.
+
+The current-class xfer planner first refused apparent shared/folded targets because three private views omitted proven ancestry. Corrected only those views:
+- Common/Rva005EE2A0Derived.cpp: existing Rva005EE2A0 view now derives from canonical Rva0058AD7A, matching constructor005EE28C ->0058AD4D with2.
+- Common/Rva005D8964Derived.cpp: declares the same intermediate base and derives Rva005D8964 through it, matching005D8952 ->005EE28C;005D8871 calls005D8952.
+- Common/Rva005EEDAADerived.cpp: existing Rva005EEDAA view derives from canonical Rva0058AD7A and preserves its real extra int at1C/size32, matching005EED92 ->0058AD4D with3 then zero1C. Removed stale present-unmatched marker for already-rowed005DA0D0.
+
+Verification on Boat:24/24 rows over first two sources,8/8 over third, both before and after, no skipped literals/data; all emitted table target vectors identical before/after. Stock header-lane vt_undefined:0 newly undefined references in both runs. Its raw name-only absolute inventory reports11 preexisting ??_E names; actual COFF weak externals (search characteristic2), parsed by existing link_census._weak_externals, fall back to ??_G symbols strongly defined in the same respective objects. Diagnostic aisp-ancestry-weak-symbol-proof.json records every pair with no unresolved residuals. This is object-definition evidence, not real-link/provider-selection/runtime clearance. An initial diagnostic incorrectly assumed weak search characteristic3; actual metadata2 was then checked using the census's existing parser. No verifier/gate changed.
+
+Saved objects/logs/results: build/boat-run/slotnames-20261115t110121/build/slotnames-aisp-ancestry and build/boat-run/slotnames-20261115t110800/build/slotnames-aisp-ancestry-third. These verify ancestry repairs only; prospective xfer body/header preparations in scratch are uncompiled and unapplied. No functions.csv/provider/header changes. All declared source bodies remain rowed. The canonical root table remains one slot; no seven-slot or adopted-unit clearance.
+
+After these ancestry changes, the supported current-class xfer plan passes the ownership stage and refuses exactly:
+Code/GameEngine/Include/Common/Rva0058AD7A.h is the registered header of Rva0058AD7A (reverse/canonical_classes.csv): a class move prepares a unit's view header, never a canonical one.
+
+The planner needs the xfer declaration in the installer view, but refuses the registered canonical header as a preparation. This declaration transaction needs coordination through the supported header/tooling lane; it is independent of the postponed fold. No route, gate, approval-base or compiler cache was bypassed. Single-class0058AD81 --to-class Rva0058AD7A again refuses its readable AISpecialPower owner, so slot5 is left for TL2 exactly as directed. Its agreed spelling is retained.
+
+No binding has been applied. link_check, implementation Sol review and go are not claimed for an absent binding. The32 verified ancestry rows are retained uncommitted as prerequisites; records remain local and must ride a real substantive landing, not a standalone records push. Claims released after parking; fresh inputs require rechecking before continuing.
+
+Resource receipts: bx_jpzfwu5h(default) and bx_2wv5ds8q(xlarge), both deleted=True; SDK billed seconds1700, 0.47222 credit-hours, $0.01700. No overage setting changed. No real link/nightly/game/full-State gate started.
+
+## Coordinator parking and standalone landing decision
+Rva0058AD7A binding and later AISpecialPower fold are PARKED by coordinator. Issue classified by coordinator as retail-order only, with real-link bridge covering path order; no new image proof by this seat. Both exact false-reject candidates recorded with supported re_log.py, queue AFTER verifier batch; packet ~/bfme2-ops/swarm/sweeps/slotnames/packets/aisp-tool-false-rejects.md. Correct route requires existing rows, canonical header declaration/contract and virtual rename/provider in ONE atomic verified transaction with rollback. No tooling/gate edits.
+
+The ancestry correction stands alone: it makes existing constructor/destructor ancestry and EE2A0/EEDAA layouts accurate without adding methods or changing emitted code/vtables.32/32 rows match; stock vt check0 new undefined; existing weak fallbacks backed by same-object definitions. Full link_census.object_facts compare IDENTICAL before/after in all3 units (copies/strong/undefined/weak), saved ancestry-standalone-link-facts.json. Rebase inputs checked: source hashes, root header and all32 ledger row identities/RVAs/sizes unchanged. Preparing standalone source commit with parked records attached and ONE Sol review for the outgoing batch. No binding or runtime/header clearance.

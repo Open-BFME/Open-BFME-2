@@ -8,11 +8,15 @@
 // address. Owner identities are unproven (opaque Rva names). One ledger row
 // per destructor, landed one commit at a time.
 
-class Rva005EEDAA
+#include "../../Include/Common/Rva0058AD7A.h"
+
+class Rva005EEDAA : public Rva0058AD7A
 {
 public:
 	Rva005EEDAA();
 	virtual ~Rva005EEDAA();
+private:
+	int m_1C; // Native base ctor005EED92 initializes this member after Rva0058AD7A(3).
 };
 
 class Rva005D8723 : public Rva005EEDAA
@@ -49,7 +53,6 @@ public:
 
 // ??0Rva005DA0E2@@QAE@XZ @0x005DA0D0 18B: default ctor calls base 0x005EED92 then stores vtable 0x008764BC.
 // Evidence: call to rowed base ctor plus vtable store; sits immediately before its dtor 0x005DA0E2; caller 0x0058A707.
-// ??0Rva005DA0E2@@QAE@XZ @0x005DA0D0 present-unmatched
 Rva005DA0E2::Rva005DA0E2()
 {
 }

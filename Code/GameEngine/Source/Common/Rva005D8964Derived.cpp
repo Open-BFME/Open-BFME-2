@@ -9,7 +9,16 @@
 // (opaque Rva name). One ledger row per destructor, landed one commit at a
 // time.
 
-class Rva005D8964
+#include "../../Include/Common/Rva0058AD7A.h"
+
+class Rva005EE2A0 : public Rva0058AD7A
+{
+public:
+	Rva005EE2A0();
+	virtual ~Rva005EE2A0();
+};
+
+class Rva005D8964 : public Rva005EE2A0
 {
 public:
 	Rva005D8964();

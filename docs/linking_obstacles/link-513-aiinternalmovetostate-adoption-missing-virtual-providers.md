@@ -22,3 +22,14 @@ with 4,610 scoped linked bytes on index `9ca25659d0`. Completing the tables
 still requires the shared State layout and the remaining virtual providers.
 
 2026-11-15 (slotnames, approval revision 7ff1670043d): independent votes approve slot2 GetSnapshotName. Supported protected getter move with prepared getter/caller/constructor verifies 84/84 code rows on Boat, then the table check rejects the constructor (15 slots agree, one differs); tool restores all files. No provider bound; slot7 and constructor reconciliation remain prerequisites. Full evidence and limits: [own-provider trials](../../reverse/attempt_support/slotnames-own-provider-trials-20261115.md). No adoption or real-link clearance.
+
+
+### Confirmed slot7 behaviour defect, 2026-11-15 (slotnames)
+
+The constructor unit `AIInternalMoveToStateOnExit_AIInternalMoveToState.cpp` does not declare the class's native slot7 override. Its emitted `??_7AIInternalMoveToState@@6B@` slot7 therefore names `?_bfme_state_slot7@State@@EAEXXZ`, the inherited empty State default at RVA **0x000B3FD0**, while retail's **VA0x00C10DE8 slot7/+0x1C** calls RVA **0x0033F2D7**. That existing 5-byte matched row, `?disable@Rva0033F2D7ByteSetter@@QAEXXZ` in `Common/Disp8ByteSetters.cpp`, clears receiver byte **+0x49** (the canonical movement state's waiting-for-path flag). This is wrong behaviour, not merely an undefined name.
+
+A single authorized diagnostic rerun at local d921a21df82 saved the actual failed constructor COFF and all18 table entries. Baseline and attempted sources byte-verify84/84; the table check has15 agreeing resolved entries, the one slot7 clash and two unresolved entries (generated destructor0 and proposed getter2). Supported rename rolls back; tracked diff is empty. Captured object SHA and native/current targets are retained at `~/bfme2-ops/swarm/sweeps/slotnames/ai-diagnostic-20261115/`. No provider, adoption, real link or runtime clearance is claimed.
+
+Native call RVA **0x00350332** in AIStateMachine::updateStateMachine resumes the active State through slot7 after temporary-state exit and saved goal restoration. Two independent name_lane votes agree to **onResume** at the State slot key, record **nl-ac8209bc374c** (inferred readable name; original EA spelling unproved). Zero Hour's Boolean isIdle at ordinal7 and BFME1's absence of this callback are not canonical naming proof. The current structural spelling cannot receive a slot vote by design.
+
+A shared State-hook rename must preserve the virtual position and update the derived override and explicit bindings together. Read-only plan: `~/bfme2-ops/swarm/sweeps/slotnames/packets/state-slot7-plan.md`; hook654 dependents, conservative whole-repair verification union659. Owner decision required before a512+ full-gate batch. No gate/header/full-gate change started. This defect note and pending votes must ride with the first substantive landing, never as a standalone records push.
