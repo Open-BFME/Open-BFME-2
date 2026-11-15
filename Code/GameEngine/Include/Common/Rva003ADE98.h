@@ -10,7 +10,10 @@ public:
     char m08;
     char m09;
     Rva003ADE98(const Rva003ADE98 &other);
-    virtual ~Rva003ADE98() {}
+    virtual void slot00() = 0;
+    virtual void slot04() {}
+    virtual void slot08() = 0;
+    virtual void slot0C() = 0;
 };
 
 typedef char canonical_Rva003ADE98_17c12fae_sizeof[sizeof(Rva003ADE98) == 12 ? 1 : -1];

@@ -87,7 +87,10 @@ class Rva003ADE98
 {
 public:
 	Rva003ADE98(const Rva003ADE98 &other);
-	virtual ~Rva003ADE98() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
 
 	Int m_field04;
 	char m_field08;
