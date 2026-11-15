@@ -89,7 +89,7 @@ struct BfmeSubobject00229875 : Rva0022CE19SnapshotBase {
 typedef char BfmeSaveElementSizeCheck[sizeof(GameSlot)==0x1AC ? 1 : -1];
 struct BfmeSubobject0022CE19 : Rva0022CE19SnapshotBase {
     virtual ~BfmeSubobject0022CE19();
-    virtual void loadPostProcess();
+    virtual void loadPostProcess() { }
     virtual const char *typeName() const;
     virtual void xfer(Xfer *);
     AsciiString text04, text08, text0C;
