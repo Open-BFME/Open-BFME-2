@@ -30681,7 +30681,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EE91C,4,.data,global,?texture_statistics_string@@3VStringClass@@A,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp,owned,,1,26
 0x009EE920,24,.data,global,?texture_statistics@@3V?$DynamicVectorClass@UTextureStatisticsStruct@@@@A,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,owned,,1,11
 0x009EE938,4,.data,global,_CapsWorkString,Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,owned,,1,111
-0x009EE93C,4,.data,global,?g_00DEE93C@@3IA,Code/Libraries/Source/WWVegas/WW3D2/Rva0012CAC3Run.cpp,owned,,1,7
+0x009EE93C,4,.data,global,?g_00DEE93C@@3VAsciiString@@A,Code/Libraries/Source/WWVegas/WW3D2/Rva0012CAC3Run.cpp,owned,,1,7
 0x009EE940,4,.data,global,_overlapping_polygon_count,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,owned,,1,12
 0x009EE944,4,.data,global,_overlapping_node_count,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,owned,,1,10
 0x009EE948,4,.data,global,_temp_index_array,Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp,owned,,1,7

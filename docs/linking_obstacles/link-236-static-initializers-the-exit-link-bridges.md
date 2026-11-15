@@ -1498,3 +1498,12 @@ directory-native-baseline.json, directory-lifecycle-packet.md,
 directory-shadow-nonregression.json; Boat run dataid-20261115t114307.
 This clears duplicate native registration at source. Real-image initializer
 association/counts and runtime execution remain unmeasured for this repair.
+
+**Publication correction, 2026-11-15.** The retype transaction's temporary
+cache spelling was retired by the subsequent identifier rename, so the
+pre-push retired-name guard refused that added cache row. Follow its
+prescribed remedy: restore the exact master-base data_ledger.csv blob.
+The type rekey above describes the tool transaction, not the final cache.
+The explicit matched data row and all verified source remain unchanged;
+the cache keeps master's old class spelling until the ordinary refresh.
+No retired cache name is newly added across the corrected batch.
