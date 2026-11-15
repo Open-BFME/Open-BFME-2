@@ -33,11 +33,17 @@ struct Rva0036CA00Str {
 	~Rva0036CA00Str() { if (m_ref) m_ref->Release_Ref(); }
 };
 
-class Rva00355D66 {
+#include "../../Include/Common/ProgressIndicator.h"
+
+// The load-screen base derives from ProgressIndicator (its constructor 0x00355D4E
+// calls the base constructor 0x00355C60), whose slot 1 is pure. LoadScreen.cpp,
+// which owns this class's constructor, declares the base the same way, so both
+// units emit the same table.
+class Rva00355D66 : public ProgressIndicator {
 public:
 	virtual ~Rva00355D66();
 private:
-	char m_pad[12];
+	char m_pad[0x10 - 0x08];
 };
 
 class Rva0035615D : public Rva00355D66 {

@@ -28,11 +28,17 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
-class Rva00355D66 {
+#include "../../Include/Common/ProgressIndicator.h"
+
+// The load-screen base derives from ProgressIndicator (its constructor 0x00355D4E
+// calls the base constructor 0x00355C60), whose slot 1 is pure. LoadScreen.cpp,
+// which owns this class's constructor, declares the base the same way, so both
+// units emit the same table.
+class Rva00355D66 : public ProgressIndicator {
 public:
 	virtual ~Rva00355D66();
 private:
-	char m_pad[0x0c];
+	char m_pad[0x10 - 0x08];
 };
 
 class Rva003560ED : public Rva00355D66 {

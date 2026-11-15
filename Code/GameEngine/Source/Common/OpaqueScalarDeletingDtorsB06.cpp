@@ -103,19 +103,6 @@ Rva00355BDA::Rva00355BDA(EmitVtableTag *)
 {
 }
 
-class Rva0035615D
-{
-public:
-	Rva0035615D(EmitVtableTag *);
-public:
-	virtual ~Rva0035615D();
-};
-
-// ?<Rva0035615D::Rva0035615D> absent-from-retail
-Rva0035615D::Rva0035615D(EmitVtableTag *)
-{
-}
-
 class Rva00359290
 {
 public:

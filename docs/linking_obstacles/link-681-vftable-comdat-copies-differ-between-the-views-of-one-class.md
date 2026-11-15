@@ -1,6 +1,6 @@
 ### LINK-681: vftable COMDAT copies differ between the private views of one class
 
-Status: Open; `Rva00785140Handle` repaired, the rest are leads. Updated: 2026-11-15; inspected revision: `cb43692212`.
+Status: Open; `Rva00785140Handle` repaired, the load-screen pair equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `1de491bcfb`.
 Evidence / affected units: census 2026-11-15 08:36 (`331df3e3ff`) holds 24 units out on a `??_7` name
 that "differs from the first copy in link order (no retail address)". Each is a class whose views
 declare different virtual lists, so the units emit different tables. One cause is measured: a
@@ -37,20 +37,53 @@ constructor), `LoadScreen.cpp` (`Rva0035615D`, 1,046 B), `InheritUpgradeCreate.c
 `AptDisplayStringBase.cpp`; the data ledger names retail's base table both `??_7Rva00782CB0@@6B@` and
 `??_7Rva000AADC1Base@@6B@`, so those two classes are one and still await a class fold.
 Read so far, not repaired (2026-11-15, object tables at index `bb93a2a56e`):
-- `LoadScreen.cpp`, `Rva003560EDDtor.cpp`: retail's `Rva003560ED` (0x00814EA4) and `Rva0035615D`
-  (0x00814EBC) tables have six slots each and their virtuals are already rowed across
-  `Rva003560EDEngineRefresh.cpp`, `ProgressIndicator.cpp` and the two destructor units; the views emit
-  one or two slots. Seven units declare these classes (`GameLogicInit.cpp` and
-  `OpaqueScalarDeletingDtorsB06.cpp` among them) and must change together.
+- `LoadScreen.cpp`, `Rva003560EDDtor.cpp`: **equalized 2026-11-15 (base `1de491bcfb`), not yet retail's
+  list.** Four units emitted `??_7Rva003560ED@@6B@` or `??_7Rva0035615D@@6B@`: `LoadScreen.cpp` with two
+  slots (its `Rva00355D66` derives from the canonical `ProgressIndicator`, whose slot 1 is pure), the two
+  destructor units and `OpaqueScalarDeletingDtorsB06.cpp` with one. The destructor units' base view now
+  derives from `ProgressIndicator` too (retail's base constructor 0x00355D4E calls 0x00355C60), and B06's
+  tag emitter of `Rva0035615D` is dropped: its `??_G` row went home to `Rva003561BEDtor.cpp` earlier
+  (same repair as `51a544eb33`). 50/50 functions exact over the four units; both names have one digest
+  each (3077e33acacd, a26ab0a9d0f9); preview `LoadScreen.cpp` LINKS 0 -> 1,046, `Rva003560EDDtor.cpp`
+  0 -> 140, the other two keep linking, no other object touches a changed name.
+  Still open, retail's six slots: 0x00814EA4 is destructor, 0x00355DF4, 0x00356724, 0x00355DDD,
+  0x00355E20, folded 0x0050B5C6 (`mov al,1`); 0x00814EBC is destructor, 0x00355DF4, 0x00356889,
+  0x00355E85, 0x00355E20, 0x00355E4C. All are rowed, but slot 1 overrides `ProgressIndicator::slot1(int)`
+  and is rowed as `Rva003560ED::rva00355DF4`; slots 2 to 4 belong to the base (`Rva00355D66`, table
+  0x00814E5C: `LoadScreen::update` 0x00355FF9, three pure, 0x0050B5C6) under one name per subclass; and
+  0x00355DF4 and 0x00355E20 are shared by both subclasses (an ICF fold of two 44-byte bodies). The list
+  therefore needs function renames across the family and the class folds `LoadScreen` = `Rva00355D66`,
+  `ShellGameLoadScreen` = `Rva00355DC5`, `MapTransferLoadScreen` = `Rva00355F3E`, not a view edit.
 - `AptValue.cpp`: its `RvaAptValueBase` has no `AddRef`/`Release`, so its `Rva006D6470Owner` table has
-  one slot where the six other emitters have `AptValue::AddRef`, `AptValue::Release` and the destructor;
-  its force-inlined two-base constructor model also emits a `??0Rva006D6470Owner@@QAE@HH@Z` copy that
-  differs from the kept one.
+  one slot where the six other emitters have `AptValue::AddRef`, `AptValue::Release` and the destructor.
+  Its `??0Rva006D6470Owner@@QAE@HH@Z` copy has retail's 43 bytes (0x006D6410) and differs from the five
+  other copies only in the callee's name: it calls `??0Rva006D6360Base@@QAE@HH@Z` where they call the
+  rowed `??0Rva006D6360@@QAE@HH@Z`. Both blockers are one stale spelling of the chain
+  `AptValue` / `BfmeAptValue006DCD20` / `Rva006D6360` as `RvaAptValueBase` / `Rva006D6360Base`. The
+  unit cannot simply adopt the real names: it already defines `AptValue` (from `AptScriptFunction.h`)
+  and a non-polymorphic accessor view named `BfmeAptValue006DCD20`, and its two-base `Rva006DBits`
+  model is what gives the six rowed subclass constructors retail's memory-form mask. Class-fold work.
 - `StructureToppleUpdateModuleDataCtor.cpp`, `AutoDepositUpdateModuleDataCtor.cpp`: the losing units
   hold the 31-slot BFME 2 `ModuleData` list; the first copy is `ModuleFactory.cpp`'s 8-slot Zero Hour
-  list (`crc`, `xfer`, `loadPostProcess`, destructor, ...). The repair belongs in `ModuleFactory.cpp`.
+  list (`crc`, `xfer`, `loadPostProcess`, destructor, ...). Blocked, the wall LINK-625 already records:
+  `ModuleFactory.cpp` emits those two tables through `EmitVtableTag` constructors only to keep the rowed
+  `??_G` bodies 0x0025528B and 0x00257B5E, which `tu_map.csv` leaves displaced (no approved unit), so
+  they cannot move to the constructor units that already emit them beside the right table. The other
+  way, giving `ModuleFactory.cpp` the 31-slot list, means replacing Zero Hour's `ModuleData` under the
+  roughly 150 Zero Hour module headers the unit includes. Prerequisite: a TU approval for the two `??_G`
+  rows, or `ModuleFactory.cpp` on the canonical `ModuleData.h`.
 - `DynamicPortalBehaviourModuleDataDtor.cpp`: the constructor unit emits the 31-slot list; the
   destructor unit's private `Rva00253487Base` declares only a destructor, a shape its notes say the
   destructor's bytes depend on.
-Clearance: `Rva00785140Handle` only, preview scope the two units above.
+Plain forms of the base constructor in `AptShapeContainer.cpp`'s view, retested 2026-11-15 at
+`1de491bcfb` (each built with `./build.sh`, then the object's symbols read): declared without a body,
+the 27-byte handle constructor calls it out of line and `??0Rva00785140Handle@@QAE@ABVAssetReference@@@Z`
+fails its byte match; `Rva00782CB0() {}` in the class, an implicit constructor and a plain
+`__forceinline` one all keep the 27 bytes but emit a 9-byte `??0Rva00782CB0@@QAE@XZ` (MSVC 7.1 emits a
+used inline constructor even when every call is expanded), a second definition beside the ordinary one
+`Rva00785140HandleDestructor.cpp` rows at 0x000A8EB9. So the `dllimport __forceinline` form stays. It
+can go when the base's three rows (0x000A8EB9, 0x000A8EC2, 0x000A8EC9; approved unit
+`AptDisplayStringBase.cpp`) are defined inline in a unit that itself constructs a subclass: retail's
+copies are header inlines that first unit emitted, and then every view can use the in-class form.
+Clearance: `Rva00785140Handle` and the two load-screen tables, preview scope the units named for each.
 Census confirmation: awaiting.
