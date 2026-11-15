@@ -39,6 +39,8 @@
 #ifndef BFME_SUBSYSTEM_SLOTS
 #define BFME_SUBSYSTEM_SLOTS
 #endif
+#include "../../../Include/Common/TeamFactory.h"
+
 #include <map>		// before PreRTS.h so STLport node_alloc is used (not NEWALLOC)
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -111,39 +113,6 @@ typedef std::pair<int, int> BfmeTeamPrototypeKey;
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<const pair<int, int>, TeamPrototype *>, _Nonconst_traits<pair<const pair<int, int>, TeamPrototype *> > >, bool> _Rb_tree<pair<int, int>, pair<const pair<int, int>, TeamPrototype *>, _Select1st<pair<const pair<int, int>, TeamPrototype *> >, less<pair<int, int> >, allocator<pair<const pair<int, int>, TeamPrototype *> > >::insert_unique(const pair<const pair<int, int>, TeamPrototype *> &); }
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Team.h
-class TeamFactory : public SubsystemInterface, public Snapshot
-{
-public:
-	TeamFactory();
-	virtual ~TeamFactory();
-
-	virtual void init(void);
-	virtual void reset(void);
-	virtual void update(void);
-
-	void clear(void);
-	void addTeamPrototypeToList(TeamPrototype *team);
-	// Two parameters, not one: 0x000F8191 pushes both `name` and `owner`
-	// before the call, matching the pair-keyed m_prototypes map.
-	TeamPrototype *findTeamPrototype(const AsciiString &owner, const AsciiString &name);
-	Team *createInactiveTeam(const AsciiString &owner, const AsciiString &name);
-	void initTeam(const AsciiString &name, const AsciiString &owner, bool isSingleton, Dict *d);
-
-protected:
-	virtual void crc(void);
-	virtual void xfer(void);
-	virtual void loadPostProcess(void);
-
-private:
-	// Keyed by int with an eight-byte value, not by a two-word key: the
-	// destructor at 0x000F750B calls
-	// _Rb_tree<H, pair<$$CBH, <8 bytes>>>::~_Rb_tree, which names the key type
-	// directly. The node is 0x1C either way - 0x10 of links plus a 0xC value -
-	// so the constructor's bytes are unchanged.
-	std::map<BfmeTeamPrototypeKey, TeamPrototype *, std::less<BfmeTeamPrototypeKey> > m_prototypes;
-	int m_uniqueTeamPrototypeID;
-	int m_uniqueTeamID;
-};
 
 // ??0TeamFactory@@QAE@XZ is defined in TeamFactoryCtor.cpp (rowed 0x003A25B1).
 
