@@ -10,7 +10,6 @@ class CombineHordeSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	CombineHordeSpecialPowerModuleData();
-	virtual ~CombineHordeSpecialPowerModuleData();
 
 	float m_f7C;
 };
@@ -25,7 +24,6 @@ CombineHordeSpecialPowerModuleData::CombineHordeSpecialPowerModuleData()
 	m_f7C = kF7C;
 }
 
-// ??1CombineHordeSpecialPowerModuleData@@ present-unmatched
-CombineHordeSpecialPowerModuleData::~CombineHordeSpecialPowerModuleData()
-{
-}
+// The destructor is implicit: retail's deleting destructor 0x004C2A84 (slot 0
+// of the table 0x00C5E7A8) calls 0x004C8AB0, a bare tail jump to
+// ??1SpecialPowerModuleData with no store of this class's table.
