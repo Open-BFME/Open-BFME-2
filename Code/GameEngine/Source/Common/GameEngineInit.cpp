@@ -27,6 +27,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include "../../Include/Common/CommandList.h"
+
 #include "../../Include/GameLogic/Rva002A8F24.h"
 
 #include "../../Include/Common/INI/INI.h"
@@ -456,14 +458,6 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CommandList
-{
-public:
-	CommandList();
-	virtual void slot0();
-	virtual void init();
-	char m_data[0x10];
-};
 extern CommandList *TheCommandList;
 extern class Rva00A00958Obj *g_Rva00A00958;
 
