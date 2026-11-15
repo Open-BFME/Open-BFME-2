@@ -4611,3 +4611,25 @@ def test_a_slot_resolution_added_on_a_branch_with_another_header_is_not_bound(sl
     _git(slot_tree, "checkout", "-q", main)
     _git(slot_tree, *who, "merge", "-q", "--no-ff", "-m", "merge", "side")
     assert slot_approval(slot_tree) is None
+
+
+
+def test_a_slot_resolution_reads_the_history_once_for_every_voter(slot_tree, tmp_path, monkeypatch):
+    # resolve-slot r2: one rev-list and one cat-file batch per approval, however many voters and commits
+    contested_slot(slot_tree, tmp_path)
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// edited\n")
+    commit_votes(slot_tree, "an edit")                     # both blind votes are stale now: each voter resolves
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    assert resolve_slot(slot_tree, "seat-a", "spin") == 0
+    commit_votes(slot_tree, "the resolutions")
+    for n in range(20):
+        with open(slot_tree / name_lane.RESOLUTIONS, "a", encoding="utf-8") as handle:
+            handle.write(f"{WIDGET_H}|function|0x0|x{n},h,n,{'0' * 64},w,m,an unrelated resolution row,2026-11-15\n")
+        commit_votes(slot_tree, f"unrelated {n}")
+    calls = []
+    real = rename._git_out
+    monkeypatch.setattr(rename, "_git_out", lambda root, *args, **kw: calls.append(args) or real(root, *args, **kw))
+    assert slot_approval(slot_tree) == "spin"
+    history = [a for a in calls if a[:2] in (("rev-list", "--full-history"), ("cat-file", "--batch"))
+               or (a[:1] == ("show",) and a[-1].endswith(name_lane.RESOLUTIONS))]
+    assert sorted(a[:2] for a in history) == [("cat-file", "--batch"), ("rev-list", "--full-history")]

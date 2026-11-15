@@ -7314,35 +7314,13 @@ def resolution_bound(ctx, row, rel):
     with that sha256 (fingerprint_bound's rule for a vote's fingerprint). Each revision's whole file is read as csv,
     so a quoted reason spanning lines counts, and the file's full history is walked, so a merge that added the row
     counts too."""
-    base = revision_base(ctx)
-    columns = name_agreement.RESOLUTION_COLUMNS
-    wanted = tuple(row.get(c) or "" for c in columns)
-    held = {}
-
-    def holds(commit):
-        if commit not in held:
-            code, blob = _git_out(ctx.root, "show", f"{commit}:{name_agreement.RESOLUTIONS}")
-            try:
-                rows = [] if code else list(csv.DictReader(io.StringIO(blob.decode("utf-8"), newline="")))
-            except (UnicodeDecodeError, csv.Error):
-                rows = []
-            held[commit] = any(tuple(r.get(c) or "" for c in columns) == wanted for r in rows)
-        return held[commit]
-
-    code, listed = _git_out(ctx.root, "rev-list", "--full-history", "--parents", base, "--",
-                            name_agreement.RESOLUTIONS)
-    if code:
+    history = resolution_history(ctx)
+    if history is None:
         return False
-    adding = []
-    for line in listed.decode().splitlines():
-        commit = line.split()[0]
-        if not holds(commit):
-            continue
-        code, parents = _git_out(ctx.root, "rev-parse", f"{commit}^@")
-        if code:
-            return False
-        if not any(holds(parent) for parent in parents.decode().split()):
-            adding.append(commit)
+    rows, parents = history
+    wanted = tuple(row.get(c) or "" for c in name_agreement.RESOLUTION_COLUMNS)
+    adding = [commit for commit in parents if wanted in rows[commit]
+              and not any(wanted in rows[parent] for parent in parents[commit])]
     if not adding:
         return False
     for commit in adding:
@@ -7350,6 +7328,52 @@ def resolution_bound(ctx, row, rel):
         if code or hashlib.sha256(blob).hexdigest() != row.get("source_sha"):
             return False
     return True
+
+
+def resolution_history(ctx):
+    """({commit: frozenset of RESOLUTIONS rows}, {commit: true parents}) for every commit of the file's full history
+    up to ctx's base, and the rows of each of their parents; read once per context (one rev-list, one cat-file
+    batch) and shared by every resolution_bound of it. None when git cannot list or read it."""
+    base = revision_base(ctx)
+    key = ("resolution_history", base)
+    if key in ctx._cache:
+        return ctx._cache[key]
+    code, listed = _git_out(ctx.root, "rev-list", "--full-history", base, "--", name_agreement.RESOLUTIONS)
+    commits = listed.decode().split()
+    parents = {}
+    if not code and commits:
+        code, out = _git_out(ctx.root, "rev-list", "--no-walk=unsorted", "--parents", "--stdin",
+                             data="".join(c + "\n" for c in commits).encode())
+        for line in out.decode().splitlines():
+            ids = line.split()
+            parents[ids[0]] = ids[1:]
+    if code or set(parents) != set(commits):
+        ctx._cache[key] = None
+        return None
+    wanted = list(dict.fromkeys([*commits, *(p for ps in parents.values() for p in ps)]))
+    code, out = _git_out(ctx.root, "cat-file", "--batch",
+                         data="".join(f"{c}:{name_agreement.RESOLUTIONS}\n" for c in wanted).encode())
+    if code:
+        ctx._cache[key] = None
+        return None
+    columns = name_agreement.RESOLUTION_COLUMNS
+    rows, at = {}, 0
+    for commit in wanted:
+        end = out.index(b"\n", at)
+        header = out[at:end].split()
+        at = end + 1
+        if len(header) < 3 or header[1] != b"blob":       # `<name> missing`: the file is absent there
+            rows[commit] = frozenset()
+            continue
+        size = int(header[2])
+        blob, at = out[at:at + size], at + size + 1
+        try:
+            records = csv.DictReader(io.StringIO(blob.decode("utf-8"), newline=""))
+            rows[commit] = frozenset(tuple(r.get(c) or "" for c in columns) for r in records)
+        except (UnicodeDecodeError, csv.Error):
+            rows[commit] = frozenset()
+    ctx._cache[key] = (rows, parents)
+    return ctx._cache[key]
 
 
 def fresh_slot_voters(ctx, key, new, rel):
