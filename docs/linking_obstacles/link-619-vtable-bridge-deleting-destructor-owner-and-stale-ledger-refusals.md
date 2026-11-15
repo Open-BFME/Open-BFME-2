@@ -1047,3 +1047,28 @@ views in six constructors preserved their bytes and exception graphs but
 introduced a non-retail winning AptValue constructor. The trial was reverted.
 The [constructor comparison](../../reverse/attempt_support/aptvalue-ui-base-ctors-20261112.md)
 records the control, both trials and the out-of-line owner to investigate.
+
+**2026-11-15, seat halilkkaya-vt (base `e9c6c9136fa`): what the refusals and the undefined names do to the image.**
+Survey with counts, per-table bodies and remedies:
+[tables the bridge does not cover](../../reverse/attempt_support/vtable-bridge-uncovered-survey-20261115.md).
+- The plan as `exit_link.py` builds it refuses 26: strong-definition 18, target-not-winning-provider 6,
+  unsupported-selection 2. A plan built without `image_report.retail_function_spans()` shows a 27th,
+  `unrowed-target` on `??_7AptSpellStore@@6BGameWindow@@@` (the "dds" word after its 14 slots); that one is
+  not real.
+- None of the 26 carries a slot that differs from retail by target, except the template members without a
+  ledger row in VectorClass<Vector3> (slots 1, 3, 4, 5) and VectorClass<StringClass> (slot 5). The 18 strong
+  arrays equal retail slot for slot with every target the verified winning body; the two
+  unsupported-selection tables (`type_info`, `_com_error`) are right as they are. Each wrong winner's slot 0
+  is another compile of the same destructor (bodies in the survey).
+- All six wrong winners come from path order: under `exit_link.retail_object_order` the ledger owner precedes
+  the winner in each. The offline plan with `ORDER = "retail"`: refused 26 -> 22, already correct 2,403 ->
+  2,408, bridged 3,127 -> 3,128; two new slot-0 wrong winners appear (0x0081C2E4, 0x0087091C). A plan, not a
+  link.
+- Bridged names no object defines: 23 at the base. Repaired: `?g_007CE338@@3QBQBXB` (`13f6c235f5d`,
+  UVBufferClass stores its own table) and `...6BSecondaryModuleBase@1@@` at 0x0081BFB4 (`b189a76a5ac`;
+  Rva003AE017CopyCtor.cpp did not link on that name, now LINKS, 0 -> 38 bytes). Offline plan: bridged 3,129
+  -> 3,127, refusals and already-correct unchanged. Pass test: the next real link's
+  `vtable_bridge_queue.tsv` lists neither name and 0x007CE338 and 0x0081BFB4 stay covered.
+- Blocked on this pass (`re_attempts.log`): `_vtbl_00BD4688` and `_vtbl_00BC6F20`. A unit whose own view
+  declares the class polymorphic cannot name that class's table through an extern (C2373). The other 19
+  need the class behind the table or a rename; the survey lists them by reach.
