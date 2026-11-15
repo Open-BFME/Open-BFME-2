@@ -156,7 +156,9 @@ class Rva0033F9DC
 {
 public:
 	Rva0033F9DC(int value, bool flag);
-	virtual ~Rva0033F9DC() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual int slot08() { return -1; }
 private:
 	int m_04;
 	int m_08;
