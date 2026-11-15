@@ -16,6 +16,8 @@
 // HLOD type and the adjacent name/delete slots, while the body below opens
 // the named file and constructs an HLodDefClass for chunk 0x700.
 
+#include "../WWLib/ChunkLoadClass.h"
+
 #include "../WWLib/StringClassData.h"
 inline StringClass::~StringClass() { Free_String(); }
 inline StringClass::operator const char *() const { return m_Buffer; }
@@ -28,16 +30,6 @@ public:
 	virtual void slot2();
 };
 
-class ChunkLoadClass
-{
-public:
-	ChunkLoadClass(BFMEChunkInput *input);
-	bool Open_Chunk();
-	unsigned long Cur_Chunk_ID();
-
-private:
-	char m_opaque[0xc18];
-};
 
 class HLodDefClass
 {
