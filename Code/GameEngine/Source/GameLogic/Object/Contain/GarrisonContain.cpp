@@ -159,7 +159,6 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GGarrisonContain@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?b2@B2@@UAEXXZ=?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?b5@B5@@UAEXXZ=?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?b7@B7@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #include "../../../../Include/GameLogic/Weapon.h"
