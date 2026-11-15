@@ -27,7 +27,7 @@ public:
 class FakePathfindPortalBehaviour_B4
 {
 public:
-	virtual void f4();
+	virtual void f4() { }
 };
 
 class FakePathfindPortalBehaviour : public UpdateModule,
