@@ -171,7 +171,6 @@ Int TerrainTracksRenderObjClass::Class_ID(void) const
 //=============================================================================
 /** Not used, but required virtual method. */
 //=============================================================================
-// ?Clone@TerrainTracksRenderObjClass@@UBEPAVRenderObjClass@@XZ present-unmatched
 RenderObjClass *	 TerrainTracksRenderObjClass::Clone(void) const
 {
 	assert(false);
