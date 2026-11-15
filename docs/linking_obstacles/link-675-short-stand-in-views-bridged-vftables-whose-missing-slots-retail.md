@@ -72,6 +72,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `Rva0059B060` (VA 0x00C70E60): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-14 `Base003F8ED6` (VA 0x00C37298): 15 slots (0 pure, 0 rowed virtual, 1 destructor, 14 folded trivial body), 2 view(s): `Rva003F8ED6.cpp`, `Rva003F8ED6Ctor.cpp`.
 - 2026-11-15 `Rva005CBA04` (VA 0x00C74DB8): 17 slots (0 pure, 0 rowed virtual, 1 destructor, 15 folded trivial body), 2 view(s): `Rva005CBA04.h`, `Rva005E5A38Ctor.cpp`.
+- 2026-11-15 `Rva0065E8D0` (VA 0x00CE2368): 5 slots (4 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
@@ -249,7 +251,6 @@ the ten third class names sharing this table. No fold bypass or ledger erasure
 is approved. The ops refresh's reviewed master-covered exception rule makes
 this pre-existing uncovered name harmless to that refresh; it retires no identity
 debt. Revisit only with a supported reconciliation route.
-
 Second day of the unattended table work (2026-11-15, master 85e8ba2544: 3,160 bridged names over about 2,400
 retail tables, 35,063 mismatching slots), what was measured and what is exhausted:
 - Unrowed compiled slot names are drained. A read-only prefilter compares the compiled body of every such name
