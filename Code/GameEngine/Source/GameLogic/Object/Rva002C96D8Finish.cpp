@@ -11,16 +11,13 @@ typedef float Real;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
+#include "../../Common/Thing/thing.h"
+
+class Object : public Thing
 {
 public:
 	float rva002C97E8(const Coord3D *a, const Coord3D *b) const;
 	float rva00263763(const void *other) const;
-
-private:
-	char m_pad00[0x38];
-public:
-	Coord3D m_position; // +0x38
 };
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
@@ -36,7 +33,7 @@ bool Weapon::isTooClose(const Object *source, const Coord3D *pos) const
 	float minRange = m_template->getMinimumAttackRange();
 	if (minRange == 0.0f)
 		return false;
-	float distSqr = source->rva002C97E8(&source->m_position, pos);
+	float distSqr = source->rva002C97E8(&source->m_cachedPos, pos);
 	if (distSqr < minRange * minRange)
 		return true;
 	return false;
