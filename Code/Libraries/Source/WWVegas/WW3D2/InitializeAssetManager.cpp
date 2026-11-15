@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <WinSock2.h>
-extern unsigned int g_00DEE93C;
+extern unsigned int g_assetDirectory;
 extern bool AssetInitRunTextureBuilder; // native VA DB61E8
 extern bool AssetInitRunModelBuilder;   // native VA DB61E9
 extern bool AssetInitRunShaderBuilder;  // native VA DB61EA
@@ -29,7 +29,7 @@ void forwardRegistrySettingRva0061F1A0(unsigned,int);
 void Rva0012CA49Run();
 bool InitializeAssetManager(AsciiString directory,AsciiString archive,bool skipTextures)
 {
- *(AsciiString *)&g_00DEE93C=directory;
+ *(AsciiString *)&g_assetDirectory=directory;
  Create_Rva00972880_Prototype();
  if(!skipTextures) {
   if(AssetInitRunModelBuilder) Rva0012CAC3Run();

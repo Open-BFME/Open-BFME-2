@@ -1464,3 +1464,37 @@ Evidence on srv1: `~/bfme2-ops/swarm/sweeps/dataid/slotless/notification-native-
 and the before/named objects in `notification-live-proof/build/dataid-notification-proof/`.
 The ordinary rename preserves 86/86 tested rows, 27 data rows and link_check's 8/8 clean
 verdict (1,805 -> 1,805 bytes); native lifecycle counts remain unchanged by that rename.
+
+### 2026-11-15 - asset-directory duplicate registration retired at source
+
+The four-byte AsciiString at RVA 0x009EE93C holds the directory assigned by
+InitializeAssetManager and consumed by the texture/cache builder wrappers.
+Its inferred spelling is g_assetDirectory; the original EA name is unproven.
+The supported rename.py global --retype transaction supplies constructor-free,
+four-byte aligned integer storage, with AsciiString views at the same address.
+It admits a verified four-byte data row and rekeys the source-owned ledger row.
+No CSV hand edit, size growth, alias or second global is used.
+
+Retail table slot 142 at 0x007ACD72 is the full 22-byte constructor/registration:
+it constructs this string through zeroing ctor 0x00326BE6 and registers the
+rowed cleanup 0x007B707A. The source owner's additional 12-byte register-only
+initializer equals the interior suffix 0x007ACD7C when relocated using the
+independently verified cleanup correspondence. That suffix is not a table
+entry. Its native ten-byte cleanup DOES byte-match 0x007B707A through existing
+symbol mappings; the cleanup is not absent from retail. Remove only the extra
+automatic registration/compiler thunk and keep the full rowed constructor
+and cleanup as the sole lifecycle. No new lifecycle is introduced.
+
+Boat: 919/919 code rows before/after in four affected units; tool verification
+including the unchanged FTP control gives 942/942 across five units. Data rows
+verify 22 -> 23, adding the four-byte row. link_check predicts 4/4 clean,
+10,322 -> 10,322 bytes. Owner CRT entries and _atexit references each fall
+1 -> 0; the other three lifecycle inventories are unchanged. Pin consistency,
+converged data and CSV checks pass. The shadow wrong-name finding at 0x009E0878
+is exactly equal in frozen before/after rebuilds and remains separate debt.
+
+Evidence: srv1 swarm/sweeps/dataid/slotless/directory-retail-lifecycle.json,
+directory-native-baseline.json, directory-lifecycle-packet.md,
+directory-shadow-nonregression.json; Boat run dataid-20261115t114307.
+This clears duplicate native registration at source. Real-image initializer
+association/counts and runtime execution remain unmeasured for this repair.

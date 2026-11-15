@@ -94,3 +94,14 @@ note: a native `.CRT$XCU` contribution cannot be kept out of the link) and the T
 
 No bridge-side fix for P10. It goes to Crash triage as source work on the 35 shape-credited native
 registrations themselves (LINK-621).
+
+**2026-11-15 directory source repair.** The 0x007ACD72 item in the historical
+list above is repaired at source: constructor-free four-byte storage for
+inferred g_assetDirectory at 0x009EE93C removes the extra native 12-byte
+registration; the full rowed 22-byte constructor/registration and cleanup
+0x007B707A remain. The removed initializer matches the interior registration
+suffix 0x007ACD7C, not an independent retail table slot. Its cleanup has the
+existing retail counterpart; retail's lifecycle is retained. See LINK-236's
+dated asset-directory handoff for code/data/lifecycle and no-loss prediction
+evidence. Other historical items and the parked bridge proposal are unchanged.
+Real-image association for this repair still awaits measurement.

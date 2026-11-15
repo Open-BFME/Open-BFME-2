@@ -934,7 +934,7 @@ void __cdecl rva007B6FAC()
 }
 
 unsigned g_Va00DEAF20;	// retail RVA 0x009EAF20 (.bss), defined here
-extern unsigned int g_00DEE93C;	// RVA 0x009EE93C, defined in Rva0012CAC3Run.cpp
+extern unsigned int g_assetDirectory;	// RVA 0x009EE93C, defined in Rva0012CAC3Run.cpp
 
 // ?rva007B6D09@@YAXXZ @ 0x007B6D09 (10B). Global AsciiString dtor thunk: ecx=&g_Va00DEAF20 then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39).
 void __cdecl rva007B6D09()
@@ -946,7 +946,7 @@ void __cdecl rva007B6D09()
 // ?rva007B707A@@YAXXZ @ 0x007B707A (10B). Global AsciiString dtor thunk: ecx=&g_00DEE93C then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39).
 void __cdecl rva007B707A()
 {
-	AsciiString *receiver = (AsciiString *)&g_00DEE93C;
+	AsciiString *receiver = (AsciiString *)&g_assetDirectory;
 	return receiver->~AsciiString();
 }
 
