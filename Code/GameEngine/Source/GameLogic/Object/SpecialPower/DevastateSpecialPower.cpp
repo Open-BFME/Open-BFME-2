@@ -4,6 +4,39 @@ class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "../../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
+struct AEXPAVObject;
+struct AEXPBUCoord3D;
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
+#include "ascii_string.h"
+#include "../../../../Include/Common/DevastateSpecialPowerModuleData.h"
+//
+// Two DevastateSpecialPower overrides on the special-power interface vtable
+// 0x00C5E430 its matched ctor 0x004C81E3 installs at +0x10, compiled with that
+// subobject this. Unsigned command options keep these overrides in the
+// canonical interface's native slots and preserve that receiver.
+//
+// ?doSpecialPower@DevastateSpecialPower@@UAEXI@Z, retail 0x004C822C, 68 bytes:
+// slot 10 (the argument unread); the untargeted use only reports "Error!
+// Devastate Power requires either a target object or location" through the
+// Debug singleton (the GameLODManagerGetAudioLODIndex.cpp reporting shape).
+// ?doSpecialPowerAtObject@DevastateSpecialPower@@UAEXPAVObject@@I@Z, retail 0x004C82D1,
+// 20 bytes: slot 11; slot 12 at the target Object's position (+0x38) with the
+// same second argument.
+
+typedef int Int;
+typedef bool Bool;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../object.h"
+#include "../../../Common/debug.h"
+extern Debug *theDebug;
+Bool bfmeRva000387C0(void);
+
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
@@ -17,14 +50,9 @@ public:
 	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
 	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
 };
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-#include "../../../../Include/Common/NameKeyGenerator.h"
-extern NameKeyGenerator *TheNameKeyGenerator;
-struct AEXPAVObject;
+
 struct AEXPBUCoord3D;
+
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:
@@ -40,12 +68,10 @@ public:
 public:
 	virtual void doSpecialPowerAtLocation(const struct Coord3D *, unsigned int);
 };
-#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
-#include "ascii_string.h"
-
-#include "../../../../Include/Common/DevastateSpecialPowerModuleData.h"
 
 // tu-skeleton: 0x004C81C8 27B ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp
 
@@ -112,9 +138,24 @@ DevastateSpecialPowerModuleData::DevastateSpecialPowerModuleData()
 
 // tu-skeleton: 0x004C820D 6B ?Rva004C820DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004C822C 68B ?doSpecialPower@DevastateSpecialPower@@UAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp
 
-// tu-skeleton: 0x004C82D1 20B ?doSpecialPowerAtObject@DevastateSpecialPower@@UAEXPAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
+// ?doSpecialPower@DevastateSpecialPower@@UAEXI@Z @0x004C822C
+void DevastateSpecialPower::doSpecialPower(unsigned int)
+{
+	if (bfmeRva000387C0())
+	{
+		Debug::SkipNext(true);
+		theDebug->SkipNext();
+		(theDebug->CrashBegin(0, 0, 0) << "Error! Devastate Power requires either a target object or location").CrashDone(2);
+	}
+}
+
+// ?doSpecialPowerAtObject@DevastateSpecialPower@@UAEXPAVObject@@I@Z @0x004C82D1
+void DevastateSpecialPower::doSpecialPowerAtObject(Object *target, unsigned int options)
+{
+	doSpecialPowerAtLocation(target->getPosition(), options);
+}
 
 // tu-skeleton: 0x004C82E5 472B ?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp (not merged yet)
 
