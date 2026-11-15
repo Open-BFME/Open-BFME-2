@@ -2755,14 +2755,18 @@ def test_an_entry_mapped_outside_retails_table_is_listed():
 
 # ------------------------------------------------------------ member calls on globals (member_call_evidence)
 
-def member_call(c, callee_body, between=b"", target=0x2100):
-    """A retail function at 0x100: `mov ecx, offset target; <between>; call 0x200; ret`, and the callee at 0x200
-    (`callee_body`, which may call 0x300: a bare ret)."""
+FUNCTIONS = [(0x100, 0x20), (0x200, 0x40), (0x300, 0x10)]
+
+
+def member_call(c, callee_body, between=b"", target=0x2100, helper=b"\xc3", caller=None):
+    """A retail function at 0x100: `mov ecx, offset target; <between>; call 0x200; ret` (or `caller` as given), the
+    callee at 0x200 (`callee_body`, which may call 0x300), and the helper at 0x300 (a bare ret by default)."""
     call_at = 0x105 + len(between)
-    c.retail.put(0x100, b"\xb9" + struct.pack("<I", c.retail.base + target) + between +
-                 b"\xe8" + struct.pack("<i", 0x200 - (call_at + 5)) + b"\xc3")
+    c.retail.put(0x100, caller if caller is not None else (
+        b"\xb9" + struct.pack("<I", c.retail.base + target) + between +
+        b"\xe8" + struct.pack("<i", 0x200 - (call_at + 5)) + b"\xc3"))
     c.retail.put(0x200, callee_body)
-    c.retail.put(0x300, b"\xc3")
+    c.retail.put(0x300, helper)
 
 
 def call_300(at):
@@ -2770,45 +2774,123 @@ def call_300(at):
     return b"\xe8" + struct.pack("<i", 0x300 - (at + 5))
 
 
+def evidence(c, rows=None):
+    return iso.member_call_evidence(c.retail, rows or [row("object", 0x2100)], FUNCTIONS)
+
+
 def test_a_member_call_proves_an_access_past_calls_through_a_saved_register():
     # g_aptDateInterpreter's shape: push esi; mov esi, ecx; call ...; mov byte [esi+0x68], al; ret. The declared
     # 72 bytes end before +0x68: undersized, which the initializer scan never saw
     c = checker([public("object", 0x2000, 72)], {"object": {0x2100}})
     member_call(c, b"\x56\x8b\xf1" + call_300(0x203) + b"\x88\x46\x68\xc3")
-    evidence = iso.member_call_evidence(c.retail, [row("object", 0x2100, 72)], [(0x100, 0x20)])
-    assert [(e["offset"], e["width"]) for e in evidence] == [(0x68, 1)]
-    assert "retail member call at 0x105 in 0x100 on it calls 0x200; access at 0x208" == evidence[0]["evidence"]
-    c.storage(evidence)
+    found = evidence(c, [row("object", 0x2100, 72)])
+    assert [(e["offset"], e["width"]) for e in found] == [(0x68, 1)]
+    assert "retail member call at 0x105 in 0x100 on it calls 0x200; access at 0x208" == found[0]["evidence"]
+    c.storage(found)
     assert c.counts["storage_undersized"] == 1
     c = checker([public("object", 0x2000, 0x6C)], {"object": {0x2100}})
-    c.storage(evidence)
+    c.storage(found)
     assert not c.defects                                # 0x6C bytes cover +0x68
 
 
 def test_a_load_through_this_counts_and_lea_does_not():
     c = checker([], {})
     member_call(c, b"\x8b\x41\x10\xc3")                  # mov eax, [ecx+0x10]; ret
-    assert [(e["offset"], e["width"]) for e in
-            iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)])] == [(0x10, 4)]
+    assert [(e["offset"], e["width"]) for e in evidence(c)] == [(0x10, 4)]
     member_call(c, b"\x8d\x41\x40\xc3")                  # lea eax, [ecx+0x40]; ret: an address, no access
-    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)]) == []
+    assert evidence(c) == []
 
 
-@pytest.mark.parametrize("body", [
-    b"\x8b\xc1" + call_300(0x202) + b"\xc7\x40\x08\x01\x00\x00\x00\xc3",   # mov eax, ecx; call: eax is not kept
-    b"\xeb\x00\xc7\x41\x08\x01\x00\x00\x00\xc3",                            # a jump ends the straight-line prefix
-    b"\x31\xc9\xc7\x41\x08\x01\x00\x00\x00\xc3",                            # xor ecx, ecx drops this
-    b"\xc3\xc7\x41\x08\x01\x00\x00\x00",                                    # ret
+@pytest.mark.parametrize("body,helper", [
+    # mov eax, ecx; call a helper that clears EAX: eax is not kept
+    (b"\x8b\xc1" + call_300(0x202) + b"\xc7\x40\x08\x01\x00\x00\x00\xc3", b"\x31\xc0\xc3"),
+    (b"\xeb\x00\xc7\x41\x08\x01\x00\x00\x00\xc3", b"\xc3"),                 # a jump ends the straight-line prefix
+    (b"\x31\xc9\xc7\x41\x08\x01\x00\x00\x00\xc3", b"\xc3"),                 # xor ecx, ecx drops this
+    (b"\xc3\xc7\x41\x08\x01\x00\x00\x00", b"\xc3"),                         # ret
 ])
-def test_the_prefix_ends_where_this_is_no_longer_known(body):
+def test_the_prefix_ends_where_this_is_no_longer_known(body, helper):
     c = checker([], {})
-    member_call(c, body)
-    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)]) == []
+    member_call(c, body, helper=helper)
+    assert evidence(c) == []
 
 
 def test_no_member_call_without_ecx_held_or_a_ledger_global():
     c = checker([], {})
     member_call(c, b"\xc7\x41\x08\x01\x00\x00\x00\xc3", between=b"\x31\xc9")     # ecx clobbered before the call
-    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], [(0x100, 0x20)]) == []
+    assert evidence(c) == []
     member_call(c, b"\xc7\x41\x08\x01\x00\x00\x00\xc3")
-    assert iso.member_call_evidence(c.retail, [row("other", 0x2200)], [(0x100, 0x20)]) == []   # not a ledger row
+    assert evidence(c, [row("other", 0x2200)]) == []                               # not a ledger row
+
+
+# Sol r1: what may not count as an access through this
+
+STORE_68 = b"\xc7\x46\x68\x01\x00\x00\x00"                                        # mov dword [esi+0x68], 1
+
+
+@pytest.mark.parametrize("body,between", [
+    (b"\x8b\xf1\x66\xbe\x00\x30" + STORE_68 + b"\xc3", b""),                       # mov si, 0x3000 changes ESI
+    (b"\xc7\x41\x68\x01\x00\x00\x00\xc3", b"\x66\xb9\x00\x30"),                    # mov cx, 0x3000 before the call
+])
+def test_r1_a_partial_register_write_drops_the_register(body, between):
+    c = checker([], {})
+    member_call(c, body, between=between)
+    assert evidence(c) == []
+
+
+def test_r1_a_call_target_reached_by_a_jump_is_no_member_call():
+    # mov ecx, 0x403000; jmp +5 (over mov ecx, G); call T: the call is reached with ECX not G
+    c = checker([], {})
+    caller = (b"\xb9" + struct.pack("<I", c.retail.base + 0x3000) + b"\xeb\x05" +
+              b"\xb9" + struct.pack("<I", c.retail.base + 0x2100) + b"\xe8" + struct.pack("<i", 0x200 - 0x111) + b"\xc3")
+    member_call(c, b"\xc7\x41\x68\x01\x00\x00\x00\xc3", caller=caller)
+    assert evidence(c) == []
+
+
+def test_r1_a_function_with_an_indirect_jump_gives_no_member_call():
+    c = checker([], {})
+    caller = (b"\xb9" + struct.pack("<I", c.retail.base + 0x2100) + b"\xe8" + struct.pack("<i", 0x200 - 0x10a) +
+              b"\xff\xe0")                                                          # ...; jmp eax
+    member_call(c, b"\xc7\x41\x68\x01\x00\x00\x00\xc3", caller=caller)
+    assert evidence(c) == []
+
+
+@pytest.mark.parametrize("helper,kept", [
+    (b"\xbe\x00\x30\x40\x00\xc3", False),        # mov esi, 0x403000; ret: the helper replaces ESI
+    (b"\x56\xbe\x00\x30\x40\x00\x5e\xc3", True),  # push esi; mov esi, ...; pop esi; ret: preserved
+    (b"\xc3", True),                              # writes nothing, calls nothing
+])
+def test_r1_a_call_keeps_a_register_only_when_the_target_preserves_it(helper, kept):
+    c = checker([], {})
+    member_call(c, b"\x8b\xf1" + call_300(0x202) + STORE_68 + b"\xc3", helper=helper)
+    assert [(e["offset"], e["width"]) for e in evidence(c)] == ([(0x68, 4)] if kept else [])
+
+
+def test_r1_a_call_to_an_unlisted_target_keeps_nothing():
+    c = checker([], {})
+    member_call(c, b"\x8b\xf1" + call_300(0x202) + STORE_68 + b"\xc3")
+    assert iso.member_call_evidence(c.retail, [row("object", 0x2100)], FUNCTIONS[:2]) == []
+
+
+@pytest.mark.parametrize("body", [
+    b"\x0f\x1f\x41\x68\xc3",                      # nop dword [ecx+0x68]
+    b"\x0f\x18\x49\x68\xc3",                      # prefetcht0 [ecx+0x68]
+    b"\x8b\xf9\x31\xc9\xf3\xab\xc3",              # mov edi, ecx; xor ecx, ecx; rep stosd: a zero count
+    b"\x64\x8b\x41\x68\xc3",                      # mov eax, fs:[ecx+0x68]: a segment base
+])
+def test_r1_what_touches_no_memory_of_this_is_no_access(body):
+    c = checker([], {})
+    member_call(c, body)
+    assert evidence(c) == []
+
+
+def test_r1_a_split_needs_an_access_that_touches_the_other_global():
+    # an access at +8..+11 only: a global linked apart at retail +4 is not shown to be a field of it
+    c = checker([public("object", 0x2000, 12), public("other", 0x3000, 4)], {"object": {0x2100}, "other": {0x2104}})
+    member_call(c, b"\x8b\x41\x08\xc3")
+    c.storage(evidence(c, [row("object", 0x2100, 12)]))
+    assert c.counts["storage_split"] == 0
+    # ... while one at retail +8, inside the accessed bytes, is
+    c = checker([public("object", 0x2000, 12), public("other", 0x3000, 4)], {"object": {0x2100}, "other": {0x2108}})
+    member_call(c, b"\x8b\x41\x08\xc3")
+    c.storage(evidence(c, [row("object", 0x2100, 12)]))
+    assert c.counts["storage_split"] == 1

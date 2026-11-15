@@ -1265,12 +1265,15 @@ class Checker:
             if end > p["extent"]:
                 self.defect("storage_undersized", e["rva"], p,
                             f"{e['evidence']}; access ends +{end}, winning extent {p['extent']}")
+            # a split needs the access to touch the other global's bytes: one starting inside the accessed bytes,
+            # or one starting between the base and the access whose extent reaches into it
             first = bisect.bisect_right(self.retail_addresses, e["rva"])
             last = bisect.bisect_left(self.retail_addresses, e["rva"] + end)
             for target in self.retail_addresses[first:last]:
                 offset = target - e["rva"]
                 for q in self.by_retail[target]:
-                    if q["rva"] != p["rva"] + offset:
+                    reaches = offset >= e["offset"] or (q["extent"] is not None and offset + q["extent"] > e["offset"])
+                    if reaches and q["rva"] != p["rva"] + offset:
                         self.defect("storage_split", target, q,
                                     f"{e['evidence']}; field of {e['name']} +{offset} at separate linked address")
 
@@ -1333,76 +1336,159 @@ def storage_evidence(retail, rows):
     return result
 
 
-def this_reach(retail, md, callee, cache):
-    """(furthest offset+width, width, offset, instruction address) of an access through `this` in `callee`'s
-    straight-line prefix, or None. `this` arrives in ECX and is followed through register copies (`mov esi, ecx`); a
-    call keeps it only in the callee-saved registers (ESI, EDI, EBX, EBP) and the scan goes on past it; a jump or
-    return ends the prefix, any other write to a register holding it drops that register, and `lea` is no access.
-    A lower bound: what the prefix shows, never what a branch might reach."""
-    from capstone.x86_const import (X86_OP_MEM, X86_OP_REG, X86_REG_EBP, X86_REG_EBX, X86_REG_ECX, X86_REG_EDI,
-                                    X86_REG_ESI)
+# a 32-bit register and every register that overlaps it: a write to any of them changes the whole
+REGISTER_FAMILY = {name: family for family, names in {
+    "eax": ("eax", "ax", "al", "ah"), "ecx": ("ecx", "cx", "cl", "ch"), "edx": ("edx", "dx", "dl", "dh"),
+    "ebx": ("ebx", "bx", "bl", "bh"), "esi": ("esi", "si"), "edi": ("edi", "di"), "ebp": ("ebp", "bp"),
+    "esp": ("esp", "sp")}.items() for name in names}
+
+
+def written_families(md, ins):
+    """The 32-bit registers an instruction writes, a partial write (`mov si, ...`) included."""
+    return {REGISTER_FAMILY.get(md.reg_name(reg)) for reg in ins.regs_access()[1]} - {None}
+
+
+def preserves(retail, md, target, family, sizes, memo, depth=0):
+    """Whether the function at `target` returns with register `family` as it found it, proven from its whole extent
+    (sizes: reverse/ghidra_functions.csv): it never writes it and every function it calls preserves it too (up to
+    three calls deep); or it pushes it before its first write and pops it before every return. Unknown: an extent not
+    listed, a jump out of the extent or through a register or memory, an indirect call. Unknown is False."""
+    key = (target, family)
+    if key in memo:
+        return memo[key]
+    memo[key] = False                                   # a recursive call proves nothing
+    size = sizes.get(target)
+    if not size or depth > 3:
+        return False
+    body = list(md.disasm(retail.read(target, size) or b"", retail.base + target))
+    if not body:
+        return False
     import capstone
+    from capstone.x86_const import X86_OP_IMM, X86_OP_REG
+    for ins in body:
+        if ins.group(capstone.CS_GRP_JUMP):
+            op = ins.operands[0] if ins.operands else None
+            if op is None or op.type != X86_OP_IMM or not target <= op.imm - retail.base < target + size:
+                return False
+    writes = [i for i, ins in enumerate(body) if family in written_families(md, ins)]
+    if not writes:
+        for ins in body:
+            if ins.group(capstone.CS_GRP_CALL):
+                op = ins.operands[0] if ins.operands else None
+                if op is None or op.type != X86_OP_IMM or not preserves(
+                        retail, md, op.imm - retail.base, family, sizes, memo, depth + 1):
+                    return False
+        memo[key] = True
+        return True
+
+    def names(ins, mnemonic):
+        return (ins.mnemonic == mnemonic and len(ins.operands) == 1 and ins.operands[0].type == X86_OP_REG
+                and REGISTER_FAMILY.get(md.reg_name(ins.operands[0].reg)) == family)
+    if not any(names(ins, "push") for ins in body[:writes[0]]):
+        return False
+    for i, ins in enumerate(body):
+        if ins.group(capstone.CS_GRP_RET):
+            j, restored = i - 1, False
+            while j >= 0 and (body[j].mnemonic in ("pop", "leave") or
+                              (body[j].mnemonic in ("add", "mov") and "esp" in body[j].op_str.split(",")[0])):
+                restored = restored or names(body[j], "pop")
+                j -= 1
+            if not restored:
+                return False
+    memo[key] = True
+    return True
+
+
+def this_accesses(retail, md, callee, sizes, cache, memo):
+    """{(offset, width): instruction address} of the accesses through `this` in `callee`'s straight-line prefix.
+    `this` arrives in ECX and is followed through 32-bit register copies (`mov esi, ecx`); a write to any part of a
+    register holding it drops that register; a call keeps a register only when its target provably preserves it
+    (preserves); a jump or return ends the prefix. An access is a memory operand based on a register holding
+    `this`, with no index, no segment override and a non-negative displacement, in an instruction that touches
+    memory: `lea`, `nop`, `prefetch*` and REP-prefixed string instructions (a zero count touches nothing) are not.
+    Lower bounds: what the prefix proves, never what a branch might reach."""
     if callee in cache:
         return cache[callee]
-    saved = {X86_REG_ESI, X86_REG_EDI, X86_REG_EBX, X86_REG_EBP}
-    holders, best = {X86_REG_ECX}, None
+    import capstone
+    from capstone.x86_const import X86_OP_IMM, X86_OP_MEM, X86_OP_REG, X86_REG_INVALID
+    holders, found = {"ecx"}, {}
     for ins in md.disasm(retail.read(callee, 0x400) or b"", retail.base + callee):
         if ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET):
             break
-        if ins.mnemonic != "lea":
+        repeated = ins.prefix[0] in (0xF2, 0xF3) and ins.mnemonic.split()[-1].startswith(
+            ("movs", "stos", "lods", "cmps", "scas", "ins", "outs"))
+        if not (ins.mnemonic in ("lea", "nop") or ins.mnemonic.startswith("prefetch") or repeated):
             for op in ins.operands:
-                if op.type == X86_OP_MEM and op.mem.base in holders and not op.mem.index and op.mem.disp >= 0:
-                    end = op.mem.disp + op.size
-                    if best is None or end > best[0]:
-                        best = (end, op.size, op.mem.disp, ins.address - retail.base)
+                if op.type == X86_OP_MEM and REGISTER_FAMILY.get(md.reg_name(op.mem.base)) in holders \
+                        and not op.mem.index and op.mem.segment == X86_REG_INVALID and op.mem.disp >= 0:
+                    found.setdefault((op.mem.disp, op.size), ins.address - retail.base)
         if ins.group(capstone.CS_GRP_CALL):
-            holders &= saved
+            op = ins.operands[0] if ins.operands else None
+            target = op.imm - retail.base if op is not None and op.type == X86_OP_IMM else None
+            holders = {f for f in holders
+                       if target is not None and preserves(retail, md, target, f, sizes, memo)}
         else:
             ops = ins.operands
             copy = (ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and
-                    ops[1].type == X86_OP_REG and ops[1].reg in holders)
-            holders -= set(ins.regs_access()[1])
+                    ops[1].type == X86_OP_REG and REGISTER_FAMILY.get(md.reg_name(ops[1].reg)) in holders and
+                    md.reg_name(ops[0].reg) in REGISTER_FAMILY.values())
+            holders = holders - written_families(md, ins)
             if copy:
-                holders.add(ops[0].reg)
+                holders.add(md.reg_name(ops[0].reg))
         if not holders:
             break
-    cache[callee] = best
-    return best
+    cache[callee] = found
+    return found
 
 
 def member_call_evidence(retail, rows, functions):
     """Storage evidence from member calls on globals anywhere in retail's code: in each function of `functions`
-    ([(rva, size)]), a `mov ecx, offset G` (G a ledger global) followed by `call T` with ECX untouched between
-    is a member call on G, and T's furthest this-relative access (this_reach) is an access at G+offset. One record
-    per (G, T), the furthest; lower bounds only, as storage_evidence's. The initializer scan sees only
-    constructors called by static initializers, up to their first call: g_aptDateInterpreter's +0x64/+0x68 writes
-    sit in an init method called from Rva006CF230Initialize, behind `mov esi, ecx` and three calls."""
+    ([(rva, size)]), a `mov ecx, offset G` (G a ledger global) followed by `call T`, with no write to any part of ECX
+    and no direct jump target between them, is a member call on G, and each access T makes through `this`
+    (this_accesses) is an access at G+offset. A function with an indirect jump gives none (its targets are unknown).
+    One record per distinct (G, offset, width); lower bounds only, as storage_evidence's. The initializer scan sees
+    only constructors called by static initializers, up to their first call: g_aptDateInterpreter's +0x64/+0x68
+    writes sit in an init method called from Rva006CF230Initialize, behind `mov esi, ecx` and three calls."""
     import capstone
-    from capstone.x86_const import X86_OP_IMM, X86_OP_REG, X86_REG_ECX
+    from capstone.x86_const import X86_OP_IMM, X86_OP_REG
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     md.detail = True
     names = {int(r["address"], 16): r["name"] for r in rows if r["kind"] == "global"}
-    cache, seen, result = {}, set(), []
+    sizes = {start: size for start, size in functions}
+    cache, memo, seen, result = {}, {}, set(), []
     for start, size in functions:
+        body = list(md.disasm(retail.read(start, min(size or 0x400, 0x4000)) or b"", retail.base + start))
+        targets, indirect = set(), False
+        for ins in body:
+            if ins.group(capstone.CS_GRP_JUMP):
+                op = ins.operands[0] if ins.operands else None
+                if op is not None and op.type == X86_OP_IMM:
+                    targets.add(op.imm - retail.base)
+                else:
+                    indirect = True
+        if indirect:
+            continue
         held = None
-        for ins in md.disasm(retail.read(start, min(size or 0x400, 0x4000)) or b"", retail.base + start):
+        for ins in body:
+            here = ins.address - retail.base
             ops = ins.operands
-            if ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and ops[0].reg == X86_REG_ECX:
+            if held is not None and here in targets:
+                held = None                             # reached by a jump, ECX may be anything here
+            if ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and md.reg_name(ops[0].reg) == "ecx":
                 held = ops[1].imm - retail.base if ops[1].type == X86_OP_IMM else None
                 held = held if held in names else None
             elif ins.mnemonic == "call" and held is not None and ops and ops[0].type == X86_OP_IMM:
                 callee = ops[0].imm - retail.base
-                reached = this_reach(retail, md, callee, cache)
-                if reached and (held, callee) not in seen:
-                    seen.add((held, callee))
-                    _end, width, offset, at = reached
-                    result.append(dict(name=names[held], rva=held, offset=offset, width=width,
-                                       evidence=f"retail member call at {hex(ins.address - retail.base)} in "
-                                                f"{hex(start)} on it calls {hex(callee)}; access at {hex(at)}"))
+                for (offset, width), at in sorted(this_accesses(retail, md, callee, sizes, cache, memo).items()):
+                    if (held, offset, width) not in seen:
+                        seen.add((held, offset, width))
+                        result.append(dict(name=names[held], rva=held, offset=offset, width=width,
+                                           evidence=f"retail member call at {hex(here)} in {hex(start)} on it calls "
+                                                    f"{hex(callee)}; access at {hex(at)}"))
                 held = None
             elif ins.group(capstone.CS_GRP_JUMP) or ins.group(capstone.CS_GRP_RET) or ins.mnemonic == "call":
                 held = None
-            elif X86_REG_ECX in ins.regs_access()[1]:
+            elif "ecx" in written_families(md, ins):
                 held = None
     return result
 
