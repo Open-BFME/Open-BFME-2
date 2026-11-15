@@ -132,7 +132,6 @@ SortingIndexBufferClass		*SortingTris, *SortingQuads;
  *   12/10/1998 NH  : Created.                                            * 
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
-static SimpleVecClass<unsigned long> remap;
 extern "C" void _ReadWriteBarrier(void);
 extern unsigned char g_Va00DB5F7D;
 // BFME2's FVF record: the stride, location, first texture-coordinate and
