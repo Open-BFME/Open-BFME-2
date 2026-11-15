@@ -112,6 +112,7 @@ extern GameLogic *TheGameLogic;
 
 
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
+#include "../../../Include/GameLogic/LocomotorSet.h"
 
 class AIEnterState : public AIInternalMoveToState
 {

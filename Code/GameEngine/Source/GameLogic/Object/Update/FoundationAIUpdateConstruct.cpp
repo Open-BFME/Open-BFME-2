@@ -116,6 +116,7 @@ public:
 };
 
 #include "../../../../Include/Common/ThingTemplate.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 // Readers on the canonical ThingTemplate: the kind-mask dword test and the
 // placement view angle (+0x4D0).
 static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl, Int t)

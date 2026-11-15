@@ -86,6 +86,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 void UpgradeModule::rva004CE41E(bool apply)
 {
 	Object *object = m_object;

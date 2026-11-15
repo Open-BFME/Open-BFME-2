@@ -113,6 +113,7 @@ class Rva0008BB38FloatField;
 // updateLastNode, rowed under its address name.
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/Common/StateMachine.h"
+#include "../../../../Include/GameLogic/LocomotorSet.h"
 
 
 struct AIData

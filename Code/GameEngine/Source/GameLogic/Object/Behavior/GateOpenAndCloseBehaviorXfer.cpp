@@ -63,6 +63,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #define BFME_BEHAVIORMODULE_XFER
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class GateOpenAndCloseBehavior : public UpdateModule
 {

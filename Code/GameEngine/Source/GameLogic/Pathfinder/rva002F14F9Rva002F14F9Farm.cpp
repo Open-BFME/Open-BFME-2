@@ -112,6 +112,7 @@ class Pathfinder;
 struct Rva002EDEABArg;
 #include "../../../Include/Common/Rva002E93A7Info.h"
 #include "../../../Include/GameLogic/Waypoint.h"
+#include "../../../Include/GameLogic/LocomotorSet.h"
 class PathfindCell;
 class Path
 {

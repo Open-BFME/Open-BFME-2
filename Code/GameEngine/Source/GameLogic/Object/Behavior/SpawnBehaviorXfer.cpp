@@ -103,6 +103,7 @@ public:
 #include "../../../../Include/Common/SpawnExtraBase.h"
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 struct UpgradeMaskType;
 class SpawnBehavior : public UpdateModule,
