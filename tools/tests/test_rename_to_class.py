@@ -2067,3 +2067,57 @@ def test_cli_also_class_wiring(tree, monkeypatch, capsys):
         rename.main(["function", "--rva", "0x00401000", "--new", "?x@@YAXXZ", "--respell", "--identity",
                      "--prepared", "Code/Game/Bits.cpp=x", "--also", "0x00401300=Gizmo:spin",
                      "--root", str(root), "--no-claim", "--dry-run"])
+
+
+
+def test_r1_a_prepared_headers_includer_is_inspected(tree, monkeypatch):
+    root = gizmo_tree(tree)
+    (root / "Code/Game/View.h").write_text("struct View {};\n")
+    (root / "Code/Game/Gadget.cpp").write_text('#include "View.h"\n' + GADGET)
+    _git(root, "add", "Code/Game/View.h", "Code/Game/Gadget.cpp")
+    _git(root, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "header")
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    ctx = ctx_of(root)
+    p = rename.plan_rename("function", ctx=ctx, rva=0x00401000, to_class="Widget", new="spin",
+                           prepared={"Code/Game/Bits.cpp": BITS_PREPARED.encode(),
+                                     "Code/Game/GizmoBits.cpp": G_BITS_PREPARED.encode(),
+                                     "Code/Game/View.h": b"struct View { virtual void spin(); };\n"},
+                           also=[(0x00401300, "spin", "Gizmo")], approval_base="HEAD")
+    assert "Code/Game/Gadget.cpp" in p.to_class["units"]
+    retail(monkeypatch, G_TABLES, compiled=dict(G_COMPILED, **{
+        "Code/Game/Gadget.cpp": {"??_7View@@6B@": ["?spin@View@@UAEXXZ"]}}))
+    with pytest.raises(VerifyFailed, match=r"Gadget.cpp's \?\?_7View@@6B@ slot 0 names \?spin@View@@UAEXXZ"):
+        rename.apply_rename(p, ctx=ctx, verify=lambda ctx, sources: True)
+
+
+def test_r1_a_retired_name_is_undefined_though_the_context_still_holds_it(tree, monkeypatch):
+    root = gizmo_tree(tree)
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    ctx = ctx_of(root)                     # plan and apply share it, as the CLI does
+    p = rename.plan_rename("function", ctx=ctx, rva=0x00401000, to_class="Widget", new="spin",
+                           prepared={"Code/Game/Bits.cpp": BITS_PREPARED.encode(),
+                                     "Code/Game/GizmoBits.cpp": G_BITS_PREPARED.encode()},
+                           also=[(0x00401300, "spin", "Gizmo")], approval_base="HEAD")
+    assert OLD in p.to_class["retired"] and G_OLD in p.to_class["retired"]
+    retail(monkeypatch, G_TABLES, compiled=dict(G_COMPILED, **{
+        "Code/Game/Gizmo.cpp": dict(G_COMPILED["Code/Game/Gizmo.cpp"], **{"??_7Idle@@6B@": [OLD]})}))
+    with pytest.raises(VerifyFailed, match="names " + re.escape(OLD)):
+        rename.apply_rename(p, ctx=ctx, verify=lambda ctx, sources: True)
+
+
+def test_r1_a_stale_object_exempts_nothing(tree, monkeypatch):
+    root = gizmo_tree(tree)
+    ghost = "?spin@State@@UAEXXZ"
+    stale = dict(G_COMPILED, **{"Code/Game/Gizmo.cpp": dict(G_COMPILED["Code/Game/Gizmo.cpp"],
+                                                            **{"??_7Idle@@6B@": [ghost]})})
+    retail(monkeypatch, G_TABLES, compiled=stale)
+    # Gizmo.cpp's object predates its text: only current=False reads it
+    monkeypatch.setattr(rename, "compiled_vtables",
+                        lambda ctx, rel, current=True: None if rel == "Code/Game/Gizmo.cpp" and current
+                        else stale.get(rel))
+    monkeypatch.setattr(rename, "object_defined_symbols",
+                        lambda ctx, rel: {"??_EGizmo@@UAEPAXI@Z"} if rel == "Code/Game/Gizmo.cpp" else set())
+    p = across_plan(root)
+    assert "Code/Game/Gizmo.cpp" not in p.to_class["vtables"]
+    with pytest.raises(VerifyFailed, match="names " + re.escape(ghost)):
+        rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)

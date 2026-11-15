@@ -7048,13 +7048,16 @@ PURECALL = frozenset({"__purecall", "_purecall"})
 
 
 def to_class_dangling_problems(ctx, check):
-    """Slot names a rebuilt vftable of the plan's units (`check['units']`) gained that nothing defines: [] when
-    every name a compiled ??_7 holds after ./build.sh is one it held before the plan (`check['vtables']`, read from
-    the objects at planning), a moved name, a row or pin, a symbol its own object defines, the left side of an
-    /alternatename in the unit, or __purecall. Renaming a slot a base view shares (`State::slot02` to
+    """Slot names a rebuilt vftable of the plan's units (`check['units']`, every ledger source it rebuilds) gained
+    that nothing defines: [] when every name a compiled ??_7 holds after ./build.sh is one it held before the plan
+    (`check['vtables']`, read at planning from objects compiled from the present text only), a moved name, a row or
+    pin, a symbol its own object defines, the left side of an /alternatename in the unit, or __purecall. A name the
+    plan retires (`check['retired']`: the old names of its rows and pins, which the context's ledgers may still
+    hold) is defined only by the object or an alias. Renaming a slot a base view shares (`State::slot02` to
     `GetSnapshotName`) for some of its derived classes leaves the others' tables naming a symbol only the link
     misses; their slots move in the same plan (--also RVA=CLASS:NEW)."""
-    known = {r["name"] for r in ctx.rows()} | {p.get("name", "") for p in ctx.pins()} | PURECALL
+    retired = set(check.get("retired") or ())
+    known = ({r["name"] for r in ctx.rows()} | {p.get("name", "") for p in ctx.pins()}) - retired | PURECALL
     known |= set(check.get("renamed") or {}) | {check.get("new")}
     problems = []
     for rel in check.get("units") or ():
@@ -7066,8 +7069,9 @@ def to_class_dangling_problems(ctx, check):
         aliases = set((check.get("aliases") or {}).get(rel) or ())
         for symbol, names in sorted(tables.items()):
             for slot, name in enumerate(names):
-                if (not name or name in known or name in defined or name in aliases
-                        or (before is not None and name in before)):
+                if not name or name in defined or name in aliases:
+                    continue
+                if name not in retired and (name in known or (before is not None and name in before)):
                     continue
                 problems.append(f"{rel}'s {symbol} slot {slot} names {name}, which no row, pin, moved name or "
                                 "definition of the unit gives (a class left on a renamed slot: move its slot in "
@@ -7605,15 +7609,18 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows} |
                          {m["rva"] for m in moves}) + \
         sorted({f"file:{rel}" for rel in {m["row"]["source"] for m in moves} | edited})
-    # what the rebuilt vftables of the plan's units may name (to_class_dangling_problems): the names their
-    # objects hold now, and the /alternatename sources of their final text
-    units = sorted(set(installer_sources) | (edited & set(ctx.ledger_sources())))
+    # what the rebuilt vftables of the plan's units may name (to_class_dangling_problems): every unit it rebuilds
+    # (a prepared header's includers too), the names their objects compiled from the present text hold now, the
+    # /alternatename sources of their final text, and not the names the plan retires
+    units = sorted((set(plan.verify) | set(installer_sources)) & set(ctx.ledger_sources()))
     check["units"] = units
     check["renamed"] = dict(moved)
+    check["retired"] = sorted({old_row for old_row, _new, _at in plan.renamed_rows}
+                              | {old_pin for old_pin, _new, _at in plan.renamed_pins} | {m["name"] for m in moves})
     check["vtables"] = {}
     check["aliases"] = {}
     for rel in units:
-        tables = compiled_vtables(ctx, rel, current=False)
+        tables = compiled_vtables(ctx, rel, current=True)
         if tables is not None:
             check["vtables"][rel] = sorted({name for names in tables.values() for name in names if name})
         data = plan.after.get(rel, ctx.read(rel)) or b""
