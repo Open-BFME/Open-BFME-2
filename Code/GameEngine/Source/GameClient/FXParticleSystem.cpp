@@ -2601,3 +2601,11 @@ void bfmeVectorDeleteAnchor_FXParticleSystem_CategoryModuleTemplateBase_5_(FXPar
 {
 	p->FXParticleSystem::CategoryModuleTemplateBase<5>::__vecDelDtor(3);
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::CategoryModuleTemplateBase<6>, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_CategoryModuleTemplateBase_6_> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_CategoryModuleTemplateBase_6_(FXParticleSystem::CategoryModuleTemplateBase<6> *p)
+{
+	p->FXParticleSystem::CategoryModuleTemplateBase<6>::__vecDelDtor(3);
+}
