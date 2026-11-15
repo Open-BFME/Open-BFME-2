@@ -23,6 +23,8 @@
 // through explicit-specialization declarations. The trigger loop sits in its
 // own block (VC7.1 for-scope) which is what gives retail's frame packing.
 
+#include "../../../Include/GameLogic/WeaponSetClass.h"
+
 #include "ascii_string.h"
 #include <list>
 #include "Common/Snapshot.h"
@@ -187,14 +189,6 @@ public:
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class WeaponSet
-{
-public:
-	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;
-	void updateWeaponSet(const Object *obj);
-
-	char m_data[0x40];
-};
 
 class ModuleData
 {
