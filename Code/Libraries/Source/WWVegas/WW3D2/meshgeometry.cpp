@@ -165,9 +165,11 @@ template <> bool SimpleVecClass<Vector4>::Resize(int);
 // bfme link decl-only end
 
 
-#if (OPTIMIZE_PLANEEQ_RAM)
-static SimpleVecClass<Vector4> _PlaneEQArray(1024);
-#endif
+// Explicitly instantiate the rowed SimpleVecClass<Vector4> ctor and dtor; the vtable brings the
+// deleting dtor and Uninitialised_Grow rows. No retail reference to ctor 0x001A8070 or dtor
+// 0x001A7C50 was found.
+template SimpleVecClass<Vector4>::SimpleVecClass(int);
+template SimpleVecClass<Vector4>::~SimpleVecClass();
 
 
 #if (OPTIMIZE_VNORM_RAM)

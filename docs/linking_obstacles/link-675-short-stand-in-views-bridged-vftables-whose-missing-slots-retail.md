@@ -140,3 +140,36 @@ Derived from the class whose table they share (unattended worker; layout read fr
 
 Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
 - 2026-11-15 `Base005CEFD3` (VA 0x00BFDF68, 4 slots) from `LivingWorldRegionObserver`: `Rva005CEFD3Dtor.cpp`.
+
+**2026-11-15, ancalgonn-swarm-waste: W3DTreeDrawModuleDataBase's table after `9761e893cde` holds the data ledger
+refresh.** The 2026-11-15 refresh (attempt 1, report `report-20261115T000812Z.json`) was held on one loss: the
+regenerated `reverse/data_ledger.csv` drops `??_7W3DTreeDrawModuleDataBase@@6B@` from the folded names of row
+0x007BB554, leaving it neither bridged nor correct (`names_bridged_or_correct` 5518 -> 5517). The row's main name
+stays `??_7Snapshot@@6B@`. Retail's 4-slot table there is Snapshot's own: slot 0 is `??_ESnapshot@@UAEPAXI@Z`
+(0x00001750, 74 bytes), and slots 1-3 are `__purecall`. Master's ledger lists W3DTreeDrawModuleDataBase among the
+row's folded names, and `~W3DTreeDrawModuleDataBase` is rowed at Snapshot's destructor 0x0049B47C with a fold proof.
+
+Since this unit's change, W3DTreeDraw.obj's `??_7W3DTreeDrawModuleDataBase@@6B@` matches Snapshot's table except
+for slot 0, which references `??_EW3DTreeDrawModuleDataBase@@UAEPAXI@Z`. The object only weakly defines that name
+(`nm`: `w`), falling back to the scalar `??_GW3DTreeDrawModuleDataBase@@UAEPAXI@Z` it does define, as cl 7.1 does
+when nothing array-deletes the class. A fold pin of `??_EW3DTreeDrawModuleDataBase@@UAEPAXI@Z` onto 0x00001750 was
+refused by `tools/pin_admission.py --add` (pin_consistency clean before; nothing written):
+"0x00001750 already carries the real name ??_ESnapshot@@UAEPAXI@Z ... no ICF fold proof: W3DTreeDraw.cpp: symbol
+not found in object". That refusal is correct: the object has no vector-deleting body to prove against retail's.
+
+Retail does use this table for the class. `??1W3DTreeDrawModuleData@@UAE@XZ` (rowed, W3DTreeDraw.cpp) restores the
+base vptr with VA 0x00BBB554, which is RVA 0x007BB554, at 0x000CECF5. So in retail, W3DTreeDrawModuleDataBase's
+table is Snapshot's, including slot 0 at the vector deleting body 0x00001750. Master's ledger name is the right
+one, and the regeneration's loss is real.
+
+The inspected W3DTreeDraw.obj has only a weak vector-deleting destructor symbol, falling back to its defined scalar
+deleting destructor. It provides no vector-deleting body for pin admission to compare with retail RVA 0x00001750, so
+this fold-pin attempt was correctly refused. This establishes the current object's limitation; it does not
+establish that a source change cannot reproduce retail's fold.
+
+Disposition (swarm coordinator, 2026-11-15): one line in the ledger job's `loss_exceptions.tsv` accepts this loss.
+It covers row 0x007BB554 and the lost name, lists the row's 11 other names, and is bound to master's ledger blob
+`b1800c77ea9b`. The line records the evidence above, so the 36 stale-name gains can publish. Like every exception
+line, it lapses on any change to master's ledger. A future regeneration can record the name again if current
+matched-object relocation evidence binds it to RVA 0x007BB554; restoring bridge coverage also requires the
+regenerated bridge plan to accept it.
