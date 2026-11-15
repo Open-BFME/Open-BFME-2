@@ -2818,6 +2818,11 @@ def scoped_funclet_collision(row):
     Existing singleton labels keep their existing verifier path. They are not
     evidence for a second TU's label without both exact parent graphs.
     """
+    # Address-named funclets created by a TU merge must keep the original
+    # strict parent-EH/local-COFF obligation even though their names are unique.
+    if (re.fullmatch(r"(?:Unwind|Catch)@[0-9a-fA-F]{8}", row.get("name", ""))
+            and "gen-funclet" in notes_tokens(row)):
+        return True
     if not ledger_io.local_funclet(row):
         return False
     ledger = ROOT / "reverse" / "functions.csv"

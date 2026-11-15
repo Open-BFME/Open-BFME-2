@@ -264,3 +264,58 @@ def test_check_csv_still_accepts_two_properly_scoped_labels():
     problems = []
     check_csv.check_functions(raw, problems, {"Code/a.cpp", "Code/b.cpp"}, b"")
     assert not [p for p in problems if "claims two addresses" in p], problems
+
+
+@pytest.fixture
+def renamed_funclet(tmp_path,monkeypatch):
+    """A unique address name still owes exact same-source parent/EH proof."""
+    item=dict(name="Unwind@00b74313",target_rva="0x774313",target_size="2",
+              source="Code/T.cpp",status="matched",
+              notes="gen-funclet;parent=?p@@YAXXZ;object-symbol=$L310")
+    (tmp_path/"reverse").mkdir()
+    path=tmp_path/"reverse/functions.csv"
+    def write_parent(source="Code/T.cpp"):
+        with path.open("w",newline="") as f:
+            w=csv.DictWriter(f,fieldnames=HEADER.split(","),lineterminator="\n")
+            w.writeheader()
+            w.writerow(dict(name="?p@@YAXXZ",target_rva="0x1000",target_size="8",
+                            source=source,status="matched",notes=""))
+            w.writerow(item)
+    write_parent()
+    output=tmp_path/"unit.obj";output.write_bytes(b"fixture")
+    target=b"\x90\xc3"
+    state=SimpleNamespace(locations={"$L77":int(item["target_rva"],16)},storage=3,reads=[])
+    def read_obj(out,name,*a,**kw):
+        state.reads.append(name);return target,[]
+    monkeypatch.setattr(build,"ROOT",tmp_path)
+    monkeypatch.setattr(build,"funclet_eh_locations",lambda *a:state.locations)
+    monkeypatch.setattr(build,"read_object_symbol_bytes",read_obj)
+    monkeypatch.setattr(build,"_object_layout",lambda *a:(b"",[],[dict(name="$L77",storage=state.storage)]))
+    return item,output,target,state,write_parent
+
+
+@pytest.mark.parametrize("prefix",["Unwind","Catch"])
+def test_renamed_funclet_keeps_strict_eh_obligation_even_with_unique_name(renamed_funclet,prefix):
+    item,output,target,state,_=renamed_funclet
+    item["name"]=prefix+"@00b74313"
+    assert not ledger_io.local_funclet(item)  # name stays global, never an external-call alias
+    assert build.scoped_funclet_collision(item)
+    body,relocs,note=build.read_funclet(item,"$L310",output,target)
+    assert body==target and relocs==[] and "$L77" in note
+
+
+@pytest.mark.parametrize("bad",["unavailable","wrong_rva","wrong_parent","external_coff"])
+def test_renamed_funclet_matching_hint_cannot_replace_strict_identity_proof(renamed_funclet,bad):
+    item,output,target,state,write_parent=renamed_funclet
+    if bad=="unavailable":state.locations={}
+    if bad=="wrong_rva":state.locations={"$L77":int(item["target_rva"],16)+4}
+    if bad=="wrong_parent":write_parent("Code/Other.cpp")
+    if bad=="external_coff":state.storage=2
+    with pytest.raises(SystemExit,match="exact same-source parent EH|local COFF label"):
+        build.read_funclet(item,"$L310",output,target)
+    if bad!="external_coff":assert state.reads==[]
+
+
+def test_other_unique_names_keep_existing_collision_policy(tmp_path,monkeypatch):
+    monkeypatch.setattr(build,"ROOT",tmp_path)
+    assert not build.scoped_funclet_collision(row(name="Unwind@00b74313",notes="ordinary row"))
