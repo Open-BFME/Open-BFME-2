@@ -271,7 +271,7 @@ inline bool operator!=(const BfmePod4 &x, const BfmePod4 &y) { return x.a[0] != 
 
 // W3DFontLibrary::loadFontData, retail 0x000902A6 (186 bytes, FUN_004902a6).
 // Donor is the in-tree ZH W3DGameFont.cpp transcription (twin's TU carries
-// the present-unmatched marker; this shard lands the body without touching
+// the unmatched-function marker; this shard lands the body without touching
 // their file): null guard, UnsignedInt point-size sanity cap at 100,
 // font-worker lookup, metric plus handle stores, global-language alternate
 // name with Arial Unicode MS fallback, fallback handle link, TRUE.

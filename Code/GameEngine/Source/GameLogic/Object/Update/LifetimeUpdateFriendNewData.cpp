@@ -8,7 +8,7 @@
 // operator new, __EH_prolog and INI::initFromINIMultiProc (rowed 0x2DEB5)
 // resolve via their rows. The buildFieldParse address is taken (DIR32 site
 // the gate copies from retail); the TU-local empty def carries a
-// present-unmatched marker since its retail counterpart 0x7A4A6C is unrowed.
+// unmatched-function marker since its retail counterpart 0x7A4A6C is unrowed.
 // Spelling: MAKE_STANDARD_MODULE_DATA_MACRO_ABC. Recipe: FriendNew TUs.
 
 class INI;

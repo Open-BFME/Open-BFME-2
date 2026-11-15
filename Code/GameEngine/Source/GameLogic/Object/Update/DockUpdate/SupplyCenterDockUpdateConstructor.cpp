@@ -370,7 +370,7 @@ SupplyCenterDockUpdate::SupplyCenterDockUpdate(Thing *thing, const ModuleData *m
 #pragma comment(linker, "/alternatename:?supplyCenterDockUpdateIface3Anchor@SupplyCenterDockUpdateIface3@@UAEXXZ=?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z")
 
 // Further single-definition vftable anchors of the same shape: one struct
-// per class; each out-of-line body carries its own present-unmatched marker
+// per class; each out-of-line body carries its own unmatched marker
 // directly above it (a marker above the struct does not bind to later
 // definitions); no retail bytes claimed.
 

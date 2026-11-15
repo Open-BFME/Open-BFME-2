@@ -6,7 +6,7 @@
 // so retail's ICF folds most of them onto identical bodies (symbols.csv
 // pins: GetSource/GetFunction/GetAddress/GetLine at 0x0065CE90,
 // GetTime/GetFunctionTime onto GetCalls at 0x006C8780, EnumThreads at
-// 0x0073B660); those definitions carry present-unmatched markers because
+// 0x0073B660); those definitions carry unmatched-function markers because
 // their retail addresses belong to the surviving fold rows. The tracer's
 // frame entry points are BFME2 hook gates.
 

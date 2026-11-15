@@ -11155,7 +11155,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	objectModuleAnchor@DemoTrapUpdate@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	objectModuleAnchor@DockUpdate@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	objectModuleAnchor@ObjectModuleBase@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	own	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	siegeAIUpdateIface1Anchor@SiegeAIUpdateIface1@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	siegeAIUpdateIface2Anchor@SiegeAIUpdateIface2@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	siegeAIUpdateIface3Anchor@SiegeAIUpdateIface3@@UAEXXZ	1
@@ -11188,7 +11187,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateModuleDataCtor.cpp	Rva001EAE6FHelper::Rva001EAE6FHelper	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp	1StoreObjectsSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp	1TeleportToCasterSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp	1TemporarilyDefectUpdate@@	1
@@ -11356,7 +11354,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Dra
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	loadPostProcess@W3DRopeDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp	Rva00115DA7::rva00115DA7	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp	W3DGadgetVerticalSliderDraw	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp	the	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp	getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z	1
@@ -11472,7 +11469,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva00
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva0018C262::end	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva005E59FCKeyIterator::operator++	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassBlitChar.cpp	30	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp	a	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Get_Weight	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Peek_Motion	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Peek_Pivot_Weight_Map	1
@@ -12001,7 +11997,6 @@ present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetFunctio
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetLine@Id@ProfileFuncLevel@@QBEIXZ	1
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetSource@Id@ProfileFuncLevel@@QBEPBDXZ	1
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetTime@Id@ProfileFuncLevel@@QBE_KI@Z	1
-present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	carry	1
 present_unmatched	Code/Libraries/Source/subsystem/SubsystemInterface.cpp	getName@SubsystemInterface@@QAE?AVAsciiString@@XZ	1
 present_unmatched	reference/shims/disconnectmanager/GameNetwork/DisconnectManager.h	still	1
 present_unmatched	reference/shims/pathfind/GameLogic/AIPathfind.h	?	1
