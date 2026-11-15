@@ -101,6 +101,7 @@ struct TransportContainItems
 };
 
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
+#include "../../../../Include/Common/StateMachine.h"
 
 struct TransportContainModelFlags
 {

@@ -118,6 +118,7 @@ class Rva0008BB38FloatField;
 #include "../../../../Include/GameLogic/Module/Rva003638BA.h"
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
+#include "../../../../Include/Common/StateMachine.h"
 
 #include "../../../../Include/GameLogic/TAiData.h"
 #include "../../../../Include/GameLogic/AI.h"

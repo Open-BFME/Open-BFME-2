@@ -41,6 +41,7 @@ class BfmeVec3EJ;
 #include "../../../Include/GameLogic/Module/Gen_000E5A50.h"
 #include "../../../Include/GameLogic/Module/Rva00368C7A.h"
 #include "../../Common/Thing/thing.h"
+#include "../../../Include/Common/StateMachine.h"
 
 class Rva0010CBits
 {

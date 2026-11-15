@@ -95,6 +95,7 @@ private:
 extern AI *TheAI;
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
+#include "../../../Include/Common/StateMachine.h"
 class AIWanderInPlaceState : public AIInternalMoveToState
 {
 public:

@@ -45,6 +45,7 @@ typedef float Real;
 class Object;
 class Player;
 #include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../Include/Common/StateMachine.h"
 enum CommandSourceType
 
 {

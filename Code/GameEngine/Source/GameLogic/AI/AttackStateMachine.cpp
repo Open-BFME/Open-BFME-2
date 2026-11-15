@@ -29,6 +29,7 @@ enum WhichTurretType
 	TURRET_INVALID = -1
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Include/Common/StateMachine.h"
 struct ObjectTemplateBytes
 {
 	unsigned char m_pad000[0x108];

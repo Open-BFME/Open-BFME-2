@@ -86,6 +86,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/Player.h"
 #include "../GameLogicObjectLookupView.h"
+#include "../../../Include/Common/StateMachine.h"
 class Rva00373EC6
 {
 public:

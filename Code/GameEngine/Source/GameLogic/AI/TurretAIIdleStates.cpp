@@ -75,6 +75,7 @@ enum WhichTurretType
 };
 
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "../../../Include/Common/StateMachine.h"
 extern GameLogic *TheGameLogic;
 
 class Object;

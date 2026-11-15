@@ -118,6 +118,7 @@ static __forceinline void giantBirdDoFXPos(const FXList *fx, const Coord3D *prim
 #include "../../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../../Include/GameLogic/WeaponTemplate.h"
+#include "../../../../../Include/Common/StateMachine.h"
 // TU-local readers: a call to the header's inline getWeaponSpeed would
 // emit a loser COMDAT for a getter retail has no address for.
 static __forceinline Real weaponTemplateSpeed(const WeaponTemplate *wt) { return wt->m_weaponSpeed; }

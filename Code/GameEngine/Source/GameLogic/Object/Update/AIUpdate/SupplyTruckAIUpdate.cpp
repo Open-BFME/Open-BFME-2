@@ -107,6 +107,7 @@ enum NameKeyType
 class ResourceGatheringManager;
 class Module;
 #include "../../../../../Include/Common/StateConditionInfo.h"
+#include "../../../../../Include/Common/StateMachine.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
 // address as ??0StateMachine@@QAE@PAVObject@@I_N@Z; the key is
 // taken as one dword, as in the dozer and worker machines' TUs.
