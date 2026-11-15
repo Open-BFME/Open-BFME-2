@@ -22,3 +22,16 @@ models (`Rva002F1DDCTree`, `map<int, Rva002F3093Record>`, `Rva002F0DD6Less`) bes
 `Rva002F3759Compare` instantiation; unifying them is naming work, not a link blocker.
 Clearance: preview only, scope `AIPathfind.cpp` and `pathfinder.cpp`.
 Census confirmation: awaiting.
+
+**2026-11-15 same cause, `ThingTemplate.cpp` (base `2c5fc2bb9e`, seat halilkkaya-link):**
+`Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp` (672 authored bytes) was out on
+`insert_unique(value)` of `_Rb_tree<AsciiString, pair<const AsciiString, const FXList *>, ...>`,
+pinned at 0x0033D28A: its copy (143 bytes, c90cdcd8dd6e) was the kept one and not retail's, the same
+begin() branch. With `/D_BFME_RETAIL_TREE_INSERT_LAYOUT` on its `// cl:` line the copy is 151 bytes
+(24d5cfc19cd2) and equals retail at 0x0033D28A outside its four relocation fields. 19/19 functions
+exact. The unit's other `insert_unique` instantiation (the `SparseMatchFinder` armor map, no retail
+address, this unit its only copy) changes with it; nothing else does. Preview against index
+`bb93a2a56e`: LINKS 0 -> 672; no other census object touches a changed name. Census confirmation:
+awaiting. Not this cause: `ConnectionManager.cpp`'s `map<unsigned short, AsciiString>` names. Its
+pinned `_Construct` target 0x006204B0 is a two-dword pair copy with no AsciiString constructor
+call, so the pin or the element type is wrong and the unit needs its tree identity read first.
