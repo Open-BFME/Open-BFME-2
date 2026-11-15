@@ -5,6 +5,10 @@
 // Virtual dtor unlinks node via rowed unlink then destroys handles.
 // Sets own vtable then base vtable. Calls slot6 destroy manager.
 // Ret 0. Evidence chain lane calls just-landed unlink plus destroy rows.
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 #include <stddef.h>
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -82,3 +86,11 @@ void bfmeAnchorRva001F4C67Dtor(Rva001F4C67 *p)
 }
 // ?Base001F4C67::~Base001F4C67 present-unmatched
 Base001F4C67::~Base001F4C67() {}
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of Base001F4C67, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_Base001F4C67> absent-from-retail
+void bfmeVectorDeleteAnchor_Base001F4C67(Base001F4C67 *p)
+{
+	p->Base001F4C67::__vecDelDtor(3);
+}
