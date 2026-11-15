@@ -12,6 +12,8 @@
 // calling a _Construct dupe rather than its true address land as
 // gen-alias rows, like the fill_n batch before this one.
 
+#include "BfmeStringRecord0022074B.h"
+
 #include <memory>
 #include <vector>
 
@@ -56,13 +58,6 @@ typedef _STL::pair<const AsciiString, char> CopyPairC;
 
 // Twelve-byte string records below: same 38-byte helper shape as above,
 // striding 0xC per element through each record's own rowed _Construct.
-struct BfmeStringRecord0022074B
-{
-public:
-	BfmeStringRecord0022074B();
-	BfmeStringRecord0022074B(const BfmeStringRecord0022074B &other);
-	char m_body[12];
-};
 
 // Twenty-four-byte string record at 0x005EC43C: same 38-byte helper shape,
 // striding 0x18 per element through its own rowed _Construct at 0x005EC4B6.
