@@ -29,7 +29,6 @@ SupplyCenterCreate::SupplyCenterCreate( Thing *thing, const ModuleData *moduleDa
 {
 }
 
-// ??1SupplyCenterCreate@@MAE@XZ present-unmatched
 SupplyCenterCreate::~SupplyCenterCreate()
 {
 }
