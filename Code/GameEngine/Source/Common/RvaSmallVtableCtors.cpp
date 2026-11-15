@@ -1998,7 +1998,18 @@ class Rva0046249E
 {
 public:
 	Rva0046249E();
-	virtual ~Rva0046249E() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14(int) {}
+	virtual bool slot18() { return false; }
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() {}
 };
 
 Rva0046249E::Rva0046249E()

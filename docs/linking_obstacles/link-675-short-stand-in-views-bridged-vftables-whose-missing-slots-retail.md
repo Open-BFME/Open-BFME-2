@@ -83,6 +83,9 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva000B2E0B` (VA 0x00BC9B78): 49 slots (32 pure, 0 rowed virtual, 0 destructor, 15 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva005748A4` (VA 0x00C6E430): 26 slots (0 pure, 0 rowed virtual, 0 destructor, 24 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva004444D2` (VA 0x00C3E020): 23 slots (19 pure, 0 rowed virtual, 1 destructor, 1 folded trivial body), 2 view(s): `Rva004444D2.h`, `AptLanLobby.cpp`.
+- 2026-11-15 `Rva0046249E` (VA 0x00C430B4): 12 slots (7 pure, 0 rowed virtual, 0 destructor, 3 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
+
 
 
 
@@ -173,7 +176,6 @@ Real classes completed across their units (unattended worker; layout read from t
 
 Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
 - 2026-11-15 `Rva005CF07EListener` (VA 0x00C77F44, 4 slots) from `LivingWorldBuildingObserver`: `ThrowingNewHelpers.cpp`.
-
 Derived from the class whose table they share (unattended worker; layout read from the compiler before and after):
 - 2026-11-15 `Base005CEFD3` (VA 0x00BFDF68, 4 slots) from `LivingWorldRegionObserver`: `Rva005CEFD3Dtor.cpp`.
 **2026-11-15, ancalgonn-swarm-waste: W3DTreeDrawModuleDataBase's table after `9761e893cde` holds the data ledger
