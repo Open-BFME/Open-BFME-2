@@ -41,7 +41,6 @@ static __forceinline AsciiStringPlusString operator+(const AsciiString &left, co
  result.m_second.m_string = &right;
  return result;
 }
-// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
 {
  Rva000B3F84Pair text;

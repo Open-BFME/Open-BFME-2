@@ -131,7 +131,6 @@ static __forceinline void AddCommandMapBinding(AptCommandMapAdder &adder,const A
 #include "../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString(); Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString &a,const AsciiString &b) {AsciiStringPlusString t;t.m_string=&a;t.m_second.m_string=&b;return t;}
-// ?operator+(AsciiStringPlusString,text) present-unmatched (inline; byte-and-relocation fold to existing109CFD owner)
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left,const char *right) {Rva000B3F84Pair text;text.init(right);AsciiStringPlusStringText result;static_cast<AsciiStringPlusString &>(result)=left;result.m_right=text;return result;}
 // Native005C3F2C..005C40E7 EH443/RET12; stores opaque owner0 and level4,
 // copies supplied AsciiString8, constructs command-map listC and array3x12.

@@ -10711,11 +10711,9 @@ present_unmatched	Code/GameEngine/Source/Common/Rva0055A40CSplit.cpp	Rva0055A40C
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056AC26Base1::Rva0056AC26Base1	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056ACAEVisitor::Rva0056ACAEVisitor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	isEmpty@?$StringBase@D@@QBE_NXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	rva002104B6@Rva002104B6@@QAEPAXPAX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C3A37ElemDtor.cpp	AptRef::AptRef	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005C3A37ElemDtor.cpp	operator+(AsciiStringPlusString,text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C4B56.cpp	rva005C4BC8@Rva005C4B56@@QAEX_N_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C76C0Ctor.cpp	rva005C7448Zero	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CB260Forwarder.cpp	Rva005CB265::rva005CB265	1
@@ -10724,8 +10722,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005CF8E3Dtor.cpp	1Rva005CF8E3
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	Rva005D2EA8BaseDestructor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlusFourthText	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlusThirdText	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlusTwoStringsText	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D7E98WaypointStarts.cpp	findWaypoint	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005E9FC1Dtor.cpp	1Rva005E9FC1Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FBase0dtor	1
@@ -10735,7 +10731,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005F54DADtor.cpp	Rva00579E47:
 present_unmatched	Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp	Rva005F8F96::Rva005F8F96	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp	Rva005FEA62VirtualValue::~Rva005FEA62VirtualValue	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp	allocator<Rva00601A3AElement>::deallocate	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp	operator==	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	0Rva00690FF0Handle@@QAE@PAVGen0002857E@@@Z	1
@@ -10912,7 +10907,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCrea
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	1ThreadRestartObj@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	unused0@ThreadRestartObj@@UAEPAXXZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowPageCtor_Rva0051066A.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	@0x0021887C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp	?	1
@@ -10927,9 +10921,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Strateg
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp	StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOver	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp	Rva005FA197Element::Rva005FA197Element	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp	Rva005FA1CEElement::Rva005FA1CEElement	2
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp	text)	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip.cpp	text)	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip_IconSlot.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicVeterancy.cpp	Rva005FA874::Rva005FA874	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	famgenDelete00216108@@YAXPAVRva00216108@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp	StanceToButtonSlot@@YAHPAVCommandButton@@H@Z	1
