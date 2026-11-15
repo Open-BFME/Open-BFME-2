@@ -1887,3 +1887,183 @@ def test_votes_binding_needs_an_explicit_revision(tree):
     with pytest.raises(Refusal, match="explicit revision"):
         rename.approved_slot_name(ctx_of(tree), "a|slot|W@0x00C00000|1", None)
 
+
+
+
+# ------------------------------------------------------------ a plan across classes
+#
+# GiantBirdGuardMachine.cpp's private State view gives every derived class one slot 2 (`State::slot02`, aliased by
+# hand to one class's body). Renaming it for one class leaves the others naming a symbol only the link misses, so
+# --also RVA=CLASS:NEW moves another class's slot in the same plan, each proved on its own class's table.
+G_OLD = "?rva00401300@Rva00401300@@QAEXXZ"
+G_NEW = "?spin@Gizmo@@UAEXXZ"
+G_CTOR = "??0Gizmo@@QAE@XZ"
+G_HALT = "?halt@Gizmo@@UAEXXZ"
+G_TABLE = 0x00800200
+G_STORE = 0x00402110        # inside the Gizmo ctor row: mov dword ptr [ecx], G_TABLE
+G_TABLES = {**GOOD, G_TABLE: ([0x00406000, 0x00401300, 0x00404100], {G_STORE: 0})}
+G_COMPILED = {"Code/Game/Widget.cpp": COMPILED,
+              "Code/Game/Gizmo.cpp": {"??_7Gizmo@@6B@": ["??_EGizmo@@UAEPAXI@Z", G_NEW, G_HALT]}}
+GIZMO = """class Gizmo {
+public:
+    Gizmo();
+    virtual ~Gizmo();
+    virtual void spin();
+    virtual void halt();
+};
+Gizmo::Gizmo() {}
+void Gizmo::halt() {}
+"""
+G_BITS = f"""// cl: /O2
+// {G_OLD} @ 0x00401300
+class Rva00401300 {{ public: void rva00401300(); }};
+void Rva00401300::rva00401300() {{}}
+"""
+G_BITS_PREPARED = f"""// cl: /O2
+// {G_OLD} @ 0x00401300
+class Gizmo {{ public: virtual void spin(); }};
+void Gizmo::spin() {{}}
+"""
+
+
+def gizmo_tree(root):
+    rows = FUNCTIONS + (f"{G_OLD},,0x00401300,40,Code/Game/GizmoBits.cpp,matched,vtable slot\n"
+                        f"{G_CTOR},,0x00402100,64,Code/Game/Gizmo.cpp,matched,installs table 0x00C00200\n"
+                        f"{G_HALT},,0x00404100,8,Code/Game/Gizmo.cpp,matched,slot 2\n"
+                        "??_GShared@@UAEPAXI@Z,,0x00406000,28,Code/Game/Gadget.cpp,matched,ICF-shared\n")
+    (root / "reverse/functions.csv").write_bytes(rows.encode())
+    (root / "Code/Game/Gizmo.cpp").write_bytes(GIZMO.encode())
+    (root / "Code/Game/GizmoBits.cpp").write_bytes(G_BITS.encode())
+    _git(root, "-c", "user.name=t", "-c", "user.email=t@t", "add", "-A")
+    _git(root, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "gizmo")
+    return root
+
+
+def across_plan(root, also=((0x00401300, "spin", "Gizmo"),)):
+    return rename.plan_rename("function", ctx=ctx_of(root), rva=0x00401000, to_class="Widget", new="spin",
+                              prepared={"Code/Game/Bits.cpp": BITS_PREPARED.encode(),
+                                        "Code/Game/GizmoBits.cpp": G_BITS_PREPARED.encode()},
+                              also=list(also), approval_base="HEAD")
+
+
+def test_a_plan_moves_slots_of_two_classes_tables(tree, monkeypatch):
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    root = gizmo_tree(tree)
+    p = across_plan(root)
+    assert [(g["cls"], g["table"], g["slot"]) for g in p.to_class["groups"]] == [("Widget", TABLE, 1),
+                                                                                ("Gizmo", G_TABLE, 1)]
+    assert p.subject() == ("Move 2 members into 2 classes (retail vftables: Widget 0x00C00000 slot 1; "
+                           "Gizmo 0x00C00200 slot 1)")
+    assert f"{G_OLD} -> {G_NEW}: retail table 0x00C00200 slot 1, installed by {G_CTOR}" in p.evidence
+    assert set(p.claims) >= {0x00401000, 0x00401300}
+    seen = []
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: seen.append(sources) or True)
+    assert set(seen[0]) >= {"Code/Game/Bits.cpp", "Code/Game/GizmoBits.cpp", "Code/Game/Widget.cpp",
+                            "Code/Game/Gizmo.cpp"}
+    functions = (root / "reverse/functions.csv").read_text()
+    for old, new in ((OLD, NEW), (G_OLD, G_NEW)):
+        assert old not in functions and new in functions
+    deleted = (root / "reverse/deleted_rows.csv").read_text().splitlines()
+    # each move is tombstoned under its own class's table
+    assert [line for line in deleted if line.startswith(f"{OLD},0x00401000,")][0].endswith(
+        "(to-class: retail vftable 0x00C00000 slot 1)\"")
+    assert [line for line in deleted if line.startswith(f"{G_OLD},0x00401300,")][0].endswith(
+        "(to-class: retail vftable 0x00C00200 slot 1)\"")
+
+
+@pytest.mark.parametrize("unit,table", [
+    ("Code/Game/Gizmo.cpp", {"??_7Gizmo@@6B@": ["??_EGizmo@@UAEPAXI@Z", G_HALT, G_NEW]}),   # Gizmo's slots swapped
+    ("Code/Game/Widget.cpp", {"??_7Widget@@6B@": [GDTOR, STOP, NEW]}),                    # Widget's
+])
+def test_each_class_proves_its_own_slot(tree, monkeypatch, unit, table):
+    retail(monkeypatch, G_TABLES, compiled=dict(G_COMPILED, **{unit: table}))
+    root = gizmo_tree(tree)
+    with pytest.raises(Refusal, match="the vftable"):
+        across_plan(root)
+
+
+def test_a_plan_across_classes_rebuilt_wrong_restores_everything(tree, monkeypatch):
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    root = gizmo_tree(tree)
+    before = {q.relative_to(root).as_posix(): q.read_bytes()
+              for q in root.rglob("*") if q.is_file() and ".git" not in q.parts}
+    p = across_plan(root)
+    retail(monkeypatch, G_TABLES, compiled=dict(G_COMPILED, **{
+        "Code/Game/Gizmo.cpp": {"??_7Gizmo@@6B@": ["??_EGizmo@@UAEPAXI@Z", G_HALT, G_NEW]}}))
+    with pytest.raises(VerifyFailed, match="rebuilt vftable"):
+        rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    after = {q.relative_to(root).as_posix(): q.read_bytes()
+             for q in root.rglob("*") if q.is_file() and ".git" not in q.parts}
+    assert after == before
+
+
+def test_one_table_belongs_to_one_class(tree, monkeypatch):
+    # Gizmo's row sits in Widget's table too: moving it into Gizmo there is refused before any table is shared
+    tables = {TABLE: ([0x00403040, 0x00401000, 0x00401300], {CTOR_STORE: 0, G_STORE: 0})}
+    retail(monkeypatch, tables, compiled=G_COMPILED)
+    root = gizmo_tree(tree)
+    with pytest.raises(Refusal):
+        across_plan(root)
+
+
+def test_a_plan_across_classes_names_each_address_and_new_name_once(tree, monkeypatch):
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    root = gizmo_tree(tree)
+    with pytest.raises(Refusal, match="names one address twice"):
+        across_plan(root, also=((0x00401300, "spin", "Gizmo"), (0x00401300, "turn", "Gizmo")))
+
+
+@pytest.mark.parametrize("extra,passes", [
+    ("?spin@State@@UAEXXZ", False),          # a class left on a renamed base slot: nothing defines it
+    ("__purecall", True),                    # a pure base slot
+    (STOP, True),                            # a row
+])
+def test_a_rebuilt_vftable_may_not_gain_a_name_nothing_defines(tree, monkeypatch, extra, passes):
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    root = gizmo_tree(tree)
+    p = across_plan(root)
+    # after the build a third class's table in the Gizmo unit names `extra`, which it did not before the plan
+    retail(monkeypatch, G_TABLES, compiled=dict(G_COMPILED, **{
+        "Code/Game/Gizmo.cpp": dict(G_COMPILED["Code/Game/Gizmo.cpp"], **{"??_7Idle@@6B@": [extra]})}))
+    if passes:
+        rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+        assert G_NEW in (root / "reverse/functions.csv").read_text()
+    else:
+        with pytest.raises(VerifyFailed, match=r"name what nothing defines: Code/Game/Gizmo.cpp's \?\?_7Idle@@6B@ "
+                                               r"slot 0 names \?spin@State@@UAEXXZ"):
+            rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+        assert G_OLD in (root / "reverse/functions.csv").read_text()
+
+
+def test_a_name_the_unit_aliases_or_held_before_is_not_dangling(tree, monkeypatch):
+    retail(monkeypatch, G_TABLES, compiled=dict(G_COMPILED, **{
+        "Code/Game/Gizmo.cpp": dict(G_COMPILED["Code/Game/Gizmo.cpp"], **{"??_7Idle@@6B@": ["?old@State@@UAEXXZ"]})}))
+    root = gizmo_tree(tree)
+    p = across_plan(root)
+    # the compiler's own deleting destructor is defined in the object it is compiled into
+    monkeypatch.setattr(rename, "object_defined_symbols",
+                        lambda ctx, rel: {"??_EGizmo@@UAEPAXI@Z"} if rel == "Code/Game/Gizmo.cpp" else set())
+    # held before the plan: not the plan's doing
+    assert rename.to_class_dangling_problems(ctx_of(root), p.to_class) == []
+    gone = dict(p.to_class, vtables={})
+    assert rename.to_class_dangling_problems(ctx_of(root), gone)
+    # the unit's own /alternatename gives it
+    aliased = dict(gone, aliases={"Code/Game/Gizmo.cpp": ["?old@State@@UAEXXZ"]})
+    assert rename.to_class_dangling_problems(ctx_of(root), aliased) == []
+
+
+def test_cli_also_class_wiring(tree, monkeypatch, capsys):
+    retail(monkeypatch, G_TABLES, compiled=G_COMPILED)
+    root = gizmo_tree(tree)
+    argv = ["function", "--rva", "0x00401000", "--to-class", "Widget", "--new", "spin",
+            "--also", "0x00401300=Gizmo:spin"]
+    for rel, text in (("Code/Game/Bits.cpp", BITS_PREPARED), ("Code/Game/GizmoBits.cpp", G_BITS_PREPARED)):
+        path = root.parent / (root.name + "-" + rel.rsplit("/", 1)[1] + ".prepared")
+        path.write_bytes(text.encode())
+        argv += ["--prepared", f"{rel}={path}"]
+    assert rename.main(argv + ["--root", str(root), "--no-claim", "--no-object-scan", "--dry-run"]) == 0
+    assert "Move 2 members into 2 classes" in capsys.readouterr().out
+    with pytest.raises(SystemExit):        # a class only with --to-class
+        rename.main(["function", "--rva", "0x00401000", "--new", "?x@@YAXXZ", "--respell", "--identity",
+                     "--prepared", "Code/Game/Bits.cpp=x", "--also", "0x00401300=Gizmo:spin",
+                     "--root", str(root), "--no-claim", "--dry-run"])

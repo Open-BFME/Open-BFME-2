@@ -244,7 +244,11 @@ is byte-gated like any rename (see plan_to_class's section). A full mangled
 --new may respell a guessed int return as the enum a registered class header
 declares for that virtual (ENUM_RETURN), and `--also RVA=NEW` moves further
 slots of the same table in one plan, for a table whose slots all still sit
-under other placeholders.
+under other placeholders. `--also RVA=CLASS:NEW` moves a slot of another
+class's table in the same plan (a unit's private base view whose one slot every
+derived class shares, renamed for all of them at once): each move is proved on
+its own class's installer and table, the plan applies and verifies together,
+and no rebuilt vftable of its units may gain a slot name nothing defines.
 
 Kinds in this build: function, global, file, class, member, param, local;
 plus `check`, `recover` and `revert`. Vendored and SDK sources (vendored= or .lib
@@ -1544,6 +1548,12 @@ class Plan:
             return f"Respell {self.old} as virtual {self.new} (retail vtable slot)"
         if self.fold is not None:
             return f"Fold class {self.old} into {self.new} (retail vftable 0x{self.fold + IMAGE_BASE:08X})"
+        if self.to_class and self.to_class.get("groups"):
+            parts = [f"{g['cls']} 0x{g['table'] + IMAGE_BASE:08X} slot{'s' if len(g.get('slots') or ()) > 1 else ''} "
+                     f"{', '.join(map(str, sorted(g.get('slots') or {g['slot']: g['new']})))}"
+                     for g in self.to_class["groups"]]
+            count = sum(len(g.get("slots") or (1,)) for g in self.to_class["groups"])
+            return f"Move {count} members into {len(parts)} classes (retail vftables: {'; '.join(parts)})"
         if self.to_class and len(self.to_class.get("slots") or ()) > 1:
             slots = sorted(self.to_class["slots"])
             return (f"Move {len(slots)} members into {self.to_class['cls']} (retail vftable "
@@ -6950,7 +6960,13 @@ def to_class_slot_problems(ctx, check, *, current=True):
     its slot (deleting_slot_agrees).
 
     Under a base entry (`check['bases']`, base_slot_evidence) the class has no
-    table: base_slot_compiled_problems judges the tables' own classes."""
+    table: base_slot_compiled_problems judges the tables' own classes.
+
+    A plan across classes (`check['groups']`, plan_to_class with --also
+    RVA=CLASS:NEW) is one check per class, each judged as above with every
+    moved name of the plan resolving."""
+    if check.get("groups"):
+        return [problem for group in check["groups"] for problem in to_class_slot_problems(ctx, group, current=current)]
     if check.get("bases"):
         return base_slot_compiled_problems(ctx, check, current=current)
     cls, retail = check["cls"], check["retail"]
@@ -7025,6 +7041,37 @@ def to_class_slot_problems(ctx, check, *, current=True):
     if (referencing or stand) and not proved and not problems and not current:
         problems.append(f"no installer of {cls} compiles its vftable ({', '.join(referencing + stand)} only "
                         "reference it" + (" or compile stand-in copies)" if stand else ")"))
+    return problems
+
+
+PURECALL = frozenset({"__purecall", "_purecall"})
+
+
+def to_class_dangling_problems(ctx, check):
+    """Slot names a rebuilt vftable of the plan's units (`check['units']`) gained that nothing defines: [] when
+    every name a compiled ??_7 holds after ./build.sh is one it held before the plan (`check['vtables']`, read from
+    the objects at planning), a moved name, a row or pin, a symbol its own object defines, the left side of an
+    /alternatename in the unit, or __purecall. Renaming a slot a base view shares (`State::slot02` to
+    `GetSnapshotName`) for some of its derived classes leaves the others' tables naming a symbol only the link
+    misses; their slots move in the same plan (--also RVA=CLASS:NEW)."""
+    known = {r["name"] for r in ctx.rows()} | {p.get("name", "") for p in ctx.pins()} | PURECALL
+    known |= set(check.get("renamed") or {}) | {check.get("new")}
+    problems = []
+    for rel in check.get("units") or ():
+        tables = compiled_vtables(ctx, rel, current=False)
+        if tables is None:
+            continue
+        before = (check.get("vtables") or {}).get(rel)
+        defined = object_defined_symbols(ctx, rel) or set()
+        aliases = set((check.get("aliases") or {}).get(rel) or ())
+        for symbol, names in sorted(tables.items()):
+            for slot, name in enumerate(names):
+                if (not name or name in known or name in defined or name in aliases
+                        or (before is not None and name in before)):
+                    continue
+                problems.append(f"{rel}'s {symbol} slot {slot} names {name}, which no row, pin, moved name or "
+                                "definition of the unit gives (a class left on a renamed slot: move its slot in "
+                                "the same plan, --also RVA=CLASS:NEW)")
     return problems
 
 
@@ -7348,35 +7395,70 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     slots of the same retail table in the same plan (a batch: the slots of a
     table still rowed under other placeholders, which no single move can
     prove; to_class_slot_problems judges each moved slot by the others).
+    An `also` entry (rva, new, other) moves its row into class `other`
+    instead: one plan across classes, each class's moves held to one table its
+    own special members install and judged on its own compiled copies, the
+    whole plan applied and verified together (a base view's slot every derived
+    class shares, renamed for all of them at once).
     Raises Refusal; writes nothing."""
     cls = cls or ""
     if not IDENT.fullmatch(cls) or cls in name_metric.KEYWORDS:
         raise Refusal(f"{cls!r} is not a class identifier")
-    moves = [_to_class_move(ctx, rva, cls, new, old=old, prepared=prepared, approval_base=approval_base)]
-    for extra_rva, extra_new in also or ():
-        moves.append(_to_class_move(ctx, extra_rva, cls, extra_new, prepared=prepared, approval_base=approval_base))
+    moves = [dict(_to_class_move(ctx, rva, cls, new, old=old, prepared=prepared, approval_base=approval_base),
+                  cls=cls)]
+    for item in also or ():
+        extra_rva, extra_new = item[0], item[1]
+        extra_cls = (item[2] if len(item) > 2 else None) or cls
+        if not IDENT.fullmatch(extra_cls) or extra_cls in name_metric.KEYWORDS:
+            raise Refusal(f"{extra_cls!r} is not a class identifier")
+        moves.append(dict(_to_class_move(ctx, extra_rva, extra_cls, extra_new, prepared=prepared,
+                                         approval_base=approval_base), cls=extra_cls))
     first = moves[0]
     if len(moves) > 1 and any(m["bases"] for m in moves):
         raise Refusal("a base-slot move (retail_identity.BASE_SLOTS) moves one slot; --also is not read with it")
+    groups = {}
+    for move in moves:
+        groups.setdefault(move["cls"], []).append(move)
     if len(moves) > 1:
-        tables = sorted({m["table"] for m in moves})
-        if len(tables) != 1:
-            raise Refusal("a --to-class batch moves slots of one retail table, installed by one class's special "
-                          "members; these sit in " + ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in tables))
-        for key, what in (("rva", "address"), ("slot", "slot"), ("new_name", "new name")):
+        for key, what in (("rva", "address"), ("new_name", "new name")):
             seen = [m[key] for m in moves]
             if len(set(seen)) != len(seen):
                 raise Refusal(f"a --to-class batch names one {what} twice")
+        owner = {}
+        for member_cls, members in groups.items():
+            tables = sorted({m["table"] for m in members})
+            if len(tables) != 1:
+                raise Refusal("a --to-class batch moves slots of one retail table, installed by one class's special "
+                              f"members{'' if len(groups) == 1 else ', per class'}; "
+                              f"{'these' if len(groups) == 1 else member_cls + chr(39) + 's'} sit in "
+                              + ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in tables))
+            if tables[0] in owner:
+                raise Refusal(f"retail table 0x{tables[0] + IMAGE_BASE:08X} is moved into both {owner[tables[0]]} "
+                              f"and {member_cls}: a table belongs to one class")
+            owner[tables[0]] = member_cls
+            slots = [m["slot"] for m in members]
+            if len(set(slots)) != len(slots):
+                raise Refusal("a --to-class batch names one slot twice")
+    moved = {m["new_name"]: m["rva"] for m in moves}
+    checks = []
+    for member_cls, members in groups.items():
+        lead, sources = members[0], []
+        for member in members:
+            sources += [r["source"] for r in member["installers"]]
+        group = {"cls": member_cls, "table": lead["table"], "slot": lead["slot"], "new": lead["new_name"],
+                 "retail": list(lead["retail"]), "sources": sorted(set(sources))}
+        if len(moves) > 1:
+            group["slots"] = {m["slot"]: m["new_name"] for m in members}
+            group["moved"] = dict(moved)
+        checks.append(group)
     table, retail = first["table"], first["retail"]
     installers = []
     for move in moves:
         installers += [r for r in move["installers"] if all(r is not i for i in installers)]
     installer_sources = sorted({r["source"] for r in installers})
-    check = {"cls": cls, "table": table, "slot": first["slot"], "new": first["new_name"], "retail": list(retail),
-             "sources": installer_sources}
-    if len(moves) > 1:
-        check["slots"] = {m["slot"]: m["new_name"] for m in moves}
-        check["moved"] = {m["new_name"]: m["rva"] for m in moves}
+    check = dict(checks[0])
+    if len(checks) > 1:
+        check["groups"] = checks
     if first["bases"]:
         check["bases"] = first["bases"]
         check["where"] = first["where"]
@@ -7387,6 +7469,9 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     views = {rel for rel in edited if rel.endswith(".h")}
     later = edited | (includers(ctx, views, max_files) if views else set())
     early_check = dict(check, sources=[s for s in installer_sources if s not in later])
+    if check.get("groups"):
+        early_check["groups"] = [dict(group, sources=[s for s in group["sources"] if s not in later])
+                                 for group in check["groups"]]
     if check.get("bases"):
         # a prepared installer unit is judged after ./build.sh, as an own installer is
         early_check["bases"] = [dict(record, sources=[s for s in record["sources"] if s not in later])
@@ -7448,7 +7533,7 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         # a funclet row renamed with a moved row tombstones under that row's
         # slot: the moved name it embeds decides which
         move = next((m for m in moves if m["name"] in old_row), first)
-        where = check.get("where") or f"retail vftable 0x{table + IMAGE_BASE:08X} slot {move['slot']}"
+        where = check.get("where") or f"retail vftable 0x{move['table'] + IMAGE_BASE:08X} slot {move['slot']}"
         return (f"Renamed to {new_row} by tools/rename.py (to-class: {where}"
                 + "".join(f"; return type: {d}" for d in move["declared"]) + ")")
     lines = [tombstone_line(old_row, at, reason_text(old_row, new_row))
@@ -7520,6 +7605,20 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows} |
                          {m["rva"] for m in moves}) + \
         sorted({f"file:{rel}" for rel in {m["row"]["source"] for m in moves} | edited})
+    # what the rebuilt vftables of the plan's units may name (to_class_dangling_problems): the names their
+    # objects hold now, and the /alternatename sources of their final text
+    units = sorted(set(installer_sources) | (edited & set(ctx.ledger_sources())))
+    check["units"] = units
+    check["renamed"] = dict(moved)
+    check["vtables"] = {}
+    check["aliases"] = {}
+    for rel in units:
+        tables = compiled_vtables(ctx, rel, current=False)
+        if tables is not None:
+            check["vtables"][rel] = sorted({name for names in tables.values() for name in names if name})
+        data = plan.after.get(rel, ctx.read(rel)) or b""
+        check["aliases"][rel] = sorted({a.group("a") for a in ALTERNATENAME.finditer(
+            data.decode("utf-8", errors="surrogateescape"))})
     written = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({rel for before_name in olds
                             for rel in ctx.grep_files(before_name, roots=("docs", "reverse"))} - written)
@@ -15158,6 +15257,10 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if slot_problems:
                 raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
                                    f"{slot_problems[0][:300]}; every file restored")
+            dangling = to_class_dangling_problems(ctx, plan.to_class)
+            if dangling:
+                raise VerifyFailed(f"the rebuilt vftables of {plan.old} -> {plan.new}'s units name what nothing "
+                                   f"defines: {dangling[0][:300]}; every file restored")
             if plan.to_class.get("bases"):
                 record_base_reports(ctx, plan)
             static_problems = to_class_static_problems(ctx, plan.to_class)
@@ -16737,10 +16840,12 @@ def main(argv=None):
                                "identifier (a changed return type, parameter or template argument); needs "
                                "--prepared for every unit that names it, runs no word rewrite, and is "
                                "refused while an alias pin shares the address")
-    function.add_argument("--also", action="append", default=[], metavar="RVA=NEW",
+    function.add_argument("--also", action="append", default=[], metavar="RVA=[CLASS:]NEW",
                           help="with --to-class: move another slot of the same retail table in the same plan "
                                "(repeatable); a table whose slots are all still rowed under other placeholders "
-                               "is proved only by moving them together; with --respell --identity: respell "
+                               "is proved only by moving them together; RVA=CLASS:NEW moves a slot of CLASS's "
+                               "own table in the same plan (a base view's slot its derived classes share, "
+                               "moved for all of them at once); with --respell --identity: respell "
                                "another row in the same plan (NEW is its whole mangled name); with a this-cv "
                                "--respell: another slot of the same retail table, each proved by its base "
                                "virtual and all checked after one build")
@@ -16936,8 +17041,12 @@ def main(argv=None):
         if not to_class and not identity and not respell:
             parser.error("--also goes with --to-class, --respell --identity or a this-cv --respell")
         at, sep, word = item.partition("=")
+        # RVA=CLASS:NEW: a mangled NEW never holds ':', so a leading identifier and ':' name the class
+        target = re.fullmatch(r"([A-Za-z_]\w*):(.+)", word)
+        if target and not to_class:
+            parser.error(f"--also {item!r}: RVA=CLASS:NEW goes with --to-class")
         try:
-            also.append((int(at, 16), word))
+            also.append((int(at, 16), target.group(2), target.group(1)) if target else (int(at, 16), word))
         except ValueError:
             sep = ""
         if not sep or not word:

@@ -781,6 +781,18 @@ every moved slot must agree with at least one other slot and clash with none:
 
     python3 tools/rename.py function --rva 0x005C44DF --to-class Rva005C44A3 --new rva005C44DF         --also 0x005C44C3=getName --also 0x005C4352=rva005C4352 --prepared ... --dry-run
 
+A unit's private base view can give every derived class one slot (GiantBirdGuardMachine.cpp's `State::slot02`,
+aliased by hand to one class's body). Renaming it for one class leaves the others' tables naming a symbol only the
+link misses, so `--also RVA=CLASS:NEW` moves a slot of another class's own table in the same plan. Each class's
+moves keep the single-table rule and are proved on that class's installers and compiled copies (every moved name
+resolving), the plan applies and verifies together, and after `./build.sh` no vftable of the plan's units may gain
+a slot name that no row, pin, moved name, object definition or `/alternatename` gives:
+
+    python3 tools/rename.py function --rva 0x00367564 --to-class GiantBirdNormalFlightState \
+        --new '?GetSnapshotName@GiantBirdNormalFlightState@@MBEPBDXZ' \
+        --also '0x00367F13=GiantBirdGuardReturnState:?GetSnapshotName@GiantBirdGuardReturnState@@MBEPBDXZ' \
+        --prepared Code/.../GiantBirdGuardMachine.cpp=FILE --dry-run
+
 A retail table of exactly one slot (SpawnUnitBehavior's +0x20 interface table
 0x00C59120) has no other slot at all. Its move proves itself when an
 installer's compiled copy is exactly one slot long too and that slot names the
