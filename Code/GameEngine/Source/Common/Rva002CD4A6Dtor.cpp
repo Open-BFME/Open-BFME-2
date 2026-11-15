@@ -1,6 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHs -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // stlport
 // ??1Rva002CD4A6@@UAE@XZ @0x002CD4A6 314B unlock: vtable 0x00802170 dtor with list plus strings plus refs plus free, caller 0x002CE047 deleting dtor, neighbours WeaponGetStatus and WeaponRva002CDB0E
+#include <vector>
 #include <list>
 
 // Retain bfmealloc's native null-checked free and proxy forwarding inline.
@@ -12,6 +13,18 @@ void allocator<_List_node<int> >::deallocate(pointer p, size_type n) const
 template<> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<int> > >::deallocate(_List_node<int>* p, size_t n)
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
+}
+#include "../../../Libraries/Include/Lib/BfmeE16.h"
+
+// The +0x40/+0x4C members are the Ctor's two _STL::vector<BfmeE16> fields; the
+// implicit member destruction frees both starts inline (test/push/call free).
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+void allocator<BfmeE16>::deallocate(pointer p, size_type n) const
+{ if (p != 0) ::free((void*)p); }
+template<> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16* p, size_t n)
+{ __stl_alloc_rebind(static_cast<_Base&>(*this), (BfmeE16*)0).deallocate(p, n); }
 }
 #include "ascii_string.h"
 
@@ -69,10 +82,9 @@ private:
     Rva002CD4A6Aux *m_04;
     AsciiString m_08;
     char m_pad0C[0x40 - 0x0C];
-    Rva002CD4A6FreePtr m_40;
-    char m_pad44[0x4C - 0x44];
-    Rva002CD4A6FreePtr m_4C;
-    char m_pad50[0x90 - 0x50];
+    _STL::vector<BfmeE16> m_40;
+    _STL::vector<BfmeE16> m_4C;
+    char m_pad58[0x90 - 0x58];
     AsciiString m_90;
     char m_pad94[0xC8 - 0x94];
     Rva002CD4A6RefPtr m_c8;
