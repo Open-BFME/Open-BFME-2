@@ -73,6 +73,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `Base003F8ED6` (VA 0x00C37298): 15 slots (0 pure, 0 rowed virtual, 1 destructor, 14 folded trivial body), 2 view(s): `Rva003F8ED6.cpp`, `Rva003F8ED6Ctor.cpp`.
 - 2026-11-15 `Rva005CBA04` (VA 0x00C74DB8): 17 slots (0 pure, 0 rowed virtual, 1 destructor, 15 folded trivial body), 2 view(s): `Rva005CBA04.h`, `Rva005E5A38Ctor.cpp`.
 - 2026-11-15 `Rva0065E8D0` (VA 0x00CE2368): 5 slots (4 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva000F5ACB` (VA 0x00BCF1C8): 4 slots (1 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
@@ -242,7 +244,6 @@ tables, 36,708 mismatching slots):
   of one class may each declare overrides the others lack; an override's slot is its base's, so the views can
   take the union of their overrides in any order, while a virtual new to the class fixes the order and cannot
   be merged that way.
-
 Parked (coordinator, 2026-11-15): the unused table name
 `??_7Rva000E59D3Base@@6B@` at RVA 0x007BB554 remains in the ledger. The intermediate
 Snapshot-derived view survives in Rva000E59D3Dtor.cpp and W3DFloorBuffer.cpp; its
