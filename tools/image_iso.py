@@ -1342,9 +1342,19 @@ REGISTER_FAMILY = {name: family for family, names in {
     "esp": ("esp", "sp")}.items() for name in names}
 
 
+# registers an instruction writes that capstone does not list among its written registers
+IMPLICIT_WRITES = {"cmpxchg": {"eax"}, "cmpxchg8b": {"eax", "edx"}, "enter": {"ebp", "esp"},
+                   "leave": {"ebp", "esp"}, "cpuid": {"eax", "ebx", "ecx", "edx"}, "rdtsc": {"eax", "edx"}}
+# instructions whose memory effects the save/restore proof does not model: a conditional or implicit write
+# (cmpxchg writes its destination though capstone marks it read-only), or an ESP/EBP frame change
+UNMODELED = ("cmpxchg", "cmpxchg8b", "xadd", "enter", "leave")
+
+
 def written_families(md, ins):
-    """The 32-bit registers an instruction writes, a partial write (`mov si, ...`) included."""
-    return {REGISTER_FAMILY.get(md.reg_name(reg)) for reg in ins.regs_access()[1]} - {None}
+    """The 32-bit registers an instruction writes, a partial write (`mov si, ...`) and the writes capstone leaves
+    implicit (IMPLICIT_WRITES) included."""
+    found = {REGISTER_FAMILY.get(md.reg_name(reg)) for reg in ins.regs_access()[1]} - {None}
+    return found | IMPLICIT_WRITES.get(ins.mnemonic.split()[-1], set())
 
 
 BRANCHES = ("loop", "loope", "loopne", "loopz", "loopnz", "jecxz", "jcxz")
@@ -1384,7 +1394,8 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
       than ESP, add/sub esp by an immediate) back to the saved slot at the pop; no call in between (a callee can
       reach the caller's frame through [esp+n]); every memory write in between based on ESP at the tracked depth and
       clear of the saved slot (a write through any other register may alias the stack); no `leave` or other write
-      to ESP.
+      to ESP; no instruction whose effects are not modelled (UNMODELED: cmpxchg writes a destination capstone marks
+      read-only); no segment or 16-bit push/pop (they move the stack by other than their operand size).
     Anything else (a branch, an extent that falls through, a call before the save, an unknown callee) is False."""
     key = (target, family)
     if key in memo:
@@ -1421,13 +1432,18 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
     depth_bytes = 0                                     # bytes pushed since the save; the slot is at [esp+depth]
     for ins in body[1:-2]:
         ops = ins.operands
+        if ins.mnemonic.split()[-1] in UNMODELED:
+            return False
+        if ins.mnemonic in ("push", "pop") and (not ops or ops[0].size != 4 or (
+                ops[0].type == X86_OP_REG and md.reg_name(ops[0].reg) in ("cs", "ds", "es", "fs", "gs", "ss"))):
+            return False                                # a segment or 16-bit push/pop moves the stack by other than its size
         if ins.mnemonic == "push":
-            depth_bytes += 4 if not ops or ops[0].size in (0, 4) else ops[0].size
+            depth_bytes += 4
             continue
         if ins.mnemonic == "pop":
             if not ops or ops[0].type != X86_OP_REG or md.reg_name(ops[0].reg) in ("esp", "sp"):
                 return False                            # `pop [esp]` writes the slot; `pop esp` loses the depth
-            depth_bytes -= ops[0].size or 4
+            depth_bytes -= 4
             if depth_bytes < 0:
                 return False
             continue
@@ -1455,8 +1471,9 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
 
 def this_accesses(retail, md, callee, sizes, cache, memo):
     """{(offset, width): instruction address} of the accesses through `this` in `callee`'s straight-line prefix.
-    `this` arrives in ECX and is followed through 32-bit register copies (`mov esi, ecx`); a write to any part of a
-    register holding it drops that register; a call keeps a register only when its target provably preserves it
+    `this` arrives in ECX and is followed through 32-bit register copies (`mov esi, ecx`), never into ESP (a pop
+    or push addresses through ESP after moving it); a write to any part of a register holding it, implicit writes
+    included (written_families), drops that register; a call keeps a register only when its target provably preserves it
     (preserves); a jump, LOOP-family instruction or return ends the prefix. An access is a memory operand with
     32-bit addressing, a full 32-bit base register holding `this`, no index, no segment override and a
     non-negative displacement, in an instruction that touches memory: `lea`, `nop`, `prefetch*` and REP-prefixed
@@ -1487,7 +1504,7 @@ def this_accesses(retail, md, callee, sizes, cache, memo):
             ops = ins.operands
             copy = (ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == X86_OP_REG and
                     ops[1].type == X86_OP_REG and md.reg_name(ops[1].reg) in holders and
-                    md.reg_name(ops[0].reg) in REGISTER_FAMILY.values())
+                    md.reg_name(ops[0].reg) in set(REGISTER_FAMILY.values()) - {"esp"})
             holders = holders - written_families(md, ins)
             if copy:
                 holders.add(md.reg_name(ops[0].reg))

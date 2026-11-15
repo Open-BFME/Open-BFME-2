@@ -2950,6 +2950,40 @@ def test_r3_nothing_may_reach_the_saved_slot(helper, extra):
     assert evidence(c) == []
 
 
+# Sol r4: effects capstone under-reports
+
+@pytest.mark.parametrize("helper", [
+    b"\x56\x89\xf0\xba\x00\x30\x40\x00\x0f\xb1\x14\x24\xbe\x00\x30\x40\x00\x5e\xc3",   # cmpxchg [esp], edx: the slot
+    b"\x56\x0f\xa0\x66\xc7\x44\x24\x06\x41\x00\x0f\xa1\x5e\xc3",                         # push fs moves the stack 4
+])
+def test_r4_an_unmodelled_effect_in_the_save_refuses(helper):
+    c = checker([], {})
+    member_call(c, SAVED_CALL, helper=helper)
+    assert evidence(c) == []
+
+
+def test_r4_enter_writes_ebp():
+    # mov ebp, ecx; enter 0, 0; mov eax, [ebp+0x68]: EBP is the new frame, not this
+    c = checker([], {})
+    member_call(c, b"\x8b\xe9\xc8\x00\x00\x00\x8b\x45\x68\xc9\xc3")
+    assert evidence(c) == []
+    # and a helper doing `enter 0, 0; pop eax; ret` does not preserve EBP
+    c.retail.put(0x300, b"\xc8\x00\x00\x00\x58\xc3")
+    md = __import__("capstone").Cs(__import__("capstone").CS_ARCH_X86, __import__("capstone").CS_MODE_32)
+    md.detail = True
+    assert not iso.preserves(c.retail, md, 0x300, "ebp", {0x300: 6}, {})
+
+
+def test_r4_esp_never_holds_this():
+    # mov eax, esp; mov esp, ecx; pop [esp+0x68]; mov esp, eax: pop addresses after moving ESP, so no access counts
+    c = checker([public("object", 0x2000, 0x6C), public("other", 0x3000, 4)], {"object": {0x2100}, "other": {0x2168}})
+    member_call(c, b"\x8b\xc4\x8b\xe1\x8f\x44\x24\x68\x8b\xe0\xc3")
+    found = evidence(c, [row("object", 0x2100, 0x6C)])
+    assert found == []
+    c.storage(found)
+    assert c.counts["storage_split"] == 0
+
+
 def test_r3_a_split_needs_the_other_global_to_start_inside_the_access():
     # retail other at +4..+8 is untouched by the access at +8..+12, however far its linked extent reaches
     c = checker([public("object", 0x2000, 12), public("other", 0x3000, 8)], {"object": {0x2100}, "other": {0x2104}})
