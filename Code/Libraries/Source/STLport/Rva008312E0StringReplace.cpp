@@ -85,7 +85,11 @@ inline _ForwardIter Rva000179B0UninitializedCopy(_InputIter __first, _InputIter 
 }
 }
 
-extern "C" void free(void *);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 struct Rva008312E0InputTag
 {
