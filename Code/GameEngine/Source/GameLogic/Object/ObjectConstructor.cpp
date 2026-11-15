@@ -29,6 +29,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+
 #include <list>
 #include <vector>
 #include <map>
@@ -172,13 +174,6 @@ struct ObjectTeamView
 	Rva00291775AsciiField *getPrototype() const { return m_prototype; }
 };
 
-class AIUpdateInterface
-{
-public:
-	void rva0026DE3B(int attitude);
-	unsigned char m_pad00[0x70];
-	const AttackPriorityInfo *m_attackInfo;	// +0x70
-};
 
 extern GameLogic *TheGameLogic;
 class Rva004381B0 { public: void rva004381B0(float value); };
