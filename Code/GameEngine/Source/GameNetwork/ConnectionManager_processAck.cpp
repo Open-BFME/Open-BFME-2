@@ -13,6 +13,8 @@
 // -- it deletes the returned reference and stops. That is one more piece of the
 // adaptive-latency layer that FINDINGS already shows is absent.
 
+#include "../../Include/GameNetwork/ConnectionManager.h"
+
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
@@ -81,18 +83,6 @@ private:
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 bool CommandRequiresDirectSend(NetCommandMsg *msg);
 
-class ConnectionManager {
-public:
-    void sendLocalCommand(NetCommandMsg *, unsigned char);
-    void sendLocalCommandDirect(NetCommandMsg *, unsigned char);
-private:
-    void *m_vptr;
-    Connection *m_connections[8];
-    unsigned char opaque24[0x12028-0x24];
-    UnsignedInt m_localSlot, m_packetRouterSlot;
-    unsigned char opaque12030[0x12104-0x12030];
-    FrameDataManager *m_frameData[8];
-};
 
 class BFMEConnectionManager
 {
@@ -170,7 +160,6 @@ void BFMEConnectionManager::processAckCommand(void *command)
 	}
 	else
 		return;
-
 
 
 	if (m_pendingCommands != 0)
