@@ -232,7 +232,8 @@ Gen007FCF50::Gen007FCF50() {}
 struct Gen008030A0
 {
 	Gen008030A0();
-	virtual ~Gen008030A0();		// retail 0x00802F50
+	virtual void slot00() = 0;
+	virtual ~Gen008030A0();
 	void operator delete( void *p, unsigned int n );
 
 	char m_bfmePad[ 0x14 - 4 ];
