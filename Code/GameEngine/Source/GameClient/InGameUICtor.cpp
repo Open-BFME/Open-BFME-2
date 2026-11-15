@@ -25,6 +25,8 @@
 // Layout: InGameUIDtor.cpp's view, with the scalar members this body stores
 // to filled in (the +0x874 table is 0x14 bytes, the radius decal 0x10, the
 // +0x8D4 holder 0x3C and the idle worker lists STLport list<Object *>).
+#include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <list>
@@ -69,15 +71,6 @@ private:
 
 // The notification box the +0x9CC owner holds; its constructor 0x004E6C34 is
 // rowed as InGameNotificationBoxMovieClip::InGameNotificationBoxMovieClip.
-class InGameNotificationBoxMovieClip
-{
-public:
-	InGameNotificationBoxMovieClip();
-	~InGameNotificationBoxMovieClip();
-
-private:
-	char m_opaque[0x54];
-};
 
 // The selection helper reset also calls by address.
 class Rva0029C138 { public: void rva0029C138(); };
