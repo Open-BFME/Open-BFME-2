@@ -83,7 +83,7 @@ struct Iface24 { virtual void f24(); };
 #include "../../../../Include/Common/Iface28.h"
 #include "../../../../Include/Common/Iface2C.h"
 struct Iface30 { virtual void f30(); };
-struct Iface34 { virtual void f34(); };
+struct Iface34 { virtual void f34() { } };
 class GarrisonContain
 	: public Iface00
 	, public Iface0C
