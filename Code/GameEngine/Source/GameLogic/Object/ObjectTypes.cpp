@@ -90,15 +90,7 @@ public:
 // call on that external instance instead of expanding the template inline.
 template AsciiString * _STL::__copy_ptrs<AsciiString *, AsciiString *>(AsciiString *, AsciiString *, AsciiString *, _STL::__false_type const &);
 
-class Rva003769C2StringVector {
-public:
- AsciiString *first;
- AsciiString *finish;
- AsciiString *capacity;
- AsciiString *end() { return finish; }
- AsciiString *begin() { return first; }
- AsciiString *erase(AsciiString *position);
-};
+#include "../../../Include/Common/Rva003769C2StringVector.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp
 
