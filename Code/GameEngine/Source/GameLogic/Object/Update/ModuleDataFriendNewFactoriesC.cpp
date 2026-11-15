@@ -197,9 +197,8 @@ class HorseHordeContainModuleData : public HordeContainModuleData
 public:
 	__forceinline HorseHordeContainModuleData() {}
 	// Table 0x00C465F8's deleting dtor 0x0025361E calls 0x0047A724, a
-	// 5-byte jump to ~HordeContainModuleData: the empty destructor (this
-	// compile also resets the vptr first, which retail's thunk omits).
-	virtual ~HorseHordeContainModuleData() {}
+	// 5-byte jump to ~HordeContainModuleData: the implicit destructor (an
+	// explicit empty one resets the vptr first, which retail's body omits).
 };
 
 class HorseHordeContain
