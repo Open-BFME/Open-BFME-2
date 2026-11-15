@@ -2468,7 +2468,12 @@ class Rva0056778A
 {
 public:
 	Rva0056778A();
-	virtual ~Rva0056778A() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
 };
 
 Rva0056778A::Rva0056778A()
