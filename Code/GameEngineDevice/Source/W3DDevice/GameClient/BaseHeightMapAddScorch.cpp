@@ -34,6 +34,7 @@ struct ScorchEntry00067EA3
 #define REFCOUNT_H
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // The header keeps the 500 scorch records at +0xE0 as raw storage.
 static __forceinline ScorchEntry00067EA3 *scorchEntries(BaseHeightMapRenderObjClass *self)

@@ -13,6 +13,7 @@
 // name), four stack arguments; its fourth argument is unused in retail.
 class RenderObjClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class RefCountClass{public:virtual ~RefCountClass();int refs;};class MultiListObjectClass{public:struct MultiListNodeClass*node;};
 class RenderObjClass:public RefCountClass,public MultiListObjectClass{public:
 virtual void slot001();

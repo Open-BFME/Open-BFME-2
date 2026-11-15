@@ -24,6 +24,7 @@ static __forceinline float scorchSqrt(float value)
 #define REFCOUNT_H
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct TerrainScorchEntry
 {
