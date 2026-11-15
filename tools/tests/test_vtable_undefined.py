@@ -272,3 +272,64 @@ def test_r1_current_weak_default_resolves_to_actual_object_definition(tmp_path):
     struct.pack_into("<I", raw, 12, count + 1)
     p.write_bytes(raw)
     assert A.new_vtable_targets(p, set()) == []
+
+
+
+def alias_object(path, directive, weak=False, target_storage=2):
+    sections = [(".rdata", 0x40301040, b"\0" * 4, 2),
+                (".text", 0x60500020, b"\xc3", 0),
+                (".drectve", 0x00100a00, directive.encode("ascii"), 0)]
+    symbols = [(VT, 1, 0, 2), ("R", 2, 0, target_storage)]
+    if weak:
+        symbols.append(("D", 0, 0, 2))
+    symbols.append(("W", 0, 0, 2))
+    link_cycle.write_coff(path, sections, symbols, {1: [(0, "W", 6)]})
+    if weak:
+        raw = bytearray(path.read_bytes())
+        _, syms = link_cycle.parse_coff(raw)
+        wi = next(y.i for y in syms.values() if y.name == "W")
+        di = next(y.i for y in syms.values() if y.name == "D")
+        symptr, count = struct.unpack_from("<II", raw, 8)
+        record = symptr + wi * 18
+        raw[record + 16:record + 18] = bytes((105, 1))
+        raw[record + 18:record + 18] = struct.pack("<II", di, 3) + b"\0" * 10
+        struct.pack_into("<I", raw, 12, count + 1)
+        path.write_bytes(raw)
+    return path
+
+
+@pytest.mark.parametrize("weak", [False, True])
+def test_r2_unchanged_alias_chain_is_clean(tmp_path, monkeypatch, weak):
+    # Both ordinary W -> R and weak W -> D -> R are already resolved.
+    source = "D" if weak else "W"
+    p = alias_object(tmp_path / "unit.obj", f" /alternatename:{source}=R ", weak)
+    ix = saved_index(("W", "D", "R"), ("R",))
+    ix["alternates"] = {source: [(0, "R")]}
+    ix["references"]["objects"]["unit.obj"]["weaks"] = (("W", "D"),) if weak else ()
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.new_vtable_targets(p, set()) == []
+    assert A.audit_vtable_targets(ix, [p], "tip", True) == 0
+
+
+@pytest.mark.parametrize("directive", [
+    " /alternatename:W=A /alternatename:A=W ",             # cycle
+    " /alternatename:W=A /alternatename:A=missing ",       # dangling chain
+])
+def test_r2_unresolved_alias_chains_still_flag_slot(tmp_path, directive):
+    p = alias_object(tmp_path / "unit.obj", directive)
+    assert A.new_vtable_targets(p, set()) == [(VT, 0, "W")]
+
+
+def test_r2_alias_name_cannot_bind_an_unrelated_static(tmp_path):
+    p = alias_object(tmp_path / "unit.obj", " /alternatename:W=R ", target_storage=3)
+    assert A.new_vtable_targets(p, set()) == [(VT, 0, "W")]
+
+
+def test_r2_alias_can_reach_a_registered_name_without_an_object_symbol(tmp_path):
+    p = alias_object(tmp_path / "unit.obj", " /alternatename:W=registered ")
+    assert A.new_vtable_targets(p, {"registered"}) == []
+
+
+def test_r2_weak_alias_chain_with_missing_fallback_still_flags(tmp_path):
+    p = alias_object(tmp_path / "unit.obj", " /alternatename:D=missing ", weak=True)
+    assert A.new_vtable_targets(p, set()) == [(VT, 0, "W")]

@@ -663,15 +663,38 @@ def vtable_slot_targets(obj, known=()):
                 if target not in symbols:
                     raise ValueError("weak default names no symbol")
                 weak_defaults[y.i] = target
+        aliases = link_census._alternate_names(data)
+        externals = collections.defaultdict(list)
+        for y in symbols.values():
+            if y.cls in (2, 105):
+                externals[y.name].append(y)
+
+        def resolved_name(name, seen):
+            if name in defined or name in known:
+                return True
+            key = ("name", name)
+            if key in seen:
+                return False
+            seen = seen | {key}
+            if any(resolved(y, seen) for y in externals.get(name, ())):
+                return True
+            target = aliases.get(name)
+            return target is not None and resolved_name(target, seen)
+
         def resolved(y, seen=frozenset()):
-            if y.i in seen:
+            key = ("symbol", y.i)
+            if key in seen:
                 return False
             if has_storage(y) and y.cls in (2, 3):
                 return True
             if y.name in defined or y.name in known:
                 return True
+            seen = seen | {key}
             default = weak_defaults.get(y.i)
-            return default is not None and resolved(symbols[default], seen | {y.i})
+            if default is not None and resolved(symbols[default], seen):
+                return True
+            target = aliases.get(y.name)
+            return target is not None and resolved_name(target, seen)
         slots = []
         for table in symbols.values():
             if not table.name.startswith("??_7") or not 0 < table.sec <= len(sections):
