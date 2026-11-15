@@ -32,9 +32,9 @@ class Rva003304A4AnimationVisitor
 public:
 	Rva003304A4AnimationVisitor() {}
 	~Rva003304A4AnimationVisitor() {}
-	virtual void visitLookAt(Rva003304A4Animation *animation);
+	virtual void visitLookAt(Rva003304A4Animation *animation) { }
 	virtual void visitLookAtConst(Rva003304A4Animation *animation);
-	virtual void visitFree(Rva003304A4Animation *animation);
+	virtual void visitFree(Rva003304A4Animation *animation) { }
 	virtual void visitFreeConst(Rva003304A4Animation *animation);
 };
 
