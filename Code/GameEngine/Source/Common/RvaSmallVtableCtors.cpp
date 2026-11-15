@@ -2487,7 +2487,10 @@ class Rva004FF334
 {
 public:
 	Rva004FF334();
-	virtual ~Rva004FF334() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
+	virtual void slot0C() = 0;
 };
 
 Rva004FF334::Rva004FF334()
