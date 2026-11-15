@@ -220,7 +220,6 @@ FireWeaponWhenDeadBehavior::FireWeaponWhenDeadBehavior(Thing *thing, const Modul
 // ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 
 
-
 const char *FireWeaponWhenDeadBehavior::GetSnapshotName() const
 {
     return "FireWeaponWhenDeadBehavior";

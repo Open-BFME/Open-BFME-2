@@ -365,7 +365,7 @@ extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@"
 extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@")[];
 
   // vftable 0x00C493F8
-extern "C" const void *const __identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@")[];
+extern "C" const void *const __identifier("??_7Rva00481F82@@6BUpdateModule@@@")[];
 
   // vftable 0x00C493FC
 // The retail table at RVA 0x00849408: 13 slots, each a rowed code owner (the next
@@ -709,7 +709,7 @@ TerrainResourceBehavior::TerrainResourceBehavior(Thing *thing, const ModuleData 
 	*slot24 = (int)((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
 	*reinterpret_cast<const void **>(this) = (const void *)((unsigned int)vtbl_00C49408);
 	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x0C) = (const void *)((unsigned int)__identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@"));
-	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S2@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BUpdateModule@@@"));
 	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x20) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S3@@@"));
 	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x24) = (const void *)((unsigned int)__identifier("??_7Rva00481F82@@6BRva00481F82_S4@@@"));
 	m_registered = false;

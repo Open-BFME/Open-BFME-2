@@ -37,11 +37,7 @@ Rva00462579Block *Rva00462579::rva00462579()
 }
 
 
-
 typedef float Real;
-
-
-
 
 
 enum NameKeyType
@@ -109,22 +105,27 @@ class FireWeaponWhenDeadBehavior : public UpdateModule, public UpgradeMux, publi
 public:
 	FireWeaponWhenDeadBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~FireWeaponWhenDeadBehavior();
-    virtual UpdateSleepTime update();
-    virtual DisabledMaskType getDisabledTypesToProcess() const { return DISABLEDMASK_ALL; }
-	virtual void onDie(const DamageInfo *damageInfo);
 	// Primary vftable 0x008497B4 slots 1-3, as Rva00589079Derived.cpp declares them.
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
 protected:
-	virtual void xfer(Xfer *xfer);
 public:
 	// Primary vtable slot 4, already rowed at 0x00482E51.
-	virtual NameKeyType getModuleNameKey() const;
 private:
 	const FireWeaponWhenDeadBehaviorModuleData *getFireWeaponWhenDeadBehaviorModuleData() const { return (const FireWeaponWhenDeadBehaviorModuleData *)m_moduleData; }
 
 	Rva00263895Member m_damageInfo; // +0x2C
 	UnsignedInt m_count; // +0xA8
+public:
+	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const { return DISABLEDMASK_ALL; }
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual DieModuleInterface *getDie();
+	virtual UpgradeModuleInterface *getUpgrade();
 };
 
 // Native 0x00482BB9, slot zero of the +0x10 Update interface.

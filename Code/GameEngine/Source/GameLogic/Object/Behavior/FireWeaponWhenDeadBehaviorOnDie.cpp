@@ -121,10 +121,15 @@ public:
 	const WeaponTemplate *m_deathWeapon; // +0x15C
 };
 
+typedef BitFlags<11> DisabledMaskType;
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Xfer;
 class FireWeaponWhenDeadBehavior : public UpdateModule, public UpgradeMux, public DieModuleInterface
 {
 public:
-	virtual void onDie(const DamageInfo *damageInfo);
 	// WorldBuilder 0x011BB480 reaches slot 0 through the full object
 	// (this-0x28, then its +0x20 UpgradeMux) rather than directly as the
 	// later slot-11 call does: an inline helper of the module.
@@ -134,6 +139,18 @@ private:
 
 	Rva003427DD m_damageInfo; // +0x2C
 	Int m_delayCount; // +0xA8
+public:
+	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual DieModuleInterface *getDie();
+	virtual UpgradeModuleInterface *getUpgrade();
 };
 
 void FireWeaponWhenDeadBehavior::onDie( const DamageInfo *damageInfo )

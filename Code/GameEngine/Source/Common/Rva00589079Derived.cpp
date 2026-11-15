@@ -7,6 +7,8 @@
 // zero. Identity unproven (opaque Rva name); the shape (vptr stores plus a
 // tail-jump into a rowed/pinned MI dtor) is the dtor evidence.
 
+#include "../../Include/GameLogic/Module/UpdateModule.h"
+
 class Xfer;
 
 // The ObjectModule and BehaviorModuleInterface vptrs of UpdateModule: retail
@@ -27,27 +29,6 @@ class ModuleData;
 
 enum SleepyUpdatePhase;
 
-class UpdateModule : public BehaviorModule
-{
-public:
-	virtual ~UpdateModule();
-	// BehaviorModuleInterface slot 9 (retail 0x002533D3 in every UpdateModule's table):
-	// UpdateModule's override (header-inline in UpdateModule.h; rowed in SupplyTruckAIUpdateCtor.cpp).
-	virtual UpdateModuleInterface *getUpdate();
-protected:
-    virtual SleepyUpdatePhase getUpdatePhase() const;
-public:
-	virtual void xfer(Xfer *xfer);
-};
-
-class Rva00589079_S2
-{
-public:
-	virtual void f2() = 0;
-
-private:
-	char m_pad04[12];
-};
 
 class Rva00589079_S3
 {
@@ -61,12 +42,14 @@ public:
 	virtual void f4();
 };
 
-class Rva00589079 : public UpdateModule, public Rva00589079_S2, public Rva00589079_S3, public Rva00589079_S4
+class Rva00589079 : public UpdateModule, public Rva00589079_S3, public Rva00589079_S4
 {
 public:
 	virtual ~Rva00589079()
 	{
 	}
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // Anchor: forces out-of-line emission of the in-class destructor COMDAT,
@@ -76,14 +59,6 @@ void Rva00589079_Anchor(Rva00589079 *p)
 	p->Rva00589079::~Rva00589079();
 }
 
-class Rva00481F82_S2
-{
-public:
-	virtual void f2();
-
-private:
-	char m_pad04[12];
-};
 
 class Rva00481F82_S3
 {
@@ -97,7 +72,7 @@ public:
 	virtual void f4();
 };
 
-class Rva00481F82 : public UpdateModule, public Rva00481F82_S2, public Rva00481F82_S3, public Rva00481F82_S4
+class Rva00481F82 : public UpdateModule, public Rva00481F82_S3, public Rva00481F82_S4
 {
 public:
 	virtual ~Rva00481F82()
@@ -114,14 +89,6 @@ void Rva00481F82_Anchor(Rva00481F82 *p)
 
 enum UpdateSleepTime;
 
-class Rva00482E96_S2
-{
-public:
-    virtual UpdateSleepTime update() = 0;
-
-private:
-	char m_pad04[12];
-};
 
 class Rva00482E96_S3
 {
@@ -167,7 +134,6 @@ class Object;
 #include "../../Include/Common/XferVersion.h"
 
 
-
 class FireWeaponWhenDeadBehavior;
 
 enum NameKeyType
@@ -183,32 +149,37 @@ public:
 	virtual void xfer(Xfer *xfer);
 };
 
-class FireWeaponWhenDeadBehavior : public UpdateModule, public Rva00482E96_S2, public Rva00482E96_S3, public Rva00482E96_S4
+typedef BitFlags<11> DisabledMaskType;
+class FireWeaponWhenDeadBehavior : public UpdateModule, public Rva00482E96_S3, public Rva00482E96_S4
 {
 public:
-    virtual UpdateSleepTime update();
 	virtual ~FireWeaponWhenDeadBehavior()
 	{
 	}
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
 	// The die-interface override, rowed at 0x00482C4A (FireWeaponWhenDeadBehaviorOnDie.cpp).
-	virtual void onDie(const DamageInfo *damageInfo);
 protected:
-	virtual void xfer(Xfer *xfer);
 public:
 	// Slot 4 of vtable 0x008497B4 (0x00482E51, rowed in FireWeaponWhenDeadBehaviorPoolKey.cpp),
 	// as FireWeaponWhenDeadBehavior.cpp declares it: both units emit this vtable and must
 	// emit the same copy.
-	virtual NameKeyType getModuleNameKey() const;
 	// BehaviorModuleInterface table 0x00C496F8 slots 7 and 10 (retail 0x004523A9 and 0x004543A9),
 	// as FireWeaponWhenDeadBehavior.cpp declares and defines them.
-	virtual DieModuleInterface *getDie();
-	virtual UpgradeModuleInterface *getUpgrade();
 private:
 	Member2C m_m2C;
 	char m_pad30[0x78];
 	int m_iA8;
+public:
+	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual DieModuleInterface *getDie();
+	virtual UpgradeModuleInterface *getUpgrade();
 };
 
 template <typename T> class StringBase
@@ -270,7 +241,6 @@ void FireWeaponWhenDeadBehavior::xfer(Xfer *xfer)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva00481F82_S2@@UAEXXZ=?update@TerrainResourceBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f3@Rva00481F82_S3@@UAEXXZ=?rva00482152@Rva00482152@@UAEXH@Z")
 #pragma comment(linker, "/alternatename:?f3@Rva00589079_S3@@UAEXXZ=?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z")
 #pragma comment(linker, "/alternatename:?f4@Rva00589079_S4@@UAEXXZ=?eq@Rva0026A910@@QBE_NH@Z")
