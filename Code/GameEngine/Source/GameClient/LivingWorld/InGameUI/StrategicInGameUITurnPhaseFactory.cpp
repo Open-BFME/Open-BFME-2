@@ -1,5 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+#include "../../../../Include/Common/Rva0057416B.h"
+
 #include <memory>
 
 // Retail42C261 and WB12BC370 CreateTurnPhaseBehavior show a four-byte
@@ -99,7 +101,6 @@ class Rva005750C7 {public:void rva005750C7();char data[4];};
 namespace StrategicHUD {class HUD {public:void FadeOut();void rva0042D5D6();void *impl;};}
 class NewTurn {public:virtual bool update();virtual void play(int);};
 class TurnDisplay {public:virtual void s0();virtual void s1();virtual void s2();virtual void phase(int);};
-class Rva0057416B {public:Rva0057416B();char data[8];};
 class Rva0057417E;
 #include "../../../../Include/Common/Rva00574192.h"
 class Rva0042C1DF {public:void clear();};
