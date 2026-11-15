@@ -317,18 +317,20 @@ class Module;
 
 #include "../../Common/Thing/thing.h"
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
 class Object : public Thing
 {
 	friend class Weapon;
 public:
 	int rva0028B511() const;	// 0x0028B511
 	const Coord3D *getPosition() const { return &m_cachedPos; }
-	int getID() const { return m_74; }
+	ObjectID getID() const { return m_id; }
 protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 private:
 	char m_pad060[0x74 - 0x60];
-	int m_74;
+	ObjectID m_id;
 };
 
 class CastleBehavior
