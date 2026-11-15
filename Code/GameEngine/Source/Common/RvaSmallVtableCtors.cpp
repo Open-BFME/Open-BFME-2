@@ -2490,7 +2490,32 @@ class Rva005748A4
 {
 public:
 	Rva005748A4();
-	virtual ~Rva005748A4() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual int slot08(int, int) { return 0; }
+	virtual int slot0C(int, int, int) { return 0; }
+	virtual int slot10(int, int, int) { return 0; }
+	virtual int slot14(int, int, int) { return 0; }
+	virtual int slot18(int, int, int) { return 0; }
+	virtual int slot1C(int, int, int) { return 0; }
+	virtual int slot20(int, int, int) { return 0; }
+	virtual int slot24(int, int, int) { return 0; }
+	virtual int slot28(int, int, int) { return 0; }
+	virtual int slot2C(int, int, int) { return 0; }
+	virtual int slot30(int, int, int) { return 0; }
+	virtual int slot34(int, int, int) { return 0; }
+	virtual int slot38(int, int, int) { return 0; }
+	virtual int slot3C(int, int, int) { return 0; }
+	virtual int slot40(int, int, int) { return 0; }
+	virtual int slot44(int, int, int) { return 0; }
+	virtual int slot48(int, int) { return 0; }
+	virtual int slot4C(int, int) { return 0; }
+	virtual int slot50(int, int) { return 0; }
+	virtual int slot54(int, int) { return 0; }
+	virtual int slot58(int, int) { return 0; }
+	virtual int slot5C(int, int) { return 0; }
+	virtual int slot60(int, int) { return 0; }
+	virtual int slot64(int, int) { return 0; }
 };
 
 Rva005748A4::Rva005748A4()
