@@ -13,12 +13,8 @@ private:
 	char m_pad[0x1C];
 };
 
-class Rva005E8AAFBase
-{
-public:
-	__forceinline ~Rva005E8AAFBase() {}
-	virtual void keep() {}
-};
+#include "../../../Include/Common/ImplBase.h"
+typedef ImplBase Rva005E8AAFBase;
 
 class __declspec(novtable) Rva005E8AAF : public Rva005E8AAFBase
 {
@@ -26,7 +22,6 @@ public:
 	virtual ~Rva005E8AAF();
 
 private:
-	int m_pad04;
 	Rva005E8908 m_08; // +8
 };
 
