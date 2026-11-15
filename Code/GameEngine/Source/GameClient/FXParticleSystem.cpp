@@ -2449,3 +2449,11 @@ void bfmeVectorDeleteAnchor_FXParticleSystem_SphereEmissionVolumeModuleTemplate(
 {
 	p->FXParticleSystem::SphereEmissionVolumeModuleTemplate::__vecDelDtor(3);
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::LightningDrawModuleInfo, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_LightningDrawModuleInfo> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_LightningDrawModuleInfo(FXParticleSystem::LightningDrawModuleInfo *p)
+{
+	p->FXParticleSystem::LightningDrawModuleInfo::__vecDelDtor(3);
+}
