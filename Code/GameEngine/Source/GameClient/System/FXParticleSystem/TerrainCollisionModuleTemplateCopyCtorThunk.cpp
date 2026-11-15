@@ -1,5 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc /Ob2
 
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 #include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
 namespace FXParticleSystem
 {
@@ -56,4 +60,12 @@ TerrainCollisionModuleTemplate::TerrainCollisionModuleTemplate(const TerrainColl
 {
 }
 
+}
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::TerrainCollisionModuleTemplate, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_TerrainCollisionModuleTemplate> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_TerrainCollisionModuleTemplate(FXParticleSystem::TerrainCollisionModuleTemplate *p)
+{
+	p->FXParticleSystem::TerrainCollisionModuleTemplate::__vecDelDtor(3);
 }
