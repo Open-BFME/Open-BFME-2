@@ -1,14 +1,10 @@
 // cl: /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h
-class StringClass
-{
-public:
-	~StringClass() { Free_String(); }
-	char *m_buffer;
-private:
-	void Free_String();
-};
+#include "../WWLib/StringClassData.h"
+// Retail inlines StringClass's destructor into every consumer (0x00970F60 calls
+// Free_String directly); the inline member also emits the 0x00065F5B COMDAT.
+inline StringClass::~StringClass() { Free_String(); }
+inline StringClass::operator const char *() const { return m_Buffer; }
 
 class Rva009EB810TailBase
 {
@@ -81,7 +77,7 @@ private:
 void Gen_dtor_00970f60::Load()
 {
 	char buf[0x104];
-	_mbscpy((unsigned char *)buf, (const unsigned char *)m_name.m_buffer);
+	_mbscpy((unsigned char *)buf, (const unsigned char *)(const char *)m_name);
 	char *dot = strchr(buf, '.');
 	if (dot)
 		_mbscpy((unsigned char *)dot, (const unsigned char *)".w3d");
