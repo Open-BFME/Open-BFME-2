@@ -4,6 +4,8 @@
 // stlport
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
+#include "BfmeStringRecord00219B0B.h"
+
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -22,9 +24,7 @@ bool less<int>::operator()(const int &left, const int &right) const
 }
 
 
-
 // The mapped value is retail's 16-byte BfmeStringRecord00219B0B: node 0x0021C48E allocates 0x24 bytes and 0x0021AAE1 copies through 0x00219B0B.
-struct BfmeStringRecord00219B0B { BfmeStringRecord00219B0B(const BfmeStringRecord00219B0B &); ~BfmeStringRecord00219B0B(); char bytes[16]; };
 struct Rva0021D657Record { BfmeStringRecord00219B0B value; };
 
 
