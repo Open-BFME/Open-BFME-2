@@ -12,6 +12,10 @@ private:
 	int m_08;
 	int m_0C;
 };
+// Retail's deleting destructor 0x005DA663 (a slot of the table 0x00C76518) calls the
+// 7-byte 0x005970E6, which only restores the table 0x00C70B80: the
+// destructors between are trivial inlines here, so this class's reduces to it.
+Rva005DA831::~Rva005DA831() {}
 
 Rva005DA831::Rva005DA831(void *held)
 	: Rva005DAA36(held)
