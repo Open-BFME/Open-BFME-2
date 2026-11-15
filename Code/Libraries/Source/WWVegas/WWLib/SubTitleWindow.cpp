@@ -90,7 +90,6 @@ extern DisplayStringManager *TheDisplayStringManager;
 
 class BfmeItemKA;
 
-extern BfmeItemKA **g_bfmeBegKA, **g_bfmeEndKA;
 
 struct Rva00260826 : _STL::_Vector_base<BfmeStringRecord005DDD40,_STL::allocator<BfmeStringRecord005DDD40> > 
 {

@@ -40,6 +40,4 @@ void BfmeItemKA::bfmeDoKA()
 	rva0025FCE8(2, (int)split68, (int)bottom);
 }
 
-extern BfmeItemKA **g_bfmeBegKA;
-extern BfmeItemKA **g_bfmeEndKA;
 

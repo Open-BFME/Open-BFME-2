@@ -2056,8 +2056,8 @@ void __cdecl rva007B76DC()
 	return receiver->_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> >::~basic_string();
 }
 
-class BfmeItemKA;
-BfmeItemKA **g_bfmeBegKA; // retail RVA 0x009FEA44: first pointer of the shared container.
+#include "../../Include/Common/BfmeItemKAVector.h"
+BfmeItemKAVector g_bfmeBegKA; // retail RVA 0x009FEA44: the shared item vector (12 bytes), no constructor of its own.
 
 // ?rva007B77B9@@YAXXZ @ 0x007B77B9 (10B). Global basic_string<char> dtor thunk: ecx=&g_bfmeBegKA then tail-jmp to rowed BasicStringCharDtor_dup (0x0007FAB3 object ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ). No callers. Between 0x007B77AE and 0x007B77C3. Honest address name.
 void __cdecl rva007B77B9()

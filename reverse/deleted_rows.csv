@@ -6281,3 +6281,4 @@ __ehhandler$?setCorrectDamageState@ActiveBody@@QAEX_N@Z,0x0078F9C2,"Renamed to _
 ?g_aptInitializerCounters@@3PAHA,0x00A1832C,"absorbed: interpreter member at +0x4C, P156"
 ?Rva008A5250LastKey@@3IA,0x00A18328,"absorbed: interpreter member at +0x48, P156"
 ?g_00E18348@@3EA,0x00A18348,"absorbed: interpreter member at +0x68, P156"
+?g_bfmeEndKA@@3PAPAVBfmeItemKA@@A,0x009FEA48,"absorbed: vector _M_finish at +4"

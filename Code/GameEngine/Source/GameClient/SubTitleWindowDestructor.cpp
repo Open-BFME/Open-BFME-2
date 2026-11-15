@@ -72,7 +72,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 
 
 class BfmeItemKA;
-extern BfmeItemKA **g_bfmeBegKA, **g_bfmeEndKA;
+#include "../../Include/Common/BfmeItemKAVector.h"
 
 
 struct Rva00260826 : _STL::_Vector_base<BfmeStringRecord005DDD40,_STL::allocator<BfmeStringRecord005DDD40> > {
@@ -179,8 +179,8 @@ SubTitleWindow::~SubTitleWindow() {
  m_00=0;
  delete[] m_34;
  SubTitleWindow *self=this;
- SubTitleWindow **found=_STL::find((SubTitleWindow**)g_bfmeBegKA,(SubTitleWindow**)g_bfmeEndKA,self);
- if(found!=(SubTitleWindow**)g_bfmeEndKA)
+ SubTitleWindow **found=_STL::find((SubTitleWindow**)g_bfmeBegKA._M_start,(SubTitleWindow**)g_bfmeBegKA._M_finish,self);
+ if(found!=(SubTitleWindow**)g_bfmeBegKA._M_finish)
   ((_STL::vector<void*>*)&g_bfmeBegKA)->erase((void**)found);
 }
 
