@@ -11,6 +11,41 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import build_variant as V
 import build as B
+import exit_link as E
+
+
+def test_local_base_link_is_scoped_and_preserves_failure(tmp_path, monkeypatch):
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    original = tmp_path / "build/exit_link"
+    monkeypatch.setattr(E, "OUT", original)
+    def link(rows, *, native_output):
+        assert rows == ["test-row"]
+        assert E.OUT == native_output
+        assert native_output.parent == tmp_path / "build/modern/link"
+        assert native_output.is_dir()
+        return 1
+    monkeypatch.setattr(E, "run_link", link)
+    assert E.run_local_base(["test-row"]) == 1
+    assert E.OUT == original
+    assert not original.exists()
+
+
+def test_local_base_link_restores_scope_on_refusal(tmp_path, monkeypatch):
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    original = E.OUT
+    def refuse(*args, **kwargs):
+        raise SystemExit("proof refused")
+    monkeypatch.setattr(E, "run_link", refuse)
+    with pytest.raises(SystemExit, match="proof refused"):
+        E.run_local_base([])
+    assert E.OUT == original
+
+
+def test_native_link_rejects_reference_directory(tmp_path, monkeypatch):
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E, "OUT", tmp_path / "build/exit_link")
+    with pytest.raises(ValueError, match="isolated"):
+        E.run_link([], native_output=E.OUT)
 
 
 def test_context_refuses_reference_output(tmp_path, monkeypatch):
