@@ -741,14 +741,7 @@ class Rva001E685F
  
 }
 ;
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *o, int b, int c);
-	char m_pad00[0x68];
-private:
-	char m_mat[64]; // +0x68
-};
+#include "../../../Include/GameLogic/Module/Rva001E702E.h"
 struct Rva001E756DCoord
 
 {

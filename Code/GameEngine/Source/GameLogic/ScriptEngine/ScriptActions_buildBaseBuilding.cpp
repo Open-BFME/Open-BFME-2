@@ -51,15 +51,7 @@ class Object;
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class Player
-{
-public:
-	unsigned char rva002AA00C(ThingTemplate *tmpl, Int unknown);
-	bool getCanBuildBase() const { return m_canBuildBase != 0; }
-private:
-	unsigned char m_pad[0x339];
-	unsigned char m_canBuildBase;	// +0x339
-};
+#include "../../../Include/Common/Player.h"
 
 class Object
 {
