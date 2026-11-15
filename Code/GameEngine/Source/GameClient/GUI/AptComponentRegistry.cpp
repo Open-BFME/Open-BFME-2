@@ -70,7 +70,6 @@ void Rva004121D1RegisterAptComponents() {
  Rva004121D1Context context;context.word04=0x08000000;
  AptShutdownReceiverInstance=reinterpret_cast<AptShutdownReceiverView*>(Rva002D1E55Create(&context));
 }
-// ?Rva004121D1Context::Rva004121D1Context present-unmatched (full43B relocation-free ICF twin at22239C; existing ArcInfoStruct owner retained)
 Rva004121D1Context::Rva004121D1Context():word00(0),word04(0),word08(0),word0C(0),word10(0),word14(0),word18(0),word1C(0),word20(0),word24(0),word28(0),word2C(0),word30(0){}
 
 // Native0041267F..0041268910B, reached without arguments by the owned

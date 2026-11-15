@@ -10887,7 +10887,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXList@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp	bfmeEmitFXParticleSystemModulesAssign@@YAXXZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptComponentRegistry.cpp	Rva004121D1Context::Rva004121D1Context	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptLoadMovieFrame.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::~AptTooltipHolder	1
@@ -11053,7 +11052,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva00358FEERecord::operator<	1
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva00358FEERecord::operator==	1
 present_unmatched	Code/GameEngine/Source/GameClient/ParabolicEase.cpp	clamp	1
-present_unmatched	Code/GameEngine/Source/GameClient/Rva00089894ArrayElement.cpp	Rva00089894ArrayElement::~Rva00089894ArrayElement	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00177860TextureRef::Rva00177860TextureRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00177860TextureRef::~Rva00177860TextureRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp	text)	1
