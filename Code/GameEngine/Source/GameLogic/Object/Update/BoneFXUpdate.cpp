@@ -373,7 +373,6 @@ void BoneFXUpdate::stopAllBoneFX() {
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@BoneFXUpdate@@MAEXXZ present-unmatched
 void BoneFXUpdate::loadPostProcess( void )
 {
 
