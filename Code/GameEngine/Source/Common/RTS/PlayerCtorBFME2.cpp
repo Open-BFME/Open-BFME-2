@@ -181,7 +181,7 @@ class Squad;
 class Player : public Snapshot, public Rva002B0F3CIface, public Rva00380200 {
 public:
  Player(int);virtual ~Player();
- virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
+ virtual void loadPostProcess() { }virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
  virtual void v0();virtual void v1();virtual void v2();
  virtual bool rva0038037C(int);virtual void slot2();virtual void resetRank();virtual void onRank(void*);virtual bool isReady();
  void init(const PlayerTemplate*);
