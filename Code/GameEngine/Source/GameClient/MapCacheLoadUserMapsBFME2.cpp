@@ -2,6 +2,8 @@
 // stlport
 // BFME1 575ba2b04 MapCacheLoadUserMaps semantic guide. Target30529C..305749
 // includes the native invalid-map reporting branch and full INI catch continuation.
+#include "../../Include/Common/INI/INI.h"
+
 #include <map>
 #include <set>
 #include <string.h>
@@ -41,7 +43,6 @@ class Rva00206667{public:void rva00206F6B();};
 extern FileSystem*TheFileSystem;
 #include "../../Include/Common/GlobalData.h"
 class Xfer;enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE,INI_LOAD_CREATE_OVERRIDES,INI_LOAD_MULTIFILE};
-class INI{public:INI();~INI();void load(AsciiString,INILoadType,Xfer*,void(*)(INI*));static void parseMapCacheDefinition(INI*);private:char storage[0x87C];};
 #include "../../Include/Common/Rva00300D7A.h"
 #include "../Common/debug.h"
 class RvaLoadUserReport{public:
