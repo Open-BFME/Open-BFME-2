@@ -2401,3 +2401,11 @@ void RenderObjectDrawModuleInfo::LoadPostProcess() {}
 void LifeEventModuleInfo::LoadPostProcess() {}
 void GpuDrawModuleInfo::LoadPostProcess() {}
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::PointEmissionVolumeModuleTemplate, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_PointEmissionVolumeModuleTemplate> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_PointEmissionVolumeModuleTemplate(FXParticleSystem::PointEmissionVolumeModuleTemplate *p)
+{
+	p->FXParticleSystem::PointEmissionVolumeModuleTemplate::__vecDelDtor(3);
+}
