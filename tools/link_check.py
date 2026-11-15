@@ -405,7 +405,30 @@ def fetch_index(url=INDEX_URL, objects=True):
 
 
 FETCH_RECEIPT = "fetch-receipt.json"
-RECEIPT_VERSION = 1
+RECEIPT_VERSION = 2
+REPLAY_PARALLEL_MIN = 256      # entries below which the replay runs in this process
+
+
+def _replay(entries):
+    """build._import_candidate's store fingerprint for each entry, None for one this tree would not take."""
+    return [None if (now := build._import_candidate(entry)) is None else now[1] for entry in entries]
+
+
+def replay_import(entries):
+    """_replay over `entries`, in a process pool when there are many: each needs this host's compile command
+    (about 11 ms; a census bundle's 17,669 entries took 200 s in one process). BUILD_POOL caps the workers."""
+    if len(entries) < REPLAY_PARALLEL_MIN:
+        return _replay(entries)
+    import concurrent.futures
+    try:
+        workers = int(os.environ.get("BUILD_POOL") or 0) or os.cpu_count() or 1
+    except ValueError:
+        workers = os.cpu_count() or 1
+    workers = max(1, min(workers, 16))
+    size = -(-len(entries) // (workers * 4))
+    chunks = [entries[i:i + size] for i in range(0, len(entries), size)]
+    with concurrent.futures.ProcessPoolExecutor(workers) as pool:
+        return [fingerprint for part in pool.map(_replay, chunks) for fingerprint in part]
 
 
 def fetch_receipt_path():
@@ -416,10 +439,11 @@ def fetch_receipt_path():
 def objects_unchanged(index_sha):
     """None when the object store already holds what the bundle published with the index `index_sha` (sha256)
     gives this tree, so importing it again would add nothing; else why it must be imported. The last import's
-    receipt (fetch_objects) must name that index, every object it stored must still be there with the bytes it
-    recorded (md5) beside its sidecar (the store prunes and can be damaged), and no entry it passed over may be
-    takeable now: one whose source here hashes as the bundle recorded under a compile command whose neutral
-    fingerprint agrees. Objects only spare compiles, so this never changes a verdict."""
+    receipt (fetch_objects) must name that index, and the import is replayed against the tree as it stands
+    (build._import_candidate, as import_objects decides): every entry it would take now must be one it took, under
+    the store fingerprint this host's command gives it now, with the object's bytes (md5) and its sidecar's
+    (sha256) still in the store (which prunes and can be damaged). Objects only spare compiles, so this never
+    changes a verdict."""
     path = fetch_receipt_path()
     if path is None:
         return "no object store"
@@ -433,21 +457,22 @@ def objects_unchanged(index_sha):
         return f"a new census index ({index_sha[:12]}; the store holds {str(receipt.get('index'))[:12]}'s)"
     store = path.parent
     try:
-        for entry in receipt["taken"]:
+        entries = receipt["taken"] + receipt["passed"]
+        for entry, now in zip(entries, replay_import(entries)):
+            if now is None:
+                continue                    # not takeable on this tree as it stands
+            if "file" not in entry:
+                return f"{entry['path']} now matches its bundled object"
+            if now != entry["fingerprint"]:
+                return f"{entry['path']}'s compile command now keys another store entry"
             try:
-                data = (store / entry["file"]).read_bytes()
+                data, sidecar = (store / entry["file"]).read_bytes(), (store / entry["deps"]).read_bytes()
             except OSError:
                 return f"the store no longer holds {entry['path']}'s object"
-            if hashlib.md5(data).hexdigest() != entry["object"] or not (store / entry["deps"]).is_file():
+            if (hashlib.md5(data).hexdigest() != entry["object"]
+                    or hashlib.sha256(sidecar).hexdigest() != entry["sidecar"]):
                 return f"the store's copy of {entry['path']}'s object is damaged"
-        for entry in receipt["passed"]:
-            source = (build.ROOT / entry["path"]).resolve()
-            if not source.is_file() or build._hash_file(str(source)) != entry["source"]:
-                continue
-            command, env = build.compiler_command(source, build.obj_path(source))
-            if build._neutral_fingerprint(command, env) == entry["neutral"]:
-                return f"{entry['path']} now matches its bundled object"
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, AttributeError):
         return "the receipt is unreadable"
     return None
 

@@ -2480,6 +2480,23 @@ def export_objects(sources, path):
     return count
 
 
+def _import_candidate(entry):
+    """(source, store fingerprint) when import_objects takes a bundle entry (its receipt, or a fetch receipt's
+    record of it: `path`, `source`, `neutral`) on this tree as it stands: its source resolves inside the tree, is
+    a file and hashes as recorded, and this host's compile command for it agrees with the recorded neutral one.
+    Else None."""
+    rel = entry.get("path")
+    if not isinstance(rel, str) or Path(rel).is_absolute():
+        return None
+    source = (ROOT / rel).resolve()
+    if not source.is_relative_to(ROOT) or not source.is_file() or _hash_file(str(source)) != entry.get("source"):
+        return None
+    command, env = compiler_command(source, obj_path(source))
+    if _neutral_fingerprint(command, env) != entry.get("neutral"):
+        return None
+    return source, _cmd_fingerprint(command, env)
+
+
 def import_objects(path, record=None):
     """Add a bundle's objects to this repository's object store (never to
     build/match); return how many. An entry is taken only when its source
@@ -2488,10 +2505,11 @@ def import_objects(path, record=None):
     compile_is_current accepts every recorded header.
 
     `record` (a dict) gains what the import depended on, for
-    link_check's fetch receipt: `taken` [{path, object md5, file, deps}]
-    (store-relative), `passed` [{path, source, neutral}] for an entry this
-    tree did not take (its source missing or hashing otherwise, or another
-    compile command), and `incomplete` when a write failed."""
+    link_check's fetch receipt: every well-formed entry as {path, source,
+    neutral}, under `taken` with its store fingerprint, object md5, its
+    store-relative object and sidecar files and the sidecar's sha256, else
+    under `passed` (_import_candidate refused it on this tree); and
+    `incomplete` when a write failed."""
     import tarfile
     if _objstore_root() is None:
         return 0
@@ -2508,28 +2526,21 @@ def import_objects(path, record=None):
                 continue
             rel = receipt.get("path") if isinstance(receipt, dict) else None
             deps = receipt.get("deps") if isinstance(receipt, dict) else None
-            if receipt.get("version") != BUNDLE_VERSION or not isinstance(rel, str) or not isinstance(deps, dict):
-                continue
-            source = (ROOT / rel).resolve()
-            if (Path(rel).is_absolute() or not source.is_relative_to(ROOT)
+            if (receipt.get("version") != BUNDLE_VERSION or not isinstance(rel, str) or not isinstance(deps, dict)
+                    or Path(rel).is_absolute()
                     or any(not isinstance(dep, str) or Path(dep).is_absolute() or ".." in Path(dep).parts
                            for dep in deps)):
-                continue
-            passed = {"path": rel, "source": receipt.get("source"), "neutral": receipt.get("neutral")}
-            if not source.is_file() or _hash_file(str(source)) != receipt.get("source"):
-                if record is not None:
-                    record.setdefault("passed", []).append(passed)
-                continue
-            output = obj_path(source)
-            command, env = compiler_command(source, output)
-            if _neutral_fingerprint(command, env) != receipt.get("neutral"):
-                if record is not None:
-                    record.setdefault("passed", []).append(passed)
                 continue
             data = tar.extractfile(members[name[:-5] + ".obj"]).read()
             if hashlib.md5(data).hexdigest() != receipt.get("object"):
                 continue
-            fingerprint = _cmd_fingerprint(command, env)
+            entry = {"path": rel, "source": receipt.get("source"), "neutral": receipt.get("neutral")}
+            taken = _import_candidate(entry)
+            if taken is None:
+                if record is not None:
+                    record.setdefault("passed", []).append(entry)
+                continue
+            source, fingerprint = taken
             sidecar = json.dumps({"cmd": fingerprint, "source": receipt["source"],
                                   "deps": {dep.replace("/", sep): digest for dep, digest in deps.items()},
                                   "path": rel, "object": hashlib.md5(data).hexdigest()})
@@ -2548,10 +2559,11 @@ def import_objects(path, record=None):
                 continue
             if record is not None:
                 store = _objstore_root()
-                record.setdefault("taken", []).append({
-                    "path": rel, "object": hashlib.md5(data).hexdigest(),
-                    "file": (entry_dir / f"{stem}.obj").relative_to(store).as_posix(),
-                    "deps": (entry_dir / f"{stem}.deps.json").relative_to(store).as_posix()})
+                record.setdefault("taken", []).append(dict(
+                    entry, fingerprint=fingerprint, object=hashlib.md5(data).hexdigest(),
+                    file=(entry_dir / f"{stem}.obj").relative_to(store).as_posix(),
+                    deps=(entry_dir / f"{stem}.deps.json").relative_to(store).as_posix(),
+                    sidecar=hashlib.sha256(sidecar.encode()).hexdigest()))
             count += 1
     return count
 

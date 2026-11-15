@@ -7,6 +7,7 @@ replaces nothing; only a clean --history census (or a clean update) is
 published. A bundled object reaches the object store only for the same
 source and the same compile command, and is restored only while every
 recorded header still hashes as recorded."""
+import hashlib
 import io
 import json
 import pickle
@@ -447,3 +448,56 @@ def test_an_interrupted_import_leaves_no_receipt(fetching, monkeypatch):
     C.fetch_index()
     assert not C.fetch_receipt_path().exists()
     assert C.objects_unchanged("anything") == "no receipt of an earlier import"
+
+
+
+def test_r1_a_damaged_sidecar_imports_again(fetching):
+    # a sidecar that lost a header dependency would let a stale object restore
+    source, served, imports = fetching
+    C.fetch_index()
+    receipt = json.loads(C.fetch_receipt_path().read_text())
+    sidecar = C.fetch_receipt_path().parent / receipt["taken"][0]["deps"]
+    meta = json.loads(sidecar.read_text())
+    meta["deps"] = {}
+    sidecar.write_text(json.dumps(meta))
+    C.fetch_index()
+    assert len(imports) == 2 and json.loads(sidecar.read_text())["deps"]
+
+
+def test_r1_a_command_that_keys_another_store_entry_imports_again(fetching, hosts):
+    # the Wine command and the launcher-free one share a neutral fingerprint but key different store entries
+    source, served, imports = fetching
+    host = hosts[3]
+    C.fetch_index()
+    host["command"] = ["@ROOT@\\tc\\cl.exe", "-O2", "Code/a.cpp"]
+    assert C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest()) == \
+        "Code/a.cpp's compile command now keys another store entry"
+    C.fetch_index()
+    assert len(imports) == 2
+
+
+def test_r1_a_source_that_came_back_inside_the_tree_imports_again(fetching, tmp_path):
+    # an entry passed over because its source resolved outside the tree is recorded and replayed
+    source, served, imports = fetching
+    original = source.read_text()
+    outside = tmp_path / "outside.cpp"
+    outside.write_text(original)
+    source.unlink()
+    source.symlink_to(outside)
+    C.fetch_index()
+    assert [p["path"] for p in json.loads(C.fetch_receipt_path().read_text())["passed"]] == ["Code/a.cpp"]
+    source.unlink()
+    source.write_text(original)
+    C.fetch_index()
+    assert len(imports) == 2
+
+
+
+def test_r1_the_replay_in_a_pool_answers_as_in_one_process(fetching, monkeypatch, tmp_path):
+    source, served, imports = fetching
+    C.fetch_index()
+    receipt = json.loads(C.fetch_receipt_path().read_text())
+    entries = (receipt["taken"] + receipt["passed"]) * 3 + [dict(receipt["taken"][0], source="0" * 64)]
+    serial = C.replay_import(entries)
+    monkeypatch.setattr(C, "REPLAY_PARALLEL_MIN", 1)
+    assert C.replay_import(entries) == serial and serial[-1] is None and serial[0] is not None
