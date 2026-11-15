@@ -118,6 +118,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva000F6490` (VA 0x00BCF204): 7 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva00538C5F` (VA 0x00C39608): 9 slots (0 pure, 0 rowed virtual, 1 destructor, 0 folded trivial body), 2 view(s): `AsciiStringFoldDeleters.cpp`, `AptWindowLayout.cpp`.
 - 2026-11-15 `Rva005E9F92` (VA 0x00C780F4): 8 slots (0 pure, 0 rowed virtual, 1 destructor, 7 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva006672F0` (VA 0x00CE34D0): 26 slots (25 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
