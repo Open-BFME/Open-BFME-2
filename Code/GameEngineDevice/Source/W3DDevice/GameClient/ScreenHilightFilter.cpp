@@ -52,6 +52,7 @@ public:
 	int NumRefs;
 };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 class TextureBaseClass
 {
 public:

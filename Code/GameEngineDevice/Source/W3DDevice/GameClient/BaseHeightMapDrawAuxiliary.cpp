@@ -46,6 +46,7 @@ public:
 };
 void BFME2Set_Texture(unsigned,const BFME2TextureRef&);void bfmeSetProjectionDepthBias(float);
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern GlobalData*TheWritableGlobalData;
 class Rva00069DB1 {public:
  void draw();
