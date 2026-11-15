@@ -9951,7 +9951,7 @@ Code/GameEngine/Source/GameLogic/Object/CreateAHeroSlotFind.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/CreateAHeroTextWarmup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/AttackNuggetCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,no,0,0,2,0,0
+Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamageFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/CallHelpOnDamageFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/CallHelpOnDamageXfer.cpp,yes,0,0,0,0,0
