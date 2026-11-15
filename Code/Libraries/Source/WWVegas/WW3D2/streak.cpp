@@ -769,7 +769,6 @@ void StreakLineClass::Render(RenderInfoClass & rinfo)
 	}
 }
 
-// ?Get_Obj_Space_Bounding_Sphere@StreakLineClass@@ present-unmatched
 void StreakLineClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	// Get object-space bounding box and create bounding sphere from it
@@ -878,7 +877,6 @@ void StreakLineClass::Decrement_LOD(void)
 	LineRenderer.Set_Current_Subdivision_Level(lvl-1);
 }
 
-// ?Get_Cost@StreakLineClass@@ present-unmatched
 float StreakLineClass::Get_Cost(void) const
 {
 	return Get_Num_Polys();
@@ -918,13 +916,11 @@ void StreakLineClass::Set_LOD_Level(int lod)
 	LineRenderer.Set_Current_Subdivision_Level((unsigned int)lod);
 }
 
-// ?Get_LOD_Level@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_LOD_Level(void) const
 {
 	return (int) LineRenderer.Get_Current_Subdivision_Level();
 }
 
-// ?Get_LOD_Count@StreakLineClass@@ present-unmatched
 int StreakLineClass::Get_LOD_Count(void) const
 {
 	return (int)MaxSubdivisionLevels;
