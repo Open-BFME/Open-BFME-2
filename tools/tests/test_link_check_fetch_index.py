@@ -30,7 +30,8 @@ def served(tmp_path, monkeypatch):
     monkeypatch.setattr(C, "INDEX", out / "link_index.pkl")
     monkeypatch.setattr(C, "OBJECTS", out / "objects.tar.gz")
     monkeypatch.setattr(C.link_census, "OUT", out)
-    monkeypatch.setattr(C, "fetch_objects", lambda: 0)
+    monkeypatch.setattr(C, "fetch_objects", lambda **kw: 0)
+    monkeypatch.setattr(C, "objects_unchanged", lambda index_sha: "not under test")
     body = {}
     monkeypatch.setattr("urllib.request.urlopen", lambda url, timeout: io.BytesIO(body["data"]))
     monkeypatch.setattr(C, "contains", lambda commit, ref="HEAD": not commit.startswith("future"))
@@ -365,3 +366,84 @@ def test_restore_still_reports_output_write_errors(cached_object_variant, monkey
     monkeypatch.setattr(build.shutil, "copyfile", denied)
     with pytest.raises(PermissionError, match="restore output denied"):
         build._restore_object(source, output, fingerprint)
+
+
+
+# --fetch-index imports the published objects once per census (objects_unchanged): the placeholders lane lost about
+# 8 of 12 minutes per landing attempt to re-importing an unchanged bundle.
+@pytest.fixture
+def fetching(hosts, tmp_path, monkeypatch):
+    source, header, output, host, bundle = hosts
+    assert build.export_objects([source], bundle) == 1
+    out = build.ROOT / "build" / "link_census"
+    monkeypatch.setattr(C, "ROOT", build.ROOT)
+    monkeypatch.setattr(C, "INDEX", out / "link_index.pkl")
+    monkeypatch.setattr(C.link_census, "OUT", out)
+    monkeypatch.setattr(C, "contains", lambda commit, ref="HEAD": True)
+    served = {"index": index("2026-11-15 08:00", "census0000")}
+    monkeypatch.setattr("urllib.request.urlopen", lambda url, timeout: io.BytesIO(
+        served["index"] if url == C.INDEX_URL else bundle.read_bytes()))
+    imports, real = [], build.import_objects
+    monkeypatch.setattr(build, "import_objects",
+                        lambda path, record=None: imports.append(path) or real(path, record=record))
+    return source, served, imports
+
+
+def test_an_unchanged_index_imports_nothing_again(fetching, capsys):
+    source, served, imports = fetching
+    assert C.fetch_index() == 0 and len(imports) == 1
+    assert C.fetch_index() == 0 and len(imports) == 1
+    assert "not downloaded or imported again" in capsys.readouterr().out
+
+
+def test_a_changed_index_imports_again(fetching, capsys):
+    source, served, imports = fetching
+    C.fetch_index()
+    served["index"] = index("2026-11-15 09:00", "census0001")
+    C.fetch_index()
+    assert len(imports) == 2 and "a new census index" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("damage", ["corrupt", "missing", "sidecar"])
+def test_a_damaged_or_partial_store_imports_again(fetching, damage, capsys):
+    source, served, imports = fetching
+    C.fetch_index()
+    receipt = json.loads(C.fetch_receipt_path().read_text())
+    stored = C.fetch_receipt_path().parent / receipt["taken"][0]["file"]
+    if damage == "corrupt":
+        stored.write_bytes(b"DAMAGED")
+    elif damage == "missing":
+        stored.unlink()
+    else:
+        (C.fetch_receipt_path().parent / receipt["taken"][0]["deps"]).unlink()
+    C.fetch_index()
+    assert len(imports) == 2
+    assert stored.read_bytes() == b"OBJECT"      # the import put it back
+
+
+def test_an_entry_passed_over_is_imported_once_it_matches(fetching):
+    source, served, imports = fetching
+    original = source.read_text()
+    source.write_text("int f() { return 2; }\n")        # the bundle's entry does not match this tree
+    C.fetch_index()
+    receipt = json.loads(C.fetch_receipt_path().read_text())
+    assert receipt["taken"] == [] and [p["path"] for p in receipt["passed"]] == ["Code/a.cpp"]
+    C.fetch_index()
+    assert len(imports) == 1                              # still passed over: nothing to add
+    source.write_text(original)
+    C.fetch_index()
+    assert len(imports) == 2                              # it matches now: import it
+
+
+def test_an_interrupted_import_leaves_no_receipt(fetching, monkeypatch):
+    source, served, imports = fetching
+    C.fetch_index()
+    assert C.fetch_receipt_path().exists()
+
+    def broken(path, record=None):
+        raise OSError("disk full")
+    monkeypatch.setattr(build, "import_objects", broken)
+    served["index"] = index("2026-11-15 09:00", "census0001")
+    C.fetch_index()
+    assert not C.fetch_receipt_path().exists()
+    assert C.objects_unchanged("anything") == "no receipt of an earlier import"

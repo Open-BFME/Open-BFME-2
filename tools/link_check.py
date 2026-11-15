@@ -52,7 +52,10 @@ compiled, then linked: hours on a slow host). Whoever runs a census publishes
 its index as the `census-index` release asset; everyone else fetches it. Its
 objects go with it (build.export_objects): --fetch-index adds them to the
 object store, so a build restores what another host already compiled instead
-of compiling it again. --update-index compiles what changed since the index,
+of compiling it again. It imports them once per census: when the store's
+fetch receipt names the same published index and every object it stored is
+still there, and no object it passed over would be taken now, the bundle is
+not downloaded again (objects_unchanged). --update-index compiles what changed since the index,
 replaces those objects' definitions (refresh) and drops units the ledger no
 longer has: a follower of master keeps the published index current between
 censuses. Units added since the census stay unpreviewable, and each file's
@@ -73,6 +76,7 @@ import collections
 import csv
 import io
 import hashlib
+import json
 import os
 import pickle
 import re
@@ -366,6 +370,7 @@ def fetch_index(url=INDEX_URL, objects=True):
     needs the index alone)."""
     temp = download(url, "link_index.")
     try:
+        index_sha = hashlib.sha256(temp.read_bytes()).hexdigest()
         meta = index_meta(temp)
         if meta is None:
             raise SystemExit(f"link_check: {url} is not a census index; nothing replaced")
@@ -389,8 +394,62 @@ def fetch_index(url=INDEX_URL, objects=True):
     finally:
         temp.unlink(missing_ok=True)
     if objects:
-        fetch_objects()
+        why = objects_unchanged(index_sha)
+        if why is None:
+            print(f"link_check: the object store already holds the objects of census index {index_sha[:12]} "
+                  "(every stored object verified, nothing newly takeable); not downloaded or imported again")
+        else:
+            print(f"link_check: importing the published objects: {why}")
+            fetch_objects(index_sha=index_sha)
     return 0
+
+
+FETCH_RECEIPT = "fetch-receipt.json"
+RECEIPT_VERSION = 1
+
+
+def fetch_receipt_path():
+    store = build._objstore_root()
+    return None if store is None else store / FETCH_RECEIPT
+
+
+def objects_unchanged(index_sha):
+    """None when the object store already holds what the bundle published with the index `index_sha` (sha256)
+    gives this tree, so importing it again would add nothing; else why it must be imported. The last import's
+    receipt (fetch_objects) must name that index, every object it stored must still be there with the bytes it
+    recorded (md5) beside its sidecar (the store prunes and can be damaged), and no entry it passed over may be
+    takeable now: one whose source here hashes as the bundle recorded under a compile command whose neutral
+    fingerprint agrees. Objects only spare compiles, so this never changes a verdict."""
+    path = fetch_receipt_path()
+    if path is None:
+        return "no object store"
+    try:
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return "no receipt of an earlier import"
+    if not isinstance(receipt, dict) or receipt.get("version") != RECEIPT_VERSION:
+        return "the receipt is of another format"
+    if receipt.get("index") != index_sha:
+        return f"a new census index ({index_sha[:12]}; the store holds {str(receipt.get('index'))[:12]}'s)"
+    store = path.parent
+    try:
+        for entry in receipt["taken"]:
+            try:
+                data = (store / entry["file"]).read_bytes()
+            except OSError:
+                return f"the store no longer holds {entry['path']}'s object"
+            if hashlib.md5(data).hexdigest() != entry["object"] or not (store / entry["deps"]).is_file():
+                return f"the store's copy of {entry['path']}'s object is damaged"
+        for entry in receipt["passed"]:
+            source = (build.ROOT / entry["path"]).resolve()
+            if not source.is_file() or build._hash_file(str(source)) != entry["source"]:
+                continue
+            command, env = build.compiler_command(source, build.obj_path(source))
+            if build._neutral_fingerprint(command, env) == entry["neutral"]:
+                return f"{entry['path']} now matches its bundled object"
+    except (KeyError, TypeError):
+        return "the receipt is unreadable"
+    return None
 
 
 def download(url, prefix):
@@ -411,22 +470,36 @@ def download(url, prefix):
     return temp
 
 
-def fetch_objects(url=OBJECTS_URL):
+def fetch_objects(url=OBJECTS_URL, index_sha=None):
     """The published objects into the object store (build.import_objects).
-    They only spare compiles, so a failure here leaves the index fetched."""
+    They only spare compiles, so a failure here leaves the index fetched.
+    With `index_sha` (the index published with them), a complete import
+    leaves a receipt in the store (objects_unchanged reads it); the old one
+    goes first, so an interrupted import leaves none."""
     import tarfile
+    receipt = fetch_receipt_path()
+    if receipt is not None:
+        receipt.unlink(missing_ok=True)
     try:
         temp = download(url, "objects.")
     except SystemExit as exc:
         print(f"{exc}; objects not imported", file=sys.stderr)
         return 0
+    record = {}
     try:
-        count = build.import_objects(temp)
+        count = build.import_objects(temp, record=record)
     except (OSError, EOFError, tarfile.TarError) as exc:
         print(f"link_check: {url} is not an object bundle ({exc}); objects not imported", file=sys.stderr)
         return 0
     finally:
         temp.unlink(missing_ok=True)
+    if index_sha and receipt is not None and not record.get("incomplete"):
+        receipt.parent.mkdir(parents=True, exist_ok=True)   # an import that took nothing made no store yet
+        tmp = receipt.with_name(receipt.name + f".{os.getpid()}.tmp")
+        tmp.write_text(json.dumps({"version": RECEIPT_VERSION, "index": index_sha,
+                                   "taken": record.get("taken", []), "passed": record.get("passed", [])}),
+                       encoding="utf-8")
+        os.replace(tmp, receipt)
     print(f"link_check: {count:,} compiled object(s) added to the object store (used when they match this tree)")
     return count
 

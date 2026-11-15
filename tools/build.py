@@ -2480,12 +2480,18 @@ def export_objects(sources, path):
     return count
 
 
-def import_objects(path):
+def import_objects(path, record=None):
     """Add a bundle's objects to this repository's object store (never to
     build/match); return how many. An entry is taken only when its source
     here hashes as recorded and this host's compile command for it matches
     the recorded neutral one; a compile then restores it only after
-    compile_is_current accepts every recorded header."""
+    compile_is_current accepts every recorded header.
+
+    `record` (a dict) gains what the import depended on, for
+    link_check's fetch receipt: `taken` [{path, object md5, file, deps}]
+    (store-relative), `passed` [{path, source, neutral}] for an entry this
+    tree did not take (its source missing or hashing otherwise, or another
+    compile command), and `incomplete` when a write failed."""
     import tarfile
     if _objstore_root() is None:
         return 0
@@ -2505,15 +2511,20 @@ def import_objects(path):
             if receipt.get("version") != BUNDLE_VERSION or not isinstance(rel, str) or not isinstance(deps, dict):
                 continue
             source = (ROOT / rel).resolve()
-            if (Path(rel).is_absolute() or not source.is_relative_to(ROOT) or not source.is_file()
+            if (Path(rel).is_absolute() or not source.is_relative_to(ROOT)
                     or any(not isinstance(dep, str) or Path(dep).is_absolute() or ".." in Path(dep).parts
                            for dep in deps)):
                 continue
-            if _hash_file(str(source)) != receipt.get("source"):
+            passed = {"path": rel, "source": receipt.get("source"), "neutral": receipt.get("neutral")}
+            if not source.is_file() or _hash_file(str(source)) != receipt.get("source"):
+                if record is not None:
+                    record.setdefault("passed", []).append(passed)
                 continue
             output = obj_path(source)
             command, env = compiler_command(source, output)
             if _neutral_fingerprint(command, env) != receipt.get("neutral"):
+                if record is not None:
+                    record.setdefault("passed", []).append(passed)
                 continue
             data = tar.extractfile(members[name[:-5] + ".obj"]).read()
             if hashlib.md5(data).hexdigest() != receipt.get("object"):
@@ -2532,7 +2543,15 @@ def import_objects(path):
                     tmp.write_bytes(payload)
                     os.replace(tmp, target)
             except OSError:
+                if record is not None:
+                    record["incomplete"] = True
                 continue
+            if record is not None:
+                store = _objstore_root()
+                record.setdefault("taken", []).append({
+                    "path": rel, "object": hashlib.md5(data).hexdigest(),
+                    "file": (entry_dir / f"{stem}.obj").relative_to(store).as_posix(),
+                    "deps": (entry_dir / f"{stem}.deps.json").relative_to(store).as_posix()})
             count += 1
     return count
 
