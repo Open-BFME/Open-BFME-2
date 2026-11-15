@@ -360,6 +360,16 @@ class Rva00669510
 public:
 	Rva00669510();
 	Rva00669510(EmitVtableTag *);
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual bool slot0C(int, int, int) { return false; }
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
 	virtual ~Rva00669510();
 };
 
