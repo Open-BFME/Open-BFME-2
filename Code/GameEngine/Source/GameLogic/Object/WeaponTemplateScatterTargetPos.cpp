@@ -66,20 +66,18 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Object
+#include "../../Common/Thing/thing.h"
+
+class Object : public Thing
 {
 public:
-	const ThingTemplate *getTemplate() const { return m_template; }
+	const ThingTemplate *getTemplate() const { return *(const ThingTemplate *volatile *)&m_template; }
 	const Coord3D *getPosition() const { return &m_cachedPos; }
 	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	Int rva0028B511() const;
 private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +4
-	char m_pad008[0x38 - 0x08];
-	Coord3D m_cachedPos; // +0x38
-	char m_pad044[0xB8 - 0x44];
+	char m_pad060[0xB8 - 0x60];
 	Real m_boundingCircleRadius; // +0xB8 (geometry info)
 	char m_pad0BC[0x258 - 0xBC];
 	AIUpdateInterface *m_ai; // +0x258
