@@ -109,6 +109,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva003ADE98` (VA 0x00C1D1F4): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 2 view(s): `Rva003ADE98.h`, `V3PolyCopyCtors.cpp`.
 - 2026-11-15 `Rva004E1780` (VA 0x00C61B78): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva004FF334` (VA 0x00C63B40): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `ShdDefFactoryClass` (VA 0x00C7C584): 15 slots (9 pure, 0 rowed virtual, 1 destructor, 1 folded trivial body), 1 view(s): `ShdDefFactoryClassDelete.cpp`.
+
 
 
 

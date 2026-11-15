@@ -31,11 +31,22 @@ class ShdDefFactoryClass
 {
 public:
 
-	virtual ~ShdDefFactoryClass( void );
-
+	virtual void slot00() = 0;
 	virtual ShdDefClass *Create( void ) const = 0;
 	virtual const char *Get_Name( void ) const = 0;
 	virtual unsigned int Get_Class_ID( void ) const = 0;
+	virtual void slot10(int) {}
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual ~ShdDefFactoryClass( void );
+	virtual void slot28() = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual void slot38() = 0;
+
 
 protected:
 
