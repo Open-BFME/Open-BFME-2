@@ -213,7 +213,7 @@ Rva004B5982::~Rva004B5982()
 class Rva004B5D0B_E
 {
 public:
-	virtual void fe();
+	virtual void fe() { }
 };
 
 class Rva004B5D0B : public UpgradeModule, public Rva004B5D0B_E
