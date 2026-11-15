@@ -1,5 +1,7 @@
 // cl: /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
 // stlport46
+#include "../../Include/Common/PlayerTemplate.h"
+
 #include "../../Include/GameClient/SkirmishPreferencesClass.h"
 #include "../../Include/Common/UserPreferences.h"
 #include "ascii_string.h"
@@ -18,7 +20,6 @@ class RealTimeStatsPreferences:public ProfilePreferences {
 };
 
 #include "../../Include/GameNetwork/GameInfo.h"
-class PlayerTemplate {public:const AsciiString&getSide()const{return side;} char prefix[24];AsciiString side;};
 #include "../../Include/Common/PlayerTemplateStore.h"
 class VictoryConditionsInterface {public:
  virtual void v0();
