@@ -88,7 +88,7 @@ Usage:
   python3 tools/tu_skeleton.py --queue [--under PREFIX] [--limit N] [--json FILE]
   python3 tools/tu_skeleton.py --list PREFIX       approved TUs under PREFIX
   python3 tools/tu_skeleton.py --plan TU           the skeleton, row by row
-  python3 tools/tu_skeleton.py --merge TU [--dry-run] [--no-claim]
+  python3 tools/tu_skeleton.py --merge TU [--exclude SOURCE ...] [--dry-run] [--no-claim]
   python3 tools/tu_skeleton.py --merge-all [--dry-run [--static]] [--jobs N] [--budget-min M] [--under P]
       every queued TU, each verified merge its own commit, the rest a ranked
       decision queue (tools/merge_all.py); --release after pushing
@@ -3019,8 +3019,10 @@ def marks_half_applied(writer):
     return wrapped
 
 
-def merge(tu, dry_run=False, log=print, claim=True):
-    state = merge_plan_state()
+def merge(tu, dry_run=False, log=print, claim=True, exclude=()):
+    # An explicitly reduced candidate set never reads/writes the native plan
+    # cache or computes its state/input fingerprints. Admission stays in _merge.
+    state = None if exclude else merge_plan_state()
     sk = skeleton(tu)
     don, mixed, refused = donors(tu, sk)
     # The map's spelling names the TU; the file the tree has is the one to write. A
@@ -3034,6 +3036,17 @@ def merge(tu, dry_run=False, log=print, claim=True):
     report = {"tu": canonical, "approved": len(sk), "mixed": mixed, "refused": refused, "accepted": [], "rejected": {}}
     if tu != canonical:
         report["tu_file"] = tu
+    if exclude:
+        excluded = list(dict.fromkeys(str(f).replace("\\", "/").removeprefix("./") for f in exclude))
+        unknown = [f for f in excluded if f not in don]
+        if unknown:
+            report["blocked"] = "--exclude paths are not donors of this TU: " + ", ".join(unknown)
+            return report
+        if tu in excluded:
+            report["blocked"] = "--exclude cannot remove the destination TU seed"
+            return report
+        report["excluded"] = excluded
+        don = {f: rows for f, rows in don.items() if f not in excluded}
     queued = header_queue_rows()
     adopt = {f: sorted(set(queued[f])) for f in don if f in queued}
     if adopt:
@@ -3044,9 +3057,9 @@ def merge(tu, dry_run=False, log=print, claim=True):
     if len(don) < 2 and not (len(don) == 1 and tu not in don):
         report["blocked"] = "fewer than two donors"
         return report
-    inputs = merge_plan_inputs(sk, don, mixed, refused)
+    inputs = None if exclude else merge_plan_inputs(sk, don, mixed, refused)
 
-    plan = load_merge_plan(canonical, state, inputs)
+    plan = None if exclude else load_merge_plan(canonical, state, inputs)
     if plan and plan.get("tu_file") != tu:
         plan = None
     scope = don
@@ -3083,7 +3096,7 @@ def merge(tu, dry_run=False, log=print, claim=True):
             taken.append(held)
         result = _merge(tu, sk, don, report, dry_run)
         saved = result.pop("_plan", None)
-        if dry_run and saved and not result.get("blocked"):
+        if dry_run and saved and not result.get("blocked") and not exclude:
             save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
         if claim and not dry_run and "blocked" in result:   # nothing was written
             give_back(*taken)
@@ -7086,12 +7099,17 @@ def main(argv=None):
     ap.add_argument("--rva", help="with --emit-move: only these rows (comma-separated hex); all must move")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-claim", action="store_true", help="merge without claiming (fixtures, private trees)")
+    ap.add_argument("--exclude", nargs="+", action="extend", default=[], metavar="SOURCE",
+                    help="with --merge: omit named donors before compiling/searching; no verified-plan "
+                         "reuse or plan fingerprints; all admission checks remain")
     ap.add_argument("--under", default="")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--json")
     import merge_all
     merge_all.add_run_args(ap)
     a = ap.parse_args(argv)
+    if a.exclude and not a.merge:
+        ap.error("--exclude requires --merge")
     if a.merge_all:
         return merge_all.run_main(a)
     if a.queue:
@@ -7159,7 +7177,8 @@ def main(argv=None):
             print(text)
         return 0 if rep.get("subject") or (a.dry_run and a.split in rep.get("accepted", [])) else 2
     else:
-        rep = merge(a.merge, a.dry_run, claim=not a.no_claim)
+        rep = (merge(a.merge, a.dry_run, claim=not a.no_claim, exclude=a.exclude) if a.exclude else
+               merge(a.merge, a.dry_run, claim=not a.no_claim))
         text = rep.pop("text", None)
         for k, val in rep.items():
             if k in ("debt-retired", "follow-up"):   # lines to paste or run, one per line
