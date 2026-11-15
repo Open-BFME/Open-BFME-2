@@ -12,9 +12,7 @@ class Drawable;
 
 struct RayEffectData
 {
-    // ??0RayEffectData@@QAE@XZ present-unmatched
     __declspec(noinline) RayEffectData() {}
-    // ??1RayEffectData@@QAE@XZ present-unmatched
     __declspec(noinline) ~RayEffectData() {}
 
     const Drawable *draw;

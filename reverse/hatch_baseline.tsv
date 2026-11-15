@@ -10449,8 +10449,6 @@ pragma_optimize	reference/shims/wwstring_teardown/local/wwstring.h	"t",off	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"",on	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"s",on	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"t",off	1
-present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
-present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
 present_unmatched	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Owner00739C90::cleanup	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::reset	1
@@ -10783,7 +10781,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTem
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::getPerUnitFX	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseWeaponTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp	_STL::__uninitialized_copy	1
-present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHintRef00217D4C::TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/Common/VectorPod88CopyConstructor.cpp	vector<Pod88Vector>::_M_insert_overflow	1
 present_unmatched	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	1Rva0074011F@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	rva0007898BClear@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z	1
@@ -10926,8 +10923,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9CopyCtor.cpp	@0x003AEDE9	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp	1Rva003AEE16@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp	1Rva003AF076@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/System/RayEffectView.h	0RayEffectData@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/System/RayEffectView.h	1RayEffectData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp	1VideoPlayerBase@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::getLocation	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::init	1
@@ -11921,7 +11916,5 @@ present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetLine@Id
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetSource@Id@ProfileFuncLevel@@QBEPBDXZ	1
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetTime@Id@ProfileFuncLevel@@QBE_KI@Z	1
 present_unmatched	Code/Libraries/Source/subsystem/SubsystemInterface.cpp	getName@SubsystemInterface@@QAE?AVAsciiString@@XZ	1
-present_unmatched	reference/shims/disconnectmanager/GameNetwork/DisconnectManager.h	still	1
 present_unmatched	reference/shims/pathfind/GameLogic/AIPathfind.h	?	1
-present_unmatched	reference/shims/water/W3DDevice/GameClient/W3DWater.h	?	1
 selectany	Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	__declspec(selectany) Int g_00DFEE18 = 0;	1

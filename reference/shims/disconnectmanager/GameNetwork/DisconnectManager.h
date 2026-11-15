@@ -158,7 +158,7 @@ protected:
 	// field so they cannot shift one, because the ZH bodies in this TU that
 	// still reference them -- updateWaitForPacketRouter and
 	// isLocalPlayerNextPacketRouter -- are exactly the ones BFME rewrote and
-	// are all still present-unmatched.
+	// are all still unmatched.
 	UnsignedInt m_packetRouterFallback[MAX_SLOTS];
 	UnsignedInt m_currentPacketRouterIndex;
 	time_t m_packetRouterTimeout;

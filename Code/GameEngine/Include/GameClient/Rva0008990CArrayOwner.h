@@ -23,7 +23,6 @@ class Rva000851F3
 {
 public:
 	Rva000851F3();
-	// ?Rva000851F3::~Rva000851F3 present-unmatched
 	virtual ~Rva000851F3() {}
 	virtual void rva00047A69C(int) = 0;
 	virtual void rva00086B2C(int, int, Real, Real, int, int) = 0;
@@ -71,7 +70,6 @@ class BFME_ARRAY_OWNER_ATTRIBUTES Rva0089971 : public Rva000851F3
 public:
  Rva0089971();
  virtual ~Rva0089971();
- // ?Rva0089971::rva00047A69C present-unmatched
  virtual void rva00047A69C(int) {}
  virtual void rva00086B2C(int, int, Real, Real, int, int);
 private:
