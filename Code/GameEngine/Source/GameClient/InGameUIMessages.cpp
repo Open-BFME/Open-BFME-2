@@ -54,6 +54,8 @@
 // lookup through TheWindowManager slot 60, m_idleWorkerWin at +0x978, and both
 // deletions run the virtual destructor in place before the global delete.
 
+#include "../../Include/GameClient/ControlBar.h"
+
 #include <windows.h>
 #include <math.h>
 #include "unicode_string.h"
@@ -171,15 +173,6 @@ extern GameWindow *m_replayWindow;
 
 void HideControlBar( bool hide );
 
-class ControlBar
-{
-public:
-	ControlBar();
-	virtual ~ControlBar();
-	virtual void init();
-private:
-	char m_opaque04[ 0x2B4 - 0x4 ];
-};
 extern ControlBar *TheControlBar;
 
 class BannerUI
