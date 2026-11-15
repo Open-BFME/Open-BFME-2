@@ -7,11 +7,10 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
+#include "../../Common/Thing/thing.h"
+
+class Object : public Thing
 {
-public:
-	char m_pad[0x38];
-	Coord3D m_position;
 };
 
 #include "../../../Include/GameLogic/Weapon.h"
@@ -25,7 +24,7 @@ typedef bool (Weapon::*Rva002CB35CShape)(int, void *, void *, void *, float, int
 bool Weapon::isWithinAttackRange(const Object *source, const Object *target, float extra, int flag) const
 {
 	if (source && target)
-		return RVA002CB35C_CALL(this)((int)source, (void *)&source->m_position, (void *)target, (void *)&target->m_position, extra, flag);
+		return RVA002CB35C_CALL(this)((int)source, (void *)&source->m_cachedPos, (void *)target, (void *)&target->m_cachedPos, extra, flag);
 	return false;
 }
 
@@ -35,6 +34,6 @@ bool Weapon::isWithinAttackRange(const Object *source, const Object *target, flo
 char Weapon::isWithinAttackRange(Object *source, void *pos, float extra, int flag) const
 {
 	if (source && pos)
-		return RVA002CB35C_CALL(this)((int)source, (void *)&source->m_position, 0, pos, extra, flag);
+		return RVA002CB35C_CALL(this)((int)source, (void *)&source->m_cachedPos, 0, pos, extra, flag);
 	return 0;
 }
