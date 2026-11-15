@@ -42,6 +42,8 @@ inline void Coord3D::zero()
     z = 0.0f;
 }
 
+#include "../../Common/Thing/thing.h"
+
 // Scalar construction view over the canonical three-float coordinate.
 struct LaunchCoord : Coord3D
 {
@@ -147,19 +149,6 @@ static __forceinline Bool weaponTemplateIsTurretAimed(const WeaponTemplate *wt) 
 static __forceinline Bool thingTemplateIsKindOf6D(const ThingTemplate *tmpl)
 { return (((const unsigned char *)tmpl->m_kindof)[13] & 0x20) != 0; }
 
-class Thing
-{
-  public:
-    const ThingTemplate *getTemplate() const { return m_template; }
-    void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
-                                  Coord3D *worldPos, Matrix3D *worldTransform) const;
-    Drawable *getDrawable() const;
-
-  private:
-    void *m_vtbl;
-    const ThingTemplate *m_template; // +4
-};
-
 class Object : public Thing
 {
   public:
@@ -170,7 +159,7 @@ class Object : public Thing
     const WeaponSet *getWeaponSet() const { return &m_weaponSet; }
 
   private:
-    char m_pad008[0x250 - 0x08];
+    char m_pad060[0x250 - 0x60];
     ContainModuleInterface *m_contain; // +0x250
     void *m_pad254;
     AIUpdateInterface *m_ai; // +0x258
