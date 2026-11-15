@@ -36,6 +36,11 @@ override it), as the smallest change that passes the hooks while master's link i
 **Next check.** A real link of master after landing: no `?ac26Slot1@Rva0056AE4A@@UAE_NXZ` unresolved (the monitor
 logs RECOVERED), and slot 1 of Rva0056AE4A's primary table in the image is the 0x0056A9A3 body.
 
+**Follow-up (2026-11-15): retire `_vtbl_00C6D200` / `_vtbl_00C6D23C` strong definitions and `Base1` short-table bridges.**
+- `Rva0056ADF1Ctor.cpp` now derives `Rva0056AE4A` from `Rva0056AC26` with its `~Rva0056AE4A()` and `ac26Slot1()` overrides and constructs via the base initializer, retiring the hand-written `vtbl_00C6D23C[5]` (`0x0086D23C`) and `vtbl_00C6D200[15]` (`0x0086D200`) strong definitions and their `reverse/data_rows.csv` rows; `Rva0056AF4BCtor.cpp` likewise constructs `Rva0056ACDF` via the canonical base initializer.
+- `Rva0056AC26Constructor.cpp` now declares the full 5-slot `Rva0056AC26` primary vtable (`ac26Slot1() = 0`, `vslot02(int) {}`, `vslot03() {}`, `vslot04() {}`) and `Rva0056AC82::ac26Slot1() { return true; }`, retiring the 3 short-table bridge entries at `0x0086D058` (`??_7Rva0056AC26@@6BRva0056AC26Base1@@@`), `0x0086D0A8` (`??_7Rva0056AC82@@6BRva0056AC26Base1@@@`), and `0x0086D0FC` (`??_7Rva0056ACC5@@6BRva0056AC26Base1@@@`).
+- Bounded `vtable_bridge.plan()` over the 12 `0x0086D01C..0x0086D23C` tables reports `0 refused`, `0 bridged`, and all `15` table bindings `already_correct`. `link_check.py` over the 13 family units reports `13/13 LINKS` (`3,053 -> 3,053 B`).
+
 **Related.** [LINK-663](link-663-a-rebased-scaffold-view-emits-a-short-copy-of-the-real-class-s-table.md) (the
 Rva0056AD19 scaffold's table and its `ac26Slot1` override); [LINK-660](link-660-canonical-header-adoption-drops-unit-novtable.md)
 (the Rva0056AC26A/B adoption).
