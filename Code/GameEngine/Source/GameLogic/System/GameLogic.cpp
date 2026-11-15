@@ -18,6 +18,8 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 typedef unsigned int WindowMsgData;
 enum { GBM_SELECTED = 0x4008 };
+#include "../../../Include/Common/CommandList.h"
+
 class GameWindow;
 class WindowLayout
 {
@@ -602,27 +604,6 @@ private:
 #pragma comment(linker, "/alternatename:?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=?name@Rva002431A9Named@@QBEPBDXZ")
 #pragma comment(linker, "/alternatename:?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z=__purecall")
 #include "../../../Include/Common/MessageStream.h"
-class CommandList
-{
-public:
-	virtual void commandListSlot00(void);
-	virtual void commandListSlot04(void);
-	virtual void commandListSlot08(void);
-	virtual void commandListSlot0C(void);
-	virtual void commandListSlot10(void);
-	virtual void commandListSlot14(void);
-	virtual void commandListSlot18(void);
-	virtual void commandListSlot1C(void);
-	virtual void commandListSlot20(void);
-	virtual void reset(void);
-
-private:
-	int m_messageCount;
-	int m_padCount;
-
-public:
-	GameMessage *m_firstMessage;
-};
 #include "../../../Include/GameLogic/LivingWorldLogic.h"
 void Rva004E400DEnable();
 #include "../../../Include/GameClient/AptPlayerTribute.h"
@@ -2817,8 +2798,6 @@ static __forceinline void makeIdentityAndTakeScale(Matrix3D &mtx, float &scale, 
 // mode branch, CastleBehavior radius, ten starting offsets and polar math.
 
 
-
-
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicDeselectObject.cpp
 
 //
@@ -3295,8 +3274,6 @@ void GameLogic::ProcessSaveGameCommand(Rva0023E928 *msg, bool frozen)
 // Element identity and unconstrained fields remain address-derived structural inference.
 
 
-
-
 // ---- from Code/GameEngine/Source/Common/Rva00240E18Reset.cpp
 
 void Rva00240E18::rva00240E18(bool flag){
@@ -3484,31 +3461,6 @@ void *Rva00242F1A::rva00242F1A(const void *arg)
 // address keeps one definition and the unit links.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0024619A.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportListRva002461DA.cpp
@@ -3516,12 +3468,6 @@ void *Rva00242F1A::rva00242F1A(const void *arg)
 // _List_base<Rva0024076D> dtor @0x002461DA (23B): clear 0x00243119, then free
 // the sentinel through 0x00030830. Callers: 0x0024877A's record list
 // (0x00248CA4) and the jmp at 0x00247084.
-
-
-
-
-
-
 
 
 // ---- from Code/GameEngine/Source/Common/RTS/Rva00246FD7Finish.cpp
@@ -3731,39 +3677,6 @@ Rva000D3FA0Map::~Rva000D3FA0Map()
 // stores). Bind them to the rows at those functions.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ---- from Code/GameEngine/Source/Common/Disp8WordChaseGetters.cpp
 
 // Disp8 word-chase getters: seven-byte __thiscall members with one shape:
@@ -3776,33 +3689,6 @@ Rva000D3FA0Map::~Rva000D3FA0Map()
 // `ret`, for seven bytes total.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ---- from Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp
@@ -4051,17 +3937,6 @@ void Rva0023DC8E::rva0023DC8E(const AsciiString &value)
 // ?TheWritableGlobalData@@3PAVGlobalData@@A: the global at VA 0xdfe758.
 
 
-
-
-
-
-
-
-
-
-
-
-
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva0023FABE.cpp
 
 //
@@ -4188,23 +4063,6 @@ void GameLogic::prepareLogicForObjectLoad()
 // Define it for speed, then restore this unit's flags for its own bodies.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp
 
 //
@@ -4238,12 +4096,6 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
 // Define it for speed, then restore this unit's flags for its own bodies.
 
 
-
-
-
-
-
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportListRva0024076DBase.cpp
 
 // list<Rva0024076D> construction: _List_base ctor @0x0023E83A (41B, sentinel
@@ -4258,7 +4110,6 @@ BuildableStatus &BuildableMap::operator[](const AsciiString &name)
 // list<Rva0024076D>::push_back @0x00248211 and its insert @0x00247089, which
 // creates the node through _M_create_node 0x002461F1. 0x0024877A inserts into
 // its record list through 0x00247089.
-
 
 
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicStartingCamera.cpp
@@ -5164,8 +5015,6 @@ void GameLogic::bfmePopulateGameReport(GameInfo *game, Int *localSlot)
 // the same disp32-neg addressing (lea-BEFORE precedent).
 
 
-
-
 // ---- from Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp
 
 // Disp8 sar-avg dword getters: eight-to-ten-byte __thiscall members with one shape:
@@ -5187,7 +5036,6 @@ void GameLogic::bfmePopulateGameReport(GameInfo *game, Int *localSlot)
 // receiver. Reuse its existing opaque member ABI binding without a new
 // pin: native sets ECX=this before both appends. The fallback is retail's
 // actual one-byte empty string. Original driver name remains unknown.
-
 
 
 // ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
@@ -5232,39 +5080,6 @@ Rva0023DC86StringField::~Rva0023DC86StringField()
 // this tree's address-derived convention (identity unrecoverable from 6
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ---- from Code/GameEngine/Source/Common/VslotSizedForwarders2.cpp
