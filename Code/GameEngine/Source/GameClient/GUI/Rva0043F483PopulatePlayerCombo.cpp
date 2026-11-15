@@ -16,6 +16,8 @@
 // base); the per-slot player template combo boxes are at +0x334 (as in
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
+#include "../../../Include/GameClient/TreeHintOpaque0043671B.h"
+
 #include <mbstring.h>
 #include <windows.h>
 #include <stdlib.h>
@@ -70,15 +72,6 @@ bool Rva00300E42(GameInfo *game);
 // digest it is filed under at +0xDAC, the rules at +0xDBC and the +0xDE8
 // value 0x0043E750 restores; the rowed setters 0x00401FAF, 0x00381D02 and
 // 0x00381CED take it or its parts.
-struct TreeHintOpaque0043671B
-{
-	unsigned char m_pad00[0x4C];
-	GameSlot m_slots[8]; // +0x4C
-	unsigned char m_digest[16]; // +0xDAC
-	unsigned char m_rules[0x28]; // +0xDBC
-	unsigned char m_padde4[0xDE8 - 0xDE4];
-	int m_de8; // +0xDE8
-};
 
 // Unrowed 0x004361B3 (41 bytes; prints the digest through MD5Print and
 // looks the saved game up by that name), pinned by address.
