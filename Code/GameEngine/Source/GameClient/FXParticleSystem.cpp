@@ -2433,3 +2433,11 @@ void bfmeVectorDeleteAnchor_FXParticleSystem_LineEmissionVolumeModuleTemplate(FX
 {
 	p->FXParticleSystem::LineEmissionVolumeModuleTemplate::__vecDelDtor(3);
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::BoxEmissionVolumeModuleTemplate, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_BoxEmissionVolumeModuleTemplate> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_BoxEmissionVolumeModuleTemplate(FXParticleSystem::BoxEmissionVolumeModuleTemplate *p)
+{
+	p->FXParticleSystem::BoxEmissionVolumeModuleTemplate::__vecDelDtor(3);
+}
