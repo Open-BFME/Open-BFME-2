@@ -10,18 +10,14 @@
 struct Rva004F69C3
 {
 public:
-	Rva004F69C3(const int *keyPtr, const Rva004F6093Holder &val);
+	// Select-any like the LivingWorldAutoResolveBattle.cpp copy (this retail body
+	// comes first in link order, so it is the copy the link keeps); the anchor
+	// keeps the body emitted.
+	__declspec(noinline) Rva004F69C3(const int *keyPtr, const Rva004F6093Holder &val) : m_00(*keyPtr), m_second(val) {}
 private:
-	int m_first;
+	int m_00;
 	Rva004F6093Holder m_second;
 };
-
-// Select-any like the LivingWorldAutoResolveBattle.cpp copy (this retail body
-// comes first in link order, so it is the copy the link keeps); the anchor
-// keeps the body emitted.
-inline Rva004F69C3::Rva004F69C3(const int *keyPtr, const Rva004F6093Holder &val) : m_first(*keyPtr), m_second(val)
-{
-}
 
 // Retain the inline body's ledger emission without changing its callers.
 // ?bfmeEmitRva004F69C3Entry@@YAXPAVRva004F69C3@@PBHABVRva004F6093Holder@@@Z absent-from-retail

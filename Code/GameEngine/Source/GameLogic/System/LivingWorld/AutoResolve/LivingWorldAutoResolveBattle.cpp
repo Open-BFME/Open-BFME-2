@@ -137,9 +137,9 @@ public:
 struct Rva004F69C3
 {
 public:
-	__declspec(noinline) Rva004F69C3(const int *k,const Rva004F6093Holder &v):key(*k),holder(v) {}
-	int key;
-	Rva004F6093Holder holder;
+	__declspec(noinline) Rva004F69C3(const int *keyPtr, const Rva004F6093Holder &val) : m_00(*keyPtr), m_second(val) {}
+	int m_00;
+	Rva004F6093Holder m_second;
 };
 
 inline __declspec(noinline) Rva004F69C3 Rva004F6A1A(const int *key, const Rva004F6093Holder &holder) { return Rva004F69C3(key,holder); }
