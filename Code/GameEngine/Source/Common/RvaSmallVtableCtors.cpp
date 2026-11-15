@@ -2078,7 +2078,9 @@ class Rva00468AA3
 {
 public:
 	Rva00468AA3();
-	virtual ~Rva00468AA3() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
 };
 
 Rva00468AA3::Rva00468AA3()
