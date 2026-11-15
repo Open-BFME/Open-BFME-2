@@ -92,7 +92,3 @@ struct BfmeE12 { char bytes[12]; };
 namespace _STL {
 template <> void vector<BfmeE12>::swap(vector<BfmeE12> &);
 }
-// Names this unit references that no unit defines under that spelling. Each is
-// bound to the row that owns the pinned retail address (same address, same
-// body); the pin keeps the name, the row supplies the definition.
-#pragma comment(linker, "/alternatename:?Move@ButtonShell@Impl@AptRadialMenu@@QAEXVCoord2D@@0@Z=?Move@ButtonShell@Impl@AptRadialMenu@@QAEXHHHH@Z")

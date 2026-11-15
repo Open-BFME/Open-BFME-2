@@ -341,23 +341,3 @@ Rva002AE4C5::~Rva002AE4C5()
 #pragma comment(linker, "/alternatename:?v1@Player@@UAEXXZ=?getDataLength@NetWrapperCommandMsg@@QAEIXZ")
 #pragma comment(linker, "/alternatename:?v2@Player@@UAEXXZ=?rva002B1192@Rva002B1192Interface@@QAEXPAVCreateAHeroData@@PA_N@Z")
 #pragma comment(linker, "/alternatename:?xfer@Player@@UAEXPAVXfer@@@Z=?DoXfer@Player@@QAEXPAVXfer@@@Z")
-
-// Placeholder names this unit's own object settles.  In retail each one holds
-// what the unit's matched code references or installs: the rowed function of
-// the vftable slot it occupies, or the function or datum the instruction
-// reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?GetSnapshotName@Player@@UBEPBDXZ=?Rva002B117CGet@@YAHXZ")
-#pragma comment(linker, "/alternatename:?isReady@Player@@UAE_NXZ=?rva002A9F53@Rva002A9F53Forwarder@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?isReady@Rva00380200@@UAE_NXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?loadPostProcess@Player@@UAEXXZ=??1Region2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?onRank@Player@@UAEXPAX@Z=?rva002AD7E9@Rva002AD7E9Interface@@QAEXPBURva002AD7E9Record@@@Z")
-#pragma comment(linker, "/alternatename:?onRank@Rva00380200@@UAEXPAX@Z=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
-#pragma comment(linker, "/alternatename:?resetRank@Player@@UAEXXZ=?rva002AE318@Rva002AE318@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?resetRank@Rva00380200@@UAEXXZ=?rva0038028B@Rva00380200@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?rva0038037C@Player@@UAE_NH@Z=?rva002A9FA0@Rva002A9FA0@@QAE_NH@Z")
-#pragma comment(linker, "/alternatename:?slot2@Player@@UAEXXZ=?rva002A9F5E@Rva002A9F5E@@QAEXH@Z")
-#pragma comment(linker, "/alternatename:?slot2@Rva00380200@@UAEXXZ=?rva0038027B@Rva00380200@@QAEXH@Z")
-#pragma comment(linker, "/alternatename:?v0@Player@@UAEXXZ=?rva002B118A@Rva002B118A@@QBE_NW4ScienceType@@@Z")
-#pragma comment(linker, "/alternatename:?v1@Player@@UAEXXZ=?getDataLength@NetWrapperCommandMsg@@QAEIXZ")
-#pragma comment(linker, "/alternatename:?v2@Player@@UAEXXZ=?rva002B1192@Rva002B1192Interface@@QAEXPAVCreateAHeroData@@PA_N@Z")
-#pragma comment(linker, "/alternatename:?xfer@Player@@UAEXPAVXfer@@@Z=?DoXfer@Player@@QAEXPAVXfer@@@Z")

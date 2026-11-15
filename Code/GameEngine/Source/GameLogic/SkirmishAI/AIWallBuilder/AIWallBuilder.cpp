@@ -156,8 +156,6 @@ unsigned char unknown04[0x3c];BfmeRetBWF position;unsigned char unknown4c[0x10];
 };
 class Rva004EB794 {public:bool rva004EB794(const ModuleData *);};
 #include "../../../../Include/GameLogic/Rva00506B1B.h"
-#pragma comment(linker, "/alternatename:?v1@Rva004E9B46@@UAEXXZ=?update@AIWallBuilder@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?v2@Rva004E9B46@@UAEXXZ=?rva004E9B70@Rva004E9B70@@QAEXXZ")
 
 class Rva004E9B46 : public Rva00506B1B
 {

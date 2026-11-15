@@ -430,7 +430,6 @@ struct Rva002D021C
 };
 #include <new>
 #pragma comment(linker, "/alternatename:?bfmeCalcEFC@@YGMH@Z=?bfmeAt@Rva0039AE75@@QBEMH@Z")
-#pragma comment(linker, "/alternatename:?bfmeCalcEFC@@YGMH@Z=?bfmeAt@Rva0039AE75@@QBEMH@Z")
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \
 	{ \

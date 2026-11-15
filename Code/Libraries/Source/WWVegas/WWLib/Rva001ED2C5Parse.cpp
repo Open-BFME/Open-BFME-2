@@ -69,9 +69,3 @@ void Rva001ED2C5Parse(INI *ini, void *unused, _STL::vector<BfmeRecord001ECAF9> *
 	}
 	vec->back().rva001EB329(ini);
 }
-
-// Names this unit references that no unit defines under that spelling. Each is
-// bound to the row that owns the pinned retail address (same address, same
-// body); the pin keeps the name, the row supplies the definition.
-#pragma comment(linker, "/alternatename:??0BfmeRecord001ECAF9@@QAE@ABV?$StringBase@D@@@Z=??0Rva001EC311@@QAE@ABV?$StringBase@D@@@Z")
-#pragma comment(linker, "/alternatename:??1BfmeRecord001ECAF9@@QAE@XZ=??1Rva001EC349@@QAE@XZ")

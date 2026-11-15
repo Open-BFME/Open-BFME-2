@@ -74,8 +74,3 @@ Rva004CE36::Rva004CE36()
 	m_5C = 0;
 	m_A8 = false;
 }
-
-// The slot record is 12 bytes of vector-shaped state: retail's eh vector callbacks are the zero-init body at 0x00256646
-// (ctor) and the clear body at 0x0004CDAF (dtor).
-#pragma comment(linker, "/alternatename:??0Rva0004CDAFSlot@@QAE@XZ=??_F?$vector@PBVObjectCreationList@@V?$allocator@PBVObjectCreationList@@@_STL@@@_STL@@QAEXXZ")
-#pragma comment(linker, "/alternatename:??1Rva0004CDAFSlot@@QAE@XZ=?_M_clear@?$vector@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEXXZ")

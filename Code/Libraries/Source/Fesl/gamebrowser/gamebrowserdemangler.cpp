@@ -5,8 +5,6 @@
 #pragma comment(linker, "/alternatename:?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z=?onConnectReply@Rva00800780Owner@@QAEXPAVRva007E8810Message@@@Z")
 #pragma comment(linker, "/alternatename:_bfmeVft1045A=??_7Rva00800920Owner@@6BRva00800920Primary@@@")
 #pragma comment(linker, "/alternatename:_bfmeVft1045B=??_7Rva00800920Owner@@6BRva00800920Sec@@@")
-#pragma comment(linker, "/alternatename:_bfmeVft1045A=??_7Rva00800920Owner@@6BRva00800920Primary@@@")
-#pragma comment(linker, "/alternatename:_bfmeVft1045B=??_7Rva00800920Owner@@6BRva00800920Sec@@@")
 #pragma comment(linker, "/alternatename:?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z=?bfmeFreeVNC@BfmeMgrVNC@@QAEXPAVBfmeKeyVNC@@@Z")
 
 // BfmeH1052::bfmeDo1052 @ 0x00800BD0 (164B).

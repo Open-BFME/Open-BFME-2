@@ -556,8 +556,3 @@ void Rva0049B517::rva0049B517()
 {
 	m_20.slot0();
 }
-
-// Names this unit references that no unit defines under that spelling. Each is
-// bound to the row that owns the pinned retail address (same address, same
-// body); the pin keeps the name, the row supplies the definition.
-#pragma comment(linker, "/alternatename:??1Rva003AA6BD@@UAE@XZ=??1?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?RENDEROBJECT_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_DRAW_MODULE_NAME@2@3QBDBVRenderObjectDrawModule@2@VRenderObjectDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAE@XZ")
