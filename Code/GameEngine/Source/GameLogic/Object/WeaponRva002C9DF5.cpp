@@ -42,23 +42,20 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 int __cdecl makeAssistanceRequest(Object *requestOf, void *userData);
 
-class Object
+#include "../../Common/Thing/thing.h"
+
+class Object : public Thing
 {
 public:
 	Player *getControllingPlayer() const;
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Rva000CBA20Point *getPosition2D() const { return &m_position; }
+	const ThingTemplate *getTemplate() const { return *(const ThingTemplate *volatile *)&m_template; }
+	const Rva000CBA20Point *getPosition2D() const { return reinterpret_cast<const Rva000CBA20Point *>(&m_cachedPos); }
 
 protected:
 	Module *findModule(NameKeyType key) const;
 
 private:
 	friend int __cdecl makeAssistanceRequest(Object *requestOf, void *userData);
-
-	char m_pad00[4];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad08[0x38 - 0x08];
-	Rva000CBA20Point m_position;		// +0x38
 };
 
 #include "../../../Include/Common/AssistedTargetingUpdate.h"
