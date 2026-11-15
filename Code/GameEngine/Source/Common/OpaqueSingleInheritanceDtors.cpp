@@ -165,7 +165,7 @@ private:
 class MiBase2_62AF7
 {
 public:
-	virtual void f2();
+	virtual void f2(int) { }
 };
 
 class MiBase3_62AF7
