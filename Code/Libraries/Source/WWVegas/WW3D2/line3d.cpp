@@ -41,6 +41,7 @@ public:
     Line3DClass(const Line3DClass &);
     Line3DClass &operator=(const Line3DClass &);
     Line3DClass(const Vector3&, const Vector3&, float, float, float, float, float);
+    virtual ~Line3DClass();
     virtual RenderObjClass* Clone() const;
     virtual int Class_ID() const;
     virtual void Render(RenderInfoClass&);
@@ -177,6 +178,13 @@ Line3DClass &Line3DClass::operator=(const Line3DClass &that)
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 
 Rva00166DE0::~Rva00166DE0()
+{
+}
+
+// ??1Line3DClass@@UAE@XZ: retail's 0x00166DE0 above (own tables 0x00BD3FA8 at
+// +0 and 0x00BD3FA0 at +8, then the jump to ~RenderObjClass), which the
+// deleting destructor 0x00167640 and its -8 thunk 0x001673C0 reach.
+Line3DClass::~Line3DClass()
 {
 }
 
