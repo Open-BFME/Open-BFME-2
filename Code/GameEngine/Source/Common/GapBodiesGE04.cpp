@@ -382,16 +382,16 @@ struct _Rva002EB416Node
 {
 	void *_m_link;
 };
-extern _Rva002EB416Node *g_Va00DBD4B8;
-
 #include "Common/Rva002E8548Pool.h"
+extern Rva002E8548 g_IntKeyedTreeNodePool; // VA 0x00DBD4B0, defined in Rva007B6880Thunks.cpp; its free-node
+                                           // head m_head (+8, VA 0x00DBD4B8) is this list's head
 
 void __stdcall Rva002EAD84(void *node, unsigned int)
 {
 	if (node)
 	{
-		*(_Rva002EB416Node **)node = g_Va00DBD4B8;
-		g_Va00DBD4B8 = (_Rva002EB416Node *)node;
+		*(void **)node = g_IntKeyedTreeNodePool.m_head;
+		g_IntKeyedTreeNodePool.m_head = node;
 	}
 }
 

@@ -683,7 +683,8 @@ public:
 	_Rva002EB416Node *_m_next; // +0x08
 	_Rva002EB416Node *_m_child; // +0x0C
 };
-extern _Rva002EB416Node *g_Va00DBD4B8;
+extern Rva002E8548 g_IntKeyedTreeNodePool; // VA 0x00DBD4B0, defined in Rva007B6880Thunks.cpp; its free-node
+                                           // head m_head (+8, VA 0x00DBD4B8) is this list's head
 struct Rva002EB416 {
     void rva002EB416(_Rva002EB416Node *p);
 };
@@ -1936,8 +1937,8 @@ void Rva002EB416::rva002EB416(_Rva002EB416Node *p)
     do {
         rva002EB416(p->_m_child);
         _Rva002EB416Node *next = p->_m_next;
-        p->_m_link = g_Va00DBD4B8;
-        g_Va00DBD4B8 = p;
+        p->_m_link = g_IntKeyedTreeNodePool.m_head;
+        g_IntKeyedTreeNodePool.m_head = p;
         p = next;
     } while (p);
 }

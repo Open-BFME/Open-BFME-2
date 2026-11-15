@@ -25,8 +25,9 @@ public:
 	_Rva002EB416Node *_m_next; // +0x08
 	_Rva002EB416Node *_m_child; // +0x0C
 };
-// g_Va00DBD4B8: VA 0x00dbd4b8 (.data); retail initial bytes 00 00 00 00.
-_Rva002EB416Node *g_Va00DBD4B8;
+#include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
+extern Rva002E8548 g_IntKeyedTreeNodePool; // VA 0x00DBD4B0, defined in Rva007B6880Thunks.cpp; its free-node
+                                           // head m_head (+8, VA 0x00DBD4B8) is this list's head
 struct Rva002EB416 {
     void rva002EB416(_Rva002EB416Node *p);
 };
@@ -48,8 +49,8 @@ template <> _Rva002F0B8ABase::~_Rb_tree_base() throw()
     _Rva002EB416Node *head = (_Rva002EB416Node *)this->_M_header._M_data;
     if (!head)
         return;
-    head->_m_link = g_Va00DBD4B8;
-    g_Va00DBD4B8 = head;
+    head->_m_link = g_IntKeyedTreeNodePool.m_head;
+    g_IntKeyedTreeNodePool.m_head = head;
 }
 }
 
