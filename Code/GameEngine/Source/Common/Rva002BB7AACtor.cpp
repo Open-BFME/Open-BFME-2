@@ -12,6 +12,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include "../../Include/Common/PlayerAITypeEntry.h"
+
 #include <hash_map>
 // map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); an explicit specialization declaration
@@ -51,10 +53,6 @@ struct Rva002BB686Element
 	char m_data[1];
 };
 
-struct PlayerAITypeEntry
-{
-	char m_data[16];
-};
 
 class Rva002BB7AA
 {
