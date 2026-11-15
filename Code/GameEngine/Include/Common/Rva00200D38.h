@@ -13,9 +13,9 @@ class Rva00200D38 {
 public:
     AsciiString m_name;
     Rva00200D38(const AsciiString &name);
-    virtual void slot0() = 0;
-    virtual void slot1() = 0;
-    virtual void slot2() = 0;
+    virtual WeatherSetting *rva00201153() = 0;
+    virtual void rva00201085() = 0;
+    virtual int getFieldParse() = 0;
 };
 
 typedef char canonical_Rva00200D38_b0f90b9a_sizeof[sizeof(Rva00200D38) == 8 ? 1 : -1];
