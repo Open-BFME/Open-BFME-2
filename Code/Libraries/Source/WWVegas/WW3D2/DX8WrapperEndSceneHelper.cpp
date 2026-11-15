@@ -1,15 +1,11 @@
 // cl: /DNDEBUG /MD /EHsc
+// platformsdk
+
+#include <comdef.h>
 
 // Retail 0x00958910 is the COM dispatch helper called by
 // DX8Wrapper::End_Scene after EndScene.  Its caller pushes one value and
 // removes it after the call, so the helper is cdecl with one argument.
-
-struct _GUID { unsigned char bytes[16]; };
-typedef _GUID GUID;
-struct IUnknown;
-
-extern void __stdcall _com_issue_errorex(long error, IUnknown *object,
-	const GUID &iid);
 
 // The IID is the GUID WebBrowserComCreateInstance.cpp defines at VA 0xbd4e3c.
 extern _GUID g_bfmeIidTSA;

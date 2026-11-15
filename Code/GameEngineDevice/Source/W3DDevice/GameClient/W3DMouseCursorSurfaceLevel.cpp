@@ -1,4 +1,5 @@
 // cl: /Oy- /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// platformsdk
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@XZ,
 // retail 0x00132D70, 25 bytes. Zero-level forwarder: the cursor loader keeps
@@ -53,13 +54,8 @@ public:
 
 void Log_DX8_ErrorCode(unsigned int code);
 
-struct GUID
-{
-	unsigned long Data1;
-	unsigned short Data2;
-	unsigned short Data3;
-	unsigned char Data4[8];
-};
+#include <guiddef.h>
+#include <stddef.h>
 // Native VA CE0AD8 is IID_IDirect3DTexture9, established by its complete
 // 16 bytes and Texture9 GetSurfaceLevel at slot18 (0x48). The legacy
 // ISurface8 label below is a numeric COM view, not a D3D8 identity claim.
@@ -115,8 +111,6 @@ struct TexObject
 	char m_pad04[0x10];
 	Level14 *m_field14;
 };
-
-#define NULL 0
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@H@Z
 W3DRadarResetSurface CursorTextureSlot::Get_Surface_Level(int level)

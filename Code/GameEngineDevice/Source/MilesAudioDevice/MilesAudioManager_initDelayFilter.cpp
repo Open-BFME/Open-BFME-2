@@ -1,5 +1,6 @@
 // cl: /Oy- /DNDEBUG /MD /EHsc /Oi-
 
+#include <stddef.h>
 #include <string.h>
 //
 // ?initDelayFilter@MilesAudioManager@@IAEXXZ,
@@ -15,12 +16,9 @@
 typedef void *HPROENUM;
 typedef void *HPROVIDER;
 #define HPROENUM_FIRST NULL
-#define NULL 0
 
 extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_filters(
 	HPROENUM *next, HPROVIDER *provider, char **name);
-
-int strcmp(const char *a, const char *b);
 
 #include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 

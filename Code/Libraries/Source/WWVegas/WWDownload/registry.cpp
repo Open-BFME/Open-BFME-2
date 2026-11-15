@@ -1,4 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// platformsdk
 // stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -32,9 +33,12 @@
 // through the game's C++-linkage free at 0x00030830 (pinned as
 // ?free@_STL@@YAXPAX@Z): a callee that may throw is what makes cl keep the
 // unwind-state stores retail carries between the parameter destructors.
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
-
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
 #include <stdlib.h>
+#pragma pop_macro("_CRTIMP")
 namespace _STL { void __cdecl free(void *block); }
 // Bind before STLport imports ::free into the same namespace.
 static __forceinline void releaseRegistryString(void *storage)
@@ -76,31 +80,7 @@ char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t __n)
 { return __n != 0 ? allocator<char>::allocate(__n * sizeof(char), 0) : 0; }
 }
 
-struct HKEY__;
-typedef HKEY__ *HKEY;
-typedef unsigned long DWORD;
-typedef long LONG;
-#define ERROR_SUCCESS 0L
-#define KEY_READ 0x20019L
-#define KEY_WRITE 0x20006L
-#define REG_OPTION_NON_VOLATILE 0L
-#define REG_SZ 1
-#define REG_DWORD 4
-#define HKEY_CURRENT_USER ((HKEY)0x80000001)
-#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
-
-extern "C" __declspec(dllimport) LONG __stdcall RegOpenKeyExA(
-		HKEY hKey, const char *lpSubKey, DWORD ulOptions, DWORD samDesired, HKEY *phkResult);
-extern "C" __declspec(dllimport) LONG __stdcall RegQueryValueExA(
-		HKEY hKey, const char *lpValueName, DWORD *lpReserved, DWORD *lpType,
-		unsigned char *lpData, DWORD *lpcbData);
-extern "C" __declspec(dllimport) LONG __stdcall RegCreateKeyExA(
-		HKEY hKey, const char *lpSubKey, DWORD Reserved, char *lpClass, DWORD dwOptions,
-		DWORD samDesired, void *lpSecurityAttributes, HKEY *phkResult, DWORD *lpdwDisposition);
-extern "C" __declspec(dllimport) LONG __stdcall RegSetValueExA(
-		HKEY hKey, const char *lpValueName, DWORD Reserved, DWORD dwType,
-		const unsigned char *lpData, DWORD cbData);
-extern "C" __declspec(dllimport) LONG __stdcall RegCloseKey(HKEY hKey);
+#include <windows.h>
 
 const char *GetRegistryGameRegPath();
 

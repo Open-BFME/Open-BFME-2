@@ -34,14 +34,6 @@ typedef bool Bool;
 #include <mbstring.h>
 #undef _CRTIMP
 
-#ifndef TRUE
-#define TRUE true
-#endif
-
-#ifndef FALSE
-#define FALSE false
-#endif
-
 class WindowLayoutInfo;
 class File;
 
@@ -69,7 +61,7 @@ extern LayoutScriptParse layoutScriptTable[];
 static void readUntilSemicolon(File *fp, char *buffer, int maxBufLen)
 {
 	int i = 0;
-	Bool start = TRUE;
+	Bool start = true;
 
 	while (i < maxBufLen)
 	{
@@ -79,12 +71,12 @@ static void readUntilSemicolon(File *fp, char *buffer, int maxBufLen)
 		// make all whitespace characters spaces
 		if (isspace(buffer[i]))
 		{
-			if (start == FALSE)
+			if (start == false)
 				buffer[i++] = ' ';
 		}
 		else
 		{
-			start = FALSE;
+			start = false;
 
 			if (buffer[i] == ';')
 			{
@@ -107,18 +99,18 @@ Bool parseLayoutBlock(File *inFile, char *buffer, UnsignedInt version, WindowLay
 	char token[256];
 
 	AsciiString asciitoken;
-	if (inFile->scanString(asciitoken) == FALSE)
+	if (inFile->scanString(asciitoken) == false)
 	{
-		return FALSE;
+		return false;
 	}
 
 	// better be the layout block
 	if (asciitoken.compare("STARTLAYOUTBLOCK") != 0)
 	{
-		return FALSE;
+		return false;
 	}
 
-	while (TRUE)
+	while (true)
 	{
 		// get next token
 		inFile->scanString(asciitoken);
@@ -145,15 +137,15 @@ Bool parseLayoutBlock(File *inFile, char *buffer, UnsignedInt version, WindowLay
 				_mbscpy((unsigned char *)token, (const unsigned char *)asciitoken.str());
 
 				// parse it
-				if (parse->parse(token, c, version, info) == FALSE)
-					return FALSE;
+				if (parse->parse(token, c, version, info) == false)
+					return false;
 
 				break;	// exit for
 			}
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 static const void *s_parseLayoutBlockAnchor = (const void *)parseLayoutBlock;
@@ -183,7 +175,7 @@ Bool parseInit(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
     layout->initName = strtok(buffer, " \n\r\t");
     layout->init = TheFunctionLexicon->winLayoutInitFunc(
         TheNameKeyGenerator->nameToKey(layout->initName));
-    return TRUE;
+    return true;
 }
 Bool parseUpdate(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
 {
@@ -191,7 +183,7 @@ Bool parseUpdate(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
     layout->updateName = strtok(buffer, " \n\r\t");
     layout->update = TheFunctionLexicon->winLayoutUpdateFunc(
         TheNameKeyGenerator->nameToKey(layout->updateName));
-    return TRUE;
+    return true;
 }
 Bool parseShutdown(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
 {
@@ -199,7 +191,7 @@ Bool parseShutdown(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
     layout->shutdownName = strtok(buffer, " \n\r\t");
     layout->shutdown = TheFunctionLexicon->winLayoutShutdownFunc(
         TheNameKeyGenerator->nameToKey(layout->shutdownName));
-    return TRUE;
+    return true;
 }
 Bool parseClass(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
 {
@@ -210,7 +202,7 @@ Bool parseClass(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
     layout->classCallback = reinterpret_cast<void *>(
         TheFunctionLexicon->winLayoutShutdownFunc(
             TheNameKeyGenerator->nameToKey(layout->className), FunctionLexicon::TABLE_BFME_UNIDENTIFIED_11));
-    return TRUE;
+    return true;
 }
 
 LayoutScriptParse layoutScriptTable[] = {

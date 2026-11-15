@@ -1,5 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// platformsdk
 // ?rva005A7A96@NAT@@QAEXPBV?$vector@URva005A7A96Pair@@V?$allocator@URva005A7A96Pair@@@_STL@@@_STL@@@Z
 // @0x005A7A96 518B: NAT port-negotiation request sender (one caller,
 // 0x005A90D6).  For every slot pair in the list whose two slots exist and
@@ -213,7 +214,10 @@ void NAT::notifyConnectionFromTargetDone() {
 }
 }
 
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef WIN32_LEAN_AND_MEAN
+#include <mmsystem.h>
 #include "../../Include/GameNetwork/GameInfo.h"
 // Native data9D35D4 is4000, referenced only by this host-update loop.
 // Its original symbol name is unknown; this label describes its role.

@@ -137,7 +137,7 @@ int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);
 bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
-extern "C" double __cdecl fabs(double);
+#include <math.h>
 #include "../../../Include/Common/PathfinderCostCellInfo.h"
 #include "../../../Include/GameLogic/PathfinderGroundInfo.h"
 #include "../../../Include/Common/In002E6BA1.h"
@@ -158,7 +158,6 @@ struct Rva002F35AFCell;
 // The surfaces each cell type allows, indexed by type (VA 0x00DBD33C,
 // defined in Rva002E6DC4Check.cpp).
 extern unsigned int g_00DBD33C[16];
-extern "C" __declspec(dllimport) double __cdecl floor(double);
 float Sin(float x);
 float Cos(float x);
 // REAL_TO_INT_FLOOR: the IAT floor then an x87 round-to-integer store.

@@ -4,22 +4,12 @@
 // worker calls and API identities are independently read from retail.
 // compiler: vc71-ddk-4035
 // cl:  /O1 /G7 /MT /DNDEBUG /hotpatch /Oy- /GS
+// platformsdk
 #include <stdio.h>
-#define _vsnwprintf vswprintf
+#include <windows.h>
 #define STRSAFE_NO_DEPRECATE
-#include "../../../../reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include/strsafe.h"
-#undef _vsnwprintf
-typedef unsigned long DWORD;
-typedef int BOOL;
-struct HWND__;
-typedef HWND__ *HWND;
+#include <strsafe.h>
 extern "C" {
-__declspec(dllimport) void __stdcall OutputDebugStringA(const char *);
-__declspec(dllimport) void __stdcall OutputDebugStringW(const wchar_t *);
-__declspec(dllimport) HWND __stdcall GetForegroundWindow();
-__declspec(dllimport) int __stdcall MessageBoxA(HWND,const char *,const char *,unsigned int);
-__declspec(dllimport) int __stdcall MessageBoxW(HWND,const wchar_t *,const wchar_t *,unsigned int);
-__declspec(dllimport) void __stdcall DebugBreak();
 const char *__stdcall DXGetErrorString9A(HRESULT);
 const wchar_t *__stdcall DXGetErrorString9W(HRESULT);
 }
