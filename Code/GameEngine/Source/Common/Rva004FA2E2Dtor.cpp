@@ -10,12 +10,13 @@
 // iterator; element destructors 0x004F9630 and 0x004F7D7F) and the +0
 // element vector (rowed 0x002BBB18; its wrapper's unwind copy is the 5-byte
 // thunk 0x002BBD4D). Identity not established.
+#include "../../Include/Common/Rva004F69C3.h"
+
 #include <vector>
 
 void __cdecl Rva00030830GameFree(void *);
 
 struct Rva002BBB96Element { int m_data[4]; };
-struct Rva004F69C3 { int m_data[4]; };
 namespace _STL {
 template<> vector<Rva002BBB96Element, allocator<Rva002BBB96Element> >::~vector();
 template<> vector<Rva004F69C3, allocator<Rva004F69C3> >::~vector();
