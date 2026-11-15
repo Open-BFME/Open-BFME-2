@@ -712,7 +712,10 @@ class Rva004E1780
 {
 public:
 	Rva004E1780();
-	virtual ~Rva004E1780() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
 private:
 	void *m_04;
 	void *m_08;
