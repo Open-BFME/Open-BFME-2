@@ -265,6 +265,8 @@ private:
 	bool m_28C, m_28D;
 	char m_pad28E[0x2C8 - 0x28E];
 	float m_2C8, m_2CC, m_2D0, m_2D4;
+public:
+	virtual void allocateShadows();
 };
 
 void W3DScriptedModelDraw::xfer(Xfer *xfer)

@@ -211,6 +211,8 @@ public:
 	{
 		return getW3DModelDrawModuleData()->findBestInfo(modelConditionFlags);
 	}
+public:
+	virtual void allocateShadows();
 };
 
 

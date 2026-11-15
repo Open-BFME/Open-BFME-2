@@ -31,6 +31,8 @@ public:
 	virtual ~W3DScriptedModelDraw();
 private:
 	char m_pad[0x2E8 - 0x0C - 0x04 - 0x04];
+public:
+	virtual void allocateShadows();
 };
 
 class BfmeStringTailRecord144

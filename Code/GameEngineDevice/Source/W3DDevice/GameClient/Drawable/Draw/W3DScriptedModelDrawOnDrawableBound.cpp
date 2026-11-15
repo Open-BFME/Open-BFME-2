@@ -187,6 +187,8 @@ public:
 	unsigned int m_fadeStartFrame;
 	Vector3 m_emissive;
 	bool m_28c;
+public:
+	virtual void allocateShadows();
 };
 
 void W3DScriptedModelDraw::onDrawableBoundToObject()

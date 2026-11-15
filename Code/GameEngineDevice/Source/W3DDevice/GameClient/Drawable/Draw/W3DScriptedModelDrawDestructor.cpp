@@ -452,7 +452,8 @@ class W3DScriptedModelDraw : public DrawModule, public Rva000B34D8, public Rva00
  int m_2dc;
  int m_2e0;
  AsciiString m_2e4;
- 
+public:
+	virtual void allocateShadows();
 }
 ;
 #include "../../../../../Include/W3DDevice/GameClient/Rva00083CB2.h"

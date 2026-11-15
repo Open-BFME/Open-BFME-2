@@ -82,6 +82,8 @@ public:
 	virtual ~W3DScriptedModelDraw();
 private:
 	char m_pad[0x2E8 - 0x0C - 0x04 - 0x04];
+public:
+	virtual void allocateShadows();
 };
 
 // Native member cleanups use the rowed 11-byte conditional destructor at
