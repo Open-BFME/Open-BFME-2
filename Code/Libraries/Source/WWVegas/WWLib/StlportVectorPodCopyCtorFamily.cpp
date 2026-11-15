@@ -17,6 +17,7 @@
 //   0x0040D868   0x08   0x000B6378    0x004F6AD3            Rva0040CB11Entry (rowed _Construct / uninitialized_copy type)
 //   0x0054147B   0x14   0x004FF36C    0x005411EE            Rva0054103E (rowed _Vector_base / uninitialized_copy type)
 #include <vector>
+#include "../../../../GameEngine/Include/Common/Rva00468520Obj.h"
 
 struct Rva00153A27Element
 {
@@ -26,11 +27,7 @@ struct Rva00153A27Element
 // Retail 0x004F6B7B copy-constructs this eight-byte reference handle by
 // calling the established incrementing copy at 0x004F62FE, not by copying
 // its two words. Keep the existing element view and bind that operation.
-class Rva00468520
-{
-public:
-    Rva00468520 *set(const Rva00468520 *);
-};
+#include "../../../../GameEngine/Include/Common/Rva00468520.h"
 namespace _STL {
 template <> __declspec(nothrow)
 void _Construct<Rva00153A27Element, Rva00153A27Element>(
