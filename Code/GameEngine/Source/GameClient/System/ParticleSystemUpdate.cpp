@@ -1,7 +1,11 @@
 // cl: /O1 /Ob2 /Oy- /MD /arch:SSE /G7 /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// platformsdk
 // ParticleSystem::update, retail 0x001FAB59 (1704 B, RET 4): Zero Hour ParticleSystem::update plus BFME 2's
 // profiling timer, master-system skip and bone-attached parent transform (WB debug body 0xB11B60).
 // Matrix3D, Vector3 and Vector4 come from WWMath's matrix3d.h; the Object transform is at +0x8.
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef WIN32_LEAN_AND_MEAN
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -19,9 +23,6 @@ static __forceinline void setCoord(Coord3D *c, Real x, Real y, Real z)
 	c->y = y;
 	c->z = z;
 }
-
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64 *);
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *);
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
@@ -164,7 +165,7 @@ typedef char ParticleExtent[sizeof(ParticleSystem) == 0x1DC ? 1 : -1];
 Bool ParticleSystem::update(Int localPlayerIndex)
 {
 	m_updateTime = 0.0f;
-	__int64 startTime, frequency, endTime;
+	LARGE_INTEGER startTime, frequency, endTime;
 	if (((const ParticleGlobalDataView *)TheWritableGlobalData)->m_profileFX)
 	{
 		QueryPerformanceFrequency(&frequency);
@@ -338,7 +339,7 @@ Bool ParticleSystem::update(Int localPlayerIndex)
 	if (((const ParticleGlobalDataView *)TheWritableGlobalData)->m_profileFX)
 	{
 		QueryPerformanceCounter(&endTime);
-		m_updateTime = (Real)((endTime - startTime) * 1000.0f / frequency);
+		m_updateTime = (Real)((endTime.QuadPart - startTime.QuadPart) * 1000.0f / frequency.QuadPart);
 	}
 
 	return result;

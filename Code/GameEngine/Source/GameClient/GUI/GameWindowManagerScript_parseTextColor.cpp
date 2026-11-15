@@ -31,14 +31,6 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-#ifndef TRUE
-#define TRUE true
-#endif
-
-#ifndef FALSE
-#define FALSE false
-#endif
-
 typedef UnsignedInt Color;
 
 class WinInstanceData;
@@ -70,7 +62,7 @@ Bool parseTextColor(char *token, WinInstanceData *instData, char *buffer, void *
 	Int r, g, b, a;
 	Int i, states = 3;
 	TextDrawData *textData;
-	Bool first = TRUE;
+	Bool first = true;
 	WinInstanceDataLayout *layout = (WinInstanceDataLayout *)instData;
 
 	for (i = 0; i < states; i++)
@@ -83,15 +75,15 @@ Bool parseTextColor(char *token, WinInstanceData *instData, char *buffer, void *
 			textData = &layout->m_hiliteText;
 		else
 		{
-			return FALSE;
+			return false;
 		}
 
 		// color
-		if (first == TRUE)
+		if (first == true)
 			c = strtok(buffer, seps);  // label
 		else
 			c = strtok(NULL, seps);  // label
-		first = FALSE;
+		first = false;
 		c = strtok(NULL, seps);  // value
 		scanInt(c, r);
 		c = strtok(NULL, seps);  // value
@@ -123,6 +115,6 @@ Bool parseTextColor(char *token, WinInstanceData *instData, char *buffer, void *
 		textData->borderColor = packed;
 	}
 
-	return TRUE;
+	return true;
 }
 

@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// platformsdk
 //
 // ?init@Rva00690CB0Owner@@QAE_NXZ retail 0x005B7107, 307 bytes.
 // Ported from the Open-BFME-1 donor game/GameEngine/Source/Common/
@@ -12,14 +13,14 @@
 // Windows XP firewall: add this program to the authorized applications
 // (retail RVA 0x00690CB0, 518 bytes). Same 0x14-byte owner as
 // BfmeThingTTDAppIsEnabled.cpp; the address-derived names are kept.
-typedef unsigned short *BSTR;
-
-extern "C" __declspec(dllimport) long __stdcall CoCreateInstance(
-	const void *rclsid, void *pUnkOuter, unsigned long dwClsContext,
-	const void *riid, void **ppv);
-extern "C" __declspec(dllimport) BSTR __stdcall SysAllocString(const unsigned short *value);
-extern "C" __declspec(dllimport) unsigned int __stdcall SysStringLen(BSTR value);
-extern "C" __declspec(dllimport) void __stdcall SysFreeString(BSTR value);
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#include <stdlib.h>
+#pragma pop_macro("_CRTIMP")
+#include <objbase.h>
+#include <oleauto.h>
 
 // Retail VA 0x0111B91C: CLSID_NetFwAuthorizedApplication (first CoCreateInstance argument).
 extern const unsigned char g_rva00690cb0Riid[16] = {
@@ -83,7 +84,7 @@ bool Rva00690CB0Owner::init()
 			return false;
 		}
 
-		hr = CoCreateInstance(g_rva00690cb0Riid, 0, 1, g_rva00690cb0Rclsid, (void **)&outB);
+		hr = CoCreateInstance(*(const CLSID *)g_rva00690cb0Riid, 0, 1, *(const IID *)g_rva00690cb0Rclsid, (void **)&outB);
 		if (hr < 0)
 		{
 			if (outA) outA->vtable->release(outA);
@@ -144,8 +145,6 @@ bool Rva00690CB0Owner::init()
 	m_flag = 1;
 	return true;
 }
-
-extern "C" __declspec(dllimport) int __cdecl printf(const char *format, ...);
 
 class Rva005B723ABox
 {

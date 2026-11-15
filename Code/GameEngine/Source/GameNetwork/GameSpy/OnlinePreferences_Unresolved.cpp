@@ -12,6 +12,11 @@
 
 // Retail's ladder map subscript (0x005E017A) builds the default LadderPref with
 // T(), not through an out-of-line __default_constructed call.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 #include <string.h>
 #include <utility>
 #undef _STLP_DEFAULT_CONSTRUCTED
@@ -29,13 +34,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #include <stdlib.h>
 // Retail's tree node deallocators call the game's local free, not the import.
 extern "C" void __cdecl free(void *);
-
-struct _iobuf;
-typedef struct _iobuf FILE;
-extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *name, const unsigned short *mode);
-extern "C" __declspec(dllimport) int __cdecl fprintf(FILE *fp, const char *fmt, ...);
-extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
-extern "C" __declspec(dllimport) char *__cdecl fgets(char *buf, int n, FILE *fp);
 
 typedef bool Bool;
 typedef int Int;

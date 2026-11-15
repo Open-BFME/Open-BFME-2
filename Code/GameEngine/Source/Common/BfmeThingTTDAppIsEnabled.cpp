@@ -8,10 +8,6 @@
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
 // Open-BFME7: Windows XP firewall authorized-application query.
 
-typedef unsigned short *BSTR;
-typedef short VARIANT_BOOL;
-typedef long HRESULT;
-
 #include <windows.h>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)

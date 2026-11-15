@@ -1,4 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme_stlport_int_dealloc_link
+// platformsdk
 // stlport
 //
 // The 0x34-byte helper BFME 2 added to INI at +0x838 (INI_ctor.cpp):
@@ -27,29 +28,21 @@
 // WB1646870 names this parser TextFile::ParseFile; the native ABI keeps its address-derived name.
 // Both vectors use the existing four-byte slot provider without asserting ModuleData element identity.
 
-#define _strcmpi bfmeStatic_strcmpi_unused
-#define strcmp bfmeStatic_strcmp_unused
-#define strncpy bfmeStatic_strncpy_unused
-// This TU disables CRT imports for STLport, but retail imports isspace.
+// This TU disables CRT imports for STLport, but retail imports isspace, _strcmpi, and strncpy.
 #pragma push_macro("_CRTIMP")
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <ctype.h>
+#include <string.h>
 #pragma pop_macro("_CRTIMP")
+#include <windows.h>
+#include <Shlwapi.h>
 #include <vector>
 #include "ascii_string.h"
 // Import-inline: retail inlines max<unsigned> into this unit's vector growth;
 // its out-of-line /G7 copy was not retail's 0x00013740 body.
 namespace _STL { template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned int>(const unsigned int &__a, const unsigned int &__b) { return __a < __b ? __b : __a; } }
-#undef _strcmpi
-#undef strcmp
-#undef strncpy
 extern int TextFileCharacterClasses[256];
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char*,const char*);
-extern "C" __declspec(dllimport) char *__cdecl strncpy(char*,const char*,unsigned);
-extern "C" __declspec(dllimport) int __stdcall PathRemoveFileSpecA(char*);
-extern "C" __declspec(dllimport) int __stdcall PathAppendA(char*,const char*);
-extern "C" __declspec(dllimport) int __stdcall PathCanonicalizeA(char*,const char*);
 void *operator new[](unsigned,unsigned);
 class ModuleData;
 class File
@@ -88,7 +81,6 @@ __forceinline void appendCString(CStringVector &stringVector, const char *const 
 // are zero in retail; explicit data rows own them. Preserve target's256-byte
 // clear, followed by isspace classification and its five explicit entries.
 // This recovers the existing address-derived initializer, not a donor name.
-extern "C" void *__cdecl memset(void *,int,unsigned);
 int TextFileCharacterClasses[256];
 bool TextFileCharacterClassesInitialized;
 void Rva006016C9Init() {

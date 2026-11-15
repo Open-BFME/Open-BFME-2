@@ -40,8 +40,6 @@ typedef float Real;
 
 #include <math.h>
 #include <string.h>
-#define TRUE true
-#define FALSE false
 
 #define COORD3D_VIEW_INLINE
 #include "Code/Libraries/Include/Lib/Coord3DCtorView.h"
@@ -381,7 +379,7 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 			Object *keep = TheGameLogic->findObjectByID(member2->m_keepID);
 			if (keep)
 			{
-				Bool noOrient = FALSE;
+				Bool noOrient = false;
 				Object *castle = TheGameLogic->findObjectByID(member2->m_castleID);
 				if (castle)
 				{
@@ -407,7 +405,7 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 	if (!isRebuild && thingTemplateIsKindOf(thingGetTemplate(obj), KINDOF_69) && !thingTemplateIsKindOf(thingGetTemplate(obj), KINDOF_68))
 	{
 		obj->m_constructionPercent = 0.0f;
-		obj->setStatus(OBJECT_STATUS_UNDER_CONSTRUCTION, TRUE);
+		obj->setStatus(OBJECT_STATUS_UNDER_CONSTRUCTION, true);
 		Rva001E4912 clearBits;
 		obj->rva0028CFB2((const int *)&Rva0028F59A(0, 67), (const int *)clearBits.rva001E4912(0, 68, 69));
 		BodyModuleInterface *body = obj->getBodyModule();
@@ -427,10 +425,10 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 		}
 	}
 
-	obj->getDrawable()->rva00274176(TRUE);
-	obj->teleportTo(pos, FALSE);
+	obj->getDrawable()->rva00274176(true);
+	obj->teleportTo(pos, false);
 	obj->setOrientation(orientation);
-	obj->teleportTo(pos, FALSE);
+	obj->teleportTo(pos, false);
 	Drawable *draw = obj->getDrawable();
 	if (draw)
 		((Rva000B3FD0 *)draw)->rva000B3FD0();

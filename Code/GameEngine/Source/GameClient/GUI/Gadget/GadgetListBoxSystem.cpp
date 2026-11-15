@@ -107,9 +107,6 @@ enum { KEY_STATE_DOWN = 0x02 };
 #define BitSet(x, i) ((x) |= (i))
 #define BitClear(x, i) ((x) &= ~(i))
 
-#define TRUE true
-#define FALSE false
-
 #include "../../../../Include/GameClient/GameFontClass.h"
 
 class Image;
@@ -297,7 +294,7 @@ __declspec(noinline) static void Rva00324B8FScrollTo(GameWindow *window, Int ind
 	if (!list->m_fixedTotalHeight &&
 			rows[list->endPos - 1].listHeight < list->displayPos + list->displayHeight)
 		list->totalHeight = list->displayPos + list->displayHeight;
-	Rva003249D2(window, TRUE);
+	Rva003249D2(window, true);
 }
 
 void Rva00324AE5Update(GameWindow *window, Int adjustment, Bool updateSlider);
@@ -543,21 +540,21 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 					scroll = listBoxFontOf(window)->height;
 
 				if ((GameWindow *)mData1 == list->upButton)
-					Rva00324B39Add(window, -scroll, TRUE);
+					Rva00324B39Add(window, -scroll, true);
 				else if ((GameWindow *)mData1 == list->downButton)
-					Rva00324B39Add(window, scroll, TRUE);
+					Rva00324B39Add(window, scroll, true);
 			}
 			else
 			{
 				if ((GameWindow *)mData1 == list->upButton)
 				{
 					if (list->displayPos > 0)
-						Rva00324AE5Update(window, -1, TRUE);
+						Rva00324AE5Update(window, -1, true);
 				}
 				else if ((GameWindow *)mData1 == list->downButton)
 				{
 					if (list->displayPos + list->displayHeight < list->totalHeight)
-						Rva00324AE5Update(window, 1, TRUE);
+						Rva00324AE5Update(window, 1, true);
 				}
 			}
 			break;
@@ -598,7 +595,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			list->endPos = 0;
 			list->totalHeight = 0;
 
-			Rva00324AE5Update(window, 0, TRUE);
+			Rva00324AE5Update(window, 0, true);
 			break;
 		}
 
@@ -659,7 +656,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 		// ------------------------------------------------------------------------
 		case GLM_ADD_ENTRY:
 		{
-			Bool success = TRUE;
+			Bool success = true;
 			Int addedIndex = -1;
 			AddMessageStruct *addInfo = (AddMessageStruct *)mData1;
 			if (addInfo->row >= list->insertPos)
@@ -674,7 +671,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 					if (list->autoPurge)
 						TheWindowManager->winSendSystemMsg(window, GLM_SCROLL_BUFFER, 1, 0);
 					else
-						success = FALSE;
+						success = false;
 				}
 			}
 			else if (addInfo->row != -1 && !addInfo->overwrite && list->insertPos == list->listLength)
@@ -682,7 +679,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 				if (list->autoPurge)
 					TheWindowManager->winSendSystemMsg(window, GLM_SCROLL_BUFFER, 1, 0);
 				else
-					success = FALSE;
+					success = false;
 			}
 
 			if (success)
@@ -696,20 +693,20 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 					addedIndex = addImageEntry((const Image *)addInfo->data, mData2, addInfo->row, addInfo->column, window, addInfo->width, addInfo->height);
 				}
 				else
-					success = FALSE;
+					success = false;
 			}
 
 			if (success)
 			{
 				if (list->autoScroll)
 				{
-					while (TRUE)
+					while (true)
 					{
 						if (row == -1)
 						{
 							if (list->listData[(list->insertPos - 1)].listHeight >=
 									(list->displayPos + list->displayHeight))
-								Rva00324AE5Update(window, 1, TRUE);
+								Rva00324AE5Update(window, 1, true);
 							else
 								break;
 						}
@@ -717,7 +714,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 						{
 							if (list->listData[(row)].listHeight >=
 									(list->displayPos + list->displayHeight))
-								Rva00324AE5Update(window, 1, TRUE);
+								Rva00324AE5Update(window, 1, true);
 							else
 								break;
 						}
@@ -738,7 +735,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 				{
 					if (row == list->selectPos)
 						list->selectPos = -1;
-					Rva003249D2(window, TRUE);
+					Rva003249D2(window, true);
 				}
 			}
 			return (WindowMsgHandledType)addedIndex;
@@ -760,20 +757,20 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			if (list->multiSelect)
 			{
 				Int i = 0;
-				Bool removed = FALSE;
+				Bool removed = false;
 
 				while (list->selections[i] >= 0)
 				{
 					if (list->selections[i] == (Int)mData1)
 					{
 						removeSelection(list, i);
-						removed = TRUE;
+						removed = true;
 						break;
 					}
 					i++;
 				}
 
-				if (removed == FALSE)
+				if (removed == false)
 				{
 					list->selections[i] = (Int)mData1;
 					list->selections[i + 1] = -1;
@@ -892,7 +889,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			}
 
 			if (list->displayPos > 0)
-				Rva00324AE5Update(window, (-1 * mData1), TRUE);
+				Rva00324AE5Update(window, (-1 * mData1), true);
 
 			computeTotalHeight(window);
 			break;
@@ -1014,11 +1011,11 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			computeTotalHeight(window);
 
 			if (list->multiSelect)
-				Rva00324AE5Update(window, 0, TRUE);
+				Rva00324AE5Update(window, 0, true);
 			else if (list->selectPos >= 0)
 				Rva00324B8FScrollTo(window, list->selectPos, 0);
 			else
-				Rva003249D2(window, TRUE);
+				Rva003249D2(window, true);
 			break;
 		}
 
@@ -1033,7 +1030,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			if (list->displayPos + (list ? list->displayHeight : list->displayHeight) >= list->totalHeight)
 				list->displayPos = list->totalHeight - list->displayHeight;
 
-			Rva00324AE5Update(window, 0, TRUE);
+			Rva00324AE5Update(window, 0, true);
 			break;
 		}
 
@@ -1075,7 +1072,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 		// ------------------------------------------------------------------------
 		case GWM_INPUT_FOCUS:
 		{
-			if (mData1 == FALSE)
+			if (mData1 == false)
 				BitClear(instData->m_state, WIN_STATE_HILITED);
 			else
 				BitSet(instData->m_state, WIN_STATE_HILITED);
@@ -1083,7 +1080,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			TheWindowManager->winSendSystemMsg(window->winGetOwner(),
 				GGM_FOCUS_CHANGE, mData1, window->winGetWindowId());
 
-			*(Bool *)mData2 = TRUE;
+			*(Bool *)mData2 = true;
 			break;
 		}
 
@@ -1092,7 +1089,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 		{
 			SliderData *sData = (SliderData *)list->slider->winGetUserData();
 			list->displayPos = sData->maxVal - mData2;
-			Rva00324B39Add(window, 0, FALSE);
+			Rva00324B39Add(window, 0, false);
 			break;
 		}
 

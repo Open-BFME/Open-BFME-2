@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
+// platformsdk
 //
 // BFME2's main menu screen Apt callbacks, 0x00514A9B onward. The screen's
 // registration binds each by the name it carries here ("AptMainMenu::
@@ -191,25 +192,9 @@ struct AptMainMenuGameLogic
 };
 
 // The window the game runs in and the Win32 calls that size it.
-struct HWND__
-{
-	int unused;
-};
-
-typedef HWND__ *HWND;
-
-struct tagRECT
-{
-	long left;
-	long top;
-	long right;
-	long bottom;
-};
-
-extern "C" __declspec(dllimport) int __stdcall GetClientRect(HWND window, tagRECT *rect);
-extern "C" __declspec(dllimport) long __stdcall GetWindowLongA(HWND window, int index);
-extern "C" __declspec(dllimport) int __stdcall AdjustWindowRect(tagRECT *rect, unsigned long style, int menu);
-extern "C" __declspec(dllimport) int __stdcall SetWindowPos(HWND window, HWND after, int x, int y, int width, int height, unsigned int flags);
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef WIN32_LEAN_AND_MEAN
 
 extern void *ApplicationHWnd;
 

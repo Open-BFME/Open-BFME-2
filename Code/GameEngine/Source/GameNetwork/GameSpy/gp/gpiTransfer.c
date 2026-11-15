@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /DWIN32 /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/gp
+// cl: /DNDEBUG /DWIN32 /MD -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/gp
+// platformsdk
 /* GameSpy SDK, ~2005 snapshot (BFME 2) -- pristine upstream C source.
    Carrier: the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
@@ -38,11 +39,6 @@ Please see the GameSpy Presence SDK documentation for more information
 #endif
 #include <string.h>
 #include "gpi.h"
-
-#ifdef WIN32
-__declspec(dllimport) DWORD __stdcall GetTempPathA(DWORD, LPSTR);
-#define GetTempPath GetTempPathA
-#endif
 
 #define GPI_TRANSFER_VERSION      1
 #define GPI_PEER_TIMEOUT_TIME     (1 * 60000)
