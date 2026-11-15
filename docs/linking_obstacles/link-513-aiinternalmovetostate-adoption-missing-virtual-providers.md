@@ -20,3 +20,5 @@ aggressor update folds match their existing bodies and relocation targets.
 The installer and update provider verify 54 code rows and six EH graphs,
 with 4,610 scoped linked bytes on index `9ca25659d0`. Completing the tables
 still requires the shared State layout and the remaining virtual providers.
+
+2026-11-15 (slotnames, approval revision 7ff1670043d): independent votes approve slot2 GetSnapshotName. Supported protected getter move with prepared getter/caller/constructor verifies 84/84 code rows on Boat, then the table check rejects the constructor (15 slots agree, one differs); tool restores all files. No provider bound; slot7 and constructor reconciliation remain prerequisites. Full evidence and limits: [own-provider trials](../../reverse/attempt_support/slotnames-own-provider-trials-20261115.md). No adoption or real-link clearance.
