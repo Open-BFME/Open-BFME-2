@@ -1359,6 +1359,10 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False, native_outp
     inputs, setup = link_setup(rows, present)
     image = OUT / "exit.exe"
     command, rsp = link_command(inputs, image, OUT, setup["harness_import_symbols"])
+    local_inputs = None
+    if native_output is not None:
+        from build_variant import link_input_manifest
+        local_inputs = link_input_manifest(rsp)
     state, tools = census.census_state(present), tool_digests()
     census.fresh_outputs(image, image.with_suffix(".map"), OUT / "image_receipt.json",
                          OUT / "result.json", OUT / "errors.tsv")
@@ -1417,6 +1421,13 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False, native_outp
         raise SystemExit(f"exit_link: link.exe exited {code} with no linker diagnostic; nothing recorded")
     if census.census_state(present) != state or tool_digests() != tools:
         raise SystemExit("exit_link: the tree or this mode's tools changed during the link; nothing recorded")
+    if local_inputs is not None:
+        if link_input_manifest(rsp) != local_inputs:
+            raise SystemExit("exit_link: local link inputs changed during the link; nothing recorded")
+        (OUT / "variant_inputs.json").write_text(json.dumps({
+            "variant": "modern-base", "command": command, "inputs": local_inputs,
+            "link_exit": code,
+        }, indent=2) + "\n", encoding="utf-8")
     sources_of = object_sources(rows)
     errors = parse_errors(log, sources_of, export_sources(rows))
     classes, detail, duplicate_classes, duplicates = census.classify(log, rows)
