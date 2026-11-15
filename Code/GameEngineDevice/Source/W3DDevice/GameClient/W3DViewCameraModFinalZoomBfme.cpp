@@ -17,6 +17,10 @@
 // The global bindings and member offsets are read independently from retail.
 
 #include <math.h>
+#if defined(BFME2_MODERN)
+#include <stdlib.h>
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
+#endif
 
 typedef float Real;
 typedef int Int;
@@ -594,6 +598,9 @@ Bool W3DView::screenToTerrain(const ICoord2D *screen, Coord3D *world, Bool noCac
 // ground-height refresh. Vtable slot 0x70 is called with false.
 void W3DView::lookAt(const Coord3D *o)
 {
+#if defined(BFME2_MODERN)
+ modernResetCamera(this);
+#endif
 	Coord3D pos;
 	pos.x = o->x;
 	pos.y = o->y;
@@ -668,8 +675,17 @@ void W3DView::setHeightAboveGround(Real z)
 	{
 		if (m_cameraLimits.getMinimum() > m_heightAboveGround)
 			m_heightAboveGround = m_cameraLimits.getMinimum();
+#if defined(BFME2_MODERN)
+		// Extend manual zoom without changing the map's default camera or scripts.
+		const char *enabled = getenv("BFME2_MODERN_ZOOM");
+		const Real multiplier = enabled && enabled[0] == '0' && enabled[1] == '\0' ? 1.0f : 2.0f;
+		const Real maximum = m_cameraLimits.getMaximum() * multiplier;
+		if (m_heightAboveGround > maximum)
+			m_heightAboveGround = maximum;
+#else
 		if (m_heightAboveGround > m_cameraLimits.getMaximum())
 			m_heightAboveGround = m_cameraLimits.getMaximum();
+#endif
 	}
 	m_doingRotateCamera = false;
 	m_doingPitchCamera = false;

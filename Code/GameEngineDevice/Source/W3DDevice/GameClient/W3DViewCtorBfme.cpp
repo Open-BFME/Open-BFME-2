@@ -29,6 +29,9 @@
 #define BFME_ASCII_DTOR_DECL
 #include "../../../../GameEngine/Include/GameClient/Rva0008990CArrayOwner.h"
 #include <vector>
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
+#endif
 
 typedef bool Bool;
 typedef int Int;
@@ -205,6 +208,9 @@ W3DView::W3DView()
 	  m_2444(1.0f), m_2448(false), m_2449(false),
 	  m_24BC(0), m_24C0(false), m_24C4(0)
 {
+#if defined(BFME2_MODERN)
+    modernResetCamera(this);
+#endif
 	m_cameraLimits.reload();
 	m_cameraLimits.getOffset(&m_cameraOffset, &m_angle);
 	m_cameraOffset.x = m_unknowna0 * m_cameraOffset.x;

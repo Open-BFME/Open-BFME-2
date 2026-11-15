@@ -188,11 +188,55 @@ protected:
 	unsigned long m_dwBWPixelShader;	// +0x04
 };
 
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+void modernAdvanceBW()
+{
+		if (ScreenBWFilter::m_fadeDirection > 0)
+		{	//turning effect on
+			ScreenBWFilter::m_curFadeFrame++;
+			Int fade = ScreenBWFilter::m_curFadeFrame;
+
+			if (fade < ScreenBWFilter::m_fadeFrames)
+			{
+				ScreenBWFilter::m_curFadeValue = (Real)fade / (Real)ScreenBWFilter::m_fadeFrames;
+			}
+			else
+			{
+				ScreenBWFilter::m_curFadeFrame = 0;
+				ScreenBWFilter::m_curFadeValue = 1.0f;
+				ScreenBWFilter::m_fadeDirection = 0;
+			}
+		}
+		else if (ScreenBWFilter::m_fadeDirection < 0)
+		{	//turning effect off
+			ScreenBWFilter::m_curFadeFrame++;
+			Int fade = ScreenBWFilter::m_curFadeFrame;
+			if (fade < ScreenBWFilter::m_fadeFrames)
+			{
+				ScreenBWFilter::m_curFadeValue = 1.0f - (Real)fade / (Real)ScreenBWFilter::m_fadeFrames;
+			}
+			else
+			{
+				ScreenBWFilter::m_curFadeValue = 0.0f;
+				TheTacticalView->setViewFilterMode(FM_NULL_MODE);
+				TheTacticalView->setViewFilter(FT_NULL_FILTER);
+				ScreenBWFilter::m_curFadeFrame = 0;
+				ScreenBWFilter::m_fadeDirection = 0;
+			}
+		}
+
+}
+#endif
+
 Int ScreenBWFilter::set(FilterModes mode)
 {
 	if (mode > FM_NULL_MODE)
 	{	//rendering a quad with redirected rendering surface tinted by pixel shader
 
+#if defined(BFME2_MODERN)
+        if(g_modernRenderPhase != MODERN_RENDER_PRESENT)modernAdvanceBW();
+#else
 		if (m_fadeDirection > 0)
 		{	//turning effect on
 			m_curFadeFrame++;
@@ -227,6 +271,7 @@ Int ScreenBWFilter::set(FilterModes mode)
 			}
 		}
 
+#endif
 		VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 		DX8Wrapper::Set_Material(vmat);
 		REF_PTR_RELEASE(vmat);	//no need to keep a reference since it's a preset.

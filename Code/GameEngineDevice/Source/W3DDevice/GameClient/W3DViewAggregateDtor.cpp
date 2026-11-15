@@ -12,6 +12,9 @@
 // representation and uses the rowed BFME2 game-allocator provider.
 #include "ascii_string.h"
 #include <string>
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
+#endif
 template<> _STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> >::~basic_string();
 void Rva00030830GameFree(void*);
 struct BfmeViewRequestStorage {void *start,*finish,*end;~BfmeViewRequestStorage(){if(start)Rva00030830GameFree(start);}};
@@ -33,6 +36,9 @@ private:
  char gap2444[0x2458-0x2444];std::string text;
 };
 Rva008BD5E::~Rva008BD5E(){
+#if defined(BFME2_MODERN)
+ modernResetCamera(this);
+#endif
  CameraRef *cameraRef=camera2d; if(cameraRef){cameraRef->Release_Ref();camera2d=0;}
  if(camera3d){camera3d->Release_Ref();camera3d=0;}
  ::delete *reinterpret_cast<ViewOwned235C**>(reinterpret_cast<char*>(this)+0x235c);

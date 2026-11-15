@@ -132,6 +132,9 @@ static inline BfmeTacticalView *theTacticalView() { return (BfmeTacticalView *)T
 extern GameLogic *TheGameLogic;
 #define ZoomToValid (ScreenMotionBlurFilter::m_zoomToValid)
 #define ZoomToPosition ((void *)&ScreenMotionBlurFilter::m_zoomToPos)
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#endif
 
 
 
@@ -159,6 +162,19 @@ protected:
 	static Coord3D m_zoomToPos;
 	static Bool m_zoomToValid;
 };
+
+#if defined(BFME2_MODERN)
+class W3DFilterInterface;
+extern W3DFilterInterface *W3DFilters[10];
+bool modernAdvanceMotionBlurEndPan()
+{
+ // Rva000FD4B3 registers the motion-blur instance in slot 2.
+ ScreenMotionBlurFilter *filter=reinterpret_cast<ScreenMotionBlurFilter *>(W3DFilters[2]);
+ if(!filter)return true;
+ --filter->m_maxCount;
+ return filter->m_maxCount >= 2;
+}
+#endif
 
 Bool ScreenMotionBlurFilter::postRender(FilterModes mode, Coord2D &scrollDelta,
 	Bool &doExtraRender, Coord2D *displaySize)
@@ -248,6 +264,9 @@ Bool ScreenMotionBlurFilter::postRender(FilterModes mode, Coord2D &scrollDelta,
 		center.x += 0.5f * (px / len);
 		center.y -= 0.5f * (m_priorDelta.y / len);
 		m_decrement = false;
+#if defined(BFME2_MODERN)
+        if(g_modernRenderPhase != MODERN_RENDER_PRESENT)
+#endif
 		m_maxCount--;
 		if (m_maxCount < 2)
 			continueEffect = false;
