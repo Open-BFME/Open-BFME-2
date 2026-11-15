@@ -1612,7 +1612,13 @@ class Rva000F6320
 {
 public:
 	Rva000F6320();
-	virtual ~Rva000F6320() {}
+	virtual void slot00() = 0;
+	virtual int slot04() { return 1; }
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual bool slot10(int) { return false; }
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
 };
 
 Rva000F6320::Rva000F6320()
