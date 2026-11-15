@@ -21,14 +21,18 @@ public:
 	virtual ~BfmeCacheBZALeadingBase() {}
 };
 
-class BfmeCacheBZAMiddleBase
+// Q3MakeBaseB: definition as Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp holds it
+class Q3MakeBaseB
 {
 public:
-	BfmeCacheBZAMiddleBase(BfmeThingBZA *owner) : m_owner(owner) {}
-	virtual ~BfmeCacheBZAMiddleBase() {}
-
-	BfmeThingBZA *m_owner;
+	// No family member overrides this slot: every +4 vftable (retail 0x008E0FB4)
+	// holds 0x007244B0, `mov eax,[ecx+4]; ret`, the payload getter that ICF
+	// folded with CullSystemClass::Get_First_Collected_Object_Internal.
+	virtual void *secondary() { return m_payload; }
+	void *m_payload;
+	Q3MakeBaseB( void *payload ) { m_payload = payload; }
 };
+typedef Q3MakeBaseB BfmeCacheBZAMiddleBase;
 
 class BfmeCacheBZATrailingBase
 {

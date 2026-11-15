@@ -133,6 +133,8 @@ Derived from the class whose table they share (unattended worker; layout read fr
 - 2026-11-14 `Rva005D06CBB2` (VA 0x00C62A14, 3 slots) from `LivingWorldAutoResolveEventObserver`: `Rva005D0C87Ctor.cpp`, `Rva005D06CBDtor.cpp`, `Rva005D0B5ECtor.cpp`, `StrategicInGameUIBattleResolver.cpp`.
 - 2026-11-15 `Base0_005770F7` (VA 0x00BDBA74, 2 slots) from `Base0_00576C4B`: `Rva005770F7Dtor.cpp`.
 - 2026-11-15 `Rva005EDFF8` (VA 0x00C62A14, 3 slots) from `LivingWorldAutoResolveEventObserver`: `Rva005EB2E7Dtor.cpp`.
+- 2026-11-15 `BfmeCacheBZAMiddleBase` (VA 0x00CE0FB4, 1 slots) from `Q3MakeBaseB`: `BfmeMakeBZA.cpp`.
+
 
 
 
