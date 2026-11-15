@@ -17,9 +17,67 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #define SPAWN_DELAY_MIN_FRAMES (16) // about as rapidly as you'd expect people to successively exit through the same door
 #define BIG_DISTANCE 99999999.9f
+// ?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ @0x45f688
+// (69B): cached pool-name key for SpawnBehavior. The class
+// identity comes from the pool-name string the body pushes
+// ("SpawnBehavior"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+#include "../../../../Include/Common/NameKeyGenerator.h"
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// Ported from Open-BFME-1 GameEngine/Source/Common/SmallGaps/notifyLookedUp.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
+// places uniquely on unclaimed game.dat .text by masked whole-.text search:
+//   ?notifyLookedUp@@YAXPAURva0020AA00Owner@@HH@Z 0x0045F48D (53B)
+// Callee addresses are read off retail call sites (reverse/symbols.csv).
+// ?notifyLookedUp@@YAXPAURva0020AA00Owner@@HH@Z
+// The callees are the rowed ThingFactory::findTemplate (0x002D06CA) and
+// ThingTemplate::GetAssetList (0x0033CF34); each element is a template name.
+class AsciiString;
+#include "../../../../Include/Common/ThingTemplate.h"
+#include "../../../../Include/Common/ThingFactory.h"
+#define _STLP_NO_EXCEPTIONS 1
+// LINK: single-node insert binds the verified native STLport owner at RVA
+// 0x005925E2; keep the out-of-line call without emitting a competing copy.
+namespace _STL {
+template <> list<int>::iterator list<int>::insert(iterator position, const int &x);
+}
+#include <new>
+namespace _STL {
+static inline void _Construct(int *__p, const int &__val)
+{ new (__p) int(__val); }
+}
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
+typedef unsigned char UnsignedByte;
+typedef unsigned int UnsignedInt;
+typedef bool Bool;
+struct XferVersion
+{
+	UnsignedByte m_version;
+	UnsignedByte m_currentVersion;
+};
+#include "../../../Common/System/XferVectorTypes.h"
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferException.h"
 
 // g_00E035C8 (VA 0x00E035C8): the frame wait SpawnBehavior::update reloads.
 // Retail builds it with this unit's .text$yc initializer 0x007B0C0F, after the
@@ -52,6 +110,20 @@ int g_00E035C8 = BfmeLogicFramesPerSecond / 2;
 // is a bool (Equal's own bool return uses the same neg/sbb/inc widening).
 bool __cdecl Rva0037DC8AEqual(const void *a, const void *b);
 
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class SpawnBehavior
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+extern ThingFactory* TheThingFactory;
+
+struct Rva0020AA00Owner { char m_pad[0x20]; int* m_begin; int* m_end; };
+
+typedef _STL::list<int> ListInt;
+
 // tu-skeleton: 0x0045F382 17B ?loadPostProcess@SpawnBehavior@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorLoadPostProcess.cpp (not merged yet)
 
 // tu-skeleton: 0x0045F393 8B ?upgradeImplementation@Rva004523E9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
@@ -68,7 +140,21 @@ bool __cdecl Rva0037DC8AEqual(const void *a, const void *b);
 
 // tu-skeleton: 0x0045F483 10B ?get@Rva0045F483ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x0045F48D 53B ?notifyLookedUp@@YAXPAURva0020AA00Owner@@HH@Z -- matched in Code/GameEngine/Source/Common/SmallGaps/notifyLookedUp.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SmallGaps/notifyLookedUp.cpp
+
+// TheThingFactory is EA's ThingFactory singleton, defined once in
+// Common/Thing/ThingFactory.cpp.
+
+void notifyLookedUp(Rva0020AA00Owner* owner, int a, int b)
+{
+	for (int* it = owner->m_begin; it != owner->m_end; ++it) {
+		const ThingTemplate* thingTemplate = TheThingFactory->findTemplate(*(const AsciiString *)it);
+		if (thingTemplate)
+			const_cast<ThingTemplate *>(thingTemplate)->GetAssetList(a, b);
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp
 
 // ---- from Code/GameEngine/Source/Common/SmallGaps/rva0045F4C2.cpp
 
@@ -76,82 +162,6 @@ bool __cdecl Rva0045F4C2NotEqual(const void *a, const void *b)
 {
 	return !Rva0037DC8AEqual(a, b);
 }
-
-// tu-skeleton: 0x0045F4D7 170B ?rva0045F4D7@SpawnBehavior@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F581 263B ??0SpawnBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F688 69B ?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F6CD 6B ?name@SpawnBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F6D3 138B ??1SpawnBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F75D 88B ?onDelete@SpawnBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onDelete.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F7B5 199B ?onDie@SpawnBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onDie.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F87C 100B ?getClosestSlave@SpawnBehavior@@UAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getClosestSlave.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F8E0 93B ?getCanAnySlavesAttackSpecificTarget@SpawnBehavior@@UAE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getCanAnySlavesAttackSpecificTarget.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F93D 97B ?getCanAnySlavesUseWeaponAgainstTarget@SpawnBehavior@@UAE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getCanAnySlavesUseWeaponAgainstTarget.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F99E 58B ?canAnySlavesAttack@SpawnBehavior@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_canAnySlavesAttack.cpp (not merged yet)
-
-// tu-skeleton: 0x0045F9D8 127B ?reclaimOrphanSpawn@SpawnBehavior@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_reclaimOrphanSpawn.cpp (not merged yet)
-
-// tu-skeleton: 0x0045FA57 676B ?createSpawn@SpawnBehavior@@AAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_createSpawn.cpp (not merged yet)
-
-// tu-skeleton: 0x0045FCFB 164B ?onSpawnDeath@SpawnBehavior@@UAEXW4ObjectID@@PAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onSpawnDeath.cpp (not merged yet)
-
-// tu-skeleton: 0x0045FD9F 84B ?rva0045FD9F@SpawnBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045FD9F.cpp (not merged yet)
-
-// tu-skeleton: 0x0045FDF3 87B ?onDamage@SpawnBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onDamage.cpp (not merged yet)
-
-// tu-skeleton: 0x0045FE4A 80B ?rva0045FE4A@SpawnBehavior@@UAEHP6AHPAVObject@@PAX@Z1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045FE4A.cpp (not merged yet)
-
-// tu-skeleton: 0x0045FE9A 731B ?computeAggregateStates@SpawnBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_computeAggregateStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00460175 87B ?rva00460175@SpawnBehavior@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva00460175.cpp (not merged yet)
-
-// tu-skeleton: 0x004601CC 74B ?rva004601CC@SpawnBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva004601CC.cpp (not merged yet)
-
-// tu-skeleton: 0x00460216 194B ?Rva00460216XferList@@YAPAVXfer@@PAV1@PAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00460216XferList.cpp (not merged yet)
-
-// tu-skeleton: 0x004602D8 28B ??_GSpawnBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004602F4 481B ?update@SpawnBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_update.cpp (not merged yet)
-
-// tu-skeleton: 0x004604D5 177B ?onBodyDamageStateChange@SpawnBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onBodyDamageStateChange.cpp (not merged yet)
-
-// tu-skeleton: 0x00460586 392B ?xfer@SpawnBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0046070E 73B ?orderSlavesToAttackTarget@SpawnBehavior@@UAEXPAVObject@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_orderSlavesToAttackTarget.cpp (not merged yet)
-
-// tu-skeleton: 0x00460757 73B ?orderSlavesToAttackPosition@SpawnBehavior@@UAEXPBUCoord3D@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_orderSlavesToAttackPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x004607A0 65B ?orderSlavesToGoIdle@SpawnBehavior@@UAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_orderSlavesToGoIdle.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A747 8B Unwind@00b8a747 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A74F 10B __ehhandler$?rva0045F4D7@SpawnBehavior@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A759 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A766 10B __ehhandler$?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A770 8B $L3656 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A778 11B $L3884 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A783 11B $L3885 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A78E 10B __ehhandler$??1SpawnBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A798 8B Unwind@00b8a798 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A7A0 10B __ehhandler$?xfer@SpawnBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp (not merged yet)
 
 //-------------------------------------------------------------------------------------------------
 
@@ -243,3 +253,128 @@ void SpawnBehaviorFindAnchor()
 	std::list<ObjectID>::iterator it = std::find(lst.begin(), lst.end(), v);
 	(void)it;
 }
+
+// tu-skeleton: 0x0045F4D7 170B ?rva0045F4D7@SpawnBehavior@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F581 263B ??0SpawnBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType SpawnBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheSpawnBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("SpawnBehavior");
+	return TheSpawnBehaviorPoolKey;
+}
+
+// tu-skeleton: 0x0045F6CD 6B ?name@SpawnBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F6D3 138B ??1SpawnBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F75D 88B ?onDelete@SpawnBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onDelete.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F7B5 199B ?onDie@SpawnBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F87C 100B ?getClosestSlave@SpawnBehavior@@UAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getClosestSlave.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F8E0 93B ?getCanAnySlavesAttackSpecificTarget@SpawnBehavior@@UAE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getCanAnySlavesAttackSpecificTarget.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F93D 97B ?getCanAnySlavesUseWeaponAgainstTarget@SpawnBehavior@@UAE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_getCanAnySlavesUseWeaponAgainstTarget.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F99E 58B ?canAnySlavesAttack@SpawnBehavior@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_canAnySlavesAttack.cpp (not merged yet)
+
+// tu-skeleton: 0x0045F9D8 127B ?reclaimOrphanSpawn@SpawnBehavior@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_reclaimOrphanSpawn.cpp (not merged yet)
+
+// tu-skeleton: 0x0045FA57 676B ?createSpawn@SpawnBehavior@@AAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_createSpawn.cpp (not merged yet)
+
+// tu-skeleton: 0x0045FCFB 164B ?onSpawnDeath@SpawnBehavior@@UAEXW4ObjectID@@PAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onSpawnDeath.cpp (not merged yet)
+
+// tu-skeleton: 0x0045FD9F 84B ?rva0045FD9F@SpawnBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045FD9F.cpp (not merged yet)
+
+// tu-skeleton: 0x0045FDF3 87B ?onDamage@SpawnBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onDamage.cpp (not merged yet)
+
+// tu-skeleton: 0x0045FE4A 80B ?rva0045FE4A@SpawnBehavior@@UAEHP6AHPAVObject@@PAX@Z1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045FE4A.cpp (not merged yet)
+
+// tu-skeleton: 0x0045FE9A 731B ?computeAggregateStates@SpawnBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_computeAggregateStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00460175 87B ?rva00460175@SpawnBehavior@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva00460175.cpp (not merged yet)
+
+// tu-skeleton: 0x004601CC 74B ?rva004601CC@SpawnBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva004601CC.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00460216XferList.cpp
+
+// ?Rva00460216XferList@@YAPAVXfer@@PAV1@PAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z @0x00460216 (194B): free list<int> Xfer helper, same skeleton as rowed xferListInt @0x00206861 but elements via slot 0x7C (xferInt) and no trailing count dec.
+// Evidence: unlock lane every callee rowed or pinned; callers 0x004606AE 0x0049FA7A 0x0049FC44; unblocks 0x00460586 0x0049F91A; donor BFME1 ScriptEngine/XferListInt.cpp same skeleton.
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+Xfer *Rva00460216XferList(Xfer *xfer, ListInt *list)
+{
+	XferVersion version;
+	version.m_version = 1;
+	version.m_currentVersion = 1;
+	xfer->operator==(reinterpret_cast<Xfer::Version &>(version));
+
+	UnsignedInt count = list->size();
+	xfer->operator==("std::list").operator==(count);
+
+	if (xfer->IsStoring())
+	{
+		ListInt::_Node *sentinel = list->_M_node._M_data;
+		ListInt::_Node *node = (ListInt::_Node *)sentinel->_M_next;
+		while (node != sentinel)
+		{
+			xfer->operator==(node->_M_data);
+			node = (ListInt::_Node *)node->_M_next;
+		}
+	}
+	else
+	{
+		if (!list->empty())
+		{
+			throw XferException(4, "List must be empty on load");
+		}
+
+		int value;
+		while (count != 0)
+		{
+			--count;
+			xfer->operator==(value);
+			list->push_back(value);
+		}
+	}
+	return xfer;
+}
+
+// tu-skeleton: 0x004602D8 28B ??_GSpawnBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004602F4 481B ?update@SpawnBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_update.cpp (not merged yet)
+
+// tu-skeleton: 0x004604D5 177B ?onBodyDamageStateChange@SpawnBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_onBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x00460586 392B ?xfer@SpawnBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0046070E 73B ?orderSlavesToAttackTarget@SpawnBehavior@@UAEXPAVObject@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_orderSlavesToAttackTarget.cpp (not merged yet)
+
+// tu-skeleton: 0x00460757 73B ?orderSlavesToAttackPosition@SpawnBehavior@@UAEXPBUCoord3D@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_orderSlavesToAttackPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x004607A0 65B ?orderSlavesToGoIdle@SpawnBehavior@@UAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_orderSlavesToGoIdle.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A747 8B Unwind@00b8a747 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A74F 10B __ehhandler$?rva0045F4D7@SpawnBehavior@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva0045F4D7.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A770 8B $L3656 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A778 11B $L3884 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A783 11B $L3885 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A78E 10B __ehhandler$??1SpawnBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A798 8B Unwind@00b8a798 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A7A0 10B __ehhandler$?xfer@SpawnBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp (not merged yet)

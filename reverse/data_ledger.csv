@@ -32304,8 +32304,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A035B0,4,.data,global,?$S1@?1??Rva0045EE2CGet@@YA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp,owned,,1,2
 0x00A035B4,4,.data,global,?TheStancesBehaviorPoolKey@?1??getModuleNameKey@StancesBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp,owned,,1,2
 0x00A035B8,4,.data,global,?$S2@?1??getModuleNameKey@StancesBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp,owned,,1,2
-0x00A035BC,4,.data,global,?TheSpawnBehaviorPoolKey@?1??getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp,owned,,1,2
-0x00A035C0,4,.data,global,?$S1@?1??getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp,owned,,1,2
+0x00A035BC,4,.data,global,?TheSpawnBehaviorPoolKey@?1??getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,owned,,1,2
+0x00A035C0,4,.data,global,?$S1@?1??getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,owned,,1,2
 0x00A035C4,4,.data,global,_DRAWABLE_FRAMES_PER_FLASH,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,owned,,1,1
 0x00A035C8,4,.data,global,?g_00E035C8@@3HA,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,owned,,1,2
 0x00A035CC,4,.data,global,?TheWargBehaviorPoolKey@?1??getModuleNameKey@WargBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,owned,,1,2
