@@ -62,7 +62,7 @@ struct Rva00800920Slot
 class Rva00800920Primary
 {
 public:
-	virtual void v0();
+	virtual void v0() { }
 };
 
 // Secondary subobject at +4 writes the incomplete-object vftable before the
