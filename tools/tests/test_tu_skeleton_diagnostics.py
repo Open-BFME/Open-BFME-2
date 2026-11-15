@@ -210,3 +210,18 @@ def test_malformed_record_shape_cannot_be_reused_as_complete_evidence():
     inherited["donors"][X]["errors"] = ["a raw string without structured fields"]
     out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
     assert out["compiler_diagnostics"]["donors"][X]["status"] == "unavailable"
+
+
+
+def test_r2_invalid_baseline_metadata_stays_explicitly_unavailable():
+    reason = "no baseline match"
+    captured = T.finish_compiler_receipt({"rejected": {
+        X: T.CompilerRejection(reason, ["x.h(1) : error C2011: 'X' : redefinition"], {})}})
+    inherited = json.loads(json.dumps(captured["compiler_diagnostics"]))
+    inherited["donors"][X]["context"] = {"flag": "\ud800"}
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
+    assert out["rejected"][X] == reason
+    entry = out["compiler_diagnostics"]["donors"][X]
+    assert entry["status"] == "unavailable" and entry["complete"] is False
+    assert entry["errors"] == []
+    json.dumps(out).encode()

@@ -2989,7 +2989,7 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
             entry = previous[donor]
         elif same_snapshot and inherited["truncated"] and donor not in previous:
             continue  # already included in the inherited omission counters
-        elif isinstance(reason, str) and reason.startswith("compile"):
+        elif isinstance(reason, str) and (reason.startswith("compile") or reason == "no baseline match"):
             entry = {"reason": reason, "status": "unavailable", "complete": False,
                      "context": {}, "errors": [], "explanation": "full diagnostics were not recorded"}
         else:
