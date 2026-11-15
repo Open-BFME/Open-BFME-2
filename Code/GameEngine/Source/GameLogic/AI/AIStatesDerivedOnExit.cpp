@@ -93,6 +93,8 @@
 // carried from Zero Hour's AIStates.cpp computeGoal as reshaped by BFME 1's
 // matched 0x0017A600 (prior/next waypoint rotate, no wall or clamp code);
 // the dest/near/far copies are member-wise as the movss stores show.
+#include "../../../Include/GameLogic/Waypoint.h"
+
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
@@ -160,23 +162,6 @@ enum
 enum
 {
 	NO_MAX_SHOTS_LIMIT = 0x7FFFFFFF
-};
-class Waypoint
-{
-public:
-	enum { MAX_LINKS = 12 };
-	UnsignedInt getID() const { return m_id; }
-	const Coord3D *getLocation() const { return &m_location; }
-	__declspec(dllimport) __forceinline Int getNumLinks() const { return m_numLinks; }
-	__declspec(dllimport) __forceinline Waypoint *getLink(Int ndx) const { return m_links[ndx]; }
-private:
-	unsigned char m_pad00[4];
-	UnsignedInt m_id; // +0x04
-	unsigned char m_pad08[0x0C - 0x08];
-	Coord3D m_location; // +0x0C
-	unsigned char m_pad18[0x1C - 0x18];
-	Waypoint *m_links[MAX_LINKS]; // +0x1C
-	Int m_numLinks; // +0x4C
 };
 #include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
@@ -501,7 +486,6 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 
 
-
 class AIFollowWaypointPathStateAndEvacuate : public AIFollowWaypointPathState
 {
 public:
@@ -519,8 +503,6 @@ void AIFollowWaypointPathStateAndEvacuate::onExit(StateExitType status)
 	AIFollowWaypointPathState::onExit(status);
 	Rva0033FA79Do((const Object0033FA79 *)getMachineOwner());
 }
-
-
 
 
 StateReturnType AIAttackMoveToState::update()
