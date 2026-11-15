@@ -25,13 +25,13 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
+#include "../../Common/Thing/thing.h"
+
 // Accessed members only; plain fields so this unit emits no accessor COMDATs.
-class Object
+class Object : public Thing
 {
 public:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position;					// +0x38
-	unsigned char m_pad44[0xBC - 0x44];
+	unsigned char m_pad060[0xBC - 0x60];
 	float m_boundingCircleRadius;		// +0xBC
 };
 
@@ -58,5 +58,5 @@ float Weapon::getAttackDistance(const Object *source, const Object *victimObj, c
 
 float Weapon::getAttackRange(const Object *source, const Object *victim) const
 {
-	return ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)source, (void *)&victim->m_position);
+	return ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)source, (void *)&victim->m_cachedPos);
 }
