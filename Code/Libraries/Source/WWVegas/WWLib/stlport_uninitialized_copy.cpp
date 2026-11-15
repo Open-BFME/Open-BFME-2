@@ -12,6 +12,8 @@
 // calling a _Construct dupe rather than its true address land as
 // gen-alias rows, like the fill_n batch before this one.
 
+#include "BfmeStringRecord005EC43C.h"
+
 #include "BfmeStringRecord0022074B.h"
 
 #include <memory>
@@ -63,13 +65,6 @@ typedef _STL::pair<const AsciiString, char> CopyPairC;
 // striding 0x18 per element through its own rowed _Construct at 0x005EC4B6.
 // Retail 0x005EC4E3 walks source range constructing each element out-of-line.
 // Layout matches the 0x005EC43C copy ctor (UnicodeString plus five words).
-struct BfmeStringRecord005EC43C
-{
-public:
-	BfmeStringRecord005EC43C();
-	BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C &other);
-	char m_body[24];
-};
 
 struct BfmeStringRecord00395E75
 {
