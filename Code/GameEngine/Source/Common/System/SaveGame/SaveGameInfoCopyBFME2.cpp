@@ -161,7 +161,7 @@ class SaveMapPreview : public Rva0022CE19SnapshotBase
 public:
 	SaveMapPreview() : word04(-1) { pos.x = 0.0f; pos.y = 0.0f; pos.z = 0.0f; }
 	virtual ~SaveMapPreview() {}
-	virtual void loadPostProcess();
+	virtual void loadPostProcess() { }
 	virtual const char *typeName() const;
 	virtual void xfer(Xfer *);
 	int word04;
