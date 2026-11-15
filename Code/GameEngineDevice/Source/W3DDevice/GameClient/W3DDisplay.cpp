@@ -39,6 +39,11 @@ class W3DDisplaySubView;
 void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+__declspec(thread) ModernRenderPhase g_modernRenderPhase = MODERN_RENDER_LEGACY;
+__declspec(thread) float g_modernVisualAlpha = 1.0f;
+#endif
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class IDirect3DSurface9;
@@ -1344,6 +1349,10 @@ bool W3DDisplay::rva0004A462(unsigned int now)
     static bool couldRender = true;
     if (WW3D::Prepare_Render_New_Frame())
     {
+#if defined(BFME2_MODERN)
+        if (modernUpdatesScene())
+        {
+#endif
         if (!TheGameLogic->getFlag125())
         {
             updateViews();
@@ -1362,6 +1371,14 @@ bool W3DDisplay::rva0004A462(unsigned int now)
                     ((W3DTaint *)*(void **)(TERRAIN + 0x387c))->render((CameraClass *)*(void **)(view + 0x104));
             }
         }
+#if defined(BFME2_MODERN)
+        }
+        if(g_modernRenderPhase == MODERN_RENDER_UPDATE)modernAdvanceViewEffects();
+        // A fixed pass has advanced views, particles and terrain exactly once.
+        // Returning false also prevents draw()'s paused-camera loop from spinning
+        // without another fixed update.
+        if (!modernPresentsScene()) return false;
+#endif
         if (TheGameLogic == 0 || !TheGameLogic->m_6d)
         {
             if (Rva00DE1FF8Manager != 0 && TWGD[0x62] != 0)

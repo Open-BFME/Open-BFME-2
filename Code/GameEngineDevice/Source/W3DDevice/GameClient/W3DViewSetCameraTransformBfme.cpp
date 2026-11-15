@@ -12,6 +12,23 @@
 // literal double promotion otherwise emits FMUL qword. No new alias pins.
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
+#if defined(BFME2_MODERN)
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#include "../../../../GameEngine/Include/Common/ModernVisualHistory.h"
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
+// The stored FOV describes the original 4:3 view. Keep its vertical extent
+// while exposing more world horizontally; never feed the result back into fov.
+static float modernHorizontalFov(float fov, float aspect)
+{
+ const char *enabled = getenv("BFME2_MODERN_HORPLUS");
+ if (enabled && enabled[0] == '0' && enabled[1] == '\0') return fov;
+ if (!(aspect > 0.0f) || aspect == 4.0f / 3.0f) return fov;
+ return (float)(2.0 * atan(tan((double)fov * 0.5) * ((double)aspect / (4.0 / 3.0))));
+}
+#endif
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
 // COMDATs (one byte shape per TU malloc/free wiring); explicit
@@ -69,7 +86,64 @@ class CameraClass {public:
  virtual void Set_Transform(const Matrix3D&);
  int refs;void Add_Ref(){refs++;}void Release_Ref(){refs--;if(refs==0)v000();}
  void Set_Clip_Planes(float,float);void Set_View_Plane(float,float);
+#if defined(BFME2_MODERN)
+ float Get_Aspect_Ratio() const;
+ // RenderObjClass target layout: refcount +4, Transform +0x18.
+ char modernPad08[0x10];
+ Matrix3D modernTransform;
+#endif
 };
+#if defined(BFME2_MODERN)
+// Modern camera interpolation implementation
+static ModernVisualHistory<Matrix3D> modernCameraHistory;
+static const void *modernCameraOwner = 0;
+static CameraClass *modernCameraIdentity = 0;
+static Matrix3D modernCameraLatest;
+static unsigned int modernCameraSerial = 0;
+void modernResetCamera(const void *view)
+{
+ if (!view || view == modernCameraOwner) {
+  modernCameraHistory.reset();
+  modernCameraOwner = 0;
+  modernCameraIdentity = 0;
+ }
+}
+void modernBeginCameraUpdate()
+{
+ ++modernCameraSerial;
+ // Advance even when the camera does not move this update.
+ if (modernCameraOwner)
+  modernCameraHistory.capture(modernCameraLatest,modernCameraSerial,true);
+}
+static void modernCaptureCamera(const void *view,CameraClass *camera,const Matrix3D &pose)
+{
+ bool continuous = view == modernCameraOwner && camera == modernCameraIdentity;
+ modernCameraHistory.capture(pose,modernCameraSerial,continuous);
+ modernCameraLatest = pose;
+ modernCameraOwner = view;
+ modernCameraIdentity = camera;
+}
+ModernCameraPresentation::ModernCameraPresentation(const void *view,CameraClass *camera)
+ : m_camera(0)
+{
+ if (g_modernRenderPhase != MODERN_RENDER_PRESENT || !camera ||
+     view != modernCameraOwner || camera != modernCameraIdentity) return;
+ Matrix3D visual;
+ if (!modernCameraHistory.sample(g_modernVisualAlpha,visual)) return;
+ memcpy(m_original,&camera->modernTransform,sizeof(m_original));
+ camera->Set_Transform(visual);
+ m_camera=camera;
+}
+ModernCameraPresentation::~ModernCameraPresentation()
+{
+ if (m_camera) {
+  Matrix3D original;
+  memcpy(&original,m_original,sizeof(m_original));
+  m_camera->Set_Transform(original);
+ }
+}
+// End modern camera interpolation
+#endif
 struct Rva0008B689Element {CameraClass *pointer; Rva0008B689Element():pointer(0){} __forceinline Rva0008B689Element(const Rva0008B689Element&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();} ~Rva0008B689Element(){if(pointer)pointer->Release_Ref();}bool isNull()const{return pointer==0;}};
 namespace _STL {template<> void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}
 class Rva0008B470:private _STL::_Vector_base<int,_STL::allocator<int> > {typedef _STL::_Vector_base<int,_STL::allocator<int> > Base;public:__forceinline Rva0008B470(const _STL::allocator<int>&a=_STL::allocator<int>()):Base(a){}~Rva0008B470();void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
@@ -238,11 +312,27 @@ void W3DView::setCameraTransform(){
  camera->Set_Clip_Planes(10.0f,(double)TheWritableGlobalData->field0950*CameraFarScale);
  if(!valid){buildCameraTransform(&transform);camera->Set_Transform(transform);calcCameraConstraints();}
  if(valid && constrain){CameraPoint pos(position);static_cast<volatile float&>(pos.x)=cameraClamp(pos.x,loX,hiX);static_cast<volatile float&>(pos.y)=cameraClamp(pos.y,loY,hiY);position=pos;}
+#if defined(BFME2_MODERN)
+ // Panorama slices specify an exact horizontal angle for stitching.
+ float worldFov=TheWritableGlobalData->field0EA6?TheWritableGlobalData->field0EA8:modernHorizontalFov(fov,camera->Get_Aspect_Ratio());
+ camera->Set_View_Plane(worldFov,-1.0f);
+#else
  if(TheWritableGlobalData->field0EA6)camera->Set_View_Plane(TheWritableGlobalData->field0EA8,-1.0f);else camera->Set_View_Plane(fov,-1.0f);
+#endif
  buildCameraTransform(&transform);
+#if defined(BFME2_MODERN)
+ if(mode==4)camera->Set_View_Plane(modernHorizontalFov(modeFov,camera->Get_Aspect_Ratio()),-1.0f);
+#else
  if(mode==4)camera->Set_View_Plane(modeFov,-1.0f);
+#endif
  if(TheWritableGlobalData->field0EA6)transform.Rotate_Y(TheWritableGlobalData->field0EAC);
  camera->Set_Transform(transform);
+#if defined(BFME2_MODERN)
+ if(g_modernRenderPhase==MODERN_RENDER_UPDATE)
+  modernCaptureCamera(this,camera,transform);
+ else if(g_modernRenderPhase==MODERN_RENDER_LEGACY)
+  modernResetCamera(this);
+#endif
  if(TheTerrainRenderObject){
   RefMultiListIterator<RenderObjClass>*it=W3DDisplay::m_3DScene->createLightsIterator();Rva0008B470 cameras;
   cameras.push_back(Rva000897C8(camera));

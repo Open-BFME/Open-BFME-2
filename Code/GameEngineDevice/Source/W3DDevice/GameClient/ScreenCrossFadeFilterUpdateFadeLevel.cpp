@@ -5,6 +5,10 @@
 // m_fadeDirection, m_fadeFrames, m_curFadeFrame at VA 0x00DEBFF4..0x00DEC000, the
 // same order as ScreenBWFilter's at 0x00DEC1A0..AC); defined after the class below.
 extern float g_Va00BBB8D8;
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+static bool modernCrossFadeContinue = true;
+#endif
 
 class TacticalView
 {
@@ -287,6 +291,9 @@ public:
 	static Int m_curFadeFrame;
 	static Int m_fadeDirection;
 	static Real m_curFadeValue;
+#if defined(BFME2_MODERN)
+    void modernAdvanceFade() { modernCrossFadeContinue = updateFadeLevel(); }
+#endif
 };
 
 
@@ -483,7 +490,11 @@ Int ScreenCrossFadeFilter::shutdown()
 // Native vtable 7CF204 slot2; complete42B F63FB..F6425.
 Bool ScreenCrossFadeFilter::preRender(Bool &skipRender, CustomScenePassModes &scenePassMode)
 {
- if (updateFadeLevel()) {
+ if (
+#if defined(BFME2_MODERN)
+     g_modernRenderPhase == MODERN_RENDER_PRESENT ? modernCrossFadeContinue :
+#endif
+     updateFadeLevel()) {
   W3DShaderManager::startRenderToTexture();
   scenePassMode=SCENE_PASS_ALPHA_MASK;
   skipRender=false;
@@ -517,6 +528,12 @@ extern W3DFilterInterface *W3DFilters[FT_MAX];
 // The filter instance (0x009B5A64): retail initializes it statically (its .data word is
 // the vtable pointer), as this plain definition compiles.
 ScreenCrossFadeFilter screenCrossFadeFilter;
+#if defined(BFME2_MODERN)
+void modernAdvanceCrossFade()
+{
+ screenCrossFadeFilter.modernAdvanceFade();
+}
+#endif
 Bool ScreenCrossFadeFilter::m_skipRender = false;
 // Retail .data starts all four at 0.
 Int ScreenCrossFadeFilter::m_fadeFrames = 0;		// VA 0x00DEBFFC

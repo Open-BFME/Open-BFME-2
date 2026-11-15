@@ -146,6 +146,10 @@ public:
 };
 
 #include "../../../../GameEngine/Include/GameClient/View.h"
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
+#endif
 
 class ViewDrawInterface {
 public:
@@ -166,8 +170,28 @@ public:
 	void calcDeltaScroll(Coord2D &screenDelta) { ((Rva00085FA8 *)this)->calcDeltaScroll(&screenDelta.x); }
 };
 
+#if defined(BFME2_MODERN)
+void modernAdvanceViewEffects()
+{
+ W3DView *view = static_cast<W3DView *>(TheTacticalView);
+ if(view && view->m_viewFilterMode && view->m_viewFilter == 3)
+  modernAdvanceCrossFade();
+ if(view && view->m_viewFilterMode > 0 && view->m_viewFilter == 1)
+  modernAdvanceBW();
+ // BFME2 mode 13 is END_PAN_ALPHA; match the normal post-render exit.
+ if(view && view->m_viewFilter == 2 && view->m_viewFilterMode == 13 &&
+    !modernAdvanceMotionBlurEndPan()){
+  view->m_viewFilter = 9;
+  view->m_viewFilterMode = 15;
+ }
+}
+#endif
+
 void W3DView::draw( void )
 {
+#if defined(BFME2_MODERN)
+ ModernCameraPresentation modernCamera(this,m_3DCamera);
+#endif
 	Bool skipRender = false;
 	Bool doExtraRender = false;
 	Int origPassMode = W3DDisplay::m_3DScene->m_customPassMode;

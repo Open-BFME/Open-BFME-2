@@ -90,6 +90,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
+#endif
 // Typed placement-copy declarations use their existing retail owners.
 struct TreeKey00242F5E;
 void __cdecl Rva002889E4Construct(TreeKey00242F5E *, const TreeKey00242F5E &);
@@ -820,6 +823,9 @@ private:
 
 void W3DView::initHeightForMap()
 {
+#if defined(BFME2_MODERN)
+ ModernCameraDiscontinuity modernMapCamera(this);
+#endif
 	reinterpret_cast<Rva0030E8DF *>(&m_heightField)->rva0030E8DF();
 
 	WorldHeightMap *map = ((BfmeA1087 *)TheTerrainRenderObject)->m_map;

@@ -15,6 +15,11 @@
 #include "unicode_string.h"
 #include "Common/INIException.h"
 #include <stdlib.h>
+#if defined(BFME2_MODERN)
+#include "../../Include/Common/ModernFrameSchedule.h"
+#include "../../Include/Common/ModernRenderPhase.h"
+#include "../../Include/Common/ModernCameraInterpolation.h"
+#endif
 #include "../../../Libraries/Source/profile/profile.h"
 void _bfme_debugRecordCallsite(int);
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"
@@ -356,6 +361,23 @@ class GameEngine
  manager->beginReport();manager=DEBUG_MANAGER; \
  CrashMessage *message=manager->getCrashMessage(0,0,0); \
  message->setText(reason)->show(true); } while(0)
+#if defined(BFME2_MODERN)
+static void modernDrawIfDue(ModernFrameSchedule &clock)
+{
+ LARGE_INTEGER now;
+ QueryPerformanceCounter(&now);
+ clock.advance(now.QuadPart);
+ if(!clock.renderDue())return;
+ try {
+  ModernRenderScope phase(MODERN_RENDER_PRESENT);
+  g_modernVisualAlpha=clock.visualInterpolation(now.QuadPart);
+  modernPresentFrame();
+  clock.presented();
+ } catch(...) {
+  REPORT_CRASH("Uncaught Exception in modern presentation");
+ }
+}
+#endif
 void GameEngine::rva0022D290()
 
 {
@@ -401,14 +423,44 @@ void GameEngine::rva0022D290()
   }
   
  }
- for (; !m_quitting;) 
+#if defined(BFME2_MODERN)
+ const char *fpsOption=getenv("BFME2_MODERN_FPS");
+ bool modernFPS=!(fpsOption && strcmp(fpsOption,"legacy")==0);
+ int renderRate=120;
+ if(fpsOption && modernFPS){
+  char *end=0;
+  long value=strtol(fpsOption,&end,10);
+  if(end!=fpsOption && *end=='\0' && value>=0 && value<=1000)renderRate=(int)value;
+ }
+ LARGE_INTEGER frequency, counter;
+ QueryPerformanceFrequency(&frequency);
+ QueryPerformanceCounter(&counter);
+ ModernFrameSchedule presentationClock(frequency.QuadPart,30,renderRate);
+ presentationClock.reset(counter.QuadPart);
+#endif
+ for (; !m_quitting;)
  
  {
   try 
   
   {
    Profile::StartRange(0);
+#if defined(BFME2_MODERN)
+   {
+    ModernRenderScope phase(modernFPS?MODERN_RENDER_UPDATE:MODERN_RENDER_LEGACY);
+    if(modernFPS){
+     QueryPerformanceCounter(&counter);
+     double rate=(double)m_maxFPS*LOGIC_SCALE;
+     presentationClock.markVisualUpdate(counter.QuadPart,
+      rate>0 ? (__int64)((double)frequency.QuadPart/rate) : frequency.QuadPart/30);
+     modernBeginCameraUpdate();
+    }
+#endif
    update();
+#if defined(BFME2_MODERN)
+   }
+   if(modernFPS)modernDrawIfDue(presentationClock);
+#endif
    Profile::StopRange(0);
    
   }
@@ -508,6 +560,9 @@ void GameEngine::rva0022D290()
    {
     do
     {
+#if defined(BFME2_MODERN)
+     if(modernFPS)modernDrawIfDue(presentationClock);
+#endif
      Sleep(0);
      now=timeGetTime();
     }
