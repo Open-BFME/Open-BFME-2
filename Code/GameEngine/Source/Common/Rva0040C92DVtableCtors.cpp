@@ -27,6 +27,8 @@ class Rva004BB391
 public:
 	Rva004BB391(bool flag);
 	virtual void slot00() {}
+	virtual void slot04() = 0;
+	virtual int slot08() { return -1; }
 private:
 	int m_04;
 	bool m_flags;
