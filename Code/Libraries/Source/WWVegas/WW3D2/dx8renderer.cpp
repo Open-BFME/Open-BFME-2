@@ -899,7 +899,6 @@ DX8SkinFVFCategoryContainer::DX8SkinFVFCategoryContainer(bool sorting)
 
 // ----------------------------------------------------------------------------
 
-// ??1DX8SkinFVFCategoryContainer@@ present-unmatched
 DX8SkinFVFCategoryContainer::~DX8SkinFVFCategoryContainer()
 {
 }
