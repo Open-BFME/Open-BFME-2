@@ -3,7 +3,10 @@
 
 // Declared so a vector deleting destructor frees through operator delete[]
 // (0x0002FD80) as retail does; left undeclared, cl falls back to scalar delete.
-void operator delete[](void *p);
+// operator delete[] comes from the real <crtdbg.h> (no /MD here, so it is
+// not dllimport and the vector deleting destructor frees through the
+// direct thunk).
+#include <crtdbg.h>
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
 
