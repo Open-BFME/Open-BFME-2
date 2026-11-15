@@ -283,7 +283,7 @@ public:
 class DynamicPortalExtraB
 {
 public:
-	virtual void dynamicPortalExtraB();
+	virtual void dynamicPortalExtraB() { }
 };
 
 class DynamicPortalBehaviourModuleData;
