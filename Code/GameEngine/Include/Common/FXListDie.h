@@ -18,6 +18,7 @@ public:
     static ModuleData *friend_newModuleData(INI *);
     static Module *friend_newModuleInstance(Thing *,const ModuleData *);
     virtual ~FXListDie();
+    virtual void onDie( const DamageInfo *damageInfo );
 };
 
 typedef char canonical_FXListDie_1a395990_sizeof[sizeof(FXListDie) == 20 ? 1 : -1];
