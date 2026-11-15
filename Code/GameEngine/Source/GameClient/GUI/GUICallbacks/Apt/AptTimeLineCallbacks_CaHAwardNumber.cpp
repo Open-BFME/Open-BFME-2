@@ -11,6 +11,8 @@
 // loop of the same registration (0x0051FEF5-0x0051FFC1).
 
 
+#include "../../../../../Include/GameClient/Rva002226E5TextPlusString.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -163,7 +165,6 @@ extern Shell *TheShell;
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
 
-
 #include "../../../../../Include/GameClient/Mouse.h"
 
 extern Mouse *TheMouse;
@@ -225,19 +226,12 @@ void AptTimeLine::OnButtonContinue(const char *unused)
 }
 
 
-
-
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 
 // Complete native51FA13..51FAFC updates each row's name and faction icon;
 // WB's weak CollectAllPlayerData lead names a different larger body, so
 // retain an address spelling. The twelve-byte concatenation node uses an
 // empty default constructor to construct the returned expression in place.
-struct Rva002226E5TextPlusString {
- Rva002226E5TextPlusString() {}
- const char *text;int length;const AsciiString *string;
- operator AsciiString();
-};
 Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
 
 
