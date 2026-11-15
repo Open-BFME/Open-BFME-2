@@ -9960,7 +9960,7 @@ Code/GameEngine/Source/GameLogic/Object/Damage/CallHelpOnDamageXfer.cpp,yes,0,0,
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModule.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDeletingDtors.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDeletingDtors.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageEvacuationSum.cpp,yes,0,0,0,0,0
@@ -10397,7 +10397,7 @@ Code/GameEngine/Source/GameLogic/Object/Rva001DBC77Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001DBCC0Delete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001DDBE0AddObjectID.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001E6516ConditionClear.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001E7270Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001F0434Finish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp,yes,0,0,0,0,0
