@@ -2674,7 +2674,7 @@ static void debugDumpTournamentStats(const Rva00385333 &stats)
 {
     debugDumpOpenPlayStats(stats);
 }
-#undef WALK_STATS_MAP
+// Composer-driven: keep WALK_STATS_MAP defined for hoisted helper bodies.
 
 // ?BfmeStatsDebugEmissionAnchor absent-from-retail
 void BfmeStatsDebugEmissionAnchor(const Rva00553E47StatsCore &core,
