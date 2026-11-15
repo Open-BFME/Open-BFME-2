@@ -104,6 +104,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva000F5B56` (VA 0x00BCF1D8): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva0020E86A` (VA 0x00BE4340): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva002AA39B` (VA 0x00BFDC48): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva005E9390` (VA 0x00C1D134): 4 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `V3PolyCopyCtorsO1.cpp`.
+
 
 
 

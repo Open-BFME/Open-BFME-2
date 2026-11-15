@@ -66,7 +66,10 @@ class Rva005E9390
 public:
 	Rva005E9390( const Rva005E9390 &other );
 	// Empty: vtable 0x0081D134 slot 0 0x004A10FD calls 0x0049B47C, one vtable store and ret.
-	virtual ~Rva005E9390() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
 
 	V3Block16 m_block;
 };
