@@ -14,6 +14,92 @@ import build as B
 import exit_link as E
 
 
+def test_modern_response_replaces_only_named_objects():
+    text = '"build/match/a.obj"\n"lib/runtime.lib"\n/DEF:"base/retail.def"\n/INCLUDE:__imp__Sleep@4\n'
+    result = V.replace_response_objects(text, {"build/match/a.obj": "build/modern/objects/a.obj"})
+    assert result == text.replace('"build/match/a.obj"', '"build/modern/objects/a.obj"')
+
+
+@pytest.mark.parametrize("extra", ["/FORCE", "/force:multiple", "/OUT:other.exe", "@nested.rsp"])
+def test_modern_response_refuses_extra_link_controls(extra):
+    with pytest.raises(ValueError, match="response"):
+        V.replace_response_objects('"a.obj"\n' + extra + '\n', {"a.obj": "modern/a.obj"})
+
+
+@pytest.mark.parametrize("text", ['"b.obj"\n', '"a.obj"\n"a.obj"\n'])
+def test_modern_response_requires_exactly_one_replacement(text):
+    with pytest.raises(ValueError, match="exactly once"):
+        V.replace_response_objects(text, {"a.obj": "modern/a.obj"})
+
+
+def test_modern_replacement_cannot_drop_external_definition(tmp_path):
+    old = E.link_cycle.write_coff(tmp_path / "old.obj", [(".text", 0x60000020, b"\xc3", 0)],
+                                 [("function", 1, 0, 2)])
+    new = E.link_cycle.write_coff(tmp_path / "new.obj", [(".text", 0x60000020, b"\xc3", 0)],
+                                 [("other", 1, 0, 2)])
+    with pytest.raises(ValueError, match="loses external"):
+        V.replacement_code_names(old, new)
+
+
+@pytest.mark.parametrize("addend", [0, 4])
+def test_modern_replacement_consumer_offsets(tmp_path, addend):
+    import struct
+    obj = E.link_cycle.write_coff(tmp_path / "consumer.obj",
+                                 [(".data", 0xC0000040, struct.pack("<I", addend), 0)],
+                                 [("function", 0, 0, 2)], {1: [(0, "function", 6)]})
+    if addend:
+        with pytest.raises(ValueError, match="interior"):
+            V.check_consumer_offsets([obj], set(), {"function"})
+    else:
+        assert V.check_consumer_offsets([obj], set(), {"function"}) == 1
+
+
+def test_modern_consumer_audit_does_not_mistake_bigobj_for_import(tmp_path):
+    obj = tmp_path / "big.obj"
+    obj.write_bytes(b"\0\0\xff\xff\x02\0\x4c\x01" + bytes(48))
+    with pytest.raises(ValueError, match="unsupported COFF"):
+        V.check_consumer_offsets([obj], set(), {"function"})
+
+
+def test_modern_consumer_audit_accepts_neutral_directive_only_object(tmp_path):
+    obj = E.link_cycle.write_coff(tmp_path / "directives.obj",
+                                 [(".drectve", 0x100A00, b" /alternatename:_a=_b", 0)], [])
+    raw = obj.read_bytes()
+    obj.write_bytes(b"\0\0" + raw[2:])
+    assert V.check_consumer_offsets([obj], set(), {"function"}) == 0
+
+
+def test_modern_link_refuses_changed_baseline_before_starting_linker(tmp_path, monkeypatch):
+    import hashlib
+    monkeypatch.setattr(V, "ROOT", tmp_path)
+    base = tmp_path / "build/modern/link" / ("base-" + "a" * 32)
+    base.mkdir(parents=True)
+    (base / "exit.exe").write_bytes(b"image")
+    (base / "exit.map").write_bytes(b"map")
+    (base / "retail.def").write_text("EXPORTS\n")
+    (base / "exit.rsp").write_text('"object.obj"\n')
+    (tmp_path / "object.obj").write_bytes(b"original")
+    (base / "result.json").write_text(json.dumps({
+        "mode": "local-base-link", "force": False, "stubs": False,
+        "link": {"exit": 0, "pe_defect": None}}))
+    (base / "image_receipt.json").write_text(json.dumps({
+        "variant": "modern-base", "stubbed": [],
+        "image_sha256": hashlib.sha256(b"image").hexdigest(),
+        "map_sha256": hashlib.sha256(b"map").hexdigest()}))
+    (base / "variant_inputs.json").write_text(json.dumps({
+        "link_exit": 0, "inputs": V.link_input_manifest(base / "exit.rsp", root=tmp_path)}))
+    (tmp_path / "object.obj").write_bytes(b"changed")
+    def unexpected(*args, **kwargs):
+        pytest.fail("linker started with changed baseline inputs")
+    monkeypatch.setattr(E, "run_native", unexpected)
+    # The default root is fixed at definition time, as in normal CLI use.
+    original_manifest = V.link_input_manifest
+    monkeypatch.setattr(V, "link_input_manifest", lambda path: original_manifest(path, root=tmp_path))
+    with pytest.raises(ValueError, match="baseline link inputs changed"):
+        V.link_modern(base, ["Code/modified.cpp"])
+    assert list(base.parent.iterdir()) == [base]
+
+
 def test_link_input_manifest_covers_objects_libraries_and_control_files(tmp_path):
     folder = tmp_path / "link"
     folder.mkdir()
