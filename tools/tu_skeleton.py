@@ -2920,12 +2920,18 @@ def diagnostic_json_size(value):
         return None
 
 
+def compiler_errors_digest(errors):
+    return hashlib.sha256(json.dumps(errors, ensure_ascii=True, sort_keys=True,
+                                     separators=(",", ":")).encode()).hexdigest()
+
+
 def valid_diagnostic_entry(entry, reason):
     if (not isinstance(entry, dict) or entry.get("reason") != reason
             or not isinstance(entry.get("context"), dict)
             or not isinstance(entry.get("errors"), list)
             or type(entry.get("complete")) is not bool
-            or entry.get("status") not in ("recorded", "unavailable")):
+            or entry.get("status") not in ("recorded", "unavailable")
+            or entry["complete"] != (entry["status"] == "recorded")):
         return False
     for error in entry["errors"]:
         if (not isinstance(error, dict)
@@ -2936,6 +2942,10 @@ def valid_diagnostic_entry(entry, reason):
                 or any(error.get(k) is not None and
                        (type(error[k]) is not int or error[k] < 0) for k in ("line", "column"))):
             return False
+    if entry["status"] == "recorded" and (
+            type(entry.get("error_count")) is not int or entry["error_count"] != len(entry["errors"])
+            or entry.get("errors_sha256") != compiler_errors_digest(entry["errors"])):
+        return False
     return diagnostic_json_size(entry) is not None
 
 
@@ -2962,6 +2972,14 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
                      and isinstance(inherited.get("truncated"), bool)
                      and all(type(inherited.get(k)) is int and inherited[k] >= 0
                              for k in ("omitted_donors", "omitted_errors")))
+    needed = {f for f, why in reasons.items()
+              if isinstance(why, str) and (why.startswith("compile") or why == "no baseline match")}
+    missing = needed - set(previous)
+    if same_snapshot:
+        same_snapshot = ((not inherited["truncated"] and not missing
+                          and inherited["omitted_donors"] == inherited["omitted_errors"] == 0)
+                         or (inherited["truncated"]
+                             and inherited["omitted_donors"] == len(missing)))
     if (same_snapshot and inherited_size <= limit
             and not any(isinstance(why, CompilerRejection) for why in reasons.values())):
         # Do not generate unavailable placeholders for omissions or count them again.
@@ -2984,6 +3002,8 @@ def finish_compiler_receipt(report, inherited=None, limit=None):
                      "duplicates_removed": len(reason.compiler_errors) - len(unique),
                      "context": reason.compiler_context,
                      "errors": [compiler_error(line) for line in unique]}
+            entry.update(error_count=len(entry["errors"]),
+                         errors_sha256=compiler_errors_digest(entry["errors"]))
         elif (isinstance(previous, dict) and isinstance(previous.get(donor), dict)
               and valid_diagnostic_entry(previous[donor], reason)):
             entry = previous[donor]

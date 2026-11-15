@@ -225,3 +225,48 @@ def test_r2_invalid_baseline_metadata_stays_explicitly_unavailable():
     assert entry["status"] == "unavailable" and entry["complete"] is False
     assert entry["errors"] == []
     json.dumps(out).encode()
+
+
+
+@pytest.mark.parametrize("reason", ["compile: missing class", "no baseline match"])
+def test_r3_missing_donor_in_cached_payload_is_unavailable(reason):
+    initial = T.finish_compiler_receipt({"rejected": {
+        X: T.CompilerRejection(reason, ["x.h(1) : error C2011: 'X' : redefinition"], {})}})
+    inherited = json.loads(json.dumps(initial["compiler_diagnostics"]))
+    del inherited["donors"][X]
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
+    assert out["rejected"][X] == reason
+    e = out["compiler_diagnostics"]["donors"][X]
+    assert e["status"] == "unavailable" and e["complete"] is False
+    assert out["compiler_diagnostics"]["omitted_donors"] == 0
+
+
+def test_cached_unaccounted_gap_is_not_hidden_by_a_truncated_flag():
+    reasons = {A: "compile: a", X: "compile: x"}
+    initial = T.finish_compiler_receipt({"rejected": {
+        f: T.CompilerRejection(why, [error(1)], {}) for f, why in reasons.items()}})
+    inherited = json.loads(json.dumps(initial["compiler_diagnostics"]))
+    inherited["donors"].clear()
+    inherited.update(truncated=True, omitted_donors=1, omitted_errors=1)
+    out = T.finish_compiler_receipt({"rejected": reasons}, inherited)
+    assert set(out["compiler_diagnostics"]["donors"]) == {A, X}
+    assert all(e["status"] == "unavailable" for e in out["compiler_diagnostics"]["donors"].values())
+
+
+
+@pytest.mark.parametrize("damage", ["remove_error", "change_symbol", "wrong_complete"])
+def test_cached_donor_entry_must_cover_its_captured_error_list(damage):
+    reason = "compile: errors"
+    initial = T.finish_compiler_receipt({"rejected": {
+        X: T.CompilerRejection(reason, [error(1), error(2)], {})}})
+    inherited = json.loads(json.dumps(initial["compiler_diagnostics"]))
+    e = inherited["donors"][X]
+    if damage == "remove_error":
+        e["errors"].pop()
+    elif damage == "change_symbol":
+        e["errors"][1]["symbol"] = "different"
+    else:
+        e["complete"] = False
+    out = T.finish_compiler_receipt({"rejected": {X: reason}}, inherited)
+    result = out["compiler_diagnostics"]["donors"][X]
+    assert result["status"] == "unavailable" and result["complete"] is False
