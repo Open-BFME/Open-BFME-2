@@ -27,6 +27,10 @@ class ObjectCreationNugget
 public:
 	virtual ~ObjectCreationNugget();
 };
+// Retail's deleting destructor 0x001F03ED (a slot of the table 0x00BE0A00) calls the
+// 7-byte 0x001F0409, which only restores the table 0x00BE09D0: the
+// destructors between are trivial inlines here, so this class's reduces to it.
+inline ObjectCreationNugget::~ObjectCreationNugget() {}
 
 #include "../../../Include/GameLogic/ObjectCreationListClass.h"
 
