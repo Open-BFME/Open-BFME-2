@@ -34,6 +34,8 @@
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/arch:SSE /G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
+#include "../../../../Include/GameLogic/LocomotorTemplate.h"
+
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -741,12 +743,6 @@ enum LocomotorSurfaceType
 	LOCOMOTORSURFACE_AIR = 8
 };
 
-class LocomotorTemplate
-{
-public:
-	unsigned char m_unmodelled_00[0x14];
-	Int m_surfaces;								// +0x14
-};
 
 class Rva001E4147
 {
