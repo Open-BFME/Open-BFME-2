@@ -97,6 +97,8 @@ public:
 	MoveToFormationGroupOrder();
 private:
 	char m_pad[0x48 - 4];
+public:
+	virtual enum NameKeyType getClassKey();
 };
 
 class MoveToGroupOrder : public GroupOrder

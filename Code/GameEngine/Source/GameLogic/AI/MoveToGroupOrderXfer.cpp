@@ -390,6 +390,14 @@ private:
 	Bool m_flag2C;                     // +0x2C
 	ObjectCoord3DMap m_positions;      // +0x30
 	Bool m_flag44;                     // +0x44
+public:
+	virtual struct Coord3D *getDestination(int);
+public:
+	virtual bool slot11Command(int *, struct GroupOrderCommand *);
+public:
+	virtual enum NameKeyType getClassKey();
+public:
+	virtual class GroupOrder *clone();
 };
 
 void MoveToGroupOrder::xfer(Xfer *xfer)

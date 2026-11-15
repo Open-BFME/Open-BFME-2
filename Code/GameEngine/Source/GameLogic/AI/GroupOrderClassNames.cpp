@@ -92,6 +92,12 @@ class MoveToFormationGroupOrder : public GroupOrder
 public:
 	virtual const char *getClassName();
 	virtual NameKeyType getClassKey();
+public:
+	virtual struct Coord3D *getDestination(int);
+public:
+	virtual bool slot11Command(int *, struct GroupOrderCommand *);
+public:
+	virtual class GroupOrder *clone();
 };
 
 const char *SynchronizeGroupOrder::getClassName()
