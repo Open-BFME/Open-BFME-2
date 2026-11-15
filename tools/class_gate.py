@@ -733,6 +733,46 @@ def class_local_slots(text):
     return plain, regions, pasted, ''.join(expanded) + plain[pos:]
 
 
+def _master_moved_bodies(text):
+    """master's move credit for a unit without slot macros, unchanged; moved_bodies also runs it on a unit's
+    hand expansion (class_local_slots), so master's own checks judge what the slot calls expand to.
+
+    Master's body keys, with conservative lexical checks for move credit.
+
+    Raw strings, digraphs and translation-phase splices/trigraphs can corrupt
+    class_body_spans before we ever see a body. Refuse the entire unit's move
+    credit for those constructs. Ordinary existing-path/rename credit is
+    unchanged; class_views' survey normalisation is not proof of a pure move.
+    """
+    if (re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
+            or TRIGRAPH.search(text)):
+        return {}
+    scanned = scope_code(text)
+    if scanned is None:
+        return {}
+    code, macros = scanned
+    found, seen = {}, set()
+    heads = collections.Counter(m.group('name') for m in MOVE_HEAD.finditer(code))
+    for name, start, end, scope in scoped_move_spans(text):
+        # Unqualified keys cannot prove which of multiple bodies moved.
+        # Count even bodies whose normalisation would refuse credit.
+        if name in seen:
+            return {}
+        seen.add(name)
+        # Nor beside a head scoped_move_spans gives no span (a function's local
+        # class): introduced() credits a name, and that body may be the new one.
+        if heads[name] > 1:
+            continue
+        # A name the unit #defines or #undefs may rename this class or an
+        # enclosing scope, or change what the body's tokens mean.
+        if macros & (set(re.findall(r'[A-Za-z_]\w*', code[start:end])) | set(scope)):
+            continue
+        body = normalised_body(text[start:end])
+        if body is not None:
+            found[name] = (scope, body)
+    return found
+
+
 def moved_bodies(text):
     """Master's body keys, with conservative lexical checks for move credit.
 
@@ -750,6 +790,8 @@ def moved_bodies(text):
     if slots is None:
         return {}
     plain, regions, pasted, expanded = slots
+    if not regions:
+        return _master_moved_bodies(text)
     scanned = scope_code(plain)
     if scanned is None:
         return {}
@@ -794,7 +836,12 @@ def moved_bodies(text):
         body = normalised_body(text[start:end])
         if body is not None:
             found[name] = (scope, body)
-    return found
+    # master, unchanged, on the hand-expanded unit: its checks (heads, repeated names, macro uses, scope proof) read
+    # what the calls expand to (`S(0)` as a second `class X0`), and a class it does not credit there gets none here
+    parity = _master_moved_bodies(expanded)
+    return {name: (scope, body) for name, (scope, body) in found.items()
+            if name in parity and parity[name][0] == scope
+            and (body.startswith(EXACT) or parity[name][1] == body)}
 
 
 def staged_deletions(renames):

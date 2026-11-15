@@ -1241,3 +1241,18 @@ def test_r2_the_expansion_substitutes_every_parameter_once():
     unit = 'class View {\n#define S(n, m) int slot##n[m];\n\tS(0, 4) S(1, 8)\n#undef S\n};\n'
     expanded = class_gate.class_local_slots(unit)[3]
     assert 'int slot0[4];' in expanded and 'int slot1[8];' in expanded and '#define' not in expanded
+
+
+
+def test_r3_masters_checks_read_the_expansion():
+    # S(0) expands to a second `class X0` head (a function's local class): master refuses X0 on the expansion
+    unit = ('void f() {\n    class View {\n#define S(n) class X##n\n        S(0)\n#undef S\n        { int b; };\n'
+            '    };\n}\nclass X0 { int a; };\n')
+    assert 'X0' not in class_gate.moved_bodies(unit)
+    hand = 'void f() {\n    class View {\n        class X0\n        { int b; };\n    };\n}\nclass X0 { int a; };\n'
+    assert 'X0' not in class_gate.moved_bodies(hand)
+
+
+def test_r3_a_unit_without_slot_macros_is_masters_exactly():
+    for unit in (X_BODY, '#define T int\nclass Y { T b; };\n' + X_BODY, scoped_x('namespace A')):
+        assert class_gate.moved_bodies(unit) == class_gate._master_moved_bodies(unit)
