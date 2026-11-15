@@ -186,7 +186,6 @@ unsigned int Rva0043B2E2::rva0043B4EC(const int &key) {
 // a thiscall member; the free 37B body ignores the dead this in ecx, hence
 // the twin pin plus alternatename below per Rva004152E6NewNode precedent.
 // Shape follows Rva0018C262::rva0018C33F (138B via rowed factory plus Rebalance).
-// ?rva0043B3A1@Rva0043B2E2@@QAEXAAPAU... present-unmatched
 void Rva0043B2E2::rva0043B3A1(Rva0043B2E2Node *&out, Rva0043B2E2Node *a, Rva0043B2E2Node *b, const int *v, Rva0043B2E2Node *c)
 {
 	Rva0043B2E2Node *node;

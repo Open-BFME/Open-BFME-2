@@ -43,7 +43,6 @@ ScriptAction::ScriptAction() :
 	memset(m_parms, 0, sizeof(m_parms));
 }
 
-// ??0ScriptAction@@QAE@W4ScriptActionType@1@@Z present-unmatched
 ScriptAction::ScriptAction(ScriptActionType type) :
 	m_numParms(0),
 	m_nextAction(0),

@@ -204,7 +204,6 @@ RampageBehaviorModuleData::RampageBehaviorModuleData()
 // 0xBBB554 same shape as UpgradeModuleData 0x255A42, slot-0 deleter
 // 0x458C7F calls here, ctor 0x458C0F owns class and table 0xC40EF8.
 
-// ?dummyCtor@RampageBehaviorModuleData@@QAE@H@Z present-unmatched
 RampageBehaviorModuleData::RampageBehaviorModuleData(int)
 {
 }

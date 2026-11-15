@@ -342,10 +342,8 @@ void Sort(TempIndexStruct *begin, TempIndexStruct *end)
 			do --right; while (right > begin1 && right[0] > begin[0]);	// Scan down to find element <= than partition
 #endif
 			if (right < left) break;									// Pointers crossed.  Partitioning completed.
-// ?swap@std@@ present-unmatched
 			std::swap(left[0], right[0]);							// Exchange elements.
 		}
-// ?swap@std@@ present-unmatched
 		std::swap(begin[0], right[0]);							// Insert partition element
 
 		// Sort the smaller subarray first then the larger

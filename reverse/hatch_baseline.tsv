@@ -10487,7 +10487,6 @@ present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	_STL::EraseIntIte
 present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	_STL::EraseIntTree::upper_bound	1
 present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	begin@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	end@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	rva0043B3A1@Rva0043B2E2@@QAEXAAPAU...	1
 present_unmatched	Code/GameEngine/Source/Common/DamageFX.cpp	DamageFX::DamageFX	1
 present_unmatched	Code/GameEngine/Source/Common/DamageFX.cpp	DamageFX::clear	1
 present_unmatched	Code/GameEngine/Source/Common/DamageFX.cpp	DamageFXStore::DamageFXStore	1
@@ -10807,7 +10806,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/EvaCtor.cpp	Eva::loadPostPro
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXList@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp	bfmeEmitFXParticleSystemModulesAssign@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::~AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete002004FD@@YAXPAVRva002004FD@@@Z	1
@@ -10947,7 +10945,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::scrollBy	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::setAngleAndPitchToDefault	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::setLocation	1
 present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::~View	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
@@ -10968,7 +10965,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp	R
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::~Rva0036CA00Str	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp	dummyCtor@RampageBehaviorModuleData@@QAE@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	SpawnBehaviorFindAnchor@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	0Rva00148F5ECache@@QAE@PBD@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	1FreePtr@@QAE@XZ	1
@@ -11194,7 +11190,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSideways
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::AdjustGroundPathPosition	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::SetBridgeStateRepaired	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::rva002F83F5	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp	0ScriptAction@@QAE@W4ScriptActionType@1@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	equalTag_Rva003B31C7@@YA_NPBX0H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummary.h	ArmySummary::loadPostProcess	1
@@ -11458,10 +11453,8 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRender
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	Get_Formatted_Vertex_Array@WriteLock@DynamicVBAccessClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	Set_Pixel_Shader@DX8Wrapper	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	Set_Vertex_Shader@DX8Wrapper	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp	swap@std@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp	DX8_Stats@DX8_Stats	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp	Get_Formatted_Vertex_Array@WriteLock@DynamicVBAccessClass	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/StreakRendererSetTextureBFME1.cpp	Transform@VectorProcessorClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/VectorClassProxyAssign.cpp	ProxyClass::ProxyClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/VectorClassProxyAssign.cpp	ProxyClass::operator=	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/VectorClassProxyAssign.cpp	ProxyClass::~ProxyClass	1

@@ -192,7 +192,6 @@ inline void StreakRendererClass::RenderStreak
 #endif
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WWMath/vp.cpp
-// ?Transform@VectorProcessorClass@@ present-unmatched
 		VectorProcessorClass::Transform(&xformed_pts[0],
 			&points[chunkIndex], modelview, point_cnt);
 

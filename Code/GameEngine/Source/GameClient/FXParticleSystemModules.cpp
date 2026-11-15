@@ -1065,7 +1065,6 @@ typedef TerrainCollisionModuleNamedConcrete &(TerrainCollisionModuleNamedConcret
 TerrainCollisionModuleNamedConcreteAssign g_terrainCollisionModuleNamedConcreteAssign = &TerrainCollisionModuleNamedConcrete::operator=;
 
 #pragma inline_depth(0)
-// ?bfmeEmitFXParticleSystemModulesAssign@@YAXXZ present-unmatched
 void bfmeEmitFXParticleSystemModulesAssign()
 {
     (void)&BoxEmissionVolumeModuleConcrete::operator=;
