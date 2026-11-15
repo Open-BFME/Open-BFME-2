@@ -159,11 +159,7 @@ class RtsTreeBufferView { public: char pad[0x45c5c]; unsigned char m_45C5C; };
 // mov ecx,[ecx+0x385C] then jmp to a rowed W3DBibBuffer method
 // (0x000D415B addBibDrawable, 0x000D3D44 removeHighlighting, 0x000D3D35 clearAllBibs,
 // 0x000D3D5F removeBib, 0x000D3D97 removeBibDrawable); caller of 0x0006840A at 0x00092DB3 pushes corners[4] + int id + outer bool.
-class Vector3
-{
-public:
-	float x, y, z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 enum DrawableID
 {
