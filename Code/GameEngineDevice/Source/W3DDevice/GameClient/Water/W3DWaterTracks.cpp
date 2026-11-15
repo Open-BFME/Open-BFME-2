@@ -248,11 +248,8 @@ public:
  __forceinline BoundsValue(float x,float y,float z) { X=x;Y=y;Z=z; }
  __forceinline BoundsValue &operator=(const BoundsValue &v) {X=v.X;Y=v.Y;Z=v.Z;return *this;}
 };
-// ?add present-unmatched
 static __forceinline BoundsValue add(const Vector3 &lhs,const Vector3 &rhs){return BoundsValue(lhs.X+rhs.X,lhs.Y+rhs.Y,lhs.Z+rhs.Z);}
-// ?sub present-unmatched
 static __forceinline BoundsValue sub(const Vector3 &lhs,const Vector3 &rhs){return BoundsValue(lhs.X-rhs.X,lhs.Y-rhs.Y,lhs.Z-rhs.Z);}
-// ?scale present-unmatched
 static __forceinline BoundsValue scale(const BoundsValue &boundsValue,float k){return BoundsValue(boundsValue.X*k,boundsValue.Y*k,boundsValue.Z*k);}
 }
 

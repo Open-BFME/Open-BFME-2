@@ -20,13 +20,9 @@ public:
  __forceinline CurveValue(const CurveValue &curveValue){X=curveValue.X;Y=curveValue.Y;Z=curveValue.Z;}
  __forceinline CurveValue(float xValue,float yValue,float zValue){X=xValue;Y=yValue;Z=zValue;}
 };
-// ?operatorPlus present-unmatched
 static __forceinline CurveValue operator+(const CurveValue &a,const CurveValue &b){return CurveValue(a.X+b.X,a.Y+b.Y,a.Z+b.Z);}
-// ?operatorMinus present-unmatched
 static __forceinline CurveValue operator-(const CurveValue &a,const CurveValue &b){return CurveValue(a.X-b.X,a.Y-b.Y,a.Z-b.Z);}
-// ?operatorTimes present-unmatched
 static __forceinline CurveValue operator*(const CurveValue &a,float k){return CurveValue(a.X*k,a.Y*k,a.Z*k);}
-// ?operatorLeftTimes present-unmatched
 static __forceinline CurveValue operator*(float k,const CurveValue &a){return CurveValue(a.X*k,a.Y*k,a.Z*k);}
 }
 D3DXVECTOR3 *catmullRom(D3DXVECTOR3 *out,const D3DXVECTOR3 *d3DXVECTOR3,const D3DXVECTOR3 *point1,const D3DXVECTOR3 *point2,const D3DXVECTOR3 *point3,float t,bool imported)

@@ -16,7 +16,6 @@ private:
 };
 class Rva00528FE6 {
 public:
- // ?Rva00528FE6::Rva00528FE6 present-unmatched
  __forceinline Rva00528FE6():m_ptr(0){}
  void rva00529009();
  void rva00528FE6(CameraMarker *marker);
@@ -143,15 +142,12 @@ protected:
 template <class T> class AptRef : public Rva00579E47
 {
 public:
-	// ?AptRef::AptRef present-unmatched
 	__declspec(dllimport) __forceinline AptRef(const DelegateDesc *desc) : Rva00579E47(*desc) {}
-	// ?AptRef::AptRef present-unmatched
 	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
 	{
 		if (m_ptr)
 			m_ptr->m_refCount++;
 	}
-	// ?AptRef::~AptRef present-unmatched
 	~AptRef()
 	{
 		if (m_ptr)
@@ -173,22 +169,18 @@ static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const
 
 
 class AptOverButtonHandler {public:void*m_vtbl;int m_refCount;};
-// ?AptRef::AptRef present-unmatched
 template<> __forceinline AptRef<AptOverButtonHandler>::AptRef(const DelegateDesc*desc):Rva00579E47(*desc){}
 class Rva00524415 {public:Rva00524415();char data[24];};
 class Rva00524436 {public:~Rva00524436();};
 struct PalantirOverStorage {Rva00524415 vectors;
-// ?PalantirOverStorage::~PalantirOverStorage present-unmatched
 ~PalantirOverStorage(){((Rva00524436*)this)->Rva00524436::~Rva00524436();}};
 class AptOverButtonHandlerAdder:public PalantirOverStorage {public:
  void AddOverButtonHandler(int,const AsciiString&,AptRef<AptOverButtonHandler>);
- // ?AptOverButtonHandlerAdder::AddOverButtonHandlerDelegate present-unmatched
  __forceinline void AddOverButtonHandlerDelegate(const int&level,const AsciiString&name,DelegateDesc desc){AddOverButtonHandler(level,name,&desc);}
 };
 class Rva00528B72 {public:Rva00528B72*rva00528B72(void*) throw();char data[24];};
 #include "../../../../../Include/Common/Rva00528B98.h"
 struct PalantirRankInterface {Rva00528B72 state;
-// ?PalantirRankInterface::PalantirRankInterface present-unmatched
 __forceinline PalantirRankInterface(void*p) throw(){state.rva00528B72(p);}
 __forceinline ~PalantirRankInterface(){((Rva00528B98*)this)->rva00528B98();}};
 class Rva00528BC1 {public:Rva00528BC1*rva00528BC1(void*);char data[16];};

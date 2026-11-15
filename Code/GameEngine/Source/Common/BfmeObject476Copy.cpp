@@ -176,11 +176,8 @@ void *bfmeAnchorRva0010F149HandleCtor(void *where, const Rva0010F149Handle &r)
 {
 	return ::new (where) Rva0010F149Handle(r);
 }
-// ?Rva001FD42B::Rva001FD42B present-unmatched
 struct Rva001FD42B { __forceinline Rva001FD42B(){typedef _STL::map<int,void*> T;((T*)this)->T::map();} __declspec(dllimport) __forceinline Rva001FD42B(const Rva001FD42B &r) {typedef _STL::map<int,void*> T;((T*)this)->T::map(*reinterpret_cast<const T*>(&r));} ~Rva001FD42B(); void *data[3];};
-// ?Rva001FD458::Rva001FD458 present-unmatched
 struct Rva001FD458 { __forceinline Rva001FD458(){typedef _STL::map<int,void*,Rva001FDAB0Less> T;((T*)this)->T::map();} __declspec(dllimport) __forceinline Rva001FD458(const Rva001FD458 &r) {typedef _STL::map<int,void*,Rva001FDAB0Less> T;((T*)this)->T::map(*reinterpret_cast<const T*>(&r));} ~Rva001FD458(); void *data[3];};
-// ?Rva000427195::Rva000427195 present-unmatched
 struct Rva000427195 { __forceinline Rva000427195(){typedef _STL::hash_map<int,Rva001FDCE1Record> T;((T*)this)->T::hash_map();} __declspec(dllimport) __forceinline Rva000427195(const Rva000427195 &r) {typedef _STL::hash_map<int,Rva001FDCE1Record> T;((T*)this)->T::hash_map(*reinterpret_cast<const T*>(&r));} ~Rva000427195(); void *data[5];};
 // The hash_map copy-ctor COMDAT (a matched row, 0x001FDF14/18) was previously
 // emitted as a side effect of the Rva000427195 copy ctor above; with that now
