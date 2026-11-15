@@ -632,6 +632,11 @@ def vtable_slot_targets(obj, known=()):
             flags = struct.unpack_from("<I", data, h + 36)[0]
             if flags & 0x01000000:   # extended relocation count requires a different layout
                 raise ValueError("unsupported relocation overflow")
+            # Only genuine uninitialized storage can omit its bytes. Code,
+            # initialized data and directive sections must supply their payload.
+            uninitialized = bool(flags & 0x80) and not flags & (0x20 | 0x40)
+            if size and not raw and not uninitialized:
+                raise ValueError("nonempty initialized section has no raw data")
             if (raw and raw + size > len(data)) or (nrel and (not rel or rel + 10 * nrel > len(data))):
                 raise ValueError("truncated section or relocations")
         sections, symbols = link_cycle.parse_coff(data)
@@ -657,9 +662,15 @@ def vtable_slot_targets(obj, known=()):
         for y in symbols.values():
             if y.cls == 105:
                 record = symptr + y.i * 18
-                if not data[record + 17]:
-                    raise ValueError("weak external has no default")
-                target = struct.unpack_from("<I", data, record + 18)[0]
+                if data[record + 17] != 1 or y.sec != 0 or y.value:
+                    raise ValueError("invalid weak external record")
+                target, search = struct.unpack_from("<II", data, record + 18)
+                # NOLIBRARY, LIBRARY and ALIAS all name a fallback by TagIndex.
+                # Accept only a fallback that independently resolves; nothing
+                # here guesses that a library will supply a missing definition.
+                # ANTI_DEPENDENCY and unknown modes are not modeled.
+                if search not in (1, 2, 3):
+                    raise ValueError("unsupported weak external search characteristic")
                 if target not in symbols:
                     raise ValueError("weak default names no symbol")
                 weak_defaults[y.i] = target

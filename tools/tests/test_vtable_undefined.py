@@ -333,3 +333,37 @@ def test_r2_alias_can_reach_a_registered_name_without_an_object_symbol(tmp_path)
 def test_r2_weak_alias_chain_with_missing_fallback_still_flags(tmp_path):
     p = alias_object(tmp_path / "unit.obj", " /alternatename:D=missing ", weak=True)
     assert A.new_vtable_targets(p, set()) == [(VT, 0, "W")]
+
+
+
+@pytest.mark.parametrize("aliased", [False, True])
+@pytest.mark.parametrize("bss", [False, True])
+def test_r3_missing_initialized_data_is_inconclusive_but_bss_is_valid(tmp_path, monkeypatch, aliased, bss):
+    if aliased:
+        p = alias_object(tmp_path / "unit.obj", " /alternatename:W=R ")
+    else:
+        p = object_file(tmp_path / "unit.obj", refs=("W",), own=("W",))
+    raw = bytearray(p.read_bytes())
+    header = 20 + 40                          # the target's .text section
+    struct.pack_into("<I", raw, header + 20, 0)
+    if bss:
+        raw[header:header + 8] = b".bss\0\0\0\0"
+        struct.pack_into("<I", raw, header + 36, 0xc0000080)
+    p.write_bytes(raw)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == (0 if bss else 2)
+
+
+@pytest.mark.parametrize("search", [0, 1, 2, 3, 4, 0xffffffff])
+def test_r3_weak_search_characteristic_requires_modeled_semantics(tmp_path, monkeypatch, search):
+    # No /alternatename: weak W defaults directly to the object-defined R.
+    p = alias_object(tmp_path / "unit.obj", "", weak=True)
+    raw = bytearray(p.read_bytes())
+    symptr = struct.unpack_from("<I", raw, 8)[0]
+    _, syms = link_cycle.parse_coff(raw)
+    wi = next(y.i for y in syms.values() if y.name == "W")
+    ri = next(y.i for y in syms.values() if y.name == "R")
+    struct.pack_into("<II", raw, symptr + wi * 18 + 18, ri, search)
+    p.write_bytes(raw)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == (0 if search in (1, 2, 3) else 2)
