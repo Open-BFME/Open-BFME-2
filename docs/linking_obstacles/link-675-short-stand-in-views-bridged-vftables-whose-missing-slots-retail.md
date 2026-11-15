@@ -175,3 +175,4 @@ matched-object relocation evidence binds it to RVA 0x007BB554; restoring bridge 
 regenerated bridge plan to accept it.
 Flattened stand-ins respelled over their real base (unattended worker; classes with several vftables whose stand-in used fake side bases to place the vptrs):
 - 2026-11-15 `Rva00589079Derived.cpp` over `UpdateModule`: 3 classes in 5 unit(s); 4 took another view's virtual declarations.
+- 2026-11-15 `CostModifierUpgrade.cpp` over `UpgradeModule`: 1 classes in 1 unit(s); 0 took another view's virtual declarations.
