@@ -154,3 +154,9 @@ The unit now declares that constructor body-less beside its copy constructor and
 `assign`, so it links against the rowed 0x7850 body instead of emitting a copy
 and an allocator reference. Build 34/34 rows exact; link_check 0 -> 850 B.
 Pending census confirmation.
+
+**2026-11-15 wide allocate (base `bb93a2a56e`, seat halilkkaya-link):** the same provider question
+for the const wide allocate, `?allocate@?$allocator@G@_STL@@QBEPAGIPBX@Z`, is recorded as
+[LINK-680](link-680-peerthread-cpp-loses-on-the-4-5-3-const-wide-allocate.md). After the Thai
+sentence builder moved to 4.6, `PeerThread.cpp` is that name's only provider and three 4.5.3 wide
+money/num units still declare it declaration-only.
