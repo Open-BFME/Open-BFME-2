@@ -91,7 +91,6 @@ void Rva00118990();
 // g_Va00DB5FB0 is only an alias of the owned global g_00DB5FB0 (ledger names column); this unit reads the owner through its own view type.
 extern int g_00DB5FB0;
 #define g_Va00DB5FB0 (*(int *)&g_00DB5FB0)
-extern float g_Va00DEC49C;
 const char *getNameAndIndex(const AsciiString &path, Int *index, Bool fullPath);
 // Retail sets up no unwind frame around the getText() temporary, so the
 // compare it calls cannot throw.
@@ -709,9 +708,7 @@ struct Rva007845D0Transform
 	float m[6];
 };
 
-extern Rva007845D0Transform g_Rva00F06914Transform;
 
-extern Rva007845D0Transform g_Rva00F0692CTransform;
 
 class Rva007845D0Backend
 {
@@ -760,7 +757,6 @@ unsigned long Rva000A90B0(unsigned long);
 
 // The Apt draw callback slot (0x00DB5FC8) and the Apt player (0x00DFE4CC),
 // whose OnCustomRender identity is corroborated by WB B97350 and retail 223D8D.
-extern int g_Va00DB5FC8;
 
 #include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 

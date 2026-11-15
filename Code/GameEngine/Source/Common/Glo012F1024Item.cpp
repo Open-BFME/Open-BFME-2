@@ -484,7 +484,6 @@ public:
 	void go(void);
 };
 
-extern Rva0060D5E0 *g_Rva0060D5E0;
 
 class Gen_0060D600
 {
@@ -500,7 +499,6 @@ public:
 	void go(void);
 };
 
-extern Rva0060D620 *g_Rva0060D620;
 
 class Glo012F1028Sub
 {

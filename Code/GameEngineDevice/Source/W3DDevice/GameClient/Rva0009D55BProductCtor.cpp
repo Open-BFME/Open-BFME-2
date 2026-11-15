@@ -257,8 +257,6 @@ void Rva0009D55BProduct::rva0009DB5A(bool active)
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 bool Rva00118660Call(void *scene, void *camera);
 extern bool ShaderOverbrightEnabled;
-extern float g_Va00DE5E2C[3];
-extern float g_Va00DE5E38[3];
 float g_Va00DB4AB4 = 0.6000000238418579f;	// retail RVA 0x009B4AB4 (.data), defined here
 static inline float Rva0009BC17Lerp(float a, float b, float t) { return (b - a) * t + a; }
 // ?rva0009BAA4@Rva0009D55BProduct@@QAEXXZ retail 0x0009BAA4 (371 bytes; the

@@ -64,6 +64,4 @@ TreeHintRef00217D4C Rva00574499::rva005744DD() const
     return TreeHintRef00217D4C((TargetRef00217D4C *)new InGameSimpleHelp(title, text));
 }
 
-extern unsigned g_Va00E062FC;
-extern unsigned g_Va00E0630C;
 

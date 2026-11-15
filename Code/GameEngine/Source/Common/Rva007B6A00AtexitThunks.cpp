@@ -145,8 +145,6 @@ extern unsigned int g_Va00E065EC[8];
 extern unsigned int g_Va00E06620[5];
 extern unsigned int g_Va00E06710[3];
 unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined here
-extern unsigned g_Va00E06734;
-extern unsigned g_Va00E06748;
 extern unsigned g_Va00E09E60;
 extern unsigned GeometryContactSphere;
 
