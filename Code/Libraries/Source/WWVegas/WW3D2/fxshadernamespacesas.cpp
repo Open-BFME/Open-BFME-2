@@ -6,6 +6,7 @@
 // copies are no longer kept from this unit (P75). If anything odd happens under the STL headers, look here first.
 #include <malloc.h>
 #include <stdlib.h>
+#include "../WWMath/Matrix4Data.h"
 extern "C" void (__cdecl *__gameMemFreePtr)(void *, int);
 inline void bfmeGameFree(void *block) { __gameMemFreePtr(block, 3); }
 #define free bfmeGameFree
