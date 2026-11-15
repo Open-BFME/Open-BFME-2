@@ -30,7 +30,7 @@ public:
 	virtual void update();
 	virtual void crc(void *xfer);
 	virtual void xfer(void *xfer);
-	virtual void loadPostProcess();
+	virtual void loadPostProcess() { }
 
 private:
 	RetailCollisionManagerData *m_data;
