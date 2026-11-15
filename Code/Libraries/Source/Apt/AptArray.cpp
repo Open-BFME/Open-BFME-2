@@ -217,7 +217,6 @@ private:
 // Reuse canonical base layouts. Inline base initializers reproduce the target
 // compiler's inlining, including the temporary native-hash-base vtable store.
 
-// ?AptValueGC::AptValueGC present-unmatched
 inline AptValueGC::AptValueGC(AptVirtualFunctionTable_Indices type) : AptValue(type) {}
 
 // ?AptValueWithHash::AptValueWithHash present-unmatched

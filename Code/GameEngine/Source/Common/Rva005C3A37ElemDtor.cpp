@@ -123,7 +123,6 @@ void Rva005C3A37Elem::rva005C3B3E()
 class Rva005C3C0B {public: void rva005C3C0B(const char *);};
 class Rva005C3D5F {public: void rva005C3D5F(const char *);};
 #include "../../Include/Common/DelegateDesc.h"
-// ?AptRef::AptRef present-unmatched (inline delegate adapter; no unique retail body)
 template<class T> __forceinline AptRef<T>::AptRef(DelegateDesc d):Rva00579E47(d) {}
 static __forceinline void AddCommandMapBinding(AptCommandMapAdder &adder,const AsciiString &asciiString,DelegateDesc d) {adder.AddCommandMap(asciiString,d);}
 #include "../../Include/Common/Rva000B3F84Pair.h"

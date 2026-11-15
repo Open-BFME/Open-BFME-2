@@ -22,7 +22,6 @@ int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const cha
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
 
-// ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched (inline release of the referent; expanded at every use here)
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
 	if (m_ptr)

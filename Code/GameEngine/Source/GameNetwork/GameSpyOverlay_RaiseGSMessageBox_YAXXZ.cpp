@@ -144,8 +144,7 @@ static const char * gsOverlays[GSOVERLAY_MAX] =
 class Rva00548B97Helper;
 extern Rva00548B97Helper *overlayLayouts[GSOVERLAY_MAX];
 
-// ?raiseOverlays present-unmatched  static emitter inlined into RaiseGSMessageBox
-void raiseOverlays( void )
+static inline void raiseOverlays( void )
 {
 	// Double-load of overlayLayouts[i] yields retail mov eax,[esi]/mov ecx,eax
 	// thiscall shape (single local would load straight into ecx, 30B miss).
