@@ -2507,7 +2507,12 @@ class Rva0052B106
 {
 public:
 	Rva0052B106();
-	virtual ~Rva0052B106() {}
+	virtual void slot00(int) {}
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10(int) {}
+	virtual void slot14() = 0;
 };
 
 Rva0052B106::Rva0052B106()
