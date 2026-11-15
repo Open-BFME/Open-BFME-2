@@ -165,6 +165,7 @@ struct BroadcastStealthUpdateModuleData
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/XferVersion.h"
 void XferObjectID(Xfer *xfer, ObjectID *id);
+struct UpgradeMaskType;
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 public:
@@ -189,6 +190,10 @@ protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004A34C0
 protected:
 	virtual void loadPostProcess();		// primary slot 1: the UpdateModule base call (0x00497805 fold)
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
+protected:
+	virtual void performUpgradeFX();
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 typedef bool Bool;
