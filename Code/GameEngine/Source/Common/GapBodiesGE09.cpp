@@ -81,7 +81,9 @@ class Rva0048FF77
 {
 public:
 	Rva0048FF77(int value, bool flag);
-	virtual ~Rva0048FF77() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual int slot08() { return -1; }
 private:
 	int m_04;
 	int m_08;
