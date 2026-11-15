@@ -27,8 +27,9 @@ extern const void *const Rva003AE017_v0[4] = {
 	(const void *)&__identifier("?DoXfer@Rva003A57A9@@UAEXAAVXfer@@@Z")  //  3 0x003A57A9
 };
 }
-// The compiler table the data ledger binds at this address:
-extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+// Retail table 0x00C1BFB4 (one slot), by the name FXParticleSystemFactories.cpp
+// and the other FX units emit and store for it:
+extern "C" char __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
 // Rva003AE017_v0C: retail table 0x00C1CEC8 (4 slots). Own the complete initialized table
 // instead of its one-byte first-byte stand-in (Rva004DF324Dtor.cpp s_10
 // precedent): each slot names a matched row at retail's slot target, taken by
@@ -70,6 +71,6 @@ Rva003AE017::Rva003AE017(const Rva003AE017 &that)
 	const void *src = &that;
 	((Rva003AE03D *)this)->Rva003AE03D::Rva003AE03D(*(const Rva003AE03D *)src);
 	*(void **)this = (void *)Rva003AE017_v0;
-	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
+	*(void **)((char *)this + 8) = &__identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$06@1@@");
 	*(void **)((char *)this + 0x0C) = (void *)Rva003AE017_v0C;
 }
