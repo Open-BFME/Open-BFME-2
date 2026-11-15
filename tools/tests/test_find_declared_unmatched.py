@@ -8,6 +8,58 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from find_declared_unmatched import find_defined_functions
 
 
+@pytest.mark.parametrize("obstacle", [None, "stale", "changed-copy", "body", "import",
+                                     "source-macro", "header-macro", "command-macro",
+                                     "header-class-macro", "spliced-macro", "split-define",
+                                     "quoted-define", "response-file", "missing-receipt"])
+def test_modern_definition_needs_current_reference_absence(tmp_path, monkeypatch, obstacle):
+    import json
+    import build
+    import find_declared_unmatched as tool
+    from test_gate_exploits import coff, TEXT
+    text = "#if defined(BFME2_MODERN)\nModernCamera::~ModernCamera() {}\n#endif\n"
+    if obstacle == "source-macro":
+        text = "#define BFME2_MODERN 1\n" + text
+    source = tmp_path / "Camera.cpp"
+    source.write_text(text + ("// changed\n" if obstacle == "changed-copy" else ""))
+    obj = tmp_path / "Camera.obj"
+    symbols = []
+    if obstacle in ("body", "import"):
+        name = "??1ModernCamera@@QAE@XZ"
+        if obstacle == "import": name = "__imp_" + name
+        symbols = [(name, 0, 1 if obstacle == "body" else 0, 0x20, 2, 0)]
+    obj.write_bytes(coff([(".text", TEXT, b"\xc3", [])], symbols))
+    header = tmp_path / "Header.h"
+    header.write_text({"header-macro": "#define BFME2_MODERN 1\n",
+                       "header-class-macro": "#/**/define ModernCamera RetailCamera\n",
+                       "spliced-macro": "#define " + chr(92) + "\nBFME2_MODERN 1\n"
+                       }.get(obstacle, "// header\n"))
+    if obstacle != "missing-receipt":
+        obj.with_suffix(".deps.json").write_text(json.dumps({"deps": {str(header): "hash"}}))
+    monkeypatch.setattr(build, "obj_path", lambda *_: obj)
+    monkeypatch.setattr(build, "compile_is_current", lambda *_, **kw: kw["strict"] and obstacle != "stale")
+    command = {"command-macro": ["cl", "/DBFME2_MODERN=1"],
+               "split-define": ["cl", "/D", "BFME2_MODERN=1"],
+               "quoted-define": ["cl", '/D"BFME2_MODERN=1"'],
+               "response-file": ["cl", "@extra.rsp"]}.get(obstacle, ["cl"])
+    monkeypatch.setattr(build, "compiler_command", lambda *_: (command, {}))
+    assert tool.modern_only_definitions(source, text) == (
+        {("ModernCamera", "~ModernCamera", None)} if obstacle is None else set())
+
+
+@pytest.mark.parametrize("text", [
+    "void Ordinary::run() {}\n",
+    "#if OTHER\nvoid Ordinary::run() {}\n#endif\n",
+    "#if defined(BFME2_MODERN) || OTHER\nvoid Ordinary::run() {}\n#endif\n",
+    "#if defined(BFME2_MODERN)\n// modern\n#else\nvoid Ordinary::run() {}\n#endif\n",
+    "#if defined(BFME2_MODERN)\nvoid Ordinary::run() {}\n",  # malformed
+    'const char *s="x"; /*\n#if defined(BFME2_MODERN)\n*/\nvoid Ordinary::run() {}\n',
+])
+def test_modern_mask_keeps_unproved_and_reference_definitions(text):
+    import find_declared_unmatched as tool
+    assert ("Ordinary", "run", None) in find_defined_functions(tool.mask_modern_branches(text))
+
+
 @pytest.mark.parametrize("newline", ["\n", "\r\n", "\r\r\n"])
 def test_multiline_tree_specializations_are_declarations(newline):
     source = """template <> _STL::_Rb_tree_node<ByteDwordValue> *
@@ -352,3 +404,45 @@ def test_distinct_template_methods_need_unexpanded_record_witnesses(
     assert candidates
     assert tool.inline_only_definitions(source, text, candidates) == (
         candidates if obstacle is None else set())
+
+def test_modern_mask_cannot_hide_reference_body_by_moving_symbol_comment(tmp_path, monkeypatch):
+    import json
+    import build
+    import find_declared_unmatched as tool
+    from test_gate_exploits import coff, TEXT
+    text = ('// ?run@Ordinary@@QAEXXZ\n'
+            '#if defined(BFME2_MODERN)\n'
+            'ModernCamera::~ModernCamera() {}\n#endif\n'
+            'void Ordinary::run() {}\n')
+    source = tmp_path / 'Camera.cpp'
+    source.write_text(text)
+    obj = tmp_path / 'Camera.obj'
+    obj.write_bytes(coff([('.text', TEXT, b'\xc3', [])], []))
+    obj.with_suffix('.deps.json').write_text(json.dumps({'deps': {}}))
+    monkeypatch.setattr(build, 'obj_path', lambda *_: obj)
+    monkeypatch.setattr(build, 'compile_is_current', lambda *_, **__: True)
+    monkeypatch.setattr(build, 'compiler_command', lambda *_: (['cl'], {}))
+    proved = tool.modern_only_definitions(source, text)
+    assert not any(d[0] == 'Ordinary' for d in proved)
+
+def test_modern_reference_object_read_may_update_access_time(tmp_path, monkeypatch):
+    import json, os
+    import build
+    import find_declared_unmatched as tool
+    from test_gate_exploits import coff, TEXT
+    source = tmp_path / 'Camera.cpp'
+    text = '#ifdef BFME2_MODERN\nModernCamera::~ModernCamera() {}\n#endif\n'
+    source.write_text(text)
+    obj = tmp_path / 'Camera.obj'
+    obj.write_bytes(coff([('.text', TEXT, b'\xc3', [])], []))
+    obj.with_suffix('.deps.json').write_text(json.dumps({'deps': {}}))
+    monkeypatch.setattr(build, 'obj_path', lambda *_: obj)
+    monkeypatch.setattr(build, 'compile_is_current', lambda *_, **__: True)
+    monkeypatch.setattr(build, 'compiler_command', lambda *_: (['cl'], {}))
+    read_symbols = build.read_object_symbols
+    def touch_access(data):
+        stat = obj.stat()
+        os.utime(obj, ns=(stat.st_atime_ns + 10000000000, stat.st_mtime_ns))
+        return read_symbols(data)
+    monkeypatch.setattr(build, 'read_object_symbols', touch_access)
+    assert tool.modern_only_definitions(source, text) == {('ModernCamera', '~ModernCamera', None)}
