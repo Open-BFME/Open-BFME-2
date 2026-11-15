@@ -121,6 +121,8 @@ public:
 	GarrisonObjectGroupOrder();
 private:
 	char m_pad[0x28 - 4];
+public:
+	virtual enum NameKeyType getClassKey();
 };
 
 class ChangeStanceGroupOrder : public GroupOrder

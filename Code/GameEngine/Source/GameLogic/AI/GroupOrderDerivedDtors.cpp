@@ -19,10 +19,15 @@ ChangeStanceGroupOrder::~ChangeStanceGroupOrder()
 {
 }
 
+enum NameKeyType;
 class GarrisonObjectGroupOrder : public GroupOrder
 {
 public:
 	virtual ~GarrisonObjectGroupOrder();
+public:
+	virtual const char *getClassName();
+public:
+	virtual enum NameKeyType getClassKey();
 };
 
 GarrisonObjectGroupOrder::~GarrisonObjectGroupOrder()
