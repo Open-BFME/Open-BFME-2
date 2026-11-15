@@ -258,7 +258,6 @@ void W3DPropDraw::doDrawModule(const Matrix3D* transformMtx)
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@W3DPropDraw@@ present-unmatched
 void W3DPropDraw::loadPostProcess( void )
 {
 
