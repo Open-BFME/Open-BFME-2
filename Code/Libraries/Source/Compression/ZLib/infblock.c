@@ -168,7 +168,7 @@ int r;
             if (s->sub.decode.codes == Z_NULL)
             {
               r = Z_MEM_ERROR;
-              LEAVE
+              ZLIB_LEAVE
             }
           }
           DUMPBITS(3)
@@ -185,7 +185,7 @@ int r;
           s->mode = BAD;
           z->msg = (char*)"invalid block type";
           r = Z_DATA_ERROR;
-          LEAVE
+          ZLIB_LEAVE
       }
       break;
     case LENS:
@@ -195,7 +195,7 @@ int r;
         s->mode = BAD;
         z->msg = (char*)"invalid stored block lengths";
         r = Z_DATA_ERROR;
-        LEAVE
+        ZLIB_LEAVE
       }
       s->sub.left = (uInt)b & 0xffff;
       b = k = 0;                      /* dump bits */
@@ -204,7 +204,7 @@ int r;
       break;
     case STORED:
       if (n == 0)
-        LEAVE
+        ZLIB_LEAVE
       NEEDOUT
       t = s->sub.left;
       if (t > n) t = n;
@@ -228,14 +228,14 @@ int r;
         s->mode = BAD;
         z->msg = (char*)"too many length or distance symbols";
         r = Z_DATA_ERROR;
-        LEAVE
+        ZLIB_LEAVE
       }
 #endif
       t = 258 + (t & 0x1f) + ((t >> 5) & 0x1f);
       if ((s->sub.trees.blens = (uIntf*)ZALLOC(z, t, sizeof(uInt))) == Z_NULL)
       {
         r = Z_MEM_ERROR;
-        LEAVE
+        ZLIB_LEAVE
       }
       DUMPBITS(14)
       s->sub.trees.index = 0;
@@ -261,7 +261,7 @@ int r;
           ZFREE(z, s->sub.trees.blens);
           s->mode = BAD;
         }
-        LEAVE
+        ZLIB_LEAVE
       }
       s->sub.trees.index = 0;
       Tracev((stderr, "inflate:       bits tree ok\n"));
@@ -300,7 +300,7 @@ int r;
             s->mode = BAD;
             z->msg = (char*)"invalid bit length repeat";
             r = Z_DATA_ERROR;
-            LEAVE
+            ZLIB_LEAVE
           }
           c = c == 16 ? s->sub.trees.blens[i - 1] : 0;
           do {
@@ -329,13 +329,13 @@ int r;
             s->mode = BAD;
           }
           r = t;
-          LEAVE
+          ZLIB_LEAVE
         }
         Tracev((stderr, "inflate:       trees ok\n"));
         if ((c = inflate_codes_new(bl, bd, tl, td, z)) == Z_NULL)
         {
           r = Z_MEM_ERROR;
-          LEAVE
+          ZLIB_LEAVE
         }
         s->sub.decode.codes = c;
       }
@@ -360,17 +360,17 @@ int r;
     case DRY:
       FLUSH
       if (s->read != s->write)
-        LEAVE
+        ZLIB_LEAVE
       s->mode = DONE;
     case DONE:
       r = Z_STREAM_END;
-      LEAVE
+      ZLIB_LEAVE
     case BAD:
       r = Z_DATA_ERROR;
-      LEAVE
+      ZLIB_LEAVE
     default:
       r = Z_STREAM_ERROR;
-      LEAVE
+      ZLIB_LEAVE
   }
 }
 

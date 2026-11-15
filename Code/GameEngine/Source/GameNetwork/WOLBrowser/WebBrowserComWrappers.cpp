@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// platformsdk
 //
 // ?invoke@Rva00958C80@@QAEJVBfmeBstrVGP@@0JJJJJJPAX@Z at retail 0x00177010
 // (170B). Trimmed port of the Open-BFME-1 WebBrowserComWrappers donor: only
@@ -18,11 +19,8 @@
 // ?bfmeGoVGP@BfmeThingVGP@@QAEHXZ @0x176E90 (both dtor paths call it);
 // _com_issue_errorex resolves already.
 
-struct _GUID { unsigned char bytes[16]; };
-typedef _GUID GUID;
-struct IUnknown;
+#include <windows.h>
 
-extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
 extern void __stdcall _com_issue_errorex(long error, IUnknown *object,
 	const GUID &iid);
 extern GUID g_bfmeIidTSA;

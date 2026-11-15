@@ -161,7 +161,7 @@ int r;
       c->mode = BADCODE;        /* invalid code */
       z->msg = (char*)"invalid literal/length code";
       r = Z_DATA_ERROR;
-      LEAVE
+      ZLIB_LEAVE
     case LENEXT:        /* i: getting length extra (have base) */
       j = c->sub.copy.get;
       NEEDBITS(j)
@@ -193,7 +193,7 @@ int r;
       c->mode = BADCODE;        /* invalid code */
       z->msg = (char*)"invalid distance code";
       r = Z_DATA_ERROR;
-      LEAVE
+      ZLIB_LEAVE
     case DISTEXT:       /* i: getting distance extra */
       j = c->sub.copy.get;
       NEEDBITS(j)
@@ -230,17 +230,17 @@ int r;
       }
       FLUSH
       if (s->read != s->write)
-        LEAVE
+        ZLIB_LEAVE
       c->mode = END;
     case END:
       r = Z_STREAM_END;
-      LEAVE
+      ZLIB_LEAVE
     case BADCODE:       /* x: got error */
       r = Z_DATA_ERROR;
-      LEAVE
+      ZLIB_LEAVE
     default:
       r = Z_STREAM_ERROR;
-      LEAVE
+      ZLIB_LEAVE
   }
 #ifdef NEED_DUMMY_RETURN
   return Z_STREAM_ERROR;  /* Some dumb compilers complain without this */

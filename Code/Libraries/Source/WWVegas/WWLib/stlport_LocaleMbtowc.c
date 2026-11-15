@@ -1,22 +1,11 @@
 // cl: /MD
+// platformsdk
 // stlport46
 // STLport 4.5.3 Win32 _Locale_mbtowc.
 
-typedef unsigned int size_t;
-typedef unsigned long LCID;
-typedef unsigned int UINT;
-typedef int mbstate_t;
-typedef unsigned short wchar_t;
-
-#define _LEADBYTE 0x8000
-#define MB_PRECOMPOSED 1
-
-typedef struct _CPINFO
-{
-    UINT MaxCharSize;
-    unsigned char DefaultChar[2];
-    unsigned char LeadByte[12];
-} CPINFO;
+#include <windows.h>
+#include <wchar.h>
+#include <ctype.h>
 
 typedef struct _Locale_ctype
 {
@@ -24,11 +13,6 @@ typedef struct _Locale_ctype
     UINT cp;
     unsigned int ctable[257];
 } _Locale_ctype_t;
-
-__declspec(dllimport) int __stdcall GetCPInfo(UINT codePage, CPINFO *info);
-__declspec(dllimport) int __stdcall MultiByteToWideChar(
-    UINT codePage, unsigned long flags, const char *source, int sourceCount,
-    wchar_t *destination, int destinationCount);
 
 static int __isleadbyte(int c, unsigned int *ctable)
 {
