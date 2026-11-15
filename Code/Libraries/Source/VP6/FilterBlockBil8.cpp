@@ -8,7 +8,6 @@
 // No external decoder source was consulted.
 extern const int g_vp6BilinearWeights[8][2];
 extern "C" void __cdecl FilterBlock2dBil_8(const unsigned char *,unsigned short *,int,const int *,const int *);
-// ?BilinearByteBlock present-unmatched
 static void BilinearByteBlock(const unsigned char *source,unsigned char *destination,
  unsigned int pitch,unsigned int step,unsigned int rows,unsigned int columns,const int *weights)
 {

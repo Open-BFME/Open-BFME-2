@@ -11623,8 +11623,6 @@ present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	marked	1
 present_unmatched	Code/Libraries/Source/Fesl/blobservice.cpp	0Rva0065D1D0@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/Fesl/blobservice.cpp	marked	1
 present_unmatched	Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp	Image::SetNativeImage	1
-present_unmatched	Code/Libraries/Source/VP6/FilterBlockBil8.cpp	BilinearByteBlock	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperConvertColorClamp.cpp	Convert_Color@DX8Wrapper@@CAIABVVector3@@M@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperSetDX8States.cpp	bfmeEmitDX8WrapperSetDX8States@@YAXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva0018C262::begin	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp	Rva0018C262::end	1
@@ -11646,7 +11644,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassDtor.
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructAssignmentBFME.cpp	bfmeEmitPendingSurfaceStructAssignmentBFME@@YAXPAUPendingSurfaceStruct@Render2DSentenceClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize.cpp	BfmeRendererVectorBase::BfmeRendererVectorBase	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize.cpp	DynamicVectorDummy::DynamicVectorDummy	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize.cpp	W3DRadarResetSurface::operator=	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildTexturesBFME2.cpp	FontTextureOwnerLifetime	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RenderObjAccessors.cpp	bfmeEmitRenderObjAccessors@@YAXPAVRenderObjClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp	_bfmeRva001171B0Anchor	1
@@ -11708,7 +11705,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObj
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Intersect_AABox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Intersect_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Position	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Transform	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0AABoxCollisionTestClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0OBBoxCollisionTestClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	Cull@AABoxCollisionTestClass@@	1

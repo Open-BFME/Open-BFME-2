@@ -40,7 +40,6 @@ private:
 #include "DX8WrapperClass.h"
 
 // upstream: GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
-// ?Convert_Color@DX8Wrapper@@CAIABVVector3@@M@Z present-unmatched
 __forceinline unsigned int DX8Wrapper::Convert_Color(const Vector3 &color, float alpha)
 {
 	const float scale = 255.0;

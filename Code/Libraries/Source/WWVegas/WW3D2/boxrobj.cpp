@@ -1248,7 +1248,6 @@ void OBBoxRenderObjClass::Render(RenderInfoClass & rinfo)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Set_Transform present-unmatched
 inline void OBBoxRenderObjClass::Set_Transform(const Matrix3D &matrix3D)
 {
 	RenderObjClass::Set_Transform(matrix3D);

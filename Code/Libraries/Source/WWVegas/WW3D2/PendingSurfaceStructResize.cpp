@@ -36,7 +36,6 @@ protected:
 	SurfaceResource *m_surface;
 };
 
-// ?W3DRadarResetSurface::operator= present-unmatched
 inline W3DRadarResetSurface &W3DRadarResetSurface::operator=(const W3DRadarResetSurface &that)
 {
 	if (that.m_surface)
