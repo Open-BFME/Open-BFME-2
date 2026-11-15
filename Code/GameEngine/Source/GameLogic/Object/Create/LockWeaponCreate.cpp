@@ -24,6 +24,11 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/GameLogic/Module/LockWeaponCreate.h"
+// The data's deleting destructor 0x004A10FD calls 0x0049B47C, which only
+// restores Snapshot's table 0x00BBB554: the implicit destructor of
+// LockWeaponCreateModuleData reduces to Snapshot's, so ModuleData's is inline
+// here.
+inline ModuleData::~ModuleData() {}
 class Xfer;
 #include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 enum WeaponLockType { LOCKED_PERMANENTLY = 2 };
