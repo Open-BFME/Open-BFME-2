@@ -11,7 +11,7 @@
 // and resolves through its symbols.csv pin (same recipe as the
 // Rva004B8CDEDeletingDtor.cpp opaque-middle stub), so the local empty body is
 // emission scaffolding, not a recovery claim. The stub is marked
-// present-unmatched and the full dtor bodies stay unrowed.
+// unmatched-function and the full dtor bodies stay unrowed.
 //
 // Variation per member: complete-dtor call target, pool object
 // (0x00E176E8/Rva006DB270 or 0x00E176F4/Rva006D2A60) and class size.

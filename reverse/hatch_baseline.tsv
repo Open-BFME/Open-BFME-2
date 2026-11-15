@@ -10487,7 +10487,6 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva006D07E0Key@@
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeSub928F.cpp	1Rva00109C27@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	0Rva006560E0@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	marked	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGH::bfmeSetGH	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGL::bfmeReleaseGL	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGM::bfmeDrainGM	1
@@ -10713,7 +10712,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp	Rva006D7
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp	Rva006E9B50::~Rva006E9B50	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp	Rva006EC170::~Rva006EC170	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp	Rva006FE430::~Rva006FE430	1
-present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	?	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006CBF40::~Rva006CBF40	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006DA560::~Rva006DA560	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006F7DC0::~Rva006F7DC0	1
@@ -10724,7 +10722,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp	deleteRva006
 present_unmatched	Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp	Rva000ADA1AMaskBytes::size	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00893030ManagerCopyOut.cpp	rva00892F00@Rva00893030Manager@@	1
 present_unmatched	Code/GameEngine/Source/Common/RvaFamily1Clones.cpp	RvaF1HandleCtor	1
-present_unmatched	Code/GameEngine/Source/Common/RvaFamily1Clones.cpp	marked	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva000421C8Ctor@@YAXPAVRva000421C8@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva0007DF07Ctor@@YAXPAVRva0007DF07@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva0030D346Ctor@@YAXPAVRva0030D346@@@Z	1
@@ -11110,7 +11107,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Worker
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	update@ActAsSupplyTruckState@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	xfer@WorkerStateMachine@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCtor.cpp	1CombineHordeSpecialPowerModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp	copy	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp	1CurseSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp	DeletionUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp	DeletionUpdate::~DeletionUpdate	1
@@ -11148,7 +11144,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	experienceLevelCreateIface1Anchor@ExperienceLevelCreateIface1@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	experienceLevelCreateIface2Anchor@ExperienceLevelCreateIface2@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	hence	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	ifaceAnchor@BehaviorModuleInterface@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	muxAnchor@UpgradeMux@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	objectAnchor@ObjectModule@@UAEXXZ	1
@@ -11179,12 +11174,10 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarriso
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::~FireSpreadUpdate	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp	copy	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FirestormDynamicGeometryInfoUpdateCtor.cpp	1AnimatedParticleSysBoneClientUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp	FloatUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp	FloatUpdate::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp	FloatUpdate::~FloatUpdate	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateModuleDataCtor.cpp	Rva001EAE6FHelper::Rva001EAE6FHelper	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp	1StoreObjectsSpecialPowerModuleData@@	1

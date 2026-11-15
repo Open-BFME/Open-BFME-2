@@ -7,7 +7,7 @@
 // Target facts. update is slot 0 of FireSpreadUpdate's UpdateModuleInterface
 // vftable (0x0084BF84, right after PartitionFilterFlammable's 0x0084BF78). The
 // ZH-port unit FireSpreadUpdate.cpp builds without this region's SSE flags and
-// keeps its copy present-unmatched. The module data holds OCLEmbers at +8 and
+// keeps its copy unmatched. The module data holds OCLEmbers at +8 and
 // SpreadTryRange at +0x14 (field table 0x00C4C000). BFME 2 differences from
 // ZH:
 // - AFLAME is Object::testStatus(10).

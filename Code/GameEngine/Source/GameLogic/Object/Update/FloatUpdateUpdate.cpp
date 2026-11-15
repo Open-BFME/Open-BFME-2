@@ -5,7 +5,7 @@
 //
 // The ZH body compiles to retail's code under this region's SSE flags. The
 // ZH-port unit FloatUpdate.cpp builds without them and keeps its copy
-// present-unmatched. Target facts that differ from the ZH headers:
+// unmatched-function. Target facts that differ from the ZH headers:
 // - TerrainLogic::isUnderwater sits in vftable slot 19 and takes one more
 //   trailing argument, which this call passes as 0 (see the
 //   FlammableUpdateDtor.cpp view).

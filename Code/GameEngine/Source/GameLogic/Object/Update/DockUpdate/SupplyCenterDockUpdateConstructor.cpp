@@ -58,11 +58,11 @@ public:
 // The BehaviorModule vftable anchor: declared virtual in 60 TUs but defined
 // nowhere, so every one of them carries U ?behaviorModuleAnchor. Defined once
 // here (empty: retail inlines or dead-strips it; no retail bytes are claimed,
-// hence present-unmatched rather than a row).
+// hence unmatched-function rather than a row).
 // The BehaviorModule vftable anchor: declared virtual in 60 TUs but defined
 // nowhere, so every one of them carries U ?behaviorModuleAnchor. Defined once
 // here (empty: retail inlines or dead-strips it; no retail bytes are claimed,
-// hence present-unmatched rather than a row).
+// hence unmatched-function rather than a row).
 // ?behaviorModuleAnchor@BehaviorModule@@UAEXXZ present-unmatched
 void BehaviorModule::behaviorModuleAnchor()
 {
@@ -316,7 +316,7 @@ void WeaponModeSpecialPowerUpdateIface4::weaponModeIface4Anchor()
 // strcmp; this TU-local view mirrors ZH's member order (factory head pointer
 // first; pool factory-link, name, then the rest) and implements the same
 // walk. Only the walked fields are touched; BFME2's own factory layout past
-// them is unrecovered. No retail bytes are claimed (present-unmatched).
+// them is unrecovered. No retail bytes are claimed (unmatched-function).
 class DynamicMemoryAllocator;
 
 class MemoryPool

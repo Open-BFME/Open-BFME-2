@@ -594,7 +594,7 @@ private:
 // delete (matched ??3 row, no member delete declared). Per the
 // Rva0065F140Deleter recipe, the defined constructor below forces the vtable
 // emission, and ??_G rides along with it; the constructor itself is only
-// marked present-unmatched, never claimed. Owner identity is the rowed
+// marked unmatched-function, never claimed. Owner identity is the rowed
 // ??1Rva006560E0 at 0x006560E0 in BfmeDirtyBaseDerived.cpp.
 
 #include "../../Include/Common/BfmeDirtyBase.h"

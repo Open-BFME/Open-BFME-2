@@ -8,7 +8,7 @@
 // Target facts. update is reached through the UpdateModuleInterface at +0x10
 // (slot 31 of the vftable block at 0x0084B0E8, between the module data's
 // slots and getDisabledTypesToProcess). The ZH-port unit BoneFXUpdate.cpp
-// builds without this region's flags and keeps its copy present-unmatched.
+// builds without this region's flags and keeps its copy unmatched.
 // Layout (full object): next FX / OCL / particle-system frames
 // [4 body states][8 bones] at +0x2C / +0xAC / +0x12C, bone positions at
 // +0x1AC / +0x32C / +0x4AC, current body state +0x62C and the active flag

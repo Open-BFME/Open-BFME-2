@@ -7,7 +7,7 @@
 // starting with the refcount; the payload block copies as movsd only through
 // the Pay sub-object. The Handle destructor is declared-not-defined
 // scaffolding that produces the EH-state init; the Handle constructor is
-// defined (must inline) and marked present-unmatched. Holder vtable pins
+// defined (must inline) and marked unmatched-function. Holder vtable pins
 // carry the retail table addresses. Holder, payload and handle identities
 // are unproven; address-derived names throughout.
 struct RvaF1Pay
