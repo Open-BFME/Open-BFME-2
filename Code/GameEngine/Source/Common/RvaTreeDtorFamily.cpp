@@ -1127,7 +1127,6 @@ Rva003ED94FDtor::~Rva003ED94FDtor()
 // releasing the buffer drops out.
 #include "../../Include/GameLogic/Rva003ED658.h"
 
-// ?Rva003ED658::~Rva003ED658 present-unmatched (ICF-folded at 0x003ED94F; pinned)
 Rva003ED658::~Rva003ED658()
 {
 	bfmeClearMembers((LGA_MemberObj *)this);

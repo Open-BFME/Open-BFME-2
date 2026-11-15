@@ -50,7 +50,6 @@ static inline void _Construct(int *__p, const int &__val)
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
-// ?operatorPlusTwoStringsText present-unmatched: exact61B relocation twin at109CFD
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&a,const char*b) {Rva000B3F84Pair p;p.init(b);AsciiStringPlusStringText r;static_cast<AsciiStringPlusString&>(r)=a;r.m_right=p;return r;}
 
 

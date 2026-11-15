@@ -10742,7 +10742,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FB
 present_unmatched	Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp	StrategicHUD::ArmyDetailsMovieClip::Impl::IconSlot::OnLoaded	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005F54DADtor.cpp	Rva00579E47::~Rva00579E47	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	AsciiString)	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	OnRollOut@Impl@ArmyMemberIconMovieClip@StrategicHUD	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	Rva005242D7::Rva005242D7	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	text)	2
 present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp	AsciiString)	1
@@ -10755,7 +10754,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.
 present_unmatched	Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp	operator==	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	0Rva00690FF0Handle@@QAE@PAVGen0002857E@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	0Rva006910F0Handle@@QAE@PAVGen0002857E@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	4Rva00691140Handle@@QAEAAV0@ABV0@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006C3CC0Cluster.cpp	Rva006C17B0::~Rva006C17B0	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp	Rva006CC2F0::~Rva006CC2F0	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp	Rva006CD620::~Rva006CD620	1
@@ -10779,7 +10777,6 @@ present_unmatched	Code/GameEngine/Source/Common/RvaFamily1Clones.cpp	marked	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva000421C8Ctor@@YAXPAVRva000421C8@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva0007DF07Ctor@@YAXPAVRva0007DF07@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva0030D346Ctor@@YAXPAVRva0030D346@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp	Rva003ED658::~Rva003ED658	1
 present_unmatched	Code/GameEngine/Source/Common/StrategicHUD.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/StringBaseTailDtors_muse-8fbc.cpp	1Rva000AF215@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFile::ArchiveFile	1
@@ -10947,7 +10944,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Strateg
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp	Rva005FA197Element::Rva005FA197Element	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptMovieClip.cpp	Rva005FA1CEElement::Rva005FA1CEElement	2
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp	operatorPlusTwoStringsText	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDDynamicAutoResolveMovieClip.cpp	AsciiString)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDDynamicAutoResolveMovieClip.cpp	text)	2
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp	text)	1
@@ -12149,7 +12145,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tre
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva004f7e61.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord00448113_insert.cpp	insert_unique@?$_Rb_tree@UBfmeStringRecord00448113@@U1@U?$_Identity@UBfmeStringRecord00448113@@@_STL@@U?$less@UBfmeStringRecord00448113@@@3@V?$allocator@UBfmeStringRecord00448113@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmeStringRecord00448113@@U?$_Nonconst_traits@UBfmeStringRecord00448113@@@_STL@@@_STL@@_N@2@ABUBfmeStringRecord00448113@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00221e02_dtor.cpp	_Rb_tree_base::~_Rb_tree_base	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00222C5A.cpp	Rva0022307F::~Rva0022307F	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_int_asciistring_insert_005014FF.cpp	_M_insert@?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHVAsciiString@@@2@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rva004f6352_sort.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rva004f6352_sort_entry.cpp	1TreeHintRef00217D4C@@QAE@XZ	1

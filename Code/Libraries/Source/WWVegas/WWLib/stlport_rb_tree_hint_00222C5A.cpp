@@ -43,7 +43,6 @@ public:
     ~Rva0022307F();
 };
 
-// ?Rva0022307F::~Rva0022307F present-unmatched (ICF-folded at 0x00222C5A; pinned)
 Rva0022307F::~Rva0022307F()
 {
 }

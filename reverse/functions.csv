@@ -101983,3 +101983,7 @@ $L19357,,0x0077F774,14,Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,m
 ?Delete@DebugCmdInterfaceDebug@@UAEXXZ,,0x000386C0,20,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ICF twin of DebugIOFlat::Delete (explicit dtor + DebugFreeMemory)
 ??0Rva004121D1Context@@QAE@XZ,,0x0022239C,43,Code/GameEngine/Source/GameClient/GUI/AptComponentRegistry.cpp,matched,ICF twin at 0x0022239C of _ArcInfoStruct::ArcInfoStruct (zero-init 13 dwords)
 ??1Rva00089894ArrayElement@@QAE@XZ,,0x0004F82B,8,Code/GameEngine/Source/GameClient/Rva00089894ArrayElement.cpp,matched,ICF twin at 0x0004F82B of ??1GeometryRecord@@QAE@XZ (tail-calls AsciiString dtor at +0x0C)
+??4Rva00691140Handle@@QAEAAV0@ABV0@@Z,,0x000A8A43,41,Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp,matched,ICF twin at 0x000A8A43 of Rva00691040Handle::operator=
+??1Rva003ED658@@QAE@XZ,,0x003ED94F,58,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,matched,ICF twin at 0x003ED94F of Rva003ED94FDtor::~Rva003ED94FDtor
+??1Rva0022307F@@QAE@XZ,,0x00222C5A,57,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00222C5A.cpp,matched,
+?OnRollOut@Impl@ArmyMemberIconMovieClip@StrategicHUD@@QAEXPBD@Z,,0x005F057A,10,Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp,matched,

@@ -310,7 +310,6 @@ void StrategicHUD::ArmyMemberIconMovieClip::Impl::OnRollOver(const char *path)
 	m_owner->notifyRollOver();
 }
 
-// ?OnRollOut@Impl@ArmyMemberIconMovieClip@StrategicHUD present-unmatched (ICF-folded at 0x005F057A; pinned)
 void StrategicHUD::ArmyMemberIconMovieClip::Impl::OnRollOut(const char *path)
 {
 	m_owner->notifyRollOut();

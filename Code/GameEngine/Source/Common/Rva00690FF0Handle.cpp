@@ -148,7 +148,6 @@ public:
 	Gen0002857E *m_target;
 };
 
-// ??4Rva00691140Handle@@QAEAAV0@ABV0@@Z present-unmatched (masked body identical to the rowed Rva00691040Handle::operator= at 0x000A8A43; one retail copy, so the two BFME1 classes fold there)
 Rva00691140Handle &Rva00691140Handle::operator=(const Rva00691140Handle &other)
 {
 	Gen0002857E *target = other.m_target;
