@@ -62,7 +62,7 @@ public:
     int m_ownerID; // +0x3C
 
 protected:
-    virtual void loadPostProcess() {}
+    virtual void loadPostProcess(); // row ?loadPostProcess@WeaponSet@@MAEXXZ in WeaponSet.cpp
 #ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
 #else

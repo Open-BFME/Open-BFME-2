@@ -38,28 +38,7 @@ public:
 	virtual void *deleteInstance(int flags);
 };
 
-class PlayerList : public SubsystemInterface, public Snapshot
-{
-public:
-	virtual ~PlayerList();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-	virtual void newGame();
-	virtual void newMap();	// retail slot 15, 0x002A7AE6
-	virtual void rva002A7ACE();	// retail slot 16, 0x002A7ACE
-
-	virtual void DoXfer(Xfer *xfer);	// Snapshot slot 3, 0x002A7D63
-
-protected:
-	virtual void LoadPostProcess();	// Snapshot slot 1, 0x000B3FD0
-	virtual const char *GetSnapshotName() const;	// Snapshot slot 2, 0x002A7A23
-
-private:
-	Player *m_local; // +0x10
-	int m_playerCount; // +0x14
-	Player *m_players[20]; // +0x18
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 PlayerList::~PlayerList()

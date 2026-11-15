@@ -75,6 +75,7 @@ protected:
 #else
     virtual void crc(Xfer *xfer);
 #endif
+public: // row ?DoXfer@PlayerList@@UAEXPAVXfer@@@Z
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #ifdef BFME_SNAPSHOT_REFERENCE_XFER
     virtual void DoXfer(Xfer &xfer);

@@ -71,11 +71,13 @@ protected:
 	virtual void xfer(Xfer *xfer);
 public:
 	virtual void loadPostProcess();
+protected: // row ?GetSnapshotName@TurretAI@@MBEPBDXZ
 #ifdef BFME_SNAPSHOT_NAME_SLOT
 	virtual const char *GetSnapshotName() const;
 #else
 	virtual void crc(Xfer *xfer);
 #endif
+public:
 	const char *name() const;
 	virtual void notifyFired();
 	virtual void notifyNewVictimChosen(Object *victim);
