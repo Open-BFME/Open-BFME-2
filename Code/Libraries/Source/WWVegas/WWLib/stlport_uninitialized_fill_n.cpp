@@ -8,6 +8,8 @@
 // by sizeof(T). Each T is declared minimally at its retail stride (8 bytes)
 // with the struct/class-ness of its rowed copy ctor; no member is touched.
 
+#include "BfmeStringRecord005DDD40.h"
+
 #include <memory>
 #include <vector>
 
@@ -28,13 +30,6 @@ public:
 	char m_body[8];
 };
 
-struct BfmeStringRecord005DDD40
-{
-public:
-	BfmeStringRecord005DDD40();
-	BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &other);
-	char m_body[8];
-};
 
 struct Rva0048130E
 {
