@@ -8,6 +8,8 @@
 // path); each _Construct is declared only so its call resolves
 // through its own row.
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
+#include "TreeKey00242F5E.h"
+
 #include <map>
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
@@ -48,7 +50,6 @@ public:
 };
 }
 
-struct TreeKey00242F5E { public: unsigned char m_data[8]; };
 struct BfmeRecord001DD3BC { public: unsigned char m_data[8]; };
 struct BfmeStringRecord004071F7 { public: unsigned char m_data[12]; };
 #include "../../../Include/Lib/BfmeE16.h"
