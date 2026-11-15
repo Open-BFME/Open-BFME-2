@@ -197,11 +197,14 @@ class Rva00474B51
  Coord3D *rva00474B51(Coord3D *out,Object *obj, int word);
 };
 
+struct AEXPBVObject;
 class HordeContain : public HordeContainPrimary, public HordeContainIface
 {
  public:
  virtual Coord3D *rva0047AC8F(Coord3D *out,Object *obj, int word);
  Coord2D *rva0046A5B1(Coord2D *out, int index);
+public:
+	virtual void slot42(const class Object *);
 };
 
 class AODHordeContain : public HordeContain

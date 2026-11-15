@@ -81,6 +81,8 @@ public:
 private:
 	unsigned char m_pad120[0x270 - 0x120];
 	_STL::vector<void *> m_bannerIndices;	// +0x270, HordeContainBannerIndexEntry pointers
+public:
+	virtual void rva0046C327();
 };
 
 void HordeContain::onDelete()

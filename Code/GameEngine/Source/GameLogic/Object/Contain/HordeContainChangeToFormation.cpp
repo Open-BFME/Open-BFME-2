@@ -284,6 +284,7 @@ public:
 #undef V
 };
 
+struct AEXPBVObject;
 class HordeContain : public HC_ModuleBase, public HordeContainInterface
 {
 public:
@@ -294,6 +295,8 @@ public:
 	Int m_27C;										// +0x27C
 	char m_pad280[0x2B4 - 0x280];
 	Bool m_2B4;										// +0x2B4
+public:
+	virtual void slot42(const class Object *);
 };
 
 void HordeContain::changeToFormation(const ThingTemplate *newTemplate)

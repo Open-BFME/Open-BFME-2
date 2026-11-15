@@ -70,6 +70,7 @@ class Rva0046BB38Iface11C : public Rva0046BB38Slots<7>
 public:
     virtual Coord3D slot7(Object *object, float *angle) = 0;
 };
+struct AEXPBVObject;
 class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
@@ -79,6 +80,8 @@ public:
     unsigned char m_pad122[0x290 - 0x122];
     unsigned int m_290;
     bool m_294;
+public:
+	virtual void slot42(const class Object *);
 };
 class GameLogic;
 extern GameLogic *TheGameLogic;

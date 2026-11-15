@@ -125,6 +125,8 @@ private:
 };
 class TransportContainView : public OpenContain {};
 
+struct AEXPBVObject;
+struct AEHPAVRva2225E0Filter;
 class HordeContain : public TransportContainView, public Rva00469626HordeIface
 {
 public:
@@ -133,6 +135,10 @@ public:
 	virtual void rva004697A8(int a1, int a2, int a3);
 	virtual Rva00469626HordeIface *rva0046F7B9();
 	virtual bool rva00469602();
+public:
+	virtual void slot42(const class Object *);
+public:
+	virtual int rva0046D3FC(class Rva2225E0Filter *);
 };
 
 // ?rva00469626@HordeContain@@UAE_NXZ @0x00469626: slot 11.

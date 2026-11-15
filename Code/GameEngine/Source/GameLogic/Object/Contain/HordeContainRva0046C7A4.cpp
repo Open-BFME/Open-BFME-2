@@ -118,6 +118,7 @@ public:
 	virtual Object *rva0046C7A4(bool skipStatus, const Coord3D *pos, float maxDistance, Object *attacker, int useClientRandom) = 0;
 };
 
+struct AEXPBVObject;
 class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
@@ -125,6 +126,8 @@ public:
 private:
 	unsigned char m_pad120[0x170 - 0x120];
 	_STL::set<int> m_170; // +0x170 (Object IDs)
+public:
+	virtual void slot42(const class Object *);
 };
 
 Object *HordeContain::rva0046C7A4(bool skipStatus, const Coord3D *pos, float maxDistance, Object *attacker, int useClientRandom)

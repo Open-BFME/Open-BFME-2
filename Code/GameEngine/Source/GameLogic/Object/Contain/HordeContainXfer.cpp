@@ -250,6 +250,7 @@ private:
 	char m_pad0C[0x120 - 0x0C];
 };
 
+struct AEXPBVObject;
 class HordeContain : public TransportContain
 {
 protected:
@@ -304,6 +305,8 @@ private:
 	Coord3D m_2F8;
 	Bool m_304;
 	UnsignedInt m_308;
+public:
+	virtual void slot42(const class Object *);
 };
 
 typedef char HordeContainSizeCheck[sizeof(HordeContain) == 0x30C ? 1 : -1];

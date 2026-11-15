@@ -260,6 +260,11 @@ struct Rva0046F543Tail
 // erase 0x00286183 (one instantiation: the self-recursive erase is not ICF-folded;
 // AITargetHeuristicEnemyStructure::findBestTarget 0x005735C6 keys it by object ID).
 typedef _STL::map<ObjectID, int> ObjectIDIntMap;
+struct AEXPAVObject;
+struct AEXPBVThingTemplate;
+struct AEXPBVObject;
+struct AE_NPAVObject;
+struct AEXHHUQuarrelPacket;
 class HordeContain : public TransportContain, public HordeContainInterface
 {
 public:
@@ -303,6 +308,34 @@ private:
 	Coord3D m_2F8; // +0x2F8
 	Bool m_304; // +0x304
 	Int m_308; // +0x308
+public:
+	virtual void attackTargetNow(class Object *, int);
+public:
+	virtual void returnToFormation(bool);
+public:
+	virtual void assignSpotToUnit(class Object *);
+public:
+	virtual void notifyOfMemberDeath(class Object *);
+public:
+	virtual void removeMemberFromHorde(class Object *);
+public:
+	virtual void performReform();
+public:
+	virtual void changeToFormation(const class ThingTemplate *);
+public:
+	virtual void slot42(const class Object *);
+public:
+	virtual void startMeleeAttack(class Object *);
+public:
+	virtual bool canEngageInMelee(class Object *, int);
+public:
+	virtual void backAwaySomeMembersFrom(class Object *);
+public:
+	virtual void instigateQuarrel(int, int, struct QuarrelPacket, struct QuarrelPacket);
+public:
+	virtual bool isFlankedBy(class Object *);
+public:
+	virtual void endMove();
 };
 
 HordeContain::HordeContain(Thing *thing, const ModuleData *moduleData)

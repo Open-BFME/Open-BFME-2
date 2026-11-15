@@ -122,6 +122,8 @@ private:
 	const HordeContainModuleDataFields *fields() const { return (const HordeContainModuleDataFields *)m_moduleData; }
 	unsigned char m_pad120[0x170 - 0x120];
 	_STL::set<int> m_170; // +0x170 (Object IDs)
+public:
+	virtual bool rva004698BC();
 };
 
 bool HordeContain::dissolveComboHordeIfNeeded()
