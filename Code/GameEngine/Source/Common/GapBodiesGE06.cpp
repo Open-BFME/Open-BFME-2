@@ -82,17 +82,18 @@ bool InGameUI::canSelectedObjectsNonAttackInteractWithObject(const Object *obj, 
 // --- 0x0059F0F7 (17B): vtable 0x00C7122C over two cleared words;
 // 0x0059F108 (34B): nothing to check is fine, else TheGameSpyInfo's virtual
 // slot 54 decides.
-class Rva0059F0F7
+#include "../../Include/Common/Rva0007DF07.h"
+
+class Rva0059F0F7 : public Rva0007DF07
 {
 public:
 	Rva0059F0F7();
 	virtual ~Rva0059F0F7() {}
 private:
-	int m_04;
 	int m_08;
 };
 
-Rva0059F0F7::Rva0059F0F7() : m_04(0), m_08(0)
+Rva0059F0F7::Rva0059F0F7() : m_08(0)
 {
 }
 
