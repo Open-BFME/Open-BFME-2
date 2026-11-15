@@ -158,10 +158,15 @@ public:
 
 static __forceinline UnsignedInt devastateMoneyAmount(Real value) {return (UnsignedInt)value;}
 
+struct AEXPAVObject;
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, UnsignedInt commandOptions );
+public:
+	virtual void doSpecialPower(unsigned int);
+public:
+	virtual void doSpecialPowerAtObject(class Object *, unsigned int);
 };
 
 void DevastateSpecialPower::doSpecialPowerAtLocation( const Coord3D *target, UnsignedInt commandOptions )

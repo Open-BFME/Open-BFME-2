@@ -23,6 +23,8 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
+struct AEXPAVObject;
+struct AEXPBUCoord3D;
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:
@@ -31,6 +33,12 @@ protected:
 	virtual ~DevastateSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	virtual void doSpecialPower(unsigned int);
+public:
+	virtual void doSpecialPowerAtObject(class Object *, unsigned int);
+public:
+	virtual void doSpecialPowerAtLocation(const struct Coord3D *, unsigned int);
 };
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 #include "ascii_string.h"

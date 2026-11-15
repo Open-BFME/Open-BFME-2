@@ -35,11 +35,14 @@ class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInter
 {
 };
 
+struct AEXPBUCoord3D;
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:
 	virtual void doSpecialPower(unsigned int options);
 	virtual void doSpecialPowerAtObject(Object *target, unsigned int options);
+public:
+	virtual void doSpecialPowerAtLocation(const struct Coord3D *, unsigned int);
 };
 
 // ?doSpecialPower@DevastateSpecialPower@@UAEXI@Z @0x004C822C
