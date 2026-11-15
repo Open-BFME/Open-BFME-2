@@ -70,4 +70,3 @@ void*Rva000BBDDF::rva000BBDDF(int key,int*index)const{
 
 // Keep application /Oy- frames above; deferred STLport helpers use the
 // native frame-omitting profile of the canonical 56-byte find provider.
-#pragma optimize("y", on)

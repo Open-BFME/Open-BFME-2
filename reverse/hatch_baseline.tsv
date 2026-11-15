@@ -9526,7 +9526,6 @@ pragma_optimize	Code/GameEngine/Source/Common/RTS/ShroudManagerImplGetNearestGro
 pragma_optimize	Code/GameEngine/Source/Common/RTS/TeamFactoryList.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/TeamFactoryList.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva000BBE29.cpp	"y",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva000E48BC.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva000E48BC.cpp	"ty",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva001DBBAD.cpp	"",on	1
@@ -9607,7 +9606,6 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorP
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003307F2Method.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain_onContaining.cpp	"y",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Object.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Object.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	"s",on	1
@@ -9711,7 +9709,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryDtor.cpp	"
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperMatrix3DTransformBFME2.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererAddRenderingTask.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME.cpp	"",on	1
@@ -9719,7 +9716,7 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboClassGetMotion.cpp	"gsy",on	2
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboClassGetMotion.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimTransform.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimTransform.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodAddLodModel.cpp	"",on	2
@@ -9971,7 +9968,7 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod_read_header.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod_read_header.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"gsy",on	2
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/layer.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/layer.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/light.cpp	"",on	1
@@ -10158,7 +10155,7 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_shader_copy_ctor.cp
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_shader_copy_ctor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_shader_copy_ctor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_unsigned_copy_ctor.cpp	"gt",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_unsigned_copy_ctor.cpp	"s",on	2
+pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_unsigned_copy_ctor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_copy_ctor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_copy_ctor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector3_copy_ctor.cpp	"",on	2

@@ -1020,4 +1020,3 @@ void bfmeEmitRva0018E750VectorDtor(Rva0018E750ChannelSet *p)
 // optimization state at the end of the unit: retail links the size-optimized copy
 // (htree.cpp emits it), so the unit ends in that state.
 
-#pragma optimize("gsy", on)

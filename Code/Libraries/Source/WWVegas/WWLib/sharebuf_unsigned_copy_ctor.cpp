@@ -64,7 +64,6 @@ ShareBufferClass<unsigned>::ShareBufferClass(const ShareBufferClass<unsigned> &t
 	}
 }
 
-#pragma optimize("s", on)
 
 // Color cloning15B840 calls this175-byte constructor. Its vtableBCE330
 // agrees with the unsigned-buffer constructor used by Get_Color_Array D1FBD.

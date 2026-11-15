@@ -421,4 +421,3 @@ void HordeContain::onContaining(Object*object,bool wasSelected){
 
 // Retail application body keeps /Oy-; deferred STL helpers use the verified
 // frame-omitting profile of stlport_map_int_int_os.cpp (lookup 0x388F63).
-#pragma optimize("y", on)
