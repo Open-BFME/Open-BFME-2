@@ -23,9 +23,6 @@ class Rva002D752D;
 
 extern int BfmeLogicFramesPerSecond;
 
-// ?getTeamNamed@ScriptEngine@@QAEPAVTeam@@VAsciiString@@_N@Z present-unmatched
-// ?createGroup@AI@@QAEPAVAIGroup@@XZ present-unmatched
-// ?getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z present-unmatched
 // AIGroup::groupSetEmoticon is rowed at 0x0036E1C3 (AIGroupRva0036E1C3.cpp).
 void ScriptActions::Rva003C1F0A(const AsciiString &teamName, const StringBase<char> &animName, float f)
 {

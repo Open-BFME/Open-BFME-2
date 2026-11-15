@@ -409,7 +409,6 @@ void dumpBattlePlanBonuses(const BattlePlanBonuses *battlePlanBonuses, AsciiStri
   // end loadPostProcess
 
 //=============================================================================
-// ?Player::Player present-unmatched
 //=============================================================================
 // ??1Player@@UAE@XZ is rowed in its own unit; this copy collided with it.
 
@@ -1447,7 +1446,6 @@ _InputIter find(_InputIter __first, _InputIter __last, const _Tp &__val);
 // Declared, never defined here: the definition is the matched row
 // ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z at 0x002A1B6F
 // (Code/GameEngine/Source/Common/Rva002A1316.cpp).
-// ?append@Rva002A1B6FNativeList@@QAEXABQAX@Z present-unmatched
 #include "../../../Include/Common/Rva002A1B6FNativeList.h"
 
 class Rva002AE3F4
@@ -3879,7 +3877,6 @@ Bool Player::hasUpgradeInProduction( const UpgradeTemplate *upgradeTemplate )
 /** Give the player an upgrade or change status on an existing upgrade entry */
 //=================================================================================================
 // byte-exact reconstruction: Code/GameEngine/Source/Common/RTS/Player_addUpgrade.cpp
-// ?addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z present-unmatched
 //
 // Cannot come home, and NOT for anything inside the body. The merged form is
 // settled: m_upgradeList at Player+0x54, the two six-dword masks at +0x74 and

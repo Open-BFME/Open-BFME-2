@@ -14,9 +14,6 @@
 // 0x002E74C6 0x001E48E8 0x00313EAF. Row 0x002E74C6 declares void but retail
 // leaves the inner find result in eax and this body tests it so it is
 // declared here as returning Locomotor.
-// ?rva0028B511@Object@@QBEHXZ present-unmatched
-// ?friend_getRadarData@Object@@QAEPAVRadarObject@@XZ present-unmatched
-// ?rva001E48E8@Rva001E48E8@@QAEPAXI@Z present-unmatched
 
 typedef int Int;
 typedef unsigned int UnsignedInt;

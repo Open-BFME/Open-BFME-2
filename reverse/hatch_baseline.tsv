@@ -10581,15 +10581,12 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.c
 present_unmatched	Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.cpp	Rva003320C7ListOwner::begin	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.cpp	Rva003320C7ListOwner::end	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	0ClosestKindOfData@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::Player	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::guardSupplyCenter	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyBuildFacility	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyUnits	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::preTeamDestroy	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setAttackedBy	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setTeamDelaySeconds	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	append@Rva002A1B6FNativeList@@QAEXABQAX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefense@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseStructure@Player@@QAEXABVAsciiString@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildSpecificBuilding@Player@@QAEXABVAsciiString@@@Z	1
@@ -11101,8 +11098,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPo
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	findLocomotorTemplateVector@AIUpdateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	isIdle@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp	getIgnoredObstacleID@AIUpdateInterface@@QBE?AW4ObjectID@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	1DozerAIUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	<Rva00488C48::rva00488C48>	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getBoredRange@DozerAIUpdate@@UBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	getBoredTime@DozerAIUpdate@@UBEMXZ	1
@@ -11134,9 +11129,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Worker
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	update@ActAsSupplyTruckState@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	xfer@WorkerStateMachine@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCtor.cpp	1CombineHordeSpecialPowerModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp	friend_getRadarData@Object@@QAEPAVRadarObject@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp	rva001E48E8@Rva001E48E8@@QAEPAXI@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp	rva0028B511@Object@@QBEHXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp	copy	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp	1CurseSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp	DeletionUpdate::loadPostProcess	1
@@ -11259,9 +11251,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cp
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cpp	getUnitNamed@ScriptEngine@@QAEPAVObject@@PAVParameter@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp	0ScriptAction@@QAE@W4ScriptActionType@1@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1F0A.cpp	createGroup@AI@@QAEPAVAIGroup@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1F0A.cpp	getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1F0A.cpp	getTeamNamed@ScriptEngine@@QAEPAVTeam@@VAsciiString@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	equalTag_Rva003B31C7@@YA_NPBX0H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummary.h	ArmySummary::loadPostProcess	1
@@ -11395,9 +11384,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffe
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp	the	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp	emit@bfmeW3DGameClientEmitter@@SAXPAU1@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientSnowFactory.cpp	emit@W3DGameClientSnowEmitter@@SAXPAU1@@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	0W3DMouse@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	1W3DMouse@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	draw@W3DMouse@@UAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_loadD3DCursorTextures.cpp	1BFME2ParticleTextureHandle@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	1W3DPropBuffer@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	clearAllProps@W3DPropBuffer@@	1
@@ -11510,10 +11496,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimC
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Peek_Motion	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Peek_Pivot_Weight_Map	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp	HAnimComboClass::Set_Weight	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp	createGroup@AI@@QAEPAVAIGroup@@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp	destroyGroup@AI@@QAEXPAVAIGroup@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp	getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/HLodRva004ECECD.cpp	rva00372C05@AIGroup@@QAEXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	Set_Material@DX8Wrapper@@SAXPBVVertexMaterialClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	Set_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@ABVMatrix3D@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassCtor.cpp	0TextureRemapStruct@MaterialRemapperClass@@QAE@XZ	1

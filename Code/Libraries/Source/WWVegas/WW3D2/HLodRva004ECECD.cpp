@@ -115,10 +115,6 @@ bool AITactic::anyTeamMembersInCombat()
     return false;
 }
 
-// ?createGroup@AI@@QAEPAVAIGroup@@XZ present-unmatched
-// ?getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z present-unmatched
-// ?rva00372C05@AIGroup@@QAEXXZ present-unmatched
-// ?destroyGroup@AI@@QAEXPAVAIGroup@@@Z present-unmatched
 void AITactic::cohereTeams()
 {
     Rva004ECECDNode *begin = m_begin;

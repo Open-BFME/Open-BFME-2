@@ -120,8 +120,6 @@ public:
 };
 #include "../../../Include/W3DDevice/GameClient/MouseThreadClass.h"
 extern "C" { MouseThreadClass thread; }
-// ??0W3DMouse@@ present-unmatched
-// ??1W3DMouse@@ present-unmatched
 // Retail W3DMouse layout (proven by matched freeW3DAssets/initPolygonAssets
 // bodies): cursor records start at this+0x38 with a 0x54 stride and the
 // image name at record+0 (56 records: 0x38+56*0x54 = 0xF98); the live
@@ -865,7 +863,6 @@ void W3DMouse::init( void )
 
 }
 
-// ?draw@W3DMouse@@UAEXXZ present-unmatched
 // W3DMouse::setRedrawMode is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp (0x0009A04A).
 
 // W3DMouse::setCursorDirection is defined in W3DMouseCursorDirection.cpp
