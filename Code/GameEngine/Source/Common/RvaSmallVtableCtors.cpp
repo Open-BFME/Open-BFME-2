@@ -1943,7 +1943,12 @@ class Rva003FE1BF
 {
 public:
 	Rva003FE1BF();
-	virtual ~Rva003FE1BF() {}
+	virtual void slot00(int) {}
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
 };
 
 Rva003FE1BF::Rva003FE1BF()
