@@ -638,3 +638,25 @@ def test_r3_a_receipt_that_cannot_be_written_never_fails_the_import(fetching, mo
     assert len(imports) == (2 if step == "unlink" else 1)
     assert list(C.fetch_receipt_path().parent.rglob("*.obj"))
     assert not list(C.fetch_receipt_path().parent.glob("*.tmp"))
+
+
+
+@pytest.mark.parametrize("move", ["stray", "sibling"])
+def test_r4_the_receipt_names_the_store_files_an_import_writes(fetching, move):
+    # the stored pair moved elsewhere in the store and the receipt followed it: the pair an import writes is missing
+    source, served, imports = fetching
+    C.fetch_index()
+    path = C.fetch_receipt_path()
+    receipt = json.loads(path.read_text())
+    entry = receipt["taken"][0]
+    real = {field: path.parent / entry[field] for field in ("file", "deps")}
+    for field, old in real.items():
+        name = ("stray" if field == "file" else "stray.deps") if move == "stray" else old.stem + "x"
+        new = (path.parent if move == "stray" else old.parent) / (name + old.suffix)
+        old.rename(new)
+        entry[field] = new.relative_to(path.parent).as_posix()
+    path.write_text(json.dumps(receipt))
+    assert C.receipt_entry_problem(entry, True) is None
+    assert "other store files" in C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest())
+    C.fetch_index()
+    assert len(imports) == 2 and all(p.exists() for p in real.values())

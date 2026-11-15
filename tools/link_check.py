@@ -410,8 +410,15 @@ REPLAY_PARALLEL_MIN = 256      # entries below which the replay runs in this pro
 
 
 def _replay(entries):
-    """build._import_candidate's store fingerprint for each entry, None for one this tree would not take."""
-    return [None if (now := build._import_candidate(entry)) is None else now[1] for entry in entries]
+    """(store fingerprint, store-relative entry directory) build._import_candidate and build._objstore_dir give
+    each entry now, None for one this tree would not take."""
+    store = build._objstore_root()
+    out = []
+    for entry in entries:
+        now = build._import_candidate(entry)
+        directory = None if now is None or store is None else build._objstore_dir(*now)
+        out.append(None if directory is None else (now[1], directory.relative_to(store).as_posix()))
+    return out
 
 
 def replay_import(entries):
@@ -441,8 +448,9 @@ def objects_unchanged(index_sha):
     gives this tree, so importing it again would add nothing; else why it must be imported. The last import's
     receipt (fetch_objects) must name that index, and the import is replayed against the tree as it stands
     (build._import_candidate, as import_objects decides): every entry it would take now must be one it took, under
-    the store fingerprint this host's command gives it now, with the object's bytes (md5) and its sidecar's
-    (sha256) still in the store (which prunes and can be damaged). The receipt must also name the bundle published
+    the store fingerprint this host's command gives it now, in the files a fresh import writes (the entry directory
+    build._objstore_dir gives it now, named by the recorded sidecar digest's stem), with the object's bytes (md5)
+    and its sidecar's (sha256) still in them (the store prunes and can be damaged). The receipt must also name the bundle published
     now (bundle_identity: the index and the bundle are separate assets, so a fetch during a publication can pair
     a new index with the old bundle). A receipt that is not what an import writes, or an entry the replay cannot
     read, imports again. Objects only spare compiles, so this never changes a verdict."""
@@ -477,8 +485,12 @@ def objects_unchanged(index_sha):
                 continue                    # not takeable on this tree as it stands
             if "file" not in entry:
                 return f"{entry['path']} now matches its bundled object"
-            if now != entry["fingerprint"]:
+            fingerprint, directory = now
+            if fingerprint != entry["fingerprint"]:
                 return f"{entry['path']}'s compile command now keys another store entry"
+            stem = f"{directory}/{entry['sidecar'][:16]}"
+            if (entry["file"], entry["deps"]) != (stem + ".obj", stem + ".deps.json"):
+                return f"the receipt names other store files than an import writes for {entry['path']}"
             try:
                 data, sidecar = (store / entry["file"]).read_bytes(), (store / entry["deps"]).read_bytes()
             except (OSError, ValueError):
