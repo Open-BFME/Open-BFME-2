@@ -20,6 +20,8 @@
 // - a trailing zero at +0x814.
 //
 // The heat-vision material, shader and occlusion buffers follow Zero Hour.
+#include "../../../../Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h"
+
 #include "ascii_string.h"
 
 #include <new>
@@ -52,13 +54,6 @@ public:
 	virtual ~BfmeRefSceneList();
 };
 
-class LightEnvironmentClass
-{
-public:
-	LightEnvironmentClass();
-	~LightEnvironmentClass();
-	char m_data[0x228];
-};
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
