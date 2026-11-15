@@ -17,11 +17,10 @@ public:
 };
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva005D073ASecondBase
-{
-public:
-	virtual ~Rva005D073ASecondBase() {}
-};
+class LivingWorldBattle;
+// LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
+class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
+typedef LivingWorldAutoResolveEventObserver Rva005D073ASecondBase;
 
 class Rva005D073AFirstBase
 {
