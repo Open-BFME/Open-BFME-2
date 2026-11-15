@@ -27,12 +27,14 @@
 
 #include "../../Common/Thing/thing.h"
 
+#include "../../../Include/Common/Geometry.h"
+
 // Accessed members only; plain fields so this unit emits no accessor COMDATs.
 class Object : public Thing
 {
 public:
-	unsigned char m_pad060[0xBC - 0x60];
-	float m_boundingCircleRadius;		// +0xBC
+	unsigned char m_pad060[0xA8 - 0x60];
+	GeometryInfo m_geometry;
 };
 
 #include "../../../Include/GameLogic/Module/Rva002C9BC3Owner.h"
@@ -46,8 +48,8 @@ float Weapon::getAttackDistance(const Object *source, const Object *victimObj, c
 {
 	if (victimObj) {
 		float range = getAttackRange(source, victimObj);
-		range += source->m_boundingCircleRadius;
-		range += victimObj->m_boundingCircleRadius;
+		range += source->m_geometry.m_boundingSphereRadius;
+		range += victimObj->m_geometry.m_boundingSphereRadius;
 		return range;
 	} else if (victimPos) {
 		return ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)source, (void *)victimPos);
