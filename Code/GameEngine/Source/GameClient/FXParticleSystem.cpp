@@ -2481,3 +2481,11 @@ void bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSy
 {
 	p->FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::QUAD_DRAW_MODULE_KEY,FXParticleSystem::QUAD_DRAW_MODULE_NAME,FXParticleSystem::QuadDrawModule,FXParticleSystem::QuadDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > >::__vecDelDtor(3);
 }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::BUTTERFLY_DRAW_MODULE_KEY,FXParticleSystem::BUTTERFLY_DRAW_MODULE_NAME,FXParticleSystem::ButterflyDrawModule,FXParticleSystem::ButterflyDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > >, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSystem_ModuleTag_6_FXParticleSystem_BUTTERFLY_DRAW_MODULE_KEY_FXParticleSystem_BUTTERFLY_DRAW_MODULE_NAME_FXParticleSystem_ButterflyDrawModule_FXParticleSystem_ButterflyDrawModuleTemplate_FXParticleSystem_DefaultParticleModule_6_> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_ConcreteModuleTemplate_FXParticleSystem_ModuleTag_6_FXParticleSystem_BUTTERFLY_DRAW_MODULE_KEY_FXParticleSystem_BUTTERFLY_DRAW_MODULE_NAME_FXParticleSystem_ButterflyDrawModule_FXParticleSystem_ButterflyDrawModuleTemplate_FXParticleSystem_DefaultParticleModule_6_(FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::BUTTERFLY_DRAW_MODULE_KEY,FXParticleSystem::BUTTERFLY_DRAW_MODULE_NAME,FXParticleSystem::ButterflyDrawModule,FXParticleSystem::ButterflyDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > > *p)
+{
+	p->FXParticleSystem::ConcreteModuleTemplate<FXParticleSystem::ModuleTag<6,FXParticleSystem::BUTTERFLY_DRAW_MODULE_KEY,FXParticleSystem::BUTTERFLY_DRAW_MODULE_NAME,FXParticleSystem::ButterflyDrawModule,FXParticleSystem::ButterflyDrawModuleTemplate,FXParticleSystem::DefaultParticleModule<6> > >::__vecDelDtor(3);
+}
