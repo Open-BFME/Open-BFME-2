@@ -459,13 +459,9 @@ def objects_unchanged(index_sha):
         return f"a new census index ({index_sha[:12]}; the store holds {str(receipt.get('index'))[:12]}'s)"
     store = path.parent
     taken, passed = receipt.get("taken"), receipt.get("passed")
-    fields = ("path", "source", "neutral")
     if (not isinstance(taken, list) or not isinstance(passed, list)
-            or not all(isinstance(entry, dict) and all(isinstance(entry.get(k), str) for k in fields)
-                       and "\0" not in entry["path"] for entry in taken + passed)
-            or not all(all(isinstance(entry.get(k), str) for k in ("fingerprint", "object", "file", "deps", "sidecar"))
-                       for entry in taken)
-            or any("file" in entry for entry in passed)):
+            or not all(receipt_entry_problem(entry, True) is None for entry in taken)
+            or not all(receipt_entry_problem(entry, False) is None for entry in passed)):
         return "the receipt is unreadable"
     published = bundle_identity()
     if published is None or published != receipt.get("bundle"):
@@ -485,13 +481,42 @@ def objects_unchanged(index_sha):
                 return f"{entry['path']}'s compile command now keys another store entry"
             try:
                 data, sidecar = (store / entry["file"]).read_bytes(), (store / entry["deps"]).read_bytes()
-            except OSError:
+            except (OSError, ValueError):
                 return f"the store no longer holds {entry['path']}'s object"
             if (hashlib.md5(data).hexdigest() != entry["object"]
                     or hashlib.sha256(sidecar).hexdigest() != entry["sidecar"]):
                 return f"the store's copy of {entry['path']}'s object is damaged"
     except (KeyError, TypeError, AttributeError):
         return "the receipt is unreadable"
+    return None
+
+
+MD5_HEX = re.compile(r"[0-9a-f]{32}")
+SHA256_HEX = re.compile(r"[0-9a-f]{64}")
+
+
+def receipt_entry_problem(entry, taken):
+    """Why a fetch receipt entry is not one build.import_objects records, or None: {path, source, neutral}, the
+    source and its neutral command as md5 hex (a bundle entry with any other digests can never be taken, so its
+    receipt is never trusted and every fetch imports again); a taken entry adds its store fingerprint and object
+    (md5 hex), its sidecar (sha256 hex) and the store-relative posix paths of both files."""
+    if not isinstance(entry, dict):
+        return "not an entry"
+    path = entry.get("path")
+    if not isinstance(path, str) or not path or "\0" in path:
+        return "no source path"
+    if not all(isinstance(entry.get(k), str) and MD5_HEX.fullmatch(entry[k]) for k in ("source", "neutral")):
+        return "a malformed source or command digest"
+    if not taken:
+        return "a store file for an entry the import passed over" if {"file", "deps"} & set(entry) else None
+    if not all(isinstance(entry.get(k), str) and MD5_HEX.fullmatch(entry[k]) for k in ("fingerprint", "object")) \
+            or not (isinstance(entry.get("sidecar"), str) and SHA256_HEX.fullmatch(entry["sidecar"])):
+        return "a malformed store digest"
+    for key in ("file", "deps"):
+        rel = entry.get(key)
+        if (not isinstance(rel, str) or not rel or "\0" in rel or "\\" in rel or rel.startswith("/")
+                or ":" in rel or any(part in ("", ".", "..") for part in rel.split("/"))):
+            return "a store path outside the store"
     return None
 
 
@@ -548,7 +573,11 @@ def fetch_objects(url=OBJECTS_URL, index_sha=None):
     import tarfile
     receipt = fetch_receipt_path()
     if receipt is not None:
-        receipt.unlink(missing_ok=True)
+        try:
+            receipt.unlink(missing_ok=True)
+        except OSError as exc:
+            # a receipt left behind is still replayed against the store and the tree before it spares an import
+            print(f"link_check: could not remove the fetch receipt ({exc})", file=sys.stderr)
     delivered = {}
     try:
         temp = download(url, "objects.", identity=delivered)
@@ -564,12 +593,21 @@ def fetch_objects(url=OBJECTS_URL, index_sha=None):
     finally:
         temp.unlink(missing_ok=True)
     if index_sha and receipt is not None and not record.get("incomplete") and delivered.get("asset"):
-        receipt.parent.mkdir(parents=True, exist_ok=True)   # an import that took nothing made no store yet
+        # best effort: without a receipt the next fetch imports again, which costs time and nothing else
         tmp = receipt.with_name(receipt.name + f".{os.getpid()}.tmp")
-        tmp.write_text(json.dumps({"version": RECEIPT_VERSION, "index": index_sha, "bundle": delivered["asset"],
-                                   "taken": record.get("taken", []), "passed": record.get("passed", [])}),
-                       encoding="utf-8")
-        os.replace(tmp, receipt)
+        try:
+            receipt.parent.mkdir(parents=True, exist_ok=True)   # an import that took nothing made no store yet
+            tmp.write_text(json.dumps({"version": RECEIPT_VERSION, "index": index_sha, "bundle": delivered["asset"],
+                                       "taken": record.get("taken", []), "passed": record.get("passed", [])}),
+                           encoding="utf-8")
+            os.replace(tmp, receipt)
+        except OSError as exc:
+            print(f"link_check: could not write the fetch receipt ({exc}); the next fetch imports again",
+                  file=sys.stderr)
+            try:
+                tmp.unlink(missing_ok=True)
+            except OSError:
+                pass
     print(f"link_check: {count:,} compiled object(s) added to the object store (used when they match this tree)")
     return count
 

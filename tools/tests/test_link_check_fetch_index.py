@@ -555,3 +555,86 @@ def test_r2_a_malformed_receipt_imports_again_without_failing(fetching, damage):
     assert C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest()) == "the receipt is unreadable"
     C.fetch_index()
     assert len(imports) == 2
+
+
+
+@pytest.mark.parametrize("field,value", [("source", ""), ("neutral", ""), ("source", "0" * 31), ("fingerprint", "x"),
+                                         ("object", "0" * 33), ("sidecar", "0" * 32)])
+def test_r3_a_receipt_with_a_malformed_digest_imports_again(fetching, field, value):
+    # the replay skipped a taken entry whose recorded source digest could never match, hiding a missing object
+    source, served, imports = fetching
+    C.fetch_index()
+    path = C.fetch_receipt_path()
+    receipt = json.loads(path.read_text())
+    obj = path.parent / receipt["taken"][0]["file"]
+    obj.unlink()
+    receipt["taken"][0][field] = value
+    path.write_text(json.dumps(receipt))
+    assert C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest()) == "the receipt is unreadable"
+    C.fetch_index()
+    assert len(imports) == 2 and obj.exists()
+
+
+@pytest.mark.parametrize("field,value", [("file", "\u0000"), ("deps", "\u0000"), ("file", "/etc/passwd"),
+                                         ("deps", "../outside.json"), ("file", "a\\b.obj"), ("file", "C:x.obj"),
+                                         ("file", "")])
+def test_r3_a_store_path_outside_the_store_imports_again(fetching, field, value):
+    source, served, imports = fetching
+    C.fetch_index()
+    path = C.fetch_receipt_path()
+    receipt = json.loads(path.read_text())
+    receipt["taken"][0][field] = value
+    path.write_text(json.dumps(receipt))
+    assert C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest()) == "the receipt is unreadable"
+    C.fetch_index()
+    assert len(imports) == 2
+
+
+def test_r3_an_unreadable_store_path_imports_again(fetching, monkeypatch):
+    # a path the validation passes can still fail to read with ValueError: the replay imports again
+    source, served, imports = fetching
+    C.fetch_index()
+    original = Path.read_bytes
+
+    def refuse(self):
+        if self.suffix == ".obj":
+            raise ValueError("unreadable")
+        return original(self)
+    monkeypatch.setattr(Path, "read_bytes", refuse)
+    assert "no longer holds" in C.objects_unchanged(hashlib.sha256(served["index"]).hexdigest())
+
+
+@pytest.mark.parametrize("step", ["write", "replace", "unlink"])
+def test_r3_a_receipt_that_cannot_be_written_never_fails_the_import(fetching, monkeypatch, capsys, step):
+    source, served, imports = fetching
+    if step == "unlink":
+        C.fetch_index()
+        served["index"] = index("2026-11-15 09:00", "census0001")
+        original_unlink = Path.unlink
+
+        def deny_unlink(self, *args, **kwargs):
+            if self.name == C.fetch_receipt_path().name:
+                raise PermissionError("receipt denied")
+            return original_unlink(self, *args, **kwargs)
+        monkeypatch.setattr(Path, "unlink", deny_unlink)
+    elif step == "write":
+        original = Path.write_text
+
+        def deny(self, *args, **kwargs):
+            if self.name.startswith(C.fetch_receipt_path().name):
+                raise PermissionError("receipt denied")
+            return original(self, *args, **kwargs)
+        monkeypatch.setattr(Path, "write_text", deny)
+    else:
+        original_replace = C.os.replace
+
+        def deny_replace(src, dst):
+            if Path(dst).name == C.fetch_receipt_path().name:
+                raise PermissionError("receipt denied")
+            return original_replace(src, dst)
+        monkeypatch.setattr(C.os, "replace", deny_replace)
+    C.fetch_index()
+    assert "could not" in capsys.readouterr().err and C.INDEX.exists()
+    assert len(imports) == (2 if step == "unlink" else 1)
+    assert list(C.fetch_receipt_path().parent.rglob("*.obj"))
+    assert not list(C.fetch_receipt_path().parent.glob("*.tmp"))
