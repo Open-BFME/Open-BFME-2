@@ -10489,7 +10489,6 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeOneHundredNinetyOne.cpp	Bfme
 present_unmatched	Code/GameEngine/Source/Common/BfmeOwnVVD.cpp	bfmeSlot0VVD@BfmeBaseVVD@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva006D07E0Key@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/BfmeStringRecord00426A5B.cpp	rva004266A1@Rva004266A1@@QAE_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeSub928F.cpp	1Rva00109C27@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	0Rva006560E0@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	marked	1
@@ -10619,7 +10618,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeUpgrade@Pla
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnderTheSun@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	0ClosestKindOfData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp	body	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Science.cpp	callCreate@ScienceTreeExposer@@SAPAU?$_Rb_tree_node@U?$pair@$$CBW4ScienceType@@_N@_STL@@@_STL@@AAU1@ABU?$pair@$$CBW4ScienceType@@_N@3@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp	BitFlags<116>::testSetAndClear	1
@@ -10759,7 +10757,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	bfme
 present_unmatched	Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp	bfmeEmitGeometryInfoDtor@@YAXPAVGeometryInfo@@PAUGeometryRecord@@11@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp	deallocate@allocator<void*>	1
 present_unmatched	Code/GameEngine/Source/Common/System/MemoryPoolInit.cpp	MemoryPoolAllocatorAssertion	1
-present_unmatched	Code/GameEngine/Source/Common/System/RAMFile.cpp	RAMFile::convertToRAMFile	1
 present_unmatched	Code/GameEngine/Source/Common/System/Radar.cpp	RadarObject::RadarObject	1
 present_unmatched	Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp	0Rva002D3772Pair@@QAE@HM@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp	1Rva00030DD0Guard@@QAE@XZ	1
@@ -10889,17 +10886,13 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cp
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp	setVideoBuffer@WinInstanceData@@QAEXPAVVideoBuffer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoManager.cpp	0WindowVideoHashtableHolder@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoManager.cpp	1WindowVideoHashtableHolder@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::GameClient	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addDrawableToLookupTable	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addTOCEntry	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addTextBearingDrawable	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::findTOCEntryById	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::findTOCEntryByName	1
-present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::init	1
-present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::reset	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::selectDrawablesInGroup	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::xferDrawableTOC	1
-present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::~GameClient	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameText.cpp	Rva002E5791DeleteArray@@YAXPAVRva002E5791@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::DEBUG_addFloatingText	1
@@ -11020,7 +11013,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletin
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	0Element16@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	1AODDtorElem16@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	1AODDtorElem24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	1AODHordeContain@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	1Element16@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	1Rva0047A702@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	clear@Element16@@QAEXXZ	1

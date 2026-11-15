@@ -19,7 +19,6 @@ int BFME2Utf8ToWide(const char *source, int count, Wide *output, int capacity);
 #include "../../../Include/Common/File.h"
 #include "../../../Include/Common/RAMFileClass.h"
 
-// ?RAMFile::convertToRAMFile present-unmatched
 
 #include "../../../Include/Common/FileSystem.h"
 

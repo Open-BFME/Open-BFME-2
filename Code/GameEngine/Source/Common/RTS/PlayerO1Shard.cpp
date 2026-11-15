@@ -170,7 +170,6 @@ public:
 };
 
 // ------------------------------------------------------------------------------------------------
-// ??0ClosestKindOfData@@QAE@XZ present-unmatched
 
 // iterateObjects callbacks defined static in Player.cpp (DIR32 operands, masked)
 // BFME tests KINDOF_POWERED inline on the template's KindOf bits: the template

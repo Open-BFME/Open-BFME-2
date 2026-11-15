@@ -59,7 +59,6 @@ public:
 	unsigned char rva004269F7(int index);
 };
 
-// ?rva004266A1@Rva004266A1@@QAE_NH@Z present-unmatched
 #include "../../Include/Common/Rva0033F15DDwordSlot.h"
 
 struct Bfield

@@ -157,19 +157,15 @@ class SnowManager;
 SnowManager *TheSnowManager = 0;
 
 //-------------------------------------------------------------------------------------------------
-// ?GameClient::GameClient present-unmatched
 //std::vector<std::string>	preloadTextureNamesGlobalHack;
 //std::vector<std::string>	preloadTextureNamesGlobalHack2;
 
 //-------------------------------------------------------------------------------------------------
-// ?GameClient::~GameClient present-unmatched
 //-------------------------------------------------------------------------------------------------
 /** Initialize resources for the game client */
 //-------------------------------------------------------------------------------------------------
-// ?GameClient::init present-unmatched
 //-------------------------------------------------------------------------------------------------
 /** Reset the game client for a new game */
-// ?GameClient::reset present-unmatched
 /** -----------------------------------------------------------------------------------------------
  * Return a new unique object id.
  */
