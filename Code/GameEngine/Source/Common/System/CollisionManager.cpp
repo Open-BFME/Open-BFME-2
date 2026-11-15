@@ -5,7 +5,6 @@
 #include "Common/Snapshot.h"
 #pragma comment(linker, "/alternatename:?crc@CollisionManager@@UAEXPAX@Z=?DX8_Assert@@YAXXZ")
 #pragma comment(linker, "/alternatename:?xfer@CollisionManager@@UAEXPAX@Z=?name@Rva00758300Named@@QBEPBDXZ")
-#pragma comment(linker, "/alternatename:?loadPostProcess@CollisionManager@@UAEXXZ=?bfmeDescribe@Gen_00881040@@QAEXPAVBfmeFlagTarget@@@Z")
 #pragma comment(linker, "/alternatename:?init@CollisionManager@@UAEXXZ=?DX8_Assert@@YAXXZ")
 #pragma comment(linker, "/alternatename:?update@CollisionManager@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1CollisionManager@@UAE@XZ=??1Open2Store9A2680@@UAE@XZ")

@@ -2164,7 +2164,6 @@ alternatename	Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp
 alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	??1CollisionManager@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	?crc@CollisionManager@@UAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	?init@CollisionManager@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	?loadPostProcess@CollisionManager@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	?update@CollisionManager@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/CollisionManager.cpp	?xfer@CollisionManager@@UAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp	??0Rva003862EDMember@@QAE@ABV0@@Z	1
@@ -2457,7 +2456,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDto
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp	?f2@CastleB2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp	?slot@ClickReactionBehaviorIface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp	??1DynamicPortalLinkVec@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
@@ -2499,7 +2497,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM0@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM5@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM6@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f00@Iface00@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f10@Iface10@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f20@Iface20@@UAEXXZ	1
