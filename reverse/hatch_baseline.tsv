@@ -10881,7 +10881,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::unreg
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::videoBuffer	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	SuperweaponInfo::SuperweaponInfo	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	SuperweaponInfo::~SuperweaponInfo	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	1Rva004E5654Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	draw@Mouse@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	isClick@Mouse@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	mouseNotifyResolutionChange@Mouse@@	1

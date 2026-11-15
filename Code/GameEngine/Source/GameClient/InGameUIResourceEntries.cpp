@@ -265,9 +265,11 @@ void Rva004E7B0CHolder::rva004E7D1D()
 class Rva004E5654Base
 {
 public:
-    // ??1Rva004E5654Base@@UAE@XZ present-unmatched
-    virtual ~Rva004E5654Base() {}
+    // Pure: the base's one-slot table 0x00C1C780 holds __purecall; the body
+    // (retail's 7-byte 0x005FED52) restores that table.
+    virtual ~Rva004E5654Base() = 0;
 };
+inline Rva004E5654Base::~Rva004E5654Base() {}
 class Rva004E5610 : public Rva004E5654Base
 {
 public:
