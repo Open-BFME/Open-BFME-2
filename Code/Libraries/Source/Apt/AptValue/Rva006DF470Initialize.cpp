@@ -44,7 +44,7 @@ class Rva00898D60Target;extern Rva00898D60Target*g_Rva01337A20;extern AptValue *
 extern AptValue*g_shutdownAtE18070,*g_shutdownAtE180B8,*g_shutdownAtE18068,*g_shutdownAtE180BC,*g_shutdownAtE18360,*g_shutdownAtE180AC;
 struct AptNativeHash;extern AptNativeHash*g_bfmeAptHashAtE180E4;
 extern AptValue *g_shutdownAtE180A8,*g_shutdownAtE18080,*g_shutdownAtE18084,*g_shutdownAtE180B4,*g_shutdownAtE18074,*g_shutdownAtE1806C,*g_shutdownAtE180E8;
-int g_aptInitializerCounters[4];
+extern int g_aptInitializerCounters[4];
 void _constructBuiltInObjects();
 AptValue *callback006FEFF0(AptValue*,int);
 AptValue *callback006FF400(AptValue*,int);

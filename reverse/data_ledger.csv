@@ -34270,9 +34270,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A18244,4,.data,global,?g_bfmeS1083_1@@3PAVBfmeS1083@@A,Code/GameEngine/Source/Common/BfmeConv1083.cpp,owned,,1,6
 0x00A18248,148,.data,global,?g_aptDateNativeCache@@3UAptDateNativeCache@@A,Code/Libraries/Source/Apt/AptDate.cpp,owned,,1,222
 0x00A182E0,72,.data,global,?g_aptDateInterpreter@@3UAptActionInterpreter@@A,Code/Libraries/Source/Apt/AptDate.cpp,owned,,1,262
-0x00A18328,4,.data,global,?Rva008A5250LastKey@@3IA,Code/GameEngine/Source/Common/SmallGaps/aptKeyCode.cpp,owned,,1,8
-0x00A1832C,16,.data,global,?g_aptInitializerCounters@@3PAHA,Code/Libraries/Source/Apt/AptValue/Rva006DF470Initialize.cpp,owned,,1,4
-0x00A18348,1,.data,global,?g_00E18348@@3EA,Code/Libraries/Source/Apt/AptCIH.cpp,owned,,1,3
+0x00A18328,4,.data,global,?Rva008A5250LastKey@@3IA,Code/Libraries/Source/Apt/AptDate.cpp,owned,,1,8
+0x00A1832C,16,.data,global,?g_aptInitializerCounters@@3PAHA,Code/Libraries/Source/Apt/AptDate.cpp,owned,,1,4
+0x00A18348,1,.data,global,?g_00E18348@@3EA,Code/Libraries/Source/Apt/AptDate.cpp,owned,,1,3
 0x00A1834C,4,.data,global,?spRegBlockBase@AptScriptFunctionBase@@2PAPAVAptValue@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,13
 0x00A18350,4,.data,global,?spRegBlockCurrentFrameBase@AptScriptFunctionBase@@2PAPAVAptValue@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,22
 0x00A18354,4,.data,global,?snRegBlockCurrentFrameCount@AptScriptFunctionBase@@2HA,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,14

@@ -6,8 +6,6 @@ class AptValue;
 #include <ctype.h>
 #include "../../../Include/Common/AptInteger.h"
 extern unsigned int Rva008A5250LastKey;
-// Rva008A5250LastKey: matched references place it at VA 0xe18328 (zero-filled .bss).
-unsigned int Rva008A5250LastKey;
 extern const int Rva008A5250KeyTable[0x14];
 AptValue* aptKeyCode()
 {

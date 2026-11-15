@@ -317,7 +317,7 @@ public:
 extern class AptLinker *g_bfmeAptLinkerAtE176F8;
 
 	// retail RVA 0x00A176F8 (.data, 4 bytes), defined here: nothing else owns it
-unsigned char g_00E18348;
+extern unsigned char g_00E18348;
 
 class BfmeNode1279 : public AptValue
 {
