@@ -86,7 +86,11 @@ struct IThird
 
 extern "C" __declspec(dllimport) HRESULT __stdcall CoCreateInstance(const GUID &clsid, void *outer, DWORD ctx, const GUID &iid, void **out);
 
-void *__cdecl operator new[](unsigned int size);
+// operator new[] comes from the real <crtdbg.h>, read without dllimport so
+// the call stays on the direct thunk.
+#define _CRTIMP
+#include <crtdbg.h>
+#undef _CRTIMP
 
 // The class and interface ids at .rdata 0x00C73770 / 0x00C73780, read from
 // retail (their SDK names are not established); defined here, their reader.
