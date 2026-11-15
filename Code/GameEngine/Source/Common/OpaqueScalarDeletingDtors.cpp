@@ -3,6 +3,8 @@
 // the referring objects use; this TU emits the paired definition spelling.
 // Same function, same address: bind the header spelling here.
 struct EmitVtableTag;
+#include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 
 // InGameCommandButtonMovieClip::Impl (WorldBuilder name of its destructor
 // 0x005C7954), whose holder clear 0x005C7CA1 deletes it below.
@@ -13,7 +15,8 @@ struct EmitVtableTag;
 // destructors found by sweeping the image for the
 // push-esi/mov-esi,ecx/call/test-[esp+8],1 pattern. Each dtor is pinned
 // opaquely (evidence: the ??_G call site plus the body bytes at the pinned
-// address); the dtor bodies themselves stay unclaimed. Each class only
+// address); most complete bodies remain unclaimed. The RefCount-derived
+// body below is recovered and rowed; the other opaque classes only
 // declares its destructor, so the ??_G calls out through the pin, and an
 // absent-from-retail tag constructor makes this TU emit the vtable (an
 // in-class placeholder destructor would emit a ??1 copy the census proves
@@ -32,17 +35,24 @@ private:
 
 #include "../../Include/Common/MiBase1.h"
 
-class Rva0072892
+// Native constructor 728B6/table BC6514 proves the eight-byte RefCount base.
+// The 728C6 deleting helper calls its protected destructor at 72892.
+class Rva0072892 : public RefCountClass
 {
 public:
 	Rva0072892(EmitVtableTag *);
-	virtual ~Rva0072892();
+	__declspec(noinline) virtual ~Rva0072892();
 };
 
 // The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
+// and with it the scalar deleting destructor; its complete body is recovered below.
 // ?<Rva0072892::Rva0072892> absent-from-retail
 Rva0072892::Rva0072892(EmitVtableTag *)
+{
+}
+
+// Empty derived teardown folds to the native seven-byte base destructor.
+Rva0072892::~Rva0072892()
 {
 }
 
