@@ -2375,7 +2375,37 @@ class Rva004BDCA3
 {
 public:
 	Rva004BDCA3();
-	virtual ~Rva004BDCA3() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() = 0;
+	virtual void slot0C(int) {}
+	virtual bool slot10() { return false; }
+	virtual bool slot14() { return false; }
+	virtual bool slot18() { return false; }
+	virtual bool slot1C() { return true; }
+	virtual bool slot20() { return false; }
+	virtual bool slot24() { return false; }
+	virtual bool slot28() { return false; }
+	virtual bool slot2C() { return false; }
+	virtual bool slot30() { return false; }
+	virtual bool slot34() { return false; }
+	virtual void slot38() = 0;
+	virtual bool slot3C() { return false; }
+	virtual int slot40() { return 0; }
+	virtual int slot44() { return 0; }
+	virtual int slot48() { return 0; }
+	virtual int slot4C() { return 0; }
+	virtual int slot50() { return 0; }
+	virtual int slot54() { return 0; }
+	virtual int slot58() { return 0; }
+	virtual int slot5C() { return 0; }
+	virtual int slot60() { return 0; }
+	virtual int slot64() { return 0; }
+	virtual int slot68() { return 0; }
+	virtual int slot6C() { return 0; }
+	virtual int slot70() { return 0; }
+	virtual int slot74() { return 0; }
+	virtual bool slot78() { return true; }
 };
 
 Rva004BDCA3::Rva004BDCA3()
