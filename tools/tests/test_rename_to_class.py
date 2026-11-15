@@ -2041,15 +2041,20 @@ def test_a_name_the_unit_aliases_or_held_before_is_not_dangling(tree, monkeypatc
     root = gizmo_tree(tree)
     p = across_plan(root)
     # the compiler's own deleting destructor is defined in the object it is compiled into
-    monkeypatch.setattr(rename, "object_defined_symbols",
-                        lambda ctx, rel: {"??_EGizmo@@UAEPAXI@Z"} if rel == "Code/Game/Gizmo.cpp" else set())
+    objects = {"Code/Game/Gizmo.cpp": ({"??_EGizmo@@UAEPAXI@Z"}, {})}
+    monkeypatch.setattr(rename, "object_link_names", lambda ctx, rel: objects.get(rel))
     # held before the plan: not the plan's doing
     assert rename.to_class_dangling_problems(ctx_of(root), p.to_class) == []
     gone = dict(p.to_class, vtables={})
     assert rename.to_class_dangling_problems(ctx_of(root), gone)
-    # the unit's own /alternatename gives it
-    aliased = dict(gone, aliases={"Code/Game/Gizmo.cpp": ["?old@State@@UAEXXZ"]})
-    assert rename.to_class_dangling_problems(ctx_of(root), aliased) == []
+    # an /alternatename the object carries (from the unit or a header it includes) gives it, through a defined target
+    objects["Code/Game/Gizmo.cpp"] = ({"??_EGizmo@@UAEPAXI@Z"}, {"?old@State@@UAEXXZ": STOP})
+    assert rename.to_class_dangling_problems(ctx_of(root), gone) == []
+    # an alias to nothing defined, or a cycle, gives nothing
+    for aliases in ({"?old@State@@UAEXXZ": "?ghost@@YAXXZ"},
+                    {"?old@State@@UAEXXZ": "?a@@YAXXZ", "?a@@YAXXZ": "?old@State@@UAEXXZ"}):
+        objects["Code/Game/Gizmo.cpp"] = ({"??_EGizmo@@UAEPAXI@Z"}, aliases)
+        assert rename.to_class_dangling_problems(ctx_of(root), gone)
 
 
 def test_cli_also_class_wiring(tree, monkeypatch, capsys):
@@ -2115,9 +2120,25 @@ def test_r1_a_stale_object_exempts_nothing(tree, monkeypatch):
     monkeypatch.setattr(rename, "compiled_vtables",
                         lambda ctx, rel, current=True: None if rel == "Code/Game/Gizmo.cpp" and current
                         else stale.get(rel))
-    monkeypatch.setattr(rename, "object_defined_symbols",
-                        lambda ctx, rel: {"??_EGizmo@@UAEPAXI@Z"} if rel == "Code/Game/Gizmo.cpp" else set())
+    monkeypatch.setattr(rename, "object_link_names",
+                        lambda ctx, rel: ({"??_EGizmo@@UAEPAXI@Z"}, {}) if rel == "Code/Game/Gizmo.cpp" else None)
     p = across_plan(root)
     assert "Code/Game/Gizmo.cpp" not in p.to_class["vtables"]
     with pytest.raises(VerifyFailed, match="names " + re.escape(ghost)):
         rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+
+
+
+def test_r2_aliases_are_read_from_the_object_as_the_linker_reads_them(tmp_path):
+    # a /alternatename an #if drops never reaches the object; one an included header adds does
+    import struct
+    directive = b' /alternatename:?ghost@State@@UAEXXZ=?stop@Widget@@UAEXXZ '
+    header = struct.pack("<HHIIIHH", 0x14C, 1, 0, 20 + 40 + len(directive), 0, 0, 0)
+    section = struct.pack("<8sIIIIIIHHI", b".drectve", 0, 0, len(directive), 20 + 40, 0, 0, 0, 0, 0x00100A00)
+    obj = tmp_path / "unit.obj"
+    obj.write_bytes(header + section + directive + struct.pack("<I", 4))
+    ctx = type("Ctx", (), {})()
+    import unittest.mock
+    with unittest.mock.patch.object(rename, "_source_object", lambda ctx, rel, current=True: obj):
+        defined, aliases = rename.object_link_names(ctx, "Code/Game/Unit.cpp")
+    assert aliases == {"?ghost@State@@UAEXXZ": "?stop@Widget@@UAEXXZ"}

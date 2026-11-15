@@ -7047,13 +7047,28 @@ def to_class_slot_problems(ctx, check, *, current=True):
 PURECALL = frozenset({"__purecall", "_purecall"})
 
 
+def object_link_names(ctx, rel):
+    """(names the fresh object of ledger source `rel` defines, {alias: target} of its /alternatename directives and
+    weak externals), read as the linker reads them (link_census.object_symbols: an alias an #if drops is not there,
+    one an included header adds is); None with no object."""
+    path = _source_object(ctx, rel, current=False)
+    if path is None:
+        return None
+    import link_census
+    defined, _referenced, weak, alternate, _includes = link_census.object_symbols(path, path.read_bytes())
+    aliases = {name: default for name, default in weak if default}
+    aliases.update(alternate)
+    return set(defined), aliases
+
+
 def to_class_dangling_problems(ctx, check):
     """Slot names a rebuilt vftable of the plan's units (`check['units']`, every ledger source it rebuilds) gained
     that nothing defines: [] when every name a compiled ??_7 holds after ./build.sh is one it held before the plan
-    (`check['vtables']`, read at planning from objects compiled from the present text only), a moved name, a row or
-    pin, a symbol its own object defines, the left side of an /alternatename in the unit, or __purecall. A name the
-    plan retires (`check['retired']`: the old names of its rows and pins, which the context's ledgers may still
-    hold) is defined only by the object or an alias. Renaming a slot a base view shares (`State::slot02` to
+    (`check['vtables']`, read at planning from objects compiled from the present text only), or resolves: a moved
+    name, a row or pin, a symbol the unit's object defines, __purecall, or an alias of the object's own directives
+    (object_link_names) whose target resolves. A name the plan retires (`check['retired']`: the old names of its
+    rows and pins, which the context's ledgers may still hold) resolves only through the object. Renaming a slot a
+    base view shares (`State::slot02` to
     `GetSnapshotName`) for some of its derived classes leaves the others' tables naming a symbol only the link
     misses; their slots move in the same plan (--also RVA=CLASS:NEW)."""
     retired = set(check.get("retired") or ())
@@ -7065,13 +7080,19 @@ def to_class_dangling_problems(ctx, check):
         if tables is None:
             continue
         before = (check.get("vtables") or {}).get(rel)
-        defined = object_defined_symbols(ctx, rel) or set()
-        aliases = set((check.get("aliases") or {}).get(rel) or ())
+        defined, aliases = object_link_names(ctx, rel) or (set(), {})
+
+        def resolves(name, seen=()):
+            if name in defined or (name not in retired and name in known):
+                return True
+            target = aliases.get(name)
+            # an alias defines its name only when its target is defined, and never in a cycle
+            return target is not None and target not in seen and resolves(target, seen + (name,))
         for symbol, names in sorted(tables.items()):
             for slot, name in enumerate(names):
-                if not name or name in defined or name in aliases:
+                if not name or resolves(name):
                     continue
-                if name not in retired and (name in known or (before is not None and name in before)):
+                if name not in retired and before is not None and name in before:
                     continue
                 problems.append(f"{rel}'s {symbol} slot {slot} names {name}, which no row, pin, moved name or "
                                 "definition of the unit gives (a class left on a renamed slot: move its slot in "
@@ -7610,22 +7631,18 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
                          {m["rva"] for m in moves}) + \
         sorted({f"file:{rel}" for rel in {m["row"]["source"] for m in moves} | edited})
     # what the rebuilt vftables of the plan's units may name (to_class_dangling_problems): every unit it rebuilds
-    # (a prepared header's includers too), the names their objects compiled from the present text hold now, the
-    # /alternatename sources of their final text, and not the names the plan retires
+    # (a prepared header's includers too), the names their objects compiled from the present text hold now, and not
+    # the names the plan retires
     units = sorted((set(plan.verify) | set(installer_sources)) & set(ctx.ledger_sources()))
     check["units"] = units
     check["renamed"] = dict(moved)
     check["retired"] = sorted({old_row for old_row, _new, _at in plan.renamed_rows}
                               | {old_pin for old_pin, _new, _at in plan.renamed_pins} | {m["name"] for m in moves})
     check["vtables"] = {}
-    check["aliases"] = {}
     for rel in units:
         tables = compiled_vtables(ctx, rel, current=True)
         if tables is not None:
             check["vtables"][rel] = sorted({name for names in tables.values() for name in names if name})
-        data = plan.after.get(rel, ctx.read(rel)) or b""
-        check["aliases"][rel] = sorted({a.group("a") for a in ALTERNATENAME.finditer(
-            data.decode("utf-8", errors="surrogateescape"))})
     written = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({rel for before_name in olds
                             for rel in ctx.grep_files(before_name, roots=("docs", "reverse"))} - written)
