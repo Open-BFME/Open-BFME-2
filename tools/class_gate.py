@@ -646,7 +646,8 @@ def slot_pastes(params, body):
 
 def class_local_slots(text):
     """(`text` with its slot macros' #define and #undef lines blanked, [(start, end, name, (define, undef))] of
-    each macro's region from its #define to its #undef, the names its pastes produce), or None.
+    each macro's region from its #define to its #undef, the names its pastes produce, and the blanked text with
+    each call expanded as the compiler expands it), or None.
 
     A slot macro is #defined directly in a non-template class body (the innermost open brace is a class head),
     #undef'd in the same body with no brace between, its replacement a slot_pastes one, and called in that region
@@ -662,11 +663,11 @@ def class_local_slots(text):
         if define or undef:
             lines.append((start, end, define, undef))
     if not any(define for _s, _e, define, _u in lines):
-        return text, [], set()
+        return text, [], set(), text
     code = DIRECTIVE.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), masked)
     heads = {m.end() - 1: m for m in MOVE_HEAD.finditer(code)}
     comments = [(m.start(), m.end()) for m in LITERAL.finditer(text) if m.group().startswith('/*')]
-    regions, pasted, open_ = [], set(), None
+    regions, pasted, open_, calls = [], set(), None, []
 
     def opaque(start, end):
         # a line blanked whole must be all directive: a block comment touching it, a splice or a trigraph would
@@ -691,9 +692,9 @@ def class_local_slots(text):
             head = heads.get(stack[-1]) if stack else None
             if pastes is None or head is None or head.group('template'):
                 return None
-            open_ = (start, end, name, params, pastes)
+            open_ = (start, end, name, params, pastes, define.group('body'))
         elif open_ is not None and undef.group('name') == open_[2]:
-            first, after, name, params, pastes = open_
+            first, after, name, params, pastes, body = open_
             between = code[after:start]
             if re.search(r'[{}]', between) or not opaque(start, end):
                 return None
@@ -703,6 +704,12 @@ def class_local_slots(text):
                 if len(values) != len(params) or not all(re.fullmatch(r'[0-9]+', value) for value in values):
                     return None
                 pasted |= {literal + values[params.index(param)] for param, literal in pastes}
+                # the expansion: each paste joined, each parameter its literal, in one pass as the compiler does
+                given = dict(zip(params, values))
+                expansion = re.sub(SLOT_PASTE.pattern + r'|(?<![\w$])[A-Za-z_]\w*(?![\w$])',
+                                   lambda m: (m.group(1) + given[m.group(2)] if m.group(1)
+                                              else given.get(m.group(), m.group())), body)
+                calls.append((after + call.start(), after + call.end() + args.end(), expansion))
             regions.append((first, end, name, (first, start)))
             open_ = None
     if open_ is not None:
@@ -719,7 +726,11 @@ def class_local_slots(text):
         for line in directives:
             end = masked.index('\n', line) if '\n' in masked[line:] else len(text)
             plain = plain[:line] + re.sub(r'[^\n]', ' ', plain[line:end]) + plain[end:]
-    return plain, regions, pasted
+    expanded, pos = [], 0
+    for start, end, expansion in sorted(calls):
+        expanded += [plain[pos:start], ' ', expansion, ' ']
+        pos = end
+    return plain, regions, pasted, ''.join(expanded) + plain[pos:]
 
 
 def moved_bodies(text):
@@ -738,9 +749,14 @@ def moved_bodies(text):
     slots = class_local_slots(text)
     if slots is None:
         return {}
-    plain, regions, pasted = slots
+    plain, regions, pasted, expanded = slots
     scanned = scope_code(plain)
     if scanned is None:
+        return {}
+    spans = scoped_move_spans(plain)
+    # master's scan reads what the calls expand to (`virtual void slot0();`), not the calls: on the expansion it
+    # must find the same classes in the same scopes
+    if regions and [(n, sc) for n, _a, _b, sc in scoped_move_spans(expanded)] != [(n, sc) for n, _a, _b, sc in spans]:
         return {}
     code, macros = scanned
     local = {region[2] for region in regions}
@@ -750,7 +766,7 @@ def moved_bodies(text):
     found, seen = {}, set()
     heads = collections.Counter(m.group('name') for m in MOVE_HEAD.finditer(code))
     masked = LITERAL.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
-    for name, start, end, scope in scoped_move_spans(plain):
+    for name, start, end, scope in spans:
         # Unqualified keys cannot prove which of multiple bodies moved.
         # Count even bodies whose normalisation would refuse credit.
         if name in seen:

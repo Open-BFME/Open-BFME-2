@@ -1226,3 +1226,18 @@ def test_the_exact_transfer_reproducers_are_refused(repo, capsys, donor, staged,
     repo.stage(where)
     rc, err = repo.gate(capsys)
     assert rc == 1 and '`X`' in err
+
+
+
+def test_r2_the_scope_scan_reads_the_slot_calls_expanded():
+    # master's scan refuses `virtual void slot0();` before a nested class head; `virtual S(0);` would pass it
+    unit = 'class View {\n#define S(n) void slot##n()\nvirtual S(0);\n#undef S\nclass X { int a; };\n};\n'
+    expanded = class_gate.class_local_slots(unit)[3]
+    assert 'virtual  void slot0() ;' in expanded and class_gate.moved_bodies(unit) == {}
+    assert 'X' not in class_gate.moved_bodies('class View {\nvirtual void slot0();\nclass X { int a; };\n};\n')
+
+
+def test_r2_the_expansion_substitutes_every_parameter_once():
+    unit = 'class View {\n#define S(n, m) int slot##n[m];\n\tS(0, 4) S(1, 8)\n#undef S\n};\n'
+    expanded = class_gate.class_local_slots(unit)[3]
+    assert 'int slot0[4];' in expanded and 'int slot1[8];' in expanded and '#define' not in expanded
