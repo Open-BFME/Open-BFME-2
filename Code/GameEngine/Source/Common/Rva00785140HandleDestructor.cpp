@@ -12,7 +12,7 @@ class Rva00782CB0
 public:
     Rva00782CB0();
     virtual ~Rva00782CB0();
-    virtual void slot04() = 0;
+    virtual int slot04() = 0;
     virtual int slot08() { return 0; }
     virtual int slot0C() { return 0; }
     virtual int slot10() { return 0; }
@@ -22,10 +22,16 @@ public:
 Rva00782CB0::Rva00782CB0()
 {
 }
+// Retail's table (VA 0x00BC940C), in slot order: the deleting destructor,
+// folded 0x000910FB (returns 1), the base's folded 0x000D43D0, folded
+// 0x0047A6A9 (returns this) and folded 0x005C4AD1 (the address of +4).
 class Rva00785140Handle : public Rva00782CB0
 {
 public:
     virtual ~Rva00785140Handle();
+    virtual int slot04() { return 1; }
+    virtual int slot0C() { return (int)this; }
+    virtual int slot10() { return (int)&m_target; }
 private:
     CountedAsset *m_target;
 };

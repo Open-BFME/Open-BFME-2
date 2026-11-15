@@ -135,11 +135,29 @@ public:
 
 // Native new-expression carries no delete-on-throw state for this 27B
 // pointer-copy constructor; carry that observed caller contract.
-class Rva00785140Handle
+// The handle's base and its retail slot list, as Rva00785140HandleDestructor.cpp
+// (the owner of both destructors) declares them: the base table is VA 0x00BC93C8,
+// the handle's VA 0x00BC940C. Retail's handle constructor (27 bytes) expands the
+// empty base constructor inline; its one out-of-line body is rowed at 0x000A8EB9
+// in that unit, so it is declared imported here: expanded, never emitted twice.
+class Rva00782CB0
+{
+public:
+	__declspec(dllimport) __forceinline Rva00782CB0() {}
+	virtual ~Rva00782CB0();
+	virtual int slot04() = 0;
+	virtual int slot08() { return 0; }
+	virtual int slot0C() { return 0; }
+	virtual int slot10() { return 0; }
+};
+class Rva00785140Handle : public Rva00782CB0
 {
 public:
 	__declspec(nothrow) Rva00785140Handle(const AssetReference &);
 	virtual ~Rva00785140Handle();
+	virtual int slot04() { return 1; }
+	virtual int slot0C() { return (int)this; }
+	virtual int slot10() { return (int)&ref; }
 private:
 	AssetReference ref; // +0x04
 };
