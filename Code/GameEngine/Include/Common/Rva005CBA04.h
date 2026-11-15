@@ -11,6 +11,22 @@ public:
     BfmeFixedStorage002CF0F0 m_storage;
     Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
     virtual ~Rva005CBA04();
+    virtual bool slot04(int) { return false; }
+    virtual bool slot08(int) { return false; }
+    virtual bool slot0C(int) { return false; }
+    virtual bool slot10(int) { return true; }
+    virtual bool slot14(int) { return true; }
+    virtual bool slot18(int) { return true; }
+    virtual bool slot1C(int) { return true; }
+    virtual void slot20() = 0;
+    virtual void slot24() {}
+    virtual void slot28(int) {}
+    virtual void slot2C(int) {}
+    virtual void slot30(int) {}
+    virtual void slot34(int) {}
+    virtual void slot38(int) {}
+    virtual void slot3C(int) {}
+    virtual void slot40(int) {}
 };
 
 typedef char canonical_Rva005CBA04_8478408a_sizeof[sizeof(Rva005CBA04) == 8 ? 1 : -1];

@@ -71,6 +71,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-14 `Rva002AAD77` (VA 0x00BFDC60): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-14 `Rva0059B060` (VA 0x00C70E60): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-14 `Base003F8ED6` (VA 0x00C37298): 15 slots (0 pure, 0 rowed virtual, 1 destructor, 14 folded trivial body), 2 view(s): `Rva003F8ED6.cpp`, `Rva003F8ED6Ctor.cpp`.
+- 2026-11-15 `Rva005CBA04` (VA 0x00C74DB8): 17 slots (0 pure, 0 rowed virtual, 1 destructor, 15 folded trivial body), 2 view(s): `Rva005CBA04.h`, `Rva005E5A38Ctor.cpp`.
+
 
 
 
@@ -250,7 +252,6 @@ debt. Revisit only with a supported reconciliation route.
 
 Second day of the unattended table work (2026-11-15, master 85e8ba2544: 3,160 bridged names over about 2,400
 retail tables, 35,063 mismatching slots), what was measured and what is exhausted:
-
 - Unrowed compiled slot names are drained. A read-only prefilter compares the compiled body of every such name
   with retail's bytes at the slot target (same size, equal outside relocations) and a second pass drops a name
   whose callee cannot itself be rowed. About 230 commits rowed the survivors; 61 names still pass and are held
