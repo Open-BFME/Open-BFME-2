@@ -10601,7 +10601,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0006811
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE3::rva00078AE3	2
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	Rva000BC93DCBase::~Rva000BC93DCBase	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	GDIFileStream::read	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	1Rva00BC6F24Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	_bfmeRva0014F699Anchor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00154320Cluster.cpp	Rva001544F0::~Rva001544F0	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00170999.cpp	1Rva001709F8@@QAE@XZ	1
@@ -11812,9 +11811,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.c
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteDwordNodeTree::_M_insert	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteWordNodeTree::_M_copy	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteWordNodeTree::_M_insert	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	1NarrowLock@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	1WideLock@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	1WideLock@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	1NarrowStrLenSource@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp	bfmeEmitAsciiStringInlines@@YAXPAVAsciiString@@ABV1@PBD@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp	ChunkLoadClass::Cur_Chunk_Depth	1

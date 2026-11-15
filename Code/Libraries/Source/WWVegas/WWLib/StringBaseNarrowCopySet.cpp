@@ -57,7 +57,6 @@ public:
         m_state = 1;
     }
 
-    // ??1NarrowLock@@QAE@XZ present-unmatched
     // Retail EH handler75CCE8 -> one-state map -> action75CCE0 selects
     // the full35B guard cleanup358B0: test +4 and clear it after optional leave.
     // Same8B callable view; original guard/template identity is unknown.
