@@ -6,6 +6,8 @@
 // vector erase 0xD0, then zeroes E0 F0 DC E4 E8 EC F4 F5.
 // Evidence: callees memset 0x6291AE vector erase 0x2CCFC releaseBuffer 0x36410 list clear 0x239D49
 // Rva000C1CAE erase 0xC1CAE BfmeStringRecord erase 0x8B4D2, caller 0xC48C6, layout from retail offsets.
+#include "../../../../Libraries/Source/WWVegas/WWLib/BfmeStringRecord000B9534.h"
+
 #include "ascii_string.h"
 
 extern "C" void *memset(void *dst, int val, unsigned int n);
@@ -37,10 +39,6 @@ struct Rva000C1CAEElement
 	int _04;
 };
 
-struct BfmeStringRecord000B9534
-{
-	int _00[8];
-};
 
 class Rva000C38F8
 {
