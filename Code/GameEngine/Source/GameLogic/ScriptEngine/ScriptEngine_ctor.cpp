@@ -14,6 +14,8 @@
 // below borrow existing empty-header ABIs; their template payloads are not
 // claims about ScriptEngine's map identities and need reconciling with the
 // owner headers. Which latch is 0x9FE15C and which 0x9FE15D is not proven.
+#include "../../../Include/Common/Rva00390729Element.h"
+
 #include <map>
 #include <list>
 #include <vector>
@@ -55,7 +57,6 @@ class Rva00207761:public MapHeaderB {public:__forceinline Rva00207761(){}~Rva002
 class Rva0020779EMap:public MapHeaderB {public:__forceinline Rva0020779EMap(){}~Rva0020779EMap();};
 #include "../../../Include/GameLogic/RvaPair00207E26.h"
 #include "../../../Include/Common/BfmeStringRecord00204A30.h"
-struct Rva00390729Element {int opaque[3];};
 struct SnapshotBlock {char opaque[12];};
 struct upgradePair {int opaque[5];};
 namespace _STL {
