@@ -64,6 +64,9 @@ private:
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 inline DrawModule::~DrawModule() {} // retail inlines this into the derived destructors
 class Thing;
+enum NameKeyType;
+struct AEXPBVMatrix3D;
+struct Coord3D;
 class W3DLightDraw : public DrawModule
 {
 public:
@@ -75,6 +78,12 @@ private:
 	float m_radius; // +0x14
 	float m_angle; // +0x18
 	float m_height; // +0x1C
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void doDrawModule(const class Matrix3D *);
+public:
+	virtual void reactToTransformChange(const class Matrix3D *, const struct Coord3D *, float);
 };
 //
 // ?buildFieldParse@W3DLightDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
