@@ -115,6 +115,7 @@ enum NameKeyType
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../../Include/Common/PlayerTemplate.h"
+#include "../../../../../Include/GameClient/ImageClass.h"
 class PlayerTemplateStore
 {
 public:

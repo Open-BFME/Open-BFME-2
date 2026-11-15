@@ -64,6 +64,7 @@ int Rva007410ECInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const
 int Rva00525235Fire(void *,void *,const char *,const char *,int *,int *);
 int Rva00740EA1DistanceSquared(const unsigned char *,const unsigned char *);
 #include "../../../../../GameEngine/Include/Common/Rva00222A8BTarget.h"
+#include "../../../../../GameEngine/Include/GameClient/ImageClass.h"
 class Rva0074104CBase {
 public:
  // LINK: the implicit default ctor's COMDAT loses to the first-in-order copy; the vtable

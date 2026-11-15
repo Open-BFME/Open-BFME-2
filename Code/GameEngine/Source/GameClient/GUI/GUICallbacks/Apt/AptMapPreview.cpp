@@ -86,6 +86,7 @@ class CreateAHeroData;
 #include "../../../../../Include/Common/Rva002B7250.h"
 struct Rva002BA8F1Listener;
 #include "../../../../../Include/Common/Rva005A0B4CList.h"
+#include "../../../../../Include/GameClient/ImageClass.h"
 // Row spelling of 0x003EEBEF (Rva003EE900Forward.cpp).
 class Rva003EEBEF
 {

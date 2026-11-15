@@ -113,6 +113,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 #include "../../../Include/Common/NameKeyGenerator.h"
+#include "../../../Include/GameClient/ImageClass.h"
 // Preserve the native inline unsigned comparison without an external copy.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline

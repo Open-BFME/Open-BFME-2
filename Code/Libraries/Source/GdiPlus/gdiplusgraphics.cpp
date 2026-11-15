@@ -6,6 +6,7 @@
 
 #include <windows.h>
 #include <gdiplus.h>
+#include "../../../GameEngine/Include/GameClient/ImageClass.h"
 
 namespace Gdiplus
 {

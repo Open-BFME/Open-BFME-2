@@ -112,6 +112,7 @@ public:
 #include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/Rva000A4826.h"
+#include "../../../../../../GameEngine/Include/GameClient/ImageClass.h"
 
 // Render-state helpers bracketing the radial (masked) cameo draw.
 void Rva00118AC0( void );
