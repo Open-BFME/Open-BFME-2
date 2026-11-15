@@ -62,7 +62,6 @@ template void allocator<HorzLine>::deallocate(HorzLine *, unsigned int) const;
 #endif
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 

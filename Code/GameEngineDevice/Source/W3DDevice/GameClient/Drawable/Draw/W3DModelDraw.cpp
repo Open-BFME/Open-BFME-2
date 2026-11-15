@@ -206,7 +206,6 @@ namespace _STL { template <> bool bitset<116>::_Unchecked_test(unsigned int) con
 
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 

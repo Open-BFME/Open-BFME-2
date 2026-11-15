@@ -58,7 +58,6 @@ static inline bool operator==(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 

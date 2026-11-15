@@ -158,7 +158,6 @@ allocator<_Rb_tree_node<BfmeRetailLocomotorPair> >::allocate(size_type __n, cons
 
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 

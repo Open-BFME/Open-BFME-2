@@ -60,7 +60,6 @@ extern const StaticNameKey TheKey_livingWorldPlayerID("livingWorldPlayerID");
 #include "Common/file.h"
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 

@@ -117,7 +117,6 @@ namespace _STL { template <> const unsigned int &max<unsigned int>(const unsigne
 
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 

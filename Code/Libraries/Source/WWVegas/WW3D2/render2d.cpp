@@ -96,7 +96,6 @@ template <> bool VectorClass<Vector2>::operator==(VectorClass<Vector2> const &) 
 // Declare their specializations so this consumer references those owners.
 template <> bool VectorClass<Vector2>::Resize(int newsize, Vector2 const *array);
 
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 RectClass							Render2DClass::ScreenResolution( 0,0,0,0 );

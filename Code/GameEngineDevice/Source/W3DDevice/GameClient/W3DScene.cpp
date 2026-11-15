@@ -122,7 +122,6 @@ bool RefMultiListClass<RenderObjClass>::Remove(RenderObjClass *obj)
 }
 #ifdef _INTERNAL
 // for occasional debugging...
-//#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 
