@@ -174,7 +174,6 @@ ExitDoorType QueueProductionExitUpdate::reserveDoorForExit( const ThingTemplate*
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?unreserveDoorForExit@QueueProductionExitUpdate@@UAEXW4ExitDoorType@@@Z present-unmatched
 void QueueProductionExitUpdate::unreserveDoorForExit( ExitDoorType exitDoor )
 {
 	/* nothing */
@@ -209,7 +208,6 @@ UpdateSleepTime QueueProductionExitUpdate::update()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?exitObjectByBudding@QueueProductionExitUpdate@@UAEXPAVObject@@0@Z present-unmatched
 void QueueProductionExitUpdate::exitObjectByBudding( Object *newObj, Object *budHost )
 {
 	if (budHost) // object has provided a host for us
