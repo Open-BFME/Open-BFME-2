@@ -27,6 +27,15 @@ extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 #include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
+// Retail's deleting destructor 0x002579E9 calls 0x00257A05, a 5-byte jump to
+// ??1GarrisonContainModuleData (0x00257507): HordeGarrisonContainModuleData's
+// destructor inlines away (as SlaughterHordeContainModuleDataDtor.cpp defines
+// it) while its select-any copy stays the ctor's state-0 unwind target, so
+// this class's implicit destructor is that same jump.
+inline __forceinline HordeGarrisonContainModuleData::~HordeGarrisonContainModuleData()
+{
+}
+
 class TunnelContainModuleData : public HordeGarrisonContainModuleData
 {
 public:
