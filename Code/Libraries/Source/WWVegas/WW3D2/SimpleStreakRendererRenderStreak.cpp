@@ -20,7 +20,8 @@
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/shader.h"
 #undef inline
 #pragma optimize("", on)
-void operator delete[](void*) throw();
+#define __PLACEMENT_VEC_NEW_INLINE
+#include <new>
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/texture.h"
 #include "reference/shims/bfmestreak/streakrender.h"
 #if defined(_MSC_VER)

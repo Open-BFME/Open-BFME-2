@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// platformsdk
 // stlport
 // Retail 0x001711A6..0x00171522 (892 B): TexturePacker::UpdateResultTexture, named
 // by the WorldBuilder twin A12EB0 (texturepacker.cpp). Target evidence: the whole
@@ -58,7 +59,9 @@ public:
     void clear(bool);
 };
 #include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"
-struct RECT { long left,top,right,bottom; };
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef WIN32_LEAN_AND_MEAN
 extern "C" long __stdcall D3DXLoadSurfaceFromSurface(void *,void *,const RECT *,void *,void *,const RECT *,unsigned,unsigned);
 extern "C" long __stdcall D3DXFilterTexture(void *,void *,unsigned,unsigned);
 

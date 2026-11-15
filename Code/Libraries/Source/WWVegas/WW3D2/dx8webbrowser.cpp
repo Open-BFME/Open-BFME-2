@@ -78,10 +78,6 @@ struct IDirect3DDevice8;
 // retained browser name, factory geometry, then SetUpdateRate. Existing
 // wrapper ABI spellings are preserved from WebBrowserComWrappers.cpp.
 
-extern void __stdcall _com_issue_error(long);
-
-namespace _com_util { unsigned short *__stdcall ConvertStringToBSTR(const char *); }
-
 class BfmeThingVGP {
 public:
  void *m_bfme00, *m_bfme04;
@@ -125,16 +121,6 @@ struct Rva00959410Ptr {
 struct BfmeObjECF;
 
 extern BfmeObjECF *g_bfmeObjECF;
-
-struct HWND__;
-
-struct IDispatch;
-
-typedef _GUID GUID;
-
-struct IUnknown;
-
-extern void __stdcall _com_issue_error(long error);
 
 class Rva00958E30
 {

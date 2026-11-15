@@ -39,7 +39,7 @@ const char lua_ident[] = "$Lua: " LUA_VERSION " " LUA_COPYRIGHT " $\n"
 
 
 
-#define Index(L,i)	((i) >= 0 ? (L->Cbase+((i)-1)) : (L->top+(i)))
+#define luaA_Index(L,i)	((i) >= 0 ? (L->Cbase+((i)-1)) : (L->top+(i)))
 
 #define api_incr_top(L)	incr_top
 
@@ -47,7 +47,7 @@ const char lua_ident[] = "$Lua: " LUA_VERSION " " LUA_COPYRIGHT " $\n"
 
 
 TObject *luaA_index (lua_State *L, int index) {
-  return Index(L, index);
+  return luaA_Index(L, index);
 }
 
 
@@ -281,7 +281,7 @@ LUA_API void lua_getglobal (lua_State *L, const char *name) {
 
 
 LUA_API void lua_gettable (lua_State *L, int index) {
-  StkId t = Index(L, index);
+  StkId t = luaA_Index(L, index);
   StkId top = L->top;
   *(top-1) = *luaV_gettable(L, t);
   L->top = top;  /* tag method may change top */
@@ -289,14 +289,14 @@ LUA_API void lua_gettable (lua_State *L, int index) {
 
 
 LUA_API void lua_rawget (lua_State *L, int index) {
-  StkId t = Index(L, index);
+  StkId t = luaA_Index(L, index);
   LUA_ASSERT(ttype(t) == LUA_TTABLE, "table expected");
   *(L->top - 1) = *luaH_get(L, hvalue(t), L->top - 1);
 }
 
 
 LUA_API void lua_rawgeti (lua_State *L, int index, int n) {
-  StkId o = Index(L, index);
+  StkId o = luaA_Index(L, index);
   LUA_ASSERT(ttype(o) == LUA_TTABLE, "table expected");
   *L->top = *luaH_getnum(hvalue(o), n);
   api_incr_top(L);
@@ -357,7 +357,7 @@ LUA_API void lua_setglobal (lua_State *L, const char *name) {
 
 
 LUA_API void lua_settable (lua_State *L, int index) {
-  StkId t = Index(L, index);
+  StkId t = luaA_Index(L, index);
   StkId top = L->top;
   luaV_settable(L, t, top-2);
   L->top = top-2;  /* pop index and value */
@@ -365,7 +365,7 @@ LUA_API void lua_settable (lua_State *L, int index) {
 
 
 LUA_API void lua_rawset (lua_State *L, int index) {
-  StkId t = Index(L, index);
+  StkId t = luaA_Index(L, index);
   LUA_ASSERT(ttype(t) == LUA_TTABLE, "table expected");
   *luaH_set(L, hvalue(t), L->top-2) = *(L->top-1);
   L->top -= 2;
@@ -373,7 +373,7 @@ LUA_API void lua_rawset (lua_State *L, int index) {
 
 
 LUA_API void lua_rawseti (lua_State *L, int index, int n) {
-  StkId o = Index(L, index);
+  StkId o = luaA_Index(L, index);
   LUA_ASSERT(ttype(o) == LUA_TTABLE, "table expected");
   *luaH_setint(L, hvalue(o), n) = *(L->top-1);
   L->top--;

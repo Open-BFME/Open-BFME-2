@@ -218,7 +218,7 @@ ciServerMessage * ciSocketRecv(ciSocket * sock);
 									assert((buffer)->length >= 0);\
 									assert((buffer)->length <= (buffer)->size);\
 								}
-#define RESET(ptr)  {if (ptr) {gsifree(ptr); ptr = NULL;} }
+#define CI_RESET(ptr)  {if (ptr) {gsifree(ptr); ptr = NULL;} }
 
 /*********
 ** TIME **
@@ -1017,8 +1017,8 @@ static CHATBool ciParseMessage(ciSocket * sock, const char *sText)
 
 		if(!ciParseUser(message->server, message))
 		{
-			RESET(message->message);
-			RESET(message->server);
+			CI_RESET(message->message);
+			CI_RESET(message->server);
 			return CHATFalse; //ERRCON
 		}
 	}
@@ -1034,11 +1034,11 @@ static CHATBool ciParseMessage(ciSocket * sock, const char *sText)
 	{
 		if(!ciParseParam(message->middle, message))
 		{
-			RESET(message->message);
-			RESET(message->server);
-			RESET(message->nick);
-			RESET(message->user);
-			RESET(message->host);
+			CI_RESET(message->message);
+			CI_RESET(message->server);
+			CI_RESET(message->nick);
+			CI_RESET(message->user);
+			CI_RESET(message->host);
 			return CHATFalse; //ERRCON
 		}
 	}
@@ -1046,11 +1046,11 @@ static CHATBool ciParseMessage(ciSocket * sock, const char *sText)
 	{
 		if(!ciParseParam(message->param, message))
 		{
-			RESET(message->message);
-			RESET(message->server);
-			RESET(message->nick);
-			RESET(message->user);
-			RESET(message->host);
+			CI_RESET(message->message);
+			CI_RESET(message->server);
+			CI_RESET(message->nick);
+			CI_RESET(message->user);
+			CI_RESET(message->host);
 			return CHATFalse; //ERRCON
 		}
 	}
@@ -1143,17 +1143,17 @@ static CHATBool ciParseInput(ciSocket * sock)
 
 				// gsifree the old message stuff.
 				//////////////////////////////
-				RESET(sock->lastMessage.message);
-				RESET(sock->lastMessage.server);
-				RESET(sock->lastMessage.nick);
-				RESET(sock->lastMessage.user);
-				RESET(sock->lastMessage.host);
-				RESET(sock->lastMessage.command);
-				RESET(sock->lastMessage.middle);
-				RESET(sock->lastMessage.param);
+				CI_RESET(sock->lastMessage.message);
+				CI_RESET(sock->lastMessage.server);
+				CI_RESET(sock->lastMessage.nick);
+				CI_RESET(sock->lastMessage.user);
+				CI_RESET(sock->lastMessage.host);
+				CI_RESET(sock->lastMessage.command);
+				CI_RESET(sock->lastMessage.middle);
+				CI_RESET(sock->lastMessage.param);
 				for(i = 0 ; i < sock->lastMessage.numParams ; i++)
-					RESET(sock->lastMessage.params[i]);
-				RESET(sock->lastMessage.params);
+					CI_RESET(sock->lastMessage.params[i]);
+				CI_RESET(sock->lastMessage.params);
 				sock->lastMessage.numParams = 0;
 
 				// Parse the message.
