@@ -105,6 +105,7 @@ class AIUpdateInterfaceView
 }
 ;
 #include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Rva0028BD3AInterface
 
 {
