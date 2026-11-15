@@ -11,9 +11,9 @@ class Rva0054F93F : public ThreadClass
 {
 public:
 	Rva0054F93F(int val);
-	// Empty: retail's vtable 0x0086AB40 slot 0 0x00419E1C calls 0x00419E38,
-	// one jump to the base dtor 0x00610480.
-	virtual ~Rva0054F93F() {}
+	// No destructor is declared: retail's vtable 0x0086AB40 slot 0 0x00419E1C calls 0x00419E38,
+	// one jump to the base dtor 0x00610480. An explicit empty destructor
+	// resets the vptr before the jump; the implicit one is the bare jump.
 
 private:
 	int m_val50;
