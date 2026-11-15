@@ -101979,3 +101979,4 @@ $L19357,,0x0077F774,14,Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,m
 ?Return_File@SimpleFileFactoryClass@@UAEXPAVFileClass@@@Z,,0x006132A0,36,Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp,matched,ICF twin of RawFileFactoryClass::Return_File at 0x006132A0 (slot 2 of ??_7SimpleFileFactoryClass@@6B@)
 ??1Rva003A6F70@@UAE@XZ,,0x004E1416,7,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,ICF twin of Rva004E13EB::~Rva004E13EB (camera record dtor)
 ??_GRva003A6F70@@UAEPAXI@Z,,0x004E186D,28,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,ICF twin of Rva004E13EB deleting dtor (camera record)
+??_GRva0040C92D@@UAEPAXI@Z,,0x0007E5EE,29,Code/GameEngine/Source/Common/Rva0040C92DVtableCtors.cpp,matched,ICF twin at 0x0007E5EE of ??_GRva0007DF07@@UAEPAXI@Z: slot 0 of ??_7Rva0040C92D@@6B@ (0x007C6F20)

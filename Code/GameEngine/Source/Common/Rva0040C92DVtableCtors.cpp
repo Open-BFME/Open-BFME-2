@@ -11,7 +11,7 @@ class Rva0040C92D
 {
 public:
 	Rva0040C92D(int unused);
-	virtual void slot00() {}
+	virtual ~Rva0040C92D() {}
 private:
 	int m_04;
 };
