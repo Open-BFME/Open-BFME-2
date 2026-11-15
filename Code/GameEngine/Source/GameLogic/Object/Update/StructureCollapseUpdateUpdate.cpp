@@ -57,9 +57,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-#ifndef max
-#define max(a, b) (((a) > (b)) ? (a) : (b))
-#endif
+#define SC_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, Int line);
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
@@ -227,7 +225,7 @@ Real StructureCollapseUpdate::getCollapseHeight() const
 {
 	const StructureCollapseUpdateModuleData *structureCollapseUpdateModuleData = getStructureCollapseUpdateModuleData();
 	if (structureCollapseUpdateModuleData->m_destroyObjectWhenDone)
-		return max(structureCollapseUpdateModuleData->m_collapseHeight, getObject()->getTemplate()->getTemplateGeometryInfo().getMaxHeightAbovePosition());
+		return SC_MAX(structureCollapseUpdateModuleData->m_collapseHeight, getObject()->getTemplate()->getTemplateGeometryInfo().getMaxHeightAbovePosition());
 	return structureCollapseUpdateModuleData->m_collapseHeight;
 }
 

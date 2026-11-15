@@ -685,7 +685,7 @@ void ScriptActions::doCreateDelayedCarryoverUnitAtWaypoint(const AsciiString &ob
 // These barriers emit no instructions; the full body/table and EH are gated.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-#define TEXT(n) (pAction->getParameter(n)->getString())
+#define PARAM_TEXT(n) (pAction->getParameter(n)->getString())
 #define INTEGER(n) (pAction->getParameter(n)->getInt())
 #define REAL(n) (pAction->getParameter(n)->getReal())
 #define PARAM(n) (pAction->getParameter(n))
@@ -835,12 +835,12 @@ return;
 }
 case 441:
 {
-Rva003BA9AF((int)(&TEXT(0)));
+Rva003BA9AF((int)(&PARAM_TEXT(0)));
 return;
 }
 case 442:
 {
-Rva003BA9CA((int)(&TEXT(0)));
+Rva003BA9CA((int)(&PARAM_TEXT(0)));
 return;
 }
 case 443:
@@ -860,12 +860,12 @@ return;
 }
 case 14:
 {
-Rva003BAAE4(TEXT(0), REAL(1), REAL(2), REAL(3), REAL(4));
+Rva003BAAE4(PARAM_TEXT(0), REAL(1), REAL(2), REAL(3), REAL(4));
 return;
 }
 case 117:
 {
-Rva003BAD15(TEXT(0), REAL(1), REAL(2), TEXT(3));
+Rva003BAD15(PARAM_TEXT(0), REAL(1), REAL(2), PARAM_TEXT(3));
 return;
 }
 case 120:
@@ -905,27 +905,27 @@ return;
 }
 case 32:
 {
-Rva003C4D5CDo(&TEXT(0));
+Rva003C4D5CDo(&PARAM_TEXT(0));
 return;
 }
 case 31:
 {
-Rva003C4DC2Do(TEXT(0));
+Rva003C4DC2Do(PARAM_TEXT(0));
 return;
 }
 case 17:
 {
-Rva003BB0C7Set((int)(&TEXT(0)), REAL(1), REAL(2), REAL(3), REAL(4), REAL(5), 0);
+Rva003BB0C7Set((int)(&PARAM_TEXT(0)), REAL(1), REAL(2), REAL(3), REAL(4), REAL(5), 0);
 return;
 }
 case 390:
 {
-Rva003BB0C7Set((int)(&TEXT(0)), REAL(1), REAL(2), REAL(3), REAL(4), REAL(5), 1);
+Rva003BB0C7Set((int)(&PARAM_TEXT(0)), REAL(1), REAL(2), REAL(3), REAL(4), REAL(5), 1);
 return;
 }
 case 550:
 {
-doMoveCameraByAnimation(*(StringBase<char> const *)(&TEXT(0)));
+doMoveCameraByAnimation(*(StringBase<char> const *)(&PARAM_TEXT(0)));
 return;
 }
 case 18:
@@ -950,12 +950,12 @@ return;
 }
 case 210:
 {
-Rva003BB05FSet((int)(&TEXT(0)), REAL(1), REAL(2), REAL(3), (INTEGER(4) != 0));
+Rva003BB05FSet((int)(&PARAM_TEXT(0)), REAL(1), REAL(2), REAL(3), (INTEGER(4) != 0));
 return;
 }
 case 19:
 {
-Rva003C4E28Find(TEXT(0), REAL(1), REAL(2), REAL(3));
+Rva003C4E28Find(PARAM_TEXT(0), REAL(1), REAL(2), REAL(3));
 return;
 }
 case 35:
@@ -1010,12 +1010,12 @@ return;
 }
 case 11:
 {
-doPlaySoundEffectAt(TEXT(0), TEXT(1));
+doPlaySoundEffectAt(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 510:
 {
-doPlaySoundEffectAtTeam(TEXT(0), TEXT(1));
+doPlaySoundEffectAtTeam(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 334:
@@ -1051,12 +1051,12 @@ return;
 case 23:
 {
 Coord3D temp36; PARAM(2)->getCoord3D(&temp36);
-doCreateObject(AsciiString::TheEmptyString, TEXT(0), TEXT(1), (Coord3D *)(&temp36), REAL(3));
+doCreateObject(AsciiString::TheEmptyString, PARAM_TEXT(0), PARAM_TEXT(1), (Coord3D *)(&temp36), REAL(3));
 return;
 }
 case 33:
 {
-doTeamAttackTeam(TEXT(0), TEXT(1));
+doTeamAttackTeam(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 39:
@@ -1067,27 +1067,27 @@ return;
 case 40:
 case 590:
 {
-createUnitOnTeamAt(TEXT(0), TEXT(1), TEXT(2), TEXT(3));
+createUnitOnTeamAt(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2), PARAM_TEXT(3));
 return;
 }
 case 41:
 {
-createUnitOnTeamAt(AsciiString::TheEmptyString, TEXT(0), TEXT(1), TEXT(2));
+createUnitOnTeamAt(AsciiString::TheEmptyString, PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 42:
 {
-Rva003BB1FFAttack(PARAM(0), TEXT(1));
+Rva003BB1FFAttack(PARAM(0), PARAM_TEXT(1));
 return;
 }
 case 43:
 {
-rva003BEDD1(TEXT(0), TEXT(1));
+rva003BEDD1(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 44:
 {
-Rva003BB233Set(TEXT(0), INTEGER(1));
+Rva003BB233Set(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 45:
@@ -1097,7 +1097,7 @@ return;
 }
 case 46:
 {
-updateTeamSetAttitude(TEXT(0), INTEGER(1));
+updateTeamSetAttitude(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 235:
@@ -1107,47 +1107,47 @@ return;
 }
 case 236:
 {
-doTeamSetRepulsor(TEXT(0), (INTEGER(1) != 0));
+doTeamSetRepulsor(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 47:
 {
-doNamedAttackArea(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedAttackArea(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 48:
 {
-doNamedAttackAreaForSeconds(*(AsciiString const *)(PARAM(0)), TEXT(1), INTEGER(2));
+doNamedAttackAreaForSeconds(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 49:
 {
-doNamedAttackTeam(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedAttackTeam(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 50:
 {
-doTeamAttackArea(TEXT(0), TEXT(1));
+doTeamAttackArea(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 51:
 {
-doTeamAttackNamed(TEXT(0), *(AsciiString const *)(PARAM(1)));
+doTeamAttackNamed(PARAM_TEXT(0), *(AsciiString const *)(PARAM(1)));
 return;
 }
 case 52:
 {
-doLoadAllTransports(TEXT(0));
+doLoadAllTransports(PARAM_TEXT(0));
 return;
 }
 case 53:
 {
-doNamedEnterNamed(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedEnterNamed(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 54:
 {
-doTeamEnterNamed(TEXT(0), TEXT(1));
+doTeamEnterNamed(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 55:
@@ -1157,17 +1157,17 @@ return;
 }
 case 56:
 {
-doTeamExitAll(TEXT(0));
+doTeamExitAll(PARAM_TEXT(0));
 return;
 }
 case 57:
 {
-doNamedFollowWaypoints(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedFollowWaypoints(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 547:
 {
-doNamedFollowWaypointsExact(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedFollowWaypointsExact(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 58:
@@ -1177,32 +1177,32 @@ return;
 }
 case 59:
 {
-doTeamGuard(TEXT(0));
+doTeamGuard(PARAM_TEXT(0));
 return;
 }
 case 206:
 {
-Rva003BF71EDo(TEXT(0), TEXT(1));
+Rva003BF71EDo(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 207:
 {
-Rva003BF7ACDo(TEXT(0), PARAM(1));
+Rva003BF7ACDo(PARAM_TEXT(0), PARAM(1));
 return;
 }
 case 208:
 {
-Rva003BF813Do(TEXT(0), TEXT(1), "");
+Rva003BF813Do(PARAM_TEXT(0), PARAM_TEXT(1), "");
 return;
 }
 case 487:
 {
-Rva003BF813Do(TEXT(0), TEXT(1), TEXT(2));
+Rva003BF813Do(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 452:
 {
-doUnitGuardPosition(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doUnitGuardPosition(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 453:
@@ -1213,12 +1213,12 @@ return;
 case 454:
 {
 AsciiString temp16("");
-Rva003C8A15Do(PARAM(0), TEXT(1), temp16);
+Rva003C8A15Do(PARAM(0), PARAM_TEXT(1), temp16);
 return;
 }
 case 486:
 {
-Rva003C8A15Do(PARAM(0), TEXT(1), TEXT(2));
+Rva003C8A15Do(PARAM(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 60:
@@ -1228,67 +1228,67 @@ return;
 }
 case 61:
 {
-doTeamHunt(TEXT(0));
+doTeamHunt(PARAM_TEXT(0));
 return;
 }
 case 282:
 {
-doTeamHuntWithCommandButton(TEXT(0), TEXT(1));
+doTeamHuntWithCommandButton(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 99:
 {
-doPlayerHunt(TEXT(0));
+doPlayerHunt(PARAM_TEXT(0));
 return;
 }
 case 468:
 {
-Rva003BF903Do(TEXT(0), (int)(&TEXT(1)));
+Rva003BF903Do(PARAM_TEXT(0), (int)(&PARAM_TEXT(1)));
 return;
 }
 case 62:
 {
-doPlayerSellEverything(TEXT(0));
+doPlayerSellEverything(PARAM_TEXT(0));
 return;
 }
 case 63:
 {
-doPlayerDisableBaseConstruction(TEXT(0));
+doPlayerDisableBaseConstruction(PARAM_TEXT(0));
 return;
 }
 case 64:
 {
-doPlayerDisableFactories(TEXT(0), (int)(&TEXT(1)));
+doPlayerDisableFactories(PARAM_TEXT(0), (int)(&PARAM_TEXT(1)));
 return;
 }
 case 65:
 {
-doPlayerDisableUnitConstruction(TEXT(0));
+doPlayerDisableUnitConstruction(PARAM_TEXT(0));
 return;
 }
 case 66:
 {
-doPlayerEnableBaseConstruction(TEXT(0));
+doPlayerEnableBaseConstruction(PARAM_TEXT(0));
 return;
 }
 case 67:
 {
-doPlayerEnableFactories(TEXT(0), (int)(&TEXT(1)));
+doPlayerEnableFactories(PARAM_TEXT(0), (int)(&PARAM_TEXT(1)));
 return;
 }
 case 257:
 {
-Rva003BF96FDo(TEXT(0), TEXT(1));
+Rva003BF96FDo(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 68:
 {
-doPlayerEnableUnitConstruction(TEXT(0));
+doPlayerEnableUnitConstruction(PARAM_TEXT(0));
 return;
 }
 case 70:
 {
-Rva003BF9C8Do(TEXT(0));
+Rva003BF9C8Do(PARAM_TEXT(0));
 return;
 }
 case 71:
@@ -1308,52 +1308,52 @@ return;
 }
 case 73:
 {
-doTeamDelete(TEXT(0), 0);
+doTeamDelete(PARAM_TEXT(0), 0);
 return;
 }
 case 330:
 {
-doTeamDelete(TEXT(0), 1);
+doTeamDelete(PARAM_TEXT(0), 1);
 return;
 }
 case 115:
 {
-Rva003C8ABFDo(TEXT(0), TEXT(1));
+Rva003C8ABFDo(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 237:
 {
-Rva003C8B62Do(TEXT(0));
+Rva003C8B62Do(PARAM_TEXT(0));
 return;
 }
 case 238:
 {
-Rva003BFAF4Do(TEXT(0));
+Rva003BFAF4Do(PARAM_TEXT(0));
 return;
 }
 case 562:
 {
-Rva003BFB8CDo(TEXT(0), INTEGER(1));
+Rva003BFB8CDo(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 239:
 {
-Rva003BFC27Do(TEXT(0));
+Rva003BFC27Do(PARAM_TEXT(0));
 return;
 }
 case 563:
 {
-Rva003BFCBFDo(TEXT(0), INTEGER(1));
+Rva003BFCBFDo(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 116:
 {
-Rva003C8BCBDo(TEXT(0), TEXT(1));
+Rva003C8BCBDo(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 74:
 {
-Rva003BB4BDApply(PARAM(0), REAL(1), REAL(2), REAL(3), (int)(&TEXT(4)));
+Rva003BB4BDApply(PARAM(0), REAL(1), REAL(2), REAL(3), (int)(&PARAM_TEXT(4)));
 return;
 }
 case 75:
@@ -1363,27 +1363,27 @@ return;
 }
 case 76:
 {
-doTeamKill(TEXT(0));
+doTeamKill(PARAM_TEXT(0));
 return;
 }
 case 77:
 {
-doPlayerKill(TEXT(0));
+doPlayerKill(PARAM_TEXT(0));
 return;
 }
 case 78:
 {
-doDisplayText(TEXT(0));
+doDisplayText(PARAM_TEXT(0));
 return;
 }
 case 219:
 {
-doDisplayCinematicText(TEXT(0), TEXT(1), INTEGER(2));
+doDisplayCinematicText(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 79:
 {
-doCameoFlash(TEXT(0), INTEGER(1));
+doCameoFlash(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 80:
@@ -1393,7 +1393,7 @@ return;
 }
 case 81:
 {
-Rva003BFF50Do(&TEXT(0), INTEGER(1), (RGBColor *)(0));
+Rva003BFF50Do(&PARAM_TEXT(0), INTEGER(1), (RGBColor *)(0));
 return;
 }
 case 246:
@@ -1410,42 +1410,42 @@ return;
 case 247:
 {
 RGBColor color; color.red = color.green = color.blue = 1.0f;
-Rva003BFF50Do(&TEXT(0), INTEGER(1), &color);
+Rva003BFF50Do(&PARAM_TEXT(0), INTEGER(1), &color);
 return;
 }
 case 82:
 {
-Rva003BFFECDo(TEXT(0), (INTEGER(1) != 0));
+Rva003BFFECDo(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 83:
 {
-doMoviePlayRadar(TEXT(0));
+doMoviePlayRadar(PARAM_TEXT(0));
 return;
 }
 case 84:
 {
-doSoundPlayFromNamed(TEXT(0), *(AsciiString const *)(PARAM(1)));
+doSoundPlayFromNamed(PARAM_TEXT(0), *(AsciiString const *)(PARAM(1)));
 return;
 }
 case 85:
 {
-doSpeechPlay(TEXT(0), (INTEGER(1) != 0));
+doSpeechPlay(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 86:
 {
-bfmeLinkObjectsA70((void *)(&TEXT(0)), (void *)(&TEXT(1)));
+bfmeLinkObjectsA70((void *)(&PARAM_TEXT(0)), (void *)(&PARAM_TEXT(1)));
 return;
 }
 case 87:
 {
-Rva003BD884Set(PARAM(0), &TEXT(1));
+Rva003BD884Set(PARAM(0), &PARAM_TEXT(1));
 return;
 }
 case 315:
 {
-Rva003BB6C0Clear(TEXT(0));
+Rva003BB6C0Clear(PARAM_TEXT(0));
 return;
 }
 case 317:
@@ -1460,7 +1460,7 @@ return;
 }
 case 88:
 {
-Rva003BB713Set(TEXT(0), (Object *)(INTEGER(2)), TEXT(1));
+Rva003BB713Set(PARAM_TEXT(0), (Object *)(INTEGER(2)), PARAM_TEXT(1));
 return;
 }
 case 90:
@@ -1476,7 +1476,7 @@ return;
 }
 case 218:
 {
-doTeamRadarCreateEvent(&TEXT(0), (void *)(INTEGER(1)));
+doTeamRadarCreateEvent(&PARAM_TEXT(0), (void *)(INTEGER(1)));
 return;
 }
 case 91:
@@ -1501,7 +1501,7 @@ return;
 }
 case 296:
 {
-doTeamEnableStealth(TEXT(0), (INTEGER(1) != 0));
+doTeamEnableStealth(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 432:
@@ -1511,47 +1511,47 @@ return;
 }
 case 433:
 {
-rva003C05DE(TEXT(0), (INTEGER(1) != 0));
+rva003C05DE(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 93:
 {
-Rva003BB8EDReveal(TEXT(0), REAL(1), TEXT(2));
+Rva003BB8EDReveal(PARAM_TEXT(0), REAL(1), PARAM_TEXT(2));
 return;
 }
 case 552:
 {
-rva003C013C(TEXT(0), TEXT(1));
+rva003C013C(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 105:
 {
-doRevealMapEntire(TEXT(0));
+doRevealMapEntire(PARAM_TEXT(0));
 return;
 }
 case 233:
 {
-Rva003BB9C6Reveal(true, TEXT(0));
+Rva003BB9C6Reveal(true, PARAM_TEXT(0));
 return;
 }
 case 234:
 {
-Rva003BB9C6Reveal(false, TEXT(0));
+Rva003BB9C6Reveal(false, PARAM_TEXT(0));
 return;
 }
 case 149:
 {
-doShroudMapEntire(TEXT(0));
+doShroudMapEntire(PARAM_TEXT(0));
 return;
 }
 case 94:
 {
-doTeamAvailableForRecruitment(TEXT(0), (INTEGER(1) != 0));
+doTeamAvailableForRecruitment(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 96:
 {
-doMergeTeamIntoTeam(TEXT(0), TEXT(1));
+doMergeTeamIntoTeam(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 250:
@@ -1596,12 +1596,12 @@ return;
 }
 case 102:
 {
-Rva003C0308Do(TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 1);
+Rva003C0308Do(PARAM_TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 1);
 return;
 }
 case 450:
 {
-Rva003C0425Do(TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 1);
+Rva003C0425Do(PARAM_TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 1);
 return;
 }
 case 451:
@@ -1611,32 +1611,32 @@ return;
 }
 case 471:
 {
-Rva003C0308Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 1);
+Rva003C0308Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 1);
 return;
 }
 case 472:
 {
-Rva003C0308Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), TEXT(4), 1);
+Rva003C0308Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), PARAM_TEXT(4), 1);
 return;
 }
 case 473:
 {
-Rva003C0425Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 1);
+Rva003C0425Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 1);
 return;
 }
 case 474:
 {
-Rva003C0425Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), TEXT(4), 1);
+Rva003C0425Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), PARAM_TEXT(4), 1);
 return;
 }
 case 456:
 {
-Rva003C0308Do(TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 0);
+Rva003C0308Do(PARAM_TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 0);
 return;
 }
 case 457:
 {
-Rva003C0425Do(TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 0);
+Rva003C0425Do(PARAM_TEXT(0), (INTEGER(1) != 0), (INTEGER(2) != 0), 4294954951, AsciiString::TheEmptyString, 0);
 return;
 }
 case 458:
@@ -1646,22 +1646,22 @@ return;
 }
 case 475:
 {
-Rva003C0308Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 0);
+Rva003C0308Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 0);
 return;
 }
 case 476:
 {
-Rva003C0308Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), TEXT(4), 0);
+Rva003C0308Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), PARAM_TEXT(4), 0);
 return;
 }
 case 477:
 {
-Rva003C0425Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 0);
+Rva003C0425Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), AsciiString::TheEmptyString, 0);
 return;
 }
 case 478:
 {
-Rva003C0425Do(TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), TEXT(4), 0);
+Rva003C0425Do(PARAM_TEXT(0), (INTEGER(2) != 0), (INTEGER(3) != 0), INTEGER(1), PARAM_TEXT(4), 0);
 return;
 }
 case 459:
@@ -1681,42 +1681,42 @@ return;
 }
 case 106:
 {
-doTeamGarrisonSpecificBuilding(TEXT(0), TEXT(1), false);
+doTeamGarrisonSpecificBuilding(PARAM_TEXT(0), PARAM_TEXT(1), false);
 return;
 }
 case 570:
 {
-doTeamGarrisonSpecificBuilding(TEXT(0), TEXT(1), true);
+doTeamGarrisonSpecificBuilding(PARAM_TEXT(0), PARAM_TEXT(1), true);
 return;
 }
 case 573:
 {
-rva003C6EFC(TEXT(0), TEXT(1), true);
+rva003C6EFC(PARAM_TEXT(0), PARAM_TEXT(1), true);
 return;
 }
 case 107:
 {
-Rva003C8C6EDo(TEXT(0));
+Rva003C8C6EDo(PARAM_TEXT(0));
 return;
 }
 case 108:
 {
-doTeamGarrisonNearestBuilding(TEXT(0));
+doTeamGarrisonNearestBuilding(PARAM_TEXT(0));
 return;
 }
 case 109:
 {
-Rva003C8E2BExit(TEXT(0));
+Rva003C8E2BExit(PARAM_TEXT(0));
 return;
 }
 case 110:
 {
-doUnitGarrisonSpecificBuilding(*(AsciiString const *)(PARAM(0)), TEXT(1), false);
+doUnitGarrisonSpecificBuilding(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), false);
 return;
 }
 case 567:
 {
-doUnitGarrisonSpecificBuilding(*(AsciiString const *)(PARAM(0)), TEXT(1), true);
+doUnitGarrisonSpecificBuilding(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), true);
 return;
 }
 case 111:
@@ -1731,12 +1731,12 @@ return;
 }
 case 113:
 {
-doPlayerGarrisonAllBuildings(TEXT(0));
+doPlayerGarrisonAllBuildings(PARAM_TEXT(0));
 return;
 }
 case 114:
 {
-doPlayerExitAllBuildings(TEXT(0));
+doPlayerExitAllBuildings(PARAM_TEXT(0));
 return;
 }
 case 118:
@@ -1786,7 +1786,7 @@ return;
 }
 case 137:
 {
-Rva003BB7FESet((int)(&TEXT(0)), (INTEGER(1) != 0));
+Rva003BB7FESet((int)(&PARAM_TEXT(0)), (INTEGER(1) != 0));
 return;
 }
 case 138:
@@ -1803,7 +1803,7 @@ return;
 }
 case 484:
 {
-((Rva00239A40 *)TheGameClient)->rva00239A40(TEXT(0));
+((Rva00239A40 *)TheGameClient)->rva00239A40(PARAM_TEXT(0));
 return;
 }
 case 485:
@@ -1823,12 +1823,12 @@ return;
 }
 case 142:
 {
-doMilitaryCaption((int)(&TEXT(0)), REAL(1));
+doMilitaryCaption((int)(&PARAM_TEXT(0)), REAL(1));
 return;
 }
 case 144:
 {
-doSetStoppingDistance(TEXT(0), REAL(1));
+doSetStoppingDistance(PARAM_TEXT(0), REAL(1));
 return;
 }
 case 146:
@@ -1887,37 +1887,37 @@ return;
 }
 case 156:
 {
-doTransferTeamToPlayer(TEXT(0), TEXT(1));
+doTransferTeamToPlayer(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 157:
 {
-doSetMoney(TEXT(0), INTEGER(1));
+doSetMoney(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 158:
 {
-doGiveMoney(TEXT(0), INTEGER(1));
+doGiveMoney(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 163:
 {
-Rva003C549DDo(TEXT(0), TEXT(1));
+Rva003C549DDo(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 164:
 {
-Rva003C5535Do(TEXT(0));_ReadWriteBarrier();
+Rva003C5535Do(PARAM_TEXT(0));_ReadWriteBarrier();
 return;
 }
 case 240:
 {
-Rva003C5405Do(TEXT(0), TEXT(1));
+Rva003C5405Do(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 241:
 {
-Rva003C5535Do(TEXT(0));
+Rva003C5535Do(PARAM_TEXT(0));
 return;
 }
 case 166:
@@ -1932,62 +1932,62 @@ return;
 }
 case 167:
 {
-doNamedStopSpecialPowerCountdown(PARAM(0), TEXT(1), (void *)(1));
+doNamedStopSpecialPowerCountdown(PARAM(0), PARAM_TEXT(1), (void *)(1));
 return;
 }
 case 168:
 {
-doNamedStopSpecialPowerCountdown(PARAM(0), TEXT(1), (void *)(0));
+doNamedStopSpecialPowerCountdown(PARAM(0), PARAM_TEXT(1), (void *)(0));
 return;
 }
 case 169:
 {
-doNamedSetSpecialPowerCountdown(PARAM(0), TEXT(1), INTEGER(2));
+doNamedSetSpecialPowerCountdown(PARAM(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 170:
 {
-doNamedAddSpecialPowerCountdown(PARAM(0), TEXT(1), INTEGER(2));
+doNamedAddSpecialPowerCountdown(PARAM(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 578:
 {
-doPlayerSetSpecialPowerCountdown(TEXT(0), TEXT(1), INTEGER(2));
+doPlayerSetSpecialPowerCountdown(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 171:
 {
-doNamedFireSpecialPowerAtWaypoint(PARAM(0), TEXT(1), (void *)(&TEXT(2)));
+doNamedFireSpecialPowerAtWaypoint(PARAM(0), PARAM_TEXT(1), (void *)(&PARAM_TEXT(2)));
 return;
 }
 case 571:
 {
-doFireSpecialPowerAtWaypoint(TEXT(0), TEXT(1), TEXT(2));
+doFireSpecialPowerAtWaypoint(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 255:
 {
-doSkirmishFireSpecialPowerAtMostCost(TEXT(0), TEXT(1));
+doSkirmishFireSpecialPowerAtMostCost(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 445:
 {
-rva003C56D6((void *)(&TEXT(0)), TEXT(1), TEXT(2), TEXT(3));
+rva003C56D6((void *)(&PARAM_TEXT(0)), PARAM_TEXT(1), PARAM_TEXT(2), PARAM_TEXT(3));
 return;
 }
 case 446:
 {
-rva003C55A6((void *)(&TEXT(0)), TEXT(1), TEXT(2), TEXT(3), TEXT(4));
+rva003C55A6((void *)(&PARAM_TEXT(0)), PARAM_TEXT(1), PARAM_TEXT(2), PARAM_TEXT(3), PARAM_TEXT(4));
 return;
 }
 case 447:
 {
-rva003C4145(TEXT(0), TEXT(1), TEXT(2));
+rva003C4145(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 172:
 {
-doNamedFireSpecialPowerAtNamed(PARAM(0), TEXT(1), TEXT(2));
+doNamedFireSpecialPowerAtNamed(PARAM(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 173:
@@ -2002,12 +2002,12 @@ return;
 }
 case 178:
 {
-((Rva003C08CC *)this)->rva003C08CC(&TEXT(0), false);
+((Rva003C08CC *)this)->rva003C08CC(&PARAM_TEXT(0), false);
 return;
 }
 case 179:
 {
-((Rva003C08CC *)this)->rva003C08CC(&TEXT(0), true);
+((Rva003C08CC *)this)->rva003C08CC(&PARAM_TEXT(0), true);
 return;
 }
 case 174:
@@ -2027,157 +2027,157 @@ return;
 }
 case 182:
 {
-doTeamSetOverrideRelationToTeam(TEXT(0), TEXT(1), (Object *)(INTEGER(2)));
+doTeamSetOverrideRelationToTeam(PARAM_TEXT(0), PARAM_TEXT(1), (Object *)(INTEGER(2)));
 return;
 }
 case 183:
 {
-doTeamRemoveOverrideRelationToTeam(TEXT(0), TEXT(1));
+doTeamRemoveOverrideRelationToTeam(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 184:
 {
-doTeamRemoveAllOverrideRelations(TEXT(0));
+doTeamRemoveAllOverrideRelations(PARAM_TEXT(0));
 return;
 }
 case 187:
 {
-doTeamSetOverrideRelationToPlayer(TEXT(0), TEXT(1), (Object *)(INTEGER(2)));
+doTeamSetOverrideRelationToPlayer(PARAM_TEXT(0), PARAM_TEXT(1), (Object *)(INTEGER(2)));
 return;
 }
 case 188:
 {
-doTeamRemoveOverrideRelationToPlayer(TEXT(0), TEXT(1));
+doTeamRemoveOverrideRelationToPlayer(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 189:
 {
-doPlayerSetOverrideRelationToTeam(TEXT(0), TEXT(1), (Object *)(INTEGER(2)));
+doPlayerSetOverrideRelationToTeam(PARAM_TEXT(0), PARAM_TEXT(1), (Object *)(INTEGER(2)));
 return;
 }
 case 190:
 {
-doPlayerRemoveOverrideRelationToTeam(TEXT(0), TEXT(1));
+doPlayerRemoveOverrideRelationToTeam(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 186:
 {
-doNamedFireWeaponFollowingWaypointPath(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedFireWeaponFollowingWaypointPath(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 244:
 {
-Rva003C57A9Do(PARAM(0), TEXT(1));
+Rva003C57A9Do(PARAM(0), PARAM_TEXT(1));
 return;
 }
 case 202:
 {
-Rva003C5825Do(PARAM(0), TEXT(1), TEXT(2));
+Rva003C5825Do(PARAM(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 203:
 {
-Rva003C58C9Do(PARAM(0), TEXT(1), (int)(&TEXT(2)));
+Rva003C58C9Do(PARAM(0), PARAM_TEXT(1), (int)(&PARAM_TEXT(2)));
 return;
 }
 case 424:
 {
-rva003BD905(*(AsciiString const *)(PARAM(0)), TEXT(1));
+rva003BD905(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 425:
 {
-rva003BDB03(*(AsciiString const *)(PARAM(0)), TEXT(1));
+rva003BDB03(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 426:
 {
-rva003BDC65(*(AsciiString const *)(PARAM(0)), TEXT(1), INTEGER(2));
+rva003BDC65(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 427:
 {
-rva003BDE5D(*(AsciiString const *)(PARAM(0)), TEXT(1));
+rva003BDE5D(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 428:
 {
-rva003BDFA5(*(AsciiString const *)(PARAM(0)), TEXT(1), INTEGER(2));
+rva003BDFA5(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 429:
 {
-rva003C42B9(PARAM(0), TEXT(1), TEXT(2));
+rva003C42B9(PARAM(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 572:
 {
-doNamedBuildStructureAtWaypoint(PARAM(0), TEXT(1), REAL(2), TEXT(3));
+doNamedBuildStructureAtWaypoint(PARAM(0), PARAM_TEXT(1), REAL(2), PARAM_TEXT(3));
 return;
 }
 case 245:
 {
-Rva003C075BDo(&TEXT(0), &TEXT(1));
+Rva003C075BDo(&PARAM_TEXT(0), &PARAM_TEXT(1));
 return;
 }
 case 242:
 {
-Rva003C07C1Do(TEXT(0), TEXT(1), TEXT(2));
+Rva003C07C1Do(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 243:
 {
-Rva003C0849Do(TEXT(0), TEXT(1), TEXT(2));
+Rva003C0849Do(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 266:
 {
-Rva003C1020Do(TEXT(0), TEXT(1), PARAM(2));
+Rva003C1020Do(PARAM_TEXT(0), PARAM_TEXT(1), PARAM(2));
 return;
 }
 case 267:
 {
-doTeamUseCommandButtonOnNearestEnemy(TEXT(0), TEXT(1));
+doTeamUseCommandButtonOnNearestEnemy(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 268:
 {
-doTeamUseCommandButtonOnNearestGarrisonedBuilding(TEXT(0), TEXT(1));
+doTeamUseCommandButtonOnNearestGarrisonedBuilding(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 269:
 {
-doTeamUseCommandButtonOnNearestKindof(TEXT(0), TEXT(1), INTEGER(2));
+doTeamUseCommandButtonOnNearestKindof(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 270:
 {
-doTeamUseCommandButtonOnNearestBuilding(TEXT(0), TEXT(1));
+doTeamUseCommandButtonOnNearestBuilding(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 271:
 {
-doTeamUseCommandButtonOnNearestBuildingClass(TEXT(0), TEXT(1), INTEGER(2));
+doTeamUseCommandButtonOnNearestBuildingClass(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 272:
 {
-doTeamUseCommandButtonOnNearestObjectType(TEXT(0), TEXT(1), TEXT(2));
+doTeamUseCommandButtonOnNearestObjectType(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 273:
 {
-doTeamPartialUseCommandButton(REAL(0), TEXT(1), TEXT(2));
+doTeamPartialUseCommandButton(REAL(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 191:
 {
-doUnitStartSequentialScript(PARAM(0), TEXT(1), 0);
+doUnitStartSequentialScript(PARAM(0), PARAM_TEXT(1), 0);
 return;
 }
 case 192:
 {
-doUnitStartSequentialScript(PARAM(0), TEXT(1), (INTEGER(2) - 1));
+doUnitStartSequentialScript(PARAM(0), PARAM_TEXT(1), (INTEGER(2) - 1));
 return;
 }
 case 193:
@@ -2187,17 +2187,17 @@ return;
 }
 case 194:
 {
-doTeamStartSequentialScript(TEXT(0), TEXT(1), 0);
+doTeamStartSequentialScript(PARAM_TEXT(0), PARAM_TEXT(1), 0);
 return;
 }
 case 195:
 {
-doTeamStartSequentialScript(TEXT(0), TEXT(1), (INTEGER(2) - 1));
+doTeamStartSequentialScript(PARAM_TEXT(0), PARAM_TEXT(1), (INTEGER(2) - 1));
 return;
 }
 case 196:
 {
-doTeamStopSequentialScript(TEXT(0));
+doTeamStopSequentialScript(PARAM_TEXT(0));
 return;
 }
 case 197:
@@ -2217,17 +2217,17 @@ return;
 }
 case 329:
 {
-rva003C0D90(TEXT(0), INTEGER(1), (INTEGER(2) != 0));
+rva003C0D90(PARAM_TEXT(0), INTEGER(1), (INTEGER(2) != 0));
 return;
 }
 case 434:
 {
-rva003C596A(*(AsciiString const *)(PARAM(0)), TEXT(1), REAL(2), REAL(3));
+rva003C596A(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), REAL(2), REAL(3));
 return;
 }
 case 435:
 {
-Rva003C5A00Do(TEXT(0), TEXT(1), REAL(2), REAL(3));
+Rva003C5A00Do(PARAM_TEXT(0), PARAM_TEXT(1), REAL(2), REAL(3));
 return;
 }
 case 344:
@@ -2237,23 +2237,23 @@ return;
 }
 case 345:
 {
-Rva003C0DE1Do(TEXT(0), (INTEGER(1) != 0));
+Rva003C0DE1Do(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 199:
 case 200:
 {
-doTeamIdleForFramecount(TEXT(0), INTEGER(1), false);
+doTeamIdleForFramecount(PARAM_TEXT(0), INTEGER(1), false);
 return;
 }
 case 201:
 {
-doWaterChangeHeight((Parameter *)(&TEXT(0)), REAL(1));
+doWaterChangeHeight((Parameter *)(&PARAM_TEXT(0)), REAL(1));
 return;
 }
 case 204:
 {
-doWaterChangeHeightOverTime((Parameter *)(&TEXT(0)), REAL(1), REAL(2), REAL(3));
+doWaterChangeHeightOverTime((Parameter *)(&PARAM_TEXT(0)), REAL(1), REAL(2), REAL(3));
 return;
 }
 case 205:
@@ -2273,7 +2273,7 @@ return;
 }
 case 209:
 {
-doForceObjectSelection(TEXT(0), TEXT(1), (INTEGER(2) != 0), TEXT(3));
+doForceObjectSelection(PARAM_TEXT(0), PARAM_TEXT(1), (INTEGER(2) != 0), PARAM_TEXT(3));
 return;
 }
 case 211:
@@ -2298,27 +2298,27 @@ return;
 }
 case 215:
 {
-doModifyBuildableStatus(TEXT(0), INTEGER(1));
+doModifyBuildableStatus(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 228:
 {
-doSetCaveIndex(TEXT(0), INTEGER(1));
+doSetCaveIndex(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 216:
 {
-doSetWarehouseValue(TEXT(0), INTEGER(1));
+doSetWarehouseValue(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 221:
 {
-Rva003BC4E8Do((int)(&TEXT(0)));
+Rva003BC4E8Do((int)(&PARAM_TEXT(0)));
 return;
 }
 case 222:
 {
-Rva003BC4D1Do((int)(&TEXT(0)));
+Rva003BC4D1Do((int)(&PARAM_TEXT(0)));
 return;
 }
 case 223:
@@ -2328,17 +2328,17 @@ return;
 }
 case 325:
 {
-Rva003BC510Do((int)(&TEXT(0)));
+Rva003BC510Do((int)(&PARAM_TEXT(0)));
 return;
 }
 case 224:
 {
-Rva003BC524Set(TEXT(0), REAL(1));
+Rva003BC524Set(PARAM_TEXT(0), REAL(1));
 return;
 }
 case 225:
 {
-Rva003BC54FDo((int)(&TEXT(0)));
+Rva003BC54FDo((int)(&PARAM_TEXT(0)));
 return;
 }
 case 226:
@@ -2349,78 +2349,78 @@ return;
 case 230:
 {
 Coord3D position; PARAM(1)->getCoord3D(&position);
-TheScriptEngine->rva0035818E(TEXT(0), &position);
+TheScriptEngine->rva0035818E(PARAM_TEXT(0), &position);
 return;
 }
 case 231:
 {
-doMoveUnitTowardsNearest(*(AsciiString const *)(PARAM(0)), TEXT(1), TEXT(2));
+doMoveUnitTowardsNearest(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 548:
 {
-rva003C951B(*(AsciiString const *)(PARAM(0)), TEXT(1), AsciiString::TheEmptyString);
+rva003C951B(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1), AsciiString::TheEmptyString);
 return;
 }
 case 232:
 {
-doMoveTeamTowardsNearest(TEXT(0), TEXT(1), TEXT(2));
+doMoveTeamTowardsNearest(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 549:
 {
-doAttackMoveTeamTowardsNearest(TEXT(0), TEXT(1), AsciiString::TheEmptyString);
+doAttackMoveTeamTowardsNearest(PARAM_TEXT(0), PARAM_TEXT(1), AsciiString::TheEmptyString);
 return;
 }
 case 565:
 {
-doAttackMoveTeamTowardsNearest(TEXT(0), TEXT(1), TEXT(2));
+doAttackMoveTeamTowardsNearest(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 566:
 {
-rva003C0F09(TEXT(0), INTEGER(1));
+rva003C0F09(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 256:
 {
-doUnitReceiveUpgrade(PARAM(0), TEXT(1));
+doUnitReceiveUpgrade(PARAM(0), PARAM_TEXT(1));
 return;
 }
 case 261:
 {
-doSkirmishAttackNearestGroupWithValue(TEXT(0), INTEGER(1), INTEGER(2));
+doSkirmishAttackNearestGroupWithValue(PARAM_TEXT(0), INTEGER(1), INTEGER(2));
 return;
 }
 case 262:
 {
-doSkirmishCommandButtonOnMostValuable(TEXT(0), TEXT(1), REAL(2), (INTEGER(3) != 0));
+doSkirmishCommandButtonOnMostValuable(PARAM_TEXT(0), PARAM_TEXT(1), REAL(2), (INTEGER(3) != 0));
 return;
 }
 case 265:
 {
-doTeamSpinForFramecount(TEXT(0), INTEGER(1));
+doTeamSpinForFramecount(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 551:
 {
 int framecount = (int)Rva000422BBCeil((float)BfmeLogicFramesPerSecond * REAL(1));
-doTeamSpinForFramecount(TEXT(0), framecount);
+doTeamSpinForFramecount(PARAM_TEXT(0), framecount);
 return;
 }
 case 274:
 {
-doTeamCaptureNearestUnownedFactionUnit(TEXT(0));
+doTeamCaptureNearestUnownedFactionUnit(PARAM_TEXT(0));
 return;
 }
 case 275:
 {
-((Rva003C1E69 *)this)->rva003C1E69(TEXT(0), TEXT(1));
+((Rva003C1E69 *)this)->rva003C1E69(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 276:
 {
-Rva003BC582Set(TEXT(0), INTEGER(1));
+Rva003BC582Set(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 538:
@@ -2430,17 +2430,17 @@ return;
 }
 case 277:
 {
-Rva003BC5CESet(TEXT(0), INTEGER(1));
+Rva003BC5CESet(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 278:
 {
-Rva003BC626Set(TEXT(0), INTEGER(1));
+Rva003BC626Set(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 592:
 {
-Rva003BC67ASet(TEXT(0), INTEGER(1));
+Rva003BC67ASet(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 279:
@@ -2450,57 +2450,57 @@ return;
 }
 case 280:
 {
-Rva003BC6D9Set(TEXT(0), TEXT(1));
+Rva003BC6D9Set(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 281:
 {
-Rva003BC72FSet(TEXT(0), TEXT(1));
+Rva003BC72FSet(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 302:
 {
-Rva003BC785Set(TEXT(0), TEXT(1), TEXT(2));
+Rva003BC785Set(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 287:
 {
-Rva003C1F0A(TEXT(0), *(StringBase<char> const *)(&TEXT(1)), REAL(2));
+Rva003C1F0A(PARAM_TEXT(0), *(StringBase<char> const *)(&PARAM_TEXT(1)), REAL(2));
 return;
 }
 case 288:
 {
-Rva003BC996Do(PARAM(0), *(StringBase<char> const *)(&TEXT(1)), REAL(2));
+Rva003BC996Do(PARAM(0), *(StringBase<char> const *)(&PARAM_TEXT(1)), REAL(2));
 return;
 }
 case 291:
 {
-TheScriptEngine->doObjectTypeListMaintenance(TEXT(0), TEXT(1), true);
+TheScriptEngine->doObjectTypeListMaintenance(PARAM_TEXT(0), PARAM_TEXT(1), true);
 return;
 }
 case 292:
 {
-TheScriptEngine->doObjectTypeListMaintenance(TEXT(0), TEXT(1), false);
+TheScriptEngine->doObjectTypeListMaintenance(PARAM_TEXT(0), PARAM_TEXT(1), false);
 return;
 }
 case 293:
 {
-Rva003BC9E0Do(TEXT(0), REAL(1), TEXT(2), TEXT(3));
+Rva003BC9E0Do(PARAM_TEXT(0), REAL(1), PARAM_TEXT(2), PARAM_TEXT(3));
 return;
 }
 case 294:
 {
-Rva003BCA43Do(TEXT(0));_ReadWriteBarrier();
+Rva003BCA43Do(PARAM_TEXT(0));_ReadWriteBarrier();
 return;
 }
 case 554:
 {
-Rva003BCA12Do(TEXT(0), TEXT(1), TEXT(2));
+Rva003BCA12Do(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 555:
 {
-Rva003BCA43Do(TEXT(0));
+Rva003BCA43Do(PARAM_TEXT(0));
 return;
 }
 case 297:
@@ -2520,7 +2520,7 @@ return;
 }
 case 335:
 {
-Rva003BCADAForward(TEXT(0), TEXT(1));
+Rva003BCADAForward(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 336:
@@ -2530,7 +2530,7 @@ return;
 }
 case 337:
 {
-Rva003BCAF6Do((Parameter *)(&TEXT(0)), REAL(1), REAL(2), REAL(3));
+Rva003BCAF6Do((Parameter *)(&PARAM_TEXT(0)), REAL(1), REAL(2), REAL(3));
 return;
 }
 case 301:
@@ -2545,63 +2545,63 @@ return;
 }
 case 307:
 {
-doNamedFaceNamed(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedFaceNamed(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 308:
 {
-doNamedFaceWaypoint(*(AsciiString const *)(PARAM(0)), TEXT(1));
+doNamedFaceWaypoint(*(AsciiString const *)(PARAM(0)), PARAM_TEXT(1));
 return;
 }
 case 309:
 {
-doTeamFaceNamed(TEXT(0), TEXT(1));
+doTeamFaceNamed(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 310:
 {
-doTeamFaceWaypoint(TEXT(0), TEXT(1));
+doTeamFaceWaypoint(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 303:
 {
-doAffectObjectPanelFlagsUnit(PARAM(0), TEXT(1), (INTEGER(2) != 0));
+doAffectObjectPanelFlagsUnit(PARAM(0), PARAM_TEXT(1), (INTEGER(2) != 0));
 return;
 }
 case 304:
 {
-doAffectObjectPanelFlagsTeam(TEXT(0), TEXT(1), (INTEGER(2) != 0));
+doAffectObjectPanelFlagsTeam(PARAM_TEXT(0), PARAM_TEXT(1), (INTEGER(2) != 0));
 return;
 }
 case 305:
 {
-Rva003BCB37Set(TEXT(0), INTEGER(1));
+Rva003BCB37Set(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 311:
 {
-doRemoveCommandBarButton(TEXT(0), TEXT(1));
+doRemoveCommandBarButton(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 312:
 {
-Rva003BCB7A(TEXT(0), TEXT(1), INTEGER(2));
+Rva003BCB7A(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 313:
 {
 Coord3D temp36; PARAM(3)->getCoord3D(&temp36);
-doCreateObject(TEXT(0), TEXT(1), TEXT(2), (Coord3D *)(&temp36), REAL(4));
+doCreateObject(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2), (Coord3D *)(&temp36), REAL(4));
 return;
 }
 case 314:
 {
-Rva003BCBC7Set(TEXT(0), REAL(1));
+Rva003BCBC7Set(PARAM_TEXT(0), REAL(1));
 return;
 }
 case 316:
 {
-Rva003C1F6CDo(&TEXT(0), INTEGER(1));
+Rva003C1F6CDo(&PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 323:
@@ -2611,7 +2611,7 @@ return;
 }
 case 326:
 {
-doTeamGuardInTunnelNetwork(TEXT(0));
+doTeamGuardInTunnelNetwork(PARAM_TEXT(0));
 return;
 }
 case 331:
@@ -2651,42 +2651,42 @@ return;
 }
 case 351:
 {
-Rva003BC7EFSet(TEXT(0), INTEGER(1));
+Rva003BC7EFSet(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 352:
 {
-Rva003BC830Clear(TEXT(0));
+Rva003BC830Clear(PARAM_TEXT(0));
 return;
 }
 case 353:
 {
-Rva003BC86ESet(TEXT(0), TEXT(1));
+Rva003BC86ESet(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 354:
 {
-Rva003BC8AFSet(TEXT(0), (int)(&TEXT(1)));
+Rva003BC8AFSet(PARAM_TEXT(0), (int)(&PARAM_TEXT(1)));
 return;
 }
 case 355:
 {
-Rva003C4570Do(TEXT(0), TEXT(1));
+Rva003C4570Do(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 356:
 {
-Rva003C1E8CSet(TEXT(0), INTEGER(1));
+Rva003C1E8CSet(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 357:
 {
-Rva003C1EC2Set(TEXT(0), INTEGER(1));
+Rva003C1EC2Set(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 358:
 {
-Rva003C45D4Apply(PARAM(0), TEXT(1));
+Rva003C45D4Apply(PARAM(0), PARAM_TEXT(1));
 return;
 }
 case 359:
@@ -2726,7 +2726,7 @@ return;
 }
 case 368:
 {
-((Rva003C1FDE *)this)->rva003C1FDE(TEXT(0), (INTEGER(1) != 0));
+((Rva003C1FDE *)this)->rva003C1FDE(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 369:
@@ -2741,32 +2741,32 @@ return;
 }
 case 376:
 {
-doSetUnitReference(TEXT(0), PARAM(1), false);
+doSetUnitReference(PARAM_TEXT(0), PARAM(1), false);
 return;
 }
 case 377:
 {
-rva003C20CA(TEXT(0), PARAM(1), false);
+rva003C20CA(PARAM_TEXT(0), PARAM(1), false);
 return;
 }
 case 378:
 {
-doSetUnitReference(TEXT(0), PARAM(1), true);
+doSetUnitReference(PARAM_TEXT(0), PARAM(1), true);
 return;
 }
 case 379:
 {
-rva003C20CA(TEXT(0), PARAM(1), true);
+rva003C20CA(PARAM_TEXT(0), PARAM(1), true);
 return;
 }
 case 462:
 {
-rva003C4625(TEXT(0), PARAM(1), TEXT(2));
+rva003C4625(PARAM_TEXT(0), PARAM(1), PARAM_TEXT(2));
 return;
 }
 case 488:
 {
-doSetUnitReferenceToHomeBaseOfPlayer(TEXT(0), TEXT(1), (INTEGER(2) != 0));
+doSetUnitReferenceToHomeBaseOfPlayer(PARAM_TEXT(0), PARAM_TEXT(1), (INTEGER(2) != 0));
 return;
 }
 case 463:
@@ -2796,52 +2796,52 @@ return;
 }
 case 403:
 {
-Rva003C2121Grant(TEXT(0), TEXT(1));
+Rva003C2121Grant(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 381:
 {
-doUnpackBase(PARAM(0), &TEXT(1), 0);
+doUnpackBase(PARAM(0), &PARAM_TEXT(1), 0);
 return;
 }
 case 493:
 {
-doUnpackBase(PARAM(0), &TEXT(1), 1);
+doUnpackBase(PARAM(0), &PARAM_TEXT(1), 1);
 return;
 }
 case 383:
 {
-doBuildBaseBuilding(TEXT(0), PARAM(1), TEXT(2));
+doBuildBaseBuilding(PARAM_TEXT(0), PARAM(1), PARAM_TEXT(2));
 return;
 }
 case 384:
 {
-doBuildBaseBuildingInSlot(TEXT(0), PARAM(1), PARAM(2), TEXT(3));
+doBuildBaseBuildingInSlot(PARAM_TEXT(0), PARAM(1), PARAM(2), PARAM_TEXT(3));
 return;
 }
 case 385:
 {
-rva003C66F1(TEXT(0), PARAM(1), TEXT(2), PARAM(3), TEXT(4));
+rva003C66F1(PARAM_TEXT(0), PARAM(1), PARAM_TEXT(2), PARAM(3), PARAM_TEXT(4));
 return;
 }
 case 391:
 {
-Rva003C2260Do(TEXT(0), INTEGER(1));
+Rva003C2260Do(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 392:
 {
-Rva003C239FDo(TEXT(0), INTEGER(1), PARAM(2));
+Rva003C239FDo(PARAM_TEXT(0), INTEGER(1), PARAM(2));
 return;
 }
 case 393:
 {
-rva003C2662(TEXT(0), TEXT(1));
+rva003C2662(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 394:
 {
-rva003C276A(TEXT(0), TEXT(1), PARAM(2));
+rva003C276A(PARAM_TEXT(0), PARAM_TEXT(1), PARAM(2));
 return;
 }
 case 395:
@@ -2856,33 +2856,33 @@ return;
 }
 case 397:
 {
-rva003C2166(TEXT(0), INTEGER(1), TEXT(2));
+rva003C2166(PARAM_TEXT(0), INTEGER(1), PARAM_TEXT(2));
 return;
 }
 case 556:
 {
-doSetCounterToThreatFinderThreat(TEXT(0), TEXT(1), TEXT(2), TEXT(3));
-Rva003C21E5Do(&TEXT(0), INTEGER(1), &TEXT(2), &TEXT(3));
+doSetCounterToThreatFinderThreat(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2), PARAM_TEXT(3));
+Rva003C21E5Do(&PARAM_TEXT(0), INTEGER(1), &PARAM_TEXT(2), &PARAM_TEXT(3));
 return;
 }
 case 398:
 {
-Rva003C21E5Do(&TEXT(0), INTEGER(1), &TEXT(2), &TEXT(3));
+Rva003C21E5Do(&PARAM_TEXT(0), INTEGER(1), &PARAM_TEXT(2), &PARAM_TEXT(3));
 return;
 }
 case 535:
 {
-rva003CA322(TEXT(0), INTEGER(1), TEXT(2), TEXT(3));
+rva003CA322(PARAM_TEXT(0), INTEGER(1), PARAM_TEXT(2), PARAM_TEXT(3));
 return;
 }
 case 399:
 {
-Rva003C2A29Do(TEXT(0), TEXT(1));
+Rva003C2A29Do(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 400:
 {
-Rva003C2A9FDo(TEXT(0), INTEGER(1));
+Rva003C2A9FDo(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 401:
@@ -2938,12 +2938,12 @@ return;
 case 413:
 case 414:
 {
-doTeamIdleForFramecount(TEXT(0), INTEGER(1), true);
+doTeamIdleForFramecount(PARAM_TEXT(0), INTEGER(1), true);
 return;
 }
 case 387:
 {
-Rva003BD062Set(PARAM(0), &TEXT(1), (INTEGER(2) != 0));
+Rva003BD062Set(PARAM(0), &PARAM_TEXT(1), (INTEGER(2) != 0));
 return;
 }
 case 388:
@@ -2953,7 +2953,7 @@ return;
 }
 case 418:
 {
-Rva003BD0C8Set(TEXT(0), (INTEGER(1) != 0));
+Rva003BD0C8Set(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 420:
@@ -2978,7 +2978,7 @@ return;
 }
 case 509:
 {
-doSetCounterToPlayerOwnershipOfUnitsWithModelCondition(TEXT(0), TEXT(1), TEXT(2));
+doSetCounterToPlayerOwnershipOfUnitsWithModelCondition(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2));
 return;
 }
 case 423:
@@ -2993,7 +2993,7 @@ return;
 }
 case 448:
 {
-Rva003BB62C((int)(&TEXT(0)));
+Rva003BB62C((int)(&PARAM_TEXT(0)));
 return;
 }
 case 449:
@@ -3003,12 +3003,12 @@ return;
 }
 case 525:
 {
-rva003C004D(TEXT(0), REAL(1));
+rva003C004D(PARAM_TEXT(0), REAL(1));
 return;
 }
 case 526:
 {
-rva003C0091(TEXT(0));
+rva003C0091(PARAM_TEXT(0));
 return;
 }
 case 527:
@@ -3033,32 +3033,32 @@ return;
 }
 case 469:
 {
-Rva003C30D9Do(TEXT(0), (INTEGER(1) != 0));
+Rva003C30D9Do(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 470:
 {
-Rva003C3175Do(TEXT(0), (INTEGER(1) != 0));
+Rva003C3175Do(PARAM_TEXT(0), (INTEGER(1) != 0));
 return;
 }
 case 479:
 {
-rva003C9D0D(TEXT(0), REAL(1));
+rva003C9D0D(PARAM_TEXT(0), REAL(1));
 return;
 }
 case 480:
 {
-rva003C9E4E(TEXT(0), TEXT(1));
+rva003C9E4E(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 482:
 {
-rva003C32CC(TEXT(0), TEXT(1), INTEGER(2) != 0);
+rva003C32CC(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2) != 0);
 return;
 }
 case 481:
 {
-Rva003C31F3Do(TEXT(0), TEXT(1), (INTEGER(2) != 0));
+Rva003C31F3Do(PARAM_TEXT(0), PARAM_TEXT(1), (INTEGER(2) != 0));
 return;
 }
 case 483:
@@ -3133,12 +3133,12 @@ return;
 }
 case 502:
 {
-Rva003BD116Set(PARAM(0), (void *)(&TEXT(1)));
+Rva003BD116Set(PARAM(0), (void *)(&PARAM_TEXT(1)));
 return;
 }
 case 503:
 {
-Rva003C353BDo(PARAM(0), (void *)(&TEXT(1)));
+Rva003C353BDo(PARAM(0), (void *)(&PARAM_TEXT(1)));
 return;
 }
 case 504:
@@ -3158,12 +3158,12 @@ return;
 }
 case 507:
 {
-Rva003C35AADo(&TEXT(0), (INTEGER(1) != 0), false);
+Rva003C35AADo(&PARAM_TEXT(0), (INTEGER(1) != 0), false);
 return;
 }
 case 512:
 {
-doHeroSelectButtonFlash((int)(&TEXT(0)), INTEGER(1));
+doHeroSelectButtonFlash((int)(&PARAM_TEXT(0)), INTEGER(1));
 return;
 }
 case 514:
@@ -3248,57 +3248,57 @@ return;
 }
 case 557:
 {
-rva003C6279(TEXT(0), TEXT(1));
+rva003C6279(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 558:
 {
-rva003CA418(TEXT(0), INTEGER(1), TEXT(2));
+rva003CA418(PARAM_TEXT(0), INTEGER(1), PARAM_TEXT(2));
 return;
 }
 case 559:
 {
-rva003C3943(TEXT(0), TEXT(1));
+rva003C3943(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 560:
 {
-doLivingWorldSetRegionRefToAdjacentRegion(TEXT(0), TEXT(1), (INTEGER(2) != 0), (INTEGER(3) != 0));
+doLivingWorldSetRegionRefToAdjacentRegion(PARAM_TEXT(0), PARAM_TEXT(1), (INTEGER(2) != 0), (INTEGER(3) != 0));
 return;
 }
 case 561:
 {
-rva003C39B8(TEXT(0), TEXT(1));
+rva003C39B8(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 568:
 {
-rva003BD3CB((void *)(&TEXT(0)), REAL(1), INTEGER(2));
+rva003BD3CB((void *)(&PARAM_TEXT(0)), REAL(1), INTEGER(2));
 return;
 }
 case 569:
 {
-Rva003C3A3FSet(TEXT(0), INTEGER(1));
+Rva003C3A3FSet(PARAM_TEXT(0), INTEGER(1));
 return;
 }
 case 579:
 {
-doCreateDelayedCarryoverUnitAtWaypoint(TEXT(0), TEXT(1), TEXT(2), TEXT(3));
+doCreateDelayedCarryoverUnitAtWaypoint(PARAM_TEXT(0), PARAM_TEXT(1), PARAM_TEXT(2), PARAM_TEXT(3));
 return;
 }
 case 596:
 {
-doCreateUnitRevivalEntryFromDelayedCarryoverHero(TEXT(0), TEXT(1));
+doCreateUnitRevivalEntryFromDelayedCarryoverHero(PARAM_TEXT(0), PARAM_TEXT(1));
 return;
 }
 case 595:
 {
-doCreateUnitRevivalEntry(TEXT(0), TEXT(1), -1);
+doCreateUnitRevivalEntry(PARAM_TEXT(0), PARAM_TEXT(1), -1);
 break;
 }
 case 597:
 {
-doCreateUnitRevivalEntry(TEXT(0), TEXT(1), INTEGER(2));
+doCreateUnitRevivalEntry(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2));
 return;
 }
 case 580:
@@ -3353,12 +3353,12 @@ return;
 }
 case 589:
 {
-doDisplayNotificationBox(TEXT(0), TEXT(1), INTEGER(2), AsciiString::TheEmptyString);
+doDisplayNotificationBox(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2), AsciiString::TheEmptyString);
 break;
 }
 case 593:
 {
-doDisplayNotificationBox(TEXT(0), TEXT(1), INTEGER(2), TEXT(3));
+doDisplayNotificationBox(PARAM_TEXT(0), PARAM_TEXT(1), INTEGER(2), PARAM_TEXT(3));
 return;
 }
 case 594:

@@ -57,10 +57,10 @@ class Rva005F74D4{public:void rva005F74D4(StrategicHUD::BuildQueueDetailsMovieCl
 class Rva005F830AHeap{public:Rva005F830AHeap(void*,void*,void*,void*,void*);void*owner;int level;AsciiString name;UnicodeString title;void*word10;AptCommandMapAdder maps;Rva005242D7 images;Rva00524265 renderers;Rva005F74A0 progress;Rva005F74BA queued[7];UnicodeString ptr58;int word5C,word60;bool f64,f65,f66,f67;};
 template<class T>static __forceinline DelegateDesc MakeBinding(T*target,void(T::*m)(void*)){DelegateDesc d(target,m);return d;}
 #define BIND(TEXT,METHOD) {const AsciiString&n=prefix+name+TEXT;maps.AddCommandMap(n,MakeBinding((StrategicHUD::BuildQueueDetailsMovieClip::Impl*)this,&StrategicHUD::BuildQueueDetailsMovieClip::Impl::METHOD));}
-#define TEXT(KEY,VALUE) {const AsciiString&n=Rva005D2F96Build(Rva005F17C6Build("APT:"+prefix,(int)&name),KEY).rva005F1D47();g_bfmeAptWindowManager->bfmeSetText(n,VALUE,false);}
+#define SET_APT_TEXT(KEY,VALUE) {const AsciiString&n=Rva005D2F96Build(Rva005F17C6Build("APT:"+prefix,(int)&name),KEY).rva005F1D47();g_bfmeAptWindowManager->bfmeSetText(n,VALUE,false);}
 Rva005F830AHeap::Rva005F830AHeap(void*o,void*l,void*n,void*t,void*w):owner(o),level((int)l),name(*(AsciiString*)n),title(*(UnicodeString*)t),word10(w),progress(new StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot((StrategicHUD::BuildQueueDetailsMovieClip::Impl*)this)),word5C(-1),word60(-1),f64(false),f65(false),f66(false),f67(false){
 for(int i=0;i<7;++i)((Rva005F74D4*)&queued[i])->rva005F74D4(new StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot((StrategicHUD::BuildQueueDetailsMovieClip::Impl*)this,i));
 AsciiString prefix;prefix.format("_level%u.",level);
-TEXT("_BuildingName",title);TEXT("_UnitName",UnicodeString::TheEmptyString);TEXT("_BuildTime",UnicodeString::TheEmptyString);TEXT("_CommandPoints",UnicodeString::TheEmptyString);
+SET_APT_TEXT("_BuildingName",title);SET_APT_TEXT("_UnitName",UnicodeString::TheEmptyString);SET_APT_TEXT("_BuildTime",UnicodeString::TheEmptyString);SET_APT_TEXT("_CommandPoints",UnicodeString::TheEmptyString);
 BIND("_OnBackButtonClicked",rva005F68FE);BIND("_OnBackButtonRollOver",OnBackButtonRollOver);BIND("_OnBackButtonRollOut",OnBackButtonRollOut);
 }

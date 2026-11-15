@@ -31,9 +31,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "rendobj.h"
 #include "nullrobj.h"
 #include <string.h>
-#include <new.h>
-
-void * __cdecl operator new(unsigned int);
+#define __PLACEMENT_VEC_NEW_INLINE
+#include <new>
 
 inline Null3DObjClass::Null3DObjClass(const char * name)
 {

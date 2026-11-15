@@ -1,4 +1,5 @@
-// cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/qr2 /DNDEBUG /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy
+// cl: /MD -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy/qr2 /DNDEBUG /Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy
+// platformsdk
 /* GameSpy SDK, ~2005 snapshot (BFME 2) -- upstream C source PLUS a reconstruction of
    the deltas between the carrier's text and retail's snapshot, inferred from
    retail's bytes -- most of them upstream's own later text, not EA's.  Not
@@ -35,12 +36,6 @@ INCLUDES
 
 
 #include <string.h>
-
-#if defined(_PS2) && defined(GSI_UNICODE)
-// A few prototypes to prevent warnings
-size_t wcslen( const wchar_t *string );
-wchar_t *wcscpy( wchar_t *strDestination, const wchar_t *strSource );
-#endif
 
 #ifdef __cplusplus
 extern "C" {

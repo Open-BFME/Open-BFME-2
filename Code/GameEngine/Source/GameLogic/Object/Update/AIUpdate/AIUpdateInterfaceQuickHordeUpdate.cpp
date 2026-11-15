@@ -118,12 +118,10 @@ enum ModelConditionFlagType
 	MODELCONDITION_156 = 4 * 32 + 28
 };
 
-#ifndef NULL
-#define NULL 0
-#endif
+#include <stddef.h>
 
 #define PI 3.14159265359f
-#define REAL_EPSILON 1.1920929e-07f
+#define HORDE_REAL_EPSILON 1.1920929e-07f
 
 template<int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>
@@ -668,7 +666,7 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 		Real angle = object->getOrientation();
 		Real goalAngle = m_locomotorGoalData.x;
 		Real angleDiff = normalizeAngle(angle - goalAngle);
-		if (angleDiff > -REAL_EPSILON && angleDiff < REAL_EPSILON)
+		if (angleDiff > -HORDE_REAL_EPSILON && angleDiff < HORDE_REAL_EPSILON)
 		{
 			object->clearModelConditionState(MODELCONDITION_61);
 			object->clearModelConditionState(MODELCONDITION_134);

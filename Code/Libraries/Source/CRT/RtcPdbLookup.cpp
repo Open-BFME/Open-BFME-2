@@ -6,11 +6,7 @@
 // reverse/attempt_support/0x0075b177-pdb-source-lookup/ and pdb-*-2026102x/.
 #include <windows.h>
 #include <tlhelp32.h>
-#define GetModuleInformation SdkGetModuleInformation
-#define EnumProcessModules SdkEnumProcessModules
 #include <psapi.h>
-#undef GetModuleInformation
-#undef EnumProcessModules
 #include <malloc.h>
 struct PDB;struct DBI;struct Mod;
 struct ImageInfo {
@@ -27,8 +23,8 @@ static int (__cdecl *ModClose)(Mod *)=0;
 static int (__cdecl *DBIClose)(DBI *)=0;
 static int (__cdecl *PDBClose)(PDB *)=0;
 static IMAGE_NT_HEADERS *(WINAPI *ImageNtHeader)(void *)=0;
-static BOOL (WINAPI *GetModuleInformation)(HANDLE,HMODULE,MODULEINFO *,DWORD)=0;
-static BOOL (WINAPI *EnumProcessModules)(HANDLE,HMODULE *,DWORD,DWORD *)=0;
+static BOOL (WINAPI *pGetModuleInformation)(HANDLE,HMODULE,MODULEINFO *,DWORD)=0;
+static BOOL (WINAPI *pEnumProcessModules)(HANDLE,HMODULE *,DWORD,DWORD *)=0;
 static HANDLE (WINAPI *CreateToolhelp32SnapshotW9x)(DWORD,DWORD)=0;
 static BOOL (WINAPI *Module32FirstW9x)(HANDLE,MODULEENTRY32 *)=0;
 static BOOL (WINAPI *Module32NextW9x)(HANDLE,MODULEENTRY32 *)=0;
@@ -47,8 +43,8 @@ static ImageInfo *GetImageInfo(unsigned long address) {
   CreateToolhelp32SnapshotW9x=(HANDLE(WINAPI *)(DWORD,DWORD))GetProcAddress(kernel,"CreateToolhelp32Snapshot");
   if(!CreateToolhelp32SnapshotW9x) {
    psapi=LoadLibraryA("PSAPI.DLL");if(!psapi)return 0;
-   EnumProcessModules=(BOOL(WINAPI *)(HANDLE,HMODULE *,DWORD,DWORD *))GetProcAddress(psapi,"EnumProcessModules");if(!EnumProcessModules)return 0;
-   GetModuleInformation=(BOOL(WINAPI *)(HANDLE,HMODULE,MODULEINFO *,DWORD))GetProcAddress(psapi,"GetModuleInformation");if(!GetModuleInformation)return 0;
+   pEnumProcessModules=(BOOL(WINAPI *)(HANDLE,HMODULE *,DWORD,DWORD *))GetProcAddress(psapi,"EnumProcessModules");if(!pEnumProcessModules)return 0;
+   pGetModuleInformation=(BOOL(WINAPI *)(HANDLE,HMODULE,MODULEINFO *,DWORD))GetProcAddress(psapi,"GetModuleInformation");if(!pGetModuleInformation)return 0;
   } else {
    Module32FirstW9x=(BOOL(WINAPI *)(HANDLE,MODULEENTRY32 *))GetProcAddress(kernel,"Module32First");if(!Module32FirstW9x)return 0;
    Module32NextW9x=(BOOL(WINAPI *)(HANDLE,MODULEENTRY32 *))GetProcAddress(kernel,"Module32Next");if(!Module32NextW9x)return 0;
@@ -56,10 +52,10 @@ static ImageInfo *GetImageInfo(unsigned long address) {
  }
  if(!CreateToolhelp32SnapshotW9x) {
   HANDLE hProcess=GetCurrentProcess();HMODULE hModules[512];DWORD imageCount;MODULEINFO info;
-  if(!EnumProcessModules(hProcess,hModules,sizeof(hModules),&imageCount))return 0;
+  if(!pEnumProcessModules(hProcess,hModules,sizeof(hModules),&imageCount))return 0;
   imageCount/=sizeof(HMODULE);
   for(unsigned i=0;i<imageCount;++i) {
-   if(!GetModuleInformation(hProcess,hModules[i],&info,sizeof(info)))return 0;
+   if(!pGetModuleInformation(hProcess,hModules[i],&info,sizeof(info)))return 0;
    ImageInfo *node=(ImageInfo *)HeapAlloc(GetProcessHeap(),0,sizeof(ImageInfo));if(!node)goto error;
    node->hndl=hModules[i];node->BaseAddress=(DWORD)info.lpBaseOfDll;node->BaseSize=info.SizeOfImage;
    node->imgName=0;node->next=lImages;lImages=node;
