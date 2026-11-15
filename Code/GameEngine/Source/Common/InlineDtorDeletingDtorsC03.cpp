@@ -20,6 +20,10 @@
 // the out-of-line-destructor copy at 0x0060C8B1, so this second copy keeps an
 // address-derived class name.
 
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 struct C03VtableEmissionTag;
 
 namespace FXParticleSystem
@@ -49,4 +53,12 @@ public:
 // ?<Rva00005405::Rva00005405> absent-from-retail
 Rva00005405::Rva00005405(C03VtableEmissionTag *)
 {
+}
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of Rva00005405, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_Rva00005405> absent-from-retail
+void bfmeVectorDeleteAnchor_Rva00005405(Rva00005405 *p)
+{
+	p->Rva00005405::__vecDelDtor(3);
 }
