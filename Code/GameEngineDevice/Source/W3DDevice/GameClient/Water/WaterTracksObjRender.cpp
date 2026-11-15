@@ -13,6 +13,8 @@
 // Only Coord3D and the primitive aliases are needed from BaseType.h. Keep
 // their declarations local so composing this donor with W3DWaterTracks.cpp
 // does not redefine the canonical geometry types through the ZH header.
+#include "../../../../../GameEngine/Include/Common/Player.h"
+
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 typedef int Int;
 typedef float Real;
@@ -71,14 +73,6 @@ extern PartitionManager *TheShroudManager;
 
 // Native FF228/FF22B measures PlayerList local+10 and Player index+54;
 // BFME1 donor offsets24/C differ and are not carried as target facts.
-class Player
-{
-public:
-	Int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_unmodelled00[0x54];
-	Int m_playerIndex;
-};
 
 #include "../../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
