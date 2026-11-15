@@ -1238,7 +1238,6 @@ Rva00785140Handle::Rva00785140Handle(const AssetReference &that) : ref(that)
 // ---- from Code/GameEngine/Source/Common/Rva000A9F23Get.cpp
 
 
-#pragma optimize("", on)
 
 AssetReference Rva000A9F23::rva000A9F23()
 {

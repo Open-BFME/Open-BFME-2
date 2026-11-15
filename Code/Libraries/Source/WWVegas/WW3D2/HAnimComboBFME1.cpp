@@ -65,7 +65,6 @@ struct BfmeWeightInfoVddAnchor;
 #undef private
 struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
-#pragma optimize("", on)
 #include "hanim.h"
 #include "assetmgr.h"
 #include "htree.h"

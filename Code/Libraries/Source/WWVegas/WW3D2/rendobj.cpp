@@ -17,7 +17,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "aabox.h"
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"
 #include "scene.h"
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 #include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
 #include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
@@ -40,7 +39,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 	}
 #include "multilist.h"
 #include "matrix3d.h"
-#pragma optimize("", on)
 
 typedef char RenderObjSizeMatchesRetail[(sizeof(RenderObjClass) == 0xC4) ? 1 : -1];
 
@@ -157,7 +155,6 @@ BFME_DISP_DWORD_SETTER(Rva0013BEB0DwordSlot, 0xC0)
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp
 
 
-#pragma optimize("", on)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/RenderObjAssign.cpp
 

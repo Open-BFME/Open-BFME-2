@@ -105,7 +105,6 @@ template <> unsigned int hashtable<pair<NameKeyType const, FXList>, NameKeyType,
 namespace rts {
 template<> Bool equal_to<NameKeyType>::operator()(const NameKeyType &a, const NameKeyType &b) const { return a == b; }
 }
-#pragma optimize("", on)
 
 typedef _STL::pair<const NameKeyType, FXList> BfmeFXListMapValue;
 template _STL::_Hashtable_node<BfmeFXListMapValue> *

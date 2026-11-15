@@ -70,7 +70,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <meshmatdesc.h>
 #define BFME_MESHMATDESC_COLOR_ARRAY_EXTERNAL
 #include "sharebuf.h"
-#pragma optimize("", on)
 #include "bittype.h"
 #include "vector3.h"
 #include "vector4.h"
