@@ -146,7 +146,7 @@ public:
 	* the tactical display into the game world */
 //-------------------------------------------------------------------------------------------------
 // ?drawViewBox@W3DRadar@@IAEXHHHH@Z
-// present-unmatched: the retired W3DRadar_drawViewBox.asm range began inside
+// unmatched-function: the retired W3DRadar_drawViewBox.asm range began inside
 // another function and crossed padding plus unrelated function boundaries.
 
 // ------------------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@
 // through the global one-arg operator delete (matched ??3 row, no member
 // delete declared). Per the Y2ScalarDeleters recipe, the defined constructor
 // below forces the vtable emission, and ??_G rides along with it; the
-// constructor itself is only marked present-unmatched, never claimed. Owner
+// constructor itself is only marked unmatched-function, never claimed. Owner
 // identity is unproven (opaque Rva name).
 
 #include "../../../GameEngine/Include/Common/BfmeDirtyBase.h"

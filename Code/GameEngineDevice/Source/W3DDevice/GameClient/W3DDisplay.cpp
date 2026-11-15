@@ -913,7 +913,7 @@ VideoBuffer *W3DDisplay::createVideoBuffer(bool allowAlpha)
 // ?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z @ 0x00044E77 (322B)
 // W3DDisplay::drawImage ported from the BFME1 donor
 // game/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImage.cpp
-// (same shape as the present-unmatched copy in W3DDisplayDrawImage.cpp,
+// (same shape as the unmatched copy in W3DDisplayDrawImage.cpp,
 // which still uses donor slots and donor callee spellings): fast
 // surface-copy path when the rowed Rva00042FE4::test passes on the image
 // (surfaceState at +0x40 with flag 4, same offsets the rowed test reads),

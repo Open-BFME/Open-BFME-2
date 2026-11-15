@@ -802,7 +802,7 @@ private:
 // Each class below is therefore declared with nothing but the virtual
 // destructor the ??_G needs; __declspec(noinline) keeps that destructor out
 // of line so the ??_G calls it through the pin, and its empty body here is a
-// placeholder, not a claim (present-unmatched). Names are address-derived
+// placeholder, not a claim (unmatched-function). Names are address-derived
 // (Rva<dtor rva>) and disclaim identity.
 // Audit 2026-09-26: all 30 wrapper/callee boundaries and both calls verified.
 // Retired 2026-10-17: the 0x000D1E6C/0x000D1E88 pair. Its owner is proven to

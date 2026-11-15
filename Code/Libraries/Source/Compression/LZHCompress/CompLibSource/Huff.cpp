@@ -2,7 +2,7 @@
 /* LZH-Light 1.0 (Sergey Ignatchenko, 1998) -- upstream C++ source from
    github.com/TheSuperHackers/lzhl-1.0 commit dfd96e2, ALTERED in two ways,
    named here because the licence below requires an altered source version
-   to say so: (1) comments -- this block and the `present-unmatched` marker
+   to say so: (1) comments -- this block and the `unmatched-function` marker
    below it; (2) one code change -- LZHLDecompressor::decompress carries EA's
    divergence from upstream, reconstructed from game.dat's body at 0x00692440
    (824 bytes where upstream compiles to 852) and documented above the

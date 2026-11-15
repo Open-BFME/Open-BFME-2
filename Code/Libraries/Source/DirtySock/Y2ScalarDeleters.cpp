@@ -27,7 +27,7 @@
 // along with it.  Declaring the destructor is not enough, and neither is an
 // extra inline virtual -- both were tried and emit nothing.  Those eighteen
 // constructors are the price of the recipe; retail has them somewhere and
-// this file does not know where, so each is marked present-unmatched rather
+// this file does not know where, so each is marked unmatched-function rather
 // than claimed.
 //
 // IDENTITY IS NOT RECOVERED.  Classes are named for their `??_G` address, the

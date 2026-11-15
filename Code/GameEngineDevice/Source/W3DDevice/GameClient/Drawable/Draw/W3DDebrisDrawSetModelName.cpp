@@ -18,7 +18,7 @@
 //   W3DShadowManager::addShadow; otherwise the pinned 0x000518E0 handler
 //   removes the old shadow.
 // The emptiness test reads the string header's length word inline, as retail
-// does. The present-unmatched setModelName draft in W3DDebrisDraw.cpp covers
+// does. The unmatched setModelName draft in W3DDebrisDraw.cpp covers
 // the same symbol.
 #include "ascii_string.h"
 
