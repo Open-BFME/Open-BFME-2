@@ -596,7 +596,7 @@ def omitted_references(rows, objects):
 
 
 
-def vtable_slot_targets(obj):
+def vtable_slot_targets(obj, known=()):
     """(defined names, [(table, slot index, target)]) from an i386 COFF object.
 
     Only DIR32 slot relocations inside a vtable symbol's extent count. A table's
@@ -635,16 +635,50 @@ def vtable_slot_targets(obj):
             if (raw and raw + size > len(data)) or (nrel and (not rel or rel + 10 * nrel > len(data))):
                 raise ValueError("truncated section or relocations")
         sections, symbols = link_cycle.parse_coff(data)
-        defined = {y.name for y in symbols.values()
-                   if (0 < y.sec <= len(sections) or y.sec == -1 or (y.sec == 0 and y.value > 0))
-                   and y.cls in (2, 3)}
+        import coffar
+        for y in symbols.values():
+            if not -2 <= y.sec <= len(sections):
+                raise ValueError("symbol names an invalid section")
+            if y.sec > 0 and y.value > sections[y.sec - 1].size:
+                raise ValueError("symbol lies outside its section")
+        for section in sections:
+            for where, target, kind in section.relocs:
+                if kind == 0:
+                    continue
+                width = coffar.RELOC_WIDTH.get(kind)
+                if width is None or where + width > section.size or target not in symbols:
+                    raise ValueError("invalid section relocation operand")
+        def has_storage(y):
+            return y.sec > 0 or y.sec == -1 or (y.sec == 0 and y.value > 0)
+        # External bindings are name-based; statics are satisfied only by the
+        # relocation's actual symbol index, never another symbol's spelling.
+        defined = {y.name for y in symbols.values() if has_storage(y) and y.cls == 2}
+        weak_defaults = {}
+        for y in symbols.values():
+            if y.cls == 105:
+                record = symptr + y.i * 18
+                if not data[record + 17]:
+                    raise ValueError("weak external has no default")
+                target = struct.unpack_from("<I", data, record + 18)[0]
+                if target not in symbols:
+                    raise ValueError("weak default names no symbol")
+                weak_defaults[y.i] = target
+        def resolved(y, seen=frozenset()):
+            if y.i in seen:
+                return False
+            if has_storage(y) and y.cls in (2, 3):
+                return True
+            if y.name in defined or y.name in known:
+                return True
+            default = weak_defaults.get(y.i)
+            return default is not None and resolved(symbols[default], seen | {y.i})
         slots = []
         for table in symbols.values():
             if not table.name.startswith("??_7") or not 0 < table.sec <= len(sections):
                 continue
             section = sections[table.sec - 1]
             following = [y.value for y in symbols.values() if y.sec == table.sec
-                         and y.cls == 2 and y.value > table.value]
+                         and y.cls in (2, 3) and y.value > table.value]
             limit = min(following, default=section.size)
             if not 0 <= table.value <= limit <= section.size:
                 raise ValueError("invalid vtable extent")
@@ -656,7 +690,8 @@ def vtable_slot_targets(obj):
                         raise ValueError("unsupported vtable slot relocation")
                     if target not in symbols:
                         raise ValueError("vtable relocation names no symbol")
-                    slots.append((table.name, (where - table.value) // 4, symbols[target].name))
+                    if not resolved(symbols[target]):
+                        slots.append((table.name, (where - table.value) // 4, symbols[target].name))
         return defined, slots
     except (struct.error, IndexError, UnicodeError) as error:
         raise ValueError(f"malformed vtable object: {error}") from error
@@ -698,7 +733,7 @@ def registered_slot_targets(ref):
 
 def new_vtable_targets(obj, known_after, previous_undefined=()):
     """New unregistered slot targets, including those in currently unlinked units."""
-    defined, slots = vtable_slot_targets(obj)
+    defined, slots = vtable_slot_targets(obj, known_after)
     exempt = defined | set(known_after) | set(previous_undefined)
     return sorted(set(slot for slot in slots if slot[2] not in exempt))
 
@@ -735,6 +770,41 @@ def audit_vtable_targets(index, replacements, tip, exact_base):
                 before_defined |= {name for name, copies in index["common"].items()
                                    if any(copy[0] == position for copy in copies)}
                 previous = set(touches) - before_defined - before_known
+                # touches includes weak symbols whose defaults resolved before.
+                # Without digest-bound per-object weak records, old debt cannot
+                # safely exempt any candidate from this comparison.
+                if previous & {slot[2] for slot in candidates}:
+                    record = (index.get("references", {}).get("objects", {}).get(obj.name))
+                    digest = index.get("digests", {}).get(obj.name)
+                    if (not record or not digest or record.get("digest") != digest
+                            or "weaks" not in record):
+                        raise ValueError(f"{obj.name}: before weak-reference provenance missing")
+                    weak_pairs = record["weaks"]
+                    if not isinstance(weak_pairs, (list, tuple)) or any(
+                            not isinstance(pair, (list, tuple)) or len(pair) != 2
+                            or not all(isinstance(name, str) for name in pair) for pair in weak_pairs):
+                        raise ValueError(f"{obj.name}: invalid before weak defaults")
+                    aliases = collections.defaultdict(set)
+                    for name, target in weak_pairs:
+                        aliases[name].add(target)
+                    for name, entries in index.get("alternates", {}).items():
+                        for holder, target in entries:
+                            if holder == position:
+                                aliases[name].add(target)
+                    def was_resolved(name, seen=frozenset()):
+                        if name in seen:
+                            return False
+                        if name in before_known or name in before_defined:
+                            return True
+                        return any(was_resolved(target, seen | {name}) for target in aliases.get(name, ()))
+                    defaults = {target for targets in aliases.values() for target in targets}
+                    uncertain = {slot[2] for slot in candidates} & previous & (set(aliases) | defaults)
+                    if any(not was_resolved(name) for name in uncertain):
+                        # Name-only index facts cannot distinguish an undefined
+                        # weak fallback from a TU-local symbol of that spelling,
+                        # or prove that an unselected fallback was unresolved.
+                        raise ValueError(f"{obj.name}: before weak default resolution unproven")
+                    previous = {name for name in previous if not was_resolved(name)}
             else:
                 previous = set()        # new object in an exact-baseline batch
             found.extend((obj.name, *slot) for slot in candidates if slot[2] not in previous)

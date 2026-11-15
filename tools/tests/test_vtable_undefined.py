@@ -37,7 +37,8 @@ def object_file(path, refs=(ONE, FIVE), own=(), prefix=0, adjacent=False):
 def saved_index(touches=(), defined=()):
     return dict(objects=["unit.obj"], touches={"unit.obj": set(touches)},
                 strong={n: [0] for n in defined}, comdat={}, common={},
-                meta={"commit": "base"})
+                meta={"commit": "base"}, digests={"unit.obj": "before-digest"},
+                references={"objects": {"unit.obj": {"digest": "before-digest", "weaks": ()}}})
 
 
 def test_b4_positive_control_flags_exactly_vslot01_and_vslot05(tmp_path):
@@ -179,3 +180,95 @@ def test_standard_batch_audit_calls_slot_check_for_unlinked_changed_unit(tmp_pat
     monkeypatch.setattr(A, "omitted_references", lambda *args: [])
     monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
     assert A.audit("base", "tip", ["Code/unit.cpp"]) == 1
+
+
+
+# Sol r1: no name-only COFF bindings or guessed before-state weak resolution.
+def test_r1_before_resolved_weak_must_not_become_old_debt(tmp_path, monkeypatch):
+    p = object_file(tmp_path / "unit.obj", refs=("W",))
+    ix = saved_index(("W", "D"), ("D",))
+    ix["references"]["objects"]["unit.obj"]["weaks"] = (("W", "D"),)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(ix, [p], "tip", True) == 1
+
+
+@pytest.mark.parametrize("damage", [
+    lambda ix: ix["references"].clear(),
+    lambda ix: ix["references"]["objects"]["unit.obj"].update(digest="other"),
+    lambda ix: ix["references"]["objects"]["unit.obj"].pop("weaks"),
+])
+def test_r1_old_debt_needs_digest_bound_weak_provenance(tmp_path, monkeypatch, damage):
+    p = object_file(tmp_path / "unit.obj", refs=("W",))
+    ix = saved_index(("W",))
+    damage(ix)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(ix, [p], "tip", True) == 2
+
+
+def test_r1_unproven_weak_default_is_not_silently_old_debt(tmp_path, monkeypatch):
+    p = object_file(tmp_path / "unit.obj", refs=("W",))
+    ix = saved_index(("W", "D"))
+    ix["references"]["objects"]["unit.obj"]["weaks"] = (("W", "D"),)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(ix, [p], "tip", True) == 2
+
+
+def test_r1_static_same_spelling_does_not_resolve_an_external(tmp_path):
+    p = tmp_path / "unit.obj"
+    # Last W is the external relocation target; first W is a distinct local.
+    link_cycle.write_coff(p, [(".rdata", 0x40301040, b"\0" * 4, 2),
+                             (".text", 0x60500020, b"\xc3", 0)],
+                          [(VT, 1, 0, 2), ("W", 2, 0, 3), ("W", 0, 0, 2)], {1: [(0, "W", 6)]})
+    assert A.new_vtable_targets(p, set()) == [(VT, 0, "W")]
+
+
+def test_r1_actual_static_symbol_target_is_defined(tmp_path):
+    p = tmp_path / "unit.obj"
+    link_cycle.write_coff(p, [(".rdata", 0x40301040, b"\0" * 4, 2),
+                             (".text", 0x60500020, b"\xc3", 0)],
+                          [(VT, 1, 0, 2), ("W", 2, 0, 3)], {1: [(0, "W", 6)]})
+    assert A.new_vtable_targets(p, set()) == []
+
+
+def test_r1_static_neighbour_bounds_the_table(tmp_path):
+    p = tmp_path / "unit.obj"
+    link_cycle.write_coff(p, [(".rdata", 0x40301040, b"\0" * 8, 2)],
+                          [(VT, 1, 0, 2), ("next", 1, 4, 3),
+                           ("W", 0, 0, 2), ("unrelated", 0, 0, 2)],
+                          {1: [(0, "W", 6), (4, "unrelated", 6)]})
+    assert A.new_vtable_targets(p, set()) == [(VT, 0, "W")]
+
+
+@pytest.mark.parametrize("damage", ["section", "relocation"])
+def test_r1_invalid_sections_or_relocation_bounds_are_inconclusive(tmp_path, monkeypatch, damage):
+    p = object_file(tmp_path / "unit.obj")
+    raw = bytearray(p.read_bytes())
+    sections, symbols = link_cycle.parse_coff(raw)
+    if damage == "section":
+        table = next(y for y in symbols.values() if y.name == VT)
+        symptr = struct.unpack_from("<I", raw, 8)[0]
+        struct.pack_into("<h", raw, symptr + table.i * 18 + 12, 3)
+    else:
+        relptr = struct.unpack_from("<I", raw, 20 + 24)[0]
+        struct.pack_into("<I", raw, relptr, sections[0].size)
+    p.write_bytes(raw)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == 2
+
+
+def test_r1_current_weak_default_resolves_to_actual_object_definition(tmp_path):
+    p = tmp_path / "unit.obj"
+    link_cycle.write_coff(p, [(".rdata", 0x40301040, b"\0" * 4, 2),
+                             (".text", 0x60500020, b"\xc3", 0)],
+                          [(VT, 1, 0, 2), ("D", 2, 0, 2), ("W", 0, 0, 2)], {1: [(0, "W", 6)]})
+    raw = bytearray(p.read_bytes())
+    _, syms = link_cycle.parse_coff(raw)
+    wi = next(y.i for y in syms.values() if y.name == "W")
+    di = next(y.i for y in syms.values() if y.name == "D")
+    symptr, count = struct.unpack_from("<II", raw, 8)
+    record = symptr + wi * 18
+    raw[record + 16:record + 18] = bytes((105, 1))
+    raw[record + 18:record + 18] = struct.pack("<II", di, 3) + b"\0" * 10
+    struct.pack_into("<I", raw, 12, count + 1)
+    p.write_bytes(raw)
+    assert A.new_vtable_targets(p, set()) == []
