@@ -15,6 +15,11 @@ class Rva007F0080Owner
 public:
     Rva007F0080Owner(void *first, void *second);
     virtual void slot();
+    virtual void slot04() = 0;
+    virtual void slot08() = 0;
+    virtual void slot0C() = 0;
+    virtual int slot10() { return 0; }
+    virtual int slot14() { return 0; }
 private:
     void *m_first;
     void *m_second;
