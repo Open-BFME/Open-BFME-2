@@ -26,6 +26,8 @@ public:
 
 // The target dtor has no derived-vptr store. novtable keeps this view's dtor
 // body aligned with that fact; no constructor is emitted from this file.
+struct BEXPBUCoord3D;
+class Matrix3D;
 class __declspec(novtable) CursorParticleSystemFXNugget : public Rva001DFEAABase
 {
 public:
@@ -34,6 +36,8 @@ public:
 private:
     BfmeOwnedString4 unknownOwnedField148;
     unsigned char unknownByte14C;
+public:
+	virtual void doFXPos(const struct Coord3D *, const class Matrix3D *, float, const struct Coord3D *) const;
 };
 
 typedef char BaseExtent[sizeof(Rva001DFEAABase) == 0x148 ? 1 : -1];

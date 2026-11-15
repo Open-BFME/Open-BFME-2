@@ -18,6 +18,8 @@
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 #include "../../Include/GameClient/GameClientRandomVariableInlines.h"
 
+struct BEXPBUCoord3D;
+class Matrix3D;
 class CursorParticleSystemFXNugget : public Rva001DFEAABase
 {
 public:
@@ -30,6 +32,8 @@ private:
 	GameClientRandomVariable m_systemLife; // +0x15C
 	GameClientRandomVariable m_driftVelX; // +0x168
 	GameClientRandomVariable m_driftVelY; // +0x174
+public:
+	virtual void doFXPos(const struct Coord3D *, const class Matrix3D *, float, const struct Coord3D *) const;
 };
 
 CursorParticleSystemFXNugget::CursorParticleSystemFXNugget()
