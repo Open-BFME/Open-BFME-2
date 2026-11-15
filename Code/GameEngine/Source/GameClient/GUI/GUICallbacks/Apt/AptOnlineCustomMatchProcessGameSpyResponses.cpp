@@ -25,6 +25,8 @@
 // (distinct WorldBuilder jump-table targets), which retail's dispatch tail
 // `jne default; jmp` keeps after cross-jumping merges them.
 
+#include "../../../../../Include/Common/PlayerTemplate.h"
+
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <string.h>
@@ -116,10 +118,6 @@ extern Shell *TheShell;
 #include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 
-class PlayerTemplate
-{
-	UnsignedByte m_data[0x1DC];
-};
 
 class PlayerTemplateStore
 {
