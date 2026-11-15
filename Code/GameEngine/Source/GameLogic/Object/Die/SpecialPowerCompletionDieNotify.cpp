@@ -43,12 +43,15 @@ public:
 	unsigned char m_pad0C[0x14 - 0x0C];
 };
 
+class Xfer;
 class SpecialPowerCompletionDie : public DieModuleBase
 {
 public:
 	void notifyScriptEngine();
 private:
 	int m_creatorID;
+protected:
+	virtual void xfer(class Xfer *);
 };
 
 void SpecialPowerCompletionDie::notifyScriptEngine()

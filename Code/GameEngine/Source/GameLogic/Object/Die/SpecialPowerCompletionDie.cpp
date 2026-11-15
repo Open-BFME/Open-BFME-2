@@ -69,6 +69,7 @@ inline DieModule::DieModule( Thing *thing, const ModuleData *moduleData ) : Beha
 }
 
 //-------------------------------------------------------------------------------------------------
+class Xfer;
 class SpecialPowerCompletionDie : public DieModule
 {
 public:
@@ -82,6 +83,8 @@ protected:
 private:
 	ObjectID m_creatorID;				// +0x14
 	bool m_creatorSet;					// +0x18
+protected:
+	virtual void xfer(class Xfer *);
 };
 
 //-------------------------------------------------------------------------------------------------
