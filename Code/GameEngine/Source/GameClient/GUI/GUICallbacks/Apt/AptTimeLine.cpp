@@ -198,6 +198,7 @@ public:
 	float maximum; // +0x14
 };
 #include "../../../../../Include/GameClient/Image.h"
+#include "../../../../../Include/GameClient/ImageClass.h"
 class Rva0051E664ScaleView {
 public:
  virtual void slot00()=0;virtual void slot04()=0;virtual void slot08()=0;virtual void slot0C()=0;

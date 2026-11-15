@@ -31,6 +31,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 extern ImageCollection *TheMappedImageCollection;
 
 #include "../../../Include/GameClient/CommandButton.h"
+#include "../../../Include/GameClient/ImageClass.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> void vector<ModuleData const *,_STL::allocator<ModuleData const *> >::_M_clear(); }
