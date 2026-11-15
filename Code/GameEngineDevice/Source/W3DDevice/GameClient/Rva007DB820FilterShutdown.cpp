@@ -30,6 +30,7 @@ extern View *TheTacticalView;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class TextureBaseClass { public: void Release_Ref(); };
 class WW3D {

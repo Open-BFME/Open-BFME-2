@@ -64,6 +64,7 @@ struct IDirect3DDevice8
 
 // The 0x40-byte matrix the setters build (rowed ctor 0x0007671F).
 #include "../../Include/GameClient/Rva0007671F.h"
+#include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 struct D3DXMATRIX;
 extern "C" D3DXMATRIX *__stdcall D3DXMatrixMultiply(D3DXMATRIX *, const D3DXMATRIX *, const D3DXMATRIX *);

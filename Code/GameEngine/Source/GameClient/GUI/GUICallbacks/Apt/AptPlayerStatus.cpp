@@ -66,6 +66,7 @@ void __stdcall Rva004E44FBSet(int,int,const UnicodeString&);
 class AptCommandMap;
 class AptExternHandler;
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+#include "../../../../../Include/GameClient/ParticleSystemClass.h"
 class AptExternHandlerAdder
 {
 public:

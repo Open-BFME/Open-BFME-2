@@ -111,6 +111,7 @@ public:
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
 };
 #include "../../../Include/Common/PlayerList.h"
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 extern PlayerList *ThePlayerList;
 class GameSlot
 {

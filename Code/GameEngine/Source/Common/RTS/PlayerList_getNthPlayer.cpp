@@ -90,6 +90,7 @@ enum
 
 
 #include "../../../Include/Common/PlayerTemplate.h"
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 
 class Player
 {

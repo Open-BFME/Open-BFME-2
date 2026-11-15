@@ -91,6 +91,7 @@ private:
 #include "../../../Include/Common/PlayerList.h"
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class PlayerTemplateStore {public:const PlayerTemplate *findPlayerTemplate(NameKeyType)const;};
 extern PlayerTemplateStore *ThePlayerTemplateStore;

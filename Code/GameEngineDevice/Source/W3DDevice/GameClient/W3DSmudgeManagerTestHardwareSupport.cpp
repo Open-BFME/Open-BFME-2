@@ -58,6 +58,7 @@ struct IDirect3DDevice8;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 
 // This TU already mirrors TextureBaseClass by name; the release declaration
