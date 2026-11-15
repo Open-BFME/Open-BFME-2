@@ -14,13 +14,13 @@ class Rva009EB810TailBase
 {
 public:
 	virtual void slot00();
-	virtual void slot04();
+	virtual void slot04() { }
 	virtual void Load();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
+	virtual void slot0C() { }
+	virtual void slot10(int) { }
+	virtual void slot14() { }
 	virtual void slot18();
-	virtual void slot1C();
+	virtual void slot1C() { }
 	virtual void slot20();
 	virtual ~Rva009EB810TailBase();
 
