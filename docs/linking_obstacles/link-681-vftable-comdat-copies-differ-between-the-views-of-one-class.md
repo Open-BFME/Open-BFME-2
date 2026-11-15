@@ -36,5 +36,21 @@ constructor), `LoadScreen.cpp` (`Rva0035615D`, 1,046 B), `InheritUpgradeCreate.c
 `DamageModuleDeletingDtors.cpp` (28 B). The base constructor's approved unit is
 `AptDisplayStringBase.cpp`; the data ledger names retail's base table both `??_7Rva00782CB0@@6B@` and
 `??_7Rva000AADC1Base@@6B@`, so those two classes are one and still await a class fold.
+Read so far, not repaired (2026-11-15, object tables at index `bb93a2a56e`):
+- `LoadScreen.cpp`, `Rva003560EDDtor.cpp`: retail's `Rva003560ED` (0x00814EA4) and `Rva0035615D`
+  (0x00814EBC) tables have six slots each and their virtuals are already rowed across
+  `Rva003560EDEngineRefresh.cpp`, `ProgressIndicator.cpp` and the two destructor units; the views emit
+  one or two slots. Seven units declare these classes (`GameLogicInit.cpp` and
+  `OpaqueScalarDeletingDtorsB06.cpp` among them) and must change together.
+- `AptValue.cpp`: its `RvaAptValueBase` has no `AddRef`/`Release`, so its `Rva006D6470Owner` table has
+  one slot where the six other emitters have `AptValue::AddRef`, `AptValue::Release` and the destructor;
+  its force-inlined two-base constructor model also emits a `??0Rva006D6470Owner@@QAE@HH@Z` copy that
+  differs from the kept one.
+- `StructureToppleUpdateModuleDataCtor.cpp`, `AutoDepositUpdateModuleDataCtor.cpp`: the losing units
+  hold the 31-slot BFME 2 `ModuleData` list; the first copy is `ModuleFactory.cpp`'s 8-slot Zero Hour
+  list (`crc`, `xfer`, `loadPostProcess`, destructor, ...). The repair belongs in `ModuleFactory.cpp`.
+- `DynamicPortalBehaviourModuleDataDtor.cpp`: the constructor unit emits the 31-slot list; the
+  destructor unit's private `Rva00253487Base` declares only a destructor, a shape its notes say the
+  destructor's bytes depend on.
 Clearance: `Rva00785140Handle` only, preview scope the two units above.
 Census confirmation: awaiting.
