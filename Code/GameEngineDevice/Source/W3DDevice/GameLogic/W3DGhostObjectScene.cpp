@@ -71,6 +71,8 @@
 // Hour's freeSnapShot (0x00063A1D), which deletes snapshots with ::delete like
 // freeAllSnapShots.
 
+#include "../../../../GameEngine/Include/Common/Player.h"
+
 #include "ascii_string.h"
 // Slot 2 of the retail tables is the class-name getter.
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -379,14 +381,6 @@ public:
 #include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
-class Player
-{
-public:
-	Int getPlayerIndex( void ) const { return m_playerIndex; }
-private:
-	char m_unrecovered00[ 0x54 ];
-	Int m_playerIndex;																					///< 0x54
-};
 
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 
