@@ -59,6 +59,8 @@ typedef unsigned char UnsignedByte;
 typedef int Color;
 
 #ifndef NULL
+#include "../../../Include/GameClient/ImageClass.h"
+
 #include <windows.h>
 #endif
 
@@ -72,15 +74,6 @@ inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte bl
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class Image
-{
-public:
-	Int getImageWidth() const { return m_imageSize.x; }
-	Int getImageHeight() const { return m_imageSize.y; }
-
-	unsigned char m_unreconstructed_00[0x24];
-	ICoord2D m_imageSize;	// +0x24
-};
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
