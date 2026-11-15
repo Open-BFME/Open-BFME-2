@@ -11,6 +11,8 @@
 // stlport
 // Native5E38EB..5E3947 complete92B and WB15F6AA0. Owner from
 // admitted dtor5E362F and vtableC77BD0; Impl allocation16B from direct native call5E3753.
+#include "../../../../Include/GameClient/Rva002226E5TextPlusString.h"
+
 #include "ascii_string.h"
 #include "../../../../Include/Common/Rva0007DF07.h"
 class Rva005EEE5A:public Rva0007DF07 {public:Rva005EEE5A();bool active;};
@@ -69,7 +71,6 @@ class Rva005F1CFEForwarder { public: void rva005F1CFE(const UnicodeString &); };
 class StrategicHUD::RegionDetailsTerritoryMovieClip::Impl {public:void SetTerritoryName(const UnicodeString &);void rva005F1999(int,int);};
 class Rva005F1CF6Forwarder {public:__declspec(noinline) void rva005F1CF6(const UnicodeString &s){impl->SetTerritoryName(s);}private:char pad[4];StrategicHUD::RegionDetailsTerritoryMovieClip::Impl *impl;};
 class Rva005F1B49Forwarder {public:__declspec(noinline) void rva005F1B49(int i,int value){impl->rva005F1999(i,value);}private:char pad[4];StrategicHUD::RegionDetailsTerritoryMovieClip::Impl *impl;};
-struct Rva002226E5TextPlusString { const char *text; int length; const AsciiString *str; Rva002226E5TextPlusString(){} Rva002226E5TextPlusString(const Rva002226E5TextPlusString &r):text(r.text),length(r.length),str(r.str){} };
 Rva002226E5TextPlusString operator+(const char *,const AsciiString &);
 struct Rva0059AFC2In { int v[3]; };
 struct Rva0059AFC2Out { int v[5]; };
