@@ -1173,6 +1173,9 @@ def slots_with(define=None, calls=None, after=''):
     'template <class T> class View {\n#define VIEW_SLOT(n) virtual void slot##n();\n\tVIEW_SLOT(0)\n'
     '#undef VIEW_SLOT\n};\n' + X_BODY,                                             # a template body
     '#define slot1 int\n' + SLOTS + X_BODY,                                        # a paste spells a unit macro
+    # r1: a comment opened on the #undef line hides braces the blanking would expose
+    'class View {\n#define S(n) void slot##n();\nS(0)\n#undef S /*\n}; namespace N {\n// */\nclass X { int a; };\n};\n',
+    SLOTS.replace('#undef VIEW_SLOT\n};', '#undef VIEW_SLOT /* a note */\n};') + X_BODY,     # any comment there
     SLOTS.replace('slot##n', '__int##n').replace('VIEW_SLOT(3)', 'VIEW_SLOT(8)') + X_BODY,   # a keyword
     'class View {\n#define VIEW_SLOT(n) virtual void slot##n();\n#define OTHER(n) virtual void other##n();\n'
     '\tVIEW_SLOT(0)\n#undef OTHER\n#undef VIEW_SLOT\n};\n' + X_BODY,              # two open at once

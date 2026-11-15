@@ -667,14 +667,19 @@ def class_local_slots(text):
     heads = {m.end() - 1: m for m in MOVE_HEAD.finditer(code)}
     comments = [(m.start(), m.end()) for m in LITERAL.finditer(text) if m.group().startswith('/*')]
     regions, pasted, open_ = [], set(), None
+
+    def opaque(start, end):
+        # a line blanked whole must be all directive: a block comment touching it, a splice or a trigraph would
+        # leave text the blanking cuts in two (`#undef S /*` hides braces the compiler never sees)
+        raw = text[start:end]
+        return not (re.search(r'\\[ \t\f\v\r]*$', raw) or TRIGRAPH.search(raw)
+                    or any(first < end and last > start for first, last in comments))
+
     for start, end, define, undef in lines:
         if define:
             name = define.group('name')
             params = [param.strip() for param in define.group('params').split(',')]
-            raw = text[start:end]
-            if (open_ is not None or name in KEYWORDS or len(set(params)) != len(params)
-                    or re.search(r'\\[ \t\f\v\r]*$', raw) or TRIGRAPH.search(raw)
-                    or any(first < end and last > start for first, last in comments)):
+            if open_ is not None or name in KEYWORDS or len(set(params)) != len(params) or not opaque(start, end):
                 return None
             pastes = slot_pastes(params, define.group('body'))
             stack = []
@@ -690,7 +695,7 @@ def class_local_slots(text):
         elif open_ is not None and undef.group('name') == open_[2]:
             first, after, name, params, pastes = open_
             between = code[after:start]
-            if re.search(r'[{}]', between):
+            if re.search(r'[{}]', between) or not opaque(start, end):
                 return None
             for call in re.finditer(r'(?<![\w$])' + re.escape(name) + r'(?![\w$])', between):
                 args = re.match(r'\s*\(([^()]*)\)', between[call.end():])
