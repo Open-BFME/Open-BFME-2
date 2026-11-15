@@ -219,7 +219,7 @@ class Rva00220240FlatDtorM5 { public: virtual void anchor(); };
 
 class Rva00220240FlatDtorM6 { public: virtual void anchor(); };
 
-class Rva00220240FlatDtorM7 { public: virtual void anchor(); };
+class Rva00220240FlatDtorM7 { public: virtual void anchor() { } };
 
 class Rva00220240FlatDtor : public Rva00039D6AFlatBase, public Rva00220240FlatDtorM0, public Rva00220240FlatDtorM1, public Rva00220240FlatDtorM2, public Rva00220240FlatDtorM3, public Rva00220240FlatDtorM4, public Rva00220240FlatDtorM5, public Rva00220240FlatDtorM6, public Rva00220240FlatDtorM7
 {
