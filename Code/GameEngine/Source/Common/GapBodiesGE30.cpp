@@ -4,6 +4,8 @@
 // shape; owning classes are not recovered, so each keeps an address-derived
 // name and a view of only the members it touches. Callees and globals use the
 // ledger's existing spellings.
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
+
 #include <string.h>
 
 // Declaration-only view of the STLport list member these bodies call; no
@@ -80,13 +82,6 @@ int Rva0053B966::rva0053B966() const
 
 // --- 0x0053B975 (23B): a copy of the +0x110 flag set (rowed copy
 // constructor 0x0004543D).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &that);	// 0x0004543D
-private:
-	unsigned m_words[4];
-};
 
 class Rva0053B975
 {
