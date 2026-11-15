@@ -224,7 +224,7 @@ void Rva003BCC37::rva003BCC37(bool enableBonuses)
 
 // 0x00406B39 and 0x004059F6: ids drawn once each from the counter at VA
 // 0x00DFEE18.
-__declspec(selectany) Int g_00DFEE18 = 0;
+Int g_00DFEE18 = 0;
 class Rva00406B39
 {
 public:

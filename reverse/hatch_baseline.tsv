@@ -11882,4 +11882,3 @@ present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetSource@
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetTime@Id@ProfileFuncLevel@@QBE_KI@Z	1
 present_unmatched	Code/Libraries/Source/subsystem/SubsystemInterface.cpp	getName@SubsystemInterface@@QAE?AVAsciiString@@XZ	1
 present_unmatched	reference/shims/pathfind/GameLogic/AIPathfind.h	?	1
-selectany	Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	__declspec(selectany) Int g_00DFEE18 = 0;	1
