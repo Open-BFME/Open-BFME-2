@@ -8,6 +8,8 @@
 // The 67-byte static lookup below is retained by its real placement caller;
 // MSVC supplies retail's EAX argument convention without assembly or a shim.
 
+#include "../../Include/GameLogic/GhostObjectManager.h"
+
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Coord3D.h"
@@ -375,13 +377,6 @@ public:
     virtual void removeAllBibs();
 };
 extern G00DFF080Obj* TheTerrainVisual;
-class GhostObjectManager
-{
-public:
-    __forceinline int getLocalPlayerIndex() const { return playerIndex; }
-    void* vtable;
-    int playerIndex;
-};
 extern GhostObjectManager* TheGhostObjectManager;
 bool Rva0030596CIntersects(void*, PlaceCoord, float);
 float normalizeAngle(float);
