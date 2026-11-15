@@ -39,6 +39,7 @@ public:
 	}
 };
 
+struct AEXPBVMatrix3D;
 class W3DRopeDraw : public W3DRopeDrawPrimary, public RopeDrawInterface
 {
 public:
@@ -63,6 +64,8 @@ private:
 	float m_wobbleRate; // +0x48
 	float m_curWobblePhase; // +0x4C
 	float m_curZOffset; // +0x50
+public:
+	virtual void doDrawModule(const class Matrix3D *);
 };
 
 W3DRopeDraw::W3DRopeDraw( Thing *thing, const ModuleData* moduleData )

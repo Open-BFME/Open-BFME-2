@@ -114,6 +114,7 @@ public:
 	virtual void setRopeSpeed(float curSpeed, float maxSpeed, float accel) = 0;
 };
 
+struct AEXPBVMatrix3D;
 class W3DRopeDraw : public DrawModule, public RopeDrawInterface
 {
 public:
@@ -150,6 +151,8 @@ private:
 	void buildSegments();
 public:
 	static NameKeyType rva000CA7F6();
+public:
+	virtual void doDrawModule(const class Matrix3D *);
 };
 
 // tu-skeleton: 0x000CA72E 36B ?setRopeSpeed@W3DRopeDraw@@UAEXMMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp (not merged yet)

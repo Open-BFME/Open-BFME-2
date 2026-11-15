@@ -39,6 +39,7 @@ class W3DRopeDrawPrimary : public DrawModule
 {
 };
 
+struct AEXPBVMatrix3D;
 class W3DRopeDraw : public W3DRopeDrawPrimary, public RopeDrawInterface
 {
 public:
@@ -50,6 +51,8 @@ public:
 private:
 	_STL::vector<BfmePod16> m_segments;
 	void tossSegments();
+public:
+	virtual void doDrawModule(const class Matrix3D *);
 };
 
 W3DRopeDraw::~W3DRopeDraw()
