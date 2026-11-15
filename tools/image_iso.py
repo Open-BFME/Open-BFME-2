@@ -1344,10 +1344,12 @@ REGISTER_FAMILY = {name: family for family, names in {
 
 # registers an instruction writes that capstone does not list among its written registers
 IMPLICIT_WRITES = {"cmpxchg": {"eax"}, "cmpxchg8b": {"eax", "edx"}, "enter": {"ebp", "esp"},
-                   "leave": {"ebp", "esp"}, "cpuid": {"eax", "ebx", "ecx", "edx"}, "rdtsc": {"eax", "edx"}}
+                   "leave": {"ebp", "esp"}, "cpuid": {"eax", "ebx", "ecx", "edx"}, "rdtsc": {"eax", "edx"},
+                   "xlatb": {"eax"}}
 # instructions whose memory effects the save/restore proof does not model: a conditional or implicit write
 # (cmpxchg writes its destination though capstone marks it read-only), or an ESP/EBP frame change
-UNMODELED = ("cmpxchg", "cmpxchg8b", "xadd", "enter", "leave")
+UNMODELED = ("cmpxchg", "cmpxchg8b", "xadd", "enter", "leave", "maskmovq", "maskmovdqu",
+             "fnsave", "fsave", "fnstenv", "fstenv", "fxsave", "xsave", "xsaveopt")
 
 
 def written_families(md, ins):
@@ -1355,6 +1357,28 @@ def written_families(md, ins):
     implicit (IMPLICIT_WRITES) included."""
     found = {REGISTER_FAMILY.get(md.reg_name(reg)) for reg in ins.regs_access()[1]} - {None}
     return found | IMPLICIT_WRITES.get(ins.mnemonic.split()[-1], set())
+
+
+# Only these ordinary integer instructions have modeled effects in the member-call scan.
+# Unknown instructions end ALL holders, even if capstone reports no writes: hidden writes,
+# implicit stores and special effective addresses must never manufacture a storage defect.
+MEMBER_INSTRUCTIONS = frozenset({
+    "mov", "movzx", "movsx", "lea", "push", "pop", "call", "ret", "nop",
+    "add", "sub", "adc", "sbb", "and", "or", "xor", "cmp", "test",
+    "inc", "dec", "neg", "not", "shl", "sal", "shr", "sar",
+})
+
+
+def member_instruction(ins):
+    """Whether all instruction effects are in the small modeled integer subset.
+
+    Exact mnemonic matching excludes REP/LOCK and the bit-string BT family. Register
+    operands must be general integer registers: moving a segment register can change
+    the meaning of later flat-looking addresses. Preservation proofs use the same rule.
+    """
+    from capstone.x86_const import X86_OP_REG
+    return ins.mnemonic in MEMBER_INSTRUCTIONS and all(
+        op.type != X86_OP_REG or ins.reg_name(op.reg) in REGISTER_FAMILY for op in ins.operands)
 
 
 BRANCHES = ("loop", "loope", "loopne", "loopz", "loopnz", "jecxz", "jcxz")
@@ -1407,6 +1431,8 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
     if found is None:
         return False
     body, _pops = found
+    if not all(member_instruction(ins) for ins in body):
+        return False
     import capstone
     from capstone.x86_const import X86_OP_IMM, X86_OP_MEM, X86_OP_REG
 
@@ -1459,7 +1485,8 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
             return False                                # leave, mov esp, ...: the depth is no longer known
         for op in ops:
             if op.type == X86_OP_MEM and op.access & capstone.CS_AC_WRITE:
-                if md.reg_name(op.mem.base) != "esp" or op.mem.index:
+                if (md.reg_name(op.mem.base) != "esp" or op.mem.index or op.mem.segment
+                        or ins.prefix[3] == 0x67):
                     return False                        # any other base (EBP, a copy of ESP, none) may alias the slot
                 if op.mem.disp < depth_bytes + 4 and op.mem.disp + op.size > depth_bytes:
                     return False                        # it reaches the saved slot
@@ -1478,15 +1505,16 @@ def this_accesses(retail, md, callee, sizes, cache, memo):
     32-bit addressing, a full 32-bit base register holding `this`, no index, no segment override and a
     non-negative displacement, in an instruction that touches memory: `lea`, `nop`, `prefetch*` and REP-prefixed
     string instructions (a zero count touches nothing) are not. Lower bounds: what the prefix proves, never what a
-    branch might reach."""
+    branch might reach. Only MEMBER_INSTRUCTIONS may extend the prefix; anything unknown ends
+    all holders, and preservation proofs and caller tracking use the same allowlist."""
     if callee in cache:
         return cache[callee]
     import capstone
     from capstone.x86_const import X86_OP_IMM, X86_OP_MEM, X86_OP_REG, X86_REG_INVALID
     holders, found = {"ecx"}, {}
     for ins in md.disasm(retail.read(callee, 0x400) or b"", retail.base + callee):
-        if transfers(ins):
-            break
+        if transfers(ins) or not member_instruction(ins):
+            break                                      # retain only the lower bound already proven
         repeated = ins.prefix[0] in (0xF2, 0xF3) and ins.mnemonic.split()[-1].startswith(
             ("movs", "stos", "lods", "cmps", "scas", "ins", "outs"))
         if not (ins.mnemonic in ("lea", "nop") or ins.mnemonic.startswith("prefetch") or repeated
@@ -1560,11 +1588,11 @@ def member_call_evidence(retail, rows, functions):
                         seen.add((held, offset, width))
                         result.append(dict(name=names[held], rva=held, offset=offset, width=width,
                                            evidence=f"retail member call at {hex(here)} in {hex(start)} on it calls "
-                                                    f"{hex(callee)}; access at {hex(at)}"))
+                                                    f"{hex(callee)}; access at {hex(at)}; lower bound from modeled prefix"))
                 held = None
             elif transfers(ins) or ins.mnemonic == "call":
                 held = None
-            elif "ecx" in written_families(md, ins):
+            elif not member_instruction(ins) or "ecx" in written_families(md, ins):
                 held = None
     return result
 

@@ -2789,7 +2789,7 @@ def test_a_member_call_proves_an_access_past_calls_through_a_saved_register():
     member_call(c, b"\x56\x8b\xf1" + call_300(0x203) + b"\x88\x46\x68\xc3")
     found = evidence(c, [row("object", 0x2100, 72)])
     assert [(e["offset"], e["width"]) for e in found] == [(0x68, 1)]
-    assert "retail member call at 0x105 in 0x100 on it calls 0x200; access at 0x208" == found[0]["evidence"]
+    assert "retail member call at 0x105 in 0x100 on it calls 0x200; access at 0x208; lower bound from modeled prefix" == found[0]["evidence"]
     c.storage(found)
     assert c.counts["storage_undersized"] == 1
     c2 = checker([public("object", 0x2000, 0x6C)], {"object": {0x2100}})
@@ -3016,3 +3016,73 @@ def test_r2_a_branch_from_far_in_the_extent_is_seen():
     c.retail.put(0x4100, b"\xb9" + struct.pack("<I", c.retail.base + 0x3000) + b"\xe9" + struct.pack("<i", 0x10a - 0x410a))
     c.retail.put(0x4800, b"\x8b\x41\x68\xc3")
     assert evidence(c, functions=[(0x100, 0x400a), (0x4800, 4)]) == []
+
+
+# Sol r5 and the single authorized measurement-tool confirmation round.
+@pytest.mark.parametrize("body,helper,target", [
+    # XLAT changes AL from G=0x402180 to 0x402100; [eax+0x68] is G-0x18.
+    (bytes.fromhex("8bc1 bb00304000 d7 8b4068 c3"), b"\xc3", 0x2180),
+    # MASKMOVQ writes saved ESI implicitly through EDI, restoring a different pointer.
+    (SAVED_CALL, bytes.fromhex("56 89e7 b800304000 0f6ec0 b880808080 0f6ec8 0ff7c1 be00304000 5e c3"), 0x2100),
+    # FNSAVE writes 108 bytes, not capstone's 4: the saved slot at ESP+104 is overwritten.
+    (SAVED_CALL, bytes.fromhex("56 83ec68 dd3424 be00304000 83c468 5e c3"), 0x2100),
+    # BT [ecx+0x68],-832 accesses G+0, not G+0x68.
+    (bytes.fromhex("b8c0fcffff 0fa34168 c3"), b"\xc3", 0x2100),
+])
+def test_r5_special_effects_do_not_manufacture_storage_defects(body, helper, target):
+    c = checker([public("object", 0x2000, 4), public("other", 0x3000, 4)],
+                {"object": {target}, "other": {target + 0x68}})
+    c.retail.put(0x3080, b"\0")
+    member_call(c, body, helper=helper, target=target)
+    found = evidence(c, [row("object", target, 4)])
+    assert found == []
+    c.storage(found)
+    assert c.counts["storage_undersized"] == c.counts["storage_split"] == 0
+
+
+def test_r5_xlat_invalidates_eax_even_when_capstone_omits_it():
+    import capstone
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    ins = next(md.disasm(b"\xd7", 0))
+    assert "eax" in iso.written_families(md, ins)
+
+
+def test_unknown_instruction_keeps_only_the_previously_proven_lower_bound():
+    # CLD has no integer register writes, but is intentionally outside the modeled subset.
+    c = checker([], {})
+    member_call(c, bytes.fromhex("8b4110 fc 8b4168 c3"))
+    found = evidence(c)
+    assert [(e["offset"], e["width"]) for e in found] == [(0x10, 4)]
+    assert "lower bound from modeled prefix" in found[0]["evidence"]
+
+
+def test_unknown_instruction_between_global_seed_and_call_drops_ecx():
+    c = checker([], {})
+    member_call(c, bytes.fromhex("8b4168 c3"), between=b"\xfc")
+    assert evidence(c) == []
+
+
+def test_unknown_instruction_refuses_even_an_untouched_register_preservation():
+    c = checker([], {})
+    member_call(c, SAVED_CALL, helper=bytes.fromhex("fc c3"))
+    assert evidence(c) == []
+
+
+def test_modeled_integer_prefix_still_tracks_copies_and_accesses():
+    c = checker([], {})
+    # mov esi,ecx; lea eax,[esi+0x70]; add eax,4; cmp [esi+8],0; mov eax,[esi+0x10]; ret
+    member_call(c, bytes.fromhex("8bf1 8d4670 83c004 837e0800 8b4610 c3"))
+    assert [(e["offset"], e["width"]) for e in evidence(c)] == [(8, 4), (0x10, 4)]
+
+
+@pytest.mark.parametrize("body", [
+    bytes.fromhex("b801000000 0fa34168 c3"),  # BT
+    bytes.fromhex("b801000000 0fbb4168 c3"),  # BTC
+    bytes.fromhex("b801000000 0fb34168 c3"),  # BTR
+    bytes.fromhex("b801000000 0fab4168 c3"),  # BTS
+])
+def test_register_indexed_bit_strings_are_outside_the_modeled_subset(body):
+    c = checker([], {})
+    member_call(c, body)
+    assert evidence(c) == []
