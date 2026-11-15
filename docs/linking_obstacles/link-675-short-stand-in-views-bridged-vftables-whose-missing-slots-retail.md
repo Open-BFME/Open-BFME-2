@@ -74,6 +74,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva005CBA04` (VA 0x00C74DB8): 17 slots (0 pure, 0 rowed virtual, 1 destructor, 15 folded trivial body), 2 view(s): `Rva005CBA04.h`, `Rva005E5A38Ctor.cpp`.
 - 2026-11-15 `Rva0065E8D0` (VA 0x00CE2368): 5 slots (4 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva000F5ACB` (VA 0x00BCF1C8): 4 slots (1 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva0059EB66` (VA 0x00C711BC): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
@@ -184,7 +186,6 @@ The inspected W3DTreeDraw.obj has only a weak vector-deleting destructor symbol,
 deleting destructor. It provides no vector-deleting body for pin admission to compare with retail RVA 0x00001750, so
 this fold-pin attempt was correctly refused. This establishes the current object's limitation; it does not
 establish that a source change cannot reproduce retail's fold.
-
 Disposition (swarm coordinator, 2026-11-15): one line in the ledger job's `loss_exceptions.tsv` accepts this loss.
 It covers row 0x007BB554 and the lost name, lists the row's 11 other names, and is bound to master's ledger blob
 `b1800c77ea9b`. The line records the evidence above, so the 36 stale-name gains can publish. Like every exception

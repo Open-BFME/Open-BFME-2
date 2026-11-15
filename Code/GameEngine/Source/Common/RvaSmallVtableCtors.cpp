@@ -2483,7 +2483,9 @@ class Rva0059EB66
 {
 public:
 	Rva0059EB66();
-	virtual ~Rva0059EB66() {}
+	virtual void slot00(int, int, int) {}
+	virtual void slot04(int, int, int) {}
+	virtual void slot08() = 0;
 };
 
 Rva0059EB66::Rva0059EB66()
