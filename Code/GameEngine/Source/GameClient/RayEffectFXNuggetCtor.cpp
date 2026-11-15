@@ -14,6 +14,8 @@
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
+struct BEXPBUCoord3D;
+class Matrix3D;
 class RayEffectFXNugget : public Rva001DFEAABase
 {
 public:
@@ -25,6 +27,8 @@ private:
 	AsciiString m_templateName; // +0x148
 	Coord3D m_primaryOffset; // +0x14C
 	Coord3D m_secondaryOffset; // +0x158
+public:
+	virtual void doFXPos(const struct Coord3D *, const class Matrix3D *, float, const struct Coord3D *) const;
 };
 
 // ??0RayEffectFXNugget@@QAE@XZ
