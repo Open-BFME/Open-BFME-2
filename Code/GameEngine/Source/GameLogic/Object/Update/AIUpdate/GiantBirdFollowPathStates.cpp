@@ -61,6 +61,7 @@ extern TerrainLogic *TheTerrainLogic;
 extern unsigned char g_00E01EC0[4]; // defined once in Rva00368C7A.cpp (rowed below)
 
 #include "../../../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../../../Include/Common/StateMachine.h"
 
 class AIUpdateInterface
 {

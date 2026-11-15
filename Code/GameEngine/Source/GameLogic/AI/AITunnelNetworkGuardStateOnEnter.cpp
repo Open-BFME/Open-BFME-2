@@ -43,6 +43,7 @@ private:
 };
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AITNGuardMachine.h"
+#include "../../../Include/Common/StateMachine.h"
 class AITunnelNetworkGuardState : public State
 {
 public:

@@ -79,6 +79,7 @@ void XferObjectID( Xfer *xfer, ObjectID *id );
 
 
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
+#include "../../../Include/Common/StateMachine.h"
 
 class AIIdleState : public State
 {

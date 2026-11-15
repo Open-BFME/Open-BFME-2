@@ -95,6 +95,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../../Include/GameLogic/Module/ContainModule.h"
+#include "../../../../../Include/Common/StateMachine.h"
 
 template <int N> class GiantBirdSwoopAISlots : public GiantBirdSwoopAISlots<N - 1>
 {

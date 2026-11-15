@@ -113,6 +113,7 @@ BfmeMade_009CB5F0*bfmeMake_009CB5F0(void*);
 extern GameInfo *TheGameInfo;
 
 #include "debug.h"
+#include "../../Include/Common/StateMachine.h"
 
 extern Debug *theDebug;
 

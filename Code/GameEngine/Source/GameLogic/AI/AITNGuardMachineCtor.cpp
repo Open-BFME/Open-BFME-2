@@ -60,6 +60,7 @@ private:
 	unsigned char m_pad00[0x2C];
 };
 #include "../../../Include/GameLogic/AITNGuardMachine.h"
+#include "../../../Include/Common/StateMachine.h"
 // condition 0x00545F10 (retail .rdata table entry)
 Bool rva00545F10(State *thisState, void *userData);
 

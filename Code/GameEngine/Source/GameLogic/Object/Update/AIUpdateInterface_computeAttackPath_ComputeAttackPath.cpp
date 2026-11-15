@@ -72,6 +72,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
+#include "../../../../Include/Common/StateMachine.h"
 // Kind-mask byte test on the canonical +0x108 storage.
 static inline Bool thingTemplateIsKindOfByte(const ThingTemplate *tmpl, Int index, unsigned char mask)
 { return (((const unsigned char *)tmpl->m_kindof)[index] & mask) != 0; }

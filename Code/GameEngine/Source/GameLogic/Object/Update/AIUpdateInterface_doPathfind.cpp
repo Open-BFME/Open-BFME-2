@@ -108,6 +108,7 @@ private:
 };
 
 #include "../../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../../Include/Common/StateMachine.h"
 
 class LocomotorSet
 {

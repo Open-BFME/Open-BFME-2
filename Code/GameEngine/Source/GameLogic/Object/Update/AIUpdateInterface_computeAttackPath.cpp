@@ -112,6 +112,7 @@ class Rva0008BB38FloatField;
 #include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
 #include "../../../../Include/GameLogic/AIPathfind.h"
+#include "../../../../Include/Common/StateMachine.h"
 
 
 struct AIData

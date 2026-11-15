@@ -14,6 +14,7 @@ typedef UnsignedInt ObjectID;
 class Object;
 #include "../../../Include/Common/StateConditionInfo.h"
 #include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/Common/StateMachine.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &c)

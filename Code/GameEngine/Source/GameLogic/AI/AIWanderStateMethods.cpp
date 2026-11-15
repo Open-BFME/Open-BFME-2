@@ -99,6 +99,7 @@ template <> class AIUpdateSlots<0>
 // chooseLocomotorSet is AIUpdateInterface vslot 142 (+0x238).
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/ThingTemplate.h"
+#include "../../../Include/Common/StateMachine.h"
 // CAN_BE_REPULSED: kindof byte +0x10D mask 0x20.
 static inline Bool thingTemplateIsKindOfCanBeRepulsed(const ThingTemplate *tmpl) { return (((const unsigned char *)tmpl->m_kindof)[5] & 0x20) != 0; }
 class Object

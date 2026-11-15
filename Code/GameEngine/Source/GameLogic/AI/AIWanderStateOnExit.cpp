@@ -38,6 +38,7 @@ private:
 };
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
+#include "../../../Include/Common/StateMachine.h"
 class AIFollowWaypointPathState : public AIInternalMoveToState
 {
 public:

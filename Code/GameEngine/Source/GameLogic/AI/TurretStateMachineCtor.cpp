@@ -32,6 +32,7 @@ enum TurretStateType
 	TURRETAI_HOLD = 5
 };
 #include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/Common/StateMachine.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 class TurretAIAttackInterface
 {
