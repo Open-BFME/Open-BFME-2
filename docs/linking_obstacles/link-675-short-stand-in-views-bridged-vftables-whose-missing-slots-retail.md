@@ -75,6 +75,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva0065E8D0` (VA 0x00CE2368): 5 slots (4 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva000F5ACB` (VA 0x00BCF1C8): 4 slots (1 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva0059EB66` (VA 0x00C711BC): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+- 2026-11-15 `Rva006560B0` (VA 0x00CE0FB8): 3 slots (2 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
@@ -181,7 +183,6 @@ Retail does use this table for the class. `??1W3DTreeDrawModuleData@@UAE@XZ` (ro
 base vptr with VA 0x00BBB554, which is RVA 0x007BB554, at 0x000CECF5. So in retail, W3DTreeDrawModuleDataBase's
 table is Snapshot's, including slot 0 at the vector deleting body 0x00001750. Master's ledger name is the right
 one, and the regeneration's loss is real.
-
 The inspected W3DTreeDraw.obj has only a weak vector-deleting destructor symbol, falling back to its defined scalar
 deleting destructor. It provides no vector-deleting body for pin admission to compare with retail RVA 0x00001750, so
 this fold-pin attempt was correctly refused. This establishes the current object's limitation; it does not

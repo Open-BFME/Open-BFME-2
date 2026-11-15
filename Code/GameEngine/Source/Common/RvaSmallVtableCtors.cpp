@@ -2570,7 +2570,9 @@ class Rva006560B0
 {
 public:
 	Rva006560B0();
-	virtual ~Rva006560B0() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
 };
 
 Rva006560B0::Rva006560B0()
