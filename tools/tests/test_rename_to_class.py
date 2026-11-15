@@ -113,6 +113,7 @@ def retail(monkeypatch, tables, compiled=None, jumps=None):
     monkeypatch.setattr(rename, "compiled_vtables", lambda ctx, rel, current=True: built.get(rel))
     monkeypatch.setattr(rename, "retail_jump", lambda ctx, rva: (jumps or {}).get(rva))
     monkeypatch.setattr(rename, "external_vtables", lambda ctx, rel, current=True: set())
+    monkeypatch.setattr(rename, "object_fresh", lambda ctx, rel: True)
 
 
 def ctx_of(root):
@@ -2154,3 +2155,35 @@ def test_r3_a_weak_externals_default_is_no_alias(tmp_path, monkeypatch):
     monkeypatch.setattr(link_census, "object_symbols", lambda path, data=None: (
         {"_fall"}, set(), [("_weak", "_middle"), ("_middle", "_fall")], {"?alias@@YAXXZ": "_fall"}, set()))
     assert rename.object_link_names(None, "Code/Game/Unit.cpp") == ({"_fall"}, {"?alias@@YAXXZ": "_fall"})
+
+
+
+def test_r4_a_header_stale_object_exempts_nothing(tree, monkeypatch):
+    # Gizmo.cpp's object predates a header it read: its table's names are not "held before"
+    root = gizmo_tree(tree)
+    ghost = "?spin@View@@UAEXXZ"
+    compiled = dict(G_COMPILED, **{"Code/Game/Gizmo.cpp": dict(G_COMPILED["Code/Game/Gizmo.cpp"],
+                                                               **{"??_7View@@6B@": [ghost]})})
+    retail(monkeypatch, G_TABLES, compiled=compiled)
+    monkeypatch.setattr(rename, "object_fresh", lambda ctx, rel: rel != "Code/Game/Gizmo.cpp")
+    monkeypatch.setattr(rename, "object_link_names",
+                        lambda ctx, rel: ({"??_EGizmo@@UAEPAXI@Z"}, {}) if rel == "Code/Game/Gizmo.cpp" else None)
+    p = across_plan(root)
+    assert "Code/Game/Gizmo.cpp" not in p.to_class["vtables"] and "Code/Game/Widget.cpp" in p.to_class["vtables"]
+    with pytest.raises(VerifyFailed, match="names " + re.escape(ghost)):
+        rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+
+
+def test_r4_object_fresh_is_the_builds_strict_receipt(tmp_path, monkeypatch):
+    import build
+    obj = tmp_path / "unit.obj"
+    obj.write_bytes(b"x")
+    ctx = type("Ctx", (), {"path": lambda self, rel: tmp_path / rel})()
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj)
+    seen = []
+    monkeypatch.setattr(build, "compile_is_current", lambda source, output, strict=False: seen.append(strict) or False)
+    assert rename.object_fresh(ctx, "Code/Game/Unit.cpp") is False and seen == [True]
+    monkeypatch.setattr(build, "compile_is_current", lambda source, output, strict=False: True)
+    assert rename.object_fresh(ctx, "Code/Game/Unit.cpp") is True
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: None)
+    assert rename.object_fresh(ctx, "Code/Game/Unit.cpp") is False

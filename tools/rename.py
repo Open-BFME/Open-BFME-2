@@ -7047,6 +7047,20 @@ def to_class_slot_problems(ctx, check, *, current=True):
 PURECALL = frozenset({"__purecall", "_purecall"})
 
 
+def object_fresh(ctx, rel):
+    """Whether ledger source `rel`'s object was compiled from its present text, compile command and every header
+    it read (build.compile_is_current, strict): only such an object tells what the unit's vftables held before a
+    plan (_source_object's `current` reads the source's own digest alone)."""
+    import build
+    path = _source_object(ctx, rel, current=True)
+    if path is None:
+        return False
+    try:
+        return bool(build.compile_is_current(ctx.path(rel), path, strict=True))
+    except Exception:               # an unreadable receipt proves nothing
+        return False
+
+
 def object_link_names(ctx, rel):
     """(names the fresh object of ledger source `rel` defines, {alias: target} of its /alternatename directives),
     read as the linker reads them (link_census.object_symbols: an alias an #if drops is not there, one an included
@@ -7064,7 +7078,8 @@ def object_link_names(ctx, rel):
 def to_class_dangling_problems(ctx, check):
     """Slot names a rebuilt vftable of the plan's units (`check['units']`, every ledger source it rebuilds) gained
     that nothing defines: [] when every name a compiled ??_7 holds after ./build.sh is one it held before the plan
-    (`check['vtables']`, read at planning from objects compiled from the present text only), or resolves: a moved
+    (`check['vtables']`, read at planning only from objects current in every dependency, object_fresh), or
+    resolves: a moved
     name, a row or pin, a symbol the unit's object defines, __purecall, or an /alternatename of the object's own
     directives (object_link_names; never a weak external's default) whose target resolves. A name the plan retires (`check['retired']`: the old names of its
     rows and pins, which the context's ledgers may still hold) resolves only through the object. Renaming a slot a
@@ -7631,8 +7646,8 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
                          {m["rva"] for m in moves}) + \
         sorted({f"file:{rel}" for rel in {m["row"]["source"] for m in moves} | edited})
     # what the rebuilt vftables of the plan's units may name (to_class_dangling_problems): every unit it rebuilds
-    # (a prepared header's includers too), the names their objects compiled from the present text hold now, and not
-    # the names the plan retires
+    # (a prepared header's includers too), the names their objects hold now when current in every dependency
+    # (object_fresh: a header-stale object exempts nothing), and not the names the plan retires
     units = sorted((set(plan.verify) | set(installer_sources)) & set(ctx.ledger_sources()))
     check["units"] = units
     check["renamed"] = dict(moved)
@@ -7640,7 +7655,7 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
                               | {old_pin for old_pin, _new, _at in plan.renamed_pins} | {m["name"] for m in moves})
     check["vtables"] = {}
     for rel in units:
-        tables = compiled_vtables(ctx, rel, current=True)
+        tables = compiled_vtables(ctx, rel, current=True) if object_fresh(ctx, rel) else None
         if tables is not None:
             check["vtables"][rel] = sorted({name for names in tables.values() for name in names if name})
     written = set(plan.after) | {"reverse/re_attempts.log"}
