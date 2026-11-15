@@ -4,6 +4,10 @@
 // the two-vtable category base, then the RenderObjectDrawModuleInfo subobject
 // at +8 with the usual null-preserving source adjustment.
 
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 class __declspec(novtable) RenderObjectDrawCategoryBaseA
 {
 public:
@@ -67,4 +71,12 @@ RenderObjectDrawModuleTemplate::RenderObjectDrawModuleTemplate(
 {
 }
 
+}
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of FXParticleSystem::RenderObjectDrawModuleTemplate, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_FXParticleSystem_RenderObjectDrawModuleTemplate> absent-from-retail
+void bfmeVectorDeleteAnchor_FXParticleSystem_RenderObjectDrawModuleTemplate(FXParticleSystem::RenderObjectDrawModuleTemplate *p)
+{
+	p->FXParticleSystem::RenderObjectDrawModuleTemplate::__vecDelDtor(3);
 }
