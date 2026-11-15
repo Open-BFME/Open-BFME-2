@@ -101994,3 +101994,10 @@ $L19357,,0x0077F774,14,Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,m
 ??0Rva005E136CList28@@QAE@XZ,,0x001F81BF,19,Code/GameEngine/Source/Common/Rva005E10A8Method.cpp,matched,
 ?Delete@DebugIONet@@UAEXXZ,,0x000386C0,20,Code/Libraries/Source/debug/debug_io_net.cpp,matched,
 ?Delete@DebugIOCon@@UAEXXZ,,0x000386C0,20,Code/Libraries/Source/debug/debug_io_con.cpp,matched,
+?slot04@Rva005E9F92@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 1-byte body; fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
+?slot08@Rva005E9F92@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 1-byte body; fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
+?slot0C@Rva005E9F92@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 1-byte body; fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
+?slot10@Rva005E9F92@@UAEXHH@Z,,0x0050B238,3,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 3-byte body; fold-proof=Code/GameEngine/Source/Common/System/XferSkipBadBlock.cpp
+?slot14@Rva005E9F92@@UAEXHH@Z,,0x0050B238,3,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 3-byte body; fold-proof=Code/GameEngine/Source/Common/System/XferSkipBadBlock.cpp
+?slot18@Rva005E9F92@@UAEXHH@Z,,0x0050B238,3,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 3-byte body; fold-proof=Code/GameEngine/Source/Common/System/XferSkipBadBlock.cpp
+?slot1C@Rva005E9F92@@UAE_NXZ,,0x0047A699,3,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp,matched,ICF alias: a slot of Rva005E9F92's own retail vftable holds the folded 3-byte body; fold-proof=Code/GameEngine/Source/Common/System/Xfer.cpp

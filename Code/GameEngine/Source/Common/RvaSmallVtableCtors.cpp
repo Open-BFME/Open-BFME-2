@@ -1342,6 +1342,13 @@ class Rva005E9F92
 public:
 	Rva005E9F92(void *payload);
 	virtual ~Rva005E9F92() {}
+	virtual void slot04() {}
+	virtual void slot08() {}
+	virtual void slot0C() {}
+	virtual void slot10(int, int) {}
+	virtual void slot14(int, int) {}
+	virtual void slot18(int, int) {}
+	virtual bool slot1C() { return false; }
 private:
 	void *m_04;
 };
