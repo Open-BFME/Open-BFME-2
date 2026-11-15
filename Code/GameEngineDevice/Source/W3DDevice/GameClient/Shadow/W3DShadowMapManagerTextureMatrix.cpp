@@ -9,6 +9,7 @@
 // WWMath's Vector4 / Matrix4 / Matrix3D, only as far as this body inlines
 // them (fxshadernamespacesas.cpp's views).
 #include "matrix3d.h"
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 // WWMath matrix3d.h's inline Set(position) and Scale(Vector3), kept as file-local bodies.
