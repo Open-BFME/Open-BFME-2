@@ -9,19 +9,14 @@ public:
 	~Rva0044BA4E();
 };
 
-class Rva0044BE39Base
-{
-public:
-	__forceinline ~Rva0044BE39Base() {}
-	virtual void keep() {}
-};
+#include "../../Include/Common/ImplBase.h"
+typedef ImplBase Rva0044BE39Base;
 
 class __declspec(novtable) Rva0044BE39 : public Rva0044BE39Base
 {
 public:
 	virtual ~Rva0044BE39();
 private:
-	int m_pad04;
 	Rva0044BA4E m_08; // +0x08
 };
 
