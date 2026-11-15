@@ -52,9 +52,9 @@ class Rva005E5A38 : public Rva005CBA04
 {
 public:
 	Rva005E5A38(int arg);
-	// Empty: retail's vtable slot 0 (deleting dtor 0x005E5A66) calls 0x00576FCE,
-	// one jump to the base dtor 0x005CB9F3.
-	virtual ~Rva005E5A38() {}
+	// No destructor is declared: retail's vtable slot 0 (deleting dtor 0x005E5A66) calls 0x00576FCE,
+	// one jump to the base dtor 0x005CB9F3. An explicit empty destructor
+	// resets the vptr before the jump; the implicit one is the bare jump.
 private:
 	int m_08;
 };
