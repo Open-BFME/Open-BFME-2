@@ -16,15 +16,13 @@ struct ThingKindBytes;
 enum ObjectStatusTypes { OBJECT_STATUS_PLACEHOLDER = 0 };
 typedef bool Bool;
 typedef float Real;
-class Object {
+#include "../../Common/Thing/thing.h"
+
+class Object : public Thing {
 public:
  bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*)const;
  bool testStatus(ObjectStatusTypes) const;
  bool getWorldspaceBestContactPoint(Coord3D*,const Coord3D*,const char*,int,int,bool) const;
- char m_pad[4];
- ThingKindBytes *m_template; // +0x04
- char m_pad08[0x38-0x08];
- Coord3D m_position; // +0x38
 };
 class Rva002CAAFA {
 public:bool rva002CAAFA(Object *victim,Coord3D *out);
@@ -92,17 +90,17 @@ TargetCoord WeaponTemplate::adjustTargetPositionOnVictim(Object *source, Object 
 
 	if (flag)
 	{
-		victim->getWorldspaceBestContactPoint(&pos, &source->m_position, 0, 3,
+		victim->getWorldspaceBestContactPoint(&pos, &source->m_cachedPos, 0, 3,
 			GetGameLogicRandomValue(0, 12345678,
 			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp",
 			0x6D5), false);
 	}
 	else
 	{
-		pos = victim->m_position;
+		pos = victim->m_cachedPos;
 		Real offset = ((Rva0073A1C0FloatField *)((char *)victim + 0xa8))->get();
-		if ((victim->m_template->m_kindOf[0] & 0x80) != 0 &&
-			(source->m_template->m_kindOf[1] & 0x08) == 0 &&
+		if ((((ThingKindBytes *)victim->m_template)->m_kindOf[0] & 0x80) != 0 &&
+			(((ThingKindBytes *)source->m_template)->m_kindOf[1] & 0x08) == 0 &&
 			!source->testStatus((ObjectStatusTypes)0x55) &&
 			victim->testStatus((ObjectStatusTypes)0x55))
 		{
