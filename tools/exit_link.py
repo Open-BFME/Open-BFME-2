@@ -874,6 +874,28 @@ def run_diagnostic(rows, stub_seed=None):
         OUT = measured_out
 
 
+def run_local_base(rows):
+    """Build the verified reference population in a fresh local fork directory.
+
+    This is a baseline for modification work, not a hosted measurement and not
+    yet a link of modern replacements. Keep the same proof checks as run_link.
+    Like run_diagnostic, this entry point owns the process's output scope.
+    """
+    from build_variant import variant_paths
+    import uuid
+    global OUT
+    parent = variant_paths(ROOT, "modern")["link"]
+    parent.mkdir(parents=True, exist_ok=True)
+    folder = parent / ("base-" + uuid.uuid4().hex)
+    folder.mkdir()  # A new directory: no old image or user file can be removed.
+    previous = OUT
+    OUT = folder
+    try:
+        return run_link(rows, native_output=folder)
+    finally:
+        OUT = previous
+
+
 ERROR_LINE = re.compile(r"^(?P<object>\S+\.(?:obj|exp)|LINK) : (?:fatal )?(?P<severity>error|warning) "
                         r"(?P<code>LNK\d+): (?P<text>.*)$")
 UNRESOLVED = census.UNRESOLVED
@@ -1279,10 +1301,19 @@ def check_data_rows():
                          f"e.g. {stale[0].relative_to(ROOT)}; prepare with python3 tools/link_census.py --build (or ./build.sh)")
 
 
-def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
+def run_link(rows, diagnostic=False, stub_seed=None, *, local=False, native_output=None):
     if local and (diagnostic or stub_seed is not None):
         raise SystemExit("exit_link: --local is only for a real --link, never --diagnostic or --stub-seed")
-    if sys.platform.startswith("win") and not os.environ.get("GITHUB_ACTIONS") and not local:
+    if native_output is not None:
+        from build_variant import variant_paths
+        parent = variant_paths(ROOT, "modern")["link"]
+        path = Path(native_output)
+        if (path != OUT or path.parent != parent or path.resolve() != path
+                or not re.fullmatch(r"base-[0-9a-f]{32}", path.name)
+                or diagnostic or stub_seed is not None):
+            raise ValueError("native link requires an isolated modern base directory")
+    if (native_output is None and not local and sys.platform.startswith("win")
+            and not os.environ.get("GITHUB_ACTIONS")):
         raise SystemExit("exit_link: --link runs on a sandbox (Wine + MSVC 7.1) or a hosted runner only; "
                          "use --plan or explicitly pass --link --local on this PC")
     if diagnostic and OUT.name != "diagnostic_link":
@@ -1398,8 +1429,14 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
         detail, classes, duplicates, duplicate_classes, still_wanted = {}, {}, [], {}, []
     image_receipt(image, diagnostic, stubbed, proof=proof, vtables=setup.get("vtable_bridge"),
                   seed=seed_summary(seed), execution=execution)
+    if native_output is not None and image.exists():
+        path = image.parent / "image_receipt.json"
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+        receipt.update(authoritative=False, variant="modern-base", local_fork=True)
+        path.write_text(json.dumps(receipt, indent=1) + "\n", encoding="utf-8")
     record = {
-        "mode": "diagnostic-link" if diagnostic else "exit-link",
+        "mode": "local-base-link" if native_output is not None else
+                "diagnostic-link" if diagnostic else "exit-link",
         "execution": execution,
         "records": False,
         "when": census.utc_now(),
@@ -1475,7 +1512,7 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
     print(f"exit_link: {OUT.relative_to(ROOT).as_posix()}/result.json")
     if stopped:
         return 1
-    return int(code != 0 or not image_written) if diagnostic else 0
+    return int(code != 0 or not image_written) if diagnostic or native_output is not None else 0
 
 
 # ---------------------------------------------------------------- plan/report

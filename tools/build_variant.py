@@ -70,9 +70,16 @@ def main(argv=None, *, root=ROOT):
                         help="print validated output layout without compiling or writing")
     action.add_argument("--compile", nargs="+", metavar="SOURCE",
                         help="compile explicit Code sources with modern definitions; does not link")
+    action.add_argument("--link-base", action="store_true",
+                        help="link the verified reference objects as an isolated local baseline")
     args = parser.parse_args(argv)
     try:
         paths = variant_paths(root, "modern")
+        if args.link_base:
+            import exit_link
+            if Path(root).resolve() != exit_link.ROOT.resolve():
+                raise ValueError("linker root differs from variant root")
+            return exit_link.run_local_base(exit_link.census.ledger())
         objects = compile_sources(args.compile, root=root) if args.compile else []
     except (OSError, RuntimeError, ValueError) as error:
         parser.error(str(error))
