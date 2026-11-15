@@ -9,6 +9,8 @@
 // recompiled /Os). Only the placed body is defined here; the donor's other
 // definition (the destructor) is omitted.
 //
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
+
 class Gen0078D1C0Base
 {
 public:
@@ -19,14 +21,6 @@ public:
 // (??1Render2DSentenceClass). In BFME 2 the embedded object's destructor is the
 // rowed ??1Rva00104DB0 0x00104DB0, declared out of line so this unit's unwind
 // calls it instead of emitting an inline copy.
-class Render2DSentenceClass
-{
-public:
-	virtual ~Render2DSentenceClass();
-
-private:
-	char m_unreconstructed[ 0xC8 ];
-};
 
 class Rva00104DB0 : public Gen0078D1C0Base
 {
