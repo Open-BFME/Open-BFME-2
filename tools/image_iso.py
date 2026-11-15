@@ -1265,15 +1265,14 @@ class Checker:
             if end > p["extent"]:
                 self.defect("storage_undersized", e["rva"], p,
                             f"{e['evidence']}; access ends +{end}, winning extent {p['extent']}")
-            # a split needs the access to touch the other global's bytes: one starting inside the accessed bytes,
-            # or one starting between the base and the access whose extent reaches into it
+            # a split needs the access to touch the other global's bytes: its start inside the accessed bytes (a
+            # linked extent is not retail's, so one starting before the access proves nothing)
             first = bisect.bisect_right(self.retail_addresses, e["rva"])
             last = bisect.bisect_left(self.retail_addresses, e["rva"] + end)
             for target in self.retail_addresses[first:last]:
                 offset = target - e["rva"]
                 for q in self.by_retail[target]:
-                    reaches = offset >= e["offset"] or (q["extent"] is not None and offset + q["extent"] > e["offset"])
-                    if reaches and q["rva"] != p["rva"] + offset:
+                    if offset >= e["offset"] and q["rva"] != p["rva"] + offset:
                         self.defect("storage_split", target, q,
                                     f"{e['evidence']}; field of {e['name']} +{offset} at separate linked address")
 
@@ -1381,9 +1380,11 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
     target (straight_line), either:
     - one that never writes the register, every call in it to a target that preserves it too (up to three deep); or
     - one exact save and restore: its first instruction `push reg` and its last before the ret `pop reg`, both the
-      full 32-bit register, with the stack depth tracked exactly between them (push, pop, add/sub esp by an
-      immediate, a call to a straight-line target whose `ret n` is known) back to the saved slot at the pop; no
-      write in between reaches the saved slot or goes through EBP, and no `leave` or other write to ESP.
+      full 32-bit register, with the stack depth tracked exactly between them (push, pop into a register other
+      than ESP, add/sub esp by an immediate) back to the saved slot at the pop; no call in between (a callee can
+      reach the caller's frame through [esp+n]); every memory write in between based on ESP at the tracked depth and
+      clear of the saved slot (a write through any other register may alias the stack); no `leave` or other write
+      to ESP.
     Anything else (a branch, an extent that falls through, a call before the save, an unknown callee) is False."""
     key = (target, family)
     if key in memo:
@@ -1424,19 +1425,14 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
             depth_bytes += 4 if not ops or ops[0].size in (0, 4) else ops[0].size
             continue
         if ins.mnemonic == "pop":
-            depth_bytes -= 4 if not ops or ops[0].size in (0, 4) else ops[0].size
+            if not ops or ops[0].type != X86_OP_REG or md.reg_name(ops[0].reg) in ("esp", "sp"):
+                return False                            # `pop [esp]` writes the slot; `pop esp` loses the depth
+            depth_bytes -= ops[0].size or 4
             if depth_bytes < 0:
                 return False
             continue
         if ins.group(capstone.CS_GRP_CALL):
-            callee = callee_of(ins)
-            pops = straight_line(retail, md, callee, sizes) if callee is not None else None
-            if pops is None:
-                return False
-            depth_bytes -= pops[1]
-            if depth_bytes < 0:
-                return False
-            continue
+            return False                                # a callee may write the saved slot through [esp+n]
         if ins.mnemonic in ("add", "sub") and len(ops) == 2 and ops[0].type == X86_OP_REG \
                 and md.reg_name(ops[0].reg) == "esp" and ops[1].type == X86_OP_IMM:
             depth_bytes += -ops[1].imm if ins.mnemonic == "add" else ops[1].imm
@@ -1447,10 +1443,9 @@ def preserves(retail, md, target, family, sizes, memo, depth=0):
             return False                                # leave, mov esp, ...: the depth is no longer known
         for op in ops:
             if op.type == X86_OP_MEM and op.access & capstone.CS_AC_WRITE:
-                base = md.reg_name(op.mem.base)
-                if base in ("ebp", "bp") or op.mem.index:
-                    return False
-                if base == "esp" and op.mem.disp < depth_bytes + 4 and op.mem.disp + op.size > depth_bytes:
+                if md.reg_name(op.mem.base) != "esp" or op.mem.index:
+                    return False                        # any other base (EBP, a copy of ESP, none) may alias the slot
+                if op.mem.disp < depth_bytes + 4 and op.mem.disp + op.size > depth_bytes:
                     return False                        # it reaches the saved slot
     if depth_bytes != 0:
         return False

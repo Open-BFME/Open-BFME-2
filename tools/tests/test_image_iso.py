@@ -2926,12 +2926,36 @@ def test_r2_an_extent_that_falls_through_proves_nothing():
     assert evidence(c, functions=functions) == []
 
 
-def test_r2_a_save_with_a_balanced_call_between_is_kept():
-    # push esi; push 1; call 0x400 (ret 4); mov esi, ...; pop esi; ret: the depth is back at the slot
+def test_r2_a_balanced_save_with_stack_locals_is_kept():
+    # push esi; push 1; mov [esp], 2 (the local, not the slot); add esp, 4; mov esi, ...; pop esi; ret
     c = checker([], {})
-    helper = b"\x56\x6a\x01" + call_to(0x400, 0x303) + b"\xbe\x00\x30\x40\x00\x5e\xc3"
-    member_call(c, SAVED_CALL, helper=helper, extra=((0x400, b"\xc2\x04\x00"),))
+    helper = b"\x56\x6a\x01\xc7\x04\x24\x02\x00\x00\x00\x83\xc4\x04\xbe\x00\x30\x40\x00\x5e\xc3"
+    member_call(c, SAVED_CALL, helper=helper)
     assert [(e["offset"], e["width"]) for e in evidence(c)] == [(0x68, 4)]
+
+
+# Sol r3: nothing between the save and the restore may reach the saved slot
+
+@pytest.mark.parametrize("helper,extra", [
+    (b"\x56\x50\x8f\x04\x24\xbe\x00\x30\x40\x00\x5e\xc3", ()),                 # pop [esp] overwrites the slot
+    (b"\x56\x50\x5c\xbe\x00\x30\x40\x00\x5e\xc3", ()),                         # pop esp loses the depth
+    # a nested callee writes the slot through [esp+4]
+    (b"\x56" + call_to(0x400, 0x301) + b"\xbe\x00\x30\x40\x00\x5e\xc3",
+     ((0x400, b"\xc7\x44\x24\x04\x00\x30\x40\x00\xc3"),)),
+    (b"\x56\x89\xe0\xc7\x00\x00\x30\x40\x00\xbe\x00\x30\x40\x00\x5e\xc3", ()), # mov eax, esp; mov [eax], ...
+])
+def test_r3_nothing_may_reach_the_saved_slot(helper, extra):
+    c = checker([], {})
+    member_call(c, SAVED_CALL, helper=helper, extra=extra)
+    assert evidence(c) == []
+
+
+def test_r3_a_split_needs_the_other_global_to_start_inside_the_access():
+    # retail other at +4..+8 is untouched by the access at +8..+12, however far its linked extent reaches
+    c = checker([public("object", 0x2000, 12), public("other", 0x3000, 8)], {"object": {0x2100}, "other": {0x2104}})
+    member_call(c, b"\x8b\x41\x08\xc3")
+    c.storage(evidence(c, [row("object", 0x2100, 12)]))
+    assert c.counts["storage_split"] == 0
 
 
 def test_r2_sixteen_bit_addressing_is_no_access():
