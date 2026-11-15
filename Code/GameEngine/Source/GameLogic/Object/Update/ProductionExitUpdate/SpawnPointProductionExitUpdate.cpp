@@ -100,9 +100,18 @@ enum UpdateSleepTime
 class SpawnB4
 {
 public:
-	virtual void spawnAnchor4() {}
+	virtual void spawnAnchor4() = 0;
 	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
 	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14(int) {}
+	virtual bool slot18() { return false; }
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() {}
 };
 
 class SpawnPointProductionExitUpdate : public UpdateModule, public SpawnB4
