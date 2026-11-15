@@ -625,6 +625,8 @@ def vtable_slot_targets(obj, known=()):
                 if not 4 <= offset < strings or b"\0" not in data[end + offset:end + strings]:
                     raise ValueError("invalid symbol name")
             i += 1 + aux
+        ranges = [(0, 20 + count * 40, "headers"),
+                  (symptr, end + strings, "symbols/strings")]
         for k in range(count):
             h = 20 + k * 40
             size, raw, rel = struct.unpack_from("<III", data, h + 16)
@@ -639,6 +641,20 @@ def vtable_slot_targets(obj, known=()):
                 raise ValueError("nonempty initialized section has no raw data")
             if (raw and raw + size > len(data)) or (nrel and (not rel or rel + 10 * nrel > len(data))):
                 raise ValueError("truncated section or relocations")
+            if size and raw:
+                ranges.append((raw, raw + size, f"section {k + 1} payload"))
+            if nrel:
+                ranges.append((rel, rel + 10 * nrel, f"section {k + 1} relocations"))
+            lines = struct.unpack_from("<I", data, h + 28)[0]
+            nlines = struct.unpack_from("<H", data, h + 34)[0]
+            if nlines:
+                if not lines or lines + 6 * nlines > len(data):
+                    raise ValueError("truncated line-number metadata")
+                ranges.append((lines, lines + 6 * nlines, f"section {k + 1} line numbers"))
+        ordered = sorted(ranges)
+        for left, right in zip(ordered, ordered[1:]):
+            if right[0] < left[1]:
+                raise ValueError(f"overlapping COFF ranges: {left[2]} and {right[2]}")
         sections, symbols = link_cycle.parse_coff(data)
         import coffar
         for y in symbols.values():
@@ -674,7 +690,17 @@ def vtable_slot_targets(obj, known=()):
                 if target not in symbols:
                     raise ValueError("weak default names no symbol")
                 weak_defaults[y.i] = target
-        aliases = link_census._alternate_names(data)
+        # The general reader intentionally chooses the first directive. A
+        # gate proof must instead retain conflicts and refuse to guess a winner.
+        alias_targets = collections.defaultdict(set)
+        for section in sections:
+            if section.name == ".drectve":
+                text = data[section.ptr:section.ptr + section.size].decode("latin-1")
+                for name, target in link_census.DIRECTIVE_ALTERNATENAME.findall(text):
+                    alias_targets[name.strip('"')].add(target.strip('"'))
+        if any(len(targets) != 1 for targets in alias_targets.values()):
+            raise ValueError("conflicting same-object alternate-name targets")
+        aliases = {name: next(iter(targets)) for name, targets in alias_targets.items()}
         externals = collections.defaultdict(list)
         for y in symbols.values():
             if y.cls in (2, 105):

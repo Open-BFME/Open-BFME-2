@@ -367,3 +367,48 @@ def test_r3_weak_search_characteristic_requires_modeled_semantics(tmp_path, monk
     p.write_bytes(raw)
     monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
     assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == (0 if search in (1, 2, 3) else 2)
+
+
+
+@pytest.mark.parametrize("aliased", [False, True])
+@pytest.mark.parametrize("overlap", ["headers", "symbols", "strings", "relocations"])
+def test_r4_section_payload_must_not_overlap_metadata(tmp_path, monkeypatch, aliased, overlap):
+    if aliased:
+        p = alias_object(tmp_path / "unit.obj", " /alternatename:W=R ")
+    else:
+        p = object_file(tmp_path / "unit.obj", refs=("W",), own=("W",))
+    raw = bytearray(p.read_bytes())
+    symptr, nsyms = struct.unpack_from("<II", raw, 8)
+    pointers = dict(headers=1, symbols=symptr, strings=symptr + 18 * nsyms,
+                    relocations=struct.unpack_from("<I", raw, 20 + 24)[0])
+    struct.pack_into("<I", raw, 20 + 40 + 20, pointers[overlap])
+    p.write_bytes(raw)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == 2
+
+
+def test_r4_line_number_metadata_may_not_cover_section_payload(tmp_path, monkeypatch):
+    p = object_file(tmp_path / "unit.obj", refs=("W",), own=("W",))
+    raw = bytearray(p.read_bytes())
+    payload = struct.unpack_from("<I", raw, 20 + 20)[0]
+    struct.pack_into("<I", raw, 20 + 28, payload)
+    struct.pack_into("<H", raw, 20 + 34, 1)
+    p.write_bytes(raw)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == 2
+
+
+@pytest.mark.parametrize("directive", [
+    " /alternatename:W=R /alternatename:W=missing ",
+    " /alternatename:W=missing /alternatename:W=R ",
+])
+def test_r4_conflicting_aliases_are_inconclusive_in_either_order(tmp_path, monkeypatch, directive):
+    p = alias_object(tmp_path / "unit.obj", directive)
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == 2
+
+
+def test_r4_identical_repeated_aliases_remain_clean(tmp_path, monkeypatch):
+    p = alias_object(tmp_path / "unit.obj", " /alternatename:W=R /alternatename:W=R ")
+    monkeypatch.setattr(A, "registered_slot_targets", lambda ref: set())
+    assert A.audit_vtable_targets(saved_index(), [p], "tip", True) == 0
