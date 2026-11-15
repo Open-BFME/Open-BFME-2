@@ -11156,7 +11156,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateMo
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdate.cpp	StructureCollapseUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyTruckAIUpdateCtor.cpp	1HordeDispatchSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp	1TeleportToCasterSpecialPowerModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UntamedAllegianceSpecialPowerModuleDataCtor.cpp	1UntamedAllegianceSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofModuleDataDtor.cpp	1StatusBitsUpgradeModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataDtor.cpp	0UpgradeModuleData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	WeaponSet::clearLeechRangeModeForAllWeapons	1

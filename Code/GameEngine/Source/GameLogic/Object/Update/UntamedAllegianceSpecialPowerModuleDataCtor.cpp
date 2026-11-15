@@ -12,7 +12,6 @@ class UntamedAllegianceSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	UntamedAllegianceSpecialPowerModuleData();
-	virtual ~UntamedAllegianceSpecialPowerModuleData();
 };
 
 UntamedAllegianceSpecialPowerModuleData::UntamedAllegianceSpecialPowerModuleData()
@@ -20,7 +19,6 @@ UntamedAllegianceSpecialPowerModuleData::UntamedAllegianceSpecialPowerModuleData
 {
 }
 
-// ??1UntamedAllegianceSpecialPowerModuleData@@UAE@XZ present-unmatched
-UntamedAllegianceSpecialPowerModuleData::~UntamedAllegianceSpecialPowerModuleData()
-{
-}
+// The destructor is implicit: retail's deleting destructor 0x004C2A84 (slot 0
+// of the table 0x00C5E7A8) calls 0x004C8AB0, a bare tail jump to
+// ??1SpecialPowerModuleData with no store of this class's table.
