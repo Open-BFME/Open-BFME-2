@@ -13,6 +13,10 @@
 // placement-copy callers. Application names and scalar meanings are unknown.
 // String semantics follow BFME1 AsciiString/UnicodeString: the inline derived
 // copies call StringBase<char>0x365F0 or StringBase<unsigned short>0x37050.
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 #include <memory>
 #include <vector>
 #include "ascii_string.h"
@@ -104,4 +108,12 @@ typedef char BfmeSaveSizeCheck[sizeof(BfmeSubobject0022CE19)==0xDE8 ? 1 : -1];
 typedef char BfmeSaveOffsetsCheck[(offsetof(BfmeSubobject0022CE19,range38)==0x38 && offsetof(BfmeSubobject0022CE19,object44)==0x44) ? 1 : -1];
 BfmeSubobject0022CE19::BfmeSubobject0022CE19() : word24(0),word28(0) {
  object44.rva002DBA6A();
+}
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of Rva0022CE19SnapshotBase, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_Rva0022CE19SnapshotBase> absent-from-retail
+void bfmeVectorDeleteAnchor_Rva0022CE19SnapshotBase(Rva0022CE19SnapshotBase *p)
+{
+	p->Rva0022CE19SnapshotBase::__vecDelDtor(3);
 }
