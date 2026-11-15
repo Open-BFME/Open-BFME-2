@@ -11,7 +11,7 @@
 typedef int Int;
 
 // LINK: views of the rowed owners these forwarders reach (respelled from the address-named targets).
-template <class T> class StringBase { public: void set(const T *); };
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 class W3DHordeModelDrawModuleData { public: int rva00079167(); int rva00079186(int); };
 class DataChunkInput; struct DataChunkInfo;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"

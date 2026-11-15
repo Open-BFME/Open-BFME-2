@@ -17,12 +17,7 @@ public:
 	virtual void slot5C(int x);
 };
 
-template <typename T>
-class StringBase
-{
-public:
-	bool isEmpty() const;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva00272895DrawModule
 {

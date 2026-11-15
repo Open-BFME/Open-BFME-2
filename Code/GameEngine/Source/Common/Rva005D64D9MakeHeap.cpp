@@ -4,14 +4,7 @@
 // make_heap for 12B Rva005D5A7E via rowed AdjustHeap 0x005D5E8A. Evidence:
 // caller 0x005D6697, count via idiv 0xC, parent via sar, movsd x3 copies.
 
-template <typename T>
-class StringBase
-{
-public:
-    int compareNoCase(const StringBase &other) const;
-private:
-    void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../Include/Common/Rva005D5A7EInner.h"
 

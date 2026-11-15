@@ -3,7 +3,7 @@
 // ?rva00058D4A@Rva00058D4A@@QAEPAUPair00058D4A@@PAU2@ABUBfmeStringRecord00054F57@@@Z @0x00058D4A 124B: hashtable find-or-create for BfmeStringRecord00054F57; bucketIndex plus chain compare plus pinned New method prepend plus out pair; caller 0x0005A105 in 0x0005A0EE; callees rowed bucketIndex compare plus pinned rva00056E8C ICF twin of free New.
 class AsciiString;
 #include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
-template <class T> class StringBase { public: int compare(const StringBase &o) const; };
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 struct BfmeStringRecord00054F57 { void *m_a; void *m_b; };
 struct HashNode00056E8C { HashNode00056E8C *m_next; BfmeStringRecord00054F57 m_val; };
 struct Pair00058D4A { HashNode00056E8C *m_node; void *m_table; bool m_new; };

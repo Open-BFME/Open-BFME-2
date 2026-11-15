@@ -1,14 +1,6 @@
 // cl: /Ob0
 
-template <typename T>
-class StringBase
-{
-public:
-	void set(const StringBase<T> &other);
-
-private:
-	void *m_item;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva00630D60
 {

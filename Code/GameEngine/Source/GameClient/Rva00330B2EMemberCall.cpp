@@ -119,14 +119,7 @@ unsigned char Rva003081FB::rva003081FB()
 // StringBase at +0x80 set from the empty-string literal at 0x00BBAC1C via
 // rowed set 0x000055F5.
 // then byte at +0x88 set to 1. Same page/flags as siblings.
-template <typename T>
-class StringBase
-{
-public:
-	void set(const char *s);
-private:
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva003081DF
 {

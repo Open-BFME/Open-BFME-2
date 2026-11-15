@@ -16,11 +16,7 @@
 // Names are address-derived; identities are not established.
 #include "BattlePromptCallbackPayloadView.h"
 
-template <class T> class StringBase
-{
-public:
-	bool isEmpty() const;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva005FB22B;
 RvaCloneResult<Rva005FB22B> Rva005FB29ACreate(const void *arg);

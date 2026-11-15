@@ -9,19 +9,7 @@
 
 #include <stdio.h>
 
-template <typename T> class StringBase
-{
-	struct Header
-	{
-		int refCount;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-	Header *m_data;
-public:
-	void set(const T *str);
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class File
 {

@@ -13,7 +13,7 @@
 #include <vector>
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-template <class CHAR> class StringBase { void *m_data; public: bool isEmpty() const; };
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 struct Rva003F44A9Element { char m_pad[24]; StringBase<char> m_str; };
 class Rva003F44A9 {
     char m_pad0[4];

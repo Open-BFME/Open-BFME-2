@@ -21,27 +21,7 @@
 #include <string.h>
 #pragma intrinsic(memcmp)
 
-template <class T>
-class StringBase
-{
-private:
-	struct Header
-	{
-		int m_bfmeRefCount;
-		unsigned short m_bfmeLength;
-		unsigned short m_bfmeCapacity;
-		T m_bfmeData[1];
-	};
-
-	Header *m_bfmeHeader;
-
-public:
-	// Out of line: retail calls the shared StringBase<char>::compare at
-    // 0x000069D6; an inline body here would emit a private copy of it.
-    int compare(const StringBase<T> &other) const;
-
-	friend struct S4SortElem20;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class BfmeSortElem20Tail
 {

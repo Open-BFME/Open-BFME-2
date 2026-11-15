@@ -132,11 +132,7 @@ void Rva0057590E::rva0057590E(int value)
 // 0x005CD9FF); both take the base, the word, the three getter values of the
 // source's +0x04 field (rowed 0x005ED28A, 0x00328A83, 0x00574AAC) and the
 // value. Identity of the class and the value remains unresolved.
-template <class T> class StringBase
-{
-public:
-	bool isEmpty() const;
-};
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva005757F9Value
 {

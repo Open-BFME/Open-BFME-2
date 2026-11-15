@@ -9,14 +9,7 @@
 // honest address-derived names.
 #include <stdlib.h>
 
-template <typename T>
-class StringBase
-{
-public:
-	void clear();
-private:
-	void *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 struct Rva004E1F97Node
 {
 	char m_pad00[8];

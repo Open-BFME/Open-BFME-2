@@ -6,15 +6,7 @@
 // trailing byte at +0x21, which pushes the n<=0 early exit six bytes down
 // (true size 138).
 
-template <typename CharType>
-class StringBase
-{
-public:
-	void set(const StringBase<CharType> &other);
-
-private:
-	void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct BfmeCoordAA
 {

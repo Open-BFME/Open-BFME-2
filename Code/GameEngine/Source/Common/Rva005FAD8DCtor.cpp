@@ -19,11 +19,7 @@
 // established.
 #include "BattlePromptCallbackPayloadView.h"
 
-template <class T> class StringBase
-{
-public:
-	bool isEmpty() const;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva005FAAA1
 {

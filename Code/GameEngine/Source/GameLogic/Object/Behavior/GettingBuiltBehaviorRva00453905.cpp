@@ -62,10 +62,7 @@ public:
     unsigned char pad80[0x10c-0x80]; GettingBuiltCallbackConditions conditions;
     unsigned char pad158[0x280-0x158]; float construction;
 };
-template<class T> class StringBase {
-public: bool isEmpty() const;
-private: T *data;
-};
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 struct GettingBuiltCallbackData { unsigned char pad[0x14]; StringBase<char> workerName; };
 
 // Same three 24-byte EventParameter records as the verified ctor B6D8B.
