@@ -380,12 +380,12 @@ static inline unsigned char thingTemplateKindByte(const ThingTemplate *tmpl, int
 #include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
-class Object
+class Object : public Thing
 {
   public:
     const ThingTemplate *getTemplate() const
     {
-        return m_template;
+        return *(const ThingTemplate *volatile *)&m_template;
     }
     ObjectID getID() const
     {
@@ -412,11 +412,7 @@ class Object
     bool rva0028C15E(int, float *, int, int);
 
   public:
-    void *m_vtbl;
-    const ThingTemplate *volatile m_template;
-    Matrix3D m_transform; // +0x08
-    Coord3D pos;
-    char m_pad044[0x74 - 0x44];
+    char m_pad060[0x74 - 0x60];
     ObjectID m_id; // +0x74
     char m_pad078[0x250 - 0x78];
     WeaponContain *contain250;
@@ -626,8 +622,8 @@ static Coord3D getLinearPosition(const std::vector<WeaponLinearTarget> &position
     rotated.x = cosine * px - sine * py;
     rotated.y = sine * px + cosine * py;
     Coord3D position;
-    position.x = object->pos.x;
-    position.y = object->pos.y;
+    position.x = object->m_cachedPos.x;
+    position.y = object->m_cachedPos.y;
     position.x += rotated.x;
     position.y += rotated.y;
     float x = position.x;
@@ -722,14 +718,14 @@ Bool WeaponTemplate::shouldProjectileCollideWith(
 void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, int word14, Object *victim, int word1C, const Coord3D *position, const WeaponBonus &, bool ignore, Weapon *weapon, int word30)
 {
     if (!source || (!victim && !position)) return;
-    const Coord3D *sourcePos=&source->pos;
+    const Coord3D *sourcePos=&source->m_cachedPos;
     {unsigned irB=(unsigned)(source->m_ai); unsigned irS=0; irS+=(irB!=(unsigned)(source->m_ai)); }
  float distance;
     Coord3D shifted;
     TBridgeAttackInfo bridge;
     if (victim)
     {
-        position = &victim->pos;
+        position = &victim->m_cachedPos;
         Coord3D offset;
         const AIUpdateInterface *ai = victim->getAI();
         if (ai && ai->vslot128(&offset))
@@ -761,7 +757,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
     if (!ignore && weapon->rangeUntil <= TheGameLogic->getFrame())
     {
         float range =
-            ((Rva002C9B80Owner *)weapon)->rva002C9B80(source, position->z - source->pos.z);
+            ((Rva002C9B80Owner *)weapon)->rva002C9B80(source, position->z - source->m_cachedPos.z);
         if (distance > range * range &&
             !weapon->isWithinAttackRange(source, sourcePos, victim, position, 0.f, true))
             return;
@@ -787,7 +783,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
         float heading;
         if(pitch != 0.f)
         {
-            heading=(victim ? (atan2(position->y - source->pos.y, position->x - source->pos.x)) : (atan2(position->y - source->pos.y, position->x - source->pos.x)));
+            heading=(victim ? (atan2(position->y - source->m_cachedPos.y, position->x - source->m_cachedPos.x)) : (atan2(position->y - source->m_cachedPos.y, position->x - source->m_cachedPos.x)));
         }
         else
             heading=0.f;
@@ -815,7 +811,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
         position = sourcePos;
         victim = 0;
     }
-    const Coord3D *aim = position ? position : &victim->pos;
+    const Coord3D *aim = position ? position : &victim->m_cachedPos;
     typedef Coord3D (WeaponTemplate::*ScatterFn)(const Object *, const Object *,
                                                  WeaponScatterPoint);
     ScatterFn scatterFn = reinterpret_cast<ScatterFn>(&WeaponTemplate::bfmeCalcScatterTargetPos);
@@ -828,7 +824,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
     volatile bool scatter = false;
     Pathfinder *pathfinder;
     if (m_infantryInaccuracyDist > 0.f && victim && (thingTemplateKindByte(victim->getTemplate(), 1) & 1) &&
-        (!m_field3D || !(pathfinder=TheAI->pathfinder, pathfinder->IsPointOnWall((int)&victim->pos, false))))
+        (!m_field3D || !(pathfinder=TheAI->pathfinder, pathfinder->IsPointOnWall((int)&victim->m_cachedPos, false))))
         scatter = true;
     char *filename =
         "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon."
@@ -887,7 +883,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
         {
             WeaponContain *contain=victim->contain250;
             if(contain) {
-                Object *inside=contain->sF4(&victim->pos);
+                Object *inside=contain->sF4(&victim->m_cachedPos);
                 if(inside) victim=inside;
             }
         }
@@ -979,7 +975,7 @@ bool Weapon::privateFireWeapon(const Object *sourceObj, const Coord3D *sourcePos
             // If I have a set scatter pattern, I need to offset the target by a random pick from that pattern
             if (victimObj)
             {
-                victimPos = &victimObj->pos;
+                victimPos = &victimObj->m_cachedPos;
                 victimObj = 0;
             }
             Coord3D targetPos = *victimPos; // need to copy, as this pointer is actually inside somebody potentially
