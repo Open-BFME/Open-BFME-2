@@ -26,7 +26,8 @@ typedef bool Bool;
 typedef float Real;
 enum StateExitType
 {
-	EXIT_NORMAL = 0
+	EXIT_NORMAL = 0,
+	EXIT_RESET = 1
 };
 enum StateReturnType
 {
