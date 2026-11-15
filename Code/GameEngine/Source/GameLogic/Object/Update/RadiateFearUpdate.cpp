@@ -145,6 +145,7 @@ public:
 	unsigned char m_438;	// +0x438
 };
 class RadiateFearUpdateModuleData;
+struct UpgradeMaskType;
 class RadiateFearUpdate : public UpdateModule, public UpgradeMux
 {
 public:
@@ -165,6 +166,10 @@ public:
 	// BehaviorModuleInterface table 0x00C49F78 (+0x0C): the receiver converted to the
 	// class's own interface, the null-preserving casts retail folds across the module family.
 	virtual UpgradeModuleInterface *getUpgrade();			// slot 10: retail 0x004543A9, the +0x20 UpgradeMux
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
+protected:
+	virtual void performUpgradeFX();
 };
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
