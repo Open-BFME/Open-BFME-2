@@ -1636,6 +1636,7 @@ alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getL
 alternatename	Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp	?Version1@Rva001E70C2XferView@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp	??0Pivot24@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp	??0VersionBlockEntry@@QAE@ABU0@@Z	1
+alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	??1ObjectModule@@UAE@XZ	1	allow=e876492f48744ffecde8e653eb2912394e7e33b0
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	?f1@Rva00494A97_S1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp	??1Rva000C2980@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp	??1Rva000D1BA6@@UAE@XZ	1
@@ -1720,6 +1721,7 @@ alternatename	Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp	?v0@Player@
 alternatename	Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp	?v1@Player@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp	?v2@Player@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/PlayerDestructor.cpp	?xfer@Player@@UAEXPAVXfer@@@Z	1
+alternatename	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z	1	allow=2fef9e8c747afedc11c18c6ae4b0f3f30e74dc72
 alternatename	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	?_M_new_node@?$hashtable@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBHURva001FDC0FRecord@@@_STL@@@2@ABU?$pair@$$CBHURva001FDC0FRecord@@@2@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	??0AICommandParmsTail@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	?init@Rva00263895Member@@QAEXXZ	1
@@ -2185,6 +2187,7 @@ alternatename	Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.c
 alternatename	Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.cpp	?loadPostProcess@SaveMapPreview@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.cpp	?typeName@SaveMapPreview@@UBEPBDXZ	1
 alternatename	Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.cpp	?xfer@SaveMapPreview@@UAEXPAVXfer@@@Z	1
+alternatename	Code/GameEngine/Source/Common/System/Snapshot.cpp	??1Snapshot@@QAE@XZ	1	allow=9f4503ce3bd742c50796a0a49036341837ce9586
 alternatename	Code/GameEngine/Source/Common/System/Upgrade.cpp	?push_back@?$BfmeVector@VAsciiString@@@@QAEXABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Is_Lightmap@?$RefCountPtr@VTextureClass@@@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?Is_Procedural@?$RefCountPtr@VTextureClass@@@@QBE_NXZ	1
@@ -2550,6 +2553,8 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Object.cpp	?hasSpecialPowe
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp	?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp	?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp	??1Rva003623E5Filter@@QAE@XZ	1	allow=2473a1a8031fc9914352e56a4f893cd2647404a0
+alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp	??1Rva003623E5Member@@QAE@XZ	1	allow=2473a1a8031fc9914352e56a4f893cd2647404a0
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectGoDownOnCorpse.cpp	?doSpecialPowerAtLocation@Object@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectKill.cpp	?bfmeDoBGB@BfmeSubBGB@@QAEXHH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cpp	?bfmeOneCNG@BfmeSubCNG@@QAEXM@Z	1

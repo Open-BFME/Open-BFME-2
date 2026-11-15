@@ -58,6 +58,8 @@ Rva00360D26Member::~Rva00360D26Member()
 // Units that construct the record through its 0x003623E5 ctor name the class
 // after it, as Rva003623E5Member (31 units) or Rva003623E5Filter (21 units);
 // their teardown calls bind to this body.
+#pragma comment(linker, "/alternatename:??1Rva003623E5Member@@QAE@XZ=??1Rva00360D26Member@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva003623E5Filter@@QAE@XZ=??1Rva00360D26Member@@QAE@XZ")
 
 // Retail 495C43..495C48 and WB109F2C0 destroy the first member by
 // calling the pool-index owner at 0x00360D26. The rowed 496292 range walker

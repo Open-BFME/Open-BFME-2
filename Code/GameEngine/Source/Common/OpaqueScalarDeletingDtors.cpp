@@ -1024,6 +1024,7 @@ Rva005F329E::~Rva005F329E()
 {
     delete m_elem;
 }
+#pragma comment(linker, "/alternatename:??1ObjectModule@@UAE@XZ=??1Snapshot@@UAE@XZ")
 
 // Names the emitted vtables and deleting destructors above reference that no unit defines
 // under this spelling. Each is bound to the row owning the retail address: the nine opaque
