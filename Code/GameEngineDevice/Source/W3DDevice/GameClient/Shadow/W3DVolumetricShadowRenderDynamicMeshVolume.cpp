@@ -23,6 +23,8 @@
 // body plus BFME stencil bits and release diagnostics). BFME 2 deltas read
 // from retail: render states through DX8Wrapper, the once-per-name sets.
 
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
+
 #include "ascii_string.h"
 #include <set>
 
@@ -306,15 +308,6 @@ protected:
 	static unsigned render_state_changes;
 };
 
-class W3DShadowManager
-{
-public:
-	unsigned getStencilShadowMask(void) { return m_stencilShadowMask; }
-private:
-	void *m_vtable;
-	unsigned m_shadowColor;
-	unsigned m_stencilShadowMask;
-};
 extern W3DShadowManager *TheW3DShadowManager;
 
 class Debug
