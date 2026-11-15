@@ -6,6 +6,7 @@
 
 #include "DamageModuleClass.h"
 
+class DamageInfo;
 class Module;
 class ModuleData;
 class Thing;
@@ -15,6 +16,9 @@ public:
     BoneFXDamage(Thing *thing, const ModuleData *moduleData);
     static Module *friend_newModuleInstance(Thing *,const ModuleData *);
     virtual ~BoneFXDamage();
+    virtual void onDamage(DamageInfo *damageInfo);
+    virtual void onHealing(DamageInfo *damageInfo);
+    virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 };
 
 typedef char canonical_BoneFXDamage_33bbbf2c_sizeof[sizeof(BoneFXDamage) == 20 ? 1 : -1];
