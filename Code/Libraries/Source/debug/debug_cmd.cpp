@@ -36,6 +36,7 @@ public:
 	virtual void Delete(void);
 };
 
+void DebugFreeMemory(void *ptr);
 int __stdcall EnumThreadWndProc(void *hwnd, long param);
 
 class BfmeHostAAS
@@ -184,10 +185,10 @@ void deleteCmdInterfaceDebug(DebugCmdInterfaceDebug *debugCmdInterfaceDebug)
 	delete debugCmdInterfaceDebug;
 }
 
-// ?Delete@DebugCmdInterfaceDebug@@UAEXXZ present-unmatched
 void DebugCmdInterfaceDebug::Delete(void)
 {
-	delete this;
+	this->~DebugCmdInterfaceDebug();
+	DebugFreeMemory(this);
 }
 
 // Header inlines that the units including the header emit as select-any
