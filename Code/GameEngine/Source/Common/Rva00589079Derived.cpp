@@ -69,7 +69,7 @@ public:
 class Rva00481F82_S4
 {
 public:
-	virtual void f4();
+	virtual void f4() { }
 };
 
 class Rva00481F82 : public UpdateModule, public Rva00481F82_S3, public Rva00481F82_S4
