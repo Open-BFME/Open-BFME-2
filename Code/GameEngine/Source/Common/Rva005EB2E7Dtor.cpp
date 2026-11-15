@@ -39,11 +39,10 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 // The +0x14 and +0x34 holders' destructor is 0x000AD6F4, the body clear shares.
 #include "../../Include/Common/Rva000AD6F4.h"
 
-class Rva005EDFF8
-{
-public:
-	virtual ~Rva005EDFF8() {}
-};
+class LivingWorldBattle;
+// LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
+class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventObserver(){} virtual void event2_0(int,int,int){} virtual void event2_1(int,int,int){} virtual void OnLivingWorldAutoResolveBattleCompleted(int,LivingWorldBattle*,void*){} };
+typedef LivingWorldAutoResolveEventObserver Rva005EDFF8;
 
 class Rva005EB2E7 : public Rva005EDFF8
 {
