@@ -27,6 +27,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include "../../Include/GameLogic/Rva002A8F24.h"
+
 #include "../../Include/Common/INI/INI.h"
 
 #include <map>
@@ -282,7 +284,6 @@ class FireLogicSystem { public: FireLogicSystem(); char m_data[0xa0]; };
 class Rva0022BC3BSubsystem;
 class MineshaftPortalNetworkManager { public: MineshaftPortalNetworkManager(); char m_data[0x1c]; };
 class Rva0022BCB0Subsystem;
-class Rva002A8F24 { public: Rva002A8F24(); char m_data[0x944]; };
 class Rva0022BD25Subsystem { public: Rva0022BD25Subsystem(); char m_data[0x20]; };
 class Rva0022BD9ASubsystem { public: Rva0022BD9ASubsystem(); char m_data[0x34]; };
 class Rva0022BE0FSubsystem { public: Rva0022BE0FSubsystem(); char m_data[0x20]; };
