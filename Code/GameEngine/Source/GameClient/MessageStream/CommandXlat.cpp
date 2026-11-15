@@ -7,6 +7,8 @@
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+#include "../../../Include/Common/PlayerTemplate.h"
+
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include <list>
@@ -91,7 +93,6 @@ public:
 
 };
 class Drawable { public: char pad00[0xfc]; Object* m_object; Object* getObject() const { return m_object; } const Coord3D* getPosition() const; };
-class PlayerTemplate { public: char pad00[0xe4]; AsciiString m_beaconTemplate; const AsciiString& getBeaconTemplate() const { return m_beaconTemplate; } };
 class Team;
  enum Relationship { CONTEXT_ALLY,CONTEXT_ENEMY,CONTEXT_NEUTRAL };
 #include "../../../Include/Common/Player.h"
@@ -1190,21 +1191,6 @@ CommandTranslator::~CommandTranslator()
 // Drawable element identity is proven by CommandTranslator::translateGameMessage
 // selected-drawable list copy and AIUpdateInterface voice-response list operations.
 // TU-local overload avoids exporting an unrelated max instantiation.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ---- from Code/GameEngine/Source/Common/Rva0042C1F9.cpp
