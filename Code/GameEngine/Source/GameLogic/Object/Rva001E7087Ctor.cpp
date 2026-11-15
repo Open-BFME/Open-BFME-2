@@ -6,7 +6,13 @@
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-class Rva001E7087
+// The class derives from Snapshot, as Locomotor.cpp (the owner of its destructor)
+// declares it: retail's table 0x007DE950 is the deleting destructor and Snapshot's
+// three slots. The constructor-only surface stores no base vptr, as retail's 53
+// bytes do not.
+#define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Rva001E7087 : public Snapshot
 {
 public:
 	Rva001E7087();

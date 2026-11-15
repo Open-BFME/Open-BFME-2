@@ -11,17 +11,21 @@
 // same reference.
 class AsciiString;
 
+// Slot 0 of retail's table 0x007E5118 is the deleting destructor 0x00211121, the
+// row OpaqueScalarDeletingDtorsB04.cpp owns; a pure first slot here made this
+// unit's copy of the table differ from that unit's.
 class Rva003FAFB9
 {
 public:
 	Rva003FAFB9(const AsciiString &name);
-	virtual void f0() = 0;
+	virtual ~Rva003FAFB9();
 };
 
 class Rva00210EF1 : public Rva003FAFB9
 {
 public:
 	Rva00210EF1(const AsciiString &name);
+	virtual ~Rva00210EF1();
 };
 
 Rva00210EF1::Rva00210EF1(const AsciiString &name) : Rva003FAFB9(name)

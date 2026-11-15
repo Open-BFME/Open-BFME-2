@@ -1,6 +1,6 @@
 ### LINK-681: vftable COMDAT copies differ between the private views of one class
 
-Status: Open; four families repaired or equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `c64c20ff06`.
+Status: Open; seven families repaired or equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `77bf9b3aee`.
 Evidence / affected units: census 2026-11-15 08:36 (`331df3e3ff`) holds 24 units out on a `??_7` name
 that "differs from the first copy in link order (no retail address)". Each is a class whose views
 declare different virtual lists, so the units emit different tables. One cause is measured: a
@@ -87,7 +87,19 @@ unit's view lacked the class's overrides, so its copy fell back to the base's na
   0 -> 525.
 15/15 functions exact over the two edited units; both names of each class have one digest; the two other
 census objects touching a changed name keep linking.
-Read with `build/`-side slot comparison against retail (2026-11-15), still open:
+Completed 2026-11-15 (base `77bf9b3aee`), three constructor units whose view lacked what the unit owning
+the class's destructor declares:
+- `Rva000AAD5CCtor.cpp` (39 B) and `SingleBaseCtors.cpp` (114 B) began the class with a pure slot;
+  retail's slot 0 is the deleting destructor (0x000AB0B8 of table 0x007C9468, 0x00211121 of 0x007E5118),
+  rowed in `OpaqueScalarDeletingDtorsB08.cpp` and `B04.cpp`. The views now declare the rowed virtual
+  destructors instead. One slot of retail's five and four: the rest still needs LINK-675's rule.
+- `Rva001E7087Ctor.cpp` (53 B) had a base-less class; `Locomotor.cpp` derives it from `Snapshot`, whose
+  three pure slots follow the destructor. The constructor unit now derives from the same shim under
+  `BFME_SNAPSHOT_CONSTRUCTOR_ONLY`, and its 53-byte constructor still stores one vptr. Retail's table
+  0x007DE950 holds `LocomotorSet::DoXfer` in slot 3, so the class is `LocomotorSet` under a second name.
+9/9 functions exact over the three units; each table has one digest in both emitters; preview all three
+LINK and B04, B08 and `Locomotor.cpp` keep linking.
+Slot comparison of each remaining copy against retail's table (2026-11-15), still open:
 - `MonitorConditionUpdate.cpp` (334 B) and `BoneFXDamage.cpp` (433 B): the module unit's private class
   is right (`getModuleNameKey` and, for BoneFXDamage, `onDamage`, `onHealing`,
   `onBodyDamageStateChange`, `onObjectCreated`, `loadPostProcess`, `GetSnapshotName`, `xfer`); the first
@@ -98,11 +110,10 @@ Read with `build/`-side slot comparison against retail (2026-11-15), still open:
   pure, ten slots) where `EvacuateDamageCtorModuleFactoryBody.cpp` uses the canonical
   `DamageModuleClass.h`; and the constructor unit declares no destructor, so its table names the public
   `??_EEvacuateDamage@@UAEPAXI@Z` where retail's row is the protected `??_GEvacuateDamage@@MAEPAXI@Z`.
-- Small tables, retail's list beside each copy: `Rva000AAD5CCtor.cpp` and `SingleBaseCtors.cpp` start the
-  class with a pure slot where retail's slot 0 is the deleting destructor (0x000AB0B8, 0x00211121) that
-  the B08/B04 scaffold copies name; `Rva001E7087Ctor.cpp` declares one of retail's four slots where
-  `Locomotor.cpp` declares four; `Rva005FA393Dtor.cpp` declares a virtual destructor where retail's
-  `BattlePromptMovieClip` table (0x008078DC) is five pure slots, as `Rva005F9364Region.cpp` has it;
+- Small tables, retail's list beside each copy: `Rva005FA393Dtor.cpp` declares a virtual destructor
+  where retail's `BattlePromptMovieClip` table (0x008078DC) is five pure slots, as the shared
+  `GameClient/BattlePromptMovieClip.h` has it, so its row `??1BattlePromptMovieClip@StrategicHUD@@UAE@XZ`
+  (0x005FA393) is a non-virtual destructor under a virtual name and needs a rename first;
   `FunctorRefInvoke005D388B.cpp` is the right copy (`what@exception` in slot 1, retail 0x006299B8) and
   the eight one-slot copies are wrong; `Rva004E5610` is `ResourceEntryCollector` under a second name
   (retail's one slot is `ResourceEntryCollector::rva004E55B9`) and neither copy has it.
@@ -116,6 +127,6 @@ used inline constructor even when every call is expanded), a second definition b
 can go when the base's three rows (0x000A8EB9, 0x000A8EC2, 0x000A8EC9; approved unit
 `AptDisplayStringBase.cpp`) are defined inline in a unit that itself constructs a subclass: retail's
 copies are header inlines that first unit emitted, and then every view can use the in-class form.
-Clearance: `Rva00785140Handle`, the two load-screen tables, `ThreatFinderUpdate` and
-`InheritUpgradeCreate`; preview scope the units named for each.
+Clearance: `Rva00785140Handle`, the two load-screen tables, `ThreatFinderUpdate`, `InheritUpgradeCreate`,
+`Rva000AAD5C`, `Rva00210EF1` and `Rva001E7087`; preview scope the units named for each.
 Census confirmation: awaiting.

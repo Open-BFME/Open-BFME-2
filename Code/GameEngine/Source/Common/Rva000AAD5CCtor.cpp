@@ -2,12 +2,14 @@
 // ??0Rva000AAD5C@@QAE@XZ @0x000AAD5C 39B derived ctor over base 0x000AAD06
 // Evidence: calls rowed ??0Rva000AAD06@@QAE@XZ then zeroes +0x14 +0x15 +0x18 then 6 dwords at +0x1C with rep stosd; stores vtable 0x007C9468 at +0 gate DIR32; caller 0x000AB648 in FUN_004AB485; base size 0x14 from Rva000AAD06Ctor vector at +8; honest Rva name owner unproven
 #include <cstring>
+// Slot 0 of retail's table 0x007C9468 is the deleting destructor 0x000AB0B8, the
+// row OpaqueScalarDeletingDtorsB08.cpp owns; a pure first slot here made this
+// unit's copy of the table differ from that unit's.
 class Rva000AAD06
 {
 public:
 	Rva000AAD06();
-protected:
-	virtual void _0() = 0;
+	virtual ~Rva000AAD06();
 private:
 	int m_04;
 	char m_pad08[12];
@@ -16,8 +18,7 @@ class Rva000AAD5C : public Rva000AAD06
 {
 public:
 	Rva000AAD5C();
-protected:
-	virtual void _0() = 0;
+	virtual ~Rva000AAD5C();
 private:
 	unsigned char m_14;
 	unsigned char m_15;
