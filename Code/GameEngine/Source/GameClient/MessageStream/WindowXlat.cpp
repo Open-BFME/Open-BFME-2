@@ -28,6 +28,8 @@
 
 typedef int Int;
 
+#include "../../../Include/GameClient/Shell.h"
+
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
 union GameMessageArgumentType
@@ -189,14 +191,6 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Shell
-{
-public:
-	bool isShellActive() const { return m_isShellActive; }
-private:
-	unsigned char m_00[0x5C];
-	bool m_isShellActive;
-};
 extern Shell *TheShell;
 
 #include "../../../Include/GameClient/InGameUI.h"
