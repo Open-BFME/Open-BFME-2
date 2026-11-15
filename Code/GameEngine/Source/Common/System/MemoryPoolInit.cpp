@@ -15,7 +15,6 @@
 #include <string.h>
 #pragma intrinsic(memset)
 void Rva0000179A();
-// ?MemoryPoolAllocatorAssertion present-unmatched
 // Empty callback: native pointer VA00A9E440 is the shared ICF RET.
 static void MemoryPoolAllocatorAssertion() {}
 #include "../../../Include/Common/GeneralAllocator.h"

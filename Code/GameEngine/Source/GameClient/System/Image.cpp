@@ -20,7 +20,6 @@
 // - ImageCollection, its map<unsigned, Image*> member and the 14-slot
 //   SubsystemInterface base come from the canonical GameClient/Image.h.
 
-// ??_GImageCollection@@UAEPAXI@Z present-unmatched
 typedef bool Bool;
 // platformsdk
 //

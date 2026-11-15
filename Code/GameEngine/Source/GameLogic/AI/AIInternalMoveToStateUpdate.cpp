@@ -473,7 +473,6 @@ static __forceinline void critterDesyncLog(const char *text)
 }
 
 
-// ?isSamePosition@@YA_NPBUCoord3D@@00@Z present-unmatched
 // AIStates.cpp's static helper (rowed at 0x0033FA8E from the computePath
 // unit); defined here too so VC7.1 gives the call its private register
 // convention (current goal in eax, previous in ecx, position in edx).

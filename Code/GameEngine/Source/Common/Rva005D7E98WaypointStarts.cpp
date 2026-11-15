@@ -10,7 +10,6 @@ template<int N> class Rva005D7E98Slots:public Rva005D7E98Slots<N-1> { public:vir
 template<> class Rva005D7E98Slots<0>{};
 class Rva005D7E98TerrainView:public Rva005D7E98Slots<33> { public:virtual Rva005D7E98Waypoint *firstWaypoint()=0; };
 class Rva005D7E98 { public:void rva005D7E98();unsigned char unknown[0x28];int count;unsigned int starts[8]; };
-// ?findWaypoint present-unmatched
 // Helper is expanded into the verified caller; no independent retail entry asserted.
 static __forceinline Rva005D7E98Waypoint *findWaypoint(AsciiString key) {
  Rva005D7E98Waypoint *current=((Rva005D7E98TerrainView*)TheTerrainLogic)->firstWaypoint();

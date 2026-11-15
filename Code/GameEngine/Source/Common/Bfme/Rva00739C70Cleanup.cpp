@@ -82,7 +82,6 @@ void Rva00739C70::reset()
 // ?rva000724D7@Rva000724AE@@QAEPAXPAH@Z in Rva000724D7Lock.cpp; its unmatched
 // copy here called two undefined placeholder members and kept the unit from linking.
 
-// ?Rva00739C70::~Rva00739C70 present-unmatched
 // ?Rva00739C70::rva_00739E50 present-unmatched
 bool Rva00739C70::rva_00739E50()
 {

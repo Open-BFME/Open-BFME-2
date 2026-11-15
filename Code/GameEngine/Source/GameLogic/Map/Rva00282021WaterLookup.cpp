@@ -34,7 +34,6 @@ struct Rva00282021Store {
     Rva00282021Slot *first;
     Rva00282021Slot *last;
 };
-// ?rva0007E394CursorEqual present-unmatched
 // Target 0x7E394 compares only two DWORDs (29B, no relocations). The full
 // bytes match this 8B cursor view; original template identity remains unknown.
 // Its range is already covered by ?dup_0007e394 in stlport_pod_hash_bodies.cpp,

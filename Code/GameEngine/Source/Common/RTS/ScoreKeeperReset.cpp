@@ -113,7 +113,6 @@ template<int N> class BitFlags {public:unsigned words[7];BitFlags(int,int);
  bool testSetAndClear(const BitFlags&,const BitFlags&)const;};
 // BitFlags<116>::test otherwise emits a per-TU COMDAT that loses in link order.
 template<> __declspec(dllimport) __forceinline bool BitFlags<116>::test(int i)const{return (((const unsigned char*)words)[i>>3]&(1<<(i&7)))!=0;}
-// ?BitFlags<116>::testSetAndClear present-unmatched
 // Visible existing66B COMDAT makes MSVC cache the two template queries
 // without replacing the object register; its bytes are verified separately.
 template<> __declspec(noinline) inline bool BitFlags<116>::testSetAndClear(const BitFlags&set,const BitFlags&clear)const{

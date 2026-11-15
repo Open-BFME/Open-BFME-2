@@ -47,7 +47,6 @@
 //   and calls getCapsState (vtable slot 14, pure in Keyboard) without
 //   reloading this, as retail does.
 
-// ??0?$allocator@UBfmeE16@@@_STL@@QAE@XZ present-unmatched
 extern "C" void *memset(void *s, int c, unsigned n) throw();
 
 extern "C" void __cdecl free(void *block) throw(...);

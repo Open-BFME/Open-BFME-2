@@ -10455,7 +10455,6 @@ present_unmatched	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	famge
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Owner00739C90::cleanup	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::reset	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::rva_00739E50	1
-present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::~Rva00739C70	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeCellGridCtor.cpp	0Rva00404781@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeCellGridCtor.cpp	1Rva00404781@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeOneHundredEightyFour_bfmeGoCV_BfmeThingCV_QAEXHHHHH_Z.cpp	BfmeThingCR::bfmeClearCR	1
@@ -10596,7 +10595,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnd
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Science.cpp	callCreate@ScienceTreeExposer@@SAPAU?$_Rb_tree_node@U?$pair@$$CBW4ScienceType@@_N@_STL@@@_STL@@AAU1@ABU?$pair@$$CBW4ScienceType@@_N@3@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp	BitFlags<116>::testSetAndClear	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp	1BfmePairEL@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamIterateTeamMemberList.cpp	0?$DLINK_ITERATOR@VObject@@@@QAE@PAVObject@@P81@BEPAV1@XZ@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp	RevivalExperienceView::rva000B49A1	1
@@ -10671,7 +10669,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005CF8E3Dtor.cpp	1Rva005CF8E3
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	Rva005D2EA8BaseDestructor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlusFourthText	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlusThirdText	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005D7E98WaypointStarts.cpp	findWaypoint	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005E9FC1Dtor.cpp	1Rva005E9FC1Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FBase0dtor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FBase4dtor	1
@@ -10726,7 +10723,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/FileSystem.cpp	update@Fil
 present_unmatched	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	bfmeEmitGeometryInfoCtor@@YAXPAVGeometryInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp	bfmeEmitGeometryInfoDtor@@YAXPAVGeometryInfo@@PAUGeometryRecord@@11@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp	deallocate@allocator<void*>	1
-present_unmatched	Code/GameEngine/Source/Common/System/MemoryPoolInit.cpp	MemoryPoolAllocatorAssertion	1
 present_unmatched	Code/GameEngine/Source/Common/System/Radar.cpp	RadarObject::RadarObject	1
 present_unmatched	Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp	0Rva002D3772Pair@@QAE@HM@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp	1Rva00030DD0Guard@@QAE@XZ	1
@@ -10844,7 +10840,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D193ScienceVectorDestructor.cpp	allocator<ScienceType>::deallocate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	Rva0043D193Base::~Rva0043D193Base	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	allocator<Rva0043D1C9Entry*>::deallocate	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva005FBC20PlayerPanel.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeImage@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeLine@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	addLine@ShellMenuScheme@@QAEXPAVShellMenuSchemeLine@@@Z	1
@@ -10892,7 +10887,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::video
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	SuperweaponInfo::SuperweaponInfo	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	SuperweaponInfo::~SuperweaponInfo	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	1Rva004E5654Base@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/Input/Keyboard.cpp	0?$allocator@UBfmeE16@@@_STL@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	draw@Mouse@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	isClick@Mouse@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	mouseNotifyResolutionChange@Mouse@@	1
@@ -10933,7 +10927,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9CopyCtor.cpp	@0x003AEDE9	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp	1Rva003AEE16@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp	1Rva003AF076@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/System/Image.cpp	_GImageCollection@@UAEPAXI@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/RayEffectView.h	0RayEffectData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/RayEffectView.h	1RayEffectData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp	1VideoPlayerBase@@	1
@@ -10948,7 +10941,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/View.cpp	View::~View	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp	isSamePosition@@YA_NPBUCoord3D@@00@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	Rva002F0DD6Less::operator()	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp	TeamInQueue::disband	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp	TeamInQueue::disband	1
@@ -10958,7 +10950,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva00
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator==	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	length@Coord2D@@QBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	normalize@Coord2D@@QAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Map/Rva00282021WaterLookup.cpp	rva0007E394CursorEqual	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	1BfmeWorkerDockPoint@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	ArmorTemplate::adjustDamage	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp	Rva001F0622Base::~Rva001F0622Base	1

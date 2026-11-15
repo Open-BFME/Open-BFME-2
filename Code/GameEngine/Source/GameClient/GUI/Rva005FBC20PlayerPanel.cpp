@@ -30,7 +30,6 @@ inline AsciiStringPlusString operator+(const AsciiString &left, const AsciiStrin
 // "8-byte node + text" is one identical-code fold at 0x00109CFD for every
 // 8-byte left node; the ledger owns it as the AsciiStringRefWithChar overload.
 // This unit's string-plus-string overload reaches it under the address name.
-// ?operator+(AsciiStringPlusString, text) present-unmatched
 // Existing folded callee at109CFD: complete61B and rel32 init B3F84 independently verified.
 // The body is visible, so MSVC can reuse the dead left-node stack slot for the by-value delegate.
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
