@@ -10809,7 +10809,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSou
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp	1BeaconClientUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp	1BeaconClientUpdateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/EvaCtor.cpp	Eva::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	0FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXList@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@@	1
@@ -10818,7 +10817,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	AptTooltipHolder::~AptTooltipHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete002004FD@@YAXPAVRva002004FD@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete0031F831@@YAXPAVRva0031F831@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp	markUIDirty@ControlBar@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::~Rva005B6B93	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	1ThreadRestartObj@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1
@@ -10958,8 +10956,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePat
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	getDrawable@Thing@@QBEPAVDrawable@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp	isSamePosition@@YA_NPBUCoord3D@@00@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	Rva002F0DD6Less::operator()	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp	TeamInQueue::disband	1
@@ -11203,9 +11199,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSideways
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::AdjustGroundPathPosition	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::SetBridgeStateRepaired	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::rva002F83F5	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cpp	getDrawable@Thing@@QBEPAVDrawable@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cpp	getUnitNamed@ScriptEngine@@QAEPAVObject@@PAVParameter@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC996Do.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp	0ScriptAction@@QAE@W4ScriptActionType@1@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	equalTag_Rva003B31C7@@YA_NPBX0H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
@@ -11293,7 +11286,6 @@ present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerCallbacks.c	_piRoomNameChangedFree	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c	qr2_init_socketA	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandList.cpp	1NetCommandList@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandList.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getChunkNumber@NetWrapperCommandMsg@@QAEIXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getCommandID@NetAckBothCommandMsg@@QAEGXZ	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp	getCommandID@NetAckStage1CommandMsg@@QAEGXZ	1

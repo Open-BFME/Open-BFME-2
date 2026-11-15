@@ -19,9 +19,6 @@ class AIGroup;
 
 extern int BfmeLogicFramesPerSecond;
 
-// ?getUnitNamed@ScriptEngine@@QAEPAVObject@@PAVParameter@@@Z present-unmatched
-// ?getDrawable@Thing@@QBEPAVDrawable@@XZ present-unmatched
-// ?setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z present-unmatched
 void ScriptActions::Rva003BC996Do(Parameter *param, const StringBase<char> &animName, float f)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(param);

@@ -407,7 +407,6 @@ static void commandButtonTooltip(GameWindow *window,
 }
 
 /// mark the UI as dirty so the context of everything is re-evaluated
-// ?markUIDirty@ControlBar@@QAEXXZ present-unmatched
 // Functions for repositioning/resizing the control bar
 void ControlBar::switchControlBarStage( ControlBarStages stage )
 {
