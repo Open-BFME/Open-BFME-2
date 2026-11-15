@@ -12,18 +12,13 @@
 //   0x00384E28  0x00383F13  AsciiString -> PlayerInfo, AsciiComparator (PeerDefs.cpp)
 //   0x0021D61F  0x0021CFD1  set<BfmeStringRecord0021A940> (stlport_rb_tree_bfme0021A940_erase.cpp)
 //   0x0032C36B  0x0032BEBF  pair<AsciiString, AsciiString> -> int (SidesListTeamsInfoRecClear.cpp)
+#include "../../../../GameEngine/Include/GameNetwork/PlayerInfo.h"
+
 #include "../../../../GameEngine/Include/Common/BfmeStringRecord0021A940.h"
 
 #include <map>
 #include "ascii_string.h"
 
-class PlayerInfo
-{
-public:
-	~PlayerInfo();
-private:
-	char m_data[0x30];
-};
 #include "../../../../GameEngine/Include/Common/AsciiComparator.h"
 typedef _STL::pair<const AsciiString, PlayerInfo> PlayerInfoMapValue;
 typedef _STL::_Rb_tree<AsciiString, PlayerInfoMapValue, _STL::_Select1st<PlayerInfoMapValue>, AsciiComparator, _STL::allocator<PlayerInfoMapValue> > PlayerInfoMapTree;
