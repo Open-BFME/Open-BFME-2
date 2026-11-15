@@ -6905,6 +6905,12 @@ def label_renames(root, acc, tu):
             problems.append(f"{key[0]} at {row.get('target_rva')} has a conflicting object-symbol binding")
     if problems:
         return [], sorted(set(problems))
+    identities = {(row["name"], _rva_of(row.get("target_rva"))) for row in selected}
+    outside = [row for row in rows if row.get("source") not in files
+               and (row.get("name"), _rva_of(row.get("target_rva"))) in identities]
+    if outside:
+        return [], ["a global tombstone would invalidate an outside funclet row: "
+                    + row["source"] + " " + row["name"] + " " + row["target_rva"] for row in outside]
     wanted = {rva for by_rva in colliding.values() for rva in by_rva}
     ghidra = {}
     path = Path(root) / GHIDRA

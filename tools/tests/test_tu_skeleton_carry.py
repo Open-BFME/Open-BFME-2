@@ -264,18 +264,21 @@ def test_changed_label_inputs_refuse_before_any_apply_write(repo,change):
     assert before==after
 
 
-def test_same_label_and_rva_in_an_unmerged_file_is_not_renamed(repo):
-    label_repo(repo,extra=f"$L310,,0x0077436A,13,{C},matched,gen-funclet;parent=?other@@YAXXZ\n")
-    # Put the outside row first to catch name/RVA-only writers.
-    p=repo/"reverse/functions.csv";lines=p.read_text().splitlines(keepends=True)
-    p.write_text("".join([lines[0],lines[-1]]+lines[1:-1]))
-    git(repo,"add","reverse/functions.csv")
-    git(repo,"-c","user.name=t","-c","user.email=t@t","commit","-qm","outside label first")
+def test_same_label_and_rva_outside_merge_refuses_before_global_tombstone(repo):
+    import check_csv
+    label_repo(repo,extra=f"$L310,,0x77436a,13,{C},matched,gen-funclet;parent=?other@@YAXXZ\n")
+    path=repo/"reverse/functions.csv"
+    path.write_text("".join(line for line in path.read_text().splitlines(keepends=True) if not line.startswith("$L310,,0x00774313,")))
+    before=path.read_bytes()
+    problems=[]
+    check_csv.check_functions(before,problems,{A,B,C},(repo/"reverse/deleted_rows.csv").read_bytes())
+    assert not problems,problems
     carry=T.Carry(repo,TU,[A,B],TEXTS,merged_text(),"-O2")
-    assert not carry.problems
-    T.apply(TU,[A,B],merged_text(),root=repo,carry=carry)
-    rows=list(csv.DictReader(p.open()))
-    assert next(r for r in rows if r["source"]==C and r["target_rva"]=="0x0077436A")["name"]=="$L310"
+    assert not carry.labels and any("outside funclet" in p for p in carry.problems)
+    assert path.read_bytes()==before
+    problems=[]
+    check_csv.check_functions(path.read_bytes(),problems,{A,B,C},(repo/"reverse/deleted_rows.csv").read_bytes())
+    assert not problems,problems
 
 
 @pytest.mark.parametrize("edit,why", [
