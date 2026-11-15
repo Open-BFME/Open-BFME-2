@@ -8,6 +8,7 @@
 // sharebuf/RefCount family. Ctor and class names are address-derived.
 
 #include "FXShaderSetup.h"
+#include "../WWLib/RefCountData.h"
 
 class RefPtr
 {
