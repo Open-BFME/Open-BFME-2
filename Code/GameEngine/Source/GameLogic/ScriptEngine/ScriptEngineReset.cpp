@@ -29,6 +29,8 @@
 // AsciiString pairs is cleared through the FXBoneInfo spelling of the folded
 // erase at 0x00207F0D, as ScriptEngine_rva0020A7C9.cpp does.
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
+#include "../../../Include/GameLogic/Rva00206593.h"
+
 #include "ascii_string.h"
 #include <list>
 
@@ -116,14 +118,6 @@ enum ScienceType
 class ObjectTypes;
 class SequentialScript;
 
-class Rva00206593
-{
-public:
-	void rva00206EC7();
-
-private:
-	char m_tree[0xC];
-};
 
 class Rva002065C8
 {
