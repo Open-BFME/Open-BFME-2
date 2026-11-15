@@ -2908,7 +2908,19 @@ class Rva006602B0
 {
 public:
 	Rva006602B0();
-	virtual ~Rva006602B0() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
 };
 
 Rva006602B0::Rva006602B0()
