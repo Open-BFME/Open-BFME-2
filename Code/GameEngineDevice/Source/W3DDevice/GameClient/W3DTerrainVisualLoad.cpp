@@ -1,3 +1,4 @@
+#include "../../../../GameEngine/Include/Common/Rva0023C641Storage.h"
 // platformsdk
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -353,7 +354,7 @@ struct TerrainWaterRenderView
     int before;
     RenderObjClass render;
 };
-extern unsigned char g_00DFE7A8;
+
 class Rva0007E90EHost
 {
   public:
@@ -425,7 +426,7 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
     timeGetTime();
     timeGetTime();
     W3DDisplay::m_3DScene->Add_Render_Object((RenderObjClass *)m_terrainRenderObject);
-    if (m_waterRenderObject && !g_00DFE7A8)
+    if (m_waterRenderObject && !g_00DFE7A8.m_enabled)
     {
         W3DDisplay::m_3DScene->Add_Render_Object(&((TerrainWaterRenderView *)m_waterRenderObject)->render);
         m_waterRenderObject->rva000B3FD0();

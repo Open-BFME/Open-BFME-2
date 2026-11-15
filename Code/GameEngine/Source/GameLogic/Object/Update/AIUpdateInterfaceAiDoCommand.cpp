@@ -1,3 +1,4 @@
+#include "../../../../Include/Common/Rva0023C641Storage.h"
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /ICode/Libraries/Include/Lib /DNDEBUG /MD /I.
 //
 // AIUpdateInterface::aiDoCommand, retail 0x002673F6 (2308 bytes): the AI command gate and
@@ -50,7 +51,7 @@ public:
 // FlatHeightMapUpdateCenter. Owned by Rva003B9EC4.cpp (race: that seat
 // landed its definition minutes earlier; one owner per address, so this
 // unit keeps only the reference). data_rows.csv names the owner.
-extern unsigned char g_00DFE7A8;
+
 class AICommandInterface { public: virtual void aiDoCommand(const AICommandParms *)=0; };
 #include "../../../../Include/Common/AIUpdateInterface24.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
@@ -213,7 +214,7 @@ public:
 void AIUpdateInterface::aiDoCommand(const AICommandParms *parms) {
  CommandSourceType cmdSource = parms->m_cmdSource;
  m_extra1A4 = 0;
- if (g_00DFE7A8) return;
+ if (g_00DFE7A8.m_enabled) return;
  if (!isAllowedToRespondToAiCommands(parms)) return;
  bool defer = false;
  if (m_path && m_locomotorGoalType && m_path->rva001E3591()) defer = true;

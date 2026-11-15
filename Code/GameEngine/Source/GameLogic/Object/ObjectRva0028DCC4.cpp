@@ -1,3 +1,4 @@
+#include "../../../Include/Common/Rva0023C641Storage.h"
 // Native 0x0028DCC4..0x0028DDE0, 284 bytes, RET0. WB CDAD80 agrees
 // with the template guards and registration sequence; no original method name.
 // Shroud, partition and collision handles are Object subobjects at 0x64/0x6C/0x70.
@@ -31,7 +32,7 @@ extern LuaScriptEngine *TheLuaScriptEngine;
 // Sole data-ledger owner of the registry pointer at VA 0x00DFEEF8.
 extern Rva002A8F24 *TheSkirmishAIManager;
 // The timing-log enable byte (VA 0x00DFE7A8), defined by Rva003B9EC4.cpp.
-extern unsigned char g_00DFE7A8;
+
 #include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/Common/ThingTemplate.h"
@@ -52,7 +53,7 @@ void Object::rva0028DCC4(){
    (*(FireLogicSystem **)&TheTriggerManager)->RegisterObject((Rva00287C21Other*)this);
   }
   bool eligible = !(type->m_kindof[0] & (1u<<30));
-  if(g_00DFE7A8) eligible=false;
+  if(g_00DFE7A8.m_enabled) eligible=false;
   if((type->m_kindof[3] & (1u<<13)) && !TheAI->m_aiData->m_hordesWaitForHordes)eligible=false;
   if(eligible && TheCollisionManager)((Rva00758230*)TheCollisionManager)->rva00758230((Rva009A29A0Window*)collision);
   if(TheLuaScriptEngine)((LuaDrawableState*)TheLuaScriptEngine)->rva00333E5B(this);

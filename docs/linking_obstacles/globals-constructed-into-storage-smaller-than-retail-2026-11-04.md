@@ -122,3 +122,38 @@ credit is taken; the pending official whole-image result remains separate.
 2026-11-04: current-object preview confirms the two DEC1CC/DEC1DC consumers ScreenFilterRva000FC63DSet.cpp and Rva007AC9B0FilterInits.cpp link with the existing providers; broader thunk unit still has an unrelated DF2984 array-name blocker ([evidence](../../reverse/attempt_support/screenfilter-link-header-20261104.md)).
 
 2026-11-04: BridgeBehavior allocator shim now accesses the repaired pool's +8 head instead of the removed standalone `g_freeList`; 51/51 rows byte-match and the scoped preview links, with official real-link confirmation pending ([evidence](../../reverse/attempt_support/bridgebehavior-pool-head-20261104-codexb.md)).
+
+#### Split timing-log identity repaired, 2026-11-15 (dataid)
+
+The `g_00DFE7B0` item under **Open** above is historical for this scope:
+the +8 string is now a member of the one 152-byte `g_00DFE7A8` allocation,
+using the POD storage layout of the matched `Rva0023C641` constructor.
+All twelve consumer units use the shared storage declaration and member
+accesses. Both old symbols were ledger-only; the coordinator-approved hand
+admission adds the typed base to `data_rows.csv` at RVA 0x009FE7A8 and
+tombstones the split name at RVA 0x009FE7B0 as "absorbed: member at +0x8".
+The compiler's actual sizeof probe proves 152 bytes; the former byte declaration
+probed as 1. The old ledger's 8/144-byte gaps were not allocation-size evidence.
+
+Lifecycle is retained through retail's rowed initializer at 0x007ADCAE
+(initializer-table slot 296), constructor at 0x0023DBF9, and registered cleanup
+0x007B7786 -> 0x0023DBC3. Retail zeroes +8 at 0x0023DC07 and releases it at
+0x0023DBDB. The source's extra `_$E1` registration was slotless in
+`image_iso` for image 35b446dcb3; that measured source exactly matches the
+baseline source. Its object only registers a separate cleanup of the split
+string, duplicating the rowed object's member cleanup. Removing it adds no
+construction: only this unit loses its four-byte .CRT$XCU registration and
+one atexit reference; the other eleven units' lifecycle records are unchanged.
+
+Evidence on srv1: `~/bfme2-ops/swarm/sweeps/dataid/retail-lifecycle.txt`
+and worktree `build/boat-run/dataid-20261115t045016/build/dataid-proof-v2/`
+(objects, sizeof probes and logs). At base aae82145e22: before/after builds
+274/274 matched over 12 units; fresh-index link predictions 12/12 clean,
+39,062 bytes unchanged; the 152-byte data row is byte-verified; pin consistency,
+CSV integrity and declared-unmatched checks pass. Sol found no source, layout,
+binding or lifecycle defect; its documentation-handoff finding is addressed here.
+
+Clearance is limited to the split storage and its duplicate lifecycle.
+`data_ledger.csv` is deliberately left to the approved refresh. A new real
+image and its image_iso/runtime results remain unmeasured; this note does not
+close the broader obstacle or claim that the game runs.

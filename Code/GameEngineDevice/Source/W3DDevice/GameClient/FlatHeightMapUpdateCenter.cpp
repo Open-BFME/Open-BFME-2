@@ -1,3 +1,4 @@
+#include "../../../../GameEngine/Include/Common/Rva0023C641Storage.h"
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -151,7 +152,7 @@ public:
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-extern unsigned char g_00DFE7A8;
+
 
 class Rva000E3B41
 {
@@ -186,7 +187,7 @@ private:
 // ?rva00069CE6@Rva000E3B41@@UAEXABVRva000E3A8D@@H@Z @0x000E3CE1: slot 134 of retail's table 0x00BCE788.
 void Rva000E3B41::rva00069CE6(const Rva000E3A8D &cameras, Int arg)
 {
-	if (g_00DFE7A8)
+	if (g_00DFE7A8.m_enabled)
 	{
 		((BaseHeightMapRenderObjClass *)this)->BaseHeightMapRenderObjClass::rva00069CE6(cameras, arg);
 	}

@@ -1,3 +1,4 @@
+#include "../../../Include/Common/Rva0023C641Storage.h"
 // cl: /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist
 // stlport
 //
@@ -2906,7 +2907,7 @@ enum GameSpyBuddyStatus
 
 extern Shell *TheShell;
 extern Radar *TheRadar;
-extern unsigned char g_00DFE7A8;	// canonical byte owner, Rva003B9EC4.cpp
+
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 extern GameSpyStagingRoom *TheGameSpyGame;
 // TheGameClient is only an alias of the owned global TheGameClient (ledger names column); this unit reads the owner through its own view type.
@@ -2964,7 +2965,7 @@ void GameLogic::rva0023F52C(bool loadingSaveGame)
 
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
-	if (*(unsigned char *)&g_00DFE7A8)
+	if (g_00DFE7A8.m_enabled)
 		((Rva0023C641 *)&g_00DFE7A8)->rva0023D494();
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
@@ -4687,7 +4688,7 @@ void GameLogic::update(int phase)
 	bool first = (phase == 1);
 	LatchRestore<bool> inUpdate(m_70, true);
 
-	if (*(bool *)&g_00DFE7A8 && first)
+	if (g_00DFE7A8.m_enabled && first)
 		((Rva002431CB *)&g_00DFE7A8)->rva002431CB();
 
 	if (first && getFrame() == 2 && g_00DFE1C8->rva00210DC9()

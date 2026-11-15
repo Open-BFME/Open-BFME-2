@@ -1,3 +1,4 @@
+#include "../../Include/Common/Rva0023C641Storage.h"
 // cl: /MD
 // Split from Rva007ABBB3CtorInits.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -131,7 +132,7 @@ extern unsigned g_Va00E09E60;	// retail RVA 0x00A09E60 (.bss), defined in Rva007
 extern unsigned int g_Va00E01E7C;
 extern unsigned g_Va00DEC018;
 extern unsigned g_Va00DEC080;
-extern unsigned char g_00DFE7A8;	// canonical byte owner, Rva003B9EC4.cpp
+
 extern unsigned g_Va00E032EC;
 extern unsigned int g_Va00E04544;
 

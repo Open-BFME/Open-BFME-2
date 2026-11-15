@@ -1,3 +1,4 @@
+#include "../../Include/Common/Rva0023C641Storage.h"
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD
 // Split from Rva007B6A00AtexitThunks.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -44,7 +45,7 @@ public:
 extern unsigned int g_00DDE0AC;
 class Rva00575674;
 extern Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), defined in Rva002220DCInit.cpp
-extern unsigned char g_00DFE7A8;	// canonical byte owner, Rva003B9EC4.cpp
+
 struct BfmeUiResourceEntryState;
 extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 extern int g_00E06734[5];	// data row 0x00A06734 (Rva005E8DB5.cpp)

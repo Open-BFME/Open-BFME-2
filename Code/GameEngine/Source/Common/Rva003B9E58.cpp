@@ -1,3 +1,4 @@
+#include "../../Include/Common/Rva0023C641Storage.h"
 // rva003B9E58
 // Retail 0x003B9E58, 108 B (EH, cdecl), an EH-prolog start Ghidra never
 // listed; the twin of the rowed Rva003B9EC4.cpp command-line option handler
@@ -12,11 +13,6 @@
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 // The enable byte the sibling owns (Rva003B9EC4.cpp).
-extern unsigned char g_00DFE7A8;
-// VA 0x00DFE7AC: the string base this body writes (the one-pointer twin of
-// StringBase<char>, as the sibling's 0x00DFE7B0 key), four bytes into the
-// datum whose first byte is that enable flag (retail .data 0x00DFE7A8, 8B).
-#define g_Va00DFE7AC (*(AsciiString *)((unsigned char *)&g_00DFE7A8 + 4))
 
 struct Rva003B9E58Arg { char m_pad00[4]; const char *m_04; };
 
@@ -26,9 +22,9 @@ int __cdecl rva003B9E58(Rva003B9E58Arg *arg, int argc)
 	{
 		{
 			AsciiString text(arg->m_04);
-			((StringBase<char> *)&g_Va00DFE7AC)->set(reinterpret_cast<const StringBase<char> &>(text));
+			((StringBase<char> *)&g_00DFE7A8.m_name04)->set(reinterpret_cast<const StringBase<char> &>(text));
 		}
-		g_00DFE7A8 = 1;
+		g_00DFE7A8.m_enabled = 1;
 		((unsigned char *)TheWritableGlobalData)[0x2C] = 1;
 		((unsigned char *)TheWritableGlobalData)[0xAF0] = 0;
 		return 2;

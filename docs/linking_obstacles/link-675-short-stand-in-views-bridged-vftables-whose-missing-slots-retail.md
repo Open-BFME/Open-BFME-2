@@ -226,3 +226,12 @@ tables, 36,708 mismatching slots):
   of one class may each declare overrides the others lack; an override's slot is its base's, so the views can
   take the union of their overrides in any order, while a virtual new to the class fixes the order and cannot
   be merged that way.
+
+Parked (coordinator, 2026-11-15): the unused table name
+`??_7Rva000E59D3Base@@6B@` at RVA 0x007BB554 remains in the ledger. The intermediate
+Snapshot-derived view survives in Rva000E59D3Dtor.cpp and W3DFloorBuffer.cpp; its
+destructor is fold-proven at 0x0049B47C. The supported class-fold dry run refuses
+the ten third class names sharing this table. No fold bypass or ledger erasure
+is approved. The ops refresh's reviewed master-covered exception rule makes
+this pre-existing uncovered name harmless to that refresh; it retires no identity
+debt. Revisit only with a supported reconciliation route.

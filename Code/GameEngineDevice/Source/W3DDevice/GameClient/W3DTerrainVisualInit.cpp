@@ -1,3 +1,4 @@
+#include "../../../../GameEngine/Include/Common/Rva0023C641Storage.h"
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // ?init@W3DTerrainVisual@@UAEXXZ, retail 0x00091AEA..0x00091CA7 (445 bytes,
 // EH): BFME2's W3DTerrainVisual::init. Under the DX8 device lock it runs the
@@ -147,7 +148,7 @@ extern BfmeB991 *g_bfmeB991;
 BfmeB991 *g_bfmeB991;
 
 // The timing-log enable byte is owned by Rva003B9EC4.cpp at VA 0x00DFE7A8.
-extern unsigned char g_00DFE7A8;
+
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
@@ -225,7 +226,7 @@ void W3DTerrainVisual::init()
 	g_bfmeB991 = (BfmeB991 *)smudge;
 	smudge->init();
 
-	if (!g_00DFE7A8 && ((Rva00091AEAGlobalView *)TheWritableGlobalData)->m_waterType != 1 && m_waterRenderObject)
+	if (!g_00DFE7A8.m_enabled && ((Rva00091AEAGlobalView *)TheWritableGlobalData)->m_waterType != 1 && m_waterRenderObject)
 		((Rva00091AEAScene *)W3DDisplay::m_3DScene)->Add_Render_Object(&m_waterRenderObject->m_renderObj);
 }
 

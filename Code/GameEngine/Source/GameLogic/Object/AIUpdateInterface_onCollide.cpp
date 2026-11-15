@@ -1,3 +1,4 @@
+#include "../../../Include/Common/Rva0023C641Storage.h"
 // ?onCollide@AIUpdateInterface@@UAEXPAVObject@@PBUCoord3D@@1@Z
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -21,7 +22,7 @@ enum ObjectStatusTypes { STATUS_3B = 0x3b };
 #include "object.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-extern unsigned char g_00DFE7A8;
+
 
 struct Coord3D;
 
@@ -37,7 +38,7 @@ void AIUpdateInterface::onCollide(Object *other, const Coord3D *loc, const Coord
 {
 	if (other == 0)
 		return;
-	if (g_00DFE7A8 != 0)
+	if (g_00DFE7A8.m_enabled != 0)
 		return;
 	if (*(unsigned char *)((char *)this + 0x396) != 0)
 		return;
