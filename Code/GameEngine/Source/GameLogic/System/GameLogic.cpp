@@ -1355,7 +1355,7 @@ public:
 	virtual ~Rva000D3FA0Map();
 
 protected:
-	virtual void loadPostProcess();
+	virtual void loadPostProcess() { }
 	virtual void crc(Xfer *xfer);
 	virtual void xfer(Xfer *xfer);
 
