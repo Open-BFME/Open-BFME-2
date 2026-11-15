@@ -41,7 +41,6 @@ RespawnBody::RespawnBody(Thing *thing, const ModuleData *moduleData)
 {
 }
 
-// ??1RespawnBody@@UAE@XZ present-unmatched
 RespawnBody::~RespawnBody()
 {
 }
