@@ -490,6 +490,99 @@ def folded_lifetime_definitions(source, text, candidates, counts, staged=False):
     return proved
 
 
+def inventory_code(text):
+    """Remove comments/literals without moving directive or definition offsets."""
+    return re.sub(r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'',
+                  lambda m: re.sub(r'[^\r\n]', ' ', m[0]), text)
+
+
+def mask_modern_branches(text):
+    """Only the positive, standalone modern guard is known; all else stays visible.
+
+    This is candidate selection, NOT proof that the macro was undefined. Malformed
+    or spliced input is kept in full. Ordinary #if 0/debug/unknown branches retain
+    the inventory's existing policy.
+    """
+    if re.search(r'\\\r?\n|\?\?/', text):
+        return text
+    stack, result = [], []
+    code_lines = inventory_code(text).splitlines(keepends=True)
+    lines = text.splitlines(keepends=True)
+    for line, code in zip(lines, code_lines):
+        directive = re.match(r'^\s*#\s*(\w+)\b(.*)', code)
+        hidden = any(stack)
+        if directive:
+            kind, condition = directive[1], directive[2].strip()
+            if kind in ('if', 'ifdef', 'ifndef'):
+                stack.append((kind == 'ifdef' and condition == 'BFME2_MODERN') or
+                             (kind == 'if' and re.fullmatch(
+                                 r'defined\s*\(\s*BFME2_MODERN\s*\)', condition) is not None))
+            elif kind in ('else', 'elif'):
+                if not stack:
+                    return text
+                stack[-1] = False
+            elif kind == 'endif':
+                if not stack:
+                    return text
+                stack.pop()
+        result.append(re.sub(r'[^\r\n]', ' ', line) if hidden else line)
+    return text if stack else ''.join(result)
+
+
+def modern_only_definitions(source, text):
+    """Exclude modern-only bodies only with current reference COFF evidence.
+
+    Never trust a guard alone. The exact source, headers and include inventory
+    must be current, the guard/type/method names must not be macros, and the
+    reference object must contain neither definitions nor references of the class.
+    Ambiguity leaves the ordinary inventory refusal intact.
+    """
+    masked = mask_modern_branches(text)
+    # Masking may attach an earlier symbol comment to the next reference body.
+    # Annotation changes are not evidence that a definition disappeared.
+    reference_names = {(cls, method) for cls, method, _ in find_defined_functions(masked)}
+    candidates = {d for d in find_defined_functions(text) if d[:2] not in reference_names}
+    candidates = {d for d in candidates if re.fullmatch(r'[A-Za-z_]\w*', d[0])}
+    if not candidates or source.read_text(encoding='utf-8') != text:
+        return set()
+    if os.environ.get('CL') or os.environ.get('_CL_'):
+        return set()
+    import build
+    import json
+    import struct
+    obj = build.obj_path(source)
+    try:
+        if not build.compile_is_current(source, obj, strict=True):
+            return set()
+        object_data = obj.read_bytes()
+        names = [s['name'] for s in build.read_object_symbols(object_data)]
+        meta = json.loads(obj.with_suffix('.deps.json').read_text())
+        dependencies = [Path(p) if os.path.isabs(p) else ROOT / p for p in meta['deps']]
+        macros = set()
+        for path in [source, *dependencies]:
+            contents = path.read_text(encoding='utf-8', errors='replace')
+            contents = re.sub(r'(?:\\|\?\?/)[\r]?\n', '', contents)
+            macros.update(re.findall(r'^\s*#\s*define\s+(\w+)',
+                                     inventory_code(contents), re.MULTILINE))
+        command, _ = build.compiler_command(source, obj)
+        for i, arg in enumerate(command):
+            arg = str(arg).replace('"', '')
+            if arg.startswith('@'):
+                return set()  # Extra response-file definitions are not witnessed here.
+            if arg in ('/D', '-D') and i + 1 < len(command):
+                arg += str(command[i + 1]).replace('"', '')
+            match = re.match(r'[-/]D([A-Za-z_]\w*)', arg)
+            if match:
+                macros.add(match[1])
+        if ('BFME2_MODERN' in macros or obj.read_bytes() != object_data or
+                not build.compile_is_current(source, obj, strict=True)):
+            return set()
+    except (OSError, ValueError, KeyError, struct.error):
+        return set()
+    return {d for d in candidates if not ({d[0], d[1].lstrip('~')} & macros)
+            and not any(d[0] in name for name in names)}
+
+
 def read_path_list(name):
     """Paths listed in file `name` ('-': stdin), NUL-separated if it holds a NUL, else one per line."""
     data = sys.stdin.buffer.read() if name == "-" else Path(name).read_bytes()
@@ -594,8 +687,9 @@ def main():
                                              definition_counts=definition_counts)
         inline_only = inline_only_definitions(source_path, text, inline_candidates)
         unmatched_start = len(unmatched)
+        modern_only = modern_only_definitions(source_path, text)
         for class_name, method_name, symbol_name in definitions:
-            if (class_name, method_name, symbol_name) in inline_only:
+            if (class_name, method_name, symbol_name) in inline_only | modern_only:
                 continue
             if symbol_name:
                 # `// ?<mangled> absent-from-retail` marks a definition kept only to
