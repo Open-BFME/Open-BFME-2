@@ -6,7 +6,9 @@
 // pop ecx clean, and [eax+4] 0, vtable store, jmp/xor null path,
 // test mov je inc mov eax esi ret 4, prev/next Disp0DwordImmSetters,
 // callers 0x005CEDFC/0x005CF523.
-class Rva005CED37Held
+#include "../../Include/Common/Rva0007DF07.h"
+
+class Rva005CED37Held : public Rva0007DF07
 {
 public:
 	// Declared inline and empty (as the rowed family template
@@ -15,8 +17,7 @@ public:
 	// vtable 0x00C751F8 slot 0 reaches an empty ICF-fold dtor, so the placeholder
 	// dtor needs no out-of-line provider.
 	virtual ~Rva005CED37Held() {}
-	Rva005CED37Held(int const *v) : m_refCount(0) { m_08 = *v; }
-	int m_refCount;
+	Rva005CED37Held(int const *v) { m_08 = *v; }
 	int m_08;
 };
 
@@ -34,5 +35,5 @@ Rva005CED37::Rva005CED37(int const *arg)
 	Rva005CED37Held *p = new Rva005CED37Held(arg);
 	m_00 = p;
 	if (p != 0)
-		p->m_refCount++;
+		p->m_04++;
 }
