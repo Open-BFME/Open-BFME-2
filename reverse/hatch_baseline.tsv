@@ -2612,8 +2612,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySp
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f3@SiegeDeploySpecialPower_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f4@SiegeDeploySpecialPower_S4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor.cpp	??1Rva00493DEF@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp	?update@UpdateModule@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	??1BehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva00295A0F@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva0048F472@AssaultTransportAIUpdate@@QBE_NPBVObject@@@Z	1
@@ -2628,8 +2626,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAu
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp	?TheEmptyString@AsciiString@@2V1@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp	?slot@PB_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp	?setDelay@DelayedUpgradeUpdateInterface@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp	?update@UpdateModule@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp	??0SupplyCenterDockUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Rva005839A7IdResize.cpp	?resize@?$vector@URva005839A7Id@@V?$allocator@URva005839A7Id@@@_STL@@@_STL@@QAEXIURva005839A7Id@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	?supplyCenterDockUpdateIface1Anchor@SupplyCenterDockUpdateIface1@@UAEXXZ	1

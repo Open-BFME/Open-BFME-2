@@ -71,8 +71,6 @@ class BehaviorModuleOther
 	virtual void unused();
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-#pragma comment(linker, "/alternatename:?unused@BehaviorModuleBase@@EAEXXZ=??_GDestroyEnvironmentUpdate@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?update@UpdateModule@@UAEXXZ=?update@DestroyEnvironmentUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 //
 // ?xfer@DestroyEnvironmentUpdate@@MAEXPAVXfer@@@Z, retail 0x004AC6CB, 60 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00854D64, same primary as rowed ctor
