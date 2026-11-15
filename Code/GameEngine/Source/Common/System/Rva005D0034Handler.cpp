@@ -10,19 +10,23 @@
 // replacement rowed 0x00575674). The event word names are not known.
 class Rva005D0034Target;
 
-// The callback's owner pointer lives in a plain base, so it is stored before
-// the callback's vtable, as in Rva005D0C87Ctor.cpp.
-struct Rva005D0034CallbackBase
-{
-	Rva005D0034CallbackBase(Rva005D0034Target *owner) : m_owner(owner) {}
-	Rva005D0034Target *m_owner;
-};
-
-class Rva005D0034Callback : public Rva005D0034CallbackBase
+// The callback's owner pointer lives in Rva005CF872, and Rva005D1255 installs
+// vtable 0x00C752A8 (??_GRva005D1255@@UAEPAXI@Z + ?Update@Rva005D1255@@UAEXXZ).
+class Rva005CF872
 {
 public:
-	Rva005D0034Callback(Rva005D0034Target *owner) : Rva005D0034CallbackBase(owner) {}
-	virtual void c0();
+	Rva005CF872(void *p) : owner(p) {}
+	virtual ~Rva005CF872() {}
+	virtual void Update() {}
+	void *owner;
+};
+
+class Rva005D1255 : public Rva005CF872
+{
+public:
+	Rva005D1255(void *p) : Rva005CF872(p) {}
+	virtual ~Rva005D1255();
+	virtual void Update();
 };
 
 // The +0x1C holder is replaced through its rowed setter 0x00575674.
@@ -73,11 +77,5 @@ public:
 void Rva005D078B::rva005D0034(int a, int worldValue, int objectID)
 {
 	if (worldValue == ((Rva005D0034LogicView *)TheLivingWorldLogic)->m_98 && objectID == m_target->m_objectID)
-		m_target->m_callbackHolder.rva00575674((Object *)new Rva005D0034Callback(m_target));
+		m_target->m_callbackHolder.rva00575674((Object *)new Rva005D1255(m_target));
 }
-
-// Placeholder names this unit's own object settles.  In retail each one holds
-// what the unit's matched code references or installs: the rowed function of
-// the vftable slot it occupies, or the function or datum the instruction
-// reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?c0@Rva005D0034Callback@@UAEXXZ=??_GRva005CF86B@@QAEPAXI@Z")
