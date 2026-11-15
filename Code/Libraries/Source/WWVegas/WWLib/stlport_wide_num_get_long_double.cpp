@@ -9,7 +9,11 @@ typedef unsigned short wchar_t;
 namespace _STL
 {
 
-extern "C" void __cdecl free(void *);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 template <class T>
 class char_traits {};
