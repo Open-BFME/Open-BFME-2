@@ -12118,7 +12118,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp	Get_L1_Instr
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp	Get_L2_Cache_Line_Size@CPUDetectClass@@SAIXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp	Get_L2_Cache_Set_Associative@CPUDetectClass@@SAIXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/crc.cpp	CRCEngine::operator	6
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ffactory.cpp	Return_File@SimpleFileFactoryClass@@UAEXPAVFileClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ini.cpp	Get_Filename@INIClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ini.cpp	Section_Count@INIClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp	bfmeEmitMemOps@@YAXPAXI@Z	1

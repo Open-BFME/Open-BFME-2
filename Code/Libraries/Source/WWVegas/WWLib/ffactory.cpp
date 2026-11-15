@@ -285,8 +285,7 @@ FileClass * SimpleFileFactoryClass::Get_File( char const *filename )
 	return file;
 }
 
-// ?Return_File@SimpleFileFactoryClass@@UAEXPAVFileClass@@@Z present-unmatched
 void SimpleFileFactoryClass::Return_File( FileClass *file )
 {
-	delete file;
+	::delete file;
 }
