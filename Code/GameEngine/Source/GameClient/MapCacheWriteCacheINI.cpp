@@ -32,6 +32,7 @@ extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;
 #include "../../Include/GameClient/Rva003006C4.h"
+#include "../../Include/Common/Rva00300489.h"
 #include "../../Include/Common/Rva00300D7A.h"
 AsciiString AsciiStringToQuotedPrintable(AsciiString);
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString);
