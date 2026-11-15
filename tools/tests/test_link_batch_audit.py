@@ -26,6 +26,9 @@ REAL_SHADOW_RECORD = A.shadow_record
 def no_real_shadow(monkeypatch):
     # A run of main() would read a real index and real objects; the tests of the shadow itself call it by name.
     monkeypatch.setattr(A, "shadow_record", lambda args, started: {})
+    # These legacy audit fixtures stub object parsing; the slot audit has its own
+    # real-COFF integration tests in test_vtable_undefined.py.
+    monkeypatch.setattr(A, "audit_vtable_targets", lambda *args: 0)
 
 
 @pytest.fixture(autouse=True)

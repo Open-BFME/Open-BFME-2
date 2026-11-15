@@ -595,6 +595,161 @@ def omitted_references(rows, objects):
     return found
 
 
+
+def vtable_slot_targets(obj):
+    """(defined names, [(table, slot index, target)]) from an i386 COFF object.
+
+    Only DIR32 slot relocations inside a vtable symbol's extent count. A table's
+    preceding RTTI locator and neighbouring symbols are outside that interval.
+    Malformed/unsupported objects raise ValueError, never an empty clean result.
+    """
+    data = Path(obj).read_bytes()
+    try:
+        machine, count, _, symptr, nsym, optional, _ = struct.unpack_from("<HHIIIHH", data)
+        if machine != 0x14c or optional or not count or 20 + count * 40 > len(data):
+            raise ValueError("not a complete i386 COFF object")
+        end = symptr + nsym * 18
+        if symptr < 20 + count * 40 or end + 4 > len(data):
+            raise ValueError("truncated symbol table")
+        strings = struct.unpack_from("<I", data, end)[0]
+        if strings < 4 or end + strings > len(data):
+            raise ValueError("truncated string table")
+        i = 0
+        while i < nsym:
+            record = symptr + i * 18
+            aux = data[record + 17]
+            if i + aux >= nsym:
+                raise ValueError("truncated auxiliary symbols")
+            if data[record:record + 4] == b"\0" * 4:
+                offset = struct.unpack_from("<I", data, record + 4)[0]
+                if not 4 <= offset < strings or b"\0" not in data[end + offset:end + strings]:
+                    raise ValueError("invalid symbol name")
+            i += 1 + aux
+        for k in range(count):
+            h = 20 + k * 40
+            size, raw, rel = struct.unpack_from("<III", data, h + 16)
+            nrel = struct.unpack_from("<H", data, h + 32)[0]
+            flags = struct.unpack_from("<I", data, h + 36)[0]
+            if flags & 0x01000000:   # extended relocation count requires a different layout
+                raise ValueError("unsupported relocation overflow")
+            if (raw and raw + size > len(data)) or (nrel and (not rel or rel + 10 * nrel > len(data))):
+                raise ValueError("truncated section or relocations")
+        sections, symbols = link_cycle.parse_coff(data)
+        defined = {y.name for y in symbols.values()
+                   if (0 < y.sec <= len(sections) or y.sec == -1 or (y.sec == 0 and y.value > 0))
+                   and y.cls in (2, 3)}
+        slots = []
+        for table in symbols.values():
+            if not table.name.startswith("??_7") or not 0 < table.sec <= len(sections):
+                continue
+            section = sections[table.sec - 1]
+            following = [y.value for y in symbols.values() if y.sec == table.sec
+                         and y.cls == 2 and y.value > table.value]
+            limit = min(following, default=section.size)
+            if not 0 <= table.value <= limit <= section.size:
+                raise ValueError("invalid vtable extent")
+            for where, target, kind in section.relocs:
+                if kind == 0:      # IMAGE_REL_I386_ABSOLUTE has no operand
+                    continue
+                if table.value <= where < limit:
+                    if kind != 6 or (where - table.value) % 4 or where + 4 > limit:
+                        raise ValueError("unsupported vtable slot relocation")
+                    if target not in symbols:
+                        raise ValueError("vtable relocation names no symbol")
+                    slots.append((table.name, (where - table.value) // 4, symbols[target].name))
+        return defined, slots
+    except (struct.error, IndexError, UnicodeError) as error:
+        raise ValueError(f"malformed vtable object: {error}") from error
+
+
+def registered_slot_targets(ref):
+    """Matched-row/object-symbol, pin and export-alias spellings at immutable ref.
+
+    Streaming git output avoids retaining an entire ledger. A missing or malformed
+    registry is an evidence error, not permission to treat its names as absent.
+    """
+    known = {"__purecall"}   # MSVC's CRT implementation, used by abstract slots
+    for path, required in (
+            ("reverse/functions.csv", {"name", "status"}),
+            ("reverse/symbols.csv", {"name", "address"}),
+            ("reverse/export_aliases.csv", {"export", "target"})):
+        with subprocess.Popen(["git", "show", f"{ref}:{path}"], cwd=link_check.ROOT,
+                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) as proc:
+            reader = csv.DictReader(proc.stdout)
+            if not required <= set(reader.fieldnames or ()):
+                proc.communicate()
+                raise ValueError(f"{path} at {ref}: invalid registry header")
+            for row in reader:
+                if any(row.get(k) is None for k in required):
+                    proc.communicate()
+                    raise ValueError(f"{path} at {ref}: malformed registry row")
+                if path.endswith("functions.csv"):
+                    if row["status"] == "matched":
+                        known.add(row["name"])
+                        known.add(build.ledger_object_symbol(row))
+                elif path.endswith("symbols.csv"):
+                    known.add(row["name"])
+                else:
+                    known.update((row["export"], row["target"]))
+            if proc.wait():
+                raise ValueError(f"cannot read {path} at {ref}: {proc.stderr.read()}")
+    return known
+
+
+def new_vtable_targets(obj, known_after, previous_undefined=()):
+    """New unregistered slot targets, including those in currently unlinked units."""
+    defined, slots = vtable_slot_targets(obj)
+    exempt = defined | set(known_after) | set(previous_undefined)
+    return sorted(set(slot for slot in slots if slot[2] not in exempt))
+
+
+def audit_vtable_targets(index, replacements, tip, exact_base):
+    """Return 1 for new slot defects on an exact baseline, 2 for uncertain proof.
+
+    The before inventory covers *all* references of this object, conservatively
+    retaining already-unresolved non-vtable debt as well. Missing/stale census
+    provenance cannot prove a new regression; it must never yield a clean verdict.
+    """
+    try:
+        after_known = registered_slot_targets(tip)
+        before_known = None
+        found = []
+        for obj in replacements:
+            candidates = new_vtable_targets(obj, after_known)
+            if not candidates:
+                continue
+            if not exact_base:
+                print(f"link batch audit: INCONCLUSIVE new vtable targets in {obj.name}: stale baseline")
+                return 2
+            if before_known is None:
+                before_known = registered_slot_targets(index["meta"]["commit"])
+            if obj.name in index["objects"]:
+                position = index["objects"].index(obj.name)
+                touches = index.get("touches", {}).get(obj.name)
+                if touches is None:
+                    raise ValueError(f"{obj.name}: before reference inventory missing")
+                before_defined = {
+                    name for name, holders in index["strong"].items() if position in holders}
+                before_defined |= {name for name, copies in index["comdat"].items()
+                                   if any(copy[0] == position for copy in copies)}
+                before_defined |= {name for name, copies in index["common"].items()
+                                   if any(copy[0] == position for copy in copies)}
+                previous = set(touches) - before_defined - before_known
+            else:
+                previous = set()        # new object in an exact-baseline batch
+            found.extend((obj.name, *slot) for slot in candidates if slot[2] not in previous)
+        for obj, table, slot, target in found:
+            print(f"  NEW UNDEFINED VTABLE SLOT {obj}: {table} slot {slot} -> {target}; "
+                  "not defined in object or named by a matched row, pin or export alias")
+        if found:
+            print(f"link batch audit: FAILED: {len(found)} newly undefined vtable slot target(s)")
+            return 1
+        return 0
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        print(f"link batch audit: INCONCLUSIVE vtable target proof: {error}")
+        return 2
+
+
 def audit(base, tip, verified):
     changes = changed_sources(base, tip)
     identities = changed_identities(base, tip)
@@ -652,6 +807,10 @@ def audit(base, tip, verified):
         print(f"link batch audit: FAILED: {len(refused)} reference(s) to omitted objects; "
               "exit_link.py would refuse to link. Reach the row the omitted thunk jumps to instead")
         return 1
+    vtable_exit = audit_vtable_targets(index, replacements, tip, exact_base)
+    if vtable_exit:
+        EVIDENCE["judged"] = vtable_exit == 1
+        return vtable_exit
     if missing:
         print(f"link batch audit: INCONCLUSIVE: {len(missing)} source object(s) lack current receipts; "
               f"first: {missing[0]}")
