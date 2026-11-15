@@ -7359,14 +7359,20 @@ def resolution_history(ctx):
     columns = name_agreement.RESOLUTION_COLUMNS
     rows, at = {}, 0
     for commit in wanted:
-        end = out.index(b"\n", at)
-        header = out[at:end].split()
+        end = out.find(b"\n", at)
+        header = out[at:end].split() if end >= 0 else []
         at = end + 1
-        if len(header) < 3 or header[1] != b"blob":       # `<name> missing`: the file is absent there
+        if len(header) == 2 and header[1] == b"missing":   # the file is absent there
             rows[commit] = frozenset()
             continue
+        if len(header) != 3 or not header[2].isdigit() or len(out) < at + int(header[2]) + 1:
+            ctx._cache[key] = None                        # a response this parser cannot follow binds nothing
+            return None
         size = int(header[2])
-        blob, at = out[at:at + size], at + size + 1
+        blob, at = out[at:at + size], at + size + 1       # every object's payload, whatever its type
+        if header[1] != b"blob":                          # a tree there: no file, as `git show` read it
+            rows[commit] = frozenset()
+            continue
         try:
             records = csv.DictReader(io.StringIO(blob.decode("utf-8"), newline=""))
             rows[commit] = frozenset(tuple(r.get(c) or "" for c in columns) for r in records)

@@ -4633,3 +4633,37 @@ def test_a_slot_resolution_reads_the_history_once_for_every_voter(slot_tree, tmp
     history = [a for a in calls if a[:2] in (("rev-list", "--full-history"), ("cat-file", "--batch"))
                or (a[:1] == ("show",) and a[-1].endswith(name_lane.RESOLUTIONS))]
     assert sorted(a[:2] for a in history) == [("cat-file", "--batch"), ("rev-list", "--full-history")]
+
+
+
+def test_a_tree_at_the_resolutions_path_does_not_hide_an_earlier_addition(slot_tree, tmp_path):
+    # resolve-slot r3: the batch parser read past a tree's payload and lost the bad addition before it
+    contested_slot(slot_tree, tmp_path)
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    rows_text = (slot_tree / name_lane.RESOLUTIONS).read_text()
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// another text\n")
+    commit_votes(slot_tree, "the resolution with another header")
+    (slot_tree / name_lane.RESOLUTIONS).unlink()
+    (slot_tree / name_lane.RESOLUTIONS).mkdir()
+    (slot_tree / name_lane.RESOLUTIONS / "x.txt").write_text("a directory now\n")
+    commit_votes(slot_tree, "the path is a directory")
+    import shutil
+    shutil.rmtree(slot_tree / name_lane.RESOLUTIONS)
+    (slot_tree / name_lane.RESOLUTIONS).write_text(rows_text)
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT)
+    commit_votes(slot_tree, "the rows and the header restored")
+    assert slot_approval(slot_tree) is None
+
+
+def test_a_cat_file_response_the_parser_cannot_follow_binds_nothing(slot_tree, tmp_path, monkeypatch):
+    contested_slot(slot_tree, tmp_path)
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    commit_votes(slot_tree, "the resolution")
+    assert slot_approval(slot_tree) == "spin"
+    real = rename._git_out
+
+    def truncated(root, *args, **kw):
+        code, out = real(root, *args, **kw)
+        return (code, out[:len(out) // 2]) if args[:2] == ("cat-file", "--batch") else (code, out)
+    monkeypatch.setattr(rename, "_git_out", truncated)
+    assert slot_approval(slot_tree) is None
