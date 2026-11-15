@@ -334,7 +334,7 @@ struct Rva00477F06GarrisonPoint : public Coord3D
 class B8
 {
 public:
-	virtual void b8();
+	virtual void b8() { }
 	char m_pad04[0xC4];
 };
 class Xfer;
