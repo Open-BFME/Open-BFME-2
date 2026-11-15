@@ -534,6 +534,3 @@ Rva006DD51::~Rva006DD51() {}
 
 // Complete destructors the deleting destructors above call, bound to the rows at their retail
 // addresses (the dtor column of the table at the top of this file).
-#pragma comment(linker, "/alternatename:??1Rva0060FE2@@UAE@XZ=??1MilesAudioManager@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva008E4EC@@UAE@XZ=??1TerrainTracksRenderObjClass@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva009203A@@UAE@XZ=??1W3DTerrainVisual@@UAE@XZ")

@@ -9,7 +9,6 @@
 // the reload before the edge predicate, as the native notification bodies do.
 // The edge predicate's bool interface aliases the rowed normalized0/1 worker.
 #include "Common/BfmeAudioEventPrefix136.h"
-#pragma comment(linker, "/alternatename:?okToPlayRadarEdgeSound@Player@@QAE_NXZ=?rva002AA04C@Rva002AA04C@@QAEHXZ")
 class AudioManager; extern AudioManager *TheAudio;
 
 #include "../../../Include/Common/Rva0033F15DDwordSlot.h"

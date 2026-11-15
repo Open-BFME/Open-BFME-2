@@ -1024,7 +1024,6 @@ Rva005F329E::~Rva005F329E()
 {
     delete m_elem;
 }
-#pragma comment(linker, "/alternatename:??1ObjectModule@@UAE@XZ=??1Snapshot@@UAE@XZ")
 
 // Names the emitted vtables and deleting destructors above reference that no unit defines
 // under this spelling. Each is bound to the row owning the retail address: the nine opaque
@@ -1033,12 +1032,3 @@ Rva005F329E::~Rva005F329E()
 // has a single vptr in retail, so ObjectModule_B2 is a stand-in base: its placeholder is
 // bound to slot 1 of the ObjectModule vftable (0x00C07E1C), the empty virtual, and claims
 // nothing about a retail secondary vftable.
-#pragma comment(linker, "/alternatename:??1Rva00119D00@@UAE@XZ=??1Render2DClass@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva005333F@@UAE@XZ=?rva0005333F@Rva0005333FHolder@@QAEXXZ")
-#pragma comment(linker, "/alternatename:??1Rva0072892@@UAE@XZ=??1RefCountClass@@MAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva0084CEF@@UAE@XZ=??1Rva00084CEF@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva0089851@@UAE@XZ=??1RunwayInfo@FlightDeckBehavior@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva0090771@@UAE@XZ=??1Rva000906DE@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva0090840@@UAE@XZ=??1Rva007E3C20Vp6Stream@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva009D6FA@@UAE@XZ=??1Rva0009D55BProduct@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva00B6CF1@@UAE@XZ=??1BfmeStringRecord000B94D2@@QAE@XZ")
