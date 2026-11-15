@@ -1764,7 +1764,10 @@ class Rva0020E86A
 {
 public:
 	Rva0020E86A();
-	virtual ~Rva0020E86A() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08(int) {}
+	virtual void slot0C() = 0;
 };
 
 Rva0020E86A::Rva0020E86A()
