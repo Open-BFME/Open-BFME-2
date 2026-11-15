@@ -247,3 +247,38 @@ the ten third class names sharing this table. No fold bypass or ledger erasure
 is approved. The ops refresh's reviewed master-covered exception rule makes
 this pre-existing uncovered name harmless to that refresh; it retires no identity
 debt. Revisit only with a supported reconciliation route.
+
+Second day of the unattended table work (2026-11-15, master 85e8ba2544: 3,160 bridged names over about 2,400
+retail tables, 35,063 mismatching slots), what was measured and what is exhausted:
+
+- Unrowed compiled slot names are drained. A read-only prefilter compares the compiled body of every such name
+  with retail's bytes at the slot target (same size, equal outside relocations) and a second pass drops a name
+  whose callee cannot itself be rowed. About 230 commits rowed the survivors; 61 names still pass and are held
+  by claims or the judge (a row that makes another table newly bridged is refused).
+- 3,160 bridged names cover far fewer classes than it looks: 923 names share their retail table with another
+  bridged name and 529 with a name that is already compiled correctly. Most of those pairs are NOT one class
+  under two names: the linker folded the identical tables of different classes, and `rename.py class --fold`
+  rightly refuses them (each name's destructor installs its own table, both have constructor rows, a third name
+  exists). Only a stand-in that has no ledger row at all can become `typedef Real StandIn;` (done where the
+  layouts of the unit's other classes do not move).
+- A class view that changes must change in every unit that emits the class's table, or of a table derived from
+  it. f5d27a753c (2026-11-14) changed one view and cost AptShapeContainer.cpp its link until 2c5fc2bb9e6. The
+  worker and the landing script now link-check, before and after, every unit whose object defines a `??_7`
+  symbol that an edited unit defines.
+- Root classes, partial rule: every retail slot the ledger can name is written into the views (a rowed virtual
+  of the class, the destructor, a pure slot, a folded trivial body inline with an alias row); a slot whose body
+  is rowed under a name that is not the class's to take is held as the view has it, or as the pure placeholder
+  `slotNN`. Of 1,640 primary tables only 108 can be planned (833 views have bases, 269 declare no virtual, 232
+  have no nameable slot), and most attempts on those fail honestly: a held slot made pure turns a derived class
+  the unit instantiates abstract, or a twin spelling of the base in another unit makes a derived table differ.
+- Derived classes: a slot compiled `__purecall` whose retail body is a rowed virtual of the same class only
+  lacks the override's declaration in the unit that emits the table; it is added from the mangled name where a
+  visible base declares a virtual of that name, and refused when a table of the class grows (the declaration
+  was a new virtual, not an override).
+- What is left needs one of two things no script here supplies. (1) Slot names: an override must carry its base
+  slot's identifier, but each body was rowed under its own address-named identifier; of 3,364 compiled-pure
+  slots 2,033 hold a body rowed under another name. (2) The real base in the unit: 902 compiled-pure slots hold
+  a trivial retail body that the real interface (BehaviorModuleInterface and its like) defines inline, while
+  the unit's private stand-in declares it pure; rowing 47 per-class overrides would make the bytes right and
+  the source wrong, so that was not done. Both are the canonical-header lane's work (reverse/header_queue.tsv:
+  1,111 of its 8,921 queued units fail on a private field with no canonical field at its offset and size).
