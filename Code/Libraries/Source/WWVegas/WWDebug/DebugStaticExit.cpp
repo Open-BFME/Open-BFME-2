@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHs-c-
+// platformsdk
 //
 // Debug::StaticExit, retail 0x000399C0 (147 bytes).
 //
@@ -10,13 +11,10 @@
 // errors.txt in the shell when the +0x9F57 "log errors to file" flag is
 // set. The command-group loop of Zero Hour is gone.
 
-typedef void *HWND;
+#define NO_STRICT
+#include <windows.h>
 
 #include "DebugCriticalSection.h"
-
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(DebugCriticalSection *lock);
-extern "C" __declspec(dllimport) void *__stdcall ShellExecuteA(HWND window, const char *operation,
-	const char *file, const char *parameters, const char *directory, int showCommand);
 
 extern DebugCriticalSection g_bfmeCsDWC;
 
@@ -68,7 +66,7 @@ void Debug::StaticExit()
 {
 	if (--theDebug->refCount)
 	{
-		DeleteCriticalSection(&g_bfmeCsDWC);
+		DeleteCriticalSection((CRITICAL_SECTION *)&g_bfmeCsDWC);
 		return;
 	}
 
@@ -82,7 +80,7 @@ void Debug::StaticExit()
 			io->io = 0;
 		}
 
-	DeleteCriticalSection(&g_bfmeCsDWC);
+	DeleteCriticalSection((CRITICAL_SECTION *)&g_bfmeCsDWC);
 	if (theDebug->logErrorsToFile)
 		ShellExecuteA(0, "open", "errors.txt", 0, 0, 1);
 }

@@ -1,6 +1,7 @@
 // ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/iniexception /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// platformsdk
 // ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z @0x0002D2C1, 936B.
 //
 // W7-ASTRA recovery: native 0x0002D2C1..0x0002D669 RET8, 936 bytes.
@@ -93,13 +94,12 @@ AsciiString BfmeINICurrentFilename;
 extern int BfmeINIMacroGeneration;
 extern int BfmeINISavedMacroGeneration;
 
-typedef unsigned short WORD;
+#include <windows.h>
 
 #include "../../../Include/Common/SaveDate.h"
 extern SaveDate BfmeINIReadTimestamp;
 
 // <windows.h>'s SYSTEMTIME (isFileNewer.cpp).
-struct _SYSTEMTIME;
 bool isFileNewer(const AsciiString &filename, const _SYSTEMTIME *date);
 
 class Rva0002CB98

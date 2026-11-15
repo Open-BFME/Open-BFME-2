@@ -22,6 +22,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <process.h>
+#pragma pop_macro("_CRTIMP")
 #include <deque>
 #include <hash_map>
 #include <new>
@@ -98,8 +103,6 @@ template <> void **vector<void*>::end();
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 }
-
-extern "C" __declspec(dllimport) unsigned long __cdecl _beginthread(void (__cdecl *start_address)(void *), unsigned stack_size, void *arglist);
 
 #pragma intrinsic(memset)
 

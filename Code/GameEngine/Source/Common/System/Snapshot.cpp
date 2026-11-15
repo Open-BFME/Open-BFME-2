@@ -24,6 +24,7 @@
 #pragma inline_depth()
 #define _DLL
 #include <string.h>
+#include <ctype.h>
 #include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 template <class CHAR>
 bool StringBase<CHAR>::isEmpty() const
@@ -90,10 +91,6 @@ public:
 // otherwise tail-jumps through the msvcr71 wcslen import (IAT BBA6AC) rather
 // than a thunk, so this unit declares wcslen dllimport itself instead of
 // taking <string.h>'s spelling. Original name unknown; address-named.
-typedef unsigned int size_t;
-
-
-extern "C" __declspec(dllimport) unsigned short __cdecl towlower(unsigned short value);
 
 // The four (const T *, int) comparison members hand five arguments to a shared
 // worker: this string's data and length, the argument's data and length, and a

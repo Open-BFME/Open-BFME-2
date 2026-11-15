@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /D_STLP_USE_STATIC_LIB
+// platformsdk
 // GameEngine::init, retail 0x0022E2E4..0x0023054C (8808 bytes).
 // Identity: GameEngine vtable VA 0x00BE7188 slot 14; Zero Hour GameEngine::init
 // provides the semantic structure. BFME2's subsystem names, allocation sizes,
@@ -31,6 +32,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#define NO_STRICT
+#include <windows.h>
+#undef near
+#undef far
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -404,11 +409,6 @@ extern void *TheLivingWorldAutoResolveReinforcementScheduleStore;
 extern Rva0022C316Subsystem *TheLivingWorldAutoResolveResourceBonusScheduleStore;
 extern Rva0022C38BSubsystem *TheLivingWorldAutoResolveSciencePurchasePointBonusScheduleStore;
 
-extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void *hwnd, const char *text, const char *caption, unsigned int type);
-extern "C" __declspec(dllimport) int __stdcall MessageBoxW(void *hwnd, const unsigned short *text, const unsigned short *caption, unsigned int type);
-extern "C" __declspec(dllimport) int __stdcall SetWindowPos(void *hwnd, void *after, int x, int y, int cx, int cy, unsigned int flags);
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
-
 #define VSLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define VSLOTS16(p) VSLOTS4(p##0) VSLOTS4(p##1) VSLOTS4(p##2) VSLOTS4(p##3)
 
@@ -644,7 +644,7 @@ public:
 };
 extern Debug *theDebug;
 void __cdecl _bfme_debugRecordCallsite(int kind);
-extern void *ApplicationHWnd;
+extern HWND ApplicationHWnd;
 extern bool g_00DFE718;
 
 #include "../../Include/GameClient/GameText.h"
@@ -707,7 +707,6 @@ Rva001D9670Store::Rva001D9670Store()
 // wrap of the loop condition is the other half: it re-pairs the expression
 // temps so the frame has retail's three 8-byte homes. Layout and names of
 // +0x11..+0x40 are address-derived (not independently proven).
-extern "C" __declspec(dllimport) unsigned int __stdcall timeBeginPeriod(unsigned int period);
 
 GameEngine::GameEngine()
 {

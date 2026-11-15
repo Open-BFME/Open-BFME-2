@@ -1,23 +1,10 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP=
+// platformsdk
 // ?ExecuteCommand@@YA_NABVAsciiString@@0@Z @0x00407AF9 202B: cdecl bool building command line from two AsciiStrings plus g_00BBD40C via rowed concat then _mbscpy to 256B stack buf then CreateProcessA plus WaitForSingleObject plus CloseHandle. Evidence: memset 0x6291AE STARTUPINFO 0x44 concat 0x6987 0x5629 _mbscpy 0x629176 CreateProcessA IAT WaitForSingleObject CloseHandle releaseBuffer 0x36410 ret; callers 0x409744 0x40976F.
 #include <mbstring.h>
 #include "ascii_string.h"
 #include <string.h>
-struct STARTUPINFOA
-{
-	unsigned long cb;
-	unsigned char m_rest[0x40];
-};
-#include "../../Include/Common/PROCESS_INFORMATION.h"
-extern "C"
-{
-	__declspec(dllimport) int __stdcall CreateProcessA(const char *application, char *commandLine,
-		void *processAttributes, void *threadAttributes, int inheritHandles, unsigned long creationFlags,
-		void *environment, const char *currentDirectory, STARTUPINFOA *startupInfo,
-		PROCESS_INFORMATION *processInformation);
-	__declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void *handle, unsigned long timeout);
-	__declspec(dllimport) int __stdcall CloseHandle(void *handle);
-}
+#include <windows.h>
 extern const char g_00BBD40C[];
 // WorldBuilder ExecuteCommand, WB VA 0x0107FED0 (callgraph lead, score 1.0).
 bool ExecuteCommand(const AsciiString &asciiString, const AsciiString &b)
