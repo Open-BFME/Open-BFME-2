@@ -91,7 +91,9 @@ class Rva003674CA
 {
 public:
 	Rva003674CA(int value, bool flag);
-	virtual ~Rva003674CA() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual int slot08() { return -1; }
 private:
 	int m_04;
 	int m_08;
