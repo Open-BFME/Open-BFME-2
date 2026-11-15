@@ -1,13 +1,8 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /DBFME_STRINGBASE_PUBLIC_COPY
 
 // Open-BFME5: LifeEventModuleInfo copy constructor.
 
-template <typename Character>
-class StringBase
-{
-public:
-	StringBase(const StringBase &);
-};
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class BFMERetailAsciiString : private StringBase<char>
 {

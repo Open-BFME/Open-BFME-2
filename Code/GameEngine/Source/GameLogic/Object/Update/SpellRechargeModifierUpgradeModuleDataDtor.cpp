@@ -1,4 +1,4 @@
-// cl: /GX /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /GX /DNDEBUG /MD /Ireference/shims/moduledata /DBFME_STRINGBASE_PUBLIC_DTOR
 //
 // ??1SpellRechargeModifierUpgradeModuleData@@UAE@XZ, retail 0x004B608A,
 // 75 bytes. ModuleData dtor: destroys the AsciiString at +0x128 through the
@@ -24,15 +24,7 @@
 
 #include "Common/Snapshot.h"
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	T *m_data;
-};
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Vec118
 {

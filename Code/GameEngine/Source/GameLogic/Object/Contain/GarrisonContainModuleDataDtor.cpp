@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG /DBFME_STRINGBASE_PUBLIC_DTOR
 //
 // ??1GarrisonContainModuleData@@UAE@XZ, retail 0x00257507, 56 bytes.
 // Target evidence: base ctor 0x0047978F installs vtable 0x00C462D8 and zeroes
@@ -8,15 +8,7 @@
 // 0x0047 callers. Donor BFME1 GarrisonContainModuleDataCtorThunk plus
 // GarrisonContain.cpp XIV: HordeTransport 5B-jmp precedent for POD derived.
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	void *m_data;
-};
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 

@@ -1,16 +1,9 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /DBFME_STRINGBASE_PUBLIC_DTOR
 // ??1Rva004D60CA@@MAE@XZ retail 0x004D60E3 54B.
 // Dtor lane: vptr 0x860464 then Wide releaseBuffer at +0x1c then vptr 0x860130.
 // Evidence: ctor 0x004D60CA plus setter 0x004D6187 plus vtable 0x860464.
 
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 typedef int Int;
 typedef bool Bool;

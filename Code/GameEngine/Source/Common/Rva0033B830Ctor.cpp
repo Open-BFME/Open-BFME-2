@@ -1,17 +1,11 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep /DBFME_STRINGBASE_PUBLIC_COPY
 // ??0Rva0033B830@@QAE@ABV?$StringBase@D@@ABVRva002390CB@@@Z @0x0033B830 30B.
 // Two-member record ctor: StringBase<char> at +0 via pinned copy 0x365F0 then
 // Rva002390CB at +4 via rowed copy 0x2390CB then return this with ret 8.
 // Layout matches 12B BfmeStringRecord002CF550 (StringBase plus Rva002390CB).
 // Caller 0x0033BEF5 is the hidden-dest forwarder that becomes ready and its
 // caller 0x0033DBE5 builds the StringBase temp via 0x37BA0 plus Upgrades.
-template <typename T>
-class StringBase
-{
-    friend struct Rva0033B830;
-    StringBase(const StringBase<T> &other);
-    void *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../Include/Common/Rva002390CB.h"
 

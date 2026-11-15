@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /DBFME_STRINGBASE_PUBLIC_DTOR
 // ??1Rva005396E6@@QAE@XZ @0x005396E6 89B:
 // Non-virtual dtor: frees void* at +0x0C and +0x10 via DisplayManager global
 // 0x009FEAD8 slot 0x3C (FreeEntry) then wide StringBase members at +4/+8 via
@@ -28,14 +28,7 @@ public:
 
 extern class DisplayStringManager *TheDisplayStringManager;
 
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class Rva005396E6
 {

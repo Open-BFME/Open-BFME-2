@@ -13,23 +13,7 @@
 
 #include <string.h>
 
-template <typename T>
-class StringBase
-{
-public:
-	void set(const T *str);
-	const T *str() const { return m_data ? &m_data->data[0] : (const T *)""; }
-
-private:
-	struct Header
-	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-	Header *m_data;
-};
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/Rva00151288.h"
 
