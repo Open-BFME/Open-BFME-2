@@ -8837,7 +8837,7 @@ Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPredicate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPanicStateOnExit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIParseSideInfo.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPathfind_setDebugPathPosition_Pathfinder_QAEXPBUCoord3D_Z.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPickUpCrateStateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,yes,0,0,0,0,0
