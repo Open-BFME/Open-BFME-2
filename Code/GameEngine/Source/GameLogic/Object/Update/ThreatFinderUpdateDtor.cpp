@@ -55,6 +55,7 @@ private:
 	Rva003ECDB7Object *m_heap;
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x003ECCD0
+	virtual void loadPostProcess();			// primary slot 1: retail 0x00497805, rowed in ThreatFinderUpdate.cpp
 };
 
 ThreatFinderUpdate::~ThreatFinderUpdate()

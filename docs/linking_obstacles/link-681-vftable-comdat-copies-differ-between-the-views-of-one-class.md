@@ -1,6 +1,6 @@
 ### LINK-681: vftable COMDAT copies differ between the private views of one class
 
-Status: Open; `Rva00785140Handle` repaired, the load-screen pair equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `1de491bcfb`.
+Status: Open; four families repaired or equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `c64c20ff06`.
 Evidence / affected units: census 2026-11-15 08:36 (`331df3e3ff`) holds 24 units out on a `??_7` name
 that "differs from the first copy in link order (no retail address)". Each is a class whose views
 declare different virtual lists, so the units emit different tables. One cause is measured: a
@@ -75,6 +75,37 @@ Read so far, not repaired (2026-11-15, object tables at index `bb93a2a56e`):
 - `DynamicPortalBehaviourModuleDataDtor.cpp`: the constructor unit emits the 31-slot list; the
   destructor unit's private `Rva00253487Base` declares only a destructor, a shape its notes say the
   destructor's bytes depend on.
+Completed 2026-11-15 (base `c64c20ff06`), module classes whose destructor sits in another unit than the
+class's other rows. In both, the module's own unit already emitted retail's slots and the destructor
+unit's view lacked the class's overrides, so its copy fell back to the base's names:
+- `ThreatFinderUpdate` (retail 0x008360CC, 13 slots): `ThreatFinderUpdateDtor.cpp` now declares the
+  protected `loadPostProcess()` override (slot 1, rowed in `ThreatFinderUpdate.cpp` at the folded
+  0x00497805). Preview: `ThreatFinderUpdateDtor.cpp` LINKS 0 -> 125.
+- `InheritUpgradeCreate` (retail 0x008596E4 and 0x008596F4): `Rva004B8CDEDerived.cpp`, which rows the
+  destructor 0x004B9458, now declares `getModuleNameKey`, inline `onCreate`, `onBuildComplete`, `slot02`
+  and protected `xfer` as `InheritUpgradeCreate.cpp` does. Preview: `InheritUpgradeCreate.cpp` LINKS
+  0 -> 525.
+15/15 functions exact over the two edited units; both names of each class have one digest; the two other
+census objects touching a changed name keep linking.
+Read with `build/`-side slot comparison against retail (2026-11-15), still open:
+- `MonitorConditionUpdate.cpp` (334 B) and `BoneFXDamage.cpp` (433 B): the module unit's private class
+  is right (`getModuleNameKey` and, for BoneFXDamage, `onDamage`, `onHealing`,
+  `onBodyDamageStateChange`, `onObjectCreated`, `loadPostProcess`, `GetSnapshotName`, `xfer`); the first
+  copy comes from a unit on the generated canonical header (`Common/MonitorConditionUpdate.h`,
+  `Module/BoneFXDamageClass.h`), which declares none of them. The repair is the class contract
+  (`reverse/class_contracts/<Class>.json`) and a regenerated header, then the module unit adopting it.
+- `EvacuateDamage.cpp` (480 B): two things differ. Its `DamageModule` is a private view (slots 1 and 2
+  pure, ten slots) where `EvacuateDamageCtorModuleFactoryBody.cpp` uses the canonical
+  `DamageModuleClass.h`; and the constructor unit declares no destructor, so its table names the public
+  `??_EEvacuateDamage@@UAEPAXI@Z` where retail's row is the protected `??_GEvacuateDamage@@MAEPAXI@Z`.
+- Small tables, retail's list beside each copy: `Rva000AAD5CCtor.cpp` and `SingleBaseCtors.cpp` start the
+  class with a pure slot where retail's slot 0 is the deleting destructor (0x000AB0B8, 0x00211121) that
+  the B08/B04 scaffold copies name; `Rva001E7087Ctor.cpp` declares one of retail's four slots where
+  `Locomotor.cpp` declares four; `Rva005FA393Dtor.cpp` declares a virtual destructor where retail's
+  `BattlePromptMovieClip` table (0x008078DC) is five pure slots, as `Rva005F9364Region.cpp` has it;
+  `FunctorRefInvoke005D388B.cpp` is the right copy (`what@exception` in slot 1, retail 0x006299B8) and
+  the eight one-slot copies are wrong; `Rva004E5610` is `ResourceEntryCollector` under a second name
+  (retail's one slot is `ResourceEntryCollector::rva004E55B9`) and neither copy has it.
 Plain forms of the base constructor in `AptShapeContainer.cpp`'s view, retested 2026-11-15 at
 `1de491bcfb` (each built with `./build.sh`, then the object's symbols read): declared without a body,
 the 27-byte handle constructor calls it out of line and `??0Rva00785140Handle@@QAE@ABVAssetReference@@@Z`
@@ -85,5 +116,6 @@ used inline constructor even when every call is expanded), a second definition b
 can go when the base's three rows (0x000A8EB9, 0x000A8EC2, 0x000A8EC9; approved unit
 `AptDisplayStringBase.cpp`) are defined inline in a unit that itself constructs a subclass: retail's
 copies are header inlines that first unit emitted, and then every view can use the in-class form.
-Clearance: `Rva00785140Handle` and the two load-screen tables, preview scope the units named for each.
+Clearance: `Rva00785140Handle`, the two load-screen tables, `ThreatFinderUpdate` and
+`InheritUpgradeCreate`; preview scope the units named for each.
 Census confirmation: awaiting.

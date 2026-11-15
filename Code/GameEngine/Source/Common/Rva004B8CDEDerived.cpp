@@ -43,10 +43,23 @@ Rva004B9287::~Rva004B9287()
 }
 
 
+// The class's own overrides, as InheritUpgradeCreate.cpp (the owner of every other
+// row of the class) declares them, so both units emit the same two tables: retail's
+// 0x008596E4 holds onCreate (the folded empty body 0x000B3FD0), onBuildComplete
+// 0x004B96A9 and slot02 0x004B96C4; 0x008596F4 holds xfer 0x004B94E3 and
+// getModuleNameKey 0x004B9471.
+enum NameKeyType;
 class InheritUpgradeCreate : public CreateModule
 {
 public:
 	virtual ~InheritUpgradeCreate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onCreate() { }
+	virtual void onBuildComplete();
+	virtual void slot02();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 InheritUpgradeCreate::~InheritUpgradeCreate()
