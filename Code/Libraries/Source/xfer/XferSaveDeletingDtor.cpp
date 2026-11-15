@@ -23,6 +23,10 @@
 
 // ??_GXferSave@@UAEPAXI@Z @0x0060D24D 28B: slot 0 of vtable 0x00C7B010; calls ??1 at 0x0060D0B3.
 // Owner evidence (audited 2026-09-26): BFME1 reconstructed donor slots 6/38 at RVAs 0x0060CA26/0x0060C935 implement save-side block finalization and stream writes; ctor/dtor RVAs 0x0060D1F7/0x0060D0B3 share this primary vptr; class spelling remains donor-derived.
+// <new> declares operator delete[]: the array path of the vector deleting destructor frees
+// through it as retail does.
+#include <new>
+
 class Rva00BBB910Base { public: virtual ~Rva00BBB910Base() {} };
 
 // Retail calls free directly (the game allocator), not through the CRT
@@ -52,3 +56,11 @@ private:
 };
 XferSave::~XferSave() {}
 void XferSave_Delete(XferSave *xferSave) { delete xferSave; }
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of Rva00BBB910Base, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_Rva00BBB910Base> absent-from-retail
+void bfmeVectorDeleteAnchor_Rva00BBB910Base(Rva00BBB910Base *p)
+{
+	p->Rva00BBB910Base::__vecDelDtor(3);
+}
