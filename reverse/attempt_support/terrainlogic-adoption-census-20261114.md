@@ -71,12 +71,43 @@ while the unit's `WaterToUpdate` and the canonical's
 | `Map/TerrainLogicBeaconPathPoint.cpp` | `Coord3D` class type redefinition |
 | `FlammableUpdateDtor.cpp` | `SubsystemInterface` class type redefinition (`…/subsystem/SubsystemInterface.h:14`) |
 
-TerrainLogic.h includes `SubsystemInterface.h`, a Snapshot shim and
-`Coord3D.h`, each behind its own `#if !defined(...)` guard pair. These four
-units already reach those types another way, so the include lands a second
-definition. This is the one category that looks like a header-side fix:
-the guards admit a second definition when the other path defined the type under
-a different macro.
+**Corrected after investigating it.** My first read was that one include guard
+in TerrainLogic.h would clear all four. It would not, and acting on that would
+be wrong.
+
+The mechanism: TerrainLogic.h includes the *canonical* header for each of these
+types, while the unit already has a *shim* definition of the same type under a
+different guard, so both land.
+
+    Code/Libraries/Source/subsystem/SubsystemInterface.h   #ifndef CANONICAL_SUBSYSTEMINTERFACE_H
+    reference/shims/sweep/Common/SubsystemInterface.h      #ifndef __SUBSYSTEMINTERFACE_H_
+
+`FlammableUpdateDtor.cpp`'s `// cl:` line carries `/Ireference/shims/sweep`, so
+it reaches the second. The same holds for the others: `Coord3D` is defined in
+three `Code/Libraries/Include/Lib/` headers and in
+`reference/shims/pathfind/GameLogic/AIPathfind.h` and
+`reference/shims/bfme2_bridgebehavior/Lib/BaseType.h`; `StringBase` in four
+shims including `bfme2_ascii/string_base.h`.
+
+TerrainLogic.h does guard this way for Snapshot — line 12 tests the *shim's*
+`__SNAPSHOT_H_` — and does not for SubsystemInterface, which tests only
+`CANONICAL_SUBSYSTEMINTERFACE_H`. That asymmetry is what made a guard fix look
+right.
+
+It is not, because **the two definitions are not interchangeable**. The
+canonical class declares `SubsystemInterface()`, a virtual destructor and, under
+`BFME_SUBSYSTEM_SLOTS`, a specific slot order (`init` pure,
+`loadIniFilesFromLegend`, `postProcessLoad`, `vslot04`…`vslot08`). The shim is
+ZH's verbatim GeneralsMD header with ZH's virtuals, and its own comment records
+that retail has three extra stub virtuals at slots 6-8 for ~113 vtables but not
+in the Display branch. Guarding the include so that whichever arrives first
+wins would give TerrainLogic a different base vtable depending on the unit,
+which is the thing the canonical lane exists to prevent.
+
+So category C is an **adoption-ordering dependency**: these units cannot adopt
+canonical TerrainLogic until they stop taking SubsystemInterface, Coord3D and
+StringBase from shims — that is, until those classes are adopted in them first.
+Not a header bug, and not a quick win.
 
 ## D. `Coord3D::add` is rowed and its canonical header omits it (2 units)
 
@@ -104,15 +135,18 @@ These fail before the header is reached.
 
 ## Suggested order
 
-1. **C (4 units)** — one include-guard fix in TerrainLogic.h may clear all
-   four, and it is the only category whose repair is in the header.
-2. **D (1 unit)** — get `Coord3D::add` declared through its owning view.
-3. **B (6 units)** — needs a decision on the `fieldNNN` placeholders first;
+1. **D (1 unit)** — get `Coord3D::add` declared through its owning view. The
+   smallest, and the only one with a matched row already proving the member.
+2. **B (6 units)** — needs a decision on the `fieldNNN` placeholders first;
    renaming the canonical fields is naming-lane work and changes the header for
    every adopter, not just these six.
-4. **A (9 units)** — per-unit call-site reconciliation, the largest and least
-   shared.
+3. **A (9 units)** — per-unit call-site reconciliation, the largest and least
+   shared, but each unit is independent.
+4. **C (4 units)** — blocked behind adopting SubsystemInterface, Coord3D and
+   StringBase in those units. Largest dependency, least tractable here.
 5. **E, F (4 units)** — not this lane.
+
+C was first in an earlier revision of this note, on the mistaken reading above.
 
 ## Reproducing
 
