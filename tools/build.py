@@ -19,6 +19,27 @@ import tempfile
 import threading
 import time
 from pathlib import Path
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class CompilationContext:
+    """Explicit modern compilation; never inferred from process environment."""
+    defines: tuple = ("BFME2_MODERN=1",)
+
+    def validate_output(self, output):
+        from build_variant import variant_paths
+        directory = variant_paths(ROOT, "modern")["objects"]
+        output = Path(output).absolute()
+        if self.defines != ("BFME2_MODERN=1",):
+            raise ValueError("unsupported modern compiler definitions")
+        if output.parent != directory or output.suffix != ".obj":
+            raise ValueError("modern objects must be in build/modern/objects")
+        for candidate in (output, _deps_sidecar(output), _deps_sidecar(output).with_suffix(".tmp")):
+            if candidate.resolve() != candidate or candidate.is_symlink():
+                raise ValueError(f"redirected compiler output: {candidate}")
+            if candidate.exists() and (not candidate.is_file() or candidate.stat().st_nlink != 1):
+                raise ValueError(f"linked or non-file compiler output: {candidate}")
 
 
 def _log_gate_loads():
@@ -1536,7 +1557,9 @@ def _allowed_flags(source, flags):
     return flags
 
 
-def compiler_command(source, output):
+def compiler_command(source, output, *, context=None):
+    if context is not None:
+        context.validate_output(output)
     # Every compile path builds its command here -- explain_mismatch,
     # link_check --refresh, flag_defaults, census_receipts and others skip
     # build.main, so the stale-reference refusal lives where they all meet.
@@ -1587,6 +1610,8 @@ def compiler_command(source, output):
             command.append("-I" + wine_path(root / "Vc7" / "PlatformSDK" / "Include"))
     flags = stlport_overlay.include_dirs(source, source_extra_flags(source))
     command += compiler_profiles.source_options(compiler, flags)
+    if context is not None:
+        command += ["-D" + value for value in context.defines]
     command += [
         f"-Fo{output_arg}",
         source_arg,
@@ -2166,7 +2191,7 @@ def _write_deps_sidecar(source, output, fingerprint, stdout_text, is_cl,
     tmp.replace(_deps_sidecar(output))
 
 
-def compile_is_current(source, output, *, strict=False, inventory_cache=None):
+def compile_is_current(source, output, *, strict=False, inventory_cache=None, context=None):
     """Sound obj reuse: True iff the obj exists and the source, compile command,
     and EVERY header recorded by /showIncludes at compile time are byte-identical.
     This is what makes skipping a TU in the full gate safe — the old behavior
@@ -2178,6 +2203,8 @@ def compile_is_current(source, output, *, strict=False, inventory_cache=None):
     directory shadows a recorded one), so only a version-2 sidecar with an
     inventory proves a TU that includes anything; a header-free TU's ordinary
     sidecar still does."""
+    if context is not None:
+        context.validate_output(output)
     sidecar = _deps_sidecar(output)
     if not output.exists() or not sidecar.exists():
         return False
@@ -2187,7 +2214,10 @@ def compile_is_current(source, output, *, strict=False, inventory_cache=None):
         return False
     if not isinstance(meta, dict) or not isinstance(meta.get("deps", {}), dict):
         return False
-    command, env = compiler_command(source, output)
+    if context is not None and meta.get("object") != _hash_file(str(output)):
+        return False
+    command, env = (compiler_command(source, output) if context is None else
+                    compiler_command(source, output, context=context))
     if meta.get("cmd") != _cmd_fingerprint(command, env):
         return False
     if meta.get("source") != _hash_file(str(source)):
@@ -2704,7 +2734,7 @@ def _run_compile(command, env, log, timeout=None):
     return subprocess.CompletedProcess(command, returncode)
 
 
-def try_compile_source(source, output, *, input_proof=None, inventory=False, timeout=None):
+def try_compile_source(source, output, *, input_proof=None, inventory=False, timeout=None, context=None):
     """Compile `source` to `output`. Return (ok, filtered_output, returncode).
 
     `inventory` (link_census --build) records Open-BFME-1's include search
@@ -2716,11 +2746,14 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
     seconds (None: no limit), for callers whose candidates may hang the
     compiler.
     """
+    if context is not None:
+        context.validate_output(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     inventory = inventory or input_proof is not None
     if inventory:
         _deps_sidecar(output).unlink(missing_ok=True)
-    command, env = compiler_command(source, output)
+    command, env = (compiler_command(source, output) if context is None else
+                    compiler_command(source, output, context=context))
     is_cl = source.suffix.lower() != ".asm"
     if not is_cl:
         refusals = cl_flags.asm_refusals(source.read_bytes())
@@ -2736,7 +2769,7 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
     fingerprint = _cmd_fingerprint(command, env)
     inventory_before = search_inventory(source, command, env) if inventory and is_cl else None
     retry_dirs = [] if inventory else None
-    if not inventory and _restore_object(source, output, fingerprint):
+    if context is None and not inventory and _restore_object(source, output, fingerprint):
         return True, "", 0
     filtered, code = "", 1
     # input_proof's preprocessor snapshots cost two `cl -E` runs per TU, and
@@ -2775,7 +2808,8 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
                 continue
             if input_proof:
                 input_proof.after(source, output, command, env, before, stdout)
-            _store_object(source, output, fingerprint)
+            if context is None:
+                _store_object(source, output, fingerprint)
             return True, filtered, 0
         # Retry once with the sweep include dirs on the path (header resolution
         # only — never affects codegen of already-matched sources).
@@ -2800,8 +2834,9 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
     return False, filtered, code
 
 
-def compile_source(source, output, *, input_proof=None, inventory=False):
-    ok, text, code = try_compile_source(source, output, input_proof=input_proof, inventory=inventory)
+def compile_source(source, output, *, input_proof=None, inventory=False, context=None):
+    kwargs = {} if context is None else {"context": context}
+    ok, text, code = try_compile_source(source, output, input_proof=input_proof, inventory=inventory, **kwargs)
     if ok:
         return
     print(f"compile failed: {source.relative_to(ROOT)}", file=sys.stderr)
