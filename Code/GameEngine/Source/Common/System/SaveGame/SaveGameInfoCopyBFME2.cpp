@@ -79,7 +79,7 @@ struct BfmeSubobject00229875 : Rva0022CE19SnapshotBase {
     BfmeSubobject00229875();
     void rva002DBA6A();
     virtual ~BfmeSubobject00229875();
-    virtual void loadPostProcess();
+    virtual void loadPostProcess() { }
     virtual const char *typeName() const;
     virtual void xfer(Xfer *);
     GameSlot elements[8];
