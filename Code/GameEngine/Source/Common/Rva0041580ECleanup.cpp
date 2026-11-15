@@ -44,12 +44,10 @@ struct RbTreeHead
 // it there, then writes a pointer plus bool at +4 to its own hidden output.
 // No original iterator/result class, constness or lifetime is claimed.
 struct Rva004158AFSlot {
-    // ?Rva004158AFSlot::Rva004158AFSlot present-unmatched
     __forceinline Rva004158AFSlot(Rva0041580ENode *node):m_node(node) {}
     Rva0041580ENode *m_node;
 };
 struct Rva00415A55Result {
-    // ?Rva00415A55Result::Rva00415A55Result present-unmatched
     __forceinline Rva00415A55Result(Rva0041580ENode *node,bool inserted):m_node(node),m_inserted(inserted) {}
     Rva0041580ENode *m_node;
     bool m_inserted;

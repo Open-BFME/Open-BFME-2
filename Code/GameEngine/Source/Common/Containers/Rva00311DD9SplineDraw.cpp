@@ -23,9 +23,7 @@ class TerrainLogic;extern TerrainLogic *TheTerrainLogic;
 struct SplineTerrainCalls {virtual void p00();virtual void p04();virtual void p08();virtual void p0c();virtual void p10();virtual void p14();virtual float height(float,float,void*);};
 float Rva000930C0(float,float);
 struct SplineDrawPoint:Coord3D {
-// ?SplineDrawPoint::SplineDrawPoint present-unmatched
 __forceinline SplineDrawPoint(const Coord3D&r){x=r.x;y=r.y;z=r.z;} 
-// ?SplineDrawPoint::operator= present-unmatched
 __forceinline SplineDrawPoint&operator=(const Coord3D&r){*(Coord3D*)this=r;return *this;}};
 class Rva00311DD9:public SplineState {public:void draw(float);};
 

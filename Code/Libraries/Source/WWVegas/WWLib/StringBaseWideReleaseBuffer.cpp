@@ -56,7 +56,6 @@ class WideLock
     unsigned char m_state;
 
 public:
-    // ??0WideLock@@QAE@PAVRva00041004@@@Z present-unmatched
     __forceinline WideLock(Rva00041004 *lock) : m_lock(lock)
     {
         if (!m_lock->m_flag)

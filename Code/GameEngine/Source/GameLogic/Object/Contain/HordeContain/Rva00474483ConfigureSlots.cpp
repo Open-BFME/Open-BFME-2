@@ -66,7 +66,6 @@ struct Rva00474483Input { AsciiString name; Rva00474431Pair position; };
 // member or type name is asserted.
 struct Rva00474519Jitter {
  float x,y;
- // ?Rva00474519Jitter::Rva00474519Jitter present-unmatched
  __forceinline Rva00474519Jitter(const Rva00474519Jitter &other) :x(other.x),y(other.y) {}
 };
 struct HordeRankPosition { Coord2D position; int partner,localIndex; };
@@ -83,7 +82,6 @@ struct Rva00474483Definition {
  _STL::vector<int> specialSlots;
 };
 struct Rva00474483Entry {
- // ?Rva00474483Entry::Rva00474483Entry present-unmatched
  __forceinline Rva00474483Entry() : target(0), slot(-1) {}
  void *target; int slot;
 };

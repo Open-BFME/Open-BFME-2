@@ -10500,8 +10500,6 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	Rva000
 present_unmatched	Code/GameEngine/Source/Common/BigChainBaseDtorsO1.cpp	BigChainO1Hold::~BigChainO1Hold	1
 present_unmatched	Code/GameEngine/Source/Common/BitRange.cpp	_M_create_node@?$_Rb_tree@UBfmeStringRecord004071F7@@U1@U?$_Identity@UBfmeStringRecord004071F7@@@_STL@@URecordNocaseLess@@V?$allocator@UBfmeStringRecord004071F7@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmeStringRecord004071F7@@@2@ABUBfmeStringRecord004071F7@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311974SplineGet.cpp	splineGetActive	1
-present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311DD9SplineDraw.cpp	SplineDrawPoint::SplineDrawPoint	1
-present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311DD9SplineDraw.cpp	SplineDrawPoint::operator=	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	Rva00311F46Delta::Rva00311F46Delta	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	Rva00311F46Delta::length	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	Rva00311FE2Words::Rva00311FE2Words	1
@@ -10663,8 +10661,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva004075E0.cpp	0Rva004075E0Iter
 present_unmatched	Code/GameEngine/Source/Common/Rva004075E0.cpp	0Rva004075E0Pair@@QAE@PAURva004075E0Node@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva004075E0.cpp	0Rva004075E0Pair@@QAE@URva004075E0Iter@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0040D11CSwap.cpp	1Rva0040CB11Entry@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp	Rva004158AFSlot::Rva004158AFSlot	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp	Rva00415A55Result::Rva00415A55Result	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00419C7FDtor.cpp	1DebugIOInterfaceBase@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0041AD08Read.cpp	Rva0041AD08Caller@@YAXVAsciiString@@PAVFile@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0041AD08Read.cpp	Rva0041AE00Caller@@YAXVAsciiString@@PAVFile@@@Z	1
@@ -11090,8 +11086,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContai
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	f20@AODHordeContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp	1AODDtorElem16@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp	1AODDtorElem24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp	Rva00474483Entry::Rva00474483Entry	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp	Rva00474519Jitter::Rva00474519Jitter	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f00@HordeSiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f20@HordeSiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f30@HordeSiegeEngineContain@@UAEXXZ	1
@@ -12035,9 +12029,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.c
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.cpp	BfmeByteWordNodeTree::_M_insert	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	0NarrowLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	1NarrowLock@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	0WideLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	1WideLock@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	0WideLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	1WideLock@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	1NarrowStrLenSource@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp	bfmeEmitAsciiStringInlines@@YAXPAVAsciiString@@ABV1@PBD@Z	1
