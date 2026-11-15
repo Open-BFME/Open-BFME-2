@@ -18,7 +18,6 @@ public:
 	AsciiString m_a;
 };
 
-// ??1Rva005C4758Base@@UAE@XZ present-unmatched
 inline Rva005C4758Base::~Rva005C4758Base()
 {
 }
