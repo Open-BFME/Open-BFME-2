@@ -73,7 +73,6 @@ class CullSystemClass {protected:CullableClass *Get_First_Collected_Object_Inter
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValueVector *g_releaseVectorAtE17710;
 extern AptValueVector *g_aptOptionalValueVector;
-extern unsigned char g_00E18348;
 extern AptValue *gpUndefinedValue;
 class Rva006E34D0 {
 public:
@@ -179,7 +178,7 @@ void AptCIH::ClearCIH(int arg)
                 ((AptBasePtrStack *)&g_aptDateInterpreter)->rva006FE920();
             }
         }
-        if (!g_00E18348 && (int)(field5C&0xFFFF)>0 && (unsigned char)((BfmeAptValue006DCD20 *)this)->rva006CBEE0(false) && this!=_AptGetAnimationAtLevel(0)) {
+        if (!g_aptDateInterpreter.f68 && (int)(field5C&0xFFFF)>0 && (unsigned char)((BfmeAptValue006DCD20 *)this)->rva006CBEE0(false) && this!=_AptGetAnimationAtLevel(0)) {
             if (g_aptOptionalValueVector && !((Rva008981E0Value *)g_aptOptionalValueVector)->aptHasAll()) {
                 ((AptDisplayList *)((char *)((Rva006CD650 *)this)->rva006CD650()+0x24))->clear(true);
                 GetNativeHashVirtual()->ClearData();

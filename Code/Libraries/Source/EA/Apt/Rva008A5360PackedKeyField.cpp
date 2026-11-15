@@ -3,9 +3,10 @@
 class AptValue;
 #include "../../../../GameEngine/Include/Common/AptInteger.h"
 
-extern unsigned int Rva008A5250LastKey;
+#include "../../Apt/AptActionInterpreter.h"
+extern AptActionInterpreter g_aptDateInterpreter;
 
 AptInteger *aptPackedKeyFieldAt008A5360()
 {
-    return (AptInteger *)AptInteger::Create(((Rva008A5250LastKey >> 2) & 0xff) - 2);
+    return (AptInteger *)AptInteger::Create(((g_aptDateInterpreter.mLastKey >> 2) & 0xff) - 2);
 }

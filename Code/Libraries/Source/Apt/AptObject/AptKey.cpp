@@ -37,7 +37,6 @@ public:
 
 extern BfmeC1062 *g_bfmeC1062,*g_bfmeD1062;
 
-extern unsigned int Rva008A5250LastKey;
 
 // ?Rva008A5250KeyTable@@3QBHB @0x008EC538 (80B): 20-entry keycode map (first 20 dwords verified keycode-like; the name's digits are not its address).
 extern const int Rva008A5250KeyTable[20];
@@ -133,14 +132,14 @@ AptValue *AptKey::sMethod_getAnalogStickInfo(AptValue *,int)
 {
  int controller=0;
  int type=503;
- if(Rva008A5250LastKey!=0) {
-  unsigned int input=Rva008A5250LastKey;
+ if(g_aptDateInterpreter.mLastKey!=0) {
+  unsigned int input=g_aptDateInterpreter.mLastKey;
   if(!(((input&3)==1&&(input&0xfffe0000)==0x3ec0000)||(input&0xfffe0000)==0x3ea0000)) {
    g_bfmeAptAssertAtE17734("INPUT_IS_ANALOG(&gAptActionInterpreter.input)","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMiscObjects.cpp",839);
    if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}
   }
-  type=Rva008A5250LastKey>>17;
-  controller=(Rva008A5250LastKey>>2)&255;
+  type=g_aptDateInterpreter.mLastKey>>17;
+  controller=(g_aptDateInterpreter.mLastKey>>2)&255;
  }
  controller-=2;
  AptObject *obj=new(keyObjectAllocation) AptObject((AptVirtualFunctionTable_Indices)27);

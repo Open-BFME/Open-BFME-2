@@ -5,11 +5,12 @@
 class AptValue;
 #include <ctype.h>
 #include "../../../Include/Common/AptInteger.h"
-extern unsigned int Rva008A5250LastKey;
+#include "../../../../Libraries/Source/Apt/AptActionInterpreter.h"
+extern AptActionInterpreter g_aptDateInterpreter;
 extern const int Rva008A5250KeyTable[0x14];
 AptValue* aptKeyCode()
 {
-	unsigned int key = Rva008A5250LastKey;
+	unsigned int key = g_aptDateInterpreter.mLastKey;
 	int code = key >> 17;
 	if ((key & 0x3fc) && code < 0x14)
 		code = Rva008A5250KeyTable[code];
@@ -22,7 +23,7 @@ AptValue* aptKeyCode()
 // there is no named target caller.
 AptValue* aptKeyValue()
 {
-	int code = Rva008A5250LastKey >> 17;
+	int code = g_aptDateInterpreter.mLastKey >> 17;
 	if (code >= 0x20 && code <= 0x7e)
 	{
 		__asm

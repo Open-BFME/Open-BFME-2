@@ -10,7 +10,7 @@
 #include "../BfmeAptValue006DCD20.h"
 #include "../../../../GameEngine/Include/Common/Rva006DBB60ShrNAndField.h"
 #include "../AptBasePtrStack.h"
-struct AptActionInterpreter { AptBasePtrStack stack; };
+#include "../AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 template<class T> class AptValueSet {public: bool has(T)const;};
@@ -24,7 +24,6 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Constructor storage view only; rowed native ctor initializes all36 bytes.
 #include "../BfmeC1062.h"
 extern BfmeC1062 *g_bfmeC1062,*g_bfmeD1062;
-extern unsigned int Rva008A5250LastKey;
 // ?Rva008A5250KeyTable@@3QBHB @0x008EC538 (80B): 20-entry keycode map (first 20 dwords verified keycode-like; the name's digits are not its address).
 extern const int Rva008A5250KeyTable[20] = {
 	-1, 37, 39, 36, 35, 45, 46, -1, 8, -1,
@@ -74,8 +73,8 @@ AptValue *AptKey::sMethod_removeListener(AptValue *,int nParams)
 AptValue *AptKey::sMethod_isDown(AptValue *,int)
 {
  AptValue *pValue=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
- if((Rva008A5250LastKey&3)==1) {
-  int code=Rva008A5250LastKey>>17;
+ if((g_aptDateInterpreter.mLastKey&3)==1) {
+  int code=g_aptDateInterpreter.mLastKey>>17;
   if(code>=32&&code<=126)code=toupper(code);
   else if(code<20)code=Rva008A5250KeyTable[code];
   return AptBoolean::Create(code==pValue->toInteger());

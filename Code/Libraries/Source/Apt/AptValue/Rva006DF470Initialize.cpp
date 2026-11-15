@@ -44,7 +44,8 @@ class Rva00898D60Target;extern Rva00898D60Target*g_Rva01337A20;extern AptValue *
 extern AptValue*g_shutdownAtE18070,*g_shutdownAtE180B8,*g_shutdownAtE18068,*g_shutdownAtE180BC,*g_shutdownAtE18360,*g_shutdownAtE180AC;
 struct AptNativeHash;extern AptNativeHash*g_bfmeAptHashAtE180E4;
 extern AptValue *g_shutdownAtE180A8,*g_shutdownAtE18080,*g_shutdownAtE18084,*g_shutdownAtE180B4,*g_shutdownAtE18074,*g_shutdownAtE1806C,*g_shutdownAtE180E8;
-extern int g_aptInitializerCounters[4];
+#include "../AptActionInterpreter.h"
+extern AptActionInterpreter g_aptDateInterpreter;
 void _constructBuiltInObjects();
 AptValue *callback006FEFF0(AptValue*,int);
 AptValue *callback006FF400(AptValue*,int);
@@ -87,6 +88,6 @@ g_shutdownAtE180B4=new AptNativeFunction(callback006FF660);g_shutdownAtE180B4->m
 g_shutdownAtE18074=new AptNativeFunction(callback006FF750);g_shutdownAtE18074->mnGCRootCount=1;g_shutdownAtE18074->AddRef();
 g_shutdownAtE1806C=new AptNativeFunction((AptNativeCallback)rva006ff850);g_shutdownAtE1806C->mnGCRootCount=1;g_shutdownAtE1806C->AddRef();
 g_shutdownAtE180E8=new AptNativeFunction(callback006FD2D0);g_shutdownAtE180E8->mnGCRootCount=1;g_shutdownAtE180E8->AddRef();
-memset(g_aptInitializerCounters,0,16);
+memset(g_aptDateInterpreter.mInitializerCounters,0,16);
 g_releaseVectorAtE17710->ReleaseValues();
 }

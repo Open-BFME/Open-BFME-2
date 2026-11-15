@@ -317,7 +317,8 @@ public:
 extern class AptLinker *g_bfmeAptLinkerAtE176F8;
 
 	// retail RVA 0x00A176F8 (.data, 4 bytes), defined here: nothing else owns it
-extern unsigned char g_00E18348;
+#include "AptActionInterpreter.h"
+extern AptActionInterpreter g_aptDateInterpreter;
 
 class BfmeNode1279 : public AptValue
 {
@@ -781,7 +782,7 @@ void BfmeNode1279::bfmeFinish1279()
 		g_bfmeAptPtrAtE176D0->m_field6C->Release();
 		g_bfmeAptPtrAtE176D0->m_field6C = 0;
 	}
-	if (g_00E18348)
+	if (g_aptDateInterpreter.f68)
 		((AptCIH *)this)->ClearCIH(0);
 	else
 		((AptCIH *)this)->ClearCIH(1);

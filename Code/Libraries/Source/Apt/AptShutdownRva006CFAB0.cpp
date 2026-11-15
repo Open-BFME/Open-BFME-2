@@ -18,7 +18,6 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptInitAtE17700,g_bfmeAptBreakOnAssertAtDDC01C;
-extern unsigned char g_00E18348;
 #define CHECK(e,s,l) do{if(!(e)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}}while(0)
 
 class AptMath {public:static void ClipStackShutdown();};
@@ -92,7 +91,7 @@ void Rva006CFAB0(int arg)
 {
 	CHECK(g_bfmeAptInitAtE17700,"bInitialized",0x20e);
 	CHECK(g_bfmeAptPtrAtE176D0,"gpPool",0x20f);
-	g_00E18348=1;
+	g_aptDateInterpreter.f68=1;
 	AptMath::ClipStackShutdown();
 	((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->PreDestroy();
 	rva006CE1C0(1);

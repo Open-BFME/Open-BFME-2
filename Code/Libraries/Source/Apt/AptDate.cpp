@@ -61,29 +61,13 @@ class AptString { public: static AptString *Create(); };
 
 #include "AptBasePtrStack.h"
 
-// Retail's constructor (0x006FE980) zeroes words out to +0x3C and the ledger's gap is 72 bytes. This view names
-// only the stack, so the rest is storage: as 12 bytes the constructor overwrote its neighbours at startup.
-// The out-of-line constructor and destructor are the rowed ones (AptActionInterpreter.cpp,
-// AptActionInterpreterDtor.cpp).
-struct AptActionInterpreter
-{
-	AptActionInterpreter();
-	~AptActionInterpreter();
-	AptBasePtrStack stack;
-	char m_rest[72 - sizeof(AptBasePtrStack)];
-};
+// The canonical interpreter, 0x6C bytes (P156). Its out-of-line constructor and destructor are the rowed ones
+// (AptActionInterpreter.cpp, AptActionInterpreterDtor.cpp).
+#include "AptActionInterpreter.h"
 
 // g_aptDateInterpreter (VA 0x00E182E0). Retail constructs it from this unit's initializer
 // 0x007B67A0 and registers the cleanup 0x007B9C50, which runs the destructor 0x006FE9C0.
 AptActionInterpreter g_aptDateInterpreter;
-
-// Three ledger rows inside retail's 0x6C-byte interpreter span (VA 0x00E182E0..0x00E1834B): retail's init
-// 0x006FEAF0, run on this object, writes +0x64 and +0x68, so these addresses are interpreter members that
-// matched bodies reach by absolute address, not separate globals. They are defined here, beside the object,
-// until the interpreter's full extent takes them over.
-unsigned int Rva008A5250LastKey;      // VA 0x00E18328, +0x48
-int g_aptInitializerCounters[4];      // VA 0x00E1832C, +0x4C
-unsigned char g_00E18348;             // VA 0x00E18348, +0x68 (f68)
 
 extern AptValue *gpUndefinedValue;
 
