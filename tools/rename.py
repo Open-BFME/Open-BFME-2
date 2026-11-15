@@ -7262,6 +7262,8 @@ def approved_slot_name(ctx, key, base):
             or rows[-1].get("status") not in ("agreed", "landed")):
         return None
     new = rows[-1].get("new") or ""
+    if (rows[-1].get("id") or "").startswith("nr-"):
+        return new if resolved_slot_approved(ctx, key, new, rows[-1]) else None
     problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key, new,
                                      meaning_votes=ctx.dicts(name_agreement.MEANINGS))
     if problems:
@@ -7275,6 +7277,60 @@ def approved_slot_name(ctx, key, base):
     if len(fresh) < name_agreement.review_workers(key, rivals) or len(fresh) - top < 1:
         return None
     return new
+
+
+def resolved_slot_approved(ctx, key, new, record):
+    """Whether reviewed resolution `record` (name_lane.py resolve's nr- row) approves `new` for slot `key` at ctx's
+    revision: its id binds the header as that revision holds it (check_agreement's rule), verify_resolution passes on
+    the tables there, and every original voter accepts `new` on that header, by a vote for it served that text
+    (fresh_slot_voters) or by a resolution row history binds to it (resolution_bound). A blind vote cast on another
+    text accepts nothing until its voter resolves on this one, as name_lane.py resolve requires."""
+    rel = key.split("|", 1)[0]
+    source_sha = ctx.resolution_source_sha(rel)
+    expected = "nr-" + hashlib.sha256(f"{key}|{new}|{source_sha}".encode()).hexdigest()[:24]
+    if not source_sha or record.get("id") != expected:
+        return False
+    votes, agreed = ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED)
+    resolutions = ctx.dicts(name_agreement.RESOLUTIONS)
+    if name_agreement.verify_resolution(votes, agreed, resolutions, key, new, source_sha):
+        return False
+    voters, _accepted = name_agreement.resolved_workers(votes, agreed, resolutions, key, new, source_sha)
+    fresh = fresh_slot_voters(ctx, key, new, rel)
+    wanted = name_agreement.digest(key, new)
+    for worker in voters:
+        if worker in fresh:
+            continue
+        own = [row for row in resolutions if row.get("key") == key and row.get("worker") == worker
+               and row.get("hash") == wanted and row.get("name") == new and row.get("source_sha") == source_sha
+               and len((row.get("reason") or "").strip()) >= 12]
+        if not any(resolution_bound(ctx, row, rel) for row in own):
+            return False
+    return True
+
+
+def resolution_bound(ctx, row, rel):
+    """Whether history binds resolution `row` (a name_agreement.RESOLUTIONS row) to the text of `rel` its source_sha
+    names: the one commit that added its line, never removed since, holds `rel` with that sha256 (fingerprint_bound's
+    rule for a vote's fingerprint). A line csv cannot read alone binds nothing."""
+    base = revision_base(ctx)
+    wanted = [row.get(c) or "" for c in name_agreement.RESOLUTION_COLUMNS]
+    _code, patches = _git_out(ctx.root, "log", "-p", "--format=COMMIT %H", "--no-renames", "--unified=0", base,
+                              "--", name_agreement.RESOLUTIONS)
+    changes, commit = [], None
+    for text in patches.decode("utf-8", errors="replace").splitlines():
+        if text.startswith("COMMIT "):
+            commit = text.split()[1]
+        elif text[:1] in "+-" and not text.startswith(("+++", "---")):
+            try:
+                fields = next(csv.reader([text[1:]]))
+            except (csv.Error, StopIteration):
+                continue
+            if fields == wanted:
+                changes.append((commit, text[:1]))
+    if len(changes) != 1 or changes[0][1] != "+":
+        return False
+    code, blob = _git_out(ctx.root, "show", f"{changes[0][0]}:{rel}")
+    return not code and hashlib.sha256(blob).hexdigest() == row.get("source_sha")
 
 
 def fresh_slot_voters(ctx, key, new, rel):

@@ -4459,3 +4459,106 @@ def test_a_changed_header_ends_the_slot_approval(slot_tree, tmp_path, capsys):
     commit_votes(slot_tree, "fresh votes")
     assert rename.approved_slot_name(rename.Context(slot_tree, object_scan=False), SLOT_KEY, "HEAD") == "spin"
 
+
+
+
+# ---- rename-registered-classes case 2: resolve owns a slot key as next and agree do
+
+def resolve_slot(root, worker, name, reason="the retail body spins the widget's rotor"):
+    be(worker)
+    return name_lane.cmd_resolve(lane_of(root), SimpleNamespace(key=SLOT_KEY, name=name, reason=reason))
+
+
+def contested_slot(root, tmp_path):
+    serve_slot(root, "a", "seat-a")
+    assert submit_slot(root, tmp_path, "a", "spin") == 0
+    serve_slot(root, "b", "seat-b")
+    assert submit_slot(root, tmp_path, "b", "twirl") == 0
+    assert SLOT_KEY not in lane_of(root).state()
+    commit_votes(root)
+
+
+def slot_approval(root):
+    return rename.approved_slot_name(rename.Context(root, object_scan=False), SLOT_KEY, "HEAD")
+
+
+def test_an_original_voter_resolves_a_contested_slot(slot_tree, tmp_path, capsys):
+    contested_slot(slot_tree, tmp_path)
+    votes = [v for v in lane_of(slot_tree).votes() if v["key"] == SLOT_KEY]
+    assert resolve_slot(slot_tree, "seat-a", "spin") == 0               # a's own spelling: b has not accepted it
+    assert "resolution pending" in capsys.readouterr().out and SLOT_KEY not in lane_of(slot_tree).state()
+    assert resolve_slot(slot_tree, "seat-a", "spin") == 0               # a repeat records nothing more
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    assert f"RESOLVED {SLOT_KEY} -> spin" in capsys.readouterr().out
+    resolved = [r["worker"] for r in rows(slot_tree, name_lane.RESOLUTIONS) if r["key"] == SLOT_KEY]
+    assert len(resolved) == len(set(resolved)) == 2                     # one row for each voter
+    row = lane_of(slot_tree).state()[SLOT_KEY]
+    assert (row["kind"], row["old"], row["new"], row["status"], row["rva"]) == ("slot", "1", "spin", "agreed",
+                                                                                "0x00401000")
+    assert row["id"].startswith("nr-")
+    assert [v for v in lane_of(slot_tree).votes() if v["key"] == SLOT_KEY] == votes   # the blind votes stand
+    assert slot_approval(slot_tree) is None                             # read at HEAD: not committed yet
+    commit_votes(slot_tree, "the resolution")
+    assert slot_approval(slot_tree) == "spin"
+    # the header changes: the resolution bound the old text
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// edited\n")
+    commit_votes(slot_tree, "an edit")
+    assert slot_approval(slot_tree) is None
+
+
+@pytest.mark.parametrize("case", ["outsider", "unregistered", "uncontested", "disputed"])
+def test_a_slot_resolution_keeps_its_refusals(slot_tree, tmp_path, case):
+    if case == "uncontested":
+        serve_slot(slot_tree, "a", "seat-a")
+        assert submit_slot(slot_tree, tmp_path, "a", "spin") == 0
+        commit_votes(slot_tree)
+    else:
+        contested_slot(slot_tree, tmp_path)
+    if case == "unregistered":
+        (slot_tree / "reverse/canonical_classes.csv").write_text("class,header,notes\n")
+    if case == "disputed":
+        lane_of(slot_tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(
+            id="nd-spin", kind="slot", old="1", new="spin", rva="0x00401000", agents="", key=SLOT_KEY,
+            status="disputed", detail="disputed")])
+    worker = "seat-c" if case == "outsider" else "seat-a"
+    with pytest.raises(SystemExit) as refused:
+        resolve_slot(slot_tree, worker, "spin")
+    assert {"outsider": "only an original voter", "unregistered": "no longer owned by this source",
+            "uncontested": "two independent, competing proposals",
+            "disputed": "already approved, landed or disputed"}[case] in str(refused.value)
+    assert not [r for r in rows(slot_tree, name_lane.RESOLUTIONS) if r["key"] == SLOT_KEY]
+
+
+def test_a_stale_blind_vote_accepts_a_slot_resolution_only_by_resolving(slot_tree, tmp_path, capsys):
+    contested_slot(slot_tree, tmp_path)
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// edited\n")
+    commit_votes(slot_tree, "an edit")
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0               # a's vote for spin read the old header
+    assert "were not cast on the source as it reads now" in capsys.readouterr().out
+    assert SLOT_KEY not in lane_of(slot_tree).state()
+    # a record written around resolve: rename.py still wants a's acceptance on this header
+    text = (slot_tree / WIDGET_H).read_bytes()
+    sha = __import__("hashlib").sha256(text).hexdigest()
+    rid = "nr-" + __import__("hashlib").sha256(f"{SLOT_KEY}|spin|{sha}".encode()).hexdigest()[:24]
+    forged = dict(id=rid, kind="slot", old="1", new="spin", rva="0x00401000", agents="", key=SLOT_KEY,
+                  status="agreed", detail="reviewed resolution: forged")
+    lane_of(slot_tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [forged])
+    commit_votes(slot_tree, "a record nobody resolved")
+    assert slot_approval(slot_tree) is None
+    agreed = slot_tree / name_lane.AGREED
+    agreed.write_text("".join(line for line in agreed.read_text().splitlines(keepends=True) if rid not in line))
+    assert resolve_slot(slot_tree, "seat-a", "spin") == 0
+    assert lane_of(slot_tree).state()[SLOT_KEY]["id"] == rid
+    commit_votes(slot_tree, "a resolves")
+    assert slot_approval(slot_tree) == "spin"
+
+
+def test_a_slot_resolution_is_bound_to_the_header_it_was_added_with(slot_tree, tmp_path):
+    contested_slot(slot_tree, tmp_path)
+    assert resolve_slot(slot_tree, "seat-b", "spin") == 0
+    # the resolution rows land in a commit holding another header text, which is then restored
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT + "// another text\n")
+    commit_votes(slot_tree, "the resolution with another header")
+    (slot_tree / WIDGET_H).write_text(WIDGET_TEXT)
+    commit_votes(slot_tree, "the header restored")
+    assert slot_approval(slot_tree) is None

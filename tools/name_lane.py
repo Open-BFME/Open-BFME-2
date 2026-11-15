@@ -2999,13 +2999,16 @@ def cmd_resolve(lane, args):
     if kind in SCOPED_KINDS:
         fail(scoped_route(sources=[rel]))
     text = lane.text(rel)
-    if text is None or not lane.servable(rel):
+    # a slot key's header is served for its slot keys alone, as next serves it (slot_items decides below)
+    if text is None or (kind != "slot" and not lane.servable(rel)):
         fail(f"source unavailable or protected: {rel}")
     source_sha = hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest()
     state = lane.state()
     if state.get(key, {}).get("status") in ("agreed", "landed", "disputed"):
         fail("this key is already approved, landed or disputed")
-    owned = {key_of(rel, k, s, i): rva for k, s, i, rva in [*lane.owned(rel, text), *spelled_items(lane, rel)]}
+    # a slot key belongs to its class's registered header by retail's table, as next and agree decide it (slot_items)
+    owned = {key_of(rel, k, s, i): rva for k, s, i, rva in (
+        slot_items(lane, rel, [key]) if kind == "slot" else [*lane.owned(rel, text), *spelled_items(lane, rel)])}
     if key not in owned:
         fail("the placeholder is no longer owned by this source")
     rva = owned[key]
