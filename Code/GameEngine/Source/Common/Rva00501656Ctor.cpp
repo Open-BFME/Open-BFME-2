@@ -2,10 +2,11 @@
 // partial score=0.93 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
+#include "../../Include/Common/PlayerAITypeEntry.h"
+
 #include <set>
 #include <vector>
 
-struct PlayerAITypeEntry { char bytes[16]; };
 typedef _STL::_Vector_base<PlayerAITypeEntry, _STL::allocator<PlayerAITypeEntry> > PlayerAITypeVectorBase;
 struct Rva00501219Element { char bytes[8]; };
 typedef _STL::set<Rva00501219Element> Rva00501219Set;
