@@ -25,8 +25,6 @@ int g_00E05F24 = 0;	// owned here; retail .data starts it at 0
 extern int g_00E063E8;
 int g_00E063E8 = 0;	// owned here; retail .data starts it at 0
 extern int g_Va00DFE18C;
-extern unsigned int g_00DFEE08;
-unsigned int g_00DFEE08 = 0;	// owned here; retail .data starts it at 0
 
 static int s_rva007ADE88;
 static int s_rva007AE043;
@@ -39,7 +37,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007AD7F3();
 	static void rva007ADE88();
 	static void rva007AE043();
-	static void rva007AE0AD();
 	static void rva007AE27C();
 	static void rva007AEE6B();
 	static void rva007B042B();
@@ -70,12 +67,6 @@ void Rva007ABC6FFrameRateInits::rva007ADE88()
 void Rva007ABC6FFrameRateInits::rva007AE043()
 {
 	s_rva007AE043 = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007AE0AD@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AE0AD (11B): global at VA 0x00DFEE08, named as the TU that reads it names it
-void Rva007ABC6FFrameRateInits::rva007AE0AD()
-{
-	g_00DFEE08 = BfmeLogicFramesPerSecond;
 }
 
 // ?rva007AE27C@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AE27C (14B): global at VA 0x00DFEFCC, also read elsewhere in .text

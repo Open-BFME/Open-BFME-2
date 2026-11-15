@@ -490,6 +490,14 @@ struct ListNode0029DFE9
 	void *m_next;
 };
 
+// Retail 0x007AE0AD, this unit's third .CRT$XCU entry (after its Drawable.h copy 0x007AE087 and the
+// resource-entry collector 0x007AE097): the world-animation fade window is one second of logic
+// frames, read by updateAndDrawWorldAnimations (0x0029D505) and 0x002A4B46. The name is the
+// ledger's address name; its two readers live in fragments of this unit and declare it extern.
+extern int BfmeLogicFramesPerSecond;
+extern unsigned int g_00DFEE08;
+unsigned int g_00DFEE08 = BfmeLogicFramesPerSecond;
+
 // The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
 class FreelistPool;
 

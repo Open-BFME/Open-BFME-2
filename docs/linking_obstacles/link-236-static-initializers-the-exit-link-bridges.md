@@ -1508,7 +1508,7 @@ The explicit matched data row and all verified source remain unchanged;
 the cache keeps master's old class spelling until the ordinary refresh.
 No retired cache name is newly added across the corrected batch.
 
-**Round init-1 (halilkkaya-init, 2026-11-15, bridged 471 -> 470).** Measured with `image_report.bridge_entries`
+**Round init-1 (halilkkaya-init, 2026-11-15, bridged 471 -> 469).** Measured with `image_report.bridge_entries`
 over the kept objects of `e9c6c9136fa` (exit_link's rule, 471, the same 471 RVAs the first 470 slots and the last
 slot of image `a9c23ee`'s table name) plus the round.
 - *Taken (471 -> 470): ControlBar.cpp's Drawable.h copy.* 0x007AE9A2 stores the half rate into 0x00E01D10 and is
@@ -1522,3 +1522,23 @@ slot of image `a9c23ee`'s table name) plus the round.
   as its `_$E1`. Not this unit's: 0x007B3BCE (static 0x00E05F68 after `updateConstructionTextDisplay`'s guard)
   belongs to the unit that holds that function, and ControlBarRva0031D230.cpp's fragment copy stays unrowed until
   its merge.
+- *Taken (470 -> 469): InGameUI.cpp's fade window.* 0x007AE0AD stores BfmeLogicFramesPerSecond into 0x00DFEE08. Its
+  run is InGameUI.cpp's rowed copy 0x007AE087, the collector 0x007AE097, then this entry, closed by the second
+  pool's marker 0x007AE0B8. The `.bss` holds the copy 0x00DFEDF8, the collector 0x00DFEDFC, this global, then
+  `IdleWorkerSystem`'s local 0x00DFEE0C. Its two readers, `updateAndDrawWorldAnimations` 0x0029D505 and
+  0x002A4B46, are approved to InGameUI.cpp and sit in fragments, so the TU file now defines the global with its
+  initializer after the Drawable.h include; it compiles as `_$E120` behind the copy `_$E25`. The data row moved
+  with it. The collector 0x007AE097 stays bridged: its object is `BfmeUiResourceEntryCollectorState`, defined in
+  the fragment InGameUIResourceEntryState.cpp with a placeholder class, and it must register between the two.
+  `exit_link.static_init_readers` lists only the global's two readers (its conservative reachability scan), so
+  the entry now runs in InGameUI.obj's place instead of bridge-first; read the next image's order check.
+- *Census and leads.* The 469 left, by what they build: 171 Drawable.h copies, 63 four-byte zero masks, 56
+  BlockParse nodes, about 140 class-typed objects (constructor, most with an atexit cleanup), 9 atexit-only
+  entries, 7 frame-rate scalars and a few singles. 318 of the 471 globals are never read, so only layout names
+  their unit. Scripts for the table (retail table, marker runs, `.bss` neighbours with the approved TUs of their
+  readers, and each object's unrowed registrations) are scratch under `build/init_seat/` of the seat's worktree.
+  Two rules found the entries above and are safe to script: a global whose own readers are all approved to one
+  TU, and a never-read static whose two `.bss` neighbours are read only by code approved to one TU that no other
+  copy claims. `tu_map` over-merges some module families (four copies claim ElvenWoodSpecialPower.cpp, two claim
+  ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
+  several copies claim proves a `tu_map` error, not an owner.
