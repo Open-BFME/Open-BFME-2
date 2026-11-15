@@ -34,12 +34,15 @@ public:
 };
 typedef Q3MakeBaseB BfmeCacheBZAMiddleBase;
 
+// Pure destructor: the trailing base's one-slot table 0x00C1C780, which the
+// constructor installs at +0x0C first, holds __purecall.
 class BfmeCacheBZATrailingBase
 {
 public:
 	BfmeCacheBZATrailingBase() {}
-	virtual ~BfmeCacheBZATrailingBase() {}
+	virtual ~BfmeCacheBZATrailingBase() = 0;
 };
+inline BfmeCacheBZATrailingBase::~BfmeCacheBZATrailingBase() {}
 
 class BfmeCacheBZA
 	: public BfmeCacheBZALeadingBase
