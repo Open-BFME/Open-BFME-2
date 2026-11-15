@@ -38,6 +38,10 @@ class AttackObjectGroupOrder : public GroupOrder
 {
 public:
 	virtual ~AttackObjectGroupOrder();
+public:
+	virtual const char *getClassName();
+public:
+	virtual enum NameKeyType getClassKey();
 };
 
 AttackObjectGroupOrder::~AttackObjectGroupOrder()

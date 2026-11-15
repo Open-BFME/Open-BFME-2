@@ -113,6 +113,8 @@ public:
 	AttackObjectGroupOrder();
 private:
 	char m_pad[0x2C - 4];
+public:
+	virtual enum NameKeyType getClassKey();
 };
 
 class GarrisonObjectGroupOrder : public GroupOrder
