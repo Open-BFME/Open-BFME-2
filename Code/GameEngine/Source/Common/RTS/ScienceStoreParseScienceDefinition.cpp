@@ -28,6 +28,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+#include "../../../Include/Common/INI/INI.h"
+
 #include <vector>
 #include "unicode_string.h"
 
@@ -57,20 +59,6 @@ enum
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
-
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseInt(INI *, void *, void *, const void *);
-	static void parseBool(INI *, void *, void *, const void *);
-	static void parseAndTranslateLabel(INI *, void *, void *, const void *);
-	int getLoadType() const { return m_loadType; }
-private:
-	char m_unmodelled00[8];
-	int m_loadType;
-};
 
 
 #include "../../../Include/Common/NameKeyGenerator.h"
