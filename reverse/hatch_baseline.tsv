@@ -12170,9 +12170,7 @@ present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	LogDone@Debug@@UAE
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	SetPrefixAndRadix@Debug@@UAEXPBDH@Z	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	SkipNext@Debug@@SA_NXZ	1
 present_unmatched	Code/Libraries/Source/debug/debug_debug.cpp	UpdateFrameStatus@Debug@@EAEXAAUFrameHashEntry@1@@Z	1
-present_unmatched	Code/Libraries/Source/debug/debug_io_con.cpp	DebugIOCon::Delete	1
 present_unmatched	Code/Libraries/Source/debug/debug_io_con.cpp	Write@DebugIOCon@@UAEXW4StringType@DebugIOInterface@@PBD1@Z	1
-present_unmatched	Code/Libraries/Source/debug/debug_io_net.cpp	DebugIONet::Delete	1
 present_unmatched	Code/Libraries/Source/debug/debug_io_net.cpp	EmergencyFlush@DebugIONet@@UAEXXZ	1
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	EnumThreads@ProfileFuncLevel@@SA_NIAAVThread@1@@Z	1
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetAddress@Id@ProfileFuncLevel@@QBEIXZ	1

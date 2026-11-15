@@ -215,7 +215,6 @@ void DebugIOCon::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
 
 // ?Create@DebugIOCon@@SAPAVDebugIOInterface@@XZ: defined in WWDebug/Rva00891540DebugIOConCreate.cpp (its row's unit).
 
-// ?DebugIOCon::Delete present-unmatched
 void DebugIOCon::Delete(void)
 {
   this->~DebugIOCon();

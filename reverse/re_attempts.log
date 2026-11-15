@@ -105326,3 +105326,5 @@ $L19357	0x0077F774	14	landed	add_match verified Code/GameEngine/Source/GameNetwo
 ??0AptCommandMapAdder@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva00578AC1.cpp 19B
 ??0AptTimerAdder@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva005E10A8Method.cpp 19B
 ??0Rva005E136CList28@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva005E10A8Method.cpp 19B
+?Delete@DebugIONet@@UAEXXZ	0x000386C0	20	landed	add_match verified Code/Libraries/Source/debug/debug_io_net.cpp 20B
+?Delete@DebugIOCon@@UAEXXZ	0x000386C0	20	landed	add_match verified Code/Libraries/Source/debug/debug_io_con.cpp 20B

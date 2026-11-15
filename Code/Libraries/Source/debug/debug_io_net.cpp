@@ -192,7 +192,6 @@ void DebugIONet::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
 
 // DebugIONet::Create: defined in DebugIONet_Create.cpp (its row's unit).
 
-// ?DebugIONet::Delete present-unmatched
 void DebugIONet::Delete(void)
 {
   this->~DebugIONet();
