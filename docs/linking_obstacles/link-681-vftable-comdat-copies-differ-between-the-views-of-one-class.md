@@ -1,6 +1,6 @@
 ### LINK-681: vftable COMDAT copies differ between the private views of one class
 
-Status: Open; seven families repaired or equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `77bf9b3aee`.
+Status: Open; eight families repaired or equalized, the rest are leads. Updated: 2026-11-15; inspected revision: `bb0460844a`.
 Evidence / affected units: census 2026-11-15 08:36 (`331df3e3ff`) holds 24 units out on a `??_7` name
 that "differs from the first copy in link order (no retail address)". Each is a class whose views
 declare different virtual lists, so the units emit different tables. One cause is measured: a
@@ -99,6 +99,12 @@ the class's destructor declares:
   0x007DE950 holds `LocomotorSet::DoXfer` in slot 3, so the class is `LocomotorSet` under a second name.
 9/9 functions exact over the three units; each table has one digest in both emitters; preview all three
 LINK and B04, B08 and `Locomotor.cpp` keep linking.
+Completed 2026-11-15 (base `bb0460844a`): `Rva0052634F_Base` (retail table 0x00867E3C, five slots, no
+deleting destructor). `GapBodiesGE12.cpp`, which rows the constructor 0x00524F61, declared a virtual
+destructor, so its one-slot copy named `??_E` and came first in link order;
+`Rva0052634FPermuted.cpp` rows the non-virtual destructor 0x00524F5A and slot 0's folded 0x0047A69C
+as `v00`. GE12's view now matches it. 9/9 functions exact; preview `Rva0052634FPermuted.cpp` LINKS
+0 -> 215, GE12 and the one other object touching a changed name keep linking.
 Slot comparison of each remaining copy against retail's table (2026-11-15), still open:
 - `MonitorConditionUpdate.cpp` (334 B) and `BoneFXDamage.cpp` (433 B): the module unit's private class
   is right (`getModuleNameKey` and, for BoneFXDamage, `onDamage`, `onHealing`,
@@ -128,5 +134,5 @@ can go when the base's three rows (0x000A8EB9, 0x000A8EC2, 0x000A8EC9; approved 
 `AptDisplayStringBase.cpp`) are defined inline in a unit that itself constructs a subclass: retail's
 copies are header inlines that first unit emitted, and then every view can use the in-class form.
 Clearance: `Rva00785140Handle`, the two load-screen tables, `ThreatFinderUpdate`, `InheritUpgradeCreate`,
-`Rva000AAD5C`, `Rva00210EF1` and `Rva001E7087`; preview scope the units named for each.
+`Rva000AAD5C`, `Rva00210EF1`, `Rva001E7087` and `Rva0052634F_Base`; preview scope the units named for each.
 Census confirmation: awaiting.

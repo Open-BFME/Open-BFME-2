@@ -92,11 +92,16 @@ int Rva00431FF2::translateGameMessage(Rva00431FF2Message *msg)
 
 // --- 0x00524F61 (9B): vtable 0x00C67E3C only; 0x00524F6A (13B): the +0x10
 // object's +0x18 word.
+// The class as Rva0052634FPermuted.cpp (the owner of its destructor 0x00524F5A and of
+// slot 0's row) declares it: one virtual, the folded 0x0047A69C in slot 0 of retail's
+// table 0x00867E3C, and a non-virtual destructor. Retail's table has no deleting
+// destructor, which the virtual one declared here before put in slot 0.
 class Rva0052634F_Base
 {
 public:
 	Rva0052634F_Base();
-	virtual ~Rva0052634F_Base() {}
+	virtual void v00(void *);
+	~Rva0052634F_Base() {}
 };
 
 Rva0052634F_Base::Rva0052634F_Base()
