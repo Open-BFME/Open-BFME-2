@@ -1,5 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
+#include "../../../Include/Common/Rva002111C8.h"
+
 #include "../../../Include/Common/Rva003FA62B.h"
 #include "ascii_string.h"
 // Native 21427A..2142EA RET0: same receiver forwarded through five
@@ -69,7 +71,6 @@ class ParticleSystemTemplate;
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Rva00214243Element { int a[4]; };
 // push_back on this element is rowed in its overflow owner as vector<Rva002111C8>.
-class Rva002111C8 { public: int a[4]; };
 namespace _STL {
 template <> void vector<Rva002111C8>::push_back(const Rva002111C8 &);
 template <> __declspec(dllimport) __forceinline void vector<Rva00214243Element>::push_back(const Rva00214243Element &x)
