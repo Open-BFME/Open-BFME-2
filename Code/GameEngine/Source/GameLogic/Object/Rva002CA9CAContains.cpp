@@ -315,19 +315,19 @@ enum NameKeyType
 
 class Module;
 
-class Object
+#include "../../Common/Thing/thing.h"
+
+class Object : public Thing
 {
 	friend class Weapon;
 public:
 	int rva0028B511() const;	// 0x0028B511
-	const Coord3D *getPosition() const { return (const Coord3D *)m_38; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
 	int getID() const { return m_74; }
 protected:
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 private:
-	char m_pad00[0x38];
-	float m_38[3];
-	char m_pad44[0x74 - 0x44];
+	char m_pad060[0x74 - 0x60];
 	int m_74;
 };
 
