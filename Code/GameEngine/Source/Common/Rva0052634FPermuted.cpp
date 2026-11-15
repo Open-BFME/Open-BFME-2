@@ -53,7 +53,6 @@ private:
     bool m_hasD0;
 };
 
-// ?releaseBuffer@?$StringBase@D@@AAEXXZ present-unmatched
 Rva0052634F::~Rva0052634F()
 {
     if (m_hasC8)

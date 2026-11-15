@@ -24,7 +24,6 @@ typedef bool Bool;
 
 extern TerrainTypeCollection *TheTerrainTypes;
 
-// ?makeNrmTextureName@@ present-unmatched
 AsciiString makeNrmTextureName(const AsciiString &in);
 
 

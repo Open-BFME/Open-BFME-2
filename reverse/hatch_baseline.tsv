@@ -10469,7 +10469,6 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeOneHundredNinetyOne.cpp	Bfme
 present_unmatched	Code/GameEngine/Source/Common/BfmeOwnVVD.cpp	bfmeSlot0VVD@BfmeBaseVVD@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva006D07E0Key@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/BfmeSub928F.cpp	1Rva00109C27@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	0Rva006560E0@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGH::bfmeSetGH	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGL::bfmeReleaseGL	1
@@ -10607,7 +10606,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0006811
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE3::rva00078AE3	2
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	Rva000BC93DCBase::~Rva000BC93DCBase	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	GDIFileStream::read	1
-present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	makeNrmTextureName@@	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	1Rva00BC6F24Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	_bfmeRva0014F699Anchor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00154320Cluster.cpp	Rva001544F0::~Rva001544F0	1
@@ -10661,7 +10659,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva004F6352Swap.cpp	1TreeHintRef
 present_unmatched	Code/GameEngine/Source/Common/Rva004F9378Dtor.cpp	1Rva004F9378Base@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00500804TreeDtor.cpp	1Rva00500804Header@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00517345Ctor.cpp	rva00517345slot@Rva00517345@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0052634FPermuted.cpp	releaseBuffer@?$StringBase@D@@AAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00542425Skip.cpp	Rva00542425Caller@@YAPADPAD@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005562DDClear.cpp	Rva005562DDHeaderOwner::~Rva005562DDHeaderOwner	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp	Rva0055A627Difference::length	1
@@ -10669,7 +10666,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva0055A40CSplit.cpp	Rva0055A40C
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056AC26Base1::Rva0056AC26Base1	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056ACAEVisitor::Rva0056ACAEVisitor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005C4B56.cpp	rva005C4BC8@Rva005C4B56@@QAEX_N_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CB260Forwarder.cpp	Rva005CB265::rva005CB265	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CBA04Ctor.cpp	1Rva005CBA04@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005CF8E3Dtor.cpp	1Rva005CF8E3Base@@UAE@XZ	1
@@ -10700,7 +10696,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006CB
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006DA560::~Rva006DA560	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006F7DC0::~Rva006F7DC0	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	Rva006F8D70::~Rva006F8D70	1
-present_unmatched	Code/GameEngine/Source/Common/Rva006D2D90Finish.cpp	Rva006D2D90Init@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp	1Rva006ED2A0Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp	deleteRva006ED2A0@@YAXPAVRva006ED2A0@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00749A10MaskAX.cpp	Rva000ADA1AMaskBytes::size	1
@@ -11863,10 +11858,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/crc.cpp	CRCEngine::operato
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ini.cpp	Get_Filename@INIClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ini.cpp	Section_Count@INIClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp	bfmeEmitMemOps@@YAXPAXI@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/mutex.cpp	0LockClass@@	2
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/mutex.cpp	1LockClass@@	2
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/mutex.cpp	Unlock@CriticalSectionClass@@QAEXXZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/mutex.cpp	Unlock@MutexClass@@QAEXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/quoted_printable.cpp	bfmeEmitQuotedPrintableHelpers@@YAXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/registry.cpp	Set_Float@RegistryClass@@QAEXPBDM@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/rva002C5761_sort.cpp	$sort@PAHP6A_NHH@Z@_STL@@YAXPAH0P6A_NHH@Z@Z	1

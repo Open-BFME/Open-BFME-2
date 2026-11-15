@@ -39,7 +39,6 @@ unsigned char g_00E177E8;	// retail RVA 0x00A177E8 (.bss), defined here
 // this body reads it through a volatile view.
 extern unsigned char g_00CE8B70[];
 
-// ?Rva006D2D90Init@@YAXXZ present-unmatched
 void __cdecl initValueSizes()
 {
 	g_00E177E2 = 0;

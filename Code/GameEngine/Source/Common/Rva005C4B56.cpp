@@ -86,7 +86,6 @@ void Rva005C4B56::rva005C4CD4()
 // (class of ??1Rva005C4B1B). Prev/next Rva005C4B56. Switch on 3rd arg with
 // early-out when == +0x2C; cases call s11/s12 (slots 0x2C/0x30) and rowed
 // Rva003FBA0E/Rva003FB9C8/Rva003FB9EB helpers via +0xAC sub (+0x44/+0x48/+0x4C).
-// ?rva005C4BC8@Rva005C4B56@@QAEX_N_NH@Z present-unmatched
 void Rva005C4B56::rva005C4BC8(bool oldState, bool newState, int c)
 {
 	bool flag = false;

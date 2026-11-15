@@ -67,7 +67,6 @@ bool MutexClass::Lock(int time)
 	#endif
 }
 
-// ?Unlock@MutexClass@@QAEXXZ present-unmatched
 void MutexClass::Unlock()
 {
 	#ifdef _UNIX
@@ -83,13 +82,11 @@ void MutexClass::Unlock()
 
 // ----------------------------------------------------------------------------
 
-// ??0LockClass@@ present-unmatched
 MutexClass::LockClass::LockClass(MutexClass& mutex_,int time) : mutex(mutex_)
 {
 	failed=!mutex.Lock(time);
 }
 
-// ??1LockClass@@ present-unmatched
 MutexClass::LockClass::~LockClass()
 {
 	if (!failed) mutex.Unlock();
@@ -134,7 +131,6 @@ void CriticalSectionClass::Lock()
 	#endif
 }
 
-// ?Unlock@CriticalSectionClass@@QAEXXZ present-unmatched
 void CriticalSectionClass::Unlock()
 {
 	#ifdef _UNIX
@@ -148,13 +144,11 @@ void CriticalSectionClass::Unlock()
 
 // ----------------------------------------------------------------------------
 
-// ??0LockClass@@ present-unmatched
 CriticalSectionClass::LockClass::LockClass(CriticalSectionClass& critical_section) : CriticalSection(critical_section)
 {
 	CriticalSection.Lock();
 }
 
-// ??1LockClass@@ present-unmatched
 CriticalSectionClass::LockClass::~LockClass()
 {
 	CriticalSection.Unlock();

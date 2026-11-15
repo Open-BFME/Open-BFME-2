@@ -21,7 +21,6 @@ class Rva00109C27 : public Base4
 {
 public:
 	Rva00109C27(const char *src);
-// ??1Rva00109C27@@UAE@XZ present-unmatched
 	virtual ~Rva00109C27() {}
 private:
 	StringClass m_str;
