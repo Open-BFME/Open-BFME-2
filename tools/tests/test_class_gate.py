@@ -1097,3 +1097,129 @@ def test_operator_plus_declaration_does_not_excuse_a_new_copy(repo, capsys, chan
                *([] if change == 'copy' else [OLD]))
     rc, err = repo.gate(capsys)
     assert rc == 1 and '`GameLogic`' in err
+
+
+
+# Class-local slot macros (class_local_slots). ScriptActions.cpp's merged TU holds views that #define, call and #undef
+# `#define AUDIO_SLOT(n) virtual void slot##n();` in their own bodies; master voided the whole unit's move credit, so
+# six registered classes moved verbatim beside them were refused.
+SLOTS = ('class View {\npublic:\n#define VIEW_SLOT(n) virtual void slot##n();\n\tVIEW_SLOT(0) VIEW_SLOT(1)\n'
+         '#undef VIEW_SLOT\n\tvirtual void add();\n#define VIEW_SLOT(n) virtual void slot##n();\n\tVIEW_SLOT(3)\n'
+         '#undef VIEW_SLOT\n};\n')
+SLOTS_SPAN = SLOTS[:SLOTS.rindex('}') + 1]
+
+
+def test_slot_macros_leave_the_other_classes_masters_credit():
+    assert class_gate.scope_code(SLOTS + X_BODY) is None
+    found = class_gate.moved_bodies(SLOTS + X_BODY)
+    assert found['X'] == class_gate.moved_bodies(X_BODY)['X']
+    assert found['View'] == ((), class_gate.EXACT + SLOTS_SPAN)
+
+
+@pytest.mark.parametrize('side', ['donor', 'destination', 'both'])
+def test_a_merge_beside_slot_macros_credits_the_moved_class(repo, capsys, side):
+    # the real case: X moved verbatim, the view (not registered) beside it on either side
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    old = (SLOTS if side in ('donor', 'both') else '') + X_BODY
+    new = (SLOTS if side in ('destination', 'both') else '') + X_BODY
+    repo.write(OLD, old + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + new + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    assert rc == 0 and all('[shadow]' in line for line in err.splitlines()), err
+
+
+@pytest.mark.parametrize('staged,passes', [
+    (SLOTS, True),                                                      # its exact bytes
+    (SLOTS.replace('slot##n();', 'slot##n() = 0;'), False),             # an edited macro
+    (SLOTS.replace('VIEW_SLOT(3)', 'VIEW_SLOT(4)'), False),             # an edited call
+    (SLOTS.replace('\tvirtual void add();', '    virtual void add();'), False),   # even whitespace
+])
+def test_a_class_holding_slot_macros_is_credited_only_for_its_exact_bytes(repo, capsys, staged, passes):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nView,Code/Game/View.h\n')
+    repo.write(OLD, SLOTS + BODY)
+    repo.commit('reverse/canonical_classes.csv', OLD)
+    merge_into(repo, FILLER + staged + FRESH, OLD)
+    rc, err = repo.gate(capsys)
+    refusals = [line for line in err.splitlines() if '[shadow]' not in line]
+    assert (rc, any('`View`' in line for line in refusals)) == ((0, False) if passes else (1, True)), err
+
+
+def slots_with(define=None, calls=None, after=''):
+    text = SLOTS
+    if define is not None:
+        text = text.replace('#define VIEW_SLOT(n) virtual void slot##n();', define)
+    if calls is not None:
+        text = text.replace('VIEW_SLOT(0) VIEW_SLOT(1)', calls)
+    return text + after + X_BODY
+
+
+@pytest.mark.parametrize('unit', [
+    slots_with(define='#define VIEW_SLOT(a, b) virtual void a##b();', calls='VIEW_SLOT(0, 1)'),  # two parameters
+    slots_with(define='#define VIEW_SLOT(n) virtual void n##_tail();'),            # a parameter first
+    slots_with(define='#define VIEW_SLOT(n) virtual void slot##n##x();'),          # a chain
+    slots_with(define='#define VIEW_SLOT(n) virtual T slot##n();'),                # a free name
+    slots_with(define='#define VIEW_SLOT(n) const char *slot##n = #n;'),           # stringizing
+    slots_with(define='#define VIEW_SLOT(n) void slot##n() {}'),                   # a brace
+    slots_with(define='#define VIEW_SLOT(n) virtual void slot##n(); \\'),          # a splice
+    slots_with(calls='VIEW_SLOT(x) VIEW_SLOT(1)'),                                 # not an integer literal
+    slots_with(calls='VIEW_SLOT(-1) VIEW_SLOT(1)'),
+    slots_with(calls='VIEW_SLOT(0, 1)'),                                           # too many arguments
+    slots_with(calls='VIEW_SLOT VIEW_SLOT(1)'),                                    # not called
+    slots_with(calls='VIEW_SLOT(0) void f() {} VIEW_SLOT(1)'),                     # a brace between
+    slots_with(after='class B { int VIEW_SLOT; };\n'),                             # used outside its region
+    SLOTS.replace('#undef VIEW_SLOT\n};', '};') + X_BODY,                          # never #undef'd
+    '#define VIEW_SLOT(n) virtual void slot##n();\nVIEW_SLOT(0)\n#undef VIEW_SLOT\n' + X_BODY,   # not in a class
+    'template <class T> class View {\n#define VIEW_SLOT(n) virtual void slot##n();\n\tVIEW_SLOT(0)\n'
+    '#undef VIEW_SLOT\n};\n' + X_BODY,                                             # a template body
+    '#define slot1 int\n' + SLOTS + X_BODY,                                        # a paste spells a unit macro
+    SLOTS.replace('slot##n', '__int##n').replace('VIEW_SLOT(3)', 'VIEW_SLOT(8)') + X_BODY,   # a keyword
+    'class View {\n#define VIEW_SLOT(n) virtual void slot##n();\n#define OTHER(n) virtual void other##n();\n'
+    '\tVIEW_SLOT(0)\n#undef OTHER\n#undef VIEW_SLOT\n};\n' + X_BODY,              # two open at once
+])
+def test_anything_but_a_slot_macro_voids_the_unit_as_on_master(unit):
+    assert class_gate.moved_bodies(unit) == {}
+
+
+def test_another_directive_in_the_slot_class_costs_only_that_class():
+    unit = SLOTS.replace('\tvirtual void add();', '#pragma pack(1)\n\tvirtual void add();') + X_BODY
+    found = class_gate.moved_bodies(unit)
+    assert 'View' not in found and found['X'] == class_gate.moved_bodies(X_BODY)['X']
+
+
+# The exact-transfer packet's Sol r1-r5 reproducers (swarm/toollane2/class-gate-transfer, shelved): each is refused.
+TRANSFER_REPRODUCERS = [
+    ('#if 0\n' + X_BODY + '#endif\n', X_BODY, 'Code/Game/New.cpp'),
+    ('#define \\\nT int\nclass X { T a; };\n', '#define \\\nT long long\nclass X { T a; };\n', 'Code/Game/New.cpp'),
+    ('#\vif 0\nclass X { int a; };\n#endif\n', 'class X { int a; };\n', 'Code/Game/New.cpp'),
+    ('#\fdefine T int\nclass X { T a; };\n', '#\fdefine T long long\nclass X { T a; };\n', 'Code/Game/New.cpp'),
+    ('#define TY int\nclass X {\n#define CAT(a,b) a##b\n  CAT(T,Y) a;\n#undef CAT\n};\n',
+     '#define TY long long\nclass X {\n#define CAT(a,b) a##b\n  CAT(T,Y) a;\n#undef CAT\n};\n', 'Code/Game/New.cpp'),
+    ('class X {\n#include "fields.inc"\n};\n', 'class X {\n#include "fields.inc"\n};\n', 'Code/Other/New.cpp'),
+    ('#line 1\n#pragma pack(push,1)\nclass X { char a; int b; };\n#pragma pack(pop)\n',
+     'class X { char a; int b; };\n', 'Code/Game/New.cpp'),
+    ('#line 1\n#define namespace struct\nnamespace N { class X { int a; }; };\n',
+     'namespace N { class X { int a; }; };\n', 'Code/Game/New.cpp'),
+    ('#line 10\nclass X { int a[__LINE__]; };\n', '#line 20\nclass X { int a[__LINE__]; };\n', 'Code/Game/New.cpp'),
+    ('#define $T int\nclass X { $T a; };\n', '#define $T long long\nclass X { $T a; };\n', 'Code/Game/New.cpp'),
+    ('#line 10\nclass X {\n#define CAT(a,b) a##b\n  int a[CAT(__LI,NE__)];\n#undef CAT\n};\n',
+     '#line 20\nclass X {\n#define CAT(a,b) a##b\n  int a[CAT(__LI,NE__)];\n#undef CAT\n};\n', 'Code/Game/New.cpp'),
+    ('#line 1\ntypedef int T;\nclass X { T a; };\n', '#line 1\ntypedef long long T;\nclass X { T a; };\n',
+     'Code/Game/New.cpp'),
+    ('typedef int T;\nclass X {\n#define CAT(a,b) a##b\n CAT(__if_,exists)(T) { int a; }\n#undef CAT\n};\n',
+     'class X {\n#define CAT(a,b) a##b\n CAT(__if_,exists)(T) { int a; }\n#undef CAT\n};\n', 'Code/Game/New.cpp'),
+]
+
+
+@pytest.mark.parametrize('donor,staged,where', TRANSFER_REPRODUCERS)
+def test_the_exact_transfer_reproducers_are_refused(repo, capsys, donor, staged, where):
+    repo.write('reverse/canonical_classes.csv', 'class,header\nX,Code/Game/X.h\n')
+    repo.write(OLD, donor + BODY)
+    repo.write('Code/Game/fields.inc', 'int a;\n')
+    repo.write('Code/Other/fields.inc', 'long long a;\n')
+    repo.commit('reverse/canonical_classes.csv', OLD, 'Code/Game/fields.inc', 'Code/Other/fields.inc')
+    repo.git('rm', '-q', '--', OLD)
+    repo.write(where, FILLER + staged + FRESH)
+    repo.stage(where)
+    rc, err = repo.gate(capsys)
+    assert rc == 1 and '`X`' in err

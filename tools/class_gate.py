@@ -25,6 +25,13 @@ raw strings and alternative brace/bracket tokens receive no move credit; include
 pragmas, #undef and object-like #defines that cannot form a scope do not void it
 (scope_code), though a class that uses a name the unit #defines gets none.
 
+One function-like macro is admitted (class_local_slots): a class may #define a slot macro,
+call it with integer literals only and #undef it, all within its own body
+(`#define AUDIO_SLOT(n) virtual void slot##n();`, ScriptActions.cpp's merged views). Its
+replacement pastes an identifier onto a parameter and names nothing else but parameters
+and keywords. The unit is then judged with those lines blanked, and the class holding them
+is credited only for its exact bytes, macros included.
+
 A unit that genuinely needs its own layout for a registered class (a
 deliberately different codegen view, proved by its bytes) can say so on any
 line:
@@ -611,6 +618,105 @@ def scoped_move_spans(text):
     return [] if stack else sorted(spans, key=lambda span: span[1])
 
 
+SLOT_DEFINE = re.compile(r'#[ \t]*define[ \t]+(?P<name>[A-Za-z_]\w*)'
+                         r'\((?P<params>[ \t]*[A-Za-z_]\w*[ \t]*(?:,[ \t]*[A-Za-z_]\w*[ \t]*)*)\)[ \t]+(?P<body>\S.*)')
+SLOT_PASTE = re.compile(r'([A-Za-z_]\w*)[ \t]*##[ \t]*([A-Za-z_]\w*)')
+# The exact-bytes key of a class holding slot macros: it never equals a normalised body.
+EXACT = '\0exact\0'
+
+
+def slot_pastes(params, body):
+    """[(parameter, identifier)] a slot macro's replacement pastes (`slot##n` gives ('n', 'slot')), or None when it
+    is not a slot macro: a brace, a backslash, a digraph, a `#` other than an identifier pasted onto a parameter,
+    unbalanced parentheses or brackets, or a name other than its parameters and keywords."""
+    if re.search(r'[{}\\]|<%|%>|<:|:>|%:', body) or not _balanced(body):
+        return None
+    pastes = []
+    for match in SLOT_PASTE.finditer(body):
+        literal, param = match.groups()
+        if literal in params or param not in params:
+            return None
+        pastes.append((param, literal))
+    rest = SLOT_PASTE.sub(' ', body)
+    if '#' in rest or any(name not in params and name not in KEYWORDS
+                          for name in re.findall(r'[A-Za-z_]\w*', rest)):
+        return None
+    return pastes
+
+
+def class_local_slots(text):
+    """(`text` with its slot macros' #define and #undef lines blanked, [(start, end, name, (define, undef))] of
+    each macro's region from its #define to its #undef, the names its pastes produce), or None.
+
+    A slot macro is #defined directly in a non-template class body (the innermost open brace is a class head),
+    #undef'd in the same body with no brace between, its replacement a slot_pastes one, and called in that region
+    only, each call with one integer literal per parameter. Anything else refuses the unit: a define never
+    #undef'd or redefined while open, a keyword name, a splice, trigraph or block comment on its line, a call that
+    is not integer literals, the name anywhere outside its regions. A text without one is returned unchanged."""
+    masked = LITERAL.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
+    lines = []
+    for match in DIRECTIVE.finditer(masked):
+        start, end = match.span('directive')
+        line = match.group('directive').rstrip()
+        define, undef = SLOT_DEFINE.fullmatch(line), NEUTRAL_UNDEF.fullmatch(line)
+        if define or undef:
+            lines.append((start, end, define, undef))
+    if not any(define for _s, _e, define, _u in lines):
+        return text, [], set()
+    code = DIRECTIVE.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), masked)
+    heads = {m.end() - 1: m for m in MOVE_HEAD.finditer(code)}
+    comments = [(m.start(), m.end()) for m in LITERAL.finditer(text) if m.group().startswith('/*')]
+    regions, pasted, open_ = [], set(), None
+    for start, end, define, undef in lines:
+        if define:
+            name = define.group('name')
+            params = [param.strip() for param in define.group('params').split(',')]
+            raw = text[start:end]
+            if (open_ is not None or name in KEYWORDS or len(set(params)) != len(params)
+                    or re.search(r'\\[ \t\f\v\r]*$', raw) or TRIGRAPH.search(raw)
+                    or any(first < end and last > start for first, last in comments)):
+                return None
+            pastes = slot_pastes(params, define.group('body'))
+            stack = []
+            for brace in re.finditer(r'[{}]', code[:start]):
+                if brace.group() == '{':
+                    stack.append(brace.start())
+                elif stack:
+                    stack.pop()
+            head = heads.get(stack[-1]) if stack else None
+            if pastes is None or head is None or head.group('template'):
+                return None
+            open_ = (start, end, name, params, pastes)
+        elif open_ is not None and undef.group('name') == open_[2]:
+            first, after, name, params, pastes = open_
+            between = code[after:start]
+            if re.search(r'[{}]', between):
+                return None
+            for call in re.finditer(r'(?<![\w$])' + re.escape(name) + r'(?![\w$])', between):
+                args = re.match(r'\s*\(([^()]*)\)', between[call.end():])
+                values = [value.strip() for value in args.group(1).split(',')] if args else []
+                if len(values) != len(params) or not all(re.fullmatch(r'[0-9]+', value) for value in values):
+                    return None
+                pasted |= {literal + values[params.index(param)] for param, literal in pastes}
+            regions.append((first, end, name, (first, start)))
+            open_ = None
+    if open_ is not None:
+        return None
+    for name in {region[2] for region in regions}:
+        inside = [(region[0], region[1]) for region in regions if region[2] == name]
+        if any(not any(first <= use.start() < last for first, last in inside)
+               for use in re.finditer(r'(?<![\w$])' + re.escape(name) + r'(?![\w$])', code)):
+            return None
+    if pasted & KEYWORDS:
+        return None
+    plain = text
+    for first, last, _name, directives in regions:
+        for line in directives:
+            end = masked.index('\n', line) if '\n' in masked[line:] else len(text)
+            plain = plain[:line] + re.sub(r'[^\n]', ' ', plain[line:end]) + plain[end:]
+    return plain, regions, pasted
+
+
 def moved_bodies(text):
     """Master's body keys, with conservative lexical checks for move credit.
 
@@ -618,17 +724,28 @@ def moved_bodies(text):
     class_body_spans before we ever see a body. Refuse the entire unit's move
     credit for those constructs. Ordinary existing-path/rename credit is
     unchanged; class_views' survey normalisation is not proof of a pure move.
+    Slot macros (class_local_slots) are judged with their lines blanked; a class
+    holding them is keyed by its exact bytes.
     """
     if (re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
             or TRIGRAPH.search(text)):
         return {}
-    scanned = scope_code(text)
+    slots = class_local_slots(text)
+    if slots is None:
+        return {}
+    plain, regions, pasted = slots
+    scanned = scope_code(plain)
     if scanned is None:
         return {}
     code, macros = scanned
+    local = {region[2] for region in regions}
+    # a paste may produce a name the unit #defines (`slot##n` and `#define slot0 ...`) or another slot macro
+    if pasted & (macros | local):
+        return {}
     found, seen = {}, set()
     heads = collections.Counter(m.group('name') for m in MOVE_HEAD.finditer(code))
-    for name, start, end, scope in scoped_move_spans(text):
+    masked = LITERAL.sub(lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
+    for name, start, end, scope in scoped_move_spans(plain):
         # Unqualified keys cannot prove which of multiple bodies moved.
         # Count even bodies whose normalisation would refuse credit.
         if name in seen:
@@ -639,8 +756,19 @@ def moved_bodies(text):
         if heads[name] > 1:
             continue
         # A name the unit #defines or #undefs may rename this class or an
-        # enclosing scope, or change what the body's tokens mean.
-        if macros & (set(re.findall(r'[A-Za-z_]\w*', code[start:end])) | set(scope)):
+        # enclosing scope, or change what the body's tokens mean; so may a slot
+        # macro another class holds.
+        own = [region for region in regions if start <= region[0] and region[1] <= end]
+        bound = macros | (local - {region[2] for region in own})
+        if bound & (set(re.findall(r'[A-Za-z_]\w*', code[start:end])) | set(scope)):
+            continue
+        if own:
+            # its exact bytes, and no directive but its own slot macros' lines
+            lines = {line for region in own for line in region[3]}
+            if any(m.start('directive') + start not in lines
+                   for m in DIRECTIVE.finditer(masked[start:end])):
+                continue
+            found[name] = (scope, EXACT + text[start:end])
             continue
         body = normalised_body(text[start:end])
         if body is not None:
