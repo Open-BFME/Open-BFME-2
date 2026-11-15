@@ -7,7 +7,6 @@ address_global	Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/AptDisplayStringBase.cpp	g_Va00DEC49C	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va00E06398	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va007C9260	2
-address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va00E06398	1
 address_global	Code/GameEngine/Source/Common/AptMessageBox.cpp	g_Va00E032FC	5
 address_global	Code/GameEngine/Source/Common/AptMessengerOnline.cpp	g_Va00E046BC	2
 address_global	Code/GameEngine/Source/Common/AptMpGameSetup.cpp	g_Va00E0333C	2
@@ -67,8 +66,6 @@ address_global	Code/GameEngine/Source/Common/ConstIntGetters.cpp	g_Va00DD83B4	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters5.cpp	g_Va00DD263CNames	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters5.cpp	g_Va00E04544	2
 address_global	Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp	g_Va00DC85C4Names	2
-address_global	Code/GameEngine/Source/Common/CreateAHeroManager.cpp	g_Va00DFE348	1
-address_global	Code/GameEngine/Source/Common/CreateAHeroManagerAvailableHeroes.cpp	g_Va00DFE348	1
 address_global	Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/Elem005DB98EFalloff.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/GameEngine.cpp	g_Va00BBB8D8	2
@@ -92,7 +89,6 @@ address_global	Code/GameEngine/Source/Common/GapBodiesGE53.cpp	g_Va00DB9440	2
 address_global	Code/GameEngine/Source/Common/GapBodiesS3D.cpp	g_Va00E046BC	2
 address_global	Code/GameEngine/Source/Common/GapBodiesS3H.cpp	g_Va00DBD0F4	2
 address_global	Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp	g_Va00DBB708	2
-address_global	Code/GameEngine/Source/Common/GapBodiesSeat1A_ModuleFactoryDataAt0025464A.cpp	g_Va00DBB708	1
 address_global	Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp	g_Va00DBD4C8	2
 address_global	Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp	g_Va00DFEFD8	2
 address_global	Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp	g_Va00A04450	2
@@ -169,7 +165,6 @@ address_global	Code/GameEngine/Source/Common/MovieWindowPlayback.cpp	g_Va00E0493
 address_global	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp	g_Va00DFF030	2
 address_global	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/Common/PinnedForwarders1830.cpp	g_Va00A03314	2
-address_global	Code/GameEngine/Source/Common/RTS/PlayerRva002AB8FB.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp	g_Va007C26F0	2
 address_global	Code/GameEngine/Source/Common/RTS/Rva00439920Reset.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/RTS/Science.cpp	g_Va00DB9440	8
@@ -316,9 +311,7 @@ address_global	Code/GameEngine/Source/Common/Rva005E0EE1Method.cpp	g_Va007C9260	
 address_global	Code/GameEngine/Source/Common/Rva005E10A8Method.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/Common/Rva005E39AERva005E5424.cpp	g_Va00E06710	2
 address_global	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	g_Rva0107301CEmptyString	4
-address_global	Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/Rva005FD788Apt_ArmyUnitSwapperMovieClip.cpp	g_Va0087A290	2
-address_global	Code/GameEngine/Source/Common/Rva005FD8E5Apt.cpp	g_Va0087A290	1
 address_global	Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/GameEngine/Source/Common/Rva0060147B.cpp	g_Va00E06E60	2
 address_global	Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp	g_Va00DBB710	2
@@ -627,7 +620,6 @@ address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/Common/System/FileSystemRestricted.cpp	g_Va00E06E60	2
 address_global	Code/GameEngine/Source/Common/System/GameMemory.cpp	g_Va00DE03E8	4
 address_global	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	g_Va00BC2424	1
-address_global	Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp	g_Va00BBAEAC	1
 address_global	Code/GameEngine/Source/Common/System/GlobalChainCleanup.cpp	g_Va00DFEBE4	3
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DC17CCNames	4
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DC85C4Names	4
@@ -654,7 +646,6 @@ address_global	Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp	
 address_global	Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp	g_Va00DC908C	3
 address_global	Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp	g_Va00A04908	2
 address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00740A60Table	3
-address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00789900Table	1
 address_global	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	g_Va001FDEB0	4
 address_global	Code/GameEngine/Source/Common/W3DShrubBuffer.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BF8	2
@@ -719,8 +710,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineB
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp	g_Va00E063F0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp	g_Va00E063F0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp	g_Va00E063F0	2
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp	g_Va00E046B8	1
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchMessageHandler.cpp	g_Va00E063F0	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp	g_Va00E0333C	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeCallbacks.cpp	g_Va00E06480	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeCallbacks_InitGadgets.cpp	g_Va00E06480	2
@@ -745,7 +734,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoa
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreen.cpp	g_Va00A04908	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp	g_Va00E0333C	2
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks_OnUpdateData.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStrategicPlayerStatus.cpp	g_Va00A04934	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E048DC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E04920	8
@@ -851,7 +839,6 @@ address_global	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceB
 address_global	Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp	g_Va00DE0878	1
 address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp	g_Va00DFE348	3
 address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp	g_Va00DFE348	2
-address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp	g_Va00DFE348	1
 address_global	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E01E74	3
 address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E01E7C	3
@@ -1010,11 +997,8 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_
 address_global	Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp	g_Rva011293A0HexFirst	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp	g_Rva011294A8HexSecond	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	g_Rva00E0A010	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	g_Rva0130A768	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp	g_Rva0130A6CC	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	g_Rva0130A6E4	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva00E0A010	1
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva0130A6E4	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva0130A768	2
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A678	1
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A684	1
@@ -1040,8 +1024,6 @@ address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva013
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva0130A75C	2
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva0130A774	2
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva0130A78C	2
-address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva0130A798	1
-address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva0130A7A4	1
 address_global	Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp	g_Rva012C3BC4	2
 address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0130A588	5
 address_global	Code/GameEngine/Source/Main/AudioManagerFocusVolume.cpp	g_Va00BBB8D8	2

@@ -208,7 +208,6 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 // Unrowed 0x0044C0A8 (pinned; as AptLanLobby::MpOwnerPrintMessage uses it)
 // and the flag it is skipped under.
 void MessageBoxOk(UnicodeString title, UnicodeString text, void (*callback)());
-extern int g_Va00E046B8;
 
 // TheWritableGlobalData's version block at +0xB08 copies itself into a
 // creation request (rowed 0x00237E28).
@@ -674,7 +673,6 @@ void GadgetTextEntrySetText(GameWindow *, UnicodeString);
 // both string lifetimes. The flag at4C2 retains an address-derived label.
 // AptOnlineCustomMatch::FillGameNameTextEntry is rowed in its home unit; this copy was a duplicate definition.
 
-extern int g_Va00E063F0;
 void __cdecl Rva00381C2DClear(unsigned int value);
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)());
 // Retail 0x005A61C6, 956 bytes: slot 3 of vftable 0x00871414, the screen's

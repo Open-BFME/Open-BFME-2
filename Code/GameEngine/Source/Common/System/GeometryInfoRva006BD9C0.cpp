@@ -17,7 +17,6 @@
 typedef bool Bool;
 typedef float Real;
 
-extern float g_Va00BBAEAC;
 
 enum GeometryType
 {

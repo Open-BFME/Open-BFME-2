@@ -284,7 +284,6 @@ public:
 
 
 // --- 0x0027C226 (10B, cdecl): sets the word at VA 0x00DBB708.
-extern int g_Va00DBB708;
 
 
 // --- 0x0027C280 (36B): stores three floats at +0x1C.

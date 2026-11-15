@@ -28,7 +28,6 @@ enum NameKeyType
 extern GameLogic *TheGameLogic;
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern UpgradeCenter *TheUpgradeCenter;
-extern const char *g_Rva0107301CEmptyString;
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 

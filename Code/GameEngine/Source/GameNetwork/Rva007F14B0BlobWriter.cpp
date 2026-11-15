@@ -55,7 +55,6 @@ public:
 extern const char * const g_Rva00E0A010;
 // Provider for the neighboring ClubUpdate TU; this TU does not consume it.
 // VA 0x00E0A184 (.data, zero-filled tail); retail's initial pointer is zero.
-extern const char * const g_Rva0130A768 = 0;
 
 // ?write@Rva007F14B0BlobWriter@@SGXPAVRva007E8810Message@@_J_NPBQBDHPBURva007F14B0Record@@@Z
 void __stdcall Rva007F14B0BlobWriter::write(Rva007E8810Message *message,

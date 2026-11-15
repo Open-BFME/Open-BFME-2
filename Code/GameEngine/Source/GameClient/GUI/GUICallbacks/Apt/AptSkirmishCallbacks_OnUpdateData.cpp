@@ -170,7 +170,6 @@ private:
 class GameSlot;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
-extern int g_Va00E0333C;
 #include <new>
 void Rva00521643Enable();
 

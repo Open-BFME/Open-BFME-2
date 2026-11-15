@@ -195,7 +195,6 @@ public:
 };
 
 // The ledger's name for VA 0x00E06398 (ColdGlobalDwordGetters.cpp).
-extern int g_Va00E06398;
 
 
 // ?processProgress@AptLoadScreen@@UAEXHH@Z @0x0043A15D 99B: SetBarTo on the panel's

@@ -12,7 +12,6 @@ namespace StrategicHUD
 #include "../../Include/Common/Rva005FD788Inner.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-extern const char *g_Va0087A290[];
 struct ArmyUnitSwapperSlot
 {
 	char m_pad[16];

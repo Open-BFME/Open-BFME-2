@@ -85,8 +85,6 @@ extern const char * const g_Rva0130A738;
 extern const char * const g_Rva0130A744;
 extern const char * const g_Rva0130A75C;
 extern const char * const g_Rva0130A774;
-extern const char * const g_Rva0130A798;
-extern const char * const g_Rva0130A7A4;
 
 /* omitted recovery-lane function body */
 

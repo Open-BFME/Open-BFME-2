@@ -32,11 +32,9 @@ extern const char * const g_Rva0130A768;
 // Provider for the neighboring BlobWriter TU: defining its const pointer in
 // that consumer folds the load into its matched body. VA 0x00E0A010 (.data,
 // zero-filled tail); the initial pointer value is zero.
-extern const char * const g_Rva00E0A010 = 0;
 // Provider for RecordRequest.cpp; keeping this const pointer in a sibling TU
 // prevents the compiler from folding its matched load. VA 0x00E0A100 (.data,
 // zero-filled tail); retail's initial pointer value is zero.
-extern const char * const g_Rva0130A6E4 = 0;
 
 void __stdcall Rva007F3C50( Rva007E8810Message *msg, FeslInt64 clubId,
 	const char *name, const char *description, int access, int state,

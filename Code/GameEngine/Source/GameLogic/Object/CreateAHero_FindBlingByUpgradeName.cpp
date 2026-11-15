@@ -38,7 +38,8 @@ namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_t
 namespace _STL { template <> _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::_Rb_tree(const less<int> &, const allocator<pair<const int, int> > &); }
 // Suppress this TU's non-retail copy of ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$l:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-
+
+
 namespace _STL { template <> pair<_Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::iterator, bool> _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::insert_unique(const pair<const int, int> &); }
 // Keep native node comparisons local; the incidental tree-base copy
 // differs from the selected out-of-line provider.
@@ -178,7 +179,6 @@ private:
 extern SubsystemInterfaceList *TheSubsystemList;
 
 // The dword at VA 0x00DFE348 (ColdGlobalDwordGetters.cpp) gates init's load.
-extern int g_Va00DFE348;
 
 #include "../../../Include/Common/Player.h"
 

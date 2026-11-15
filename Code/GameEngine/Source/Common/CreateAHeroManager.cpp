@@ -98,7 +98,6 @@ class Xfer;
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 #include "../../Include/Common/INI/INI.h"
 // The dword at VA 0x00DFE348 (ColdGlobalDwordGetters.cpp) gates init's load.
-extern int g_Va00DFE348;
 #include "../../Include/Common/Player.h"
 class ModuleData;
 #include "../../Include/Common/Rva00423A68.h"
