@@ -39,7 +39,7 @@ class Rva005F2F80ElemBase
 {
 public:
 	~Rva005F2F80ElemBase() {}
-	virtual void Rva005F2F80ElemSlot0();
+	virtual void Rva005F2F80ElemSlot0(int) { }
 private:
 	char m_pad04[8];
 };
