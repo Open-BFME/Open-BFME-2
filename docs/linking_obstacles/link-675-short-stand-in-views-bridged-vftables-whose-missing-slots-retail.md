@@ -77,6 +77,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva0059EB66` (VA 0x00C711BC): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 2 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva006560B0` (VA 0x00CE0FB8): 3 slots (2 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva006ED020` (VA 0x00CEC9CC): 3 slots (0 pure, 0 rowed virtual, 1 destructor, 1 folded trivial body), 1 view(s): `AptCharacter.cpp`.
+- 2026-11-15 `Rva0020E38B` (VA 0x00BE4318): 2 slots (1 pure, 0 rowed virtual, 0 destructor, 0 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
+
 
 
 
@@ -172,7 +174,6 @@ regenerated `reverse/data_ledger.csv` drops `??_7W3DTreeDrawModuleDataBase@@6B@`
 stays `??_7Snapshot@@6B@`. Retail's 4-slot table there is Snapshot's own: slot 0 is `??_ESnapshot@@UAEPAXI@Z`
 (0x00001750, 74 bytes), and slots 1-3 are `__purecall`. Master's ledger lists W3DTreeDrawModuleDataBase among the
 row's folded names, and `~W3DTreeDrawModuleDataBase` is rowed at Snapshot's destructor 0x0049B47C with a fold proof.
-
 Since this unit's change, W3DTreeDraw.obj's `??_7W3DTreeDrawModuleDataBase@@6B@` matches Snapshot's table except
 for slot 0, which references `??_EW3DTreeDrawModuleDataBase@@UAEPAXI@Z`. The object only weakly defines that name
 (`nm`: `w`), falling back to the scalar `??_GW3DTreeDrawModuleDataBase@@UAEPAXI@Z` it does define, as cl 7.1 does

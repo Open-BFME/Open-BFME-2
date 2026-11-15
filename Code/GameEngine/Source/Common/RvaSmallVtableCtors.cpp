@@ -1660,7 +1660,8 @@ class Rva0020E38B
 {
 public:
 	Rva0020E38B();
-	virtual ~Rva0020E38B() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
 };
 
 Rva0020E38B::Rva0020E38B()
