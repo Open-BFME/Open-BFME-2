@@ -1,4 +1,4 @@
-# Sole-provider aliases removed by 1cc99cc230d
+# Native repairs for sole-provider alias removals
 
 ## 2026-11-15 regression and bounded repair
 
@@ -49,5 +49,14 @@ The first inline probe was insufficient: its inherited destructor still emitted 
 Boat run dataid-20261115t223720 verifies 73/73 rows. Before/after link_check covers OpaqueScalarDeletingDtors.cpp plus the two existing RefCount provider units hlod.cpp and GapBodiesGE31.cpp: both existing providers stay linking; Opaque remains blocked by eight unrelated missing names, down from nine. No unit is lost, and the strict new-variants check passes. Both objects have no CRT initializer sections and no atexit relocations. Data/converged, pin consistency, CSV and frozen-file checks pass. The pin total falls by one (9274 -> 9273); no hatch count rises. The normal hatch update also normalizes the five historical allowance-token columns without changing their counts or directives.
 
 Complete logs, source-bound objects and raw body/relocation evidence are in build/boat-run/dataid-20261115t223720/build/dataid-native-final; ops notes are in sweeps/dataid/no-hatch. The sandbox was deleted. This is one native provider repair, not a claim that Opaque or the full image now links. Full-image/runtime checks remain pending.
+
+## Native DieMuxData constructor (8eab05132d7)
+
+The second removal commit deleted the only binding for DieMuxData's default constructor. The rowed init at 4CE534 remained, but the nine module-data consumers named a constructor that no object defined. The approved TU map assigns 4CE534 to DieModule.cpp. That TU now defines the real constructor through the canonical 48-byte raw-storage class and a typed layout view. The view is referenced, never constructed, so it adds no bitset default construction. The body writes the death flags, calls the existing mask reset twice, then writes the three native float values. It does not delegate to init. Normal add_match --icf-owner rows its complete 57-byte native twin, and its obsolete constructor pin is retired with a normal shrinking hatch update.
+
+Boat dataid-20261115t223720 verifies all three DieModule rows (both existing rows plus the native constructor). Raw COFF shows only the two native mask-reset calls and the two -1/+1 literal relocations in the constructor. Before/after link_check covers all nine consumers and both providers: 2/11 -> 10/11 clean, 374 -> 5,085 predicted linked bytes, zero losses. All constructor references resolve. StructureToppleUpdateModuleDataCtor retains its unchanged pre-existing vtable COMDAT mismatch, so the command still exits 1; it is not reported clean.
+
+Both versions have zero CRT initializer sections and zero atexit references. The data check's FieldParse wrong-name shadow finding is identical before/after; converged data, pin consistency, CSV and frozen-file checks pass. No data ledger or data row is hand-edited, no alias or pin is added, and no hatch count rises. Complete source-bound evidence is in the same final native-provider packet. The sandbox was deleted. Full-image/runtime checks remain pending.
+
 
 Open beyond this five-binding repair: OpaqueScalarDeletingDtors.cpp itself still lacks eight other native destructor providers removed by 1cc99cc230d, despite having no other cached consumer. The RefCount-derived provider is repaired above. Their exact original bindings are in sweeps/dataid/alias-1cc/additional-own-carrier-nine.json on srv1. DynamicPortalBehaviourModuleDataDtor.cpp and SpecialPowerModuleDtor_Unresolved.cpp also retain pre-existing COMDAT-copy failures. These three units failed before this repair too. Future removal audits must include the carriers themselves as well as outside consumers.

@@ -1341,7 +1341,6 @@ name,address,notes
 ??0DestroyDie@@QAE@PAVThing@@PBVModuleData@@@Z,0x0048650E,(Thing*;ModuleData*) ctor called by DestroyDie::friend_newModuleInstance (0x0024CA70); class from the ModuleFactory registration literal
 ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004AE883,(Thing*;ModuleData*) ctor called by DetachableRiderUpdate::friend_newModuleInstance (0x0024F86D); class from the ModuleFactory registration literal
 ??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C81E3,(Thing*;ModuleData*) ctor called by DevastateSpecialPower::friend_newModuleInstance (0x0025261B); class from the ModuleFactory registration literal
-??0DieMuxData@@QAE@XZ,0x004CE534
 ??0DominateEnemySpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004CC988,(Thing*;ModuleData*) ctor called by DominateEnemySpecialPower::friend_newModuleInstance (0x00252EAA); class from the ModuleFactory registration literal
 ??0DumbProjectileBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x003907A6
 ??0EAStringC@@QAE@II@Z,0x006D4640,Native AsciiToChar702160 temporary constructor; f1d902ecb424f19d EAString.h declares uint32 character and length; callee allocates length then repeats low character byte and terminates or shares empty singleton
