@@ -16,6 +16,8 @@ typedef unsigned int UnsignedInt;
 typedef short Short;
 typedef bool Bool;
 
+#include "../../../Include/GameClient/ListboxData.h"
+
 #include "ascii_string.h"
 #include <string.h>
 
@@ -110,21 +112,6 @@ void bfmeGoENK(BfmeObjENK *w, char v);
 void Rva0032857F(GameWindow *w, int v);
 
 // Field names follow Zero Hour's ListboxData where offset and initial value agree.
-struct ListboxData
-{
-	Short listLength;
-	Short columns;
-	Int *columnWidthPercentage;
-	Bool autoScroll;
-	Bool autoPurge;
-	Bool scrollBar;
-	Bool multiSelect;
-	Bool forceSelect;
-	Bool scrollIfAtEnd;
-	char m_pad0E[6];
-	Int *columnWidth;
-	char m_tail[0x4c - 0x18];
-};
 
 struct EntryData
 {
