@@ -27,6 +27,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include "../../Include/Common/INI/INI.h"
+
 #include <map>
 #include <hash_map>
 #include <vector>
@@ -414,15 +416,6 @@ extern Rva0022C38BSubsystem *TheLivingWorldAutoResolveSciencePurchasePointBonusS
 
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE, INI_LOAD_CREATE_OVERRIDES, INI_LOAD_MULTIFILE };
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);
-private:
-	char m_data[0x87C];
-};
 
 // BFME 2's CRC writer over the block-writer base whose destructor retail
 // rows as XferSave (0x0060D0B3); full at +0x40, crc at +0x44.
@@ -659,8 +652,6 @@ class NetworkInterface;
 extern NetworkInterface *TheNetwork;
 #include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
-
-
 
 
 Int Rva0022CB5CHook(Int a, Int b);
