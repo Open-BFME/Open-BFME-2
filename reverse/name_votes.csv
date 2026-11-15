@@ -24284,3 +24284,11 @@ Code/GameEngine/Include/GameLogic/Module/DeployStyleAIUpdateClass.h|slot|DeployS
 Code/GameEngine/Include/GameLogic/AIInternalMoveToState.h|slot|AIInternalMoveToState@0x00C10DE8|2,69ab4a7c5ef58bf9af31757b,gpt-6.1-sol,slotnames-voter-20261115-a,w-5a04c5e9a75b,2026-11-14
 Code/GameEngine/Include/GameLogic/Module/DeployStyleAIUpdateClass.h|slot|DeployStyleAIUpdate@0x00C4CA00|2,c50ee0f15e28f9abbc9ad82f,gpt-6.1-sol,slotnames-voter-20261115-b,w-5a04c5e9a75b,2026-11-14
 Code/GameEngine/Include/GameLogic/Module/DeployStyleAIUpdateClass.h|slot|DeployStyleAIUpdate@0x00C4CA00|110,b26d1554938572e18c344775,gpt-6.1-sol,slotnames-voter-20261115-c,w-5a04c5e9a75b,2026-11-14
+Code/GameEngine/Include/Common/StateMachine.h|slot|State@0x00C605D8|7,1c3a022026ad69b077f758a8,gpt-6.1-sol,slotnames-state7,w-8e95b11f5db9,2026-11-15
+Code/GameEngine/Include/Common/StateMachine.h|slot|State@0x00C605D8|7,1c3a022026ad69b077f758a8,gpt-6.1-sol,own-new-label,w-5a04c5e9a75b,2026-11-15
+Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|1,cee2279a6974e413efad3af7,gpt-6.1-sol,aisp-blind-voter-s1-20261115-7d39,w-5a04c5e9a75b,2026-11-15
+Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|2,362494e1ad66b2a77de603a0,gpt-6.1-sol,aisp-blind-voter-s2-20261115-7d39,w-5a04c5e9a75b,2026-11-15
+Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|1,cee2279a6974e413efad3af7,gpt-6.1-sol,aisp-blind-voter2-slot1c-20261115,w-e4f6c6947057,2026-11-15
+Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|2,7ea9d280b58056c233e2f2e1,gpt-6.1-sol,aisp-blind-voter2-slot2b-20261115,w-e4f6c6947057,2026-11-15
+Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|5,119f0c065df85370b05545b4,gpt-6.1-sol,slotnames-aisp5-parent-20261115,w-8e95b11f5db9,2026-11-15
+Code/GameEngine/Include/Common/Rva0058AD7A.h|slot|Rva0058AD7A@0x00C7091C|5,119f0c065df85370b05545b4,gpt-6.1-sol,aisp-slot5-completion-20261115b,w-5a04c5e9a75b,2026-11-15
