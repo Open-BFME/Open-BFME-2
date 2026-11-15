@@ -224,7 +224,19 @@ struct ContainIface24
 // The +0x2C base is the damage interface: getDamage (slot 4, 0x004647C0) returns it, and
 // retail table 0x00C58790 holds OpenContain's three empty overrides (0x0047A69C x2, 0x000D1407).
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
-struct ContainIface30 { virtual void containIface30() = 0; };
+struct ContainIface30 { virtual void containIface30() = 0;
+ virtual void slot04() = 0;
+ virtual void slot08() = 0;
+ virtual void slot0C() = 0;
+ virtual void slot10() = 0;
+ virtual void slot14(int) {}
+ virtual bool slot18() { return false; }
+ virtual void slot1C() = 0;
+ virtual void slot20() = 0;
+ virtual void slot24() = 0;
+ virtual void slot28() = 0;
+ virtual void slot2C() {}
+};
 // The +0x34 base is the create interface: getCreate (slot 3, 0x0046644A) returns it, the
 // constructor stores its four-slot construction table 0x00C4EF80 there first, and retail
 // table 0x00C48B28 holds OpenContain's four overrides (0x000B3FD0 x3, 0x0047A699).
