@@ -131,7 +131,6 @@ void MilesAudioManager::rva0005DACF(const Int &a)
 
 // vtable 0x00BC55B0#23: a second virtual with the same body; ICF folds it
 // onto 0x0005DACF, so slots 23 and 24 both hold that address.
-// ?slot23@MilesAudioManager@@ present-unmatched (ICF-folded at 0x0005DACF; pinned)
 void MilesAudioManager::slot23(const Int &a)
 {
 	addOrResumeAudioEvent(reinterpret_cast<AudioEventRTS *>((a ? a : a)), 0, 1, 0, 1);
