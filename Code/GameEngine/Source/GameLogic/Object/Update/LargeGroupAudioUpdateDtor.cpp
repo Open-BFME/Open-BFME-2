@@ -84,4 +84,3 @@ LargeGroupAudioUpdate::~LargeGroupAudioUpdate()
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?f20@LargeGroupAudioUpdate_B20@@UAEXXZ=?rva004ABA71@LargeGroupAudioUpdate@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?f24@LargeGroupAudioUpdate_B24@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?f2@Rva0024A797_B2@@UAEXXZ=?update@LargeGroupAudioUpdate@@UAE?AW4UpdateSleepTime@@XZ")

@@ -21,7 +21,7 @@ UTC at `565145b59d`); absence from that snapshot does not establish absence at `
 | `B0` `b0`, `B5` `b5`, `B7` `b7`, `B2` `b2` | 4 | `b2` in GarrisonContain.cpp | cave, transport, horde, horse-horde contain objects | split; GarrisonContain's `b2` to remove (its target is ProductionQueueHordeContain's too) |
 | `BehaviorModuleBase::unused`, `UpdateModule::update` | 3 | both in AIGateUpdate.cpp and DestroyEnvironmentUpdate.cpp | only MineshaftPortalBehaviourCtor.obj, which keeps its alias | removed; one target left |
 | `Iface10::f10`, `Iface28::f28` | 2 | none | AODHordeContain, SiegeEngineContain, HordeSiegeEngineContain objects | split |
-| `Rva0024A797_B2::f2` | 2 | LargeGroupAudioUpdateDtor.cpp | only CastleBehaviorDtor.obj | to remove; one target left |
+| `Rva0024A797_B2::f2` | 2 | LargeGroupAudioUpdateDtor.cpp | only CastleBehaviorDtor.obj | removed; one target left |
 | `State::slot02` | 2 | none | AIInternalMoveToState ctor objects and others | split (LINK-514) |
 | `Rva009EB810TailBase::slot18` | 2 | none | none beyond the two | split |
 | `Visitor005CCCD0::visit` | 2 | none | HasListenersVisitor.obj | split |
@@ -34,8 +34,8 @@ case. GarrisonContain.cpp's `b2` mapping is preserved through ProductionQueueHor
 remaining alias.
 - AIGateUpdate.cpp and DestroyEnvironmentUpdate.cpp: `BehaviorModuleBase::unused` and `UpdateModule::update`
   (alternatename -4).
-- Next, one commit each: LargeGroupAudioUpdateDtor.cpp's `Rva0024A797_B2::f2`, then GarrisonContain.cpp's
-  `B2::b2`.
+- LargeGroupAudioUpdateDtor.cpp: `Rva0024A797_B2::f2` (alternatename -1).
+- Next: GarrisonContain.cpp's `B2::b2`.
 
 **Kept: Rva0036804FCtor.cpp's `AIInternalMoveToState::onEnter` alias** (target `?onEnter@Rva0036804F@@UAEHXZ`). Its
 own object does not reference it, but its target is unique among the five. Three objects that define no alias
