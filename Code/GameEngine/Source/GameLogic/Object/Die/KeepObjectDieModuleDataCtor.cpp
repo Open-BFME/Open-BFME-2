@@ -22,6 +22,18 @@ class ModuleData;
 // 0x00253510. Do NOT declare an explicit vptr member: the hidden one is +0.
 #include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
+// The deleting destructor 0x004A10FD calls 0x0049B47C, which only restores
+// Snapshot's table 0x00BBB554: ModuleData's and DestroyDieModuleData's
+// destructors are trivial inlines (as CreateCrateDieModuleDataDtor.cpp
+// declares them), so this class's empty destructor reduces to Snapshot's.
+inline ModuleData::~ModuleData()
+{
+}
+
+inline DestroyDieModuleData::~DestroyDieModuleData()
+{
+}
+
 class KeepObjectDieModuleData : public DestroyDieModuleData
 {
 public:
@@ -40,7 +52,6 @@ KeepObjectDieModuleData::KeepObjectDieModuleData()
 	m_stayOnRadar = 0;
 }
 
-// ??1KeepObjectDieModuleData@@UAE@XZ present-unmatched
 KeepObjectDieModuleData::~KeepObjectDieModuleData()
 {
 }
