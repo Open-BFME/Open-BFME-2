@@ -165,6 +165,9 @@ hashtable<Rva005472F8Record, Rva005472F8Record, hash<Rva005472F8Record>, _Identi
 }
 }
 
+struct AEPAUCoord3D;
+struct AE_NPAHPAUGroupOrderCommand;
+struct AEPAVGroupOrder;
 class MoveToGroupOrder : public GroupOrder
 {
 public:
@@ -176,6 +179,14 @@ private:
 	bool m_flag25;                     // +0x25
 	ObjectCoord3DMap m_map28;          // +0x28
 	unsigned int m_value3C;            // +0x3C
+public:
+	virtual struct Coord3D *getDestination(int);
+public:
+	virtual bool slot11Command(int *, struct GroupOrderCommand *);
+public:
+	virtual enum NameKeyType getClassKey();
+public:
+	virtual class GroupOrder *clone();
 };
 
 // tu-skeleton: 0x00547188 21B ?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)

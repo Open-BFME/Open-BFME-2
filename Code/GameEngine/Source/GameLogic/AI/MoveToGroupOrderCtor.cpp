@@ -104,6 +104,10 @@ class Rva0036E346;
 
 #include "../../../Include/GameLogic/GroupOrder.h"
 
+struct AEPAUCoord3D;
+struct AE_NPAHPAUGroupOrderCommand;
+enum NameKeyType;
+struct AEPAVGroupOrder;
 class MoveToGroupOrder : public GroupOrder
 {
 public:
@@ -118,6 +122,14 @@ private:
 	bool m_flag25;                     // +0x25
 	ObjectCoord3DMap m_positions;      // +0x28
 	int m_value3C;                     // +0x3C
+public:
+	virtual struct Coord3D *getDestination(int);
+public:
+	virtual bool slot11Command(int *, struct GroupOrderCommand *);
+public:
+	virtual enum NameKeyType getClassKey();
+public:
+	virtual class GroupOrder *clone();
 };
 
 class MoveToFormationGroupOrder : public GroupOrder

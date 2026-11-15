@@ -105,6 +105,8 @@ public:
 	MoveToGroupOrder();
 private:
 	char m_pad[0x40 - 4];
+public:
+	virtual enum NameKeyType getClassKey();
 };
 
 class AttackObjectGroupOrder : public GroupOrder

@@ -349,6 +349,10 @@ Xfer *Rva0054755BXfer(Xfer *xfer, ObjectCoord3DMap *map)
 
 #include "../../../Include/GameLogic/GroupOrder.h"
 
+struct AEPAUCoord3D;
+struct AE_NPAHPAUGroupOrderCommand;
+enum NameKeyType;
+struct AEPAVGroupOrder;
 class MoveToGroupOrder : public GroupOrder
 {
 public:
@@ -364,6 +368,14 @@ private:
 	Bool m_flag25;                     // +0x25
 	ObjectCoord3DMap m_positions;      // +0x28
 	Int m_value3C;                     // +0x3C
+public:
+	virtual struct Coord3D *getDestination(int);
+public:
+	virtual bool slot11Command(int *, struct GroupOrderCommand *);
+public:
+	virtual enum NameKeyType getClassKey();
+public:
+	virtual class GroupOrder *clone();
 };
 
 class MoveToFormationGroupOrder : public GroupOrder

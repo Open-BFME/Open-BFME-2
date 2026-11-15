@@ -71,11 +71,20 @@ public:
 	virtual NameKeyType getClassKey();
 };
 
+struct AEPAUCoord3D;
+struct AE_NPAHPAUGroupOrderCommand;
+struct AEPAVGroupOrder;
 class MoveToGroupOrder : public GroupOrder
 {
 public:
 	virtual const char *getClassName();
 	virtual NameKeyType getClassKey();
+public:
+	virtual struct Coord3D *getDestination(int);
+public:
+	virtual bool slot11Command(int *, struct GroupOrderCommand *);
+public:
+	virtual class GroupOrder *clone();
 };
 
 class MoveToFormationGroupOrder : public GroupOrder
