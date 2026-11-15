@@ -7,10 +7,10 @@ public:
     WeaponBonus()
     {
         for (int i = 0; i < 6; ++i)
-            m_multiplier[i] = 1.0f;
+            m_field[i] = 1.0f;
     }
 private:
-    float m_multiplier[6];
+    float m_field[6];
 };
 #include "../../../Include/GameLogic/Weapon.h"
 void Weapon::loadAmmoNow(const Object *source)
