@@ -105321,3 +105321,8 @@ $L19357	0x0077F774	14	landed	add_match verified Code/GameEngine/Source/GameNetwo
 ??1Rva003ED658@@QAE@XZ	0x003ED94F	58	landed	add_match verified Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp 58B; ICF twin at 0x003ED94F of Rva003ED94FDtor::~Rva003ED94FDtor
 ??1Rva0022307F@@QAE@XZ	0x00222C5A	57	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00222C5A.cpp 57B
 ?OnRollOut@Impl@ArmyMemberIconMovieClip@StrategicHUD@@QAEXPBD@Z	0x005F057A	10	landed	add_match verified Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp 10B
+??0Rva005242D7@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp 19B
+??0Rva00524306@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp 19B
+??0AptCommandMapAdder@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva00578AC1.cpp 19B
+??0AptTimerAdder@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva005E10A8Method.cpp 19B
+??0Rva005E136CList28@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/Common/Rva005E10A8Method.cpp 19B

@@ -10472,8 +10472,6 @@ present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::
 present_unmatched	Code/GameEngine/Include/Common/Rva00041004Lock.h	Rva0040EDB::Rva0040EDB	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
-present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	Rva00524306::Rva00524306	1
-present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Owner00739C90::cleanup	1
@@ -10714,8 +10712,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp	Rva0055A627D
 present_unmatched	Code/GameEngine/Source/Common/Rva0055A40CSplit.cpp	Rva0055A40CDifference	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056AC26Base1::Rva0056AC26Base1	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0056AC26Constructor.cpp	Rva0056ACAEVisitor::Rva0056ACAEVisitor	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00578AC1.cpp	AptCommandMapAdder::AptCommandMapAdder	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00578AC1.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	isEmpty@?$StringBase@D@@QBE_NXZ	1
@@ -10733,17 +10729,11 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlus
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	operatorPlusTwoStringsText	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D2EA8Dtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005D7E98WaypointStarts.cpp	findWaypoint	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005E10A8Method.cpp	AptTimerAdder::AptTimerAdder	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005E10A8Method.cpp	Rva005E136CList28::Rva005E136CList28	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005E10A8Method.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005E9FC1Dtor.cpp	1Rva005E9FC1Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FBase0dtor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp	Rva005EEF2FBase4dtor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp	StrategicHUD::ArmyDetailsMovieClip::Impl::IconSlot::OnLoaded	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005F54DADtor.cpp	Rva00579E47::~Rva00579E47	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	AsciiString)	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	Rva005242D7::Rva005242D7	1
-present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt.cpp	text)	2
 present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp	AsciiString)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005FC8FDApt_ArmyHeroIconMovieClip.cpp	text)	2
 present_unmatched	Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp	Rva005F8F96::Rva005F8F96	1
