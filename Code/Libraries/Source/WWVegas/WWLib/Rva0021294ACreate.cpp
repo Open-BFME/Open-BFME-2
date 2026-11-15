@@ -25,15 +25,7 @@ namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
 // bfme link decl-only end
 
-template <typename T> class StringBase
-{
-public:
-	StringBase() : m_data(0) {}
-	StringBase(const StringBase &other);
-	~StringBase();
-private:
-	T *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../../../../GameEngine/Include/Common/ModuleData.h"
 // Bind to the kept retail copy instead of emitting this unit's own.

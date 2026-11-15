@@ -26,14 +26,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-template <typename T> class StringBase
-{
-	friend class UnicodeString;
-	StringBase(const StringBase &);
-	void releaseBuffer();
-	__forceinline ~StringBase() { releaseBuffer(); }
-	void *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct Rva001EA443
 {

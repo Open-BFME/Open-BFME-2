@@ -13,23 +13,7 @@ template Rva00151E4DElement * _STL::__copy<Rva00151E4DElement *, Rva00151E4DElem
 // ICF twin of ??4BfmeAssignRecord36@@QAEAAU0@ABU0@@Z (0x00151336, BfmeAssignRecord36Assign.cpp):
 // the same 36-byte record assignment, so the copy loop above binds a definition.
 
-template <typename T>
-class StringBase
-{
-public:
-	void set(const T *str);
-	const T *str() const { return m_data ? &m_data->data[0] : (const T *)""; }
-
-private:
-	struct Header
-	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-	Header *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 #include "../WW3D2/Rva00151288.h"
 

@@ -7,14 +7,7 @@
 // with vtable 0x7F5DA0 calls it at the end; element ctor 0x0025C07D proves
 // the 0x18 int plus 4 floats plus int layout; wide clear folds to rowed
 // releaseBuffer 0x00036E70.
-template <typename T> class StringBase
-{
-public:
-    void clear() { releaseBuffer(); }
-private:
-    void releaseBuffer();
-    T *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 struct DisplayRva0025D2F6Elem
 {
     int m_a;
