@@ -105,6 +105,7 @@ struct IDirect3DDevice8
 extern unsigned number_of_DX8_calls;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 // WWMath matrix3d.h's inline Set(x, y, z, pos), which the canonical header leaves to units.
 static __forceinline void matrixSet(Matrix3D &m, const Vector3 &x, const Vector3 &y, const Vector3 &z, const Vector3 &pos)
 {

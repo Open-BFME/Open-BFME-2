@@ -17,6 +17,7 @@
 #define COORD3D_VIEW_INLINE
 #include "Coord3DCtorView.h"
 #include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class RenderObjClass
 {
 public:

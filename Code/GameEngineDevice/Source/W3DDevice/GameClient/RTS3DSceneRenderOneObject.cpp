@@ -98,6 +98,7 @@ namespace FXShader { class RenderingMethod : public RefCountClass {}; }
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 
 class RenderInfoClass;

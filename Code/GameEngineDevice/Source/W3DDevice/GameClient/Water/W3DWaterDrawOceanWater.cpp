@@ -105,6 +105,7 @@ class LightEnvironmentClass;
 class CameraClass;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Rendering-method stack walkers (element array, count): rows Rva001688FFShift
 // 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).

@@ -110,6 +110,7 @@ typedef float Real;
 extern void BFME_DX8_Thread_Lock(void);
 extern bool BFME_DX8_Thread_Assert(void);
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 void bfmeReleaseQueuedDeviceInterfaces();
 class BfmeDynamicNativeVB : public VertexBufferClass
 {

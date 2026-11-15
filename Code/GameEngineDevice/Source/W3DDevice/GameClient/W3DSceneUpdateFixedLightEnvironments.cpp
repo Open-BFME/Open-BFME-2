@@ -111,6 +111,7 @@ extern int LODTextureReduction;
 // two inline levels gives retail its two temporaries per weather read (the inner
 // result spilled, the outer one a register phi with the null arm's zero).
 #include "../../../../GameEngine/Include/Common/Overridable.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class WeatherSetting : public Overridable
 {
 public:
