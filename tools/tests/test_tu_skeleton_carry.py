@@ -179,3 +179,126 @@ def test_without_protected_keys_nothing_is_carried(repo):
                                 newline="\n")
     carry = T.Carry(repo, TU, [A, B], {A: "int a();\n", B: "int b();\n"}, "int a();\nint b();\n", "-O2")
     assert carry.moved == {} and carry.problems == [] and carry.trailer() is None
+
+
+
+# Compiler-label funclet rows (label_renames). The Object.cpp merge (2026-11-13): two PoolKey donors each carried an
+# unwind funclet row `$L310`; one TU scopes one label, so check_csv refused "$L310 claims two addresses" after the
+# merge. The merge renames each to the address name Ghidra gives it, as the merge lane did by hand.
+PARENT_A, PARENT_B = "?getKey@AHelper@@UBEHXZ", "?getKey@BHelper@@UBEHXZ"
+LABELS = (f"$L310,,0x0077436A,13,{A},matched,gen-funclet;parent={PARENT_A}; Exact parent EH graph places $L310\n"
+          f"$L310,,0x00774522,13,{B},matched,\"gen-funclet;parent={PARENT_B}; Exact parent, places $L310\"\n"
+          f"$L310,,0x00774313,13,{C},matched,gen-funclet;parent=?getKey@CHelper@@UBEHXZ\n")
+GHIDRA_CSV = "rva,size,name\n0x77436A,13,Unwind@00b7436a\n0x774522,13,Unwind@00b74522\n0x774313,13,Unwind@00b74313\n"
+
+
+def label_repo(repo, ghidra=GHIDRA_CSV, extra=""):
+    functions = repo / "reverse/functions.csv"
+    functions.write_text(functions.read_text() + LABELS + extra, encoding="utf-8", newline="\n")
+    (repo / "reverse/ghidra_functions.csv").write_text(ghidra, encoding="utf-8", newline="\n")
+    (repo / "reverse/deleted_rows.csv").write_text('name,target_rva,reason\n?gone@@YAXXZ,0x00100000,"old"\n',
+                                                   encoding="utf-8", newline="\n")
+    git(repo, "add", ".")
+    git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "labels")
+    return repo
+
+
+def test_a_label_two_merging_files_carry_is_renamed_to_its_address_name(repo):
+    label_repo(repo)
+    carry = T.Carry(repo, TU, [A, B], TEXTS, merged_text(), "-O2")
+    assert carry.problems == []
+    assert carry.labels == [("$L310", 0x0077436A, "Unwind@00b7436a"), ("$L310", 0x00774522, "Unwind@00b74522")]
+    assert carry.report()["label_renames"] == ["$L310 0x0077436A -> Unwind@00b7436a",
+                                               "$L310 0x00774522 -> Unwind@00b74522"]
+    moved = T.apply(TU, [A, B], merged_text(), root=repo, carry=carry)
+    assert moved["reverse/deleted_rows.csv"] == 2
+    rows = list(csv.DictReader(io.StringIO((repo / "reverse/functions.csv").read_text())))
+    by_rva = {r["target_rva"]: r for r in rows}
+    assert by_rva["0x0077436A"]["name"] == "Unwind@00b7436a" and by_rva["0x0077436A"]["source"] == TU
+    assert by_rva["0x0077436A"]["notes"].startswith(f"gen-funclet;parent={PARENT_A};object-symbol=$L310;")
+    assert by_rva["0x00774522"]["notes"].startswith(f"gen-funclet;parent={PARENT_B};object-symbol=$L310;")
+    # the third file is not in this merge: its own $L310 stays, scoped to its own TU
+    assert by_rva["0x00774313"]["name"] == "$L310" and by_rva["0x00774313"]["source"] == C
+    deleted = (repo / "reverse/deleted_rows.csv").read_text().splitlines()
+    assert deleted[-2].startswith('$L310,0x0077436A,"Renamed to Unwind@00b7436a: tu_skeleton merge into Code/T.cpp')
+    assert deleted[-1].startswith('$L310,0x00774522,"Renamed to Unwind@00b74522')
+    # every other byte of functions.csv is kept
+    before = git(repo, "show", "HEAD:reverse/functions.csv").stdout.splitlines()
+    after = (repo / "reverse/functions.csv").read_text().splitlines()
+    assert [b for b, a in zip(before, after) if b != a and "$L310" not in b and A not in b and B not in b] == []
+
+
+@pytest.mark.parametrize("ghidra,extra,pin,why", [
+    (GHIDRA_CSV.replace("Unwind@00b74522", "FUN_00b74522"), "", "", "Ghidra names 0x00774522 FUN_00b74522"),
+    (GHIDRA_CSV, "Unwind@00b74522,,0x00999999,4,Code/Z.cpp,matched,\n", "", "Unwind@00b74522 is already a row"),
+    (GHIDRA_CSV, "", "$L310,0x00774522,pin\n", "a pin, eh_baseline.csv or body_owners.csv keys it"),
+])
+def test_a_label_that_cannot_take_its_address_name_refuses_the_merge(repo, ghidra, extra, pin, why):
+    if pin:
+        (repo / "reverse/symbols.csv").write_text("name,address,notes\n" + pin, encoding="utf-8", newline="\n")
+    label_repo(repo, ghidra=ghidra, extra=extra)
+    carry = T.Carry(repo, TU, [A, B], TEXTS, merged_text(), "-O2")
+    assert any(why in problem for problem in carry.problems), carry.problems
+
+
+def test_a_label_only_one_merging_file_carries_is_left_alone(repo):
+    label_repo(repo)
+    carry = T.Carry(repo, TU, [A, TU], {**TEXTS, TU: "int t() { return 0; }\n"}, merged_text(), "-O2")
+    assert carry.labels == [] and "label_renames" not in carry.report()
+
+
+@pytest.mark.parametrize("change", [
+    lambda repo: (repo / "reverse/functions.csv").write_text((repo / "reverse/functions.csv").read_text()+"\n"),
+    lambda repo: (repo / "reverse/ghidra_functions.csv").write_text("rva,size,name\n"),
+    lambda repo: (repo / "reverse/deleted_rows.csv").write_text("name,target_rva,reason\n"),
+    lambda repo: (repo / "reverse/symbols.csv").write_text("name,address,notes\n"),
+])
+def test_changed_label_inputs_refuse_before_any_apply_write(repo,change):
+    label_repo(repo)
+    carry=T.Carry(repo,TU,[A,B],TEXTS,merged_text(),"-O2")
+    change(repo)
+    before={str(p.relative_to(repo)):p.read_bytes() for p in repo.rglob("*") if p.is_file() and ".git" not in p.parts}
+    with pytest.raises(T.NothingWritten,match="inputs changed"):
+        T.apply(TU,[A,B],merged_text(),root=repo,carry=carry)
+    after={str(p.relative_to(repo)):p.read_bytes() for p in repo.rglob("*") if p.is_file() and ".git" not in p.parts}
+    assert before==after
+
+
+def test_same_label_and_rva_in_an_unmerged_file_is_not_renamed(repo):
+    label_repo(repo,extra=f"$L310,,0x0077436A,13,{C},matched,gen-funclet;parent=?other@@YAXXZ\n")
+    # Put the outside row first to catch name/RVA-only writers.
+    p=repo/"reverse/functions.csv";lines=p.read_text().splitlines(keepends=True)
+    p.write_text("".join([lines[0],lines[-1]]+lines[1:-1]))
+    git(repo,"add","reverse/functions.csv")
+    git(repo,"-c","user.name=t","-c","user.email=t@t","commit","-qm","outside label first")
+    carry=T.Carry(repo,TU,[A,B],TEXTS,merged_text(),"-O2")
+    assert not carry.problems
+    T.apply(TU,[A,B],merged_text(),root=repo,carry=carry)
+    rows=list(csv.DictReader(p.open()))
+    assert next(r for r in rows if r["source"]==C and r["target_rva"]=="0x0077436A")["name"]=="$L310"
+
+
+@pytest.mark.parametrize("edit,why", [
+    (lambda s:s.replace(f"gen-funclet;parent={PARENT_A}","gen-funclet"),"parent-bound"),
+    (lambda s:s.replace(f"parent={PARENT_A}",f"parent={PARENT_A};object-symbol=$L999"),"conflicting object-symbol"),
+    (lambda s:s+f"$L310,,0x0077436A,13,{A},matched,gen-funclet;parent={PARENT_A}\n","uniquely"),
+])
+def test_ambiguous_or_unbound_funclets_refuse(repo,edit,why):
+    label_repo(repo)
+    p=repo/"reverse/functions.csv";p.write_text(edit(p.read_text()))
+    carry=T.Carry(repo,TU,[A,B],TEXTS,merged_text(),"-O2")
+    assert any(why in p for p in carry.problems)
+
+
+def test_conflicting_ghidra_inventory_refuses(repo):
+    label_repo(repo,ghidra=GHIDRA_CSV+"0x77436A,13,Catch@00b7436a\n")
+    carry=T.Carry(repo,TU,[A,B],TEXTS,merged_text(),"-O2")
+    assert any("conflicting Ghidra" in p for p in carry.problems)
+
+
+def test_old_label_keyed_by_protected_register_refuses(repo):
+    label_repo(repo)
+    p=repo/"reverse/code_identity_baseline.tsv"
+    p.write_text(p.read_text()+f"{A}\t$L310\t?x@@YAXXZ\t0x0077436A\twrong\n")
+    carry=T.Carry(repo,TU,[A,B],TEXTS,merged_text(),"-O2")
+    assert any("protected path register" in p for p in carry.problems)

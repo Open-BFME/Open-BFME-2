@@ -6850,9 +6850,164 @@ def hatch_growth(tu, acc, texts, text):
     return sorted(k for k in after if after[k] > before[k]), bool(before or after)
 
 
+DELETED = "reverse/deleted_rows.csv"
+GHIDRA = "reverse/ghidra_functions.csv"
+EH_BASELINE = "reverse/eh_baseline.csv"
+BODY_OWNERS = "reverse/body_owners.csv"
+LOCAL_LABEL = re.compile(r"\$L\d+")
+
+
+def _csv_rows(root, rel):
+    path = Path(root) / rel
+    if not path.exists():
+        return []
+    return list(csv.DictReader(io.StringIO(path.read_text(encoding="utf-8", errors="replace"), newline="")))
+
+
+def _rva_of(cell):
+    try:
+        return int(cell, 16)
+    except (TypeError, ValueError):
+        return None
+
+
+def label_renames(root, acc, tu):
+    """([(label, rva, new name)], problems) for the compiler-label funclet rows (`$L<n>`) that two or more of the
+    files merging into `tu` carry at different addresses. A label is scoped to its TU
+    (ledger_io.same_function_name), so once the merge points them all at `tu`, check_csv refuses "$L310 claims two
+    addresses" (the Object.cpp merge, 2026-11-13: ObjectDefectionHelperPoolKey.cpp's and
+    ObjectRepulsorHelperPoolKey.cpp's $L310). Each such row takes the name Ghidra's inventory
+    (reverse/ghidra_functions.csv) gives its own address, `Unwind@<va>` or `Catch@<va>`, and keeps its compiled
+    label as `object-symbol=<label>`: the merge lane's hand fix for that merge. Refused, before anything is
+    written: an address Ghidra names otherwise, a new name another row carries or deleted_rows.csv tombstones at that
+    address, and a label a pin (symbols.csv), eh_baseline.csv or body_owners.csv keys at that address."""
+    files = set(acc) | {tu}
+    rows = _csv_rows(root, FUNCTIONS)
+    groups = collections.defaultdict(dict)
+    for row in rows:
+        rva = _rva_of(row.get("target_rva"))
+        if row.get("source") in files and LOCAL_LABEL.fullmatch(row.get("name", "")) and rva is not None:
+            groups[row["name"]].setdefault(rva, row["source"])
+    colliding = {label: by_rva for label, by_rva in groups.items() if len(by_rva) > 1}
+    if not colliding:
+        return [], []
+    selected = [row for row in rows if row.get("source") in files and row.get("name") in colliding]
+    problems = []
+    seen = collections.Counter((row["name"], _rva_of(row.get("target_rva"))) for row in selected)
+    for row in selected:
+        key = (row["name"], _rva_of(row.get("target_rva")))
+        tokens = [t.strip() for t in row.get("notes", "").split(";")]
+        parents = [t for t in tokens if t.startswith("parent=") and t != "parent="]
+        bindings = [t for t in tokens if t.startswith("object-symbol=")]
+        if seen[key] != 1 or "gen-funclet" not in tokens or len(parents) != 1:
+            problems.append(f"{key[0]} at {row.get('target_rva')} is not one uniquely parent-bound funclet row")
+        if bindings and bindings != ["object-symbol=" + key[0]]:
+            problems.append(f"{key[0]} at {row.get('target_rva')} has a conflicting object-symbol binding")
+    if problems:
+        return [], sorted(set(problems))
+    wanted = {rva for by_rva in colliding.values() for rva in by_rva}
+    ghidra = {}
+    path = Path(root) / GHIDRA
+    if path.exists():
+        with path.open(encoding="utf-8", errors="replace", newline="") as handle:
+            for row in csv.DictReader(handle):
+                rva = _rva_of(row.get("rva"))
+                if rva in wanted:
+                    name = row.get("name", "")
+                    if rva in ghidra and ghidra[rva] != name:
+                        return [], [f"conflicting Ghidra names at 0x{rva:08X}"]
+                    ghidra[rva] = name
+    names = {row.get("name") for row in rows}
+    tombstoned = {(row.get("name"), _rva_of(row.get("target_rva"))) for row in _csv_rows(root, DELETED)}
+    keyed = ({(row.get("name"), _rva_of(row.get("address"))) for row in _csv_rows(root, PINS)}
+             | {(row.get("name"), _rva_of(row.get("target_rva"))) for row in _csv_rows(root, EH_BASELINE)}
+             | {(row.get("name"), _rva_of(row.get("target_rva"))) for row in _csv_rows(root, BODY_OWNERS)})
+    protected_labels = set()
+    for rel in rename.PROTECTED_PATH_KEYED + ("reverse/gate_baseline.txt",):
+        path = Path(root) / rel
+        if not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8", errors="strict").splitlines():
+            if line.startswith("#"):
+                continue
+            cells = [c.strip().strip(chr(34)) for c in re.split(r"[\t,|]", line)]
+            if any(source in cells for source in files):
+                protected_labels.update(label for label in colliding if label in cells)
+    renames, problems = [], []
+    for label, by_rva in sorted(colliding.items()):
+        for rva, source in sorted(by_rva.items()):
+            va = rva + rename.IMAGE_BASE
+            new = ghidra.get(rva, "")
+            where = f"{label} at 0x{rva:08X} ({source})"
+            if new not in (f"Unwind@{va:08x}", f"Catch@{va:08x}"):
+                problems.append(f"{where} collides with another merging file's {label}, and Ghidra names 0x{rva:08X} "
+                                f"{new or 'nothing'}, not Unwind@{va:08x} or Catch@{va:08x}: rename it first")
+            elif new in names or (new, rva) in tombstoned:
+                problems.append(f"{where} collides with another merging file's {label}, and {new} is already "
+                                f"{'a row' if new in names else 'tombstoned at that address'}")
+            elif label in protected_labels:
+                problems.append(f"{where} is keyed by a protected path register: rename it first")
+            elif (label, rva) in keyed:
+                problems.append(f"{where} collides with another merging file's {label}, and a pin, eh_baseline.csv "
+                                "or body_owners.csv keys it there: rename it first")
+            else:
+                renames.append((label, rva, new))
+    return renames, problems
+
+
+def apply_label_renames(root, renames, tu, *, write=True, sources=None):
+    """Write label_renames' plan after the merge's repoint: each row renamed, its notes gaining
+    `object-symbol=<label>` after its `parent=` token (unless it names an object symbol already), and a tombstone
+    per old name. {ledger: count}."""
+    want = {(label, rva): new for label, rva, new in renames}
+    path = Path(root) / FUNCTIONS
+    raw = path.read_bytes()
+    records = rename.ledger_io.split_records(raw)
+    header = rename.ledger_io.fields(records[0][0])
+    i_name, i_rva, i_notes = header.index("name"), header.index("target_rva"), header.index("notes")
+    i_source = header.index("source")
+    scope = set(sources) if sources is not None else {tu}
+    out, done = [records[0][0] + records[0][1]], set()
+    for payload, term in records[1:]:
+        values = rename.ledger_io.fields(payload)
+        key = (values[i_name], _rva_of(values[i_rva])) if len(values) > max(i_name, i_rva, i_notes) else None
+        if key in want and values[i_source] in scope:
+            if key in done:
+                raise NothingWritten("tu_skeleton: duplicate funclet rename target")
+            text = payload.decode("utf-8")
+            spans = rename.field_spans(text, ",")
+            tokens = values[i_notes].split(";")
+            if not any(token.strip().startswith("object-symbol=") for token in tokens):
+                at = next((k + 1 for k, token in enumerate(tokens) if token.strip().startswith("parent=")), len(tokens))
+                tokens.insert(at, f"object-symbol={key[0]}")
+            notes = rename.csv_line([";".join(tokens)]).decode("utf-8").rstrip("\n")
+            edits = sorted([(spans[i_name], want[key]), (spans[i_notes], notes)], reverse=True)
+            for (start, end), value in edits:
+                text = text[:start] + value + text[end:]
+            payload = text.encode("utf-8")
+            done.add(key)
+        out.append(payload + term)
+    if done != set(want):
+        raise SystemExit("tu_skeleton: the merge's label renames found no row for "
+                         + ", ".join(f"{label} 0x{rva:08X}" for label, rva in sorted(set(want) - done)))
+    lines = [rename.tombstone_line(label, rva, f"Renamed to {new}: tu_skeleton merge into {tu}; another merging "
+                                   f"file carries its compiler label {label} too, and one TU scopes one label "
+                                   f"(object-symbol={label} keeps its funclet)")
+             for label, rva, new in sorted(renames)]
+    deleted = Path(root) / DELETED
+    deleted_raw = rename.appended(deleted.read_bytes() if deleted.exists() else None, lines,
+                                 header="name,target_rva,reason")
+    if not write:
+        return {}
+    path.write_bytes(b"".join(out))
+    deleted.write_bytes(deleted_raw)
+    return {FUNCTIONS: len(done), DELETED: len(lines)}
+
+
 class Carry:
     """What a merge does to the protected path-keyed registers, decided before
-    anything is written: new register bytes, counts, refusals."""
+    anything is written: new register bytes, counts, refusals. Also the
+    compiler-label funclet rows the merge must rename (label_renames)."""
 
     def __init__(self, root, tu, acc, texts, text, flags=None):
         self.root, self.tu = Path(root), tu
@@ -6875,6 +7030,16 @@ class Carry:
                 self.problems.append(str(e))
         if DATA_LEDGER in self.raws:
             self.record(DATA_LEDGER, *carry_data_ledger(self.raws[DATA_LEDGER], self.gone, tu))
+        self.label_scope = set(acc) | {tu}
+        label_paths = tuple(dict.fromkeys((FUNCTIONS, GHIDRA, DELETED, PINS, EH_BASELINE, BODY_OWNERS) + rename.PROTECTED_PATH_KEYED + ("reverse/gate_baseline.txt",)))
+        def snapshot():
+            return {rel: (self.root / rel).read_bytes() if (self.root / rel).exists() else None
+                    for rel in label_paths}
+        self.label_inputs = snapshot()
+        self.labels, problems = label_renames(self.root, acc, tu)
+        self.problems += problems
+        if self.label_inputs != snapshot():
+            self.problems.append("funclet rename inputs changed while planning; retry")
         self.hatch = False
         if HATCH_REGISTER in self.raws:
             grown, scanned = hatch_growth(tu, acc, texts, text)
@@ -6890,6 +7055,15 @@ class Carry:
         left = {rel: raw for rel, raw in self.after().items() if not (rel == HATCH_REGISTER and self.hatch)}
         for rel, line in vanished(left, self.gone):
             self.problems.append(f"{rel} would still key a deleted donor: {line[:160]}")
+
+    def validate_labels(self):
+        if not self.labels:
+            return
+        for rel, raw in self.label_inputs.items():
+            path = self.root / rel
+            if (path.read_bytes() if path.exists() else None) != raw:
+                raise NothingWritten("tu_skeleton: funclet rename inputs changed before apply: " + rel)
+        apply_label_renames(self.root, self.labels, self.tu, write=False, sources=self.label_scope)
 
     def record(self, rel, raw, n):
         if n:
@@ -6918,6 +7092,8 @@ class Carry:
 
     def report(self):
         out = {}
+        if self.labels:
+            out["label_renames"] = [f"{label} 0x{rva:08X} -> {new}" for label, rva, new in self.labels]
         if self.moved:
             out["carried"] = dict(self.moved)
             out["trailer"] = self.trailer()
@@ -7219,6 +7395,8 @@ def map_regressions(tu, accepted=(), moved_rows=None):
 @marks_half_applied
 def apply(tu, accepted, text, root=ROOT, carry=None):
     gone = [f for f in accepted if f != tu]
+    if carry and getattr(carry, "labels", ()):
+        carry.validate_labels()
     if carry and carry.hatch:
         # hatch_counters --update rewrites the register from the whole tree
         others = dirty_others(root, set(accepted) | {tu})
@@ -7227,6 +7405,9 @@ def apply(tu, accepted, text, root=ROOT, carry=None):
                              "the other modified files first: " + ", ".join(others[:5]))
     (Path(root) / tu).parent.mkdir(parents=True, exist_ok=True)   # a TU in a directory nothing lives in yet
     moved = repoint_all(root, gone, tu)
+    if carry and getattr(carry, "labels", ()):
+        for rel, count in apply_label_renames(root, carry.labels, tu).items():
+            moved[rel] = moved.get(rel, 0) + count
     if carry:
         moved.update({rel: carry.moved[rel] for rel in carry.write()})
     (Path(root) / tu).write_text(text, encoding="utf-8", newline="\n")
