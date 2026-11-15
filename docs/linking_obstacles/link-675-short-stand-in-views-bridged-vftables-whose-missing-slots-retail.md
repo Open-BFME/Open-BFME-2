@@ -86,6 +86,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva0046249E` (VA 0x00C430B4): 12 slots (7 pure, 0 rowed virtual, 0 destructor, 3 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `ContainIface30` (VA 0x00C430B4): 12 slots (7 pure, 0 rowed virtual, 0 destructor, 3 folded trivial body), 2 view(s): `OpenContainCtor.cpp`, `OpenContainDtorRva00464692.cpp`.
 - 2026-11-15 `SpawnB4` (VA 0x00C430B4): 12 slots (7 pure, 0 rowed virtual, 0 destructor, 3 folded trivial body), 1 view(s): `SpawnPointProductionExitUpdate.cpp`.
+- 2026-11-15 `Rva005EA00D` (VA 0x00C78154): 8 slots (0 pure, 0 rowed virtual, 0 destructor, 6 folded trivial body), 1 view(s): `GapBodiesGE09.cpp`.
+
 
 
 

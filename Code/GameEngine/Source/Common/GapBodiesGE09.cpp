@@ -116,7 +116,14 @@ class Rva005EA00D
 {
 public:
 	Rva005EA00D(int a, int b);
-	virtual ~Rva005EA00D() {}
+	virtual void slot00() = 0;
+	virtual void slot04() {}
+	virtual void slot08() {}
+	virtual void slot0C() = 0;
+	virtual void slot10(int, int) {}
+	virtual void slot14(int, int) {}
+	virtual void slot18(int, int) {}
+	virtual bool slot1C() { return false; }
 private:
 	int m_04;
 	int m_08;
