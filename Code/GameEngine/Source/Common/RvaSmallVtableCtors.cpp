@@ -1394,7 +1394,13 @@ class Rva0003F330
 {
 public:
 	Rva0003F330();
-	virtual ~Rva0003F330() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual bool slot08() { return false; }
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
 };
 
 Rva0003F330::Rva0003F330()
