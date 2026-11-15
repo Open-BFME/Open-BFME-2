@@ -34,6 +34,8 @@
 // pair, so it falls into LEFT_UP, which keeps LEFT_UP's block after WHEEL_UP
 // instead of in descending case-value order; and the top-entry declaration
 // precedes the bottom-entry one, which makes the bottom call come first.
+#include "../../../../Include/GameClient/KeyboardClass.h"
+
 #include "unicode_string.h"
 #include <windows.h>
 #include <mmsystem.h>
@@ -164,16 +166,6 @@ typedef struct _ListboxData
 
 extern GameWindowManager *TheWindowManager;
 
-class Keyboard
-{
-public:
-	enum { MAX_KEY_STATES = 3 };
-	UnsignedInt getModifierFlags() { return m_modifiers; }
-	WideChar getPrintableKey(UnsignedByte key, Int state);
-
-	unsigned char m_pad00[0x0C];
-	UnsignedInt m_modifiers;
-};
 
 extern Keyboard *TheKeyboard;
 
