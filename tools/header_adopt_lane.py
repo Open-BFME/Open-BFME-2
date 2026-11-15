@@ -4010,13 +4010,39 @@ def unheadered_bases(contract):
     return [b for b in contract.get("bases", []) if base_identity(b) not in known]
 
 
+def pointer_field_types(contract):
+    """The class names the contract's POINTER fields point at (`kind` "P", `type` "X*").
+
+    A by-value member needs its header for the layout; a pointer needs only the name to
+    exist, and nothing declared it. 125 of the 1,377 committed canonical headers name a
+    type in a pointer field that they neither declare nor include, so they do not compile
+    and every adoption through them fails -- Rva002C9B80Owner.h(13) on
+    `BfmeRangedWeaponTemplate *m_m04` is the case this was found on
+    (re_attempts.log, class:Rva002C9B80Owner). Declared through the registered header, as
+    `S:` members are, so the type's class-key comes from the one place that fixes it.
+    """
+    out = []
+    for field in contract.get("fields", []):
+        if field.get("kind") != "P":
+            continue
+        spelling = (field.get("type") or "").strip()
+        if not spelling.endswith("*"):
+            continue
+        base = spelling.rstrip("*").strip()
+        base = re.sub(r"^(?:const|volatile)\s+|\s+(?:const|volatile)$", "", base).strip()
+        if re.fullmatch(r"[A-Za-z_]\w*", base or ""):
+            out.append(base)
+    return out
+
+
 def nested_includes(contract, header, slots=None):
-    """`#include` lines for the canonical headers of the contract's bases, member aggregates
-    and the registered classes its slot declarations name (`const Coord3D *` needs Coord3D's
-    class-key, which only its header fixes)."""
+    """`#include` lines for the canonical headers of the contract's bases, member aggregates,
+    the classes its pointer fields point at, and the registered classes its slot declarations
+    name (`const Coord3D *` needs Coord3D's class-key, which only its header fixes)."""
     lines, known = [], registered()
     wanted = [base_identity(b) for b in contract.get("bases", [])]
     wanted += [f["kind"][2:] for f in contract["fields"] if f["kind"].startswith("S:")]
+    wanted += pointer_field_types(contract)
     for text in (slots[0] + slots[1]) if slots else []:
         wanted += [w for w in re.findall(r"[A-Za-z_]\w*", text.split("{")[0])
                    if w in known and w != contract["class"]]

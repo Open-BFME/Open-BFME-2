@@ -2675,3 +2675,56 @@ def test_a_directive_inside_a_cut_body_refuses_the_swap():
     unit = ("template <int N> class BitFlags { int own; };\ntemplate <> class BitFlags<11> {\n#pragma pack(1)\n"
             "int own;\n};\nstruct Record { char tag; int value; };\n")
     assert lane.swap(unit, ["BitFlags"], "B.h") is None
+
+
+# --- a pointer field's type needs declaring too --------------------------------
+#
+# nested_includes collected the contract's bases, its by-value "S:" members and the
+# types slot declarations name. A POINTER field's type was in none of those sets and
+# nothing else declared it, so the generated header named a type it never introduced:
+# Rva002C9B80Owner.h(13) declares `BfmeRangedWeaponTemplate *m_m04` and fails C2143,
+# taking all six queued units with it. 125 of the 1,377 committed canonical headers
+# name an undeclared type in a pointer field this way (re_attempts.log,
+# class:Rva002C9B80Owner).
+
+POINTER_CONTRACT = {
+    "class": "Holder", "key": "class", "key_by": "bytes", "size": 12, "size_by": "majority",
+    "bases": [], "vslots": {}, "queue": [],
+    "fields": [
+        {"kind": "P", "type": "void*", "name": "m_00", "offset": 0, "size": 4},
+        {"kind": "P", "type": "Weapon*", "name": "m_weapon", "offset": 4, "size": 4},
+        {"kind": "P", "type": "const Target*", "name": "m_target", "offset": 8, "size": 4},
+    ],
+}
+
+
+def test_a_pointer_field_s_class_is_declared(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {"Weapon": "Code/Include/Weapon.h",
+                                                     "Target": "Code/Include/Target.h"})
+    assert lane.pointer_field_types(POINTER_CONTRACT) == ["void", "Weapon", "Target"]
+    lines = lane.nested_includes(POINTER_CONTRACT, None)
+    assert '#include "Code/Include/Weapon.h"' in lines
+    assert '#include "Code/Include/Target.h"' in lines
+
+
+def test_void_and_unregistered_pointer_types_add_no_include(monkeypatch):
+    """`void*` is not a class, and a type with no canonical header has none to include."""
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    assert lane.nested_includes(POINTER_CONTRACT, None) == []
+
+
+def test_a_by_value_member_still_brings_its_header(monkeypatch):
+    """The behaviour the function already had, so the new arm does not replace it."""
+    monkeypatch.setattr(lane, "registered", lambda: {"AsciiString": "Code/Include/AsciiString.h"})
+    assert lane.nested_includes(P137_CONTRACT, None) == ['#include "Code/Include/AsciiString.h"', ""]
+
+
+def test_the_generated_header_declares_every_pointer_field_type(monkeypatch):
+    """End to end: no type is named in the class body without being introduced."""
+    monkeypatch.setattr(lane, "registered", lambda: {"Weapon": "Code/Include/Weapon.h",
+                                                     "Target": "Code/Include/Target.h"})
+    text = lane.generate(POINTER_CONTRACT, "data", {}, None, None, [])
+    body = text[text.index("class Holder"):text.index("};")]
+    for type_name in ("Weapon", "Target"):
+        assert f"{type_name} *" in body or f"{type_name}*" in body
+        assert f'#include "Code/Include/{type_name}.h"' in text, f"{type_name} is named but never introduced"
