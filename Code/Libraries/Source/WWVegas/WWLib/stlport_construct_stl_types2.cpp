@@ -10,6 +10,8 @@
 // struct/class-ness of their rowed copy ctors); no member is ever touched,
 // so the emitted code is identical apart from the callee.
 
+#include "../../../../GameEngine/Include/Common/TreeHintPayload003012F0.h"
+
 #include <memory>
 #include <vector>
 
@@ -22,10 +24,6 @@ struct BfmePod88
 
 #include "../../../../GameEngine/Include/GameNetwork/MultiplayerColorDefinition.h"
 
-struct TreeHintPayload003012F0
-{
-	char m_body[12];
-};
 
 struct TargetRef00217D4C;
 #include "../../Apt/AptRefTarget.h"
@@ -50,7 +48,6 @@ template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec
 template void _STL::_Construct<ConstructPairMP, ConstructPairMP>(ConstructPairMP *, const ConstructPairMP &);
 template void _STL::_Construct<ConstructPairHP, ConstructPairHP>(ConstructPairHP *, const ConstructPairHP &);
 template void _STL::_Construct<ConstructPairHR, ConstructPairHR>(ConstructPairHR *, const ConstructPairHR &);
-
 
 
 // Distinct native copy helpers. Two-pointer ABI is proven; original signatures remain unknown.
