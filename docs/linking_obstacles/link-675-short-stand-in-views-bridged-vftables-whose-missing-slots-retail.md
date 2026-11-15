@@ -176,3 +176,53 @@ regenerated bridge plan to accept it.
 Flattened stand-ins respelled over their real base (unattended worker; classes with several vftables whose stand-in used fake side bases to place the vptrs):
 - 2026-11-15 `Rva00589079Derived.cpp` over `UpdateModule`: 3 classes in 5 unit(s); 4 took another view's virtual declarations.
 - 2026-11-15 `CostModifierUpgrade.cpp` over `UpgradeModule`: 1 classes in 1 unit(s); 0 took another view's virtual declarations.
+Measured structure of the bridge and what each evidence proves (2026-11-15, master 565145b59d4: 3,231 bridged
+tables, 36,708 mismatching slots):
+- Kinds of mismatching slot over every bridged table: the compiled table is shorter than retail's 28,057 (76%);
+  compiled pure where retail has a body 3,496; a compiled name the ledger does not row while retail's target is
+  rowed under another name 2,938; a compiled name rowed at another address 1,286; an unrowed deleting-destructor
+  name 1,057. 388 tables had only unrowed compiled names: those need no declaration change, only a row
+  (`tools/add_match.py --icf-owner`, or `--replace-rva` where a `gen-*` placeholder owns the address), and the
+  tool accepts the row only when the compiled body is retail's body at that address.
+- 1,465 of the bridged tables are named `??_7C@@6B<Base>@@` (classes with several vftables). Their missing slots
+  come from stand-in bases: 650 classes in 434 units are "flattened" (`class X : public <one-vptr stand-in of the
+  base>, public <fake side bases that only place the other vptrs>`, written to reproduce destructor bytes). Such a
+  view cannot emit retail's tables. Where the real base has a registered header with the same subobjects at the
+  same offsets, the class can be respelled over it alone (side bases inside sizeof(real base) are placers; those
+  past it are real further bases) and every row still byte-matches; all based views of the class must then
+  declare the same virtual list (and each virtual its retail access, which is part of the mangled name) or the
+  link sees differing COMDAT copies of one table.
+- Destructor evidence, and its limit. A deleting destructor ends by leaving the table of the class whose
+  destructor runs last (`call D` with D = `mov [ecx], T; ret`, or the store inlined). When T is not the table the
+  slot sits in, the slot's class DERIVES from the class of T. It does not show whether the class has a destructor
+  of its own: an empty destructor with the base's inlined compiles to the same `store T; ret`, and retail folds
+  those of sibling classes to one address (`??1RefCountClass` is at 0x00072892 while 23 derived destructors sit
+  folded at 0x00724510 with the same bytes). A `??1X` row at an address that stores the base's table is therefore
+  a legitimate reconstruction, not a mis-rowed destructor. The commit that declared Rva004444EBObject's slots over
+  Rva0007DF07 says the class "has no destructor body of its own": read that as the reconstruction's choice
+  (retail's bytes are the same either way), not as a retail fact.
+- A bridged name whose retail table is also compiled correctly under another name (541 names) is a second, stale
+  spelling of that class. Where the stale class has no row under its name it can become another name of the
+  correct class; `rename.py class --fold` refuses most of the rest for reasons that are not defects.
+- Real vector deleting destructors. In 99 bridged tables retail's destructor slot holds a real `??_E` (flag bit
+  2 selects the `eh vector destructor iterator` path), directly or behind an adjustor thunk, while the unit that
+  emits the table compiles `??_E` only as a weak alias of the scalar `??_G`; in 33 of them that slot was the
+  table's only mismatch. The remedy is the anchor XferVectorDeletingDtor.cpp and VectorDeletingDtorsV07.cpp
+  already use, placed in the table's own unit: an `absent-from-retail` function that names the destructor
+  directly (`p->C::__vecDelDtor(3)`), with `<new>` included where retail's array path frees through operator
+  delete[]. The emitted body is then rowed at retail's address by `tools/add_match.py --icf-owner` (derived
+  classes with a trivial destructor fold with their base's, e.g. onto `??_ESnapshot` at 0x00001750). A second
+  spelling of the class in a VectorDeletingDtors batch unit does not help the table: its slot names the
+  class's own `??_E`.
+- Rows a slot name waits for. A compiled body equal to retail's outside relocations is still refused when a
+  function it references has no row: the verifier resolves a call (REL32) or a pushed function address (DIR32,
+  the destructor handed to the vector iterator) only to a bound name. Rowing those first, each at the address
+  retail's body references at the same offset, unblocks the slot name; the same holds for an adjustor thunk,
+  whose jump target must be rowed before the thunk. Of 77 failed alias candidates, 30 names were of this kind;
+  52 names had a body of another size than retail's (not aliases at all).
+- Stripping a unit's private stand-in of a real base changes the tables of every class of that unit deriving
+  from it, so every unit holding a view of such a class has to take the real header in the same change (49
+  distinct closures over the 150 convertible units: 35 of at most 5 units, 7 of 6 to 11, 7 of 16 to 40). Views
+  of one class may each declare overrides the others lack; an override's slot is its base's, so the views can
+  take the union of their overrides in any order, while a virtual new to the class fixes the order and cannot
+  be merged that way.
