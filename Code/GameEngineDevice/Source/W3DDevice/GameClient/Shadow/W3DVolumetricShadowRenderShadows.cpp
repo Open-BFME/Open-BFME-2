@@ -25,6 +25,8 @@
 // 0xF, the first getNextVertexBuffer(NULL, ...) of each walk is inlined.
 // Names of the BFME 2 callees without a ZH counterpart are descriptive.
 
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
+
 #include <d3d9.h>
 
 // BFME 2 renders through Direct3D 9 behind the dx8* names (the vendored SDK's
@@ -71,15 +73,6 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 #include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-class W3DShadowManager
-{
-public:
-	unsigned getStencilShadowMask(void) { return m_stencilShadowMask; }
-private:
-	void *m_vtable;
-	unsigned m_shadowColor;
-	unsigned m_stencilShadowMask;
-};
 extern W3DShadowManager *TheW3DShadowManager;
 
 
