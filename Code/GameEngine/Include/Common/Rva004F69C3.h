@@ -9,7 +9,7 @@
 struct Rva004F69C3 {
     int m_00;
     Rva004F6093Holder m_second;
-    Rva004F69C3(const int *keyPtr, const Rva004F6093Holder &val);
+    __declspec(noinline) Rva004F69C3(const int *keyPtr, const Rva004F6093Holder &val) : m_00(*keyPtr), m_second(val) {}
     ~Rva004F69C3();
 };
 
