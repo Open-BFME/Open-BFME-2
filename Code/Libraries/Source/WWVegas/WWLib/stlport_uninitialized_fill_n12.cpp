@@ -12,6 +12,8 @@
 // calling a _Construct dupe rather than its true address land as gen-alias
 // rows.
 
+#include "BfmeStringRecord0022074B.h"
+
 #include <memory>
 #include <vector>
 #include <string>
@@ -21,13 +23,6 @@ namespace _STL { template <> vector<unsigned int, allocator<unsigned int> > * un
 
 #include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
-struct BfmeStringRecord0022074B
-{
-public:
-	BfmeStringRecord0022074B();
-	BfmeStringRecord0022074B(const BfmeStringRecord0022074B &other);
-	unsigned int m_body[3];
-};
 
 enum ScienceType
 {
