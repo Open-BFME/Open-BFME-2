@@ -3037,7 +3037,12 @@ class Rva00666BB0
 {
 public:
 	Rva00666BB0();
-	virtual ~Rva00666BB0() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
 };
 
 Rva00666BB0::Rva00666BB0()
