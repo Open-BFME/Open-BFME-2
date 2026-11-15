@@ -54,6 +54,8 @@ public:
 private:
 	int m_0C;
 	int m_10;
+public:
+	virtual void init();
 };
 
 // ??0Rva0026201C@@QAE@XZ retail 0x00262002 26B: base ctor 0x001B4E63, +0x0C
