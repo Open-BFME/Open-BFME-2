@@ -343,3 +343,11 @@ void ResourceGatheringManager::xfer( Xfer *xfer )
 // tu-skeleton: 0x00793017 13B ?Rva00793017ClearFlag@@YAIXZ -- matched in Code/GameEngine/Source/Common/GlobalFlagClearers_E044xx.cpp (not merged yet)
 
 // tu-skeleton: 0x00793024 10B __ehhandler$?findBestSupplyCenter@ResourceGatheringManager@@QAEPAVObject@@PAV2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ResourceGatheringManager_findBestSupplyWarehouse.cpp (not merged yet)
+
+// The anchor (no retail counterpart) only makes this TU emit the vector deleting
+// destructor of ResourceGatheringManagerBase, which retail holds in the table's destructor slot.
+// ?<bfmeVectorDeleteAnchor_ResourceGatheringManagerBase> absent-from-retail
+void bfmeVectorDeleteAnchor_ResourceGatheringManagerBase(ResourceGatheringManagerBase *p)
+{
+	p->ResourceGatheringManagerBase::__vecDelDtor(3);
+}
