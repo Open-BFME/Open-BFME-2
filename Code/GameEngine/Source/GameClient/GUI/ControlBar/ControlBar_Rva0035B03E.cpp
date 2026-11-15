@@ -879,7 +879,7 @@ enum { COMMAND_BUTTON_BORDER_BFME_FIFTH = 5 };
 //-------------------------------------------------------------------------------------------------
 
 // The caption callsite targets the already-real 58-byte body at 0x00416BD0.
-// Its canonical Drawable spelling is still present-unmatched, so retain the
+// Its canonical Drawable spelling is still unmatched, so retain the
 // independently matched address-derived ABI view rather than adding a pin.
 // The raw body proves MSVC's hidden UnicodeString return storage at [esp+0xc]
 // and returns that storage pointer in eax (ret 4).

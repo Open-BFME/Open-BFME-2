@@ -429,7 +429,7 @@ try_again:
 // second out-of-line copy, but the rowed home is InGameUIAddWorldAnimation.cpp
 // (259B @0x002A0E16, verified). This TU never calls it, so the definition
 // is dropped and all references bind the rowed copy. The
-// present-unmatched marker went with the definition.
+// unmatched marker went with the definition.
 
 // ------------------------------------------------------------------------------------------------
 /** Delete all world animations */

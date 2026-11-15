@@ -14,7 +14,6 @@ struct TreeHintRef00217D4C {
 	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) {
 		if (m_ptr) ++m_ptr->references;
 	}
-	// ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched
 	__forceinline ~TreeHintRef00217D4C() {
 		if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
 	}

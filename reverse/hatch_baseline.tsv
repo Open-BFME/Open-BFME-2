@@ -10614,7 +10614,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeUpgrade@Pla
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnderTheSun@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp	body	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Science.cpp	callCreate@ScienceTreeExposer@@SAPAU?$_Rb_tree_node@U?$pair@$$CBW4ScienceType@@_N@_STL@@@_STL@@AAU1@ABU?$pair@$$CBW4ScienceType@@_N@3@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp	BitFlags<116>::testSetAndClear	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp	1BfmePairEL@@QAE@XZ	1
@@ -10815,7 +10814,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTem
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseWeaponTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp	_STL::__uninitialized_copy	1
 present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHintRef00217D4C::TreeHintRef00217D4C	1
-present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/Common/VectorPod88CopyConstructor.cpp	vector<Pod88Vector>::_M_insert_overflow	1
 present_unmatched	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	1Rva0074011F@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	rva0007898BClear@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z	1
@@ -10840,7 +10838,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp	
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete002004FD@@YAXPAVRva002004FD@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp	famgenDelete0031F831@@YAXPAVRva0031F831@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp	markUIDirty@ControlBar@@QAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0035B03E.cpp	still	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManagerConstructor.cpp	Rva005B6B93::~Rva005B6B93	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	1ThreadRestartObj@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1
@@ -10890,7 +10887,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::f
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::selectDrawablesInGroup	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::xferDrawableTOC	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameText.cpp	Rva002E5791DeleteArray@@YAXPAVRva002E5791@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::DEBUG_addFloatingText	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::buildRegion	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::cameoVideoBuffer	1
@@ -10923,7 +10919,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::unreg
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::videoBuffer	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	SuperweaponInfo::SuperweaponInfo	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	SuperweaponInfo::~SuperweaponInfo	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUIAddWorldAnimation.cpp	a	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	1Rva004E5654Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Keyboard.cpp	0?$allocator@UBfmeE16@@@_STL@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	draw@Mouse@@	1

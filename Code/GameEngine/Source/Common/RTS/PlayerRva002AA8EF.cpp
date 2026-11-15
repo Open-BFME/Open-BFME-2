@@ -7,7 +7,7 @@
 // (+4) is 0, returns when it answers false, then scans the production queue
 // for a type-2 entry holding that upgrade -- Zero Hour's
 // ProductionUpdate::cancelUpgrade guard around Player::hasUpgradeInProduction
-// (donor shape; Player.cpp still carries that ZH body present-unmatched, so
+// (donor shape; Player.cpp still carries that ZH body unmatched, so
 // this keeps the address name). Bit index is UpgradeTemplate +0x38 as in
 // rva002AB87D.
 #include "../../../Include/Common/Upgrade.h"

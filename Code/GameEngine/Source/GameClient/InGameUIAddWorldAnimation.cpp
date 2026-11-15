@@ -19,7 +19,7 @@
 // InGameUIUpdateAndDrawWorldAnimations.cpp. The pinned Anim2D constructor
 // spells its arguments with address-derived types so the template and
 // collection are cast to them.
-// InGameUI.cpp still carries a present-unmatched copy of this body.
+// InGameUI.cpp still carries an unmatched copy of this body.
 #include <list>
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "../Common/GameLogicObjectLookupView.h"
