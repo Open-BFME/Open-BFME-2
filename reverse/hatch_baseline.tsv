@@ -2011,7 +2011,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00576FD3Permuted.cpp	?observerSlo
 alternatename	Code/GameEngine/Source/Common/Rva00576FD3Permuted.cpp	?observerSlot4@SecondBase005D2111@@UAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??0Rva005796FC@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??1Rva005796FC@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f2@Rva00481F82_S2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00481F82_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00482E96_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00589079_S3@@UAEXXZ	1
@@ -11154,7 +11153,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContai
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp	f20@AODHordeContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp	1AODDtorElem16@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp	1AODDtorElem24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp	Rva00064640Record::Rva00064640Record	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp	Rva00474483Entry::Rva00474483Entry	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp	Rva00474519Jitter::Rva00474519Jitter	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f00@HordeSiegeEngineContain@@UAEXXZ	1
@@ -11511,7 +11509,6 @@ present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManage
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	MilesAliasTable::_M_delete_node	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	Rva00059068Tree::~Rva00059068Tree	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	bfmeEmitAsciiStringLess@@YAXPBVAsciiString@@0@Z	1
-present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp	slot23@MilesAudioManager@@	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	Rva00054AFA::~Rva00054AFA	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	record	1
 present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp	subtitleFirstChar	1
@@ -11835,7 +11832,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp	0DX8Ind
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp	0IndexBufferClass@@QAE@IG@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp	bfmeEmitGetIndexCount@@YAXPAVDynamicIBAccessClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	0DX8SkinFVFCategoryContainer@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	1DX8SkinFVFCategoryContainer@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Add_To_Render_List@DX8MeshRendererClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Change_Polygon_Renderer_Texture@DX8FVFCategoryContainer@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Find_Matching_Texture_Category@DX8FVFCategoryContainer@@	1
@@ -12039,13 +12035,9 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp	SegLin
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	Report_Unable_To_Fog@ShaderClass@@IAEXPBD@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	RvaShaderDx8CapsAnchor@@YAXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/sharebuf_float_ctor.cpp	sharebuf_float_size_buffer_helper	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Cost@StreakLineClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_LOD_Count@StreakLineClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_LOD_Level@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Merge_Abort_Factor@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Noise_Amplitude@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Num_Points@StreakLineClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Obj_Space_Bounding_Sphere@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Subdivision_Levels@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Texture_Tile_Factor@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Width@StreakLineClass@@	1
