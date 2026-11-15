@@ -2920,6 +2920,21 @@ def funclet_eh_locations(path, mtime, size, parent, ledger_path, ledger_mtime, l
         funclet_retail_image(), obj, parent_symbol, int(parents[0]["target_rva"], 16))
 
 
+def external_comdat_parent(parent, output):
+    """A cross-source parent must be the same externally shared code instance here."""
+    stat = output.stat()
+    _, sections, symbols = _object_layout(str(output), stat.st_mtime_ns, stat.st_size)
+    name = ledger_object_symbol(parent)
+    defined = [s for s in symbols if s["name"] == name and s["section"] > 0]
+    if len(defined) != 1 or defined[0].get("storage") != 2:
+        return False
+    section = defined[0]["section"]
+    if not 1 <= section <= len(sections):
+        return False
+    flags = sections[section - 1]["characteristics"]
+    return bool(flags & 0x1000 and flags & 0x20)  # COMDAT code, not a private static or data
+
+
 def located_funclet(row, output, target):
     """Return a local label only when exact parent EH data places it at this RVA."""
     parent = re.search(r"(?:^|;)parent=([^;]+)", row.get("notes", ""))
@@ -2933,7 +2948,10 @@ def located_funclet(row, output, target):
     if scoped_funclet_collision(row):
         parents = funclet_parent_rows(str(ledger), ledger_stat.st_mtime_ns,
                                      ledger_stat.st_size).get(parent.group(1), [])
-        if len(parents) != 1 or parents[0]["source"] != row["source"]:
+        if len(parents) != 1:
+            return None
+        if (parents[0]["source"] != row["source"]
+                and not external_comdat_parent(parents[0], output)):
             return None
     pins = ROOT / "reverse" / "symbols.csv"
     pin_stat = pins.stat() if pins.is_file() else None
@@ -2974,7 +2992,7 @@ def read_funclet(row, object_symbol, output, target):
             f"at {row['target_rva']}")
         return compiled, relocs, note
     if scoped_funclet_collision(row):
-        raise SystemExit(f"{row['name']} ({row['source']}): scoped funclet lacks an exact same-source parent EH location")
+        raise SystemExit(f"{row['name']} ({row['source']}): scoped funclet lacks an exact parent EH location in its object")
     try:
         compiled, relocs = read_object_symbol_bytes(output, object_symbol, len(target), code_only=True)
     except ValueError as missing:

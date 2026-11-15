@@ -311,7 +311,7 @@ def test_renamed_funclet_matching_hint_cannot_replace_strict_identity_proof(rena
     if bad=="wrong_rva":state.locations={"$L77":int(item["target_rva"],16)+4}
     if bad=="wrong_parent":write_parent("Code/Other.cpp")
     if bad=="external_coff":state.storage=2
-    with pytest.raises(SystemExit,match="exact same-source parent EH|local COFF label"):
+    with pytest.raises(SystemExit,match="exact parent EH|local COFF label"):
         build.read_funclet(item,"$L310",output,target)
     if bad!="external_coff":assert state.reads==[]
 
@@ -319,3 +319,40 @@ def test_renamed_funclet_matching_hint_cannot_replace_strict_identity_proof(rena
 def test_other_unique_names_keep_existing_collision_policy(tmp_path,monkeypatch):
     monkeypatch.setattr(build,"ROOT",tmp_path)
     assert not build.scoped_funclet_collision(row(name="Unwind@00b74313",notes="ordinary row"))
+
+
+
+def cross_source_comdat(renamed_funclet, monkeypatch):
+    item,output,target,state,write_parent=renamed_funclet
+    write_parent("Code/Other.cpp")
+    sections=[{"characteristics":0x60101020}]
+    symbols=[dict(name="?p@@YAXXZ",storage=2,section=1),
+             dict(name="$L77",storage=3,section=1)]
+    monkeypatch.setattr(build,"_object_layout",lambda *a:(b"",sections,symbols))
+    return item,output,target,state,sections,symbols
+
+
+def test_cross_source_external_comdat_parent_keeps_exact_local_eh_identity(renamed_funclet,monkeypatch):
+    item,output,target,state,_,_=cross_source_comdat(renamed_funclet,monkeypatch)
+    body,relocs,note=build.read_funclet(item,"$L310",output,target)
+    assert body==target and relocs==[] and "$L77" in note
+    assert state.reads==["$L77","$L77"]
+
+
+@pytest.mark.parametrize("bad",[
+    "static_parent","ordinary_external","data_comdat","absent_parent",
+    "ambiguous_parent","invalid_section","missing_eh","wrong_eh","external_funclet"])
+def test_cross_source_parent_never_uses_hint_or_unshared_definition(renamed_funclet,monkeypatch,bad):
+    item,output,target,state,sections,symbols=cross_source_comdat(renamed_funclet,monkeypatch)
+    if bad=="static_parent":symbols[0]["storage"]=3
+    if bad=="ordinary_external":sections[0]["characteristics"]&=~0x1000
+    if bad=="data_comdat":sections[0]["characteristics"]&=~0x20
+    if bad=="absent_parent":symbols.pop(0)
+    if bad=="ambiguous_parent":symbols.append(dict(symbols[0]))
+    if bad=="invalid_section":symbols[0]["section"]=2
+    if bad=="missing_eh":state.locations={}
+    if bad=="wrong_eh":state.locations={"$L77":int(item["target_rva"],16)+4}
+    if bad=="external_funclet":symbols[1]["storage"]=2
+    with pytest.raises(SystemExit,match="exact parent EH|local COFF label"):
+        build.read_funclet(item,"$L310",output,target)
+    if bad!="external_funclet":assert state.reads==[]
