@@ -95,6 +95,8 @@ Applied by the same rule (unattended worker; each commit carries its measurement
 - 2026-11-15 `Rva00468AA3` (VA 0x00C448A8): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `RvaSmallVtableCtors.cpp`.
 - 2026-11-15 `Rva0048FF77` (VA 0x00C4D040): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `GapBodiesGE09.cpp`.
 - 2026-11-15 `Rva004BB391` (VA 0x00C59EA8): 3 slots (0 pure, 0 rowed virtual, 0 destructor, 1 folded trivial body), 1 view(s): `Rva0040C92DVtableCtors.cpp`.
+- 2026-11-15 `Rva0025559B` (VA 0x00BF36C0): 31 slots (0 pure, 0 rowed virtual, 0 destructor, 28 folded trivial body), 1 view(s): `AsciiStringFoldDeleters.cpp`.
+
 
 
 
