@@ -13,15 +13,12 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Preserve the inline transform algorithms while suppressing unused external copies.
 // An inline function's out-of-line copy takes the optimization state of its definition:
 // under /O1 settings Matrix3D() and Matrix3D(const Matrix3D &) build Row through ??_H,
 // as retail's owners (0x000423C5, 0x0006645C) do. Bodies that inline them are unchanged.
-#pragma optimize("gsy", on)
 #include "matrix3d.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "inttest.h"
 #include "coltest.h"
