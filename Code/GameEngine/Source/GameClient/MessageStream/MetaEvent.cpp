@@ -4,6 +4,8 @@
 #ifndef BFME_SUBSYSTEM_SLOTS
 #define BFME_SUBSYSTEM_SLOTS
 #endif
+#include "../../../Include/Common/MessageStream.h"
+
 #include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
@@ -31,52 +33,6 @@ union GameMessageArgumentType
 	ICoord2D pixel;
 };
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_INVALID = 0,
-		MSG_RAW_MOUSE_BEGIN = 2,
-		MSG_RAW_MOUSE_LEFT_BUTTON_DOWN = 4,
-		MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK = 5,
-		MSG_RAW_MOUSE_LEFT_BUTTON_UP = 6,
-		MSG_RAW_MOUSE_MIDDLE_BUTTON_DOWN = 10,
-		MSG_RAW_MOUSE_MIDDLE_DOUBLE_CLICK = 11,
-		MSG_RAW_MOUSE_MIDDLE_BUTTON_UP = 12,
-		MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN = 14,
-		MSG_RAW_MOUSE_RIGHT_DOUBLE_CLICK = 15,
-		MSG_RAW_MOUSE_RIGHT_BUTTON_UP = 16,
-		MSG_RAW_MOUSE_END = 20,
-		MSG_RAW_KEY_DOWN = 21,
-		MSG_RAW_KEY_UP = 22,
-		MSG_MOUSE_LEFT_CLICK = 23,
-		MSG_MOUSE_LEFT_DOUBLE_CLICK = 24,
-		MSG_MOUSE_MIDDLE_CLICK = 25,
-		MSG_MOUSE_MIDDLE_DOUBLE_CLICK = 26,
-		MSG_MOUSE_RIGHT_CLICK = 27,
-		MSG_MOUSE_RIGHT_DOUBLE_CLICK = 28
-	};
-	Type getType() const { return m_type; }
-	const GameMessageArgumentType *getArgument(Int argIndex) const;
-	void appendIntegerArgument(Int arg);
-	void appendPixelRegionArgument(const IRegion2D &dragRegion);
-private:
-	unsigned char m_00[0x10];
-	Type m_type;	// +0x10
-};
-
-class MessageStream
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *appendMessage(GameMessage::Type type);
-	virtual GameMessage *insertMessage(GameMessage::Type type, GameMessage *messageToInsertAfter);
-};
 
 extern MessageStream *TheMessageStream;
 
@@ -285,9 +241,6 @@ const FieldParse DebugCommandMapEntry::m_fieldParseTable[8] = {
 	{ "DisplayName", (FieldParseProc)&__identifier("?parseAndTranslateLabel@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
 	{ 0, 0, 0, 0 }
 };
-
-
-
 
 
 // PRIVATE DATA ///////////////////////////////////////////////////////////////
