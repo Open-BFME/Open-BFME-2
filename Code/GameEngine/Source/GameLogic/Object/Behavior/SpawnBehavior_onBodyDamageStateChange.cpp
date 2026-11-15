@@ -28,6 +28,8 @@ public:
 #include "../../../../Include/Common/SpawnExtraBase.h"
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 class ThingTemplate;
+struct UpgradeMaskType;
+struct AEXPAVDamageInfo;
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
@@ -47,6 +49,10 @@ private:
 	int m_firstBatchCount;
 	char pad48[0x54 - 0x48];
 	int m_54;
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
+public:
+	virtual void onDamage(class DamageInfo *);
 };
 // ?onBodyDamageStateChange@SpawnBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z
 void SpawnBehavior::onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState)

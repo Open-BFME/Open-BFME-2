@@ -67,6 +67,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
+struct UpgradeMaskType;
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
@@ -89,6 +90,8 @@ private:
 	bool m_initialBurstTimesInited;
 	unsigned char m_pad53;
 	int m_spawnCount;
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
 };
 
 void SpawnBehavior::rva00460175(int count)

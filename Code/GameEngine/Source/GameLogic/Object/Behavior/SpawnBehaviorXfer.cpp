@@ -103,6 +103,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
+struct UpgradeMaskType;
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
@@ -128,6 +129,8 @@ private:
 	UnsignedInt m_selfTaskingSpawnCount;
 	UnsignedInt m_initialBurstCountdown;
 	AsciiString *m_templateNameIterator;
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
 };
 
 Xfer *Rva00460216XferList(Xfer *xfer, _STL::list<int> *list);

@@ -87,6 +87,7 @@ typedef int (__cdecl *Rva0045FE4ACallback)(Object *obj, void *data);
 
 class ThingTemplate;
 
+struct UpgradeMaskType;
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
@@ -112,6 +113,8 @@ public:
 	virtual UpdateSleepTime update();
 	virtual void onDie(const DamageInfo *damageInfo);
 	virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data);
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
 };
 
 SpawnBehavior::~SpawnBehavior()

@@ -194,6 +194,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
+struct AEXPAVDamageInfo;
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
@@ -223,6 +224,10 @@ private:
 	Int m_spawnCount;
 	UnsignedInt m_selfTaskingSpawnCount;
 	Int m_initialBurstCountdown;
+protected:
+	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
+public:
+	virtual void onDamage(class DamageInfo *);
 };
 
 // ?update@SpawnBehavior@@UAE?AW4UpdateSleepTime@@XZ
