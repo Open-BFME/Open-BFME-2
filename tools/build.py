@@ -601,6 +601,10 @@ class IndexedCoffSymbols(list):
 _LAYOUT_MEMO = collections.OrderedDict()
 _LAYOUT_MEMO_SIZE = 256
 _LAYOUT_LOCK = threading.Lock()
+# a settled entry is trusted without reading only where st_ctime is the change time, which any write moves to the
+# present (POSIX); on Windows it is the creation time, and a same-size rewrite with a restored mtime keeps the whole
+# identity, so every hit there reads the bytes again
+_LAYOUT_TRUST_SETTLED = os.name != "nt"
 _LAYOUT_PINS = threading.local()
 
 
@@ -641,7 +645,8 @@ def _current_object_layout(path_str):
     is, trusted only when the file had settled more than _HASH_TICK_NS before it
     was parsed: a same-size rewrite within one tick of coarse file times leaves
     every stat field as it was, so a younger entry reads the bytes again and is
-    used only when they are the bytes it parsed. The memo stats the file itself
+    used only when they are the bytes it parsed. Where ctime is creation time
+    (Windows, _LAYOUT_TRUST_SETTLED), every hit reads the bytes again. The memo stats the file itself
     (_object_layout keeps its callers' `mtime_ns` and `size` arguments)."""
     stat = os.stat(path_str)
     stamp = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
@@ -649,7 +654,7 @@ def _current_object_layout(path_str):
         cached = _LAYOUT_MEMO.get(path_str)
         if cached is not None:
             _LAYOUT_MEMO.move_to_end(path_str)
-    if cached is not None and cached[0] == stamp:
+    if cached is not None and cached[0] == stamp and _LAYOUT_TRUST_SETTLED:
         if max(stat.st_mtime_ns, stat.st_ctime_ns) < cached[1] - _HASH_TICK_NS:
             return cached[2]
     read_at = _hash_clock()

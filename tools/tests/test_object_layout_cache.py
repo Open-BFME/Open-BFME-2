@@ -120,3 +120,21 @@ def test_the_uncached_reader_parses_the_file(tmp_path):
     assert data == obj.read_bytes() and sections[0]["name"] == ".text" and [s["name"] for s in symbols] == \
         ["?alpha@@YAXXZ"]
     assert not build._LAYOUT_MEMO
+
+
+
+def test_where_ctime_is_creation_time_a_settled_entry_is_read_again(tmp_path, monkeypatch):
+    # Sol r1: on Windows a same-size rewrite with a restored mtime keeps the whole identity, however settled
+    monkeypatch.setattr(build, "_LAYOUT_TRUST_SETTLED", False)
+    monkeypatch.setattr(build, "_hash_clock", lambda: time.time_ns() + 10 * build._HASH_TICK_NS)
+    obj = tmp_path / "a.obj"
+    coff(obj, [("?alpha@@YAXXZ", 0)])
+    first = layout(obj)
+    assert layout(obj) is first                                     # unchanged bytes: read, not parsed again
+    freeze_stat(monkeypatch, obj)
+    coff(obj, [("?gamma@@YAXXZ", 0)])
+    assert names(obj) == ["?gamma@@YAXXZ"]
+
+
+def test_the_settled_trust_follows_the_platform():
+    assert build._LAYOUT_TRUST_SETTLED == (os.name != "nt")
