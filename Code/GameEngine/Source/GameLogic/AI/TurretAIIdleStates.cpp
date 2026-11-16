@@ -130,43 +130,8 @@ template <> class VSlots<0>
 {
 };
 
-class AIUpdateInterface : public VSlots<129>
-{
-public:
-	virtual void addTargeter(UnsignedInt id, Bool add) = 0; // slot 0x204
-	virtual Bool isTemporarilyPreventingAimSuccess() = 0; // slot 0x208
-	virtual void slot131() = 0;
-	virtual void slot132() = 0;
-	virtual void slot133() = 0;
-	virtual void slot134() = 0;
-	virtual void slot135() = 0;
-	virtual void slot136() = 0;
-	virtual Bool isDoingGroundMovement() const = 0; // slot 0x224
-	virtual void slot138() = 0;
-	virtual void slot139() = 0;
-	virtual void slot140() = 0;
-	virtual void slot141() = 0;
-	virtual void slot142() = 0;
-	virtual CommandSourceType getLastCommandSource() const = 0; // slot 0x23C
-
-	// resetNextMoodCheckTime; called by its rowed name, since a local inline
-	// of the ZH name would emit a COMDAT copy competing with AIUpdate.cpp's.
-	void rva00263025();
-	WhichTurretType friend_getTurretSync() const { return m_turretSyncFlag; }
-	void friend_setTurretSync(WhichTurretType t) { m_turretSyncFlag = t; }
-	Object *getGoalObject() { return m_stateMachine->getGoalObject(); }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getGoalObject copy loses to the first-in-order copy
-	// (no retail address); the two calls below inline it but still emit the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	Object *bfme_goal_object() { return m_stateMachine->getGoalObject(); }
-private:
-	unsigned char m_pad04[0x30 - 0x04];
-	StateMachine *m_stateMachine; // +0x30
-	unsigned char m_pad34[0x210 - 0x34];
-	WhichTurretType m_turretSyncFlag; // +0x210
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
@@ -558,14 +523,14 @@ StateReturnType TurretAIAimTurretState::update()
 
 		case TARGET_OBJECT:
 		{
-			Bool isPrimaryEnemy = (enemy && enemy == ai->bfme_goal_object());
+			Bool isPrimaryEnemy = (enemy && enemy == ai->m_stateMachine->getGoalObject());
 			Bool ableToAttackTarget = obj->isAbleToAttack();
 			if (ableToAttackTarget)
 			{
 				CanAttackResult result = obj->getAbleToAttackSpecificObject(
 							turret->isForceAttacking() ? ATTACK_CONTINUED_TARGET_FORCED : ATTACK_CONTINUED_TARGET,
 							enemy,
-							ai->getLastCommandSource()
+							ai->vslot143()
 						);
 				ableToAttackTarget = result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING;
 			}
@@ -607,7 +572,7 @@ StateReturnType TurretAIAimTurretState::update()
 			if (enemyAI)
 				enemyAI->addTargeter(obj->getID(), true);
 
-			preventing = enemyAI && enemyAI->isTemporarilyPreventingAimSuccess();
+			preventing = enemyAI && enemyAI->vslot130();
 
 			enemy = 0;
 			break;

@@ -60,6 +60,17 @@
 // getCurLocomotor 0x0026FF1E (mov eax,[ecx+0x1F0]; ret) is an inline's
 // emitted copy; AIWanderInPlaceState reads +0x1F0 inline at 0x0034F32C
 // and 0x0034F45B. Zero Hour AIUpdate.h:427 declares it inline.
+// BeginDefectedStateMachine 0x0026336D saves the +0x30 machine into +0x38
+// and rva002633B6 0x002633B6 moves +0x38 back into +0x30.
+// rva00262804 0x00262804 stores its unsigned char argument raw at +0x3B9.
+// The constructor stores -1 at +0x210 (0x0026EC11); TurretAIIdleState::onEnter
+// 0x004D83D1 compares +0x210 with the turret's ID and resets it to -1 inline.
+// AIHuntState::update 0x003464D1 reads +0x70 inline (0x0034667A). Zero Hour
+// AIUpdate.h names friend_getTurretSync, friend_setTurretSync and getAttackInfo.
+// Object::rva0028AE6D 0x0028AE6D tail-jumps to the protected wakeUpNow, and
+// AIHuntState::update calls the protected playAttackVoiceResponse at 0x0034677D.
+// AIAttackMeleeApproachState::computePath 0x00345393 tests +0x16C > 0 inline
+// (0x003453D1, jle); Zero Hour AIUpdate.h names the accessor isBlockedAndStuck.
 
 #pragma once
 #ifndef __BFME2_AIUPDATE_H_
@@ -189,6 +200,8 @@ public:
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
 {
     friend class AIAttackState;
+    friend class AIHuntState;
+    friend class Object;
 public:
     AIUpdateInterface(Thing *, const ModuleData *);
     virtual NameKeyType getModuleNameKey() const;
@@ -507,11 +520,15 @@ public:
     const Path *getPath() const { return m_path; }
     bool isWaitingForPath() const { return m_field3B1; }
     ObjectID getCrateID() const { return m_crateCreated; }
+    const AttackPriorityInfo *getAttackInfo() const { return m_attackInfo; }
+    WhichTurretType friend_getTurretSync() const { return m_field210; }
+    void friend_setTurretSync(WhichTurretType t) { m_field210 = t; }
+    bool isBlockedAndStuck() const { return m_blockedFrames > 0; }
     unsigned int m_priorWaypointID;
     unsigned int m_currentWaypointID;
     AIStateMachine *m_stateMachine;
     unsigned int m_nextEnemyScanTime;
-    unsigned int m_field038;
+    AIStateMachine *m_field038;
     unsigned int m_field03C;
     ObjectID m_currentVictimID;
     float m_desiredSpeed;
@@ -557,7 +574,7 @@ public:
     unsigned int m_field1FC;
     Coord3D m_field200;
     TurretAI *m_turretAI[1];
-    unsigned int m_field210;
+    WhichTurretType m_field210;
     unsigned char m_storage214[4];
     unsigned int m_field218;
     unsigned int m_field21C;
@@ -580,7 +597,7 @@ public:
     bool m_field3B6;
     bool m_field3B7;
     bool m_field3B8;
-    bool m_field3B9;
+    unsigned char m_field3B9;
     bool m_field3BA;
     bool m_field3BB;
     bool m_field3BC;

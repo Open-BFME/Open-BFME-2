@@ -67,20 +67,7 @@ template <> class AIHuntSlots<0>
 
 class AIHuntState;
 
-class AIUpdateInterface : public AIHuntSlots<90>
-{
-	friend class AIHuntState;
-public:
-	virtual Bool slot90() = 0;
-
-	Object *checkForCrateToPickup();
-	const AttackPriorityInfo *getAttackInfo() const { return m_attackInfo; }
-protected:
-	void playAttackVoiceResponse(Object *victim);
-private:
-	unsigned char m_pad004[0x70 - 0x04];
-	const AttackPriorityInfo *m_attackInfo; // +0x70
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // The contain's slot-31 interface; slot 88 accepts a hunt goal.
 class AIHuntContainTarget : public AIHuntSlots<88>
@@ -259,7 +246,7 @@ StateReturnType AIHuntState::update()
 		}
 
 		Bool scan = true;
-		if (ai->slot90() && !m_huntMachine->getCurrentFlag1C() && !m_huntMachine->isInIdleState())
+		if (ai->vslot090() && !m_huntMachine->getCurrentFlag1C() && !m_huntMachine->isInIdleState())
 			scan = false;
 
 		m_nextEnemyScanTime = now + ENEMY_SCAN_RATE;

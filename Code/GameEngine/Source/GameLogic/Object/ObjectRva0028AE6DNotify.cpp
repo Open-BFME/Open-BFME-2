@@ -17,14 +17,7 @@
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class Object;
-
-class AIUpdateInterface
-{
-	friend class Object;
-protected:
-	void wakeUpNow();
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {

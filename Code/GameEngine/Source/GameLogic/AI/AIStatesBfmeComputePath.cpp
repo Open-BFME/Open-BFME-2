@@ -199,42 +199,11 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class LocomotorSet
-{
-};
-
 #include "../../../Include/GameLogic/PathNode.h"
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-class AIUpdateInterface : public AIComputePathAISlots<136>
-{
-public:
-	virtual void rva0034C988Slot136() = 0;
-	virtual void slot137() = 0;
-	virtual void slot138() = 0;
-	virtual void slot139() = 0;
-	virtual void slot140() = 0;
-	virtual void slot141() = 0;
-	virtual void rva00347F6BSlot142(int value) = 0;
-	ObjectID getIgnoredObstacleID() const;
-	Bool isMoving() const;
-	void requestPath(Coord3D *destination, Bool isFinalGoal);
-	Path *getPath() const { return m_path; }
-	Bool isBlockedAndStuck() const { return m_bfmeBlocked16C > 0; }
-	Bool requestMeleeApproachPath(const Coord3D *destination, Bool flag);
-	Bool isWaitingForPath() const { return m_waitingForPath; }
-	unsigned char m_pad004[0x140 - 0x04];
-	Path *m_path; // +0x140
-	unsigned char m_pad144[0x16C - 0x144];
-	int m_bfmeBlocked16C; // +0x16C; positive fails computePath at once
-	unsigned char m_pad170[0x1CC - 0x170];
-	LocomotorSet m_locomotorSet; // +0x1CC
-	unsigned char m_pad1CD[0x3B1 - 0x1CD];
-	Bool m_waitingForPath; // +0x3B1
-	unsigned char m_pad3B2[0x3C8 - 0x3B2];
-	Bool m_bfmeFlag3C8; // +0x3C8
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva0010CBits
 {
@@ -426,7 +395,7 @@ void AIMoveAwayAndCowerState::onExit(StateExitType status)
 	AIInternalMoveToState::onExit(status);
 	Object *owner = getMachineOwner();
 	if (owner && owner->getAI())
-		owner->getAI()->rva00347F6BSlot142(0);
+		owner->getAI()->chooseLocomotorSet(0);
 }
 
 class AIBackAwayState : public AIInternalMoveToState
@@ -452,8 +421,8 @@ StateReturnType AIBackAwayState::onEnter()
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (goal == 0 || ai == 0)
 		return STATE_FAILURE;
-	ai->rva00347F6BSlot142(9);
-	if (ai->m_bfmeFlag3C8)
+	ai->chooseLocomotorSet(9);
+	if (ai->m_field3C8)
 	{
 		m_okToRepathTimes = 1;
 		m_retargetToPathEnd = true;
@@ -511,8 +480,8 @@ void AIBackAwayState::onExit(StateExitType status)
 	owner->clearModelConditionBit(65);
 	if (owner->getAI())
 	{
-		owner->getAI()->rva00347F6BSlot142(0);
-		owner->getAI()->m_bfmeFlag3C8 = false;
+		owner->getAI()->chooseLocomotorSet(0);
+		owner->getAI()->m_field3C8 = false;
 	}
 }
 
@@ -655,7 +624,7 @@ StateReturnType AIMoveToStateSA::onEnter()
 
 	StateReturnType ret = AIInternalMoveToState::onEnter();
 	if (m_bfmeFlag50 && ai && ai->isMoving())
-		ai->rva0034C988Slot136();
+		ai->setLocomotorGoalNone();
 	return ret;
 }
 
@@ -760,7 +729,7 @@ Bool AIAttackMeleeEngageState::computePath()
 	critterDesyncLog("CritterDesync: ComputePath26");
 	Bool forceRepath = false;
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
-	if (ai->m_bfmeBlocked16C > 0)
+	if (ai->m_blockedFrames > 0)
 		return false;
 	if (m_waitingForPath)
 	{
@@ -873,7 +842,7 @@ Bool AIMoveToStateSA::computePath()
 			m_bfmeFrame4C = TheGameLogic->getFrame() + BfmeLogicFramesPerSecond * 10;
 			AIUpdateInterface *ai = owner->getAI();
 			if (ai && ai->isMoving())
-				ai->rva0034C988Slot136();
+				ai->setLocomotorGoalNone();
 			return true;
 		}
 	}

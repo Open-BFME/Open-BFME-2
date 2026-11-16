@@ -9,55 +9,18 @@
 
 #include <new>
 
-class Tracked
-{
-public:
-	virtual void *deleteInstance(int flags) = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void s10() = 0;
-	virtual void s11() = 0;
-	virtual void s12() = 0;
-	virtual void s13() = 0;
-	virtual void s14() = 0;
-	virtual void s15() = 0;
-};
-
-class AIUpdateInterface
-{
-public:
-	void rva002633B6();
-
-private:
-	char m_pad00[0x30 - 4];
-	Tracked *m_30;
-	char m_pad34[0x38 - 0x34];
-	Tracked *m_38;
-
-	virtual void dummy();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 void AIUpdateInterface::rva002633B6()
 {
-	if (m_38 != 0) {
-		if (m_30 != 0) {
-			m_30->s15();
-			void *toDelete;
-			if (m_30 != 0)
-				toDelete = m_30->deleteInstance(0);
-			else
-				toDelete = 0;
-			::operator delete(toDelete);
-			m_30 = 0;
+	if (m_field038 != 0) {
+		if (m_stateMachine != 0) {
+			m_stateMachine->halt();
+			::delete m_stateMachine;
+			m_stateMachine = 0;
 		}
-		m_30 = m_38;
-		m_38 = 0;
+		m_stateMachine = m_field038;
+		m_field038 = 0;
 	}
 }
