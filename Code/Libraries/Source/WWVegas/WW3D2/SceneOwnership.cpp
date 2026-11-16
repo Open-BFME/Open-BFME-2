@@ -7,7 +7,6 @@
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
 #pragma optimize("s", on)
 #include "multilist.h"
-#pragma optimize("", on)
 #include "refcount.h"
 #include "../../../../../reference/shims/bfme_vector3_lenfull_link/vector3_lenfull_link.h"
 // The compiler-generated vector constructor iterator (??_H) takes the
@@ -20,7 +19,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.

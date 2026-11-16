@@ -23,7 +23,6 @@ template <class T, int N> class AutoPoolClass {};
 // SceneOwnership.cpp).
 #pragma optimize("s", on)
 #include "multilist.h"
-#pragma optimize("", on)
 #include "refcount.h"
 #include "vector3.h"
 #include "rendobj.h"

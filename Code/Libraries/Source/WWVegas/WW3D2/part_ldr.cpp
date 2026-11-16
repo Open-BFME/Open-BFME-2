@@ -8,7 +8,6 @@
 #pragma auto_inline(off)
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma auto_inline(on)
 // Select the BFME2 legacy kernel32 import declarations before reference headers.
 

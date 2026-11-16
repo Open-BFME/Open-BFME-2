@@ -5,7 +5,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // Rebase note: upstream d7b143eb97 retains the earlier 0.866 near-match in
 // history; this bank preserves the whole2821B byte/EH-exact canonical-owner body.
 // Copyright 2025 Electronic Arts Inc. SPDX-License-Identifier: GPL-3.0-or-later

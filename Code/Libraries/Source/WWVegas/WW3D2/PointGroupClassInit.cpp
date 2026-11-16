@@ -27,7 +27,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "../../../../../reference/shims/bfme_wwmath_fastsin_o1_link/wwmath.h"
 #pragma optimize("s", on)
 #include "vector2.h"
-#pragma optimize("", on)
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(CLASS)
 #define BFME_DYNAMIC_IB_UINT_CTOR_ABI

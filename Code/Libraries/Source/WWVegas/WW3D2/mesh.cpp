@@ -5,7 +5,6 @@
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #pragma optimize("s", on)
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_matrix3d_full_link/matrix3d_full_link.h"
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
