@@ -100,10 +100,9 @@ namespace _STL {
 class Rva005241B0 {public:Rva005241B0();~Rva005241B0();char data[12];};
 class Rva005242D7 {public:Rva005242D7();~Rva005242D7();char data[12];};
 class Rva00524265 {public:Rva00524265();~Rva00524265();private:_STL::_Vector_base<AsciiString,_STL::allocator<AsciiString> > names;};
-struct AsciiStringRef{const AsciiString*string;};
+#include "../../../../Include/Common/AsciiStringRef.h"
 #include "../../../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringPlusText:AsciiStringRef{Rva000B3F84Pair text;operator AsciiString();};
-AsciiStringPlusText operator+(const AsciiString&,const char*);
+#include "../../../../Include/Common/AsciiStringPlusText.h"
 class __single_inheritance InGameNotificationBoxMovieClip;
 typedef void(InGameNotificationBoxMovieClip::*NoticeCommand)(unsigned);
 #include "../../../../Include/Common/DelegateDesc.h"

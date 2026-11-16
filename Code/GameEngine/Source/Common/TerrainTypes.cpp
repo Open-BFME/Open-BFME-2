@@ -85,15 +85,8 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Constr
 template Rva00317CF2Element * _STL::__uninitialized_copy<Rva00317CF2Element const *, Rva00317CF2Element *>(Rva00317CF2Element const *, Rva00317CF2Element const *, Rva00317CF2Element *, _STL::__false_type const &);
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-struct Rva002226E5TextPlusString { Rva000B3F84Pair left; AsciiStringRef right; Rva002226E5TextPlusString() {} };
-struct AsciiStringPlusText {
-    AsciiStringPlusText() {}
-    AsciiStringRef left;
-    Rva000B3F84Pair right;
-    operator AsciiString();
-};
-Rva002226E5TextPlusString operator+(const char *,const AsciiString &);
-AsciiStringPlusText operator+(const AsciiString &,const char *);
+#include "../../Include/GameClient/Rva002226E5TextPlusString.h"
+#include "../../Include/Common/AsciiStringPlusText.h"
 AsciiString &Rva00317C68Append(AsciiString &,const char *);
 struct ListNode;
 struct ListNode {

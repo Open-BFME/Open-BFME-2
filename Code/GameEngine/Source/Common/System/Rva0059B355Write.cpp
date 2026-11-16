@@ -3,13 +3,7 @@
 // Address-derived identity: retail calls AsciiStringPlusText::length at +0x10,
 // adds the field at +0x18, writes through rowed 0x0059B1C7, and returns a copied
 // narrow StringBase. The class layout follows those retail offsets.
-class AsciiStringPlusText
-{
-public:
-	int length() const;
-private:
-	const void *m_string;
-};
+#include "../../../Include/Common/AsciiStringPlusText.h"
 
 template <class T> class StringBase;
 template <> class StringBase<char>
@@ -31,7 +25,7 @@ class Rva0059B1C7
 public:
 	int copyToBuffer(char *dst);
 protected:
-	char m_pad[12];
+	char m_pad[4];
 	int m_first;
 	char m_pad1[4];
 	int m_second;

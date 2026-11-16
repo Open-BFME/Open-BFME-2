@@ -2,22 +2,14 @@
 // ?copyToBuffer@Rva0059B1A2@@QAEHPAD@Z @0x0059B1A2 (37 bytes).
 // Identity is address-derived: two callers are unclaimed, and the body
 // composes the rowed AsciiStringPlusText and Rva000B3F84Pair writers.
-class AsciiStringPlusText
-{
-public:
-	int write(char *dst);
-private:
-	const void *m_string;
-};
-
 #include "../../../Include/Common/Rva000B3F84Pair.h"
+#include "../../../Include/Common/AsciiStringPlusText.h"
 
 class Rva0059B1A2 : public AsciiStringPlusText
 {
 public:
 	int copyToBuffer(char *dst);
 private:
-	char at04[8];
 	Rva000B3F84Pair m_pair;
 };
 
