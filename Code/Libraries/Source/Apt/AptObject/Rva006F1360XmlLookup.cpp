@@ -38,7 +38,6 @@ public:
   unsigned flags;
   BfmeAptValue006DCD20 *rva006DD220();
   void setGCRootCount(unsigned);
-  void rva006D95E0(int, BfmeAptValue006DCD20 *);
 };
 struct XmlAttribute {
   const char *key;
@@ -96,6 +95,7 @@ class AptArray : public BfmeAptValue006DCD20 {
 
 public:
   AptArray();
+  void set(int, AptValue *);
   POOL_ALLOC
 };
 class AptString : public AptValue {
@@ -169,7 +169,7 @@ AptValue *Rva006F1360::objectMemberLookup(AptValue *context,
         int i = 0;
         while (child) {
           Rva006F1360 *v = new Rva006F1360(0x20, child);
-          array->rva006D95E0(i, v);
+          array->set(i, (AptValue *)v);
           ++i;
           child = xml->node->nextChildInList();
         }
