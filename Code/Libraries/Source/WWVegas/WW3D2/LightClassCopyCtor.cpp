@@ -22,6 +22,7 @@
 // ~LightClass tail-jumps to the rowed ~RenderObjClass (0x0013BE20); keep rendobj.h from
 // emitting its own inline destructor and the tables it pulls in.
 #define BFME_RO_DTOR_DECL_ONLY
+#include "rendobj.h"
 #include "LightClass.h"
 
 // upstream: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/wwmath.h
