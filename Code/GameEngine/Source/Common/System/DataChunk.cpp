@@ -343,39 +343,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
 #include "../../../Include/Common/ChunkInputStreamClass.h"
 
-class Dict
-{
-public:
-	enum DataType { DICT_NONE = -1, DICT_BOOL, DICT_INT, DICT_REAL, DICT_ASCIISTRING, DICT_UNICODESTRING };
-private:
-	struct DictPairData { unsigned short m_refCount; unsigned short m_numPairsAllocated; unsigned short m_numPairsUsed; };
-public:
-	Dict(int numPairsToPreAllocate);
-	Dict(const Dict &other) : m_data(other.m_data)
-	{
-	    if (m_data)
-	        ++m_data->m_refCount;
-	}
-	~Dict() { releaseData(); }
-	void setBool(int key, bool value);
-	void setInt(int key, int value);
-	void setReal(int key, float value);
-	void setAsciiString(int key, const AsciiString &value);
-	void setUnicodeString(int key, const UnicodeString &value);
-private:
-	void releaseData();
-public:
-	int getPairCount() const { return m_data ? m_data->m_numPairsUsed : 0; }
-	NameKeyType getNthKey(int n) const;
-	DataType getNthType(int n) const;
-	bool getNthBool(int n) const;
-	int getNthInt(int n) const;
-	float getNthReal(int n) const;
-	AsciiString getNthAsciiString(int n) const;
-	UnicodeString getNthUnicodeString(int n) const;
-private:
-	DictPairData *m_data; // +0x00
-};
+#include "../../../Include/Common/Dict.h"
 
 class Rva0023DB34
 {

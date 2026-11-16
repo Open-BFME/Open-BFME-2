@@ -86,24 +86,7 @@ enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 
 #include "../../../Include/Common/DataChunkInfo.h"
 
-class Dict
-{
-public:
-	Dict(int numPairsToPreAllocate);
-	void setBool(int key, bool value);
-	Dict(const Dict &src) : m_data(src.m_data) { if (m_data) ++*(unsigned short *)m_data; }
-	~Dict() { releaseData(); }
-	enum DataType { DICT_NONE = -1, DICT_BOOL = 0, DICT_INT, DICT_REAL, DICT_ASCIISTRING };
-	DataType getType(int key) const;	// 0x0031317C
-	bool getBool(int key, bool *exists = 0) const;	// 0x00313198
-	int getInt(int key, bool *exists = 0) const;	// 0x003131CA
-	AsciiString getAsciiString(int key, bool *exists = 0) const;	// 0x0031359F
-	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
-
-private:
-	void releaseData();					// 0x0031339C
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 #include "../../../Include/Common/ChunkInputStreamClass.h"
 

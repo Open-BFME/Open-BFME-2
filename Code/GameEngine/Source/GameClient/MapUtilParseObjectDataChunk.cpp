@@ -12,12 +12,7 @@
 #include <map>
 #include <list>
 #include "../../Include/Common/DataChunkInfo.h"
-class Dict { public:
- enum DataType {NONE=-1,BOOL,INT,REAL,ASCII,UNICODE};
- Dict(int=0); Dict &operator=(const Dict&); ~Dict() {releaseData();}
- DataType getType(int) const;
- private:void releaseData();void *data;
-};
+#include "../../Include/Common/Dict.h"
 #include "../../Include/Common/DataChunk.h"
 #include "../../Include/Common/ThingTemplate.h"
 #include "../../Include/Common/ThingFactory.h"
@@ -49,7 +44,7 @@ bool ParseObjectDataChunk(DataChunkInput &file,DataChunkInfo *info,void *) {
  Rva0030DBD5 *object;
  if(TheThingFactory->rva002D06AA(name))object=new Rva0030DBD5(loc,name,angle,flags,&d,const_cast<ThingTemplate *>(TheThingFactory->findTemplate(name)));
  else object=new Rva0030DBD5(loc,name,angle,flags,&d,0);
- if(object->dict.getType(g_00DBDC74.get())==Dict::INT) {
+ if(object->dict.getType(g_00DBDC74.get())==Dict::DICT_INT) {
   object->flags|=4;
   *reinterpret_cast<Coord3D *>(&(*m_waypoints)[reinterpret_cast<Rva0030D748 *>(object)->rva0030D748()])=loc;
  } else if(reinterpret_cast<MapObject *>(object)->getThingTemplate() && (reinterpret_cast<MapObject *>(object)->getThingTemplate()->m_kindof[2] & 0x2000U)) m_supplyPositions.push_back(loc);

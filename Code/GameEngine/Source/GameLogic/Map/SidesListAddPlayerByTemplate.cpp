@@ -49,19 +49,7 @@ extern const unsigned short SidesListNeutralDisplayName[8] = {
 	'N', 'e', 'u', 't', 'r', 'a', 'l', 0
 };
 
-class Dict
-{
-public:
-	Dict(int numPairsToPreAllocate);
-	~Dict() { releaseData(); }
-	void clear();
-	void setAsciiString(int key, const AsciiString &value);
-	void setBool(int key, bool value);
-	void setUnicodeString(int key, const UnicodeString &value);
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 class TeamsInfoRec
 {

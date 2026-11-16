@@ -22,24 +22,7 @@
 namespace _STL { template <> _Rb_tree<pair<AsciiString, AsciiString>, pair<pair<AsciiString, AsciiString> const, int>, _Select1st<pair<pair<AsciiString, AsciiString> const, int> >, less<pair<AsciiString, AsciiString> >, allocator<pair<pair<AsciiString, AsciiString> const, int> > >::~_Rb_tree(); }
 // bfme link decl-only end
 
-class Dict
-{
-public:
-	// A copy shares the pair data and takes a reference, as retail's team
-	// record copy 0x0032A304 does (inc word ptr [data]); without it, growing
-	// the team vector freed data the new records still held (P106).
-	Dict(const Dict &src) : m_data(src.m_data)
-	{
-		if (m_data)
-			++*(unsigned short *)m_data;
-	}
-	~Dict() { releaseData(); }
-	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
-
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 typedef _STL::pair<AsciiString, AsciiString> TeamKey;
 typedef _STL::map<TeamKey, int> TeamIndex;

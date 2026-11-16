@@ -5,14 +5,7 @@
 // stlport
 #include <map>
 
-class Dict
-{
-public:
-	~Dict() { releaseData(); }
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class ChunkInputStream;

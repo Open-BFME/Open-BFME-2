@@ -14,19 +14,7 @@
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
 
-class Dict
-{
-public:
-	Dict(int numPairsToPreAllocate);
-	~Dict() { releaseData(); }
-	Dict &operator=(const Dict &src);
-	int getInt(int key, bool *exists) const;
-	void setInt(int key, int value);
-	void setBool(int key, bool value);
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 enum NameKeyType
 {

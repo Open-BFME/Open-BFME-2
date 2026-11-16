@@ -11,25 +11,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
-struct Rva00196D90Element;
-
-class Dict
-{
-public:
-	Dict( int numPairsToPreAllocate );
-	Dict( const Dict &source )
-		: m_data( source.m_data )
-	{
-		if ( m_data != 0 )
-			++*(unsigned short *)m_data;
-	}
-
-	void *m_data;
-
-private:
-	friend struct Rva00196D90Element;
-	void releaseData();
-};
+#include "../../Include/Common/Dict.h"
 
 // Preserve the individual native initialization stores. The address-derived
 // record identity remains unknown; no donor or ICF type identity is asserted.
@@ -57,7 +39,6 @@ struct Rva00196D90Element
 
 	~Rva00196D90Element()
 	{
-		m_dict.releaseData();
 	}
 
 	Rva00196D90Element &operator=( const Rva00196D90Element &source );

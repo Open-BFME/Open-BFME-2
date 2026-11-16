@@ -25,29 +25,7 @@ private:
 	char m_tail[0x80 - 0x30];
 };
 
-class Dict
-{
-public:
-	Dict(int prealloc = 0);
-	Dict(const Dict &src) : m_data(src.m_data)
-	{
-		if (m_data)
-			++*(short *)m_data;
-	}
-	~Dict() { releaseData(); }
-	void clear();
-	Dict &operator=(const Dict &src);
-	void swap(Dict &other)
-	{
-		void *data = m_data;
-		m_data = other.m_data;
-		other.m_data = data;
-	}
-
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_NAME_SLOT

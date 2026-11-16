@@ -18,12 +18,7 @@
 #include "Lib/Coord3DCtorView.h"
 
 #include "../../Include/Common/DataChunkInfo.h"
-class Dict { public:
- enum DataType {NONE=-1,BOOL,INT,REAL,ASCII,UNICODE};
- Dict(int=0); Dict &operator=(const Dict&); ~Dict() {releaseData();}
- DataType getType(int) const;
- private:void releaseData();void *data;
-};
+#include "../../Include/Common/Dict.h"
 #include "../../Include/Common/DataChunk.h"
 class ThingTemplate;
 #include "../../Include/Common/ThingFactory.h"
@@ -63,13 +58,13 @@ Rva0030DBD5 *Rva0030DC85ReadMapObject(DataChunkInput &file, DataChunkInfo *info)
  if(TheThingFactory->rva002D06AA(name))
   thing=TheThingFactory->findTemplate(name);
  Rva0030DBD5 *object=new Rva0030DBD5(loc,name,angle,flags,&d,const_cast<ThingTemplate *>(thing));
- if(object->dict.getType(g_00DBDC74.get())==Dict::INT)
+ if(object->dict.getType(g_00DBDC74.get())==Dict::DICT_INT)
   object->flags|=4;
- if(object->dict.getType(MapGenericAIObjectIDCache.get())==Dict::INT)
+ if(object->dict.getType(MapGenericAIObjectIDCache.get())==Dict::DICT_INT)
   object->flags|=0x20;
- if(object->dict.getType(((Rva00148F5ECache *)&TheKey_lightHeightAboveTerrain)->get())==Dict::REAL)
+ if(object->dict.getType(((Rva00148F5ECache *)&TheKey_lightHeightAboveTerrain)->get())==Dict::DICT_REAL)
   object->flags|=2;
- if(object->dict.getType(((Rva00148F5ECache *)&TheKey_scorchType)->get())==Dict::INT)
+ if(object->dict.getType(((Rva00148F5ECache *)&TheKey_scorchType)->get())==Dict::DICT_INT)
   object->flags|=8;
  return object;
 }

@@ -1,4 +1,4 @@
-// Target facts (BFME2 1.06, RVAs): Dict is four bytes with no virtual functions or base-class calls. Constructor 0x00313581 writes only its data pointer at +0, copy constructor 0x00329D50 copies it and increments its pointee's 16-bit reference count, and nonvirtual destructor 0x000ABB82 jumps to releaseData (0x0031339C). None stores a vptr or vbptr. SidesInfo's constructor calls Dict(0) on +4 at 0x0032C681 and constructs ScriptList at +8 at 0x0032C68D, bounding Dict's extent to four bytes. Assignment 0x003133E1 releases the old data, copies the pointer and increments the reference count. These special members remain out of line.
+// Target facts (BFME2 1.06, RVAs): Dict is four bytes with no virtual functions or base-class calls. Constructor 0x00313581 writes only its data pointer at +0, copy constructor 0x00329D50 copies it and increments its pointee's 16-bit reference count, and nonvirtual destructor 0x000ABB82 jumps to releaseData (0x0031339C). None stores a vptr or vbptr. SidesInfo's constructor calls Dict(0) on +4 at 0x0032C681 and constructs ScriptList at +8 at 0x0032C68D, bounding Dict's extent to four bytes. Assignment 0x003133E1 releases the old data, copies the pointer and increments the reference count. The constructor and assignment are out of line; the copy constructor and destructor are inline as in Zero Hour, because retail expands them (releaseData called directly by 0x00329D0E, 0x007B7A55 and its other owners' unwind code, the copy expanded in readDict 0x00307833) and keeps 0x00329D50 and 0x000ABB82 only as their COMDAT copies.
 // Target layout: releaseData (0x0031339C) reads the reference count at data+0 and the used count at data+4, with eight-byte pairs starting at data+6. ensureUnique (0x0031346B) reads the allocated count at data+2 and caps requests at 32767. findPairByKey (0x0031313B) reads a pair's four-byte key at +0; getBool/getInt/getReal (0x00313198/0x003131CA/0x003131FC) read its value at +4 and test tags 0/1/2. getType (0x0031317C) returns key&255 or -1; setNameAndType (0x00313376) stores (name<<8)|type. String tags 3/4 are tested at 0x003135B3/0x003135FA. writeDict reads the used count inline at 0x00307DA2. SidesInfo::swap exchanges Dict's pointers inline at 0x0032B080..0x0032B089. The rowed cleanup forwarder 0x000ABB82 and global teardown 0x007B7B14 call the private releaseData provider directly.
 // Target member rows (RVAs): nth key/type 0x00306BA9/0x00306BCD, nth bool/int/real 0x00313232/0x00313253/0x00313274, strings 0x0031359F/0x003135E6, nth strings 0x0031362D/0x00313665, known 0x002A9880, clear 0x00313574, nullable copy 0x00329CF0, sortPairs 0x00313299, setPrep 0x0031369D, setters 0x003136F6/0x00313716/0x00313736/0x0031375A/0x00313781, remove/copyPairFrom 0x003137A8/0x003137EE, pair clear/copyFrom 0x0031334A/0x00313404 and unnamed pair bit accessors 0x00306B8F/0x00306B97/0x00306B9F. Both ledger key spellings of getAsciiString share 0x0031359F. Donor (Zero Hour Common/Dict.h) facts: class, field, enum and inline accessor names, and the empty release-build validate helper; its six-byte DictPairData and eight-byte DictPair agree with the target accesses. No donor header is included.
 
@@ -61,8 +61,12 @@ public:
 	};
 
 	Dict(int numPairsToPreAllocate = 0);
-	Dict(const Dict &src);
-	~Dict();
+	Dict(const Dict &src) : m_data(src.m_data)
+	{
+		if (m_data)
+			++m_data->m_refCount;
+	}
+	~Dict() { releaseData(); }
 	Dict &operator=(const Dict &src);
 
 	void clear();
