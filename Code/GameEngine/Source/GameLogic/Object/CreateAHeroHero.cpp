@@ -221,17 +221,7 @@ template<class T> static __forceinline T BlingOperand(const T &v) { return *(con
 struct BfmePod40;
 #include "../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
-class InGameUI
-{
-public:
-    void notifyHeroEarnedAward(CreateAHeroHero *, int);
-    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-    virtual void v12(); virtual void v13(); virtual void v14();
-    virtual void __cdecl message(AsciiString text, ...);
-};
-extern InGameUI *TheInGameUI;
+#include "../../../Include/GameClient/InGameUI.h"
 // Retain the timeline provider's existing scalar ABI spelling. Its ScienceType
 // label is provisional: this call's word is the rowed GetAwardNameKey result,
 // not independent evidence that award keys are science identifiers.
@@ -814,7 +804,7 @@ bool CreateAHeroHero::rva004098BE(const AsciiString &name, bool isSystem)
     CreateDirectoryW(((const Rva002DC267 *)TheGameState)->rva002DC267().str(),0);
     HeroFile *file=(HeroFile *)Rva00409892(name,m_systemHero);
     if(!file) {
-        TheInGameUI->message(AsciiString("GUI:Error"));
+        TheInGameUI->rva0029E656(AsciiString("GUI:Error"));
         return false;
     }
     XferSave writer;
@@ -822,7 +812,7 @@ bool CreateAHeroHero::rva004098BE(const AsciiString &name, bool isSystem)
         writer.Open((Xfer *)file,1,false);
     } catch(...) {
         file->close();
-        TheInGameUI->message(AsciiString("GUI:Error"));
+        TheInGameUI->rva0029E656(AsciiString("GUI:Error"));
         return false;
     }
     ((Rva00406EBF *)this)->rva00406EBF((Xfer *)&writer);

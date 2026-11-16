@@ -745,15 +745,7 @@ GlobalData *GlobalData::m_theOriginal=0;
 // Table BED1C4: reload notice slot4 and literal-preserving table getter slot6.
 // Slots1 and10 are empty; original names of slots4/6 remain unknown.
 
-class InGameUI { public:
- virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
- virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
- virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
- virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
- virtual void message(UnicodeString format,...);
-};
-
-extern InGameUI *TheInGameUI;
+#include "../../Include/GameClient/InGameUI.h"
 
 // GlobalData::s_GlobalDataFieldParseTable, retail VA 0x00BE8520 (457 fields
 // and a null record, 0x1CA0 bytes): the function at 0x00237AB1 (unrowed) loads
@@ -1361,7 +1353,7 @@ void GlobalData::reset()
 bool GlobalData::vslot04(int reason)
 {
  if(loadIniFilesFromLegend()) {
-  if(TheInGameUI) TheInGameUI->message(UnicodeString(L"RIF: GameData reloaded (changes are effective immediately)"));
+  if(TheInGameUI) TheInGameUI->rva0029E846(UnicodeString(L"RIF: GameData reloaded (changes are effective immediately)"));
   return true;
  }
  return false;

@@ -99,17 +99,7 @@ extern FileSystem *TheFileSystem;
 
 #include "../../Include/GameClient/GameText.h"
 
-class InGameUI
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14();
-	virtual void __cdecl message(UnicodeString format, ...);	// slot 16 (+0x40)
-	virtual void __cdecl message(AsciiString stringManagerLabel, ...);	// slot 15 (+0x3C)
-};
-extern InGameUI *TheInGameUI;
+#include "../../Include/GameClient/InGameUI.h"
 
 class GameWindow;
 void MessageBoxOk(UnicodeString titleString, UnicodeString bodyString, void (*okCallback)(void));
@@ -246,7 +236,7 @@ int GameState::saveGame(UnicodeString filename, const UnicodeString &desc, int w
 	File *file = TheFileSystem->rva00600676(wideText(filepath), 0x4A, 0);
 	if (file == 0)
 	{
-		TheInGameUI->message("GUI:Error");
+		TheInGameUI->rva0029E656("GUI:Error");
 		return 3;
 	}
 
@@ -258,7 +248,7 @@ int GameState::saveGame(UnicodeString filename, const UnicodeString &desc, int w
 	catch (...)
 	{
 		file->close();
-		TheInGameUI->message("GUI:Error");
+		TheInGameUI->rva0029E656("GUI:Error");
 		return 3;
 	}
 
@@ -330,7 +320,7 @@ int GameState::saveGame(UnicodeString filename, const UnicodeString &desc, int w
 		if (showMessage)
 		{
 			UnicodeString msg = TheGameText->fetch("GUI:GameSaveComplete");
-			TheInGameUI->message(msg);
+			TheInGameUI->rva0029E846(msg);
 		}
 	return 0;
 }

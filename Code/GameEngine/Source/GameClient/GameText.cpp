@@ -70,17 +70,7 @@ namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString
 
 extern FileSystem *TheFileSystem;
 
-class InGameUI
-{
-public:
-	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
-	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
-	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
-	virtual void pad12(); virtual void pad13(); virtual void pad14(); virtual void pad15();
-	virtual void message(UnicodeString format, ...);
-};
-
-extern InGameUI *TheInGameUI;
+#include "../../Include/GameClient/InGameUI.h"
 
 extern class ThingFactory *TheThingFactory;
 
@@ -599,7 +589,7 @@ bool GameTextManager::vslot04(int)
 		deinit();
 		init();
 		if (TheInGameUI)
-			TheInGameUI->message(UnicodeString(L"RIF: String file reloaded"));
+			TheInGameUI->rva0029E846(UnicodeString(L"RIF: String file reloaded"));
 		if (TheThingFactory)
 			((Rva002CF1E2 *)TheThingFactory)->rva002CF1E2();
 		return true;

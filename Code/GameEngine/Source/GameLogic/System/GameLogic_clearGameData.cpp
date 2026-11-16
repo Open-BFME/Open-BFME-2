@@ -59,17 +59,7 @@ public:
 };
 extern GameEngine *TheGameEngine;
 extern MessageStream *TheMessageStream;
-class InGameUI {
-public:
-    VS(0) VS(1) VS(2) VS(3) VS(4) VS(5) VS(6) VS(7) VS(8) VS(9)
-    VS(10) VS(11) VS(12) VS(13) VS(14) VS(15) VS(16) VS(17) VS(18) VS(19)
-    VS(20) VS(21) VS(22) VS(23) VS(24) VS(25) VS(26) VS(27) VS(28) VS(29)
-    VS(30) VS(31) VS(32) VS(33) VS(34) VS(35) VS(36) VS(37) VS(38) VS(39)
-    VS(40) VS(41) VS(42) VS(43) VS(44) VS(45) VS(46) VS(47) VS(48) VS(49)
-    VS(50) VS(51) VS(52) VS(53) VS(54) VS(55) VS(56) VS(57) VS(58) VS(59)
-    VS(60) VS(61) VS(62) VS(63) VS(64) VS(65) VS(66) VS(67) VS(68)
-};
-extern InGameUI *TheInGameUI;
+#include "../../../Include/GameClient/InGameUI.h"
 class ControlBar { public: VS(0) VS(1) VS(2) VS(3) VS(4) VS(5) VS(6) VS(7) VS(8) VS(9) VS(10) };
 extern ControlBar *TheControlBar;
 void HideControlBar(bool);
@@ -110,7 +100,7 @@ void GameLogic::clearGameData(bool showScoreScreen, bool arg2)
     }
     GameMessage *msg=TheMessageStream->appendMessage(0x3EC);
     msg->appendBooleanArgument(true);
-    TheInGameUI->slot68();
+    TheInGameUI->deselectAllDrawables();
     TheControlBar->slot10();
     HideControlBar(true);
     TheMouse->_bfme_setEngineVisibility(true);
