@@ -63,6 +63,9 @@ LEDGER = REVERSE / "functions.csv"
 EXPORTS = REVERSE / "exports.csv"
 CONTRACTS = REVERSE / "class_contracts"
 GENERATED = ("Code/gen_asm/", "Code/gen_small/", "game/gen_small/", "game/gen_asm/")
+# New contract brackets are C++ element counts. Unmarked historical contracts
+# are normalized at the generator boundary using their separate field byte
+# extents; an unknown private element width is never borrowed from another view.
 PRIMK = {"float": "f4", "double": "f8", "int": "i4", "uint": "i4", "long": "i4", "ulong": "i4", "short": "i2",
          "ushort": "i2", "char": "i1", "uchar": "i1", "bool": "i1", "int64": "i8", "uint64": "i8", "enum": "i4",
          "wchar": "i2", "int8": "i1", "uint8": "i1"}
@@ -84,6 +87,85 @@ def portable_component(name):
 def contract_path(name):
     return CONTRACTS / (portable_component(name) + ".json")
 
+
+
+ARRAY_COUNT_UNIT = "elements"
+ARRAY_TYPE = re.compile(r"(.+?)((?:\[\d+\])+)")
+
+
+def array_element_size(name):
+    """Target sizeof for a primitive/pointer, independent of private class views."""
+    name = name.strip()
+    if name.endswith("*"):
+        return 4  # BFME2/VC7.1 target, not the host's pointer width
+    widths = {spelling: width for spelling, width in class_layouts.PRIM.values()}
+    widths.update({"signed char": 1, "unsigned char": 1, "unsigned short": 2,
+                   "unsigned int": 4, "unsigned long": 4, "wchar_t": 2,
+                   "__int64": 8, "unsigned __int64": 8, "enum": 4})
+    if name in widths:
+        return widths[name] or None
+    # Another contract's majority sizeof does not establish the element
+    # width in the particular private view that produced this old array.
+    return None
+
+
+def normalize_array_counts(contract):
+    """Return an explicit element-count contract, without editing its source.
+
+    Legacy contracts mixed old CodeView byte dimensions (inner first) with
+    manually corrected C++ element dimensions (outer first). Accept only the
+    reading(s) that agree with the separately recorded field byte extent.
+    Unknown or conflicting legacy evidence requires remeasurement, not a guess.
+    """
+    unit = contract.get("array_count_unit")
+    if unit is not None and unit != ARRAY_COUNT_UNIT:
+        raise ValueError(f"unsupported array count unit {unit!r}")
+    fields, found = [], False
+    for field in contract.get("fields", ()):
+        match = ARRAY_TYPE.fullmatch(field.get("type", ""))
+        if match is None:
+            fields.append(field)
+            continue
+        found = True
+        element, suffix = match.groups()
+        dimensions = [int(n) for n in re.findall(r"\d+", suffix)]
+        total = field.get("size")
+        if type(total) is not int or total < 0:
+            raise ValueError(f"array field {field.get('name')}: invalid byte extent {total!r}")
+        width = array_element_size(element)
+        if width is None:
+            # The legacy producer always put the complete byte extent last.
+            # A different value can only be an already corrected C++ count.
+            if unit != ARRAY_COUNT_UNIT and dimensions[-1] == total:
+                raise ValueError(f"array field {field.get('name')}: legacy element size of "
+                                 f"{element!r} is unknown; remeasure the contract")
+            normalized = dimensions
+        else:
+            product = width
+            for count in dimensions:
+                product *= count
+            candidates = [dimensions] if product == total else []
+            if unit is None:
+                previous, inner_counts = width, []
+                for length in dimensions:
+                    if previous <= 0 or length % previous:
+                        break
+                    inner_counts.append(length // previous)
+                    previous = length
+                else:
+                    if dimensions[-1] == total:
+                        legacy = list(reversed(inner_counts))
+                        if legacy not in candidates:
+                            candidates.append(legacy)
+            if len(candidates) != 1:
+                why = "ambiguous legacy dimensions" if candidates else "inconsistent array byte extent"
+                raise ValueError(f"array field {field.get('name')}: {why}: "
+                                 f"{field['type']!r}, {total} bytes, element size {width}")
+            normalized = candidates[0]
+        spelling = element + "".join(f"[{n}]" for n in normalized)
+        fields.append(dict(field, type=spelling))
+    return (dict(contract, fields=fields, array_count_unit=ARRAY_COUNT_UNIT)
+            if found else contract)
 
 def mangled_scope(name):
     """Plain qualified C++ scope in MSVC's innermost-first spelling."""
@@ -138,7 +220,8 @@ def kind(type_name):
 def aggregate(every, type_name, size):
     """The layout of a plain member aggregate `type_name` (no vftable), else None."""
     layout = every.get(type_name)
-    if not layout or layout.get("fwd") or layout.get("vfptr") or layout.get("virtual") or layout.get("size") != size:
+    if (not layout or layout.get("fwd") or layout.get("error") or layout.get("unparsed")
+            or layout.get("vfptr") or layout.get("virtual") or layout.get("size") != size):
         return None
     return layout
 
@@ -745,6 +828,7 @@ def decide(name, sources=None, jobs=8, sample=None):
     return {
         "class": name, "key": key, "key_by": key_rule, "ledger_keys": dict(keys), "size": size, "size_by": size_rule,
         "bases": bases, "bases_by": base_rule, "fields": fields,
+        **({"array_count_unit": ARRAY_COUNT_UNIT} if any("[" in f["type"] for f in fields) else {}),
         "vslots": {str(k): {"member": m, "decided_by": r} for k, (m, r) in vslots.items()},
         "evidence": {"views": len(good), "view_errors": len(got) - len(good), "census": len(sources),
                      "view_sizes": dict(sizes), "zh": {k: v for k, v in (zh or {}).items() if k in ("header", "error")},

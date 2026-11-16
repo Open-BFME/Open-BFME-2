@@ -3991,11 +3991,14 @@ SPELL = {"uint": "unsigned int", "ushort": "unsigned short", "uchar": "unsigned 
 
 
 def spelled(type_name, field):
+    array = class_contract.ARRAY_TYPE.fullmatch(type_name)
+    if array:
+        element = array[1]
+        stem = element.rstrip("*")
+        prefix = SPELL.get(stem, stem) + element[len(stem):]
+        return f"{prefix} {field}{array[2]}"
     stem = type_name.rstrip("*")
     stars = type_name[len(stem):]
-    array = re.match(r"(.+)\[(\d+)\]$", stem)
-    if array:
-        return f"{SPELL.get(array.group(1), array.group(1))} {field}[{array.group(2)}]"
     return f"{SPELL.get(stem, stem)} {stars}{field}"
 
 
@@ -4284,6 +4287,10 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
     member the header would give an inline body that a matched row's owner defines exclusively
     (owner_strength; `owners`: _matched_owners' shape): P147's duplicate definition, which every
     unit emitting the vtable would add; and when that owner cannot be established (OwnerUnknown)."""
+    try:
+        contract = class_contract.normalize_array_counts(contract)
+    except ValueError as why:
+        raise LayoutError(f"{contract['class']}: {why}") from why
     plan, problems = layout_plan(contract)
     if problems:
         raise LayoutError(f"{contract['class']}: layout cannot be declared: " + "; ".join(problems[:3]))

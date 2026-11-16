@@ -148,7 +148,18 @@ class TypeStream:
         if kind == 0x1001:
             return self.name(struct.unpack_from("<I", blob, 0)[0])
         if kind in (0x1003, 0x1503):
-            return "%s[%d]" % (self.name(struct.unpack_from("<I", blob, 0)[0]), numeric(blob, 8)[0])
+            element = struct.unpack_from("<I", blob, 0)[0]
+            total, _ = numeric(blob, 8)  # LF_ARRAY stores bytes, never element counts
+            width = self.size(element)
+            if width <= 0 or total < 0 or total % width:
+                raise ValueError(f"array type {ti:#x}: {total} bytes with unknown or incompatible "
+                                 f"element size {width}")
+            count = total // width
+            name = self.name(element)
+            # CodeView describes the inner array as the element. C++ spells
+            # the outer dimension first: int[2][3], not int[3][2].
+            nested = re.fullmatch(r"(.+?)((?:\[\d+\])+)", name)
+            return (f"{nested[1]}[{count}]{nested[2]}" if nested else f"{name}[{count}]")
         if kind in (0x1007, 0x1507):
             return "enum"
         return "bitfield" if kind == 0x1205 else "k%x" % kind
@@ -279,9 +290,17 @@ class TypeStream:
                    "bases": [], "fields": [], "statics": [], "methods": set(), "virtual": set(),
                    "vslots": {}, "vfptr": False}
             if fieldlist:
-                self.fields(fieldlist, out)
+                try:
+                    self.fields(fieldlist, out)
+                except ValueError as why:
+                    # One unmeasurable array refuses this class, not every
+                    # unrelated class sharing the object's type stream.
+                    out.update(error=str(why), unparsed=str(why), fields=[])
             out["methods"], out["virtual"] = sorted(out["methods"]), sorted(out["virtual"])
             out["vslots"] = {str(k // 4): v for k, v in sorted(out["vslots"].items())}
+            if out.get("error"):
+                found[name] = out
+                continue
             prior = found.get(name)
             if prior is not None and not prior.get("fwd") and _shape(prior) != _shape(out):
                 # two complete classes of one name in one stream: which one a use means is unknown,

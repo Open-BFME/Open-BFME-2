@@ -478,3 +478,62 @@ def test_pragma_cases_the_review_probed():
 ])
 def test_pragma_lookalikes_that_still_refuse(text):
     assert class_layouts.class_identities(text) is None
+
+
+def cv_array(element, byte_size, kind=0x1503):
+    length = (struct.pack("<H", byte_size) if byte_size < 0x8000
+              else struct.pack("<HI", 0x8004, byte_size))
+    blob = struct.pack("<II", element, 0x75) + length + b"\0"
+    return struct.pack("<HH", len(blob) + 2, kind) + blob
+
+
+@pytest.mark.parametrize("kind", [0x1003, 0x1503])
+@pytest.mark.parametrize("element,byte_size,name", [
+    (0x75, 16, "uint[4]"), (0x74, 32, "int[8]"),
+    (0x40, 80, "float[20]"), (0x10, 13, "char[13]"), (0x20, 9, "uchar[9]"),
+])
+def test_array_names_count_elements_while_size_remains_bytes(kind, element, byte_size, name):
+    types = class_layouts.TypeStream(struct.pack("<I", 4) + cv_array(element, byte_size, kind))
+    assert types.name(0x1000) == name
+    assert types.size(0x1000) == byte_size
+
+
+def test_nested_array_names_put_outer_dimension_first():
+    stream = struct.pack("<I", 4) + cv_array(0x74, 12) + cv_array(0x1000, 24)
+    types = class_layouts.TypeStream(stream)
+    assert types.name(0x1001) == "int[2][3]"
+    assert types.size(0x1001) == 24
+
+
+@pytest.mark.parametrize("element,byte_size", [(0x74, 14), (0x1001, 16), (0x03, 16)])
+def test_an_unknown_or_indivisible_element_width_never_becomes_an_array_count(element, byte_size):
+    types = class_layouts.TypeStream(struct.pack("<I", 4) + cv_array(element, byte_size))
+    with pytest.raises(ValueError, match="element size"):
+        types.name(0x1000)
+
+
+def test_arrays_use_the_complete_class_element_size():
+    stream = struct.pack("<I", 4) + cv_class("Coord", 12) + cv_array(0x1000, 48)
+    assert class_layouts.TypeStream(stream).name(0x1001) == "Coord[4]"
+
+
+def test_large_array_numeric_leaf_is_divided_without_truncation():
+    types = class_layouts.TypeStream(struct.pack("<I", 4) + cv_array(0x75, 65536))
+    assert types.name(0x1000) == "uint[16384]"
+    assert types.size(0x1000) == 65536
+
+
+def test_an_unmeasurable_array_refuses_only_its_own_class():
+    def record(kind, blob):
+        return struct.pack("<HH", len(blob) + 2, kind) + blob
+
+    array = cv_array(0x2000, 16)  # no definition for the element's type
+    field = record(0x1203, struct.pack("<HHIH", 0x150D, 3, 0x1000, 0) + b"bad\0")
+    bad_blob = struct.pack("<HHIIIH", 0, 0, 0x1001, 0, 0, 16) + b"\3Bad"
+    stream = struct.pack("<I", 4) + array + field + record(0x1004, bad_blob) + cv_class("Good", 4)
+    found = class_layouts.TypeStream(stream).classes()
+    assert "element size" in found["Bad"]["error"]
+    assert found["Bad"]["unparsed"]
+    assert found["Good"]["size"] == 4 and "error" not in found["Good"]
+    import json
+    json.dumps(found)  # per-class refusal must not break the shared parsed cache
