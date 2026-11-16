@@ -382,3 +382,18 @@ copy. It therefore does not try either reader or writer. Resolving that provider
 on master remains the next merge prerequisite; the old modern-only constructor
 repair is not included here. Logs and object comparison are in
 `build/decal-diagnostic/master-reader-*` and `master-algorithm-merge-dry.log`.
+
+**2026-11-16, local Hashable provider repair.** Restoring the historical two
+optimization directives around hcanim's hash/refcount include scope changes
+its Hashable constructor from 16 non-retail bytes to the correct 13 bytes.
+All four changed COMDATs are judged retail after the repair, with 62/62 row
+matches and six EXACT EH graphs retained. The user explicitly authorized the
+official admission of these two restored pragma tokens for local work; they
+remain registered debt. No new caller, class definition or source move is
+introduced. Paired preview retains 11,931 bytes; merge/runtime confirmation
+does not follow from that preview. [Evidence and limits](../../reverse/attempt_support/hashable-hcanim-provider-20261116.md).
+After refreshing the index, the focused official composer dry run passes the
+seed's former Hashable rejection and tries both donors. It still accepts none:
+reader floorf linkage and duplicate class views, writer Coord3D/RenderInfoClass,
+TheDX8MeshRenderer declaration and drawStartX/Y storage conflicts remain. The
+constructor prerequisite is cleared locally; the TU merge and runtime fix are not.

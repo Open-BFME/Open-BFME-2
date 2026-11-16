@@ -9730,6 +9730,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp	
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_resize.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_resize.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp	"",on	1	allow=331c9e308acfb071bcae50e380321297b0abb2e3
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp	"gsy",on	1	allow=331c9e308acfb071bcae50e380321297b0abb2e3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	"",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	"s",on	1

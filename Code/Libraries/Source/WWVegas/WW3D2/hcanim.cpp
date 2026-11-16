@@ -8,10 +8,12 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
+#pragma optimize("gsy", on)
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves; <new> must not
 #include "hash.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "refcount.h"
+#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
@@ -34,32 +36,32 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 */
 
 /* $Header: /Commando/Code/ww3d2/hcanim.cpp 3     6/29/01 6:41p Jani_p $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando / G 3D Library                                      * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/ww3d2/hcanim.cpp                             $* 
- *                                                                                             * 
- *                       Author:: Greg_h                                                       * 
- *                                                                                             * 
- *                     $Modtime:: 6/27/01 7:50p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando / G 3D Library                                      *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/ww3d2/hcanim.cpp                             $*
+ *                                                                                             *
+ *                       Author:: Greg_h                                                       *
+ *                                                                                             *
+ *                     $Modtime:: 6/27/01 7:50p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  *   NodeMotionStruct::NodeMotionStruct -- constructor                                         *
  *   NodeMotionStruct::~NodeMotionStruct -- destructor                                         *
- *   HCompressedAnimClass::HCompressedAnimClass -- constructor                                 * 
- *   HCompressedAnimClass::~HCompressedAnimClass -- Destructor                                 * 
- *   HCompressedAnimClass::Free -- De-allocates all memory in use                              * 
- *   HCompressedAnimClass::Load -- Loads hierarchy animation from a file                       * 
- *   HCompressedAnimClass::read_channel -- Reads in a single channel of motion                 * 
- *   HCompressedAnimClass::add_channel -- Adds a motion channel to the animation               * 
- *   HCompressedAnimClass::Get_Translation -- returns the translation vector for the given fram* 
- *   HCompressedAnimClass::Get_Orientation -- returns a quaternion for the orientation of the p* 
+ *   HCompressedAnimClass::HCompressedAnimClass -- constructor                                 *
+ *   HCompressedAnimClass::~HCompressedAnimClass -- Destructor                                 *
+ *   HCompressedAnimClass::Free -- De-allocates all memory in use                              *
+ *   HCompressedAnimClass::Load -- Loads hierarchy animation from a file                       *
+ *   HCompressedAnimClass::read_channel -- Reads in a single channel of motion                 *
+ *   HCompressedAnimClass::add_channel -- Adds a motion channel to the animation               *
+ *   HCompressedAnimClass::Get_Translation -- returns the translation vector for the given fram*
+ *   HCompressedAnimClass::Get_Orientation -- returns a quaternion for the orientation of the p*
  *   HCompressedAnimClass::read_bit_channel -- read a bit channel from the file                *
  *   HCompressedAnimClass::add_bit_channel -- install a bit channel into the animation         *
  *   HCompressedAnimClass::Get_Visibility -- return visibility state for given pivot/frame     *
@@ -653,7 +655,7 @@ void AdaptiveDeltaMotionChannelClass::Get_QuatVector(float32 frame, Quaternion &
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-NodeCompressedMotionStruct::NodeCompressedMotionStruct() : 
+NodeCompressedMotionStruct::NodeCompressedMotionStruct() :
 	Vis(NULL)
 {
 		vd.X = NULL;
@@ -731,17 +733,17 @@ int NodeCompressedMotionStruct::Get_Channel_Memory_Usage(void)
 	return size;
 }
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::HCompressedAnimClass -- constructor                                   * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::HCompressedAnimClass -- constructor                                   *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 HCompressedAnimClass::HCompressedAnimClass(void) :
 	NumFrames(0),
@@ -756,51 +758,51 @@ HCompressedAnimClass::HCompressedAnimClass(void) :
 	memset(HierarchyName,0,W3D_NAME_LEN);
 }
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::~HCompressedAnimClass -- Destructor                                   * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::~HCompressedAnimClass -- Destructor                                   *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 HCompressedAnimClass::~HCompressedAnimClass(void)
 {
 	Free();
 }
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::Free -- De-allocates all memory in use                                * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::Free -- De-allocates all memory in use                                *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-/*********************************************************************************************** 
- * HCompressedAnimClass::Load -- Loads hierarchy animation from a file                         * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::Load -- Loads hierarchy animation from a file                         *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 {
 	int i = 0;
-	/* 
+	/*
 	** First make sure we release any memory in use
 	*/
 	Free();
@@ -872,10 +874,10 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 					switch ( Flavor ) {
 
 						case ANIM_FLAVOR_TIMECODED:
-							
+
 							if (!read_channel(cload,&tc_chan)) {
 								goto Error;
-							}			
+							}
 							if (tc_chan->Get_Pivot() < NumNodes) {
 								add_channel(tc_chan);
 							} else {
@@ -886,7 +888,7 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 						case ANIM_FLAVOR_ADAPTIVE_DELTA:
 							if (!read_channel(cload,&ad_chan)) {
 								goto Error;
-							}			
+							}
 							if (ad_chan->Get_Pivot() < NumNodes) {
 								add_channel(ad_chan);
 							} else {
@@ -895,7 +897,7 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 							break;
 					}
 					break;
-		
+
 				case W3D_CHUNK_COMPRESSED_BIT_CHANNEL:
 					if (!read_bit_channel(cload,&newbitchan)) {
 						goto Error;
@@ -986,25 +988,25 @@ Error:
 
 	 // Load_W3D
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::read_channel -- Reads in a single channel of motion                   * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::read_channel -- Reads in a single channel of motion                   *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,TimeCodedMotionChannelClass * * newchan)
 {
 	*newchan = W3DNEW TimeCodedMotionChannelClass;
-	bool result = (*newchan)->Load_W3D(cload);	
-	
+	bool result = (*newchan)->Load_W3D(cload);
+
 	return result;
-  
+
 }
 
 	// read_channel
@@ -1012,26 +1014,26 @@ bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,TimeCodedMotionCh
 bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,AdaptiveDeltaMotionChannelClass * * newchan)
 {
 	*newchan = W3DNEW AdaptiveDeltaMotionChannelClass;
-	bool result = (*newchan)->Load_W3D(cload);	
-	
+	bool result = (*newchan)->Load_W3D(cload);
+
 	return result;
-  
+
 }
 
 	// read_channel
 
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::add_channel -- Adds a motion channel to the animation                 * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::add_channel -- Adds a motion channel to the animation                 *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 void HCompressedAnimClass::add_channel(TimeCodedMotionChannelClass * newchan)
 {
@@ -1113,10 +1115,10 @@ void HCompressedAnimClass::add_channel(AdaptiveDeltaMotionChannelClass * newchan
 bool HCompressedAnimClass::read_bit_channel(ChunkLoadClass & cload,TimeCodedBitChannelClass * * newchan)
 {
 	*newchan = W3DNEW TimeCodedBitChannelClass;
-	bool result = (*newchan)->Load_W3D(cload);	
+	bool result = (*newchan)->Load_W3D(cload);
 
-	return result;		 
-  
+	return result;
+
 }
 
 	// read_bit_channel
@@ -1187,17 +1189,17 @@ float HCompressedAnimClass::_bfme_hanim_fade(int pividx,float frame)
 	return fade;
 }
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::Get_Translation -- returns the translation vector for the given frame * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::Get_Translation -- returns the translation vector for the given frame *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 void HCompressedAnimClass::Get_Translation( Vector3& trans, int pividx, float frame ) const
 {
@@ -1215,7 +1217,7 @@ void HCompressedAnimClass::Get_Translation( Vector3& trans, int pividx, float fr
 	}
 
 	struct NodeCompressedMotionStruct * motion = &NodeMotion[pividx];
-	  
+
 	trans=Vector3(0,0,0);
 
 	switch(Flavor) {
@@ -1262,20 +1264,20 @@ void HCompressedAnimClass::Get_Translation( Vector3& trans, int pividx, float fr
 	}
 }
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::Get_Orientation -- returns a quaternion for the orientation of the    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::Get_Orientation -- returns a quaternion for the orientation of the    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 bool HCompressedAnimClass::Get_Orientation(Quaternion& q, int pividx,float frame) const
-{		
+{
 	if (VectorMotion) {
 		BFME2MotionChannel * chan = VectorMotion[pividx].Channels[3];
 		if (chan) {
@@ -1312,17 +1314,17 @@ bool HCompressedAnimClass::Get_Orientation(Quaternion& q, int pividx,float frame
 
  // Get_Orientation
 
-/*********************************************************************************************** 
- * HCompressedAnimClass::Get_Transform -- returns the transform matrix for the given frame	  * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   08/11/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * HCompressedAnimClass::Get_Transform -- returns the transform matrix for the given frame	  *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 // HCompressedAnimClass::Get_Transform is owned by HCompressedAnimTransform.cpp
 // (rowed 0x0018F3F0); this TU links against that copy.
