@@ -409,3 +409,14 @@ fingerprints agree and none is added. Whole-consumer closure is not established
 by this scoped preview. Logs: `build/decal-diagnostic/seed-direct-master-*`.
 The class-wide WW3D/StringClass/DX8Wrapper claims remain peer-held; their private
 views are not changed in this step.
+
+**Reader math-header prerequisite:** replace the late static floorf prototype
+with the existing scoped math.h inline-adapter pattern, restoring the incoming
+inline macro afterwards. This avoids redeclaring floorf with different linkage
+when a preceding donor already included math.h. Verification retains 17/17 rows,
+two EXACT EH graphs and 10,338 preview bytes. All 79 retained COMDAT fingerprints
+agree; four external wrappers (_ceilf, _cosf, _sinf, _sqrtf) become local. Their
+selected providers remain unchanged in the index overlay (the ceilf/sqrtf verdicts
+remain unknown, not newly proven retail). No shared math header or gate changes.
+Logs: `build/decal-diagnostic/reader-math-master-*`. This is a composition
+prerequisite, not a completed selection-rendering fix.

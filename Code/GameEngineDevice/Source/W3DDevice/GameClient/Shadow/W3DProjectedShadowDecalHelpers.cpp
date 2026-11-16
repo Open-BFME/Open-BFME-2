@@ -25,8 +25,12 @@
 // out-of-line accessor copy at 0x1089EA (cl inlines the [0] call only).
 // The remaining emission pattern anchors only the extrema helper.
 
-// Keep the unused math.h wrapper local to this translation unit.
-extern "C" { static float __cdecl floorf(float); }
+// Keep math.h's inline float adapters local without redeclaring floorf after
+// another part of the composed translation unit has already included math.h.
+#pragma push_macro("inline")
+#define inline static inline
+#include <math.h>
+#pragma pop_macro("inline")
 #include <algorithm>
 // The standard header supplies placement new before WWLib is included.
 #define _OPERATOR_NEW_DEFINED_
