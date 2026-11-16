@@ -16,14 +16,18 @@
 
 #include "../../Common/Thing/thing.h"
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
+#include "../../../Include/Common/Geometry.h"
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_25 = 0x25,
 	OBJECT_STATUS_4B = 0x4B
 };
 
-// The rowed bool getter at 0x006BE160 (placeholder row name), called on the
-// Object's +0xA8 member.
+// The rowed bool getter at 0x006BE160 (placeholder row name), called at the
+// Object's +0xA8 receiver (GeometryInfo's base).
 #include "../../../Include/Common/BfmeThingTemplateShadowSelector.h"
 
 struct Rva002CB35CTemplate
@@ -60,9 +64,11 @@ public:
 	float rva00263763(const void *other) const;
 	bool testStatus(ObjectStatusTypes status) const;
 	int rva0028B511() const;
-	char m_pad060[0xA8 - 0x60];
-	BfmeThingTemplateShadowSelector m_A8;	// +0xA8
-	char m_pad0A9[0x258 - 0xA9];
+	char m_pad060[0x74 - 0x60];
+	ObjectID m_id;
+	char m_pad078[0xA8 - 0x78];
+	GeometryInfo m_geometry;			// +0xA8
+	char m_pad104[0x258 - 0x104];
 	Rva002CB35CAI *m_258;				// +0x258
 };
 
@@ -158,9 +164,9 @@ bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 	float rangeSq;
 	if (victim)
 	{
-		if (source->m_A8.usePluralShadowName() && !victim->m_A8.usePluralShadowName())
+		if (((BfmeThingTemplateShadowSelector *)&source->m_geometry)->usePluralShadowName() && !((BfmeThingTemplateShadowSelector *)&victim->m_geometry)->usePluralShadowName())
 			distSq = source->rva0028ED19(pos, victim, victimPos);
-		else if (!source->m_A8.usePluralShadowName() && victim->m_A8.usePluralShadowName())
+		else if (!((BfmeThingTemplateShadowSelector *)&source->m_geometry)->usePluralShadowName() && ((BfmeThingTemplateShadowSelector *)&victim->m_geometry)->usePluralShadowName())
 			distSq = victim->rva0028ED19(victimPos, source, pos);
 		else
 			distSq = source->rva002636F6(pos, victim, victimPos);
