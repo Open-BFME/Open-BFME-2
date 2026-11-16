@@ -3,9 +3,19 @@
 // Target callers establish Weapon receivers; Object fields are position +0x38
 // and ID +0x74. Address-based method names and control arguments remain neutral.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Object { public: char m_pad[0x38]; Coord3D m_position; char m_pad44[0x30]; int m_id; };
+
+#include "../../Common/Thing/thing.h"
+
+#include "../../Common/GameLogicObjectLookupView.h"
+
+class Object : public Thing
+{
+public:
+	char m_pad060[0x74 - 0x60];
+	ObjectID m_id;
+};
 #include "../../../Include/GameLogic/Weapon.h"
 bool Weapon::rva002CE74B(const Object *source, const Object *target)
 {
-    return privateFireWeapon(source, &source->m_position, target, target->m_id, 0, 1, 1, 0, 0);
+    return privateFireWeapon(source, &source->m_cachedPos, target, target->m_id, 0, 1, 1, 0, 0);
 }
