@@ -25,7 +25,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies (Release_Ref 0x005D1A7D's dec form, ??_G 0x00072899's
 // pop ecx form): compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "rendobj.h"

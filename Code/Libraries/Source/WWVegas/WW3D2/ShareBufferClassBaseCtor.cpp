@@ -2,7 +2,6 @@
 
 // Retail's RefCountClass inline copies (Release_Ref 0x005D1A7D, scalar deleting
 // dtor 0x00072899) are the size form: compile refcount.h for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 

@@ -3,7 +3,6 @@
 // copy that competes with retail's integer-move owner (0x006D8A30).
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"

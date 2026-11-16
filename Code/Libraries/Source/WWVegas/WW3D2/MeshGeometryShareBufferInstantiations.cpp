@@ -28,7 +28,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // Retail's out-of-line RefCountClass deleting dtor is the /O1 form hlod.cpp
 // emits; compile refcount.h for size, ahead of rendobj.h.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 

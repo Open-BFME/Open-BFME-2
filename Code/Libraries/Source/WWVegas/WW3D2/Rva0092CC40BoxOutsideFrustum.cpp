@@ -25,7 +25,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "colmath.h"
 // The out-of-line Overlap_Test(PlaneClass, Vector3) this unit emits must be
 // retail's size-optimized body (row 0x0007B638), so its header is read under /Os.
-#pragma optimize("s", on)
 #include "colmathplane.h"
 #pragma optimize("", on)
 #include "colmathinlines.h"

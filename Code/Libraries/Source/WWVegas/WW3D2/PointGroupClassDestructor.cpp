@@ -5,7 +5,6 @@
 // (PointLoc +4 through PointFrame +0x18, Texture +0x24).
 
 // Match the retail RefCountClass release helper in its provider's size context.
-#pragma optimize("gsy", on)
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/refcount.h"
 #pragma optimize("", on)
 #include "sharebuf.h"

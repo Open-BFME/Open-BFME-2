@@ -15,7 +15,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // Retail's out-of-line RefCountClass copies (Release_Ref, deleting dtor) are the
 // /O1 forms hlod.cpp emits; compile refcount.h for size, ahead of rendobj.h.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 

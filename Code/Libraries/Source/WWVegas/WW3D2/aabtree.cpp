@@ -3,7 +3,6 @@
 // Retail's operator delete[] is nothrow (docs/matching.md, the eighth
 // pattern): ~AABTreeClass 0x00197F30 frees its two arrays with no EH frame.
 void __cdecl operator delete[](void *) throw();
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"

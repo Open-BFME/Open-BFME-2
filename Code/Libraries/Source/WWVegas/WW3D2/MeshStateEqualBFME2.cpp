@@ -2,7 +2,6 @@
 // Link view first: Vector3 Length/Normalize/ctor, the scalar operator* and ==/!= stay inline
 // without emitting copies that compete with the linked ones.
 // Retail's operator!= (Vector3) copy is the size form (xor/inc): compile the view for size.
-#pragma optimize("s", on)
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
 #pragma optimize("", on)
 // Target00149A90..149BA8: compare eligibility of model/material views, optional

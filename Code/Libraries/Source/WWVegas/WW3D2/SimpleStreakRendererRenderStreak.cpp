@@ -15,7 +15,6 @@
 #define Matrix4x4 Matrix4
 // ShaderClass's copy ctor is emitted here; every other copy is the speed-optimized
 // one (mov edx), so this /O1 unit compiles shader.h for speed to agree with it.
-#pragma optimize("gty", on)
 #define inline __forceinline
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/shader.h"
 #undef inline

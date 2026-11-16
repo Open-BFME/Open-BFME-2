@@ -3,7 +3,6 @@
 // COMDAT copies that disagree with the first copy in link order.
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_eq_link/vector3_eq_link.h"
