@@ -7,7 +7,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 /*
 ** Copyright 2025 Electronic Arts Inc.
@@ -17,12 +16,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 */
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
-#pragma optimize("s", on)
 #include "multilist.h"
 // Preserve inline refcounts without unused competing external copies.
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"

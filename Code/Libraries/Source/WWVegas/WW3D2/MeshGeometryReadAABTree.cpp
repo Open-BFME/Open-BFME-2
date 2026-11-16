@@ -7,7 +7,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 // Share the retail size context with the RefCountClass release declaration.
 #include "refcount.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }

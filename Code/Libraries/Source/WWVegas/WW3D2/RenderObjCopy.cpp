@@ -7,7 +7,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // rendobj.h: this unit inlines RenderObjClass::Set_Hidden (a qualified or
@@ -32,7 +31,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 */
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
 #include "refcount.h"
