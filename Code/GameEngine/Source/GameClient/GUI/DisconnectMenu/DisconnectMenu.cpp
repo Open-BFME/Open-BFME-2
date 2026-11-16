@@ -73,53 +73,14 @@ class AptExternHandler;
 
 #include "../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
 class AptScreenInitGadgets;
 
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
 void _bfme_closeAptScreen(const AsciiString &name);
 
-// The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
-// GameWindow and, at +0x218, the 0x58-byte callback registry.
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
-
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-	// The base message handler (pinned 0x0051274F) the screens' own handlers
-	// delegate to first.
-	int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
-
-private:
-	AsciiString m_filename; // +0x270
-
-protected:
-	int m_274;
-
-private:
-	char m_278;
-};
+#include "../../../../Include/GameClient/Rva005248D0.h"
+#include "../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The open disconnect menu (VA 0x00E048D0; BFME 1's TheDisconnectMenu).
 class DisconnectMenu;
@@ -377,22 +338,22 @@ AptDisconnectScreen::AptDisconnectScreen(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptDisconnectScreen::OnInitialized);
 		AsciiString name("AptDisconnectScreen::OnInitialized");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptDisconnectScreen::Quit);
 		AsciiString name("AptDisconnectScreen::Quit");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptDisconnectScreen::Kick);
 		AsciiString name("AptDisconnectScreen::Kick");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptDisconnectScreen::OnBttnEnterText);
 		AsciiString name("AptDisconnectScreen::Chat::OnBttnEnterText");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	AsciiString name;
 	{
@@ -402,7 +363,7 @@ AptDisconnectScreen::AptDisconnectScreen(void *context)
 		for (; slot < 8; ++slot)
 		{
 			name.format("DisconnectScreen:PlayerColor:%d", slot);
-			m_externHandlers.AddExternHandler(name, slot, AptRef<AptExternHandler>(binding));
+			holder10.AddExternHandler(name, slot, AptRef<AptExternHandler>(binding));
 			rva00512EDD(slot, UnicodeString::TheEmptyString);
 		}
 	}

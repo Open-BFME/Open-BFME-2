@@ -34,7 +34,6 @@ public:
 };
 class AptCommandMap;class AptExternHandler;
 #include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-class AptExternHandlerAdder { public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>); _STL::vector<AsciiString> names; };
 
 
 struct AptOnlineSubScreen;
@@ -45,17 +44,8 @@ template <> AptOnlineSubScreen **vector<AptOnlineSubScreen *, allocator<AptOnlin
 // The canonical GameWindow (11 slots), as OpaqueScalarDeletingDtorsB12.cpp (first in link order)
 // reads it since 636533e29f, so both units emit the same GameWindow-based tables (LINK-177).
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-class Rva005248D0 {
-public: virtual ~Rva005248D0();
-public:
-    AptCommandMapAdder m_commandMaps;
-    AptExternHandlerAdder m_externHandlers;
-private: unsigned char unknown[0x58 - 0x1c];
-};
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
-public: _bfme_AptGameWindow(void *); virtual ~_bfme_AptGameWindow();
-private: AsciiString filename270;
-};
+#include "../../../Include/GameClient/Rva005248D0.h"
+#include "../../../Include/GameClient/_bfme_AptGameWindow.h"
 class AptOnline:public _bfme_AptGameWindow {
 public:
  void OnInitialized(const char*);
@@ -105,7 +95,7 @@ public:
     Rva005173F8(void *);
     virtual ~Rva005173F8();
 private:
-    unsigned char m_pad274[0x280 - 0x274];
+    unsigned char m_pad27C[0x280 - 0x27C];
     _STL::vector<AptOnlineSubScreen *> m_screens;
     AsciiString m_pendingScreen;
     AptOnlineSubScreen *m_currentScreen;
@@ -146,37 +136,37 @@ Rva005173F8::Rva005173F8(void *context):_bfme_AptGameWindow(context),m_currentSc
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::OnInitialized);
   AsciiString name("AptOnline::OnInitialized");
-  m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::ShellLoadScreen);
   AsciiString name("AptOnline::ShellLoadScreen");
-  m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::ShellUnloadScreen);
   AsciiString name("AptOnline::ShellUnloadScreen");
-  m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::Options);
   AsciiString name("AptOnline::Options");
-  m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::ShellExit);
   AsciiString name("AptOnline::ShellExit");
-  m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  AddCommandMap(name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::ExternFunc);
   AsciiString name("OnlineShellStartScreen");
-  m_externHandlers.AddExternHandler(name,0,AptRef<AptExternHandler>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  holder10.AddExternHandler(name,0,AptRef<AptExternHandler>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  {
   FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptOnline::ExternFunc);
   AsciiString name("OnlineAdvMode");
-  m_externHandlers.AddExternHandler(name,1,AptRef<AptExternHandler>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+  holder10.AddExternHandler(name,1,AptRef<AptExternHandler>(FunctorBinding(method,reinterpret_cast<FunctorTarget*>(this))));
  }
  g_bfmeAptWindowManager->bfmeSetText("APT:OnlineOrNetwork",TheGameText->fetch("APT:Online"),false);
  Rva00512069Register();

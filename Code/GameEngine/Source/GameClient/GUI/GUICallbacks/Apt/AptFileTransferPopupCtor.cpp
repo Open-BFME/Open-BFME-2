@@ -79,27 +79,7 @@ class AptExternHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	unsigned char m_names[0xC];
-};
-
-class __declspec(novtable) Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 // The open file transfer popup (VA 0x00E06398).
 extern int g_Va00E06398;
@@ -145,7 +125,7 @@ Rva00582FC1::Rva00582FC1(void *argument)
 		g_bfmeAptWindowManager->bfmeSetText(name, slot->m_name, false);
 		name.format("FileTransfer:PlayerColor:%d", count);
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&FileTransfer::PlayerColor);
-		m_externHandlers.AddExternHandler(name, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		((AptFileTransferPopup *)this)->ProcessProgress(count, 0, UnicodeString(L" "));
 		++count;
 	}
@@ -161,7 +141,7 @@ Rva00582FC1::Rva00582FC1(void *argument)
 			name.format("FileTransfer::Status%d", count);
 			g_bfmeAptWindowManager->bfmeSetText(name, UnicodeString(L" "), false);
 			name.format("FileTransfer:PlayerColor:%d", count);
-			m_externHandlers.AddExternHandler(name, -1, AptRef<AptExternHandler>(binding));
+			holder10.AddExternHandler(name, -1, AptRef<AptExternHandler>(binding));
 			++count;
 		} while (count < 8);
 	}

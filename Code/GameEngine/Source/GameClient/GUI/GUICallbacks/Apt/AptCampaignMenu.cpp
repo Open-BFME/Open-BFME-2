@@ -61,26 +61,8 @@ class AptExternHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	unsigned char m_names[0xC];
-};
-
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The campaign menu content TheLinearCampaignManager fills: mission name and
 // image name (dtor rowed 0x005211D1).
@@ -157,18 +139,6 @@ public:
 	AsciiString m_missionName;
 	AsciiString m_image;
 	bool m_victorious; // +0x08
-};
-
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-
-private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
 };
 
 class AptCampaignMenu : public _bfme_AptGameWindow
@@ -344,33 +314,33 @@ AptCampaignMenu::AptCampaignMenu(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignMenu::OnBttnMainMenu);
 		AsciiString name("AptCampaignMenu::OnBttnMainMenu");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignMenu::OnBttnSaveGame);
 		AsciiString name("AptCampaignMenu::OnBttnSaveGame");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignMenu::OnBttnLoadGame);
 		AsciiString name("AptCampaignMenu::OnBttnLoadGame");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignMenu::OnBttnLastMission);
 		AsciiString name("AptCampaignMenu::OnBttnLastMission");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignMenu::OnBttnNextMission);
 		AsciiString name("AptCampaignMenu::OnBttnNextMission");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignMenu::Victorious);
 		FunctorBinding binding = MakeBinding(method, reinterpret_cast<FunctorTarget *>(this));
 		AsciiString name(BfmeCampaignMenuQueryNames[0]);
-		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(binding));
+		holder10.AddExternHandler(name, 0, AptRef<AptExternHandler>(binding));
 	}
 	((Rva001EB74B *)TheLinearCampaignManager)->rva001EB74B((Rva001EB6A5Out *)&m_content);
 	AsciiString label("CampaignName:");

@@ -53,14 +53,7 @@ public:
 class AptCommandMap;
 class AptExternHandler;
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 // 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
 // reference under the name.
 class AptScreenInitGadgets;
@@ -182,12 +175,6 @@ public:
 	int m_data[10];
 };
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-};
-
 class Rva0057EE5C : public Rva005248D0
 {
 public:
@@ -195,7 +182,6 @@ public:
 	void rva0057EA0F();
 	void rva0057EF87();
 private:
-	char m_pad04[0x58 - 4];
 	Rva0043DA65 *m_holder; // +0x58: refcounted referent
 	int m_5C;
 	int m_60;

@@ -39,7 +39,6 @@ struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 template<class T>class AptRef:public Rva0057BC63FunctorHolder {public:AptRef(const FunctorBinding&b):Rva0057BC63FunctorHolder(b){}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
 class AptExternHandler;
-class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);private:void *start,*end,*limit;};
 // The primary base (retail table 0x00CF1630, whose deleting destructor is
 // 0x00740E85): its constructor keeps -1 at +4; its inline destructor's own
 // vptr store is dead and only the grandparent table 0x00C3962C remains.

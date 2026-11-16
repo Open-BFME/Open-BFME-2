@@ -62,65 +62,10 @@ class AptOverButtonHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-class AptOverButtonHandlerAdder
-{
-public:
-	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-// The image binder at +0x40 of the Apt window half (0x00524306 family):
-// window name to image name.
-class Rva00524306
-{
-public:
-	void rva00524767(const AsciiString &name, const AsciiString &image);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
-private:
-	unsigned char m_pad028[0x40 - 0x28];
-public:
-	Rva00524306 m_imageAdder; // +0x40
-private:
-	unsigned char m_pad04C[0x58 - 0x4C];
-};
-
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class AptCustomRender;
-
-class AptCustomRenderAdder
-{
-public:
-	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
-};
 
 class AptScreenInitGadgets;
 
@@ -176,14 +121,6 @@ public:
 };
 
 extern int g_Va00E048DC;
-
-// The custom renderers' adder sits at +0x34 of the Apt window half.
-class Rva005248D0CustomRenders
-{
-public:
-	unsigned char m_pad[0x34];
-	AptCustomRenderAdder m_customRenders; // +0x34
-};
 
 #include "../../../../../Include/Common/Rva002DC74A.h"
 
@@ -705,7 +642,7 @@ AptMainMenu::AptMainMenu(void *context)
 	{ \
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMainMenu::handler); \
 		AsciiString name(label); \
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this)))); \
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this)))); \
 	}
 	BIND_COMMAND(OnInitialized, "AptMainMenu::OnInitialized")
 	BIND_COMMAND(GoodCampaign, "AptMainMenu::GoodCampaign")
@@ -733,7 +670,7 @@ AptMainMenu::AptMainMenu(void *context)
 	{ \
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva0051569FMainMenuFields::access); \
 		AsciiString name(label); \
-		m_externHandlers.AddExternHandler(name, query, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this)))); \
+		holder10.AddExternHandler(name, query, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this)))); \
 	}
 	BIND_FIELD("MainMenuLevel", 0)
 	BIND_FIELD("MainMenuContinueCampaign", 1)
@@ -742,7 +679,7 @@ AptMainMenu::AptMainMenu(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMainMenu::RenderCredits);
 		AsciiString name("AptMainMenu::RenderCredits");
-		((Rva005248D0CustomRenders *)static_cast<Rva005248D0 *>(this))->m_customRenders.AddCustomRender(name, AptRef<AptCustomRender>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder34.AddCustomRender(name, AptRef<AptCustomRender>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	unsigned short path[260] = { 0 };
 	GetModuleFileNameW(0, path, sizeof(path));

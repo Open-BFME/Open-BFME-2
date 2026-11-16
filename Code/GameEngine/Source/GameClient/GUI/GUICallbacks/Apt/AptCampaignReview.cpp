@@ -67,44 +67,12 @@ class AptExternHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
 class AptScreenInitGadgets;
 
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
-// The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
-// GameWindow and, at +0x218, the 0x58-byte callback registry.
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
-
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-
-private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The open campaign review screen (VA 0x00E048C8).
 extern void *g_obj12F495C;
@@ -188,7 +156,7 @@ AptCampaignReview::AptCampaignReview(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignReview::Continue);
 		AsciiString name("AptCampaignReview::Continue");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignReview::rva000D1407);
@@ -198,12 +166,12 @@ AptCampaignReview::AptCampaignReview(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignReview::TotalCampaignScore);
 		AsciiString name("TotalCampaignScore");
-		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCampaignReview::playerSideType);
 		AsciiString name("playerSideType");
-		m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	DisplayVictoryLevel();
 	((Rva00224BC9Owner *)g_bfmeAptWindowManager)->check();

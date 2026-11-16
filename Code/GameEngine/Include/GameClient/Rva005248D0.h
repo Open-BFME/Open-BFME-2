@@ -6,12 +6,34 @@
 
 #include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
+class AptExternHandler;
+class AptCustomRender;
+
+// AddExternHandler 0x005245F3 registers through AptPlayer::AddExternHandler and appends the name to the string vector
+// at +0; ~Rva005241B0 0x005241B0 removes those names through 0x00523F57 (AptPlayer::RemoveExternHandler 0x002244CA).
+class AptExternHandlerAdder
+{
+public:
+    void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+private:
+    unsigned int field00[3];
+};
+
+// AddCustomRender 0x005246C0 registers through AptPlayer::AddCustomRender and appends the name to the string vector
+// at +0; ~Rva00524265 0x00524265 removes those names through 0x00523FEC (AptPlayer::RemoveCustomRender 0x002246B1).
+class AptCustomRenderAdder
+{
+public:
+    void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
+private:
+    unsigned int field00[3];
+};
+
 class Rva005241B0
 {
 public:
     ~Rva005241B0();
-private:
-    unsigned int holder10[3];
+    AptExternHandlerAdder holder10;
 };
 
 class Rva00524415
@@ -26,8 +48,7 @@ class Rva00524265
 {
 public:
     ~Rva00524265();
-private:
-    unsigned int holder34[3];
+    AptCustomRenderAdder holder34;
 };
 
 class Rva005242D7

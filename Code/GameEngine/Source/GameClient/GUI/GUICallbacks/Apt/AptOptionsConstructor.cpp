@@ -133,40 +133,10 @@ class AptScreenInitGadgets;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	unsigned char m_names[0xC];
-};
-
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
-
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-
-private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 #include "../../../../../Include/GameClient/GameText.h"
 
@@ -350,32 +320,32 @@ AptOptions::AptOptions(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSaveLoad::rva00433DF1);
 		AsciiString name("AptOptions::OnInitialized");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptOptions::Save);
 		AsciiString name("AptOptions::Save");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptOptions::Reset);
 		AsciiString name("AptOptions::Reset");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva0051847B::rva0051847B);
 		AsciiString name("AptOptions::Cancel");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptOptions::RefreshNat);
 		AsciiString name("AptOptions::RefreshNat");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptOptions::EnterAdvancedSettings);
 		AsciiString name("AptOptions::EnterAdvancedSettings");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptOptions::InitGadgets);
@@ -388,7 +358,7 @@ AptOptions::AptOptions(void *context)
 		for (i = 0; i < 7; ++i)
 		{
 			AsciiString name(g_aptOptionsExternNames[i]);
-			m_externHandlers.AddExternHandler(name, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+			holder10.AddExternHandler(name, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 	}
 
@@ -401,7 +371,7 @@ AptOptions::AptOptions(void *context)
 				templateName = "MasterOption0TemplateCustom";
 			else
 				templateName.format("MasterOption0Template%d", i);
-			m_externHandlers.AddExternHandler(templateName, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+			holder10.AddExternHandler(templateName, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 	}
 	{
@@ -409,7 +379,7 @@ AptOptions::AptOptions(void *context)
 		for (i = 0; i < 9; ++i)
 		{
 			templateName.format("AdvancedOption%dNum", i);
-			m_externHandlers.AddExternHandler(templateName, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+			holder10.AddExternHandler(templateName, i, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 	}
 

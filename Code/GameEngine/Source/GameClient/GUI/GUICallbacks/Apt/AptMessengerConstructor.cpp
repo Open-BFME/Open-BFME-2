@@ -139,55 +139,10 @@ class AptScreenInitGadgets;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-class AptCustomRenderAdder
-{
-public:
-	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x34 - 0x1C];
-
-public:
-	AptCustomRenderAdder m_customRenders; // +0x34
-
-private:
-	unsigned char m_pad040[0x58 - 0x40];
-};
-
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-
-private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class AptInGameChat
 {
@@ -241,56 +196,56 @@ AptMessenger::AptMessenger(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::rva00511AD4);
 		AsciiString name("MessengerX");
-		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::rva00511AD4);
 		AsciiString name("MessengerY");
-		m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::rva00511AD4);
 		AsciiString name("MessengerActiveTab");
-		m_externHandlers.AddExternHandler(name, 2, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 2, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::rva00511AD4);
 		AsciiString name("IsMaximized");
-		m_externHandlers.AddExternHandler(name, 3, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 3, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::rva00511AD4);
 		AsciiString name("ShowPlayerButtons");
-		m_externHandlers.AddExternHandler(name, 4, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 4, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::rva00511AD4);
 		AsciiString name("MessengerSetDragging");
-		m_externHandlers.AddExternHandler(name, 5, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder10.AddExternHandler(name, 5, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::OnInitialized);
 		AsciiString name("AptMessenger::OnInitialized");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptInGameChat::rva004E8213);
 		AsciiString name("AptMessenger::OnClosed");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::OnButtonSend);
 		AsciiString name("AptMessenger::OnButtonSend");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		AsciiString name("AptMessenger::CloseScreen");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(&Rva00511730));
+		AddCommandMap(name, AptRef<AptCommandMap>(&Rva00511730));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::GameWindowSize);
 		AsciiString name("AptMessenger::GameWindowSize");
-		m_customRenders.AddCustomRender(name, AptRef<AptCustomRender>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		holder34.AddCustomRender(name, AptRef<AptCustomRender>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	AptMessenger::s_instance = this;
 }

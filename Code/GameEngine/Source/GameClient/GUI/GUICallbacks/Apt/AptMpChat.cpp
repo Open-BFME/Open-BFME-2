@@ -79,15 +79,7 @@ namespace _STL
 }
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 // 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
 // reference under the name.
@@ -166,13 +158,6 @@ private:
 	bool m_initialized; // +0x68
 };
 
-class Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-};
-
 class Rva0057FE6B_P64
 {
 public:
@@ -198,7 +183,6 @@ public:
 	virtual ~Rva0057FE6B();
 	Rva0057FE6B(TargetRef00217D4C *target, int b, bool c);
 private:
-	char m_pad0[84];
 	Rva0057FE6B_Holder58 m_58;
 	int m_5C;
 	int m_60;

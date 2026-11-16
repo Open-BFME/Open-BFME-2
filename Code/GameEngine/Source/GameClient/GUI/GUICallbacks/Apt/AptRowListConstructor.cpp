@@ -138,29 +138,7 @@ class AptExternHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	unsigned char m_names[12]; // an STLport vector<AsciiString>
-};
-
-// The 0x58-byte callback registry (as in BfmeAptGameWindowDestructor.cpp),
-// constructed by the rowed 0x002D2C34.
-class __declspec(novtable) Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 // RegistryAsciiPath.cpp's narrow concatenation nodes: "level + name" is a
 // two-string node built in place; appending a char or a text goes out of
@@ -266,11 +244,11 @@ Rva005105D7::Rva005105D7(int level, const AsciiString &name)
 	levelName.format("_level%u.", m_level);
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva005105D7::OnRowShown);
-		m_commandMaps.AddCommandMap((levelName + m_name)+ "_OnRowShown", AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap((levelName + m_name)+ "_OnRowShown", AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva005105D7::OnRowHidden);
-		m_commandMaps.AddCommandMap((levelName + m_name)+ "_OnRowHidden", AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap((levelName + m_name)+ "_OnRowHidden", AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		int i = 0;
@@ -278,7 +256,7 @@ Rva005105D7::Rva005105D7(int level, const AsciiString &name)
 		AsciiStringPlusString prefix = levelName + m_name;
 		for (; i < 2; ++i)
 		{
-			m_externHandlers.AddExternHandler(prefix + '_' + s_queries[i], i, AptRef<AptExternHandler>(MakeExternBinding(reinterpret_cast<FunctorTarget *>(this),method)));
+			holder10.AddExternHandler(prefix + '_' + s_queries[i], i, AptRef<AptExternHandler>(MakeExternBinding(reinterpret_cast<FunctorTarget *>(this),method)));
 		}
 	}
 	rva0050EEDC();
