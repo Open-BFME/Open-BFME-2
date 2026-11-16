@@ -2015,7 +2015,7 @@ alternatename	Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp	?release@Rva00C
 alternatename	Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp	?ticks@Rva00CE12FCMutex@@UAEKXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp	?wait@Rva00CE12FCMutex@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	?note@Rva00056BFESub@@QAEXH@Z	1
-alternatename	Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	?note@Rva0053F1ECSub@@QAEXH@Z	2
+alternatename	Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	?note@Rva0053F1ECSub@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	?run@Rva00054BC3Sub@@QAEXHH@Z	1
 alternatename	Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	?run@Rva000556ABSub@@QAEXHH@Z	1
 alternatename	Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp	?run@Rva000E0298Sub@@QAEXHH@Z	1
@@ -3040,7 +3040,7 @@ alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_b
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045B	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??1Gen008030A0@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
-alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	??1BfmeC994@@UAE@XZ	3
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	??1BfmeC994@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	??1Gen00809750@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	??1Rva007E8810Message@@QAE@XZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	?Rva00809010Find@@YGPAURva00809500Sink@@PAURva00809500Entry@@@Z	1

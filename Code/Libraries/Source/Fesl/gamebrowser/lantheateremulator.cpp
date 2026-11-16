@@ -64,9 +64,7 @@ void *Rva007F93E0( void *message, void *route, void *owner );
 #pragma comment(linker, "/alternatename:??1Gen00809750@@UAE@XZ=??1Rva00808920LanGame@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?Rva00809010Find@@YGPAURva00809500Sink@@PAURva00809500Entry@@@Z=?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z")
 #pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva007E8810Message@@QAE@XZ=??1BfmeMsg@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
 struct Rva0080F100Object;
 struct LanGameEntryView
 {
