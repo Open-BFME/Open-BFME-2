@@ -51,44 +51,7 @@ struct IDirect3DDevice8
 	virtual HRESULT __stdcall SetFVF(DWORD fvf) = 0;
 };
 #include "../../../../../reference/shims/wwmath/Vector2.h"
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	Vector3 &operator=(const Vector3 &v)
-	{
-		X = v.X;
-		Y = v.Y;
-		Z = v.Z;
-		return *this;
-	}
-	void Set(float x, float y, float z)
-	{
-		X = x;
-		Y = y;
-		Z = z;
-	}
-	float &operator[](int i) { return (&X)[i]; }
-	Vector3 &operator+=(const Vector3 &v)
-	{
-		X += v.X;
-		Y += v.Y;
-		Z += v.Z;
-		return *this;
-	}
-	Vector3 &operator*=(float k)
-	{
-		X *= k;
-		Y *= k;
-		Z *= k;
-		return *this;
-	}
-
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 inline Vector3 operator+(const Vector3 &a, const Vector3 &b) { return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z); }
 namespace {
 // Implementation-only temporary: native copies the three fields separately.

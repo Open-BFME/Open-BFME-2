@@ -54,19 +54,7 @@ typedef bool Bool;
 #define MAX_POLYGON_NEIGHBORS 3
 #define NO_NEIGHBOR -1
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z);
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	__forceinline Real Length2(void) const { return X*X + Y*Y + Z*Z; }
-	__forceinline void Normalize(void);
-	static __forceinline Real Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X*b.X + a.Y*b.Y + a.Z*b.Z; }
-	static __forceinline void Normalized_Cross_Product(const Vector3 &a, const Vector3 &b, Vector3 *set_result);
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 // Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
 static __forceinline Vector3 ShadowSubtract(const Vector3 &lhs, const Vector3 &rhs) { Vector3 result; result.X=lhs.X-rhs.X; result.Y=lhs.Y-rhs.Y; result.Z=lhs.Z-rhs.Z; return result; }
 

@@ -21,19 +21,7 @@
 // memory into a local after the empty test and again after each Delete, as
 // retail's two loads of 0x00BCF628 show; a literal is never hoisted.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	static void Lerp(const Vector3 &a, const Vector3 &b, float alpha, Vector3 *out)
-	{
-		out->X = a.X + (b.X - a.X) * alpha;
-		out->Y = a.Y + (b.Y - a.Y) * alpha;
-		out->Z = a.Z + (b.Z - a.Z) * alpha;
-	}
-};
+#include "../WWMath/Vector3Data.h"
 
 class PlaneClass
 {

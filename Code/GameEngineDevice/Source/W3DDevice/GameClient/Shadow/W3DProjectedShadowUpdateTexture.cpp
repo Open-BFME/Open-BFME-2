@@ -17,30 +17,7 @@ public:
 #include "Vector2.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/vector3.h
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	Vector3 &operator = (const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-	void Rotate_Z(float s_angle, float c_angle)
-	{
-		float tmp_x = X;
-		float tmp_y = Y;
-
-		X = c_angle * tmp_x - s_angle * tmp_y;
-		Y = s_angle * tmp_x + c_angle * tmp_y;
-	}
-
-	friend Vector3 operator * (const Vector3 &a, float k);
-	friend Vector3 operator / (const Vector3 &a, float k);
-
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 inline Vector3 operator * (const Vector3 &a, float k)
 {

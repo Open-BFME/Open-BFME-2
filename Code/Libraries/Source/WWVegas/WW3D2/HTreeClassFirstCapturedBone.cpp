@@ -79,24 +79,7 @@
 // CompactTransform declared before the loop, then PostMul or Translate.
 #include <vector>
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	Vector3(const Vector3 & v) { X = v.X; Y = v.Y; Z = v.Z; }
-	Vector3 & operator = (const Vector3 & v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	Vector3 & operator += (const Vector3 & v) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
-	Vector3 & operator *= (float k) { X = X*k; Y = Y*k; Z = Z*k; return *this; }
-	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__declspec(dllimport) __forceinline static void Lerp(const Vector3 & a, const Vector3 & b, float alpha, Vector3 * set_result)
-	{
-		set_result->X = (a.X + (b.X - a.X)*alpha);
-		set_result->Y = (a.Y + (b.Y - a.Y)*alpha);
-		set_result->Z = (a.Z + (b.Z - a.Z)*alpha);
-	}
-	float X, Y, Z;
-};
+#include "../WWMath/Vector3Data.h"
 inline Vector3 operator + (const Vector3 & a, const Vector3 & b)
 {
 	return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);

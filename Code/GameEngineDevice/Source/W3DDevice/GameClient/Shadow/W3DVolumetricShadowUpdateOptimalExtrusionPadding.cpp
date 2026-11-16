@@ -25,19 +25,7 @@ typedef int Int;
 #include <stddef.h>
 #include <math.h>
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	__forceinline Vector3 &operator+=(const Vector3 &vec) { X += vec.X; Y += vec.Y; Z += vec.Z; return *this; }
-	__forceinline void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline float Length2(void) const { return X*X + Y*Y + Z*Z; }
-	__forceinline void Normalize(void);
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 __forceinline Vector3 operator+(const Vector3 &a, const Vector3 &b) { return Vector3(b.X+a.X, b.Y+a.Y, b.Z+a.Z); }
 __forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }

@@ -36,16 +36,7 @@ typedef bool Bool;
 #define BitSet( x, i ) ( (x) |= (i) )
 #define BitTest( x, i ) ( ( (x) & (i) ) != 0 )
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z);
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	static __forceinline Real Dot_Product(const Vector3 &lhs, const Vector3 &rhs) { return lhs.X*rhs.X + lhs.Y*rhs.Y + lhs.Z*rhs.Z; }
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 // Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
 static __forceinline Vector3 ShadowSubtract(const Vector3 &lhs, const Vector3 &rhs) { Vector3 result; result.X=lhs.X-rhs.X; result.Y=lhs.Y-rhs.Y; result.Z=lhs.Z-rhs.Z; return result; }
 

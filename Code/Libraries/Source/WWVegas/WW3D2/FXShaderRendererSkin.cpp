@@ -27,13 +27,7 @@
 // The method name is address-derived; the mesh class is the address-derived
 // view the caller already uses, a MeshClass by its Get_Deformed_Vertices call.
 
-class Vector3
-{
-public:
-    float &operator[](int i) { return (&X)[i]; }
-    const float &operator[](int i) const { return (&X)[i]; }
-    float X, Y, Z;
-};
+#include "../WWMath/Vector3Data.h"
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

@@ -624,19 +624,7 @@ extern Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int lin
 // Retail independently proves the 48-byte matrix and three-float vectors.
 // Keeping both row assignment and matrix copy inline reproduces the native
 // direction spills; omitting either changes the body even with equal math.
-class Vector3
-{
-public:
-	float X, Y, Z;
-	Vector3() {}
-	Vector3(const Vector3 &r) { X = r.X; Y = r.Y; Z = r.Z; }
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	Vector3 &operator=(const Vector3 &r)
-	{ X = r.X; Y = r.Y; Z = r.Z; return *this; }
-	Vector3 operator-() const { return Vector3(-X, -Y, -Z); }
-	static float Dot_Product(const Vector3 &a, const Vector3 &b)
-	{ return a.X * b.X + a.Y * b.Y + a.Z * b.Z; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 // BFME1 donor: 1399ad37d42ea52a63829e417c46a1ba9ed2cd20,
 // game/GameEngine/Source/GameLogic/Object/Body/ActiveBody_setMaxHealth.cpp.
