@@ -65,12 +65,7 @@ static __forceinline void matrixRotateZ(Matrix3D &m, float theta)
 enum KindOfType { KINDOF_RVA0047A895_DA = 0xDA };
 
 class Object;
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *obj) const;		// 0x001E46E1
-	float getMaxTurnRate(Object *obj) const;	// 0x001E3E9F
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 struct Rva0028AC4EEntry;
 
 #include "../../../../Include/GameLogic/Module/PhysicsBehavior.h"
