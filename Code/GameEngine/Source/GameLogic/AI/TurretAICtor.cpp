@@ -19,8 +19,8 @@
 // TurretStateMachine ctor 0x004D7CE6 with name key 0xA503DF7E) and started
 // through its slot 7 (initDefaultState). WB 0x0134FED0 is the same body
 // with the debug null-data check and the 0x48-byte machine.
-// The base and notify-interface views repeat TurretAIDtor.cpp so both
-// units emit identical vtable COMDATs; the class view is the TU's.
+// The class comes from the canonical header, as in TurretAIDtor.cpp, so both
+// units emit identical vtable COMDATs.
 // The INIException shim by path, so the unit composes the same beside
 // any include order.
 #include "../../../../../reference/shims/iniexception/Common/INIException.h"
@@ -88,35 +88,7 @@ enum UpdateSleepTime
 // TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
 class INI;
 class MultiIniFieldParse;
-class TurretAIData
-{
-public:
-	TurretAIData();
-	static void parseTurretSweep(INI *ini, void *instance, void *store, const void *userData);
-	static void parseTurretSweepSpeed(INI *ini, void *instance, void *store, const void *userData);
-	static void buildFieldParse(MultiIniFieldParse &p);
-	float m_turnRate; // +0x00
-	float m_pitchRate; // +0x04
-	float m_naturalTurretAngle; // +0x08
-	float m_naturalTurretPitch; // +0x0C
-	float m_turretFireAngleSweep[WEAPONSLOT_COUNT]; // +0x10
-	float m_turretSweepSpeedModifier[WEAPONSLOT_COUNT]; // +0x28
-	float m_firePitch; // +0x40
-	float m_minPitch; // +0x44
-	float m_groundUnitPitch; // +0x48
-	unsigned int m_turretWeaponSlots; // +0x4C
-	float m_minIdleScanAngle; // +0x50
-	float m_maxIdleScanAngle; // +0x54
-	unsigned int m_minIdleScanInterval; // +0x58
-	unsigned int m_maxIdleScanInterval; // +0x5C
-	unsigned int m_recenterTime; // +0x60
-	bool m_initiallyDisabled; // +0x64
-	bool m_firesWhileTurning; // +0x65
-	bool m_isAllowsPitch; // +0x66
-	char m_pad67[0x1];
-	float m_maxDeflectionCW; // +0x68
-	float m_maxDeflectionACW; // +0x6C
-};
+#include "../../../Include/GameLogic/Module/TurretAI.h"
 
 enum TurretStateType
 {
@@ -147,64 +119,6 @@ enum TurretTargetType
 // The 0x40-byte turret machine (vtable 0x00C609C8); getGoalObject is 0x004D7726.
 #include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
-#include "../../../Include/Common/TurretAINotifyBase.h"
-
-class TurretAI : public Snapshot, public TurretAINotifyBase
-{
-public:
-	TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur);
-	TurretAI(EmitVtableTag *);
-protected:
-	virtual ~TurretAI();
-public:
-	virtual void loadPostProcess();
-	virtual void notifyFired();
-	virtual void notifyNewVictimChosen(Object *victim);
-	float getTurretFireAngleSweepForWeaponSlot(WeaponSlotType slot) const;
-	float getTurretSweepSpeedModifierForWeaponSlot(WeaponSlotType slot) const;
-	void setTurretTargetObject(Object *victim, bool forceAttacking);
-	void setTurretTargetPosition(const Coord3D *pos);
-	bool isOwnersCurWeaponOnTurret() const;
-	bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
-	void recenterTurret();
-	void setTurretEnabled(bool enabled);
-	bool isTurretInNaturalPosition() const;
-	void friend_checkForIdleMoodTarget();
-	Object *getOwner() const { return m_owner; }
-	void rva004D82F6();
-	UpdateSleepTime updateTurretAI();
-	void friend_notifyStateMachineChanged() { m_sleepUntil = TheGameLogic->getFrame(); }
-	float getNaturalTurretAngle() const { return m_data->m_naturalTurretAngle; }
-	float getNaturalTurretPitch() const { return m_data->m_naturalTurretPitch; }
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	void removeSelfAsTargeter();
-	void startRotOrPitchSound();
-	void stopRotOrPitchSound() { rva004D82F6(); }
-	const TurretAIData *m_data;					// +0x08
-	WhichTurretType m_whichTurret;				// +0x0C
-	Object *m_owner;							// +0x10
-	TurretStateMachine *m_turretStateMachine;	// +0x14
-	float m_angle;								// +0x18
-	float m_pitch;								// +0x1C
-	unsigned int m_audio20;						// +0x20
-	unsigned int m_enableSweepUntil;			// +0x24
-	Team *m_victimInitialTeam;					// +0x28
-	int m_target;								// +0x2C
-	unsigned int m_continuousFireExpirationFrame;		// +0x30
-	unsigned int m_sleepUntil;					// +0x34
-	bool m_playRotSound;						// +0x38
-	bool m_playPitchSound;						// +0x39
-	bool m_positiveSweep;						// +0x3A
-	bool m_didFire;								// +0x3B
-	bool m_enabled;								// +0x3C
-	bool m_firesWhileTurning;					// +0x3D
-	bool m_isForceAttacking;					// +0x3E
-	bool m_targetWasSetByIdleMood;				// +0x3F
-protected:
-	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x004D86BB
-};
 // End of the TurretAI.cpp TU view.
 
 TurretAI::TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur) :
@@ -215,7 +129,7 @@ TurretAI::TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur)
 	m_audio20(1),
 	m_enableSweepUntil(0),
 	m_victimInitialTeam(0),
-	m_target(0),
+	m_target(TARGET_NONE),
 	m_sleepUntil(0),
 	m_playRotSound(false),
 	m_playPitchSound(false),

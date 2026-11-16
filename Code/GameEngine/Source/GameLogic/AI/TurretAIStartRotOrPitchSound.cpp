@@ -22,6 +22,8 @@
 #include "../../../Include/Common/Rva0036CA00Str.h"
 #include "../../../Include/Common/Rva002390CBInlines.h"
 
+// Before Drawable.h, so the TU selects the Snapshot slot spelling TurretAI overrides.
+#include "../../../Include/GameLogic/Module/TurretAI.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 #include "../Object/object.h"
@@ -55,27 +57,16 @@ template <> class TurretAudioMore<0> : public TurretAudioPart1
 #include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
-class TurretAI
-{
-private:
-	void startRotOrPitchSound();
-
-	unsigned char m_pad00[0x10];
-	Object *m_owner;						// +0x10
-	unsigned char m_pad14[0x20 - 0x14];
-	int m_turretRotOrPitchHandle;			// +0x20
-};
-
 void TurretAI::startRotOrPitchSound()
 {
-	if (!TheAudio->isCurrentlyPlaying(m_turretRotOrPitchHandle))
+	if (!TheAudio->isCurrentlyPlaying(m_audio20))
 	{
 		Drawable *drawable = m_owner->getDrawable();
 		if (drawable)
 		{
 			BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&drawable->rva00274CD8(AsciiString("TurretMoveLoop")).m_04, 0);
 			reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531(m_owner->getID());
-			m_turretRotOrPitchHandle = TheAudio->addAudioEvent(&sound);
+			m_audio20 = TheAudio->addAudioEvent(&sound);
 		}
 	}
 }
