@@ -26,14 +26,10 @@ extern GameTextInterface *TheGameText;
 
 // Target callback slots are address evidence. The holder records are four
 // dwords; the final two are an address and this-adjustment word.
-class __multiple_inheritance FunctorTarget;
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 typedef void (FunctorTarget::*FunctorMethod)();
 #include "../../../../../Include/GameClient/AptSaveLoad.h"
 class Rva00434337 {public:void rva00434337(int);};
-struct FunctorBinding { FunctorBinding(){}
- template<class T> FunctorBinding(T*target,void(T::*f)(int)):m_target(reinterpret_cast<FunctorTarget*>(target)),m_method(reinterpret_cast<FunctorMethod>(f)){}
- FunctorTarget*m_target;unsigned int m_pad;FunctorMethod m_method;
-};
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class FunctorWrapperHead
@@ -128,9 +124,7 @@ struct AptSaveLoadScreen : public AptSaveLoad, public Rva00434337
 };
 __forceinline FunctorBinding MakeBinding(FunctorTarget *target, FunctorMethod method)
 {
-	FunctorBinding binding;
-	binding.m_target = target;
-	binding.m_method = method;
+	FunctorBinding binding(method, target);
 	return binding;
 }
 typedef void (__cdecl *SaveCallback)(int);

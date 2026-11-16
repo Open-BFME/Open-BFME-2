@@ -37,12 +37,8 @@ private:
 // These views reuse the rowed 16-byte member binding and two-handle lifetime.
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class __multiple_inheritance FunctorTarget;
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 typedef void (FunctorTarget::*FunctorMethod)();
-struct FunctorBinding {
- FunctorTarget *target; unsigned pad; FunctorMethod method;
- FunctorBinding(FunctorMethod functorMethod,FunctorTarget *functorTarget):target(functorTarget),method(functorMethod){}
-};
 class FunctorWrapperHead {
 public:
  FunctorWrapperHead() : m_refCount(0) {}

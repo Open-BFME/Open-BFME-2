@@ -31,15 +31,8 @@ public:
     unsigned char pad[0x2c - 4];
 };
 
-class __multiple_inheritance FunctorTarget;
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 typedef void (FunctorTarget::*FunctorMethod)();
-struct FunctorBinding
-{
-    FunctorBinding(FunctorMethod callback, FunctorTarget *functorTarget) : target(functorTarget), method(callback) {}
-    FunctorTarget *target;
-    unsigned pad;
-    FunctorMethod method;
-};
 #include "../../../../../Include/Common/FunctorWrapperHead.h"
 class Rva0057BC63FunctorHolder
 {

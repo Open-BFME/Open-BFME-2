@@ -18,9 +18,8 @@ bool less<int>::operator()(const int &m_00, const int &m_04) const
 }
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class __multiple_inheritance FunctorTarget;
+#include "../../../../../Include/GameClient/FunctorBinding.h"
 typedef void(FunctorTarget::*FunctorMethod)();
-struct FunctorBinding {FunctorBinding(FunctorMethod m,FunctorTarget *t):target(t),method(m){} FunctorTarget *target;unsigned pad;FunctorMethod method;};
 class FunctorWrapperHead { public: FunctorWrapperHead():m_refCount(0) {} virtual void anchor(); int m_refCount; };
 class Rva0057BC63FunctorWrapper:public FunctorWrapperHead { public: Rva0057BC63FunctorWrapper(const FunctorBinding&binding):m_binding(binding) {} void invoke(); FunctorBinding m_binding; };
 struct Rva0057BC63FunctorHolder {__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding) { Rva0057BC63FunctorWrapper *p=new Rva0057BC63FunctorWrapper(binding);ptr=(TargetRef00217D4C*)p;if(p)++p->m_refCount; }Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &o):ptr(o.ptr){if(ptr)++ptr->references;}TargetRef00217D4C *ptr;};
@@ -41,13 +40,8 @@ extern "C" void __cdecl Rva00437F61(int,const UnicodeString &,const UnicodeStrin
 // (rowed copy ctor 0x0044BD00, no dtor in the callers' view), the owning temp
 // is the derived Rva0044BA4E (ctor over two members, dtor 0x0044BA4E); the
 // outer holder is built by the rowed ctor 0x0044BF40 taking the root by value.
-class Rva004C5DD0
-{
-public:
-	Rva004C5DD0(const Rva004C5DD0 &o);
-	TargetRef00217D4C *m_00; // +0x00
-	TargetRef00217D4C *m_04; // +0x04
-};
+#include "../../../../../Include/Common/Rva004C5DD0Ref.h"
+#include "../../../../../Include/Common/Rva004C5DD0.h"
 struct Rva0044BA4E : Rva004C5DD0
 {
 public:
