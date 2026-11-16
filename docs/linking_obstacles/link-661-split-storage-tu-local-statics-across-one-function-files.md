@@ -537,3 +537,18 @@ merge was reverted after its commit hook refused private DX8Wrapper/WW3D copies;
 those newly available class claims are now acquired. Reader std::max provider
 proof remains outstanding. See the
 [RefCount handoff](../../reverse/attempt_support/projected-shadow-refcount-20261116.md).
+
+**Canonical writer render-state classes:** after acquiring the newly free
+WW3D, StringClass and DX8Wrapper claims, replace their private declarations with
+registered headers and retain the existing inline bodies outside the classes.
+All ten rows and the EH graph match; every external provider fingerprint is
+unchanged. All three official header acceptances pass and retire their queue
+rows. Scoped preview remains 2,583 bytes against the cached census. This removes
+the private declarations responsible for the previous writer-merge hook refusal;
+the composer and commit hook must still validate the actual merged file.
+The subsequent dry run accepts no donor: the destination's transitive donor
+StringClass conflicts with StringClassData.h, and the D3D8 shim's typedef
+conflicts with DX8WrapperClass.h's enum forward declaration (C2011/C2371).
+The reader's byte check now succeeds and only its std::max<float> provider
+refusal remains. No merged source was written. Details and next evidence in
+the RefCount handoff above; log: canonical-statics-merge-dry.log.

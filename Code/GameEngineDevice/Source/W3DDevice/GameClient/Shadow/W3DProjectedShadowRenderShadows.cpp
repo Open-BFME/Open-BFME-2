@@ -200,7 +200,8 @@ extern DX8MeshRendererClass *TheDX8MeshRenderer;
 // The bounds call is reached through the TU-local dispatch view above.
 class BaseHeightMapRenderObjClass;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-class WW3D {friend class W3DProjectedShadowManager;static bool IsCurrentlyRenderingShadowMap;static bool SnapshotActivated;public:static bool Is_Snapshot_Activated(){return SnapshotActivated;}};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
+inline bool WW3D::Is_Snapshot_Activated() { return SnapshotActivated; }
 // WW3D::Flush(RenderInfoClass &) 0x001173F0, under the ledger row's spelling.
 void __cdecl rva001173f0(unsigned int renderArgument);
 class W3DDualProjectedShadow;
@@ -350,29 +351,16 @@ struct IDirect3DDevice8
 	virtual HRESULT __stdcall SetRenderState(D3DRENDERSTATETYPE state, DWORD value) = 0;	// +0xE4
 };
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass() { Free_String(); }
-private:
-	char *m_Buffer;
-private:
-	void Free_String();
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
 
 extern unsigned number_of_DX8_calls;
-class DX8Wrapper {public:
-static bool Has_Stencil();
-static void Get_DX8_Render_State_Value_Name(StringClass &,D3DRENDERSTATETYPE,unsigned);
-static void Clear(bool,bool,bool,const Vector3 &,float,float,unsigned);
-static __forceinline void Set_DX8_Render_State(D3DRENDERSTATETYPE state,unsigned value) {
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+__forceinline void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state,unsigned value) {
  if(RenderStates[state]==value)return;
  if(WW3D::Is_Snapshot_Activated()){StringClass name(0,true);Get_DX8_Render_State_Value_Name(name,state,value);}
  RenderStates[state]=value;D3DDevice->SetRenderState(state,value);++number_of_DX8_calls;++render_state_changes;
 }
-protected:static IDirect3DDevice8 *D3DDevice;static unsigned RenderStates[256];static unsigned render_state_changes;
-};
 class GlobalData;extern GlobalData *TheWritableGlobalData;
 struct ShadowGlobalView10DF33 {char pad9a7[0x9a7];bool flag9a7;};
 // Native10DA71..10DF33 is the complete1218B stencil/decal list pass.

@@ -28,3 +28,23 @@ were held by another worker then; their claims have since become available and
 were acquired for the next adoption. No hook was bypassed. The reader still
 requires a separate investigation of the disappearing std::max<float> COMDAT.
 Neither the merge nor selection rendering has been verified in a game image.
+
+## Follow-up after render-state header adoption
+
+The writer now uses canonical WW3D, StringClass and DX8Wrapper declarations.
+Its ten rows, EH graph and every external provider fingerprint are unchanged;
+all three official header acceptances passed. The next official dry run
+(canonical-statics-merge-dry.log) still accepts no donor. The seed's transitive
+reference headers already define StringClass, so including StringClassData.h
+in the composed file reports C2011 and a duplicate inline destructor. Also,
+the reference d3d8_shim_validated.h typedefs D3DTRANSFORMSTATETYPE to
+_D3DTRANSFORMSTATETYPE but does not define the SDK's _D3D8TYPES_H_ guard;
+DX8WrapperClass.h consequently forward-declares a different enum (C2371).
+These conflicts require reconciling the actual header dependencies, not
+manually merging or suppressing compiler diagnostics.
+
+The reader now has only the missing std::max<float> provider refusal. Its byte
+comparison succeeds. The old census has no reference to that name, but a
+complete ProviderGuard proof covering the current replacement objects is still
+needed before classifying this as a false rejection or changing the gate.
+No verifier changes were made in this round. No actual merge was applied.
