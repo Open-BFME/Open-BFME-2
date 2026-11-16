@@ -22,6 +22,8 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::assign(basic_string<char, char_traits<char>, allocator<char> > const &); }
 
+namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(basic_string<char, char_traits<char>, allocator<char> > const &); }
+
 namespace _STL { template <> char * basic_string<char, char_traits<char>, allocator<char> >::erase(char *, char *); }
 
 namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, char const *, unsigned int); }
@@ -123,7 +125,8 @@ template <> BfmeAssignRecord24 *__copy_backward<BfmeAssignRecord24 *, BfmeAssign
 }
 
 // The vector instance retail links is the one rowed for the 0x18-byte record
-// named BfmeNarrowRecord00427F75; the parser's local entry derives from it.
+// named BfmeNarrowRecord00427F75; the parser's entry has the same two-string
+// footprint, but owns its members so its copy is the native 61-byte body.
 struct BfmeNarrowRecord00427F75
 {
 	_STL::basic_string<char> m_key;
@@ -143,8 +146,10 @@ private:
 	_STL::basic_string<char> m_value;
 };
 
-struct VersionBlockEntry : public BfmeNarrowRecord00427F75
+struct VersionBlockEntry
 {
+	_STL::basic_string<char> m_key;
+	_STL::basic_string<char> m_value;
 	VersionBlockEntry();
 	VersionBlockEntry(const VersionBlockEntry &other);
 	~VersionBlockEntry();
@@ -560,7 +565,7 @@ bool VersionBlockParser::parse(const char *versionBlock)
 		VersionBlockEntry e;
 		e.m_key.assign(key);
 		e.m_value.assign(val);
-		m_records.push_back(e);
+		m_records.push_back((const BfmeNarrowRecord00427F75 &)e);
 		if (*s != 0)
 			++s;
 	}
@@ -595,7 +600,7 @@ void VersionBlockParser::rva00428B27(const char *key, const char *value)
 			VersionBlockEntry e;
 			e.m_key = key;
 			e.m_value = value;
-			m_records.push_back(e);
+			m_records.push_back((const BfmeNarrowRecord00427F75 &)e);
 			_STL::sort((VersionBlockEntry *)&*m_records.begin(), (VersionBlockEntry *)&*m_records.end(), VersionBlockKeyCompare());
 		}
 	}
@@ -944,3 +949,9 @@ VersionBlockParser::VersionBlockParser(const char *versionBlock)
 // tu-skeleton: 0x007874BD 8B uw_007874bd -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
 // tu-skeleton: 0x00787515 11B uw_00787515 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// Keep this definition after the callers: their by-value copy must remain an
+// out-of-line call with retail's ESP-save ordering. The complete body and EH
+// graph match 0x00427F75; no alias or forwarding wrapper is needed.
+inline VersionBlockEntry::VersionBlockEntry(const VersionBlockEntry &other) : m_key(other.m_key), m_value(other.m_value) {}
+
