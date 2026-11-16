@@ -3,11 +3,11 @@
 // so they are kept apart from the unit's bodies that already link.
 // stlport
 // BF1 f98983a7d TAiDataCtor.cpp is the semantic and member-name guide.
-// Native670B 2FE382..2FE620 supplies every offset and constant:50-unit
-// water depth;5-unit acquire limit; extra floatB0=FLT_MAX andF0=1.0;
+// Native670B 2FE382..2FE620 supplies every offset and constant:5-unit
+// wade and 50-unit deep water depth; extra floatB0=FLT_MAX andF0=1.0;
 // string membersDC/E0/E4; pointersF4/F8/FC/100. AI constructor2FEA85
-// allocates114B and calls this exact body. Unaccessed final10B remain opaque.
-// Original TAiData and semantic member names are carried from the donor;
+// allocates114B and calls this exact body.
+// Member names come from the canonical TAiData.h;
 // target construction spine and Snapshot-family tableC071E4 corroborate
 // the subsystem relationship. Extra field meanings remain unresolved.
 // Existing global owner BfmeLogicFramesPerSecond is read normally twice as retail does.
@@ -26,96 +26,7 @@ extern int BfmeLogicFramesPerSecond;
 class Rva002FE620;
 class Rva002FED8D;
 class Gen0014AE40;
-class TAiData : public Snapshot
-{
-public:
-	TAiData();
-	friend class AI;
-	void addNamedList(Rva002FED8D*);
-	void addFactionBuildList(Gen0014AE40*);
-	TAiData&operator=(const TAiData&other);
- TAiData *next()const{return m_next;}
-	virtual ~TAiData();
-	virtual const char *GetSnapshotName() const;
-protected:
-	virtual void xfer( Xfer *xfer );
-public:
-	virtual void loadPostProcess();
-
-private:
-	Real m_structureSeconds;
-	Real m_teamSeconds;
-	UnsignedInt m_resourcesWealthy;
-	UnsignedInt m_resourcesPoor;
-	UnsignedInt m_forceIdleFramesCount;
-	Real m_structuresWealthyMod;
-	Real m_teamWealthyMod;
-	Real m_structuresPoorMod;
-	Real m_teamPoorMod;
-	Real m_teamResourcesToBuild;
-	Real m_guardInnerModifierAI;
-	Real m_guardOuterModifierAI;
-	Real m_guardInnerModifierHuman;
-	Real m_guardOuterModifierHuman;
-	UnsignedInt m_guardChaseUnitFrames;
-	UnsignedInt m_guardEnemyScanRate;
-	UnsignedInt m_guardEnemyReturnScanRate;
-	Real m_wallHeight;
-	Real m_alertRangeModifier;
-	Real m_aggressiveRangeModifier;
-	Real m_attackPriorityDistanceModifier;
-	Real m_maxRecruitDistance;
-	Real m_skirmishBaseDefenseExtraDistance;
-	Real m_repulsedDistance;
-	Bool m_enableRepulsors;
-	Bool m_forceSkirmishAI;
-	Bool m_rotateSkirmishBases;
-	Bool m_attackUsesLineOfSight;
-	Bool m_attackIgnoreInsignificantBuildings;
-	Real m_minDistanceForGroup;
-	Real m_distanceRequiresGroup;
-	Real m_minClumpDensity;
-	UnsignedInt m_infantryPathfindDiameter;
-	UnsignedInt m_vehiclePathfindDiameter;
-	UnsignedInt m_rebuildDelaySeconds;
-	Real m_supplyCenterSafeRadius;
-	Real m_aiDozerBoredRadiusModifier;
-	Bool m_aiCrushesInfantry;
-	Real m_meleeApproachTolerance;
-	Real m_meleeApproachDist;
-	Real m_meleeAcquireLimitDist;
-	Real m_wadeWaterDepth;
-	Real m_formationColumnWidth;
-	Real m_formationRowDepth;
-	Real m_formationSquadSpacing;
-	Real m_narrowPassageScale;
-	Real m_minFlightHeight;
-	UnsignedInt m_formationColumns;
-	Bool m_waitForOthers;
-	Bool m_hordesWaitForHordes;
-	Bool m_attackMoveUsesFormations;
-	Bool m_forceHordesToLowLOD;
-	Bool m_allowForestFires;
-	Bool m_useFormations;
-	Real m_altCameraZoomOverride;
-	Real m_altCameraPitchOverride;
-	Real m_maxRetaliateDistance;
-	Real m_retaliateFriendsRadius;
-	Real m_chaseFromBehindLimit;
-	Real m_castleSiegeStandBackDistance;
-	Bool m_useLowLODTrees;
-	AsciiString m_lowLodTreeName;
-	AsciiString m_lowLodTreeNameNoGrab;
-	AsciiString m_lowLodTreeNameNoHarvest;
-	Real m_lowLodTreeScale;
-	Bool m_disableTrees;
-	Real m_artilleryMaxFriendlyFire;
-	Rva002FE620 *m_sideInfo;
-	Gen0014AE40 *m_sideBuildLists;
-	Rva002FED8D *m_namedLists;
-	TAiData *m_next;
-	unsigned int m_unknown104[4];
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 TAiData::TAiData() :
 	m_structureSeconds( 0.0f ),
@@ -139,8 +50,8 @@ TAiData::TAiData() :
 	m_alertRangeModifier( 0.0f ),
 	m_aggressiveRangeModifier( 0.0f ),
 	m_attackPriorityDistanceModifier( 0.0f ),
+	m_skirmishGroupFudgeValue( 0.0f ),
 	m_maxRecruitDistance( 0.0f ),
-	m_skirmishBaseDefenseExtraDistance( 0.0f ),
 	m_repulsedDistance( 0.0f ),
 	m_enableRepulsors( 0 ),
 	m_forceSkirmishAI( 0 ),
@@ -158,8 +69,8 @@ TAiData::TAiData() :
 	m_aiCrushesInfantry( 1 ),
 	m_meleeApproachTolerance( 20.0f ),
 	m_meleeApproachDist( 60.0f ),
-	m_meleeAcquireLimitDist( 5.0f ),
-	m_wadeWaterDepth( 50.0f ),
+	m_wadeWaterDepth( 5.0f ),
+	m_deepWaterDepth( 50.0f ),
 	m_formationColumnWidth( 65.0f ),
 	m_formationRowDepth( 65.0f ),
 	m_formationSquadSpacing( 30.0f ),
@@ -288,7 +199,7 @@ AI::~AI()
  m_pathfinder=0;
  while(m_aiData) {
   TAiData *current=m_aiData;
-  m_aiData=m_aiData->next();
+  m_aiData=m_aiData->m_next;
   ::delete current;
  }
 }
