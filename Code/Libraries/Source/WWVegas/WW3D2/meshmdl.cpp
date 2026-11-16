@@ -43,15 +43,11 @@ struct Rva00172070Buffers
 #define _OPERATOR_NEW_DEFINED_
 #include "always.h"
 
-#include "../WWLib/MultiListObjectClass.h"
-
 struct UVBufferClass;
 
 #include "MeshMatDescClass.h"
 
 // The canonical geometry header keeps the proven 0x8C extent and +8 list base.
-// The existing list base replaces the reference multilist declarations.
-#define MULTILIST_H
 #include "MeshGeometryClass.h"
 
 class MeshModelClass;
@@ -68,30 +64,7 @@ class Rva00199FA5Rec;
 
 bool __cdecl rva00199FA5(Rva00199FA5Rec *p);
 
-class MeshModelClass : public MeshGeometryClass
-{
-public:
-	virtual ~MeshModelClass();
-	MeshModelClass &operator=(const MeshModelClass &that);
-	bool Needs_Vertex_Normals();
-	void Make_Geometry_Unique();
-	void Init_For_NPatch_Rendering();
-	void Register_For_Rendering();
-	int Get_Flag(int mask) const { return ((const unsigned char *)&Flags)[1] & mask; }
-
-	enum { PRELIT_MASK = 0xE0 };
-
-protected:
-	void clone_materials(const MeshModelClass &srcmesh);
-
-private:
-	MeshMatDescClass *DefMatDesc;
-	MeshMatDescClass *AlternateMatDesc;
-	MeshMatDescClass *CurMatDesc;
-	void *MatInfo;
-	unsigned char pad2[0xC0 - 0x9C];
-	bool HasBeenInUse;
-};
+#include "MeshModelClass.h"
 
 //
 // Retail 0x001718A0 (51 B) unlinks this owner from the +0xB4/+0xB8 list: when
@@ -153,7 +126,7 @@ extern class DX8MeshRendererClass *TheDX8MeshRenderer;
 // ?Needs_Vertex_Normals@MeshModelClass@@QAE_NXZ
 bool MeshModelClass::Needs_Vertex_Normals()
 {
-	if (Get_Flag(PRELIT_MASK) == 0) {
+	if ((Flags & PRELIT_MASK) == 0) {
 		return true;
 	}
 	return CurMatDesc->Do_Mappers_Need_Normals();

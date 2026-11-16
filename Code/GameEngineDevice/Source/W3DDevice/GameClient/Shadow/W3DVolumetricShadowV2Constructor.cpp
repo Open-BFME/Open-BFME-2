@@ -1,6 +1,6 @@
 // ??0W3DVolumetricShadowV2@@QAE@PAPAV0@PAVRenderObjClass@@@Z
 // partial score=0.98 date=2026-10-09
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // stlport
 // Recovery guided by prior bank and pinned BFME1 575ba2b04 shadow sources.
 // Target WB8DFDA0 names W3DVolumetricShadowV2 constructor; complete
@@ -41,21 +41,9 @@ struct AABoxClass
 	Rva0010811EVector3 Extent;
 };
 
-class MeshModelClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref()
-	{
-		if (--m_numRefs == 0)
-			Delete_This();
-	}
-
-	int m_numRefs; // +0x04
-	char m_pad08[0x24 - 8];
-	int m_polyCount; // +0x24
-	int m_vertexCount; // +0x28
-};
+// <new> supplies the placement operators; skip always.h's duplicates.
+#define _OPERATOR_NEW_DEFINED_
+#include "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.h"
 
 struct Rva0010811EMaterialView
 {
@@ -186,9 +174,9 @@ W3DVolumetricShadowV2::W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, R
 		m_submesh[k].m_mesh = meshes[k];
 		m_submesh[k].m_mesh->Add_Ref();
 		MeshModelClass *mmc = m_submesh[k].m_mesh->Get_Model();
-		m_submesh[k].m_vertices = new Rva0010811EVertex[mmc->m_vertexCount];
-		m_submesh[k].m_polygonFlags = new char[mmc->m_polyCount];
-		m_submesh[k].m_indices = new int[mmc->m_polyCount * 3];
+		m_submesh[k].m_vertices = new Rva0010811EVertex[mmc->VertexCount];
+		m_submesh[k].m_polygonFlags = new char[mmc->PolyCount];
+		m_submesh[k].m_indices = new int[mmc->PolyCount * 3];
 		m_submesh[k].m_numSilhouetteEdges = 0;
 		m_submesh[k].m_isShadowMesh = meshes[k]->Get_Name() != 0 && strstr(meshes[k]->Get_Name(), "SHADOW") != 0;
 		mmc->Release_Ref();

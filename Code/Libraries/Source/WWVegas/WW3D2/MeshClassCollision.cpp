@@ -36,46 +36,16 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "rendobj.h"
 #include "inttest.h"
 
-class MeshGeometryClass : public RefCountClass
-{
-public:
-	// BFME2 bit values (MeshGeometryClass +0x18).
-	enum FlagsType {
-		ALIGNED =	0x00000200,
-		ORIENTED =	0x00000800,
-	};
-
-	int Get_Flag(FlagsType flag) { return Flags & flag; }
-	int Get_Polygon_Count(void) const { return PolyCount; }
-	int Get_Vertex_Count(void) const { return VertexCount; }
-	int Get_Sort_Level(void) const { return SortLevel; }
-	void setSortLevelByte(int level) { SortLevel = (signed char)level; }
-	bool Intersect_OBBox(OBBoxIntersectionTestClass & boxtest);
-
-protected:
-	char _bfme_unk_08[0x10];
-	int Flags;                              // +0x18
-	signed char SortLevel;                  // +0x1C
-	char _bfme_unk_1d[7];
-	int PolyCount;                          // +0x24
-	int VertexCount;                        // +0x28
-};
-
 #include "MeshMatDescClass.h"
 
 class MaterialInfoClass : public RefCountClass
 {
 };
 
-class MeshModelClass : public MeshGeometryClass
-{
-public:
-	int Get_Pass_Count(void) const { return CurMatDesc->Get_Pass_Count(); }
+#include "MeshModelClass.h"
 
-	char _bfme_unk_2c[0x94 - 0x2C];
-	MeshMatDescClass *CurMatDesc;           // +0x94
-	MaterialInfoClass *MatInfo;             // +0x98
-};
+// Retail inlines the model's pass-count forwarder through CurMatDesc.
+static inline int Model_Get_Pass_Count(const MeshModelClass *model) { return model->CurMatDesc->Get_Pass_Count(); }
 
 // upstream identity and virtual interface:
 // reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/mesh.h
@@ -117,7 +87,7 @@ void MeshClass::Update_Cached_Bounding_Volumes(void) const
 
 	// If we are camera-aligned or -oriented, we don't know which way we are facing at this point,
 	// so the box we return needs to contain the sphere. Otherewise do the normal computation.
-	if (Model->Get_Flag(MeshGeometryClass::ALIGNED) || Model->Get_Flag(MeshGeometryClass::ORIENTED)) {
+	if ((Model->Flags & MeshGeometryClass::ALIGNED) || (Model->Flags & MeshGeometryClass::ORIENTED)) {
 		CachedBoundingBox.Center = CachedBoundingSphere.Center;
 		CachedBoundingBox.Extent.Set(CachedBoundingSphere.Radius, CachedBoundingSphere.Radius, CachedBoundingSphere.Radius);
 	} else {
@@ -132,7 +102,7 @@ void MeshClass::Update_Cached_Bounding_Volumes(void) const
 int MeshClass::Get_Num_Polys(void) const
 {
 	if (Model) {
-		int num_passes=Model->Get_Pass_Count();
+		int num_passes=Model_Get_Pass_Count(Model);
 		int poly_count=Model->Get_Polygon_Count();
 		return num_passes*poly_count;
 	} else {
@@ -145,7 +115,7 @@ int MeshClass::Get_Num_Polys(void) const
 int MeshClass::_bfme_ro_v9(void) const
 {
 	if (Model) {
-		int num_passes=Model->Get_Pass_Count();
+		int num_passes=Model_Get_Pass_Count(Model);
 		int vertex_count=Model->Get_Vertex_Count();
 		return num_passes*vertex_count;
 	} else {
@@ -157,7 +127,7 @@ int MeshClass::_bfme_ro_v9(void) const
 int MeshClass::Get_Sort_Level(void) const
 {
 	if (Model) {
-		return (Model->Get_Sort_Level());
+		return (Model->SortLevel);
 	}
 	return(0);	// SORT_LEVEL_NONE
 }
@@ -166,7 +136,7 @@ int MeshClass::Get_Sort_Level(void) const
 void MeshClass::Set_Sort_Level(int level)
 {
 	if (Model) {
-		Model->setSortLevelByte(level);
+		Model->SortLevel = (char)level;
 	}
 }
 
