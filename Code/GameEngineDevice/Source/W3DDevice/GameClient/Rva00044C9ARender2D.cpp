@@ -2,13 +2,7 @@
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
-class Render2DClass
-{
-public:
-	char m_padToFlag[0x48];
-	char m_flag;
-	void Add_Quad(const RectClass &, unsigned long);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 // ?rva00044C9A@Rva00044C9A@@UAEXMMMMK@Z @0x00044C9A 229B
 // Target evidence: central table slot 57 at 0x007C3C80; target calls the
@@ -31,7 +25,7 @@ private:
 
 void Rva00044C9A::rva00044C9A(float x, float y, float width, float height, unsigned long color)
 {
-	m_renderer->m_flag = 0;
+	m_renderer->m_flag48 = false;
 	if (m_clipEnabled != 0)
 	{
 		float right = x + width - 1.0f;

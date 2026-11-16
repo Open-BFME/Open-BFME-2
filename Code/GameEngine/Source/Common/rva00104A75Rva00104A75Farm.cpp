@@ -81,14 +81,7 @@ private:
 
 
 class TextureClass;
-class Render2DClass
-{
-public:
-	int m_state;
-	char m_04[0x48 - 4];
-	bool m_48;
-	void Render();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 void Rva001049C7AddTriangle(Render2DClass *renderer,
 	const Coord2D *v0, const Coord2D *v1, const Coord2D *v2,
@@ -114,15 +107,15 @@ struct Rva00104A75Source
 	Rva00104A75Rect m_uv;
 };
 
-// Holds the renderer's first word at a value for a scope and restores it.
+// Holds the renderer's shader word at a value for a scope and restores it.
 struct Rva00104A75StateHold
 {
 	Rva00104A75StateHold(Render2DClass *renderer, int value)
-		: m_renderer(renderer), m_saved(renderer->m_state)
+		: m_renderer(renderer), m_saved(renderer->Shader)
 	{
-		renderer->m_state = value;
+		renderer->Shader = value;
 	}
-	~Rva00104A75StateHold() { m_renderer->m_state = m_saved; }
+	~Rva00104A75StateHold() { m_renderer->Shader = m_saved; }
 	Render2DClass *m_renderer;
 	int m_saved;
 };
@@ -269,7 +262,7 @@ void Rva0010461F::drawRadarViewBox()
 		return;
 	if (((Rva00104195 *)this)->rva00104195())
 		rva00104359();
-	renderer->m_48 = true;
+	renderer->m_flag48 = true;
 	((Rva000456C9 *)renderer)->Set_Texture((const RefCountPtr<TextureClass> *)&m_edgeTexture);
 	Rva00104A75StateHold hold(renderer, 1);
 	const Rva00104A75Rect *uv = &((const Rva00104A75Source *)m_edgeImage)->m_uv;

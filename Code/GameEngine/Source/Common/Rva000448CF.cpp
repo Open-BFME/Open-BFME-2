@@ -8,13 +8,7 @@
 // (Vector2,Vector2,float,width ulong color), byte flag at target+0x48.
 #include "../../../../reference/shims/wwmath/Vector2.h"
 
-class Render2DClass
-{
-public:
-	void Add_Line(const Vector2 &a, const Vector2 &b, float width, unsigned long color);
-	char m_pad[0x48];
-	unsigned char m_ready;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 class Rva000448CF
 {
@@ -27,6 +21,6 @@ private:
 
 void Rva000448CF::rva000448CF(float startX, float startY, float endX, float endY, float width, unsigned long color)
 {
-	m_target->m_ready = 0;
+	m_target->m_flag48 = false;
 	m_target->Add_Line(Vector2(startX, startY), Vector2(endX, endY), width, color);
 }

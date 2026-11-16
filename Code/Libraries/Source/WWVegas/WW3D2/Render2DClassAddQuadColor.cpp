@@ -31,38 +31,15 @@ typedef BfmeUInt32 (__cdecl *BfmeColorConverter)(BfmeUInt32 color);
 extern float g_Va00DEC49C;
 extern int g_Va00DB5FC8;
 
-class Render2DClass
+#include "Render2DClass.h"
+
+// Retail inlines this vertex position conversion into every Add_* body.
+static inline void convertPosition006e(const Render2DClass &renderer, BfmeRenderVertex &vertex, float x, float y)
 {
-private:
-	unsigned char m_unmodelled_00[0x04];
-	float m_coordinateScaleX;
-	float m_coordinateScaleY;
-	float m_biasedCoordinateOffsetX;
-	float m_biasedCoordinateOffsetY;
-	unsigned char m_unmodelled_14[0x40];
-	unsigned char m_texturingEnabled;
-
-	BfmeRenderVertex *allocateGeometry006e(
-		unsigned int vertexCount,
-		unsigned int indexCount,
-		BfmeUInt32 **indices,
-		BfmeUInt32 *baseVertexPair);
-
-	void convertPosition006e(BfmeRenderVertex &vertex, float x, float y)
-	{
-		vertex.x = x * m_coordinateScaleX + m_biasedCoordinateOffsetX;
-		vertex.y = y * m_coordinateScaleY + m_biasedCoordinateOffsetY;
-		vertex.z = g_Va00DEC49C;
-	}
-
-public:
-	void Add_Quad(const RectClass &screen, BfmeUInt32 color);
-	void Add_Quad(const RectClass &screen, const RectClass &uv,
-		BfmeUInt32 color0, BfmeUInt32 color1,
-		BfmeUInt32 color2, BfmeUInt32 color3);
-	void Add_Line(const Vector2 &a, const Vector2 &b, float width, BfmeUInt32 color);
-	void Add_Line(const Vector2 &a, const Vector2 &b, float width, BfmeUInt32 color, BfmeUInt32 color2);
-};
+	vertex.x = x * renderer.CoordinateScaleX + renderer.CoordinateOffsetX;
+	vertex.y = y * renderer.CoordinateScaleY + renderer.CoordinateOffsetY;
+	vertex.z = g_Va00DEC49C;
+}
 
 void Render2DClass::Add_Quad(const RectClass &screen, BfmeUInt32 color)
 {
@@ -70,10 +47,10 @@ void Render2DClass::Add_Quad(const RectClass &screen, BfmeUInt32 color)
 	BfmeUInt32 *indices;
 	BfmeRenderVertex *vertices = allocateGeometry006e(4, 6, &indices, &baseVertexPair);
 
-	convertPosition006e(vertices[0], screen.Left, screen.Top);
-	convertPosition006e(vertices[1], screen.Left, screen.Bottom);
-	convertPosition006e(vertices[2], screen.Right, screen.Top);
-	convertPosition006e(vertices[3], screen.Right, screen.Bottom);
+	convertPosition006e(*this, vertices[0], screen.Left, screen.Top);
+	convertPosition006e(*this, vertices[1], screen.Left, screen.Bottom);
+	convertPosition006e(*this, vertices[2], screen.Right, screen.Top);
+	convertPosition006e(*this, vertices[3], screen.Right, screen.Bottom);
 
 	vertices[0].u = vertices[1].u = vertices[0].v = vertices[2].v = 0.0f;
 	float one = 1.0f;
@@ -103,10 +80,10 @@ __declspec(noinline) inline void Render2DClass::Add_Quad(const RectClass &screen
 	BfmeUInt32 *indices;
 	BfmeRenderVertex *vertices = allocateGeometry006e(4, 6, &indices, &baseVertexPair);
 
-	convertPosition006e(vertices[0], screen.Left, screen.Top);
-	convertPosition006e(vertices[1], screen.Left, screen.Bottom);
-	convertPosition006e(vertices[2], screen.Right, screen.Top);
-	convertPosition006e(vertices[3], screen.Right, screen.Bottom);
+	convertPosition006e(*this, vertices[0], screen.Left, screen.Top);
+	convertPosition006e(*this, vertices[1], screen.Left, screen.Bottom);
+	convertPosition006e(*this, vertices[2], screen.Right, screen.Top);
+	convertPosition006e(*this, vertices[3], screen.Right, screen.Bottom);
 
 	vertices[0].u = vertices[1].u = uv.Left;
 	vertices[2].u = vertices[3].u = uv.Right;
@@ -147,10 +124,10 @@ void Render2DClass::Add_Line(const Vector2 &a, const Vector2 &b, float width, Bf
 	BfmeRenderVertex *vertices;
 	BfmeUInt32 *indices;
 	vertices = allocateGeometry006e(4, 6, &indices, &base);
-	convertPosition006e(vertices[0], a.X - corner_offset.X, a.Y - corner_offset.Y);
-	convertPosition006e(vertices[1], a.X + corner_offset.X, a.Y + corner_offset.Y);
-	convertPosition006e(vertices[2], b.X - corner_offset.X, b.Y - corner_offset.Y);
-	convertPosition006e(vertices[3], b.X + corner_offset.X, b.Y + corner_offset.Y);
+	convertPosition006e(*this, vertices[0], a.X - corner_offset.X, a.Y - corner_offset.Y);
+	convertPosition006e(*this, vertices[1], a.X + corner_offset.X, a.Y + corner_offset.Y);
+	convertPosition006e(*this, vertices[2], b.X - corner_offset.X, b.Y - corner_offset.Y);
+	convertPosition006e(*this, vertices[3], b.X + corner_offset.X, b.Y + corner_offset.Y);
 	vertices[0].u = vertices[1].u = vertices[0].v = vertices[2].v = 0.0f;
 	vertices[2].u = vertices[3].u = vertices[1].v = vertices[3].v = 1.0f;
 	vertices[0].color = vertices[1].color = vertices[2].color = vertices[3].color =
@@ -176,10 +153,10 @@ void Render2DClass::Add_Line(const Vector2 &a, const Vector2 &b, float width, Bf
 	BfmeRenderVertex *vertices;
 	BfmeUInt32 *indices;
 	vertices = allocateGeometry006e(4, 6, &indices, &base);
-	convertPosition006e(vertices[0], a.X - corner_offset.X, a.Y - corner_offset.Y);
-	convertPosition006e(vertices[1], a.X + corner_offset.X, a.Y + corner_offset.Y);
-	convertPosition006e(vertices[2], b.X - corner_offset.X, b.Y - corner_offset.Y);
-	convertPosition006e(vertices[3], b.X + corner_offset.X, b.Y + corner_offset.Y);
+	convertPosition006e(*this, vertices[0], a.X - corner_offset.X, a.Y - corner_offset.Y);
+	convertPosition006e(*this, vertices[1], a.X + corner_offset.X, a.Y + corner_offset.Y);
+	convertPosition006e(*this, vertices[2], b.X - corner_offset.X, b.Y - corner_offset.Y);
+	convertPosition006e(*this, vertices[3], b.X + corner_offset.X, b.Y + corner_offset.Y);
 	vertices[0].u = vertices[1].u = vertices[0].v = vertices[2].v = 0.0f;
 	vertices[2].u = vertices[3].u = vertices[1].v = vertices[3].v = 1.0f;
 	vertices[0].color = vertices[1].color = (*(BfmeColorConverter *)&g_Va00DB5FC8)(color);
