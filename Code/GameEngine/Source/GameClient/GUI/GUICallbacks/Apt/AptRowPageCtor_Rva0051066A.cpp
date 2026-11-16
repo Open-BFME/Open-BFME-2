@@ -36,7 +36,6 @@ inline AsciiStringPlusString operator+(const AsciiString &left, const AsciiStrin
 	return result;
 }
 
-// ?operator+(AsciiStringPlusString, text) present-unmatched
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
 {
 	Rva000B3F84Pair text;

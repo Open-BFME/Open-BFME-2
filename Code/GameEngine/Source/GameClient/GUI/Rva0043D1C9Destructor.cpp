@@ -42,7 +42,7 @@ private: AsciiString filename270;
 // the complete34B provider31BD55 before the call-only alias below is used.
 struct Rva0043D1C9Entry;
 void Rva00030830FreeAllocation(void*);
-namespace _STL {template<> Rva0043D1C9Entry**vector<Rva0043D1C9Entry*>::erase(Rva0043D1C9Entry**,Rva0043D1C9Entry**);// ?allocator<Rva0043D1C9Entry*>::deallocate present-unmatched
+namespace _STL {template<> Rva0043D1C9Entry**vector<Rva0043D1C9Entry*>::erase(Rva0043D1C9Entry**,Rva0043D1C9Entry**);
 template<> inline void allocator<Rva0043D1C9Entry*>::deallocate(Rva0043D1C9Entry**p,unsigned int)const {if(p)::Rva00030830FreeAllocation(p);}}
 enum ScienceType { SCIENCE_INVALID=0 };
 class Rva0043D193Base {

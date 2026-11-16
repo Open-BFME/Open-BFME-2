@@ -10707,7 +10707,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCrea
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	1ThreadRestartObj@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	stop@ThreadRestartObj@@UAEPAXH@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	unused0@ThreadRestartObj@@UAEPAXXZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowPageCtor_Rva0051066A.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	@0x0021887C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	0WindowLayoutInfo@@	1
@@ -10735,7 +10734,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	updateAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D193ScienceVectorDestructor.cpp	allocator<ScienceType>::deallocate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	Rva0043D193Base::~Rva0043D193Base	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	allocator<Rva0043D1C9Entry*>::deallocate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeImage@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeLine@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	addLine@ShellMenuScheme@@QAEXPAVShellMenuSchemeLine@@@Z	1
@@ -10819,7 +10817,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE5F9Clone.cpp	@0x003AE5C2	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9Clone.cpp	@0x003AEDB2	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9CopyCtor.cpp	1Rva003AEDE9@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEDE9CopyCtor.cpp	@0x003AEDE9	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp	1Rva003AEE16@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp	1Rva003AF076@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp	1VideoPlayerBase@@	1

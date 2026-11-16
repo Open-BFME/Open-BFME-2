@@ -1,7 +1,6 @@
 // cl: /DNDEBUG /MD /GX- /O1 /Ob2
 // ??0Rva003AEDE9@@QAE@ABV0@@Z @0x003AEDE9 45B: derived copy calling rowed 0x003AEE16 then own 4 vptrs.
 // Evidence: calls 0x003AEE16 then stores at +0/+0x14/+0x18/+0x20 DIR32; primary 0x00C1CF18 second 0x00C1C61C third 0x00C1CA00 fourth 0x00C1CF08; caller 0x003AEDB2; unlocks 0x003AEDB2.
-// ??0Rva003AEDE9@@QAE@ABV0@@Z @0x003AEDE9 present-unmatched
 class RvaSmartPtr12_3AEE16
 {
 public:
