@@ -246,8 +246,8 @@ void StrategicInGameUI::BuildQueueDetailsPanel::Impl::SelectQueueIndex(int queue
 // independently supplies the operation and call relationships; retail supplies
 // every layout and ABI used here. The generic queue interface's original class
 // and the summary's entry types remain unknown, so their views are address-named.
-// SpawnArmy is the existing 88B SpawnArmy temporary view, ctor pin4E30D5 and
-// matched dtor4E3184. Its name+2C and integer+48 are native accesses. Summary
+// SpawnArmy is the canonical 88B record from its header, ctor 4E30D5 and
+// matched dtor 4E3184. Its string +2C and integer +48 are native accesses. Summary
 // entries at+40/+44 have stride8; queue slots4/12/13 fill a temporary, return
 // elapsed time and the production vector. Ordinary file-static C++ helpers
 // preserve ECX, ESI/EDI, EDI and EAX private conventions when the true caller
@@ -258,14 +258,7 @@ void StrategicInGameUI::BuildQueueDetailsPanel::Impl::SelectQueueIndex(int queue
 #include "ascii_string.h"
 #include "unicode_string.h"
 class Image;
-class SpawnArmy { public:
-	UnicodeString rva004E25AF(int);
-	UnicodeString GetButtonHelp(int);
- SpawnArmy(int index);
- const Image *GetPortraitImage(int index);	// 0x004E24DC
- virtual ~SpawnArmy();
- char pad04[0x2c-4]; AsciiString name; char pad30[0x48-0x30]; int m_48; char pad4C[0x58-0x4c];
-};
+#include "../../../../Include/Common/SpawnArmy.h"
 #include "../../../../Include/GameLogic/Rva003B8E89.h"
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 struct Rva005E72B4Production { int *begin,*end,*capacity; };
@@ -288,7 +281,7 @@ __declspec(noinline) static void *rva005E72B4Get(Rva005E72B4Queue *queue,int id)
 {
  SpawnArmy army(0);
  queue->slot4(id,&army);
- Rva005E72B4Summary *summary=(Rva005E72B4Summary *)((Rva003B8E89 *)TheCampaignManager)->rva003B8E89(&army.name);
+ Rva005E72B4Summary *summary=(Rva005E72B4Summary *)((Rva003B8E89 *)TheCampaignManager)->rva003B8E89(&army.m_2c);
  if(!summary) return 0;
  if((summary->end-summary->begin)<1) return 0;
  return summary;
