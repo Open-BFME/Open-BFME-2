@@ -1,12 +1,8 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
 
-class BfmeUniVKE
-{
-public:
-	void bfmeCopyUVKE(const BfmeUniVKE &other);   // defined in another TU
-	void *m_bfme00;
-};
+#define BFME_STRINGBASE_PUBLIC_COPY
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 struct BfmeBlockVKE
 {
@@ -17,7 +13,7 @@ class BfmeThingVKE
 {
 public:
 	BfmeThingVKE *bfmeInitVKE(const BfmeThingVKE &other);
-	BfmeUniVKE m_bfme00;
+	unsigned char m_bfme00[sizeof(StringBase<char>)];
 	char m_bfme04;
 	char m_bfmePad05[3];
 	int m_bfme08;
@@ -29,7 +25,8 @@ public:
 
 BfmeThingVKE *BfmeThingVKE::bfmeInitVKE(const BfmeThingVKE &other)
 {
-	m_bfme00.bfmeCopyUVKE(other.m_bfme00);
+	// Retail constructs the leading string through its native copy constructor.
+	reinterpret_cast<StringBase<char> *>(m_bfme00)->StringBase<char>::StringBase(*reinterpret_cast<const StringBase<char> *>(other.m_bfme00));
 	m_bfme04 = other.m_bfme04;
 	m_bfme08 = other.m_bfme08;
 	m_bfme0c = other.m_bfme0c;

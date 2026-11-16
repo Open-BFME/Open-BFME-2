@@ -5,11 +5,8 @@
 // places uniquely on unclaimed game.dat .text by masked whole-.text search:
 //   ?bfmeGoBSF@BfmeThingBSF@@QAEPAV1@PAGPAX@Z 0x004D04FF (31B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
-struct BfmeSubBSF
-{
-	void bfmeSetBSF(void *what);
-	unsigned char m_bfmeHead[4];
-};
+#define BFME_STRINGBASE_PUBLIC_COPY
+#include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class BfmeThingBSF
 {
@@ -17,12 +14,13 @@ public:
 	BfmeThingBSF *bfmeGoBSF(unsigned short *src, void *what);
 	unsigned short m_bfmeKey;
 	unsigned char m_bfmePad[2];
-	BfmeSubBSF m_bfmeSub;
+	unsigned char m_bfmeSub[sizeof(StringBase<char>)];
 };
 
 BfmeThingBSF *BfmeThingBSF::bfmeGoBSF(unsigned short *src, void *what)
 {
 	m_bfmeKey = *src;
-	m_bfmeSub.bfmeSetBSF(what);
+	// Retail copy-constructs the string following the two-byte key.
+	reinterpret_cast<StringBase<char> *>(m_bfmeSub)->StringBase<char>::StringBase(*static_cast<const StringBase<char> *>(what));
 	return this;
 }
