@@ -4,20 +4,7 @@
 // Precedent AIHarvestState dtor member shape plus State m_machine chase.
 // Vtable 0x008113B8 slot 5.
 class StateMachine;
-namespace FXParticleSystem {
-class WindModuleInfo {
-public:
-	virtual ~WindModuleInfo();
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-	char m_pad1D[0x20 - 0x1D];
-};
-}
+#include "../../Include/Common/StateMachine.h"
 class Rva003418EAMember {
 public:
 	virtual void *v0(int);
@@ -46,7 +33,7 @@ struct ChaseB {
 	ChaseC *m_ai;
 };
 #include "../../Include/Common/StateMachineClass.h"
-class AIHarvestState : public FXParticleSystem::WindModuleInfo {
+class AIHarvestState : public State {
 public:
 	virtual void onExit(int status);
 private:
