@@ -54,19 +54,9 @@ extern "C" const void *const vtbl_00BF38C0[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
-
-class AttributeModifierUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) AttributeModifierUpgradeModuleData : public Rva00253487Base
 {
 public:
 	AttributeModifierUpgradeModuleData();
@@ -81,7 +71,7 @@ extern "C" void _ReadWriteBarrier(void);
 // ??0AttributeModifierUpgradeModuleData@@QAE@XZ @0x2557E9
 AttributeModifierUpgradeModuleData::AttributeModifierUpgradeModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)vtbl_00BF38C0));
+	*(unsigned int *)this = ((unsigned int)vtbl_00BF38C0);
 	_ReadWriteBarrier();
 	m_attributeModifier = 0;
 }

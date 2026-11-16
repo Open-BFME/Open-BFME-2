@@ -33,17 +33,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // slot); /arch:SSE for the float-zero store (DemoTrap precedent).
 
 extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 enum MaxHealthChangeType
 {
 	SAME_CURRENTHEALTH = 0
@@ -102,7 +92,7 @@ template <> class MaxHealthUpgradeMuxSlots<0>
 class Thing;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class MaxHealthUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) MaxHealthUpgradeModuleData : public Rva00253487Base
 {
 public:
 	MaxHealthUpgradeModuleData();
@@ -138,7 +128,7 @@ NameKeyType MaxHealthUpgrade::getModuleNameKey() const
 // ??0MaxHealthUpgradeModuleData@@QAE@XZ @0x4B62C4
 MaxHealthUpgradeModuleData::MaxHealthUpgradeModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@"));
 	m_maxHealthChangeType = SAME_CURRENTHEALTH;
 	m_addMaxHealth = 0.0f;
 }

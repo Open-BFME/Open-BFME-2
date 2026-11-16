@@ -13,19 +13,9 @@
 
 extern "C" const void *const __identifier("??_7TooltipUpgradeModuleData@@6B@")[];  // vftable 0x00BF3840
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
-
-class DoCommandUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) DoCommandUpgradeModuleData : public Rva00253487Base
 {
 public:
 	DoCommandUpgradeModuleData();
@@ -41,7 +31,7 @@ extern "C" void _ReadWriteBarrier(void);
 // ??0DoCommandUpgradeModuleData@@QAE@XZ @0x255795
 inline DoCommandUpgradeModuleData::DoCommandUpgradeModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7TooltipUpgradeModuleData@@6B@")));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7TooltipUpgradeModuleData@@6B@"));
 	_ReadWriteBarrier();
 	m_getUpgradeCommandButtonName = 0;
 	m_removeUpgradeCommandButtonName = 0;

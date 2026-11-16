@@ -28,17 +28,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // /arch:SSE for the float-zero store.
 
 extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 //
 // ExperienceScalarUpgrade::upgradeImplementation, retail 0x004B6213 (35 bytes), and
 // ExperienceScalarUpgrade::upgradeRemovalImplementation, retail 0x004B6236 (35 bytes): slots 10 and
@@ -78,7 +68,7 @@ template <> class ExperienceScalarUpgradeMuxSlots<0>
 class Thing;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class ExperienceScalarUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) ExperienceScalarUpgradeModuleData : public Rva00253487Base
 {
 public:
 	ExperienceScalarUpgradeModuleData();
@@ -111,7 +101,7 @@ NameKeyType ExperienceScalarUpgrade::getModuleNameKey() const
 // ??0ExperienceScalarUpgradeModuleData@@QAE@XZ @0x4B6187
 ExperienceScalarUpgradeModuleData::ExperienceScalarUpgradeModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@"));
 	m_addXPScalar = 0.0f;
 }
 

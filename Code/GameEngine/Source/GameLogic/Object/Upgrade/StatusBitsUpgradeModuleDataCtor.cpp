@@ -20,19 +20,9 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
-
-class StatusBitsUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) StatusBitsUpgradeModuleData : public Rva00253487Base
 {
 public:
 	StatusBitsUpgradeModuleData();
@@ -45,7 +35,7 @@ private:
 // ??0StatusBitsUpgradeModuleData@@QAE@XZ @0x254775
 inline StatusBitsUpgradeModuleData::StatusBitsUpgradeModuleData()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@"));
 	((_STL::bitset<128> *)m_statusToSet)->reset();
 	((_STL::bitset<128> *)m_statusToClear)->reset();
 }

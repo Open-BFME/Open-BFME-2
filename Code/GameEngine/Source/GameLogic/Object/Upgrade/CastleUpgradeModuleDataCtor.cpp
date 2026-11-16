@@ -58,20 +58,14 @@ extern "C" const void *const vtbl_00BF3940[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
-class CastleUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) CastleUpgradeModuleData : public Rva00253487Base
 {
 public:
 	CastleUpgradeModuleData();
 
 private:
-	void *m_vtable; // +0 (explicit; no virtuals declared so no vtable is emitted)
-	unsigned char m_pad[0x118 - 4]; // +4..0x117
 	int m_upgrade; // +0x118
 	float m_wallUpgradeRadius; // +0x11C
 };
@@ -80,7 +74,7 @@ private:
 CastleUpgradeModuleData::CastleUpgradeModuleData()
 {
 	int *upgrade = &m_upgrade;
-	m_vtable = reinterpret_cast<void *>(((unsigned int)vtbl_00BF3940));
+	*(unsigned int *)this = ((unsigned int)vtbl_00BF3940);
 	*upgrade &= 0;
 	m_wallUpgradeRadius = 0.0f;
 }

@@ -19,19 +19,9 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &p);
 };
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
-protected:
-	void *m_vtable; // +0
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
-
-class Rva00254845 : public Rva00253487Base
+class __declspec(novtable) Rva00254845 : public Rva00253487Base
 {
 public:
 	Rva00254845();
@@ -39,15 +29,15 @@ public:
 
 Rva00254845::Rva00254845()
 {
-	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@"));
 }
 
-class Rva0025480BData : public Rva00253487Base
+class __declspec(novtable) Rva0025480BData : public Rva00253487Base
 {
 public:
 	__forceinline Rva0025480BData()
 	{
-		m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
+		*(unsigned int *)this = ((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@"));
 	}
 };
 

@@ -70,20 +70,9 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-
-protected:
-	unsigned char m_pad[0x118];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 // 0x00042526 is matched as the constructor ??0Rva0042526Member@@QAE@XZ.
-class Rva0042526Member
-{
-public:
-	Rva0042526Member();
-};
+#include "../../../../Include/Common/Rva0042526Member.h"
 struct CondStore
 {
 
@@ -196,7 +185,7 @@ public:
 int Rva004CE29DGet(void);
 int Rva004CE52EGet(void);
 #include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
-class ModelConditionUpgradeModuleData : public Rva00253487Base
+class __declspec(novtable) ModelConditionUpgradeModuleData : public Rva00253487Base
 {
 public:
 	ModelConditionUpgradeModuleData();
