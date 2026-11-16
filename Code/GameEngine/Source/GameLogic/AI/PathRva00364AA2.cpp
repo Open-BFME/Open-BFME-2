@@ -50,41 +50,30 @@ inline __declspec(noinline) PathNode::PathNode(const Coord3D *position, Pathfind
 	m_portalID = 0x7fffffff;
 }
 
-class Path
+#include "../../../Include/GameLogic/PathfindPath.h"
+
+inline __declspec(noinline) void Path::appendNode(const Coord3D *pos, PathfindLayerEnum layer, int waypointID)
 {
-	void *m_unknown00;
-	PathNode *m_head04;
-	PathNode *m_pathTail;
-	bool m_isOptimized;
-
-public:
-
-	inline __declspec(noinline) void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int waypointID)
+	if (m_isOptimized && m_pathTail)
 	{
-		if (m_isOptimized && m_pathTail)
-		{
-			if (pos->x == m_pathTail->m_pos.x && pos->y == m_pathTail->m_pos.y)
-				return;
-		}
-		void *mem = g_pathNodePool.rva002635C2();
-		PathNode *node = mem ? new (mem) PathNode(pos, layer) : 0;
-		node->m_portalID = waypointID;
-		PathNode *tail = m_pathTail;
-		if (tail)
-		{
-			tail->m_next = node;
-			node->m_prev = tail;
-		}
-		if (m_isOptimized && m_pathTail)
-			m_pathTail->m_nextOpti = node;
-		m_pathTail = node;
-		if (m_head04 == 0)
-			m_head04 = node;
+		if (pos->x == m_pathTail->m_pos.x && pos->y == m_pathTail->m_pos.y)
+			return;
 	}
-	void rva003649B1(const PathNode *node);
-	int rva003641AE(float angle, float radius);
-	void rva00364AA2(PathNode *prev, PathNode *cur, PathNode *next, float radius);
-};
+	void *mem = g_pathNodePool.rva002635C2();
+	PathNode *node = mem ? new (mem) PathNode(pos, layer) : 0;
+	node->m_portalID = waypointID;
+	PathNode *tail = m_pathTail;
+	if (tail)
+	{
+		tail->m_next = node;
+		node->m_prev = tail;
+	}
+	if (m_isOptimized && m_pathTail)
+		m_pathTail->m_nextOpti = node;
+	m_pathTail = node;
+	if (m_path == 0)
+		m_path = node;
+}
 
 // Normal copies expire after the angle query; tail locals use a sibling scope.
 void Path::rva00364AA2(PathNode *prev, PathNode *cur, PathNode *next, float radius)

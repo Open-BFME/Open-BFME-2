@@ -20,61 +20,44 @@ namespace _STL
 	};
 }
 
-struct Rva0036617BNode
-{
-	char m_pad00[8];
-	Rva0036617BNode *m_next08;
-	char m_pad0C[20];
-	ScienceType m_value20;
-};
-
-class Path
-{
-	void *m_00;
-	void *m_head04;
-	void *m_08;
-	void *m_pad0C;
-	Rva0036617BNode *m_cur10;
-	float m_14;
-public:
-	void AdvancePastPortal(ScienceType st, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *vec);
-};
+#include "../../../Include/GameLogic/PathNode.h"
+#include "../../../Include/GameLogic/PathfindPath.h"
 
 void Path::AdvancePastPortal(ScienceType st, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *vec)
 {
-	Rva0036617BNode *nil = 0;
-	if ((Rva0036617BNode *)m_head04 == nil || m_cur10 == nil)
+	PathNode *nil = 0;
+	if (m_path == nil || field_10 == nil)
 		return;
 	if (st == SCIENCE_INVALID)
 		return;
 search:
-	if (m_cur10->m_value20 == st)
+	if (field_10->m_portalID == st)
 		goto push_phase;
 	{
-		Rva0036617BNode *next = m_cur10->m_next08;
-		m_cur10 = next;
+		PathNode *next = field_10->m_nextOpti;
+		field_10 = next;
 		if (next != nil)
 			goto search;
 	}
 push_phase:
-	while (m_cur10 != nil) {
-		Rva0036617BNode *node = m_cur10;
-		ScienceType v = node->m_value20;
+	while (field_10 != nil) {
+		PathNode *node = field_10;
+		int v = node->m_portalID;
 		if (v == SCIENCE_INVALID)
 			break;
-		Rva0036617BNode *next = node->m_next08;
+		PathNode *next = node->m_nextOpti;
 		if (next == nil)
 			goto push;
-		if (next->m_value20 == SCIENCE_INVALID)
+		if (next->m_portalID == SCIENCE_INVALID)
 			break;
 push:
-		st = v;
+		st = (ScienceType)v;
 		vec->push_back(st);
-		m_cur10 = m_cur10->m_next08;
+		field_10 = field_10->m_nextOpti;
 	}
-	if (m_cur10 != nil)
+	if (field_10 != nil)
 		goto done;
-	m_cur10 = (Rva0036617BNode *)m_08;
+	field_10 = m_pathTail;
 done:
-	m_14 = 0.0f;
+	field_14 = 0.0f;
 }

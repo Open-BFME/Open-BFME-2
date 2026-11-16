@@ -11,7 +11,7 @@
 #include "Lib/Coord3D.h"
 enum PathfindLayerEnum { LAYER_INVALID=0,LAYER_GROUND=1 };
 class Object {public:char pad[0x38];Coord3D position;};
-class Path {public:Path();void prependNode(const Coord3D*,PathfindLayerEnum,int);char before[0xc];bool optimized;char after[0x28-0xd];};
+#include "../../../../Include/GameLogic/PathfindPath.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct Rva002EDEABArg;
@@ -29,7 +29,7 @@ void AIUpdateInterface::moveThroughPortalWithMicropath(const Coord3D *portalStar
  m_path->prependNode(portalStart,TheTerrainLogic->getLayerForDestination(getObject(),portalStart),0x7fffffff);
  Coord3D position;position.x=m_object->position.x;position.y=m_object->position.y;position.z=m_object->position.z;
  m_path->prependNode(&position,TheTerrainLogic->getLayerForDestination(getObject(),&position),0x7fffffff);
- m_path->optimized=true;
+ m_path->m_isOptimized=true;
  if(TheWritableGlobalData->field09B8==1)TheAI->m_pathfinder->SetDebugPath(reinterpret_cast<Rva002EDEABArg*>(m_path));
  m_field1FC=4;m_field200=*finalPos;
 }

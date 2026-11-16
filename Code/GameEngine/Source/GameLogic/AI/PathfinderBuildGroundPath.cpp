@@ -37,8 +37,8 @@ class Xfer;
 #include "../../../Include/GameLogic/PathfindLayer.h"
 #include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
-struct PathGroundNode {PathGroundNode *next,*previous,*nextOptimized;Coord3D pos;int layer;};
-class Path {public:Path();void optimizeGroundPath(Int);void *vtable;PathGroundNode *first,*last;char padC[0x28-0xC];};
+#include "../../../Include/GameLogic/PathNode.h"
+#include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 static __forceinline void copyCoord3D(Coord3D *dest,const Coord3D *src){dest->x=src->x;dest->y=src->y;dest->z=src->z;}
 static __forceinline void subCoord3D(Coord3D *dest,const Coord3D *src){dest->x-=src->x;dest->y-=src->y;dest->z-=src->z;}
@@ -57,15 +57,15 @@ PrependCells(path, fromPos, goalCell, center);
 path->optimizeGroundPath(pathDiameter);
 Bool havePrev = false;
 PathGroundCoord prevPos;
-for (PathGroundNode *node = path->first; node; node = node->nextOptimized) {
-PathGroundNode *next = node->nextOptimized;
+for (PathNode *node = path->m_path; node; node = node->m_nextOpti) {
+PathNode *next = node->m_nextOpti;
 if (!next) break;
-PathGroundCoord curPos(node->pos);
+PathGroundCoord curPos(node->m_pos);
 if (havePrev) {
-PathGroundCoord v1(node->pos);
+PathGroundCoord v1(node->m_pos);
 v1.Sub(&prevPos);
-PathGroundCoord v2(next->pos);
-v2.Sub(&node->pos);
+PathGroundCoord v2(next->m_pos);
+v2.Sub(&node->m_pos);
 float cross = v1.x * v2.y - v1.y * v2.x;
 Coord3D dir;
 copyCoord3D(&dir, &v1);
@@ -76,7 +76,7 @@ dir.Normalize();
 float cornerOffsetDistance = 2.0f * TheAI->getAiData()->m_formationColumnWidth;
 dir.x *= cornerOffsetDistance;
 dir.y *= cornerOffsetDistance;
-PathGroundCoord newPos(node->pos);
+PathGroundCoord newPos(node->m_pos);
 if (cross < 0) {
 newPos.x += -dir.y;
 newPos.y += dir.x;
@@ -84,16 +84,16 @@ newPos.y += dir.x;
 newPos.x += dir.y;
 newPos.y += -dir.x;
 }
-AdjustGroundPathPosition(&node->pos, &newPos);
+AdjustGroundPathPosition(&node->m_pos, &newPos);
 dir = newPos;
-subCoord3D(&dir, &node->pos);
-newPos.Set(node->pos);
+subCoord3D(&dir, &node->m_pos);
+newPos.Set(node->m_pos);
 newPos.x += dir.x * 0.5f;
 dir.y *= 0.5f;
 newPos.y += dir.y;
 dir.z *= 0.5f;
 newPos.z += dir.z;
-node->pos = newPos;
+node->m_pos = newPos;
 }
 havePrev = true;
 prevPos = curPos;

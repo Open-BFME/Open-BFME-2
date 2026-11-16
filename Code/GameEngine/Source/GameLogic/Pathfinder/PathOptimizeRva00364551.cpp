@@ -22,16 +22,13 @@ enum PathfindLayerEnum {LAYER_GROUND=1};
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 int isGroundOrBridgeLayer(int);
-class Path {public:
- void rva00364551(Object *,int,bool,const float *);
- void *vtable;PathNode *first,*last;bool optimized;
-};
+#include "../../../Include/GameLogic/PathfindPath.h"
 void Path::rva00364551(Object *obj,int surfaces,bool blocked,const float *facing)
 {
 const Coord3D *input=(const Coord3D *)facing;
  PathNode *anchor,*node;
  if(input) {
-  anchor=last;
+  anchor=m_pathTail;
   while(anchor && anchor->m_prev) {
    int layer=anchor->m_layer,curLayer=anchor->m_layer,distance=0;
    for(node=anchor->m_prev;node;node=node->m_prev) {
@@ -52,7 +49,7 @@ const Coord3D *input=(const Coord3D *)facing;
     }
     curLayer=node->m_layer;
     if(passable) {
-     if(anchor==last && distance>50) {
+     if(anchor==m_pathTail && distance>50) {
       PathAngle2D delta(node->m_pos.x-anchor->m_pos.x,node->m_pos.y-anchor->m_pos.y);
       delta.normalize();float dot=delta.dot(input);
       if(fabs(dot)<0.9f)passable=false;
@@ -65,7 +62,7 @@ const Coord3D *input=(const Coord3D *)facing;
   }
  } else {
   bool groundOnly=(obj->templ->flags108>>11)&1;
-  anchor=first;
+  anchor=m_path;
   while(anchor && anchor->m_next) {
    int count=0,layer=anchor->m_layer,curLayer=anchor->m_layer;
    int portals=(unsigned char)(anchor->m_portalID!=0x7fffffff)?0:3;
@@ -90,7 +87,7 @@ const Coord3D *input=(const Coord3D *)facing;
     if((unsigned char)isGroundOrBridgeLayer(curLayer)) {
      if(node->m_layer!=curLayer) {layer=node->m_layer;if(distance>30)passable=false;}
      if(groundOnly && !passable) {
-      int dx=node->m_pos.x-last->m_pos.x,dy=node->m_pos.y-last->m_pos.y;
+      int dx=node->m_pos.x-m_pathTail->m_pos.x,dy=node->m_pos.y-m_pathTail->m_pos.y;
       if(abs(dx)+abs(dy)<40 && TheAI->pathfinder()->IsGroundLineOnly(&anchor->m_pos,&node->m_pos))passable=true;
      }
     } else if(node->m_next && node->m_next->m_layer!=curLayer) {
@@ -105,5 +102,5 @@ const Coord3D *input=(const Coord3D *)facing;
    anchor=node;
   }
  }
- optimized=true;
+ m_isOptimized=true;
 }
