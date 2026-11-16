@@ -20,30 +20,9 @@ protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
 // UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slot 8
 // upgradeRemovalImplementation, slot 9 setUpgradeExecuted, slot 10
 // upgradeImplementation.
-class UpgradeMuxIface
-{
-public:
-	virtual Bool isAlreadyUpgraded() const = 0;
-	virtual void m01() = 0;
-	virtual void m02() = 0;
-	virtual void m03() = 0;
-	virtual void m04() = 0;
-	virtual void m05() = 0;
-	virtual void m06() = 0;
-	virtual void m07() = 0;
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-};
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 #include "../../../../Include/Common/ModuleInterface.h"

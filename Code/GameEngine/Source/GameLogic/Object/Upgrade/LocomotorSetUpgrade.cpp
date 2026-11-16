@@ -41,12 +41,6 @@ protected:
 	Object *m_object; // +0x08
 };
 
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
-
 template <int N> class LocomotorSetUpgradeMuxSlots : public LocomotorSetUpgradeMuxSlots<N - 1>
 {
 public:
@@ -59,14 +53,6 @@ template <> class LocomotorSetUpgradeMuxSlots<0>
 
 // UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
 // setUpgradeExecuted, slot 10 upgradeImplementation.
-class UpgradeMuxIface : public LocomotorSetUpgradeMuxSlots<8>
-{
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-};
-
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class LocomotorSetUpgradeModuleData

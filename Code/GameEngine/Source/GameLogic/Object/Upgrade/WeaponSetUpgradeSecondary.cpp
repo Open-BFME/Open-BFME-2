@@ -29,12 +29,6 @@ class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
-
 template<int N> class UpgradeMuxSlots : public UpgradeMuxSlots<N - 1>
 {
 public:
@@ -43,14 +37,6 @@ public:
 
 template<> class UpgradeMuxSlots<0>
 {
-};
-
-class UpgradeMuxIface : public UpgradeMuxSlots<8>
-{
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void slot09() = 0;
-	virtual void upgradeImplementation() = 0;
 };
 
 class Rva0028D86F

@@ -7,25 +7,6 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class Rva003B761E
-{
-public:
-	Rva003B761E();
-
-private:
-	char m_data[0x20];
-};
-
-class ScriptListBase
-{
-public:
-	ScriptListBase();
-
-private:
-	void *m_firstGroup;
-	void *m_firstScript;
-};
-
 #include "../../../Include/GameLogic/ScriptList.h"
 
 // Retail builds the empty list as an argument temporary whose constructor

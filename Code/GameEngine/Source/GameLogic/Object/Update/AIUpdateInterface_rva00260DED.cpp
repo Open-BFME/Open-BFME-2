@@ -11,22 +11,6 @@
 
 enum { INVALID_STATE_ID = 999999 };
 
-class MiniState
-{
-public:
-	virtual void s0();
-	int m_id;
-	int getID() const { return m_id; }
-};
-
-class MiniMachine
-{
-public:
-	virtual void s0();
-	MiniState *m_currentState;
-	int getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
-};
-
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/AIStateMachineClass.h"
 

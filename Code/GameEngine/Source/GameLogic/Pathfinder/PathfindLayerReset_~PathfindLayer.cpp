@@ -133,27 +133,6 @@ extern AI *TheAI;
 // Native 0x00366E2E..0x00367369, RET 0. ZH AIPathfind.cpp PathfindLayer::classifyCells
 // with classifyLayerMapCell inlined; the endpoint conversions are ZH's
 // REAL_TO_INT_FLOOR spelled with the CRT floorf (BFME uses the floor import).
-class Rva0027C36A 
-{
- public: Rva0027C36A();
- Rva0027C36A &operator=(const Rva0027C36A&);
- Coord3D from,to;
- unsigned char rest[0xa8-24];
- 
-}
-;
-class Bridge 
-{
- public: bool isPointOnBridge(const Coord3D*);
- bool isCellOnSide(const Region2D*);
- bool isCellOnEnd(const Region2D*);
- bool isCellEntryPoint(const Region2D*,float*);
- float getBridgeHeight(const Coord3D*,Coord3D*);
- unsigned char prefix[12];
- Rva0027C36A info;
- 
-}
-;
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // ZH BaseType.h fast_float2long_round, preserved for the proven x87

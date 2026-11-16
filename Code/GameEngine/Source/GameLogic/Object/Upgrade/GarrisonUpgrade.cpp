@@ -76,11 +76,6 @@ enum
 };
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-};
 template <int N> class GarrisonUpgradeMuxSlots : public GarrisonUpgradeMuxSlots<N - 1>
 {
 public:
@@ -92,13 +87,6 @@ template <> class GarrisonUpgradeMuxSlots<0>
 // UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
 // setUpgradeExecuted (the rowed bool setter at 0x00452354), slot 10
 // upgradeImplementation.
-class UpgradeMuxIface : public GarrisonUpgradeMuxSlots<8>
-{
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-};
 #include "../../../../Include/GameLogic/Module/GarrisonUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgradeCtor.cpp
