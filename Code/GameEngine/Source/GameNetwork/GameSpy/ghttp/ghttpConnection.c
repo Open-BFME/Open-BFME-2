@@ -50,7 +50,6 @@ static int ghiNextUniqueID;
 // Finds a gsifree slot in the ghiConnections array.
 // If there are no gsifree slots, the array size will be increased.
 ////////////////////////////////////////////////////////////////
-// ghiFindFreeSlot present-unmatched
 static int ghiFindFreeSlot
 (
 	void
@@ -101,7 +100,6 @@ static int ghiFindFreeSlot
 	return oldLen;
 }
 
-// ghiNewConnection present-unmatched
 GHIConnection * ghiNewConnection
 (
 	void
@@ -305,7 +303,6 @@ void ghiEnumConnections
 	ghiUnlock();
 }
 
-// ghiRedirectConnection present-unmatched
 void ghiRedirectConnection
 (
 	GHIConnection * connection

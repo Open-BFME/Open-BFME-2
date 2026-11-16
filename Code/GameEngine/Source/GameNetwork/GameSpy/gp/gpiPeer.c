@@ -44,7 +44,6 @@ Please see the GameSpy Presence SDK documentation for more information
 
 //FUNCTIONS
 ///////////
-// gpiProcessPeerInitiatingConnection present-unmatched
 static GPResult
 gpiProcessPeerInitiatingConnection(
   GPConnection * connection,
@@ -192,7 +191,6 @@ gpiProcessPeerInitiatingConnection(
 	return GP_NO_ERROR;
 }
 
-// gpiProcessPeerAcceptingConnection present-unmatched
 static GPResult
 gpiProcessPeerAcceptingConnection(
   GPConnection * connection,
@@ -540,7 +538,6 @@ gpiDestroyPeer(
 	GSI_UNUSED(connection);
 }
 
-// gpiRemovePeer present-unmatched
 void
 gpiRemovePeer(
   GPConnection * connection,

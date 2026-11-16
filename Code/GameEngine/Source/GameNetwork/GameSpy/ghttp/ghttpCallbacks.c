@@ -55,7 +55,6 @@ devsupport@gamespy.com
 
 #include "ghttpCallbacks.h"
 
-// ghiCallProgressCallback present-unmatched
 // Call the progress callback for this connection.
 //////////////////////////////////////////////////
 void ghiCallProgressCallback
@@ -73,7 +72,6 @@ void ghiCallProgressCallback
 	}
 }
 
-// ghiCallCompletedCallback present-unmatched
 // Call the completed callback for this connection.
 ///////////////////////////////////////////////////
 void ghiCallCompletedCallback
@@ -106,7 +104,6 @@ void ghiCallCompletedCallback
 	}
 }
 
-// ghiCallPostCallback present-unmatched
 // Call the post callback for this connection.
 //////////////////////////////////////////////
 void ghiCallPostCallback

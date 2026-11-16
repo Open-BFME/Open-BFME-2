@@ -432,7 +432,6 @@ const char * ghiPostGetContentType
 	return "application/x-www-form-urlencoded";
 }
 
-// ghiPostGetNoFilesContentLength present-unmatched
 static int ghiPostGetNoFilesContentLength
 (
 	struct GHIConnection * connection
@@ -464,7 +463,6 @@ static int ghiPostGetNoFilesContentLength
 	return total;
 }
 
-// ghiPostGetHasFilesContentLength present-unmatched
 static int ghiPostGetHasFilesContentLength
 (
 	struct GHIConnection * connection
@@ -554,7 +552,6 @@ static int ghiPostGetContentLength
 	return ghiPostGetNoFilesContentLength(connection);
 }
 
-// ghiPostStateInit present-unmatched
 static GHTTPBool ghiPostStateInit
 (
 	GHIPostState * state
@@ -752,7 +749,6 @@ void ghiPostCleanupState
 	}
 }
 
-// ghiPostStringStateDoPosting present-unmatched
 static GHIPostingResult ghiPostStringStateDoPosting
 (
 	GHIPostState * state,
@@ -832,7 +828,6 @@ static GHIPostingResult ghiPostStringStateDoPosting
 	return GHIPostingPosting;
 }
 
-// ghiPostFileDiskStateDoPosting present-unmatched
 static GHIPostingResult ghiPostFileDiskStateDoPosting
 (
 	GHIPostState * state,
@@ -890,7 +885,6 @@ static GHIPostingResult ghiPostFileDiskStateDoPosting
 	return GHIPostingPosting;
 }
 
-// ghiPostFileMemoryStateDoPosting present-unmatched
 static GHIPostingResult ghiPostFileMemoryStateDoPosting
 (
 	GHIPostState * state,
@@ -933,7 +927,6 @@ static GHIPostingResult ghiPostFileMemoryStateDoPosting
 	return GHIPostingPosting;
 }
 
-// ghiPostStateDoPosting present-unmatched
 static GHIPostingResult ghiPostStateDoPosting
 (
 	GHIPostState * state,
@@ -1040,7 +1033,6 @@ static GHIPostingResult ghiPostStateDoPosting
 	return ghiPostFileMemoryStateDoPosting(state, connection);
 }
 
-// ghiPostDoPosting present-unmatched
 GHIPostingResult ghiPostDoPosting
 (
 	struct GHIConnection * connection
