@@ -114,7 +114,6 @@ public:
     int isFloat() const;
     int toInteger() const;
     BfmeAptValue006DCD20 *checkedString();
-    void rva006DD6C0(EAStringC &out);
 };
 
 class Rva006D6D20 : public BfmeAptValue006DCD20
@@ -582,7 +581,7 @@ void *rva006D7350(Rva006DCE50Opaque *source)
 AptString *rva006d7c80(BfmeAptValue006DCD20 *value)
 {
     EAStringC tmp;
-    value->rva006DD6C0(tmp);
+    reinterpret_cast<const AptValue *>(value)->toString(tmp);
     tmp.rva006D6100();
     AptString *result = AptString::Create();
     reinterpret_cast<ScopedStringText *>(result)->text = tmp;
@@ -592,11 +591,11 @@ AptString *rva006d7c80(BfmeAptValue006DCD20 *value)
 AptString *rva006d74e0(BfmeAptValue006DCD20 *value, int count)
 {
     EAStringC result;
-    value->rva006DD6C0(result);
+    reinterpret_cast<const AptValue *>(value)->toString(result);
     for (int i = 0; i < count; ++i) {
         EAStringC item;
         BfmeAptValue006DCD20 *element = g_aptDateInterpreter.stack.At(i);
-        element->rva006DD6C0(item);
+        reinterpret_cast<const AptValue *>(element)->toString(item);
         result.Rva006D4F00Append(item);
     }
     AptString *out = AptString::Create();
@@ -646,7 +645,7 @@ AptString *rva006d7a60(BfmeAptValue006DCD20 *value, int count, int unused)
 		start = g_aptDateInterpreter.stack.At(0)->toInteger();
 	if (count >= 2)
 		end = g_aptDateInterpreter.stack.At(1)->toInteger();
-	value->rva006DD6C0(text);
+	reinterpret_cast<const AptValue *>(value)->toString(text);
 	int len = text.rva006D5EC0();
 	if (start < 0)
 		start += len;
@@ -686,7 +685,7 @@ AptString *rva006d7b60(BfmeAptValue006DCD20 *value, int count, int unused)
 		end = start;
 		start = tmp;
 	}
-	value->rva006DD6C0(text);
+	reinterpret_cast<const AptValue *>(value)->toString(text);
 	AptString *result = AptString::Create();
 	reinterpret_cast<ScopedStringText *>(result)->text = text.rva006d5f30(start, end - start);
 	return result;

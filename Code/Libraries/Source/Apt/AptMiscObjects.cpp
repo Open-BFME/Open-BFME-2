@@ -295,13 +295,13 @@ bool Rva006E9580::rva006E9580(int, EAStringC *pName, BfmeAptValue006DCD20 *pValu
 {
 	if (pName->rva006D3490("message")) {
 		EAStringC tmp;
-		pValue->rva006DD6C0(&tmp);
+		reinterpret_cast<const AptValue *>(pValue)->toString(tmp);
 		m_message.Assign(tmp);
 		return true;
 	}
 	if (pName->rva006D3490("name")) {
 		EAStringC tmp;
-		pValue->rva006DD6C0(&tmp);
+		reinterpret_cast<const AptValue *>(pValue)->toString(tmp);
 		m_name.Assign(tmp);
 		return true;
 	}
