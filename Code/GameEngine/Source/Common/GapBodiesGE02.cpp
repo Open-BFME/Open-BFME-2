@@ -110,8 +110,8 @@ int Rva005E7026::rva005E7049() const
 }
 
 // --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
-// rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
-// (virtual slot 21).
+// rowed 0x002ABCF0(1, 0) result, the tactical view looks at its +0x38 point
+// (View::lookAt, slot 21).
 #include "../../Include/Common/Player.h"
 
 class PlayerList;
@@ -122,32 +122,7 @@ struct PlayerListView
 	Player *m_10;
 };
 
-class View
-{
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void s8();
-	virtual void s9();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual void s19();
-	virtual void s20();
-	virtual void s21(void *point);
-};
+#include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 void Rva00428DC1()
@@ -157,7 +132,7 @@ void Rva00428DC1()
 	{
 		int found = player->rva002ABCF0(1, 0);
 		if (found)
-			TheTacticalView->s21((char *)found + 0x38);
+			TheTacticalView->lookAt((const Coord3D *)((char *)found + 0x38));
 	}
 }
 
