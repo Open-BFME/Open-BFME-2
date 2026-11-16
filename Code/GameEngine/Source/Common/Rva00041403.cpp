@@ -82,16 +82,8 @@ public:
  void rva00238D38();
 };
 
-class AudioSettings;
-
-class AudioManager
-{
-public:
- AudioSettings *friend_getAudioSettings() { return m_audioSettings; }
-private:
- unsigned char m_pad00[0x10];
- AudioSettings *m_audioSettings; // +0x10
-};
+#include "../../Include/Common/GameAudio.h"
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 extern AudioManager *TheAudio;
 
@@ -104,7 +96,7 @@ void INI::parseAudioSettingsDefinition(INI *ini)
  if (ini->getLoadType() == 2)
   throw INIException(3, "You cannot define or override the AudioSettings in map.ini");
 
- AudioSettings *settings = TheAudio->friend_getAudioSettings();
+ AudioSettings *settings = ((MilesAudioManager *)TheAudio)->m_audioSettings;
  MultiIniFieldParse parse;
  parse.add(g_00BC16E8, 0);
  Rva00238AB6::buildFieldParse(parse);

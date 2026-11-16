@@ -79,36 +79,7 @@ public:
 
 #include "../../Include/Common/PlayerList.h"
 
-class AudioManager
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual void s19();
-	virtual void s20();
-	virtual void s21();
-	virtual void s22();
-	virtual void s23();
-	virtual void s24();
-	virtual void audioEvent(BfmeAudioEventPrefix136 *ev);
-};
+#include "../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
 
@@ -341,7 +312,7 @@ void Rva004266A1::rva0042682B(int index, unsigned char value)
 		{
 			BfmeAudioEventPrefix136 ev(((Afield *)ThePlayerList->getLocalPlayer())->m_34->m_ref1a8, 2);
 			((Rva0033F15DDwordSlot *)&ev)->set(((Afield *)ThePlayerList->getLocalPlayer())->m_54);
-			TheAudio->audioEvent(&ev);
+			TheAudio->addAudioEvent(&ev);
 		}
 	}
 }
@@ -373,7 +344,7 @@ void Rva004266A1::rva00426914(int index, unsigned char value)
 	
 	BfmeAudioEventPrefix136 ev(((Afield *)ThePlayerList->m_local)->m_34->m_ref1ac, 2);
 	((Rva0033F15DDwordSlot *)&ev)->set(((Afield *)ThePlayerList->m_local)->m_54);
-	TheAudio->audioEvent(&ev);
+	TheAudio->addAudioEvent(&ev);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva00426745Dtor.cpp
