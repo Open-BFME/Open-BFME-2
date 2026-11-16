@@ -353,8 +353,6 @@ void AptValue::toString(EAStringC &sBuf) const {
 #pragma comment(linker, "/alternatename:?c_cih@AptValue@@QBEPAVAptCIH@@_N@Z=?rva006DCF60@BfmeAptValue006DCD20@@QAEPAV1@_N@Z")
 #pragma comment(linker, "/alternatename:?GetFloat@AptFloat@@QBEMXZ=?get@Rva00723490FloatField@@QBEMXZ")
 #pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
-#pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
-#pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXAAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
 
 // Native6DA590..6DA62D: Ghidra-unlisted C-buffer join. Asserts szSeparator
 // (AptArray.cpp 0x14D, retail texts), joins through the rowed

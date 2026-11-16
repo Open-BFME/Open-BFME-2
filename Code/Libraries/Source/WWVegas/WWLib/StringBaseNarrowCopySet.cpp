@@ -103,5 +103,3 @@ void StringBase<char>::set(const StringBase<char> &that)
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
-#pragma comment(linker, "/alternatename:?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z=??0?$StringBase@D@@AAE@ABV0@@Z")

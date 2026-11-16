@@ -21,4 +21,3 @@ template _STL::pair<int, AsciiString> _STL::make_pair<int, AsciiString>(const in
 // Native factory ABI is three cdecl stack words (hidden output plus two
 // refs), EAX=result pointer and RET0. Their explicit-output view supplies
 // precisely those words; bind it to the recovered provider for the linker.
-#pragma comment(linker, "/alternatename:?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z=??$make_pair@HVAsciiString@@@_STL@@YA?AU?$pair@HVAsciiString@@@0@ABHABVAsciiString@@@Z")

@@ -2903,8 +2903,6 @@ alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?c_nat
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?getHasClass@AptObject@@UBEHXZ	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?isArray@AptValue@@QBE_NXZ	1
-alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXAAVEAStringC@@@Z	1
-alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?sMethod_pop@AptArray@@SAPAVAptValue@@PAV2@H@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?sMethod_reverse@AptArray@@SAPAVAptValue@@PAV2@H@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?sMethod_sort@AptArray@@SAPAVAptValue@@PAV2@H@Z	1
@@ -2928,7 +2926,6 @@ alternatename	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptErro
 alternatename	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	?factoryCreateString@@YAPAVAptValue@@XZ	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	?factorySetString@BfmeAptValue006DCD20@@QAEXPBD@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	?objectMemberSet@AptError@@UAE_NQAVAptValue@@QBVEAStringC@@0@Z	1
-alternatename	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	?rva006D36C0@EAStringC@@QBEHPBV1@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptObjectDoesImplement.cpp	?GetAt@AptArray@@QBEPAVAptValue@@H@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptObjectDoesImplement.cpp	?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptObjectDoesImplement.cpp	?c_array@AptValue@@QBEPAVAptArray@@XZ	1
@@ -2965,7 +2962,6 @@ alternatename	Code/Libraries/Source/Apt/AptPseudoDisplayListCtor.cpp	??3AptPseud
 alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	?vtableSlot0@Rva006D84C0IntValue@@UAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	?vtableSlot0@Rva006D86A0FloatValue@@UAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	?vtableSlot0@Rva006D8860BoolValue@@UAEXXZ	1
-alternatename	Code/Libraries/Source/Apt/AptValue/AptValueDonorBitsBFME2.cpp	?rva006dbd80@AptCIH@@QAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?GetBool@AptBoolean@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?GetInt@AptInteger@@QBEHXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?c_integer@AptValue@@QBEPAVAptInteger@@XZ	1
@@ -2976,7 +2972,6 @@ alternatename	Code/Libraries/Source/Apt/AptValue/Rva006D6300TypedValueCtors.cpp	
 alternatename	Code/Libraries/Source/Apt/AptValue/Rva006D6300TypedValueCtors.cpp	?vtableSlot0@Rva006D6320Value@@UAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp	?gpGlobalGlobalObject@@3PAVAptValue@@A	1
 alternatename	Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp	?rva0070A8B0@Rva0070A840@@QAEXXZ	1
-alternatename	Code/Libraries/Source/Apt/Rva006CFCD0Apt.cpp	?rva006CFCD0@AptCIH@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp	?rva006F7AC0@Rva006F7AC0@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Apt/Rva006FC1D0Ctor.cpp	??1Rva006D6360@@UAE@XZ	1
 alternatename	Code/Libraries/Source/Benchmark/emfloat.cpp	?StartStopwatch@@YAKXZ	1
@@ -3253,7 +3248,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0032E51BRangeForward.cpp	?R
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp	??1Rva003615E5Record@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva004152E6NewNode.cpp	?rva004152E6@Rva000427195@@QAEPAXPBX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00425CBEForEach.cpp	??RRva00425B75Deleter@@QBEXPAVLightPoint@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00523DB7Ctor.cpp	?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054103ECopy.cpp	??4Rva0054103E@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054A0D8Insert.cpp	?cmp@Comp0054A0D8@@QAEEPAX0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005680DERangeForward.cpp	?Rva005680DERangeCallee@@YAPAURva005680DEOutput@@PAU1@IPBURva005680DEInput@@ABURva005680DEIteratorTag@@@Z	1
@@ -3337,9 +3331,7 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	??
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	??0AsciiStringWI@@QAE@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	??0BfmeSubA@@QAE@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	??0BfmeSubB@@QAE@ABV0@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	?bfmeSetBPD@BfmeSubBPD@@QAEXPAX@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	?copyFrom@BfmeTail50@@QAEXPBU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	?copyFrom@BfmeTailF5@@QAEXPBU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopyCtor.cpp	??0?$StringBase@G@@QAE@ABV0@@Z	1

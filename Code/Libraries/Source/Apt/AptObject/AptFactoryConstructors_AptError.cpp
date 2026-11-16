@@ -143,7 +143,6 @@ AptValue *AptError::objectMemberLookup(AptValue *const context,const EAStringC *
 #pragma comment(linker, "/alternatename:?factoryCreateString@@YAPAVAptValue@@XZ=?Create@AptString@@SAPAV1@XZ")
 #pragma comment(linker, "/alternatename:?factorySetString@BfmeAptValue006DCD20@@QAEXPBD@Z=?SetString@AptValue@@QAEXPBD@Z")
 #pragma comment(linker, "/alternatename:?callback006E9730@@YAPAVAptValue@@PAV1@H@Z=?rva006e9730@@YAPAVAptValue@@PAV1@@Z")
-#pragma comment(linker, "/alternatename:?rva006D36C0@EAStringC@@QBEHPBV1@@Z=?compare008B4260@Rva008B4260StringRef@@QBEHABU1@@Z")
 typedef char FactoryNativeFunctionSize[sizeof(AptNativeFunction)==36?1:-1];
 
 // Sound donor e97b38e0a6efef64 attachSound/stop semantics; native body proves
