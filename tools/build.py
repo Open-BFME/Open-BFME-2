@@ -601,10 +601,6 @@ class IndexedCoffSymbols(list):
 _LAYOUT_MEMO = collections.OrderedDict()
 _LAYOUT_MEMO_SIZE = 256
 _LAYOUT_LOCK = threading.Lock()
-# a settled entry is trusted without reading only where st_ctime is the change time, which any write moves to the
-# present (POSIX); on Windows it is the creation time, and a same-size rewrite with a restored mtime keeps the whole
-# identity, so every hit there reads the bytes again
-_LAYOUT_TRUST_SETTLED = os.name != "nt"
 _LAYOUT_PINS = threading.local()
 
 
@@ -638,35 +634,29 @@ def _current_object_layout(path_str):
     """Parsed COFF layout of the object at `path_str` as it is on disk now.
 
     The gate reads the SAME multi-MB object once per ledger row; with generated
-    claims putting hundreds of rows on one TU, re-reading and re-parsing per row
-    came to dominate full-gate wall time (91k rows over ~4k objects), so the last
-    _LAYOUT_MEMO_SIZE layouts are kept. An entry is keyed on the file's full
-    identity (device, inode, size, mtime and ctime), and, as _hash_file's memo
-    is, trusted only when the file had settled more than _HASH_TICK_NS before it
-    was parsed: a same-size rewrite within one tick of coarse file times leaves
-    every stat field as it was, so a younger entry reads the bytes again and is
-    used only when they are the bytes it parsed. Where ctime is creation time
-    (Windows, _LAYOUT_TRUST_SETTLED), every hit reads the bytes again. The memo stats the file itself
-    (_object_layout keeps its callers' `mtime_ns` and `size` arguments)."""
-    stat = os.stat(path_str)
-    stamp = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+    claims putting hundreds of rows on one TU, re-parsing per row came to
+    dominate full-gate wall time (91k rows over ~4k objects), so the last
+    _LAYOUT_MEMO_SIZE layouts are kept. The memo is keyed on content: every call
+    reads the file, and a layout is reused only when its bytes are the bytes just
+    read. No stat field vouches for a file: a same-size rewrite within one tick
+    of coarse file times, a restored mtime, Windows' creation-time ctime and
+    clock skew all leave them as they were. A read the file changed during is
+    not kept. (_object_layout keeps its callers' `mtime_ns` and `size`
+    arguments.)"""
     with _LAYOUT_LOCK:
         cached = _LAYOUT_MEMO.get(path_str)
         if cached is not None:
             _LAYOUT_MEMO.move_to_end(path_str)
-    if cached is not None and cached[0] == stamp and _LAYOUT_TRUST_SETTLED:
-        if max(stat.st_mtime_ns, stat.st_ctime_ns) < cached[1] - _HASH_TICK_NS:
-            return cached[2]
-    read_at = _hash_clock()
+    before = os.stat(path_str)
     data = Path(path_str).read_bytes()
     after = os.stat(path_str)
-    if cached is not None and cached[0] == stamp and data == cached[2][0]:
-        layout = cached[2]                      # the bytes it parsed: still them, read again now
-    else:
-        layout = _read_object_layout(path_str, data=data)
+    if cached is not None and len(cached[0]) == len(data) and cached[0] == data:
+        return cached                           # the bytes it parsed: still them, read again now
+    layout = _read_object_layout(path_str, data=data)
+    stamp = (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns, before.st_ctime_ns)
     if stamp == (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns):
         with _LAYOUT_LOCK:
-            _LAYOUT_MEMO[path_str] = (stamp, read_at, layout)
+            _LAYOUT_MEMO[path_str] = layout
             _LAYOUT_MEMO.move_to_end(path_str)
             while len(_LAYOUT_MEMO) > _LAYOUT_MEMO_SIZE:
                 _LAYOUT_MEMO.popitem(last=False)

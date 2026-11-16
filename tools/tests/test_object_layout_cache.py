@@ -76,15 +76,27 @@ def test_a_younger_entry_whose_bytes_are_unchanged_is_reused(tmp_path, monkeypat
     assert layout(obj) is first                                     # read again, the same bytes: no new parse
 
 
-def test_a_settled_entry_is_trusted_without_reading(tmp_path, monkeypatch):
+def test_every_hit_reads_the_file_and_unchanged_bytes_are_not_parsed_again(tmp_path, monkeypatch):
     obj = tmp_path / "a.obj"
     coff(obj, [("?alpha@@YAXXZ", 0)])
-    monkeypatch.setattr(build, "_hash_clock", lambda: time.time_ns() + 10 * build._HASH_TICK_NS)
+    parses, reads = [], []
+    parse, read = build._read_object_layout, Path.read_bytes
+    monkeypatch.setattr(build, "_read_object_layout", lambda *a, **kw: parses.append(1) or parse(*a, **kw))
+    monkeypatch.setattr(Path, "read_bytes", lambda self: reads.append(self) or read(self))
     first = layout(obj)
-    reads = []
-    real = Path.read_bytes
-    monkeypatch.setattr(Path, "read_bytes", lambda self: reads.append(self) or real(self))
-    assert layout(obj) is first and reads == []
+    assert layout(obj) is first and layout(obj) is first
+    assert len(parses) == 1 and len(reads) == 3
+
+
+def test_coarse_times_and_clock_skew_vouch_for_nothing(tmp_path, monkeypatch):
+    # Sol r2: whole-second stat times and a clock ahead of the file system made an entry "settled" too early
+    monkeypatch.setattr(build, "_hash_clock", lambda: time.time_ns() + 10 * build._HASH_TICK_NS)
+    obj = tmp_path / "a.obj"
+    coff(obj, [("?alpha@@YAXXZ", 0)])
+    assert names(obj) == ["?alpha@@YAXXZ"]
+    freeze_stat(monkeypatch, obj)
+    coff(obj, [("?gamma@@YAXXZ", 0)])
+    assert names(obj) == ["?gamma@@YAXXZ"]
 
 
 def test_another_file_at_the_path_is_parsed_again_however_settled(tmp_path, monkeypatch):
@@ -121,20 +133,3 @@ def test_the_uncached_reader_parses_the_file(tmp_path):
         ["?alpha@@YAXXZ"]
     assert not build._LAYOUT_MEMO
 
-
-
-def test_where_ctime_is_creation_time_a_settled_entry_is_read_again(tmp_path, monkeypatch):
-    # Sol r1: on Windows a same-size rewrite with a restored mtime keeps the whole identity, however settled
-    monkeypatch.setattr(build, "_LAYOUT_TRUST_SETTLED", False)
-    monkeypatch.setattr(build, "_hash_clock", lambda: time.time_ns() + 10 * build._HASH_TICK_NS)
-    obj = tmp_path / "a.obj"
-    coff(obj, [("?alpha@@YAXXZ", 0)])
-    first = layout(obj)
-    assert layout(obj) is first                                     # unchanged bytes: read, not parsed again
-    freeze_stat(monkeypatch, obj)
-    coff(obj, [("?gamma@@YAXXZ", 0)])
-    assert names(obj) == ["?gamma@@YAXXZ"]
-
-
-def test_the_settled_trust_follows_the_platform():
-    assert build._LAYOUT_TRUST_SETTLED == (os.name != "nt")
