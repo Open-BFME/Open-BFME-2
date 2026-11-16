@@ -778,13 +778,7 @@ class ParticleSystemTemplate;
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
-#include "../../../Include/Common/AsciiStringRef.h"
-
-struct AsciiStringPlusString : AsciiStringRef
-{
-	operator AsciiString();
-	AsciiStringRef m_second;
-};
+#include "../../../Include/Common/AsciiStringPlusString.h"
 
 namespace _STL {
 // Bind the by-value result's teardown to the rowed 0x001F22A3 thunk.

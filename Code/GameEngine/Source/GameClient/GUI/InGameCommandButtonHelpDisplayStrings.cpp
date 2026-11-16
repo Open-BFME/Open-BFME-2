@@ -42,8 +42,8 @@ __declspec(noinline) static void Rva0056C790(DisplayString *str,const Rva0043FC2
 class Rva0056D3FD;
 #include "../../../Include/GameClient/ImageClass.h"
 #include "../../../Include/GameClient/Image.h"
-struct AsciiStringPlusString {const AsciiString *first,*second;operator AsciiString();};
-static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString p={&a,&b};return p;}
+#include "../../../Include/Common/AsciiStringPlusString.h"
+static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString p;p.m_string=&a;p.m_second.m_string=&b;return p;}
 #include "../../../Include/GameClient/InGameCommandButtonHelp.h"
 void InGameCommandButtonHelp::Impl::SetupDisplayStrings() {
  Rva0056C790(m_1C,&((Rva0029F8B8*)TheInGameUI)->rva0029F8B8());

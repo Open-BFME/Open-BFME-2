@@ -67,13 +67,12 @@ public:
  virtual void cancelClicked();
 };
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef{const AsciiString*string;};
-struct AsciiStringPlusString:AsciiStringRef{AsciiStringRef second;};
+#include "../../Include/Common/AsciiStringPlusString.h"
 struct AsciiStringPlusStringText:AsciiStringPlusString {
  operator AsciiString();Rva000B3F84Pair text;
 };
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){
- AsciiStringPlusString r;r.string=&a;r.second.string=&b;return r;
+ AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;
 }
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&left,const char*right){
  Rva000B3F84Pair text;text.init(right);

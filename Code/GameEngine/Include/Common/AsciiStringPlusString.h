@@ -10,6 +10,7 @@ struct AsciiStringPlusString : public AsciiStringRef {
     AsciiStringRef m_second;
     int length() const;
     int write(char *dst);
+    operator AsciiString();
 };
 
 #endif // CANONICAL_ASCIISTRINGPLUSSTRING_H

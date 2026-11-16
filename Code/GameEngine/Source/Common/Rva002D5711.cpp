@@ -6,13 +6,7 @@
 
 #include "../../Include/GameClient/Image.h"
 
-#include "../../Include/Common/AsciiStringRef.h"
-
-struct AsciiStringPlusString : AsciiStringRef
-{
-	operator AsciiString();
-	AsciiStringRef m_second;
-};
+#include "../../Include/Common/AsciiStringPlusString.h"
 
 class Rva002D5711
 {

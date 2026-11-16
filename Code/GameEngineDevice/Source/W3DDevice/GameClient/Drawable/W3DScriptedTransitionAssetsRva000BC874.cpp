@@ -8,7 +8,7 @@
 // Existing StringBase, pair materializer and effect delegates preserve semantics.
 template<class T> struct StringInlineData{int m_refCount,m_length;T m_text[1];};
 #include "ascii_string.h"
-struct AsciiStringPlusString{const AsciiString*m_left,*m_right;operator AsciiString();};
+#include "../../../../../GameEngine/Include/Common/AsciiStringPlusString.h"
 class AssetList{public:AssetList&operator<<(const AsciiString&);};
 #include "../../../../../GameEngine/Include/Common/Rva001E11F8.h"
 #include "../../../../../GameEngine/Include/Common/Rva000B2D4D.h"
@@ -24,7 +24,7 @@ if(m!=end)do{
  ((StringBase<char>*)&prefix)->concat((const StringBase<char>&)name);
  ((StringBase<char>*)&prefix)->concat(".");
  }
- for(unsigned i=0;i<(unsigned)(m->end-m->begin);++i){AsciiStringPlusString pair;pair.m_left=&prefix;pair.m_right=&m->begin[i];*assets<<pair;}
+ for(unsigned i=0;i<(unsigned)(m->end-m->begin);++i){AsciiStringPlusString pair;pair.m_string=&prefix;pair.m_second.m_string=&m->begin[i];*assets<<pair;}
 }while(++m!=modelsEnd);
 if(fx)fx->rva001E11F8((int)assets,context);
 TransitionNode*transitionNode=nodes->next;if(transitionNode!=nodes)do{((Rva000B2D4D*)transitionNode->value)->rva000B2D4D((int)assets,context);}while((transitionNode=transitionNode->next)!=nodes);
