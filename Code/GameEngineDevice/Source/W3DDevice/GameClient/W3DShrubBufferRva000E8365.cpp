@@ -15,7 +15,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 // Inline the header arithmetic without emitting competing Vector3 COMDATs.
