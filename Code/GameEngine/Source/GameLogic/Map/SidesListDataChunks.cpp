@@ -132,8 +132,7 @@ class BfmeParserBindingBaseVE
 {
 public:
 	__declspec(dllimport) __forceinline virtual ~BfmeParserBindingBaseVE() { m_registry->handle(m_token); }
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot1() = 0;	// retail table 0x007C9574: deleting dtor, __purecall
 
 private:
 	Q1Forwardee0000871A *m_registry;	// +0x04, the DataChunkInput
@@ -145,6 +144,7 @@ class Rva003B3417 : public BfmeParserBindingBaseVE
 public:
 	Rva003B3417(void *scripts, void *count, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);	// 0x003B3417
 
+	virtual void bfmeSlot1();
 private:
 	void *m_scripts;
 	void *m_count;
@@ -157,6 +157,7 @@ class LibraryMapsParser : public BfmeParserBindingBaseVE
 public:
 	LibraryMapsParser(void *lists, void *count, void *table, void *info);	// 0x00329F83
 
+	virtual void bfmeSlot1();
 private:
 	void *m_lists;
 	void *m_count;
@@ -872,6 +873,7 @@ public:
 	BfmeParserBindingVE(SidesList *owner, SidesListChunkParser callback, DataChunkInput *input,
 		const AsciiString &label, const AsciiString &parentLabel);	// 0x000AD73D
 
+	virtual void bfmeSlot1();
 private:
 	SidesList *m_owner;
 	SidesListChunkParser m_callback;
