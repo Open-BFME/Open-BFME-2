@@ -9339,7 +9339,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp,y
 Code/GameEngine/Source/GameLogic/Object/Behavior/Matrix3DO1Inlines.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/Matrix3DRotateO1.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFind.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp,yes,0,0,0,0,0
@@ -9357,7 +9357,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorFri
 Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/ObjectModuleXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PartitionFilterRejectByKindOf.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp,yes,0,0,0,0,0
