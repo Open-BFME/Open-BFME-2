@@ -60,13 +60,7 @@ public:
 	unsigned char m_pad00[0x2c];
 	Rva0020F3E8Vector<Rva0020F3E8Region *> m_regions;	// +0x2C
 };
-class LivingWorldRegionManager
-{
-public:
-	void SelectCampaign(const StringBase<char> &campaignName);
-	unsigned char m_pad00[8];
-	LivingWorldRegionCampaign *m_activeCampaign;	// +0x08 (WB GetActiveCampaign)
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
@@ -110,10 +104,10 @@ void LivingWorldCampaignManager::StartNewCampaign(Int campaignIndex)
 	{
 		const Rva0052BAB2 *named = reinterpret_cast<const Rva0052BAB2 *>((*reinterpret_cast<CampaignVectorView<Rva0052BFE1 *> *>(&field14))[field10]);
 		regionManager->SelectCampaign(*reinterpret_cast<const StringBase<char> *>(named->rva0052BAB2()));
-		if (regionManager->m_activeCampaign)
+		if (regionManager->field08)
 		{
 			TheLivingWorldManager->rva00210F96();
-			regionManager->m_activeCampaign->rva0020F3E8(regionManager);
+			regionManager->field08->rva0020F3E8(regionManager);
 		}
 	}
 	TheGameLogic->rva0023D033();

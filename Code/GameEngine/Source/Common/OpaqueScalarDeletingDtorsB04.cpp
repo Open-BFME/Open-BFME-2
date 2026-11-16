@@ -19,7 +19,6 @@
 //   0x002035F5  0x00203EBA  0x00BD3B54#0
 //   0x0020D9D0  0x0020D9EC  0x00BE3FF4#0
 //   0x0020E6DF  0x0020E205  0x00BE4334#1
-//   0x00210C17  0x00210B38  0x00BE4358#0
 //   0x00211121  0x0021113D  0x00BE5118#0
 //   0x00216DA0  0x00216BF5  0x00BE59E4#0
 //   0x002201B9  0x0021FFEE  0x00BE648C#0
@@ -109,18 +108,7 @@ Rva0020E205::Rva0020E205(EmitVtableTag *)
 {
 }
 
-class LivingWorldRegionManager
-{
-public:
-	LivingWorldRegionManager(EmitVtableTag *);
-public:
-	virtual ~LivingWorldRegionManager();
-};
-
-// ?<LivingWorldRegionManager::LivingWorldRegionManager> absent-from-retail
-LivingWorldRegionManager::LivingWorldRegionManager(EmitVtableTag *)
-{
-}
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva00210EF1
 {

@@ -5,22 +5,12 @@
 
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldBattle.h"
 
-class LivingWorldRegionManager
-{
-public:
-	LivingWorldBattle *SelectPendingBattle();
- bool rva0020E4C8();
-
-private:
-	unsigned char m_pad[0x14];
-	LivingWorldBattle **m_begin;
-	LivingWorldBattle **m_end;
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 
 LivingWorldBattle *LivingWorldRegionManager::SelectPendingBattle()
 {
-	LivingWorldBattle **begin = m_begin;
-	LivingWorldBattle **end = m_end;
+	LivingWorldBattle **begin = field14;
+	LivingWorldBattle **end = field18;
 	for (; begin != end; ++begin) {
 		LivingWorldBattle *elem = *begin;
 		if (elem->rva003F4831() > 0)
@@ -42,7 +32,7 @@ bool LivingWorldRegionManager::rva0020E4C8()
  bool restart;
  do {
   restart=false;
-  for(LivingWorldBattle **it=m_begin;it!=m_end;++it) {
+  for(LivingWorldBattle **it=field14;it!=field18;++it) {
    LivingWorldBattle *battle=*it;
    if(battle->rva003F4831()==0) {
     TheLivingWorldLogic->AutoResolveBattle((int)battle);
