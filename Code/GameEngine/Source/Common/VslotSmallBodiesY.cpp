@@ -305,18 +305,13 @@ bool AISpellBookBuffTerrain::shouldActivate(Object *obj)
 // Views for ModelConditionUpgrade::upgradeRemovalImplementation (0x004B65A5, defined after
 // UpdateModule.h below): the pinned ModelConditionFlags test 0x000B3EB3, the rowed Object
 // flag clear 0x001E431E and set 0x001E42F2, and the module data's two flag sets.
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 #include "../../Include/GameLogic/Module/Rva001E431E.h"
 #include "../../Include/GameLogic/Module/Rva001E42F2.h"
 struct Rva004B65A5Data
 {
 	char m_pad00[0x118];
 	ModelConditionFlags m_118;
-	char m_pad119[0x4B];
 	ModelConditionFlags m_164;
 };
 // 0x0043D41E: message 0x15 answers 1 for byte arguments 1, 0x1C and 0x29;

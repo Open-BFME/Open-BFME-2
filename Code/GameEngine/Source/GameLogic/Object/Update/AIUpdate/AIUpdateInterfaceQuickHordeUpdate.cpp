@@ -221,24 +221,7 @@ static inline void matrixSetTranslation(Matrix3D &m, const Coord3D &translation)
 	m.Row[2][3] = translation.z;
 }
 
-class ModelConditionFlags
-{
-public:
-	UnsignedInt test(UnsignedInt bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(UnsignedInt bit)
-	{
-		m_words[bit >> 5] |= (1U << (bit & 0x1f));
-	}
-	void clear(UnsignedInt bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../../../Include/Common/ThingTemplate.h"
 
@@ -302,7 +285,7 @@ public:
 
 	__forceinline void clearModelConditionState(ModelConditionFlagType condition)
 	{
-		if (m_modelConditionFlags.test(condition) != 0)
+		if (m_modelConditionFlags.test((UnsignedInt)condition) != 0)
 		{
 			m_modelConditionFlags.clear(condition);
 			rva0028AE6D();
@@ -310,7 +293,7 @@ public:
 	}
 	__forceinline void setModelConditionState(ModelConditionFlagType condition)
 	{
-		if (m_modelConditionFlags.test(condition))
+		if (m_modelConditionFlags.test((UnsignedInt)condition))
 			return;
 		m_modelConditionFlags.set(condition);
 		rva0028AE6D();

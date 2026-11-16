@@ -70,24 +70,7 @@ static __forceinline void critterDesyncLog(const char *text)
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class ModelConditionFlags
-{
-public:
-	UnsignedInt test(Int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(Int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(Int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 
 class Object
 {
@@ -97,7 +80,7 @@ public:
 	Real getVisionRange() const;
 	void rva0028AE6D();
 	void rva0028AD32();
-	__forceinline void setModelConditionState(Int bit)
+	__forceinline void setModelConditionState(UnsignedInt bit)
 	{
 		if (m_conditionBits.test(bit) == 0)
 		{
@@ -105,7 +88,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearModelConditionState(Int bit)
+	__forceinline void clearModelConditionState(UnsignedInt bit)
 	{
 		if (m_conditionBits.test(bit) != 0)
 		{

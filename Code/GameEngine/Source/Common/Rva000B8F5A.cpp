@@ -24,8 +24,8 @@ class ModelConditionFlags;
 #include "../../Include/GameClient/Drawable.h"
 class FXList {public:static void doFXObj(const FXList*,const Object*,const Object*);static void doFXPos(const FXList*,const Coord3D*,const Matrix3D*,float,const Coord3D*);};
 struct AnimationStateBF9FC {char pad00[0x68];const FXList*fx68;char pad6C[0x9C-0x6C];bool repeat9C;};
-class ModelConditionFlags {public:bool rva000B3EB3()const;bool test(unsigned bit)const{return ((bits[bit>>5]>>(bit&31))&1)!=0;}unsigned bits[19];};
-class WeaponTemplateSetHead {public:WeaponTemplateSetHead(const WeaponTemplateSetHead&);void rva000B3ED3(const WeaponTemplateSetHead&);unsigned bits[19];};
+#include "../../Include/GameClient/ModelConditionFlags.h"
+#include "../../Include/Common/WeaponTemplateSetHead.h"
 class Rva000B6253 {public:Rva000B6253*rva000B6253(int,unsigned,unsigned,unsigned,unsigned,unsigned);unsigned bits[19];};
 #include "../../Include/Common/Rva000B4B23.h"
 #include "../../Include/GameClient/ParticleSystemClass.h"
@@ -549,7 +549,7 @@ void Rva000BFB76Interface::rva000BFB76(const ModelConditionFlags&conditions,bool
   WeaponTemplateSetHead set=*(const WeaponTemplateSetHead*)&conditions;
   set.rva000B3ED3(*(const WeaponTemplateSetHead*)&ignored);
   WeaponTemplateSetHead clear=*(const WeaponTemplateSetHead*)&conditions;
-  for(unsigned i=0;i<19;++i)clear.bits[i]=~clear.bits[i];
+  for(unsigned i=0;i<19;++i)clear.m_bits[i]=~clear.m_bits[i];
   clear.rva000B3ED3(*(const WeaponTemplateSetHead*)&ignored);
   for(_STL::_Rb_tree_node_base*node=childrenA8->left;node!=childrenA8;node=_STL::_Rb_global<bool>::_M_increment(node)){
    Drawable*child=((GameClientBFB76View*)TheGameClient)->getDrawable(((ModelChildNode*)node)->id);
@@ -567,7 +567,7 @@ void Rva000BFB76Interface::rva000BFB76(const ModelConditionFlags&conditions,bool
   if(memcmp(&next,&old,sizeof(next)))change=true;
  }
  conditions17C=conditions;
- hide80=!(conditions.bits[0]&(1u<<7));
+ hide80=!(conditions.m_bits[0]&(1u<<7));
  void*state=((Rva000B4BED*)*(void**)((char*)this-0xC))->rva000B4BED(&conditions);
  if(transition1CB && m_18 && state==next1CC)state=m_18;
  else {transition1CB=false;next1CC=0;}

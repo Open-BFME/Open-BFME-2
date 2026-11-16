@@ -66,29 +66,7 @@ class DamageInfo;
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
-class ModelConditionFlags
-{
-public:
-	Bool test(UnsignedInt bit) const
-	{
-		return ((m_words[bit >> 5] >> (bit & 0x1f)) & 1) != 0;
-	}
-	UnsignedInt testMask(UnsignedInt bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(UnsignedInt bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(UnsignedInt bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 class Object : public Thing
 {
 public:
@@ -99,7 +77,7 @@ public:
 
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
 	{
-		if (m_modelConditionFlags.testMask(mc))
+		if (m_modelConditionFlags.test((UnsignedInt)mc))
 		{
 			m_modelConditionFlags.clear(mc);
 			rva0028AE6D();
@@ -108,7 +86,7 @@ public:
 
 	__forceinline void setModelConditionState(ModelConditionFlagType mc)
 	{
-		if (m_modelConditionFlags.testMask(mc) == 0)
+		if (m_modelConditionFlags.test((UnsignedInt)mc) == 0)
 		{
 			m_modelConditionFlags.set(mc);
 			rva0028AE6D();

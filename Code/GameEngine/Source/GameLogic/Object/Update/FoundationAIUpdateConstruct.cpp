@@ -143,15 +143,7 @@ struct CreateMask
 	UnsignedInt m_bits[4];
 };
 
-class ModelConditionFlags
-{
-public:
-	UnsignedInt test(Int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
-	void set(Int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
-	void clear(Int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 enum ObjectStatusTypes
 {
@@ -191,7 +183,7 @@ public:
 	void rva0028DCC4();
 	void rva00293E64(Dict *dict);
 	void updateUpgradeModules();
-	__forceinline void setModelConditionState(Int bit)
+	__forceinline void setModelConditionState(UnsignedInt bit)
 	{
 		if (!m_modelConditionFlags.test(bit))
 		{
@@ -199,7 +191,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearModelConditionState(Int bit)
+	__forceinline void clearModelConditionState(UnsignedInt bit)
 	{
 		if (m_modelConditionFlags.test(bit))
 		{

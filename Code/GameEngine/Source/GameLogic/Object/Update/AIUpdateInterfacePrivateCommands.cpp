@@ -95,15 +95,7 @@ enum ModelConditionFlagType
 	BFME_MODELCONDITION_BACKING_UP = 4 * 32 + 28
 };
 
-class ModelConditionFlags
-{
-public:
-	UnsignedInt test(UnsignedInt bit) const { return m_words[bit >> 5] & (1U << (bit & 0x1f)); }
-	void clear(UnsignedInt bit) { m_words[bit >> 5] &= ~(1U << (bit & 0x1f)); }
-
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 // Status bit 0x26 is tested by privateHunt and privateGuardTunnelNetwork; its
 // name is not evidenced.
@@ -470,7 +462,7 @@ public:
 	void rva0028DB3C();
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
 	{
-		if (m_modelConditionFlags.test(mc) != 0)
+		if (m_modelConditionFlags.test((UnsignedInt)mc) != 0)
 		{
 			m_modelConditionFlags.clear(mc);
 			rva0028AE6D();
