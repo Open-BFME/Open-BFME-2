@@ -13,32 +13,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <vector>
-// Opaque 12B AsciiString-vector member: only the out-of-line range-destroy
-// call appears in the record dtor, pinned at 0x2CC70 (GenericObjectCreationNugget
-// precedent). Using vector<AsciiString> here would resolve to the 0x36410 fold
-// and miss retail by one reloc.
-struct RvaVecAscii
-{
-	~RvaVecAscii();
-
-private:
-	unsigned char m_data[12];
-};
-struct BfmeVectorRecord000BDF17 {
-	RvaVecAscii names;
-    AsciiString text0, text1;
-    unsigned int word14, word18, word1C, word20, word24, word28;
-    unsigned char flag2C, flag2D;
-    unsigned int word30, word34, word38;
-    unsigned char flag3C;
-    BfmeVectorRecord000BDF17();
-    BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF17 &);
-    // Declared, never defined here: the assignment body lives under
-    // StringVectorRecordAssignBFME2.cpp (retail 0x000BDFAC). Declaring the
-    // implicit copy-assignment suppresses this TU's competing COMDAT so
-    // vector helpers call the kept copy; their bytes are unchanged.
-    BfmeVectorRecord000BDF17 &operator=(const BfmeVectorRecord000BDF17 &);
-};
+// The record dtor calls the kept vector<AsciiString> dtor (0x2CC70); a
+// declaration-only specialization stops this TU emitting its own copy.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+}
+#include "../../../../GameEngine/Include/Common/BfmeVectorRecord000BDF17.h"
+BfmeVectorRecord000BDF17::~BfmeVectorRecord000BDF17() {}
 namespace _STL {
 template <> void _Construct<BfmeVectorRecord000BDF17, BfmeVectorRecord000BDF17>(BfmeVectorRecord000BDF17 *, const BfmeVectorRecord000BDF17 &);
 }

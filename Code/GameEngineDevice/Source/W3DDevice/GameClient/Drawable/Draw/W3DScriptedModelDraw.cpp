@@ -14,14 +14,7 @@ AsciiString Rva000BDD6CReplace(const AsciiString &source, const AsciiString &fin
 AsciiString Rva000B992CBuild(const AsciiString &a1, const AsciiString &a2, int dummy, bool flag, int num);
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/AnimationAssetBFME2.h"
 #include <string.h>
-struct BfmeVectorRecord000BDF17 {
- _STL::vector<AsciiString>names;AsciiString text0,text1;
- float word14,word18;int word1C;float word20,word24,word28;
- bool flag2C,flag2D;int word30;float word34,word38;bool flag3C;
- BfmeVectorRecord000BDF17(const AsciiString&,float);
- BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF17&);
- ~BfmeVectorRecord000BDF17();
-};
+#include "../../../../../../GameEngine/Include/Common/BfmeVectorRecord000BDF17.h"
 
 typedef int Int;
 

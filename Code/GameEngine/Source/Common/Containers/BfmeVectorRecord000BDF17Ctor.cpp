@@ -15,15 +15,7 @@ template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
-struct BfmeVectorRecord000BDF17 {
- _STL::vector<AsciiString>names;AsciiString text0,text1;
- float word14,word18;int word1C;float word20,word24,word28;
- bool flag2C,flag2D;int word30;float word34,word38;bool flag3C;
- BfmeVectorRecord000BDF17(const AsciiString&,float);
- BfmeVectorRecord000BDF17(const BfmeVectorRecord000BDF17&);
- ~BfmeVectorRecord000BDF17();
- BfmeVectorRecord000BDF17&operator=(const BfmeVectorRecord000BDF17&);
-};
+#include "../../../Include/Common/BfmeVectorRecord000BDF17.h"
 BfmeVectorRecord000BDF17::BfmeVectorRecord000BDF17(const AsciiString&text,float value):text0(text),word14(value),word18(-1.0f),word1C(1),word20(5.0f),word24(1.0f),word28(1.0f),flag2C(false),flag2D(false),word30(1),word34(-1.0f),word38(-1.0f),flag3C(false){}
 
 // Native C697B..C6A35 vector assignment; BfmePod248::operator= (0xC6C54) calls it

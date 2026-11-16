@@ -27,10 +27,8 @@ struct Rva00079554Record
 
 // 0x000C251D / 0x000C2526 (9B each): the same for BfmeVectorRecord000BDF17
 // (dtor 0x000BE201) and Rva000BEDF0Record (dtor 0x000BEDF0).
-struct BfmeVectorRecord000BDF17
-{
-	~BfmeVectorRecord000BDF17();
-};
+#include <vector>
+#include "../../../../GameEngine/Include/Common/BfmeVectorRecord000BDF17.h"
 
 struct Rva000BEDF0Record
 {
