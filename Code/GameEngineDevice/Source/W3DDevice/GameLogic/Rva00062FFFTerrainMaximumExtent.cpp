@@ -1,4 +1,4 @@
-// cl: /ICode/Libraries/Include /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /D_OPERATOR_NEW_DEFINED_ /ICode/Libraries/Include /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Clean donor: BFME1 ba7ddda7 W3DTerrainLogicMaximumPathfindExtent.cpp,
 // supported independently by ZH W3DTerrainLogic::getMaximumPathfindExtent.
@@ -161,11 +161,7 @@ public:
 };
 
 
-class BaseHeightMapRenderObjClass {
-public:
-	Real EstimateMaxHeightAlongLine(const Coord3D &pos, const Coord3D &posOther) const;
-};
-extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 #undef UNUSED_VIRTUALS_16
 
 // Native 0x00062C23..0x00062C45, 34B, RET8 (address-derived; sits between

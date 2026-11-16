@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
+// cl: /D_OPERATOR_NEW_DEFINED_ /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
+// stlport
 //
 // ?Render@WaterRenderObjClass@@UAEXAAVRenderInfoClass@@@Z, retail 0x001017E7
 // (113 bytes, RET 4): the RenderObjClass Render slot of the water render
@@ -20,17 +21,7 @@ extern bool bfmeCameraProjectionOverride;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
-class WorldHeightMap;
-class BaseHeightMapRenderObjClass
-{
-public:
-	// Inline like retail, without emitting a competing getMap copy.
-	__declspec(dllimport) __forceinline WorldHeightMap *getMap() { return m_map; }
-private:
-	unsigned char m_unknown0000[0x37C0];
-	WorldHeightMap *m_map; // +0x37C0
-};
-extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+#include "../../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 #include "../../../../Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 
@@ -61,7 +52,7 @@ void WaterRenderObjClass::Render(RenderInfoClass &rinfo)
 {
 	if (bfmeOnlyEmissiveDraws)
 		return;
-	if (TheTerrainRenderObject && !TheTerrainRenderObject->getMap())
+	if (TheTerrainRenderObject && !TheTerrainRenderObject->m_map)
 		return;	//no map has been loaded yet.
 	if (!m_doWaterRender)
 		return;

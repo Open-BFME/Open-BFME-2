@@ -1,4 +1,5 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /D_OPERATOR_NEW_DEFINED_ /O1 /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // ??1W3DTerrainVisual@@UAE@XZ, retail 0x0009203A..0x00092123 (233 bytes,
 // EH): the destructor the scalar deleting destructor ??_GRva009203A calls
 // (call at 0x00092126). Zero Hour's W3DTerrainVisual::~W3DTerrainVisual,
@@ -41,9 +42,7 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class BaseHeightMapRenderObjClass : public RefCountClass
-{
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
