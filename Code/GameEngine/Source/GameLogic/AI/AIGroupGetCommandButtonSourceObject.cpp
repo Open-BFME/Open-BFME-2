@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 //
 // AIGroup::getCommandButtonSourceObject(GUICommandType), retail 0x0036E158
 // (107 bytes), pinned. Zero Hour's body (GameLogic/AI/AIGroup.cpp): the
@@ -26,27 +27,29 @@ extern ControlBar *TheControlBar;
 
 #include "../Object/object.h"
 
-#include "../../../Include/Common/ObjectListNode.h"
+#define _STLP_NO_EXCEPTIONS 1
+#include <list>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
 
 enum
 {
 	MAX_COMMANDS_PER_SET = 32
 };
 
-class AIGroup
-{
-public:
-	Object *getCommandButtonSourceObject( GUICommandType type );
-private:
-	int m_00;
-	ObjectListNode *m_memberList; // +0x04 (STLport list sentinel)
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 Object *AIGroup::getCommandButtonSourceObject( GUICommandType type )
 {
-	for( ObjectListNode *it = m_memberList->m_next; it != m_memberList; it = it->m_next )
+	for( _STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it )
 	{
-		Object *obj = it->m_data;
+		Object *obj = *it;
 		if( !obj )
 			continue;
 

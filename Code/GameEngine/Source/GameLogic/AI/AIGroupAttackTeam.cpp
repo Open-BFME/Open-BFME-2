@@ -243,30 +243,7 @@ class SimpleObjectIterator {public: SimpleObjectIterator(); virtual ~SimpleObjec
 struct Coord3DCopy: Coord3D {Coord3DCopy(const Coord3D &p){x=p.x;y=p.y;z=p.z;}};
 #include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
-class AIGroup
-{
-public:
-	void groupAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
-	void groupHunt(CommandSourceType cmdSource);
-	void queueUpgrade(const UpgradeTemplate*);
-	void rva00370554(Object*,CommandSourceType);
-	const _STL::vector<ObjectID>& getAllIDs() const;
-	void groupAttackPosition(const Coord3D *, Int, CommandSourceType);
-	void rva0036DBBA(int unused, int type, unsigned int frames);
-	void rva0036DC1D(ModelConditionFlagType modelCondition, unsigned int frames);
-	void setAttitude(AttitudeType tude);
-	bool setWeaponLockForGroup(WeaponSlotType weaponSlot, WeaponLockType lockType);
-	void rva0036DDCD(int x);
-	void releaseWeaponLockForGroup(WeaponLockType lockType);
-	void setWeaponSetFlag( WeaponSetType wst );
-
-private:
- void groupAttackObjectPrivate(bool,Object*,int,CommandSourceType);
-	unsigned int m_pad00;
-	std::list<Object *> m_memberList;
-	char m_pad08[0x30 - 0x08];
-	mutable _STL::vector<ObjectID> m_lastRequestedIDList;
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 void AIGroup::groupAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource)
 {

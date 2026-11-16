@@ -129,22 +129,7 @@ extern BuildAssistant *TheBuildAssistant;
 extern UpgradeCenter *TheUpgradeCenter;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
-class AIGroup
-{
-public:
-	void groupSell(CommandSourceType commandSource);
-	void groupDoCommandButton(const CommandButton *commandButton, CommandSourceType cmdSource);
-	void groupDoCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *position, CommandSourceType commandSource);
-	void groupDoCommandButtonAtObject(const CommandButton *commandButton, Object *targetObject, CommandSourceType commandSource);
-	void setAttitude(AttitudeType attitude);
-	void queueUpgrade(const UpgradeTemplate *upgrade, Bool bfmeFlag);
-	void groupSetEmoticon(const AsciiString &name, Int duration);
-	void groupOverrideSpecialPowerDestination(SpecialPowerType specialPowerType, const Coord3D *destination, CommandSourceType commandSource);
-
-private:
-	unsigned char m_unmodelled_000[4];			// this+0x00, untouched
-	_STL::list<Object *> m_memberList;			// this+0x04
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 
 // The reference's body with one BFME change: the per-object command carries a

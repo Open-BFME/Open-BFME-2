@@ -35,23 +35,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
 #include "../Object/object.h"
 
-class AIGroup
-{
-public:
-	void groupRotateFiringarc(const Coord3D *pos, CommandSourceType cmdSource);
-
-private:
-	virtual ~AIGroup();
-	void recompute();
-
-	std::list<Object *> m_memberList;	// +0x04
-	Real m_speed;						// +0x08
-	Bool m_dirty;						// +0x0C
-	char m_pad0D[0x14 - 0x0D];
-	void *m_groundPath;					// +0x14
-	Coord3D m_pathStart;				// +0x18
-	Coord3D m_pathEnd;					// +0x24
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 #include <math.h>
 // Both levels must remain visible: the length helper proves that the address

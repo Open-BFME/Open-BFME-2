@@ -2,7 +2,7 @@
 // AI::createGroup pushes 0x3C at 0x002FEC57 and calls AIGroup's constructor at 0x002FEC6F. Constructor 0x0036E4C7 stores 0x00C17D00 at +0 (0x0036E4E7), builds the list at +4 (0x0036E4ED -> 0x004EC36C) and the vector at +0x30 (0x0036E4F9 -> 0x00211E58). Destructor 0x0036E564 restores 0x00C17D00 at 0x0036E578, then Snapshot's 0x00BBB554 at 0x0036E5E0 after member teardown. These are derived and base lifetime tables; AIGroup has one Snapshot base at +0 and no separate MemoryPoolObject subobject.
 // Table 0x00C17D00 has exactly four entries, followed by the "AIGroup" literal at 0x00C17D10: slot 0 is 0x0036E8EA (calls destructor 0x0036E564, conditionally calls global delete 0x0002FD60); slot 1 is the empty RET at 0x000B3FD0 (Snapshot::loadPostProcess); slot 2 is 0x0036E55E (returns 0x00C17D10, Snapshot::GetSnapshotName); slot 3 is xfer at 0x0036E3C6. Snapshot's table has its deleting destructor and three pure slots. The row named name() owns the slot-2 body; name() remains separately declared with its ledger spelling.
 // Constructor stores 0x0036E4FE..0x0036E546 and getSpeed 0x0036E333 prove path +0x14, speed +8, dirty byte +0xC and ID +0x10. The ID comes from TheAI's incremented +0x1C counter. Constructor stores at 0x0036E50D..0x0036E526 and xfer 0x0036E3C6 prove two twelve-byte coordinate members at +0x18/+0x24; the second starts with 10.0f from 0x00BC2428 and two zeroes. Their storage remains opaque as field18/field24, without assigning unproved semantic names.
-// Destructor 0x0036E581..0x0036E5B7 proves the +4 list sentinel and nodes with next/previous at +0/+4 and Object* at +8. getAllIDs 0x0036F710 passes +0x30 to vector<ObjectID>::erase/push_back and returns that address; the allocation extent bounds this vector to twelve bytes. The list and vector storage remain opaque, without a second container definition. Other method declarations below follow their exact reverse/functions.csv names and signatures; trailing comments give their retail RVAs. Zero Hour's GeneralsMD GameLogic/AI.h supplies the established speed, dirty, ID and path field names, but not BFME2's layout or extra members.
+// Destructor 0x0036E581..0x0036E5B7 proves the +4 list sentinel and nodes with next/previous at +0/+4 and Object* at +8. getAllIDs 0x0036F710 passes +0x30 to vector<ObjectID>::erase/push_back and returns that address; the allocation extent bounds this vector to twelve bytes. The list and vector are typed only when STLport's list or vector header came first (as AI.h's group list); otherwise their storage stays opaque, without a second container definition. Other method declarations below follow their exact reverse/functions.csv names and signatures; trailing comments give their retail RVAs. Zero Hour's GeneralsMD GameLogic/AI.h supplies the established speed, dirty, ID and path field names, but not BFME2's layout or extra members.
 #pragma once
 #ifndef CANONICAL_AIGROUP_H
 #define CANONICAL_AIGROUP_H
@@ -175,14 +175,22 @@ private:
     void recompute(); // 0x0036D2C5
     void groupAttackObjectPrivate(bool, Object *, int, CommandSourceType); // 0x0036FD64
 public:
+#ifdef _STLP_INTERNAL_LIST_H
+    _STL::list<Object *> m_memberList; // +0x04, Zero Hour's ListObjectPtr m_memberList
+#else
     unsigned char m_unrecovered04[4]; // +0x04, list<Object *> storage
+#endif
     float m_speed; // +0x08
     bool m_dirty; // +0x0C
     unsigned int m_id; // +0x10
     Path *m_groundPath; // +0x14
     unsigned char field18[12]; // +0x18
     unsigned char field24[12]; // +0x24
+#ifdef _STLP_INTERNAL_VECTOR_H
+    mutable _STL::vector<ObjectID> m_lastRequestedIDList; // +0x30, Zero Hour's mutable VecObjectID
+#else
     unsigned char m_unrecovered30[12]; // +0x30, vector<ObjectID> storage
+#endif
 };
 
 typedef char AIGroup_extent3C[(sizeof(AIGroup) == 0x3C) ? 1 : -1];
