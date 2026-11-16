@@ -12,11 +12,7 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 		ReleaseTreeHintRef00217D4C(m_ptr);
 }
 
-struct Rva002BED91
-{
-	TargetRef00217D4C *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 #include "../../Include/Common/Rva005C39C4.h"
 struct Elem005F8484
 {
@@ -47,8 +43,8 @@ void Rva005F86C3::rva005F8484(int idx, int val)
 	Elem005F8484 *e = &m_start20[idx];
 	if (e->m_ref00.m_ptr != 0)
 		return;
-	if (e->m_holder04.m_ptr == 0)
+	if (e->m_holder04.m_00 == 0)
 		return;
-	e->m_ref00 = ((Rva005C39C4 *)e->m_holder04.m_ptr)->rva005C39C4(val);
+	e->m_ref00 = ((Rva005C39C4 *)e->m_holder04.m_00)->rva005C39C4(val);
 	e->m_holder04.clear();
 }

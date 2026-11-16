@@ -5,11 +5,7 @@
 
 #include "../../Include/Common/Rva005CB265.h"
 
-struct Rva002BED91
-{
-	void *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 class Rva005D3AF2
 {
@@ -25,7 +21,7 @@ void Rva005D3AF2::rva005D3AF2()
 {
 	if (m_18 == 0)
 		return;
-	void *v = m_1C.m_ptr;
+	void *v = m_1C.m_00;
 	if (v == 0)
 		return;
 	if (((Rva005CB265 *)m_18)->Rva005CB265::rva005CB265() != (int)v)

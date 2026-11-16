@@ -35,11 +35,7 @@ static inline const _STL::vector<int> &stanceList(const CommandButton *button)
 struct TargetRef00217D4C;
 struct TreeHintRef00217D4C;
 
-struct Rva002BED91
-{
-	TargetRef00217D4C *m_ptr;
-	void set(TargetRef00217D4C *p);
-};
+#include "../../../../../Include/Common/Rva002BED91.h"
 
 struct Rva00359302Result
 {

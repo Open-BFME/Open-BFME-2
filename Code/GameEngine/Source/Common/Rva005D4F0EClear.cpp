@@ -8,12 +8,7 @@ public:
 	void rva0057C2CC();
 	char m_pad[8];
 };
-class Rva002BED91
-{
-public:
-	void clear();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva002BED91.h"
 class Rva005D4E8B
 {
 public:
@@ -71,9 +66,9 @@ void Rva005D4F7D::rva005D4F7D()
 // are address-derived.
 void Rva005D4F0E::rva005D4F27(int a, int b)
 {
-	if (m_08.m_ptr)
+	if (m_08.m_00)
 	{
-		*reinterpret_cast<Rva005F4AD7 *>(&m_0C) = reinterpret_cast<Rva005EE26F *>(m_08.m_ptr)->rva005EE26F(a, b);
+		*reinterpret_cast<Rva005F4AD7 *>(&m_0C) = reinterpret_cast<Rva005EE26F *>(m_08.m_00)->rva005EE26F(a, b);
 		m_08.clear();
 	}
 }

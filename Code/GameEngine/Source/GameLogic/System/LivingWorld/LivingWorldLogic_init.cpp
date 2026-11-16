@@ -81,7 +81,6 @@ private:
 	_STL::vector<Gen_p12pod> m_148;							// +0x148
 	_STL::vector<TreeHintRef00217D4C> m_154;				// +0x154
 	Rva002BED91 m_160;										// +0x160
-	char m_pad161[0x164 - 0x161];
 	int m_164;
 	bool m_168;
 	char m_pad169[0x174 - 0x169];

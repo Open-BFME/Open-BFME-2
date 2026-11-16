@@ -5,11 +5,7 @@
 
 #include "../../Include/Common/Rva005CB265.h"
 
-struct Rva002BED91
-{
-	void *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 struct Rva005E197EOuter
 {
@@ -30,7 +26,7 @@ private:
 
 void Rva005E197E::rva005E197E()
 {
-	void *lockHandle = m_1C.m_ptr;
+	void *lockHandle = m_1C.m_00;
 	if (lockHandle == 0)
 		return;
 	if (((Rva005CB265 *)m_10->m_ptr08)->Rva005CB265::rva005CB265() == (int)lockHandle)

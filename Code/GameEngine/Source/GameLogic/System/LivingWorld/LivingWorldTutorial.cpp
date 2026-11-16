@@ -30,16 +30,7 @@ class Rva0056AC26;
 
 #include "../../../../Include/Common/Rva0056AC26Owner.h"
 
-class Rva002BED91
-{
- 
-public:
-void set(TargetRef00217D4C *);
- 
-private:
-TargetRef00217D4C *m_ref;
- }
-;
+#include "../../../../Include/Common/Rva002BED91.h"
 
 #include "../../../../Include/Common/Rva0056AC26.h"
 

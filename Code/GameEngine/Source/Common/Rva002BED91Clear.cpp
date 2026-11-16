@@ -11,28 +11,23 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct Rva002BED91
-{
-    TargetRef00217D4C *m_ptr;
-    void clear();
-    void set(TargetRef00217D4C *p);
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 void Rva002BED91::clear()
 {
-    if (m_ptr)
+    if (m_00)
     {
-        ReleaseTreeHintRef00217D4C(m_ptr);
-        m_ptr = 0;
+        ReleaseTreeHintRef00217D4C(m_00);
+        m_00 = 0;
     }
 }
 
 void Rva002BED91::set(TargetRef00217D4C *p)
 {
-    if (p != m_ptr)
+    if (p != m_00)
     {
         clear();
-        m_ptr = p;
+        m_00 = p;
         if (p)
             ++p->references;
     }

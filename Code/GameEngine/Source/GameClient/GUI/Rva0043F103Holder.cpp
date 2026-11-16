@@ -5,12 +5,7 @@
 // then virtual slot 0x50 creator plus rowed Rva002BED91::set 0x003F8396.
 // Callers 0x0043FA68 with index 1 via +0x58 and 0x00441ECE with 0 then 1.
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
-struct Rva002BED91
-{
-	TargetRef00217D4C *m_ptr;
-	void clear();
-	void set(TargetRef00217D4C *p);
-};
+#include "../../../Include/Common/Rva002BED91.h"
 class Rva0043F103
 {
 public:
@@ -42,7 +37,7 @@ private:
 TargetRef00217D4C *Rva0043F103::rva0043F103(int index)
 {
 	Rva002BED91 *slot = &m_holders[index];
-	if (!slot->m_ptr)
+	if (!slot->m_00)
 		slot->set(this->_M_slot_50());
-	return slot->m_ptr;
+	return slot->m_00;
 }

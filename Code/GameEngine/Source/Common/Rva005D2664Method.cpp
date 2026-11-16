@@ -6,13 +6,7 @@
 // rowed 0x0057C22F get is set calls rowed 0x005C3E79 Hide tail.
 // Evidence: retail inc/imul-0x1C/add, lea clear order, mov/test/je plus
 // get/test plus second mov/call, chain from 0x005C3E79, callers 0x005D269B 0x005D27BE.
-class Rva002BED91
-{
-public:
-	void clear();
-private:
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 #include "../../Include/Common/Rva0057C22FByteChaseField.h"
 

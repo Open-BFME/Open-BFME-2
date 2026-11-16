@@ -4,11 +4,7 @@
 #include "../../Include/Common/Rva0042D6B4PtrChaseField.h"
 #include "../../Include/Common/Rva005CB265.h"
 #include "../../Include/Common/Rva005CB260.h"
-struct Rva002BED91
-{
-	void clear();
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva002BED91.h"
 class Rva005748B7
 {
 public:
@@ -56,7 +52,7 @@ void Rva00574A7B::rva00574A7B(int)
 }
 void Rva005748B7::rva005748B7(Rva002BED91 *arg)
 {
-	if (!arg->m_ptr)
+	if (!arg->m_00)
 		return;
 	int v = m_field->get();
 	if (!v)
@@ -64,7 +60,7 @@ void Rva005748B7::rva005748B7(Rva002BED91 *arg)
 		arg->clear();
 		return;
 	}
-	void *b = arg->m_ptr;
+	void *b = arg->m_00;
 	Rva005CB265 *q = (Rva005CB265 *)v;
 	int r = q->Rva005CB265::rva005CB265();
 	if (r != (int)b)

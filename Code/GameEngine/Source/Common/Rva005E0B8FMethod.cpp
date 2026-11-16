@@ -13,11 +13,7 @@
 
 #include "../../Include/Common/Rva005CB265.h"
 
-struct Rva002BED91
-{
-	void *m_ptr;
-	void clear();
-};
+#include "../../Include/Common/Rva002BED91.h"
 
 #include "../../Include/Common/Rva0086E330Base.h"
 
@@ -36,7 +32,7 @@ private:
 void Rva005E0B0F::rva005E0B8F(int unused)
 {
 	(void)unused;
-	void *holder = m_14.m_ptr;
+	void *holder = m_14.m_00;
 	if (holder != 0)
 	{
 		if (m_04->Rva005CB265::rva005CB265() == (int)holder)
