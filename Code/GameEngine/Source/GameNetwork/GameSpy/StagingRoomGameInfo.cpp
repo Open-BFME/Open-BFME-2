@@ -382,14 +382,7 @@ extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 extern char g_bfmeEmptyF9[];
 
 
-class Player
-{
-public:
-	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate(void) const { return m_playerTemplate; }
-private:
-	UnsignedByte m_pre34[0x34];
-	const PlayerTemplate *m_playerTemplate;		// +0x34
-};
+#include "../../../Include/Common/Player.h"
 
 enum NameKeyType
 {

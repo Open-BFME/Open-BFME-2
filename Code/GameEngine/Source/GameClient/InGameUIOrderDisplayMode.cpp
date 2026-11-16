@@ -5,14 +5,14 @@
 // (WB +758); UI display mode +8B4. All three native switch cases are kept.
 // Unknown order modes preserve the previous display mode; no player sets0.
 // Partial accessed class prefixes only; no class vtable is emitted.
-class Player {public:char prefix[0x750];int orderMode;};
+#include "../../Include/Common/Player.h"
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../Include/GameClient/InGameUI.h"
 void InGameUI::updateOrderDisplayMode(){
  Player *player=ThePlayerList->m_local;
  if(player){
-  switch(player->orderMode){
+  switch(player->m_750){
   case 0:m_8B4=0;break;
   case 1:m_8B4=1;break;
   case 2:m_8B4=2;break;
