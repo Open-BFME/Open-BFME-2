@@ -18,14 +18,7 @@ void __debugbreak();
 #include "../../../GameEngine/Include/Common/Rva006DBB30SarDwordField.h"
 #include "../../../GameEngine/Include/Common/AptMatrix.h"
 struct ButtonHitTestRecord { AptCIH *pCIH; AptMatrix matrix; };
-struct AptAnimationPoolData {
-    unsigned char unaccessed[16];
-    int mBILCount;
-    ButtonHitTestRecord *aButtonInstanceList;
-    void clearBIL();
-    void appendButtonToBIL(AptCIH *button, AptMatrix *matrix);
-    void removeFromBIL(AptCIH *button);
-};
+#include "AptAnimationPoolData.h"
 void AptAnimationPoolData::clearBIL()
 {
     for (int i=0;i<mBILCount;++i) aButtonInstanceList[i].pCIH->Release();

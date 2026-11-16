@@ -19,16 +19,7 @@ public:
 	void rva006E1E30(Rva006F9FC0Rect *rect);
 };
 
-class AptAnimationPoolData
-{
-public:
-	bool rva006F9FC0(Rva006E1E30 *object, int unused);
-
-private:
-	char m_pad[0x74];
-	int m_74;
-	int m_78;
-};
+#include "../../../Libraries/Source/Apt/AptAnimationPoolData.h"
 
 // ?rva006F9FC0@AptAnimationPoolData@@QAE_NPAVRva006E1E30@@H@Z
 bool AptAnimationPoolData::rva006F9FC0(Rva006E1E30 *object, int)

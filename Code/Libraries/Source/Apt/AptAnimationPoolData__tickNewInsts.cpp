@@ -22,19 +22,12 @@ void __debugbreak();
 
 #include "Rva006E3C80.h"
 
-class AptAnimationPoolData
-{
-public:
-	void _tickNewInsts();
-private:
-	AptCIH **m_arr;
-	int m_count;
-};
+#include "AptAnimationPoolData.h"
 
 void AptAnimationPoolData::_tickNewInsts()
 {
-	for (int i = 0; i < m_count; ++i) {
-		AptCIH *aptCIH = m_arr[i];
+	for (int i = 0; i < m_04; ++i) {
+		AptCIH *aptCIH = apNewInsts[i];
 		if (!aptCIH) {
 			g_bfmeAptAssertAtE17734("this", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xB5);
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
@@ -42,11 +35,11 @@ void AptAnimationPoolData::_tickNewInsts()
 		}
 		if (((const Rva006DBB30SarDwordField *)aptCIH)->get() == 0xE
 			&& !((const BfmeAptValue006DCD20 *)aptCIH)->isUndefined()) {
-			void *button = ((const AptCIH *)m_arr[i])->rva006E1090();
+			void *button = ((const AptCIH *)apNewInsts[i])->rva006E1090();
 			if (*(int *)((char *)button + 0x18) == 0)
-				m_arr[i]->rva006E1F00(1);
+				apNewInsts[i]->rva006E1F00(1);
 		} else {
-			AptCIH *element = m_arr[i];
+			AptCIH *element = apNewInsts[i];
 			if (!element) {
 				g_bfmeAptAssertAtE17734("this", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xAB);
 				if (g_bfmeAptBreakOnAssertAtDDC01C)
@@ -54,12 +47,12 @@ void AptAnimationPoolData::_tickNewInsts()
 			}
 			if (((const Rva006DBB30SarDwordField *)element)->get() == 0xD
 				&& !((const BfmeAptValue006DCD20 *)element)->isUndefined()) {
-				int v = ((Rva006E3C80 *)m_arr[i])->rva006E3C80();
+				int v = ((Rva006E3C80 *)apNewInsts[i])->rva006E3C80();
 				if (*(int *)(v + 0x18) == -1)
-					m_arr[i]->rva006E2D60();
+					apNewInsts[i]->rva006E2D60();
 			}
 		}
-		m_arr[i]->Release();
+		apNewInsts[i]->Release();
 	}
-	m_count = 0;
+	m_04 = 0;
 }

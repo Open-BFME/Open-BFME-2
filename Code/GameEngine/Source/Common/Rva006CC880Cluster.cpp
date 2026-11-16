@@ -35,13 +35,7 @@ private:
 // pointer 0x00E180C0; its body is unnamed, so the member is address-derived.
 // The local re-load of the pool is forced because retail reloads it after
 // clearBIL and ClipStackShutdown rather than keeping the value in a register.
-class AptAnimationPoolData
-{
-public:
-	void clearBIL();
-	unsigned char unaccessed[0x30];
-	void rva006F7720Sub(void *queue, int zero);
-};
+#include "../../../Libraries/Source/Apt/AptAnimationPoolData.h"
 
 extern int g_bfmeAptInitAtE17700;
 // g_bfmeAptPtrAtE176D0 is only an alias of the owned global g_bfmeAptPtrAtE176D0 (ledger names column); this unit reads the owner through its own view type.
