@@ -1,6 +1,7 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 #include "Coord2D.h"
 
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
@@ -72,72 +73,14 @@ struct ListNode
 // (Rotate_X by -pi/2, then back along Z by the .data float 160.0 that only
 // this function reads), sets its viewport to the x/y/width/height pixel
 // rectangle over TheDisplay's size and a 50-degree view plane, then renders
-// it with the +0x14 owner through 0x00118660. Matrix3D is the canonical
-// header; Rotate_X and Translate_Z are file-local helpers with the WWMath
-// donor's bodies, forced inline as WWINLINE spells them (a plain inline is
-// called out of line at /O1). The display size is
+// it with the +0x14 owner through 0x00118660. Matrix3D is WWMath's
+// matrix3d.h (through CameraClass.h); Rotate_X and Translate_Z are its
+// WWINLINE members. The display size is
 // one Vector2 built from getWidth() and getHeight(): its arguments run right
 // to left, which is retail's getHeight-first call order and float homes.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-// WWMath matrix3d.h's inline Rotate_X and Translate_Z, which the canonical header leaves to units.
-static WWINLINE void matrixRotateX(Matrix3D &m, float theta)
-{
-	float tmp1, tmp2;
-	float sinTheta, c;
-
-	sinTheta = sinf(theta);
-	c = cosf(theta);
-
-	tmp1 = m.Row[0][1]; tmp2 = m.Row[0][2];
-	m.Row[0][1] = (float)( c*tmp1 + sinTheta*tmp2);
-	m.Row[0][2] = (float)(-sinTheta*tmp1 + c*tmp2);
-
-	tmp1 = m.Row[1][1]; tmp2 = m.Row[1][2];
-	m.Row[1][1] = (float)( c*tmp1 + sinTheta*tmp2);
-	m.Row[1][2] = (float)(-sinTheta*tmp1 + c*tmp2);
-
-	tmp1 = m.Row[2][1]; tmp2 = m.Row[2][2];
-	m.Row[2][1] = (float)( c*tmp1 + sinTheta*tmp2);
-	m.Row[2][2] = (float)(-sinTheta*tmp1 + c*tmp2);
-}
-static __forceinline void matrixTranslateZ(Matrix3D &m, float z)
-{
-	m.Row[0][3] += (float)(m.Row[0][2]*z);
-	m.Row[1][3] += (float)(m.Row[1][2]*z);
-	m.Row[2][3] += (float)(m.Row[2][2]*z);
-}
-
-class CameraClass
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual void s16();
-	virtual void s17();
-	virtual void s18();
-	virtual void s19();
-	virtual void s20();
-	virtual void Set_Transform(const Matrix3D &m); // slot 21
-	void Set_Viewport(const Vector2 &min, const Vector2 &max);
-	void Set_View_Plane(float hfov, float vfov);
-};
-
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 static float s_cameraDistance = 160.0f;
@@ -162,8 +105,8 @@ void Rva001040D5::rva0010473F(int viewportX, int viewportY, int width, int heigh
 	if (m_active)
 	{
 		Matrix3D transform(true);
-		matrixRotateX(transform, -1.5707963705062866f);
-		matrixTranslateZ(transform, s_cameraDistance);
+		transform.Rotate_X(-1.5707963705062866f);
+		transform.Translate_Z(s_cameraDistance);
 		m_camera->Set_Transform(transform);
 		Vector2 scale((float)TheDisplay->getWidth(), (float)TheDisplay->getHeight());
 		Vector2 inv(1.0f / scale.X, 1.0f / scale.Y);

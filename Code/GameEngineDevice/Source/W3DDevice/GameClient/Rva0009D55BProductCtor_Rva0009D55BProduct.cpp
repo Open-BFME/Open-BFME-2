@@ -37,6 +37,8 @@ namespace _STL {
 // 12-byte element whose out-of-line default constructor is the ICF-folded
 // trivial ctor 0x0047A6A9 (rowed as ??0ICoord3D@@QAE@XZ among others).
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
+#define _OPERATOR_NEW_DEFINED_ // <vector> already declares placement new/delete
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
 struct Rva0009D55BVec3
@@ -197,7 +199,6 @@ extern Mouse *TheMouse;
 // rowed 0x0009AA0F) and three lights (+0xC8/+0xCC/+0xD0, LightClass type 1),
 // sets +0x134 to 1, copies the +0x104 vector to +0xF8 and runs the pinned
 // refreshes 0x0009BAA4 and 0x0009CD9B.
-class CameraClass { public: CameraClass(); void Set_Clip_Planes(float znear, float zfar); void Set_View_Plane(float hfov, float vfov); void Set_Viewport(const Vector2 &min, const Vector2 &max); void Set_Aspect_Ratio(float ratio); float Get_Aspect_Ratio() const; char m_data[0x3FC]; };
 class Rva0009AA0F { public: Rva0009AA0F(int owner); char m_data[0x10C]; };
 class LightClass { public: enum LightType { POINT = 0, DIRECTIONAL = 1 }; LightClass(LightType type); char m_data[0x120]; };
 class Matrix3D;

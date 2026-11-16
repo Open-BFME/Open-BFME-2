@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // Ported from Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db.
 // The target member is W3DView vftable VA 0x00BC756C slot 30.
 // The cameraModFinalZoom name and algorithm follow the BFME1 donor; the
@@ -164,50 +164,9 @@ virtual unsigned slot31();
 #include "../../../../GameEngine/Include/Common/ParabolicEase.h"
 
 // lookAt support views (WW3D2 camera, ray test and vector math as ZH defines them).
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"
-class Vector3
-{
-public:
-	Real X, Y, Z;
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
-	Vector3(const Vector3 &v) : X(v.X), Y(v.Y), Z(v.Z) {}
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline Real Length2() const { return X * X + Y * Y + Z * Z; }
-	__forceinline void Normalize()
-	{
-		Real len2 = Length2();
-		if (len2 != 0.0f) {
-			Real oolen = WWMath::Inv_Sqrt(len2);
-			X *= oolen; Y *= oolen; Z *= oolen;
-		}
-	}
-	__forceinline Vector3 &operator-=(const Vector3 &v) { X -= v.X; Y -= v.Y; Z -= v.Z; return *this; }
-	__forceinline Vector3 &operator+=(const Vector3 &v) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
-	__forceinline Vector3 &operator*=(Real k) { X *= k; Y *= k; Z *= k; return *this; }
-};
-class LineSegClass { public: void Set(const Vector3 &p0, const Vector3 &p1); char m_pad[0x34]; };
-struct CastResultStruct
-{
-	Bool StartBad;		// +0x00
-	Real Fraction;		// +0x04
-	Vector3 Normal;		// +0x08
-	Int SurfaceType;	// +0x14
-	Bool ComputeContactPoint;	// +0x18
-	Vector3 ContactPoint;	// +0x1C
-	CastResultStruct() : StartBad(false), Fraction(1.0f), Normal(0, 0, 0), SurfaceType(0), ComputeContactPoint(false), ContactPoint(0, 0, 0) {}
-};
 class RayCollisionTestClass { public: RayCollisionTestClass(const LineSegClass &ray, CastResultStruct *res, int collision_type, bool check_translucent, bool check_hidden); char m_pad[0x44]; };
-class RenderObjClass { public: Vector3 Get_Position() const; };
-class CameraClass : public RenderObjClass
-{
-public:
-	void Un_Project(Vector3 &dest, const Vector2 &view_point) const;
-	char m_pad[0xF0];
-	Real Depth;
-	Real Get_Depth() const { return Depth; }
-};
 class TerrainRenderObject
 {
 public:

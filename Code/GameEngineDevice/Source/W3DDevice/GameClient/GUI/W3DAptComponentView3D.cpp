@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // stlport
 // Whole native 0x00740BCD..0x00740E76 RET12, 683B.
 // WB 0x017EDEB0 asserts W3DAptComponentView3D::AddRenderObj.
@@ -52,56 +52,15 @@ extern Rva009EB960 *Rva0134FAA0;
 unsigned AptViewAddRenderObjCounter = 0;
 struct AptVector { float x,y,z; void set(float a,float b,float c) {x=a;y=b;z=c;} };
 struct AptSphere { AptVector center; float radius; };
-struct AptMatrix {
- float m[3][4];
- AptMatrix() {
-  m[0][0]=1.0f;m[0][1]=0.0f;m[0][2]=0.0f;m[0][3]=0.0f;
-  m[1][0]=0.0f;m[1][1]=1.0f;m[1][2]=0.0f;m[1][3]=0.0f;
-  m[2][0]=0.0f;m[2][1]=0.0f;m[2][2]=1.0f;m[2][3]=0.0f;
- }
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../../reference/shims/wwmath/Vector2.h"
-// CameraClass slots 0x40/0x44 in retail are getWidth/getHeight on the display;
-// this method's camera view supplies Set_Viewport/Set_Aspect_Ratio (nonvirtual
-// rowed members) and slot 0x54. Slot names are ABI placeholders.
-class CameraClass {
-public:
-	inline void Set_Viewport(const Vector2 &min, const Vector2 &max);
-	void Set_Aspect_Ratio(float);
-	virtual void cam00();
-	virtual void cam01();
-	virtual void cam02();
-	virtual void cam03();
-	virtual void cam04();
-	virtual void cam05();
-	virtual void cam06();
-	virtual void cam07();
-	virtual void cam08();
-	virtual void cam09();
-	virtual void cam10();
-	virtual void cam11();
-	virtual void cam12();
-	virtual void cam13();
-	virtual void cam14();
-	virtual void cam15();
-	virtual void cam16();
-	virtual void cam17();
-	virtual void cam18();
-	virtual void cam19();
-	virtual void cam20();
-	virtual void cam21(const AptMatrix &);
-};
-// CameraClass::Set_Viewport (rowed 0x0007E6A6, CameraSetViewportO1.cpp) is
-// visible here: its ViewportMin/ViewportMax (+0xC8/+0xD0) stores and
-// FrustumValid clear (+0xFC) let cl pack Render's dead display extents into
-// the viewport locals, as retail's frame does.
-struct CameraViewportFields { char pad[0xC8]; Vector2 ViewportMin; Vector2 ViewportMax; char padD8[0xFC - 0xD8]; bool FrustumValid; };
+// CameraClass::Set_Viewport (rowed 0x0007E6A6, CameraSetViewportO1.cpp) is visible here: its
+// viewport and FrustumValid stores let cl pack Render's dead display extents as retail's frame does.
 inline void CameraClass::Set_Viewport(const Vector2 &min, const Vector2 &max)
 {
-	CameraViewportFields *cameraViewportFields = (CameraViewportFields *)this;
-	cameraViewportFields->ViewportMin = min;
-	cameraViewportFields->ViewportMax = max;
-	cameraViewportFields->FrustumValid = false;
+	Viewport.Min = min;
+	Viewport.Max = max;
+	FrustumValid = false;
 }
 // Display vtable slots 0x40/0x44 return the unsigned viewport extents.
 #include "../../../../../GameEngine/Include/GameClient/Display.h"
@@ -131,7 +90,7 @@ public:
 	virtual void slot18();
 	virtual void slot19();
 	virtual void slot20();
-	virtual void setTransform(const AptMatrix &);
+	virtual void setTransform(const Matrix3D &);
 	virtual void slot22();
 	virtual void slot23();
 	virtual void slot24();
@@ -161,7 +120,7 @@ public:
 	virtual int boneCount();
 	virtual const char *boneName(int);
 	virtual void slot50();
-	virtual AptMatrix slot51(int);
+	virtual Matrix3D slot51(int);
 	virtual void slot52();
 	virtual void slot53();
 	virtual void slot54();
@@ -294,7 +253,7 @@ void W3DAptComponentView3D::AddRenderObj(unsigned unused,const AsciiString &name
    }
   }
  }
- AptMatrix identity;
+ Matrix3D identity(true);
  obj->setTransform(identity);
  obj->setVisible(0);
  scene->addRenderObj(obj);
@@ -326,8 +285,8 @@ void W3DAptComponentView3D::Render(int x, int y, int width, int height) {
  if (aspect)
   camera->Set_Aspect_Ratio(w / h);
  if (cameraObj) {
-  AptMatrix xf = cameraObj->slot51(cameraBone);
-  camera->cam21(xf);
+  Matrix3D xf = cameraObj->slot51(cameraBone);
+  camera->Set_Transform(xf);
  }
  Rva00118660Call(scene, camera);
 }
