@@ -4,7 +4,8 @@ Status: only step 0, the verdict logger, has landed (e2b22f90d4, 104cd6d6a8).
 Steps 1 to 5 are not scheduled. The owner will revisit them once the log has a
 real sample of INCONCLUSIVE rates to judge them by; on 2026-11-08 it held 9 real
 lines, 3 of them inconclusive, which is too few; on 2026-11-09 it held 233, none
-of them a judged batch, and receipts are not the only wall (LINK-651). If scheduled, they change
+of them a judged batch, and receipts are not the only wall (LINK-651); a second clone's
+570 lines with sources to 2026-11-16 hold none either (LINK-651). If scheduled, they change
 `tools/build.py` and what the hooks' compiles write, so they land as their own
 reviewed `Verifier-Change` commit. Revised 2026-11-07 after the Link lane's
 review; checked against master at 3b141964e7 on 2026-11-08. Evidence:

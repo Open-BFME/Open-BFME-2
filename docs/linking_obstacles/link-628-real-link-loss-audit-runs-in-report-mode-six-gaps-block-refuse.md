@@ -1,5 +1,5 @@
 ### LINK-628: real-link loss audit runs in report mode; six gaps block refuse
-Status: Open (report mode landed; refuse mode blocked). Updated: 2026-11-08; inspected revision: the
+Status: Open (report mode landed; refuse mode blocked). Updated: 2026-11-16 (replays); inspected revision: the
 landing batch on 6186dccaff; the INCONCLUSIVE section below re-checked against 3b141964e7.
 
 Evidence / affected units: `tools/link_batch_audit.py` (`real_link_losses`, `import_supplies`,
@@ -96,7 +96,24 @@ check over 17,961 objects, so a per-process memo would cut every currency check,
 Design: [strict receipts](../strict_receipts_design.md). Only its step 0 has landed: each audit run appends a
 line to `<git common dir>/link_audit_verdicts.jsonl` (e2b22f90d4, 104cd6d6a8; readers drop `"base": "a"`,
 `"tip": "b"` fixture lines). The rest is not scheduled; the owner will revisit it once the log has a real sample
-of INCONCLUSIVE rates (2026-11-08: 9 real lines, 3 inconclusive, all for missing receipts).
+of INCONCLUSIVE rates; LINK-651 holds the samples (to 2026-11-16, no logged batch with sources was judged).
+
+Replays (2026-11-16). Three pushes that broke the real link were run through `real_link_losses` with strict
+receipts for their sources (`link_check.py --prepare-current`) and the inputs `audit()` passes, skipping only its
+consumer-receipt return:
+- 44a7c02, at an exact base (index 1300d9f970): one loss, `?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z`,
+  with the three referrers the real link at f8bb682 (9bde27ffb5) first lists for it, and nothing else among 816
+  touched names. Refuse mode would exit 1.
+- f8bb682, on the same index two commits short of its base: 3 losses and 11 candidates. Of the two names the
+  `f8bb-native-*` entries record, `?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z` is a loss and
+  `?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z` a candidate. Refuse mode would exit 2.
+- ab51f7ce8a, on an index 116 commits short: its one withdrawn name, `?unused@BehaviorModuleOther@@EAEXXZ`
+  ([alias removals](alias-removal-sole-providers-2026-11-15.md)), is a loss with both referrers. Beside it are 2
+  losses and 187 candidates whose providers the batch did not change (185 name another object, 4 an alias from
+  another unit's directive). Refuse mode would exit 2.
+Once their inputs were current, the rules found every recorded loss. On a stale base the batch's own finding can be
+one in 190; telling the batch's findings from the gap's (does the providing object belong to the batch?) would make
+the report lines readable before exact bases are common.
 
 Clearance: pending (refuse mode). Census confirmation: not claimed; this check reads object files and the
 census index, it does not change census figures.
