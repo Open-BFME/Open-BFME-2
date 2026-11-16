@@ -1,0 +1,13 @@
+# Three class-reconciliation packets: no merge admitted
+
+Authorized order OpenContain, Scripts, W3DLightDraw, total additional Boat cap2.5. All stopped before a verified reconciliation; no source/header/ledger row changes, no merge or Boat starts, no substantive review/go request.
+
+- OpenContain at d1432cf653a: normal30/30, strict prepare-current pass, own link_check LINKS1,825->1,825. Supported Rva00462D08Mapped adoption refuses C2678 for unrelated const Rva00463D9BElement operator< in the header-layout probe. Read-only diagnosis: header_adopt_lane.py probe_text cuts the TU after target view line768, retaining explicit tree erase instantiation line666 and dropping operator< definition line1287. Probable truncation false reject; no bypass or adopted whole-TU byte claim. Original source restored.
+- Scripts at dd4f1b73ee6: supported Script adoption refuses no private view found. The multi-class scripts_orcondition shim owns the view, not the seed; native static header_dependents reports370 dependent ledger sources. No shared shim edit or full gate was attempted. Frozen checks pass for seed/donor; no new byte/link result because no edit was prepared.
+- W3DLightDraw at03eedf9eac46: normal12/12 (including two EH-label resolutions and four float refs), strict prepare-current pass, own link_check LINKS643->643. Supported adoption refuses m_radius also belonging to W3DLightDrawModuleData; token rename would reach it. The tool restores the original source. No type-bound rewrite was substituted.
+
+Index hashes: OpenContain a7b66e94069f7511b81c03a7fb2a51180580f206a8212ebcbaa784c450d8c7d2 (00:26 at40687a0659); W3DLightDraw f3bdf11123483022dadd92b9f81a9584dcada402c730caae92a2aa165ed644bc (01:07 atd1432cf653), Nov16 2026. Both were the newest fetched at their respective runs. Shared headers unchanged.
+
+Full logs, exact commands, before COFF snapshots and state are on srv1 under ~/bfme2-ops/swarm/sweeps/merge-climb/{opencontain-mapped,scripts-class,w3dlight-class}/. No repaired byte/provider/link/ownership result is inferred from the compiler ranking. Next prerequisites are tooling support for the layout probe, included-view adoption and safe receiver-bound field renaming, or separately authorized source/header work.
+
+The01:15Z read-only ScriptActions check found zero live Halil ScriptActions claims and no landing:134 expected donors remain, all271 frozen identities present,53 original rows at seed. Remain stood down pending coordinator decision. Settled lane127.014444/150; this authorization spent0/2.5. All packet claims released; records stay local for a substantive batch.

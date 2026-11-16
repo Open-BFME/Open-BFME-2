@@ -292,3 +292,5 @@ Not pointers (left as they are):
 
 Clearance: pending.
 Census confirmation: not claimed.
+
+**Scripts consolidation follow-up (2026-11-16, merge-climb):** the supported Script canonical-adoption route in Scripts.cpp exits1, no private view found: the multi-class scripts_orcondition shim owns the definition. Native static header_dependents now reaches370 ledger sources from that shim; no shared-shim edit/full gate was attempted. ScriptGroup's separate historical table/fold boundaries above are not cleared. [Exact scope and no-change result](../../reverse/attempt_support/merge-climb-three-class-packets-20261116.md).
