@@ -52048,7 +52048,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005EFF60,8,code,,,-,,Code/GameEngine/Source/Common/Rva005EFF60Forward.cpp
 0x005EFF68,31,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE40.cpp
 0x005EFF87,31,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE40.cpp
-0x005EFFA6,134,code,,,-,,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp
+0x005EFFA6,134,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
 0x005F002C,47,code,,displaced,-,N=Code/GameEngine/Source/Common/StrategicInGameUI.cpp W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIGetTypeImage.cpp,Code/GameEngine/Source/Common/StrategicInGameUI_GetTypeImage.cpp
 0x005F005B,160,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
 0x005F00FB,87,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp
