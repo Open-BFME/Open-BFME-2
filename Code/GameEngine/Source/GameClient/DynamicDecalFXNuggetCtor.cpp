@@ -10,8 +10,8 @@
 // OpacityFadeTimeTwo@0x17C, OpacityEnd@0x180, StartingDelay@0x184,
 // Lifetime@0x188) and the BFME1 donor (DynamicDecalFXNuggetConstructor:
 // shader ALPHA, size 0, type 13, color/offset/opacity zeros,
-// orientToObject true). Base 0x001DFEAA is a shared FXNugget-family base
-// ctor; pinned opaquely, do not name.
+// orientToObject true). Base 0x001DFEAA is the shared FXNugget-family
+// base (Rva001DFEAABase.h).
 //
 // Recovered from the banked attempt reverse/attempts/0x001e0429.cpp (score
 // 0.98). Two things were already settled by that pass and are kept: the
@@ -36,15 +36,7 @@
 // read-then-write spelling (`const char *nameSlot = m_decalName;`) collapses
 // the whole body to 141 bytes.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-protected:
-	unsigned int m_vtablePad; // +0, overwritten by the derived vtable store
-	int m_nuggetType; // +4, nugget type id
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 // The retail table at RVA 0x007DD7A4: 10 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -78,7 +70,8 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 
-class DynamicDecalFXNugget : public Rva001DFEAABase
+// The constructor stores retail's table 0x00BDD7A4 itself, so cl installs no vptr.
+class __declspec(novtable) DynamicDecalFXNugget : public Rva001DFEAABase
 {
 public:
 	DynamicDecalFXNugget();
