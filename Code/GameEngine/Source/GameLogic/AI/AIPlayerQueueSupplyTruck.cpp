@@ -521,95 +521,13 @@ extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-enum { MAX_STRUCTURES_TO_REPAIR = 2 };
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
-class AIPlayer
+// File-local walk over AIPlayer's build queue head; retail inlines it into queueSupplyTruck.
+static inline DLINK_ITERATOR<TeamInQueue> iterateTeamBuildQueue(TeamInQueue *head)
 {
-protected:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-public:
-	virtual void update();						// +0x14
-protected:
-	virtual void slot06();
-public:
-	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
-	virtual void onStructureProduced(Object *factory, Object *bldg);	// +0x20
-	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
-	virtual void recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos);	// +0x28
-	virtual Bool isSkirmishAI();					// +0x2C
-protected:
-	virtual void slot12();
-	virtual void slot13();
-public:
-	virtual void repairStructure(ObjectID structure);		// +0x38
-protected:
-	virtual void slot15();
-	virtual void checkReadyTeams();					// +0x40
-	virtual void checkQueuedTeams();				// +0x44
-	virtual void doTeamBuilding();					// +0x48
-	virtual void doUpgradesAndSkills();				// +0x4C
-	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
-	virtual void queueDozer();					// +0x54
-	virtual Bool selectTeamToBuild();				// +0x58
-	virtual Bool selectTeamToReinforce(Int minPriority);		// +0x5C
-	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);	// +0x60
-	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
-
-	Object *findFactory(const ThingTemplate *thing, Bool busyOK, Int *buildIndex);
-	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
-	Bool rva004F13D8(TeamPrototype *proto);
-	Bool dozerInQueue();
-	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
-	void computeCenterAndRadiusOfBase(Coord3D *center, Real *radius);
-	Bool getBaseCenter(Coord3D *pos) const { *pos = m_baseCenter; return m_baseCenterSet; }
-	void queueSupplyTruck();
-	void queueUnits();
-	void updateBridgeRepair();
-	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
-	{
-		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
-	}
-	DLINK_ITERATOR<TeamInQueue> iterate_TeamReadyQueue() const
-	{
-		return DLINK_ITERATOR<TeamInQueue>(m_teamReadyQueue, &TeamInQueue::dlink_next_TeamReadyQueue);
-	}
-
-public:
-	void removeFrom_TeamBuildQueue(TeamInQueue *team);
-	void prependTo_TeamReadyQueue(TeamInQueue *team);
-	void removeFrom_TeamReadyQueue(TeamInQueue *team);
-	void prependTo_TeamBuildQueue(TeamInQueue *team);
-	void reverse_TeamBuildQueue();
-
-private:
- // Fully inlined into queueSupplyTruck; no separate retail body.
- Int countSupplyHarvesters();
-	TeamInQueue *m_teamBuildQueue;	// +0x04
-	TeamInQueue *m_teamReadyQueue;	// +0x08
-	Player *m_player;		// +0x0C
-	Bool m_readyToBuildTeam;	// +0x10
-	Int m_teamTimer;		// +0x14
-	Int m_structureTimer;		// +0x18
-	Int m_teamSeconds;		// +0x1C
-	Int m_buildDelay;		// +0x20
-	Int m_teamDelay;		// +0x24
-	unsigned char m_pad28[0x30 - 0x28];
-	Int m_skillsetSelector;		// +0x30
-	Coord3D m_baseCenter;		// +0x34
-	Bool m_baseCenterSet;		// +0x40
-	unsigned char m_pad41[0x48 - 0x41];
-	ObjectID m_structuresToRepair[MAX_STRUCTURES_TO_REPAIR];	// +0x48
-	ObjectID m_repairDozer;		// +0x50
-	Coord3D m_repairDozerOrigin;	// +0x54
-	Int m_structuresInQueue;	// +0x60
-	Bool m_dozerQueuedForRepair;	// +0x64
-	Bool m_dozerIsRepairing;	// +0x65
-	Int m_bridgeTimer;		// +0x68
-};
+	return DLINK_ITERATOR<TeamInQueue>(head, &TeamInQueue::dlink_next_TeamBuildQueue);
+}
 
 enum { DOZER_TASK_BUILD = 0 };
 
@@ -661,15 +579,15 @@ class SupplyWarehouseDockUpdate:public Module{public:char m_pad08[0x88-8];int m_
 
 /** Queue up a supply truck to be built. */
 static __forceinline void restoreUnitBuild(Player *player,const Bool &saved) { _ReadWriteBarrier();player->setCanBuildUnits(saved); }
-// ?countSupplyHarvesters@AIPlayer@@AAEHXZ absent-from-retail
-__forceinline Int AIPlayer::countSupplyHarvesters() {
+// Counts this player's supply harvesters; retail inlines it into queueSupplyTruck.
+static __forceinline Int countSupplyHarvesters(Player *const &player) {
 Int totalHarvesters;
 	totalHarvesters = 0;
 
 	// See how many harvesters we have servicing this supply src.
 	// Scan my units.
 	PlayerTeamList::const_iterator it;
-	for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it) {
+	for (it = player->getPlayerTeams()->begin(); it != player->getPlayerTeams()->end(); ++it) {
 		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
@@ -696,7 +614,7 @@ void AIPlayer::queueSupplyTruck( void )
 {
 	Bool truckInQueue;
 	truckInQueue = false;
-	for ( DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+	for ( DLINK_ITERATOR<TeamInQueue> iter = iterateTeamBuildQueue(m_teamBuildQueue); !iter.done(); iter.advance())
 	{
 		TeamInQueue *team = iter.cur();
 		WorkOrder *order;
@@ -712,7 +630,7 @@ void AIPlayer::queueSupplyTruck( void )
 	if (truckInQueue) {
 		return; // already building a supply truck.
 	}
-	Int totalHarvesters=countSupplyHarvesters();
+	Int totalHarvesters=countSupplyHarvesters(m_player);
 
 	/* Find the info building this. */
 	for( BuildListInfo *info = m_player->getBuildList(); info; info = info->getNext() )

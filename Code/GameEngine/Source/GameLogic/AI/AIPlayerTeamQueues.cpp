@@ -52,51 +52,39 @@ public:
 
 #include "TeamInQueue.h"
 
-class AIPlayer
-{
-public:
-	Bool isInList_TeamBuildQueue(TeamInQueue *teamInQueue) const { return teamInQueue->dlink_isInList_TeamBuildQueue(&m_dlinkhead_TeamBuildQueue); }
-	void prependTo_TeamBuildQueue(TeamInQueue *o);
-	void removeFrom_TeamBuildQueue(TeamInQueue *o);
-	typedef void (*RemoveAllProc_TeamBuildQueue)(TeamInQueue *o);
-	void removeAll_TeamBuildQueue(RemoveAllProc_TeamBuildQueue p = NULL);
-	void reverse_TeamBuildQueue();
-	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
-	{
-		return DLINK_ITERATOR<TeamInQueue>(m_dlinkhead_TeamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
-	}
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
-	Bool isInList_TeamReadyQueue(TeamInQueue *teamInQueue) const { return teamInQueue->dlink_isInList_TeamReadyQueue(&m_dlinkhead_TeamReadyQueue); }
-	void removeFrom_TeamReadyQueue(TeamInQueue *o);
-	typedef void (*RemoveAllProc_TeamReadyQueue)(TeamInQueue *o);
-	void removeAll_TeamReadyQueue(RemoveAllProc_TeamReadyQueue p = NULL);
-	DLINK_ITERATOR<TeamInQueue> iterate_TeamReadyQueue() const
-	{
-		return DLINK_ITERATOR<TeamInQueue>(m_dlinkhead_TeamReadyQueue, &TeamInQueue::dlink_next_TeamReadyQueue);
-	}
-	void aiPreTeamDestroy(const Team *deletedTeam);
-private:
-	void *m_vtbl;
-	TeamInQueue *m_dlinkhead_TeamBuildQueue; // +0x04
-	TeamInQueue *m_dlinkhead_TeamReadyQueue; // +0x08
-};
+// Inline here: retail inlines both membership tests into the queue bodies below and
+// keeps their out-of-line copies 0x004F03DF and 0x004EF373 from this unit.
+inline Bool AIPlayer::isInList_TeamBuildQueue(TeamInQueue *teamInQueue) const { return teamInQueue->dlink_isInList_TeamBuildQueue(&m_teamBuildQueue.m_head); }
+inline Bool AIPlayer::isInList_TeamReadyQueue(TeamInQueue *teamInQueue) const { return teamInQueue->dlink_isInList_TeamReadyQueue(&m_teamReadyQueue.m_head); }
+
+// File-local walks over AIPlayer's queue heads; retail inlines them into aiPreTeamDestroy.
+static inline DLINK_ITERATOR<TeamInQueue> iterateTeamBuildQueue(TeamInQueue *head)
+{
+	return DLINK_ITERATOR<TeamInQueue>(head, &TeamInQueue::dlink_next_TeamBuildQueue);
+}
+static inline DLINK_ITERATOR<TeamInQueue> iterateTeamReadyQueue(TeamInQueue *head)
+{
+	return DLINK_ITERATOR<TeamInQueue>(head, &TeamInQueue::dlink_next_TeamReadyQueue);
+}
 
 // ------------------------------------------------------------------------------------------------
 void AIPlayer::prependTo_TeamBuildQueue(TeamInQueue *teamInQueue)
 {
 	if (!isInList_TeamBuildQueue(teamInQueue))
-		((Rva00160530 *)teamInQueue)->set((Rva00160530 **)&m_dlinkhead_TeamBuildQueue);
+		((Rva00160530 *)teamInQueue)->set((Rva00160530 **)&m_teamBuildQueue.m_head);
 }
 
 void AIPlayer::removeFrom_TeamBuildQueue(TeamInQueue *teamInQueue)
 {
 	if (isInList_TeamBuildQueue(teamInQueue))
-		teamInQueue->dlink_removeFrom_TeamBuildQueue(&m_dlinkhead_TeamBuildQueue);
+		teamInQueue->dlink_removeFrom_TeamBuildQueue(&m_teamBuildQueue.m_head);
 }
 
 void AIPlayer::reverse_TeamBuildQueue()
 {
-	TeamInQueue *cur = m_dlinkhead_TeamBuildQueue;
+	TeamInQueue *cur = m_teamBuildQueue;
 	TeamInQueue *prev = NULL;
 	while (cur)
 	{
@@ -105,13 +93,13 @@ void AIPlayer::reverse_TeamBuildQueue()
 		prev = cur;
 		cur = originalNext;
 	}
-	m_dlinkhead_TeamBuildQueue = prev;
+	m_teamBuildQueue = prev;
 }
 
 void AIPlayer::removeFrom_TeamReadyQueue(TeamInQueue *teamInQueue)
 {
 	if (isInList_TeamReadyQueue(teamInQueue))
-		teamInQueue->dlink_removeFrom_TeamReadyQueue(&m_dlinkhead_TeamReadyQueue);
+		teamInQueue->dlink_removeFrom_TeamReadyQueue(&m_teamReadyQueue.m_head);
 }
 
 // AIPlayer::removeAll_TeamReadyQueue is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp (0x004F0499).
@@ -119,26 +107,26 @@ void AIPlayer::removeFrom_TeamReadyQueue(TeamInQueue *teamInQueue)
 void AIPlayer::aiPreTeamDestroy(const Team *deletedTeam)
 {
 	{
-		for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+		for (DLINK_ITERATOR<TeamInQueue> iter = iterateTeamBuildQueue(m_teamBuildQueue); !iter.done(); iter.advance())
 		{
 			TeamInQueue *team = iter.cur();
 			if (team->m_team == deletedTeam)
 			{
 				removeFrom_TeamBuildQueue(team);
 				::delete team;
-				iter = iterate_TeamBuildQueue();
+				iter = iterateTeamBuildQueue(m_teamBuildQueue);
 			}
 		}
 	}
 	{
-		for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamReadyQueue(); !iter.done(); iter.advance())
+		for (DLINK_ITERATOR<TeamInQueue> iter = iterateTeamReadyQueue(m_teamReadyQueue); !iter.done(); iter.advance())
 		{
 			TeamInQueue *team = iter.cur();
 			if (team->m_team == deletedTeam)
 			{
 				removeFrom_TeamReadyQueue(team);
 				::delete team;
-				iter = iterate_TeamReadyQueue();
+				iter = iterateTeamReadyQueue(m_teamReadyQueue);
 			}
 		}
 	}
