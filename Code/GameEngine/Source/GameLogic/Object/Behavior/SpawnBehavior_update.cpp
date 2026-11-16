@@ -180,11 +180,8 @@ public:
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
-class DamageModuleInterface
-{
-public:
-	virtual void onDamage();
-};
+enum BodyDamageType;
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 class SpawnBehaviorInterface2C
 {

@@ -50,11 +50,8 @@ public:
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
-class DamageModuleInterface
-{
-public:
-	virtual void damageAnchor();
-};
+enum BodyDamageType;
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 #include "../../../../Include/Common/SpawnExtraBase.h"
 

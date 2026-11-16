@@ -4,6 +4,8 @@
 #ifndef CANONICAL_DAMAGEMODULEINTERFACE_H
 #define CANONICAL_DAMAGEMODULEINTERFACE_H
 
+enum BodyDamageType;
+
 class DamageModuleInterface {
 public:
     virtual void onDamage(DamageInfo *damageInfo) = 0;

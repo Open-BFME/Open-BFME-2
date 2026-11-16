@@ -64,15 +64,8 @@ public:
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
-// Three slots, as the other DamageModuleInterface views (BridgeTowerBehavior.cpp,
-// FireWeaponWhenDamagedBehaviorCtor.cpp, BoneFXDamage.cpp) lay out its vtable.
-class DamageModuleInterface
-{
-public:
-	virtual void damageAnchor() = 0;
-	virtual void damageSlot1() = 0;
-	virtual void damageSlot2() = 0;
-};
+enum BodyDamageType;
+#include "../../../../Include/GameLogic/Module/DamageModuleInterface.h"
 
 typedef int (__cdecl *Rva0045FE4ACallback)(Object *obj, void *data);
 
