@@ -123,6 +123,8 @@ private:
 	unsigned int m_flags;
 };
 
+#include "Rva006CFCD0.h"
+
 class AptCIH {
 private:
 	virtual void unused0();
@@ -171,7 +173,6 @@ public:
 	bool rva006E0C50(const AptCIH *other) const;
 	bool rva006E0BF0() const;
 	void rva006E11B0();
-	bool rva006CFCD0() const;
 	bool rva006E24E0() const;
 private:
 	// Partial operand view shared with the matched level-accessor donor.
@@ -731,7 +732,7 @@ void AptCIH::rva006E1DD0(void *pRect)
 
 int AptCIH::rva006E1F90(int flag)
 {
-	if (!rva006CFCD0()) {
+	if (!reinterpret_cast<const Rva006CFCD0 *>(this)->isSpriteInstBase()) {
 		g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
 		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
 	}
@@ -749,8 +750,8 @@ int AptCIH::rva006E1F90(int flag)
 bool AptCIH::rva006E24E0() const
 {
 	const BfmeAptValue006DCD20 *self = (const BfmeAptValue006DCD20 *)this;
-	if (rva006CFCD0()) {
-		if (!rva006CFCD0()) {
+	if (reinterpret_cast<const Rva006CFCD0 *>(this)->isSpriteInstBase()) {
+		if (!reinterpret_cast<const Rva006CFCD0 *>(this)->isSpriteInstBase()) {
 			g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();

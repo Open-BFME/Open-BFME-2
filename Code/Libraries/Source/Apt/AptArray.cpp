@@ -140,8 +140,6 @@ public:
 public:
 	virtual void release();
 public:
-	void rva006DD6C0(EAStringC *pBuffer);
-public:
 	int isArray() const;
 public:
 	BfmeAptValue006DCD20 *rva006DCFA0();
@@ -149,8 +147,6 @@ public:
 	void rva006D9500(int nCapacity);
 public:
 	void SetAt(int nIndex, BfmeAptValue006DCD20 *pNewValue);
-public:
-	void rva006D95E0(int nIndex, BfmeAptValue006DCD20 *pValue);
 public:
 	unsigned int m_flags;
 public:
@@ -246,8 +242,8 @@ int __cdecl rva006D9D70Comparator(const void *a, const void *b)
 
 	EAStringC leftKey;
 	EAStringC rightKey;
-	left->rva006DD6C0(&leftKey);
-	right->rva006DD6C0(&rightKey);
+	reinterpret_cast<const AptValue *>(left)->toString(leftKey);
+	reinterpret_cast<const AptValue *>(right)->toString(rightKey);
 
 	return strcmp(leftKey.rva00620090(), rightKey.rva00620090());
 }
@@ -442,7 +438,7 @@ bool BfmeAptValue006DCD20::rva006D9780(BfmeAptValue006DCD20 *pContext, EAStringC
 	if (ok)
 	{
 		int index = atoi(pKey->rva00620090());
-		pContext->rva006DCFA0()->rva006D95E0(index, pValue ? pValue : (*(BfmeAptValue006DCD20 * *)&gpUndefinedValue));
+		reinterpret_cast<AptArray *>(pContext->rva006DCFA0())->set(index, reinterpret_cast<AptValue *>(pValue ? pValue : (*(BfmeAptValue006DCD20 * *)&gpUndefinedValue)));
 		return true;
 	}
 	return false;

@@ -30,7 +30,8 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 struct SoundCharacter { char pad[4]; void *parent; };
 struct SoundSprite { char pad[12]; SoundCharacter *character; };
-class AptCIH { public: char pad[0xc];float a,b,c,d,tx,ty;float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;float *properties;char pad2[4];SoundSprite *sprite;char pad3[0x5c-0x50];union {unsigned int flags;struct {unsigned int flagsLow:16;unsigned int asChanged:1;unsigned int flagsHigh:15;};};void factoryEnsureProperties();bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
+#include "../Rva006CFCD0.h"
+class AptCIH { public: char pad[0xc];float a,b,c,d,tx,ty;float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;float *properties;char pad2[4];SoundSprite *sprite;char pad3[0x5c-0x50];union {unsigned int flags;struct {unsigned int flagsLow:16;unsigned int asChanged:1;unsigned int flagsHigh:15;};};void factoryEnsureProperties();void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
 // Target scalar destructors6F3960/6FE430/6E9B50 use this pool and class size.
 #include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
@@ -42,7 +43,7 @@ protected: virtual ~AptSound();
 };
 AptSound::AptSound(AptCIH *aptCIH) : AptObject((AptVirtualFunctionTable_Indices)21) {
  zID=0;
- if(!aptCIH->rva006CFCD0()) {g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+ if(!reinterpret_cast<const Rva006CFCD0 *>(aptCIH)->isSpriteInstBase()) {g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
  pParentAnim=aptCIH->sprite->character->parent;szName=0;
 }
 
@@ -86,7 +87,7 @@ AptScriptColour::AptScriptColour(AptValue *const pMovie) : AptObject((AptVirtual
  if(!pMovie){g_bfmeAptAssertAtE17734("pMovie != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptColour.cpp",0x30);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
  if(pMovie->isCIH()) {
   AptCIH *cih=(AptCIH *)((BfmeAptValue006DCD20 *)pMovie)->rva006DCF60(false);
-  if(cih->rva006CFCD0() || (unsigned char)((BfmeAptValue006DCD20 *)cih)->rva006E02B0()) {
+  if(reinterpret_cast<const Rva006CFCD0 *>(cih)->isSpriteInstBase() || (unsigned char)((BfmeAptValue006DCD20 *)cih)->rva006E02B0()) {
    pSprite=cih;((AptValue *)cih)->AddRef();
   }
  } else pSprite=0;
