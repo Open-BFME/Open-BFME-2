@@ -22,31 +22,26 @@
 
 ;
 #include "always.h"
+#include <d3d8.h>
 #include "rendobj.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "dx8indexbuffer.h"
-#include "GameClient/View.h"
-#include "WW3D2/Camera.h"
-#include "WW3D2/Light.h"
-#include "WW3D2/DX8Wrapper.h"
-#include "WW3D2/HLod.h"
-#include "WW3D2/mesh.h"
-#include "WW3D2/meshmdl.h"
 #include "WW3D2/assetmgr.h"
-#include "WW3D2/texproject.h"
-#include "WW3D2/dx8renderer.h"
-#include "Lib/BaseType.h"
-#include "W3DDevice/GameClient/W3DGranny.h"
-#include "W3DDevice/GameClient/Heightmap.h"
-#include "D3dx8math.h"
-#include "common/GlobalData.h"
+// Scalar types needed by the shadow interfaces. The donor BaseType.h also
+// defines coordinate classes that conflict with the canonical render headers.
+typedef int Int;
+typedef unsigned int UnsignedInt;
+typedef float Real;
+typedef bool Bool;
+typedef int Color;
+typedef char Char;
+enum TimeOfDay;
+long fast_float2long_round(float);
+float fast_float_trunc(float);
+#define REAL_TO_INT(x) ((Int)(fast_float2long_round(fast_float_trunc(x))))
+#include "w3d_file.h"
+#include "lightenvironment.h"
 #include "W3DDevice/GameClient/W3DProjectedShadow.h"
-#include "WW3D2/statistics.h"
-#include "Common/Debug.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/PartitionManager.h"
-#include "GameLogic/TerrainLogic.h"
-#include "GameClient/drawable.h"
-#include "W3DDevice/GameClient/Module/W3DModelDraw.h"
 #include "W3DDevice/GameClient/W3DShadow.h"
 #include "ref_ptr.h"
 // bfme link decl-only begin

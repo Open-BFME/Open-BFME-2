@@ -397,3 +397,15 @@ seed's former Hashable rejection and tries both donors. It still accepts none:
 reader floorf linkage and duplicate class views, writer Coord3D/RenderInfoClass,
 TheDX8MeshRenderer declaration and drawStartX/Y storage conflicts remain. The
 constructor prerequisite is cleared locally; the TU merge and runtime fix are not.
+
+**2026-11-16, seed include reconciliation on `a45df9d95d`.** The projected-shadow
+seed now includes its direct dependencies and canonical CameraClass instead of
+unused donor engine headers. Scalar interface typedefs avoid importing donor
+coordinate classes. This also removes the unused donor dx8renderer.h declaration
+of TheDX8MeshRenderer as an object (the render pass correctly uses a pointer).
+Official build retains 64/64 functions, nine EXACT EH graphs and 3,466 preview
+bytes. Of 648 original COMDATs, 540 are no longer emitted; all 108 retained
+fingerprints agree and none is added. Whole-consumer closure is not established
+by this scoped preview. Logs: `build/decal-diagnostic/seed-direct-master-*`.
+The class-wide WW3D/StringClass/DX8Wrapper claims remain peer-held; their private
+views are not changed in this step.
