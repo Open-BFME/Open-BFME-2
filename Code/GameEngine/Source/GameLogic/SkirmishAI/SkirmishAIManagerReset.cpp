@@ -53,7 +53,6 @@ struct ManagerCollectorStorage {unsigned words[3];__forceinline ~ManagerCollecto
 #include "../../../Include/GameLogic/Rva002A9706Element.h"
 namespace _STL {template<> struct hash<Rva002A9706Element>{unsigned operator()(const Rva002A9706Element&) const;};}
 class Rva002A8FE0 {public:~Rva002A8FE0();void rva002A8FE0();unsigned words[5];};
-class Rva004E9337 {public:void rva004E9337();};
 #include "../../../Include/GameLogic/ObjectCreationListClass.h"
 class ModuleData;
 enum ObjectID {OBJECTID_INVALID=0};

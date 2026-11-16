@@ -14,12 +14,6 @@
 // host receiver, while its two explicit arguments are the vector and the
 // const char key.  Its retail body returns an index and cleans 8 bytes.
 
-struct Rva007F76F0Slot
-{
-	const char *m_text;
-	int m_tag;
-};
-
 #include "../../Include/Common/Rva007F76F0Vector.h"
 
 class Rva00802240Host

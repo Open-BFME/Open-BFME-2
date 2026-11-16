@@ -609,10 +609,6 @@ public:
 	~Rva0052C8AB();
 };
 struct Res004FCA0C;
-struct Rva000AD6F4Base
-{
-	virtual void *virt0(unsigned int);
-};
 #include "../../../../Include/Common/Rva000AD6F4.h"
 struct BfmePod88
 {

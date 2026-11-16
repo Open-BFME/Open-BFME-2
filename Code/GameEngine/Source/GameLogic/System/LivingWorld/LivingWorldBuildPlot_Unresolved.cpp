@@ -24,24 +24,6 @@ class LivingWorldBuildPlot;
 class LivingWorldBuildPlotIconTemplate;
 class LivingWorldRegion;
 struct Rva003F1BD3TemplateView;
-class LivingWorldBuildPlotIcon
-{
-public:
-    LivingWorldBuildPlotIcon(LivingWorldBuildPlotIconTemplate *templ,
-                            LivingWorldBuildPlot *plot, const Coord2D &position);
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual void slot20(bool occupied, bool immediate);
-    virtual void slot24(bool pending, bool immediate);
-private:
-    char m_unrecovered[0x38];
-};
 #include "../../../../Include/Common/Rva00575674.h"
 class LivingWorldBuildPlot : public Snapshot, public Rva00330757Member,
                             public RegionTurnObserverView

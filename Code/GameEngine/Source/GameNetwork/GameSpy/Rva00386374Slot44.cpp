@@ -6,16 +6,6 @@
 
 #include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
-class Rva00382398
-{
-public:
-	Rva00382398(const Rva00382398 &other);
-	virtual ~Rva00382398();
-private:
-	char m_pad[0x1E0 - 4];
-};
-
-
 class Rva00386374
 {
 public:

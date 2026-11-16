@@ -394,18 +394,6 @@ public:
 	void bfmeClearRange(UnsignedShort commandID);
 };
 
-class BFMECommandIDHistory
-{
-public:
-	Bool accept(UnsignedShort commandID, unsigned int frame);
-private:
-	unsigned int word(unsigned int id) const { return m_bits[id >> 5]; }
-	unsigned int &word(unsigned int id) { return m_bits[id >> 5]; }
-	Bool isSet(unsigned int id) const { return (word(id) & (1u << (id & 31))) != 0; }
-	void set(unsigned int id) { word(id) |= 1u << (id & 31); }
-	unsigned int m_bits[0x800];
-};
-
 #include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 // Retail's real DisconnectManager, for the one body here whose true mangled name

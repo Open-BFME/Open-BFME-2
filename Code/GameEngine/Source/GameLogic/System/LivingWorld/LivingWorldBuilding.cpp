@@ -36,7 +36,6 @@ struct Header:public _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >{
 };
 class Rva00330757Member:public Header{public:__declspec(noinline) Rva00330757Member();__forceinline ~Rva00330757Member(){}int flag;};
 inline Rva00330757Member::Rva00330757Member(){flag|=-1;}
-class Rva004EDFFFDwordImmSetter {public:void apply();};
 #include "../../../../Include/Common/RegionTurnObserverView.h"
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_NAME_SLOT
