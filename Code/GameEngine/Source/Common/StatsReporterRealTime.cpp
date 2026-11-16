@@ -43,7 +43,7 @@ class VictoryConditionsInterface {public:
  virtual bool isLocalAlliedVictory();virtual bool isLocalAlliedDefeat();
 };
 #include "../../Include/Common/Rva0039B709.h"
-struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int);};
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../Include/Common/BitFlagsTemplate.h"
 class Rva0039BF22 {public:int rva0039BF22(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva0039BF50 {public:int rva0039BF50(const Rva00045411BitSet&,const Rva00045411BitSet&);};

@@ -42,12 +42,7 @@ extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-// Rowed 44-byte single-bit constructor at 0x45411; same 28-byte mask.
-struct Rva00045411BitSet
-{
- unsigned int bits[7];
- Rva00045411BitSet(int reserved, int bit) throw();
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 // vftable 0x00C1A25C: any of the mask's kinds.
 class Rva003959FA : public Rva000421C8
 {
