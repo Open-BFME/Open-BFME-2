@@ -720,3 +720,63 @@ parent outright. The generator refused both boundaries until they were read by
 hand.
 
 Use it to rank what to read. Do not let it vote.
+
+## 2026-11-16: the `add_match` label cluster is closed, and what remains is the opposite shape
+
+The cluster this file opened with is now worked through. Six records were
+retracted, and the two that are left are not this cause at all.
+
+### The measurement that closed them
+
+`ledger_io.same_function_name` scopes a `$L<n>` to one TU when both rows satisfy
+`local_funclet`. The question is no longer whether that scoping exists but
+whether the ledger has taken it up, and it has: of the **10,546** `$L` rows in
+`functions.csv`, **10,544 satisfy `local_funclet`**. The two that do not are one
+carrying `object-symbol=` and one missing its `gen-funclet` token.
+
+So a proposal carrying `gen-funclet;parent=<owner>` in another TU now collides
+with nothing. Checked against each record's own label, with a tagged proposal in
+a different source:
+
+| label | scoped claims in the ledger | collisions with a tagged proposal |
+| --- | ---: | ---: |
+| `$L419` | 5 | 0 |
+| `$L551` | 1 | 0 |
+| `$L7600` | 1 | 0 |
+| `$L13842` | 0 | 0 |
+| `$L2262` | 1 | 0 |
+| `$L400` | 5 | 0 |
+
+`$L419` and `$L400` holding five addresses each is the proof that the scoping
+works in production, not just in the tests. Those six records were voided with
+that measurement as the evidence. The open count went 144 -> 138, and the open
+`add_match` records went 13 -> 7.
+
+### The two that remain are SAME-source duplicates, which stay refused
+
+This is the trap, and it cost a near-miss today. The scoping compares *sources*.
+When the proposal and the existing claim are in the **same** TU it refuses, and
+that refusal is right -- one translation unit cannot number two `$L14076`.
+
+- **L51393, `$L14076` @ 0x0076FA6B.** The ledger holds `$L14076` at 0x0076FA57
+  in `Code/GameEngine/Source/Common/GameEngineInit.cpp`, and the record's own
+  evidence anchors the proposal to the GameEngine init parent -- the same unit,
+  20 bytes away. Re-testing it with a proposal in *some other* file reports no
+  collision and is the wrong test. Not retracted.
+- **L51966, `$L344` @ 0x00778668.** Left alone for a different reason: its
+  boundary carries two EARLIER rows (L51959, L51961), both `landed add_match
+  verified ... Rva002E0427Dtor.cpp 11B`. A `void` deletes every earlier row at
+  its (symbol, rva), so retracting this would bury two landed verifications.
+  `boundary_safe_to_vote` only looks for a LATER row and says True here; it does
+  not protect earlier resolutions. Read the boundary before voting on it.
+
+`$L1243` (L51407), `$L872` (L51415) and `$L459` (L57098/L57099) were left for the
+same burial reason -- a later `blocked identity` row on the first two, and a
+`partial` with a banked body on `$L459`.
+
+### Also corrected
+
+`ledger_io.local_label_hint`'s docstring carried "144 open add_match and 13 open
+check_csv false-reject records are this" as a measured claim. It is 7 and 2, so
+the note now carries the date, the current figures and the same-source warning,
+because a 20x stale number makes a worker size the lane from history.

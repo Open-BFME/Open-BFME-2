@@ -63,9 +63,18 @@ def local_label_hint(identity, claims):
     A compiler label is not a global name: same_function_name scopes one to its
     source when BOTH rows satisfy local_funclet. A bare duplicate-name refusal
     does not say so, and advice to repoint the existing claim is wrong here --
-    that claim belongs to another TU. 144 open add_match and 13 open check_csv
-    false-reject records are this: a worker read the refusal as a verdict on
-    identity when it was a verdict on notes.
+    that claim belongs to another TU: a worker reads the refusal as a verdict on
+    identity when it is a verdict on notes.
+
+    That backlog is now almost gone, so do not size the lane from this note's
+    history. On 2026-11-16 the standing false-reject records left on it were 7
+    open add_match and 2 open check_csv, and 10,544 of the 10,546 `$L` rows in
+    functions.csv satisfy local_funclet (the two that do not are one carrying
+    `object-symbol=` and one missing `gen-funclet`), so a tagged proposal in
+    another TU now collides with nothing. What survives is the opposite shape:
+    a SAME-source duplicate, which this scoping deliberately does not relax --
+    one TU cannot number two `$L14076`. Re-measure before reading a remaining
+    record as this cause.
 
     `identity` is the proposed row, `claims` the rows already holding the name.
     Returns the missing condition, or None when the name is not a label or the
