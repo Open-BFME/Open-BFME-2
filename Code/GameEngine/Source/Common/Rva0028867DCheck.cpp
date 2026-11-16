@@ -39,7 +39,7 @@ static bool Rva0028867DCaller(const void *level)
 // Native00288D88..00288E21, 153B, RET12: existing store pin carries the
 // two-word handle result ABI. Native query00288C68 takes one object word
 // and returns the list; its original parameter spelling remains unknown.
-// Handle/list/node/override layout copied from the verified ExperienceLevelSystem.cpp.
+// List/node/override layout copied from the verified ExperienceLevelSystem.cpp.
 #include "../../Include/Common/Overridable.h"
 // Zero Hour's inline getFinalOverride walk as retail inlines it here: the
 // first level only, then the out-of-line friend_getFinalOverride (0x001E35DF).
@@ -74,16 +74,7 @@ class ExperienceLevelList
 public:
     ExperienceLevelNode *sentinel;
 };
-struct ExperienceLevelHandle
-{
-    ExperienceLevelHandle() {}
-    ExperienceLevelHandle(ExperienceLevelList *value) : list(value) {}
-    ExperienceLevelHandle(ExperienceLevelList *value, const ExperienceLevelIterator &where)
-        : list(value), iter(where) {}
-    ExperienceLevelHandle(const ExperienceLevelHandle &other) : list(other.list), iter(other.iter) {}
-    ExperienceLevelList *list;
-    ExperienceLevelIterator iter;
-};
+#include "../../Include/Common/ExperienceLevelHandle.h"
 extern "C" bool rva0007E394CursorEqual(const ExperienceLevelHandle &a, const ExperienceLevelHandle &b);
 class ThingTemplate;
 #include "../../Include/GameLogic/ExperienceLevelStore.h"
@@ -104,7 +95,8 @@ ExperienceLevelHandle ExperienceLevelStore::rva00288D88(int object, int limit)
             {
                 ExperienceLevelIterator iter;
                 iter.node = node;
-                best = ExperienceLevelHandle(list, iter);
+                best.m_list = list;
+                best.m_iter = iter;
                 greatest = required;
             }
         }
@@ -129,7 +121,9 @@ ExperienceLevelHandle ExperienceLevelStore::rva00288E21(const ThingTemplate *obj
         {
             ExperienceLevelIterator iter;
             iter.node = node;
-            return ExperienceLevelHandle(list, iter);
+            ExperienceLevelHandle found(list);
+            found.m_iter = iter;
+            return found;
         }
     }
     return ExperienceLevelHandle(0);

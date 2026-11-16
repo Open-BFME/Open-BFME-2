@@ -8,6 +8,8 @@ struct ExperienceLevelHandle {
     ExperienceLevelList *m_list;
     ExperienceLevelIterator m_iter;
     ExperienceLevelHandle() {}
+    // Retail builds a handle from its list alone in place (0x00288DA0, 0x00288E36).
+    ExperienceLevelHandle(ExperienceLevelList *list) : m_list(list) {}
     ExperienceLevelHandle(const ExperienceLevelHandle &that)
     		: m_list(that.m_list), m_iter(that.m_iter) {}
     bool isValid() const { return m_list != 0; }
