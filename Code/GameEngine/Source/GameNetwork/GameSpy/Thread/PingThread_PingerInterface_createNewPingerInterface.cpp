@@ -52,50 +52,22 @@
 
 //-------------------------------------------------------------------------
 
-static const Int NumWorkerThreads = 10;
-
-typedef std::queue<PingRequest> RequestQueue;
-typedef std::queue<PingResponse> ResponseQueue;
-class PingThreadClass;
-
-class Pinger : public PingerInterface
+// Retail allocates 0xA8 bytes and calls the existing BFMENetwork constructor
+// at RVA 0x00558EC1. This declaration supplies only its allocation footprint;
+// the constructor and its vtable remain owned by BFMENetwork.cpp.
+class BFMENetwork
 {
 public:
-	virtual ~Pinger();
-	Pinger();
-	virtual void startThreads( void );
-	virtual void endThreads( void );
-	virtual Bool areThreadsRunning( void );
-
-	virtual void addRequest( const PingRequest& req );
-	virtual Bool getRequest( PingRequest& resp );
-
-	virtual void addResponse( const PingResponse& resp );
-	virtual Bool getResponse( PingResponse& resp );
-
-	virtual Bool arePingsInProgress( void );
-	virtual Int getPing( AsciiString hostname );
-
-	virtual void clearPingMap( void );
-	virtual AsciiString getPingString( Int timeout );
-
+    BFMENetwork();
 private:
-	MutexClass m_requestMutex;
-	MutexClass m_responseMutex;
-	MutexClass m_pingMapMutex;
-	RequestQueue m_requests;
-	ResponseQueue m_responses;
-	Int m_requestCount;
-	Int m_responseCount;
-
-	std::map<std::string, Int> m_pingMap;
-
-	PingThreadClass *m_workerThreads[NumWorkerThreads];
+    unsigned int m_storage[0xA8 / sizeof(unsigned int)];
 };
 
 PingerInterface* PingerInterface::createNewPingerInterface( void )
 {
-	return NEW Pinger;
+	// Keep the historical factory interface name; retail returns the pointer
+	// without a base adjustment. This does not establish donor Pinger identity.
+	return reinterpret_cast<PingerInterface *>(NEW BFMENetwork);
 }
 extern PingerInterface *ThePinger;
 
