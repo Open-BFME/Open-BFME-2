@@ -460,3 +460,14 @@ The subsequent official focused dry run still accepts no donors: drawStart and
 drawEdge declarations conflict in composition, and reader diagnostics include
 Get_User_Data's non-DrawableInfo result and duplicate IndexBufferClass. Thus the
 DrawableInfo field-name adoption alone does not fix the caller's RenderObj view.
+
+**Canonical index-buffer include:** the seed's donor dx8indexbuffer.h supplied
+another IndexBufferClass definition beside the reader's registered header. The
+seed now directly includes the registered DX8IndexBufferClass.h, which includes
+the same canonical parent as the reader. Its sole allocation still names the
+same constructor and usage value. Official build retains 64/64 functions and
+nine EXACT EH graphs; header_adopt_lane.py accept --class DX8IndexBufferClass
+passes. No shared header or function body changes. Logs:
+`build/decal-diagnostic/seed-indexbuffer-build.log` and `seed-indexbuffer-accept.log`.
+This include reconciliation alone does not resolve the storage or RenderObj
+conflicts and is not a runtime verification of selection rendering.

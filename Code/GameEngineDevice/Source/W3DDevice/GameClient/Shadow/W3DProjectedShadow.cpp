@@ -25,7 +25,7 @@
 #include <d3d8.h>
 #include "rendobj.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
-#include "dx8indexbuffer.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 #include "WW3D2/assetmgr.h"
 // Scalar types needed by the shadow interfaces. The donor BaseType.h also
 // defines coordinate classes that conflict with the canonical render headers.
