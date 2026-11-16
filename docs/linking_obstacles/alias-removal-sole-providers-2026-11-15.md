@@ -101,3 +101,26 @@ A consumer check of every commit since 2026-11-08 that removes `/alternatename` 
 | 259896f97a | three definitions among the "unused extern declarations": `extern const char * const g_Rva00E0A010 = 0;`, `g_Rva0130A6E4` and `g_Rva0130A768` | GameNetwork/Rva007F14B0BlobWriter.cpp, GameNetwork/Rva007F3170RecordRequest.cpp, GameNetwork/Rva007F3C50ClubUpdate.cpp |
 
 1cc99cc230d also left carriers without their own bindings beyond the eight OpaqueScalarDeletingDtors.cpp names above, and the same real link still lists each: Common/OpaqueScalarDeletingDtorsB09.cpp (`??1Rva0060FE2@@UAE@XZ`, `??1Rva008E4EC@@UAE@XZ`, `??1Rva009203A@@UAE@XZ`), Common/FamilyDeletingDtors_muse-b055.cpp (`??1ShipSlowDeathBehaviorModuleData@@UAE@XZ`) and Common/RTS/Player_Radar.cpp (`?okToPlayRadarEdgeSound@Player@@QAE_NXZ`). Two other withdrawals are repaired since: 3c7fdba61c (the ObjectTypes erase) and d7934c0617 (`?f3@DBaseM3@@UAEXXZ`).
+
+## 2026-11-17: native pair temporary in the over-button removal consumer
+
+At base `8ffb7f14ce`, Rva00524477Dispatch.cpp now calls the existing genuine
+`make_pair<int, AsciiString>` provider directly instead of the removed
+explicit-output alias. The pair temporary stays alive through the search and
+its string is then released before the result is tested. A TU-local typed
+overload bridges the existing integer-spelled find row; it is fully inlined,
+with no external wrapper emitted. The search provider and declaration agree on
+`throw()`: its native loop only reads pair fields and calls the nonallocating
+StringBase comparison. This preserves the caller's flat frame. Binding a named
+reference instead added a redundant LEA; omitting the search exception contract
+added an EH frame. Neither failed trial was retained.
+
+The complete 101-byte caller and all four search-provider rows remain exact.
+Against index `abb031eedf` (2026-11-16 23:13), joint link_check of the caller,
+Rva0052A22CForwarders.cpp and Rva00523DB7Ctor.cpp reports 3/3 LINKS
+(121 -> 220 predicted bytes), with both existing providers preserved.
+The obsolete factory reference is absent and the cleanup now names the actual
+releaseBuffer row rather than the historical AsciiString-destructor pin.
+No alias, pin, stub or runtime fallback was added. This clears only this
+consumer in preview; GameLogic.cpp still has its separate explicit-output
+factory call. Real-link/runtime confirmation remains pending.

@@ -47,7 +47,8 @@ void __stdcall Rva00525407(Pair005258F8 *pair);
 struct Rva00523DB7;
 const Rva00523DB7 *Rva0052408BFind(const Rva00523DB7 *first, const Rva00523DB7 *last, const Rva00523DB7 *val, int tag);
 
-int find(int first, int last, int searchValue)
+// The native loop only reads the pair and compares its integer/string fields.
+int find(int first, int last, int searchValue) throw()
 {
 	char tag;
 	return (int)Rva0052408BFind((const Rva00523DB7 *)first, (const Rva00523DB7 *)last, (const Rva00523DB7 *)searchValue, (int)&tag);
