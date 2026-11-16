@@ -37,7 +37,13 @@ inline __declspec(noinline) Image::~Image()
     DllExports::GdipDisposeImage(nativeImage);
 }
 
-Image *Image::Clone()
+// `inline` for the COMDAT selection only, with no __declspec(noinline):
+// gdiplusbitmap_dtor.cpp emits Image's vtable, which forces a second copy of
+// this virtual. Without `inline` this one is SELECT_NODUPLICATES against that
+// unit's SELECT_ANY copy, which is a duplicate at link -- one of the real
+// link's last two (reverse/link_status.csv). noinline would also forbid
+// inlining the Image ctor into this body, which retail does.
+inline Image *Image::Clone()
 {
     GpImage *cloneimage = 0;
 
@@ -94,7 +100,9 @@ Image::Image(GpImage *nativeImage, Status status)
 }
 
 // ?Image::SetNativeImage present-unmatched
-void Image::SetNativeImage(GpImage *nativeImage)
+// `inline` for the same reason as Image::Clone above, and likewise without
+// noinline: retail inlines this into the Image constructor.
+inline void Image::SetNativeImage(GpImage *nativeImage)
 {
     this->nativeImage = nativeImage;
 }
