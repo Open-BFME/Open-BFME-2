@@ -26,20 +26,7 @@ enum
 
 #include "../../../Include/Common/DataChunkOutput.h"
 
-class Script;
-class ScriptGroup;
-
-class ScriptList
-{
-public:
-	static void WriteScriptsDataChunk(DataChunkOutput &chunkWriter, ScriptList *scriptLists[], Int numLists);
-	void WriteScriptListDataChunk(DataChunkOutput &chunkWriter);
-
-private:
-	unsigned char m_pad[4];
-	ScriptGroup *m_firstGroup; // +0x04
-	Script *m_firstScript; // +0x08
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 void WriteGroupDataChunk(DataChunkOutput &chunkWriter, ScriptList *scriptList, ScriptGroup *scriptGroup);
 void WriteScriptDataChunk(DataChunkOutput &chunkWriter, ScriptList *scriptList, Script *script);
