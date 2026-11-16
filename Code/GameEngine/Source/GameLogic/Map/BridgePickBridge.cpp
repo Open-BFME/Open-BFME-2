@@ -30,23 +30,7 @@ static inline unsigned char Point_In_Triangle_2D_byte(const Vector3 &tri_point0,
 		axis_1, axis_2, flags) ? 1 : 0;
 }
 
-class Bridge
-{
-public:
-	bool isPointOnBridge(const Coord3D *point);
-	bool pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos);
-
-private:
-	char m_pad00[0x28];
-	Coord3D m_fromLeft;
-	Coord3D m_fromRight;
-	Coord3D m_toLeft;
-	Coord3D m_toRight;
-	char m_pad58[0xB4 - 0x58];
-	Region2D m_bounds;
-	int m_layer;
-	PolygonTrigger *m_extra;
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 
 bool Bridge::isPointOnBridge(const Coord3D *point)
 {
@@ -59,7 +43,7 @@ bool Bridge::isPointOnBridge(const Coord3D *point)
 	if (point->y > m_bounds.hi.y)
 		return false;
 
-	PolygonTrigger *extra = m_extra;
+	PolygonTrigger *extra = m_c8;
 	if (extra)
 	{
 		ICoord3D ic;
@@ -75,21 +59,21 @@ bool Bridge::isPointOnBridge(const Coord3D *point)
 		testPt.Y = point->y;
 		testPt.Z = point->z;
 		Vector3 fromLeft;
-		fromLeft.X = m_fromLeft.x;
-		fromLeft.Y = m_fromLeft.y;
-		fromLeft.Z = m_fromLeft.z;
+		fromLeft.X = m_bridgeInfo.fromLeft.x;
+		fromLeft.Y = m_bridgeInfo.fromLeft.y;
+		fromLeft.Z = m_bridgeInfo.fromLeft.z;
 		Vector3 fromRight;
-		fromRight.X = m_fromRight.x;
-		fromRight.Y = m_fromRight.y;
-		fromRight.Z = m_fromRight.z;
+		fromRight.X = m_bridgeInfo.fromRight.x;
+		fromRight.Y = m_bridgeInfo.fromRight.y;
+		fromRight.Z = m_bridgeInfo.fromRight.z;
 		Vector3 toLeft;
-		toLeft.X = m_toLeft.x;
-		toLeft.Y = m_toLeft.y;
-		toLeft.Z = m_toLeft.z;
+		toLeft.X = m_bridgeInfo.toLeft.x;
+		toLeft.Y = m_bridgeInfo.toLeft.y;
+		toLeft.Z = m_bridgeInfo.toLeft.z;
 		Vector3 toRight;
-		toRight.X = m_toRight.x;
-		toRight.Y = m_toRight.y;
-		toRight.Z = m_toRight.z;
+		toRight.X = m_bridgeInfo.toRight.x;
+		toRight.Y = m_bridgeInfo.toRight.y;
+		toRight.Z = m_bridgeInfo.toRight.z;
 
 		unsigned char flags;
 		if (Point_In_Triangle_2D(fromLeft, fromRight, toLeft, testPt, 0, 1, flags))
@@ -106,9 +90,9 @@ bool Bridge::isPointOnBridge(const Coord3D *point)
 // The donor supplies the ray/plane intersection algorithm and method name.
 bool Bridge::pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos)
 {
-	Vector3 left1(m_fromLeft.x, m_fromLeft.y, m_fromLeft.z);
-	Vector3 right1(m_fromRight.x, m_fromRight.y, m_fromRight.z);
-	Vector3 left2(m_toLeft.x, m_toLeft.y, m_toLeft.z);
+	Vector3 left1(m_bridgeInfo.fromLeft.x, m_bridgeInfo.fromLeft.y, m_bridgeInfo.fromLeft.z);
+	Vector3 right1(m_bridgeInfo.fromRight.x, m_bridgeInfo.fromRight.y, m_bridgeInfo.fromRight.z);
+	Vector3 left2(m_bridgeInfo.toLeft.x, m_bridgeInfo.toLeft.y, m_bridgeInfo.toLeft.z);
 	PlaneClass plane(left1, right1, left2);
 	float t;
 	plane.Compute_Intersection(from, to, &t);

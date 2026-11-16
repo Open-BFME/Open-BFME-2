@@ -63,27 +63,7 @@ enum PathfindLayerEnum
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
-class Rva0027C36A
-{
-public:
-	Rva0027C36A(const Rva0027C36A &other);
-
-	Coord3D from; // +0x00
-	Coord3D to; // +0x0C
-	Real bridgeWidth; // +0x18
-	Coord3D fromLeft; // +0x1C
-	Coord3D fromRight; // +0x28
-	Coord3D toLeft; // +0x34
-	Coord3D toRight; // +0x40
-	Int bridgeIndex; // +0x4C
-	BodyDamageType curDamageState; // +0x50
-	ObjectID bridgeObjectID; // +0x54
-	ObjectID towerObjectID[4]; // +0x58
-	Bool damageStateChanged; // +0x68
-private:
-	char m_pad69[0xA8 - 0x69];
-};
-typedef Rva0027C36A BridgeInfo;
+#include "../../../Include/GameLogic/BridgeClass.h"
 
 #include "../../../Include/GameLogic/PolygonTrigger.h"
 
@@ -116,29 +96,12 @@ class TerrainRoadType;
 #include "../../../Include/GameClient/TerrainRoadCollection.h"
 extern TerrainRoadCollection *TheTerrainRoads;
 
-class Bridge
-{
-public:
-	Bridge(BridgeInfo &theInfo, Dict *props, const AsciiString &bridgeTemplateName, PolygonTrigger *outline = NULL);
-	Bridge(Object *bridgeObj);
-	virtual ~Bridge();
-
-	void setNext(Bridge *next) { m_next = next; }
-	void setLayer(Int layer) { m_layer = layer; }
-private:
-	Bridge *m_next; // +0x04
-	AsciiString m_templateName; // +0x08
-	BridgeInfo m_bridgeInfo; // +0x0C
-	Region2D m_bounds; // +0xB4
-	Int m_layer; // +0xC4
-	PolygonTrigger *m_outline; // +0xC8
-};
 
 Bridge::Bridge(BridgeInfo &theInfo, Dict *props, const AsciiString &bridgeTemplateName, PolygonTrigger *outline) :
 m_next(NULL),
 m_bridgeInfo(theInfo),
 m_layer(LAYER_INVALID),
-m_outline(outline)
+m_c8(outline)
 {
 	// save the template name
 	m_templateName = bridgeTemplateName;
@@ -159,7 +122,7 @@ m_outline(outline)
 	if (m_bounds.hi.x < m_bridgeInfo.toRight.x) m_bounds.hi.x = m_bridgeInfo.toRight.x;
 	if (m_bounds.hi.y < m_bridgeInfo.toRight.y) m_bounds.hi.y = m_bridgeInfo.toRight.y;
 
-	if (m_outline)
+	if (m_c8)
 	{
 		IRegion2D outlineBounds;
 		outline->getBounds(&outlineBounds);

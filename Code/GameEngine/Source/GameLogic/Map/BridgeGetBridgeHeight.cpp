@@ -32,44 +32,11 @@ public:
 	Real D;
 };
 
-typedef int ObjectID;
-enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
-
-struct BridgeInfo
-{
-	Coord3D from;
-	Coord3D to;
-	Real bridgeWidth;
-	Coord3D fromLeft;
-	Coord3D fromRight;
-	Coord3D toLeft;
-	Coord3D toRight;
-	int bridgeIndex;
-	BodyDamageType curDamageState;
-	ObjectID bridgeObjectID;
-	ObjectID towerObjectID[4];
-	bool damageStateChanged;
-};
-
-class PolygonTrigger;
-
-class Bridge
-{
-public:
-	virtual ~Bridge();
-	Real getBridgeHeight(const Coord3D *pLoc, Coord3D *normal);
-
-protected:
-	Bridge *m_next; // +0x04
-	AsciiString m_templateName; // +0x08
-	BridgeInfo m_bridgeInfo; // +0x0C
-	char m_pad78[0xC8 - 0x78];
-	PolygonTrigger *m_area; // +0xC8
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 
 Real Bridge::getBridgeHeight(const Coord3D *pLoc, Coord3D *normal)
 {
-	if (m_area)
+	if (m_c8)
 	{
 		Coord3D along;
 		along = m_bridgeInfo.to;

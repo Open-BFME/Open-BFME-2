@@ -90,16 +90,10 @@ private:
 	ObjectID m_id;																														///< 0x74
 };
 
-class Bridge
-{
-public:
-	void setBridgeObjectID( ObjectID id ) { m_bridgeObjectID = id; }
-	void setTowerObjectID( ObjectID id, BridgeTowerType which ) { m_towerObjectID[ which ] = id; }
-private:
-	char m_unrecovered00[ 0x60 ];
-	ObjectID m_bridgeObjectID;																								///< 0x60
-	ObjectID m_towerObjectID[ BRIDGE_MAX_TOWERS ];														///< 0x64
-};
+#include "../../../../Include/GameLogic/BridgeClass.h"
+
+inline void Bridge::setBridgeObjectID( ObjectID id ) { m_bridgeInfo.bridgeObjectID = id; }
+inline void Bridge::setTowerObjectID( ObjectID id, BridgeTowerType which ) { m_bridgeInfo.towerObjectID[ which ] = id; }
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 
