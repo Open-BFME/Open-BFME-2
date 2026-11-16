@@ -526,3 +526,14 @@ the only new provider is Get_Frustum, independently judged retail. The previous
 22-byte getter-copy rejection is resolved without changing the gate or adding
 an import/pin. See the updated
 [camera handoff](../../reverse/attempt_support/projected-shadow-camera-adoption-20261116.md).
+
+**Canonical seed RefCountClass:** include the canonical header before rendobj.h
+and supply the retail empty inline destructor. The header alone emitted a
+non-retail deleting wrapper; that trial was reverted. The final variant retains
+64/64 rows, nine EXACT EH graphs and the 29-byte retail deleting wrapper. Added
+Release_Ref and changed Delete_This are independently judged retail. Scoped
+preview remains 3,466 bytes against the cached census. The attempted writer
+merge was reverted after its commit hook refused private DX8Wrapper/WW3D copies;
+those newly available class claims are now acquired. Reader std::max provider
+proof remains outstanding. See the
+[RefCount handoff](../../reverse/attempt_support/projected-shadow-refcount-20261116.md).

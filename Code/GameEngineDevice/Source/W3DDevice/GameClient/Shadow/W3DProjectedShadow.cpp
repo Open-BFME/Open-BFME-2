@@ -23,6 +23,9 @@
 ;
 #include "always.h"
 #include <d3d8.h>
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+// Retail's seven-byte destructor is the empty header-inline body (RVA 0x00072892).
+inline RefCountClass::~RefCountClass() {}
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
