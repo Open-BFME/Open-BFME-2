@@ -8,7 +8,8 @@
 #include "../../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../../Include/Common/Geometry.h"
 class Object{public:char pad0[0xa8];GeometryInfo geometry;};
-class BfmeFixedStorage0004543D{public:unsigned words[7];};template<int N>class BitFlags{public:unsigned words[7];};extern BitFlags<116> KINDOFMASK_NONE;
+#include "../../../../../Include/Common/BfmeFixedStorage0004543D.h"
+template<int N>class BitFlags{public:unsigned words[7];};extern BitFlags<116> KINDOFMASK_NONE;
 class Rva002618A2{public:Rva002618A2*rva002618A2(int,int,int,int);unsigned words[7];};
 #include "../../../../../Include/GameLogic/PartitionFilter.h"
 class Rva0004584D:public Rva000421C8{public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);virtual ~Rva0004584D(){}virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};

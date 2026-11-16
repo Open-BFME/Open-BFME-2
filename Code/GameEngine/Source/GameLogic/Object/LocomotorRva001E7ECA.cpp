@@ -156,13 +156,7 @@ class LocoTerrainView:public LocoSlots<6>
  
 }
 ;
-class BfmeFixedStorage0004543D
-{
- public:BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&)throw();
- unsigned bits[7];
- 
-}
-;
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116>KINDOFMASK_NONE;
 class Rva00045411BitSet

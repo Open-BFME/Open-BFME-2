@@ -12,12 +12,7 @@
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
-class BfmeFixedStorage0004543D {
-public:
- BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-private:
- unsigned char data[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
