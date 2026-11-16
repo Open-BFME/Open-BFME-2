@@ -854,7 +854,7 @@ address_global	Code/GameEngine/Source/GameLogic/Object/Update/Rva0037441ELeaf.cp
 address_global	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	g_Va00BBB8E0	2
 address_global	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	g_Va00DFECD0	4
 address_global	Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp	g_Va00DFECD0	2
-address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBF51.cpp	g_Va007C26F0	2
+address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp	g_Va007C26F0	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	g_Va00BCF628	3
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF045.cpp	g_Va00BBB8D8	2
@@ -1411,9 +1411,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv695.cpp	?Gen007F86A0@@YAPAUR
 alternatename	Code/GameEngine/Source/Common/BfmeConv771.cpp	?bfmeVecDtorDSE@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv793.cpp	?bfmeFailDXE@@YGXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv812.cpp	?bfmeGetEHA@BfmeObjEHA@@QAEPAUBfmeSubEHA@@XZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?findObj@BfmeMgrD74_Linked@@QAEPAVBfmeLinkedObj@@H@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?findSomething@BfmeMgrF07@@QAEHPAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv831.cpp	?link@BfmeLinkedObj@@QAEXPAV1@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeFind1052@BfmeI1052@@QAEHPADH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeFindVNC@BfmeKeyVNC@@QAEPAXPBDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeGetESI@BfmeDictESI@@QAEPAXPBDPAX@Z	1
@@ -2561,10 +2558,13 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeOneEFF@@YAPAXPAXH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFF@@YAXHPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	?bfmeTwoEFFb@@YAXHPAX@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp	??0?$BitFlags@$0HE@@@QAE@ABV0@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp	?findObj@BfmeMgrD74_Linked@@QAEPAVBfmeLinkedObj@@H@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp	?findSomething@BfmeMgrF07@@QAEHPAXH@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp	?link@BfmeLinkedObj@@QAEXPAV1@H@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBFFB.cpp	?g_Va00BCF628@@3MA	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp	?init@ScriptActions@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_playerOwnershipOfTypeCounter.cpp	?prepForPlayerCounting@ObjectTypes@@QAEHAAV?$vector@PBVThingTemplate@@V?$allocator@PBVThingTemplate@@@_STL@@@_STL@@AAV?$vector@HV?$allocator@H@_STL@@@3@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp	??0?$BitFlags@$0HE@@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_ctor.cpp	?init@ScriptConditions@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	??1Rva00207E26Vector@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	?holderSlot0@Rva0020453CHolderBase@@UAEXXZ	1
