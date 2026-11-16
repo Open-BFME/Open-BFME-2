@@ -52,7 +52,7 @@ struct Coord3D { Real x, y, z; };
 // NOT ZH BaseType.h's bit-trick (which never calls out). fast_float2long_round
 // is unchanged (still the plain fld/fistp x87 round). TU-scoped here rather
 // than in WWLib/basetype.h: every REAL_TO_INT_FLOOR call site in the tree is
-// present-unmatched, so nothing byte-matched depends on the ZH bit-trick, but
+// currently unmatched, so nothing byte-matched depends on the ZH bit-trick, but
 // the fix belongs with the shim that proved it, not a blind global edit.
 #define PATHFIND_CELL_SIZE 10
 #define PATHFIND_CELL_SIZE_F 10.0f

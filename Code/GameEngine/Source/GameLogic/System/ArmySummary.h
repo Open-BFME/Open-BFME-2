@@ -42,7 +42,6 @@ class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:
  virtual ~ArmySummary();
  // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
- // ?ArmySummary::loadPostProcess present-unmatched
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
  virtual void LoadPostProcess() {}
 #else

@@ -374,7 +374,6 @@ public:
 
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva00885980.cpp
 
-// ?Rva00885980Class::d_00885980 present-unmatched
 int Rva00885980Class::d_00885980( void )
 {
 	closesocket( m_socket );

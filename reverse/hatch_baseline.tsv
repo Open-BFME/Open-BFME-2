@@ -10409,14 +10409,12 @@ present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerAction
 present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerActionState::slot15	1
 present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerActionState::slot16	1
 present_unmatched	Code/GameEngine/Source/Common/DrawableVectorResize.cpp	size@?$vector@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBEIXZ	1
-present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003AE358.cpp	@0x003AE33C	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp	famgenDelete005E0DC0@@YAXPAVRva005E0DC0@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-1DD38E.cpp	famgenDelete001DD38E@@YAXPAVBfmeRecord001DD3BC@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-201A17.cpp	famgenDelete0048C200Owner@@YAXPAVRva0048C200Owner@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-238DE4.cpp	famgenDelete00201B64@@YAXPAVHeaderTemplateManager@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-04-2AF53E.cpp	@0x002AF53E	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-05-003EF728.cpp	famgenDelete003EF728@@YAXPAVRva003EF728@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-06-25EFF1.cpp	@0x0025EFF1	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-12-3F1180.cpp	famgenDelete003F0C6C@@YAXPAVRva003F0C6C@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-14-31AA18.cpp	famgenDelete0031AA18@@YAXPAVControlBarSchemeManager@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse07-2E6158.cpp	famgenDelete002E6158@@YAXPAVGameTextTable@@@Z	1
@@ -11050,7 +11048,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pat
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::SetBridgeStateRepaired	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	Pathfinder::rva002F83F5	1
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
-present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummary.h	ArmySummary::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummaryCopyBFME2.cpp	ArmySummary::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	famgenDelete0023DACC@@YAXPAVRva0023D377@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
@@ -11575,7 +11572,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Toggle_Windowed@W
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Update_Pixel_Center@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	0Signature@DebugStackwalk@@QAE@ABV01@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp	1DebugStackwalk@@AAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP	Rva00885980Class::d_00885980	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp	bfmeEmitBadAllocDestructor@@YAXPAVbad_alloc@std@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/INIClassShutdown.cpp	verbatim	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp	anchorDeleteLightPoint@@YAXPAVLightPoint@@@Z	1
@@ -11720,4 +11716,3 @@ present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetLine@Id
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetSource@Id@ProfileFuncLevel@@QBEPBDXZ	1
 present_unmatched	Code/Libraries/Source/profile/profile_funclevel.cpp	GetTime@Id@ProfileFuncLevel@@QBE_KI@Z	1
 present_unmatched	Code/Libraries/Source/subsystem/SubsystemInterface.cpp	getName@SubsystemInterface@@QAE?AVAsciiString@@XZ	1
-present_unmatched	reference/shims/pathfind/GameLogic/AIPathfind.h	?	1
