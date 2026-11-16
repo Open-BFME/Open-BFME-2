@@ -185,17 +185,7 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
-class ObjectCreationList
-{
-public:
-	void create(void *primary, void *secondary, void *a3);
-	static void create(const ObjectCreationList *ocl, const Object *primary, const Object *secondary)
-	{
-		if (!ocl)
-			return;
-		const_cast<ObjectCreationList *>(ocl)->create((void *)primary, (void *)secondary, 0);
-	}
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 template <class T> class PtrVector
 {
@@ -323,7 +313,9 @@ void CritterEmitterUpdate::onCollide(Object *, const Coord3D *, const Coord3D *)
 	if (count > 0)
 	{
 		int which = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CritterEmitter.cpp", 138);
-		ObjectCreationList::create(data->m_oclLists[which], m_object, 0);
+		const ObjectCreationList *ocl = data->m_oclLists[which];
+		if (ocl)
+			const_cast<ObjectCreationList *>(ocl)->create(m_object, 0, 0);
 	}
 
 	m_24 = true;

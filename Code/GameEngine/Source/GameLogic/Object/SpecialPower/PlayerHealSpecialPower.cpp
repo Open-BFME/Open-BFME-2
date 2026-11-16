@@ -113,19 +113,7 @@ enum NameKeyType
 // vftable 0x00BFAD10, allow 0x0026119D.
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
 extern PartitionManager *ThePartitionManager;
-class ObjectCreationList
-{
-public:
-	void create(void *primaryObj, void *primary, void *secondary, int createOwner);
-public:
-	static void create(ObjectCreationList *ocl, Object *primaryObj, const Coord3D *primary, const Coord3D *secondary, int createOwner)
-	{
-		if (ocl)
-			ocl->create(primaryObj, (void *)primary, (void *)secondary, createOwner);
-	}
-public:
-	void rva001F0410(void *a, void *b);
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 #include "../../../../Include/Common/Rva001E11F8.h"
 struct Rva004C7EC7Holder
 {
@@ -314,7 +302,10 @@ void PlayerHealSpecialPower::rva004C8095(const Coord3D *loc)
 		return;
 
 	const PlayerHealSpecialPowerModuleData *data = getPlayerHealSpecialPowerModuleData();
-	ObjectCreationList::create(data->m_dispatchList, m_object, loc, 0, 0);
+	ObjectCreationList *dispatchList = data->m_dispatchList;
+	Object *primaryObj = m_object;
+	if (dispatchList)
+		dispatchList->create(primaryObj, (void *)loc, 0, 0);
 
 	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(loc, getPlayerHealSpecialPowerModuleData()->m_healRadius, 0, &Rva0026119DFilter(), 0);
 	Object *other;

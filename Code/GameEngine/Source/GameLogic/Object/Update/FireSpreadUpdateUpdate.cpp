@@ -70,16 +70,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 };
 
-class ObjectCreationList
-{
-public:
-	void create(void *primary, void *secondary, void *lifetime);
-	static void create(ObjectCreationList *ocl, Object *primaryObj, Object *secondaryObj)
-	{
-		if (ocl)
-			ocl->create(primaryObj, secondaryObj, 0);
-	}
-};
+#include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 
 // Partition filters (see the BroadcastStealthUpdate.cpp view).
 #include "../../../../Include/GameLogic/PartitionFilter.h"
@@ -142,7 +133,8 @@ UpdateSleepTime FireSpreadUpdate::update( void )
 	if( !me->testStatus( OBJECT_STATUS_AFLAME ) )
 		return UPDATE_SLEEP_FOREVER;		// not on fire -- sleep forever
 	{
-		ObjectCreationList::create( fireSpreadUpdateModuleData->m_oclEmbers, me, NULL );
+		ObjectCreationList *oclEmbers = fireSpreadUpdateModuleData->m_oclEmbers;
+		oclEmbers ? oclEmbers->create( me, NULL, 0 ) : (void)0;
 
 		if( fireSpreadUpdateModuleData->m_spreadTryRange != 0 )
 		{
