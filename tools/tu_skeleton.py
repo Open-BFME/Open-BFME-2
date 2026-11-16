@@ -4210,6 +4210,35 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
     spans = def_spans(text)
     scopes = span_scopes(text, spans)
     take = set(take)
+    # A marked emission caller is not a retail row, but leaving it behind
+    # when its static callee moves makes the residual ill-formed. Move the
+    # caller once, never copy the rowed static body. All downstream byte,
+    # provider and residual checks still judge the resulting partition.
+    emission = set()
+    changed = True
+    while changed:
+        changed = False
+        local_names = {hn[1] for i in take
+                       if spans[i][3] == "def" and (hn := head_names(spans[i][2]))
+                       and (INTERNAL.search(norm(spans[i][2].split("{")[0])) or "" in scopes[i])}
+        for i, (_, _, body, kind) in enumerate(spans):
+            if i in take or i in rowed or kind != "def" or scopes[i]:
+                continue
+            hn = head_names(body)
+            if not hn or hn[0] is not None:
+                continue
+            marker = r"^\s*//\s*\?" + re.escape(hn[1]) + r"(?:@@\S*)?\s+absent-from-retail\b"
+            if not re.search(marker, body.split("{")[0], re.M):
+                continue
+            if any(names_used(name, body) for name in local_names):
+                take.add(i)
+                emission.add(i)
+                changed = True
+    remaining = cut(text, [(spans[i][0], spans[i][1]) for i in take]) if emission else ""
+    for i in emission:
+        name = head_names(spans[i][2])[1]
+        if names_used(name, remaining):
+            return Carve(refused=f"emission caller `{name}` is used by staying bodies")
     stay_all = set(range(len(spans))) - take
     shell = {i for i in stay_all if spans[i][3] == "def" and i not in rowed and scopes[i]
              and DUPLICABLE.search(norm(spans[i][2].split("{")[0]))} | (set(keep) & stay_all)

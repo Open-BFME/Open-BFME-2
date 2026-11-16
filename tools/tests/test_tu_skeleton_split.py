@@ -76,6 +76,51 @@ class NameTests(unittest.TestCase):
 
 
 class CarveTests(unittest.TestCase):
+    def test_emission_caller_follows_its_carved_static_body(self):
+        text = ('static int extrema(int x) { return x + 1; }\n'
+                '// ?emit absent-from-retail\n'
+                'int emit(int x) { return extrema(x); }\n'
+                'int stays() { return 7; }\n')
+        cv = T.carve(text, {0}, {0, 2})
+        self.assertIsNone(cv.refused)
+        self.assertIn('int emit(', cv.donor)
+        self.assertNotIn('int emit(', cv.residual)
+        self.assertNotIn('int extrema(', cv.residual)
+        self.assertIn('int stays(', cv.residual)
+        self.assertIn('// ?emit absent-from-retail', cv.donor)
+
+    def test_emission_caller_with_a_staying_user_refuses(self):
+        text = ('static int extrema(int x) { return x; }\n'
+                '// ?emit absent-from-retail\n'
+                'int emit(int x) { return extrema(x); }\n'
+                'int stays() { return emit(1); }\n')
+        cv = T.carve(text, {0}, {0, 2})
+        self.assertIn('emission caller', cv.refused or '')
+
+    def test_emission_marker_does_not_move_a_rowed_caller(self):
+        text = ('static int extrema(int x) { return x; }\n'
+                '// ?emit absent-from-retail\n'
+                'int emit(int x) { return extrema(x); }\n')
+        cv = T.carve(text, {0}, {0, 1})
+        self.assertNotIn('int emit(', cv.donor)
+        self.assertIn('int emit(', cv.residual)
+
+    def test_emission_caller_referenced_by_a_global_initializer_refuses(self):
+        text = ('static int extrema(int x) { return x; }\n'
+                '// ?emit absent-from-retail\n'
+                'int emit(int x) { return extrema(x); }\n'
+                'int (*callback)(int) = emit;\n')
+        cv = T.carve(text, {0}, {0})
+        self.assertIn('emission caller', cv.refused or '')
+
+    def test_emission_marker_must_name_the_caller(self):
+        text = ('static int extrema(int x) { return x; }\n'
+                '// ?unrelated absent-from-retail\n'
+                'int emit(int x) { return extrema(x); }\n')
+        cv = T.carve(text, {0}, {0})
+        self.assertNotIn('int emit(', cv.donor)
+        self.assertIn('int emit(', cv.residual)
+
     def test_unused_class_body_is_not_copied(self):
         text = ('struct Unused { int a; };\nstruct Used { int b; };\n'
                 'int moved(Used *u) { return u->b; }\nint stays() { return 0; }\n')
