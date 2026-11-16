@@ -12,7 +12,8 @@ class AptNativeHash;
 extern char g_eaEmptyStringData[16];
 __declspec(noinline) inline EAStringC::EAStringC(){data=(EAStringC::StringDataC *)g_eaEmptyStringData;++data->m_uRefCount;}
 
-class AptValue {unsigned int flags;public:virtual void slot0();virtual void slot1();virtual void slot2();virtual AptNativeHash *GetNativeHashVirtual();bool getIsDefined()const{return (flags>>4)&1;}void toString(EAStringC &)const;EAStringC rva006ddde0();};
+#include "../AptValue.h"
+inline bool AptValue::getIsDefined()const{return (field04>>4)&1;}
 struct AptHashItem {EAStringC key;AptValue *value;};
 class AsciiString;
 #include "../AptNativeHash.h"

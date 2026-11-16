@@ -14,21 +14,7 @@ struct Rva0070AA40ValueEntry
 };
 #include "../AptNativeHash.h"
 
-class AptValue
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual AptNativeHash *rva006DDF60Slot3();
-
-	bool isNativeFunction() const;
-	void toString(EAStringC &out) const;
-	EAStringC rva006DDF60();
-
-private:
-	unsigned int m_flags; // +0x04
-};
+#include "../AptValue.h"
 
 // tu-skeleton: 0x007A8D20 8B Unwind@00ba8d20 -- matched in Code/Libraries/Source/Apt/AptValue/AptValueUrlEncode.cpp (not merged yet)
 
@@ -53,10 +39,10 @@ private:
 EAStringC AptValue::rva006DDF60()
 {
 	EAStringC result;
-	if (!(bool)((m_flags >> 4) & 1))
+	if (!(bool)((field04 >> 4) & 1))
 		return result;
 
-	AptNativeHash *hash = rva006DDF60Slot3();
+	AptNativeHash *hash = GetNativeHashVirtual();
 	if (!hash)
 		return result;
 
