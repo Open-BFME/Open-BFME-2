@@ -163,30 +163,6 @@ template <> basic_string<char> &basic_string<char>::operator=(const char *);
 
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B8F5AOuter.h"
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-	virtual void crc(Xfer *);
-	virtual void slot02();
-protected:
-	virtual void xfer(Xfer *);
-public:
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
-	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
-	virtual void s32(); virtual void s33(); virtual void s34();
-	virtual void setSlot8C(bool value);
-	virtual void vslot36();
-protected:
-	void *m_moduleData;
-	void *m_object;
-};
-
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class Rva000C5C04SecondBase
