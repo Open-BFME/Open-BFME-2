@@ -76,6 +76,8 @@ struct AIView
 
 #include "../../Common/Thing/thing.h"
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
 class Object : public Thing
 {
 public:
@@ -83,8 +85,10 @@ public:
 	Coord3D Get2DBorderVectorTo(const Coord3D *pos) const;	///< retail 0x002C986B
 	Real getBoundingSphereRadius() const { return m_boundingSphereRadius; }
 	AIUpdateInterface *getAI() const { return m_ai; }
+	char m_pad060[0x74 - 0x60];
+	ObjectID m_id;
+	char m_pad078[0xBC - 0x78];
 private:
-	char m_unreconstructed_60[0xbc - 0x60];
 	Real m_boundingSphereRadius;				///< +0xBC
 	char m_unreconstructed_c0[0x258 - 0xc0];
 	AIUpdateInterface *m_ai;					///< +0x258
