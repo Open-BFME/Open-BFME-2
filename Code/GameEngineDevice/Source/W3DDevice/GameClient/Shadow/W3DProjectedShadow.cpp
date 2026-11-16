@@ -47,7 +47,7 @@ float fast_float_trunc(float);
 #include "lightenvironment.h"
 #include "W3DDevice/GameClient/W3DProjectedShadow.h"
 #include "W3DDevice/GameClient/W3DShadow.h"
-#include "ref_ptr.h"
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
 // bfme link decl-only begin
 template <> RefCountPtr<TextureClass> const & RefCountPtr<TextureClass>::operator=(RefCountPtr<TextureClass> const &);
 // bfme link decl-only end
@@ -221,7 +221,6 @@ public:
 #include "BfmeShadowPrefix.h"
 #pragma inline_depth()
 #define Matrix4x4 Matrix4  // BFME renamed it
-#include "../../../../../../reference/shims/bfmestreak/ref_ptr.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
 #pragma inline_depth(0)
