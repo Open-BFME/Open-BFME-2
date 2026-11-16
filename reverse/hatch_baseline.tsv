@@ -2018,7 +2018,6 @@ alternatename	Code/GameEngine/Source/Common/Rva005CDDA4Ctor.cpp	?c2@Rva005CDDA4C
 alternatename	Code/GameEngine/Source/Common/Rva005CDF6CCtor.cpp	??1Rva005CDF6C@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005CF8A1Ctor.cpp	??1Rva005CF8A1Base@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005D3B26Portrait.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
-alternatename	Code/GameEngine/Source/Common/Rva005DA831Ctor.cpp	??1Rva005DA831@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005DB100Dtor.cpp	??1ExperienceTrackerAutoResolve@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005DCBE3Ctor.cpp	??0AITactic@@QAE@ABVAsciiString@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva005E1BD5Destructor.cpp	?callback0@Rva005E1BD5@@UAEXH@Z	1
@@ -2436,8 +2435,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBeha
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp	??1DynamicPortalLinkVec@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5982_E@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5D0B_E@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorXfer.cpp	?push_back@?$list@VRva004530ED@@V?$allocator@VRva004530ED@@@_STL@@@_STL@@QAEXABVRva004530ED@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp	??0FakePathfindPortalBehaviourModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
@@ -2680,7 +2677,6 @@ alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	
 alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	??MRva00288874Record@@QBE_NABU0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp	?Rva00288A5CAssign@@YAPAVCameraMarker@@PAV1@00PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?crc@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?loadPostProcess@Rva000D3FA0Map@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?rva00240D0F@Rva00240D0F@@QAEPAXPBX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.cpp	?slot1@XferSave@@UAEXXZ	1
@@ -2980,7 +2976,6 @@ alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?c_nat
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?getHasClass@AptObject@@UBEHXZ	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?isArray@AptValue@@QBE_NXZ	1
-alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXAAVEAStringC@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp	?sMethod_pop@AptArray@@SAPAVAptValue@@PAV2@H@Z	1
