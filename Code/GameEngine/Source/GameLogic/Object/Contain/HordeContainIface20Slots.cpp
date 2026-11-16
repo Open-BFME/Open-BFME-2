@@ -51,15 +51,6 @@ public:
 	virtual bool rva00469602() = 0;
 };
 
-class Drawable
-{
-public:
- void rva00272945(int value);
- void rva00272BE7();
- bool rva00469E03Flag() const { return m_43C; }
- unsigned char m_pad000[0x43C];
- unsigned char m_43C;
-};
 #include "../../../Common/Thing/thing.h"
 class Rva00469E03Template
 {
@@ -71,6 +62,7 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameClient/Drawable.h"
 class Rva00469E03Bits
 {
 public:
@@ -222,7 +214,7 @@ void HordeContain::onRemoving(Object *object)
  if (m_object)
  {
   Drawable *ownerDraw = m_object->getDrawable();
-  if (ownerDraw && ownerDraw->m_43C)
+  if (ownerDraw && ownerDraw->m_selected)
   {
    if (TheWritableGlobalData->m_useSimpleHordeDecals)
     ownerDraw->rva00272945(rva0046D3FC(0));
@@ -231,11 +223,11 @@ void HordeContain::onRemoving(Object *object)
     Drawable *draw = object->getDrawable();
     bool memberDrawableActive = true;
     if (draw)
-     memberDrawableActive = draw->rva00469E03Flag() != 0;
+     memberDrawableActive = draw->isSelected() != 0;
     if (memberDrawableActive)
      return;
     Object *related = object->rva002931F5(false);
-    if (related && related->getDrawable() && related->getDrawable()->m_43C)
+    if (related && related->getDrawable() && related->getDrawable()->m_selected)
      return;
     draw->rva00272BE7();
    }

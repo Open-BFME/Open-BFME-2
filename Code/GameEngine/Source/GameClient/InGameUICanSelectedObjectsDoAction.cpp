@@ -30,18 +30,15 @@ enum CanEnterType { CHECK_CAPACITY=0,DONT_CHECK_CAPACITY=1,COMBATDROP_INTO=2 };
 enum SpecialPowerType { SPECIAL_POWER_INVALID=0 };
 class ContainModuleInterface; class ExitInterface; class SpecialPowerModuleInterface; class CapturePowerView;
 struct ThingTemplate { char pad[0x108]; unsigned char kinds[28]; };
-class Thing { public:
- void *vptr; ThingTemplate *m_template;
- __forceinline bool hasDispatchKind(KindOfType kind)const { return (m_template->kinds[(unsigned)kind/8] & (1<<((unsigned)kind%8)))!=0; }
-};
+#include "../../Include/GameClient/Drawable.h"
+static __forceinline bool hasDispatchKind(const Thing *thing, KindOfType kind) { return (thing->m_template->kinds[(unsigned)kind/8] & (1<<((unsigned)kind%8)))!=0; }
 class Object:public Thing { public:
- char pad8[0x74-8]; ObjectID m_id; char pad78[0x250-0x78]; ContainModuleInterface *m_contain;
+ char pad60[0x74-0x60]; ObjectID m_id; char pad78[0x250-0x78]; ContainModuleInterface *m_contain;
  ObjectID getSoleHealingBenefactor()const;
  ExitInterface *getObjectExitInterface()const;
  bool isLocallyControlled()const;
  SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType)const;
 };
-class Drawable:public Thing { public: char pad8[0xfc-8]; Object *m_object; Object *getObject()const{return m_object;} };
 class ContainModuleInterface { public:
  virtual void slot0();
  virtual void slot1();
@@ -186,7 +183,7 @@ bool InGameUI::canSelectedObjectsDoAction(ActionType action,const Object *target
    case 6: {
     ObjectID currentRepairer=target->getSoleHealingBenefactor();
     success=TheActionManager->canRepairObject(other->getObject(),target,CMD_FROM_PLAYER);
-    if(success && !other->hasDispatchKind((KindOfType)15) && (currentRepairer==INVALID_ID || currentRepairer==other->getObject()->m_id)) success=false;
+    if(success && !hasDispatchKind(other, (KindOfType)15) && (currentRepairer==INVALID_ID || currentRepairer==other->getObject()->m_id)) success=false;
     break;
    }
    case 15: success=((BFMEActionManager*)TheActionManager)->canEnterObject(other->getObject(),target,CMD_FROM_PLAYER,COMBATDROP_INTO,true,0); break;
@@ -215,7 +212,7 @@ bool InGameUI::canSelectedObjectsDoAction(ActionType action,const Object *target
     if(!obj) {success=false;break;}
     ContainModuleInterface *contain=target?target->m_contain:0;
     ExitInterface *exit=obj->getObjectExitInterface();
-    if(contain && exit && contain->rva0029C823Slot13() && exit->useSpawnRallyPoint()) success=true; else success=(obj->hasDispatchKind((KindOfType)69) && obj->isLocallyControlled());
+    if(contain && exit && contain->rva0029C823Slot13() && exit->useSpawnRallyPoint()) success=true; else success=(hasDispatchKind(obj, (KindOfType)69) && obj->isLocallyControlled());
     break;
    }
    case 19: success=TheActionManager->Rva0041BB87IsRelated(other->getObject(),const_cast<Object*>(target),0); break;

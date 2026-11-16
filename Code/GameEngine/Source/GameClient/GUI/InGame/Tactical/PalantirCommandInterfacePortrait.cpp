@@ -69,17 +69,10 @@ public:
 	Team *m_team;
 };
 
-class Drawable
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
-	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
+#include "../../../../../Include/GameClient/Drawable.h"
 
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_unreconstructed_008[0xFC - 0x08];
-	Object *m_object;
-};
+// Retail inlines the template's kind-of test at each caller.
+static __forceinline Bool isDrawableKindOf(const Drawable *draw, KindOfType t) { return draw->m_template->isKindOf(t); }
 
 typedef _STL::list<Drawable *> DrawableList;
 typedef DrawableList::const_iterator DrawableListCIt;
@@ -163,7 +156,7 @@ static __declspec(noinline) DrawableListCIt FindFirstNonIgnored(const DrawableLi
 {
 	DrawableListCIt it = list.begin();
 	for (; it != list.end(); ++it)
-		if (!(*it)->isKindOf(KINDOF_IGNORED_IN_GUI))
+		if (!isDrawableKindOf(*it, KINDOF_IGNORED_IN_GUI))
 			break;
 	return it;
 }
@@ -172,7 +165,7 @@ static __declspec(noinline) DrawableListCIt FindFirstNonIgnored(const DrawableLi
 static __declspec(noinline) DrawableListCIt rva00529045(const DrawableList &list, DrawableListCIt it)
 {
 	for (++it; it != list.end(); ++it)
-		if (!(*it)->isKindOf(KINDOF_IGNORED_IN_GUI))
+		if (!isDrawableKindOf(*it, KINDOF_IGNORED_IN_GUI))
 			break;
 	return it;
 }

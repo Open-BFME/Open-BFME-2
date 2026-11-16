@@ -105,24 +105,12 @@ public:
 	virtual void screenToTerrain(const ICoord2D *pixel, Coord3D *world, bool clamp);
 };
 extern class View *TheTacticalView;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 class Object : public Thing
 {
 public:
-	char m_pad00[0x38 - sizeof(Thing)];
-	Coord3D m_position;
-	char m_pad44[0x74 - 0x44];
+	char m_pad60[0x74 - 0x60];
 	ObjectID m_id;
-};
-class Drawable
-{
-public:
-	char m_pad[0xFC];
-	Object *m_object;
 };
 class DrawableList;
 class PickAndPlayInfo;
@@ -266,7 +254,7 @@ int __cdecl doGuardCommand(void *command, int guardMode, ICoord2D *mouse)
 			Drawable *draw = TheInGameUI->getFirstSelectedDrawable();
 			if (draw == 0 || draw->m_object == 0)
 				return 1;
-			world = draw->m_object->m_position;
+			world = draw->m_object->m_cachedPos;
 		}
 		msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_GUARD_POSITION);
 		msg->appendLocationArgument(world);
