@@ -865,17 +865,6 @@ void Rva005F4B52::rva005F4B52()
 	Rva005FD8C1::rva005FD8C1();
 }
 
-// 0x006CBD00: tail jump to AptCIH::rva006dbd80.
-class Rva006CBD00 : public AptCIH
-{
-public:
-	void rva006CBD00();
-};
-void Rva006CBD00::rva006CBD00()
-{
-	AptCIH::rva006dbd80();
-}
-
 // 0x006E0500: tail jump to BfmeAptValue006DCD20::rva006E04A0.
 class Rva006E0500 : public BfmeAptValue006DCD20
 {

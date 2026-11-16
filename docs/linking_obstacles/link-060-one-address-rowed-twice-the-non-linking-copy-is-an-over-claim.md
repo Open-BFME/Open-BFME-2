@@ -84,6 +84,20 @@ Clearance: the surviving owners link in preview (link_check against index d1f046
 units held 0 census-linked bytes, so no headline change is claimed.
 Census confirmation: not claimed.
 
+**2026-11-16, base `b902765169`:** retired the unused
+`Rva006CBD00::rva006CBD00` duplicate from VslotSmallBodiesAJ.cpp and
+tombstoned its row. The existing `AptValue::DestroyGCPointers` row in
+AptValue.cpp retains the complete five-byte tail jump to
+`AptValue::SetDestroyedGC` at 0x006DBD80. Source search finds no callers of
+the retired name; index `be5c58f40a` has no incoming relocation edge and
+only the retiring object touches it. No alias, replacement pin or wrapper
+was added. Both sources verify 116/116 remaining rows. Their paired
+preview improves from 0/2 to 1/2: VslotSmallBodiesAJ.cpp now LINKS
+1,064 bytes; AptValue.cpp retains its two pre-existing Rva006D6470Owner
+COMDAT blockers. No unique coverage or full-image/runtime gain is claimed;
+the next real link must confirm removal of VslotSmallBodiesAJ.cpp's
+obsolete AptCIH callee reference.
+
 **Generated unwind duplicate cleanup (2026-10-26, inspected `39e752ed5b`):**
 Retired `uw_gen_009.cpp`'s four 14-byte copies at 0x007A7724/32/40/4E.
 The existing AssetManagerImplCtor.cpp rows from `f943117658` retain each exact
