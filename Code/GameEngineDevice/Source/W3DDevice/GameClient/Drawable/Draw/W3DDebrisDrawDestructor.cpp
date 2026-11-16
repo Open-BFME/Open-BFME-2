@@ -32,21 +32,10 @@ public:
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class SceneClass
-{
-public:
-	virtual void sceneSlot0();
-	virtual void sceneSlot1();
-	virtual void sceneSlot2();
-	virtual void Remove_Render_Object(RenderObjClass *object);
-};
-
 #include "../../../../../../GameEngine/Include/Common/Gen0003AC38.h"
 
 // The scene the debris render object leaves is W3DDisplay's 3D scene.
-class RTS3DScene : public SceneClass
-{
-};
+#include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;

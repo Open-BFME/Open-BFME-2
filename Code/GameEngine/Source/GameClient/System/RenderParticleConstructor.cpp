@@ -244,7 +244,7 @@ virtual void v064();
 virtual void enabled(int);};
 
 class RefTree621 {public:virtual void destroy();int refs;};
-class RTS3DScene {public:virtual void v00();virtual void v04();virtual void add(RenderObjClass*);};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/RTS3DScene.h"
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 #include "../../Common/debug.h"
 extern Debug *theDebug;
@@ -268,7 +268,7 @@ Rva001FC0F1::Rva001FC0F1(const RvaSmartPtr12&system,const Rva001F376E&info)
     animation=reinterpret_cast<HTreeClass *>(AnimationAsset::GetAnim(animName.str()));
     if(animation)((RenderView621*)render)->animate(animation,0.0f,1);
     ((RenderView621*)render)->enabled(1);
-    rva0010E4F6(render,false);W3DDisplay::m_3DScene->add(render);
+    rva0010E4F6(render,false);W3DDisplay::m_3DScene->Add_Render_Object(render);
    }else if(bfmeRva000387C0()){
     _bfme_debugRecordCallsite(1);theDebug->SkipNext();
     ((theDebug->CrashBegin(0,0,0)<<"Particle system: could not create render object named '")<<*(StringBase<char>*)&name<<"'").CrashDone(2);

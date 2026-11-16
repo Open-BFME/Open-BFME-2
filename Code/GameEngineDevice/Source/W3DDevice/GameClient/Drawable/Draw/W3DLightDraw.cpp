@@ -110,11 +110,7 @@ struct LightColorRGB
 
 class ModuleData;
 
-class RTS3DScene
-{
-public:
-	W3DDynamicLight *getADynamicLight(void);
-};
+#include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 #include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 

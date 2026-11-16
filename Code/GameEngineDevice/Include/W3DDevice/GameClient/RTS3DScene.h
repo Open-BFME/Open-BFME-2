@@ -77,6 +77,8 @@ class Matrix3D;
 enum CustomScenePassModes;
 #include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 
+// Zero Hour's multilist.h (which rendobj.h reaches) defines both templates under MULTILIST_H; when it is in, it wins.
+#ifndef MULTILIST_H
 template<class T> class RefMultiListClass : public GenericMultiListClass
 {
 public:
@@ -92,6 +94,7 @@ public:
     RefMultiListClass<T> *m_list;
     MultiListNodeClass *m_current;
 };
+#endif // MULTILIST_H
 
 class BfmeRefSceneList : public GenericMultiListClass
 {

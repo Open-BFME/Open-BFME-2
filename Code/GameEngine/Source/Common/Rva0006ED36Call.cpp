@@ -29,16 +29,7 @@ public:
 // for the 3D scene); the camera sits at +0x814 (3D) and +0x118 (2D).
 class CameraClass;
 
-class RTS3DScene
-{
-public:
-	void doRender(CameraClass *cam);
-private:
-	char m_pad00[0x108];
-	Rva0006ED36Sub m_subsystem;
-	char m_pad10C[0x814 - 0x108 - 4];
-	CameraClass *m_camera;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/RTS3DScene.h"
 
 class RTS2DScene
 {
@@ -54,7 +45,7 @@ private:
 void RTS3DScene::doRender(CameraClass *cam)
 {
 	m_camera = cam;
-	m_subsystem.draw();
+	vslot12();
 	m_camera = 0;
 }
 

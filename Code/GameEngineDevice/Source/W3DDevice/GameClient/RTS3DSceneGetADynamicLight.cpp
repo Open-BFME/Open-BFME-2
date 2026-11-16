@@ -8,13 +8,7 @@
 
 class RenderObjClass;
 
-struct Rva0006F94ANode
-{
-	char m_pad0[4];
-	Rva0006F94ANode *m_next;
-	char m_pad8[4];
-	struct Rva0006F94AMultiListBase *m_value;
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 struct Rva0006F94AReferenceBase {
     virtual void rva0006F94ARelease();
@@ -29,8 +23,8 @@ public:
     bool m_inUse;
     char m_tail145[0x174-0x145];
 };
-static __forceinline W3DDynamicLight *PeekLight(Rva0006F94ANode *node) {
-    char *listBase = reinterpret_cast<char *>(node->m_value);
+static __forceinline W3DDynamicLight *PeekLight(MultiListNodeClass *node) {
+    char *listBase = reinterpret_cast<char *>(node->Object);
     return reinterpret_cast<W3DDynamicLight *>(listBase ? listBase - 8 : 0);
 }
 class Rva0006F219
@@ -39,20 +33,10 @@ public:
 	bool rva0006F219(RenderObjClass *obj);
 };
 
-class RTS3DScene
-{
-public:
-	W3DDynamicLight *getADynamicLight();
-
-private:
-	char m_fields[0x118];
-	Rva0006F94ANode m_lightSentinel;
-};
-
 // ?getADynamicLight@RTS3DScene@@QAEPAVW3DDynamicLight@@XZ @0x0006F94A
 W3DDynamicLight *RTS3DScene::getADynamicLight()
 {
-	for (Rva0006F94ANode *node = m_lightSentinel.m_next; node != &m_lightSentinel; node = node->m_next)
+	for (MultiListNodeClass *node = m_dynamicLightList.Head.Next; node != &m_dynamicLightList.Head; node = node->Next)
 	{
 		W3DDynamicLight *light = PeekLight(node);
 		if (!light->m_inUse)
