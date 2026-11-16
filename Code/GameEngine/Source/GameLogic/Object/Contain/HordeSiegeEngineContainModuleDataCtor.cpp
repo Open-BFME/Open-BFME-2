@@ -6,8 +6,8 @@
 // base, the +0x18C member constructs through the pinned
 // Rva003623E5Member ctor, and a 128-bit mask at +0x1A4 resets through the
 // rowed bitset<128>::reset at 0x0024CA24 amid int/byte zeros plus a 1.0
-// float slot. One unwind state (the base) covers the throwing member calls;
-// the members stay trivially destructible. Donor: BFME1 Contain files (the
+// float slot. One unwind state (the base) suffices because reset() is
+// declared nothrow, so the +0x18C member adds none. Donor: BFME1 Contain files (the
 // HordeSiegeEngine pair extends HordeTransportContain the same way).
 // Identity is the ModuleFactory registration under "HordeSiegeEngineContain"
 // (sole-caller data factory per the superseded ctor pin).
@@ -20,7 +20,7 @@ class bitset
 {
 public:
 	unsigned long m_words[(_Bits + 31) / 32];
-	bitset<_Bits> &reset();
+	bitset<_Bits> &reset() throw();
 };
 
 }
@@ -35,11 +35,7 @@ private:
 	unsigned char m_opaque[0x18C - 4];
 };
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class HordeSiegeEngineContainModuleData : public HordeTransportContainModuleData
 {

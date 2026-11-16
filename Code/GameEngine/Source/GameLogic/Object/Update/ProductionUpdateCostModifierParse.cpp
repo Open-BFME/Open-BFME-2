@@ -39,13 +39,7 @@ class INI;
 #include "../../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 void Rva00360CB0Release(int *);
-class Rva003623E5Member {
-    int index;
-public:
-    Rva003623E5Member();
-    void initFromStorages(BfmeFixedStorage0004543D, BfmeFixedStorage0004543D);
-
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 class Rva00360D26Member {
     unsigned index;
 public:
