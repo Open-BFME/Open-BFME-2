@@ -3,19 +3,12 @@
 // word is 2, or when the helper behind 0x00E02290 answers 1 at +0x1C with a
 // state of 1, 2 or 5 at +0xE74. The isInMultiplayerGame call runs on our own
 // GameLogic base (retail passes this straight through), so the class derives
-// from a TU-local minimal GameLogic (pad plus mode at +0x110, rowed leaf).
+// from the shared GameLogic view (mode word m_110 at +0x110, rowed leaf).
 // Shard TU: grafting into BfmeConv939_Go939D.cpp gets the body absorbed into
 // rowed bfmeGo939D at /O2 (visible-def law holds only at /Od); the home TU
 // keeps calling through its pin.
 
-class GameLogic
-{
-	char m_pad[0x110];
-public:
-	int m_gameMode;
-	bool isInMultiplayerGame();
-	char rva0023C6FD();
-};
+#include "GameLogicObjectLookupView.h"
 
 class BfmeGlob939D : public GameLogic
 {
@@ -47,7 +40,7 @@ char BfmeGlob939D::bfmeCall939D()
 {
 	if (isInMultiplayerGame())
 		return 1;
-	if (m_gameMode == 2)
+	if (m_110 == 2)
 		return 1;
 	if (((Bfme939Helper *)TheRecorder) != 0 && ((Bfme939Helper *)TheRecorder)->get() == 1)
 	{
@@ -68,7 +61,7 @@ char GameLogic::rva0023C6FD()
 {
 	if (isInMultiplayerGame())
 		return 1;
-	if (m_gameMode == 2)
+	if (m_110 == 2)
 		return 1;
 	if (((Bfme939Helper *)TheRecorder) != 0 && ((Bfme939Helper *)TheRecorder)->get() == 1)
 	{
