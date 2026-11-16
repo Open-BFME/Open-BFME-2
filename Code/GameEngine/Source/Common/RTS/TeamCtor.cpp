@@ -62,19 +62,7 @@ private:
 
 class Team;
 
-class TeamPrototype
-{
-public:
-	void prependTo_TeamInstanceList(Team *team);
-private:
-	char m_00[0x10];
-	AsciiString m_name;				// +0x10
-	AsciiString m_14;				// +0x14
-	char m_18[0x1FC - 0x18];
-	AsciiString m_scriptOnEnemySighted;	// +0x1FC
-	AsciiString m_scriptOnAllClear;		// +0x200
-	friend class Team;
-};
+#include "../../../Include/Common/Team.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -168,9 +156,9 @@ Team::Team(TeamPrototype *proto, int id) :
 			m_checkEnemySighted = true;
 		}
 
-		AsciiString teamName = proto->m_name;
+		AsciiString teamName = proto->m_10;
 		reinterpret_cast<StringBase<char> *>(&teamName)->concat("/");
-		teamName.concat(proto->m_14);
+		teamName.concat(proto->m_name);
 		reinterpret_cast<StringBase<char> *>(&teamName)->concat(" - creating team instance.");
 		TheScriptEngine->AppendDebugMessage(teamName, false);
 	}

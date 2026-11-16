@@ -34,6 +34,9 @@ template <class T> class DLINK_ITERATOR;
 
 class TeamPrototype : public Snapshot
 {
+    // TeamFactory::clear 0x003A2F4C deletes prototypes through the protected destructor slot.
+    friend class TeamFactory;
+
 public:
     TeamPrototype(TeamFactory *, const AsciiString &, const AsciiString &, Player *, bool, Dict *, int);
     void addToLists();
@@ -105,7 +108,11 @@ public:
     unsigned char m_pad29[3];
     Script *m_genericScriptsToRun[32];
     unsigned char m_opaqueAC[0x80];
-    unsigned char m_opaque12C[0x216 - 0x12C];
+    unsigned char m_opaque12C[0x1FC - 0x12C];
+    AsciiString m_scriptOnEnemySighted;  // Team::Team 0x003A39A7 tests +0x1FC with isEmpty
+    AsciiString m_scriptOnAllClear;  // Team::Team 0x003A39A7 tests +0x200 with isEmpty
+    AsciiString m_scriptOnUnitDestroyed;  // Team::notifyTeamOfObjectDeath 0x0039F835 runs +0x204
+    unsigned char m_opaque208[0x216 - 0x208];
     bool m_attackCommonTarget;
     unsigned char m_pad217;
     int m_maxInstances;
