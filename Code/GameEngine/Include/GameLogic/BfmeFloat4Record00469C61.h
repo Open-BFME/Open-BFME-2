@@ -9,6 +9,10 @@
 struct BfmeFloat4Record00469C61 {
     float x;
     Coord3D position;
+    BfmeFloat4Record00469C61() {}
+    // Out of line: _Construct 0x00469C61 and __copy 0x0007BF77 call the 16-byte copy at 0x0004254E.
+    BfmeFloat4Record00469C61(const BfmeFloat4Record00469C61 &other);
+    BfmeFloat4Record00469C61 &operator=(const BfmeFloat4Record00469C61 &other);
 };
 
 typedef char canonical_BfmeFloat4Record00469C61_0ad7da2b_sizeof[sizeof(BfmeFloat4Record00469C61) == 16 ? 1 : -1];

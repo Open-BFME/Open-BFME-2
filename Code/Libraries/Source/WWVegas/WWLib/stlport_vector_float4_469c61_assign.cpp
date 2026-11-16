@@ -24,14 +24,10 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
-struct BfmeFloat4Record00469C61 {
-    BfmeFloat4Record00469C61();
-    BfmeFloat4Record00469C61(const BfmeFloat4Record00469C61 &o);
-    // Plain four-dword assignment: retail's element copy (0x0007BF5A -> 0x0007BF77) runs
-    // the shared 16-byte copy 0x0004254E per element.
-    BfmeFloat4Record00469C61 &operator=(const BfmeFloat4Record00469C61 &o) { x = o.x; y = o.y; z = o.z; w = o.w; return *this; }
-    float x, y, z, w;
-};
+#include "../../../../GameEngine/Include/GameLogic/BfmeFloat4Record00469C61.h"
+// Plain four-dword assignment: retail's element copy (0x0007BF5A -> 0x0007BF77) runs
+// the shared 16-byte copy 0x0004254E per element.
+inline BfmeFloat4Record00469C61 &BfmeFloat4Record00469C61::operator=(const BfmeFloat4Record00469C61 &o) { x = o.x; position.x = o.position.x; position.y = o.position.y; position.z = o.position.z; return *this; }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Construct<BfmeFloat4Record00469C61,BfmeFloat4Record00469C61>(BfmeFloat4Record00469C61 *p,BfmeFloat4Record00469C61 const &v) { new (p) BfmeFloat4Record00469C61(v); } }
 namespace _STL {

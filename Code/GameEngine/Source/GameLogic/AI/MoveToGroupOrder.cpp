@@ -117,12 +117,7 @@ public:
 	int m_0C;
 };
 
-struct BfmeFloat4Record00469C61 {
-	float x, y, z, w;
-	BfmeFloat4Record00469C61() {}
-	BfmeFloat4Record00469C61(const BfmeFloat4Record00469C61 &other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
-	BfmeFloat4Record00469C61 &operator=(const BfmeFloat4Record00469C61 &other) { x = other.x; y = other.y; z = other.z; w = other.w; return *this; }
-};
+#include "../../../Include/GameLogic/BfmeFloat4Record00469C61.h"
 
 namespace _STL {
 template <> __declspec(dllimport) __forceinline

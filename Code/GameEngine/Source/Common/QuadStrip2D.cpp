@@ -72,14 +72,7 @@ private:
 	unsigned char m_20;
 };
 #include "../../Include/Common/DataChunkOutput.h"
-struct BfmeFloat4Record00469C61
-{
-public:
-	float x; // +0x00
-	float y; // +0x04
-	float z; // +0x08
-	float w; // +0x0C
-};
+#include "../../Include/GameLogic/BfmeFloat4Record00469C61.h"
 class Rva0053850B
 {
 public:
@@ -235,9 +228,9 @@ void QuadStrip2D::rva00538383(float scale)
 	BfmeFloat4Record00469C61 *finish = floats.end();
 	for (BfmeFloat4Record00469C61 *strip = start; strip != finish; ++strip) {
 		strip->x *= scale;
-		strip->y *= scale;
-		strip->z *= scale;
-		strip->w *= scale;
+		strip->position.x *= scale;
+		strip->position.y *= scale;
+		strip->position.z *= scale;
 	}
 	if (m_20 != 0)
 		return;
@@ -261,9 +254,9 @@ void QuadStrip2D::rva005382F4(const BfmeE8 &delta)
 	BfmeFloat4Record00469C61 *finish = floats.end();
 	for (BfmeFloat4Record00469C61 *strip = start; strip != finish; ++strip) {
 		strip->x += delta.x;
-		strip->y += delta.y;
-		strip->z += delta.x;
-		strip->w += delta.y;
+		strip->position.x += delta.y;
+		strip->position.y += delta.x;
+		strip->position.z += delta.y;
 	}
 	if (m_20 != 0)
 		return;
@@ -284,14 +277,14 @@ void QuadStrip2D::rva0053841C(const Matrix3D &mtx)
 {
 	_STL::vector<BfmeFloat4Record00469C61>::iterator end = ((_STL::vector<BfmeFloat4Record00469C61> *)&m_vec)->end();
 	for (_STL::vector<BfmeFloat4Record00469C61>::iterator it = ((_STL::vector<BfmeFloat4Record00469C61> *)&m_vec)->begin(); it != end; ++it) {
-		Vector3 v(it->x, it->y, 0.0f);
+		Vector3 v(it->x, it->position.x, 0.0f);
 		Matrix3D::Transform_Vector(mtx, v, &v);
 		it->x = v.X;
-		it->y = v.Y;
-		v = Vector3(it->z, it->w, 0.0f);
+		it->position.x = v.Y;
+		v = Vector3(it->position.y, it->position.z, 0.0f);
 		Matrix3D::Transform_Vector(mtx, v, &v);
-		it->z = v.X;
-		it->w = v.Y;
+		it->position.y = v.X;
+		it->position.z = v.Y;
 	}
 	m_20 = 1;
 }
@@ -310,9 +303,9 @@ void Rva0053850B::rva0053850B(DataChunkOutput *out)
 	BfmeFloat4Record00469C61 *finish = m_finish;
 	for (BfmeFloat4Record00469C61 *p = start; p != finish; ++p) {
 		out->writeReal(p->x);
-		out->writeReal(p->y);
-		out->writeReal(p->z);
-		out->writeReal(p->w);
+		out->writeReal(p->position.x);
+		out->writeReal(p->position.y);
+		out->writeReal(p->position.z);
 	}
 }
 
