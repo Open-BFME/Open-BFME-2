@@ -22,13 +22,7 @@ struct Rva0039A48EElement
 	int a[2];
 };
 
-struct TreeKey00242F5E
-{
-public:
-	TreeKey00242F5E();
-	TreeKey00242F5E(const TreeKey00242F5E &other);
-	char m_body[8];
-};
+#include "TreeKey00242F5E.h"
 
 
 struct Rva0048130E

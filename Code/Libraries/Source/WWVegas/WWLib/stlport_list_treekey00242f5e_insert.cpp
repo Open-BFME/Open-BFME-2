@@ -17,16 +17,10 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include "ascii_string.h"
 
-struct TreeKey00242F5E
-{
-	int m_id;
-	AsciiString m_name;
-	TreeKey00242F5E();
-	TreeKey00242F5E(const TreeKey00242F5E &);
-};
+#include "TreeKey00242F5E.h"
+
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _List_node<TreeKey00242F5E> * list<TreeKey00242F5E,allocator<TreeKey00242F5E> >::_M_create_node(TreeKey00242F5E const &); }
-inline TreeKey00242F5E::TreeKey00242F5E() {}
 
 // remove()/unique() need an operator== retail never defines; declare them
 // specialized so the class instantiation below does not emit them.
@@ -34,6 +28,5 @@ namespace _STL {
 template <> void list<TreeKey00242F5E,allocator<TreeKey00242F5E> >::remove(TreeKey00242F5E const &);
 template <> void list<TreeKey00242F5E,allocator<TreeKey00242F5E> >::unique();
 }
-bool operator<(const TreeKey00242F5E &a, const TreeKey00242F5E &b);
 
 template class _STL::list<TreeKey00242F5E, _STL::allocator<TreeKey00242F5E> >;

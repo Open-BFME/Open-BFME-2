@@ -13,11 +13,7 @@
 
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 
-struct TreeKey00242F5E
-{
-	int m_id;
-	AsciiString m_name;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
 
 template <> void _STL::list<TreeKey00242F5E>::push_front(const TreeKey00242F5E &);
 
@@ -63,8 +59,8 @@ void Rva002A4646BurstRecord::rva002A4646(AsciiString name, unsigned int count)
 	for (int i = 0; i < total; ++i)
 	{
 		TreeKey00242F5E entry;
-		entry.m_id = (int)(((Rva002A4646Client *)TheGameClient)->getFrame() + first.getValue());
-		entry.m_name = name;
+		entry.field00 = (int)(((Rva002A4646Client *)TheGameClient)->getFrame() + first.getValue());
+		entry.field04 = name;
 		entries.push_front(entry);
 	}
 }

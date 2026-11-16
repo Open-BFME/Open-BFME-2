@@ -33,7 +33,7 @@ namespace _STL { template <> void _Destroy<BfmeStringTailRecord156 *>(BfmeString
 class BfmeStringTailRecord156;
 namespace _STL { template <> void _Construct<BfmeStringTailRecord156,BfmeStringTailRecord156>(BfmeStringTailRecord156 *,BfmeStringTailRecord156 const &); }
 
-struct TreeKey00242F5E { int m_a; int m_b; };
+#include "TreeKey00242F5E.h"
 // The native eight-byte range copy calls the rowed placement-copy helper.
 void Rva001D9B0FConstruct(void *, const void *);
 namespace _STL {

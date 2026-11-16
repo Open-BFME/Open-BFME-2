@@ -46,14 +46,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "ascii_string.h"
 // Neutral view: target callbacks/copy chain establish these fields and offsets;
 // BFME1 BridgeBehavior names are semantic provenance, not target class proof.
-// ABI view only: use the matched 29B copy-constructor name for this
-// delay/AsciiString pair; the bridge's application type remains unknown.
-struct TreeKey00242F5E
-{
-    unsigned int delay_00;
-    AsciiString boneName_04;
-    TreeKey00242F5E(const TreeKey00242F5E &other);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
 struct BridgeBehaviorListValue12
 {
     void *object_00;
