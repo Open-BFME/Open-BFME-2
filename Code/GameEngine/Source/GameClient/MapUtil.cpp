@@ -292,7 +292,6 @@ Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *us
 	return true;
 }
 
-#pragma optimize("s", on)
 void resetMap( void )
 {
 	if (m_data)

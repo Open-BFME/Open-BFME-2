@@ -652,8 +652,6 @@ void MapObject::setBridgeRenderObject( BridgeTowerType type, RenderObjClass* ren
 }
 
 
-#pragma optimize("s", on)
-
 RenderObjClass* MapObject::getBridgeRenderObject( BridgeTowerType type )
 {
 

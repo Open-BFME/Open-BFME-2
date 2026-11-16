@@ -21,7 +21,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
 #include "multilist.h"
-#pragma optimize("", on)
 #include "refcount.h"
 // Link view first: Vector4(x,y,z,w) stays inline without emitting an SSE
 // copy that competes with retail's integer-move owner (0x006D8A30).

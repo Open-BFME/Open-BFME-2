@@ -149,8 +149,6 @@ struct BfmeTreeView
 // float-frame Simple_Evaluate_Bone 0x001A4F50 at 132, called via +0x210).
 
 
-#pragma optimize("gsy", on)
-
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
 
 
