@@ -28,12 +28,7 @@ enum SlotState
 	SLOT_PLAYER = 6
 };
 
-struct GameSlotConnectInfo
-{
-	GameSlotConnectInfo() : m_ip(0), m_port(0) {}
-	unsigned int m_ip;
-	unsigned short m_port;
-};
+#include "../../../Include/GameNetwork/GameSlotConnectInfo.h"
 
 class Rva0022CE19SnapshotBase
 {
@@ -128,7 +123,7 @@ void Rva00382623::rva00382623()
 	GameSlotConnectInfo none;
 	slot.setState(SLOT_PLAYER, name, &none);
 	GameSlotConnectInfo info;
-	info.m_ip = m_ip;
+	info.m_nat = m_ip;
 	info.m_port = 8088;
 	m_connect = info;
 	slot.m_connect = info;
