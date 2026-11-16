@@ -100,7 +100,7 @@ Rva002CD4A6::~Rva002CD4A6()
 {
     if (m_04)
     {
-        void *p = m_04->Get(0);
+        void *p = ((Rva002CD4A6Aux *)m_04)->Get(0);
         ::operator delete(p);
     }
     if (m_e0)
