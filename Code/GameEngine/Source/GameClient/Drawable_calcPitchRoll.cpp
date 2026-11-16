@@ -41,14 +41,10 @@ struct LocomotorTemplate
 	Bool m_flagED;
 };
 
-class Locomotor
-{
-public:
-	Bool getFlagED() const { return m_template->m_flagED; }
-private:
-	void *m_vtable;
-	const LocomotorTemplate *m_template;	// +0x04
-};
+#include "../../Include/GameLogic/LocomotorClass.h"
+
+// Reads the template flag +0xED; retail inlines this read here.
+static inline Bool getLocomotorFlagED(const Locomotor *locomotor) { return locomotor->m_template->m_flagED; }
 
 class Object
 {
@@ -85,7 +81,7 @@ Bool Drawable::calcPitchRoll(void *objArg, void *locomotorArg, void *posArg, voi
 	perp.y = dir->x;
 	perp.z = 0;
 
-	if (locomotor->getFlagED())
+	if (getLocomotorFlagED(locomotor))
 	{
 		Real length = obj->getBoxMajorRadius();
 		Real width = obj->getBoxMinorRadius();

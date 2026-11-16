@@ -99,11 +99,8 @@ public:
 // the 0x001E46E1 worker the getters above share, so this class is Locomotor;
 // the other methods keep their address-derived base until they are named.
 // const by analogy with getMaxTurnRate (0x001E3E9F); the bytes cannot tell.
-class Locomotor : public Rva001E46E1
-{
-public:
-	float getMaxSpeed(Object *obj) const;
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
+#include "../../Include/GameLogic/LocomotorClass.h"
 class Obj254V
 {
 public:
@@ -357,28 +354,28 @@ float Locomotor::getMaxSpeed(Object *obj) const
 	float scale = obj->m_258->m_1F8;
 	int gv = TheWritableGlobalData->m_movementPenaltyDamageState;
 	float f;
-	if (cmpVal >= gv && m_data->m_109 == 0)
-		f = m_data->m_24 * g_secondsPerLogicFrame * scale;
+	if (cmpVal >= gv && m_template->m_chargeIgnoresCondition == 0)
+		f = m_template->m_speedDamaged * g_secondsPerLogicFrame * scale;
 	else if (((Rva001E468F *)this)->rva001E468F(obj))
-		f = m_data->m_104 * g_secondsPerLogicFrame * scale;
+		f = m_template->m_chargeSpeed * g_secondsPerLogicFrame * scale;
 	else
 		f = g_secondsPerLogicFrame * scale;
-	if (f > m_28)
-		f = m_28;
-	if (m_data->m_ec != 0)
+	if (f > m_maxSpeed)
+		f = m_maxSpeed;
+	if (m_template->m_crewPowered != 0)
 		f *= obj->rva0028B842();
 	float tmp = 0.0f;
 	if (obj->rva0028C15E(8, &tmp, 0, 1))
 		f = tmp * f;
-	if (m_data->m_14C != 1.0f) {
+	if (m_template->m_riverModifier != 1.0f) {
 		bool flag = 0;
 		if (TheTerrainLogic->isUnderwater(obj->m_cachedPos.x, obj->m_cachedPos.y, 0, 0, &flag) && flag != 0)
-			f = m_data->m_14C * f;
+			f = m_template->m_riverModifier * f;
 	}
-	if (m_2c != -1.0f) {
-		if (m_2c > f)
+	if (m_2C != -1.0f) {
+		if (m_2C > f)
 			goto done2c;
-		f = m_2c;
+		f = m_2C;
 	}
 done2c:
 	return f;

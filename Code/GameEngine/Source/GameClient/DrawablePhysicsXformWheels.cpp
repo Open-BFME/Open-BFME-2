@@ -76,23 +76,7 @@ struct LocomotorTemplate
 	Real m_maximumWheelExtension;		// +0xE0
 };
 
-class Locomotor
-{
-public:
-	Real getAccelPitchLimit() const { return m_template->m_accelPitchLimit; }
-	Real getBounceKick() const { return m_template->m_bounceKick; }
-	Real getPitchStiffness() const { return m_template->m_pitchStiffness; }
-	Real getRollStiffness() const { return m_template->m_rollStiffness; }
-	Real getPitchDamping() const { return m_template->m_pitchDamping; }
-	Real getRollDamping() const { return m_template->m_rollDamping; }
-	Real getUniformAxialDamping() const { return m_template->m_uniformAxialDamping; }
-	Real getMaxWheelExtension() const { return m_template->m_maximumWheelExtension; }
-	Bool hasSuspension() const { return m_template->m_hasSuspension; }
-
-private:
-	void *m_vtable;
-	const LocomotorTemplate *m_template;	// +0x04
-};
+#include "../../Include/GameLogic/LocomotorClass.h"
 
 #include "../../Include/GameLogic/Rva002627E8.h"
 
@@ -131,15 +115,15 @@ void Drawable::calcPhysicsXformWheels(const Locomotor *locomotor, PhysicsXformIn
 	if (m_locoInfo == 0)
 		m_locoInfo = new DrawableLocoInfo;
 
-	const Real ACCEL_PITCH_LIMIT = locomotor->getAccelPitchLimit();
-	const Real BOUNCE_ANGLE_KICK = locomotor->getBounceKick();
-	const Real PITCH_STIFFNESS = locomotor->getPitchStiffness();
-	const Real ROLL_STIFFNESS = locomotor->getRollStiffness();
-	const Real PITCH_DAMPING = locomotor->getPitchDamping();
-	const Real ROLL_DAMPING = locomotor->getRollDamping();
-	const Real UNIFORM_AXIAL_DAMPING = locomotor->getUniformAxialDamping();
-	const Real MAX_SUSPENSION_EXTENSION = locomotor->getMaxWheelExtension();
-	const Bool DO_WHEELS = locomotor->hasSuspension();
+	const Real ACCEL_PITCH_LIMIT = locomotor->m_template->m_accelPitchLimit;
+	const Real BOUNCE_ANGLE_KICK = locomotor->m_template->m_bounceKick;
+	const Real PITCH_STIFFNESS = locomotor->m_template->m_pitchStiffness;
+	const Real ROLL_STIFFNESS = locomotor->m_template->m_rollStiffness;
+	const Real PITCH_DAMPING = locomotor->m_template->m_pitchDamping;
+	const Real ROLL_DAMPING = locomotor->m_template->m_rollDamping;
+	const Real UNIFORM_AXIAL_DAMPING = locomotor->m_template->m_uniformAxialDamping;
+	const Real MAX_SUSPENSION_EXTENSION = locomotor->m_template->m_maximumWheelExtension;
+	const Bool DO_WHEELS = locomotor->m_template->m_hasSuspension;
 
 	Object *obj = m_object;
 	if (obj == 0)

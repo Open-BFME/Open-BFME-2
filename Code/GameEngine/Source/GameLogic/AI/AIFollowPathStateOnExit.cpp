@@ -20,35 +20,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_90 = 90
 };
-class Locomotor
-{
-public:
-	enum LocoFlag
-	{
-		IS_BRAKING = 0,
-		ALLOW_INVALID_POSITION,
-		MAINTAIN_POS_IS_VALID,
-		PRECISE_Z_POS
-	};
-	void setUsePreciseZPos(Bool usePreciseZPos)
-	{
-		if (usePreciseZPos)
-			m_flags |= (1 << PRECISE_Z_POS);
-		else
-			m_flags &= ~(1 << PRECISE_Z_POS);
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the setUsePreciseZPos copy loses to the first-in-order copy. No flags touched.
-	void bfme_setUsePreciseZPos_772eb(Bool b)
-	{
-		if (b)
-			m_flags |= (1 << PRECISE_Z_POS);
-		else
-			m_flags &= ~(1 << PRECISE_Z_POS);
-	}
-private:
-	unsigned char m_pad00[0x44];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 // LINK: the 0x00262FEB one-store setter is ICF-shared with ParticleEmitterDefClass::Set_Burst_Size (called directly, not via vtable).
 class ParticleEmitterDefClass
 {
@@ -95,7 +67,7 @@ void AIFollowPathState::onExit( StateExitType status )
 	ai->m_field3BA = false;
 	((ParticleEmitterDefClass *)ai)->ParticleEmitterDefClass::Set_Burst_Size(0);
 	if (ai->getCurLocomotor())
-		ai->getCurLocomotor()->bfme_setUsePreciseZPos_772eb(false);
+		ai->getCurLocomotor()->setUsePreciseZPos(false);
 
 	//Assign this value to the AIUpdateInterface so object's can access this value while
 	//determine which waypoints to plot in the waypoint renderer.
