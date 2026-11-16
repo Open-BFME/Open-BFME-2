@@ -1721,10 +1721,7 @@ typedef std::map<Int, Int> BfmeStagingServerMap;
 // shared base ctor (0x00605464) only as deque<BfmeWordValue4> and push_back,
 // pop_front and the base dtor as deque<void *>, so the queues below are built
 // as the first and used as the second.
-struct BfmeWordValue4
-{
-	unsigned int bits;
-};
+#include "../../../../Include/Common/BfmeWordValue4.h"
 _STLP_BEGIN_NAMESPACE
 _STLP_TEMPLATE_NULL struct __type_traits<BfmeWordValue4> : __type_traits_aux<1> {};
 _STLP_END_NAMESPACE

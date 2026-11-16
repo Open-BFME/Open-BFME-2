@@ -6,7 +6,7 @@
 
 // 40-byte element, itself a deque: retail's deque destroy 0x00423EB0 steps by 0x28 and
 // calls the rowed inner deque destructor 0x00422D48, reached here by a qualified call.
-struct BfmeWordValue4 { unsigned int bits; };
+#include "../../../../GameEngine/Include/Common/BfmeWordValue4.h"
 typedef _STL::deque<BfmeWordValue4, _STL::allocator<BfmeWordValue4> > Rva004244C1InnerDeque;
 // The inner destructor is owned by StlportNestedWordDeque.cpp; declaration-only here.
 namespace _STL { template <> Rva004244C1InnerDeque::~deque(); }

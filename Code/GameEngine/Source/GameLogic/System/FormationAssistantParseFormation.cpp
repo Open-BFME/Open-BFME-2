@@ -28,7 +28,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-struct BfmeWordValue4 {unsigned int bits;BfmeWordValue4(){}~BfmeWordValue4(){}};
+#include "../../../Include/Common/BfmeWordValue4.h"
 typedef _STL::deque<BfmeWordValue4> InnerDeque;
 typedef _STL::deque<InnerDeque> OuterDeque;
 typedef _STL::deque<OuterDeque> TripleDeque;

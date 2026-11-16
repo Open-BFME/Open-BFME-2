@@ -32,7 +32,7 @@ __declspec(noinline) unsigned Rva0040314A::rva0040314A(){if(m_0c>0)return m_08<m
 namespace _STL {
 template<> Rva00297360Element *vector<Rva00297360Element>::erase(Rva00297360Element*);
 }
-struct BfmeWordValue4 {unsigned bits;};
+#include "../../../../Include/Common/BfmeWordValue4.h"
 namespace _STL {template<>struct __type_traits<BfmeWordValue4>:__type_traits_aux<1>{};}
 namespace _STL {
 template<> __declspec(noinline) inline void deque<BfmeWordValue4>::push_back(const BfmeWordValue4 &x) {

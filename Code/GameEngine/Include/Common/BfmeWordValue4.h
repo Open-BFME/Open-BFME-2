@@ -6,7 +6,7 @@
 
 struct BfmeWordValue4 {
     unsigned int bits;
-    BfmeWordValue4();
+    BfmeWordValue4() {}
     ~BfmeWordValue4() {}
 };
 
