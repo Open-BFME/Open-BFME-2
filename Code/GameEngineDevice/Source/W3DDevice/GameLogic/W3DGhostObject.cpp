@@ -113,12 +113,12 @@ struct GeometryShape
 // the callee is the landed handleNode at 0x006BD1A0. No named caller or
 // vtable slot proves the receiver's class.
 
-class Rva006BDB00Node;
+class GhostObject;
 
-class Rva006BDB00
+class W3DGhostObjectManager
 {
 public:
-	void handleNode(Rva006BDB00Node *node);
+	void removeGhostObject(GhostObject *obj);
 };
 
 // The global at 0x012EF4FC is EA's `GhostObjectManager *TheGhostObjectManager`,
@@ -380,7 +380,7 @@ void _bfmeGeometryShapeAssignInlineAnchor()
 void Rva006BD6C0::detach(void)
 {
 	if (TheGhostObjectManager != 0)
-		((Rva006BDB00 *)TheGhostObjectManager)->handleNode((Rva006BDB00Node *)((char *)this - 4));
+		((W3DGhostObjectManager *)TheGhostObjectManager)->removeGhostObject((GhostObject *)((char *)this - 4));
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_assign.cpp
