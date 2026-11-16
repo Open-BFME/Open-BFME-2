@@ -19,8 +19,6 @@
 // The two callees keep opaque descriptive names: their addresses come from
 // this body's own REL32 displacements, their true identities are unproven.
 
-struct FontCharsClassCharDataStruct;
-
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #define _WIN32_WINNT 0x0500
@@ -36,32 +34,13 @@ struct FontScreenDCGlobals
 };
 extern class FontCharsClassGdiState *g_fontCharsGdiState;
 
-class FontCharsClass
-{
-public:
-	FontCharsClassCharDataStruct const *loadCharacterData(unsigned short character);
-
-private:
-	void *m_uns00;
-	void *m_uns04;
-	FontCharsClass *AlternateUnicodeFont; // +0x08
-	char m_unreconstructed_0C[0x48 - 0x0C];
-	HFONT m_gdiFont; // +0x48
-	FontCharsClassCharDataStruct const *m_glyphTable[256]; // +0x4C
-	FontCharsClassCharDataStruct const **m_glyphPages; // +0x44C
-	char m_unreconstructed_450[0x45C - 0x450]; // +0x450: character map (see Get_Char_Data unit)
-	unsigned short m_pageBase; // +0x45C
-
-	FontCharsClassCharDataStruct const *Get_Char_Data(unsigned short ch);
-	void ensureCharPage(unsigned short ch); // retail 0x00155220, opaque
-	FontCharsClassCharDataStruct const *loadCharBitmap(unsigned short ch); // retail 0x00156A60, opaque
-};
+#include "FontCharsClass.h"
 
 FontCharsClassCharDataStruct const *FontCharsClass::loadCharacterData(unsigned short character)
 {
 	if ((character >= 0x0E01 && character <= 0x0E3A)
 		|| (character >= 0x0E3F && character <= 0x0E5B)) {
-		HFONT font = m_gdiFont;
+		HGDIOBJ font = GDIFont;
 		unsigned int glyph = 0xFFFF;
 		HDC screen_dc = (*(FontScreenDCGlobals **)&g_fontCharsGdiState)->screen_dc;
 		HGDIOBJ old_font = ::SelectObject(screen_dc, font);
@@ -76,10 +55,10 @@ FontCharsClassCharDataStruct const *FontCharsClass::loadCharacterData(unsigned s
 
 	FontCharsClassCharDataStruct const *data;
 	if (character < 0x100) {
-		data = m_glyphTable[character];
+		data = ASCIICharArray[character];
 	} else {
 		ensureCharPage(character);
-		data = m_glyphPages[character - m_pageBase];
+		data = UnicodeCharArray[character - FirstUnicodeChar];
 	}
 	if (data == 0)
 		data = loadCharBitmap(character);
