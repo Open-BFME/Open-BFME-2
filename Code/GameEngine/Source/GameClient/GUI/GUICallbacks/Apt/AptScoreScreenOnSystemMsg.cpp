@@ -66,16 +66,10 @@ struct Rva002D06CATemplate
  
 }
 ;
-class ThingTemplate;
-class ThingFactory
-{
-public:
- const ThingTemplate *findTemplate(const AsciiString &name);
- // WB 0x145F4D0 reaches the lookup through an inline forwarder (WB names the
- // out-of-line body findTemplateInternal; the ledger rows it findTemplate).
- const ThingTemplate *findTemplateInline(const AsciiString &name) { return findTemplate(name); }
-};
-extern ThingFactory *TheThingFactory;
+#include "../../../../../Include/Common/ThingFactory.h"
+// WB 0x145F4D0 reaches the lookup through an inline forwarder (WB names the
+// out-of-line body findTemplateInternal; the ledger rows it findTemplate).
+static inline const ThingTemplate *findTemplateInline(ThingFactory *factory, const AsciiString &name) { return factory->findTemplate(name); }
 // A persistent unit's list box item data: its template name at +4 and the
 // player's name for it at +0xA0.
 struct AptScorePersistentUnit
@@ -190,7 +184,7 @@ int AptScoreScreen::OnSystemMsg(int message, unsigned int wParam, unsigned int l
      {
       Rva002D06CATemplate *unitTemplate = 0;
       if (TheThingFactory)
-       unitTemplate = (Rva002D06CATemplate *)TheThingFactory->findTemplateInline(m_renaming->m_templateName);
+       unitTemplate = (Rva002D06CATemplate *)findTemplateInline(TheThingFactory, m_renaming->m_templateName);
       if (unitTemplate && (unitTemplate->m_113 & 4))
       {
        label = "TOOLTIP:YouMayNotRenameAHero";
@@ -231,7 +225,7 @@ int AptScoreScreen::OnSystemMsg(int message, unsigned int wParam, unsigned int l
    if (TheThingFactory)
    
    {
-    unitTemplate = (Rva002D06CATemplate *)TheThingFactory->findTemplateInline(m_renaming->m_templateName);
+    unitTemplate = (Rva002D06CATemplate *)findTemplateInline(TheThingFactory, m_renaming->m_templateName);
    }
    if (unitTemplate && (unitTemplate->m_113 & 4))
    {
