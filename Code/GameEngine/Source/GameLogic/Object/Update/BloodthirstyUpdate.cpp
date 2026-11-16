@@ -212,10 +212,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-struct Rva2225E0Filter
-{
-	bool accepts(Object *value, Player *player);
-};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 
 #include "../../../../Include/Common/Rva002390CB.h"
 
@@ -223,7 +220,6 @@ struct BloodthirstyUpdateModuleData
 {
 	unsigned char m_pad00[0x08];
 	Rva2225E0Filter m_filter; // +0x08
-	unsigned char m_pad09[0x0C - 0x09];
 	float m_experienceModifier; // +0x0C
 	Rva002390CB m_initiateVoice; // +0x10
 };

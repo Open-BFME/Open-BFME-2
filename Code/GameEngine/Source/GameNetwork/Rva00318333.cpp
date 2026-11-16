@@ -19,15 +19,9 @@ class AsciiString;
 #include "../../Include/Common/PlayerList.h"
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
-class Rva2225E0Filter
-{
-public:
-	bool accepts(Object *obj, Player *player);
-};
+#include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class BfmeTab1026 : public Rva2225E0Filter
 {
-public:
-	int m_00;
 };
 #include "../../Include/Common/BitFlagsTemplate.h"
 class Player
@@ -131,7 +125,7 @@ void Rva00318333::rva00318807(int mode, int *m1Csrc, void *shiftSrc, const Strin
 {
 	rva00318719();
 	m_18 = mode;
-	m_1C.m_00 = *m1Csrc;
+	m_1C.m_objectFilterSlot00 = *m1Csrc;
 	m_20.set(*m20src);
 	m_58 = *(const BitFlags<11> *)m58src;
 	int sh = *(int *)((char *)shiftSrc + 0x54);

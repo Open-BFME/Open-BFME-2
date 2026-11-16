@@ -22,7 +22,7 @@ enum ExitDoorType {DOOR0=0};
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
+#include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 class Rva0035149F;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Common/Thing/thing.h"
@@ -39,7 +39,7 @@ extern int BfmeLogicFramesPerSecond;
 class HordeTransportContain {public:virtual void exitObjectViaDoor(Object*,ExitDoorType);};
 template<int N>class ExitSlots:public ExitSlots<N-1>{public:virtual void gap(char(*)[N]);};template<>class ExitSlots<0>{};
 class ExitInterface:public ExitSlots<41>{public:virtual void remove(Object*,bool);};
-struct SiegeContainData {char pad[0x18c];Rva2225E0Filter filter;char pad18d[3];int active;};
+struct SiegeContainData {char pad[0x18c];Rva2225E0Filter filter;int active;};
 class HordeSiegeEngineContain {public:void rva0047D53A(Object*,ExitDoorType);void *vtable;SiegeContainData *data;Object *owner;};
 void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
 {
