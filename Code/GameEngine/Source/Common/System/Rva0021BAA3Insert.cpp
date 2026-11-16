@@ -12,10 +12,7 @@
 
 #include "../../../Include/Common/Rva0021915B.h"
 
-struct Rva0021B753
-{
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../../Include/Common/Rva0021B753.h"
 
 void __cdecl Rva0021BAA3Insert(Rva0021915B *last, Rva0021915B val, Rva0021B753 comp);
 

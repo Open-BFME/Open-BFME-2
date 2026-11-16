@@ -11,9 +11,7 @@ private:
 	AsciiString m_str;
 	bool m_byte;
 };
-struct Rva0021B753 {
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../../Include/Common/Rva0021B753.h"
 void __cdecl Rva0021BB61PushHeap(Rva0021915B *first, int holeIndex, int topIndex, Rva0021915B val, Rva0021B753 comp);
 void __cdecl Rva0021C8D7AdjustHeap(Rva0021915B *first, int holeIndex, int len, Rva0021915B value, Rva0021B753 comp)
 {

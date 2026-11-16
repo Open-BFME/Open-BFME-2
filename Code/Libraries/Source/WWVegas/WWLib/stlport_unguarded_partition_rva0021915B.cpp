@@ -4,9 +4,7 @@
 // Evidence: chain lane all callees rowed; first/last stride 8 plus bool-first comparator plus swap callers prove Rva0021915B family; same partition shape as rowed 0x004231A0 with EH for non-trivial pivot. Donor vendor/stlport/stl/_algo.c:__unguarded_partition.
 #include "ascii_string.h"
 #include "../../../../GameEngine/Include/Common/Rva0021915B.h"
-struct Rva0021B753 {
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva0021B753.h"
 void __cdecl Rva0021ACB9Swap(Rva0021915B *a, Rva0021915B *b);
 namespace _STL {
 template <class RandomAccessIter, class Tp, class Compare>

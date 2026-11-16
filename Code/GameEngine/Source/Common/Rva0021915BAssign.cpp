@@ -33,10 +33,7 @@ Rva0021915B &Rva0021915B::operator=(const Rva0021915B &other)
 	return *this;
 }
 
-struct Rva0021B753
-{
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../Include/Common/Rva0021B753.h"
 
 bool Rva0021B753::operator()(const Rva0021915B &a, const Rva0021915B &b) const
 {

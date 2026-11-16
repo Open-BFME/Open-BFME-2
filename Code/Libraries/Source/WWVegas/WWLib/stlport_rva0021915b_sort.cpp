@@ -19,10 +19,7 @@
 
 #include "../../../../GameEngine/Include/Common/Rva0021915B.h"
 
-struct Rva0021B753
-{
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../../../GameEngine/Include/Common/Rva0021B753.h"
 
 // The separately rowed partition owns its swap and unwind graph.
 namespace _STL {

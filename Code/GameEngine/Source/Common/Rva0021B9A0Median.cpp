@@ -12,10 +12,7 @@
 
 #include "../../Include/Common/Rva0021915B.h"
 
-struct Rva0021B753
-{
-	bool operator()(const Rva0021915B &a, const Rva0021915B &b) const;
-};
+#include "../../Include/Common/Rva0021B753.h"
 
 const Rva0021915B &__cdecl Rva0021B9A0Median(const Rva0021915B &a, const Rva0021915B &b, const Rva0021915B &c, Rva0021B753 comp);
 
