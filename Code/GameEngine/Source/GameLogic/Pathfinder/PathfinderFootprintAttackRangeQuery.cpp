@@ -40,7 +40,7 @@ class Rva00460C73FloatChase32Field {public:float get()const;};
 #include "../../../Include/GameLogic/Rva004C5772CmpBoolField.h"
 #include "../../Common/Thing/thing.h"
 class DynamicPortalBehaviourModuleData {public:char pad[0x144];Coord3D m_144;};
-class DynamicPortalBehaviour {public:static Module *rva004608E0(Object*);void rva00460CBA(Coord3D*);void *m_vptr;const DynamicPortalBehaviourModuleData *m_moduleData;Object *m_object;};
+#include "../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 template<int N> class QueryTerrainSlots:public QueryTerrainSlots<N-1>{public:virtual void gap(char(*)[N])=0;};
 template<>class QueryTerrainSlots<0>{};
 #include "../../../Include/GameLogic/TerrainLogic.h"
@@ -89,9 +89,9 @@ inline __declspec(noinline) void DynamicPortalBehaviour::rva00460CBA(Coord3D *ou
 	tmp2.x = 1.0f;
 	tmp2.y = 0.0f;
 	tmp2.z = 0.0f;
-	const DynamicPortalBehaviourModuleData *data = m_moduleData;
-	((Thing *)m_object)->transformPoint(&tmp2, &tmp1);
-	Coord3D *pPos = &m_object->position;
+	const DynamicPortalBehaviourModuleData *data = m_04;
+	((Thing *)m_08)->transformPoint(&tmp2, &tmp1);
+	Coord3D *pPos = &m_08->position;
 	tmp1.x -= pPos->x;
 	tmp1.y -= pPos->y;
 	tmp1.z -= pPos->z;
@@ -106,7 +106,7 @@ inline __declspec(noinline) void DynamicPortalBehaviour::rva00460CBA(Coord3D *ou
 	tmp2 = data->m_144;
 	tmp2.x *= len;
 	tmp2.y *= len;
-	((Thing *)m_object)->transformPoint(&tmp2, &tmp3);
+	((Thing *)m_08)->transformPoint(&tmp2, &tmp3);
 	out->x = tmp3.x;
 	out->y = tmp3.y;
 	out->z = tmp3.z;

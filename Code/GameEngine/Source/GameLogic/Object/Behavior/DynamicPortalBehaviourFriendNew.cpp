@@ -6,19 +6,7 @@
 // "DynamicPortalBehaviour" literal ModuleFactory registers alongside this stub.
 // Recipe: RainOfFireUpdateFriendNew.cpp.
 
-class Thing;
-class ModuleData;
-class Module;
-
-class DynamicPortalBehaviour
-{
-public:
-	DynamicPortalBehaviour(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x40];
-};
+#include "../../../../Include/GameLogic/Module/DynamicPortalBehaviour.h"
 
 // ?friend_newModuleInstance@DynamicPortalBehaviour@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *DynamicPortalBehaviour::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
