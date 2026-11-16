@@ -13,22 +13,7 @@
 // defined here under the donor's static-member name.
 typedef int Int;
 
-class DrawModule;
-
-class Drawable
-{
-public:
-	static void friend_lockDirtyStuffForIteration();
-	static void friend_unlockDirtyStuffForIteration();
-	Drawable *getNextDrawable() const { return m_nextDrawable; }
-	DrawModule **getDrawModules() { return m_drawModules; }
-private:
-	static Int s_modelLockCount;
-	unsigned char m_pad00[0x104];
-	Drawable *m_nextDrawable;				// +0x104
-	unsigned char m_pad108[0x14C - 0x108];
-	DrawModule **m_drawModules;				// +0x14C
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class GameClientView
 {

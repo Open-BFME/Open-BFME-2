@@ -103,34 +103,13 @@ extern GameClient *TheGameClient;
 #include "../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 
-class Drawable
-{
-public:
-	void drawIconUI();
-	void rva002775C9(Coord3D *pos);			// 0x002775C9, the health box position
-
-		// LINK: TU-unique helper (Drawable::getPosition is retail 0x002763E6,
-	// rowed from BFMERopeDrawableGetPosition; this forwarder shared the name
-	// and emitted a duplicate/loser copy). Same bytes, unique symbol.
-	const Coord3D *bfme_drawable_position() const { return ((const Rva00276470Drawable *)this)->rva00276470(); }
-		// Same treatment: Drawable::getObject has no retail-pinned copy and this
-	// TU copy lost link order. Unique name, same bytes.
-	Object *bfme_drawable_object() { return m_object; }
-
-private:
-	unsigned char m_pad00[0xFC];
-	Object *m_object;				// +0xFC
-	unsigned char m_pad100[0x43C - 0x100];
-	Bool m_43C;					// +0x43C
-	unsigned char m_pad43D[0x460 - 0x43D];
-	IRegion2D m_healthBarRegion;			// +0x460
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::drawIconUI()
 {
 	if (TheGameLogic->getDrawIconUI() && TheScriptEngine->m_fade == ScriptEngine::FADE_NONE)
 	{
-		Object *obj = bfme_drawable_object();
+		Object *obj = m_object;
 		if (!obj)
 			return;
 
@@ -147,7 +126,7 @@ void Drawable::drawIconUI()
 				return;
 			Coord3D lowered;
 			rva002775C9(&lowered);
-			Real posZ = bfme_drawable_position()->z;
+			Real posZ = ((const Rva00276470Drawable *)this)->rva00276470()->z;
 			lowered.z -= (lowered.z - posZ) * 0.333f;
 			ICoord2D loweredScreen;
 			if (TheTacticalView->worldToScreen(&lowered, &loweredScreen))
@@ -161,10 +140,10 @@ void Drawable::drawIconUI()
 		healthBoxHeight *= heightScale;
 		healthBoxHeight = 4.0f;
 
-		m_healthBarRegion.lo.x = screenCenter.x - healthBoxWidth * 0.45f;
-		m_healthBarRegion.lo.y = screenCenter.y - healthBoxHeight * 0.5f;
-		m_healthBarRegion.hi.x = m_healthBarRegion.lo.x + healthBoxWidth;
-		m_healthBarRegion.hi.y = m_healthBarRegion.lo.y + healthBoxHeight;
+		m_460.lo.x = screenCenter.x - healthBoxWidth * 0.45f;
+		m_460.lo.y = screenCenter.y - healthBoxHeight * 0.5f;
+		m_460.hi.x = m_460.lo.x + healthBoxWidth;
+		m_460.hi.y = m_460.lo.y + healthBoxHeight;
 
 		TheGameClient->addIconLayer(0, this);
 		if (obj->isEffectivelyDead() || obj->getTemplate()->isKindOf2F())
@@ -173,7 +152,7 @@ void Drawable::drawIconUI()
 		TheGameClient->addIconLayer(2, this);
 		if (TheKeyboard->isShift() && obj->getTemplate()->m_0C != -1)
 			TheGameClient->addIconLayer(5, this);
-		if (!m_43C)
+		if (!m_selected)
 			return;
 		if (!obj->isLocallyControlled())
 			return;

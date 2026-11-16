@@ -7,6 +7,9 @@
 #define __BFME2_DRAWABLE_H_
 
 #include "../../Source/Common/Thing/thing.h"
+#include "../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../Libraries/Include/Lib/IRegion2D.h"
+#include "../../../Libraries/Include/Lib/RGBColor.h"
 #ifndef __SNAPSHOT_H_
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
@@ -282,23 +285,27 @@ protected:
 private:
 	void onComingOutOfShroud();
 
-	// Private statics per their decorated data rows: 0x009FEB70, 0x009FEB74, 0x009FEB78, 0x009FEB80, 0x009FEB84.
+	// Private statics per their decorated data rows: 0x009FEB70, 0x009FEB74, 0x009FEB78, 0x009FEB7C, 0x009FEB80, 0x009FEB84.
 	static const Image *s_fullAmmo;
 	static const Image *s_emptyAmmo;
 	static Rva002D752DNode **s_animationTemplates;
+	static int s_modelLockCount;
 	static const Image *s_pipImage;
 	static const Image *s_pipOverlay;
 
 public:
 	Rva00271826 *m_selectionFlashEnvelope;	// ctor 0x0027984E zeroes; updateDrawable 0x00275C53 updates it after +0x68
 	Rva00271826 *m_colorTintEnvelope;	// colorFlash 0x0027543B news Rva00271826, stores at 0x00275444
-	unsigned char m_opaque6C[0x8C - 0x6C];
+	RGBColor m_6C;	// ctor 0x00279C79 calls RGBColor::setFromInt(-1) on +0x6C; DoXfer 0x0027AE3B passes +0x6C to Xfer's RGBColor overload (vtable +0x3C)
+	unsigned char m_opaque78[0x8C - 0x78];
 	Rva00271826 *m_8C;	// rva00275598 0x002755CD news Rva00271826, stores at 0x002755D6
 	unsigned char m_opaque90[0xB0 - 0x90];
 	float field_0b0;
 	unsigned char m_opaqueB4[0xE4 - 0xB4];
 	bool m_E4;	// ctor 0x002798B2 byte store; updateDrawable 0x00275899 byte test
-	unsigned char m_opaqueE5[0xFC - 0xE5];
+	unsigned char m_opaqueE5[0xE8 - 0xE5];
+	ICoord2D m_E8;	// ctor 0x00279C73 / 0x00279C50 store 0x60 into +0xE8 / +0xEC; DoXfer 0x0027AF32 passes +0xE8 to Xfer's ICoord2D overload (vtable +0x4C)
+	unsigned char m_opaqueF0[0xFC - 0xF0];
 	Object *m_object;
 	DrawableID m_id;
 	Drawable *m_nextDrawable;
@@ -349,7 +356,8 @@ public:
 	bool m_44A;	// ctor 0x00279B34 stores 1
 	unsigned char m_opaque44B[0x44C - 0x44B];
 	int m_44C;	// ctor 0x00279B42; rva0027290C 0x00272914
-	unsigned char m_opaque450[0x470 - 0x450];
+	unsigned char m_opaque450[0x460 - 0x450];
+	IRegion2D m_460;	// drawIconUI 0x00278F35..0x00278F60 stores its words; rva00273755 0x0027378B takes +0x468 - +0x460; DoXfer 0x0027AF94 passes +0x460 to Xfer's IRegion2D overload (vtable +0x44)
 };
 typedef char DrawableSizeCheck[sizeof(Drawable) == 0x470 ? 1 : -1];
 

@@ -218,16 +218,6 @@ private:
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	unsigned char m_pad[0xE4];
-	bool m_e4;
-	int m_e8;
-	int m_ec;
-};
-
 struct W3DScriptedModelDrawModuleDataView
 {
 	unsigned char m_pad[0x139];
@@ -237,6 +227,7 @@ struct W3DScriptedModelDrawModuleDataView
 };
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 // The +0x0C and +0x10 one-slot interface bases. Their slot-0 functions are
 // rowed under these names (0x000B34D8 Rva000B34D8Fetch.cpp, 0x000BFB76
@@ -406,9 +397,9 @@ W3DScriptedModelDraw::W3DScriptedModelDraw(Thing *thing, const ModuleData *modul
 	const W3DScriptedModelDrawModuleDataView *data = (const W3DScriptedModelDrawModuleDataView *)getModuleData();
 	if (data != 0 && draw != 0)
 	{
-		draw->m_e4 = data->m_139;
-		draw->m_e8 = data->m_13c;
-		draw->m_ec = data->m_140;
+		draw->m_E4 = data->m_139;
+		draw->m_E8.x = data->m_13c;
+		draw->m_E8.y = data->m_140;
 	}
 	m_270 = false;
 	m_274 = 0;
