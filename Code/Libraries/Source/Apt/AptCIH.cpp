@@ -336,8 +336,6 @@ class BfmeNode1279;
 
 class AptActionQueueC;
 
-class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
-
 #include "Rva006E34D0.h"
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;

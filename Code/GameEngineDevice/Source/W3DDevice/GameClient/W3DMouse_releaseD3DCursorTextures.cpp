@@ -7,11 +7,6 @@
 // This release path clears the current surface and its corresponding texture
 // holder for each of the 21 animation frames.
 
-struct TextureBaseClass
-{
-	void Release_Ref();
-};
-
 // CursorTextureSlot is a class in retail (reverse/class_contracts/CursorTextureSlot.json, key by bytes),
 // so this view spells the class-key the definition of cursorTextures mangles with.
 #include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"

@@ -5,11 +5,6 @@
 // holders at this+0x6028, then clears the contiguous cursor texture holder
 // table from 0xDE4B40 to 0xDE5DA0 in 21-slot groups.
 
-struct TextureBaseClass
-{
-	void Release_Ref();
-};
-
 // CursorTextureSlot is a class in retail (reverse/class_contracts/CursorTextureSlot.json, key by bytes),
 // so this view spells the class-key the definition of cursorTextures mangles with.
 #include "../../../../GameEngine/Include/Common/CursorTextureSlot.h"

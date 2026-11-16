@@ -39,7 +39,6 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 typedef float Real;
 typedef bool Bool;
 class TextureClass;
-struct ShroudTextureHandle { TextureClass *m_p; };
 void Rva00030830GameFree(void *);
 namespace _STL {
 template<> __declspec(dllimport) __forceinline void allocator<int>::deallocate(int *p,unsigned)const{if(p)Rva00030830GameFree(p);}

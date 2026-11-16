@@ -4,13 +4,6 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
-class RenderObjClass
-{
-public:
-	virtual void Delete_This();
-private:
-	int m_refCount;
-};
 #include "../../../../GameEngine/Include/Common/Rva000E488F.h"
 void W3DPropBuffer::rva000EE15B()
 {

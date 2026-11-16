@@ -78,11 +78,6 @@ public:
 };
 
 // ------------------------------------------------------------- block chain
-struct Rva00800550Node
-{
-	Rva00800550Node *m_next;
-};
-
 #include "../../../GameEngine/Include/GameNetwork/Rva00800550Chain.h"
 
 // ------------------------------------ the byte-equal three-field reset
