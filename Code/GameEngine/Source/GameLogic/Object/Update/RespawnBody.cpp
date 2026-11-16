@@ -67,7 +67,7 @@ public:
     void triggerDeathBeforeRespawn();
 };
 
-class ActiveBody { public: virtual void internalChangeHealth(float, DamageInfo *); };
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
 class RespawnBody {
 public:
@@ -118,7 +118,8 @@ void RespawnBody::internalChangeHealth(float amount, DamageInfo *info)
                     permanent = true;
             }
         }
-        ((ActiveBody *)this)->ActiveBody::internalChangeHealth(amount, info);
+        // this is the body-interface subobject (complete object +0x10)
+        static_cast<ActiveBody *>((BodyModuleInterface *)this)->ActiveBody::internalChangeHealth(amount, info);
         static NameKeyType respawnKey = TheNameKeyGenerator->nameToKey("RespawnUpdate");
         RespawnUpdate *respawn = (RespawnUpdate *)obj->findModule(respawnKey);
         if (!permanent) {

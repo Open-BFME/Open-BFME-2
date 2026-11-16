@@ -39,15 +39,7 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 
-class ActiveBody
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-	char m_unrecovered04[0x104 - 0x04];
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
 class SymbioticStructuresBody : public ActiveBody
 {
@@ -55,6 +47,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
+	int m_100; // +0x100, zeroed by ctor 0x004C0AF1
 	ObjectID m_104;
 };
 

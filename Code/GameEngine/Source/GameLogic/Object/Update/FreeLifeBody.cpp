@@ -92,10 +92,7 @@ private:
 // condition words to +10C. Original class layout remains an opaque view.
 class DamageInfo;
 
-class ActiveBody {
-public:
-    virtual void attemptDamage(DamageInfo *);
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
 struct FreeLifeConditionData {
     unsigned char before78[0x78];
@@ -192,7 +189,8 @@ void Rva004C193COwner::attemptDamage(DamageInfo *info)
         if (obj->conditions[index >> 5] & (1u << (index & 31)))
             return;
     }
-    ((ActiveBody *)this)->ActiveBody::attemptDamage(info);
+    // this is the body-interface subobject (complete object +0x10)
+    static_cast<ActiveBody *>((BodyModuleInterface *)this)->ActiveBody::attemptDamage(info);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004C1866Xfer.cpp

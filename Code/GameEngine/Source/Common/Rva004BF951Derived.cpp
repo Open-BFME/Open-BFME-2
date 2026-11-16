@@ -95,11 +95,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
-class ActiveBody
-{
-protected:
-    virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/GameLogic/Module/ActiveBody.h"
 enum ObjectID
 {
     OBJECTID_DUMMY = 0
@@ -110,7 +106,6 @@ class StructureBody : public ActiveBody
 protected:
     virtual void xfer(Xfer *xfer);
 private:
-    char m_pad04[0x100 - 4];
     ObjectID m_id;
 };
 void StructureBody::xfer(Xfer *xfer)
