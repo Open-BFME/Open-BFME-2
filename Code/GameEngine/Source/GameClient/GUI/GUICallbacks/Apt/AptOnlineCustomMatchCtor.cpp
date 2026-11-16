@@ -86,20 +86,7 @@ private:
 };
 
 #include "../../../../../Include/GameNetwork/GameInfo.h"
-
-class GameSpyStagingRoom : public GameInfo
-{
-public:
-	void clearFF4()
-	{
-		m_FF8 = 0;
-		m_FF4 = false;
-	}
-	unsigned char m_pad0DC[0xFF4 - 0xDC];
-	bool m_FF4;
-	int m_FF8;
-};
-extern GameSpyStagingRoom *TheGameSpyGame;
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 extern int g_currentAptOnlineCustomMatch;
 extern int g_Va00E063F0;
@@ -258,7 +245,9 @@ AptOnlineCustomMatch::AptOnlineCustomMatch(int shell, int profile)
 	m_setup.rva0044303D();
 	reinterpret_cast<Rva00580316 *>(&m_sorter)->rva00580263(&m_prefs);
 	if (TheGameSpyGame) {
-		TheGameSpyGame->clearFF4();
+		GameSpyStagingRoom *room = TheGameSpyGame;
+		room->m_fieldFF8 = 0;
+		room->m_fieldFF4 = false;
 		TheGameSpyGame->rva003FF1A7(profile);
 	}
 }

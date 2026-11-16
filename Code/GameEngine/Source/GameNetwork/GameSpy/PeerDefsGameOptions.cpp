@@ -135,33 +135,7 @@ enum SlotState
 enum { PLAYERTEMPLATE_OBSERVER = -2 };
 enum { MAX_SLOTS = 8 };
 
-// GameSlot (0x1AC bytes) as setGameOptions reads it; the state predicates
-// are rowed out of line.
-class GameSlot
-{
-public:
-	Bool isHuman(void) const;
-	Bool isOccupied(void) const;
-	Bool isAI(void) const;
-	Bool isOpen(void) const;
-	SlotState getState(void) const { return (SlotState)m_state; }
-	Int getColor(void) const { return m_color; }
-	Int getPlayerTemplate(void) const { return m_playerTemplate; }
-	const UnicodeString &getName(void) const { return m_name; }
-
-	unsigned char m_pad00[0x04];
-	Int m_state;						// +0x04
-	unsigned char m_pad08[0x04];
-	Int m_color;						// +0x0C
-	unsigned char m_pad10[0x08];
-	Int m_playerTemplate;				// +0x18
-	Int m_teamNumber;					// +0x1C
-	Int m_20;							// +0x20
-	unsigned char m_pad24[0x0C];
-	UnicodeString m_name;				// +0x30
-	unsigned char m_pad34[0x1A8 - 0x34];
-	AsciiString m_1A8;					// +0x1A8
-};
+#include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 // GameSpyGameSlot extends GameSlot with ZH's profile ID, login, locale and
 // ping string (+0x1B8).
@@ -182,18 +156,6 @@ public:
 	AsciiString get() const;
 };
 
-// GameInfo, the staging room's base, as setGameOptions reads it.
-class GameInfo
-{
-public:
-	AsciiString getMap(void) const;
-	const GameSlot *getConstSlot(Int index) const;
-
-	unsigned char m_pad00[0x58];
-	Int m_58;							// +0x58
-	Int m_5c;							// +0x5C
-	UnsignedInt m_60[10];				// +0x60
-};
 
 AsciiString GameInfoToAsciiString(const GameInfo *game, Bool flag);
 _STL::string WideCharStringToMultiByte(const unsigned short *orig);
@@ -202,36 +164,6 @@ _STL::string WideCharStringToMultiByte(const unsigned short *orig);
 
 extern GameState *TheGameState;
 
-// 0x1020-byte staging-room record (GameInfo base at +0; ctor 0x004FDE4D,
-// copy ctor 0x003835F4, dtor 0x00382C4A).
-class GameSpyStagingRoom
-{
-public:
-	GameSpyStagingRoom();
-	GameSpyStagingRoom(const GameSpyStagingRoom &other);
-	virtual ~GameSpyStagingRoom();
-	virtual void s01(void);
-	virtual void s02(void);
-	virtual void s03(void);
-	virtual void s04(void);
-	virtual void s05(void);
-	virtual void s06(void);
-	virtual void s07(void);
-	virtual void s08(void);
-	virtual void s09(void);
-	virtual void reset(void);
-	static void operator delete(void *p) { ::operator delete(p); }
-	void cleanUpSlotPointers(void);
-	Int getID(void) const { return m_id; }
-	GameSpyGameSlot *getGameSpySlot(Int index);
-	unsigned char m_pad0004[0xC8];		// +0x04..+0xCB
-	unsigned char m_digest[16];			// +0xCC..+0xDB
-	unsigned char m_pad00DC[0xF04];		// +0xDC..+0xFDF
-	Int m_id;							// +0xFE0
-	unsigned char m_pad0FE4[0x3C];		// +0xFE4..+0x101F
-};
-
-extern GameSpyStagingRoom *TheGameSpyGame;
 
 #include "../../../Include/GameNetwork/PlayerInfo.h"
 
@@ -302,8 +234,8 @@ void GameSpyInfo::setGameOptions(void)
 		else appendMapCharacter(newMapName, '/');
 	}
 	req.gameOptsMapName = newMapName.str();
-	memcpy(req.gameOptsUnknownD0, LOCAL_GAME->m_60, sizeof(req.gameOptsUnknownD0));
-	req.gameOptions.valueCC = LOCAL_GAME->m_5c;
+	memcpy(req.gameOptsUnknownD0, LOCAL_GAME->m_field60, sizeof(req.gameOptsUnknownD0));
+	req.gameOptions.valueCC = LOCAL_GAME->m_field5C;
 
 	req.gameOptions.numPlayers = 0;
 	req.gameOptions.numObservers = 0;
@@ -319,7 +251,7 @@ void GameSpyInfo::setGameOptions(void)
 		req.gameOptions.profileID[i] = slot->getState();
 		req.gameOptions.faction[i] = slot->getPlayerTemplate();
 		req.gameOptions.color[i] = slot->getColor();
-		req.gameOptions.slotValue20[i] = slot->m_20;
+		req.gameOptions.slotValue20[i] = slot->m_field20;
 		if (!slot->isOccupied())
 		{
 			if (slot->isOpen())
@@ -330,7 +262,7 @@ void GameSpyInfo::setGameOptions(void)
 			AsciiString playerName;
 			if (slot->isHuman())
 			{
-				playerName.translate(slot->getName());
+				playerName.translate(slot->m_name);
 				req.gameOptsPlayerNames[i] = playerName.str();
 				PlayerInfoMap::iterator it = m_playerInfoMap.find(playerName);
 				if (it != m_playerInfoMap.end())
@@ -344,7 +276,7 @@ void GameSpyInfo::setGameOptions(void)
 				req.gameOptions.profileID[i] = profileID;
 				req.gameOptions.faction[i] = slot->getPlayerTemplate();
 				req.gameOptions.color[i] = slot->getColor();
-				req.gameOptions.slotValue20[i] = slot->m_20;
+				req.gameOptions.slotValue20[i] = slot->m_field20;
 				if (slot->getPlayerTemplate() == PLAYERTEMPLATE_OBSERVER)
 				{
 					++req.gameOptions.numObservers;
@@ -378,13 +310,13 @@ void GameSpyInfo::setGameOptions(void)
 				req.gameOptions.profileID[i] = slot->getState();
 				req.gameOptions.faction[i] = slot->getPlayerTemplate();
 				req.gameOptions.color[i] = slot->getColor();
-				req.gameOptions.slotValue20[i] = slot->m_20;
+				req.gameOptions.slotValue20[i] = slot->m_field20;
 				++req.gameOptions.numPlayers;
 			}
 		}
 	}
 	req.gameOptions.maxPlayers = numOpenSlots + req.gameOptions.numObservers + req.gameOptions.numPlayers;
-	req.gameOptions.valueD0 = LOCAL_GAME->m_58;
+	req.gameOptions.valueD0 = LOCAL_GAME->m_field58;
 	TheGameSpyPeerMessageQueue->addRequest(req);
 
 	AsciiString playerNames;
@@ -396,7 +328,7 @@ void GameSpyInfo::setGameOptions(void)
 			if (i != 0)
 				playerNames.concat(",");
 			AsciiString entry;
-			entry.format("%d=%s", i, WideCharStringToMultiByte(slot->getName().str()).c_str());
+			entry.format("%d=%s", i, WideCharStringToMultiByte(slot->m_name.str()).c_str());
 			playerNames.concat(entry);
 		}
 	}

@@ -131,40 +131,13 @@ struct BfmeOpaqueOwnedRecord492
 	~BfmeOpaqueOwnedRecord492();
 };
 
-// 0x1020-byte staging-room record (GameInfo base at +0; ctor 0x004FDE4D,
-// copy ctor 0x003835F4, dtor 0x00382C4A).
-class GameSpyStagingRoom
-{
-public:
-	GameSpyStagingRoom();
-	GameSpyStagingRoom(const GameSpyStagingRoom &other);
-	virtual ~GameSpyStagingRoom();
-	virtual void s01(void);
-	virtual void s02(void);
-	virtual void s03(void);
-	virtual void s04(void);
-	virtual void s05(void);
-	virtual void s06(void);
-	virtual void s07(void);
-	virtual void s08(void);
-	virtual void s09(void);
-	virtual void reset(void);
-	// Failed construction uses the global delete at native RVA 0x0002FD60.
-	void cleanUpSlotPointers(void);
-	Int getID(void) const { return m_id; }
-	unsigned char m_pad0004[0xC8];		// +0x04..+0xCB
-	unsigned char m_digest[16];			// +0xCC..+0xDB
-	unsigned char m_pad00DC[0xF04];		// +0xDC..+0xFDF
-	Int m_id;							// +0xFE0
-	unsigned char m_pad0FE4[0x3C];		// +0xFE4..+0x101F
-};
-
 // GameInfo assignment (0x00382E73), rowed under its address name.
 class Rva00382E73 { public: Rva00382E73 &operator=(const Rva00382E73 &other); };
 
 struct TreeHintOpaque0043671B;
 extern "C" void MD5Print(unsigned char digest[16], char output[33]);
 TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
+#include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 class PlayerInfo
 {
@@ -1098,7 +1071,7 @@ void GameSpyInfo::addStagingRoom(GameSpyStagingRoom room)
 {
 	removeStagingRoom(room);
 	unsigned char digest[16];
-	memcpy(digest, room.m_digest, 16);
+	memcpy(digest, room.m_fieldCC, 16);
 	char printedDigest[33];
 	MD5Print(digest, printedDigest);
 	if (strcmp("00000000000000000000000000000000", printedDigest) != 0 &&
@@ -1387,7 +1360,7 @@ void GameSpyInfo::markAsStagingRoomJoiner(Int id)
     {
         GameSpyStagingRoom* room=it->second;
         unsigned char digest[16];
-        memcpy(digest,room->m_digest,16);
+        memcpy(digest,room->m_fieldCC,16);
         ((Rva00381D02*)local)->rva00381D02(digest);
         room->cleanUpSlotPointers();
         AsciiString options=GameInfoToAsciiString((GameInfo*)room,true);

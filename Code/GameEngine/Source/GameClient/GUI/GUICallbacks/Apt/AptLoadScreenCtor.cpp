@@ -130,17 +130,7 @@ class GameSpyInfoInterface;
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class GameSpyStagingRoom
-{
-public:
-	char m_pad00[0xFEC];
-	bool m_fec; // +0xFEC +0xFEC
-	char m_padFED[0x7];
-	bool m_isRanked; // +0xFF4 +0xFF4
-	char m_padFF5[0x3];
-	int m_ladderType; // +0xFF8 +0xFF8
-};
-extern GameSpyStagingRoom *TheGameSpyGame;
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
@@ -212,7 +202,7 @@ AptLoadScreen::AptLoadScreen(void *owner)
 		AsciiString key("GUI:Level");
 		g_bfmeAptWindowManager->bfmeSetText(key, blank, false);
 	}
-	if (TheGameSpyGame && TheGameSpyGame->m_isRanked)
+	if (TheGameSpyGame && TheGameSpyGame->m_fieldFF4)
 	{
 		AsciiString key("GUI:Level");
 		g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("GUI:Rank"), false);

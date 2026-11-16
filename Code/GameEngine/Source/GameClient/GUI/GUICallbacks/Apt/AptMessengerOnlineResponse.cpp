@@ -85,28 +85,7 @@ class Rva005AE5EE { public: void rva005AE5EE(const Rva005AE5EEQuad *value); };
 #include "../../../../../Include/GameNetwork/Rva00381D02.h"
 class Rva004FDB57 { public: void rva004FDB57(AsciiString value); };
 class Rva0059F2EB { public: void rva0059F2EB(AsciiString value); };
-class GameSpyStagingRoom : public GameInfo
-{
-public:
-    GameSpyStagingRoom();
-    GameSpyStagingRoom(const GameSpyStagingRoom &other);
-    virtual ~GameSpyStagingRoom();
-    GameSpyGameSlot *getGameSpySlot(int i);
-    char m_slots[8 * 0x1e0];
-    AsciiString m_extraMap;
-    int m_id;
-    void *m_transport;
-    AsciiString m_localName;
-    bool m_hasPassword, m_allowObservers;
-    int m_version;
-    bool m_ff4;
-    int m_ff8;
-    AsciiString m_ladderIP, m_ping;
-    int m_pingInt;
-    unsigned short m_ladderPort;
-    int m_numPlayers, m_maxPlayers, m_numObservers;
-    int m_1018, m_101c;
-};
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 class PeerResponse
 {
@@ -147,7 +126,7 @@ typedef char CheckRoomSize[sizeof(GameSpyStagingRoom) == 0x1020 ? 1 : -1];
 typedef char CheckGameInfoSize[sizeof(GameInfo) == 0xdc ? 1 : -1];
 typedef char CheckGroupRoomSize[sizeof(GameSpyGroupRoom) == 0x20 ? 1 : -1];
 typedef char CheckRoomID[offsetof(GameSpyStagingRoom, m_id) == 0xfe0 ? 1 : -1];
-typedef char CheckRoomVersion[offsetof(GameSpyStagingRoom, m_version) == 0xff0 ? 1 : -1];
+typedef char CheckRoomVersion[offsetof(GameSpyStagingRoom, m_fieldFF0) == 0xff0 ? 1 : -1];
 typedef char CheckResponseWins[offsetof(PeerResponse, stagingRoom.wins) == 0x148 ? 1 : -1];
 typedef char CheckResponseEnd[offsetof(PeerResponse, stagingRoom.scenario) == 0x244 ? 1 : -1];
 
@@ -322,21 +301,21 @@ bool AptMessengerOnline::ProcessGameSpyResponse(void *p)
                 ((Rva003821E2 *)&room)->assign(UnicodeString((const unsigned short *)resp->stagingServerName.c_str()));
                 room.rva003FF1A7(resp->stagingRoom.gameType);
                 room.m_id = resp->stagingRoom.id;
-                room.m_hasPassword = resp->stagingRoom.requiresPassword;
-                room.m_version = resp->stagingRoom.version;
+                room.m_fieldFEC = resp->stagingRoom.requiresPassword;
+                room.m_fieldFF0 = resp->stagingRoom.version;
                 ((Rva005AE5EE *)&room)->rva005AE5EE(&resp->stagingRoom.exeCRC);
                 room.m_fieldC0 = resp->stagingRoom.iniCRC;
                 room.m_fieldC4 = resp->stagingRoom.cmdCRC;
                 ((Rva00381D02 *)&room)->rva00381D02(resp->stagingRoom.ladderHash);
-                room.m_allowObservers = resp->stagingRoom.allowObservers;
+                room.m_fieldFED = resp->stagingRoom.allowObservers;
                 ((Rva004FDB57 *)&room)->rva004FDB57(resp->stagingServerPingString.c_str());
                 ((Rva0059F2EB *)&room)->rva0059F2EB(resp->stagingServerLadderIP.c_str());
-                room.m_ladderPort = resp->stagingRoom.ladderPort;
-                room.m_numPlayers = resp->stagingRoom.numPlayers;
-                room.m_maxPlayers = resp->stagingRoom.maxPlayers;
-                room.m_numObservers = resp->stagingRoom.numObservers;
+                room.m_field1008 = resp->stagingRoom.ladderPort;
+                room.m_field100C = resp->stagingRoom.numPlayers;
+                room.m_field1010 = resp->stagingRoom.maxPlayers;
+                room.m_field1014 = resp->stagingRoom.numObservers;
                 memcpy(room.m_field60, resp->stagingRoom.ladPortValues, 0x28);
-                room.m_extraMap = AsciiString(resp->unknown_7c.c_str());
+                room.m_fieldFDC = AsciiString(resp->unknown_7c.c_str());
                 room.m_field58 = resp->stagingRoom.scenario;
                 Int i;
                 AsciiString gsMapName = resp->stagingRoomMapName.c_str();
