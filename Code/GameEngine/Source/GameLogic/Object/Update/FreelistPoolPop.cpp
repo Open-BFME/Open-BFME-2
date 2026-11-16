@@ -8,21 +8,7 @@
 // retry is goto-spelled: a for(;;) phrasing emits a taken jumper where
 // retail falls through into the grow call and loops with the bare jne.
 
-class FreelistPool
-{
-public:
-	void *pop();
-
-private:
-	bool grow( int arena, int size );
-
-	int m_00;			// +0x00 default-size count (size = m_00*16+4 when size==0)
-	void *m_04;			// +0x04 current block (linked into block header)
-	void *m_head;		// +0x08 free-list head
-	void *(__cdecl *m_alloc)( int size, int arg ); // +0x0C block allocator
-	int m_10;			// +0x10
-	int m_14;			// +0x14 allocator argument
-};
+#include "../../../../Include/Common/FreelistPool.h"
 
 
 // ?pop@FreelistPool@@QAEPAXXZ

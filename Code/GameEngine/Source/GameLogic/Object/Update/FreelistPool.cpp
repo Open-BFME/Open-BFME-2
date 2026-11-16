@@ -179,30 +179,8 @@ struct Rva001EB15A
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)
 
- 
-class FreelistPool
-{
-public:
-	FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);
-public:
-	bool init(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6);
-private:
-	int m_00;
-private:
-	void* m_04;
-private:
-	void* m_head;
-private:
-	void* (__cdecl* m_alloc)(int, int);
-private:
-	void (__cdecl* m_free)(void*, int);
-private:
-	int m_14;
-public:
-	void *pop();
-private:
-	bool grow( int arena, int size );
-};
+
+#include "../../../../Include/Common/FreelistPool.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
