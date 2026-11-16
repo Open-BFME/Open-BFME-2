@@ -7,7 +7,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // ShareBufferClass<float> for the FX particle draw-category size buffer.
@@ -35,7 +34,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // dtor 0x00072899) are the size form: compile refcount.h for size, as hlod.cpp does.
 #include <new>
 #define _OPERATOR_NEW_DEFINED_
-#pragma optimize("s", on)
 #include "refcount.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "sharebuf.h"

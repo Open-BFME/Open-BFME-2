@@ -5,7 +5,6 @@
 // copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
 // copy that same body, so it no longer loses to retail's at link time.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 // Retail's .text$yc initializer 0x007B6800 builds Randomizer through the

@@ -7,7 +7,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // TriClass::Compute_Normal is inline in the reference WWMath header.  Keep
@@ -18,7 +17,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // are frameless. Parse vector3.h first with FPO on so those helpers emit the
 // kept frameless form; TriClass::Compute_Normal below is still parsed with the
 // TU flags and keeps its frame.
-#pragma optimize("y", on)
 #include "../../../../../reference/shims/bfme_tri_math/vector3.h"
 #include "rendobj.h"
 #include "tri.h"
