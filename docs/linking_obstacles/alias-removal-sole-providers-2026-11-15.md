@@ -85,6 +85,19 @@ ab51f7ce8a adopted the canonical UpdateModule.h in UpdateModuleCtor.cpp and remo
 
 The repair restores the exact original binding in its original carrier, with a comment that names both consumers. The carrier's hatch_baseline line was never lowered, so no count rises and no admission is involved. The shadow code-identity register reports the alias as unreferenced, because its only referrers are vftables rather than matched rows; that proof limit is the same as for the Snapshot spelling above, and no identity-baseline entry is added.
 
-Before and after, link_check ran over the carrier and both consumers together, with strict current receipts: 1/3 -> 3/3 clean, 61 -> 1,671 predicted linked bytes, no lost unit. The carrier verifies 1/1 rows. Full-image/runtime unverified until the next real link.
+Before and after, link_check ran over the carrier and both consumers together, with strict current receipts: 1/3 -> 3/3 clean, 61 -> 1,671 predicted linked bytes, no lost unit. The carrier verifies 1/1 rows. The real link at dcd1717e2b (published by a24fab503e) no longer lists either consumer, and its list changed in nothing else. Runtime unverified.
 
 Still open: the native fix. Adopting the canonical BehaviorModule.h in both consumers gives their tables BehaviorModuleInterface's inline getters, which retail folds to 0x000D43D0; after that the alias can go, through the consumer check in "Required prevention" above.
+
+## 2026-11-16: four more withdrawals the real link still reports
+
+A consumer check of every commit since 2026-11-08 that removes `/alternatename` lines (94 commits), and of 259896f97a, traced the names below to the commit that took their only provider. For each commit its changed units were compiled before and after it; each name is one they provided before and nothing provides after, link_check reports it unresolved at that commit in the units listed, and the real link at 0b6e54892e (published by f3a6e23db6) still lists every one of those units. The original bindings are in each commit's diff; the repair route is the native one the sections above describe.
+
+| Commit | Withdrawn provider | Still unresolved in |
+| --- | --- | --- |
+| 44a7c0248f | `/alternatename` for `?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z` | Common/Rva006D94A0AptCluster.cpp, Apt/AptArray.cpp, Apt/AptObject/Rva006F1360XmlLookup.cpp |
+| 1e79469632 | `/alternatename` for eight names: `?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z`, `?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z`, `?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z`, `?rva006CFCD0@AptCIH@@QBE_NXZ`, `?rva006D36C0@EAStringC@@QBEHPBV1@@Z`, both `?rva006DD6C0@BfmeAptValue006DCD20` spellings and `?rva006dbd80@AptCIH@@QAEXXZ` | 18 units, among them Apt/AptCIH.cpp, Apt/AptString.cpp, Apt/AptActionInterpreter.cpp, GameLogic/System/GameLogic.cpp, Common/BfmeConv1399.cpp and Common/BfmeConv526.cpp |
+| 6ba7bf9d9b | `/alternatename` for the seven AptValue-hierarchy defaults that `reverse/attempt_support/aptvalue-hierarchy-undefined-vtable-defaults-20261116.md` describes; its five other removals have no consumer left | the eight sources that file names, Apt/AptArray.cpp among them |
+| 259896f97a | three definitions among the "unused extern declarations": `extern const char * const g_Rva00E0A010 = 0;`, `g_Rva0130A6E4` and `g_Rva0130A768` | GameNetwork/Rva007F14B0BlobWriter.cpp, GameNetwork/Rva007F3170RecordRequest.cpp, GameNetwork/Rva007F3C50ClubUpdate.cpp |
+
+1cc99cc230d also left carriers without their own bindings beyond the eight OpaqueScalarDeletingDtors.cpp names above, and the same real link still lists each: Common/OpaqueScalarDeletingDtorsB09.cpp (`??1Rva0060FE2@@UAE@XZ`, `??1Rva008E4EC@@UAE@XZ`, `??1Rva009203A@@UAE@XZ`), Common/FamilyDeletingDtors_muse-b055.cpp (`??1ShipSlowDeathBehaviorModuleData@@UAE@XZ`) and Common/RTS/Player_Radar.cpp (`?okToPlayRadarEdgeSound@Player@@QAE_NXZ`). Two other withdrawals are repaired since: 3c7fdba61c (the ObjectTypes erase) and d7934c0617 (`?f3@DBaseM3@@UAEXXZ`).
