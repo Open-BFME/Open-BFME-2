@@ -2150,7 +2150,7 @@ Code/GameEngine/Source/Common/Rva000F0AB2Cleanup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000F0AF7Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000F1A32Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000F1AD8Clear.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva000F1B8FCtor.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/Common/Rva000F1B8FCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000F1B8FDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000F1BC5Method.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva000F278FForward.cpp,yes,0,0,0,0,0
@@ -2179,7 +2179,7 @@ Code/GameEngine/Source/Common/Rva00106C79Check.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00106CF0RangeFilter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00108DBCInit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0010959E.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00109C27Ctor.cpp,no,0,0,0,0,1
+Code/GameEngine/Source/Common/Rva00109C27Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00109C7FDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0010E482Check.cpp,yes,0,0,0,0,0
@@ -5671,7 +5671,7 @@ Code/GameEngine/Source/Common/Rva006FB9B0DeletingDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006FBA10DeletingDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006FBC10Slot11.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006FBC30Slot13.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva006FBC90OwnerDtor.cpp,no,5,0,0,0,0
+Code/GameEngine/Source/Common/Rva006FBC90OwnerDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006FBE60Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006FBED0Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006FD510MeshMatDescGetTexture.cpp,yes,0,0,0,0,0
@@ -9339,7 +9339,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp,y
 Code/GameEngine/Source/GameLogic/Object/Behavior/Matrix3DO1Inlines.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/Matrix3DRotateO1.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFind.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp,yes,0,0,0,0,0
@@ -9357,7 +9357,7 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorFri
 Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/ObjectModuleXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PartitionFilterRejectByKindOf.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp,yes,0,0,0,0,0
@@ -13506,7 +13506,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00109D5FInit.cpp,yes
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C065AddDecal.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C785TimedDecals.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,no,0,0,0,0,1
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp,yes,0,0,0,0,0
@@ -13515,7 +13515,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManag
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryCtorThunk.cpp,no,0,0,0,0,1
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryCtorThunk.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryInitFromHLOD.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryInitFromMesh.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryMesh.cpp,yes,0,0,0,0,0
@@ -13839,7 +13839,7 @@ Code/Libraries/Source/Apt/AptAnimationPoolCharacterVisit.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptAnimationPoolDataBIL.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptAnimationPoolData__tickNewInsts.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptArray.cpp,no,9,0,0,0,0
+Code/Libraries/Source/Apt/AptArray.cpp,no,2,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackInit.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackPush.cpp,yes,0,0,0,0,0
@@ -13856,7 +13856,7 @@ Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptDate.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptDateConstructor.cpp,no,5,0,0,0,0
+Code/Libraries/Source/Apt/AptDateConstructor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptDisplayList.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptGC.cpp,yes,0,0,0,0,0
@@ -13877,15 +13877,15 @@ Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptNativeHash.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptCIHProceduralAllocation.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,no,10,0,0,0,0
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp,no,7,0,0,0,0
+Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,no,3,0,0,0,0
+Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptObject/AptKey.cpp,no,7,0,0,0,0
+Code/Libraries/Source/Apt/AptObject/AptKey.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptLoadVarsLookup.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptObjectDoesImplement.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptScriptColour.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,no,7,0,0,0,0
+Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptXml.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/Rva006F1360XmlLookup.cpp,no,1,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/Rva006F1570XmlNodeString.cpp,yes,0,0,0,0,0
@@ -13897,7 +13897,7 @@ Code/Libraries/Source/Apt/AptShutdownRva006CFAB0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptString.cpp,no,1,0,0,0,0
 Code/Libraries/Source/Apt/AptTextFormat.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptTrackerBucketClear.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptValue.cpp,no,5,0,2,0,0
+Code/Libraries/Source/Apt/AptValue.cpp,no,0,0,2,0,0
 Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/AptBuiltinValues.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,yes,0,0,0,0,0
@@ -15009,9 +15009,9 @@ Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_resize.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp,no,0,0,0,0,1
+Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hanimmgr_GetAnim.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,no,0,0,0,0,1
+Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hlod_read_header.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,yes,0,0,0,0,0
