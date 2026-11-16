@@ -55,12 +55,13 @@ Bool ParseObjectsDataChunk(DataChunkInput &file, DataChunkInfo *info, void *user
 
 class BfmeParserRegistryVE;
 
+// Retail's base table 0x007C9574 is two slots: the deleting destructor and a
+// __purecall parse slot.
 class BfmeParserBindingBaseVE
 {
 public:
 	__declspec(dllimport) __forceinline virtual ~BfmeParserBindingBaseVE() { m_registry->handle(m_token); }
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot1() = 0;
 
 private:
 	Q1Forwardee0000871A *m_registry;	// +0x04, the DataChunkInput
@@ -72,6 +73,7 @@ class Rva00300419 : public BfmeParserBindingBaseVE
 {
 public:
 	Rva00300419(void *owner, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);	// 0x00300419
+	virtual void bfmeSlot1();		// table 0x00807484 slot 1, 0x00300481
 private:
 	void *m_owner;
 };

@@ -38,3 +38,22 @@ destructor and one table view, adopted across the family, would let the
 remaining units use the same table. That is header/class reconciliation work;
 until then, keep the pure declarations only in the constructor-only units
 where the build and link both pass.
+
+## Resolution: the base table is two slots (2026-11-18)
+
+Retail's base table at `0x007C9574` is 8 bytes: `{??_G (0x004AD930, ICF with
+??_GDataChunkParser), __purecall (0x0043B810)}`; `0x007C957C` already starts
+`Rva000ABD56`'s table. The data ledger also gives 8 bytes for every derived
+table (`Rva00300419` 0x00807484, `BfmeParserBindingVE` 0x007C9584,
+`Rva000AEF42` 0x007C95D0, `Rva003085FB` 0x00807EE8, `Rva003B3417` 0x0081F400).
+So the family is a virtual destructor plus one parse slot; the
+inline-destructor views declared three (dtor, `bfmeSlot0`, `bfmeSlot1`).
+
+The four units whose views emit `??_7BfmeParserBindingBaseVE@@6B@`
+(WorldHeightMapParse, MapUtilLoadMap, SidesListParseCastleTemplateMaps,
+SidesListDataChunks) now drop `bfmeSlot0`, make `bfmeSlot1` pure, and declare
+`bfmeSlot1` on each derived class so stack-built objects stay concrete. All
+four emit the same 8-byte table, 153/153 functions match, and `link_check` of
+the four together links three (was one); SidesListDataChunks still fails only
+on its pre-existing `?getCharAt@?$StringBase@D@@QBEDH@Z` selection. The
+novtable units, where `bfmeSlot0` stands for the dtor slot, are unchanged.

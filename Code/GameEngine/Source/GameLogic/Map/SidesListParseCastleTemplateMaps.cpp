@@ -89,8 +89,7 @@ class BfmeParserBindingBaseVE
 {
 public:
 	__declspec(dllimport) __forceinline virtual ~BfmeParserBindingBaseVE() { m_registry->handle(m_token); }
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot1() = 0;	// retail table 0x007C9574: deleting dtor, __purecall
 
 private:
 	Q1Forwardee0000871A *m_registry;	// +0x04, the DataChunkInput
@@ -160,7 +159,6 @@ public:
 	BfmeParserBindingVE(SidesList *owner, BfmeSidesListChunkCallback callback,
 		DataChunkInput *input, const AsciiString &label, const AsciiString &parentLabel);	// 0x000AD73D
 
-	virtual void bfmeSlot0();
 	virtual void bfmeSlot1();
 
 private:

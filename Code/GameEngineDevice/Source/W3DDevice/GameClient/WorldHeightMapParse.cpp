@@ -43,27 +43,26 @@ class BfmeParserBindingBaseVE
 {
 public:
 	virtual ~BfmeParserBindingBaseVE() { m_registry->handle(m_token); }
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot1() = 0;	// retail table 0x007C9574: deleting dtor, __purecall
 private:
 	Q1Forwardee0000871A *m_registry;	// +0x04, the DataChunkInput
 	Int m_token;				// +0x08
 };
 
-class Rva000AEF42 : public BfmeParserBindingBaseVE { public: Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
-class Rva000AEEDA : public BfmeParserBindingBaseVE { public: Rva000AEEDA(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
-class Rva000AEFAA : public BfmeParserBindingBaseVE { public: Rva000AEFAA(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
-class Rva000AF01A : public BfmeParserBindingBaseVE { public: Rva000AF01A(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
-class Rva000AF082 : public BfmeParserBindingBaseVE { public: Rva000AF082(BfmeParserRegistryVE *registry, const AsciiString *label); };
-class Rva000AF0E4 : public BfmeParserBindingBaseVE { public: Rva000AF0E4(BfmeParserRegistryVE *registry, const AsciiString *label); };
+class Rva000AEF42 : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
+class Rva000AEEDA : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva000AEEDA(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
+class Rva000AEFAA : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva000AEFAA(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
+class Rva000AF01A : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva000AF01A(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
+class Rva000AF082 : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva000AF082(BfmeParserRegistryVE *registry, const AsciiString *label); };
+class Rva000AF0E4 : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva000AF0E4(BfmeParserRegistryVE *registry, const AsciiString *label); };
 
-class Rva0030D8B1 : public BfmeParserBindingBaseVE { public: Rva0030D8B1(void *owner, BfmeParserRegistryVE *registry, AsciiString *label); void *m_0c; };
+class Rva0030D8B1 : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva0030D8B1(void *owner, BfmeParserRegistryVE *registry, AsciiString *label); void *m_0c; };
 class Rva00328D9D { public: Rva00328D9D(Int a, Int b, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_00, *m_04; };
 class Rva002E3DE3 { public: Rva002E3DE3(Int registry, Int label); unsigned char m_bytes[0x14]; };
-class Rva003085FB : public BfmeParserBindingBaseVE { public: Rva003085FB(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
-class Rva0030BF80 : public BfmeParserBindingBaseVE { public: Rva0030BF80(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
-class Rva0030C97E : public BfmeParserBindingBaseVE { public: Rva0030C97E(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
-class Rva00330528 : public BfmeParserBindingBaseVE { public: Rva00330528(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
+class Rva003085FB : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva003085FB(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
+class Rva0030BF80 : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva0030BF80(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
+class Rva0030C97E : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva0030C97E(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
+class Rva00330528 : public BfmeParserBindingBaseVE { public: virtual void bfmeSlot1(); Rva00330528(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_0c; };
 
 // The heap-owned registrations: a one-pointer owner reset with the new
 // object and destroyed (deleting it) at scope exit; the polygon one has its
@@ -117,6 +116,7 @@ class BfmeParserBindingVE : public BfmeParserBindingBaseVE
 public:
 	BfmeParserBindingVE(SidesList *owner, SidesListChunkParser callback, DataChunkInput *input,
 		const AsciiString &label, const AsciiString &parentLabel);
+	virtual void bfmeSlot1();
 private:
 	SidesList *m_owner;
 	SidesListChunkParser m_callback;
