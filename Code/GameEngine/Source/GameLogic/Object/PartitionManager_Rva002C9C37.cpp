@@ -27,13 +27,17 @@
 
 #include "../../Common/Thing/thing.h"
 
+#include "../../Common/GameLogicObjectLookupView.h"
+
 #include "../../../Include/Common/Geometry.h"
 
 // Accessed members only; plain fields so this unit emits no accessor COMDATs.
 class Object : public Thing
 {
 public:
-	unsigned char m_pad060[0xA8 - 0x60];
+	char m_pad060[0x74 - 0x60];
+	ObjectID m_id;
+	char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometry;
 };
 
