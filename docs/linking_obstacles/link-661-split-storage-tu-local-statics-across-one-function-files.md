@@ -597,3 +597,22 @@ not establish full preprocessing equivalence. Do not waive that gate. Their
 canonical header adoptions are now claimed; the reader's private slot-27
 findBridgeAt spelling is not the canonical findBridgeAt slot/signature and must
 be reconciled by the measured slot, not by matching names.
+
+**Canonical reader terrain classes:** replace all three private declarations
+with their registered headers. TerrainLogic keeps primary slots 7/27/30/40:
+the former private findBridgeAt spelling at slot 27 becomes slot27, not the
+canonical findBridgeAt at slot 41; slot 30 becomes getWaterHeight. Explicit
+casts retain the existing vector output and bridge-storage views. Height reads
+keep BoundedShortGrid::load and its unsigned-short conversion before scaling;
+border reads use the canonical inline accessor. BaseHeightMap's STLport vectors
+require the existing destination's STLport setup; the first trial without it
+failed on incomplete _STL::vector and was corrected at the reader's build marker.
+
+All 17 rows, two EH graphs, 12 imports and 43 float constants pass, and all
+retained provider fingerprints agree. Two unrowed inline copies disappear
+(std::max and the private getHeight); two appear (STLport max and getBorderSize).
+The complete ProviderGuard reference proof, including the current before/after
+objects and MappedImageCache, proves all four unreferenced; no retail recovery
+is claimed for these copies. Three official header acceptances retire their
+queue rows, scoped preview remains 10,338 bytes, and class_gate is unchanged.
+Evidence: reader-terrain-*, reader-heightmap-* under build/decal-diagnostic.

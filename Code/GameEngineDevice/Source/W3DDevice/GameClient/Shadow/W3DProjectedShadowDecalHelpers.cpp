@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2 /D_STLP_USE_STATIC_LIB
+// stlport
 // BFME 1 W3DProjectedShadowDecalHelpers.cpp, donor revision
 // 1399ad37d42ea52a63829e417c46a1ba9ed2cd20, compiled with BFME 2 flags above.
 // These file-static algorithms come from ZH queueDecal: flatten/normalise the
@@ -173,53 +174,12 @@ class Object {public:int rva0028B511()const;};
 #include "../../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 class AABoxClass;
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
-class TerrainLogic {public:
-virtual void pad0();
-virtual void pad1();
-virtual void pad2();
-virtual void pad3();
-virtual void pad4();
-virtual void pad5();
-virtual void pad6();
-virtual float getLayerHeight(float,float,int,Rva00108E7AVector*,bool);
-virtual void pad8();
-virtual void pad9();
-virtual void pad10();
-virtual void pad11();
-virtual void pad12();
-virtual void pad13();
-virtual void pad14();
-virtual void pad15();
-virtual void pad16();
-virtual void pad17();
-virtual void pad18();
-virtual void pad19();
-virtual void pad20();
-virtual void pad21();
-virtual void pad22();
-virtual void pad23();
-virtual void pad24();
-virtual void pad25();
-virtual void pad26();
-virtual class BridgeView10C841 *findBridgeAt(float x, float y, float z);
-virtual void pad28();
-virtual void pad29();
-virtual float getBridgeHeight(class BridgeView10C841 *bridge);
-virtual void pad31();
-virtual void pad32();
-virtual void pad33();
-virtual void pad34();
-virtual void pad35();
-virtual void pad36();
-virtual void pad37();
-virtual void pad38();
-virtual void pad39();
-virtual class BridgeView10C841 *getFirstBridge();
-};extern TerrainLogic*TheTerrainLogic;
+#include "../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
+extern TerrainLogic *TheTerrainLogic;
 static float layerHeightRva001086EC(RenderObjClass*robj,const Rva00108E7AVector&pos,Rva00108E7AVector&normal){
  if(robj&&robj->Get_User_Data()){
  Drawable*draw=((DrawableInfo *)robj->Get_User_Data())->m_drawable;char*drawBytes=(char*)draw;Object*object=*(Object**)(drawBytes+0xfc);
- if(object){int layer=object->rva0028B511();if(layer!=1&&TheTerrainLogic){Rva00108E7AVector n;float height=TheTerrainLogic->getLayerHeight(pos.X,pos.Y,layer,&n,true);normal=n;return height+1.5f;}}
+ if(object){int layer=object->rva0028B511();if(layer!=1&&TheTerrainLogic){Rva00108E7AVector n;float height=TheTerrainLogic->getLayerHeight(pos.X,pos.Y,static_cast<PathfindLayerEnum>(layer),reinterpret_cast<Coord3D *>(&n),true);normal=n;return height+1.5f;}}
  }
  normal.Set(0,0,1);return 0;
 }
@@ -303,17 +263,8 @@ struct SHADOW_DECAL_DUAL_VERTEX { Real x, y, z; UnsignedInt diffuse; Real u0, v0
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class BoundedShortGrid { public: short load(int, int); };
 #include "../../../../Include/W3DDevice/GameClient/Gen_0074B410.h"
-class WorldHeightMap
-{
-public:
-	UnsignedShort getHeight(Int x, Int y) { return ((BoundedShortGrid *)this)->load(x, y); }
-	Real getDisplayHeight(Int x, Int y) { return getHeight(x, y) * MAP_HEIGHT_SCALE; }
-	// getFlipState is the bounds-checked bit-plane body rowed at 0x000ADF41
-	// (Gen_0074B410::bfmeBitA); retail's decal batch calls it directly.
-	char m_pad00[0x10];
-	Int m_borderSize;					// +0x10
-};
-class BaseHeightMapRenderObjClass { public: char m_pad[0x37c0]; WorldHeightMap *m_map; };
+#include "../../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#include "../../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 // Terrain draw extents for decals (file statics of W3DProjectedShadow.cpp in ZH;
 // retail 0xDEC2DC/E0/E4/E8, set by the shadow render pass).
@@ -426,7 +377,7 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 
 	Real mapScaleInv = 1.0f / MAP_XY_FACTOR;
 	WorldHeightMap *hmap = TheTerrainRenderObject->m_map;
-	Int borderSize = hmap->m_borderSize;
+	Int borderSize = hmap->getBorderSize();
 
 	Int startX = REAL_TO_INT_FLOOR(boundsX.X * mapScaleInv) + borderSize;
 	Int endX = REAL_TO_INT_CEIL(boundsX.Y * mapScaleInv) + borderSize;
@@ -502,7 +453,7 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 			for (Int i = startX; i <= endX; i++)
 			{
 				hmapVertex.X = (float)(i - borderSize) * MAP_XY_FACTOR;
-				hmapVertex.Z = __max((float)hmap->getHeight(i, j) * MAP_HEIGHT_SCALE, layerHeight);
+				hmapVertex.Z = __max((float)(UnsignedShort)((BoundedShortGrid *)hmap)->load(i, j) * MAP_HEIGHT_SCALE, layerHeight);
 				decalVertex[0] = hmapVertex - decalPos[0];
 				decalVertex[1] = hmapVertex - decalPos[1];
 				pvVertices->x = hmapVertex.X;
@@ -525,7 +476,7 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 			for (Int i = startX; i <= endX; i++)
 			{
 				hmapVertex.X = (float)(i - borderSize) * MAP_XY_FACTOR;
-				hmapVertex.Z = (float)hmap->getHeight(i, j) * MAP_HEIGHT_SCALE + 0.01f * MAP_XY_FACTOR;
+				hmapVertex.Z = (float)(UnsignedShort)((BoundedShortGrid *)hmap)->load(i, j) * MAP_HEIGHT_SCALE + 0.01f * MAP_XY_FACTOR;
 				decalVertex[0] = hmapVertex - decalPos[0];
 				decalVertex[1] = hmapVertex - decalPos[1];
 				pvVertices->x = hmapVertex.X;
@@ -741,10 +692,10 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 	Real bridgeHeight = -100.0f;
 	if (TheTerrainLogic)
 	{
-		terrainHeight = TheTerrainLogic->getLayerHeight(objPos.X, objPos.Y, 1, NULL, true);
-		BridgeView10C841 *bridge = TheTerrainLogic->findBridgeAt(objPos.X, objPos.Y, 0.0f);
+		terrainHeight = TheTerrainLogic->getLayerHeight(objPos.X, objPos.Y, static_cast<PathfindLayerEnum>(1), NULL, true);
+		BridgeView10C841 *bridge = reinterpret_cast<BridgeView10C841 *>(TheTerrainLogic->slot27(objPos.X, objPos.Y, 0.0f));
 		if (bridge)
-			bridgeHeight = TheTerrainLogic->getBridgeHeight(bridge) + 1.0f;
+			bridgeHeight = TheTerrainLogic->getWaterHeight(reinterpret_cast<const WaterHandle *>(bridge)) + 1.0f;
 		terrainHeight = std::max(terrainHeight, bridgeHeight);
 	}
 
@@ -813,7 +764,7 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 				shadow->m_casterDrawableID[count] = ((Rva0055A88BDwordField *)((PartitionObjectView10C841 *)obj)->getDrawable())->get();
 				shadow->m_casterBridge[count] = NULL;
 			}
-			for (BridgeView10C841 *bridge = TheTerrainLogic->getFirstBridge(); count < 16 && bridge; bridge = bridge->getNext())
+			for (BridgeView10C841 *bridge = reinterpret_cast<BridgeView10C841 *>(TheTerrainLogic->getFirstBridge()); count < 16 && bridge; bridge = bridge->getNext())
 			{
 				BridgeInfoView10C841 *info = bridge->getBridgeInfo();
 				if (info)
@@ -996,7 +947,7 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 
 	Real mapScaleInv = 1.0f / MAP_XY_FACTOR;
 	WorldHeightMap *hmap = TheTerrainRenderObject->m_map;
-	Int borderSize = hmap->m_borderSize;
+	Int borderSize = hmap->getBorderSize();
 
 	//Get terrain cell index for area with shadow
 	Int startX = REAL_TO_INT_FLOOR(xRange.X * mapScaleInv) + borderSize;
@@ -1079,7 +1030,7 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 		for (Int i = startX; i <= endX; i++)
 		{
 			hmapVertex.X = (float)(i - borderSize) * MAP_XY_FACTOR;
-			Real terrainZ = (float)hmap->getHeight(i, j) * MAP_HEIGHT_SCALE;
+			Real terrainZ = (float)(UnsignedShort)((BoundedShortGrid *)hmap)->load(i, j) * MAP_HEIGHT_SCALE;
 			hmapVertex.Z = std::max(terrainZ, bridgeHeight);
 			decalVertex = hmapVertex - objPos;
 			pvVertices->x = hmapVertex.X;
