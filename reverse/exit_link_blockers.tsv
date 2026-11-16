@@ -1,4 +1,4 @@
-# real link at 554e0181ebe0697f44715db40b2c590ae6984351: tools/exit_link.py --blockers
+# real link at f9071fffe86250ac224d7d9ddb6dd0ccb47181f5: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	9	??1Rva00119D00@@UAE@XZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
@@ -29,3 +29,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cp
 Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp	1	??0DieMuxData@@QAE@XZ
 Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpBuffer.c	1	_ghiSocketSelect
 Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c	1	_ghiSocketSelect
+Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	1	?g_Rva00E0A010@@3QBDB
+Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	1	?g_Rva0130A6E4@@3QBDB
+Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	1	?g_Rva0130A768@@3QBDB
