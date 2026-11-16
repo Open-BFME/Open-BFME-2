@@ -1596,7 +1596,6 @@ name,address,notes
 ??0Rva005EDF60@@QAE@ABV0@@Z,0x003AF89A,"copy constructor called by ?clone@Rva005EDF60@@QBEPAV1@XZ at retail 0x003AF860 read from its REL32 displacement; donor-carried name; body unrowed"
 ??0Rva005EE014BaseView@@QAE@HH@Z,0x005EE014,direct target of the two-argument call at 0x005D1340 from the 35-byte constructor at 0x005D1335; target begins its own EH prologue, allocates 0x54 bytes, calls 0x005EDB74 and returns at 0x005EE05B (the next Ghidra FUN begins 0x005EE05E); +0 vtable and +4 delegate pointer support an eight-byte base view; original type identity unknown
 ??0Rva005F6806Heap@@QAE@PAX00@Z,0x005F654C,0x38-byte heap class ctor for 0x005F6806 member +8 taking (owner,a1,a2): ghidra 698B EH ctor with ret 0xC; called on operator-new result
-??0Rva0060FE2@@QAE@XZ,0x0005CF5F,"constructor storing vtable 0x00BC55B0 (scalar deleting dtor ??_GRva0060FE2); REL32 in Win32GameEngine slot 36 factory 0x0005E97D after new 0xC08"
 ??0Rva0061ED40Base@@QAE@XZ,0x0061ED40,base ctor called by the 18B derived ctor at 0x00180E40; installs vtable 0x00C7C584 and initialises the +4 bitfield; address read from the REL32 displacement of the sibling body; body not yet converted
 ??0Rva00624DB0@@QAE@XZ,0x00624DB0,address-derived 0x200-byte object constructor called from ShdDefFactoryClass ctor 0x61EEE0; body unrowed
 ??0Rva006BF800RecordView@@QAE@ABU0@@Z,0x00063BE4,retail 6BF800 call graph; emitted worker independently matches existing body; application record identity unknown
@@ -3189,7 +3188,6 @@ name,address,notes
 ??1Rva00604396TreeView@@QAE@XZ,0x00604396,Call-only12B tree-prefix destructor view aliases full56B rowed RB tree cleanup; receiver604465+4; payload type not asserted by this view
 ??1Rva00604A68@@QAE@XZ,0x00604A68,destructor called by the vtable-referenced scalar deleting dtor 0x00604A6F (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva0060CC99Member@@QAE@XZ,0x0060CC99,Target direct call from XferSave field at +0x2C; opaque helper identity
-??1Rva0060FE2@@UAE@XZ,0x0060FE2,opaque SEH dtor (mov-eax-cookie prologue, sub esp frame); called by scalar-deleting-dtor at 0x61AA1; identity unproven, address-derived name
 ??1Rva006109C0@@UAE@XZ,0x006109C0,"destructor the scalar deleting destructor 0x000657E6 calls (REL32 at 0x000657E9; vtable 0x00BC5C6C#0); opaque address name"
 ??1Rva0061ED80@@UAE@XZ,0x0061ED80,opaque vector-destroying dtor (17B: member+0xC via ehvec 0x42FD80 + vptr); tail-called by single-inheritance dtor at 0x180EA0; identity unproven, address-derived name
 ??1Rva00625800Dtor@@UAE@XZ,0x00625800,address-derived class dtor called by the 30B scalar deleting destructor at 0x00626D90; address read from that body REL32; class identity unproven so the model is named for the call target
@@ -3241,9 +3239,7 @@ name,address,notes
 ??1Rva008B2EF0@@UAE@XZ,0x006F1360,TU-private view (Rva006F1E70Cluster.cpp) of the derived class whose destructor is rowed as ??1Rva006F1360; the parent's unwind funclet destroys that subobject by jumping here; original class name unknown
 ??1Rva008E4EC@@UAE@XZ,0x008E4EC,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x8E533; identity unproven, address-derived name
 ??1Rva0090771@@UAE@XZ,0x0090771,opaque trivial dtor (7B vptr 0xBC7E94 reinstall); called by scalar-deleting-dtor at 0x910FF; identity unproven, address-derived name
-??1Rva0090840@@UAE@XZ,0x0090840,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x91153; identity unproven, address-derived name
 ??1Rva009203A@@UAE@XZ,0x009203A,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC80A0); called by scalar-deleting-dtor at 0x92123; identity unproven, address-derived name
-??1Rva009D6FA@@UAE@XZ,0x009D6FA,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x9D9A1; identity unproven, address-derived name
 ??1Rva009D8630BlockWriter@@UAE@XZ,0x0060D0B3,"auto-pin (permute --pins): REL32 call target read from retail in 0x0023cb2c, whose banked body is byte-exact once this call resolves"
 ??1Rva009EB810TailBase@@UAE@XZ,0x0061ED80,callee of 1Gen_dtor_00970f60 (0x0018021C) at the site its BFME1 donor calls it; may be an ICF alias
 ??1Rva009EBCE0AssetReference@@QAE@XZ,0x0017098D,TU-private view (RegistryPrototypeLookup.cpp) of a refcounted asset handle whose destructor - release the referent when non-null - is byte-identical to the rowed RefCountPtr<TextureClass> destructor and ICF-folded onto it; both unwind funclets 0x007A7410/0x007A7429 of the rowed Rva009EBCE0_GetPrototype destroy their handle by jumping here; the original class name is unknown
@@ -3611,7 +3607,6 @@ name,address,notes
 ??_ERva0056B2DD@@UAEPAXI@Z,0x0056B498,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x0056B34E jumps here
 ??_ERva00576C4B@@UAEPAXI@Z,0x00576DD5,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x00576D05 jumps here
 ??_ERva005813E@@UAEPAXI@Z,0x00058122,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
-??_ERva0060FE2@@UAEPAXI@Z,0x00061AA1,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva0062AF7@@UAEPAXI@Z,0x00062E8D,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva006DD51@@UAEPAXI@Z,0x0006DE21,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva006ED6F@@UAEPAXI@Z,0x0006F24A,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"

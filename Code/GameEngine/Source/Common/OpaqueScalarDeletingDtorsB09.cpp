@@ -229,34 +229,6 @@ Rva005813E::~Rva005813E()
         reinterpret_cast<MilesAudioManager *>(TheAudio)->rva00057948(this);
 }
 
-class __declspec(novtable) Rva0060FE2Base0
-{
-public:
-	virtual ~Rva0060FE2Base0();
-private:
-	char m_unmodelled[0x8];
-};
-
-// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0xC) at 0x0005D41D in its vtable is target evidence for it.
-class __declspec(novtable) Rva0060FE2BaseC
-{
-public:
-	virtual ~Rva0060FE2BaseC();
-};
-class Rva0060FE2 : public Rva0060FE2Base0, public Rva0060FE2BaseC
-{
-public:
-	Rva0060FE2(EmitVtableTag *);
-public:
-	virtual ~Rva0060FE2();
-};
-
-// ?<Rva0060FE2::Rva0060FE2> absent-from-retail
-Rva0060FE2::Rva0060FE2(EmitVtableTag *)
-{
-}
-
 #include "../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 class __declspec(novtable) Rva006D0D7Base0

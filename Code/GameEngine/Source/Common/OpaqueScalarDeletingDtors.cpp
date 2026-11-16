@@ -117,34 +117,6 @@ Rva0090771::Rva0090771(EmitVtableTag *)
 {
 }
 
-class Rva0090840
-{
-public:
-	Rva0090840(EmitVtableTag *);
-	virtual ~Rva0090840();
-};
-
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva0090840::Rva0090840> absent-from-retail
-Rva0090840::Rva0090840(EmitVtableTag *)
-{
-}
-
-class Rva009D6FA
-{
-public:
-	Rva009D6FA(EmitVtableTag *);
-	virtual ~Rva009D6FA();
-};
-
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva009D6FA::Rva009D6FA> absent-from-retail
-Rva009D6FA::Rva009D6FA(EmitVtableTag *)
-{
-}
-
 #include "../../Include/Common/Rva00785FD0Renderer.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GRva00785FD0Renderer (it

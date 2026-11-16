@@ -124,3 +124,24 @@ releaseBuffer row rather than the historical AsciiString-destructor pin.
 No alias, pin, stub or runtime fallback was added. This clears only this
 consumer in preview; GameLogic.cpp still has its separate explicit-output
 factory call. Real-link/runtime confirmation remains pending.
+
+## 2026-11-17: retire three superseded opaque emitters
+
+The Rva0060FE2, Rva0090840 and Rva009D6FA emitter blocks are retired through
+four separately reviewed row retractions, retaining existing native providers
+at 00061AA1/28B, 0005D41D/8B, 00091153/28B and 0009D9A1/28B. All 92 unique
+bytes remain covered. The four native rows no longer cite the retired carrier
+as their fold proof; four deletion tombstones prevent union-merge resurrection.
+Five obsolete pins are removed through the normal shrinking hatch update.
+
+A complete current-object audit found no reference to any of the 20 retired
+names in the 17,540 objects outside the two carriers (17,542 expected/current,
+zero missing/stale). The rebuilt carriers remove exactly 13 obsolete providers,
+add none and leave every retained definition unchanged. Official verification
+passes 537/537 functions, three data rows and 85/85 EH graphs. All three native
+provider units still link in the scoped preview. The opaque carriers retain
+six and two other missing destructors; this removes three missing references,
+not every blocker. The preview census remains stale, and fresh full-link/runtime
+confirmation is pending. No bridge debt is retired by this source cleanup.
+
+[Exact native owners, consumer proof and verification](../../reverse/attempt_support/opaque-deleting-retirement-20261117.md).
