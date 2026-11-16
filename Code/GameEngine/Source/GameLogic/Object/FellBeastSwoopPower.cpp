@@ -181,35 +181,7 @@ public:
 	Drawable *getDrawable() const;
 };
 
-// Primary vftable 0x00C5DF80 (the FellBeastSwoopPower ctor 0x004C6C1E installs
-// it): slot 3 xfer, slot 4 getModuleNameKey, slot 13 onExit (SpecialAbilityUpdate
-// base 0x004502CE), slot 17 triggerAbilityEffect; the other slot names are not
-// established.
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-
-
-protected:
-	virtual void xfer(Xfer *xfer);
-public:
-	virtual NameKeyType getModuleNameKey() const;
-
-
-
-protected:
-	virtual void onExit(bool a, bool b);
-public:
-	virtual void primarySlot14();
-	virtual void primarySlot15();
-	virtual void primarySlot16();
-	virtual void triggerAbilityEffect();
-protected:
-	unsigned char m_pad24[0x40 - 0x24];
-	ObjectID m_targetID;		// +0x40
-	Coord3D m_targetPos;		// +0x44
-	unsigned char m_pad50[0x88 - 0x50];
-};
+#include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class FellBeastSwoopPower : public SpecialAbilityUpdate
 {

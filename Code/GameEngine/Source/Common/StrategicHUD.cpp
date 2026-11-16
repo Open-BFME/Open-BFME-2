@@ -962,13 +962,7 @@ BFME_DISP8_BYTE_GETTER(Rva0057A3D3ByteField, 0x48)
 // Slot 1 (allow) of partition filter vftable 0x00C1FE28.
 struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
 class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
-// 0x00490628: false while +0x98 is set, else the rowed
-// SpecialAbilityUpdate::continuePreparation (slot 16) it overrides.
-class SpecialAbilityUpdate
-{
-public:
-	virtual bool continuePreparation();
-};
+#include "../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 #include "../../Include/Common/ThingTemplate.h"
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;

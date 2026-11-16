@@ -11,17 +11,13 @@ typedef unsigned int UnsignedInt;
 
 // 0x00490628: false while +0x98 is set, else the rowed
 // SpecialAbilityUpdate::continuePreparation (slot 16) it overrides.
-class SpecialAbilityUpdate
-{
-public:
-	virtual bool continuePreparation();
-};
+#include "../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class ArrowStormUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual bool continuePreparation();
 private:
-	char m_pad04[0x94];
+	char m_pad88[0x98 - 0x88];
 	bool m_98;
 };
 bool ArrowStormUpdate::continuePreparation()

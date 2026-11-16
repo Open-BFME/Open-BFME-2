@@ -46,14 +46,12 @@ public:
 
 class FXList;
 
-struct TeleportData{char pad[0xC8];float radius,minRadius,maxRadius;const FXList *endFX;};
-
 struct FindPositionOptions{
  FindPositionOptions():flags(0),minRadius(0),maxRadius(0),startAngle(-99999.9f),maxZDelta(1e10f),ignoreObject(0),sourceToPathToDest(0),relationshipObject(0){}
  unsigned flags;float minRadius,maxRadius,startAngle,maxZDelta;const Object *ignoreObject,*sourceToPathToDest,*relationshipObject;
 };
 
-class SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 // StoreObjectsSpecialPower lookup: target128B proves owner+8 object, object244 module list and slot4 name-key query; store+88 vector uses ObjectID-width unsigned slots.
 enum NameKeyType
@@ -357,16 +355,8 @@ public:
 	virtual void target(const FXList *fx);
 };
 
-struct Rva004CD4DCMid
-{
-	unsigned char m_pad[0xD8];
-	const FXList *m_fx;
-};
-
-struct TeleportData;
-
 	// base trigger 0x0045108D
-class TeleportToCasterSpecialPower:public SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();const TeleportData *data;Object *owner;char pad0C[0x44-0x0C];Coord3D targetPosition;
+class TeleportToCasterSpecialPower:public SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();
  void teleportList(const _STL::vector<ObjectID>*,const Coord3D*);void rva004CD4DC(Object*);};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp
@@ -391,8 +381,8 @@ TeleportToCasterSpecialPowerModuleData::~TeleportToCasterSpecialPowerModuleData(
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp
 
 void TeleportToCasterSpecialPower::teleportList(const _STL::vector<ObjectID>*ids,const Coord3D*center){
- const TeleportData *moduleData=data;
- FindPositionOptions options;options.minRadius=moduleData->minRadius;options.maxRadius=moduleData->maxRadius;
+ const TeleportToCasterSpecialPowerModuleData *moduleData=static_cast<const TeleportToCasterSpecialPowerModuleData *>(m_moduleData);
+ FindPositionOptions options;options.minRadius=moduleData->fieldCC;options.maxRadius=moduleData->fieldD0;
  int count=ids->size();float angleSpacing=6.28318530718f/count;float angle=0;
  for(_STL::vector<ObjectID>::const_iterator it=ids->begin();it!=ids->end();++it,angle+=angleSpacing){
   Object *object=TheGameLogic->findObjectByID(*it);
@@ -439,16 +429,16 @@ void *Rva004CD45C::rva004CD45C()
 void TeleportToCasterSpecialPower::triggerAbilityEffect()
 {
 	SpecialAbilityUpdate::triggerAbilityEffect();
-	Object *object = owner;
-	const TeleportData *moduleData = data;
+	Object *object = m_object;
+	const TeleportToCasterSpecialPowerModuleData *moduleData = static_cast<const TeleportToCasterSpecialPowerModuleData *>(m_moduleData);
 	Rva004CD45CItem *stored = (Rva004CD45CItem *)((Rva004CD45C *)this)->rva004CD45C();
 	if (stored) {
-		teleportList((const _STL::vector<ObjectID> *)&stored->m_vecBeg, &targetPosition);
+		teleportList((const _STL::vector<ObjectID> *)&stored->m_vecBeg, &m_targetPos);
 		((Rva004CDA35 *)stored)->rva004CDA35();
 	} else {
 		const void *what = &((TeleportPowerModule *)((Rva0044E633 *)this)->rva0044E633())->getSpecialPowerTemplate()->getFO()->field60;
 		Rva0023DA79 statusMask;
-		BfmeWideResult result = ThePartitionManager->iterateObjectsInRange(&targetPosition, moduleData->radius, 0,
+		BfmeWideResult result = ThePartitionManager->iterateObjectsInRange(&m_targetPos, moduleData->fieldC8, 0,
 			Rva002614DFFilter(object).link(Rva0026119DFilter().link(PartitionFilterRejectByKindOf(*(const BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 7, 0x86), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE).link(
 			Rva00260EB1Filter(object, 4, false).link(Rva002611BFFilter(object).link(&Rva002614ECFilter(what, object->getControllingPlayer(), true))->link(
 			&Rva002FDF1C(*(BfmeObject872Header *)statusMask.rva0023DA79(0, 0x26), BfmeObject872Header())))))), 1);
@@ -465,7 +455,7 @@ void TeleportToCasterSpecialPower::triggerAbilityEffect()
 		}
 		teleportList(&ids, &object->position);
 	}
-	FXList::doFXPos(moduleData->endFX, &targetPosition, 0, 0.0f, 0);
+	FXList::doFXPos(moduleData->fieldD4, &m_targetPos, 0, 0.0f, 0);
 }
 
 // tu-skeleton: 0x004CD389 27B ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
@@ -489,13 +479,13 @@ void TeleportToCasterSpecialPower::triggerAbilityEffect()
 
 void TeleportToCasterSpecialPower::rva004CD4DC(Object *obj)
 {
-	const Rva004CD4DCMid *mid = (const Rva004CD4DCMid *)data;
+	const TeleportToCasterSpecialPowerModuleData *mid = static_cast<const TeleportToCasterSpecialPowerModuleData *>(m_moduleData);
 	void *v = obj->rva0029439D();
 	if (v != 0 && mid != 0) {
-		((Rva004CD4DCItem *)v)->target(mid->m_fx);
+		((Rva004CD4DCItem *)v)->target(mid->fieldD8);
 		return;
 	}
-	FXList::doFXObj(mid->m_fx, obj, 0);
+	FXList::doFXObj(mid->fieldD8, obj, 0);
 }
 
 // tu-skeleton: 0x007909B7 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TeleportToCasterSpecialPowerPoolKey.cpp (not merged yet)
