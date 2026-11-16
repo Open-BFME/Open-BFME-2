@@ -12,11 +12,8 @@
 extern "C" unsigned char __identifier("??_7BfmeParserBindingBaseVE@@6B@")[];
 
 
-class BfmeSubVE
-{
-public:
-	void bfmeDropVE(void *what);
-};
+class BfmeSubVE;
+#include "../../Include/GameLogic/Q1Forwardee0000871A.h"
 
 class BfmeThingVE
 {
@@ -32,7 +29,7 @@ void *BfmeThingVE::bfmeKillVE(int flags)
 	void *what = m_parser;
 	BfmeSubVE *sub = m_input;
 	m_vtable = __identifier("??_7BfmeParserBindingBaseVE@@6B@");
-	sub->bfmeDropVE(what);
+	((Q1Forwardee0000871A *)sub)->handle((int)what);
 	if ((flags & 1) != 0)
 		::operator delete(this);
 	return this;

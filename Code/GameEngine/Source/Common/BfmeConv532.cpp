@@ -5,14 +5,11 @@
 // places uniquely on unclaimed game.dat .text by masked whole-.text search:
 //   ?bfmeGoBUC@@YAXPAVBfmeSubBUC@@PAX111@Z 0x00456520 (29B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
-class BfmeSubBUC
-{
-public:
-	void bfmeDoBUC(void *one, void *two, void *three, void *four);
-};
+class BfmeSubBUC;
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
 
 void bfmeGoBUC(BfmeSubBUC *sub, void *one, void *two, void *three, void *four)
 {
 	if (sub != 0)
-		sub->bfmeDoBUC(one, two, three, four);
+		((ObjectCreationList *)sub)->create(one, two, three, (int)four);
 }

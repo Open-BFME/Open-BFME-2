@@ -14,14 +14,15 @@ struct BfmeKeySX
 	BfmeInnerSX m_bfmeInnerSX;
 };
 
-bool __cdecl bfmeSameSX(const BfmeInnerSX &first, const BfmeInnerSX &second);
+struct Rva00452FE0Key;
+int __cdecl Rva00452FE0Same(const Rva00452FE0Key &first, const Rva00452FE0Key &second);
 int __cdecl bfmeEqualSX(const BfmeKeySX &first, const BfmeKeySX &second)
 {
 	return first.m_bfmeASX == second.m_bfmeASX
 		&& first.m_bfmeBSX == second.m_bfmeBSX
 		&& first.m_bfmeCSX == second.m_bfmeCSX
 		&& first.m_bfmeDSX == second.m_bfmeDSX
-		&& bfmeSameSX(first.m_bfmeInnerSX, second.m_bfmeInnerSX);
+		&& ((unsigned char)Rva00452FE0Same(*(const Rva00452FE0Key *)&first.m_bfmeInnerSX, *(const Rva00452FE0Key *)&second.m_bfmeInnerSX) != 0);
 }
 
 // ?Rva00301E7BNotEqual@@YAHABUBfmeKeySX@@0@Z @0x00301E7B 21B.

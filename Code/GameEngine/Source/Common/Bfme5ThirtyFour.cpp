@@ -460,6 +460,7 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
 // is the signed zero-equality string operation at owner8. Returned
 // counted value supplies the construction slot that the old out-pointer
 // reconstruction had to force with a volatile local.
+struct Rva008B4260StringRef { int compare008B4260(const Rva008B4260StringRef &) const; };
 struct Rva006D0A30Node { Rva006D0280 *entry; Rva006D0A30Node *next;
  Rva006D0A30Node(Rva006D0280*entryObject):entry(entryObject),next(0){}
  __forceinline static void*operator new(unsigned int n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);}
@@ -475,7 +476,7 @@ public:
 Rva006D07E0Key Rva006D0A30List::find(const EAStringC *key) {
  Rva006D0A30Node *node=head;
  while(node) {
-  if(node->entry->name8.rva006D36C0(key)==0)
+  if(((const Rva008B4260StringRef *)&node->entry->name8)->compare008B4260(*(const Rva008B4260StringRef *)key)==0)
    return Rva006D07E0Key(node->entry);
   node=node->next;
  }
