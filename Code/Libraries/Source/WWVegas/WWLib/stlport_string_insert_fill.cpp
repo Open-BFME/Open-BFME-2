@@ -20,7 +20,6 @@
 namespace _STL
 {
 void *__copy_trivial(const void *__first, const void *__last, void *__result);
-#pragma optimize("", on)
 inline void fill(char *__first, char *__last, const char &__val)
 {
 	char __tmp = __val;

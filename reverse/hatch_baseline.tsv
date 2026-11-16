@@ -9540,7 +9540,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Rva003F9004.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0041E561.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva0041E561.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva00474431Finish.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Rva00474431Finish.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva00474431Finish.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva004FD4AE.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva004FD4AE.cpp	"t",on	1
@@ -9572,7 +9571,7 @@ pragma_optimize	Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp	"",on	
 pragma_optimize	Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"",on	3
+pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"s",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"gsy",on	1
@@ -10001,7 +10000,7 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"",on	3
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_ldr.cpp	"",on	1
@@ -10186,7 +10185,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_rva002e0864_sort.cpp
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_stdexcept_dtors.cpp	"",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_stdexcept_dtors.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_string_insert_fill.cpp	"",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_string_insert_fill.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmestringrecord0022074b_pushback.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool.cpp	"s",on	1
@@ -10200,7 +10198,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp	"",o
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair_char_insert_overflow.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_push_back.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_push_back.cpp	"t",on	1
