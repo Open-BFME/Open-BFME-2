@@ -181,15 +181,7 @@ extern TeamFactory *TheTeamFactory;
 
 #include "../../../../../Include/Common/Rva002A8AB1Record.h"
 
-class Rva002A8F24
-{
-public:
-	unsigned char m_pad00[0x870];
-    float m_movementThreshold;
-    void *rva002A8F24(Player *);
-    void *rva002A8B73(void *owner, int id);
-    Rva002A8AB1Record *rva002A8AB1(void *owner);		// 0x002A8AB1
-};
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
@@ -574,7 +566,7 @@ void AITactic::updateTeamInfos()
         team->rva0039E5B9(&position);
         float dx = position.x - rec->m_lastPosition.x;
         float dy = position.y - rec->m_lastPosition.y;
-        float threshold = TheSkirmishAIManager->m_movementThreshold;
+        float threshold = TheSkirmishAIManager->field_870;
         bool moved = false;
         if (dx * dx + dy * dy > threshold * threshold) {
             rec->m_lastPosition = position;

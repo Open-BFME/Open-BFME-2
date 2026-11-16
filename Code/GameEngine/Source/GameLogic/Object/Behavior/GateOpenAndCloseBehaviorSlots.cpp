@@ -41,12 +41,7 @@ unsigned char Rva00498B8BGet(Object *object);
 
 #include "../../../../Include/GameLogic/Module/GateOpenBehaviorList.h"
 
-class Rva002A8F24
-{
-public:
-	unsigned char m_pad[0x940];
-	GateOpenBehaviorList *m_gateList; // +0x940
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 enum NameKeyType { NK_UNKNOWN = 0 };
@@ -142,7 +137,7 @@ private:
 // ??1GateOpenAndCloseBehavior@@UAE@XZ @0x00498798
 GateOpenAndCloseBehavior::~GateOpenAndCloseBehavior()
 {
-	GateOpenBehaviorList *list = TheSkirmishAIManager->m_gateList;
+	GateOpenBehaviorList *list = TheSkirmishAIManager->field_940;
 	list->rva004E908C(this);
 }
 

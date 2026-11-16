@@ -1,6 +1,6 @@
 // Target facts (code addresses are RVAs; table and string addresses are VAs):
 // Constructor 0x002A9725 calls SubsystemInterface 0x001B4E63, stores Snapshot's 0x00BBB554 at +0x0C, then 0x00BFDB94 at +0 and 0x00BFDB84 at +0x0C. Destructor 0x002A921B installs the same pair before restoring the base tables at 0x002A92C9 and 0x001B4E74. These are successive base/class lifetime states, not competing class tables. Allocation 0x0022F8FA requests 0x944 bytes and calls this constructor at 0x0022F912.
-// Primary table 0x00BFDB94 has fourteen SubsystemInterface slots: 0 = deleting destructor 0x002A93F5, 1 = empty init 0x000B3FD0, 2 = 0x001B5384, 3 = 0x000B3FD0, 4 = 0x005CB9FF, 5 = 0x0047A699, 6 = 0x000D43D0, 7 = 0x0047A69C, 8 = 0x000B3FD0, 9 = reset 0x002A9072, 10 = update 0x002A8E7B, 11 = 0x005CB9FF, 12 = 0x000B3FD0, 13 = 0x0047A69C. Snapshot table 0x00BFDB84 has four slots: deleting thunk 0x002A92EA (this -= 0x0C), empty loadPostProcess 0x000B3FD0, name getter 0x002A92E4 returning "SkirmishAIManager" at 0x00BFDBCC, and xfer 0x002A8C44. The two bases occupy +0..+0x0F. The member constructor called at 0x002A975C receives this+0x10: its stores at 0x002A8D78, 0x002A8DC5, 0x002A8DD8 and 0x002A8E3B prove float +0x850, byte +0x860, float +0x870 and float +0x884. Retail consumers confirm float +0x850 at 0x0033A757 and 0x0026F062, byte +0x860 at 0x004E93D0 and float +0x884 at 0x00573742. Lookup 0x002A8AB1 scans four-byte pointers between +0x914 and +0x918. Other storage stays opaque. The method declarations below retain the ledger spellings and the two existing 0x002A8F24 caller spellings recorded at retail calls 0x0050537A and 0x005052A5.
+// Primary table 0x00BFDB94 has fourteen SubsystemInterface slots: 0 = deleting destructor 0x002A93F5, 1 = empty init 0x000B3FD0, 2 = 0x001B5384, 3 = 0x000B3FD0, 4 = 0x005CB9FF, 5 = 0x0047A699, 6 = 0x000D43D0, 7 = 0x0047A69C, 8 = 0x000B3FD0, 9 = reset 0x002A9072, 10 = update 0x002A8E7B, 11 = 0x005CB9FF, 12 = 0x000B3FD0, 13 = 0x0047A69C. Snapshot table 0x00BFDB84 has four slots: deleting thunk 0x002A92EA (this -= 0x0C), empty loadPostProcess 0x000B3FD0, name getter 0x002A92E4 returning "SkirmishAIManager" at 0x00BFDBCC, and xfer 0x002A8C44. The two bases occupy +0..+0x0F. The member constructor called at 0x002A975C receives this+0x10: its stores at 0x002A8D78, 0x002A8DC5, 0x002A8DD8 and 0x002A8E3B prove float +0x850, byte +0x860, float +0x870 and float +0x884. Retail consumers confirm float +0x850 at 0x0033A757 and 0x0026F062, byte +0x860 at 0x004E93D0 and float +0x884 at 0x00573742. Lookup 0x002A8AB1 scans four-byte pointers between +0x914 and +0x918. The constructor clears +0x940 at 0x002A979D and stores a 12-byte allocation there at 0x002A97C9; retail loads it as the receiver of GateOpenBehaviorList::appendOnce 0x004E9353 at 0x0049894D and of 0x004E908C at 0x004987D7, so +0x940 is a GateOpenBehaviorList pointer. Other storage stays opaque. The method declarations below retain the ledger spellings and the two existing 0x002A8F24 caller spellings recorded at retail calls 0x0050537A and 0x005052A5.
 
 #ifndef CANONICAL_RVA002A8F24_H
 #define CANONICAL_RVA002A8F24_H
@@ -16,6 +16,7 @@
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 class Xfer;
 
+class GateOpenBehaviorList;
 class Object;
 class Player;
 class Rva004E9600;
@@ -66,7 +67,8 @@ public:
     unsigned char m_pad888[0x8C];
     Rva004E9600 **field_914;
     Rva004E9600 **field_918;
-    unsigned char m_pad91C[0x28];
+    unsigned char m_pad91C[0x24];
+    GateOpenBehaviorList *field_940;
 };
 
 #endif

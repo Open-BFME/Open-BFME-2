@@ -14,8 +14,8 @@
 // the compiler's vptr stores (0x00C50178 +0, 0x00C50144 +4, 0x00BEF248 +0x10,
 // 0x00C50138 +0x14), as in retail.
 // The new behavior registers itself into the global gate list at
-// [0xDFEEF8]+0x940 through the rowed appendOnce helper; the list owner itself
-// is unidentified, so it is reached through its data-ledger name TheSkirmishAIManager. Row supersedes the
+// [0xDFEEF8]+0x940 through the rowed appendOnce helper; the list owner is
+// reached through its data-ledger name TheSkirmishAIManager. Row supersedes the
 // same-name pin; the instance factory (0x24E28B, news 0x4C) stays green via
 // the row, as does the appendOnce home TU.
 //
@@ -28,7 +28,6 @@
 
 // GateOpenAndCloseModuleData layout from INI table 0xBF19F8: OpenByDefault
 // at +8, ResetTimeInMilliseconds at +0xC (UpdateModuleData base runs to +8).
-// unidentified, so the +0x940 list is reached by offset.
 #include <vector>
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
@@ -44,15 +43,9 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 
 #include "../../../../Include/GameLogic/Module/GateOpenBehaviorList.h"
 
-class Rva002A8F24
-{
-public:
-	unsigned char m_pad[0x940];
-	GateOpenBehaviorList *m_gateList; // +0x940
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 
-// The list owner at 0x00DFEEF8 (data ledger name TheSkirmishAIManager); its class is
-// unidentified, so its view names only the list at +0x940.
+// The list owner at 0x00DFEEF8 (data ledger name TheSkirmishAIManager) holds the list at +0x940.
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 enum ObjectID;
@@ -188,5 +181,5 @@ GateOpenAndCloseBehavior::GateOpenAndCloseBehavior(Thing *thing, const ModuleDat
 	m_stateFrame = TheGameLogic->getFrame();
 	m_2C = 0;
 	m_linkedObjectId = INVALID_OBJECT_ID;
-	TheSkirmishAIManager->m_gateList->appendOnce(this);
+	TheSkirmishAIManager->field_940->appendOnce(this);
 }
