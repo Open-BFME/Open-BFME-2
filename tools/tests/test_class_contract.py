@@ -161,3 +161,92 @@ def test_an_unmeasurable_nested_class_never_supplies_partial_array_facts(flag):
     assert C.aggregate({"Bad": bad}, "Bad", 16) is None
     outer = {"size": 16, "vfptr": False, "bases": [], "fields": [[0, "whole", "Bad", 16]]}
     assert C.flatten(outer, {"Bad": bad}, leaves=True) == [(0, 16, "S:Bad", "whole", "Bad")]
+
+
+def view(size=16, key="struct", **extra):
+    return dict({"key": key, "size": size, "bases": [], "fields": [],
+                 "vslots": {}, "vfptr": False}, **extra)
+
+
+@pytest.mark.parametrize("flag", ["error", "unparsed"])
+def test_refused_bases_cannot_supply_inherited_fields_spans_or_vtable_facts(flag):
+    bad = view(vfptr=True, vslots={"0": "untrusted"}, **{flag: "unknown array width"})
+    middle = view(bases=[("Bad", 0)])
+    derived = view(bases=[("Middle", 0)], fields=[[4, "own", "int", 4]], vslots={"1": "own"})
+    every = {"Bad": bad, "Middle": middle, "Derived": derived}
+    assert C.flatten(derived, every, leaves=True) == []
+    assert C.inherited_spans(derived, every) == []
+    assert C.slot_count(derived, every) == 0
+    assert C.aggregate(every, "Middle", 16) is None
+    assert "Bad" in C.layout_error(derived, every)
+
+
+def mock_decision(monkeypatch, got, every, donor=None):
+    monkeypatch.setattr(C.class_layouts, "build_module", lambda: object())
+    monkeypatch.setattr(C, "ledger_rows", lambda: [])
+    monkeypatch.setattr(C, "views", lambda *a: (got, every))
+    monkeypatch.setattr(C, "zh_layout", lambda *a: donor)
+    monkeypatch.setattr(C, "retail_access", lambda *a: {})
+    monkeypatch.setattr(C, "witnesses", lambda *a: {})
+    monkeypatch.setattr(C, "retail_vtable", lambda *a: {})
+    monkeypatch.setattr(C, "retail_layout", lambda *a: {})
+    monkeypatch.setattr(C, "export_key", lambda *a: set())
+    return C.decide("Probe", sources=list(got))
+
+
+@pytest.mark.parametrize("flag", ["error", "unparsed"])
+@pytest.mark.parametrize("inherited", [False, True])
+def test_invalid_donor_cannot_override_valid_source_size_or_class_key(monkeypatch, flag, inherited):
+    got = {"a.cpp": view(), "b.cpp": view(), "c.cpp": view(32)}
+    every = {s: {"Probe": layout} for s, layout in got.items()}
+    failed = view(32, "class", vfptr=True, vslots={"0": "untrusted"}, **{flag: "unknown array width"})
+    donor_layout = view(32, "class", bases=[("Bad", 0)]) if inherited else failed
+    donor = {"header": "Probe.h", "layout": donor_layout, "every": {"Probe": donor_layout, "Bad": failed}}
+    decided = mock_decision(monkeypatch, got, every, donor)
+    assert decided["size"] == 16 and decided["size_by"] == "majority"
+    assert decided["key"] == "struct" and decided["key_by"] == "majority"
+    assert decided["vslots"] == {}
+    assert "error" in decided["evidence"]["zh"]
+    assert decided["queue"] == []
+
+
+@pytest.mark.parametrize("flag", ["error", "unparsed"])
+def test_invalid_inherited_source_view_is_not_a_size_key_or_slot_vote(monkeypatch, flag):
+    got = {"a.cpp": view(), "b.cpp": view()}
+    bad = view(32, "class", vfptr=True, vslots={"0": "untrusted"}, **{flag: "unknown array width"})
+    derived = view(32, "class", bases=[("Bad", 0)])
+    got.update({"bad.cpp": derived})
+    every = {s: {"Probe": layout} for s, layout in got.items()}
+    every["bad.cpp"]["Bad"] = bad
+    decided = mock_decision(monkeypatch, got, every)
+    assert decided["size"] == 16 and decided["key"] == "struct"
+    assert decided["bases"] == [] and decided["vslots"] == {}
+    assert decided["sources"] == ["a.cpp", "b.cpp"]
+    assert decided["evidence"]["views"] == 2 and decided["evidence"]["view_errors"] == 1
+
+
+@pytest.mark.parametrize("flag", ["error", "unparsed"])
+def test_zh_probe_reports_invalid_layout_as_unavailable(monkeypatch, tmp_path, flag):
+    from types import SimpleNamespace
+
+    header = tmp_path / "CnC_Generals_Zero_Hour" / "Probe.h"
+    header.parent.mkdir()
+    header.write_text("class Probe { int x; };")
+    monkeypatch.setattr(C, "ROOT", tmp_path)
+    monkeypatch.setattr(C.class_layouts, "CACHE", tmp_path / "cache")
+    failed = view(32, "class", **{flag: "unknown array width"})
+    monkeypatch.setattr(C.class_layouts, "compile_layouts", lambda *a: {"Probe": failed})
+    builder = SimpleNamespace(ZH_REFERENCE_ROOT=header.parent, _ZH_FLAGS=[])
+    donor = C.zh_layout("Probe", builder)
+    assert "layout" not in donor and "every" not in donor
+    assert donor["error"] == "unknown array width"
+
+
+def test_valid_donor_still_decides_size_and_class_key(monkeypatch):
+    got = {"a.cpp": view(), "b.cpp": view(), "c.cpp": view(32)}
+    every = {s: {"Probe": layout} for s, layout in got.items()}
+    donor_layout = view(32, "class")
+    donor = {"header": "Probe.h", "layout": donor_layout, "every": {"Probe": donor_layout}}
+    decided = mock_decision(monkeypatch, got, every, donor)
+    assert decided["size"] == 32 and decided["size_by"] == "zh"
+    assert decided["key"] == "class" and decided["key_by"] == "zh"

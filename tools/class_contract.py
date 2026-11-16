@@ -217,10 +217,27 @@ def kind(type_name):
     return PRIMK.get(type_name, "S:" + type_name)
 
 
+def layout_error(layout, every, seen=frozenset()):
+    """A parse refusal invalidates this layout and every view inheriting it."""
+    if "error" in layout:
+        return str(layout["error"]) or "layout parsing failed"
+    if layout.get("unparsed"):
+        return str(layout["unparsed"])
+    if id(layout) in seen:
+        return None
+    seen = seen | {id(layout)}
+    for base_name, _ in layout.get("bases", ()):
+        if base_name in every:
+            why = layout_error(every[base_name], every, seen)
+            if why is not None:
+                return f"base {base_name}: {why}"
+    return None
+
+
 def aggregate(every, type_name, size):
     """The layout of a plain member aggregate `type_name` (no vftable), else None."""
     layout = every.get(type_name)
-    if (not layout or layout.get("fwd") or layout.get("error") or layout.get("unparsed")
+    if (not layout or layout.get("fwd") or layout_error(layout, every) is not None
             or layout.get("vfptr") or layout.get("virtual") or layout.get("size") != size):
         return None
     return layout
@@ -232,6 +249,8 @@ def flatten(layout, every, base=0, depth=0, leaves=False, prefix=""):
     leaves=True also expands plain member aggregates into their scalars, named
     `member.field`: a view spelling `Coord2D lo` and one spelling `float x_min,
     y_min` then vote on the same offsets (regroup() restores the aggregate)."""
+    if layout_error(layout, every) is not None:
+        return []
     out = []
     if layout.get("vfptr") and not layout.get("bases"):
         out.append((base, 4, "VPTR", prefix + "__vfptr", "void*"))
@@ -261,6 +280,8 @@ def inherited_spans(layout, every):
     An empty base (no vfptr, field or base of its own) occupies nothing: MSVC lays
     the derived class's first member over it. A base the view never defines gives
     no span either; its fields cannot be told from the class's own."""
+    if layout_error(layout, every) is not None:
+        return []
     out = []
     for base_name, offset in layout.get("bases", []):
         if base_name not in every or offset < 0:
@@ -273,6 +294,8 @@ def inherited_spans(layout, every):
 
 def slot_count(layout, every, depth=0):
     """Slots of the layout's primary vftable: the offset-0 base's count, then its own introductions."""
+    if layout_error(layout, every) is not None:
+        return 0
     count = 0
     for base_name, offset in layout.get("bases", []):
         if offset == 0 and base_name in every and depth < 6:
@@ -604,6 +627,9 @@ def zh_layout(name, builder):
     layout = every.get(name)
     if not layout or layout.get("fwd"):
         return {"header": shown, "error": "no CodeView record"}
+    why = layout_error(layout, every)
+    if why is not None:
+        return {"header": shown, "error": why}
     return {"header": shown, "layout": layout, "every": every}
 
 
@@ -617,9 +643,13 @@ def decide(name, sources=None, jobs=8, sample=None):
         import random
         sources = sorted(random.Random(20261006).sample(sources, sample))
     got, every = views(name, sources, jobs)
-    good = {s: L for s, L in got.items() if "error" not in L}
+    good = {s: L for s, L in got.items() if layout_error(L, every[s]) is None}
     flat = {s: flatten(L, every[s], leaves=True) for s, L in good.items()}
     zh = zh_layout(name, builder)
+    if zh and "layout" in zh:
+        why = layout_error(zh["layout"], zh["every"])
+        if why is not None:
+            zh = {"header": zh.get("header"), "error": why}
     zh_flat = flatten(zh["layout"], zh["every"], leaves=True) if zh and "layout" in zh else []
     zh_at = {o: (s, k, n, t) for o, s, k, n, t in zh_flat}
     access = retail_access(name, rows, builder)
