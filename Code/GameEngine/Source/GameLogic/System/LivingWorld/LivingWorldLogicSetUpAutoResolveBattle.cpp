@@ -39,7 +39,8 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../../Include/Common/PlayerTemplate.h"
-class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};extern PlayerTemplateStore*ThePlayerTemplateStore;
+#include "../../../../Include/Common/PlayerTemplateStore.h"
+extern PlayerTemplateStore*ThePlayerTemplateStore;
 struct SetupPlayer {
  char gap00[0x14];int playerID;char gap18[0x38-0x18];int handicap;int opaque3C;int faction;
  char gap44[0x1C8-0x44];float skillPoints;char gap1CC[0x25C-0x1CC];int resources;

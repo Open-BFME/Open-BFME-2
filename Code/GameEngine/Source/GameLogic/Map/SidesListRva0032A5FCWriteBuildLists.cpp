@@ -116,11 +116,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/Common/PlayerTemplate.h"
 
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *findPlayerTemplate(NameKeyType key) const;
-};
+#include "../../../Include/Common/PlayerTemplateStore.h"
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 

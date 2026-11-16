@@ -87,11 +87,7 @@ private:
 
 #include "../../../Include/Common/PlayerTemplate.h"
 
-class PlayerTemplateStore
-{
-public:
-	const PlayerTemplate *findPlayerTemplate(NameKeyType key) const;	// 0x001FD31B
-};
+#include "../../../Include/Common/PlayerTemplateStore.h"
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
 class ScriptList

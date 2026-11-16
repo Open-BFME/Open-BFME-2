@@ -4,11 +4,13 @@
 #define CANONICAL_PLAYERTEMPLATESTORE_H
 
 class PlayerTemplate;
+enum NameKeyType;
 
 class PlayerTemplateStore
 {
 public:
 	const PlayerTemplate *getNthPlayerTemplate(int index) const;
+	const PlayerTemplate *findPlayerTemplate(NameKeyType namekey) const;
 	bool rva001FD367(int, int *) const;
 };
 
