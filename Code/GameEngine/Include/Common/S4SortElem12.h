@@ -7,8 +7,7 @@
 struct S4SortElem12 {
     int m_bfmeA;
     StringBase<char> m_bfmeName;
-    char m_bfmeC;
-    char m_pad9[3];
+    char m_bfmeC; // +9..+11 stay implicit padding: retail's copy 0x00331962 copies only +0..+8
 };
 
 typedef char canonical_S4SortElem12_609c12a0_sizeof[sizeof(S4SortElem12) == 12 ? 1 : -1];

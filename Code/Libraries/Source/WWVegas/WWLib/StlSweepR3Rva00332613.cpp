@@ -1,6 +1,6 @@
 // STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
 // Element spelling/layout is donor inference; opaque records have address-derived identity.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // 0x00332613 is __introsort_loop<Rva00332613Record*, ..., less<>> (STLport 4.5.3 _algo.c) over
@@ -18,7 +18,8 @@
 // whose pivot parameter is that record (its inline destructor keeps retail's EH spill of the
 // argument-slot address).
 struct Rva00332613Record { char bytes[12]; };
-struct S4SortElem12 { char m_pad[12]; };
+#include "string_base.h"
+#include "../../../../GameEngine/Include/Common/S4SortElem12.h"
 struct S4Cmp002E1690 { int m_slot; };
 struct BfmeStringRecord00331962
 {
