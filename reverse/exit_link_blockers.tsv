@@ -1,4 +1,4 @@
-# real link at 996746b43c146e4784a0f0a11fc939523826235f: tools/exit_link.py --blockers
+# real link at dcd1717e2baca06666670158925b2202be7a26ca: tools/exit_link.py --blockers
 source	missing	sample
 Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	10	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
 Code/Libraries/Source/Apt/AptArray.cpp	9	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
@@ -46,8 +46,6 @@ Code/GameEngine/Source/GameLogic/AI/AIStates.cpp	1	?setDesiredSpeed@AIUpdateInte
 Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp	1	?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z
 Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp	1	?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z
 Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	1	?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z
-Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	1	?unused@BehaviorModuleOther@@EAEXXZ
-Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp	1	?unused@BehaviorModuleOther@@EAEXXZ
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp	1	??1Rva0044EF5E@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorCtor.cpp	1	??1Rva0044EF5E@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp	1	??1Rva0044EF5E@@UAE@XZ
