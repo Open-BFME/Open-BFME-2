@@ -3422,7 +3422,7 @@ Code/GameEngine/Source/Common/Rva003ADF21Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003ADFDBUIntCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003ADFFAClone.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva003AE017CopyCtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/Common/Rva003AE017CopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003AE03DCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003AE0AFCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003AE0AFXfer.cpp,yes,0,0,0,0,0
@@ -12997,14 +12997,14 @@ Code/GameEngine/Source/GameNetwork/Rva007F03C0BlobRecordNextAttribute.cpp,yes,0,
 Code/GameEngine/Source/GameNetwork/Rva007F0460BlobHeader.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F05A0BlobCursor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F1800FeslSearch.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F1DE0DerivedCtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F2180StateReset.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F2350StatsCursor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F4440FeslClient.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F4530Fesl.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/Rva007F45E0AriesAddressRemapping.cpp,yes,0,0,0,0,0
