@@ -1,7 +1,6 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringinline
+// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common -DNDEBUG -MD -EHsc
 // ?loadMap@GameClient@@UAE_NVAsciiString@@@Z
-// Authentic one-pointer StringInline ABI audit; target's word length field is retained by the proven retail layout.
-#include "StringInline.h"
+// The by-value AsciiString's buffer keeps retail's word length field at +4.
 
 struct Rva0042F0D0Buffer
 {
@@ -10,11 +9,7 @@ struct Rva0042F0D0Buffer
 };
 // GameClient::loadMap (WorldBuilder vtable lead); never reads this, so the
 // thiscall member keeps the stdcall shape.
-class GameClient
-{
-public:
-    virtual bool loadMap(AsciiString value);
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 bool GameClient::loadMap(AsciiString value)
 {

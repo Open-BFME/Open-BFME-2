@@ -23,43 +23,7 @@ class Rva0030F388
 public:
 	void rva0030F36B();
 };
-class GameClient
-{
-public:
-	virtual void vslot000();
-	virtual void vslot001();
-	virtual void vslot002();
-	virtual void vslot003();
-	virtual void vslot004();
-	virtual void vslot005();
-	virtual void vslot006();
-	virtual void vslot007();
-	virtual void vslot008();
-	virtual void vslot009();
-	virtual void vslot010();
-	virtual void vslot011();
-	virtual void vslot012();
-	virtual void vslot013();
-	virtual void vslot014();
-	virtual void vslot015();
-	virtual void vslot016();
-	virtual void vslot017();
-	virtual void vslot018();
-	virtual void vslot019();
-	virtual void vslot020();
-	virtual void vslot021();
-	virtual void vslot022();
-	virtual void vslot023();
-	virtual void vslot024();
-	virtual void vslot025();
-	virtual void vslot026();
-	virtual void vslot027();
-	virtual void vslot028();
-	virtual void vslot029();
-	virtual void vslot030();
-	virtual int vslot031();
-};
-extern GameClient *TheGameClient;
+#include "../../Include/GameClient/GameClientClass.h"
 class Rva00086BC5
 {
 public:
@@ -79,6 +43,6 @@ void Rva00086BC5::rva00086BC5(int v)
 	Rva0030F42E *p = new Rva0030F42E(v);
 	m_235C = (Rva00086BC5Old *)p;
 	((Rva0030F388 *)p)->rva0030F36B();
-	m_2360 = TheGameClient->vslot031();
+	m_2360 = TheGameClient->getFrame();
 	m_2354 = 4;
 }

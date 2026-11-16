@@ -30,41 +30,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class GameClient{public:
- virtual void slot00();
- virtual void slot04();
- virtual void slot08();
- virtual void slot0C();
- virtual void slot10();
- virtual void slot14();
- virtual void slot18();
- virtual void slot1C();
- virtual void slot20();
- virtual void slot24();
- virtual void slot28();
- virtual void slot2C();
- virtual void slot30();
- virtual void slot34();
- virtual void slot38();
- virtual void slot3C();
- virtual void slot40();
- virtual void slot44();
- virtual void slot48();
- virtual void slot4C();
- virtual void slot50();
- virtual void slot54();
- virtual void slot58();
- virtual void slot5C();
- virtual void slot60();
- virtual void slot64();
- virtual void slot68();
- virtual void slot6C();
- virtual void slot70();
- virtual void slot74();
- virtual void slot78();
-virtual unsigned getFrame()const;
- char pad4[0xc8-4];bool flagC8;
-};extern GameClient *TheGameClient;
+#include "../../../Include/GameClient/GameClientClass.h"
 #include "../../../Include/GameClient/ParticleSystemClass.h"
 class RvaSmartPtr12{public:RvaSmartPtr12():ptr(0),prev(0),next(0){};RvaSmartPtr12 &operator=(const RvaSmartPtr12&);void rva0004CBC0()throw();~RvaSmartPtr12(){if(ptr)rva0004CBC0();}ParticleSystem *ptr;void *prev,*next;};
 class Rva001F5923{public:void rva001F5923();char pad0[0x4c];_STL::list<RvaSmartPtr12> systems;char pad50[0x60-0x50];float elapsed;int playerIndex;char pad68[0x74-0x68];unsigned lastFrame;};
@@ -75,7 +41,7 @@ void Rva001F5923::rva001F5923(){
  if(TheWritableGlobalData && TheWritableGlobalData->field0D45){unsigned frame=TheGameClient?TheGameClient->getFrame():0;if(frame==lastFrame)return;lastFrame=frame;}
  RvaSmartPtr12 sys;
  LARGE_INTEGER before;
- bool paused=TheGameClient->flagC8 && !TheGameLogic->getFlag125();
+ bool paused=TheGameClient->m_fieldC8 && !TheGameLogic->getFlag125();
  for(_STL::list<RvaSmartPtr12>::iterator i=systems.begin();i!=systems.end();){
   sys=*i;
   if(sys.ptr){if(sys.ptr->m_98 || paused){if(!sys.ptr->update(playerIndex)){++i;::delete sys.ptr;}else ++i;}else ++i;}

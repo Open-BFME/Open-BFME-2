@@ -206,8 +206,7 @@ extern GameState *TheGameState;
 extern GameLogic *TheGameLogic;
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData*TheWritableGlobalData;
-class GameClient {public:char prefix[0x2C];int drawableCounter;};
-extern GameClient*TheGameClient;
+#include "../../Include/GameClient/GameClientClass.h"
 #include "../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo:public GameInfo {
 public:SkirmishGameInfo();virtual~SkirmishGameInfo();
@@ -292,8 +291,8 @@ void GameStateMap::DoXfer(Xfer*xfer) {
  }
  ObjectID highObjectID=*(ObjectID*)((char*)TheGameLogic+0x10C);
  XferObjectID(xfer,&highObjectID);*(ObjectID*)((char*)TheGameLogic+0x10C)=highObjectID;
- int highDrawableID=TheGameClient->drawableCounter;
- XferDrawableID(xfer,&highDrawableID);TheGameClient->drawableCounter=highDrawableID;
+ int highDrawableID=TheGameClient->m_nextDrawableID;
+ XferDrawableID(xfer,&highDrawableID);TheGameClient->m_nextDrawableID=highDrawableID;
  if(TheGameLogic->m_110==2 || TheGameLogic->m_114==0) {
   if(!(*(GameInfo* *)&TheSkirmishGameInfo)) {
    (*(GameInfo* *)&TheSkirmishGameInfo)=new SkirmishGameInfo;
