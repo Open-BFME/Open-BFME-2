@@ -449,6 +449,12 @@ def folded_lifetime_definitions(source, text, candidates, counts, staged=False):
         rows, pins = [list(csv.DictReader(contents.splitlines())) for contents in ledger_texts]
         obj = build.obj_path(source)
         if not build.compile_is_current(source, obj, strict=True):
+            # Ordinary build receipts do not include the search inventory.
+            # Ask the official compile path to establish it, never promote an
+            # ordinary receipt or infer currency from a successful compile.
+            build.compile_rows([r for r in rows if r.get("source") == source.relative_to(ROOT).as_posix()],
+                               [source], strict=True)
+        if not build.compile_is_current(source, obj, strict=True):
             return set()
         before = obj.read_bytes()
         symbols = build.read_object_symbols(before)

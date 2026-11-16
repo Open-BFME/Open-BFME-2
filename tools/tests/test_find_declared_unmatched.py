@@ -11,7 +11,7 @@ from find_declared_unmatched import find_defined_functions
 @pytest.mark.parametrize("staged", [False, True])
 @pytest.mark.parametrize("obstacle", [None, "wrong-body", "stale", "unpinned",
     "other-address", "no-body", "overload", "changed-index", "changed-copy",
-    "missing-object", "emitted-overload", "wrong-annotation"])
+    "missing-object", "emitted-overload", "wrong-annotation", "receipt-upgrade"])
 @pytest.mark.parametrize("destructor", [False, True])
 def test_pinned_lifetime_definition_requires_a_current_complete_fold(
         tmp_path, monkeypatch, capsys, staged, obstacle, destructor):
@@ -62,11 +62,21 @@ def test_pinned_lifetime_definition_requires_a_current_complete_fold(
         else text if str(rel).replace("\\", "/") == source
         else (tmp_path / rel).read_text() if (tmp_path / rel).exists() else None))
     monkeypatch.setattr(gate.build, "obj_path", lambda *_: gate.obj)
-    monkeypatch.setattr(gate.build, "compile_is_current", lambda *_, **kw: obstacle != "stale")
+    upgraded = []
+
+    def current(*_, strict=False, **kw):
+        return obstacle != "stale" and (obstacle != "receipt-upgrade" or not strict or bool(upgraded))
+
+    def compile_rows(rows, sources, *, strict=False, **kw):
+        if strict:
+            upgraded.append((rows, sources))
+
+    monkeypatch.setattr(gate.build, "compile_is_current", current)
+    monkeypatch.setattr(gate.build, "compile_rows", compile_rows)
     monkeypatch.setattr(gate.build, "gate_baselined", lambda *_: False)
     monkeypatch.setattr(sys, "argv", ["find_declared_unmatched.py", "--fail", source]
                         + (["--staged"] if staged else []))
-    rejected = obstacle not in (None, "changed-index", "changed-copy") or (
+    rejected = obstacle not in (None, "changed-index", "changed-copy", "receipt-upgrade") or (
         staged and obstacle in ("changed-index", "changed-copy"))
     if rejected:
         with pytest.raises(SystemExit) as exc:
@@ -75,6 +85,8 @@ def test_pinned_lifetime_definition_requires_a_current_complete_fold(
     else:
         tool.main()
         assert "All defined functions are already matched." in capsys.readouterr().out
+        if obstacle == "receipt-upgrade":
+            assert upgraded == [(gate.rows, [path])]
 
 
 @pytest.mark.parametrize("newline", ["\n", "\r\n", "\r\r\n"])
