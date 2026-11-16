@@ -21,6 +21,11 @@
 //   * the template tables are filled by the three out-of-line helpers.
 // GlobalData field names follow ZH; their offsets are target-derived.
 
+// ScriptEngine.h's order: the STL headers precede the base's linker directives.
+#include <vector>
+#include <utility>
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
 #include <windows.h>
@@ -28,17 +33,7 @@
 #include "../../../Include/Common/GlobalData.h"
 extern bool BFME2UseDebugWindowLite;
 
-class ScriptActions : public SubsystemInterface
-{
-public:
-	ScriptActions();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-
-private:
-	char m_body[0x04];
-};
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
 

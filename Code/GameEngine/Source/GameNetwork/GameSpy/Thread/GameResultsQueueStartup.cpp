@@ -45,29 +45,8 @@
 // records carry several placeholder names in the ledger. Each call here uses
 // the name its callee is rowed under.
 
-class SubsystemInterface
-{
-public:
-	SubsystemInterface();			// 0x001B4E63
-	virtual ~SubsystemInterface();		// 0x001B4E74
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-
-private:
-	int m_04;
-	int m_08;
-};
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // The request and response records (assignments 0x0041A7F7, 0x0041A820).
 #include "BfmeNarrowRecord0041A5D2.h"
