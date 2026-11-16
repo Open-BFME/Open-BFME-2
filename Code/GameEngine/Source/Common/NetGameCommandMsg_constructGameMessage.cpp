@@ -45,32 +45,7 @@ enum DrawableID
 
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int v);
-	void appendRealArgument(float v);
-	void appendBooleanArgument(bool v);
-	void appendObjectIDArgument(ObjectID v);
-	void appendDrawableIDArgument(DrawableID v);
-	void appendTeamIDArgument(unsigned int v);
-	void appendLocationArgument(const Coord3D &v);
-	void appendPixelArgument(const ICoord2D &v);
-	void appendPixelRegionArgument(const IRegion2D &v);
-	void appendTimestampArgument(unsigned int v);
-	void appendWideCharArgument(const unsigned short &v);
-	char m_pad00[0x14];
-	int m_14;
-	char m_pad18[0x0c];
-};
-
-class Rva0030F47A
-{
-public:
-	Rva0030F47A(void *arg);
-private:
-	char m_pad[0x24];
-};
+#include "../../Include/Common/MessageStream.h"
 
 struct ArgNode
 {
@@ -107,10 +82,10 @@ GameMessage *NetGameCommandMsg::constructGameMessage()
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player == 0)
 		return 0;
-	GameMessage *msg = (GameMessage *)new Rva0030F47A((void *)m_type);
+	GameMessage *msg = new GameMessage(static_cast<GameMessage::Type>(m_type));
 	if (msg != 0)
 	{
-		msg->m_14 = player->m_playerIndex;
+		msg->m_playerIndex = player->m_playerIndex;
 		for (ArgNode *node = (ArgNode *)m_argList; node != 0; node = node->m_next)
 		{
 			int type = node->m_type;

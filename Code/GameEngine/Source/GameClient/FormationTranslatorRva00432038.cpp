@@ -16,13 +16,7 @@ union GameMessageArgumentType
     unsigned int timestamp;
     unsigned short wChar;
 };
-class GameMessage
-{
-public:
-    const GameMessageArgumentType *getArgument(int index) const;
-    char unknown00[0x10];
-    int type;
-};
+#include "../../Include/Common/MessageStream.h"
 class Rva00431978 { public: bool rva00431978(ICoord2D *point); };
 #include "../../Include/GameClient/FormationTranslator.h"
 class FormationTranslator::WaitForSecondButtonDownStateHandler
@@ -41,7 +35,7 @@ private:
 int FormationTranslator::WaitForSecondButtonDownStateHandler::rva00432038(
     GameMessage *message)
 {
-    switch (message->type)
+    switch (message->m_type)
     {
     case 3:
         {

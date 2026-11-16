@@ -59,13 +59,7 @@ union GameMessageArgumentType
     unsigned int timestamp;
     unsigned short wChar;
 };
-class GameMessage
-{
-public:
-    const GameMessageArgumentType *getArgument(int index) const;
-    char unknown00[0x10];
-    int type;
-};
+#include "../../Include/Common/MessageStream.h"
 #include "../../Include/Common/Rva0042C083Param.h"
 class Rva0042C7B1
 {
@@ -85,7 +79,7 @@ int Rva0042C833::rva0042C879(GameMessage *message)
         int result=callback->fwd(message);
         if (result==1) return result;
     }
-    if (message->type!=3) return 0;
+    if (message->m_type!=3) return 0;
     const volatile GameMessageArgumentType *gameMessageArgumentType=message->getArgument(0);
     const int x=gameMessageArgumentType->pixel.x;
     const int y=gameMessageArgumentType->pixel.y;

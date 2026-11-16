@@ -270,11 +270,7 @@ union GameMessageArgumentType {
  int integer; float real; unsigned char boolean;
  struct Pix { int x,y; } pixel;
 };
-class GameMessage {
-public:
- const GameMessageArgumentType *getArgument(int) const;
- char pad[0x10]; int type;
-};
+#include "../../Include/Common/MessageStream.h"
 class MessageForward42 { public: virtual int translate(GameMessage *); };
 class MessageUI42 {
 public:
@@ -299,7 +295,7 @@ int Rva0042CBB6::rva0042CC7B(GameMessage *message)
  if(reinterpret_cast<Rva0023C748 *>(TheGameLogic)->rva0023C748()) return 0;
  Rva0004224C guard;
  if(!TheLivingWorld) return 0;
- int type=message->type;
+ int type=message->m_type;
  if(!BYTE_AT42(TheLivingWorld,0x18)) return 0;
  if(TheGameLogic->isGamePaused()) return 0;
  switch(type) {
