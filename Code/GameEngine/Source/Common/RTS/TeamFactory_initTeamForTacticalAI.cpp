@@ -19,17 +19,7 @@ class Dict;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-struct Rva003A2FD4Proto;
-
-class TeamFactory
-{
-public:
-	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &a1, void *ownerName, int targetID, unsigned int tacticID);
-
-private:
-	char m_pad00[0x10];
-	TeamPrototype *m_dummyTeams[0x28]; // +0x10
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 Rva003A2FD4Proto *TeamFactory::initTeamForTacticalAI(const AsciiString &asciiString, void *ownerName, int targetID, unsigned int tacticID)
 {
@@ -37,7 +27,7 @@ Rva003A2FD4Proto *TeamFactory::initTeamForTacticalAI(const AsciiString &asciiStr
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	for (unsigned int i = 0; i < 0x28; ++i)
 	{
-		TeamPrototype *cur = m_dummyTeams[i];
+		TeamPrototype *cur = m_field10[i];
 		if (cur->m_field31E == 0)
 		{
 			cur->rva003A2C0D(player, asciiString, false, 0);
