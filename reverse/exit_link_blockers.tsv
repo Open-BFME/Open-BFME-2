@@ -1,21 +1,12 @@
-# real link at 80cd5629c16f176bad69ec371222c253d485078a: tools/exit_link.py --blockers
+# real link at 1ffed447e60475f63b29d0d56d4b41ff4fe06578: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	8	??1Rva00119D00@@UAE@XZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
-Code/GameEngine/Source/Common/Rva000AEFAA.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/Common/Rva00300419Ctor.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/Common/Rva0030BF80.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/Common/Rva0030C97E.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/Common/Rva00328B9ACtor.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/Common/Rva00328BFCCtor.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/Common/Rva00330528.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/VersionBlockParser.cpp	2	??0Pivot24@@QAE@ABU0@@Z
 Code/GameEngine/Source/GameClient/MapUtilLoadMap.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/GameLogic/Map/SidesListParseCastleTemplateMaps.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
 Code/GameEngine/Source/Common/BfmeConv526.cpp	1	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z
