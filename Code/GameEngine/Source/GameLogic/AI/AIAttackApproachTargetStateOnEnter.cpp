@@ -1995,9 +1995,6 @@ StateReturnType AIAttackApproachTargetState::updateInternal()
 // AIAttackSquadState::chooseVictim's views. The goal squad's live-object
 // vector (the rowed 0x004D6D4F under these placeholder names) is a real
 // STLport vector of objects.
-class BfmeVecAK : public std::vector<Object *>
-{
-};
 #include "../../../Include/GameLogic/Gen_0018BC70.h"
 
 // The body module (Object +0x254), slot 15 the last damage info; its source

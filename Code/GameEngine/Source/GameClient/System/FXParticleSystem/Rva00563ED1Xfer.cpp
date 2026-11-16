@@ -41,16 +41,6 @@ class DamageInfo;
 namespace FXParticleSystem
 {
 
-class SnapshotBase
-{
-public:
-	virtual ~SnapshotBase();
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
-
-
 }
 
 struct Pad20

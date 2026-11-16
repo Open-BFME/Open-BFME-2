@@ -21,12 +21,6 @@ typedef int Int;
 
 #include "../../../Include/GameLogic/Rva0052E02F.h"
 
-class Rva0052E0CE
-{
-public:
-	bool rva0052E0CE(bool value);
-};
-
 #include "../../../Include/GameLogic/Rva002E713FOwner.h"
 
 #include "../../../Include/GameLogic/PathfindCell.h"

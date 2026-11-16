@@ -91,11 +91,6 @@ extern ControlBar *TheControlBar;
 
 // Slot 0 of each module's primary vftable is its deleting destructor
 // (0x0045A560 in 0x00C4175C), so the base's first virtual is the destructor.
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

@@ -21,11 +21,6 @@ private:
 namespace FXParticleSystem
 {
 
-class RenderObjectDrawModuleInfoBase
-{
-};
-
-
 }
 
 struct DrawInfo2

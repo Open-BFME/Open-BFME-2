@@ -29,12 +29,6 @@ public:
     int m_flag;
 };
 
-class Rva003ED9B1
-{
-public:
-    void rva003ED9B1(const Rva003ED9B1 &other);
-};
-
 // The base is a zero-offset call view of the same key-map storage.
 #include "../../../Include/GameLogic/Rva003ED658.h"
 

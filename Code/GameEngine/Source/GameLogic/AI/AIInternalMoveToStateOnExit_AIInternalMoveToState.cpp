@@ -126,10 +126,6 @@ AIInternalMoveToState::AIInternalMoveToState(StateMachine *machine, unsigned int
 	m_ambientPlayingHandle = 1;
 	m_adjustDestinations = true;
 }
-struct FprintfTarget
-{
-	char m_pad[4];
-};
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 

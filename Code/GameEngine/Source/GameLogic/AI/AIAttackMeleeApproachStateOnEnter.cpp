@@ -117,13 +117,6 @@ static __forceinline void coordSub(Coord3D *dest, const Coord3D *src)
 }
 
 // StateMachine::getGoalObject (0x004D7726), rowed under this name.
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
-
-
 struct MeleeCoordCopy:Coord3D{__forceinline MeleeCoordCopy(float X,float Y,float Z){x=X;y=Y;z=Z;}__forceinline MeleeCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;} __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
 class AIAttackMeleeApproachState : public AIInternalMoveToState
 {

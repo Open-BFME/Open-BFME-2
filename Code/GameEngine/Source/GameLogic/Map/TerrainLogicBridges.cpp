@@ -292,15 +292,6 @@ typedef Rva0027C36A BridgeInfo;
 // argument and saves the argument's address, the callee-destroyed parameter
 // shape, and the callee passes the argument's address on as a Coord3D. Its
 // real name is unknown.
-struct Rva002ED236Pos
-{
-	Real x;
-	Real y;
-	Real z;
-	Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
-	~Rva002ED236Pos() {}
-};
-
 #include "../../../Include/GameLogic/AIPathfind.h"
 
 // TheAI's pathfinder at +0x10.

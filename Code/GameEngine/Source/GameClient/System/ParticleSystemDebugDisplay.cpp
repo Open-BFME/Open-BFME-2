@@ -33,10 +33,6 @@ extern GlobalData *TheWritableGlobalData;
 
 // Address-derived views: only slots/offsets used by this retail body are asserted.
 namespace FXParticleSystem { class ParticleSystemTemplate { public: AsciiString getName() const; }; }
-struct Rva001FA04BParticleModule {
- virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
- virtual void slot4();virtual void slot5();virtual void slot6();virtual int getCount();
-};
 #include "../../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make001FCBD7();
 #include "../../../Include/Common/RvaSmartPtr12.h"
