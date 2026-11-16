@@ -42,7 +42,7 @@ struct Rva002B85ECFilter {char m_pad[0x14];int key;};
 struct RetreatEntry {char m_pad[8];int id;char m_rest[12];};
 class Rva00318C32Ret {public:char m_pad[0x1a8];_STL::vector<RetreatEntry> entries;};
 #include "../../../../../Include/GameLogic/Rva00318C79Owner.h"
-class Rva0020E89C {public:char m_pad[0x13c];int m_13c;};
+#include "../../../../../Include/GameClient/Rva0020E89C.h"
 #include "../../../../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../../../Include/Common/Rva002104B6.h"
 #include "../../../../../Include/GameLogic/Rva002E071E.h"
@@ -62,7 +62,7 @@ void Rva004FB600::rva004FB600()
   for(unsigned j=0;j<slot->entries.size();++j) {
    Rva0020EAF6View *manager=((LivingWorldLogicView*)TheLivingWorldLogic)->m_manager;
    Rva0020E89C *region=manager->rva0020EAF6(begin[j].id);
-   if((unsigned char)((Rva002E071E*)m_root)->rva002E0BC0(region->m_13c)) {
+   if((unsigned char)((Rva002E071E*)m_root)->rva002E0BC0(region->m_13C)) {
     ((_STL::vector<const ModuleData*>*)&choices)->push_back(reinterpret_cast<const ModuleData* const&>(region));
    }
    begin=slot->entries.begin();

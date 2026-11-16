@@ -218,7 +218,7 @@ bool Rva003EF8E1::Pathfind(LivingWorldSearchCallback *cb,int from,_STL::vector<O
 // The base prefix arranges zeroing region before the derived vptr; this
 // models native constructor order without asserting original inheritance.
 struct Rva003F7198Node {int key;};
-class Rva0020E89C {public:char pad[0x13c];int owner;};
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 #include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 struct Rva003F7198LogicPrefix {char pad[0xb0];Rva0020EAF6View *regions;};
 class __declspec(novtable) Rva003F7177Base {
@@ -247,7 +247,7 @@ void Rva003F7177Callback::visit(Rva003F7198Node *node){
  int key=node->key;
  Rva0020EAF6View *regions=((Rva003F7198LogicPrefix*)TheLivingWorldLogic)->regions;
  Rva0020E89C *r=regions->rva0020EAF6(key);
- if(r && (unsigned char)player->rva002E0BC0(r->owner))region=r;
+ if(r && (unsigned char)player->rva002E0BC0(r->m_13C))region=r;
 }
 
 // Native003F7177..003F718D RET4; WB010582A0 proves player4 and null region8.

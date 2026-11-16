@@ -19,21 +19,13 @@ typedef bool Bool;
 
 extern GameTextInterface *TheGameText;
 
-class Rva0020E89C
-{
-public:
-	UnicodeString rva0020E89C();
-
-private:
-	char m_pad[0x38];
-	AsciiString m_label;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0020E89C.h"
 
 UnicodeString Rva0020E89C::rva0020E89C()
 {
-	if (m_label.isEmpty())
+	if (m_38.isEmpty())
 		return UnicodeString::TheEmptyString;
-	return TheGameText->fetch(m_label);
+	return TheGameText->fetch(m_38);
 }
 
 // ?Rva005C95ECGet@@YA?AVUnicodeString@@PAVRva0020E89C@@@Z @0x005C95EC 24B
