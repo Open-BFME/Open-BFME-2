@@ -268,7 +268,8 @@ def test_same_label_and_rva_outside_merge_refuses_before_global_tombstone(repo):
     import check_csv
     label_repo(repo,extra=f"$L310,,0x77436a,13,{C},matched,gen-funclet;parent=?other@@YAXXZ\n")
     path=repo/"reverse/functions.csv"
-    path.write_text("".join(line for line in path.read_text().splitlines(keepends=True) if not line.startswith("$L310,,0x00774313,")))
+    path.write_text("".join(line for line in path.read_text().splitlines(keepends=True)
+                            if not line.startswith("$L310,,0x00774313,")), encoding="utf-8", newline="\n")
     before=path.read_bytes()
     problems=[]
     check_csv.check_functions(before,problems,{A,B,C},(repo/"reverse/deleted_rows.csv").read_bytes())
