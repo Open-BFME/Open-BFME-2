@@ -23,10 +23,7 @@ class AptValue;
 
 #include "AptBasePtrStack.h"
 
-struct AptActionInterpreter
-{
-    AptBasePtrStack stack;
-};
+#include "AptActionInterpreter.h"
 
 extern AptActionInterpreter g_aptDateInterpreter;
 class AptValue; extern AptValue *gpUndefinedValue;

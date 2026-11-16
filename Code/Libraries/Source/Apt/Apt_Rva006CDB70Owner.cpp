@@ -19,13 +19,7 @@ class AptCIH;
 class BfmeAptValue006DCD20;
 #include "AptBasePtrStack.h"
 struct AptInitParmsT;
-struct AptActionInterpreter {
- void rva006FEAF0(const AptInitParmsT &);
- AptBasePtrStack stack;
- AptValue *getVariable(AptValue *,AptValue *,const EAStringC *,int,int,int);
- bool setVariable(AptValue *,AptValue *,const EAStringC *,AptValue *,int,int,int);
- void callFunction(AptValue *,AptValue *,int);
-};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 AptCIH *_AptGetAnimationAtLevel(int);
 void AptSetInternalVariable(const char *name, const char *text);

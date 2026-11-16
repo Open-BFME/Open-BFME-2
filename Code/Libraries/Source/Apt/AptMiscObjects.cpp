@@ -192,12 +192,7 @@ AptValue *aptMathTan(void *,int);
 
 #include "AptBasePtrStack.h"
 
-struct AptActionInterpreter
-{
-public:
-	void loadVariables(AptValue *,AptValue *,const EAStringC *);
-	AptBasePtrStack stack; // +0x00
-};
+#include "AptActionInterpreter.h"
 
 extern AptActionInterpreter g_aptDateInterpreter;
 

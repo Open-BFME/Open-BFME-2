@@ -31,16 +31,7 @@ inline BfmeAptValue006DCD20 *AptBasePtrStack::At(int nPos)
 	return m_aElements[m_nElements - nPos - 1];
 }
 
-struct AptActionInterpreter
-{
-	static void _FunctionAptActionBitAnd(AptActionInterpreter *const pInterpreter);
-	static void _FunctionAptActionBitOr(AptActionInterpreter *const pInterpreter);
-	static void _FunctionAptActionBitXor(AptActionInterpreter *const pInterpreter);
-	static void _FunctionAptActionBitLShift(AptActionInterpreter *const pInterpreter);
-	static void _FunctionAptActionBitRShift(AptActionInterpreter *const pInterpreter);
-
-	AptBasePtrStack stack;
-};
+#include "AptActionInterpreter.h"
 
 void AptActionInterpreter::_FunctionAptActionBitAnd(AptActionInterpreter *const pInterpreter)
 {

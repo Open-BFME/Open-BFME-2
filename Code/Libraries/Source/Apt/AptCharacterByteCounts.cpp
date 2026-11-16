@@ -128,7 +128,7 @@ AptValue *__cdecl rva006ee540(AptValue *value)
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 #include "AptBasePtrStack.h"
-struct AptActionInterpreter {AptBasePtrStack stack;void loadVariables(AptValue *,AptValue *,const EAStringC *);};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 extern "C" { int (__cdecl *pointHitTestCallback)(float,float,void*) = 0; }
 // 006ECA70: target gAptFuncs.pfnPointHitTest assertion identifies the callback

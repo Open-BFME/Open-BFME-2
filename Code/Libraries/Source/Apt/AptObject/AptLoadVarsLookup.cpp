@@ -22,12 +22,7 @@ class AsciiString;
 #include "../AptBoolean.h"
 #include "../BfmeAptValue006DCD20.h"
 #include "../AptBasePtrStack.h"
-struct AptActionInterpreter
-{
-public:
-	void loadVariables(AptValue *,AptValue *,const EAStringC *);
-	AptBasePtrStack stack; // +0x00
-};
+#include "../AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 void (__cdecl *g_bfmeAptSendVariablesAtE1776C)(const char *,const char *,const char *,const char *,int)=0;
 

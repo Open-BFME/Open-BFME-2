@@ -25,7 +25,8 @@ struct TextFormatValue:FormatPrefix,Rva006EB4B0 {};
 #include "BfmeAptValue006DCD20.h"
 #include "AptValue.h"
 #include "AptBasePtrStack.h"
-struct AptActionInterpreter {AptBasePtrStack stack;};extern AptActionInterpreter g_aptDateInterpreter;
+#include "AptActionInterpreter.h"
+extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 AptValue *Rva006EF570ApplyTextFormat(AptValue *self,int count) {
  if(count<=3) {

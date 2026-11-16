@@ -66,7 +66,7 @@ struct XmlValuePrefix {unsigned char prefix[32];XmlNativeInterface *node;};
 
 #include "AptBasePtrStack.h"
 
-struct AptActionInterpreter {AptBasePtrStack stack;};
+#include "AptActionInterpreter.h"
 
 extern AptActionInterpreter g_aptDateInterpreter;
 

@@ -17,19 +17,7 @@ class AptCIH;
 class BfmeAptValue006DCD20;
 class AptValue;
 class EAStringC;
-struct AptActionInterpreter
-{
-private:
-	friend BfmeAptValue006DCD20 *rva006ec670(BfmeAptValue006DCD20 *pValue, int nParams);
-public:
-	bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
-	AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
-	void loadVariables(AptValue *,AptValue *,const EAStringC *);
-private:
-	void rva007092F0(AptCIH *context, AptValue *with, AptValue *source, AptValue *target, int depth, AptValue *init);
-public:
-	AptBasePtrStack stack; // +0x00
-};
+#include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 #include "../../../GameEngine/Include/Common/Rva006DB160.h"

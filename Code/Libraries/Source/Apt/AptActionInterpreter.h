@@ -10,6 +10,8 @@
 #include "AptBasePtrStack.h"
 
 struct AptActionSetup;
+struct AptConstantFile;
+struct AptInitParmsT;
 class AptCIH;
 class AptValue;
 class EAStringC;
@@ -25,8 +27,21 @@ struct AptActionInterpreter
 	void callFunction(AptValue *, AptValue *, int);
 	static void getName(AptCIH *, EAStringC &);
 	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int = 1, int = 1, int = 0);
+	void loadVariables(AptValue *, AptValue *, const EAStringC *);
+	void rva006FEAF0(const AptInitParmsT &);
 	void rva006FEB50();
 	bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int, int, int);
+	static void _FunctionAptActionBitAnd(AptActionInterpreter *const);
+	static void _FunctionAptActionBitOr(AptActionInterpreter *const);
+	static void _FunctionAptActionBitXor(AptActionInterpreter *const);
+	static void _FunctionAptActionBitLShift(AptActionInterpreter *const);
+	static void _FunctionAptActionBitRShift(AptActionInterpreter *const);
+private:
+	friend void BfmeAux006FC670(const unsigned char *, int, AptConstantFile *, int *);
+	struct LocalContextT;
+	struct FunctionTable { int mCheckAlignment; void (__cdecl *m_04)(AptActionInterpreter *const, LocalContextT *const); };
+	static FunctionTable sGlobalTable[185];
+public:
 
 	AptBasePtrStack stack;                        // +0x00
 	unsigned char m_valueStacks[0x24];            // +0x0C withStack, setTargetStack, thisStack
