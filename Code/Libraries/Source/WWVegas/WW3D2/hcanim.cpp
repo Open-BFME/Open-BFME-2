@@ -12,7 +12,6 @@
 #include "hash.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "refcount.h"
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
@@ -77,7 +76,6 @@ struct BfmeWeightInfoVddAnchor;
 #undef private
 struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
-#pragma optimize("", on)
 #include "hcanim.h"
 #include "assetmgr.h"
 // BFME reaches the hierarchy through a free function, as HRawAnimClass::Load_W3D

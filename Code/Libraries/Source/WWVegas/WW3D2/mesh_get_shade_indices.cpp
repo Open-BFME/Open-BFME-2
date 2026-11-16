@@ -15,7 +15,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Keep the reference base's proven inline destructor and its size-optimized
 // deleting wrapper; the canonical geometry layout uses this same 8-byte base.
 #define BFME2_WWLIB_REFCOUNTDATA_H
-#pragma optimize("", on)
 #include "MeshGeometryClass.h"
 #include "sharebuf.h"
 

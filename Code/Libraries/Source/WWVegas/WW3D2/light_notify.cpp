@@ -9,7 +9,6 @@
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 // BFME1 byte-identical donor: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/light.cpp
 // Split from light.cpp (whose nested-ZH scene.h puts Scene::Register at +0x3C);

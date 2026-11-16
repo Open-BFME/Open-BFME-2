@@ -14,7 +14,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <string.h>
 #include "wwstring.h"
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_part_emt_inline/wwstring.h"
 #include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
 #include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"

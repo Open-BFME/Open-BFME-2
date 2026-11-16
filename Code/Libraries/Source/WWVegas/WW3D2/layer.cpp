@@ -9,7 +9,6 @@
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 // stlport

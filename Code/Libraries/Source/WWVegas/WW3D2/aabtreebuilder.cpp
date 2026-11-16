@@ -9,7 +9,6 @@
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /***********************************************************************************************
  ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
  ***********************************************************************************************
