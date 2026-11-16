@@ -491,3 +491,19 @@ The focused official composer dry run after both adoptions no longer reports
 the RenderObj/Get_User_Data/IndexBuffer conflicts. It still accepts no donors:
 drawStart/drawEdge storage declarations and reader manager buffer-field names
 remain incompatible. See `build/decal-diagnostic/renderobj-indexbuffer-merge-dry.log`.
+
+**Shared bounds spelling and reader manager declaration:** all three projected
+shadow inputs now spell the four zero-initialized bounds as the same static int
+declaration. The reader uses the existing BFME2 manager header, preserving its
++0x254..+0x270 buffer fields and casting opaque buffer pointers at the existing
+lock calls. No storage is made external and no additional data alias is added.
+Official build retains 81/81 functions across seed/reader, eleven EXACT EH graphs
+and 13,804 preview bytes. The official focused merge now compiles both donor
+combinations, but still rejects bytes: reader helper 0x001086EC and queue
+0x0010C841, writer passes 0x0010DA71/0x0010DF33. Thus declaration errors are
+resolved; neither a completed merge nor functioning selection rendering follows.
+The seed still resolves its unqualified rendobj.h through donor include paths;
+its canonical adoption is a next hypothesis, subject to the class claim.
+Logs in the isolated decal-merge worktree: build/decal-diagnostic/manager-bounds-*
+and merge-byte-misses.json. Original publication continues in its untouched
+worktree while this branch banks the next prerequisite.

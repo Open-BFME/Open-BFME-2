@@ -495,13 +495,7 @@ extern int SHADOW_VERTEX_SIZE;
 extern int SHADOW_INDEX_SIZE;
 
 //Bounding rectangle around rendered portion of terrain.
-static Int drawEdgeX=0;
-
-static Int drawEdgeY=0;
-
-static Int drawStartX=0;
-
-static Int drawStartY=0;
+static int drawStartX, drawStartY, drawEdgeX, drawEdgeY;
 
 //Global streaming vertex buffer with x,y,z,u,v type.
 struct SHADOW_DECAL_VERTEX	//vertex structure passed to D3D

@@ -237,7 +237,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef bool Bool;
-enum ShadowType { SHADOW_NONE = 0 };
+
 
 __forceinline long fast_float2long_round(float f)
 {
@@ -250,6 +250,11 @@ __forceinline long fast_float2long_round(float f)
 }
 #define REAL_TO_INT_CEIL(x)		(fast_float2long_round(ceilf(x)))
 #define REAL_TO_INT_FLOOR(x)	(fast_float2long_round(floorf(x)))
+
+typedef int Color;
+float fast_float_trunc(float);
+#define REAL_TO_INT(x) ((Int)(fast_float2long_round(fast_float_trunc(x))))
+#include "../../../../../../reference/shims/bfme2_projectedshadow/GameClient/Shadow.h"
 
 #define MAP_XY_FACTOR		(10.0f)
 #define MAP_HEIGHT_SCALE	(MAP_XY_FACTOR/256.0f)
@@ -312,27 +317,11 @@ class BaseHeightMapRenderObjClass { public: char m_pad[0x37c0]; WorldHeightMap *
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 // Terrain draw extents for decals (file statics of W3DProjectedShadow.cpp in ZH;
 // retail 0xDEC2DC/E0/E4/E8, set by the shadow render pass).
-static Int drawEdgeX = 0;
-static Int drawEdgeY = 0;
-static Int drawStartX = 0;
-static Int drawStartY = 0;
+static int drawStartX, drawStartY, drawEdgeX, drawEdgeY;
 
-class W3DProjectedShadowManager
-{
-public:
-	void queueDualDecal(W3DDualProjectedShadow *shadow);
-	void rva0010C841(struct ShadowRenderEntry10DF33 *shadow, Int unused, Int flushFlags);
-	void flushDecals(ShadowType type, W3DShadowTexture *texture0, W3DShadowTexture *texture1, Int flags);
-	char m_pad[0x254];
-	VertexBufferClass *m_dynamicDecalVertexBuffer;	// +0x254
-	IndexBufferClass *m_dynamicDecalIndexBuffer;	// +0x258
-	Int m_numDecalVertsInBuffer;		// +0x25C
-	Int m_decalStartVertex;				// +0x260
-	Int m_numDecalIndicesInBuffer;		// +0x264
-	Int m_decalStartIndex;				// +0x268
-	Int m_numDecalPolysInBatch;			// +0x26C
-	Int m_numDecalVertsInBatch;			// +0x270
-};
+#include "lightenvironment.h"
+class SpecialRenderInfoClass;
+#include "../../../../../../reference/shims/bfme2_projectedshadow/W3DDevice/GameClient/W3DProjectedShadow.h"
 
 void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 {
@@ -480,24 +469,24 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 	Int numIndex = (endX - startX) * (endY - startY) * 6;
 
 	Bool flushed = false;
-	if (m_numDecalVertsInBuffer + numVerts > 0x8000 || m_numDecalIndicesInBuffer + numIndex > 0x10000)
+	if (m_nShadowDecalVertsInBuf + numVerts > 0x8000 || m_nShadowDecalIndicesInBuf + numIndex > 0x10000)
 	{
 		flushDecals(shadow->m_type, w3DShadowTexture, texture1, 0);
-		m_decalStartVertex = 0;
-		m_decalStartIndex = 0;
-		m_numDecalPolysInBatch = 0;
-		m_numDecalVertsInBatch = 0;
-		m_numDecalVertsInBuffer = 0;
-		m_numDecalIndicesInBuffer = 0;
+		m_260 = 0;
+		m_268 = 0;
+		m_26C = 0;
+		m_270 = 0;
+		m_nShadowDecalVertsInBuf = 0;
+		m_nShadowDecalIndicesInBuf = 0;
 		flushed = true;
 	}
 
 	{
-	VertexBufferClass::AppendLockClass lockVtxBuffer(m_dynamicDecalVertexBuffer, m_numDecalVertsInBuffer, numVerts, flushed ? 0x2000 : 0x1000);
+	VertexBufferClass::AppendLockClass lockVtxBuffer(((VertexBufferClass *)m_vb), m_nShadowDecalVertsInBuf, numVerts, flushed ? 0x2000 : 0x1000);
 	SHADOW_DECAL_DUAL_VERTEX *pvVertices = (SHADOW_DECAL_DUAL_VERTEX *)lockVtxBuffer.Get_Vertex_Array();
 	if (!pvVertices)
 		return;
-	IndexBufferClass::AppendLockClass lockIdxBuffer(m_dynamicDecalIndexBuffer, m_numDecalIndicesInBuffer, numIndex, flushed ? 0x2000 : 0x1000);
+	IndexBufferClass::AppendLockClass lockIdxBuffer(((IndexBufferClass *)m_ib), m_nShadowDecalIndicesInBuf, numIndex, flushed ? 0x2000 : 0x1000);
 	UnsignedShort *pvIndices = lockIdxBuffer.Get_Index_Array();
 	if (!pvIndices)
 		return;
@@ -559,31 +548,31 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 		{
 			if (((const Gen_0074B410 *)hmap)->bfmeBitA(k, j))
 			{
-				pvIndices[0] = i + 1 + m_numDecalVertsInBatch;
-				pvIndices[1] = i + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[2] = i + m_numDecalVertsInBatch;
-				pvIndices[3] = i + 1 + m_numDecalVertsInBatch;
-				pvIndices[4] = i + 1 + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[5] = i + vertsPerRow + m_numDecalVertsInBatch;
+				pvIndices[0] = i + 1 + m_270;
+				pvIndices[1] = i + vertsPerRow + m_270;
+				pvIndices[2] = i + m_270;
+				pvIndices[3] = i + 1 + m_270;
+				pvIndices[4] = i + 1 + vertsPerRow + m_270;
+				pvIndices[5] = i + vertsPerRow + m_270;
 			}
 			else
 			{
-				pvIndices[0] = i + m_numDecalVertsInBatch;
-				pvIndices[1] = i + 1 + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[2] = i + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[3] = i + m_numDecalVertsInBatch;
-				pvIndices[4] = i + 1 + m_numDecalVertsInBatch;
-				pvIndices[5] = i + 1 + vertsPerRow + m_numDecalVertsInBatch;
+				pvIndices[0] = i + m_270;
+				pvIndices[1] = i + 1 + vertsPerRow + m_270;
+				pvIndices[2] = i + vertsPerRow + m_270;
+				pvIndices[3] = i + m_270;
+				pvIndices[4] = i + 1 + m_270;
+				pvIndices[5] = i + 1 + vertsPerRow + m_270;
 			}
 			pvIndices += 6;
 		}
 	}
 	}
 
-	m_numDecalPolysInBatch += (endX - startX) * (endY - startY) * 2;
-	m_numDecalVertsInBuffer += numVerts;
-	m_numDecalVertsInBatch += numVerts;
-	m_numDecalIndicesInBuffer += numIndex;
+	m_26C += (endX - startX) * (endY - startY) * 2;
+	m_nShadowDecalVertsInBuf += numVerts;
+	m_270 += numVerts;
+	m_nShadowDecalIndicesInBuf += numIndex;
 }
 #include "../../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 #include "../../../../../GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h"
@@ -891,21 +880,21 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 				}
 
 				Bool flushed = false;
-				if (m_numDecalVertsInBuffer + numVerts > 0x8000 || m_numDecalIndicesInBuffer + numIndex > 0x10000) //check if room for model verts
+				if (m_nShadowDecalVertsInBuf + numVerts > 0x8000 || m_nShadowDecalIndicesInBuf + numIndex > 0x10000) //check if room for model verts
 				{
 					//flush the buffer by drawing the contents and re-locking again
 					flushDecals(shadow->m_type, shadow->m_shadowTexture[0], shadow->m_shadowTexture[1], flushFlags);
-					m_decalStartVertex = 0;
-					m_decalStartIndex = 0;
-					m_numDecalPolysInBatch = 0; //reset number of polys in texture batch
-					m_numDecalVertsInBatch = 0;
-					m_numDecalVertsInBuffer = 0;
-					m_numDecalIndicesInBuffer = 0;
+					m_260 = 0;
+					m_268 = 0;
+					m_26C = 0; //reset number of polys in texture batch
+					m_270 = 0;
+					m_nShadowDecalVertsInBuf = 0;
+					m_nShadowDecalIndicesInBuf = 0;
 					flushed = true;
 				}
 
 				{
-				VertexBufferClass::AppendLockClass lockVtxBuffer(m_dynamicDecalVertexBuffer, m_numDecalVertsInBuffer, numVerts, flushed ? 0x2000 : 0x1000);
+				VertexBufferClass::AppendLockClass lockVtxBuffer(((VertexBufferClass *)m_vb), m_nShadowDecalVertsInBuf, numVerts, flushed ? 0x2000 : 0x1000);
 				SHADOW_DECAL_DUAL_VERTEX *pvVertices = (SHADOW_DECAL_DUAL_VERTEX *)lockVtxBuffer.Get_Vertex_Array();
 				if (!pvVertices)
 				{
@@ -916,7 +905,7 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 					}
 					return;
 				}
-				IndexBufferClass::AppendLockClass lockIdxBuffer(m_dynamicDecalIndexBuffer, m_numDecalIndicesInBuffer, numIndex, flushed ? 0x2000 : 0x1000);
+				IndexBufferClass::AppendLockClass lockIdxBuffer(((IndexBufferClass *)m_ib), m_nShadowDecalIndicesInBuf, numIndex, flushed ? 0x2000 : 0x1000);
 				UnsignedShort *pvIndices = lockIdxBuffer.Get_Index_Array();
 				if (!pvIndices)
 				{
@@ -974,17 +963,17 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 						srcIndex = model->get_polys();
 					for (Int p = 0; p < numPolys; p++, srcIndex += 3)
 					{
-						pvIndices[0] = srcIndex[0] + m_numDecalVertsInBatch;
-						pvIndices[1] = srcIndex[1] + m_numDecalVertsInBatch;
-						pvIndices[2] = srcIndex[2] + m_numDecalVertsInBatch;
+						pvIndices[0] = srcIndex[0] + m_270;
+						pvIndices[1] = srcIndex[1] + m_270;
+						pvIndices[2] = srcIndex[2] + m_270;
 						pvIndices += 3;
 					}
 				}
 				}
-				m_numDecalPolysInBatch += numPolys;
-				m_numDecalIndicesInBuffer += numIndex;
-				m_numDecalVertsInBuffer += numVerts;
-				m_numDecalVertsInBatch += numVerts;
+				m_26C += numPolys;
+				m_nShadowDecalIndicesInBuf += numIndex;
+				m_nShadowDecalVertsInBuf += numVerts;
+				m_270 += numVerts;
 				if (casterObj)
 				{
 					casterObj->Release_Ref();
@@ -1052,25 +1041,25 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 	Int numIndex = numPolys * 3; //6 indices per terrain cell (2 triangles).
 
 	Bool flushed = false;
-	if (m_numDecalVertsInBuffer + numVerts > 0x8000 || m_numDecalIndicesInBuffer + numIndex > 0x10000) //check if room for model verts
+	if (m_nShadowDecalVertsInBuf + numVerts > 0x8000 || m_nShadowDecalIndicesInBuf + numIndex > 0x10000) //check if room for model verts
 	{
 		//flush the buffer by drawing the contents and re-locking again
 		flushDecals(shadow->m_type, shadow->m_shadowTexture[0], shadow->m_shadowTexture[1], flushFlags);
-		m_decalStartVertex = 0;
-		m_decalStartIndex = 0;
-		m_numDecalPolysInBatch = 0; //reset number of polys in texture batch
-		m_numDecalVertsInBatch = 0;
-		m_numDecalVertsInBuffer = 0;
-		m_numDecalIndicesInBuffer = 0;
+		m_260 = 0;
+		m_268 = 0;
+		m_26C = 0; //reset number of polys in texture batch
+		m_270 = 0;
+		m_nShadowDecalVertsInBuf = 0;
+		m_nShadowDecalIndicesInBuf = 0;
 		flushed = true;
 	}
 
 	{
-	VertexBufferClass::AppendLockClass lockVtxBuffer(m_dynamicDecalVertexBuffer, m_numDecalVertsInBuffer, numVerts, flushed ? 0x2000 : 0x1000);
+	VertexBufferClass::AppendLockClass lockVtxBuffer(((VertexBufferClass *)m_vb), m_nShadowDecalVertsInBuf, numVerts, flushed ? 0x2000 : 0x1000);
 	SHADOW_DECAL_DUAL_VERTEX *pvVertices = (SHADOW_DECAL_DUAL_VERTEX *)lockVtxBuffer.Get_Vertex_Array();
 	if (!pvVertices)
 		return;
-	IndexBufferClass::AppendLockClass lockIdxBuffer(m_dynamicDecalIndexBuffer, m_numDecalIndicesInBuffer, numIndex, flushed ? 0x2000 : 0x1000);
+	IndexBufferClass::AppendLockClass lockIdxBuffer(((IndexBufferClass *)m_ib), m_nShadowDecalIndicesInBuf, numIndex, flushed ? 0x2000 : 0x1000);
 	UnsignedShort *pvIndices = lockIdxBuffer.Get_Index_Array();
 	if (!pvIndices)
 		return;
@@ -1130,29 +1119,29 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 			///@todo: fix the winding order in heightmap to be in strip order like above!
 			if (((const Gen_0074B410 *)hmap)->bfmeBitA(k, j))
 			{
-				pvIndices[0] = i + 1 + m_numDecalVertsInBatch;
-				pvIndices[1] = i + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[2] = i + m_numDecalVertsInBatch;
-				pvIndices[3] = i + 1 + m_numDecalVertsInBatch;
-				pvIndices[4] = i + 1 + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[5] = i + vertsPerRow + m_numDecalVertsInBatch;
+				pvIndices[0] = i + 1 + m_270;
+				pvIndices[1] = i + vertsPerRow + m_270;
+				pvIndices[2] = i + m_270;
+				pvIndices[3] = i + 1 + m_270;
+				pvIndices[4] = i + 1 + vertsPerRow + m_270;
+				pvIndices[5] = i + vertsPerRow + m_270;
 			}
 			else
 			{
-				pvIndices[0] = i + m_numDecalVertsInBatch;
-				pvIndices[1] = i + 1 + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[2] = i + vertsPerRow + m_numDecalVertsInBatch;
-				pvIndices[3] = i + m_numDecalVertsInBatch;
-				pvIndices[4] = i + 1 + m_numDecalVertsInBatch;
-				pvIndices[5] = i + 1 + vertsPerRow + m_numDecalVertsInBatch;
+				pvIndices[0] = i + m_270;
+				pvIndices[1] = i + 1 + vertsPerRow + m_270;
+				pvIndices[2] = i + vertsPerRow + m_270;
+				pvIndices[3] = i + m_270;
+				pvIndices[4] = i + 1 + m_270;
+				pvIndices[5] = i + 1 + vertsPerRow + m_270;
 			}
 			pvIndices += 6;
 		}
 	}
 	}
 
-	m_numDecalPolysInBatch += numPolys;
-	m_numDecalVertsInBuffer += numVerts;
-	m_numDecalVertsInBatch += numVerts;
-	m_numDecalIndicesInBuffer += numIndex;
+	m_26C += numPolys;
+	m_nShadowDecalVertsInBuf += numVerts;
+	m_270 += numVerts;
+	m_nShadowDecalIndicesInBuf += numIndex;
 }
