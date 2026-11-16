@@ -15,15 +15,7 @@ class ModuleData;
 #include "../object.h"
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class TooltipUpgrade : public UpgradeModule
 {

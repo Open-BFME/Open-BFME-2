@@ -420,15 +420,7 @@ struct Rva004618D4AI
 
 #include "../../../../Include/GameLogic/Waypoint.h"
 
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
 
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
 // VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
