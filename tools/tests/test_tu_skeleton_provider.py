@@ -244,6 +244,47 @@ def test_link661_the_merged_object_must_keep_one_members_copy(tmp_path):
     assert ("members disagree", INLINE) in [(c, n) for c, n, _ in found]
 
 
+def test_link661_a_proven_unreferenced_discardable_copy_may_disappear(tmp_path):
+    donor, merged, tu, other = pointgr(tmp_path)
+    comdat_object(merged, [SEED, BODY])
+    assert merge_judge(pointgr_guard(donor, tu, other), donor, merged, tu) == []
+
+
+@pytest.mark.parametrize("reason", ["caller", "after-caller", "outside", "root", "alternate", "weak",
+                                  "missing-graph", "unindexed", "nodup", "strong"])
+def test_link661_a_dropped_copy_without_discardability_proof_is_refused(tmp_path, reason):
+    donor, merged, tu, other = pointgr(tmp_path, caller=reason == "caller")
+    comdat_object(merged, [SEED, BODY])
+    if reason == "after-caller":
+        comdat_object(merged, [SEED, BODY],
+                      [(".text", CODE, b"\xe8\0\0\0\0\xc3", [(1, 7, 20)])],
+                      [(INLINE, 0, 0, 2, None)])
+    if reason == "weak":
+        comdat_object(merged, [SEED, BODY], extra_symbols=[
+            (INLINE, 0, 0, 2, None),
+            ("?alias@@YAXXZ", 0, 0, 105, struct.pack("<II", 7, 3) + b"\0" * 10)])
+    if reason == "nodup":
+        comdat_object(donor, [(INLINE, POOL, COMDAT_NODUP), BODY])
+    if reason == "strong":
+        comdat_object(donor, [BODY], [(".text", CODE, POOL, [])], [(INLINE, 0, 2, 2, None)])
+    orders = fake_orders
+    if reason == "unindexed":
+        orders = lambda rows: {k: v + ["^zz_unindexed.obj"] for k, v in fake_orders(rows).items()}
+    g = pointgr_guard(donor, tu, other, orders=orders,
+                     edges={"?outside@@YAXXZ": {INLINE}} if reason == "outside" else None)
+    if reason == "missing-graph":
+        del g.index["references"]
+    if reason == "root":
+        g.index["references"]["referenced"].add(INLINE)
+    if reason == "alternate":
+        g.index["alternates"]["?alias@@YAXXZ"] = [(0, INLINE)]
+    if reason == "strong":
+        g.index["comdat"][INLINE] = [copy for copy in g.index["comdat"][INLINE] if copy[0] != 1]
+        g.index["strong"][INLINE] = [1]
+    found = merge_judge(g, donor, merged, tu)
+    assert ("bytes", INLINE) in [(clause, name) for clause, name, _ in found]
+
+
 def test_a_split_judges_both_objects_that_continue_the_file(tmp_path):
     # the residual keeps the inline copy, the destination takes the carved function and its own copy
     original = comdat_object(tmp_path / "orig.obj", [(DTOR, POOL, COMDAT_ANY), ("?carved@@YAXXZ", b"\xc3" * 8,

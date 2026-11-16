@@ -2471,8 +2471,10 @@ class ShatterLinkGuard(SplitLinkGuard):
 # the census objects' graph, which also counts ledger owners and retail-addressed names, plus /alternatename
 # and weak-external targets, and the replaced, replacing and unindexed objects read here), (3) every
 # definition of it in the change is a discardable COMDAT copy (not NODUPLICATES) and (4) for members
-# disagree, the continuing object keeps one of its members' copies. The bytes clause is unchanged, and every
-# other name is judged exactly as before.
+# disagree, the continuing object keeps one of its members' copies. A missing definition is also harmless
+# under the same complete no-reference proof when the dropped copy is discardable: inlining can stop its
+# emission in the composed TU. A retained definition must still preserve its bytes; every other name is
+# judged exactly as before.
 
 PROVIDER_CLAUSES = ("members disagree", "bytes", "retail order", "path order")
 ORDER_CLAUSES = ("retail order", "path order")
@@ -2753,7 +2755,8 @@ class ProviderGuard:
             heirs = [a for a, olds in continues.items() if source in olds]
             for name in sorted(defs):
                 if not any(name in defs_after[a] for a in heirs):
-                    found.append(("bytes", name, f"{source} defines it and no object continuing it does"))
+                    if not unreferenced_comdat(name, referenced, [defs[name]]):
+                        found.append(("bytes", name, f"{source} defines it and no object continuing it does"))
         for heir, olds in sorted(continues.items()):
             for name, mine in sorted(defs_after[heir].items()):
                 theirs = {s: defs_before[s][name] for s in olds if name in defs_before.get(s, {})}
