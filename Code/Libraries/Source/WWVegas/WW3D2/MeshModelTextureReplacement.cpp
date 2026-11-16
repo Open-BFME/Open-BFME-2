@@ -23,11 +23,7 @@ class DX8TextureCategoryClass {
     DX8FVFCategoryContainer *Container;
 public: DX8FVFCategoryContainer *Get_Container() { return Container; }
 };
-class DX8PolygonRendererClass : public MultiListObjectClass {
-    char gap[4];
-    DX8TextureCategoryClass *TextureCategory;
-public: DX8TextureCategoryClass *Get_Texture_Category() { return TextureCategory; }
-};
+#include "dx8polygonrendererClass.h"
 #include "MeshModelClass.h"
 inline int MeshModelClass::Get_Pass_Count() const { return CurMatDesc->PassCount; }
 inline bool MeshModelClass::Has_Texture_Array(int pass,int stage) const { return CurMatDesc->TextureArray[pass][stage]!=0; }

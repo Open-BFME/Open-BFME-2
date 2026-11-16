@@ -21,20 +21,16 @@ class BFME2ScopedRenderEvent {
  char Label[256]; char Group[64];
  public: BFME2ScopedRenderEvent(const char*,const char*,unsigned); ~BFME2ScopedRenderEvent();
 };
-class DX8PolygonRendererClass {
- void *Vtable; void *ListNode; MeshGeometryClass *Model; void *Category;
- unsigned IndexOffset,VertexOffset,IndexCount,MinVertex,VertexRange,MinVertex2,VertexRange2;
- bool Strip; unsigned Pass;
- public: void Render(int base_vertex_offset);
-};
+#include "dx8polygonrendererClass.h"
+#include "MeshModelClass.h"
 inline void DX8PolygonRendererClass::Render(int base_vertex_offset) {
  char label[256];
  strcpy(label,"Rendering mesh\tDX8Render\t");
- strcat(label,Model && Model->Get_Name() ? Model->Get_Name() : "(unnamed)");
+ strcat(label,mmc && mmc->Get_Name() ? mmc->Get_Name() : "(unnamed)");
  BFME2ScopedRenderEvent event(label,"MeshDX8Render",0);
  DX8Wrapper::Set_Index_Buffer_Index_Offset(base_vertex_offset);
- if (Strip) DX8Wrapper::Draw_Strip(IndexOffset,IndexCount-2,MinVertex,VertexRange);
- else DX8Wrapper::Draw_Triangles(IndexOffset,IndexCount/3,MinVertex,VertexRange);
+ if (strip) DX8Wrapper::Draw_Strip(index_offset,index_count-2,min_vertex_index,vertex_index_range);
+ else DX8Wrapper::Draw_Triangles(index_offset,index_count/3,min_vertex_index,vertex_index_range);
 }
 
 // Header inlines that the units including the header emit as select-any
