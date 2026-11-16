@@ -93,28 +93,7 @@ File *createMemoryReadFile(char *data, Int size);
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class GameSlot
-{
-public:
-	Bool isOccupied() const;
-	Int getHeroKind() const { return m_heroKind; }
-	void rva0037AD8D(const CreateAHeroData &data);
-
-private:
-	char m_pad00[0x50];
-	Int m_heroKind;
-};
-
-class GameInfo
-{
-public:
-	GameSlot *getSlot(Int slotNum);
-	__declspec(dllimport) __forceinline Int getSeed() const { return m_seed; }
-
-private:
-	char m_pad00[0x88];
-	Int m_seed;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 // TheHeroManager, held in the ledger under its allocator's address name.
 class Rva00219251
@@ -193,10 +172,10 @@ void ConnectionManager::processHero(NetCommandMsg *command)
 	NetHeroCommandMsg *msg = (NetHeroCommandMsg *)command;
 	if (msg == 0 || TheGameInfo == 0)
 		return;
-	if (msg->getSeed() != TheGameInfo->getSeed())
+	if (msg->getSeed() != TheGameInfo->m_field88)
 		return;
 	GameSlot *slot = TheGameInfo->getSlot(msg->getSlot());
-	if (!slot->isOccupied() || slot->getHeroKind() == 0)
+	if (!slot->isOccupied() || slot->m_field50 == 0)
 		return;
 	if (msg->getDataLength() == 0)
 		return;

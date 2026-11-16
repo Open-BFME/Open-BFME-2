@@ -66,20 +66,7 @@ typedef std::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 
 enum SlotState { SLOT_OPEN, SLOT_CLOSED, SLOT_EASY_AI, SLOT_MED_AI, SLOT_BRUTAL_AI, SLOT_AI_5, SLOT_PLAYER };
 #include "../../../../../Include/GameNetwork/GameSlotConnectInfo.h"
-class GameSlot
-{
-public:
-    virtual void v00();
-    void setPlayerTemplate(int value);
-    void setColor(int color) { m_color = color; }
-    void setHandicap(int handicap) { m_handicap = handicap; }
-    void setState(SlotState state, UnicodeString name = UnicodeString::TheEmptyString, const GameSlotConnectInfo *connect = &GameSlotConnectInfo());
-    char m_04[8];
-    int m_color;
-    char m_10[0x10];
-    int m_handicap;
-    char m_24[0x1ac - 0x24];
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 class GameSpyGameSlot : public GameSlot
 {
 public:
@@ -98,22 +85,6 @@ class Rva005AE5EE { public: void rva005AE5EE(const Rva005AE5EEQuad *value); };
 #include "../../../../../Include/GameNetwork/Rva00381D02.h"
 class Rva004FDB57 { public: void rva004FDB57(AsciiString value); };
 class Rva0059F2EB { public: void rva0059F2EB(AsciiString value); };
-class GameInfo
-{
-public:
-    virtual ~GameInfo();
-    void rva003FF1A7(int value);
-    void setMap(AsciiString value);
-    UnicodeString m_name;
-    char m_08[0x58 - 8];
-    int m_scenario;
-    int m_gameType;
-    int m_rules[10];
-    char m_88[0xc0 - 0x88];
-    int m_iniCRC, m_cmdCRC;
-    char m_c8[4];
-    unsigned char m_hash[16];
-};
 class GameSpyStagingRoom : public GameInfo
 {
 public:
@@ -354,8 +325,8 @@ bool AptMessengerOnline::ProcessGameSpyResponse(void *p)
                 room.m_hasPassword = resp->stagingRoom.requiresPassword;
                 room.m_version = resp->stagingRoom.version;
                 ((Rva005AE5EE *)&room)->rva005AE5EE(&resp->stagingRoom.exeCRC);
-                room.m_iniCRC = resp->stagingRoom.iniCRC;
-                room.m_cmdCRC = resp->stagingRoom.cmdCRC;
+                room.m_fieldC0 = resp->stagingRoom.iniCRC;
+                room.m_fieldC4 = resp->stagingRoom.cmdCRC;
                 ((Rva00381D02 *)&room)->rva00381D02(resp->stagingRoom.ladderHash);
                 room.m_allowObservers = resp->stagingRoom.allowObservers;
                 ((Rva004FDB57 *)&room)->rva004FDB57(resp->stagingServerPingString.c_str());
@@ -364,9 +335,9 @@ bool AptMessengerOnline::ProcessGameSpyResponse(void *p)
                 room.m_numPlayers = resp->stagingRoom.numPlayers;
                 room.m_maxPlayers = resp->stagingRoom.maxPlayers;
                 room.m_numObservers = resp->stagingRoom.numObservers;
-                memcpy(room.m_rules, resp->stagingRoom.ladPortValues, 0x28);
+                memcpy(room.m_field60, resp->stagingRoom.ladPortValues, 0x28);
                 room.m_extraMap = AsciiString(resp->unknown_7c.c_str());
-                room.m_scenario = resp->stagingRoom.scenario;
+                room.m_field58 = resp->stagingRoom.scenario;
                 Int i;
                 AsciiString gsMapName = resp->stagingRoomMapName.c_str();
                 AsciiString mapName = "";
@@ -389,23 +360,23 @@ bool AptMessengerOnline::ProcessGameSpyResponse(void *p)
                         slot->setProfileID(resp->stagingRoom.profileID[i]);
                         slot->setPlayerTemplate(resp->stagingRoom.faction[i]);
                         slot->setColor(resp->stagingRoom.color[i]);
-                        slot->setHandicap(resp->stagingRoom.handicap[i]);
+                        slot->m_field20 = resp->stagingRoom.handicap[i];
                         if (resp->stagingRoom.profileID[i] == SLOT_EASY_AI)
-                            slot->setState(SLOT_EASY_AI);
+                            slot->setState(SLOT_EASY_AI, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
                         else if (resp->stagingRoom.profileID[i] == SLOT_MED_AI)
-                            slot->setState(SLOT_MED_AI);
+                            slot->setState(SLOT_MED_AI, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
                         else if (resp->stagingRoom.profileID[i] == SLOT_BRUTAL_AI)
-                            slot->setState(SLOT_BRUTAL_AI);
+                            slot->setState(SLOT_BRUTAL_AI, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
                         else if (resp->stagingRoom.profileID[i] == SLOT_AI_5)
-                            slot->setState(SLOT_AI_5);
+                            slot->setState(SLOT_AI_5, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
                         else if (resp->stagingRoomPlayerNames[i].length())
                         {
                             UnicodeString nameUStr;
                             nameUStr.translate(resp->stagingRoomPlayerNames[i].c_str());
-                            slot->setState(SLOT_PLAYER, nameUStr);
+                            slot->setState(SLOT_PLAYER, nameUStr, &GameSlotConnectInfo());
                         }
                         else
-                            slot->setState(SLOT_OPEN);
+                            slot->setState(SLOT_OPEN, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
                     }
                 }
                 //DEBUG_LOG(("Saw room: hasPass=%d, allowsObservers=%d\n", room.getHasPassword(), room.getAllowObservers()));

@@ -19,24 +19,7 @@ typedef bool Bool;
 
 #include "../../Include/GameClient/Image.h"
 
-class GameInfo
-{
-public:
-	virtual ~GameInfo( void );
-	virtual void slot01( void ); virtual void slot02( void ); virtual void slot03( void );
-	virtual void slot04( void ); virtual void slot05( void );
-	virtual const Image *rva00401015( Int column );
-
-	Bool isGameInProgress( void ) const { return m_inProgress; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isGameInProgress copy loses
-	// to the first-in-order copy. No flags touched.
-	Bool bfme_inProgress_lgl( void ) const { return m_inProgress; }
-
-protected:
-	unsigned char m_pre10[0x10 - 4];
-	Bool m_inGame;					// +0x10
-	Bool m_inProgress;				// +0x11
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class LANGameInfo : public GameInfo
 {
@@ -49,7 +32,7 @@ const Image *LANGameInfo::rva00401015( Int column )
 	switch( column )
 	{
 		case 2:
-			if( bfme_inProgress_lgl() )
+			if( isGameInProgress() )
 				return TheMappedImageCollection->findImageByName( AsciiString( "AptLock" ) );
 			return NULL;
 	}
