@@ -361,3 +361,24 @@ approval. No synthetic anchor, invented class membership, fold bypass, gate chan
 unapproved move was applied. All 18 sorting claims were released. Next dependency: the
 coordinator's TU-evidence/tooling lane supplies independently justified approvals, followed
 by the supported split and full residual/destination, identity, binding and lifecycle checks.
+
+**2026-11-16, projected-shadow reader header prerequisite (base `75260358d7`).**
+`W3DProjectedShadowDecalHelpers.cpp` now obtains `std::max` from `<algorithm>`
+instead of defining a private copy that collides with standard headers during
+composition. The standard header precedes WWLib; its existing placement-new
+guard prevents duplicate operator definitions. The local `floorf` declaration
+and all algorithm bodies remain unchanged. Normal build verifies 17/17 rows,
+43 float literals and 12 imports; both EH graphs are EXACT. All 83 COMDAT
+byte/relocation fingerprints agree before and after, with none added or removed.
+The index was first refreshed from the modern branch's provider state to this
+clean master: 304 objects reread, 135 dropped, one new unit outside the census.
+Same-index reader previews both report LINKS, 10,338 bytes. These are preview
+results, not a real-link or runtime receipt. The four `drawEdge`/`drawStart`
+duplicate-storage findings remain; this header prerequisite does not repair
+selection rendering or complete the merge. No rows, statics or source paths move.
+The official focused `tu_skeleton.py --merge --dry-run` still refuses the seed
+under every merged flag set: selected `??0HashableClass@@QAE@XZ` is not retail's
+copy. It therefore does not try either reader or writer. Resolving that provider
+on master remains the next merge prerequisite; the old modern-only constructor
+repair is not included here. Logs and object comparison are in
+`build/decal-diagnostic/master-reader-*` and `master-algorithm-merge-dry.log`.

@@ -27,14 +27,14 @@
 
 // Keep the unused math.h wrapper local to this translation unit.
 extern "C" { static float __cdecl floorf(float); }
+#include <algorithm>
+// The standard header supplies placement new before WWLib is included.
+#define _OPERATOR_NEW_DEFINED_
 #include "wwmath.h"
 #include "vector3.h"
 #include "matrix3d.h"
 #include "Lib/Coord3D.h"
 #include "../../../../../GameEngine/Source/Common/PartitionRangeQueryCallView.h"
-// std::max as VC7.1 <xutility> spells it (<algorithm> collides with WWLib's
-// placement operator new definitions in this unit).
-namespace std { template<class _Ty> inline const _Ty &max(const _Ty &_Left, const _Ty &_Right) { return (_Left < _Right ? _Right : _Left); } }
 #include <math.h>
 #include <stdlib.h>
 
