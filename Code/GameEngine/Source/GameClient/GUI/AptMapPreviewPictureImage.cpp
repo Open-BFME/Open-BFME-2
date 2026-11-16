@@ -32,29 +32,7 @@ private:
 };
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Region2D.h"
-class Image
-{
-public:
-    Image();
-    virtual ~Image();
-    void bfmeSetName(const AsciiString &name) { m_name = name; }
-    void bfmeSetFilename(const AsciiString &name) { m_filename = name; }
-    void bfmeSetTexture(const BfmeMapPictureTexture &texture);
-    unsigned int setStatus(unsigned int bit);
-    void setUV(Region2D *uv) { if (uv) m_uv = *uv; }
-    void setTextureHeight(int height) { m_textureHeight = height; }
-    void setTextureWidth(int width) { m_textureWidth = width; }
-private:
-    AsciiString m_name;
-    AsciiString m_filename;
-    int m_textureWidth;
-    int m_textureHeight;
-    Region2D m_uv;
-    int m_imageWidth;
-    int m_imageHeight;
-    BfmeMapPictureTexture *m_texture;
-    unsigned int m_status;
-};
+#include "../../../Include/GameClient/ImageClass.h"
 
 Image *bfmeCreateMapPictureImage(const AsciiString &mapName)
 {
@@ -71,8 +49,8 @@ Image *bfmeCreateMapPictureImage(const AsciiString &mapName)
     if (TheFileSystem->doesFileExist(pictureName.str()))
     {
         image = new Image;
-        image->bfmeSetName(pictureName);
-        image->bfmeSetFilename(pictureName);
+        image->setName(pictureName);
+        image->setFilename(pictureName);
         image->bfmeSetTexture(BfmeMapPictureTexture(pictureName.str()));
         image->setStatus(2);
         Region2D uv;
