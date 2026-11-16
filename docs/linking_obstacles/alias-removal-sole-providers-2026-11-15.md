@@ -78,3 +78,13 @@ No CRT initializer section or atexit reference is introduced. Data, converged,
 pin consistency, CSV and frozen checks pass. Private Boat A/B and a current
 host verification agree; the sandbox was deleted. Saved evidence:
 ~/bfme2-ops/swarm/sweeps/dataid/ghttp-native/. Full-image/runtime unverified.
+
+## 2026-11-16: BehaviorModuleOther placeholder provider
+
+ab51f7ce8a adopted the canonical UpdateModule.h in UpdateModuleCtor.cpp and removed that unit's private BehaviorModuleOther view together with its `/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z` (retail 0x000D43D0, bound by 583b59b363). The unit itself no longer referenced the name, but it was the last of that binding's four original carriers. The BehaviorModuleOther tables of MineshaftPortalBehaviourCtor.cpp and PassiveAreaEffectBehavior.cpp still reference it (census index touches at aa505f34c8), and the real link at 75260358d7 lists both sources with this one missing name. SpawnBehaviorCtor.cpp binds only the public spelling `?unused@BehaviorModuleOther@@UAEXXZ`, which neither consumer uses.
+
+The repair restores the exact original binding in its original carrier, with a comment that names both consumers. The carrier's hatch_baseline line was never lowered, so no count rises and no admission is involved. The shadow code-identity register reports the alias as unreferenced, because its only referrers are vftables rather than matched rows; that proof limit is the same as for the Snapshot spelling above, and no identity-baseline entry is added.
+
+Before and after, link_check ran over the carrier and both consumers together, with strict current receipts: 1/3 -> 3/3 clean, 61 -> 1,671 predicted linked bytes, no lost unit. The carrier verifies 1/1 rows. Full-image/runtime unverified until the next real link.
+
+Still open: the native fix. Adopting the canonical BehaviorModule.h in both consumers gives their tables BehaviorModuleInterface's inline getters, which retail folds to 0x000D43D0; after that the alias can go, through the consumer check in "Required prevention" above.

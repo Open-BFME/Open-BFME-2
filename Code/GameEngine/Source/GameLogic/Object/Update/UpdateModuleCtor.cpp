@@ -12,3 +12,7 @@ UpdateModule::UpdateModule(Thing *thing, const ModuleData *moduleData)
 	  m_field1C(-1)
 {
 }
+
+// Sole provider for the BehaviorModuleOther placeholder slot that the tables in MineshaftPortalBehaviourCtor.cpp
+// and PassiveAreaEffectBehavior.cpp still hold; retail fills it with 0x000D43D0, rowed under this target's name.
+#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
