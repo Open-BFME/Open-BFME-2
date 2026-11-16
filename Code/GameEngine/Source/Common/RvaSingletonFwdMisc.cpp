@@ -19,6 +19,7 @@
 // One ledger row per body.
 class AsciiString;
 
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // Preserve the existing global pointee spelling; its storage identity is unchanged.
@@ -60,13 +61,6 @@ bool ExperienceTracker::rva0039ABFF() const
 {
 	return reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->rva00288CFA((int)this);
 }
-
-struct Rva0059E647Entry;
-class LivingWorldRegion
-{
-public:
-	void rva003EFE72(void *slot, Rva0059E647Entry *buildingTemplate);
-};
 
 void LivingWorldRegion::rva003EFE72(void *slot, Rva0059E647Entry *buildingTemplate)
 {

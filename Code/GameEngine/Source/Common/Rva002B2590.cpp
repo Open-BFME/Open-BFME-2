@@ -11,21 +11,10 @@ class Rva002B2590P3
 {
 public:
 	unsigned char m_pad00[0x14];
-	void *m_14;
+	int m_14;
 };
 
-struct Rva0059E647Entry;
-// The region: both callees are rowed LivingWorldRegion members.
-class LivingWorldRegion
-{
-public:
-	void *rva003F0588();
-	void rva003EFE72(void *slot, Rva0059E647Entry *buildingTemplate);
-
-public:
-	unsigned char m_pad00[0x13C];
-	void *m_13C;
-};
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 
 struct Rva0059E647Arg;
 #include "../../Include/Common/Rva0059E647World.h"
@@ -34,7 +23,7 @@ void Rva0059E647World::Apply(Rva0059E647Entry *buildingTemplate, void *regionVie
     void *p1 = buildingTemplate;
     LivingWorldRegion *region = (LivingWorldRegion *)regionView;
     Rva002B2590P3 *player = (Rva002B2590P3 *)playerView;
-    if (region->m_13C != player->m_14)
+    if (region->m_field13C != player->m_14)
         return;
     void *result = region->rva003F0588();
     if (result == 0)

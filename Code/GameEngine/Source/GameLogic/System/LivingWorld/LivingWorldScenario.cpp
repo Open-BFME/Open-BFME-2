@@ -28,20 +28,13 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 class Rva002E1001; // Retained opaque parameter spelling for the defeat provider.
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2903Player { public: char pad[0x34]; int team; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 #include "../../../../Include/Common/Rva002104B6.h"
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
-class LivingWorldRegion {
-public:
-    bool IsOwnedByTeam(int team) const;
-    char pad[0x12c];
-    int regionID;
-    int word130;
-    int lastOwnershipTurn;
-};
 // The target output element is a four-byte region ID, not ScienceType.
 // This local ABI tag makes no claim about the original enum spelling.
 enum Rva004FD8B8RegionID { RVA004FD8B8_REGION_ZERO = 0 };
@@ -90,7 +83,7 @@ bool LivingWorldScenario::TeamVictoryCondition::hasTeamAchievedVictory(int team)
     }
     if (requiredTurns > 0) {
         for (unsigned int i = 0; i < heldRegions.size(); ++i) {
-            int lastTurn = heldRegions[i]->lastOwnershipTurn;
+            int lastTurn = heldRegions[i]->m_field134;
             if (TheLivingWorldLogic->fieldFC - lastTurn < requiredTurns)
                 return false;
         }
@@ -114,7 +107,7 @@ void LivingWorldScenario::TeamVictoryCondition::QueryRegionsAndNumbers(
         if (!region)
             continue;
         for (unsigned int j = 0; j < out->size(); ++j) {
-            if ((*out)[j]->regionID == region->regionID)
+            if ((*out)[j]->m_field12C == region->m_field12C)
                 goto next;
         }
         out->push_back(region);

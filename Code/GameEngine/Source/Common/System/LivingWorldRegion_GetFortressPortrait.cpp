@@ -9,18 +9,11 @@
 
 #include "../../../Include/GameClient/Image.h"
 
-class LivingWorldRegion
-{
-public:
-	const Image *GetFortressPortrait();
-private:
-	char m_pad[0x120];
-	AsciiString m_name;
-};
+#include "../../../Include/GameLogic/LivingWorldRegion.h"
 
 const Image *LivingWorldRegion::GetFortressPortrait()
 {
-	if (!m_name.isEmpty())
-		return TheMappedImageCollection->findImageByName(m_name);
+	if (!m_field120.isEmpty())
+		return TheMappedImageCollection->findImageByName(m_field120);
 	return 0;
 }

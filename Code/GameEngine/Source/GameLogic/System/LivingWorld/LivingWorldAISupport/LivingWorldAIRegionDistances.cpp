@@ -198,14 +198,7 @@ public:
 	int FindShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, bool b);
 };
 
-class LivingWorldRegion
-{
-public:
-	char m_pad00[0x12C];
-	int m_id;			// +0x12C
-	char m_pad130[0x1A2 - 0x130];
-	bool m_1A2;			// +0x1A2
-};
+#include "../../../../../Include/GameLogic/LivingWorldRegion.h"
 
 class LivingWorldRegionManager
 {
@@ -259,14 +252,14 @@ void Rva005020CCBuildRegionDistances()
 	for (unsigned int regionIndex = 0; regionIndex < regions->size(); ++regionIndex) {
 		Rva0050055D distances;
 		LivingWorldRegion *region = (*regions)[regionIndex];
-		if (region->m_1A2) {
+		if (region->m_field1A2) {
 			for (unsigned int otherRegionIndex = 0; otherRegionIndex < regions->size(); ++otherRegionIndex) {
 				LivingWorldRegion *other = (*regions)[otherRegionIndex];
 				Rva004FF33DCallback callback;
-				int distance = livingWorldFindShortestPath((LivingWorldSearchCallback*)&callback, -1, region->m_id, other->m_id, 0, 0);
+				int distance = livingWorldFindShortestPath((LivingWorldSearchCallback*)&callback, -1, region->m_field12C, other->m_field12C, 0, 0);
 				if (distance >= 0) {
 					IntIntTree::iterator hintDistance = distances.m_byDistance.begin();
-					int otherID = other->m_id;
+					int otherID = other->m_field12C;
 					new(LocalPlacement(scratch.first)) IntIntTree::iterator(
 						distances.m_byDistance.insertBuilt(hintDistance._M_node, distance, otherID, scratch.distancePair));
 					IntIntTree::iterator hintRegion = distances.m_byRegion.begin();
@@ -274,7 +267,7 @@ void Rva005020CCBuildRegionDistances()
 						distances.m_byRegion.insertBuilt(hintRegion._M_node, otherID, distance, scratch.regionPair));
 				}
 			}
-			_STL::pair<int, Rva0050055D> value(region->m_id, distances);
+			_STL::pair<int, Rva0050055D> value(region->m_field12C, distances);
 			DistanceEntry entry(reinterpret_cast<const DistancePair &>(value));
 			new(LocalPlacement(scratch.second)) GlobalTree::iterator(table->insert(table->begin(), reinterpret_cast<const GlobalValue &>(entry)));
 		}

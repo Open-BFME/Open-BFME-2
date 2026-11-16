@@ -9,6 +9,10 @@ class INI;
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
+class LivingWorldRegion;
+class Rva005CB29ADisplay;
+static __declspec(noinline) void Rva005CB2D2(Rva005CB29ADisplay *display, LivingWorldRegion *region);
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 #include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
@@ -232,16 +236,6 @@ public:
 	virtual void slot4();
 	virtual void setPair(int a, int b);	// +0x14
 	virtual void setPair6(int a, int b);	// +0x18
-};
-class LivingWorldRegion;
-static __declspec(noinline) void Rva005CB2D2(Rva005CB29ADisplay *display, LivingWorldRegion *region);
-class LivingWorldRegion
-{
-	friend void Rva005CB2D2(Rva005CB29ADisplay *display, LivingWorldRegion *region);
-private:
-	int rva003EFD6F(Rva002E2903Player *owner) const;
-public:
-	int rva003F0189(Rva002E2903Player *owner) const;
 };
 
 static __declspec(noinline) void Rva005CB29A(Rva005CB29ADisplay *display, Rva003F287F *region)
