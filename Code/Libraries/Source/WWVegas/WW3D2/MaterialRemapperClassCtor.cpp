@@ -70,37 +70,7 @@ private:
 };
 
 // ??0TextureRemapStruct@MaterialRemapperClass@@QAE@XZ present-unmatched
-class MaterialInfoClass
-{
-public:
-	void Add_Ref(void) { NumRefs++; }
-	int Vertex_Material_Count(void) const { return m_vmatCount; }
-	// Keep the bounds check inline; the native out-of-line body has its owner.
-	__declspec(dllimport) __forceinline VertexMaterialClass *Peek_Vertex_Material(int index) const
-	{
-		if (index < m_vmatCount) {
-			return m_vmatBase[index];
-		}
-		return NULL;
-	}
-	int Texture_Count(void) const { return m_texCount; }
-	RefCountPtr<TextureClass> Peek_Texture(int index);
-
-private:
-	void *m_vptr;
-	int NumRefs;
-	int m_pad08;
-	VertexMaterialClass **m_vmatBase;
-	int m_pad10;
-	int m_pad14;
-	int m_vmatCount;
-	int m_pad1C;
-	int m_pad20;
-	RefCountPtr<TextureClass> *m_texBase;
-	int m_pad28;
-	int m_pad2C;
-	int m_texCount;
-};
+#include "MaterialInfoClass.h"
 
 class MaterialRemapperClass
 {
@@ -153,8 +123,9 @@ MaterialRemapperClass::MaterialRemapperClass(MaterialInfoClass *src, MaterialInf
 		VertexMaterialCount = src->Vertex_Material_Count();
 		VertexMaterialRemaps = new VmatRemapStruct[VertexMaterialCount];
 		for (int i = 0; i < src->Vertex_Material_Count(); i++) {
-			VertexMaterialRemaps[i].Src = src->Peek_Vertex_Material(i);
-			VertexMaterialRemaps[i].Dest = dest->Peek_Vertex_Material(i);
+			// Retail inlines Peek_Vertex_Material's bounds check here.
+			VertexMaterialRemaps[i].Src = i < src->field18 ? src->field0c[i] : NULL;
+			VertexMaterialRemaps[i].Dest = i < dest->field18 ? dest->field0c[i] : NULL;
 		}
 	}
 

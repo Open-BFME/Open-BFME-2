@@ -32,33 +32,7 @@ class TextureClass : public TextureBaseClass
 
 #include "VertexMaterialClass.h"
 
-class MaterialInfoClass
-{
-public:
-	void Release_Ref(void)
-	{
-		NumRefs--;
-		if (NumRefs == 0) {
-			Delete_This();
-		}
-	}
-	// LINK: same-body helper under a TU-unique name (thiscall shape identical
-	// to Release_Ref, so the inlined bytes match). This TU's Release_Ref copy
-	// loses to the first-in-order copy (no retail address); the two named
-	// calls below inline this helper instead, which emits only its own unique
-	// (trivially kept) copy and no loser. No flags touched.
-	void bfme_release_inline(void)
-	{
-		NumRefs--;
-		if (NumRefs == 0) {
-			Delete_This();
-		}
-	}
-	virtual void Delete_This();
-
-private:
-	int NumRefs;
-};
+#include "MaterialInfoClass.h"
 
 template<class T>
 class RefCountPtr
@@ -111,8 +85,8 @@ private:
 
 MaterialRemapperClass::~MaterialRemapperClass(void)
 {
-	SrcMatInfo->bfme_release_inline();
-	DestMatInfo->bfme_release_inline();
+	SrcMatInfo->Release_Ref();
+	DestMatInfo->Release_Ref();
 
 	if (TextureRemaps) {
 		delete[] TextureRemaps;

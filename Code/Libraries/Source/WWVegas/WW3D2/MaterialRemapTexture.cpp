@@ -29,22 +29,7 @@ class TextureClass : public TextureBaseClass
 {
 };
 
-class MaterialInfoClass
-{
-public:
-	int m_refs;
-	int m_08;
-	VertexMaterialClass **VmatVector;
-	int m_10;
-	int m_14;
-	int VmatCount;
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	int TextureCount;
-};
+#include "MaterialInfoClass.h"
 
 struct VmatRemapStruct
 {
