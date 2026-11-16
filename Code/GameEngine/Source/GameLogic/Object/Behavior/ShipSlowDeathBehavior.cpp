@@ -92,6 +92,7 @@ class __declspec(novtable) ShipSlowDeathBehaviorModuleData : public SlowDeathBeh
 {
 public:
 	ShipSlowDeathBehaviorModuleData();
+	virtual ~ShipSlowDeathBehaviorModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
@@ -115,6 +116,11 @@ void ShipSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	SlowDeathBehaviorModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
+}
+
+// ??1ShipSlowDeathBehaviorModuleData@@UAE@XZ @0x00461FED (ICF twin of GiantBirdSlowDeathBehaviorModuleData)
+ShipSlowDeathBehaviorModuleData::~ShipSlowDeathBehaviorModuleData()
+{
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
