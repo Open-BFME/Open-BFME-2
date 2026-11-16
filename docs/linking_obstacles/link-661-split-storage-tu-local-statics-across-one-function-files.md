@@ -507,3 +507,13 @@ its canonical adoption is a next hypothesis, subject to the class claim.
 Logs in the isolated decal-merge worktree: build/decal-diagnostic/manager-bounds-*
 and merge-byte-misses.json. Original publication continues in its untouched
 worktree while this branch banks the next prerequisite.
+
+**Canonical seed RenderObjClass:** replace its unqualified donor rendobj.h
+include with the registered header already used by the reader. Official build
+retains 64/64 functions and nine EXACT EH graphs; header adoption passes. The
+next focused composer run gets the reader past its byte mismatch, confirming
+the one-slot donor/canonical discrepancy above. It now refuses missing provider
+definitions for std::max<float> and RefCountClass::Release_Ref in the composed
+object. This is not waived: establish reference/selection evidence before any
+claim that the refusal is false. Writer composition still fails bytes. Logs:
+`build/decal-diagnostic/seed-canonical-renderobj-*` in the decal-merge worktree.

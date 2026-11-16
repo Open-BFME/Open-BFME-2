@@ -23,7 +23,7 @@
 ;
 #include "always.h"
 #include <d3d8.h>
-#include "rendobj.h"
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 #include "WW3D2/assetmgr.h"
