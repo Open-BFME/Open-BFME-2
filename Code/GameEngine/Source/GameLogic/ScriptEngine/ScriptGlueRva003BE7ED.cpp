@@ -78,24 +78,7 @@ extern unsigned int g_00DFE358[3];
 class Object;
 class DamageInfo;
 
-class CreateAHeroManager
-{
-public:
-	void rva0021A4E6();
-	int rva002192C0();
-	CreateAHeroData *rva002197A6(int id);
-	void OnDie(Object *object, const DamageInfo *damageInfo);
-	char m_pad000[0x1A4];
-	unsigned int m_1A4;
-	unsigned int m_1A8;
-	unsigned int m_1AC;
-	unsigned int m_1B0;
-	char m_pad1B4[0x1D0 - 0x1B4];
-	unsigned int m_1D0;
-	char m_pad1D4[0x1E0 - 0x1D4];
-	CreateAHeroData *m_1E0;
-};
-extern CreateAHeroManager *TheCreateAHeroManager;
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 class Rva0021A54A : public CreateAHeroManager
 {
@@ -158,7 +141,7 @@ void Rva003BE7ED::rva003BE7ED()
 // two direct helper views remain address-derived where their ledger pins say so.
 void CreateAHeroManager::rva0021A4E6()
 {
-	CreateAHeroData **slot = &m_1E0;
+	CreateAHeroData **slot = &field1E0;
 	CreateAHeroData *hero = *slot;
 	CreateAHeroManager *manager = this;
 	if (hero != 0) {
@@ -168,9 +151,9 @@ void CreateAHeroManager::rva0021A4E6()
 			if (state != 0) {
 				if (state != 3)
 					goto clear;
-				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1A4, 1);
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->field1A4, 1);
 			} else {
-				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1AC, 1);
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->field1AC, 1);
 			}
 			(*slot)->WriteNamedHeroAtRva004074CF();
 		}
@@ -183,7 +166,7 @@ void CreateAHeroManager::rva0021A4E6()
 // registry pattern as 0x0021A4E6, with its target fields at +0x1A8/+0x1B0.
 void Rva0021A54A::rva0021A54A()
 {
-	CreateAHeroData **slot = &m_1E0;
+	CreateAHeroData **slot = &field1E0;
 	CreateAHeroData *hero = *slot;
 	CreateAHeroManager *manager = this;
 	if (hero != 0) {
@@ -193,9 +176,9 @@ void Rva0021A54A::rva0021A54A()
 			if (state != 0) {
 				if (state != 3)
 					goto clear;
-				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1A8, 1);
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->field1A8, 1);
 			} else {
-				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1B0, 1);
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->field1B0, 1);
 			}
 			(*slot)->WriteNamedHeroAtRva004074CF();
 		}
@@ -242,6 +225,6 @@ void CreateAHeroManager::OnDie(Object *object, const DamageInfo *damageInfo)
 	if (rva002192C0() == 4)
 		return;
 	CreateAHeroData *hero = TheCreateAHeroManager->rva002197A6(object->m_id);
-	if (hero && m_1E0)
-		((Rva0021937DTarget *)m_1E0)->rva004089C7(m_1D0, 1);
+	if (hero && field1E0)
+		((Rva0021937DTarget *)field1E0)->rva004089C7(field1D0, 1);
 }

@@ -11,15 +11,9 @@
 // vector call binds the rowed non-trivial Destroy shape.
 #include "ascii_string.h"
 #include <vector>
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
-
-
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroClass;
-    class CreateAHeroSubClass { public: ~CreateAHeroSubClass(); private: char m_storage[216]; }; // retail's __destroy_aux 0x0021F17F steps 0xD8
-};
+class CreateAHeroManager::CreateAHeroSubClass { public: ~CreateAHeroSubClass(); private: char m_storage[216]; }; // retail's __destroy_aux 0x0021F17F steps 0xD8
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 class CreateAHeroManager::CreateAHeroClass

@@ -75,34 +75,26 @@ void sort(_RandomAccessIter first, _RandomAccessIter last, _Compare comp);
 
 extern "C" FieldParse CreateAHeroSubClassFieldParse[];
 
-class CreateAHeroManager
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
+
+class CreateAHeroManager::CreateAHeroSubClass
 {
 public:
-	class CreateAHeroSubClass
-	{
-	public:
-		CreateAHeroSubClass(const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &);
-		~CreateAHeroSubClass();
-		Int *rva0021BD22(Int groupKey) const;
-		NameKeyType GetBlingGroupNameKey(UnsignedInt index);
-		Int rva0021BC2C(Int blingKey) const;
-		void AddBling(Int blingKey, UnsignedInt index, Bool makeDefault);
+	CreateAHeroSubClass(const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &);
+	~CreateAHeroSubClass();
+	Int *rva0021BD22(Int groupKey) const;
+	NameKeyType GetBlingGroupNameKey(UnsignedInt index);
+	Int rva0021BC2C(Int blingKey) const;
+	void AddBling(Int blingKey, UnsignedInt index, Bool makeDefault);
 
-		AsciiString m_nameTag, m_descriptionTag, m_iconName, m_emptyString;
-		unsigned m_word10, m_word14, m_word18;
-		int m_spendablePoints;
-		AsciiString m_upgradeName;				// +0x20
-		std::map<int, std::vector<unsigned int> > m_blingIds;	// +0x24
-		std::vector<NameKeyType> m_keys30, m_keys3C;		// +0x30 +0x3C
-		unsigned char m_pad48[0xd8 - 0x48];
-	};
-
-	static void parseCreateAHeroSubClass(INI *ini, void *instance, void *store, const void *userData);
-	static void parseHeroBlingUpgrades(INI *ini, void *instance, void *store, const void *userData);
-	Bool FindBlingByUpgradeName(const AsciiString &upgradeName, Int *index, Int *blingId);
+	AsciiString m_nameTag, m_descriptionTag, m_iconName, m_emptyString;
+	unsigned m_word10, m_word14, m_word18;
+	int m_spendablePoints;
+	AsciiString m_upgradeName;				// +0x20
+	std::map<int, std::vector<unsigned int> > m_blingIds;	// +0x24
+	std::vector<NameKeyType> m_keys30, m_keys3C;		// +0x30 +0x3C
+	unsigned char m_pad48[0xd8 - 0x48];
 };
-
-extern CreateAHeroManager *TheCreateAHeroManager;
 
 void rva0021A7A3(INI *ini, void *instance, void *store, const void *userData);
 
