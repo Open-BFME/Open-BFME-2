@@ -56,16 +56,8 @@ public:
 	int m_0C;
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void i0(); virtual void i1(); virtual void i2(); virtual void i3();
-	virtual void i4();
-	virtual AsciiString getPowerName() const;
-	virtual const Overridable *getSpecialPowerTemplate() const;
-	int m_14;
-	int m_18;
-};
+#include "../../../../Include/Common/SpecialPower.h"
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerModule : public SpecialPowerModuleBase, public SpecialPowerModuleInterface
 {
@@ -75,6 +67,8 @@ public:
 protected:
 	virtual void loadPostProcess();
 private:
+	int m_14;
+	int m_18;
 	int m_pausedCount;										// +0x1C
 };
 

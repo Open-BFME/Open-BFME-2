@@ -12,7 +12,7 @@
 // The selected child remains live through setStatus before assigning obj; this
 // gives the native EBX reload. A barrier after forming the disabled-mask
 // pointer selects native MOV ECX/ADD instead of MOV EAX/LEA.
-// slot6 is the no-argument template getter: two arguments pushed BEFORE that
+// getSpecialPowerTemplate (slot 6) takes no argument: two arguments pushed BEFORE that
 // virtual call remain for ActionManager's six-argument call (they are not
 // arguments to the getter). Every direct helper is owned.
 #include "Code/Libraries/Include/Lib/Coord3D.h"
@@ -30,7 +30,7 @@ class Object {public:char head[0x1C8];BitFlags<11> disabled;public:bool isDisabl
 #include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 class SpecialPowerModule;
-class SpecialPowerModuleInterface {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual const SpecialPowerTemplate *s6()const;virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void doSpecialPowerAtObject(Object*,unsigned);};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class GrabHordeView {public:
  virtual void s0();
  virtual void s1();
@@ -104,16 +104,16 @@ void GrabPassengerSpecialPower::doSpecialPowerAtObject(Object *obj,unsigned opti
   GrabHordeView *horde=((GrabObjectView*)obj)->contain->s30();
   if(horde) {
    Object *selected=horde->s18(true,false,0.0f,0,0);if(!selected)return;
-   if(((const GrabFinalTemplateView*)s6()->friend_getFinalOverride())->type==0x27) {
+   if(((const GrabFinalTemplateView*)getSpecialPowerTemplate()->friend_getFinalOverride())->type==0x27) {
     SpecialPowerModuleInterface *power=getOwner()->findSpecialPowerModuleInterface(GRAB_POWER27);if(!power)return;
-    if(!TheActionManager->canDoSpecialPowerAtObject(getOwner(),obj,(CommandSourceType)((options>>18)&1),power->s6(),options,true))return;
+    if(!TheActionManager->canDoSpecialPowerAtObject(getOwner(),obj,(CommandSourceType)((options>>18)&1),power->getSpecialPowerTemplate(),options,true))return;
    }
    selected->setStatus(GRAB_STATUS63,true);obj=selected;
   }
  }else {
-  if(((const GrabFinalTemplateView*)s6()->friend_getFinalOverride())->type==0x27) {
+  if(((const GrabFinalTemplateView*)getSpecialPowerTemplate()->friend_getFinalOverride())->type==0x27) {
    SpecialPowerModuleInterface *power=getOwner()->findSpecialPowerModuleInterface(GRAB_POWER27);if(!power)return;
-   if(!TheActionManager->canDoSpecialPowerAtObject(getOwner(),obj,(CommandSourceType)((options>>18)&1),power->s6(),options,true))return;
+   if(!TheActionManager->canDoSpecialPowerAtObject(getOwner(),obj,(CommandSourceType)((options>>18)&1),power->getSpecialPowerTemplate(),options,true))return;
   }
  }
  SpecialPowerModule *base=this;

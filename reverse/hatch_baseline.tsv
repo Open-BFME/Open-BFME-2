@@ -2471,7 +2471,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Object.cpp	?hasSpecialPowe
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp	??1Rva003623E5Filter@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp	??1Rva003623E5Member@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectGoDownOnCorpse.cpp	?doSpecialPowerAtLocation@Object@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectKill.cpp	?bfmeDoBGB@BfmeSubBGB@@QAEXHH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cpp	?bfmeOneCNG@BfmeSubCNG@@QAEXM@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp	?allow@Rva00260FD0Filter@@UAE_NPAVObject@@@Z	1
