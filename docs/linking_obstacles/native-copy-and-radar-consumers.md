@@ -1,6 +1,6 @@
 ### Native string-copy and radar predicate consumers
 
-Status: string-copy consumers repaired locally; fresh full link pending.
+Status: string-copy and radar consumers repaired locally; fresh full link pending.
 
 The authoritative real link at 1ffed447 reports the withdrawn helper names
 `BfmeUniVKE::bfmeCopyUVKE` and `BfmeSubBSF::bfmeSetBSF`. Their native calls
@@ -13,7 +13,10 @@ Provider-inclusive scoped link preview: 3/3 clean, provider's 197 bytes
 unchanged, consumers 64 and 31 bytes. New-variant check passes. The census
 is still 0534e78db3 (16:28); these are scoped predictions, not real-link gains.
 
-The radar consumer's withdrawn bool spelling is the next related repair.
-The native 66-byte predicate already exists in Player.cpp at 002AA04C.
+The radar consumers now call the existing normalized-int predicate in Player.cpp
+at 002AA04C, explicitly narrowing its result to preserve retail's AL tests.
+No second provider or alias is added. All five radar rows (657 bytes) and four
+EH graphs pass; the unchanged provider unit passes 65 rows and two data rows.
+Both current objects pass the scoped link preview (2489 -> 3146 own bytes).
 
 Evidence: [handoff](../../reverse/attempt_support/native-copy-and-radar-consumers.md).

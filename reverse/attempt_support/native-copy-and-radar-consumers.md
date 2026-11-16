@@ -20,7 +20,21 @@ unresolved symbols, no image. The local repairs below await a new full link.
 - The published census used by that preview is 0534e78db3 at 16:28 and warns
   of four changed source paths. No fresh global-link or runtime result claimed.
 
+## Radar predicate
+
+- Player_Radar.cpp calls the rowed int-returning predicate at 002AA04C
+  instead of the withdrawn bool interface. That native body returns 0 or 1;
+  explicit unsigned-char narrowing preserves the four retail AL tests.
+- The helper view is declaration-only and introduces no provider or pin.
+  The old bool declaration is removed from this consumer.
+- Official build: 5/5 (657 bytes), EH: 4 EXACT. COFF has exactly four
+  relocations to ?rva002AA04C@Rva002AA04C@@QAEHXZ, each followed by test al,al;
+  the missing bool symbol is absent. New-variant check passes.
+- Provider-inclusive verification: unchanged Player.cpp passes 65/65 code
+  rows and two data rows. Both current objects link in scoped preview,
+  2489 -> 3146 own bytes. Logs radar-provider-verify.log and
+  radar-provider-link.log under build/decal-diagnostic. Census remains stale.
+
 ## Next
 
-Verify the radar consumer against the existing native predicate, then measure
-the complete image and test Windows menu, skirmish and selection decals.
+Measure the complete image and test Windows menu, skirmish and selection decals.

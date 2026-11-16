@@ -7,7 +7,7 @@
 // enable/disable boundaries independently establish each member identity.
 // Keep hasRadar in this unit: MSVC observes its ECX-preserving body and omits
 // the reload before the edge predicate, as the native notification bodies do.
-// The edge predicate's bool interface aliases the rowed normalized0/1 worker.
+// The edge predicate calls the rowed normalized0/1 worker and tests its low byte.
 #include "Common/BfmeAudioEventPrefix136.h"
 class AudioManager; extern AudioManager *TheAudio;
 
@@ -94,6 +94,13 @@ class Rva002AA9C2AudioView { public:
     virtual void slot77();
     virtual const Rva002AA9C2MiscView *getMiscAudio();
 };
+// The native predicate at 0x002AA04C returns a normalized 0/1 int.
+// Retail's radar callers test AL; narrow explicitly when calling its rowed view.
+class Rva002AA04C {
+public:
+    int rva002AA04C();
+};
+
 class Player {
     char lead[0x54];
     int playerIndex;
@@ -103,7 +110,6 @@ class Player {
     unsigned char radarDisabled;
 public:
     bool hasRadar() const;
-    bool okToPlayRadarEdgeSound();
     void removeRadar(bool);
     void addRadar(bool);
     void disableRadar();
@@ -122,7 +128,7 @@ void Player::removeRadar(bool disableProof)
     bool had = hasRadar();
     --radarCount;
     if (disableProof) --proofCount;
-    if (had && !hasRadar() && okToPlayRadarEdgeSound()) {
+    if (had && !hasRadar() && static_cast<unsigned char>(reinterpret_cast<Rva002AA04C *>(this)->rva002AA04C()) != 0) {
         BfmeAudioEventPrefix136 event(reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->getMiscAudio()->radarLost, 0);
         reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(playerIndex);
         reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->addAudioEvent(&event);
@@ -134,7 +140,7 @@ void Player::addRadar(bool disableProof)
     bool had = hasRadar();
     ++radarCount;
     if (disableProof) ++proofCount;
-    if (!had && hasRadar() && okToPlayRadarEdgeSound()) {
+    if (!had && hasRadar() && static_cast<unsigned char>(reinterpret_cast<Rva002AA04C *>(this)->rva002AA04C()) != 0) {
         BfmeAudioEventPrefix136 event(reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->getMiscAudio()->radarOnline, 0);
         reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(playerIndex);
         reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->addAudioEvent(&event);
@@ -145,7 +151,7 @@ void Player::disableRadar()
 {
     bool had = hasRadar();
     radarDisabled=true;
-    if (had && !hasRadar() && okToPlayRadarEdgeSound()) {
+    if (had && !hasRadar() && static_cast<unsigned char>(reinterpret_cast<Rva002AA04C *>(this)->rva002AA04C()) != 0) {
         BfmeAudioEventPrefix136 event(reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->getMiscAudio()->radarLost, 0);
         reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(playerIndex);
         reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->addAudioEvent(&event);
@@ -156,7 +162,7 @@ void Player::enableRadar()
 {
     bool had = hasRadar();
     radarDisabled=false;
-    if (!had && hasRadar() && okToPlayRadarEdgeSound()) {
+    if (!had && hasRadar() && static_cast<unsigned char>(reinterpret_cast<Rva002AA04C *>(this)->rva002AA04C()) != 0) {
         BfmeAudioEventPrefix136 event(reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->getMiscAudio()->radarOnline, 0);
         reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(playerIndex);
         reinterpret_cast<Rva002AA9C2AudioView *>(TheAudio)->addAudioEvent(&event);
