@@ -92,6 +92,7 @@ class __declspec(novtable) ShipSlowDeathBehaviorModuleData : public SlowDeathBeh
 {
 public:
 	ShipSlowDeathBehaviorModuleData();
+	virtual ~ShipSlowDeathBehaviorModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
@@ -108,6 +109,15 @@ ShipSlowDeathBehaviorModuleData::ShipSlowDeathBehaviorModuleData()
 	: SlowDeathBehaviorModuleData()
 {
 	*(unsigned int *)this = ((unsigned int)vtbl_00C42E98);
+}
+
+// ??1ShipSlowDeathBehaviorModuleData@@UAE@XZ: the destructor the deleting
+// destructor 0x0045E98E (slot 0 of vtable 0x00C42E98) calls at 0x00461FED, a
+// 5-byte tail jump to the rowed SlowDeathBehaviorModuleData destructor
+// 0x0045E4A5. GiantBirdSlowDeathBehaviorModuleData's identical destructor
+// folds onto the same body (/OPT:ICF) and holds its ledger row.
+ShipSlowDeathBehaviorModuleData::~ShipSlowDeathBehaviorModuleData()
+{
 }
 
 // ?buildFieldParse@ShipSlowDeathBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0045E973
