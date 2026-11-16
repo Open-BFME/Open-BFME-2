@@ -3073,12 +3073,6 @@ static const piCallbackFuncs callbackFuncs[] =
    every other empty function in the image, so the comparison cannot tell this
    file's from anyone else's and the row is not landed.
 
-   _piConnectFree present-unmatched
-   _piJoinRoomFree present-unmatched
-   _piRoomNameChangedFree present-unmatched
-   _piRoomModeChangedFree present-unmatched
-   _piNewPlayerListFree present-unmatched
-   _piAutoMatchStatusFree present-unmatched
 
    The rest are byte-exact here but already carry a ledger row pointing at
    another source, and a green build is not a licence to repoint someone else's
@@ -3088,15 +3082,6 @@ static const piCallbackFuncs callbackFuncs[] =
    0x0085D360 are the interesting pair, because callbackFuncs[] puts them at
    type 11 (ROOM_NAME_CHANGED) and type 20 (NEW_PLAYER_LIST) of this table.
 
-   _piListingGamesFree present-unmatched
-   _piGetPlayerProfileIDFree present-unmatched
-   _piGetPlayerIPFree present-unmatched
-   _piReadyChangedFree present-unmatched
-   _piDisconnectedFree present-unmatched
-   _piPlayerMessageFree present-unmatched
-   _piCrossPingFree present-unmatched
-   _piRoomNameChangedCopy present-unmatched
-   _piNewPlayerListCopy present-unmatched
 */
 
 /* --- the piAddCallback machinery, the half of this retail TU the first pass

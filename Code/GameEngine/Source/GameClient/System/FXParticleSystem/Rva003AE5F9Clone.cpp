@@ -3,7 +3,6 @@
 // (class of ??0Rva003AE5F9@@QAE@ABV0@@Z in ParticleModuleInfoCopyCtors.cpp).
 // Same EH new-plus-copy shape as rowed clone 0x003AE4AE (push 0x1c) in Rva003AE4E5Clone.cpp;
 // here push 0x1c plus rowed copy Rva003AE5F9. Chain lane: calls 0x003AE5F9 just landed.
-// ?clone@Rva003AE5F9@@QBEPAV1@XZ @0x003AE5C2 present-unmatched
 class Rva003AE5F9
 {
 public:

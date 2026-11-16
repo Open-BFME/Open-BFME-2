@@ -61,7 +61,6 @@ HashTable TableNew(int elemSize, int nBuckets,
 {
 	return TableNew2(elemSize, nBuckets, 4, hashFn, compFn, freeFn);
 }
-// TableNew2 present-unmatched
 HashTable TableNew2(int elemSize, int nBuckets, int nChains,
                    TableHashFn hashFn, TableCompareFn compFn, 
  					 TableElementFreeFn freeFn)
@@ -90,7 +89,6 @@ HashTable TableNew2(int elemSize, int nBuckets, int nChains,
 }
 
 
-// TableFree present-unmatched
 void TableFree(HashTable table)
 {
 	int i;
@@ -107,7 +105,6 @@ void TableFree(HashTable table)
 }
 
 
-// TableCount present-unmatched
 int TableCount(HashTable table)
 {
 	int i, count = 0;
@@ -124,7 +121,6 @@ int TableCount(HashTable table)
 }
 
 
-// TableEnter present-unmatched
 void TableEnter(HashTable table, const void *newElem)
 {
 	int hash, itempos;
@@ -142,7 +138,6 @@ void TableEnter(HashTable table, const void *newElem)
 		ArrayReplaceAt(table->buckets[hash], newElem, itempos);
 }
 
-// TableRemove present-unmatched
 int TableRemove(HashTable table, const void *delElem)
 {
 	int hash, itempos;
@@ -161,7 +156,6 @@ int TableRemove(HashTable table, const void *delElem)
 	return 1;
 }
 
-// TableLookup present-unmatched
 void *TableLookup(HashTable table, const void *elemKey)
 {
 	int hash, itempos;
@@ -181,7 +175,6 @@ void *TableLookup(HashTable table, const void *elemKey)
 }
 
 
-// TableMap present-unmatched
 void TableMap(HashTable table, TableMapFn fn, void *clientData)
 {
 	int i;
@@ -227,7 +220,6 @@ void * TableMap2(HashTable table, TableMapFn2 fn, void *clientData)
 	return NULL;
 }
 
-// TableMapSafe2 present-unmatched
 void * TableMapSafe2(HashTable table, TableMapFn2 fn, void *clientData)
 {
 	int i;

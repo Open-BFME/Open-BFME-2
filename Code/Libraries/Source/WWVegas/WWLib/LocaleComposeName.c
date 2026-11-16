@@ -107,13 +107,8 @@ static const char *__Extract_locale_name(const char *loc, int category, char *bu
   }
 }
 
-// ?_Locale_extract_ctype_name present-unmatched
 const char *_Locale_extract_ctype_name(const char *cname, char *buf) { return __Extract_locale_name(cname, 2, buf); }
-// ?_Locale_extract_numeric_name present-unmatched
 const char *_Locale_extract_numeric_name(const char *cname, char *buf) { return __Extract_locale_name(cname, 4, buf); }
-// ?_Locale_extract_time_name present-unmatched
 const char *_Locale_extract_time_name(const char *cname, char *buf) { return __Extract_locale_name(cname, 5, buf); }
-// ?_Locale_extract_collate_name present-unmatched
 const char *_Locale_extract_collate_name(const char *cname, char *buf) { return __Extract_locale_name(cname, 1, buf); }
-// ?_Locale_extract_monetary_name present-unmatched
 const char *_Locale_extract_monetary_name(const char *cname, char *buf) { return __Extract_locale_name(cname, 3, buf); }

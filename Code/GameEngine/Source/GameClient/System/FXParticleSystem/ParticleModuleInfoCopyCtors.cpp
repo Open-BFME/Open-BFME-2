@@ -288,7 +288,6 @@ Rva003AF47D::Rva003AF47D(const Rva003AF47D &other)
 
 // ??0Rva003AE465@@QAE@ABV0@@Z @0x003AE465 45B: ParticleTerrainCollisionModuleInfo copy ctor calling rowed base 0x003AF50D then own 3 vptrs.
 // Evidence: calls 0x003AF50D then stores at +0x18/+0/+0x14/+0x18 DIR32; primary 0x00C1D3F4 second 0x00C1C780 third 0x00C1BAC0 overwritten by 0x00C1D3E4; name getter 0x003AE336 returns ParticleTerrainCollisionModuleInfo; unlocks 0x003AE43F.
-// ??0Rva003AE465@@QAE@ABV0@@Z @0x003AE465 present-unmatched
 class Rva003AE465 : public Rva003AF50D, public ModuleInfoThirdBAC0
 {
 public:
@@ -302,7 +301,6 @@ Rva003AE465::Rva003AE465(const Rva003AE465 &other)
 
 // ??0Rva003AE43F@@QAE@ABV0@@Z @0x003AE43F 38B: derived copy calling rowed 0x003AE465 then own 3 vptrs.
 // Evidence: calls 0x003AE465 then stores at +0/+0x14/+0x18 DIR32; primary 0x00C1CC28 second 0x00C1CC24 third 0x00C1C324; caller staticInitModules 0x003AE42D; unlocks none.
-// ??0Rva003AE43F@@QAE@ABV0@@Z @0x003AE43F present-unmatched
 class Rva003AE43F : public Rva003AE465
 {
 public:
@@ -316,7 +314,6 @@ Rva003AE43F::Rva003AE43F(const Rva003AE43F &other)
 
 // ??0Rva003AE50B@@QAE@ABV0@@Z @0x003AE50B 45B: copy ctor calling rowed base 0x003AF50D then own 3 vptrs.
 // Evidence: calls 0x003AF50D then stores at +0x18/+0/+0x14/+0x18 DIR32; primary 0x00C1D440 second 0x00C1C780 third 0x00C1BD10 overwritten by 0x00C1D430; unlocks 0x003AE4E5.
-// ??0Rva003AE50B@@QAE@ABV0@@Z @0x003AE50B present-unmatched
 class Rva003AE50B : public Rva003AF50D, public ModuleInfoThirdBD10
 {
 public:
@@ -330,7 +327,6 @@ Rva003AE50B::Rva003AE50B(const Rva003AE50B &other)
 
 // ??0Rva003AE4E5@@QAE@ABV0@@Z @0x003AE4E5 38B: derived copy calling rowed 0x003AE50B then own 3 vptrs.
 // Evidence: calls 0x003AE50B then stores at +0/+0x14/+0x18 DIR32; primary 0x00C1CC58 second 0x00C1CC54 third 0x00C1C378; unlocks 0x003AE4AE.
-// ??0Rva003AE4E5@@QAE@ABV0@@Z @0x003AE4E5 present-unmatched
 class Rva003AE4E5 : public Rva003AE50B
 {
 public:
@@ -344,7 +340,6 @@ Rva003AE4E5::Rva003AE4E5(const Rva003AE4E5 &other)
 
 // ??0Rva003AE595@@QAE@ABV0@@Z @0x003AE595 45B: copy ctor calling rowed base 0x003AF50D then own 3 vptrs.
 // Evidence: calls 0x003AF50D then stores at +0x18/+0/+0x14/+0x18 DIR32; primary 0x00C1D47C second 0x00C1C780 third 0x00C1BD30 overwritten by 0x00C1D46C; unlocks 0x003AE56F.
-// ??0Rva003AE595@@QAE@ABV0@@Z @0x003AE595 present-unmatched
 class Rva003AE595 : public Rva003AF50D, public ModuleInfoThirdBD30
 {
 public:
@@ -358,7 +353,6 @@ Rva003AE595::Rva003AE595(const Rva003AE595 &other)
 
 // ??0Rva003AE56F@@QAE@ABV0@@Z @0x003AE56F 38B: derived copy calling rowed 0x003AE595 then own 3 vptrs.
 // Evidence: calls 0x003AE595 then stores at +0/+0x14/+0x18 DIR32; primary 0x00C1CC98 second 0x00C1CC94 third 0x00C1CC84; unlocks 0x003AE538.
-// ??0Rva003AE56F@@QAE@ABV0@@Z @0x003AE56F present-unmatched
 class Rva003AE56F : public Rva003AE595
 {
 public:
@@ -372,7 +366,6 @@ Rva003AE56F::Rva003AE56F(const Rva003AE56F &other)
 
 // ??0Rva003AE61F@@QAE@ABV0@@Z @0x003AE61F 45B: copy ctor calling rowed base 0x003AF50D then own 3 vptrs.
 // Evidence: calls 0x003AF50D then stores at +0x18/+0/+0x14/+0x18 DIR32; primary 0x00C1D4B8 second 0x00C1C780 third 0x00C1BD50 overwritten by 0x00C1D4A8; unlocks 0x003AE5F9.
-// ??0Rva003AE61F@@QAE@ABV0@@Z @0x003AE61F present-unmatched
 class Rva003AE61F : public Rva003AF50D, public ModuleInfoThirdBD50
 {
 public:
@@ -386,7 +379,6 @@ Rva003AE61F::Rva003AE61F(const Rva003AE61F &other)
 
 // ??0Rva003AE5F9@@QAE@ABV0@@Z @0x003AE5F9 38B: derived copy calling rowed 0x003AE61F then own 3 vptrs.
 // Evidence: calls 0x003AE61F then stores at +0/+0x14/+0x18 DIR32; primary 0x00C1CCD8 second 0x00C1CCD4 third 0x00C1CCC4; unlocks 0x003AE5C2.
-// ??0Rva003AE5F9@@QAE@ABV0@@Z @0x003AE5F9 present-unmatched
 class Rva003AE5F9 : public Rva003AE61F
 {
 public:

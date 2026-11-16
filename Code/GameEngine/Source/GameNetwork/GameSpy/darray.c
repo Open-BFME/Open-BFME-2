@@ -64,7 +64,6 @@ static void *mybsearch(const void *elem, void *base, int num, int elemsize,
 /* FreeElement
  * Frees the element at position N in the array
  */
-// FreeElement present-unmatched
 static void FreeElement(DArray array, int n)
 {
 	if (array->elemfreefn != NULL)
@@ -74,7 +73,6 @@ static void FreeElement(DArray array, int n)
 /* ArrayGrow
  * Reallocates the array to a new size, incresed by growby
  */
-// ArrayGrow present-unmatched
 static void ArrayGrow(DArray array)
 {
 	array->capacity +=  array->growby;
@@ -85,13 +83,11 @@ static void ArrayGrow(DArray array)
 /* SetElement
  * Sets the element at pos to the contents of elem
  */
-// SetElement present-unmatched
 static void SetElement(DArray array, const void *elem, int pos)
 {
 	memcpy(ArrayNth(array,pos), elem, (size_t)array->elemsize);
 }
 
-// ArrayNew present-unmatched
 DArray ArrayNew(int elemSize, int numElemsToAllocate,
                 ArrayElementFreeFn elemFreeFn)
 {
@@ -117,7 +113,6 @@ DArray ArrayNew(int elemSize, int numElemsToAllocate,
 	return array;
 }
 
-// ArrayFree present-unmatched
 void ArrayFree(DArray array)
 {
 	int i;
@@ -138,7 +133,6 @@ void *ArrayGetDataPtr(DArray array)
 	return array->list;
 }
 
-// ArraySetDataPtr present-unmatched
 void ArraySetDataPtr(DArray array, void *ptr, int count, int capacity)
 {
 	int i;
@@ -164,7 +158,6 @@ int ArrayLength(const DArray array)
 	return array->count;
 }
 
-// ArrayNth present-unmatched
 void *ArrayNth(DArray array, int n)
 {
 	assert( (n >= 0) && (n < array->count));
@@ -175,7 +168,6 @@ void *ArrayNth(DArray array, int n)
 /* ArrayAppend
  * Just do an Insert at the end of the array
  */
-// ArrayAppend present-unmatched
 void ArrayAppend(DArray array, const void *newElem)
 {
 	assert(array);
@@ -183,7 +175,6 @@ void ArrayAppend(DArray array, const void *newElem)
 		ArrayInsertAt(array, newElem, array->count);
 }
 
-// ArrayInsertAt present-unmatched
 void ArrayInsertAt(DArray array, const void *newElem, int n)
 {
 	assert( (n >= 0) && (n <= array->count));
@@ -210,7 +201,6 @@ void ArrayInsertSorted(DArray array, const void *newElem, ArrayCompareFn compara
 }
 
 
-// ArrayRemoveAt present-unmatched
 void ArrayRemoveAt(DArray array, int n)
 {
    	assert( (n >= 0) && (n < array->count));
@@ -221,7 +211,6 @@ void ArrayRemoveAt(DArray array, int n)
 	array->count--;
 }
 
-// ArrayDeleteAt present-unmatched
 void ArrayDeleteAt(DArray array, int n)
 {
    	assert( (n >= 0) && (n < array->count));
@@ -231,7 +220,6 @@ void ArrayDeleteAt(DArray array, int n)
 }
 
 
-// ArrayReplaceAt present-unmatched
 void ArrayReplaceAt(DArray array, const void *newElem, int n)
 {
 	assert( (n >= 0) && (n < array->count));
@@ -247,7 +235,6 @@ void ArraySort(DArray array, ArrayCompareFn comparator)
 }
 
 //assert will be raised by ArrayNth if fromindex out of range
-// ArraySearch present-unmatched
 int ArraySearch(DArray array, const void *key, ArrayCompareFn comparator,
                   int fromIndex, int isSorted)
 {
@@ -269,7 +256,6 @@ int ArraySearch(DArray array, const void *key, ArrayCompareFn comparator,
 }
 
 
-// ArrayMap present-unmatched
 void ArrayMap(DArray array, ArrayMapFn fn, void *clientData)
 {
 	int i;
@@ -281,7 +267,6 @@ void ArrayMap(DArray array, ArrayMapFn fn, void *clientData)
 		
 }
 
-// ArrayMapBackwards present-unmatched
 void ArrayMapBackwards(DArray array, ArrayMapFn fn, void *clientData)
 {
 	int i;
@@ -293,7 +278,6 @@ void ArrayMapBackwards(DArray array, ArrayMapFn fn, void *clientData)
 		
 }
 
-// ArrayMap2 present-unmatched
 void * ArrayMap2(DArray array, ArrayMapFn2 fn, void *clientData)
 {
 	int i;
@@ -311,7 +295,6 @@ void * ArrayMap2(DArray array, ArrayMapFn2 fn, void *clientData)
 	return NULL;
 }
 
-// ArrayMapBackwards2 present-unmatched
 void * ArrayMapBackwards2(DArray array, ArrayMapFn2 fn, void *clientData)
 {
 	int i;
@@ -329,7 +312,6 @@ void * ArrayMapBackwards2(DArray array, ArrayMapFn2 fn, void *clientData)
 	return NULL;
 }
 
-// ArrayClear present-unmatched
 void ArrayClear(DArray array)
 {
 	int i;
