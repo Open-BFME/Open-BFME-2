@@ -104,7 +104,8 @@ struct BuddyRequest {int type,profile;char unknown[0x2b8-8];};
 #define V(n) virtual void slot##n();
 class GameSpyBuddyMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)virtual void addRequest(const BuddyRequest &);V(7)V(8)virtual bool getResponse(BuddyResponse &);};
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
-class GameSpyPeerMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void addResponse(const PeerResponse &);};
+class PeerRequest;
+#include "../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 #include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;

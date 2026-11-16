@@ -2396,19 +2396,8 @@ public:
 	Int words[143];
 };
 typedef char PeerResponseViewSizeCheck[sizeof(PeerResponse) == 0x348 ? 1 : -1];
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void startThread();
-	virtual void endThread();
-	virtual bool isThreadRunning();
-	virtual bool isConnected();
-	virtual bool isConnecting();
-	virtual void addRequest(const BfmeOpaqueOwnedRecord492 &req);
-	virtual bool getRequest(BfmeOpaqueOwnedRecord492 &req);
-	virtual void addResponse(const PeerResponse &resp);
-};
+typedef BfmeOpaqueOwnedRecord492 PeerRequest;
+#include "../../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

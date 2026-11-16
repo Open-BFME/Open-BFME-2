@@ -122,19 +122,8 @@ typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
 extern Int GetAdditionalDisconnectsFromUserFile(Int playerID);
 
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void startThread(void);
-	virtual void endThread(void);
-	virtual void s03(void);
-	virtual void s04(void);
-	virtual void s05(void);
-	virtual void addRequest(const BfmeOpaqueOwnedRecord492 &req);
-
-	static GameSpyPeerMessageQueueInterface *createNewMessageQueue(void);
-};
+typedef BfmeOpaqueOwnedRecord492 PeerRequest;
+#include "../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 

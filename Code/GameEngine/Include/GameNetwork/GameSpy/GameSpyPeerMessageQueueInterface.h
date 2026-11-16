@@ -12,9 +12,9 @@ public:
     virtual ~GameSpyPeerMessageQueueInterface();
     virtual void startThread() = 0;
     virtual void endThread() = 0;
-    virtual int isThreadRunning() = 0;
-    virtual int isConnected() = 0;
-    virtual int isConnecting() = 0;
+    virtual bool isThreadRunning() = 0;
+    virtual bool isConnected() = 0;
+    virtual bool isConnecting() = 0;
     virtual void addRequest(const PeerRequest &request) = 0;
     virtual void v07() = 0;
     virtual void addResponse(const PeerResponse &resp);

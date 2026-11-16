@@ -142,20 +142,8 @@ public:
 	int words[143];
 };
 typedef char TickerPeerResponseSize[sizeof(PeerResponse) == 0x348 ? 1 : -1];
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void startThread(void);
-	virtual void endThread(void);
-	virtual bool isThreadRunning(void);
-	virtual bool isConnected(void);
-	virtual bool isConnecting(void);
-	virtual void addRequest(const void *req);
-	virtual bool getRequest(void *req);
-	virtual void addResponse(const PeerResponse &resp);
-	virtual bool getResponse(PeerResponse &resp);
-};
+class PeerRequest;
+#include "../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 #include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;

@@ -104,18 +104,9 @@ public:
 private:
 	unsigned char m_pad004[0x1EC - 0x04];
 };
+typedef BfmeOpaqueOwnedRecord492 PeerRequest;
 
-class GameSpyPeerMessageQueueInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void addRequest(const BfmeOpaqueOwnedRecord492 &request); // slot 6
-};
+#include "../../../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 

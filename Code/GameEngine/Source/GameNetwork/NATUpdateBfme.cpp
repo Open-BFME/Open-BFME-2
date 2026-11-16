@@ -197,7 +197,9 @@ struct BfmeOpaqueOwnedRecord492 {
 };
 
 
-class GameSpyPeerMessageQueueInterface {public:virtual void f0();virtual void f1();virtual void f2();virtual void f3();virtual void f4();virtual void f5();virtual void addRequest(const BfmeOpaqueOwnedRecord492&);};extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
+typedef BfmeOpaqueOwnedRecord492 PeerRequest;
+#include "../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
+extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 // BF1 f98983a7d CONNFAILED notification purpose; WB14E01D0 and
 // native5A7683..5A7829 prove target callback and request/string offsets.
 // Inlining the null tests preserves the native shared early failure block;
