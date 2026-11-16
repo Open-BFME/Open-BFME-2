@@ -187,11 +187,7 @@ extern ImageCollection *TheMappedImageCollection;
 
 // Native image-store calls use the same manager pointer and target 0x2239E2.
 // The verified provider takes a string name and an image pointer.
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &key, const Image *image);
-};
+#include "../../../Include/GameClient/Rva002239B2.h"
 
 class Rva00222A8BTarget
 {

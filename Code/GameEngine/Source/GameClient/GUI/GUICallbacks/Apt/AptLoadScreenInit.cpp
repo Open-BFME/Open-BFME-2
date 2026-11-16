@@ -32,11 +32,7 @@ extern ImageCollection *TheMappedImageCollection;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // The Apt clip image setter (rowed 0x002239E2 on its placeholder class).
-class Rva002239B2
-{
-public:
-	void rva002239E2(const AsciiString &clip, const Image *image);
-};
+#include "../../../../../Include/GameClient/Rva002239B2.h"
 
 #include "../../../../../Include/GameClient/GameText.h"
 
