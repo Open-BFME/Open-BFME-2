@@ -70,19 +70,7 @@ typedef unsigned char UnsignedByte;
 
 #include "../../../../GameEngine/Include/Common/XferException.h"
 
-class WorldHeightMap
-{
-public:
-	__declspec(dllimport) __forceinline Int getXExtent( void ) { return m_width; }
-	__declspec(dllimport) __forceinline Int getYExtent( void ) { return m_height; }
-	__declspec(dllimport) __forceinline UnsignedByte *getDataPtr( void ) { return m_data; }
-private:
-	char m_unrecovered00[ 0x08 ];
-	Int m_width;																															///< 0x08
-	Int m_height;																															///< 0x0C
-	char m_unrecovered10[ 0x24 - 0x10 ];
-	UnsignedByte *m_data;																											///< 0x24
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
@@ -127,7 +115,7 @@ void W3DTerrainVisual::xfer( Xfer *xfer )
 
 	if( hasHeightMap )
 	{
-		UnsignedByte *data = m_logicHeightMap->getDataPtr();
+		unsigned short *data = m_logicHeightMap->getDataPtr();
 		Int len = m_logicHeightMap->getXExtent()*m_logicHeightMap->getYExtent()*2;
 		Int xferLen = len;
 		*xfer == xferLen;
