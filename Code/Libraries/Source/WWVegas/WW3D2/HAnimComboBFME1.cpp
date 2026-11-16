@@ -13,7 +13,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "../../../../../reference/shims/bfmepool/mempool.h"
 #include "refcount.h"
-#pragma optimize("", on)
 #include "winbase_shim.h"
 /*
 **	Command & Conquer Generals Zero Hour(tm)

@@ -22,11 +22,9 @@ void * W3DGCData00DE2000;
 extern class W3DShadowManager *TheW3DShadowManager;
 extern class Display *TheDisplay;
 
-#pragma optimize("ty", on)
 // Native constructor and normalization stay inline without competing copies.
 #include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
 #include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
-#pragma optimize("", on)
 
 class W3DGameClientWaterShim
 {

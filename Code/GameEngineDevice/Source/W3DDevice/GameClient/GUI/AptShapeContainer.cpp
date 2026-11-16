@@ -1168,11 +1168,9 @@ UnicodeString Rva00784900::getText()
 
 // ---- from Code/GameEngine/Source/Common/Rva000A9DC4Get.cpp
 
-#pragma optimize("t", on)
 
 inline AssetReference::AssetReference() : pointer(0) {}
 
-#pragma optimize("", on)
 
 AssetReference Rva000A9DC4::rva000A9DC4()
 {

@@ -20,9 +20,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "Common/PerfTimer.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
-#pragma optimize("t", on)
 #include "WW3D2/Camera.h"
-#pragma optimize("", on)
 #include "WW3D2/RInfo.h"
 #include "WW3D2/Light.h"
 #include "WW3D2/DX8Wrapper.h"

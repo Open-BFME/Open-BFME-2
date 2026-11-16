@@ -23,7 +23,6 @@
 
 // RefCountClass inline copies take the size form retail links (0x005D1A7D).
 #include "../WWLib/RefCountData.h"
-#pragma optimize("", on)
 
 #include "VertexMaterialClass.h"
 

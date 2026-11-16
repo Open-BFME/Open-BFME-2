@@ -66,7 +66,6 @@ template <> __declspec(dllimport) __forceinline bool DynamicVectorClass<Vector3>
 // FXShaderRendererSkin.cpp body; this TU emits its copy in RefCountClass's context.
 #include "../WWLib/RefCountData.h"
 
-#pragma optimize("", on)
 
 template <class T> class ShareBufferClass : public RefCountClass
 {

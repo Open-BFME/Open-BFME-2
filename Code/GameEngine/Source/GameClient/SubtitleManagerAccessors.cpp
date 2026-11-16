@@ -30,7 +30,6 @@ template <> __declspec(dllimport) __forceinline
 StringBase<unsigned short>::StringBase() : m_data(0) {}
 // The empty Unicode wrapper has the native six-byte size profile.
 #include "unicode_string.h"
-#pragma optimize("", on)
 template<> inline bool StringBase<unsigned short>::isEmpty() const throw() { return m_data == 0 || m_data->length == 0; }
 // Keep __node_alloc<true,0>::allocate inline-only: every call here is inlined,
 // and this TU's COMDAT copy differs from the copy the link keeps.

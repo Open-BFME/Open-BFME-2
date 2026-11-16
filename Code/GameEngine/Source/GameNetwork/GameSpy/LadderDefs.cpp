@@ -255,14 +255,12 @@ template<> inline void StringBase<char>::concat(char c)
 // 0x00035720 (string_base_inline.cpp), and an /O1 copy would tail-merge the
 // returns and be the copy the link keeps, so the body is built for speed.
 
-#pragma optimize("t", on)
 
 template<> inline char StringBase<char>::getCharAt(int index) const throw()
 {
 	return m_data ? m_data->data[index] : 0;
 }
 
-#pragma optimize("", on)
 
 // BFME 2's FileSystem: openFile takes a third (buffer) argument, and the
 // FilenameList set orders with the shared no-case comparator the ledger names
