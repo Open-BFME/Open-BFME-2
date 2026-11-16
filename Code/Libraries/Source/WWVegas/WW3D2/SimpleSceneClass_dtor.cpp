@@ -2,7 +2,6 @@
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
-#pragma optimize("", on)
 
 class RenderObjClass;
 

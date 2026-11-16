@@ -3,7 +3,6 @@
 // emitted from the same local class definition.
 #include "always.h"
 #include "refcount.h"
-#pragma optimize("", on)
 #include "bittype.h"
 #include <string.h>
 

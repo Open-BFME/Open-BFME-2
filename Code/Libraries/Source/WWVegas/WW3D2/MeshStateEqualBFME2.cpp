@@ -3,7 +3,6 @@
 // without emitting copies that compete with the linked ones.
 // Retail's operator!= (Vector3) copy is the size form (xor/inc): compile the view for size.
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
-#pragma optimize("", on)
 // Target00149A90..149BA8: compare eligibility of model/material views, optional
 // light environments, the by-value vector getter and virtual float64. Layout
 // offsets and receiver ABI are from retail; names remain neutral. The old

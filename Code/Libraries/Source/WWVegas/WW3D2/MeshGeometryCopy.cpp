@@ -21,7 +21,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"
 #include "rendobj.h"
 // Keep aabtree.h from pulling the BFME1 MeshGeometryClass body into this view.

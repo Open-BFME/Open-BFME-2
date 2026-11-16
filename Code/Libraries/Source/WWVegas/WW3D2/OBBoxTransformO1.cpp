@@ -17,7 +17,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Keep the transform algorithm inline in the /O1 OBBox body without emitting
 // an unused competing Matrix3D helper. The scoped view preserves its layout
 // and complete inline definitions; it adds no imported call or address.
-#pragma optimize("ty", on)
 #include "matrix3d.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"

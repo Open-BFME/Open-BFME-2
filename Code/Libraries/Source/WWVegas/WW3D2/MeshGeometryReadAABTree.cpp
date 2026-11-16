@@ -10,7 +10,6 @@
 // Share the retail size context with the RefCountClass release declaration.
 #include "refcount.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** This program is free software: you can redistribute it and/or modify

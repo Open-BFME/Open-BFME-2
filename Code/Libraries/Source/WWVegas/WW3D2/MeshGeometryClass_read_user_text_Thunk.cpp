@@ -7,7 +7,6 @@
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
-#pragma optimize("", on)
 #include "chunkio.h"
 #include "sharebuf.h"
 // bfme link decl-only begin

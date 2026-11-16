@@ -6,7 +6,6 @@
 
 // Match the retail RefCountClass release helper in its provider's size context.
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/refcount.h"
-#pragma optimize("", on)
 #include "sharebuf.h"
 #include "texture.h"
 #include "vector3.h"

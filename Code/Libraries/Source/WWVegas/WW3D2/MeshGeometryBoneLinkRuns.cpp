@@ -25,7 +25,6 @@
 // Retail's out-of-line RefCountClass deleting dtor is the /O1 form hlod.cpp
 // emits; compile refcount.h for size before sharebuf.h pulls it in.
 #include "refcount.h"
-#pragma optimize("", on)
 #include "sharebuf.h"
 
 // Retail's ShareBufferClass<unsigned short> destructor is the explicit
