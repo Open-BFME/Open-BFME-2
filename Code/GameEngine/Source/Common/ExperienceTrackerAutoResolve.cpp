@@ -8,15 +8,8 @@
 class ThingTemplate;
 class Xfer;
 class Overridable;
-#include "../../../Libraries/Source/Apt/AptRefTarget.h"
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include "../../Include/Common/ArmySummaryEntry.h"
-class Rva004F6093Holder {
-public:
-    Rva004F6093Holder(const Rva004F6093Holder &);
-    ~Rva004F6093Holder() { if (entry) ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(entry))); }
-    ArmySummaryEntry *entry;
-};
+#include "../../Include/Common/Rva004F6093Holder.h"
 class ExperienceTracker {
 public:
     ExperienceTracker(const ThingTemplate *);
@@ -47,7 +40,7 @@ private:
 ExperienceTrackerAutoResolve::ExperienceTrackerAutoResolve(LivingWorldAutoResolveUnit *unit,const Rva004F6093Holder &source)
     : ExperienceTracker(unit->type),parent(unit),entry(source)
 {
-    experience=entry.entry->m_f08;
+    experience=entry.m_ptr->m_f08;
     int level=rva0039AC23(false);
     if (!level) reinterpret_cast<Rva003BD306Target *>(this)->rva0039B28F(0);
     reinterpret_cast<Rva005DB004 *>(this)->rva005DB004();

@@ -9,16 +9,7 @@
 // return-value flag at [ebp-4].
 #include "../../Include/Common/ArmySummaryEntry.h"
 
-class Rva004F6093Holder
-{
-public:
-	ArmySummaryEntry *get() const { return (ArmySummaryEntry *)m_p; }
-	Rva004F6093Holder() : m_p(0) {}
-	Rva004F6093Holder(const Rva004F6093Holder &that);	// 0x004F6093
-	~Rva004F6093Holder();
-private:
-	void *m_p;
-};
+#include "../../Include/Common/Rva004F6093Holder.h"
 
 struct ArmySummaryEntryRef
 {
@@ -75,7 +66,7 @@ void ArmySummary::rva0040CC8F()
 {
 	for (unsigned int i = 0; i < reinterpret_cast<Rva0040CB3AEntryArray *>(&field40)->size(); ++i)
 	{
-		ArmySummaryEntry *entry = (*reinterpret_cast<Rva0040CB3AEntryArray *>(&field40))[i].m_holder.get();
+		ArmySummaryEntry *entry = (*reinterpret_cast<Rva0040CB3AEntryArray *>(&field40))[i].m_holder.m_ptr;
 		if (entry->m_bc)
 			entry->ApplyWorldMapUpgrades();
 	}

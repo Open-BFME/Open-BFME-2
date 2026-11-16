@@ -12,12 +12,7 @@
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 #include "../../../../Include/GameLogic/LivingWorldBattle.h"
 #include "../../../../Include/Common/ArmySummaryEntry.h"
-class Rva004F6093Holder {public:
- ArmySummaryEntry*value;
- Rva004F6093Holder(const Rva004F6093Holder&);
- Rva004F6093Holder&operator=(const Rva004F6093Holder&);
- __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}
-};
+#include "../../../../Include/Common/Rva004F6093Holder.h"
 struct ArmySummaryEntryRef {ArmySummaryEntry*value;__forceinline ~ArmySummaryEntryRef(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}};
 struct HeroEntryKey {char opaque[4];};
 class AttackOrdersMember;

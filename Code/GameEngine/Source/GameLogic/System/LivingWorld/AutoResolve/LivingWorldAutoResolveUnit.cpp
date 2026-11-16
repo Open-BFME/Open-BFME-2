@@ -19,12 +19,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class ThingTemplate;class ArmySummary;
 #include "../../../../../Include/Common/ArmySummaryEntry.h"
 struct Rva0040DC56Element {ArmySummaryEntry *entry;};
-class Rva004F6093Holder {
-public:
- __declspec(noinline) Rva004F6093Holder(ArmySummaryEntry *);
- ~Rva004F6093Holder(){if(entry)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(entry)));}
- ArmySummaryEntry *entry;
-};
+#include "../../../../../Include/Common/Rva004F6093Holder.h"
 class LivingWorldAutoResolveUnit;
 class ExperienceTrackerAutoResolve {public:ExperienceTrackerAutoResolve(LivingWorldAutoResolveUnit *,const Rva004F6093Holder &); char opaque[0x3C];};
 class Rva005DB023 {public:void rva005DB023();};
@@ -63,6 +58,6 @@ LivingWorldAutoResolveUnit::LivingWorldAutoResolveUnit(const Rva0040DC56Element 
 // Keep the owned21B constructor visible (outlined) so the compiler sees
 // its entry/count writes. It is rehomed from Rva002B2F0CSet.cpp with the
 // same whole body; this is the same real name, not an alias.
-inline Rva004F6093Holder::Rva004F6093Holder(ArmySummaryEntry *armySummaryEntry):entry(armySummaryEntry) {
+__declspec(noinline) inline Rva004F6093Holder::Rva004F6093Holder(ArmySummaryEntry *armySummaryEntry):m_ptr(armySummaryEntry) {
  if(armySummaryEntry) ++armySummaryEntry->Rva0007DF07::m_04;
 }
