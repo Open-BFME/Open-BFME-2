@@ -12,8 +12,8 @@
 // Target evidence: the bodies sit in BFME 2's connection-manager run between
 // setFrameGrouping 0x004CF7F5 and processDisconnectChat 0x004D1023, read
 // m_connections at +4, m_localSlot/m_packetRouterSlot at +0x12028/+0x1202C,
-// m_frameCeiling at +0x1205C, m_playerLatestFrame at +0x12060,
-// m_playerClientFrame at +0x120C0 and the FrameDataManager ring pointers at
+// the per-player frame words at +0x1205C, +0x12060 and +0x120C0, the
+// FrameDataManager ring pointers at
 // +0x12104, and call the NetKeepAliveCommandMsg (0x004D57C7), NetFrameCommandMsg
 // (0x004CEEC3) and router-fallback (0x004CEEE8, held in the ledger as
 // Rva004CEEE8) constructors, sendLocalCommandDirect 0x004CF6E4,
@@ -95,30 +95,9 @@ struct BFMEPlayerRouterScore
 	BFMEPlayerRouterScore *next;
 };
 
-class BFMEConnectionManager
-{
-public:
-	void sendKeepAliveCommand();
-	void sendFrameInfo(Bool nextFrame);
-	void SendFinishedLogicFrame();
-	void broadcastRouterFallbackPlan();
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
-private:
-	ConnectionManager *base() { return reinterpret_cast<ConnectionManager *>(this); }
-
-	void *m_vptr;
-	Connection *m_connections[8];
-	char m_pad00024[0x12028 - 0x24];
-	UnsignedInt m_localSlot;
-	UnsignedInt m_packetRouterSlot;
-	char m_pad12030[0x1205c - 0x12030];
-	UnsignedInt m_frameCeiling;
-	UnsignedInt m_playerLatestFrame[8];
-	char m_pad12080[0x120c0 - 0x12080];
-	UnsignedInt m_playerClientFrame[8];
-	char m_pad120E0[0x12104 - 0x120e0];
-	FrameDataManager *m_frameData[8];
-};
+static inline ConnectionManager *base(BFMEConnectionManager *self) { return reinterpret_cast<ConnectionManager *>(self); }
 
 // tu-skeleton: 0x00790BCD 10B $L72293 -- matched in Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp (not merged yet)
 
@@ -148,7 +127,7 @@ void BFMEConnectionManager::sendKeepAliveCommand()
 			msg->setPlayerID(m_localSlot);
 			if (DoesCommandRequireACommandID(msg->getNetCommandType()) == true)
 				msg->setID(GenerateNextCommandID());
-			base()->sendLocalCommandDirect(msg, (UnsignedByte)(1 << player));
+			base(this)->sendLocalCommandDirect(msg, (UnsignedByte)(1 << player));
 			msg->detach();
 		}
 	}
@@ -179,12 +158,12 @@ void BFMEConnectionManager::sendFrameInfo(Bool nextFrame)
 
 	if (m_localSlot == m_packetRouterSlot)
 	{
-		base()->sendLocalCommand(msg, (UnsignedByte)~(1 << m_localSlot));
-		m_frameCeiling = msg->getFrame();
+		base(this)->sendLocalCommand(msg, (UnsignedByte)~(1 << m_localSlot));
+		m_1205C = msg->getFrame();
 	}
 	else
 	{
-		base()->sendLocalCommand(msg, (UnsignedByte)(1 << m_packetRouterSlot));
+		base(this)->sendLocalCommand(msg, (UnsignedByte)(1 << m_packetRouterSlot));
 	}
 	msg->detach();
 }
@@ -198,9 +177,9 @@ void BFMEConnectionManager::SendFinishedLogicFrame()
 		msg->setID(GenerateNextCommandID());
 	msg->setPlayerID(m_localSlot);
 	if (m_localSlot == m_packetRouterSlot)
-		base()->sendLocalCommand(msg, (UnsignedByte)~(1 << m_localSlot));
+		base(this)->sendLocalCommand(msg, (UnsignedByte)~(1 << m_localSlot));
 	else
-		base()->sendLocalCommand(msg, (UnsignedByte)(1 << m_packetRouterSlot));
+		base(this)->sendLocalCommand(msg, (UnsignedByte)(1 << m_packetRouterSlot));
 	msg->detach();
 }
 
@@ -214,7 +193,7 @@ void BFMEConnectionManager::broadcastRouterFallbackPlan()
 		if (m_connections[player])
 		{
 			Real score = m_connections[player]->getAverageLatency();
-			Real frameRatio = (Real)m_playerClientFrame[player] / (Real)m_playerLatestFrame[player];
+			Real frameRatio = (Real)m_120C0[player] / (Real)m_12060[player];
 			if (frameRatio <= 20.0f)
 				score += 1000.0f;
 			BFMEPlayerRouterScore *node = new BFMEPlayerRouterScore;
@@ -258,7 +237,7 @@ void BFMEConnectionManager::broadcastRouterFallbackPlan()
 			msg->setPlayerID(m_localSlot);
 			if (DoesCommandRequireACommandID(msg->getNetCommandType()))
 				msg->setID(GenerateNextCommandID());
-			base()->sendLocalCommand(msg, 0xFF);
+			base(this)->sendLocalCommand(msg, 0xFF);
 			msg->detach();
 		}
 	}

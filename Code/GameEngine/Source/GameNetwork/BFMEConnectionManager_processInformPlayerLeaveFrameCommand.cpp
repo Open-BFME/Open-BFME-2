@@ -6,7 +6,7 @@
 // and the request-frame-data reply). Target evidence: leave frame and leaving
 // player read through the folded +0x1C/+0x20 getters 0x0030F2C7/0x0030D377 (held
 // in the ledger under NetWrapperCommandMsg's names), TheGameLogic+0x40 frame plus
-// TheWritableGlobalData+0xC18 run-ahead slack, m_playerLatestFrame at +0x12060,
+// TheWritableGlobalData+0xC18 run-ahead slack, m_12060 at +0x12060,
 // m_localSlot at +0x12028, operator new 0x24 + the request-frame-data ctor
 // 0x004D5A30, its first/last frame set through the folded setters 0x00318B09 and
 // 0x00317B9B, DoesCommandRequireACommandID 0x005811B5, GenerateNextCommandID
@@ -69,17 +69,7 @@ template <class T> inline const T &frameMaximum(const T &lhs, const T &rhs)
 	return rhs > lhs ? rhs : lhs;
 }
 
-class BFMEConnectionManager
-{
-public:
-	void processInformPlayerLeaveFrameCommand(void *command);
-
-private:
-	char m_pad00000[0x12028];
-	UnsignedInt m_localSlot;
-	char m_pad1202C[0x12060 - 0x1202c];
-	UnsignedInt m_playerLatestFrame[8];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 void BFMEConnectionManager::processInformPlayerLeaveFrameCommand(void *command)
 {
@@ -93,7 +83,7 @@ void BFMEConnectionManager::processInformPlayerLeaveFrameCommand(void *command)
 	if (leaveFrame < slack + frame)
 	{
 		if (msg->getPlayerID() < 8)
-			m_playerLatestFrame[msg->getPlayerID()] = frameMaximum(leaveFrame, m_playerLatestFrame[msg->getPlayerID()]);
+			m_12060[msg->getPlayerID()] = frameMaximum(leaveFrame, m_12060[msg->getPlayerID()]);
 	}
 	if (TheGameLogic->getFrame() < leaveFrame && leavingPlayer != m_localSlot)
 	{

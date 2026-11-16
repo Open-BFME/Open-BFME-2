@@ -6,17 +6,7 @@
 
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
-class BFMEConnectionManager
-{
-public:
-	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
-
-private:
-	char unknown[0x12028];
-	unsigned int m_localSlot;
-	char unknown1202c[0xd8];
-	FrameDataManager *m_frameData[8];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 bool BFMEConnectionManager::areFrameCommandsComplete(unsigned int frame,
 	bool debugSpewage)

@@ -7,15 +7,7 @@
 #include "../../Include/GameNetwork/Transport.h"
 #include <new>
 
-class BFMEConnectionManager
-{
-public:
-	void attachTransport(Transport *transport);
-
-private:
-	char unknown[0x12024];
-	Transport *m_transport;
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 void BFMEConnectionManager::attachTransport(Transport *transport)
 {

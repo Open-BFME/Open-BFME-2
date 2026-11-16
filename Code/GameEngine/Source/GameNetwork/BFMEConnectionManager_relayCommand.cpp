@@ -71,20 +71,7 @@ extern GameLogic *TheGameLogic;
 
 extern GlobalData *TheWritableGlobalData;
 
-class BFMEConnectionManager
-{
-public:
-	bool areFrameCommandsComplete(unsigned int frame, bool debugSpewage);
-	void relayCommand(void *ref);
-
-private:
-	char unknown0[4];
-	Connection *m_connections[8];
-	char unknown24[0x12004];
-	unsigned int m_localSlot;
-	char unknown1202c[0xd8];
-	FrameDataManager *m_frameData[8];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 // areFrameCommandsComplete (0x004CF799) is rowed and defined in
 // ConnectionManagerFrameCommands.cpp; declared here only.

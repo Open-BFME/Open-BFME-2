@@ -1,15 +1,6 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 
-class BFMEConnectionManager
-{
-public:
-	bool isPacketRouter(void);
-
-private:
-	char m_padding[0x12028];
-	unsigned int m_localSlot;
-	unsigned int m_packetRouterSlot;
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 bool BFMEConnectionManager::isPacketRouter(void)
 {

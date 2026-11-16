@@ -4,15 +4,7 @@
 // the entry following the supplied router slot, matching the BFME1
 // ConnectionManager::getNextPacketRouterSlot operation.
 
-class BFMEConnectionManager
-{
-public:
-	unsigned int getNextPacketRouterSlot(unsigned int playerID);
-
-private:
-	char unknown[0x12030];
-	unsigned int m_packetRouterFallback[8];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 unsigned int BFMEConnectionManager::getNextPacketRouterSlot(unsigned int playerID)
 {

@@ -153,19 +153,7 @@ public:
 	void setLeavingPlayerID(Int playerID);
 };
 
-// BFME adds this connection-state query; the published ZH class declaration does not expose it.
-class BFMEConnectionManager : public ConnectionManager
-{
-public:
-	Bool isPlayerConnected(Int slot);
-	Bool isPlayerInGame(Int slot);
-	Int isPlayerSlotActive(Int slot);
-	UnsignedByte rva004CEF58(Int slot);
-	UnsignedByte rva004CEFC2(Int slot, UnsignedInt timeout);
-	UnsignedInt getNextPacketRouterSlot(UnsignedInt slot);
-	void sendDisconnectFrameCommand();
-	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 class BFMEDisconnectManager : public DisconnectManager
 {

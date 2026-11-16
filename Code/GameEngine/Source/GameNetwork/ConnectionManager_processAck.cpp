@@ -84,21 +84,7 @@ private:
 bool CommandRequiresDirectSend(NetCommandMsg *msg);
 
 
-class BFMEConnectionManager
-{
-public:
-	void processAck(NetCommandMsg *msg);
-	void processAckCommand(void *msg);
-
-protected:
-	void processAckStage1(NetCommandMsg *msg);
-
-	void *m_vptr;
-	Connection *m_connections[NUM_CONNECTIONS];		// this+0x04 .. +0x24
-	unsigned char m_unreconstructed_24[0x12100];
-	NetCommandList *m_pendingCommands; // target +0x12124
-	NetCommandList *m_pendingRelays; // target +0x12128
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 // Called from both the ACKBOTH and ACKSTAGE1 paths of processAck below. Kept
 // as a definition (not rowed) because removing it would change the caller's
@@ -171,15 +157,15 @@ void BFMEConnectionManager::processAckCommand(void *command)
 			delete ref;
 		}
 	}
-	if (m_pendingRelays != 0)
+	if (m_relayedCommands != 0)
 	{
-		NetCommandRef *ref = m_pendingRelays->findMessage(commandID, originalPlayerID, (NetCommandType)commandTimestamp, originalExecutionFrame);
+		NetCommandRef *ref = m_relayedCommands->findMessage(commandID, originalPlayerID, (NetCommandType)commandTimestamp, originalExecutionFrame);
 		if (ref != 0)
 		{
 			unsigned char relay = ref->getRelay() & ~(1 << msg->getPlayerID());
 			if (relay == 0)
 			{
-				m_pendingRelays->removeMessage(ref);
+				m_relayedCommands->removeMessage(ref);
 				NetAckStage2CommandMsg *ack = new NetAckStage2CommandMsg(ref->msg);
 				reinterpret_cast<ConnectionManager *>(this)->sendLocalCommand(ack, (unsigned char)1 << ack->getOriginalPlayerID());
 				delete ref;

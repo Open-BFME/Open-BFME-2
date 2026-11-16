@@ -24,30 +24,7 @@ struct ConnSlot
 	unsigned long m_34C;
 };
 
-class BFMEConnectionManager
-{
-public:
-	void init(void);
-	unsigned char rva004CEF58(int slot);
-	unsigned char rva004CEFC2(int slot, unsigned int timeoutParam);
-
-private:
-	char unknown0[4];
-	char unknownConnections[8 * 4];
-	char unknown24[0x12004];
-	int m_localSlot;
-	int m_packetRouterSlot;
-	char unknown12030[0x2c];
-	int m_frameCeiling;
-	int m_playerLatestFrame[8];
-	int m_playerState[8];
-	int m_playerFlags[8];
-	int m_playerFrameCounts[8];
-	char unknown120e0[0x24];
-	FrameDataManager *m_frameData[8];
-	char unknown12124[0x10];
-	unsigned char m_initialized;
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 void BFMEConnectionManager::init(void)
 {
@@ -61,7 +38,7 @@ void BFMEConnectionManager::init(void)
 	}
 	while (--slotsRemaining != 0);
 
-	m_frameCeiling = 0;
+	m_1205C = 0;
 	int *frame = (int *)((char *)this + 0x120C0);
 	int framesRemaining = 8;
 	do
@@ -73,7 +50,7 @@ void BFMEConnectionManager::init(void)
 		++frame;
 	}
 	while (--framesRemaining != 0);
-	m_initialized = 0;
+	m_12134 = false;
 }
 
 // ?rva004CEF58@BFMEConnectionManager@@QAEEH@Z, retail 0x004CEF58 106B.

@@ -91,18 +91,7 @@ template <class T> const T &frameMinimum(const T &lhs, const T &rhs)
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 
-class BFMEConnectionManager
-{
-public:
-	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
-	void processRequestFrameDataCommand(void *command);
-
-private:
-	char m_pad00000[0x12028];
-	Int m_localSlot;
-	char m_pad1202C[0x12104 - 0x1202c];
-	FrameDataManager *m_frameData[MAX_SLOTS];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 void BFMEConnectionManager::resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame)
 {

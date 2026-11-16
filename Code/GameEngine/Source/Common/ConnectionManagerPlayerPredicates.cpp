@@ -25,25 +25,7 @@ extern GlobalData *TheWritableGlobalData;
 // g_00E043F4: VA 0x00E043F4 (.data(bss)); retail initial value is zero.
 unsigned int g_00E043F4 = 0;
 
-class BFMEConnectionManager
-{
-public:
-	bool isPlayerConnected(int slot);
-	bool isPlayerInGame(int slot);
-	int isPlayerSlotActive(int slot);
-	bool hasPacketRouterFrameStall(void);
-
-private:
-	char unknown0[4];
-	Connection *m_connections[8];
-	char unknown24[0x12004];
-	int m_localSlot;
-	int m_packetRouterSlot;
-	char unknown12030[0x2C];
-	unsigned int m_frameCeiling;
-	unsigned int m_playerLatestFrame[8];
-	int m_playerState[8];
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 bool BFMEConnectionManager::isPlayerConnected(int slot)
 {
@@ -55,14 +37,14 @@ bool BFMEConnectionManager::isPlayerConnected(int slot)
 // test al; returning the && chain gives the whole-register xor/inc tail.
 bool BFMEConnectionManager::isPlayerInGame(int slot)
 {
-	return (unsigned int)slot < 8 && m_playerState[slot] == 1 &&
+	return (unsigned int)slot < 8 && m_12080[slot] == 1 &&
 		isPlayerConnected(slot);
 }
 
 int BFMEConnectionManager::isPlayerSlotActive(int slot)
 {
-	if ((unsigned int)slot >= 8 || m_playerState[slot] < 1 ||
-		m_playerState[slot] > 3 || !isPlayerConnected(slot))
+	if ((unsigned int)slot >= 8 || m_12080[slot] < 1 ||
+		m_12080[slot] > 3 || !isPlayerConnected(slot))
 		return 0;
 	return 1;
 }

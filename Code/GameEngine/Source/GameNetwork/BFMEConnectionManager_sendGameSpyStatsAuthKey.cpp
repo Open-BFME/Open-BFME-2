@@ -83,15 +83,7 @@ UnsignedShort GenerateNextCommandID();
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 
-class BFMEConnectionManager
-{
-public:
-	void sendGameSpyStatsAuthKey(void *command);
-
-private:
-	char m_pad00000[0x12028];
-	UnsignedInt m_localSlot;
-};
+#include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 // Replies to the request's challenge using the GameSpy authentication helper.
 void BFMEConnectionManager::sendGameSpyStatsAuthKey(void *command)
