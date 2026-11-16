@@ -25,14 +25,6 @@ class ModuleData;
 class Object;
 #include "../../Include/Common/BfmeXfer.h"
 class StateMachine;
-class SnapshotCreator
-{
-public:
-	virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
-	virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07();
-	virtual void c08();
-	virtual Snapshot *createSnapshot();
-};
 #include "../../Include/Common/StateMachine.h"
 #include "../../Include/Common/StateMachineClass.h"
 class AIAttackSquadState : public State

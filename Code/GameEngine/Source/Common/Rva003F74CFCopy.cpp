@@ -7,11 +7,6 @@
 // add esi,4; cmp edi,[esp+0x10]; jne loop; pop edi; mov eax,esi; pop esi; ret.
 // Callers at 0x002B55DF 0x002B7237 0x003F79DE 0x003F7A29 0x0040CAF1.
 // Sibling of the 37B fill_n at 0x003F74F5 with same Holder copy.
-struct Rva004F6093Ref
-{
-	char m_pad[0xB0];
-	int m_refCount;
-};
 #include "../../Include/Common/Rva004F6093Holder.h"
 void __cdecl Rva002B2FE2Copy(Rva004F6093Holder *dst, const Rva004F6093Holder &src);
 

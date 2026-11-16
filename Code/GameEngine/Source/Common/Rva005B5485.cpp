@@ -61,7 +61,6 @@ void AptCreateAHero::Class::ExternFunc(int sel, char *buf, bool flag)
 // trial; all callees rowed, no pins).
 class CreateAHeroData;
 #include "../../Include/GameClient/AptMyHero.h"
-struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };
 class ModuleData;
 #include "../../Include/Common/Rva00423A68.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

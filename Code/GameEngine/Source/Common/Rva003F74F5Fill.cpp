@@ -7,11 +7,6 @@
 // pop ecx; add esi,4; dec edi; pop ecx; jne loop; pop edi; mov eax,esi;
 // pop esi; ret. Caller at 0x003F7A0B. Mirrors the 37B Pod104 fill_n at 0x003B8B05
 // with stride 4 and Holder copy.
-struct Rva004F6093Ref
-{
-	char m_pad[0xB0];
-	int m_refCount;
-};
 #include "../../Include/Common/Rva004F6093Holder.h"
 void __cdecl Rva002B2FE2Copy(Rva004F6093Holder *dst, const Rva004F6093Holder &src);
 

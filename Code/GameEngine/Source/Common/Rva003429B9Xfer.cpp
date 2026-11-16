@@ -27,14 +27,6 @@ class Object;
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
-private:
-	char m_pad04[8];
-};
-
 #include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva003429B9 : public AIInternalMoveToState

@@ -15,15 +15,6 @@ class Rva0056AC26;
 
 #include "../../Include/Common/Rva0056AC26Owner.h"
 
-class Rva0056AC26Base1
-{
-public:
-	virtual ~Rva0056AC26Base1() {}
-
-private:
-	int m_04;
-};
-
 #include "../../Include/Common/Rva0056AC26Base2.h"
 
 #include "../../Include/Common/Rva0056AC26.h"
