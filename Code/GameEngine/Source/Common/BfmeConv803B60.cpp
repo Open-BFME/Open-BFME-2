@@ -1,4 +1,4 @@
-// cl: /GS
+// cl: /GX- /GS
 // FESL RLST builder @ 0x00803B60 (131B).
 // NUM-REGIONS=0, optional TID from src, submit.
 
@@ -21,12 +21,7 @@ public:
 };
 
 // The ledger row at the send callee is Rva008038F0Sender::send.
-class BfmeC994;
-class Rva008038F0Sender
-{
-public:
-	void send(BfmeC994 *m) throw();
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 class BfmeOwner803B60
 {

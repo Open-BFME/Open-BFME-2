@@ -1,4 +1,4 @@
-// cl: /GS
+// cl: /GX- /GS
 // Open-BFME5 conversions.
 
 class BfmeMsgVJI
@@ -29,15 +29,8 @@ public:
 	BfmeSubVJI *m_bfme18;
 };
 
-// Rowed sender at 0x0066F930 (Rva008038F0SenderSend.cpp). Retail calls it
-// here; declaration only, definition lives in the row owner. throw() keeps
-// the caller's EH-less shape (no state for the local msg dtor).
-class BfmeC994;
-class Rva008038F0Sender
-{
-public:
-	void send(BfmeC994 *message) throw();
-};
+// Rowed sender at 0x0066F930 (Rva008038F0SenderSend.cpp); retail calls it here.
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 void BfmeThingVJI::bfmeGoVJI(BfmeMsgVJI *sourceMessage)
 {

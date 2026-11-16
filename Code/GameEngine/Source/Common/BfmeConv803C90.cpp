@@ -1,4 +1,4 @@
-// cl: /GS
+// cl: /GX- /GS
 // FESL HGAM/unsp request builder @ 0x00803C90 (123B).
 // Local message, optional TID from src, submit via bfmeSend.
 
@@ -27,12 +27,7 @@ public:
 	void go(BfmeSrc803C90 *src);
 };
 
-class BfmeC994;
-class Rva008038F0Sender
-{
-public:
-	void send(BfmeC994 *m) throw();
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 
 void BfmeOwner803C90::go(BfmeSrc803C90 *src)

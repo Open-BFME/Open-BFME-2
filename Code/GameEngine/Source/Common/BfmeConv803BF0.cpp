@@ -1,4 +1,4 @@
-// cl: /GS
+// cl: /GX- /GS
 // FESL LLST builder @ 0x00803BF0 (157B).
 // NUM-LOBBIES=1, optional TID, submit, then bfmeGoVJH(TID).
 
@@ -28,12 +28,7 @@ public:
 };
 
 // Ledger row at 0x0066F930 owns the send body (?send@Rva008038F0Sender); call it by that name.
-class BfmeC994;
-class Rva008038F0Sender
-{
-public:
-	void send(BfmeC994 *m) throw();
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 
 void BfmeOwner803BF0::go(BfmeSrc803BF0 *src)

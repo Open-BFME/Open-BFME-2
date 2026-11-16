@@ -1,4 +1,4 @@
-// cl: /GS
+// cl: /GX- /GS
 // Open-BFME5 conversions.
 
 class BfmeMsgVJH
@@ -19,12 +19,7 @@ public:
 	void bfmeGoVJH(int messageTid);
 };
 
-class BfmeC994;
-class Rva008038F0Sender
-{
-public:
-	void send(BfmeC994 *message) throw();
-};
+#include "../../Include/Common/Rva008038F0Sender.h"
 
 void BfmeThingVJH::bfmeGoVJH(int messageTid)
 {
