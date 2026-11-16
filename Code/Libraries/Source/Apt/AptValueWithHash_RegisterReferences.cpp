@@ -3,11 +3,18 @@
 // AptObject slot 13 forwards here through the thunk at 0x0070DFD0.
 #include "AptNativeHash.h"
 
-class AptValueWithHash {
+// AptValueGC adds no storage to the AptValue root (vptr and the flag word at +4).
+class AptValueGC {
+public:
+    virtual bool IsGarbageCollected() const;
+    int m_b;
+};
+
+class AptValueWithHash : public AptValueGC {
 public:
     virtual void RegisterReferences() const;
     virtual AptNativeHash *GetNativeHashVirtual();
-    int m_b;
+    virtual bool ContainsNativeHashVirtual() const;
     AptNativeHash m_hash;
 };
 
@@ -21,4 +28,16 @@ void AptValueWithHash::RegisterReferences() const
 AptNativeHash *AptValueWithHash::GetNativeHashVirtual()
 {
     return &m_hash;
+}
+
+// Slots 4 and 12 of retail vtable 0x008EA228 (and of every derived table)
+// both hold the shared `mov al,1; ret` at 0x001826C0.
+bool AptValueWithHash::ContainsNativeHashVirtual() const
+{
+    return true;
+}
+
+bool AptValueGC::IsGarbageCollected() const
+{
+    return true;
 }
