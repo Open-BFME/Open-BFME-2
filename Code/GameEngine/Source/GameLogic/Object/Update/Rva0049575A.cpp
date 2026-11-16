@@ -39,36 +39,20 @@ enum UpdateSleepTime
 	UST_1 = 1
 };
 
-class UpdateModule
-{
-public:
-	virtual void s00() = 0;
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime t);
-};
-
-struct Virt0
-{
-	virtual void s00();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva0049575A : public UpdateModule
 {
 public:
 	void rva0049575A(const AsciiString *name);
 private:
-	void *m_4;
-	Object *m_8;
-	char m_pad0C[0x10 - 0x0C];
-	Virt0 m_10;
-	char m_pad14[0x20 - 0x14];
 	AsciiString m_20;
 	const CommandButton *m_24;
 };
 
 void Rva0049575A::rva0049575A(const AsciiString *name)
 {
-	Object *obj = m_8;
+	Object *obj = m_object;
 	((StringBase<char> *)&m_20)->set(*(const StringBase<char> *)name);
 	m_24 = 0;
 	const AsciiString *asciiString = obj->rva00290E67();
@@ -106,6 +90,6 @@ void Rva0049575A::rva0049575A(const AsciiString *name)
 	if (mid == 0)
 		return;
 	((AICommandInterface *)((char *)mid + 0x20))->aiIdle(CST_2);
-	m_10.s00();
+	update();
 	setWakeFrame(obj, UST_1);
 }
