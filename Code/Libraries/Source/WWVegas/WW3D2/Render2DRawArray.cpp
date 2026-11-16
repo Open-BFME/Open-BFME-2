@@ -3,12 +3,6 @@
 // BFME's Render2D layout predates the later vendored class. Keep the retail
 // layout and its 0x74-byte batch element local to this translation unit.
 
-class ShaderState
-{
-public:
-	ShaderState() : Value(2) {}
-	int Value;
-};
 #include <new.h>
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 #include <stdlib.h>
@@ -37,17 +31,6 @@ public:
 #include "../WWMath/Matrix3DData.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/proxy.h
-class ProxyClass
-{
-public:
-	ProxyClass();
-	~ProxyClass();
-
-	StringClass Name;
-	Matrix3D Transform;
-	unsigned char UnreconstructedTail[0x74 - 0x34];
-};
-
 template<class T>
 class VectorClass
 {
@@ -82,15 +65,6 @@ public:
 protected:
 	int ActiveCount;
 	int GrowthStep;
-};
-
-class TextureRef
-{
-public:
-	__declspec(dllimport) __forceinline TextureRef() : Pointer(0) {}
-	~TextureRef();
-
-	void *Pointer;
 };
 
 extern int g_bfmeFirstEB;

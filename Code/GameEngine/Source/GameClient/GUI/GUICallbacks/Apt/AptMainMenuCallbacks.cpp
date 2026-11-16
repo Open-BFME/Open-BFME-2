@@ -824,30 +824,12 @@ typedef void (FunctorTarget::*FunctorMethod)(void);
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include "../../../../../Include/Common/FunctorWrapperHead.h"
-class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
-{
-public:
-	Rva0057BC63FunctorWrapper(const FunctorBinding &binding) : m_binding(binding) {}
-	void invoke();
-	FunctorBinding m_binding;
-};
 void *__cdecl operator new(unsigned int size);
 // The holder constructor (row 0x0057BC63) is defined here inline (never
 // inlined), as AptOptionsConstructor.cpp does: retail's compiler saw that it
 // only reads its binding, so both callback bindings below share one slot
 // pair ([ebp-0x2c]/[ebp-0x3c]). Declared out of line, the second binding's
 // copy takes its own slot and the frame grows from 0x30 to 0x40.
-class Rva0057BC63FunctorHolder
-{
-public:
-	Rva0057BC63FunctorHolder(const FunctorBinding &binding)
-	{
-		m_ptr = (TargetRef00217D4C *)new Rva0057BC63FunctorWrapper(binding);
-		if (m_ptr != 0)
-			m_ptr->references++;
-	}
-	TargetRef00217D4C *m_ptr;
-};
 #include "../../../../../Include/Common/AptMessageBox.h"
 void __cdecl Rva00437EC4Set(float seconds);
 // The generic member pointer is the eight-byte multiple-inheritance form; a

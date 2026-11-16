@@ -43,21 +43,6 @@ public:
 
 // WorldBuilder sets bit indices 8 and 9 in the +0x2E0 mask and 90
 // in the +0x2FC mask. Target measures seven words in each accessed view.
-struct TacticKindMask
-{
-	unsigned int bits[7];
-	unsigned int &word(unsigned int bitIndex) { return bits[bitIndex / 32]; }
-	void set(unsigned int bitIndex) { word(bitIndex) |= 1UL << (bitIndex % 32); }
-};
-
-struct Rva005A990BUnit
-{
-	char pad[0x2D4];
-	int m_2D4;
-	char pad2D8[0x2E0 - 0x2D8];
-	TacticKindMask m_2E0, m_2FC;
-};
-
 #include "../../Include/Common/AITactic.h"
 #include "../../Include/Common/AITacticOffensive.h"
 

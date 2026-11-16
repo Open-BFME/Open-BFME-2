@@ -144,21 +144,6 @@ bool Rva004BB937::rva004BB937(int value) const
 }
 
 // --- 0x004C09A1 (20B): remember the object's +0x74 word at +0x100.
-struct Rva004C09A1Object
-{
-	char m_pad[0x74];
-	int m_74;
-};
-
-class Rva004C09A1
-{
-public:
-	void rva004C09A1(const Rva004C09A1Object *object);
-private:
-	char m_pad[0x100];
-	int m_100;
-};
-
 // --- 0x004C2B45 (18B): a zero float and two zero words.
 class Rva004C2B45
 {

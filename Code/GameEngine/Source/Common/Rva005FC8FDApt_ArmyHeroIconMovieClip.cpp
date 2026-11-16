@@ -210,26 +210,6 @@ struct Rva005FC8FDInner
 // handlers OnArmyMemberIconMovieClipLeftClicked / RollOut / RollOver; the
 // member pointers are the folded vcall thunks 0x001FF3A9 / 0x005CB260 /
 // 0x005CC208 (slots +0 / +4 / +8).
-class Rva005FCA6DListener
-{
-public:
-	virtual void OnArmyMemberIconMovieClipLeftClicked(void *clip);
-	virtual void OnArmyMemberIconMovieClipRollOut(void *clip);
-	virtual void OnArmyMemberIconMovieClipRollOver(void *clip);
-};
-
-class Rva005FCA6DList
-{
-public:
-	void forEach(void (Rva005FCA6DListener::*notify)(void *), void *arg);
-
-private:
-	Rva005FCA6DListener **m_begin;
-	Rva005FCA6DListener **m_end;
-	Rva005FCA6DListener **m_capacity;
-	unsigned int m_index;
-};
-
 // The owner's first base: the shared one-slot vtable 0x007C6F20 (a virtual
 // dtor), restored last by the owner's dtor 0x005FCF0E, and a word at +0x04.
 // Retail's ctor stores no vptr for it (novtable here; inference).

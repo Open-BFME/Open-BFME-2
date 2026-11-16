@@ -164,21 +164,6 @@ namespace StrategicHUD {
 // The base (Common/Rva005FC8FDApt.cpp): ctor 0x005FCEA9; 0x1C bytes, a
 // one-slot polymorphic first base (+0x00..+0x08) and the observer-list base
 // at +0x08, hence two-word member pointers here.
-class Rva007C6F20Base
-{
-public:
-	virtual ~Rva007C6F20Base();
-
-protected:
-	int m_04;
-};
-
-class ArmyMemberIconObservers
-{
-	char m_list[0x10];
-};
-
-
 class ArmyUnitIconMovieClip;
 }
 

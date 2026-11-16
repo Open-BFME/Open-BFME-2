@@ -82,22 +82,6 @@ Int FXShader::RenderingMethodDelegate::rva00072ADE()
 
 // vtable 0x00BC80A0#33 and #32: slots 143 and 142 of the object at +0x14,
 // when there is one.
-class Rva00091DB2Inner : public VslotPad<141>
-{
-public:
-	virtual Bool slot142(Int a0);
-	virtual void slot143();
-};
-class Rva00091DB2
-{
-public:
-	void rva00091DB2();
-	Bool rva00091F95(Int a0);
-private:
-	char m_pad00[0x14];
-	Rva00091DB2Inner *m_14;
-};
-
 // vtable 0x00C164F0#6: own slot 2 with 2 unless the byte at +8 is set.
 class Rva0035D512 : public VslotPad<1>
 {
