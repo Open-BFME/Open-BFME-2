@@ -31,14 +31,9 @@ struct Rva000E91CEData;
 
 #include "../../../Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
-class W3DShrubBuffer
-{
-public:
-	void addShrub( unsigned int id, Coord3D location, Real scale, const Matrix3D *transform, Real randomScaleAmount,
-		const Rva000E91CEData *data, int shadowKind, const AsciiString &textureName, const AsciiString &nameD );
-};
-
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+// After BaseHeightMap.h: its rendobj.h brings sphere.h and the full matrix3d.h before Matrix3DData.h.
+#include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
 void BaseHeightMapRenderObjClass::addTree( unsigned int id, Rva000ECF79Coord location, Real scale, const Matrix3D *transform,
 	Real randomScaleAmount, const Rva000ECF79Data *data, int shadowKind, const AsciiString &textureName,

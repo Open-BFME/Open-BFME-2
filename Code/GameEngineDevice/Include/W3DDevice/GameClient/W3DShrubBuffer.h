@@ -1,5 +1,5 @@
 #pragma once
-// BFME2 consumed shrub storage; no constructor, lifetime, base or vtable-provider recovery claimed.
+// BFME2 consumed shrub storage; the constructor is declared (0x000E9C1D), no lifetime, base or vtable-provider recovery claimed.
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/vector3.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
@@ -68,6 +68,7 @@ struct ShrubInstance {
 };
 class W3DShrubBuffer {
 public:
+ W3DShrubBuffer();                           // 0x000E9C1D; new 0x51280 at 0x0006CB54 calls it
  void rva000E9D18(const Coord3D *,const GeometryInfo &,float);
  void rva000E912A(const Coord3D *,float,int); // 0x000E912A
  void rva000E7734(Thing *);                   // 0x000E7734

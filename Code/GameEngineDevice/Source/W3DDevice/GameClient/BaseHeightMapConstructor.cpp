@@ -43,7 +43,7 @@ class TextureClass:public TextureBaseClass {};
 namespace _STL { template <> _Bvector_base<allocator<bool> >::~_Bvector_base(); }
 namespace _STL { template <> vector<bool, allocator<bool> >::~vector(); }
 class W3DTreeBuffer {public:W3DTreeBuffer();char data[285800];};
-class W3DShrubBuffer {public:W3DShrubBuffer();char data[332416];};
+#include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 struct Coord3D;
 class GeometryInfo;
 class AsciiString;
