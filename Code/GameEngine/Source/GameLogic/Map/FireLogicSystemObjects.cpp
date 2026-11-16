@@ -329,42 +329,14 @@ void FireLogicSystem::rva0028641F(unsigned int id, const Coord3D *pos)
     }
 }
 
-class TerrainLogic {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual bool isUnderwater(float x, float y, float *waterZ = 0, float *terrainZ = 0, Int unused = 0);	// slot 0x4C
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual unsigned char materialAt(float x, float y);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 void FireLogicSystem::ResetCellToOriginalFlammability(Int x, Int y)
 {
     Cell *cell = &m_cells[x][y];
     float fx = (x + 0.5) * 10.0;
     float fy = (y + 0.5) * 10.0;
-    int type = TheTerrainLogic->materialAt(fx, fy);
+    int type = TheTerrainLogic->slot24(fx, fy);
     if (type != 0)
     {
         Material *material = &m_materials[type];

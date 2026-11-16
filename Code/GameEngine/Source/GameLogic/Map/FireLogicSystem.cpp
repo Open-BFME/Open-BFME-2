@@ -49,6 +49,7 @@ public:
 };
 #include "../../../Include/GameLogic/FireCellCentre.h"
 class PolygonTrigger;
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include <stdlib.h>
@@ -262,35 +263,7 @@ struct Rva00286297
 	Int fuel;
 	unsigned int field18, field00, field10;
 };
-class TerrainLogic {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual bool isUnderwater(float x, float y, float *waterZ = 0, float *terrainZ = 0, Int unused = 0);	// slot 0x4C
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual unsigned char materialAt(float x, float y);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 #include "../../../Include/GameLogic/Rva00286214Node.h"
 // The 0x7C-byte damage record uses the rowed Rva00263895Member initializer.
 // Object consumes its damage and death types and the per-cell amount.
@@ -1106,7 +1079,7 @@ void FireLogicSystem::update()
 			{
 				if (cell->m_field31)
 				{
-					Int index = TheTerrainLogic->materialAt((float)((row + 0.5) * 10.0), (float)((col + 0.5) * 10.0));
+					Int index = TheTerrainLogic->slot24((float)((row + 0.5) * 10.0), (float)((col + 0.5) * 10.0));
 					if (index)
 					{
 						Material *material = &m_materials[index];

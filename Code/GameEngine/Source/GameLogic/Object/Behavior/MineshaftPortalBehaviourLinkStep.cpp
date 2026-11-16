@@ -10,6 +10,7 @@
 // retail's argument register order (W7-R1's lever, found by W7-S2's sweep).
 #include <vector>
 #include <map>
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -28,46 +29,7 @@ public:
 #include "../../../../Include/Common/Rva004618D4Caller.h"
 class AI { public: char pad[0x10]; Rva002E9042 *pathfinder; };
 extern AI *TheAI;
-class TerrainLogic {
-public:
-    virtual void slot00();
-    virtual void slot01();
-    virtual void slot02();
-    virtual void slot03();
-    virtual void slot04();
-    virtual void slot05();
-    virtual void slot06();
-    virtual void slot07();
-    virtual void slot08();
-    virtual void slot09();
-    virtual void slot10();
-    virtual void slot11();
-    virtual void slot12();
-    virtual void slot13();
-    virtual void slot14();
-    virtual void slot15();
-    virtual void slot16();
-    virtual void slot17();
-    virtual void slot18();
-    virtual void slot19();
-    virtual void slot20();
-    virtual void slot21();
-    virtual void slot22();
-    virtual void slot23();
-    virtual void slot24();
-    virtual void slot25();
-    virtual void slot26();
-    virtual void slot27();
-    virtual void slot28();
-    virtual void slot29();
-    virtual void slot30();
-    virtual void slot31();
-    virtual void slot32();
-    virtual void slot33();
-    virtual void slot34();
-    virtual Rva00373373Portal *portalAt(unsigned int id);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 struct Rva00373158Group : public _STL::vector<ObjectID> { bool changed; };
 struct Rva00373158Node { char pad[0x14]; Rva00373158Group *group; };
 class MineshaftPortalNetworkManager;
@@ -107,7 +69,7 @@ void MineshaftPortalNetworkManager::rva00373158(Rva00373373Portal *portal, int k
     ObjectID *end = group->end();
     for (ObjectID *it=group->begin(); it!=end; ++it) {
         if ((unsigned)*it != current.id) {
-            key=(int)TheTerrainLogic->portalAt((unsigned)*it);
+            key=(int)TheTerrainLogic->getWaypointByID((unsigned)*it);
             ((Rva00372CA8 *)key)->remove((int)&current);
             ((Rva00372CA8 *)&current)->remove(key);
         }

@@ -665,15 +665,9 @@ void AIStructureCreepTactic::run()
 		end(false, false);
 }
 
-// TheTerrainLogic slot 6 and TheBuildAssistant slot 16 views (as in
+// TheBuildAssistant slot 16 view (as in
 // AIBuildableStructure.cpp).
-class TerrainLogic {
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5();
-	virtual float groundHeight(float x, float y, int normal);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../../../../Include/GameLogic/TerrainLogic.h"
 class ThingTemplate;
 class BuildAssistantCallView {
 public:
@@ -737,7 +731,7 @@ bool AIStructureCreepTactic::getBuildPos(Coord3DBase *out, const AsciiString &na
 	dir.Scale(BfmeVector3(half, half, half));
 	Coord3D pos = site->m_pos;
 	Coord3DAdd(&pos, (const Coord3DBase *)&dir);
-	pos.z = TheTerrainLogic->groundHeight(pos.x, pos.y, 0);
+	pos.z = TheTerrainLogic->getGroundHeight(pos.x, pos.y, 0);
 	Player *owner = m_owner;
 	const ThingTemplate *thing = (const ThingTemplate *)TheThingFactory->findTemplate(name);
 	BuildAssistantCallView*assistant=(BuildAssistantCallView*)TheBuildAssistant;

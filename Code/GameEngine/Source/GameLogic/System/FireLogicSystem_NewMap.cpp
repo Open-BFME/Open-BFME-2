@@ -112,6 +112,7 @@ class PolygonTrigger;
 
 // The subsystem base (ctor 0x001B4E63, dtor 0x001B4E74) and Snapshot at
 // +0x0C, the second base whose vtable 0x00BBB554 the destructor restores.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "Snapshot.h"
 
@@ -202,35 +203,7 @@ private:
 
 void Rva00286136Free(void *node);
 
-class TerrainLogic {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void getExtent(struct Rva00287015Extent *extent) const;	// slot 0x30
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual bool isUnderwater(float x, float y, float *waterZ = 0, float *terrainZ = 0, Int unused = 0);	// slot 0x4C
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual unsigned char materialAt(float x, float y);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 #include "../../../Include/Common/Rva0030B7C2Point.h"
 bool rva0030B7C2(const Rva0030B7C2Point *point, Rva0030B719Shape *shape);
@@ -250,12 +223,7 @@ struct Rva002E6EFFPosition;
 #include <new>
 
 // m_cellsOnFire's clear (0x0028662D).
-// The terrain extent TheTerrainLogic's slot 0x30 fills (lo, hi).
-struct Rva00287015Extent
-{
-	Coord3D lo;
-	Coord3D hi;
-};
+#include "../../../../Libraries/Include/Lib/Region3D.h"
 
 // ?NewMap@FireLogicSystem@@QAEXXZ @0x00287015
 // Rebuilds the grid over the terrain extent (one cell per 10 units) and
@@ -264,8 +232,8 @@ struct Rva00287015Extent
 void FireLogicSystem::NewMap()
 {
 	rva00286CC4();
-	Rva00287015Extent extent;
-	TheTerrainLogic->getExtent(&extent);
+	Region3D extent;
+	TheTerrainLogic->getMaximumPathfindExtent(&extent);
 	m_numRows = FloatToLong((float)floor(extent.hi.x * 0.1f)) + 1;
 	m_numCols = FloatToLong((float)floor(extent.hi.y * 0.1f)) + 1;
 	m_storage = new Cell[m_numRows * m_numCols];
@@ -282,7 +250,7 @@ void FireLogicSystem::NewMap()
 			((unsigned int *)cell)[2] = 0;
 			cell->m_0C = 0;
 			cell->m_objects = 0;
-			int type = TheTerrainLogic->materialAt((x + 0.5) * 10.0, (y + 0.5) * 10.0);
+			int type = TheTerrainLogic->slot24((x + 0.5) * 10.0, (y + 0.5) * 10.0);
 			if (type != 0 && type < 4)
 			{
 				Material *material = &m_materials[type];
