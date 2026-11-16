@@ -5,14 +5,8 @@ enum Relationship
 	REL_DUMMY = 0
 };
 #include "../../../../Include/Common/TeamBFME2.h"
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-public:
-	char m_pad[0x2ec];
-	Team *m_2ec; // +0x2ec
-};
+#include "../../../../Include/Common/BfmeMemberRV.h"
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/PlayerList.h"
 enum ObjectStatusTypes
 {
@@ -29,10 +23,11 @@ int Rva004383EB::rva004383EB(Object *obj)
 {
 	PlayerList *pl = ThePlayerList;
 	Team *team1 = obj->m_team;
-	BfmeMemberRV *mem = (BfmeMemberRV *)pl->m_local;
+	Player *player = pl->m_local;
+	BfmeMemberRV *mem = (BfmeMemberRV *)player;
 	int rel;
 	if (team1) {
-		Team *team2 = mem->m_2ec;
+		Team *team2 = player->m_defaultTeam;
 		rel = (int)team1->getRelationship(team2);
 	} else {
 		rel = 1;

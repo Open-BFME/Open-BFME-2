@@ -11,14 +11,9 @@ enum Relationship
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class BfmeMemberRV
-{
-public:
-	bool bfmeAskRV();
-public:
-	char m_pad00[0x2ec];
-	Team *m_team2ec;
-};
+#include "../../../Include/Common/BfmeMemberRV.h"
+
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 
@@ -46,11 +41,12 @@ bool Object::rva0029137E(AsciiString &out)
 		return false;
 	PlayerList *pl = ThePlayerList;
 	Team *myTeam = m_team304;
-	BfmeMemberRV *member = (BfmeMemberRV *)pl->m_local;
+	Player *player = pl->m_local;
+	BfmeMemberRV *member = (BfmeMemberRV *)player;
 	if (!member || !myTeam)
 		return false;
 	if (member->bfmeAskRV()) {
-		Team *other = member->m_team2ec;
+		Team *other = player->m_defaultTeam;
 		if (myTeam->getRelationship(other) == REL_ALLY)
 			return false;
 	}
