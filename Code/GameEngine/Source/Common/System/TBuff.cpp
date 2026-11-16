@@ -324,39 +324,7 @@ private:
 
 int __cdecl Rva000D1D26Identity(int value);
 
-// ??0Rva00062A7EProduct@@QAE@XZ, retail 0x00062A7E..0x00062AC4 (70 bytes):
-// W3DTerrainLogic's constructor (pinned under its address name; the factory
-// slot 14 of vtable 0x00BC25E0 calls it after new 0x1924, and its destructor
-// is the rowed W3DTerrainLogic). Zero Hour's body exactly: m_mapMinZ(0),
-// m_mapMaxZ(1), m_mapData = NULL, over this unit's TerrainLogic layout (the
-// ported Zero Hour unit's header places the members elsewhere). Its own
-// tables 0x00BC5890/+4 0x00BC5858; the two listener tables fold with
-// TerrainLogic's.
-// Retain the actual derived overrides after reconciling the base API.
-// Native BC5890 primary slots1..4 are62E4A /62AF1 /62E2F /63153.
-// Native BC5858 secondary slots1/9/10 are62B17 /62B44 /62B97;
-// they must not silently inherit the base TerrainLogic implementations.
-// This address-derived constructor view still needs its existing W3D method
-// names reconciled with their providers before it links.
-class W3DTerrainLogic : public TerrainLogic
-{
-public:
-	W3DTerrainLogic();
-	virtual ~W3DTerrainLogic();
-	virtual bool loadMap(const AsciiString &, ChunkInputStream *, bool, bool);
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-
-private:
-	Real m_mapMinZ;										// +0x191C
-	Real m_mapMaxZ;										// +0x1920
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 typedef _STL::pair<const unsigned int, Waypoint *> TerrainWaypointPair;
 

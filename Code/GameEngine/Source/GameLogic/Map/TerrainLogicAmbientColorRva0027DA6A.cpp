@@ -25,63 +25,39 @@ static __forceinline long fast_float2long_round(float f)
 	return i;
 }
 
-class W3DTerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual float slot11();
-	bool rva0027DA6A(const float *pos, float *color);
-
-private:
-	char m_pad04[0x18];
-	int m_1c;
-	int m_20;
-	unsigned char *m_data24;
-	unsigned int m_width28;
-	unsigned int m_height2c;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 bool W3DTerrainLogic::rva0027DA6A(const float *pos, float *color)
 {
-	if (m_data24 == 0 || m_1c < 1 || m_20 < 1)
+	if (field24 == 0 || field1C < 1 || field20 < 1)
 		return false;
 	float border = slot11();
 	float x = border + pos[0];
 	float y = border + pos[1];
 	if (x < 0.0f)
 		x = 0.0f;
-	else if (m_1c * 10.0f < x)
-		x = m_1c * 10.0f;
+	else if (field1C * 10.0f < x)
+		x = field1C * 10.0f;
 	if (y < 0.0f)
 		y = 0.0f;
-	else if (m_20 * 10.0f < y)
-		y = m_20 * 10.0f;
-	x *= (float)m_width28 / (m_1c * 10.0f);
-	y *= (float)m_height2c / (m_20 * 10.0f);
+	else if (field20 * 10.0f < y)
+		y = field20 * 10.0f;
+	x *= (float)field28 / (field1C * 10.0f);
+	y *= (float)field2C / (field20 * 10.0f);
 	int ix = fast_float2long_round((float)floor(x));
 	int iy = fast_float2long_round((float)floor(y));
-	if (ix >= m_width28 - 1)
-		ix = m_width28 - 2;
-	if (iy >= m_height2c - 1)
-		iy = m_height2c - 2;
+	if (ix >= field28 - 1)
+		ix = field28 - 2;
+	if (iy >= field2C - 1)
+		iy = field2C - 2;
 	x -= ix;
 	y -= iy;
 	if (x > 1.0f)
 		x = 1.0f;
 	if (y > 1.0f)
 		y = 1.0f;
-	unsigned char *row0 = m_data24 + ix * 3 + iy * 3 * m_width28;
-	unsigned char *row1 = row0 + m_width28 * 3;
+	unsigned char *row0 = field24 + ix * 3 + iy * 3 * field28;
+	unsigned char *row1 = row0 + field28 * 3;
 	for (int i = 0; i < 3; ++i, ++row0, ++row1)
 	{
 		float &dst = (i == 0) ? color[2] : ((i == 1) ? color[1] : color[0]);

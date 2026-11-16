@@ -21,7 +21,6 @@
 //   0x00051DB0  0x00051D93  +0x88 @ 0x00051D57
 //   0x00058122  0x0005813E  +0x88 @ 0x00051DEE
 //   0x00061AA1  0x00060FE2  +0xC @ 0x0005D41D
-//   0x00062E8D  0x00062AF7  +0x4 @ 0x00062E6A
 //   0x0006D58B  0x0006D0D7  +0x8 @ 0x0006D05A, +0xC8 @ 0x0006D062
 //   0x0006DE21  0x0006DD51  +0x8 @ 0x0006DD67
 //   0x0006F24A  0x0006ED6F  +0x108 @ 0x0006F02E
@@ -258,31 +257,7 @@ Rva0060FE2::Rva0060FE2(EmitVtableTag *)
 {
 }
 
-class __declspec(novtable) Rva0062AF7Base0
-{
-public:
-	virtual ~Rva0062AF7Base0();
-};
-
-// Secondary base at +0x4: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x4) at 0x00062E6A in its vtable is target evidence for it.
-class __declspec(novtable) Rva0062AF7Base4
-{
-public:
-	virtual ~Rva0062AF7Base4();
-};
-class W3DTerrainLogic : public Rva0062AF7Base0, public Rva0062AF7Base4
-{
-public:
-	W3DTerrainLogic(EmitVtableTag *);
-public:
-	virtual ~W3DTerrainLogic();
-};
-
-// ?<W3DTerrainLogic::W3DTerrainLogic> absent-from-retail
-W3DTerrainLogic::W3DTerrainLogic(EmitVtableTag *)
-{
-}
+#include "../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 class __declspec(novtable) Rva006D0D7Base0
 {

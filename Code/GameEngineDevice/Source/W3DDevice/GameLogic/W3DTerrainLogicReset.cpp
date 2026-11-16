@@ -13,17 +13,7 @@
 
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
-// reset overrides the SubsystemInterface slot, so this is the +4 subobject: retail's
-// +0x18/+0x1C/+0x1918/+0x191C displacements are full-object +0x1C/+0x20/+0x191C/+0x1920.
-class W3DTerrainLogic : public TerrainLogic
-{
-public:
-	virtual void reset();
-
-private:
-	float m_mapMinZ;					// +0x191C
-	float m_mapMaxZ;					// +0x1920
-};
+#include "../../../Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 void Rva000ABD70Clear();
 
