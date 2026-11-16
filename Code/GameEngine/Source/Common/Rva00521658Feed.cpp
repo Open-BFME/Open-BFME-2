@@ -8,7 +8,8 @@
 // +0x698, virtual slot 1 plus the rowed AptMpGameSetup helper 0x0043DE19 on
 // the +0x288 panel, clears +0x6C4, and calls virtual slot 1 with 0 on
 // +0x6C8. Single-use members address directly; double-use members ride
-// in edi. Views are TU-local; callee names are the rowed ones.
+// in edi. The panel is the canonical AptMpGameSetup; the other views are
+// TU-local; callee names are the rowed ones.
 class Obj00521658_668
 {
 public:
@@ -19,13 +20,7 @@ public:
 	virtual void slot04();
 };
 
-class AptMpGameSetup
-{
-public:
-	virtual ~AptMpGameSetup();
-	virtual void slot01();
-	void InitGadgets();
-};
+#include "../../Include/GameClient/AptMpGameSetup.h"
 
 class Obj00521658_6C8
 {
@@ -37,8 +32,7 @@ public:
 struct Holder00521658
 {
 	char m_pad[0x288];
-	AptMpGameSetup m_gameSetup;
-	char m_pad28C[0x668 - 0x28C];
+	AptMpGameSetup m_gameSetup; // Canonical panel ends at +0x668.
 	Obj00521658_668 m_668;
 	char m_pad66C[0x698 - 0x66C];
 	SkirmishPreferences m_skirmishPreferences;
