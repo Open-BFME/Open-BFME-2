@@ -173,14 +173,7 @@ static inline ResourceGatheringManager *playerResourceGatheringManager(const Pla
 
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 
-class DamageInfo
-{
-public:
-	char m_pad[0x10];
-	int m_type; // +0x10
-	char m_pad14[0x20 - 0x14];
-	float m_amount; // +0x20
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
@@ -313,7 +306,7 @@ bool SpecialPowerModule::rva00493620()
 			if (body->getLastDamageTimestamp() + 10 >= now)
 			{
 				const DamageInfo *info = body->getLastDamageInfo();
-				if (info && info->m_amount != 0.0f && info->m_type != 7)
+				if (info && info->m_amount != 0.0f && info->m_damageType != 7)
 					return false;
 			}
 		}
