@@ -19,7 +19,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // compiles the same either way.
 #pragma optimize("s", on)
 #include "matrix3d.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "sphere.h"
 

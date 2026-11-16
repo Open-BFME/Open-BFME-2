@@ -9499,17 +9499,13 @@ pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A39C0RecordInsert
 pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A39C0RecordInsertion.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A3B50RecordAppend.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A3B50RecordAppend.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/DamageFX.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/DamageFX.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Open2Records.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Open2Records.cpp	"s",on	2
-pragma_optimize	Code/GameEngine/Source/Common/PartitionSolver.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/PartitionSolver.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/ShroudManagerImplGetNearestGroupWithValue.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/ShroudManagerImplGetNearestGroupWithValue.cpp	"s",on	1

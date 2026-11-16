@@ -107,7 +107,6 @@ namespace _STL { template <> vector<void *,allocator<void *> >::vector(allocator
 namespace rts {
 template<> Bool equal_to<NameKeyType>::operator()(const NameKeyType &a, const NameKeyType &b) const { return a == b; }
 }
-#pragma optimize("", on)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////

@@ -88,7 +88,6 @@ static Bool greater_than(PairObjectIDAndUInt a, PairObjectIDAndUInt b)
 }
 
 
-#pragma optimize("", on)
 
 // solve lives in PartitionSolverSolve.cpp under its native /O1 /EHs configuration.
 
