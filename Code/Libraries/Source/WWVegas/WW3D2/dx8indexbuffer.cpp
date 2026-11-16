@@ -11,7 +11,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define BFME_DYNAMIC_IB_UINT_CTOR_ABI
 #define BFME_D3D9_DEVICE_ABI
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "dx8caps.h"

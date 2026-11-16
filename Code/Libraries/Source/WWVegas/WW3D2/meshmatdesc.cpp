@@ -12,7 +12,6 @@
 #pragma auto_inline(off)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma auto_inline(on)
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "always.h"

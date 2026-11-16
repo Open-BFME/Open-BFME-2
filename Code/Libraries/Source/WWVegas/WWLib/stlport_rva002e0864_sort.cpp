@@ -15,7 +15,6 @@
 // frame and the imported memmove. So its header is compiled with the speed
 // option, and _CRTIMP keeps its import default.
 
-#pragma optimize("t", on)
 #include <stl/_algobase.h>
 #pragma optimize("", on)
 #include <algorithm>

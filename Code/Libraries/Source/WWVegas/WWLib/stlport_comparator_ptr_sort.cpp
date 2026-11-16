@@ -19,7 +19,6 @@
 // (0x00620840) is the speed-built body, so that header is compiled with the
 // speed option and the imported memmove.
 
-#pragma optimize("t", on)
 #include <stl/_algobase.h>
 #pragma optimize("", on)
 #include <algorithm>

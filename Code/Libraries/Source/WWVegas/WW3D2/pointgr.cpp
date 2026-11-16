@@ -11,7 +11,6 @@
 #include "rendobj.h"
 #include "wwstring.h"
 #include "shader.h"
-#pragma optimize("s", on)
 #define BFME2_DX8WRAPPER_TRANSFORMS
 #include "reference/shims/banked_segline/dx8wrapper.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard

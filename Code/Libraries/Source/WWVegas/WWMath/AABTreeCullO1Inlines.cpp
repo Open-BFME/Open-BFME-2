@@ -13,7 +13,6 @@
 #include "stdlib.h"
 #include "refcount.h"
 #include "aabox.h"
-#pragma optimize("gty", on)
 #include "cullsys.h"
 #pragma optimize("", on)
 #include "aabtreecull.h"

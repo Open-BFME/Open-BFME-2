@@ -17,7 +17,6 @@
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // bfmeHeadersForSize: the headers' out-of-line inline copies that retail keeps are
 // the size-optimised bodies (decalsys.cpp pattern); the rows below keep the unit's flags.
-#pragma optimize("s", on)
 #include "always.h"
 #include "vector.h"
 #include "vector2.h"

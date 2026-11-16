@@ -4,7 +4,6 @@
 #include "../../../../GameEngine/Source/Common/debug.h"
 #define DEBUG_DEBUG_H
 #define inline static inline
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include <math.h>

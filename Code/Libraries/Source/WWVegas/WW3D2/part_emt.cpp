@@ -9,7 +9,6 @@
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves; <new> must not
 #define _CRTIMP // free and strdup bind the game's direct allocation wrappers (0x00030830, 0x006C4C70), not CRT imports.
 #include <string.h>
