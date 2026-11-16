@@ -7,7 +7,11 @@
 // C++ free retains the unwind-state transition before the header release.
 class AsciiString;
 namespace _STL {
-void __cdecl free(void *block);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 template<class T> class allocator {};
 template<class First, class Second> struct pair;
