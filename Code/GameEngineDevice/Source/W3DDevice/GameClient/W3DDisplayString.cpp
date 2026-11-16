@@ -26,51 +26,16 @@ class Gen_00942BC0 { public: void process( void *text, void *hkX, void *hkY ); }
 
 #include "../../../Include/W3DDevice/GameClient/Rva00155AD0.h"
 
-class Render2DSentenceClass
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
+
+// Build_Sentence and Render are the address-named rows 0x00159FC0 and 0x00155AD0.
+inline bool Render2DSentenceClass::Set_Word_Wrap_Centered(bool centered)
 {
-public:
-	Render2DSentenceClass();
-	~Render2DSentenceClass();
-	Vector2 Get_Formatted_Text_Extents(const unsigned short *text);
-	FontCharsClass *Peek_Font() { return Font; }
-	bool Set_Word_Wrap_Centered(bool centered)
-	{
-		if (IsWordWrapCentered == centered)
-			return false;
-		IsWordWrapCentered = centered;
-		return true;
-	}
-	virtual void Reset();
-	bool	Set_Wrapping_Width (float width)					{ if(WrapWidth == width)
-																											return false;
-																										WrapWidth = width; 
-																										return true;	}
-	void Set_Use_Hard_Word_Wrap( bool onoff ) { UseHardWordWrap = onoff; }
-	void Set_Hot_Key_Parse( bool parseHotKey ) { ParseHotKey = parseHotKey; }
-	void Set_Font( FontCharsClass *font );
-	void	Set_Clipping_Rect( const RectClass &rect )	{ ClipRect = rect; IsClippedEnabled = true; }
-	// Rowed under address-derived names: Build_Sentence 0x00159FC0 and Render
-	// 0x00155AD0; the four-colour Draw_Sentence 0x00155B00 is pinned.
-	void Build_Sentence( const wchar_t *text, Int *hkX, Int *hkY )
-	{ reinterpret_cast<Gen_00942BC0 *>(this)->process( (void *)text, hkX, hkY ); }
-	void Reset_Polys( void );
-	void Set_Location( const Vector2 &loc );
-	void Draw_Sentence( unsigned long c0, unsigned long c1, unsigned long c2, unsigned long c3 );
-	void Render( void ) { reinterpret_cast<Rva00155AD0 *>(this)->rva00155AD0(); }
-private:
-	char m_unrecovered04[ 0x4C - 0x04 ];
-	FontCharsClass *Font;
-	char m_unrecovered50[ 0x84 - 0x50 ];
-	float WrapWidth;																		///< 0x84
-	bool IsWordWrapCentered;
-	char m_unrecovered89[ 0x8C - 0x89 ];
-	RectClass ClipRect;																	///< 0x8C
-	char m_unrecovered9C[ 0xAC - 0x9C ];
-	bool IsClippedEnabled;															///< 0xAC
-	bool ParseHotKey;																		///< 0xAD
-	bool UseHardWordWrap;																///< 0xAE
-	char m_unrecoveredAF[ 0xC4 - 0xAF ];
-};
+	if (Centered == centered)
+		return false;
+	Centered = centered;
+	return true;
+}
 
 class W3DDisplayString : public DisplayString
 {
@@ -283,10 +248,10 @@ Bool W3DDisplayString::rva00106277( void )
 		if( m_useHotKey )
 		{
 			m_textRenderer.Set_Hot_Key_Parse( TRUE );
-			m_textRenderer.Build_Sentence( getText().str(), &m_hotKeyPos.x, &m_hotKeyPos.y );
+			reinterpret_cast<Gen_00942BC0 *>(&m_textRenderer)->process( (void *)getText().str(), &m_hotKeyPos.x, &m_hotKeyPos.y );
 			m_hotkey.translate( ((HotKeyManager *)TheHotKeyManager)->searchHotKey( getText() ) );
 			if( !m_hotkey.isEmpty() )
-				m_textRendererHotKey.Build_Sentence( m_hotkey.str(), NULL, NULL );
+				reinterpret_cast<Gen_00942BC0 *>(&m_textRendererHotKey)->process( (void *)m_hotkey.str(), NULL, NULL );
 			else
 			{
 				m_useHotKey = FALSE;
@@ -294,7 +259,7 @@ Bool W3DDisplayString::rva00106277( void )
 			}
 		}
 		else
-			m_textRenderer.Build_Sentence( getText().str(), NULL, NULL );
+			reinterpret_cast<Gen_00942BC0 *>(&m_textRenderer)->process( (void *)getText().str(), NULL, NULL );
 		m_fontChanged = FALSE;
 		m_textChanged = FALSE;
 		m_bfmeColorsChanged = TRUE;
@@ -370,11 +335,11 @@ void W3DDisplayString::draw( Int x, Int y, Color xDrop, Color yDrop )
 			m_textRendererHotKey.Reset_Polys();
 			m_textRendererHotKey.Set_Location( Vector2( m_textPos.x + m_hotKeyPos.x, m_textPos.y + m_hotKeyPos.y ) );
 			m_textRendererHotKey.Draw_Sentence( m_hotKeyColor, m_hotKeyColor, m_hotKeyColor, m_hotKeyColor );
-			m_textRendererHotKey.Render();
+			reinterpret_cast<Rva00155AD0 *>(&m_textRendererHotKey)->rva00155AD0();
 		}
 		m_bfmeColorsChanged = FALSE;
 	}
-	m_textRenderer.Render();
+	reinterpret_cast<Rva00155AD0 *>(&m_textRenderer)->rva00155AD0();
 	if( TheGameClient )
 		m_lastResourceFrame = TheGameClient->getFrame();
 }
