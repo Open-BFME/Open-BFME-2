@@ -118,12 +118,8 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-// StateMachine::getGoalObject (0x004D7726), rowed under this name.
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+// StateMachine::getGoalObject (0x004D7726) is rowed as TurretStateMachine::getGoalObject.
+#include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 
 class AIAttackFireDuringApproachState : public AIInternalMoveToState

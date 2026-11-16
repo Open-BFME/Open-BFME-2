@@ -9,13 +9,6 @@
 
 typedef bool Bool;
 
-typedef int StateID;
-
-enum
-{
-	INVALID_STATE_ID = 999999
-};
-
 enum TurretTargetType
 {
 	TARGET_NONE = 0,
@@ -34,20 +27,7 @@ enum TurretStateType
 
 class Object;
 
-// BFME2 retail layout, every offset read directly by the byte-true body:
-// the state machine pointer sits at +0x14, its current-state link at +0x04,
-// and the StateID four bytes into the state.
-struct TurretState
-{
-	char m_pad[4];
-	StateID m_stateID;
-};
-
-struct TurretStateMachine
-{
-	char m_pad[4];
-	const TurretState *m_currentState;
-};
+#include "../../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 enum WeaponSlotType
 {
@@ -80,8 +60,7 @@ Bool AIUpdateInterface::isWeaponSlotOnTurretAndAimingAtTarget(WeaponSlotType wsl
 // ?isTryingToAimAtTarget@TurretAI@@QBE_NPBVObject@@@Z
 Bool TurretAI::isTryingToAimAtTarget(const Object *victim) const
 {
-	const TurretStateMachine *machine = m_turretStateMachine;
-	StateID sid = machine->m_currentState ? machine->m_currentState->m_stateID : INVALID_STATE_ID;
+	StateID sid = m_turretStateMachine->getCurrentStateID();
 
 	Object *obj;
 	Coord3D pos;
