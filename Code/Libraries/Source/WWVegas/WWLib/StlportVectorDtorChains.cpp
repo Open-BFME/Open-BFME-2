@@ -39,7 +39,6 @@ template void _STL::vector<Rva00297360Element>::_M_clear();
 
 // Keep this inlined unsigned max overload local; retail has one external owner.
 // The construction specialization is owned by stlport_construct_throw_spec.cpp.
-#pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(
     const unsigned int &x, const unsigned int &y)

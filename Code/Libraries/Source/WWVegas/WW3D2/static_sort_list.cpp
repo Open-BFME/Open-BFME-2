@@ -56,7 +56,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
 #include "multilist.h"
-#pragma optimize("", on)
 #include "refcount.h"
 #include "static_sort_list.h"
 

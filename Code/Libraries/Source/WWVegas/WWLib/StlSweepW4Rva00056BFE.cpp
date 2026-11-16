@@ -11,11 +11,9 @@
 // Keep the visible stateless allocator construction, but emit its shared
 // out-of-line copy with the frame-pointer omission used by the kept provider.
 namespace _STL {
-#pragma optimize("y", on)
 template <> inline
 _STLP_alloc_proxy<void **, void *, allocator<void *> >::_STLP_alloc_proxy(
     const allocator<void *> &a, void **p) : allocator<void *>(a), _M_data(p) {}
-#pragma optimize("", on)
 }
 // vector<void*> members kept from this unit's link copies, moved beside <vector> so
 // they precede every use. Import-inline: these members are inlined at every use here,
