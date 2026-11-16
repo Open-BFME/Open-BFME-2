@@ -52,43 +52,7 @@ template <> inline void allocator<_List_node<Coord3DList> >::deallocate(_List_no
 // destructor200667 and copy construction in282843 calls coordinate-list copy2820DD.
 typedef Coord3DList BeaconPath00283E9C;
 
-// Layout shared with the matched TerrainLogic::newMap: the location is at
-// +0x0c and the all-waypoints link at +0x1c.  The remaining reads keep
-// offset-derived names; no witness names them.
-class Waypoint
-{
-public:
-	Waypoint *getNext(void) const
-	{
-		return m_next;
-	}
-
-	Waypoint *getPtr20(void) const
-	{
-		return m_ptr_20;
-	}
-
-	Int getDword4C(void) const
-	{
-		return m_dword_4c;
-	}
-
-	Int getDword60(void) const
-	{
-		return m_dword_60;
-	}
-
-	unsigned char m_unreconstructed_00[0x0c];
-	Coord3D m_location;
-	unsigned char m_unreconstructed_18[4];
-	Waypoint *m_next;
-	Waypoint *m_ptr_20;
-	unsigned char m_unreconstructed_24[0x28];
-	Int m_dword_4c;
-	unsigned char m_unreconstructed_50[0x10];
-	Int m_dword_60;
-};
-
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../Common/debug.h"
 
@@ -105,7 +69,7 @@ void TerrainLogic::buildBeacons(void)
 
 	for (Waypoint *start = getFirstWaypoint(); start != 0; start = start->getNext())
 	{
-		if (start->getDword60() != 5)
+		if (start->m_field60 != 5)
 			continue;
 
 		BeaconPath00283E9C path;
@@ -118,7 +82,7 @@ void TerrainLogic::buildBeacons(void)
 			point.z = way->m_location.z;
 			path.push_front(point);
 
-			Int links = way->getDword4C();
+			Int links = way->getNumLinks();
 			if (links == 0)
 				break;
 
@@ -135,7 +99,7 @@ void TerrainLogic::buildBeacons(void)
 				break;
 			}
 
-			way = way->getPtr20();
+			way = way->m_links[0];
 			if (way == start)
 				break;
 			if (way == 0)

@@ -41,7 +41,7 @@ virtual bool allow(Object *); const void *what; Player *player; bool match;
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
-struct Waypoint { char pad[0xC]; Coord3D pos; };
+#include "../../../../Include/GameLogic/Waypoint.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrades; ObjectFilter filter; };
@@ -334,10 +334,10 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
   points[3]=TheTerrainLogic->getWaypointByName(AsciiString("RightArmySpawnPoint"));
   int nearest=-1;float distance=99999.0f;
   for(int i=0;i<4;++i){Waypoint *point=points[i];if(point) {
-    OCLDiffCoord diff; diff.x=point->pos.x;diff.y=point->pos.y;diff.z=point->pos.z;diff.x-=location->x;diff.y-=location->y;diff.z-=location->z;
+    OCLDiffCoord diff; diff.x=point->m_location.x;diff.y=point->m_location.y;diff.z=point->m_location.z;diff.x-=location->x;diff.y-=location->y;diff.z-=location->z;
       float d=diff.GetLengthEstimate2D();if(d<distance){distance=d;nearest=i;}}
   }
-  if(nearest>=0){creation=points[nearest]->pos;creation.z+=300.0f;ObjectCreationList::create(ocl,getObject(),&creation,location,0);}
+  if(nearest>=0){creation=points[nearest]->m_location;creation.z+=300.0f;ObjectCreationList::create(ocl,getObject(),&creation,location,0);}
   break;}
  case 8: {
   creation.x=location->x;creation.y=location->y;creation.z=location->z;

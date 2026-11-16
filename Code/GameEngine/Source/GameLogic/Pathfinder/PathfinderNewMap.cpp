@@ -71,24 +71,8 @@ struct Rva005312BERect;
 
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
-// The terrain's waypoint list: position at +0x0C, next at +0x1C.
 class Object;
-class Waypoint
-{
-public:
-	bool isValidUnitType(Object *);
-	Waypoint *getLink(int) const;
-	Int word0; // +0x00
-	Int id; // +0x04
-	void *name; // +0x08
-	Coord3D m_location; // +0x0C
-	char m_pad18[0x4];
-	Waypoint *m_next; // +0x1C
-	char m_pad20[0x24];
-	Waypoint *chainNext; // +0x44
-	Int word48; // +0x48
-	Int linkCount; // +0x4C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../Include/GameLogic/Rva002E6ECA.h"
 
@@ -145,7 +129,7 @@ void Pathfinder::NewMap()
 				m_layers[i].allocateCells(&m_extent);
 			}
 		}
-		for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->m_next) {
+		for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->m_pNext) {
 			if ((unsigned char)((Rva002E6ECA *)way)->get()) {
 				void *cell = rva001E3647Pos(TheTerrainLogic->getLayerForDestination(0, &way->m_location), &way->m_location);
 				if (cell) {
