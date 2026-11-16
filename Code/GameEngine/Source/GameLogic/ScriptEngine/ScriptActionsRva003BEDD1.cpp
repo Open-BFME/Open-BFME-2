@@ -5,11 +5,12 @@
 #include "ascii_string.h"
 class Team;
 class Object;
+class ThingTemplate;
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 #include "../../../Include/Common/BfmeObjectVtbl.h"
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
-class BfmeObjectDlinkPad { public: unsigned char m_pad[0x64]; };
+#include "../../../Include/Common/BfmeObjectDlinkPad.h"
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase, public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier { public: unsigned char m_tail[0x40]; };
 template<class OBJCLASS> class DLINK_ITERATOR
 {

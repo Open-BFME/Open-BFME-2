@@ -11,6 +11,7 @@
 // and 0x0039E042 which copy the 24-byte output.
 
 class Object;
+class ThingTemplate;
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
@@ -25,7 +26,7 @@ public:
 
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
 
-class BfmeObjectDlinkPad { public: unsigned char m_pad[0x64]; };
+#include "../../../Include/Common/BfmeObjectDlinkPad.h"
 
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
 	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
