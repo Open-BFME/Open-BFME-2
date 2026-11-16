@@ -97,18 +97,6 @@ WindModuleInfo::WindModuleInfo()
 
 #include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
-class DefaultModuleSecondBase
-{
-public:
-	virtual ~DefaultModuleSecondBase();
-};
-
-class DefaultModuleThirdBase
-{
-public:
-	virtual ~DefaultModuleThirdBase();
-};
-
 #include "../../../../Include/GameClient/Rva003AEEB3.h"
 
 namespace FXParticleSystem {

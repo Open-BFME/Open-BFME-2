@@ -7,18 +7,6 @@
 
 #include "../../../../Include/Common/RvaSmartPtr12.h"
 
-class DefaultModuleSecondBase
-{
-public:
-	virtual ~DefaultModuleSecondBase();
-};
-
-class DefaultModuleThirdBase
-{
-public:
-	virtual ~DefaultModuleThirdBase();
-};
-
 #include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 #include "../../../../Include/GameClient/Rva003AEEB3.h"

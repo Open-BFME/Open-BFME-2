@@ -111,22 +111,12 @@ struct Rva00287C21Other;
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 extern GameLogic *TheGameLogic;
-struct ObjectTransformRegion {
- Coord3D lo, hi;
- bool contains(const Coord3D *p) const { return p->x > lo.x && p->x < hi.x && p->y > lo.y && p->y < hi.y; }
-};
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 bool isPosDifferent(const Coord3D *,const Coord3D *);
 bool isAngleDifferent(float,float);
 #include "../../../Include/GameLogic/Module/ObjectTransformContain.h"
 enum PathfindLayerEnum { LAYER_GROUND = 1 };
-struct Rva002ED236Pos {
- float x,y,z;
- Rva002ED236Pos(const Coord3D &p) { x=p.x;y=p.y;z=p.z; }
- Rva002ED236Pos(const Rva002ED236Pos &p) { x=p.x;y=p.y;z=p.z; }
- ~Rva002ED236Pos() {}
-};
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

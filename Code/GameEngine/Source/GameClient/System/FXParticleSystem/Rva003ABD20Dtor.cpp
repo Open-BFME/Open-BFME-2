@@ -37,18 +37,6 @@ struct XferUnknown11;
 class Rva003ACF68Object;
 #include "../../../../Include/Common/RvaSmartPtr12.h"
 
-class DefaultModuleSecondBase
-{
-public:
-	virtual Rva003ACF68Object *rva003ACF68(unsigned int);
-};
-
-class DefaultModuleThirdBase
-{
-public:
-	virtual const void *classView() const = 0;
-};
-
 #include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 #include "../../../../Include/GameClient/Rva003AEEB3.h"

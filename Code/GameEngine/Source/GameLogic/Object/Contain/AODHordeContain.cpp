@@ -323,10 +323,6 @@ public:
 	void refreshTrackedLargeUnit();
 };
 BFME_MOVSX_BYTE_FIELD_GETTER(Rva0047A6ACMovsxByteField, 0x5F5)
-struct Rva000AD6F4Base
-{
-	virtual void *virt0(unsigned int);
-};
 #include "../../../../Include/Common/Rva000AD6F4.h"
 //
 // Target evidence: the existing ModuleFactory callback pin and its registry
@@ -476,14 +472,6 @@ void __cdecl ModuleFactoryHookAt00467564(void *owner, int value, void *context);
 // a carve of that row takes this file's declarations but never an
 // external-linkage definition (tu_skeleton.carve).
 void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context);
-
-class ModuleFactoryHookRange
-{
-public:
-	unsigned char m_pad000[0x218];
-	unsigned char *m_begin;
-	unsigned char *m_end;
-};
 
 class GameLODManager;
 

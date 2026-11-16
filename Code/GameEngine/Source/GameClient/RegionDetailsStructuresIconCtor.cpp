@@ -21,7 +21,6 @@ struct Rva005F0220In;
 const Image *__cdecl Rva005F0220Get(Rva005F0220In *);
 namespace StrategicInGameUI { const Image *__cdecl GetButtonImage(void *); }
 const Image *__cdecl Rva005F0318Get(void *);
-class Rva005E261C { public: void rva005E261C(); };
 // Native constructor 0x005E28FE proves a primary vptr/count pair and
 // two four-byte observer bases at +8 and +C. The building-change vtable
 // 0x00C77B04 takes the +C receiver; MSVC supplies that secondary this view.
@@ -42,7 +41,6 @@ public: ~LivingWorldBuildPlotObserver() {} virtual void OnBuildPlotBuildingChang
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 #include "../../Include/Common/Rva005E2138.h"
-class Rva004FC21AOwner { public: int rva004FC207(); };
 namespace StrategicInGameUI {
 enum LivingWorldBuildingType { LIVING_WORLD_BUILDING_TYPE_COUNT = 5 };
 UnicodeString __cdecl GetTooltipText(LivingWorldBuildingType);

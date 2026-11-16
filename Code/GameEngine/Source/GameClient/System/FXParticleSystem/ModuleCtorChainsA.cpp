@@ -425,18 +425,7 @@ public:
 	Rva005FEAD0DefaultModule7(TrackingPtr<ParticleSystem> &system, const DefaultModuleTemplate7 *moduleTemplate);
 };
 
-class LightningEmissionModule
-{
-public:
-	LightningEmissionModule(TrackingPtr<ParticleSystem> &system, const LightningEmissionModuleTemplate *moduleTemplate);
-};
-
 class LightningDrawModuleTemplate;
-class LightningDrawModule
-{
-public:
-	LightningDrawModule(TrackingPtr<ParticleSystem> &system, const LightningDrawModuleTemplate *moduleTemplate);
-};
 }
 
 struct TerrainCollisionModuleInput;

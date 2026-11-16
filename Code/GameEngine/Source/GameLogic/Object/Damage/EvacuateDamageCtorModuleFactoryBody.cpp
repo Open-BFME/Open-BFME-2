@@ -10,20 +10,7 @@
 class Thing;
 class ModuleData;
 
-class PB_DeepBase
-{
-public:
-    PB_DeepBase(Thing *, const ModuleData *);
-    virtual ~PB_DeepBase();
-
-private:
-    const ModuleData *m_moduleData;
-    void *m_object;
-};
-
 #include "../../../../Include/Common/PB_Iface1.h"
-class EvacuateDamageInterface { public: virtual void slot() = 0; };
-
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 

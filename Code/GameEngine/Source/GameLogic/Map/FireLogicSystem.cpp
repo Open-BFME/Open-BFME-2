@@ -502,10 +502,6 @@ struct BurningCellTreeNode
 	unsigned char m_pad[0x10];
 	Rva002860CFVirt m_10;
 };
-struct Rva000AD6F4Base
-{
-	virtual void *virt0(unsigned int);
-};
 #include "../../../Include/Common/Rva000AD6F4.h"
 #include "../../../Include/Common/Rva00420B2AZeroSetter.h"
 #include "../../../Include/Common/Rva005FD8C1.h"
@@ -567,11 +563,6 @@ int Rva000A8F5EGet();
 // 0x00494E21: tail jump to SpecialAbilityUpdate::rva0044FC52.
 // 0x00494E48: tail jump to SpecialAbilityUpdate::startUnpacking.
 // 0x00494E4D: tail jump to SpecialAbilityUpdate::onExit.
-class Rva00494E4D : public SpecialAbilityUpdate
-{
-public:
-	void rva00494E4D(bool a, bool b);
-};
 // 0x00494E52: tail jump to SpecialAbilityUpdate::update.
 // 0x00498CAC: tail jump to GateOpenAndCloseBehavior::xfer.
 // 0x004A976F: tail jump to AIUpdateInterface::privateIdle; slot 81 of the
