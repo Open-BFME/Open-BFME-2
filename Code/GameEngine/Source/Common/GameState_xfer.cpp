@@ -46,15 +46,12 @@ public:
 	virtual void vf12(void *x);
 };
 
-class GameState
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/Common/GameState.h"
 
 // ?xfer@GameState@@MAEXPAVXfer@@@Z
 void GameState::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	((Rva002DBCCAArg *)xfer)->vf12((char *)this + 0x18);
+	// Retail's this is the Snapshot base at +0xC, so its this+0x18 is GameState+0x24.
+	((Rva002DBCCAArg *)xfer)->vf12((char *)this + 0x24);
 }

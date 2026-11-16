@@ -17,35 +17,16 @@ public:
 };
 }
 
-struct Rva002DEE9A0E0C
-{
-	char m_pad[4];
-};
-
-struct Rva002DEE9A0E10
-{
-	char m_pad[8];
-};
-
 // 0x002DE311 is rowed as Rva002DE311Owner::rva002DE311 (SaveGameInfoCopyBFME2.cpp).
 #include "../../Include/Common/Rva002DE311Owner.h"
 
-class GameState
-{
-public:
-	virtual void reset();
-private:
-	char m_pad04[0xE0C - 4];
-	Rva002DEE9A0E0C m_s0E0C;
-	Rva002DEE9A0E10 m_s0E10;
-	unsigned char m_b0E18;
-};
+#include "../../Include/Common/GameState.h"
 
 // ?reset@GameState@@UAEXXZ
 void GameState::reset()
 {
-	((_STL::_List_base<int, _STL::allocator<int> > *)&m_s0E0C)->clear();
-	((_STL::_List_base<int, _STL::allocator<int> > *)&m_s0E10)->clear();
+	((_STL::_List_base<int, _STL::allocator<int> > *)&field0E0C)->clear();
+	((_STL::_List_base<int, _STL::allocator<int> > *)&field0E10)->clear();
 	((Rva002DE311Owner *)this)->rva002DE311();
-	m_b0E18 = 0;
+	m_isInLoadGame = 0;
 }
