@@ -7,17 +7,10 @@
 #define _CRTIMP __declspec(dllimport)
 #include <stdio.h>
 #pragma pop_macro("_CRTIMP")
-class RefCountClass {
-public:
- virtual void Delete_This();
- int NumRefs;
- void Add_Ref() { ++NumRefs; }
- __declspec(dllimport) __forceinline int Dec_Ref() { return --NumRefs; }
-};
+#include "../WWLib/RefCountData.h"
 namespace FXShader {
 class RenderingMethod : public RefCountClass {
 public:
- virtual void slot1();
  virtual bool Begin(int *passCount,int flags);
  virtual void Begin_Pass(int pass);
  virtual void slot4(int mode);
@@ -74,7 +67,10 @@ template<> void vector<Rva001741EBElement>::push_back(const Rva001741EBElement &
 template<> Rva0017341BWords *vector<Rva0017341BWords>::erase(Rva0017341BWords *,Rva0017341BWords *);
 }
 
-class MeshGeometryClass { public: const char *Get_Name() const; };
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "../../../../GameEngine/Include/Common/W3DMPO.h"
+#include "MeshGeometryClass.h"
 
 struct FXShaderGeometryView { char pad00[0x24]; int maxInstances; };
 

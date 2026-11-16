@@ -26,27 +26,11 @@ private:
 
 #include "../../../../GameEngine/Include/Common/W3DMPO.h"
 
-class ChunkLoadClass;
-class Vector3;
-class Vector4;
-enum WW3DErrorType {};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.h
-class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass
-{
-public:
-	virtual ~MeshGeometryClass();
-	// The rest of the RefCountClass-side vtable, as meshgeometry.cpp emits it;
-	// declared so this unit's ??_7 copy is the same table.
-	virtual bool Load_W3D(ChunkLoadClass &cload);
-
-	void Reset_Geometry(int polycount, int vertcount, bool keepAlloc = true);
-
-protected:
-	virtual void Compute_Plane_Equations(Vector4 *array);
-	virtual void Compute_Vertex_Normals(Vector3 *array, bool alternate);
-	virtual void Compute_Bounds(Vector3 *verts);
-};
+// The size-compiled RefCountClass above and the canonical list base stand in for
+// the header's base includes.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // ??1MeshGeometryClass@@UAE@XZ
 MeshGeometryClass::~MeshGeometryClass()
