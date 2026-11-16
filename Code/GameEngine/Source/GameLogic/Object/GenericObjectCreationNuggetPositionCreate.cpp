@@ -21,13 +21,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-struct AICommandParms {
- AICommandParms(AICommandType, CommandSourceType);
- ~AICommandParms();
- int command, source;
- Coord3D position;
- char remaining[0xC0 - 0x14];
-};
+#include "../../../Include/GameLogic/AICommandParms.h"
 class AICommandInterface { public:
  virtual void aiDoCommand(const AICommandParms *);
 };
@@ -36,7 +30,7 @@ class AICommandInterface { public:
 // second out-of-line copy of the rowed member.
 static __forceinline void aiMoveToPosition(AICommandInterface &ai, const Coord3D *pos, CommandSourceType source) {
  AICommandParms command(AICMD_MOVE_TO_POSITION, source);
- command.position = *pos;
+ command.m_pos = *pos;
  ai.aiDoCommand(&command);
 }
 class StrafeAreaUpdate { public: bool rva003A4F21(const Coord3D *, const Coord3D *); };
