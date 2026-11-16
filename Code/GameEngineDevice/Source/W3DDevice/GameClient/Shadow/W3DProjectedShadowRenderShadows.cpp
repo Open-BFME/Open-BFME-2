@@ -195,38 +195,36 @@ class W3DDualProjectedShadow;
 static int drawStartX, drawStartY, drawEdgeX, drawEdgeY;
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 static __forceinline void copyBox(AABoxClass *dst,const AABoxClass &src){new(dst)Region3D(*(const Region3D *)&src);}
-enum ShadowType {SHADOW_NONE=0};
-class W3DProjectedShadowManager { public:
- void *vptr;
- ShadowRenderEntry10DF33 *m_shadowList,*m_decalList,*m_simpleDecalList;
- void *m_10;
- ShadowPair10DF33 *m_14;
- void *m_18;ShadowRenderEntry10DF33 *m_1c;
- char pad20[0x254-0x20];int count254;int unused258;int nShadowDecalVertsInBuf;int unused260;int nShadowDecalIndicesInBuf;int tail268[3];
- void flushDecals(ShadowType,class W3DShadowTexture *,W3DShadowTexture *,int);
- void rva0010C841(ShadowRenderEntry10DF33 *,int,int);
- void queueDualDecal(W3DDualProjectedShadow *);
- int rva0010DA71(RenderInfoClass&);
- int rva0010DF33(RenderInfoClass&);
-};
+typedef int Int;
+typedef unsigned int UnsignedInt;
+typedef float Real;
+typedef bool Bool;
+typedef int Color;
+long fast_float2long_round(float);
+float fast_float_trunc(float);
+#define REAL_TO_INT(x) ((Int)(fast_float2long_round(fast_float_trunc(x))))
+#include "lightenvironment.h"
+class SpecialRenderInfoClass;
+#include "../../../../../../reference/shims/bfme2_projectedshadow/GameClient/Shadow.h"
+#include "../../../../../../reference/shims/bfme2_projectedshadow/W3DDevice/GameClient/W3DProjectedShadow.h"
 int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
 {
  ShadowRenderEntry10DF33 *shadow;
  static AABoxClass aaBox;
  static ShadowSphereView10DF33 sphere;
  int projectionCount=0;
- if(!WW3D::IsCurrentlyRenderingShadowMap && (m_shadowList || m_decalList || m_simpleDecalList || m_1c) && TheTerrainRenderObject) {
+ if(!WW3D::IsCurrentlyRenderingShadowMap && (reinterpret_cast<ShadowRenderEntry10DF33 *>(m_shadowList) || reinterpret_cast<ShadowRenderEntry10DF33 *>(m_decalList) || reinterpret_cast<ShadowRenderEntry10DF33 *>(m_simpleDecalList) || reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)) && TheTerrainRenderObject) {
  {
  TerrainRect10DF33 rect;
  reinterpret_cast<ShadowTerrainDispatch10DF33 *>(TheTerrainRenderObject)->bounds238(&rect);
  drawStartX=rect.x0-4; drawStartY=rect.y0-4;
  drawEdgeX=rect.x1+4; drawEdgeY=rect.y1+4;
  }
- nShadowDecalVertsInBuf=0x8000; nShadowDecalIndicesInBuf=0x10000;
- if (m_simpleDecalList) {
+ m_nShadowDecalVertsInBuf=0x8000; m_nShadowDecalIndicesInBuf=0x10000;
+ if (reinterpret_cast<ShadowRenderEntry10DF33 *>(m_simpleDecalList)) {
  ShadowTextureView10DF33 *lastTexture=0;
  unsigned lastType=0;
- for(shadow=m_simpleDecalList; shadow; shadow=shadow->next114) {
+ for(shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_simpleDecalList); shadow; shadow=shadow->next114) {
   if(shadow->enabled04 && !shadow->invisible05) {
    if(!lastTexture) lastTexture=shadow->texture68;
    if(!lastType) lastType=shadow->type34;
@@ -241,11 +239,11 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  }
  flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
  }
- if(m_shadowList) {
+ if(reinterpret_cast<ShadowRenderEntry10DF33 *>(m_shadowList)) {
  ((ShadowMeshRendererView *)TheDX8MeshRenderer)->camera04=&rinfo.Camera;
  ShadowTextureView10DF33 *lastTexture=0;
  unsigned lastType=0;
- for(shadow=m_shadowList;shadow;shadow=shadow->next114) {
+ for(shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_shadowList);shadow;shadow=shadow->next114) {
   if(shadow->enabled04 && !shadow->invisible05) {
    if(shadow->type34 & 0x2c61) {
     if(!lastTexture) lastTexture=shadow->texture68;
@@ -276,10 +274,10 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
  rva001173f0((unsigned int)&rinfo);
  }
- if (m_decalList) {
+ if (reinterpret_cast<ShadowRenderEntry10DF33 *>(m_decalList)) {
  ShadowTextureView10DF33 *lastTexture=0;
  unsigned lastType=0;
- for(shadow=m_decalList; shadow; shadow=shadow->next114) {
+ for(shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_decalList); shadow; shadow=shadow->next114) {
   if(shadow->enabled04 && !shadow->invisible05) {
    if(!lastTexture) lastTexture=shadow->texture68;
    if(!lastType) lastType=shadow->type34;
@@ -294,17 +292,17 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  }
  flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
  }
- if(m_14) {
+ if(reinterpret_cast<ShadowPair10DF33 *>(m_dualDecalList)) {
  ShadowTextureView10DF33 *lastTexture=0,*lastTexture2=0;
  unsigned lastType=0;
- for(ShadowPair10DF33 *pair=m_14;pair;pair=pair->next64) {
+ for(ShadowPair10DF33 *pair=reinterpret_cast<ShadowPair10DF33 *>(m_dualDecalList);pair;pair=pair->next64) {
   if(pair->enabled04 && !pair->invisible05) {
    if(!lastTexture) lastTexture=pair->shadow58 ? pair->shadow58->texture68 : 0;
    if(!lastTexture2) lastTexture2=pair->shadow5c ? pair->shadow5c->texture68 : 0;
    if(!lastType) lastType=pair->type34;
    ShadowTextureView10DF33 *texture=pair->shadow58 ? pair->shadow58->texture68 : 0;
    ShadowTextureView10DF33 *texture2=pair->shadow5c ? pair->shadow5c->texture68 : 0;
-   unsigned type=m_14->type34;
+   unsigned type=reinterpret_cast<ShadowPair10DF33 *>(m_dualDecalList)->type34;
    if(texture!=lastTexture || texture2!=lastTexture2 || type!=lastType) {
     flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,(W3DShadowTexture *)lastTexture2,0);
     lastTexture=texture; lastTexture2=texture2; lastType=type;
@@ -374,10 +372,10 @@ struct ShadowGlobalView10DF33 {char pad9a7[0x9a7];bool flag9a7;};
 int W3DProjectedShadowManager::rva0010DA71(RenderInfoClass &rinfo) {
  static AABoxClass aaBox;static ShadowSphereView10DF33 sphere;
  int count=0;
- if(m_1c && TheTerrainRenderObject) {
+ if(reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C) && TheTerrainRenderObject) {
   {TerrainRect10DF33 rect;reinterpret_cast<ShadowTerrainDispatch10DF33 *>(TheTerrainRenderObject)->bounds238(&rect);
    drawStartX=rect.x0-4;drawStartY=rect.y0-4;drawEdgeX=rect.x1+4;drawEdgeY=rect.y1+4;}
-  if(m_1c) {
+  if(reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)) {
    int passes;
    if(DX8Wrapper::Has_Stencil())passes=((ShadowGlobalView10DF33 *)TheWritableGlobalData)->flag9a7?1:2;
    else passes=1;
@@ -388,13 +386,13 @@ int W3DProjectedShadowManager::rva0010DA71(RenderInfoClass &rinfo) {
    }
    for(int pass=0;pass<passes;++pass) {
     ShadowTextureView10DF33 *lastTexture=0,*lastTexture2=0;unsigned lastType=0;
-    for(ShadowRenderEntry10DF33 *shadow=m_1c;shadow;shadow=shadow->next114) {
+    for(ShadowRenderEntry10DF33 *shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C);shadow;shadow=shadow->next114) {
      if(shadow->enabled04&&!shadow->invisible05) {
-      if(!lastTexture)lastTexture=m_1c->texture68;
-      if(!lastTexture2)lastTexture2=m_1c->texture6c;
-      if(!lastType)lastType=m_1c->type34;
+      if(!lastTexture)lastTexture=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->texture68;
+      if(!lastTexture2)lastTexture2=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->texture6c;
+      if(!lastType)lastType=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->type34;
       ShadowTextureView10DF33 *texture=shadow->texture68,*texture2=shadow->texture6c;
-      unsigned type=m_1c->type34;
+      unsigned type=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->type34;
       if(texture!=lastTexture||texture2!=lastTexture2||type!=lastType) {
        flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,(W3DShadowTexture *)lastTexture2,pass);
        lastTexture=texture;lastTexture2=texture2;lastType=type;

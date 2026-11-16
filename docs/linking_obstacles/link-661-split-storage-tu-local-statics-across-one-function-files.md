@@ -446,3 +446,17 @@ This reconciles the reader's field spelling with the shared record; the manager,
 storage and other class-view conflicts above remain separate work. Logs:
 `build/decal-diagnostic/reader-drawable-master-build.log` and
 `build/decal-diagnostic/reader-drawable-accept.log`. No runtime fix is claimed.
+
+**Shared manager declaration prerequisite:** the writer now includes the existing
+BFME2 projected-shadow manager header instead of defining a partial manager.
+The shared declaration gains five already-rowed nonvirtual signatures and two
+forward declarations; bases, data layout and virtual slots do not change. The
+two render bodies use the shared field names and cast list pointers to their
+existing measured entry views. Native build retains 74/74 rows across writer
+and seed, with ten EXACT EH graphs. Same-index link preview retains 6,049 bytes
+(writer 2,583; seed 3,466). These scoped checks are not a complete shared-header
+consumer audit or real-link result. Logs: `build/decal-diagnostic/manager-master-*`.
+The subsequent official focused dry run still accepts no donors: drawStart and
+drawEdge declarations conflict in composition, and reader diagnostics include
+Get_User_Data's non-DrawableInfo result and duplicate IndexBufferClass. Thus the
+DrawableInfo field-name adoption alone does not fix the caller's RenderObj view.

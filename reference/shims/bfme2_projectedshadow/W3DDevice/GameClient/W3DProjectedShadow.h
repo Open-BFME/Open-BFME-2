@@ -51,6 +51,8 @@ class BfmeDynamicNativeVB;
 class DX8IndexBufferClass;
 struct Rva0010C065Info;
 struct EmitVtableTag;
+struct ShadowRenderEntry10DF33;
+class W3DDualProjectedShadow;
 
 // BFME 2: the manager's base. Retail vtable 0x007CF994 is the deleting dtor then five
 // __purecall slots, and the rows ??0, ??1 and ??_G of this class (0x00108657, 0x0010846E,
@@ -84,6 +86,11 @@ class W3DProjectedShadowManager	: public Rva00108475
 		void reset(void);					///<free all existing shadows - ready for next map.
 		void shutdown(void);			///<free all assets prior to shutdown of entire game.
 		Int	 renderShadows(RenderInfoClass & rinfo);	///<iterate over each object and render its shadow onto affected objects.
+		int rva0010DF33(RenderInfoClass &);
+		int rva0010DA71(RenderInfoClass &);
+		void rva0010C841(ShadowRenderEntry10DF33 *, int, int);
+		void queueDualDecal(W3DDualProjectedShadow *);
+		void flushDecals(ShadowType, W3DShadowTexture *, W3DShadowTexture *, int);
 		void ReleaseResources(void);	///<release device dependent D3D resources.
 		Bool ReAcquireResources(void);	///<allocate device dependent D3D resources.
 		void invalidateCachedLightPositions(void);	///<forces shadows to update regardless of last lightposition
