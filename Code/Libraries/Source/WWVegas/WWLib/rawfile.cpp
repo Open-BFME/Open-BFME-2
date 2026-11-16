@@ -12,7 +12,6 @@
 // Bias are RawFileClass's own virtuals, not __purecall slots of the base.
 // The BFME 1 wwfile.h adds both to FileClass and emits a 20-slot vftable.
 #include "../../../../../reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/WWFILE.H"
-#pragma optimize("", on)
 #include	"rawfile.h"
 #include	<direct.h>
 #include	<stddef.h>

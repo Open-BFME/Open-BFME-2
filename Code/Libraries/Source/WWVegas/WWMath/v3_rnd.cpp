@@ -6,7 +6,6 @@
 // copy that same body, so it no longer loses to retail's at link time.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // Retail's .text$yc initializer 0x007B6800 builds Randomizer through the
 // out-of-line Random3Class ctor (0x006200B0), as BFME 1's v3_rnd.cpp does.
 #define BFME_RANDOM3CLASS_CTOR_NOINLINE

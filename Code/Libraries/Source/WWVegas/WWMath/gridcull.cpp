@@ -23,7 +23,6 @@ extern "C" { static float __cdecl floorf(float); }
 #include "refcount.h"
 #include <math.h>
 #include "wwmath.h"
-#pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "gridcull.h"
 #include "chunkio.h"

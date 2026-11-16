@@ -24,7 +24,6 @@
 // speed option, and _CRTIMP keeps its import default.
 
 #include <stl/_algobase.h>
-#pragma optimize("", on)
 #include <algorithm>
 
 namespace _STL {

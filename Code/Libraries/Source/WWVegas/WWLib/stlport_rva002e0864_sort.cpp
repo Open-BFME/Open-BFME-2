@@ -16,7 +16,6 @@
 // option, and _CRTIMP keeps its import default.
 
 #include <stl/_algobase.h>
-#pragma optimize("", on)
 #include <algorithm>
 
 // These unchanged pointer-copy tags are already inline in the native sort.
