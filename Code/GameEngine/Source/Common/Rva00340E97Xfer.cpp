@@ -41,15 +41,6 @@ enum ObjectID
 void XferObjectID(Xfer *xfer, ObjectID *id);
 void XferCommandSourceType(Xfer *xfer, int *value);
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
-
-private:
-	char m_pad04[8];
-};
-
 #include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00345CAB : public AIInternalMoveToState

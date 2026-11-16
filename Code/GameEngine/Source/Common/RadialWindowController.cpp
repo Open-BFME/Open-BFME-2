@@ -78,21 +78,6 @@ class Rva00541F02;
 // 0x005450B5 and 0x005451F3: clear model-condition bit 256 (resp. 257) of
 // the object reached through +0x18/+0x14 (the word array at Object+0x10C, as
 // in ObjectWeaponSetFlags.cpp) and notify it through the pinned 0x0028AE6D.
-class Rva0010CConditionBits
-{
-public:
-	UnsignedInt test(UnsignedInt bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void clear(UnsignedInt bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	UnsignedInt m_words[20];
-};
-
 #include "../GameLogic/Object/object.h"
 
 // 0x00545222: whether the +0x04 object's +0x04 count (999999 without the

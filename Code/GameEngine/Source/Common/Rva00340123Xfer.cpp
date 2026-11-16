@@ -28,14 +28,6 @@ class DamageInfo;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
-private:
-	char m_pad04[8];
-};
-
 #include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00340123 : public AIInternalMoveToState

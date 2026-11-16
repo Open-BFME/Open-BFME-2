@@ -75,10 +75,6 @@ enum DeathType
 {
 	DEATH_NORMAL = 0
 };
-struct CreateMask
-{
-	unsigned int m_bits[4];
-};
 #include "../Thing/thing.h"
 
 class Object : public Thing

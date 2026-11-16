@@ -1,11 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // ?Rva0030F04AApply@@YAXHPAURva0030F04AOut@@@Z @0x0030F04A 79B: flag-gated bit sets plus InGameUI slot48 check. Evidence: packet disasm with rowed TheInGameUI; caller 0x0030F0E2 pushes prove __cdecl (int, ptr) with ret; virtual at 0xC0 is slot48.
-struct Slot48Ret
-{
-	char m_pad[0x14];
-	int m_0014;
-};
-
 #include "../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;

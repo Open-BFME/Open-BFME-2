@@ -11,12 +11,6 @@
 // The vbtable contains {-4, 0x38}; interface thunks 2E3E80..2E3EB0
 // each subtract the vtordisp before dispatching the corresponding member.
 #include "../../../Libraries/Include/Lib/Region2D.h"
-struct Rva0030B72CPoint {
- Rva0030B72CPoint() {}
- __forceinline Rva0030B72CPoint(const Rva0030B72CPoint &p):x(p.x),y(p.y) {}
- float x,y;
-};
-
 #include "../../Include/GameLogic/PolygonTrigger.h"
 PolygonTrigger::PolygonTrigger(int n):id(s_currentID++) { rva002E36B7(n); }
 

@@ -117,13 +117,6 @@ enum CommandSourceType
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
-struct B24
-{
-	virtual void f24();
-	unsigned char m_pad[0x3E4 - 0x28];
-};
-
-
 class Iface3E4
 {
 public:

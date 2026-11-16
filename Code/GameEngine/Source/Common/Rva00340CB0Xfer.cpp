@@ -33,15 +33,6 @@ typedef unsigned int AudioHandle;
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
-
-private:
-	char m_pad04[8];
-};
-
 #include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00340D1F : public AIInternalMoveToState

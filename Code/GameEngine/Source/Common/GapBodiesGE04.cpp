@@ -380,10 +380,6 @@ void Rva002D2D4A::rva002D2D4A()
 
 // --- 0x002EAD84 / 0x002EAD9C (24B each): return a node to the free list of
 // the 0x00DBD4B0 / 0x00DBD4C8 pool.
-struct _Rva002EB416Node
-{
-	void *_m_link;
-};
 #include "Common/Rva002E8548Pool.h"
 extern Rva002E8548 g_IntKeyedTreeNodePool; // VA 0x00DBD4B0, defined in Rva007B6880Thunks.cpp; its free-node
                                            // head m_head (+8, VA 0x00DBD4B8) is this list's head

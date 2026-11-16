@@ -6,11 +6,6 @@
 // tail-called from 0x001EB73C (null fast path) and calls 0x001EB3A6.
 // No donor; honest Rva outer; early-return shape gives retail je fallthrough.
 #include "ascii_string.h"
-struct BfmeAssignRecord36
-{
-	AsciiString s;
-	int a[8];
-};
 #include "../../Include/Common/Rva001EB3A6.h"
 class Rva001EB435
 {

@@ -6,11 +6,6 @@
 // 0x00574464 0x00574F2F use eax as vtable object. Tail return gives jmp at /O1.
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
-struct Rva003B8BAAElem
-{
-	char m_pad[0x20];
-	void *m_ptr20;
-};
 #include "../../Include/Common/LivingWorldCampaignManager.h"
 #define TheRva00E02D6C ((LivingWorldCampaignManager *)TheCampaignManager)
 

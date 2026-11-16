@@ -93,13 +93,6 @@ typedef _STL::vector<BfmePod252, _STL::allocator<BfmePod252> > Rva0050CBA2StateV
 
 typedef _STL::vector<BfmePod248, _STL::allocator<BfmePod248> > Rva0050CBA2TransitionVector;
 
-struct Rva0050CBA2DrawData
-{
-    unsigned char m_00[0x18];
-    Rva0050CBA2StateVector m_conditionStates;
-    Rva0050CBA2TransitionVector m_transitionStates;
-};
-
 #include "../../Include/Common/ModuleData.h"
 
 // RefCountClass-derived render and animation objects: slot 0 deletes, the

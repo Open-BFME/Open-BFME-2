@@ -4,13 +4,6 @@
 // Sibling of 0x001F5D38 (same shape without args); callers at 0x001F6502 and
 // 0x001F8DD9, jmp-ins at 0x001F648D, 0x001F820E and 0x001F895B. Honest Rva names.
 #include "../../Include/Common/Rva001F42BA.h"
-class Helper001F5D4F {
-public:
-    virtual ~Helper001F5D4F();
-    virtual void pad1();
-    virtual void pad2();
-    virtual void slot3(int);
-};
 #include "../../Include/Common/Rva001F5D4F.h"
 
 // ?rva001F820B@Rva001F820BOwner@@QAEXH@Z @0x001F820B 8B: offsets this to the Rva001F5D4F embedded at +0x4 and
