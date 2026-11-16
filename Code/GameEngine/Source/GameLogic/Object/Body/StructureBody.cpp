@@ -81,44 +81,9 @@ class ModuleData;
 
 // --- 0x0049881D (20B): clear the +0x34 float and stamp the logic frame at
 // +0x3C.
-class Rva0049881D
-{
-public:
-	void rva0049881D();
-private:
-	char m_pad[0x34];
-	float m_34;
-	int m_38;
-	unsigned m_3C;
-};
-
 // --- 0x004AC8D9 (22B): store the float at +0x20 of the indexed +0x58 entry.
-struct Rva004AC8D9Entry
-{
-	char m_pad[0x20];
-	float m_20;
-};
-
-class Rva004AC8D9
-{
-public:
-	void setEntryValue(int index, float value);
-private:
-	char m_pad[0x58];
-	Rva004AC8D9Entry *m_entries[1];
-};
-
 // --- 0x004B2B01 (19B): append to the +0xC8 module-data vector (rowed
 // push_back 0x004DFCB0).
-class Rva004B2B01
-{
-public:
-	void addModuleData(const ModuleData *data);
-private:
-	char m_pad[0xC8];
-	_STL::vector<const ModuleData *> m_data;
-};
-
 // --- 0x004B3FDC (17B): the negation of the rowed 0x00406F9C check.
 class Rva00406F9C
 {
@@ -128,15 +93,6 @@ public:
 };
 
 // --- 0x004BB937 (18B): whether the +0x4C0 word equals the argument.
-class Rva004BB937
-{
-public:
-	bool rva004BB937(int value) const;
-private:
-	char m_pad[0x4C0];
-	int m_4C0;
-};
-
 // --- 0x004C09A1 (20B): remember the object's +0x74 word at +0x100.
 struct Rva004C09A1Object
 {
@@ -154,26 +110,7 @@ private:
 };
 
 // --- 0x004C2B45 (18B): a zero float and two zero words.
-class Rva004C2B45
-{
-public:
-	Rva004C2B45();
-private:
-	float m_00;
-	int m_04;
-	int m_08;
-};
-
 // --- 0x004C81B7 (17B): store the +0x1918 float.
-class Rva004C81B7
-{
-public:
-	void rva004C81B7(float value);
-private:
-	char m_pad[0x1918];
-	float m_1918;
-};
-
 // --- 0x004CA256 (20B): wrap the rowed 0x004C9FE0 lookup's node in a cursor.
 struct AnimationSoundTreeNode;
 
@@ -192,55 +129,12 @@ public:
 
 // --- 0x004CB125 (21B) / 0x004CBBF4 (21B): a word out through the pointer
 // and its paired flag (+0x37C/+0x380, +0x1D8/+0x1DC).
-class Rva004CB125
-{
-public:
-	bool rva004CB125(int *out) const;
-private:
-	char m_pad[0x37C];
-	int m_37C;
-	bool m_380;
-};
-
-class Rva004CBBF4
-{
-public:
-	bool rva004CBBF4(int *out) const;
-private:
-	char m_pad[0x1D8];
-	int m_1D8;
-	bool m_1DC;
-};
-
 // --- 0x004CEF4B (13B): the GameSpy stats challenge of the +0x101C game.
 extern "C" char *GetChallenge(void *game);
 
-class Rva004CEF4B
-{
-public:
-	char *rva004CEF4B();
-private:
-	char m_pad[0x101C];
-	void *m_game;
-};
-
 // --- 0x004CFAEB (17B): zero the 8 KB block.
-class Rva004CFAEB
-{
-public:
-	void rva004CFAEB();
-private:
-	char m_bytes[0x2000];
-};
-
 // --- 0x004D0F27 (18B): run the rowed 0x004D04E0 and answer the receiver.
 #include "../../../../Include/Common/Rva004D04C9.h"
-
-class Rva004D0F27 : public Rva004D04C9
-{
-public:
-	Rva004D0F27 &rva004D0F27(int value);
-};
 
 // --- 0x004D1AAA (20B): find in a map<unsigned short, int> (rowed _M_find
 // 0x004DC8AB), wrapped in a cursor.
@@ -262,43 +156,8 @@ public:
 
 // --- 0x004D729D (40B): clear the +0x20 / +0x34 words and three floats and
 // set the +0x30 bound to FLT_MAX.
-class Rva004D729D
-{
-public:
-	void rva004D729D();
-private:
-	char m_pad[0x20];
-	int m_20;
-	float m_24;
-	float m_28;
-	float m_2C;
-	float m_30;
-	int m_34;
-};
-
 // --- 0x004D82CA (12B): stamp the logic frame at +0x34.
-class Rva004D82CA
-{
-public:
-	void rva004D82CA();
-private:
-	char m_pad[0x34];
-	unsigned m_34;
-};
-
 // --- 0x004DD6B2 (29B): three words and a cleared +0x10 word.
-class Rva004DD6B2
-{
-public:
-	Rva004DD6B2(int a, int b, int c);
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-};
-
 // --- 0x004DE563 (65B): from the head (also stored as the cursor) walk the
 // +0x10 chain to the keyed (+0x0C) node and erase the value from its pointer
 // vector (rowed vector<void*>::erase 0x001FF51F); 1 when erased.
@@ -320,26 +179,11 @@ struct Rva004DE563Node
 	Rva004DE563Node *m_next;								// +0x10
 };
 
-class Rva004DE563
-{
-public:
-	int rva004DE563(int key, void *value);
-private:
-	Rva004DE563Node *m_cursor;
-	Rva004DE563Node *m_head;
-};
-
 // --- 0x004E077D (19B, cdecl): the +0x38 word of the rowed 0x0052B225
 // lookup's record, 0 without one.
 unsigned Rva0052B225(unsigned key);
 
 							// 0x0052B225
-
-struct Rva004E077DRecord
-{
-	char m_pad[0x38];
-	int m_38;
-};
 
 // Split from Rva004BF951Derived.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.

@@ -133,17 +133,6 @@ public:
 	void rva002C8754(INI *ini, void *extra);
 };
 
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
-
 BFME_DISP_BYTE_GETTER(Rva002C74B2ByteField, 0x35D)
 
 BFME_DISP_BYTE_GETTER(Rva002C74B9ByteField, 0x364)
@@ -152,63 +141,23 @@ BFME_DISP_BYTE_GETTER(Rva002C74B9ByteField, 0x364)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 BFME_DISP32_BYTE_GETTER(Rva002C74ABByteField, 0x35C)
-
-class WorkerAIUpdate
-{
-public:
-	virtual bool isForcedIntoWantingState() const;
-private:
-	char m_pad04[0xD4 - 4];
-	bool m_forcePending;
-};
 
 // Clean BF1 9cbfb551fe Common/Rva003CBA00Indexed.cpp semantic donor, normal O1/SSE/G7.
 // Native 0029A25D..0029A268 has its own complete RET boundary and establishes
 // receiver10 indexed dword load, RET4. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0029A25DArray {
-public: int getValue(int index);
-private: unsigned char unknown[0x10]; int values[1];
-};
-
 // BF1 9cbfb551fe Common/Rva0028ED50Get.cpp is the clean semantic donor.
 // Full native leaf 004B0CEF..004B0CFD ends at its own RET boundary.
 // Target evidence: receiver4 pointer; inner0C dword not zero.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-struct Rva004B0CEFInner { char unknown[0x0C]; int value; };
-
-class Rva004B0CEFFields {
-public: bool get();
-private: char unknown[4]; Rva004B0CEFInner *inner;
-};
-
 // BF1 9cbfb551fe Common/Rva0028ED70Nz.cpp is the clean semantic donor.
 // Full native leaf 004B0CFD..004B0D0C ends at its own RET boundary.
 // Target evidence: receiver4 pointer; inner4C dword not all ones.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-struct Rva004B0CFDInner { char unknown[0x4C]; int value; };
-
-class Rva004B0CFDFields {
-public: bool get();
-private: char unknown[4]; Rva004B0CFDInner *inner;
-};
-
 // BF1 9cb Rva18C170NestedFloatGetter.cpp is a structural guide. Complete
 // target 262356..26235C follows the adjacent getter RET; receiver+8 points
 // to the float loaded into ST0. Original owner and full bounds unknown.
-struct Rva00262356Fields
-{
-    char unknown00[8];
-    const float *pointer;
-    float get() const;
-};
-
 class Rva002C7492
 {
 public:

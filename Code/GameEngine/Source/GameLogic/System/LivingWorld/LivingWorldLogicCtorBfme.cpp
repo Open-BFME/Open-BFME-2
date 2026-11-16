@@ -24,13 +24,11 @@ namespace _STL { template <> _Rb_tree<int, pair<int const, void *>, _Select1st<p
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 #include "../../../../Include/Common/Rva00330757Member.h"
-class Rva002B2294DwordImmSetter{public:void apply();};class Rva0002B221ADwordImmSetter{public:void apply();};class Rva002B228DDwordImmSetter{public:void apply();};
 #include "../../../../Include/Common/LivingWorldObservers.h"
 
 
 struct BfmeStringRecord002B4DC1{UnicodeString text;int a,b;BfmeStringRecord002B4DC1():a(0),b(3){}~BfmeStringRecord002B4DC1(){}};
 namespace _STL{template<>list<BfmeStringRecord002B4DC1>::list(unsigned);template<>map<int,void*>::map();template<>_List_base<BfmeStringRecord002B4DC1,allocator<BfmeStringRecord002B4DC1> >::~_List_base();}
-class Rva004EDFFFDwordImmSetter{public:void apply();};
 #include "../../../../Include/Common/RegionTurnObserverView.h"
 class LivingWorldLogic;
 class LivingWorldRegionManager:public Snapshot,public RegionTurnObserverView {

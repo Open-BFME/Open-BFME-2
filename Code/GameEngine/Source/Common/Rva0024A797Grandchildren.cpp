@@ -14,30 +14,6 @@
 // auto-patches. Owner identities are unproven (opaque Rva names). One ledger
 // row per destructor, landed one commit at a time.
 
-class Rva0024A797_Root
-{
-public:
-	virtual ~Rva0024A797_Root();
-
-private:
-	char m_pad04[8];
-};
-
-class Rva0024A797_Mid
-{
-public:
-	virtual void f1();
-};
-
-class Rva0024A797_B2
-{
-public:
-	virtual void f2();
-
-private:
-	char m_pad08[12];
-};
-
 // The "sleep forever" result of UpdateModuleInterface::update (retail 0x004A6563 returns it).
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 

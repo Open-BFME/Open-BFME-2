@@ -123,70 +123,11 @@ public:
 typedef int Int;
 
 // 0x00665430 and 0x00743080: empty slots taking two resp. five arguments.
-class Rva00665430
-{
-public:
-	void rva00665430(Int a, Int b);
-	void rva00743080(Int a, Int b, Int c, Int d, Int e);
-};
-
 // 0x006680C0: the first argument's +0x280 word.
-struct Rva006680C0Arg
-{
-	char m_pad00[0x280];
-	Int m_280;
-};
-
-class Rva006680C0
-{
-public:
-	Int rva006680C0(const Rva006680C0Arg *arg, Int unused);
-};
-
 // 0x00669400: the rowed getter 0x00656F40 of what virtual slot 0 of
 // the secondary base at +0x04 answers.
-class Rva00656F40DwordField
-{
-public:
-	Int get() const;
-};
-
-class Rva00669400First
-{
-public:
-	virtual void firstSlot();
-};
-
-class Rva00669400Second
-{
-public:
-	virtual Rva00656F40DwordField *secondSlot();
-};
-
-class Rva00669400 : public Rva00669400First, public Rva00669400Second
-{
-public:
-	Int rva00669400();
-};
-
 // 0x0066D810 (four tables): returns the +0x08 handle (a class with its own
 // copy constructor, so it comes back through the hidden result pointer).
-struct Rva0066D810Handle
-{
-	Rva0066D810Handle(const Rva0066D810Handle &other) : m_value(other.m_value) {}
-	Int m_value;
-};
-
-class Rva0066D810
-{
-public:
-	Rva0066D810Handle rva0066D810() const;
-private:
-	Int m_00;
-	Int m_04;
-	Rva0066D810Handle m_08;
-};
-
 // 0x006CBCF0 (18 tables): virtual slot 14 (1) of this object unless it is
 // NULL.
 class Rva006CBCF0
@@ -214,19 +155,8 @@ public:
 // member.
 #include "../AptDisplayList.h"
 
-class Rva006E3490
-{
-public:
-	void rva006E3490();
-private:
-	char m_pad00[0x24];
-	AptDisplayList m_24;
-};
-
 // Native installed-table word transfers. Address-token ABI views preserve
 // observed word bits and cleanup; original owner and semantic types are unknown.
-
-class Rva005CC5D3 {public: void rva005CC5D3(unsigned int value); private: char prefix[0xC]; unsigned int *destination;};
 
 BFME_DISP8_SHRN_AND_MASK_DWORD_GETTER(Rva006CBDC0ShrNMaskField, 0x5C, 18, 3)
 

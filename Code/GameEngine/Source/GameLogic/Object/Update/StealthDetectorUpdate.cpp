@@ -92,40 +92,8 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Include/Common/Rva002B254F.h"
 #include "../../../../Include/Common/Rva003F81FDProxy.h"
 #include "../../../../Include/Common/Rva002B256E.h"
-struct Rva005E95B9Data
-{
-	char m_pad[8];
-	const Matrix3D *m_08;
-};
-class Rva005E95B9
-{
-public:
-	void updateWaterTransform();
-private:
-	char m_pad[8];
-	Rva005E95B9Data *m_08;
-};
 // --- 0x0026FCA3 / 0x0026FCB6 / 0x0026FCC3 / 0x0026FCD6: mask test of
 // +0x118, mask set of +0x120, mask test of +0x120, mask clear of +0x114.
-class Rva0026FCA3
-{
-public:
-	int rva0026FCA3(unsigned int mask) const;
-	void rva0026FCB6(unsigned int mask);
-	int rva0026FCC3(unsigned int mask) const;
-	void rva0026FCD6(unsigned int mask);
-private:
-	char m_pad[0x114];
-	unsigned int m_114;
-	unsigned int m_118;
-	unsigned int m_11C;
-	unsigned int m_120;
-};
-class DozerActionState
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
 #include "../../../../Include/GameLogic/Module/BoneFXDamageClass.h"
 // ?rva004A2D49@Rva004A2D49@@QAEX_N@Z @0x004A2D49 30B
 // Banked attempt reverse/attempts/0x004a2d49.cpp, re-verified exact against the current ledger

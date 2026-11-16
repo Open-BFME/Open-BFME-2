@@ -505,11 +505,6 @@ extern unsigned g_00DFEFC0, g_AITargetThreatFinderSerial;
 // --- 0x002AA842 (21B): the pointer-vector count at +0x18C of the +0x34
 // object.
 // --- 0x002AAC3D (24B): returns a node to the free list at VA 0x00DBBD34.
-struct PoolNode002ABAC0
-{
-	PoolNode002ABAC0 *m_next;
-};
-
 // --- 0x002AAEB5 (16B): the indexed 0x24-byte record at *(+0x324).
 // --- 0x002ABB86 (24B): one node from the freelist pool at VA 0x00DBBD2C,
 // none for a count above one; 0x002ACF8A (18B): constructor running the
@@ -528,36 +523,6 @@ enum ScienceType { SCIENCE_INVALID = -1 };
 class CreateAHeroData;
 
 #include "../../Include/Common/Rva0039B668.h"
-
-struct Rva002AD7E9Record
-{
-	char m_pad00[0x34];
-	int m_34;
-	int *m_sciencesStart;
-	int *m_sciencesFinish;
-};
-
-class Rva002AD7E9Base0
-{
-	int m_00;
-};
-
-class Rva002B1192Interface
-{
-public:
-	void rva002B1192(CreateAHeroData *data, bool *out);
-private:
-	int m_00;
-};
-
-class Rva002AD7E9Interface
-{
-public:
-	void rva002AD7E9(const Rva002AD7E9Record *record);
-private:
-	char m_pad000[0x3B4];
-	Rva0039B668 m_3B4;
-};
 
 #include "../../Include/Common/Player.h"
 
@@ -580,12 +545,6 @@ extern Rva00E02D6C *TheCampaignManager;
 // --- 0x002B2B3F (28B): the current item's +0x88 flag when the +0xB0
 // region manager exists; 0x002B2B94 (11B): the manager's rowed
 // UpdateBattleMarkers.
-struct Rva002B3740Item
-{
-	char m_pad00[0x88];
-	bool m_88;
-};
-
 #include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva002E2903Player;
@@ -629,12 +588,6 @@ extern int BfmeLogicFramesPerSecond;
 // --- 0x002B4640 (16B): the indexed word of the array *(+0x170).
 // --- 0x002B4E6D (22B): copies the argument's +0x14 flag to +0xC8, then the
 // rowed 0x002B4CED with it.
-struct Rva002B4E6DArg
-{
-	char m_pad00[0x14];
-	bool m_14;
-};
-
 #include "../../Include/GameLogic/Rva002B4CED.h"
 
 

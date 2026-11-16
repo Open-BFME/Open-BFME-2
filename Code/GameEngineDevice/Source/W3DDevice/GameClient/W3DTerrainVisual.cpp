@@ -137,51 +137,12 @@ Bool Rva00091DB2::rva00091F95(Int a0)
 	return false;
 }
 // vtable 0x00C164F0#6: own slot 2 with 2 unless the byte at +8 is set.
-class Rva0035D512 : public VslotPad<1>
-{
-public:
-	virtual void slot2(Int value);
-	void rva0035D512();
-private:
-	char m_pad04[0x08 - 0x04];
-	Bool m_08;
-};
 // vtable 0x00BC6FF4#1: the cdecl function at +8 with both arguments.
-class Rva00080256
-{
-public:
-	void rva00080256(Int a0, Int a1);
-private:
-	char m_pad00[0x08];
-	void (__cdecl *m_function08)(Int, Int);
-};
 #include "../../../../Libraries/Source/WWVegas/WWLib/Rva0007E971.h"
-class Rva00080266
-{
-public:
-	void rva00080266();
-};
 // vtable 0x00BC7A88#20: toggle the byte at +0x811.
-class Rva0008EF81
-{
-public:
-	void rva0008EF81();
-private:
-	char m_pad00[0x811];
-	Bool m_811;
-};
 // InGameUI::setSelecting: defined in InGameUIInputModes.cpp (its row's unit).
 
 // vtable 0x00BC7568#122: 1 when neither +0x8C nor +0x90 is -1.
-class Rva0008BBC7
-{
-public:
-	Int rva0008BBC7();
-private:
-	char m_pad00[0x8C];
-	Int m_8C;
-	Int m_90;
-};
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
 #include "../../../../GameEngine/Include/GameLogic/PartitionFilter.h"

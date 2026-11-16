@@ -367,12 +367,6 @@ class DefaultModuleTemplate7;
 class LightningEmissionModuleTemplate;
 class PointEmissionVolumeModuleTemplate;
 
-class Rva005FEAD0DefaultModule7
-{
-public:
-	Rva005FEAD0DefaultModule7(TrackingPtr<ParticleSystem> &system, const DefaultModuleTemplate7 *moduleTemplate);
-};
-
 class LightningEmissionModule
 {
 public:
@@ -390,9 +384,6 @@ public:
 struct TerrainCollisionModuleInput;
 struct Rva005641EDInput;
 struct DrawInfo2;
-class Rva005634F7 { public: Rva005634F7(void *a, DrawInfo2 *b); };
-class Rva003AE94E { public: Rva003AE94E(void *a, void *b); };
-
 class Snapshot;
 class AsciiString;
 class UnicodeString;

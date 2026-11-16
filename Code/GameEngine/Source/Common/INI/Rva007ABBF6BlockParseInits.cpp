@@ -81,11 +81,6 @@ class ArmyDefinitionManager
 public:
 	static void parseArmyDefinition(INI *);
 };
-class AudioEventInfo
-{
-public:
-	static void parseMultisoundDefinition(INI *);
-};
 #include "../../../Include/GameClient/ControlBar.h"
 class CrateSystem
 {
@@ -96,12 +91,6 @@ public:
 #include "../../../Include/GameClient/Eva.h"
 #include "../../../Include/Common/GlobalData.h"
 #include "../../../Include/Common/INI/INI.h"
-class LargeGroupAudio
-{
-public:
-	static void parseLargeGroupAudioMapDefinition(INI *);
-	static void parseLargeGroupAudioUnusedKnownKeysDefinition(INI *);
-};
 #include "../../../Include/Common/LightPointSystem.h"
 #include "../../../Include/Common/LivingWorldAutoResolveArmorStore.h"
 class LivingWorldAutoResolveResourceBonusScheduleStore
@@ -113,16 +102,6 @@ class LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore
 {
 public:
 	static void parseLivingWorldAutoResolveSciencePurchasePointBonusBlock(INI *);
-};
-class LivingWorldCampaign
-{
-public:
-	static void ParseLivingWorldCampaignBlock(INI *);
-};
-class MetaMap
-{
-public:
-	static void parseMetaMap(INI *);
 };
 class Rva00425F10
 {

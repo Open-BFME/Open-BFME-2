@@ -10,38 +10,6 @@ struct TerrainCollisionModuleInput;
 struct Rva005641EDInput;
 class GameClientRandomVariable {public:float getValue()const;int mode;float minimum,maximum;};
 class FXList;
-class RvaSmartPtr12_3AEE16
-{
-public:
-	RvaSmartPtr12_3AEE16(const RvaSmartPtr12_3AEE16 &that);
-	~RvaSmartPtr12_3AEE16();
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
-class DefaultModuleSecondBase_3AEE16
-{
-public:
-	virtual ~DefaultModuleSecondBase_3AEE16();
-};
-class DefaultModuleThirdBase_3AEE16
-{
-public:
-	virtual ~DefaultModuleThirdBase_3AEE16();
-};
-class DefaultModuleHeadBase_3AEE16
-{
-public:
-	__forceinline DefaultModuleHeadBase_3AEE16(const DefaultModuleHeadBase_3AEE16 &other)
-		: m_smart(other.m_smart)
-		, m_int10(other.m_int10)
-	{
-	}
-	virtual ~DefaultModuleHeadBase_3AEE16();
-	RvaSmartPtr12_3AEE16 m_smart;
-	int m_int10;
-};
 #include "../../../../Include/GameClient/Rva003AEEB3.h"
 class WordHolder3AEE16
 {

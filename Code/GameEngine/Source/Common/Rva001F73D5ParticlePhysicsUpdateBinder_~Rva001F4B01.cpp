@@ -78,33 +78,9 @@ struct ID3DXEffect
 	virtual long __stdcall SetTexture(D3DXHANDLE parameter, IDirect3DBaseTexture8 *texture);
 };
 
-struct Out001F5141
-{
-	float x;
-	float y;
-};
-
 // Rowed ParticleSystem methods under address-derived classes.
 #include "../../Include/Common/Rva001F510D.h"
 #include "../../Include/Common/Rva001F512FSlot.h"
-class Rva001F5141 { public: Out001F5141 *rva001F5141(Out001F5141 *out); };
-struct Vec2001F517E { float x; float y; };
-class Rva001F517E { public: void rva001F517E(Vec2001F517E *out); };
-struct Vec2001F51AD { float x; float y; };
-class Rva001F51AD { public: void rva001F51AD(Vec2001F51AD *out); };
-struct Vec2001F51DC { float x; float y; };
-class Rva001F51DC { public: void rva001F51DC(Vec2001F51DC *out); };
-struct Vec2001F520B { float x; float y; };
-class Rva001F520B { public: void rva001F520B(Vec2001F520B *out); };
-struct Vec2001F523A { float x; float y; };
-class Rva001F523A { public: void rva001F523A(Vec2001F523A *out); };
-struct Vec2001F526E { float x; float y; };
-class Rva001F526E { public: void rva001F526E(Vec2001F526E *out); };
-struct Vec2001F529D { float x; float y; };
-class Rva001F529D { public: void rva001F529D(Vec2001F529D *out); };
-struct Vec2001F52CC { float x; float y; };
-class Rva001F52CC { public: void rva001F52CC(Vec2001F52CC *out); };
-
 #include "../../Include/GameClient/ParticleSystemClass.h"
 
 
