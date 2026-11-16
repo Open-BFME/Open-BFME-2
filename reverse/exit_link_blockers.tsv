@@ -1,4 +1,4 @@
-# real link at f3a6e23db6f098bf1a9273dbf1b219ef9d5b4a19: tools/exit_link.py --blockers
+# real link at 61a11e4e11307c12a71d46cb93d96e11bb77977a: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	8	??1Rva00119D00@@UAE@XZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
@@ -21,16 +21,11 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	2	?bfmeSlot0@BfmeParse
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/Libraries/Source/Apt/AptArray.cpp	2	?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z
 Code/Libraries/Source/Apt/AptCIH.cpp	2	?rva006CFCD0@AptCIH@@QBE_NXZ
-Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	1	?rva006D36C0@EAStringC@@QBEHPBV1@@Z
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
-Code/GameEngine/Source/Common/BfmeConv1814.cpp	1	?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z
 Code/GameEngine/Source/Common/BfmeConv526.cpp	1	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z
-Code/GameEngine/Source/Common/BfmeConv532.cpp	1	?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z
-Code/GameEngine/Source/Common/BfmeThreeHundredSixtyTwo.cpp	1	?bfmeDropVE@BfmeSubVE@@QAEXPAX@Z
 Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b055.cpp	1	??1ShipSlowDeathBehaviorModuleData@@UAE@XZ
 Code/GameEngine/Source/Common/RTS/Player_Radar.cpp	1	?okToPlayRadarEdgeSound@Player@@QAE_NXZ
 Code/GameEngine/Source/Common/Rva00524477Dispatch.cpp	1	?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z
-Code/GameEngine/Source/Common/Rva006CC880Cluster.cpp	1	?rva006dffa0@@YAXXZ
 Code/GameEngine/Source/Common/StrategicHUD.cpp	1	?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z
 Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp	1	?rva006dbd80@AptCIH@@QAEXXZ
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp	1	?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z
@@ -56,7 +51,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingerInterface_cre
 Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	1	?g_Rva00E0A010@@3QBDB
 Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	1	?g_Rva0130A6E4@@3QBDB
 Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	1	?g_Rva0130A768@@3QBDB
-Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp	1	?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z
 Code/Libraries/Source/Apt/AptActionInterpreter.cpp	1	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z
 Code/Libraries/Source/Apt/AptCharacter.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
 Code/Libraries/Source/Apt/AptInput.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
