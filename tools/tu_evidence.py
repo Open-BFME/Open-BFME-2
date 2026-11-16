@@ -32,6 +32,8 @@ definition, no usable name, no bracketing anchors. The linker lays out more than
      TUs between the anchors (contiguity contradicts them), and is vetoed by any row
      between them that names another TU firmly (approved, or its own F/Z/S/L evidence).
      A displaced COMDAT is never placed: it has a naming hint elsewhere.
+     A proposed N-only filename guess may be replaced within the same directory;
+     no other proposal, approved placement or displaced row is reconsidered.
 
 R, V, I, E and T share one rule: a function's entries in the layout, the nearest
 anchored entries below and above each of them (an anchor is an approved F/Z/S/L/N/U
@@ -81,6 +83,18 @@ were wrong). `--validate` at ed0e06e23f, 6,860 held-out rows, P against 19,649
 `parent=` notes:
   E  precision 1.0000 (701/701)      recall 0.102  alone approves 32 rows in 32 sources
   P  precision 0.9999 (18255/18256)  recall 0.929  alone approves 7,495 rows in 1,433 sources
+
+N-only same-directory proposal evaluation, 2026-11-16 (native Windows):
+  --validate: T 7794/7794, precision 1.0000, over 9,960 held-out F/Z/S rows.
+  --holdout signal-T --unit row: group purity 552/552; name precision 551/552
+  (99.82%, above the 99% gate), 33,811 truth rows in 705 anchored TUs.
+  --holdout signal-T: no held-out TU row assigned to a neighbour (0/0).
+  The unrestricted N-only trial is rejected: whole-TU holdout misnames five
+  rows (four HAnimManagerClass bodies and one WindowTranslator body). The
+  unchanged rule also assigns no whole-TU holdout rows. Directory agreement
+  only limits eligibility; F/Z/L brackets, disagreement vetoes and anchored,
+  contiguous destination checks still supply the placement proof. No new
+  signal is promoted, no address-specific exception or map row is added.
 
 Every evidence row names its own `ref` (the bracketing entries' positions and anchor
 functions, or the FuncInfo address) and `--check` re-derives the file from the
@@ -478,19 +492,31 @@ def shared_parent_tu(st, rva, by_rva):
     return next(iter(tus)), f"P=parents({witnesses})"
 
 
+def name_only_proposal(row):
+    """A bare class-name guess, with no placement or inline evidence to override."""
+    return bool(row.get("tu")) and row.get("confidence") == "proposed" and row.get("by") == "N" and \
+        (row.get("evidence") or "").split() == ["N=" + row["tu"]]
+
+
 def gather(out, st, signals=SIGNALS):
-    """{rva: {signal: (tu key, ref)}} for every code row with no TU in `out`."""
+    """Evidence for unplaced rows; T also judges bare N guesses within their directory."""
     anchor, _ = anchors_of(out)
     lay = layouts(st, anchor)
     by_rva = {int(r["rva"], 16): r for r in out if r["kind"].startswith("code")}
     got = collections.defaultdict(dict)
     for rva, r in sorted(by_rva.items()):
-        if r["tu"]:
+        if r["tu"] and not name_only_proposal(r):
             continue
         for s in signals:
+            if r["tu"] and s != "T":
+                continue
             if s == "P":
                 continue
             p = lay[s].predict(rva)
+            if p and r["tu"] and Path(p[0]).parent.as_posix().lower() != Path(r["tu"]).parent.as_posix().lower():
+                # Naming alone cannot authorize a cross-directory move. In
+                # whole-TU holdouts that absorbs library inlines into callers.
+                p = None
             if p:
                 got[rva][s] = p
     if "P" in signals:
@@ -599,7 +625,8 @@ def apply(layout, out, signals=None, st=None):
     for funclets in (False, True):            # parents first: a P row follows its parent's confidence
         for i, r in enumerate(out):
             rva = int(r["rva"], 16) if r["kind"].startswith("code") else None
-            pick = choose(got.get(rva)) if rva is not None and not r["tu"] and r["confidence"] == "" else None
+            eligible = (not r["tu"] and r["confidence"] == "") or name_only_proposal(r)
+            pick = choose(got.get(rva)) if rva is not None and eligible else None
             if not pick or (pick[0] == "P") != funclets:
                 continue
             s, (key, ref) = pick

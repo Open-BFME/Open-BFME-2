@@ -422,6 +422,45 @@ def test_a_row_inside_another_approved_tus_span_is_only_proposed(tree):
     assert te.inside_other(spans, 0x1200, "code/a.cpp") is None
 
 
+def test_t_can_replace_a_name_only_proposal_with_hard_bracket_evidence(tree):
+    out = [dict(r, tu="Code/Guess.cpp", confidence="proposed", by="N",
+                evidence="N=Code/Guess.cpp") if r["rva"] == "0x00001200" else r for r in map_rows()]
+    got = te.gather(out, structures(tree, out), {"T"})
+    assert got[0x1200]["T"][0] == "code/a.cpp"
+    new = {r["rva"]: r for r in te.apply(tree[0], out, {"T"}, structures(tree, out))}
+    assert (new["0x00001200"]["tu"], new["0x00001200"]["confidence"]) == ("Code/A.cpp", "approved")
+    assert "N=Code/Guess.cpp" in new["0x00001200"]["evidence"]
+    assert "T=0x00001100..0x00001300" in new["0x00001200"]["evidence"]
+
+
+@pytest.mark.parametrize("conf,by,ev", [
+    ("approved", "N", "N=Code/Guess.cpp"),
+    ("displaced", "N", "N=Code/Guess.cpp"),
+    ("proposed", "Z", "Z=Code/Guess.cpp"),
+    ("proposed", "N", "N=Code/Guess.cpp W=Code/Guess.cpp"),
+    ("proposed", "N", "N=Code/Guess.cpp inline"),
+])
+def test_t_does_not_reassign_approved_displaced_or_evidenced_proposals(tree, conf, by, ev):
+    out = [dict(r, tu="Code/Guess.cpp", confidence=conf, by=by, evidence=ev)
+           if r["rva"] == "0x00001200" else r for r in map_rows()]
+    new = {r["rva"]: r for r in te.apply(tree[0], out, {"T"}, structures(tree, out))}
+    assert new["0x00001200"] == next(r for r in out if r["rva"] == "0x00001200")
+
+
+def test_non_t_signals_do_not_replace_a_name_only_proposal(tree):
+    out = [dict(r, tu="Code/Guess.cpp", confidence="proposed", by="N",
+                evidence="N=Code/Guess.cpp") if r["rva"] == "0x00001200" else r for r in map_rows()]
+    new = {r["rva"]: r for r in te.apply(tree[0], out, {"E", "P"}, structures(tree, out))}
+    assert new["0x00001200"]["tu"] == "Code/Guess.cpp"
+
+
+def test_t_does_not_pull_a_name_only_proposal_across_source_directories(tree):
+    out = [dict(r, tu="Code/Library/Guess.cpp", confidence="proposed", by="N",
+                evidence="N=Code/Library/Guess.cpp") if r["rva"] == "0x00001200" else r for r in map_rows()]
+    new = {r["rva"]: r for r in te.apply(tree[0], out, {"T"}, structures(tree, out))}
+    assert new["0x00001200"]["tu"] == "Code/Library/Guess.cpp"
+
+
 def test_validation_scores_leave_one_out_and_parent_notes(tree):
     layout, _ = tree
     res = te.validate(layout, map_rows(), structures(tree))
