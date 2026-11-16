@@ -25,6 +25,15 @@ class AptObject : public AptValueWithHash
 public:
     virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
     virtual void DestroyGCPointers();
+    virtual void setHasClass(int);
+    virtual int getHasClass() const;
+private:
+    // Reach the flag word at +0x1C. The base view above is a vptr and nothing
+    // else, so this class's own storage starts at +4; AptArray.cpp records the
+    // native constructor clearing the low byte and bits 8..9 at +0x1C.
+    char mPad[0x18];
+    unsigned int mnImplementedObjects : 8;
+    unsigned int mbHasClass : 1;
 };
 
 // ---- from Code/GameEngine/Source/Common/AptObject.cpp
@@ -47,3 +56,16 @@ void AptObject::DestroyGCPointers()
 {
     AptValueWithHash::DestroyGCPointers();
 }
+
+// Slots 5 and 6 of retail table 0x008EA264. The hierarchy header declares both
+// and nothing defined them, so every object emitting an AptObject-derived
+// vftable left them undefined. Both are trivial and /OPT:ICF folded them onto
+// Rva008993E0Owner's bit-8 accessors, which carry the identical shape: a low
+// byte then a single bit in the dword at +0x1C.
+//
+// This view's slot numbers are not retail's (its base declares one virtual,
+// not thirteen); it emits no table, and a slot number does not enter a
+// mangled name, so only the signatures and the member offset matter.
+void AptObject::setHasClass(int value) { mbHasClass = value != 0; }
+
+int AptObject::getHasClass() const { return mbHasClass; }

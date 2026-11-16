@@ -530,6 +530,12 @@ void AptValue::PreDestroy() {}
 // Native CEAED0 vtable slot(s) 11; canonical PDB name and ABI.
 void AptValue::DestroyGCPointers() { SetDestroyedGC(); }
 
+// AptValueGC overrides slot 12, which AptValue declares pure. The class is
+// __declspec(novtable) and has no unit of its own; its one override lives here,
+// beside the base defaults of the same table, rather than in a new file the
+// layout metric would have to merge away again.
+bool AptValueGC::IsGarbageCollected() const { return true; }
+
 // tu-skeleton: 0x006DE8E0 2952B ?_constructBuiltInObjects@@YAXXZ -- matched in Code/Libraries/Source/Apt/AptValue/AptValueConstructBuiltInObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x006DF470 1321B ?Rva006DF470Initialize@@YAXXZ -- matched in Code/Libraries/Source/Apt/AptValue/Rva006DF470Initialize.cpp (not merged yet)

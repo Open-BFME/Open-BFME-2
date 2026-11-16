@@ -99,45 +99,64 @@ carries `??_7AptValueWithHash@@6B@` as `bridged` in
 `reverse/vtable_bridge_queue.tsv` with AptArray.cpp among its sources. They are
 not part of this repair.
 
-## Landed so far: slots 9 and 10
+## All seven are landed
 
-`AptValue.cpp` came free, so the two defaults that belong to the base class are
-now defined and rowed:
+Every one of the seven is now defined and rowed, each verified against an
+existing owner at its own address because each is an /OPT:ICF fold with no bytes
+of its own:
 
-| slot | name | rva | size | icf-owner the row verified against |
-| ---: | --- | --- | ---: | --- |
-| 9 | `?DeleteThis@AptValue@@UAEXXZ` | 0x006CBCF0 | 12 | `?rva006CBCF0@Rva006CBCF0@@QAEXXZ` |
-| 10 | `?PreDestroy@AptValue@@UAEXXZ` | 0x0069E440 | 1 | `?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ` |
+| slot | name | rva | size | home | icf-owner verified against |
+| ---: | --- | --- | ---: | --- | --- |
+| 3 | `?GetNativeHashVirtual@AptValueWithHash@@UAEPAUAptNativeHash@@XZ` | 0x006CBFD0 | 4 | AptValueWithHash_RegisterReferences.cpp | `?GetData@AptValueVector@@QAEPAPAPAVAptValue@@XZ` |
+| 4 | `?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ` | 0x001826C0 | 3 | AptValueWithHash_RegisterReferences.cpp | `?_AptValidate@@YA_NXZ` |
+| 5 | `?getHasClass@AptObject@@UBEHXZ` | 0x006D6460 | 10 | AptObject.cpp | `?getBit8@Rva008993E0Owner@@QAEHXZ` |
+| 6 | `?setHasClass@AptObject@@UAEXH@Z` | 0x006D6440 | 32 | AptObject.cpp | `?setBit8@Rva008993E0Owner@@QAEXH@Z` |
+| 9 | `?DeleteThis@AptValue@@UAEXXZ` | 0x006CBCF0 | 12 | AptValue.cpp | `?rva006CBCF0@Rva006CBCF0@@QAEXXZ` |
+| 10 | `?PreDestroy@AptValue@@UAEXXZ` | 0x0069E440 | 1 | AptValue.cpp | `?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ` |
+| 12 | `?IsGarbageCollected@AptValueGC@@UBE_NXZ` | 0x001826C0 | 3 | AptValue.cpp | `?_AptValidate@@YA_NXZ` |
 
-Both went into the unit's existing out-of-line default block, beside
-`GetNativeHashVirtual`, `ContainsNativeHashVirtual`, `getHasClass`,
-`setHasClass`, `objectMemberLookup`, `objectMemberSet` and `DestroyGCPointers`,
-which is where the other nine slots of this table already live.
+Measured on the AptError consumer: its object has 51 undefined externals, of
+which **11** have no ledger row or pin, down from 16, and **none of the seven is
+among them**. What is left is four data globals, `__except_list`, AptError's own
+two members, and the three `??_G` names that belong to the vtable-bridge lane.
 
-`delete this;` is the whole of slot 9 -- **not** `if (this) delete this;`. MSVC
-emits the null guard for `delete` itself, so the explicit `if` is redundant and
-the plain statement matched retail's 12 bytes on the first build. The fold
-partner's source writes it as `if (this) v14(1);` only because that class is an
-address-token view with no destructor to call.
+### What each repair needed in practice
 
-That also confirms the slot map a second way: `delete this` on an `AptValue *`
-compiled to `call [eax+0x38]`, and +0x38 is slot 14, which is exactly where
+**Slot 9 is `delete this;` with no explicit null guard.** MSVC emits the guard
+for `delete` itself, so the plain statement is retail's leading test/je and
+matched 12 bytes on the first build. The fold partner's source writes
+`if (this) v14(1);` only because that class is an address-token view with no
+destructor to call. That compile also confirmed the slot map a second way: it
+emitted `call [eax+0x38]`, and +0x38 is slot 14, exactly where
 `virtual ~AptValue()` falls in declaration order in a 15-slot table.
 
-Measured after: the AptError object has 51 undefined externals, of which 16 have
-no ledger row or pin; `?DeleteThis@AptValue@@UAEXXZ` and
-`?PreDestroy@AptValue@@UAEXXZ` are no longer among them. **Five of the seven are
-left**: slots 3, 4, 5, 6 and 12.
+**Slot 3 had to return the address.** `return &m_hash;` on the member at +8 is
+the `lea eax,[ecx+8]` that folds. `return m_hash;` would not compile and
+`mov eax,[ecx+8]` is also four bytes but does not fold.
 
-## Why the other five are still a handoff
+**Slots 5 and 6 needed the view class extended to reach +0x1C.** AptObject.cpp
+carries a minimal view whose base declares one virtual and whose own storage
+starts at +4, so the flag word needed `char mPad[0x18]` ahead of
+`mnImplementedObjects : 8` and `mbHasClass : 1`. That view's slot numbers are
+not retail's and it emits no table; a slot number does not enter a mangled
+name, so only the signatures and that offset mattered.
 
-Each of the five sits in a file or at an address another worker holds:
-`BugFixer300@vm` took `Code/GameEngine/Source/Common/AptObject.cpp`,
-`Code/Libraries/Source/Apt/AptValueWithHash_RegisterReferences.cpp`, 0x006CBFD0,
-0x006D6440 and 0x006D6460 while this was being measured, and is working the same
-blocker from `Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp`
-(10 missing names, the same sample). `Code/Libraries/Source/Apt/AptValue.cpp`,
-the only right home for slots 9 and 10, came free later and is now done (above).
+**Slot 12 has no unit of its own, and did not get one.** `AptValueGC` is
+`__declspec(novtable)`. Its single override now sits in AptValue.cpp beside the
+base defaults of the same table, rather than in a new file the FILE LAYOUT
+metric would later have to merge away.
+
+**`--notes` may not contain a comma.** `functions.csv` rows are raw
+comma-joined with no quoting, so `add_match` refuses one; `lea eax,[ecx+8]` had
+to be spelled in prose.
+
+## Why this took two sittings
+
+`BugFixer300@vm` held `AptObject.cpp`,
+`AptValueWithHash_RegisterReferences.cpp`, 0x006CBFD0, 0x006D6440, 0x006D6460
+and 0x001826C0 while the cause was first being measured, and was working the
+same blocker from `AptFactoryConstructors.cpp`. Only `AptValue.cpp` came free
+first, which is why slots 9 and 10 landed a commit ahead of the other five.
 
 ## Reproducing
 
