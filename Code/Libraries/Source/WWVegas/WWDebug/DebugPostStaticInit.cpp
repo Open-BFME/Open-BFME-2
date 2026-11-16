@@ -73,7 +73,6 @@ public:
 	static bool IsOldDbghelp(void);
 };
 
-#pragma optimize("y", on)
 class Debug
 {
 public:

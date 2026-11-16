@@ -34,7 +34,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "vector2.h"
 #include "vector3.h"
 #include "vector4.h"
-#pragma optimize("gsy", on)
 #include "matrix3d.h"
 #include "rendobj.h"
 #include "winbase_shim.h"
@@ -47,7 +46,6 @@ struct BfmeWeightInfoVddAnchor;
 #include "hanim.h"
 #undef private
 struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
-#pragma optimize("gsy", on)
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
 #pragma optimize("", on)
 // Retail's Get_Bone_Transform returns by value; the shim's guard keeps the reference animobj.h out.

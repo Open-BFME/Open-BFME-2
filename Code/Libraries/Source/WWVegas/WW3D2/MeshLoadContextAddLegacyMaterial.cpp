@@ -161,7 +161,6 @@ RefCountPtr<TextureClass>::operator=(const RefCountPtr<TextureClass> &other)
 
 // Owning-assignment wrapper matched at 0x00042707 (TextureHandleAssignment.cpp).
 // Defined here only so read_v3_materials can see it keeps no handle address.
-#pragma optimize("s", on)
 class BfmeTextureHandle {
 public:
     RefCountPtr<TextureClass> Handle;
@@ -174,7 +173,6 @@ public:
 // Release-and-clear helper matched at 0x0004D75B (BfmeResetTextureRefClear.cpp).
 // Defined here only so read_v3_materials can see it keeps no handle address.
 #include "BfmeResetTextureRef.h"
-#pragma optimize("s", on)
 __declspec(noinline) inline void BfmeResetTextureRef::clear() {
     if (pointer) {
         static_cast<TextureClass *>(pointer)->Release_Ref();

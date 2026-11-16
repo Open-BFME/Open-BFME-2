@@ -20,7 +20,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
 // (pop ecx after the delete call); compile just the base class for size so
 // this unit's COMDAT matches the first copy in link order (hlod.cpp).
-#pragma optimize("s", on)
 #include "RefCountData.h"
 inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)

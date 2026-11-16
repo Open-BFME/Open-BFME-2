@@ -19,7 +19,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // disproves, and no pragma state reproduces /Os for it. A TU-local name keeps that copy from
 // displacing retail's.
 #define Compute_Intersection Compute_Intersection_O2
-#pragma optimize("s", on)
 #include "rendobj.h"
 #include "aabox.h"
 #include "scene.h"

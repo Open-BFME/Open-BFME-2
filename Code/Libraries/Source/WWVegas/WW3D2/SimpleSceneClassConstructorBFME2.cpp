@@ -10,7 +10,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("s", on)
 #include "refcount.h"
 #include "bittype.h"
 #define WWDEBUG_H
@@ -21,7 +20,6 @@ template <class T, int N> class AutoPoolClass {};
 #define WWASSERT(x) ((void)0)
 // multilist.h's inline members are retail's size-optimised bodies (as in
 // SceneOwnership.cpp).
-#pragma optimize("s", on)
 #include "multilist.h"
 #include "refcount.h"
 #include "vector3.h"
