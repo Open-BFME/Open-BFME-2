@@ -77,15 +77,7 @@ private:
 class Rva005B7FA4;
 extern Rva005B7FA4 *g_00E06478;
 
-class AptOnlineLogin
-{
-public:
-	AptOnlineLogin(AptOnline *shell);
-	static AptOnlineSubScreen *Create(AptOnline *shell);
-
-private:
-	unsigned char m_pad[0xE0];
-};
+#include "../../../../../Include/GameClient/AptOnlineLogin.h"
 
 // The constructor's existing singleton owner, also used by AptOnlineLogin.cpp.
 class BfmeObjELB;

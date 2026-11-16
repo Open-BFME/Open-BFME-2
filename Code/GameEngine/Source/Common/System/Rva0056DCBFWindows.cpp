@@ -6,19 +6,7 @@
 // 0x005713AB 0x005719F5 0x00571D22 0x00571FF8 0x00572746 0x0057284F,
 // neighbours ConstIntGetters4 and MinimizeCurrentThreadWindow.
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-class AptOnlineLogin
-{
-public:
-	void rva0056DCBF(bool enabled);
-private:
-	char m_pad00[0xA4];
-	GameWindow *m_a4;
-	GameWindow *m_a8;
-	GameWindow *m_ac;
-	GameWindow *m_b0;
-	char m_padB4[0x1A];
-	bool m_ce;
-};
+#include "../../../Include/GameClient/AptOnlineLogin.h"
 void AptOnlineLogin::rva0056DCBF(bool enabled)
 {
 	m_ce = enabled;

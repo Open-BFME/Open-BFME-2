@@ -70,20 +70,13 @@ UnicodeString Rva0056EA91::rva0056EA91()
 
 // ?rva0056EBD0@AptOnlineLogin@@QAE?AVUnicodeString@@XZ retail 0x0056EBD0 132B
 // Evidence: empty 0x00A0C898 via 0x00037050; GadgetTextEntryGetText 0x00320AAB then set 0x00037150 release 0x00036E70; combo at +0xAC; sibling 0x0056EA91
-class AptOnlineLogin
-{
-public:
-	UnicodeString rva0056EBD0();
-private:
-	unsigned char m_pad[0xAC];
-	GameWindow *m_combo;
-};
+#include "../../../../Include/GameClient/AptOnlineLogin.h"
 
 UnicodeString AptOnlineLogin::rva0056EBD0()
 {
 	UnicodeString text = UnicodeString::TheEmptyString;
-	if (m_combo != NULL) {
-		text = GadgetTextEntryGetText(m_combo);
+	if (m_ac != NULL) {
+		text = GadgetTextEntryGetText(m_ac);
 	}
 	return text;
 }
