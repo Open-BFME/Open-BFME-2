@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ?rva0008DB18@W3DView@@UAEXXZ, retail 0x0008DB18..0x0008DE1C (772 bytes), a
 // W3DView vftable entry (0x007C77E0) with no direct callers. WorldBuilder
@@ -20,7 +20,13 @@
 // file-static here: retail clears it before the opacity store, which cl only
 // does when no float store can alias the pointer.
 
-#include "Lib/BaseType.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+typedef float Real;
+typedef int Int;
+typedef bool Bool;
+#define PI 3.14159265359f
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
@@ -29,17 +35,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 
-class Mouse
-{
-public:
-	void rva001EDE9C();
-	void _bfme_setEngineVisibility(bool visible);
-	char m_pad00[0x4F0C];
-	ICoord2D m_pos; // +0x4F0C +0x4F0C
-	char m_pad4F14[0xF5];
-	Bool m_5009; // +0x5009
-};
-extern Mouse *TheMouse;
+#include "../../../../GameEngine/Include/GameClient/Mouse.h"
 
 struct BfmeObjectPositionView
 {
@@ -128,7 +124,7 @@ void W3DView::rva0008DB18()
 			Coord2D mouse;
 			if (!g_bfmeFlagEC) {
 				Real margin = TheDisplay->getWidth() * g_Va00DB4540;
-				mouse.x = (Real)TheMouse->m_pos.x;
+				mouse.x = (Real)TheMouse->field4F0C.x;
 				Real delta = mouse.x - margin;
 				if (delta > 0) {
 					delta = mouse.x - (TheDisplay->getWidth() - margin);
@@ -148,7 +144,7 @@ void W3DView::rva0008DB18()
 			}
 			Real top = TheDisplay->getHeight() * g_Va00DB454C;
 			Real bottom = TheDisplay->getHeight() * g_Va00DB4550;
-			mouse.y = (Real)TheMouse->m_pos.y;
+			mouse.y = (Real)TheMouse->field4F0C.y;
 			Real delta = mouse.y - top;
 			if (delta > 0) {
 				delta = mouse.y - (TheDisplay->getHeight() - bottom);
