@@ -11,16 +11,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-class Rva00226883
-{
-public:
-	void rva00226883(void *node);
-	void rva0022999F();
-
-private:
-	void *m_00Head; // +0x00
-	int m_04Flag; // +0x04
-};
+#include "../../Include/Common/Rva00226883.h"
 
 struct RbTreeNode
 {
@@ -54,11 +45,11 @@ void Rva00226883::rva0022999F()
 {
 	if (m_04Flag == 0)
 		return;
-	RbTreeHeader *head = (RbTreeHeader *)m_00Head;
+	RbTreeHeader *head = (RbTreeHeader *)m_header.m_00Head;
 	rva00226883(head->m_first);
-	((RbTreeHeader *)m_00Head)->m_next = (RbTreeHeader *)m_00Head;
-	((RbTreeHeader *)m_00Head)->m_first = 0;
-	((RbTreeHeader *)m_00Head)->m_child = (RbTreeHeader *)m_00Head;
+	((RbTreeHeader *)m_header.m_00Head)->m_next = (RbTreeHeader *)m_header.m_00Head;
+	((RbTreeHeader *)m_header.m_00Head)->m_first = 0;
+	((RbTreeHeader *)m_header.m_00Head)->m_child = (RbTreeHeader *)m_header.m_00Head;
 	m_04Flag = 0;
 }
 
