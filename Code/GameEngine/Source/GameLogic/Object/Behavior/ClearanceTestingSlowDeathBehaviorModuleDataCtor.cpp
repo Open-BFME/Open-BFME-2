@@ -11,15 +11,7 @@
 // the pin at 0x50B74 plus sourced-before pointer take for the lea-run zeros
 // at +0x1EC plus late b-local reused for +0x1FC and +0x204.
 
-// Retail's table holds ModuleData's 30 inherited slots after the deleting destructor.
-#include "../../../../Include/Common/ModuleData.h"
-
-class SlowDeathBehaviorModuleData : public ModuleData
-{
-public:
-	SlowDeathBehaviorModuleData();
-	virtual ~SlowDeathBehaviorModuleData();
-};
+#include "../../../../Include/GameLogic/Module/SlowDeathBehaviorModuleData.h"
 
 #include "../../../../Include/Common/Geometry.h"
 
@@ -32,7 +24,6 @@ public:
 	virtual ~ClearanceTestingSlowDeathBehaviorModuleData();
 
 private:
-	unsigned char m_pad[0x190 - 8];
 	GeometryInfo m_geometry;
 	float m_offset[3];
 	float m_clearanceMaxHeight;
