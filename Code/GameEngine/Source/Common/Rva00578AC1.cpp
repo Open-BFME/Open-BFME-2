@@ -1,4 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 // ?rva00578AC1@Palantir@StrategicHUD@@QAEXPAX@Z, retail 0x00578AC1, 24 bytes.
 // Clears byte at +0x54 then broadcasts callback 0x005CB265 with arg this+4 over list at +8 via forEach 0x00578A60.
 // Evidence: packet disassembly, prev forEach row, slot-3 update dispatch thunk, sibling 0x00578B4C pattern, caller 0x00578B7F.
@@ -649,7 +653,13 @@ char ** __cdecl Rva004E678BGet(char **,bool);
 inline __declspec(noinline) void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target,void *level,const char *prefix,const char *function,bool *flagPtr) {
  char *value;
  char *val=*Rva004E678BGet((char **)&value,*flagPtr);
- target->rva00222B19(level,prefix,function,1,val,0,0,0,0);
+ union {
+     int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+     int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+ } nativeCall;
+ typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+ nativeCall.provider = &Rva00222B19AptCall;
+ (target->*nativeCall.member)(level,prefix,function,1,val,0,0,0,0);
 }
 
 struct PalantirOptionsButtonReceiver {

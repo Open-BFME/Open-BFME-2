@@ -1,4 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 //
 // StrategicHUD::RegionDetailsMovieClip::Impl (WorldBuilder
 // StrategicHUDRegionDetailsMovieClip.cpp). Target facts: the ctor at
@@ -22,7 +26,13 @@ inline __declspec(noinline) int __cdecl Rva0054C83FAptCall(Rva00222A8BTarget *t,
 	char *tmp;
 	char *s = *Rva004E678BGet(&tmp, *flag);
 	const char *a0s = *a0;
-	return t->rva00222B19(level, prefix, function, 2, a0s, s, 0, 0, 0);
+	union {
+	    int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	    int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	} nativeCall;
+	typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+	nativeCall.provider = &Rva00222B19AptCall;
+	return (t->*nativeCall.member)(level, prefix, function, 2, a0s, s, 0, 0, 0);
 }
 
 

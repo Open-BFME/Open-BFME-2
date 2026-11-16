@@ -1,4 +1,8 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 // WB1612790 lines260..282; native005FBA3C..005FBAFE, RET8.
 // Keep the exact125-byte Apt int/bool forwarder visible. Its input reads
 // allow MSVC to reuse the dead image argument for the key and flag locals.
@@ -34,7 +38,13 @@ static inline const char *Rva00577C23Flag(const bool &b)
 
 inline __declspec(noinline) int __cdecl Rva00577C23AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, bool *pFlag)
 {
-	return target->rva00222B19(level, prefix, function, 2, GetStr(Rva00222834Get(*pInt)), (void *)Rva00577C23Flag(*pFlag), 0, 0, 0);
+	union {
+	    int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	    int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	} nativeCall;
+	typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+	nativeCall.provider = &Rva00222B19AptCall;
+	return (target->*nativeCall.member)(level, prefix, function, 2, GetStr(Rva00222834Get(*pInt)), (void *)Rva00577C23Flag(*pFlag), 0, 0, 0);
 }
 
 

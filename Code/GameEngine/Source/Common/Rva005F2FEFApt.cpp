@@ -1,4 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 // ?rva005F2FEF@Rva005F2FEF@@QAEXABVUnicodeString@@@Z retail 0x005F2FEF 191B
 // Evidence: SetMemberNameState _show plus APT:_level%u.%s_MemberName via rowed format 0x00038150 and pinned bfmeSetText 0x00225301; rowed compare 0x00006A7A set 0x00037150 release 0x00036410 AptCall 0x005FB5E6; globals 0x009FE4CC 0x007BAC1C; caller forwarder 0x005F3272; precedent Rva005F7670 UnitName show plus cached
 #include "ascii_string.h"
@@ -188,7 +192,13 @@ __forceinline const char *GetStr005F2A52(const AsciiString &asciiString)
 
 int __cdecl Rva005F2A52AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *xPos, float *yPos)
 {
-	return target->rva00222B19(level, prefix, function, 3, GetStr005F2A52(Rva00222834Get(*pInt)), (void *)GetStr005F2A52(Rva002228E8Get(*xPos)), (void *)GetStr005F2A52(Rva002228E8Get(*yPos)), 0, 0);
+	union {
+	    int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	    int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	} nativeCall;
+	typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+	nativeCall.provider = &Rva00222B19AptCall;
+	return (target->*nativeCall.member)(level, prefix, function, 3, GetStr005F2A52(Rva00222834Get(*pInt)), (void *)GetStr005F2A52(Rva002228E8Get(*xPos)), (void *)GetStr005F2A52(Rva002228E8Get(*yPos)), 0, 0);
 }
 
 void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberRank(int rank)

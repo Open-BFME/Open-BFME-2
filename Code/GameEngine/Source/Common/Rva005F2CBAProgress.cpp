@@ -1,4 +1,8 @@
 // stlport46
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ?rva005F2CBA@Rva005F2FEF@@QAEXM@Z @0x005F2CBA 135B
 // Evidence: Apt rank progress float at +0x50 flag 4 at +0x58 via rowed Fire 0x00527925 AptCall 0x005FB5E6 strings SetMemberRankProgress SetMemberRankProgressBarState _show globals 0x009FE4CC 0x007BAC1C caller 0x005F2F49.
@@ -709,7 +713,13 @@ inline __declspec(noinline) void __cdecl Rva005277D9Fire(Rva00222A8BTarget *targ
 {
 	char *value;
 	char *val = *Rva004E678BGet((char **)&value, *flagPtr);
-	target->rva00222B19(level, prefix, function, 1, val, 0, 0, 0, 0);
+	union {
+	    int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	    int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	} nativeCall;
+	typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+	nativeCall.provider = &Rva00222B19AptCall;
+	(target->*nativeCall.member)(level, prefix, function, 1, val, 0, 0, 0, 0);
 }
 
 StrategicHUD::ArmyDetailsMovieClip::Impl::Impl(ArmyDetailsMovieClip*owner,int level,const AsciiString&name,int layout,bool backVisible)

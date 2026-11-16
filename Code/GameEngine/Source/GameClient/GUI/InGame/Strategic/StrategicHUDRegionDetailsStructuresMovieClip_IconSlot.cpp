@@ -1,4 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 // stlport
 // Split from StrategicHUDRegionDetailsStructuresMovieClip.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -296,7 +300,13 @@ __forceinline const char *GetStr(const AsciiString &asciiString)
 
 inline int __cdecl Rva0052519DFire(void *a1, void *a2, const char *a3, const char *a4, int *a5)
 {
-	return ((Rva00222A8BTarget *)a1)->rva00222B19(a2, a3, a4, 1, GetStr(Rva00222834Get(*a5)), 0, 0, 0, 0);
+	union {
+	    int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	    int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	} nativeCall;
+	typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+	nativeCall.provider = &Rva00222B19AptCall;
+	return (((Rva00222A8BTarget *)a1)->*nativeCall.member)(a2, a3, a4, 1, GetStr(Rva00222834Get(*a5)), 0, 0, 0, 0);
 }
 
 

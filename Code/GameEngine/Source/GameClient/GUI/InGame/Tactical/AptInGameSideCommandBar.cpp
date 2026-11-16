@@ -1,4 +1,8 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 // WorldBuilder 013C8490 names Impl::OnButtonFrameLoaded; retail
 // 005283F8..00528545 parses index/name and binds the movie in its slot.
 // Native constructor 005288C4 initializes fifteen 12-byte slots at +24;
@@ -232,7 +236,13 @@ static __forceinline const char *sideBarGetStr(const AsciiString &asciiString) {
  return text ? text + 8 : "";
 }
 __declspec(noinline) inline int __cdecl Rva00525338Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6) {
- return ((Rva00222A8BTarget *)a1)->rva00222B19(a2, a3, a4, 2, sideBarGetStr(Rva00222834Get(*a5)), a6, 0, 0, 0);
+ union {
+     int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+     int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+ } nativeCall;
+ typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+ nativeCall.provider = &Rva00222B19AptCall;
+ return (((Rva00222A8BTarget *)a1)->*nativeCall.member)(a2, a3, a4, 2, sideBarGetStr(Rva00222834Get(*a5)), a6, 0, 0, 0);
 }
 
 bool AptInGameSideCommandBar::Impl::UpdateButtonVisiblity(Object *)

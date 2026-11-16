@@ -1,4 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+
+// Native 0x00222B19 ignores ECX and pops nine stack arguments.
+// Address its rowed stdcall provider while preserving retail callers' ECX setup.
+int __stdcall Rva00222B19AptCall(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
 //
 // ?Rva005C3240AptCall@@YAHPAVRva00222A8BTarget@@PAXPBD2ABVAsciiString@@3@Z @0x005C3240 63B: Apt forward with 2 strings.
 // Builds no temporaries: takes two AsciiStrings by reference, passes their text
@@ -19,5 +23,11 @@ static __forceinline const char *GetStr(const AsciiString &asciiString)
 
 int __cdecl Rva005C3240AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const AsciiString &asciiString, const AsciiString &a1)
 {
-	return target->rva00222B19(level, prefix, function, 2, GetStr(asciiString), (void *)GetStr(a1), 0, 0, 0);
+	union {
+	    int (__stdcall *provider)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	    int (Rva00222A8BTarget::*member)(void *, const char *, const char *, int, const char *, void *, void *, void *, void *);
+	} nativeCall;
+	typedef char NativeCallPointerMustBeOneWord[(sizeof(nativeCall.provider) == sizeof(nativeCall.member)) ? 1 : -1];
+	nativeCall.provider = &Rva00222B19AptCall;
+	return (target->*nativeCall.member)(level, prefix, function, 2, GetStr(asciiString), (void *)GetStr(a1), 0, 0, 0);
 }
