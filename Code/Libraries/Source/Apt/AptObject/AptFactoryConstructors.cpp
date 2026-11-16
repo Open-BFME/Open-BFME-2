@@ -30,7 +30,9 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 struct SoundCharacter { char pad[4]; void *parent; };
 struct SoundSprite { char pad[12]; SoundCharacter *character; };
-class AptCIH { public: char pad[0xc];float a,b,c,d,tx,ty;float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;float *properties;char pad2[4];SoundSprite *sprite;char pad3[0x5c-0x50];union {unsigned int flags;struct {unsigned int flagsLow:16;unsigned int asChanged:1;unsigned int flagsHigh:15;};};void factoryEnsureProperties();bool rva006CFCD0() const;void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
+class AptCIH { public: char pad[0xc];float a,b,c,d,tx,ty;float alphaMultiplier,redMultiplier,greenMultiplier,blueMultiplier;float alphaOffset,redOffset,greenOffset,blueOffset;float *properties;char pad2[4];SoundSprite *sprite;char pad3[0x5c-0x50];union {unsigned int flags;struct {unsigned int flagsLow:16;unsigned int asChanged:1;unsigned int flagsHigh:15;};};void factoryEnsureProperties();void factorySetProperty(int,float,bool);float factoryGetProperty(int) const; };
+// The sprite predicate 0x006CFCD0 is rowed as Rva006CFCD0::isSpriteInstBase.
+#include "../Rva006CFCD0.h"
 // Target scalar destructors6F3960/6FE430/6E9B50 use this pool and class size.
 #include "../Rva006D2A60.h"
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
@@ -42,7 +44,7 @@ protected: virtual ~AptSound();
 };
 AptSound::AptSound(AptCIH *aptCIH) : AptObject((AptVirtualFunctionTable_Indices)21) {
  zID=0;
- if(!aptCIH->rva006CFCD0()) {g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+ if(!((const Rva006CFCD0 *)aptCIH)->isSpriteInstBase()) {g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
  pParentAnim=aptCIH->sprite->character->parent;szName=0;
 }
 
@@ -86,7 +88,7 @@ AptScriptColour::AptScriptColour(AptValue *const pMovie) : AptObject((AptVirtual
  if(!pMovie){g_bfmeAptAssertAtE17734("pMovie != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptColour.cpp",0x30);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
  if(pMovie->isCIH()) {
   AptCIH *cih=(AptCIH *)((BfmeAptValue006DCD20 *)pMovie)->rva006DCF60(false);
-  if(cih->rva006CFCD0() || (unsigned char)((BfmeAptValue006DCD20 *)cih)->rva006E02B0()) {
+  if(((const Rva006CFCD0 *)cih)->isSpriteInstBase() || (unsigned char)((BfmeAptValue006DCD20 *)cih)->rva006E02B0()) {
    pSprite=cih;((AptValue *)cih)->AddRef();
   }
  } else pSprite=0;
@@ -130,6 +132,10 @@ AptValue *AptSound::objectMemberLookup(AptValue *const context,const EAStringC *
 }
 
 EAStringC *Rva0070B4F0GetString(int);
+// The case-insensitive name comparison 0x006D36C0 is rowed as
+// Rva008B4260StringRef::compare008B4260 (Rva008B4260StringCompare.cpp).
+struct Rva008B4260StringRef { int compare008B4260(const Rva008B4260StringRef &other) const; };
+#define NAME_COMPARE(name,id) ((const Rva008B4260StringRef *)(name))->compare008B4260(*(const Rva008B4260StringRef *)Rva0070B4F0GetString(id))
 AptValue *callback006F2640(AptValue *,int);AptValue *callback006F2700(AptValue *,int);AptValue *callback006F2760(AptValue *,int);AptValue *callback006F29C0(AptValue *,int);
 class BfmeS1082;
 extern BfmeS1082 *g_bfmeS1082_4,*g_bfmeS1082_5,*g_bfmeS1082_6,*g_bfmeS1082_7;
@@ -138,10 +144,10 @@ extern BfmeS1082 *g_bfmeS1082_4,*g_bfmeS1082_5,*g_bfmeS1082_6,*g_bfmeS1082_7;
 #define g_colourGetTransform ((AptNativeFunction *&)g_bfmeS1082_6)
 #define g_colourSetTransform ((AptNativeFunction *&)g_bfmeS1082_7)
 AptValue *AptScriptColour::objectMemberLookup(AptValue *const context,const EAStringC *const name) const {
- if(name->rva006D36C0(Rva0070B4F0GetString(0x88))==0){DISPATCH(g_colourSetRGB,callback006F2640);}
- else if(name->rva006D36C0(Rva0070B4F0GetString(0x45))==0){DISPATCH(g_colourGetRGB,callback006F2700);}
- else if(name->rva006D36C0(Rva0070B4F0GetString(0x49))==0){DISPATCH(g_colourGetTransform,callback006F2760);}
- else if(name->rva006D36C0(Rva0070B4F0GetString(0x8b))==0){DISPATCH(g_colourSetTransform,callback006F29C0);}
+ if(NAME_COMPARE(name,0x88)==0){DISPATCH(g_colourSetRGB,callback006F2640);}
+ else if(NAME_COMPARE(name,0x45)==0){DISPATCH(g_colourGetRGB,callback006F2700);}
+ else if(NAME_COMPARE(name,0x49)==0){DISPATCH(g_colourGetTransform,callback006F2760);}
+ else if(NAME_COMPARE(name,0x8b)==0){DISPATCH(g_colourSetTransform,callback006F29C0);}
  return 0;
 }
 
@@ -179,7 +185,7 @@ AptValue *callback006F3580(AptValue *context,int) {
   EAStringC text;
   AptSound *sound=(AptSound *)((BfmeAptValue006DCD20 *)context)->rva006DCFE0();
   const SoundAnimation *animation=(const SoundAnimation *)((char *)sound->pParentAnim+8);
-  name->rva006DD6C0(&text);
+  ((AptValue *)name)->toString(text);
   for(int i=0;i<animation->exportCount;++i) {
    if(text.rva006D3510(animation->exports[i].name)) {
     if(animation->characters[animation->exports[i].id]->type==6) {
