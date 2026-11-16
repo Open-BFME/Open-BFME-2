@@ -95,6 +95,7 @@ public:
 private:
  friend class Rva002E41EC;    // 0x002E41EC raises the counter past parsed ids
  friend void Rva00328A6B(int); // 0x00328A6B stores the counter
+ friend int Rva00328A65Get(void); // 0x00328A65 reads the counter
  static int s_currentID;       // ?s_currentID@PolygonTrigger@@0HA, VA 0x00DBD0F0
 };
 

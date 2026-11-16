@@ -144,12 +144,7 @@ extern AI *TheAI;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PolygonTrigger
-{
-public:
-	char m_pad00[0x40];
-	AsciiString m_triggerName;      // +0x40
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 #define OBJX_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 
@@ -589,7 +584,7 @@ void Object::xfer(Xfer *xfer)
 		AsciiString triggerName;
 		PolygonTrigger **trigger = &m_triggerInfo[i].pTrigger;
 		if (*trigger)
-			triggerName = (*trigger)->m_triggerName;
+			triggerName = (*trigger)->name;
 		*xfer == triggerName;
 		if (xfer->IsLoading())
 			*trigger = TheTerrainLogic->getTriggerAreaByName(triggerName);

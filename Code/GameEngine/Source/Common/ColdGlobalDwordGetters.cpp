@@ -133,12 +133,8 @@ int Rva00320607Get(void)
 }
 
 // VA 0x00DBD0F0 is PolygonTrigger's private ?s_currentID@PolygonTrigger@@0HA,
-// defined in PolygonTrigger.cpp (initial 1); reached through a friend view.
-class PolygonTrigger
-{
-	friend int Rva00328A65Get(void);
-	static int s_currentID;
-};
+// defined in PolygonTrigger.cpp (initial 1); the header declares this getter a friend.
+#include "../../Include/GameLogic/PolygonTrigger.h"
 
 // ?Rva00328A65Get@@YAHXZ @ 0x00328a65 (6B) over 0x00DBD0F0.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
