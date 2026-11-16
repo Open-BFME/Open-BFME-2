@@ -52050,7 +52050,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005EFF87,31,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE40.cpp
 0x005EFFA6,134,code,,,-,,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp
 0x005F002C,47,code,,displaced,-,N=Code/GameEngine/Source/Common/StrategicInGameUI.cpp W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIGetTypeImage.cpp,Code/GameEngine/Source/Common/StrategicInGameUI_GetTypeImage.cpp
-0x005F005B,160,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FB.cpp
+0x005F005B,160,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
 0x005F00FB,87,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp
 0x005F0152,51,code,,,-,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIGetTypeImage.cpp,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp
 0x005F0185,51,code,,,-,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIGetTypeImage.cpp,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp
@@ -90240,10 +90240,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A4ACB,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsArmiesMovieClip.cpp
 0x007A4AD5,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsArmiesMovieClip.cpp
 0x007A4ADD,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsArmiesMovieClip.cpp
-0x007A4AE7,8,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FB.cpp
-0x007A4AEF,8,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FB.cpp
-0x007A4AF7,22,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FB.cpp
-0x007A4B0D,10,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FB.cpp
+0x007A4AE7,8,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
+0x007A4AEF,8,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
+0x007A4AF7,22,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
+0x007A4B0D,10,code,,,-,,Code/GameEngine/Source/Common/MappedImageCache.cpp
 0x007A4B17,8,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp
 0x007A4B1F,22,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp
 0x007A4B35,10,code,,,-,,Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp

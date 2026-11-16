@@ -11,7 +11,7 @@
 //          iterators at +8 (stride 4, count 5) and +0x1C (stride 4, count 8)
 //          with element ctor 0x00326BE6 and element dtor 0x0048BA39.
 //          Two pointer loops zero five dwords at +0x3C and five at +0x50.
-// The sibling dtor 0x005F00FB (banked, unlanded) tears the same two arrays
+// The dtor 0x005F00FB tears the same two arrays
 // down through 0x00629110 with the same element dtor, then calls the base
 // dtor 0x0022167C, which confirms the two AsciiString arrays and the +0
 // polymorphic base (vptr/m_at4 from 0x0022167C's own body).
@@ -55,8 +55,3 @@ MappedImageCache::MappedImageCache() : Rva0022167C(AsciiString("TypeImages"))
 		*q++ = 0;
 }
 
-// Each retail call in this body reads an address the ledger already carries
-// under the rowed name below. Bind the donor spelling to that owner so one
-// address keeps one definition and the unit links.
-//   0x0022167C reads ??1Rva0022167C@@QAE@XZ
-//   0x00221635 reads ??0Rva00221635@@QAE@H@Z
