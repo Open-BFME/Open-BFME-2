@@ -67,16 +67,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-	~Rva003623E5Filter();
-	void applyFilter(BfmeFixedStorage0004543D storage);
-
-private:
-	int m_timeoutMs;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

@@ -30,14 +30,7 @@ struct Rva00257481RefHolder
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class Rva003623E5Filter
-{
-public:
-	~Rva003623E5Filter();
-
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 class Rva002572D7Member
 {

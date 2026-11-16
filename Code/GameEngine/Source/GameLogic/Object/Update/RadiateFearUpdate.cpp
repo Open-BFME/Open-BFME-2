@@ -174,15 +174,7 @@ protected:
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-	~Rva003623E5Filter();
-	void applyFilter(BfmeFixedStorage0004543D storage);
-private:
-	int m_filterData; // +0x00
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 #include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 class UpdateModuleData
 {

@@ -10,14 +10,7 @@
 #include <vector>
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-	~Rva003623E5Filter();
-private:
-	unsigned char m_data[4]; // +0x00
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 class __declspec(novtable) CivilianSpawnUpdateModuleData : public Snapshot
 {
 public:

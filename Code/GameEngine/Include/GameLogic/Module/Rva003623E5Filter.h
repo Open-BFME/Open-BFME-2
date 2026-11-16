@@ -8,6 +8,7 @@ class BfmeFixedStorage0004543D;
 class Rva003623E5Filter
 {
 public:
+	Rva003623E5Filter();
 	~Rva003623E5Filter();
 	void applyFilter(BfmeFixedStorage0004543D storage);
 };

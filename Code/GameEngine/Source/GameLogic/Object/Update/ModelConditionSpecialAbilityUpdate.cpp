@@ -49,16 +49,7 @@ const float c_emotionPulseRadiusDefault = 50.0f;
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-	void applyFilter(BfmeFixedStorage0004543D arg);
-	~Rva003623E5Filter();
-
-private:
-	int m_handle;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 class ModelConditionSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {

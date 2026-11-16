@@ -35,13 +35,7 @@ _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base()
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString;
 namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString *, size_t) const; }
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-private:
-	unsigned char m_data[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 // The native C4D2A8 table shares ModuleData slots 1-30 unchanged.
 class __declspec(novtable) UpdateModuleData : public ModuleData
 {

@@ -13,15 +13,7 @@
 
 #include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
-class Rva003623E5Filter
-{
-public:
-	Rva003623E5Filter();
-	~Rva003623E5Filter();
-
-private:
-	int m_handle;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
 
 class RefundDieModuleData : public DestroyDieModuleData
 {
