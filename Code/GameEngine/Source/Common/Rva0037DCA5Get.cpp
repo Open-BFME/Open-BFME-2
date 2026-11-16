@@ -12,18 +12,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class ThingTemplate;
 #include "../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
-class Rva0037DCA5
-{
-	char m_pad0[4];
-	AsciiString m_name;
-	char m_pad8[0x90 - 8];
-	int m_count;
-public:
-	int GetCommandPointSize();
-	void *GetThingTemplate();
-	void *GetDisplayNameStrategicGame();
-	void *GetDisplayNameStrategicGame(int v);
-};
+#include "../../Include/Common/Rva0037DCA5.h"
 #include "unicode_string.h"
 class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
@@ -32,7 +21,7 @@ class Rva002E2903Player;
 // ?GetThingTemplate@Rva0037DCA5@@QAEPAXXZ @0x0037DC52 16B same +0x4 lookup via 0x002D06CA and global 0x00DFF000.
 void *Rva0037DCA5::GetThingTemplate()
 {
-	return (void *)TheThingFactory->findTemplate(m_name);
+	return (void *)TheThingFactory->findTemplate(m_04);
 }
 // ?GetDisplayNameStrategicGame@Rva0037DCA5@@QAEPAXXZ @0x0040C64A 19B chain of GetThingTemplate.
 // Returns empty wide sentinel 0x00E0C898 when lookup misses else template+0x58.

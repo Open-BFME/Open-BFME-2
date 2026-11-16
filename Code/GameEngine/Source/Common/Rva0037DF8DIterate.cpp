@@ -34,15 +34,12 @@ class HordeModuleData {public:char pad[0xA4];HordeMembers members;};
 #include "../../Include/Common/ModuleData.h"
 #include "../../Include/Common/ModuleInfoClass.h"
 struct CarryoverTemplate {char pad[0x115];unsigned char flag;char pad116[0x2E4-0x116];ModuleInfo modules;};
-class Rva0037DCA5 {public:
- void *GetThingTemplate();int rva0037DF8D(Rva002206F9Sink *sink);
- char pad[0x90];int count;
-};
+#include "../../Include/Common/Rva0037DCA5.h"
 int Rva0037DCA5::rva0037DF8D(Rva002206F9Sink *sink) {
  if(!TheThingFactory)return 1;
  CarryoverTemplate *type=(CarryoverTemplate *)GetThingTemplate();
  if(!type)return 1;
- if(!(type->flag&0x20))return IterateTemplates(sink,type,count);
+ if(!(type->flag&0x20))return IterateTemplates(sink,type,m_90);
  ModuleInfo &mods=type->modules;
  int n=(reinterpret_cast<const char *>(mods.m_end)-reinterpret_cast<const char *>(mods.m_begin))/20;
  for(int i=0;i<n;++i) {
@@ -52,7 +49,7 @@ int Rva0037DCA5::rva0037DF8D(Rva002206F9Sink *sink) {
     const HordeMembers &members=horde->members;
     for(HordeMembers::const_iterator j=members.begin();j!=members.end();++j) {
      void *found=(void *)TheThingFactory->findTemplate(j->first);
-     if(found){int mult=count; if(!IterateTemplates(sink,found,j->second*mult))return 0;}
+     if(found){int mult=m_90; if(!IterateTemplates(sink,found,j->second*mult))return 0;}
     }
    }
   }

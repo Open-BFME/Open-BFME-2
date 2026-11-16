@@ -3,14 +3,7 @@
 // bulk operation or count(+90) individual template lookups delivered to the
 // embedded +4 sink's first virtual slot. Always returns true. Names are opaque.
 class Rva002206F9Sink { public: virtual void add(void *value); };
-class Rva0037DCA5
-{
-public:
- void *GetThingTemplate();
- int rva0037DF8D(Rva002206F9Sink *sink);	// rowed int return (Rva0037DF8DIterate.cpp); result unused here
- char pad[0x90];
- int count;
-};
+#include "../../Include/Common/Rva0037DCA5.h"
 class Rva002206F9
 {
 public:
@@ -28,7 +21,7 @@ bool Rva002206F9::rva002206F9(Rva0037DCA5 *descriptor)
   descriptor->rva0037DF8D(&m_sink);
  else
  {
-  for (int i = 0; i < descriptor->count; ++i)
+  for (int i = 0; i < descriptor->m_90; ++i)
    m_sink.add(descriptor->GetThingTemplate());
  }
  return true;
