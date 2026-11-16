@@ -6,6 +6,9 @@
 // Retail clears the image name through releaseBuffer at 0x00036410.
 // Expand the public storage operation without emitting a competing clear wrapper.
 template <> __declspec(dllimport) __forceinline void StringBase<char>::clear() { releaseBuffer(); }
+// Shell's canonical 12-byte SubsystemInterface base stands in for ZH's.
+#include "../../../../Include/GameClient/Shell.h"
+#define __SUBSYSTEMINTERFACE_H_
 #include "PreRTS.h"
 #include "Common/INI.h"
 #include "GameClient/ShellMenuScheme.h"
@@ -183,18 +186,6 @@ class ShellMenuSchemeImage;
 struct FieldParse;
 
 class ShellMenuScheme;
-
-class Shell
-{
-public:
-	ShellMenuSchemeManager *getShellMenuSchemeManager(void) { return m_schemeManager; }
-
-private:
-	char m_pad00[0x64];
-	ShellMenuSchemeManager *m_schemeManager;   // +0x64
-};
-
-extern Shell *TheShell;
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
 

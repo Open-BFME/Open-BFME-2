@@ -42,6 +42,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+// Shell's canonical 12-byte SubsystemInterface base stands in for ZH's.
+#include "../../../../../Include/GameClient/Shell.h"
+#define __SUBSYSTEMINTERFACE_H_
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 
@@ -56,23 +59,6 @@ extern GameLogic *TheGameLogic;
 #include "GameClient/CampaignManager.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/Gadget.h"
-// Only out-of-line Shell calls are used here; no Shell object is constructed
-// or accessed by this declaration. Keep the target provider ABIs rather than
-// ZH Shell.h's one-argument void showShellMap. Native MapSelectMenuInit calls
-// the rowed bool Shell::showShellMap(bool, bool) body at 0x0035C194.
-class Shell
-{
-public:
- void shutdownComplete(WindowLayout *layout, Bool impendingPush = FALSE);
- void reverseAnimatewindow();
- void pop();
- void rva0035BF4C(Bool hide);
- Bool showShellMap(Bool useShellMap, Bool restartShellGame);
- void registerWithAnimateManager(GameWindow *win, AnimTypes animType,
-                                 Bool needsToFinish, UnsignedInt delayMS = 0);
- Bool isAnimFinished();
-};
-extern Shell *TheShell;
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetListBox.h"
 #include "GameClient/GadgetComboBox.h"
@@ -199,7 +185,7 @@ Int mapSelectHeadlessCount = 0;
 // Native 50CEDE..50CF3C and WB144EF60 prove pendingFile at +AC0,
 // the shared startGame flag, reverseAnimatewindow and optional Apt hide.
 // Keep the menu suffix because setupGameStart is a source-local helper.
-class Rva00222A8BTarget {public:void rva00222F55(bool);};
+#include "../../../../../Include/Common/Rva00222A8BTarget.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct MapSelectGlobalDataView {char pad[0xAC0];AsciiString pendingFile;};
@@ -548,70 +534,12 @@ void MapSelectMenuInit( WindowLayout *layout, void *userData )
 }  // end MapSelectMenuInit
 
 // Target LAN vslots and 0x60 allocation agree with AptLanLobby::InitTheLan.
-// Only called slots are named; slot52 is a by-value loopback address request.
-class LANAPI {public:
-LANAPI();
-virtual void slot0();
-virtual void init();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-virtual void slot7();
-virtual void slot8();
-virtual void reset();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void RequestLocations();
-virtual void slot16();
-virtual void slot17();
-virtual void slot18();
-virtual void slot19();
-virtual void slot20();
-virtual void slot21();
-virtual void slot22();
-virtual void slot23();
-virtual void slot24();
-virtual void slot25();
-virtual void slot26();
-virtual void RequestGameCreate(UnicodeString,bool);
-virtual void slot28();
-virtual void RequestSetName(UnicodeString);
-virtual void slot30();
-virtual void slot31();
-virtual void slot32();
-virtual void slot33();
-virtual void slot34();
-virtual void slot35();
-virtual void slot36();
-virtual void slot37();
-virtual void slot38();
-virtual void slot39();
-virtual void slot40();
-virtual void slot41();
-virtual void slot42();
-virtual void slot43();
-virtual void slot44();
-virtual void slot45();
-virtual void slot46();
-virtual void slot47();
-virtual void slot48();
-virtual void slot49();
-virtual void slot50();
-virtual void slot51();
-virtual void requestLoopback(AsciiString);
-char data[0x5C];
-};
+#include "../../../../../Include/GameNetwork/LANAPI.h"
 extern LANAPI *TheLAN;
 // Target preferences occupy 0x1C bytes; methods bind to existing providers.
 
 class LANPreferences:public GameModePreferences {public:LANPreferences(int);virtual ~LANPreferences();};
-class GameEngine {public:void startHeadlessClients(int);};
-extern GameEngine *TheGameEngine;
+#include "../../../../../Include/Common/GameEngine.h"
 AsciiString AsciiStringToQuotedPrintable(AsciiString);
 // Native50CF3C..50D099349B, WB144E200, caller WB doGameStart144E0D0.
 // Start/reset LAN, bind127.0.0.1, persist map, clamp user name to10, create
@@ -621,7 +549,7 @@ void Rva0050CF3CStartHeadless()
  if(!TheLAN)TheLAN=new LANAPI();
  else TheLAN->reset();
  TheLAN->init();
- TheLAN->requestLoopback(AsciiString("127.0.0.1"));
+ TheLAN->SetLocalIP(AsciiString("127.0.0.1"));
  LANPreferences prefs(0);
  prefs.rva0044DD83(AsciiStringToQuotedPrintable(((MapSelectGlobalDataView *)TheWritableGlobalData)->pendingFile));
  prefs.GameModePreferences::write();
@@ -634,11 +562,10 @@ void Rva0050CF3CStartHeadless()
 }
 
 class Rva00203BCDDwordSlot {public:void set(int);};
-struct MapSelectShellStartView {char pad[0x54];bool flag54;};
 // BFME1 menu doGameStart is the semantic donor; BFME2 WB144E0D0 names it.
 // Native50D099..50D136157B is reached by the named MapSelectMenuUpdate.
 // Target adds the headless branch, ScriptEngine difficulty setter and Shell
-// flag54/pop/hide sequence; the original spelling of flag54 is unknown.
+// +0x54 store/pop/hide sequence.
 void doGameStart()
 {
  mapSelectStartGame=false;
@@ -653,7 +580,7 @@ void doGameStart()
   msg->appendIntegerArgument(s_AIDiff);
   msg->appendIntegerArgument(0);
  }
- ((MapSelectShellStartView *)TheShell)->flag54=true;
+ TheShell->m_clearBackground=true;
  TheShell->pop();
  TheShell->rva0035BF4C(true);
  mapSelectIsShuttingDown=true;
