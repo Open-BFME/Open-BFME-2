@@ -45,14 +45,7 @@ public:
 	virtual ~Rva0081FDDSecond() {}			// 0x0007DE9A
 };
 
-class Rva00087A93
-{
-public:
-	Rva00087A93() : m_value(0) {}
-	~Rva00087A93();					// 0x0007B724
-private:
-	int m_value;
-};
+#include "../../../../Include/Common/Rva00087A93.h"
 
 struct Rva002BA8F1Listener;
 #include "../../../../Include/Common/Rva005A0B4CList.h"
@@ -78,6 +71,7 @@ private:
 RenderableRiverArea::RenderableRiverArea(void *owner)
 	: Rva00082EF5(owner), m_owner((RenderableRiverAreaOwner *)owner)
 {
+	m_54.m_data = 0;
 	m_58 = true;
 	((RenderableRiverAreaOwner *)owner)->m_observers.append((Rva002BA8F1Listener *)static_cast<Rva0081FDDSecond *>(this));
 	rva00082061();
