@@ -1,8 +1,7 @@
-# real link at a06b14bb6a7d0511a617f21e228a4ffdf392d59b: tools/exit_link.py --blockers
+# real link at 80cd5629c16f176bad69ec371222c253d485078a: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	8	??1Rva00119D00@@UAE@XZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	3	?rva006CFCD0@AptCIH@@QBE_NXZ
 Code/GameEngine/Source/Common/Rva000AEFAA.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/Rva00300419Ctor.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/Rva0030BF80.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
@@ -18,8 +17,6 @@ Code/GameEngine/Source/GameLogic/Map/SidesListParseCastleTemplateMaps.cpp	2	?bfm
 Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
-Code/Libraries/Source/Apt/AptArray.cpp	2	?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z
-Code/Libraries/Source/Apt/AptCIH.cpp	2	?rva006CFCD0@AptCIH@@QBE_NXZ
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
 Code/GameEngine/Source/Common/BfmeConv526.cpp	1	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z
 Code/GameEngine/Source/Common/RTS/Player_Radar.cpp	1	?okToPlayRadarEdgeSound@Player@@QAE_NXZ
@@ -50,9 +47,5 @@ Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	1	?g_Rva00E0A010@@3
 Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	1	?g_Rva0130A6E4@@3QBDB
 Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	1	?g_Rva0130A768@@3QBDB
 Code/Libraries/Source/Apt/AptActionInterpreter.cpp	1	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z
-Code/Libraries/Source/Apt/AptCharacter.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
-Code/Libraries/Source/Apt/AptInput.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
-Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
-Code/Libraries/Source/Apt/AptObject/Rva006F1360XmlLookup.cpp	1	?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z
-Code/Libraries/Source/Apt/Rva006E11B0Cluster.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
-Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp	1	?rva006CFCD0@AptCIH@@QBE_NXZ
+Code/Libraries/Source/Apt/AptCIH.cpp	1	?rva006dbd80@AptCIH@@QAEXXZ
+Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	1	?rva006D36C0@EAStringC@@QBEHPBV1@@Z
