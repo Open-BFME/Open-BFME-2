@@ -26,7 +26,19 @@ typedef DWORD D3DRENDERSTATETYPE;
 #include "sphere.h"
 class FrustumClass;
 #include "frustum.h"
-class CameraClass {protected:void Update_Frustum() const;public:__declspec(dllimport) __forceinline const FrustumClass &Get_Frustum() const {const CameraClass *volatile p=this;Update_Frustum();return *(const FrustumClass *)((const char *)p+0x100);} };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
+__forceinline const FrustumClass &CameraClass::Get_Frustum() const
+{
+ Update_Frustum();
+ return *(const FrustumClass *)field100;
+}
+// Preserve the render caller's volatile camera home without changing the shared getter.
+static __forceinline const FrustumClass &shadowFrustum(const CameraClass &camera)
+{
+ const CameraClass *volatile p=&camera;
+ camera.Get_Frustum();
+ return *(const FrustumClass *)p->field100;
+}
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
@@ -259,11 +271,11 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
    }
    sphere=shadow->texture68->sphere7c;
    sphere.Center+=shadow->object70->Get_Position();
-   CollisionMath::OverlapType result=CollisionMath::Overlap_Test(rinfo.Camera.Get_Frustum(),*(const SphereClass *)&sphere);
+   CollisionMath::OverlapType result=CollisionMath::Overlap_Test(shadowFrustum(rinfo.Camera),*(const SphereClass *)&sphere);
    if(result==CollisionMath::OVERLAPPED) {
     copyBox(&aaBox,shadow->texture68->box64);
     aaBox.Translate(shadow->object70->Get_Position());
-    if(CollisionMath::Overlap_Test(rinfo.Camera.Get_Frustum(),aaBox)==CollisionMath::OUTSIDE) continue;
+    if(CollisionMath::Overlap_Test(shadowFrustum(rinfo.Camera),aaBox)==CollisionMath::OUTSIDE) continue;
    } else if(result==CollisionMath::OUTSIDE) continue;
    if(result==CollisionMath::INSIDE) {
     copyBox(&aaBox,shadow->texture68->box64);

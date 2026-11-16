@@ -517,3 +517,12 @@ definitions for std::max<float> and RefCountClass::Release_Ref in the composed
 object. This is not waived: establish reference/selection evidence before any
 claim that the refusal is false. Writer composition still fails bytes. Logs:
 `build/decal-diagnostic/seed-canonical-renderobj-*` in the decal-merge worktree.
+
+**Canonical writer CameraClass:** retain the caller's existing volatile camera
+home in a local force-inline helper while the shared getter itself emits the
+native 16-byte body. The canonical class adoption verifies 10/10 rows, one EXACT
+EH graph and the official header test. No existing provider changes or disappears;
+the only new provider is Get_Frustum, independently judged retail. The previous
+22-byte getter-copy rejection is resolved without changing the gate or adding
+an import/pin. See the updated
+[camera handoff](../../reverse/attempt_support/projected-shadow-camera-adoption-20261116.md).

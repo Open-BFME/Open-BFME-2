@@ -27,3 +27,22 @@ Local logs: build/decal-diagnostic/writer-camera-mesh-master-*,
 writer-camera-mesh-preserved-build.log, writer-mesh-master-* and
 writer-mesh-accept.log. No merged image or selection-rendering runtime result is
 claimed by this header prerequisite.
+
+## Verified follow-up
+
+With the CameraClass and getter claims available, the writer now adopts the
+canonical class. Get_Frustum itself performs Update_Frustum and returns field100;
+its emitted copy is 16 bytes and RetailTruth judges it retail. The render
+caller's existing volatile camera home is retained in the local force-inline
+shadowFrustum helper, which refreshes through that getter and reads the frustum
+through the saved camera pointer. The helper emits no additional external
+provider. Keeping the volatile pointer directly in the caller instead changed
+its stack home from -0x18 to -8 and failed the byte test; that variant was not
+banked as source.
+
+The final version matches all 10 rows and the one EH graph. All existing
+provider fingerprints agree; the only added provider is the retail 16-byte
+Get_Frustum. Official header adoption passes and retires the writer's CameraClass
+queue item. Evidence: build/decal-diagnostic/writer-camera-* in decal-merge.
+This resolves the getter-copy blocker above; it does not establish merged or
+runtime correctness by itself.
