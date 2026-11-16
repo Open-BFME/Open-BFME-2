@@ -415,7 +415,7 @@ private:
 	int m_body[17];
 };
 
-class SpawnArmy { public: virtual void loadPostProcess(); };
+#include "../../../Include/Common/SpawnArmy.h"
 class Rva0043B660
 {
 public:
