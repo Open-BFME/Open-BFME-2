@@ -46,7 +46,7 @@ class BfmeMapPictureTexture { public: TextureClass *ptr; BfmeMapPictureTexture(c
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 void BFME_DX8_Thread_Lock(); bool BFME_DX8_Thread_Assert();
 #include "../../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-class Radar { public: bool radarToWorld(const ICoord2D*,Coord3D*); float getTerrainAverageZ() const {return averageZ;} private: char pad0[0x1c];float averageZ;char pad20[0x1430-0x20]; };
+#include "../../../../../GameEngine/Include/Common/Radar.h"
 #include "../../../../../GameEngine/Include/GameClient/TerrainRoadType.h"
 #include "../../../../../GameEngine/Include/GameClient/TerrainRoadCollection.h"
 extern TerrainRoadCollection *TheTerrainRoads;
@@ -60,8 +60,7 @@ extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 class G00DFF080Obj {public: virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void getTerrainColorAt(float,float,RGBColor*);};extern G00DFF080Obj *TheTerrainVisual;
 class W3DRadar : public Radar { protected: void buildTerrainTexture(TerrainLogic*);protected: void rva0004E3F1();void interpolateColorForHeight(RGBColor*,float,float,float,float);private:
-    char pad1430[4];Coord3D extentLo,extentHi;
-    char pad144c[0x1468-0x144c];
+    char pad1464[0x1468-0x1464];
     int format0;void *image0;BfmeMapPictureTexture m_terrainTexture,m_terrainTextureAlt;
     char pad1478[0x149c-0x1478];int m_textureWidth,m_textureHeight;
     char pad14a4[0x14d4-0x14a4];bool m_reconstructViewBox,m_useAltTerrainTexture;
@@ -163,7 +162,7 @@ void W3DRadar::buildTerrainTexture( TerrainLogic *terrain )
 
 									interpolateColorForHeight( &color, underwaterZ, waterZ,
 																						 waterZ,
-																						 extentLo.z );
+																						 m_mapExtent[2] );
 
 									sampleColor.red += color.red;
 									sampleColor.green += color.green;
@@ -228,7 +227,7 @@ void W3DRadar::buildTerrainTexture( TerrainLogic *terrain )
 
 									interpolateColorForHeight( &color, bridgeHeight,
 																						 getTerrainAverageZ(),
-																						 extentHi.z, extentLo.z );
+																						 m_mapExtent[5], m_mapExtent[2] );
 
 								}  
 								else
@@ -237,7 +236,7 @@ void W3DRadar::buildTerrainTexture( TerrainLogic *terrain )
 									TheTerrainVisual->getTerrainColorAt( worldPoint.x, worldPoint.y, &color );
 
 									interpolateColorForHeight( &color, (float)centreHeight, getTerrainAverageZ(), 
-																						 extentHi.z, extentLo.z );
+																						 m_mapExtent[5], m_mapExtent[2] );
 
 								}  
 

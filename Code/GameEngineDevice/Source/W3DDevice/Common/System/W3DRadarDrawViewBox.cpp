@@ -18,8 +18,6 @@
 // eh vector iterators; the scalar Coord2D temporaries stay plain.
 #include "../../../../../GameEngine/Include/Common/BfmeRadarMapPoint.h"
 
-#include "../../../../../Libraries/Include/Lib/Region3D.h"
-
 #define BFME_PAD_VIRTUAL(n) virtual void pad##n();
 #define BFME_PAD_VIRTUAL8(n) BFME_PAD_VIRTUAL(n##0) BFME_PAD_VIRTUAL(n##1) \
 	BFME_PAD_VIRTUAL(n##2) BFME_PAD_VIRTUAL(n##3) BFME_PAD_VIRTUAL(n##4) \
@@ -34,12 +32,7 @@ struct BfmePod8 { int fields[2]; };
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-class Radar
-{
-public:
-	void rva0004DB76(const Coord2D *radar, Coord2D *pixel,
-		int radarUpperLeftX, int radarUpperLeftY, int radarWidth, int radarHeight);
-};
+#include "../../../../../GameEngine/Include/Common/Radar.h"
 
 class W3DRadar : public Radar
 {
@@ -47,11 +40,7 @@ public:
 	void drawViewBox(int pixelX, int pixelY, int width, int height, int unused);
 
 private:
-	unsigned char m_pad00[0x1C];
-	float m_terrainAverageZ;
-	unsigned char m_pad20[0x1434 - 0x20];
-	Region3D m_mapExtent;
-	unsigned char m_pad144c[0x14E0 - 0x144C];
+	unsigned char m_pad1464[0x14E0 - 0x1464];
 	Coord2D m_viewBox[4];
 };
 
@@ -83,8 +72,10 @@ void W3DRadar::drawViewBox(int pixelX, int pixelY, int width, int height, int un
 
 	TheTacticalView->getOrigin(&ulScreen.x, &ulScreen.y);
 	TheTacticalView->screenToWorldAtZ(&ulScreen, &ulWorld, m_terrainAverageZ);
-	ulRadar.x = ulWorld.x / (m_mapExtent.width() / RADAR_CELL_WIDTH);
-	ulRadar.y = ulWorld.y / (m_mapExtent.height() / RADAR_CELL_HEIGHT);
+	// Retail reads the extent's lo and hi corners through its base address.
+	const float *extent = m_mapExtent;
+	ulRadar.x = ulWorld.x / ((extent[3] - extent[0]) / RADAR_CELL_WIDTH);
+	ulRadar.y = ulWorld.y / ((extent[4] - extent[1]) / RADAR_CELL_HEIGHT);
 	rva0004DB76(&ulRadar, &ulStart, pixelX, pixelY, width, height);
 
 	BfmeRadarMapPoint box[4];

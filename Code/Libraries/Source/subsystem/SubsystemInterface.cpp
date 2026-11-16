@@ -179,9 +179,7 @@ template void initSubsystem<VictoryConditionsInterface>(VictoryConditionsInterfa
 // slot vtable 0x007E7384 sits between RecorderClass 0x007E7380 and VictoryConditionsInterface 0x007E7388;
 // donor reference/open-bfme-1 Radar.h declares class Radar : public Snapshot, public SubsystemInterface.
 // The second-base conversion emits sys ? sys+4 : 0, the 11-byte excess over the 117-byte single-base bodies.
-class Radar : public Snapshot, public SubsystemInterface
-{
-};
+#include "../../../GameEngine/Include/Common/Radar.h"
 template void initSubsystem<Radar>(Radar *&, AsciiString, Radar *, Xfer *, const char *, const char *, const char *);
 
 // Convention-named from the registration-site "TheXxx" literal, not from a
