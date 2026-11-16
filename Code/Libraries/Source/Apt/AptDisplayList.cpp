@@ -429,7 +429,14 @@ struct Record{int flags;int key;void*actions;};
 struct Events{int count;Record*records;};
 struct Character{int type;};
 struct Payload{char pad0[12];Character*character;char pad10[12];signed int flags:24;unsigned int other:8;Events*events;};
-class Rva006E9A40List{public:unsigned short count,capacity;AptCIH**items;void add(AptCIH*);inline bool has(AptCIH*p)const{const int n=capacity;int i=0;if(n>0){AptCIH**item=items;do{if(*item==p)return true;++i;++item;}while(i<n);}return false;}};
+#include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
+// The canonical header keeps the data layout and add(); has() is an inline
+// helper this unit uses, so it stays here as a free function.
+static inline bool Rva006E9A40List_has(const Rva006E9A40List *list, AptCIH *p)
+{
+ const int n=list->capacity;int i=0;if(n>0){AptCIH**item=list->items;do{if(*item==p)return true;++i;++item;}while(i<n);}
+ return false;
+}
 #include "Rva006E34D0.h"
 #define CHECK(c,s,l) if(!(c)){g_bfmeAptAssertAtE17734(s,"c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",l);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
 #include "Rva006D2A60.h"
@@ -798,13 +805,13 @@ void __stdcall Rva006F7C70Free(Rva006F7C70Item *pItem)
 void Rva006F7E00::rva006F7E00(AptCIH*item,int fire){
  CHECK((unsigned char)((BfmeAptValue006DCD20*)item)->isCharacterInst(),"isCharacterInst()",0xA5);
  Payload*p0=(Payload*)item->field4C;_ReadWriteBarrier();int type=p0->character->type;
- if(type==4){if(!((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field08)->has(item))((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field08)->add(item);return;}
+ if(type==4){if(!Rva006E9A40List_has((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field08,item))((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field08)->add(item);return;}
  if(type==5){
   CHECK(((Rva006CFCD0*)item)->isSpriteInstBase(),"isSpriteInstBase()",0x7D);
   Payload*p=(Payload*)item->field4C;Events*ev=p->events;if(!ev)return;
   bool add=false;
   for(int i=0;i<ev->count;++i){int flags=ev->records[i].flags;if(flags&0xBFDFF){p->flags|=flags;if(ev->records[i].flags&0xBFCF8)add=true;}}
-  if(add){if(!((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field28)->has(item))((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field28)->add(item);}
+  if(add){if(!Rva006E9A40List_has((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field28,item))((Rva006E9A40List*)&g_bfmeAptPtrAtE176D0->m_field28)->add(item);}
   if(fire){p->flags|=0x40200;item->queueClipEvents(0x200,g_00E17704,1);item->queueClipEvents(0x40000,g_00E17704,1);p->flags&=~0x40200;}
   return;
  }

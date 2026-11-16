@@ -129,7 +129,7 @@ template <class T> class AptValuePtrStack
 public:
 	void push(T *value);
 	void pop();
-	int count, capacity;
+	int nCount, nCapacity;
 	T **elements;
 };
 #include "../../../GameEngine/Include/Common/AptActionSetup.h"
@@ -143,13 +143,7 @@ struct AptActionInterpreter
 };
 extern AptActionInterpreter g_aptDateInterpreter;
 
-class Rva006E9A40List
-{
-public:
-	unsigned short mnElements, mnMaxElements;
-	AptCIH **maElements;
-	void add(AptCIH *element);
-};
+#include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 struct Rva006E34D0Animations
 {
 	unsigned char m_pad00[0x28];
@@ -241,8 +235,8 @@ void AptCIH::rva006E2EE0()
 		if (((Rva006E0AC0 *)this)->rva006E0AC0())
 		{
 			Rva006E9A40List &clips = ((Rva006E34D0Animations *)g_bfmeAptPtrAtE176D0)->clips;
-			for (int j = 0; j < clips.mnMaxElements; j++)
-				if (clips.maElements[j] == this)
+			for (int j = 0; j < clips.capacity; j++)
+				if (clips.items[j] == this)
 					return;
 			clips.add(this);
 		}

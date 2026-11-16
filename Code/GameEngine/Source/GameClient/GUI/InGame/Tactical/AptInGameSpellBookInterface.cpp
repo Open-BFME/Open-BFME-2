@@ -325,7 +325,7 @@ void AptInGameSpellBookInterface::Impl::rva0052A53B() {
  }
 }
 
-class AptCommandMap {public:void *vtable;int refCount;};
+#include "../../../../../Include/Common/AptCommandMap.h"
 class AptTimer {public:void *vtable;int refCount;};
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 

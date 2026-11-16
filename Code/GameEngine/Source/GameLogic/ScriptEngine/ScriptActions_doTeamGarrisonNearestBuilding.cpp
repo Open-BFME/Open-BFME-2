@@ -93,14 +93,7 @@ public:
 
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
 
-class BfmeObjectDlinkPad
-{
-public:
-	const ThingTemplate *m_template;	// +0x04
-	unsigned char m_pad08[0x38 - 8];
-	Coord3D m_pos;			// +0x38
-	unsigned char m_pad44[0x24];
-};
+#include "../../../Include/Common/BfmeObjectDlinkPad.h"
 
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
 	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
