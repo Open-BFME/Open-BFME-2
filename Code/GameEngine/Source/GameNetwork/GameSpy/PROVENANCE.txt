@@ -262,8 +262,8 @@ gpiConnect.c 2, gpiBuffer.c 0), each marked in place:
     ghttp/ghttpProcess.c         ghiParseStatus's `rcode != 3` block (above);
                                  the connect state narrows the select answer
                                  to a byte (retail `movzx eax,al`).
-    ghttp/ghttpCommon.c          ghiSocketSelect compiled out and bound to
-                                 nonport.c's GSISocketSelect (see below);
+    ghttp/ghttpCommon.c          ghiSocketSelect compiled out; both callers
+                                 name nonport.c's GSISocketSelect (see below);
                                  proxy parsing factored into a static helper
                                  with a descriptive name.
     ghttp/ghttpCallbacks.c       three trampolines reconstructed from
@@ -318,11 +318,12 @@ BFME2 ghttp socket select, 2026-10-02
 Retail's ghttp callers (ghttpBuffer.c, ghttpProcess.c) reach 0x0060A9F0, the
 nonport.c GSISocketSelect body that the carrier's nonport.c itself marks
 "Formerly known as ghiSocketSelect"; their matched call sites verify against
-it. The carrier's ghttpCommon.c still defines the older ghiSocketSelect, whose
-body is not retail's (the link census proves the bytes differ), and being the
-only definition it was the copy every ghttp caller linked to. ghttpCommon.c
-keeps that upstream text under #if 0 and binds the ghiSocketSelect spelling to
-GSISocketSelect with an /alternatename, so the callers link to retail's body.
+it. The carrier's older ghiSocketSelect body is not retail's (the link census
+proves the bytes differ). ghttpCommon.c keeps that upstream text under #if 0.
+The interim /alternatename was removed in 8eab05132d7, losing both callers'
+provider. On 2026-11-15 the callers were reconciled directly to GSISocketSelect
+and nonport.h's int flag-pointer contract. The connect state's explicit byte
+narrowing is retained. No alias, wrapper or new lifecycle supplies the call.
 
 BFME2 server-browsing reconciliation, 2026-09-07
 ------------------------------------------------

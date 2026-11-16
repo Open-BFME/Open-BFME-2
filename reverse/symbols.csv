@@ -6605,7 +6605,6 @@ _g_pRva003BBEDE,0x009FE16C,global pointer read by global-this forwards 0x003BBED
 _g_pRva003BD424,0x009FF028,global pointer read by global-this forward 0x003BD424; identity unproven
 _g_pRva00437E9C,0x00A032FC,global pointer read by wrapper 0x00437E9C (peer notes same); identity unproven
 _g_pRva007B6890,0x009A6214,global pointer read by singleton virtual forward 0x007B6890; identity unproven
-_ghiSocketSelect,0x0060A9F0,nonport.c explicitly identifies GSISocketSelect as formerly ghiSocketSelect; its release body matches 330 bytes here; corroborated by ghttp send/process calls
 _gpiDebug,0x0069E440,GameSpy release gpiDebug compiles to one ret; ICF-folded with held DX8_Assert; direct target corroborated by full gpiSendData and gpiRecvToBuffer bodies
 _gpiInitTransfers,0x00736150,GameSpy GP callee; independent unique 62-byte source candidate in gpiTransfer.c; direct call from _gpiInitialize corroborates identity
 _gpiReadDiskProfile,0x00732B50,GameSpy GP callee; independent unique 1844-byte source candidate in gpiProfile.c; direct call from _gpiLoadDiskProfiles corroborates identity

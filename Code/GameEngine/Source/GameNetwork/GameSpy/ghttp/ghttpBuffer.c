@@ -349,8 +349,8 @@ GHTTPBool ghiSendBuffer
 )
 {
 	int rcode;
-	GHTTPBool writeFlag;
-	GHTTPBool exceptFlag;
+	int writeFlag;
+	int exceptFlag;
 	char * data;
 	int len;
 
@@ -358,7 +358,7 @@ GHTTPBool ghiSendBuffer
 	//////////////////////////
 	do
 	{
-		if((ghiSocketSelect(connection->socket, NULL, &writeFlag, &exceptFlag) == SOCKET_ERROR) || exceptFlag)
+		if((GSISocketSelect(connection->socket, NULL, &writeFlag, &exceptFlag) == SOCKET_ERROR) || exceptFlag)
 		{
 			connection->completed = GHTTPTrue;
 			connection->result = GHTTPSocketFailed;

@@ -193,8 +193,8 @@ void ghiDoConnecting
 {
 	int rcode;
 	SOCKADDR_IN address;
-	GHTTPBool writeFlag;
-	GHTTPBool exceptFlag;
+	int writeFlag;
+	int exceptFlag;
 	GHTTPBool bResult;
 
 	// If we don't have a socket yet, set it up.
@@ -264,7 +264,7 @@ void ghiDoConnecting
 	// retail's `movzx eax,al` is that cast, and it is the int-typed local that
 	// keeps the value in eax afterwards.  Narrowing the local instead produces
 	// the same movzx but allocates ecx, which is two bytes wrong.
-	bResult = (unsigned char)ghiSocketSelect(connection->socket, NULL, &writeFlag, &exceptFlag);
+	bResult = (unsigned char)GSISocketSelect(connection->socket, NULL, &writeFlag, &exceptFlag);
 	if(bResult == SOCKET_ERROR || exceptFlag)
 	{
 		connection->completed = GHTTPTrue;
@@ -470,11 +470,11 @@ void ghiDoWaiting
 	GHIConnection * connection
 )
 {
-	GHTTPBool readFlag;
+	int readFlag;
 
 	// We're waiting to receive something.
 	//////////////////////////////////////
-	if(ghiSocketSelect(connection->socket, &readFlag, NULL, NULL) == SOCKET_ERROR)
+	if(GSISocketSelect(connection->socket, &readFlag, NULL, NULL) == SOCKET_ERROR)
 	{
 		connection->completed = GHTTPTrue;
 		connection->result = GHTTPSocketFailed;

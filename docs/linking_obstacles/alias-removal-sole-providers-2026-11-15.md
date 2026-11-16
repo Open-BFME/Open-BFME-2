@@ -60,3 +60,21 @@ Both versions have zero CRT initializer sections and zero atexit references. The
 
 
 Open beyond this five-binding repair: OpaqueScalarDeletingDtors.cpp itself still lacks eight other native destructor providers removed by 1cc99cc230d, despite having no other cached consumer. The RefCount-derived provider is repaired above. Their exact original bindings are in sweeps/dataid/alias-1cc/additional-own-carrier-nine.json on srv1. DynamicPortalBehaviourModuleDataDtor.cpp and SpecialPowerModuleDtor_Unresolved.cpp also retain pre-existing COMDAT-copy failures. These three units failed before this repair too. Future removal audits must include the carriers themselves as well as outside consumers.
+
+## 2026-11-16: direct ghttp socket-select provider
+8eab05132d7 removed the old _ghiSocketSelect alias, leaving ghttpBuffer.c
+and ghttpProcess.c without a provider. Both now call the already matched
+GSISocketSelect in nonport.c (RVA 0x0060A9F0, 330 bytes). ghttpMain.h already
+includes nonport.h, which declares int flag pointers; the local flag types
+now match that contract. The connect path retains its explicit byte narrowing.
+The nonretail old body remains compiled out. No wrapper or alias was added.
+The obsolete alias pin was retired through a shrinking normal hatch update.
+
+Before/after evidence: 72/72 rows across both consumers and both providers;
+link_check 2/4 -> 4/4 (3,838 -> 8,590 predicted bytes), no lost unit.
+Native section bytes and relocations are equal after only the old-to-real
+callee-name normalization; all three old object references disappear.
+No CRT initializer section or atexit reference is introduced. Data, converged,
+pin consistency, CSV and frozen checks pass. Private Boat A/B and a current
+host verification agree; the sandbox was deleted. Saved evidence:
+~/bfme2-ops/swarm/sweeps/dataid/ghttp-native/. Full-image/runtime unverified.
