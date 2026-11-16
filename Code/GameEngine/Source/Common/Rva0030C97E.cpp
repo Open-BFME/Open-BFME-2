@@ -19,8 +19,8 @@ public:
 	__declspec(dllimport) __forceinline BfmeParserBindingBaseVE(BfmeParserRegistryVE *registry, void *label, void *parentLabel)
 	{ reinterpret_cast<DataChunkParser *>(this)->DataChunkParser::DataChunkParser((DataChunkInput *)registry, (const AsciiString *)label, (const AsciiString *)parentLabel); }
 	virtual ~BfmeParserBindingBaseVE();
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot0() = 0;
+	virtual void bfmeSlot1() = 0;
 private:
 	BfmeParserRegistryVE *m_registry;
 	void *m_token;

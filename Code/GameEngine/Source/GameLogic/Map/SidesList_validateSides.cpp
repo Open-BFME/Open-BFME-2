@@ -121,8 +121,8 @@ class BfmeParserBindingBaseVE
 {
 public:
 	__declspec(dllimport) __forceinline virtual ~BfmeParserBindingBaseVE() { m_registry->handle(m_token); }
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot0() = 0;
+	virtual void bfmeSlot1() = 0;
 
 private:
 	Q1Forwardee0000871A *m_registry;	// +0x04, the DataChunkInput

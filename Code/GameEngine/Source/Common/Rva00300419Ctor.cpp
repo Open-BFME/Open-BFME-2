@@ -26,8 +26,8 @@ public:
 		*(const void **)this = ParserBindingTable::__identifier("??_7BfmeParserBindingBaseVE@@6B@");
 		((Q1Forwardee0000871A *)m_registry)->handle(token);
 	}
-	virtual void bfmeSlot0();
-	virtual void bfmeSlot1();
+	virtual void bfmeSlot0() = 0;
+	virtual void bfmeSlot1() = 0;
 private:
 	BfmeParserRegistryVE *m_registry;
 	void *m_token;
