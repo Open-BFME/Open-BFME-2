@@ -22,22 +22,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString, INILoadType, Xfer *);
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	static void parseWindowTransitions( INI* ini );
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);	// rowed 0x002E850
-	static void Rva001DCAED_ParseTransition(INI *ini, void *instance, void *store, const void *userData);
-private:
-	char storage[0x87C];
-};
+#include "../../../Include/Common/INI/INI.h"
 
 enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 

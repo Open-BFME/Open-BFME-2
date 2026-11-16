@@ -497,21 +497,7 @@ bool ExperienceLevelSystem::rva00289874()
 	}
 	return false;
 }
-class INI {
-public:
-    const char *getNextToken(const char * = 0);
-    void initFromINI(void *, const struct FieldParse *);
-    static void parseInt(INI *, void *, void *, const void *);
-    static void parseReal(INI *, void *, void *, const void *);
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseRGBColor(INI *, void *, void *, const void *);
-    static void parseAsciiStringVector(INI *, void *, void *, const void *);
-    static void parseObjectCreationList(INI *, void *, void *, const void *);
-    static void Rva002890D1_ParseUpgradeList(INI *, void *, void *, const void *);
-    char pad00[8];
-    int loadType08;
-    int getLoadType() const { return loadType08; }
-};
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 class ExperienceLevelSystem;
 // GameEngine::init registers this singleton under its native literal name.
@@ -882,7 +868,7 @@ void ExperienceLevelStore::friend_parseExperienceLevelDefinition(INI *ini)
         level.name10 = name;
         level.key14 = TheNameKeyGenerator->nameToKey(name);
         ini->initFromINI(&level, BfmeExperienceLevelFields);
-        if (ini->loadType08 != 5) {
+        if (ini->m_loadType != 5) {
             ((ExperienceLevelStore *)TheExperienceLevelSystem)->AddExperienceLevel(((ExperienceLevelStore *)TheExperienceLevelSystem)->m_levelLists, (const BfmePod264 *)&level);
             ((Rva0028881C *)((char *)TheExperienceLevelSystem + 0x28))->rva002889BB();
         } else {
