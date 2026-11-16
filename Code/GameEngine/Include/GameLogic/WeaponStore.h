@@ -18,8 +18,11 @@
 // 0x002CC227/0x002CC233 construct vector bases at +0x0C/+0x18;
 // dtor 0x002CCD6F..0x002CCE16 traverses four-byte pointers and frees both
 // buffers. 0x002CADBE searches the +0x0C vector by template key +0x0C;
-// 0x002CDB0E erases an active template and appends it to +0x18. The two
-// twelve-byte vector representations remain opaque storage here.
+// 0x002CDB0E erases an active template and appends it to +0x18.
+// Zero Hour names +0x0C m_weaponTemplateVector; 0x002CD5FC and 0x002CE063
+// push WeaponTemplate pointers into it, and 0x002CDB0E pushes its
+// const WeaponTemplate * argument into +0x18. Units without STLport's
+// vector see both twelve-byte representations as opaque storage.
 // Method declarations use ledger spellings and signatures: allocateNewWeapon
 // 0x0028AA81, findWeaponTemplate 0x002CB8BF, findWeaponTemplatePrivate
 // 0x002CADBE, newWeaponTemplate 0x002CD5FC, newOverride 0x002CE063,
@@ -89,8 +92,13 @@ protected:
     void resetWeaponTemplates();
 
 private:
+#ifdef _STLP_INTERNAL_VECTOR_H
+    _STL::vector<WeaponTemplate *> m_weaponTemplateVector; // +0x0C
+    _STL::vector<const WeaponTemplate *> m_field18; // +0x18
+#else
     unsigned char m_field0C[0x0C];
     unsigned char m_field18[0x0C];
+#endif
 };
 
 #endif

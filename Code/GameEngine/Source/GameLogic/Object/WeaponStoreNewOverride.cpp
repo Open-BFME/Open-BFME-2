@@ -243,22 +243,7 @@ private:
 	unsigned char m_pad00[0x180];
 };
 
-class WeaponStore
-{
-public:
-	WeaponTemplate *newOverride(WeaponTemplate *weaponTemplate);
-    void rva002CDB0E(const WeaponTemplate *weaponTemplate);
-    static void parseWeaponTemplateDefinition(INI *ini);
-
-protected:
-    WeaponTemplate *findWeaponTemplatePrivate(NameKeyType key) const;
-    WeaponTemplate *newWeaponTemplate(const AsciiString &name);
-
-private:
-	unsigned char m_pad00[0x0C];
-	WeaponTemplateVector m_weaponTemplateVector; // +0x0C
-    _STL::vector<const WeaponTemplate *> m_retiredTemplates; // +0x18
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 
 WeaponTemplate *WeaponStore::newOverride(WeaponTemplate *weaponTemplate)
 {
@@ -334,7 +319,7 @@ void WeaponStore::rva002CDB0E(const WeaponTemplate *weaponTemplate)
         {
             const_cast<WeaponTemplate *>(weaponTemplate)->m_field174 = 1;
             m_weaponTemplateVector.erase(it);
-            m_retiredTemplates.push_back(weaponTemplate);
+            m_field18.push_back(weaponTemplate);
             return;
         }
     }

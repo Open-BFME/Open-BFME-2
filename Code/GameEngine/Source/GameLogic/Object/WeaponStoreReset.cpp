@@ -29,25 +29,16 @@ static __forceinline WeaponTemplate *weaponTemplateClearNext(WeaponTemplate *wt)
 
 typedef _STL::vector<WeaponTemplate *> WeaponTemplateVector;
 
-class WeaponStore
+#include "../../../Include/GameLogic/WeaponStore.h"
+
+void WeaponStore::resetWeaponTemplates( void )
 {
-public:
-	virtual void reset();
-
-protected:
-	void resetWeaponTemplates( void )
+	for (Int i = 0; i < m_weaponTemplateVector.size(); i++)
 	{
-		for (Int i = 0; i < m_weaponTemplateVector.size(); i++)
-		{
-			WeaponTemplate* wt = m_weaponTemplateVector[i];
-			weaponTemplateReset(wt);
-		}
+		WeaponTemplate* wt = m_weaponTemplateVector[i];
+		weaponTemplateReset(wt);
 	}
-
-private:
-	unsigned char m_unmodelled004[0x8];
-	WeaponTemplateVector m_weaponTemplateVector;			///< this+0x0C
-};
+}
 
 void WeaponStore::reset()
 {
