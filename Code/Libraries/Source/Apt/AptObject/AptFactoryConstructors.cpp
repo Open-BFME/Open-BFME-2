@@ -180,7 +180,7 @@ AptValue *callback006F3580(AptValue *context,int) {
   EAStringC text;
   AptSound *sound=(AptSound *)((BfmeAptValue006DCD20 *)context)->rva006DCFE0();
   const SoundAnimation *animation=(const SoundAnimation *)((char *)sound->pParentAnim+8);
-  name->rva006DD6C0(&text);
+  reinterpret_cast<const AptValue *>(name)->toString(text);
   for(int i=0;i<animation->exportCount;++i) {
    if(text.rva006D3510(animation->exports[i].name)) {
     if(animation->characters[animation->exports[i].id]->type==6) {
