@@ -53,11 +53,8 @@ class UpgradeTemplate;
 class BfmeTab1026;
 class Rva0039B7AD;
 #include "../../../../Include/GameLogic/ObjectFilter.h"
-class Rva003B0D7C{public:unsigned pad;unsigned balance;void rva003B0D7C(int,Rva0039B7AD*,bool);};
-class Player {public:
- bool rva002AB87D(const UpgradeTemplate*)const;bool rva002AB2D9(BfmeTab1026*,bool)const;
- char pad00[0x90];Rva003B0D7C money;char pad98[0x3BC-0x98];int stats;
-};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
+#include "../../../../Include/Common/Player.h"
 enum ObjectStatusTypes{status2=2,status19=19};
 class Object {public:
  Player *getControllingPlayer()const;bool testStatus(ObjectStatusTypes)const;
@@ -287,7 +284,7 @@ void RefundDie::onDie(const DamageInfo *damage)
  double cost=obj->constructionCost; float factor=data->refundPercent;
  int refund=fast_float2long_round((float)ceil((double)cost*(double)factor));
  if(refund) {
- player->money.rva003B0D7C(refund,(Rva0039B7AD*)&player->stats,true);
+ player->m_money.rva003B0D7C(refund,(Rva0039B7AD*)&player->m_scoreKeeper,true);
  UnicodeString text;
  text.format(((Rva00484FE2Text*)TheGameText)->fetch("GUI:AddCash",0),refund);
  Coord3D pos;pos.x=obj->pos.x;pos.y=obj->pos.y;pos.z=obj->pos.z+10.f;

@@ -70,28 +70,16 @@ typedef _STL::map<const ThingTemplate *, int, _STL::less<const ThingTemplate *>,
 
 extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
 
-class Player
-{
-public:
-	void accumulateRTSBattleStatsIntoLivingWorldScoreKeeper();
-
-private:
-	unsigned char m_pad000[0x33F];
-	bool m_accumulatedIntoLivingWorld; // +0x33F
-	unsigned char m_pad340[0x3AC - 0x340];
-	int m_livingWorldPlayerID; // +0x3AC
-	unsigned char m_pad3B0[0x3BC - 0x3B0];
-	ScoreKeeper m_scoreKeeper; // +0x3BC
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 {
-	if (m_accumulatedIntoLivingWorld)
+	if (m_33F)
 		return;
-	Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_livingWorldPlayerID, 0);
+	Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_3AC, 0);
 	if (lwPlayer)
 		lwPlayer->getScoreKeeper()->rva004EE950(&m_scoreKeeper);
-	m_accumulatedIntoLivingWorld = true;
+	m_33F = true;
 }
 
 class ThingTemplate;

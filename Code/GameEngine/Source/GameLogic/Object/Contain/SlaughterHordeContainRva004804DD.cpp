@@ -23,13 +23,7 @@
 class Player;
 
 #include "../../../../Include/Common/ScoreKeeperClass.h"
-
-class Player
-{
-public:
-	unsigned char m_pad00[0x3BC];
-	ScoreKeeper m_3BC;
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../object.h"
 
@@ -86,8 +80,8 @@ void SlaughterHordeContain::rva004804DD(Object *obj)
 	void *found = (void *)TheThingFactory->findTemplate(m_9E8);
 	if (ours != theirs && found)
 	{
-		ours->m_3BC.addObjectsLost((unsigned int)found, m_9E4);
-		theirs->m_3BC.addObjectsDestroyed((unsigned int)found, ours, m_9E4);
+		ours->m_scoreKeeper.addObjectsLost((unsigned int)found, m_9E4);
+		theirs->m_scoreKeeper.addObjectsDestroyed((unsigned int)found, ours, m_9E4);
 	}
 	m_9E4 = 0;
 	m_9E8.clear();

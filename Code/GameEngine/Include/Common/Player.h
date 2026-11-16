@@ -321,7 +321,15 @@ public:
  int m_358[20]; // setUnitsVisionSpied 2ABA49 counts per player index; init 2AF916 clears 20 entries
  int m_3A8; // setUnitsVisionSpied 2ABA8B stores the mask of nonzero m_358 entries
  int m_3AC; // ctor 2B10AB stores -1; initFromDict 2B06E5 stores Dict::getInt(TheKey_livingWorldPlayerID)
+ // ScoreKeeper is typed where the unit included ScoreKeeperClass.h first; elsewhere the bytes stay
+ // opaque, because ScoreKeeper's own units still define the class privately and include this header.
+#ifdef CANONICAL_SCOREKEEPER_H
+ unsigned char m_opaque3B0[0x3BC - 0x3B0];
+ ScoreKeeper m_scoreKeeper; // ctor 2B0F3C builds it with ??0ScoreKeeper 39CAE1; 2A9994 passes it to rva004EE950(ScoreKeeper *)
+ unsigned char m_opaque3BD[0x6F0 - 0x3BD]; // the rest of ScoreKeeper, which ScoreKeeperClass.h keeps opaque
+#else
  unsigned char m_opaque3B0[0x6F0 - 0x3B0];
+#endif
  ObjectID m_6F0; // rva002AC629 2AC659 caches an object's ID here and passes it to findObjectByID
  unsigned char m_opaque6F4[0x6F8 - 0x6F4];
  float m_6F8; // init 2AF94B stores it with movss; DoXfer 2B1CDF transfers it

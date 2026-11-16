@@ -17,9 +17,8 @@ extern "C" void _ReadWriteBarrier();
 class Object;class Player;
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);char data[4];};
 struct PillageModuleData {char pad[8];unsigned amount,eventThreshold;Rva2225E0Filter filter;};
-class Rva0039B795;class Rva0039B7AD;
-class Rva003B0D7C {public:unsigned pad;unsigned balance;unsigned withdraw(unsigned,Rva0039B795*,bool);void rva003B0D7C(int,Rva0039B7AD*,bool);};
-class Player {public:char pad[0x90];Rva003B0D7C money;char pad98[0x280-0x98];unsigned color;char pad284[0x3bc-0x284];unsigned stats;};
+#include "../../../../Include/Common/ScoreKeeperClass.h"
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/Geometry.h"
 class Object {public:Player*getControllingPlayer()const;char pad[0x38];Coord3D pos;char pad44[0xa8-0x44];GeometryInfo geometry;};
 class Rva00484FE2Text {public:
@@ -172,17 +171,17 @@ void PillageModule::rva00484FE2(int,Object*victim)
  events=0;
  Player*targetPlayer=victim->getControllingPlayer();
  Player*selfPlayer=self->getControllingPlayer();
- unsigned amount=targetPlayer->money.balance;
+ unsigned amount=targetPlayer->m_money.m_val04;
  unsigned maxAmount=saved->amount;
  if(maxAmount<amount) amount=maxAmount;
- unsigned cash=targetPlayer->money.withdraw(amount,(Rva0039B795*)&targetPlayer->stats,true);
+ unsigned cash=targetPlayer->m_money.withdraw(amount,(Rva0039B795*)&targetPlayer->m_scoreKeeper,true);
  if(cash==0)return;
- selfPlayer->money.rva003B0D7C(cash,(Rva0039B7AD*)&selfPlayer->stats,true);
+ selfPlayer->m_money.rva003B0D7C(cash,(Rva0039B7AD*)&selfPlayer->m_scoreKeeper,true);
  UnicodeString text;
  text.format(((Rva00484FE2Text*)TheGameText)->fetch("GUI:AddCash",0),cash);
  Coord3D pos;pos.x=self->pos.x;pos.y=self->pos.y;pos.z=self->pos.z;
  pos.z+=self->geometry.getMaxHeightAbovePosition();
- unsigned color=self->getControllingPlayer()->color|0xe6000000;
+ unsigned color=self->getControllingPlayer()->m_color|0xe6000000;
  ((Rva00484FE2UI*)TheInGameUI)->addFloatingText(text,&pos,color);
 	}
 }

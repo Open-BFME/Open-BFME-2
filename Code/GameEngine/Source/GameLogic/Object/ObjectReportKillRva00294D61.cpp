@@ -22,20 +22,7 @@ extern PlayerList *ThePlayerList;
 enum Relationship { RELATIONSHIP_INVALID = 0, RELATIONSHIP_1 = 1, RELATIONSHIP_2 = 2 };
 
 class Team;
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-	Relationship getRelationship(const Team *team) const;
-	void doBountyForKill(const Object *killer, const Object *victim);
-	bool addSkillPointsForKill(const Object *killer, const Object *victim);
-	char m_pad00[0x34];
-	void *m_template; // +0x34
-	char m_pad38[0x2EC - 0x38];
-	Team *m_2EC; // +0x2EC
-	char m_pad2F0[0x3BC - 0x2F0];
-	ScoreKeeper m_scoreKeeper; // +0x3BC
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva00294D61Template
 {
@@ -150,7 +137,7 @@ void Rva00294D61::report(Object *victimObj, int arg1)
 			if (sc != 0 && ThePlayerList != 0 && ThePlayerList->m_local == kp)
 			{
                 if (kp && vp) {
-                    switch (kp->getRelationship(vp->m_2EC)) {
+                    switch (kp->getRelationship(vp->m_defaultTeam)) {
                     case 0: ++*(int *)((char *)g_00E032F8+0x2C); break;
                     case 2: ++*(int *)((char *)g_00E032F8+0x24); break;
                     default: ++*(int *)((char *)g_00E032F8+0x28); break;
@@ -174,7 +161,7 @@ void Rva00294D61::report(Object *victimObj, int arg1)
 					kp->m_scoreKeeper.addObjectDestroyed(victimObj);
 					kp->doBountyForKill(killer, victimObj);
 				}
-				if (vp != 0 && ((Rva00294D61PlayerTemplate *)vp->m_template)->m_1BC)
+				if (vp != 0 && ((Rva00294D61PlayerTemplate *)vp->m_playerTemplate)->m_1BC)
 					vp->addSkillPointsForKill(killer, victimObj);
 				if ((killer->m_template->m_120 & 2) != 0 && killer->m_250 != 0)
 				{

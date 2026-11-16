@@ -15,9 +15,7 @@ class Object;class Team;class ThingTemplate;class Player;
 class Rva0039B7AD;
 #include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 #include "../../../../Include/Common/ScoreKeeperClass.h"
-class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemplate(const ThingTemplate*,bool);
- char pad[0x90];Rva003B0D7C money;char pad91[0x280 - 0x9C];int color;
- char pad284[0x3bc-0x284];ScoreKeeper score;};
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/MultiPlayMults.h"
 #include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
@@ -83,13 +81,13 @@ void SlaughterHordeContain::AddHordeMember(Object *member)
  int value=((Rva0028D796*)member)->rva0028D796();
  if(consumeMember && value>0 && md->multiplier>0){
    float money=(float)REAL_TO_INT_CEIL(value*md->multiplier);
-   Rva003B0D7C *wallet=&player->money;
+   Rva003B0D7C *wallet=&player->m_money;
    if(wallet){
      if(((BfmeGlob939D*)TheGameLogic)->bfmeCall939D())money*=TheWritableGlobalData->m_multiPlayMults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
      float mult=1.0f;if(me->rva0028C15E(13,&mult,0,1))money*=mult;
      money=(float)player->ScaleMoney(REAL_TO_INT_CEIL(player->getProductionCostChangeBasedOnTemplate(((me ? me : me) ? (me->getTemplate()) : (me->getTemplate())),true)*money));
      typedef void (Rva003B0D7C::*UnsignedDeposit)(unsigned int,Rva0039B7AD*,bool);
-     (wallet->*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))(money,(Rva0039B7AD*)&player->score,true);
+     (wallet->*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))(money,(Rva0039B7AD*)&player->m_scoreKeeper,true);
    }
    UnicodeString moneyString;moneyString.format(TheGameText->text("GUI:AddCash",0),REAL_TO_INT_CEIL(money));
    Coord3D pos;const Coord3D *src=&member->position;pos.x=src->x;pos.y=src->y;pos.z=src->z;
@@ -97,7 +95,7 @@ void SlaughterHordeContain::AddHordeMember(Object *member)
    pos.x+=GetGameClientRandomValueReal(-10,10,file,254);
    pos.y+=GetGameClientRandomValueReal(-10,10,file,255);
    pos.z+=GetGameClientRandomValueReal(10,20,file,256);
-   unsigned int color=(unsigned)me->getControllingPlayer()->color|0xe6000000;TheInGameUI->addFloatingText(moneyString,&pos,color);
+   unsigned int color=(unsigned)me->getControllingPlayer()->m_color|0xe6000000;TheInGameUI->addFloatingText(moneyString,&pos,color);
    ExperienceTracker *tracker=me->tracker;
    if(tracker && ((Rva0039ADF3*)tracker)->rva0039AE04())tracker->rva0039B315((float)REAL_TO_INT_CEIL(money),true,true,true,false);
  }
@@ -111,11 +109,11 @@ rva004804DD(member);bool changed=false;
  }
  if(member->testStatus((ObjectStatusTypes)38)){
    ((HordeGarrisonContain*)this)->HordeGarrisonContain::rva00479ADA(member);
-   if(consumeMember)player->score.addObjectLost(member);
+   if(consumeMember)player->m_scoreKeeper.addObjectLost(member);
  }else if(consumeMember){
    DelayedLuaEventList list;list.m_events[0].m_objectID=me->id;list.m_events[0].m_type=3;
    ((BfmeObjectEventDispatch*)TheLuaScriptEngine)->rva003360D2(14,member,(BfmeDelayedLuaEventList*)&list);
-   member->kill((DamageType)8,(DeathType)23);TheGameLogic->destroyObject(member);player->score.addObjectLost(member);
+   member->kill((DamageType)8,(DeathType)23);TheGameLogic->destroyObject(member);player->m_scoreKeeper.addObjectLost(member);
  }else{
    ((HordeGarrisonContain*)this)->HordeGarrisonContain::rva00479B7F(member);remove(member);
  }
@@ -127,6 +125,6 @@ rva004804DD(member);bool changed=false;
  if(horde && horde->test()==1){
    if(transfer){count=((SlaughterAddCount*)horde)->count(0);templateName=*(AsciiString*)((char*)member->tmplate+0x64);}
    Object *parent=member->containedBy;
-   if(parent){if(consumeMember){player->score.addObjectLost(parent);TheGameLogic->destroyObject(parent);}else remove(parent);}
+   if(parent){if(consumeMember){player->m_scoreKeeper.addObjectLost(parent);TheGameLogic->destroyObject(parent);}else remove(parent);}
  }
 }

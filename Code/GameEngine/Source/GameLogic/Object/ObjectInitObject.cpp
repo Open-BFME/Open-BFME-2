@@ -86,25 +86,7 @@ __forceinline UnsignedInt spType(const SpecialPowerTemplate *power) { return pow
 
 #include "../../../Include/Common/ScoreKeeperClass.h"
 
-class Player
-{
-public:
-	void applyBattlePlanBonusesForObject(Object *obj) const;
-	Int getNumBattlePlansActive() const
-	{
-		return m_battlePlansB4 + m_battlePlansB0 + m_battlePlansAC;
-	}
-	char m_pad000[0xAC];
-	Int m_battlePlansAC;
-	Int m_battlePlansB0;
-	Int m_battlePlansB4;
-	char m_pad0B8[0x27C - 0xB8];
-	Int m_handicap;
-	char m_pad280[0x3AC - 0x280];
-	Int m_3ac;
-	char m_pad3B0[0x3BC - 0x3B0];
-	ScoreKeeper m_3bc;
-};
+#include "../../../Include/Common/Player.h"
 
 class GameLogic
 {
@@ -334,7 +316,7 @@ void Object::initObject()
 	if (TheGameLogic->m_114 != 3 && !isKindOf(KINDOF_BIT_90) && !isKindOf(KINDOF_BIT_7))
 	{
 		UnsignedInt index = 0;
-		Int playerID = getControllingPlayer()->m_3ac;
+		Int playerID = getControllingPlayer()->m_3AC;
 		Rva002E2903Player *wotrPlayer = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(
 			playerID, &index);
 		if (wotrPlayer)
@@ -365,7 +347,7 @@ void Object::initObject()
 			isKindOf(KINDOF_BIT_9) || isKindOf(KINDOF_BIT_10) || isKindOf(KINDOF_BIT_11) ||
 			isKindOf(KINDOF_BIT_90))
 		{
-			Int raw = controller->m_handicap;
+			Int raw = controller->m_27C;
 			Int handicap = -raw;
 			if (handicap > 0 && handicap <= 100 && handicap % 5 == 0)
 			{
@@ -377,5 +359,5 @@ void Object::initObject()
 	}
 
 	Player *owner = getControllingPlayer();
-	owner->m_3bc.addObjectBuilt(this, 1);
+	owner->m_scoreKeeper.addObjectBuilt(this, 1);
 }
