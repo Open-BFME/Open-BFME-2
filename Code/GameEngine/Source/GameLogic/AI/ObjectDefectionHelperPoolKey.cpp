@@ -18,8 +18,18 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class Xfer;
+
 class ObjectDefectionHelper
 {
+	// Retail's primary vftable 0x00BFBD40: slot 0 deleting destructor, 1 loadPostProcess, 2 GetSnapshotName,
+	// 3 xfer, 4 getModuleNameKey (the class's full declaration: its Ctor.cpp view).
+public:
+	virtual ~ObjectDefectionHelper();
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
