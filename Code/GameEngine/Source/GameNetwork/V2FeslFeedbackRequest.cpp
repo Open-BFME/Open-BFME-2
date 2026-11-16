@@ -29,19 +29,7 @@ extern const char *g_feslFeedbackTxnName;
 // g_feslFeedbackTxnName: matched references place it at VA 0xe0a058 (zero-filled .bss).
 const char * g_feslFeedbackTxnName;
 
-class Rva007E8810Message
-{
-public:
-	void reset( void );                                              // 0x00655B50
-	void addString( const char *key, const char *value );            // 0x00655AA0
-	void addInt( const char *key, int value );                       // 0x00655960
-	void addInt64( const char *key, FeslInt64 value );               // 0x00655F00
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva007F2010TargetId
 {
@@ -109,7 +97,7 @@ void Rva007F1F60Feedback::buildRequest( Rva007E8810Message *msg, int targetType,
 {
 	const char *txn = g_feslFeedbackTxnName;
 	msg->reset();
-	msg->m_category = 'fdbk';
+	msg->m_1C = 'fdbk';
 	msg->addString( "TXN", txn );
 	addTargetIds( msg, targetIds, targetIdCount );
 	msg->addInt( "targetType", targetType );

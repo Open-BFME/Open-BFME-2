@@ -32,20 +32,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	void reset( void );                                              // 0x007E8AC0
-	void addString( const char *key, const char *value );            // 0x007E8A10
-	void addInt( const char *key, int value );                       // 0x007E88D0
-	void addInt64( const char *key, FeslInt64 value );               // 0x007E8E90
-	int getInt( const char *key, int defaultValue );                 // 0x007E8900
-	bool getString( const char *key, char *dest, int destSize );     // 0x007E8A80
-	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );   // 0x007E8930
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 // The 12-byte owner descriptor, same shape 0x007F30F0 walks.
 struct FeslOwner
@@ -299,7 +286,7 @@ void __stdcall Rva007F3870( Rva007E8810Message *msg, const char *name,
 	unsigned int i;
 
 	msg->reset();
-	msg->m_category = 'club';
+	msg->m_1C = 'club';
 	msg->addString( "TXN", txn );
 	msg->addString( "name", name );
 	msg->addString( "description", description );

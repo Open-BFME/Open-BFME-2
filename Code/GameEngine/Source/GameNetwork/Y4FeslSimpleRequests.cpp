@@ -15,60 +15,50 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
 
-class Rva007E8810Message
-{
-public:
-	char m_head[ 0x10 ];
-	void *m_buffer;                 // +0x10
-	int m_bufferSize;               // +0x14
-	char m_gap[ 0x04 ];
-	unsigned int m_category;        // +0x1C
-	char m_tail[ 0x0C ];
-	int m_depth;                    // +0x2C
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #define FESL_RESET(message) ((Rva007E8AC0 *)(message))->run()
 
 void __stdcall Rva007FAF90( Rva007E8810Message *msg )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'DISC';
-	msg->m_depth = 3;
+	msg->m_1C = 'DISC';
+	msg->m_2C = 3;
 }
 
 void __stdcall Rva007FBA50( Rva007E8810Message *msg )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'EPGT';
-	msg->m_depth = 3;
+	msg->m_1C = 'EPGT';
+	msg->m_2C = 3;
 }
 
 void __stdcall Rva007FBA70( Rva007E8810Message *msg, void *buffer, int bufferSize )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'PING';
-	msg->m_depth = 3;
-	msg->m_buffer = buffer;
-	msg->m_bufferSize = bufferSize;
+	msg->m_1C = 'PING';
+	msg->m_2C = 3;
+	msg->m_10 = static_cast<char *>(buffer);
+	msg->m_14 = bufferSize;
 }
 
 void __stdcall Rva007FC270( Rva007E8810Message *msg )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'RLST';
-	msg->m_depth = 3;
+	msg->m_1C = 'RLST';
+	msg->m_2C = 3;
 }
 
 void __stdcall Rva007FCC80( Rva007E8810Message *msg )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'RGAM';
-	msg->m_depth = 3;
+	msg->m_1C = 'RGAM';
+	msg->m_2C = 3;
 }
 
 void __stdcall Rva007FCCA0( Rva007E8810Message *msg )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'PING';
-	msg->m_depth = 3;
+	msg->m_1C = 'PING';
+	msg->m_2C = 3;
 }

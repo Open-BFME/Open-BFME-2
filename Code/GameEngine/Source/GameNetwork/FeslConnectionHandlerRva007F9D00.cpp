@@ -47,28 +47,7 @@ Rva007EB810Diag *Rva007EB810Get();
 
 #pragma intrinsic(memcpy)
 
-class Rva007E8810Message
-{
-public:
-	Rva007E8810Message();
-	~Rva007E8810Message();
-	int getError();
-	void setError(int code);
-
-	void *m_vtable;
-	int m_04;
-	int m_08;
-	int m_0C;
-	char *m_10;
-	unsigned m_14;
-	unsigned m_18;
-	unsigned m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	char m_30;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva007FA170Slot
 {

@@ -4,16 +4,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );
- void addString(const char *key, const char *value);
- void addInt(const char *key, int value);
- void addInt64(const char *key, FeslInt64 value);
- char m_head[0x1C];
- unsigned int m_category;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 
@@ -199,7 +190,7 @@ void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
 	message = msg;
 	txn = *(&TheRankUpdateStatsTransaction.m_name);
 	((Rva007E8AC0 *)message)->run();
-	message->m_category = 'rank';
+	message->m_1C = 'rank';
 	message->addString( "TXN", txn );
 	message->addString( "gsid", gsid );
 	for( i = 0; i < userCount; ++i )

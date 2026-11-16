@@ -4,20 +4,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	void reset( void );
-	void addString( const char *key, const char *value );
-	void addInt( const char *key, int value );
-	void addInt64( const char *key, FeslInt64 value );
-	void setError( int code );
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva007F2FA0Owner
 {
@@ -58,7 +45,7 @@ void __stdcall Rva007F2FA0( Rva007E8810Message *msg,
 	const Rva007F2FA0Value *entries = values;
 
 	msg->reset();
-	msg->m_category = 'recp';
+	msg->m_1C = 'recp';
 	msg->addString( "TXN", txn );
 	if( owner )
 	{

@@ -32,19 +32,7 @@
 
 #include "../../Include/GameNetwork/BfmeC994.h"
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );
-	bool getString( const char *key, char *out, int capacity );
-
-	int m_field00;
-	int m_field04;
-	int m_field08;
-	int m_field0c;
-	char m_pad10[ 0x0c ];
-	int m_category;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva00802040Owner;
 
@@ -138,15 +126,15 @@ void Rva00809E40Owner::rva00809E40( Rva007E8810Message *input )
 {
 	char buffer[ 0x40 ];
 	BfmeC994 message( buffer, 0x40 );
-	message.m_category = input->m_category;
+	message.m_category = input->m_1C;
 	void *value = (void *)( long )input->getInt(
 		"TID", -1 );
 	if( value != (void *)-1 )
 		message.addInt( "TID", (int)( long )value );
 
-	message.m_field04 = input->m_field04;
-	message.m_field08 = input->m_field08;
-	message.m_field0c = input->m_field0c;
+	message.m_field04 = input->m_04;
+	message.m_field08 = input->m_08;
+	message.m_field0c = input->m_0C;
 
 	Rva00802040Owner *manager = m_state->m_manager;
 	if( manager == 0 )
@@ -194,9 +182,9 @@ void Rva00809E40Owner::rva00809E40( Rva007E8810Message *input )
 		? reinterpret_cast< Rva00809E40Record * >( new( raw ) Energy )
 		: (Rva00809E40Record *)0;
 	players[ index ] = record;
-	record->m_owner = (void *)( long )input->m_field04;
-	record->m_energyProduction = input->m_field08;
-	record->m_energyConsumption = input->m_field0c;
+	record->m_owner = (void *)( long )input->m_04;
+	record->m_energyProduction = input->m_08;
+	record->m_energyConsumption = input->m_0C;
 	int state = m_game->m_state;
 	++m_game->m_state;
 	record->m_powerSabotagedTillFrame = state;

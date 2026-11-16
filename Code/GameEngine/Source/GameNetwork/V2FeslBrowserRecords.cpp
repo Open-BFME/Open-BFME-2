@@ -26,17 +26,7 @@
 // WHAT THE BYTES CANNOT DECIDE.  Nothing names the element types or the methods.
 // All names are address-derived.
 
-class Rva007E8810Message
-{
-public:
-	bool hasError( void );                                            // 0x007E88A0
-	int getError( void );                                             // 0x007E88B0
-	int getInt( const char *key, int defaultValue );                  // 0x007E8900
-	bool getString( const char *key, char *dest, int destSize );      // 0x007E8A80
-
-	char m_head[ 0x28 ];
-	int m_txn;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class Rva007F4E50Region
 {
@@ -138,7 +128,7 @@ void Rva007F7980Browser::onRegion( Rva007E8810Message *msg )
 {
 	if( msg->hasError() )
 		return;
-	if( msg->m_txn != m_regionTxn )
+	if( msg->m_28 != m_regionTxn )
 		return;
 
 	Rva007F4E50Region record( msg );
@@ -156,7 +146,7 @@ void Rva007F7980Browser::onLobby( Rva007E8810Message *msg )
 {
 	if( msg->hasError() )
 		return;
-	if( msg->m_txn != m_lobbyTxn )
+	if( msg->m_28 != m_lobbyTxn )
 		return;
 
 	Rva007F4EF0Lobby record( msg );

@@ -28,26 +28,7 @@ typedef __int64 FeslInt64;
 
 // Class name is the claimed pin (ctor 0x007E8810).  Layout is the same object
 // V2FeslTxnRequests.cpp already recovered from reset()/add* stores.
-class Rva007E8810Message
-{
-public:
-	void reset( void );                                              // 0x007E8AC0
-	void addString( const char *key, const char *value );            // 0x007E8A10
-	void addInt( const char *key, int value );                       // 0x007E88D0
-	void addInt64( const char *key, FeslInt64 value );               // 0x007E8E90
-	void addBool( const char *key, bool value );                     // 0x007E8980
-	void setError( int code );                                       // 0x007E88C0
-
-	char m_pad00[ 0x10 ];
-	char *m_output;                                                  // +0x10
-	int m_bufferSize;                                                // +0x14
-	int m_writeCursor;                                               // +0x18
-	unsigned int m_category;                                         // +0x1C
-	char m_pad20[ 4 ];
-	int m_errorCode;                                                 // +0x24
-	char m_pad28[ 4 ];
-	int m_depth;                                                     // +0x2C
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 typedef Rva007E8810Message FeslTxnMessage;
 
@@ -65,24 +46,24 @@ typedef Rva007E8810Message FeslTxnMessage;
 void __stdcall Rva007FB080( FeslTxnMessage *msg, const char *user )
 {
 	msg->reset();
-	msg->m_category = 'PADD';
-	msg->m_depth = 3;
+	msg->m_1C = 'PADD';
+	msg->m_2C = 3;
 	msg->addString( "USER", user );
 }
 
 void __stdcall Rva007FB0B0( FeslTxnMessage *msg, const char *user )
 {
 	msg->reset();
-	msg->m_category = 'PDEL';
-	msg->m_depth = 3;
+	msg->m_1C = 'PDEL';
+	msg->m_2C = 3;
 	msg->addString( "USER", user );
 }
 
 void __stdcall Rva007FB510( FeslTxnMessage *msg, const char *user )
 {
 	msg->reset();
-	msg->m_category = 'TCKL';
-	msg->m_depth = 3;
+	msg->m_1C = 'TCKL';
+	msg->m_2C = 3;
 	if( user )
 		msg->addString( "USER", user );
 }
@@ -91,8 +72,8 @@ void __stdcall Rva007FB550( FeslTxnMessage *msg, int list, const char *user,
 	const char *group, const char *lsrc, bool pres )
 {
 	msg->reset();
-	msg->m_category = 'RDEL';
-	msg->m_depth = 3;
+	msg->m_1C = 'RDEL';
+	msg->m_2C = 3;
 	switch( list )
 	{
 		case 1:
@@ -116,8 +97,8 @@ void __stdcall Rva007FB390( FeslTxnMessage *msg, const char *user,
 	const char *group, const char *lsrc, bool pres )
 {
 	msg->reset();
-	msg->m_category = 'RADM';
-	msg->m_depth = 3;
+	msg->m_1C = 'RADM';
+	msg->m_2C = 3;
 	msg->addString( "USER", user );
 	if( group )
 		msg->addString( "GROUP", group );
@@ -130,8 +111,8 @@ void __stdcall Rva007FB4B0( FeslTxnMessage *msg, const char *user,
 	const char *group, const char *lsrc )
 {
 	msg->reset();
-	msg->m_category = 'MLST';
-	msg->m_depth = 3;
+	msg->m_1C = 'MLST';
+	msg->m_2C = 3;
 	msg->addString( "USER", user );
 	if( group )
 		msg->addString( "GROUP", group );
@@ -147,8 +128,8 @@ void __stdcall Rva007FB7B0( FeslTxnMessage *msg, const char *user,
 	const char *sess, const char *titl )
 {
 	msg->reset();
-	msg->m_category = 'GINV';
-	msg->m_depth = 3;
+	msg->m_1C = 'GINV';
+	msg->m_2C = 3;
 	msg->addString( "USER", user );
 	msg->addString( "SESS", sess );
 	msg->addString( "TITL", titl );
@@ -158,8 +139,8 @@ void __stdcall Rva007FB890( FeslTxnMessage *msg, const char *user,
 	const char *sess )
 {
 	msg->reset();
-	msg->m_category = 'GRVK';
-	msg->m_depth = 3;
+	msg->m_1C = 'GRVK';
+	msg->m_2C = 3;
 	msg->addString( "USER", user );
 	msg->addString( "SESS", sess );
 }
@@ -167,8 +148,8 @@ void __stdcall Rva007FB890( FeslTxnMessage *msg, const char *user,
 void __stdcall Rva007FB9F0( FeslTxnMessage *msg, const char *addr, bool enab )
 {
 	msg->reset();
-	msg->m_category = 'EPST';
-	msg->m_depth = 3;
+	msg->m_1C = 'EPST';
+	msg->m_2C = 3;
 	msg->addString( "ADDR", addr );
 	if( enab )
 		msg->addString( "ENAB", "T" );
@@ -188,8 +169,8 @@ void __stdcall Rva007FC170( FeslTxnMessage *msg, const char *prod,
 	const char *vers, const char *plat, const char *locale )
 {
 	msg->reset();
-	msg->m_category = 'CONN';
-	msg->m_depth = 3;
+	msg->m_1C = 'CONN';
+	msg->m_2C = 3;
 	msg->addString( "PROT", g_Rva012C3BC4 );
 	msg->addString( "PROD", prod );
 	msg->addString( "VERS", vers );
@@ -202,8 +183,8 @@ void __stdcall Rva007FC210( FeslTxnMessage *msg, const char *hid,
 	const char *lkey, const char *name )
 {
 	msg->reset();
-	msg->m_category = 'USER';
-	msg->m_depth = 3;
+	msg->m_1C = 'USER';
+	msg->m_2C = 3;
 	msg->addString( "HID", hid );
 	msg->addString( "LKEY", lkey );
 	msg->addString( "NAME", name );
@@ -214,8 +195,8 @@ void __stdcall Rva007FC210( FeslTxnMessage *msg, const char *hid,
 void __stdcall Rva007FC510( FeslTxnMessage *msg, int lid, int gid )
 {
 	msg->reset();
-	msg->m_category = 'GDAT';
-	msg->m_depth = 3;
+	msg->m_1C = 'GDAT';
+	msg->m_2C = 3;
 	msg->addInt( "LID", lid );
 	msg->addInt( "GID", gid );
 }
@@ -223,16 +204,16 @@ void __stdcall Rva007FC510( FeslTxnMessage *msg, int lid, int gid )
 void __stdcall Rva007FCA40( FeslTxnMessage *msg, bool start )
 {
 	msg->reset();
-	msg->m_category = 'UBRA';
-	msg->m_depth = 3;
+	msg->m_1C = 'UBRA';
+	msg->m_2C = 3;
 	msg->addBool( "START", start );
 }
 
 void __stdcall Rva007FCA70( FeslTxnMessage *msg, int lid, int gid, int port )
 {
 	msg->reset();
-	msg->m_category = 'EGAM';
-	msg->m_depth = 3;
+	msg->m_1C = 'EGAM';
+	msg->m_2C = 3;
 	msg->addInt( "LID", lid );
 	msg->addInt( "GID", gid );
 	msg->addInt( "PORT", port );
@@ -241,8 +222,8 @@ void __stdcall Rva007FCA70( FeslTxnMessage *msg, int lid, int gid, int port )
 void __stdcall Rva007FCAD0( FeslTxnMessage *msg, int lid, int gid )
 {
 	msg->reset();
-	msg->m_category = 'ECNL';
-	msg->m_depth = 3;
+	msg->m_1C = 'ECNL';
+	msg->m_2C = 3;
 	msg->addInt( "LID", lid );
 	msg->addInt( "GID", gid );
 }
@@ -250,16 +231,16 @@ void __stdcall Rva007FCAD0( FeslTxnMessage *msg, int lid, int gid )
 void __stdcall Rva007FCC50( FeslTxnMessage *msg, int pid )
 {
 	msg->reset();
-	msg->m_category = 'PLVT';
-	msg->m_depth = 3;
+	msg->m_1C = 'PLVT';
+	msg->m_2C = 3;
 	msg->addInt( "PID", pid );
 }
 
 void __stdcall Rva007FCE70( FeslTxnMessage *msg, int timeout )
 {
 	msg->reset();
-	msg->m_category = 'KEEP';
-	msg->m_depth = 3;
+	msg->m_1C = 'KEEP';
+	msg->m_2C = 3;
 	msg->addInt( "TIMO", timeout );
 }
 
@@ -267,8 +248,8 @@ void __stdcall Rva007FCEA0( FeslTxnMessage *msg, const char *ugid,
 	const char *secret, int port )
 {
 	msg->reset();
-	msg->m_category = 'HGAM';
-	msg->m_depth = 3;
+	msg->m_1C = 'HGAM';
+	msg->m_2C = 3;
 	msg->addString( "SECRET", secret );
 	msg->addString( "UGID", ugid );
 	msg->addInt( "PORT", port );

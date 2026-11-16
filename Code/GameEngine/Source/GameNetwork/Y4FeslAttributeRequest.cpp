@@ -9,19 +9,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	void reset( void );
-	void addString( const char *key, const char *value );
-	void addInt( const char *key, int value );
-	void addBool( const char *key, bool value );
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/Rva007FC810Attribute.h"
 
@@ -31,8 +19,8 @@ void __stdcall Rva007FC810( Rva007E8810Message *msg, const char *name,
 	int index;
 
 	msg->reset();
-	msg->m_category = 'UGAM';
-	msg->m_depth = 3;
+	msg->m_1C = 'UGAM';
+	msg->m_2C = 3;
 	msg->addString( "NAME", name );
 	for( index = 0; index < numAttributes; index++ )
 	{

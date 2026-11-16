@@ -10,15 +10,7 @@
 
 #include "../../Include/GameNetwork/Rva007E8980.h"
 
-class Rva007E8810Message
-{
-public:
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class GenAlloc
 {
@@ -61,8 +53,8 @@ void __stdcall Rva007FC550( Rva007E8810Message *msg, int rid, int lid,
 {
 	unsigned int index;
 	FESL_RESET( msg );
-	msg->m_category = 'CGAM';
-	msg->m_depth = 3;
+	msg->m_1C = 'CGAM';
+	msg->m_2C = 3;
 	FESL_ADD_INT( msg, "RID", rid );
 	FESL_ADD_INT( msg, "LID", lid );
 	FESL_ADD_BOOL( msg, "RESERVE-HOST", reserveHost );

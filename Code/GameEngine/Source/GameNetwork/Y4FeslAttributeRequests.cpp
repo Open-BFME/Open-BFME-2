@@ -19,19 +19,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	void reset( void );                                              // 0x007E8AC0
-	void addString( const char *key, const char *value );            // 0x007E8A10
-	void addInt( const char *key, int value );                       // 0x007E88D0
-	void addBool( const char *key, bool value );                     // 0x007E8980
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/Rva007FC810Attribute.h"
 
@@ -45,8 +33,8 @@ void __stdcall Rva007FC8F0( Rva007E8810Message *msg,
 	int index;
 
 	msg->reset();
-	msg->m_category = 'UGDE';
-	msg->m_depth = 3;
+	msg->m_1C = 'UGDE';
+	msg->m_2C = 3;
 	for( index = 0; index < numAttributes; index++ )
 	{
 		char key[ 0x40 ] = "";
@@ -70,8 +58,8 @@ void __stdcall Rva007FCB10( Rva007E8810Message *msg, bool allowed, int pid,
 	char text[ 28 ];
 
 	msg->reset();
-	msg->m_category = 'EGRS';
-	msg->m_depth = 3;
+	msg->m_1C = 'EGRS';
+	msg->m_2C = 3;
 	msg->addBool( "ALLOWED", allowed );
 	msg->addInt( "PID", pid );
 	sprintf( text, "%d", reason );
@@ -85,8 +73,8 @@ void __stdcall Rva007FCCC0( Rva007E8810Message *msg, int lid, int gid, int pid,
 	const char *typeName = 0;
 
 	msg->reset();
-	msg->m_category = 'ABUS';
-	msg->m_depth = 3;
+	msg->m_1C = 'ABUS';
+	msg->m_2C = 3;
 	msg->addInt( "LID", lid );
 	msg->addInt( "GID", gid );
 	if( pid )

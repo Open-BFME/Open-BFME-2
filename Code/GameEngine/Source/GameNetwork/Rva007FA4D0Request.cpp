@@ -5,28 +5,7 @@
 // timeout ABI.  The original semantic member name is not recoverable, so the
 // method remains address-derived.
 
-class Rva007E8810Message
-{
-public:
-	Rva007E8810Message() throw();
-	~Rva007E8810Message() throw();
-	void setError(int code);
-
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	char *m_10;
-	int m_14;
-	int m_18;
-	unsigned m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	char m_30;
-	char m_pad31[3];
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #include "../../Include/GameNetwork/Rva007FA5E0Arg.h"
 

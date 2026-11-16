@@ -20,29 +20,7 @@ class GenAlloc; GenAlloc *Gen007EFFC0();
 void rva007FF100Encode( unsigned int length, const char *source,
 	void *destination );
 
-class Rva007E8810Message
-{
-public:
-	Rva007E8810Message();
-	~Rva007E8810Message();
-	void addInt( const char *key, int value );
-	void addString( const char *key, const char *value );
-
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	char *m_10;
-	int m_14;
-	int m_18;
-	unsigned m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	char m_30;
-	char m_pad31[ 3 ];
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva007F9FD0Arg
 {

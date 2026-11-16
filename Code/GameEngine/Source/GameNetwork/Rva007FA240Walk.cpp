@@ -24,13 +24,7 @@ void *Rva007F93E0(void *a, void *b, void *svc);
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
-class Rva007E8810Message
-{
-public:
-	Rva007E8810Message() throw();
-	~Rva007E8810Message() throw();
-	void setError(int code);
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva007FA170Slot
 {

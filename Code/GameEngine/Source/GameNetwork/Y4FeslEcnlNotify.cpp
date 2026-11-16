@@ -5,18 +5,7 @@
 // message's status word and copy three dwords from the sink, then notify
 // through the already-pinned triple at 0x007F93E0.
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );
-
-	int m_gap00;
-	int m_f04;
-	int m_f08;
-	int m_f0c;
-	char m_gap10[ 0x10 ];
-	int m_status;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva00809500Entry
 {
@@ -65,10 +54,10 @@ void Rva00809BF0Owner::notify( Rva00809500Entry *entry )
 	{
 		m_sink->bfmeSendSKA( 'ECNL', msg->getInt( "TID", 0 ), 'ngam' );
 	}
-	msg->m_status = (int)0xC0000000;
-	msg->m_f04 = sink->m_f04;
-	msg->m_f08 = sink->m_f08;
-	msg->m_f0c = sink->m_f0c;
+	msg->m_20 = (int)0xC0000000;
+	msg->m_04 = sink->m_f04;
+	msg->m_08 = sink->m_f08;
+	msg->m_0C = sink->m_f0c;
 	Rva007F93E0( msg, "->L", m_field10 );
 }
 

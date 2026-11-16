@@ -24,17 +24,7 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
 
-class Rva007E8810Message
-{
-public:
-	void addInt( const char *key, int value );                       // 0x007E88D0
-	void addBool( const char *key, bool value );                     // 0x007E8980
-
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #define FESL_RESET(message) ((Rva007E8AC0 *)(message))->run()
 #define FESL_ADD_STRING(message, key, value) \
@@ -45,8 +35,8 @@ void __stdcall Rva007FB0E0( Rva007E8810Message *msg, const char *rsrc, int show,
 	const char *titl, const char *tiid, const char *extr )
 {
 	FESL_RESET(msg);
-	msg->m_category = 'PSET';
-	msg->m_depth = 3;
+	msg->m_1C = 'PSET';
+	msg->m_2C = 3;
 	if( rsrc )
 		FESL_ADD_STRING( msg, "RSRC", rsrc );
 	switch( show )

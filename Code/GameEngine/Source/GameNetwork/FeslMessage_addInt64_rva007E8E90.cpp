@@ -8,18 +8,7 @@ typedef __int64 FeslInt64;
 
 int Rva007ECE60(char *record, int size, const char *name, const char *value);
 
-class Rva007E8810Message
-{
-public:
-	void addInt64(const char *key, FeslInt64 value);
-
-private:
-	char m_pad[0x10];
-	char *m_10;
-	int m_14;
-	char m_pad18[0x0c];
-	int m_24;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 void Rva007E8810Message::addInt64(const char *key, FeslInt64 value)
 {

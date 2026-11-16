@@ -392,18 +392,7 @@ static int Rva007E8D30( const char *name, const char *value, char *record, int s
 
 // 0x007E8EF0, the helper's only caller: stores the escaped field into the
 // message record at +0x10 (size +0x14) and records -100 at +0x24 on failure.
-class Rva007E8810Message
-{
-public:
-	void rva007E8EF0( const char *key, const char *value );
-
-private:
-	char m_pad[0x10];
-	char *m_10;
-	int m_14;
-	char m_pad18[0x0c];
-	int m_24;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 void Rva007E8810Message::rva007E8EF0( const char *key, const char *value )
 {

@@ -8,34 +8,7 @@
 
 typedef __int64 FeslInt64;
 
-class Rva007E8810Message
-{
-public:
-	bool hasError();
-	void addInt(const char *key, int value);
-	int getInt(const char *key, int defaultValue);
-	void addBool(const char *key, bool value);
-	bool getBool(const char *key, bool defaultValue);
-	void addString(const char *key, const char *value);
-	bool getString(const char *key, char *out, int size);
-	void reset();
-	void setError(int error);
-	int getError();
-	__int64 getInt64( const char *key, __int64 defaultValue );
-	void addInt64(const char *key, __int64 value);
-	char m_pad00[0x10];
-private:
-	char *m_record; // +0x10
-	int m_capacity; // +0x14
-	int m_position; // +0x18
-public:
-	unsigned int m_category; // +0x1C
-	char m_pad20[0x4];
-private:
-	int m_error; // +0x24
-	char m_pad28[0x4];
-	int m_state; // +0x2C
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 class BfmeMsgVIX
 {
@@ -97,7 +70,7 @@ void Rva007F1220BlobWriter::write(Rva007E8810Message *message,
 {
 	const char *txn = g_00E09FEC;
 	message->reset();
-	message->m_category = 'blob';
+	message->m_1C = 'blob';
 	message->addString("TXN", txn);
 	message->addInt64("ownerId", owner->owner);
 	message->addInt("ownerType", owner->ownerType);

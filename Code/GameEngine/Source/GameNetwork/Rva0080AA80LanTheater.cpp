@@ -5,17 +5,7 @@
 // address-derived: the retail bytes prove the raw entry ABI and the
 // lantheateremulator.cpp family, but do not preserve the original spelling.
 
-class Rva007E8810Message
-{
-public:
-	int getInt( const char *key, int defaultValue );
-
-	char m_pad00[ 0x10 ];
-	const char *m_payload;
-	char m_pad14[ 8 ];
-	int m_category;
-	char m_pad20[ 0x10 ];
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 struct Rva00809500Entry
 {
@@ -88,9 +78,9 @@ void Rva00803620Sink::rva0080AA80( Rva00809500Entry *entry )
 	else
 	{
 		Rva007E8810Message *message = reinterpret_cast< Rva007E8810Message * >( incoming );
-		reply.m_category = message->m_category;
+		reply.m_category = message->m_1C;
 		reply.m_field20 = 0xC0000000;
-		strncpy( reply.m_buffer, message->m_payload, reply.m_capacity );
+		strncpy( reply.m_buffer, message->m_10, reply.m_capacity );
 		reinterpret_cast< BfmeThingVJJ * >( sink )->bfmeGoVJJ(
 			reinterpret_cast< BfmeMsgVJJ * >( &reply ) );
 		reply.addString( "NAME", m_name );

@@ -28,14 +28,7 @@ typedef __int64 FeslInt64;
 
 #include "../../Include/GameNetwork/Rva007E8980.h"
 
-class Rva007E8810Message
-{
-public:
-	char m_head[ 0x1C ];
-	unsigned int m_category;
-	char m_tail[ 0x0C ];
-	int m_depth;
-};
+#include "../../Include/GameNetwork/Rva007E8810Message.h"
 
 #define FESL_RESET(message) ((Rva007E8AC0 *)(message))->run()
 #define FESL_ADD_STRING(message, key, value) \
@@ -60,8 +53,8 @@ void __stdcall Rva007FC3B0( Rva007E8810Message *msg, int lid, bool favOnly,
 	unsigned int index;
 
 	FESL_RESET( msg );
-	msg->m_category = 'GLST';
-	msg->m_depth = 3;
+	msg->m_1C = 'GLST';
+	msg->m_2C = 3;
 	FESL_ADD_INT( msg, "LID", lid );
 	FESL_ADD_BOOL( msg, "FILTER-FAV-ONLY", favOnly );
 	FESL_ADD_BOOL( msg, "FILTER-NOT-FULL", notFull );
@@ -92,8 +85,8 @@ void __stdcall Rva007FC290( Rva007E8810Message *msg, bool favOnly,
 	unsigned int index;
 
 	FESL_RESET( msg );
-	msg->m_category = 'LLST';
-	msg->m_depth = 3;
+	msg->m_1C = 'LLST';
+	msg->m_2C = 3;
 	FESL_ADD_BOOL( msg, "FILTER-FAV-ONLY", favOnly );
 	FESL_ADD_BOOL( msg, "FILTER-NOT-FULL", notFull );
 	FESL_ADD_BOOL( msg, "FILTER-NOT-PRIVATE", notPrivate );
