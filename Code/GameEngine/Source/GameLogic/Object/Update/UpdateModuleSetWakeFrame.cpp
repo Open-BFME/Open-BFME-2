@@ -30,15 +30,7 @@ extern GameLogic *TheGameLogic;
 class Thing;
 class ModuleData;
 
-class BehaviorModuleBase
-{
-	virtual void unused();
-	const ModuleData *m_moduleData;
-	Object *m_object; // +0x08
-
-public:
-	Object *getObject() const { return m_object; }
-};
+#include "../../../../Include/Common/BehaviorModuleBase.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
