@@ -8,15 +8,7 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"
-class DisplayStringManager
-{
-public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(int v);
-};
-extern DisplayStringManager *TheDisplayStringManager;
+#include "../../Include/GameClient/DisplayStringManager.h"
 class Rva004E6A1D
 {
 public:
@@ -73,12 +65,12 @@ public:
     Rva004E6A1D m40;
     Rva004E6A1D m44;
     int m48;
-    int m4C;
+    DisplayString *m4C;
 };
 InGameNotificationBoxMovieClip::~InGameNotificationBoxMovieClip()
 {
     if (((Rva00222A8BTarget *)g_bfmeAptWindowManager))
         ((AptPlayer *)g_bfmeAptWindowManager)->RemoveLevel(m04);
     if (TheDisplayStringManager)
-        TheDisplayStringManager->v15(m4C);
+        TheDisplayStringManager->freeDisplayString(m4C);
 }

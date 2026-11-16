@@ -311,16 +311,7 @@ bool Rva0023DB93::rva0023DBA7(int index) const
 
 // --- 0x0025C7F9 (48B): hand a non-null string to TheDisplayStringManager's
 // free (virtual slot 15), then clear the +0xC8 / +0xCC floats.
-class DisplayStringManager
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-	virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void freeDisplayString(void *string);
-};
-extern DisplayStringManager *TheDisplayStringManager;
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 class Rva0025C7F9
 {
@@ -335,7 +326,7 @@ private:
 void Rva0025C7F9::rva0025C7F9(void *string)
 {
 	if (string)
-		TheDisplayStringManager->freeDisplayString(string);
+		TheDisplayStringManager->freeDisplayString(static_cast<DisplayString *>(string));
 	m_C8 = 0.0f;
 	m_CC = 0.0f;
 }

@@ -9,28 +9,7 @@
 
 #include "unicode_string.h"
 
-class DisplayStringManager
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void slot15(void *p);
-};
-
-extern DisplayStringManager *TheDisplayStringManager;
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 class FloatingTextData
 {
@@ -38,12 +17,12 @@ public:
 	virtual ~FloatingTextData();
 	unsigned char m_pad04[0x8 - 4];
 	UnicodeString m_08; // +8
-	void *m_0C; // +0xC
+	DisplayString *m_0C; // +0xC
 };
 
 FloatingTextData::~FloatingTextData()
 {
 	if (m_0C != 0)
-		TheDisplayStringManager->slot15(m_0C);
+		TheDisplayStringManager->freeDisplayString(m_0C);
 	m_0C = 0;
 }

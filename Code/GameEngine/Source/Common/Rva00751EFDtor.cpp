@@ -39,16 +39,7 @@ private:
 	int m_refs;
 };
 
-class DisplayStringManager
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void freeDisplayString(void *string);
-};
-extern DisplayStringManager *TheDisplayStringManager;
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 void * g_00DE1ED0;	// retail RVA 0x009E1ED0 (.bss), defined here
 
@@ -58,7 +49,7 @@ public:
 	virtual ~Rva00751EF();
 private:
 	unsigned char m_pad04[0x28 - 4];
-	void *m_string28;			// +0x28
+	DisplayString *m_string28;		// +0x28
 	Rva000751EFSlot m_slots[20];		// +0x2C
 	Rva000751EFRef *m_refs[5];		// +0x11C
 };
