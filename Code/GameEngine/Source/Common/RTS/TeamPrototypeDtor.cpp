@@ -30,11 +30,7 @@ template <typename T> struct BfmeStringData;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
-class Team
-{
-public:
-	virtual void *deleteInstance(int flags);
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/GameLogic/ScriptClass.h"
 
@@ -89,7 +85,9 @@ static void deleteTeamCallback(Team *team)
 	if (team)
 	{
 		TheTeamFactory->teamAboutToBeDeleted(team);
-		::operator delete(team->deleteInstance(0));
+		// Team's destructor is protected; Snapshot's public virtual one reaches it.
+		Snapshot *snapshot = team;
+		::delete snapshot;
 	}
 }
 
