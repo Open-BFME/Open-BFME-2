@@ -17,10 +17,9 @@
 // and the power template, name and tail that only the destructor sees after
 // them. Every offset any of the four bodies touches is unchanged.
 //
-// DisplayString is likewise one table instead of three prefixes of one. The
-// slots the bodies reach are setFont at +0x18, setColors at +0x28,
-// drawAtOffsets at +0x38 and getWidth at +0x40; the rest are named for their
-// offsets because these bodies do not say what they are.
+// DisplayString comes from its canonical header. The slots the bodies reach
+// are setFont at +0x18, setColors at +0x28, draw(x, y, xDrop, yDrop) at +0x38
+// and getWidth at +0x40.
 
 typedef int Int;
 typedef int Color;
@@ -31,28 +30,7 @@ class GameFont;
 
 #include "ascii_string.h"
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayString.h
-class DisplayString
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void setFont(GameFont *font) = 0;
-	virtual GameFont *getFont() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void setColors(Color color, Color dropColor) = 0;
-	virtual void slot2C() = 0;
-	virtual void slot30() = 0;
-	virtual void slot34() = 0;
-	virtual void drawAtOffsets(Int x, Int y, Int xDrop, Int yDrop) = 0;
-	virtual void slot3C() = 0;
-	virtual Int getWidth(Int charPos) = 0;
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayStringManager.h
 #include "../../Include/GameClient/DisplayStringManager.h"
@@ -110,7 +88,7 @@ void SuperweaponInfo::drawName(Int x, Int y, Color color, Color dropColor)
 		color = m_color;
 
 	m_nameDisplayString->setColors(color, dropColor);
-	m_nameDisplayString->drawAtOffsets(x - m_nameDisplayString->getWidth(-1), y, 1, 1);
+	m_nameDisplayString->draw(x - m_nameDisplayString->getWidth(-1), y, 1, 1);
 }
 
 // ?drawTime@SuperweaponInfo@@QAEXHHHH@Z
@@ -122,7 +100,7 @@ void SuperweaponInfo::drawTime(Int x, Int y, Color color, Color dropColor)
 		color = m_color;
 
 	m_timeDisplayString->setColors(color, dropColor);
-	m_timeDisplayString->drawAtOffsets(x - m_nameDisplayString->getWidth(-1), y, 1, 1);
+	m_timeDisplayString->draw(x - m_nameDisplayString->getWidth(-1), y, 1, 1);
 }
 
 // SuperweaponInfo::~SuperweaponInfo: defined in InGameUI.cpp (its unit).

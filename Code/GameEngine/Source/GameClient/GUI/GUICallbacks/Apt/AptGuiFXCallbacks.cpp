@@ -42,19 +42,7 @@ void AptGuiFX::OnInitialized(const char *unused)
 class GameFont;
 #include "../../../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
-class DisplayString {
-public:
- virtual void slot00();
- virtual void setText(UnicodeString text);
- virtual void slot08(); virtual void slot0C(); virtual void slot10(); virtual void slot14();
- virtual void setFont(GameFont *);
- virtual GameFont *getFont();
- virtual void slot20(int);
- virtual void slot24(int);
- virtual void slot28(unsigned int,int);
- virtual void slot2C(); virtual void slot30(); virtual void slot34(); virtual void slot38();
- virtual void getDimensions(int *,int *);
-};
+#include "../../../../../Include/GameClient/DisplayString.h"
 #include "../../../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 extern DisplayString *TheTooltipString;
@@ -87,10 +75,10 @@ void AptGuiFX::ShowToolTip(void *text,AsciiString *face,int size,int style,int c
  TheTooltipString=display;
  display->setFont(font);
  TheTooltipString->setText(*reinterpret_cast<UnicodeString *>(text));
- TheTooltipString->slot28(color,0);
- TheTooltipString->slot24(1);
- TheTooltipString->slot20(255);
- TheTooltipString->getDimensions(&TooltipStringWidth,&TooltipStringHeight);
+ TheTooltipString->setColors(color,0);
+ TheTooltipString->setWordWrapCentered(true);
+ TheTooltipString->setWordWrap(255);
+ TheTooltipString->getSize(&TooltipStringWidth,&TooltipStringHeight);
  GameFont *actualFont=TheTooltipString->getFont();
  int height=(*((int *)actualFont+4)+1)/3;
  char xText[16],yText[16];

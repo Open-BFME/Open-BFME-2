@@ -16,21 +16,11 @@
 // BFME's GameWindow instance-data member begins at +0x30; the vendored ZH
 // declaration places it at +0x2c.  Retail also uses the BFME DisplayString
 // vtable slot at +0x0c for getTextLength/getTooltipTextLength.  The canonical
-// header supplies the +0x30 member; the DisplayString slot view stays local.
-
-#include "Common/UnicodeString.h"
+// headers supply the +0x30 member and that DisplayString table.
 
 typedef int Int;
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayString.h
-class DisplayString
-{
-public:
-	virtual UnicodeString getText(void);
-	virtual void unusedDisplayStringSlot0(void);
-	virtual void unusedDisplayStringSlot1(void);
-	virtual Int getTextLength(void);
-};
+#include "../../../Include/GameClient/DisplayString.h"
 
 class GameWindow;
 
@@ -63,7 +53,7 @@ Int GameWindow::winSetInstanceData(WinInstanceData *data)
 
 	m_instData.m_text = text;
 	m_instData.m_tooltip = tooltipText;
-	m_instData.m_videoBuffer = NULL;
+	m_instData.m_videoBuffer = 0;
 
 	if (data->getTextLength())
 		m_instData.setText(data->getText());
