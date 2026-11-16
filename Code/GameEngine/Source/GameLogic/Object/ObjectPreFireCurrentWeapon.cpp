@@ -47,17 +47,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class WeaponSet
-{
-public:
-	Weapon *getCurWeapon() const { return m_weapons[m_curWeapon]; }
-	WeaponSlotType getCurWeaponSlot() const { return m_curWeapon; }
-
-private:
-	unsigned char m_pad00[0x08];
-	Weapon *m_weapons[6]; // +0x08
-	WeaponSlotType m_curWeapon; // +0x20
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 // The 0x4C-byte condition mask and its builder (memset then five bits).
 class Rva000B6253
@@ -98,7 +88,7 @@ private:
 	Drawable *m_drawable; // +0x84
 	unsigned char m_pad088[0x330 - 0x88];
 	WeaponSet m_weaponSet; // +0x330
-	unsigned char m_pad354[0x38C - 0x354];
+	unsigned char m_pad370[0x38C - 0x370];
 	Coord3D m_lastTargetPos; // +0x38C
 	ObjectID m_lastTargetID; // +0x398
 	unsigned char m_pad39C[0x438 - 0x39C];

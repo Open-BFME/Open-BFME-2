@@ -74,17 +74,7 @@ public:
 	void shotFired(const Weapon *weaponFired, ObjectID victimID, const Coord3D *victimPosition, bool forceReset);
 };
 
-class WeaponSet
-{
-public:
-	Weapon *getCurWeapon() const { return m_weapons[m_curWeapon]; }
-	WeaponSlotType getCurWeaponSlot() const { return m_curWeapon; }
-
-private:
-	unsigned char m_pad00[0x08];
-	Weapon *m_weapons[6]; // +0x08
-	WeaponSlotType m_curWeapon; // +0x20
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Object
 {
@@ -107,7 +97,7 @@ private:
 	FiringTracker *m_firingTracker; // +0x240
 	unsigned char m_pad244[0x330 - 0x244];
 	WeaponSet m_weaponSet; // +0x330
-	unsigned char m_pad354[0x438 - 0x354];
+	unsigned char m_pad370[0x438 - 0x370];
 	unsigned char m_privateStatus; // +0x438
 };
 

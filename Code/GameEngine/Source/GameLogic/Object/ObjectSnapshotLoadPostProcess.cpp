@@ -51,7 +51,7 @@ void _STLP_alloc_proxy<_List_node<CameraMarker>*,_List_node<CameraMarker>,alloca
 namespace _STL {template<> __declspec(noinline) void _Base_bitset<32>::_M_do_or(const _Base_bitset<32>&);}
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;
-class WeaponSet{public:void updateWeaponSet(const Object*);};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 class Rva0022AEE4Subsystem{public:char pad[16];Pathfinder*pathfinder;};
 class AI;
@@ -76,7 +76,7 @@ public:
 protected:
  virtual ~Object();virtual void xfer(Xfer *);
 public:
-char pad04[0x40];PathfinderPosGoalManager*goal;char pad48[0x204-0x48];void*xp;char pad208[12];Object*contained;ObjectID containedId;char pad21C[8];_STL::_Base_bitset<32>mask;char pad2A4[0x2d0-0x2a4];WeaponSet weapons;char pad2D1[0x360-0x2d1];LoadBinding binding[9];_STL::list<CameraMarker>names;
+char pad04[0x40];PathfinderPosGoalManager*goal;char pad48[0x204-0x48];void*xp;char pad208[12];Object*contained;ObjectID containedId;char pad21C[8];_STL::_Base_bitset<32>mask;char pad2A4[0x2d0-0x2a4];WeaponSet weapons;char pad310[0x360-0x310];LoadBinding binding[9];_STL::list<CameraMarker>names;
 __forceinline Object*original(){return this;}
 };
 void Object::loadPostProcess(){

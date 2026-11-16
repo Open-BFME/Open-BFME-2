@@ -15,7 +15,7 @@
 //
 // Offsets (all retail-measured): template +0x04, statusByte +0x1C8 (bit 2),
 // iface +0x250, AI +0x258, containedBy +0x274, weaponSet +0x330 (lea only),
-// weaponSetPresent +0x358 (same dword ObjectGetCurrentWeapon.cpp reads).
+// and its filled-slot mask +0x358 (same dword ObjectGetCurrentWeapon.cpp reads).
 // testStatus (+0x94 words), isKindOf (+0x10C words) and getContain (+0x190)
 // are already matched and prove the low Object layout this TU extends.
 
@@ -138,12 +138,7 @@ class ContainedAttackObjectView {public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-struct WeaponSet
-{
-	char m_pad[8];
-	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;
-	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,const Object*,CommandSourceType)const;
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -254,8 +249,6 @@ class Object
 	Object *m_containedBy;
 	char m_pad278[0x330 - 0x278];
 	WeaponSet m_weaponSet;
-	char m_padW[0x358 - 0x330 - 8];
-	int m_weaponSetPresent;
 
 public:
 	Bool testStatus(ObjectStatusTypes bit) const;
@@ -361,7 +354,7 @@ checkKind:
 		}
 	}
 
-	if (m_aiUpdate != NULL && m_weaponSetPresent != 0)
+	if (m_aiUpdate != NULL && m_weaponSet.m_filledWeaponSlotMask != 0)
 		return true;
 
 	spawnInterface = getSpawnBehaviorInterface();
