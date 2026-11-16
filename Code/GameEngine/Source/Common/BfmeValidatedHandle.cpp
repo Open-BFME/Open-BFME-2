@@ -4,8 +4,7 @@
 enum FilterTypes {};
 enum FilterModes {};
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManager.h
-#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
+bool __cdecl Rva00075725Check(int index, int arg);
 
 class BfmeValidatedHandle
 {
@@ -24,9 +23,9 @@ bool BfmeValidatedHandle::setValue(void *value)
 	m_value = value;
 
 	if (value != 0 && m_reference != 0 &&
-		!W3DShaderManager::filterSetup(
-			static_cast<FilterTypes>(reinterpret_cast<unsigned int>(m_reference)),
-			static_cast<FilterModes>(reinterpret_cast<unsigned int>(value))))
+		!Rva00075725Check(
+			reinterpret_cast<int>(m_reference),
+			reinterpret_cast<int>(value)))
 	{
 		m_value = oldValue;
 		return false;
