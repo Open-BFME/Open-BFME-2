@@ -654,31 +654,36 @@ extern GameClient *TheGameClient;
 
 struct ShadowRenderEntry10DF33
 {
-	char m_pad00[8];
-	Coord3D m_position;					// +0x08
-	Coord3D m_normal;					// +0x14
-	Real m_angle;						// +0x20
-	Int m_pad24;
-	UnsignedInt m_diffuse;				// +0x28
-	char m_pad2c[4];
-	Bool m_isRotating;					// +0x30
-	char m_pad31[3];
-	ShadowType m_type;					// +0x34
+public:
+	char m_pad00[0x4];
+	bool enabled04; // +0x04
+	bool invisible05; // +0x05
+	char m_pad06[0x2];
+	Coord3D m_position; // +0x08
+	Coord3D m_normal; // +0x14
+	Real m_angle; // +0x20
+	char m_pad24[0x4];
+	UnsignedInt m_diffuse; // +0x28
+	char m_pad2C[0x4];
+	Bool m_isRotating; // +0x30
+	char m_pad31[0x3];
+	ShadowType m_type; // +0x34
 	char m_pad38[0x20];
-	Real m_decalSizeX;					// +0x58
-	Real m_decalSizeY;					// +0x5C
-	Real m_maxHeight;					// +0x60
-	Bool m_useTerrainHeight;			// +0x64
-	char m_pad65[3];
-	W3DShadowTexture *m_shadowTexture[2];	// +0x68
-	RenderObjClass *m_robj;				// +0x70
-	Int m_pad74;
-	Real m_decalOffsetU;				// +0x78
-	Real m_decalOffsetV;				// +0x7C
-	char m_pad80[8];
-	Coord3D m_lastScanPosition;			// +0x88
-	Int m_casterDrawableID[16];			// +0x94
-	BridgeView10C841 *m_casterBridge[16];	// +0xD4
+	Real m_decalSizeX; // +0x58
+	Real m_decalSizeY; // +0x5C
+	Real m_maxHeight; // +0x60
+	Bool m_useTerrainHeight; // +0x64
+	char m_pad65[0x3];
+	W3DShadowTexture *m_shadowTexture[2]; // +0x68
+	RenderObjClass *m_robj; // +0x70
+	char m_pad74[0x4];
+	Real m_decalOffsetU; // +0x78
+	Real m_decalOffsetV; // +0x7C
+	char m_pad80[0x8];
+	Coord3D m_lastScanPosition; // +0x88
+	Int m_casterDrawableID[16]; // +0x94
+	BridgeView10C841 *m_casterBridge[16]; // +0xD4
+	ShadowRenderEntry10DF33 *next114; // +0x114
 };
 
 // Single projected decal (native 0x10C841..0x10DA71, RET 0xC, EH); WB 0x8C9A10 is the shape guide.

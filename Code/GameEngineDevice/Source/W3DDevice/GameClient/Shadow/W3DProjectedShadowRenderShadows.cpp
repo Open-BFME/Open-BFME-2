@@ -42,11 +42,57 @@ static __forceinline const FrustumClass &shadowFrustum(const CameraClass &camera
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
+typedef int Int;
+typedef unsigned int UnsignedInt;
+typedef float Real;
+typedef bool Bool;
+typedef int Color;
+long fast_float2long_round(float);
+float fast_float_trunc(float);
+#define REAL_TO_INT(x) ((Int)(fast_float2long_round(fast_float_trunc(x))))
+#include "lightenvironment.h"
+class SpecialRenderInfoClass;
+#include "../../../../../../reference/shims/bfme2_projectedshadow/GameClient/Shadow.h"
+#include "../../../../../../reference/shims/bfme2_projectedshadow/W3DDevice/GameClient/W3DProjectedShadow.h"
 // Target uses a plain 16B sphere storage view; avoid instantiating the
 // donor public constructor COMDAT, which the code-identity gate rejects.
 struct ShadowSphereView10DF33 {Vector3 Center;float Radius;ShadowSphereView10DF33(){} };
 struct ShadowTextureView10DF33 { char pad00[0x64]; AABoxClass box64; ShadowSphereView10DF33 sphere7c; };
-struct ShadowRenderEntry10DF33 { char pad00[4]; bool enabled04; bool invisible05; char pad06[0x2e]; unsigned type34; char pad38[0x30]; ShadowTextureView10DF33 *texture68; ShadowTextureView10DF33 *texture6c; RenderObjClass *object70; char pad74[0xa0]; ShadowRenderEntry10DF33 *next114; };
+struct Coord3D;
+class BridgeView10C841;
+struct ShadowRenderEntry10DF33
+{
+public:
+	char m_pad00[0x4];
+	bool enabled04; // +0x04
+	bool invisible05; // +0x05
+	char m_pad06[0x2];
+	Coord3D m_position; // +0x08
+	Coord3D m_normal; // +0x14
+	Real m_angle; // +0x20
+	char m_pad24[0x4];
+	UnsignedInt m_diffuse; // +0x28
+	char m_pad2C[0x4];
+	Bool m_isRotating; // +0x30
+	char m_pad31[0x3];
+	ShadowType m_type; // +0x34
+	char m_pad38[0x20];
+	Real m_decalSizeX; // +0x58
+	Real m_decalSizeY; // +0x5C
+	Real m_maxHeight; // +0x60
+	Bool m_useTerrainHeight; // +0x64
+	char m_pad65[0x3];
+	W3DShadowTexture *m_shadowTexture[2]; // +0x68
+	RenderObjClass *m_robj; // +0x70
+	char m_pad74[0x4];
+	Real m_decalOffsetU; // +0x78
+	Real m_decalOffsetV; // +0x7C
+	char m_pad80[0x8];
+	Coord3D m_lastScanPosition; // +0x88
+	Int m_casterDrawableID[16]; // +0x94
+	BridgeView10C841 *m_casterBridge[16]; // +0xD4
+	ShadowRenderEntry10DF33 *next114; // +0x114
+};
 struct ShadowPair10DF33 { char pad00[4]; bool enabled04; bool invisible05; char pad06[0x2e]; unsigned type34; char pad38[0x20]; ShadowRenderEntry10DF33 *shadow58,*shadow5c; RenderObjClass *object60; ShadowPair10DF33 *next64; };
 struct TerrainRect10DF33 { int x0,y0,x1,y1; };
 struct ShadowTerrainDispatch10DF33 {
@@ -208,18 +254,7 @@ class W3DDualProjectedShadow;
 static int drawStartX, drawStartY, drawEdgeX, drawEdgeY;
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 static __forceinline void copyBox(AABoxClass *dst,const AABoxClass &src){new(dst)Region3D(*(const Region3D *)&src);}
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
-typedef int Color;
-long fast_float2long_round(float);
-float fast_float_trunc(float);
-#define REAL_TO_INT(x) ((Int)(fast_float2long_round(fast_float_trunc(x))))
-#include "lightenvironment.h"
-class SpecialRenderInfoClass;
-#include "../../../../../../reference/shims/bfme2_projectedshadow/GameClient/Shadow.h"
-#include "../../../../../../reference/shims/bfme2_projectedshadow/W3DDevice/GameClient/W3DProjectedShadow.h"
+
 int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
 {
  ShadowRenderEntry10DF33 *shadow;
@@ -235,17 +270,17 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  }
  m_nShadowDecalVertsInBuf=0x8000; m_nShadowDecalIndicesInBuf=0x10000;
  if (reinterpret_cast<ShadowRenderEntry10DF33 *>(m_simpleDecalList)) {
- ShadowTextureView10DF33 *lastTexture=0;
+ W3DShadowTexture *lastTexture=0;
  unsigned lastType=0;
  for(shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_simpleDecalList); shadow; shadow=shadow->next114) {
   if(shadow->enabled04 && !shadow->invisible05) {
-   if(!lastTexture) lastTexture=shadow->texture68;
-   if(!lastType) lastType=shadow->type34;
-   if(shadow->texture68!=lastTexture || shadow->type34!=lastType) {
+   if(!lastTexture) lastTexture=shadow->m_shadowTexture[0];
+   if(!lastType) lastType=shadow->m_type;
+   if(shadow->m_shadowTexture[0]!=lastTexture || shadow->m_type!=lastType) {
     flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
-    lastTexture=shadow->texture68; lastType=shadow->type34;
+    lastTexture=shadow->m_shadowTexture[0]; lastType=shadow->m_type;
    }
-   if(!shadow->object70 || shadow->object70->Is_Really_Visible()) {
+   if(!shadow->m_robj || shadow->m_robj->Is_Really_Visible()) {
     rva0010C841(shadow,1,0); ++projectionCount;
    }
   }
@@ -254,33 +289,33 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  }
  if(reinterpret_cast<ShadowRenderEntry10DF33 *>(m_shadowList)) {
  ((ShadowMeshRendererView *)TheDX8MeshRenderer)->camera04=&rinfo.Camera;
- ShadowTextureView10DF33 *lastTexture=0;
+ W3DShadowTexture *lastTexture=0;
  unsigned lastType=0;
  for(shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_shadowList);shadow;shadow=shadow->next114) {
   if(shadow->enabled04 && !shadow->invisible05) {
-   if(shadow->type34 & 0x2c61) {
-    if(!lastTexture) lastTexture=shadow->texture68;
-    if(!lastType) lastType=shadow->type34;
-    if(shadow->texture68!=lastTexture || shadow->type34!=lastType) {
+   if(shadow->m_type & 0x2c61) {
+    if(!lastTexture) lastTexture=shadow->m_shadowTexture[0];
+    if(!lastType) lastType=shadow->m_type;
+    if(shadow->m_shadowTexture[0]!=lastTexture || shadow->m_type!=lastType) {
      flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
-     lastTexture=shadow->texture68; lastType=shadow->type34;
+     lastTexture=shadow->m_shadowTexture[0]; lastType=shadow->m_type;
     }
-    if(!shadow->object70 || shadow->object70->Is_Really_Visible() || (shadow->type34 & 0xc00)) {
+    if(!shadow->m_robj || shadow->m_robj->Is_Really_Visible() || (shadow->m_type & 0xc00)) {
      rva0010C841(shadow,1,0); ++projectionCount;
     }
     continue;
    }
-   sphere=shadow->texture68->sphere7c;
-   sphere.Center+=shadow->object70->Get_Position();
+   sphere=reinterpret_cast<ShadowTextureView10DF33 *>(shadow->m_shadowTexture[0])->sphere7c;
+   sphere.Center+=shadow->m_robj->Get_Position();
    CollisionMath::OverlapType result=CollisionMath::Overlap_Test(shadowFrustum(rinfo.Camera),*(const SphereClass *)&sphere);
    if(result==CollisionMath::OVERLAPPED) {
-    copyBox(&aaBox,shadow->texture68->box64);
-    aaBox.Translate(shadow->object70->Get_Position());
+    copyBox(&aaBox,reinterpret_cast<ShadowTextureView10DF33 *>(shadow->m_shadowTexture[0])->box64);
+    aaBox.Translate(shadow->m_robj->Get_Position());
     if(CollisionMath::Overlap_Test(shadowFrustum(rinfo.Camera),aaBox)==CollisionMath::OUTSIDE) continue;
    } else if(result==CollisionMath::OUTSIDE) continue;
    if(result==CollisionMath::INSIDE) {
-    copyBox(&aaBox,shadow->texture68->box64);
-    aaBox.Translate(shadow->object70->Get_Position());
+    copyBox(&aaBox,reinterpret_cast<ShadowTextureView10DF33 *>(shadow->m_shadowTexture[0])->box64);
+    aaBox.Translate(shadow->m_robj->Get_Position());
    }
   }
  }
@@ -288,17 +323,17 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  rva001173f0((unsigned int)&rinfo);
  }
  if (reinterpret_cast<ShadowRenderEntry10DF33 *>(m_decalList)) {
- ShadowTextureView10DF33 *lastTexture=0;
+ W3DShadowTexture *lastTexture=0;
  unsigned lastType=0;
  for(shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_decalList); shadow; shadow=shadow->next114) {
   if(shadow->enabled04 && !shadow->invisible05) {
-   if(!lastTexture) lastTexture=shadow->texture68;
-   if(!lastType) lastType=shadow->type34;
-   if(shadow->texture68!=lastTexture || shadow->type34!=lastType) {
+   if(!lastTexture) lastTexture=shadow->m_shadowTexture[0];
+   if(!lastType) lastType=shadow->m_type;
+   if(shadow->m_shadowTexture[0]!=lastTexture || shadow->m_type!=lastType) {
     flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
-    lastTexture=shadow->texture68; lastType=shadow->type34;
+    lastTexture=shadow->m_shadowTexture[0]; lastType=shadow->m_type;
    }
-   if(!shadow->object70 || shadow->object70->Is_Really_Visible()) {
+   if(!shadow->m_robj || shadow->m_robj->Is_Really_Visible()) {
     rva0010C841(shadow,1,0); ++projectionCount;
    }
   }
@@ -306,15 +341,15 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
  }
  if(reinterpret_cast<ShadowPair10DF33 *>(m_dualDecalList)) {
- ShadowTextureView10DF33 *lastTexture=0,*lastTexture2=0;
+ W3DShadowTexture *lastTexture=0,*lastTexture2=0;
  unsigned lastType=0;
  for(ShadowPair10DF33 *pair=reinterpret_cast<ShadowPair10DF33 *>(m_dualDecalList);pair;pair=pair->next64) {
   if(pair->enabled04 && !pair->invisible05) {
-   if(!lastTexture) lastTexture=pair->shadow58 ? pair->shadow58->texture68 : 0;
-   if(!lastTexture2) lastTexture2=pair->shadow5c ? pair->shadow5c->texture68 : 0;
+   if(!lastTexture) lastTexture=pair->shadow58 ? pair->shadow58->m_shadowTexture[0] : 0;
+   if(!lastTexture2) lastTexture2=pair->shadow5c ? pair->shadow5c->m_shadowTexture[0] : 0;
    if(!lastType) lastType=pair->type34;
-   ShadowTextureView10DF33 *texture=pair->shadow58 ? pair->shadow58->texture68 : 0;
-   ShadowTextureView10DF33 *texture2=pair->shadow5c ? pair->shadow5c->texture68 : 0;
+   W3DShadowTexture *texture=pair->shadow58 ? pair->shadow58->m_shadowTexture[0] : 0;
+   W3DShadowTexture *texture2=pair->shadow5c ? pair->shadow5c->m_shadowTexture[0] : 0;
    unsigned type=reinterpret_cast<ShadowPair10DF33 *>(m_dualDecalList)->type34;
    if(texture!=lastTexture || texture2!=lastTexture2 || type!=lastType) {
     flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,(W3DShadowTexture *)lastTexture2,0);
@@ -385,19 +420,19 @@ int W3DProjectedShadowManager::rva0010DA71(RenderInfoClass &rinfo) {
     DX8Wrapper::Set_DX8_Render_State(54,1);DX8Wrapper::Set_DX8_Render_State(53,1);
    }
    for(int pass=0;pass<passes;++pass) {
-    ShadowTextureView10DF33 *lastTexture=0,*lastTexture2=0;unsigned lastType=0;
+    W3DShadowTexture *lastTexture=0,*lastTexture2=0;unsigned lastType=0;
     for(ShadowRenderEntry10DF33 *shadow=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C);shadow;shadow=shadow->next114) {
      if(shadow->enabled04&&!shadow->invisible05) {
-      if(!lastTexture)lastTexture=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->texture68;
-      if(!lastTexture2)lastTexture2=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->texture6c;
-      if(!lastType)lastType=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->type34;
-      ShadowTextureView10DF33 *texture=shadow->texture68,*texture2=shadow->texture6c;
-      unsigned type=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->type34;
+      if(!lastTexture)lastTexture=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->m_shadowTexture[0];
+      if(!lastTexture2)lastTexture2=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->m_shadowTexture[1];
+      if(!lastType)lastType=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->m_type;
+      W3DShadowTexture *texture=shadow->m_shadowTexture[0],*texture2=shadow->m_shadowTexture[1];
+      unsigned type=reinterpret_cast<ShadowRenderEntry10DF33 *>(m_list1C)->m_type;
       if(texture!=lastTexture||texture2!=lastTexture2||type!=lastType) {
        flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,(W3DShadowTexture *)lastTexture2,pass);
        lastTexture=texture;lastTexture2=texture2;lastType=type;
       }
-      if(!shadow->object70||shadow->object70->Is_Really_Visible()) {
+      if(!shadow->m_robj||shadow->m_robj->Is_Really_Visible()) {
        rva0010C841(shadow,passes,pass);if(pass==0)++count;
       }
      }

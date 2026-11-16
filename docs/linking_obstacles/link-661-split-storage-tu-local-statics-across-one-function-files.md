@@ -569,3 +569,15 @@ tooling fix must retain rejection for referenced/unknown/non-discardable cases.
 Evidence: seed-narrow-merge-dry.log, provider-complete-observation.log and
 provider-observation/proof.json under build/decal-diagnostic; 22 existing
 provider tests pass, the new positive regression fails with 28 others passing.
+
+**Shared render-entry view:** with the provider false reject fixed separately,
+the composer accepts the reader but exposes the writer's different field view.
+Normalize its two texture pointers to the reader's existing two-element array,
+retain the measured texture-storage casts, and let tu_views.py reconcile
+ShadowRenderEntry10DF33. The official planner applies one 0x118-byte view to
+both files: flags at +4/+5, reader fields through +0x113 and the writer's list
+link at +0x114. Its layout/build/unmatched gates pass. Every external provider
+fingerprint is unchanged; three EH graphs are EXACT and combined scoped
+preview stays at 12,921 bytes. This is a verified prerequisite; the three-file
+merge and runtime still need their own verification. Evidence: entry-view-plan.json,
+entry-view-apply.log and entry-view-provider-diff.json under build/decal-diagnostic.
