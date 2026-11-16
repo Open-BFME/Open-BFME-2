@@ -14,18 +14,11 @@
 // live exactly as retail; named temporaries change the frame and return slot.
 #include <map>
 
-class TextureClass
-{
-public:
-	void Release_Ref();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
 
-class AssetReference {
-    TextureClass *m_object;
-public:
-    AssetReference(const AssetReference &);
-    ~AssetReference() { if (m_object) m_object->Release_Ref(); }
-};
+#include "../../Include/Common/AssetReference.h"
+
+inline AssetReference::~AssetReference() { if (field00) field00->Release_Ref(); }
 
 #include "../../Include/Common/Rva00170999Data.h"
 

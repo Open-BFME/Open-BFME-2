@@ -66,26 +66,20 @@ public:
 	void Release_Ref();
 };
 
-class AssetReference
-{
-public:
-	AssetReference() : m_object( 0 ) {}
-	AssetReference( CountedAsset *object ) : m_object( object )
-	{
-		++*(unsigned short *)((char *)object + 4);
-	}
-	AssetReference( const AssetReference &that ) : m_object( that.m_object )
-	{
-		if ( m_object )
-		{
-			++*(unsigned short *)((char *)m_object + 4);
-		}
-	}
-	~AssetReference();
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
-private:
-	CountedAsset *m_object;
-};
+inline AssetReference::AssetReference( CountedAsset *object ) : field00( object )
+{
+	++*(unsigned short *)((char *)object + 4);
+}
+
+inline AssetReference::AssetReference( const AssetReference &that ) : field00( that.field00 )
+{
+	if ( field00 )
+	{
+		++*(unsigned short *)((char *)field00 + 4);
+	}
+}
 
 // Cursor payload and STL traversal from the complete BFME1 donor at
 // ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f. Target node +8 is the asset.

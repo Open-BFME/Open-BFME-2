@@ -34,16 +34,17 @@ public:
 	void Release_Ref();
 };
 
-class AssetReference
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/CountedAsset.h"
+
+#include "../../Include/Common/AssetReference.h"
+
+__declspec(noinline) inline AssetReference::AssetReference(const AssetReference &that) : field00(that.field00)
 {
-public:
-	__declspec(noinline) AssetReference(const AssetReference &that) : m_object(that.m_object)
-	{
-		if (m_object)
-			++*(unsigned short *)((char *)m_object + 4);
-	}
-	TextureClass *m_object;
-};
+	if (field00)
+		++*(unsigned short *)((char *)field00 + 4);
+}
+
+inline AssetReference::~AssetReference() { if (field00) field00->Release_Ref(); }
 
 #include "../../Include/Common/Rva00170999Data.h"
 
@@ -54,12 +55,7 @@ class Rva00170999
 public:
 	__declspec(noinline) Rva00170999(const AssetReference &a, const Rva00170999Data &d) : m_asset(a), m_data(d) {}
 	__declspec(noinline) Rva00170999(const Rva00170999 &that) : m_asset(that.m_asset), m_data(that.m_data) {}
-	~Rva00170999()
-	{
-		if (m_asset.m_object) {
-			m_asset.m_object->Release_Ref();
-		}
-	}
+	~Rva00170999() {}
 };
 
 __declspec(noinline) inline Rva00170999 __cdecl Rva00170A58Get(const AssetReference &a, const Rva00170999Data &d)

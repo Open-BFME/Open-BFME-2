@@ -3,42 +3,23 @@
 
 #include "../../../Include/W3DDevice/GameClient/CountedAsset.h"
 
-class AssetReference
-{
-public:
-	AssetReference() : m_object( 0 ) {}
-	AssetReference( const AssetReference &that ) : m_object( that.m_object )
-	{
-		if ( m_object )
-		{
-			++*(unsigned short *)((char *)m_object + 4);
-		}
-	}
-	~AssetReference()
-	{
-		if ( m_object )
-		{
-			m_object->Release_Ref();
-		}
-	}
-	AssetReference &operator=( const AssetReference &that )
-	{
-		CountedAsset *object = that.m_object;
-		if ( object )
-		{
-			++*(unsigned short *)((char *)object + 4);
-		}
-		if ( m_object )
-		{
-			m_object->Release_Ref();
-		}
-		m_object = object;
-		return *this;
-	}
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
-private:
-	CountedAsset *m_object;
-};
+inline AssetReference::AssetReference( const AssetReference &that ) : field00( that.field00 )
+{
+	if ( field00 )
+	{
+		++*(unsigned short *)((char *)field00 + 4);
+	}
+}
+
+inline AssetReference::~AssetReference()
+{
+	if ( field00 )
+	{
+		field00->Release_Ref();
+	}
+}
 
 #include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
 

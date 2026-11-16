@@ -851,12 +851,9 @@ struct DX8Guard
 
 #include "../../../Include/W3DDevice/GameClient/CountedAsset.h"
 
-class AssetReference
-{
-public:
-	~AssetReference() { if (m_object) m_object->Release_Ref(); }
-	CountedAsset *m_object;
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
+
+inline AssetReference::~AssetReference() { if (field00) field00->Release_Ref(); }
 
 class TextureClass { public: void Release_Ref(); };
 

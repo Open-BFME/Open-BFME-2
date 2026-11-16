@@ -472,12 +472,9 @@ public:
 	~RefCountPtr() { if (Referent) Referent->Release_Ref(); }
 	T *Referent;
 };
-class AssetReference {
-public:
-	~AssetReference() { if (m_texture) m_texture->Release_Ref(); }
-	operator bool() const { return m_texture != 0; }
-	TextureClass *m_texture;
-};
+#include "../../../../Include/W3DDevice/GameClient/CountedAsset.h"
+#include "../../../../../GameEngine/Include/Common/AssetReference.h"
+inline AssetReference::~AssetReference() { if (field00) field00->Release_Ref(); }
 class Rva001100A6 { public: void __fastcall rva001100A6(void *vertices); };
 class Rva001100C5 { public: void __fastcall rva001100C5(void *lines); };
 class Rva001103A5 { public: void __fastcall rva001103A5(const RefCountPtr<TextureClass> &texture); };
@@ -600,7 +597,7 @@ void AptShapeContainer::render()
 			if (!textured)
 				break;
 			AssetReference texture = ((Rva000A9F23 *)textured)->rva000A9F23();
-			if (texture) {
+			if (texture.field00) {
 				if (!textured->m_textureSpace)
 					textured->scaleTransformToTexture((const TextureBaseClass *)&texture);
 				if (aptMatrixMode == 1 && ((ShroudTexture *)&texture)->getFilter()->getMag() != 1) {
