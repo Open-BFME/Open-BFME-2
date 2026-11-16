@@ -52,25 +52,7 @@ void free(void *);
 
 #include "../../../Include/GameClient/GameFontClass.h"
 
-class GameWindow
-{
-public:
-	Int winSetPosition(Int x, Int y);
-	Int winGetPosition(Int *x, Int *y);
-	Int winGetCursorPosition(Int *x, Int *y);
-	Int winGetScreenPosition(Int *x, Int *y);
-	Int winSetSize(Int width, Int height);
-	Int winGetSize(Int *width, Int *height);
-	Int winHide(Bool hide);
-	UnsignedInt winSetStatus(UnsignedInt status);
-	UnsignedInt winGetStatus();
-	GameFont *winGetFont();
-	Int winBringToTop();
-	void winSetUserData(void *userData);
-
-	char m_pad000[0x1F4];
-	Int m_1F4;				// cleared by openCandidateList after winBringToTop
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
@@ -784,7 +766,7 @@ void IMEManager::openCandidateList(Int candidateFlags)
 
 	m_candidateWindow->winHide(FALSE);
 	m_candidateWindow->winBringToTop();
-	m_candidateWindow->m_1F4 = 0;
+	m_candidateWindow->m_bfmeCallbackExtra2 = 0;
 	TheWindowManager->winSetModal(m_candidateWindow);
 
 	Int wx, wy, wwidth, wheight, wcursorx, wcursory;

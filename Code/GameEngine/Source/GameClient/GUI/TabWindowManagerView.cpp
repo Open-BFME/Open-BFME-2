@@ -4,11 +4,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 class GameFont;
-class GameWindow
-{
-public:
-    void winSetUserData(void *);
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../Include/Common/Rva003140CF.h"
 #include "GameWindowManagerRecordView.h"
 
@@ -60,15 +56,6 @@ void GadgetStaticTextSetText(GameWindow *, UnicodeString);
 struct Rva002C19C9ButtonFactoryForward
 {
     GameWindow *create(GadgetCreateView *view, GameFont *font, bool visual);
-};
-
-class WinInstanceData
-{
-    unsigned char opaque[420];
-public:
-    WinInstanceData();
-    virtual ~WinInstanceData();
-    void init();
 };
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoGadgetSlider.cpp

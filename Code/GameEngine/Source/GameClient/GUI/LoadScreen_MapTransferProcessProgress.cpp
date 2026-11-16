@@ -33,18 +33,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Image;
-class GameWindow
-{
-public:
-	int winHide(bool hide);
-	int winBringToTop(void);
-	int winSetEnabledColor(int index, int color);
-	void winSetEnabledTextColors(int color, int borderColor);
-	int winGetEnabledTextBorderColor(void);
-	int winSetEnabledImage(int index, const Image *image);
-	char m_pad00[0x1F4];
-	int m_1f4; // +0x1F4 +0x1F4: cleared by init; meaning unknown
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 inline void GadgetProgressBarSetEnabledBarColor(GameWindow *gameWindow, Int color) { gameWindow->winSetEnabledColor(4, color); }
 
 #include "../../../Include/GameClient/GameWindowManager.h"
@@ -151,7 +140,7 @@ void MapTransferLoadScreen::init(GameInfo *game)
 	m_loadScreen->winHide(false);
 	// Codegen: same-valued PHI receiver closes the native register role of the layout window.
 	(m_loadScreen?m_loadScreen:m_loadScreen)->winBringToTop();
-	m_loadScreen->m_1f4 = 0;
+	m_loadScreen->m_bfmeCallbackExtra2 = 0;
 
 	AsciiString winName;
 	Int i;

@@ -47,18 +47,7 @@ public:
 };
 
 class Image;
-class GameWindow {
-public:
- Int winGetScreenPosition(Int *,Int *);
- Int winGetSize(Int *,Int *);
- unsigned int winGetStatus();
- char unknown00[0x48];
- const Image *enabledImage; Color enabledColor,enabledBorder;
- char unknown54[0xb4-0x54];
- const Image *disabledImage; Color disabledColor,disabledBorder;
- char unknownC0[0x120-0xc0];
- const Image *hiliteImage; Color hiliteColor,hiliteBorder;
-};
+#include "../../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 struct Rva0010500FDrawData {
  char unknown00[8]; unsigned int state;
  char unknown0c[0x17c-0xc]; Int imageOffsetX,imageOffsetY;
@@ -111,9 +100,9 @@ void Rva00104DB0::rva0010500F(GameWindow *window,Rva0010500FDrawData *instData)
  window->winGetSize(&size.x,&size.y);
  if(window->winGetStatus() & 0x80) {
   const Image *image;
-  if(!(window->winGetStatus() & 8)) image=window->disabledImage;
-  else if(instData->state & 2) image=window->hiliteImage;
-  else image=window->enabledImage;
+  if(!(window->winGetStatus() & 8)) image=window->m_instData.m_disabledDrawData[0].image;
+  else if(instData->state & 2) image=window->m_instData.m_hiliteDrawData[0].image;
+  else image=window->m_instData.m_enabledDrawData[0].image;
   if(image) {
    ICoord2D start,end;
    start.x=origin.x+instData->imageOffsetX;
@@ -123,9 +112,9 @@ void Rva00104DB0::rva0010500F(GameWindow *window,Rva0010500FDrawData *instData)
   }
  } else {
   Color color,borderColor;
-  if(!(window->winGetStatus() & 8)) {color=window->disabledColor;borderColor=window->disabledBorder;}
-  else if(instData->state & 2) {color=window->hiliteColor;borderColor=window->hiliteBorder;}
-  else {color=window->enabledColor;borderColor=window->enabledBorder;}
+  if(!(window->winGetStatus() & 8)) {color=window->m_instData.m_disabledDrawData[0].color;borderColor=window->m_instData.m_disabledDrawData[0].borderColor;}
+  else if(instData->state & 2) {color=window->m_instData.m_hiliteDrawData[0].color;borderColor=window->m_instData.m_hiliteDrawData[0].borderColor;}
+  else {color=window->m_instData.m_enabledDrawData[0].color;borderColor=window->m_instData.m_enabledDrawData[0].borderColor;}
   if(borderColor!=0x00ffffff)
    ((Rva00105216ManagerView *)TheWindowManager)->winOpenRect(borderColor,borderWidth,origin.x,origin.y,origin.x+size.x,origin.y+size.y);
   if(color!=0x00ffffff)
