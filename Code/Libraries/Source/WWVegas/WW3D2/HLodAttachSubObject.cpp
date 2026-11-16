@@ -27,7 +27,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define _CRTIMP
 // Retail's RefCountClass inline copies (Add_Ref, Release_Ref 0x005D1A7D) are the size
 // form: compile refcount.h for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "rendobj.h"

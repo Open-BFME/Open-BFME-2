@@ -24,7 +24,6 @@
 // (pop ecx after the delete call); this TU builds /G7 which emits add esp,4
 // instead. Compile just the base class for size so our COMDAT matches the
 // first copy in link order. Code this TU's rows inline keeps this TU's flags.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "vector3.h"

@@ -25,7 +25,6 @@
 
 #include "always.h"
 // Retail's RefCountClass inline copies are the size form: compile refcount.h for size.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "wwstring.h"

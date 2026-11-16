@@ -64,7 +64,6 @@ template <> __declspec(dllimport) __forceinline bool DynamicVectorClass<Vector3>
 // Render expands the aligned-buffer constructor in its unwind graph.
 // Retail's DynamicVectorClass<Vector3> deleting destructor is the size-optimised
 // FXShaderRendererSkin.cpp body; this TU emits its copy in RefCountClass's context.
-#pragma optimize("s", on)
 #include "../WWLib/RefCountData.h"
 
 #pragma optimize("", on)

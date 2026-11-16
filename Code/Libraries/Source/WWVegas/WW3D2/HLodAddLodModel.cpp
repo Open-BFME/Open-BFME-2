@@ -29,7 +29,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Retail links the size-form RefCountClass inlines (Release_Ref 0x005D1A7D) and the /O1
 // Matrix3D default constructor (0x000423C5): compile those headers in that state,
 // matrix3d.h's dependencies first, unchanged.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include <assert.h>

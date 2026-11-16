@@ -7,7 +7,6 @@
 // vertex count there; EC remains opaque. Its constructor zeros both fields.
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
-#pragma optimize("s", on)
 #include "multilist.h"
 #pragma optimize("", on)
 #include "multilist.h"

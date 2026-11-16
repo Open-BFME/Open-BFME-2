@@ -24,7 +24,6 @@
 #include "always.h"
 // Retail's out-of-line RefCountClass deleting dtor is the /O1 form hlod.cpp
 // emits; compile refcount.h for size before sharebuf.h pulls it in.
-#pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
 #include "sharebuf.h"

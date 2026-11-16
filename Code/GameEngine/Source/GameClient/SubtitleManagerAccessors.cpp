@@ -29,7 +29,6 @@ extern "C" void _ReadWriteBarrier(void);
 template <> __declspec(dllimport) __forceinline
 StringBase<unsigned short>::StringBase() : m_data(0) {}
 // The empty Unicode wrapper has the native six-byte size profile.
-#pragma optimize("s", on)
 #include "unicode_string.h"
 #pragma optimize("", on)
 template<> inline bool StringBase<unsigned short>::isEmpty() const throw() { return m_data == 0 || m_data->length == 0; }

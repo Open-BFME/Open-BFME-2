@@ -22,7 +22,6 @@
 
 
 // RefCountClass inline copies take the size form retail links (0x005D1A7D).
-#pragma optimize("s", on)
 #include "../WWLib/RefCountData.h"
 #pragma optimize("", on)
 
