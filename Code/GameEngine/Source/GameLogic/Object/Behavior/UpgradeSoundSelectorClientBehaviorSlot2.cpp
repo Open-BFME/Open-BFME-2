@@ -24,23 +24,17 @@ struct Rva004CB51CEntry
 	unsigned char m_pad381[0x384 - 0x381];
 };
 
-struct UpgradeSoundSelectorClientBehaviorModuleData
+#include "../../../../Include/GameClient/Drawable.h"
+#include "../../../../Include/Common/ModuleData.h"
+
+class UpgradeSoundSelectorClientBehaviorModuleData : public ModuleData
 {
-	unsigned char m_pad00[0x08];
+public:
 	Rva004CB51CEntry *m_begin; // +0x08
 	Rva004CB51CEntry *m_end; // +0x0C
 };
 
-#include "../../../../Include/GameClient/Drawable.h"
-
-class DrawableModule
-{
-public:
-	virtual ~DrawableModule();
-protected:
-	const UpgradeSoundSelectorClientBehaviorModuleData *m_moduleData; // +0x04
-	Drawable *m_drawable; // +0x08
-};
+#include "../../../../Include/Common/DrawableModule.h"
 
 class Rva004CB51CInterface
 {
@@ -58,7 +52,7 @@ public:
 
 bool UpgradeSoundSelectorClientBehavior::rva004CB51C(int *out)
 {
-	const UpgradeSoundSelectorClientBehaviorModuleData *upgradeSoundSelectorClientBehaviorModuleData = m_moduleData;
+	const UpgradeSoundSelectorClientBehaviorModuleData *upgradeSoundSelectorClientBehaviorModuleData = static_cast<const UpgradeSoundSelectorClientBehaviorModuleData *>(m_moduleData);
 	Object *obj = m_drawable->getObject();
 	if (obj == 0)
 		return false;
