@@ -16,7 +16,9 @@
 //  - DefaultModuleHeadBase constructor 0x003A57C5 stores table VA 0x00C1B590
 //    at its own +0, then calls the handle copy constructor on its +4 member.
 //    Particle constructor 0x001F4B63 zeroes handles at +0x3C/+0x78 and calls
-//    handle assignment; it consumes the pointee as a particle system.
+//    handle assignment; it consumes the pointee as a particle system. Its
+//    stores at 0x001F4B89..0x001F4BA0 clear +0, +4 and +8 in that order with
+//    no call: the inline default constructor below.
 //  - At 0x003FDAFE and 0x003FDB2E, caller 0x003FDAEB tests the handle's first
 //    word as a boolean. At 0x003FDB03..0x003FDB0A it uses that word or calls
 //    the rowed null-system factory 0x001FCBD7, as does accessor 0x001FD016.
@@ -35,6 +37,7 @@ ParticleSystem *Make001FCBD7();
 class RvaSmartPtr12
 {
 public:
+    RvaSmartPtr12() throw() : field00(0), field04(0), field08(0) {}
     RvaSmartPtr12(void *ptr) throw();
     RvaSmartPtr12(const RvaSmartPtr12 &other) throw();
     ~RvaSmartPtr12() throw();

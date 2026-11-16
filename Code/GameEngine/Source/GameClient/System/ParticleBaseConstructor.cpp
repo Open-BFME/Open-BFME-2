@@ -31,23 +31,7 @@ public:
 	unsigned char m_38;
 	char m_pad39[3];
 };
-class ParticleSystem;
-ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12
-{
-public:
-  ParticleSystem *operator->()const{return m_ptr?(ParticleSystem*)m_ptr:Make001FCBD7();}
- RvaSmartPtr12() { m_ptr = 0; m_pad04 = 0; m_pad08 = 0; }
-  RvaSmartPtr12(const RvaSmartPtr12 &that);
-  RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
- // The guarded destructor at 2115C5 calls the non-null unlink at 4CBC0.
- // Calling the other guarded spelling here would test the pointer twice.
- void rva0004CBC0() throw();
- ~RvaSmartPtr12() throw() {if(m_ptr)rva0004CBC0();}
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class ClientFrameSubsystem
 {
 public:
@@ -143,7 +127,7 @@ Rva001F4C67::Rva001F4C67(const RvaSmartPtr12 &a, const Rva001F376E &b)
 	m_70 = 0;
 	m_64 = 0;
 	m_68 = 0;
-	ParticleSystem *ps = (ParticleSystem *)a.m_ptr;
+	ParticleSystem *ps = (ParticleSystem *)a.field00;
 	if (ps == 0)
 		ps = Make001FCBD7();
 	((Rva001F416C *)TheParticleSystemManager)->rva001F416C((Node001F416C *)this, ps->m_priority);
