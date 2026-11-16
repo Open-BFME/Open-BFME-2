@@ -42,12 +42,14 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Slot { char at00[0x4c]; int at4C; };
 struct Rva002BA8F1Listener { char opaque[4]; };
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); char opaque[12]; };
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 class Rva002E2903Player {
 public:
     void setAt1C4(int);
     void state0(); void state1(); void state2();
-    char at00[4]; Rva005A0B4CList listeners; char at10[4]; int at14;
+    // append's push_back 0x004DFCB0 uses the list's first 12 bytes; its header declares none.
+    char at00[4]; Rva005A0B4CList listeners; char listenersRest[0x0C - sizeof(Rva005A0B4CList)];
+    char at10[4]; int at14;
     char at18[8]; AsciiString name; char remaining[0x3c8-0x24];
 };
 // Existing physical owner from LivingWorldPlayerDtor.cpp: native constructor

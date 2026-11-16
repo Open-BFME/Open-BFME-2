@@ -23,7 +23,7 @@ extern class RankInfoStore *TheRankInfoStore;
 class GameLogic;
 extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Listener { char opaque[4]; };
-class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); char opaque[12]; };
+#include "../../../../Include/Common/Rva005A0B4CList.h"
 class Rva002E2903Player {
 public:
     Rva002E2903Player(Rva002BA8F1Input *, void *);
@@ -32,7 +32,9 @@ public:
     void state0(); void state1(); void state2();
     void attach(void *);
     void initialize();
-    char at00[4]; Rva005A0B4CList listeners; char at10[4]; int at14;
+    // append's push_back 0x004DFCB0 uses the list's first 12 bytes; its header declares none.
+    char at00[4]; Rva005A0B4CList listeners; char listenersRest[0x0C - sizeof(Rva005A0B4CList)];
+    char at10[4]; int at14;
     char at18[8]; AsciiString name;
     char pad24_44[0x44-0x24]; int m_44; // +0x44 dword-checked count gate
     char pad48_3C4[0x3C4-0x48]; bool m_3C4; // +0x3C4 byte-checked with flag OR

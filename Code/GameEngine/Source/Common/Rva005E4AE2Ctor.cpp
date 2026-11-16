@@ -32,16 +32,12 @@ struct Rva002BA8F1Listener;
 #include "../../Include/Common/Rva005E4AE2Listener.h"
 // Preserve the original forced-inline construction path.
 __forceinline Rva005E4AE2Listener::Rva005E4AE2Listener() {}
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *p);
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva005A0B4CList.h"
 struct Rva005E4AE2Holder
 {
 	Rva005A0B4CList m_list;
+	// append's push_back 0x004DFCB0 uses the list's first 12 bytes; its header declares none.
+	char m_listRest[0x0C - sizeof(Rva005A0B4CList)];
 	char m_pad0C[8];
 	int m_14;
 };

@@ -46,9 +46,9 @@ struct Rva003F6DF9Child {char pad98[0x98];unsigned field98;char pad9c[0xc];bool 
 struct Rva003F6DF9Entry {unsigned word;Rva003F6DF9Child *child;};
 struct Rva003F6DF9Data {char pad2c[0x2c];unsigned dirty;char pad30[0x10];_STL::vector<Rva003F6DF9Entry> entries;char pad4c[0x1c];};
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldBattle.h"
-struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);private:void*words[3];};
-struct Rva003F6DF9Payload {char pad8[8];Rva005A0B4CList listeners;char pad14[0x64];Rva003F6DF9Data *data;};
+#include "../../../../GameEngine/Include/Common/Rva005A0B4CList.h"
+// append's push_back 0x004DFCB0 uses the list's first 12 bytes; its header declares none.
+struct Rva003F6DF9Payload {char pad8[8];Rva005A0B4CList listeners;char listenersRest[0x0C-sizeof(Rva005A0B4CList)];char pad14[0x64];Rva003F6DF9Data *data;};
 #include "../../../../GameEngine/Include/GameLogic/Rva0040CB2CIndexedField.h"
 struct Rva003F6D35Inner {
  unsigned word;_STL::vector<const ModuleData*> payloads;_STL::vector<BfmePod104> data;unsigned tail[5];
