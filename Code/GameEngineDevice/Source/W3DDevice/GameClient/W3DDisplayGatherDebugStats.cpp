@@ -367,7 +367,7 @@ struct TerrainLogicVtbl
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 // class-gate: allow GameLogic canonical view lacks getObjectCount (rowed 0x0023CFCE) that this body calls and keeps the +0x38/+0x40 words private
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
-class Keyboard { public: bool isShift(); bool isCtrl(); bool isAlt(); char m_pad[0xC]; unsigned char m_modifiers; };
+#include "../../../../GameEngine/Include/GameClient/KeyboardClass.h"
 #include "../../../../GameEngine/Include/GameClient/Mouse.h"
 #include "../../../../GameEngine/Include/GameLogic/ExperienceTracker.h"
 #include "../../../../GameEngine/Include/GameLogic/ExperienceLevelStore.h"

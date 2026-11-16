@@ -74,12 +74,7 @@ extern GameWindowManager *TheWindowManager;
 
 extern AudioManager *TheAudio;
 
-class Keyboard
-{
-public:
-	unsigned char m_pad00[0xC];
-	UnsignedInt m_modifiers;
-};
+#include "../../../../Include/GameClient/KeyboardClass.h"
 
 extern Keyboard *TheKeyboard;
 

@@ -116,14 +116,7 @@ extern GameWindowManager *TheWindowManager;
 
 extern AudioManager *TheAudio;
 
-class Keyboard
-{
-public:
-	__declspec(dllimport) __forceinline Int getModifierFlags() { return m_modifiers; }
-
-	unsigned char m_pad00[0xC];
-	Int m_modifiers;
-};
+#include "../../../../Include/GameClient/KeyboardClass.h"
 
 extern Keyboard *TheKeyboard;
 

@@ -21,21 +21,15 @@ private:
 };
 // Keyboard (vtable 0x00BE81F0) and DirectInputKeyboard (0x00BC8688,
 // 0xE28 bytes), formerly modelled here as AIPlayer / AISkirmishPlayer.
-class Keyboard
-{
-public:
-	Keyboard() throw();
-	virtual ~Keyboard() throw();
-protected:
-	char m_pad04[8];
-	unsigned short m_modifiers;
-	char m_pad0E[0xE20 - 0x0E];
-};
+#include "../../../../GameEngine/Include/GameClient/KeyboardClass.h"
 class DirectInputKeyboard : public Keyboard
 {
 public:
 	DirectInputKeyboard();
 	virtual ~DirectInputKeyboard();
+	virtual bool getCapsState();
+protected:
+	virtual void getKey(KeyboardIO *key);
 private:
 	void *m_pDirectInput;
 	void *m_pKeyboardDevice;
