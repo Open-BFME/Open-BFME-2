@@ -56,12 +56,7 @@ float *ArmyMemberDefinition::getPercentageOfArmy(int i)
     }
 }
 
-struct Rva002A8AB1Record
-{
-    char m_pad[0x16C];
-    int m_16C;
-    float m_170;
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 

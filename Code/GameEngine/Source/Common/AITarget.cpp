@@ -75,11 +75,7 @@ struct Rva002A8AB1Record;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-struct Rva002A8AB1Record
-{
-	char _pad[0x164];
-	void *m_164;
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 struct InterestZoneVector
 {

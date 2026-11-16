@@ -12,7 +12,7 @@
 // Fields and virtual slots below are target facts; their labels are descriptive.
 // The final empty test reads current bounds while its loop uses the end pointer
 // captured before the preceding loop, exactly as retail does.
-struct Rva002A8AB1Record {char pad[0x16c];int phase;};
+#include "../../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
@@ -35,9 +35,9 @@ class Rva005DCE08 : public BuildPhase {public:
 };
 void BuildPhase::update(){
  Rva002A8AB1Record *ai=TheSkirmishAIManager->rva002A8AB1(player);
- if(phase>ai->phase)return;
+ if(phase>ai->m_16C)return;
  if(!started){rva005DCC60();started=true;}
- if(phase<ai->phase && !complete && !costsSet){
+ if(phase<ai->m_16C && !complete && !costsSet){
   Rva00573F03 **last=orders.end();
   for(Rva00573F03 **it=orders.begin();it!=last;++it){if((*it)->state==0)(*it)->cost=(*it)->slot08();}
   costsSet=true;

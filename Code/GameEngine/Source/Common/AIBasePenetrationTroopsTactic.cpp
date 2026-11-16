@@ -6,13 +6,7 @@
 // This split consumer refers to that same retail object at VA 0x00E06404.
 extern AsciiString AIBasePenetrationTroopsTactic_IsRunning;
 
-struct Rva002A8AB1Record
-{
-	void rva002C717E(const AsciiString &key, int value);
-	int rva002C7196(const AsciiString &key);
-	char m_pad000[0x16C];
-	int m_16C;		// +0x16C
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

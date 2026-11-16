@@ -11,7 +11,7 @@
 #include <string.h>
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Player;
-struct Rva002A8AB1Record { char prefix[0x16c]; int mode; };
+#include "../../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern int BfmeLogicFramesPerSecond;
@@ -55,7 +55,7 @@ public:
 int AIUpgradeHeuristicFortress::getUpgradeHeuristicResult(Player *player)
 {
  Rva002A8AB1Record *ai=TheSkirmishAIManager->rva002A8AB1(player);
- if(ai->mode==2) {
+ if(ai->m_16C==2) {
   unsigned int frame=TheGameLogic->getFrame();
   if(nextFrame==-1 || nextFrame<=frame) {
    nextFrame=frame+60*BfmeLogicFramesPerSecond;

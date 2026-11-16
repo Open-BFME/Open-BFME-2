@@ -17,11 +17,7 @@ class SuffixObj;
 
 #include "../../../../GameEngine/Include/GameLogic/Rva002A8F24.h"
 
-struct Rva002A8AB1Record
-{
-	char m_pad[0x16c];
-	int m_16c; // +0x16c
-};
+#include "../../../../GameEngine/Include/Common/Rva002A8AB1Record.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Module/ProductionEntry.h"
 
@@ -64,7 +60,7 @@ void AIDozerManager::buildDozer(Object *obj)
 {
 	int zero = 0;
 	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(field0C);
-	if (field10 != zero || rec->m_16c > zero) {
+	if (field10 != zero || rec->m_16C > zero) {
 		SuffixObj *suffixObj = (SuffixObj *)obj->rva0028BC58(zero);
 		if (suffixObj != (SuffixObj *)zero) {
 			if (suffixObj->v11() == 1) {

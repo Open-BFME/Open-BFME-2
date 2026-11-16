@@ -23,14 +23,7 @@ struct AIDiffEntry
 	unsigned int m_1C; // +0x1C
 };
 
-struct Rva002A8AB1Record
-{
-	char _pad0[0xCC]; // +0x00
-	unsigned int m_cc; // +0xCC
-	unsigned int m_d0; // +0xD0
-	char _pad1[0x16C - 0xD4]; // +0xD4
-	int m_16C; // +0x16C
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 

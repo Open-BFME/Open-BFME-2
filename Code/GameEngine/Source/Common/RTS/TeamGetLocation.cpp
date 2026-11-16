@@ -27,13 +27,7 @@ class Player;
 struct Rva002C5FBAResult { char pad[12]; Coord3D location; };
 class Rva002C5FBA { public: void *rva002C5FBA(int); };
 class TeamPrototype;
-struct Rva002A8AB1Record
-{
-public:
-	void rva004EC07D(TeamPrototype *proto);
-	char m_pad00[0x164];
-	Rva002C5FBA *target; // +0x164
-};
+#include "../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 struct Prototype { char pad[0x2c4]; int targetId; };
@@ -42,7 +36,7 @@ Coord3D Team::getLocation() const
  Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(getControllingPlayer());
  if(record) {
   Prototype *prototype = (Prototype *)m_proto;
-  Rva002C5FBA *target = record->target;
+  Rva002C5FBA *target = record->m_164;
   Rva002C5FBAResult *result = (Rva002C5FBAResult *)target->rva002C5FBA(prototype->targetId);
   if(result) { return result->location; }
  }

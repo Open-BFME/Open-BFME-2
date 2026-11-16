@@ -43,11 +43,7 @@ typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::all
 
 #include "../../Include/Common/Rva0025BFF8.h"
 
-struct Rva002A8AB1Record
-{
-	unsigned char m_pad[0x16C];
-	int m_16C;					// +0x16C
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

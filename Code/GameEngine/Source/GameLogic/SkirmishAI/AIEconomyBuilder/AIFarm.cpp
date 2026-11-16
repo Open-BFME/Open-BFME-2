@@ -53,13 +53,7 @@ public:
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
 
-struct Rva002A8AB1Record
-{
-	char pad00[0x160];
-	char *m_160raw;
-	char pad164[8];
-	int m_16C;
-};
+#include "../../../../Include/Common/Rva002A8AB1Record.h"
 
 struct Rva002A8B59Data
 {

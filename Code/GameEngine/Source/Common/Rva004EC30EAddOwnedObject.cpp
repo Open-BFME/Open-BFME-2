@@ -50,16 +50,7 @@ public:
 	void unRegisterProducedObject(Object *object);
 };
 
-struct Rva002A8AB1Record
-{
-public:
-	void rva004EC30E(Object *object);
-	void rva002C6A3D(Object *object);
-	void rva002C6A4E(Object *object);
-private:
-	char m_pad00[0x168];
-	unsigned char m_168;
-};
+#include "../../Include/Common/Rva002A8AB1Record.h"
 
 void Rva002A8AB1Record::rva004EC30E(Object *object)
 {
