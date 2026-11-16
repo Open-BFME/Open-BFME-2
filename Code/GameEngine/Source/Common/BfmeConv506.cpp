@@ -1,12 +1,9 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
-class BfmeSubBPB
-{
-public:
-	void bfmeDoBPB(void *one, void *two, void *three);
-};
+#include "../../Include/GameLogic/ObjectCreationListClass.h"
+class BfmeSubBPB;
 
 void bfmeGoBPB(BfmeSubBPB *sub, void *one, void *two, void *three)
 {
 	if (sub != 0)
-		sub->bfmeDoBPB(one, two, three);
+		reinterpret_cast<ObjectCreationList *>(sub)->create(one, two, three);
 }
