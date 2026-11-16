@@ -9563,7 +9563,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/DrawableFields.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/DrawableFields.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/GameClient/FXListMapNodeEmit.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/FXListMapNodeEmit.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp	"t",on	1
@@ -9597,7 +9596,6 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	"s",
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp	"s",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp	"p",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",off	1
@@ -9643,7 +9641,6 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRo
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp	"t",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp	"w",on	1
-pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	"ty",on	1

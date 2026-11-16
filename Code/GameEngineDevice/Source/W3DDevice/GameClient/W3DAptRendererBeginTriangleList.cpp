@@ -15,7 +15,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include "matrix4.h"
 #include "shader.h"
 extern "C" void _ReadWriteBarrier(void);
