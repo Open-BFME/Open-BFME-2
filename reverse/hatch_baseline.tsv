@@ -19,7 +19,6 @@ address_global	Code/GameEngine/Source/Common/AptOnlineHome.cpp	g_Va00E06504	1
 address_global	Code/GameEngine/Source/Common/AptOnlineHome.cpp	g_Va00E06524	1
 address_global	Code/GameEngine/Source/Common/AptTranslator.cpp	g_Va00E032C8	5
 address_global	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	g_Rva0107301CEmptyString	2
-address_global	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/AutoResolveAttackPriorityParse.cpp	g_Va00DC85C4Names	2
 address_global	Code/GameEngine/Source/Common/AutoResolveUnitNameFromIndex.cpp	g_Va00DC85C4Names	2
 address_global	Code/GameEngine/Source/Common/Bfme/Rva004E65CFLeaf.cpp	g_Va00BC28F4	3
@@ -669,8 +668,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch.cpp	g_Va00E04478	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp	g_Rva00E02EEC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp	g_Va00E0333C	2
-address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp	g_Va00E0333C	1
-address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp	g_Va00E03314	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	g_Va00E06360	2
@@ -693,7 +690,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScr
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	g_Va00DD1538	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	g_Va00E048DC	4
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp	g_Va00E048DC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	g_Va00E032C8	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00DD13D8	4
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00E046BC	7
@@ -711,7 +707,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineC
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp	g_Va00E063F0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp	g_Va00E063F0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp	g_Va00E0333C	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeCallbacks.cpp	g_Va00E06480	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeCallbacks_InitGadgets.cpp	g_Va00E06480	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeConstructor.cpp	g_Va00E06480	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeStatistics.cpp	g_Va00E06480	3
@@ -732,10 +727,8 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMen
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp	g_Va00E0492C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp	g_Va00E032E8	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp	g_Va00E0333C	2
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreen.cpp	g_Va00A04908	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStrategicPlayerStatus.cpp	g_Va00A04934	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E048DC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E04920	8
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp	g_Va00A046B4	3
@@ -777,12 +770,10 @@ address_global	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCom
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Rva00E02EEC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Va00E0333C	6
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Rva00E02EEC	1
-address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirConstructor.cpp	g_Va00DFF030	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirUpdate.cpp	g_Va00A04450	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	g_Va00DC85C4Names	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	g_Va00A03314	2
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva0043F483PopulatePlayerCombo.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp	g_Va00E04904	5
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E04500	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E065B4	2

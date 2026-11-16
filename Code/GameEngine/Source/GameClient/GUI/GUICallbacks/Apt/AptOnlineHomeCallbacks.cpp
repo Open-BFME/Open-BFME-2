@@ -25,7 +25,6 @@ void GadgetListBoxReset(GameWindow *listBox);
 void bfmeGo924A(BfmeKeyLC *listBox, char flag);
 
 // The online home screen instance (Rva005B922FDtor.cpp's g_Va00E06480).
-extern int g_Va00E06480;
 
 namespace AptOnline
 {

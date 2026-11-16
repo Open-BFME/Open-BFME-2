@@ -63,7 +63,6 @@ private:
 };
 
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

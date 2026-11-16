@@ -337,7 +337,6 @@ class MapMetaData;
 extern MapCache *TheMapCache;
 
 // The panel instance (g_Va00E0333C, cleared by ??1Rva004421E1).
-extern int g_Va00E0333C;
 
 // The +0x2F4 color combo boxes: a one-pointer window wrapper whose copy
 // constructor (0x0027EA56) and empty destructor (0x000B3FD0) are folded

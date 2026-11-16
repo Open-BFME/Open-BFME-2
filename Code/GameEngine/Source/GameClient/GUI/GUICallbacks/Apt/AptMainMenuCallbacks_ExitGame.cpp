@@ -97,7 +97,6 @@ extern class GlobalData *TheWritableGlobalData;
 
 // OpaqueScalarDeletingDtorsB12.cpp's g_Va00E048DC (the open resource
 // holder).
-extern int g_Va00E048DC;
 
 struct AptMainMenuGlobalData
 {

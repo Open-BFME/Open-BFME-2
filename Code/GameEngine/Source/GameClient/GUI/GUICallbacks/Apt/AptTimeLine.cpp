@@ -798,7 +798,6 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 // The main menu (OpaqueScalarDeletingDtorsB12.cpp's g_Va00E048DC); its
 // verified 0x005158A7 picks the credits menu.
-extern int g_Va00E048DC;
 extern GameLogic *TheGameLogic;
 // TheShell (the ledger's g_Va00A01E48): +0x54.
 struct AptTimeLineShell
