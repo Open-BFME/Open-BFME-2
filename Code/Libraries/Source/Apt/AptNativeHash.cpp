@@ -66,41 +66,10 @@ struct AptHashItem;
 
 class BfmeAptValue006DCD20;
 
-class AptNativeHash {
-    struct Entry { AsciiString key; AptValue *value; };
-    int mnTotalSize;
-    Entry *mpData;
-    AptValue *mp__proto__;
-    AptValue *mpPrototype;
-    unsigned int nEventHandlers;
-public:
-    AptNativeHash(int size);
-    ~AptNativeHash();
-    void ClearData(); void ClearDataNoDelete();
-    void Set(const EAStringC *const,AptValue *const);
-    void Unset(const EAStringC *const);
-    void Set__Proto__(AptValue *const value);
-    void SetPrototype(AptValue *const value);
-    void Unset__Proto__();
-    void UnsetPrototype();
-    void DestroyGCPointers();
-    // WorldBuilder names the corresponding header body UnsetAt. Both binaries
-    // pass one stack argument and return with ret, with no instance receiver.
-    // The hash-item parameter remains opaque; its value pointer is proven at +4.
-    static void UnsetAt(void *pHashItem);
-    void rva0070A680(int index, AptValue *pValue);
-    void rva0070A610(int index, AptValue *pValue);
-    AsciiString *rva0070AA40();
-    void rva0070AB30();
-    Entry *rva0070AAA0(Entry *pItem);
-    void rva0070B180(BfmeAptValue006DCD20 *pValue, EAStringC *pStr, int bRemove);
-    void rva0070B220(void *arg);
-private:
-    AptHashItem *HashFindKey(const EAStringC *const) const;
-    friend class Rva0070B380;
-    void Expand();
-    void HashSet(const EAStringC *const,AptValue *const);
-};
+#include "AptNativeHash.h"
+
+// The header keeps the eight-byte item opaque; this unit reads its key through AsciiString.
+struct AptNativeHash::Entry { AsciiString key; AptValue *value; };
 
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
