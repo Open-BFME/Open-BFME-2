@@ -180,7 +180,9 @@ struct ShadowTerrainDispatch10DF33 {
  virtual void slot139();
  virtual void bounds238(TerrainRect10DF33 *);
 };
-class DX8MeshRendererClass { public: void *vptr; CameraClass *camera04; void Flush(); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8MeshRendererClass.h"
+// The canonical class is opaque; native renderShadows writes its camera at +4.
+struct ShadowMeshRendererView { void *vptr; CameraClass *camera04; };
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 // Retail defines this global in BaseHeightMap.cpp as BaseHeightMapRenderObjClass *.
 // The bounds call is reached through the TU-local dispatch view above.
@@ -240,7 +242,7 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,0,0);
  }
  if(m_shadowList) {
- TheDX8MeshRenderer->camera04=&rinfo.Camera;
+ ((ShadowMeshRendererView *)TheDX8MeshRenderer)->camera04=&rinfo.Camera;
  ShadowTextureView10DF33 *lastTexture=0;
  unsigned lastType=0;
  for(shadow=m_shadowList;shadow;shadow=shadow->next114) {

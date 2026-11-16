@@ -420,3 +420,19 @@ selected providers remain unchanged in the index overlay (the ceilf/sqrtf verdic
 remain unknown, not newly proven retail). No shared math header or gate changes.
 Logs: `build/decal-diagnostic/reader-math-master-*`. This is a composition
 prerequisite, not a completed selection-rendering fix.
+
+**Writer mesh-renderer header prerequisite:** adopt the canonical opaque
+DX8MeshRendererClass declaration, retaining the existing +4 camera access through
+a TU-local layout view. All 10 rows, one EXACT EH graph and all 17 COMDAT
+fingerprints are unchanged. Official header adoption retires one queue row.
+The separate CameraClass adoption experiment was reverted because it emitted a
+22-byte non-retail getter; see
+[handoff](../../reverse/attempt_support/projected-shadow-camera-adoption-20261116.md).
+After the seed, math and mesh changes the official focused composer still accepts
+no donors. Earlier floorf/Coord3D/RenderInfoClass/TheDX8MeshRenderer diagnostics
+are gone; remaining diagnostics include storage conflicts for drawEdge/drawStart,
+manager declarations, reader DrawableInfo/IndexBuffer/RenderObj views and writer
+WW3D access. Peer-held WW3D/StringClass/DX8Wrapper scopes were not edited.
+Log: `build/decal-diagnostic/headers-master-merge-dry.log`. No source paths moved,
+no complete consumer audit or real-link receipt was obtained, and selection
+rendering is not yet repaired by these prerequisite changes.
