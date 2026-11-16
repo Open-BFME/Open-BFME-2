@@ -110,16 +110,7 @@ public:
 private:
 	unsigned char m_data[0x2C];	// new'd at 0x2C by 0x005073D6
 };
-class Rva00506B1B
-{
-public:
-	Rva00506B1B();
-	virtual ~Rva00506B1B();
-	virtual void v1() = 0;
-	virtual void v2() = 0;
-private:
-	bool m_04;
-};
+#include "../../Include/GameLogic/Rva00506B1B.h"
 // 0x00506FE9's collaborators. Object and RebuildHoleBehaviorInterface stay
 // opaque; the views below carry only what that body reads.
 class Object;
