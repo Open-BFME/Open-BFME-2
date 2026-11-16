@@ -8,14 +8,8 @@
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
-class Rva0044EF5E : public SpecialAbilityUpdate
-{
-public:
-	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva0044EF5E();
-};
 // Retail's tables: 0x00C4D700 (23 slots), 0x00C4D640 at +0x0C, 0x00C4DEE8 at +0x10 and 0x00C4D61C at +0x20.
-class ArrowStormUpdate : public Rva0044EF5E
+class ArrowStormUpdate : public SpecialAbilityUpdate
 {
 public:
 	ArrowStormUpdate(Thing *thing, const ModuleData *moduleData);
