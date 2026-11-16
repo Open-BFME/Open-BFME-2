@@ -97,6 +97,24 @@ struct BfmeNarrowRecord00427F75 {
 BfmeNarrowRecord00427F75::BfmeNarrowRecord00427F75(const BfmeNarrowRecord00427F75 &other) : text0(other.text0), text1(other.text1) {}
 template void _STL::_Construct<BfmeNarrowRecord00427F75,BfmeNarrowRecord00427F75>(BfmeNarrowRecord00427F75*,const BfmeNarrowRecord00427F75&);
 
+// Retail folds the parser's entry and pivot record copies onto this body: the
+// symbols.csv pins at 0x00427F75 name ??0VersionBlockEntry@@QAE@ABU0@@Z and
+// ??0Pivot24@@QAE@ABU0@@Z, and insertion_sort 0x004287E8 constructs val from
+// VersionBlockEntry *i through this same narrow copy. Flat views of the same
+// 0x18 two-string record emit the identical 61B body, so the linker folds all
+// three spellings onto the one rowed definition.
+struct VersionBlockEntry {
+    _STL::basic_string<char> text0, text1;
+    VersionBlockEntry(const VersionBlockEntry &other);
+};
+VersionBlockEntry::VersionBlockEntry(const VersionBlockEntry &other) : text0(other.text0), text1(other.text1) {}
+
+struct Pivot24 {
+    _STL::basic_string<char> text0, text1;
+    Pivot24(const Pivot24 &other);
+};
+Pivot24::Pivot24(const Pivot24 &other) : text0(other.text0), text1(other.text1) {}
+
 // Complete retail record copy at 0x0054FEF1.
 #include "../../Include/Common/BfmeNarrowRecord0054FEF1.h"
 BfmeNarrowRecord0054FEF1::BfmeNarrowRecord0054FEF1(const BfmeNarrowRecord0054FEF1 &other) : text(other.text), word0(other.word0), word1(other.word1) {}
