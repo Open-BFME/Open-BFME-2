@@ -4,12 +4,14 @@
 #define CANONICAL_BFMEOBJECTEVENTDISPATCH_H
 
 struct BfmeDelayedLuaEventList;
+class BfmeObject872Header;
 class WeaponTemplateSetHead;
 
 class BfmeObjectEventDispatch
 {
 public:
 	void rva00335FE1(const WeaponTemplateSetHead *, const WeaponTemplateSetHead *, void *);
+	void rva0033605B(const BfmeObject872Header *, const BfmeObject872Header *, void *);
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
 

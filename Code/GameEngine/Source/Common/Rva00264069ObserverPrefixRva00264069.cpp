@@ -15,10 +15,7 @@ class Rva00264069ObjectPrefix {public: char pad00[0x94]; BfmeObject872Header tag
 class Rva00264069LogicPrefix {public: char pad00[0x40]; unsigned frame40;};
 class GameLogic;
 extern GameLogic *TheGameLogic;
-struct BfmeObjectEventDispatch {
- void rva00335FE1(const WeaponTemplateSetHead *,const WeaponTemplateSetHead *,void *);
- void rva0033605B(const BfmeObject872Header *,const BfmeObject872Header *,void *);
-};
+#include "../../Include/GameLogic/Module/BfmeObjectEventDispatch.h"
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 bool Rva00045473Equal(const void *,const void *);
