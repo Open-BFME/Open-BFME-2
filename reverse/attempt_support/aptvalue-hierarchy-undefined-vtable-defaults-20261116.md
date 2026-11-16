@@ -99,15 +99,45 @@ carries `??_7AptValueWithHash@@6B@` as `bridged` in
 `reverse/vtable_bridge_queue.tsv` with AptArray.cpp among its sources. They are
 not part of this repair.
 
-## Why this is a handoff and not a commit
+## Landed so far: slots 9 and 10
 
-Every one of the seven sits in a file or at an address another worker holds:
+`AptValue.cpp` came free, so the two defaults that belong to the base class are
+now defined and rowed:
+
+| slot | name | rva | size | icf-owner the row verified against |
+| ---: | --- | --- | ---: | --- |
+| 9 | `?DeleteThis@AptValue@@UAEXXZ` | 0x006CBCF0 | 12 | `?rva006CBCF0@Rva006CBCF0@@QAEXXZ` |
+| 10 | `?PreDestroy@AptValue@@UAEXXZ` | 0x0069E440 | 1 | `?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ` |
+
+Both went into the unit's existing out-of-line default block, beside
+`GetNativeHashVirtual`, `ContainsNativeHashVirtual`, `getHasClass`,
+`setHasClass`, `objectMemberLookup`, `objectMemberSet` and `DestroyGCPointers`,
+which is where the other nine slots of this table already live.
+
+`delete this;` is the whole of slot 9 -- **not** `if (this) delete this;`. MSVC
+emits the null guard for `delete` itself, so the explicit `if` is redundant and
+the plain statement matched retail's 12 bytes on the first build. The fold
+partner's source writes it as `if (this) v14(1);` only because that class is an
+address-token view with no destructor to call.
+
+That also confirms the slot map a second way: `delete this` on an `AptValue *`
+compiled to `call [eax+0x38]`, and +0x38 is slot 14, which is exactly where
+`virtual ~AptValue()` falls in declaration order in a 15-slot table.
+
+Measured after: the AptError object has 51 undefined externals, of which 16 have
+no ledger row or pin; `?DeleteThis@AptValue@@UAEXXZ` and
+`?PreDestroy@AptValue@@UAEXXZ` are no longer among them. **Five of the seven are
+left**: slots 3, 4, 5, 6 and 12.
+
+## Why the other five are still a handoff
+
+Each of the five sits in a file or at an address another worker holds:
 `BugFixer300@vm` took `Code/GameEngine/Source/Common/AptObject.cpp`,
 `Code/Libraries/Source/Apt/AptValueWithHash_RegisterReferences.cpp`, 0x006CBFD0,
 0x006D6440 and 0x006D6460 while this was being measured, and is working the same
 blocker from `Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp`
 (10 missing names, the same sample). `Code/Libraries/Source/Apt/AptValue.cpp`,
-the only right home for slots 9 and 10, is held as well.
+the only right home for slots 9 and 10, came free later and is now done (above).
 
 ## Reproducing
 

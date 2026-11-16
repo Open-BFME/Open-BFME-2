@@ -518,6 +518,15 @@ AptValue *AptValue::objectMemberLookup(AptValue *const, const EAStringC *const) 
 // Native CEAED0 vtable slot(s) 8; canonical PDB name and ABI.
 bool AptValue::objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const) { return false; }
 
+// Native CEAED0 vtable slot(s) 9; canonical PDB name and ABI. `delete this`
+// on a polymorphic type is the scalar deleting destructor at slot 14 (+0x38)
+// with __flags 1, and MSVC's own null guard on delete is retail's leading
+// test/je; the folded body is rowed as ?rva006CBCF0@Rva006CBCF0@@QAEXXZ.
+void AptValue::DeleteThis() { delete this; }
+
+// Native CEAED0 vtable slot(s) 10; canonical PDB name and ABI.
+void AptValue::PreDestroy() {}
+
 // Native CEAED0 vtable slot(s) 11; canonical PDB name and ABI.
 void AptValue::DestroyGCPointers() { SetDestroyedGC(); }
 
