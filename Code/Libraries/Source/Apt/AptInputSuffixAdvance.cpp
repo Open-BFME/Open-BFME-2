@@ -15,6 +15,7 @@ struct Rva0070AA40InputEntry {EAStringC key;BfmeAptValue006DCD20 *value;};
 #include "AptNativeHash.h"
 struct AptInputInst {char unknown00[0x10];AptNativeHash *hash;};
 #include "AptCIHClass.h"
+#include "Rva006CFCD0.h"
 static __forceinline EAStringC *cihName(AptCIH *cih){return &cih->field08;}
 struct Rva006E3710Node;
 #include "Rva006E3710.h"
@@ -97,14 +98,14 @@ AptCIH *rva006F99D0(int direction,AptCIH *current,AptCIH *reference)
   float bestScore=1000000000.0f;
   int referenceFirst=0,referenceSecond=0;
   bestNode=0;
-  INPUT_ASSERT(current->rva006CFCD0(),"pCIH->isSpriteInstBase()",0xA3);
+  INPUT_ASSERT(reinterpret_cast<const Rva006CFCD0 *>(current)->isSpriteInstBase(),"pCIH->isSpriteInstBase()",0xA3);
   if(reference){bool bRet=rva006F97F0Parse(cihName(reference),&referenceFirst,&referenceSecond);INPUT_ASSERT(bRet,"bRet",0xAB);}
   for(Rva0070AA40InputEntry *iterator=(Rva0070AA40InputEntry*)((AptInputInst *)current->field4C)->hash->rva0070AA40();iterator;iterator=(Rva0070AA40InputEntry*)((AptInputInst *)current->field4C)->hash->rva0070AAA0((AptNativeHash::Entry*)iterator)){
    BfmeAptValue006DCD20 *value=iterator->value;
    if(!(unsigned char)value->isCIH(false))continue;
    AptCIH *candidate=(AptCIH*)value->rva006DCF60(false);
    if(reference==candidate)continue;
-   if(!candidate->rva006CFCD0()){
+   if(!reinterpret_cast<const Rva006CFCD0 *>(candidate)->isSpriteInstBase()){
     if(!candidate){g_bfmeAptAssertAtE17734("this","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0xB5);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
     if(((Rva006DBB30SarDwordField*)candidate)->get()!=14 || ((BfmeAptValue006DCD20*)candidate)->isUndefined())continue;
    }

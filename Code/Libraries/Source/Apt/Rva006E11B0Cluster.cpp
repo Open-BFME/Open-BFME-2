@@ -47,6 +47,7 @@ public:
 #include "AptDisplayListState.h"
 
 #include "AptCIHClass.h"
+#include "Rva006CFCD0.h"
 
 void AptCIH::rva006E11B0()
 {
@@ -59,8 +60,8 @@ void AptCIH::rva006E11B0()
     }
     if (display != 0)
         ((AptNativeHash *)display)->rva0070B220(this);
-    if (rva006CFCD0()) {
-        if (!rva006CFCD0()) {
+    if (reinterpret_cast<const Rva006CFCD0 *>(this)->isSpriteInstBase()) {
+        if (!reinterpret_cast<const Rva006CFCD0 *>(this)->isSpriteInstBase()) {
             g_bfmeAptAssertAtE17734("isSpriteInstBase()",
                 "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);
             if (g_bfmeAptBreakOnAssertAtDDC01C)

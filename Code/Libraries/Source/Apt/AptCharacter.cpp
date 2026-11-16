@@ -12,6 +12,7 @@
 // helper (aptHelper008AE3A0, now defined below), which retail links from this TU (tu_map approved, by
 // address contiguity inside the AptCharacter span), folded from two split
 // units with these exact flags.
+#include "Rva006CFCD0.h"
 class AptCIH;
 
 class EAStringC;
@@ -94,7 +95,6 @@ public:
     int unknown5c;
     void *rva006CFF40() const;
     void jumpToFrame(int);
-    bool rva006CFCD0() const;
     bool IsSpriteInst(bool) const;
     bool IsAnimationInst(bool) const;
     void factorySetProperty(int,float,bool);
@@ -1573,7 +1573,7 @@ bool __cdecl rva006EE6C0(AptValue *context,const EAStringC *name,AptValue *value
       if(!text->variable.IsEmpty())
       {
        AptCIH *parent=context->c_cih(false);
-       while(parent && !parent->rva006CFCD0() && parent->parent)parent=parent->parent;
+       while(parent && !reinterpret_cast<const Rva006CFCD0 *>(parent)->isSpriteInstBase() && parent->parent)parent=parent->parent;
        AptString *created=AptString::Create();
        created->value()=s;
        g_aptDateInterpreter.setVariable((AptValue*)parent,0,&text->variable,created,1,1,0);
@@ -1648,7 +1648,7 @@ bool __cdecl rva006EE6C0(AptValue *context,const EAStringC *name,AptValue *value
   }
   
  }
- if(context->c_cih(false)->rva006CFCD0() || isButton(context->c_cih(false)) || (unsigned char)((BfmeAptValue006DCD20*)context->c_cih(false))->rva006E02B0())
+ if(reinterpret_cast<const Rva006CFCD0 *>(context->c_cih(false))->isSpriteInstBase() || isButton(context->c_cih(false)) || (unsigned char)((BfmeAptValue006DCD20*)context->c_cih(false))->rva006E02B0())
  {
   const R4Word *word=Rva008D48F0(name->rva00620090(),name->rva006D3750());
   if(word)

@@ -18,6 +18,7 @@
 // complete string-resolution and interpreter paths here follow WB and retail.
 // No donor layout or complete class identity is asserted by byte matching.
 #include "EAStringC.h"
+#include "Rva006CFCD0.h"
 
 class AptValue;
 
@@ -397,8 +398,8 @@ bool AptAnimationPoolData::HandleFocusButton(int event,int transition,void **out
   rva006FEC00((int)context,0,source,(int*)&resolved,&rest);
   if(resolved) {
    BfmeAptValue006DCD20 *node=resolved->rva006DCF60(false);
-   if(rest.rva006D3750()==0 && ((unsigned char)node->rva006DCC60(false)||((AptCIH*)node)->rva006CFCD0())) *out=node;
-   else if((int)rest.rva006D3750()>0 && ((AptCIH*)node)->rva006CFCD0()) {
+   if(rest.rva006D3750()==0 && ((unsigned char)node->rva006DCC60(false)||((const Rva006CFCD0*)node)->isSpriteInstBase())) *out=node;
+   else if((int)rest.rva006D3750()>0 && ((const Rva006CFCD0*)node)->isSpriteInstBase()) {
     Rva0070B380 *members=*(Rva0070B380**)((char*)*(void**)((char*)node+0x4C)+0x10);
     BfmeAptValue006DCD20 *found=(BfmeAptValue006DCD20*)members->lookup(rest);if(found)value=found;
    }
@@ -416,7 +417,7 @@ bool AptAnimationPoolData::HandleFocusButton(int event,int transition,void **out
    return true;
   }
  } else ((AptValue*)value)->AddRef();
- if((unsigned char)value->rva006DCF60(false)->rva006DCC60(false)||((AptCIH*)value->rva006DCF60(false))->rva006CFCD0()) {
+ if((unsigned char)value->rva006DCF60(false)->rva006DCC60(false)||((const Rva006CFCD0*)value->rva006DCF60(false))->isSpriteInstBase()) {
   if(!((Rva006E3710*)g_bfmeAptPtrAtE176D0)->rva006E3710((Rva006E3710Node*)value->rva006DCF60(false))) *out=value->rva006DCF60(false);
  }
  ((AptValue*)value)->Release();return false;
@@ -898,7 +899,7 @@ void AptAnimationPoolData::HandleAutoNav(AptCIH *candidate, int eventCode,
         if (!candidate) {
             candidate = rva006F99D0(
                 eventCode, *(AptCIH **)((char *)current + 0x48), current);
-        } else if (candidate->rva006CFCD0()) {
+        } else if (reinterpret_cast<const Rva006CFCD0 *>(candidate)->isSpriteInstBase()) {
             candidate = rva006F99D0(eventCode, candidate, 0);
         }
         if (!candidate)

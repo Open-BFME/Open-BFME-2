@@ -19,6 +19,7 @@ struct AptCharacter;struct AptCharacterInst;
 class AptRenderingContext;
 #include "AptValue.h"
 #include "AptCIHClass.h"
+#include "Rva006CFCD0.h"
 #include "BfmeAptValue006DCD20.h"
 // AptCIH::field58 packs the signed 17-bit display depth (0x006F72F0), the
 // 14-bit creation frame and a high flag; this view reads and writes them.
@@ -316,7 +317,7 @@ static __forceinline int rva006F6D60IsType14(const AptCIH *pNewItem)
 // ?insert@@YGPAVAptCIH@@PAV1@0@Z @0x006F6D60 159B
 AptCIH *BfmeQuery1279::insert(AptCIH *pOldItem, AptCIH *pNewItem)
 {
-	if (pNewItem->rva006CFCD0() || rva006F6D60IsType14(pNewItem)) {
+	if (reinterpret_cast<const Rva006CFCD0 *>(pNewItem)->isSpriteInstBase() || rva006F6D60IsType14(pNewItem)) {
 		if (pNewItem->field4C == 0) {
 			g_bfmeAptAssertAtE17734("pNewItem->pData != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x1D8);
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
@@ -763,7 +764,7 @@ struct TextInst {const void*vtable;int value;int frame;AptCharacter*character;ch
 extern Rva006E34D0*g_bfmeAptPtrAtE176D0;
 static __forceinline AptCharacterInst*spriteInst(AptCIH*aptCIH)
 {
- if(!aptCIH->rva006CFCD0()) {
+ if(!reinterpret_cast<const Rva006CFCD0 *>(aptCIH)->isSpriteInstBase()) {
   g_bfmeAptAssertAtE17734("isSpriteInstBase()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0x7d);
   if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
  }
@@ -815,7 +816,7 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
   else if(definition->type==1) {inst=(AptCharacterInst*)new Rva006F7D80;type=12;}
   else if(definition->type==8) {inst=(AptCharacterInst*)new Rva006F7DA0;type=17;}
   else {CHECK(false,"NOT_REACHED",0x2b9);}
-  if(parent->rva006CFCD0()) {
+  if(reinterpret_cast<const Rva006CFCD0 *>(parent)->isSpriteInstBase()) {
    inst->frame=spriteInst(parent)->word18;
   } else inst->frame=-1;
   if(!current) {
@@ -828,7 +829,7 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
    }
    current->field4C=inst;
   }
-  if(parent->rva006CFCD0())cihKeyBits(current).created=inst->frame;
+  if(reinterpret_cast<const Rva006CFCD0 *>(parent)->isSpriteInstBase())cihKeyBits(current).created=inst->frame;
   else cihKeyBits(current).created=-1;
   if(name) {
    current->field08=*name;
