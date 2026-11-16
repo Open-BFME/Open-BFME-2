@@ -40,7 +40,6 @@ static WWINLINE const float &vector4Component(const Vector4 &row, int index)
 	return (&row.X)[index];
 }
 
-#pragma optimize("ty", on)
 // Zero Hour's Matrix3D::Transform_Vector body (alias test, then rows X,Y,Z) as
 // a file-static helper: retail's out-of-line Transform_Vector lives in
 // frustum.cpp (0x0007B501), and a member copy here would emit a competing
@@ -59,7 +58,6 @@ static WWINLINE void bfme_xform(const Matrix3D &matrix3D, const Vector3 &in, Vec
 	out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
 	out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
 }
-#pragma optimize("", on)
 
 #include "../../Include/GameClient/Drawable.h"
 

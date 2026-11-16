@@ -8,7 +8,6 @@
 // an array will not match, try it without this block.
 #include "../../Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // Retail RVA 0x008E3F40 (.rdata, 20 B): the five-word table the base
 // constructor stores at +0. Every slot is the address of a matched retail row.

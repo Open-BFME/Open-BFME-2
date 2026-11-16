@@ -9,7 +9,6 @@
 // an array will not match, try it without this block.
 #include "../../../Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 //
 // pair<NameKeyType,NameKeyType> key compare — sibling TU (LocomotorAccessors

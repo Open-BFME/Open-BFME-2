@@ -6,11 +6,9 @@
 #include "_alloc.h"
 #include <vector>
 // Keep this inlined unsigned max overload local; retail has one external owner.
-#pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int& max(const unsigned int& a, const unsigned int& b) { return a < b ? b : a; }
 }
-#pragma optimize("", on)
 
 struct Rva003A3B50Input
 {

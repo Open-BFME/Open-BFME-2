@@ -5,7 +5,6 @@
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 
-#pragma optimize("t", on)
 class CriticalSectionLock
 {
 public:
@@ -13,7 +12,6 @@ public:
 	CriticalSectionLock(CRITICAL_SECTION *cs) : m_cs(cs) { EnterCriticalSection(m_cs); }
 	~CriticalSectionLock() { LeaveCriticalSection(m_cs); }
 };
-#pragma optimize("", on)
 
 void regainFocus();
 
