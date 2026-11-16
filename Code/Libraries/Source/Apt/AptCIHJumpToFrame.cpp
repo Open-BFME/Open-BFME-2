@@ -52,6 +52,19 @@ void AptCIH::jumpToFrame(int frame) {
  sprite->mnGotoAnded=sprite->mnFrame;
  sprite->character->movie.queueFrameActions(this,sprite->mnFrame);
 }
+
+// ?rva006dbd80@AptCIH@@QAEXXZ, retail 0x006DBD80, 5 bytes.
+// The flag setter AptCIH::DestroyGCPointers (0x006E0460) tail-jumps to, and the
+// name VslotSmallBodiesAJ.cpp reaches: or dword ptr [ecx+4],8; ret. The
+// established AptValue prefix puts the flag dword at +4, and the same 5 bytes
+// are rowed as AptValue::SetDestroyedGC, so this spelling is that body's
+// fold-proof twin. It lives here, not in AptCIH.cpp, because a definition in
+// the caller's own TU makes DestroyGCPointers inline the OR and lose its
+// 0x006DBD80 tail jump.
+void AptCIH::rva006dbd80()
+{
+	*(unsigned int *)((char *)this + 4) |= 8;
+}
 #pragma comment(linker, "/alternatename:??3AptPseudoDisplayList@@SAXPAXI@Z=?Rva006D8680Free@@YAXPAXH@Z")
 #pragma comment(linker, "/alternatename:?Destroy@AptPseudoDisplayList@@QAEPAV1@H@Z=?rva006E2A00@Rva006E2A00@@QAEPAV1@H@Z")
 
