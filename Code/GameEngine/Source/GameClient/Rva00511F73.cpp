@@ -70,9 +70,7 @@ public:
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"
-class AptMessenger {
-public:static void OnMessengerBttn(const char*);static void IsOpen(int,char*,bool);
-};
+#include "../../Include/GameClient/AptMessenger.h"
 void __cdecl Rva00512069Register()
 {
  ((Rva005A0B4CList*)Rva00381452Get())->append((Rva002BA8F1Listener*)&g_Va00E048C4);

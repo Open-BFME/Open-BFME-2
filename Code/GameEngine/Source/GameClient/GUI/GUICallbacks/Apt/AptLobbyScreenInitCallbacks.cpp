@@ -51,17 +51,7 @@ extern class Shell *TheShell;
 // Rva0051280EEnable.cpp's 0x0051280E.
 void Rva0051280EEnable();
 
-class AptMessenger
-{
-public:
-	void OnInitialized(const char *unused);
-
-private:
-	unsigned char m_pad000[0x27C];
-	int m_state; // +0x27C
-	unsigned char m_pad280[0x29C - 0x280];
-	bool m_initialized; // +0x29C
-};
+#include "../../../../../Include/GameClient/AptMessenger.h"
 
 class AptInGameChat
 {
@@ -94,9 +84,9 @@ private:
 // Retail 0x00511540, 27 bytes: "AptMessenger::OnInitialized".
 void AptMessenger::OnInitialized(const char *unused)
 {
-	m_initialized = true;
-	if (m_state == 0)
-		m_state = 1;
+	field29C = true;
+	if (field27C == 0)
+		field27C = 1;
 }
 
 // Retail 0x004E81FF, 20 bytes: "AptInGameChat::OnInitialized".
