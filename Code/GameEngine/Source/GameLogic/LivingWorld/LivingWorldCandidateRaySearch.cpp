@@ -34,8 +34,8 @@ class Rva0020F91D {public:bool rva0020F91D(void*,const Vector3*,const Vector3*);
 struct Rva0020F9F6Span {void **begin;void **end;};
 struct Rva0020EE29Inner {char prefix[0x2c];_STL::vector<void*> m_entries;};
 class Rva0020EE29 {public:void*rva0020F9F6(void*,void*,void*);private:char prefix[8];Rva0020EE29Inner*m_inner;};
-class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;
-struct Rva00DFE1C8Host {char prefix[0x268];int m_268;};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
+extern LivingWorldManager *TheLivingWorldManager;
 void *Rva0020EE29::rva0020F9F6(void *rayStart, void *rayDirection, void *preferred)
 {
 	Rva0020EE29Inner *inner = m_inner;
@@ -43,7 +43,7 @@ void *Rva0020EE29::rva0020F9F6(void *rayStart, void *rayDirection, void *preferr
  Rva0020F91D * const receiver=(Rva0020F91D*)this;
 	if (!inner)
 		return 0;
-	if (((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268 == (int)i)
+	if (!TheLivingWorldManager->field268)
 		return 0;
 	if (preferred != 0) {
 		if (((Rva0020F91D*)this)->rva0020F91D(preferred, (const Vector3*)rayStart, (const Vector3*)rayDirection))

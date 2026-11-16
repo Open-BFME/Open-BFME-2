@@ -138,14 +138,8 @@ void Rva0020EE29::rva0020EE29()
 // singleton; the zero-then-counter shared by the null checks and both loops.
 // The candidate and argument pointers are opaque here (callers pass two
 // 24-byte float blocks); the vector element type matches rva0020EE29 above.
-struct Rva00DFE1C8Host
-{
-	char m_pad[0x268];
-	int m_268;
-	void rva00212655(int val);
-	void rva002122D4(void *a);
-};
-// Bind to the existing data-ledger owner; keep the retail access view local.
+#include "../../../../GameEngine/Include/Common/Rva00DFE1C8Host.h"
+// The VA 0x00DFE1C8 singleton is the data-ledger owner TheLivingWorldManager.
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
@@ -467,6 +461,7 @@ void LivingWorldRegionManager::loadPostProcess()
 #include "../../../../GameEngine/Include/Common/Rva003EF14A.h"
 
 #include "../../../../GameEngine/Include/Common/Rva003F3F27.h"
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldManager.h"
 
 void Rva0020EE29::rva0020F795()
 {
@@ -480,8 +475,8 @@ void Rva0020EE29::rva0020F795()
 	self->m_2C = 0;
 	self->m_30 = 0;
 	if (self->m_inner) {
-		if (((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268)
-			((Rva003EF14A *)((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268)->rva003EF1B8();
+		if (TheLivingWorldManager->field268)
+			((Rva003EF14A *)TheLivingWorldManager->field268)->rva003EF1B8();
 		Rva003F3F27 ***bounds = (Rva003F3F27 ***)&self->m_inner->m_begin;
 		for (unsigned j = 0; j < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++j)
 			bounds[0][j]->rva003F3F27();

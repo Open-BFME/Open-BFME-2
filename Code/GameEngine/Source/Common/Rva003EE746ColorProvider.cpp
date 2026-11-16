@@ -8,9 +8,8 @@
 // cl: /O1 /MD /EHsc /arch:SSE /Ireference/shims/bfme2_ascii
 struct Rva003EE746Color {Rva003EE746Color(float r,float g,float b):red(r),green(g),blue(b){} float red,green,blue;};
 struct Rva003EE746Region {char pad[0x13c];int id0,id1;};
-struct Rva003EEAFBColourView {char pad[0x20];Rva003EE746Color color;};
-class Rva00DFE1C8Host {public:char pad[0x268];Rva003EEAFBColourView*effects;};
-class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
+#include "../../Include/GameLogic/LivingWorldManager.h"
+extern LivingWorldManager *TheLivingWorldManager;
 class Rva002E2903Player {public:char pad[0x184];Rva003EE746Color color;};
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva0059E647World;
@@ -21,7 +20,7 @@ class Rva003EE746ColorProvider:public Rva003EE711 {public:Rva003EE746ColorProvid
 Rva003EE746Color Rva003EE746ColorProvider::color(const Rva003EE746Region*region) {
  int id;
  switch(*selector){case 0:id=region->id0;break;case 1:id=region->id1;break;default:id=-1;break;}
- if(id==-1){Rva003EEAFBColourView*regionEffectsManager=((Rva00DFE1C8Host*)TheLivingWorldManager)->effects;return *(const Rva003EE746Color*)((char*)regionEffectsManager+0x20);}
+ if(id==-1){LivingWorldRegionEffectsManager*regionEffectsManager=TheLivingWorldManager->field268;return *(const Rva003EE746Color*)((char*)regionEffectsManager+0x20);}
  Rva002E2903Player*player=((Rva002BA8F1Logic*)TheLivingWorldLogic)->find(id,0);
  if(player)return player->color;
  return Rva003EE746Color(1.0f,1.0f,1.0f);
