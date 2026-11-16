@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii /Ireference/open-bfme-1/inputs/reference/shims/iniexception /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -13,9 +13,8 @@
 // The EmotionNugget CopyFrom field parser, retail 0x0037B1B0.  The field table
 // identifies this callback directly: it resolves a named nugget and copies its
 // BfmeThing payload into the field at offset zero.
-#include "PreRTS.h"
-#include "Common/INI.h"
-#include "Common/INIException.h"
+#include "../../../Include/Common/INI/INI.h"
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // The BFME string implementation is shared by several source-level aliases.
 // This one-word view preserves the proven findNugget parameter spelling while
@@ -41,13 +40,7 @@ private:
 	char *m_data;
 };
 
-class EmotionNugget;
-
-class EmotionSystem
-{
-public:
-	EmotionNugget *findNugget( const BfmeEmotionName &name );
-};
+#include "../../../Include/GameLogic/EmotionSystem.h"
 
 extern EmotionSystem *TheEmotionSystem; // 0x012F0878
 
