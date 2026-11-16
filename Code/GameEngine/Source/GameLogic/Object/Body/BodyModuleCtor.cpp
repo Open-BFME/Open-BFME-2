@@ -13,12 +13,6 @@ class ModuleData;
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorIface
-{
-public:
-	virtual void behaviorIfaceAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"

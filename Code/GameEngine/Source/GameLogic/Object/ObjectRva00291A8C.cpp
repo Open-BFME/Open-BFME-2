@@ -126,12 +126,6 @@ bool isPosDifferent(const Coord3D *,const Coord3D *);
 bool isAngleDifferent(float,float);
 #include "../../../Include/GameLogic/Module/ObjectTransformContain.h"
 enum PathfindLayerEnum { LAYER_GROUND = 1 };
-struct Rva002ED236Pos {
- float x,y,z;
- Rva002ED236Pos(const Coord3D &p) { x=p.x;y=p.y;z=p.z; }
- Rva002ED236Pos(const Rva002ED236Pos &p) { x=p.x;y=p.y;z=p.z; }
- ~Rva002ED236Pos() {}
-};
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

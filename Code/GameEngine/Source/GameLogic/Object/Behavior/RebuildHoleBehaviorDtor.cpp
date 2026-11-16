@@ -27,12 +27,6 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/Common/BehaviorModuleBase.h"
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime

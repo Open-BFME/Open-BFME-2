@@ -5,7 +5,6 @@
 // Use the shared string contract rather than a second private StringBase.
 #include "ascii_string.h"
 
-struct ModuleNugget { char m_bytes[20]; };
 #include "../../../Include/Common/ModuleInfoClass.h"
 
 AsciiString ModuleInfo::getNthName(int index) const

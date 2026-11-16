@@ -9,13 +9,6 @@ class MultiIniFieldParse;
 #include <map>
 #include "ascii_string.h"
 
-class Rva002618A2
-{
-public:
-    Rva002618A2 *rva002618FA(int, int, int, int, int, int);
-protected:
-    unsigned m_words[7];
-};
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;

@@ -17,11 +17,6 @@
 
 #include "ascii_string.h"
 
-struct ModuleNugget
-{
-	char m_bytes[20];
-};
-
 #include "../../../Include/Common/ModuleInfoClass.h"
 
 #include "../../../Include/Common/ThingTemplate.h"

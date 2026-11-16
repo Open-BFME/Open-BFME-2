@@ -36,11 +36,6 @@ public:
 template <> class Rva004C2095Slots<0>
 {
 };
-class Rva004C2095Contain : public Rva004C2095Slots<31>
-{
-public:
-	virtual void *rvaSlot31() = 0;
-};
 #include "../object.h"
 class DamageInfo;
 struct PorcupineFormationBodyModuleData

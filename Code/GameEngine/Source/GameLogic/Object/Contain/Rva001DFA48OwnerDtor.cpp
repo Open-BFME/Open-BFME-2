@@ -14,15 +14,6 @@
 
 // The pool-aware member at +0x8/+0xC; only its address and non-virtual dtor
 // are proven. It occupies four bytes (the two call sites are four apart).
-class Rva00360D26Member
-{
-public:
-	~Rva00360D26Member();
-
-private:
-	unsigned m_unknown;
-};
-
 // The FXNugget base: its ctor 0x001DFEAA installs the same vtable 0x00BDC940
 // as this dtor, so the dtor carries the ctor's class name.
 #include "../../../../Include/GameClient/Rva001DFEAABase.h"

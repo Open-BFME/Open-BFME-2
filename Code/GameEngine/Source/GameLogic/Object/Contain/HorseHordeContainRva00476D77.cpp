@@ -15,7 +15,6 @@ struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/PathfindPath.h"
 enum CommandSourceType {COMMAND_SOURCE_2=2};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-struct LocoTemplate {char pad[0x70];int appearance;};
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 #include "../../../../Include/GameLogic/Module/Rva001E46E1.h"
 #include "../../../Common/Thing/thing.h"

@@ -242,12 +242,6 @@ class Object;
 extern class ThingFactory *TheThingFactory;
 void XferObjectID(Xfer *xfer, ObjectID *id);
 #include "../../../../Include/Common/BehaviorModuleBase.h"
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 extern ScriptEngine *TheScriptEngine;
 
 extern int BfmeLogicFramesPerSecond;

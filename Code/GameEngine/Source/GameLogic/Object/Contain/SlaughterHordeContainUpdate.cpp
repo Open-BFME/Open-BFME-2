@@ -55,33 +55,6 @@ typedef void (*ContainIterateFunc)(Object *obj, void *userData);
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterfaceVtbl
-{
-public:
-	SLOT08(v00,v01,v02,v03,v04,v05,v06,v07)
-	SLOT08(v08,v09,v0A,v0B,v0C,v0D,v0E,v0F)
-	SLOT08(v10,v11,v12,v13,v14,v15,v16,v17)
-	SLOT08(v18,v19,v1A,v1B,v1C,v1D,v1E,v1F)
-	SLOT08(v20,v21,v22,v23,v24,v25,v26,v27)
-	SLOT08(v28,v29,v2A,v2B,v2C,v2D,v2E,v2F)
-	SLOT08(v30,v31,v32,v33,v34,v35,v36,v37)
-	SLOT08(v38,v39,v3A,v3B,v3C,v3D,v3E,v3F)
-	SLOT08(v40,v41,v42,v43,v44,v45,v46,v47)
-	SLOT08(v48,v49,v4A,v4B,v4C,v4D,v4E,v4F)
-	SLOT08(v50,v51,v52,v53,v54,v55,v56,v57)
-	SLOT08(v58,v59,v5A,v5B,v5C,v5D,v5E,v5F)
-	SLOT08(v60,v61,v62,v63,v64,v65,v66,v67)
-	SLOT08(v68,v69,v6A,v6B,v6C,v6D,v6E,v6F)
-	SLOT08(v70,v71,v72,v73,v74,v75,v76,v77)
-	SLOT08(v78,v79,v7A,v7B,v7C,v7D,v7E,v7F)
-	SLOT08(v80,v81,v82,v83,v84,v85,v86,v87)
-	virtual void v88(); virtual void v89(); virtual void v8A(); virtual void v8B();
-	virtual void v8C(); virtual void v8D(); virtual void v8E();
-	virtual CommandSourceType rva143();
-	unsigned char m_pad04[0x20 - 0x04];
-};
-
-
 class Rva0010CBits
 {
 public:
