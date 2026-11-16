@@ -14,7 +14,11 @@
 // (0x142D70); the unwind funclet destroys the complete temporary through
 // ~basic_string (0xB3C0).
 
-void __cdecl free(void *);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 namespace _STL
 {
 enum { _STLP_LEAKS_CHECK = 0 };
