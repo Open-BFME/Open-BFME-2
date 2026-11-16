@@ -68,12 +68,6 @@ struct Rva002B8D06RecordView
 	int m_armyID;
 };
 
-struct Rva002B488EResult
-{
-	char m_pad[0x20];
-	int m_armyID;
-};
-
 #include "../../../../GameEngine/Include/GameLogic/Rva002BA8F1Logic.h"
 
 void __cdecl XferLivingWorldArmyID(Xfer *xfer, int *value);

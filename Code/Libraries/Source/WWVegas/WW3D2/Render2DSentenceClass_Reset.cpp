@@ -63,13 +63,6 @@ private:
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Vector2i
-{
-public:
-	int X;
-	int Y;
-};
-
 #include "../WWMath/RectClass.h"
 
 // upstream layout: reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/render2dsentence.h

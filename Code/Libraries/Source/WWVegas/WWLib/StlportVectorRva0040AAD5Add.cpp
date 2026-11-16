@@ -19,10 +19,6 @@ public:
 	void push_back(const T &e);
 };
 }
-struct BfmePod40
-{
-	int a[10];
-};
 struct Rva0040C0C7Element
 {
 	int m_00;

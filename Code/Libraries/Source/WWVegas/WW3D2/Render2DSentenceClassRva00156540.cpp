@@ -74,13 +74,6 @@ struct RenderSentenceGeometryView
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Vector2i
-{
-public:
-	int X;
-	int Y;
-};
-
 #include "Render2DSentenceClass.h"
 
 void Render2DSentenceClass::rva00156540(Rva00156540Param const *param)
