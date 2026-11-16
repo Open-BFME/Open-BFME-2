@@ -6,15 +6,7 @@
 class Thing;
 class ModuleData;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-
-private:
-	unsigned char m_data[8];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
@@ -31,18 +23,19 @@ private:
 #include "../../../../Include/Common/ModuleInterface.h"
 
 class Rva0044EF5E : public BehaviorModule,
-	public SpecialPowerModuleInterface,
 	public SpecialPowerModuleExtra,
 	public ModuleInterface
 {
 public:
 	Rva0044EF5E( Thing *thing, const ModuleData *moduleData );
+	virtual ~Rva0044EF5E();
 };
 
 class LevelGrantSpecialPower : public Rva0044EF5E
 {
 public:
 	LevelGrantSpecialPower( Thing *thing, const ModuleData *moduleData );
+	virtual ~LevelGrantSpecialPower();
 };
 
 // ??0LevelGrantSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z

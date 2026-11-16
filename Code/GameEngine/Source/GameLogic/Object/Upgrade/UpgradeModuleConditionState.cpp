@@ -84,6 +84,7 @@ public:
 	unsigned int m_data[32];
 };
 
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 void UpgradeModule::rva004CE41E(bool apply)
 {

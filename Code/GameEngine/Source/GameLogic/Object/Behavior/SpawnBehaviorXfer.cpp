@@ -83,6 +83,7 @@ extern class ThingFactory *TheThingFactory;
 
 // BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
 #define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class SpawnBehaviorInterface

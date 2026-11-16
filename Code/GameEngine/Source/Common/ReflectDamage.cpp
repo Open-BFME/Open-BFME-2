@@ -15,39 +15,15 @@ class Thing;
 
 class ModuleData;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModule
-{
-public:
-	BehaviorModule( Thing *thing, const ModuleData *moduleData );
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
-	virtual void behaviorModuleAnchor();
-
-private:
-	unsigned char m_data[8];
-};
-
-class InlineDamageModuleInterface
-{
-public:
-	virtual void damageModuleInterfaceAnchor();
-};
-
-#include "../../Include/Common/ModuleInterface.h"
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h
-class DamageModule : public BehaviorModule,
-	public InlineDamageModuleInterface,
-	public ModuleInterface
-{
-public:
-	DamageModule( Thing *thing, const ModuleData *moduleData );
-};
+#include "../../Include/GameLogic/Module/DamageModuleClass.h"
 
 class ReflectDamage : public DamageModule
 {
 public:
 	ReflectDamage( Thing *thing, const ModuleData *moduleData );
+	virtual ~ReflectDamage();
 };
 
 // tu-skeleton: 0x004BAB36 25B ??1ReflectDamage@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp (not merged yet)
