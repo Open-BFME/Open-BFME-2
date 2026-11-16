@@ -270,12 +270,6 @@ extern MultiplayerSettings *TheMultiplayerSettings;
 #include "../../Include/GameClient/AptLoadScreen.h"
 // --- 0x0041FCD6 (20B): forward to the rowed 0x0041FC77 insert, returning its
 // result record.
-struct InsertRet0041FA92
-{
-	void *node;
-	void *owner;
-	unsigned char found;
-};
 #include "../../Include/GameLogic/Rva000427195.h"
 // ?rva00432A3B@AptTranslator@@QAEXPBVGameMessage@@@Z, retail 0x00432A3B, 103 bytes.
 // Handler for message types 4/6/14/16: indexes 24B entries at this+8 by type,

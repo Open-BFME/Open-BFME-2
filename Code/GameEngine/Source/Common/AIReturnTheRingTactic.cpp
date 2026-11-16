@@ -56,11 +56,6 @@ public:
 	unsigned char m_minimum;
 };
 void XferObjectID(Xfer *xfer, ObjectID *id);
-struct Rva005AB309Thing
-{
-	char m_pad000[0x120];
-	unsigned char m_120;
-};
 #include "../../Include/Common/TeamBFME2.h"
 #include "../../Include/Common/Rva002A8AB1Record.h"
 struct Rva005AB309Holder

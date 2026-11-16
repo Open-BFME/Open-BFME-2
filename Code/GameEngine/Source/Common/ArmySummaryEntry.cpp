@@ -74,13 +74,6 @@ class Rva0040C598 { public: void bitAnd(const int *); void rva0040C5B1(const int
 
 class ThingTemplate;
 
-struct ExperienceLevelHandle {
- ExperienceLevelHandle() {}
- ExperienceLevelHandle(const ExperienceLevelHandle &experienceLevelHandle): list(experienceLevelHandle.list), iterator(experienceLevelHandle.iterator) {}
- void *list;
- void *iterator;
-};
-
 #include "../../Include/GameLogic/ExperienceLevelStore.h"
 
 // TheExperienceLevelStore is only an alias of the owned global TheExperienceLevelSystem (ledger names column); this unit reads the owner through its own view type.

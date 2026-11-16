@@ -6,12 +6,6 @@
 
 #include "../../Include/Common/Rva0040A3F9.h"
 
-class CreateAHeroCRC
-{
-public:
-	void rva0021F47E();
-};
-
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 
 // The exact rva0021F797 definition is owned by CreateAHeroManagerHeroList.cpp.

@@ -183,13 +183,6 @@ struct Rva0043A1C0ColorView
 
 // --- 0x0041FCD6 (20B): forward to the rowed 0x0041FC77 insert, returning its
 // result record.
-struct InsertRet0041FA92
-{
-	void *node;
-	void *owner;
-	unsigned char found;
-};
-
 #include "../../Include/GameLogic/Rva000427195.h"
 
 // --- 0x00421392 (16B): look the name up in the +0x0C module vector through
