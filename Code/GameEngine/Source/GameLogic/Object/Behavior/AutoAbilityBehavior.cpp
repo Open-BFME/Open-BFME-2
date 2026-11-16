@@ -73,11 +73,7 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 
 #include "../../../../Include/GameClient/CommandButton.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(Int i) const;
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 
 #include "../object.h"
 

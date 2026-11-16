@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // Retail 0x0042970A (RVA 0x0042970A) size 103: find command button by override id 0x1c.
-// Evidence: TheInGameUI vtable+0x12c then +0xfc Object then rva00290E67 AsciiString then g_bfmeWorldRV Rva0031D5F8 lookup to CommandSet then getCommandButton loop 0x20 with +0x14==0x18 and Overridable +0x44 +0x1c vs arg.
+// Evidence: TheInGameUI vtable+0x12c then +0xfc Object then rva00290E67 AsciiString then g_bfmeWorldRV Rva0031D5F8 lookup to CommandSet then getCommandButton loop 0x20 with +0x14==0x18 and the special power +0x44, whose final override +0x1c is compared with arg.
 #include "ascii_string.h"
 
 #include "../../../GameLogic/Object/object.h"
@@ -10,29 +10,10 @@ extern class ControlBar *TheControlBar;
 
 #include "../../../../Include/Common/Rva0031D5F8.h"
 
-class CommandButton;
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad[0x1c];
-	int m_id1c;
-};
-
-class CommandButton
-{
-public:
-	char m_pad00[0x14];
-	int m_type14;
-	char m_pad18[0x44 - 0x18];
-	Overridable *m_over44;
-};
-
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/GameClient/CommandButton.h"
+#include "../../../../Include/GameClient/CommandSet.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -59,11 +40,11 @@ const CommandButton *CommandTranslator::rva0042970A(int id)
 			if (btn == 0) {
 				continue;
 			}
-			if (btn->m_type14 != 0x18) {
+			if (btn->m_command != 0x18) {
 				continue;
 			}
-			const Overridable *ov = btn->m_over44->friend_getFinalOverride();
-			if (ov->m_id1c == id) {
+			const SpecialPowerTemplate *sp = btn->m_specialPower->getFO();
+			if (sp->m_type == id) {
 				return btn;
 			}
 		}

@@ -277,39 +277,8 @@ private:
 	UnsignedShort m_maxSimultaneousOfType;	// +0x5E0
 };
 #include "../../../Include/Common/Upgrade.h"
-// The upgrade list a NEED_UPGRADE button checks (+0x28): all of them must be
-// complete unless the +0x34 flag accepts any one.
-struct UpgradeTemplateList
-{
-	const UpgradeTemplate **m_begin;
-	const UpgradeTemplate **m_end;
-	const UpgradeTemplate **m_capacity;
-	UnsignedInt size() const { return (UnsignedInt)(m_end - m_begin); }
-	const UpgradeTemplate *operator[](UnsignedInt i) const { return m_begin[i]; }
-};
-class CommandButton
-{
-public:
-	GUICommandType getCommandType() const { return m_command; }
-	UnsignedInt getOptions() const { return m_options; }
-	const ThingTemplate *rva0035B570() const;		// the button's thing template
-	const UpgradeTemplateList &getNeededUpgrades() const { return m_neededUpgrades; }
-	Bool isAnyUpgradeEnough() const { return m_anyUpgrade; }
-
-private:
-	unsigned char m_pad00[0x14];
-	GUICommandType m_command;		// +0x14
-	unsigned char m_pad18[0x1C - 0x18];
-	UnsignedInt m_options;			// +0x1C
-	unsigned char m_pad20[0x28 - 0x20];
-	UpgradeTemplateList m_neededUpgrades;	// +0x28
-	Bool m_anyUpgrade;			// +0x34
-};
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const; // 0x00409EE8
-};
+#include "../../../Include/GameClient/CommandButton.h"
+#include "../../../Include/GameClient/CommandSet.h"
 #include "../../../Include/Common/Rva0031D5F8.h"
 class ControlBar : public Rva0031D5F8
 {
@@ -1500,11 +1469,11 @@ Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate 
 				Bool needUpgrade = (button->getOptions() & NEED_UPGRADE) != 0;
 				if( needUpgrade )
 				{
-					const UpgradeTemplateList &upgrades = button->getNeededUpgrades();
+					// The upgrade list (+0x28) must be complete unless the +0x34 flag accepts any one.
 					Int count = 0;
-					for( UnsignedInt j = 0; j < upgrades.size(); j++ )
+					for( UnsignedInt j = 0; j < (UnsignedInt)(button->m_neededEnd - button->m_neededBegin); j++ )
 					{
-						const UpgradeTemplate *upgrade = upgrades[j];
+						const UpgradeTemplate *upgrade = button->m_neededBegin[j];
 						if( upgrade == NULL )
 							continue;
 
@@ -1519,14 +1488,14 @@ Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate 
 						if( has )
 						{
 							count++;
-							if( button->isAnyUpgradeEnough() )
+							if( button->m_neededUpgradeAny )
 								break;
 						}
 					}
-					if( button->isAnyUpgradeEnough() )
+					if( button->m_neededUpgradeAny )
 						ok = count > 0;
 					else
-						ok = count == upgrades.size();
+						ok = count == (UnsignedInt)(button->m_neededEnd - button->m_neededBegin);
 				}
 				if( ok )
 				{
