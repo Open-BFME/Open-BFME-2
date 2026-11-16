@@ -172,100 +172,7 @@ class Object {public:int rva0028B511()const;};
 #include "../../../../../GameEngine/Include/GameClient/Drawable.h"
 #include "../../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 class AABoxClass;
-class RenderObjClass{public:
-virtual void Delete_This();
-virtual void slot1();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-virtual void slot7();
-virtual void slot8();
-virtual void slot9();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual void slot18();
-virtual void slot19();
-virtual void Validate_Transform() const;
-virtual void slot21();
-virtual void slot22();
-virtual void slot23();
-virtual void slot24();
-virtual void slot25();
-virtual void slot26();
-virtual void slot27();
-virtual void slot28();
-virtual void slot29();
-virtual void slot30();
-virtual void slot31();
-virtual void slot32();
-virtual void slot33();
-virtual void slot34();
-virtual void slot35();
-virtual void slot36();
-virtual void slot37();
-virtual void slot38();
-virtual void slot39();
-virtual void slot40();
-virtual void slot41();
-virtual void slot42();
-virtual void slot43();
-virtual void slot44();
-virtual void slot45();
-virtual void slot46();
-virtual void slot47();
-virtual void slot48();
-virtual void slot49();
-virtual void slot50();
-virtual void slot51();
-virtual void slot52();
-virtual void slot53();
-virtual void slot54();
-virtual void slot55();
-virtual void slot56();
-virtual void slot57();
-virtual void slot58();
-virtual void slot59();
-virtual void slot60();
-virtual void slot61();
-virtual void slot62();
-virtual void slot63();
-virtual void slot64();
-virtual void slot65();
-virtual const AABoxClass &Get_Bounding_Box() const;
-virtual void slot67();
-virtual void slot68();
-virtual void slot69();
-virtual void slot70();
-virtual void slot71();
-virtual void slot72();
-virtual void slot73();
-virtual void slot74();
-virtual void slot75();
-virtual void slot76();
-virtual void slot77();
-virtual void slot78();
-virtual void slot79();
-virtual void slot80();
-virtual void slot81();
-virtual void slot82();
-virtual void slot83();
-virtual void slot84();
-virtual void slot85();
-virtual void slot86();
-virtual DrawableInfo*Get_User_Data();
-Vector3 Get_Position()const;
-void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-int NumRefs;char pad08[0x10];Matrix3D transform;
-const Matrix3D &Get_Transform() const { Validate_Transform(); return transform; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 class TerrainLogic {public:
 virtual void pad0();
 virtual void pad1();
@@ -311,7 +218,7 @@ virtual class BridgeView10C841 *getFirstBridge();
 };extern TerrainLogic*TheTerrainLogic;
 static float layerHeightRva001086EC(RenderObjClass*robj,const Rva00108E7AVector&pos,Rva00108E7AVector&normal){
  if(robj&&robj->Get_User_Data()){
- Drawable*draw=robj->Get_User_Data()->m_drawable;char*drawBytes=(char*)draw;Object*object=*(Object**)(drawBytes+0xfc);
+ Drawable*draw=((DrawableInfo *)robj->Get_User_Data())->m_drawable;char*drawBytes=(char*)draw;Object*object=*(Object**)(drawBytes+0xfc);
  if(object){int layer=object->rva0028B511();if(layer!=1&&TheTerrainLogic){Rva00108E7AVector n;float height=TheTerrainLogic->getLayerHeight(pos.X,pos.Y,layer,&n,true);normal=n;return height+1.5f;}}
  }
  normal.Set(0,0,1);return 0;
@@ -450,7 +357,7 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 		objPos = robj->Get_Position();
 		objPos.Z = 0.0f;
 		robj->Validate_Transform();
-		objXform = robj->transform;
+		objXform = robj->Get_Transform_No_Validity_Check();
 		layerHeight = layerHeightRva001086EC(robj, *(Rva00108E7AVector *)&objPos, *(Rva00108E7AVector *)&normal);
 	}
 	else
@@ -711,8 +618,7 @@ public:
 #include "../../../../../GameEngine/Include/GameLogic/Rva00281BF7.h"
 #include "../../../../../GameEngine/Include/Common/Rva0055A88BDwordField.h"
 class Rva000FE9E3PointBounds { public: Rva000FE9E3PointBounds *rva000FE9E3(Vector3 *points, int count); float m_box[6]; };
-class AABoxClass { public: WWINLINE AABoxClass(const Vector3 &center, const Vector3 &extent) : Center(center), Extent(extent) {} Vector3 Center; Vector3 Extent; };
-class CollisionMath { public: enum OverlapType { POS = 1 }; static OverlapType Overlap_Test(const AABoxClass &a, const AABoxClass &b); };
+
 #include "../../../../../GameEngine/Source/Common/Thing/thing.h"
 class PartitionObjectView10C841 : public Thing {};
 float Rva000930C0(float x, float y);
@@ -806,7 +712,7 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 		if (shadow->m_isRotating)
 		{
 			robj->Validate_Transform();
-			objXform = robj->transform;
+			objXform = robj->Get_Transform_No_Validity_Check();
 		}
 		height = objPos.Z;
 		type = shadow->m_type;

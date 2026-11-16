@@ -471,3 +471,23 @@ passes. No shared header or function body changes. Logs:
 `build/decal-diagnostic/seed-indexbuffer-build.log` and `seed-indexbuffer-accept.log`.
 This include reconciliation alone does not resolve the storage or RenderObj
 conflicts and is not a runtime verification of selection rendering.
+
+**Canonical reader RenderObjClass:** remove the reader's private 88-slot class
+view and include the registered rendobj.h. Cast Get_User_Data's void pointer to
+DrawableInfo, and use the existing Get_Transform_No_Validity_Check accessor for
+the two previous direct matrix reads. The inline accessor performs no extra
+validation. Remove the private AABoxClass and CollisionMath copies also supplied
+by that header's existing dependencies; no shared header changes are made.
+Build retains 17/17 functions, 43 float literals, 12 imports and two EXACT EH
+graphs. Official RenderObjClass adoption passes and retires one queue row.
+All retained external provider fingerprints agree. The old private RenderObj
+Release_Ref disappears; the new RefCountClass Release_Ref is judged retail.
+The other added COMDAT is the four-byte Get_Transform_No_Validity_Check getter:
+it has no retail address to judge and no incoming references or root in this
+object. It is not counted as recovered retail code. Logs and comparison:
+`build/decal-diagnostic/reader-renderobj-*`. This is still a composition
+prerequisite, not a working-selection or whole-image validation result.
+The focused official composer dry run after both adoptions no longer reports
+the RenderObj/Get_User_Data/IndexBuffer conflicts. It still accepts no donors:
+drawStart/drawEdge storage declarations and reader manager buffer-field names
+remain incompatible. See `build/decal-diagnostic/renderobj-indexbuffer-merge-dry.log`.
