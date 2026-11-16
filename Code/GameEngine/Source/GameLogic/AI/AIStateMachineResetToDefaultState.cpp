@@ -29,6 +29,7 @@ enum
 	MACHINE_DONE_STATE_ID = 999998,
 	INVALID_STATE_ID = 999999
 };
+#include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIStateMachineClass.h"
 StateReturnType AIStateMachine::resetToDefaultState()
 {

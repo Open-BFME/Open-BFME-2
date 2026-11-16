@@ -77,16 +77,6 @@
 // setStatus 0x0023DB0E. The base classes are inferred from the calls; the
 // meaning of the status, condition and kind bits is not recovered.
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 enum ObjectEnterExitType
 {
 	WANTS_TO_ENTER = 0,
@@ -275,32 +265,7 @@ private:
 	unsigned char m_bfmeFlags438; // +0x438
 };
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual StateReturnType initDefaultState();
-	virtual void slot08(); virtual void slot09();
-	virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual void slot13();
-	virtual void setGoalObject(const Object *obj);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-	void setGoalPosition(const Coord3D *pos);
-	void lock() { m_locked = true; }
-	__declspec(dllimport) __forceinline void unlock() { m_locked = false; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-	unsigned char m_pad30[0x38 - 0x30];
-	Bool m_locked; // +0x38
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 // MoveOntoWallStateMachine (vftable 0x00C11D50, by its slot-2 name literal;
 // dtor rowed as Rva0033FC0A): 0x3C bytes, constructor pinned 0x00343BC9.
@@ -308,23 +273,6 @@ class Rva0033FC0A : public StateMachine
 {
 public:
 	Rva0033FC0A(Object *owner, unsigned int nameKey);
-};
-
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
 };
 
 extern Bool BfmeAIExitDoorFlag;
@@ -336,7 +284,6 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Bool m_20; // +0x20
 };
 
@@ -379,7 +326,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Bool m_wasSelectable; // +0x20
 };
 
@@ -390,7 +336,7 @@ StateReturnType AIUncontrollableCower::onEnter()
 	owner->setSelectable(false);
 	owner->setStatus(OBJECT_STATUS_BFME_45, true);
 	owner->setModelConditionBit(314);
-	getMachine()->lock();
+	getMachine()->m_locked = true;
 	return AICowerState::onEnter();
 }
 
@@ -407,14 +353,13 @@ class AIHarvestState : public State
 public:
 	virtual StateReturnType onEnter();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva00544C51 *m_harvestMachine; // +0x20
 };
 
 StateReturnType AIHarvestState::onEnter()
 {
 	m_harvestMachine = new Rva00544C51(getMachineOwner());
-	m_harvestMachine->setGoalPosition(getMachine()->locomotorGoalPosition());
+	m_harvestMachine->setGoalPosition(getMachine()->getGoalPosition());
 	return m_harvestMachine->initDefaultState();
 }
 
@@ -423,7 +368,6 @@ class AIMoveOntoWallState : public State
 public:
 	virtual StateReturnType onEnter();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva0033FC0A *m_wallMachine; // +0x20
 };
 
@@ -431,7 +375,7 @@ StateReturnType AIMoveOntoWallState::onEnter()
 {
 	m_wallMachine = new Rva0033FC0A(getMachineOwner(), 0xCD5F1CAA);
 	m_wallMachine->setGoalObject(getMachine()->getGoalObject());
-	m_wallMachine->setGoalPosition(getMachine()->locomotorGoalPosition());
+	m_wallMachine->setGoalPosition(getMachine()->getGoalPosition());
 	m_wallMachine->initDefaultState();
 	return STATE_CONTINUE;
 }
