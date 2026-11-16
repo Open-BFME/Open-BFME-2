@@ -346,11 +346,7 @@ struct ShellMapGlobalData
 	Bool m_shellMapOn; // +0xAF0
 };
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
+#include "../../../../Include/Common/MessageStream.h"
 
 class ShellMessageStream
 {
