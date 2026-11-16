@@ -76,12 +76,8 @@ void VectorClass<T>::Clear()
 	VectorMax = 0;
 }
 
-class Vector3 {
-public:
-	float x, y, z;
-	bool operator==(const Vector3 &) const { return true; }
-	bool operator!=(const Vector3 &) const { return false; }
-};
+#include "../WWMath/Vector3Data.h"
+#include "../WWMath/Vector3Operators.h"
 template void VectorClass<Vector3>::Clear();
 
 template <class T>

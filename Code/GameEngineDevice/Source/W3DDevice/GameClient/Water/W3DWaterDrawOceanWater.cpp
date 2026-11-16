@@ -27,6 +27,7 @@
 // the donor Set_Transform switch is kept whole because its default arm
 // hands m2 to the device's SetTransform and that keeps retail's sixteen
 // dead m2 stores (bfme2_mesh_material_pass.cpp keeps the same switch).
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h"
 
 #include <vector>

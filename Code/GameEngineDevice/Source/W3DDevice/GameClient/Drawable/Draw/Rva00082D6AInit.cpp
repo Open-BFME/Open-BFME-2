@@ -9,14 +9,7 @@
 // Layout views are neutral; identities are open.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Vector3
-{
-public:
-	Vector3() {}
-	// The uninitialised by-value filler is inlined; do not export this empty copy.
-	__declspec(dllimport) __forceinline Vector3(const Vector3 &) {}
-	float X, Y, Z;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class Rva00082C98Host
 {
@@ -66,8 +59,7 @@ void Rva00082D6A::rva00082D6A()
 	Rva00082D6APoint point;
 	float height = static_cast<float>(m_owner->slot2());
 	int count = m_owner->slot0();
-	Vector3 filler;
-	m_points.rva00082C98(count, filler);
+	m_points.rva00082C98(count, Vector3());
 	for (int i = 0; i < count; ++i)
 	{
 		m_owner->rva0007E016(reinterpret_cast<int>(&point), i);
@@ -78,10 +70,9 @@ void Rva00082D6A::rva00082D6A()
 	m_cleared = 0;
 }
 
-// 0x00082D2A 15B: resizes to the given count with an uninitialised filler (same
-// empty-copy-ctor Vector3 by value as the caller above).
+// 0x00082D2A 15B: resizes to the given count with an uninitialised filler (a
+// default-constructed Vector3 temporary by value, as in the caller above).
 void Rva00082C98Host::resize(unsigned int count)
 {
-	Vector3 filler;
-	rva00082C98(count, filler);
+	rva00082C98(count, Vector3());
 }

@@ -13,15 +13,8 @@ extern GameLogic *TheGameLogic;
 // normalized vectors. Original helper and view names remain unproven.
 #include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 float Cos(float);
-struct Vector3 {float X,Y,Z;
-Vector3(){} Vector3(float x,float y,float z):X(x),Y(y),Z(z){}
-Vector3(const Vector3&vec):X(vec.X),Y(vec.Y),Z(vec.Z){}
-float Length2()const{return X*X+Y*Y+Z*Z;}
-__forceinline void Normalize(){float len2=Length2();if(len2!=0.0f){float oolen=WWMath::Inv_Sqrt(len2);X*=oolen;Y*=oolen;Z*=oolen;}}
-// LINK: same-body helper under a TU-unique name (identical inlined bytes); the Normalize copy loses to the first-in-order copy. No flags touched.
-__forceinline void bfme_Normalize_76b8e(){float len2=Length2();if(len2!=0.0f){float oolen=WWMath::Inv_Sqrt(len2);X*=oolen;Y*=oolen;Z*=oolen;}}
-static float Dot_Product(const Vector3&lhs,const Vector3&rhs){return lhs.X*rhs.X+lhs.Y*rhs.Y+lhs.Z*rhs.Z;}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3InlineMath.h"
 struct ParalyzeLocalPoint:Coord3D{__forceinline void set(const float*p){x=p[0];y=p[1];z=p[2];}
 __forceinline void sub(const float*p){x-=p[0];y-=p[1];z-=p[2];}};
 struct ParalyzeNode {ParalyzeNode *next,*previous;Object *object;};
@@ -153,7 +146,7 @@ ParalyzeLocalPoint delta;
 delta.set(&target->x38);
 delta.sub(&source->x38);
 Vector3 forward(source->matrix08[0],source->matrix08[4],source->matrix08[8]);
-Vector3 direction(delta.x,delta.y,delta.z);forward.bfme_Normalize_76b8e();direction.bfme_Normalize_76b8e();
+Vector3 direction(delta.x,delta.y,delta.z);forward.Normalize();direction.Normalize();
 float dot=Vector3::Dot_Product(direction,forward);
 if(dot<Cos(m_130))return;
 }

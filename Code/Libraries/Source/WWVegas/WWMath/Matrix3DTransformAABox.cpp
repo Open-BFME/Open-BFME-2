@@ -3,15 +3,10 @@
 // Matrix3D::Transform_Min_Max_AABox, retail 0x00712B60, 319 bytes.
 // Dedicated TU so matrix3d.cpp keeps its matched bodies.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-};
+#include "Vector3Data.h"
+
+// Const-reference component read; the header's value-returning const subscript changes this code.
+static inline const float &constComponent(const Vector3 &v, int i) { return (&v.X)[i]; }
 
 class Matrix3D
 {
@@ -39,8 +34,8 @@ void Matrix3D::Transform_Min_Max_AABox(
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			tmp0 = Row[i][j] * min[j];
-			tmp1 = Row[i][j] * max[j];
+			tmp0 = Row[i][j] * constComponent(min, j);
+			tmp1 = Row[i][j] * constComponent(max, j);
 			if (tmp0 < tmp1) {
 				(*set_min)[i] += tmp0;
 				(*set_max)[i] += tmp1;
@@ -70,8 +65,8 @@ void Matrix3D::Transform_Center_Extent_AABox(
 		(*set_center)[i] = Row[i][3];
 		(*set_extent)[i] = 0.0f;
 		for (int j = 0; j < 3; j++) {
-			(*set_center)[i] += Row[i][j] * center[j];
-			(*set_extent)[i] += WWMath_Fabs(Row[i][j] * extent[j]);
+			(*set_center)[i] += Row[i][j] * constComponent(center, j);
+			(*set_extent)[i] += WWMath_Fabs(Row[i][j] * constComponent(extent, j));
 		}
 	}
 }

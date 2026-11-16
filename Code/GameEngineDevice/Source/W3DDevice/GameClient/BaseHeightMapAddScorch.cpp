@@ -11,7 +11,8 @@
 // The array and state offsets are independently established by target bytes.
 
 #include <math.h>
-#include "vector3.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Operators.h"
 
 enum Scorches
 {

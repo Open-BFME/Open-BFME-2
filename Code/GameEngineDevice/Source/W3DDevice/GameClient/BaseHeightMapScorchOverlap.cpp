@@ -18,6 +18,8 @@ static __forceinline float scorchSqrt(float value)
             fstp result }
     return result;
 }
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Operators.h"
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 // Use the canonical RefCountClass instead of the donor refcount.h.

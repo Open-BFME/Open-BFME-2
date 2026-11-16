@@ -52,15 +52,10 @@ template <> void vector<BfmeE16>::_M_clear();
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
-class Vector3
-{
-public:
-	Vector3(const float &x, const float &y, const float &z) : X(x), Y(y), Z(z) {}
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-	float X;
-	float Y;
-	float Z;
-};
+// Components by reference keep retail's register use; the header's constructor takes them by value.
+static inline Vector3 ropePoint(const float &x, const float &y, const float &z) { return Vector3(x, y, z); }
 
 class Line3DClass
 {
@@ -179,16 +174,16 @@ void W3DRopeDraw::buildSegments()
 		float axis = GetGameClientRandomValueReal(0.0f, 6.283185307179586f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Drawable\\W3DRopeDraw.cpp", 0x4A);
 		info.wobbleAxisX = Cos(axis);
 		info.wobbleAxisY = Sin(axis);
-		info.line = new Line3DClass(Vector3(pos.x, pos.y, pos.z),
-			Vector3(pos.x, pos.y, pos.z + eachLen),
+		info.line = new Line3DClass(ropePoint(pos.x, pos.y, pos.z),
+			ropePoint(pos.x, pos.y, pos.z + eachLen),
 			m_width * 0.5f,
 			m_color.red,
 			m_color.green,
 			m_color.blue,
 			1.0f);
 
-		info.softLine = new Line3DClass(Vector3(pos.x, pos.y, pos.z),
-			Vector3(pos.x, pos.y, pos.z + eachLen),
+		info.softLine = new Line3DClass(ropePoint(pos.x, pos.y, pos.z),
+			ropePoint(pos.x, pos.y, pos.z + eachLen),
 			m_width,
 			m_color.red,
 			m_color.green,

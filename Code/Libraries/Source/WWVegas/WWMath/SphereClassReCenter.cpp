@@ -30,28 +30,15 @@ class WWMath { public: __forceinline static float Sqrt(float val) {
         fstp retval }
     return retval;
 } };
-class Vector3 {
-public:
-    float X, Y, Z;
-    __forceinline Vector3(void) {}
-    __forceinline Vector3(const Vector3& vec) { X=vec.X; Y=vec.Y; Z=vec.Z; }
-    __declspec(dllimport) __forceinline Vector3(float x, float y, float z) { X=x; Y=y; Z=z; }
-    __forceinline Vector3& operator=(const Vector3& vec) { X=vec.X; Y=vec.Y; Z=vec.Z; return *this; }
-    __declspec(dllimport) __forceinline float Length() const { return WWMath::Sqrt(Length2()); }
-    __forceinline float Length2() const { return X*X + Y*Y + Z*Z; }
-};
+#include "Vector3Data.h"
+static __forceinline float reCenterLength(const Vector3 &v) { return WWMath::Sqrt(v.Length2()); }
 __declspec(dllimport) __forceinline Vector3 operator-(const Vector3& a, const Vector3& b) {
     return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z);
 }
 #pragma optimize("", on)
-class SphereClass {
-public:
-    Vector3 Center;
-    float Radius;
-    void Re_Center(const Vector3& center);
-};
+#include "SphereClass.h"
 void SphereClass::Re_Center(const Vector3& center) {
-    float dist = (Center - center).Length();
+    float dist = reCenterLength(Center - center);
     Center = center;
     Radius += dist;
 }
