@@ -7,7 +7,7 @@
 // Evidence: chain via 0x004ECECD same TU flags and pins; same ModelNode loop but returns the node on id match; callers 0x004ED138 0x004ED1A6 0x004ED202 0x004ED27F 0x004ED2F2.
 //
 // ?anyTeamMembersInCombat@AITactic@@QAE_NXZ retail 0x004ECF41 91B
-// Evidence: same AITactic class m_begin 0x14 m_end 0x18 stride 0x14 as siblings; callees rowed iterate_TeamMemberList 0x00263864 plus pin DLINK advance 0x00263526 plus rowed getCurrentVictim 0x00268D71 plus pinned findTeamByID 0x0039F761 via TheTeamFactory 0x00A028BC; caller 0x004EDDAD.
+// Evidence: same AITactic class m_field14 0x14 m_field18 0x18 stride 0x14 as siblings; callees rowed iterate_TeamMemberList 0x00263864 plus pin DLINK advance 0x00263526 plus rowed getCurrentVictim 0x00268D71 plus pinned findTeamByID 0x0039F761 via TheTeamFactory 0x00A028BC; caller 0x004EDDAD.
 class Team;
 class TeamFactory;
 extern TeamFactory *TheTeamFactory;
@@ -19,19 +19,7 @@ class TeamPrototype;
 
 #include "../../../../GameEngine/Include/Common/Rva004ECECDNode.h"
 
-class AITactic
-{
-public:
-    Team *rva004ECECD(int id);
-    Rva004ECECDNode *rva004ECF05(int id);
-    bool anyTeamMembersInCombat();
-    void cohereTeams();
-
-private:
-    char m_pad00[0x14];
-    Rva004ECECDNode *m_begin;
-    Rva004ECECDNode *m_end;
-};
+#include "../../../../GameEngine/Include/Common/AITactic.h"
 
 class AIUpdateInterface;
 
@@ -67,8 +55,8 @@ extern AI *TheAI;
 
 Team *AITactic::rva004ECECD(int id)
 {
-    Rva004ECECDNode *begin = m_begin;
-    Rva004ECECDNode *end = m_end;
+    Rva004ECECDNode *begin = m_field14;
+    Rva004ECECDNode *end = m_field18;
     for (Rva004ECECDNode *it = begin; it != end; ++it)
     {
         Team *team = TheTeamFactory->findTeamByID((unsigned int)it->m_model);
@@ -84,8 +72,8 @@ Team *AITactic::rva004ECECD(int id)
 
 Rva004ECECDNode *AITactic::rva004ECF05(int id)
 {
-    Rva004ECECDNode *begin = m_begin;
-    Rva004ECECDNode *end = m_end;
+    Rva004ECECDNode *begin = m_field14;
+    Rva004ECECDNode *end = m_field18;
     for (Rva004ECECDNode *it = begin; it != end; ++it)
     {
         Team *team = TheTeamFactory->findTeamByID((unsigned int)it->m_model);
@@ -101,8 +89,8 @@ Rva004ECECDNode *AITactic::rva004ECF05(int id)
 
 bool AITactic::anyTeamMembersInCombat()
 {
-    Rva004ECECDNode *begin = m_begin;
-    Rva004ECECDNode *end = m_end;
+    Rva004ECECDNode *begin = m_field14;
+    Rva004ECECDNode *end = m_field18;
     for (Rva004ECECDNode *it = begin; it != end; ++it)
     {
         Team *team = TheTeamFactory->findTeamByID((unsigned int)it->m_model);
@@ -117,8 +105,8 @@ bool AITactic::anyTeamMembersInCombat()
 
 void AITactic::cohereTeams()
 {
-    Rva004ECECDNode *begin = m_begin;
-    Rva004ECECDNode *end = m_end;
+    Rva004ECECDNode *begin = m_field14;
+    Rva004ECECDNode *end = m_field18;
     for (Rva004ECECDNode *it = begin; it != end; ++it) {
         AIGroup *grp = TheAI->createGroup();
         Team *team = TheTeamFactory->findTeamByID((unsigned int)it->m_model);
