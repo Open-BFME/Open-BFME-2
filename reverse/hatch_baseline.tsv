@@ -9749,7 +9749,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	"",on	2
