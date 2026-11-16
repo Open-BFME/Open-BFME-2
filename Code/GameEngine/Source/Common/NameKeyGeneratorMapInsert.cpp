@@ -53,65 +53,63 @@ struct NameKeyEqualInt
 	bool operator()(int a, int b) const { return a == b; }
 };
 
-class NameKeyGenerator
+#include "../../Include/Common/NameKeyGenerator.h"
+
+class NameKeyGenerator::KeyToBucketMap
 {
 public:
-	class KeyToBucketMap
+	struct value_type
 	{
-	public:
-		struct value_type
-		{
-			int first;
-			void *second;
-		};
-
-		typedef NameKeyBucket Bucket;
-
-		struct insert_result
-		{
-			Bucket *first;
-			KeyToBucketMap *second;
-			bool inserted;
-
-			insert_result(Bucket *bucket, KeyToBucketMap *keyToBucketMap, bool i)
-				: first(bucket), second(keyToBucketMap), inserted(i)
-			{
-			}
-		};
-
-		struct equal_result
-		{
-			Bucket *first;
-			KeyToBucketMap *second;
-
-			equal_result(Bucket *bucket, KeyToBucketMap *keyToBucketMap)
-				: first(bucket), second(keyToBucketMap)
-			{
-			}
-		};
-
-		insert_result insert(const value_type &value);
-		equal_result rva0005559F(const value_type &value);
-		equal_result rva00057C5C(const value_type &value);
-
-	private:
-		NameKeyHashInt m_hash;
-		NameKeyEqualInt m_equals;
-		char pad2[2];
-		NameKeyBucketTable m_table;
-		unsigned m_count;
-		void resize(unsigned);
-		void *allocateNode(const value_type &value);
-		insert_result do_insert(const value_type &value);
-		int *insertNode(const value_type &value);
-
-		static int lookupKey(const value_type &entry) { return entry.first; }
-		unsigned tableSize() const { return m_table.size(); }
-		Bucket *&tableAt(unsigned n) { return m_table.at(n); }
-		unsigned bkt_num_key(int key) const { return m_hash(key) % tableSize(); }
-		unsigned bkt_num(const value_type &obj) const { return bkt_num_key(lookupKey(obj)); }
-		bool keysEqual(int leftKey, int rightKey) const { return m_equals(leftKey, rightKey); }
+		int first;
+		void *second;
 	};
+
+	typedef NameKeyBucket Bucket;
+
+	struct insert_result
+	{
+		Bucket *first;
+		KeyToBucketMap *second;
+		bool inserted;
+
+		insert_result(Bucket *bucket, KeyToBucketMap *keyToBucketMap, bool i)
+			: first(bucket), second(keyToBucketMap), inserted(i)
+		{
+		}
+	};
+
+	struct equal_result
+	{
+		Bucket *first;
+		KeyToBucketMap *second;
+
+		equal_result(Bucket *bucket, KeyToBucketMap *keyToBucketMap)
+			: first(bucket), second(keyToBucketMap)
+		{
+		}
+	};
+
+	insert_result insert(const value_type &value);
+	equal_result rva0005559F(const value_type &value);
+	equal_result rva00057C5C(const value_type &value);
+
+private:
+	NameKeyHashInt m_hash;
+	NameKeyEqualInt m_equals;
+	char pad2[2];
+	NameKeyBucketTable m_table;
+	unsigned m_count;
+	void resize(unsigned);
+	void *allocateNode(const value_type &value);
+	insert_result do_insert(const value_type &value);
+	int *insertNode(const value_type &value);
+
+	static int lookupKey(const value_type &entry) { return entry.first; }
+	unsigned tableSize() const { return m_table.size(); }
+	Bucket *&tableAt(unsigned n) { return m_table.at(n); }
+	unsigned bkt_num_key(int key) const { return m_hash(key) % tableSize(); }
+	unsigned bkt_num(const value_type &obj) const { return bkt_num_key(lookupKey(obj)); }
+	bool keysEqual(int leftKey, int rightKey) const { return m_equals(leftKey, rightKey); }
 };
 
 __declspec(noinline) inline NameKeyGenerator::KeyToBucketMap::insert_result

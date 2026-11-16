@@ -13,17 +13,15 @@
 // order. (See wave7/PLAYBOOK.md section 6.)
 struct Rva000E007DPair { unsigned a, b; };
 int __stdcall Rva000E007DEqual(const Rva000E007DPair *, const Rva000E007DPair *);
-class NameKeyGenerator
+#include "../../Include/Common/NameKeyGenerator.h"
+
+class NameKeyGenerator::KeyToBucketMap
 {
 public:
-	class KeyToBucketMap
-	{
-	public:
-		struct value_type { int first; void *second; };
-		void *storageNode(const Rva000E007DPair &k) { return allocateNode(*(const value_type *)&k); }
-	private:
-		void *allocateNode(const value_type &);
-	};
+	struct value_type { int first; void *second; };
+	void *storageNode(const Rva000E007DPair &k) { return allocateNode(*(const value_type *)&k); }
+private:
+	void *allocateNode(const value_type &);
 };
 struct NativeNode { NativeNode *next; Rva000E007DPair key; };
 class NativeHashEqual

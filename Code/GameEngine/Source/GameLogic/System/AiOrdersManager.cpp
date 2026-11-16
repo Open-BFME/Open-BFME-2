@@ -63,13 +63,14 @@ public:
     int unknown14;
 };
 #include "../../../Include/Common/NameKeyBucket.h"
-class NameKeyGenerator {
-public: class KeyToBucketMap {
+#include "../../../Include/Common/NameKeyGenerator.h"
+
+class NameKeyGenerator::KeyToBucketMap
+{
 public:
     struct value_type { int first; void* second; };
     struct insert_result { NameKeyBucket* first; KeyToBucketMap* second; bool inserted; };
     insert_result insert(const value_type&);
-};
 };
 typedef _STL::hash_map<ObjectID,Rva0054840A*,rts::hash<ObjectID>,_STL::equal_to<ObjectID> > QueueMap;
 typedef QueueMap::iterator::_Hashtable QueueTable;

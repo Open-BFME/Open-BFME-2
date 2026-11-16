@@ -76,26 +76,17 @@ public:
 	AsciiString m_nameString; // +0x0C
 };
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-private:
-	char m_pad[0x2BF4C];
-	KeyToBucketMap &keyToBucketMap() { return *(KeyToBucketMap *)m_keyToBucketStorage; }
-	unsigned int m_keyToBucketStorage[5];  // +0x2BF4C
-	char m_mutex[1];                       // +0x2BF60 CriticalSection
-};
+#include "../../Include/Common/NameKeyGenerator.h"
 
 const AsciiString &NameKeyGenerator::keyToName(NameKeyType key)
 {
-	NameKeyLookupGuard scopedCriticalSection((CriticalSection *)m_mutex);
-	KeyToBucketMap::iterator it;
+	NameKeyLookupGuard scopedCriticalSection((CriticalSection *)field2BF60);
+	::KeyToBucketMap::iterator it;
 	{
 		NameKeyType k = key;
-		it = keyToBucketMap().find(k);
+		it = (*(::KeyToBucketMap *)field2BF4C).find(k);
 	}
-	if (it == keyToBucketMap().end())
+	if (it == (*(::KeyToBucketMap *)field2BF4C).end())
 		return AsciiString::TheEmptyString;
 	return (*it).second->m_nameString;
 }

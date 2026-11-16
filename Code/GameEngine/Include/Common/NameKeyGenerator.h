@@ -38,6 +38,7 @@ public:
     NameKeyType Rva00148F02(const char *name);
     NameKeyType Rva002D91AF(const AsciiString &name);
     static void parseStringAsNameKeyType(INI *ini, void *instance, void *store, const void *userData);
+    class KeyToBucketMap;
 
 private:
     enum { SOCKET_COUNT = 45007 };

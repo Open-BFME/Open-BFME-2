@@ -30,14 +30,12 @@ public:
 	void *rva0042FCAC(const void *obj);
 };
 
-class NameKeyGenerator
+#include "../../../Include/Common/NameKeyGenerator.h"
+
+class NameKeyGenerator::KeyToBucketMap
 {
-public:
-	class KeyToBucketMap
-	{
-		friend class Rva0042FD55;
-		void resize(unsigned n);
-	};
+	friend class Rva0042FD55;
+	void resize(unsigned n);
 };
 
 class Rva0042FD55
