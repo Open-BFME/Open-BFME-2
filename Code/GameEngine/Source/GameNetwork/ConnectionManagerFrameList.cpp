@@ -9,19 +9,7 @@
 
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
-class NetworkInterface;
-struct FrameListNetworkVTable
-{
-	void *unknown[24];
-	void (__fastcall *slot24)(NetworkInterface *);
-};
-class NetworkInterface
-{
-public:
-	__forceinline void frameListSlot24() { m_vtable->slot24(this); }
-private:
-	FrameListNetworkVTable *m_vtable;
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 extern NetworkInterface *TheNetwork;
 
 // ZH NetworkUtil.cpp defines (MAX_FRAMES_AHEAD/2)+1. Target VA 0x00DD2DBC
@@ -34,7 +22,7 @@ NetCommandList *ConnectionManager::getFrameCommandList(unsigned int frame)
 {
 	NetCommandList *result = new NetCommandList;
 	result->reset();
-	TheNetwork->frameListSlot24();
+	TheNetwork->slot24();
 	for (int i = 0; i < 8; ++i) {
 		if (m_frameData[i]) {
 			result->appendList(m_frameData[i]->getFrameCommandList(frame));

@@ -25,46 +25,8 @@ const T &minimum(const T &first, const T &second)
 #include "../../Include/GameNetwork/GameInfo.h"
 
 
-class NetworkInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void netPad22();
-	virtual void netPad23();
-	virtual void netPad24();
-	virtual void netPad25();
-	virtual void netPad26();
-	virtual void netPad27();
-	virtual void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
-	virtual int sendFileAnnounce(AsciiString path, UnsignedByte playerMask);
-	virtual int getFileTransferProgress(int playerID, AsciiString path);
-	virtual bool areAllQueuesEmpty();
-	virtual void beginFileTransfer();
-	virtual void endFileTransfer();
-};
-
 #include "../../Include/GameClient/GameText.h"
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 class Rva005830AE {public:void rva005830AE(int);};
 
@@ -82,7 +44,7 @@ bool doFileTransfer(AsciiString filename, int mask)
 	int fileTransferPercent = 0;
 
 	if (TheNetwork)
-		TheNetwork->beginFileTransfer();
+		TheNetwork->slot32();
 
 	if (mask)
 	{
@@ -91,7 +53,7 @@ bool doFileTransfer(AsciiString filename, int mask)
 		screen->rva00583202(600);
 		((Rva005830AE *)screen)->rva005830AE(0);
 
-		int fileCommandID = 0;
+		UnsignedShort fileCommandID = 0;
 		bool sentFile = false;
 		if (TheGameInfo->amIHost())
 		{
@@ -127,7 +89,7 @@ bool doFileTransfer(AsciiString filename, int mask)
 				if (TheGameInfo->getConstSlot(i)->isHuman() &&
 					!TheGameInfo->getConstSlot(i)->hasMap())
 				{
-					int slotTransferPercent = TheNetwork->getFileTransferProgress(i, filename);
+					int slotTransferPercent = TheNetwork->slot30(i, filename);
 					fileTransferPercent = minimum(fileTransferPercent, slotTransferPercent);
 
 					if (slotTransferPercent != lastPlayerProgress[i])
@@ -185,7 +147,7 @@ bool doFileTransfer(AsciiString filename, int mask)
 	}
 
 	if (TheNetwork)
-		TheNetwork->endFileTransfer();
+		TheNetwork->slot33();
 
 	return true;
 }

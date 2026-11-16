@@ -42,21 +42,7 @@ enum
 
 extern GameLogic *TheGameLogic;
 
-class NetworkInterface;
-struct UpdateNetworkVTable
-{
-	void *unknown[63];
-	Bool (__fastcall *isRouterLeavePending)(NetworkInterface *network);
-};
-
-class NetworkInterface
-{
-public:
-	Bool isRouterLeavePending() { return m_vtable->isRouterLeavePending(this); }
-
-private:
-	UpdateNetworkVTable *m_vtable;
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 extern NetworkInterface *TheNetwork;
 
@@ -209,7 +195,7 @@ void ConnectionManager::update(Bool isInGame, Int frameAdvanced)
 		doRelay();
 		if (frameAdvanced)
 		{
-			if (TheNetwork != 0 && TheNetwork->isRouterLeavePending() &&
+			if (TheNetwork != 0 && TheNetwork->slot63() &&
 				m_localSlot == m_packetRouterSlot)
 				m_frameCeiling = TheGameLogic->getFrame() + 1;
 			else

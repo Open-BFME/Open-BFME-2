@@ -17,33 +17,7 @@ extern class NetworkInterface *TheNetwork;
 #define TheNetwork (*(class NetworkInterface **)&TheNetwork)
 #define LogicTimeScale g_Va00DBA2F8
 #define One g_Va00BBB8D8
-class NetworkInterface
-{
-public:
-	virtual void *cleanup(unsigned int);
-	virtual void slot01(void);
-	virtual void slot02(void);
-	virtual void slot03(void);
-	virtual void slot04(void);
-	virtual void slot05(void);
-	virtual void slot06(void);
-	virtual void slot07(void);
-	virtual void slot08(void);
-	virtual void slot09(void);
-	virtual void slot10(void);
-	virtual void slot11(void);
-	virtual void slot12(void);
-	virtual void slot13(void);
-	virtual void slot14(void);
-	virtual void slot15(void);
-	virtual void slot16(void);
-	virtual void slot17(void);
-	virtual void slot18(void);
-	virtual void slot19(void);
-	virtual void slot20(void);
-	virtual void slot21(void);
-	virtual int getFramePacingStatus(void);
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 // stopHeadlessClients:
 // ?stopHeadlessClients@GameEngine@@AAEXXZ, retail 0x002260F7 42B.
 // BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/Common/GameEngineTerminateChildProcesses.cpp
@@ -186,14 +160,14 @@ bool GameEngine::_bfme_shouldSkipClientFrame(void)
 			{
 				if (m_clientFramePeriod > m_clientFrameCounter)
 				{
-					if (network->getFramePacingStatus() > 1)
+					if (network->slot22() > 1)
 						return true;
 
 					if ((float)++m_clientFrameCounter > m_clientFrameLimit)
 						m_clientFrameLimit = (float)m_clientFrameCounter;
 					return false;
 				}
-				if (network->getFramePacingStatus() > 3)
+				if (network->slot22() > 3)
 				{
 					if ((float)m_clientFramePeriod < m_clientFrameLimit)
 						m_clientFrameLimit = (float)m_clientFramePeriod;
@@ -314,7 +288,7 @@ void GameEngine::reset(void)
 
 	if (deleteNetwork)
 	{
-		if (TheNetwork) ::operator delete(TheNetwork->cleanup(0));
+		if (TheNetwork) ::delete TheNetwork;
 		TheNetwork = 0;
 	}
 

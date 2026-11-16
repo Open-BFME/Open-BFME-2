@@ -38,21 +38,7 @@ enum
 
 extern GameLogic *TheGameLogic;
 
-class NetworkInterface;
-struct RelayNetworkVTable
-{
-	void *unknown[63];
-	Bool (__fastcall *isRouterLeavePending)(NetworkInterface *network);
-};
-
-class NetworkInterface
-{
-public:
-	Bool isRouterLeavePending() { return m_vtable->isRouterLeavePending(this); }
-
-private:
-	RelayNetworkVTable *m_vtable;
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 extern NetworkInterface *TheNetwork;
 
@@ -149,7 +135,7 @@ void ConnectionManager::rva004D316A(NetCommandList *list, const BfmeNetAddress *
 		return;
 	for (NetCommandRef *ref = list->getFirstMessage(); ref != 0; ref = ref->getNext())
 	{
-		if (TheNetwork != 0 && TheNetwork->isRouterLeavePending() &&
+		if (TheNetwork != 0 && TheNetwork->slot63() &&
 			m_localSlot == m_packetRouterSlot &&
 			ref->getCommand()->getNetCommandType() != NETCOMMANDTYPE_FRAMEINFO)
 			continue;

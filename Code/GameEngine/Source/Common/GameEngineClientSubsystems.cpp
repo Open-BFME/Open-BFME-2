@@ -90,26 +90,7 @@ private:
     void *m_context;
 };
 
-class NetworkInterface
-{
-public:
-    virtual void slot00(void);
-    virtual void slot01(void);
-    virtual void slot02(void);
-    virtual void slot03(void);
-    virtual void slot04(void);
-    virtual void slot05(void);
-    virtual void slot06(void);
-    virtual void slot07(void);
-    virtual void slot08(void);
-    virtual void slot09(void);
-    virtual void slot10(void);
-    virtual void slot11(void);
-    virtual void slot12(void);
-    virtual void slot13(void);
-    virtual void slot14(void);
-    virtual void liteupdate(int phase);
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 #include "../../Include/Common/GameEngine.h"
 
@@ -194,5 +175,5 @@ void GameEngine::_bfme_updateClientSubsystems(void)
     TimedOpInputLocked = inputLocked;
     audioVtable->update(audio);
     if (TheNetwork != 0)
-        TheNetwork->liteupdate(0);
+        TheNetwork->slot15(0);
 }

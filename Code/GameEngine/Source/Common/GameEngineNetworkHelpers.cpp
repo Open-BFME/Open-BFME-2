@@ -58,61 +58,7 @@ __declspec(noinline) void Rva00225A0C(int value)
 // may run; if not it clears the client's advance flag, otherwise it updates the
 // logic, the living-world logic on the first phase, and runs the extra client
 // phases that fit between two logic frames before refreshing the frame ratio.
-class NetworkInterface
-{
-public:
-	virtual void slot00(void);
-	virtual void slot01(void);
-	virtual void slot02(void);
-	virtual void slot03(void);
-	virtual void slot04(void);
-	virtual void slot05(void);
-	virtual void slot06(void);
-	virtual void slot07(void);
-	virtual void slot08(void);
-	virtual void slot09(void);
-	virtual void slot10(void);
-	virtual void slot11(void);
-	virtual void slot12(void);
-	virtual void slot13(void);
-	virtual void slot14(void);
-	virtual void slot15(void);
-	virtual void update(int allow);
-	virtual void slot17(void);
-	virtual void slot18(void);
-	virtual void slot19(void);
-	virtual void slot20(void);
-	virtual int getFrameAdvanceCount(void);
-	virtual int getFramePacingStatus(void);
-	virtual void slot23(void);
-	virtual void slot24(void);
-	virtual void slot25(void);
-	virtual void slot26(void);
-	virtual void slot27(void);
-	virtual void slot28(void);
-	virtual void slot29(void);
-	virtual void slot30(void);
-	virtual void slot31(void);
-	virtual void slot32(void);
-	virtual void slot33(void);
-	virtual void slot34(void);
-	virtual void slot35(void);
-	virtual void slot36(void);
-	virtual void slot37(void);
-	virtual void slot38(void);
-	virtual void slot39(void);
-	virtual void slot40(void);
-	virtual void slot41(void);
-	virtual void slot42(void);
-	virtual bool isPacketRouter(void);
-	virtual void slot44(void);
-	virtual void slot45(void);
-	virtual void slot46(void);
-	virtual void slot47(void);
-	virtual void slot48(void);
-	virtual void beginUpdate(void);
-	virtual void endUpdate(void);
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 class GameClient;
 class LivingWorldLogic;
@@ -162,20 +108,20 @@ void GameEngine::_bfme_updateNetworkAndLogic(int phase)
 		ready = !TheGameLogic->isGamePaused();
 		if (TheNetwork != 0)
 		{
-			int frameAdvanceCount = TheNetwork->getFrameAdvanceCount();
+			int frameAdvanceCount = TheNetwork->slot21();
 			if (frameAdvanceCount <= 0 && TheGameLogic->m_field9d == 0)
 			{
 				ready = false;
 			}
 			else
 			{
-				TheNetwork->beginUpdate();
+				TheNetwork->slot49();
 				NetworkInterface *network = TheNetwork;
-				network->update((unsigned char)((Rva002259F3 *)TheGameLogic)->rva002259F3());
-				TheNetwork->endUpdate();
+				network->slot16((unsigned char)((Rva002259F3 *)TheGameLogic)->rva002259F3());
+				TheNetwork->slot50();
 				ready = true;
-				if (!TheNetwork->isPacketRouter())
-					TheNetwork->getFramePacingStatus();
+				if (!TheNetwork->slot43())
+					TheNetwork->slot22();
 			}
 		}
 

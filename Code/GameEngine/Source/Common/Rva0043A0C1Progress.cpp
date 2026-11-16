@@ -25,46 +25,7 @@ public:
 	char m_pad[0x10 - 4];
 };
 
-class NetworkInterface
-{
-public:
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void s10() = 0;
-	virtual void s11() = 0;
-	virtual void s12() = 0;
-	virtual void s13() = 0;
-	virtual void s14() = 0;
-	virtual void s15(int x) = 0;
-	virtual void s16() = 0;
-	virtual void s17() = 0;
-	virtual void s18() = 0;
-	virtual void s19() = 0;
-	virtual void s20() = 0;
-	virtual void s21() = 0;
-	virtual void s22() = 0;
-	virtual void s23() = 0;
-	virtual void s24() = 0;
-	virtual void s25() = 0;
-	virtual void s26() = 0;
-	virtual void s27() = 0;
-	virtual void s28() = 0;
-	virtual void s29() = 0;
-	virtual void s30() = 0;
-	virtual void s31() = 0;
-	virtual void s32() = 0;
-	virtual void s33() = 0;
-	virtual void s34() = 0;
-	virtual void s35(int x) = 0;
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 extern NetworkInterface *TheNetwork;
 
@@ -126,8 +87,8 @@ void Rva0043A0C1::rva0043A0C1(int percent)
 	if (mode > 0 && (mode <= 2 || mode == 5)) {
 		if (TheNetwork != 0) {
 			if (percent <= 100)
-				TheNetwork->s35(percent);
-			TheNetwork->s15(0);
+				TheNetwork->slot35(percent);
+			TheNetwork->slot15(0);
 		} else if (percent <= 100) {
 			TheGameLogic->processProgress(m_88->getValue(), percent);
 		}
