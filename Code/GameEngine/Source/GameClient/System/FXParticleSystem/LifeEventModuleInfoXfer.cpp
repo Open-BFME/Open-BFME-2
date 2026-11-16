@@ -38,38 +38,15 @@ class DamageInfo;
 
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 
-namespace FXParticleSystem
-{
-
-class SnapshotBase
-{
-public:
-	virtual ~SnapshotBase();
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void DoXfer(Xfer &xfer) = 0;
-};
-
-class LifeEventModuleInfo : public SnapshotBase
-{
-public:
-	LifeEventModuleInfo();
-	virtual ~LifeEventModuleInfo();
-	virtual void DoXfer(Xfer &xfer);
-
-private:
-	AsciiString m_name;
-	GameClientRandomVariable m_var;
-	const void *m_cached;
-};
-
-}
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../Include/GameClient/LifeEventModuleInfo.h"
 
 void FXParticleSystem::LifeEventModuleInfo::DoXfer(Xfer &xfer)
 {
 	if (xfer.IsLightCRC())
 		return;
 	xfer.Version1();
-	xferRandomVariable(xfer, m_var);
-	xfer == m_name;
+	xferRandomVariable(xfer, m_08);
+	xfer == m_04;
 }

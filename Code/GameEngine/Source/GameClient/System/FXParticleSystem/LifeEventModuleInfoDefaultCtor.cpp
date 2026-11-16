@@ -15,30 +15,15 @@
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
-#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/GameClient/LifeEventModuleInfo.h"
 
 namespace FXParticleSystem
 {
 
-class LifeEventModuleInfo : public Snapshot
-{
-public:
-	LifeEventModuleInfo();
-	virtual ~LifeEventModuleInfo();
-	virtual const char *GetSnapshotName();
-	virtual void LoadPostProcess();
-	virtual void DoXfer(Xfer &xfer);
-
-private:
-	AsciiString m_name;
-	GameClientRandomVariable m_var;
-	int m_14;
-};
-
 // ??0LifeEventModuleInfo@FXParticleSystem@@QAE@XZ @0x564001
 LifeEventModuleInfo::LifeEventModuleInfo() : m_14(0)
 {
-	m_var.setRange(0.0f, 0.0f);
+	m_08.setRange(0.0f, 0.0f);
 }
 
 }

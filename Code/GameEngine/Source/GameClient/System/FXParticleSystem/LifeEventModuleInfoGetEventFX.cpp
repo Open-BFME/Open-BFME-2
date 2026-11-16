@@ -18,28 +18,14 @@ class FXList
 
 extern FXListStore *TheFXListStore;
 
-namespace FXParticleSystem
-{
-
-class LifeEventModuleInfo
-{
-public:
-	const FXList *getEventFX();
-private:
-	char m_pad0[4];
-	AsciiString m_eventName;
-	char m_pad8[12];
-	const FXList *m_cached;
-};
-
-}
+#include "../../../../Include/GameClient/LifeEventModuleInfo.h"
 
 const FXList *FXParticleSystem::LifeEventModuleInfo::getEventFX()
 {
-	if (m_cached == 0)
+	if (m_14 == 0)
 	{
-		const char *name = m_eventName.str();
-		m_cached = TheFXListStore->findFXList(name);
+		const char *name = m_04.str();
+		m_14 = TheFXListStore->findFXList(name);
 	}
-	return m_cached;
+	return m_14;
 }
