@@ -45,7 +45,7 @@ void *&vector<void*>::operator[](size_t __n)
 { return *(begin() + __n); }
 }
 
-#include "StringInline.h"
+#include "../../Include/GameClient/GameWindowManager.h"
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString; struct Rva004609B0Mapped;
@@ -68,45 +68,6 @@ class Rva004110BETree { public: ~Rva004110BETree(); };
 Rva004110BETree::~Rva004110BETree() { ((Rva0041090E *)this)->~Rva0041090E(); }
 
 class GameWindow;
-class GameWindowManager {
-public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual void slot16();
- virtual void slot17();
- virtual void slot18();
- virtual void slot19();
- virtual void slot20();
- virtual void slot21();
- virtual void slot22();
- virtual void slot23();
- virtual void slot24();
- virtual void slot25();
- virtual void slot26();
- virtual void slot27();
- virtual void slot28();
- virtual void slot29();
- virtual void slot30();
- virtual void slot31();
- virtual void slot32();
- virtual void slot33();
- virtual void slot34();
- virtual void destroyWindow(GameWindow*);
-};
 extern GameWindowManager *TheWindowManager;
 extern unsigned g_Va00E03020;
 class BfmeAptWindowManager;
@@ -130,7 +91,7 @@ void Rva00411B52() {
  typedef _STL::map<AsciiString,GameWindow*> Windows;
  Windows *windows=(Windows*)&g_Va00E03020;
  for(Windows::iterator it=windows->begin();it!=windows->end();++it)
-  TheWindowManager->destroyWindow(it->second);
+  TheWindowManager->winDestroy(it->second);
  ((Rva0041090E*)windows)->rva00410A14();
  ::operator delete(AptShutdownReceiverInstance?AptShutdownReceiverInstance->slot00(0):0);
  AptShutdownReceiverInstance=0;
