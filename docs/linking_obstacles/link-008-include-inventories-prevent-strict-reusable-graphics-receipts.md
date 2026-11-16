@@ -2,6 +2,18 @@
 
 **Status: Blocked on complete include inventories. Updated: 2026-10-27.**
 
+- **2026-11-16, GettingBuiltBehavior consumer repaired locally:** removing the
+  whole-checkout `/I.` and the explicit nested BFME 1 STLport include path lets
+  the existing project STLport selection produce a strict reusable receipt.
+  Before the change, the whole-checkout inventory excluded `build/`, which
+  contains the selected STLport overlay; the nested STLport copy also supplied
+  macro includes outside the recognized library roots. No verifier rule changes.
+  Verification preserves 35/35 functions, one data row, one EXACT EH graph and
+  all 74 COMDAT byte/relocation fingerprints. The ordinary preview preserves
+  1,925 bytes. This clears this consumer's receipt refusal, not the remaining
+  consumer cohort or the full projected-decal publication audit. See
+  [the repair evidence](../../reverse/attempt_support/gettingbuilt-strict-receipt-20261116.md).
+
 - 2026-11-05: [Camera timestep consolidation](../../reverse/attempt_support/camera-timestep-consolidation-20261105-codex4.md) preserves 17/17 rows and supplies strict receipts for the destination and W3DCamTransform; the older-index consumer audit still lacks Common/0CreateAHeroManager21FE49.cpp's current receipt, so carry this shared-list cohort into the next scheduled census/current-index audit.
 
 - 2026-11-04: [Emission constructor adoption](../../reverse/attempt_support/emission-info-header-adoption-20261104-codex4.md) retires nine header rows with strict receipts for both providers and 865/865 ordinary preview bytes preserved; the older-index consumer audit still lacks Common/AIBaseBuilder.cpp's current receipt, so include this cohort in the next scheduled consumer check.
