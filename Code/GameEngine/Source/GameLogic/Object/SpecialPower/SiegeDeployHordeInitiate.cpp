@@ -60,12 +60,6 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 struct Coord3D;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterfaceHead
-{
-	unsigned char m_pad00[0x20];
-};
-
-
 class SiegeDeployHordeSpecialPower;
 
 class Object

@@ -109,11 +109,6 @@ struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 class Rva0008BB38FloatField;
 #include "../../../../Include/GameLogic/PathNode.h"
-class Path { public:
- Path(); Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
- void prependNode(const Coord3D*,PathfindLayerEnum,int);
- unsigned int pad; PathNode *head,*tail; Bool optimized, m_blockedByAlly; char rest[0x28-14];
-};
 #include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
 #include "../../../../Include/GameLogic/AIPathfind.h"

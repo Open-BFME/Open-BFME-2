@@ -19,13 +19,6 @@
 
 class ModuleData;
 
-struct Rva0029FB3BNode
-{
-	Rva0029FB3BNode *m_next;
-	Rva0029FB3BNode *m_previous;
-	int m_value;
-};
-
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
 struct ArrowStormUpdateModuleData

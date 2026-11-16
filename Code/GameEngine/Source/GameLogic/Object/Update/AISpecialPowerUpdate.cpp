@@ -29,11 +29,6 @@ enum UpdateSleepTime
 // vptrs at +0x00, +0x0C and +0x10 (the dtor's three stores of 0x00856E1C,
 // 0x00856D60 and 0x00856D50), module data at +4, object at +8.
 #include "../../../../Include/Common/BehaviorModuleBase.h"
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 // update is slot 0 of the +0x10 UpdateModuleInterface table 0x00856D50, so

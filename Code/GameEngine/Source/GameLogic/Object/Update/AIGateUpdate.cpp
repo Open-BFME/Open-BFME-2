@@ -125,11 +125,6 @@ private:
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/Common/BehaviorModuleBase.h"
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 

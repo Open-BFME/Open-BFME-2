@@ -15,12 +15,6 @@ class Object;
 
 #include "../../../../Include/Common/BehaviorModuleBase.h"
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };

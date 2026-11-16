@@ -781,14 +781,6 @@ public:
 
 // BFME refuses an attack order from a mine-clearing detail: bit 8 of the
 // object's weapon-set flags, whose accessor the vendored Object.h lacks.
-class BFMEWeaponSetFlags
-{
-public:
-	Bool test( Int type ) const { return (m_words[0] & (1U << type)) != 0; }
-
-	UnsignedInt m_words[1];
-};
-
 #include "../../../../Include/GameLogic/Module/BFMEWeaponSetOwner.h"
 
 // BFME writes the max-shot count in place: the count at weapon+0x34 and the

@@ -78,11 +78,6 @@ public:
 	Rva00297360Element *m_end;
 };
 
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

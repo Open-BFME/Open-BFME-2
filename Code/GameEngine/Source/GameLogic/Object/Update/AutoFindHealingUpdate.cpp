@@ -48,11 +48,6 @@ class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/BehaviorModuleBase.h"
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"

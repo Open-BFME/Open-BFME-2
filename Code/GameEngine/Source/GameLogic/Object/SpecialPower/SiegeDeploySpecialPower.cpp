@@ -87,10 +87,6 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 enum AttitudeType { ATTITUDE_ZERO=0 };
-class AIUpdateInterfaceHead
-{
-	unsigned char m_pad00[0x20];
-};
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "ContainmentListView.h"
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
