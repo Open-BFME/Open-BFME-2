@@ -56,7 +56,7 @@ class BfmeCellFC
 {
 public:
 	BfmeCellFC();
-	~BfmeCellFC();
+	~BfmeCellFC() {}
 	__declspec(noinline) void rva006C1680(GridXferView*);
 	int rva006C0BC0(int *extra) const;
 	// BFME2 paints through a three-argument helper (retail 0x006C15E0);
