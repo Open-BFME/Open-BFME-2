@@ -26,15 +26,6 @@ public:
 	~PrimaryP4AB8DC() {}
 };
 
-class Rva0024A797_B2
-{
-public:
-	virtual void f2();
-
-private:
-	char m_pad08[12];
-};
-
 template <int numBits>
 class BitFlags
 {

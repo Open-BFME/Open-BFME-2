@@ -137,11 +137,6 @@ class ModuleData;
 // one-vptr BehaviorModule plus the UpdateModuleInterface vptr, then the two
 // counters and the BFME-only reserved dword. Declarations only; the rowed
 // 0x00253390 / 0x00253330 bodies stay the callees.
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // Native secondary table 0x00851D68: DockUpdate::update, followed by

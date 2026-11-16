@@ -29,15 +29,6 @@ public:
 
 // Retail's base +0x10 vftable (0x00BFBCE4, stored by ~UpdateModule
 // 0x0024A797) holds _purecall in slot 0: the slot is pure.
-class Rva0024A797_B2
-{
-public:
-	virtual void f2() = 0;
-
-private:
-	char m_pad08[12];
-};
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class ThreatFinderUpdate : public UpdateModule

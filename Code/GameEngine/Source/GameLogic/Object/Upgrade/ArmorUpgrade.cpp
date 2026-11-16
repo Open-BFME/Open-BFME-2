@@ -121,14 +121,6 @@ template <> class ArmorUpgradeMuxSlots<0>
 };
 // UpgradeMux interface at +0x10: slots 0..7 placeholders, slot 8 is
 // upgradeRemovalImplementation, slot 10 is upgradeImplementation.
-class UpgradeMuxIface : public ArmorUpgradeMuxSlots<8>
-{
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void slot09() = 0;
-	virtual void upgradeImplementation() = 0;
-};
-
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ArmorUpgrade : public UpgradeModule

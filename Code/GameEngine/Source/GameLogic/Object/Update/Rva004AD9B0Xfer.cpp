@@ -37,15 +37,6 @@ class Object;
 class Thing;
 class ModuleData;
 
-class Rva0044EF5E
-{
-public:
-	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva0044EF5E();
-protected:
-	unsigned char m_pad[0x88 - 4];
-};
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva004AD9B0 : public SpecialAbilityUpdate

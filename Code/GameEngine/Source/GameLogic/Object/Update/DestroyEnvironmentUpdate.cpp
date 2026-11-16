@@ -66,10 +66,6 @@ private:
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/Common/BehaviorModuleBase.h"
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 //
 // ?xfer@DestroyEnvironmentUpdate@@MAEXPAVXfer@@@Z, retail 0x004AC6CB, 60 bytes.

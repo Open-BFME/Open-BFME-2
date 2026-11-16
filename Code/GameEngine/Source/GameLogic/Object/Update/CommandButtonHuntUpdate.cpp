@@ -170,8 +170,6 @@ protected:
 
 #include "../../../../Include/Common/PB_Iface1.h"
 
-class PB_Iface2 { public: virtual void slot(); };
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class CommandButtonHuntUpdate : public UpdateModule

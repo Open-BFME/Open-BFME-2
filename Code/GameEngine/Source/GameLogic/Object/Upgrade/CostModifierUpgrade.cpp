@@ -16,15 +16,6 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeModuleInterface
-{
-public:
-	virtual void upgradeModuleInterfaceAnchor();
-
-private:
-	unsigned int m_state;
-};
-
 // UpgradeModule.h's UpgradeModuleInterface18: retail's table at this base is
 // 0x00C58790 (ret 4, ret 4, ret 0Ch), UpgradeModule's three empty overrides.
 #include "../../../../Include/Common/ModuleInterface.h"

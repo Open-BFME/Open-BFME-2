@@ -38,12 +38,6 @@ class Object;
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterfaceHead
-{
-	char m_unrecovered00[0x20];
-};
-
-
 #include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
 
 class Rva0010CBits

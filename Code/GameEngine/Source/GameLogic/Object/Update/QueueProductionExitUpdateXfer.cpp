@@ -45,12 +45,6 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 #include "../../../../Include/Common/BehaviorModuleBase.h"
 
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

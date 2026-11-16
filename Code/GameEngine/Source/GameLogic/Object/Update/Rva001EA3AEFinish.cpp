@@ -54,9 +54,6 @@ extern const FieldParse g_00BDEA60[4] = {
 	{ "Locomotor", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
 	{ 0, 0, 0, 0 }
 };
-class AIUpdateModuleData {
-public: char unknown00[8]; BfmeLocomotorSetMap templates;
-};
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;

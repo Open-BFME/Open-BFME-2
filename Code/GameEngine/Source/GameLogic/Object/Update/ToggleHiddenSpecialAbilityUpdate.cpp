@@ -190,12 +190,6 @@ protected:
 // +0x10 table 0x00C552C8: slot 0 is update.
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModuleView : public ModuleView, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned char m_pad14[0x20 - 0x14];
-};
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class ToggleHiddenSpecialAbilityUpdate : public SpecialAbilityUpdate

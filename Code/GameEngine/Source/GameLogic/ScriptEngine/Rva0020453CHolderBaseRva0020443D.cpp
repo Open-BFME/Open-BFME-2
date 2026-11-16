@@ -20,16 +20,6 @@ enum INILoadType
 	INI_LOAD_MULTIFILE
 };
 
-class Rva00601BBCHelper
-{
-public:
-	Rva00601BBCHelper();
-	virtual ~Rva00601BBCHelper();
-
-private:
-	char m_body[0x30];
-};
-
 #include "../../../Include/Common/INI/INI.h"
 
 // The 0xD4-byte particle system template (rowed copy constructor 0x001FCE6B)
