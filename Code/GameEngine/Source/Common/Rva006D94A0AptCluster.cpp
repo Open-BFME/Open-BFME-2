@@ -25,6 +25,11 @@ extern AptActionInterpreter g_aptDateInterpreter;
 #define aptValueStack (*(AptBasePtrStack *)&g_aptDateInterpreter)
 
 #include "../../../Libraries/Source/Apt/AptValue.h"
+class AptArray
+{
+public:
+	void set(int nIndex, AptValue *pValue);
+};
 #include "../../Include/Common/AptInteger.h"
 
 // The growth helper 0x006D9500 is rowed as Rva006D9500::rva006D9500.
@@ -57,8 +62,6 @@ public:
 	BfmeAptValue006DCD20 *rva006D8A50(int nIndex);
 	void rva006D9500(int nCapacity);
 	void SetAt(int nIndex, BfmeAptValue006DCD20 *pNewValue);
-	void rva006D95E0(int nIndex, BfmeAptValue006DCD20 *pValue);
-	void rva006DD6C0(EAStringC *pBuffer);
 	void rva006D94A0();
 	int toInteger() const;
 	int isObject() const;
@@ -114,7 +117,7 @@ BfmeAptValue006DCD20 *rva006D9CE0(BfmeAptValue006DCD20 *pValue, int count)
 			{
 				array->m_data[i] = 0;
 				BfmeAptValue006DCD20 *value = aptValueStack.At(i);
-				array->rva006D95E0(i, value);
+				((AptArray *)array)->set(i, (AptValue *)value);
 			}
 		}
 
@@ -257,7 +260,7 @@ BfmeAptValue006DCD20 *rva006DA0C0(BfmeAptValue006DCD20 *pValue, int mode)
 
 		if (mode > 0)
 		{
-			aptValueStack.At(0)->rva006DD6C0(&(*reinterpret_cast<EAStringC *>(&g_eaStringAtE18060Storage)));
+			((const AptValue *)aptValueStack.At(0))->toString(*reinterpret_cast<EAStringC *>(&g_eaStringAtE18060Storage));
 			qsort(array->m_data, array->mnLength, 4, rva006DA0C0Comparator);
 			(*reinterpret_cast<EAStringC *>(&g_eaStringAtE18060Storage)).rva006D3470();
 		}
