@@ -41,13 +41,8 @@ enum BodyDamageType { BODY_PRISTINE = 0 };
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
-class Rva0029FB3BMember
-{
-public:
-	void init(void *context);
-	void reset();
-	void *m_head;
-};
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BAlloc.h"
 
 #include <string.h>
 
@@ -106,12 +101,10 @@ protected:
 };
 
 BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)
-	: UpdateModule(thing, moduleData)
+	: UpdateModule(thing, moduleData),
+	m_free(Rva0029FB3BAlloc())
 {
-	void *context = (void *)((char *)&moduleData + 3);
-	Rva0029FB3BMember *free = &m_free;
-	free->init(context);
-	free->reset();
+	m_free.reset();
 	m_FD = false;
 	memset(&m_2C, 0, 16);
 	m_FC = false;
