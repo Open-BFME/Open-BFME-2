@@ -17,18 +17,11 @@ enum ModuleType
 // COMDAT and cannot differ from the shared header at link.
 #include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
-class ModuleInfo
-{
-public:
-	AsciiString getNthName(int index) const;
-	const ModuleData *getNthData(int index) const;
-	char *m_begin;
-	char *m_end;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 // ?Rva0033B5B8Build@@YAXPAVModuleInfo@@W4ModuleType@@HH@Z
 void Rva0033B5B8Build(ModuleInfo *info, ModuleType type, int c, int b)
 {
-	for (int i = 0; i < (info->m_end - info->m_begin) / 0x14; ++i)
+	for (int i = 0; i < info->getCount(); ++i)
 	{
 		TheModuleFactory->GetAssetList((const AsciiString &)info->getNthName(i), (int)info->getNthData(i), type, b, c);
 	}
