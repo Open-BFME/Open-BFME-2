@@ -2,26 +2,13 @@
 // readable body of ?Reset_Sentence_Data@Render2DSentenceClass@@AAEXXZ: Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp
 // Clean BFME layout for Render2DSentenceClass::Reset_Sentence_Data.
 
-class SurfaceClass;
-
-struct SurfaceOps
-{
-	void (__stdcall *unused)(SurfaceClass *surface);
-	void (__stdcall *add_ref)(SurfaceClass *surface);
-	void (__stdcall *release_ref)(SurfaceClass *surface);
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/surfaceclass.h
-class SurfaceClass
-{
-public:
-	SurfaceOps *ops;
-};
+#include "BfmeSurfaceResource.h"
+#include "W3DSurfaceClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
 struct SentenceDataStruct
 {
-	SurfaceClass *surface;
+	BfmeSurfaceResource *surface;
 	unsigned char rectangles[0x20];
 };
 
@@ -68,9 +55,9 @@ void Render2DSentenceClass::Reset_Sentence_Data(void)
 		::SentenceDataStruct *entry = reinterpret_cast<::SentenceDataStruct *>(
 			reinterpret_cast<unsigned char *>(reinterpret_cast<SentenceDataVector *>(owner->field04)->Data()) +
 			byte_offset);
-		SurfaceClass *surface = entry->surface;
+		BfmeSurfaceResource *surface = entry->surface;
 		if (surface != 0) {
-			surface->ops->release_ref(surface);
+			surface->Release();
 			entry->surface = 0;
 		}
 		++index;

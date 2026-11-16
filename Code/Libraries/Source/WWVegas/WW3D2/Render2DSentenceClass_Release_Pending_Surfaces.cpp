@@ -2,26 +2,13 @@
 // readable body of ?Release_Pending_Surfaces@Render2DSentenceClass@@AAEXXZ: Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp
 // Clean BFME layout for Render2DSentenceClass::Release_Pending_Surfaces.
 
-class SurfaceClass;
-
-struct SurfaceOps
-{
-	void (__stdcall *unused)(SurfaceClass *surface);
-	void (__stdcall *add_ref)(SurfaceClass *surface);
-	void (__stdcall *release_ref)(SurfaceClass *surface);
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/surfaceclass.h
-class SurfaceClass
-{
-public:
-	SurfaceOps *ops;
-};
+#include "BfmeSurfaceResource.h"
+#include "W3DSurfaceClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
 struct PendingSurfaceStruct
 {
-	SurfaceClass *surface;
+	BfmeSurfaceResource *surface;
 	unsigned char renderers[0x18];
 };
 
@@ -68,9 +55,9 @@ void Render2DSentenceClass::Release_Pending_Surfaces(void)
 				reinterpret_cast<::PendingSurfaceStruct *>(
 					reinterpret_cast<unsigned char *>(
 						reinterpret_cast<PendingSurfaceVector *>(owner->field1C)->Data()) + byte_offset);
-			SurfaceClass *surface = entry->surface;
+			BfmeSurfaceResource *surface = entry->surface;
 			if (surface != 0) {
-				surface->ops->release_ref(surface);
+				surface->Release();
 				entry->surface = 0;
 			}
 			++index;

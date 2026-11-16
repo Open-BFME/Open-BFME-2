@@ -2,24 +2,13 @@
 // DynamicVectorClass::Add of an 8-byte record whose second word is a COM
 // pointer (AddRef slot 1, Release slot 2).
 
-struct SurfaceOps
-{
-	void (__stdcall *unused)(void *surface);
-	void (__stdcall *add_ref)(void *surface);
-	void (__stdcall *release)(void *surface);
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/surfaceclass.h
-class SurfaceClass
-{
-public:
-	SurfaceOps *ops;
-};
+#include "BfmeSurfaceResource.h"
+#include "W3DSurfaceClass.h"
 
 struct Gen_0093E730_Elem
 {
 	void *first;
-	SurfaceClass *surface;
+	BfmeSurfaceResource *surface;
 };
 
 class Gen_0093E730
@@ -56,12 +45,12 @@ bool Gen_0093E730::Add(const Gen_0093E730_Elem &object)
 	active_count = index + 1;
 	Gen_0093E730_Elem *slot = &vector[index];
 	slot->first = object.first;
-	SurfaceClass *incoming = object.surface;
+	BfmeSurfaceResource *incoming = object.surface;
 	if (incoming)
-		incoming->ops->add_ref(incoming);
-	SurfaceClass *outgoing = slot->surface;
+		incoming->AddRef();
+	BfmeSurfaceResource *outgoing = slot->surface;
 	if (outgoing)
-		outgoing->ops->release(outgoing);
+		outgoing->Release();
 	slot->surface = object.surface;
 	return true;
 }
@@ -75,12 +64,12 @@ bool Gen_0093E730::rva001558D0(int index)
 				Gen_0093E730_Elem *slot = &vector[i];
 				Gen_0093E730_Elem *next = slot + 1;
 				slot->first = next->first;
-				SurfaceClass *incoming = next->surface;
+				BfmeSurfaceResource *incoming = next->surface;
 				if (incoming)
-					incoming->ops->add_ref(incoming);
-				SurfaceClass *outgoing = slot->surface;
+					incoming->AddRef();
+				BfmeSurfaceResource *outgoing = slot->surface;
 				if (outgoing)
-					outgoing->ops->release(outgoing);
+					outgoing->Release();
 				slot->surface = next->surface;
 			}
 		}
