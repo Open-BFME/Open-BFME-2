@@ -772,10 +772,6 @@ private:
 	char m_pad295[0x3];
 };
 #include "../../../../../Include/Common/GlobalData.h"
-struct Rva000AD6F4Base
-{
-	virtual void *virt0(unsigned int);
-};
 #include "../../../../../Include/Common/Rva000AD6F4.h"
 // The score screen the time line belongs to (0x00E0491C); its +0x284 says
 // how the game ended.

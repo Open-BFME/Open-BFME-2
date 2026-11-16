@@ -324,13 +324,6 @@ private:
 
 int __cdecl Rva000D1D26Identity(int value);
 
-struct TerrainLogicRecord
-{
-	Int m_00;
-	Real m_04[4];
-};
-
-
 // ??0Rva00062A7EProduct@@QAE@XZ, retail 0x00062A7E..0x00062AC4 (70 bytes):
 // W3DTerrainLogic's constructor (pinned under its address name; the factory
 // slot 14 of vtable 0x00BC25E0 calls it after new 0x1924, and its destructor

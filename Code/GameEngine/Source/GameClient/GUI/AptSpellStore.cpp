@@ -361,10 +361,6 @@ public:
 	T *m_ptr;
 };
 
-class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
-{
-};
-
 // WW3D's TextureFilterClass: min, mag and mip filters, then the U and V
 // address modes (1 clamps).
 class ShroudFilter

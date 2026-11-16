@@ -267,21 +267,6 @@ struct PeerRequest
 // The peer thread response (PeerThreadRetail.h layout): type +0x00, the
 // disconnect reason at +0x10C, 0x348 bytes; rowed ctor 0x00389F77, dtor
 // 0x0038A063.
-class PeerResponse
-{
-public:
-	PeerResponse();
-	~PeerResponse();
-	enum { PEERRESPONSE_LOGIN, PEERRESPONSE_DISCONNECT };
-	int peerResponseType;
-	unsigned char m_pad004[0x10C - 0x04];
-	union
-	{
-		unsigned int unknown_payload[143];
-		struct { int reason; } discon;
-	};
-};
-
 // TheGameSpyPeerMessageQueue 0x00A02340: addRequest is virtual slot 6.
 #include "../../../../../Include/GameNetwork/GameSpy/GameSpyPeerMessageQueueInterface.h"
 

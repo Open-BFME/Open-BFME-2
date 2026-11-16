@@ -8,12 +8,6 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct Rva005B5C02Entry
-{
-	void Use(void *s);
-	unsigned int _pad[0x50];
-};
-
 #include "../../../../Include/GameNetwork/GameInfo.h"
 
 struct BfmeSubobject00229875

@@ -19,10 +19,6 @@ extern GameTextInterface *TheGameText;
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
-struct BfmePod40
-{
-    int a[10];
-};
 #include "../../../../../Include/GameClient/Rva0040AAD5.h"
 extern Rva0040AAD5 *TheAwardSystemManager;
 extern const unsigned short g_00BC26DC[];
