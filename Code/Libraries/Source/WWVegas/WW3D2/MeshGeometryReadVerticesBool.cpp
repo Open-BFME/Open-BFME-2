@@ -25,7 +25,6 @@
 // instead. Compile just the base class for size so our COMDAT matches the
 // first copy in link order. Code this TU's rows inline keeps this TU's flags.
 #include "refcount.h"
-#pragma optimize("", on)
 #include "vector3.h"
 #include "w3d_file.h"
 #include "sharebuf.h"

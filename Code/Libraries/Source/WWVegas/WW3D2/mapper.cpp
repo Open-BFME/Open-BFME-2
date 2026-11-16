@@ -5,7 +5,6 @@
 #define DEBUG_DEBUG_H
 #define inline static inline
 #include "refcount.h"
-#pragma optimize("", on)
 #include <math.h>
 #undef inline
 #include "wwmath.h"

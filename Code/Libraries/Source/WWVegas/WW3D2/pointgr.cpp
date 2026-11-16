@@ -6,7 +6,6 @@
 #include "reference/shims/bfme_vector3_len_link/vector3_len_link.h"
 #include "reference/shims/bfme_matrix3d_sse_link/vector4.h"
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix4.h"
-#pragma optimize("s", on)
 #include "refcount.h"
 #include "rendobj.h"
 #include "wwstring.h"

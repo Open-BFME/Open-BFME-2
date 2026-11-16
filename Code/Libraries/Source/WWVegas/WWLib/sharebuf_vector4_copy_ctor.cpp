@@ -15,7 +15,6 @@
 #pragma auto_inline(off)
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma auto_inline(on)
 
 #include "../WWMath/Vector4Data.h"

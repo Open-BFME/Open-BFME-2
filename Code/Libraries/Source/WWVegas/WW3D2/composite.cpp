@@ -4,7 +4,6 @@
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_eq_link/vector3_eq_link.h"
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one

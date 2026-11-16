@@ -20,7 +20,6 @@ extern "C" { static float __cdecl floorf(float); }
 // The spin-locked BFME object pool (as multilist.cpp): mempool.h first, by -I, so the
 // submodule copy multilist.h reaches from its own directory loses the include guard.
 #include "mempool.h"
-#pragma optimize("s", on)
 #include "refcount.h"
 #include <math.h>
 #include "wwmath.h"

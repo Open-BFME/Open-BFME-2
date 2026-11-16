@@ -3,7 +3,6 @@
 // /O2 copies that compete with retail's owners (0x000692B3, 0x0006924F, 0x006CD510, 0x00066382, 0x0007DFB3).
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
 // The compiler-generated vector constructor iterator (??_H) takes the

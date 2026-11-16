@@ -3,7 +3,6 @@
 // Array deallocation is nonthrowing (as in StreakLineCtor.cpp).
 void operator delete[](void *) throw();
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
 #include "simplevec.h"
 template <> bool SimpleVecClass<float>::Resize(int);

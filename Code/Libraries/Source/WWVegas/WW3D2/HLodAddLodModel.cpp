@@ -30,7 +30,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Matrix3D default constructor (0x000423C5): compile those headers in that state,
 // matrix3d.h's dependencies first, unchanged.
 #include "refcount.h"
-#pragma optimize("", on)
 #include <assert.h>
 #include "vector2.h"
 #include "vector3.h"
