@@ -110,7 +110,7 @@ public:
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 #include "../../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
-class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); void *m_texture; };
+#include "../../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 
 struct HorizontalLine { Int yPos; Int xStart; Int xEnd; };
 void free(void *);
@@ -347,7 +347,7 @@ static void rva0004F29B(void *surface, Int width, Int height,
 
 void W3DRadar::rva00050125(const RadarObject *listHead, const CursorTextureSlot *texture, Int alpha)
 {
-	if (listHead == 0 || texture->m_texture == 0)
+	if (listHead == 0 || texture->Ptr == 0)
 		return;
 
 	W3DRadarResetSurface surfaceLevel = const_cast<CursorTextureSlot *>(texture)->Get_Surface_Level();
