@@ -37,13 +37,6 @@ class GameSlot;
 #include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 // Color-limit globals at 0x00A022F4: +0x38 count source plus +0x40 cached limit.
-struct Rva00A022F4
-{
-	char m_pad[0x38];
-	int m_38;
-	int m_3C;
-	int m_40;
-};
 extern class MultiplayerSettings *TheMultiplayerSettings;
 #include "../../../../../Include/Common/PlayerTemplate.h"
 #include "../../../../../Include/Common/PlayerTemplateStore.h"

@@ -650,16 +650,6 @@ extern "C" const void *const vtbl_00C16574[];
 // modeled on the byte-proven neighbor 0x00107152 (`delete p->rvaFoo(0)`)
 // with honest address-derived node names; manager/owner identities beyond
 // the caller ABI (thiscall void*(owner), ret 4) remain unclaimed.
-class Rva000F0A75Node
-{
-public:
-	virtual void *rvaFoo(int x);
-private:
-	char m_pad[0x64];
-public:
-	Rva000F0A75Node *m_next;
-};
-
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 
 class W3DProjectedShadowManager

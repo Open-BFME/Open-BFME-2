@@ -285,16 +285,6 @@ struct CreateAHeroName
 
 // The side mask 0x00219F8E returns: bitset words, tested as STLport's
 // bitset does (word pos / 32, bit pos % 32).
-struct Rva00219F8EMask
-{
-	unsigned int m_words[1];
-
-	__forceinline bool test(unsigned int pos) const
-	{
-		return (m_words[pos / 32] & (1u << (pos % 32))) != 0;
-	}
-};
-
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 

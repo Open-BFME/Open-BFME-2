@@ -393,12 +393,6 @@ class DefaultModuleTemplate7;
 class LightningEmissionModuleTemplate;
 class PointEmissionVolumeModuleTemplate;
 
-class Rva005FEAD0DefaultModule7
-{
-public:
-	Rva005FEAD0DefaultModule7(TrackingPtr<ParticleSystem> &system, const DefaultModuleTemplate7 *moduleTemplate);
-};
-
 class LightningEmissionModule
 {
 public:

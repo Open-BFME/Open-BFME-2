@@ -58,7 +58,6 @@ struct Coord3D;
 namespace _STL { template <> void allocator<_List_node<Coord3D> >::deallocate(_List_node<Coord3D> *,unsigned int) const; }
 class WaypointMap : public _STL::map<AsciiString,Coord3D> {public: void update(); int numStartSpots;};
 #include "../../Include/Common/PlayerPosition.h"
-struct MapPlayers { PlayerPosition items[8]; };
 #include "../../Include/GameClient/MapMetaData.h"
 // The canonical header keeps the STL members opaque; this TU's typed views.
 static inline WaypointMap &waypointsOf(MapMetaData &md) { return reinterpret_cast<WaypointMap &>(md.field38); }
