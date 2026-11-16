@@ -13,7 +13,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../object.h"
 class Waypoint;
-class AIStateMachine { public: void setGoalWaypoint(const Waypoint *p); };
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 #include "../../../../../Include/Common/StateMachineClass.h"
 class Rva00368344
 {

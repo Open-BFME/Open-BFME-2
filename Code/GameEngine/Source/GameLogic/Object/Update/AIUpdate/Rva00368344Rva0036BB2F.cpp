@@ -56,11 +56,7 @@ namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../object.h"
 
-class AIStateMachine
-{
-public:
-	void setGoalWaypoint(const Waypoint *goal); // 0x003E3BFB
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
 #include "../../../../../Include/Common/Rva00351759.h"
 

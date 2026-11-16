@@ -25,11 +25,7 @@ public:
 
 #include "../../Include/Common/Rva00351759.h"
 
-class AIStateMachine
-{
-public:
-	void setGoalWaypoint(const Waypoint *w);
-};
+#include "../../Include/GameLogic/AIStateMachineClass.h"
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 

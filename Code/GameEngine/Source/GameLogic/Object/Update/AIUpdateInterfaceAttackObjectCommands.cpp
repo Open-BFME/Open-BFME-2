@@ -130,7 +130,7 @@ static __declspec(noinline) Object *ModifyVictimForHorde(Object *target,Object *
  return target;
 }
 #include "../../../../Include/Common/SquadClass.h"
-class AIStateMachine : public AttackSlots<5> {public:virtual void clear()=0;virtual void s6()=0;virtual void s7()=0;virtual void setState(int)=0;virtual void s9()=0;virtual void s10()=0;virtual void s11()=0;virtual void s12()=0;virtual void s13()=0;virtual void setGoalObject(Object*)=0;void setGoalSquad(const Squad*);};
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::privateAttackObject(Object *target,int shots,volatile CommandSourceType command){
  Object *obj=m_object;
