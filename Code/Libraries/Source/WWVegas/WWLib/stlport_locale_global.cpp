@@ -30,7 +30,11 @@
  * modified is included with the above copyright notice.
  *
  */
-extern "C" void __cdecl free(void *block);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 #include <locale.h>
 
 typedef long __stl_atomic_t;
