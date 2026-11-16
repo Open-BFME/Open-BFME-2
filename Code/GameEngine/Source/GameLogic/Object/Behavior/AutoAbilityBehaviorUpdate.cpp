@@ -59,16 +59,7 @@ public:
 };
 
 // vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a player, +0x10 a flag.
-class Rva002614ECFilter : public Rva000421C8
-{
-public:
-	Rva002614ECFilter(const void *spec, Player *player, bool flag)
-		: m_spec(spec), m_player(player), m_flag(flag) {}
-	virtual bool allow(Object *obj);
-	const void *m_spec;
-	Player *m_player;
-	bool m_flag;
-};
+#include "../../../../Include/GameLogic/Rva002614ECFilter.h"
 
 // The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
@@ -96,15 +87,11 @@ public:
 	Rva00391F4E(int a, int b, int c) throw();	// 0x00391F4E
 	unsigned int m_bits[4];
 };
-class BfmeObject872Header
-{
-public:
-	unsigned int m_words[4];
-};
+#include "../../../../Include/Common/BfmeObject872Header.h"
 class BfmeZeroHeader : public BfmeObject872Header
 {
 public:
-	BfmeZeroHeader() { memset(m_words, 0, sizeof m_words); }
+	BfmeZeroHeader() { memset(m_bytes, 0, sizeof m_bytes); }
 };
 class Rva003685CF : public Rva000421C8
 {
@@ -192,24 +179,12 @@ struct WideRange
 	char *m_end;
 };
 
-class AutoAbilityBehavior : public UpdateModule
-{
-public:
-	virtual UpdateSleepTime update();
-	bool rva0045A57C();
-	Object *rva0045A447(BfmeWideResult *items, const CommandButton *button);
-	void rva0045A413();
-	void rva0045A8C2(Object *source, Object *target, const Rva0045A8C2Options *options);
-private:
-	AsciiString m_command;	// +0x20
-	Coord3D m_memo;		// +0x24
-	bool m_hasMemo;		// +0x30
-};
+#include "../../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
 UpdateSleepTime AutoAbilityBehavior::update()
 {
 	Object *obj = m_object;
-	const CommandButton *button = TheControlBar->findCommandButton(m_command);
+	const CommandButton *button = TheControlBar->findCommandButton(m_20);
 	if (button == 0 || (obj->m_status438 & 1) != 0 || obj->m_model.rva00263546((const Rva00263546 *)button->m_disableOnModelCondition)
 		|| (((const ModelConditionFlags *)button->m_enableOnModelCondition)->rva000B3EB3()
 			&& !((const Rva00263546 *)button->m_enableOnModelCondition)->rva00263546(&obj->m_model)))
@@ -256,12 +231,12 @@ UpdateSleepTime AutoAbilityBehavior::update()
 	Object *target = 0;
 	if (data->m_rememberPosition)
 	{
-		if (!m_hasMemo)
+		if (!m_30)
 		{
-			m_hasMemo = true;
-			m_memo = pos;
+			m_30 = true;
+			m_24 = pos;
 		}
-		pos = m_memo;
+		pos = m_24;
 	}
 	Rva0026119DFilter alive;
 	Rva002611BFFilter notSelf(obj);
