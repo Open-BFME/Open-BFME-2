@@ -75,14 +75,7 @@ public:
 	virtual void f4();
 	virtual void f5(Rva001F4C67 *p);
 };
-class ParticleSystem
-{
-public:
-	char m_pad00[0x7c];
-	int m_7c;
-	char m_pad80[0x24];
-	HelperA4 *m_a4;
-};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 extern ParticleSystem *Make001FCBD7();
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
@@ -153,6 +146,6 @@ Rva001F4C67::Rva001F4C67(const RvaSmartPtr12 &a, const Rva001F376E &b)
 	ParticleSystem *ps = (ParticleSystem *)a.m_ptr;
 	if (ps == 0)
 		ps = Make001FCBD7();
-	((Rva001F416C *)TheParticleSystemManager)->rva001F416C((Node001F416C *)this, ps->m_7c);
-	m_smart->m_a4->f5(this);
+	((Rva001F416C *)TheParticleSystemManager)->rva001F416C((Node001F416C *)this, ps->m_priority);
+	((HelperA4 *)m_smart->m_A4)->f5(this);
 }
