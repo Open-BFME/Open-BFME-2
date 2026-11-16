@@ -29,7 +29,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Matrix3D;
 #include "../../../../Include/Common/Rva0087DC00Vec.h"
 #include "../../../../Include/GameClient/Rva0087DC00.h"
-class GeometryInfo {public:bool CollidesWith(const Coord3D&,float,const GeometryInfo&,const Coord3D&,float) const;};
+#include "../../../../Include/Common/Geometry.h"
 class Player;enum ModelConditionFlagType{MODELCONDITION_INVALID=-1};
 class Object {public:Player *getControllingPlayer() const;void setSpecialModelConditionState(ModelConditionFlagType,unsigned);
  bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*) const;
@@ -38,7 +38,7 @@ class Object {public:Player *getControllingPlayer() const;void setSpecialModelCo
  void removeAttributeModifierFromPool(const AsciiString &);
  char m_pad00[4]; unsigned char *m_data;
  char m_pad08[0x38-8];Coord3D m_position;
- float m_angle;char m_pad48[0x74-0x48];ObjectID m_id;char m_pad78[8];ObjectID m_specialOwner;char m_pad84[0xA8-0x84];GeometryInfo m_geometry;char m_padA9[0x110-0xA9];unsigned int m_modelWord1;
+ float m_angle;char m_pad48[0x74-0x48];ObjectID m_id;char m_pad78[8];ObjectID m_specialOwner;char m_pad84[0xA8-0x84];GeometryInfo m_geometry;char m_pad104[0x110-0x104];unsigned int m_modelWord1;
  char m_pad114[0x258-0x114];AIUpdateInterface *m_ai;
  char m_pad25C[0x304-0x25C];void *m_team;
  char m_pad308[0x438-0x308];unsigned char m_deadFlags;unsigned char m_pad439[0x43C-0x439];

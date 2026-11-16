@@ -89,11 +89,15 @@ BFME_LITERAL_NAME_GETTER(Rva001F37BENamed, "FXParticleInfo")
 class SequentialScript { public: virtual const char *GetSnapshotName(); };
 const char *SequentialScript::GetSnapshotName() { return "SequentialScript"; }
 // LargeGroupAudio getter is owned by the complete subsystem unit.
-class GeometryInfo
-{
-public:
-	virtual const char *GetSnapshotName();
-};
+#ifndef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_GEOMETRY_NONCONST_LOCAL
+#endif
+#include "../../Include/Common/Geometry.h"
+#ifdef BFME_GEOMETRY_NONCONST_LOCAL
+#undef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#undef BFME_GEOMETRY_NONCONST_LOCAL
+#endif
 
 const char *GeometryInfo::GetSnapshotName()
 {

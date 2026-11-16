@@ -63,24 +63,11 @@ static __forceinline void matrixTransformVector(const Matrix3D &matrix, const Ve
 	out->Z = (matrix[2][1] * v->Y + matrix[2][0] * v->X + matrix[2][2] * v->Z + matrix[2][3]);
 }
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &other);
-	virtual ~GeometryInfo();
-	Real getMajorRadius() const { return m_majorRadius; }
-	Real getMinorRadius() const { return m_minorRadius; }
-	// LINK: same-body helpers under TU-unique names (identical inlined bytes);
-	// this TU's getters lose to the first-in-order copies, so rebind the calls.
-	Real bfme_bib_major() const { return m_majorRadius; }
-	Real bfme_bib_minor() const { return m_minorRadius; }
+#include "../../../../GameEngine/Include/Common/Geometry.h"
 
-private:
-	char m_pad04[0x24 - 0x04];
-	Real m_majorRadius;					// +0x24
-	Real m_minorRadius;					// +0x28
-	char m_pad2C[0x5C - 0x2C];
-};
+// The bib corners read the geometry's +0x24/+0x28 extents through these helpers.
+static inline Real bibExtent24(const GeometryInfo &info) { return info.field24; }
+static inline Real bibExtent28(const GeometryInfo &info) { return info.field28; }
 
 #include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
@@ -144,8 +131,8 @@ void W3DTerrainVisual::addFactionBibDrawable(Drawable *factionBuilding, Bool hig
 		Real exitWidth = bibExitWidth(factionBuilding->getTemplate());
 		Real extraWidth = bibExtraWidth(factionBuilding->getTemplate()) + extra;
 		const GeometryInfo info = templateGeometryInfo(factionBuilding->getTemplate());
-		Real sizeX = info.bfme_bib_major();
-		Real sizeY = info.bfme_bib_minor();
+		Real sizeX = bibExtent24(info);
+		Real sizeY = bibExtent28(info);
 		corners[0].Set(pos.x, pos.y, pos.z);
 		corners[0].X -= sizeX + extraWidth;
 		corners[0].Y -= sizeY + extraWidth;
@@ -182,8 +169,8 @@ void W3DTerrainVisual::addFactionBib(Object *factionBuilding, Bool highlight, Re
 		Real exitWidth = bibExitWidth(factionBuilding->getTemplate());
 		Real extraWidth = bibExtraWidth(factionBuilding->getTemplate()) + extra;
 		const GeometryInfo info = factionBuilding->getGeometryInfo();
-		Real sizeX = info.bfme_bib_major();
-		Real sizeY = info.bfme_bib_minor();
+		Real sizeX = bibExtent24(info);
+		Real sizeY = bibExtent28(info);
 		corners[0].Set(pos.x, pos.y, pos.z);
 		corners[0].X -= sizeX + extraWidth;
 		corners[0].Y -= sizeY + extraWidth;

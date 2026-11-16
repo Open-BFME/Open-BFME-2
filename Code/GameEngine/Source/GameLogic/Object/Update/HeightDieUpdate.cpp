@@ -74,16 +74,7 @@ enum DeathType
 {
 	DEATH_NORMAL = 0
 };
-class GeometryInfo
-{
-public:
-	Real getBoundingCircleRadiusRV() const { return m_boundingCircleRadius; }
-	Real getMaxHeightAbovePosition() const;
-
-private:
-	char m_unknown00[0x10];
-	Real m_boundingCircleRadius; // +0x10
-};
+#include "../../../../Include/Common/Geometry.h"
 #include "../../../Common/Thing/thing.h"
 class Object : public Thing
 {
@@ -95,7 +86,7 @@ public:
 private:
 	char m_unknown60[0xA8 - 0x60];
 	GeometryInfo m_geometryInfo; // +0xA8
-	char m_unknownBC[0x274 - 0xBC];
+	char m_unknown104[0x274 - 0x104];
 	Object *m_containedBy; // +0x274
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -313,7 +304,7 @@ UpdateSleepTime HeightDieUpdate::update( void )
 			Real tallestHeight = 0.0f;
 
 			// scan all objects in the radius of our extent and find the tallest height among them
-			Real range = getObject()->getGeometryInfo().getBoundingCircleRadiusRV();
+			Real range = getObject()->getGeometryInfo().getBoundingCircleRadius();
 			BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( getObject()->getPosition(),
 				range, FROM_BOUNDINGSPHERE_3D,
 				&Rva0004584D( reinterpret_cast<const BfmeFixedStorage0004543D &>(Rva00045411BitSet(0, 7 )), *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE ),

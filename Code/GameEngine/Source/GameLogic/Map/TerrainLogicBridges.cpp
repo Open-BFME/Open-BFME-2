@@ -225,14 +225,12 @@ Bool LineInRegion( const Coord2D *p1, const Coord2D *p2, const Region2D *clipReg
 
 }  // end LineInRegion
 
-class GeometryInfo
-{
-public:
-	__declspec(dllimport) __forceinline Real getMinorRadius() const { return m_minorRadius; }
-private:
-	char m_pad00[0x10];
-	Real m_minorRadius; // +0x10
-};
+// Snapshot takes the selection AIPathfind.h, AI.h and TerrainLogic.h make, before Geometry.h would choose its own.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
+#define BFME_SNAPSHOT_NAME_SLOT
+#endif
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Include/Common/Geometry.h"
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
@@ -260,7 +258,7 @@ private:
 	Object *m_next; // +0x8C
 	char m_pad90[0xA8 - 0x90];
 	GeometryInfo m_geometryInfo; // +0xA8
-	char m_padBC[0x254 - 0xBC];
+	char m_pad104[0x254 - 0x104];
 	BodyModuleInterface *m_body; // +0x254
 };
 

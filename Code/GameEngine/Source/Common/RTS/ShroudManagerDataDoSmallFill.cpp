@@ -174,7 +174,7 @@ struct GeometryShape {
  int type;float height,major,minor;UpdateOffset offset;AsciiString name;
  bool enabled,unmodelled21;
 };
-class GeometryInfo {public:void rva006BD9C0(GeometryShape&)const;void*vt;bool small;};
+#include "../../../Include/Common/Geometry.h"
 class UpdateThing {
 public:virtual const GeometryInfo* geometry()const;
  virtual const Coord3D*position()const;virtual float angle()const;
@@ -211,11 +211,11 @@ void ShroudManager::Data::UpdateCellsTouched()
  ((BfmeThingCDE*)this)->d_008f7ec0();
  GeometryShape shape;
  geom->rva006BD9C0(shape);
- if(!geom->small){
+ if(!geom->m_isSmall){
   int count=((BfmeHostEU*)grid)->bfmeStepsEU((const BfmeShapeEU*)&shape);
   if(count!=coiCount){delete[](CDEArraySlot*)coi;coi=0;((BfmeThingCDE*)this)->initializeArray(count);}
  }
- if(geom->small)DoSmallFill(pos->x,pos->y,shape.major);
+ if(geom->m_isSmall)DoSmallFill(pos->x,pos->y,shape.major);
  else switch(shape.type){
  case 0:case 1:((BfmeThingCDE*)this)->rva0073A9B0(pos->x,pos->y,shape.major);break;
  case 2:{float minor=shape.minor;float major=shape.major;
