@@ -1,6 +1,6 @@
 ### VersionBlockEntry and Pivot24 copy providers
 
-Status: VersionBlockEntry repaired locally; Pivot24 still open; full-link and
+Status: VersionBlockEntry and Pivot24 repaired locally; full-link and
 runtime confirmation pending.
 
 The diagnostic image at a06b14bb6a7d stops at the VersionBlockEntry copy stub
@@ -18,4 +18,13 @@ Provider comparison adds only this constructor; every retained definition
 is unchanged. Scoped link_check removes its unresolved name and still refuses
 the file for Pivot24. No full-link gain or menu success is claimed.
 
-Evidence and rejected trial: [handoff](../../reverse/attempt_support/versionblockentry-pivot24-copy-providers.md).
+Pivot24 now also owns two strings and emits the native 61-byte copy. Its
+destructor is the complete native 65-byte body instead of the previous
+five-byte forwarding thunk. Official pin_admission accepted its fold-proof
+at 00238580, including relocation bindings and EH, and updated the pin counter
+from one to two through its admission path. All 50 rows and nine existing EH
+graphs pass; direct EH checks for both copies and the destructor are EXACT.
+Scoped link_check now reports no unresolved constructors (2965 own bytes),
+against the same stale census. A fresh full link and Windows run remain required.
+
+Evidence and rejected trials: [handoff](../../reverse/attempt_support/versionblockentry-pivot24-copy-providers.md).

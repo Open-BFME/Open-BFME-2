@@ -160,8 +160,9 @@ struct VersionBlockEntry
 struct Pivot24
 {
 	Pivot24(const Pivot24 &other);
-	~Pivot24() {}
-	VersionBlockEntry narrow;
+	~Pivot24();
+	_STL::basic_string<char> m_key;
+	_STL::basic_string<char> m_value;
 };
 
 void __cdecl Rva00428372AdjustHeap(VersionBlockEntry *first, int holeIndex, int len, Pivot24 val, VersionBlockKeyCompare comp);
@@ -954,4 +955,7 @@ VersionBlockParser::VersionBlockParser(const char *versionBlock)
 // out-of-line call with retail's ESP-save ordering. The complete body and EH
 // graph match 0x00427F75; no alias or forwarding wrapper is needed.
 inline VersionBlockEntry::VersionBlockEntry(const VersionBlockEntry &other) : m_key(other.m_key), m_value(other.m_value) {}
-
+// Pivot24 has the same native two-string lifetime. Its complete destructor
+// is fold-proven at 0x00238580, including its associative EH graph.
+inline Pivot24::Pivot24(const Pivot24 &other) : m_key(other.m_key), m_value(other.m_value) {}
+inline Pivot24::~Pivot24() {}
