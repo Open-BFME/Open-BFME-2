@@ -184,7 +184,7 @@ __declspec(noinline) int __cdecl Rva004DD6CFGet(float angle)
 #include "../../../../Libraries/Include/Lib/ICoord2DBase.h"
 template<int N> class NativeSlots : public NativeSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
 template<> class NativeSlots<0> {};
-class AIUpdateInterface : public NativeSlots<137> { public: virtual bool isDoingGroundMovement() const=0; virtual bool bfmeSlot138() const=0; bool isAircraftThatAdjustsDestination() const; };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class NativeGoalContain : public NativeSlots<50> { public: virtual void slot50()=0; };
 struct NativeGoalTemplate { char pad[0x114]; union { unsigned flags114; struct {unsigned char kind114,kind115,kind116,kind117;}; }; char gap[4]; union { unsigned kind11C; unsigned char kindBytes[4]; }; };
 enum PathfindLayerEnum { PATHFIND_LAYER_GROUND=0 };
@@ -448,7 +448,7 @@ bool PathfinderPosGoalManager::rva004DE2ED()
  if (!TheAI->m_pathfinder->enabled()) return false;
  AIUpdateInterface *ai=m_object->m_ai;
  if (!ai || !ai->isDoingGroundMovement()) return false;
- if (ai->bfmeSlot138())
+ if (ai->rva00262BA9())
  {
   if(m_position.m_value!=-666666) RemoveObjPtr(&m_position);
   return false;

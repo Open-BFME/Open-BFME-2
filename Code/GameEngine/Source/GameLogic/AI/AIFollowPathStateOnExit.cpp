@@ -56,22 +56,7 @@ public:
 	virtual void Set_Burst_Size(unsigned int value);
 };
 
-class AIUpdateInterface
-{
-public:
-	void setCanPathThroughUnits(Bool canPathThroughUnits) { m_canPathThroughUnits = canPathThroughUnits; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the setCanPathThroughUnits copy loses to the first-in-order copy. No flags touched.
-	void bfme_setCanPathThroughUnits_9c10a(Bool b) { m_canPathThroughUnits = b; }
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-	void friend_setCurrentGoalPathIndex(int index) { m_currentGoalPathIndex = index; }
-private:
-	unsigned char m_pad000[0x194];
-	int m_currentGoalPathIndex; // +0x194
-	unsigned char m_pad198[0x1F0 - 0x198];
-	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3BA - 0x1F4];
-	Bool m_canPathThroughUnits; // +0x3BA
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct Rva0028AC4EEntry
 {
 	unsigned char m_pad00[0x2C];
@@ -107,14 +92,14 @@ void AIFollowPathState::onExit( StateExitType status )
 	// turn off precision-z-pos when we exit, just in case.
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (!ai) return;
-	ai->bfme_setCanPathThroughUnits_9c10a(false);
+	ai->m_field3BA = false;
 	((ParticleEmitterDefClass *)ai)->ParticleEmitterDefClass::Set_Burst_Size(0);
 	if (ai->getCurLocomotor())
 		ai->getCurLocomotor()->bfme_setUsePreciseZPos_772eb(false);
 
 	//Assign this value to the AIUpdateInterface so object's can access this value while
 	//determine which waypoints to plot in the waypoint renderer.
-	ai->friend_setCurrentGoalPathIndex( -1 );
+	ai->m_field194 = -1;
 
 	Object *obj = getMachineOwner();
 	if (!((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))

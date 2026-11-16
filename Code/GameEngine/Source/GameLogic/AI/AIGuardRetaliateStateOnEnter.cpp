@@ -41,22 +41,8 @@ private:
 	class AIUpdateInterface *m_ai; // +0x258
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AIUpdateInterface
-{
-public:
-	const Coord3D *getGoalPosition() const { return m_stateMachine->getGoalPosition(); }
-	Object *getGoalObject() { return m_stateMachine->getGoalObject(); }
-	// LINK: same-body helpers under TU-unique names (identical inlined
-	// bytes, chained to StateMachine::getGoalPosition). This TU's
-	// copies lose (first-copy); the two calls below inline them but still emit
-	// loser COMDATs. Rebinding there emits only unique (trivially kept)
-	// copies. No flags touched.
-	const Coord3D *bfme_ai_goal_position() const { return m_stateMachine->getGoalPosition(); }
-	Object *bfme_ai_goal_object() { return m_stateMachine->getGoalObject(); }
-private:
-	unsigned char m_pad00[0x30];
-	StateMachine *m_stateMachine; // +0x30
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 class AIGuardRetaliateMachine : public StateMachine
 {
 public:
@@ -84,9 +70,9 @@ StateReturnType AIGuardRetaliateState::onEnter()
 
 	m_guardRetaliateMachine = new AIGuardRetaliateMachine( getMachineOwner());
 	// tell the guarding machine what it is guarding with
-	m_guardRetaliateMachine->setTargetPositionToGuard( ai->bfme_ai_goal_position() );
+	m_guardRetaliateMachine->setTargetPositionToGuard( ai->m_stateMachine->getGoalPosition() );
 
-	Object *goalObject = ai->bfme_ai_goal_object();
+	Object *goalObject = ai->m_stateMachine->getGoalObject();
 	if( goalObject )
 	{
 		if (goalObject->testStatus(OBJECT_STATUS_BFME_26) && goalObject->rva002931F5(false))

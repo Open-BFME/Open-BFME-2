@@ -54,6 +54,7 @@ public:
 	ThingTemplate *m_template;
 };
 
+enum ObjectID;
 class Object : public Thing
 {
 public:
@@ -61,7 +62,7 @@ public:
 	Bool isMobile() const;
 
 	unsigned char m_unmodelled_08[0x74 - 8];
-	UnsignedInt m_id;
+	ObjectID m_id;
 };
 
 #include "../../../../Include/Common/StateMachineClass.h"
@@ -78,29 +79,8 @@ class BfmeVirtualSlots<0>
 {
 };
 
-class AIUpdateInterface : public BfmeVirtualSlots<96>
-{
-public:
-	virtual Bool isIdle() const = 0;
-
-protected:
-	virtual void privateGuardObject(Object *objectToGuard, GuardMode guardMode, CommandSourceType commandSource);
-
-public:
-
-	Object *getObject() const { return m_object; }
-
-	unsigned char m_unmodelled_04[4];
-	Object *m_object;
-	unsigned char m_unmodelled_0C[0x30 - 0x0C];
-	StateMachine *m_stateMachine;
-	unsigned char m_unmodelled_34[0x48 - 0x34];
-	CommandSourceType m_lastCommandSource;
-	GuardMode m_guardMode;
-	GuardTargetType m_guardTargetType[2];
-	unsigned char m_unmodelled_58[0x64 - 0x58];
-	UnsignedInt m_objectToGuard;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 void AIUpdateInterface::privateGuardObject(Object *objectToGuard, GuardMode guardMode, CommandSourceType commandSource)
 {

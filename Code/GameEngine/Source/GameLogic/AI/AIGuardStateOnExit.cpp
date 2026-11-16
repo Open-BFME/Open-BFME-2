@@ -30,19 +30,7 @@ public:
 template <> class VSlots<0>
 {
 };
-class AIUpdateInterface : public VSlots<119>
-{
-public:
-	virtual const ObjectID getGuardObject( void ) const = 0;
-	virtual void slot120() = 0;
-	virtual void slot121() = 0;
-	virtual void slot122() = 0;
-	virtual GuardTargetType getGuardTargetType() const = 0;
-	void clearBfme3CD() { m_bfme3CD = false; }
-private:
-	unsigned char m_pad004[0x3CD - 0x004];
-	Bool m_bfme3CD; // +0x3CD
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -66,9 +54,9 @@ void AIGuardState::onExit( StateExitType status )
 {
 	Object *owner = getMachineOwner();
 	AIUpdateInterface *ai = Object::getAI(owner);
-	ai->clearBfme3CD();
-	Object *guardee = TheGameLogic->findObjectByID(ai->getGuardObject());
-	if (guardee && ai->getGuardTargetType() == GUARDTARGET_OBJECT)
+	ai->m_field3CD = false;
+	Object *guardee = TheGameLogic->findObjectByID(ai->vslot119());
+	if (guardee && ai->vslot123() == GUARDTARGET_OBJECT)
 		owner->rva0028BBF3(guardee);
 
 	// The machine's virtual slot-0 release (flags 0), then the global operator delete.

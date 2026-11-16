@@ -271,8 +271,7 @@ class StanceRider:public VGap<23>{public:virtual bool slot23()=0;
  virtual void slot152(int)=0;};
 class StanceContain:public VGap<31>{public:virtual StanceRider*getRider()=0;};
 enum CommandSourceType{SOURCE0=0,SOURCE2=2};
-class AICommandInterface{public:void aiIdle(CommandSourceType);};
-class AIUpdateInterface:public VGap<110>{public:virtual bool slot110()=0;void rva00262D40(int);AICommandInterface&commands(){return*(AICommandInterface*)((char*)this+0x20);}};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -345,7 +344,7 @@ bool StancesBehavior::changeStance(int value){
  Object*obj=getObject();if(value==m_stance)return false;
  StanceRider*rider=obj->getRider();
  if(rider && m_stance==4 && rider->slot60() && rider->slot23()){rider->slot24();rider=obj->getRider();}
- if(value==3){AIUpdateInterface*ai=obj->m_ai;if(ai)ai->commands().aiIdle(SOURCE0);}
+ if(value==3){AIUpdateInterface*ai=obj->m_ai;if(ai)ai->aiIdle(SOURCE0);}
  int key=((const StancesBehaviorModuleData *)getModuleData())->m_key;if(!key)return false;
  int*entries=((Rva004260DE*)TheStancesStore)->rva004260DE(key);if(!entries)return false;
  NameKeyType oldMod=(NameKeyType)entries[m_stance*2+1];int*entry=entries+value*2;NameKeyType newMod=(NameKeyType)entry[1];
@@ -354,8 +353,8 @@ bool StancesBehavior::changeStance(int value){
  int oldStance=m_stance;int oldClass=rva0045ED4B();m_stance=value;int newClass=rva0045ED4B();
  if(oldStance==0 || newClass!=oldClass){
  ((Rva0045EF55List *)static_cast<Rva00330757Member *>(this))->forEach(&Rva0045EF55Listener::notify,this,oldClass,newClass);
- AIUpdateInterface*ai=obj->m_ai;if(ai && ai->slot110()){
- if(value==1)ai->rva00262D40(0);else if(value==3 || value==4)ai->rva00262D40(1);else if(oldStance==1 || oldStance==3)ai->commands().aiIdle(SOURCE2);
+ AIUpdateInterface*ai=obj->m_ai;if(ai && ai->isIdle()){
+ if(value==1)ai->rva00262D40(0);else if(value==3 || value==4)ai->rva00262D40(1);else if(oldStance==1 || oldStance==3)ai->aiIdle(SOURCE2);
  }}return true;
 }
 

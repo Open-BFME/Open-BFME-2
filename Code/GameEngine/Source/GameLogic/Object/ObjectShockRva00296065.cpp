@@ -67,12 +67,7 @@ public:
 };
 struct ShockBodyEntry { char pad0[8]; ObjectID source; };
 #include "../../../Include/GameLogic/Module/BodyModuleClass.h"
-class AIUpdateInterface : public ShockSlots<153>
-{
-public:
-	virtual void slot153() = 0;
-	int getCurrentStateID() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 enum PathfindLayerEnum { LAYER_UNKNOWN0 = 0 };
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -254,7 +249,7 @@ void Object::rva00296065(Rva00297612Entry *entry)
 		}
 		{
 			AIUpdateInterface *aiCopy = ai;
-			if (aiCopy) aiCopy->slot153();
+			if (aiCopy) aiCopy->vslot153();
 		}
 		rva0028AE9B(entry->visualState);
 	}

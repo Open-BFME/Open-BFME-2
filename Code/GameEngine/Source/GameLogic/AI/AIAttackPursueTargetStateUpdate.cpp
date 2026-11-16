@@ -18,17 +18,7 @@ enum WhichTurretType
 	TURRET_MAIN = 0
 };
 class Object;
-class AIUpdateInterface
-{
-public:
-	WhichTurretType getWhichTurretForCurWeapon() const;
-	Object *getNextMoodTarget(Bool calledByAI, Bool calledDuringIdle);
-	void setTurretTargetObject(WhichTurretType tur, Object *o, Bool isForceAttacking = false);
-	void setBfme3C7() { m_bfme3C7 = true; }
-private:
-	unsigned char m_pad000[0x3C7];
-	Bool m_bfme3C7; // +0x3C7
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
@@ -61,7 +51,7 @@ StateReturnType AIAttackPursueTargetState::update()
 			if (object) 
 			{
 				ai->setTurretTargetObject(tur, object, m_isForceAttacking);
-				ai->setBfme3C7();
+				ai->m_field3C7 = true;
 			}
 		}
 	}

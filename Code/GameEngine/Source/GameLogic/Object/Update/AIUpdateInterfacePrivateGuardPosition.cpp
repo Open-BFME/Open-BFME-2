@@ -37,7 +37,7 @@ enum GuardTargetType
 	GUARDTARGET_NONE = 4
 };
 
-enum StateID
+enum
 {
 	BFME_AI_GUARD = 0x10
 };
@@ -68,19 +68,6 @@ public:
 	Bool isMobile() const;
 };
 
-class StateMachine
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void clear();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void setState(StateID state);
-};
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 
@@ -98,25 +85,8 @@ class BfmeVirtualSlots<0>
 {
 };
 
-class AIUpdateInterface : public BfmeVirtualSlots<96>
-{
-public:
-	virtual Bool isIdle() const = 0;
-
-protected:
-	virtual void privateGuardPosition(const Coord3D *position, GuardMode guardMode, CommandSourceType commandSource);
-
-public:
-	unsigned char m_unmodelled_04[4];
-	Object *m_object;
-	unsigned char m_unmodelled_0C[0x30 - 0x0C];
-	StateMachine *m_stateMachine;
-	unsigned char m_unmodelled_34[0x48 - 0x34];
-	CommandSourceType m_lastCommandSource;
-	GuardMode m_guardMode;
-	GuardTargetType m_guardTargetType[2];
-	Coord3D m_locationToGuard;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 void AIUpdateInterface::privateGuardPosition(const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource)
 {

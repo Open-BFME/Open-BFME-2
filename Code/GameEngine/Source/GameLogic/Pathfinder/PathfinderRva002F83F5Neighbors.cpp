@@ -269,14 +269,7 @@ __declspec(noinline) inline void *rva002EBC7F(void *a1, void *a2, Rva002EBC7FPai
 	return a1;
 }
 #include <math.h>
-class AIUpdateInterface {
-public:
-Object *getCurrentVictim() const;
-bool isAircraftThatAdjustsDestination() const;
-int rva0026417F(bool);
-char gap[0x1f0];
-Locomotor *locomotor;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/PathCollisionNode.h"
 struct PathCollisionInfo {
 int x,y;
@@ -441,20 +434,20 @@ if (enemies && ignoreEnemies) continue;
 if (!object->getAI() || !other->getAI()) continue;
 if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))>static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) continue;
 int amount;
-if (other->IsAtGoalPosition() || !object->getAI()->locomotor || !other->getAI()->locomotor) amount=8;
+if (other->IsAtGoalPosition() || !object->getAI()->m_curLocomotor || !other->getAI()->m_curLocomotor) amount=8;
 else {
 Coord3D target;
 rva002EBC7F(&target,object,destination,1);
 if (ourArrival<0.0f) {
 float dx=object->position[0]-target.x;
 float dy=object->position[1]-target.y;
-Locomotor *locomotor=object->getAI()->locomotor;
+Locomotor *locomotor=object->getAI()->m_curLocomotor;
 float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
 ourArrival=distance/locomotor->getMaxSpeed(object);
 }
 float dx=other->position[0]-target.x;
 float dy=other->position[1]-target.y;
-Locomotor *locomotor=other->getAI()->locomotor;
+Locomotor *locomotor=other->getAI()->m_curLocomotor;
 float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
 float otherArrival=distance/locomotor->getMaxSpeed(other);
 if (!(otherArrival<ourArrival)) continue;

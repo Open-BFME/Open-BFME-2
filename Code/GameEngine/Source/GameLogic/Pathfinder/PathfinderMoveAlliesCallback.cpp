@@ -27,55 +27,8 @@ class Object;
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../Include/Common/ThingTemplate.h"
-class AICommandInterface
-{
-  public:
-	void aiMoveAwayFromUnit(Object *, const Coord3D *, CommandSourceType);
-};
-class StateMachine
-{
-  public:
-	const Coord3D *getGoalPosition() const
-	{
-		return &goal;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's StateMachine::getGoalPosition copy loses to the
-	// first-in-order copy (no retail address); the AIUpdateInterface wrapper
-	// below inlines it but still emits the loser COMDAT. Rebinding there
-	// emits only this unique (trivially kept) copy. No flags touched.
-	const Coord3D *bfme_goal_position() const
-	{
-		return &goal;
-	}
-
-  private:
-	unsigned char pad[0x24];
-	Coord3D goal;
-};
-class AIUpdateInterface
-{
-  public:
-	bool isMoving() const;
-	bool rva00262DD3(const Object *) const;
-	const Coord3D *getGoalPosition() const
-	{
-		return machine->getGoalPosition();
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's AIUpdateInterface::getGoalPosition copy loses to the
-	// first-in-order copy (no retail address); the call below inlines it but
-	// still emits the loser COMDAT. Rebinding there emits only this unique
-	// (trivially kept) copy. No flags touched.
-	const Coord3D *bfme_ai_goal_position() const
-	{
-		return machine->bfme_goal_position();
-	}
-
-  private:
-	unsigned char pad[0x30];
-	StateMachine *machine;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 class Object
 {
   public:
@@ -176,7 +129,7 @@ int Rva002F3F7DInfo::cellCallback(PathfindCell *previous, PathfindCell *current,
 			{
 				if (!ai->rva00262DD3(m_obj))
 				{
-					const Coord3D *goal = ai->bfme_ai_goal_position();
+					const Coord3D *goal = ai->m_stateMachine->getGoalPosition();
 					float dx = goal->x - m_destination.x;
 					float dy = goal->y - m_destination.y;
 					float dz = goal->z - m_destination.z;
@@ -187,7 +140,7 @@ int Rva002F3F7DInfo::cellCallback(PathfindCell *previous, PathfindCell *current,
 			}
 			if (!moving)
 			{
-				((AICommandInterface *)((char *)ai + 0x20))->aiMoveAwayFromUnit(m_obj, &m_destination, CMD_FROM_AI);
+				ai->aiMoveAwayFromUnit(m_obj, &m_destination, CMD_FROM_AI);
 				break;
 			}
 		}
