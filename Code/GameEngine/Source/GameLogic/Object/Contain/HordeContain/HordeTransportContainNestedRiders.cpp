@@ -12,12 +12,13 @@ typedef ContainmentList IntList;
 namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
 
 #include "../../../../../Include/GameLogic/Module/Rva0046247DPair.h"
+#include "../../../../../Include/GameLogic/Module/Rva0046247D.h"
 // Rowed at 0x0046247D (Rva0046247DCondPair.cpp); visible and kept out of
 // line so the caller knows the pair it fills keeps no pointer to it. (The
 // sibling 0x004779F9 in HordeTransportContain.cpp needs it opaque, hence this
 // unit.)
-class Rva0046247D {public:__declspec(noinline) void rva0046247D(Rva0046247DPair &p)
-{void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(IntList *)((char *)base+0x54);}};
+__declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &p)
+{void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(IntList *)((char *)base+0x54);}
 class Object;
 struct Coord3D;
 class Rva00588E44Contain;

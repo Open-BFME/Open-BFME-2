@@ -36,7 +36,8 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
-class Rva0046247D {public:__declspec(noinline) void rva0046247D(Rva0046247DPair &p){void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(char *)base+0x54;}};
+#include "../../../../Include/GameLogic/Module/Rva0046247D.h"
+__declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &p){void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(char *)base+0x54;}
 class HordeContain {public:bool rva004723F2(Object *,const AsciiString &);};
 struct Rva00472444Mask {unsigned int words[32];__forceinline bool test(unsigned int bit)const{return (words[bit>>5] & (1U<<(bit&31)))!=0;}};
 class Rva00472444 {public:
