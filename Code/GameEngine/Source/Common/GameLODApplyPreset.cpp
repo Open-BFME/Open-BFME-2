@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // Primary semantic guide: ZH GameLODManager::applyStaticLODLevel and BF1 575ba2 GameLODManagerApplyStaticLODLevel.cpp.
 // BF2 native2022E9..2025AA carries a 76-byte preset and target-specific render refreshes.
 // LODTextureReduction is the existing DB5FA0 selector read as lodLimit by fxshadersetup.
@@ -71,7 +72,7 @@ struct LODGlobalDataView {
  LODBool m_shellMapOffByCommandArgument;
 };
 #define GD ((LODGlobalDataView*)TheWritableGlobalData)
-class OptionPreferences {public: OptionPreferences();virtual ~OptionPreferences();bool getAllHealthBars();char storage[16];};
+#include "../../Include/Common/OptionPreferences.h"
 class GameClient;extern GameClient *TheGameClient;
 class LODClientSlots {public:
  virtual void slot0();

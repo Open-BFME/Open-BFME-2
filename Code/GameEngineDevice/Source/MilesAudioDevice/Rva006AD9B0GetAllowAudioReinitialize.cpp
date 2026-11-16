@@ -1,4 +1,5 @@
 // cl: /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// stlport
 //
 // Bodies ported from Open-BFME-1's GameEngineDevice/Source/MilesAudioDevice/Rv
 // a006AD9B0GetAllowAudioReinitialize.cpp (donor revision
@@ -47,90 +48,18 @@
 // Retail calls the rowed StringBase text comparator with no unwind state.
 template <> int StringBase<char>::compareNoCase(const char *text) const throw();
 
-class PreferenceMap;
-
-namespace _STL
-{
-template <class _T1, class _T2> struct pair;
-template <class _Pair> struct _Select1st;
-template <class _Tp> struct less;
-template <class _Tp> class allocator;
-template <class _Value> struct _Rb_tree_node;
-
-// The tree under the map: only its private key-search worker, the shared
-// AsciiString-keyed _M_find rowed at 0x001F8437, is named here.
-template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
-class _Rb_tree
-{
-	friend class ::PreferenceMap;
-
-private:
-	template <class _KT> _Rb_tree_node<_Value> *_M_find(const _KT &) const throw();
-};
-}
-
-typedef _STL::pair<const AsciiString, AsciiString> PreferencePair;
-typedef _STL::_Rb_tree<AsciiString, PreferencePair, _STL::_Select1st<PreferencePair>,
-	_STL::less<AsciiString>, _STL::allocator<PreferencePair> > PreferenceTree;
-
-struct PreferenceNode
-{
-	unsigned char m_unreconstructed_00[0x14];
-	AsciiString m_value;								///< retail this+0x14
-};
-
-class PreferenceMap
-{
-public:
-	PreferenceNode *find(const AsciiString &key) const
-	{
-		return (PreferenceNode *)((const PreferenceTree *)this)->_M_find(key);
-	}
-	PreferenceNode *end(void) const { return m_end; }
-
-	PreferenceNode *m_end;
-	unsigned char m_unreconstructed_04[8];
-};
-
-class OptionPreferences
-{
-public:
-	OptionPreferences(void);
-	virtual ~OptionPreferences();
-
-	PreferenceMap m_prefs;
-	unsigned char m_unreconstructed_10[4];
-};
-
-class PreferenceIterator
-{
-public:
-	PreferenceIterator(PreferenceNode *node) : m_node(node) {}
-
-	bool operator==(PreferenceNode *node) const
-	{
-		return m_node == node;
-	}
-
-	PreferenceNode *operator->(void) const
-	{
-		return m_node;
-	}
-
-private:
-	PreferenceNode *m_node;
-};
+#include "../../../GameEngine/Include/Common/OptionPreferences.h"
 
 #include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 bool MilesAudioManager::rva006AD9B0(void)
 {
 	OptionPreferences prefs;
-	PreferenceIterator it = prefs.m_prefs.find("AllowAudioReinitialize");
-	if (it == prefs.m_prefs.end())
+	OptionPreferences::iterator it = prefs.find("AllowAudioReinitialize");
+	if (it == prefs.end())
 		return true;
 
-	AsciiString value(it->m_value);
+	AsciiString value(it->second);
 	// Both native calls target StringBase<char>::compareNoCase at 0x00037980.
 	// Use that existing provider through the donor's one-pointer base view.
 	const StringBase<char> *comparison = (const StringBase<char> *)&value;

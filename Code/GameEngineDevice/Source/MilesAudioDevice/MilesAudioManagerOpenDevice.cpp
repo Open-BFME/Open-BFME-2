@@ -1,4 +1,5 @@
 // cl: /Oy- /Oi- /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// stlport
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/MilesAudioDevice/
 // MilesAudioManager.cpp, openDevice. Target Ghidra boundary 0x61680/284B.
 // Identity evidence: MSS directory literal and the startup/quick_startup/
@@ -28,11 +29,7 @@ struct AudioSettings {
  char unknown[0x54]; Bool m_useDigital; Bool m_useMidi; char pad[2];
  int m_outputRate; int m_outputBits; int m_outputChannels;
 };
-class OptionPreferences {
-public:
- OptionPreferences(); virtual ~OptionPreferences(); Bool getUseEAX3();
-private: char body[0x10];
-};
+#include "../../../GameEngine/Include/Common/OptionPreferences.h"
 class Rva000A8903AudioDevice {
 public: Rva000A8903AudioDevice(void *driver);
 private: char body[0x5c];
