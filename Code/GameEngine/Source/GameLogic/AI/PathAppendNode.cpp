@@ -23,11 +23,7 @@ enum PathfindLayerEnum
 
 #include "../../../Include/GameLogic/PathNode.h"
 
-class Rva00065964ObjectPool
-{
-public:
-	void *rva002635C2() throw();
-};
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 
 extern Rva00065964ObjectPool g_pathNodePool;
 

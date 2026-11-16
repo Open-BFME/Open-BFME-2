@@ -21,7 +21,7 @@ enum PathfindLayerEnum {LAYER_GROUND=1};
 struct Rva0028AC4EEntry;
 class Object {public:const Rva0028AC4EEntry *rva0028AC4E()const;};
 #include "../../../Include/GameLogic/Rva001E3F27FloatChaseField.h"
-class Rva00065964ObjectPool {public:void *rva002635C2()throw();};
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 extern Rva00065964ObjectPool g_pathNodePool;
 #include "../../../Include/GameLogic/PathNode.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"

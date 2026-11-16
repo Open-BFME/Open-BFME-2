@@ -14,6 +14,7 @@ class Rva00065964ObjectPool
 public:
 	void FreeObject(void *obj);
 	void *rva000658DB();
+	void *rva002635C2();
 	void *rva00285A3B();
 	void *rva00285AC4();
 
