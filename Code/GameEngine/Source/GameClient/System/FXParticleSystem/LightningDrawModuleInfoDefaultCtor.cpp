@@ -9,22 +9,8 @@
 // data plus trivial variables), same shape as the landed emission-velocity
 // defaults in EmissionInfoDefaultCtors.cpp.
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-	};
-
-	GameClientRandomVariable() : m_type(CONSTANT), m_low(0.0f), m_high(0.0f) {}
-	void setRange(float low, float high, DistributionType type = UNIFORM);
-
-private:
-	DistributionType m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
+#include "../../../../Include/GameClient/GameClientRandomVariableInlines.h"
 
 // Use the existing BFME2 Snapshot ABI and destructor provider.
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -32,26 +18,10 @@ private:
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
+#include "../../../../Include/GameClient/LightningDrawModuleInfo.h"
 
 namespace FXParticleSystem
 {
-
-class LightningDrawModuleInfo : public Snapshot
-{
-public:
-	LightningDrawModuleInfo();
-	__declspec(noinline) virtual ~LightningDrawModuleInfo();
-	virtual void LoadPostProcess();
-	virtual const char *GetSnapshotName();
-	virtual void DoXfer(Xfer &xfer);
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-	GameClientRandomVariable m_var2;
-	float m_28;
-	unsigned char m_2c;
-};
 
 // ??0LightningDrawModuleInfo@FXParticleSystem@@QAE@XZ @0x56142E
 LightningDrawModuleInfo::LightningDrawModuleInfo()
@@ -60,7 +30,7 @@ LightningDrawModuleInfo::LightningDrawModuleInfo()
 	m_var1.setRange(0.0f, 0.0f);
 	m_var2.setRange(0.0f, 0.0f);
 	m_28 = 0.0f;
-	m_2c = 0;
+	m_2c = false;
 }
 
 }
