@@ -54,19 +54,19 @@ struct Rva002CD4A6FreePtr
     ~Rva002CD4A6FreePtr() { if (p) free(p); }
 };
 
-struct Rva002CD4A6RefPtr
-{
-    OpaqueRefCounted *p;
-// ?Rva002CD4A6RefPtrDtor present-unmatched
-    ~Rva002CD4A6RefPtr() { if (p) p->Release_Ref(); }
-};
+// The ref members adopt the Ctor TU's rowed member types: ??1Rva002CD169RefSlot@@QAE@XZ
+// at 0x0010F149 and ??1Rva002CD169RefWords@@QAE@XZ at 0x004C9F38 are matched rows
+// (fold-proof= the Ctor TU), so both donors spell the same two member types. Retail's
+// cleanups destroy these through a destructor that tests the word at +4 (0x004C9F38),
+// so the counted reference is the record's second word at +0xD0/+0xD8 and the only
+// word at +0xC8.
+#include "../../Include/GameLogic/Module/CashHackSpecialPowerModuleData.h"
 
-// Retail's cleanups destroy these two at +0xD0 and +0xD8, through a destructor that
-// tests the word at +4 (0x004C9F38), so the counted reference is the record's second word.
-struct Rva002CD4A6RefSlot
-{
-    int m_00;
-    Rva002CD4A6RefPtr m_ref;
+struct Rva002CD169RefSlot { unsigned address; __forceinline Rva002CD169RefSlot(){} __forceinline Rva002CD169RefSlot(const void *p):address((unsigned)p){} __forceinline ~Rva002CD169RefSlot(){if(address)((OpaqueRefCounted*)address)->Release_Ref();} };
+
+struct Rva002CD169RefWords {
+ CashHackSpecialPowerModuleData::Upgrades words;
+ __forceinline ~Rva002CD169RefWords(){if(words.m_amountToSteal)((OpaqueRefCounted*)words.m_amountToSteal)->Release_Ref();}
 };
 
 class Rva002CD4A6
@@ -82,10 +82,10 @@ private:
     char m_pad58[0x90 - 0x58];
     AsciiString m_90;
     char m_pad94[0xC8 - 0x94];
-    Rva002CD4A6RefPtr m_c8;
+    Rva002CD169RefSlot m_c8;
     char m_padCC[0xD0 - 0xCC];
-    Rva002CD4A6RefSlot m_d0;
-    Rva002CD4A6RefSlot m_d8;
+    Rva002CD169RefWords m_d0;
+    Rva002CD169RefWords m_d8;
     void *m_e0;
     char m_padE4[0x120 - 0xE4];
     Rva003623E5Member m_120;
