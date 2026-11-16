@@ -1,4 +1,4 @@
-# real link at 55f3982dfff889014c1e4badb8747e8e333baf66: tools/exit_link.py --blockers
+# real link at 885bcee81818bd49019d1d2444c62e7c6bee5849: tools/exit_link.py --blockers
 source	missing	sample
 Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	10	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
 Code/Libraries/Source/Apt/AptArray.cpp	9	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
@@ -30,7 +30,6 @@ Code/Libraries/Source/Apt/AptCIH.cpp	2	?rva006CFCD0@AptCIH@@QBE_NXZ
 Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	1	?rva006D36C0@EAStringC@@QBEHPBV1@@Z
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
 Code/GameEngine/Source/Common/BfmeConv1814.cpp	1	?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z
-Code/GameEngine/Source/Common/BfmeConv506.cpp	1	?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z
 Code/GameEngine/Source/Common/BfmeConv526.cpp	1	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z
 Code/GameEngine/Source/Common/BfmeConv532.cpp	1	?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z
 Code/GameEngine/Source/Common/BfmeThreeHundredSixtyTwo.cpp	1	?bfmeDropVE@BfmeSubVE@@QAEXPAX@Z
@@ -58,7 +57,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/Rva00492C59Ctor.cpp	1	??1Rva0044E
 Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdate.cpp	1	??1Rva0044EF5E@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp	1	??1Rva0044EF5E@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp	1	??1Rva0044EF5E@@UAE@XZ
-Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp	1	?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z
 Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	1	?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_PingerInterface_createNewPingerInterface.cpp	1	??0Pinger@@QAE@XZ
 Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	1	?g_Rva00E0A010@@3QBDB
