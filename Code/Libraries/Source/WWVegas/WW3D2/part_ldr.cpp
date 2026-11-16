@@ -6,7 +6,6 @@
 // <Vector3> inlines it and loses retail's call to ??_H.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma auto_inline(off)
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma auto_inline(on)
 // Select the BFME2 legacy kernel32 import declarations before reference headers.

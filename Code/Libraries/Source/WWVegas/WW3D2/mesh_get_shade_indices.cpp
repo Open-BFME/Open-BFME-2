@@ -7,12 +7,10 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // Retail's RefCountClass inline copies (Release_Ref 0x005D1A7D, scalar deleting
 // dtor 0x00072899) are the size form: compile refcount.h for size, as hlod.cpp does.
-#pragma optimize("s", on)
 #include "refcount.h"
 // Keep the reference base's proven inline destructor and its size-optimized
 // deleting wrapper; the canonical geometry layout uses this same 8-byte base.
