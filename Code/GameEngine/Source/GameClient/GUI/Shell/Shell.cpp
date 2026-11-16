@@ -166,43 +166,7 @@ class AudioManager { public:
 
 extern AudioManager *TheAudio;
 
-class GameWindowManager
-{
-public:
-	virtual void d00() = 0;
-	virtual void d01() = 0;
-	virtual void d02() = 0;
-	virtual void d03() = 0;
-	virtual void d04() = 0;
-	virtual void d05() = 0;
-	virtual void d06() = 0;
-	virtual void d07() = 0;
-	virtual void d08() = 0;
-	virtual void d09() = 0;
-	virtual void d10() = 0;
-	virtual void d11() = 0;
-	virtual void d12() = 0;
-	virtual void d13() = 0;
-	virtual void d14() = 0;
-	virtual void d15() = 0;
-	virtual void d16() = 0;
-	virtual void d17() = 0;
-	virtual void d18() = 0;
-	virtual void d19() = 0;
-	virtual void d20() = 0;
-	virtual void d21() = 0;
-	virtual void d22() = 0;
-	virtual void d23() = 0;
-	virtual void d24() = 0;
-	virtual void d25() = 0;
-	virtual void d26() = 0;
-	virtual void d27() = 0;
-	virtual void d28() = 0;
-	virtual void d29() = 0;
-	virtual void d30() = 0;
-	virtual void d31() = 0;
-	virtual WindowLayout *winCreateLayout(AsciiString filename) = 0;
-};
+#include "../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 
