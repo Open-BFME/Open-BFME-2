@@ -23,8 +23,7 @@ class AsciiString;
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern bool ShaderOverbrightEnabled;
-class W3DShadowManager { public: void *vptr; int shadowColor; };
-extern W3DShadowManager *TheW3DShadowManager;
+#include "../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 struct LightingChunkVectorStorage { Coord3D components; float reserved; };
 LightingChunkVectorStorage GlobalLightingChunkVectors[3] = {
  {{0.5f,0.5f,0.5f},0.0f},{{0.5f,0.5f,0.5f},0.0f},{{0.5f,0.5f,0.5f},0.0f}
@@ -94,7 +93,7 @@ void WriteGlobalLighting_Rva000AD112(DataChunkOutput &chunkWriter) {
  chunkWriter.writeReal(x); chunkWriter.writeReal(y); chunkWriter.writeReal(z);
  x = GlobalLightingChunkVectors[2].components.x; y = GlobalLightingChunkVectors[2].components.y; z = GlobalLightingChunkVectors[2].components.z;
  chunkWriter.writeReal(x); chunkWriter.writeReal(y); chunkWriter.writeReal(z);
- chunkWriter.writeInt(TheW3DShadowManager->shadowColor);
+ chunkWriter.writeInt(TheW3DShadowManager->m_shadowColor);
  chunkWriter.writeReal(TheWritableGlobalData->field0944[0]);
  chunkWriter.writeReal(TheWritableGlobalData->field0944[1]);
  chunkWriter.writeReal(TheWritableGlobalData->field0944[2]);
@@ -202,7 +201,7 @@ bool __stdcall ReadGlobalLighting_Rva000ACAF7(DataChunkInput &file, DataChunkInf
  }
  if(!file.atEndOfChunk()) {
   int shadowColor = file.readInt();
-  if(TheW3DShadowManager) TheW3DShadowManager->shadowColor = shadowColor;
+  if(TheW3DShadowManager) TheW3DShadowManager->m_shadowColor = shadowColor;
  }
  if(info->version >= 8) {
   TheWritableGlobalData->field0944[0] = file.readReal();
