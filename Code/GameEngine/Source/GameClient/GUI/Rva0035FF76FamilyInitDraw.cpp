@@ -38,29 +38,7 @@ inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte bl
 class GameWindow;
 class Image;
 
-class Display
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void s15();
-	virtual Int getWidth();		// +0x40
-	virtual Int getHeight();	// +0x44
-};
-extern Display *TheDisplay;
+#include "../../../Include/GameClient/Display.h"
 
 class Rva0004263F
 {
@@ -68,11 +46,7 @@ public:
 	void rva0004263F(float a, float b, float c, float d, int color);
 };
 
-class W3DDisplay
-{
-public:
-	void rva0004D6B3(Image *image, float x0, float y0, float x1, float y1, int color, int mode);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class GameWindowTransitionsHandler
 {

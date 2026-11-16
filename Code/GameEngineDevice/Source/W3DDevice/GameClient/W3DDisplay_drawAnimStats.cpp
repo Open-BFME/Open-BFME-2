@@ -4,42 +4,12 @@
 // present line gets a severity color picked by its index (sparse switch with
 // shared arms; other indices keep the running color, initially -1), then
 // color(color, black), place(3, acc, 1, 1) and size(&w, &h), accumulating the
-// width into acc from 3. Same BfmeDrawString006e interface (color/place/size
+// width into acc from 3. Same DisplayString interface (setColors/draw/getSize
 // at +0x28/+0x38/+0x3c) and same W3DDisplay home as the rowed sibling
 // 0x0004387E (16 strings at +0x18c); the 25-table at +0x1D0 is proven by this
 // body alone. Unblocks the 0x0004A3C4 dispatcher, whose arm1 tail-jumps here.
-class BfmeDrawString006e
-{
-public:
-	virtual void slot00(void);
-	virtual void slot04(void);
-	virtual void slot08(void);
-	virtual void slot0c(void);
-	virtual void slot10(void);
-	virtual void slot14(void);
-	virtual void slot18(void);
-	virtual void slot1c(void);
-	virtual void slot20(void);
-	virtual void slot24(void);
-	virtual void color006e(int a, unsigned int b);
-	virtual void slot2c(void);
-	virtual void slot30(void);
-	virtual void slot34(void);
-	virtual void place006e(int a, int b, int c, int d);
-	virtual void size006e(int *w, int *h);
-};
-
-class W3DDisplay
-{
-public:
-	void drawAnimStats(void);
-
-private:
-	unsigned char m_pad0[0x18c];
-	BfmeDrawString006e *m_strings16[16];
-	unsigned int m_pad1CC;
-	BfmeDrawString006e *m_lines25[25];
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayString.h"
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 void W3DDisplay::drawAnimStats(void)
 {
@@ -47,7 +17,7 @@ void W3DDisplay::drawAnimStats(void)
 	int acc = 3;
 	for (int i = 0; i < 0x19; ++i)
 	{
-		if (m_lines25[i] == 0)
+		if (m_1D0[i] == 0)
 			continue;
 		switch (i)
 		{
@@ -94,11 +64,11 @@ void W3DDisplay::drawAnimStats(void)
 			color = 0xB9FFFF00;
 			break;
 		}
-		m_lines25[i]->color006e(color, 0xFF000000);
-		m_lines25[i]->place006e(3, acc, 1, 1);
+		m_1D0[i]->setColors(color, 0xFF000000);
+		m_1D0[i]->draw(3, acc, 1, 1);
 		int width;
 		int height;
-		m_lines25[i]->size006e(&width, &height);
+		m_1D0[i]->getSize(&width, &height);
 		acc += height;
 	}
 }

@@ -23,13 +23,7 @@
 //   0x0004C709  0x60A8  0x00098E69  0x00BC86D8  W3DMouse
 //   0x0004C8DD  0x1D4  0x0009D55B  0x00BC89C8  Rva0009D55BProduct
 
-class W3DDisplay
-{
-public:
-	W3DDisplay();
-private:
-	char m_unmodelled[0x2B0];
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class W3DView
 {

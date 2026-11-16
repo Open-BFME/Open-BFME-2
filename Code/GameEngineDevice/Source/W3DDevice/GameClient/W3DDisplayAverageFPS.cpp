@@ -3,14 +3,7 @@
 // at +0x180 and the two rowed 64-bit timer helpers independently establish
 // the receiver field and call ABI; the names of function-local samples
 // retain Zero Hour source provenance.
-class W3DDisplay
-{
-public:
- void updateAverageFPS(void);
-private:
- unsigned char m_unmodelled[0x180];
- float m_averageFPS;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 // ZH W3DDisplay::updateAverageFPS is the semantic/source guide. Retail
 // 437A1..4387E has the same 30-sample counter/frequency moving average,
 // omits the debug-only cumulative timer, and stores the average at +180.
