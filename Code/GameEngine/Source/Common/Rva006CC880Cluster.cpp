@@ -12,8 +12,6 @@
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-void rva006dffa0();
-
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
@@ -22,6 +20,7 @@ class AptMath
 public:
 	struct ClipTransform_t { unsigned char unaccessed[96]; };
 	static ClipTransform_t *ClipStackPop();
+	static void ClipStackPushUnit();
 private:
 	// AptMathClipStack.cpp owns these private clip-stack counters; this
 	// shutdown path reads them through the inlined AptMath.h assert.
@@ -62,7 +61,7 @@ void rva006cc880()
 		return;
 
 	g_bfmeAptPtrAtE176D0->clearBIL();
-	rva006dffa0();
+	AptMath::ClipStackPushUnit();
 	((AptAnimationPoolData *)((char *)g_bfmeAptPtrAtE176D0 + 0x30))->rva006F7720Sub((*(void **)&g_aptRenderingContextAtE180C0), 0);
 	AptMath::ClipStackPop();
 
