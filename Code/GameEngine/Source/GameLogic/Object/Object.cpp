@@ -1698,10 +1698,20 @@ static __forceinline void _Construct(Rva00293486Record *dest, const Rva00293486R
 // Slot 2 of ObjectDefectionHelper's primary vftable 0x00BFBD40, which its
 // constructor 0x0028C955 installs; the name getter that ObjectHelper.h's
 // derived helpers override (the class's view: ObjectDefectionHelperCtor.cpp).
+class Xfer;
+
 class ObjectDefectionHelper
 {
+	// Retail's primary vftable 0x00BFBD40: slot 0 deleting destructor, 1 loadPostProcess, 2 GetSnapshotName,
+	// 3 xfer, 4 getModuleNameKey (the class's full declaration: its Ctor.cpp view).
+public:
+	virtual ~ObjectDefectionHelper();
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // Slot 2 of ObjectRecoveryHelper's primary vftable 0x00BFBD98, which its
@@ -1716,8 +1726,16 @@ protected:
 // constructor 0x0028CAB4 installs (the class's view: ObjectRepulsorHelperCtor.cpp).
 class ObjectRepulsorHelper
 {
+	// Retail's primary vftable 0x00BFBDF0: slot 0 deleting destructor, 1 loadPostProcess, 2 GetSnapshotName,
+	// 3 xfer, 4 getModuleNameKey (the class's full declaration: its Ctor.cpp view).
+public:
+	virtual ~ObjectRepulsorHelper();
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 BFME_DISP_BYTE_GETTER(Rva0028A69AByteField, 0x43C)
