@@ -1,6 +1,6 @@
 // cl: /MD /O1 /G7
 // Eva Snapshot table VA 0x00BDC5A8 slot 3 points to this transfer body.
-// Xfer slots +0x28 and +0x90 receive two true bytes and this+0x70.
+// Xfer slots +0x28 and +0x90 receive two true bytes and the bool at Eva+0x7C.
 
 class Xfer
 {
@@ -19,17 +19,11 @@ public:
 	virtual void slot90(void *data);
 };
 
-class Eva
-{
-protected:
-	virtual void xfer(Xfer *object);
-};
+#include "../../Include/GameClient/Eva.h"
 
 void Eva::xfer(Xfer *object)
 {
 	bool flags[2] = { true, true };
 	object->slot28(flags);
-	char *data = reinterpret_cast<char *>(this);
-	data += 0x70;
-	object->slot90(data);
+	object->slot90(&m_byte7C);
 }

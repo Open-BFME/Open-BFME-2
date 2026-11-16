@@ -18,7 +18,7 @@
 //   0x001684BA  0x001684D6  0x00BD41C8#1
 //   0x0018010E  0x0017FFCA  0x00BD4F50#9
 //   0x001D93B2 is emitted by the complete armor-store lifetime unit.
-//   0x001DF3D5  0x001DF057  0x00BDC5B8#0
+//   0x001DF3D5 is emitted by the Eva destructor unit.
 //   0x001E1241  0x001E125D  0x00BDD95C#0
 //   0x001E28EA  0x001E2906  0x00BDD978#0
 //   0x001E2C92  0x001E2AD9  0x00BDD97C#0
@@ -107,22 +107,7 @@ Rva0017FFCA::Rva0017FFCA(EmitVtableTag *)
 {
 }
 
-class __declspec(novtable) Rva001DF057Base0 { public: virtual ~Rva001DF057Base0(); private: char m_unmodelled[0x8]; };
-// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0xC) at 0x001DF0F1 in its vtable is target evidence for it.
-class __declspec(novtable) Rva001DF057BaseC { public: virtual ~Rva001DF057BaseC(); };
-class Eva : public Rva001DF057Base0, public Rva001DF057BaseC
-{
-public:
-	Eva(EmitVtableTag *);
-public:
-	virtual ~Eva();
-};
-
-// ?<Eva::Eva> absent-from-retail
-Eva::Eva(EmitVtableTag *)
-{
-}
+#include "../../Include/GameClient/Eva.h"
 
 // Vtable 0x00BDD95C: the deleting dtor, two unrecovered slots, then the
 // rowed 0x001E0AA5 (Rva001E125DCtor.cpp's slot view).
