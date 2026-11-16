@@ -20,12 +20,7 @@ class Rva002542F3Member {
 public: Rva002542F3Member();
 private: unsigned char data[0xB8];
 };
-class Rva001EAE6FHelper {
-public:
- Rva001EAE6FHelper();
- Rva001EAE6FHelper *clear80();
-private: unsigned char data[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 class Rva00360D26Member {
 public: Rva00360D26Member(); ~Rva00360D26Member();
 private: unsigned int index;

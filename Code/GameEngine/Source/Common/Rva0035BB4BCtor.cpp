@@ -40,7 +40,7 @@ namespace _STL { template <> vector<Rva002390CB, allocator<Rva002390CB> >::~vect
 namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(void **, void **); }
 class Rva0024C7B3Member {public:Rva0024C7B3Member() throw();unsigned words[7];};
 class Rva0042526Member {public:Rva0042526Member() throw();unsigned words[19];};
-class Rva001EAE6FHelper {public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80();unsigned words[32];};
+#include "../../Include/Common/Rva001EAE6FHelper.h"
 class BfmeSlotVecG:public _STL::_Vector_base<int,_STL::allocator<int> > {public:
  __forceinline BfmeSlotVecG() throw():_STL::_Vector_base<int,_STL::allocator<int> >(_STL::allocator<int>()){}
  __forceinline void bfmeErase(void**first,void**last){((_STL::vector<void*>*)this)->erase(first,last);}
@@ -87,6 +87,7 @@ Rva0035BB4B::Rva0035BB4B():
  weaponSlot(0),toggle1(5),toggle2(5),toggle3(5),maxShots(0x7fffffff),border(0),flashCount(-1),
  audioTail2(0),audioTail3(0),doubleClick(false),radial(false),inPalantir(false),production(false),production2(false),clickable(true),show(true),requiresContainer(false),level(0),autoAbility(false),affectsAllies(false),presetRange(0),autoDelay(0),needDamagedTarget(false),field244(0)
 {
+ field24C.clear80();
  memset(&affectsKindOf,0,28);
  science.clear();memset(&flagsToggle,0,16);
  memset(&commandTrigger,0,76);memset(&enableCondition,0,76);memset(&disableCondition,0,76);
