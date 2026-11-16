@@ -141,11 +141,7 @@ BFME_LITERAL_NAME_GETTER(Rva0049125ENamed, "DamageFieldUpdate")
 
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
-class PoolMember
-{
-public:
-	void Rva00268902() throw();
-};
+#include "../../../../Include/Common/PoolMember.h"
 
   // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
 

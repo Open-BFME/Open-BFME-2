@@ -3,13 +3,7 @@
 // Array destroy loop over 12-byte Rva00268B04 via rowed forwarder 0x00268B04.
 // Evidence: stride 0xC plus caller 0x0026E5B9 vector-dtor shape plus callee row.
 
-class PoolMember
-{
-public:
-	void Rva00268902();
-private:
-	void *m_head;
-};
+#include "../../Include/Common/PoolMember.h"
 
 class Rva00268B04
 {

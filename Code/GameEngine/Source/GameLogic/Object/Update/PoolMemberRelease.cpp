@@ -15,16 +15,9 @@ class FreelistPool;
 extern FreelistPool g_freelistPool;
 #define g_freeList (*(void **)((char *)&g_freelistPool + 8))
 
-class PoolMember
-{
-public:
-	__declspec(noinline) void Rva00268902();
+#include "../../../../Include/Common/PoolMember.h"
 
-private:
-	void *m_head;
-};
-
-void PoolMember::Rva00268902()
+__declspec(noinline) void PoolMember::Rva00268902() throw()
 {
 	((Rva0029FB3BMember *)this)->reset();
 	void *head = m_head;
