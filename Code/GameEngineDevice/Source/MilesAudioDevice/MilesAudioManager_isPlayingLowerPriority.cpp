@@ -8,13 +8,7 @@ struct AudioEventInfo
 	int m_44;
 };
 
-class AudioEventRTS
-{
-public:
-	bool isPositionalAudio() const;
-	char m_pad00[8];
-	AudioEventInfo *m_eventInfo;
-};
+#include "../../../GameEngine/Include/Common/AudioEventRTSClass.h"
 
 struct Rva000515E4Key
 {
@@ -24,22 +18,10 @@ struct Rva000515E4Key
 
 bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y);
 
-struct Rva0005BDD2Info
-{
-	char m_pad00[0x44];
-	int m_44;
-};
-
-struct Rva0005BDD2AudioEvent
-{
-	char m_pad00[8];
-	Rva0005BDD2Info *m_info;
-};
-
 struct Rva0005BDD2PlayingAudio
 {
 	char m_pad00[0x1c];
-	Rva0005BDD2AudioEvent *m_event;
+	AudioEventRTS *m_event;
 };
 
 struct Rva0005BDD2Node
@@ -69,8 +51,8 @@ bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
 	do {
 		void *ref = (void *)&node->m_ref;
 		Rva0005BDD2PlayingAudio *playing = *(Rva0005BDD2PlayingAudio **)ref;
-		Rva0005BDD2AudioEvent *ev = playing->m_event;
-		Rva0005BDD2Info *info = ev->m_info;
+		AudioEventRTS *ev = playing->m_event;
+		const AudioEventInfo *info = ev->m_eventInfo;
 		Rva000515E4Key key2;
 		key2.a = info->m_44;
 		key2.b = rva0005A9F8(ref, 1, 1);

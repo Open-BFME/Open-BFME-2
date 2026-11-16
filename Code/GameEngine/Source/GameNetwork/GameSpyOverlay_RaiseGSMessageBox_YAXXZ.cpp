@@ -29,28 +29,11 @@
 // Westwood Online screen setup/teardown
 // Author: Matthew D. Campbell, November 2001
 
-// This TU supplies the retail-sized AudioEventRTS declaration below.  Several
-// GUI headers include the Zero Hour AudioEventRTS header transitively, so keep
-// that smaller declaration out without changing the shared headers.
+// AudioEventRTS comes from its canonical header.  Several GUI headers include
+// the Zero Hour AudioEventRTS header transitively, so keep that declaration out
+// without changing the shared headers.
 #define _H_AUDIOEVENTRTS_
-
-class AsciiString;
-enum ObjectID;
-enum DrawableID;
-class AudioEventRTS
-{
-public:
-	AudioEventRTS();
-	AudioEventRTS( const AsciiString &eventName );
-	AudioEventRTS( const AsciiString &eventName, ObjectID extra );
-	AudioEventRTS( const AsciiString &eventName, DrawableID extra );
-	~AudioEventRTS();
-	AudioEventRTS( const AudioEventRTS &other );
-	AudioEventRTS &operator=( const AudioEventRTS &other );
-
-private:
-	unsigned char m_data[0x70];
-};
+#include "../../Include/Common/AudioEventRTSClass.h"
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 

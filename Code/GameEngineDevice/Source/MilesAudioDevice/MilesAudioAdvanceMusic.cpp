@@ -23,7 +23,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-struct AudioEventRTS { char head[0xC]; int m_playingHandle; };
+#include "Common/AudioEventRTSClass.h"
 struct PlayingEventRef { AudioEventRTS *m_ptr; AudioEventRTS *get() const { return m_ptr; } AudioEventRTS *operator->() const { return m_ptr; } };
 struct PlayingAudio { char head[0x1C]; PlayingEventRef m_event; };
 class PlayingAudioRef { public: PlayingAudio *m_ptr; PlayingAudio *operator->() const { return m_ptr; } };
