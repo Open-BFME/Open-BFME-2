@@ -117,18 +117,7 @@ struct Rva003EF08BArg
 	unsigned char m_1A2;
 };
 
-class LivingWorldRegionEffectsManager
-{
-public:
-	void SyncRegion(int arg);
-	void rva003EE84A(int a, int b);	// 0x003EE84A (Rva003EE900Forward.cpp)
-	void rva003EE884(int a);	// 0x003EE884 (Rva003EE900Forward.cpp)
-private:
-	char m_pad00[0x14];
-	int m_14;
-	char m_pad18[0x44 - 0x18];
-	int m_44;
-};
+#include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 //
 // ?rva003EF2E0@Rva003EF2E0@@QAEXXZ @0x003EF2E0 31B (dump range 18).

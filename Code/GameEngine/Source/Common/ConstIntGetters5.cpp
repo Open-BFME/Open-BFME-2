@@ -475,10 +475,7 @@ int Rva001DAEB2Get(void)
 // These declarations name existing field tables without asserting instance
 // layouts. Native six-byte getters independently supply each table address.
 struct FieldParse;
-class LivingWorldRegionEffectsManager {
-public:
-    static FieldParse s_parseTable[];
-};
+#include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 class RingEffect {
 public:
     static const FieldParse m_fieldParseTable[];
