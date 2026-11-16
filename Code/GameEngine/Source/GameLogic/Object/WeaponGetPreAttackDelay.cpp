@@ -42,6 +42,7 @@ public:
 			m_field[i] = 1.0f;
 	}
 	Real getField(Field field) const { return m_field[field]; }
+	void appendBonuses(WeaponBonus &bonus) const;
 	Real m_field[6];
 };
 
