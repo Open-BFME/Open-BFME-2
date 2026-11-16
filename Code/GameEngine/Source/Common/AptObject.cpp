@@ -13,10 +13,16 @@ class AptValue;
 
 class EAStringC;
 
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
+
+// AptValue's flag word at +4 and the native hash at +8 (0x14 bytes) place
+// AptObject's own bitfield word at +0x1C.
 class AptValueWithHash
 {
 public:
     virtual void DestroyGCPointers();
+    unsigned int mnValueData;
+    AptNativeHash mNativeHash;
 };
 
 // Retail vtable 0x008EA264: slot 7 objectMemberLookup, slot 11 DestroyGCPointers.
@@ -25,7 +31,26 @@ class AptObject : public AptValueWithHash
 public:
     virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
     virtual void DestroyGCPointers();
+    virtual void setHasClass(int);
+    virtual int getHasClass() const;
+    unsigned int mnImplementedObjects : 8;
+    unsigned int mbHasClass : 1;
+    unsigned int mbIsInMainInst : 1;
 };
+
+// AptObject slots 6 and 5 in retail vtable 0x008EA264 (and in every derived
+// table, e.g. AptSound 0x008ECF18) hold 0x006D6440 and 0x006D6460: they write
+// and read bit 8 of the word at +0x1C, AptObject's mbHasClass.
+
+void AptObject::setHasClass(int hasClass)
+{
+    mbHasClass = hasClass != 0;
+}
+
+int AptObject::getHasClass() const
+{
+    return mbHasClass;
+}
 
 // ---- from Code/GameEngine/Source/Common/AptObject.cpp
 
