@@ -20,6 +20,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 #include "../../Include/GameLogic/VictoryConditionsClass.h"
@@ -45,7 +46,6 @@ typedef char NativeVictorySize[sizeof(VictoryConditions)==0x94 ? 1 : -1];
 class VictoryConditionsInterface;
 // ?Rva00420353CreateVictoryConditions@@YAPAVVictoryConditionsInterface@@XZ is rowed in its own unit; this copy collided with it.
 
-class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameTextInterface;extern GameTextInterface *TheGameText;
@@ -65,7 +65,7 @@ void VictoryConditions::rva00420254(const AsciiString &label,bool defeat,const A
 {
  switch (1) { case 1: if(!g_bfmeAptWindowManager || m_10) break;
  { AsciiString key(":VictoryDefeat");
-      ((BfmeAptWindowManager *)g_bfmeAptWindowManager)->bfmeSetText(key,((VictoryTextPrefix *)TheGameText)->fetchName(&label,0),false); }
+      g_bfmeAptWindowManager->bfmeSetText(key,((VictoryTextPrefix *)TheGameText)->fetchName(&label,0),false); }
  const char *suffix;
  if (!extra.isEmpty()) suffix=extra.str();
  else suffix="";

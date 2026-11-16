@@ -59,32 +59,7 @@ private:
 	char m_names[12];
 };
 
-class BfmeAptWindowManager
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual int load(AsciiString directory,AsciiString file,int a,int b);
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
-};
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -237,7 +212,7 @@ StrategicVeterancy::Impl::Impl(StrategicVeterancy *owner, Data *data)
 	bind(maps, "AptStrategicVeterancy::OnFadeOut",DelegateDesc(this,&Impl::OnFadeOut));
 	bind(maps, "AptStrategicVeterancy::OnContinue",DelegateDesc(this,&Impl::OnContinue));
 	((AptExternHandlerAdder*)&externs)->bind("StrategicVeterancy::NumRows",DelegateDesc(this,&Impl::ExternFunc));
-	m_level=(void*)g_bfmeAptWindowManager->load("Apt\\","StrategicVeterancy.apt",0,0);
+	m_level=(void*)g_bfmeAptWindowManager->AddLevel("Apt\\","StrategicVeterancy.apt",false,0);
 	((Rva0050B5F1*)&timer)->rva0050B5F1((int)m_level,(int)&AsciiString("StrategicVeterancyTimer"));
 	data->rva005EC296();
 }
