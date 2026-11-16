@@ -255,6 +255,39 @@ static int drawStartX, drawStartY, drawEdgeX, drawEdgeY;
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 static __forceinline void copyBox(AABoxClass *dst,const AABoxClass &src){new(dst)Region3D(*(const Region3D *)&src);}
 
+struct IDirect3DDevice8
+{
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
+	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
+	virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
+	virtual void slot48(); virtual void slot49(); virtual void slot50(); virtual void slot51();
+	virtual void slot52(); virtual void slot53b(); virtual void slot54(); virtual void slot55();
+	virtual void slot56();
+	virtual HRESULT __stdcall SetRenderState(D3DRENDERSTATETYPE state, DWORD value) = 0;	// +0xE4
+};
+
+#include "../../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+inline StringClass::~StringClass() { Free_String(); }
+
+extern unsigned number_of_DX8_calls;
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+__forceinline void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state,unsigned value) {
+ if(RenderStates[state]==value)return;
+ if(WW3D::Is_Snapshot_Activated()){StringClass name(0,true);Get_DX8_Render_State_Value_Name(name,state,value);}
+ RenderStates[state]=value;D3DDevice->SetRenderState(state,value);++number_of_DX8_calls;++render_state_changes;
+}
+class GlobalData;extern GlobalData *TheWritableGlobalData;
+struct ShadowGlobalView10DF33 {char pad9a7[0x9a7];bool flag9a7;};
+
 int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
 {
  ShadowRenderEntry10DF33 *shadow;
@@ -366,38 +399,6 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
 }return 0;
 }
 
-struct IDirect3DDevice8
-{
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
-	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
-	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
-	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
-	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
-	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
-	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
-	virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
-	virtual void slot48(); virtual void slot49(); virtual void slot50(); virtual void slot51();
-	virtual void slot52(); virtual void slot53b(); virtual void slot54(); virtual void slot55();
-	virtual void slot56();
-	virtual HRESULT __stdcall SetRenderState(D3DRENDERSTATETYPE state, DWORD value) = 0;	// +0xE4
-};
-
-#include "../../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
-inline StringClass::~StringClass() { Free_String(); }
-
-extern unsigned number_of_DX8_calls;
-#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
-__forceinline void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state,unsigned value) {
- if(RenderStates[state]==value)return;
- if(WW3D::Is_Snapshot_Activated()){StringClass name(0,true);Get_DX8_Render_State_Value_Name(name,state,value);}
- RenderStates[state]=value;D3DDevice->SetRenderState(state,value);++number_of_DX8_calls;++render_state_changes;
-}
-class GlobalData;extern GlobalData *TheWritableGlobalData;
-struct ShadowGlobalView10DF33 {char pad9a7[0x9a7];bool flag9a7;};
 // Native10DA71..10DF33 is the complete1218B stencil/decal list pass.
 // Existing verified flushDecals and ZH stencil render-state code guide the
 // composition; native states52/57/58/59/54/53, dual textures68/6C, head1C,

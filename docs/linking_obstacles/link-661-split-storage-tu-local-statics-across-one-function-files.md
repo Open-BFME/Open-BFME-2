@@ -581,3 +581,19 @@ fingerprint is unchanged; three EH graphs are EXACT and combined scoped
 preview stays at 12,921 bytes. This is a verified prerequisite; the three-file
 merge and runtime still need their own verification. Evidence: entry-view-plan.json,
 entry-view-apply.log and entry-view-provider-diff.json under build/decal-diagnostic.
+
+**Writer preamble ordering:** place its D3D interface and render-state header
+declarations before both render methods. A late include previously made the
+composer retain the first render body among pre-include text, before the common
+entry declaration. The reordered writer retains 10/10 rows, its EXACT EH graph
+and all provider fingerprints. The official three-file dry run now accepts all
+three sources (preamble-three-way-dry.log).
+
+Commit acceptance remains separate: the earlier actual reader-only merge was
+saved and reverted after class_gate refused TerrainLogic, WorldHeightMap and
+BaseHeightMapRenderObjClass. Their raw bodies agree, but global arithmetic and
+keyword macros prevent the gate's lexical scope proof; textual agreement does
+not establish full preprocessing equivalence. Do not waive that gate. Their
+canonical header adoptions are now claimed; the reader's private slot-27
+findBridgeAt spelling is not the canonical findBridgeAt slot/signature and must
+be reconciled by the measured slot, not by matching names.
