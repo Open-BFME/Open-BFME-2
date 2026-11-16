@@ -4,12 +4,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-struct TreeHintRef00217D4C
-{
-	void *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-	inline ~TreeHintRef00217D4C();
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 class Rva00222A8BTarget;
 class Rva00222A8BTarget;
@@ -19,13 +14,10 @@ int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const cha
 // The Apt command-map machinery of the HUD::Impl ctor
 // (Common/Rva0042DB21Method.cpp) and the concat nodes of
 // System/RegistryAsciiPath.cpp, as in the sibling Impl ctors.
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
-
 inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
 	if (m_ptr)
-		ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+		ReleaseTreeHintRef00217D4C(m_ptr);
 }
 
 #include "../../../Libraries/Source/Apt/AptCommandTarget.h"
@@ -121,6 +113,7 @@ public:
 // The factory reference: clear 0x002BED91 (rowed, address-named view).
 struct Rva002BED91
 {
+	Rva002BED91() : m_ptr(0) {}
 	StrategicHUD::AbstractBattlePromptArmyPanelFactory *operator->() const { return m_ptr; }
 	void clear();
 
@@ -155,8 +148,6 @@ struct Rva005FFB89
 {
 	Rva005FFB89()
 	{
-		m_factory.m_ptr = 0;
-		m_panel.m_ptr = 0;
 	}
 	~Rva005FFB89();
 
@@ -341,8 +332,6 @@ void StrategicHUD::BattlePromptPlayerPageMovieClip::Impl::OnArmyPanelLoaded(cons
 // ctor in Impl::Impl): no factory, no panel, index -1.
 Rva005FFBC6::Rva005FFBC6()
 {
-	m_factory.m_ptr = 0;
-	m_panel.m_ptr = 0;
 	m_index = -1;
 }
 

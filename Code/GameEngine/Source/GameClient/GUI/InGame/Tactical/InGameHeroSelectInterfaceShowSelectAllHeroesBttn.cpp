@@ -9,29 +9,12 @@
 #include "../../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
-struct HotKeyActionCountView
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
+inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 {
-	void *m_vtable;
-	int m_references;
-};
-
-struct TreeHintRef00217D4C
-{
-	void *m_node;
-	TreeHintRef00217D4C(void *node) : m_node(node)
-	{
-		if (node)
-			++((HotKeyActionCountView *)node)->m_references;
-	}
-	~TreeHintRef00217D4C()
-	{
-		if (m_node)
-			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_node);
-	}
-};
+	if (m_ptr)
+		ReleaseTreeHintRef00217D4C(m_ptr);
+}
 
 struct Rva00359302Result
 {
@@ -121,7 +104,7 @@ void InGameHeroSelectInterface::Impl::ShowSelectAllHeroesBttn()
 			AsciiString hotKey = TheHotKeyManager->searchHotKey(button->rva0035B1E9());
 			if (!hotKey.isEmpty())
 			{
-				TreeHintRef00217D4C action(new SelectAllHeroesHotKeyAction(this));
+				TreeHintRef00217D4C action((TargetRef00217D4C *)new SelectAllHeroesHotKeyAction(this));
 				m_selectAllHotKey = TheHotKeyManager->addHotKey(action, hotKey, true);
 				m_selectAllHotKeyAdded = true;
 			}
