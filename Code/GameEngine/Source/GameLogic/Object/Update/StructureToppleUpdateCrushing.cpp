@@ -368,13 +368,9 @@ extern GameLogic *TheGameLogic;
 extern TerrainLogic *TheTerrainLogic;
 
 // 0x00357C1F is Zero Hour's adjustToppleDirection, rowed under an address name.
-class ScriptEngine
-{
-public:
-	void rva00357C1F(void *obj, void *dir);
-};
-
-extern ScriptEngine *TheScriptEngine;
+// always.h/GameMemory.h define array placement-new themselves.
+#define __PLACEMENT_VEC_NEW_INLINE
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 
 #include "../../../../Include/GameLogic/WeaponStore.h"
 

@@ -2,37 +2,21 @@
 // stlport
 //
 // ?rva00203FA8@ScriptEngine@@QAEXH@Z at retail 0x00203FA8 (39B).
-// Clears the flag word of the first 8-byte record in the +0x1A120 range
-// whose +0x04 word equals the argument, then stops. Same
-// ecx-plus-stack-arg callee-cleanup member shape as the rowed neighbour
-// setSequentialTimer at 0x00203FCF (ends ret 8); this one takes one stack
-// argument and ends ret 4. Member naming follows that neighbour; the record
-// payload is otherwise unrecovered, so the address-derived name stays.
-class ScriptEngine003FA8Record
-{
-public:
-	void *m_00;
-	int m_flag04;
-};
-
-class ScriptEngine
-{
-public:
-	void rva00203FA8(int needle);
-
-private:
-	char m_pre[0x1A120];
-	ScriptEngine003FA8Record *m_begin; // +0x1A120
-	ScriptEngine003FA8Record *m_end; // +0x1A124
-};
+// Clears the object of the first m_namedObjects record (+0x1A120) whose
+// object equals the argument, then stops: Zero Hour's named-object loop in
+// notifyOfObjectDestruction, whose caller rva00356FAF passes the dead object
+// as the int argument. Same ecx-plus-stack-arg callee-cleanup member shape as
+// the rowed neighbour setSequentialTimer at 0x00203FCF (ends ret 4).
+#include "../../../Include/GameLogic/ScriptEngine.h"
+#include "../../../Include/GameLogic/Rva0020A227Element.h"
 
 void ScriptEngine::rva00203FA8(int needle)
 {
-	ScriptEngine003FA8Record *rec = m_begin;
-	ScriptEngine003FA8Record *end = m_end;
+	Rva0020A227Element *rec = m_namedObjects.begin();
+	Rva0020A227Element *end = m_namedObjects.end();
 	for (; rec != end; ++rec) {
-		if (needle == rec->m_flag04) {
-			rec->m_flag04 = 0;
+		if ((Object *)needle == rec->obj) {
+			rec->obj = 0;
 			break;
 		}
 	}

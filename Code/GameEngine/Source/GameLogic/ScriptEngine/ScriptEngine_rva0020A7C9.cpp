@@ -95,17 +95,7 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class ScriptEngine
-{
-public:
-	void rva0020A7C9();
-	void walkNamed(Rva00355950Arr *array, Rva003412E0Node *node, bool requireMatch);
-	void rva0020A586(void *record, void *entry);
-
-private:
-	char m_pad[0x1A120];
-	_STL::vector<Rva0020A227Element> m_vec;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> Rva0020A227Element * __uninitialized_copy<Rva0020A227Element *,Rva0020A227Element *>(Rva0020A227Element *,Rva0020A227Element *,Rva0020A227Element *,_STL::__false_type const &); }
@@ -122,7 +112,7 @@ namespace _STL { template <> void vector<Rva0020A227Element,_STL::allocator<Rva0
 // bfme link decl-only end
 void ScriptEngine::rva0020A7C9()
 {
-	_STL::vector<FXBoneInfo> &fv = (_STL::vector<FXBoneInfo> &)m_vec;
+	_STL::vector<FXBoneInfo> &fv = (_STL::vector<FXBoneInfo> &)m_namedObjects;
 	fv.erase(fv.begin(), fv.end());
 	GameLogic *gameLogic = TheGameLogic;
 	if (gameLogic == 0)
@@ -136,7 +126,7 @@ void ScriptEngine::rva0020A7C9()
 		Rva0020A227Element tmp;
 		((StringBase<char> &)(tmp.key)).set((const StringBase<char> &)(obj->m_name88));
 		tmp.obj = obj;
-		m_vec.push_back(tmp);
+		m_namedObjects.push_back(tmp);
 	}
 }
 

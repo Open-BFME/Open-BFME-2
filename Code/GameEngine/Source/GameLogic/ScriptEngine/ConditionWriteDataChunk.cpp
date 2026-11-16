@@ -75,13 +75,7 @@ public:
 	NameKeyType m_internalNameKey;
 };
 
-class ScriptEngine
-{
-public:
-	const ConditionTemplate *getConditionTemplate(int ndx);
-};
-
-extern ScriptEngine *TheScriptEngine;
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
