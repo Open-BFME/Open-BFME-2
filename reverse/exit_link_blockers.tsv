@@ -1,15 +1,8 @@
-# real link at 0b6e54892e4c91e8d0cc8063213c2c4d437d6bf4: tools/exit_link.py --blockers
+# real link at f3a6e23db6f098bf1a9273dbf1b219ef9d5b4a19: tools/exit_link.py --blockers
 source	missing	sample
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	10	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
-Code/Libraries/Source/Apt/AptArray.cpp	9	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	8	??1Rva00119D00@@UAE@XZ
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	7	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
-Code/Libraries/Source/Apt/AptObject/AptKey.cpp	7	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
-Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	7	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
-Code/GameEngine/Source/Common/Rva006FBC90OwnerDtor.cpp	5	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
-Code/Libraries/Source/Apt/AptDateConstructor.cpp	5	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
-Code/Libraries/Source/Apt/AptValue.cpp	5	?ContainsNativeHashVirtual@AptValueWithHash@@UBE_NXZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
+Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	3	?rva006CFCD0@AptCIH@@QBE_NXZ
 Code/GameEngine/Source/Common/Rva000AEFAA.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/Rva00300419Ctor.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/Rva0030BF80.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
@@ -26,6 +19,7 @@ Code/GameEngine/Source/GameLogic/Map/SidesListParseCastleTemplateMaps.cpp	2	?bfm
 Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
+Code/Libraries/Source/Apt/AptArray.cpp	2	?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z
 Code/Libraries/Source/Apt/AptCIH.cpp	2	?rva006CFCD0@AptCIH@@QBE_NXZ
 Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	1	?rva006D36C0@EAStringC@@QBEHPBV1@@Z
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
