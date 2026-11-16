@@ -60,15 +60,7 @@ private:
 	lua_State *m_x10;				// +0x10
 };
 
-class LuaScriptEngine
-{
-public:
-	void PushObjectTable(lua_State *L, Object *obj);
-
-private:
-	unsigned char m_pad00[0xC];
-	lua_State *m_lua;				// +0x0C
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 
 void LuaDrawableState::rva00333E5B(Object *obj)
 {
@@ -116,17 +108,17 @@ void LuaScriptEngine::PushObjectTable(lua_State *L, Object *obj)
 {
 	if (obj == 0)
 	{
-		lua_pushnil(m_lua);
+		lua_pushnil(field0C);
 		return;
 	}
 	AsciiString name = Rva00333374Get((const Rva00333374IdOwner *)obj);
 	int id = obj->getID();
-	lua_getglobal(m_lua, name.str());
+	lua_getglobal(field0C, name.str());
 	int top = lua_gettop(L);
 	if (0) throw 0;
-	if (lua_type(m_lua, top) == LUA_TNIL || id != (int)Rva00990030Lookup((Rva00990030Range *)m_lua, top))
+	if (lua_type(field0C, top) == LUA_TNIL || id != (int)Rva00990030Lookup((Rva00990030Range *)field0C, top))
 	{
-		lua_settop(m_lua, top);
-		lua_pushnil(m_lua);
+		lua_settop(field0C, top);
+		lua_pushnil(field0C);
 	}
 }

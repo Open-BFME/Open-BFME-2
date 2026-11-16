@@ -16,18 +16,11 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct EventFlagEntry
-{
-	NameKeyType key;
-	unsigned char flag;
-	char pad[3];
-
-	void setKeyFromName(const char *name);
-};
+#include "../../../Include/GameLogic/LuaScriptEngine.h"
 
 void EventFlagEntry::setKeyFromName(const char *name)
 {
-	key = TheNameKeyGenerator->nameToKey(name);
+	field00 = TheNameKeyGenerator->nameToKey(name);
 }
 
 struct XmlNameSlot
@@ -53,38 +46,26 @@ public:
 // names both bodies: InitializeInternalEvents (:795 asserts each
 // m_internalEvents[i] name key; the same 17 event names in the same order)
 // and ProcessInternalEvent (:946-968, the "Name" attribute loop).
-class LuaScriptEngine
-{
-	char m_pad0[0x14];
-	EventFlagEntry m_internalEvents[17];
-	char m_pad9C[0xDC - 0x9C];
-	NameKeyType m_onDestroyedKey;
-
-public:
-	void InitializeInternalEvents();
-	void ProcessInternalEvent(XmlNameSlotList *xml);
-};
-
 void LuaScriptEngine::InitializeInternalEvents()
 {
-	m_internalEvents[0].setKeyFromName("OnDamaged");
-	m_internalEvents[1].setKeyFromName("OnDestroyed");
-	m_onDestroyedKey = TheNameKeyGenerator->nameToKey("OnDestroyed");
-	m_internalEvents[2].setKeyFromName("OnArrived");
-	m_internalEvents[3].setKeyFromName("OnUnitEntered");
-	m_internalEvents[5].setKeyFromName("OnUnitExited");
-	m_internalEvents[4].setKeyFromName("OnTeamEntered");
-	m_internalEvents[6].setKeyFromName("OnTeamExited");
-	m_internalEvents[7].setKeyFromName("OnTeamDestroyed");
-	m_internalEvents[8].setKeyFromName("BeScary");
-	m_internalEvents[9].setKeyFromName("DamageIncoming");
-	m_internalEvents[10].setKeyFromName("OnAflame");
-	m_internalEvents[11].setKeyFromName("OnQuenched");
-	m_internalEvents[12].setKeyFromName("OnCreated");
-	m_internalEvents[13].setKeyFromName("OnBuildingComplete");
-	m_internalEvents[14].setKeyFromName("OnSlaughtered");
-	m_internalEvents[15].setKeyFromName("OnGenericEvent");
-	m_internalEvents[16].setKeyFromName("OnBuildVariation");
+	field14[0].setKeyFromName("OnDamaged");
+	field14[1].setKeyFromName("OnDestroyed");
+	fieldDC = TheNameKeyGenerator->nameToKey("OnDestroyed");
+	field14[2].setKeyFromName("OnArrived");
+	field14[3].setKeyFromName("OnUnitEntered");
+	field14[5].setKeyFromName("OnUnitExited");
+	field14[4].setKeyFromName("OnTeamEntered");
+	field14[6].setKeyFromName("OnTeamExited");
+	field14[7].setKeyFromName("OnTeamDestroyed");
+	field14[8].setKeyFromName("BeScary");
+	field14[9].setKeyFromName("DamageIncoming");
+	field14[10].setKeyFromName("OnAflame");
+	field14[11].setKeyFromName("OnQuenched");
+	field14[12].setKeyFromName("OnCreated");
+	field14[13].setKeyFromName("OnBuildingComplete");
+	field14[14].setKeyFromName("OnSlaughtered");
+	field14[15].setKeyFromName("OnGenericEvent");
+	field14[16].setKeyFromName("OnBuildVariation");
 }
 
 void LuaScriptEngine::ProcessInternalEvent(XmlNameSlotList *xml)
@@ -101,9 +82,9 @@ void LuaScriptEngine::ProcessInternalEvent(XmlNameSlotList *xml)
 				int j;
 				for (j = 0; j < 17; ++j)
 				{
-					if (m_internalEvents[j].key == key)
+					if (field14[j].field00 == key)
 					{
-						m_internalEvents[j].flag = 1;
+						field14[j].field04 = 1;
 						break;
 					}
 				}
