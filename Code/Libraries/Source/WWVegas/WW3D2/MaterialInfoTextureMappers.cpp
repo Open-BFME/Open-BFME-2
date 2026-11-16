@@ -58,36 +58,26 @@ protected:
 	unsigned int m_stage;
 };
 
-class VertexMaterialClass
+#include "VertexMaterialClass.h"
+
+void VertexMaterialClass::Reset_Mappers()
 {
-public:
-	virtual ~VertexMaterialClass()
-	{
-	}
-
-	void Reset_Mappers()
-	{
-		for (int stage = 0; stage < 8; stage++) {
-			if (Mapper[stage]) {
-				Mapper[stage]->Reset();
-			}
+	for (int stage = 0; stage < 8; stage++) {
+		if (Mapper[stage]) {
+			Mapper[stage]->Reset();
 		}
 	}
+}
 
-	bool Are_Mappers_Time_Variant() const
-	{
-		for (int stage = 0; stage < 8; stage++) {
-			if (Mapper[stage] && (Mapper[stage]->Is_Time_Variant())) {
-				return true;
-			}
+bool VertexMaterialClass::Are_Mappers_Time_Variant() const
+{
+	for (int stage = 0; stage < 8; stage++) {
+		if (Mapper[stage] && (Mapper[stage]->Is_Time_Variant())) {
+			return true;
 		}
-		return false;
 	}
-
-private:
-	unsigned char m_pad[0x20 - 4];
-	TextureMapperClass *Mapper[8];
-};
+	return false;
+}
 
 #include "MaterialInfoClass.h"
 

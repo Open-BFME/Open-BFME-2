@@ -37,14 +37,6 @@ typedef float Real;
 
 typedef bool Bool;
 
-class StringClass {
- char *m_Buffer; static char *m_EmptyString; static char m_NullChar;
- void Free_String();
-public:
- StringClass(int n=0,bool temporary=false);
- __forceinline ~StringClass() { Free_String(); }
-};
-
 class BFME2ScopedRenderEvent
 {
 	char Label[256];
@@ -54,17 +46,7 @@ public:
 	~BFME2ScopedRenderEvent();
 };
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This();
-	int refs;
-	void Release_Ref()
-	{
-		if (!--refs)
-			Delete_This();
-	}
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
@@ -1030,7 +1012,7 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 
 	VertexMaterialClass *material = m_material;
 	if (material)
-		++material->refs;
+		++material->NumRefs;
 	if (DX8Wrapper::render_state.material)
 		DX8Wrapper::render_state.material->Release_Ref();
 	DX8Wrapper::render_state.material = material;

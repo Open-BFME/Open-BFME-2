@@ -251,16 +251,6 @@ void Rva001688FFShift(Rva001688FFElement **items, int count);
 
 void Rva00168952Clear(Rva001688FFElement **items, int count);
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	__forceinline ~StringClass() { Free_String(); }
-private:
-	void Free_String();
-	char *m_Buffer;
-};
-
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 struct BFME2TextureResource;
@@ -676,7 +666,7 @@ struct FloorGlobalLightAccess { char pad[0x134];int time;char gap[8];BfmeLightin
 
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
-class VertexMaterialClass { public: void Get_Emissive(Vector3*) const; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class MeshMatDescClass { public: Vector2 *Get_UV_Array_By_Index(int,bool); unsigned int *Get_Color_Array(int,bool); };
 

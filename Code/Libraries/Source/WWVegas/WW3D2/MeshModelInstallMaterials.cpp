@@ -8,6 +8,7 @@
 // resolve by name: install_alternate_material_desc 0x188290, Post_Load_Process
 // 0x15BB00, Peek_Texture 0x188700, MaterialInfoClass::Add_Texture 0x16FBF0.
 
+#include "VertexMaterialClass.h"
 #include "MeshMatDescClass.h"
 #include "MeshModelClass.h"
 
