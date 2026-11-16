@@ -35,3 +35,28 @@ build/decal-diagnostic/manager-bounds-* and merge-byte-misses.json. Objects
 044c045df5b6be7d.obj and 5a59cedef6e419f8.obj in build/tu_skeleton supplied the
 measurements above; compile_function was used only to inspect existing objects,
 not to compile through build.py. No runtime success is claimed.
+
+## Consolidation handoff after rebase, 2026-11-16
+
+The official composer now absorbs both writer and reader into the approved TU.
+Final validation: 91/91 functions, 12/12 EH graphs; one COFF definition per
+drawStartX/Y and drawEdgeX/Y, used by both readers and both writers. Canonical
+RefCountPtr adoption preserved every external provider fingerprint. Branch
+codex/decal-merge is rebased onto b8ecb5c9c7; game execution remains untested.
+
+Publication is not cleared: link_batch_audit exits 2 (INCONCLUSIVE), even after
+strict current receipts for the destination and W3DShadow. Latest published
+census is 0534e78db3 at 16:28; the baseline is older than master and the audit
+also lacks a receipt for 0CreateAHeroManager21FE49.cpp. Next: resolve the
+baseline/consumer evidence through official tooling, review the two renamed
+compiler guard shadow findings, then publish only with tools/push.py and test
+the resulting real-link image on Windows. No baseline exception or forced link.
+Full evidence and preserved shadow findings: docs/linking_obstacles/
+link-661-split-storage-tu-local-statics-across-one-function-files.md and
+build/decal-diagnostic/final-link-batch-audit.log.
+
+Follow-up: CreateAHero now has a strict receipt (27/27); the audit's provider
+scope reaches 4,588 consumers, 4,587 without strict receipts. Its documented
+exit-2 policy allows a normal hooked push with linking explicitly UNVERIFIED,
+unlike exit 1 for proven loss. User approval for the whole local batch is
+pending; do not confuse the still-passing scoped preview with full validation.

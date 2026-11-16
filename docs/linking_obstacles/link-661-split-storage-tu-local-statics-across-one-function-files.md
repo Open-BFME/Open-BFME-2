@@ -616,3 +616,62 @@ objects and MappedImageCache, proves all four unreferenced; no retail recovery
 is claimed for these copies. Three official header acceptances retire their
 queue rows, scoped preview remains 10,338 bytes, and class_gate is unchanged.
 Evidence: reader-terrain-*, reader-heightmap-* under build/decal-diagnostic.
+
+**Projected decal storage consolidated (local, 2026-11-16):** the official
+composer first absorbed RenderShadows (74 rows), then DecalHelpers (91 rows
+total). The intervening RefCountPtr adoption replaces the donor and bfmestreak
+includes with the canonical header; 74/74 functions, 10 EH graphs and all
+external provider fingerprints remain identical. No guard macro or class-gate
+exception was introduced.
+
+The final source passes 91/91 functions, 12/12 EH graphs, 49 float references,
+12 import references and class_gate. Scoped link_check reports LINKS with
+16,387 own bytes against the 2026-11-16 14:28 census; this is not a real link
+or a runtime result. COFF inspection finds exactly one static definition of
+each drawStartX/Y and drawEdgeX/Y; queueDualDecal, rva0010C841, rva0010DA71 and
+rva0010DF33 all relocate to those same four symbol indices. Evidence is in
+build/decal-diagnostic/refptr-reader-merge.log and shared-bounds-proof.json.
+The first scratch inspection ran before the final object's rebuild and found
+no queueDualDecal; the post-build inspection above succeeds on the 91-row object.
+
+Consumer audit covers the pending range from 0534e78db3 through this merge,
+including both absorbed source paths. No active tool, hook, workflow or source
+include uses the removed names. Composer transfers the function/TU/data ledgers
+and header queue; remaining source comments, attempt packets and obstacle notes
+are historical provenance. link_status.csv is the older census report, to be
+replaced by the next official census, not hand-edited. LINK-661 stays open:
+a fresh full linked image and a Windows selection/range test are still needed,
+and its other split-storage cases are outside this batch.
+
+**Post-rebase audit, 2026-11-16:** rebased onto b8ecb5c9c7 without conflicts;
+check_csv and all 91 functions pass again. Official prepare-current generated
+strict receipts for W3DProjectedShadow (91 rows) and unchanged W3DShadow
+(18 rows). Fetching the latest published index without its optional objects
+archive obtained the 16:28 census at 0534e78db3. The final batch audit exits 2:
+the baseline predates master, and an affected consumer lacks a current receipt
+(Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp). This is INCONCLUSIVE,
+not a clean audit and not evidence of a lost provider. Publication and a fresh
+game test remain pending; final-link-batch-audit.log records the result.
+
+The shadow data check also reports compiler-generated guard names at
+0x009EC35C and 0x009EC388: the merged object spells them $S5 and $S4 instead
+of the ledger's $S3 and $S2, with the same enclosing methods. These findings
+remain visible; no baseline, data identity or verifier exception was added.
+The enforced converged-data check passes. A receipt-current baseline and
+consumer audit must resolve publication readiness; the byte checks alone do
+not settle it.
+
+**Consumer-scope follow-up:** preparing unchanged 0CreateAHeroManager21FE49
+passes 27/27 functions and produces a strict receipt. Read-only enumeration
+using the audit's own touched-provider/affected_sources logic finds 4,588
+consumers, of which 4,587 still lack strict current receipts (saved in
+build/decal-diagnostic/consumer-receipt-scope.json). This is not a one-file
+remaining compile. Scoped link_check with the latest index still reports
+LINKS / 16,387 own bytes, with the stale/deleted-source warning preserved.
+
+Publication policy clarification: docs/consolidation.md (Linking) and the
+pre-push link_audit contract distinguish exit 1 (proven loss, refused) from
+exit 2 (INCONCLUSIVE, linking UNVERIFIED). The latter may be carried honestly
+through normal tools/push.py hooks into the next census; it is never a clean
+full-audit claim. The full local batch awaits the user's publication decision;
+no rule or hook is relaxed. Real-link and runtime confirmation remain pending.
