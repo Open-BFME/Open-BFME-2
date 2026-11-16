@@ -23,14 +23,9 @@
 #include "OpaqueRefCounted.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-class Rva0036CA00Str {
-public:
-    Rva0036CA00Str() : m_item(0) {}
-    __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &);
-    ~Rva0036CA00Str() { if (m_item) ((OpaqueRefCounted *)m_item)->Release_Ref(); }
-    void *m_item;
-};
-inline __declspec(noinline) __declspec(nothrow) Rva0036CA00Str::Rva0036CA00Str(const Rva0036CA00Str &other):m_item(other.m_item){if(m_item)InterlockedIncrement((long volatile*)((char*)m_item+4));}
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
+#include "../../../../GameEngine/Include/Common/Rva002390CBInlines.h"
+inline __declspec(noinline) __declspec(nothrow) Rva0036CA00Str::Rva0036CA00Str(const Rva0036CA00Str &other):m_item(other.m_item){if(m_item)InterlockedIncrement(&m_item->m_04);}
 struct TargetNestedHandleData { unsigned char Unknown[12]; unsigned int RefCount; };
 #include "../../../../GameEngine/Include/Common/TargetNestedHandle.h"
 struct Rva0073EEE0ListValue {

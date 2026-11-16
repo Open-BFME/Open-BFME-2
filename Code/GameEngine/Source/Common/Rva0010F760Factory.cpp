@@ -6,7 +6,8 @@
 // is scheduled by an inline base ctor before handle copy8.
 // The C++ vtable supplies both owned entries, with no literal address.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-class Rva0036CA00Str {public:__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(item)((OpaqueRefCounted*)item)->Release_Ref();}void*item;};
+#include "../../Include/Common/Rva0036CA00Str.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 #include <new>
 struct RefCountedBase {volatile long count;__forceinline RefCountedBase():count(0){} virtual ~RefCountedBase(){}};
 class Rva0010F7EE:public RefCountedBase {public:Rva0010F7EE(Rva0036CA00Str h);virtual ~Rva0010F7EE();virtual int rva005D124D();Rva0036CA00Str handle;};
@@ -16,4 +17,4 @@ class AudioEventInfoRef {public:__declspec(nothrow) AudioEventInfoRef(const Audi
 AudioEventInfoRef Rva0010F760(Rva0036CA00Str h){return AudioEventInfoRef((const AudioEventInfo*)new Rva0010F7EE(h));}
 
 class Rva0010F155Inner {public:virtual void slot0();virtual int slot1();};
-int Rva0010F7EE::rva005D124D(){return ((Rva0010F155Inner*)handle.item)->slot1();}
+int Rva0010F7EE::rva005D124D(){return ((Rva0010F155Inner*)handle.m_item)->slot1();}

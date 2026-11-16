@@ -35,18 +35,8 @@ private:
 	int m_04;
 };
 
-class Rva0036CA00Str
-{
-public:
-	void *m_item;
-
-	__forceinline ~Rva0036CA00Str()
-	{
-		if (m_item != 0) {
-			((OpaqueRefCounted *)m_item)->Release_Ref();
-		}
-	}
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 
 class Rva001164F5 : public Rva001164F5Base
 {

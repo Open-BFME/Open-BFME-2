@@ -11,15 +11,8 @@
 // Named by address.
 #include "BfmeAudioEventPrefix136.h"
 enum DrawableID { InvalidDrawableID=0 };
-class Rva0036CA00Str {
-public:
- OpaqueRefCounted *referent;
- // ?Rva0036CA00Str::Rva0036CA00Str present-unmatched
- __forceinline Rva0036CA00Str():referent(0){}
- __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &);
- // ?Rva0036CA00Str::~Rva0036CA00Str present-unmatched
- __forceinline ~Rva0036CA00Str(){if(referent)referent->Release_Ref();}
-};
+#include "../../../../Include/Common/Rva0036CA00Str.h"
+#include "../../../../Include/Common/Rva002390CBInlines.h"
 #include "../../../../Include/Common/Rva001DFE56.h"
 class Rva000CF0D6
 {
@@ -76,7 +69,7 @@ public:
 void ModelConditionAudioLoopClientBehavior::rva004CBFC7(const Rva000CF0D6 *flags) {
  Rva0036CA00Str selected=reinterpret_cast<const Rva004CBE66 *>(m_moduleData)->rva004CBE66(flags);
  OpaqueRefCounted *old=current18.referent;
- if(selected.referent!=old){
+ if(selected.m_item!=old){
   reinterpret_cast<Rva004CBF9A *>(this)->clear();
   current18=*reinterpret_cast<const OpaqueRefElement4 *>(&selected);
   if(current18.referent){

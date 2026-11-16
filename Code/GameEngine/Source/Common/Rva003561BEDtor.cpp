@@ -27,11 +27,8 @@ extern GameLogic *TheGameLogic;
 extern Shell *TheShell;
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-struct Rva0036CA00Str {
-	OpaqueRefCounted *m_ref;
-	Rva0036CA00Str(const Rva0036CA00Str &);
-	~Rva0036CA00Str() { if (m_ref) m_ref->Release_Ref(); }
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 
 #include "../../Include/Common/ProgressIndicator.h"
 

@@ -7,13 +7,8 @@
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-class Rva0036CA00Str
-{
-	void *m_item;
-public:
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-	~Rva0036CA00Str() { if (m_item) ((OpaqueRefCounted *)m_item)->Release_Ref(); }
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 
 class Rva002217EA
 {

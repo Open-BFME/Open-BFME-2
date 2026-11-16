@@ -20,18 +20,8 @@
 // enqueue's parameter so the result is constructed in place as in retail.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-class Rva0036CA00Str
-{
-public:
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-	~Rva0036CA00Str()
-	{
-		if (m_item)
-			((OpaqueRefCounted *)m_item)->Release_Ref();
-	}
-
-	void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 
 class AudioEventInfoRef : public Rva0036CA00Str
 {

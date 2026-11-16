@@ -20,7 +20,8 @@ class FXList{public:static void doFXObj(const FXList*,const Object*,const Object
 extern WeaponStore*TheWeaponStore;
 extern GameLogic*TheGameLogic;
 int GetGameLogicRandomValue(int,int,char*,int);
-class Rva0036CA00Str {public:OpaqueRefCounted*item;__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(item)item->Release_Ref();}};
+#include "../../../../Include/Common/Rva0036CA00Str.h"
+#include "../../../../Include/Common/Rva002390CBInlines.h"
 template<int N>class VSlots:public VSlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class VSlots<0>{};
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager*TheAudio;
@@ -48,6 +49,6 @@ void InstantDeathBehavior::onDie(const DamageInfo*damageInfo){
  int count=self->fx.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,135);const FXList*fx=self->fx[n];Object*obj=m_object;FXList::doFXObj(fx,obj,0);}
  count=self->ocls.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,145);ObjectCreationList*ocl=self->ocls[n];Object*obj=m_object;if(ocl)ocl->create(obj,0,0);}
  count=self->weapons.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,155);const WeaponTemplate*weaponTemplate=self->weapons[n];if(weaponTemplate){Object*obj=m_object;const Coord3D*pos=(const Coord3D*)obj->position;TheWeaponStore->createAndFireTempWeapon(weaponTemplate,obj,pos);}}
- count=self->sounds.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,169);const Rva0036CA00Str*ss=self->sounds.begin;Rva0036CA00Str sound(ss[n]);if(sound.item && TheAudio){BfmeAudioEventPrefix136 event(*(const OpaqueRefElement4*)&sound,m_object->id);TheAudio->addAudioEvent(&event);}}
+ count=self->sounds.size();if(count>0){int n=GetGameLogicRandomValue(0,count-1,file,169);const Rva0036CA00Str*ss=self->sounds.begin;Rva0036CA00Str sound(ss[n]);if(sound.m_item && TheAudio){BfmeAudioEventPrefix136 event(*(const OpaqueRefElement4*)&sound,m_object->id);TheAudio->addAudioEvent(&event);}}
  TheGameLogic->destroyObject(m_object);
 }

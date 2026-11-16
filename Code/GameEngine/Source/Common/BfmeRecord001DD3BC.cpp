@@ -5,17 +5,8 @@
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 #include "ascii_string.h"
 
-class Rva0036CA00Str
-{
-public:
-	~Rva0036CA00Str()
-	{
-		if (m_item != 0)
-			((OpaqueRefCounted *)m_item)->Release_Ref();
-	}
-private:
-	void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
+#include "../../Include/Common/Rva002390CBInlines.h"
 
 class BfmeRecord001DD3BC
 {

@@ -155,11 +155,8 @@ extern "C" const char *lua_tostring(lua_State *,int);
 extern "C" void lua_pushnil(lua_State *);
 extern "C" void lua_pushnumber(lua_State *,double);
 unsigned Rva00990030Lookup(Rva00990030Range *,int);
-class Rva0036CA00Str {
-public:
- OpaqueRefCounted *m_item;
- ~Rva0036CA00Str() { if(m_item) m_item->Release_Ref(); }
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
+#include "../../../Include/Common/Rva002390CBInlines.h"
 #define _CRTIMP __declspec(dllimport)
 #include <stdio.h>
 #undef _CRTIMP
