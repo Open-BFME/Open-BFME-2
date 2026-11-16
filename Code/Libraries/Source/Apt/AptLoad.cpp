@@ -75,14 +75,9 @@ public:
 	Rva006D0280 *m_object;
 };
 
-// The same counted pointer under the view whose out-of-line assignment retail
+// The same counted pointer under the class whose out-of-line assignment retail
 // calls on the loaded-file key.
-class BfmeRefVGO
-{
-public:
-	BfmeRefVGO &assign(const BfmeRefVGO &);
-	Rva006D0280 *m_object;
-};
+#include "../../../GameEngine/Include/Common/BfmeRefVGO.h"
 
 int __cdecl Rva006CFDF0DecRef(int *p);
 void __cdecl bfmeDropVGO(void *p);
@@ -91,11 +86,11 @@ __declspec(noinline) inline BfmeRefVGO &BfmeRefVGO::assign(const BfmeRefVGO &oth
 {
 	if (&other != this)
 	{
-		if (m_object && Rva006CFDF0DecRef((int *)m_object) == 0)
-			bfmeDropVGO(m_object);
-		m_object = other.m_object;
-		if (m_object)
-			Rva00894D80Accessor::increment((unsigned int *)m_object);
+		if (value && Rva006CFDF0DecRef((int *)value) == 0)
+			bfmeDropVGO(value);
+		value = other.value;
+		if (value)
+			Rva00894D80Accessor::increment(value);
 	}
 	return *this;
 }

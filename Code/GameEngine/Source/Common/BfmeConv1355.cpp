@@ -9,23 +9,18 @@ int __cdecl Rva006CFDF0DecRef(int *p);
 #include "../../Include/Common/Rva00894D80Accessor.h"
 void __cdecl bfmeDropVGO(void *p);
 
-class BfmeRefVGO
-{
-public:
-	BfmeRefVGO &assign(const BfmeRefVGO &o);
-	unsigned *m_bfmeP;
-};
+#include "../../Include/Common/BfmeRefVGO.h"
 
 // ?assign@BfmeRefVGO@@QAEAAV1@ABV1@@Z, retail 0x006CDB10 (66B).
 __declspec(noinline) inline BfmeRefVGO &BfmeRefVGO::assign(const BfmeRefVGO &o)
 {
 	if (&o != this)
 	{
-		if (m_bfmeP && Rva006CFDF0DecRef((int *)m_bfmeP) == 0)
-			bfmeDropVGO(m_bfmeP);
-		m_bfmeP = o.m_bfmeP;
-		if (m_bfmeP)
-			Rva00894D80Accessor::increment(m_bfmeP);
+		if (value && Rva006CFDF0DecRef((int *)value) == 0)
+			bfmeDropVGO(value);
+		value = o.value;
+		if (value)
+			Rva00894D80Accessor::increment(value);
 	}
 	return *this;
 }

@@ -13,15 +13,7 @@ unsigned __cdecl bfmeDecVGO(unsigned *p);
 
 void __cdecl bfmeDropVGO(void *p);
 
-class BfmeRefVGO
-{
-public:
-    BfmeRefVGO(const BfmeRefVGO &other);
-    ~BfmeRefVGO();
-
-private:
-    unsigned *m_bfmeP;
-};
+#include "../../Include/Common/BfmeRefVGO.h"
 
 // The counted Apt key's native cleanup funclets (for example 0x007A9168
 // in AptAnimation) jump to 0x000A9DF3, the five-byte tail call to this
@@ -53,9 +45,9 @@ private:
 // ??0BfmeRefVGO@@QAE@ABV0@@Z
 BfmeRefVGO::BfmeRefVGO(const BfmeRefVGO &other)
 {
-    m_bfmeP = other.m_bfmeP;
-    if (m_bfmeP)
-        bfmeIncVGO(m_bfmeP);
+    value = other.value;
+    if (value)
+        bfmeIncVGO(value);
 }
 
 // ??1BfmeRefVGO@@QAE@XZ, retail 0x000A9822 (30B). Mirror of the release half
@@ -66,8 +58,8 @@ BfmeRefVGO::BfmeRefVGO(const BfmeRefVGO &other)
 // unwind path; defined inline-noinline here too so the name keeps one body.
 inline __declspec(noinline) BfmeRefVGO::~BfmeRefVGO()
 {
-    if (m_bfmeP && bfmeDecVGO(m_bfmeP) == 0)
-        bfmeDropVGO(m_bfmeP);
+    if (value && bfmeDecVGO(value) == 0)
+        bfmeDropVGO(value);
 }
 
 // ?bfmeAnchorBfmeRefVGODtor absent-from-retail
