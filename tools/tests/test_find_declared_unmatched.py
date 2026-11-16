@@ -8,6 +8,75 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from find_declared_unmatched import find_defined_functions
 
 
+@pytest.mark.parametrize("staged", [False, True])
+@pytest.mark.parametrize("obstacle", [None, "wrong-body", "stale", "unpinned",
+    "other-address", "no-body", "overload", "changed-index", "changed-copy",
+    "missing-object", "emitted-overload", "wrong-annotation"])
+@pytest.mark.parametrize("destructor", [False, True])
+def test_pinned_lifetime_definition_requires_a_current_complete_fold(
+        tmp_path, monkeypatch, capsys, staged, obstacle, destructor):
+    import csv
+    import find_declared_unmatched as tool
+    from test_gate_exploits import Gate, coff, TEXT
+    gate = Gate(monkeypatch, tmp_path)
+    source = "Code/x.cpp"
+    owner = "?owner@@YAXXZ"
+    name = "??1Record@@QAE@XZ" if destructor else "??0Record@@QAE@ABU0@@Z"
+    method = "~Record" if destructor else "Record"
+    text = f"inline Record::{method}({' ' if destructor else 'const Record &other'}) {{}}\n"
+    if obstacle == "overload":
+        text += "inline Record::Record(int value) {}\n"
+    if obstacle == "wrong-annotation":
+        text = "// ??0Unrelated@@QAE@XZ\n" + text
+    body = b"\x55\x8b\xec\x33\xc0\x40\x40\x40\x8b\xe5\x5d\xc3"
+    gate.row(owner, 0x2000, len(body))
+    path = tmp_path / source
+    path.write_text(text + ("// working copy\n" if obstacle == "changed-copy" else ""))
+    gate.memory[0x2000] = body
+    candidate = b"\x90" + body[1:] if obstacle == "wrong-body" else body
+    symbols = [(owner, 0, 1, 0x20, 2, 0)]
+    if obstacle != "no-body":
+        symbols.append((name, 0, 2, 0x20, 2, 0))
+    if obstacle == "emitted-overload":
+        symbols.append((name + "different", 0, 2, 0x20, 2, 0))
+    gate.obj.write_bytes(coff([(".text", TEXT, body, []),
+                               (".text", TEXT, candidate, [])], symbols))
+    if obstacle == "missing-object":
+        gate.obj.unlink()
+    with gate.build.SYMBOLS.open("w", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["name", "address", "notes"])
+        if obstacle != "unpinned":
+            writer.writerow([name, "0x3000" if obstacle == "other-address" else "0x2000", "legacy pin"])
+    ledger = tmp_path / "reverse/functions.csv"
+    with ledger.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(gate.rows[0]))
+        writer.writeheader()
+        writer.writerows(gate.rows)
+    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    monkeypatch.setattr(tool, "FUNCTIONS_CSV", ledger)
+    monkeypatch.setattr(tool, "DATA_ROWS_CSV", tmp_path / "absent.csv")
+    monkeypatch.setattr(tool, "load_claims_whitelist", lambda: set())
+    monkeypatch.setattr(tool, "git_show", lambda rel: (
+        "name,address,notes\n" if obstacle == "changed-index" and str(rel).replace("\\", "/") == "reverse/symbols.csv"
+        else text if str(rel).replace("\\", "/") == source
+        else (tmp_path / rel).read_text() if (tmp_path / rel).exists() else None))
+    monkeypatch.setattr(gate.build, "obj_path", lambda *_: gate.obj)
+    monkeypatch.setattr(gate.build, "compile_is_current", lambda *_, **kw: obstacle != "stale")
+    monkeypatch.setattr(gate.build, "gate_baselined", lambda *_: False)
+    monkeypatch.setattr(sys, "argv", ["find_declared_unmatched.py", "--fail", source]
+                        + (["--staged"] if staged else []))
+    rejected = obstacle not in (None, "changed-index", "changed-copy") or (
+        staged and obstacle in ("changed-index", "changed-copy"))
+    if rejected:
+        with pytest.raises(SystemExit) as exc:
+            tool.main()
+        assert exc.value.code == 1
+    else:
+        tool.main()
+        assert "All defined functions are already matched." in capsys.readouterr().out
+
+
 @pytest.mark.parametrize("newline", ["\n", "\r\n", "\r\r\n"])
 def test_multiline_tree_specializations_are_declarations(newline):
     source = """template <> _STL::_Rb_tree_node<ByteDwordValue> *

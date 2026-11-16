@@ -154,7 +154,7 @@ def mangle_method(class_name: str, method_name: str) -> str:
     return f"{prefix}{mangled_class}@@"
 
 
-def find_defined_functions(text: str, *, inline_candidates=None):
+def find_defined_functions(text: str, *, inline_candidates=None, definition_counts=None):
     # Match definitions like:
     #   ReturnType ClassName::methodName(
     #   Namespace::ClassName::methodName(
@@ -296,6 +296,9 @@ def find_defined_functions(text: str, *, inline_candidates=None):
                 class_name = "::".join(ns_parts + [class_name])
             definition = (class_name, method_name, symbol_comment)
             results.add(definition)
+            if definition_counts is not None:
+                key = (class_name, method_name)
+                definition_counts[key] = definition_counts.get(key, 0) + 1
             if inline_candidates is not None:
                 # MSVC's dllimport/forceinline specializations may have no
                 # separate body at all. Keep them in the ordinary inventory;
@@ -417,6 +420,70 @@ def inline_only_definitions(source, text, candidates):
     return proved
 
 
+def folded_lifetime_definitions(source, text, candidates, counts, staged=False):
+    """Recognize pinned lifetime bodies only after the complete ICF proof.
+
+    A pin is an address candidate, never evidence. Reuse admission's byte,
+    relocation, identity and associative-EH proof against this current object.
+    The inventory does not resolve overload signatures, so ambiguous source
+    definitions or emitted overloads cannot borrow each other's proof.
+    """
+    candidates = {d for d in candidates if counts.get(d[:2]) == 1
+                  and d[1] in (d[0].split("::")[-1], "~" + d[0].split("::")[-1])}
+    if not candidates:
+        return set()
+    import build
+    import pin_admission
+    import struct
+    proved = set()
+    try:
+        if source.read_text(encoding="utf-8") != text:
+            return set()
+        # The prover reads working-tree ledgers. They must be the very ledgers
+        # being committed, not unstaged pins or rows supplying hidden evidence.
+        paths = (FUNCTIONS_CSV, ROOT / "reverse/symbols.csv")
+        ledger_texts = [p.read_text(encoding="utf-8-sig") for p in paths]
+        if staged and any(git_show(p.relative_to(ROOT)) != contents
+                          for p, contents in zip(paths, ledger_texts)):
+            return set()
+        rows, pins = [list(csv.DictReader(contents.splitlines())) for contents in ledger_texts]
+        obj = build.obj_path(source)
+        if not build.compile_is_current(source, obj, strict=True):
+            return set()
+        before = obj.read_bytes()
+        symbols = build.read_object_symbols(before)
+        symbol_map = None
+        for definition in candidates:
+            cls, method, annotation = definition
+            prefix = mangle_method(cls, method)
+            emitted = [s["name"] for s in symbols if s["name"].startswith(prefix)
+                       and s["section"] > 0 and s["storage"] == 2]
+            if len(emitted) != 1 or (annotation and annotation != emitted[0]):
+                continue
+            name = emitted[0]
+            addresses = {int(p["address"], 16) for p in pins if p["name"] == name}
+            if len(addresses) != 1:
+                continue
+            if symbol_map is None:
+                symbol_map = build.load_symbol_map()
+            receipt = {}
+            problems = pin_admission.fold_proof_problems(
+                {"name": name, "notes": "fold-proof=" + source.relative_to(ROOT).as_posix()},
+                next(iter(addresses)), rows, lambda: symbol_map, pins=pins,
+                receipt=receipt, allow_weak=False)
+            if (not problems and Path(receipt.get("output", "")).resolve() == obj.resolve()
+                    and receipt.get("bindings", {}).get(name) == next(iter(addresses))):
+                proved.add(definition[:2])
+        if (obj.read_bytes() != before or source.read_text(encoding="utf-8") != text
+                or not build.compile_is_current(source, obj, strict=True)
+                or any(p.read_text(encoding="utf-8-sig") != contents
+                       for p, contents in zip(paths, ledger_texts))):
+            return set()
+    except (OSError, ValueError, KeyError, IndexError, struct.error, SystemExit):
+        return set()
+    return proved
+
+
 def read_path_list(name):
     """Paths listed in file `name` ('-': stdin), NUL-separated if it holds a NUL, else one per line."""
     data = sys.stdin.buffer.read() if name == "-" else Path(name).read_bytes()
@@ -516,8 +583,11 @@ def main():
             )
 
         inline_candidates = set()
-        definitions = find_defined_functions(text, inline_candidates=inline_candidates)
+        definition_counts = {}
+        definitions = find_defined_functions(text, inline_candidates=inline_candidates,
+                                             definition_counts=definition_counts)
         inline_only = inline_only_definitions(source_path, text, inline_candidates)
+        unmatched_start = len(unmatched)
         for class_name, method_name, symbol_name in definitions:
             if (class_name, method_name, symbol_name) in inline_only:
                 continue
@@ -554,6 +624,13 @@ def main():
                 if any(open_needle in name for name in matched):
                     continue
             unmatched.append((rel_path, class_name, method_name))
+
+        pending = {(cls, method) for _, cls, method in unmatched[unmatched_start:]}
+        folds = folded_lifetime_definitions(
+            source_path, text, {d for d in definitions if d[:2] in pending},
+            definition_counts, staged=args.staged)
+        unmatched[unmatched_start:] = [entry for entry in unmatched[unmatched_start:]
+                                      if entry[1:] not in folds]
 
     if violations:
         for violation in violations:
