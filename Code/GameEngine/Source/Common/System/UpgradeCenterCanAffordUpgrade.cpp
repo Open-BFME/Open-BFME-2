@@ -2,11 +2,7 @@
 // UpgradeCenter::canAffordUpgrade from the Upgrade.cpp reference, isolated
 // so its BFME 2 money and UI layouts can be checked against retail.
 
-class Player {
-public:
-    char m_pad[0x94];
-    unsigned m_money;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/Upgrade.h"
 
@@ -24,7 +20,7 @@ bool __stdcall bfmeCanAffordUpgrade(Player *player,
 {
     if (!player || !upgrade)
         return false;
-    unsigned money = player->m_money;
+    unsigned money = player->m_money.m_val04;
     if (money < upgrade->calcCostToBuild(player, context)) {
         if (displayReason)
             TheInGameUI->rva0029E656(AsciiString("GUI:NotEnoughMoneyToUpgrade"));
@@ -47,7 +43,7 @@ bool UpgradeCenter::rva0026F11A(Player *player,
 {
     if (!player || !upgrade)
         return false;
-    unsigned money = player->m_money;
+    unsigned money = player->m_money.m_val04;
     if (money < upgrade->calcCostToBuild(player, (unsigned)obj)) {
         if (displayReason)
             TheInGameUI->rva0029E656(AsciiString("GUI:NotEnoughMoneyToUpgrade"));

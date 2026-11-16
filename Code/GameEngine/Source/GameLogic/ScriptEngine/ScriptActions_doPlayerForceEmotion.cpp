@@ -79,14 +79,7 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class Player
-{
-public:
-	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
-private:
-	char m_pad[0x32C];
-	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -112,8 +105,8 @@ void ScriptActions::doPlayerForceEmotion(Parameter *pPlayer, int index, float va
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (!player)
 			continue;
-		PlayerTeamNode *head = player->getPlayerTeams();
-		for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+		PlayerTeamNode *head = player->m_playerTeamPrototypes;
+		for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 		{
 			for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 			{

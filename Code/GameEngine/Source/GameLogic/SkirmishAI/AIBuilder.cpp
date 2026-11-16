@@ -156,13 +156,7 @@ namespace _STL { template <> void ** vector<void *, allocator<void *> >::erase(v
 class AIWallBuilder {public: void DoXfer(Xfer*);};
 class Rva00598DA2 {public: void rva00598DA2(Xfer*);};
 #include "../../../Include/GameLogic/Module/Rva0059761B.h"
-class Player
-{
-public:
-    bool rva002AB87D(const UpgradeTemplate *) const;
-    unsigned char prefix00[0x94];
-    unsigned int money94;
-};
+#include "../../../Include/Common/Player.h"
 class AIEconomyStats
 {
 public:
@@ -288,7 +282,7 @@ void AIBuilder::moneySaverUpdate()
         if (saver->limit18 == -1 || saver->saved14 < static_cast<unsigned int>(saver->limit18))
         {
             Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(owner00);
-            double amount = static_cast<float>(owner00->money94) *
+            double amount = static_cast<float>(owner00->m_money.m_val04) *
                 *reinterpret_cast<float *>(static_cast<unsigned char *>(record->data160) + 0xac + record->difficulty16c * 4);
             if (amount > 1.0f)
                 saver->rva005963A1(static_cast<int>(amount));

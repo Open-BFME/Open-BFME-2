@@ -10,18 +10,7 @@
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class Rva00380200
-{
-public:
-	bool rva003805BB(float val, bool flag);
-};
-
-class Player
-{
-public:
-	unsigned char m_pad[8]; // +0x00..0x07
-	Rva00380200 m_sub; // +0x08
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -34,7 +23,7 @@ void ScriptActions::Rva003BC582Set(const AsciiString &name, int val)
 	do {
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player) {
-			player->m_sub.rva003805BB((float)val, false);
+			player->rva003805BB((float)val, false);
 		}
 	} while (mask != 0);
 }

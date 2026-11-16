@@ -3,17 +3,10 @@
 // Evidence: unlock lane; caller 0x003BCF2F passes Player in ecx with ThingTemplate void eax plus int 0; callee 0x0033A69A ThingTemplate const method pin-only; reads ecx+0x94 ret8 sbb-inc uchar.
 class Object;
 #include "../../Include/Common/ThingTemplate.h"
-class Player
-{
-public:
-	unsigned char rva002AA00C(ThingTemplate *tmpl, int extra);
-private:
-	char m_pad[0x94];
-	int m_0094;
-};
+#include "../../Include/Common/Player.h"
 unsigned char Player::rva002AA00C(ThingTemplate *thingTemplate, int extra)
 {
-	int base = m_0094;
+	int base = m_money.m_val04;
 	int v = thingTemplate->rva0033A69A((const class Player *)this, 0, -1);
 	return (unsigned char)((unsigned)(base + extra) >= (unsigned)v);
 }

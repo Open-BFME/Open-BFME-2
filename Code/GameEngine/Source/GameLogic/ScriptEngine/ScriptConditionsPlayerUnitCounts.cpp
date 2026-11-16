@@ -286,17 +286,7 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class Player
-{
-public:
-	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
-	Int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_pad[0x54];
-	Int m_playerIndex; // +0x54
-	char m_pad58[0x32C - 0x58];
-	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -312,8 +302,8 @@ Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, 
 	if (!player)
 		return false;
 	Int count = 0;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -341,8 +331,8 @@ Bool ScriptConditions::evaluateAnyUnitsUsingBloodthirsty(Parameter *playerParm)
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -368,8 +358,8 @@ Bool ScriptConditions::evaluateSkirmishUnownedFactionUnitComparison(Parameter *p
 	if (!player)
 		return false;
 	Int count = 0;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -405,8 +395,8 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *
 		if (!player)
 			continue;
 		Int numGarrisonedBuildings = 0;
-		PlayerTeamNode *head = player->getPlayerTeams();
-		for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+		PlayerTeamNode *head = player->m_playerTeamPrototypes;
+		for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 		{
 			for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 			{
@@ -451,8 +441,8 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasComparisonCapturedUnits(Paramete
 		if (!player)
 			continue;
 		Int numCapturedUnits = 0;
-		PlayerTeamNode *head = player->getPlayerTeams();
-		for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+		PlayerTeamNode *head = player->m_playerTeamPrototypes;
+		for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 		{
 			for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 			{
@@ -503,8 +493,8 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasDiscoveredPlayer(Parameter *pSki
 			Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 			if (!player)
 				continue;
-			PlayerTeamNode *head = player->getPlayerTeams();
-			for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+			PlayerTeamNode *head = player->m_playerTeamPrototypes;
+			for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 			{
 				for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 				{
@@ -540,8 +530,8 @@ Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, 
 	if (!player)
 		return false;
 	Int count = 0;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -586,8 +576,8 @@ Bool ScriptConditions::rva003E8863(Parameter *playerParm, Parameter *countParm, 
 	if (!loadedTemplate || !transportTemplate)
 		return false;
 	Int count = 0;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -635,8 +625,8 @@ Bool ScriptConditions::rva003E8B47(Parameter *playerParm, Parameter *parameter)
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(parameter->getString());
 	if (!thingTemplate)
 		return false;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -672,8 +662,8 @@ Bool ScriptConditions::rva003E8C24(Parameter *playerParm, Parameter *parameter)
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(parameter->getString());
 	if (!thingTemplate)
 		return false;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -711,8 +701,8 @@ Bool ScriptConditions::evaluateUnitHasToggledWeapon(Parameter *playerParm, Param
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(parameter->getString());
 	if (!thingTemplate)
 		return false;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -743,8 +733,8 @@ Bool ScriptConditions::rva003E8785(Parameter *playerParm, Parameter *countParm, 
 	if (!upgrade)
 		return false;
 	Int count = 0;
-	PlayerTeamNode *head = player->getPlayerTeams();
-	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	PlayerTeamNode *head = player->m_playerTeamPrototypes;
+	for (PlayerTeamNode *it = head->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{

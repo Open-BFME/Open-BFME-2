@@ -1026,12 +1026,7 @@ public:
 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Player
-{
-public:
-	char m_pad[0x50];
-	NameKeyType m_nameKey; // +0x50
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class ScriptList
@@ -2463,7 +2458,7 @@ ScriptList * __stdcall Rva00204E64Find(const AsciiString &name)
 	NameKeyType key = TheNameKeyGenerator->nameToKey(name);
 	for (int i = 0; i < TheSidesList->m_numSides; i++) {
 		Player *player = ThePlayerList->getNthPlayer(i);
-		if (player != 0 && player->m_nameKey == key)
+		if (player != 0 && player->m_playerNameKey == key)
 			return &TheSidesList->getSideInfo(i)->m_scriptList;
 	}
 	return 0;

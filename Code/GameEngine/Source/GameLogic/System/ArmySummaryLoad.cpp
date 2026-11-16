@@ -89,7 +89,7 @@ extern LivingWorldLogic*TheLivingWorldLogic;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
 class PlayerTemplate {public:char bytes00[0xE8];_STL::vector<AsciiString>startingUnits;};
-class Player {public:char bytes00[0x34];PlayerTemplate*tmplate;};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
@@ -160,7 +160,7 @@ void ArmySummary::Load(bool battle,bool first,int overrideID)
   }
  }
  if(TheGameLogic->m_114!=3 && battle && first){
-  PlayerTemplate*playerTemplate=player->tmplate;
+  const PlayerTemplate*playerTemplate=player->m_playerTemplate;
   for(unsigned index=0;index<playerTemplate->startingUnits.size();++index){
    Rva004F6093Holder entry(new ArmySummaryEntry);
    entry->m_name=playerTemplate->startingUnits[index];

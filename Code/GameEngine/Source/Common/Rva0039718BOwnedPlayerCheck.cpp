@@ -20,14 +20,7 @@ enum NameKeyType
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Player
-{
-public:
-	char m_pad00[0x58];
-	AsciiString m_name58; // target reads the player's name at +0x58
-	char m_pad5C[0x38];
-	int m_field94;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../GameLogic/Object/object.h"
 
@@ -120,7 +113,7 @@ int Rva0039718B::rva003970E7(Player *player)
 	if (player == 0)
 		return 0;
 
-	AsciiString name(player->m_name58);
+	AsciiString name(player->m_side);
 	if (name.isEmpty())
 		return 0;
 
@@ -145,6 +138,6 @@ bool Rva0039718B::rva0039718B(Player *player)
 		return false;
 	if (ours != player)
 		return false;
-	unsigned int f94 = player->m_field94;
+	unsigned int f94 = player->m_money.m_val04;
 	return f94 >= (unsigned int)rva003970E7(player);
 }

@@ -103,21 +103,7 @@ class Team;
 class ModuleData;
 class Object;
 
-class Player
-{
-public:
-	Bool hasScience(ScienceType t) const;
-	PlayerType getPlayerType() const { return m_playerType; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getPlayerType copy loses to the first-in-order copy. No flags touched.
-	PlayerType bfme_getPlayerType_faef2() const { return m_playerType; }
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-
-private:
-	unsigned char m_pad000[0x5C];
-	PlayerType m_playerType;	// +0x5C
-	unsigned char m_pad060[0x2EC - 0x60];
-	Team *m_defaultTeam;	// +0x2EC
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -454,7 +440,7 @@ void CreateCrateDie::onDie(const DamageInfo *damageInfo)
 				{
 					// If the killer is a computer controlled player, notify that the crate exists.
 					if (killer->getControllingPlayer() &&
-						killer->getControllingPlayer()->bfme_getPlayerType_faef2() == PLAYER_COMPUTER)
+						killer->getControllingPlayer()->getPlayerType() == PLAYER_COMPUTER)
 					{
 						AIUpdateInterface *ai = killer->getAIUpdateInterface();
 						if (ai)

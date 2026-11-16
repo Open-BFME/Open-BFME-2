@@ -10,7 +10,7 @@
 // both this native caller and matched 5978ED consume EAX. Preserve that ABI.
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class Player { public: char pad00[0x94]; unsigned money; };
+#include "../../../../../Include/Common/Player.h"
 #include "../../../Object/object.h"
 #include "../../../../../Include/Common/Rva004E9378.h"
 class Rva005970ED {
@@ -55,7 +55,7 @@ void Rva00597983::rva00597983()
  switch(ai->m_16C) { case 1:limit=1;break;case 2:limit=3;break;default:return; }
  if (count>=limit) return;
  float factor=(float)(count+1);
- unsigned funds=owner->money;
+ unsigned funds=owner->m_money.m_val04;
  Rva005970ED *selected=((Rva005978ED *)this)->rva005978ED();
  if (!selected) {
   for (Rva005970ED **i=begin,**last=end;i!=last;++i) {

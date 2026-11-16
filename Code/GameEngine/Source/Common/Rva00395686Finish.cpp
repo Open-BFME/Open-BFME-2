@@ -19,12 +19,7 @@ class Player;
 
 #include "../../Include/Common/ThingTemplate.h"
 
-class Player
-{
-public:
-	char m_pad94[0x94];
-	unsigned int m_94;
-};
+#include "../../Include/Common/Player.h"
 
 class Rva00395686
 {
@@ -44,7 +39,7 @@ bool Rva00395686::rva00395686(Player *player, ThingTemplate *thingTemplate)
 		return false;
 	if (ctrl != player)
 		return false;
-	unsigned int field = player->m_94;
+	unsigned int field = player->m_money.m_val04;
 	int v = thingTemplate->rva0033A69A((const class Player *)player, 0, -1);
 	return field >= (unsigned int)v;
 }

@@ -37,7 +37,7 @@ public:
 	int count; // +0x04
 	int compare; // +0x08
 };
-class Player {public:char opaque[0x50];NameKeyType nameKey;};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
 #include "../../../Include/Common/NameKeyGenerator.h"
@@ -64,7 +64,7 @@ endTimer=-1;closeTimer=-1;totalUpdateTime=0;maxUpdateTime=0;numFrames=0;
 completedVideo.clear();completedSound.clear();testingSpeech.clear();testingAudio.clear();uiInteractions.clear();
 for(int i=0;i<20;++i){triggered[i].clear();midway[i].clear();finished[i].clear();sciences[i].erase(sciences[i].begin(),sciences[i].end());upgrades[i].clear();}
 for(int i=0;i<TheSidesList->m_numSides;++i){
-currentPlayer=ThePlayerList->getNthPlayer(i);Rva002048A2 playerScope(&playerName,TheNameKeyGenerator->keyToName(currentPlayer->nameKey));
+currentPlayer=ThePlayerList->getNthPlayer(i);Rva002048A2 playerScope(&playerName,TheNameKeyGenerator->keyToName(currentPlayer->m_playerNameKey));
 ScriptList*list=&TheSidesList->getSideInfo(i)->scripts;
 if(list){for(int slot=list->first;slot!=-1;slot=list->entries[slot].next){
 ScriptEntry*eb=list->entries;ScriptEntry*scriptEntry=list->entries;int off=slot*0x14;int off2=slot*0x14;

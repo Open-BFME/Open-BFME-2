@@ -17,14 +17,9 @@ public:
     char m_unrecovered44[0x74 - 0x44];
     ObjectID m_id;
 };
-class Player
-{
-public:
-    char m_pad00[0x94];
-    unsigned int m_money;
-};
 extern GameLogic *TheGameLogic;
 #include <new>
+#include "../../../../Include/Common/Player.h"
 class Rva004D9A3C
 {
 public:
@@ -337,12 +332,12 @@ int AIBuildableWallSegment::canMake(Player *player)
         return selected.code;
     }
     }
-    unsigned int money = player->m_money;
+    unsigned int money = player->m_money.m_val04;
     if (money < result.m_pad04)
     {
         do
         {
-            if (!(player->m_money < (unsigned int)result.m_pad04))
+            if (!(player->m_money.m_val04 < (unsigned int)result.m_pad04))
                 break;
             {
                 selected.code = 2;

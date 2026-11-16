@@ -42,12 +42,7 @@ struct XferUnknown11;
 
 #include "Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 #include "../../../Include/GameLogic/Module/Rva0059761B.h"
-class Player
-{
-public:
-    unsigned char prefix00[0x94];
-    unsigned int money94;
-};
+#include "../../../Include/Common/Player.h"
 class Rva00596389
 {
 public:

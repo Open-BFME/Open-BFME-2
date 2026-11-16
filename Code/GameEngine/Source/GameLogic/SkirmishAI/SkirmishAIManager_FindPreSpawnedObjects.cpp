@@ -155,17 +155,12 @@ public:
     OBJCLASS *cur() const { return m_cur; }
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class Player {
-public:
-    bool rva002AA245() const;
-    unsigned char prefix00[0x2ec];
-    Team *defaultTeam2ec;
-};
+#include "../../../Include/Common/Player.h"
 void Rva002A8F24::findPreSpawnedObjects() {
     for (int i=0; i<ThePlayerList->m_playerCount; ++i) {
         Player *player=ThePlayerList->getNthPlayer(i);
         if (player->rva002AA245()) {
-            for (DLINK_ITERATOR<Object> it=player->defaultTeam2ec->iterate_TeamMemberList();
+            for (DLINK_ITERATOR<Object> it=player->m_defaultTeam->iterate_TeamMemberList();
                 !it.done(); it.advance())
                 rva002A9365(it.cur());
         }

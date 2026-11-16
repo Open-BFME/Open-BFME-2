@@ -127,14 +127,7 @@ private:
 // callers 0x004ECCE2; +0x21 bool matches Rva0055B0CC layout; vslots 0x24/0x3c.
 // Native AIBuilder update4ECCE2 tests AL immediately after this call;
 // bool return is a target fact. The final virtual slot15 result is forwarded.
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_playerIndex;
-	char m_pad58[0x94 - 0x58];
-	int m_cost94;
-};
+#include "../../Include/Common/Player.h"
 
 class AIEconomyStats
 {
@@ -148,12 +141,6 @@ class Rva0039B795;
 
 #include "../../Include/GameLogic/Module/Rva003B0D7C.h"
 
-class PlayerFull
-{
-public:
-    char _0[0x90];
-    Rva003B0D7C m_money;
-};
 
 struct MapResInner
 {
@@ -385,10 +372,10 @@ void Rva0055B156::rva0055B156(int value)
 bool AIBuildable::doBuild(Player *player)
 {
 	void *playerAIData = TheSkirmishAIManager->rva002A8F24(player);
-	unsigned int playerCost = (unsigned int)player->m_cost94;
+	unsigned int playerCost = player->m_money.m_val04;
 	int savedAmountNeeded = (int)(v09(player) - (float)playerCost);
 	if (m_flag21) {
-		unsigned int currentPlayerCost = (unsigned int)player->m_cost94;
+		unsigned int currentPlayerCost = player->m_money.m_val04;
 		if (v09(player) > (float)currentPlayerCost) {
 			AIEconomyStats *economyStats = *(AIEconomyStats **)((char *)playerAIData + 0xc);
 			if (*(unsigned int *)((char *)economyStats + 0x14) >= (unsigned int)savedAmountNeeded) {
@@ -423,13 +410,13 @@ int AIBuildable::doCanMake(Player *player)
     if (m_flag21)
     {
         int amount = playerAIData->m_0C->m_14;
-        ((PlayerFull *)player)->m_money.rva003B0D7C(amount, 0, false);
+        player->m_money.rva003B0D7C(amount, 0, false);
     }
     canMakeResult = v16(player);
     if (m_flag21)
     {
         int amount = playerAIData->m_0C->m_14;
-        ((PlayerFull *)player)->m_money.withdraw((unsigned int)amount, 0, false);
+        player->m_money.withdraw((unsigned int)amount, 0, false);
     }
     return canMakeResult;
 }

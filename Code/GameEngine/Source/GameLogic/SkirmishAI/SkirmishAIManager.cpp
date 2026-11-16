@@ -131,17 +131,7 @@ public:
     OBJCLASS *cur() const { return m_cur; }
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class Player {
-public:
-    bool rva002AA245() const;
-    // Inline-only target view; do not emit a competing shared accessor copy.
-    __declspec(dllimport) __forceinline const class AsciiString &getSide() const { return *(const AsciiString *)side58; }
-    int getPlayerIndex() const { return playerIndex54; }
-    unsigned char prefix00[0x54];
-    int playerIndex54;
-    unsigned char side58[0x2ec-0x58];
-    Team *defaultTeam2ec;
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
@@ -199,7 +189,7 @@ void *Rva002A8F24::addNewAIForPlayer(Player *player) {
     const AsciiString *side;
     void *ai=0;
     for (const ModuleData **it=teams914.begin(), **end=teams914.end(); it!=end; ++it) {
-        side=&player->getSide();
+        side=&player->m_side;
         if (((Rva004E94CA *)*it)->rva004E94CA(player)) {
             ((AIGameTeam *)*it)->addPlayer((const ModuleData *)player);
             ai=((Rva004E9600 *)*it)->rva004E95D4(player);
@@ -211,7 +201,7 @@ void *Rva002A8F24::addNewAIForPlayer(Player *player) {
         ((AIGameTeam *)team)->addPlayer((const ModuleData *)player);
         ai=((Rva004E9600 *)team)->rva004E95D4(player);
         teams914.push_back((const ModuleData *&)team);
-        side=&player->getSide();
+        side=&player->m_side;
     }
     if (((ArmorStore *)TheArmyDefinitionManager)->rva0041F474(*side)) {
         int key=TheNameKeyGenerator->nameToKey(*side);

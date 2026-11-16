@@ -20,7 +20,7 @@ struct FrameStatsVector {
  ScoreFrameStatsView *start,*finish,*end;
 };
 class Rva0039C190 { public: void rva0039D1D0(unsigned int); };
-class Player { public: bool rva002AA245() const; char opaque[0x94]; int money; };
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/BfmeMemberRV.h"
@@ -180,7 +180,7 @@ void ScoreKeeper::updateFrame(int frameNumber)
   if(static_cast<unsigned int>(frameNumber)>=stats.size())
    reinterpret_cast<Rva0039C190*>(&stats)->rva0039D1D0(frameNumber+1);
   ScoreFrameStatsView &record=stats[frameNumber];
-  record.money=owner->money;
+  record.money=owner->m_money.m_val04;
   if(TheSkirmishAIManager->rva002A8AB1(owner))
   {
    void *collector=TheSkirmishAIManager->rva002A8F24(owner);

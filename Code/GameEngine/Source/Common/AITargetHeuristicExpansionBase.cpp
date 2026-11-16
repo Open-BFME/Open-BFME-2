@@ -30,16 +30,7 @@ public:
 	Rva0057327EInfo *m_04;	// +0x04
 	const Rva0057327EInfo *getInfo() const { return m_04; }
 };
-class Player
-{
-public:
-	Relationship getRelationship(const Object *that) const;	// 0x002AD11E
-	int getPlayerIndex() const { return m_54; }
-	char m_pad00[0x54];
-	int m_54;	// +0x54
-	char m_pad58[0x94 - 0x58];
-	unsigned int m_94;	// +0x94 money
-};
+#include "../../Include/Common/Player.h"
 // A waypoint: +0x08 its name, +0x0C its location, +0x1C the next one.
 #include "../../Include/GameLogic/Waypoint.h"
 class TerrainLogic
@@ -184,8 +175,8 @@ bool AITargetHeuristicExpansionBase::wantsToExpand(Player *player)
 	}
 	m_08 = 0;
 	if (theLogicRandomLogFile)
-		fprintf((FILE *)theLogicRandomLogFile, "pos 2: money= %d", player->m_94);
-	if (player->m_94 < 3000)
+		fprintf((FILE *)theLogicRandomLogFile, "pos 2: money= %d", player->m_money.m_val04);
+	if (player->m_money.m_val04 < 3000)
 		return false;
 	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(player);
 	if (theLogicRandomLogFile)

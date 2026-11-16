@@ -100,12 +100,7 @@ template<class T> class DLINK_ITERATOR {public:
     T *cur() const { return current; }
 };
 #include "../../../../../Include/Common/TeamBFME2.h"
-class Player {public:
-    bool rva002AA245() const;
-    Relationship getRelationship(const Player *) const;
-    char beforeIndex[0x54];int index;
-    char beforeTeam[0x2EC-0x58];Team *team;
-};
+#include "../../../../../Include/Common/Player.h"
 #include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 extern PartitionManager *TheShroudManager;
@@ -126,13 +121,13 @@ bool Rva005D8223::shouldActivate(Object *caster)
                 enemy=player;
         } else break;
     }
-    if(enemy && enemy->team) {
-        DLINK_ITERATOR<Object> iter=enemy->team->iterate_TeamMemberList();
+    if(enemy && enemy->m_defaultTeam) {
+        DLINK_ITERATOR<Object> iter=enemy->m_defaultTeam->iterate_TeamMemberList();
         for(;!iter.done();iter.advance()) {
             Object *obj=iter.cur();
             if(obj->getPickerTemplate()->flag & 0x80) {
                 const Coord3D *position=obj->getPosition();
-                int playerIndex=caster->getControllingPlayer()->index;
+                int playerIndex=caster->getControllingPlayer()->m_playerIndex;
                 if(TheShroudManager->getShroudStatusForPlayer(playerIndex,position)!=CELLSHROUD_SHROUDED)
                     return ((Rva005EE816*)this)->rva005EE8DD(position,caster);
             }

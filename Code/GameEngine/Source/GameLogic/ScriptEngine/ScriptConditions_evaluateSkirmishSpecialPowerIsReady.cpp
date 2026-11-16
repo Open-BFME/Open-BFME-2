@@ -129,14 +129,7 @@ private:
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class Player
-{
-public:
-	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
-private:
-	char m_pad[0x32C];
-	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -174,7 +167,7 @@ Bool ScriptConditions::evaluateSkirmishSpecialPowerIsReady(Parameter *pSkirmishP
 		Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
 		if (pPlayer == 0)
 			continue;
-		for (PlayerTeamNode *it = pPlayer->getPlayerTeams()->m_next; it != pPlayer->getPlayerTeams(); it = it->m_next) {
+		for (PlayerTeamNode *it = pPlayer->m_playerTeamPrototypes->m_next; it != pPlayer->m_playerTeamPrototypes; it = it->m_next) {
 			for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
 				Team *team = iter.cur();
 				if (!team)

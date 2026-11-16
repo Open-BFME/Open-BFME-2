@@ -292,40 +292,7 @@ extern GameLogic *TheGameLogic;
 
 // BFME2 returns this two-word range through a hidden result pointer at
 // ContainModuleInterface slot +0x118; the BFME1 donor returns a list pointer.
-class Player
-{
-public:
-	Color getPlayerColor() const
-	{
-		return m_playerColor;
-	}
-	Color getPlayerNightColor() const
-	{
-		return m_playerNightColor;
-	}
-	Team *getDefaultTeam() const
-	{
-		return m_defaultTeam;
-	}
-	// LINK: same-body helpers under TU-unique names (identical inlined
-	// bytes). This TU's copies lose (first-copy); both calls below inline
-	// them but still emit loser COMDATs. Rebinding there emits only unique
-	// (trivially kept) copies. No flags touched, no layout claim.
-	Color bfme_player_color() const
-	{
-		return m_playerColor;
-	}
-	Color bfme_player_night_color() const
-	{
-		return m_playerNightColor;
-	}
-	char m_pad00[0x280];
-private:
-	Color m_playerColor; // +0x280
-	Color m_playerNightColor; // +0x284
-	char m_pad288[0x64];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/GameClient/Drawable.h"
 
@@ -1155,12 +1122,12 @@ void CaveContain::recalcApparentControllingPlayer()
 	{
 		if (caveContainGlobalData()->m_timeOfDay == TIME_OF_DAY_NIGHT)
 		{
-			Color indicatorColor = controller->bfme_player_night_color();
+			Color indicatorColor = controller->m_nightColor;
 			getObject()->getDrawable()->setIndicatorColor(indicatorColor);
 		}
 		else
 		{
-			Color indicatorColor = controller->bfme_player_color();
+			Color indicatorColor = controller->m_color;
 			getObject()->getDrawable()->setIndicatorColor(indicatorColor);
 		}
 	}
