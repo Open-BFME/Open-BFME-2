@@ -256,16 +256,7 @@ static inline const UpgradeTemplate *getNeededUpgrade(const CommandButton *butto
 // ControlBar's command-set lookup by name (0x0031D5F8), rowed under its
 // address-named class.
 #include "../../../Include/Common/Rva0031D5F8.h"
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &);
-	CommandSet *rva0031E8D5(const AsciiString &name, Int create);	// 0x0031E8D5
-
-	unsigned char m_pad00[0x28];
-	Bool m_commandSetsChanged;		// +0x28
-};
-extern ControlBar *TheControlBar;
+#include "../../../Include/GameClient/ControlBar.h"
 enum ModelConditionFlagType { MODEL_CONDITION_UNKNOWN = -1 };
 class Drawable;
 class Object
@@ -655,7 +646,7 @@ Bool CreateAHeroHero::UpdateCommandSet(UnsignedInt rank)
 	const CommandButton *button = TheControlBar->findCommandButton(attackMove);
 	if (button)
 		commandSet->SetCommandButton((Int)button, 0x10);
-	TheControlBar->m_commandSetsChanged = true;
+	TheControlBar->field28 = true;
 	return true;
 }
 
