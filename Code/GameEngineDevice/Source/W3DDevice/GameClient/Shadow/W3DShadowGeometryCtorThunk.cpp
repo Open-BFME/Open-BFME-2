@@ -8,21 +8,9 @@
 
 typedef int Int;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-class RefCountClass
-{
-public:
-	__declspec(dllimport) __forceinline RefCountClass(void) : NumRefs(1) {}
-	void Add_Ref(void) { NumRefs++; }
-	int Num_Refs(void) { return NumRefs; }
-	virtual void Delete_This(void);
-
-protected:
-	virtual ~RefCountClass(void) {}
-
-private:
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
+// Retail's destructor 0x000F1F00 expands the base destructor inline (vtable 0x00BC650C store).
+inline RefCountClass::~RefCountClass() {}
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/hash.h
 #include "../../../../../Libraries/Source/WWVegas/WWLib/HashableClass.h"

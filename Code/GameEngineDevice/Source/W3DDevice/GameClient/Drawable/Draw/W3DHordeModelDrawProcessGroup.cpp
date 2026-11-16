@@ -42,26 +42,12 @@ private:
 class Drawable;
 class ModuleData;
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { ++m_numRefs; }
-	void Release_Ref()
-	{
-		if (--m_numRefs == 0)
-			Delete_This();
-	}
-
-protected:
-	int m_numRefs; // +0x04
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 // A model sub-object (vslot 3 kind test, slot pointer at +0x310).
 class HordeSubObject : public RefCountClass
 {
 public:
-	virtual void slot01();
 	virtual void slot02();
 	virtual int getKind(); // +0x0C
 
@@ -72,7 +58,7 @@ public:
 class HordeModel : public RefCountClass
 {
 public:
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
 	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
 	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
