@@ -4,9 +4,13 @@
 #ifndef CANONICAL_W3DRADARRESETSURFACE_H
 #define CANONICAL_W3DRADARRESETSURFACE_H
 
+class SurfaceResource;
+
 class W3DRadarResetSurface {
 public:
     void *m_surface;
+    W3DRadarResetSurface() : m_surface(0) {}
+    W3DRadarResetSurface(SurfaceResource *surface);
     W3DRadarResetSurface(const W3DRadarResetSurface &other);
     W3DRadarResetSurface(unsigned,unsigned,unsigned,unsigned);
     void clear(bool);

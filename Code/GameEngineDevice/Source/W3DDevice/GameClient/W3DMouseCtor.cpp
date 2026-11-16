@@ -48,15 +48,7 @@ class CursorTextureSlot : public BfmeResetTextureRef
 {
 };
 
-class W3DRadarResetSurface
-{
-public:
-	W3DRadarResetSurface() : m_surface( 0 ) {}
-	~W3DRadarResetSurface();
-
-private:
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 enum
 {

@@ -17,22 +17,7 @@ enum
 
 extern CursorTextureSlot cursorTextures[][MAX_2D_CURSOR_ANIM_FRAMES];
 
-struct IDirect3DSurface8
-{
-	virtual long __stdcall QueryInterface() = 0;
-	virtual unsigned __stdcall AddRef() = 0;
-	virtual unsigned __stdcall Release() = 0;
-};
-
-class W3DRadarResetSurface
-{
-	IDirect3DSurface8 *m_surface;
-
-public:
-	W3DRadarResetSurface(IDirect3DSurface8 *surface) : m_surface(surface) {}
-	~W3DRadarResetSurface();
-	W3DRadarResetSurface &operator=(const W3DRadarResetSurface &rhs);
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 struct MouseCursorInfo
 {
@@ -59,7 +44,7 @@ void W3DMouse::freeD3DAssets(void)
 {
 	for (int i = 0; i < MAX_2D_CURSOR_ANIM_FRAMES; ++i) {
 		{
-			W3DRadarResetSurface emptySurface(0);
+			W3DRadarResetSurface emptySurface;
 			m_currentD3DSurface[i] = emptySurface;
 		}
 	}

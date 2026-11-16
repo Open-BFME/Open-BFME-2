@@ -182,14 +182,7 @@ class SurfaceResource
 
 };
 
-class W3DRadarResetSurface
-{
- public:
- SurfaceResource *m_surface;
- W3DRadarResetSurface(SurfaceResource *);
- ~W3DRadarResetSurface();
-
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 #include "Rva00116680.h"
 

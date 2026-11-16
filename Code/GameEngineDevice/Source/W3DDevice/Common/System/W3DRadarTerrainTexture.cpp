@@ -41,7 +41,7 @@ extern FileSystem *TheFileSystem;
 class TextureClass { public: void Release_Ref(); };
 class BfmeMapPictureTexture { public: TextureClass *ptr; BfmeMapPictureTexture(const char*); BfmeMapPictureTexture &operator=(const BfmeMapPictureTexture&); ~BfmeMapPictureTexture(){if(ptr)ptr->Release_Ref();} };
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
-class W3DRadarResetSurface { void *ptr; public: ~W3DRadarResetSurface(); };
+#include "../../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 #include "../../../../../GameEngine/Include/Common/CursorTextureSlot.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 void BFME_DX8_Thread_Lock(); bool BFME_DX8_Thread_Assert();
