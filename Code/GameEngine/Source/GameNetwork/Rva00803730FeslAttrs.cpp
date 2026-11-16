@@ -60,28 +60,7 @@ void Rva00803730Host::go( Rva00803730Getter *r )
 
 #include "../../Include/GameNetwork/Gen007F0130.h"
 
-#include "../../Include/Common/Rva007E86B0Base.h"
-
-class BfmeC994 : public Rva007E86B0Base
-{
-public:
-	BfmeC994( char *buffer, int capacity );
-	~BfmeC994();
-	void addInt( const char *key, int value );
-	void addString( const char *key, const char *value );
-
-	int m_field08;
-	int m_field0c;
-	char *m_field10;
-	int m_field14;
-	int m_field18;
-	int m_field1c;
-	int m_field20;
-	int m_field24;
-	int m_field28;
-	int m_field2c;
-	char m_field30;
-};
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 struct Rva00809C60Player
 {
@@ -180,7 +159,7 @@ void Rva00803730Sink::apply( void *tid, bool allowed, void *pid, void *reason )
 			0x2a0 );
 	}
 
-	message.m_field1c = 'EGEG';
+	message.m_category = 'EGEG';
 	message.m_field04 = player->m_field04;
 	message.m_field08 = player->m_field08;
 	message.m_field0c = player->m_field0c;

@@ -1,3 +1,4 @@
+// cl: /GX-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME 2: Open-BFME-1's file (submodule 10af19f44a), byte-identical in game.dat:
 // requestHostedGame at 0x00662980 and the reply adapter at 0x00662210 (the
@@ -10,13 +11,7 @@
 
 class Rva007E8810Message;
 
-class BfmeC994
-{
-public:
-    BfmeC994(char *buffer, int size);
-    char m_unknown[0x34];
-};
-#include "../../Include/GameNetwork/Gen_007e86c0.h"
+#include "../../Include/GameNetwork/BfmeC994.h"
 class Rva007F61E0Sender
 {
 public:
@@ -66,7 +61,6 @@ void Rva007F5920Owner::requestHostedGame(int first, int second)
     m_sender->send(&message, first, second,
         m_overrideId ? m_overrideId : m_defaultId);
     m_notifier->send(&message, Rva007F5A70Callback, this, m_transaction);
-    ((Gen_007e86c0 *)&message)->m();
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

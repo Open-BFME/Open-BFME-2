@@ -1,32 +1,13 @@
-// cl: /GS
+// cl: /GS /GX-
 //
 // Retail 0x006768B0 (202B). FESL game-address notify path: builds a BfmeC994
 // message from the sink entry, formats the address text and dispatches it
 // through Rva007F93E0. Transferred from the BFME1 reconstruction (same
 // Y4FeslFavGameAddress.cpp TU family as the accept sibling at 0x00674DF0).
 
-class BfmeC994
-{
-public:
-	BfmeC994( char *buffer, int capacity );
-	char *m_vft;
-	int m_04;
-	int m_08;
-	int m_0c;
-	char *m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2c;
-	char m_30;
-};
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 #include "../../Include/GameNetwork/BfmeThingCIC.h"
-
-#include "../../Include/GameNetwork/Gen_007e86c0.h"
 
 #include "../../Include/Common/Rva007E8760Addr.h"
 
@@ -78,19 +59,18 @@ void LanTheaterEmulator::notifyAddress( Rva00809500Entry *entry )
 	char buffer[ 0x40 ];
 	BfmeC994 message( buffer, sizeof( buffer ) );
 	Rva00809500Sink *sink = reinterpret_cast< Rva00809010Finder * >( this )->find( entry );
-	message.m_1c = entry->m_length;
-	message.m_20 = (int)0xC0000000;
-	strncpy( message.m_10, entry->m_text, message.m_14 );
+	message.m_category = entry->m_length;
+	message.m_field20 = (int)0xC0000000;
+	strncpy( message.m_buffer, entry->m_text, message.m_capacity );
 	char address[ 0x20 ];
 	reinterpret_cast< Rva007E8760Addr * >( sink )->format( address, sizeof( address ) );
-	message.m_04 = sink->m_value04;
-	message.m_08 = sink->m_value08;
-	message.m_0c = sink->m_value0c;
+	message.m_field04 = sink->m_value04;
+	message.m_field08 = sink->m_value08;
+	message.m_field0c = sink->m_value0c;
 	reinterpret_cast< BfmeThingCIC * >( &message )->bfmeGoCIC(
 	(void *)"IP",
 		address );
 	Rva007F93E0( &message, (void *)"->L", m_field10 );
-	reinterpret_cast< Gen_007e86c0 * >( &message )->m();
 }
 
 // ?rva0066F740@Rva0066F740@@QAEXPAURva00809500Entry@@@Z @0x0066F740 8B member

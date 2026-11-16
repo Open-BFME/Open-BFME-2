@@ -316,14 +316,7 @@ public:
 
 struct Rva007F72D0Obj;
 
-class BfmeC994
-{
-public:
-    BfmeC994(char *buffer, int size);
-    char m_unknown[0x34];
-};
-
-#include "../../Include/GameNetwork/Gen_007e86c0.h"
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 class Rva007F7360Sender
 {
@@ -842,7 +835,6 @@ void BfmeThingZI::requestEntry(int lid, int gid)
     m_sender->send(&message, lid, gid);
     m_notifier->send(&message, Rva007F7350Thunk, (Rva007F72D0Obj *)this,
         m_transaction);
-    ((Gen_007e86c0 *)&message)->m();
 }
 
 // BFME 2 0x00663A40 (15B; BFME 1 0x007F7350): the reply adapter handed to the
@@ -885,7 +877,6 @@ void Rva007F7A00Browser::requestRegionCount()
     m_sender->send(&message);
     m_notifier->send(&message, Rva007F79F0Callback,
         (Rva007F7980Browser *)this, m_transaction);
-    ((Gen_007e86c0 *)&message)->m();
 }
 
 // tu-skeleton: 0x006640E0 101B ?onLobbyCount@Rva007F7980Browser@@QAEXPAVRva007E8810Message@@@Z -- matched in Code/GameEngine/Source/GameNetwork/V2FeslBrowserEvents.cpp (not merged yet)

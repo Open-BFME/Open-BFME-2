@@ -1,16 +1,8 @@
-// cl: /O2 /GS
+// cl: /O2 /GS /GX-
 // The factory at 0x007F4810 stores this object at +0x244 of the FESL owner.
 // Its 0x007F4440 method is the slot-zero call on the third interface at +0x0C.
 
-class BfmeC994
-{
-public:
-	BfmeC994( char *buffer, int size );
-	void clear();
-
-	char pad[ 0x30 ];
-	char tail;
-};
+#include "../../Include/GameNetwork/BfmeC994.h"
 
 class Rva007EA690FieldAddress
 {
@@ -118,5 +110,4 @@ void Rva007F4440Runner::run( int mode, int, int )
 		clientType );
 	// BFME2 retail passes 0x00A60FD0 here (BFME1 0x00BF4520 drifted).
 	primary->getService()->send( &message, (void *)Rva00660FD0Handler, primary, 10000 );
-	message.clear();
 }

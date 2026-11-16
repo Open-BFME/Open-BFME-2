@@ -1,4 +1,4 @@
-// cl: /O2 /Ob1 /DNDEBUG /MD
+// cl: /O2 /Ob1 /DNDEBUG /MD /GX-
 // Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp;
 // bfme1_sweep places the same masked body: request at BFME2 0x00663720. Addresses in the donor text are BFME1.
 // Retail 007F7030..007F70CD; INT3-delimited thiscall body with two args.
@@ -16,12 +16,7 @@ extern "C" void loginReplyCallback(void *message, void *browser)
 {
     ((Rva007F5720GameBrowser *)browser)->handleLoginReply((Rva007E8810Message *)message);
 }
-class BfmeC994 {
-public:
-    BfmeC994(char *, int);
-    char bytes[0x34];
-};
-#include "../../Include/GameNetwork/Gen_007e86c0.h"
+#include "../../Include/GameNetwork/BfmeC994.h"
 class Rva007F7030Sender {
 public:
     virtual void slot0();
@@ -71,5 +66,4 @@ void Rva007F7030::request(int first, int second)
     BfmeC994 message(buffer, 0x400);
     sender->send(&message, "", second, first);
     notifier->send(&message, loginReplyCallback, this, transaction);
-    ((Gen_007e86c0 *)&message)->m();
 }
