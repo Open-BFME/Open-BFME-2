@@ -175,5 +175,3 @@ void Rva001F050B::rva001F050B()
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z=?create@ObjectCreationList@@QAEXPAX00@Z")
-#pragma comment(linker, "/alternatename:?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z=?create@ObjectCreationList@@QAEXPAX00H@Z")

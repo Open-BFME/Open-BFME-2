@@ -24,14 +24,11 @@ unsigned char bfmeAskCW(void *, void *, BfmeTargetCW *);
 // Reuse the existing complete two-slot provider; the old class spelling is
 // a linker compatibility key, not an original target identity claim.
 extern "C" unsigned char __identifier("??_7BfmeParserBindingBaseVE@@6B@");
-#pragma comment(linker, "/alternatename:?bfmeDropVE@BfmeSubVE@@QAEXPAX@Z=?handle@Q1Forwardee0000871A@@QAEXH@Z")
 // Native AD930 calls306D7B atAD93F and scalar delete2FD60 atAD94C.
 // The unlink argument is one native dword; the existing pointer/int spellings
 // preserve that thiscall ABI. The operator delete signature is unchanged.
 // These synthetic slot spellings are referenced only as addresses in the
 // provider's two-slot table. Native BC9574 supplies their actual targets.
-#pragma comment(linker, "/alternatename:?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ=?bfmeKillVE@BfmeThingVE@@QAEPAXH@Z")
-#pragma comment(linker, "/alternatename:?bfmeSlot1@BfmeParserBindingBaseVE@@UAEXXZ=__purecall")
 
 class DataChunkParser
 {

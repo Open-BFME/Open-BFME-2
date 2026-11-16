@@ -111,8 +111,6 @@ template void _STL::_Construct<BfmeNarrowRecord0054FEF1,BfmeNarrowRecord0054FEF1
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:??0Pivot24@@QAE@ABU0@@Z=??0BfmeNarrowRecord00427F75@@QAE@ABU0@@Z")
-#pragma comment(linker, "/alternatename:??0VersionBlockEntry@@QAE@ABU0@@Z=??0BfmeNarrowRecord00427F75@@QAE@ABU0@@Z")
 
 #include <deque>
 // bfme link decl-only begin

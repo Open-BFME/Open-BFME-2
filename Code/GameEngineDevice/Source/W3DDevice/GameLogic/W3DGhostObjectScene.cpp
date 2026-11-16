@@ -1450,7 +1450,6 @@ void W3DGhostObjectManager::setLocalPlayerIndex(int index)
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z=?removeGhostObject@W3DGhostObjectManager@@QAEXPAVGhostObject@@@Z")
 
 // Native BC5970 slot 0 implementation; its vtordisp thunk is compiler-emitted.
 const void *GhostObject::vslot00() const { return &m_parentGeometryInfo; }

@@ -45,7 +45,6 @@ int __cdecl Rva00452FE0Same( const Rva00452FE0Key &first,
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z=?Rva00452FE0Same@@YAHABURva00452FE0Key@@0@Z")
 
 // The retail call in this body reads 0x0030141B, an address the ledger already
 // carries as ??$equal@U?$_Rb_tree_iterator@VRva004525B0String@@U?$_Const_traits@VRva004525B0String@@@_STL@@@_STL@@U12@@_STL@@YA_NU?$_Rb_tree_iterator@VRva004525B0String@@U?$_Const_traits@VRva004525B0String@@@_STL@@@0@00@Z. Bind the donor spelling to that rowed owner so one

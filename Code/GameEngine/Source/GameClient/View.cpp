@@ -380,7 +380,6 @@ void View::getScreenCornerWorldPointsAtZ( Coord3D *topLeft, Coord3D *topRight,
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z=?setHeightAboveGround@View@@UAEXM@Z")
 
 // Native FUN_0065e9de spans 0025E9DE..0025EA2E, ending in RET 28.
 // It stores seven scalar floats at +4..+1C and then sets byte +0 to one.

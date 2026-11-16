@@ -81,7 +81,6 @@ void AptMath::ClipStackShutdown()
 // verifies the unsigned capacity argument, assertion, 96-byte stride and
 // 16-byte aligned allocation. Existing pool provider and storage are reused.
 #include "../../../GameEngine/Include/Common/Rva006DB160.h"
-#pragma comment(linker, "/alternatename:?rva006dffa0@@YAXXZ=?ClipStackPushUnit@AptMath@@SAXXZ")
 void AptMath::ClipStackPushUnit()
 {
     ClipStackPush();
