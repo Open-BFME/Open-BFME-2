@@ -33,7 +33,6 @@ public:
 };
 
 // Counted-reference helpers are the existing frameless ICF-shared bodies.
-#pragma optimize("y", on)
 class PlayingAudioRef
 {
 public:

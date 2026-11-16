@@ -9525,7 +9525,6 @@ pragma_optimize	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	"",on
 pragma_optimize	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/Rva008030C0FeslPoolInit.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/Rva008030C0FeslPoolInit.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerAllocatePlayingAudio.cpp	"y",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	"",on	3
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	"gsy",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	"s",on	2
@@ -9757,8 +9756,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWDebug/DebugIOOds_Create.cpp	"y",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWDebug/DebugPostStaticInit.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWDebug/DebugPostStaticInit.cpp	"y",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWDebug/DebugSimpleMatch.cpp	"y",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp	"y",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWDebug/Debug_FrameStatus.cpp	"y",on	1
@@ -9847,8 +9844,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/Rva00168C40QuatTransformArr
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/Rva00168C40QuatTransformArrays.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/Rva0071CD60MatrixArrayRotate.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/Rva0071CD60MatrixArrayRotate.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/SphereClassReCenter.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/SphereClassReCenter.cpp	"ty",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/aabox.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/aabox.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp	"",on	1
@@ -10435,8 +10430,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	ArmorTemplate::adjustDamage	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/AttackNuggetDtor.cpp	Rva001F0622Base::~Rva001F0622Base	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp	bfmeEmitFlightDeckBehaviorRunwayInfoDestructor@@YAXPAURunwayInfo@FlightDeckBehavior@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::Rva0036CA00Str	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	Rva0036CA00Str::~Rva0036CA00Str	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	SpawnBehaviorFindAnchor@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	0Rva00148F5ECache@@QAE@PBD@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	1FreePtr@@QAE@XZ	1

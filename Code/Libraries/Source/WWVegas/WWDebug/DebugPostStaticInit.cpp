@@ -18,7 +18,6 @@
 #include <windows.h>
 #include <string.h>
 
-#pragma optimize("y", on)
 #include <new>      // placement new, as the debug library uses it
 
 void *DebugAllocMemory(unsigned int numBytes);
@@ -130,7 +129,6 @@ private:
 	virtual void FlushOutput(bool defaultLog);
 	bool ExecCommand(const char *cmdstart, const char *cmdend);
 };
-#pragma optimize("", on)
 
 extern Debug *theDebug;
 
