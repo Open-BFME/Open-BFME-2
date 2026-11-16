@@ -31,10 +31,19 @@
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 #include "../../../Include/Common/INI/INI.h"
+typedef float Real;
 class WeaponBonus
 {
 public:
-	float m_field[6];
+	enum Field { DAMAGE = 0, RADIUS, RANGE, RATE_OF_FIRE, PRE_ATTACK };
+	WeaponBonus()
+	{
+		for (int i = 0; i < 6; ++i)
+			m_field[i] = 1.0f;
+	}
+	Real getField(Field field) const { return m_field[field]; }
+	void appendBonuses(WeaponBonus &bonus) const;
+	Real m_field[6];
 };
 class WeaponBonusSet
 {
