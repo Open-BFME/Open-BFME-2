@@ -5,14 +5,8 @@
 // Shared class ownership with 0x00213A85/0x00213B88 is inferred from the offset.
 // The exact table specialization key type and mapped payload semantics remain unknown.
 
-class Rva000427195;
+#include "../../Include/GameLogic/Rva000427195.h"
 #include "../../Include/GameClient/Rva000411084.h"
-
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iterator);
-};
 
 class Rva003FAC83
 {
@@ -91,7 +85,7 @@ public:
 private:
 	char m_pad[0x204];
 	Rva000427195 m_table;
-	char m_padToState[0xBB];
+	char m_padToState[0xA8];
 	unsigned char m_state_2C0;
 };
 

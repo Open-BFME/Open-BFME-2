@@ -5,7 +5,7 @@
 // The +0x10 base has one virtual slot and no virtual destructor: table 0x00BE5114 holds 0x001F01E8 (ret 0x10), and destructor 0x00210CC5 only restores that table. The derived table 0x00BE5220 holds 0x00211C68, whose ledger row proves OnSwapArmyMembers' four argument types; it does not use the incoming this pointer. The rowed OnSwapArmyMembers spelling is non-virtual and remains declared separately from slot00.
 // The declared non-virtual methods are the LivingWorldManager ledger rows at 0x00210D68, 0x00210F96, 0x00210FC6, 0x0021100E, 0x00211142, 0x00211C68, 0x00212183, 0x0021219E, 0x00213171, 0x002133E0, 0x0021399A, 0x00213C6E, 0x00214060, 0x002140DB, 0x00214156, 0x0021427A and 0x002142EA. The out-of-line constructor has the ledger's LivingWorldManager spelling.
 // Field +0x204 is the 0x14-byte Rva00056F61 table: CreateSound 0x0021399A looks names up there, the constructor builds it through 0x00213E11 and the destructor 0x00214405 calls its table destructor 0x002129DD at 0x0021467F. Fields +0x22C and +0x230 are a four-byte owning OpaqueRefElement4 and an int: the matched rows 0x00210FC6 (assigns both) and 0x0021100E (guards the reference, builds the audio event from both and clears it) access them, and the destructor's layout places them between the +0x218 table and the +0x234 buffer.
-// Field +0x268 is a four-byte pointer: 0x00210D6B loads it, 0x00210D7A clears it and 0x00210DA4 stores the lookup result. Retail 0x003EFE2A and 0x003EFE50 load that same field from TheLivingWorldManager, then call the rowed LivingWorldRegionEffectsManager::SyncRegion at 0x003EF08B. Other data remains opaque; the 0x2D8 allocation fixes its complete extent.
+// Field +0x268 is a four-byte pointer: 0x00210D6B loads it, 0x00210D7A clears it and 0x00210DA4 stores the lookup result. Retail 0x003EFE2A and 0x003EFE50 load that same field from TheLivingWorldManager, then call the rowed LivingWorldRegionEffectsManager::SyncRegion at 0x003EF08B. Fields +0x26C, +0x280 and +0x294 are 0x14-byte Rva000427195 tables: the rowed 0x00214060, 0x002140DB and 0x00214156 pass each as ecx to the rowed Rva000427195 insert 0x00213925 (0x002140AB, 0x00214126, 0x002141A1); the constructor builds each through 0x00213E11 (0x00213FB1, 0x00213FC0, 0x00213FCF), as it builds +0x204, and the next member at +0x2A8 (0x00213FD7). Other data remains opaque; the 0x2D8 allocation fixes its complete extent.
 
 #pragma once
 
@@ -38,6 +38,7 @@ private:
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../GameClient/Rva00056F61.h"
 #include "../Common/OpaqueRefElement4.h"
+#include "Rva000427195.h"
 
 struct ArmySwapView;
 struct ArmyMemberRangeView;
@@ -104,7 +105,10 @@ public:
     int owner230;
     unsigned char m_opaque234[0x268 - 0x234];
     LivingWorldRegionEffectsManager *field268;
-    unsigned char m_opaque26C[0x2D8 - 0x26C];
+    Rva000427195 m_26C;
+    Rva000427195 m_280;
+    Rva000427195 m_294;
+    unsigned char m_opaque2A8[0x2D8 - 0x2A8];
 #endif
 
 protected:
