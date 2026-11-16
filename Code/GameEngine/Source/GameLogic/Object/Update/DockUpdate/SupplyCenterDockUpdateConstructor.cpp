@@ -524,15 +524,7 @@ void DockUpdate::objectModuleAnchor()
 {
 }
 
-struct DrawModule
-{
-	virtual void drawModuleAnchor();
-};
-
-// ?drawModuleAnchor@DrawModule@@UAEXXZ present-unmatched
-void DrawModule::drawModuleAnchor()
-{
-}
+#include "../../../../../Include/GameLogic/Module/DrawModule.h"
 
 struct ExperienceLevelCreateIface1
 {

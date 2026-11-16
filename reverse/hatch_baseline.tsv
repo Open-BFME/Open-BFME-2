@@ -10572,7 +10572,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	deflectSpecialPowerIface3Anchor@DeflectSpecialPowerIface3@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	deflectSpecialPowerIface4Anchor@DeflectSpecialPowerIface4@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	dockAnchor@DockUpdate@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	drawModuleAnchor@DrawModule@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	experienceLevelCreateIface1Anchor@ExperienceLevelCreateIface1@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	experienceLevelCreateIface2Anchor@ExperienceLevelCreateIface2@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z	1
