@@ -15,24 +15,13 @@
 // camera message 0x447; then drop key flags whose keys are released.
 // Identities beyond the rowed callees stay address-derived.
 #include <windows.h>
-#include "Coord2D.h"
+// Retail copy-constructs the scroll amount in the outgoing argument slots: Coord2D with its user members.
+#define COORD2D_VIEW_DTOR
+#include "Coord2DCtorView.h"
 #include "Coord3D.h"
 #include <math.h>
 #include "../../Common/GameLogicObjectLookupView.h"
 
-// The scroll amount travels by value through a copy constructor (retail
-// copy-constructs it in the outgoing argument slots and records their address).
-class ScrollOffset : public Coord2D
-{
-public:
-	ScrollOffset() {}
-	ScrollOffset(const ScrollOffset &that)
-	{
-		x = that.x;
-		y = that.y;
-	}
-	~ScrollOffset() {}
-};
 
 inline float sqr(float x)
 {
@@ -62,37 +51,7 @@ public:
 	float m_zoom;       // +0x18
 	float m_1C;         // +0x1C
 };
-class InGameUI
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual void v10(); virtual void v14();
-	virtual void v18(); virtual void v1C(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2C();
-	virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3C(); virtual void v40(); virtual void v44();
-	virtual void v48(); virtual void v4C(); virtual void v50(); virtual void v54(); virtual void v58(); virtual void v5C();
-	virtual void v60(); virtual void v64(); virtual void v68(); virtual void v6C(); virtual void v70(); virtual void v74();
-	virtual void v78(); virtual void v7C(); virtual void v80(); virtual void v84(); virtual void v88(); virtual void v8C();
-	virtual void v90(); virtual void v94(); virtual void v98(); virtual void v9C(); virtual void vA0(); virtual void vA4();
-	virtual bool isScrolling(); // +0xA8
-	virtual void vAC(); virtual void vB0();
-	virtual void setScrollAmount(ScrollOffset amount); // +0xB4
-	virtual void vB8(); virtual void vBC(); virtual void vC0(); virtual void vC4(); virtual void vC8();
-	virtual bool slotCC(); // +0xCC
-	virtual void vD0(); virtual void vD4(); virtual void vD8(); virtual void vDC(); virtual void vE0(); virtual void vE4();
-	virtual void vE8(); virtual void vEC(); virtual void vF0(); virtual void vF4(); virtual void vF8(); virtual void vFC();
-	virtual void v100(); virtual void v104(); virtual void v108(); virtual void v10C(); virtual void v110(); virtual void v114();
-	virtual void v118(); virtual void v11C(); virtual void v120(); virtual void v124(); virtual void v128(); virtual void v12C();
-	virtual void v130(); virtual void v134(); virtual void v138(); virtual void v13C(); virtual void v140(); virtual void v144();
-	virtual void v148(); virtual void v14C(); virtual void v150(); virtual void v154(); virtual void v158(); virtual void v15C();
-	virtual void v160(); virtual void v164(); virtual void v168(); virtual void v16C(); virtual void v170(); virtual void v174();
-	virtual void v178();
-	virtual bool slot17C(); // +0x17C
-
-	char m_pad04[0x15 - 4];
-	bool m_15;          // +0x15
-	bool m_16;          // +0x16
-	char m_pad17[0x8C4 - 0x17];
-	bool m_8C4;         // +0x8C4
-};
+#include "../../../Include/GameClient/InGameUI.h"
 
 class View
 {
@@ -101,7 +60,7 @@ public:
 	virtual void v18(); virtual void v1C(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2C();
 	virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3C(); virtual void v40(); virtual void v44();
 	virtual void v48(); virtual void v4C(); virtual void v50(); virtual void v54(); virtual void v58();
-	virtual unsigned int scrollBy(ScrollOffset *delta); // +0x5C
+	virtual unsigned int scrollBy(Coord2D *delta); // +0x5C
 	virtual void v60(); virtual void v64(); virtual void v68(); virtual void v6C(); virtual void v70(); virtual void v74();
 	virtual void v78(); virtual void v7C(); virtual void v80(); virtual void v84(); virtual void v88(); virtual void v8C();
 	virtual void v90(); virtual void v94(); virtual void v98(); virtual void v9C(); virtual void vA0(); virtual void vA4();
@@ -129,7 +88,7 @@ class Rva002D3627Host
 public:
 	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual void v10(); virtual void v14();
 	virtual void v18(); virtual void v1C(); virtual void v20(); virtual void v24(); virtual void v28();
-	virtual void slot2C(ScrollOffset *offset, float extra); // +0x2C
+	virtual void slot2C(Coord2D *offset, float extra); // +0x2C
 
 	char m_pad04[0x18 - 4];
 	bool m_18;          // +0x18
@@ -181,10 +140,10 @@ class LivingWorld; extern LivingWorld *TheLivingWorld;
 extern bool scrollDir[4];
 void BfmeOwnVVD::rva0042F213()
 {
-	ScrollOffset offset;
+	Coord2D offset;
 	offset.x = 0.0f;
 	offset.y = 0.0f;
-	if (m_isScrolling && (!TheInGameUI->isScrolling() || TheInGameUI->slot17C()))
+	if (m_isScrolling && (!TheInGameUI->isScrolling() || TheInGameUI->slot95()))
 	{
 		TheInGameUI->setScrollAmount(offset);
 		rva0042E804();
@@ -195,7 +154,7 @@ void BfmeOwnVVD::rva0042F213()
 		{
 		case 1:
 			{
-				if (TheInGameUI->slotCC())
+				if (TheInGameUI->slot51())
 				{
 					TheInGameUI->setScrollAmount(offset);
 					rva0042E804();
@@ -206,7 +165,7 @@ void BfmeOwnVVD::rva0042F213()
 					ICoord2D delta;
 					delta.x = m_currentPos.x - pos.x;
 					delta.y = m_currentPos.y - pos.y;
-					if (TheInGameUI->m_8C4)
+					if (TheInGameUI->m_moveRMBScrollAnchor)
 					{
 						int maxX = TheDisplay->getWidth() / 2;
 						int maxY = TheDisplay->getHeight() / 2;
@@ -305,7 +264,7 @@ void BfmeOwnVVD::rva0042F213()
 		TheInGameUI->setScrollAmount(offset);
 	}
 
-	if (TheInGameUI->m_15 && TheInGameUI->m_16)
+	if (TheInGameUI->field015 && TheInGameUI->field016)
 	{
 		if (m_154)
 			TheTacticalView->setAngle(TheTacticalView->getAngle() - TheWritableGlobalData->m_keyboardCameraRotateSpeed);

@@ -14,6 +14,9 @@ Donor facts: Zero Hour's InGameUI declaration supplies the names of message togg
 The INI field-parse table at VA 0x00BFC338 gives each key's offset and parser: parseAsciiString 0x0002F11E, parseInt 0x0002EF56, parseBool 0x0002E850, parseColorInt 0x0002F3FE, parseReal 0x0002EFC0, parseDurationReal 0x00338B0A and parseVelocityReal 0x00338BBD type the superweapon (+0x728..+0x748), named-timer (+0x76C..+0x798), drawable-caption (+0x79C..+0x7A4), message (+0x814..+0x838), military-caption (+0x858..+0x86C), floating-text (+0x8A4..+0x8AC) and RMB-anchor (+0x8C3/+0x8C4) members; Zero Hour's table maps the same keys to these names. BFME2-only keys keep neutral names: UnitHelpTextDelay +0x984 (integral store by 0x0002F0F7) and the four Hero*NotificationMessage/Timeout pairs +0x9D0..+0x9EC (AsciiString, Real).
 Rowed accesses: setScrolling/isScrolling 0x0029A7F1/0x0029A83A use byte +0x7F8, setSelecting/isSelecting 0x0029A841/0x0029A854 byte +0x7F9, isPlacementAnchored 0x0029AAFC reads byte +0x554, updateOrderDisplayMode 0x0029A72C stores 0/1/2 to dword +0x8B4, evaluateSoloNexus 0x0029B967 stores the drawable ID at +0x980 (0x0029B9C3), placeBuildAvailable 0x0029BB8B stores 1/2 to dword +0x9C8 (0x0029BCF6/0x0029BD2D), and playCameoMovie 0x0029F3D7 passes the pointer at +0x5C8 to the window's video-buffer setter (0x0029F48D). stopMovie 0x0029B4C4 calls slot 7 of the pointer at +0x5C4 and clears it (0x0029B4D6/0x0029B4D9), then empties the movie string at +0x1C, and the constructor clears it at 0x002A66D0; Zero Hour's stopMovie releases and clears m_videoStream before it empties m_currentlyPlayingMovie.
 Pointee types: the constructor stores the result of InGameNotificationBoxMovieClip's constructor 0x004E6C34 (called at 0x002A640C) at +0x9CC (0x002A6415). playCameoMovie stores at +0x5CC (0x0029F40D) what TheVideoPlayer's slot 17 returns (call 0x0029F408); slot 17 of its table VA 0x00BC7EA8 is 0x0009151D, whose row returns VideoStreamInterface *. drawConstructPercent 0x002779CE reads TheInGameUI's +0x7A4 byte and +0x7A0 dword inline (0x00277A53/0x00277A59), the Zero Hour inline caption accessors.
+Rowed 0x0029A9FF, whose ledger name takes a const Coord3D pointer, sets byte +0x9B4 to 1 and copies the point's three dwords to +0x9B8 (0x0029AA09..0x0029AA18), or clears +0x9B4 for a null point; rva0029B3C1 reads the three floats back (0x0029B3E1..0x0029B3EA) against the object's Coord3D position. The constructor builds a four-byte STLport list at +0x9C4 (0x002A63CB, _List_base constructor 0x004EC36C at 0x002A63E8) and the destructor destroys it (0x002A5C90, 0x004EC395 at 0x002A5C9A); updateLocalPhantomStructureDisplay 0x002A1158 walks it and removes int object IDs from it (0x002A11AF, 0x002A1219), as InGameUICtor's list<int> view types it. The point is typed where the includer loaded Coord3D.h first and the list where it loaded STLport's list header first.
+beginAreaSelectHint 0x0029A79F sets byte +0x28 and copies the message's 16-byte pixel region to +0x2C (0x0029A7B6..0x0029A7BE). setPlacementStart 0x0029A9C2 writes both ICoord2D anchors +0x558/+0x560 from its one argument (0x0029A9CC..0x0029A9E6), setPlacementEnd 0x0029AAE0 only +0x560, and getPlacementPoints 0x0029B45C copies them out. setScrollAmount 0x0029A85B stores its by-value Coord2D at +0x808/+0x80C. The INI table parses MessagePosition and MessagePositionLW with parseICoord2D 0x0002F5BA into +0x81C/+0x824. Zero Hour's bodies of these rows and its INI table give the names m_dragSelectRegion, m_placeAnchorStart/m_placeAnchorEnd, m_scrollAmt and m_messagePosition; the BFME2-only key keeps a neutral name. Each is typed where the includer loaded the canonical IRegion2D, ICoord2D or Coord2D header first.
+The nine flag bytes +0x8BA..+0x8C2 are cleared one by one by the constructor (0x002A6958, 0x002A6995..0x002A69BF), setInputEnabled 0x0029AB48 (0x0029ABA5..0x0029ABD5) and rva0029AC03 (0x0029AC5D..0x0029AC8D); reset 0x002A5EE6 clears +0x8BA (0x002A6151) and update 0x002A1582 tests +0x8BB..+0x8C2 against zero (0x002A1814..0x002A1958).
 Inline slots: W3DInGameUI's object (constructor 0x0008EF3F) emits InGameUI's inline virtuals right after its constructor, in table order, and both tables 0x00BFD410 and 0x00BC7A88 point at those copies: toggleMessages 0x0008EF81 (slot 20, byte +0x811 = 1 - itself), isMessagesOn 0x0008EF95 (21), slot51 0x0008EF9C (byte +0x98C), slot63/slot64 0x0008EFA3/0x0008EFAA (byte +0x8C6), getMaxSelectCount 0x0008EFB7 (+0x56C), slot76 0x0008EFBE (+0x980), slot95 0x0008EFC5 (byte +0x810) and the Snapshot name getter 0x0008EFD2 (+0xC table slot 2, the "InGameUI" literal at VA 0x00BC7C7C). Slots 52, 70, 72, 102 and 103 point at identical bodies folded elsewhere: 0x000D43D0 (xor eax,eax), 0x0054902C (+0x568), 0x0028A94B (+0x570), 0x0045310D and 0x004AD9A6 (byte +0x3C). Donor facts: Zero Hour declares toggleMessages, isMessagesOn, getSelectCount, getMaxSelectCount, getFrameSelectionChanged and getDisplayedMaxWarning inline with these bodies, and its snapshot methods protected; the loadPostProcess 0x002A2184 and xfer 0x002A6AC2 rows are protected virtuals.
 */
 #ifndef BFME2_INGAMEUI_H
@@ -291,7 +294,12 @@ public:
     void *field024;
 #endif
     bool field028;
-    char opaque029[0x3C - 0x29];
+    char opaque029[0x2C - 0x29];
+#ifdef CANONICAL_IREGION2D_H
+    IRegion2D m_dragSelectRegion;
+#else
+    char opaque02C[0x3C - 0x2C];
+#endif
     bool field03C;
     char opaque040[0x238 - 0x40];
     const CommandButton *field238;
@@ -300,7 +308,13 @@ public:
     ObjectID field540;
     char opaque544[0x554 - 0x544];
     bool m_placeAnchorInProgress;
-    char opaque555[0x568 - 0x555];
+    char opaque555[0x558 - 0x555];
+#ifdef CANONICAL_ICOORD2D_H
+    ICoord2D m_placeAnchorStart;
+    ICoord2D m_placeAnchorEnd;
+#else
+    char opaque558[0x568 - 0x558];
+#endif
     int field568;
     int field56C;
     unsigned int field570;
@@ -343,12 +357,21 @@ public:
     int m_7FC;
     int m_800;
     unsigned int m_804;
+#ifdef CANONICAL_COORD2D_H
+    Coord2D m_scrollAmt;
+#else
     char opaque808[0x810 - 0x808];
+#endif
     bool field810;
     bool field811;
     int m_messageColor1;
     int m_messageColor2;
+#ifdef CANONICAL_ICOORD2D_H
+    ICoord2D m_messagePosition;
+    ICoord2D m_824;
+#else
     char opaque81C[0x82C - 0x81C];
+#endif
     AsciiString m_messageFont;
     int m_messagePointSize;
     bool m_messageBold;
@@ -373,7 +396,15 @@ public:
     int m_8B4;
     bool field8B8;
     bool field8B9;
-    char opaque8BA[0x8C3 - 0x8BA];
+    bool m_8BA;
+    bool m_8BB;
+    bool m_8BC;
+    bool m_8BD;
+    bool m_8BE;
+    bool m_8BF;
+    bool m_8C0;
+    bool m_8C1;
+    bool m_8C2;
     bool m_drawRMBScrollAnchor;
     bool m_moveRMBScrollAnchor;
     unsigned char m_8C5;
@@ -398,7 +429,17 @@ public:
     bool field98C;
     char opaque98D[0x9B4 - 0x98D];
     unsigned char m_9B4;
-    char opaque9B5[0x9C8 - 0x9B5];
+    char opaque9B5[0x9B8 - 0x9B5];
+#ifdef CANONICAL_COORD3D_H
+    Coord3D m_9B8;
+#else
+    char opaque9B8[0x9C4 - 0x9B8];
+#endif
+#ifdef _STLP_INTERNAL_LIST_H
+    _STL::list<int> m_9C4;
+#else
+    char opaque9C4[0x9C8 - 0x9C4];
+#endif
     int m_9C8;
     InGameNotificationBoxMovieClip *field9CC;
     AsciiString m_9D0;

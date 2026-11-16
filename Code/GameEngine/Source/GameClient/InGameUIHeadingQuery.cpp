@@ -22,23 +22,14 @@ static inline float lengthSqr2D(const Coord3D &c)
 
 #include "../GameLogic/Object/object.h"
 
-class InGameUI
-{
-public:
-	float rva0029B3C1(const Object *obj) const;
-private:
-	char m_pad000[0x9B4];
-	bool m_overrideHeading;		// +0x9B4
-	char m_pad9B5[3];
-	Coord3D m_headingTarget;	// +0x9B8
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 float InGameUI::rva0029B3C1(const Object *obj) const
 {
-	if (!m_overrideHeading)
+	if (!m_9B4)
 		return obj->m_1c0;
 	Coord3D dir;
-	dir.set(&m_headingTarget);
+	dir.set(&m_9B8);
 	dir.sub(obj->getPosition());
 	if (lengthSqr2D(dir) < 1.0f)
 		return obj->m_1c0;
