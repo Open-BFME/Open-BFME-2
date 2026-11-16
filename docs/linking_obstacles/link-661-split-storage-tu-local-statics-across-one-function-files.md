@@ -436,3 +436,13 @@ WW3D access. Peer-held WW3D/StringClass/DX8Wrapper scopes were not edited.
 Log: `build/decal-diagnostic/headers-master-merge-dry.log`. No source paths moved,
 no complete consumer audit or real-link receipt was obtained, and selection
 rendering is not yet repaired by these prerequisite changes.
+
+**Reader DrawableInfo prerequisite:** replace the private two-field record with
+the registered DrawableInfoClass.h and use its m_drawable field at the same +4
+offset in layerHeightRva001086EC. No constructor or object-size operation is
+introduced. Official build retains 17/17 rows, 43 float literals, 12 imports and
+two EXACT EH graphs. header_adopt_lane.py accept passes and retires one queue row.
+This reconciles the reader's field spelling with the shared record; the manager,
+storage and other class-view conflicts above remain separate work. Logs:
+`build/decal-diagnostic/reader-drawable-master-build.log` and
+`build/decal-diagnostic/reader-drawable-accept.log`. No runtime fix is claimed.

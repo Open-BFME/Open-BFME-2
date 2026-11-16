@@ -170,7 +170,7 @@ static void projectRangesRva00108FBD(const Rva00108E7AVector &axisA, const Rva00
 
 class Object {public:int rva0028B511()const;};
 #include "../../../../../GameEngine/Include/GameClient/Drawable.h"
-struct DrawableInfo {void*unknown;Drawable*drawable;};
+#include "../../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 class AABoxClass;
 class RenderObjClass{public:
 virtual void Delete_This();
@@ -311,7 +311,7 @@ virtual class BridgeView10C841 *getFirstBridge();
 };extern TerrainLogic*TheTerrainLogic;
 static float layerHeightRva001086EC(RenderObjClass*robj,const Rva00108E7AVector&pos,Rva00108E7AVector&normal){
  if(robj&&robj->Get_User_Data()){
- Drawable*draw=robj->Get_User_Data()->drawable;char*drawBytes=(char*)draw;Object*object=*(Object**)(drawBytes+0xfc);
+ Drawable*draw=robj->Get_User_Data()->m_drawable;char*drawBytes=(char*)draw;Object*object=*(Object**)(drawBytes+0xfc);
  if(object){int layer=object->rva0028B511();if(layer!=1&&TheTerrainLogic){Rva00108E7AVector n;float height=TheTerrainLogic->getLayerHeight(pos.X,pos.Y,layer,&n,true);normal=n;return height+1.5f;}}
  }
  normal.Set(0,0,1);return 0;
