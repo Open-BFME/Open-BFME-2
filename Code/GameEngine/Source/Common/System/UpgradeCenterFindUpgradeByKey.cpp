@@ -2,8 +2,8 @@
 // stlport
 //
 // ?findUpgradeByKey@UpgradeCenter@@QBEPBVUpgradeTemplate@@W4NameKeyType@@@Z,
-// retail 0x0026EEB8, 24 bytes. This unit supplies the BFME 2 list layout
-// used by the lookup, link/unlink helpers and definition parser.
+// retail 0x0026EEB8, 24 bytes. The lookup, link/unlink helpers and definition
+// parser use the BFME 2 list layout of Common/Upgrade.h.
 //
 // Zero Hour reference
 // (reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/Generals/Code/GameEngine/Source/Common/System/Upgrade.cpp,
@@ -30,46 +30,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class UpgradeTemplate
-{
-public:
-	NameKeyType getUpgradeNameKey() const { return m_nameKey; }
-	int getMaskIndex() const { return m_maskIndex; }
-	void setMaskIndex(int index) { m_maskIndex = index; }
-	const UpgradeTemplate *friend_getNext() const { return m_next; }
-	// Keep the native inline loads without an unused competing external copy.
-	__declspec(dllimport) __forceinline UpgradeTemplate *friend_getNext() { return m_next; }
-	const UpgradeTemplate *friend_getPrev() const { return m_prev; }
-	UpgradeTemplate *friend_getPrev() { return m_prev; }
-	__declspec(dllimport) __forceinline void friend_setNext(UpgradeTemplate *n) { m_next = n; }
-	__declspec(dllimport) __forceinline void friend_setPrev(UpgradeTemplate *p) { m_prev = p; }
-
-private:
-	unsigned char m_unreconstructed_000[0x0C];
-	NameKeyType m_nameKey; // +0x0C
-	unsigned char m_pad010[0x38 - 0x10];
-	int m_maskIndex; // +0x38 mask bit index retail-measured
-	unsigned char m_pad03C[0x64 - 0x3C];
-	UpgradeTemplate *m_next; // +0x64
-	UpgradeTemplate *m_prev; // +0x68
-};
-
-class UpgradeCenter
-{
-public:
-	__declspec(noinline) const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
-	UpgradeTemplate *newUpgrade(const AsciiString &name, bool assignMaskBit);
-	static void parseUpgradeDefinition(class INI *ini);
-	const UpgradeTemplate *rva0026EEA0(int key) const;
-	void linkUpgrade(UpgradeTemplate *upgrade);
-
-protected:
-	void unlinkUpgrade(UpgradeTemplate *upgrade);
-
-private:
-	unsigned char m_unreconstructed_000[0x0C];
-	UpgradeTemplate *m_upgradeList; // +0x0C
-};
+#include "../../../Include/Common/Upgrade.h"
 
 // ?findUpgradeByKey@UpgradeCenter@@QBEPBVUpgradeTemplate@@W4NameKeyType@@@Z
 const UpgradeTemplate *UpgradeCenter::findUpgradeByKey(NameKeyType key) const
@@ -98,7 +59,7 @@ const UpgradeTemplate *UpgradeCenter::rva0026EEA0(int key) const
 
 	// search list
 	for (upgrade = m_upgradeList; upgrade; upgrade = upgrade->friend_getNext())
-		if (key == upgrade->getMaskIndex())
+		if (key == upgrade->field38)
 			return upgrade;
 
 	// item not found
@@ -112,12 +73,12 @@ void UpgradeCenter::unlinkUpgrade(UpgradeTemplate *upgrade)
 	if (upgrade == 0)
 		return;
 
-	if (upgrade->friend_getNext())
-		upgrade->friend_getNext()->friend_setPrev(upgrade->friend_getPrev());
-	if (upgrade->friend_getPrev())
-		upgrade->friend_getPrev()->friend_setNext(upgrade->friend_getNext());
+	if (upgrade->m_next)
+		upgrade->m_next->m_prev = upgrade->m_prev;
+	if (upgrade->m_prev)
+		upgrade->m_prev->m_next = upgrade->m_next;
 	else
-		m_upgradeList = upgrade->friend_getNext();
+		m_upgradeList = upgrade->m_next;
 }
 
 // ?linkUpgrade@UpgradeCenter@@QAEXPAVUpgradeTemplate@@@Z @0x0026EED0 34B.
@@ -127,10 +88,10 @@ void UpgradeCenter::linkUpgrade(UpgradeTemplate *upgrade)
 	if (upgrade == 0)
 		return;
 
-	upgrade->friend_setPrev(0);
-	upgrade->friend_setNext(m_upgradeList);
+	upgrade->m_prev = 0;
+	upgrade->m_next = m_upgradeList;
 	if (m_upgradeList)
-		m_upgradeList->friend_setPrev(upgrade);
+		m_upgradeList->m_prev = upgrade;
 	m_upgradeList = upgrade;
 }
 
@@ -173,7 +134,6 @@ private:
 
 #include "../../../Include/Common/INI/INI.h"
 
-extern UpgradeCenter *TheUpgradeCenter;
 // Upgrade.cpp's upgrade type names (retail RVA 0x009BB588: PLAYER, OBJECT, NULL), the
 // list parseIndexList reads for an upgrade's Type.
 extern const char *TheUpgradeTypeNames[];
@@ -237,15 +197,15 @@ void UpgradeCenter::parseUpgradeDefinition(INI *ini)
 	}
 	else if (ini->getLoadType() == INI_LOAD_BFME_TYPE_5)
 	{
-		int savedMask = upgrade->getMaskIndex();
+		int savedMask = upgrade->field38;
 		center->unlinkUpgrade(upgrade);
 		// 4-byte ABI view to reuse the rowed push_back body; identity unresolved.
 		reinterpret_cast<_STL::vector<Rva004DFCB0Element> *>(
 			reinterpret_cast<char *>(TheUpgradeCenter) + 0x18)->push_back(
 				*(const Rva004DFCB0Element *)&upgrade);
-		*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(upgrade) + 0x94) = 1;
+		upgrade->field94 = true;
 		upgrade = TheUpgradeCenter->newUpgrade(name, false);
-		upgrade->setMaskIndex(savedMask);
+		upgrade->field38 = savedMask;
 	}
 	else
 	{
