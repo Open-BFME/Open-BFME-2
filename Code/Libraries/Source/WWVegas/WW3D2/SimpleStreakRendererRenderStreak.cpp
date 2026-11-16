@@ -18,7 +18,6 @@
 #define inline __forceinline
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/shader.h"
 #undef inline
-#pragma optimize("", on)
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <new>
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/texture.h"

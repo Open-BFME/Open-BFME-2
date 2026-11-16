@@ -9,7 +9,6 @@
 // an array will not match, try it without this block.
 #include "../../Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 #define BFME_STLP_NODE_ALLOC 1
 #define _STLP_NO_EXCEPTIONS 1

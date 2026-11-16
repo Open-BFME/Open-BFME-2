@@ -9446,7 +9446,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Bfme5SmallTests.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Bfme5SmallTests.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeB996Range.cpp	"y",off	1
 pragma_optimize	Code/GameEngine/Source/Common/BfmeB996Range.cpp	"y",on	1
-pragma_optimize	Code/GameEngine/Source/Common/BfmeSmallAllocPR.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/DamageFX.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"gsy",on	1
@@ -9668,7 +9667,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassVertexMateri
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassVertexMaterialCopyCtor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClassConstructorBFME2.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClassVisibilityCheck.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/StreakRendererSetTextureBFME1.cpp	"",on	1
@@ -9733,7 +9731,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp	"gsy",o
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/nullrobj.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pot.cpp	"gsy",on	1
