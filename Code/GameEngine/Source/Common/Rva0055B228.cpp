@@ -14,13 +14,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-class AsciiStringMember
-{
-public:
-	AsciiStringMember() : m_data(0) {}
-	~AsciiStringMember();
-	void *m_data;
-};
+#include "../../Include/Common/AsciiStringMember.h"
 
 class Rva0055B0CC
 {

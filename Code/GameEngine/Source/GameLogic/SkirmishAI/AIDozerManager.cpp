@@ -91,13 +91,7 @@ private:
 	void *m_node;
 };
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-private:
-	void *m_data;
-};
+#include "../../../Include/Common/AsciiStringMember.h"
 
 class Rva005997CD
 {

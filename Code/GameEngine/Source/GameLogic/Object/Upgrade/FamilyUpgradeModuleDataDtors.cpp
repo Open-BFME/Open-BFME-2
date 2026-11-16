@@ -13,7 +13,7 @@ inline ModuleData::~ModuleData() {}
 
 struct FamVtableEmissionTag;
 
-class AsciiStringMember { public: ~AsciiStringMember(); char m_data[4]; };
+#include "../../../../Include/Common/AsciiStringMember.h"
 class ModuleDataBase { public: virtual ~ModuleDataBase() {} };
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 struct SoundHolder { ~SoundHolder() { if (m_ptr) m_ptr->Release_Ref(); } OpaqueRefCounted *m_ptr; };

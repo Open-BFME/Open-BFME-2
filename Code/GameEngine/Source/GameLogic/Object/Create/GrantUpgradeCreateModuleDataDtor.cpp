@@ -14,12 +14,7 @@
 
 #include "Common/Snapshot.h"
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-	char m_data[4];
-};
+#include "../../../../Include/Common/AsciiStringMember.h"
 
 class __declspec(novtable) GrantUpgradeCreateModuleData : public Snapshot
 {

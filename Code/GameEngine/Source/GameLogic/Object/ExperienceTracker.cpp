@@ -451,14 +451,7 @@ struct Rva002D021C
 		return TEXT; \
 	}
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-
-private:
-	char m_data[4];
-};
+#include "../../../Include/Common/AsciiStringMember.h"
 
 class Rva0039AD56Target
 {

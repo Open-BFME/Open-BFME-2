@@ -1,5 +1,5 @@
-// AsciiStringMember: canonical declarations for the members 7 units call through private views of it;
-// each call resolves to the unit's ledger row or pin, and no unit reads its layout, which stays opaque.
+// AsciiStringMember: canonical declarations for a string member that units destroy through
+// the 0x00036410 releaseBuffer fold; it is one 4-byte data pointer at +0x00.
 #ifndef CANONICAL_ASCIISTRINGMEMBER_H
 #define CANONICAL_ASCIISTRINGMEMBER_H
 
@@ -7,6 +7,8 @@ class AsciiStringMember
 {
 public:
 	~AsciiStringMember();
+
+	void *m_data;
 };
 
 #endif // CANONICAL_ASCIISTRINGMEMBER_H

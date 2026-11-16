@@ -14,14 +14,7 @@
 // the calls in-TU instead). Destruction runs in reverse declaration order
 // (+8, +4, +0), and the explicit pointer teardown runs first.
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-
-private:
-	void *m_data;
-};
+#include "../../../../GameEngine/Include/Common/AsciiStringMember.h"
 
 class Rva00688980
 {
