@@ -12,24 +12,8 @@ enum NetCommandType
 class AsciiString;
 typedef bool Bool;
 
-// Retail base vtable 0x860130: deleting dtor, getSortNumber, a bool slot,
-// getContentsAsAsciiString; matches NetCommandMsgCtor.cpp's view.
-class NetCommandMsg
-{
-protected:
-	virtual ~NetCommandMsg() {}
-public:
-	virtual Int getSortNumber();
-	virtual Bool vslot08() { return false; }
-	virtual AsciiString getContentsAsAsciiString();
-protected:
-	UnsignedInt m_timestamp; // +4
-	UnsignedInt m_executionFrame; // +8
-	UnsignedInt m_playerID; // +0xC
-	UnsignedShort m_id; // +0x10
-	NetCommandType m_commandType; // +0x14
-	Int m_referenceCount; // +0x18
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+inline NetCommandMsg::~NetCommandMsg() {}
 class NetHeroCommandMsg : public NetCommandMsg
 {
 public:

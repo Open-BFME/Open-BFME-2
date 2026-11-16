@@ -11,7 +11,7 @@
 class AsciiString;
 enum NetCommandType;
 
-class NetCommandMsg : public MemoryPoolObject
+class NetCommandMsg
 {
 public:
     NetCommandMsg();

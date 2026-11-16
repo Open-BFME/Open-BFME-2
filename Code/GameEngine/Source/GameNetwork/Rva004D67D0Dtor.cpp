@@ -13,23 +13,7 @@ typedef int Int;
 typedef bool Bool;
 class AsciiString;
 
-// Retail base vtable 0x860130: deleting dtor, getSortNumber, a bool slot,
-// getContentsAsAsciiString; matches NetCommandMsgCtor.cpp's view.
-class NetCommandMsg
-{
-public:
-	NetCommandMsg();
-protected:
-	virtual ~NetCommandMsg();
-public:
-	virtual Int getSortNumber();
-	virtual Bool vslot08() { return false; }
-	virtual AsciiString getContentsAsAsciiString();
-protected:
-	char m_pad04[0x14 - 0x04];
-	int m_commandType;
-	int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 inline NetCommandMsg::~NetCommandMsg() {}
 
 class Rva004D67D0 : public NetCommandMsg
@@ -47,7 +31,7 @@ private:
 
 Rva004D67D0::Rva004D67D0() : m_action(0), m_reason(0), m_filename(AsciiString(""))
 {
-	m_commandType = 30;
+	m_commandType = (NetCommandType)30;
 }
 
 Rva004D67D0::~Rva004D67D0()

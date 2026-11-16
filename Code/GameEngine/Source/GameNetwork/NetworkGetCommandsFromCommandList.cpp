@@ -51,19 +51,14 @@ public:
 	int rva004CF0FB(int playerID);		// 0x004CF0FB
 };
 
-class NetCommandMsg
-{
-public:
-	void detach();				// 0x004D55BC
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 class Rva004D57AE : public NetCommandMsg
 {
 public:
 	Rva004D57AE();		// 0x004D57AE
 	void setPlayerIndex(unsigned int playerIndex);	// 0x00318B09
-	unsigned char m_pad00[0x0C];
-	int m_0C;				// +0x0C
-	unsigned char m_pad10[0x20 - 0x10];
+private:
+	unsigned int m_playerIndex;		// +0x1C
 };
 class NetWrapperCommandMsg;
 
@@ -184,7 +179,7 @@ void Rva0025E4CD::rva0025E75F()
 			&& ((Rva004CF0FB *)m_conMgr)->rva004CF0FB(getLocalPlayerID()) == 0)
 		{
 			Rva004D57AE *cmd = new Rva004D57AE;
-			cmd->m_0C = getLocalPlayerID();
+			cmd->m_playerID = getLocalPlayerID();
 			cmd->setPlayerIndex(getLocalPlayerID());
 			((NetworkInterface *)this)->ProcessDestroyPlayerCommand((NetWrapperCommandMsg *)cmd);
 			cmd->detach();

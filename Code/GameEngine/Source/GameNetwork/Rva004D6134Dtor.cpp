@@ -21,24 +21,8 @@ class AsciiString;
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
-// Retail vtable 0x860130: deleting dtor, getSortNumber, the bool slot and
-// getContentsAsAsciiString (see NetCommandMsgCtor.cpp).
-class NetCommandMsg
-{
-protected:
-	virtual ~NetCommandMsg() {}
-public:
-	virtual Int getSortNumber();
-	virtual Bool vslot08() { return false; }
-	virtual AsciiString getContentsAsAsciiString();
-protected:
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	int m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+inline NetCommandMsg::~NetCommandMsg() {}
 
 class Rva004D6134 : public NetCommandMsg
 {

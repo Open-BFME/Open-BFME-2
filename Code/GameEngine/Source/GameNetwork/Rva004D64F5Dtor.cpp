@@ -11,24 +11,8 @@ enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
-class NetCommandMsg
-{
-public:
-	NetCommandMsg();
-protected:
-	virtual ~NetCommandMsg() {}
-public:
-	virtual Int getSortNumber();
-	virtual Bool vslot08() { return false; }
-	virtual AsciiString getContentsAsAsciiString();
-protected:
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+inline NetCommandMsg::~NetCommandMsg() {}
 #include "ascii_string.h"
 class Rva004D64F5 : public NetCommandMsg
 {
