@@ -19,7 +19,7 @@ public:
 };
 }
 
-struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
+#include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class ArmorTemplateSet {
 public:
