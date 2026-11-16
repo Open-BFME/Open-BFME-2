@@ -14,7 +14,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define Matrix4x4 Matrix4
 #define __PLACEMENT_VEC_NEW_INLINE // always.h supplies array placement new/delete.
 #include <new>
-#pragma optimize("s", on)
 #include "../../../../../reference/shims/bfmepool/mempool.h"
 #include "refcount.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard

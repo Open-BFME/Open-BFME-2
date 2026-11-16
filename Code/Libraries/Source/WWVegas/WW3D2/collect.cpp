@@ -10,7 +10,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("s", on)
 #include "refcount.h"
 #include "../../../../../reference/shims/bfme_vector3_eq_link/vector3_eq_link.h"
 // stlport

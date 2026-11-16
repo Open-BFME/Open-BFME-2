@@ -17,7 +17,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // an inline function takes the optimization state at its definition, so
 // matrix3d.h is included under /O1 to make this copy that body. `first` itself
 // compiles the same either way.
-#pragma optimize("s", on)
 #include "matrix3d.h"
 #include "rendobj.h"
 #include "sphere.h"

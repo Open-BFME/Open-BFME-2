@@ -47,7 +47,6 @@ Rva007B7024Object *g_Va00DEE86C;
 // Retail's release thunk uses the /O1 memory read-modify-write counter shape
 // (dec [counter] / cmp [counter],0) while the unit builds /O2, so this one
 // body is pinned to favor-size.
-#pragma optimize("s", on)
 void __cdecl rva007B7024()
 {
 	if (g_Va00DEE86C != 0)

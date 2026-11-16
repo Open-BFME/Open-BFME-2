@@ -135,7 +135,6 @@ void _bfmeMatrix4InitAnchor(Matrix4x4 &matrix4x4, const Matrix3D &matrix3D) { ma
 // (0x000F0F5B, vector constructor iterators over out-of-line element ctors).
 // Both camera constructors inline it, but this unit still emits the COMDAT;
 // instantiate it here for size so the copy is retail's.
-#pragma optimize("s", on)
 static void bfmeFrustumCtorAnchor() { FrustumClass frustum; (void)frustum; }
 #pragma optimize("", on)
 

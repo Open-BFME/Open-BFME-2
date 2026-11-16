@@ -20,7 +20,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // no EH state store between its body and the member vector's teardown, which
 // the compiler drops only when delete[] cannot throw.
 void __cdecl operator delete[](void *) throw();
-#pragma optimize("s", on)
 #include "refcount.h"
 #include "always.h"
 #undef W3DMPO_GLUE

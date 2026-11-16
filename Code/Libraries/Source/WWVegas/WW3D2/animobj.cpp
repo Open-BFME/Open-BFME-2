@@ -12,7 +12,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("s", on)
 #include "rendobj.h"	// the verified BFME2 base object must win the include guard
 #include "composite.h"
 /*
@@ -161,7 +160,6 @@ static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [
 // block: it has to precede the includes, and this one needs the complete
 // HTreeClass. If a later HTree delete here will not match, try it without this.
 
-#pragma optimize("gsy", on)
 
 static void bfmeHTreeDeleteAnchor(HTreeClass * tree) { delete tree; }
 

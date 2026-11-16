@@ -86,7 +86,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "W3DDevice/GameClient/W3DStatusCircle.h"
 #include "W3DDevice/GameClient/W3DCustomScene.h"
 // W3DShroudMaterialPassClass's deleting dtor (0x0006F1DD, 28B) is /O1 size-optimised.
-#pragma optimize("s", on)
 #include "W3DDevice/GameClient/W3DShroud.h"
 #pragma optimize("", on)
 #include "WW3D2/camera.h"

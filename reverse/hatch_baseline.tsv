@@ -9456,7 +9456,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A3B50RecordAppend
 pragma_optimize	Code/GameEngine/Source/Common/Containers/Rva003A3B50RecordAppend.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/DamageFX.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Open2Records.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Open2Records.cpp	"s",on	2
@@ -9493,7 +9492,7 @@ pragma_optimize	Code/GameEngine/Source/Common/Rva005DCE72.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva005DCE72.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	"t",on	2
-pragma_optimize	Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp	"s",on	2
+pragma_optimize	Code/GameEngine/Source/Common/Rva007B7024Cluster.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp	"s",on	2
 pragma_optimize	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	"",on	1
@@ -9528,7 +9527,6 @@ pragma_optimize	Code/GameEngine/Source/GameClient/InGameUI.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/LanguageFilter.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/GameClient/LanguageFilter.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/MapUtil.cpp	"",on	4
 pragma_optimize	Code/GameEngine/Source/GameClient/MapUtil.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/MapUtil.cpp	"s",on	4
@@ -9599,7 +9597,7 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	"t",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	"",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	"s",on	2
+pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp	"s",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRva000E8365.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	"",on	3
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	"gsy",on	1
@@ -9781,20 +9779,17 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/aabtree.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"gsy",on	3
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"s",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"",on	4
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"s",on	4
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera.cpp	"s",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera_projection.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/camera_projection.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/composite.cpp	"",on	1
@@ -9812,7 +9807,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	"gsy",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_add.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_weight_vector_resize.cpp	"",on	1
