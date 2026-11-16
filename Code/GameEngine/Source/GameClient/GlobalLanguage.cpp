@@ -119,14 +119,7 @@ typedef float Real;
 
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 
-class GlobalData
-{
-public:
-	unsigned char m_unreconstructed_00[0x30];
-	Int m_xResolution;
-};
-
-extern class GlobalData *TheWritableGlobalData;
+#include "../../Include/Common/GlobalData.h"
 
 // INI::parseLanguageDefinition, retail 0x001EA3F4 (25 bytes): the "Language"
 // block parser (registration VA 0x00DB8F98 binds the token to 0x001EA3F4,

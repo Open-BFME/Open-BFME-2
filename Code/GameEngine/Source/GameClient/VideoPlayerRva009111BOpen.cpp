@@ -23,16 +23,7 @@
 #include <mbstring.h>
 #pragma pop_macro("_CRTIMP")
 
-class GlobalData
-{
-public:
-	unsigned char m_pad000[0x9AD];
-	bool m_bfme9AD; // +0x9AD
-	unsigned char m_pad9AE[0xD38 - 0x9AE];
-	StringBase<char> m_bfmeD38; // +0xD38, mod directory
-};
-
-extern GlobalData *TheWritableGlobalData;
+#include "../../Include/Common/GlobalData.h"
 
 #include "../../Include/Common/FileSystem.h"
 
@@ -98,7 +89,7 @@ public:
 
 VideoStreamInterface *Rva009111B::open(AsciiString movieTitle, int flags)
 {
-	if (TheWritableGlobalData->m_bfme9AD)
+	if (TheWritableGlobalData->field09AD)
 		return 0;
 
 	const Video *pVideo = getVideo(movieTitle);
@@ -192,11 +183,11 @@ unsigned int g_Va00DE2098[0x100];
 void Rva009111B::init()
 {
 	VideoPlayer::init();
-	StringBase<char> &modDir = TheWritableGlobalData->m_bfmeD38;
+	AsciiString &modDir = TheWritableGlobalData->m_modDir;
 	if (!modDir.isEmpty())
 	{
 		g_Va00DE44A8[0].m_00 = true;
-		sprintf(g_Va00DE44A8[0].m_path, "%s%s\\", ((AsciiString &)modDir).str(), "Data\\Movies");
+		sprintf(g_Va00DE44A8[0].m_path, "%s%s\\", modDir.str(), "Data\\Movies");
 		_mbscpy((unsigned char *)g_Va00DE44A8[0].m_label, (const unsigned char *)"Mod Path");
 	}
 	g_Va00DE44A8[1].m_00 = true;
