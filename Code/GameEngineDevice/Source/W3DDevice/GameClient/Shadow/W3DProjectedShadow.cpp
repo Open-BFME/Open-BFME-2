@@ -22,14 +22,15 @@
 
 ;
 #include "always.h"
-#include <d3d8.h>
+#include <windows.h>
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 // Retail's seven-byte destructor is the empty header-inline body (RVA 0x00072892).
 inline RefCountClass::~RefCountClass() {}
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
-#include "WW3D2/assetmgr.h"
+#include "hash.h"
+#include "../../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 // Scalar types needed by the shadow interfaces. The donor BaseType.h also
 // defines coordinate classes that conflict with the canonical render headers.
 typedef int Int;
@@ -198,7 +199,6 @@ class W3DShadowManager;
 #endif
 #define DEFAULT_RENDER_TARGET_WIDTH			512
 #define DEFAULT_RENDER_TARGET_HEIGHT		512
-#define SHADOW_DECAL_FVF	D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_DIFFUSE
 #if defined(_DEBUG) || defined(_INTERNAL)
 
 
@@ -477,10 +477,12 @@ extern const FrustumClass *shadowCameraFrustum;
 
 	//defined in W3DShadow.
 ///@todo: Externs from volumetric shadow renderer - these need to be moved into W3DBufferManager
-extern LPDIRECT3DVERTEXBUFFER8 shadowVertexBufferD3D;
+struct IDirect3DVertexBuffer8;
+struct IDirect3DIndexBuffer8;
+extern IDirect3DVertexBuffer8 *shadowVertexBufferD3D;
 
 		///<D3D vertex buffer
-extern LPDIRECT3DINDEXBUFFER8	shadowIndexBufferD3D;
+extern IDirect3DIndexBuffer8 *shadowIndexBufferD3D;
 
 	///<D3D index buffer
 extern int nShadowVertsInBuf;
@@ -508,10 +510,10 @@ struct SHADOW_DECAL_VERTEX	//vertex structure passed to D3D
 		float u,v;
 };
 
-LPDIRECT3DVERTEXBUFFER8 shadowDecalVertexBufferD3D=NULL;
+IDirect3DVertexBuffer8 *shadowDecalVertexBufferD3D=NULL;
 
 		///<D3D vertex buffer
-LPDIRECT3DINDEXBUFFER8	shadowDecalIndexBufferD3D=NULL;
+IDirect3DIndexBuffer8 *shadowDecalIndexBufferD3D=NULL;
 
 	///<D3D index buffer
 int nShadowDecalVertsInBuf=0;

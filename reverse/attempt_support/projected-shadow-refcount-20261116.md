@@ -48,3 +48,21 @@ comparison succeeds. The old census has no reference to that name, but a
 complete ProviderGuard proof covering the current replacement objects is still
 needed before classifying this as a false rejection or changing the gate.
 No verifier changes were made in this round. No actual merge was applied.
+
+## Direct dependencies and complete reference proof
+
+The destination now includes hash.h and StringClassData.h instead of unused
+assetmgr.h, and windows.h instead of d3d8.h. Its only direct D3D dependencies
+are four buffer pointers; spell their existing struct-pointer types directly.
+The first trial exposed the missing LP typedefs and was completed by spelling
+those same types, without defining SDK guards. Remove unused SHADOW_DECAL_FVF.
+All 64 rows, nine EH graphs and external provider fingerprints are preserved.
+The official composer accepts the writer after these changes.
+
+The reader's std::max<float> refusal was observed without altering the official
+guard's return value. Initially its reference proof was unavailable because
+MappedImageCache.obj was missing. Building that unchanged source with build.sh
+passes 5/5 and completes the proof. The guard now establishes that no reference
+names the removed ANY COMDAT (digest 3d03d1a05786), but its unconditional missing
+definition clause still rejects it. This is the bounded false rejection to fix
+separately with a regression test; no exemption has been applied to source.

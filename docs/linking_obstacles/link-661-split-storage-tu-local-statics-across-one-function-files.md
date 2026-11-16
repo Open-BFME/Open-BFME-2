@@ -552,3 +552,20 @@ conflicts with DX8WrapperClass.h's enum forward declaration (C2011/C2371).
 The reader's byte check now succeeds and only its std::max<float> provider
 refusal remains. No merged source was written. Details and next evidence in
 the RefCount handoff above; log: canonical-statics-merge-dry.log.
+
+**Narrow destination dependencies:** replace unused asset-manager and D3D8
+header imports with hash.h, canonical StringClassData.h and windows.h. The
+four D3D buffer variables retain their exact struct-pointer types; the unused
+FVF macro is removed. Build retains 64/64 rows, nine EXACT EH graphs and every
+external provider fingerprint. StringClass adoption passes; preview stays at
+3,466 bytes. The official composer now accepts the writer and destination.
+
+The remaining reader refusal is a proven ProviderGuard false reject: after
+building the missing MappedImageCache object (5/5), the guard's complete
+reference proof returns a set excluding std::max<float>. The dropped definition
+is COMDAT selection ANY, digest 3d03d1a05786, and no row moves or byte changes
+are waived. The unchanged guard still rejects the disappearance. A separate
+tooling fix must retain rejection for referenced/unknown/non-discardable cases.
+Evidence: seed-narrow-merge-dry.log, provider-complete-observation.log and
+provider-observation/proof.json under build/decal-diagnostic; 22 existing
+provider tests pass, the new positive regression fails with 28 others passing.
