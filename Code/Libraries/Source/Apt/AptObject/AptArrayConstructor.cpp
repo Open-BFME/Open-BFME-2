@@ -209,7 +209,6 @@ AptValue *AptArray::sMethod_slice(AptValue *pThis,int nParams) {
  return gpUndefinedValue;
 }
 
-#pragma comment(linker, "/alternatename:?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z=?set@AptArray@@QAEXHPAVAptValue@@@Z")
 
 AptValue *AptArray::sMethod_push(AptValue *pThis,int nParams) {
  if(pThis->isArray()) {

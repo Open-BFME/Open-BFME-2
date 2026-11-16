@@ -52,6 +52,5 @@ template SaveMapPreview *_STL::vector<SaveMapPreview>::_M_allocate_and_copy<Save
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?loadPostProcess@SaveMapPreview@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?typeName@SaveMapPreview@@UBEPBDXZ=?name@Rva00226309Named@@QBEPBDXZ")
 #pragma comment(linker, "/alternatename:?xfer@SaveMapPreview@@UAEXPAVXfer@@@Z=?xfer@Rva002DBA3F@@QAEXPAVXfer@@@Z")
