@@ -375,21 +375,13 @@ private:
 
 // The 12-byte command-map name list at +0x1C: ctor 0x001F81BF (ICF fold,
 // pinned), AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
-class AptCommandMapAdder
+#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+
+// Adds one binding as a command map; retail inlines this at each call.
+static __forceinline void AddCommandMapBinding(AptCommandMapAdder &maps, const AsciiString &name, FunctorBinding binding)
 {
-public:
-	AptCommandMapAdder();
-	~AptCommandMapAdder();
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-
-	__forceinline void AddCommandMapBinding(const AsciiString &name, FunctorBinding binding)
-	{
-		AddCommandMap(name, binding);
-	}
-
-private:
-	char m_pad[0xC];
-};
+	maps.AddCommandMap(name, binding);
+}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../../Include/Common/Rva000B3F84Pair.h"
@@ -501,11 +493,11 @@ StrategicHUD::SelectionDetailsUIImpl::SelectionDetailsUIImpl(int level, const As
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
-	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnClosed", FunctorBinding(this, &SelectionDetailsUIImpl::OnClosed));
-	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnOpened", FunctorBinding(this, &SelectionDetailsUIImpl::OnOpened));
-	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnPanelFrameLoaded", FunctorBinding(this, &SelectionDetailsUIImpl::OnPanelFrameLoaded));
-	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnPanelFrameUnloaded", FunctorBinding(this, &SelectionDetailsUIImpl::OnPanelFrameUnloaded));
-	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnToggleButtonClicked", FunctorBinding(this, &SelectionDetailsUIImpl::OnToggleButtonClicked));
+	AddCommandMapBinding(m_commandMaps, prefix + m_name + "_OnClosed", FunctorBinding(this, &SelectionDetailsUIImpl::OnClosed));
+	AddCommandMapBinding(m_commandMaps, prefix + m_name + "_OnOpened", FunctorBinding(this, &SelectionDetailsUIImpl::OnOpened));
+	AddCommandMapBinding(m_commandMaps, prefix + m_name + "_OnPanelFrameLoaded", FunctorBinding(this, &SelectionDetailsUIImpl::OnPanelFrameLoaded));
+	AddCommandMapBinding(m_commandMaps, prefix + m_name + "_OnPanelFrameUnloaded", FunctorBinding(this, &SelectionDetailsUIImpl::OnPanelFrameUnloaded));
+	AddCommandMapBinding(m_commandMaps, prefix + m_name + "_OnToggleButtonClicked", FunctorBinding(this, &SelectionDetailsUIImpl::OnToggleButtonClicked));
 }
 
 // Retail 0x0057B9F1, 148 bytes: bound as "<movie>_OnPanelFrameLoaded"

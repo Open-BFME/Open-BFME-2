@@ -88,7 +88,8 @@ class Rva0057BC63FunctorHolder {public:Rva0057BC63FunctorHolder(const FunctorBin
 __forceinline FunctorBinding MakeBinding(FunctorMethod m,FunctorTarget*functorTarget){return FunctorBinding(m,functorTarget);}
 template<class T> class AptRef:public Rva0057BC63FunctorHolder {public:AptRef(const FunctorBinding&b):Rva0057BC63FunctorHolder(b){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 class AptCommandMap;
-class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);__forceinline void AddCommandMapDelegate(const AsciiString&n,FunctorBinding b){AddCommandMap(n,b);}private:_STL::vector<AsciiString> names;};
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+static __forceinline void AddCommandMapDelegate(AptCommandMapAdder&maps,const AsciiString&n,FunctorBinding b){maps.AddCommandMap(n,b);}
 class ChecklistItemRef;
 // Base1 and Base2 are interfaces: retail's base table 0x00C6EE28 is all __purecall.
 class Base1 {public:virtual ChecklistItemRef DoCreateNewItem()=0;~Base1(){}};
@@ -188,7 +189,7 @@ public:ChecklistUIImpl(int,const AsciiString&);virtual~ChecklistUIImpl();
  void OnScrollBarLoaded(const char*);void OnScrollBarUnloaded(const char*);void OnOpen(const char*);void OnClosed(const char*);void OnExpandButtonClicked(const char*);
  int level;AsciiString path;int state;AptCommandMapAdder maps;bool open,flag25,flag26;Rva000AD6F4 scrollbar;int word2C;_STL::list<int>items;_STL::list<int>::iterator position;bool flag38;float viewHeight;int turn,phase,word48;bool flag4C;
 };
-#define BIND(TEXT,METHOD) {FunctorMethod method=reinterpret_cast<FunctorMethod>(&ChecklistUIImpl::METHOD);const AsciiString&name=prefix+path+TEXT;maps.AddCommandMapDelegate(name,MakeBinding(method,reinterpret_cast<FunctorTarget*>(this)));}
+#define BIND(TEXT,METHOD) {FunctorMethod method=reinterpret_cast<FunctorMethod>(&ChecklistUIImpl::METHOD);const AsciiString&name=prefix+path+TEXT;AddCommandMapDelegate(maps,name,MakeBinding(method,reinterpret_cast<FunctorTarget*>(this)));}
 StrategicHUD::ChecklistUIImpl::ChecklistUIImpl(int l,const AsciiString&asciiString):level(l),path(asciiString),state(0),open(true),flag25(false),flag26(false),word2C(0),position(items.end()),flag38(false),viewHeight(ChecklistViewHeight(asciiString,l)),turn(1),phase(-1),word48(0),flag4C(false){
  AsciiString prefix;prefix.format("_level%u.",level);
  BIND("_OnScrollBarLoaded",OnScrollBarLoaded);
