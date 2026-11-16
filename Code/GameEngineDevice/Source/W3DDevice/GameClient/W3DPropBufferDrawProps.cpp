@@ -110,24 +110,16 @@ public:
 // Rowed setter at 0x0013BEB0 on the render object.
 class Rva0013BEB0DwordSlot { public: void set(Int value); };
 
-class DX8Wrapper
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+// The fog colour as the RGB vector this unit inlines.
+static __forceinline Vector3 Convert_Color(unsigned color)
 {
-protected:
-	// dx8wrapper.cpp's protected statics (@@1, 0x009EDA21/24), read through dx8wrapper.h's accessors.
-	static bool FogEnable;
-	static unsigned long FogColor;
-public:
-	__declspec(dllimport) __forceinline static bool Get_Fog_Enable() { return FogEnable; }
-	__declspec(dllimport) __forceinline static unsigned long Get_Fog_Color() { return FogColor; }
-	static __forceinline Vector3 Convert_Color(unsigned color)
-	{
-		Vector3 col;
-		col.X = ((color & 0xff0000) >> 16) / 255.0f;
-		col.Y = ((color & 0xff00) >> 8) / 255.0f;
-		col.Z = ((color & 0xff) >> 0) / 255.0f;
-		return col;
-	}
-};
+	Vector3 col;
+	col.X = ((color & 0xff0000) >> 16) / 255.0f;
+	col.Y = ((color & 0xff00) >> 8) / 255.0f;
+	col.Z = ((color & 0xff) >> 0) / 255.0f;
+	return col;
+}
 
 // Time-of-day object lighting: three 0x24-byte lights (ambient, diffuse,
 // position) per time of day, 0x6C apart from GlobalData +0x3C8.
@@ -282,7 +274,7 @@ void W3DPropBuffer::drawProps(RenderInfoClass &rinfo)
 			continue;
 		}
 		if (DX8Wrapper::Get_Fog_Enable()) {
-			rinfo.FogColor.Set(DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color()));
+			rinfo.FogColor.Set(Convert_Color(DX8Wrapper::Get_Fog_Color()));
 		}
 		if (TheTerrainRenderObject->getShroud() && m_props[i].ss != OBJECTSHROUD_CLEAR) {
 			rinfo.Push_Material_Pass(m_propShroudMaterialPass);

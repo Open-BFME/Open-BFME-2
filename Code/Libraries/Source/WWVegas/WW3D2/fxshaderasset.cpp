@@ -221,12 +221,7 @@ public:
 	static bool s_isW3DView;
 };
 
-class DX8Wrapper
-{
-	friend class FXShaderAsset::Impl;
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 
 class FXShaderAsset::Impl
 {
@@ -270,14 +265,14 @@ void FXShaderAsset::Impl::Load(const char *filename)
 		if (file != 0) {
 			int size = file->size();
 			char *data = file->readEntireAndClose();
-			hr = D3DXCreateEffect(DX8Wrapper::D3DDevice, data, size, macros, 0, 0, 0, &m_effect, &errors);
+			hr = D3DXCreateEffect(DX8Wrapper::_Get_D3D_Device8(), data, size, macros, 0, 0, 0, &m_effect, &errors);
 			delete[] data;
 		}
 	} else {
 		char source[260];
 		strcpy(source, "Shaders/");
 		_mbscat((unsigned char *)source, (const unsigned char *)filename);
-		hr = D3DXCreateEffectFromFileA(DX8Wrapper::D3DDevice, source, macros, 0, 0, 0, &m_effect, &errors);
+		hr = D3DXCreateEffectFromFileA(DX8Wrapper::_Get_D3D_Device8(), source, macros, 0, 0, 0, &m_effect, &errors);
 	}
 
 	if (hr < 0) {

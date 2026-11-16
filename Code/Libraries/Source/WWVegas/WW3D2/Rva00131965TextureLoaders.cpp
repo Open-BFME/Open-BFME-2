@@ -15,7 +15,7 @@ extern bool BFME_DX8_Thread_Assert();
 // Native normal and unwind paths share the existing device guard at 0x00042F8C.
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 struct IDirect3DDevice8;
-class DX8Wrapper {friend class Rva0013107A;protected:static IDirect3DDevice8 *D3DDevice;};
+#include "DX8WrapperClass.h"
 struct TextureGUID {unsigned long a;unsigned short b,c;unsigned char d[8];};
 const TextureGUID TextureBaseInterfaceID={0x580ca87e,0x1d3c,0x4d54,{0x99,0x1d,0xb7,0xd3,0xe3,0xc2,0x98,0xce}};
 struct TextureVolumeDesc {int format,type,usage,pool;unsigned width,height,depth;};
@@ -42,12 +42,12 @@ private:
 };
 void Rva0013107A::loadVolume() {
  BFMEDX8DeviceLock lock;TextureCOM9 *texture=0;
- if(D3DXCreateVolumeTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_source,m_size,m_width,m_height,m_depth,m_mipLevels,0,m_format,1,-1,-1,0,0,0,&texture)<0)texture=0;
+ if(D3DXCreateVolumeTextureFromFileInMemoryEx(DX8Wrapper::_Get_D3D_Device8(),m_source,m_size,m_width,m_height,m_depth,m_mipLevels,0,m_format,1,-1,-1,0,0,0,&texture)<0)texture=0;
  if(texture){TextureVolumeDesc desc;texture->GetLevelDesc(0,&desc);m_format=desc.format;texture->QueryInterface(TextureBaseInterfaceID,reinterpret_cast<void **>(&m_resource));texture->Release();texture=0;}
 }
 void Rva0013107A::loadCube() {
  BFMEDX8DeviceLock lock;TextureCOM9 *texture=0;
- if(D3DXCreateCubeTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_source,m_size,m_width,m_mipLevels,0,m_format,1,-1,-1,0,0,0,&texture)<0)texture=0;
+ if(D3DXCreateCubeTextureFromFileInMemoryEx(DX8Wrapper::_Get_D3D_Device8(),m_source,m_size,m_width,m_mipLevels,0,m_format,1,-1,-1,0,0,0,&texture)<0)texture=0;
  if(texture){TextureSurfaceDesc desc;texture->GetLevelDesc(0,&desc);m_format=desc.format;texture->QueryInterface(TextureBaseInterfaceID,reinterpret_cast<void **>(&m_resource));texture->Release();texture=0;}
 }
 
@@ -58,7 +58,7 @@ struct TextureVolumeResources {VolumeCOM9 *volume;TextureCOM9 *texture;};
 void Rva0013107A::loadVolumeSlices() {
  BFMEDX8DeviceLock lock;TextureVolumeResources handles;handles.texture=0;
  TextureVolumeDesc desc;TextureBox dest,src;
- if(D3DXCreateVolumeTexture(DX8Wrapper::D3DDevice,m_width,m_height,m_depth,m_mipLevels,0,m_format,1,&handles.texture)<0)return;
+ if(D3DXCreateVolumeTexture(DX8Wrapper::_Get_D3D_Device8(),m_width,m_height,m_depth,m_mipLevels,0,m_format,1,&handles.texture)<0)return;
  handles.volume=0;
  if(handles.texture->GetVolumeLevel(0,&handles.volume)<0)goto freeTexture;
  if(handles.volume->GetDesc(&desc)<0)goto freeVolume;
@@ -175,8 +175,8 @@ void Rva0013107A::loadImage() {
   const TextureTgaHeader *header=(const TextureTgaHeader*)m_source;
   if(m_imageMode==2 && header->type==2 && header->id==0 && header->colorMap==0 && (header->bits==24||header->bits==32) && header->width%4==0 && !(header->flags&0xf0)){
    int format=header->bits==24?22:21;
-   if(D3DXCheckTextureRequirements(DX8Wrapper::D3DDevice,&m_width,&m_height,0,0,&format,1)>=0 && m_width==(int)header->width && m_height==(int)header->height && format==(header->bits==24?22:21)) {
-    if(D3DXCreateTexture(DX8Wrapper::D3DDevice,header->width,header->height,m_mipLevels,0,format,1,&texture)<0)texture=0;
+   if(D3DXCheckTextureRequirements(DX8Wrapper::_Get_D3D_Device8(),&m_width,&m_height,0,0,&format,1)>=0 && m_width==(int)header->width && m_height==(int)header->height && format==(header->bits==24?22:21)) {
+    if(D3DXCreateTexture(DX8Wrapper::_Get_D3D_Device8(),header->width,header->height,m_mipLevels,0,format,1,&texture)<0)texture=0;
     else {
      TextureLockedRect rect;
      if(texture->LockRect(0,&rect,0,0x800)>=0){
@@ -210,7 +210,7 @@ void Rva0013107A::loadImage() {
      if(ratio!=1)skip=0;
     }
    }
-   if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_source,m_size,m_width,m_height,m_mipLevels,0,m_format,1,-1,((skip&31)<<26)|5,0,0,0,&texture)<0)texture=0;
+   if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::_Get_D3D_Device8(),m_source,m_size,m_width,m_height,m_mipLevels,0,m_format,1,-1,((skip&31)<<26)|5,0,0,0,&texture)<0)texture=0;
   }
  }
  if(texture){TextureSurfaceDesc desc;texture->GetLevelDesc(0,&desc);m_format=desc.format;texture->QueryInterface(TextureBaseInterfaceID,reinterpret_cast<void **>(&m_resource));texture->Release();texture=0;}
@@ -227,13 +227,13 @@ bool Rva0013107A::loadAuxImage() {
  if(!m_alpha||!m_alphaSize)return false;
  m_resource=0;m_format=21;
  TextureCOM9 *texture;
- if(D3DXCreateTexture(DX8Wrapper::D3DDevice,m_width,m_height,m_mipLevels,0,m_format,1,&texture)<0)return false;
+ if(D3DXCreateTexture(DX8Wrapper::_Get_D3D_Device8(),m_width,m_height,m_mipLevels,0,m_format,1,&texture)<0)return false;
  bool loaded=false;
  SurfaceResource *surface;
  if(reinterpret_cast<Texture2DSurfaceView*>(texture)->GetSurfaceLevel(0,&surface)<0)goto freeTexture;
  if(D3DXLoadSurfaceFromFileInMemory(surface,0,0,m_source,m_size,0,-1,0,0)<0)goto freeSurface;
  TextureCOM9 *alpha;
- if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_alpha,m_alphaSize,m_width,m_height,1,0,28,2,-1,-1,0,0,0,&alpha)<0)goto freeSurface;
+ if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::_Get_D3D_Device8(),m_alpha,m_alphaSize,m_width,m_height,1,0,28,2,-1,-1,0,0,0,&alpha)<0)goto freeSurface;
  {
   TextureSurfaceDesc desc;
   alpha->GetLevelDesc(0,&desc);

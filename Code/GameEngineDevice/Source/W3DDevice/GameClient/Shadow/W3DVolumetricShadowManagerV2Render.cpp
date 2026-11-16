@@ -27,13 +27,8 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct ShadowGlobalDataView {char pad[0x60];bool volumes;};
 class DX8Caps {public:char pad[0x90];unsigned caps;};
-class DX8Wrapper {
-protected:
- static DX8Caps *CurrentCaps;
-public:
- static void __cdecl Set_DX8_Render_State(unsigned long,unsigned int);
- static unsigned int Stencil_Caps(){return CurrentCaps->caps;}
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
+static inline unsigned int Stencil_Caps(){return DX8Wrapper::Get_Current_Caps()->caps;}
 class W3DVolumetricShadow {public: int bfmeIntersectsVisibleBounds(const AABoxClass&) const;};
 class W3DVolumetricShadowV2 {
 public:
@@ -92,7 +87,7 @@ void W3DVolumetricShadowManagerV2::renderShadows(RenderInfoClass &info)
    if(lock)drawAndRelease(1);
   }
  }
- if(DX8Wrapper::Stencil_Caps()&0x100)DX8Wrapper::Set_DX8_Render_State(0xB9,0);
+ if(Stencil_Caps()&0x100)DX8Wrapper::Set_DX8_Render_State(0xB9,0);
 }
 
 // BFME1 de2635e79 W3DVolumetricShadowVisibleBoundsPredicate.cpp supplies
@@ -121,7 +116,7 @@ void W3DVolumetricShadowManagerV2::InitDeviceForShadowPass(int pass)
 		DX8Wrapper::Set_DX8_Render_State(0x35, one);
 		DX8Wrapper::Set_DX8_Render_State(0x37, one);
 	}
-	if (!(DX8Wrapper::Stencil_Caps() & 0x100))
+	if (!(Stencil_Caps() & 0x100))
 		return;
 	DX8Wrapper::Set_DX8_Render_State(0xb9, one);
 	DX8Wrapper::Set_DX8_Render_State(0x16, one);

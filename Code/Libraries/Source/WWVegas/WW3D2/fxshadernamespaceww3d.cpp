@@ -110,25 +110,17 @@ void Rva0018BE65FogRangeEnd(ID3DXEffect *effect, D3DXHANDLE handle);
 // The same globals are written by the rowed fog setup at 0x0006F0BB.
 // DX8Wrapper's donor API names FogEnable/FogColor; the two range aliases
 // retain the existing BFME 2 ledger spelling.
-class DX8Wrapper {
-public:
-    __forceinline static bool Get_Fog_Enable() { return FogEnable; }
-    __forceinline static unsigned long Get_Fog_Color() { return FogColor; }
-    // BFME 1 874e38488 dx8wrapper.h Convert_Color(unsigned), unchanged
-    // channel masks and ordering. Target 18BDCF confirms unsigned blue
-    // conversion remains x87 while the three narrow channels use SSE.
-    __forceinline static FogVector Convert_Color(unsigned color) {
-        FogVector col;
-        col.w = ((color & 0xff000000) >> 24) / 255.0f;
-        col.x = ((color & 0xff0000) >> 16) / 255.0f;
-        col.y = ((color & 0xff00) >> 8) / 255.0f;
-        col.z = (color & 0xff) / 255.0f;
-        return col;
-    }
-protected:
-    static bool FogEnable;
-    static unsigned long FogColor;
-};
+#include "DX8WrapperClass.h"
+// dx8wrapper.h's Convert_Color(unsigned) body, which 0x0018BDCF inlines; its
+// unsigned blue conversion stays x87 while the three narrow channels use SSE.
+static __forceinline FogVector Convert_Color(unsigned color) {
+    FogVector col;
+    col.w = ((color & 0xff000000) >> 24) / 255.0f;
+    col.x = ((color & 0xff0000) >> 16) / 255.0f;
+    col.y = ((color & 0xff00) >> 8) / 255.0f;
+    col.z = (color & 0xff) / 255.0f;
+    return col;
+}
 // The existing range-start alias had consumers but no definition. Retail's
 // initial .data value is zero; this provider lets those consumers link.
 float g_Va00DEDA28 = 0.0f;
@@ -159,7 +151,7 @@ void Rva0018BDB8FogIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 // ResolveBindings independently installs this function for the Color path.
 void Rva0018BDCFFogColor(ID3DXEffect *effect, D3DXHANDLE handle)
 {
-    const FogVector &col = DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color());
+    const FogVector &col = Convert_Color(DX8Wrapper::Get_Fog_Color());
     effect->SetVector(handle, &col);
 }
 
