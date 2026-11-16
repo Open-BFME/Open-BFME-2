@@ -12,7 +12,11 @@
 
 extern "C" __declspec(dllimport) void *__cdecl memmove(void *destination,
 		const void *source, unsigned int count);
-extern "C" void __cdecl free(void *block);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 namespace _STL
 {
