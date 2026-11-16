@@ -10,7 +10,8 @@
 // pushes through the out-of-line pointer-vector push_back 0x004DFCB0 (the
 // ledger's folded vector<const ModuleData*> copy) and, besides the
 // downhill-only flag (template +0xD3 -> set +0x14), raises a second flag
-// (template +0x150 -> set +0x15) whose meaning is unknown.
+// (template m_scalesWalls +0x150 -> set +0x15). Retail reads the template
+// fields inline, so the unit reads LocomotorTemplate.h's members directly.
 // Layout: locomotors vector +4, valid surfaces +0x10; the locomotor keeps
 // its template at +4, legal surfaces at template +0x14. Retail pushes a
 // stack copy of the pointer made before the null test and keeps using the
@@ -21,20 +22,7 @@
 typedef bool Bool;
 typedef int Int;
 
-class LocomotorTemplate
-{
-public:
-	Int getLegalSurfaces() const { return m_surfaces; }
-	Bool getIsDownhillOnly() const { return m_downhillOnly; }
-	Bool getUnknown150() const { return m_unknown150; }
-private:
-	unsigned char m_pad00[0x14];
-	Int m_surfaces;
-	unsigned char m_pad18[0xD3 - 0x18];
-	Bool m_downhillOnly;
-	unsigned char m_padD4[0x150 - 0xD4];
-	Bool m_unknown150;
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
@@ -60,12 +48,12 @@ void LocomotorSet::addLocomotor(const LocomotorTemplate *lt, Bool flag)
 	if (loco)
 	{
 		m_locomotors.push_back(pushed);
-		m_validLocomotorSurfaces |= loco->m_template->getLegalSurfaces();
-		if (loco->m_template->getIsDownhillOnly())
+		m_validLocomotorSurfaces |= loco->m_template->m_surfaces;
+		if (loco->m_template->m_downhillOnly)
 		{
 			m_downhillOnly = true;
 		}
-		if (loco->m_template->getUnknown150())
+		if (loco->m_template->m_scalesWalls)
 		{
 			m_unknown15 = true;
 		}

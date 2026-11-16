@@ -1,120 +1,17 @@
 // cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ??4LocomotorTemplate@@QAEAAV0@ABV0@@Z, retail 0x001E3955, 927 bytes.
-// Copy assignment: base StreakDrawModuleTemplate operator= (rowed 0x1FD28E),
+// Copy assignment: base Overridable operator= (rowed 0x1FD28E),
 // AsciiString at +0x10 via rowed StringBase::set (0x366F0), then bulk int/byte
 // copies to +0x151, return *this. Evidence: 2 rowed callees, straight-line
 // movs, caller 0x001E5240, prev/next share /O1.
 #include "ascii_string.h"
-namespace FXParticleSystem
-{
-class StreakDrawModuleTemplate
-{
-public:
-	StreakDrawModuleTemplate &operator=(const StreakDrawModuleTemplate &rhs);
-	char m_pad[0x10];
-};
-}
-class LocomotorTemplate : public FXParticleSystem::StreakDrawModuleTemplate
-{
-public:
-	LocomotorTemplate &operator=(const LocomotorTemplate &rhs);
-private:
-	AsciiString m_10;
-	int m_surfaces;
-	int m_lookAheadMult;
-	unsigned char m_nonDirtyTransform;
-	int m_speed;
-	int m_speedDamaged;
-	int m_minSpeed;
-	int m_turnTime;
-	int m_turnTimeDamaged;
-	int m_slowTurnRadius;
-	int m_fastTurnRadius;
-	int m_turnThreshold;
-	int m_turnThresholdHS;
-	int m_acceleration;
-	int m_lift;
-	int m_liftDamaged;
-	int m_braking;
-	int m_minTurnSpeed;
-	int m_preferredHeight;
-	int m_preferredAttackHeight;
-	int m_preferredHeightDamping;
-	int m_circlingRadius;
-	int m_speedLimitZ;
-	int m_maxThrustAngle;
-	int m_zAxisBehavior;
-	int m_appearance;
-	int m_formationPriority;
-	int m_accDecTrigger;
-	int m_walkDistance;
-	int m_maxTurnWithoutReform;
-	int m_accelerationPitchLimit;
-	int m_bounceAmount;
-	int m_pitchStiffness;
-	int m_rollStiffness;
-	int m_pitchDamping;
-	int m_rollDamping;
-	int m_pitchInDirectionOfZVelFactor;
-	int m_maxOverlappedHeight;
-	int m_forwardVelocityPitchFactor;
-	int m_AC;
-	int m_forwardAccelerationPitchFactor;
-	int m_lateralAccelerationRollFactor;
-	int m_uniformAxialDamping;
-	int m_BC;
-	int m_airborneTargetingHeight;
-	int m_closeEnoughDist;
-	unsigned char m_closeEnoughDist3D;
-	int m_CC;
-	unsigned char m_locomotorWorksWhenDead;
-	unsigned char m_allowAirborneMotiveForce;
-	unsigned char m_apply2DFrictionWhenAirborne;
-	unsigned char m_downhillOnly;
-	unsigned char m_stickToGround;
-	int m_canMoveBackwards;
-	unsigned char m_DC;
-	int m_maximumWheelExtension;
-	int m_maximumWheelCompression;
-	int m_frontWheelTurnAngle;
-	unsigned char m_EC;
-	unsigned char m_ED;
-	int m_wanderWidthFactor;
-	int m_wanderLengthFactor;
-	int m_wanderAboutPointRadius;
-	int m_FC;
-	unsigned char m_burningDeathIsCavalry;
-	int m_chargeSpeed;
-	unsigned char m_chargeAvailable;
-	unsigned char m_chargeIgnoresCondition;
-	unsigned char m_enableHighSpeedTurnModelconditions;
-	unsigned char m_waitForFormation;
-	int m_rudderCorrectionDegree;
-	int m_rudderCorrectionRate;
-	int m_elevatorCorrectionDegree;
-	int m_elevatorCorrectionRate;
-	int m_aeleronCorrectionDegree;
-	int m_aeleronCorrectionRate;
-	int m_swoopStandoffRadius;
-	int m_swoopStandoffHeight;
-	int m_swoopTerminalVelocity;
-	int m_swoopAccelerationRate;
-	int m_swoopSpeedTuningFactor;
-	int m_backingUpSpeed;
-	unsigned char m_backingUpStopWhenTurning;
-	int m_backingUpDistanceMin;
-	int m_backingUpDistanceMax;
-	int m_backingUpAngle;
-	int m_riverModifier;
-	unsigned char m_scalesWalls;
-	unsigned char m_turnWhileMoving;
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 // ??4LocomotorTemplate@@QAEAAV0@ABV0@@Z @0x001E3955
 LocomotorTemplate &LocomotorTemplate::operator=(const LocomotorTemplate &rhs)
 {
-	FXParticleSystem::StreakDrawModuleTemplate::operator=(*(const FXParticleSystem::StreakDrawModuleTemplate *)&rhs);
-	m_10.setCopyInline(rhs.m_10);
+	Overridable::operator=(rhs);
+	m_name.setCopyInline(rhs.m_name);
 	m_surfaces = rhs.m_surfaces;
 	m_lookAheadMult = rhs.m_lookAheadMult;
 	m_nonDirtyTransform = rhs.m_nonDirtyTransform;
@@ -153,31 +50,31 @@ LocomotorTemplate &LocomotorTemplate::operator=(const LocomotorTemplate &rhs)
 	m_pitchInDirectionOfZVelFactor = rhs.m_pitchInDirectionOfZVelFactor;
 	m_maxOverlappedHeight = rhs.m_maxOverlappedHeight;
 	m_forwardVelocityPitchFactor = rhs.m_forwardVelocityPitchFactor;
-	m_AC = rhs.m_AC;
+	m_lateralVelocityRollFactor = rhs.m_lateralVelocityRollFactor;
 	m_forwardAccelerationPitchFactor = rhs.m_forwardAccelerationPitchFactor;
 	m_lateralAccelerationRollFactor = rhs.m_lateralAccelerationRollFactor;
 	m_uniformAxialDamping = rhs.m_uniformAxialDamping;
-	m_BC = rhs.m_BC;
+	m_turnPivotOffset = rhs.m_turnPivotOffset;
 	m_airborneTargetingHeight = rhs.m_airborneTargetingHeight;
 	m_closeEnoughDist = rhs.m_closeEnoughDist;
 	m_closeEnoughDist3D = rhs.m_closeEnoughDist3D;
-	m_CC = rhs.m_CC;
+	m_slideIntoPlaceTime = rhs.m_slideIntoPlaceTime;
 	m_locomotorWorksWhenDead = rhs.m_locomotorWorksWhenDead;
 	m_allowAirborneMotiveForce = rhs.m_allowAirborneMotiveForce;
 	m_apply2DFrictionWhenAirborne = rhs.m_apply2DFrictionWhenAirborne;
 	m_downhillOnly = rhs.m_downhillOnly;
 	m_stickToGround = rhs.m_stickToGround;
 	m_canMoveBackwards = rhs.m_canMoveBackwards;
-	m_DC = rhs.m_DC;
+	m_hasSuspension = rhs.m_hasSuspension;
 	m_maximumWheelExtension = rhs.m_maximumWheelExtension;
 	m_maximumWheelCompression = rhs.m_maximumWheelCompression;
 	m_frontWheelTurnAngle = rhs.m_frontWheelTurnAngle;
-	m_EC = rhs.m_EC;
-	m_ED = rhs.m_ED;
+	m_crewPowered = rhs.m_crewPowered;
+	m_useTerrainSmoothing = rhs.m_useTerrainSmoothing;
 	m_wanderWidthFactor = rhs.m_wanderWidthFactor;
 	m_wanderLengthFactor = rhs.m_wanderLengthFactor;
 	m_wanderAboutPointRadius = rhs.m_wanderAboutPointRadius;
-	m_FC = rhs.m_FC;
+	m_burningDeathRadius = rhs.m_burningDeathRadius;
 	m_burningDeathIsCavalry = rhs.m_burningDeathIsCavalry;
 	m_chargeSpeed = rhs.m_chargeSpeed;
 	m_chargeAvailable = rhs.m_chargeAvailable;

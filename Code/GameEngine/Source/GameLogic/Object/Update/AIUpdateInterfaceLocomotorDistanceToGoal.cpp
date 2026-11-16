@@ -7,7 +7,7 @@
 // the distance from the object to the goal stored at +0x200), returns 100 for a missing path
 // and 0 for a missing locomotor, and tests the locomotor's flag bit 10 (isCloseEnoughDist3D)
 // or object kind bit 1 of byte 0x10B (projectile) before the 3-D distance branch. The slot at
-// vtable+0x25C is getTreatAsAircraftForLocoDistToGoal; locomotor type 5 (+0x74 of its template)
+// vtable+0x25C is getTreatAsAircraftForLocoDistToGoal; locomotor appearance 5 (template +0x74)
 // is excluded. Facts: layouts and branch order from game.dat, the ZH body as the semantic guide.
 //
 // Codegen: the explicit case subtracts through a TU-local delta (copy then subtract) so the three
@@ -22,7 +22,7 @@ class BfmeVec3EJ;
 #include "../../../../Include/GameLogic/Module/Gen_000E5A50.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object { public: char pad[4];ThingTemplate *templ; char pad8[0x38-8];Coord3D position; const Coord3D*getPosition()const{return &position;} };
-class LocomotorTemplate {public:char pad[0x74];int type;};
+#include "../../../../Include/GameLogic/LocomotorTemplate.h"
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 static inline bool isCloseEnoughDist3D(const Locomotor *loco){return (loco->m_flags>>10)&1;}
 #include "../../../../Include/GameLogic/PathNode.h"
@@ -54,7 +54,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
    if(last)goalPos=last->m_pos;
    return (float)sqrt(((const Gen_000E5A50*)obj)->Get3DCenterDistanceSquared((const BfmeVec3EJ*)&goalPos));
   } else {
-  if(m_curLocomotor->m_template->type==5)break;
+  if(m_curLocomotor->m_template->m_appearance==5)break;
   bool aircraft=getTreatAsAircraftForLocoDistToGoal();float dist;
   Path *current=m_path;
   if(aircraft){const Coord3D *pos=(m_object ? m_object : m_object)->getPosition();dist=current->computeFlightDistToGoal(pos,goalPos);}

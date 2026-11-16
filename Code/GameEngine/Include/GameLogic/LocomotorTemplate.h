@@ -114,6 +114,9 @@
 // rva001E67BF names are ledger rows. Zero Hour Locomotor.h supplies the
 // class, m_name, getFieldParse and friend_setName names; retail 0x001E8BE6
 // assigns the string out of line through StringBase::set at 0x000366F0.
+// The default ctor is nothrow: LocomotorStore::newOverride 0x001E520C and the
+// EH-framed parser 0x001E8A94 (allocations 0x001E8B6F/0x001E8B90) call it after
+// operator new without an EH state that would free the block if it threw.
 
 #pragma once
 
@@ -128,7 +131,7 @@ struct FieldParse;
 class LocomotorTemplate : public Overridable
 {
 public:
-	LocomotorTemplate();
+	LocomotorTemplate() throw();
 	LocomotorTemplate(const LocomotorTemplate &other);
 	virtual ~LocomotorTemplate();
 	LocomotorTemplate &operator=(const LocomotorTemplate &other);

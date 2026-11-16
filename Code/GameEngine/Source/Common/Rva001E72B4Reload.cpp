@@ -137,7 +137,7 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/Common/Overridable.h"
-class LocomotorTemplate { public: LocomotorTemplate() throw(); void validate(); char storage[0x154]; };
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 struct Rva001E6731Head;
 class Rva001E6731
 {
@@ -149,7 +149,7 @@ public:
 	int m_04; // +0x04
 	int m_compare; // +0x08
 };
-struct LocomotorParserView { void *vtable; Overridable *next; bool overrideFlag; char pad9[3]; int retired; AsciiString name; __forceinline void setName(const AsciiString &value) { name.setCopyInline(value); } };
+struct LocomotorParserView { void *vtable; Overridable *next; bool overrideFlag; char pad9[3]; int retired; };
 class LocomotorStore {
 public:
  LocomotorTemplate *findLocomotorTemplate(int);
@@ -290,7 +290,7 @@ void LocomotorStore::parseLocomotorTemplateDefinition(INI *ini) {
  }
  }
  if(loco) {
-  { AsciiString name(token); AsciiString *dest=&((LocomotorParserView *)loco)->name; dest->setCopyInline(name); }
+  { AsciiString name(token); AsciiString *dest=&loco->m_name; dest->setCopyInline(name); }
  // Diagnostic lifetime inferred from native EH; original local spelling unknown.
  if(0){AsciiString diagnostic;}
   ini->initFromINI(loco,LocomotorTemplateFields);
