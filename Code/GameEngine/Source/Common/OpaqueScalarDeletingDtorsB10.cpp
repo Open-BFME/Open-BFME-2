@@ -199,14 +199,7 @@ Rva00431FB5::Rva00431FB5(EmitVtableTag *)
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString m_filename270;
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class AptSaveLoad : public _bfme_AptGameWindow
 {

@@ -39,13 +39,7 @@ extern class AudioManager *TheAudio;
 
 #include "../../../../../Include/GameClient/Rva005248D0.h"
 
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString m_filename270;
-};
+#include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 struct BfmeSubobject0022CE19
 {
@@ -137,7 +131,6 @@ public:
 	virtual ~AptSaveLoad();
 
 private:
-	unsigned char m_pad274[8];
 	int m_state; // +0x27C
 	TreeHintOpaque0043671B *m_pending; // +0x280
 	bool m_pausedOnEntry; // +0x284

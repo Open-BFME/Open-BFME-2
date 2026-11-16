@@ -6,13 +6,7 @@
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString filename270;
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class Rva005C9B76
 {
@@ -51,7 +45,6 @@ class Rva0056D915 : public _bfme_AptGameWindow
 public:
 	virtual ~Rva0056D915();
 private:
-	char m_pad274[8];
 	Rva005C9B76 m_member27C;
 };
 

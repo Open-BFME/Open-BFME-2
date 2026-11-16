@@ -478,7 +478,6 @@ protected:
 };
 #include "../../../../GameEngine/Include/GameLogic/Rva00493009.h"
 #include "../../../../GameEngine/Include/GameLogic/Module/Rva00507823.h"
-#include "../../../../GameEngine/Include/GameClient/_bfme_AptGameWindow.h"
 #include "../../../../GameEngine/Include/Common/MovieWindowPlayback.h"
 class XferSave
 {

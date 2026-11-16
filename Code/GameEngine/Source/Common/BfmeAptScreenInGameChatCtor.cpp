@@ -12,14 +12,7 @@
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString filename270;
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 class Rva005C9B76
 {
@@ -78,7 +71,6 @@ public:
 	// Rva0056D915Dtor.cpp; an inline body here would emit a second copy.
 	virtual ~Rva0056D915();
 private:
-	char m_pad274[8];
 	Rva005C9B76 m_member27C;
 	char m_pad298[0x29C - 0x298];
 	int m_29C;

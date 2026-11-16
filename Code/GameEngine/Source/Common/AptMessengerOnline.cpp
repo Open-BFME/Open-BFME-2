@@ -78,16 +78,7 @@ class AptOverButtonHandler;
 
 #include "../../Include/GameClient/Rva005248D0.h"
 
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 

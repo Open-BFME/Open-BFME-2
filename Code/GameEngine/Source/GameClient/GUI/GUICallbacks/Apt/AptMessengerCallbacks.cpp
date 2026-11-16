@@ -153,32 +153,7 @@ struct Rva00511730State;
 
 class Rva005B000C;
 
-class GameWindow
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual bool v15();
-	virtual Rva005B000C *v16(int index);
-
-	int winSetPosition(int x, int y);
-	int winGetPosition(int *x, int *y);
-	int winSetSize(int width, int height);
-	int winGetSize(int *width, int *height);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 // A tab's chat entry; its recovered 0x005B000C sends the typed line, pinned
 // by address.
@@ -214,8 +189,6 @@ private:
 };
 
 // The native Apt screen base handler is rowed at 0x0051274F.
-// This call-only view preserves the complete-this pointer; its full layout
-// remains in BfmeAptGameWindowMessages.cpp, alongside the native vftable evidence.
 #include "../../../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The rowed 0x005AFD43 keeps a tab's chat entry window and its text.
@@ -229,6 +202,14 @@ public:
 	friend class Rva005114BD;
 
 public:
+	// Slots 11-16 of vftable 0x00C659A0, after GameWindow's eleven.
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual bool v15();
+	virtual Rva005B000C *v16(int index);
+
 	void OnButtonSend(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void OnBttn_0(const char *unused);
@@ -251,7 +232,7 @@ public:
 	void rva00511CE6();
 
 private:
-	unsigned char m_pad004[0x274 - 0x4];
+	unsigned char m_pad218[0x274 - 0x218];
 	void *m_274; // +0x274, the screen's Apt movie
 	bool m_closed; // +0x278
 	unsigned char m_pad279[0x27C - 0x279];

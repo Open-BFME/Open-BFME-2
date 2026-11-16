@@ -29,16 +29,7 @@
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
-public:
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString filename270;
-public:
-	_bfme_AptGameWindow(void *context);
-public:
-	int rva0051274F(int message, unsigned int data1, unsigned int data2);
-};
+#include "../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // tu-skeleton: 0x0051268C 94B ??0_bfme_AptGameWindow@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/BfmeAptGameWindowConstructor.cpp (not merged yet)
 

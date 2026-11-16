@@ -5,11 +5,7 @@
 // The constructor51268C and factory2D1E55 prove its complete27C extent.
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../Include/GameClient/Rva005248D0.h"
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public: virtual ~_bfme_AptGameWindow();
-private: unsigned char tail270[0xC];
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 struct GlobalA04934;
 extern GlobalA04934 *g_Va00A04934;

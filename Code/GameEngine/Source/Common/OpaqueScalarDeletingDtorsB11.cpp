@@ -238,16 +238,7 @@ LivingWorldBuilding::LivingWorldBuilding(EmitVtableTag *)
 #include "../../Include/GameClient/Rva005248D0.h"
 
 // The screen base has GameWindow at +0 and the callback registry at +0x218.
-class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
-{
-public:
-	_bfme_AptGameWindow(void *context);
-	virtual ~_bfme_AptGameWindow();
-private:
-	AsciiString m_filename;
-	int m_274;
-	char m_278;
-};
+#include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
 // The secondary-table thunk at 0x004E4745 adjusts this by -0x218.
 class AptPlayerStatus : public _bfme_AptGameWindow
