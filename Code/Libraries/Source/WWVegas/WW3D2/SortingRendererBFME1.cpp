@@ -4,7 +4,6 @@
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
-#pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 // stlport
 // No /O1 vector-constructor-iterator anchor here: Flush (0x0012F190) is the

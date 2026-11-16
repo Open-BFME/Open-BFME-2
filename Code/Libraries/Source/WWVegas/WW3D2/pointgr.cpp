@@ -52,7 +52,6 @@ class CameraClass;
 #include	"../WWLib/always.h"
 #include	"vector.h"
 #include	<string.h>
-#pragma optimize("", on)
 // bfme link decl-only begin
 template <> VectorClass<Vector3>::VectorClass(int, Vector3 const *);
 template <> bool VectorClass<float>::operator==(VectorClass<float> const &) const;

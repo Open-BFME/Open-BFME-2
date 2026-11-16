@@ -10,7 +10,6 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "refcount.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "aabox.h"
 #include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"

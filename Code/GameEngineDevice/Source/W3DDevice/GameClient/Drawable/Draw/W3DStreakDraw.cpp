@@ -82,14 +82,12 @@ public:
 };
 #include <new>
 #include <stl/_algobase.h>
-#pragma optimize("t", on)
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 #include <vector>
 #include <memory>
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.

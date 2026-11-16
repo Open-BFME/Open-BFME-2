@@ -64,7 +64,6 @@ public:
 #include <deque>
 #include <string>
 #include <new>
-#pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -72,7 +71,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 #include <vector>
 #include <stdlib.h>
 void Rva00030830FreeAllocation(void *block);

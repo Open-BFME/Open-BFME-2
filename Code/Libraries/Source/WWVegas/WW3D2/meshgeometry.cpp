@@ -6,7 +6,6 @@
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
-#pragma optimize("", on)
 #include <math.h>
 #pragma pop_macro("inline")
 // Link view first: Vector3 Length/Normalize/ctor and the scalar operator* stay inline without emitting

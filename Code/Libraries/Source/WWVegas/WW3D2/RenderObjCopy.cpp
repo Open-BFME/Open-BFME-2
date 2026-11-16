@@ -37,7 +37,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "multilist.h"
 // Matrix3D uses the same size-optimized copy as its retail provider.
 #include "matrix3d.h"
-#pragma optimize("", on)
 #include "rendobj.h"
 #include "aabox.h"
 

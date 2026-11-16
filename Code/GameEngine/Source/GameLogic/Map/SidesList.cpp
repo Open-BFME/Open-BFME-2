@@ -1703,14 +1703,12 @@ void Rva0032A46C::rva0032A46C(AsciiString s)
 // for speed. Keeping the definition visible also preserves the caller's cached
 // buffer pointer; a declaration alone makes it reload after each accessor call.
 
-#pragma optimize("t", on)
 
 template<> inline char StringBase<char>::getCharAt(int index) const throw()
 {
 	return m_data ? m_data->data[index] : 0;
 }
 
-#pragma optimize("", on)
 
 // ?Rva00194810@@YA?AUBfmePairEL@@ABVBfmeWordEL@@@Z
 BfmePairEL __cdecl Rva00194810(const BfmeWordEL &name)
