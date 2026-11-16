@@ -288,7 +288,7 @@ def test_bare_local_label_requires_parent_proof_even_when_bytes_match(tmp_path, 
     obj = write_object(tmp_path / "unowned-local.obj", {"$L47551": BIT0})
     monkeypatch.setattr(build, "located_funclet", lambda *_: None)
     monkeypatch.setattr(build, "scoped_funclet_collision", lambda *_: True)
-    with pytest.raises(SystemExit, match="exact same-source parent EH location"):
+    with pytest.raises(SystemExit, match="exact parent EH location"):
         build.compile_function(local_row(), {}, obj)
 
 
@@ -322,7 +322,7 @@ def test_bare_label_cannot_borrow_another_sources_parent(tmp_path, monkeypatch):
     def forbidden(*_):
         raise AssertionError("foreign parent reached EH identity resolver")
     monkeypatch.setattr(build, "funclet_eh_locations", forbidden)
-    with pytest.raises(SystemExit, match="exact same-source parent EH location"):
+    with pytest.raises(SystemExit, match="exact parent EH location"):
         build.compile_function(local_row(), {}, obj)
 
 
