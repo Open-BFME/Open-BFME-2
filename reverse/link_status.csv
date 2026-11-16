@@ -1360,6 +1360,7 @@ Code/GameEngine/Source/Common/LocomotorStore_newOverride.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LocomotorTemplate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Made002CC7DE.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Made002CCC90.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/MappedImageCache.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/MaterialInfoClass_Add_Texture.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/MeshClass_Set_Lighting_Environment.cpp,yes,0,0,0,0,0
@@ -5346,7 +5347,6 @@ Code/GameEngine/Source/Common/Rva005EFD53ElementConstruct.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005EFD8FConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005EFF60Forward.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva005F00FB.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005F00FBDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005F0584Dtor.cpp,yes,0,0,0,0,0
