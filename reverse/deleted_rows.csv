@@ -6312,3 +6312,4 @@ $L17822,0x0077F774,"Rehomed with its parent ??1Rva00553E47StatsCore@@QAE@XZ (0x0
 ?g_Va00E0A00C@@3URva007B55E0TxnName@@A,0x00A0A00C,"Renamed to ?TheBlobUpdateInfoTransaction@@3URva007B55E0TxnName@@A by tools/rename.py (inferred)"
 ?g_Va00E0A0FC@@3URva007B55E0TxnName@@A,0x00A0A0FC,"Renamed to ?TheRecordUpdateTransaction@@3URva007B55E0TxnName@@A by tools/rename.py (inferred)"
 ?g_Va00E0A180@@3URva007B55E0TxnName@@A,0x00A0A180,"Renamed to ?TheClubUpdateTransaction@@3URva007B55E0TxnName@@A by tools/rename.py (inferred)"
+??_GRva0044EF5E@@UAEPAXI@Z,0x004522F0,"Redundant placeholder deleting-destructor row; existing ??_GSpecialAbilityUpdate@@UAEPAXI@Z retains complete native 0x004522F0 28B in SpecialAbilityUpdateDtor.cpp with real destructor 0x00451F45. Ledger-only retraction: emitted OLD body and references unchanged; canonical source placement remains existing debt pending official fold and TU consolidation."
