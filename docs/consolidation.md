@@ -33,6 +33,40 @@ Its hints and investigation groups approve no TU and no merge.
 stale, so a merge commit never carries a regenerated map. Never commit a
 regenerated `tu_map.csv` from this lane.
 
+## Target fact: how many objects retail linked (Rich header)
+
+The linker writes a Rich header counting every object it linked, per compiler
+product and build. Retail game.dat 1.06 (`baselines/bfme2/workshop-vanilla-1.06/files/game.dat`,
+identical in an installed 1.06 copy), decoded 2026-11-17:
+
+| Product id (build) | Objects |
+|---|---|
+| 0x60 Utc1310_CPP (3077) | 1,762 |
+| 0x5f Utc1310_C (3077) | 184 |
+| 0x60 / 0x5f (4035) | 3 / 1 |
+| 0x5d (3077 / 4035 / 2067 / 2179) | 4 / 4 / 2 / 31 |
+| 0x69 (2067) | 11 |
+| 0x19 (9210) | 6 |
+| 0x0f (3077) | 11 |
+| 0x5e (3052) | 1 |
+| 0x01 Import | 742 |
+| 0x5c Export710 / 0x5a Linker710 (3077) | 1 / 1 |
+
+Only the named ids are certain; the others are recorded as raw product ids.
+
+Target facts: 1,762 C++ and 184 C objects came from the VC7.1 build 3077 compiler
+our tree uses. The counts include objects pulled from static libraries built with
+3077 (CRT/STL members, if any), so 1,946 is an upper bound on the compiled units
+this tree must rebuild, not a count of game files. The header gives no names and
+no boundaries.
+
+Inference: `tu_map.py` approves 2,277 TUs holding rows (731 of them provisional),
+at least ~330 more than retail compiled, so some provisional TUs are fragments of
+one retail object. A local full link of this tree with no unresolved names
+(2026-11-17, two local-only changes not on master) recorded Utc1310_CPP 17,309 and
+Utc1310_C 192 (3077), the one-function-per-file layout. The C++ and C counts in our
+own image's Rich header, against 1,762 and 184, measure consolidation directly.
+
 ## Workflow per TU
 
 1. **Survey and pick.** Run `python3 tools/name_lane.py consolidate --under Code/<subsystem>/`
