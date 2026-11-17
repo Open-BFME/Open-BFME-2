@@ -56,12 +56,7 @@ typedef Matrix4 Matrix4x4;
 
 
 static __forceinline void meshBoundsTranslation(const Matrix3D &m,Vector3 *set) { set->X=m.Row[0].W;set->Y=m.Row[1].W;set->Z=m.Row[2].W; }
-class AABoxClass
-{
-public:
-	Vector3 Center;
-	Vector3 Extent;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
 class Geometry
 {

@@ -45,12 +45,7 @@ __forceinline void Vector3::Normalize(void)
 	}
 }
 
-class AABoxClass
-{
-public:
-	Vector3 Center;
-	Vector3 Extent;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
 class RenderObjClass
 {
