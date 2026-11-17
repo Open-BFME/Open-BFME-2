@@ -13,15 +13,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
 
 // The constructor unit still emits a short table with AddRef and Release
 // before the deleting destructor. Both emitters must migrate together.
-class AptValue
-{
-public:
-    virtual void AddRef();
-    virtual void Release();
-protected:
-    virtual ~AptValue();
-    unsigned int m_flags04;
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 // The unwind path calls the GC wrapper at RVA 0x006D6340; ordinary teardown
 // inlines its tail call to the root destructor at 0x006DE350.
 class __declspec(novtable) AptValueGC : public AptValue
