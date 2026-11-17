@@ -1382,7 +1382,7 @@ void Rva006FD340Object::rva006FD340(char *text, void *arg2)
 	if (pending != 0)
 	{
 		EAStringC name;
-		pending->rva006DD6C0(&name);
+		reinterpret_cast<const AptValue *>(pending)->toString(name);
 		Rva006CC110Log(3, "<WARNING> Actionscript un-caught exception encountered during \"%s\"\n", text);
 		Rva006CC110Log(3, "<WARNING> Actionscript error message: \"%s\"\n", name.rva00620090());
 		m_pending->Release();
