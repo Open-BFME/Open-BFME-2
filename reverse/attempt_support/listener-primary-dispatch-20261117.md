@@ -36,3 +36,17 @@ The base's own constructor can now name the same inherited dispatch in its
 native second slot. Other lifetime/secondary-name reconciliation remains
 explicitly open; the protected RET12 address and generated contract were not
 changed. No unrelated private view or escape-hatch key was introduced.
+
+Strict preparation also passes11/11 and issues current reusable receipts for
+all four providers. Scoped link_check reads4/4LINKS,538->546B against the
+Nov17 18:16 index8b06c04cd2, with its since-index warning. That eight-byte
+file-summed increase is an existing ICF body, not unique authored growth.
+The broader native link and bridge-retirement results remain unmeasured here.
+
+The consumer hook's EH audit reports three EXACT graphs and one existing
+baselined difference (.text$x); that debt is retained. A private before/after
+comparison of the base constructor's five COFF COMDAT fingerprints finds only
+its vtable growing from4 to8 bytes; the other four are unchanged. Both versions
+also pass the constructor's two ordinary rows. Evidence is in
+build/continuation-20261117c-base-eh-comdat-comparison.json. This comparison
+supports preservation of existing code and does not retire the EH baseline.
