@@ -1,0 +1,53 @@
+{
+  "revision": "13afb2e8202fbcd6ebcf632631b0689b7694501a",
+  "base_table": {
+    "rva": "0x00840818",
+    "slots": [
+      "0x0003B810",
+      "0x0003B810",
+      "0x0003B810",
+      "0x0003B810",
+      "0x0003B810",
+      "0x0003B810"
+    ]
+  },
+  "derived_secondary_table": {
+    "rva": "0x00874764",
+    "slots": [
+      "0x005C493A",
+      "0x005C49D4",
+      "0x005C4941",
+      "0x005C47C4",
+      "0x005C47DC",
+      "0x005C494D"
+    ]
+  },
+  "primary_table": {
+    "rva": "0x0087477C",
+    "slots": [
+      "0x005C49B8",
+      "0x000B3FD0",
+      "0x005C47EA",
+      "0x005C4808",
+      "0x000B3FD0",
+      "0x0047A69C",
+      "0x000B3FD0",
+      "0x000D43D0",
+      "0x000D43D0",
+      "0x000CA841",
+      "0x000CA841"
+    ]
+  },
+  "native_direct_destructor_call": {
+    "caller": "0x005C48E5",
+    "target": "0x004FAC80",
+    "receiver_offset": "0x0C",
+    "unwind": "0x007A0AF4"
+  },
+  "baseline": "7/7 across existing Dtor and Ctor sources",
+  "rename_dry_run_exit": 2,
+  "refusal": "??1SecondaryBase@@UAE@XZ is a special member, operator or template function; its identifier is not a plain name (rename its class instead)",
+  "production_changes": false,
+  "runtime_started": false,
+  "obstacle": "docs/linking_obstacles/link-685-secondarybase-nonvirtual-destructor-signature.md"
+}
