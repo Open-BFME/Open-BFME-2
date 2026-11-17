@@ -76,6 +76,7 @@ class Rva005CC698 : public Rva005CC5E5
 public:
 	Rva005CC698(void *, void *, Rva005CE93EContext *);
 	virtual ~Rva005CC698();
+	virtual void slot0();
 private:
 	Rva00575674 m_panel;		// +0x08
 };

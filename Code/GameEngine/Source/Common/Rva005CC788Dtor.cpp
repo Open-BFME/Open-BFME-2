@@ -12,5 +12,11 @@
 class Rva005CC5E5 : public virtual Rva0007DF07 {public: Rva005CC5E5() throw(); virtual void slot0(); virtual ~Rva005CC5E5(){};};
 #include "../../Include/Common/Rva000AD6F4.h"
 struct Rva005CE93EContext;
-class Rva005CC698 : public Rva005CC5E5 {public:Rva005CC698(void*,void*,Rva005CE93EContext*);virtual ~Rva005CC698();private:Rva000AD6F4 payload;};
+class Rva005CC698 : public Rva005CC5E5 {public:Rva005CC698(void*,void*,Rva005CE93EContext*);virtual ~Rva005CC698();virtual void slot0();private:Rva000AD6F4 payload;};
 Rva005CC698::~Rva005CC698() {}
+
+class Rva005E3266 { public: void rva005E3266(); };
+void Rva005CC698::slot0()
+{
+    reinterpret_cast<Rva005E3266 *>(payload.m_ptr)->rva005E3266();
+}
