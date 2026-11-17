@@ -3237,7 +3237,6 @@ name,address,notes
 ??1Rva0089851@@UAE@XZ,0x0089851,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x8A218; identity unproven, address-derived name
 ??1Rva008A2BA0Handle@@QAE@XZ,0x000A9DF3,TU-private view (Rva008A2C80Constructor.cpp) of a refcounted handle: both unwind funclets 0x007A91A0/0x007A91B0 of the rowed Rva008A2C80 constructor destroy the by-value handle argument and the member at +0x34 by jumping here - a bare tail jump to the rowed ??1BfmeRefVGO 0x000A9822 (decrement then drop) shared by 33 call sites; original class name unknown; fold-proof=Code/GameEngine/Source/Common/BfmeRefVGO.cpp
 ??1Rva008B2EF0@@UAE@XZ,0x006F1360,TU-private view (Rva006F1E70Cluster.cpp) of the derived class whose destructor is rowed as ??1Rva006F1360; the parent's unwind funclet destroys that subobject by jumping here; original class name unknown
-??1Rva008E4EC@@UAE@XZ,0x008E4EC,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x8E533; identity unproven, address-derived name
 ??1Rva0090771@@UAE@XZ,0x0090771,opaque trivial dtor (7B vptr 0xBC7E94 reinstall); called by scalar-deleting-dtor at 0x910FF; identity unproven, address-derived name
 ??1Rva009203A@@UAE@XZ,0x009203A,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC80A0); called by scalar-deleting-dtor at 0x92123; identity unproven, address-derived name
 ??1Rva009D8630BlockWriter@@UAE@XZ,0x0060D0B3,"auto-pin (permute --pins): REL32 call target read from retail in 0x0023cb2c, whose banked body is byte-exact once this call resolves"
@@ -3613,7 +3612,6 @@ name,address,notes
 ??_ERva006F7BD@@UAEPAXI@Z,0x0006FB2F,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva007C454@@UAEPAXI@Z,0x0007C5B9,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva008BD5E@@UAEPAXI@Z,0x0008DE5E,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
-??_ERva008E4EC@@UAEPAXI@Z,0x0008E533,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva008F00D@@UAEPAXI@Z,0x0008F379,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva009203A@@UAEPAXI@Z,0x00092123,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_EScriptEngine@@UAEPAXI@Z,0x0020C0C7,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the scalar deleting dtor; retail Snapshot adjustor thunk 0x2086C0 jumps here

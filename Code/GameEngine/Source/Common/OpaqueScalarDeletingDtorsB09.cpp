@@ -395,33 +395,6 @@ Rva008BD5E::Rva008BD5E(EmitVtableTag *)
 {
 }
 
-class __declspec(novtable) Rva008E4ECBase0
-{
-public:
-	virtual ~Rva008E4ECBase0();
-private:
-	char m_unmodelled[0x4];
-};
-
-// Secondary base at +0x8: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x8) at 0x0008E52B in its vtable is target evidence for it.
-class __declspec(novtable) Rva008E4ECBase8
-{
-public:
-	virtual ~Rva008E4ECBase8();
-};
-class Rva008E4EC : public Rva008E4ECBase0, public Rva008E4ECBase8
-{
-public:
-	Rva008E4EC(EmitVtableTag *);
-public:
-	virtual ~Rva008E4EC();
-};
-
-// ?<Rva008E4EC::Rva008E4EC> absent-from-retail
-Rva008E4EC::Rva008E4EC(EmitVtableTag *)
-{
-}
 
 class __declspec(novtable) Rva008F00DBase0
 {
