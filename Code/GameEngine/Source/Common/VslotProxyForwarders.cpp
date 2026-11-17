@@ -545,23 +545,23 @@ void Rva003F81FDProxy::rva003F8374()
 
 class Matrix3D;
 
-class W3DTerrainVisual
+class Rva003F8067
 {
 public:
-	virtual void setWaterTransform(const Matrix3D *m);
+	void rva003F8067(const Matrix3D *transform);
 };
 
 // ?rva003F8361@Rva003F81FDProxy@@QAEXPBVMatrix3D@@@Z retail 0x003F8361 19B
 // Evidence: gap lane between 0x003F834C and 0x003F8374 in this TU;
 // same proxy getter rva003F81B0; tail-jmp to rowed
-// ?setWaterTransform@W3DTerrainVisual@@UAEXPBVMatrix3D@@@Z 0x003F8067;
+// ?rva003F8067@Rva003F8067@@QAEXPBVMatrix3D@@@Z 0x003F8067;
 // caller at 0x005E95E2; ret 4 passthrough.
 void Rva003F81FDProxy::rva003F8361(const Matrix3D *matrix3D)
 {
 	Rva003F7D86Inner *inner = rva003F81B0();
 	if (!inner)
 		return;
-	((W3DTerrainVisual *)inner)->W3DTerrainVisual::setWaterTransform(matrix3D);
+	((Rva003F8067 *)inner)->rva003F8067(matrix3D);
 }
 
 class Rva003F8083

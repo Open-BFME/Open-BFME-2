@@ -507,15 +507,27 @@ void Rva00091DC4::rva00091E0A()
 // Real), which BFME 2 does not provide (its rowed setGridTransform takes a
 // Matrix3D, 0x003F7E74). The Matrix3D overload below is the row (LINK-181).
 
-// ------------------------------------------------------------------------------------------------
-/** set water table transform by matrix */
-// ------------------------------------------------------------------------------------------------
-void W3DTerrainVisual::setWaterTransform( const Matrix3D *transform )
+// 0x003F8067 (15B) was rowed as Zero Hour's W3DTerrainVisual::setWaterTransform,
+// but retail is no W3DTerrainVisual member: it is in no vftable, reads the
+// water object from +0x14 (W3DTerrainVisual keeps its terrain render object
+// there, the water object at +0x18) and its only caller, 0x003F836C, reaches it
+// through the water-side proxy Rva003F81FDProxy. Address-named until its
+// class is identified; the body is unchanged.
+class Rva003F8067
+{
+public:
+	void rva003F8067(const Matrix3D *transform);
+private:
+	char m_pad00[0x14];
+	WaterRenderObjClass *m_water14;
+};
+
+void Rva003F8067::rva003F8067( const Matrix3D *transform )
 {
 
-	if( m_waterRenderObject )
-		m_waterRenderObject->setGridTransform( transform );
-			
+	if( m_water14 )
+		m_water14->setGridTransform( transform );
+
 }
 
 void W3DTerrainVisual::removeAllBibs(void)
