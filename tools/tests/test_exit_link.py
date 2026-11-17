@@ -384,6 +384,194 @@ def test_link_refuses_on_windows(monkeypatch):
         E.run_link([])
 
 
+def test_local_link_is_an_explicit_windows_opt_in(tmp_path, monkeypatch):
+    missing = E.ROOT / "build/match/missing.obj"
+    monkeypatch.setattr(E.sys, "platform", "win32")
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    monkeypatch.setattr(E, "object_inventory", lambda rows: ([missing], [], [missing]))
+    monkeypatch.setattr(E, "check_data_rows", lambda: None)
+    monkeypatch.setattr(E.census, "_object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "stale_objects", lambda *args: [])
+    monkeypatch.setattr(E, "omission_proof", lambda *args: {
+        "population_problem": None, "inspection_failures": [], "uncovered_funclets": [],
+        "unproven": [], "outside_referrers": {}, "objects": [],
+    })
+    monkeypatch.setattr(E, "eh_proof", lambda rows: {"unproven": [], "missing_objects": 0})
+    monkeypatch.setattr(E, "link_setup", lambda *args: pytest.fail("unexpected linker setup"))
+    monkeypatch.setattr(E, "run_native", lambda *args, **kwargs: pytest.fail("unexpected linker invocation"))
+    monkeypatch.setattr(E.census, "census_state", lambda *args: {})
+    monkeypatch.setattr(E, "tool_digests", lambda: {})
+    monkeypatch.setattr(E, "OUT", tmp_path / "exit_link")
+    with pytest.raises(SystemExit, match="missing"):
+        E.run_link([], local=True)
+
+
+@pytest.mark.parametrize("kwargs", [
+    {"diagnostic": True},
+    {"stub_seed": Path("seed.tsv")},
+])
+def test_local_link_rejects_diagnostic_and_stub_seed_modes(monkeypatch, kwargs):
+    monkeypatch.setattr(E.sys, "platform", "win32")
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    with pytest.raises(SystemExit, match="local"):
+        E.run_link([], local=True, **kwargs)
+
+
+@pytest.mark.parametrize("flag", ["--plan", "--report", "--eh-proof"])
+def test_local_option_is_only_valid_with_link(flag, capsys):
+    with pytest.raises(SystemExit):
+        E.main([flag, "--local"])
+    assert "--local" in capsys.readouterr().err
+
+
+def test_local_option_rejects_diagnostic_and_stub_seed_cli_combinations():
+    with pytest.raises(SystemExit):
+        E.main(["--diagnostic", "--local"])
+    with pytest.raises(SystemExit):
+        E.main(["--link", "--local", "--stub-seed", "seed.tsv"])
+
+
+def test_local_link_cli_passes_explicit_opt_in_without_spoofing_ci(monkeypatch):
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    monkeypatch.setattr(E.census, "ledger", lambda: [])
+    calls = []
+
+    def run(rows, *, local=False):
+        calls.append((rows, local))
+        return 0
+
+    monkeypatch.setattr(E, "run_link", run)
+    assert E.main(["--link", "--local"]) == 0
+    assert calls == [([], True)]
+    assert not E.os.environ.get("GITHUB_ACTIONS")
+
+
+def test_local_link_records_host_platform_and_real_ci_state(tmp_path, monkeypatch):
+    import json
+    import platform
+    image = pe_image(tmp_path, 0x100000)
+    image.with_suffix(".map").write_text("map")
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E, "OUT", tmp_path / "exit_link")
+    monkeypatch.setattr(E, "image_commit", lambda: "a" * 40)
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/exports.csv").write_text("name,ordinal,kind\n")
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    execution = E.execution_metadata(local=True)
+    assert execution == {
+        "local_opt_in": True, "platform": E.sys.platform, "host": platform.node(), "github_actions": True,
+    }
+    E.image_receipt(image, False, [], execution=execution)
+    receipt = json.loads((tmp_path / "image_receipt.json").read_text())
+    assert receipt["execution"] == execution
+    assert receipt["authoritative"] is False
+
+
+@pytest.mark.parametrize("failure", ["missing", "stale", "data", "population", "eh", "state"])
+def test_local_link_keeps_every_preflight_gate_before_native_linker(tmp_path, monkeypatch, failure):
+    monkeypatch.setattr(E.sys, "platform", "win32")
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    monkeypatch.setattr(E, "OUT", tmp_path / "exit_link")
+    obj = E.ROOT / "build/match/preflight-test.obj"
+    inventory = ([obj], [], [obj]) if failure == "missing" else ([obj], [obj], [])
+    monkeypatch.setattr(E, "object_inventory", lambda rows: inventory)
+    monkeypatch.setattr(E, "check_data_rows", lambda: (_ for _ in ()).throw(SystemExit("data refusal"))
+                        if failure == "data" else None)
+    monkeypatch.setattr(E.census, "_object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "stale_objects", lambda *args: [obj] if failure == "stale" else [])
+    monkeypatch.setattr(E, "omission_proof", lambda *args: {
+        "population_problem": "population refusal" if failure == "population" else None,
+        "inspection_failures": [], "uncovered_funclets": [], "unproven": [],
+        "outside_referrers": {}, "objects": [],
+    })
+    monkeypatch.setattr(E, "eh_proof", lambda rows: {
+        "unproven": ["row"] if failure == "eh" else [], "missing_objects": 0})
+    monkeypatch.setattr(E, "link_setup", lambda *args: pytest.fail("link setup ran after preflight refusal")
+                        if failure != "state" else ([], {"import_libraries": [],
+                                                           "harness_import_symbols": []}))
+    monkeypatch.setattr(E, "link_command", lambda *args: (["fixture-linker"], tmp_path / "exit.rsp"))
+    monkeypatch.setattr(E.census, "census_state", lambda *args: (_ for _ in ()).throw(RuntimeError("state refusal"))
+                        if failure == "state" else {})
+    monkeypatch.setattr(E, "run_native", lambda *args, **kwargs: pytest.fail("linker ran after refusal"))
+    with pytest.raises((SystemExit, RuntimeError), match={
+            "missing": "missing", "stale": "not current", "data": "data refusal",
+            "population": "population refusal", "eh": "EH proof failed", "state": "state refusal",
+    }[failure]):
+        E.run_link([], local=True)
+
+
+def test_local_run_result_and_receipt_are_marked_with_real_environment(tmp_path, monkeypatch):
+    import json
+    import struct
+    monkeypatch.setattr(E.sys, "platform", "win32")
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E.census, "ROOT", tmp_path)
+    monkeypatch.setattr(E, "OUT", tmp_path / "exit_link")
+    monkeypatch.setattr(E, "image_commit", lambda: "a" * 40)
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/exports.csv").write_text("name,ordinal,kind\n")
+    obj = tmp_path / "input.obj"
+    obj.write_bytes(b"input")
+    monkeypatch.setattr(E, "object_inventory", lambda rows: ([obj], [obj], []))
+    monkeypatch.setattr(E, "check_data_rows", lambda: None)
+    monkeypatch.setattr(E.census, "_object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "stale_objects", lambda *args: [])
+    proof = {"population_problem": None, "inspection_failures": [], "uncovered_funclets": [],
+             "unproven": [], "outside_referrers": {}, "objects": [], "exclusive_names": [],
+             "funclet_covered": 0, "funclet_rows": 0}
+    monkeypatch.setattr(E, "omission_proof", lambda *args: proof)
+    monkeypatch.setattr(E, "eh_proof", lambda rows: {"unproven": [], "missing_objects": 0,
+                                                       "rows_with_eh": 0})
+    monkeypatch.setattr(E, "link_setup", lambda *args: ([obj], {
+        "import_libraries": [], "harness_import_symbols": [],
+        "initializer_bridge": {"entries": 0},
+        "vtable_bridge": {"tables": 0, "slots": 0, "refused_tables": 0, "already_correct": 0},
+    }))
+    rsp = E.OUT / "exit.rsp"
+    captured = {}
+
+    def fixture_command(inputs, image_path, outdir, roots):
+        captured["arguments"] = E.link_arguments(image_path, rsp)
+        rsp.write_text('"input.obj"\n')
+        return captured["arguments"], rsp
+
+    monkeypatch.setattr(E, "link_command", fixture_command)
+
+    def fake_link(command):
+        E.OUT.mkdir(parents=True, exist_ok=True)
+        image = E.OUT / "exit.exe"
+        head = bytearray(0x200)
+        head[0x3C:0x40] = struct.pack("<I", 0x80)
+        head[0x80:0x84] = b"PE\0\0"
+        image.write_bytes(head)
+        image.with_suffix(".map").write_text("map")
+        return type("Completed", (), {"returncode": 0, "stdout": "", "stderr": ""})()
+
+    monkeypatch.setattr(E, "run_native", fake_link)
+    monkeypatch.setattr(E.census, "census_state", lambda *args: {})
+    monkeypatch.setattr(E, "tool_digests", lambda: {})
+    monkeypatch.setattr(E, "snapshot_image_objects", lambda *args: {})
+    monkeypatch.setattr(E, "object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "export_sources", lambda rows: {})
+    monkeypatch.setattr(E.census, "classify", lambda *args: ({}, {}, {}, []))
+    monkeypatch.setattr(E, "placement_objects", lambda rows: [])
+    monkeypatch.setattr(E, "published_index_meta", lambda: {})
+    monkeypatch.setattr(E.census, "head", lambda: "a" * 40)
+    monkeypatch.setattr(E.census, "pe_defect", lambda image: None)
+
+    assert E.run_link([], local=True) == 0
+    assert "/FORCE" not in captured["arguments"]
+    assert f"/BASE:0x{E.BASE:X}" in captured["arguments"]
+    assert "/OPT:NOREF" in captured["arguments"] and "/OPT:NOICF" in captured["arguments"]
+    result = json.loads((E.OUT / "result.json").read_text())
+    receipt = json.loads((E.OUT / "image_receipt.json").read_text())
+    expected = {"local_opt_in": True, "platform": "win32", "host": E.platform.node(), "github_actions": False}
+    assert result["execution"] == expected
+    assert receipt["execution"] == expected
+    assert receipt["authoritative"] is True
+
+
 @pytest.mark.parametrize("flag", ["--allow-missing", "--skip-eh-proof", "--build", "--prepare"])
 def test_the_escape_flags_are_gone(flag):
     with pytest.raises(SystemExit):
@@ -483,6 +671,7 @@ def test_diagnostic_traps_have_distinct_offsets(tmp_path):
 @pytest.mark.parametrize("diagnostic", [False, True])
 def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
     import json
+    import platform
     image = tmp_path / "exit.exe"
     image.write_bytes(b"image")
     image.with_suffix(".map").write_bytes(b"map")
@@ -497,6 +686,8 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
         "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF",
         "authoritative": False, "omission_proof": "not-run",
         "vtables_bridged": 0, "vtable_slots_bridged": 0,
+        "execution": {"local_opt_in": False, "platform": E.sys.platform,
+                      "host": platform.node(), "github_actions": bool(E.os.environ.get("GITHUB_ACTIONS"))},
         **({"stub_seed": None} if diagnostic else {})}
 
 

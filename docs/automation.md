@@ -89,6 +89,15 @@ non-retail base. Only this measures a buildable game; the census's "linked" is p
 `/FORCE`. The artifact holds `scoreboard.json` (the summary), `errors.tsv` (each linker error with
 the source that referenced it), `result.json` and `link.log`.
 
+On a prepared native Windows checkout, the same full proof and link can be run explicitly with
+`python tools/exit_link.py --link --local`. `--local` only bypasses the Windows-host refusal; it
+does not change object population, currency, data-row, omission, EH, or linker checks, and it cannot
+be combined with diagnostic mode or stub seeds. Prepare all current objects first using the normal
+build workflow. This local run writes its artifacts under `build/exit_link`; it does not publish
+them or claim that GitHub Actions ran. `result.json` and `image_receipt.json` record whether local
+opt-in was used, `sys.platform`, the host name, and whether `GITHUB_ACTIONS` was actually set. A
+passed omission proof remains a real-link result, with the execution environment stated separately.
+
 `authoritative: false` means `exit_link.py` refused and the workflow measured anyway, skipping only
 the omission proof named in `refusal`. The numbers are real, but the result cannot count as the
 exit test until the refusal clears.

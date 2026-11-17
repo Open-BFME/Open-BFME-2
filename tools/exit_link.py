@@ -76,6 +76,7 @@ import functools
 import hashlib
 import json
 import os
+import platform
 import re
 import struct
 import subprocess
@@ -803,7 +804,17 @@ def image_room(image):
     return {"size_of_image": hex(size), "base_room": hex(room)}
 
 
-def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None, seed=None):
+def execution_metadata(local=False):
+    """Describe where this process actually runs and whether native linking was explicitly opted in."""
+    return {
+        "local_opt_in": bool(local),
+        "platform": sys.platform,
+        "host": platform.node(),
+        "github_actions": bool(os.environ.get("GITHUB_ACTIONS")),
+    }
+
+
+def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None, seed=None, execution=None):
     """Only an image and its fresh map can receive a receipt; a diagnostic one says whether
     its first pass started from a stub seed (`seed`, seed_summary's)."""
     if stubbed and not diagnostic:
@@ -821,6 +832,7 @@ def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None, seed=Non
     vtables = vtables or {}
     fields = {
         "authoritative": not diagnostic and status == "passed", "omission_proof": status,
+        "execution": execution or execution_metadata(),
         "vtables_bridged": vtables.get("tables", 0), "vtable_slots_bridged": vtables.get("slots", 0),
         "kind": "diagnostic" if diagnostic else "real", "commit": image_commit(),
         "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
@@ -1246,14 +1258,17 @@ def check_data_rows():
                          f"e.g. {stale[0].relative_to(ROOT)}; prepare with python3 tools/link_census.py --build (or ./build.sh)")
 
 
-def run_link(rows, diagnostic=False, stub_seed=None):
-    if sys.platform.startswith("win") and not os.environ.get("GITHUB_ACTIONS"):
+def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
+    if local and (diagnostic or stub_seed is not None):
+        raise SystemExit("exit_link: --local is only for a real --link, never --diagnostic or --stub-seed")
+    if sys.platform.startswith("win") and not os.environ.get("GITHUB_ACTIONS") and not local:
         raise SystemExit("exit_link: --link runs on a sandbox (Wine + MSVC 7.1) or a hosted runner only; "
-                         "use --plan on this PC")
+                         "use --plan or explicitly pass --link --local on this PC")
     if diagnostic and OUT.name != "diagnostic_link":
         raise SystemExit("exit_link: diagnostic output must be isolated")
     if stub_seed is not None and not diagnostic:
         raise SystemExit("exit_link: --stub-seed is for --diagnostic only")
+    execution = execution_metadata(local=local)
     OUT.mkdir(parents=True, exist_ok=True)
     census.fresh_outputs(*(OUT / name for name in (
         "exit.exe", "exit.map", "image_receipt.json", "result.json", "errors.tsv", "link.log", "stubbed.tsv",
@@ -1358,9 +1373,10 @@ def run_link(rows, diagnostic=False, stub_seed=None):
     still_wanted = sorted(name for name in detail if name in exclusive)
     image_written = image.exists()
     image_receipt(image, diagnostic, stubbed, proof=proof, vtables=setup.get("vtable_bridge"),
-                  seed=seed_summary(seed))
+                  seed=seed_summary(seed), execution=execution)
     record = {
         "mode": "diagnostic-link" if diagnostic else "exit-link",
+        "execution": execution,
         "records": False,
         "when": census.utc_now(),
         "commit": census.head(),
@@ -1527,7 +1543,8 @@ def main(argv=None):
     mode.add_argument("--plan", action="store_true",
                       help="dry run: the omitted population, its proof and the index's prediction; no link")
     mode.add_argument("--eh-proof", action="store_true", help="run eh_verify --all and report")
-    mode.add_argument("--link", action="store_true", help="sandbox or hosted runner only: read-only proof and exit link")
+    mode.add_argument("--link", action="store_true",
+                      help="read-only proof and exit link (native Windows requires --local)")
     mode.add_argument("--diagnostic", action="store_true", help="separate trap-stub image; never a measurement")
     mode.add_argument("--report", action="store_true", help="summarise build/exit_link/result.json")
     parser.add_argument("--blockers-commit", default="", help="the commit --blockers' errors.tsv measured")
@@ -1542,12 +1559,18 @@ def main(argv=None):
     parser.add_argument("--stub-seed", metavar="STUBBED_TSV", type=Path,
                         help="with --diagnostic: stub an earlier diagnostic link's names (its stubbed.tsv) "
                              "before the first pass, where this link certainly leaves them unresolved")
+    parser.add_argument("--local", action="store_true",
+                        help="explicitly allow a full native Windows --link; still runs every proof and never implies CI")
     parser.add_argument("--order", choices=ORDERS, default="path",
                         help="object order: path (default) or retail (.CRT$XCU slot, then retail "
                              "address; see retail_object_order)")
     args = parser.parse_args(argv)
     global ORDER
     ORDER = args.order
+    if args.local and not args.link:
+        parser.error("--local is only valid with --link")
+    if args.local and args.stub_seed:
+        parser.error("--local cannot be combined with --stub-seed")
     if args.stub_seed and not args.diagnostic:
         parser.error("--stub-seed goes with --diagnostic")
     if args.blockers:
@@ -1572,7 +1595,8 @@ def main(argv=None):
             print(f"  FAIL {entry['name']} {entry['target_rva']} ({entry['source']}): "
                   f"{entry['verdict']} -- {entry['detail']}")
         return 1 if result["unproven"] or result["missing_objects"] else 0
-    return run_diagnostic(rows, args.stub_seed) if args.diagnostic else run_link(rows)
+    return run_diagnostic(rows, args.stub_seed) if args.diagnostic else (
+        run_link(rows, local=True) if args.local else run_link(rows))
 
 
 if __name__ == "__main__":
