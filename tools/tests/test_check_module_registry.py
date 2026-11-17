@@ -50,6 +50,29 @@ def test_objdump_keeps_embedded_opcodes_inside_instructions():
     assert cmr.immediate_operand(instructions[1]) == 0x402000
 
 
+def test_objdump_that_refuses_raw_i386_falls_back_to_capstone(monkeypatch):
+    pytest.importorskip("capstone")
+    asked = []
+
+    def refuse(command, **kwargs):
+        # LLVM's objdump (macOS's /usr/bin/objdump): "error: unknown argument '-b'", exit 1.
+        asked.append(command[0])
+        return cmr.subprocess.CompletedProcess(command, 1, "", "error: unknown argument '-b'")
+
+    monkeypatch.setattr(cmr.subprocess, "run", refuse)
+    body = bytes.fromhex("b8e868c300 6800204000 e8f11f0000 ff1500404000 c20400")
+    img = cmr.Image.__new__(cmr.Image)
+    img.objdump, img.disassembly = "objdump", {}
+    img.text_rva, img.text = 0x1000, body * 2
+    img.function_sizes = {0x1000: len(body), 0x1000 + len(body): len(body)}
+    instructions = img.instructions(0x1000)
+    assert [cmr.direct_call_target(ins) for ins in instructions] == [
+        None, None, 0x403000, None, None]
+    assert cmr.immediate_operand(instructions[1]) == 0x402000
+    img.instructions(0x1000 + len(body))
+    assert asked == ["objdump"]  # a refusing objdump is asked once per run
+
+
 @pytest.mark.parametrize("instructions,size", [
     ([], 1),
     ([cmr.Instruction(0x401001, 1, "ret", "")], 2),
