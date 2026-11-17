@@ -59,7 +59,7 @@ enum ObjectID {INVALID_OBJECT_ID=0};
 #include "../../Include/Common/FreelistProxyHead.h"
 #include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;
-class PoolMember {public:void Rva00268902() throw();};
+#include "../../Include/Common/PoolMember.h"
 struct Rva0029FB3BAlloc {Rva0029FB3BAlloc(){} Rva0029FB3BAlloc(const Rva0029FB3BAlloc &){} ~Rva0029FB3BAlloc(){}};
 struct Rva002A1316Iterator {IdNode *node;Rva002A1316Iterator(IdNode *n):node(n){} Rva002A1316Iterator(const Rva002A1316Iterator &o):node(o.node){}};
 class Rva0029FB3BMember {public:

@@ -110,11 +110,7 @@ struct BridgeBehaviorObjectIDNode
 };
 // Keep the teardown bound to the rowed 29-byte cleanup owner. The older
 // Rva0029FB3BMember destructor spelling has a divergent COMDAT elsewhere.
-class PoolMember
-{
-public:
-	void Rva00268902() throw();
-};
+#include "../../../../Include/Common/PoolMember.h"
 class BridgeBehaviorObjectIDList
 {
 public:

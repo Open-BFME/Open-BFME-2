@@ -2223,11 +2223,7 @@ public:
 	static Module *rva000395708(Object *obj);
 };
 
-class PoolMember
-{
-public:
-	void Rva00268902() throw();
-};
+#include "../../../Include/Common/PoolMember.h"
 
 struct Rva00394173Node
 {
