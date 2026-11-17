@@ -22,7 +22,6 @@ GapForwardersSeat8.cpp. The ordinary build then verifies all seventeen rows;
 the callback and its adjustment each have their own commit.
 
 This is source/provider repair, not a published bridge-retirement result.
-The cohort still has other unresolved virtual surfaces, including slot1.
 Only a later published real-link receipt can confirm which bridges leave.
 
 After publishing both bodies, StrategicInGameUI.cpp drops its old slot0-to-step
@@ -31,3 +30,12 @@ Its ordinary build verifies all seventy current rows, and a private A/B retains
 all eighty-six COMDATs identically. The global hatch register was claimed by
 another worker, so this change leaves its old allowance untouched rather than
 editing that worker's register scope. The source has one fewer alias.
+
+The second callback, slot1, is now defined beside slot0. The native body at
+0x005E415F loads the owned pointer at +0x10 and tail-calls 0x005E4116.
+The existing consumer alias independently ties that body to slot1. Reading
+child.value from the already-proven shared layout produces the same complete
+eight bytes and relocation as the old helper. Its callback result is unused;
+the tail call retains the provider's machine return value. add_match admits
+the byte-and-relocation twin against the existing owner in
+stlport_map_int_sbserver.cpp. All eighteen source rows remain exact.

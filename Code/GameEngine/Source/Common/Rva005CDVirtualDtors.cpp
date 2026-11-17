@@ -138,3 +138,10 @@ void Rva005E4F6D::slot0()
     reinterpret_cast<Rva005E549E *>(this)->Rva005E549E::rva005E549E();
     reinterpret_cast<Rva005F327ARun *>(reinterpret_cast<char *>(this) - 8)->run();
 }
+
+class Rva005E4116 { public: int rva005E4116(); };
+// Native slot1 reads the owned pointer at +0x10 and tail-calls its provider.
+void Rva005E4F6D::slot1()
+{
+    reinterpret_cast<Rva005E4116 *>(child.value)->rva005E4116();
+}
