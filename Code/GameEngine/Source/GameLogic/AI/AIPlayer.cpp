@@ -921,23 +921,8 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;
 
-class CommandButton
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	const UpgradeTemplate *getUpgradeTemplate() const { return m_upgradeTemplate; }
-private:
-	unsigned char m_pad00[0x10];
-	AsciiString m_name;			// +0x10
-	unsigned char m_pad14[0x24 - 0x14];
-	const UpgradeTemplate *m_upgradeTemplate;	// +0x24
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
-};
 
 #include "../../../Include/Common/Rva0031D5F8.h"
 

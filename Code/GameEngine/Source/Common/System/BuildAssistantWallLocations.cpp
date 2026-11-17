@@ -221,11 +221,7 @@ const UpgradeTemplate**m_capacity;
 UnsignedInt size()const{return(UnsignedInt)(m_end - m_begin);}
 const UpgradeTemplate*operator[](UnsignedInt i)const{return m_begin[i];}
 };
-class CommandSet
-{
-public:
-const CommandButton*getCommandButton(Int i)const;
-};
+#include "../../../Include/GameClient/CommandSet.h"
 #include "../../../Include/Common/Rva0031D5F8.h"
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar*TheControlBar;

@@ -52,7 +52,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameClient/CommandButton.h"
-class CommandSet { public: const CommandButton *getCommandButton(int) const; };
+#include "../../../Include/GameClient/CommandSet.h"
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 #include "../../../Include/Common/Rva0031D5F8.h"
