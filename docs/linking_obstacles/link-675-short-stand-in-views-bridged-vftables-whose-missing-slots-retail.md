@@ -415,3 +415,12 @@ retail tables, 35,063 mismatching slots), what was measured and what is exhauste
   LivingWorldBattleListener and bool-returning Base2 share the same neutral
   name/signature. Shared headers unchanged; no real-link bridge clearance.
   [Whole-file evidence](../../reverse/attempt_support/two-parent-listener-native-callbacks-20261117.md).
+
+- **2026-11-17 mission-objective Snapshot transfer:** DoXfer426C6F is now
+  the native165B secondary-slot3 override; normal46/46 and5 EH graphs exact.
+  The prior displacement hypothesis was a wrong lowercase API probe:
+  PlayerList selects capitalized Snapshot methods. Other producer27/27 and
+  every other emitted table are unchanged. Empty post-load/init/update and
+  legacy-emitter cleanup remain blocked by held B3FD0/retirement claims.
+  No full-table or real-link clearance.
+  [Corrected probe and source proof](../../reverse/attempt_support/mission-objective-reset-20261117.md).
