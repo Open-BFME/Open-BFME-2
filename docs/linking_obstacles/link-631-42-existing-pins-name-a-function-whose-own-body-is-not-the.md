@@ -336,3 +336,52 @@ AptTimeLine.cpp names the real destructor.
 
 Clearance: pending.
 Census confirmation: not claimed.
+
+#### 2026-11-18: the EvaMessageInfo family is a runtime defect (Dunland map-load crash)
+
+Not a link blocker: the real link resolves every name involved. It is recorded here because no
+link counter sees it; only running the game does.
+
+**Target facts (retail game.dat 1.06, disassembly).** Two 28-byte element families share the
+spelling `EvaMessageInfo` (and `BfmeStringRecord00111ACF`) in the ledger:
+
+- *Family A, the map post-effect parameters.* `vector::operator=` 0x001020BA calls 0x00101F5C,
+  0x00101ECF, 0x00101F89, 0x000B0298 and 0x000AFF52 (`__destroy_aux<Rva00111B25Record>`).
+  Element copy 0x00111ACF (through `_Construct` 0x000AD77B), assignment 0x00101EF5, destructor
+  0x00111B25. The vector destructor 0x000B0254 calls 0x000AFF52 and `_free`. Users: 0x0010225F,
+  0x0010231F and the map chunk callback 0x000B071D ("BlendFactor"/"LookupTexture" post effect).
+- *Family B.* `_M_fill_insert` 0x003F6BDB, `_M_insert_overflow` 0x003F6B24,
+  `__uninitialized_fill_n` 0x003F631B, `_Construct` 0x003F62C8; element copy 0x003F5F89 (rowed
+  `??0EvaMessageInfo@@QAE@ABU0@@Z` in LivingWorldLogicRemovePlayer.cpp), destructor 0x003F60C8
+  (rowed `??1BfmeStringRecord00111ACF@@QAE@XZ`).
+
+**Failure in the linked image (local real link, 0 unresolved, 2026-11-17).** Family A's rows call
+the `vector<EvaMessageInfo>` helpers by name; the pins at 0x00101ECF/0x00101F5C/0x00101F89/0x000AFF52/
+0x000B0298 let those calls match, but no row defines those names, so the linker keeps the COMDATs
+EvaMessageVectorAssign.obj compiles for family B:
+
+1. Starting the Dunland skirmish (`maps/map wor dunland`) faults reading through a string at +0x10 of
+   the folded copy `Rva003F610FElement`/`Rva003F61C6Record` (stack: `rva000B071D` ->
+   `rva0010225F` -> `vector<EvaMessageInfo>::operator=` -> family B's copy 0x003F5F89 path).
+   A local triage on 2026-11-16 recorded the same fault on another modern image.
+2. With (1) bypassed, destroying the parameter vector faults in `~vector<Rva003F610FElement>`
+   reached from `_Destroy<EvaMessageInfo>` (family B's COMDAT), called by `rva000B071D`.
+
+**Local proof (not on master).** Spelling family A's element as its own type in its nine units
+(Rva0010225FMethod, Rva0010223BMethod, Rva00102087Method, GapBodiesGE37, EvaMessageVectorDtor,
+Rva000B0298Clear, Rva00102188Dtor, StlportMapForwardersSeat8, plus `operator=` in
+EvaMessageVectorAssign bound to 0x00111ACF/0x00101EF5/0x00111B25) makes the Dunland skirmish load
+and play (over 7 minutes, two runs). The proof used a local `#define`, which no gate accepts.
+
+**Classification and proposed fix (review, 2026-11-18).** By call graph on current master the 58
+names (42 rows, 16 pins) split 21 family A, 29 family B and 8 generic (shared 28-byte helpers
+0x0007FAB3, 0x000B40EA, 0x0014F3C4 and four of other element types; EH handlers follow their
+parent); 27 of the 50 A/B names sit on the wrong family. Proposed: family A keeps
+`BfmeStringRecord00111ACF` (copy 0x00111ACF, assignment 0x00101EF5, destructor 0x00111B25);
+family B stops being `EvaMessageInfo` (its users are LivingWorldBattle code, and BFME 1's
+`EvaMessageInfo` has another layout) and takes an address name off 0x003F5F89. Order: split the two
+mixed units (EvaMessageVectorAssign.cpp and stlport_vector_stringrecord_111acf_allocate_copy.cpp),
+register both classes, then rename through the tools; headers take the full gate. Scheduled after
+the real link closes. No current `rename.py` route splits one spelling into two identities.
+
+Clearance: pending (runtime defect, not a link blocker).
