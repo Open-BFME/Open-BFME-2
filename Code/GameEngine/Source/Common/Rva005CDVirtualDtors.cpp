@@ -85,7 +85,7 @@ class Rva005CDCEE : public Rva005E6F9D {public:virtual ~Rva005CDCEE();private:Rv
 Rva005CDCEE::~Rva005CDCEE(){if(link24)link24->owner=0;}
 
 class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE(){}};
-class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void *);virtual ~Rva005E54F7();virtual void slot0();};
+class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void *);virtual ~Rva005E54F7();virtual void slot0();virtual void notifyIconListBackgroundClicked();};
 Rva005E54F7::~Rva005E54F7(){}
 struct Rva005CD9C0Link {char prefix[0xc];void *owner;};
 class Rva005CD9C0 : public Rva005E54F7 {public:virtual ~Rva005CD9C0();private:Rva005CD9C0Link *link1C;};
@@ -150,4 +150,12 @@ class Rva005E4116 { public: int rva005E4116(); };
 void Rva005E4F6D::slot1()
 {
     reinterpret_cast<Rva005E4116 *>(child.value)->rva005E4116();
+}
+
+#include "../../Include/Common/Rva005E508F.h"
+// Native 5E5575 calls the shared interface at +8, then the empty base hook.
+void Rva005E54F7::notifyIconListBackgroundClicked()
+{
+    reinterpret_cast<Rva005E508F *>(reinterpret_cast<char *>(this) + 8)->rva005E509F();
+    StrategicHUD::ArmyDetailsMovieClip::notifyIconListBackgroundClicked();
 }

@@ -11,7 +11,11 @@ is 0x005E549E, while 0x005E5554 is its derived override. The two initial
 misowned entries were retracted with all original coverage retained; the
 retraction hook verifies 289 dependent sources. Correct base and derived
 callbacks and their natural adjustments are then banked individually.
-The final paired build verifies 90/90 rows. Published bridge retirement
+The final paired build verifies 90/90 rows. A further nineteen-byte
+icon-background override at 0x005E5575 is recovered with both native call
+targets; the next derived shared callback needs base-thunk ownership
+consolidation, and a neighboring empty slot is held by another worker.
+Published bridge retirement
 is still pending. See
 [callback and adjustment proof](../../reverse/attempt_support/shared-interface-slot0-20261117.md).
 Status: Open (partly repaired). Updated: 2026-11-07; seats halilkkaya-lk38 (base `3d70a843d39`) and

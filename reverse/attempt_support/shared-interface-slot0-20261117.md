@@ -55,3 +55,25 @@ Current-object pointer checks of the nine queued table names exposed the
 ownership distinction above and further derived-specific overrides. Only a
 later published real-link receipt can establish bridge retirement. No real
 link, smoke, nightly or shadow publisher was started for this work.
+
+The next derived owner, Rva005E6F9D, privately matches its twenty-byte slot0
+at 0x005E6B8F and emits the eight-byte secondary adjustment at 0x005CDE79
+(the latter still needs a named row for relocation resolution). However,
+declaring that override stops emitting the already-banked base adjustment
+0x005E54A6 in this mixed destructor source. Its real base constructor and
+destructor live in Rva005E4F6DConstructor.cpp. No artificial emitter, new
+alias or unverified override was retained. A fresh tu_skeleton merge dry run
+for StrategicInGameUI.cpp refuses fewer than two donors and lists the
+constructor source as mixed; proper ownership consolidation remains needed.
+Scratch evidence: build/continuation-20261117c-e6-slot0-probe.json.
+
+The independent Rva005E54F7 icon-background notification is now recovered
+under its real inherited interface name. Native tables C77D20 and C75028
+select 0x005E5575: the nineteen-byte body calls the existing +8 shared
+interface provider at 0x005E509F, then the empty ArmyDetailsMovieClip base
+notification. The compiler matches both REL32 targets. Both destructor and
+consumer views declare the override. The neighboring sixteen-byte back-button
+notification also matches privately with a fourth primary virtual slot; that
+empty slot is folded at 0x000B3FD0, currently claimed by another worker, so
+neither it nor the back-button override is applied. These private successes
+are prerequisites, not banked rows or measured bridge retirement.
