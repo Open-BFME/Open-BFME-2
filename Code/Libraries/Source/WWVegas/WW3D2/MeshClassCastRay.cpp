@@ -33,6 +33,7 @@ public:
 };
 
 #include "MeshModelClass.h"
+#include "MeshGeometryClass.h"
 
 // Retail inlines MeshGeometryClass::Get_Flag here; the header keeps it out of line.
 static inline int CastRay_Get_Flag(MeshModelClass *model, MeshGeometryClass::FlagsType flag) { return model->Flags & flag; }

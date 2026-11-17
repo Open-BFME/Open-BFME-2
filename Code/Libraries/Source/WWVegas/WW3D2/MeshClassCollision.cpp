@@ -43,6 +43,7 @@ class MaterialInfoClass : public RefCountClass
 };
 
 #include "MeshModelClass.h"
+#include "MeshGeometryClass.h"
 
 // Retail inlines the model's pass-count forwarder through CurMatDesc.
 static inline int Model_Get_Pass_Count(const MeshModelClass *model) { return model->CurMatDesc->Get_Pass_Count(); }
