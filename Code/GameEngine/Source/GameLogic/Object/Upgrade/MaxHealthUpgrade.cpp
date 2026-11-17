@@ -61,15 +61,7 @@ template <> class MaxHealthUpgradeBodySlots<0>
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 #include "../object.h"
 class ModuleData;
-class ObjectModuleBase
-{
-public:
-	virtual ~ObjectModuleBase();
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
 template <int N> class MaxHealthUpgradeMuxSlots : public MaxHealthUpgradeMuxSlots<N - 1>
 {
 public:
