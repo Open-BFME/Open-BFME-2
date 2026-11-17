@@ -37,6 +37,7 @@ public:
 	__declspec(noinline) void rva0056A9B5();
 	virtual void vslot03();
 	virtual void vslot04();
+	virtual bool slot1(Rva002B4BC9Arg *);
 private:
 	Parent0056B0BF *m_parent18;
 	bool m_1C;
@@ -80,4 +81,9 @@ void Rva0056B0BF::vslot03()
 void Rva0056B0BF::vslot04()
 {
     m_1C = false;
+}
+
+bool Rva0056B0BF::slot1(Rva002B4BC9Arg *candidate)
+{
+    return m_parent18 == reinterpret_cast<Parent0056B0BF *>(candidate);
 }

@@ -31,3 +31,7 @@ Its complete9 bytes preserve the native tail jump; paired15/15 exact.
 
 Primary slot4 at56B119 now clears the same1C flag. The complete5B store
 and return match the native table entry; normal paired16/16 exact.
+
+Secondary Base2 table86D2AC slot1 at56A9CF now compares its pointer argument
+against complete-object parent18. MSVC uses that base receiver+10 naturally;
+whole15B full-EAX0/1 return and RET4 match, with paired17/17 exact.
