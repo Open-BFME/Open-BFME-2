@@ -3571,7 +3571,6 @@ name,address,notes
 ??_ERva00299CE4@@UAEPAXI@Z,0x0029A10F,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva002A5B30@@UAEPAXI@Z,0x002A6A11,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva002D3573@@UAEPAXI@Z,0x002D40D8,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x002D35BF jumps here
-??_ERva002DAB18@@UAEPAXI@Z,0x002DABBB,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x002DAB64 jumps here
 ??_ERva00328CF8@@UAEPAXI@Z,0x00328CDC,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00355BDA@@UAEPAXI@Z,0x00355BBE,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva003AB9FF@@UAEPAXI@Z,0x003AE720,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
