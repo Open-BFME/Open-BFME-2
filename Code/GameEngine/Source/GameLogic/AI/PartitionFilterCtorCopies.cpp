@@ -13,15 +13,7 @@ class Object;
 class Player;
 class PolygonTrigger;
 
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // vftable 0x00BFAD10: Rva0026119DFilter, out-of-line constructor copy at 0x0026FFA4 (13B).
 class Rva0026119DFilter : public Rva000421C8

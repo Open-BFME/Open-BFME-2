@@ -968,15 +968,7 @@ struct HordeBannerCarrierUpdate
 
 // The partition filter base and the KindOf mask filter (vftable 0x00BC2908,
 // allow 0x002610DE: every kind of the first mask and none of the second).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva0004584D : public Rva000421C8
 {

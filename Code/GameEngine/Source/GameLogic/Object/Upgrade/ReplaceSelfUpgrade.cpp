@@ -88,16 +88,7 @@ private:
 // view of the mask type so the temporary is built through that row.
 struct Rva00045411BitSet : BfmeFixedStorage0004543D { Rva00045411BitSet(Int init, Int bit); };
 // The partition filter base (ctor 0x000421C8, vtable 0x007C26E0).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva003959FA : public Rva000421C8
 {
 public:

@@ -22,15 +22,7 @@ class Object;
 class GeometryInfo;
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // Retail copies the position one coordinate at a time, in initializer order,
 // with no block move: a member-wise copy.
