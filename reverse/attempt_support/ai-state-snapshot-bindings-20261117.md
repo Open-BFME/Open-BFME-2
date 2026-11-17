@@ -59,3 +59,16 @@ Its scoped link_check verdict reads LINKS588->689B against index8b06c04cd2
 prediction and file-summed ICF coverage, not unique authored growth or a game
 run. The broad publication audit remains inconclusive for a missing affected
 consumer receipt (AIBaseBuilder.cpp). No maintainer-only runner was started.
+
+Whole-file triage ends with explicit handoffs for all fourteen native tables.
+The exceptional Rva004A992A really calls the native State constructor and
+installsC54010; its slot2 is a null return at000D43D0, its transfer is the
+empty RET4 at0047A69C, and its update returns continue at000D43D0. All these
+shared address/footprint claims are held elsewhere, so no getter literal or
+replacement hierarchy is invented. Nine other native getter/provider scopes
+remain held. The three named giant-bird callbacks already have real C++
+owners; their short constructor views need shared class reconciliation, not
+copies of thousand-byte methods. The specific giant-bird folds have not been
+admitted by a separate trial. The first class's recorded refusal identifies
+the guarded relationship to review. All original coverage remains intact;
+only real published-link queue results can complete this workpackage.
