@@ -1,0 +1,56 @@
+{
+  "revision": "80848a58e08669410010d64d6a40ec90eb30554e",
+  "review": {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+    "source_sha256": "658bf33ff2a7c72af708a1041217b627425cd82ef13592184e606e69745bdd7c",
+    "restored_source_matches_archived_original": true,
+    "identifier": "m_basePad",
+    "whole_source_identifier_occurrences": 1,
+    "declaration_line": 244,
+    "declaration": "private unsigned char m_basePad[0x0c]",
+    "source_accesses": [],
+    "old_layout": {
+      "DockUpdateModuleData_size": 16,
+      "vfptr_offset": 0,
+      "array_offset": 4,
+      "array_size": 12,
+      "SupplyCenterDockUpdateModuleData_size": 28,
+      "derived_fields": {
+        "m_valueMultiplier": 16,
+        "m_bonusScience": 20,
+        "m_bonusScienceMultiplier": 24
+      }
+    },
+    "canonical_layout": {
+      "DockUpdateModuleData_size": 16,
+      "base": "ModuleData",
+      "base_size": 8,
+      "module_tag_offset": 4,
+      "approach_count_offset": 8,
+      "passthrough_byte_offset": 12,
+      "trailing_padding_range": [
+        13,
+        16
+      ],
+      "SupplyCenterDockUpdateModuleData_size": 28
+    },
+    "layout_basis": "old array offset/size from actual adoption refusal; canonical native prefix already verified in parent MonsterDock change; 32-bit four-byte-aligned scalar/member extent arithmetic",
+    "refusal": "field renames: DockUpdateModuleData::m_basePad (+0x4, 12 bytes) has no canonical field of that offset and size",
+    "cause": {
+      "file": "tools/tu_views.py",
+      "pattern": "^(m_)?_?(pad|unk|gap|reserved|unused|before)",
+      "m_basePad_matches": false,
+      "consumer": "header_adopt_lane.field_renames treats non-pad fields as one-to-one offset/size matches"
+    },
+    "existing_verification": {
+      "lifetime_include_preparation": "10/10 from supply-include-prep.log; this is NOT a successful header adoption",
+      "restored_two_source_build": "28/28 from final-build.log",
+      "applied_DockUpdateCtor_adoption": "18/18; parent owns this change"
+    },
+    "review_actions": "read source/tool text and existing logs; no compiler, build, claim, production edit or gate mutation"
+  },
+  "preparation_result": "10/10nativepass;preparationreverted",
+  "adoption_refusal": "field renames: DockUpdateModuleData::m_basePad (+0x4,12bytes) has no canonicalfieldofthat offsetandsize",
+  "source_restored_sha256": "658bf33ff2a7c72af708a1041217b627425cd82ef13592184e606e69745bdd7c",
+  "tooling_task": "dock_padding_tool_fix in isolatedworktree; no parent gate edits"
+}
