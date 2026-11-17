@@ -25,16 +25,7 @@ public:
 	const char *m_name;
 };
 
-class Dict
-{
-public:
-	~Dict() { releaseData(); }
-	Dict &operator=(const Dict &src);
-	Int getInt(Int key, Bool *exists) const;
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../../GameEngine/Include/Common/Dict.h"
 
 class AsciiString;
 struct DataChunkInfo;

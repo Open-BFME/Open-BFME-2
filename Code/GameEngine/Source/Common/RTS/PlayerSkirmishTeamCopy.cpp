@@ -25,18 +25,7 @@ extern const StaticNameKey TheKey_playerName;
 extern const StaticNameKey TheKey_teamOwner;
 extern const StaticNameKey TheKey_teamName;
 
-class Dict
-{
-public:
-	Dict(const Dict &src) : m_data(src.m_data) { if (m_data) ++*(unsigned short *)m_data; }
-	~Dict() { releaseData(); }
-	AsciiString getAsciiString(int key, bool *exists = 0) const;
-	void setAsciiString(int key, const AsciiString &value);
-
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 #include "../../../Include/GameLogic/ScriptList.h"
 

@@ -53,23 +53,7 @@ struct DictPairData
 {
 	unsigned short m_refCount;
 };
-class Dict
-{
-public:
-	Dict(int numPairsToPreAllocate);
-	Dict(const Dict &src) : m_data(src.m_data)
-	{
-		if (m_data)
-			++m_data->m_refCount;
-	}
-	~Dict() { releaseData(); }
-	void clear();
-	void setAsciiString(int key, const AsciiString &value);
-	void setBool(int key, bool value);
-private:
-	void releaseData();
-	DictPairData *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 class SidesInfo
 {

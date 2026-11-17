@@ -67,23 +67,7 @@ extern Rva00148F5ECache TheKey_playerAllies;		// VA 0x00DBDE54
 extern Rva00148F5ECache TheKey_playerAIType;		// VA 0x00DBDE9C
 extern Rva00148F5ECache TheKey_teamIsSingleton;		// VA 0x00DBDA04
 
-class Dict
-{
-public:
-	enum DataType { DICT_NONE = -1, DICT_BOOL = 0, DICT_INT, DICT_REAL, DICT_ASCIISTRING };
-	Dict(int numPairsToPreAllocate);	// 0x00313581
-	~Dict() { releaseData(); }
-	DataType getType(int key) const;	// 0x0031317C
-	AsciiString getAsciiString(int key, bool *exists = 0) const;	// 0x0031359F
-	void setBool(int key, bool value);	// 0x003136F6
-	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
-	void setUnicodeString(int key, const UnicodeString &value);	// 0x00313781
-	void clear();						// 0x00313574
-
-private:
-	void releaseData();					// 0x0031339C
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 #include "../../../Include/Common/PlayerTemplate.h"
 
