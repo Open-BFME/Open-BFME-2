@@ -1,0 +1,51 @@
+{
+  "revision": "13afb2e8202fbcd6ebcf632631b0689b7694501a",
+  "source": "Code/GameEngine/Source/Common/Rva0022BD9ASubsystem.cpp",
+  "native_complete_extent": "0x34",
+  "native_base_extent": "0x0C",
+  "table_offsets": [
+    "0x0C",
+    "0x20"
+  ],
+  "native_vtable_rva": "0x0083AF78",
+  "native_slots": [
+    "0x0041F25E",
+    "0x000B3FD0",
+    "0x001B5384",
+    "0x0041F27A",
+    "0x005CB9FF",
+    "0x0047A699",
+    "0x000D43D0",
+    "0x0047A69C",
+    "0x000B3FD0",
+    "0x0041E9A4",
+    "0x000B3FD0",
+    "0x005CB9FF",
+    "0x000B3FD0",
+    "0x0047A69C"
+  ],
+  "eh_verdict": "EXACT",
+  "recovered_cleanup": {
+    "name": "$L6060",
+    "rva": "0x00786CC7",
+    "size": 8,
+    "parent": "??0Rva0022BD9ASubsystem@@QAE@XZ",
+    "target_callee": "0x001B4E74"
+  },
+  "remaining_cleanup": {
+    "rva": "0x00786CCF",
+    "size": 11,
+    "status": "existing generated row restored by failed admission",
+    "blocker": "unresolved hash_map<int,Rva0041EFE0Element> destructor identity"
+  },
+  "class_fold_plan": "refused shrink-only hatch key for existing destructor alternatename; no class/alias/baseline edit",
+  "preview": {
+    "index": "0e4b2640a1",
+    "scope": "one source current object",
+    "verdict": "LINKS",
+    "bytes_before": 67,
+    "bytes_after": 67,
+    "limitation": "2026-11-13 index predates 197 added/deleted/renamed sources; no current whole-link claim"
+  },
+  "bridge_retirement": null
+}

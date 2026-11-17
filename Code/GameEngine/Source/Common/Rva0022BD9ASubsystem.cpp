@@ -52,9 +52,6 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
-
 struct Rva0041EFE0Element
 {
 public:
@@ -65,23 +62,15 @@ public:
 namespace _STL {template<> struct hash<Rva0041EFE0Element> { unsigned operator()(const Rva0041EFE0Element&) const; };}
 
 // 0x001B4E63 is the rowed SubsystemInterface ctor.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class __declspec(novtable) BFME2NativeNetworkBase
-{
-public:
-	__forceinline BFME2NativeNetworkBase() { reinterpret_cast<SubsystemInterface *>(this)->SubsystemInterface::SubsystemInterface(); }
-	virtual ~BFME2NativeNetworkBase() { _ReadWriteBarrier(); }
-private:
-	char m_flag;
-	int m_value;
-};
-
 // ??0Rva0022BD9ASubsystem@@QAE@XZ @0x0041EFFF 67B
-// Target evidence: leaf, called by GameEngine::init 0x0022F999 via new;
+// Target evidence: called by GameEngine::init 0x0022F999 via new;
 // calls rowed baseConstruct 0x001B4E63 then two rowed hash_map ctors 0x0041EFE0
 // at +0x0C and +0x20; vtable 0x0083AF78 auto; neighbours 0x0041EFE0 0x0041F25E.
-// Precedent Rva00222061Ctor Shell-pattern novtable base for EH after baseConstruct.
+// The native EH cleanup calls SubsystemInterface::~SubsystemInterface at 0x001B4E74.
+// Use its real 12-byte base and fourteen-slot interface instead of a manual prefix.
 namespace _STL {
 template <> hash_map<int, Rva0041EFE0Element>::hash_map();
 typedef pair<const int, Rva0041EFE0Element> SubsystemTableValue;
@@ -91,7 +80,7 @@ typedef hashtable<SubsystemTableValue, int, hash<int>,
 template <> void SubsystemTable::clear();
 }
 
-class Rva0022BD9ASubsystem : public BFME2NativeNetworkBase
+class Rva0022BD9ASubsystem : public SubsystemInterface
 {
 public:
 	Rva0022BD9ASubsystem();
