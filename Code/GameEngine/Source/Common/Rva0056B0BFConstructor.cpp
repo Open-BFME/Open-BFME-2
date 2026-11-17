@@ -33,6 +33,7 @@ public:
 	Rva0056B0BF(Rva0056AC26Owner *owner, Parent0056B0BF *parent);
 	virtual ~Rva0056B0BF();
 	virtual void slot3(int);
+	virtual bool ac26Slot1();
 private:
 	Parent0056B0BF *m_parent18;
 	bool m_1C;
@@ -53,4 +54,9 @@ Rva0056B0BF::Rva0056B0BF(Rva0056AC26Owner *owner, Parent0056B0BF *parent)
 void Rva0056B0BF::slot3(int)
 {
     m_1D = false;
+}
+
+bool Rva0056B0BF::ac26Slot1()
+{
+    return m_1E;
 }

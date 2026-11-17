@@ -15,6 +15,7 @@ class Rva0056B0BF : public Rva0056AC26, public LivingWorldBattleListener {
 public:
     virtual ~Rva0056B0BF();
     virtual void slot3(int);
+    virtual bool ac26Slot1();
 private:
     Parent0056B0BF *m_parent18;
     bool m_1C;

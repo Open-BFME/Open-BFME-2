@@ -15,3 +15,7 @@ Rva0056AC26Base2::slot2(int) returns bool. Neither shared header is changed.
 A correct method cannot override just one through the current neutral names.
 This is a contract naming prerequisite, not a demonstrated false reject.
 Remaining primary and secondary candidates are being examined separately.
+
+Primary table86D2E8 slot1 at4543C6 is now the concrete bool getter for
+constructor-proven field1E. Its complete4 bytes match the original provider;
+normal paired verification passes13/13 after this independent admission.
