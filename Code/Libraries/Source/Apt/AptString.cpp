@@ -26,11 +26,7 @@ struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
 #include "AptBasePtrStack.h"
 
-struct AptActionInterpreter
-{
-public:
-	AptBasePtrStack stack; // +0x00
-};
+#include "AptActionInterpreter.h"
 
 const char *rva006d4280(const char *text, int *codepoint);
 

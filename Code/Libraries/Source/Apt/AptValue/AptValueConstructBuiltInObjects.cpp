@@ -29,7 +29,7 @@ public:
  BfmeAptValue006DCD20 *checkedString();
 };
 #include "../AptBasePtrStack.h"
-struct AptActionInterpreter { AptBasePtrStack stack; };
+#include "../AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 #include "../../../../GameEngine/Include/Common/Rva006DB160.h"
 #include "../../../../GameEngine/Include/Common/Rva006DB270.h"
