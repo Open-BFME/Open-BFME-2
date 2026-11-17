@@ -12,7 +12,8 @@ half (under a placeholder name), `GameClient::update`,
 `MessageStream::propagateMessages`, `GameLogic::update`, `setFPMode` and the
 network's admission queries. `GameEngine::update` is described from its
 BFME 2 body; for `GameEngine::execute` and the phase scheduler this page
-gives only the contract. `rg` a name in
+gives only the contract, apart from the frame-rate wait in the
+\ref page_frame_loop_modding "modding notes". `rg` a name in
 `reverse/functions.csv` for status; many sources below are split units that
 `reverse/tu_map.csv` will merge, so search by name.
 
@@ -200,8 +201,22 @@ frames; \ref sub_save_load_crc covers the CRC and recorder;
   literal 6 (timing note), and `GameEngine::update` wraps its period at a
   literal 6, so changing the global alone is inconsistent. Any
   change breaks play with unmodified clients and replays.
-- **Frame-rate cap.** Zero Hour reads it from `GameData.ini`
-  (`FramesPerSecondLimit`, `UseFPSLimit`); BFME 2's field names are unconfirmed.
+- **Frame-rate cap.** As in Zero Hour, it comes from `GameData.ini`:
+  BFME 2's global-data parse table has `UseFPSLimit` and
+  `FramesPerSecondLimit` (`GlobalData.cpp`), and the shipped `GameData.ini`
+  sets them to `Yes` and 30. `GameEngine::execute` turns the cap into a whole
+  number of milliseconds per frame: 1000 divided by the product of the cap
+  and a time scale that is 1 outside network games, truncated. A cap of 30
+  therefore holds each frame until 33 ms after the previous one, at most
+  30.3 frames a second. The wait is a loop of `Sleep(0)` and `timeGetTime`,
+  so the main thread never blocks: it keeps a core busy unless another
+  thread is ready to run. The wait runs when `UseFPSLimit` is set, unless
+  the global-data fast-forward flag is set, the tactical view's time
+  multiplier is above 1 or a script-engine check turns it off. A network
+  game with more than one player can force it on whatever those say: for
+  the packet router on the pass whose client-frame period is 1, and on any
+  machine whose time scale is not 1. In every case no client frame waits
+  within six client frames of a skipped one.
 
 ## Remastering notes {#page_frame_loop_remastering}
 
