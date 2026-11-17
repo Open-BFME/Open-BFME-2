@@ -5,12 +5,20 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 #include "../../Include/Common/Visitor005CCCD0.h"
 #include "../../Include/Common/Rva005CCD36.h"
+#include "../../Include/Common/Rva005CCB3EByteChaseField.h"
+#include "../../../Libraries/Source/WWVegas/WW3D2/Font3DInstanceClass.h"
+class Rva005CCB6B { public: void rva005CCB6B(); };
 class Rva005CD813Visitor : public Visitor005CCCD0
 {
 public:
 	Rva005CD813Visitor();
 	virtual ~Rva005CD813Visitor() {}
-	virtual bool visit(TargetRef00217D4C *p) { return true; }
+	virtual bool visit(TargetRef00217D4C *p) {
+        if (((Rva005CCB3EByteChaseField *)p)->get() != 0) return true;
+        if (((Font3DInstanceClass *)p)->Peek_Texture() != (TextureClass *)1) return true;
+        ((Rva005CCB6B *)p)->rva005CCB6B();
+        return true;
+    }
 };
 // ??0Rva005CD813Visitor@@QAE@XZ @0x005CD7B4 9B: the visitor's default
 // constructor, storing its vtable 0x00C75008; retail keeps this standalone

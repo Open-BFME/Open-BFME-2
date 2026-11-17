@@ -1,5 +1,12 @@
 ### LINK-004: missing or incompatible shared providers and declarations
 
+2026-11-17: Rva005CD813Visitor's native table 0x00875008 slot 0 targets the
+existing 41-byte body at 0x005CD78B. Its source now implements that algorithm
+instead of an immediate true return. The real virtual member is admitted by
+add_match against the existing byte-and-relocation twin; all four source rows
+pass ordinary builds. Bridge retirement still awaits a published real link.
+See [native callback evidence](../../reverse/attempt_support/visitor-005cd813-20261117.md).
+
 - **Weapon assistance donor cleanup (2026-10-28, base `4b6b2ff79f`):**
   [Scoped evidence](../../reverse/attempt_support/weapon-assistance-cleanup-20261028-codexb.md)
   removes the unused Zero Hour assistance callback/request type and two stale
