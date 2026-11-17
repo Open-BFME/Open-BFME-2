@@ -131,13 +131,6 @@ Rva005FABC1Handle Rva005FABC1::rva005FABC1(int level, const AsciiString &name)
 }
 
 #include "../../Include/Common/Rva005F327ARun.h"
-class Rva005E549E { public: virtual void rva005E549E(); };
-// Native callback of the shared interface; the secondary-base thunk subtracts 8.
-void Rva005E4F6D::slot0()
-{
-    reinterpret_cast<Rva005E549E *>(this)->Rva005E549E::rva005E549E();
-    reinterpret_cast<Rva005F327ARun *>(reinterpret_cast<char *>(this) - 8)->run();
-}
 
 class Rva005E4116 { public: int rva005E4116(); };
 // Native slot1 reads the owned pointer at +0x10 and tail-calls its provider.
