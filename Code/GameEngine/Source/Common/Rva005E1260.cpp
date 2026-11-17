@@ -7,20 +7,52 @@ struct Init005E1260
 	int m_b;
 };
 
+// Native 0x005E1222 slot 1 body: invoke the member callback stored at +0xC on
+// the target object stored at +0x8, returning the eight-byte handle through the
+// caller's output pointer. Same declaration family as Code/GameEngine/Source/
+// Common/Rva005E1222.cpp, which owns the rowed 36-byte body.
+struct Rva005E1222Value
+{
+	void *first;
+	void *second;
+	Rva005E1222Value();
+	Rva005E1222Value(const Rva005E1222Value &v) : first(v.first), second(v.second) {}
+	~Rva005E1222Value() {}
+};
+
+class Rva005E1222Target {};
+
 #include "../../Include/Common/Rva0007DF07.h"
 
 class Rva005E1260Body : public Rva0007DF07
 {
 public:
 	virtual ~Rva005E1260Body() {}
-	int m_a;
-	int m_b;
+	union
+	{
+		struct
+		{
+			int m_a;
+			int m_b;
+		};
+		struct
+		{
+			Rva005E1222Target *m_object;
+			Rva005E1222Value (Rva005E1222Target::*m_method)();
+		};
+	};
 	Rva005E1260Body(const Init005E1260 *p)
 	{
 		m_a = p->m_a;
 		m_b = p->m_b;
 	}
+	virtual Rva005E1222Value invoke();
 };
+
+Rva005E1222Value Rva005E1260Body::invoke()
+{
+	return (m_object->*m_method)();
+}
 
 class Rva005E1260
 {
