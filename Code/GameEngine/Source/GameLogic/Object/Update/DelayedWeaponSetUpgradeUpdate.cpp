@@ -31,6 +31,25 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
+// Xfer's operand types, declared before its header as BfmeXfer.h asks.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 // Target: retail table 0x0084B2E4 (this class's +0x20 interface subobject) is two
 // slots, 0x005CB9FF `xor al,al; ret 4` and 0x0047A69C `ret 4`: a bool query and a
 // void call, each taking one stack word. Donor (Zero Hour UpdateModule.h, BFME1
@@ -102,6 +121,10 @@ public:
 	virtual UpdateSleepTime update() { return UPDATE_SLEEP_NONE; }
 	virtual bool isTriggeredBy(const UpgradeMaskType &potentialMask);
 	virtual void setDelay(unsigned int startingDelay);
+protected:
+	// ObjectModule-table (0x0084B2F8) slots 1 and 3: the module's own Snapshot overrides.
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 };
 
 BFME_LITERAL_NAME_GETTER(Rva00488288Named, "DelayedWeaponSetUpgradeUpdate")
@@ -125,6 +148,21 @@ bool DelayedWeaponSetUpgradeUpdate::isTriggeredBy(const UpgradeMaskType &)
 
 void DelayedWeaponSetUpgradeUpdate::setDelay(unsigned int)
 {
+}
+
+// Slots 1 and 3 of retail table 0x0084B2F8. Zero Hour's bodies with no fields of
+// their own; /OPT:ICF folded both onto the shared UpdateModule-only forms
+// (0x00497805 jmp UpdateModule::loadPostProcess; 0x004DF81B Version1 then
+// UpdateModule::xfer).
+void DelayedWeaponSetUpgradeUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
+
+void DelayedWeaponSetUpgradeUpdate::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpdateModule::xfer(xfer);
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
