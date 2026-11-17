@@ -3548,7 +3548,6 @@ Code/GameEngine/Source/Common/Rva003FAB93.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FAC3F.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FAF13Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FAFB9Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva003FB793.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FB7C7.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FB7DBFadeUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FBA0ERva003FBA0E.cpp,yes,0,0,0,0,0
@@ -3559,7 +3558,6 @@ Code/GameEngine/Source/Common/Rva003FC43ACompare.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FC780.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FC7FCClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FCD04Finish.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva003FCD58Method.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FCE11Compare.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FD02EWrite.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva003FD0CCRead.cpp,yes,0,0,0,0,0
@@ -6854,7 +6852,7 @@ Code/GameEngine/Source/Common/VectorPod88CopyConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VectorPod88MClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VersionBlockEntryCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VersionBlockKeyCompare.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/VersionBlockParser.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/Common/VersionBlockParser.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VersionBlockSortMedian.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VersionDestructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VictoryConditions.cpp,yes,0,0,0,0,0
@@ -17317,7 +17315,7 @@ Code/Libraries/Source/WWVegas/WWLib/wwstring_free_string.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/xpipe.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/xstraw.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/xsurface.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWMath/AABTreeCullO1Inlines.cpp,no,0,0,0,0,1
+Code/Libraries/Source/WWVegas/WWMath/AABTreeCullO1Inlines.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/ColMathPlaneGetFarExtent.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/CollisionMathLineBox.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp,yes,0,0,0,0,0
@@ -17391,7 +17389,7 @@ Code/Libraries/Source/WWVegas/WWMath/curve.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/frustum.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/frustum_copy.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/frustum_init.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,no,0,0,0,0,1
+Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/icoord.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/lineseg.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWMath/lookuptable.cpp,yes,0,0,0,0,0
