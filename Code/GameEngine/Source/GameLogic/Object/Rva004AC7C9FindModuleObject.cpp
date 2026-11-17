@@ -36,11 +36,7 @@ public:
 	BfmeFixedStorage0004543D m_24;
 };
 
-struct BfmeResultA
-{
-	void *m_value;
-	~BfmeResultA();
-};
+#include "../../../Include/Common/BfmeResultA.h"
 
 #include "../../../Include/Common/BfmeResultForwardB.h"
 

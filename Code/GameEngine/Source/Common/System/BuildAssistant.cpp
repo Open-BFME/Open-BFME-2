@@ -1180,11 +1180,7 @@ private:
 	const Coord3D *m_pos;	// +0x08
 	Real m_radius;		// +0x0C
 };
-struct BfmeResultA
-{
-	void *m_value;
-	~BfmeResultA();
-};
+#include "../../../Include/Common/BfmeResultA.h"
 // ThePartitionManager's filtered all-objects query (0x006256F0).
 #include "../../../Include/Common/BfmeResultForwardB.h"
 // GeometryInfo's assignment (0x00064605).
