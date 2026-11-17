@@ -32,6 +32,7 @@ class Rva0056B0BF : public Rva0056AC26, public LivingWorldBattleListener
 public:
 	Rva0056B0BF(Rva0056AC26Owner *owner, Parent0056B0BF *parent);
 	virtual ~Rva0056B0BF();
+	virtual void slot3(int);
 private:
 	Parent0056B0BF *m_parent18;
 	bool m_1C;
@@ -47,4 +48,9 @@ Rva0056B0BF::Rva0056B0BF(Rva0056AC26Owner *owner, Parent0056B0BF *parent)
 	m_1E = false;
 	owner->m_flag20 = true;
 	m_parent18->holder.append((Rva002BA8F1Listener *)static_cast<LivingWorldBattleListener *>(this));
+}
+
+void Rva0056B0BF::slot3(int)
+{
+    m_1D = false;
 }
