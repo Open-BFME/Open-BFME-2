@@ -1,31 +1,15 @@
 // cl: /GX /MD /DNDEBUG
-//
-// ??0MonsterDockUpdateModuleData@@QAE@XZ, retail 0x004A1517, 59 bytes (EH):
-// base call into the pinned DockUpdateModuleData 0x5896B0, single state-0
-// store, compiler vtable store at +0 (pinned ??_7 at 0xC51DA8, slot0 is the
-// ??_G at 0x4A1552 sitting right after the ctor), filter member at +0x10
-// via the existing Rva003623E5Member ctor pin (no dtor, else a 2nd state),
-// zero at +0x14 matching the DockableObjectFilter/DockedAnimationTime table.
-// Devastate recipe: the virtual base dtor (declared-only, no code) is the
-// sole unwindable. The owning factory at 0x0024EB2C (news 0x18) is the sole
-// caller; the pool key plus Update ctor plus dtor sit in the cluster at
-// 0x4A139A right where the proc ends. Row supersedes the ctor pin.
-//
-// The base destructor is defined inline so this unit emits the unrowed
-// ??1DockUpdateModuleData@@UAE@XZ COMDAT its unwind (and SupplyCenterDockUpdate's)
-// references. Retail folds it into the Snapshot teardown 0x0049B47C (funclet
-// 0x0078DB70 jumps there); no BFME 2 unit spells it out of line, and the
-// native SupplyWarehouseDockUpdate view that replaced the Zero Hour seed (its
-// former provider) models DockUpdateModuleData's table pointer explicitly.
-class DockUpdateModuleData
-{
-public:
-	DockUpdateModuleData();
-	virtual ~DockUpdateModuleData() {}
-
-protected:
-	unsigned char m_pad[0x0C];
-};
+// Native constructor 004A1517 (59 bytes) calls DockUpdateModuleData at 005896B0,
+// constructs its filter at +10 and clears the time at +14. The factory at
+// 0024EB2C allocates 18 hexadecimal bytes. The base supplies the native
+// 31-slot ModuleData interface and occupies the first 10 hexadecimal bytes.
+// Its complete seven-byte teardown folds with Snapshot at 0049B47C and is
+// also the existing destructor provider used by SupplyCenterDockUpdate.
+#include "../../../../Include/Common/ModuleData.h"
+// Native Dock teardown folds with Snapshot's complete seven-byte destructor.
+// Keep this existing provider visible to its constructor's EH cleanup.
+inline ModuleData::~ModuleData() {}
+#include "../../../../Include/GameLogic/Module/DockUpdateModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 

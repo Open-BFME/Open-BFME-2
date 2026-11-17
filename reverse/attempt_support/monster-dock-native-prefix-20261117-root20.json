@@ -1,0 +1,505 @@
+{
+  "revision": "6f05eee4dbbdde3d67d9259349b2f6d028d472db",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp",
+  "header": "Code/GameEngine/Include/GameLogic/Module/DockUpdateModuleData.h",
+  "native_table_rva": "0x00851DA8",
+  "slots": 31,
+  "native_comparisons": "31/31 source slot bodies and relocations exact in frozen native proof",
+  "lifetime_rows": "6/6 across constructor and destructor",
+  "eh": "EXACT constructor and destructor graphs",
+  "dependent_build": {
+    "sources": 11,
+    "rows": 197,
+    "data_rows": 54
+  },
+  "external_slot_provider_build": {
+    "sources": 2,
+    "rows": 44,
+    "literals": 43
+  },
+  "owning_table_predicate": {
+    "scope": "current constructor and destructor objects only; not a real-link run",
+    "matches": true,
+    "mismatches": [],
+    "copy": {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "extent": 124,
+      "offset": 0,
+      "comdat": true,
+      "selection": 2,
+      "executable": false,
+      "archive": false,
+      "other_publics": [],
+      "pointers": {
+        "0": [
+          "??_EMonsterDockUpdateModuleData@@UAEPAXI@Z",
+          6,
+          0
+        ],
+        "4": [
+          "?loadPostProcess@ModuleData@@UAEXXZ",
+          6,
+          0
+        ],
+        "8": [
+          "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+          6,
+          0
+        ],
+        "12": [
+          "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+          6,
+          0
+        ],
+        "16": [
+          "?isAiModuleData@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "20": [
+          "?slot05@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "24": [
+          "?slot06@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "28": [
+          "?slot07@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "32": [
+          "?slot08@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "36": [
+          "?slot09@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "40": [
+          "?slot10@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "44": [
+          "?slot11@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "48": [
+          "?slot12@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "52": [
+          "?slot13@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "56": [
+          "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+          6,
+          0
+        ],
+        "60": [
+          "?slot15@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ],
+        "64": [
+          "?slot16@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "68": [
+          "?slot17@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "72": [
+          "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+          6,
+          0
+        ],
+        "76": [
+          "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+          6,
+          0
+        ],
+        "80": [
+          "?slot20@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "84": [
+          "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+          6,
+          0
+        ],
+        "88": [
+          "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+          6,
+          0
+        ],
+        "92": [
+          "?slot23@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "96": [
+          "?slot24@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "100": [
+          "?slot25@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "104": [
+          "?slot26@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "108": [
+          "?slot27@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "112": [
+          "?slot28@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "116": [
+          "?slot29@ModuleData@@UBEPBXXZ",
+          6,
+          0
+        ],
+        "120": [
+          "?slot30@ModuleData@@UBE_NXZ",
+          6,
+          0
+        ]
+      },
+      "weak": {
+        "0": [
+          "??_GMonsterDockUpdateModuleData@@UAEPAXI@Z",
+          2
+        ]
+      }
+    },
+    "weak_resolution": {
+      "??_EMonsterDockUpdateModuleData@@UAEPAXI@Z": [
+        "??_GMonsterDockUpdateModuleData@@UAEPAXI@Z",
+        2
+      ]
+    }
+  },
+  "registry": [
+    {
+      "slot": 0,
+      "name": "??_EMonsterDockUpdateModuleData@@UAEPAXI@Z",
+      "native_rva": "0x4a1552",
+      "ledger_rvas": [
+        "0x4a1552"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 1,
+      "name": "?loadPostProcess@ModuleData@@UAEXXZ",
+      "native_rva": "0xb3fd0",
+      "ledger_rvas": [
+        "0xb3fd0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 2,
+      "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+      "native_rva": "0x65212",
+      "ledger_rvas": [
+        "0x65212"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 3,
+      "name": "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+      "native_rva": "0x47a69c",
+      "ledger_rvas": [
+        "0x47a69c"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 4,
+      "name": "?isAiModuleData@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 5,
+      "name": "?slot05@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 6,
+      "name": "?slot06@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 7,
+      "name": "?slot07@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 8,
+      "name": "?slot08@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 9,
+      "name": "?slot09@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 10,
+      "name": "?slot10@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 11,
+      "name": "?slot11@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 12,
+      "name": "?slot12@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 13,
+      "name": "?slot13@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 14,
+      "name": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+      "native_rva": "0xb69a1",
+      "ledger_rvas": [
+        "0xb69a1"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 15,
+      "name": "?slot15@ModuleData@@UBE_NXZ",
+      "native_rva": "0x47a699",
+      "ledger_rvas": [
+        "0x47a699"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 16,
+      "name": "?slot16@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 17,
+      "name": "?slot17@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 18,
+      "name": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 19,
+      "name": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 20,
+      "name": "?slot20@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 21,
+      "name": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 22,
+      "name": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 23,
+      "name": "?slot23@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 24,
+      "name": "?slot24@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 25,
+      "name": "?slot25@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 26,
+      "name": "?slot26@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 27,
+      "name": "?slot27@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 28,
+      "name": "?slot28@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 29,
+      "name": "?slot29@ModuleData@@UBEPBXXZ",
+      "native_rva": "0xd43d0",
+      "ledger_rvas": [
+        "0xd43d0"
+      ],
+      "agrees": true
+    },
+    {
+      "slot": 30,
+      "name": "?slot30@ModuleData@@UBE_NXZ",
+      "native_rva": "0x50b5c6",
+      "ledger_rvas": [
+        "0x50b5c6"
+      ],
+      "agrees": true
+    }
+  ],
+  "model_consumer_comparison": {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp",
+    "comparison": "class_cleanup.same_runtime: every non-debug COFF byte, relocation, provider, weak default and COMDAT policy",
+    "same_runtime": true,
+    "before_sha256": "bda5bd20123de4217b17d66604c0abbc1eccde291e146bd16e43b2f9048de202",
+    "after_sha256": "c2822784925426cdb60a30f4d4449ce618fd45220d042551501a07590c861f0d",
+    "source_never_edited": true,
+    "owned_header_restored": true,
+    "scope": "compile-only with two versions of the owned dock header; no edit to any foreign claimed folded function"
+  },
+  "header_acceptance": "PASS; one MonsterDockUpdateModuleDataCtor queue row retired through header_adopt_lane.accept with three provider witnesses",
+  "preview": {
+    "index": "0e4b2640a1",
+    "current_lifetime_provider_scope": "6/6 LINKS,3357->3364 predicted row-bytes; added7B is an ICF copy, not unique coverage",
+    "other_direct_includers": "7/8 LINKS; ModelConditionUpgrade BehaviorModuleInterface table flag is identical before/after the header change",
+    "limitation": "Index predates197 source-path changes; no current whole-link clearance"
+  },
+  "contract_regeneration": "Diagnostic sees only two remaining private views and queues ctor84ED70 versus finalSnapshot teardown7BB554. No contract or gate change applied.",
+  "published_bridge_retirement": null,
+  "game_runtime_reach": null
+}

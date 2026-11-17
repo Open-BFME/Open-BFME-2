@@ -19,3 +19,9 @@ unit loses its link (net +217 predicted bytes). The exact-base
 strict receipts. Remaining: a retail-proven fold row for this destructor
 needs a Snapshot-derived DockUpdateModuleData view (the native seed and
 DockUpdate.cpp both model its table pointer explicitly).
+
+## Native prefix recovered (2026-11-17, 6f05eee4dbbdde3d67d9259349b2f6d028d472db)
+
+The formerly pending Dock destructor fold is now proved and rowed: the shared DockUpdateModuleData declaration inherits the real 31-slot ModuleData prefix and emits complete seven-byte Snapshot teardown at0049B47C. MonsterDock's source table851DA8 has31/31 native bindings and body/relocation matches; the current owning bridge predicate passes. The preserved SupplyCenter provider consumer and all eleven header consumers pass197/197 code rows and54 data rows; both Monster EH graphs are EXACT. One header-queue row retires through acceptance. [Source/table proof and limits](../../reverse/attempt_support/monster-dock-native-prefix-20261117-root20.md).
+
+The broader current real-link result is still unmeasured. Old-index previews preserve the tested lifetime/provider scope; one ModelConditionUpgrade table flag is demonstrably unchanged across the header edit. No claim repeats the historical3684-unit audit or retires the published bridge before a new real run. Contract regeneration's final-Snapshot-table conflict is a separate false reject; the contract is unchanged.

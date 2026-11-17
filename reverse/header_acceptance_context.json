@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "cohorts": [
+    {
+      "class": "DockUpdateModuleData",
+      "consumers": [
+        "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataDtor.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp"
+      ]
+    }
+  ]
+}

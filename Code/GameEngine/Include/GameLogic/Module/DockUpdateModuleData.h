@@ -1,14 +1,22 @@
-// DockUpdateModuleData: canonical declarations for the members 8 units call through private views of it;
-// each call resolves to the unit's ledger row or pin, and no unit reads its layout, which stays opaque.
+// Native ctor 005896B0 installs the common 31-slot ModuleData table, clears
+// the word at +8 and sets the byte at +0C. The MonsterDock constructor places
+// its filter at +10, proving this base is 0x10 bytes.
 #ifndef CANONICAL_DOCKUPDATEMODULEDATA_H
 #define CANONICAL_DOCKUPDATEMODULEDATA_H
 
+#include "../../Common/ModuleData.h"
+
 class MultiIniFieldParse;
 
-class DockUpdateModuleData
+class DockUpdateModuleData : public ModuleData
 {
 public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
+    DockUpdateModuleData();
+    virtual ~DockUpdateModuleData() {}
+    static void buildFieldParse(MultiIniFieldParse &parse);
+
+    int m_numberApproachPositionsData;
+    bool m_isAllowPassthrough;
 };
 
 #endif // CANONICAL_DOCKUPDATEMODULEDATA_H

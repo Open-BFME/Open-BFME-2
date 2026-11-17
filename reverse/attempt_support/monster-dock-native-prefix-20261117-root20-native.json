@@ -1,0 +1,1101 @@
+{
+  "schema": "bfme2-monster-dock-native-table-proof-v1",
+  "created_utc": "2026-11-17T18:09:23.604205+00:00",
+  "scope": "Existing objects/native image inspected; no reviewer compile, link, runtime, claims, or tracked edits. Only this JSON and companion MD are scratch writes.",
+  "inputs": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp": {
+      "role": "source",
+      "sha256": "c81891901042186308a946748d7a0a665e3e8a324b8e338d08c8309b886302ad",
+      "bytes": 1183
+    },
+    "Code/GameEngine/Include/GameLogic/Module/DockUpdateModuleData.h": {
+      "role": "source/header or COFF reader",
+      "sha256": "94c7c79276d04c15bf327d83152500902435f44fc801680d9be21ce681e7d415",
+      "bytes": 661
+    },
+    "Code/GameEngine/Include/Common/ModuleData.h": {
+      "role": "source/header or COFF reader",
+      "sha256": "3abdc2564c8dce950a23d2452f4916b7b1bcb4ca6227fd0935494c5656e1e044",
+      "bytes": 5477
+    },
+    "reference/shims/moduledata/Common/Snapshot.h": {
+      "role": "source/header or COFF reader",
+      "sha256": "966b0ec30c8d777caa46df85bfc0f9013baeed17f8cc2cd1a1c4295172cf2206",
+      "bytes": 5450
+    },
+    "Code/GameEngine/Include/GameLogic/Module/Rva003623E5Member.h": {
+      "role": "source/header or COFF reader",
+      "sha256": "e6d0cff81b2ad54c5b3d6c70c6b4e8c262ce29dc713579f72acff838e8d00e46",
+      "bytes": 1873
+    },
+    "tools/link_cycle.py": {
+      "role": "source/header or COFF reader",
+      "sha256": "cf13cc812a48572626558cfff005dbb550ba1f2276748572af9ad64a1538fa9a",
+      "bytes": 145597
+    },
+    "baselines/bfme2/workshop-vanilla-1.06/files/game.dat": {
+      "role": "retail PE",
+      "sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+      "bytes": 10969600
+    },
+    "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj": {
+      "role": "compiled object",
+      "sha256": "50a782d47c4c7043e5ae98f483d690eb18cc6e62c791ea78ff13235bd284efc7",
+      "bytes": 10513
+    },
+    "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.deps.json": {
+      "role": "dependency receipt",
+      "sha256": "9c036facd8e9334bf87ea15361aeddae80677d81b78199af7911e0992badc383",
+      "bytes": 627
+    },
+    "build/match/^code_^game^engine_^source_^common_^subsystem^name^getters.obj": {
+      "role": "compiled object",
+      "sha256": "2209b2721a107443019df5e97528c42e127108450950dda942fff21b970477d1",
+      "bytes": 18074
+    },
+    "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp": {
+      "role": "source",
+      "sha256": "ad073361268dd57c8fe63cd46ee837c958a465f205095ee64b4e3a6f1b3b12a6",
+      "bytes": 4932
+    },
+    "build/match/^code_^game^engine_^source_^common_^subsystem^name^getters.deps.json": {
+      "role": "dependency receipt",
+      "sha256": "7679edd9ed9c1cd85ff24f16beae015ceda2d2a6bf7fe7915afec2d9f21c1112",
+      "bytes": 2007
+    },
+    "build/match/^code_^game^engine_^source_^common_^rva000^b69^a1.obj": {
+      "role": "compiled object",
+      "sha256": "4bf541e81c8f7e644037dea383396d9ee958c5191abcef9411e6483e30e99ffe",
+      "bytes": 1880
+    },
+    "Code/GameEngine/Source/Common/Rva000B69A1.cpp": {
+      "role": "source",
+      "sha256": "9d4c8c3ec20ab3315a291bb7ec73cb806078a7c0c229d5b7c4a8e8abf7de47a0",
+      "bytes": 789
+    },
+    "build/match/^code_^game^engine_^source_^common_^rva000^b69^a1.deps.json": {
+      "role": "dependency receipt",
+      "sha256": "0ca2ff0957eda4c98047d6d11789b175802466fd5740c2aa4cd4d3bad576421c",
+      "bytes": 710
+    },
+    "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^dtor.obj": {
+      "role": "compiled object",
+      "sha256": "c51c5e6160e3bcaa4cc8ca6b3e3e001a09e326cac2549c725949db97ff8fbdde",
+      "bytes": 2272
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataDtor.cpp": {
+      "role": "source",
+      "sha256": "5cea7f473e97f623bfeb631148c3bb17c8ceaa97c025427209e00b69edac38eb",
+      "bytes": 1380
+    },
+    "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^dtor.deps.json": {
+      "role": "dependency receipt",
+      "sha256": "c39e22478dd514e78f60c89dd7ba9080f58344ce7ec2e089376e4105a4cc30ee",
+      "bytes": 432
+    },
+    "build/root-monster-dock-20261117/owning-table-predicate.json": {
+      "role": "parent current ctor+dtor owning predicate (separate scope)",
+      "sha256": "52930be03ba1718bddac07962b07e0981be411a0a57906bced88257ecab0b28e",
+      "bytes": 3548
+    },
+    "reverse/class_contracts/DockUpdateModuleData.json": {
+      "role": "existing metadata snapshot; not rewritten",
+      "sha256": "8f18d00b0e024c34efbeeb8b02396711e7ea805ce1a3fa4ba4bb109592edd520",
+      "bytes": 8813
+    }
+  },
+  "retail_image": "baselines/bfme2/workshop-vanilla-1.06/files/game.dat",
+  "retail_image_base": "0x00400000",
+  "object_receipts": {
+    "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj": {
+      "source_md5_current": true,
+      "dependency_count": 4,
+      "dependency_mismatches": [],
+      "cmd_fingerprint": "11e3f4594792f874b1274c9ae09dc212"
+    },
+    "build/match/^code_^game^engine_^source_^common_^subsystem^name^getters.obj": {
+      "source_md5_current": true,
+      "dependency_count": 19,
+      "dependency_mismatches": [],
+      "cmd_fingerprint": "854603cd0a47c152774c6d09f17cfb2a"
+    },
+    "build/match/^code_^game^engine_^source_^common_^rva000^b69^a1.obj": {
+      "source_md5_current": true,
+      "dependency_count": 5,
+      "dependency_mismatches": [],
+      "cmd_fingerprint": "b226b6bcb2f6752b0cf079e4d6adcb00"
+    },
+    "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^dtor.obj": {
+      "source_md5_current": true,
+      "dependency_count": 2,
+      "dependency_mismatches": [],
+      "cmd_fingerprint": "37602718903d36bbd11ec49bc10c045f"
+    }
+  },
+  "table": {
+    "symbol": "??_7MonsterDockUpdateModuleData@@6B@",
+    "native_rva": "0x00851DA8",
+    "slots": 31,
+    "native_extent": 124,
+    "object_extent": 124,
+    "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+    "selection": 2,
+    "common_rva": "0x0084ED70",
+    "differences_from_common": [
+      {
+        "slot": 0,
+        "common_rva": "0x004A10FD",
+        "monster_rva": "0x004A1552"
+      }
+    ]
+  },
+  "slots": [
+    {
+      "symbol": "??_EMonsterDockUpdateModuleData@@UAEPAXI@Z",
+      "resolved_symbol": "??_GMonsterDockUpdateModuleData@@UAEPAXI@Z",
+      "weak_chain": [
+        {
+          "symbol": "??_EMonsterDockUpdateModuleData@@UAEPAXI@Z",
+          "default": "??_GMonsterDockUpdateModuleData@@UAEPAXI@Z",
+          "mode": 2,
+          "mode_name": "LIBRARY"
+        }
+      ],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4995,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 28,
+      "native_rva": "0x004A1552",
+      "native_file_offset": 4852562,
+      "object_bytes_hex": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "native_bytes_hex": "568bf1e814000000f644240801740756e8f9e7b8ff598bc65ec20400",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "kind": 20,
+          "symbol": "??1MonsterDockUpdateModuleData@@UAE@XZ",
+          "resolved_symbol": "??1MonsterDockUpdateModuleData@@UAE@XZ",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "14000000",
+          "native_target_rva": "0x004A156E",
+          "owner_rows": [
+            {
+              "name": "??1MonsterDockUpdateModuleData@@UAE@XZ",
+              "export_rva": "",
+              "target_rva": "0x004A156E",
+              "target_size": "48",
+              "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataDtor.cpp",
+              "status": "matched",
+              "notes": "EH over Snapshot BBB554 plus filter at +0x10 via 0x360D26 plus slot0 0x4A1552 plus vtable 0xC51DA8 plus BFME1 donor"
+            }
+          ],
+          "rule": "REL32 matched symbol RVA plus COFF addend",
+          "equal": true
+        },
+        {
+          "offset": 17,
+          "kind": 20,
+          "symbol": "??3@YAXPAX@Z",
+          "resolved_symbol": "??3@YAXPAX@Z",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "f9e7b8ff",
+          "native_target_rva": "0x0002FD60",
+          "owner_rows": [
+            {
+              "name": "??3@YAXPAX@Z",
+              "export_rva": "",
+              "target_rva": "0x0002FD60",
+              "target_size": "21",
+              "source": "Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp",
+              "status": "matched",
+              "notes": "game memory-manager pointer table; class 1 scalar class 2 array"
+            }
+          ],
+          "rule": "REL32 matched symbol RVA plus COFF addend",
+          "equal": true
+        }
+      ],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 0,
+      "table_relocation_kind": 6,
+      "owner_rows": [
+        {
+          "name": "??_GMonsterDockUpdateModuleData@@UAEPAXI@Z",
+          "export_rva": "",
+          "target_rva": "0x004A1552",
+          "target_size": "28",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp",
+          "status": "matched",
+          "notes": "slot0 vtable 00851DA8 calls rowed 004A156E plus delete 0002FD60 via famgen pattern; rehomed from FamilyDeletingDtors_muse-5c68.cpp: MonsterDockUpdateModuleDataCtor.cpp emits this deleting dtor itself (the famgen stand-in dtor was a duplicate definition)"
+        }
+      ]
+    },
+    {
+      "symbol": "?loadPostProcess@ModuleData@@UAEXXZ",
+      "resolved_symbol": "?loadPostProcess@ModuleData@@UAEXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4185,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 1,
+      "native_rva": "0x000B3FD0",
+      "native_file_offset": 734672,
+      "object_bytes_hex": "c3",
+      "native_bytes_hex": "c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 1,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+      "resolved_symbol": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^common_^subsystem^name^getters.obj",
+      "object_file_offset": 6064,
+      "section": ".text",
+      "section_selection": 1,
+      "extent": 6,
+      "native_rva": "0x00065212",
+      "native_file_offset": 411666,
+      "object_bytes_hex": "b800000000c3",
+      "native_bytes_hex": "b8fc5abc00c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "kind": 6,
+          "symbol": "??_C@_0L@FJKPEGKH@ModuleData?$AA@",
+          "resolved_symbol": "??_C@_0L@FJKPEGKH@ModuleData?$AA@",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "fc5abc00",
+          "native_target_rva": "0x007C5AFC",
+          "rule": "full terminated literal equality",
+          "object_literal_hex": "4d6f64756c654461746100",
+          "native_literal_hex": "4d6f64756c654461746100",
+          "equal": true
+        }
+      ],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 2,
+      "table_relocation_kind": 6,
+      "owner_rows": [
+        {
+          "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+          "export_rva": "",
+          "target_rva": "0x00065212",
+          "target_size": "6",
+          "source": "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp",
+          "status": "matched",
+          "notes": "literal name getter returning ModuleData; shared base-virtual slot reused by 187 vtables with 004B3FD0 ahead; address-derived placeholder name"
+        }
+      ]
+    },
+    {
+      "symbol": "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+      "resolved_symbol": "?xfer@ModuleData@@UAEXPAVXfer@@@Z",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4212,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A69C",
+      "native_file_offset": 4693148,
+      "object_bytes_hex": "c20400",
+      "native_bytes_hex": "c20400",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 3,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?isAiModuleData@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?isAiModuleData@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4241,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 4,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot05@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot05@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4270,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 5,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot06@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot06@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4299,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 6,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot07@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot07@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4328,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 7,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot08@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot08@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4357,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 8,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot09@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot09@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4386,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 9,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot10@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot10@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4415,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 10,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot11@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot11@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4444,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 11,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot12@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot12@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4473,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 12,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot13@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot13@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4502,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 13,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+      "resolved_symbol": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^common_^rva000^b69^a1.obj",
+      "object_file_offset": 1162,
+      "section": ".text",
+      "section_selection": 1,
+      "extent": 28,
+      "native_rva": "0x000B69A1",
+      "native_file_offset": 745377,
+      "object_bytes_hex": "558bec518b4d088365fc006800000000e8000000008b4508c9c20800",
+      "native_bytes_hex": "558bec518b4d088365fc00687808de00e83afcf7ff8b4508c9c20800",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [
+        {
+          "offset": 12,
+          "kind": 6,
+          "symbol": "?TheEmptyString@AsciiString@@2V1@B",
+          "resolved_symbol": "?TheEmptyString@AsciiString@@2V1@B",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "7808de00",
+          "native_target_rva": "0x009E0878",
+          "rule": "registered data-symbol RVA plus addend",
+          "binding_rows": [
+            {
+              "register": "reverse/data_ledger.csv",
+              "address": "0x009E0878",
+              "size": "8",
+              "section": ".data",
+              "kind": "global",
+              "name": "?TheEmptyString@AsciiString@@2V1@B",
+              "source": "Code/GameEngine/Source/Common/Rva00380200Getter.cpp",
+              "status": "provisional",
+              "names": "?TheDefaultArmorTemplateName@@3VAsciiString@@A;?TheEmptyString@AsciiString@@2V1@A;?TheEmptyString@AsciiString@@2V1@B;?g_Va00DE0878@@3IA;?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A;?g_str009E0878@@3V?$StringBase@D@@A",
+              "defs": "1",
+              "refs": "320"
+            }
+          ],
+          "equal": true
+        },
+        {
+          "offset": 17,
+          "kind": 20,
+          "symbol": "??0?$StringBase@D@@AAE@ABV0@@Z",
+          "resolved_symbol": "??0?$StringBase@D@@AAE@ABV0@@Z",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "3afcf7ff",
+          "native_target_rva": "0x000365F0",
+          "owner_rows": [
+            {
+              "name": "??0?$StringBase@D@@AAE@ABV0@@Z",
+              "export_rva": "0x000365F0",
+              "target_rva": "0x000365F0",
+              "target_size": "66",
+              "source": "Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp",
+              "status": "matched",
+              "notes": "narrow StringBase copy ctor: refcount share under Rva00035C90Get lock; model StringBaseWideReleaseBuffer.cpp"
+            }
+          ],
+          "rule": "REL32 matched symbol RVA plus COFF addend",
+          "equal": true
+        }
+      ],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 14,
+      "table_relocation_kind": 6,
+      "owner_rows": [
+        {
+          "name": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+          "export_rva": "",
+          "target_rva": "0x000B69A1",
+          "target_size": "28",
+          "source": "Code/GameEngine/Source/Common/Rva000B69A1.cpp",
+          "status": "matched",
+          "notes": "slot 14 of many ModuleData vtables returns TheEmptyString via rowed copy 0x000365F0"
+        }
+      ]
+    },
+    {
+      "symbol": "?slot15@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot15@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4531,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0047A699",
+      "native_file_offset": 4693145,
+      "object_bytes_hex": "32c0c3",
+      "native_bytes_hex": "32c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 15,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot16@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot16@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4560,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 16,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot17@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot17@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4589,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 17,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+      "resolved_symbol": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4618,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 18,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+      "resolved_symbol": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4647,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 19,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot20@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot20@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4676,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 20,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+      "resolved_symbol": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4705,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 21,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+      "resolved_symbol": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4734,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 22,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot23@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot23@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4763,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 23,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot24@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot24@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4792,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 24,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot25@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot25@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4821,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 25,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot26@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot26@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4850,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 26,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot27@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot27@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4879,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 27,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot28@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot28@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4908,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 28,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot29@ModuleData@@UBEPBXXZ",
+      "resolved_symbol": "?slot29@ModuleData@@UBEPBXXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4937,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x000D43D0",
+      "native_file_offset": 866768,
+      "object_bytes_hex": "33c0c3",
+      "native_bytes_hex": "33c0c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 29,
+      "table_relocation_kind": 6
+    },
+    {
+      "symbol": "?slot30@ModuleData@@UBE_NXZ",
+      "resolved_symbol": "?slot30@ModuleData@@UBE_NXZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 4966,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 3,
+      "native_rva": "0x0050B5C6",
+      "native_file_offset": 5286854,
+      "object_bytes_hex": "b001c3",
+      "native_bytes_hex": "b001c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [],
+      "verdict": "exact bytes and relocation targets",
+      "slot": 30,
+      "table_relocation_kind": 6
+    }
+  ],
+  "cleanup_folds": {
+    "??1ModuleData@@UAE@XZ": {
+      "symbol": "??1ModuleData@@UAE@XZ",
+      "resolved_symbol": "??1ModuleData@@UAE@XZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 3438,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 7,
+      "native_rva": "0x0049B47C",
+      "native_file_offset": 4827772,
+      "object_bytes_hex": "c70100000000c3",
+      "native_bytes_hex": "c70154b5bb00c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [
+        {
+          "offset": 2,
+          "kind": 6,
+          "symbol": "??_7Snapshot@@6B@",
+          "resolved_symbol": "??_7Snapshot@@6B@",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "54b5bb00",
+          "native_target_rva": "0x007BB554",
+          "rule": "Snapshot teardown-table identity",
+          "expected_rva": "0x007BB554",
+          "equal": true
+        }
+      ],
+      "verdict": "exact bytes and relocation targets"
+    },
+    "??1DockUpdateModuleData@@UAE@XZ": {
+      "symbol": "??1DockUpdateModuleData@@UAE@XZ",
+      "resolved_symbol": "??1DockUpdateModuleData@@UAE@XZ",
+      "weak_chain": [],
+      "object": "build/match/^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update^module^data^ctor.obj",
+      "object_file_offset": 3481,
+      "section": ".text",
+      "section_selection": 2,
+      "extent": 7,
+      "native_rva": "0x0049B47C",
+      "native_file_offset": 4827772,
+      "object_bytes_hex": "c70100000000c3",
+      "native_bytes_hex": "c70154b5bb00c3",
+      "masked_bytes_equal": true,
+      "relocations_equal": true,
+      "relocations": [
+        {
+          "offset": 2,
+          "kind": 6,
+          "symbol": "??_7Snapshot@@6B@",
+          "resolved_symbol": "??_7Snapshot@@6B@",
+          "weak_chain": [],
+          "object_addend": 0,
+          "native_word_hex": "54b5bb00",
+          "native_target_rva": "0x007BB554",
+          "rule": "Snapshot teardown-table identity",
+          "expected_rva": "0x007BB554",
+          "equal": true
+        }
+      ],
+      "verdict": "exact bytes and relocation targets",
+      "owner_rows": [
+        {
+          "name": "??1DockUpdateModuleData@@UAE@XZ",
+          "export_rva": "",
+          "target_rva": "0x0049B47C",
+          "target_size": "7",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp",
+          "status": "matched",
+          "notes": "fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp; Actual ModuleData and Snapshot base teardown emits the native complete seven-byte destructor at 0049B47C; native Monster constructor cleanup 0078DB70 calls this body; fixes prior one-byte empty private-base provider while preserving its existing consumer symbol; no new pin or alias pragma"
+        }
+      ]
+    }
+  },
+  "native_layout": {
+    "ModuleData_prefix_size": 8,
+    "prefix_basis": "canonical ModuleData header: Snapshot vptr + tag word; Dock constructor leaves +4 untouched",
+    "Dock_size": 16,
+    "Dock_fields": [
+      {
+        "offset": 8,
+        "width": 4,
+        "value": 0
+      },
+      {
+        "offset": 12,
+        "width": 1,
+        "value": 1
+      }
+    ],
+    "Monster_size": 24,
+    "Monster_fields": [
+      {
+        "offset": 16,
+        "width": 4,
+        "role": "filter; ctor003623E5"
+      },
+      {
+        "offset": 20,
+        "width": 4,
+        "value": 0
+      }
+    ],
+    "native_code_facts": [
+      {
+        "rva": "0x005896B0",
+        "extent": 17,
+        "role": "Dock constructor: common table; +8=0; byte+C=1; +4 untouched",
+        "bytes_hex": "8bc183600800c70070edc400c6400c01c3"
+      },
+      {
+        "rva": "0x004A1517",
+        "extent": 59,
+        "role": "Monster constructor: Dock call; filter+10; word+14=0",
+        "bytes_hex": "b878dbb800e8677c180051568bf18975f0e883810e008365fc008d4e10c706a81dc500e8a60eecff836614008b4df48bc65e64890d00000000c9c3"
+      },
+      {
+        "rva": "0x0049B47C",
+        "extent": 7,
+        "role": "Snapshot teardown fold",
+        "bytes_hex": "c70154b5bb00c3"
+      },
+      {
+        "rva": "0x0078DB70",
+        "extent": 8,
+        "role": "constructor unwind tail-call to Dock cleanup",
+        "bytes_hex": "8b4df0e904d9d0ff"
+      }
+    ],
+    "factory_allocation": {
+      "owner_row": {
+        "name": "?friend_newModuleData@MonsterDockUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z",
+        "export_rva": "",
+        "target_rva": "0x0024EB2C",
+        "target_size": "81",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataFriendNew.cpp",
+        "status": "matched",
+        "notes": "Dedicated TU; news 0x18; pinned ctor 0x4A1517 over DockUpdate base; pinned chained proc 0x4A137F pushed immediate; rowed 0x2DEB5"
+      },
+      "native_bytes_hex": "b8c51bb700e852a63d0051566a18e86112deff598bc8894df08365fc0085c97409e8c52925008bf0eb0233f68b4d08834dfcff85c9740b687f138a0056e847f3ddff8b4df48bc65e64890d00000000c9c3",
+      "push_18_rvas": [
+        "0x0024EB38"
+      ]
+    }
+  },
+  "parent_predicate": {
+    "path": "build/root-monster-dock-20261117/owning-table-predicate.json",
+    "matches": true,
+    "mismatches": [],
+    "scope": "current constructor and destructor objects only; not a real-link run"
+  },
+  "contract_metadata": {
+    "bases": [],
+    "size": 16,
+    "vslot_keys": [
+      "0"
+    ],
+    "limitation": "Old opaque-view metadata does not describe the new inherited31-slot contract. Constructor live-table and final Snapshot teardown are different phases; no contract rewrite is claimed."
+  },
+  "summary": {
+    "exact_slot_comparisons": 31,
+    "total_slots": 31,
+    "cleanup_folds_exact": true
+  },
+  "limitations": [
+    "Slot0 is a weak E external (SEARCH_LIBRARY=2) with the inspected local G fallback; global winning-provider selection is not independently proved by this body comparison.",
+    "Parent owning predicate covers current constructor/destructor objects only; not a scheduled real link.",
+    "Input hashes identify this exact snapshot. Header acceptance/provider audit and later source changes are separate.",
+    "No whole-link, published bridge-retirement or runtime outcome is claimed.",
+    "Slot14 data relocation agrees with the registered TheEmptyString RVA 0x009E0878; that data_ledger row is provisional. This establishes the inspected reference, not a unique global definition or whole-link data-provider result."
+  ]
+}
