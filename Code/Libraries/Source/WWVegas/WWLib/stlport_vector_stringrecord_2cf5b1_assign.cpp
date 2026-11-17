@@ -2,15 +2,7 @@
 // stlport
 // ??4?$vector@UBfmeStringRecord002CF5B1@@V?$allocator@UBfmeStringRecord002CF5B1@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x002D0927 206B: vector BfmeStringRecord002CF5B1 assign via allocate_and_copy 0x002CFAFC plus PrereqUnitRec clear 0x002D044B plus copy 0x002CF594 plus destroy 0x002D02A8 plus uninitialized_copy 0x004F5097. Evidence: retail calls rowed allocate_and_copy plus rowed PrereqUnitRec clear plus rowed copy plus rowed destroy plus rowed StringRecord uninitialized_copy; idiv 0x0c stride 12 throughout; same 3-path shape as StringRecord 0x002D0726 and NoCase pair assign 0x00317EBB; caller ProductionPrerequisite assign 0x002D0C44.
 #include "ascii_string.h"
-struct BfmeStringRecord002CF5B1
-{
-	unsigned int word0;
-	unsigned int word1;
-	AsciiString text;
-	BfmeStringRecord002CF5B1();
-	BfmeStringRecord002CF5B1(const BfmeStringRecord002CF5B1 &other);
-	~BfmeStringRecord002CF5B1();
-};
+#include "../../../../GameEngine/Include/Common/BfmeStringRecord002CF5B1.h"
 class ProductionPrerequisite
 {
 public:

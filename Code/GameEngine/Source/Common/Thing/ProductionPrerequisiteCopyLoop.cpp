@@ -5,15 +5,7 @@
 
 #include "ascii_string.h"
 
-struct BfmeStringRecord002CF5B1
-{
-	unsigned int word0;
-	unsigned int word1;
-	AsciiString text;
-	BfmeStringRecord002CF5B1();
-	BfmeStringRecord002CF5B1(const BfmeStringRecord002CF5B1 &other);
-	~BfmeStringRecord002CF5B1();
-};
+#include "../../../Include/Common/BfmeStringRecord002CF5B1.h"
 
 class UpgradeTemplate;
 

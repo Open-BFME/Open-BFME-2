@@ -54,10 +54,7 @@ template void _STL::_Construct<BfmeStringRecord002CF4C6,BfmeStringRecord002CF4C6
 
 // Retail copy 0x002CF5B1: observed scalar fields and string member.
 // Original application type and scalar meanings are unknown.
-struct BfmeStringRecord002CF5B1 {
-    unsigned int word0, word1; AsciiString text;
-    BfmeStringRecord002CF5B1(const BfmeStringRecord002CF5B1 &source) : word0(source.word0), word1(source.word1), text(source.text) {}
-};
+#include "../../Include/Common/BfmeStringRecord002CF5B1.h"
 template void _STL::_Construct<BfmeStringRecord002CF5B1,BfmeStringRecord002CF5B1>(BfmeStringRecord002CF5B1*,const BfmeStringRecord002CF5B1&);
 
 // Retail copy 0x00395E75: observed scalar fields and string member.
