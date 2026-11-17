@@ -36,3 +36,29 @@ int __stdcall Rva00222B19AptCall(void *level, const char *prefix, const char *fu
 }
 
 // The UI firers call this body as a method of the APT call target (thiscall, ECX unused, the same nine arguments popped by the callee, ret 0x24), pinned to the same 0x00222B19; bind that spelling here.
+
+#include "../../Include/Common/Rva00222A8BTarget.h"
+
+// ?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z, retail 0x00222B19, 180B.
+// The callers (StrategicHUD's fire helper and InGameHeroSelectInterface) reach
+// the same retail bytes as a thiscall member: ECX is never read, so the body is
+// byte-identical to the free stdcall spelling above. The row is recorded as that
+// body's fold-proof twin and the class comes from its canonical header.
+int Rva00222A8BTarget::rva00222B19(void *level, const char *prefix, const char *function, int argc,
+	const char *firstArgument, void *secondArgument, void *thirdArgument, void *fourthArgument, void *fifthArgument)
+{
+	g_00DFE5D8[0] = 0;
+	AsciiString path;
+	if ((unsigned int)level == 14) {
+		((StringBase<char> *)&path)->concat(prefix);
+	} else if ((unsigned int)level >= 14) {
+		return (int)g_00DFE5D8;
+	} else {
+		path.format("/_level%d", level);
+		((StringBase<char> *)&path)->concat(".");
+		((StringBase<char> *)&path)->concat(prefix);
+	}
+	const char *target = path.str();
+	Rva006CCB80CallFunction(function, g_00DFE5D8, target, argc, firstArgument, secondArgument, thirdArgument, fourthArgument, fifthArgument);
+	return (int)g_00DFE5D8;
+}
