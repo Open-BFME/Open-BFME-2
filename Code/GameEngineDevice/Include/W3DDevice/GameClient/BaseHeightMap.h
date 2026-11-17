@@ -100,6 +100,7 @@ class BaseHeightMapRenderObjClass : public RenderObjClass, public DX8_CleanupHoo
 public:
     BaseHeightMapRenderObjClass();
     virtual ~BaseHeightMapRenderObjClass();
+    void removeAllTerrainBibs();    // 0x00068420, non-virtual (sole caller 0x00091DFB)
     virtual void ReleaseResources();
     virtual void ReAcquireResources();
     virtual void Notify_Added(SceneClass *scene);
