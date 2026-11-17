@@ -15,6 +15,9 @@ The final paired build verifies 90/90 rows. A further nineteen-byte
 icon-background override at 0x005E5575 and its sibling at 0x005E6894 are
 recovered with both native call targets (paired build92/92); the next derived shared callback needs base-thunk ownership
 consolidation, and a neighboring empty slot is held by another worker.
+Primary slot3 at 0x005E6A00 is also banked (paired93/93). Slot4 and
+slot5 are restricted to audited single owners; the rejected uncommitted
+duplicate was removed, preserving those owners and the register.
 Published bridge retirement
 is still pending. See
 [callback and adjustment proof](../../reverse/attempt_support/shared-interface-slot0-20261117.md).

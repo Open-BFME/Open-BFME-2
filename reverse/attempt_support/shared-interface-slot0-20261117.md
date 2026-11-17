@@ -85,3 +85,23 @@ both select it in slot2. The ordinary paired build passes 92/92 rows,
 including the original standalone nineteen-byte owner retained in the
 consumer. Both call relocations agree. This adds a native class binding,
 not new unique authored bytes, and still awaits a published real-link pass.
+
+Primary slot3 at 0x005E6A00 is independently banked (ordinary93/93 paired
+rows). Its seventeen-byte body retains the native empty call and tail-calls
+the +20 owned listener's existing 0x005E69AC provider. Original slot names
+remain unknown. The twelve-byte primary parent's native table C796D0 has
+six entries (deleting destructor plus five empty callbacks); its short
+current view exposes three. Full parent-slot recovery still needs the
+claimed 0x000B3FD0 contract, so these derived positional bindings do not
+claim that the parent's complete interface is recovered.
+
+The seventeen-byte slot4/slot5 candidates also match privately. Slot4's
+ordinary94/94 build passed, but its commit gate correctly rejected the
+second row at audited-single-owner 0x005E6BB4. The session's uncommitted
+lines and pending row were removed exactly, and its automatic landed
+attempt verdict was voided. Slot5 at 0x005E6BA3 has the same audited-owner
+restriction and was not applied. Existing owners and body_owners.csv stay
+intact. These need proper consolidation and semantic ownership review,
+not another ICF row or an artificial alias. The verified93-row publicable
+state is retained. All nine served table names have explicit current
+handoffs; native bytes alone do not complete their real-link pass test.
