@@ -6,22 +6,16 @@
 #include "GameLogicObjectLookupView.h"
 #include "../../../../../Include/GameLogic/ContainmentListView.h"
 #include <memory>
-// Retail 0x007B0F20: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run;
-// its static (VA 0x00E03724) directly follows HordeSiegeEngineContain's function-local statics. The unit is
-// built on private views, so it takes the constant's own header where retail's unit included Drawable.h.
 #include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
-
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> void _List_base<int, allocator<int> >::clear();
 }
-
 namespace _STL {
 static inline void _Construct(int *__p, const int &__val)
 { new (__p) int(__val); }
 }
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -31,27 +25,11 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 class Object;
-
 class Thing;
-
 class ModuleData;
-
 enum ObjectStatusTypes;
-
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes) const;
-	unsigned char unknown00[0x10C];
-	unsigned m_modelConditionFlags[19];	// +0x10C condition words (TransportContainRemovalFlags.cpp)
-	unsigned char m_pad158[0x274 - 0x158];
-	Object *m_containedBy274;
-};
-
 extern GameLogic *TheGameLogic;
-
 class OpenContain
 {
 public:
@@ -63,7 +41,6 @@ protected:
 	Object *m_object;
 	unsigned char m_padding0C[0x100 - 0x0C];
 };
-
 // Virtuals below are the ones this unit's bodies call by qualified name; their
 // relative slot order is not asserted (no vtable is emitted from this view).
 class TransportContain : public OpenContain
@@ -75,7 +52,6 @@ public:
 private:
 	unsigned char m_padding100[0x11C - 0x100];
 };
-
 class HordeTransportContain : public TransportContain
 {
 public:
@@ -86,7 +62,6 @@ public:
 private:
 	unsigned char m_padding11C[0x128 - 0x11C];
 };
-
 class HordeSiegeEngineContain : public HordeTransportContain
 {
 public:
@@ -100,7 +75,6 @@ private:
 	unsigned char m_riderMap134[0x140 - 0x134];
 	_STL::list<int> m_restoreIDs140;
 };
-
 // Retail 0x0047CE0C..0x0047CEBB uses the +0x20 containment interface.
 // WB 0x011AF7D0 establishes the loop, removal slot and random-force behavior;
 // its class file and line 824 string agree with this unit. The slot's name
@@ -111,9 +85,7 @@ struct Rva0047CE0CVector
 	Rva0047CE0CVector(float first, float second, float third) : x(first), y(second), z(third) {}
 	Rva0047CE0CVector(const Rva0047CE0CVector &other) : x(other.x), y(other.y), z(other.z) {}
 };
-
 #include "../../../../../Include/Common/Rva003909FAObj.h"
-
 struct Rva0047CE0COwner
 {
 	unsigned char m_pad00[8];
@@ -123,17 +95,13 @@ struct Rva0047CE0COwner
 	unsigned char m_pad1C[0x25C - 0x1C];
 	Rva003909FAObj *m_physics;
 };
-
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
-
 template <int N> class Rva0047CE0CSlots : public Rva0047CE0CSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class Rva0047CE0CSlots<0> {};
-
 class Rva0047CE0CInterface : public Rva0047CE0CSlots<41>
 {
 public:
@@ -143,25 +111,19 @@ private:
 	unsigned char m_pad04[0x108 - 4];
 	_STL::list<int> m_riders;
 };
-
 #include "../../../../../Include/Common/XferException.h"
-
 class Rva00479D68 { public: void rva00479D68(); };
-
 template <int N> class Rva0047D19CSlots : public Rva0047D19CSlots<N - 1>
 {
 public:
     virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class Rva0047D19CSlots<0> {};
-
 class Rva0047D19CInterface : public Rva0047D19CSlots<24>
 {
 public:
     virtual void slot24(Object *, int, int) = 0;
 };
-
 //
 // SiegeEngineContainModuleData parse-unit.
 //
@@ -173,13 +135,137 @@ public:
 // under "SiegeEngineContain". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-
 #include "../../../../../Include/Common/INI/FieldParse.h"
-
 extern const FieldParse s_siegeEngineFieldTable[];
-
-
 #include "../../../../../Include/GameLogic/Module/TransportContainModuleData.h"
+class Object
+{
+public:
+	bool testStatus(ObjectStatusTypes) const;
+public:
+	unsigned char unknown00[0x10C];
+public:
+	unsigned m_modelConditionFlags[19];
+public:
+	unsigned char m_pad158[0x274 - 0x158];
+public:
+	Object *m_containedBy274;
+public:
+	void rva0028AE6D();
+public:
+	void defect(Object *source, bool wasSelected);
+};
+class SiegeEngineContain : public TransportContain
+{
+public:
+	virtual void onDelete();
+	virtual void LoadPostProcess();
+
+private:
+	_STL::list<int> m_riderObjects;
+	unsigned char m_pad120[0x134 - 0x120];
+	_STL::list<int> m_restoreIDs134;
+};
+void SiegeEngineContain::onDelete()
+{
+	OpenContain::onDelete();
+
+	_STL::list<int>::iterator rider = m_riderObjects.begin();
+	while (rider != m_riderObjects.end()) {
+		int riderAddress = *rider;
+		++rider;
+		Object *object = (Object *)riderAddress;
+		*(int *)((char *)object + 0x274) &= 0;
+		TheGameLogic->destroyObject(object);
+	}
+	m_riderObjects.clear();
+}
+// Target evidence: SiegeEngineContain's constructor installs vtable 0x00C46F80
+// at full-object +0x20; entry 66 at 0x00C47088 is 0x0047BEF8. The same body is
+// present at entry 83 of vtable 0x00C47834 installed at +0xFC. In the +0x20
+// view, the list head at +0xFC is the constructor's list<int> at full-object
+// +0x11C. Retail walks it backwards, calls Object::defect on each stored
+// receiver with the incoming Object and selection flag, then calls the base
+// routine at 0x00463191 with both arguments.
+//
+// Identity evidence: the vtable entries and the BFME1 donor signature support
+// SiegeEngineContain::onContaining(Object *, Bool), whose donor implementation
+// forwards to TransportContain::onContaining. The target body remains
+// address-labelled because its entry uses the +0x20 subobject this-view. The
+// partial class below starts at that view; its +0xFC field is the proven full
+// object +0x11C list. The node word is used as an Object receiver by the target
+// call, while its semantic type remains inferred from the existing list<int>
+// declaration.
+struct Rva0047BEF8Node
+{
+	Rva0047BEF8Node *m_next;
+	Rva0047BEF8Node *m_previous;
+	int m_value;
+};
+class __declspec(novtable) Rva0047BEF8
+{
+public:
+	virtual void onContaining(Object *rider, bool wasSelected);
+
+private:
+	unsigned char m_pad04[0xFC - 4];
+	Rva0047BEF8Node *m_headFC;
+};
+void Rva0047BEF8::onContaining(Object *rider, bool wasSelected)
+{
+	Rva0047BEF8Node *current = m_headFC;
+	if (current != current->m_next) {
+		do {
+		Rva0047BEF8Node *previous = current->m_previous;
+			Object *receiver = (Object *)previous->m_value;
+			if (wasSelected) {
+				receiver->defect(rider, true);
+			} else {
+				receiver->defect(rider, false);
+			}
+			current = current->m_previous;
+		} while (current != m_headFC->m_next);
+	}
+
+	((TransportContain *)this)->TransportContain::onContaining(rider, wasSelected);
+}
+//
+// ??0HordeSiegeEngineContainModuleData@@QAE@XZ, retail 0x0047DA08 (117 bytes).
+// EH derived ctor over the rowed HordeTransportContainModuleData base
+// (0x00477D61, landed this session, size 0x18C): the base call builds the
+// base, the +0x18C member constructs through the pinned
+// Rva003623E5Member ctor, and a 128-bit mask at +0x1A4 resets through the
+// rowed bitset<128>::reset at 0x0024CA24 amid int/byte zeros plus a 1.0
+// float slot. One unwind state (the base) suffices because reset() is
+// declared nothrow, so the +0x18C member adds none. Donor: BFME1 Contain files (the
+// HordeSiegeEngine pair extends HordeTransportContain the same way).
+// Identity is the ModuleFactory registration under "HordeSiegeEngineContain"
+// (sole-caller data factory per the superseded ctor pin).
+
+namespace _STL
+{
+
+template <unsigned _Bits>
+class bitset
+{
+public:
+	unsigned long m_words[(_Bits + 31) / 32];
+	bitset<_Bits> &reset() throw();
+};
+
+}
+class HordeTransportContainModuleData
+{
+public:
+	HordeTransportContainModuleData();
+public:
+	virtual ~HordeTransportContainModuleData();
+private:
+	unsigned char m_opaque[0x18C - 4];
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+#include "../../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class SiegeEngineContainModuleData
 {
@@ -188,9 +274,6 @@ public:
 };
 
 struct Rva0047BAF7Element { unsigned opaque;bool operator<(const Rva0047BAF7Element&)const;bool operator==(const Rva0047BAF7Element&)const; };
-
-// Instantiate the recovered operation and its required template dependencies.
-template void _STL::list<Rva0047BAF7Element *, _STL::allocator<Rva0047BAF7Element *> >::remove(Rva0047BAF7Element *const &);
 
 typedef void (__cdecl *ContainIterateFunc)(Object *, void *);
 
@@ -221,17 +304,202 @@ public:
 
 extern const FieldParse s_hordeSiegeEngineFieldTable[];
 
-class HordeTransportContainModuleData
+class Rva00467AB8
 {
+public:
+    void onRemoving(Object *object);
+};
+
+class Rva0047BB3BOwner
+{
+public:
+    void rva0047BB3B(Object *object);
+};
+
+class Rva004697E1Contain { public: void rva004783D7(); };
+
+class ModuleData;
+
+class Object;
+
+class Rva0047BDED;
+
+struct Rva0047BDEDNode
+{
+	Rva0047BDEDNode *m_next;
+	char m_pad04[4];
+	void *m_value;
+};
+
+class Rva0047BDEDList
+{
+public:
+	Rva0047BDEDNode *m_head;
+};
+
+class Rva0047BDED
+{
+public:
+	virtual void rva0047BDEDV00();
+	virtual void rva0047BDEDV01();
+	virtual void rva0047BDEDV02();
+	virtual void rva0047BDEDV03();
+	virtual void rva0047BDEDV04();
+	virtual void rva0047BDEDV05();
+	virtual void rva0047BDEDV06();
+	virtual void rva0047BDEDV07();
+	virtual void rva0047BDEDV08();
+	virtual void rva0047BDEDV09();
+	virtual void rva0047BDEDV10();
+	virtual void rva0047BDEDV11();
+	virtual void rva0047BDEDV12();
+	virtual void rva0047BDEDV13();
+	virtual void rva0047BDEDV14();
+	virtual void rva0047BDEDV15();
+	virtual void rva0047BDEDV16();
+	virtual void rva0047BDEDV17();
+	virtual void rva0047BDEDV18();
+	virtual void rva0047BDEDV19();
+	virtual void rva0047BDEDV20();
+	virtual void rva0047BDEDV21();
+	virtual void rva0047BDEDV22();
+	virtual void rva0047BDEDV23();
+	virtual void rva0047BDEDV24();
+	virtual void rva0047BDEDV25();
+	virtual void rva0047BDEDV26();
+	virtual void rva0047BDEDV27();
+	virtual void rva0047BDEDV28();
+	virtual void rva0047BDEDV29();
+	virtual void rva0047BDEDV30();
+	virtual void rva0047BDEDV31();
+	virtual void rva0047BDEDV32();
+	virtual void rva0047BDEDV33();
+	virtual void rva0047BDEDV34();
+	virtual void rva0047BDEDV35();
+	virtual void rva0047BDEDV36();
+	virtual void rva0047BDEDV37();
+	virtual void rva0047BDEDV38();
+	virtual void rva0047BDEDV39();
+	virtual void rva0047BDEDV40();
+	virtual void rva0047BDEDVirt41(void *value, bool flag);
+	void rva0047BE23(int unused);
+	void removeAllContained(bool flag);
+
+private:
+	char m_pad00[0xFC - 4];
+	_STL::list<void*> m_fc;
+};
+
+//
+// ?removeAllContained@Rva0047CD98@@UAEX_N@Z, retail 0x0047cd98, 54 bytes. Banked partial (score 0.82) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+// Retail walks the sentinel at this+0x108, calls the OpenContain slot at vtable
+// +0xA4 for each non-null item, then calls OpenContain::removeAllContained.
+// The vtable word at +0xA4 is 0x00463509, immediately before the matched base
+// body at 0x004635C0; the Zero Hour OpenContain declaration orders
+// removeFromContain immediately before removeAllContained.
+
+typedef bool Bool;
+
+struct Rva0047CD98 : OpenContain
+{
+	virtual void removeAllContained(Bool exposeStealthUnits) = 0;
+};
+
+namespace
+{
+struct RetailContainVtablePrefix
+{
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+	virtual void slot26() = 0;
+	virtual void slot27() = 0;
+	virtual void slot28() = 0;
+	virtual void slot29() = 0;
+	virtual void slot30() = 0;
+	virtual void slot31() = 0;
+	virtual void slot32() = 0;
+	virtual void slot33() = 0;
+	virtual void slot34() = 0;
+	virtual void slot35() = 0;
+	virtual void slot36() = 0;
+	virtual void slot37() = 0;
+	virtual void slot38() = 0;
+	virtual void slot39() = 0;
+	virtual void slot40() = 0;
+};
+
+struct RetailContainVtableView : RetailContainVtablePrefix
+{
+	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits) = 0;
+};
+
+struct RetailContainNode
+{
+	RetailContainNode *next;
+	RetailContainNode *prev;
+	Object *object;
+};
+}
+
+class HordeSiegeEngineContainModuleData : public HordeTransportContainModuleData
+{
+public:
+	HordeSiegeEngineContainModuleData();
+public:
+	virtual ~HordeSiegeEngineContainModuleData();
+private:
+	Rva003623E5Member m_member18C;
+private:
+	int m_int190;
+private:
+	int m_pair194[2];
+private:
+	float m_float19C;
+private:
+	bool m_flag1A0;
+private:
+	bool m_flag1A1;
+private:
+	_STL::bitset<128> m_mask1A4;
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class HordeSiegeEngineContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+// tu-skeleton: 0x0047BAE7 16B ?rva0047CADB@SiegeEngineContain@@UAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeSiegeEngineContain.cpp
+
+// Retail 0x007B0F20: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run;
+// its static (VA 0x00E03724) directly follows HordeSiegeEngineContain's function-local statics. The unit is
+// built on private views, so it takes the constant's own header where retail's unit included Drawable.h.
+
+// Instantiate the recovered operation and its required template dependencies.
+template void _STL::list<Rva0047BAF7Element *, _STL::allocator<Rva0047BAF7Element *> >::remove(Rva0047BAF7Element *const &);
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataParse.cpp
 
@@ -242,30 +510,17 @@ void SiegeEngineContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>(s_siegeEngineFieldTable), 0);
 }
 
-// tu-skeleton: 0x0047BA10 89B ?onContaining@Rva0047BA10@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainSelectionRva0047BA10.cpp (not merged yet)
-
-// tu-skeleton: 0x0047BA69 126B ?rva0047BA69@Rva0047BA69@@QAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047BA69Contain.cpp (not merged yet)
-
-// tu-skeleton: 0x0047BAE7 16B ?rva0047CADB@SiegeEngineContain@@UAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0047BAF7.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
-// tu-skeleton: 0x0047BB31 10B ??F?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QAEAAU01@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp (not merged yet)
 
-// tu-skeleton: 0x0047BB3B 48B ?rva0047BB3B@Rva0047BB3BOwner@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRemovalFlags.cpp (not merged yet)
 
-// tu-skeleton: 0x0047BB6B 60B ?onDelete@SiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContain.cpp (not merged yet)
 
-// tu-skeleton: 0x0047BBA7 421B ?createPayload@SiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCreatePayload.cpp (not merged yet)
 
-// tu-skeleton: 0x0047BD4C 161B ?removeFromContainList@SiegeEngineContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRiders.cpp (not merged yet)
 
-// tu-skeleton: 0x0047BDED 54B ?removeAllContained@Rva0047BDED@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRiderHelpers.cpp (not merged yet)
 
-// tu-skeleton: 0x0047BE23 41B ?rva0047BE23@Rva0047BDED@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRiderHelpers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainIterateRiders.cpp
 
@@ -327,46 +582,6 @@ void Rva0047CEBB::iterateContained(ContainIterateFunc func, void *userData, vola
     }
 }
 
-// tu-skeleton: 0x0047BEC9 47B ?rva0047BEC9@SiegeEngineContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRva0047BEC9.cpp (not merged yet)
-
-// tu-skeleton: 0x0047BEF8 75B ?onContaining@Rva0047BEF8@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContain.cpp (not merged yet)
-
-// tu-skeleton: 0x0047BF43 207B ??1SiegeEngineContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C012 6B ?name@SiegeEngineContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C018 27B ?rva004624EB@SiegeEngineContain@@UAEXAAURva0046247DPair@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C033 7B ?get@Rva0047C033ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C03A 69B ?getModuleNameKey@SiegeEngineContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C07F 244B ?addToContainList@SiegeEngineContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRiders.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C173 170B ?LoadPostProcess@SiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContain.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C21E 184B ??0SiegeEngineContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C2D6 28B ??_GSiegeEngineContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C2F2 48B ?redeployOccupants@SiegeEngineContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C322 464B ?xfer@SiegeEngineContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C4F2 1077B ?exitObjectViaDoor@SiegeEngineContain@@UAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C927 136B ??0SiegeEngineContainModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C9AF 28B ??_GSiegeEngineContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0047C9CB 74B ??1SiegeEngineContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CA15 5B ?j_0047ca15@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CA1A 19B ?isSpecificRiderFreeToExit@HordeSiegeEngineContain@@MAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CA2D 5B ?rva0047CA2D@Rva0047CA2D@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataParse.cpp
 
 // ?buildFieldParse@HordeSiegeEngineContainModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0047CA32
@@ -375,14 +590,6 @@ void HordeSiegeEngineContainModuleData::buildFieldParse(MultiIniFieldParse &pars
 	HordeTransportContainModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(s_hordeSiegeEngineFieldTable), 0);
 }
-
-// tu-skeleton: 0x0047CA4D 142B ?rva0047CA4D@Rva0047CA4D@@QAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CA4DContain.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CADB 16B ?rva0047CADB@HordeSiegeEngineContain@@UAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CAEB 84B ?rva0047CAEB@Rva0047CAEBOwner@@QAEPAVBfmeObject872Header@@PAV2@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CAEBFilter.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CB3F 14B ?get@Rva0047CB3FSub@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeSiegeEngineContain.cpp
 
@@ -443,14 +650,6 @@ void HordeSiegeEngineContain::LoadPostProcess()
     m_restoreIDs140.clear();
 }
 
-// tu-skeleton: 0x0047CB89 388B ?createPayload@HordeSiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCreatePayload.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CD0D 139B ?removeFromContainList@HordeSiegeEngineContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRiders.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CD98 54B ?removeAllContained@Rva0047CD98@@UAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva0047CD98Rva0047CD98.cpp (not merged yet)
-
-// tu-skeleton: 0x0047CDCE 62B ?rva004631FA@SiegeEngineContain@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeSiegeEngineContain_RemoveAndApplyForce.cpp
 
 // Split from HordeSiegeEngineContain.cpp: these definitions reference a callee with no matched body yet,
@@ -507,6 +706,172 @@ void HordeSiegeEngineContain::rva0047D33A()
 	redeployOccupants();
 }
 
+// tu-skeleton: 0x0047BB31 10B ??F?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@QAEAAU01@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRemovalFlags.cpp
+
+void Rva0047BB3BOwner::rva0047BB3B(Object *object)
+{
+    if (object)
+    {
+        if (reinterpret_cast<const unsigned char *>(object->m_modelConditionFlags)[26] & 2)
+        {
+            object->m_modelConditionFlags[6] &= ~(1U << 17);
+            object->rva0028AE6D();
+        }
+        reinterpret_cast<Rva00467AB8 *>(this)->onRemoving(object);
+    }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContain.cpp
+
+//
+// Target evidence: SiegeEngineContain ctor 0x0047C21E installs primary vtable
+// 0x00C470F8, whose slot 8 is this body. The same primary slot in OpenContain
+// vtable 0x00C435E8 and TransportContain vtable 0x00C45EB8 points to
+// 0x00464120. The body calls that base implementation, walks the +0x11C list,
+// clears dword +0x274 on each referenced object, calls rowed
+// GameLogic::destroyObject, then tail-calls the rowed int-list clear at
+// 0x0023DAA5.
+//
+// Identity: the BFME1 OpenContain declaration names primary slot 8
+// onDelete(void); the matching BFME2 slot and direct base call support
+// SiegeEngineContain::onDelete. The list<int> layout is from the BFME2 ctor
+// and the matched removeFromContainList sibling; payloads are pointer values
+// stored as ints. Object+0x274 remains an unnamed target field.
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+void SiegeEngineContain::LoadPostProcess()
+{
+    // WB 011ABDE0 independently names this method and establishes crew-ID
+    // restoration plus XferException(5). Native 0047C173..0047C21D proves
+    // owner+8, crew list11C, restore-ID list134, Object field274 and slot24.
+    // WB layouts differ (+120/+138/+27C); target offsets take precedence.
+    // The unchanged-receiver base wrapper uses the existing004783D7 pin.
+    // Native ends after the noreturn throw call; emitted alignment byte at
+    // 0047C21D also matches retail. No donor class layout is asserted here.
+    Object *owner = m_object;
+    reinterpret_cast<Rva004697E1Contain *>(this)->rva004783D7();
+    if (!m_riderObjects.empty())
+        throw XferException(5, 0);
+    for (_STL::list<int>::iterator it = m_restoreIDs134.begin(); it != m_restoreIDs134.end(); ++it) {
+        Object *rider = TheGameLogic->findObjectByID((ObjectID)*it);
+        if (!rider)
+            throw XferException(5, 0);
+        m_riderObjects.push_back(reinterpret_cast<const int &>(rider));
+        if (rider->testStatus((ObjectStatusTypes)0x3D))
+            reinterpret_cast<Rva0047D19CInterface *>(this)->slot24(rider, 0, 0);
+        rider->m_containedBy274 = owner;
+    }
+    m_restoreIDs134.clear();
+}
+
+// tu-skeleton: 0x0047BBA7 421B ?createPayload@SiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCreatePayload.cpp (not merged yet)
+
+// tu-skeleton: 0x0047BD4C 161B ?removeFromContainList@SiegeEngineContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRiders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRiderHelpers.cpp
+
+// ?removeAllContained@Rva0047BDED@@QAEX_N@Z @0x0047BDED 54B: drain the contained list, calling
+// virtual slot 41 on each non-null node value with the flag, then removeAllContained.
+
+// Native47BDED..47BE23 and47BE23..47BE4C retain RET4: the latter ignores its
+// word argument. WB11AB070 confirms the first drain and owned base cleanup.
+// Target rider list is the interface receiver's +FC (full owner+11C).
+// ZH OpenContain list iteration guides semantics; distinct slot names/owner
+// remain address-derived. Iterator dereference at dispatch closes native
+// loop shape/registers; a separately cached payload does not.
+void Rva0047BDED::removeAllContained(bool flag)
+{
+ for(;;) {
+  _STL::list<void*>::iterator it=m_fc.begin();
+  if(it._M_node==m_fc.end()._M_node) break;
+  if(*it) rva0047BDEDVirt41(*it,flag);
+ }
+ reinterpret_cast<OpenContain*>(this)->OpenContain::removeAllContained(flag);
+}
+
+void Rva0047BDED::rva0047BE23(int unused)
+{
+ for(;;) {
+  _STL::list<void*>::iterator it=m_fc.begin();
+  if(it._M_node==m_fc.end()._M_node) break;
+  if(*it) rva0047BDEDVirt41(*it,false);
+ }
+}
+
+// tu-skeleton: 0x0047BEC9 47B ?rva0047BEC9@SiegeEngineContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainRva0047BEC9.cpp (not merged yet)
+
+// tu-skeleton: 0x0047BF43 207B ??1SiegeEngineContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C012 6B ?name@SiegeEngineContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C018 27B ?rva004624EB@SiegeEngineContain@@UAEXAAURva0046247DPair@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C033 7B ?get@Rva0047C033ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C03A 69B ?getModuleNameKey@SiegeEngineContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C07F 244B ?addToContainList@SiegeEngineContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRiders.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C21E 184B ??0SiegeEngineContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C2D6 28B ??_GSiegeEngineContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C2F2 48B ?redeployOccupants@SiegeEngineContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C322 464B ?xfer@SiegeEngineContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C4F2 1077B ?exitObjectViaDoor@SiegeEngineContain@@UAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C927 136B ??0SiegeEngineContainModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C9AF 28B ??_GSiegeEngineContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0047C9CB 74B ??1SiegeEngineContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CA15 5B ?j_0047ca15@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CA1A 19B ?isSpecificRiderFreeToExit@HordeSiegeEngineContain@@MAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CA2D 5B ?rva0047CA2D@Rva0047CA2D@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CA4D 142B ?rva0047CA4D@Rva0047CA4D@@QAE_NPAVObject@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CA4DContain.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CADB 16B ?rva0047CADB@HordeSiegeEngineContain@@UAEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CAEB 84B ?rva0047CAEB@Rva0047CAEBOwner@@QAEPAVBfmeObject872Header@@PAV2@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CAEBFilter.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CB3F 14B ?get@Rva0047CB3FSub@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CB89 388B ?createPayload@HordeSiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCreatePayload.cpp (not merged yet)
+
+// tu-skeleton: 0x0047CD0D 139B ?removeFromContainList@HordeSiegeEngineContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRiders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0047CD98Rva0047CD98.cpp
+
+void Rva0047CD98::removeAllContained(Bool exposeStealthUnits)
+{
+    for (;;)
+    {
+        RetailContainNode *head = *(RetailContainNode *volatile *)((char *)this + 0x108);
+        // Codegen: same-valued PHIs on head and node close the native register roles of the list walk.
+        RetailContainNode *node = (head?head:head)->next;
+        if (node == head)
+        {
+            OpenContain::removeAllContained(exposeStealthUnits);
+            return;
+        }
+        Object *obj = (node?node:node)->object;
+        if (obj) ((RetailContainVtableView *)this)->removeFromContain(obj, exposeStealthUnits);
+    }
+}
+
+// tu-skeleton: 0x0047CDCE 62B ?rva004631FA@SiegeEngineContain@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainIface20Slots.cpp (not merged yet)
+
 // tu-skeleton: 0x0047CF38 47B ?rva0047CF38@HordeSiegeEngineContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRva0047CF38.cpp (not merged yet)
 
 // tu-skeleton: 0x0047CF67 75B ?onContaining@HordeSiegeEngineContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContain_onContaining.cpp (not merged yet)
@@ -531,8 +896,103 @@ void HordeSiegeEngineContain::rva0047D33A()
 
 // tu-skeleton: 0x0047D90C 252B ?rva0047D90C@Rva0047D90C@@QAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/Common/Rva0047D90CRva0047D90C.cpp (not merged yet)
 
-// tu-skeleton: 0x0047DA08 117B ??0HordeSiegeEngineContainModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataCtor.cpp
+
+HordeSiegeEngineContainModuleData::HordeSiegeEngineContainModuleData()
+	: HordeTransportContainModuleData()
+{
+	int *pair194 = m_pair194;
+	pair194[0] = 0;
+	pair194[1] = 0;
+	m_mask1A4.reset();
+	m_int190 = 0;
+	m_float19C = 1.0f;
+	m_flag1A0 = false;
+	m_flag1A1 = false;
+}
 
 // tu-skeleton: 0x0047DA7D 28B ??_GHordeSiegeEngineContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0047DA99 74B ??1HordeSiegeEngineContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B5C7 8B $L1430 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCreatePayload.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B5CF 10B __ehhandler$?createPayload@SiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCreatePayload.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B5D9 8B uw_0078b5d9 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B5E1 14B $L5068 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B5EF 14B $L5069 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B5FD 14B $L5070 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B60B 10B __ehhandler$??1SiegeEngineContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B615 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B622 10B __ehhandler$?getModuleNameKey@SiegeEngineContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B62C 8B $L5461 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B634 14B $L5285 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B642 14B $L5286 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B650 10B __ehhandler$??0SiegeEngineContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B65A 13B $L9955 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B667 8B Unwind@00b8b667 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B66F 8B Unwind@00b8b66f -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B677 10B __ehhandler$?exitObjectViaDoor@SiegeEngineContain@@UAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B681 8B Unwind@00b8b681 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B689 14B Unwind@00b8b689 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B697 14B Unwind@00b8b697 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6A5 10B __ehhandler$??0SiegeEngineContainModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6AF 8B Unwind@00b8b6af -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6B7 14B Unwind@00b8b6b7 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6C5 10B __ehhandler$??1SiegeEngineContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6CF 8B $L1632 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCreatePayload.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6D7 10B __ehhandler$?createPayload@HordeSiegeEngineContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCreatePayload.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6E1 8B $L5260 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6E9 14B $L5348 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B6F7 14B $L5349 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B705 14B $L5350 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B713 10B __ehhandler$??1HordeSiegeEngineContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B71D 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B72A 10B __ehhandler$?getModuleNameKey@HordeSiegeEngineContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B734 13B $L5226 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRva0047D53A.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B741 8B $L5227 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRva0047D53A.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B749 10B __ehhandler$?rva0047D53A@HordeSiegeEngineContain@@QAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRva0047D53A.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B753 8B $L4573 -- matched in Code/GameEngine/Source/Common/Rva0047D90CRva0047D90C.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B75B 10B __ehhandler$?rva0047D90C@Rva0047D90C@@QAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/Common/Rva0047D90CRva0047D90C.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B777 8B Unwind@00b8b777 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B77F 14B Unwind@00b8b77f -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B78D 10B __ehhandler$??1HordeSiegeEngineContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainModuleDataDtor.cpp (not merged yet)
