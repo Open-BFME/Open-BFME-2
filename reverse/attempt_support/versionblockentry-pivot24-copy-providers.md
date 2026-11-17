@@ -56,3 +56,17 @@ Pivot24 follow-up on 4f768982c3:
 
 Next: fresh full link including both commits, then Windows menu/selection
 testing with that image. Do not skip executed diagnostic traps.
+
+## Upstream reconciliation, 2026-11-17
+
+After rebasing onto a44e14e450e, upstream b605454db35 already provides both
+61-byte copy constructors in NarrowStringRecordCopyBFME2.cpp. Remove the
+redundant local inline definitions from VersionBlockParser.cpp. Retain the
+direct two-string layouts and the separately proved complete Pivot24 destructor;
+no row, pin or upstream provider is moved or replaced.
+
+Official build.sh of both sources passes 86/86 functions and all string/import
+checks. eh_verify reports 21/21 EXACT. The two-source link_check reports LINKS
+for both sources, but its 0534e78db3 census is stale: this is only scoped
+evidence, not a successful full link or runtime test. Logs are under
+build/decal-diagnostic/parser-upstream-{reconcile,eh,link}.log.

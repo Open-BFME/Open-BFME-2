@@ -951,11 +951,7 @@ VersionBlockParser::VersionBlockParser(const char *versionBlock)
 
 // tu-skeleton: 0x00787515 11B uw_00787515 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
-// Keep this definition after the callers: their by-value copy must remain an
-// out-of-line call with retail's ESP-save ordering. The complete body and EH
-// graph match 0x00427F75; no alias or forwarding wrapper is needed.
-inline VersionBlockEntry::VersionBlockEntry(const VersionBlockEntry &other) : m_key(other.m_key), m_value(other.m_value) {}
+// The copy constructors are defined in NarrowStringRecordCopyBFME2.cpp.
 // Pivot24 has the same native two-string lifetime. Its complete destructor
 // is fold-proven at 0x00238580, including its associative EH graph.
-inline Pivot24::Pivot24(const Pivot24 &other) : m_key(other.m_key), m_value(other.m_value) {}
 inline Pivot24::~Pivot24() {}
