@@ -2,6 +2,18 @@
 Status: Open (partly repaired). Updated: 2026-11-08 (lk67 shape survey and twins at 49e50f8ba4; lk64 pass at d171e84869; lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
+**AABTreeLinkClass identity falsified (2026-11-17):** the bridged
+`??_7AABTreeLinkClass@@6B@` @0x00878194 (survey rank 605, T1) is not AABTreeLinkClass's
+table. The matched ctor row 0x5EA038 that named it is its only caller's state-machine
+transition (global new, refcounted setter, slot1 tail-dispatch); slot0's shared dtor restores
+base vtable 0xC780F4, which is not CullLinkClass's 0x8EFCA8; retail holds exactly one
+pool-link deleting dtor under five shape variants (GridLinkClass 0x71B470, rowed); and the
+window's slots are rowed under DynamicAutoResolveDialog names. Retail 0xC78194 is
+`StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler`'s table. The
+32B row at 0x00878194 and the ctor row 0x5EA038 need the class-reconciliation lane; retail's
+true AABTreeLinkClass lives in the present-unmatched AABTreeCullSystemClass family. No source
+changed. [Evidence and fix path](../../reverse/attempt_support/aabtreelinkclass-false-identity-20261117.md).
+
 **Teleport ctor prerequisite (2026-11-17, `bf617cdf1d`):** the 49-byte
 Rva00492C59Ctor.cpp row remains exact, but its unrowed 11-byte destructor
 and four-byte primary table are incompatible with the already rowed
