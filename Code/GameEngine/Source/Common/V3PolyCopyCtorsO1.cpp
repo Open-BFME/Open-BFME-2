@@ -88,7 +88,7 @@ public:
 	// Empty: vtable 0x0081D1A4 slot 0 0x004A10FD calls 0x0049B47C, one vtable store and ret.
 	virtual void slot00() = 0;
 	virtual void slot04() {}
-	virtual void slot08() = 0;
+	virtual const char *GetSnapshotName() const = 0;
 	virtual void slot0C() = 0;
 
 	V3Block32 m_block;

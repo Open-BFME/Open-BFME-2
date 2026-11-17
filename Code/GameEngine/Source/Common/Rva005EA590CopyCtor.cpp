@@ -42,7 +42,7 @@ public:
 	Rva005E95C0( const Rva005E95C0 & );
 	virtual void slot00() = 0;
 	virtual void slot04() {}
-	virtual void slot08() = 0;
+	virtual const char *GetSnapshotName() const = 0;
 	virtual void slot0C() = 0;
 	Rva005EA590Block m_block;
 	int m_field84;
@@ -57,6 +57,7 @@ class Rva005EA590 : public Rva0055BCD2, public Rva005E95C0
 {
 public:
 	Rva005EA590( const Rva005EA590 & );
+	virtual const char *GetSnapshotName() const;
 	Rva005EA590Triple m_fields94;
 	Rva005EA590Triple m_fieldsA0;
 	int m_fieldAC;
@@ -68,4 +69,10 @@ Rva005EA590::Rva005EA590( const Rva005EA590 &o )
 	m_fields94 = o.m_fields94;
 	m_fieldsA0 = o.m_fieldsA0;
 	m_fieldAC = o.m_fieldAC;
+}
+
+// Native slot 2 of the Snapshot table 0081D194.
+const char *Rva005EA590::GetSnapshotName() const
+{
+	return "DefaultParticleModule<CAT_COLOR>";
 }
