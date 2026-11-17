@@ -358,6 +358,9 @@ static const char s_lodSuffixes[4][4] = { "_L", "_M", "", "_U" };
 #pragma comment(linker, "/alternatename:?rva00151597@Rva00151597@@QAEPAXXZ=??0Rva00151248@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?rva00152BDB@Rva00152BDB@@QAEXHURva00152DC6Tmp@@@Z=?resize@Rva00152BDBVector@@QAEXIURva00152BDBEntry@@@Z")
 
+#include "../../../../GameEngine/Include/Common/Rva00087A93.h"
+struct TreeHintRef00217D4C;
+
 class FXShaderSetup : public RefCountClass
 {
 public:
@@ -370,6 +373,12 @@ public:
 	virtual void UpdateDynamicParameterSet(UINT pass);
 	virtual void End_Pass();
 	virtual void End_Rendering();
+	// Retail table 0x00BD3B1C slots 7 to 9. Each body is a stub retail shares
+	// with other tables: drop a counted handle passed by value (0x001524BE),
+	// answer an empty counted help (0x001524CA), and return this (0x0047A6A9).
+	virtual void vslot7(Rva00087A93 handle);
+	virtual TreeHintRef00217D4C vslot8();
+	virtual FXShaderSetup *vslot9();
 
 	bool InitializeShader(const char *shaderName, const char *techniqueName,
 		const FXShaderParameterVector *parameters, int lod);
@@ -835,6 +844,20 @@ template void _STL::vector<Rva00151DAB>::_M_clear();
 TreeHintRef00217D4C Rva001524CA::rva001524CA()
 {
     return TreeHintRef00217D4C(0);
+}
+
+void FXShaderSetup::vslot7(Rva00087A93)
+{
+}
+
+TreeHintRef00217D4C FXShaderSetup::vslot8()
+{
+    return TreeHintRef00217D4C(0);
+}
+
+FXShaderSetup *FXShaderSetup::vslot9()
+{
+    return this;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00152BDBValueVectorResize.cpp
