@@ -26,3 +26,54 @@ TerrainVisual::TerrainVisual()
 TerrainVisual::~TerrainVisual()
 {
 }
+
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../Include/Common/BfmeXfer.h"
+
+// TerrainVisual's own virtuals that its table 0x00C03910 (and the subobject
+// table 0x00C039A0) holds: each body is one retail shares with other classes'
+// slots (ICF), so each row is an alias of that shared body.
+// Primary slot 1 and secondary slots 1/10: the empty body 0x000B3FD0.
+void TerrainVisual::loadPostProcess()
+{
+}
+
+void TerrainVisual::init()
+{
+}
+
+void TerrainVisual::update()
+{
+}
+
+// Secondary slot 9 (0x0004F82B): this is the +4 subobject, so the +0x10 name
+// is at +0xC; the clear is the rowed releaseBuffer tail call.
+void TerrainVisual::reset()
+{
+	m_filenameString.clear();
+}
+
+// Primary slot 3 (0x00306A9B): Version1-only transfer.
+void TerrainVisual::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+}
+
+// Primary slot 8 (0x0041BA5C): no terrain to intersect.
+bool TerrainVisual::intersectTerrain(Coord3D *, Coord3D *, Coord3D *)
+{
+	return false;
+}
