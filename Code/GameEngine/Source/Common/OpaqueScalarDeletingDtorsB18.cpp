@@ -214,23 +214,6 @@ Rva005FCFE5::Rva005FCFE5(EmitVtableTag *) : Rva005FCF0E((EmitVtableTag *)0)
 {
 }
 
-// StrategicHUD::ArmyUnitIconMovieClip (table 0x00C7A1F4, installed by its
-// constructor 0x005FD251).
-namespace StrategicHUD {
-class ArmyUnitIconMovieClip
-{
-public:
-	ArmyUnitIconMovieClip(EmitVtableTag *);
-public:
-	virtual ~ArmyUnitIconMovieClip();
-};
-}
-
-// ?<StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip> absent-from-retail
-StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip(EmitVtableTag *)
-{
-}
-
 // StrategicHUD::ArmyUnitSwapperMovieClip (vtable 0x00C7A2E8: the deleting dtor
 // 0x005FDA1D, then the five notify* slots).
 namespace StrategicHUD {
@@ -334,6 +317,26 @@ public:
 private:
     unsigned char m_storage[0x38];
 };
+
+// StrategicHUD::ArmyUnitIconMovieClip (table 0x00C7A1F4, installed by its
+// constructor 0x005FD251): the deleting destructor, its own DoUpdate, then the
+// base's three notify slots, so this copy of the table has retail's five slots.
+namespace StrategicHUD {
+class ArmyUnitIconMovieClip : public ArmyMemberIconMovieClip
+{
+public:
+	ArmyUnitIconMovieClip(EmitVtableTag *);
+public:
+	virtual ~ArmyUnitIconMovieClip();
+	virtual void DoUpdate();
+};
+}
+
+// ?<StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip> absent-from-retail
+StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip(EmitVtableTag *tag)
+	: ArmyMemberIconMovieClip((AptMovieClipFrame *)0, *reinterpret_cast<const AsciiString *>(tag))
+{
+}
 
 // Target5FCEA9-5FCF0E: base word04 zero; observer storage ctor at+8;
 // vtableC7A1BC; 0x38-byte allocation and implementation ctor; holder at+18.

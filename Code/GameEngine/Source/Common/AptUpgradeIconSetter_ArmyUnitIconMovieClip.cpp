@@ -171,6 +171,9 @@ class StrategicHUD::ArmyUnitIconMovieClip : public ArmyMemberIconMovieClip
 {
 public:
 	ArmyUnitIconMovieClip(AptMovieClipFrame *frame);
+	// Retail 0x005FCFEA, reached through the deleting destructor 0x005FD0DE in
+	// slot 0 of this class's table 0x0087A1F4.
+	virtual ~ArmyUnitIconMovieClip();
 	virtual void DoUpdate();
 	void SetUpgradeIconImage(int index, const Image *image);
 	void OnUpgradeIconRollOver(const char *value);
