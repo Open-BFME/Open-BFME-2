@@ -248,16 +248,7 @@ class Rva0039B795
 class Rva0039B7AD;
 
 // Money.
-class Rva003B0D7C
-{
-public:
-	UnsignedInt countMoney() const { return *reinterpret_cast<const UnsignedInt *>(m_unknown00+4); }
-	UnsignedInt withdraw(UnsignedInt amount, Rva0039B795 *tracker, bool flag); // withdraw
-	void rva003B0D7C(Int amount, Rva0039B7AD *tracker, bool flag); // deposit
-
-private:
-	char m_unknown00[0xC];
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 
 // The lookup's existing address-derived owner is retained: neither WB helper
 // carries an original name. Native GetEntryToProcess passes Player+0x738 to

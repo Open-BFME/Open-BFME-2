@@ -13,12 +13,7 @@
 enum ScienceType { SCIENCE_INVALID=-1 };
 #include "../../../../Include/GameLogic/Module/Rva0039B795.h"
 #include "../../../../Include/Common/Rva0039B7AD.h"
-class Rva003B0D7C { char pad[4];public:
- unsigned balance;
- unsigned int withdraw(unsigned,Rva0039B795*,bool);
- void rva003B0D7C(int,Rva0039B7AD*,bool);
- unsigned countMoney()const{return balance;}
-};
+#include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class Player { public:
  bool hasScience(ScienceType)const;
  Rva003B0D7C *getMoney(){return reinterpret_cast<Rva003B0D7C*>(reinterpret_cast<char*>(this)+0x90);}
