@@ -18,3 +18,16 @@ A tooling repair needs its own regression tests and Verifier-Change commit befor
 Latest completed authoritative run 43449493373 at c9d82e95: **38 unresolved, 0 duplicates, no image; 468 initializer bridges and 3,331 vtable bridges / 50,310 slots**. This attempt changes none of those figures.
 
 Evidence: [proof and refusals](attack-position-native-vtable-20261113-root20/proof.json); three complete unlanded proposed source texts in that directory. Independent native reviewer confirmed the table and A1 refusal. t=25min model=gpt-6.1-sol.
+
+
+## Follow-up at 768d86245d4 (2026-11-17)
+
+No repeated candidate compilation or production edit. `find_declared_unmatched` reports all defined functions already matched. The table remains bridged with the same slot-2/3 provider differences.
+
+The first historical blocker changed: commit `1a526d9f623` admits precisely the same-class getter respell to `?GetSnapshotName@AttackPositionHordeStateMachine@@MBEPBDXZ`. Current `--to-class` additionally requires a committed registered canonical class header, approved slot-2 declaration, and explicit approval base. This class has neither registration nor slot approval. That supported path is separate from the still-closed prepared-source fingerprint checks.
+
+The second blocker did not change: `tu_ownership.py` A1 still rejects a second source row at the transfer fold, and `--icf-owner` provides no exemption. The owning rename also refuses the shared body as a unique class move. Current `tu_map` calls the transfer destination proposed, not approved; it authorizes no move or consolidation. The newer class-fold getter proof does not establish unique ownership of this multi-table body.
+
+A read-only independent tool-history review confirmed these facts. Full table recovery still requires supported transfer-fold admission or independently proven approved consolidation, as well as proper getter approval. Existing conditional byte evidence is retained, not reported as current admission. No source, ledger, header, queue or bridge changed. The obstacle-register file is held by another worker, so this follow-up updates its already-linked handoff instead of editing that worker's file.
+
+Latest completed authoritative run observed is 317 at `e3eaacd49dbcbda37c703f6561e9ca1f3d9aef85`: **11 unresolved, 0 duplicates, no image; 468 initializer bridges and 3,118 vtable bridges / 45,938 slots**. Run 318 is still in progress; neither result supplies a retirement claim here. t=12min model=GPT-6.

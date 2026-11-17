@@ -1,0 +1,9 @@
+# hostent receiver-bound field adoption prerequisite
+
+Inspected at 77e8eb27d71 on 2026-11-17. The owning adopt --class hostent --header Code/GameEngine/Include/Common/hostent.h --apply Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp refuses field renames: length is also a member of _STL::basic_string and a token rename would reach it. No source, header, ledger or queue edit occurred. find_declared_unmatched reports all defined functions matched.
+
+The private hostent is16bytes with name/aliases pointers, short addrtype/length, and addr_list pointer. The registered canonical header has the same spans with h_ prefixes. length appears only in the private declaration; the sole real field use is host->addr_list[0] in memcpy's second argument inside NAT::findMyMangledPort, the already-rowed327-byte body0x005A8405. The picker first names a different26-byte row in this mixed TU; no failure is attributed to that unrelated getter.
+
+Read-only independent review confirms that field_renames still runs tu_views.rename_problem's broad collision guard before typed receiver rewriting. The latter also conservatively refuses the comma-containing memcpy argument context. Thus removing only the first guard would not prove correct rewriting. A separate tooling task must prove unused members irrelevant and bind the active field through its receiver while continuing to refuse shadows, macros, inline accesses, ambiguous types and unsafe comma/operator expressions. No source field was renamed to satisfy a heuristic and no guard was changed here. Complete adoption, byte/EH/runtime comparison and queue acceptance remain pending.
+
+All trial class/file/body claims are released. t=7min model=GPT-6. Exact owning-tool refusal is preserved under build/root-continuation-next-20261117/hostent-adopt.log.
