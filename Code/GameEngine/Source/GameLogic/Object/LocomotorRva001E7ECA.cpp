@@ -159,13 +159,7 @@ class LocoTerrainView:public LocoSlots<6>
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116>KINDOFMASK_NONE;
-class Rva00045411BitSet
-{
- public:Rva00045411BitSet(int,int);
- unsigned bits[7];
- 
-}
-;
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva000421C8
 {
  public:Rva000421C8():next(0)
