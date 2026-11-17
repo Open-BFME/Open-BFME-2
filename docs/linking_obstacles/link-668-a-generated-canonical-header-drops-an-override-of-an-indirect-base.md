@@ -49,3 +49,5 @@ for byte, and the fix changes one line) cannot be met. The contract has no field
 them from the views. Regenerating would drop the forward declarations; adding them back would be a hand edit. Both
 are left to the header lane's owner, together with the `base_slot_signatures` fix.
 
+
+**2026-11-17 FXListDie constructor preflight:** the served table 0084AD04 still has pure slots 1-4 and the canonical generated header still omits those overrides. Current base_slot_signatures remains direct-base-only. The generator file is held by codex-root20-dock-padding-tool; BehaviorModule is also held elsewhere. Normal unchanged constructor verification passes; no source/header/tool/contract edit is retained. Exact dependency handoff: `reverse/attempt_support/fxlistdie-generated-overrides-preflight-20261117.md`.

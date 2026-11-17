@@ -3867,3 +3867,7 @@ The unchanged canonical-header producer passes 16/16 code rows. Its emitted Beha
 ## 2026-11-17: Motion-blur constructor identity
 
 GapBodiesGE37.cpp still emits a destructor-only Rva000FD58A table for native 007CF410. The seven native slots already belong to the named ScreenMotionBlurFilter family and share its 1Ch layout. A normal identity rename must include the initializer caller; the rename tombstone register is held by another contributor. The unchanged build passes, no duplicate family or invented subclass is introduced, and the bridge pass test remains open. Evidence: `reverse/attempt_support/motion-blur-constructor-identity-20261117.md`.
+
+## 2026-11-17: StanceButton identity dependency rechecked
+
+Served table 0086CF0C still needs the already named StanceButton::DoUpdate at 005679A4, exactly the two-table fold prerequisite documented above. Rva00567CCDCtor.cpp passes its unchanged normal build; no duplicate method or alias is retained. The normal class rename needs the currently claimed tombstone register. Evidence: `reverse/attempt_support/stance-button-identity-preflight-20261117.md`.
