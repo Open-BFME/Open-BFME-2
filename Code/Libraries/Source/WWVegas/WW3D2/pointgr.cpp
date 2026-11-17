@@ -181,6 +181,7 @@ extern void BoxSetTexture(unsigned stage, TextureBaseClass *&texture);
 #define Matrix4x4 Matrix4
 #define BFME_POINT_MATRIX4_TRANSFORM_INLINE
 #define BFME2_DX8WRAPPER_TRANSFORMS
+#include "../../../../GameEngine/Include/Common/BFME2TextureResource.h"
 
 class Rva00914860Sizer
 {
@@ -209,6 +210,21 @@ private:
 	char m_pad[0x30];
 	unsigned int m_flags;
 };
+
+struct BFME2TextureRef {
+ BFME2TextureResource* Ptr;
+ __declspec(dllimport) __forceinline BFME2TextureRef(BFME2TextureResource* p):Ptr(p) { if(Ptr) ++Ptr->Refs; }
+ BFME2TextureRef(const BFME2TextureRef& p):Ptr(p.Ptr) { if(Ptr) ++Ptr->Refs; }
+ ~BFME2TextureRef() { if(Ptr) Ptr->Release_Ref(); }
+};
+
+class BFME2ParticleTextureAccessor {
+ unsigned Prefix[9]; BFME2TextureResource* Texture;
+ public: BFME2TextureRef Get_Texture() const;
+ void Set_Texture(const BFME2TextureRef& value);
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp
 
@@ -1586,22 +1602,6 @@ void Rva00179100::SetFlag(bool onoff)
 		m_flags &= ~2;
 }
 
-// tu-skeleton: 0x00178ED0 194B ??1PointGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00178FB0 4B ?get@Rva00178FB0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00179030 4B ?get@Rva00179030ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00179050 4B ?get@Rva00179050ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00179120 9B ?get@Rva00179120ShrAndField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x001793A0 550B ?Resize@?$VectorClass@VVector4@@@@UAE_NHPBVVector4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
-
-// tu-skeleton: 0x0017989B 92B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00179940 10B ??A?$SimpleDynVecClass@E@@QAEAAEH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva0017A890.cpp
 
 // PointGroupClass vertex-location fill, retail RVA 0x0017A890 (VA 0x009148C0),
@@ -1944,6 +1944,32 @@ void PointGroupClass::rva009148C0(Vector3 *point_loc, float *point_size, unsigne
 			break;
 	}
 }
+
+// tu-skeleton: 0x00178ED0 194B ??1PointGroupClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00178FB0 4B ?get@Rva00178FB0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00179030 4B ?get@Rva00179030ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00179050 4B ?get@Rva00179050ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/bfme2_particle_texture_accessor.cpp
+
+// Descriptive particle-renderer texture accessor shared by point/line callers.
+// Retail getter1790E0..1790FE is30B: complete RET4 starts5790FB.
+// Texture slot+24; one-pointer owning handle increments WORD refcount+4.
+// Contracts independently traced in particle copy constructor1AD1B0 and
+// setter1790A0; this view does not assert original C++ class spelling.
+
+BFME2TextureRef BFME2ParticleTextureAccessor::Get_Texture() const { return BFME2TextureRef(Texture); }
+
+// tu-skeleton: 0x00179120 9B ?get@Rva00179120ShrAndField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001793A0 550B ?Resize@?$VectorClass@VVector4@@@@UAE_NHPBVVector4@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Vector2Resize.cpp (not merged yet)
+
+// tu-skeleton: 0x0017989B 92B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00179940 10B ??A?$SimpleDynVecClass@E@@QAEAAEH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp (not merged yet)
 
 // tu-skeleton: 0x0017E210 1798B ?Rva0017E210Init@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassInit.cpp (not merged yet)
 
