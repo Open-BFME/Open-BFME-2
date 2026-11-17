@@ -879,7 +879,24 @@ void Rva00091F3BNullForwarder::rva00091F3B(void *p)
 
 // tu-skeleton: 0x00091FBA 90B ?rva00091FBA@Rva00091FBA@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x00092014 16B ?rva00092014@Rva00091A80@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksBind.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksBind.cpp
+// ?rva00092014@Rva00091A80@@QAEXXZ @0x00092014 16B (with its ret): slot 9 of
+// the table 0x007C80A0. It ignores this: when the terrain-tracks system
+// exists, it re-applies the track detail through the rowed setDetail.
+class TerrainTracksRenderObjClassSystem;
+extern TerrainTracksRenderObjClassSystem *TheTerrainTracksRenderObjClassSystem;
+#include "../../../Include/W3DDevice/GameClient/Rva00084C05System.h"
+class Rva00091A80
+{
+public:
+	void rva00092014();
+};
+
+void Rva00091A80::rva00092014()
+{
+	if (TheTerrainTracksRenderObjClassSystem)
+		((Rva00084C05System *)TheTerrainTracksRenderObjClassSystem)->setDetail();
+}
 
 // tu-skeleton: 0x00092032 8B ??_ERva009203A@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
 

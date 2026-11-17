@@ -13,6 +13,7 @@ public:
 	Rva00084206Track *bind(Rva00084B18RenderObj *robj, float length, const char *texture, const char *a, const char *b);
 	void init(SceneClass *scene);
 	void update();
+	void setDetail();			// 0x00084055 (W3DTerrainTracksBind.cpp)
 };
 
 #endif // CANONICAL_RVA00084C05SYSTEM_H

@@ -417,12 +417,6 @@ public:
 	void rva00092014();
 };
 
-void Rva00091A80::rva00092014()
-{
-	if (TheTerrainTracksRenderObjClassSystem)
-		((Rva00084C05System *)TheTerrainTracksRenderObjClassSystem)->setDetail();
-}
-
 // Native 8458A..84B18 RET8. WorldBuilder twin 8BC5E0 (debug, same assert names)
 // shows the BFME2 body: owner/object guard, the BFME1 anchor branch, the two
 // endpoint vectors run through Matrix3D::mulVector3 against the object
