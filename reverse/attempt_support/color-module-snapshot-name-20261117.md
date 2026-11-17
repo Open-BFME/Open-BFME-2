@@ -16,3 +16,5 @@ Private verification passes 3/3 rows in each producer. Normal build.sh over
 both files passes 6/6 rows, including the exact name string. This is one
 recovered virtual body, not a completed bridge cohort or a fresh real-link
 result. Remaining destructor, transfer and primary slots still need recovery.
+
+The native rate helper at 0055B9BD is also recovered as calculateRates (128 bytes). Typed RGB keyframes and current/rate colours retain every constructor byte; the helper's complete body and floating references match retail. Paired normal verification passes 7/7 rows.

@@ -31,9 +31,15 @@ public:
 	virtual ~Rva0055BCD2();
 };
 
+struct ColorRateKey
+{
+    float red, green, blue;
+    unsigned int frame;
+};
+
 struct Rva005EA590Block
 {
-	int m_value[ 32 ];
+    ColorRateKey keys[8];
 };
 
 class Rva005E95C0
@@ -50,7 +56,7 @@ public:
 
 struct Rva005EA590Triple
 {
-	int m_value[ 3 ];
+	float red, green, blue;
 };
 
 class Rva005EA590 : public Rva0055BCD2, public Rva005E95C0
@@ -58,6 +64,7 @@ class Rva005EA590 : public Rva0055BCD2, public Rva005E95C0
 public:
 	Rva005EA590( const Rva005EA590 & );
 	virtual const char *GetSnapshotName() const;
+	void calculateRates();
 	Rva005EA590Triple m_fields94;
 	Rva005EA590Triple m_fieldsA0;
 	int m_fieldAC;
@@ -75,4 +82,21 @@ Rva005EA590::Rva005EA590( const Rva005EA590 &o )
 const char *Rva005EA590::GetSnapshotName() const
 {
 	return "DefaultParticleModule<CAT_COLOR>";
+}
+
+void Rva005EA590::calculateRates()
+{
+    int i = m_fieldAC;
+    unsigned int dt = m_block.keys[i].frame;
+    if (dt == 0) {
+        m_fieldsA0.red = 0.0f;
+        m_fieldsA0.green = 0.0f;
+        m_fieldsA0.blue = 0.0f;
+        return;
+    }
+    dt -= m_block.keys[i-1].frame;
+    float inv = 1.0f / (float)dt;
+    m_fieldsA0.red = (m_block.keys[i].red - m_fields94.red) * inv;
+    m_fieldsA0.green = (m_block.keys[i].green - m_fields94.green) * inv;
+    m_fieldsA0.blue = (m_block.keys[i].blue - m_fields94.blue) * inv;
 }
