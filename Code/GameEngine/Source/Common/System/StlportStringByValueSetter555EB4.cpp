@@ -22,7 +22,11 @@ public:
 	Pointer _M_data;
 };
 
-extern "C" void __cdecl free(void *block);
+// Retail calls free directly (the game allocator at 0x00030830), not through
+// the CRT import: read <stdlib.h> without dllimport.
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
 
 template <class CharT, class Traits, class Alloc>
 class basic_string
