@@ -99,10 +99,12 @@ public:
 	virtual ~Rva00426745SnapshotBase() {}
 };
 
+// Native secondary getter426737 names this subsystem MissionObjectiveTracker.
 class Rva00426745 : public SubsystemInterface, public Rva00426745SnapshotBase
 {
 public:
 	virtual ~Rva00426745();
+	virtual void reset();
 
 private:
 	Rva00426745Owned *m_owned; // +0x10
@@ -377,4 +379,11 @@ void Rva00426A15::rva00426A15()
 void bfmeVectorDeleteAnchor_Rva00426745SnapshotBase(Rva00426745SnapshotBase *p)
 {
 	p->Rva00426745SnapshotBase::__vecDelDtor(3);
+}
+
+// Native subsystem tableC3C408 slot9 clears the owned objective map.
+void Rva00426745::reset()
+{
+    ::delete m_owned;
+    m_owned = 0;
 }
