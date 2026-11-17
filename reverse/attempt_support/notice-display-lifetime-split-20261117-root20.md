@@ -1,0 +1,13 @@
+# Notice display and screen-filter lifetimes are distinct
+
+Inspected 6f05eee4dbbdde3d67d9259349b2f6d028d472db on 2026-11-17. Picker served table 0x008623CC in `Common/Bfme/Rva004E5A24Ctor.cpp`. Its two existing rows pass 2/2. No production edit was made.
+
+Native facts: notice constructor 0x004E5A24 (84 bytes) installs table VA0x00C623CC in a 0x34-byte object. Its slot0 scalar destructor 0x004E6231 calls the existing 105-byte IngameNoticeDisplay destructor 0x004E61C8, which resets, releases its display resource, frees its vector and tears down SubsystemInterface.
+
+The same source's implicitly emitted 15-byte destructor is rowed as `??1Rva004E5A24@@UAE@XZ` at 0x000FB86C based on an old masked body search. Native initializer 0x007AC956 constructs global VA0x00DEC174 through 0x000FB8B6 and registers 0x007B6EF4; that exit thunk destroys the same global through 0x000FB86C. The constructor installs a DIFFERENT seven-slot table VA0x00BCF330 in a 0x2C-byte object, with vector storage at +0x10. Its table has only ordinary methods, no deleting-destructor slot. Thus the short body is the screen-filter global's nonvirtual cleanup, not the notice subsystem destructor and not a same-function ICF twin. Bytes alone did not establish the old class identity.
+
+Current native constructor owner is `GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp` (Rva000FB8B6); the exit thunk is in `Common/Rva007B6880Thunks.cpp`. The wrong named row must be coherently corrected with those consumers, preserving all coverage and approved TU placement. A true shared declaration can keep the real manual table word and 0x2C extent, then express nonvirtual cleanup of the owned pointer at +0x10 without a fake notice base or vptr store. No donor identity is asserted.
+
+`rename.py class --fold Rva004E5A24 --into IngameNoticeDisplay --dry-run` refuses both distinct destructor rows. An identity-only scope respell can express a placeholder type replacement but requires preexisting wrong call-binding proof; this body calls the correct allocator. Retaining UAE would also misstate its native nonvirtual lifetime, and current identity/special-member signature gates reject UAE-to-QAE. Do not bypass those gates, silently lose the 15-byte row, add a virtual destructor to preserve its spelling, or merge the mixed file by hand.
+
+Next: supported owning-tool correction of the false class/dtor signature and actual global consumer; then fold the remaining notice constructor into IngameNoticeDisplay and recover the fourteen-slot subsystem contract. No bridge retirement, row recovery, real-link or game-runtime gain is claimed. LINK-686 remains blocked.

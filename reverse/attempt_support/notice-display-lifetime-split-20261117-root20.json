@@ -1,0 +1,37 @@
+{
+  "revision": "6f05eee4dbbdde3d67d9259349b2f6d028d472db",
+  "notice": {
+    "constructor": "0x004E5A24",
+    "size": 84,
+    "complete_extent": "0x34",
+    "vtable": "0x008623CC",
+    "deleting_destructor": "0x004E6231",
+    "destructor": "0x004E61C8",
+    "destructor_size": 105
+  },
+  "screen_filter_global": {
+    "constructor": "0x000FB8B6",
+    "size": 53,
+    "complete_extent": "0x2C",
+    "global_va": "0x00DEC174",
+    "vtable": "0x007CF330",
+    "slots": [
+      "0x000D43D0",
+      "0x000FB964",
+      "0x000FAFF8",
+      "0x000FB2C1",
+      "0x005CB9FA",
+      "0x000FB10B",
+      "0x000FB0BC"
+    ],
+    "destructor": "0x000FB86C",
+    "destructor_size": 15,
+    "initializer": "0x007AC956",
+    "exit_thunk": "0x007B6EF4"
+  },
+  "incorrect_row_name": "??1Rva004E5A24@@UAE@XZ",
+  "correct_owner_family": "Rva000FB8B6; native table contains no destructor slot so the destructor must be nonvirtual",
+  "baseline": "2/2 byte exact; this does not prove class identity",
+  "fold_refusal": "both names have a destructor row at distinct native addresses",
+  "production_changes": false
+}
