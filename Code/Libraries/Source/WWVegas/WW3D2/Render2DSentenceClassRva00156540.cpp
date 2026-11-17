@@ -19,13 +19,7 @@ public:
 	SurfaceOps *ops;
 };
 
-class W3DRadarResetSurface
-{
-public:
-	__declspec(dllimport) __forceinline W3DRadarResetSurface() : m_surface(0) {}
-	~W3DRadarResetSurface();
-	void *m_surface;
-};
+#include "../../../../GameEngine/Include/Common/W3DRadarResetSurface.h"
 
 struct Rva00156540Param
 {
