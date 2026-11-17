@@ -102,10 +102,7 @@ public:
 };
 
 // A 128-bit ObjectStatusMaskType; 0x0023DA79 clears it and sets one bit.
-class BfmeObject872Header
-{
-	unsigned int m_words[4];
-};
+#include "../../../Include/Common/BfmeObject872Header.h"
 
 class Rva0023DA79 : public BfmeObject872Header
 {
