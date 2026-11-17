@@ -29,3 +29,5 @@ The served two-table real-link pass test remains open until fresh evidence.
 Compressed key override _bfme_hanim_v3 at00661FD0 is recovered (4 bytes), reading the actual name-key dword at+40h. Normal hcanim verification passes64/64 rows; all references and retained funclets remain exact.
 
 Compressed Class_ID at00756B00 is recovered (6 bytes), returning1 at native primary slot21. Normal hcanim verification passes65/65 rows with all references and retained funclets exact.
+
+Compressed slot20 _bfme_hanim_v21 at0018F640 is recovered (54 bytes), testing the actual VectorMotion channel4 or the legacy NodeMotion Fade pointer. Normal verification passes66/66 rows; all reference checks and six EH graphs remain exact. Strict current-table audit still stops at the base Class_ID ledger ownership and the compressed Get_HName ledger ownership; no complete-table or bridge clearance is claimed. Existing inline getters will be checked and banked before leaving this file.

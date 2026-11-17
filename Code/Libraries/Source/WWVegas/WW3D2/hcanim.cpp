@@ -1635,3 +1635,9 @@ int HCompressedAnimClass::Class_ID() const
 {
     return 1;
 }
+
+bool HCompressedAnimClass::_bfme_hanim_v21(int pivot)
+{
+    if (VectorMotion) return VectorMotion[pivot].Channels[4] != 0;
+    return NodeMotion[pivot].vd.Fade != 0;
+}

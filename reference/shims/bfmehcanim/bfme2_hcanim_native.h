@@ -131,6 +131,8 @@ public:
 
     int Class_ID() const;
 
+    bool _bfme_hanim_v21(int pivot);
+
 private:
 	char							Name[2*W3D_NAME_LEN];
 	char							HierarchyName[W3D_NAME_LEN];
