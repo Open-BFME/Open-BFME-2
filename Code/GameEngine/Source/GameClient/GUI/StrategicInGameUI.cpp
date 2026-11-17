@@ -446,6 +446,7 @@ class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
 public:
     Rva005E6F9D(int,const AsciiString &,HeroDetailsInput *);
     virtual ~Rva005E6F9D();
+    virtual void slot3();
     virtual void notifyIconListBackgroundClicked();
     void rva005E69C8();
 private:

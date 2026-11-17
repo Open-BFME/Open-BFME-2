@@ -64,6 +64,7 @@ private:
 };
 class Rva005E6D90
 {
+    friend class Rva005E6F9D;
 public:
     ~Rva005E6D90() { clear(); }
     void clear();
@@ -74,6 +75,7 @@ class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
 {
 public:
     virtual ~Rva005E6F9D();
+    virtual void slot3();
     virtual void notifyIconListBackgroundClicked();
 private:
     Rva005E6D90 child20;
@@ -166,4 +168,12 @@ void Rva005E6F9D::notifyIconListBackgroundClicked()
 {
     reinterpret_cast<Rva005E508F *>(reinterpret_cast<char *>(this) + 0xC)->rva005E509F();
     StrategicHUD::ArmyDetailsMovieClip::notifyIconListBackgroundClicked();
+}
+
+#include "../../Include/Common/Rva005E68C0.h"
+// Native C77E5C/C750A0 slot3 keeps the empty call and forwards the owned listener.
+void Rva005E6F9D::slot3()
+{
+    StrategicHUD::ArmyDetailsMovieClip::notifyBackButtonClicked();
+    reinterpret_cast<Rva005E68C0 *>(child20.value)->rva005E69AC();
 }
