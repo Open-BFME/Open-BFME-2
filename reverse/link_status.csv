@@ -1323,7 +1323,7 @@ Code/GameEngine/Source/Common/IterRel001DCF20.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/KindOfGetSingleBitFromName.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LANChatHistory.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LadderPrefCopy.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp,no,0,0,1,0,1
 Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LargeGroupAudio_removeOverrides.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/LeapYearPredicateThunk.cpp,yes,0,0,0,0,0
@@ -4307,7 +4307,7 @@ Code/GameEngine/Source/Common/Rva005216A6.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005232D0Eq.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00523775Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00524265Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00524477Dispatch.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/Common/Rva00524477Dispatch.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005248D0Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00524B7ACtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00524BB4Dtor.cpp,yes,0,0,0,0,0
@@ -5652,12 +5652,12 @@ Code/GameEngine/Source/Common/Rva006DE2B0Slot11.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006DE350Derived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006DF5E0Cast.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006EB650.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva006ECFC0Siblings.cpp,no,0,0,2,0,1
 Code/GameEngine/Source/Common/Rva006ED2A0Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006ED6FDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F12F0Siblings.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F1360Derived.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva006F1360Dtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva006F1360Dtor.cpp,no,0,0,2,0,1
 Code/GameEngine/Source/Common/Rva006F1F50Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F1F90Cluster.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva006F3670Cluster.cpp,yes,0,0,0,0,0
@@ -6054,7 +6054,7 @@ Code/GameEngine/Source/Common/StatsReporterChallenge.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StatsReporterRealTime.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StdioStreambufBase.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/StrategicHUD.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/Common/StrategicHUD.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StrategicHUDRegionDetailsTerritoryMovieClipCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StrategicHUD_FormatCPString.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/StrategicHUD_SetArmyNameString.cpp,yes,0,0,0,0,0
@@ -6887,7 +6887,7 @@ Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp,no,0,0,1,0,1
 Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAI_Rva0057709A.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAJ_Rva00034D00.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VslotSmallBodiesAL.cpp,yes,0,0,0,0,0
@@ -7689,7 +7689,7 @@ Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataAddHero.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceRva0052633A.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceShowSelectAllHeroesBttn.cpp,yes,0,0,0,0,0
@@ -8058,7 +8058,7 @@ Code/GameEngine/Source/GameClient/MapPreviewImage.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/MapUtil.cpp,no,0,0,4,0,2
 Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/MapUtilLoadMap.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/GameClient/MapUtilLoadMap.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/MapUtilParseObjectDataChunk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/MapUtil_ParseObjectsDataChunk_Thunk_Rva00302b06.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/MapUtil_unk_YA_NAAVDataChunkInput_PAUDataChunkInfo_PAX_Z.cpp,yes,0,0,0,0,0
@@ -8743,7 +8743,7 @@ Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,yes,0,
 Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStatesXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdateInternal.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdateInternal.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackState.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackStateDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackStateLoadPostProcess.cpp,yes,0,0,0,0,0
@@ -8777,7 +8777,7 @@ Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIFollowPathAndEvacuateStateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateMethods.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIGroupAdd.cpp,yes,0,0,0,0,0
@@ -8856,13 +8856,13 @@ Code/GameEngine/Source/GameLogic/AI/AIStateMachineSetGoalWaypoint.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStateRva0034005DCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeMoveOnEnters.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesCowerVoice.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesEvacuate.cpp,yes,0,0,0,0,0
@@ -8872,7 +8872,7 @@ Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesRva00347E4CHelper.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesRva003543BF.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesShipEvacuate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp,yes,0,0,0,0,0
@@ -9090,11 +9090,11 @@ Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/Map/SidesListCastleBuildLists.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListCopyCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp,no,2,0,0,0,1
+Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp,no,0,0,0,0,1
 Code/GameEngine/Source/GameLogic/Map/SidesListFlagExchange.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListLibraryMapDispatch.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Map/SidesListParseCastleTemplateMaps.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/GameLogic/Map/SidesListParseCastleTemplateMaps.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListPlayerScriptsParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/SidesListRemoveSideAndTeams.cpp,yes,0,0,0,0,0
@@ -13777,7 +13777,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetFlatTexture.c
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetUVForNdx.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp,no,2,0,0,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseEnvironmentData.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseWorldDict.cpp,yes,0,0,0,0,0
@@ -13839,13 +13839,13 @@ Code/Libraries/Source/Apt/AptArray.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackInit.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackPopAndPush.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptBasePtrStackPush.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptCIH.cpp,no,1,0,0,0,0
+Code/Libraries/Source/Apt/AptCIH.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCIHJumpToFrame.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCIHQueueClipEvents.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCIHRender.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCIHRva006E2D60.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptCharacter.cpp,yes,0,0,0,0,0
+Code/Libraries/Source/Apt/AptCharacter.cpp,no,0,0,2,0,1
 Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCharacterApplyTextFormat.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp,yes,0,0,0,0,0
@@ -13873,7 +13873,7 @@ Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptNativeHash.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptCIHProceduralAllocation.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,no,1,0,0,0,0
+Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptGlobal.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptObject/AptKey.cpp,yes,0,0,0,0,0
@@ -13893,7 +13893,7 @@ Code/Libraries/Source/Apt/AptShutdownRva006CFAB0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptString.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptTextFormat.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptTrackerBucketClear.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptValue.cpp,no,0,0,2,0,0
+Code/Libraries/Source/Apt/AptValue.cpp,no,0,0,0,0,1
 Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/AptBuiltinValues.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,yes,0,0,0,0,0
@@ -13932,7 +13932,7 @@ Code/Libraries/Source/Apt/AptValue/Rva006CD5A0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/Rva006CD6F0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/Rva006CDE50Collect.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/Rva006D6300TypedValueCtors.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp,yes,0,0,0,0,0
+Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp,no,0,0,2,0,1
 Code/Libraries/Source/Apt/AptValue/Rva006DC9E0.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/Rva006DCD50Cluster.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/AptValue/Rva006DCE50Finish.cpp,yes,0,0,0,0,0
@@ -13953,7 +13953,7 @@ Code/Libraries/Source/Apt/Rva006CFCD0Apt.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006CFF40Apt.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006D0280Dtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006D0C60.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp,yes,0,0,0,0,0
+Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp,no,0,0,2,0,1
 Code/Libraries/Source/Apt/Rva006D6D20Ctor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006D6D20Dtor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/Apt/Rva006DAEB0Init.cpp,yes,0,0,0,0,0
