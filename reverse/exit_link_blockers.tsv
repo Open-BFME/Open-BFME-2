@@ -1,8 +1,7 @@
-# real link at b291a36e408a0ce6df5922086e5e40739a0cc966: tools/exit_link.py --blockers
+# real link at b605454db358d77b2ffc2dd8c7ce71418f4ba960: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	8	??1Rva00119D00@@UAE@XZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
-Code/GameEngine/Source/Common/VersionBlockParser.cpp	2	??0Pivot24@@QAE@ABU0@@Z
 Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	2	?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
 Code/GameEngine/Source/Common/BfmeConv526.cpp	1	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z
