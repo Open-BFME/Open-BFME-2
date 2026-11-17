@@ -64,6 +64,7 @@ class Rva003675AC : public State
 {
 public:
 	Rva003675AC(StateMachine *machine, int arg0);
+	virtual const char *GetSnapshotName() const { return "AIGiantBirdAttack"; }
 
 private:
 	int m_20; // +0x20
