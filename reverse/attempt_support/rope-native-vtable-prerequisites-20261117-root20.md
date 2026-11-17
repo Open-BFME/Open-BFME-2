@@ -1,0 +1,30 @@
+# W3DRopeDraw current table prerequisites
+
+Inspected at `768d86245d4` on 2026-11-17. The first inspection identified the remaining full-table prerequisites below. A separately verified declaration-only prerequisite now fixes two bindings without changing bodies or the active container representation; bridge retirement remains pending.
+
+The selected primary table RVA `0x007CBD60` is 62 slots / 248 bytes, not short. Its constructor `0x000CA752` (164 bytes) and destructor `0x000CA8BC` (90 bytes) install it at offset zero; the separate three-slot RopeDrawInterface table is at `0x007CBD50`, receiver offset `0x0C`, with no destructor slot. Factory extent is `0x54`. These target facts are already documented in the registered canonical `W3DRopeDrawClass.h` and contract; they do not come from a donor table guess.
+
+Before this change, the published bridge queue and both local emitting objects report twelve primary differences: slots 1, 2, 3, 4, 12, 13, 14, 35, 38, 39, 45 and 46. Installer private views inherit wrong base providers or purecalls. The real class already owns the named Snapshot getter at `0x000CA83B` and transfer at `0x000CA916` in separate sources. Slot 4 is the 69-byte pool-key body `0x000CA7F6`, currently rowed with a static placeholder spelling; the canonical header declares its virtual const getModuleNameKey contract. Slot 1 needs the `0x0058B03E` post-load fold and slots 45/46 need `0x000CA841`. That latter body is twelve-byte branchless null-select this+0x0C code, already owned by Disp8MovLeaNegSbbGetters and two sound-selector classes. A bare adjusted-pointer assumption is not proof of those complete emitted methods.
+
+The canonical header correctly describes the observed class extent and fields, but represents m_segments as `SegInfo *[3]`. The selected constructor actively constructs and clears `_STL::vector<BfmePod16>` at the same twelve-byte span; the destructor actively tears it down. The current header queue preserves exactly this typed-field refusal. Equal size does not approve exchanging the active container types, their emitted helpers or exception cleanup. The four previously adopted consumers do not exercise that constructor/destructor container contract. `find_declared_unmatched` reports all defined functions in the selected file already matched.
+
+Thus the coherent recovery needs real shared container representation and typed helper identity across the cohort, supported slot-4 respelling with its local statics, native-exact override providers and trusted folded-row admission. The unchanged A1 additional-source ownership guard still supplies no general icf-owner exemption; neither proposed TU placement nor another class's admitted twin authorizes an extra source owner here. No unchanged header-adoption trial was repeated.
+
+LINK-021's historical minimal-kit census clearance is retained as its stated scope. It is not a current primary-table/runtime clearance. Latest completed authoritative run observed is 317 at `e3eaacd49dbcbda37c703f6561e9ca1f3d9aef85`: **11 unresolved, 0 duplicates, no real image; 468 initializer bridges and 3,118 vtable bridges / 45,938 slots**. Run 318 remains pending. No matching game receipt is available. This review changes none of those figures.
+
+Next useful check: establish the supported shared container/provider transaction before a fresh whole-cohort byte/EH/native-slot trial; after publication, only the next real link's own queue can establish retirement. t=16min model=GPT-6.
+
+
+## Verified declaration prerequisite
+
+The three existing emitting views now declare the protected const GetSnapshotName override and protected xfer override, exactly as their already-rowed mangled names require. The providers remain Common/W3DDrawNameGetters.cpp at `0x000CA83B` and W3DRopeDrawXfer.cpp at `0x000CA916`. No new body, row, name, alias, pin, header, container representation or queue deletion is involved.
+
+Normal `./build.sh` passes **44/44 rows across five sources** (three edited views plus both existing providers), with 25 string literals, six float literals and one import verified. All **three affected EH graphs are EXACT**. Comparison of every **218 non-debug COFF section** proves that only primary-table slot-2/3 relocation names change, in the constructor and destructor copies. All remaining bytes, bindings, external definitions, weak defaults and COMDAT policies agree. One four-byte `.sxdata` entry renumbers COFF symbol index 370 to 372; both indices resolve to the exact same EH handler symbol, section, value, type and storage. This linker metadata change is explicitly checked rather than ignored.
+
+Both 248-byte primary tables retain 62 slots, with native binding differences **12 to 10**. Slots 2/3 now select the existing native providers; remaining differences are slots 1, 4, 12, 13, 14, 35, 38, 39, 45 and 46. The local slot check parses the deleting-destructor weak default; it is a scoped binding comparison, not a whole-link proof. The main Draw/W3DRopeDraw.cpp object remains runtime-identical. The full owning pass test remains unsatisfied and the bridge queue is preserved.
+
+[Exact object/slot comparison](rope-native-vtable-prerequisites-20261117-root20.json). Scratch before/after objects and verification script are under build/root-rope-overrides-20261117. The source change is bankable independently of the unresolved active vector and remaining provider transactions. t=30min model=GPT-6.
+
+Strict provider preparation also passes all 44 rows. The five-source scoped preview at index `0e4b2640a1` retains **1,600 to 1,600 census-linked bytes** (all five LINKS); its November 13 index is older than this tree, so this is not a current whole-link clearance.
+
+Normal source commit hooks pass all 20 edited-unit rows and three EXACT EH graphs. The shadow identity check reports three divergent BfmePod16 vector teardown/deallocation helpers against other copies; the before/after 218-section comparison proves their bytes and bindings are unchanged by these declarations. These remain container-provider debt, not clearance of the wider class.

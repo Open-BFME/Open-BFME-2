@@ -53,6 +53,9 @@ private:
 	void tossSegments();
 public:
 	virtual void doDrawModule(const class Matrix3D *);
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 
 W3DRopeDraw::~W3DRopeDraw()

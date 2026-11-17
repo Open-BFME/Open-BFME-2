@@ -1,0 +1,672 @@
+{
+  "revision": "768d86245d4b8f68c423cd11638e90c38cfabcdf",
+  "comparison": "Every non-debug section compared. Only two primary-table relocation names change per emitter, plus one SafeSEH COFF symbol index retaining its exact handler identity. All other bytes, bindings, provider identities, weak defaults and COMDAT policies identical.",
+  "runtime": [
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDraw.cpp",
+      "nondebug_sections": 54,
+      "changed_sections": [],
+      "metadata": [],
+      "before_obj_sha256": "4bb574b7d2c3d5e1b69d2fed4a98c57dd11b91533ed23cce345f9306d7c8f51d",
+      "after_obj_sha256": "4aa085492959110c445f38954ddd3353af08e097834c66f46a05cce995805faa"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDrawCtor.cpp",
+      "nondebug_sections": 90,
+      "changed_sections": [
+        {
+          "section": 88,
+          "diffs": [
+            {
+              "offset": 8,
+              "before": [
+                "external",
+                "?GetSnapshotName@DrawModule@@MBEPBDXZ",
+                2,
+                32
+              ],
+              "after": [
+                "external",
+                "?GetSnapshotName@W3DRopeDraw@@MBEPBDXZ",
+                2,
+                32
+              ]
+            },
+            {
+              "offset": 12,
+              "before": [
+                "external",
+                "?xfer@DrawModule@@MAEXPAVXfer@@@Z",
+                2,
+                32
+              ],
+              "after": [
+                "external",
+                "?xfer@W3DRopeDraw@@MAEXPAVXfer@@@Z",
+                2,
+                32
+              ]
+            }
+          ]
+        }
+      ],
+      "metadata": [],
+      "before_obj_sha256": "2e2e18e42d73a170a4834b981a0cf60945fe36f5d68398c6ab520b0eb32c6b51",
+      "after_obj_sha256": "8b2ed98f8e83c1f1d99785a053e0250f2f6b5c058ce98d3c75ac3741ca45feeb"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDrawDtor.cpp",
+      "nondebug_sections": 74,
+      "changed_sections": [
+        {
+          "section": 70,
+          "diffs": [
+            {
+              "offset": 8,
+              "before": [
+                "external",
+                "?GetSnapshotName@DrawModule@@MBEPBDXZ",
+                2,
+                32
+              ],
+              "after": [
+                "external",
+                "?GetSnapshotName@W3DRopeDraw@@MBEPBDXZ",
+                2,
+                32
+              ]
+            },
+            {
+              "offset": 12,
+              "before": [
+                "external",
+                "?xfer@DrawModule@@MAEXPAVXfer@@@Z",
+                2,
+                32
+              ],
+              "after": [
+                "external",
+                "?xfer@W3DRopeDraw@@MAEXPAVXfer@@@Z",
+                2,
+                32
+              ]
+            }
+          ]
+        }
+      ],
+      "metadata": [
+        {
+          "section": 72,
+          "kind": ".sxdata SafeSEH COFF symbol-index renumbering",
+          "resolved_symbols": [
+            {
+              "name": "__ehhandler$??1W3DRopeDraw@@UAE@XZ",
+              "section": 134,
+              "value": 19,
+              "type": 32,
+              "storage": 3
+            }
+          ]
+        }
+      ],
+      "before_obj_sha256": "e67d4ce5f562b16380b49df69e0a5b095332ada7397dff130041be0a8c6623e9",
+      "after_obj_sha256": "039e7dc3a37340ffebfa090d3251355603b8f0c1cdd8ed5a8fb1c705e1bbc23d"
+    }
+  ],
+  "native_slots": [
+    829909,
+    5812286,
+    829499,
+    829718,
+    829430,
+    737232,
+    737232,
+    737232,
+    737232,
+    869328,
+    869328,
+    830632,
+    4695708,
+    737232,
+    737232,
+    737232,
+    4695708,
+    4695705,
+    4695708,
+    4695708,
+    4695708,
+    5288504,
+    4695708,
+    4695708,
+    4695708,
+    5288504,
+    4695708,
+    5288504,
+    737232,
+    4695708,
+    4695708,
+    4695708,
+    4695708,
+    857095,
+    737232,
+    4695708,
+    737232,
+    5289414,
+    857095,
+    737232,
+    4695705,
+    869328,
+    869328,
+    869328,
+    869328,
+    829505,
+    829505,
+    869328,
+    869328,
+    869328,
+    2882544,
+    869328,
+    869328,
+    4695708,
+    5288504,
+    4695705,
+    5288504,
+    737232,
+    4695708,
+    4695708,
+    5289414,
+    737232
+  ],
+  "tables": [
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDrawCtor.cpp",
+      "when": "before",
+      "name": "??_7W3DRopeDraw@@6BW3DRopeDrawPrimary@@@",
+      "extent": 248,
+      "selection": 2,
+      "native_correct_slots": 50,
+      "mismatches": [
+        {
+          "slot": 1,
+          "name": "?loadPostProcess@DrawModule@@MAEXXZ",
+          "ledger_rvas": [
+            737232
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 5812286
+        },
+        {
+          "slot": 2,
+          "name": "?GetSnapshotName@DrawModule@@MBEPBDXZ",
+          "ledger_rvas": [
+            727485
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829499
+        },
+        {
+          "slot": 3,
+          "name": "?xfer@DrawModule@@MAEXPAVXfer@@@Z",
+          "ledger_rvas": [
+            5029720
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829718
+        },
+        {
+          "slot": 4,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829430
+        },
+        {
+          "slot": 12,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 13,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 14,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 35,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 38,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 857095
+        },
+        {
+          "slot": 39,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 45,
+          "name": "?getRopeDrawInterface@DrawModule@@UBEPBVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        },
+        {
+          "slot": 46,
+          "name": "?getRopeDrawInterface@DrawModule@@UAEPAVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDrawCtor.cpp",
+      "when": "after",
+      "name": "??_7W3DRopeDraw@@6BW3DRopeDrawPrimary@@@",
+      "extent": 248,
+      "selection": 2,
+      "native_correct_slots": 52,
+      "mismatches": [
+        {
+          "slot": 1,
+          "name": "?loadPostProcess@DrawModule@@MAEXXZ",
+          "ledger_rvas": [
+            737232
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 5812286
+        },
+        {
+          "slot": 4,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829430
+        },
+        {
+          "slot": 12,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 13,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 14,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 35,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 38,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 857095
+        },
+        {
+          "slot": 39,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 45,
+          "name": "?getRopeDrawInterface@DrawModule@@UBEPBVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        },
+        {
+          "slot": 46,
+          "name": "?getRopeDrawInterface@DrawModule@@UAEPAVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDrawDtor.cpp",
+      "when": "before",
+      "name": "??_7W3DRopeDraw@@6BW3DRopeDrawPrimary@@@",
+      "extent": 248,
+      "selection": 2,
+      "native_correct_slots": 50,
+      "mismatches": [
+        {
+          "slot": 1,
+          "name": "?loadPostProcess@DrawModule@@MAEXXZ",
+          "ledger_rvas": [
+            737232
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 5812286
+        },
+        {
+          "slot": 2,
+          "name": "?GetSnapshotName@DrawModule@@MBEPBDXZ",
+          "ledger_rvas": [
+            727485
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829499
+        },
+        {
+          "slot": 3,
+          "name": "?xfer@DrawModule@@MAEXPAVXfer@@@Z",
+          "ledger_rvas": [
+            5029720
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829718
+        },
+        {
+          "slot": 4,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829430
+        },
+        {
+          "slot": 12,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 13,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 14,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 35,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 38,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 857095
+        },
+        {
+          "slot": 39,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 45,
+          "name": "?getRopeDrawInterface@DrawModule@@UBEPBVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        },
+        {
+          "slot": 46,
+          "name": "?getRopeDrawInterface@DrawModule@@UAEPAVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDrawDtor.cpp",
+      "when": "after",
+      "name": "??_7W3DRopeDraw@@6BW3DRopeDrawPrimary@@@",
+      "extent": 248,
+      "selection": 2,
+      "native_correct_slots": 52,
+      "mismatches": [
+        {
+          "slot": 1,
+          "name": "?loadPostProcess@DrawModule@@MAEXXZ",
+          "ledger_rvas": [
+            737232
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 5812286
+        },
+        {
+          "slot": 4,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829430
+        },
+        {
+          "slot": 12,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 13,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 14,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 35,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 4695708
+        },
+        {
+          "slot": 38,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 857095
+        },
+        {
+          "slot": 39,
+          "name": "__purecall",
+          "ledger_rvas": [
+            243728
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 737232
+        },
+        {
+          "slot": 45,
+          "name": "?getRopeDrawInterface@DrawModule@@UBEPBVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        },
+        {
+          "slot": 46,
+          "name": "?getRopeDrawInterface@DrawModule@@UAEPAVRopeDrawInterface@@XZ",
+          "ledger_rvas": [
+            869328
+          ],
+          "relocation_kind": 6,
+          "addend": 0,
+          "retail_target_rva": 829505
+        }
+      ]
+    }
+  ],
+  "limitations": "Scoped current-object binding check; local weak default is not whole-link proof. Remaining10 mismatches keep the table bridged.",
+  "full_scratch_proof_sha256": "c9a99ccd74d081189f7b14a0d131884425e4823465ed6f184b3168cb1cdc72c5",
+  "verification_script_sha256": "26fb0b6dc6f6cf3745790092cceb05e27b0cb6d5042ac8f28827aa7f388c2c42",
+  "native_words_sha256": "53b8d878795e99e02df35bc670d5ea81ed8096cf44c1fdbeba45fa286d38dfd1",
+  "byte_verification": {
+    "normal": "44/44 across five sources",
+    "strict": "44/44 across five sources",
+    "eh": "3 EXACT",
+    "scoped_preview": "5/5 LINKS,1600->1600 at0e4b2640a1; older index only"
+  }
+}

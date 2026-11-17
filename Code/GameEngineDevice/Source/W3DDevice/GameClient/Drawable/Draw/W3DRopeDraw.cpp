@@ -148,6 +148,9 @@ public:
 	static NameKeyType rva000CA7F6();
 public:
 	virtual void doDrawModule(const class Matrix3D *);
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 
 // tu-skeleton: 0x000CA72E 36B ?setRopeSpeed@W3DRopeDraw@@UAEXMMM@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp (not merged yet)
