@@ -74,6 +74,26 @@ Keyboard input is DirectInput (`DirectInputKeyboard`). The mouse is a
 stores it in `TheWin32Mouse`, and `WndProc` passes mouse window messages to
 it with `Win32Mouse::addWin32Event`.
 
+`WndProc` drops two mouse messages by position, as Zero Hour's does.
+`WM_MOUSEMOVE` is ignored outside the rectangle `GetClientRect` returns,
+and `WM_MOUSEWHEEL`, whose position is in screen coordinates, outside the
+rectangle `GetWindowRect` returns. The window is created 800 by 600, and
+in fullscreen every `SetWindowPos` call the game makes keeps size and
+position. Both tests therefore rely on Direct3D's exclusive mode to make
+the window cover the screen, and a backend that leaves the window at its
+startup rectangle loses pointer moves and wheel turns outside it. Observed
+under a reimplementation of Direct3D 9, not on retail Windows: while that
+layer left the window alone, hover and wheel worked only inside the
+startup rectangle.
+
+`Mouse::createStreamMessages` sends the wheel as whole notches: for each
+buffered wheel event it divides that event's delta by 120 and discards the
+remainder; deltas are not summed across events. An event whose delta is
+less than 120 in size produces a wheel message of zero notches, which
+`rawMouseToWindowMessage` reads as a turn down. A trackpad or
+smooth-scrolling wheel that sends small deltas therefore needs a backend
+that gathers them into 120-unit events.
+
 ## Files and archives {#page_remastering_files}
 
 All game data is read through `TheFileSystem`, a front end over a loose-file
