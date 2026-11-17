@@ -48,12 +48,7 @@ void __cdecl XferLivingWorldBattleID(Xfer *xfer, void *value);
 void __cdecl XferLivingWorldBattleResolutionType(Xfer *xfer, void *value);
 
 // Region: +0x12C is its region ID.
-class Rva0020E89C
-{
-public:
-    char m_pad000[0x12C];
-    int m_id;
-};
+#include "../../../../Include/GameClient/Rva0020E89C.h"
 
 #include "../../../../Include/GameLogic/Rva0020EAF6View.h"
 
@@ -121,7 +116,7 @@ void LivingWorldBattle::DoXfer(Xfer &xfer)
     }
     else
     {
-        int id = m_region ? m_region->m_id : -1;
+        int id = m_region ? m_region->m_12C : -1;
         int regionID = id;
         Rva003EFE82Get((Rva003EFE82Obj *)&xfer, &regionID);
     }
