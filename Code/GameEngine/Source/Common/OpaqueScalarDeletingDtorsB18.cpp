@@ -214,16 +214,20 @@ Rva005FCFE5::Rva005FCFE5(EmitVtableTag *) : Rva005FCF0E((EmitVtableTag *)0)
 {
 }
 
-class Rva005FCFEA
+// StrategicHUD::ArmyUnitIconMovieClip (table 0x00C7A1F4, installed by its
+// constructor 0x005FD251).
+namespace StrategicHUD {
+class ArmyUnitIconMovieClip
 {
 public:
-	Rva005FCFEA(EmitVtableTag *);
+	ArmyUnitIconMovieClip(EmitVtableTag *);
 public:
-	virtual ~Rva005FCFEA();
+	virtual ~ArmyUnitIconMovieClip();
 };
+}
 
-// ?<Rva005FCFEA::Rva005FCFEA> absent-from-retail
-Rva005FCFEA::Rva005FCFEA(EmitVtableTag *)
+// ?<StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip> absent-from-retail
+StrategicHUD::ArmyUnitIconMovieClip::ArmyUnitIconMovieClip(EmitVtableTag *)
 {
 }
 
