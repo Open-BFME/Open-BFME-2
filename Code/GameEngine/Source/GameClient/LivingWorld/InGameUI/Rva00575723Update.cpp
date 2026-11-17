@@ -17,13 +17,7 @@
 
 #include "../../../../Include/Common/Rva00574AACAddDwordField.h"
 
-class Rva00575383
-{
-public:
-	void rva0057539C();
-	char m_pad00[0x04];
-	Rva00574AACAddDwordField *m_04;		// +0x04
-};
+#include "../../../../Include/Common/Rva00575383.h"
 
 #include "../../../../Include/GameLogic/ManualPhaseEnder.h"
 namespace StrategicInGameUI
@@ -89,6 +83,6 @@ void Rva00575723::rva00575723()
 	if (heldAction(m_action))
 		heldAction(m_action)->run();
 	else
-		reinterpret_cast<Rva005CB84A *>(m_owner->m_04->get())->rva005CB84A(0);
+		reinterpret_cast<Rva005CB84A *>(((Rva00574AACAddDwordField *)m_owner->m_field04)->get())->rva005CB84A(0);
 	m_checklist.rva005CCEB6();
 }

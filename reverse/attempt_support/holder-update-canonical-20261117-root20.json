@@ -1,0 +1,398 @@
+{
+  "acceptance": {
+    "consumer": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva00575723Update.cpp",
+    "providers": 9,
+    "retired_queue_rows": 1,
+    "terminal_exit_code": 0
+  },
+  "after_layout": {
+    "bases": [],
+    "fields": [
+      [
+        4,
+        "m_field04",
+        "void*",
+        4
+      ]
+    ],
+    "fwd": false,
+    "key": "class",
+    "methods": [
+      "Rva00575383",
+      "__vecDelDtor",
+      "rva0057539C",
+      "~Rva00575383"
+    ],
+    "size": 8,
+    "statics": [],
+    "vfptr": true,
+    "virtual": [
+      "__vecDelDtor",
+      "~Rva00575383"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    }
+  },
+  "all_runtime_sections_equal": true,
+  "before_layout": {
+    "bases": [],
+    "fields": [
+      [
+        0,
+        "m_pad00",
+        "char[4]",
+        4
+      ],
+      [
+        4,
+        "m_04",
+        "Rva00574AACAddDwordField*",
+        4
+      ]
+    ],
+    "fwd": false,
+    "key": "class",
+    "methods": [
+      "rva0057539C"
+    ],
+    "size": 8,
+    "statics": [],
+    "vfptr": false,
+    "virtual": [],
+    "vslots": {}
+  },
+  "before_runtime_graph": {
+    "extern_definitions": {
+      "?heldAction@@YAPAVRva000AD6F4Action@@ABVRva000AD6F4@@@Z": [
+        1,
+        0,
+        32
+      ],
+      "?rva00575723@Rva00575723@@QAEXXZ": [
+        2,
+        0,
+        32
+      ]
+    },
+    "sections": [
+      {
+        "characteristics": 1051136,
+        "comdat": [
+          0,
+          null
+        ],
+        "name": ".drectve",
+        "relocs": [],
+        "sha256": "79cf6d889e5cad5bc77119a55bc81f96a140ba4459b14c3ce886d049be3dc101",
+        "size": 44
+      },
+      {
+        "characteristics": 1611665440,
+        "comdat": [
+          2,
+          null
+        ],
+        "name": ".text",
+        "relocs": [],
+        "sha256": "70d1bff2376999b64365e947e0c0a8bab942f981962111fc8728487516761fc8",
+        "size": 7
+      },
+      {
+        "characteristics": 1611665440,
+        "comdat": [
+          1,
+          null
+        ],
+        "name": ".text",
+        "relocs": [
+          [
+            8,
+            20,
+            [
+              "external",
+              "?rva0057539C@Rva00575383@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            16,
+            20,
+            [
+              "external",
+              "?Update@ManualPhaseEnder@StrategicInGameUI@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            24,
+            20,
+            [
+              "external",
+              "?rva005CD708@Rva005CD708@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            45,
+            20,
+            [
+              "external",
+              "?clear@Rva000AD6F4@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            51,
+            6,
+            [
+              "external",
+              "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+              2,
+              0
+            ]
+          ],
+          [
+            56,
+            20,
+            [
+              "external",
+              "?rva002B2B66@Rva002B2B66@@QAEHXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            71,
+            20,
+            [
+              "external",
+              "?clear@Rva000AD6F4@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            79,
+            20,
+            [
+              "external",
+              "?rva005CD010@Rva005CD010@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            109,
+            20,
+            [
+              "external",
+              "?get@Rva00574AACAddDwordField@@QBEHXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            116,
+            20,
+            [
+              "external",
+              "?rva005CB84A@Rva005CB84A@@QAEXH@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            126,
+            20,
+            [
+              "external",
+              "?rva005CCEB6@Rva005CCEB6@@QAEXXZ",
+              2,
+              32
+            ]
+          ]
+        ],
+        "sha256": "81b762595947951a4e1c375e0e53a1f3fc4c6891fd6fa11c4ab828697922da8c",
+        "size": 130
+      }
+    ],
+    "weak": {}
+  },
+  "current_runtime_graph": {
+    "extern_definitions": {
+      "?heldAction@@YAPAVRva000AD6F4Action@@ABVRva000AD6F4@@@Z": [
+        1,
+        0,
+        32
+      ],
+      "?rva00575723@Rva00575723@@QAEXXZ": [
+        2,
+        0,
+        32
+      ]
+    },
+    "sections": [
+      {
+        "characteristics": 1051136,
+        "comdat": [
+          0,
+          null
+        ],
+        "name": ".drectve",
+        "relocs": [],
+        "sha256": "79cf6d889e5cad5bc77119a55bc81f96a140ba4459b14c3ce886d049be3dc101",
+        "size": 44
+      },
+      {
+        "characteristics": 1611665440,
+        "comdat": [
+          2,
+          null
+        ],
+        "name": ".text",
+        "relocs": [],
+        "sha256": "70d1bff2376999b64365e947e0c0a8bab942f981962111fc8728487516761fc8",
+        "size": 7
+      },
+      {
+        "characteristics": 1611665440,
+        "comdat": [
+          1,
+          null
+        ],
+        "name": ".text",
+        "relocs": [
+          [
+            8,
+            20,
+            [
+              "external",
+              "?rva0057539C@Rva00575383@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            16,
+            20,
+            [
+              "external",
+              "?Update@ManualPhaseEnder@StrategicInGameUI@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            24,
+            20,
+            [
+              "external",
+              "?rva005CD708@Rva005CD708@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            45,
+            20,
+            [
+              "external",
+              "?clear@Rva000AD6F4@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            51,
+            6,
+            [
+              "external",
+              "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+              2,
+              0
+            ]
+          ],
+          [
+            56,
+            20,
+            [
+              "external",
+              "?rva002B2B66@Rva002B2B66@@QAEHXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            71,
+            20,
+            [
+              "external",
+              "?clear@Rva000AD6F4@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            79,
+            20,
+            [
+              "external",
+              "?rva005CD010@Rva005CD010@@QAEXXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            109,
+            20,
+            [
+              "external",
+              "?get@Rva00574AACAddDwordField@@QBEHXZ",
+              2,
+              32
+            ]
+          ],
+          [
+            116,
+            20,
+            [
+              "external",
+              "?rva005CB84A@Rva005CB84A@@QAEXH@Z",
+              2,
+              32
+            ]
+          ],
+          [
+            126,
+            20,
+            [
+              "external",
+              "?rva005CCEB6@Rva005CCEB6@@QAEXXZ",
+              2,
+              32
+            ]
+          ]
+        ],
+        "sha256": "81b762595947951a4e1c375e0e53a1f3fc4c6891fd6fa11c4ab828697922da8c",
+        "size": 130
+      }
+    ],
+    "weak": {}
+  },
+  "mandatory_cohort_sources": 10,
+  "normal_verified_rows": 102,
+  "ordinary_object_sha256": "55c94b1919051efcb276f2367ff315a5d1e05528b2cf0c5b359dadd073e4c873",
+  "revision_before_change": "e8e34c0e8f669040b83c9f5bf8c10ef92f375261",
+  "runtime_section_count": 3,
+  "scope": "Canonical header/contract and all other sources unchanged; no new vtable/destructor/weak definitions; no bridge or runtime clearance claimed.",
+  "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva00575723Update.cpp",
+  "source_sha256": "b0465acde73fc82184b0e07e818b940a1e12dfb98edb5fdb480020c8e6e3a228",
+  "strict_current_object_sha256": "3e3f65b60af3881ae3f89006c7a0e4edb9b5bcab0b9f91a286c7d68278c4377e",
+  "strict_reusable_receipt": true,
+  "strict_verified_rows": 102
+}

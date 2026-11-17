@@ -22,6 +22,23 @@
         "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
         "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp"
       ]
+    },
+    {
+      "class": "Rva00575383",
+      "consumers": [
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva00575723Update.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp",
+        "Code/GameEngine/Source/Common/Rva0057539CForwarders.cpp",
+        "Code/GameEngine/Source/Common/Rva005763EDCtor.cpp",
+        "Code/GameEngine/Source/Common/Rva00576ED9Ctor.cpp",
+        "Code/GameEngine/Source/Common/Rva00577747Ctor.cpp",
+        "Code/GameEngine/Source/Common/Rva0057718DUpdate.cpp",
+        "Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp"
+      ]
     }
   ]
 }
