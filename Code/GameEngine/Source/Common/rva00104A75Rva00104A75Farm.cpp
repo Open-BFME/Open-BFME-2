@@ -40,13 +40,7 @@
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
-struct CursorTextureSlot
-{
-	CursorTextureSlot() : Ptr(0) {}
-	~CursorTextureSlot();
-	void operator=(const BFME2ParticleTextureHandle &handle);
-	void *Ptr;
-};
+#include "../../Include/Common/CursorTextureSlot.h"
 
 #include "../../Include/Common/GameEngineDeletingBase.h"
 
