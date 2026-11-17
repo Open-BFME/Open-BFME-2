@@ -130,6 +130,10 @@ AptValue *AptSound::objectMemberLookup(AptValue *const context,const EAStringC *
  return 0;
 }
 
+struct Rva008B4260StringRef {
+ const char *m_payload;
+ int compare008B4260(const Rva008B4260StringRef &other) const;
+};
 EAStringC *Rva0070B4F0GetString(int);
 AptValue *callback006F2640(AptValue *,int);AptValue *callback006F2700(AptValue *,int);AptValue *callback006F2760(AptValue *,int);AptValue *callback006F29C0(AptValue *,int);
 class BfmeS1082;
@@ -139,10 +143,11 @@ extern BfmeS1082 *g_bfmeS1082_4,*g_bfmeS1082_5,*g_bfmeS1082_6,*g_bfmeS1082_7;
 #define g_colourGetTransform ((AptNativeFunction *&)g_bfmeS1082_6)
 #define g_colourSetTransform ((AptNativeFunction *&)g_bfmeS1082_7)
 AptValue *AptScriptColour::objectMemberLookup(AptValue *const context,const EAStringC *const name) const {
- if(name->rva006D36C0(Rva0070B4F0GetString(0x88))==0){DISPATCH(g_colourSetRGB,callback006F2640);}
- else if(name->rva006D36C0(Rva0070B4F0GetString(0x45))==0){DISPATCH(g_colourGetRGB,callback006F2700);}
- else if(name->rva006D36C0(Rva0070B4F0GetString(0x49))==0){DISPATCH(g_colourGetTransform,callback006F2760);}
- else if(name->rva006D36C0(Rva0070B4F0GetString(0x8b))==0){DISPATCH(g_colourSetTransform,callback006F29C0);}
+ const Rva008B4260StringRef *const nameRef=(const Rva008B4260StringRef *)name;
+ if(nameRef->compare008B4260(*(const Rva008B4260StringRef *)Rva0070B4F0GetString(0x88))==0){DISPATCH(g_colourSetRGB,callback006F2640);}
+ else if(nameRef->compare008B4260(*(const Rva008B4260StringRef *)Rva0070B4F0GetString(0x45))==0){DISPATCH(g_colourGetRGB,callback006F2700);}
+ else if(nameRef->compare008B4260(*(const Rva008B4260StringRef *)Rva0070B4F0GetString(0x49))==0){DISPATCH(g_colourGetTransform,callback006F2760);}
+ else if(nameRef->compare008B4260(*(const Rva008B4260StringRef *)Rva0070B4F0GetString(0x8b))==0){DISPATCH(g_colourSetTransform,callback006F29C0);}
  return 0;
 }
 
