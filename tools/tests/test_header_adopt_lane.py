@@ -2728,3 +2728,554 @@ def test_the_generated_header_declares_every_pointer_field_type(monkeypatch):
     for type_name in ("Weapon", "Target"):
         assert f"{type_name} *" in body or f"{type_name}*" in body
         assert f'#include "Code/Include/{type_name}.h"' in text, f"{type_name} is named but never introduced"
+def test_canonical_carried_declarations_survive_zero_private_views():
+    from types import SimpleNamespace
+    canonical = SimpleNamespace(header="Code/Carry.h", text="class Carry { public: Carry(void *p); void helper(); };")
+    got, problems = lane.special_declarations("Carry", [], canonical=canonical)
+    assert not problems
+    assert {entry["text"] for entry in got} == {"Carry(void *p);", "void helper();"}
+
+
+def test_generation_winner_cannot_rank_a_failed_mandatory_consumer():
+    results = {
+        "partial": {"verdicts": {"a.cpp": None, "b.cpp": None}, "mandatory": {"old.cpp": "wrong G copy"}},
+        "complete": {"verdicts": {"a.cpp": None, "b.cpp": "compile"}, "mandatory": {"old.cpp": None}},
+    }
+    assert lane.generation_winner(results, ["partial", "complete"]) == "complete"
+    results["complete"]["mandatory"]["old.cpp"] = "link unverified"
+    assert lane.generation_winner(results, ["partial", "complete"]) is None
+
+
+@pytest.fixture
+def generation_world(tmp_path, monkeypatch):
+    """Exercise the real variant/apply state machine with controlled native backends."""
+    import hashlib
+    real_write_queue = lane.write_queue
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    for attribute, value in (("LEDGER", "reverse/functions.csv"), ("REGISTRY", "reverse/canonical_classes.csv"),
+                             ("QUEUE", "reverse/header_queue.tsv")):
+        monkeypatch.setattr(lane, attribute, tmp_path / value)
+    paths = {"Code/C.h": b"class C {};\n", "Code/a.cpp": b"private a\n", "Code/b.cpp": b"private b\n",
+             "Code/old.cpp": b'#include "C.h"\n', "reverse/functions.csv": b"baseline ledger\n",
+             "reverse/canonical_classes.csv": b"baseline registry\n", "reverse/header_queue.tsv": b"baseline queue\n"}
+    for path, data in paths.items():
+        (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / path).write_bytes(data)
+    monkeypatch.setattr(lane, "_git", lambda *args, **kwargs: "fixed")
+    monkeypatch.setattr(lane, "generate", lambda contract, variant, *args: f"// {variant}\nclass C {{}};\n")
+    monkeypatch.setattr(lane, "prepare_unit", lambda source, *args:
+                        (source, None, f'#include "C.h"\n// {source}\n', []))
+    monkeypatch.setattr(lane, "adoption_dependencies", lambda *args: {})
+    monkeypatch.setattr(lane, "rewrite_ledger", lambda renames: None)
+    monkeypatch.setattr(lane, "register", lambda *args: lane.REGISTRY.write_bytes(b"new registry\n"))
+    monkeypatch.setattr(lane, "write_queue", lambda *args: lane.QUEUE.write_bytes(b"new queue\n"))
+    plan = lane.RegisteredGeneration.__new__(lane.RegisteredGeneration)
+    plan.name, plan.header, plan.contract = "C", "Code/C.h", {"key": "class"}
+    plan.sources, plan.mandatory = ("Code/a.cpp", "Code/b.cpp"), ("Code/old.cpp",)
+    plan.cohort = plan.mandatory + plan.sources
+    plan.variants, plan.methods, plan.slots, plan.special = ["data", "methods"], {}, None, []
+    plan.results, plan.claims = {}, []
+    plan.profiles = plan.forced_inputs = plan.search_inventories = {}
+    plan.head = plan.index = "fixed"
+    plan.frozen = {p: hashlib.sha256(data).hexdigest() for p, data in paths.items()}
+    w = SimpleNamespace(plan=plan, paths=paths, gates=[], links=[], captures=[], root=tmp_path,
+                        real_write_queue=real_write_queue)
+    def gate(sources):
+        w.gates.append((tuple(sources), (tmp_path / plan.header).read_bytes(),
+                        {s: (tmp_path / s).read_bytes() for s in sources}))
+        return dict.fromkeys(sources)
+    def link(sources):
+        w.links.append(tuple(sources))
+        return dict.fromkeys(sources, True)
+    def capture(name, header, contract, sources, root):
+        w.captures.append(tuple(sources))
+        return SimpleNamespace(validate=lambda: True, witnesses={}, profiles={}, forced_inputs={}, search_inventories={},
+                               files={}, rebuildable=frozenset())
+    monkeypatch.setattr(lane, "gate_many", gate)
+    monkeypatch.setattr(lane, "link_ok", link)
+    plan.inputs = SimpleNamespace(discover=lambda *a, **kw: SimpleNamespace(mandatory=plan.mandatory))
+    plan.proof = SimpleNamespace(capture=capture)
+    monkeypatch.setattr(plan, "_copies", lambda captured: None)
+    return w
+
+
+@pytest.mark.parametrize("failure", ["bytes", "missing-byte", "link-false", "missing-link"])
+def test_generation_mandatory_failure_disqualifies_every_partial_variant(generation_world, monkeypatch, failure):
+    w, plan = generation_world, generation_world.plan
+    if failure in ("bytes", "missing-byte"):
+        monkeypatch.setattr(lane, "gate_many", lambda sources:
+            {s: "wrong G copy" if s in plan.mandatory else None for s in sources
+             if failure != "missing-byte" or s not in plan.mandatory})
+    else:
+        monkeypatch.setattr(lane, "link_ok", lambda sources:
+            {s: False if s in plan.mandatory else True for s in sources
+             if failure != "missing-link" or s not in plan.mandatory})
+    plan.tournament()
+    assert plan.winner is None and not w.captures
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_generation_optional_drop_rechecks_unchanged_consumers_and_exact_survivors(generation_world, monkeypatch):
+    w, plan = generation_world, generation_world.plan
+    ordinary_gate = lane.gate_many
+    def gate(sources):
+        got = ordinary_gate(sources)
+        if b"#include" in (w.root / "Code/a.cpp").read_bytes():
+            got["Code/a.cpp"] = "optional byte mismatch"
+        return got
+    monkeypatch.setattr(lane, "gate_many", gate)
+    plan.tournament()
+    assert plan.winner == "data"
+    assert plan.results["data"]["verdicts"] == {"Code/a.cpp": "optional byte mismatch", "Code/b.cpp": None}
+    assert len(w.gates) == 4
+    assert all(set(sources) == set(plan.cohort) for sources, _, _ in w.gates)
+    assert w.gates[1][2]["Code/a.cpp"] == w.paths["Code/a.cpp"]
+    assert w.gates[1][2]["Code/old.cpp"] == w.paths["Code/old.cpp"]
+    assert all(set(captured) == set(plan.cohort) for captured in w.captures)
+    passed, writes = plan.apply()
+    assert passed == ["Code/b.cpp"]
+    assert (w.root / "Code/old.cpp").read_bytes() == w.paths["Code/old.cpp"]
+    writes.restore()
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_generation_zero_private_views_still_trials_and_applies_complete_cohort(generation_world):
+    w, plan = generation_world, generation_world.plan
+    plan.sources, plan.cohort = (), plan.mandatory
+    plan.tournament()
+    assert plan.winner == "data" and len(w.captures) == 2
+    passed, writes = plan.apply()
+    assert passed == [] and len(w.captures) == 3
+    assert all(sources == plan.mandatory for sources, _, _ in w.gates)
+    assert w.root / "Code/old.cpp" not in writes.before
+    writes.restore()
+
+
+def test_generation_candidate_admission_is_repeated_and_refusal_restores_all(generation_world):
+    w, plan = generation_world, generation_world.plan
+    def refuse(*args, **kwargs):
+        raise ValueError("forged #line or candidate macro token")
+    plan.proof.capture = refuse
+    plan.tournament()
+    assert plan.winner is None
+    assert all("forged #line" in result["problem"] for result in plan.results.values())
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_generation_final_apply_failure_keeps_registry_queue_and_sources(generation_world, monkeypatch):
+    w, plan = generation_world, generation_world.plan
+    plan.tournament()
+    monkeypatch.setattr(lane, "link_ok", lambda sources: dict.fromkeys(sources, None))
+    with pytest.raises(lane.GenerationRefused, match="link verdict"):
+        plan.apply()
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_generation_restoration_preserves_intervening_external_edit(tmp_path):
+    path = tmp_path / "C.h"
+    path.write_bytes(b"baseline")
+    writes = lane.GenerationWrites()
+    writes.write(path, b"candidate")
+    path.write_bytes(b"other worker")
+    with pytest.raises(lane.GenerationRefused, match="intervening edits preserved"):
+        writes.restore()
+    assert path.read_bytes() == b"other worker"
+
+
+def test_generation_bulk_commit_refusal_restores_without_checkout(generation_world, monkeypatch):
+    w, plan = generation_world, generation_world.plan
+    plan.tournament()
+    unstage, released = [], []
+    monkeypatch.setattr(plan, "release", lambda: released.append(True))
+    ctx = {"trailers": [], "commit": lambda paths, message: (False, None, "hook refused"),
+           "unstage": lambda paths: unstage.extend(paths),
+           "undo": lambda *args: pytest.fail("must not overwrite current bytes with git checkout")}
+    status, record, sha = lane.bulk_land("C", {"regeneration": plan, "evidence": {}}, ctx)
+    assert status == "queued" and record["kind"] == "commit-refused" and sha is None
+    assert "Code/C.h" in unstage and released
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+@pytest.mark.parametrize("changed", ["head", "index", "source", "registry", "contract-population"])
+def test_generation_frozen_input_drift_refuses_before_candidate_write(generation_world, monkeypatch, changed):
+    w, plan = generation_world, generation_world.plan
+    if changed in ("head", "index"):
+        monkeypatch.setattr(lane, "_git", lambda *args, **kwargs:
+                            "changed" if (args[0] == "rev-parse") == (changed == "head") else "fixed")
+    else:
+        path = {"source": "Code/old.cpp", "registry": "reverse/canonical_classes.csv",
+                "contract-population": "reverse/class_contracts/C.json"}[changed]
+        if changed == "contract-population":
+            plan.frozen[path] = None
+        (w.root / path).parent.mkdir(parents=True, exist_ok=True)
+        (w.root / path).write_bytes(b"external edit")
+    with pytest.raises(lane.GenerationRefused, match="changed"):
+        plan.trial("data")
+    assert (w.root / "Code/C.h").read_bytes() == w.paths["Code/C.h"]
+    assert not w.gates
+
+
+def test_generation_new_candidate_consumer_refuses_without_partial_success(generation_world):
+    w, plan = generation_world, generation_world.plan
+    plan.inputs.discover = lambda *a, **kw: SimpleNamespace(mandatory=plan.mandatory + ("Code/new.cpp",))
+    plan.tournament()
+    assert plan.winner is None and not w.captures
+    assert all("additional mandatory" in result["problem"] for result in plan.results.values())
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_generation_claims_held_mandatory_consumers_and_releases_only_new_claims(generation_world, monkeypatch):
+    import claims
+    plan = generation_world.plan
+    captured, released = [], []
+    prior = "file:Code/a.cpp"
+    def claim(keys, **kwargs):
+        captured.extend(keys)
+        assert kwargs["atomic_only"] is True
+        return SimpleNamespace(claimed=[prior, "file:Code/C.h"], prior=[prior],
+                               refused=["file:Code/old.cpp"])
+    monkeypatch.setattr(claims, "claim", claim)
+    monkeypatch.setattr(claims, "release", lambda keys, **kwargs: released.extend(keys))
+    with pytest.raises(lane.GenerationRefused, match="mandatory consumer/header claim refused"):
+        plan._claim()
+    assert set(captured) == {"class:C"} | {"file:" + p for p in (*plan.cohort, plan.header)}
+    assert released == ["file:Code/C.h"] and plan.claims == []
+
+
+@pytest.mark.parametrize("other", ["wrong", "unknown", None])
+def test_generation_checks_all_actual_comdat_copies_not_only_selected_retail_copy(tmp_path, monkeypatch, other):
+    import hashlib
+    import struct
+    import link_census
+    plan = lane.RegisteredGeneration.__new__(lane.RegisteredGeneration)
+    plan.name = "C"
+    witnesses = {}
+    for source, tag in (("good.cpp", b"good"), ("other.cpp", b"other")):
+        body = bytearray(64)
+        struct.pack_into("<HH", body, 0, 0x14c, 1)
+        struct.pack_into("<I", body, 56, 0x1020)
+        body[60:] = tag
+        path = tmp_path / (source + ".obj")
+        path.write_bytes(body)
+        witnesses[source] = SimpleNamespace(source=source, object_path=str(path),
+                                            object_digest=hashlib.sha256(body).hexdigest())
+    monkeypatch.setattr(lane.class_contract, "ledger_rows", lambda: [])
+    monkeypatch.setattr(link_census, "_comdat_sections", lambda data:
+        [({"name": "??_GC@@UAEPAXI@Z", "section": 1}, b"", [], data[60:], 1)])
+    seen = []
+    class Truth:
+        def __init__(self, rows):
+            pass
+        def verdict(self, symbol, body, relocs, digest, size):
+            seen.append(digest)
+            return "retail" if digest == b"good" else other
+    monkeypatch.setattr(link_census, "RetailTruth", Truth)
+    with pytest.raises(lane.GenerationRefused, match="other.cpp: class COMDAT"):
+        plan._copies(SimpleNamespace(witnesses=witnesses))
+    assert seen == [b"good", b"other"]
+
+
+@pytest.mark.parametrize("dependency_drift", [False, True])
+def test_registered_generation_refreshes_uncertain_baseline_then_uses_real_cohort(generation_world, monkeypatch,
+                                                                                 dependency_drift):
+    import hashlib
+    import claims
+    import header_generation_inputs as inputs
+    import header_generation_proof as proof
+    w = generation_world
+    contract = {"class": "C", "key": "class", "size": 1, "size_by": "bytes", "key_by": "bytes",
+                "fields": [], "bases": [], "vslots": {}, "queue": []}
+    monkeypatch.setattr(lane.class_contract, "CONTRACTS", w.root / "reverse/class_contracts")
+    path = lane.class_contract.contract_path("C")
+    path.parent.mkdir()
+    path.write_text(json.dumps(contract))
+    monkeypatch.setattr(lane, "registered", lambda: {"C": "Code/C.h"})
+    tracked = tuple(sorted([*w.paths, path.relative_to(w.root).as_posix()]))
+    observed = {p: hashlib.sha256((w.root / p).read_bytes()).hexdigest() for p in tracked}
+    dependency = w.root / "build/untracked-native-support.h"
+    dependency.parent.mkdir()
+    dependency.write_bytes(b"baseline immutable include")
+    dependency_key = str(dependency.resolve())
+    discoveries = []
+    def discover(header, root):
+        mandatory = ("Code/old.cpp", "Code/a.cpp", "Code/b.cpp") if not discoveries else ("Code/old.cpp",)
+        discoveries.append(mandatory)
+        return SimpleNamespace(mandatory=mandatory, files=observed, tracked=tracked, revalidate=lambda: True,
+                               rebuildable=frozenset())
+    monkeypatch.setattr(inputs, "discover", discover)
+    def capture(name, header, contract, sources, root):
+        w.captures.append(tuple(sources))
+        return SimpleNamespace(header=header, text=(root / header).read_text(), validate=lambda: True,
+            witnesses={s: SimpleNamespace(source=s, facts=(frozenset(), frozenset()), emitting=False,
+                                          header_bound=s == "Code/old.cpp") for s in sources},
+            profiles=dict.fromkeys(sources, "profile"), forced_inputs=dict.fromkeys(sources, ()),
+            search_inventories=dict.fromkeys(sources, "search"),
+            files={dependency_key: hashlib.sha256(dependency.read_bytes()).hexdigest()}, rebuildable=frozenset())
+    monkeypatch.setattr(proof, "capture", capture)
+    claims_seen, released = [], []
+    monkeypatch.setattr(claims, "claim", lambda keys, **kwargs:
+                        claims_seen.extend(keys) or SimpleNamespace(claimed=keys, refused=[], prior=[], tokens={}))
+    monkeypatch.setattr(claims, "release", lambda keys, **kwargs: released.extend(keys))
+    monkeypatch.setattr(lane.RegisteredGeneration, "_copies", lambda *args: None)
+    plan = lane.RegisteredGeneration("C", contract, ["Code/a.cpp", "Code/b.cpp"], "Code/C.h", ["data"], 1)
+    assert plan.mandatory == ("Code/old.cpp",)
+    assert plan.sources == ("Code/a.cpp", "Code/b.cpp")
+    assert set(claims_seen) == {"class:C"} | {"file:" + p for p in (*plan.cohort, plan.header)}
+    assert dependency_key in plan.frozen
+    if dependency_drift:
+        dependency.write_bytes(b"new dependency; same path and profile")
+        with pytest.raises(lane.GenerationRefused, match="input changed"):
+            plan.trial("data")
+        plan.release()
+        assert set(released) == set(claims_seen)
+        return
+    plan.tournament()
+    assert plan.winner == "data"
+    passed, writes = plan.apply()
+    assert passed == ["Code/a.cpp", "Code/b.cpp"]
+    assert all(set(c) == set(plan.cohort) for c in w.captures)
+    writes.restore()
+    plan.release()
+    assert set(released) == set(claims_seen)
+
+
+def test_generation_candidate_profile_drift_is_not_hidden_by_fresh_objects(generation_world):
+    w, plan = generation_world, generation_world.plan
+    ordinary_capture = plan.proof.capture
+    def capture(*args, **kwargs):
+        captured = ordinary_capture(*args, **kwargs)
+        captured.profiles = {"Code/old.cpp": "different compiler profile"}
+        return captured
+    plan.proof.capture = capture
+    plan.tournament()
+    assert plan.winner is None
+    assert all("compiler/profile/search" in result["problem"] for result in plan.results.values())
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_registered_generation_header_relocation_cannot_enter_legacy_tournament(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {"C": "Code/C.h"})
+    monkeypatch.setattr(lane, "generate", lambda *a, **kw: pytest.fail("must not reach legacy generator"))
+    with pytest.raises(lane.GenerationRefused, match="cannot relocate"):
+        lane.tournament("C", {}, [], "Code/Replacement.h", ["data"], 1)
+    assert lane.run(SimpleNamespace(name="C", header="Code/Replacement.h", generate=True)) == 2
+
+
+@pytest.mark.parametrize("writer,attribute", [("rewrite_ledger", "LEDGER"), ("register", "REGISTRY"),
+                                              ("write_queue", "QUEUE")])
+@pytest.mark.parametrize("failure", [RuntimeError, KeyboardInterrupt])
+def test_generation_owning_writer_partial_failure_restores_all(generation_world, monkeypatch, writer, attribute, failure):
+    w, plan = generation_world, generation_world.plan
+    plan.tournament()
+    def broken(*args):
+        getattr(lane, attribute).write_bytes(b"partially written owning output")
+        raise failure("owning writer interrupted")
+    monkeypatch.setattr(lane, writer, broken)
+    with pytest.raises(failure, match="owning writer interrupted"):
+        plan.apply()
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+    if writer == "rewrite_ledger" and failure is RuntimeError:
+        plan.tournament()
+        assert plan.winner is None
+        assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+def test_generation_owning_writer_refuses_intervening_edit_and_preserves_it(tmp_path):
+    path = tmp_path / "functions.csv"
+    path.write_bytes(b"baseline")
+    writes = lane.GenerationWrites()
+    writes.write(path, b"owned ledger")
+    path.write_bytes(b"external ledger")
+    with pytest.raises(lane.GenerationRefused, match="intervening edit before owning writer"):
+        writes.owned(path, lambda: pytest.fail("must not call owning writer on external bytes"))
+    with pytest.raises(lane.GenerationRefused, match="intervening edits preserved"):
+        writes.restore()
+    assert path.read_bytes() == b"external ledger"
+
+
+@pytest.mark.parametrize("diagnostic", ["layout", "preprocessor"])
+def test_generation_restoring_diagnostic_preserves_external_source_edit(generation_world, monkeypatch, diagnostic):
+    import build
+    w, plan = generation_world, generation_world.plan
+    def edit(source):
+        (w.root / source).write_bytes(b"external source edit")
+    if diagnostic == "layout":
+        def layouts(source, **kwargs):
+            edit(source)
+            return {}
+        monkeypatch.setattr(lane.class_layouts, "compile_layouts", layouts)
+        def prepare(source, *args):
+            lane.compile_text(source, "temporary layout probe")
+            pytest.fail("intervening edit must refuse preparation")
+    else:
+        monkeypatch.setattr(build, "compiler_command", lambda *a: (["cl", "-c", "source.cpp"], {}))
+        def preprocess(*args, **kwargs):
+            edit("Code/a.cpp")
+            return SimpleNamespace(returncode=0, stdout="expanded probe", stderr="")
+        monkeypatch.setattr(lane.subprocess, "run", preprocess)
+        def prepare(source, *args):
+            lane.preprocess_storage_text(source, "temporary preprocessor probe")
+            pytest.fail("intervening edit must refuse preparation")
+    monkeypatch.setattr(lane, "prepare_unit", prepare)
+    result = plan.trial("data")
+    assert result.get("problem") and "intervening edits preserved" in result["problem"]
+    assert (w.root / "Code/a.cpp").read_bytes() == b"external source edit"
+    assert (w.root / "Code/C.h").read_bytes() == w.paths["Code/C.h"]
+    assert lane.GENERATION_DIAGNOSTICS.get() is False
+
+
+@pytest.mark.parametrize("zero_private", [False, True])
+def test_generation_preserves_all_existing_debt_until_owning_acceptance(generation_world, monkeypatch, zero_private):
+    import hashlib
+    w, plan = generation_world, generation_world.plan
+    monkeypatch.setattr(lane, "write_queue", w.real_write_queue)
+    fields = ["class", "source", "retail_rvas", "header", "failure", "retry_budget", "acceptance"]
+    original_rows = [dict(zip(fields, [name, source, "0x123", "Code/C.h", "old debt", "3", "owning accept"]))
+                     for name, source in [("C", "Code/a.cpp"), ("C", "Code/b.cpp"),
+                                          ("C", "Code/old.cpp"), ("Other", "Code/else.cpp")]]
+    with lane.QUEUE.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fields, delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(original_rows)
+    lane.LEDGER.write_bytes(b"source,target_rva\nCode/a.cpp,0x123\nCode/b.cpp,0x124\n")
+    for path in (lane.QUEUE, lane.LEDGER):
+        relative = path.relative_to(w.root).as_posix()
+        w.paths[relative] = path.read_bytes()
+        plan.frozen[relative] = hashlib.sha256(w.paths[relative]).hexdigest()
+    plan.sources = () if zero_private else ("Code/a.cpp",)  # b.cpp was not sampled.
+    plan.cohort = plan.mandatory + plan.sources
+    plan.tournament()
+    assert plan.winner is not None
+    passed, writes = plan.apply()
+    assert passed == ([] if zero_private else ["Code/a.cpp"])
+    with lane.QUEUE.open(newline="") as handle:
+        after = list(csv.DictReader(handle, delimiter="\t"))
+    key = lambda row: (row["class"], row["source"])
+    assert sorted(after, key=key) == sorted(original_rows, key=key)
+    writes.restore()
+
+
+@pytest.mark.parametrize("failure", [None, "exit", "no-receipt", "wrong-count", "unmatched", "missing-source", "functions"])
+def test_data_only_mandatory_gate_requires_complete_explicit_ledger_scope(tmp_path, monkeypatch, failure):
+    reverse = tmp_path / "reverse"
+    reverse.mkdir()
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "LEDGER", reverse / "functions.csv")
+    monkeypatch.setattr(lane, "BFME2", True)
+    lane.LEDGER.write_text("source,status\n" + ("Code/a.cpp,matched\n" if failure == "functions" else ""))
+    (reverse / "data_rows.csv").write_text("source,status\nCode/a.cpp," +
+        ("pending" if failure == "unmatched" else "matched") + "\n" +
+        ("" if failure == "missing-source" else "Code/b.cpp,matched\n"))
+    output = "Data rows: OK (" + ("9" if failure == "wrong-count" else "2") + " row(s) byte-verified)\n"
+    if failure == "no-receipt":
+        output = ""
+    monkeypatch.setattr(lane.subprocess, "run", lambda *a, **kw:
+                        SimpleNamespace(returncode=int(failure == "exit"), stdout=output, stderr=""))
+    result = lane.gate_many(["Code/a.cpp", "Code/b.cpp"])
+    assert all(reason is None for reason in result.values()) is (failure is None)
+
+
+@pytest.mark.parametrize("failure", [RuntimeError, KeyboardInterrupt])
+def test_regenerate_post_apply_bookkeeping_failure_rolls_back(generation_world, monkeypatch, failure):
+    w, plan = generation_world, generation_world.plan
+    monkeypatch.setattr(lane, "RegisteredGeneration", lambda *a: plan)
+    monkeypatch.setattr(lane, "SCRATCH", w.root / "build/header_lane")
+    released = []
+    monkeypatch.setattr(plan, "release", lambda: released.append(True))
+    def refuse(name):
+        raise failure("claim bookkeeping failed")
+    monkeypatch.setattr(lane, "rewrite_claims_path", refuse)
+    args = SimpleNamespace(variants="data,methods", jobs=1, apply=True)
+    if failure is KeyboardInterrupt:
+        with pytest.raises(KeyboardInterrupt):
+            lane.regenerate(args, "C", plan.header, plan.sources, plan.contract)
+    else:
+        assert lane.regenerate(args, "C", plan.header, plan.sources, plan.contract) == 2
+    assert released and all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+@pytest.mark.parametrize("failure", [RuntimeError, KeyboardInterrupt])
+def test_bulk_post_commit_bookkeeping_failure_keeps_successful_commit(generation_world, monkeypatch, failure):
+    w, plan = generation_world, generation_world.plan
+    plan.tournament()
+    plan.claims = ["file:Code/C.h"]
+    monkeypatch.setattr(lane, "SCRATCH", w.root / "build/header_lane")
+    monkeypatch.setattr(plan, "release", lambda: pytest.fail("committed cohort claims must remain held"))
+    def refuse(name):
+        raise failure("claim bookkeeping failed")
+    monkeypatch.setattr(lane, "rewrite_claims_path", refuse)
+    ctx = {"trailers": [], "commit": lambda paths, message: (True, "verified-sha", "")}
+    status, record, sha = lane.bulk_land("C", {"regeneration": plan, "evidence": {}}, ctx)
+    assert status == "adopted" and sha == "verified-sha" and record["kind"] == "claim-bookkeeping"
+    assert record["claims"] == ["file:Code/C.h"]
+    assert (w.root / plan.header).read_bytes() != w.paths[plan.header]
+
+
+def test_generation_preparation_cannot_adopt_intervening_other_source_bytes(generation_world, monkeypatch):
+    w, plan = generation_world, generation_world.plan
+    ordinary = lane.prepare_unit
+    def prepare(source, *args):
+        result = ordinary(source, *args)
+        if source == "Code/a.cpp":
+            (w.root / "Code/b.cpp").write_bytes(b"external b source")
+        return result
+    monkeypatch.setattr(lane, "prepare_unit", prepare)
+    result = plan.trial("data")
+    assert result.get("problem") and "changed" in result["problem"]
+    assert (w.root / "Code/b.cpp").read_bytes() == b"external b source"
+    assert (w.root / plan.header).read_bytes() == w.paths[plan.header]
+    assert lane.generation_winner({"data": result}, ["data"]) is None
+
+
+@pytest.mark.parametrize("writer,target", [("register", "Code/a.cpp"), ("register", "reverse/header_queue.tsv"),
+                                           ("write_queue", "Code/old.cpp")])
+def test_generation_metadata_cannot_absorb_external_input_edits(generation_world, monkeypatch, writer, target):
+    w, plan = generation_world, generation_world.plan
+    plan.tournament()
+    ordinary = getattr(lane, writer)
+    def edit(*args):
+        ordinary(*args)
+        (w.root / target).write_bytes(b"external input edit")
+    monkeypatch.setattr(lane, writer, edit)
+    with pytest.raises(lane.GenerationRefused):
+        plan.apply()
+    assert (w.root / target).read_bytes() == b"external input edit"
+    for path, data in w.paths.items():
+        if path != target:
+            assert (w.root / path).read_bytes() == data
+
+
+def test_generation_untracked_dependency_generation_cannot_change_between_phases(generation_world):
+    import hashlib
+    w, plan = generation_world, generation_world.plan
+    dependency = w.root / "build/untracked-support.h"
+    dependency.parent.mkdir()
+    dependency.write_bytes(b"baseline dependency")
+    key = str(dependency.resolve())
+    plan.frozen[key] = hashlib.sha256(dependency.read_bytes()).hexdigest()
+    ordinary = plan.proof.capture
+    def capture(*args, **kwargs):
+        got = ordinary(*args, **kwargs)
+        got.files = {key: hashlib.sha256(dependency.read_bytes()).hexdigest()}
+        return got
+    plan.proof.capture = capture
+    # Profiles and filename inventories are unchanged; only actual bytes drift.
+    dependency.write_bytes(b"different dependency")
+    with pytest.raises(lane.GenerationRefused, match="input changed"):
+        plan.trial("data")
+    assert dependency.read_bytes() == b"different dependency"
+    assert (w.root / plan.header).read_bytes() == w.paths[plan.header]
+
+
+def test_generation_new_untracked_native_dependency_cannot_enter_fresh_capture(generation_world):
+    w, plan = generation_world, generation_world.plan
+    ordinary = plan.proof.capture
+    def capture(*args, **kwargs):
+        got = ordinary(*args, **kwargs)
+        got.files = {str(w.root / "build/new-support.h"): "new digest"}
+        return got
+    plan.proof.capture = capture
+    result = plan.trial("data")
+    assert "new immutable native inputs" in result["problem"]
+    assert lane.generation_winner({"data": result}, ["data"]) is None
+    assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())

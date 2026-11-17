@@ -290,5 +290,42 @@ def test_write_decisions_drops_registered_classes(tmp_path):
     assert [r["class"] for r in lane.read_decisions(path)] == ["B"]
 
 
+def test_explicit_bulk_registered_regeneration_does_not_skip_zero_private_class(world, monkeypatch):
+    name, header = "Registered", "Code/Include/Registered.h"
+    world.registered[name] = header
+    (world.root / header).parent.mkdir(parents=True)
+    (world.root / header).write_text("class Registered {};\n")
+    path = class_contract.contract_path(name)
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(contract(name)))
+    entered = []
+    class Plan:
+        claims, mandatory, winner = [], ("Code/established.cpp",), "data"
+        def __init__(self, *args):
+            entered.append(args)
+        def tournament(self):
+            self.results = {"data": {"mandatory": {"Code/established.cpp": "wrong G28"}}}
+            self.winner = None
+        def release(self):
+            entered.append("released")
+    monkeypatch.setattr(lane, "RegisteredGeneration", Plan)
+    ctx = world.ctx({}, [])
+    assert lane.run_all(args(only=[name], sample=1), ctx) == 0
+    assert entered[0][2] == [] and entered[-1] == "released"
+    assert world.tournaments == []
+    assert json.loads(ctx["state_path"].read_text())[name]["kind"] == "generation-refused"
+    assert (world.root / header).read_text() == "class Registered {};\n"
+
+
+def test_bulk_registered_missing_contract_never_decides_from_private_subset(world, monkeypatch):
+    name, header = "Registered", "Code/Include/Registered.h"
+    world.registered[name] = header
+    monkeypatch.setattr(class_contract, "decide", lambda *a, **kw: pytest.fail("cannot replace registered contract"))
+    ctx = world.ctx({}, [])
+    assert lane.run_all(args(only=[name]), ctx) == 0
+    assert world.tournaments == []
+    assert not class_contract.contract_path(name).exists()
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

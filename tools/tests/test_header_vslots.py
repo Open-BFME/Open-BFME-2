@@ -1190,3 +1190,41 @@ def test_an_overridden_slot_keeps_its_exact_qualifiers_for_the_contract(tmp_path
                                               owners={"?f@K@@": [("?f@K@@UAEXQAH@Z", "o.cpp")]},
                                               facts=lambda source: None)
     assert problems == [] and own == ["virtual void f(int *const p);"]
+def test_canonical_declaration_is_one_vote_with_real_emitter_witnesses(monkeypatch):
+    from types import SimpleNamespace
+    contract = {"class": "CanonicalVote", "vslots": {"0": {"member": "~CanonicalVote()"}}, "bases": []}
+    canonical = SimpleNamespace(header="Code/CanonicalVote.h",
+        text="class CanonicalVote { public: virtual ~CanonicalVote() {} };",
+        witnesses={"a.cpp": SimpleNamespace(emitting=True), "b.cpp": SimpleNamespace(emitting=True)})
+    reads = {"private.cpp": "class CanonicalVote { public: virtual ~CanonicalVote(); };"}
+    seen = []
+    def facts(source):
+        seen.append(source)
+        assert source != canonical.header
+        return set(), set()
+    own, _, problems = lane.slot_declarations(contract, list(reads), read=reads.__getitem__,
+        canonical=canonical, owners={}, facts=facts)
+    assert not problems
+    assert len(own) == 1 and "{}" in own[0]
+    assert canonical.header not in seen
+
+
+def test_canonical_unknown_emitter_is_refused_before_spelling(monkeypatch):
+    from types import SimpleNamespace
+    canonical = SimpleNamespace(header="Code/C.h", text="class C { public: virtual ~C() {} };",
+                                witnesses={"a.cpp": SimpleNamespace(emitting=None)})
+    _, _, problems = lane.slot_declarations({"class": "C", "vslots": {"0": {"member": "~C()"}}}, [],
+                                           canonical=canonical, owners={})
+    assert any("canonical" in p and "emission" in p for p in problems)
+
+
+def test_canonical_return_type_cannot_be_outvoted_by_private_emitters():
+    from types import SimpleNamespace
+    contract = {"class": "C", "vslots": {"0": {"member": "run()"}}}
+    canonical = SimpleNamespace(header="Code/C.h", text="class C { public: virtual void run(); };",
+                                witnesses={"old.cpp": SimpleNamespace(emitting=True)})
+    private = {source: "class C { public: virtual int run(); };" for source in ("a.cpp", "b.cpp")}
+    facts = lambda source: (set(), {"??_7C@@6B@"})
+    _, _, problems = lane.slot_declarations(contract, private, read=private.__getitem__, canonical=canonical,
+                                           owners={}, facts=facts)
+    assert any("would change the evidenced canonical declaration" in p for p in problems)

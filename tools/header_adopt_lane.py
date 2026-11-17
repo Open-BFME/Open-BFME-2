@@ -19,7 +19,8 @@ PIPELINE (per class, in DEPENDENCY_ORDER):
                 class.
   3. tournament 2-4 header variants (data only, + user default ctor, + the
                 views' non-special methods) are each gated against every unit;
-                the variant with the most passes is frozen. Byte-equivalent is
+                every established consumer must pass before optional adoption
+                counts rank a registered regeneration. Byte-equivalent is
                 not retail-true: the contract, not the tournament, fixes layout.
   4. codemod    strip the unit's view (and its dependency views, e.g.
                 StringBase with AsciiString), #include the header where the
@@ -41,6 +42,15 @@ compares link_cycle's closed_strict rows before/after (`closure-diff`).
 GATE COST. Changing a registered header re-verifies only its dependents
 (tools/header_dependents.py, wired into pre-commit); `gate-cost` measures it.
 
+REGISTERED REGENERATION. The current canonical declaration is one lexical
+input, backed by strictly current real objects and actual native preprocessor
+provenance. Initial admission supports literal global baseless classes with
+primitive/pointer storage and exact owning-generator assertions. Other syntax,
+unknown receipts, macro/conditional provenance or layouts refuse. Existing
+consumers, including data-only and transitive users, remain mandatory across
+every trial and final apply; sampling and held-unit skipping affect only new
+adopters. A zero-adoption regeneration still verifies the complete cohort.
+
     python3 tools/header_adopt_lane.py order
     python3 tools/header_adopt_lane.py run --class Coord3D --header PATH --generate --sample 60 --apply
     python3 tools/header_adopt_lane.py accept --class Coord3D FILE...
@@ -51,6 +61,8 @@ GATE COST. Changing a registered header re-verifies only its dependents
 import argparse
 import collections
 import concurrent.futures as cf
+import contextlib
+import contextvars
 import csv
 import functools
 import hashlib
@@ -61,6 +73,7 @@ import random
 import re
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -94,6 +107,7 @@ STRIP_WITH = {"AsciiString": ["StringBase"], "UnicodeString": ["StringBase"]}
 IDENT_CHAR = re.compile(r"[\w$]")
 SPLICE = re.compile(r"\\\r?\n")
 RAW_STRING = re.compile(r'(?<![\w$])(?:u8|[LuU])?R"([^ ()\\\t\v\f\r\n"]{0,16})\(')
+GENERATION_DIAGNOSTICS = contextvars.ContextVar("registered_header_diagnostics", default=False)
 
 
 # ---------------------------------------------------------------- source surgery
@@ -576,6 +590,25 @@ def probe_text(text, strip, include):
     return kept + markers + f"\nint {PROBE_FN}({params}) {{ return {sizes}; }}\n"
 
 
+@contextlib.contextmanager
+def diagnostic_source(path, data):
+    """Registered trials preserve intervening edits during restoring diagnostics."""
+    if GENERATION_DIAGNOSTICS.get():
+        writes = GenerationWrites()
+        try:
+            writes.write(path, data)
+            yield
+        finally:
+            writes.restore()
+    else:
+        original = path.read_bytes()
+        try:
+            path.write_bytes(data)
+            yield
+        finally:
+            path.write_bytes(original)
+
+
 def compile_text(source, text):
     """{class: layout} for `text` compiled as `source` (its flags and include paths); None is
     the unit as it stands. Restores the unit. The probe is never served from class_layouts'
@@ -585,11 +618,8 @@ def compile_text(source, text):
     original = path.read_bytes()
     if text is None or text.encode("latin-1") == original:
         return class_layouts.compile_layouts(source)
-    try:
-        path.write_bytes(text.encode("latin-1"))
+    with diagnostic_source(path, text.encode("latin-1")):
         return class_layouts.compile_layouts(source, use_cache=False)
-    finally:
-        path.write_bytes(original)
 
 
 def flat_fields(name, layouts, base=0, seen=()):
@@ -1549,22 +1579,19 @@ def preprocess_storage_text(source, text):
     """
     import build
     path = ROOT / source
-    original = path.read_bytes()
     try:
-        path.write_bytes(text.encode("latin-1"))
-        command, env = build.compiler_command(path, ROOT / "build" / "header_adopt_storage.obj")
-        command = [flag for flag in command if flag not in {"-c", "/c"}
-                   and not flag.startswith(("-Fo", "/Fo"))]
-        command.insert(-1, "-EP")
-        done = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, errors="replace")
-        if done.returncode:
-            raise RuntimeError(f"compiler preprocessing failed ({done.returncode}): "
-                               + (done.stdout + done.stderr)[-400:])
-        return done.stdout
+        with diagnostic_source(path, text.encode("latin-1")):
+            command, env = build.compiler_command(path, ROOT / "build" / "header_adopt_storage.obj")
+            command = [flag for flag in command if flag not in {"-c", "/c"}
+                       and not flag.startswith(("-Fo", "/Fo"))]
+            command.insert(-1, "-EP")
+            done = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, errors="replace")
+            if done.returncode:
+                raise RuntimeError(f"compiler preprocessing failed ({done.returncode}): "
+                                   + (done.stdout + done.stderr)[-400:])
+            return done.stdout
     except (OSError, ValueError, SystemExit) as exc:
         raise RuntimeError(f"compiler preprocessing inputs: {exc}") from exc
-    finally:
-        path.write_bytes(original)
 
 
 def storage_expansion_problem(source, text, probe, names, before_family, after_family):
@@ -3478,7 +3505,19 @@ def owner_strength(name, member, owners=None, facts=None, census=None, build=Non
     return found.pop() if found else None
 
 
-def special_declarations(name, sources, read=None, known=(), slotted=(), index=None):
+def declaration_inputs(sources, read=None, canonical=None):
+    """One lexical canonical view; its file is never an object/provider source."""
+    sources = list(sources)
+    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
+    if canonical is None:
+        return sources, read
+    if canonical.header in sources:
+        raise ValueError("canonical declaration also supplied as a native source")
+    original_read = read
+    return sources + [canonical.header], lambda s: canonical.text if s == canonical.header else original_read(s)
+
+
+def special_declarations(name, sources, read=None, known=(), slotted=(), index=None, canonical=None):
     """([{role, access, text, sig}] member declarations to carry, [problem]).
 
     Every member declaration_records reports is carried, in every variant, with the
@@ -3499,7 +3538,7 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
     a base's member or an implicit one could take its calls without a unit failing to
     compile."""
     short = name.split("::")[-1]
-    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
+    sources, read = declaration_inputs(sources, read, canonical)
     hump_id = re.compile(r"^[A-Z][A-Za-z0-9]*(?:_[A-Z][A-Za-z0-9]*)+$")
     views = {}
     for source in sources:
@@ -3579,7 +3618,7 @@ def special_declarations(name, sources, read=None, known=(), slotted=(), index=N
     return out, problems
 
 
-def special_members(name, contract, sources, known=None):
+def special_members(name, contract, sources, known=None, canonical=None, facts=None, build=None):
     """special_declarations for a contract: the members its slot declarations emit are theirs.
     `known` defaults to what the header includes for every variant: its member aggregates'
     registered headers (the tournament's `nested`), so the gate and the tournament agree.
@@ -3589,13 +3628,14 @@ def special_members(name, contract, sources, known=None):
         known = {f["kind"][2:] for f in contract.get("fields", ()) if f["kind"].startswith("S:")} & set(registered())
     slotted = set()
     if contract.get("vslots"):
-        own, overrides, _ = slot_declarations(contract, sources)
+        own, overrides, _ = slot_declarations(contract, sources, canonical=canonical, facts=facts, build=build)
         slotted = {member_key(text, name) for text in own + overrides}
-    carried, problems = special_declarations(name, sources, known=known, slotted=slotted)
+    carried, problems = special_declarations(name, sources, known=known, slotted=slotted, canonical=canonical)
+    sources, read = declaration_inputs(sources, canonical=canonical)
     views = {}
     for source in sources:
         try:
-            records = field_records((ROOT / source).read_text(encoding="latin-1"), name)
+            records = field_records(read(source), name)
         except OSError:
             continue
         if records is not None:
@@ -4090,7 +4130,8 @@ def emits_vtable(name, source, facts=None):
     return f"??_7{'@'.join(reversed(name.split('::')))}@@6B@" in held[1]
 
 
-def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None, facts=None, build=None):
+def slot_declarations(contract, sources, read=None, known=None, index=None, owners=None, facts=None, build=None,
+                      canonical=None):
     """([own slot declaration, emit order], [override declaration], [problem]) for the contract's vslots.
 
     Own slots are the ones the contract decided (a derived contract holds only
@@ -4120,7 +4161,7 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
     one another view spells."""
     name = contract["class"]
     short = name.split("::")[-1]
-    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
+    sources, read = declaration_inputs(sources, read, canonical)
     slots = {int(k): v["member"] for k, v in (contract.get("vslots") or {}).items()}
     problems = [f"{q['attribute']} undecided" for q in contract.get("queue", []) if q["attribute"].startswith("slot")]
     views, derived = {}, set()
@@ -4156,7 +4197,15 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                    f"{member_name}, spelled with another scope")
             if why not in problems:
                 problems.append(why)
-    emitting = {source: emits_vtable(name, source, facts) for source in views} if slots else {}
+    emitting = {source: emits_vtable(name, source, facts) for source in views
+                if canonical is None or source != canonical.header} if slots else {}
+    if slots and canonical is not None:
+        statuses = [w.emitting for w in canonical.witnesses.values() if getattr(w, "header_bound", True)]
+        if not statuses or any(value is not True and value is not False for value in statuses):
+            return [], [], problems + ["canonical declaration has unknown native emission"]
+        if not any(statuses):
+            return [], [], problems + ["canonical virtual declaration has no actual emitting consumer"]
+        emitting[canonical.header] = any(statuses)
     inherited_count = (contract.get("evidence", {}).get("inherited", {}).get("inherited_slots", 0)
                        if contract.get("bases") else 0)
 
@@ -4187,7 +4236,8 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                     for k, m in slots.items())
         if split:
             (build or build_units)([s for s, known_emission in emitting.items() if known_emission is None])
-            emitting = {source: emits_vtable(name, source, facts) for source in views}
+            emitting.update({source: emits_vtable(name, source, facts) for source in views
+                             if canonical is None or source != canonical.header})
     counted = ([s for s in views if emitting[s] is not False] if any(v is True for v in emitting.values())
                else list(views))
     if slots:
@@ -4238,6 +4288,13 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings
                                                         else slot_conflict(spellings)))
             continue
+        canonical_text = None
+        if canonical is not None:
+            declared = entries(slot, member, want, [canonical.header]).get(canonical.header)
+            canonical_text = declared[1] if declared else None
+            if canonical_text is None or declaration_key(text) != declaration_key(canonical_text):
+                problems.append(f"slot{slot} {member}: would change the evidenced canonical declaration")
+                continue
         # the qualifiers are the chosen declaration's own (its exact signature: an overridden slot's views agree
         # on override_key, which drops top-level parameter cv)
         why = qualifier_problem(name, member, decl_signature(text) or ("?", text), text, owners)
@@ -4261,6 +4318,11 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
                 problems.append(f"slot{slot} {member}: an inline body in one view, none in another, "
                                 "and no matched row defines it out of line")
                 continue
+        if canonical_text and "{" in canonical_text and "{" in text:
+            normalize = lambda value: outside_literals(value, lambda part: re.sub(r"\s+", " ", part)).strip()
+            if normalize(text) != normalize(canonical_text):
+                problems.append(f"slot{slot} {member}: inline body differs from the evidenced canonical body")
+                continue
         if not declaration_key(text)[1] and "{" not in text and want[0] != "~":
             here = [text for _, text in entries(slot, member, want, list(views)).values()]
             purely = [t for t in here if declaration_key(t)[1] and declaration_key(t)[0] == declaration_key(text)[0]]
@@ -4279,6 +4341,9 @@ def slot_declarations(contract, sources, read=None, known=None, index=None, owne
             access, why = member_access(name, text, [accesses.get(s, {}).get(signed) for s in at], owners, recorded)
         if why:
             problems.append(f"slot{slot} {member}: {why}")
+            continue
+        if canonical is not None and access != accesses.get(canonical.header, {}).get(signed):
+            problems.append(f"slot{slot} {member}: would change evidenced canonical access")
             continue
         decided[slot] = (want[0], Spelled(rename_destructor(text, short) if want[0] == "~" else text, access))
     # MSVC lays an overload group out at its first declaration in REVERSE
@@ -4789,6 +4854,30 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
 
 # ---------------------------------------------------------------- the gate
 
+def data_gate_success(sources, output):
+    """A data-only build's explicit receipt must cover each exact ledger source."""
+    counts = re.findall(r"^Data rows: OK \(([1-9][0-9]*) row\(s\) byte-verified\)$", output, re.M)
+    if len(counts) != 1:
+        return False
+    sources = set(sources)
+    try:
+        with LEDGER.open(newline="", encoding="utf-8-sig") as handle:
+            if any(any(source in row.get("source", "") for source in sources) for row in csv.DictReader(handle)):
+                return False
+        seen, count = set(), 0
+        with (ROOT / "reverse/data_rows.csv").open(newline="", encoding="utf-8-sig") as handle:
+            for row in csv.DictReader(handle):
+                source = row.get("source", "")
+                if any(selector in source for selector in sources):
+                    if row.get("status") != "matched":
+                        return False
+                    seen.add(source)
+                    count += 1
+        return sources <= seen and count == int(counts[0])
+    except (OSError, ValueError, csv.Error):
+        return False
+
+
 def gate_one(source):
     """None when every row of `source` byte-matches, else the first diagnostic."""
     if BFME2:
@@ -4801,7 +4890,7 @@ def gate_one(source):
         env = {k: v for k, v in bash_path.env().items() if k != "MSYS_NO_PATHCONV"}
     done = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, errors="replace", env=env)
     out = done.stdout + done.stderr
-    if done.returncode == 0 and "Functions: OK" in out:
+    if done.returncode == 0 and ("Functions: OK" in out or BFME2 and data_gate_success([source], out)):
         return None
     return next((line.strip()[:200] for line in out.splitlines()
                  if re.search(r"error C\d+|Functions: FAIL|compile failed|MISMATCH|FAIL", line)),
@@ -4834,7 +4923,7 @@ def gate_many(sources, _depth=0):
         return {s: why for group in chunks for s, why in gate_many(group).items()}
     done = subprocess.run([sys.executable, "tools/build.py", *sources], cwd=ROOT, capture_output=True,
                           text=True, errors="replace", env=dict(os.environ, MSYS_NO_PATHCONV="1"))
-    if done.returncode == 0 and "Functions: OK" in done.stdout:
+    if done.returncode == 0 and ("Functions: OK" in done.stdout or data_gate_success(sources, done.stdout)):
         return dict.fromkeys(sources)
     # Sparse failures benefit from bisection; a wholly broken variant must not
     # pay for a complete binary tree of failing process launches as well as all
@@ -6389,6 +6478,15 @@ def header_classes(header, seen=None):
 
 
 def tournament(name, contract, sources, header, variants, jobs, fixed_header=False):
+    canonical_header = registered().get(name)
+    if not fixed_header and canonical_header:
+        if canonical_header != header:
+            raise GenerationRefused("registered regeneration cannot relocate its canonical header")
+        plan = RegisteredGeneration(name, contract, sources, header, variants, jobs)
+        try:
+            return plan.tournament()
+        finally:
+            plan.release()
     strip = [name] + STRIP_WITH.get(name, [])
     known = registered()
     brought = header_classes(header) if fixed_header else [
@@ -6481,11 +6579,12 @@ def transfer_sources(gone, destination, queue=QUEUE):
     return changed
 
 
-def write_queue(name, header, failures):
+def write_queue(name, header, failures, preserve_existing=False):
     rows = []
     if QUEUE.exists():
         with QUEUE.open(newline="", encoding="utf-8") as handle:
-            rows = [r for r in csv.DictReader(handle, delimiter="\t") if r["class"] != name]
+            rows = [r for r in csv.DictReader(handle, delimiter="\t")
+                    if r["class"] != name or preserve_existing and r["source"] not in failures]
     rvas = collections.defaultdict(list)
     with LEDGER.open(newline="", encoding="utf-8") as handle:
         for r in csv.DictReader(handle):
@@ -7000,17 +7099,459 @@ def gate_cost(header, jobs):
 
 # ---------------------------------------------------------------- driver
 
+def generation_winner(results, variants):
+    """Partial success never outranks an established consumer's failure."""
+    eligible = [v for v in variants if v in results and not results[v].get("problem")
+                and all(reason is None for reason in results[v].get("mandatory", {}).values())]
+    return max(eligible, key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()),
+                                       -variants.index(v))) if eligible else None
+
+
+class GenerationRefused(ValueError):
+    pass
+
+
+class GenerationWrites:
+    """Restore only bytes this trial last wrote; never clobber an intervening edit."""
+    def __init__(self, frozen=None):
+        self.before, self.written = {}, {}
+        self.frozen = dict(frozen or {})
+
+    def current(self, path):
+        current = path.read_bytes() if path.exists() else None
+        if path not in self.before and path in self.frozen:
+            expected = self.frozen[path]
+            if ((current is None) != (expected is None) or
+                    current is not None and hashlib.sha256(current).hexdigest() != expected):
+                raise GenerationRefused(f"intervening input edit before first write: {path}")
+        return current
+
+    def write(self, path, data):
+        path = Path(path)
+        current = self.current(path)
+        if path in self.written and current != self.written[path]:
+            raise GenerationRefused(f"intervening edit: {path}")
+        self.before.setdefault(path, current)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if data is None:
+            self.written[path] = None
+            path.unlink(missing_ok=True)
+        else:
+            temporary = None
+            try:
+                with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-", delete=False) as handle:
+                    temporary = Path(handle.name)
+                    handle.write(data)
+                    handle.flush()
+                # Record before the atomic replacement: cancellation immediately
+                # after replace still leaves a recognizable owned generation.
+                self.written[path] = data
+                try:
+                    os.replace(temporary, path)
+                except BaseException:
+                    actual = path.read_bytes() if path.exists() else None
+                    if actual == current:
+                        self.written[path] = current
+                    raise
+            finally:
+                if temporary is not None:
+                    temporary.unlink(missing_ok=True)
+
+    def observe(self, path):
+        """Record an owning ledger/registry writer's result, after saving its input."""
+        path = Path(path)
+        self.written[path] = path.read_bytes() if path.exists() else None
+
+    def save(self, path):
+        path = Path(path)
+        self.before.setdefault(path, self.current(path))
+
+    def owned(self, path, operation, *args):
+        """An owning writer can fail after writing; retain that generation too."""
+        path = Path(path)
+        current = self.current(path)
+        expected = self.written.get(path, self.before.get(path, current))
+        if current != expected:
+            raise GenerationRefused(f"intervening edit before owning writer: {path}")
+        self.save(path)
+        try:
+            return operation(*args)
+        finally:
+            self.observe(path)
+
+    def restore(self):
+        drift = []
+        for path, original in reversed(list(self.before.items())):
+            current = path.read_bytes() if path.exists() else None
+            if path not in self.written:
+                continue
+            if current == original:
+                continue
+            if current != self.written[path]:
+                drift.append(str(path))
+                continue
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(original)
+        self.written.clear()
+        if drift:
+            raise GenerationRefused("intervening edits preserved: " + ", ".join(drift))
+
+
+class RegisteredGeneration:
+    """Registered lexical declarations, real witnesses, and an indivisible cohort.
+
+    Discovery can widen coverage. Only native capture admits a declaration; a
+    discovery receipt, header filename, or synthetic object supplies no vote.
+    """
+    def __init__(self, name, contract, sources, header, variants, jobs):
+        import header_generation_inputs as inputs
+        import header_generation_proof as proof
+        contract = json.loads(json.dumps(contract))
+        self.name, self.contract, self.header = name, contract, header
+        if registered().get(name) != header:
+            raise GenerationRefused("canonical registry changed before regeneration")
+        if contract_decisions(contract) or unheadered_bases(contract):
+            raise GenerationRefused("registered contract has undecided attributes or unheadered bases")
+        self.variants, self.jobs = list(variants), jobs
+        self.inputs, self.proof = inputs, proof
+        self.discovery = inputs.discover(header, root=ROOT)
+        self.mandatory = tuple(self.discovery.mandatory)
+        if not self.mandatory:
+            raise GenerationRefused("registered header has no evidenced native consumer cohort")
+        optional = set(sources)
+        self.sources = tuple(sorted(optional - set(self.mandatory)))
+        self.cohort = tuple(sorted(set(self.sources) | set(self.mandatory)))
+        self.claims, self.results, self.canonical = [], {}, None
+        self.head = _git("rev-parse", "HEAD")
+        self.index = _git("ls-files", "--stage", "-z", strip=False)
+        if not self.head or self.index is None:
+            raise GenerationRefused("cannot freeze HEAD and index inputs")
+        paths = {p for p in self.discovery.files if p not in self.discovery.rebuildable}
+        paths.update(p for p in self.discovery.tracked if p.startswith(("tools/", ".githooks/")))
+        paths.update(p.relative_to(ROOT).as_posix() for p in
+                     (REGISTRY, LEDGER, QUEUE, class_contract.contract_path(name)))
+        self.frozen = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() if (ROOT / p).exists() else None
+                       for p in paths}
+        contract_path = class_contract.contract_path(name)
+        if not contract_path.is_file() or json.loads(contract_path.read_text(encoding="utf-8")) != contract:
+            raise GenerationRefused("registered generation contract is not its exact current recorded input")
+        self._claim()
+        try:
+            self.freeze_check()
+            verdicts = gate_many(self.cohort)
+            bad = {s: verdicts.get(s, "missing byte verdict") for s in self.cohort
+                   if s not in verdicts or verdicts[s] is not None}
+            if bad:
+                raise GenerationRefused("baseline consumer byte gate: " + repr(bad))
+            self.freeze_check()
+            # Ordinary baseline compilation legitimately refreshed objects/receipts.
+            self.discovery = inputs.discover(header, root=ROOT)
+            if set(self.discovery.mandatory) - set(self.cohort):
+                raise GenerationRefused("baseline exposed additional mandatory consumers; rediscover and retry")
+            self.mandatory = tuple(self.discovery.mandatory)
+            if not self.mandatory:
+                raise GenerationRefused("baseline has no evidenced canonical consumer")
+            for source in optional & set(self.mandatory):
+                if body_span((ROOT / source).read_text(encoding="latin-1"), name):
+                    raise GenerationRefused(f"possible existing consumer has a private {name} body: {source}")
+            self.sources = tuple(sorted(optional - set(self.mandatory)))
+            self.cohort = tuple(sorted(optional | set(self.mandatory)))
+            self.discovery.revalidate()
+            self.freeze_check()
+            self._gate(self.cohort)
+            self.canonical = proof.capture(name, header, contract, self.cohort, root=ROOT)
+            self.canonical.validate()
+            self._copies(self.canonical)
+            self.canonical.validate()
+            self.profiles = dict(self.canonical.profiles)
+            self.forced_inputs = dict(self.canonical.forced_inputs)
+            self.search_inventories = dict(self.canonical.search_inventories)
+            for path, digest in self.canonical.files.items():
+                if path not in self.canonical.rebuildable:
+                    if path in self.frozen and self.frozen[path] != digest:
+                        raise GenerationRefused(f"baseline native input generation differs: {path}")
+                    self.frozen[path] = digest
+            self.freeze_check()
+            self._declarations()
+        except BaseException:
+            self.release()
+            raise
+
+    def _claim(self):
+        import claims
+        keys = [f"class:{self.name}"] + [f"file:{p}" for p in sorted(set(self.cohort) | {self.header})]
+        result = claims.claim(keys, note=f"registered header regeneration {self.name}", root=ROOT, atomic_only=True)
+        prior = set(getattr(result, "prior", ()))
+        self.claims = [key for key in result.claimed if key not in prior]
+        self._claim_tokens = dict(getattr(result, "tokens", {}))
+        self._renew_at = time.monotonic() + 30 * 60
+        if result.refused:
+            self.release()
+            raise GenerationRefused("mandatory consumer/header claim refused: " + ", ".join(result.refused))
+
+    def release(self):
+        if self.claims:
+            import claims
+            claims.release(self.claims, root=ROOT)
+            self.claims = []
+
+    def freeze_check(self, writes=None):
+        if getattr(self, "_claim_tokens", None) and time.monotonic() >= self._renew_at:
+            import claims
+            renewed, lost = claims.renew(dict(self._claim_tokens), root=ROOT)
+            if lost or set(renewed) != set(self._claim_tokens):
+                raise GenerationRefused("native cohort claim renewal refused")
+            self._claim_tokens = renewed
+            self._renew_at = time.monotonic() + 30 * 60
+        if self.head != _git("rev-parse", "HEAD") or self.index != _git("ls-files", "--stage", "-z", strip=False):
+            raise GenerationRefused("HEAD or index population changed during regeneration")
+        written = writes.written if writes else {}
+        for path, expected in self.frozen.items():
+            host = ROOT / path
+            current = host.read_bytes() if host.exists() else None
+            if host in written:
+                if current != written[host]:
+                    raise GenerationRefused(f"intervening input edit: {path}")
+            elif ((current is None) != (expected is None) or
+                  current is not None and hashlib.sha256(current).hexdigest() != expected):
+                raise GenerationRefused(f"generation input changed: {path}")
+
+    def _gate(self, sources):
+        sources = list(sources)
+        verdicts = gate_many(sources)
+        bad = {s: verdicts.get(s, "missing byte verdict") for s in sources
+               if s not in verdicts or verdicts[s] is not None}
+        if bad:
+            raise GenerationRefused("consumer byte gate: " + repr(bad))
+        verdicts = link_ok(sources)
+        bad = {s: verdicts.get(s) for s in sources if verdicts.get(s) is not True}
+        if bad:
+            raise GenerationRefused("consumer link verdict unproved: " + repr(bad))
+
+    def _copies(self, captured):
+        """Judge every real class code COMDAT, independently of linker selection."""
+        import link_census
+        import struct
+        truth = link_census.RetailTruth(class_contract.ledger_rows())
+        marker = "@".join(reversed(self.name.split("::"))) + "@@"
+        for witness in captured.witnesses.values():
+            data = Path(witness.object_path).read_bytes()
+            if hashlib.sha256(data).hexdigest() != witness.object_digest:
+                raise GenerationRefused(f"object changed during COMDAT check: {witness.source}")
+            for symbol, body, relocs, digest, size in link_census._comdat_sections(data):
+                optional = struct.unpack_from("<H", data, 16)[0]
+                flags = struct.unpack_from("<I", data, 20 + optional + (symbol["section"] - 1) * 40 + 36)[0]
+                if marker not in symbol["name"] or not flags & 0x20:
+                    continue
+                verdict = truth.verdict(symbol, body, relocs, digest, size)
+                if verdict != "retail":
+                    raise GenerationRefused(f"{witness.source}: class COMDAT {symbol['name']} is {verdict or 'unproved'}")
+
+    def _declarations(self):
+        def facts(source):
+            witness = self.canonical.witnesses.get(source)
+            if witness is None:
+                raise OwnerUnknown(f"{source}: matched owner is outside the captured native cohort")
+            return witness.facts
+
+        def build(sources):
+            raise OwnerUnknown("uncaptured owner cannot be built during declaration selection: " + repr(sources))
+
+        self.slots = None
+        if self.contract.get("vslots"):
+            own, overrides, problems = slot_declarations(self.contract, self.sources, canonical=self.canonical,
+                                                        facts=facts, build=build)
+            if problems:
+                raise GenerationRefused("slot declarations: " + "; ".join(problems))
+            self.slots = own, overrides
+        self.special, problems = special_members(self.name, self.contract, self.sources, canonical=self.canonical,
+                                                facts=facts, build=build)
+        if problems:
+            raise GenerationRefused("carried declarations: " + "; ".join(problems))
+        problems = layout_problems(self.contract)
+        if problems:
+            raise GenerationRefused("layout: " + "; ".join(problems))
+        self.methods = view_methods(self.name, self.sources)
+
+    def _capture(self, sources, writes):
+        self.freeze_check(writes)
+        discovered = self.inputs.discover(self.header, root=ROOT)
+        if set(discovered.mandatory) - set(self.cohort):
+            raise GenerationRefused("generated header exposes additional mandatory consumers")
+        captured = self.proof.capture(self.name, self.header, self.contract, sources, root=ROOT)
+        captured.validate()
+        if any(path not in self.frozen for path in captured.files if path not in captured.rebuildable):
+            raise GenerationRefused("candidate has new immutable native inputs absent from baseline")
+        if (dict(captured.profiles) != self.profiles or dict(captured.forced_inputs) != self.forced_inputs or
+                dict(captured.search_inventories) != self.search_inventories):
+            raise GenerationRefused("candidate compiler/profile/search inputs differ from baseline")
+        self._copies(captured)
+        captured.validate()
+        self.freeze_check(writes)
+        return captured
+
+    def trial(self, variant):
+        self.freeze_check()
+        writes = GenerationWrites({ROOT / p: digest for p, digest in self.frozen.items()})
+        result = {"verdicts": dict.fromkeys(self.sources, "not tried"), "mandatory": dict.fromkeys(self.mandatory),
+                  "texts": {}, "renames": {}, "dependencies": {}, "header": "", "seconds": 0.0}
+        started = time.time()
+        try:
+            text = generate(self.contract, variant, self.methods, self.header, self.slots, self.special)
+            result["header"] = text
+            writes.write(ROOT / self.header, text.encode("utf-8"))
+            strip = [self.name] + STRIP_WITH.get(self.name, [])
+            ready = []
+            for source in self.sources:
+                self.freeze_check(writes)
+                token = GENERATION_DIAGNOSTICS.set(True)
+                try:
+                    got = prepare_unit(source, strip, self.header, self.contract["key"])
+                finally:
+                    GENERATION_DIAGNOSTICS.reset(token)
+                self.freeze_check(writes)
+                _, why, swapped, renames = got
+                result["verdicts"][source] = why
+                if swapped is not None and (why is None or renames):
+                    ready.append(got)
+                    result["texts"][source], result["renames"][source] = swapped, renames
+            plan = adoption_dependencies(ready)
+            result["dependencies"] = plan
+            baseline_ledger = LEDGER.read_bytes()
+            active = ready
+            while True:
+                writes.write(LEDGER, baseline_ledger)
+                renames = [r for _, _, _, names in active for r in names]
+                writes.owned(LEDGER, rewrite_ledger, renames)
+                for source, _, swapped, _ in active:
+                    writes.write(ROOT / source, swapped.encode("latin-1"))
+                # Restored optional failures are still real objects in this link.
+                # Rebuild their unchanged bytes too; never leave a candidate object
+                # masquerading as the restored source's provider.
+                cohort = list(self.cohort)
+                byte = gate_many(cohort)
+                for source in self.mandatory:
+                    result["mandatory"][source] = byte.get(source, "missing byte verdict")
+                if any(v is not None for v in result["mandatory"].values()):
+                    raise GenerationRefused("mandatory consumer failed byte gate")
+                passed = {s for s in cohort if s in byte and byte[s] is None}
+                links = link_ok(sorted(passed))
+                for source in self.mandatory:
+                    if links.get(source) is not True:
+                        result["mandatory"][source] = "link failed or unverified"
+                if any(v is not None for v in result["mandatory"].values()):
+                    raise GenerationRefused("mandatory consumer failed link verification")
+                kept = {s for s in passed if links.get(s) is True}
+                blocked = dependency_blockers(plan, kept)
+                kept -= set(blocked)
+                next_active = []
+                for item in active:
+                    source = item[0]
+                    why = byte.get(source, "missing byte verdict")
+                    if why is None and links.get(source) is not True:
+                        why = "link failed or unverified"
+                    why = blocked.get(source, why)
+                    result["verdicts"][source] = why
+                    if source in kept:
+                        next_active.append(item)
+                    else:
+                        writes.write(ROOT / source, writes.before[ROOT / source])
+                if next_active == active:
+                    self._capture(cohort, writes)
+                    break
+                active = next_active  # Recheck mandatory consumers against the exact survivor state.
+        except (Exception, SystemExit) as exc:
+            result["problem"] = str(exc)
+        finally:
+            writes.restore()
+            result["seconds"] = time.time() - started
+        return result
+
+    def tournament(self):
+        self.results = {variant: self.trial(variant) for variant in self.variants}
+        self.winner = generation_winner(self.results, self.variants)
+        return self.results
+
+    def apply(self):
+        if self.winner is None:
+            raise GenerationRefused("no variant preserves every mandatory consumer")
+        self.freeze_check()
+        best = self.results[self.winner]
+        passed = sorted(s for s, why in best["verdicts"].items() if why is None)
+        writes = GenerationWrites({ROOT / p: digest for p, digest in self.frozen.items()})
+        try:
+            writes.write(ROOT / self.header, best["header"].encode("utf-8"))
+            for source in passed:
+                writes.write(ROOT / source, best["texts"][source].encode("latin-1"))
+            writes.owned(LEDGER, rewrite_ledger, [r for s in passed for r in best["renames"].get(s, ())])
+            cohort = list(self.cohort)
+            self._gate(cohort)
+            self._capture(cohort, writes)
+            writes.owned(REGISTRY, register, self.name, self.header,
+                         f"regenerated canonical declarations; variant {self.winner}; "
+                         f"{len(self.mandatory)} mandatory consumers verified; {len(passed)} new adoptions")
+            writes.owned(QUEUE, write_queue, self.name, self.header,
+                         {s: why for s, why in best["verdicts"].items() if why is not None}, True)
+            self.freeze_check(writes)
+            return passed, writes
+        except BaseException:
+            writes.restore()
+            raise
+
+
+def regenerate(args, name, header, sources, contract):
+    plan, writes, applied = None, None, False
+    try:
+        plan = RegisteredGeneration(name, contract, sources, header, args.variants.split(","), args.jobs)
+        plan.tournament()
+        if plan.winner is None:
+            raise GenerationRefused("no eligible variant: " + repr({v: r.get("problem") for v, r in plan.results.items()}))
+        print(f"{name}: variant {plan.winner}; all {len(plan.mandatory)} mandatory consumers verified")
+        if args.apply:
+            passed, writes = plan.apply()
+            SCRATCH.mkdir(parents=True, exist_ok=True)
+            prior = rewrite_claims_path(name)
+            keys = set(prior.read_text(encoding="utf-8").split()) if prior.exists() else set()
+            writes.write(prior, ("\n".join(sorted(keys | set(plan.claims))) + "\n").encode("utf-8"))
+            plan.freeze_check(writes)
+            applied = True
+            plan.claims = []  # Kept until the ordinary apply commit is published.
+            print(f"  applied: {len(passed)} new adoptions; mandatory consumers were unchanged")
+        return 0
+    except BaseException as exc:
+        if applied:
+            plan.claims = []  # Durable claim bookkeeping marks a completed apply.
+            print(f"{name}: verified apply remains complete; reporting interrupted: {exc}")
+            return 0
+        if writes is not None:
+            writes.restore()
+        if not isinstance(exc, (Exception, SystemExit)):
+            raise
+        print(f"{name}: registered regeneration refused: {exc}")
+        return 2
+    finally:
+        if plan is not None:
+            plan.release()
+
 def run(args):
     name = args.name
     header = args.header or registered().get(name)
     if not header:
         raise SystemExit(f"{name}: no header given or registered")
     fixed = not args.generate
+    if not fixed and registered().get(name) and registered()[name] != header:
+        print(f"{name}: registered regeneration cannot relocate its canonical header")
+        return 2
     sources = census_of(name, header)
     if args.sample and len(sources) > args.sample:
         sources = sorted(random.Random(args.seed).sample(sources, args.sample))
     print(f"{name}: {len(sources)} units, header {header} ({'registered' if fixed else 'generated'})", flush=True)
     contract_path = class_contract.contract_path(name)
+    if not fixed and registered().get(name) == header and not contract_path.is_file():
+        print(f"{name}: registered regeneration requires its existing recorded contract")
+        return 2
     if contract_path.exists():
         contract = json.loads(contract_path.read_text(encoding="utf-8"))
     else:
@@ -7018,6 +7559,8 @@ def run(args):
         contract_path.parent.mkdir(parents=True, exist_ok=True)
         contract_path.write_text(json.dumps({k: v for k, v in contract.items() if k != "sources"}, indent=1,
                                             sort_keys=True) + "\n", encoding="utf-8")
+    if not fixed and registered().get(name) == header:
+        return regenerate(args, name, header, sources, contract)
     if contract["queue"] and not fixed:
         print(f"  contract has {len(contract['queue'])} undecided attribute(s); refusing to generate: "
               f"{[q['attribute'] for q in contract['queue']]}")
@@ -7732,6 +8275,9 @@ def bulk_prepare(name, ctx):
         return {"record": decision(name, "no-destination", dest.get("why", "no header destination"),
                                    command=f"python3 tools/header_adopt_lane.py dest --class {name}", **donors)}
     header = dest["header"]
+    if registered().get(name) and registered()[name] != header:
+        return {"record": decision(name, "generation-refused",
+                                   "registered regeneration cannot relocate its canonical header", **donors)}
     busy = ctx["busy"]() if callable(ctx.get("busy")) else (ctx.get("busy") or set())
     if busy_files([header], busy):       # the tournament writes the header before claim_rewrites runs
         return {"record": decision(name, "claimed", f"its header {header} is held by another seat",
@@ -7739,6 +8285,35 @@ def bulk_prepare(name, ctx):
     sources = census_of(name, header, ctx["rows"])
     if ctx["sample"] and len(sources) > ctx["sample"]:
         sources = sorted(random.Random(ctx["seed"]).sample(sources, ctx["sample"]))
+    if registered().get(name) == header:
+        path = class_contract.contract_path(name)
+        evidence = dict(donors, header=header, units=len(sources), contract=path.relative_to(ROOT).as_posix())
+        if not path.is_file():
+            return {"record": decision(name, "undecided", "registered regeneration requires its existing contract",
+                                       **evidence)}
+        contract = json.loads(path.read_text(encoding="utf-8"))
+        if ctx["dry_run"]:
+            import header_generation_inputs as inputs
+            found = inputs.discover(header, root=ROOT)
+            held = held_elsewhere([f"file:{s}" for s in found.mandatory])
+            if held or busy_files(found.mandatory, busy):
+                return {"record": decision(name, "claimed", "mandatory registered consumer is held", **evidence)}
+            return {"would": {"class": name, "header": header, "units": len(sources),
+                              "mandatory": list(found.mandatory), "contract": evidence["contract"]}}
+        plan = None
+        try:
+            plan = RegisteredGeneration(name, contract, sources, header, ctx["variants"], ctx["unit_jobs"])
+            plan.tournament()
+            if plan.winner is None:
+                raise GenerationRefused("no eligible variant preserves every mandatory consumer: " +
+                                        repr({v: r.get("problem") for v, r in plan.results.items()}))
+            return {"regeneration": plan, "evidence": evidence}
+        except BaseException as exc:
+            if plan is not None:
+                plan.release()
+            if not isinstance(exc, (Exception, SystemExit)):
+                raise
+            return {"record": decision(name, "generation-refused", str(exc), **evidence)}
     if not sources:
         return {"record": decision(name, "no-unit-adopts", "the census finds no private view", header=header, **donors)}
     held = held_elsewhere([f"file:{s}" for s in sources])
@@ -7802,6 +8377,39 @@ def bulk_prepare(name, ctx):
 def bulk_land(name, prepared, ctx):
     """Trial-apply the winning variant, drop every unit whose link would regress, then
     register, queue and commit the class. ("adopted", None, commit) or ("queued", record, None)."""
+    if "regeneration" in prepared:
+        plan, writes, committed, sha = prepared["regeneration"], None, False, None
+        try:
+            passed, writes = plan.apply()
+            paths = sorted(p.relative_to(ROOT).as_posix() for p in writes.before)
+            message = (f"Regenerate the canonical {name} header with its complete consumer cohort\n\n"
+                       f"Preserve the evidenced canonical declarations; variant {plan.winner}, "
+                       f"{len(plan.mandatory)} mandatory consumers and {len(passed)} new adoptions verified.\n"
+                       + "".join(f"\n{t}" for t in ctx["trailers"]))
+            ok, sha, tail = ctx["commit"](paths, message)
+            if not ok:
+                ctx.get("unstage", git_unstage)(paths)
+                writes.restore()
+                return "queued", decision(name, "commit-refused", "the hooks refused registered regeneration",
+                                            hook_tail=tail[-1500:], **prepared["evidence"]), None
+            committed = True
+            SCRATCH.mkdir(parents=True, exist_ok=True)
+            prior = rewrite_claims_path(name)
+            keys = set(prior.read_text(encoding="utf-8").split()) if prior.exists() else set()
+            prior.write_text("\n".join(sorted(keys | set(plan.claims))) + "\n", encoding="utf-8")
+            plan.claims = []
+            return "adopted", None, sha
+        except BaseException:
+            if committed:
+                return "adopted", decision(name, "claim-bookkeeping", "verified commit remains complete; "
+                                           "claim bookkeeping was interrupted; release these claims after publication",
+                                           claims=list(plan.claims), **prepared["evidence"]), sha
+            if writes is not None:
+                writes.restore()
+            raise
+        finally:
+            if not committed:
+                plan.release()
     best, header = prepared["results"][prepared["winner"]], prepared["header"]
     evidence = prepared["evidence"]
     passed = sorted(s for s, v in best["verdicts"].items() if v is None)
@@ -7982,7 +8590,7 @@ def run_all(args, ctx=None):
     ctx["info"] = {c: dict(blockers.get(c, {}), score=s, own=o) for c, s, o in ranked}
     order = plan_order(ranked, blockers, canon)
     if args.only:
-        order = [c for c in order if c in set(args.only)] + [c for c in args.only if c not in order and c not in canon]
+        order = [c for c in order if c in set(args.only)] + [c for c in args.only if c not in order]
     state = load_state(ctx["state_path"])
     if args.resume:
         order = [c for c in order if state.get(c, {}).get("status") not in BULK_DONE]
@@ -8091,14 +8699,14 @@ def main(argv=None):
     p.add_argument("--generate", action="store_true", help="generate the header from the contract (tournament)")
     p.add_argument("--variants", default="data,data+ctor,data+methods,data+includes",
                    help="tokens joined by +: data, ctor (inline default ctor), copy (out-of-line copy ctor), methods, includes (headers of registered classes the slots name)")
-    p.add_argument("--sample", type=int)
+    p.add_argument("--sample", type=int, help="sample new adopters only; registered consumers remain mandatory")
     p.add_argument("--seed", type=int, default=20261006)
     p.add_argument("--jobs", type=int, help="parallel unit gates (one class); with --all, classes run side by side "
                                             "(default 1)")
     p.add_argument("--apply", action="store_true")
     p.add_argument("--skip-held", action="store_true", dest="skip_held",
                    help="--apply: queue the units another worker holds and apply the rest, "
-                        "instead of refusing the whole class (a held header still refuses)")
+                        "instead of refusing the whole class (a held header or mandatory registered consumer refuses)")
     p = sub.add_parser("accept")
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
