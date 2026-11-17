@@ -31,6 +31,13 @@ banked individually after the retraction. The correct base callback at
 Rva005E39AE header declaring the already-rowed callee. The native call
 boundary is retained with noinline on this outlined eight-byte method.
 
+The base adjustment at 0x005E54A6 is also banked naturally. The derived
+override is then restored under Rva005E54F7::slot0, with that override declared
+in both the destructor and StrategicInGameUI views. The ordinary two-source
+build verifies 89/89 rows before the derived adjustment's separate admission.
+The qualified base call avoids an explicit nullable pointer conversion and
+matches retail's seventeen-byte body directly.
+
 Slot one is already correctly rowed against its existing eight-byte helper.
 Both obsolete consumer alternatename directives have been removed. The
 consumer's seventy rows, thirteen EH graphs and eighty-six COMDATs remain

@@ -85,7 +85,7 @@ class Rva005CDCEE : public Rva005E6F9D {public:virtual ~Rva005CDCEE();private:Rv
 Rva005CDCEE::~Rva005CDCEE(){if(link24)link24->owner=0;}
 
 class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE(){}};
-class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void *);virtual ~Rva005E54F7();};
+class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void *);virtual ~Rva005E54F7();virtual void slot0();};
 Rva005E54F7::~Rva005E54F7(){}
 struct Rva005CD9C0Link {char prefix[0xc];void *owner;};
 class Rva005CD9C0 : public Rva005E54F7 {public:virtual ~Rva005CD9C0();private:Rva005CD9C0Link *link1C;};
@@ -138,6 +138,12 @@ __declspec(noinline) void Rva005E4F6D::slot0()
     reinterpret_cast<Rva005E39AE *>(child.value)->rva005E5424();
 }
 
+// The derived table C75020 overrides that dispatch at native 5E5554.
+void Rva005E54F7::slot0()
+{
+    Rva005E4F6D::slot0();
+    reinterpret_cast<Rva005F327ARun *>(this)->run();
+}
 
 class Rva005E4116 { public: int rva005E4116(); };
 // Native slot1 reads the owned pointer at +0x10 and tail-calls its provider.
