@@ -1311,6 +1311,281 @@ def method_only_header(name, laid, canonical):
         and set(record["methods"]) == {m.name for m in view.members}
 
 
+def byte_storage_member(member):
+    """A private, literal-sized builtin byte array; its spelling says nothing about padding."""
+    if member.kind != "data" or member.access != "private" or hasattr(member, "anonymous_union") \
+            or member.base not in {"char", "signed char", "unsigned char"}:
+        return None
+    match = re.fullmatch(re.escape(member.name) + r"\s*\[\s*(0[xX][0-9a-fA-F]+|[1-9][0-9]*)\s*\]",
+                         member.decl)
+    return int(match[1], 16 if match[1].lower().startswith("0x") else 10) if match else None
+
+
+def storage_layout(name, layouts, seen=()):
+    """Complete nonoverlapping primitive storage and vptrs, or None (no guessed fields).
+
+    Aggregate/unknown by-value types, unions, virtual bases and partially decoded records
+    deliberately have no proof here. Inherited tail padding stays padding, never a field.
+    """
+    record = layouts.get(name)
+    if name in seen or not isinstance(record, dict) or record.get("fwd") is not False \
+            or "unparsed" in record or record.get("key") not in {"class", "struct"} \
+            or type(record.get("size")) is not int or record["size"] <= 0 \
+            or type(record.get("vfptr")) is not bool \
+            or not isinstance(record.get("fields"), list) or not isinstance(record.get("bases"), list):
+        return None
+    extent, spans, regions, vptrs = record["size"], [], [], set()
+    for base in record["bases"]:
+        if not isinstance(base, (list, tuple)) or len(base) != 2:
+            return None
+        base_name, offset = base
+        if not isinstance(base_name, str) or type(offset) is not int or offset < 0:
+            return None
+        decoded = storage_layout(base_name, layouts, seen + (name,))
+        if decoded is None:
+            return None
+        base_size, base_spans, base_vptrs = decoded
+        regions.append((offset, offset + base_size))
+        spans.extend((offset + start, offset + end) for start, end in base_spans)
+        vptrs.update(offset + at for at in base_vptrs)
+    primitives = {"char": 1, "uchar": 1, "int8": 1, "uint8": 1, "bool": 1,
+                  "short": 2, "ushort": 2, "wchar": 2, "int": 4, "uint": 4,
+                  "long": 4, "ulong": 4, "float": 4, "enum": 4}
+    names = set()
+    for field in record["fields"]:
+        if not isinstance(field, (list, tuple)) or len(field) != 4:
+            return None
+        offset, field_name, cvtype, size = field
+        if type(offset) is not int or type(size) is not int or size <= 0 \
+                or not isinstance(field_name, str) or field_name in names or not isinstance(cvtype, str):
+            return None
+        names.add(field_name)
+        array = re.fullmatch(r"(char|uchar|int8|uint8)\[([1-9][0-9]*)\]", cvtype)
+        expected = int(array[2]) if array else primitives.get(cvtype)
+        if cvtype.endswith("*"):
+            expected = VPTR_SIZE
+        if expected != size:
+            return None
+        spans.append((offset, offset + size))
+        regions.append((offset, offset + size))
+    if record["vfptr"]:
+        # A derived record may repeat its primary base's vfptr at zero.
+        if 0 not in vptrs:
+            regions.append((0, VPTR_SIZE))
+        vptrs.add(0)
+    regions.sort()
+    if any(start < 0 or end > extent for start, end in regions) \
+            or any(left[1] > right[0] for left, right in zip(regions, regions[1:])):
+        return None
+    return extent, spans, vptrs
+
+
+STORAGE_PROBE = "header_adopt_lane_storage_probe"
+
+
+def storage_probe_text(text, names):
+    """Measure class alignment with the same compiler, independently of ambient packing.
+
+    A member following one byte under pack(8) starts at its natural alignment (up to
+    eight). Only identical offsets <=4 are accepted. Abstract/inaccessible types or any
+    other compiler refusal keep the gate closed. These probes never enter production.
+    """
+    if any(re.search(r"\b" + re.escape(STORAGE_PROBE + str(i)) + r"\b", masked(text))
+           for i in range(len(names))):
+        return None
+    out = text + "\n#pragma pack(push, 8)\n"
+    for i, name in enumerate(names):
+        out += f"struct {STORAGE_PROBE}{i} {{ char prefix; {name} value; }};\n"
+    out += "#pragma pack(pop)\n"
+    params = ", ".join(f"{STORAGE_PROBE}{i} *p{i}" for i in range(len(names)))
+    sizes = " + ".join(f"sizeof(*p{i})" for i in range(len(names)))
+    return out + f"int {STORAGE_PROBE}_size({params}) {{ return {sizes}; }}\n"
+
+
+def storage_alignment(name, index, measured, original):
+    """Only an exact fresh class record and the two expected wrapper members are evidence."""
+    if measured.get(name) != original.get(name):
+        return None
+    wrapper = measured.get(STORAGE_PROBE + str(index), {})
+    size = original[name]["size"]
+    if wrapper.get("fwd") is not False or "unparsed" in wrapper or wrapper.get("key") != "struct" \
+            or wrapper.get("bases") != [] or wrapper.get("vfptr") is not False:
+        return None
+    fields = wrapper.get("fields")
+    if not isinstance(fields, list) or len(fields) != 2 or fields[0] != [0, "prefix", "char", 1]:
+        return None
+    if not isinstance(fields[1], (list, tuple)) or len(fields[1]) != 4:
+        return None
+    offset, field, cvtype, extent = fields[1]
+    if type(offset) is not int or offset not in {1, 2, 4} or field != "value" \
+            or cvtype != name or extent != size or size % offset \
+            or wrapper.get("size") != offset + size:
+        return None
+    return offset
+
+
+def storage_command_macros(source):
+    """Command-line definitions join the token corpus; forced headers stay unproven."""
+    import build
+    try:
+        command, _env = build.compiler_command(ROOT / source, ROOT / "build" / "header_adopt_storage.obj")
+    except (SystemExit, OSError, ValueError, RuntimeError) as exc:
+        return None, f"unused byte storage: compiler preprocessing inputs cannot be read: {exc}"
+    definitions, index = [], 0
+    while index < len(command):
+        flag = command[index]
+        if flag.startswith(("/FI", "-FI")):
+            return None, "unused byte storage: forced includes have no complete preprocessing proof"
+        if flag.startswith(("/D", "-D")):
+            argument = flag[2:]
+            if not argument:
+                index += 1
+                argument = command[index] if index < len(command) else ""
+            parts = re.split(r"[=#]", argument, maxsplit=1)
+            if not re.fullmatch(r"[A-Za-z_]\w*", parts[0]):
+                return None, "unused byte storage: ambiguous compiler macro definition"
+            definitions.append(f"#define {parts[0]} {parts[1] if len(parts) == 2 else '1'}\n")
+        index += 1
+    return "".join(definitions), None
+
+
+def storage_union_problem(sources, names):
+    """CodeView flattens anonymous unions, including single-member ones. Check declarations too."""
+    for name in names:
+        found = False
+        for path, body in sources:
+            joined, _ = spliced(body)
+            code = masked(joined)
+            defined_here = False
+            for cls, start, end, _key in class_layouts.class_body_spans(joined):
+                if cls == name:
+                    found = defined_here = True
+                    if re.search(r"\bunion\b", code[start:end]):
+                        return f"{path}: unused byte storage hierarchy {name} contains a union"
+            if defined_here:
+                continue
+            # Snapshot has two conditional heads and one shared body. The normal
+            # class parser intentionally does not choose a head. A literal global
+            # head followed only by directive lines and `{` proves a definition
+            # exists; requiring its WHOLE file to lack union tokens avoids guessing
+            # the selected branch or body. Macro-generated heads need native evidence below.
+            pattern = (r"\b(?:class|struct)\s+(?:__declspec\([^)]*\)\s*)*" + re.escape(name)
+                       + r"\b(?P<tail>[^;{}]*)\{")
+            for match in re.finditer("(?=" + pattern + ")", code):
+                tail = re.sub(r"(?m)^[ \t]*#[^\n]*", "", match["tail"])
+                before = code[:match.start()]
+                if not tail.strip() and before.count("{") == before.count("}"):
+                    found = True
+                    if re.search(r"\bunion\b", code):
+                        return f"{path}: unused byte storage conditional hierarchy {name} has an unproven union"
+        if not found:
+            return f"unused byte storage: no declaration proof for hierarchy {name}"
+    return None
+
+
+def unused_storage_problem(sources, source, names, classes=(), expansion_proven=False):
+    """Whole-unit/inline nonuse, plus no macro expansion that could manufacture a name.
+
+    Normalize translation-phase line splices before masking. Token-pasting macros in the
+    reachable expansion graph can manufacture identifiers; stringization alone produces
+    a literal and cannot manufacture a field access. Direct mentions in includes fail closed.
+    """
+    definitions, roots = {}, set()
+    for where, body in sources:
+        joined, _ = spliced(body)
+        code = masked(joined)
+        if re.search(r"\?\?[=/'()!<>-]|%:|\\[uU][0-9a-fA-F]|[$\x00-\x08\x0b\x0c\x0e-\x1f\x7f]|\r(?!\n)|[^\x00-\x7f]", code):
+            return f"{where}: unused byte storage has ambiguous preprocessing tokens"
+        literal_code = masked(joined, keep_literals=True)
+        for directive in DIRECTIVE_LINE.finditer(literal_code):
+            op, operand = directive[1], directive[2].strip()
+            if op in {"import", "using", "include_next"} or (op == "include" and not
+                    re.fullmatch(r'"[^"\n]+"|<[^>\n]+>', operand)) \
+                    or (op == "pragma" and re.search(r"\binclude_alias\b", operand)):
+                return f"{where}: unused byte storage has an unproven include input"
+        if re.search(r"\b(?:__pragma|_Pragma|__identifier)\b", code):
+            return f"{where}: unused byte storage has an ambiguous compiler token input"
+        for name in names:
+            expected = 1 if (ROOT / where).resolve() == (ROOT / source).resolve() else 0
+            if len(re.findall(r"\b" + re.escape(name) + r"\b", code)) != expected:
+                return f"{where}: unused byte storage `{name}` is referenced or its declaration is ambiguous"
+        for match in re.finditer(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)([^\n]*)", code):
+            definitions.setdefault(match[1], []).append(match[2])
+        semantic = re.sub(r"(?m)^[ \t]*#[^\n]*", "", code)
+        roots.update(re.findall(r"\b[A-Za-z_]\w*\b", semantic))
+    aliases = set(classes)
+    while True:
+        more = {macro for macro, replacements in definitions.items() if any(
+            aliases.intersection(re.findall(r"\b[A-Za-z_]\w*\b", replacement)) for replacement in replacements)}
+        if more <= aliases:
+            break
+        aliases.update(more)
+    for where, body in sources:
+        code = masked(spliced(body)[0])
+        for head in re.finditer(r"\b(?:class|struct)\s+([^;{}]*)[;{]", code):
+            if not expansion_proven and aliases.intersection(definitions).intersection(
+                    re.findall(r"\b[A-Za-z_]\w*\b", head[1])):
+                return f"{where}: unused byte storage has a macro-generated class head"
+    pending, visited = list(roots), set()
+    while pending:
+        name = pending.pop()
+        if name in visited:
+            continue
+        visited.add(name)
+        for replacement in definitions.get(name, []):
+            if not expansion_proven and re.search(r"\b(?:class|struct|union)\b", replacement):
+                return f"unused byte storage: macro `{name}` can manufacture aggregate storage"
+            if not expansion_proven and re.search(r"#\s*#", replacement):
+                return f"unused byte storage: token-pasting macro `{name}` needs compiler token evidence"
+            pending.extend(re.findall(r"\b[A-Za-z_]\w*\b", replacement))
+    return None
+
+
+def preprocess_storage_text(source, text):
+    """Exact compiler-expanded tokens, using the unit's normal command and environment.
+
+    Only the preprocessing switch changes; no object is written. Restore the unit on
+    every path just as compile_text does for compiler layout probes.
+    """
+    import build
+    path = ROOT / source
+    original = path.read_bytes()
+    try:
+        path.write_bytes(text.encode("latin-1"))
+        command, env = build.compiler_command(path, ROOT / "build" / "header_adopt_storage.obj")
+        command = [flag for flag in command if flag not in {"-c", "/c"}
+                   and not flag.startswith(("-Fo", "/Fo"))]
+        command.insert(-1, "-EP")
+        done = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, errors="replace")
+        if done.returncode:
+            raise RuntimeError(f"compiler preprocessing failed ({done.returncode}): "
+                               + (done.stdout + done.stderr)[-400:])
+        return done.stdout
+    except (OSError, ValueError, SystemExit) as exc:
+        raise RuntimeError(f"compiler preprocessing inputs: {exc}") from exc
+    finally:
+        path.write_bytes(original)
+
+
+def storage_expansion_problem(source, text, probe, names, before_family, after_family):
+    """Macro-generated tokens need native evidence of their actual uses and hierarchy bodies."""
+    try:
+        before = preprocess_storage_text(source, text)
+        after = preprocess_storage_text(source, probe)
+    except RuntimeError as exc:
+        return f"unused byte storage: {exc}"
+    for expanded, expected, family in [(before, 1, before_family), (after, 0, after_family)]:
+        code = masked(spliced(expanded)[0])
+        if re.search(r"\\[uU][0-9a-fA-F]|\b__identifier\b|[^\x00-\x7f]", code):
+            return "unused byte storage: ambiguous compiler-expanded identifiers"
+        if any(len(re.findall(r"\b" + re.escape(name) + r"\b", code)) != expected for name in names):
+            return "unused byte storage: compiler-expanded tokens reference the storage or omit its declaration"
+        why = storage_union_problem([(source, expanded)], family)
+        if why:
+            return why
+    return None
+
+
 def field_renames(source, text, strip, include, compile=None, header=None):
     """({class: {private field: canonical field}}, None) for the unit's views of the
     `strip` classes, or (None, why) when a private field has no canonical field of its
@@ -1323,7 +1598,11 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     offset the canonical class fills with a vftable pointer (vptr_offsets) is not one of those:
     it has no canonical field by construction and needs no counterpart. A method-only header,
     proven by both its declarations and a complete probe, needs no mapping; full-source
-    compilation and byte verification still judge its uses. `compile(source, text)` gives
+    compilation and byte verification still judge its uses. An unused private literal byte
+    array may cover several canonical fields and padding only with complete equal extents,
+    unchanged vptrs, compiler-measured equal alignment and whole-unit nonuse. Ambiguous macro
+    expansion additionally needs the compiler's expanded tokens in both contexts.
+    `compile(source, text)` gives
     {class: layout} (text None: the unit as it stands); `header` is the canonical header,
     whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
     import tu_views
@@ -1341,7 +1620,14 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             view = tu_views.View(source, text, name, lay, every)
         except tu_views.Refused as exc:
             return None, str(exc)
-        own = [m.name for m in view.members if m.kind == "data" and not tu_views.is_pad(m, view)]
+        # Inline uses count too. The shared PAD heuristic is intentionally unchanged:
+        # consolidation has a different contract. Arbitrarily named arrays stay in
+        # `own` until the complete compiler and preprocessing proof below succeeds.
+        own = [m.name for m in view.members if m.kind == "data" and
+               (not tu_views.is_pad(m, view) or
+                (m.access == "private" and m.base in {"char", "signed char", "unsigned char"}
+                 and "[" in m.decl) or
+                len(re.findall(r"\b" + re.escape(m.name) + r"\b", masked(spliced(text)[0]))) != 1)]
         if own:
             views.append((view, own))
     if not views:
@@ -1396,7 +1682,7 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         laid = compile(source, probe_text(text, strip, include))
     except RuntimeError as exc:
         return None, f"the header's layout: {exc}"
-    mappings, field_checks = {}, {}
+    mappings, field_checks, storage = {}, {}, {}
     for view, own in views:
         name = view.cls
         record = laid.get(name)
@@ -1421,6 +1707,21 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         mine = {}
         for old in own:
             offset, size, cvtype = table[old]
+            member = next(m for m in view.members if m.kind == "data" and m.name == old)
+            literal_size = byte_storage_member(member)
+            if literal_size is not None and not fields.get((offset, size)):
+                before, after = storage_layout(name, every), storage_layout(name, laid)
+                unique = [f for f in view.layout["fields"] if f[1] == old]
+                byte_type = re.fullmatch(r"(?:char|uchar|int8|uint8)\[([1-9][0-9]*)\]", cvtype)
+                if not before or not after or before[0] != after[0] or before[2] != after[2] \
+                        or len(unique) != 1 or not byte_type or int(byte_type[1]) != size or size != literal_size \
+                        or any(offset < at + VPTR_SIZE and at < offset + size for at in after[2]) \
+                        or any(start < offset < end or start < offset + size < end for start, end in after[1]) \
+                        or not any(offset <= start < end <= offset + size for start, end in after[1]):
+                    return None, f"{name}::{old}: unused byte storage has no complete unchanged layout proof"
+                storage.setdefault(name, set()).add(old)
+                field_checks.setdefault(name, {})[old] = old
+                continue
             found = fields.get((offset, size), [])
             if not found:
                 # A pointer the canonical class gets from the compiler: the view's member goes
@@ -1451,13 +1752,15 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             return None, why
         if mine:
             mappings[name] = mine
-            field_checks[name] = mine
+            field_checks.setdefault(name, {}).update(mine)
     if field_checks:
         if header:
             if seeded_why:
                 return None, seeded_why
             family = {cls for name in field_checks for cls in hierarchy(name, laid)}
             rename_names = {token for mapping in field_checks.values() for pair in mapping.items() for token in pair}
+            rename_names.update(field for name in storage for found in flat_fields(name, laid).values()
+                                for field, _cvtype, _owner in found)
             why = conditional_hierarchy(canonical, family, rename_names)
             if why:
                 return None, why
@@ -1473,6 +1776,51 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         why = macro_shadow(sources, field_checks, text)
         if why:
             return None, why
+        if storage:
+            if not header:
+                return None, "unused byte storage needs the canonical header's preprocessing proof"
+            # De-duplicate the source/header walks; the declaration appears exactly
+            # once in its own unit and nowhere in the included token corpus.
+            unique_sources = list({str((ROOT / path).resolve()): (path, body) for path, body in sources}.values())
+            macros, why = storage_command_macros(source)
+            if why:
+                return None, why
+            unique_sources.append((source + ".compiler-macros", macros))
+            storage_family = {cls for name in storage for cls in hierarchy(name, every) + hierarchy(name, laid)}
+            expansion_proven = False
+            why = unused_storage_problem(unique_sources, source,
+                                         {old for fields in storage.values() for old in fields}, storage_family)
+            if why and (why.startswith("unused byte storage: token-pasting macro ")
+                        or why.endswith("can manufacture aggregate storage")
+                        or why.endswith("has a macro-generated class head")):
+                why = storage_expansion_problem(source, text, probe_text(text, strip, include),
+                                                {old for fields in storage.values() for old in fields},
+                                                {cls for name in storage for cls in hierarchy(name, every)},
+                                                {cls for name in storage for cls in hierarchy(name, laid)})
+                if not why:
+                    expansion_proven = True
+                    why = unused_storage_problem(unique_sources, source,
+                          {old for fields in storage.values() for old in fields}, storage_family, expansion_proven=True)
+            if why:
+                return None, why
+            why = None if expansion_proven else storage_union_problem(unique_sources, storage_family)
+            if why:
+                return None, why
+            names = sorted(storage)
+            original_probe = storage_probe_text(text, names)
+            canonical_probe = storage_probe_text(probe_text(text, strip, include), names)
+            if original_probe is None or canonical_probe is None:
+                return None, "unused byte storage: alignment probe name is already declared"
+            try:
+                measured_before = compile(source, original_probe)
+                measured_after = compile(source, canonical_probe)
+            except RuntimeError as exc:
+                return None, f"unused byte storage alignment: {exc}"
+            for index, name in enumerate(names):
+                before = storage_alignment(name, index, measured_before, every)
+                after = storage_alignment(name, index, measured_after, laid)
+                if before is None or after is None or before != after:
+                    return None, f"{name}: unused byte storage alignment is not proven unchanged"
     return mappings, None
 
 

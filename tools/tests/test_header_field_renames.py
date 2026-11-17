@@ -1,12 +1,14 @@
 """header_adopt_lane field renames: a unit adopting a canonical header speaks its field names."""
 import re
 import sys
+import copy
 from pathlib import Path
 
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import header_adopt_lane as lane  # noqa: E402
+NATIVE_STORAGE_PREPROCESS = lane.preprocess_storage_text
 
 UNIT = """// cl: /O2
 class Team;
@@ -54,6 +56,409 @@ def test_private_fields_take_the_canonical_names_through_bases():
     mapping, why = lane.field_renames("u.cpp", UNIT, ["Object"], "Object.h", compiler())
     assert why is None
     assert mapping == {"Object": {"m_flags": "m_status", "m_speed": "m_moveSpeed"}}   # padding needs no counterpart
+
+
+STORAGE_UNIT = """class Object
+{
+public:
+    virtual ~Object();
+private:
+    unsigned char m_basePad[0x0c];
+};
+int objectSize() { return sizeof(Object); }
+"""
+STORAGE_HEADER = """#pragma once
+class Base { public: virtual ~Base(); int tag; };
+class Object : public Base { public: int count; bool enabled; };
+"""
+
+
+@pytest.fixture
+def storage_tree(tmp_path, monkeypatch):
+    (tmp_path / "u.cpp").write_text(STORAGE_UNIT)
+    (tmp_path / "Object.h").write_text(STORAGE_HEADER)
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    import build
+    def command(source, _output):
+        flags = next((line[6:] for line in source.read_text().splitlines() if line.startswith("// cl:")), "")
+        return ["cl.exe", *build._source_flag_tokens(flags), str(source)], {}
+    monkeypatch.setattr(build, "compiler_command", command)
+    def no_preprocessor(_source, _text):
+        raise RuntimeError("no native token evidence supplied by this fixture")
+    monkeypatch.setattr(lane, "preprocess_storage_text", no_preprocessor)
+    before = {"Object": dict(layout([(4, "m_basePad", "uchar[12]", 12)], size=16), vfptr=True)}
+    after = {"Base": dict(layout([(4, "tag", "int", 4)], size=8), vfptr=True),
+             "Object": layout([(8, "count", "int", 4), (12, "enabled", "bool", 1)],
+                              bases=[("Base", 0)], size=16)}
+    return tmp_path, before, after
+
+
+def storage_compiler(before, after, old_alignment=4, new_alignment=4, seen=None, mutate=None):
+    def compile(source, text):
+        if seen is not None:
+            seen.append(text)
+        canonical = text is not None and '#include "Object.h"' in text
+        records = copy.deepcopy(after if canonical else before)
+        if text and lane.STORAGE_PROBE in text:
+            alignment = new_alignment if canonical else old_alignment
+            wrapper = dict(layout([(0, "prefix", "char", 1),
+                                   (alignment, "value", "Object", records["Object"]["size"])],
+                                  size=alignment + records["Object"]["size"]), key="struct")
+            records[lane.STORAGE_PROBE + "0"] = wrapper
+            if mutate:
+                mutate(records, canonical)
+        return records
+    return compile
+
+
+def adopt_storage(tree, text=STORAGE_UNIT, **kwargs):
+    root, before, after = tree
+    (root / "u.cpp").write_text(text)
+    return lane.field_renames("u.cpp", text, ["Object"], "Object.h",
+                              storage_compiler(before, after, **kwargs), header="Object.h")
+
+
+def test_unused_private_byte_array_can_cover_base_fields_and_tail_padding(storage_tree):
+    seen = []
+    assert adopt_storage(storage_tree, seen=seen) == ({}, None)
+    assert len(seen) == 4                           # old/probe plus both measured alignments
+    assert "#pragma pack(push, 8)" in seen[-2] and "#pragma pack(pop)" in seen[-1]
+    assert "*p0" in seen[-2] and "*p0" in seen[-1]  # sizeof alone emits no VC7.1 type record
+
+
+def test_unused_array_needs_the_canonical_header_corpus(storage_tree):
+    _root, before, after = storage_tree
+    mapping, why = lane.field_renames("u.cpp", STORAGE_UNIT, ["Object"], "Object.h",
+                                     storage_compiler(before, after))
+    assert mapping is None and "preprocessing proof" in why
+
+
+@pytest.mark.parametrize("use", [
+    "m_basePad[0] = 1;", "return m_basePad[0];", "return sizeof(m_basePad);",
+    "return (int)&m_basePad;", "return (int)&Object::m_basePad;",
+    "return offsetof(Object, m_basePad);", "return m_base\\\nPad[0];",
+])
+def test_unused_array_exception_rejects_uses_inside_inline_bodies(storage_tree, use):
+    text = STORAGE_UNIT.replace("private:", "public:\n    int get() { " + use + " }\nprivate:")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and "referenced" in why
+
+
+@pytest.mark.parametrize("name", ["m_basePad", "m_pad"])
+def test_inline_active_storage_is_never_ignored_by_padding_name(storage_tree, name):
+    root, before, after = storage_tree
+    before["Object"]["fields"][0][1] = name
+    text = STORAGE_UNIT.replace("m_basePad", name).replace(
+        "private:", "public:\n    int get() { return " + name + "[0]; }\nprivate:")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("name", ["m_basePad", "m_pad"])
+@pytest.mark.parametrize("suffix", [
+    "int f(Object *p) { return p->m_basePad[0]; }\n",
+    "#define FIELD m_basePad\n",
+    "#define JOIN(a,b) a ## b\nint f() { return JOIN(m_base,Pad); }\n",
+    "#define JOIN2(a,b) a ## b\n#define JOIN(a,b) JOIN2(a,b)\nint f() { return JOIN(m_base,Pad); }\n",
+    "%:define FIELD m_basePad\n", "int f() { return m_base??/\nPad[0]; }\n",
+    r"int f() { return m_b\u0061sePad[0]; }" + "\n",
+])
+def test_unused_array_exception_rejects_external_or_manufactured_uses(storage_tree, suffix, name):
+    _root, before, _after = storage_tree
+    before["Object"]["fields"][0][1] = name
+    text = (STORAGE_UNIT + suffix).replace("m_basePad", name)
+    # Keep token-pasting capable of constructing the name under both spellings.
+    if name == "m_pad":
+        text = text.replace("m_base,Pad", "m_,pad")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+def test_unused_macro_token_pasting_elsewhere_does_not_fake_an_array_use(storage_tree):
+    assert adopt_storage(storage_tree, STORAGE_UNIT + "#define UNCALLED(a,b) a ## b\n") == ({}, None)
+
+
+def test_stringization_alone_cannot_manufacture_a_member_access(storage_tree):
+    text = "#define STR(x) #x\n" + STORAGE_UNIT + 'const char *f() { return STR(other); }\n'
+    assert adopt_storage(storage_tree, text) == ({}, None)
+
+
+def test_unrelated_pasting_requires_complete_native_expansion_evidence(storage_tree, monkeypatch):
+    text = "#define JOIN(a,b) a ## b\n" + STORAGE_UNIT + "int JOIN(f,oo)() { return 0; }\n"
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and "no native token evidence" in why
+    expanded = STORAGE_UNIT + "int foo() { return 0; }\n"
+    monkeypatch.setattr(lane, "preprocess_storage_text",
+                        lambda _source, text: STORAGE_HEADER if '#include "Object.h"' in text else expanded)
+    assert adopt_storage(storage_tree, text) == ({}, None)
+
+
+@pytest.mark.parametrize("original,canonical", [
+    (STORAGE_UNIT.replace("private:", "int read() { return m_basePad[0]; }\nprivate:"), STORAGE_HEADER),
+    (STORAGE_UNIT, STORAGE_HEADER.replace("int count;", "union { int count; };")),
+    ("", STORAGE_HEADER), (STORAGE_UNIT, ""),
+])
+def test_expanded_access_union_or_missing_types_do_not_resolve_pasting(storage_tree, monkeypatch, original, canonical):
+    text = "#define JOIN(a,b) a ## b\n" + STORAGE_UNIT + "int JOIN(f,oo)() { return 0; }\n"
+    monkeypatch.setattr(lane, "preprocess_storage_text",
+                        lambda _source, text: canonical if '#include "Object.h"' in text else original)
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("flags,body", [
+    ("/DALIAS=m_basePad", "return ALIAS[0];"),
+    ("-DALIAS#m_basePad", "return ALIAS[0];"),
+    ("/DALIAS=JOIN", "return ALIAS(m_base,Pad)[0];"),
+    ("/FIhidden.h", "return JOIN(m_base,Pad)[0];"),
+    ("-FI hidden.h", "return JOIN(m_base,Pad)[0];"),
+])
+def test_unused_array_checks_real_compiler_macro_inputs(storage_tree, flags, body):
+    root, _before, _after = storage_tree
+    (root / "hidden.h").write_text("#define JOIN(a,b) a ## b\n")
+    text = "// cl: " + flags + "\n#define JOIN(a,b) a ## b\n" + STORAGE_UNIT.replace(
+        "private:", "int read() { " + body + " }\nprivate:")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+def test_simple_command_line_definitions_are_not_a_blanket_refusal(storage_tree):
+    assert adopt_storage(storage_tree, "// cl: /DNDEBUG /DCOUNT=12\n" + STORAGE_UNIT) == ({}, None)
+
+
+@pytest.mark.parametrize("directive", [
+    "#\fdefine JOIN(a,b) a ## b", "#define\vJOIN(a,b) a ## b",
+    "#\rdefine JOIN(a,b) a ## b",
+])
+def test_preprocessing_control_whitespace_cannot_hide_macro_definitions(storage_tree, directive):
+    text = directive + "\n" + STORAGE_UNIT.replace("private:",
+                "int read() { return JOIN(m_base,Pad)[0]; }\nprivate:")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("macro", ["$JOIN", "JOIN$", "JÖIN"])
+def test_extended_macro_identifiers_do_not_escape_the_ascii_expansion_graph(storage_tree, macro):
+    text = "#define " + macro + "(a,b) a ## b\n" + STORAGE_UNIT.replace("private:",
+                "int read() { return " + macro + "(m_base,Pad)[0]; }\nprivate:")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("include", [
+    '#define H "hidden.h"\n#include H\n',
+    '#pragma include_alias("plain.h", "hidden.h")\n#include "plain.h"\n',
+    '#import "hidden.h"\n', '#using "hidden.h"\n',
+])
+def test_macro_or_redirected_includes_do_not_establish_storage_nonuse(storage_tree, include):
+    root, _before, _after = storage_tree
+    (root / "hidden.h").write_text("#define JOIN(a,b) a ## b\n")
+    (root / "plain.h").write_text("// harmless\n")
+    text = include + STORAGE_UNIT.replace("private:",
+                "int read() { return JOIN(m_base,Pad)[0]; }\nprivate:")
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("where", ["unit", "header", "base"])
+def test_flattened_single_member_union_is_not_a_storage_proof(storage_tree, where):
+    root, before, after = storage_tree
+    text = STORAGE_UNIT
+    if where == "unit":
+        text = text.replace("virtual ~Object();", "virtual ~Object(); union { int unused; };")
+        before["Object"]["fields"].insert(0, [4, "unused", "int", 4])
+        before["Object"]["fields"][1] = [8, "m_basePad", "uchar[8]", 8]
+        text = text.replace("m_basePad[0x0c]", "m_basePad[8]")
+    else:
+        original, replacement = ("int count;", "union { int count; };") if where == "header" else (
+            "int tag;", "union { int tag; };")
+        (root / "Object.h").write_text(STORAGE_HEADER.replace(original, replacement))
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and "union" in why
+
+
+def test_macro_declared_union_does_not_become_a_primitive_storage_proof(storage_tree, monkeypatch):
+    root, _before, _after = storage_tree
+    (root / "Object.h").write_text("#define STORAGE_UNION union\n" +
+        STORAGE_HEADER.replace("int count;", "STORAGE_UNION { int count; };"))
+    expanded = STORAGE_HEADER.replace("int count;", "union { int count; };")
+    monkeypatch.setattr(lane, "preprocess_storage_text",
+                        lambda _source, text: expanded if '#include "Object.h"' in text else STORAGE_UNIT)
+    mapping, why = adopt_storage(storage_tree)
+    assert mapping is None and "union" in why
+
+
+def test_conditional_class_heads_can_share_a_whole_union_free_definition(storage_tree):
+    root, _before, _after = storage_tree
+    header = STORAGE_HEADER.replace("class Base {", "#if FLAG\nclass __declspec(novtable) Base\n"
+                                    "#else\nclass Base\n#endif\n{")
+    (root / "Object.h").write_text(header)
+    assert adopt_storage(storage_tree) == ({}, None)
+
+
+def test_macro_generated_class_names_cannot_hide_a_union_definition(storage_tree, monkeypatch):
+    root, _before, _after = storage_tree
+    header = "#define TYPE Base\n" + STORAGE_HEADER.replace("class Base {", "class TYPE {")
+    (root / "Object.h").write_text(header)
+    expanded = STORAGE_HEADER.replace("int tag;", "union { int tag; };")
+    monkeypatch.setattr(lane, "preprocess_storage_text",
+                        lambda _source, text: expanded if '#include "Object.h"' in text else STORAGE_UNIT)
+    mapping, why = adopt_storage(storage_tree)
+    assert mapping is None and "union" in why
+
+
+def test_native_expansion_can_prove_an_unrelated_generated_class(storage_tree, monkeypatch):
+    text = "#define DECLARE(T) class T {};\nDECLARE(Unrelated)\n" + STORAGE_UNIT
+    monkeypatch.setattr(lane, "preprocess_storage_text", lambda _source, text:
+                        STORAGE_HEADER if '#include "Object.h"' in text else "class Unrelated {};\n" + STORAGE_UNIT)
+    assert adopt_storage(storage_tree, text) == ({}, None)
+
+
+@pytest.mark.parametrize("exit_code", [0, 1])
+def test_native_preprocessing_uses_normal_command_and_restores_source(storage_tree, monkeypatch, exit_code):
+    root, _before, _after = storage_tree
+    import build
+    import types
+    original = (root / "u.cpp").read_bytes()
+    replacement = STORAGE_UNIT + "int changed;\n"
+    environment = {"test": "compiler environment"}
+    def command(source, _output):
+        assert source.read_bytes() == replacement.encode("latin-1")
+        return ["cl.exe", "-c", "-Foignored.obj", "-DNDEBUG", "u.cpp"], environment
+    def run(command, **kwargs):
+        assert command == ["cl.exe", "-DNDEBUG", "-EP", "u.cpp"]
+        assert kwargs["env"] is environment and kwargs["cwd"] == root
+        return types.SimpleNamespace(returncode=exit_code, stdout=STORAGE_UNIT, stderr="failure" if exit_code else "")
+    monkeypatch.setattr(build, "compiler_command", command)
+    monkeypatch.setattr(lane.subprocess, "run", run)
+    if exit_code:
+        with pytest.raises(RuntimeError, match="preprocessing failed"):
+            NATIVE_STORAGE_PREPROCESS("u.cpp", replacement)
+    else:
+        assert NATIVE_STORAGE_PREPROCESS("u.cpp", replacement) == STORAGE_UNIT
+    assert (root / "u.cpp").read_bytes() == original
+
+
+@pytest.mark.parametrize("failure", ["command", "run", "encoding"])
+def test_native_preprocessing_restores_bytes_when_inputs_or_launch_fail(storage_tree, monkeypatch, failure):
+    root, _before, _after = storage_tree
+    import build
+    original = (root / "u.cpp").read_bytes()
+    def command(source, _output):
+        assert source.read_bytes() != original
+        if failure == "command":
+            raise RuntimeError("command failed")
+        return ["cl.exe", "-c", "u.cpp"], {}
+    def run(*_args, **_kwargs):
+        raise OSError("launch failed")
+    monkeypatch.setattr(build, "compiler_command", command)
+    monkeypatch.setattr(lane.subprocess, "run", run)
+    replacement = STORAGE_UNIT + ("\N{SNOWMAN}" if failure == "encoding" else "int changed;")
+    with pytest.raises(RuntimeError):
+        NATIVE_STORAGE_PREPROCESS("u.cpp", replacement)
+    assert (root / "u.cpp").read_bytes() == original
+
+
+@pytest.mark.parametrize("where", ["inline", "include", "command"])
+def test_compiler_identifier_intrinsic_cannot_hide_a_string_named_field_access(storage_tree, where):
+    root, _before, _after = storage_tree
+    access = 'int read() { return this->__identifier("m_basePad")[0]; }\n'
+    text = STORAGE_UNIT
+    if where == "inline":
+        text = text.replace("private:", access + "private:")
+    elif where == "include":
+        (root / "hidden.h").write_text('#define ACCESS __identifier("m_basePad")\n')
+        text += '#include "hidden.h"\n'
+    else:
+        text = "// cl: /DACCESS=__identifier\n" + text
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and "compiler token" in why
+
+
+@pytest.mark.parametrize("body", [
+    "#define JOIN(a,b) a ## b\nint f() { return JOIN(m_base,Pad); }\n",
+    "inline int f(Object *p) { return p->m_basePad[0]; }\n",
+    "#define m_basePad replacement\n",
+])
+def test_unused_array_exception_checks_included_inline_code_and_macros(storage_tree, body):
+    root, _before, _after = storage_tree
+    (root / "uses.h").write_text(body)
+    mapping, why = adopt_storage(storage_tree, STORAGE_UNIT + '#include "uses.h"\n')
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("alignment", [1, 2, 8])
+def test_equal_size_array_replacement_needs_equal_measured_alignment(storage_tree, alignment):
+    mapping, why = adopt_storage(storage_tree, new_alignment=alignment)
+    assert mapping is None and "alignment" in why
+
+
+@pytest.mark.parametrize("change", [
+    lambda r: r.pop(lane.STORAGE_PROBE + "0"),
+    lambda r: r[lane.STORAGE_PROBE + "0"].update(unparsed=0),
+    lambda r: r[lane.STORAGE_PROBE + "0"].update(fwd=True),
+    lambda r: r[lane.STORAGE_PROBE + "0"].update(size=24),
+    lambda r: r[lane.STORAGE_PROBE + "0"].update(fields=[[0, "prefix", "char", 1], []]),
+    lambda r: r[lane.STORAGE_PROBE + "0"]["fields"][1].__setitem__(2, "Other"),
+    lambda r: r["Object"].update(size=20),
+])
+def test_unused_array_needs_complete_fresh_alignment_records(storage_tree, change):
+    def mutate(records, canonical):
+        if canonical:
+            change(records)
+    mapping, why = adopt_storage(storage_tree, mutate=mutate)
+    assert mapping is None and "alignment" in why
+
+
+@pytest.mark.parametrize("which,change", [
+    ("before", lambda r: r["Object"].update(size=20)),
+    ("before", lambda r: r["Object"]["fields"][0].__setitem__(3, 11)),
+    ("before", lambda r: r["Object"]["fields"].append([4, "alias", "int", 4])),
+    ("before", lambda r: r["Object"]["fields"].append([4, "m_basePad", "uchar[12]", 12])),
+    ("after", lambda r: r["Base"].update(fwd=True)),
+    ("after", lambda r: r["Base"].update(unparsed=None)),
+    ("after", lambda r: r["Object"].update(bases=[["Missing", 0]])),
+    ("after", lambda r: r["Object"].update(bases=[["virtual Base", -1]])),
+    ("after", lambda r: r["Object"].update(bases=[["Object", 0]])),
+    ("after", lambda r: r["Object"]["fields"].append([8, "alias", "int", 4])),
+    ("after", lambda r: r["Object"]["fields"].append([2, "crosses", "int", 4])),
+    ("after", lambda r: r["Object"]["fields"][0].__setitem__(2, "Unknown")),
+    ("after", lambda r: r["Object"]["fields"][0].__setitem__(2, "double")),
+    ("after", lambda r: r["Base"].update(vfptr=False)),
+])
+def test_unused_array_needs_complete_matching_nonoverlapping_storage(storage_tree, which, change):
+    _root, before, after = storage_tree
+    change(before if which == "before" else after)
+    mapping, why = adopt_storage(storage_tree)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("declaration", [
+    "unsigned char m_basePad[11];", "unsigned char m_basePad[2][6];",
+    "unsigned char m_basePad[sizeof(int) * 3];", "signed int m_basePad[3];",
+    "const unsigned char m_basePad[12];",
+])
+def test_only_literal_builtin_byte_storage_is_admitted(storage_tree, declaration):
+    text = STORAGE_UNIT.replace("unsigned char m_basePad[0x0c];", declaration)
+    mapping, why = adopt_storage(storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("addition,needle", [
+    ('#include "missing.h"\n', "include"),
+    ("#define Object Other\n", "Object"),
+    ("namespace Other { class Object {}; }\n", "namespace"),
+])
+def test_padding_only_mapping_retains_include_macro_and_name_checks(storage_tree, addition, needle):
+    mapping, why = adopt_storage(storage_tree, STORAGE_UNIT + addition)
+    assert mapping is None and needle in why
+
+
+def test_padding_only_mapping_retains_conditional_hierarchy_checks(storage_tree):
+    root, _before, _after = storage_tree
+    (root / "Object.h").write_text("#if FEATURE\n" + STORAGE_HEADER + "#endif\n")
+    mapping, why = adopt_storage(storage_tree)
+    assert mapping is None and why
 
 
 def test_the_probe_compiles_the_unit_only_up_to_its_view():
