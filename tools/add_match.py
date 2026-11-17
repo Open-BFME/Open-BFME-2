@@ -13,6 +13,13 @@ Usage:
   python3 tools/add_match.py <mangled-name> <target_rva> <target_size> <source> \\
       [--notes TEXT] [--replace-existing] [--no-verify] [--root DIR]
 
+`--propose-flags` runs the existing flag_defaults.py proposal against the
+pending ledger, then the unchanged whole-source byte gate. Claim
+reverse/flag_overrides.csv as well as the source before using it. Failed
+proposals/builds restore the register; an intervening register change is
+preserved and reported instead of overwritten. This option never skips the
+byte gate and cannot be combined with --no-verify.
+
 `--replace-existing` safely repoints the symbol's one existing ledger row before
 verification.  `--replace-rva` does the same keyed on the ADDRESS instead of the
 name, which is the only way to convert a machine byte-dump: a real conversion
@@ -378,6 +385,11 @@ def main():
     parser.add_argument("source", help="repo-relative source path (src/...)")
     parser.add_argument("--notes", default="", help="notes column text (no commas)")
     parser.add_argument(
+        "--propose-flags", action="store_true",
+        help="run flag_defaults.py propose against the pending row before the ordinary "
+        "whole-source byte gate; roll back its override on any failure",
+    )
+    parser.add_argument(
         "--icf-owner",
         help="existing matched symbol at the same RVA and size; "
         "allows a verified identical-code-folding alias",
@@ -418,6 +430,8 @@ def main():
         "instead of the live ledger (default: repo root)",
     )
     args = parser.parse_args()
+    if args.propose_flags and args.no_verify:
+        parser.error("--propose-flags requires verification; it cannot be combined with --no-verify")
 
     root = args.root.resolve()
     functions_csv = root / "reverse" / "functions.csv"
@@ -583,6 +597,12 @@ def main():
         f"{name},{export_rva},0x{rva:08X},{size},{source_rel},matched,{args.notes}"
     )
 
+    # A new row can change the byte-weighted region vote. The existing proposal
+    # tool must see that pending row to compare the two flag sets fairly. Save
+    # its register before any mutation, and keep the normal final byte gate.
+    flag_overrides = root / "reverse" / "flag_overrides.csv"
+    saved_overrides = (flag_overrides.read_bytes()
+                       if args.propose_flags and flag_overrides.exists() else None)
     saved_source = source_path.read_bytes()
     restore_pins = add_callee_pins(args.pin, root, name)
     new_source = strip_marker(source_path, name)
@@ -633,24 +653,56 @@ def main():
     else:
         verify_cmd = [str(build_sh), source_rel]
         verify_label = f"./build.sh {source_rel}"
-    print(f"add_match: verifying: {verify_label}")
-    try:
-        result = subprocess.run(verify_cmd, cwd=root)
-    except BaseException:
+    observed_overrides = saved_overrides
+
+    def read_overrides():
+        return flag_overrides.read_bytes() if flag_overrides.exists() else None
+
+    def restore_verification_inputs():
         functions_csv.write_bytes(raw)
         source_path.write_bytes(saved_source)
         restore_pins()
+        if args.propose_flags:
+            # The register has a file-wide claim, but do not overwrite another
+            # writer if it nevertheless changed while the byte gate was running.
+            if read_overrides() != observed_overrides:
+                raise RuntimeError(
+                    "flag override register changed after proposal; preserved the current "
+                    "register rather than overwriting it (function row and source restored)"
+                )
+            if saved_overrides is not None:
+                flag_overrides.write_bytes(saved_overrides)
+            elif flag_overrides.exists():
+                flag_overrides.unlink()
+
+    failed_stage = "verification"
+    try:
+        if args.propose_flags:
+            print("add_match: proposing flags for the pending row with flag_defaults.py")
+            failed_stage = "flag proposal"
+            try:
+                result = subprocess.run(
+                    [sys.executable, str(root / "tools" / "flag_defaults.py"), "propose", source_rel],
+                    cwd=root,
+                )
+            finally:
+                observed_overrides = read_overrides()
+        if not args.propose_flags or result.returncode == 0:
+            failed_stage = "verification"
+            print(f"add_match: verifying: {verify_label}")
+            result = subprocess.run(verify_cmd, cwd=root)
+    except BaseException:
+        restore_verification_inputs()
         print(
-            "add_match: interrupted — append and marker strip REVERTED", file=sys.stderr
+            "add_match: interrupted — append, marker strip and any flag proposal REVERTED",
+            file=sys.stderr,
         )
         raise
     if result.returncode != 0:
-        functions_csv.write_bytes(raw)
-        source_path.write_bytes(saved_source)
-        restore_pins()
+        restore_verification_inputs()
         fail(
-            f"verification failed (exit {result.returncode}) — append and "
-            "marker strip REVERTED; nothing was changed"
+            f"{failed_stage} failed (exit {result.returncode}) — append, "
+            "marker strip and any flag proposal REVERTED; nothing was changed"
         )
     print("add_match: verified OK — row is live")
     remove_stash(rva, args.root)
