@@ -9826,6 +9826,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ios_imbue.cpp	"
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_wide_ios_imbue.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	"s",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/AABTreeCullO1Inlines.cpp	"",on	1	allow=cbe83ee76362d208e4894b809241a81869a4ae8a
+pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/AABTreeCullO1Inlines.cpp	"gty",on	1	allow=cbe83ee76362d208e4894b809241a81869a4ae8a
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/CollisionMathLineBox.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/CollisionMathLineBox.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/CollisionMathMovingAABox.cpp	"",on	1
