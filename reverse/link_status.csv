@@ -1963,7 +1963,7 @@ Code/GameEngine/Source/Common/Rva00090F88.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00090FE0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0009111BDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00091A3CFirstMapObject.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva00091A80Ctor.cpp,no,8,0,0,0,0
+Code/GameEngine/Source/Common/Rva00091A80Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00094B08Finish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00094DD3.cpp,yes,0,0,0,0,0
@@ -2954,7 +2954,7 @@ Code/GameEngine/Source/Common/Rva002D9531CondSetter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002D9893Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002DAAD5Flag.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002DAAF2.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp,no,8,0,0,0,0
+Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002DB9B6Copy.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002DB9CBClear.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva002DB9EFGet.cpp,yes,0,0,0,0,0
@@ -12172,7 +12172,7 @@ Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder_onUnitCreated.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFindAvailableFarm.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIFarm.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIMoneyLender.cpp,yes,0,0,0,0,0
@@ -13622,13 +13622,13 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGetBackBufferSurface.cpp,ye
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DLogicalScreenToPixelScreen.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp,no,0,0,0,0,1
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp,yes,0,0,0,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp,no,0,0,1,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorDirection.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_freeD3DAssets.cpp,yes,0,0,0,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_freeD3DAssets.cpp,no,0,0,1,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_loadD3DCursorTextures.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_releaseD3DCursorTextures.cpp,yes,0,0,0,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_releaseD3DCursorTextures.cpp,no,0,0,1,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferAddProp.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferCtor.cpp,yes,0,0,0,0,0
@@ -13690,9 +13690,9 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp,yes,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksBind.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksFlush.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksReAcquire.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,no,0,0,0,0,1
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp,yes,0,0,0,0,0
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructor.cpp,no,6,0,0,0,0
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructor.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualGetTerrainTile.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp,yes,0,0,0,0,0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualIntersectTerrain.cpp,yes,0,0,0,0,0
@@ -14961,7 +14961,6 @@ Code/Libraries/Source/WWVegas/WW3D2/aabtreebuilder.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,no,0,0,0,0,2
 Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WW3D2/bfme2_particle_texture_accessor.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/bfme2_polygon_render.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/bfme2_texture_binding.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WW3D2/bfme2_texture_category_ref.cpp,yes,0,0,0,0,0
