@@ -24,3 +24,10 @@ the callback and its adjustment each have their own commit.
 This is source/provider repair, not a published bridge-retirement result.
 The cohort still has other unresolved virtual surfaces, including slot1.
 Only a later published real-link receipt can confirm which bridges leave.
+
+After publishing both bodies, StrategicInGameUI.cpp drops its old slot0-to-step
+alternatename. The real shared member now supplies that binding directly.
+Its ordinary build verifies all seventy current rows, and a private A/B retains
+all eighty-six COMDATs identically. The global hatch register was claimed by
+another worker, so this change leaves its old allowance untouched rather than
+editing that worker's register scope. The source has one fewer alias.

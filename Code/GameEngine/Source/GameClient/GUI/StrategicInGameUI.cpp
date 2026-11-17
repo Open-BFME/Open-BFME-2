@@ -9,7 +9,6 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 #include "../../../Include/Common/Rva0007DF07.h"
-#pragma comment(linker, "/alternatename:?slot0@Rva005E4F6D@@UAEXXZ=?step@Rva005E5554@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot1@Rva005E4F6D@@UAEXXZ=?rva005E415F@Rva005E69D0@@QAEHXZ")
 struct Rva005E59FCKeyIterator {
  typedef _STL::bidirectional_iterator_tag iterator_category;
