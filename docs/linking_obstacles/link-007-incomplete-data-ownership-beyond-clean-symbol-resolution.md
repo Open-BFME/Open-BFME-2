@@ -613,3 +613,10 @@ trials were not repeated. Provider reconciliation or an approved census rule
 decision remains necessary; census clearance is not claimed.
 
 **Pinger flag alias boundary (2026-11-04):** `/Ow` permits the shared flag with 18/19 rows exact; only `_piBytesToPing` scheduling remains. All trials restored and 19/19 reverified; [evidence and next check](../../reverse/attempt_support/pinger-settingdata-alias-flags-20261104-codexb.md).
+
+- **2026-11-17 DynamicShroudClearingRangeUpdate:** unchanged normal15/15
+  passes. Its private UpdateModule View.h still maps a one-slot stand-in at
+  +C onto native47-slot BehaviorModuleInterface, and two slots at+10 onto
+  native3-slot UpdateModuleInterface. Canonical parent exists; class claim
+  is held elsewhere. No header/source/ledger mutation or bridge clearance.
+  [Preflight](../../reverse/attempt_support/dynamic-shroud-interface-preflight-20261117.md).

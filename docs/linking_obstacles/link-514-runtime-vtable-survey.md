@@ -3859,3 +3859,11 @@ Base `9b6081b4cea`. `LargeGroupAudioUpdateCtor.cpp` defined the hand-built stron
 SidesList.cpp's 48B Rva0032A082 constructor now stores the existing Rva0032989F table at retail RVA 0080D8FC. Its two proven slots are G at 0032A0B2 and parser 00329906; base table 007C9574 remains AD930/purecall. The transitional constructor view is novtable, suppressing only its erroneous three-slot table and unrowed G helper. No alias, pin, bridge, new provider or ledger row is added. Constructor bytes are identical; only DIR32 +38 changes to the existing table symbol. Other retained external providers are unchanged.
 
 Official whole-file verification passes 66/66 functions and one data row; EH 10 EXACT, new-variant check clean, CSV clean, all hatch counts unchanged. Complete incoming audit covers all 17,542 current objects with zero old table/G/E hits, no missing/stale/error cases and stable inputs. Ten binary vendor members are separately byte/hash-checked against their recorded archives. Scoped preview still reports unchanged getCharAt selected-copy debt against the stale census; a fresh real link must measure removal of the two parser-slot unresolved names. Evidence and private-view limitations: `reverse/attempt_support/sides-parser-native-table-20261117.md`.
+
+## 2026-11-17: BridgeTowerBehavior base declaration preflight
+
+The unchanged canonical-header producer passes 16/16 code rows. Its emitted BehaviorModule table still has purecall at slots 2/3 instead of the already-rowed name getter 0024A791 and transfer 004C9C7D. Both relevant class scopes are held by another contributor; no source or header edit is retained. The bridge pass test awaits the base declaration repair and a fresh real link. Evidence: `reverse/attempt_support/bridge-tower-base-declarations-20261117.md`.
+
+## 2026-11-17: Motion-blur constructor identity
+
+GapBodiesGE37.cpp still emits a destructor-only Rva000FD58A table for native 007CF410. The seven native slots already belong to the named ScreenMotionBlurFilter family and share its 1Ch layout. A normal identity rename must include the initializer caller; the rename tombstone register is held by another contributor. The unchanged build passes, no duplicate family or invented subclass is introduced, and the bridge pass test remains open. Evidence: `reverse/attempt_support/motion-blur-constructor-identity-20261117.md`.
