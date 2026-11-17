@@ -14,6 +14,7 @@
 struct Rva005CF22CBig { char prefix00[0x1C]; Rva00575674 sub1C; };
 class Rva005CEF2F { public: Rva005CEF2F(Rva005CF22CBig *, int); private: char storage[20]; };
 class Rva005CEE9F { public: Rva005CEE9F(Rva005CF22CBig *, int); private: char storage[20]; };
+class Rva005CEE07 { public: Rva005CEE07(Rva005CF22CBig *, int); private: char storage[16]; };
 
 struct Rva005CE93ESourcePrefix { unsigned int unknown00; void *target04; };
 class Rva005E6826Mid { public: void fwd(); };
@@ -45,6 +46,7 @@ public:
 	virtual void slot2();
 	virtual void slot3(int);
 	virtual void slot4(int);
+	virtual void slot5(int);
 	// Implicit virtual destructor: native 5CEC55 adjusts the virtual-base
 	// receiver by -4 and tail-calls Rva005CC698::~Rva005CC698 (5CC788).
 	// An explicit empty destructor adds table writes absent from retail.
@@ -105,5 +107,11 @@ void Rva005CE93E::slot3(int value)
 void Rva005CE93E::slot4(int value)
 {
     Rva005CEE9F *helper = new Rva005CEE9F(static_cast<Rva005CF22CBig *>(source), value);
+    static_cast<Rva005CF22CBig *>(source)->sub1C.rva00575674(reinterpret_cast<Object *>(helper));
+}
+
+void Rva005CE93E::slot5(int value)
+{
+    Rva005CEE07 *helper = new Rva005CEE07(static_cast<Rva005CF22CBig *>(source), value);
     static_cast<Rva005CF22CBig *>(source)->sub1C.rva00575674(reinterpret_cast<Object *>(helper));
 }

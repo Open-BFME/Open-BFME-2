@@ -33,3 +33,8 @@ allocation/construction reproduces the native78B lifetime; whole source9/9.
 
 Descendant slot4 at5CF22C independently matches78B with the20B region
 helper and existing constructor5CF07E; all10 child-source rows pass.
+
+Descendant slot5 at5CF6B5 independently matches78B with the16B army
+helper and existing constructor5CF37D; all11 child-source rows pass.
+Five descendant callbacks are banked individually. The remaining slot6
+at5CEA11 is still held; no incomplete abstract-base expansion is retained.
