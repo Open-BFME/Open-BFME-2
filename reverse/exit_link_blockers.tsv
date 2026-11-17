@@ -1,4 +1,4 @@
-# real link at 070a0fad0c9a1e7cce9946c27adab9a7a35e5948: tools/exit_link.py --blockers
+# real link at b36590d2c41d7c842f31bd57cffbcf094ecf6f80: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	8	??1Rva00119D00@@UAE@XZ
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp	3	??1Rva0060FE2@@UAE@XZ
@@ -7,9 +7,6 @@ Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	2	?bfmeSlot0@BfmeParserBindin
 Code/GameEngine/Source/Common/BfmeConv1399.cpp	1	?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z
 Code/GameEngine/Source/Common/BfmeConv526.cpp	1	?bfmeSetBSF@BfmeSubBSF@@QAEXPAX@Z
 Code/GameEngine/Source/Common/RTS/Player_Radar.cpp	1	?okToPlayRadarEdgeSound@Player@@QAE_NXZ
-Code/GameEngine/Source/Common/Rva00524477Dispatch.cpp	1	?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z
-Code/GameEngine/Source/Common/StrategicHUD.cpp	1	?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z
-Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp	1	?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp	1	??1Rva0044EF5E@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorCtor.cpp	1	??1Rva0044EF5E@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp	1	??1Rva0044EF5E@@UAE@XZ
@@ -27,5 +24,3 @@ Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	1	?g_Rva00E0A010@@3
 Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	1	?g_Rva0130A6E4@@3QBDB
 Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	1	?g_Rva0130A768@@3QBDB
 Code/Libraries/Source/Apt/AptActionInterpreter.cpp	1	?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z
-Code/Libraries/Source/Apt/AptCIH.cpp	1	?rva006dbd80@AptCIH@@QAEXXZ
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp	1	?rva006D36C0@EAStringC@@QBEHPBV1@@Z
