@@ -101,6 +101,49 @@ cd Open-BFME-2
 ./build.sh               # verify every tracked function against retail   (.\build.ps1 on Windows)
 ```
 
+On macOS (Apple Silicon), Homebrew no longer installs Wine: its `wine-stable`, `wine@devel`
+and `wine@staging` casks have been disabled since 2026-09-01 (they fail Gatekeeper). What
+passes there is **Wine 11** built from source as an x86_64 program, which Rosetta 2 runs,
+with the 32-bit side MSVC 7.1 needs. From an empty directory beside the Wine source, with
+[llvm-mingw](https://github.com/mstorsjo/llvm-mingw), `bison` and `flex` on `PATH` (about
+six minutes on 18 cores):
+
+```bash
+../wine/configure --prefix="$HOME/wine-x86" --build=x86_64-apple-darwin --host=x86_64-apple-darwin \
+    --enable-archs=i386,x86_64 --disable-tests --disable-win16 \
+    CC="clang -arch x86_64" CXX="clang++ -arch x86_64" LDFLAGS="-arch x86_64" \
+    CFLAGS=-O2 CXXFLAGS=-O2 CROSSCFLAGS=-O2 \
+    --without-x --without-freetype --without-fontconfig --without-gstreamer --without-vulkan \
+    --without-sdl --without-cups --without-gphoto --without-sane --without-krb5 --without-gssapi \
+    --without-netapi --without-opencl --without-pcap --without-usb --without-v4l2 --without-pulse \
+    --without-alsa --without-oss --without-capi --without-opengl --without-dbus --without-udev \
+    --without-ffmpeg --without-wayland --without-gnutls --without-inotify
+make -j18 && make install
+
+export PATH="$HOME/wine-x86/bin:$PATH"
+export WINEPREFIX="$HOME/.wine-bfme2"        # a 64-bit prefix: leave WINEARCH unset
+export WINEDLLOVERRIDES="mscoree,mshtml="    # no Mono or Gecko installer
+mkdir -p "$WINEPREFIX" && wineserver -p      # stays up: cl.exe starts in 0.16 s instead of 0.6 s
+wineboot -i
+wine reg add 'HKCU\Software\Wine\WineDbg' /v ShowCrashDialog /t REG_DWORD /d 0 /f
+BUILD_POOL=18 ./build.sh
+```
+
+Keep `PATH` and `WINEPREFIX` set for later builds. `wineserver -p` goes first: right after
+another Wine command it exits with status 2, that command's own server being still up. Keep
+the registry line: under Rosetta a Wine launch dies at startup now and then
+(`wine: Unhandled page fault on execute access`, about one launch in 600 to 2,000 here),
+and the crash dialog that line turns off would wait forever with the build behind it. The
+unit whose launch died fails, and the next `./build.sh` compiles it. `python3` needs Capstone
+(`reference/open-bfme-1/tools/requirements.txt`); GNU binutils is not needed, because the
+module-registry check decodes with Capstone when `objdump` is LLVM's.
+
+Measured on 2026-11-17 on an M5 Max (18 cores, macOS 27, Wine 11.22): `FULL GATE: OK`,
+102078/102078 functions, in 11 to 12 minutes with a warm compile cache. A cold compile took
+about 29 minutes with `wine` wrapped in a script that spreads launches over six prefixes
+(one wineserver saturates at about three parallel `cl.exe`) and reruns a launch that died
+at startup.
+
 Units marked `// dxsdk` compile against the DirectX 9.0c SDK (August 2005), vendored in `vendor/dxsdk-aug2005/` (see its `PROVENANCE.txt`).
 
 `setup_hooks.sh` also registers `tools/merge_rows.py` as the merge driver for the
