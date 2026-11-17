@@ -74,11 +74,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // by befriending the anchor while hanim.h is first read; layout and names are unchanged.
 struct BfmeWeightInfoVddAnchor;
 #define private private: friend struct BfmeWeightInfoVddAnchor; private
-#include "hanim.h"
+#include "../../../../../reference/shims/bfmehcanim/bfme2_hanim_native.h"
 #undef private
 struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
-#include "hcanim.h"
+#include "../../../../../reference/shims/bfmehcanim/bfme2_hcanim_native.h"
 #include "assetmgr.h"
 // BFME reaches the hierarchy through a free function, as HRawAnimClass::Load_W3D
 // does -- cdecl, one argument, caller cleans -- rather than through the asset
