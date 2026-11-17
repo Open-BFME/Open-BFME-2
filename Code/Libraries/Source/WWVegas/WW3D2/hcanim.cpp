@@ -1625,3 +1625,8 @@ void AdaptiveDeltaMotionChannelClass::getframe<4>(uint32 frame_idx, AdaptiveDelt
 }
 
 // tu-skeleton: 0x0018FB70 166B ?rva0018FB70@HCompressedAnimClass@@UAEHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp (not merged yet)
+
+unsigned int HCompressedAnimClass::_bfme_hanim_v3() const
+{
+    return _bfme_unk_hcanim_key;
+}

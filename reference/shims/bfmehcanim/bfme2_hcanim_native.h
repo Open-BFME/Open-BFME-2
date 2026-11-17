@@ -127,6 +127,8 @@ public:
     // Native primary slot 22; existing provider HCompressedAnimMemory.cpp.
     int rva0018FB70();
 
+    unsigned int _bfme_hanim_v3() const;
+
 private:
 	char							Name[2*W3D_NAME_LEN];
 	char							HierarchyName[W3D_NAME_LEN];

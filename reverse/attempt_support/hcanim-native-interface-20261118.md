@@ -25,3 +25,5 @@ rows. Those bodies are banked separately after ordinary admission/builds.
 The unchanged base Class_ID body still lacks ledger ownership at 0013B5E0;
 that physical RVA is claimed by another contributor. No new pin is added.
 The served two-table real-link pass test remains open until fresh evidence.
+
+Compressed key override _bfme_hanim_v3 at00661FD0 is recovered (4 bytes), reading the actual name-key dword at+40h. Normal hcanim verification passes64/64 rows; all references and retained funclets remain exact.
