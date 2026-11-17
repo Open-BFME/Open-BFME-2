@@ -261,12 +261,7 @@ public:
 	virtual void slot69();
 	virtual Rva0036AE51ListView getList();
 };
-class AICommandInterface
-{
-public:
-	void aiExit(Object *obj, CommandSourceType cmdSource);
-	void rva0037379B(Object *obj, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct Rva00373B70Template
 {
 	char pad00[0x114];
