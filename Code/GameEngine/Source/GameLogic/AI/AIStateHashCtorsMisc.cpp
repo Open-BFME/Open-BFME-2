@@ -22,6 +22,7 @@ class Rva00342547 : public State
 {
 public:
 	Rva00342547(StateMachine *machine);
+	virtual const char *GetSnapshotName() const { return "AIFaceDirectionState"; }
 
 private:
 	float m_20; // +0x20
