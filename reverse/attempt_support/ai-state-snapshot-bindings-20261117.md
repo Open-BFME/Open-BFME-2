@@ -26,3 +26,14 @@ worker; this pass does not edit it. The constructor source and touched body
 claims are held. Remaining lifecycle and transfer overrides are still needed,
 and the next published real-link queue is the pass test. Byte matches or a
 snapshot string do not establish complete class recovery or bridge retirement.
+
+All four claimed literal-return getters are now separately banked, reaching
+ordinary46/46. The face-direction entry callback at00342572 (46B) and exit
+callback at003425A0 (31B) are then separately recovered under the constructor
+view's virtual interface. The shared StateMachine owner accessor supplies the
+owner; the canonical AIUpdate declaration supplies the float at1A0. A TU-scoped
+owner pointer prefix records only the observed AI pointer at258. Entry saves
+the requested heading or returns success; exit restores FLT_MAX. Final normal
+build:48/48, four complete strings and two float literals verified. Existing
+standalone providers remain covered. Neither class-name reconciliation nor
+the remaining transfer/update slots is claimed complete.

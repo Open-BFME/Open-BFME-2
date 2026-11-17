@@ -23,6 +23,7 @@ class Rva00342547 : public State
 public:
 	Rva00342547(StateMachine *machine);
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType);
 	virtual const char *GetSnapshotName() const { return "AIFaceDirectionState"; }
 
 private:
@@ -274,4 +275,11 @@ StateReturnType Rva00342547::onEnter()
         return STATE_SUCCESS;
     m_20 = ai->m_field1A0;
     return STATE_CONTINUE;
+}
+
+#include <float.h>
+// Native C12378 slot5,31B: release the requested heading on exit.
+void Rva00342547::onExit(StateExitType)
+{
+    reinterpret_cast<FaceDirectionOwnerView *>(getMachineOwner())->ai->m_field1A0 = FLT_MAX;
 }
