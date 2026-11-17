@@ -7,8 +7,8 @@ emitting the existing deleting-helper row; nothing was applied. See
 [helper-emission prerequisite](../../reverse/attempt_support/hotspot-help-abi-20261117.md).
 The separate shared-interface cohort beginning at 0x0087501C now has a real
 seventeen-byte Rva005E4F6D::slot0 definition, identical to its existing native
-provider. Its eight-byte secondary adjustment is emitted naturally and will
-be banked separately. Existing rows remain exact; published bridge retirement
+provider. Its eight-byte secondary adjustment is emitted naturally and banked
+separately. All seventeen rows remain exact; published bridge retirement
 is still pending. See
 [callback and adjustment proof](../../reverse/attempt_support/shared-interface-slot0-20261117.md).
 Status: Open (partly repaired). Updated: 2026-11-07; seats halilkkaya-lk38 (base `3d70a843d39`) and

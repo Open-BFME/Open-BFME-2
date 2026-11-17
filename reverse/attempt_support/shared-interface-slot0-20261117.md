@@ -17,7 +17,9 @@ MSVC naturally emits the existing eight-byte secondary-base adjusting thunk
 under the proper slot0 decoration when it compiles this complete hierarchy.
 A private probe verifies both bodies and all fifteen pre-existing source rows.
 The ordinary build after callback admission verifies sixteen rows.
-The adjusting thunk is to be banked separately against its existing owner.
+The adjusting thunk is banked separately against its existing owner in
+GapForwardersSeat8.cpp. The ordinary build then verifies all seventeen rows;
+the callback and its adjustment each have their own commit.
 
 This is source/provider repair, not a published bridge-retirement result.
 The cohort still has other unresolved virtual surfaces, including slot1.
