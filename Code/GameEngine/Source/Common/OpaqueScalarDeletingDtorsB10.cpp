@@ -1,3 +1,4 @@
+#define BFME_SNAPSHOT_NAME_SLOT
 // cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
 //
 // Opaque scalar deleting destructors, batch B10: 28-byte wrappers that
@@ -141,19 +142,21 @@ Rva0041F94A::Rva0041F94A(EmitVtableTag *)
 {
 }
 
-// Rva00426745's two tables (data ledger): SubsystemInterface at +0 and Rva00426745SnapshotBase at +0xC, whose
+// Rva00426745's two tables (data ledger): SubsystemInterface at +0 and canonical Snapshot at +0xC, whose
 // slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor thunk.
 // Native base constructor 0x001B4E63 has its measured 17-byte provider in
 // subsystem/SubsystemInterface.cpp. Declare it rather than emitting the
 // implicit constructor for this bounded 12-byte deleting-destructor view.
 
-class Rva00426745SnapshotBase { public: virtual ~Rva00426745SnapshotBase() {} };
-class Rva00426745 : public SubsystemInterface, public Rva00426745SnapshotBase
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Rva00426745 : public SubsystemInterface, public Snapshot
 {
 public:
 	Rva00426745(EmitVtableTag *);
 public:
 	virtual ~Rva00426745();
+	virtual void reset();
+	virtual const char *GetSnapshotName() const;
 };
 
 // ?<Rva00426745::Rva00426745> absent-from-retail

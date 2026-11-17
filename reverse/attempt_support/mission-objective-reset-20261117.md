@@ -27,3 +27,16 @@ the synthetic anchor remain for their owning cleanup transaction.
 Private artifacts: continuation-20261117d-tracker-reset-probe.json,
 snapshot-shared-probe.json, snapshot-forceinline-probe.json,
 snapshot-retired-emitter-probe.json and snapshot-direct-probe.json under build/.
+
+## Canonical Snapshot adoption and name callback
+
+The subsequent direct-base candidate is now retained: canonical Snapshot replaces
+the one-slot private base for the live owner and its adjusting-destructor view.
+The constructor references the canonical secondary-table qualifier. Native
+C3C3F8 slot2 supplies the six-byte MissionObjectiveTracker getter. Existing
+legacy vector-delete emitter and its row/pin remain separately unchanged.
+Normal build and strict provider preparation pass45/45 over all three consumers;
+scoped link preview is3/3 LINKS against index8b06c04cd2 (18:16), with its one
+source-change warning. File-summed preview1398B is neither a real link receipt
+nor unique authored growth. Empty post-load/init/update and transfer remain
+open; this does not claim complete native tables or bridge retirement.
