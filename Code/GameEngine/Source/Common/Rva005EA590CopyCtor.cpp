@@ -70,6 +70,7 @@ public:
 	Rva005EA590( const Rva005EA590 & );
 	virtual void update();
 	virtual void xfer(Xfer *);
+	virtual bool testColor(int mode);
 	virtual const char *GetSnapshotName() const;
 	void calculateRates();
 	Rva005EA590Triple m_fields94;
@@ -187,4 +188,19 @@ void Rva005EA590::xfer(Xfer *stream)
     *stream == reinterpret_cast<RGBColor &>(m_fields94);
     *stream == reinterpret_cast<RGBColor &>(m_fieldsA0);
     *stream == m_fieldAC;
+}
+
+bool Rva005EA590::testColor(int mode)
+{
+    switch (mode) {
+    case 1:
+    case 2:
+    case 6:
+        return m_block.keys[m_fieldAC].frame == 0 &&
+            0.03f > m_fields94.blue + m_fields94.green + m_fields94.red;
+    case 5:
+        return m_block.keys[m_fieldAC].frame == 0 &&
+            m_fields94.blue * m_fields94.green * m_fields94.red > 0.97f;
+    }
+    return true;
 }
