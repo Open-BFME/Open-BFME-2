@@ -62,13 +62,7 @@ typedef void (FunctorTarget::*FunctorMethod)(void);
 
 #include "../../../../Include/GameClient/FunctorBinding.h"
 
-class FunctorWrapperHead
-{
-public:
-	FunctorWrapperHead() : m_refCount(0) {}
-	virtual void anchor();
-	int m_refCount; // +0x04
-};
+#include "../../../../Include/Common/FunctorWrapperHead.h"
 
 class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
 {
