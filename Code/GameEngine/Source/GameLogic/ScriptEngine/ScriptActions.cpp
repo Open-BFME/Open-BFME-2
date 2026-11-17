@@ -1700,7 +1700,7 @@ typedef bool Bool;
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
 #include "../../../Include/Common/BfmeObjectVtbl.h"
 #include "../../../Include/Common/BfmeObjectDlinkBase.h"
-class BfmeObjectDlinkPad { public: unsigned char m_pad[0x64]; };
+#include "../../../Include/Common/BfmeObjectDlinkPad.h"
 #include "../../../Include/GameLogic/AttackPriorityInfo.h"
 #include <vector>
 //
