@@ -1054,7 +1054,7 @@ struct TreeKey00242F5E;
  struct TreeOpaqueMapped242F5E;
 namespace _STL { template <> _Rb_tree_node<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > * _Rb_tree<TreeKey00242F5E,pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Select1st<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> >,less<TreeKey00242F5E>,allocator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >::_M_create_node(pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> const &); }
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Nonconst_traits<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >,bool> _Rb_tree<TreeKey00242F5E,pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E>,_Select1st<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> >,less<TreeKey00242F5E>,allocator<pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> > >::insert_unique(pair<TreeKey00242F5E const ,TreeOpaqueMapped242F5E> const &); }
-bool operator<(const TreeKey00242F5E &a, const TreeKey00242F5E &b);
+inline bool operator<(const TreeKey00242F5E &a, const TreeKey00242F5E &b) { return a.m_id < b.m_id || (!(b.m_id < a.m_id) && a.m_name < b.m_name); }
 struct Rva0047A6A9Row16
 {
 	Rva0047A6A9Row16();										// 0x0047A6A9
@@ -2080,11 +2080,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-struct Out00524477 { int m_0; AsciiString m_4; };
-// Native three-word cdecl hidden-return ABI matches the recovered STLport
-// make_pair provider. Its generated linker alias retains this legacy view;
-// typed-return trials add EH data or trigger MSVC7.1 ICE in this flat-frame unit.
-int __cdecl Rva0023FC23(Out00524477 *out, int *a1, int a2);
 class CommandButton;
 namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &); }
 #include "../../../Include/Common/PlayerTemplateStore.h"
@@ -4850,15 +4845,12 @@ void Rva002431CB::rva002431CB()
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicRva00246F8E.cpp
 
 // ?rva00246F8E@GameLogic@@QAE_NABVAsciiString@@HPAPBVCommandButton@@@Z @0x00246F8E 73B
-// Evidence: leaf called by CommandSet::getCommandButton 0x00409F05 with LINK BONUS 51B; pin name matches caller TU; prev GameLogic+0x10 BuildableMap and next Rva00246FD7; rowed releaseBuffer 0x36410 plus pinned Rva0023FC23 0x23FC23 plus rowed _M_find 0x241BD2; +0x24 map and node+0x18 mapped button from retail.
+// Evidence: leaf called by CommandSet::getCommandButton 0x00409F05 with LINK BONUS 51B; pin name matches caller TU; prev GameLogic+0x10 BuildableMap and next Rva00246FD7; rowed releaseBuffer 0x36410 plus rowed make_pair 0x23FC23 plus rowed _M_find 0x241BD2; +0x24 map and node+0x18 mapped button from retail.
 
 bool GameLogic::rva00246F8E(const AsciiString &setName, int slot, const CommandButton **button)
 {
-	char buf[8];
-	Out00524477 *out = (Out00524477 *)buf;
-	int r = Rva0023FC23(out, &slot, (int)&setName);
-	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > >::iterator it = m_controlBarOverrides.find(*(const TreeKey00242F5E *)r);
-	((AsciiString *)(buf + 4))->~AsciiString();
+	_STL::map<TreeKey00242F5E, TreeOpaqueMapped242F5E, _STL::less<TreeKey00242F5E>, _STL::allocator<_STL::pair<const TreeKey00242F5E, TreeOpaqueMapped242F5E> > >::iterator it =
+		m_controlBarOverrides.find((const TreeKey00242F5E &)_STL::make_pair(slot, setName));
 	if (it != m_controlBarOverrides.end()) {
 		*button = (const CommandButton *)it->second.m_bits;
 		return true;
