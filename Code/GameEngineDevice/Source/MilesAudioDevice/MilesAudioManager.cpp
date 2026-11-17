@@ -5766,7 +5766,7 @@ struct Elem4
 class Rva0005333FHolder
 {
 public:
-	void rva0005333F();
+	~Rva0005333FHolder();
 	void *m_vtable;
 };
 
@@ -7378,13 +7378,13 @@ void Rva00053D66DeviceRef::assign(Rva000A8903AudioDevice *device)
 
 //
 // ?Rva00055864Free@@YGXPAURva00055864Node@@@Z @ 0x00055864 (28B).
-// Opaque node deleter calling the rowed holder release 0x0005333F on the
+// Opaque node deleter calling the rowed holder destructor 0x0005333F on the
 // +4 value, then free.
 // Evidence: sole caller is deque clear loop 0x00056DA2; same flags as neighbours.
 
 void __stdcall Rva00055864Free(Rva00055864Node *p)
 {
-	p->m_val.rva0005333F();
+	p->m_val.~Rva0005333FHolder();
 	if (p) {
 		free(p);
 	}

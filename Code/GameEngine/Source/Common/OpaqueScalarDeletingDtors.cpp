@@ -56,18 +56,21 @@ Rva0072892::~Rva0072892()
 {
 }
 
-class Rva005333F
+// Rva0005333FHolder (non-virtual destructor row 0x0005333F; same view as its
+// owner Rva000532B7EventXfer.cpp, destructor only declared here).
+struct Rva0005333FTarget;
+struct Rva0005333FHolder
 {
-public:
-	Rva005333F(EmitVtableTag *);
-	virtual ~Rva005333F();
+	int m_00;
+	Rva0005333FTarget *m_target04;
+	~Rva0005333FHolder();
 };
 
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva005333F::Rva005333F> absent-from-retail
-Rva005333F::Rva005333F(EmitVtableTag *)
+// Anchor: deleting one emits ??_GRva0005333FHolder (calls the destructor row);
+// retail's 28B body at 0x00053FB6 sits in no vtable.
+void Rva005333F_Anchor(Rva0005333FHolder *object)
 {
+	delete object;
 }
 
 class W3DQuadrupedDrawModuleData

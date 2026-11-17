@@ -46,8 +46,11 @@ int MilesAudioManager::rva000532B7(Xfer *xfer)
 	return 1;
 }
 
-// Native [0x5333F,0x5335x),19B: releases the refcounted object at +0x88 of the
-// holder's +4 target when that pointer is set; the final release is a tail jump.
+// Native [0x5333F,0x5335x),19B: the holder's destructor. It releases the
+// refcounted object at +0x88 of the holder's +4 target when that pointer is set;
+// the final release is a tail jump. Retail's non-virtual scalar deleting
+// destructor 0x00053FB6 calls it, as do the _Destroy-shaped 0x00054F32 and the
+// node deleter 0x00055864 before its free.
 // Address-derived names: the holder and its target layouts are not proven.
 struct Rva0005333FTarget
 {
@@ -58,9 +61,9 @@ struct Rva0005333FHolder
 {
 	int m_00;
 	Rva0005333FTarget *m_target04;
-	void rva0005333F();
+	~Rva0005333FHolder();
 };
-void Rva0005333FHolder::rva0005333F()
+Rva0005333FHolder::~Rva0005333FHolder()
 {
 	if (m_target04)
 		m_target04->m_ref88.Release_Ref();

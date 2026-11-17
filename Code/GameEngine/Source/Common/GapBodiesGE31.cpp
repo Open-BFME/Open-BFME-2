@@ -551,17 +551,17 @@ const char *Rva0007FAAA::rva0007FAAA(unsigned int offset) const
 	return m_00 + offset;
 }
 
-// 0x00054F32 (9B): run the rowed Rva0005333FHolder::rva0005333F
+// 0x00054F32 (9B): run the rowed Rva0005333FHolder destructor
 // (0x0005333F) on an element in place, a tail jump (_Destroy's shape).
 class Rva0005333FHolder
 {
 public:
-	void rva0005333F();
+	~Rva0005333FHolder();
 };
 
 void rva00054F32(Rva0005333FHolder *element)
 {
-	element->rva0005333F();
+	element->~Rva0005333FHolder();
 }
 
 // 0x00051888 (14B), unreferenced: post-increment the counter at +0xD0,
