@@ -32,11 +32,28 @@ private:
 // at +4, bool bold at +8.
 #include "../../Include/Common/FontDesc.h"
 
+// Slot 1 of 0x00C6F098 is the INI block parse 0x0057A260 (GapBodiesS3E.cpp's
+// Rva0057A260 view): ItemFont +0x08, ItemNormalColor +0x14, ItemImportantColor
+// +0x18, ItemNewColor +0x1C and ItemVerticalSpacing +0x20, the fields this
+// constructor initialises. It parses through that unit's static table.
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+#include "../../Include/Common/INI/FieldParse.h"
+#include "../../Include/Common/INI/INI.h"
+
+class Rva0057A260
+{
+	friend class Rva0057A4E7;
+private:
+	static const FieldParse s_fieldParseTable[];
+};
+
 class Rva0057A4E7 : public Rva0022167C
 {
 public:
 	Rva0057A4E7();
 	virtual ~Rva0057A4E7();
+	virtual void rva0057A260(INI *ini);
 
 private:
 	FontDesc m_font; // +0x08
@@ -52,4 +69,9 @@ Rva0057A4E7::Rva0057A4E7()
 	m_font.name = "Albertus MT";
 	m_font.size = 12;
 	m_font.bold = false;
+}
+
+void Rva0057A4E7::rva0057A260(INI *ini)
+{
+	ini->initFromINI(this, Rva0057A260::s_fieldParseTable);
 }
