@@ -2535,7 +2535,7 @@ def same_virtual(code, word, cls, other):
     return overrides_virtual(code, word, cls, other) or overrides_virtual(code, word, other, cls)
 
 
-def foreign_declarations(code, word, cls, kind="function"):
+def foreign_declarations(code, word, cls, kind="function", *, raw_source=None):
     """How stripped `code` declares `word` as something other than the
     renamed entity: a type, typedef or enumerator, a data member, a method of
     another class, a function of another scope, a global (for a function), a
@@ -2569,7 +2569,7 @@ def foreign_declarations(code, word, cls, kind="function"):
                 (owner or "").split("::")[-1] != (cls or "") and \
                 not (kind == "function" and owner and same_virtual(code, word, cls, owner.split("::")[-1])):
             found.append(f"a function of {owner or 'the global scope'}")
-    if kind != "global" and word in set(name_metric.global_names(code)):
+    if kind != "global" and word in set(name_metric.global_names(code, raw_source=raw_source)):
         found.append("a global")
     for scope, start, end, params in name_metric.functions_in(code):
         if word in set(parameters(params)):
@@ -3170,7 +3170,7 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
             if why is not None:
                 raise Refusal(f"{new_word} is already a name in {rel}" +
                               (f" ({why})" if kind == "function" and basis_kind(plan.basis) == "canonical" else ""))
-        foreign = foreign_declarations(name_metric.strip(text), old_word, cls, kind)
+        foreign = foreign_declarations(name_metric.strip(text), old_word, cls, kind, raw_source=text)
         if foreign:
             raise Refusal(f"{rel} also declares {old_word} as {foreign[0]}; a word rewrite would rename "
                           "it too")
@@ -13213,7 +13213,7 @@ def prototype_param_spans(code, scope, params, name, skip, new=None):
     return spans
 
 
-def other_declarations(code, word, cls=None, *, member_classes=None):
+def other_declarations(code, word, cls=None, *, member_classes=None, raw_source=None):
     """Where stripped `code` declares `word` other than as a member of `cls`.
     `member_classes` restricts named member owners when a scoped rename has
     proven its lookup classes; None retains the conservative all-class scan.
@@ -13223,7 +13223,7 @@ def other_declarations(code, word, cls=None, *, member_classes=None):
         if name != cls and (member_classes is None or name in member_classes) and \
                 member_statements(code[start:end], word):
             found.append(f"a member of {name}")
-    if word in set(name_metric.global_names(code)):
+    if word in set(name_metric.global_names(code, raw_source=raw_source)):
         found.append("a global")
     for scope, start, end, params in name_metric.functions_in(code):
         if word in set(parameters(params)):
@@ -13618,7 +13618,7 @@ def plan_member(ctx, cls, member, new, basis, evidence, *, max_files=25):
     for rel in sorted(touched):
         text = texts.get(rel) or ctx.read(rel).decode("utf-8", errors="surrogateescape")
         code = name_metric.strip(text)
-        elsewhere = other_declarations(code, member, cls)
+        elsewhere = other_declarations(code, member, cls, raw_source=text)
         if elsewhere:
             raise Refusal(f"{rel} also declares {member} as {elsewhere[0]}; a word rewrite there is ambiguous")
         if code_mentions(text, new):
@@ -14239,7 +14239,16 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
         raise Refusal(f"{new} is spelled in a macro in {rel}")
     if clash and not restoring_binding:
         raise Refusal(f"{new} is already a name in {rel} ({clash})")
-    elsewhere = [d for d in other_declarations(outside, name, member_classes=member_classes)
+    # Restore only literals outside the masked function. Keeping comments blank
+    # avoids cutting a comment in half when FUNC's leading whitespace starts
+    # inside a stripped multi-line comment.
+    outside_source = list(outside)
+    for literal in name_metric.NONCODE.finditer(text):
+        if literal.group()[0] in "\"'" and (literal.end() <= start or literal.start() >= end):
+            outside_source[literal.start():literal.end()] = literal.group()
+    outside_source = "".join(outside_source)
+    elsewhere = [d for d in other_declarations(outside, name, member_classes=member_classes,
+                                              raw_source=outside_source)
                  if not d.startswith(("a parameter", "a local"))]
     if elsewhere and not binding:
         raise Refusal(f"{name} is also {elsewhere[0]} in {rel}; the function may mean it")

@@ -947,7 +947,7 @@ class Lane:
                 body = code[code.find("{", start):end]
                 items += [("local", scope, n, None) for n in name_metric.local_names(body)
                           if name_metric.weak("local", n)]
-        file_globals = set(name_metric.global_names(code))
+        file_globals = set(name_metric.global_names(code, raw_source=text))
         for r in self.data_rows(rel):
             word = rename._identifier(r.get("name", ""))
             if word and word in file_globals and name_metric.placeholder(word):
@@ -980,12 +980,13 @@ class Lane:
         Other classes may reuse member names. Same-class uses, globals, macros
         and uncertain class scopes still block; apply performs capture checks.
         """
-        code = name_metric.strip(self.text(rel) if text is None else text)
+        text = self.text(rel) if text is None else text
+        code = name_metric.strip(text)
         owner = self.collision_scope(rel, kind, scope, old)
         bodies = rename.class_bodies(code, owner) if owner else []
         if not bodies:
             return set(name_metric.WORD.findall(code))
-        words = set(name_metric.global_names(code)) | set(MACRO.findall(code))
+        words = set(name_metric.global_names(code, raw_source=text)) | set(MACRO.findall(code))
         for directive in DIRECTIVE.findall(code):
             words.update(name_metric.WORD.findall(directive))
         for start, end in bodies:

@@ -168,6 +168,35 @@ def test_offset_names_are_placeholders(name):
     assert names.placeholder(name)
 
 
+@pytest.mark.parametrize("arguments", ['parent, "label"', 'parent, ""', 'parent, "a,b;c"', 'parent, 17', 'true', '42'])
+def test_global_names_direct_initialized_object(arguments):
+    text = f'Record objectName({arguments});'
+    assert list(names.global_names(names.strip(text), raw_source=text)) == ["objectName"]
+    assert ("global", "objectName") in names.declared("Unit.cpp", text)
+
+
+@pytest.mark.parametrize("statement", [
+    'Record function();', 'Record function(void);', 'Record function(Type);',
+    'Record function(Type, Other);', 'Record function(Type value, int count);',
+    'Record function(int count = 42);', 'Record function(const char *label = "x");',
+    'Record function(Type());', 'Record function(Type (*callback)());',
+    'Record function(int value) { Record local(parent, "x"); }',
+    'Record malformed(arg, );', 'Record malformed(arg, /* comment */);',
+    'call(parent, "x");', 'return Record(42);', 'typedef Record function(Type);',
+    'namespace N { Record local(parent, "x"); }',
+    'class C { Record method(Type); void f() { Record local(parent, "x"); } };',
+])
+def test_global_names_does_not_guess_parenthesized_declarations(statement):
+    assert list(names.global_names(names.strip(statement), raw_source=statement)) == []
+
+
+def test_global_names_requires_actual_literal_evidence():
+    text = 'Record objectName(parent, "label");'
+    assert list(names.global_names(names.strip(text))) == []
+    with pytest.raises(ValueError, match="does not match"):
+        list(names.global_names(names.strip(text), raw_source='Record objectName(42);'))
+
+
 def test_global_names_blanks_a_continued_directive_in_a_crlf_file():
     # the directive scan reads backslash-CR-LF as a continuation, so the continued line is no global declaration
     # (before, it stayed in the code of a CRLF file and `int hidden;` below read as a second global there).

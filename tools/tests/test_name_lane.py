@@ -551,6 +551,25 @@ def test_owned_kinds(tree):
     assert ("global", "", "g_00A01000") in got
 
 
+def test_owned_direct_initialized_global_keeps_matched_data_fence(tree):
+    with (tree / SOURCE).open("a") as stream:
+        stream.write('\nRecord g_00A01010(parent, "label");\n'
+                     'Record g_00A01020(parent, "other");\n'
+                     'Record g_00A01030(parent, "pending");\n')
+    with (tree / "reverse/data_rows.csv").open("a") as stream:
+        stream.write(f'?g_00A01010@@3URecord@@A,0x00A01010,rva,12,.data,{SOURCE},matched,ev,m\n'
+                     f'?g_00A01030@@3URecord@@A,0x00A01030,rva,12,.data,{SOURCE},pending,ev,m\n')
+    got = {ident for kind, _, ident, _ in lane_of(tree).owned(SOURCE, kinds={"global"})}
+    assert got == {"g_00A01000", "g_00A01010"}
+
+
+def test_rename_collision_readers_recognize_direct_initialized_global():
+    text = 'Record sharedName(parent, "label");'
+    code = name_lane.name_metric.strip(text)
+    assert "a global" in rename.foreign_declarations(code, "sharedName", "Owner", raw_source=text)
+    assert "a global" in rename.other_declarations(code, "sharedName", raw_source=text)
+
+
 def test_owned_skips_locals_under_od(tree):
     got = {(k, i) for k, _, i, _ in lane_of(tree).owned("Code/Game/Slow.cpp")}
     assert ("param", "param_1") in got and ("local", "iVar1") not in got

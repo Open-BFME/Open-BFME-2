@@ -171,7 +171,18 @@ def local_names(body):
     return [m.group(2) for m in LOCAL.finditer(body) if m.group(1) not in statements and m.group(2) not in KEYWORDS]
 
 
-def global_names(code):
+def global_names(code, *, raw_source=None):
+    if raw_source is not None:
+        if strip(raw_source) != code:
+            raise ValueError("global_names raw source does not match stripped code")
+        # Keep literal expression evidence locally. The shared strip() contract
+        # blanks literals, and blank arguments cannot distinguish an initializer
+        # from malformed code. A same-width number also hides literal delimiters.
+        chars = list(code)
+        for literal in NONCODE.finditer(raw_source):
+            if literal.group()[0] in "\"'":
+                chars[literal.start()] = "0"
+        code = "".join(chars)
     code, top, depth, last = PREPROCESSOR.sub("", code), [], 0, 0
     for m in BRACE.finditer(code):
         if m.group() == "{":
@@ -185,7 +196,27 @@ def global_names(code):
                 top.append(";")
     top.append(code[last:] if depth == 0 else "")
     for stmt in "".join(top).split(";"):
-        if "(" in stmt or re.match(r"\s*(?:typedef|using|namespace|template|friend)\b", stmt):
+        if re.match(r"\s*(?:typedef|using|namespace|template|friend)\b", stmt):
+            continue
+        if "(" in stmt:
+            # Deliberately bounded: simple object declarator, simple arguments,
+            # and at least one literal (which cannot be a parameter declaration).
+            # Identifier-only arguments may instead be types: most-vexing parse.
+            direct = re.fullmatch(r"\s*(?:(?:static|const|volatile|extern)\s+)*"
+                                  r"([A-Za-z_]\w*(?:::\w+)*)\s+([A-Za-z_]\w*)\s*"
+                                  r"\(([^()]*)\)\s*", stmt)
+            if not direct:
+                continue
+            if direct.group(1) in KEYWORDS - {"int", "char", "bool", "float", "double", "long", "short", "unsigned", "signed"}:
+                continue
+            if direct.group(2) in KEYWORDS:
+                continue
+            args = [arg.strip() for arg in direct.group(3).split(",")]
+            number = r"(?:0[xX][0-9a-fA-F]+|[0-9]+)(?:[uUlL]*)|true|false"
+            argument = rf"(?:{number}|[A-Za-z_]\w*(?:::\w+)*)"
+            if (all(re.fullmatch(argument, arg) for arg in args)
+                    and any(re.fullmatch(number, arg) for arg in args)):
+                yield direct.group(2)
             continue
         stmt = unelaborate(stmt)          # `class Object *g_obj;` is a global, as above
         if stmt is None:
@@ -206,7 +237,7 @@ def declared(rel, text):
         out.append(("function", scope.split("#")[0].split("::")[-1]))
         out += [("param", n) for n in param_names(params)]
         out += [("local", n) for n in local_names(code[code.find("{", start):end])]
-    return out + [("global", n) for n in global_names(code)]
+    return out + [("global", n) for n in global_names(code, raw_source=text)]
 
 
 def readable():
