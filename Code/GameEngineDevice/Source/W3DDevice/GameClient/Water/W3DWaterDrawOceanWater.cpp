@@ -149,51 +149,7 @@ static __forceinline void matrixSet(Matrix3D &m, const Vector3 &x, const Vector3
 	m.Row[2].Set(x.Z, y.Z, z.Z, pos.Z);
 }
 
-class Matrix4
-{
-public:
-	Matrix4() {}
-	__forceinline explicit Matrix4(const Matrix3D &matrix3D) { Init(matrix3D); }
-	__forceinline Matrix4(const Matrix4 &matrix4)
-	{
-		Row[0] = matrix4.Row[0];
-		Row[1] = matrix4.Row[1];
-		Row[2] = matrix4.Row[2];
-		Row[3] = matrix4.Row[3];
-	}
-	__forceinline Matrix4 &operator=(const Matrix4 &m)
-	{
-		Row[0] = m.Row[0];
-		Row[1] = m.Row[1];
-		Row[2] = m.Row[2];
-		Row[3] = m.Row[3];
-		return *this;
-	}
-	__forceinline Matrix4(const Vector4 &vector4, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
-	{
-		Row[0] = vector4;
-		Row[1] = r1;
-		Row[2] = r2;
-		Row[3] = r3;
-	}
-	__forceinline void Init(const Matrix3D &matrix3D)
-	{
-		Row[0] = matrix3D.Row[0];
-		Row[1] = matrix3D.Row[1];
-		Row[2] = matrix3D.Row[2];
-		Row[3] = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	__forceinline Matrix4 Transpose() const
-	{
-		return Matrix4(
-			Vector4(Row[0][0], Row[1][0], Row[2][0], Row[3][0]),
-			Vector4(Row[0][1], Row[1][1], Row[2][1], Row[3][1]),
-			Vector4(Row[0][2], Row[1][2], Row[2][2], Row[3][2]),
-			Vector4(Row[0][3], Row[1][3], Row[2][3], Row[3][3]));
-	}
-
-	Vector4 Row[4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 // DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
 struct RenderStateStruct
 {
