@@ -31,6 +31,7 @@ protected:
 
 
 
+
 #endif //#defined DO_SEISMIC_SIMULATIONS
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra size (sized from
@@ -495,6 +496,8 @@ private:
 	ConnectionManager *m_member;
 };
 #include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
+typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/SizedForwarderSlots.h"
 
 class Rva00068436
 {
@@ -674,17 +677,37 @@ private:
 	Rva000664F4 *m_member;
 };
 
+class Rva00091D32Forwarder
+{
+public:
+	void rva00091D32();
+private:
+	char m_lead[0x14];
+	SizedForwarderSlots *m_inner;
+};
+
 // tu-skeleton: 0x00091AEA 445B ?init@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00091CA7 102B ?reset@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp (not merged yet)
 
 // tu-skeleton: 0x00091D0D 37B ?update@W3DTerrainVisual@@UAEXXZ -- matched in Code/GameEngine/Source/Common/W3DTerrainVisual_update.cpp (not merged yet)
 
-// tu-skeleton: 0x00091D32 11B ?rva00091D32@Rva00091D32Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSizedForwarders.cpp
+
+// vtable 0x00BC80A0#5: (+0x14)->slot132()
+void Rva00091D32Forwarder::rva00091D32()
+{
+	m_inner->slot132();
+}
+
+// Slot 0 of the one-slot table 0x00BC957C that ??0Rva000ABD56 installs; the
+// vptr is the old +0 pad.
 
 // tu-skeleton: 0x00091D3D 36B ?getTerrainColorAt@W3DTerrainVisual@@UAEXMMPAURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00091D61 81B ?rva00091D61@Rva00091D61@@QAEXPAHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00091D61Finish.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp
 
@@ -825,8 +848,6 @@ void Rva00092024Block::clear()
 	memset(this, 0, sizeof(*this));
 }
 
-// tu-skeleton: 0x00091E19 31B ?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp
 
 			// 0x00149F20
@@ -845,6 +866,8 @@ void Rva00091F3BNullForwarder::rva00091F3B(void *p)
 	if (m_member && p)
 		m_member->rva000682E1((Int)p);
 }
+
+// tu-skeleton: 0x00091E19 31B ?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00091E45 31B ?removeTreesAndPropsForConstruction@W3DTerrainVisual@@UAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
 

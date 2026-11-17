@@ -49,20 +49,6 @@ void Rva0008BD2BForwarder::rva0008BD2B()
 	slot20();
 }
 
-class Rva00091D32Forwarder
-{
-public:
-	void rva00091D32();
-private:
-	char m_lead[0x14];
-	SizedForwarderSlots *m_inner;
-};
-
-// vtable 0x00BC80A0#5: (+0x14)->slot132()
-void Rva00091D32Forwarder::rva00091D32()
-{
-	m_inner->slot132();
-}
 
 // Slot 0 of the one-slot table 0x00BC957C that ??0Rva000ABD56 installs; the
 // vptr is the old +0 pad.
