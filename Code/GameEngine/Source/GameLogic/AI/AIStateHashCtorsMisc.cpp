@@ -81,6 +81,7 @@ class Rva003675D6 : public State
 {
 public:
 	Rva003675D6(StateMachine *machine, bool arg0);
+	virtual const char *GetSnapshotName() const { return "AIGiantBirdFollowThruState"; }
 
 private:
 	bool m_20; // +0x20
