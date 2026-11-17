@@ -34,6 +34,7 @@ public:
 	virtual ~Rva0056B0BF();
 	virtual void slot3(int);
 	virtual bool ac26Slot1();
+	__declspec(noinline) void rva0056A9B5();
 private:
 	Parent0056B0BF *m_parent18;
 	bool m_1C;
@@ -59,4 +60,11 @@ void Rva0056B0BF::slot3(int)
 bool Rva0056B0BF::ac26Slot1()
 {
     return m_1E;
+}
+
+void Rva0056B0BF::rva0056A9B5()
+{
+    if (!m_1C) return;
+    if (!m_1D) return;
+    m_1E = true;
 }

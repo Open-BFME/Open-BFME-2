@@ -19,3 +19,9 @@ Remaining primary and secondary candidates are being examined separately.
 Primary table86D2E8 slot1 at4543C6 is now the concrete bool getter for
 constructor-proven field1E. Its complete4 bytes match the original provider;
 normal paired verification passes13/13 after this independent admission.
+
+The native17B guard56A9B5 is now owned by the same complete class: it
+requires1C and1D, then sets1E. Native primary setter56A9C6 and observer
+callback56A9DE both pass this complete receiver. The outlined boundary is
+kept explicitly, matching the original provider and avoiding an inlined
+replacement. All14 paired rows remain exact after this separate admission.
