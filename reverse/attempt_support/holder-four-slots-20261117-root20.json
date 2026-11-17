@@ -1,0 +1,630 @@
+{
+  "artifact": {
+    "id": 14368572756,
+    "sha256": "dc43b55c33c94ce37501fb6aea9bd6adce8a6536d0473cb1d22caf405fc1832d"
+  },
+  "banked_source_commit": "2fa6c426794d0fe045ef40a077b62478e5e570eb",
+  "base_revision": "e8e34c0e8f669040b83c9f5bf8c10ef92f375261",
+  "generator_coverage": {
+    "issue": "raw private CPP census omits canonical-only constructor and future slot declarations; existing canonical consumers are not mandatory tournament witnesses",
+    "observation_kind": "source-level inspection; separate verifier repair dispatched",
+    "safety": "No fabricated header emitter/owner facts, prepared fingerprint exceptions or manually edited generated header retained."
+  },
+  "latest_authoritative_real_link": {
+    "authoritative": true,
+    "build": "success",
+    "commit": "50737acf866b73727a21dc0bc8ef45d6c07f8b4f",
+    "duplicates": 0,
+    "image_written": false,
+    "initializers_bridged": 468,
+    "link_seconds_with_proofs": 498,
+    "linker_exit": 1120,
+    "objects": 17518,
+    "omitted_funclets": [],
+    "refusal": null,
+    "run_id": "44166176629",
+    "unresolved": 3,
+    "vtable_slots_bridged": 45896,
+    "vtables_bridged": 3110,
+    "when": "2026-11-17 20:52 UTC"
+  },
+  "ob0_lifetime_trial": {
+    "kept": false,
+    "new_lifetime_packets": {
+      "??1Rva00575383@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "extent": 7,
+        "relocs": [
+          [
+            2,
+            "??_7Rva00575383@@6B@",
+            6
+          ]
+        ],
+        "selection": 2
+      },
+      "??_7Rva00575383@@6B@": {
+        "bytes": "00000000",
+        "extent": 4,
+        "relocs": [
+          [
+            0,
+            "??_ERva00575383@@UAEPAXI@Z",
+            6
+          ]
+        ],
+        "selection": 2
+      },
+      "??_GRva00575383@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "extent": 28,
+        "relocs": [
+          [
+            4,
+            "??1Rva00575383@@UAE@XZ",
+            20
+          ],
+          [
+            17,
+            "??3@YAXPAX@Z",
+            20
+          ]
+        ],
+        "selection": 2
+      }
+    },
+    "rejection": "The member TU emits a new28B scalar deleting copy and sorts before the correct owner in real path order.",
+    "same_runtime": false,
+    "sections_after": 85,
+    "sections_before": 82,
+    "source_restored": true
+  },
+  "pin_retirement": {
+    "complete_reference_proof": "COMPLETE_CLEAN at source commit2fa6c426794; historical proof, refresh before any future retirement.",
+    "expected_objects": 17517,
+    "held_ledgers": [
+      "reverse/symbols.csv",
+      "reverse/hatch_counts.json"
+    ],
+    "holder": "Krzysztof W\u0142och@DESKTOP-D6QURIN/807d632b",
+    "missing_objects": 0,
+    "old_pin": "?rva0057539C@Rva0057539C@@QAEXXZ",
+    "proof": {
+      "complete_clean": true,
+      "elapsed_seconds": 104.0,
+      "head_after": "2fa6c426794d0fe045ef40a077b62478e5e570eb",
+      "head_before": "2fa6c426794d0fe045ef40a077b62478e5e570eb",
+      "input_metadata_changes": [],
+      "inventory_stable": true,
+      "mention_current_after": [
+        {
+          "current": true,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^resolve^battles^behavior.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp"
+        },
+        {
+          "current": true,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^resolve^battles^behavior_^on^mouse^left^click.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp"
+        },
+        {
+          "current": true,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^resolve^battles^behavior_^on^mouse^left^click_^on^mouse^left^click.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp"
+        }
+      ],
+      "mention_current_before": [
+        {
+          "current": true,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^resolve^battles^behavior.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp"
+        },
+        {
+          "current": true,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^resolve^battles^behavior_^on^mouse^left^click.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp"
+        },
+        {
+          "current": true,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\r20\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^resolve^battles^behavior_^on^mouse^left^click_^on^mouse^left^click.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp"
+        }
+      ],
+      "mention_hashes_after": {
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp": "21919dd2aebb5d600c4fdb66b5c350d6490abbe3715a9a95d6bbbe33b3d10725",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp": "9b5ef2a2cde4187564a9648fbdc470a33cab38be108a6fc78e05904dabc47c14",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp": "97663d6cdb086face44435acfc358abfcf8f4359b25ed3911bc449be50c43aa0"
+      },
+      "mention_hashes_before": {
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp": "21919dd2aebb5d600c4fdb66b5c350d6490abbe3715a9a95d6bbbe33b3d10725",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp": "9b5ef2a2cde4187564a9648fbdc470a33cab38be108a6fc78e05904dabc47c14",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp": "97663d6cdb086face44435acfc358abfcf8f4359b25ed3911bc449be50c43aa0"
+      },
+      "mentioning_sources_words": [
+        "?rva0057539C@Rva0057539C@@QAEXXZ",
+        "Rva0057539C"
+      ],
+      "mentions_after": [
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp"
+      ],
+      "mentions_before": [
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp",
+        "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp"
+      ],
+      "missing_mentions": [],
+      "missing_objects": [],
+      "object_count": 17517,
+      "object_metadata_changes": [],
+      "owning_object_pin_references": [],
+      "source_metadata_changes": [],
+      "symbol": "?rva0057539C@Rva0057539C@@QAEXXZ",
+      "symbols_sha256_after": "a348dcd1554eb3409b9c68b3613ebe1895d89f01a8b6e2d14d9ce52752852959",
+      "symbols_sha256_before": "a348dcd1554eb3409b9c68b3613ebe1895d89f01a8b6e2d14d9ce52752852959",
+      "unique_object_count": 17517
+    },
+    "proof_artifact_sha256": {
+      "pin-clean-after.json": "5316a6b1a0362c9d3e6f7e323d656763c900353d43bc77ddaee27ff1b4185f02",
+      "pin-clean-inventory.json": "12ba9182efb45fef7d1caf0aff3fd1a2e06314060c588e344bf052fd8849ad5a",
+      "pin-clean-proof.py": "72e3d054cd2522a3653b5e72d5a5713225a431b0a0bd812f5b9cbb057673aa84",
+      "pin-clean-result.json": "7908da2d44243163d3fb6d249d1cfcf3f04b8c0f4ae0d4f55dbb7b58afa9b061"
+    },
+    "retired": false
+  },
+  "strong_lifetime_trial": {
+    "complete_consumer_packets": {
+      "Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp": {
+        "after": {},
+        "before": {},
+        "same_runtime": true
+      },
+      "Code/GameEngine/Source/Common/Rva005763EDCtor.cpp": {
+        "after": {
+          "??1Rva00575383@@UAE@XZ": {
+            "bytes": "c70100000000c3",
+            "extent": 7,
+            "relocs": [
+              [
+                2,
+                "??_7Rva00575383@@6B@",
+                6
+              ]
+            ],
+            "selection": 1
+          },
+          "??_7Rva00575383@@6B@": {
+            "bytes": "00000000",
+            "extent": 4,
+            "relocs": [
+              [
+                0,
+                "??_ERva00575383@@UAEPAXI@Z",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_GRva00575383@@UAEPAXI@Z": {
+            "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+            "extent": 29,
+            "relocs": [
+              [
+                10,
+                "??_7Rva00575383@@6B@",
+                6
+              ],
+              [
+                18,
+                "??3@YAXPAX@Z",
+                20
+              ]
+            ],
+            "selection": 2
+          }
+        },
+        "before": {
+          "??1Rva00575383@@UAE@XZ": {
+            "bytes": "c70100000000c3",
+            "extent": 7,
+            "relocs": [
+              [
+                2,
+                "??_7Rva00575383@@6B@",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_7Rva00575383@@6B@": {
+            "bytes": "00000000",
+            "extent": 4,
+            "relocs": [
+              [
+                0,
+                "??_ERva00575383@@UAEPAXI@Z",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_GRva00575383@@UAEPAXI@Z": {
+            "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+            "extent": 29,
+            "relocs": [
+              [
+                10,
+                "??_7Rva00575383@@6B@",
+                6
+              ],
+              [
+                18,
+                "??3@YAXPAX@Z",
+                20
+              ]
+            ],
+            "selection": 2
+          }
+        },
+        "same_runtime": false
+      },
+      "Code/GameEngine/Source/Common/Rva00576ED9Ctor.cpp": {
+        "after": {},
+        "before": {
+          "??1Rva00575383@@UAE@XZ": {
+            "bytes": "c70100000000c3",
+            "extent": 7,
+            "relocs": [
+              [
+                2,
+                "??_7Rva00575383@@6B@",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_7Rva00575383@@6B@": {
+            "bytes": "00000000",
+            "extent": 4,
+            "relocs": [
+              [
+                0,
+                "??_ERva00575383@@UAEPAXI@Z",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_GRva00575383@@UAEPAXI@Z": {
+            "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+            "extent": 29,
+            "relocs": [
+              [
+                10,
+                "??_7Rva00575383@@6B@",
+                6
+              ],
+              [
+                18,
+                "??3@YAXPAX@Z",
+                20
+              ]
+            ],
+            "selection": 2
+          }
+        },
+        "same_runtime": false
+      },
+      "Code/GameEngine/Source/Common/Rva0057718DUpdate.cpp": {
+        "after": {},
+        "before": {},
+        "same_runtime": true
+      },
+      "Code/GameEngine/Source/Common/Rva00577747Ctor.cpp": {
+        "after": {},
+        "before": {
+          "??1Rva00575383@@UAE@XZ": {
+            "bytes": "c70100000000c3",
+            "extent": 7,
+            "relocs": [
+              [
+                2,
+                "??_7Rva00575383@@6B@",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_7Rva00575383@@6B@": {
+            "bytes": "00000000",
+            "extent": 4,
+            "relocs": [
+              [
+                0,
+                "??_ERva00575383@@UAEPAXI@Z",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_GRva00575383@@UAEPAXI@Z": {
+            "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+            "extent": 29,
+            "relocs": [
+              [
+                10,
+                "??_7Rva00575383@@6B@",
+                6
+              ],
+              [
+                18,
+                "??3@YAXPAX@Z",
+                20
+              ]
+            ],
+            "selection": 2
+          }
+        },
+        "same_runtime": false
+      },
+      "Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp": {
+        "after": {
+          "??_7Rva00575383@@6B@": {
+            "bytes": "00000000",
+            "extent": 4,
+            "relocs": [
+              [
+                0,
+                "??_ERva00575383@@UAEPAXI@Z",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_GRva00575383@@UAEPAXI@Z": {
+            "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+            "extent": 28,
+            "relocs": [
+              [
+                4,
+                "??1Rva00575383@@UAE@XZ",
+                20
+              ],
+              [
+                17,
+                "??3@YAXPAX@Z",
+                20
+              ]
+            ],
+            "selection": 2
+          }
+        },
+        "before": {
+          "??_7Rva00575383@@6B@": {
+            "bytes": "00000000",
+            "extent": 4,
+            "relocs": [
+              [
+                0,
+                "??_ERva00575383@@UAEPAXI@Z",
+                6
+              ]
+            ],
+            "selection": 2
+          },
+          "??_GRva00575383@@UAEPAXI@Z": {
+            "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+            "extent": 29,
+            "relocs": [
+              [
+                10,
+                "??_7Rva00575383@@6B@",
+                6
+              ],
+              [
+                18,
+                "??3@YAXPAX@Z",
+                20
+              ]
+            ],
+            "selection": 2
+          }
+        },
+        "same_runtime": false
+      },
+      "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp": {
+        "after": {},
+        "before": {},
+        "same_runtime": true
+      },
+      "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp": {
+        "after": {},
+        "before": {},
+        "same_runtime": true
+      }
+    },
+    "kept": false,
+    "owner_only_proof": {
+      "complete_dtor": {
+        "after": {
+          "bytes": "c70100000000c3",
+          "comdat_selection": 1,
+          "extent": 7,
+          "relocs": [
+            [
+              2,
+              "??_7Rva00575383@@6B@",
+              6
+            ]
+          ]
+        },
+        "before": {
+          "bytes": "c70100000000c3",
+          "comdat_selection": 2,
+          "extent": 7,
+          "relocs": [
+            [
+              2,
+              "??_7Rva00575383@@6B@",
+              6
+            ]
+          ]
+        }
+      },
+      "deleting_dtor": {
+        "after": {
+          "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+          "comdat_selection": 2,
+          "extent": 29,
+          "relocs": [
+            [
+              10,
+              "??_7Rva00575383@@6B@",
+              6
+            ],
+            [
+              18,
+              "??3@YAXPAX@Z",
+              20
+            ]
+          ]
+        },
+        "before": {
+          "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+          "comdat_selection": 2,
+          "extent": 29,
+          "relocs": [
+            [
+              10,
+              "??_7Rva00575383@@6B@",
+              6
+            ],
+            [
+              18,
+              "??3@YAXPAX@Z",
+              20
+            ]
+          ]
+        }
+      },
+      "member_identical": true,
+      "owner_identical_except_policy": true
+    },
+    "rejection": "V3PolyCopyCtors emits a 28B ANY scalar deleting destructor instead of retail29B, introducing a call to complete destructor. ED9/77747 no longer emit their previous base lifetime packets. Owner-only agreement does not establish a safe cohort.",
+    "source_and_header_restored": true
+  },
+  "table": {
+    "class": "Rva00575383",
+    "compiled_slots": 1,
+    "retail_slots": 4,
+    "retail_targets": [
+      "0x005753B4",
+      "0x0057539C",
+      "0x005753A4",
+      "0x005753AC"
+    ],
+    "rva": "0x0086E5B4"
+  },
+  "target_319_entry": [
+    {
+      "name": "??_7Rva00575383@@6B@",
+      "name_bindings": [
+        {
+          "name": "??_7Rva00575383@@6B@",
+          "names": [
+            "??_7Rva00575383@@6B@"
+          ],
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva005763^e^d^ctor.obj",
+          "offset": 2,
+          "row_rva": 5723029,
+          "rva": 8840628,
+          "source": "Code/GameEngine/Source/Common/Rva005763EDCtor.cpp"
+        },
+        {
+          "name": "??_7Rva00575383@@6B@",
+          "names": [
+            "??_7Rva00575383@@6B@"
+          ],
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^v3^poly^copy^ctors.obj",
+          "offset": 8,
+          "row_rva": 5723011,
+          "rva": 8840628,
+          "source": "Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp"
+        },
+        {
+          "name": "??_7Rva00575383@@6B@",
+          "names": [
+            "??_7Rva00575383@@6B@"
+          ],
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva005763^e^d^ctor.obj",
+          "offset": 10,
+          "row_rva": 5723060,
+          "rva": 8840628,
+          "source": "Code/GameEngine/Source/Common/Rva005763EDCtor.cpp"
+        }
+      ],
+      "names": [
+        "??_7Rva00575383@@6B@"
+      ],
+      "previous_extent": 4,
+      "previous_object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva005763^e^d^ctor.obj",
+      "referenced_by": [],
+      "rva": 8840628,
+      "slots": [
+        {
+          "name": "??_GRva00575383@@UAEPAXI@Z",
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva005763^e^d^ctor.obj",
+          "rva": 5723060,
+          "source": "Code/GameEngine/Source/Common/Rva005763EDCtor.cpp"
+        },
+        {
+          "name": "?rva0057539C@Rva00575383@@QAEXXZ",
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0057539^c^forwarders.obj",
+          "rva": 5723036,
+          "source": "Code/GameEngine/Source/Common/Rva0057539CForwarders.cpp"
+        },
+        {
+          "name": "?rva005753A4@Rva00577302@@QAEXH@Z",
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^e.obj",
+          "rva": 5723044,
+          "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp"
+        },
+        {
+          "name": "?rva005753AC@Rva005753AC@@QAEHPBXH@Z",
+          "object": "D:\\a\\Open-BFME-2\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^i.obj",
+          "rva": 5723052,
+          "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp"
+        }
+      ],
+      "source": "D:\\a\\Open-BFME-2\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\Rva005763EDCtor.cpp",
+      "source_slot_mismatches": [
+        {
+          "ledger_rvas": [],
+          "name": "",
+          "reason": "missing-source-slot",
+          "retail_target_rva": 5723036,
+          "slot": 1
+        },
+        {
+          "ledger_rvas": [],
+          "name": "",
+          "reason": "missing-source-slot",
+          "retail_target_rva": 5723044,
+          "slot": 2
+        },
+        {
+          "ledger_rvas": [],
+          "name": "",
+          "reason": "missing-source-slot",
+          "retail_target_rva": 5723052,
+          "slot": 3
+        }
+      ]
+    }
+  ],
+  "unbanked_private_base_layout_preparation": {
+    "restored_to_HEAD": true,
+    "result": "native82 runtime sections unchanged and51/51 rows passed, but not retained as an additional private class view"
+  }
+}
