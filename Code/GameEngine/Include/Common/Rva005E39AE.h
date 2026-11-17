@@ -7,6 +7,7 @@ class Rva005E39AE
 {
 public:
 	void rva005E3AAA(int v);
+	void rva005E5424();
 };
 
 #endif // CANONICAL_RVA005E39AE_H

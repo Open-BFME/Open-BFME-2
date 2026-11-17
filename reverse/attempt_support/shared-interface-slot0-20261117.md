@@ -26,7 +26,10 @@ Rva005E54F7 override calls that base callback and then the existing run
 provider at 0x005F327A through the complete receiver. An outlined base body
 preserves the CALL that native 0x005E5554 makes to 0x005E549E. MSVC naturally
 emits both secondary-base adjustments. These corrected bindings are to be
-banked individually after the retraction.
+banked individually after the retraction. The correct base callback at
+0x005E549E is now admitted against its original owner, with the existing
+Rva005E39AE header declaring the already-rowed callee. The native call
+boundary is retained with noinline on this outlined eight-byte method.
 
 Slot one is already correctly rowed against its existing eight-byte helper.
 Both obsolete consumer alternatename directives have been removed. The
