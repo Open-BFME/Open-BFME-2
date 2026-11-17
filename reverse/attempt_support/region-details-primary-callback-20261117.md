@@ -20,3 +20,6 @@ an actual later published real-link receipt.
 
 Private three-source evidence: continuation-20261117d-cc-slot0-results.json
 under build/; ordinary build: continuation-20261117d-cc-slot0-build.log.
+
+Descendant slot1 is now recovered at5CE9BF: source+C then target+4,
+followed by the existing5E6826 forwarder. Whole child source passes7/7.

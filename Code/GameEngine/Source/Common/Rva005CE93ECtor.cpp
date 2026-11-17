@@ -7,6 +7,11 @@
 // The derived pointer is the third explicit argument's +14 field.
 #include "../../Include/Common/Rva0007DF07.h"
 
+// Native primary callbacks read the source record at+C, then its target at+4.
+struct Rva005CE93ESourcePrefix { unsigned int unknown00; void *target04; };
+class Rva005E6826Mid { public: void fwd(); };
+class Rva005E681EMid { public: void fwd(); };
+
 struct Rva005CE93EContext
 {
 	char unknown00[0x14];
@@ -29,6 +34,7 @@ class Rva005CE93E : public Rva005CC698
 {
 public:
 	Rva005CE93E(void *, void *, Rva005CE93EContext *);
+	virtual void slot1();
 	// Implicit virtual destructor: native 5CEC55 adjusts the virtual-base
 	// receiver by -4 and tail-calls Rva005CC698::~Rva005CC698 (5CC788).
 	// An explicit empty destructor adds table writes absent from retail.
@@ -68,4 +74,9 @@ struct Rva005CEB7B
 Rva005CE93EHandle Rva005CEB7B::rva005CEB7B(void *a, void *b)
 {
 	return Rva005CE93EHandle(new Rva005CE93E(a, b, &m_context));
+}
+
+void Rva005CE93E::slot1()
+{
+    reinterpret_cast<Rva005E6826Mid *>(static_cast<Rva005CE93ESourcePrefix *>(source)->target04)->fwd();
 }
