@@ -33657,14 +33657,14 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?getRayEffectData@GameClient@@UAEXPAVDrawable@@PAURayEffectData@@@Z,,0x00238F29,11,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,matched,game client vtable 0x00BC4738 slot 20: ZH getRayEffectData pass-through
 ??__EAIStructureCreep_IsRunning@@YAXXZ,,0x007B458D,27,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp,matched,object-symbol=_$E1;TU-local dynamic initializer constructing the AIStructureCreep_IsRunning AsciiString key at 0x00E06418 through AsciiString(const char *) 0x0000654A and registering the rowed atexit cleanup 0x007B9644
 ?rva000B31B9@Rva000B31B9NullForwarder@@QAEXH@Z,,0x000B31B9,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BCBC40#26 null-checked forwarder
-?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ,,0x00091E38,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#17 null-checked forwarder
-?rva00091EDD@Rva00091EDDNullForwarder@@QAEXH@Z,,0x00091EDD,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#22 null-checked forwarder
-?rva00091F2A@Rva00091F2ANullForwarder@@QAEHHH@Z,,0x00091F2A,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#24 null-checked forwarder
-?rva00091F51@Rva00091F51NullForwarder@@QAE_NHH@Z,,0x00091F51,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#28 null-checked forwarder
-?rva00091F62@Rva00091F62NullForwarder@@QAE_NHH@Z,,0x00091F62,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#29 null-checked forwarder
-?rva00091F73@Rva00091F73NullForwarder@@QAE_NH_N@Z,,0x00091F73,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#30 null-checked forwarder
-?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z,,0x00091F84,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#31 null-checked forwarder
-?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z,,0x00091FAB,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BC80A0#27 null-checked forwarder
+?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ,,0x00091E38,13,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#17 null-checked forwarder
+?rva00091EDD@Rva00091EDDNullForwarder@@QAEXH@Z,,0x00091EDD,15,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#22 null-checked forwarder
+?rva00091F2A@Rva00091F2ANullForwarder@@QAEHHH@Z,,0x00091F2A,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#24 null-checked forwarder
+?rva00091F51@Rva00091F51NullForwarder@@QAE_NHH@Z,,0x00091F51,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#28 null-checked forwarder
+?rva00091F62@Rva00091F62NullForwarder@@QAE_NHH@Z,,0x00091F62,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#29 null-checked forwarder
+?rva00091F73@Rva00091F73NullForwarder@@QAE_NH_N@Z,,0x00091F73,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#30 null-checked forwarder
+?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z,,0x00091F84,17,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#31 null-checked forwarder
+?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z,,0x00091FAB,15,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,vtable 0x00BC80A0#27 null-checked forwarder
 ?rva0017FEC1@Rva0017FEC1NullForwarder@@QAEHXZ,,0x0017FEC1,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BD4F50#14 null-checked forwarder
 ?rva0018036C@Rva0018036CNullForwarder@@QAEHXZ,,0x0018036C,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BD4F90#14 null-checked forwarder
 ?rva00180AA6@Rva00180AA6NullForwarder@@QAEHXZ,,0x00180AA6,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,vtable 0x00BD5050#14 null-checked forwarder
@@ -58759,7 +58759,7 @@ uw_007a5b3d,,0x007A5B3D,11,Code/GameEngine/Source/Common/System/RegistryAsciiPat
 ?drawSelectionRegion@Rva0008EF3FProduct@@UAEXXZ,,0x0008F395,249,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0008EF3FProductCtor.cpp,matched,Zero Hour W3DInGameUI::drawSelectionRegion plus BFME lasso polyline closed to the cursor; vtable 0x00BC7A88 slot 120
 ?getTerrainColorAt@W3DTerrainVisual@@UAEXMMPAURGBColor@@@Z,,0x00091D3D,36,Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp,matched,guarded forwarder of the +0x1C object to unrowed 0x000AC514; vtable entry 0x00BC80B8
 ?rva00091EEC@W3DTerrainVisual@@UAEXVVector3@@M@Z,,0x00091EEC,62,Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp,matched,guarded forwarder of a by-value Vector3 and radius to rowed 0x00069C5F; vtable entry 0x00BC80FC
-?rva00091F3B@Rva00091F3BNullForwarder@@QAEXPAX@Z,,0x00091F3B,22,Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp,matched,null-checked member and argument forwarder; vtable 0x00BC80A0 slot 25
+?rva00091F3B@Rva00091F3BNullForwarder@@QAEXPAX@Z,,0x00091F3B,22,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp,matched,null-checked member and argument forwarder; vtable 0x00BC80A0 slot 25
 ?rva00072A51@Rva00072A51@@UAEXVRva00072A94@@@Z,,0x00072A51,67,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,matched,by-value ref-counted holder stored at +8 via rowed operator= 0x00072A94; EH-protected argument release
 __ehhandler$?rva00072A51@Rva00072A51@@UAEXVRva00072A94@@@Z,,0x0075EDA5,10,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp,matched,EH handler thunk for 0x00072A51
 ?rva00224A31@@YAXPAVINI@@PAVRva002241D6@@@Z,,0x00224A31,14,Code/GameEngine/Source/GameClient/Rva00224A3F.cpp,matched,INI::initFromINI wrapper on offset +4 FieldParse table 0x00D87C28

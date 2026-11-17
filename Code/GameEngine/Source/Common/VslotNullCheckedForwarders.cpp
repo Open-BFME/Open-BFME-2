@@ -69,13 +69,6 @@ private:
 	Rva000680B3Host *m_member;
 };
 
-// vtable 0x00BC80A0#17
-void Rva00091E38NullForwarder::rva00091E38()
-{
-	if (m_member)
-		m_member->rva000680B3();
-}
-
 class Rva00068283NullTarget
 {
 public:
@@ -91,13 +84,6 @@ private:
 	Rva00068283NullTarget *m_member;
 };
 
-// vtable 0x00BC80A0#22
-void Rva00091EDDNullForwarder::rva00091EDD(Int firstValue)
-{
-	if (m_member)
-		m_member->rva00068283(firstValue);
-}
-
 class Rva00091F2ANullForwarder
 {
 public:
@@ -106,14 +92,6 @@ private:
 	char m_lead[0x14];
 	Rva000664F4 *m_member;
 };
-
-// vtable 0x00BC80A0#24
-Int Rva00091F2ANullForwarder::rva00091F2A(Int firstValue, Int secondValue)
-{
-	if (m_member)
-		return (Int)m_member->rva0006819B((Drawable *)firstValue, (const BuffInfoView *)secondValue);
-	return 0;
-}
 
 class Rva00091F51NullForwarder
 {
@@ -124,14 +102,6 @@ private:
 	Rva000664F4 *m_member;
 };
 
-// vtable 0x00BC80A0#28
-Bool Rva00091F51NullForwarder::rva00091F51(Int firstValue, Int secondValue)
-{
-	if (m_member)
-		return m_member->rva000681AF((void *)firstValue, (const Coord3D *)secondValue);
-	return false;
-}
-
 class Rva00091F62NullForwarder
 {
 public:
@@ -140,14 +110,6 @@ private:
 	char m_lead[0x14];
 	Rva000664F4 *m_member;
 };
-
-// vtable 0x00BC80A0#29
-Bool Rva00091F62NullForwarder::rva00091F62(Int firstValue, Int secondValue)
-{
-	if (m_member)
-		return m_member->rva000681D3((unsigned int)firstValue, secondValue);
-	return false;
-}
 
 class Rva00091F73NullForwarder
 {
@@ -158,14 +120,6 @@ private:
 	Rva000664F4 *m_member;
 };
 
-// vtable 0x00BC80A0#30
-Bool Rva00091F73NullForwarder::rva00091F73(Int firstValue, Bool secondValue)
-{
-	if (m_member)
-		return m_member->rva000681E7(firstValue, secondValue);
-	return false;
-}
-
 class Rva00091F84NullForwarder
 {
 public:
@@ -174,14 +128,6 @@ private:
 	char m_lead[0x14];
 	Rva000664F4 *m_member;
 };
-
-// vtable 0x00BC80A0#31
-Bool Rva00091F84NullForwarder::rva00091F84(Int firstValue)
-{
-	if (m_member)
-		return m_member->rva000681FB((void *)firstValue);
-	return false;
-}
 
 class Rva00068061NullTarget
 {
@@ -197,13 +143,6 @@ private:
 	char m_lead[0x14];
 	Rva00068061NullTarget *m_member;
 };
-
-// vtable 0x00BC80A0#27
-void Rva00091FABNullForwarder::rva00091FAB(Int firstValue)
-{
-	if (m_member)
-		m_member->rva00068061(firstValue);
-}
 
 class Rva0017FEC1NullForwarder
 {
@@ -528,10 +467,3 @@ private:
 	char m_lead[0x14];
 	Rva000664F4 *m_member;
 };
-
-// vtable 0x00BC80A0#25: also skips a null argument.
-void Rva00091F3BNullForwarder::rva00091F3B(void *p)
-{
-	if (m_member && p)
-		m_member->rva000682E1((Int)p);
-}
