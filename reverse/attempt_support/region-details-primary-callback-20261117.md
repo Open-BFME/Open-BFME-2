@@ -23,3 +23,6 @@ under build/; ordinary build: continuation-20261117d-cc-slot0-build.log.
 
 Descendant slot1 is now recovered at5CE9BF: source+C then target+4,
 followed by the existing5E6826 forwarder. Whole child source passes7/7.
+
+Descendant slot2 is independently recovered at5CE9B4 through the same
+source-record target and existing5E681E forwarder. Whole child source8/8.

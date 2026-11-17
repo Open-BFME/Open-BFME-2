@@ -35,6 +35,7 @@ class Rva005CE93E : public Rva005CC698
 public:
 	Rva005CE93E(void *, void *, Rva005CE93EContext *);
 	virtual void slot1();
+	virtual void slot2();
 	// Implicit virtual destructor: native 5CEC55 adjusts the virtual-base
 	// receiver by -4 and tail-calls Rva005CC698::~Rva005CC698 (5CC788).
 	// An explicit empty destructor adds table writes absent from retail.
@@ -79,4 +80,9 @@ Rva005CE93EHandle Rva005CEB7B::rva005CEB7B(void *a, void *b)
 void Rva005CE93E::slot1()
 {
     reinterpret_cast<Rva005E6826Mid *>(static_cast<Rva005CE93ESourcePrefix *>(source)->target04)->fwd();
+}
+
+void Rva005CE93E::slot2()
+{
+    reinterpret_cast<Rva005E681EMid *>(static_cast<Rva005CE93ESourcePrefix *>(source)->target04)->fwd();
 }
