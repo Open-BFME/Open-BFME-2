@@ -39,3 +39,8 @@ eight bytes and relocation as the old helper. Its callback result is unused;
 the tail call retains the provider's machine return value. add_match admits
 the byte-and-relocation twin against the existing owner in
 stlport_map_int_sbserver.cpp. All eighteen source rows remain exact.
+
+The consumer then removes the obsolete slot1 alias as its own change. Its
+seventy rows and all eighty-six COMDATs again remain identical. Both shared
+callbacks now bind directly to real rowed members; the consumer has two fewer
+alternatename directives. The held global hatch register remains untouched.
