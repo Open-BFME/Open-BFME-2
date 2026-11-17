@@ -396,3 +396,13 @@ retail tables, 35,063 mismatching slots), what was measured and what is exhauste
   the unit's private stand-in declares it pure; rowing 47 per-class overrides would make the bytes right and
   the source wrong, so that was not done. Both are the canonical-header lane's work (reverse/header_queue.tsv:
   1,111 of its 8,921 queued units fail on a private field with no canonical field at its offset and size).
+
+- **2026-11-17 region-details callback cohort:** native874EE0 first entry
+  is now the correctly owned8B Rva005CC698::slot0, synchronized across ctor,
+  dtor and descendant constructor (16/16 plus4 exact EH graphs). Descendant
+ 8751B4 now has native callbacks1-5 recovered individually:11+11+78+78+78B,
+  whole child source11/11 and5 exact EH graphs. Slot6 at5CEA11 remains held
+  elsewhere; parent six-pure-slot expansion is deferred until its concrete
+  descendant contract is complete. Existing coverage and original providers
+  stay. No real-link bridge retirement is claimed.
+  [Native table and body proof](../../reverse/attempt_support/region-details-primary-callback-20261117.md).
