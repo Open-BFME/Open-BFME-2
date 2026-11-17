@@ -35,3 +35,9 @@ and return match the native table entry; normal paired16/16 exact.
 Secondary Base2 table86D2AC slot1 at56A9CF now compares its pointer argument
 against complete-object parent18. MSVC uses that base receiver+10 naturally;
 whole15B full-EAX0/1 return and RET4 match, with paired17/17 exact.
+
+Both current compiler producers now pass strict data-row verification for
+the20B primary table86D2E8 and60B Base2 table86D2AC, including all20 pointer
+relocations per producer. This is scratch diagnostic evidence, not new data
+ledger admission or a real-link receipt. The observer slot2 contract collision
+remains. Whole paired source17/17 and both EH graphs are exact.

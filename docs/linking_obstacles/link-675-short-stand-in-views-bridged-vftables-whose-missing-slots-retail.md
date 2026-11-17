@@ -406,3 +406,12 @@ retail tables, 35,063 mismatching slots), what was measured and what is exhauste
   descendant contract is complete. Existing coverage and original providers
   stay. No real-link bridge retirement is claimed.
   [Native table and body proof](../../reverse/attempt_support/region-details-primary-callback-20261117.md).
+
+- **2026-11-17 Rva0056B0BF listener:** four table entries (4/9/5/15B) and
+  its17B guard are banked separately, after the7B observer clear callback.
+  Constructor/destructor17/17 and both EH graphs remain exact. Both producers
+  strictly match native primary20B/5relocs and Base2secondary60B/15relocs.
+  Remaining observer slot2(int) hits canonical-interface C2555: void-returning
+  LivingWorldBattleListener and bool-returning Base2 share the same neutral
+  name/signature. Shared headers unchanged; no real-link bridge clearance.
+  [Whole-file evidence](../../reverse/attempt_support/two-parent-listener-native-callbacks-20261117.md).
