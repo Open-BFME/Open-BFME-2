@@ -357,8 +357,31 @@ public:
         NAME &operator=(const NAME &that);                                                         \
     };
 
-FX_MODULE_TEMPLATE(PointEmissionVolumeModuleTemplate, EmissionVolumeInfo, 5)
-FX_MODULE_TEMPLATE(SphereEmissionVolumeModuleTemplate, SphereEmissionVolumeInfo, 5)
+// A module template whose retail ModuleTemplate table carries the two
+// template-level slots after clone: slot 2 createModule (pure here, the
+// concrete wrapper overrides it) and slot 3 writeINI (this class's own, rowed
+// in its writer unit). Same shape as FX_EVENT_MODULE_TEMPLATE below.
+#define FX_FACTORY_MODULE_TEMPLATE(NAME, INFO, CAT, MODULE)                                        \
+    class NAME : public CategoryModuleTemplateBase<CAT>, public INFO                               \
+    {                                                                                              \
+    public:                                                                                        \
+        NAME();                                                                                    \
+        NAME(const NAME &that);                                                                    \
+        virtual ~NAME();                                                                           \
+                                                                                                   \
+        NAME &operator=(const NAME &that);                                                         \
+        virtual NAME *clone() const = 0;                                                           \
+        virtual MODULE *createModule(TrackingPtr<ParticleSystem> &system) = 0;                     \
+        virtual void writeINI(File &file, unsigned int indent) const;                              \
+    };
+
+class PointEmissionVolumeModule;
+class SphereEmissionVolumeModule;
+
+// Retail tables 0x0081C0A0 (point) and 0x0081C10C (sphere): dtor, clone,
+// createModule (0x003ADB21 / 0x003ADB8A), writeINI (0x0055CC35 / 0x0055D525).
+FX_FACTORY_MODULE_TEMPLATE(PointEmissionVolumeModuleTemplate, EmissionVolumeInfo, 5, PointEmissionVolumeModule)
+FX_FACTORY_MODULE_TEMPLATE(SphereEmissionVolumeModuleTemplate, SphereEmissionVolumeInfo, 5, SphereEmissionVolumeModule)
 FX_MODULE_TEMPLATE(BoxEmissionVolumeModuleTemplate, BoxEmissionVolumeInfo, 5)
 FX_MODULE_TEMPLATE(LineEmissionVolumeModuleTemplate, LineEmissionVolumeInfo, 5)
 FX_MODULE_TEMPLATE(CylinderEmissionVolumeModuleTemplate, CylinderEmissionVolumeInfo, 5)
@@ -667,6 +690,38 @@ struct PointEmissionVolumeModuleTag
     }
 };
 
+// The point wrapper is the primary ConcreteModuleTemplate plus the createModule
+// override its template class declares (slot 2; the body is rowed in the
+// factory unit). The plain struct tag cannot select a partial specialization,
+// so it is spelled out; the members are the primary's, inline like template
+// members so they stay COMDATs.
+template <>
+class ConcreteModuleTemplate<PointEmissionVolumeModuleTag> : public PointEmissionVolumeModuleTemplate
+{
+public:
+    ConcreteModuleTemplate();
+    __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate &that);
+
+    virtual const ConcreteModuleClass<PointEmissionVolumeModuleTag> &getClass() const;
+    virtual PointEmissionVolumeModuleTemplate *clone() const;
+    virtual PointEmissionVolumeModule *createModule(TrackingPtr<ParticleSystem> &system);
+};
+
+inline ConcreteModuleTemplate<PointEmissionVolumeModuleTag>::ConcreteModuleTemplate()
+{
+}
+
+inline ConcreteModuleTemplate<PointEmissionVolumeModuleTag>::ConcreteModuleTemplate(
+    const ConcreteModuleTemplate &that)
+    : PointEmissionVolumeModuleTemplate(that)
+{
+}
+
+inline PointEmissionVolumeModuleTemplate *ConcreteModuleTemplate<PointEmissionVolumeModuleTag>::clone() const
+{
+    return new ConcreteModuleTemplate<PointEmissionVolumeModuleTag>(*this);
+}
+
 typedef ConcreteModuleTemplate<PointEmissionVolumeModuleTag> PointEmissionVolumeModuleConcrete;
 typedef ConcreteModuleClass<PointEmissionVolumeModuleTag> PointEmissionVolumeModuleClassConcrete;
 
@@ -683,6 +738,47 @@ template class ConcreteModuleClass<PointEmissionVolumeModuleTag>;
 // Same empty-tag fold as the ortho tag above.
 PointEmissionVolumeModuleTag &(PointEmissionVolumeModuleTag::*g_pointEmissionVolumeModuleTagAssign)(
     const PointEmissionVolumeModuleTag &) = &PointEmissionVolumeModuleTag::operator=;
+
+// The sphere wrapper: the primary ConcreteModuleTemplate plus the createModule
+// override (slot 2, rowed in the factory unit), as BFME_FX_EVENT_CONCRETE does
+// for the category-8 event templates.
+extern const char *const SPHERE_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const SPHERE_EMISSION_VOLUME_MODULE_NAME;
+
+template <class MODULE, class TEMPLATE, class DEFAULT>
+class ConcreteModuleTemplate<ModuleTag<5, SPHERE_EMISSION_VOLUME_MODULE_KEY,
+    SPHERE_EMISSION_VOLUME_MODULE_NAME, MODULE, TEMPLATE, DEFAULT> > : public TEMPLATE
+{
+public:
+    ConcreteModuleTemplate();
+    __declspec(noinline) ConcreteModuleTemplate(const ConcreteModuleTemplate &that);
+
+    virtual const ConcreteModuleClass<ModuleTag<5, SPHERE_EMISSION_VOLUME_MODULE_KEY,
+        SPHERE_EMISSION_VOLUME_MODULE_NAME, MODULE, TEMPLATE, DEFAULT> > &getClass() const;
+    virtual TEMPLATE *clone() const;
+    virtual MODULE *createModule(TrackingPtr<ParticleSystem> &system);
+};
+
+template <class MODULE, class TEMPLATE, class DEFAULT>
+ConcreteModuleTemplate<ModuleTag<5, SPHERE_EMISSION_VOLUME_MODULE_KEY,
+    SPHERE_EMISSION_VOLUME_MODULE_NAME, MODULE, TEMPLATE, DEFAULT> >::ConcreteModuleTemplate()
+{
+}
+
+template <class MODULE, class TEMPLATE, class DEFAULT>
+ConcreteModuleTemplate<ModuleTag<5, SPHERE_EMISSION_VOLUME_MODULE_KEY,
+    SPHERE_EMISSION_VOLUME_MODULE_NAME, MODULE, TEMPLATE, DEFAULT> >::ConcreteModuleTemplate(
+    const ConcreteModuleTemplate &that)
+    : TEMPLATE(that)
+{
+}
+
+template <class MODULE, class TEMPLATE, class DEFAULT>
+TEMPLATE *ConcreteModuleTemplate<ModuleTag<5, SPHERE_EMISSION_VOLUME_MODULE_KEY,
+    SPHERE_EMISSION_VOLUME_MODULE_NAME, MODULE, TEMPLATE, DEFAULT> >::clone() const
+{
+    return new ConcreteModuleTemplate(*this);
+}
 
 FX_WRAPPER(5, SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
     SphereEmissionVolumeModuleTemplate)
