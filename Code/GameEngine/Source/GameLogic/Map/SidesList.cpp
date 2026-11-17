@@ -839,7 +839,10 @@ private:
 	void *m_b; // +0x10
 };
 
-class Rva0032A082 : public Rva003B3417
+// The constructor and complete destructor store the same retail table at
+// RVA 0x0080D8FC. Reuse the destructor's existing two-slot provider.
+namespace SidesParserTable { extern "C" const void *const __identifier("??_7Rva0032989F@@6B@")[]; }
+class __declspec(novtable) Rva0032A082 : public Rva003B3417
 {
 public:
 	Rva0032A082(void *unk, BfmeParserRegistryVE *registry, const AsciiString *label);
@@ -1667,10 +1670,11 @@ void Rva0032ED61::rva0032ED61()
 // Evidence: chain lane calls rowed 0x003B3417, vtable 0x0080D8FC shared with dtor 0x0032989F, stores +0x14 zeroes +0x68
 
 Rva0032A082::Rva0032A082(void *unk, BfmeParserRegistryVE *registry, const AsciiString *label)
-	: Rva003B3417(m_items, &m_count, registry, label),
-	m_unk14(unk),
-	m_count(0)
+	: Rva003B3417(m_items, &m_count, registry, label)
 {
+	*(const void **)this = SidesParserTable::__identifier("??_7Rva0032989F@@6B@");
+	m_unk14 = unk;
+	m_count = 0;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0032A438Set.cpp
