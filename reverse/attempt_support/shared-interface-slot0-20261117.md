@@ -38,6 +38,13 @@ build verifies 89/89 rows before the derived adjustment's separate admission.
 The qualified base call avoids an explicit nullable pointer conversion and
 matches retail's seventeen-byte body directly.
 
+The derived adjustment at 0x005CDA53 is separately admitted under
+Rva005E54F7::slot0. The final ordinary build passes 90/90 rows across the
+twenty-row destructor/provider unit and seventy-row consumer. Each base or
+derived body and each adjustment has its own commit after the reviewable
+retraction. This corrects the class attribution rather than preserving the
+old alias's overly broad assumption.
+
 Slot one is already correctly rowed against its existing eight-byte helper.
 Both obsolete consumer alternatename directives have been removed. The
 consumer's seventy rows, thirteen EH graphs and eighty-six COMDATs remain

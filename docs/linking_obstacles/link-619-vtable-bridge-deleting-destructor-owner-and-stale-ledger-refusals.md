@@ -5,10 +5,13 @@ contains callbacks rather than a deleting destructor. A scratch nonvirtual
 teardown keeps its full destructor and base constructor exact but stops
 emitting the existing deleting-helper row; nothing was applied. See
 [helper-emission prerequisite](../../reverse/attempt_support/hotspot-help-abi-20261117.md).
-The separate shared-interface cohort beginning at 0x0087501C now has a real
-seventeen-byte Rva005E4F6D::slot0 definition, identical to its existing native
-provider. Its eight-byte secondary adjustment is emitted naturally and banked
-separately. All seventeen rows remain exact; published bridge retirement
+The separate shared-interface cohort beginning at 0x0087501C exposed a
+class-attribution error in the initial repair: the base's native callback
+is 0x005E549E, while 0x005E5554 is its derived override. The two initial
+misowned entries were retracted with all original coverage retained; the
+retraction hook verifies 289 dependent sources. Correct base and derived
+callbacks and their natural adjustments are then banked individually.
+The final paired build verifies 90/90 rows. Published bridge retirement
 is still pending. See
 [callback and adjustment proof](../../reverse/attempt_support/shared-interface-slot0-20261117.md).
 Status: Open (partly repaired). Updated: 2026-11-07; seats halilkkaya-lk38 (base `3d70a843d39`) and
