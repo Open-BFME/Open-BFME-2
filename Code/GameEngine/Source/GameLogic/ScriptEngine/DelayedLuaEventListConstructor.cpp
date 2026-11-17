@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 // DelayedLuaEventList::DelayedLuaEventList, retail 0x000B6D8B, 65 bytes, and
@@ -43,6 +44,7 @@ public:
 	DelayedLuaEventList(void);
 
 	virtual ~DelayedLuaEventList(void);
+	virtual const char *GetSnapshotName() const;
 
 private:
 	EventParameter m_bfmeEvents[3];		// +0x04
@@ -54,4 +56,10 @@ public:
 // ??0DelayedLuaEventList@@QAE@XZ
 DelayedLuaEventList::DelayedLuaEventList(void)
 {
+}
+
+// Native table7C9CF0 slot2 returns this literal; it does not establish a class rename.
+const char *DelayedLuaEventList::GetSnapshotName() const
+{
+    return "LuaEventParameters";
 }
