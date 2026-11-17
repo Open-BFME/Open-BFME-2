@@ -566,6 +566,7 @@ extern AI *TheAI;
 
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
+	friend class Rva0044EF5E;	// its destructor twin runs onExit
 protected:
 	virtual void onExit(bool cleanup, bool b); // +0x34
 public:
@@ -1585,6 +1586,14 @@ void Rva00451EAC::rva00451EAC()
 // list<int> at +0x64; setWakeFrame tail via rowed 0x0044DF71 with FOREVER.
 // Recipe: ProductionUpdateCtor rowed UpdateModule base plus list plus EH plus
 // DetachableRider setWakeFrame tail plus Slaved float/int zero locals.
+
+// The complete destructor under the spelling this unit's constructor and its derived
+// callers use: retail has one body, 0x00451F45 (rowed ??1SpecialAbilityUpdate@@UAE@XZ
+// in SpecialAbilityUpdateDtor.cpp); this is its identical-code twin.
+Rva0044EF5E::~Rva0044EF5E()
+{
+	reinterpret_cast<SpecialAbilityUpdate *>(this)->SpecialAbilityUpdate::onExit(true, true);
+}
 
 Rva0044EF5E::Rva0044EF5E(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
